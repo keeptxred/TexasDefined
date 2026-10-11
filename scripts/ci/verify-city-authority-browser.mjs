@@ -106,6 +106,11 @@ for (const [viewport,width,height] of viewports) {
       }
       row.linkCount=data.links.length;
       await page.screenshot({path:output+'/'+slug+'-'+viewport+'.png',fullPage:false,animations:'disabled'});
+      // Additional full-page desktop evidence for actual manual editorial review.
+      // This file alone does not certify contrast, keyboard order, or aesthetics.
+      if (viewport === 'desktop') {
+        await page.screenshot({path:output+'/'+slug+'-desktop-full.png',fullPage:true,animations:'disabled'});
+      }
       row.checks.javascript=row.errors.filter(x=>x.startsWith('JS:')).length?'FAIL':'PASS';
     }catch(e){row.errors.push(String(e));row.checks.render='FAIL';}
     finally{await context.close();}
