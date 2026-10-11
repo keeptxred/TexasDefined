@@ -302,6 +302,8 @@ check('owner dashboard never accepts HTTP 200 empty-delete as proof of draft cle
  source('src/routes/business.dashboard.lazy.tsx').includes('wereNetworkUnsubmittedDraftsDeleted(uploadedPaths,remainingMedia)')
  && source('src/routes/business.dashboard.lazy.tsx').includes('setAccount(null);setPublished(null);setRevisions([])')
  && source('src/routes/business.dashboard.lazy.tsx').includes('setDraft({});setNewLogo(null);setNewGallery([])')
+ && source('src/routes/business.dashboard.lazy.tsx').includes('let authStateEventReceived=false')
+ && source('src/routes/business.dashboard.lazy.tsx').includes("setEmail('');setMessage('')")
  && source('src/routes/business.dashboard.lazy.tsx').includes("eq('access_enabled',true)")
  && source('scripts/data/network-owner-draft-cleanup.test.mjs').includes('HTTP 200 no-op DELETE')
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-owner-draft-cleanup.test.mjs'));

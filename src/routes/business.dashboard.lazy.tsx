@@ -22,12 +22,26 @@ function BusinessDashboard(){
  const [newGallery,setNewGallery]=useState<File[]>([]);
  const [message,setMessage]=useState('');
  const [busy,setBusy]=useState(false);
- useEffect(()=>{let alive=true;void supabase.auth.getUser().then(({data})=>{if(alive)setUserId(data.user?.id||null)});const {data:{subscription}}=supabase.auth.onAuthStateChange((_event,session)=>setUserId(session?.user.id||null));return()=>{alive=false;subscription.unsubscribe()}},[]);
+ useEffect(()=>{
+  let alive=true;
+  let authStateEventReceived=false;
+  // A slow getUser() response must not resurrect a user after a sign-out or
+  // account switch delivered through onAuthStateChange.
+  void supabase.auth.getUser().then(({data})=>{
+    if(alive&&!authStateEventReceived)setUserId(data.user?.id||null);
+  }).catch(()=>{if(alive&&!authStateEventReceived)setUserId(null)});
+  const {data:{subscription}}=supabase.auth.onAuthStateChange((_event,session)=>{
+    authStateEventReceived=true;
+    if(alive)setUserId(session?.user.id||null);
+  });
+  return()=>{alive=false;subscription.unsubscribe()};
+ },[]);
  useEffect(()=>{
   // Auth switches must not display the prior owner's account, private review
   // history, uploaded File objects, or editable draft while new RLS data loads.
   setAccount(null);setPublished(null);setRevisions([]);
   setDraft({});setNewLogo(null);setNewGallery([]);
+  setEmail('');setMessage('');
   if(!userId)return;
   let active=true;void (async()=>{
   const {data,error}=await supabase.from('texasdefined_network_business_accounts').select('id,application_id,access_enabled,membership_tier').eq('owner_user_id',userId).limit(1).maybeSingle();

@@ -32,4 +32,8 @@ test('owner dashboard confirms post-DELETE inventory and clears the previous use
  assert.match(page,/wereNetworkUnsubmittedDraftsDeleted\(uploadedPaths,remainingMedia\)/);
  assert.match(page,/setAccount\(null\);setPublished\(null\);setRevisions\(\[\]\)/);
  assert.match(page,/setDraft\(\{\}\);setNewLogo\(null\);setNewGallery\(\[\]\)/);
+ assert.match(page,/let authStateEventReceived=false;/);
+ assert.match(page,/if\(alive&&!authStateEventReceived\)setUserId\(data\.user\?\.id\|\|null\)/);
+ assert.match(page,/authStateEventReceived=true;/);
+ assert.match(page,/setEmail\(''\);setMessage\(''\);/);
 });
