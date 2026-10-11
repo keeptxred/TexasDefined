@@ -142,6 +142,8 @@ check('manual notification provider-reconciliation is private, audited and never
  && source('supabase/pending/20261011045000_network_notification_manual_recovery.sql').includes('REVOKE ALL ON FUNCTION public.reconcile_texasdefined_network_notification')
  && source('supabase/pending/20261011045000_network_notification_manual_recovery.sql').includes("THEN 'suppressed'")
  && source('scripts/data/network-notification-manual-recovery-fixture.sql').includes('Ambiguous delivery was automatically retried')
+ && source('scripts/data/network-notification-manual-recovery-fixture.sql').includes('Definitive provider failure not persisted')
+ && source('scripts/data/network-notification-manual-recovery-fixture.sql').includes('Notification retry budget exhausted')
  && source('scripts/data/network-notification-manual-recovery-fixture.sql').includes('ROLLBACK;')
  && source('.github/workflows/network-migration-cleanroom.yml').includes('supabase/pending/20261011045000_network_notification_manual_recovery.sql')
  && source('.github/workflows/network-migration-cleanroom.yml').includes('scripts/data/network-notification-manual-recovery-fixture.sql'));

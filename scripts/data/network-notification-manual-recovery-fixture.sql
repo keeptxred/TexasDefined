@@ -2,7 +2,7 @@
 BEGIN;
 SET LOCAL statement_timeout='8s';
 DO $test$
-DECLARE v_id uuid; v_claim record; v_done boolean; v_replay boolean; v_status text; v_count integer;
+DECLARE v_id uuid; v_exhausted_token uuid; v_claim record; v_done boolean; v_replay boolean; v_status text; v_count integer;
 BEGIN
  IF has_function_privilege('anon','public.reconcile_texasdefined_network_notification(uuid,uuid,text,text,text,text)','EXECUTE')
  OR has_function_privilege('authenticated','public.reconcile_texasdefined_network_notification(uuid,uuid,text,text,text,text)','EXECUTE')
@@ -66,9 +66,38 @@ BEGIN
  IF NOT v_done THEN RAISE EXCEPTION 'Suppression unsuccessful'; END IF;
  SELECT status INTO v_status FROM public.texasdefined_network_email_outbox WHERE id=v_id;
  IF v_status<>'suppressed' THEN RAISE EXCEPTION 'Ambiguous delivery was automatically retried'; END IF;
+ -- Definitive provider non-delivery can be recorded as a terminal failure.
+ INSERT INTO public.texasdefined_network_email_outbox(event_key,event_type,recipient_email,payload)
+ VALUES('manual-failure:'||gen_random_uuid()::text,'application_received','network-qa@example.invalid','{}')
+ RETURNING id INTO v_id;
+ SELECT * INTO v_claim FROM public.claim_texasdefined_network_notification(1);
+ SELECT public.reconcile_texasdefined_network_notification(
+  v_id,v_claim.claim_token,'failed_verified','mock definitive provider rejection receipt','sole-admin',NULL)
+ INTO v_done;
+ IF NOT v_done THEN RAISE EXCEPTION 'Definitive provider failure denied'; END IF;
+ IF NOT EXISTS (SELECT 1 FROM public.texasdefined_network_email_outbox
+   WHERE id=v_id AND status='failed' AND error_code='manual_provider_failure')
+ THEN RAISE EXCEPTION 'Definitive provider failure not persisted'; END IF;
+
+ -- Exhausted attempts may NOT be manually recycled into a fourth send.
+ INSERT INTO public.texasdefined_network_email_outbox
+  (event_key,event_type,recipient_email,payload,status,claim_token,claimed_at,attempts)
+ VALUES ('manual-exhausted:'||gen_random_uuid()::text,'application_received',
+  'network-qa@example.invalid','{}','sending',gen_random_uuid(),now(),3)
+ RETURNING id,claim_token INTO v_id,v_exhausted_token;
+ BEGIN
+  PERFORM public.reconcile_texasdefined_network_notification(
+   v_id,v_exhausted_token,'not_delivered_retry','verified not delivered but retry exhausted','sole-admin',NULL);
+  RAISE EXCEPTION 'Exhausted fourth send was permitted';
+ EXCEPTION WHEN raise_exception THEN
+  IF SQLERRM NOT LIKE '%Notification retry budget exhausted%' THEN RAISE; END IF;
+ END;
+ IF NOT EXISTS (SELECT 1 FROM public.texasdefined_network_email_outbox
+   WHERE id=v_id AND status='sending' AND attempts=3)
+ THEN RAISE EXCEPTION 'Exhausted claim was mutated by failed retry'; END IF;
  SELECT count(*) INTO v_count FROM texasdefined_network_internal.notification_reconciliation_audit;
- IF v_count<>3 THEN RAISE EXCEPTION 'Expected three immutable manual reconciliation events, got %',v_count; END IF;
- RAISE NOTICE 'MANUAL GRAPH RECONCILIATION PASS: wrong-token denied, verified receipt, replay denied, manual backoff, ambiguous suppression, audit';
+ IF v_count<>4 THEN RAISE EXCEPTION 'Expected four immutable manual reconciliation events, got %',v_count; END IF;
+ RAISE NOTICE 'MANUAL GRAPH RECONCILIATION PASS: wrong-token denied, verified receipt, replay denied, manual backoff, ambiguous suppression, definitive failure, exhausted budget, audit';
 END
 $test$;
 ROLLBACK;
