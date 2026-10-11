@@ -87,6 +87,36 @@ function TexasVehicleRegistrationPage() {
         </ol>
         <a href="https://www.txdmv.gov/motorists/disabled-parking-placards-plates" target="_blank" rel="noopener noreferrer" className="mt-5 inline-block border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">Official TxDMV disabled parking information</a>
       </section>
+      <section id="texas-vehicle-inspections" aria-labelledby="vehicle-inspections-heading" className="mx-auto max-w-6xl border-t border-border px-4 py-10 sm:px-6 lg:px-8">
+        <p className="eyebrow text-primary">Registration requirements</p>
+        <h2 id="vehicle-inspections-heading" className="mt-2 font-display text-3xl">Texas safety inspections and emissions tests</h2>
+        <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Beginning January 1, 2025, Texas eliminated the routine annual safety inspection requirement for most noncommercial vehicles. That change did not eliminate emissions testing for eligible vehicles in participating counties or the separate safety inspection requirements for certain commercial vehicles.</p>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          <article className="border border-border p-5"><h3 className="font-display text-xl">Most noncommercial vehicles</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">A routine annual safety inspection is generally no longer needed for registration, but applicable inspection-replacement fees and emissions rules may still affect the transaction. Check the current county and vehicle requirements.</p></article>
+          <article className="border border-border p-5"><h3 className="font-display text-xl">Emissions and commercial vehicles</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Emissions testing remains relevant in designated counties for qualifying vehicles; requirements can vary by model year, fuel type and county. Certain commercial vehicles continue to require safety inspections.</p></article>
+        </div>
+        <p className="mt-4 text-sm leading-6 text-muted-foreground">Do not assume the rules are identical across Texas counties or vehicle classes. Confirm the latest participating counties and exemptions before renewal.</p>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <a href="https://www.dps.texas.gov/section/vehicle-inspection" target="_blank" rel="noopener noreferrer" className="border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">DPS vehicle inspection program</a>
+          <a href="https://www.txdmv.gov/motorists/register-your-vehicle" target="_blank" rel="noopener noreferrer" className="border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">TxDMV registration requirements</a>
+          <Link to="/texas-vehicle-registration-renewal" className="border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">Renewal instructions</Link>
+        </div>
+      </section>
+      <section id="texas-auto-insurance" aria-labelledby="auto-insurance-heading" className="mx-auto max-w-6xl border-t border-border px-4 py-10 sm:px-6 lg:px-8">
+        <p className="eyebrow text-primary">Financial responsibility</p>
+        <h2 id="auto-insurance-heading" className="mt-2 font-display text-3xl">Texas auto liability insurance and proof of coverage</h2>
+        <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Texas drivers generally must demonstrate financial responsibility. Most satisfy this requirement with auto liability insurance. The commonly described minimum liability limits are 30/60/25: $30,000 bodily injury coverage per injured person, $60,000 bodily injury coverage per accident, and $25,000 property damage coverage per accident. These limits do not guarantee that every crash loss will be covered.</p>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          <article className="border border-border p-5"><h3 className="font-display text-xl">What liability coverage does</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Liability insurance generally pays covered injuries and property damage you cause to others, up to the policy limits. It does not automatically pay to repair your own vehicle.</p></article>
+          <article className="border border-border p-5"><h3 className="font-display text-xl">Proof and alternatives</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Keep valid proof of financial responsibility available when required. Texas law also provides certain non-insurance methods of establishing financial responsibility, subject to statutory conditions; they are not interchangeable with an ordinary insurance card.</p></article>
+        </div>
+        <p className="mt-4 text-sm leading-6 text-muted-foreground">A lender or leasing company may require additional coverages. Compare coverage limits and exclusions against your risk; the legal minimum may be insufficient after a serious crash.</p>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <a href="https://www.tdi.texas.gov/pubs/consumer/cb020.html" target="_blank" rel="noopener noreferrer" className="border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">Texas Department of Insurance auto insurance guide</a>
+          <a href="https://statutes.capitol.texas.gov/Docs/TN/htm/TN.601.htm" target="_blank" rel="noopener noreferrer" className="border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">Texas Transportation Code Chapter 601</a>
+          <Link to="/texas-dmv" className="border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">Texas DMV service finder</Link>
+        </div>
+      </section>
       <section id="title-transfer" className="mx-auto max-w-6xl border-t border-border px-4 py-10 sm:px-6 lg:px-8">
         <p className="eyebrow text-primary">Buying or selling</p>
         <h2 className="mt-2 font-display text-3xl">Texas vehicle title transfers</h2>
