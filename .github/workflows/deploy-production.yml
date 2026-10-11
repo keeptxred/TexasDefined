@@ -102,54 +102,75 @@ jobs:
         if: success()
         shell: bash
         run: |
+          # GitHub's repository-wide artifact response can be very large and has
+          # failed with truncated JSON. Search recent production runs instead.
+          # Only reuse artifacts with the exact governed source-registry checksum.
           set -uo pipefail
           mkdir -p public/images/discover
-
-          if ! artifact_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?per_page=100" 2>/tmp/governed-discover-artifact-list.err)"; then
-            echo "::warning title=Discover derivative cache unavailable::GitHub artifact listing failed; continuing with governed source materialization."
-            cat /tmp/governed-discover-artifact-list.err >&2 || true
-            exit 0
-          fi
-
-          if ! jq -e '.artifacts | type == "array"' >/dev/null 2>&1 <<<"$artifact_json"; then
-            echo "::warning title=Discover derivative cache response invalid::GitHub returned an invalid artifact-list payload; continuing with governed source materialization."
-            exit 0
-          fi
-
           source_fingerprint="$(sha256sum scripts/assets/materialize-discover-overrides.mjs | cut -d' ' -f1)"
           artifact_prefix="governed-discover-derivatives-${source_fingerprint}-"
-          artifact_id="$(jq -r --arg prefix "$artifact_prefix" '[.artifacts[] | select(.expired == false and (.name | startswith($prefix)))] | sort_by(.created_at) | last | .id // empty' <<<"$artifact_json")"
-          if [[ -z "$artifact_id" ]]; then
-            echo "No prior governed Discover derivative artifact is available; materializing from governed sources."
+          cache_dir="$(mktemp -d)"
+          trap 'rm -rf "$cache_dir"' EXIT
+
+          runs_json=""
+          for attempt in 1 2 3; do
+            if runs_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/deploy-production.yml/runs?per_page=12" 2>"$cache_dir/runs.err")" &&
+               jq -e '.workflow_runs | type == "array"' >/dev/null 2>&1 <<<"$runs_json"; then
+              break
+            fi
+            runs_json=""
+            sleep "$attempt"
+          done
+
+          if [[ -z "$runs_json" ]]; then
+            echo "::warning title=Discover cache lookup unavailable::Could not list recent production runs; governed source materialization still fails closed."
+            head -c 400 "$cache_dir/runs.err" >&2 || true
             exit 0
           fi
 
-          archive_url="$(jq -r --argjson id "$artifact_id" '.artifacts[] | select(.id == $id) | .archive_download_url // empty' <<<"$artifact_json")"
-          if [[ -z "$archive_url" ]]; then
-            echo "::warning title=Discover derivative cache URL missing::Artifact $artifact_id has no download URL; continuing with governed source materialization."
-            exit 0
-          fi
+          restored_artifacts=0
+          # Recent first: preserve the freshest verified artifact's copy of each
+          # filename; older matching artifacts can supply additional files.
+          while IFS= read -r prior_run; do
+            [[ "$prior_run" =~ ^[0-9]+$ ]] || continue
+            [[ "$prior_run" == "$GITHUB_RUN_ID" ]] && continue
 
-          rm -f /tmp/governed-discover-derivatives.zip
-          if ! curl --fail --location --retry 3 --retry-all-errors \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "$archive_url" -o /tmp/governed-discover-derivatives.zip; then
-            echo "::warning title=Discover derivative cache download failed::Artifact $artifact_id could not be downloaded; continuing with governed source materialization."
-            rm -f /tmp/governed-discover-derivatives.zip
-            exit 0
-          fi
+            artifact_json=""
+            for attempt in 1 2; do
+              if artifact_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/artifacts?per_page=10" 2>"$cache_dir/artifacts.err")" &&
+                 jq -e '.artifacts | type == "array"' >/dev/null 2>&1 <<<"$artifact_json"; then
+                break
+              fi
+              artifact_json=""
+              sleep "$attempt"
+            done
+            [[ -n "$artifact_json" ]] || continue
 
-          if ! unzip -tqq /tmp/governed-discover-derivatives.zip >/dev/null 2>&1; then
-            echo "::warning title=Discover derivative cache archive invalid::Artifact $artifact_id is not a valid ZIP; continuing with governed source materialization."
-            rm -f /tmp/governed-discover-derivatives.zip
-            exit 0
-          fi
+            while IFS= read -r artifact_id; do
+              [[ "$artifact_id" =~ ^[0-9]+$ ]] || continue
+              archive="$cache_dir/$artifact_id.zip"
+              if ! curl --fail --silent --show-error --location --retry 2 --retry-all-errors --connect-timeout 15 --max-time 100 \
+                -H "Authorization: Bearer $GH_TOKEN" \
+                -H "Accept: application/vnd.github+json" \
+                "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$artifact_id/zip" \
+                -o "$archive"; then
+                echo "::warning title=Discover cache artifact unavailable::Could not download matching prior artifact $artifact_id."
+                continue
+              fi
+              if ! unzip -tqq "$archive" >/dev/null 2>&1; then
+                echo "::warning title=Discover cache artifact invalid::Matching artifact $artifact_id is not a valid ZIP."
+                continue
+              fi
+              # The governed materializer validates each restored 1600x900
+              # derivative and refuses missing/invalid assets, unchanged.
+              unzip -j -n "$archive" '*.webp' -d public/images/discover >/dev/null || true
+              restored_artifacts=$((restored_artifacts + 1))
+            done < <(jq -r --arg prefix "$artifact_prefix"               '.artifacts[] | select(.expired == false and (.name | startswith($prefix))) | .id' <<<"$artifact_json")
+            [[ "$restored_artifacts" -ge 8 ]] && break
+          done < <(jq -r '.workflow_runs[].id' <<<"$runs_json")
 
-          unzip -j -o /tmp/governed-discover-derivatives.zip -d public/images/discover >/dev/null
           restored_count="$(find public/images/discover -maxdepth 1 -type f -name '*.webp' | wc -l | tr -d ' ')"
-          echo "Restored $restored_count governed Discover derivatives from artifact $artifact_id."
-
+          echo "Restored $restored_count governed Discover derivatives from $restored_artifacts matching prior production artifact(s)."
       - name: Build production bundle
         id: build
         shell: bash
