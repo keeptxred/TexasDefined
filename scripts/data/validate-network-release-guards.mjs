@@ -164,6 +164,9 @@ check('actual local HTTP PostgREST JWT boundary is independently tested without 
  && source('scripts/data/verify-network-postgrest-http-rls.mjs').includes('cross-owner HTTP revision INSERT')
  && source('scripts/data/verify-network-postgrest-http-rls.mjs').includes('HTTP draft metadata 25th quota')
  && source('scripts/data/verify-network-postgrest-http-rls.mjs').includes('disabled owner HTTP private revision INSERT')
+ && source('scripts/data/verify-network-postgrest-http-rls.mjs').includes('NETWORK POSTGREST SERVICE RPC PASS')
+ && source('scripts/data/verify-network-postgrest-http-rls.mjs').includes("'service_role'")
+ && source('scripts/data/verify-network-postgrest-http-rls.mjs').includes('Duplicate service recovery was accepted')
  && source('scripts/data/network-postgrest-http-rls-fixture.sql').includes('request.jwt.claims'));
 check('isolated replay executes two-owner and private media RLS fixture with full rollback',
  source('scripts/data/verify-network-migration-replay.mjs').includes("ownerIsolationFixture='scripts/data/network-migration-owner-rls-fixture.sql'")
