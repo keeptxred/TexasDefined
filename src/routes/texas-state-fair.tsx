@@ -29,7 +29,7 @@ const stateFairData = {
       {
         heading: "2026 ticket prices and admission",
         paragraphs: [
-          "2026 gate prices: Adults $15 Mon–Thu or $25 Fri–Sun; seniors 60+ $13 Mon–Wed, $7 Thu Senior Day, or $20 Fri–Sun; children 3–12 $10 daily; ages 2 and younger free. After 5 p.m., adults and seniors pay $10 Mon–Thu or $20 Fri–Sun.",
+          "2026 gate prices: Adults $15 Mon–Thu or $25 Fri–Sun; seniors 60+ $13 Mon–Wed, $7 Thu Senior Day, or $20 Fri–Sun; children 3–12 $10 daily; ages 2 and younger free. After 5 p.m., admission for ages 13+ is $10 Mon–Thu or $20 Fri–Sun; Thursday seniors should use the cheaper $7 rate.",
           "Online fees may apply. Check discounts; school-issued 2026 student tickets were extended through October 18, including both final weekends."
         ],
         links: [
@@ -201,7 +201,7 @@ const stateFairData = {
 const faq = [
   { question: "When is the 2026 State Fair of Texas?", answer: "The 2026 State Fair of Texas runs September 25 through October 18, 2026, at Fair Park in Dallas." },
   { question: "What are the 2026 State Fair of Texas hours?", answer: "The Fair is open 10 a.m.–9 p.m. Sundays through Thursdays and 10 a.m.–10 p.m. Fridays and Saturdays. Last entry is 9 p.m. Parking gates and ticket booths open at 9:30 a.m." },
-  { question: "How much are 2026 State Fair of Texas tickets?", answer: "2026 gate prices: adults $15 Mon–Thu or $25 Fri–Sun; seniors 60+ $13 Mon–Wed, $7 Thu, or $20 Fri–Sun; children 3–12 $10 daily; ages 2 and under free. After 5 p.m., adults and seniors $10 Mon–Thu or $20 Fri–Sun. Online fees apply." },
+  { question: "How much are 2026 State Fair of Texas tickets?", answer: "2026 gate prices: adults $15 Mon–Thu or $25 Fri–Sun; seniors 60+ $13 Mon–Wed, $7 Thu, or $20 Fri–Sun; children 3–12 $10 daily; ages 2 and under free. After 5 p.m., ages 13+ pay $10 Mon–Thu or $20 Fri–Sun; seniors still get $7 Thursdays. Online fees apply." },
   { question: "What is included with State Fair admission?", answer: "Admission includes more than 100 daily activities and attractions, including music, exhibits, livestock, arts and family entertainment. Food, Midway rides, games and some other attractions cost extra." },
   { question: "Where is the State Fair of Texas held?", answer: "The State Fair of Texas is held at Fair Park in Dallas, Texas." },
   { question: "Can I take DART to the State Fair of Texas?", answer: "Yes. DART's Green Line serves Fair Park Station and MLK Jr. Station, both convenient to fairground entrances." },
