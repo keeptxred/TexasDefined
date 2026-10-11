@@ -90,3 +90,8 @@ END
 $verification$;`;
 execSql(['-c',checks],'final schema/RLS/bucket/RPC verification');
 console.log('REPLAY RESULT PASS: 34/34 migrations in isolated PostgreSQL; NOT end-to-end Supabase certification');
+const ownerIsolationFixture='scripts/data/network-migration-owner-rls-fixture.sql';
+if(!existsSync(ownerIsolationFixture))throw new Error('Missing isolated two-owner RLS fixture');
+execSql(['-f',ownerIsolationFixture],'two-owner RLS and Storage quota rollback fixture');
+console.log('REPLAY OWNER RLS RESULT PASS: simulated cross-owner, unpaid, quota, outsider and anon isolation; transaction rolled back');
+
