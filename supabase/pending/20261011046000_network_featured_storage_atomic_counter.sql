@@ -3,6 +3,9 @@
 -- despite the old advisory-lock/check-in-RLS function. Preserve that historical
 -- migration; install atomic per-business counters via SECURITY DEFINER triggers.
 -- Counts are durable, row-locked, and updated inside the same INSERT/DELETE tx.
+-- AFTER INSERT is essential: PostgreSQL fires BEFORE INSERT even for an
+-- INSERT ON CONFLICT DO NOTHING/DO UPDATE that inserts no Storage object.
+-- Accounting only actual inserted rows prevents false quota consumption.
 -- A failed Storage INSERT rolls back its counter increment automatically.
 
 -- Start an explicit transaction because Supabase CLI applies SQL statements
@@ -129,7 +132,8 @@ REVOKE ALL ON FUNCTION texasdefined_network_internal.release_featured_storage_de
 REVOKE ALL ON FUNCTION texasdefined_network_internal.prevent_featured_storage_move() FROM PUBLIC,anon,authenticated,service_role;
 
 DROP TRIGGER IF EXISTS network_featured_usage_before_insert ON storage.objects;
-CREATE TRIGGER network_featured_usage_before_insert BEFORE INSERT ON storage.objects
+DROP TRIGGER IF EXISTS network_featured_usage_after_insert ON storage.objects;
+CREATE TRIGGER network_featured_usage_after_insert AFTER INSERT ON storage.objects
  FOR EACH ROW EXECUTE FUNCTION texasdefined_network_internal.enforce_featured_storage_insert_quota();
 DROP TRIGGER IF EXISTS network_featured_usage_after_delete ON storage.objects;
 CREATE TRIGGER network_featured_usage_after_delete AFTER DELETE ON storage.objects
