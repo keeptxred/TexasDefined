@@ -27,7 +27,7 @@ async function snapshot(page) {
     for (const node of document.querySelectorAll('script[type="application/ld+json"]')) {
       try { add(JSON.parse(node.textContent || "{}")); } catch {}
     }
-    const one = (type) => entities.find((entity) => entity["@type"] === type) || {};
+    const one = (type) => entities.find((entity) => entity["@type"] === type && (type !== "ImageObject" || String(entity["@id"] || "").endsWith("/article/newmans-castle-bellville-texas#primaryimage"))) || {};
     return {
       canonical: document.querySelector('link[rel="canonical"]')?.href || "",
       description: document.querySelector('meta[name="description"]')?.content || "",
@@ -81,7 +81,7 @@ try {
       assert.ok(data.sourceLinks.every((link) => link.startsWith("https://")), label + ": invalid source URL");
       assert.ok(data.articleSchema.headline?.includes("Newman's Castle"), label + ": Article schema missing");
       assert.ok(String(data.articleSchema.citation).includes("newmanscastle.com"), label + ": primary-source schema missing");
-      assert.ok(data.imageSchema.creditText?.includes("CC BY 2.0"), label + ": ImageObject photographer credit missing");
+      assert.ok(data.imageSchema.creditText?.includes("CC BY 2.0"), label + ": specific primary image credit missing: " + JSON.stringify(data.imageSchema));
       assert.ok(data.body.includes("Frequently asked questions"), label + ": visitor FAQ missing");
       assert.deepEqual(entry.errors, [], label + ": browser JS errors");
       entry.checks.push("HTTP 200, hydration, landmarks, SEO, responsive layout and absence of JS errors");
