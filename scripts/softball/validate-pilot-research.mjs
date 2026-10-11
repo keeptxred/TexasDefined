@@ -122,6 +122,9 @@ verifiedFact('Amarillo Highland Park','inaugural head SOFTBALL coach','presspass
 verifiedFact('Amarillo Highland Park','assistant Mary Lieberknecht','hpark-2025-coach-schedule');
 verifiedFact('Amarillo Highland Park','$130 million school bond','presspass-may-2024-origin');
 verifiedFact('Amarillo Highland Park','completed March 22, 2025 varsity softball game','hpark-2025-game-results');
+verifiedFact('Amarillo Highland Park','SOUTH END OF THE EXISTING FOOTBALL FIELD','kfdanews-groundbreaking-2024');
+assert.ok(byName('Amarillo Highland Park').conflicts.some(c=>c.includes('Dallas Highland Park ISD hpisd.org 2024 bond')),
+  'Never cross-pollinate Dallas school 2024 bond project or Westchester field into Amarillo 2024 new program');
 assert.equal(byName('Amarillo Highland Park').venueResearch.physicalAddressVerified,false,
  'Groundbreaking does not verify built field coordinates or 2027 gate accessibility');
 
