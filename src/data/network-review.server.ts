@@ -1,6 +1,7 @@
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
 import { assertNetworkAdminAccess } from '@/data/network-admin-access.server';
 import { writeImmutableNetworkPublishedImage } from '@/data/network-published-media.server';
+import { validatedNetworkRevisionMediaPaths } from '@/data/network-revision-media';
 
 /** Validate image bytes again at the public media boundary, not just at browser upload. */
 async function assertNetworkImageBytes(blob: Blob, type: string) {
@@ -75,16 +76,14 @@ export async function listNetworkRevisions(accessKey:string) {
  const {data,error}=await supabaseAdmin.from('texasdefined_network_profile_revisions').select('id,business_account_id,submitted_by,created_at,review_status,proposed_profile,reviewer_notes').order('created_at',{ascending:false}).limit(200);
  if(error)throw new Error('Cannot load change requests.');
  return Promise.all((data ?? []).map(async (revision) => {
-  const profile=revision.proposed_profile as Record<string,unknown>;
-  const paths=[
-   ...(typeof profile.logo_storage_path==='string'?[profile.logo_storage_path]:[]),
-   ...(Array.isArray(profile.gallery_storage_paths)?profile.gallery_storage_paths.filter((p):p is string=>typeof p==='string'):[])
-  ];
-  const media=await Promise.all(paths.map(async (path)=>{
+  // Untrusted owner revision JSON may contain a huge nested image array or
+  // foreign Storage paths. The service role must NEVER sign those URLs.
+  const paths=validatedNetworkRevisionMediaPaths(revision.proposed_profile,revision.submitted_by,revision.business_account_id);
+  const media=await Promise.all((paths??[]).map(async (path)=>{
    const {data:signed,error}=await supabaseAdmin.storage.from('texasdefined-network-featured-drafts').createSignedUrl(path,300);
    return {path,url:error?null:signed?.signedUrl??null};
   }));
-  return {...revision,media};
+  return {...revision,media,mediaValidationError:paths===null};
  }));
 }
 export async function reviewNetworkRevision(accessKey:string,id:string,decision:'approve'|'reject') {
@@ -108,6 +107,8 @@ export async function reviewNetworkRevision(accessKey:string,id:string,decision:
    .select('application_id,profile,logo_storage_path,gallery_storage_paths').eq('application_id',account.application_id).eq('is_published',true).single();
   if(listingError||!listing)throw Error('A published business profile is required before applying changes.');
   const proposed=revision.proposed_profile as Record<string,unknown>;
+  const validatedMedia=validatedNetworkRevisionMediaPaths(proposed,account.owner_user_id,account.id);
+  if(validatedMedia===null)throw Error('Invalid proposed media reference');
   const allowed=new Set(['business_name','description','category','city','address','phone','hours','website','social','services','faq','offer','logo_storage_path','gallery_storage_paths']);
   if(Object.keys(proposed).some(key=>!allowed.has(key)))throw Error('Unsupported proposed change');
   const profile={...(listing.profile as Record<string,unknown>)};

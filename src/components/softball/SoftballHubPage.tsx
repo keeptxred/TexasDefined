@@ -66,6 +66,7 @@ export function SoftballHubPage() {
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[1.02] sm:text-7xl">Women’s softball in Texas, defined</h1>
         <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">Texas softball is bigger than the major universities: high-school programs from 1A through 6A, NCAA teams across divisions, junior colleges, developmental pathways, championship history and the people who keep programs alive. This reference hub separates verified history from information that changes each season.</p>
         <div className="mt-8 flex flex-wrap gap-3 text-sm font-semibold">
+          <a className="border border-primary px-4 py-3 text-primary" href="/sports/softball/schools">Find 1,192 UIL schools →</a>
           <a className="border border-primary px-4 py-3 text-primary" href="#high-school">UIL high schools ↓</a>
           <a className="border border-primary px-4 py-3 text-primary" href="#professional">Professional ↓</a>
           <a className="border border-primary px-4 py-3 text-primary" href="#college">College programs ↓</a>
@@ -80,6 +81,7 @@ export function SoftballHubPage() {
       </div>
 
       <Section id="high-school" kicker="UIL high schools" heading="The current season and the state-championship record">
+        <a className="mb-5 block border-l-4 border-primary bg-surface p-6" href="/sports/softball/schools"><strong className="font-display text-2xl">Search 1,192 UIL softball school listings in 160 districts →</strong><span className="mt-2 block text-sm leading-7 text-muted-foreground">The 2026–27 softball-specific directory is searchable by school, conference, district and region, with all five original UIL PDFs and a source-linked CSV.</span></a>
         <p className="max-w-4xl text-sm leading-7 text-muted-foreground">UIL publishes the competition calendar, district alignments, rules and historical results. Do not reuse the classification of a football program for softball: the sports have their own alignments, and 2026–27 divisions must be checked against UIL before describing any school’s current district.</p>
         <p className="mt-4 text-sm leading-7"><strong>2026–27 calendar:</strong> UIL lists January 15, 2027 as the first practice date, February 15 as the first interschool contest date, and June 3–5 for state championships at Red & Charline McCombs Field in Austin. Dates can change; the <a className="text-primary underline" href="https://www.uiltexas.org/softball">UIL softball office</a> is definitive.</p>
         <h3 className="mt-8 font-display text-2xl">2026 Texas UIL softball state champions</h3>

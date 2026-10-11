@@ -47,3 +47,24 @@ Build an independent, durable statewide research resource with real references r
 - Run recurring seasonal factual QA (not auto-update history without sources) and check WCAG/SEO, image licenses and actual production.
 
 This ledger intentionally separates delivered work from the much larger ambition to be *the* independent Texas authority on women's softball. It does not claim complete program coverage prematurely.
+
+## Wave 2: complete 2026–27 UIL softball alignment directory (October 11, 2026)
+
+**Added:** `/sports/softball/schools`, source-linked `src/data/softball/uil-2026-27-registry.json`, public `/data/texas-softball-uil-2026-27.csv`, `src/components/softball/SoftballSchoolsDirectory.tsx`.
+
+**Original official UIL alignment PDFs** (all 2026–27 softball, *not* general enrollment or football):
+- 2A, revised June 15, 2026: https://www.uiltexas.org/files/alignments/2ASB_Rvsd6-15.pdf — **280 listings**
+- 3A: https://www.uiltexas.org/files/alignments/263ASB.pdf — **210 listings**
+- 4A: https://www.uiltexas.org/files/alignments/264ASB.pdf — **208 listings**
+- 5A: https://www.uiltexas.org/files/alignments/265ASB.pdf — **247 listings**
+- 6A: https://www.uiltexas.org/files/alignments/266ASB.pdf — **247 listings**
+
+**Totals:** 1,192 unique school listings, 32 districts per document, 160 sport-specific districts across 4 UIL geographic regions each. Each row retains its exact conference-specific official source PDF, district and region. The 2A matrix includes smaller schools participating in the 2A softball grouping; it does not reclassify all those schools as general 2A enrollment or assert varsity participation.
+
+**Extraction and verification:** `scripts/softball/extract-uil-2026.py` downloads the original, validates PDF heading/season, reads each of eight district columns by its PDF coordinates, detects wrapped school names, checks number of districts, duplicate names within the same conference and district-size bounds, and saves data + CSV. `npm run softball:validate` checks the complete cardinality, provenance, district-region mapping, canonical route and CSV integrity. Original UIL PDFs remain the source of truth if school alignment changes.
+
+**Reader-facing features:** school text search, UIL softball conference, region and district selectors, accessible result count, progressive 50-row pagination, direct official district-PDF links, downloadable CSV, independent source methodology and citation, hub cross-link and sitemap path. Unknown team slugs remain 404; this directory reuses the one optional team route, avoiding an additional large eager route.
+
+**Editorial status:** this completes a *sport-specific 2026–27 UIL alignment listing*, not a confirmed census of active softball rosters, real-time scores, coaching staffs, private-school programs or verified individual-team profile pages. These remain separate unfinished tasks under issue #4652.
+
+**Source-review policy:** compare against UIL's https://www.uiltexas.org/softball/alignments before the 2027 season and whenever updated amendments are published. Never overwrite historical 2026–27 alignment data with next-season documents in place.

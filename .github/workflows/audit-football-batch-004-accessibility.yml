@@ -5,11 +5,15 @@ on:
     paths:
       - 'scripts/ci/audit-football-batch-004-accessibility.mjs'
       - '.github/workflows/audit-football-batch-004-accessibility.yml'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'public/stay-affiliate-options.js'
   push:
     branches: [main]
     paths:
       - 'scripts/ci/audit-football-batch-004-accessibility.mjs'
       - '.github/workflows/audit-football-batch-004-accessibility.yml'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'public/stay-affiliate-options.js'
   workflow_dispatch:
 permissions:
   contents: read

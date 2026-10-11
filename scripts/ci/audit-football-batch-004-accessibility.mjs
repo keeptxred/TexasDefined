@@ -55,7 +55,7 @@ try {
        mainCount:document.querySelectorAll('main').length,
        h1s:[...document.querySelectorAll('main h1')].map(x=>x.textContent.trim()),
        unlabeledLinks:[...document.querySelectorAll('main a[href]')].filter(x=>x.getClientRects().length&&
-         !String(x.getAttribute('aria-label')||x.innerText||x.getAttribute('title')||'').trim()).map(x=>x.outerHTML.slice(0,280)),
+         !String(x.getAttribute('aria-label')||x.textContent||x.getAttribute('title')||'').trim()).map(x=>x.outerHTML.slice(0,280)),
        imagesWithoutAlt:[...document.querySelectorAll('main img')].filter(x=>x.getClientRects().length&&!x.hasAttribute('alt')).map(x=>x.src),
        overflow:Math.max(0,document.documentElement.scrollWidth-innerWidth)
      }));
@@ -82,7 +82,7 @@ try {
        await page.keyboard.press('Tab');
        row.keyboard.push(await page.evaluate(()=>{
         const x=document.activeElement,s=getComputedStyle(x),b=x.getBoundingClientRect();
-        return {tag:x.tagName,name:String(x.getAttribute('aria-label')||x.innerText||x.getAttribute('title')||'').trim().slice(0,90),
+        return {tag:x.tagName,name:String(x.getAttribute('aria-label')||x.textContent||x.getAttribute('title')||'').trim().slice(0,90),
           visible:b.width>0&&b.height>0&&s.visibility!=='hidden',focusVisible:x.matches(':focus-visible'),
           focusIndicator:(s.outlineStyle!=='none'&&parseFloat(s.outlineWidth)>=1)||s.boxShadow!=='none'};
        }));

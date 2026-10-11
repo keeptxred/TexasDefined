@@ -305,3 +305,7 @@ The real disposable Supabase Auth/Storage integration now simulates a crash afte
 ### Public intake interrupted upload compensation
 
 An incomplete application is retained if the service cannot establish its exact cleanup result. The server checks committed `intake_complete` before attempting compensation, enumerates only its newly created application folder, removes deterministic image names and re-lists to verify no objects remain before deleting the still-incomplete parent row. Unknown paths or unenumerable Storage errors **block destructive cleanup** and require sole-admin investigation; they never imply a completed receipt or publication. A positive completion check returns success even after a lost finalizer response. This is source-only until the exact HEAD's CI passes and still does not authorize hosted launch.
+
+### Admin private draft URL preview safety
+
+Service-role signing of submitted Featured revision media must never trust paths read directly from user-editable `proposed_profile` JSON. `validatedNetworkRevisionMediaPaths` now bounds the nested gallery (maximum six), validates exact business-owner UUID path prefix and a flat safe PNG/JPEG/WebP basename, and rejects duplicates. Invalid revisions display an editorial warning and cannot be approved; the administrator may reject them without minting arbitrary private URLs. The publication action independently validates the same paths. New tests: `scripts/data/network-revision-media.test.mjs`. All checks occur on the draft PR until explicitly authorized launch.
