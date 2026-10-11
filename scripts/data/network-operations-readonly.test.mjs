@@ -11,7 +11,7 @@ test('Network operational inventory uses aggregate read-only SELECT without cred
  assert.match(executable,/owner_revision_revocation_policy_present/);
  assert.match(executable,/paid_listing_entitlement_drift/);
  assert.match(executable,/notification_uncertain_claims/);
- assert.match(executable,/pending_upgrade_versions_applied/);
+ assert.match(executable,/applied_network_security_versions/);
  assert.match(executable,/atomic_storage_trigger_count/);
  assert.match(executable,/featured_draft_objects/);
 });
