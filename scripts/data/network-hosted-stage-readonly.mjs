@@ -123,13 +123,13 @@ export async function runNetworkHostedStageReadOnly(config, fetcher=fetch){
     throw Error('Hosted Network staging owner revision RLS mismatch');
   checks++;
   const direct=await requestStage(fetcher,config,user.token,
-    '/storage/v1/object/texasdefined-network-featured-drafts/'+
+    '/storage/v1/object/authenticated/texasdefined-network-featured-drafts/'+
     encodeURIComponent(user.id)+'/'+encodeURIComponent(user.account)+'/'+encodeURIComponent(user.media));
   if(direct.status!==200)throw Error('Hosted Network stage owner cannot read permitted private media');
   // No private bytes read or logged.
   checks++;
   const foreign=await requestStage(fetcher,config,user.token,
-    '/storage/v1/object/texasdefined-network-featured-drafts/'+
+    '/storage/v1/object/authenticated/texasdefined-network-featured-drafts/'+
     encodeURIComponent(other.id)+'/'+encodeURIComponent(other.account)+'/'+encodeURIComponent(other.media));
   if(![400,401,403,404].includes(foreign.status))
     throw Error('Hosted Network stage cross-owner private Storage read not denied');
@@ -151,12 +151,21 @@ export async function runNetworkHostedRevokedOwnerReadOnly(config,fetcher=fetch)
  const identity=await jsonStage(fetcher,config,revoked.token,'/auth/v1/user');
  if(identity.id!==revoked.id||!identity.email_confirmed_at)
    throw Error('Hosted Network stage disabled synthetic identity not authenticated');
+ // Independent database-state control: avoid mistaking a general Storage/RLS
+ // denial for a completed owner revocation. Current account SELECT RLS exposes
+ // its own disabled binding while all private revision/media must be denied.
+ const accounts=await jsonStage(fetcher,config,revoked.token,
+  '/rest/v1/texasdefined_network_business_accounts?select=id,owner_user_id,access_enabled,membership_tier');
+ if(!Array.isArray(accounts)||accounts.length!==1 ||
+    accounts[0].id!==revoked.account||accounts[0].owner_user_id!==revoked.id ||
+    accounts[0].access_enabled!==false)
+   throw Error('Hosted Network stage disabled owner binding state not verified');
  const revokedRevisions=await jsonStage(fetcher,config,revoked.token,
   '/rest/v1/texasdefined_network_profile_revisions?select=id,business_account_id');
  if(!Array.isArray(revokedRevisions)||revokedRevisions.length!==0)
    throw Error('Hosted Network stage disabled owner can still read private revisions');
  const revokedMedia=await requestStage(fetcher,config,revoked.token,
-  '/storage/v1/object/texasdefined-network-featured-drafts/'+
+  '/storage/v1/object/authenticated/texasdefined-network-featured-drafts/'+
   encodeURIComponent(revoked.id)+'/'+encodeURIComponent(revoked.account)+'/'+encodeURIComponent(revoked.media));
  if(![400,401,403,404].includes(revokedMedia.status))
    throw Error('Hosted Network stage disabled owner can still read private media');
@@ -167,11 +176,11 @@ export async function runNetworkHostedRevokedOwnerReadOnly(config,fetcher=fetch)
    activeRevisions[0].id!==active.revision)
    throw Error('Hosted Network stage active control owner cannot read own revision');
  const activeMedia=await requestStage(fetcher,config,active.token,
-  '/storage/v1/object/texasdefined-network-featured-drafts/'+
+  '/storage/v1/object/authenticated/texasdefined-network-featured-drafts/'+
   encodeURIComponent(active.id)+'/'+encodeURIComponent(active.account)+'/'+encodeURIComponent(active.media));
  if(activeMedia.status!==200)
    throw Error('Hosted Network stage active control owner cannot read private media');
- return {accepted:true,scope:'isolated-hosted-revoked-owner-read-only',checks:5,
+ return {accepted:true,scope:'isolated-hosted-revoked-owner-read-only',checks:6,
   notes:'Disabled owner TWO Auth remains valid but private revision and media access are denied. Active owner ONE still works. No writes.'};
 }
 if(process.argv[1] && import.meta.url===pathToFileURL(process.argv[1]).href){
