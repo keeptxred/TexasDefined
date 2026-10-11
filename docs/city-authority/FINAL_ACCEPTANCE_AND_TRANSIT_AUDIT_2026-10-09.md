@@ -64,3 +64,10 @@ Primary transportation sources accessed 2026-10-09. These are verified **source-
 - **Structured 11-city acceptance matrix: recorded.** All required source fields are present in all 11 profiles.
 - **Review-date policy:** do not advance `cityAuthorityCheckedAt = '2026-10-08'` solely because this audit record was created; preserving existing dates prevents fabricated verification freshness.
 - **No code changes warranted** from the findings reviewed here; no verified city-specific publication defect was established.
+
+
+## October 10 release evidence and final acceptance limit — additive checkpoint
+
+Following this original transit/source audit, Houston/Waller editorial correction PR #4608 merged as `b23d14b2385e57070a8c11938363ea146ab8c9d7`. The protected production deploy [#38098919324](https://github.com/keeptxred/TexasDefined/actions/runs/38098919324) and exact-SHA real Chrome run [#38098919338](https://github.com/keeptxred/TexasDefined/actions/runs/38098919338) both **SUCCESS at attempt 2** (11 cities × 3 viewports = 33 automated PASS). Earlier Wikimedia image materialization HTTP 429 caused a protected deployment attempt to fail; the controlled retry passed. Fort Worth Kimbell link repair was subsequently asserted on production. PR #4609 recorded this result in the main primary-source ledger.
+
+The actual retained 33 screenshots were visually inspected at contact-sheet level, but some mobile viewport snapshots are scrolled below the title after keyboard traversal; a top-of-page/full-page manual pass and WCAG inspection have **not** completed. Current municipal city-limit/county polygon overlays and exhaustive city-by-city official fact/link checks also remain **UNVERIFIED**. A reproducible conservative GIS helper and eleven separate city evidence records are linked in [independent acceptance matrix](INDEPENDENT_ACCEPTANCE_MATRIX_2026-10-10.md). **Project NOT FULLY ACCEPTED.** Do not retroactively reclassify this older source-only transit audit as a complete October 10 visual, accessibility or geometry certification.
