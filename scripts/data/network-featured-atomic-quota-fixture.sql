@@ -14,6 +14,13 @@ INSERT INTO public.texasdefined_network_business_accounts
 DO $verify$
 DECLARE n integer; c integer;
 BEGIN
+ -- Reject a malformed account ID segment despite a valid user UUID.
+ BEGIN
+  INSERT INTO storage.objects(bucket_id,name)
+  VALUES('texasdefined-network-featured-drafts',
+   '77777777-7777-4777-8777-777777777777/77777777-0000-4000-000000000002/malformed.png');
+  RAISE EXCEPTION 'Malformed account UUID segment bypassed atomic path guard';
+ EXCEPTION WHEN insufficient_privilege THEN NULL; END;
  -- Superuser inserts exercise the trigger independently of Auth/RLS policies.
  FOR n IN 1..24 LOOP
   INSERT INTO storage.objects(bucket_id,name)

@@ -52,7 +52,13 @@ jobs:
           cd "$TEST_ROOT"
           # Auth and Storage run on disposable localhost containers only.
           # Exclude ancillary services; never link or log in to a remote Supabase project.
-          supabase start -x realtime,functions,studio,mail,analytics,pooler > "$RUNNER_TEMP/network-local-start.log" 2>&1
+          if ! supabase start -x realtime,functions,studio,mail,analytics,pooler > "$RUNNER_TEMP/network-local-start.log" 2>&1; then
+            # Keep secrets and connection details out of CI logs. Show only
+            # diagnostic PostgreSQL error lines from ephemeral startup.
+            grep -E 'ERROR:|FATAL:|psql:|failed to start|migration failed' "$RUNNER_TEMP/network-local-start.log" | tail -30 || true
+            echo 'Disposable local Supabase startup failed (full local log remains private).'
+            exit 1
+          fi
           supabase status -o env > "$RUNNER_TEMP/network-local-env.txt"
           set -a
           source "$RUNNER_TEMP/network-local-env.txt"

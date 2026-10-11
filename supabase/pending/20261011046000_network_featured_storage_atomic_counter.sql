@@ -63,7 +63,7 @@ BEGIN
  v_owner=pg_catalog.split_part(NEW.name,'/',1);
  v_account=pg_catalog.split_part(NEW.name,'/',2);
  IF v_owner!~'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
-   OR v_account!~'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+   OR v_account!~'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
    OR pg_catalog.split_part(NEW.name,'/',3)=''
    OR pg_catalog.split_part(NEW.name,'/',4)<>''
  THEN RAISE EXCEPTION USING ERRCODE='42501',MESSAGE='Invalid Featured media account path'; END IF;

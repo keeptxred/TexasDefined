@@ -21,6 +21,10 @@ const requiredPages=[
  'network.billing.tsx','network.business.$slug.tsx','business.dashboard.tsx',
  'admin.network-applications.tsx'
 ];
+check('pending atomic storage counter accepts canonical UUIDs and rejects malformed account segments',
+ source('supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql').includes("v_account!~'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'")
+ && source('scripts/data/network-featured-atomic-quota-fixture.sql').includes('Malformed account UUID segment bypassed atomic path guard')
+ && source('.github/workflows/network-local-auth-storage.yml').includes('Disposable local Supabase startup failed'));
 check('Checkout and billing reject unbounded JSON before parsing',
  checkout.includes('parseBoundedNetworkBillingJson(request)')
  && billing.includes('parseBoundedNetworkBillingJson(request)')
