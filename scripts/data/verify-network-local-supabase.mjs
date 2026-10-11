@@ -189,10 +189,15 @@ sql("UPDATE public.texasdefined_network_profile_revisions SET "+
  "WHERE business_account_id='"+account1+"';");
 const deletePaths=async (paths)=>req('DELETE','/storage/v1/object/'+bucket,anon,one.token,{prefixes:paths});
 const protectedDelete=await deletePaths([path1]);
-assert.ok(protectedDelete.status>=400&&protectedDelete.status<500,
- 'A private image referenced by a review was deleted: HTTP '+protectedDelete.status);
+// Storage may acknowledge an empty DELETE result with HTTP 200 even if RLS
+// silently prevents deleting the protected row. The invariant is that neither
+// the Storage metadata NOR original bytes were actually removed or changed.
+assert.ok(protectedDelete.status<500,'Referenced draft DELETE caused server failure');
+const stillReferenced=sql("SELECT COUNT(*) FROM storage.objects WHERE bucket_id='"+
+ bucket+"' AND name='"+path1+"';");
+assert.equal(stillReferenced,'1','A private image referenced by a review was deleted');
 const protectedDownload=await req('GET','/storage/v1/object/authenticated/'+bucket+'/'+path1,anon,one.token);
-allowed(protectedDownload,'Referenced draft retained after rejected deletion');
+allowed(protectedDownload,'Referenced draft retained after authorized but ineffective DELETE');
 assert.ok(protectedDownload.bytes.equals(png),'Referenced image bytes changed after failed deletion');
 const orphanPath=one.id+'/'+account1+'/local-quota-2.png';
 const cleaned=await deletePaths([orphanPath]);
