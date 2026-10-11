@@ -162,7 +162,7 @@ check('Stripe entitlement and publication reconciliation uses isolated rollback 
 // registry AND carry their own explicit robots noindex metadata. Newer main
 // intentionally removed these private routes from INDEXABLE_STATIC_PATHS:
  // treating that safer change as a failure would be an obsolete assertion.
-const indexableRegistry=source('src/lib/public-routes.ts').split('];',1)[0];
+const indexableRegistry=source('src/lib/public-routes.ts').split('export const INDEXABLE_STATIC_PATHS = [')[1]?.split('] as const;')[0]||'';
 const gatedNetworkRoutes=[
  ['/network/billing','src/routes/network.billing.tsx'],
  ['/network/checkout-return','src/routes/network.checkout-return.tsx'],
@@ -174,7 +174,7 @@ const gatedNetworkRoutes=[
  ['/network/example/plus','src/routes/network.example.plus.tsx'],
 ];
 check('all eight gated Network routes are nonindexable and explicitly noindex at their route heads',
- gatedNetworkRoutes.every(([path,file])=>{
+ indexableRegistry.length>10 && gatedNetworkRoutes.every(([path,file])=>{
   const head=source(file);
   return !indexableRegistry.includes('"'+path+'"')
    && /name\s*:\s*['"]robots['"]/.test(head)
