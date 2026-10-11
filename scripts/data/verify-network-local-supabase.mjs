@@ -123,6 +123,16 @@ sql("UPDATE public.texasdefined_network_public_listings SET is_published=false "
 const hidden=await metricRecord(service,metricSlug2,'profile_view');
 allowed(hidden,'Unpublished metrics writer returns a fail-closed boolean');
 assert.equal(hidden.json,false,'Unpublished listing was improperly counted');
+// Maintenance RPC is callable only by service_role and does not alter
+// recent reports. It executes through real PostgREST, not a SQL stub.
+denied(await req('POST','/rest/v1/rpc/prune_texasdefined_network_profile_metrics',
+ anon,anon,{}),'Anonymous cannot prune private business history');
+denied(await req('POST','/rest/v1/rpc/prune_texasdefined_network_profile_metrics',
+ anon,one.token,{}),'Signed-in owner cannot prune private business history');
+const prune=await req('POST','/rest/v1/rpc/prune_texasdefined_network_profile_metrics',
+ service,service,{});
+allowed(prune,'Service-only aggregate retention RPC');
+assert.equal(prune.json,0,'Recent metrics must not be deleted');
 const afterHidden=await metricRead(service,app2);
 allowed(afterHidden,'Service read after unpublication');
 assert.equal(afterHidden.json.length,1,'Unpublished profile acquired an additional metric row');
