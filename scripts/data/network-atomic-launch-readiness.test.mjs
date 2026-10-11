@@ -16,7 +16,6 @@ function fixture(){
   NETWORK_GRAPH_TENANT_ID:uuid1,NETWORK_GRAPH_CLIENT_ID:uuid2,
   NETWORK_GRAPH_CLIENT_SECRET:'not-real-secret-'+ 'x'.repeat(36),
   NETWORK_GRAPH_MAILBOX:'admin@texasdefined.com',
-  NETWORK_NOTIFICATION_JOB_AUTH_KEY:'placeholder-'+ 'x'.repeat(42),
  };
  for(const f of NETWORK_LAUNCH_FEATURE_KEYS)env[f]='true';
  const proof={};
@@ -54,7 +53,7 @@ test('configuration rejects missing provider credentials and wrong production ho
   ['STRIPE_SECRET_KEY','sk_test_not_allowed'],['STRIPE_WEBHOOK_SECRET',''],
   ['NETWORK_GRAPH_CLIENT_SECRET',''],['NETWORK_GRAPH_MAILBOX','elsewhere@example.invalid'],
   ['SUPABASE_URL','https://other.supabase.co'],['NETWORK_ADMIN_ACCESS_KEY','x'],
-  ['NETWORK_NOTIFICATION_JOB_AUTH_KEY',''],['NETWORK_STRIPE_MODE','test'],
+['NETWORK_STRIPE_MODE','test'],
  ]){
   const result=inspectNetworkAtomicLaunch({...env,[name]:value},proof);
   assert.equal(result.ready,false,name);
