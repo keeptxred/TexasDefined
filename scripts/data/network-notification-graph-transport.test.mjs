@@ -21,6 +21,7 @@ test('Graph HTTP adapter constructs a single mailbox-specific bounded request bu
  assert.equal(msg.message.toRecipients.length,1);
  assert.equal(msg.message.toRecipients[0].emailAddress.address,'test@example.invalid');
  assert.equal(msg.message.replyTo[0].emailAddress.address,'admin@texasdefined.com');
+ assert.deepEqual(msg.message.internetMessageHeaders,[{name:'x-texasdefined-notification-id',value:plan.id}]);
  assert.equal(Object.hasOwn(req,'headers'),false);
  assert.equal(Object.hasOwn(req,'token'),false);
 });
