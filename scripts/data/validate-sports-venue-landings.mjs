@@ -22,7 +22,7 @@ const [landings, landingPaths, route, indexComponent, quickAnswers, countySports
   read('src/components/sports/SportsVenueQuickAnswers.tsx'),
   read('src/components/sports/CountySportsDestinations.tsx'),
   read('src/data/sports-venue-search.ts'),
-  readRouteSurface('src/routes/sports-venues.tsx'),
+  read('src/routes/sports-venues.tsx'),
   readRouteSurface('src/routes/sports.tsx'),
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/routes/sports-venue.jones-att-stadium.tsx'),
