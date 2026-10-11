@@ -101,6 +101,14 @@ The next valid acceptance step is a dated, repeatable polygon overlay with a kno
 **Disposition:** **UNVERIFIED / POSSIBLE PUBLISHED ERROR** until a current city-limits polygon is intersected with Waller County's boundary and any limited-purpose territory is characterized. The four-county claim must not be counted PASS merely because Waller occurs in GIS council district, voting precinct or ETJ data. Do not silently erase Waller from published data without the current-year spatial determination.
 
 
+## Houston editorial correction: incorporated boundaries versus Waller ETJ
+
+**October 10, 2026 action:** The current Houston city profile previously asserted that Waller County is inside Houston's incorporated city limits. Multiple Houston municipal sources independently distinguish incorporated city limits from its ETJ: [City Planning annexation reference](https://www.houstontx.gov/planning/Annexation/), [current official city-limits and ETJ GIS layers](https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer), and [City Planning ETJ FAQ](https://www.houstontx.gov/planning/DevelopRegs/faq.html), which explicitly includes Waller among ETJ counties. An earlier [city financial report](https://www.houstontx.gov/controller/cafr2001/cafr2001.pdf) describes the three incorporated counties as Harris, Fort Bend and Montgomery.
+
+**Editorial remediation:** remove Waller from the unconditional incorporated-county list and explicitly explain that Waller is included in Houston's ETJ, not automatically in its full-service incorporated limits. Avoid implying county-specific address eligibility without parcel checks.
+
+**Residual acceptance limit:** This is a conservative correction of an unsupported categorical statement, **not** a completed current-date spatial overlay. Limited-purpose annexation and historical boundary changes still require a current municipal polygon/county overlay before full municipal-jurisdiction certification.
+
 ## Acceptance still outstanding
 
 Complete all 11 city municipal boundary overlays; audit unreviewed featured destinations, food venues, school/tax/utility claims and official link targets; inspect browser screenshots and keyboard/contrast/touch behavior across all requested viewports; retain artifacts. Do not advance the global city factual review date or mark 11/11 fully certified without that evidence.
