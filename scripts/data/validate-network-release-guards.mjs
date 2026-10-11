@@ -84,6 +84,13 @@ check('isolated two-session Featured Storage quota enforces 24-object cap under 
  && source('scripts/data/verify-network-concurrent-media-quota.mjs').includes('count!==24||contenders!==1')
  && source('scripts/data/verify-network-concurrent-media-quota.mjs').includes("NETWORK_MIGRATION_REPLAY_ISOLATED==='yes-ephemeral-local-only'")
  && source('.github/workflows/network-migration-cleanroom.yml').includes('verify-network-concurrent-media-quota.mjs'));
+check('Featured 24-file quota is raced across two actual PostgreSQL sessions',
+ source('scripts/data/verify-network-migration-replay.mjs').includes("concurrentQuota='scripts/data/verify-network-concurrent-upload-quota.mjs'")
+ && source('scripts/data/verify-network-concurrent-upload-quota.mjs').includes("secondSession=session('B',25,false)")
+ && source('scripts/data/verify-network-concurrent-upload-quota.mjs').includes("SELECT pg_sleep(3);")
+ && source('scripts/data/verify-network-concurrent-upload-quota.mjs').includes("draftCount()!=='24'")
+ && source('scripts/data/verify-network-concurrent-upload-quota.mjs').includes('NETWORK_MIGRATION_REPLAY_ISOLATED')
+ && source('.github/workflows/network-migration-cleanroom.yml').includes('verify-network-concurrent-upload-quota.mjs'));
 check('separate committed Stripe delivery fixture verifies durable outbox dedupe and replay isolation',
  source('scripts/data/verify-network-migration-replay.mjs').includes("committedStripeFixture='scripts/data/network-migration-stripe-committed-deliveries-fixture.sql'")
  && source('scripts/data/network-migration-stripe-committed-deliveries-fixture.sql').includes('evt_separate_activation_001')
