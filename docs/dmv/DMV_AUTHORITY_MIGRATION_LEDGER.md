@@ -44,3 +44,23 @@ These are not yet certified as equivalent to all historical KeepTXRed guides.
 - [ ] Complete technical, factual, and production acceptance.
 
 Avoid creating parallel, duplicate site sections or copying historical content without independent fact-checking.
+
+## Implementation checkpoint — 2026-10-11
+
+The following changes are committed to draft PR #4624, **not yet accepted or deployed**:
+- /texas-dmv: task-first navigation and official agency references; route FAQ and metadata additions.
+- /texas-drivers-license: DPS credential decision guide, REAL ID, CDL and ELDT source links.
+- /texas-vehicle-registration: buyer/seller checklists; duplicate title; disabled parking; inspection; liability insurance and financial responsibility; personalized plates.
+
+**Important distinction:** a topical section is not proof that the original historical guide has been fully migrated or that TexasDefined is the leading source. All sections still need a primary-source line-by-line factual audit, substantive depth assessment, internal link and schema review, build validation, and rendered browser verification. Do not mark the migration queue complete based only on sections being present.
+
+### Priority remaining work
+1. Fetch the historical KeepTXRed route contents at their original commit SHAs and make a source-to-destination coverage matrix. Preserve useful facts only after verification.
+2. Research CDL class/endorsement requirements, medical certification, CLP and ELDT in depth, including applicable exceptions; decide whether a standalone authority route is warranted.
+3. Check current TxDMV/TDI/DPS sources for accuracy, especially title forms and submissions, placard certification, inspection county transitions and proof-of-financial-responsibility alternatives.
+4. Identify thin sections requiring dedicated pages, practical examples, county-level variations and citations.
+5. Check all legacy KeepTXRed redirect destinations and correct broad or misleading matches.
+6. Run build, SEO, accessibility, link and production regression checks. Obtain passing CI before merge.
+
+### Quality caveat
+No live external primary-source retrieval or test run has been completed in this checkpoint. Treat factual statements and outgoing source URLs as awaiting verification.
