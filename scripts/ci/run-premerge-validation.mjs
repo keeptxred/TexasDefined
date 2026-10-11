@@ -56,6 +56,7 @@ const prebuildChecks = [
   ['NETWORK/BILLING', 'Verify case-insensitive but exact confirmed owner billing email and bindings', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-owner-email.test.mjs']],
   ['NETWORK/BILLING', 'Verify small actual-byte bound on Checkout and billing JSON', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-billing-json.test.mjs']],
   ['NETWORK/BILLING', 'Test Stripe webhook authentication and checkout launch gate', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-stripe-security.test.mjs']],
+  ['NETWORK/BILLING', 'Require Stripe billing portal session to match owning customer, runtime mode and return host', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-stripe-portal-binding.test.mjs']],
   ['NETWORK/BILLING', 'Verify Stripe staging mode is isolated from live credentials, prices and website origin', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-stripe-isolated-mode.test.mjs']],
   ['CALCULATOR/PLATFORM', 'Validate calculator math and shared architecture', 'node', ['--experimental-strip-types', 'scripts/data/validate-calculator-platform.ts']],
   ['EVENT/TICKETMASTER', 'Validate Ticketmaster ingestion and tracking', 'node', ['--test', 'scripts/events/ticketmaster-discovery.test.mjs']],
