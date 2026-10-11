@@ -35,8 +35,8 @@ COUNTY_VINTAGE = "BAS 2026; January 1, 2026"
 # none of these are ETJ layers. An empty URL indicates NO CERTIFIED VECTOR SOURCE.
 CITY_LAYERS = {
     "houston": "https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer/0",
-    "dallas": "https://gis.dallascityhall.com/arcgis/rest/services/Basemap/CityLimits/MapServer/0",
-    "fort-worth": "https://gis.fortworthtexas.gov/gisimage/rest/services/Mapping/Report_Areas_Published/MapServer/3",
+    "dallas": "https://gis.dallascityhall.com/arcgis/rest/services/Pbw_public/ROWMSReferenceLayers/MapServer/2",
+    "fort-worth": "https://mapit.fortworthtexas.gov/ags/rest/services/CIVIC/OpenData_Boundaries/MapServer/0",
     "austin": "https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/City_of_Austin_WFL1/FeatureServer/0",
     "san-antonio": None,
     "el-paso": "https://gis.elpasotexas.gov/accela/rest/services/311/CityLimits/FeatureServer/0",
@@ -57,10 +57,14 @@ CANDIDATE_LAYERS = {
 # Limited-purpose polygons are queried separately and never silently promoted.
 CITY_FULL_WHERE = {
     "houston": "SERVICE_TY = 'FULL'",
+    "dallas": "CITY = 'Dallas'",
+    "fort-worth": "DESIGNATION = 'Full Purpose'",
     "austin": "CITY_NAME = 'Austin' AND JURISDICTION_TYPE = 'FULL'",
+    "arlington": "MUNICIPALNAME = 'Arlington'",
 }
 CITY_LIMITED_WHERE = {
     "houston": "SERVICE_TY = 'LIMITED'",
+    "fort-worth": "DESIGNATION = 'Limited Purpose'",
     "austin": "CITY_NAME = 'Austin' AND JURISDICTION_TYPE = 'LTD'",
 }
 # Reconcile results to published jurisdiction list, not arbitrary city-name county.
