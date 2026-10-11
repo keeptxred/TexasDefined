@@ -115,6 +115,12 @@ check('Stripe entitlement and publication reconciliation uses isolated rollback 
  && source('scripts/data/network-migration-stripe-reconciliation-fixture.sql').includes("'republished'")
  && source('scripts/data/network-migration-stripe-reconciliation-fixture.sql').includes('ROLLBACK;')
  && source('.github/workflows/network-migration-cleanroom.yml').includes('network-migration-stripe-reconciliation-fixture.sql'));
+check('proposed disabled-owner private revision READ policy is tested safely without live migration',
+ source('scripts/data/verify-network-migration-replay.mjs').includes("proposedRevocation='scripts/data/network-proposed-revision-read-revocation.sql'")
+ && source('scripts/data/network-proposed-revision-read-revocation.sql').includes('b.access_enabled=true')
+ && source('scripts/data/network-migration-owner-rls-fixture.sql').includes('Disabled owner can still read private revisions or draft media')
+ && source('scripts/data/network-migration-owner-rls-fixture.sql').includes('Authenticated role without JWT subject')
+ && source('.github/workflows/network-migration-cleanroom.yml').includes('network-proposed-revision-read-revocation.sql'));
 check('isolated replay executes two-owner and private media RLS fixture with full rollback',
  source('scripts/data/verify-network-migration-replay.mjs').includes("ownerIsolationFixture='scripts/data/network-migration-owner-rls-fixture.sql'")
  && source('scripts/data/network-migration-owner-rls-fixture.sql').includes('SET LOCAL ROLE authenticated;')

@@ -131,6 +131,47 @@ BEGIN
 END
 $owner_two_views$;
 
+-- Simulate privileged account revocation while Owner Two is signed in.
+-- Old submitted revision/media rows must become unreadable on the NEXT query.
+RESET ROLE;
+UPDATE public.texasdefined_network_business_accounts
+SET access_enabled=false
+WHERE id='bbbbbbbb-2222-4222-8222-bbbbbbbbbbbb';
+SET LOCAL ROLE authenticated;
+SELECT set_config('request.jwt.claim.sub','22222222-2222-4222-8222-222222222222',true);
+DO $revoked_owner$
+BEGIN
+ IF (SELECT count(*) FROM public.texasdefined_network_profile_revisions)<>0
+  OR (SELECT count(*) FROM storage.objects)<>0
+  THEN RAISE EXCEPTION 'Disabled owner can still read private revisions or draft media'; END IF;
+ IF texasdefined_network_internal.network_can_submit_featured_revision(
+   'bbbbbbbb-2222-4222-8222-bbbbbbbbbbbb','22222222-2222-4222-8222-222222222222')
+  OR texasdefined_network_internal.network_featured_upload_under_quota(
+   '22222222-2222-4222-8222-222222222222','bbbbbbbb-2222-4222-8222-bbbbbbbbbbbb')
+  THEN RAISE EXCEPTION 'Disabled owner retained revision/upload helper authorization'; END IF;
+ BEGIN
+  INSERT INTO public.texasdefined_network_profile_revisions
+   (business_account_id,submitted_by,proposed_profile)
+  VALUES ('bbbbbbbb-2222-4222-8222-bbbbbbbbbbbb',
+   '22222222-2222-4222-8222-222222222222','{"description":"post-revocation write"}');
+  RAISE EXCEPTION 'Disabled owner INSERT unexpectedly succeeded';
+ EXCEPTION WHEN insufficient_privilege THEN NULL;
+ END;
+ RAISE NOTICE 'DISABLED OWNER PASS: private revision/media reads and writes revoked at SQL policy boundary';
+END
+$revoked_owner$;
+
+-- A signed-in SQL role lacking a JWT subject is not a verified business owner.
+SELECT set_config('request.jwt.claim.sub','',true);
+DO $missing_subject$
+BEGIN
+ IF (SELECT count(*) FROM public.texasdefined_network_business_accounts)<>0
+  OR (SELECT count(*) FROM public.texasdefined_network_profile_revisions)<>0
+  OR (SELECT count(*) FROM storage.objects)<>0
+  THEN RAISE EXCEPTION 'Authenticated role without JWT subject saw private Network records'; END IF;
+END
+$missing_subject$;
+
 SELECT set_config('request.jwt.claim.sub','33333333-3333-4333-8333-333333333333',true);
 DO $outsider$
 BEGIN

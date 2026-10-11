@@ -42,6 +42,13 @@ for(const filename of migrations){
  execSql(['-f',location],filename);
  console.log('REPLAY PASS '+filename);
 }
+// PROPOSED policy hardening is separately tested AFTER 34 actually applied
+// migrations. It is deliberately NOT included in the applied-version manifest
+// or deployed to the shared project by this runner.
+const proposedRevocation='scripts/data/network-proposed-revision-read-revocation.sql';
+if(!existsSync(proposedRevocation))throw new Error('Proposed owner revision SELECT revocation missing');
+execSql(['-f',proposedRevocation],'staging-only disabled-owner revision SELECT policy hardening');
+console.log('REPLAY PROPOSED OWNER REVOCATION PASS: staging-only policy applied in disposable DB; production unchanged');
 const checks=`DO $verification$
 DECLARE network_tables integer; network_buckets integer;
 BEGIN

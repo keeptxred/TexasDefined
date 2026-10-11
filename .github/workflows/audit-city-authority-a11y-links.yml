@@ -1,0 +1,59 @@
+name: Audit 11 city accessibility and all rendered links
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/audit-city-authority-a11y-links.mjs'
+      - '.github/workflows/audit-city-authority-a11y-links.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/audit-city-authority-a11y-links.mjs'
+      - '.github/workflows/audit-city-authority-a11y-links.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  syntax:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check scripts/ci/audit-city-authority-a11y-links.mjs
+  research:
+    name: Capture city WCAG and link diagnostics (not manual acceptance)
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Wait for exact SHA protected production deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
+      - name: Isolated free browser accessibility tooling
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-city-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1 axe-core@4.10.3
+      - name: Audit all 11 cities at 3 viewports plus all rendered link destinations
+        env:
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/audit-city-authority-a11y-links.mjs
+      - name: Retain machine-readable findings for independent review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: city-authority-a11y-and-links
+          path: artifacts/city-authority-independent/
+          if-no-files-found: warn
+          retention-days: 30
