@@ -8,14 +8,18 @@ const a1='33333333-3333-4333-8333-333333333333',
 a2='44444444-4444-4444-8444-444444444444';
 const r1='55555555-5555-4555-8555-555555555555',
 r2='66666666-6666-4666-8666-666666666666';
-const jwt=(s)=>['eyJ'+s.repeat(35),'eyJ'+s.repeat(35),'eyJ'+s.repeat(35)].join('.');
+const jwt=(nonce,sub,role='authenticated',exp=Math.floor(Date.now()/1000)+3600)=>[
+ Buffer.from('{"alg":"HS256","typ":"JWT"}').toString('base64url'),
+ Buffer.from(JSON.stringify({sub,role,exp,nonce})).toString('base64url'),
+ 'syntheticSignature'+nonce.repeat(30)
+].join('.');
 function env(){return {
  NETWORK_HOSTED_STAGE_READONLY_APPROVED:'approved-isolated-staging-only',
  NETWORK_STAGE_SUPABASE_URL:'https://staging0123456789.supabase.co/',
  NETWORK_STAGE_PROJECT_REF:'staging0123456789',
  NETWORK_STAGE_PUBLISHABLE_KEY:'sb_publishable_'+ 'X'.repeat(38),
  NETWORK_STAGE_OWNER_ONE_ID:u1,NETWORK_STAGE_OWNER_TWO_ID:u2,
- NETWORK_STAGE_OWNER_ONE_JWT:jwt('a'),NETWORK_STAGE_OWNER_TWO_JWT:jwt('b'),
+ NETWORK_STAGE_OWNER_ONE_JWT:jwt('a',u1),NETWORK_STAGE_OWNER_TWO_JWT:jwt('b',u2),
  NETWORK_STAGE_ACCOUNT_ONE_ID:a1,NETWORK_STAGE_ACCOUNT_TWO_ID:a2,
  NETWORK_STAGE_REVISION_ONE_ID:r1,NETWORK_STAGE_REVISION_TWO_ID:r2,
  NETWORK_STAGE_MEDIA_ONE:'one.png',NETWORK_STAGE_MEDIA_TWO:'two.png'
@@ -36,11 +40,14 @@ test('staging acceptance config is host-pinned, requires consent, rejects shared
   {NETWORK_STAGE_SUPABASE_URL:'https://staging0123456789.supabase.co/?token=bad'},
   {NETWORK_STAGE_PROJECT_REF:'not-staging0123456789'},
   {NETWORK_STAGE_PUBLISHABLE_KEY:'sb_secret_'+'X'.repeat(80)},
-  {NETWORK_STAGE_PUBLISHABLE_KEY:jwt('a')},
+  {NETWORK_STAGE_PUBLISHABLE_KEY:jwt('a',u1)},
   {NETWORK_STAGE_PUBLISHABLE_KEY:[
     Buffer.from('{"alg":"HS256","typ":"JWT"}').toString('base64url'),
     Buffer.from('{"role":"service_role"}').toString('base64url'),'signature'.repeat(7)].join('.')},
-  {NETWORK_STAGE_OWNER_ONE_JWT:jwt('b')},
+  {NETWORK_STAGE_OWNER_ONE_JWT:jwt('b',u2)},
+  {NETWORK_STAGE_OWNER_ONE_JWT:jwt('c',u1,'service_role')},
+  {NETWORK_STAGE_OWNER_ONE_JWT:jwt('d',u1,'authenticated',1)},
+  {NETWORK_STAGE_OWNER_ONE_JWT:jwt('e',u2)},
   {NETWORK_STAGE_OWNER_TWO_ID:u1},
   {NETWORK_STAGE_MEDIA_ONE:'../private.jpeg'},
  ];
