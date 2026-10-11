@@ -44,6 +44,15 @@ check('Checkout and billing reject unbounded JSON before parsing',
  && source('src/data/network-billing-json.server.ts').includes('bytes>NETWORK_BILLING_JSON_MAX_BYTES')
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-billing-json.test.mjs'));
 check('checkout disabled by default',checkout.includes('if (!stripeCheckoutEnabled())'));
+check('non-live Stripe is isolated and rejects production Supabase, host and price reuse',
+ source('src/data/network-stripe-mode.server.ts').includes("database.includes('ftkznprjljkhymknvhye')")
+ && source('src/data/network-stripe-mode.server.ts').includes("NETWORK_ISOLATED_STAGING")
+ && source('src/data/network-stripe-mode.server.ts').includes("NETWORK_STRIPE_TEST_MODE_ENABLED")
+ && checkout.includes('networkStripeHostAllowed(request)')
+ && billing.includes('networkStripeHostAllowed(request)')
+ && webhook.includes('networkStripeHostAllowed(request)')
+ && source('scripts/ci/run-premerge-validation.mjs').includes('network-stripe-isolated-mode.test.mjs'));
+
 check('Checkout uses the same exact normalized confirmed-email comparison as owner provisioning',
  checkout.includes('matchingNetworkOwnerEmail(verified.user.email,body.email)')
  && checkout.includes('matchingNetworkOwnerEmail(data.contact_email,verified.user.email)')
@@ -80,7 +89,7 @@ check('billing GET and portal use the same exact case-insensitive confirmed-emai
 check('billing URL pinned to Stripe with bounded provider timeout',
  billing.includes('isNetworkBillingPortalUrl(result.url)')
  && billing.includes('signal: AbortSignal.timeout(12_000)')
- && billing.includes('return_url: "https://texasdefined.com/network/billing"')
+ && billing.includes('return_url: runtime.siteOrigin+"/network/billing"')
  && source('src/data/network-stripe.server.ts').includes("destination.hostname==='billing.stripe.com'")
  && source('src/data/network-stripe.server.ts').includes("destination.username===''")
  && source('src/data/network-stripe.server.ts').includes("destination.hash===''"));
@@ -312,9 +321,9 @@ check('Network email outbox remains service-only and idempotent',
 check('owner access requires audit-backed atomic provisioning',review.includes("supabaseAdmin.rpc('provision_verified_network_owner'")&&source('supabase/migrations/20261010214534_network_atomic_owner_verification_audit.sql').includes('FOR UPDATE')&&ownerUI.includes('Evidence reference'));
 
 check('Stripe checkout must claim and commit one durable reservation',checkout.includes('reserve_texasdefined_network_checkout')&&checkout.includes('complete_texasdefined_network_checkout')&&checkout.includes('session.expiresAt'));
-check('Checkout session is the same live open Plus subscription requested by this application',
+check('Checkout session requires exact configured Stripe mode, open subscription and application binding',
  source('src/data/network-stripe.server.ts').includes("result.object!=='checkout.session'")
- && source('src/data/network-stripe.server.ts').includes('result.livemode!==true')
+ && source('src/data/network-stripe.server.ts').includes('result.livemode!==runtime.livemode')
  && source('src/data/network-stripe.server.ts').includes("result.mode!=='subscription'")
  && source('src/data/network-stripe.server.ts').includes("result.status!=='open'")
  && source('src/data/network-stripe.server.ts').includes('result.client_reference_id!==applicationId')
@@ -325,7 +334,10 @@ check('Checkout session is the same live open Plus subscription requested by thi
 check('Checkout redirect requires exact Stripe hostname',source('src/data/network-stripe.server.ts').includes("target.hostname==='checkout.stripe.com'"));
 
 check('Stripe verified subscription cannot contain unrelated paid line items',webhook.includes('isExpectedNetworkPlusSubscription(subscription)')&&source('src/data/network-stripe.server.ts').includes('items.length===1'));
-check('Stripe portal requires a live server secret',billing.includes('key?.startsWith("sk_live_")'));
+check('Stripe portal uses validated server-only live or isolated test credentials',
+ billing.includes('const runtime=getNetworkStripeRuntime()')
+ && billing.includes('const key=runtime.secret;')
+ && source('src/data/network-stripe-mode.server.ts').includes("secret.startsWith('sk_live_')"));
 
 check('Featured approval and review ledger mutate within one DB transaction',
  review.includes("supabaseAdmin.rpc('finalize_texasdefined_featured_revision'")
@@ -408,8 +420,10 @@ check('Network webhook caps untrusted body before HMAC or Stripe network calls',
  webhook.includes('readNetworkWebhookPayload(request)')
  && source('src/data/network-stripe.server.ts').includes('NETWORK_WEBHOOK_MAX_BYTES=1_048_576')
  && webhook.indexOf('readNetworkWebhookPayload(request)') < webhook.indexOf('verifyStripeSignature(raw,header)'));
-check('Network webhook requires live Stripe credentials for remote revalidation',
- webhook.includes('stripeKey?.startsWith("sk_live_")'));
+check('Webhook requires mode-bound Stripe credentials and a staging-host check',
+ webhook.includes('networkStripeHostAllowed(request)')
+ && webhook.includes('runtime.livemode!==expectedMode')
+ && webhook.includes('networkStripeWebhookSecret()'));
 
 check('Published media inventory is read-only, least-privilege and keeps unpublished references',
  source('supabase/migrations/20261010235427_network_readonly_orphan_published_media_inventory.sql').includes("texasdefined-network-published")
