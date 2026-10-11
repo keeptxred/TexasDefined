@@ -149,3 +149,19 @@ try { const output=execFileSync('node',[concurrentQuota],{encoding:'utf8',timeou
 catch(error){console.error(String(error?.stdout||''));console.error(String(error?.stderr||''));throw Error('Featured concurrent Storage quota SQL fixture failed');}
 console.log('REPLAY FEATURED CONCURRENCY RESULT PASS: two independent database sessions enforce 24-image quota');
 
+// Test-only SQL override is generated and executed ONLY in this disposable localhost
+// database. It never replaces the 34 historical migrations or runs on hosted Supabase.
+const isolatedStripeOverlay=execFileSync('node',['scripts/data/network-stripe-local-finalizer-overlay.mjs'],{encoding:'utf8'});
+execSql(['-c',isolatedStripeOverlay],'LOCAL-ONLY cs_test Checkout finalizer compatibility');
+const verifyIsolatedStripe=`DO $check$
+DECLARE definition text;
+BEGIN
+ SELECT pg_get_functiondef('public.complete_texasdefined_network_checkout(uuid,uuid,uuid,text,text,bigint)'::regprocedure) INTO definition;
+ IF position('cs_test_' in definition)=0 OR position('cs_live_' in definition)>0
+ THEN RAISE EXCEPTION 'Isolated test-mode finalizer is not constrained to cs_test IDs'; END IF;
+ IF has_function_privilege('anon','public.complete_texasdefined_network_checkout(uuid,uuid,uuid,text,text,bigint)','EXECUTE')
+    OR has_function_privilege('authenticated','public.complete_texasdefined_network_checkout(uuid,uuid,uuid,text,text,bigint)','EXECUTE')
+ THEN RAISE EXCEPTION 'Checkout finalizer leaked to unprivileged identity'; END IF;
+ RAISE NOTICE 'LOCAL STRIPE TEST-MODE FINALIZER PASS: only disposable cs_test IDs permitted';
+END $check$;`;
+execSql(['-c',verifyIsolatedStripe],'local-only Stripe test-mode finalizer privilege and identifier verification');
