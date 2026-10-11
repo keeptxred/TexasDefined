@@ -79,6 +79,9 @@ const smokeTargets = [
   { path: '/guides/citypass-texas', requiredText: 'Is CityPASS® worth it in Texas?', label: 'guide child route body' },
   { path: '/explore/landscapes/hill-country', requiredText: 'The Hill Country is where the Edwards Plateau breaks into rounded hills', label: 'landscape child route body' },
   { path: '/sports/friday-night-lights', requiredText: 'Friday Night Lights, Defined', label: 'sports child route body' },
+  { path: '/sports/softball', requiredText: 'Women’s softball in Texas, defined', label: 'Texas women’s softball authority SSR' },
+  { path: '/sports/softball/paris-junior-college', requiredText: 'Paris Junior College Lady Dragons softball', label: 'PJC softball team authority SSR' },
+  { path: '/sports/softball/texas-volts', requiredText: 'Texas Volts: professional softball comes home to Round Rock', label: 'professional softball team authority SSR' },
   { path: '/texas-data/county-growth', requiredText: 'Texas county population growth, 2020–2025', label: 'Texas Data child route body' },
 ];
 

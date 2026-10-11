@@ -436,6 +436,7 @@ import { Route as AdminEntityImportReviewRouteImport } from './routes/admin.enti
 import { Route as AdminEditorialOutreachRouteImport } from './routes/admin.editorial-outreach'
 import { Route as KindSlugRouteImport } from './routes/$kind.$slug'
 import { Route as TexasDataResearchTexasHomeownersPremiumsVsCoverageRouteImport } from './routes/texas-data.research.texas-homeowners-premiums-vs-coverage'
+import { Route as SportsSoftballChar123TeamChar125RouteImport } from './routes/sports.softball.{-$team}'
 import { Route as ShopProductProductIdRouteImport } from './routes/shop.product.$productId'
 import { Route as PropertyTaxTaxingUnitUnitRouteImport } from './routes/property-tax.taxing-unit.$unit'
 import { Route as PropertyTaxCountyCountyRouteImport } from './routes/property-tax.county.$county'
@@ -3185,6 +3186,14 @@ const TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute =
       (d) => d.Route,
     ),
   )
+const SportsSoftballChar123TeamChar125Route =
+  SportsSoftballChar123TeamChar125RouteImport.update({
+    id: '/softball/{-$team}',
+    path: '/softball/{-$team}',
+    getParentRoute: () => SportsRoute,
+  } as any).lazy(() =>
+    import('./routes/sports.softball.{-$team}.lazy').then((d) => d.Route),
+  )
 const ShopProductProductIdRoute = ShopProductProductIdRouteImport.update({
   id: '/product/$productId',
   path: '/product/$productId',
@@ -4071,6 +4080,7 @@ export interface FileRoutesByFullPath {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
@@ -4562,6 +4572,7 @@ export interface FileRoutesByTo {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
@@ -5057,6 +5068,7 @@ export interface FileRoutesById {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
@@ -5553,6 +5565,7 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/sports/softball/{-$team}'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
@@ -6044,6 +6057,7 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/sports/softball/{-$team}'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
@@ -6538,6 +6552,7 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/sports/softball/{-$team}'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
@@ -9931,6 +9946,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRouteImport
       parentRoute: typeof TexasDataResearchRoute
     }
+    '/sports/softball/{-$team}': {
+      id: '/sports/softball/{-$team}'
+      path: '/softball/{-$team}'
+      fullPath: '/sports/softball/{-$team}'
+      preLoaderRoute: typeof SportsSoftballChar123TeamChar125RouteImport
+      parentRoute: typeof SportsRoute
+    }
     '/shop/product/$productId': {
       id: '/shop/product/$productId'
       path: '/product/$productId'
@@ -10678,10 +10700,12 @@ const ShopRouteWithChildren = ShopRoute._addFileChildren(ShopRouteChildren)
 
 interface SportsRouteChildren {
   SportsFridayNightLightsRoute: typeof SportsFridayNightLightsRoute
+  SportsSoftballChar123TeamChar125Route: typeof SportsSoftballChar123TeamChar125Route
 }
 
 const SportsRouteChildren: SportsRouteChildren = {
   SportsFridayNightLightsRoute: SportsFridayNightLightsRoute,
+  SportsSoftballChar123TeamChar125Route: SportsSoftballChar123TeamChar125Route,
 }
 
 const SportsRouteWithChildren =

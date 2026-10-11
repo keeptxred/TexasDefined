@@ -1,0 +1,20 @@
+import { createLazyFileRoute } from '@tanstack/react-router';
+import { lazy, Suspense } from 'react';
+
+const SoftballHubPage = lazy(() => import('@/components/softball/SoftballHubPage').then((m) => ({ default: m.SoftballHubPage })));
+const ParisJuniorCollegePage = lazy(() => import('@/components/softball/ParisJuniorCollegePage').then((m) => ({ default: m.ParisJuniorCollegePage })));
+const TexasVoltsPage = lazy(() => import('@/components/softball/TexasVoltsPage').then((m) => ({ default: m.TexasVoltsPage })));
+
+export const Route = createLazyFileRoute('/sports/softball/{-$team}')({ component: SoftballAuthorityPage });
+
+function SoftballAuthorityPage() {
+  const { team } = Route.useParams();
+  const content = team === 'paris-junior-college'
+    ? <ParisJuniorCollegePage />
+    : team === 'texas-volts'
+      ? <TexasVoltsPage />
+      : <SoftballHubPage />;
+  return <Suspense fallback={<div role="status" className="mx-auto max-w-6xl px-6 py-24 text-sm text-muted-foreground">Loading softball research…</div>}>
+    {content}
+  </Suspense>;
+}
