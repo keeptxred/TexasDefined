@@ -229,3 +229,40 @@ For Houston, Fort Worth, and Austin, full-service/full-purpose polygons alone ca
 
 [GIS run #38114748322](https://github.com/keeptxred/TexasDefined/actions/runs/38114748322) **SUCCESS**, [artifact #11692568370](https://github.com/keeptxred/TexasDefined/actions/runs/38114748322/artifacts/11692568370) independently downloaded and parsed: actual municipal full-purpose overlays Travis 706.22480 km², Williamson 35.49048 km², Hays 14.34736 km², exactly as published. Separate limited-purpose Hays 1.11587, Travis 92.64205, Williamson 18.90183 km², and Bastrop 0.00554 km² edge sliver are explicitly **NOT merged into full-purpose counties**. The revised legal/jurisdiction GIS status of Austin is **PARTIAL**, not UNVERIFIED, and is **not PASS** until boundary vintage, county sliver and limited-purpose annexation meanings are manually reconciled. Detailed source and query evidence in [first municipal spatial results](FIRST_MUNICIPAL_COUNTY_SPATIAL_RESULTS_2026-10-10.md). San Antonio current city-owned polygon remains UNVERIFIED; ten other county candidate lists now agree with the existing published list.
 
+
+## October 11 independent full-page screenshots — lazy-image evidence gap
+
+The retained [full-page Chrome artifact #11692037648](https://github.com/keeptxred/TexasDefined/actions/runs/38112038659/artifacts/11692037648) was manually re-opened and **all eleven entire desktop captures** inspected side by side, not merely their top folds. Visible sections, content grids, navigation, concluding FAQ and footer are consistently arranged with no obvious document-wide horizontal cropping or large text overlay. However, several body hero-photo areas display **large blank muted rectangles** in the retained full-page captures: notably Houston, Fort Worth, and Austin, while other cities' photos render normally.
+
+**Interpretation: screenshot-methodology defect, NOT YET a reproduced user-facing image failure.** The existing Chrome runner sampled `document.images` and checked only images already `complete`. Browser lazy images not yet scrolled into view could be omitted from its broken-image count, and Playwright `fullPage: true` screenshots do not necessarily trigger their lazy loading. The successful `images: PASS` was therefore **insufficient evidence that every below-fold image loaded**.
+
+A focused QA runner change now forces every `main img` through the normal browser loader for desktop before its retained full-page screenshot. It records `src`, `alt`, `naturalWidth`, complete/timeout/failure status for each photo and **fails `fullPageImageReadiness`** on actual missing/broken images, rather than silently accepting empty source geometry. Original image URLs are not rewritten, attribution is preserved, and no speculative content fixes are made without a reproduced load defect. **This test change is pending protected PR + live run**; only post-deployment artifacts can establish whether the blank rectangles were capture timing or remote Wikimedia HTTP errors.
+
+Do not award complete full-page visual or all-image PASS until the new image readiness results are actually inspected and any confirmed problem is fixed.
+
+## October 11 — San Antonio provisional 2026 boundary overlay executed, all eleven geographic candidates compared
+
+[GitHub Actions municipal GIS #38139303238](https://github.com/keeptxred/TexasDefined/actions/runs/38139303238) **SUCCESS** on merged commit `8a213e2919c83c14b25ed4d6bdd3636b1ac8b365`; [artifact #11701994875](https://github.com/keeptxred/TexasDefined/actions/runs/38139303238/artifacts/11701994875) independently downloaded and parsed, including the separate `san-antonio-provisional-2026.json`.
+
+The COSA City of San Antonio–attributed polygon [FeatureServer/1](https://services.arcgis.com/g1fRTDLeMgspWrYp/arcgis/rest/services/COSABoundary/FeatureServer/1) returned **1 multi-polygon feature**, equal-area area **1,397.37638 km²**, source metadata `editingInfo.dataLastEditDate=1791172943843` (October 5, 2026 at 04:02:23 UTC), and recorded SHA-256 feature/source digests. Its Census BAS 2026 polygon intersection candidates: **Bexar 1,395.91942 km², Medina 1.43018 km², Comal 0.02679 km²**, matching the published Bexar/Comal/Medina list. Wilson, Kendall, Guadalupe, Bandera, Atascosa had zero measured overlap. **Comal's very small ~0.02679 km² intersection is high-priority sliver/annexation manual-review evidence; the researcher’s 0.01 km² category is not a legal boundary threshold.**
+
+**Status update:** GIS *geometric county candidate comparisons complete 11/11*, with 11/11 matching existing page county lists at the research method's threshold; **full GIS/legal acceptance remains PARTIAL** for all 11. San Antonio’s source is explicitly tagged `PROVISIONAL_UNVERIFIED_SOURCE` until its ArcGIS publishing organization and October 2026 data vintage are matched directly to the City [official GIS open-data catalog](https://www.sanantonio.gov/GIS/GISData) and controlling annexation ordinances. Separate ETJ/limited-purpose overlaps and other cities' small boundary slivers remain subject to independent review; no address-level residency, tax or services conclusions follow from these results. No old facts' review dates have been silently reset.
+
+
+## October 11 — independently inspected full live SEO schema/sitemap results
+
+[Exact production QA run #38139303220](https://github.com/keeptxred/TexasDefined/actions/runs/38139303220) **SUCCESS**, on commit `8a213e2919c83c14b25ed4d6bdd3636b1ac8b365`. Its [JSON artifact #11702254597](https://github.com/keeptxred/TexasDefined/actions/runs/38139303220/artifacts/11702254597) was downloaded, parsed and **each of the eleven results individually inspected**.
+
+| SEO category | Independently observed result |
+|---|---|
+| Live production city route HTTP 200 | **11/11** |
+| Canonical equal `https://texasdefined.com/city/{slug}`, H1 and indexable robots | **11/11** |
+| Valid parseable `City` schema node with exact city name and canonical URL | **11/11** |
+| Valid `BreadcrumbList` with third item URL equal canonical | **11/11** |
+| Exact city URL `<loc>` in production `/sitemap.xml` | **11/11** |
+| Sitemap status and size | **HTTP 200**, `application/xml; charset=utf-8`, **3,118 `<loc>` entries**, **357,936 bytes**, no fallback header |
+| Diagnostics unresolved by this automated check | **0** (`needsReview: []`) |
+
+All eleven city **SEO canonical/structured-data/primary sitemap categories may be marked PASS for this exact released commit**. This proves neither actual Google/Bing indexing nor Search Console impressions, rich-results appearance, nor accuracy of all source-fact claims. The City schema `sameAs` entries point to each city government website; future legal ownership and manual factual changes must still be reviewed separately. Site-wide latest main can advance concurrently; exact commit is retained here and rechecks are warranted after future material route/schema changes.
+
+The overall eleven-city status remains **PARTIAL / 0 FULLY CERTIFIED** because legal municipal GIS, exhaustive current visitor/school/tax/utility/transit facts, 37 original ambiguous external destinations, full manual screen-reader/touch/keyboard and below-fold image readiness are not all accepted. Do not reset historic factual review dates.
