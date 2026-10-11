@@ -337,3 +337,77 @@ export async function createTexasDefinedDraftInvoice(input: {
     reused: false,
   };
 }
+
+
+export async function readTexasDefinedCurrentInvoice(invoiceId:string) {
+  if (!/^in_[A-Za-z0-9_]+$/.test(invoiceId)) throw new Error('Stripe invoice verification unavailable.');
+  const runtime=getNetworkStripeRuntime();
+  if(!runtime)throw new Error('Stripe invoice verification unavailable.');
+  const invoice=await stripeRequest('/invoices/'+encodeURIComponent(invoiceId));
+  if (
+    invoice.object!=='invoice' || invoice.id!==invoiceId || invoice.livemode!==runtime.livemode ||
+    typeof invoice.customer!=='string' || !/^cus_[A-Za-z0-9_]+$/.test(invoice.customer) ||
+    invoice.metadata?.project!=='TexasDefined' ||
+    typeof invoice.metadata?.billing_account_id!=='string' || !uuidPattern.test(invoice.metadata.billing_account_id) ||
+    typeof invoice.metadata?.local_invoice_id!=='string' || !uuidPattern.test(invoice.metadata.local_invoice_id) ||
+    !['draft','open','paid','void','uncollectible'].includes(String(invoice.status))
+  ) throw new Error('Stripe invoice verification unavailable.');
+  for(const amount of [invoice.amount_due,invoice.amount_paid,invoice.amount_remaining]){
+    if(typeof amount!=='number'||!Number.isSafeInteger(amount)||amount<0)
+      throw new Error('Stripe invoice verification unavailable.');
+  }
+  return invoice as Record<string,any>;
+}
+
+export async function sendTexasDefinedInvoice(localInvoiceId:string) {
+  if(process.env.TEXASDEFINED_INVOICE_SENDING_ENABLED!=='true')
+    throw new Error('TexasDefined invoice sending is not activated.');
+  if(!uuidPattern.test(localInvoiceId))throw new Error('Invoice identity is invalid.');
+  const client=supabaseAdmin as any;
+  const {data:local,error}=await client
+    .from('texasdefined_billing_invoices')
+    .select('id,stripe_invoice_id,status,billing_account_id')
+    .eq('id',localInvoiceId).maybeSingle();
+  if(error||!local?.id||typeof local.stripe_invoice_id!=='string')
+    throw new Error('Draft invoice was not found.');
+  if(local.status!=='draft')throw new Error('Only a draft invoice can be sent.');
+
+  const finalized=await stripeRequest('/invoices/'+encodeURIComponent(local.stripe_invoice_id)+'/finalize',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/x-www-form-urlencoded',
+      'Idempotency-Key':'texasdefined-finalize-invoice-'+localInvoiceId,
+    },
+    body:new URLSearchParams({auto_advance:'false'}),
+  });
+  if(finalized.object!=='invoice'||finalized.id!==local.stripe_invoice_id||finalized.status!=='open')
+    throw new Error('Stripe invoice could not be finalized.');
+
+  const sent=await stripeRequest('/invoices/'+encodeURIComponent(local.stripe_invoice_id)+'/send',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/x-www-form-urlencoded',
+      'Idempotency-Key':'texasdefined-send-invoice-'+localInvoiceId,
+    },
+    body:new URLSearchParams(),
+  });
+  if(sent.object!=='invoice'||sent.id!==local.stripe_invoice_id||sent.status!=='open')
+    throw new Error('Stripe invoice could not be sent.');
+
+  const {error:updateError}=await client.from('texasdefined_billing_invoices').update({
+    status:'open',
+    invoice_number:sent.number||null,
+    amount_due_cents:Number(sent.amount_due||0),
+    amount_paid_cents:Number(sent.amount_paid||0),
+    amount_remaining_cents:Number(sent.amount_remaining||0),
+    due_at:typeof sent.due_date==='number'?new Date(sent.due_date*1000).toISOString():null,
+    updated_at:new Date().toISOString(),
+  }).eq('id',localInvoiceId);
+  if(updateError)throw new Error('Sent invoice state could not be saved locally.');
+  return {
+    localInvoiceId,
+    stripeInvoiceId:String(sent.id),
+    status:'open',
+    hostedInvoiceUrl:typeof sent.hosted_invoice_url==='string'?sent.hosted_invoice_url:null,
+  };
+}
