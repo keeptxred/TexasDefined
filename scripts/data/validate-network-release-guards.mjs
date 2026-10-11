@@ -372,8 +372,8 @@ check('database hides listings on rejected status or Plus entitlement downgrade'
 
 const mailTemplates=source('src/data/network-notification-templates.server.ts');
 const outboxMigration=source('supabase/migrations/20261010213947_network_private_notification_outbox.sql');
-check('Network email remains disabled without approved Microsoft 365 sender',
- mailTemplates.includes('NETWORK_EMAIL_DELIVERY_ENABLED = false')
+check('Network email is server-only opt-in and defaults off without credentials',
+ mailTemplates.includes("NETWORK_EMAIL_DELIVERY_ENABLED = process.env.NETWORK_EMAIL_DELIVERY_ENABLED === 'true'")
  &&mailTemplates.includes("NETWORK_NOTIFICATION_SENDER = 'admin@texasdefined.com'"));
 check('Network email outbox remains service-only and idempotent',
  outboxMigration.includes('ENABLE ROW LEVEL SECURITY')
