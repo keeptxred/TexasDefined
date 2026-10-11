@@ -30,7 +30,7 @@ export function validateNetworkSentItemsNextLink(raw:unknown):string {
       (url.searchParams.has('$skiptoken')&&
        (url.searchParams.get('$skiptoken')||'').length>0) ||
       (url.searchParams.has('$skip')&&
-       /^\\d+$/.test(url.searchParams.get('$skip')||'')&&
+       /^\d+$/.test(url.searchParams.get('$skip')||'')&&
        Number(url.searchParams.get('$skip'))>0&&
        Number(url.searchParams.get('$skip'))<=10_000_000)
     ))
