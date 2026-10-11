@@ -80,3 +80,11 @@ test('mail safety in full staging always points send, provider proof and operato
  assert.match(transport,/NETWORK_ISOLATED_STAGING==='true'/);
  assert.match(transport,/plan\.recipient!==NETWORK_NOTIFICATION_SENDER/);
 });
+
+test('the single launch gate includes independent delivery of every publicly advertised plan benefit',()=>{
+ const gate=src('src/data/network-atomic-launch-readiness.server.ts');
+ const marketing=src('src/routes/network.join.lazy.tsx');
+ assert.match(gate,/planBenefitsDelivered/);
+ assert.match(marketing,/Basic listing performance statistics/);
+ assert.match(marketing,/Expanded performance insights/);
+});
