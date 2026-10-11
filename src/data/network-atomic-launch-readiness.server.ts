@@ -125,6 +125,26 @@ export function networkIsolatedStagingArmed(
     typeof environment.NETWORK_ADMIN_ACCESS_KEY==='string' &&
     environment.NETWORK_ADMIN_ACCESS_KEY.length>=32;
 }
+/**
+ * Protect against a staging-configured Worker being accidentally attached to
+ * the canonical production hostname or to an arbitrary host. Flag values and
+ * a claimed staging origin are not sufficient on their own.
+ */
+export function networkRequestHostAllowed(
+ environment:Record<string,string|undefined>,requestUrl:string,
+):boolean{
+ let url:URL;
+ try{url=new URL(requestUrl);}catch{return false;}
+ if(url.protocol!=='https:' && url.hostname!=='127.0.0.1' && url.hostname!=='localhost')
+  return false;
+ if(environment.NETWORK_ISOLATED_STAGING==='true'){
+  if(!networkIsolatedStagingArmed(environment))return false;
+  let stage:URL;
+  try{stage=new URL(environment.NETWORK_STAGE_ORIGIN||'');}catch{return false;}
+  return url.origin===stage.origin;
+ }
+ return url.protocol==='https:' && url.hostname==='texasdefined.com';
+}
 export function networkCustomerLaunchArmed(
  environment:Record<string,string|undefined>,
 ):boolean{
