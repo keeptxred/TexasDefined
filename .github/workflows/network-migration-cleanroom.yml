@@ -10,6 +10,7 @@ on:
       - 'scripts/data/network-migration-owner-rls-fixture.sql'
       - 'scripts/data/network-migration-stripe-reconciliation-fixture.sql'
       - 'scripts/data/network-migration-stripe-committed-deliveries-fixture.sql'
+      - 'scripts/data/verify-network-concurrent-media-quota.mjs'
       - 'scripts/data/verify-network-migration-replay.mjs'
       - '.github/workflows/network-migration-cleanroom.yml'
       - 'docs/network/IMPLEMENTATION_STATUS.md'
