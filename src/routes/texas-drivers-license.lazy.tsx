@@ -41,6 +41,43 @@ function TexasDriversLicensePage() {
           <Link to="/moving-to-texas" className="border border-border px-4 py-2 font-semibold hover:bg-muted/30">Moving to Texas</Link>
         </div>
       </section>
+      <section id="cdl-classes-endorsements" aria-labelledby="cdl-classes-heading" className="mx-auto max-w-6xl border-t border-border px-4 py-10 sm:px-6 lg:px-8">
+        <p className="eyebrow text-primary">Commercial driving</p>
+        <h2 id="cdl-classes-heading" className="mt-2 font-display text-3xl">Texas CDL classes and endorsements explained</h2>
+        <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">CDL class depends on vehicle weight ratings and configuration, while endorsements depend on the cargo or passenger operation. A commercial learner permit, training, medical qualification, knowledge tests and skills testing may also be required.</p>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <article className="border border-border p-5"><h3 className="font-display text-xl">Class A</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Generally applies to qualifying combinations with a combined rating of 26,001 pounds or more when the towed unit is rated above 10,000 pounds. Check the federal definition and any applicable exceptions.</p></article>
+          <article className="border border-border p-5"><h3 className="font-display text-xl">Class B</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Generally applies to a single vehicle rated at least 26,001 pounds, including permitted towing configurations within the Class B definition.</p></article>
+          <article className="border border-border p-5"><h3 className="font-display text-xl">Class C</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Can apply to vehicles outside Class A or B that transport a qualifying number of passengers or require hazardous-material placards.</p></article>
+        </div>
+        <h3 className="mt-8 font-display text-2xl">Common CDL endorsements and restrictions</h3>
+        <div className="mt-4 overflow-x-auto">
+          <table className="w-full border-collapse text-left text-sm">
+            <thead><tr className="border-b border-border"><th scope="col" className="py-3 pr-4">Code</th><th scope="col" className="py-3">Purpose</th></tr></thead>
+            <tbody>
+              <tr className="border-b border-border"><th scope="row" className="py-3 pr-4">H</th><td className="py-3">Hazardous materials; separate federal security screening applies.</td></tr>
+              <tr className="border-b border-border"><th scope="row" className="py-3 pr-4">N</th><td className="py-3">Tank vehicles.</td></tr>
+              <tr className="border-b border-border"><th scope="row" className="py-3 pr-4">P</th><td className="py-3">Passenger transport.</td></tr>
+              <tr className="border-b border-border"><th scope="row" className="py-3 pr-4">S</th><td className="py-3">School bus; generally requires passenger qualifications as well.</td></tr>
+              <tr className="border-b border-border"><th scope="row" className="py-3 pr-4">T</th><td className="py-3">Double/triple trailers.</td></tr>
+              <tr><th scope="row" className="py-3 pr-4">X</th><td className="py-3">Combination tank and hazardous-material endorsements.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3 className="mt-8 font-display text-2xl">Before applying</h3>
+        <ol className="mt-4 max-w-3xl list-decimal space-y-3 pl-5 leading-7">
+          <li>Determine the required CDL class and endorsements from the actual vehicle, trailer, cargo and passenger use—not just the vehicle's appearance.</li>
+          <li>Review Texas DPS commercial learner permit rules and whether federal entry-level driver training (ELDT) applies to your first Class A or B license, upgrade or certain first endorsements.</li>
+          <li>Check the applicable medical certification and self-certification category, plus any testing, background-check and residency requirements.</li>
+          <li>Complete the applicable knowledge, training and skills requirements before operating beyond the privileges of your credential.</li>
+        </ol>
+        <p className="mt-5 text-sm leading-6 text-muted-foreground">Some agricultural, emergency, military or recreational operations may qualify for exceptions. CDL requirements and medical standards are fact-specific; confirm with DPS and FMCSA before relying on an exemption.</p>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <a href="https://www.dps.texas.gov/section/driver-license/commercial-driver-license" target="_blank" rel="noopener noreferrer" className="border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">Texas DPS CDL requirements</a>
+          <a href="https://www.fmcsa.dot.gov/registration/commercial-drivers-license" target="_blank" rel="noopener noreferrer" className="border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">FMCSA CDL overview</a>
+          <a href="https://tpr.fmcsa.dot.gov/" target="_blank" rel="noopener noreferrer" className="border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">Federal ELDT training registry</a>
+        </div>
+      </section>
     </>
   );
 }
