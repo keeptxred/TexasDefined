@@ -112,8 +112,8 @@ catch(error){console.error(String(error?.stdout||''));console.error(String(error
 console.log('REPLAY FEATURED CONCURRENCY RESULT PASS: two independent database sessions enforce 24-image quota');
 // Two actual concurrent PostgreSQL sessions exercise the quota advisory lock.
 // This commits ONLY to the same disposable localhost runner database.
-const concurrentQuota='scripts/data/verify-network-concurrent-media-quota.mjs';
-if(!existsSync(concurrentQuota))throw new Error('Missing isolated concurrent media quota fixture');
-execFileSync('node',[concurrentQuota],{stdio:'inherit'});
+const simultaneousQuota='scripts/data/verify-network-concurrent-media-quota.mjs';
+if(!existsSync(simultaneousQuota))throw new Error('Missing isolated concurrent media quota fixture');
+execFileSync('node',[simultaneousQuota],{stdio:'inherit',timeout:30000});
 console.log('REPLAY MEDIA CONCURRENCY RESULT PASS: one winner and one RLS rejection at 24 drafts');
 
