@@ -91,6 +91,32 @@ for (const p of pilot.pilotSchools) {
   if (!v.physicalAddressVerified) assert.ok(!v.streetAddress,
     p.name+': do not fill softball venue street address from district or campus mailing address');
 }
+// Current school website roles are meaningful research, but no school has yet
+// separately issued a verified Spring 2027 roster/coaching appointment list.
+for(const p of pilot.pilotSchools) {
+  const staff=p.coachingResearch;
+  assert.ok(staff && staff.schoolWebsiteAsOf===pilot.lastReviewed,
+    p.name+': staff research must be current and dated');
+  assert.ok(p.sources.some(source=>source.id===staff.schoolStaffPageSourceId&&source.kind==='official-school'),
+    p.name+': present-tense staff evidence requires original school-owned source');
+  assert.equal(staff.explicitSpring2027SeasonStaffPublished,false,
+    p.name+': do not auto-promote dated historic coaches to Spring 2027 season appointments');
+  assert.ok(staff.notes.length>60,p.name+': staff and season limitations must be written out');
+}
+assert.equal(byName('Shiner').coachingResearch.listedHeadCoach,'Jason Keller');
+assert.equal(byName('Pearland').coachingResearch.listedHeadCoach,'Michele Hyden');
+assert.equal(byName('Katy').coachingResearch.listedHeadCoach,'Megan Vanetta');
+assert.equal(byName('Ganado').coachingResearch.listedHeadCoach,null,
+  'Official Ganado faculty membership cannot prove 2027 softball coaching');
+assert.equal(byName('Amarillo Highland Park').coachingResearch.listedHeadCoach,null,
+  'Do not use unverified third-party coach initial or Dallas staff');
+verifiedFact('Katy','Megan Vanetta','school-current-athletics-coaches');
+verifiedFact('Pearland','Kaitlin Owens','school-current-staff');
+verifiedFact('Shiner','Anastacia Rehak','school-current-softball-staff');
+verifiedFact('Ganado','Joshua Ervin','ganado-current-faculty');
+verifiedFact('Amarillo Highland Park',"'two newest programs,' softball and baseball",'amarillo-official-feed');
+verifiedFact('Ganado','501 West Devers','ganado-campus-address');
+
 assert.equal(byName('Ganado').venueResearch.namedField,'Ganado Softball Field');
 assert.equal(byName('Katy').venueResearch.namedField,'KHS-Softball Field');
 assert.equal(byName('Pearland').venueResearch.nameVerified,false,'Pearland high school does not imply named varsity diamond');
