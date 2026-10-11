@@ -19,11 +19,12 @@ const feedRoutePaths = [
 // headroom over that observed release, with the prior baseline retained.
 const STABLE_MAIN_BASELINE_BYTES = 1_826_315;
 const MAX_MAIN_BYTES = 1_830_500;
-// The previous measured stylesheet was 140,115 bytes. The independently
-// sourced venue guide introduces accessible layout utilities: current CI output
-// is 141.06 kB. Retain a hard stylesheet cap below 1% over that baseline
-// (141,516 bytes), with less than 200 bytes of headroom for the measured build.
-const MAX_CSS_BYTES = 141_250;
+// The prior 140,115-byte CSS baseline predates sourced venue/softball pages.
+// Measured release CSS with the new accessible softball modules: 141,350 bytes
+// (2026-10-11); reuse existing spacing utilities to avoid redundant rules.
+// A 141,450-byte hard cap retains <0.1% headroom above that measured build,
+// and stays below the earlier <1% ceiling of 141,516 bytes.
+const MAX_CSS_BYTES = 141_450;
 
 function reportCiError(title, message) {
   if (process.env.GITHUB_ACTIONS === 'true') {
