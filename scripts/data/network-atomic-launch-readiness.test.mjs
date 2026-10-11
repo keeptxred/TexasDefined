@@ -8,7 +8,7 @@ uuid2='22222222-2222-4222-8222-222222222222';
 function fixture(){
  const env={
   SUPABASE_URL:'https://ftkznprjljkhymknvhye.supabase.co',
-  SUPABASE_SERVICE_ROLE_KEY:'test-only-placeholder-do-not-use-as-a-token-'+ 'x'.repeat(100),
+  SUPABASE_SERVICE_ROLE_KEY:'eyJ'+ 'x'.repeat(30)+'.eyJ'+ 'y'.repeat(30)+'.syntheticSignature'+ 'z'.repeat(45),
   NETWORK_ADMIN_ACCESS_KEY:'admin-key-test-placeholder-'+ 'x'.repeat(40),
   STRIPE_SECRET_KEY:'sk_live_NOTREAL_'+'x'.repeat(80),
   STRIPE_WEBHOOK_SECRET:'whsec_NOTREAL_'+'x'.repeat(80),
