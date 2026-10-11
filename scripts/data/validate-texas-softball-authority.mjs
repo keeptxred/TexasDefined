@@ -83,7 +83,7 @@ for (const school of alignment.schools) {
   assert.ok(Number.isInteger(school.district) && school.district>=1 && school.district<=32);
   assert.equal(school.region, Math.floor((school.district - 1)/8)+1, 'UIL district-to-region calculation failed');
   assert.ok(school.name.length >= 3 && !school.name.startsWith('District '));
-  assert.ok(!/\\s{2,}/.test(school.name), 'Bad PDF line-wrap artifact: '+school.name);
+  assert.ok(!/\s{2,}/.test(school.name), 'Bad PDF line-wrap artifact: '+school.name);
   const key=school.conference+'|'+school.name.toLowerCase();
   assert.ok(!unique.has(key), 'Duplicate listed school within conference: '+key);
   unique.add(key);
@@ -95,7 +95,7 @@ for (const source of alignment.sources) {
   assert.equal(source.districtCount, 32);
   assert.equal(alignment.schools.filter(s => s.conference===source.conference).length, source.schoolCount);
 }
-assert.equal(csv.split(/\\r?\\n/).length, alignment.schools.length+1, 'CSV must have exactly one header plus all 1,192 rows');
+assert.equal(csv.split(/\r?\n/).length, alignment.schools.length+1, 'CSV must have exactly one header plus all 1,192 rows');
 assert.ok(csv.startsWith('name,conference,district,region,sourceUrl'), 'Export must retain primary-source URLs and grouping keys');
 console.log('PASS: 2026–27 UIL softball directory, all 1,192 source-linked school listings across 160 sport-specific districts, filters and CSV');
 console.log('PASS: scalable optional route, four source-backed softball pages, official 2026 UIL champions and SEO safeguards');
