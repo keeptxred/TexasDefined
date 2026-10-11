@@ -3,7 +3,7 @@
   "lastReviewed": "2026-10-11",
   "season": "2026-27",
   "dataPolicy": "Verified 2026–27 UIL softball district identities and clearly season-labelled 2025–26 historical team evidence. Research-only. No individual pages auto-published or approved by this file.",
-  "method": "Exact match school name+conference+district+region to official UIL softball PDF. Primary school/UIL records for historical facts. Unresolved areas stay in gaps and must be closed for complete-first-publication acceptance. Current staff cannot be inferred from prior championship rosters. Expanded with primary-source historical UIL finals, official school schedule/current-season caveats, school staff spelling corroboration and known stale postseason notices on October 11, 2026. Every historical claim remains season-labelled and neither roster reprints nor inferred playing-field addresses are approved. October 11 independent primary-source award pass: 2026 UIL TGCA all-tournament groups for four champions, 2025 Shiner/Ganado honors, 2025 Katy district venue naming and official 2026 Ganado calendar venue naming. Venue recognition DOES NOT imply exact field parcel, admission, ADA, parking or current 2027 location. Third-party Amarillo team records explicitly not elevated to official school confirmations. October 11 coach role research: current school athletic websites identify named Shiner, Pearland and Katy softball head coaches as-of verification (not explicit Spring 2027 appointments), Ganado official faculty listings confirm James Harp employment but do not imply current role, and Amarillo school live feed confirms actual softball launch activity without reliable program foundation year. October 11 independent TEA/NCES physical campus crosswalk: Katy HS campus is in Fort Bend County (despite Katy ISD district association with Harris County), Shiner HS is a combined grades 7–12 campus and TEA vs NCES student counts are not identical, and Ganado, Pearland, Amarillo Highland Park each have exact state campus IDs and dated non-UIL enrollments. No student private data collected. Substantive October 11 Amarillo-specific original reportage pass identified contemporaneous May 18, 2024 construction/coach interviews, $6m anticipated fields portion of a $130m bond plan, inaugural head coach Eliza Martinez, historical 2024-25 assistant Mary Lieberknecht from third-party archived schedule and Spring 2025 real game fixture results. All year/venue claims retain evidence level; no implication 2027 coach or 2024 plan's as-built field details. October 11 separate Amarillo-specific May 17, 2024 KFDA/KCBD original news source confirmed historic planned softball complex south of existing football field; distinct hpisd.org Dallas 2024 bond and TDLR softball project are unrelated and excluded. Historical venue renaming found October 11: Katy ISD board video July 27 2026 item 9.11 and independent August 6 press document honoring former coach Kalum Haack by naming Katy High's softball field. Prior 2025 schedule's KHS-Softball Field label is pre-naming, not necessarily the current official visitor-facing name. This change was researched BEFORE first authority page publication.",
+  "method": "Exact match school name+conference+district+region to official UIL softball PDF. Primary school/UIL records for historical facts. Unresolved areas stay in gaps and must be closed for complete-first-publication acceptance. Current staff cannot be inferred from prior championship rosters. Expanded with primary-source historical UIL finals, official school schedule/current-season caveats, school staff spelling corroboration and known stale postseason notices on October 11, 2026. Every historical claim remains season-labelled and neither roster reprints nor inferred playing-field addresses are approved. October 11 independent primary-source award pass: 2026 UIL TGCA all-tournament groups for four champions, 2025 Shiner/Ganado honors, 2025 Katy district venue naming and official 2026 Ganado calendar venue naming. Venue recognition DOES NOT imply exact field parcel, admission, ADA, parking or current 2027 location. Third-party Amarillo team records explicitly not elevated to official school confirmations. October 11 coach role research: current school athletic websites identify named Shiner, Pearland and Katy softball head coaches as-of verification (not explicit Spring 2027 appointments), Ganado official faculty listings confirm James Harp employment but do not imply current role, and Amarillo school live feed confirms actual softball launch activity without reliable program foundation year. October 11 independent TEA/NCES physical campus crosswalk: Katy HS campus is in Fort Bend County (despite Katy ISD district association with Harris County), Shiner HS is a combined grades 7–12 campus and TEA vs NCES student counts are not identical, and Ganado, Pearland, Amarillo Highland Park each have exact state campus IDs and dated non-UIL enrollments. No student private data collected. Substantive October 11 Amarillo-specific original reportage pass identified contemporaneous May 18, 2024 construction/coach interviews, $6m anticipated fields portion of a $130m bond plan, inaugural head coach Eliza Martinez, historical 2024-25 assistant Mary Lieberknecht from third-party archived schedule and Spring 2025 real game fixture results. All year/venue claims retain evidence level; no implication 2027 coach or 2024 plan's as-built field details. October 11 separate Amarillo-specific May 17, 2024 KFDA/KCBD original news source confirmed historic planned softball complex south of existing football field; distinct hpisd.org Dallas 2024 bond and TDLR softball project are unrelated and excluded. Historical venue renaming found October 11: Katy ISD board video July 27 2026 item 9.11 and independent August 6 press document honoring former coach Kalum Haack by naming Katy High's softball field. Prior 2025 schedule's KHS-Softball Field label is pre-naming, not necessarily the current official visitor-facing name. This change was researched BEFORE first authority page publication. October 11 verified Kalum Haack college coaching history directly against University of Kansas Athletics published 1988–95 year-by-year coach/records. These are college facts for biography, not Katy high school state titles; omit Alabama 1997–98 specific counts pending media-guide visual verification.",
   "publicationAuthorization": false,
   "pilotSchools": [
     {
@@ -770,6 +770,13 @@
           "url": "https://www.katyisd.org/news-details/~board/news-headlines-katy-independent-school-district-100/post/champions-to-allstars-katy-isd-athletic-hall-of-honor-inducts-class-of-2025",
           "kind": "official-school",
           "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "kansas-haack-original-records",
+          "title": "University of Kansas athletics softball annual school history: coach Kalum Haack 1988–1995",
+          "url": "https://kuathletics.com/sports/2024/5/16/softball-archives",
+          "kind": "official-college-athletics",
+          "checkedAt": "2026-10-11"
         }
       ],
       "facts": [
@@ -895,6 +902,22 @@
           "sourceIds": [
             "katy-aug2026-field-name-report",
             "katy-athletic-hall-2025"
+          ]
+        },
+        {
+          "claim": "The University of Kansas official softball year-by-year archive independently confirms Kalum Haack was the Jayhawks' head coach every season from 1988 through 1995, including 45–10 in 1992, 31–15–1 in 1993 and 37–20 in 1994; this is documented college coaching history before his move to Alabama and his later 26-year Katy High dynasty, not a record of Katy High seasons.",
+          "season": "1991-95",
+          "sourceIds": [
+            "kansas-haack-original-records",
+            "katy-aug2026-field-name-report"
+          ]
+        },
+        {
+          "claim": "The Kansas official softball archives place Gayle Luedke, not Kalum Haack, as the 1996 Jayhawks head coach; therefore press language saying he coached Kansas '1988–1995' must not be extended into an unsupported Kansas 1996 season when mapping his move toward Alabama's inaugural varsity softball program.",
+          "season": "1995-96",
+          "sourceIds": [
+            "kansas-haack-original-records",
+            "katy-aug2026-field-name-report"
           ]
         }
       ],
