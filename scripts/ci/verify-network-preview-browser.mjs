@@ -59,7 +59,7 @@ try{
  const billingPreflight={route:'/api/public/network-billing',viewport:'HTTP-PREFLIGHT',status:'PASS',failures:[]};
  results.push(billingPreflight);
  try{
-  const preflight=await fetch(origin+'/api/public/network-billing',{signal:AbortSignal.timeout(15000)});
+  const preflight=await fetch(origin+'/api/public/network-billing',{headers:{connection:'close'},signal:AbortSignal.timeout(15000)});
   if(preflight.status!==401){
    const detail=(await preflight.text()).slice(0,400);
    throw Error('Anonymous billing GET preflight returned '+preflight.status+', expected 401; body='+JSON.stringify(detail));
@@ -136,7 +136,10 @@ try{
   try{
    const response=await fetch(origin+api.path,{
     method:api.method,
-    headers:{origin,'content-type':'application/json'},
+    // The local Miniflare dev proxy can drop a reused socket after a long Chrome
+    // sequence. Force a fresh HTTP/1.1 connection for each security probe.
+    // Status assertions remain strict: no retry is counted as a pass.
+    headers:{origin,'content-type':'application/json',connection:'close'},
     ...(api.body!==undefined?{body:api.body}:{}),
     signal:AbortSignal.timeout(15000)
    });
@@ -148,7 +151,7 @@ try{
     if(api.label==='anonymous membership list denied'){
      try{
       const followup=await fetch(origin+api.path,{
-       method:api.method,headers:{origin,'content-type':'application/json'},
+       method:api.method,headers:{origin,'content-type':'application/json',connection:'close'},
        signal:AbortSignal.timeout(15000)
       });
       repeat=String(followup.status);
