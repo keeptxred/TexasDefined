@@ -110,3 +110,28 @@ Business proposals remain **unapproved** in `docs/network/PROPOSED_BUSINESS_POLI
 - Separate explicit decisions for SQL promotion, staging account/file creation, Graph testing, Stripe live activation, public intake, profile publication, directory indexing, PR merge/deploy. No second human approver exists.
 
 **Current release verdict:** source CI can certify engineering only; hosted provider acceptance is pending; launch is **not** approved. Keep PR #4545 draft, Network intake/checkout/directory/publication/owner portal/notification/indexing OFF.
+
+
+## Isolated Stripe test-mode acceptance path (source prepared, NO provider testing yet)
+
+The source previously required live-only `sk_live_`, `cs_live_`, live-mode webhook events and a live-only historic checkout finalizer. This continuation adds an **opt-in, fail-closed test-mode runtime** with no defaults changed. The real production configuration remains `NETWORK_STRIPE_MODE=live` (or absent) and `NETWORK_CHECKOUT_ENABLED` absent/OFF.
+
+For a separately authorized disposable staging deployment, configure:
+- `NETWORK_STRIPE_MODE=test`
+- `NETWORK_STRIPE_TEST_MODE_ENABLED=true`
+- `NETWORK_ISOLATED_STAGING=true`
+- `NETWORK_CHECKOUT_ENABLED=true` **on the isolated staging deployment ONLY**
+- `STRIPE_SECRET_KEY=sk_test_...`, an actual **test** key; never copy a live secret.
+- `NETWORK_STRIPE_TEST_PRICE_ID=price_...`, a separately created/confirmed TEST price not equal to the live price.
+- `NETWORK_STRIPE_TEST_WEBHOOK_SECRET=whsec_...`, an isolated test webhook endpoint's signing secret; the live `STRIPE_WEBHOOK_SECRET` is not used in test mode.
+- `NETWORK_STAGE_ORIGIN=https://<isolated-nonproduction-host>`, with an exact host match for Checkout/billing/webhooks; the canonical production domain is rejected.
+- `SUPABASE_URL` pointing to a distinct authorized disposable database, NOT the shared `ftkznprjljkhymknvhye` project. The server rejects the known shared project URL in test mode. Verify the database instance independently; environment-string checks are defense in depth, not tenancy proof.
+
+No test key, test price, test webhook endpoint, staging host or isolated hosted Supabase tenancy has yet been supplied or provisioned. The connected Stripe account exposes only the live context; **do not run any mutating Stripe test with the live account**. The website's public production flag stays OFF, and no code change here creates accounts, subscriptions, invoices, messages or charges.
+
+**Database caveat:** The already-applied historical `complete_texasdefined_network_checkout` function accepts only `cs_live_` IDs. Do NOT edit that applied migration or loosen live database validation. The source now contains `scripts/data/network-stripe-local-finalizer-overlay.mjs`, an isolated `network_replay`-only generator that changes that historical function solely for disposable local `cs_test_` SQL verification; it never modifies hosted SQL and cannot be run against the shared project. Before true hosted staging provider acceptance, a separately reviewed, **staging-only** version of the finalizer must be installed on the isolated staging database. No such hosted deployment has been authorized.
+
+**Required genuine test provider acceptance:** test-mode Checkout session (including idempotent parallel retries), correct customer/application binding, true Stripe-signed test webhook, duplicate/out-of-order event recovery, active membership, renewal, failed payment, payment recovery, cancellation, proration/refund subject to owner policy, portal, timeout/retry reconciliation, and disabled-owner support. Capture provider event IDs and screenshots without real business PII. Mocked Stripe responses and synthetic database SQL are valuable regressions but do not satisfy any genuine Stripe provider test.
+
+**Read-only live Stripe check on October 11:** recurring Plus price `price_1UP28XLtRurj6GMNwFlYDW6N` is USD $19.99/month, currency USD, tax behavior exclusive, live price active; its parent product `prod_VPrsZ3mYEKz2da` **is inactive** with prelaunch metadata. Do not activate the live product or checkout until all acceptance and owner decisions pass.
+
