@@ -1,11 +1,6 @@
 name: Verify homeowners research Firefox WebKit accessibility
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - scripts/ci/verify-homeowners-research-browser.mjs
-      - .github/workflows/verify-homeowners-research-cross-browser.yml
   workflow_run:
     workflows:
       - Deploy TexasDefined production
