@@ -16,7 +16,7 @@ async function snapshot(page) {
   return page.evaluate(() => {
     const article = document.querySelector("article");
     const hero = article?.querySelector("section.relative img");
-    const sources = document.getElementById("newmans-castle-sources-heading")?.closest("section");
+    const sources = document.getElementById("authority-sources-heading")?.closest("section");
     const entities = [];
     const add = (obj) => {
       if (!obj || typeof obj !== "object") return;
@@ -96,7 +96,7 @@ try {
         assert.deepEqual(entry.accessibility.filter((v) => ["serious","critical"].includes(v.impact)), [], label + ": serious accessibility violations");
       }
       await page.screenshot({ path: out + "/" + label + "-first-fold.png" });
-      await page.locator("#newmans-castle-sources-heading").locator("xpath=..").screenshot({ path: out + "/" + label + "-citations.png" });
+      await page.locator("#authority-sources-heading").locator("xpath=..").screenshot({ path: out + "/" + label + "-citations.png" });
       entry.passed = true;
     } catch (error) {
       entry.passed = false;
