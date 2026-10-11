@@ -50,6 +50,7 @@ const prebuildChecks = [
   ['NETWORK/EMAIL', 'Verify Graph claim preflight, uncertain sends and no automatic redelivery', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-notification-claim-plan.test.mjs']],
   ['NETWORK/EMAIL', 'Verify bounded default-off Graph dispatch worker and manual recovery decisions', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-notification-dispatch-worker.test.mjs']],
   ['NETWORK/EMAIL', 'Verify hard-disabled mailbox-scoped Graph HTTP transport and envelope safety', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-notification-graph-transport.test.mjs']],
+  ['NETWORK/HOSTED-STAGING', 'Verify hosted staging read-only check refuses production and proves two-owner isolation', 'node', ['--test', 'scripts/data/network-hosted-stage-readonly.test.mjs']],
   ['NETWORK/INTAKE', 'Test hard actual-byte cap for streamed application uploads', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-intake-limits.test.mjs']],
   ['NETWORK/INTAKE', 'Verify interrupted media cleanup preserves uncertain application evidence and prevents orphaned private media', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-intake-cleanup.test.mjs']],
   ['NETWORK/MEDIA', 'Test immutable approved public-image copies and safe same-byte replay', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-published-media.test.mjs']],
