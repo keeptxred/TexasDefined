@@ -3,6 +3,7 @@ import { readFileSync, existsSync } from "node:fs";
 
 const read = (path) => readFileSync(path, "utf8");
 const route = read("src/routes/destination.$slug.tsx");
+const resolver = read("src/data/destination-query-runtime.ts");
 const article = read("src/components/editorial/DavisHillAuthority.tsx");
 const fallback = read("src/data/davis-hill-authority-fallback.ts");
 const curation = read("src/data/destination-curation-batch12.ts");
@@ -16,10 +17,10 @@ const lacks = (src, match, why) => assert.ok(!src.includes(match), why + ": forb
 
 assert.ok(!existsSync("src/routes/destination.davis-hill-state-park.tsx"), "Extra eager route reintroduced");
 assert.ok(!existsSync("src/routes/destination.davis-hill-state-park.lazy.tsx"), "Duplicate route reintroduced");
-has(route, 'params.slug === "davis-hill-state-park"', "static research fallback");
-has(route, 'import("@/data/davis-hill-authority-fallback")', "deterministic offline destination");
+has(resolver, 'slug === "davis-hill-state-park"', "deterministic destination resolver");
+has(resolver, 'import("./davis-hill-authority-fallback")', "local fallback without an eager bundle dependency");
 has(route, 'import("@/components/editorial/DavisHillAuthority")', "lazy researched article");
-has(route, 'robots: "index, follow, max-image-preview:large"', "indexable source-backed page");
+has(route, 'destination.slug === "davis-hill-state-park" ||', "indexable source-backed page despite trip-planner exclusion");
 has(route, 'canonicalLink(texasDefinedBrand, canonicalPath)', "proper canonical metadata");
 has(article, "export default function DavisHillAuthorityPage()", "authority component");
 has(article, "Public access: not open for ordinary visits", "prominent status");
