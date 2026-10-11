@@ -16,7 +16,7 @@ if(process.env.NETWORK_MIGRATION_REPLAY_ISOLATED!=='yes-ephemeral-local-only' ||
 
 const manifest=readFileSync('scripts/data/validate-network-migration-parity.mjs','utf8');
 const migrations=[...manifest.matchAll(/"(202610\d{8}_[^"]+\.sql)"/g)].map(match=>match[1]);
-if(migrations.length!==33 || new Set(migrations).size!==33 ||
+if(migrations.length!==34 || new Set(migrations).size!==33 ||
    migrations.some((name,index)=>index>0 && name<=migrations[index-1]))
  throw new Error('Applied Network manifest count, order or uniqueness changed: stop and reconcile');
 const execSql=(args,label)=>{
@@ -79,8 +79,8 @@ BEGIN
     (SELECT count(*) FROM public.texasdefined_network_email_outbox)<>0 OR
     (SELECT count(*) FROM storage.objects WHERE bucket_id LIKE 'texasdefined-network-%')<>0
  THEN RAISE EXCEPTION 'Clean-room schema unexpectedly contains Network customer data'; END IF;
- RAISE NOTICE 'REPLAY VERIFIED: 33 sequential migrations; 8 RLS tables; 4 buckets; privileged function access revoked; no records';
+ RAISE NOTICE 'REPLAY VERIFIED: 34 sequential migrations; 8 RLS tables; 4 buckets; privileged function access revoked; no records';
 END
 $verification$;`;
 execSql(['-c',checks],'final schema/RLS/bucket/RPC verification');
-console.log('REPLAY RESULT PASS: 33/33 migrations in isolated PostgreSQL; NOT end-to-end Supabase certification');
+console.log('REPLAY RESULT PASS: 34/34 migrations in isolated PostgreSQL; NOT end-to-end Supabase certification');
