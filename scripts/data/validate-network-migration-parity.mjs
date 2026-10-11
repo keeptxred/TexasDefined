@@ -1,5 +1,5 @@
 // Snapshot of all applied Network-related migrations read from supabase_migrations.schema_migrations
-// for shared project ftkznprjljkhymknvhye on October 10, 2026.
+// for shared project ftkznprjljkhymknvhye, updated October 11, 2026.
 // Static on purpose: CI cannot use privileged production Supabase credentials.
 // Add future applied migrations to the manifest and keep the checked-in history complete.
 import { existsSync,readFileSync,readdirSync } from 'node:fs';
@@ -39,7 +39,11 @@ const applied=[
   "20261010232130_network_entitlement_helpers_private_schema.sql",
   "20261010232506_network_readonly_stale_draft_cleanup_inventory.sql",
   "20261010235427_network_readonly_orphan_published_media_inventory.sql",
-  "20261011000421_network_private_notification_trigger_execute_grants.sql"
+  "20261011000421_network_private_notification_trigger_execute_grants.sql",
+  "20261011183108_network_owner_revision_read_revocation_20261011.sql",
+  "20261011183126_network_sensitive_action_audit_20261011.sql",
+  "20261011183129_network_notification_manual_recovery_20261011.sql",
+  "20261011183131_network_featured_storage_atomic_counter_20261011.sql"
 ];
 let errors=0;
 for (const filename of applied){
@@ -53,4 +57,4 @@ const checkedIn=readdirSync(folder).filter(f=>/^202610\d{8}_.+network.*\.sql$/i.
 const unexpected=checkedIn.filter(f=>!expected.has(f));
 if(unexpected.length){console.error('Network migrations lack manifest entries: '+unexpected.join(', '));errors+=unexpected.length;}
 if(errors){console.error('Network migration history validation failed: '+errors+' issue(s)');process.exitCode=1;}
-else console.log('PASS: all '+applied.length+' applied Network migrations are source-tracked; no unexpected October 10 migrations.');
+else console.log('PASS: all '+applied.length+' applied Network migrations are source-tracked; no unexpected Network migrations.');
