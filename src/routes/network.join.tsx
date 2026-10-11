@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import {createServerFn} from "@tanstack/react-start";
 const isNetworkPublished=createServerFn({method:"GET"}).handler(async()=>{
  const {networkCustomerLaunchArmed}=await import("@/data/network-atomic-launch-readiness.server");
- return {launchReady:networkCustomerLaunchArmed(process.env)};
+ return {launchReady:networkCustomerLaunchArmed(process.env)&&process.env.NETWORK_ISOLATED_STAGING!=='true'};
 });
 export const Route = createFileRoute("/network/join")({
   loader:()=>isNetworkPublished(),
