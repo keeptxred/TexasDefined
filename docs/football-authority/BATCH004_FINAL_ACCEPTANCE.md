@@ -29,9 +29,9 @@ The earlier 72/72 technical browser run #38061056139 was **not** cited to certif
 
 ---
 
-## Expanded primary-source factual correction (latest; October 10, 2026)
+## Archived investigation: six school-specific factual corrections (superseded by final 25/25 verification)
 
-**19 of 25 Batch 004 fully VERIFIED**, **six NEEDS_FOLLOWUP**, **55 prior VERIFIED preserved**, **74 of 1,292 total VERIFIED**. The older 24/25 and 25/25 status headings below chronicle earlier checkpoints, **not current factual certification**.
+**Historical, pre-fix checkpoint only:** 19 of 25 were VERIFIED and six were NEEDS_FOLLOWUP at this point; 55 prior schools remained VERIFIED (74 total then). **These numbers are not current.** The older 24/25 and 25/25 status headings below chronicle earlier checkpoints, **not current factual certification**.
 
 After visual inspection of every original desktop school screenshot, in addition to Austin LBJ's wrong Round Rock ISD and Williamson County mapping, Austin Northeast was wrongly attributed to Austin Achieve Public Schools, and Vandegrift to Williamson County. [Austin ISD Northeast](https://www.austinisd.org/schools/northeast) and [NCES Vandegrift campus record](https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482703012156) establish correct **Austin ISD** and **Leander ISD / Travis County** identifications. Austin High and Austin Travis campus-source enrichments are also changed and need retesting.
 
@@ -44,9 +44,9 @@ Source-backed school corrections and new live Chrome identity/season guards are 
 
 **Evidence checkpoint:** 2026-10-10. **Scope:** exactly 25 assigned schools (Arp through Baird), no Batch 005 changes.
 
-## Factual acceptance correction discovered after the structural pass — October 10, 2026 (CURRENT)
+## Archived investigation: Austin LBJ identity misjoin (superseded by final corrected-production certification)
 
-**Current Batch 004 factual certification: 24/25 VERIFIED and one NEEDS_FOLLOWUP (Austin LBJ / UIL Austin Johnson); 55 earlier VERIFIED preserved, 79/1292 total.** This correction supersedes the 25/25 technical-certification headline and the old closure statements retained below as historical evidence.
+**Historical pre-correction snapshot only:** 24/25 VERIFIED, one Austin LBJ NEEDS_FOLLOWUP, 55 earlier VERIFIED, 79/1292 overall. **Superseded by the 25/25 corrected-production verification and 80/1292 total at the top of this report.** This correction supersedes the 25/25 technical-certification headline and the old closure statements retained below as historical evidence.
 
 The **actual saved deployed screenshot** `desktop-school-austin-johnson.png` in [artifact #11673525515](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515) says **Round Rock ISD, Williamson County**, but the same football page correctly contains Austin **LBJ Jaguars** editorial about the 2021 4A DI runner-up. [Austin ISD confirms LBJ ECHS Jaguars](https://www.austinisd.org/schools/lbj) at [7309 Lazy Creek Drive, Austin](https://www.austinisd.org/schools/level/H), **Travis County**. [UIL 2026–28 official football alignment](https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf) calls this team Austin Johnson, **4A DI District 13**, enrollment **907**. A name-only TEA join produced an unrelated Johnson school: a fatal school-identity error the 72/72 structural pass did not detect.
 
@@ -127,12 +127,17 @@ These documented historical and school-specific source reviews are not a license
 
 ## Registry reconciliation and certification scope
 
-The protected [certification PR #4557](https://github.com/keeptxred/TexasDefined/pull/4557) **merged** successfully at `f8c57a3cb1a29945f303a224fda8e6046103ca9e`. The canonical `main` registry now contains exactly **25 Batch 004 school records initially marked technical VERIFIED**, later corrected to **24 VERIFIED + one NEEDS_FOLLOWUP** after a confirmed mismatch; **55 previously VERIFIED** preserved (**79 currently**). Individual audit files were updated by that merge, and production link labels were corrected to `COUNTY_AND_APPLICABLE_CITY_CHROME_PASS`. This report documents a second completed production/browser run as corroboration.
+The protected [certification PR #4557](https://github.com/keeptxred/TexasDefined/pull/4557) initially certified the 25 school records. Later factual mismatches temporarily reduced the count, **but the corrected evidence in PR #4562 and post-deployment browser run #38066125917 restored the canonical count to 25/25 Batch 004 and 80/1,292 total, with 55 prior VERIFIED preserved**. The intervening 24/25 and 19/25 states are historical snapshots, not the current status.
 
-**Earlier structural production-browser acceptance was complete for all 25, but independently observed identity evidence has withheld one school's full factual acceptance.** Verified directly in the merged registry after PR #4557; no new batch was started.
+**Current final acceptance: all 25 Batch 004 schools independently passed the corrected production Chrome suite.** The Austin LBJ identity failure and five other factual/venue corrections were rectified and retested on the exact deployed corrective SHA, as detailed at the top of this report.
 
 ## Remaining maintenance versus production gate
 
-- **Original structural production gate:** PASS twice, but **Austin LBJ factual production correction gate remains PENDING**.
+- **Current final production and factual-regression gate:** PASS. Corrective deploy #38065702334 and exact-SHA browser verification #38066125917 both succeeded; all 72 checks and 25 sitemap entries passed.
 - **Content maintenance:** Periodically revalidate season/coach/tickets/venue, improve weak first-party sourcing, acquire rights-cleared optional photographs, and conduct deeper accessibility/manual UX testing. Historical state championships should always cite the contemporaneous UIL record.
-- **Final evidence-report publication:** [PR #4553](https://github.com/keeptxred/TexasDefined/pull/4553) retains only this missing consolidated report, merged through required protected checks. Certification and 25 individual audit checkpoints are already on `main` through [#4557](https://github.com/keeptxred/TexasDefined/pull/4557); do not overwrite those newer records.
+- **Final evidence-report publication:** [PR #4553](https://github.com/keeptxred/TexasDefined/pull/4553) merged successfully at `49002b20077875600f224b8e7b54305b46a7a737`; the later factual correction, deployment and final VERIFIED registry are documented above. The Batch 005 assignment proceeds separately and is not changed by this evidence-only amendment.
+
+
+## Durable machine-readable acceptance fingerprint (October 11, 2026)
+
+The corresponding [evidence manifest](./BATCH004_CORRECTED_PRODUCTION_EVIDENCE_2026-10-10.json) records all 25 individually tested school slugs, county and applicable city associations, exact deploy SHA, browser workflow and artifact identifiers, and the **SHA-256 of the real `report.json` extracted from the GitHub Actions screenshot ZIP**. This manifest remains readable in Git history even after GitHub's 14-day Actions artifact retention window expires. The original 72 screenshots reside in the Actions artifact while it remains available; the manifest is **not** a substitute for those photographs or an independent WCAG audit. The original report was decoded and checked: 73 artifact files, exactly 72 passing route/viewports, zero failures, 25 passing sitemap URLs.
