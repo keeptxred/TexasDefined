@@ -7,6 +7,14 @@ on:
       - '.github/workflows/network-local-auth-storage.yml'
       - 'scripts/data/prepare-network-local-supabase.mjs'
       - 'scripts/data/verify-network-local-supabase.mjs'
+      # Recheck actual Auth/Storage invariants when production Network client
+      # or server code changes, not only when migration/test files change.
+      - 'src/routes/business.dashboard*'
+      - 'src/routes/network.*'
+      - 'src/routes/api.public.network*'
+      - 'src/data/network-*'
+      - 'scripts/data/network-*'
+      - 'scripts/data/validate-network-release-guards.mjs'
       - 'supabase/migrations/**'
       - 'supabase/pending/**'
   workflow_dispatch:
