@@ -44,6 +44,11 @@ check('Checkout and billing reject unbounded JSON before parsing',
  && source('src/data/network-billing-json.server.ts').includes('bytes>NETWORK_BILLING_JSON_MAX_BYTES')
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-billing-json.test.mjs'));
 check('checkout disabled by default',checkout.includes('if (!stripeCheckoutEnabled())'));
+check('Graph claim preflight remains no-send, fails closed and never auto-acknowledges uncertain delivery',
+ source('src/data/network-notification-claim-plan.server.ts').includes('mayMarkDelivered:false')
+ && source('src/data/network-notification-claim-plan.server.ts').includes('mayRetryAutomatically:false')
+ && source('src/data/network-notification-claim-plan.server.ts').includes('createNetworkGraphMailDraft(')
+ && source('scripts/ci/run-premerge-validation.mjs').includes('network-notification-claim-plan.test.mjs'));
 check('non-live Stripe is isolated and rejects production Supabase, host and price reuse',
  source('src/data/network-stripe-mode.server.ts').includes("database.includes('ftkznprjljkhymknvhye')")
  && source('src/data/network-stripe-mode.server.ts').includes("NETWORK_ISOLATED_STAGING")
