@@ -13,6 +13,7 @@ function AdminLayout() {
       <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3 text-sm sm:px-6 lg:px-8">
         <span className="font-semibold">TexasDefined Operations</span>
         <Link to="/admin/network-applications" className="text-muted-foreground hover:text-primary">Network applications</Link>
+        <Link to="/admin/billing" className="text-muted-foreground hover:text-primary">Billing</Link>
         <Link to="/admin/platform-health" className="text-muted-foreground hover:text-primary">Platform health</Link>
         <a href="/admin/platform-health#stay-monetization" className="text-muted-foreground hover:text-primary">Stay monetization readiness</a>
         <a href="/admin/platform-health#newsletter" className="text-muted-foreground hover:text-primary">Newsletter</a>
