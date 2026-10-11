@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
+import type { ReactNode } from 'react';
 
 const canonical = 'https://texasdefined.com/sports/softball/paris-junior-college';
 const title = 'Paris Junior College Lady Dragons Softball: History, Mr. Jack Butler & 2026 Final Four';
@@ -42,7 +43,7 @@ export const Route = createFileRoute('/sports/softball/paris-junior-college')({
   }),
 });
 
-function Section({ id, label, heading, children }: { id: string; label: string; heading: string; children: React.ReactNode }) {
+function Section({ id, label, heading, children }: { id: string; label: string; heading: string; children: ReactNode }) {
   return <section id={id} className="border-t border-border py-11 sm:py-14" aria-labelledby={id + '-heading'}>
     <p className="eyebrow text-primary">{label}</p>
     <h2 id={id + '-heading'} className="mt-3 max-w-4xl font-display text-3xl sm:text-4xl">{heading}</h2>
