@@ -49,3 +49,22 @@ test('staging business profiles and sitemap are never indexable',()=>{
   assert.match(src(file),/NETWORK_ISOLATED_STAGING/,file);
  }
 });
+
+test('every customer-facing admin transition requires the atomic release; emergency unpublish stays available',()=>{
+ const source=src('src/data/network-review.server.ts');
+ assert.match(source,/async function assertNetworkUnifiedLaunch/);
+ const names=['setNetworkApplicationReview','reviewNetworkRevision','publishApprovedNetworkListing','provisionReviewedNetworkOwner'];
+ for(const name of names){
+  const start=source.indexOf('export async function '+name+'(');
+  assert.ok(start>=0,name);
+  const next=source.slice(start,start+900);
+  assert.match(next,/await assertNetworkUnifiedLaunch\(\)/,name);
+ }
+ // Keep emergency unpublish available to the sole administrator, even if
+ // marketing and payment switches have been paused after a problem.
+ const start=source.indexOf('export async function unpublishNetworkListing(');
+ assert.ok(start>=0);
+ const emergency=source.slice(start,start+450);
+ assert.match(emergency,/assertNetworkAdminAccess/);
+ assert.doesNotMatch(emergency,/assertNetworkUnifiedLaunch/);
+});
