@@ -3,7 +3,7 @@
   "lastReviewed": "2026-10-11",
   "season": "2026-27",
   "dataPolicy": "Verified 2026–27 UIL softball district identities and clearly season-labelled 2025–26 historical team evidence. Research-only. No individual pages auto-published or approved by this file.",
-  "method": "Exact match school name+conference+district+region to official UIL softball PDF. Primary school/UIL records for historical facts. Unresolved areas stay in gaps and must be closed for complete-first-publication acceptance. Current staff cannot be inferred from prior championship rosters. Expanded with primary-source historical UIL finals, official school schedule/current-season caveats, school staff spelling corroboration and known stale postseason notices on October 11, 2026. Every historical claim remains season-labelled and neither roster reprints nor inferred playing-field addresses are approved. October 11 independent primary-source award pass: 2026 UIL TGCA all-tournament groups for four champions, 2025 Shiner/Ganado honors, 2025 Katy district venue naming and official 2026 Ganado calendar venue naming. Venue recognition DOES NOT imply exact field parcel, admission, ADA, parking or current 2027 location. Third-party Amarillo team records explicitly not elevated to official school confirmations. October 11 coach role research: current school athletic websites identify named Shiner, Pearland and Katy softball head coaches as-of verification (not explicit Spring 2027 appointments), Ganado official faculty listings confirm James Harp employment but do not imply current role, and Amarillo school live feed confirms actual softball launch activity without reliable program foundation year.",
+  "method": "Exact match school name+conference+district+region to official UIL softball PDF. Primary school/UIL records for historical facts. Unresolved areas stay in gaps and must be closed for complete-first-publication acceptance. Current staff cannot be inferred from prior championship rosters. Expanded with primary-source historical UIL finals, official school schedule/current-season caveats, school staff spelling corroboration and known stale postseason notices on October 11, 2026. Every historical claim remains season-labelled and neither roster reprints nor inferred playing-field addresses are approved. October 11 independent primary-source award pass: 2026 UIL TGCA all-tournament groups for four champions, 2025 Shiner/Ganado honors, 2025 Katy district venue naming and official 2026 Ganado calendar venue naming. Venue recognition DOES NOT imply exact field parcel, admission, ADA, parking or current 2027 location. Third-party Amarillo team records explicitly not elevated to official school confirmations. October 11 coach role research: current school athletic websites identify named Shiner, Pearland and Katy softball head coaches as-of verification (not explicit Spring 2027 appointments), Ganado official faculty listings confirm James Harp employment but do not imply current role, and Amarillo school live feed confirms actual softball launch activity without reliable program foundation year. October 11 independent TEA/NCES physical campus crosswalk: Katy HS campus is in Fort Bend County (despite Katy ISD district association with Harris County), Shiner HS is a combined grades 7–12 campus and TEA vs NCES student counts are not identical, and Ganado, Pearland, Amarillo Highland Park each have exact state campus IDs and dated non-UIL enrollments. No student private data collected.",
   "publicationAuthorization": false,
   "pilotSchools": [
     {
@@ -21,7 +21,16 @@
         "city": "Shiner",
         "county": "Lavaca",
         "campusUrl": "https://www.shinerisd.net/",
-        "identityReview": "2025–26 team identity corroborated by school softball athletics and UIL; city/county distinct from district campus address"
+        "identityReview": "2025–26 team identity corroborated by school softball athletics and UIL; city/county distinct from district campus address Crosschecked independent exact TEA campus ID and physical campus county from 2024–25 TEA/NCES source record; school district administrative county and campus county must not be conflated.",
+        "teaCampusId": "143903001",
+        "campusAddress": "510 CR 348, Shiner, TX 77984",
+        "officialCampusGradeSpan": "07–12",
+        "historicalCampusEnrollment": {
+          "year": "2024-25",
+          "count": 309,
+          "sourceId": "official-campus-students",
+          "sourceMeasure": "TEA 2025 School Report Card students, 2024–25 data"
+        }
       },
       "sources": [
         {
@@ -141,6 +150,20 @@
           "title": "Shiner ISD current athletics softball staff page",
           "url": "https://www.shinerisd.net/athletics/softball",
           "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-students",
+          "title": "TEA 2025 School Report Card students, 2024–25 data for Shiner H S",
+          "url": "https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2025&from_tprs=2025&id=143903001&lev=C&prgopt=reports%2Fsrc%2Fsrc.sas",
+          "kind": "official-state-government",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-location",
+          "title": "Shiner H S physical campus location and county, not athletic playing field",
+          "url": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=484011004554",
+          "kind": "official-federal-government",
           "checkedAt": "2026-10-11"
         }
       ],
@@ -283,6 +306,14 @@
             "school-current-softball-staff",
             "uil-state-2026"
           ]
+        },
+        {
+          "claim": "TEA campus 143903001 identifies Shiner High School in Lavaca County as a 7th–12th grade campus with 309 students in its 2025 School Report Card sourced to 2024–25. This is not 309 high-school varsity athletes or the special UIL alignment enrollment. NCES shows 311 enrollment using its different count definition.",
+          "season": "2024-25",
+          "sourceIds": [
+            "official-campus-students",
+            "official-campus-location"
+          ]
         }
       ],
       "gaps": [
@@ -332,7 +363,16 @@
         "city": "Ganado",
         "county": "Jackson",
         "campusUrl": "https://www.ganadoisd.org/",
-        "identityReview": "District website displays its 2026 softball champions and UIL publishes a dedicated team sheet"
+        "identityReview": "District website displays its 2026 softball champions and UIL publishes a dedicated team sheet Crosschecked independent exact TEA campus ID and physical campus county from 2024–25 TEA/NCES source record; school district administrative county and campus county must not be conflated.",
+        "teaCampusId": "120902001",
+        "campusAddress": "501 W Devers, Ganado, TX 77962",
+        "officialCampusGradeSpan": "09–12",
+        "historicalCampusEnrollment": {
+          "year": "2024-25",
+          "count": 221,
+          "sourceId": "official-campus-students",
+          "sourceMeasure": "TEA 2025 School Report Card students, 2024–25 data"
+        }
       },
       "sources": [
         {
@@ -430,6 +470,20 @@
           "id": "ganado-stadium-maps",
           "title": "Ganado ISD facilities map menu contains stadium and gyms but no verified softball-field map",
           "url": "https://www.ganadoisd.org/departments/departments/facilities/facility-maps",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-students",
+          "title": "TEA 2025 School Report Card students, 2024–25 data for Ganado H S",
+          "url": "https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2025&from_tprs=2025&id=120902001&lev=C&prgopt=reports%2Fsrc%2Fsrc.sas",
+          "kind": "official-state-government",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-location",
+          "title": "Ganado H S physical campus location and county, not athletic playing field",
+          "url": "https://www.ganadoisd.org/campus",
           "kind": "official-school",
           "checkedAt": "2026-10-11"
         }
@@ -539,6 +593,14 @@
             "ganado-stadium-maps",
             "ganado-school-calendar"
           ]
+        },
+        {
+          "claim": "TEA campus 120902001 is Ganado High School in Jackson County, 9th–12th grades, with 221 students in its 2025 school report card. Ganado ISD separately confirms the actual school campus at 501 West Devers; do not substitute the district headquarters at 210 South Sixth Street or presume it is the varsity softball field.",
+          "season": "2024-25",
+          "sourceIds": [
+            "official-campus-students",
+            "official-campus-location"
+          ]
         }
       ],
       "gaps": [
@@ -583,9 +645,18 @@
         "team": "Tigers",
         "mascot": "Tigers",
         "city": "Katy",
-        "county": "Harris",
+        "county": "Fort Bend",
         "campusUrl": "https://khs.katyisd.org/",
-        "identityReview": "School's identity distinguished from other Katy ISD campuses and similarly named teams; county is to be checked against campus geometry before publish"
+        "identityReview": "School's identity distinguished from other Katy ISD campuses and similarly named teams; county is to be checked against campus geometry before publish Crosschecked independent exact TEA campus ID and physical campus county from 2024–25 TEA/NCES source record; school district administrative county and campus county must not be conflated.",
+        "teaCampusId": "101914001",
+        "campusAddress": "6331 Highway Blvd, Katy, TX 77494",
+        "officialCampusGradeSpan": "09–12",
+        "historicalCampusEnrollment": {
+          "year": "2024-25",
+          "count": 3543,
+          "sourceId": "official-campus-students",
+          "sourceMeasure": "NCES 2024–25 CCD public school enrollment"
+        }
       },
       "sources": [
         {
@@ -663,6 +734,20 @@
           "title": "Katy High staff directory listing Megan Vanetta as Softball Head Coach",
           "url": "https://khs.katyisd.org/our-campus/directory?const_page=3",
           "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-students",
+          "title": "NCES 2024–25 CCD public school enrollment for Katy H S",
+          "url": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482517002809",
+          "kind": "official-federal-government",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-location",
+          "title": "Katy H S physical campus location and county, not athletic playing field",
+          "url": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482517002809",
+          "kind": "official-federal-government",
           "checkedAt": "2026-10-11"
         }
       ],
@@ -756,6 +841,14 @@
             "school-current-athletics-coaches",
             "uil-team-2026"
           ]
+        },
+        {
+          "claim": "Katy High School's exact Texas campus code is 101914001, and NCES records the physical 6331 Highway Boulevard school location in Fort Bend County with 3,543 students in 2024–25. Katy ISD has a Harris County district designation in some TEA reports, but that is not the Katy High campus county and must never be applied to its team page.",
+          "season": "2024-25",
+          "sourceIds": [
+            "official-campus-students",
+            "official-campus-location"
+          ]
         }
       ],
       "conflicts": [
@@ -810,7 +903,16 @@
         "city": "Pearland",
         "county": "Brazoria",
         "campusUrl": "https://phs.pearlandisd.org/",
-        "identityReview": "Pearland ISD official high-school softball page verifies identity distinct from Pearland Dawson"
+        "identityReview": "Pearland ISD official high-school softball page verifies identity distinct from Pearland Dawson Crosschecked independent exact TEA campus ID and physical campus county from 2024–25 TEA/NCES source record; school district administrative county and campus county must not be conflated.",
+        "teaCampusId": "020908001",
+        "campusAddress": "3775 S Main St, Pearland, TX 77581",
+        "officialCampusGradeSpan": "09–12",
+        "historicalCampusEnrollment": {
+          "year": "2024-25",
+          "count": 3408,
+          "sourceId": "official-campus-students",
+          "sourceMeasure": "TEA 2025 School Report Card students, 2024–25 data"
+        }
       },
       "sources": [
         {
@@ -894,6 +996,20 @@
           "id": "school-current-staff",
           "title": "Pearland High official women's softball current coaching roles",
           "url": "https://phs.pearlandisd.org/athletics-phs/womens/softball",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-students",
+          "title": "TEA 2025 School Report Card students, 2024–25 data for Pearland H S",
+          "url": "https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2025&from_tprs=2025&id=020908001&lev=C&prgopt=reports%2Fsrc%2Fsrc.sas",
+          "kind": "official-state-government",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-location",
+          "title": "Pearland H S physical campus location and county, not athletic playing field",
+          "url": "https://phs.pearlandisd.org/athletics-phs/general-information",
           "kind": "official-school",
           "checkedAt": "2026-10-11"
         }
@@ -994,6 +1110,14 @@
           "sourceIds": [
             "school-current-staff"
           ]
+        },
+        {
+          "claim": "Pearland High School's TEA campus 020908001 belongs to Pearland ISD in Brazoria County and serves grades 9–12. TEA's 2025 school report card lists 3,408 students for 2024–25; NCES has published a different historical 3,412 figure under another reporting definition, so attribute the exact TEA count and year.",
+          "season": "2024-25",
+          "sourceIds": [
+            "official-campus-students",
+            "official-campus-location"
+          ]
         }
       ],
       "conflicts": [
@@ -1047,7 +1171,16 @@
         "city": "Amarillo",
         "county": "Potter",
         "campusUrl": "https://www.hpisd.net/",
-        "identityReview": "Critical collision: Amarillo Highland Park Hornets (hpisd.net) are NOT the Dallas Highland Park Scots (hpisd.org/scotsillustrated.com). Do not merge coaches, venues, districts or championships."
+        "identityReview": "Critical collision: Amarillo Highland Park Hornets (hpisd.net) are NOT the Dallas Highland Park Scots (hpisd.org/scotsillustrated.com). Do not merge coaches, venues, districts or championships. Crosschecked independent exact TEA campus ID and physical campus county from 2024–25 TEA/NCES source record; school district administrative county and campus county must not be conflated.",
+        "teaCampusId": "188903001",
+        "campusAddress": "15300 Amarillo Blvd E, Amarillo, TX 79108",
+        "officialCampusGradeSpan": "09–12",
+        "historicalCampusEnrollment": {
+          "year": "2024-25",
+          "count": 213,
+          "sourceId": "official-campus-students",
+          "sourceMeasure": "TEA 2025 Campus Comparison Group students, 2024–25 data"
+        }
       },
       "sources": [
         {
@@ -1097,6 +1230,20 @@
           "title": "Amarillo Highland Park ISD official live feed announcing softball/baseball as newly added school programs",
           "url": "https://www.hpisd.net/live-feed?page_no=27",
           "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-students",
+          "title": "TEA 2025 Campus Comparison Group students, 2024–25 data for Highland Park H S",
+          "url": "https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2025&id=188903001&lev=C&prgopt=reports%2Facct%2Fcomparison_group.sas",
+          "kind": "official-state-government",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-location",
+          "title": "Highland Park H S physical campus location and county, not athletic playing field",
+          "url": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=483556006160",
+          "kind": "official-federal-government",
           "checkedAt": "2026-10-11"
         }
       ],
@@ -1154,6 +1301,14 @@
           "sourceIds": [
             "amarillo-official-feed",
             "amarillo-school"
+          ]
+        },
+        {
+          "claim": "Amarillo Highland Park High School is TEA campus 188903001 in Potter County, grades 9–12, with 213 students shown in the 2025 TEA campus comparison report. The matching NCES physical location is 15300 Amarillo Boulevard East and cannot be substituted with the entirely different Dallas Highland Park campus or unrelated softball facility.",
+          "season": "2024-25",
+          "sourceIds": [
+            "official-campus-students",
+            "official-campus-location"
           ]
         }
       ],
