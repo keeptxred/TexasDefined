@@ -23,3 +23,11 @@ The exact SHA-based production audit is free, retains JSON for 30 days and is se
 ## Acceptance remains incomplete
 
 At last fully inspected production artifact (commit `8ec1831af195c6b8c7c5f4c25963d590aafaee20`), Chrome and automated axe had 33/33 viewport render passes with 0 identified WCAG-tagged axe failures; actual full manual accessibility, exhaustive content and links, all GIS/legal boundary acceptances and production structured data/sitemap results were not independently complete. All city FULLY CERTIFIED statuses remain **PARTIAL** until their entire per-city evidence set is present. Preserve historical evidence and review dates.
+
+## Post-merge actual San Antonio GIS execution — October 11
+
+Previous "research not executed" descriptions above are historical. The [protected-main GIS workflow #38139303238](https://github.com/keeptxred/TexasDefined/actions/runs/38139303238) has **completed SUCCESS** on `8a213e2919c83c14b25ed4d6bdd3636b1ac8b365`; [actual artifact #11701994875](https://github.com/keeptxred/TexasDefined/actions/runs/38139303238/artifacts/11701994875) downloaded and inspected.
+
+`san-antonio-provisional-2026.json` reports one polygon with source `editingInfo.dataLastEditDate=1791172943843`, **October 5, 2026 04:02:23 UTC**, later than the previously crawled July 28 source metadata. Census BAS 2026 county intersection: **Bexar 1395.91942 km², Medina 1.43018 km², Comal 0.02679 km²**; expected three counties match. **Comal is only ~2.679 hectares** and could be a valid narrow annexation or a geometry tolerance issue; it must be manually checked against controlling municipal ordinances before GIS sign-off. The geometry is **PROVISIONAL_UNVERIFIED_SOURCE**, not current legal-boundary certification. Do not conflate its polygon with ETJ. No change to the published county list or date of fact verification is warranted solely by this machine comparison.
+
+All eleven city polygon studies now return matching substantial candidates, including Austin's 2026 corrected full-purpose source. Still **zero cities FULLY CERTIFIED** under the required GIS/legal, full manual visual and accessibility, claim-by-claim factual and SEO gates.
