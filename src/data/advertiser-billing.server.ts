@@ -1,5 +1,5 @@
 import { getAdvertiserTier } from '@/data/advertising-program';
-import { assertSportsPartnerAccess } from '@/data/sports-partner-leads.server';
+import { assertNetworkAdminAccess } from '@/data/network-admin-access.server';
 import {
   createTexasDefinedDraftInvoice,
   ensureAdvertiserBillingAccount,
@@ -10,7 +10,7 @@ import { supabaseAdmin } from '@/integrations/supabase/client.server';
 const uuidPattern=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export async function listAdvertiserBillingAccounts(accessKey:string){
-  await assertSportsPartnerAccess(accessKey);
+  await assertNetworkAdminAccess(accessKey);
   const client=supabaseAdmin as any;
   const {data,error}=await client
     .from('texasdefined_billing_accounts')
@@ -37,7 +37,7 @@ export async function prepareAdvertiserDraftInvoice(accessKey:string,input:{
   daysUntilDue?:number;
   acceptedBy?:string;
 }){
-  await assertSportsPartnerAccess(accessKey);
+  await assertNetworkAdminAccess(accessKey);
   if(!uuidPattern.test(input.agreementId))throw new Error('Advertiser agreement identity is invalid.');
   if(input.billingAccountId&&!uuidPattern.test(input.billingAccountId))throw new Error('Billing account identity is invalid.');
 
