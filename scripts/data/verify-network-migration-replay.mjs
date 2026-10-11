@@ -32,6 +32,8 @@ const execSql=(args,label)=>{
  }
 };
 
+try { console.log(execFileSync('node',['scripts/data/validate-network-pending-atomicity.mjs'],{encoding:'utf8'}).trim()); }
+catch(error){ throw Error('Pending migration atomicity release gate failed: '+String(error.stderr||error)); }
 const bootstrap='scripts/data/network-migration-replay-bootstrap.sql';
 if(!existsSync(bootstrap))throw new Error('Isolated Auth/Storage bootstrap is missing');
 console.log('REPLAY isolated PostgreSQL Auth/Storage stub (NOT production or real Supabase)');
