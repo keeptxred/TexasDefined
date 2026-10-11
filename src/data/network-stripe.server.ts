@@ -1,9 +1,11 @@
 /** Server-only Stripe API helpers. Never import into a browser route component. */
-export const NETWORK_PLUS_PRICE = 'price_1UP28XLtRurj6GMNwFlYDW6N';
+import {getNetworkStripeRuntime,networkStripeExpectedLivemode,networkStripeWebhookSecret,NETWORK_PLUS_LIVE_PRICE} from './network-stripe-mode.server.ts';
+export const NETWORK_PLUS_PRICE = NETWORK_PLUS_LIVE_PRICE;
 const stripeBase='https://api.stripe.com/v1';
 export async function stripeRequest(path:string,init:RequestInit={}) {
- const key=process.env.STRIPE_SECRET_KEY;
- if(!key||!key.startsWith('sk_live_')) throw new Error('Live Stripe server secret is not configured');
+ const runtime=getNetworkStripeRuntime();
+ if(!runtime) throw new Error('Stripe server secret or isolated test environment is not configured');
+ const key=runtime.secret;
  // Bound external Stripe POSTs as well as webhook subscription reads.
  // Preserve the caller's stable idempotency key; an uncertain outcome must
  // never be retried with a different key without DB attempt reconciliation.
@@ -21,8 +23,9 @@ export async function stripeRequest(path:string,init:RequestInit={}) {
 /** Current subscription read for verified webhook processing. Always fail closed.
  * The caller acknowledges the webhook only after this read and DB reconciliation. */
 export async function readNetworkCurrentStripeSubscription(subscriptionId: string): Promise<Record<string,any>> {
- const key=process.env.STRIPE_SECRET_KEY;
- if(!key?.startsWith('sk_live_')||!/^sub_[A-Za-z0-9_]+$/.test(subscriptionId))
+ const runtime=getNetworkStripeRuntime();
+ const key=runtime?.secret;
+ if(!key||!/^sub_[A-Za-z0-9_]+$/.test(subscriptionId))
   throw new Error('Stripe subscription verification unavailable');
  const response=await fetch(stripeBase+'/subscriptions/'+encodeURIComponent(subscriptionId),{
   headers:{Authorization:'Bearer '+key},
@@ -36,7 +39,7 @@ export async function readNetworkCurrentStripeSubscription(subscriptionId: strin
 }
 
 export function stripeCheckoutEnabled() {
- return process.env.NETWORK_CHECKOUT_ENABLED==='true' && !!process.env.STRIPE_SECRET_KEY && process.env.STRIPE_SECRET_KEY.startsWith('sk_live_');
+ return process.env.NETWORK_CHECKOUT_ENABLED==='true' && getNetworkStripeRuntime()!==null;
 }
 /** Hard cap on untrusted webhook requests BEFORE signature verification.
  * A signed event never requires an unbounded read in the Worker runtime.
@@ -70,7 +73,7 @@ export async function readNetworkWebhookPayload(request:Request):Promise<string|
  }
 }
 export async function verifyStripeSignature(raw:string,header:string|null) {
- const signingSecret=process.env.STRIPE_WEBHOOK_SECRET;
+ const signingSecret=networkStripeWebhookSecret();
  if(!signingSecret || !header)return false;
  const chunks=header.split(',').map(x=>x.trim().split('='));
  const timestamp=chunks.find(x=>x[0]==='t')?.[1];
@@ -103,30 +106,33 @@ export async function createNetworkCheckoutSession(applicationId:string,email:st
  if(!/^[0-9a-f-]{36}$/i.test(applicationId)||!/^[0-9a-f-]{36}$/i.test(attemptKey))throw Error('Invalid reserved checkout attempt');
 
  if(!stripeCheckoutEnabled())throw new Error('Network billing is not activated');
+ const runtime=getNetworkStripeRuntime();
+ if(!runtime)throw new Error('Network Stripe mode is not configured');
  const params=new URLSearchParams({
   mode:'subscription',
-  'line_items[0][price]':NETWORK_PLUS_PRICE,
+  'line_items[0][price]':runtime.priceId,
   'line_items[0][quantity]':'1',
   customer_email:email,
   client_reference_id:applicationId,
   'metadata[application_id]':applicationId,
   'subscription_data[metadata][application_id]':applicationId,
   'subscription_data[metadata][project]':'TexasDefined',
-  success_url:'https://texasdefined.com/network/checkout-return?session_id={CHECKOUT_SESSION_ID}',
-  cancel_url:'https://texasdefined.com/network/billing?checkout=cancelled',
+  success_url:runtime.siteOrigin+'/network/checkout-return?session_id={CHECKOUT_SESSION_ID}',
+  cancel_url:runtime.siteOrigin+'/network/billing?checkout=cancelled',
   billing_address_collection:'auto',
  });
  const result=await stripeRequest('/checkout/sessions',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded','Idempotency-Key':'network-plus-'+applicationId+'-'+attemptKey},body:params});
  // Stripe's creation response must belong to this exact reviewed application.
  // Never finalize an unrelated/test-mode/payment-only Session just because the
  // response carries a plausible Stripe-hosted URL and a cs_live_ identifier.
- if(result.object!=='checkout.session'||result.livemode!==true||
+ if(result.object!=='checkout.session'||result.livemode!==runtime.livemode||
    result.mode!=='subscription'||result.status!=='open'||
    result.client_reference_id!==applicationId||
    result.metadata?.application_id!==applicationId||
    typeof result.customer_email!=='string'||
    result.customer_email.trim().toLowerCase()!==email.trim().toLowerCase()||
-   !isNetworkCheckoutUrl(result.url)||typeof result.id!=='string'||!/^cs_live_[a-zA-Z0-9_]+$/.test(result.id)||
+   !isNetworkCheckoutUrl(result.url)||typeof result.id!=='string'||
+   !(runtime.livemode?/^cs_live_[a-zA-Z0-9_]+$/:/^cs_test_[a-zA-Z0-9_]+$/).test(result.id)||
    typeof result.expires_at!=='number'||!Number.isSafeInteger(result.expires_at)||
    result.expires_at<Math.floor(Date.now()/1000)+60)
   throw new Error('Stripe Checkout session unavailable');
@@ -148,13 +154,15 @@ export function verifiedNetworkSubscriptionOwnership(
 /** Inspected subscription must describe exactly one approved $19.99 Plus line item. */
 export function isExpectedNetworkPlusSubscription(subscription: Record<string,any>):boolean {
  const items=subscription.items?.data;
- return subscription.livemode===true
+ const expectedMode=networkStripeExpectedLivemode();
+ const expectedPrice=expectedMode===true?NETWORK_PLUS_PRICE:getNetworkStripeRuntime()?.priceId;
+ return expectedMode!==null && subscription.livemode===expectedMode
   && typeof subscription.id==='string' && /^sub_[A-Za-z0-9_]+$/.test(subscription.id)
   && typeof subscription.customer==='string' && /^cus_[A-Za-z0-9_]+$/.test(subscription.customer)
   && subscription.metadata?.project==='TexasDefined'
   && typeof subscription.metadata?.application_id==='string'
   && /^[0-9a-f-]{36}$/i.test(subscription.metadata.application_id)
   && Array.isArray(items) && items.length===1
-  && items[0]?.price?.id===NETWORK_PLUS_PRICE
+  && items[0]?.price?.id===expectedPrice
   && items[0]?.quantity===1;
 }
