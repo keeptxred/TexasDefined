@@ -4,7 +4,10 @@ import { createFileRoute } from "@tanstack/react-router";
 // One production HMAC verifier shared with the executable Stripe security tests.
 export const Route = createFileRoute("/api/public/network-stripe-webhook")({
   server: { handlers: { POST: async ({ request }) => {
-    const secret = process.env["STRIPE_WEBHOOK_SECRET"];
+    const {networkStripeWebhookSecret,networkStripeHostAllowed,networkStripeExpectedLivemode,getNetworkStripeRuntime}=await import("@/data/network-stripe-mode.server");
+    if(!networkStripeHostAllowed(request))return new Response("Stripe endpoint unavailable on this host", {status:503});
+    const expectedMode=networkStripeExpectedLivemode();
+    const secret = networkStripeWebhookSecret();
     if (!secret) return new Response("Webhook not configured", { status: 503 });
     const { readNetworkWebhookPayload } = await import("@/data/network-stripe.server");
     const raw = await readNetworkWebhookPayload(request);
@@ -14,14 +17,15 @@ export const Route = createFileRoute("/api/public/network-stripe-webhook")({
     if (!await verifyStripeSignature(raw,header)) return new Response("Invalid signature", { status: 400 });
     let event: Record<string, any>;
     try { event = JSON.parse(raw); } catch { return new Response("Invalid event", { status: 400 }); }
-    if (event.livemode !== true || typeof event.type !== "string") return new Response("Ignored", { status: 200 });
+    if (expectedMode===null)return new Response("Stripe mode unavailable",{status:503});
+    if(event.livemode!==expectedMode || typeof event.type !== "string") return new Response("Ignored", { status: 200 });
     if (!["customer.subscription.created","customer.subscription.updated","customer.subscription.deleted","invoice.paid","invoice.payment_failed"].includes(event.type)) {
       return new Response("Ignored", { status: 200 });
     }
     const obj=event.data?.object;
     const subscriptionId = event.type.startsWith("customer.subscription.") ? obj?.id : (obj?.subscription || obj?.parent?.subscription_details?.subscription);
-    const stripeKey = process.env["STRIPE_SECRET_KEY"];
-    if (typeof subscriptionId !== "string" || !stripeKey?.startsWith("sk_live_"))
+    const runtime=getNetworkStripeRuntime();
+    if (typeof subscriptionId !== "string" || !runtime || runtime.livemode!==expectedMode)
       return new Response("Stripe verification unavailable", { status: 503 });
     // Webhook delivery order is not guaranteed. Verify CURRENT Stripe state.
     // Timeout, connectivity, malformed JSON and API failures are retriable 503s,
@@ -33,7 +37,7 @@ export const Route = createFileRoute("/api/public/network-stripe-webhook")({
     } catch {
       return new Response("Subscription verification unavailable", { status: 503 });
     }
-    if (subscription.livemode !== true || subscription.id !== subscriptionId) return new Response("Invalid subscription", { status: 422 });
+    if (subscription.livemode !== expectedMode || subscription.id !== subscriptionId) return new Response("Invalid subscription", { status: 422 });
     const { isExpectedNetworkPlusSubscription } = await import("@/data/network-stripe.server");
     if(!isExpectedNetworkPlusSubscription(subscription))return new Response("Ignored",{status:200});
     const id = String(subscription.metadata.application_id);
