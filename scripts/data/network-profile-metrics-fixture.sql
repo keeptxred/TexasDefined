@@ -38,9 +38,9 @@ $fixture$;
 INSERT INTO public.texasdefined_network_applications
  (id,plan,status,intake_complete,business_name,category,city,contact_email)
 VALUES
- ('abababab-abab-4bab-8bab-abababababab','plus','approved',true,
+ ('abababab-abab-4bab-8bab-abababababab','basic','approved',true,
   'Aggregates Test A','Fixture','Austin','network-stats-a@example.invalid'),
- ('cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcdcd','plus','approved',true,
+ ('cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcdcd','basic','approved',true,
   'Aggregates Test B','Fixture','Dallas','network-stats-b@example.invalid');
 INSERT INTO public.texasdefined_network_public_listings
  (application_id,slug,plan,profile,is_published)
