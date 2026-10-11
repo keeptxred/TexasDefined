@@ -146,3 +146,21 @@ Before enabling a real worker: obtain tenant-scoped mailbox-limited Microsoft Gr
 ### Checkout test-mode database verification
 
 `scripts/data/network-stripe-local-checkout-fixture.sql` runs only within `network_replay` after `network-stripe-local-finalizer-overlay.mjs` installs the `cs_test_` finalizer in that disposable database. It verifies the actual stored procedures' synthetic owner binding, idempotent reservation, fraudulent/wrong-mode denial, successful test-session finalization and safe re-use, then rolls back all data. This is not evidence of a Stripe-issued session, real provider webhook, live consumer billing, or any hosted staging update. Keep historical production `cs_live_` SQL unchanged. Future hosted staging needs its own separately reviewed, approved staging-only `cs_test_` function and genuine test credentials.
+
+
+## Read-only Stripe readiness findings — October 11, 2026
+
+Account: `acct_1TobIzLtRurj6GMN` (connected **LIVE** context; no TEST account or sandbox). The read-only Stripe API returned these facts; no modifications were attempted:
+
+- The active recurring live price `price_1UP28XLtRurj6GMNwFlYDW6N` charges **USD $19.99/month**, tax behavior `exclusive`.
+- Its product `prod_VPrsZ3mYEKz2da` is **inactive**, tagged as prelaunch.
+- **Zero billing-portal configurations** exist in the connected live account (read-only `GET /v1/billing_portal/configurations`). This blocks verified customer self-service until a suitable explicit, owner-approved portal configuration is created and cancellation behavior reviewed.
+- There are six existing **live** webhook endpoints (some enabled, some disabled). None targets `https://texasdefined.com/api/public/network-stripe-webhook` and none has been certified as the Network subscription event destination. The existing endpoints belong to other workflows and MUST NOT be repurposed, rotated, disabled, or overwritten without their individual owners' approval.
+- A real isolated **test-mode account context**, test price, test webhook endpoint/signing secret, and separate staging site+Supabase are not accessible from the currently connected Stripe context.
+
+**Safe order for future explicit owner authorization:** (1) resolve policies, cancellation/refunds, privacy and product benefits; (2) provision isolated staging tenant/host and independent test Stripe key/price/webhook; (3) run genuine signed test Checkout+portal+webhook events and subscription lifecycle; (4) deploy and verify the four currently pending Supabase migrations under controlled migration authorization and global Storage write lock; (5) activate a Network-specific live webhook, confirm deliverability and delivery replay with signed events, configure tested customer portal, activate the live product as appropriate; (6) separately authorize any actual payment collection and public business directory. Do not interpret passing local SQL fixtures as completion of real Stripe provider validation.
+
+### Stripe customer-portal response integrity
+
+The Network billing POST now rejects every Stripe billing-portal session unless the response's object is `billing_portal.session`, its ID has a billing portal session prefix, its `customer` matches the verified owner's exact persisted Stripe customer, its `livemode` matches the trusted runtime, its `return_url` matches that runtime's exact configured origin, and its redirect uses the pinned HTTPS `billing.stripe.com` host. `scripts/data/network-stripe-portal-binding.test.mjs` exercises cross-business, wrong-mode, callback/host spoofing and malformed sessions in the mandatory Merge Gate. This is a **source-level defense**, not evidence that any hosted Stripe portal has been successfully configured.
+
