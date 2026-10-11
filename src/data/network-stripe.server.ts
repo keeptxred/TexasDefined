@@ -117,9 +117,19 @@ export async function createNetworkCheckoutSession(applicationId:string,email:st
   billing_address_collection:'auto',
  });
  const result=await stripeRequest('/checkout/sessions',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded','Idempotency-Key':'network-plus-'+applicationId+'-'+attemptKey},body:params});
- if(!isNetworkCheckoutUrl(result.url)||typeof result.id!=='string'||!/^cs_live_[a-zA-Z0-9_]+$/.test(result.id)
-   ||typeof result.expires_at!=='number'||!Number.isSafeInteger(result.expires_at)
-   ||result.expires_at<Math.floor(Date.now()/1000)+60)throw new Error('Stripe Checkout session unavailable');
+ // Stripe's creation response must belong to this exact reviewed application.
+ // Never finalize an unrelated/test-mode/payment-only Session just because the
+ // response carries a plausible Stripe-hosted URL and a cs_live_ identifier.
+ if(result.object!=='checkout.session'||result.livemode!==true||
+   result.mode!=='subscription'||result.status!=='open'||
+   result.client_reference_id!==applicationId||
+   result.metadata?.application_id!==applicationId||
+   typeof result.customer_email!=='string'||
+   result.customer_email.trim().toLowerCase()!==email.trim().toLowerCase()||
+   !isNetworkCheckoutUrl(result.url)||typeof result.id!=='string'||!/^cs_live_[a-zA-Z0-9_]+$/.test(result.id)||
+   typeof result.expires_at!=='number'||!Number.isSafeInteger(result.expires_at)||
+   result.expires_at<Math.floor(Date.now()/1000)+60)
+  throw new Error('Stripe Checkout session unavailable');
  return {url:result.url as string,sessionId:result.id as string,expiresAt:result.expires_at as number};
 }
 
