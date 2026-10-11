@@ -69,7 +69,8 @@ check('Graph HTTP transport cannot send while Network email is disabled, pins ma
 check('hosted staging read-only acceptance is explicit, synthetic and physically isolated from shared production',
  source('scripts/data/network-hosted-stage-readonly.mjs').includes("NETWORK_HOSTED_STAGE_READONLY_APPROVED")
  && source('scripts/data/network-hosted-stage-readonly.mjs').includes("forbiddenRef='ftkznprjljkhymknvhye'")
- && source('scripts/data/network-hosted-stage-readonly.mjs').includes("!['")===false
+ && source('scripts/data/network-hosted-stage-readonly.mjs').includes("NETWORK_STAGE_PROJECT_REF")
+ && source('scripts/data/network-hosted-stage-readonly.mjs').includes("method='GET'")
  && source('scripts/data/network-hosted-stage-readonly.mjs').includes("requestStage(fetcher,config,user.token")
  && source('scripts/data/network-hosted-stage-readonly.mjs').includes("cross-owner private Storage read not denied")
  && source('scripts/ci/run-premerge-validation.mjs').includes("network-hosted-stage-readonly.test.mjs"));
