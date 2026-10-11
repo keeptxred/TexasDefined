@@ -103,7 +103,7 @@ function OfficialLink({ href, children }: { href: string; children: ReactNode })
 
 function DavisHillAuthorityPage() {
   return (
-    <main>
+    <div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <section className="border-b border-border bg-muted/30 py-10 sm:py-16">
         <Container>
@@ -299,6 +299,6 @@ function DavisHillAuthorityPage() {
           </aside>
         </div>
       </Container>
-    </main>
+    </div>
   );
 }
