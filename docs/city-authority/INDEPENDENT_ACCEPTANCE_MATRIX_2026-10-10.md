@@ -248,3 +248,21 @@ The COSA City of San Antonio–attributed polygon [FeatureServer/1](https://serv
 
 **Status update:** GIS *geometric county candidate comparisons complete 11/11*, with 11/11 matching existing page county lists at the research method's threshold; **full GIS/legal acceptance remains PARTIAL** for all 11. San Antonio’s source is explicitly tagged `PROVISIONAL_UNVERIFIED_SOURCE` until its ArcGIS publishing organization and October 2026 data vintage are matched directly to the City [official GIS open-data catalog](https://www.sanantonio.gov/GIS/GISData) and controlling annexation ordinances. Separate ETJ/limited-purpose overlaps and other cities' small boundary slivers remain subject to independent review; no address-level residency, tax or services conclusions follow from these results. No old facts' review dates have been silently reset.
 
+
+## October 11 — independently inspected full live SEO schema/sitemap results
+
+[Exact production QA run #38139303220](https://github.com/keeptxred/TexasDefined/actions/runs/38139303220) **SUCCESS**, on commit `8a213e2919c83c14b25ed4d6bdd3636b1ac8b365`. Its [JSON artifact #11702254597](https://github.com/keeptxred/TexasDefined/actions/runs/38139303220/artifacts/11702254597) was downloaded, parsed and **each of the eleven results individually inspected**.
+
+| SEO category | Independently observed result |
+|---|---|
+| Live production city route HTTP 200 | **11/11** |
+| Canonical equal `https://texasdefined.com/city/{slug}`, H1 and indexable robots | **11/11** |
+| Valid parseable `City` schema node with exact city name and canonical URL | **11/11** |
+| Valid `BreadcrumbList` with third item URL equal canonical | **11/11** |
+| Exact city URL `<loc>` in production `/sitemap.xml` | **11/11** |
+| Sitemap status and size | **HTTP 200**, `application/xml; charset=utf-8`, **3,118 `<loc>` entries**, **357,936 bytes**, no fallback header |
+| Diagnostics unresolved by this automated check | **0** (`needsReview: []`) |
+
+All eleven city **SEO canonical/structured-data/primary sitemap categories may be marked PASS for this exact released commit**. This proves neither actual Google/Bing indexing nor Search Console impressions, rich-results appearance, nor accuracy of all source-fact claims. The City schema `sameAs` entries point to each city government website; future legal ownership and manual factual changes must still be reviewed separately. Site-wide latest main can advance concurrently; exact commit is retained here and rechecks are warranted after future material route/schema changes.
+
+The overall eleven-city status remains **PARTIAL / 0 FULLY CERTIFIED** because legal municipal GIS, exhaustive current visitor/school/tax/utility/transit facts, 37 original ambiguous external destinations, full manual screen-reader/touch/keyboard and below-fold image readiness are not all accepted. Do not reset historic factual review dates.
