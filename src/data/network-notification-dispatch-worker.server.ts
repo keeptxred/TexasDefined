@@ -73,8 +73,8 @@ export async function dispatchPreparedNetworkGraphBatch(
   rows: unknown,
   transport: (plan: NetworkGraphClaimPlan) => Promise<{ status: unknown }>,
 ): Promise<NetworkGraphOperatorOutcome[]> {
-  if (NETWORK_GRAPH_DISPATCH_ENABLED !== true ||
-      NETWORK_EMAIL_DELIVERY_ENABLED !== true)
+  if (!Boolean(NETWORK_GRAPH_DISPATCH_ENABLED) ||
+      !Boolean(NETWORK_EMAIL_DELIVERY_ENABLED))
     throw Error('Network Graph delivery is not authorized');
   if (typeof transport !== 'function')
     throw Error('Network Graph transport missing');
