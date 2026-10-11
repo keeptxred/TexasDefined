@@ -59,3 +59,9 @@ Connected Supabase reports a new database branch would cost **$0.01344/hour** on
 ### Staging hostname and search isolation
 
 The draft checks actual incoming HTTPS host against the exact staged Workers origin before serving staging Network routes. An accidentally attached production hostname refuses stage requests. Even with every test-mode customer feature enabled, the synthetic directory, published test profiles, and join page remain nonindexable; the staged sitemap excludes Network URLs. Application Graph Mail.ReadBasic.All is the Graph app-only read permission documented by Microsoft; validate header access on the isolated mailbox in live-provider staging before authorizing any real recipient messages.
+
+### Test-mode email sink and bounded provider paging
+
+The single-cutover draft now rewrites **synthetic staging** notification recipients to the sole administrator's mailbox `admin@texasdefined.com`; no outside staged applicant receives a Graph message, while the immutable outbox correlation identifier is preserved for the real Sent Items proof and reconciliation. The same transformation runs for send, verifier and manual operator recovery; production recipients are never rewritten. This allows full subscription/application/notification flow testing without sending real mail to unconsenting recipients.
+
+Graph Sent Items verification pages through up to four bounded 60-message pages for a matching custom header. Continuation URLs are allowed only for the exact administrator Sent Items collection, with Microsoft Graph's `$skip` or `$skiptoken` pagination; foreign domains and other mailboxes are rejected. More pages than the bounded scan supports remain held for documented operator recovery, **never automatically retried**. Provider documentation: https://learn.microsoft.com/en-us/graph/api/user-list-messages?view=graph-rest-1.0 .
