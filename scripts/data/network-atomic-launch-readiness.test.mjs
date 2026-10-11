@@ -11,7 +11,7 @@ function fixture(){
   SUPABASE_SERVICE_ROLE_KEY:'eyJ'+ 'x'.repeat(30)+'.eyJ'+ 'y'.repeat(30)+'.syntheticSignature'+ 'z'.repeat(45),
   NETWORK_ADMIN_ACCESS_KEY:'admin-key-test-placeholder-'+ 'x'.repeat(40),
   STRIPE_SECRET_KEY:'sk_live_NOTREAL_'+'x'.repeat(80),
-  STRIPE_WEBHOOK_SECRET:'whsec_NOTREAL_'+'x'.repeat(80),
+  NETWORK_STRIPE_WEBHOOK_SECRET:'whsec_NOTREAL_'+'x'.repeat(80),
   NETWORK_STRIPE_MODE:'live',
   NETWORK_GRAPH_TENANT_ID:uuid1,NETWORK_GRAPH_CLIENT_ID:uuid2,
   NETWORK_GRAPH_CLIENT_SECRET:'not-real-secret-'+ 'x'.repeat(36),
@@ -50,7 +50,7 @@ test('flags by themselves cannot certify a single launch',()=>{
 test('configuration rejects missing provider credentials and wrong production host',()=>{
  const {env,proof}=fixture();
  for(const [name,value] of [
-  ['STRIPE_SECRET_KEY','sk_test_not_allowed'],['STRIPE_WEBHOOK_SECRET',''],
+  ['STRIPE_SECRET_KEY','sk_test_not_allowed'],['NETWORK_STRIPE_WEBHOOK_SECRET',''],
   ['NETWORK_GRAPH_CLIENT_SECRET',''],['NETWORK_GRAPH_MAILBOX','elsewhere@example.invalid'],
   ['SUPABASE_URL','https://other.supabase.co'],['NETWORK_ADMIN_ACCESS_KEY','x'],
 ['NETWORK_STRIPE_MODE','test'],
@@ -89,7 +89,7 @@ test('public customer surfaces do not activate before complete signed-off accept
  for(const v of ['', 'not-json', '[]', '{}', 'x'.repeat(5_200)]){
   assert.equal(networkCustomerLaunchArmed({...approved,NETWORK_LAUNCH_EVIDENCE_JSON:v}),false);
  }
- assert.equal(networkCustomerLaunchArmed({...approved,STRIPE_WEBHOOK_SECRET:''}),false);
+ assert.equal(networkCustomerLaunchArmed({...approved,NETWORK_STRIPE_WEBHOOK_SECRET:''}),false);
 });
 
 test('full customer staging can run only on separate hosted DB and Stripe TEST mode, never production',()=>{
@@ -105,7 +105,7 @@ test('full customer staging can run only on separate hosted DB and Stripe TEST m
   STRIPE_SECRET_KEY:'sk_test_notreal_'+ 'x'.repeat(60),
  };
  delete stage.NETWORK_LAUNCH_ATOMIC_VERIFIED;
- delete stage.STRIPE_WEBHOOK_SECRET; // no production webhook keys in staging
+ delete stage.NETWORK_STRIPE_WEBHOOK_SECRET; // no production webhook keys in staging
  assert.equal(networkIsolatedStagingArmed(stage),true);
  assert.equal(networkCustomerLaunchArmed(stage),true);
  for(const [key,value] of [
