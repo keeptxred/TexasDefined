@@ -1,3 +1,5 @@
+import publishedSoftballIndex from '@/data/softball/published-team-index.json';
+
 export const INDEXABLE_STATIC_PATHS = [
   "/",
   "/explore",
@@ -61,6 +63,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/sports/friday-night-lights",
   "/sports/softball",
   "/sports/softball/schools",
+  ...(publishedSoftballIndex as { pages: { slug: string }[] }).pages.map((entry) => `/sports/softball/${entry.slug}`),
   "/sports/softball/paris-junior-college",
   "/sports/softball/texas-volts",
   "/gaming",
