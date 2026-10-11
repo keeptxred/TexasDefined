@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet, useRouterState } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
+import type { ReactNode } from 'react';
 
 const path = '/sports/softball';
 const title = 'Texas Women’s Softball: Teams, 2026 Champions, Colleges & UIL Guide';
@@ -44,6 +45,10 @@ const officialResources = [
   ['NCAA Division II softball championship', 'https://www.ncaa.org/championship/division-ii/softball/'],
   ['NJCAA softball standings', 'https://www.njcaa.org/sports/standings?division=div1&season=2026-27&sport=sball'],
   ['NFCA coaches and awards', 'https://nfca.org/'],
+  ['Texas Volts professional softball', 'https://theausl.com/volts/about/'],
+  ['USA Softball of Texas official association', 'https://usasoftballoftexas.com/'],
+  ['Lone Star Conference 2026 Division II tournament field', 'https://lonestarconference.org/news/2026/5/4/lsc-softball-championship-field-released.aspx'],
+  ['ASC 2026 Division III championship results', 'https://ascsports.org/news/2026/5/9/tigers-take-2026-asc-baseball-championship.aspx?path=softball'],
   ['ASC Division III softball standings', 'https://ascsports.org/standings.aspx?path=softball'],
   ['Texas baseball and softball tournaments', '/events/tournaments-baseball-softball'],
 ] as const;
@@ -76,7 +81,7 @@ export const Route = createFileRoute('/sports/softball')({
   }),
 });
 
-function Section({ id, kicker, heading, children }: { id: string; kicker: string; heading: string; children: React.ReactNode }) {
+function Section({ id, kicker, heading, children }: { id: string; kicker: string; heading: string; children: ReactNode }) {
   return <section id={id} className="border-t border-border py-12 sm:py-16" aria-labelledby={id + '-heading'}>
     <p className="eyebrow text-primary">{kicker}</p>
     <h2 id={id + '-heading'} className="mt-3 max-w-4xl font-display text-3xl sm:text-4xl">{heading}</h2>
@@ -100,6 +105,7 @@ function Page() {
         <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">Texas softball is bigger than the major universities: high-school programs from 1A through 6A, NCAA teams across divisions, junior colleges, developmental pathways, championship history and the people who keep programs alive. This reference hub separates verified history from information that changes each season.</p>
         <div className="mt-8 flex flex-wrap gap-3 text-sm font-semibold">
           <a className="border border-primary px-4 py-3 text-primary" href="#high-school">UIL high schools ↓</a>
+          <a className="border border-primary px-4 py-3 text-primary" href="#professional">Professional ↓</a>
           <a className="border border-primary px-4 py-3 text-primary" href="#college">College programs ↓</a>
           <a className="border border-primary px-4 py-3 text-primary" href="#junior-college">Junior colleges ↓</a>
           <a className="border border-primary px-4 py-3 text-primary" href="/sports/softball/paris-junior-college">Paris Lady Dragons →</a>
@@ -122,19 +128,35 @@ function Page() {
         <p className="mt-6 text-sm leading-7">For current district opponents or eligibility, start with <a className="text-primary underline" href="https://www.uiltexas.org/softball/alignments">2026–27 UIL softball alignments</a>. The official archive also includes earlier seasons, brackets and all-tournament teams, so readers can distinguish a conference title, a region title and a state championship.</p>
       </Section>
 
+      <Section id="professional" kicker="Professional women’s fastpitch" heading="Texas has its own professional softball team: the Texas Volts">
+        <p className="max-w-4xl text-sm leading-7 text-muted-foreground">The <strong>Texas Volts</strong> are the Round Rock-based Athletes Unlimited Softball League (AUSL) team. The league designated <strong>Dell Diamond</strong> as the Volts' home venue for the 2026 season; Texas softball legend Cat Osterman serves as general manager and former Texas State coach Ricci Woodard as head coach. Unlike NCAA teams or high-school programs, the Volts are a professional women's team. Check the league's live site before treating prior-season schedules, tickets or staffing as current.</p>
+        <div className="mt-7 grid gap-4 sm:grid-cols-2">
+          <a className="block border border-border p-6" href="https://theausl.com/volts/about/"><p className="eyebrow text-primary">Professional team</p><h3 className="mt-2 font-display text-2xl">Texas Volts · Round Rock</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Team background, roster, coaches and official updates directly from AUSL.</p><span className="mt-4 block font-semibold text-primary">Official Texas Volts page ↗</span></a>
+          <a className="block border border-border p-6" href="https://www.roundrocktexas.gov/news/pro-softball-team-to-call-round-rock-home/"><p className="eyebrow text-primary">Home venue</p><h3 className="mt-2 font-display text-2xl">Dell Diamond · Round Rock</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">The City of Round Rock's January 2026 account of the franchise's arrival.</p><span className="mt-4 block font-semibold text-primary">City announcement ↗</span></a>
+        </div>
+      </Section>
+
       <Section id="college" kicker="NCAA softball" heading="Texas college programs, from nationally televised games to local campus traditions">
         <p className="max-w-4xl text-sm leading-7 text-muted-foreground">Texas won the 2025 and 2026 NCAA Division I national titles, defeating Texas Tech in both championship series. The highest-visibility teams share the sport with smaller institutions where recruiting, affordability and campus fit look different. This list is a selected official-team directory rather than an inflated claim to every varsity program.</p>
         <div className="mt-7 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {collegePrograms.map(([name, city, division, url]) => <a key={name} href={url} target="_blank" rel="noopener noreferrer" className="group bg-background p-5 hover:bg-surface"><p className="text-xs uppercase tracking-[0.12em] text-primary">{city}</p><h3 className="mt-2 font-display text-xl group-hover:text-primary">{name}</h3><p className="mt-2 text-xs text-muted-foreground">{division}</p><span className="mt-4 block text-sm font-semibold text-primary">Official team site ↗</span></a>)}
         </div>
         <h3 className="mt-9 font-display text-2xl">Division II and III matter too</h3>
-        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Do not overlook the Lone Star Conference’s Division II programs or NCAA Division III programs such as East Texas Baptist and Mary Hardin-Baylor in the American Southwest Conference. The <a className="text-primary underline" href="https://ascsports.org/standings.aspx?path=softball">official ASC standings</a> preserve conference results. Use <a className="text-primary underline" href="https://www.ncaa.org/championship/division-ii/softball/">NCAA Division II</a> and <a className="text-primary underline" href="https://www.ncaa.com/sports/softball/d3">NCAA Division III</a> resources for national championship context. Divisional membership and alignments require seasonal verification.</p>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Do not overlook the Lone Star Conference’s Division II programs or NCAA Division III programs such as East Texas Baptist and Mary Hardin-Baylor in the American Southwest Conference. The <a className="text-primary underline" href="https://ascsports.org/standings.aspx?path=softball">official ASC standings</a> preserve conference results. Use <a className="text-primary underline" href="https://www.ncaa.org/championship/division-ii/softball/">NCAA Division II</a> and <a className="text-primary underline" href="https://www.ncaa.com/sports/softball/d3">NCAA Division III</a> resources for national championship context. In 2026 the Texas Division II programs in the Lone Star Conference playoff field included West Texas A&M, UT Tyler, Angelo State, Texas A&M–Kingsville, St. Mary’s, Lubbock Christian and Texas Woman’s University; the conference’s <a className="text-primary underline" href="https://lonestarconference.org/news/2026/5/4/lsc-softball-championship-field-released.aspx">own nine-team tournament announcement</a> documents participants and past results. The 2026 American Southwest Conference title was won by East Texas Baptist. Divisional membership and alignments require seasonal verification.</p>
       </Section>
 
       <Section id="junior-college" kicker="NJCAA and the player pathway" heading="Junior colleges are a major part of the Texas softball story">
         <p className="max-w-4xl text-sm leading-7 text-muted-foreground">Two-year colleges connect Texas high-school players with higher education and, for many athletes, a later transfer to a four-year program. Region XIV includes programs such as Paris, San Jacinto, Trinity Valley, Blinn, Tyler and Navarro; other Texas colleges compete in different NJCAA regions. Check each school’s current schedule and recruiting information rather than treating a prior-season roster as current.</p>
         <a href="/sports/softball/paris-junior-college" className="mt-7 block border-l-4 border-primary bg-surface p-7"><p className="eyebrow text-primary">Featured researched team</p><h3 className="mt-3 font-display text-3xl">Paris Junior College Lady Dragons</h3><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">A program with 2025 and 2026 region-title seasons, a 2026 NJCAA Final Four, an incoming head coach and the remarkable decades-long commitment of program assistant Jack Butler.</p><span className="mt-4 block font-semibold text-primary">Read the researched Lady Dragons profile →</span></a>
         <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold"><a href="https://www.njcaa.org/sports/standings?division=div1&season=2026-27&sport=sball" className="text-primary underline">NJCAA standings ↗</a><a href="https://www.njcaa.org/" className="text-primary underline">NJCAA official home ↗</a><a href="/events/tournaments-baseball-softball" className="text-primary underline">Texas tournament directory →</a></div>
+      </Section>
+
+      <Section id="community" kicker="Youth, travel and adult softball" heading="How to find organized softball beyond school and college">
+        <p className="max-w-4xl text-sm leading-7 text-muted-foreground">Select/travel fastpitch, local recreation leagues and adult women's softball are an important part of the sport. USA Softball's Texas structure separates the statewide association from the Dallas–Fort Worth and Houston metro associations. That means no single statewide club list is automatically complete. Families should verify age-group eligibility, insurance, background checks, SafeSport rules and current event sanctioning directly with the tournament organizer before registration.</p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <a className="border border-border p-5 text-sm font-semibold text-primary underline" href="https://www.usasoftball.com/associations/state/texas/">USA Softball Texas and metro associations ↗</a>
+          <a className="border border-border p-5 text-sm font-semibold text-primary underline" href="https://usasoftballoftexas.com/ssr/pages/cms-v2/adults">Adult fastpitch, slowpitch and local recreation ↗</a>
+        </div>
       </Section>
 
       <Section id="questions" kicker="Explained" heading="How Texas women’s softball is organized">
