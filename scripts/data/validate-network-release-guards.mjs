@@ -66,6 +66,14 @@ check('Graph HTTP transport cannot send while Network email is disabled, pins ma
  && source('src/data/network-notification-graph-transport.server.ts').includes('AbortSignal.timeout(12_000)')
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-notification-graph-transport.test.mjs'));
 
+check('hosted staging read-only acceptance is explicit, synthetic and physically isolated from shared production',
+ source('scripts/data/network-hosted-stage-readonly.mjs').includes("NETWORK_HOSTED_STAGE_READONLY_APPROVED")
+ && source('scripts/data/network-hosted-stage-readonly.mjs').includes("forbiddenRef='ftkznprjljkhymknvhye'")
+ && source('scripts/data/network-hosted-stage-readonly.mjs').includes("!['")===false
+ && source('scripts/data/network-hosted-stage-readonly.mjs').includes("requestStage(fetcher,config,user.token")
+ && source('scripts/data/network-hosted-stage-readonly.mjs').includes("cross-owner private Storage read not denied")
+ && source('scripts/ci/run-premerge-validation.mjs').includes("network-hosted-stage-readonly.test.mjs"));
+
 check('non-live Stripe is isolated and rejects production Supabase, host and price reuse',
  source('src/data/network-stripe-mode.server.ts').includes("database.includes('ftkznprjljkhymknvhye')")
  && source('src/data/network-stripe-mode.server.ts').includes("NETWORK_ISOLATED_STAGING")
