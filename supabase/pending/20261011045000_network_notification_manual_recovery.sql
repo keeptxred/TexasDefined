@@ -2,6 +2,10 @@
 -- Manual recovery of uncertain Microsoft Graph notifications. NO live dispatcher,
 -- sender credentials, automatic retries, provider calls, or customer data changes.
 -- A Graph HTTP 202 or timeout does NOT prove delivery; no automatic status='sent'.
+BEGIN;
+SET LOCAL lock_timeout = '5s';
+SET LOCAL statement_timeout = '45s';
+
 CREATE TABLE IF NOT EXISTS texasdefined_network_internal.notification_reconciliation_audit(
  id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
  notification_id uuid NOT NULL REFERENCES public.texasdefined_network_email_outbox(id),
@@ -69,3 +73,5 @@ GRANT EXECUTE ON FUNCTION public.reconcile_texasdefined_network_notification(uui
 -- Operational warning: reviewer_label and evidence_reference are manually supplied;
 -- source-level checks do not authenticate the administrator or verify Graph Sent Items.
 -- A definitive provider delivery/non-delivery decision must be independently documented.
+
+COMMIT;
