@@ -3,7 +3,7 @@
   "lastReviewed": "2026-10-11",
   "season": "2026-27",
   "dataPolicy": "Verified 2026–27 UIL softball district identities and clearly season-labelled 2025–26 historical team evidence. Research-only. No individual pages auto-published or approved by this file.",
-  "method": "Exact match school name+conference+district+region to official UIL softball PDF. Primary school/UIL records for historical facts. Unresolved areas stay in gaps and must be closed for complete-first-publication acceptance. Current staff cannot be inferred from prior championship rosters. Expanded with primary-source historical UIL finals, official school schedule/current-season caveats, school staff spelling corroboration and known stale postseason notices on October 11, 2026. Every historical claim remains season-labelled and neither roster reprints nor inferred playing-field addresses are approved. October 11 independent primary-source award pass: 2026 UIL TGCA all-tournament groups for four champions, 2025 Shiner/Ganado honors, 2025 Katy district venue naming and official 2026 Ganado calendar venue naming. Venue recognition DOES NOT imply exact field parcel, admission, ADA, parking or current 2027 location. Third-party Amarillo team records explicitly not elevated to official school confirmations. October 11 coach role research: current school athletic websites identify named Shiner, Pearland and Katy softball head coaches as-of verification (not explicit Spring 2027 appointments), Ganado official faculty listings confirm James Harp employment but do not imply current role, and Amarillo school live feed confirms actual softball launch activity without reliable program foundation year. October 11 independent TEA/NCES physical campus crosswalk: Katy HS campus is in Fort Bend County (despite Katy ISD district association with Harris County), Shiner HS is a combined grades 7–12 campus and TEA vs NCES student counts are not identical, and Ganado, Pearland, Amarillo Highland Park each have exact state campus IDs and dated non-UIL enrollments. No student private data collected. Substantive October 11 Amarillo-specific original reportage pass identified contemporaneous May 18, 2024 construction/coach interviews, $6m anticipated fields portion of a $130m bond plan, inaugural head coach Eliza Martinez, historical 2024-25 assistant Mary Lieberknecht from third-party archived schedule and Spring 2025 real game fixture results. All year/venue claims retain evidence level; no implication 2027 coach or 2024 plan's as-built field details.",
+  "method": "Exact match school name+conference+district+region to official UIL softball PDF. Primary school/UIL records for historical facts. Unresolved areas stay in gaps and must be closed for complete-first-publication acceptance. Current staff cannot be inferred from prior championship rosters. Expanded with primary-source historical UIL finals, official school schedule/current-season caveats, school staff spelling corroboration and known stale postseason notices on October 11, 2026. Every historical claim remains season-labelled and neither roster reprints nor inferred playing-field addresses are approved. October 11 independent primary-source award pass: 2026 UIL TGCA all-tournament groups for four champions, 2025 Shiner/Ganado honors, 2025 Katy district venue naming and official 2026 Ganado calendar venue naming. Venue recognition DOES NOT imply exact field parcel, admission, ADA, parking or current 2027 location. Third-party Amarillo team records explicitly not elevated to official school confirmations. October 11 coach role research: current school athletic websites identify named Shiner, Pearland and Katy softball head coaches as-of verification (not explicit Spring 2027 appointments), Ganado official faculty listings confirm James Harp employment but do not imply current role, and Amarillo school live feed confirms actual softball launch activity without reliable program foundation year. October 11 independent TEA/NCES physical campus crosswalk: Katy HS campus is in Fort Bend County (despite Katy ISD district association with Harris County), Shiner HS is a combined grades 7–12 campus and TEA vs NCES student counts are not identical, and Ganado, Pearland, Amarillo Highland Park each have exact state campus IDs and dated non-UIL enrollments. No student private data collected. Substantive October 11 Amarillo-specific original reportage pass identified contemporaneous May 18, 2024 construction/coach interviews, $6m anticipated fields portion of a $130m bond plan, inaugural head coach Eliza Martinez, historical 2024-25 assistant Mary Lieberknecht from third-party archived schedule and Spring 2025 real game fixture results. All year/venue claims retain evidence level; no implication 2027 coach or 2024 plan's as-built field details. October 11 separate Amarillo-specific May 17, 2024 KFDA/KCBD original news source confirmed historic planned softball complex south of existing football field; distinct hpisd.org Dallas 2024 bond and TDLR softball project are unrelated and excluded.",
   "publicationAuthorization": false,
   "pilotSchools": [
     {
@@ -1266,6 +1266,13 @@
           "url": "https://www.maxpreps.com/games/3-22-2025/softball-25/highland-park-vs-sanford-fritch.htm?c=R8BA9a-3gk-tWNlr0L-c0A",
           "kind": "secondary-scoreboard",
           "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "kfdanews-groundbreaking-2024",
+          "title": "KFDA/KCBD May 17, 2024 news report pinpoints planned Amarillo Highland Park softball complex south of football field",
+          "url": "https://www.kcbd.com/2024/05/17/highland-park-isd-breaks-ground-new-softball-baseball-complex/",
+          "kind": "independent-local-tv-news",
+          "checkedAt": "2026-10-11"
         }
       ],
       "facts": [
@@ -1376,6 +1383,14 @@
           "sourceIds": [
             "presspass-may-2024-origin"
           ]
+        },
+        {
+          "claim": "An independent May 17, 2024 KFDA news report states Amarillo Highland Park ISD's planned baseball and softball complex was at the SOUTH END OF THE EXISTING FOOTBALL FIELD, with the anticipated first season in spring 2025. This is a historically sourced campus-area orientation only; it does not verify the final softball playing field's named gate, street entrance or compliant accessible spectator route.",
+          "season": "2023-24",
+          "sourceIds": [
+            "kfdanews-groundbreaking-2024",
+            "presspass-may-2024-origin"
+          ]
         }
       ],
       "gaps": [
@@ -1388,7 +1403,8 @@
         "Exact softball-specific and school-specific primary archives are sparse; exclude Dallas Scots and any unauthenticated venue/staff claims even when sports search results rank them first"
       ],
       "conflicts": [
-        "Name collision High Priority: Dallas Highland Park's scotsillustrated.com and hpisd.org have unrelated 5A/6A context; Amarillo uses hpisd.net, Hornets and 2A softball District 1."
+        "Name collision High Priority: Dallas Highland Park's scotsillustrated.com and hpisd.org have unrelated 5A/6A context; Amarillo uses hpisd.net, Hornets and 2A softball District 1.",
+        "CRITICAL DIFFERENT DISTRICT: Dallas Highland Park ISD hpisd.org 2024 bond records and 330 Westchester Dr Dallas softball athletic barrier filings are NOT related to Amarillo hpisd.net or its May 2023 bond/2024 baseball-softball construction. Do not copy 2026 Dallas $513k batting cage upgrade to this Amarillo team."
       ],
       "venueResearch": {
         "namedField": "Unverified (Amarillo Hornets program)",
@@ -1398,9 +1414,10 @@
         "accessibleSeatingVerified": false,
         "sourceIds": [
           "amarillo-school",
-          "presspass-may-2024-origin"
+          "presspass-may-2024-origin",
+          "kfdanews-groundbreaking-2024"
         ],
-        "notes": "Third-party schedules reference 'Highland Park HS' and Plainview game locations, not an authoritative address for the Amarillo school's home softball diamond. Never substitute Dallas Scots fields. May 2024 contemporaneous report covers approximately $6m earmarked from bond proceeds to build turf-and-lighted baseball/softball complexes targeting spring 2025; no school-issued as-built field address, current ADA/gate policies or exact completion date verified."
+        "notes": "Third-party schedules reference 'Highland Park HS' and Plainview game locations, not an authoritative address for the Amarillo school's home softball diamond. Never substitute Dallas Scots fields. May 2024 contemporaneous report covers approximately $6m earmarked from bond proceeds to build turf-and-lighted baseball/softball complexes targeting spring 2025; no school-issued as-built field address, current ADA/gate policies or exact completion date verified. A May 17, 2024 local-TV report located the **planned** new softball complex at the south end of the football field. That is useful approximate on-campus geography, not a current mapped street entrance or as-built accessibility evaluation."
       },
       "coachingResearch": {
         "schoolWebsiteAsOf": "2026-10-11",
