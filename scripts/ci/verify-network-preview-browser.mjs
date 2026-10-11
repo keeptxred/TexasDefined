@@ -94,6 +94,10 @@ try{
      brokenImages:[...document.querySelectorAll('main img')].filter(i=>i.complete&&i.naturalWidth===0).map(i=>i.currentSrc||i.src),
     }));
     assert.equal(state.mainCount,1,'exactly one main landmark required');
+    // The route-split stylesheet must never re-display the shared mobile
+    // header at desktop widths (or hide its controls on mobile).
+    const menuVisible=await page.locator('header button[aria-controls="mobile-main-menu"]').isVisible();
+    assert.equal(menuVisible,viewport==='mobile','shared header breakpoint visibility incorrect');
     assert.equal(state.heading.length,1,'exactly one main heading required');
     assert.ok(state.heading[0].includes(heading),'unexpected heading '+state.heading[0]);
     assert.ok(/noindex/i.test(state.robots),'Network preview must be noindex');
