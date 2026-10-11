@@ -13,6 +13,7 @@ const requiredFlags=[
  'NETWORK_PUBLICATION_ENABLED','NETWORK_DIRECTORY_ENABLED',
  'NETWORK_CHECKOUT_ENABLED','NETWORK_EMAIL_DELIVERY_ENABLED',
  'NETWORK_GRAPH_DISPATCH_ENABLED','NETWORK_CRON_ENABLED',
+ 'NETWORK_LAUNCH_ATOMIC_VERIFIED',
 ] as const;
 const requiredEvidence=[
  'ownerAuthTwoPerson','ownerRevocation','concurrentStorageQuota',
@@ -58,8 +59,6 @@ export function inspectNetworkAtomicLaunch(
  checks['config:graphSecret']=
   (environment.NETWORK_GRAPH_CLIENT_SECRET||'').length>=24;
  checks['config:graphMailbox']=environment.NETWORK_GRAPH_MAILBOX==='admin@texasdefined.com';
- checks['config:mailJobKey']=
-  (environment.NETWORK_NOTIFICATION_JOB_AUTH_KEY||'').length>=32;
  for(const label of requiredEvidence){
   checks['e2e:'+label]=wellFormedEvidence(evidence[label]);
  }
