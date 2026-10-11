@@ -104,16 +104,16 @@ function countyRouteSlug(value?: string) {
 function destinationExperienceTitle(name: string, categoryName: string) {
   const category = categoryName.toLowerCase();
   if (category.includes("outdoors") || category.includes("wildlife")) return `Exploring ${name}`;
-  if (category.includes("state park") || category.includes("natural area")) return `Visiting ${name}`;
-  if (category.includes("lake") || category.includes("river")) return `On the water at ${name}`;
+  if (/state park|natural area/.test(category)) return `Visiting ${name}`;
+  if (/lake|river/.test(category)) return `On the water at ${name}`;
   if (category.includes("historic")) return `The story of ${name}`;
   return `What to know about ${name}`;
 }
 
 function destinationSeoTitle(name: string, categoryName: string) {
   const category = categoryName.toLowerCase();
-  if (category.includes("state park") || category.includes("natural area")) return `${name} | Texas State Park Guide`;
-  if (category.includes("lake") || category.includes("river")) return `${name} | Texas Lake & River Guide`;
+  if (/state park|natural area/.test(category)) return `${name} | Texas State Park Guide`;
+  if (/lake|river/.test(category)) return `${name} | Texas Lake & River Guide`;
   if (category.includes("historic")) return `${name} | Texas Historic Site Guide`;
   if (name.toLowerCase().includes("brewery")) return `${name}: Tours, Beers & Visitor Guide`;
   return `${name} | Texas Travel Guide`;
