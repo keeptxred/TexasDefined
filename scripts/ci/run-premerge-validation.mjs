@@ -47,6 +47,7 @@ const prebuildChecks = [
   ['NETWORK/ADMIN', 'Verify dedicated Network administrator key', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-admin-access.test.mjs']],
   ['NETWORK/EMAIL', 'Verify disabled Office 365 email templates', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-notification-templates.test.mjs']],
   ['NETWORK/INTAKE', 'Test hard actual-byte cap for streamed application uploads', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-intake-limits.test.mjs']],
+  ['NETWORK/BILLING', 'Verify small actual-byte bound on Checkout and billing JSON', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-billing-json.test.mjs']],
   ['NETWORK/BILLING', 'Test Stripe webhook authentication and checkout launch gate', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-stripe-security.test.mjs']],
   ['CALCULATOR/PLATFORM', 'Validate calculator math and shared architecture', 'node', ['--experimental-strip-types', 'scripts/data/validate-calculator-platform.ts']],
   ['EVENT/TICKETMASTER', 'Validate Ticketmaster ingestion and tracking', 'node', ['--test', 'scripts/events/ticketmaster-discovery.test.mjs']],
