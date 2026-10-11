@@ -72,7 +72,7 @@ def parse(conf: str, raw: bytes):
             if t == "District":
                 d = col*4 + 1 + sum(1 for _x,_y,_t in items[:i] if _t == "District")
                 nearby = [int(s) for _x,_y,s in items if s.isdigit() and abs(_y-y)<2.5]
-                if nearby != [d]:
+                if nearby and nearby != [d]:
                     raise ValueError(f"{conf} expected district {d} but found heading numbers {nearby}")
                 current = d
                 last_y = None
