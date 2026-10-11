@@ -9,6 +9,23 @@ export async function stripeRequest(path:string,init:RequestInit={}) {
  if(!response.ok)throw new Error('Stripe API unavailable: '+response.status);
  return json;
 }
+/** Current subscription read for verified webhook processing. Always fail closed.
+ * The caller acknowledges the webhook only after this read and DB reconciliation. */
+export async function readNetworkCurrentStripeSubscription(subscriptionId: string): Promise<Record<string,any>> {
+ const key=process.env.STRIPE_SECRET_KEY;
+ if(!key?.startsWith('sk_live_')||!/^sub_[A-Za-z0-9_]+$/.test(subscriptionId))
+  throw new Error('Stripe subscription verification unavailable');
+ const response=await fetch(stripeBase+'/subscriptions/'+encodeURIComponent(subscriptionId),{
+  headers:{Authorization:'Bearer '+key},
+  signal:AbortSignal.timeout(12_000),
+ });
+ if(!response.ok)throw new Error('Stripe subscription verification unavailable');
+ const parsed=await response.json();
+ if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))
+  throw new Error('Malformed Stripe subscription response');
+ return parsed as Record<string,any>;
+}
+
 export function stripeCheckoutEnabled() {
  return process.env.NETWORK_CHECKOUT_ENABLED==='true' && !!process.env.STRIPE_SECRET_KEY && process.env.STRIPE_SECRET_KEY.startsWith('sk_live_');
 }
