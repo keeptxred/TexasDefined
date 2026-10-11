@@ -1,14 +1,14 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { GAMING_REVIEWED_AT, getGamingPage } from "@/data/gaming";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 export const Route = createFileRoute("/gaming/$slug")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
+    const { GAMING_REVIEWED_AT, getGamingPage } = await import("@/data/gaming");
     const page = getGamingPage(params.slug);
     if (!page) throw notFound();
-    return page;
+    return { ...page, reviewedAt: GAMING_REVIEWED_AT };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
@@ -30,7 +30,7 @@ export const Route = createFileRoute("/gaming/$slug")({
             url: pageUrl,
             headline: loaderData.title,
             description: loaderData.description,
-            dateModified: GAMING_REVIEWED_AT,
+            dateModified: loaderData.reviewedAt,
             author: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` },
             publisher: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` },
             isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/gaming")}#page` },

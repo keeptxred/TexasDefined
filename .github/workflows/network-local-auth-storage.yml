@@ -1,0 +1,83 @@
+name: Network disposable real Auth and Storage API verification
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/network-local-auth-storage.yml'
+      - 'scripts/data/prepare-network-local-supabase.mjs'
+      - 'scripts/data/verify-network-local-supabase.mjs'
+      # Recheck actual Auth/Storage invariants when production Network client
+      # or server code changes, not only when migration/test files change.
+      - 'src/routes/business.dashboard*'
+      - 'src/routes/network.*'
+      - 'src/routes/api.public.network*'
+      - 'src/data/network-*'
+      - 'scripts/data/network-*'
+      - 'scripts/data/validate-network-release-guards.mjs'
+      - 'supabase/migrations/**'
+      - 'supabase/pending/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-local-supabase:
+    name: Real local GoTrue JWT and Storage HTTP boundaries, no production access
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NETWORK_SUPABASE_REAL_E2E: yes-local-disposable-only
+      DO_NOT_TRACK: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: supabase/setup-cli@v1
+        with:
+          version: '2.120.0'
+      - name: Set up separate local project and run GoTrue and Storage API tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          TEST_ROOT="$RUNNER_TEMP/texasdefined-network-local-only"
+          mkdir -p "$TEST_ROOT"
+          cd "$TEST_ROOT"
+          supabase --version
+          supabase init
+          cd "$GITHUB_WORKSPACE"
+          node scripts/data/prepare-network-local-supabase.mjs "$TEST_ROOT"
+          cd "$TEST_ROOT"
+          # Auth and Storage run on disposable localhost containers only.
+          # Exclude ancillary services; never link or log in to a remote Supabase project.
+          if ! supabase start -x realtime,functions,studio,mail,analytics,pooler > "$RUNNER_TEMP/network-local-start.log" 2>&1; then
+            # Keep secrets and connection details out of CI logs. Show only
+            # diagnostic PostgreSQL error lines from ephemeral startup.
+            grep -E 'ERROR:|FATAL:|psql:|failed to start|migration failed' "$RUNNER_TEMP/network-local-start.log" | tail -30 || true
+            echo 'Disposable local Supabase startup failed (full local log remains private).'
+            exit 1
+          fi
+          supabase status -o env > "$RUNNER_TEMP/network-local-env.txt"
+          set -a
+          source "$RUNNER_TEMP/network-local-env.txt"
+          set +a
+          if [ "${API_URL:-}" != 'http://127.0.0.1:54321' ]; then
+            echo 'Not disposable local Supabase: fail closed'; exit 1
+          fi
+          cd "$GITHUB_WORKSPACE"
+          node scripts/data/verify-network-local-supabase.mjs 2>&1 | tee "$RUNNER_TEMP/network-real-local-integration.log"
+      - name: Stop temporary test stack
+        if: always()
+        shell: bash
+        run: |
+          cd "$RUNNER_TEMP/texasdefined-network-local-only" 2>/dev/null && supabase stop || true
+      - name: Upload redacted local test result only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: network-real-local-auth-storage-evidence
+          path: ${{ runner.temp }}/network-real-local-integration.log
+          if-no-files-found: ignore
+          retention-days: 7

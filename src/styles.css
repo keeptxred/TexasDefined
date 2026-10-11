@@ -1,5 +1,9 @@
 @import "tailwindcss" source(none);
 @source "../src";
+/* Network-only utilities are delivered by route-split stylesheet. */
+@source not "./routes/network.*.lazy.tsx";
+@source not "./routes/business.dashboard.lazy.tsx";
+@source not "./routes/admin.network-applications.lazy.tsx";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
