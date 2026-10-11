@@ -7,8 +7,6 @@ const PRICE_ID = "price_1UP28XLtRurj6GMNwFlYDW6N";
 
 export const Route = createFileRoute("/api/public/network-checkout")({
   server: { handlers: { POST: async ({ request }) => {
-    const {networkStripeHostAllowed}=await import("@/data/network-stripe-mode.server");
-    if(!networkStripeHostAllowed(request))return reply({error:"Checkout is unavailable on this host."},503);
     const origin = new URL(request.url).origin;
     if (request.headers.get("origin") !== origin) return reply({ error: "Invalid request origin." }, 403);
     // Enforce actual streamed bytes before JSON parsing or any database/Stripe work.
@@ -22,6 +20,10 @@ export const Route = createFileRoute("/api/public/network-checkout")({
     // Contact-email knowledge is not proof of business ownership. Require a confirmed sign-in before billing.
     const bearer = request.headers.get("authorization")?.match(/^Bearer ([\w.-]+)$/)?.[1];
     if (!bearer) return reply({ error: "Sign in with your confirmed application email before checkout." }, 401);
+    // Reject noncanonical billing hosts before privileged owner verification or Stripe.
+    // Preserve ordinary 400 input and 401 anonymous denials on local preview QA.
+    const {networkStripeHostAllowed}=await import("@/data/network-stripe-mode.server");
+    if(!networkStripeHostAllowed(request))return reply({error:"Checkout is unavailable on this host."},503);
     const {stripeCheckoutEnabled,createNetworkCheckoutSession}=await import("@/data/network-stripe.server");
     if (!stripeCheckoutEnabled()) return reply({ error: "Subscription checkout is not yet activated." }, 503);
     const {matchingNetworkOwnerEmail}=await import("@/data/network-owner-email");
