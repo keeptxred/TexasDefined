@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {inspectNetworkAtomicLaunch,networkCustomerLaunchArmed,NETWORK_LAUNCH_EVIDENCE_KEYS,NETWORK_LAUNCH_FEATURE_KEYS}
+import {inspectNetworkAtomicLaunch,networkCustomerLaunchArmed,networkIsolatedStagingArmed,NETWORK_LAUNCH_EVIDENCE_KEYS,NETWORK_LAUNCH_FEATURE_KEYS}
  from '../../src/data/network-atomic-launch-readiness.server.ts';
 
 const uuid1='11111111-1111-4111-8111-111111111111',
@@ -81,4 +81,33 @@ test('public customer surfaces do not activate before complete signed-off accept
   assert.equal(networkCustomerLaunchArmed({...approved,NETWORK_LAUNCH_EVIDENCE_JSON:v}),false);
  }
  assert.equal(networkCustomerLaunchArmed({...approved,STRIPE_WEBHOOK_SECRET:''}),false);
+});
+
+test('full customer staging can run only on separate hosted DB and Stripe TEST mode, never production',()=>{
+ const {env}=fixture();
+ const stage={...env,
+  NETWORK_ISOLATED_STAGING:'true',
+  NETWORK_STAGE_QA_APPROVED:'approved-synthetic-staging-only',
+  NETWORK_STAGE_ORIGIN:'https://texasdefined-qa.account.workers.dev',
+  SUPABASE_URL:'https://staging0123456789.supabase.co',
+  NETWORK_STRIPE_MODE:'test',NETWORK_STRIPE_TEST_MODE_ENABLED:'true',
+  NETWORK_STRIPE_TEST_PRICE_ID:'price_TESTnotLive0001',
+  STRIPE_SECRET_KEY:'sk_test_notreal_'+ 'x'.repeat(60),
+ };
+ delete stage.NETWORK_LAUNCH_ATOMIC_VERIFIED;
+ assert.equal(networkIsolatedStagingArmed(stage),true);
+ assert.equal(networkCustomerLaunchArmed(stage),true);
+ for(const [key,value] of [
+  ['SUPABASE_URL','https://ftkznprjljkhymknvhye.supabase.co'],
+  ['SUPABASE_URL','https://example.invalid'],
+  ['NETWORK_STAGE_ORIGIN','https://texasdefined.com/'],
+  ['NETWORK_STAGE_ORIGIN','https://preview.texasdefined.com/'],
+  ['NETWORK_STRIPE_MODE','live'],
+  ['STRIPE_SECRET_KEY','sk_live_notallowed'],
+  ['NETWORK_STAGE_QA_APPROVED',''],
+  ['NETWORK_STRIPE_TEST_PRICE_ID','price_1UP28XLtRurj6GMNwFlYDW6N'],
+  ['NETWORK_INTAKE_ENABLED','false'],
+ ]){
+  assert.equal(networkIsolatedStagingArmed({...stage,[key]:value}),false,key);
+ }
 });
