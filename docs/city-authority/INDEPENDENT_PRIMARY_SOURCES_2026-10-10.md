@@ -135,3 +135,8 @@ Austin City of Austin full-purpose polygons: https://services.arcgis.com/0L95CJ0
 ### San Antonio current-layer discovery, provenance caution
 
 The City of San Antonio [official GIS data catalog](https://www.sanantonio.gov/GIS/GISData) identifies `Cosa Boundary` and a quarterly publication cadence. A separate [ArcGIS COSA City Limits vector service](https://services7.arcgis.com/BUFM2kw4MpxDUJVh/ArcGIS/rest/services/COSA_City_Limits/FeatureServer) states source data updated March 17, 2026 and service published April 7, 2026. **No evidence yet establishes that the hosted service is the authoritative city's current polygon**. Its endpoint is included as an explicitly optional, unverified spatial-research candidate, not an authoritative GIS PASS or proof of Bexar/Comal/Medina incorporated intersections. Keep ETJ and annexation categories separate.
+
+
+### GIS taxonomy correction: never union ETJ with actual city limits
+
+The official Austin WFL1 layer actually includes `FULL`, `LTD`, ETJ and other-city jurisdiction polygons; relying on the source URL alone would erroneously overstate city area. The researcher now restricts Austin to `CITY_NAME='Austin' AND JURISDICTION_TYPE='FULL'` for full-purpose geometry and records `LTD` as a separate limited-purpose category. Houston city-limit geometry similarly separates `SERVICE_TY='FULL'` and `SERVICE_TY='LIMITED'` before drawing county conclusions. The original combined geometries were **never run and never certified**. Source: Austin [official ArcGIS layer](https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/City_of_Austin_WFL1/FeatureServer/0?f=pjson), Houston [official ArcGIS layer](https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer/0?f=pjson).
