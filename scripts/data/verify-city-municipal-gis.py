@@ -37,7 +37,7 @@ CITY_LAYERS = {
     "houston": "https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer/0",
     "dallas": "https://gis.dallascityhall.com/arcgis/rest/services/Pbw_public/ROWMSReferenceLayers/MapServer/2",
     "fort-worth": "https://mapit.fortworthtexas.gov/ags/rest/services/CIVIC/OpenData_Boundaries/MapServer/0",
-    "austin": "https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/City_of_Austin_WFL1/FeatureServer/0",
+    "austin": "https://services.arcgis.com/0L95CJ0VTaxqcmED/arcgis/rest/services/BOUNDARIES_jurisdictions/FeatureServer/0",
     "san-antonio": None,
     "el-paso": "https://gis.elpasotexas.gov/accela/rest/services/311/CityLimits/FeatureServer/0",
     "arlington": "https://gis2.arlingtontx.gov/agsext2/rest/services/OpenData/OD_PoliticalBoundary/MapServer/1",
@@ -59,13 +59,13 @@ CITY_FULL_WHERE = {
     "houston": "SERVICE_TY = 'FULL'",
     "dallas": "CITY = 'Dallas'",
     "fort-worth": "DESIGNATION = 'Full Purpose'",
-    "austin": "CITY_NAME = 'Austin' AND JURISDICTION_TYPE = 'FULL'",
+    "austin": "JURISDICTION_TYPE = 'FULL'",
     "arlington": "MUNICIPALNAME = 'Arlington'",
 }
 CITY_LIMITED_WHERE = {
     "houston": "SERVICE_TY = 'LIMITED'",
     "fort-worth": "DESIGNATION = 'Limited Purpose'",
-    "austin": "CITY_NAME = 'Austin' AND JURISDICTION_TYPE = 'LTD'",
+    "austin": "JURISDICTION_TYPE = 'LTD'",
 }
 # Reconcile results to published jurisdiction list, not arbitrary city-name county.
 PUBLISHED = {
