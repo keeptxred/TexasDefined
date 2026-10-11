@@ -139,6 +139,17 @@ export default {
         return new Response("Network customer launch not accepted",{status:503,
           headers:{"Cache-Control":"no-store"}});
     }
+    if(request.method==="POST" && customerPath==="/api/public/network-metrics"){
+      // Counters are aggregate but otherwise publicly writable. Enforce a
+      // dedicated edge rate limiter, not the 3/min application/billing budget.
+      const limiter=env&&typeof env==='object'
+        ? Reflect.get(env,"TEXAS_DEFINED_NETWORK_METRICS_RATE_LIMITER"):null;
+      const limit=limiter&&typeof limiter==='object'?Reflect.get(limiter,"limit"):null;
+      if(typeof limit!=="function")return new Response("Metrics unavailable",{status:503});
+      const identity=request.headers.get("cf-connecting-ip")||"unknown";
+      const result=await Reflect.apply(limit,limiter,[{key:"network-metrics:"+identity}]);
+      if(!result?.success)return new Response("Metrics rate limit reached",{status:429});
+    }
     if (request.method === "POST" && ["/api/public/network-application", "/api/public/network-checkout", "/api/public/network-billing"].includes(new URL(request.url).pathname)) {
       const limiter = typeof env === "object" && env !== null ? Reflect.get(env, "TEXAS_DEFINED_NETWORK_RATE_LIMITER") : null;
       if (!limiter || typeof limiter !== "object") return new Response("Service temporarily unavailable", { status: 503 });
