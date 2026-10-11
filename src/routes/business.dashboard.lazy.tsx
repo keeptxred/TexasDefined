@@ -3,6 +3,7 @@ import { createLazyFileRoute } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { Container } from '@/components/layout/Container';
 import { supabase } from '@/integrations/supabase/client';
+import { wereNetworkUnsubmittedDraftsDeleted } from '@/data/network-owner-draft-cleanup';
 
 export const Route=createLazyFileRoute('/business/dashboard')({component:BusinessDashboard});
 type Account={id:string;application_id:string;access_enabled:boolean;membership_tier:'plus'|'featured'};
@@ -22,7 +23,13 @@ function BusinessDashboard(){
  const [message,setMessage]=useState('');
  const [busy,setBusy]=useState(false);
  useEffect(()=>{let alive=true;void supabase.auth.getUser().then(({data})=>{if(alive)setUserId(data.user?.id||null)});const {data:{subscription}}=supabase.auth.onAuthStateChange((_event,session)=>setUserId(session?.user.id||null));return()=>{alive=false;subscription.unsubscribe()}},[]);
- useEffect(()=>{if(!userId){setAccount(null);setPublished(null);return}let active=true;void (async()=>{
+ useEffect(()=>{
+  // Auth switches must not display the prior owner's account, private review
+  // history, uploaded File objects, or editable draft while new RLS data loads.
+  setAccount(null);setPublished(null);setRevisions([]);
+  setDraft({});setNewLogo(null);setNewGallery([]);
+  if(!userId)return;
+  let active=true;void (async()=>{
   const {data,error}=await supabase.from('texasdefined_network_business_accounts').select('id,application_id,access_enabled,membership_tier').eq('owner_user_id',userId).limit(1).maybeSingle();
   if(!active)return;if(error){setMessage('Account loading failed.');return}
   setAccount(data as Account|null);if(data){
@@ -63,9 +70,18 @@ function BusinessDashboard(){
  };
  const cleanUnsubmitted=async()=>{
   if(!uploadedPaths.length)return true;
-  // This policy refuses deletion if a concurrently accepted revision references a file.
+  // Storage may return HTTP 200 even when RLS deletes ZERO rows. Confirm each
+  // attempted object's absence from the authoritative owner-visible inventory.
   const {error}=await drafts.remove(uploadedPaths);
-  return !error;
+  if(error)return false;
+  const {data:remainingMedia,error:inventoryError}=await drafts.list(user.id+'/'+account.id,{limit:100});
+  if(inventoryError || !wereNetworkUnsubmittedDraftsDeleted(uploadedPaths,remainingMedia))return false;
+  // A disabled owner may no longer see prior private media via RLS, so their
+  // empty list is not evidence that deletion succeeded. Fail closed.
+  const {data:stillEnabled,error:bindingError}=await supabase
+    .from('texasdefined_network_business_accounts')
+    .select('id').eq('id',account.id).eq('access_enabled',true).maybeSingle();
+  return !bindingError && !!stillEnabled;
  };
  try{
   if(newLogo)payload.logo_storage_path=await upload(newLogo,'logo');

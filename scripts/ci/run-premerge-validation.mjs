@@ -48,6 +48,7 @@ const prebuildChecks = [
   ['NETWORK/EMAIL', 'Verify disabled Office 365 email templates', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-notification-templates.test.mjs']],
   ['NETWORK/INTAKE', 'Test hard actual-byte cap for streamed application uploads', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-intake-limits.test.mjs']],
   ['NETWORK/MEDIA', 'Test immutable approved public-image copies and safe same-byte replay', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-published-media.test.mjs']],
+  ['NETWORK/MEDIA', 'Verify draft DELETE no-op, cleanup postconditions and owner identity state hygiene', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-owner-draft-cleanup.test.mjs']],
   ['NETWORK/BILLING', 'Verify case-insensitive but exact confirmed owner billing email and bindings', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-owner-email.test.mjs']],
   ['NETWORK/BILLING', 'Verify small actual-byte bound on Checkout and billing JSON', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-billing-json.test.mjs']],
   ['NETWORK/BILLING', 'Test Stripe webhook authentication and checkout launch gate', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-stripe-security.test.mjs']],

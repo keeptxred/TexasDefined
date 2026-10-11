@@ -298,6 +298,13 @@ check('intake is reviewable only after media and receipt transaction',
  && source('supabase/migrations/20261010225436_network_intake_complete_after_media_upload.sql').includes('NEW.intake_complete AND NOT OLD.intake_complete')
  && source('supabase/migrations/20261010225436_network_intake_complete_after_media_upload.sql').includes('network_review_requires_completed_intake'));
 
+check('owner dashboard never accepts HTTP 200 empty-delete as proof of draft cleanup or retains prior account private state',
+ source('src/routes/business.dashboard.lazy.tsx').includes('wereNetworkUnsubmittedDraftsDeleted(uploadedPaths,remainingMedia)')
+ && source('src/routes/business.dashboard.lazy.tsx').includes('setAccount(null);setPublished(null);setRevisions([])')
+ && source('src/routes/business.dashboard.lazy.tsx').includes('setDraft({});setNewLogo(null);setNewGallery([])')
+ && source('src/routes/business.dashboard.lazy.tsx').includes("eq('access_enabled',true)")
+ && source('scripts/data/network-owner-draft-cleanup.test.mjs').includes('HTTP 200 no-op DELETE')
+ && source('scripts/ci/run-premerge-validation.mjs').includes('network-owner-draft-cleanup.test.mjs'));
 check('Featured partial-upload cleanup only targets unreferenced owner media',source('src/routes/business.dashboard.lazy.tsx').includes('const uploadedPaths:string[]=[]')&&source('src/routes/business.dashboard.lazy.tsx').includes('cleanUnsubmitted()')&&source('supabase/migrations/20261010230319_network_owner_delete_unreferenced_drafts.sql').includes('NOT EXISTS'));
 
 check('atomic published listing finalizer requires completed approval and paid Plus entitlement',source('supabase/migrations/20261010230653_network_atomic_listing_publication.sql').includes("a.intake_complete IS NOT TRUE")&&source('supabase/migrations/20261010230653_network_atomic_listing_publication.sql').includes("a.paid_entitlement_active IS NOT TRUE")&&source('supabase/migrations/20261010230712_network_publication_jsonb_key_count_fix.sql').includes('jsonb_object_keys(p_profile)'));

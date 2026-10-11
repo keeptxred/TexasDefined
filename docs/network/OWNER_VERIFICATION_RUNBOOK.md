@@ -281,3 +281,7 @@ The isolated test suite also now submits two real concurrent Storage API binary 
 ### Completed real Storage HTTP concurrent-quota and cleanup acceptance
 
 [Run 38140434397](https://github.com/keeptxred/TexasDefined/actions/runs/38140434397) independently passed the true concurrent Storage HTTP 23→24 image limit under two overlapping upload requests, kept a referenced private review image's `storage.objects` metadata and original bytes after an attempted delete (regardless of a possible HTTP 200 no-op), deleted an unreferenced orphan through authenticated Storage HTTP and recovered the freed quota slot. This is a **real localhost GoTrue+Storage service pass**, not merely SQL simulation. No production objects were modified or deleted.
+
+### Owner dashboard safe cleanup and Auth change behavior (source test)
+
+The Featured dashboard treats a Storage remove API call as a **request**, not proof of deletion. After partial upload failure it checks each newly uploaded basename is absent from the owner-visible draft inventory and verifies that the account still has enabled access; if unavailable or RLS-hidden, it reports manual cleanup might be needed. Switching Auth owners clears cached private account, review history, draft fields, gallery selections and published listing before requesting new owner data. New Node regressions run in the Merge Gate alongside real disposable Storage API deletion tests. Do not certify hosted operation until deployed/approved browser acceptance.
