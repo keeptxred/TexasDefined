@@ -23,10 +23,11 @@ export function prepareNetworkGraphHttpRequest(plan: NetworkGraphClaimPlan): {
     plan.recipient.length>254 || !boundedEmail.test(plan.recipient) ||
     /[\x00-\x1f\x7f]/.test(plan.recipient)) throw Error('Graph claim envelope invalid');
   const msg=plan.graphPayload;
-  if (!msg || msg.saveToSentItems!==true || !msg.message ||
-    msg.message.toRecipients.length!==1 ||
+  if (!msg || typeof msg!=='object' || msg.saveToSentItems!==true ||
+    !msg.message || typeof msg.message!=='object' ||
+    !Array.isArray(msg.message.toRecipients) || msg.message.toRecipients.length!==1 ||
+    !Array.isArray(msg.message.replyTo) || msg.message.replyTo.length!==1 ||
     msg.message.toRecipients[0]?.emailAddress?.address!==plan.recipient ||
-    msg.message.replyTo.length!==1 ||
     msg.message.replyTo[0]?.emailAddress?.address!==NETWORK_NOTIFICATION_SENDER ||
     typeof msg.message.subject!=='string' ||
     typeof msg.message.body?.content!=='string') throw Error('Graph claim envelope invalid');
