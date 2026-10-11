@@ -59,6 +59,10 @@ const pendingRecovery='supabase/pending/20261011045000_network_notification_manu
 if(!existsSync(pendingRecovery))throw new Error('Missing unapplied, manual notification recovery migration');
 execSql(['-f',pendingRecovery],'pending service-only manual Graph reconciliation schema; isolated DB only');
 console.log('REPLAY PENDING GRAPH RECOVERY SCHEMA PASS: no sender, no automatic retry');
+const pendingPerformance='supabase/pending/20261011210000_network_profile_daily_metrics.sql';
+if(!existsSync(pendingPerformance))throw Error('Missing one-cutover private listing performance migration');
+execSql(['-f',pendingPerformance],'pending Network aggregate performance schema — isolated database only');
+console.log('REPLAY PENDING NETWORK PERFORMANCE SQL PASS: no production data changes');
 const pendingAtomicQuota='supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql';
 if(!existsSync(pendingAtomicQuota))throw new Error('Pending atomic Storage HTTP quota migration missing');
 execSql(['-f',pendingAtomicQuota],'pending self-transactional atomic Storage quota counter and triggers: disposable DB only');
