@@ -37,6 +37,12 @@ test('Graph HTTP preparation refuses changed sender, foreign recipient and injec
  const forgedHtml={...plan,graphPayload:{...plan.graphPayload,message:{...plan.graphPayload.message,
    body:{contentType:'HTML',content:'<img src=x>'}}}};
  assert.throws(()=>prepareNetworkGraphHttpRequest(forgedHtml),/invalid/);
+ for(const toRecipients of [null,undefined,[],[{}],[{emailAddress:null}]]) {
+  const malformed={...plan,graphPayload:{...plan.graphPayload,message:{...plan.graphPayload.message,toRecipients}}};
+  assert.throws(()=>prepareNetworkGraphHttpRequest(malformed),/envelope invalid/);
+ }
+ const missingReply={...plan,graphPayload:{...plan.graphPayload,message:{...plan.graphPayload.message,replyTo:null}}};
+ assert.throws(()=>prepareNetworkGraphHttpRequest(missingReply),/envelope invalid/);
  const oversized={...plan,graphPayload:{...plan.graphPayload,message:{...plan.graphPayload.message,
    body:{contentType:'Text',content:'A'.repeat(17_000)}}}};
  assert.throws(()=>prepareNetworkGraphHttpRequest(oversized),/too large/);
