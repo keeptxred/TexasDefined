@@ -1,0 +1,499 @@
+{
+  "type": "TexasDefined Batch 004 final post-correction production acceptance",
+  "provenance": "Extracted and summarized from exact GitHub Actions artifact report.json, not an independent repeat of the test",
+  "date": "2026-10-10T16:06:47.438Z",
+  "productionCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+  "deploymentRunId": 38065702334,
+  "browserRunId": 38066125917,
+  "screenshotArtifactId": 11674878954,
+  "reportJsonSha256": "1619f416990532282afaa762a182d09c5ff238a5ad82747dde42a58e3ae43992",
+  "artifactReportFileCount": 73,
+  "artifactRetainedForDays": 14,
+  "counts": {
+    "schoolViewportChecks": 50,
+    "countyViewportChecks": 20,
+    "austinCityViewportChecks": 2,
+    "allBrowserPassed": 72,
+    "allBrowserFailed": 0,
+    "sitemapPassed": 25,
+    "sitemapFailed": 0
+  },
+  "schoolResults": [
+    {
+      "slug": "arp",
+      "county": "smith",
+      "cityReciprocal": null,
+      "url": "https://texasdefined.com/texas-high-school-football-teams/arp",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-arp.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-arp.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "aspermont",
+      "county": "stonewall",
+      "cityReciprocal": null,
+      "url": "https://texasdefined.com/texas-high-school-football-teams/aspermont",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-aspermont.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-aspermont.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "athens",
+      "county": "henderson",
+      "cityReciprocal": null,
+      "url": "https://texasdefined.com/texas-high-school-football-teams/athens",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-athens.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-athens.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "atlanta",
+      "county": "cass",
+      "cityReciprocal": null,
+      "url": "https://texasdefined.com/texas-high-school-football-teams/atlanta",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-atlanta.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-atlanta.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "aubrey",
+      "county": "denton",
+      "cityReciprocal": null,
+      "url": "https://texasdefined.com/texas-high-school-football-teams/aubrey",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-aubrey.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-aubrey.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "austin",
+      "county": "travis",
+      "cityReciprocal": "austin",
+      "url": "https://texasdefined.com/texas-high-school-football-teams/austin",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-austin.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-austin.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "austin-achieve",
+      "county": "travis",
+      "cityReciprocal": null,
+      "url": "https://texasdefined.com/texas-high-school-football-teams/austin-achieve",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-austin-achieve.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-austin-achieve.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "austin-akins",
+      "county": "travis",
+      "cityReciprocal": "austin",
+      "url": "https://texasdefined.com/texas-high-school-football-teams/austin-akins",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-austin-akins.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-austin-akins.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "austin-anderson",
+      "county": "travis",
+      "cityReciprocal": "austin",
+      "url": "https://texasdefined.com/texas-high-school-football-teams/austin-anderson",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-austin-anderson.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-austin-anderson.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "austin-bowie",
+      "county": "travis",
+      "cityReciprocal": "austin",
+      "url": "https://texasdefined.com/texas-high-school-football-teams/austin-bowie",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-austin-bowie.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-austin-bowie.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "austin-crockett",
+      "county": "travis",
+      "cityReciprocal": "austin",
+      "url": "https://texasdefined.com/texas-high-school-football-teams/austin-crockett",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-austin-crockett.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-austin-crockett.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "austin-eastside",
+      "county": "travis",
+      "cityReciprocal": "austin",
+      "url": "https://texasdefined.com/texas-high-school-football-teams/austin-eastside",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-austin-eastside.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-austin-eastside.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "austin-johnson",
+      "county": "travis",
+      "cityReciprocal": "austin",
+      "url": "https://texasdefined.com/texas-high-school-football-teams/austin-johnson",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-austin-johnson.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-austin-johnson.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "austin-lake-travis",
+      "county": "travis",
+      "cityReciprocal": null,
+      "url": "https://texasdefined.com/texas-high-school-football-teams/austin-lake-travis",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-austin-lake-travis.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-austin-lake-travis.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "austin-lasa",
+      "county": "travis",
+      "cityReciprocal": "austin",
+      "url": "https://texasdefined.com/texas-high-school-football-teams/austin-lasa",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-austin-lasa.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-austin-lasa.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "austin-mccallum",
+      "county": "travis",
+      "cityReciprocal": "austin",
+      "url": "https://texasdefined.com/texas-high-school-football-teams/austin-mccallum",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-austin-mccallum.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-austin-mccallum.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "austin-navarro",
+      "county": "travis",
+      "cityReciprocal": "austin",
+      "url": "https://texasdefined.com/texas-high-school-football-teams/austin-navarro",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-austin-navarro.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-austin-navarro.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "austin-northeast",
+      "county": "travis",
+      "cityReciprocal": "austin",
+      "url": "https://texasdefined.com/texas-high-school-football-teams/austin-northeast",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-austin-northeast.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-austin-northeast.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "austin-travis",
+      "county": "travis",
+      "cityReciprocal": "austin",
+      "url": "https://texasdefined.com/texas-high-school-football-teams/austin-travis",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-austin-travis.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-austin-travis.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "austin-vandegrift",
+      "county": "travis",
+      "cityReciprocal": null,
+      "url": "https://texasdefined.com/texas-high-school-football-teams/austin-vandegrift",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-austin-vandegrift.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-austin-vandegrift.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "austin-westlake",
+      "county": "travis",
+      "cityReciprocal": null,
+      "url": "https://texasdefined.com/texas-high-school-football-teams/austin-westlake",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-austin-westlake.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-austin-westlake.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "avalon",
+      "county": "ellis",
+      "cityReciprocal": null,
+      "url": "https://texasdefined.com/texas-high-school-football-teams/avalon",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-avalon.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-avalon.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "axtell",
+      "county": "mclennan",
+      "cityReciprocal": null,
+      "url": "https://texasdefined.com/texas-high-school-football-teams/axtell",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-axtell.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-axtell.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "azle",
+      "county": "tarrant",
+      "cityReciprocal": null,
+      "url": "https://texasdefined.com/texas-high-school-football-teams/azle",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-azle.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-azle.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    },
+    {
+      "slug": "baird",
+      "county": "callahan",
+      "cityReciprocal": null,
+      "url": "https://texasdefined.com/texas-high-school-football-teams/baird",
+      "desktop": {
+        "result": "PASS",
+        "screenshot": "desktop-school-baird.png"
+      },
+      "mobile": {
+        "result": "PASS",
+        "screenshot": "mobile-school-baird.png"
+      },
+      "sitemap": "PASS",
+      "countyReciprocal": "PASS"
+    }
+  ],
+  "countyResults": [
+    {
+      "slug": "smith",
+      "url": "https://texasdefined.com/county/smith",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "slug": "stonewall",
+      "url": "https://texasdefined.com/county/stonewall",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "slug": "henderson",
+      "url": "https://texasdefined.com/county/henderson",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "slug": "cass",
+      "url": "https://texasdefined.com/county/cass",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "slug": "denton",
+      "url": "https://texasdefined.com/county/denton",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "slug": "travis",
+      "url": "https://texasdefined.com/county/travis",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "slug": "ellis",
+      "url": "https://texasdefined.com/county/ellis",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "slug": "mclennan",
+      "url": "https://texasdefined.com/county/mclennan",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "slug": "tarrant",
+      "url": "https://texasdefined.com/county/tarrant",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "slug": "callahan",
+      "url": "https://texasdefined.com/county/callahan",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    }
+  ],
+  "cityResults": [
+    {
+      "slug": "austin",
+      "desktop": "PASS",
+      "mobile": "PASS",
+      "schoolReciprocalCount": 12
+    }
+  ],
+  "limitations": [
+    "Passing browser assertions are not a blanket independent factual audit of all statements",
+    "No third-party school photograph license is asserted",
+    "Current school coaches, game-day tickets, parking, ADA and seasonal information require ongoing primary-source checking",
+    "Screenshots expire with the Actions artifact; file names and report digest are durably recorded here"
+  ]
+}
