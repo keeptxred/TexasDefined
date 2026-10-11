@@ -280,6 +280,7 @@ import { Route as StateParkBalmorheaStateParkRouteImport } from './routes/state-
 import { Route as StateParkAtlantaStateParkRouteImport } from './routes/state-park.atlanta-state-park'
 import { Route as StateParkAbileneStateParkRouteImport } from './routes/state-park.abilene-state-park'
 import { Route as StateParkSlugRouteImport } from './routes/state-park.$slug'
+import { Route as SportsSoftballRouteImport } from './routes/sports.softball'
 import { Route as SportsFridayNightLightsRouteImport } from './routes/sports.friday-night-lights'
 import { Route as SportsVenuesCompareDotcsvRouteImport } from './routes/sports-venues.compare[.]csv'
 import { Route as SportsVenuesCompareRouteImport } from './routes/sports-venues.compare'
@@ -436,6 +437,8 @@ import { Route as AdminEntityImportReviewRouteImport } from './routes/admin.enti
 import { Route as AdminEditorialOutreachRouteImport } from './routes/admin.editorial-outreach'
 import { Route as KindSlugRouteImport } from './routes/$kind.$slug'
 import { Route as TexasDataResearchTexasHomeownersPremiumsVsCoverageRouteImport } from './routes/texas-data.research.texas-homeowners-premiums-vs-coverage'
+import { Route as SportsSoftballTexasVoltsRouteImport } from './routes/sports.softball.texas-volts'
+import { Route as SportsSoftballParisJuniorCollegeRouteImport } from './routes/sports.softball.paris-junior-college'
 import { Route as ShopProductProductIdRouteImport } from './routes/shop.product.$productId'
 import { Route as PropertyTaxTaxingUnitUnitRouteImport } from './routes/property-tax.taxing-unit.$unit'
 import { Route as PropertyTaxCountyCountyRouteImport } from './routes/property-tax.county.$county'
@@ -2267,6 +2270,13 @@ const StateParkSlugRoute = StateParkSlugRouteImport.update({
   path: '/state-park/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SportsSoftballRoute = SportsSoftballRouteImport.update({
+  id: '/softball',
+  path: '/softball',
+  getParentRoute: () => SportsRoute,
+} as any).lazy(() =>
+  import('./routes/sports.softball.lazy').then((d) => d.Route),
+)
 const SportsFridayNightLightsRoute = SportsFridayNightLightsRouteImport.update({
   id: '/friday-night-lights',
   path: '/friday-night-lights',
@@ -3185,6 +3195,24 @@ const TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute =
       (d) => d.Route,
     ),
   )
+const SportsSoftballTexasVoltsRoute =
+  SportsSoftballTexasVoltsRouteImport.update({
+    id: '/texas-volts',
+    path: '/texas-volts',
+    getParentRoute: () => SportsSoftballRoute,
+  } as any).lazy(() =>
+    import('./routes/sports.softball.texas-volts.lazy').then((d) => d.Route),
+  )
+const SportsSoftballParisJuniorCollegeRoute =
+  SportsSoftballParisJuniorCollegeRouteImport.update({
+    id: '/paris-junior-college',
+    path: '/paris-junior-college',
+    getParentRoute: () => SportsSoftballRoute,
+  } as any).lazy(() =>
+    import('./routes/sports.softball.paris-junior-college.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 const ShopProductProductIdRoute = ShopProductProductIdRouteImport.update({
   id: '/product/$productId',
   path: '/product/$productId',
@@ -3934,6 +3962,7 @@ export interface FileRoutesByFullPath {
   '/sports-venues/compare': typeof SportsVenuesCompareRoute
   '/sports-venues/compare.csv': typeof SportsVenuesCompareDotcsvRoute
   '/sports/friday-night-lights': typeof SportsFridayNightLightsRoute
+  '/sports/softball': typeof SportsSoftballRouteWithChildren
   '/state-park/$slug': typeof StateParkSlugRoute
   '/state-park/abilene-state-park': typeof StateParkAbileneStateParkRoute
   '/state-park/atlanta-state-park': typeof StateParkAtlantaStateParkRoute
@@ -4071,6 +4100,8 @@ export interface FileRoutesByFullPath {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/sports/softball/paris-junior-college': typeof SportsSoftballParisJuniorCollegeRoute
+  '/sports/softball/texas-volts': typeof SportsSoftballTexasVoltsRoute
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
@@ -4425,6 +4456,7 @@ export interface FileRoutesByTo {
   '/sports-venues/compare': typeof SportsVenuesCompareRoute
   '/sports-venues/compare.csv': typeof SportsVenuesCompareDotcsvRoute
   '/sports/friday-night-lights': typeof SportsFridayNightLightsRoute
+  '/sports/softball': typeof SportsSoftballRouteWithChildren
   '/state-park/$slug': typeof StateParkSlugRoute
   '/state-park/abilene-state-park': typeof StateParkAbileneStateParkRoute
   '/state-park/atlanta-state-park': typeof StateParkAtlantaStateParkRoute
@@ -4562,6 +4594,8 @@ export interface FileRoutesByTo {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/sports/softball/paris-junior-college': typeof SportsSoftballParisJuniorCollegeRoute
+  '/sports/softball/texas-volts': typeof SportsSoftballTexasVoltsRoute
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
@@ -4920,6 +4954,7 @@ export interface FileRoutesById {
   '/sports-venues/compare': typeof SportsVenuesCompareRoute
   '/sports-venues/compare.csv': typeof SportsVenuesCompareDotcsvRoute
   '/sports/friday-night-lights': typeof SportsFridayNightLightsRoute
+  '/sports/softball': typeof SportsSoftballRouteWithChildren
   '/state-park/$slug': typeof StateParkSlugRoute
   '/state-park/abilene-state-park': typeof StateParkAbileneStateParkRoute
   '/state-park/atlanta-state-park': typeof StateParkAtlantaStateParkRoute
@@ -5057,6 +5092,8 @@ export interface FileRoutesById {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/sports/softball/paris-junior-college': typeof SportsSoftballParisJuniorCollegeRoute
+  '/sports/softball/texas-volts': typeof SportsSoftballTexasVoltsRoute
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
@@ -5416,6 +5453,7 @@ export interface FileRouteTypes {
     | '/sports-venues/compare'
     | '/sports-venues/compare.csv'
     | '/sports/friday-night-lights'
+    | '/sports/softball'
     | '/state-park/$slug'
     | '/state-park/abilene-state-park'
     | '/state-park/atlanta-state-park'
@@ -5553,6 +5591,8 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/sports/softball/paris-junior-college'
+    | '/sports/softball/texas-volts'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
@@ -5907,6 +5947,7 @@ export interface FileRouteTypes {
     | '/sports-venues/compare'
     | '/sports-venues/compare.csv'
     | '/sports/friday-night-lights'
+    | '/sports/softball'
     | '/state-park/$slug'
     | '/state-park/abilene-state-park'
     | '/state-park/atlanta-state-park'
@@ -6044,6 +6085,8 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/sports/softball/paris-junior-college'
+    | '/sports/softball/texas-volts'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
@@ -6401,6 +6444,7 @@ export interface FileRouteTypes {
     | '/sports-venues/compare'
     | '/sports-venues/compare.csv'
     | '/sports/friday-night-lights'
+    | '/sports/softball'
     | '/state-park/$slug'
     | '/state-park/abilene-state-park'
     | '/state-park/atlanta-state-park'
@@ -6538,6 +6582,8 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/sports/softball/paris-junior-college'
+    | '/sports/softball/texas-volts'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
@@ -8839,6 +8885,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StateParkSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sports/softball': {
+      id: '/sports/softball'
+      path: '/softball'
+      fullPath: '/sports/softball'
+      preLoaderRoute: typeof SportsSoftballRouteImport
+      parentRoute: typeof SportsRoute
+    }
     '/sports/friday-night-lights': {
       id: '/sports/friday-night-lights'
       path: '/friday-night-lights'
@@ -9931,6 +9984,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRouteImport
       parentRoute: typeof TexasDataResearchRoute
     }
+    '/sports/softball/texas-volts': {
+      id: '/sports/softball/texas-volts'
+      path: '/texas-volts'
+      fullPath: '/sports/softball/texas-volts'
+      preLoaderRoute: typeof SportsSoftballTexasVoltsRouteImport
+      parentRoute: typeof SportsSoftballRoute
+    }
+    '/sports/softball/paris-junior-college': {
+      id: '/sports/softball/paris-junior-college'
+      path: '/paris-junior-college'
+      fullPath: '/sports/softball/paris-junior-college'
+      preLoaderRoute: typeof SportsSoftballParisJuniorCollegeRouteImport
+      parentRoute: typeof SportsSoftballRoute
+    }
     '/shop/product/$productId': {
       id: '/shop/product/$productId'
       path: '/product/$productId'
@@ -10676,12 +10743,28 @@ const ShopRouteChildren: ShopRouteChildren = {
 
 const ShopRouteWithChildren = ShopRoute._addFileChildren(ShopRouteChildren)
 
+interface SportsSoftballRouteChildren {
+  SportsSoftballParisJuniorCollegeRoute: typeof SportsSoftballParisJuniorCollegeRoute
+  SportsSoftballTexasVoltsRoute: typeof SportsSoftballTexasVoltsRoute
+}
+
+const SportsSoftballRouteChildren: SportsSoftballRouteChildren = {
+  SportsSoftballParisJuniorCollegeRoute: SportsSoftballParisJuniorCollegeRoute,
+  SportsSoftballTexasVoltsRoute: SportsSoftballTexasVoltsRoute,
+}
+
+const SportsSoftballRouteWithChildren = SportsSoftballRoute._addFileChildren(
+  SportsSoftballRouteChildren,
+)
+
 interface SportsRouteChildren {
   SportsFridayNightLightsRoute: typeof SportsFridayNightLightsRoute
+  SportsSoftballRoute: typeof SportsSoftballRouteWithChildren
 }
 
 const SportsRouteChildren: SportsRouteChildren = {
   SportsFridayNightLightsRoute: SportsFridayNightLightsRoute,
+  SportsSoftballRoute: SportsSoftballRouteWithChildren,
 }
 
 const SportsRouteWithChildren =
