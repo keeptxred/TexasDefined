@@ -37,7 +37,11 @@ async function record(request:Request){
   return answer({error:'Invalid event'},400);
  if(!await shouldServe())return answer({error:'Network launch pending'},503);
  const {supabaseAdmin}=await import('@/integrations/supabase/client.server');
- const {data:recorded,error}=await supabaseAdmin.rpc('record_texasdefined_network_profile_metric',
+ // These service-only RPCs are introduced by a PENDING release migration.
+ // Keep the autogen Supabase Database type unchanged until staged schema sync.
+ const db=supabaseAdmin as unknown as {rpc:(name:string,args:Record<string,unknown>)=>
+  Promise<{data:unknown;error:unknown}>};
+ const {data:recorded,error}=await db.rpc('record_texasdefined_network_profile_metric',
   {p_slug:slug,p_action:action as string});
  if(error)return answer({error:'Metrics unavailable'},503);
  if(recorded!==true)return answer({error:'Published listing not found'},404);
@@ -77,8 +81,10 @@ async function ownerReport(request:Request){
   .eq('is_published',true).maybeSingle();
  if(listingError)return answer({error:'Listing status unavailable'},503);
  if(!listing)return answer({error:'Published listing required'},403);
- const {data:rows,error:reportError}=await supabaseAdmin
-  .rpc('get_texasdefined_network_profile_metrics',{p_application_id:id});
+ const db=supabaseAdmin as unknown as {rpc:(name:string,args:Record<string,unknown>)=>
+  Promise<{data:unknown;error:unknown}>};
+ const {data:rows,error:reportError}=await db.rpc('get_texasdefined_network_profile_metrics',
+  {p_application_id:id});
  if(reportError||!Array.isArray(rows))return answer({error:'Statistics unavailable'},503);
  try{
   const today=new Date().toISOString().slice(0,10);
