@@ -77,7 +77,7 @@ test('public customer surfaces do not activate before complete signed-off accept
   const missing={...proof,[e]:{...proof[e],passed:false}};
   assert.equal(networkCustomerLaunchArmed({...approved,NETWORK_LAUNCH_EVIDENCE_JSON:JSON.stringify(missing)}),false);
  }
- for(const v of ['', 'not-json', '[]', '{}', 'x'.repeat(17_000)]){
+ for(const v of ['', 'not-json', '[]', '{}', 'x'.repeat(5_200)]){
   assert.equal(networkCustomerLaunchArmed({...approved,NETWORK_LAUNCH_EVIDENCE_JSON:v}),false);
  }
  assert.equal(networkCustomerLaunchArmed({...approved,STRIPE_WEBHOOK_SECRET:''}),false);
