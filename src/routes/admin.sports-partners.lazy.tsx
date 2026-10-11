@@ -3,6 +3,7 @@ import { type FormEvent, useEffect, useMemo, useState } from 'react';
 
 import { Container } from '@/components/layout/Container';
 import { createAdvertiserAgreementOffer } from '@/data/advertiser-agreement.functions';
+import { getAdvertiserBillingAccounts, prepareAdvertiserInvoice } from '@/data/advertiser-billing.functions';
 import { getAdvertiserLeadDashboard, setAdvertiserLeadStatus } from '@/data/advertiser-leads.functions';
 import type { AdvertiserLead, AdvertiserLeadDashboard, AdvertiserLeadStatus } from '@/data/advertiser-leads.types';
 import { promoteSportsPartnerLeadToSponsor } from '@/data/sports-partner-promotion.functions';
@@ -24,6 +25,9 @@ function AdvertiserLeadsPage() {
   const [agreementLeadId, setAgreementLeadId] = useState<string | null>(null);
   const [generatingAgreementLeadId, setGeneratingAgreementLeadId] = useState<string | null>(null);
   const [generatedAgreementUrl, setGeneratedAgreementUrl] = useState('');
+  const [billingAccounts, setBillingAccounts] = useState<Array<{ id:string; displayName:string; billingEmail:string; website:string|null; source:string; hasStripeCustomer:boolean }>>([]);
+  const [billingLeadId, setBillingLeadId] = useState<string | null>(null);
+  const [preparingInvoiceLeadId, setPreparingInvoiceLeadId] = useState<string | null>(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -32,12 +36,17 @@ function AdvertiserLeadsPage() {
     setError('');
     setSuccess('');
     try {
-      const result = await getAdvertiserLeadDashboard({ data: { accessKey: key } });
+      const [result, accounts] = await Promise.all([
+        getAdvertiserLeadDashboard({ data: { accessKey: key } }),
+        getAdvertiserBillingAccounts({ data: { accessKey: key } }),
+      ]);
       setDashboard(result);
+      setBillingAccounts(accounts);
       sessionStorage.setItem(SESSION_KEY, key);
     } catch (cause) {
       console.error('Advertiser lead access failed', cause);
       setDashboard(null);
+      setBillingAccounts([]);
       sessionStorage.removeItem(SESSION_KEY);
       setError('Access denied or the advertiser lead service is temporarily unavailable.');
     } finally {
@@ -140,11 +149,43 @@ function AdvertiserLeadsPage() {
     }
   }
 
+  async function prepareInvoice(event: FormEvent<HTMLFormElement>, lead: AdvertiserLead) {
+    event.preventDefault();
+    if (!lead.advertiserAgreementId) return;
+    const key = sessionStorage.getItem(SESSION_KEY) || accessKey;
+    const form = new FormData(event.currentTarget);
+    const existing = String(form.get('billingAccountId') || '').trim();
+    setPreparingInvoiceLeadId(lead.id);
+    setError('');
+    setSuccess('');
+    try {
+      const result = await prepareAdvertiserInvoice({ data: {
+        accessKey: key,
+        agreementId: lead.advertiserAgreementId,
+        billingAccountId: existing || null,
+        daysUntilDue: Number(form.get('daysUntilDue') || 15),
+        acceptedBy: 'TexasDefined advertiser admin',
+      } });
+      await refresh(key);
+      const accounts = await getAdvertiserBillingAccounts({ data: { accessKey: key } });
+      setBillingAccounts(accounts);
+      setBillingLeadId(null);
+      setSuccess(`Draft invoice ${result.stripeInvoiceId} prepared for ${lead.company}. It has not been sent or finalized.`);
+    } catch (cause) {
+      console.error('Advertiser draft invoice preparation failed', cause);
+      setError(cause instanceof Error ? cause.message : 'The advertiser draft invoice could not be prepared.');
+    } finally {
+      setPreparingInvoiceLeadId(null);
+    }
+  }
+
   function lock() {
     sessionStorage.removeItem(SESSION_KEY);
     setAccessKey('');
     setDashboard(null);
     setAgreementLeadId(null);
+    setBillingLeadId(null);
+    setBillingAccounts([]);
     setGeneratedAgreementUrl('');
     setError('');
     setSuccess('');
@@ -186,6 +227,11 @@ function AdvertiserLeadsPage() {
         onAgreementToggle={(leadId) => { setAgreementLeadId((current) => current === leadId ? null : leadId); setGeneratedAgreementUrl(''); }}
         onGenerateAgreement={generateAgreement}
         onCopyAgreement={async () => { if (generatedAgreementUrl) await navigator.clipboard.writeText(generatedAgreementUrl); }}
+        billingAccounts={billingAccounts}
+        billingLeadId={billingLeadId}
+        preparingInvoiceLeadId={preparingInvoiceLeadId}
+        onBillingToggle={(leadId) => setBillingLeadId((current) => current === leadId ? null : leadId)}
+        onPrepareInvoice={prepareInvoice}
         error={error}
         success={success}
       />}
@@ -193,7 +239,7 @@ function AdvertiserLeadsPage() {
   </Container>;
 }
 
-function LeadDashboard({ dashboard, updatingLeadId, promotingLeadId, generatingAgreementLeadId, agreementLeadId, generatedAgreementUrl, onStatusChange, onPromote, onAgreementToggle, onGenerateAgreement, onCopyAgreement, error, success }: {
+function LeadDashboard({ dashboard, updatingLeadId, promotingLeadId, generatingAgreementLeadId, agreementLeadId, generatedAgreementUrl, onStatusChange, onPromote, onAgreementToggle, onGenerateAgreement, onCopyAgreement, billingAccounts, billingLeadId, preparingInvoiceLeadId, onBillingToggle, onPrepareInvoice, error, success }: {
   dashboard: AdvertiserLeadDashboard;
   updatingLeadId: string | null;
   promotingLeadId: string | null;
@@ -205,6 +251,11 @@ function LeadDashboard({ dashboard, updatingLeadId, promotingLeadId, generatingA
   onAgreementToggle: (leadId: string) => void;
   onGenerateAgreement: (event: FormEvent<HTMLFormElement>, lead: AdvertiserLead) => Promise<void>;
   onCopyAgreement: () => Promise<void>;
+  billingAccounts: Array<{ id:string; displayName:string; billingEmail:string; website:string|null; source:string; hasStripeCustomer:boolean }>;
+  billingLeadId: string | null;
+  preparingInvoiceLeadId: string | null;
+  onBillingToggle: (leadId:string) => void;
+  onPrepareInvoice: (event:FormEvent<HTMLFormElement>, lead:AdvertiserLead) => Promise<void>;
   error: string;
   success: string;
 }) {
@@ -275,13 +326,41 @@ function LeadDashboard({ dashboard, updatingLeadId, promotingLeadId, generatingA
             {lead.partnershipType === 'sports-travel' && lead.website ? <button type="button" disabled={promotingLeadId === lead.id || updatingLeadId === lead.id} onClick={() => void onPromote(lead.id)} className="min-h-10 border border-border px-3 py-2 font-semibold text-foreground hover:border-primary hover:text-primary disabled:opacity-60">{promotingLeadId === lead.id ? 'Promoting…' : 'Promote to sports sponsor prospect'}</button> : null}
             {!['declined', 'completed', 'closed'].includes(lead.status) ? <button type="button" onClick={() => onAgreementToggle(lead.id)} className="min-h-10 border border-primary px-3 py-2 font-semibold text-primary hover:bg-primary hover:text-primary-foreground">{agreementLeadId === lead.id ? 'Close agreement form' : 'Prepare private agreement link'}</button> : null}
             {lead.advertiserAgreementId ? <span className="font-semibold text-foreground">Signed agreement on file</span> : null}
+            {lead.advertiserAgreementId && ['agreement_signed','awaiting_payment'].includes(lead.status) ? <button type="button" onClick={() => onBillingToggle(lead.id)} className="min-h-10 border border-primary px-3 py-2 font-semibold text-primary hover:bg-primary hover:text-primary-foreground">{billingLeadId === lead.id ? 'Close billing form' : 'Prepare draft invoice'}</button> : null}
           </div>
 
           {agreementLeadId === lead.id ? <AgreementOfferForm lead={lead} generating={generatingAgreementLeadId === lead.id} generatedAgreementUrl={generatedAgreementUrl} onGenerate={onGenerateAgreement} onCopy={onCopyAgreement} /> : null}
+          {billingLeadId === lead.id && lead.advertiserAgreementId ? <AdvertiserBillingForm lead={lead} accounts={billingAccounts} preparing={preparingInvoiceLeadId === lead.id} onPrepare={onPrepareInvoice} /> : null}
         </article>)}</div> : <p className="py-8 text-sm text-muted-foreground">No advertiser partnership inquiries have been submitted yet.</p>}
       </div>
     </section>
   </>;
+}
+
+function AdvertiserBillingForm({ lead, accounts, preparing, onPrepare }: {
+  lead: AdvertiserLead;
+  accounts: Array<{ id:string; displayName:string; billingEmail:string; website:string|null; source:string; hasStripeCustomer:boolean }>;
+  preparing:boolean;
+  onPrepare:(event:FormEvent<HTMLFormElement>,lead:AdvertiserLead)=>Promise<void>;
+}) {
+  return <div className="mt-6 border border-primary/40 bg-surface p-5">
+    <p className="eyebrow text-primary">Shared TexasDefined billing</p>
+    <h4 className="mt-2 font-display text-2xl">Accept order and prepare draft invoice</h4>
+    <p className="mt-2 text-sm leading-6 text-muted-foreground">This records publisher acceptance and prepares a Stripe draft invoice. It does not finalize, email, or charge the advertiser. Reuse an existing billing account when this business already buys another TexasDefined product.</p>
+    <form onSubmit={(event)=>void onPrepare(event,lead)} className="mt-5 grid gap-4">
+      <label className="grid gap-2 text-sm font-semibold">Billing customer
+        <select name="billingAccountId" defaultValue="" className="min-h-11 border border-border bg-background px-3 py-2 font-normal">
+          <option value="">Create a new TexasDefined billing account</option>
+          {accounts.map(account=><option key={account.id} value={account.id}>{account.displayName} · {account.billingEmail}{account.hasStripeCustomer?' · Stripe customer':''}</option>)}
+        </select>
+      </label>
+      <label className="grid max-w-xs gap-2 text-sm font-semibold">Invoice due in days
+        <input name="daysUntilDue" type="number" min="0" max="90" defaultValue="15" className="min-h-11 border border-border bg-background px-3 py-2 font-normal" />
+      </label>
+      <button type="submit" disabled={preparing} className="min-h-11 justify-self-start bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground disabled:opacity-60">{preparing?'Preparing…':'Accept & prepare draft invoice'}</button>
+      <p className="text-xs leading-5 text-muted-foreground">Invoice sending remains a separate release-controlled action. Draft creation is also fail-closed unless the server invoicing feature flag is enabled.</p>
+    </form>
+  </div>;
 }
 
 function AgreementOfferForm({ lead, generating, generatedAgreementUrl, onGenerate, onCopy }: {
