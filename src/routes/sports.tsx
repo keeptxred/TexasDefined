@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { articlesQuery, destinationsQuery } from "@/data/queries";
+
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import type { Article, Destination } from "@/data/types";
 import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/seo";
@@ -25,7 +27,6 @@ export const Route = createFileRoute("/sports")({
     ],
   }) : ({ meta: buildMeta(texasDefinedBrand, { title: seoTitle, description, canonicalPath: "/sports" }), links: [canonicalLink(texasDefinedBrand, "/sports")] }),
   loader: async ({ context }): Promise<{ articles: Article[]; destinations: Destination[] }> => {
-    const { articlesQuery, destinationsQuery } = await import("@/data/queries");
     const [articles, destinations] = await Promise.all([
       context.queryClient.ensureQueryData(articlesQuery({ category: "sports" })),
       context.queryClient.ensureQueryData(destinationsQuery({ category: "sports" })),
