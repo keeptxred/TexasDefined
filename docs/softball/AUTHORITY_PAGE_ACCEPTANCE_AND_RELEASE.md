@@ -63,8 +63,9 @@ When a school cannot meet the requirement, **keep it as a verified directory lis
 ## Automated fail-closed control
 
 - `src/data/softball/published-team-profiles.json` starts with **zero** team pages. Each future profile requires deliberate insertion; a listing import cannot publish it.
+- `src/data/softball/published-team-index.json` is a **slim client/sitemap allowlist** of only the approved manifest's exact `(slug, UIL school name, softball conference, district, region)` records. It must be updated in the same reviewed change as each finished manifest entry. One-way or extra listings fail CI; never place the entire article manifest into a client directory module.
 - `scripts/softball/authority-contract.mjs` checks official district identity, sources, factual claims, coverage, uniqueness, rights, corrections and editorial sign-off.
-- `scripts/softball/verify-publications.mjs` cross-checks public routes/sitemap, specific slug metadata, duplicate school-season, a complete research audit for every team in each batch, and previously published pages retained. Unknown teams return 404.
+- `scripts/softball/verify-publications.mjs` cross-checks public routes/sitemap, server-only exact approved team loader and lazy page, school-specific canonical/JSON-LD, duplicate school-season, a complete research audit for every team in each batch, and previously published pages retained. Unknown teams return 404.
 - `scripts/softball/test-authority-contract.mjs` exercises a complete **synthetic test-only fixture** plus many intentionally invalid cases. That fixture must never be inserted into the public manifest.
 - The two validators run in `npm run softball:authority:validate`, `npm run softball:validate`, `npm run data:validate`, and **early within the protected `scripts/ci/run-premerge-validation.mjs` required Merge Gate**.
 - The existing built Cloudflare Worker SSR smoke script reads the published manifest and checks **every newly approved profile** for its school-specific heading. Never accept a 200 that actually shows the hub, a blank shell or a generic school page.
@@ -72,9 +73,9 @@ When a school cannot meet the requirement, **keep it as a verified directory lis
 
 ## Release method, designed around failures already encountered
 
-**Phase 0 — once:** This policy and fail-closed validator, negative fixture tests, SSR acceptance wiring, and owner review standard pass before individual team template development. No mass team route or sitemap injection.
+**Phase 0 — once:** This policy and fail-closed validator, negative fixture tests, SSR acceptance wiring, owner review standard and shared complete team-page engine pass before individual team publication. No mass team route or sitemap injection.
 
-**Phase 1 — pilot:** Independently research **3–5 diverse schools** (urban, rural, 2A including smaller listing, complex name/ISD and championship history). Complete all fields and verify them manually. Build one reusable source-aware lazy component; avoid a new file route for every team. Test an actual season change, duplicate-named school and 404. No generic repetitive templates.
+**Phase 1 — pilot:** Independently research **3–5 diverse schools** (urban, rural, 2A including smaller listing, complex name/ISD and championship history). Complete all fields and verify them manually. Use the shared source-aware server/SSR/lazy authority component; avoid a new file route for every team. Test an actual season change, duplicate-named school and 404. No generic repetitive templates.
 
 **Phase 2 — production proof:** After pilot PR passes, inspect each live page at 360 px, 768 px and 1440 px, keyboard/focus, contrast, source links, canonical/robots, JSON-LD, matching sitemap URL, image rights, county/internal navigation, corrected 200/404 responses, Worker SSR, Cloudflare cache and Search Console indexation. Only proceed to next batch on success.
 
@@ -105,3 +106,5 @@ Do **not** manufacture names, biographies, exact records, recruiting contacts, t
 - In progress separately: source-attributed NCAA college program directory; keep unmerged college work isolated until authority-gate contract is in `main`.
 - No newly authorized individual UIL team profile has passed this authority-page publication contract yet.
 - Continue scope tracked in [GitHub issue #4652](https://github.com/keeptxred/TexasDefined/issues/4652).
+
+**Complete team-page engine documentation:** [APPROVED_TEAM_PAGE_ENGINE.md](./APPROVED_TEAM_PAGE_ENGINE.md). The complete manifest stays server-only; the 1,192-school directory and sitemap read only the tiny exact-key approved index. In addition to title-per-team built Worker SSR, the CI worker must reject an unapproved team slug with a real HTTP 404. Human source and published page verification remains mandatory.
