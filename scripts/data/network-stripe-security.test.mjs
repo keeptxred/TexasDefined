@@ -3,24 +3,24 @@ import assert from 'node:assert/strict';
 import { createHmac } from 'node:crypto';
 import { verifyStripeSignature, stripeCheckoutEnabled, verifiedNetworkSubscriptionOwnership, createNetworkCheckoutSession, isNetworkCheckoutUrl, isExpectedNetworkPlusSubscription, readNetworkWebhookPayload, NETWORK_WEBHOOK_MAX_BYTES, readNetworkCurrentStripeSubscription, stripeRequest, isNetworkBillingPortalUrl } from '../../src/data/network-stripe.server.ts';
 
-const previousSecret=process.env.STRIPE_WEBHOOK_SECRET;
+const previousSecret=process.env.NETWORK_STRIPE_WEBHOOK_SECRET;
 const previousCheckout=process.env.NETWORK_CHECKOUT_ENABLED;
 const previousKey=process.env.STRIPE_SECRET_KEY;
 const secret='whsec_test_only_local_not_real';
 const sign=(timestamp,payload)=>createHmac('sha256',secret).update(timestamp+'.'+payload).digest('hex');
 function restore(){
- if(previousSecret===undefined)delete process.env.STRIPE_WEBHOOK_SECRET;else process.env.STRIPE_WEBHOOK_SECRET=previousSecret;
+ if(previousSecret===undefined)delete process.env.NETWORK_STRIPE_WEBHOOK_SECRET;else process.env.NETWORK_STRIPE_WEBHOOK_SECRET=previousSecret;
  if(previousCheckout===undefined)delete process.env.NETWORK_CHECKOUT_ENABLED;else process.env.NETWORK_CHECKOUT_ENABLED=previousCheckout;
  if(previousKey===undefined)delete process.env.STRIPE_SECRET_KEY;else process.env.STRIPE_SECRET_KEY=previousKey;
 }
 test.after(restore);
 test('rejects Stripe webhook when unsigned or unconfigured',async()=>{
- delete process.env.STRIPE_WEBHOOK_SECRET;
+ delete process.env.NETWORK_STRIPE_WEBHOOK_SECRET;
  assert.equal(await verifyStripeSignature('{}',null),false);
  assert.equal(await verifyStripeSignature('{}','t=1,v1='+('0'.repeat(64))),false);
 });
 test('accepts current signed webhook and rejects altered payload/signature',async()=>{
- process.env.STRIPE_WEBHOOK_SECRET=secret;
+ process.env.NETWORK_STRIPE_WEBHOOK_SECRET=secret;
  const timestamp=String(Math.floor(Date.now()/1000));
  const payload=JSON.stringify({id:'evt_test',livemode:false});
  const signature=sign(timestamp,payload);
@@ -30,7 +30,7 @@ test('accepts current signed webhook and rejects altered payload/signature',asyn
  assert.equal(await verifyStripeSignature(payload,'t='+timestamp+',v1=invalid'),false);
 });
 test('rejects stale and malformed timestamp headers',async()=>{
- process.env.STRIPE_WEBHOOK_SECRET=secret;
+ process.env.NETWORK_STRIPE_WEBHOOK_SECRET=secret;
  const payload='{}';
  const stale=String(Math.floor(Date.now()/1000)-3600);
  assert.equal(await verifyStripeSignature(payload,'t='+stale+',v1='+sign(stale,payload)),false);
@@ -48,19 +48,19 @@ test('checkout requires explicit flag and live-secret configuration',()=>{
 });
 
 test('webhook accepts matching rotated Stripe signature among several candidates', async () => {
- process.env.STRIPE_WEBHOOK_SECRET=secret;
+ process.env.NETWORK_STRIPE_WEBHOOK_SECRET=secret;
  const timestamp=String(Math.floor(Date.now()/1000));
  const payload=JSON.stringify({id:'evt_rotation_example',livemode:false});
  assert.equal(await verifyStripeSignature(payload,'t='+timestamp+',v1='+('0'.repeat(64))+',v1='+sign(timestamp,payload)),true);
 });
 test('rejects correctly signed webhook too far in the future', async () => {
- process.env.STRIPE_WEBHOOK_SECRET=secret;
+ process.env.NETWORK_STRIPE_WEBHOOK_SECRET=secret;
  const payload=JSON.stringify({id:'evt_future_example'});
  const timestamp=String(Math.floor(Date.now()/1000)+3600);
  assert.equal(await verifyStripeSignature(payload,'t='+timestamp+',v1='+sign(timestamp,payload)),false);
 });
 test('rejects a signature from a different webhook body at the same timestamp', async () => {
- process.env.STRIPE_WEBHOOK_SECRET=secret;
+ process.env.NETWORK_STRIPE_WEBHOOK_SECRET=secret;
  const timestamp=String(Math.floor(Date.now()/1000));
  const original=JSON.stringify({id:'evt_A',type:'customer.subscription.updated'});
  const altered=JSON.stringify({id:'evt_B',type:'customer.subscription.updated'});
