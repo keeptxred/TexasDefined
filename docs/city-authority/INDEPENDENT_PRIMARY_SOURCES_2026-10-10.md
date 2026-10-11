@@ -116,6 +116,20 @@ The next valid acceptance step is a dated, repeatable polygon overlay with a kno
 - The Houston source and published guide now distinguish incorporated Harris/Fort Bend/Montgomery counties from Houston's Waller County ETJ through merged PR #4608. Spatial intersection proof remains unverified.
 - **Overall acceptance: INCOMPLETE.** Passing automated checks do not prove manual visual/keyboard/menu/touch/contrast WCAG acceptance, all external links, all factual/visitor claims, or all 11 municipal/county GIS overlays.
 
+## Fort Worth: quantitative official municipal county evidence
+
+The [City of Fort Worth 2023 adopted Comprehensive Plan, intergovernmental-cooperation chapter](https://www.fortworthtexas.gov/files/assets/public/v/1/the-fwlab/documents/planning/comprehensive-planning/adopted/25-intergovernmental-cooperation-final-2023.pdf), page 25-6, explicitly states the city's **taxable city limits** include Tarrant, Denton, Parker, Johnson, and Wise counties. Its separately labeled **2021 City of Fort Worth Planning and Data Analytics parcel counts** are:
+
+| County | Within incorporated Fort Worth (2021 city parcel count) | Within Fort Worth ETJ (2021 city parcel count) |
+|---|---:|---:|
+| Tarrant | 263,685 | 24,975 |
+| Denton | 5,557 | 1,657 |
+| Parker | 76 | 6,378 |
+| Johnson | 52 | 4,620 |
+| Wise | 6 | 1,076 |
+
+**Verification:** PASS for the published five-county incorporated Fort Worth list, as of this *dated* municipal source. This table is documentary county-membership evidence, not a fresh 2026 geometrical overlay or address-level confirmation. Do not apply these 2021 parcel counts as contemporary housing/parcel statistics. The separate [City of Fort Worth ETJ guidance](https://www.fortworthtexas.gov/departments/development-services/etj) further confirms the ETJ lies outside incorporated city limits.
+
 ## Acceptance still outstanding
 
 Complete all 11 city municipal boundary overlays; audit unreviewed featured destinations, food venues, school/tax/utility claims and official link targets; inspect browser screenshots and keyboard/contrast/touch behavior across all requested viewports; retain artifacts. Do not advance the global city factual review date or mark 11/11 fully certified without that evidence.
