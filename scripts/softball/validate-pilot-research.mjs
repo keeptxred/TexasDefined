@@ -108,6 +108,23 @@ assert.equal(byName('Pearland').coachingResearch.listedHeadCoach,'Michele Hyden'
 assert.equal(byName('Katy').coachingResearch.listedHeadCoach,'Megan Vanetta');
 assert.equal(byName('Ganado').coachingResearch.listedHeadCoach,null,
   'Official Ganado faculty membership cannot prove 2027 softball coaching');
+// Amarillo Highland Park history was NOT generic: independent May 2024
+// interviews and a real 2024-25 schedule document its inaugural softball era.
+// They must never be repackaged as a Spring 2027 coach or finished venue.
+assert.equal(byName('Amarillo Highland Park').coachingResearch.historicalHeadCoach,'Eliza Martinez');
+assert.equal(byName('Amarillo Highland Park').coachingResearch.historicalAssistantCoach,'Mary Lieberknecht');
+assert.equal(byName('Amarillo Highland Park').coachingResearch.historyDate,'2024-2025');
+assert.ok(byName('Amarillo Highland Park').sources.some(s=>s.id==='presspass-may-2024-origin' && s.kind.includes('independent')),
+ 'First-program coaching and construction evidence must cite contemporary local reporter');
+assert.ok(byName('Amarillo Highland Park').sources.some(s=>s.id==='hpark-2025-coach-schedule' && s.kind.includes('mirrored')),
+ 'Mirrored 2024-25 softball schedule must not be elevated to an official school-hosted source');
+verifiedFact('Amarillo Highland Park','inaugural head SOFTBALL coach','presspass-may-2024-origin');
+verifiedFact('Amarillo Highland Park','assistant Mary Lieberknecht','hpark-2025-coach-schedule');
+verifiedFact('Amarillo Highland Park','$130 million school bond','presspass-may-2024-origin');
+verifiedFact('Amarillo Highland Park','completed March 22, 2025 varsity softball game','hpark-2025-game-results');
+assert.equal(byName('Amarillo Highland Park').venueResearch.physicalAddressVerified,false,
+ 'Groundbreaking does not verify built field coordinates or 2027 gate accessibility');
+
 assert.equal(byName('Amarillo Highland Park').coachingResearch.listedHeadCoach,null,
   'Do not use unverified third-party coach initial or Dallas staff');
 verifiedFact('Katy','Megan Vanetta','school-current-athletics-coaches');
