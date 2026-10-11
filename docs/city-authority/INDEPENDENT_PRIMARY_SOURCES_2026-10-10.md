@@ -119,3 +119,10 @@ The next valid acceptance step is a dated, repeatable polygon overlay with a kno
 ## Acceptance still outstanding
 
 Complete all 11 city municipal boundary overlays; audit unreviewed featured destinations, food venues, school/tax/utility claims and official link targets; inspect browser screenshots and keyboard/contrast/touch behavior across all requested viewports; retain artifacts. Do not advance the global city factual review date or mark 11/11 fully certified without that evidence.
+
+
+## Continued municipal GIS reproducibility and explicit outstanding source gaps
+
+An open-source research helper was added at [`scripts/data/verify-city-municipal-gis.py`](../../scripts/data/verify-city-municipal-gis.py). It references confirmed city-limit vector services from Houston (layer 0, distinct from ETJ layer 1), Dallas (CityLimits/0), Fort Worth (Report_Areas_Published/3), El Paso (CityLimits/0), Arlington (OD_PoliticalBoundary/1), Hurst (EnerGov_Basemap/2), and Plano (MunicipalBoundary/0). It uses independent [U.S. Census TIGERweb BAS 2026 county geography](https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/29), current polygon candidates, an equal-area EPSG:5070 overlay and explicit sliver-review threshold. Metadata availability is not geometry certification; the tool was **not successfully executed against live polygon servers** during this update. Other municipalities — Austin, San Antonio, Corpus Christi, and Lubbock — require a separately confirmed current official vector endpoint before a full eleven-city overlay attempt. No county-geometry PASS has been awarded.
+
+The detailed [eleven-city acceptance matrix](INDEPENDENT_ACCEPTANCE_MATRIX_2026-10-10.md) records review of downloaded Chrome artifact #11687994544, the scroll-offset screenshots caveat, and specific GIS, facts, visual, accessibility, SEO and link blockers. PR #4609 already preserved protected production/Chrome results; this addendum does not reset any fact verification dates.
