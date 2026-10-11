@@ -77,6 +77,13 @@ check('intake limits ACTUAL streamed bytes before multipart or JSON materializat
  && source('src/data/network-intake-limits.server.ts').includes('NETWORK_INTAKE_MAX_BYTES=16_000_000')
  && source('src/data/network-intake-limits.server.ts').includes('total>NETWORK_INTAKE_MAX_BYTES')
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-intake-limits.test.mjs'));
+check('isolated replay executes two-owner and private media RLS fixture with full rollback',
+ source('scripts/data/verify-network-migration-replay.mjs').includes("ownerIsolationFixture='scripts/data/network-migration-owner-rls-fixture.sql'")
+ && source('scripts/data/network-migration-owner-rls-fixture.sql').includes('SET LOCAL ROLE authenticated;')
+ && source('scripts/data/network-migration-owner-rls-fixture.sql').includes('SET LOCAL ROLE anon;')
+ && source('scripts/data/network-migration-owner-rls-fixture.sql').includes('FOR slot IN 1..24 LOOP')
+ && source('scripts/data/network-migration-owner-rls-fixture.sql').includes('ROLLBACK;')
+ && source('.github/workflows/network-migration-cleanroom.yml').includes('network-migration-owner-rls-fixture.sql'));
 check('intake checks full PNG signature',apps.includes('pngSignature.every'));
 check('public media checks full PNG signature',review.includes('pngHeader.every'));
 check('approved Network public media is immutable and retry-safe',
