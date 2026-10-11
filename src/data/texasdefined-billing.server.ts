@@ -87,7 +87,15 @@ export async function ensureTexasDefinedStripeCustomer(
   account: TexasDefinedBillingAccount,
   source: 'network' | 'advertising' | 'admin',
 ) {
-  if (account.stripeCustomerId) return account.stripeCustomerId;
+  if (account.stripeCustomerId) {
+    const client = supabaseAdmin as any;
+    const { data: rebound, error: reboundError } = await client.rpc('bind_texasdefined_billing_stripe_customer', {
+      p_billing_account_id: account.billingAccountId,
+      p_stripe_customer_id: account.stripeCustomerId,
+    });
+    if (reboundError || rebound !== true) throw new Error('Stripe customer binding could not be verified.');
+    return account.stripeCustomerId;
+  }
   const runtime = getNetworkStripeRuntime();
   if (!runtime) throw new Error('Stripe billing is not configured.');
 
