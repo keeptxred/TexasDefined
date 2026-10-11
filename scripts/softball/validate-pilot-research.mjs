@@ -138,7 +138,12 @@ verifiedFact('Amarillo Highland Park',"'two newest programs,' softball and baseb
 verifiedFact('Ganado','501 West Devers','ganado-campus-address');
 
 assert.equal(byName('Ganado').venueResearch.namedField,'Ganado Softball Field');
-assert.equal(byName('Katy').venueResearch.namedField,'KHS-Softball Field');
+assert.ok(byName('Katy').venueResearch.namedField.includes('Kalum Haack'),
+ 'Post-July 2026 Katy field is named for retired longtime coach Kalum Haack; pre-2026 event label KHS-Softball Field is stale');
+verifiedFact('Katy','Kalum Haack','katy-2026-board-naming');
+verifiedFact('Katy','2015 state-champion softball team','katy-athletic-hall-2025');
+assert.ok(byName('Katy').venueResearch.sourceIds.includes('katy-aug2026-field-name-report'),
+ 'Local independent account and July 27 school board item must accompany renamed Katy varsity venue');
 assert.equal(byName('Pearland').venueResearch.nameVerified,false,'Pearland high school does not imply named varsity diamond');
 assert.equal(byName('Amarillo Highland Park').venueResearch.nameVerified,false,'Never import Dallas Scots venues');
 // Assert the actual UIL 2026 selection and award recipient, not the prose
