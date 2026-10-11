@@ -39,7 +39,7 @@ const [
   read('src/data/knowledge-graph/major-sports-venues.ts'),
   read('src/data/knowledge-graph/sports-venues-tier2.ts'),
   read('src/data/knowledge-graph/seed.ts'),
-  read('src/routes/sports-venues.tsx'),
+  Promise.all([read('src/routes/sports-venues.tsx'), read('src/routes/sports-venues.lazy.tsx')]).then((sources) => sources.join('\n')),
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/routes/sports-venue.jones-att-stadium.tsx'),
   read('src/data/sports-venue-guide-galaxy.ts'),
