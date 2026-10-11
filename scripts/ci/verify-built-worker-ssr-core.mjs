@@ -1,4 +1,4 @@
-import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { appendFileSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { spawn } from 'node:child_process';
 import path from 'node:path';
 
@@ -81,6 +81,13 @@ const smokeTargets = [
   { path: '/sports/friday-night-lights', requiredText: 'Friday Night Lights, Defined', label: 'sports child route body' },
   { path: '/sports/softball', requiredText: 'Women’s softball in Texas, defined', label: 'Texas women’s softball authority SSR' },
   { path: '/sports/softball/schools', requiredText: 'Every listed Texas UIL softball school and district', label: '2026–27 1,192-school UIL softball directory SSR' },
+  // Each newly approved authority profile is tested on the BUILT Worker:
+  // dynamic routes must not return 200 with unrelated directory/hub content.
+  ...JSON.parse(readFileSync(new URL('../../src/data/softball/published-team-profiles.json', import.meta.url), 'utf8')).pages.map((p) => ({
+    path: p.canonicalPath,
+    requiredText: p.title,
+    label: 'source-reviewed softball team authority SSR: ' + p.slug,
+  })),
   { path: '/sports/softball/paris-junior-college', requiredText: 'Paris Junior College Lady Dragons softball', label: 'PJC softball team authority SSR' },
   { path: '/sports/softball/texas-volts', requiredText: 'Texas Volts: professional softball comes home to Round Rock', label: 'professional softball team authority SSR' },
   { path: '/texas-data/county-growth', requiredText: 'Texas county population growth, 2020–2025', label: 'Texas Data child route body' },
