@@ -20,16 +20,8 @@ export type NetworkCronDependencies={
  proof:(plan:NetworkGraphClaimPlan)=>Promise<NetworkSentEvidence|null>;
  reconcile:(plan:NetworkGraphClaimPlan,proof:NetworkSentEvidence)=>Promise<boolean>;
 };
-const enabled=[
- 'NETWORK_INTAKE_ENABLED','NETWORK_OWNER_PORTAL_ENABLED','NETWORK_PUBLICATION_ENABLED',
- 'NETWORK_DIRECTORY_ENABLED','NETWORK_CHECKOUT_ENABLED',
- 'NETWORK_EMAIL_DELIVERY_ENABLED','NETWORK_GRAPH_DISPATCH_ENABLED','NETWORK_CRON_ENABLED',
-];
-export function networkCronLaunchArmed(env:Record<string,string|undefined>):boolean{
- return enabled.every(k=>env[k]==='true') &&
-  env.NETWORK_LAUNCH_ATOMIC_VERIFIED==='true' &&
-  env.NETWORK_GRAPH_MAILBOX==='admin@texasdefined.com';
-}
+import {networkCustomerLaunchArmed} from './network-atomic-launch-readiness.server.ts';
+export const networkCronLaunchArmed=networkCustomerLaunchArmed;
 export async function runNetworkNotificationCron(
  deps:NetworkCronDependencies,
 ):Promise<NetworkCronStats>{
@@ -67,7 +59,7 @@ export async function runNetworkNotificationCronOnWorker(
  environment:Record<string,string|undefined>,
  transport:typeof fetch=fetch,
 ):Promise<NetworkCronStats|null>{
- if(!networkCronLaunchArmed(environment))return null;
+ if(!networkCustomerLaunchArmed(environment))return null;
  // The scheduled Workers env and the Node-compatible runtime must agree;
  // mismatched flag injection never creates an orphaned claimed outbox row.
  const {NETWORK_EMAIL_DELIVERY_ENABLED}=await import('./network-notification-templates.server.ts');
