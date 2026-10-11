@@ -37,6 +37,8 @@ async function owner(request: Request) {
 export const Route = createFileRoute("/api/public/network-billing")({
   server: { handlers: {
     GET: async ({ request }) => {
+      const {networkStripeHostAllowed}=await import("@/data/network-stripe-mode.server");
+      if(!networkStripeHostAllowed(request))return respond({error:"Billing unavailable for this host."},503);
       const auth = await owner(request);
       if (!auth) return respond({ error: "Sign in to manage your subscription." }, 401);
       const {data: bindings, error: bindingError} = await auth.client
@@ -63,6 +65,8 @@ export const Route = createFileRoute("/api/public/network-billing")({
         await discardRejectedNetworkPostBody(request);
         return respond({ error: "Invalid request origin." }, 403);
       }
+      const {getNetworkStripeRuntime,networkStripeHostAllowed}=await import("@/data/network-stripe-mode.server");
+      if(!networkStripeHostAllowed(request))return respond({error:"Billing unavailable for this host."},503);
       const auth = await owner(request);
       if (!auth) {
         await discardRejectedNetworkPostBody(request);
@@ -89,11 +93,12 @@ export const Route = createFileRoute("/api/public/network-billing")({
         .eq("access_enabled", true)
         .maybeSingle();
       if (ownerError || !ownerBinding) return respond({ error: "Verified business ownership is required." }, 403);
-      const key = process.env["STRIPE_SECRET_KEY"];
-      if (!key?.startsWith("sk_live_")) return respond({ error: "Billing portal is temporarily unavailable." }, 503);
+      const runtime=getNetworkStripeRuntime();
+      if(!runtime)return respond({ error: "Billing portal is temporarily unavailable." }, 503);
+      const key=runtime.secret;
       const body = new URLSearchParams({
         customer: data.stripe_customer_id,
-        return_url: "https://texasdefined.com/network/billing",
+        return_url: runtime.siteOrigin+"/network/billing",
       });
       try {
         const stripe = await fetch("https://api.stripe.com/v1/billing_portal/sessions", {
