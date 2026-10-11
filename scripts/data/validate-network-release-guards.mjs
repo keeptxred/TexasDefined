@@ -155,6 +155,7 @@ check('manual notification provider-reconciliation is private, audited and never
  && source('.github/workflows/network-migration-cleanroom.yml').includes('scripts/data/network-notification-manual-recovery-fixture.sql'));
 check('real GoTrue Auth and Storage HTTP integration is confined to fresh, unlinked local Supabase CLI test stack',
  source('.github/workflows/network-local-auth-storage.yml').includes('supabase/setup-cli@v1')
+ && source('.github/workflows/network-local-auth-storage.yml').includes("version: '2.120.0'")
  && source('.github/workflows/network-local-auth-storage.yml').includes('NETWORK_SUPABASE_REAL_E2E: yes-local-disposable-only')
  && source('.github/workflows/network-local-auth-storage.yml').includes('supabase init')
  && source('.github/workflows/network-local-auth-storage.yml').includes('supabase stop')
