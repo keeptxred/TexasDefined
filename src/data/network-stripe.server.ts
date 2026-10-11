@@ -171,6 +171,32 @@ export function verifiedNetworkSubscriptionOwnership(
   && (!existing.stripe_customer_id || existing.stripe_customer_id === subscription.customer);
 }
 
+/** A verified subscription with an unsupported price can revoke only its
+ * OWN existing binding. It must never create a new business/Stripe binding.
+ * Current subscription metadata is still required to identify the app.
+ */
+export function isBoundNetworkSubscriptionPriceMismatch(
+ subscription:Record<string,any>,
+ existing:{stripe_subscription_id?:unknown;stripe_customer_id?:unknown;plan?:unknown}|null,
+):boolean {
+ if(!existing || existing.plan!=='plus' || !isNetworkSubscriptionIdentity(subscription))
+  return false;
+ return existing.stripe_subscription_id===subscription.id
+  && existing.stripe_customer_id===subscription.customer
+  && !isExpectedNetworkPlusSubscription(subscription);
+}
+/** Identity only, NOT proof of current Plus price or paid entitlement. */
+export function isNetworkSubscriptionIdentity(subscription:Record<string,any>):boolean {
+ const expectedMode=networkStripeExpectedLivemode();
+ return !!subscription && expectedMode!==null
+  && subscription.livemode===expectedMode
+  && typeof subscription.id==='string' && /^sub_[A-Za-z0-9_]+$/.test(subscription.id)
+  && typeof subscription.customer==='string' && /^cus_[A-Za-z0-9_]+$/.test(subscription.customer)
+  && subscription.metadata?.project==='TexasDefined'
+  && typeof subscription.metadata?.application_id==='string'
+  && /^[0-9a-f-]{36}$/i.test(subscription.metadata.application_id);
+}
+
 /** Inspected subscription must describe exactly one approved $19.99 Plus line item. */
 export function isExpectedNetworkPlusSubscription(subscription: Record<string,any>):boolean {
  const items=subscription.items?.data;
