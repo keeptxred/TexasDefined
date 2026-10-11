@@ -138,6 +138,42 @@ export async function runNetworkHostedStageReadOnly(config, fetcher=fetch){
  return {accepted:true,scope:'isolated-hosted-read-only',checks,
    notes:'Two confirmed synthetic owners, account and revision RLS, private media owner access and cross-owner rejection. No writes.'};
 }
+/**
+ * Second acceptance PHASE, after the owner explicitly disables owner TWO
+ * in the isolated staging database using reviewed admin controls.
+ * The old hosted revision SELECT policy would FAIL this functional check.
+ * JWT remains valid while account access is revoked: verify fresh RLS.
+ * No mutation occurs in this process.
+ */
+export async function runNetworkHostedRevokedOwnerReadOnly(config,fetcher=fetch){
+ if(!config?.origin||!Array.isArray(config.owners)||config.owners.length!==2)fail();
+ const active=config.owners[0],revoked=config.owners[1];
+ const identity=await jsonStage(fetcher,config,revoked.token,'/auth/v1/user');
+ if(identity.id!==revoked.id||!identity.email_confirmed_at)
+   throw Error('Hosted Network stage disabled synthetic identity not authenticated');
+ const revokedRevisions=await jsonStage(fetcher,config,revoked.token,
+  '/rest/v1/texasdefined_network_profile_revisions?select=id,business_account_id');
+ if(!Array.isArray(revokedRevisions)||revokedRevisions.length!==0)
+   throw Error('Hosted Network stage disabled owner can still read private revisions');
+ const revokedMedia=await requestStage(fetcher,config,revoked.token,
+  '/storage/v1/object/texasdefined-network-featured-drafts/'+
+  encodeURIComponent(revoked.id)+'/'+encodeURIComponent(revoked.account)+'/'+encodeURIComponent(revoked.media));
+ if(![400,401,403,404].includes(revokedMedia.status))
+   throw Error('Hosted Network stage disabled owner can still read private media');
+ // Positive controls ensure a global outage is not mistaken for revocation.
+ const activeRevisions=await jsonStage(fetcher,config,active.token,
+  '/rest/v1/texasdefined_network_profile_revisions?select=id,business_account_id');
+ if(!Array.isArray(activeRevisions)||activeRevisions.length!==1||
+   activeRevisions[0].id!==active.revision)
+   throw Error('Hosted Network stage active control owner cannot read own revision');
+ const activeMedia=await requestStage(fetcher,config,active.token,
+  '/storage/v1/object/texasdefined-network-featured-drafts/'+
+  encodeURIComponent(active.id)+'/'+encodeURIComponent(active.account)+'/'+encodeURIComponent(active.media));
+ if(activeMedia.status!==200)
+   throw Error('Hosted Network stage active control owner cannot read private media');
+ return {accepted:true,scope:'isolated-hosted-revoked-owner-read-only',checks:5,
+  notes:'Disabled owner TWO Auth remains valid but private revision and media access are denied. Active owner ONE still works. No writes.'};
+}
 if(process.argv[1] && import.meta.url===pathToFileURL(process.argv[1]).href){
  try{
   const config=validateNetworkHostedStageConfig(process.env);
