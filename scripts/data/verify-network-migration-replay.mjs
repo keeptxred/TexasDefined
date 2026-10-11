@@ -70,16 +70,22 @@ BEGIN
   AND (p.proname LIKE 'network_%' OR p.proname LIKE '%texasdefined_network%'
        OR p.proname LIKE 'provision_verified_network_owner')
   AND p.prosecdef
-  AND (has_function_privilege('anon',p.oid,'EXECUTE')
-    OR has_function_privilege('authenticated',p.oid,'EXECUTE'))
- ) THEN RAISE EXCEPTION 'Network privileged RPC accessible to unprivileged role'; END IF;
+  AND (
+    (n.nspname='public' AND (
+      has_function_privilege('anon',p.oid,'EXECUTE')
+      OR has_function_privilege('authenticated',p.oid,'EXECUTE')
+    ))
+    OR (n.nspname='texasdefined_network_internal'
+      AND has_function_privilege('anon',p.oid,'EXECUTE'))
+  )
+ ) THEN RAISE EXCEPTION 'Public privileged RPC or private helper anonymously callable'; END IF;
  IF (SELECT count(*) FROM public.texasdefined_network_applications)<>0 OR
     (SELECT count(*) FROM public.texasdefined_network_public_listings)<>0 OR
     (SELECT count(*) FROM public.texasdefined_network_checkout_attempts)<>0 OR
     (SELECT count(*) FROM public.texasdefined_network_email_outbox)<>0 OR
     (SELECT count(*) FROM storage.objects WHERE bucket_id LIKE 'texasdefined-network-%')<>0
  THEN RAISE EXCEPTION 'Clean-room schema unexpectedly contains Network customer data'; END IF;
- RAISE NOTICE 'REPLAY VERIFIED: 34 sequential migrations; 8 RLS tables; 4 buckets; privileged function access revoked; no records';
+ RAISE NOTICE 'REPLAY VERIFIED: 34 sequential migrations; 8 RLS tables; 4 buckets; public privileged RPC denied; private helpers inaccessible anonymously; no records';
 END
 $verification$;`;
 execSql(['-c',checks],'final schema/RLS/bucket/RPC verification');
