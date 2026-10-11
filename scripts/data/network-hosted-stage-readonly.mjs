@@ -35,9 +35,19 @@ export function validateNetworkHostedStageConfig(env) {
     hostname.startsWith(forbiddenRef+'.') ||
     env.NETWORK_STAGE_PROJECT_REF!==hostname.slice(0,-'.supabase.co'.length))fail();
  const anonKey=env.NETWORK_STAGE_PUBLISHABLE_KEY||'';
- // API public key only. Explicitly refuse all known secret/service-role prefixes.
- if(!((anonKey.startsWith('sb_publishable_') && anonKey.length>30) ||
-       (anonKey.startsWith('eyJ') && anonKey.length>80)) ||
+ // API PUBLIC key only. Legacy Supabase eyJ keys must decode to "anon":
+ // a service_role JWT also begins eyJ and would invalidate RLS evidence.
+ let validLegacyAnon=false;
+ if (anonKey.startsWith('eyJ') && anonKey.length>80) {
+   try {
+     const part=anonKey.split('.');
+     if(part.length===3 && part.every(Boolean)) {
+       const payload=JSON.parse(Buffer.from(part[1],'base64url').toString('utf8'));
+       validLegacyAnon=payload?.role==='anon';
+     }
+   } catch {validLegacyAnon=false;}
+ }
+ if(!((anonKey.startsWith('sb_publishable_') && anonKey.length>30) || validLegacyAnon) ||
     /[\s]/.test(anonKey) ||anonKey.startsWith('sb_secret_') ||
     anonKey.startsWith('sk_')) fail();
  function owner(n){
