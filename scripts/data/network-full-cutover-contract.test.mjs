@@ -43,6 +43,8 @@ test('real Graph scheduled sender and public routes share complete release bound
 
 test('staging business profiles and sitemap are never indexable',()=>{
  assert.match(src('src/server-entry.ts'),/networkRequestHostAllowed/);
+ assert.match(src('src/server-entry.ts'),/Reflect\.get\(env,"NETWORK_ISOLATED_STAGING"\)/);
+ assert.match(src('src/server-entry.ts'),/including TanStack/);
  for(const file of ['src/routes/network.directory.tsx','src/routes/network.business.$slug.tsx','src/routes/network.join.tsx','src/routes/sitemap[.]xml.ts']){
   assert.match(src(file),/NETWORK_ISOLATED_STAGING/,file);
  }
