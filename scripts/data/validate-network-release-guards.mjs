@@ -375,10 +375,12 @@ const outboxMigration=source('supabase/migrations/20261010213947_network_private
 check('single-cutover cron and provider-evidence implementation remain source gated',
  source('src/server-entry.ts').includes('runNetworkNotificationCronOnWorker')
  && source('wrangler.jsonc').includes('"*/15 * * * *"')
- && source('src/data/network-notification-cron.server.ts').includes("NETWORK_LAUNCH_ATOMIC_VERIFIED")
+ && source('src/data/network-atomic-launch-readiness.server.ts').includes("NETWORK_LAUNCH_ATOMIC_VERIFIED")
  && source('src/data/network-notification-cron.server.ts').includes('reconcile_texasdefined_network_notification')
  && source('src/data/network-notification-graph-transport.server.ts').includes('x-texasdefined-notification-id')
  && source('src/data/network-graph-sentitems.server.ts').includes('internetMessageHeaders')
+ && source('src/server-entry.ts').includes('networkCustomerLaunchArmed')
+ && source('src/routes/network.directory.tsx').includes('networkCustomerLaunchArmed')
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-notification-cron.test.mjs')
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-graph-sentitems.test.mjs'));
 
