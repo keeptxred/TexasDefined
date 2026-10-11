@@ -3,6 +3,26 @@ import { createFileRoute } from "@tanstack/react-router";
 const respond = (data: unknown, status = 200) => Response.json(data, {
   status, headers: { "cache-control": "no-store" },
 });
+
+/** Drain a bounded amount of the rejected POST body to keep the local
+ * Cloudflare Workers Assets / Miniflare proxy's request lifecycle valid.
+ * Never allocate or wait for a full untrusted upload on an unauthorized call. */
+async function discardRejectedNetworkPostBody(request: Request) {
+  if (!request.body) return;
+  const reader = request.body.getReader();
+  let total = 0;
+  try {
+    while (true) {
+      const next = await reader.read();
+      if (next.done) return;
+      total += next.value.byteLength;
+      if (total > 65_536) { await reader.cancel(); return; }
+    }
+  } catch {
+    try { await reader.cancel(); } catch {}
+  }
+}
+
 async function owner(request: Request) {
   const token = request.headers.get("authorization")?.match(/^Bearer ([\w.-]+)$/)?.[1];
   if (!token) return null;
@@ -38,9 +58,15 @@ export const Route = createFileRoute("/api/public/network-billing")({
       })) });
     },
     POST: async ({ request }) => {
-      if (request.headers.get("origin") !== new URL(request.url).origin) return respond({ error: "Invalid request origin." }, 403);
+      if (request.headers.get("origin") !== new URL(request.url).origin) {
+        await discardRejectedNetworkPostBody(request);
+        return respond({ error: "Invalid request origin." }, 403);
+      }
       const auth = await owner(request);
-      if (!auth) return respond({ error: "Sign in to manage your subscription." }, 401);
+      if (!auth) {
+        await discardRejectedNetworkPostBody(request);
+        return respond({ error: "Sign in to manage your subscription." }, 401);
+      }
       let id: unknown;
       try { id = (await request.json()).applicationId; } catch { return respond({ error: "Invalid request." }, 400); }
       if (typeof id !== "string" || !/^[0-9a-f-]{36}$/i.test(id)) return respond({ error: "Invalid subscription." }, 400);
