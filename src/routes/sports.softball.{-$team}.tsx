@@ -4,6 +4,7 @@ const teamNames = {
   'paris-junior-college': 'Paris Junior College Lady Dragons',
   'texas-volts': 'Texas Volts',
   'schools': '2026–27 UIL Softball Schools and Districts',
+  'colleges': 'Texas NCAA Women’s College Softball Programs',
 } as const;
 export const Route = createFileRoute('/sports/softball/{-$team}')({
   beforeLoad: ({ params }) => {
@@ -16,6 +17,8 @@ export const Route = createFileRoute('/sports/softball/{-$team}')({
       meta: [
         { title: team === 'paris-junior-college'
           ? 'Paris Junior College Lady Dragons Softball: History and Jack Butler'
+          : team === 'colleges'
+            ? 'Texas Women’s NCAA College Softball Programs: DI, DII and DIII'
           : team === 'schools'
             ? 'Texas UIL Softball Schools and Districts: Complete 2026–27 Directory'
           : team === 'texas-volts'
@@ -23,6 +26,8 @@ export const Route = createFileRoute('/sports/softball/{-$team}')({
             : 'Texas Women’s Softball: Teams, Champions and College Guide' },
         { name: 'description', content: team === 'paris-junior-college'
           ? 'PJC Lady Dragons: NJCAA postseason history, 2025 NFCA regional award, and Mr. Jack Butler.'
+          : team === 'colleges'
+            ? 'Browse source-attributed 2026 NCAA Texas women’s softball programs across Division I, II and III; filter by city and level.'
           : team === 'schools'
             ? 'Search all 1,192 official UIL softball alignment listings, 160 districts and five conference documents, with free source-linked CSV.'
           : team === 'texas-volts'
