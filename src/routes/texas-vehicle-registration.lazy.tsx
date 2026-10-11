@@ -117,6 +117,19 @@ function TexasVehicleRegistrationPage() {
           <Link to="/texas-dmv" className="border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">Texas DMV service finder</Link>
         </div>
       </section>
+      <section id="personalized-plates" aria-labelledby="personalized-plates-heading" className="mx-auto max-w-6xl border-t border-border px-4 py-10 sm:px-6 lg:px-8">
+        <p className="eyebrow text-primary">License plate options</p>
+        <h2 id="personalized-plates-heading" className="mt-2 font-display text-3xl">Personalized and specialty Texas license plates</h2>
+        <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Texas offers standard-issue, specialty and personalized plate options. Not every design permits the same character combinations or eligibility, and certain plates require proof of military service, disability status or other qualifications.</p>
+        <ol className="mt-5 max-w-3xl list-decimal space-y-2 pl-5 leading-7">
+          <li>Choose between a general-issue replacement, specialty design or personalized configuration.</li>
+          <li>Review the design's current eligibility, personalization rules, availability and price on the official TxDMV plate pages or its authorized plate provider.</li>
+          <li>Confirm whether your request is a new registration, replacement, transfer or renewal; each may require different paperwork.</li>
+          <li>Check the ordering and pickup instructions before submitting payment, particularly if your vehicle has an existing registration or lien.</li>
+        </ol>
+        <p className="mt-4 text-sm leading-6 text-muted-foreground">Plate availability and fees change. An available combination at the start of an order is not a guarantee of approval.</p>
+        <a href="https://www.txdmv.gov/motorists/license-plates" target="_blank" rel="noopener noreferrer" className="mt-5 inline-block border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">Official TxDMV license plates and ordering information</a>
+      </section>
       <section id="title-transfer" className="mx-auto max-w-6xl border-t border-border px-4 py-10 sm:px-6 lg:px-8">
         <p className="eyebrow text-primary">Buying or selling</p>
         <h2 className="mt-2 font-display text-3xl">Texas vehicle title transfers</h2>
