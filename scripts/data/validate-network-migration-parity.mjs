@@ -52,6 +52,24 @@ for (const filename of applied){
  const body=readFileSync(full,'utf8');
  if(body.trim().length<50){console.error('Empty or incomplete migration: '+filename);errors++;}
 }
+// Supabase's version allocator produced these exact timestamps when the
+// four authorized production security migrations were applied. Historical
+// pending/ source copies are immutable audit inputs, NOT future migrations.
+const appliedSecurityMirrors=[
+ ['20261011183108_network_owner_revision_read_revocation_20261011.sql','20261011043000_network_owner_revision_read_revocation.sql'],
+ ['20261011183126_network_sensitive_action_audit_20261011.sql','20261011044000_network_sensitive_action_audit.sql'],
+ ['20261011183129_network_notification_manual_recovery_20261011.sql','20261011045000_network_notification_manual_recovery.sql'],
+ ['20261011183131_network_featured_storage_atomic_counter_20261011.sql','20261011046000_network_featured_storage_atomic_counter.sql']
+];
+for(const [appliedFile,mirror] of appliedSecurityMirrors){
+ const appliedPath=path.join(folder,appliedFile);
+ const mirrorPath=path.join('supabase','pending',mirror);
+ if(!existsSync(appliedPath)||!existsSync(mirrorPath)||
+    readFileSync(appliedPath,'utf8')!==readFileSync(mirrorPath,'utf8')){
+  console.error('Applied production migration deviates from tested immutable SQL source: '+appliedFile);
+  errors++;
+ }
+}
 const expected=new Set(applied);
 const checkedIn=readdirSync(folder).filter(f=>/^202610\d{8}_.+network.*\.sql$/i.test(f)||/^202610\d{8}_.*governed_network.*\.sql$/i.test(f));
 const unexpected=checkedIn.filter(f=>!expected.has(f));
