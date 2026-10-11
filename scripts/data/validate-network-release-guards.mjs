@@ -21,6 +21,13 @@ const requiredPages=[
  'network.billing.tsx','network.business.$slug.tsx','business.dashboard.tsx',
  'admin.network-applications.tsx'
 ];
+check('Checkout and billing reject unbounded JSON before parsing',
+ checkout.includes('parseBoundedNetworkBillingJson(request)')
+ && billing.includes('parseBoundedNetworkBillingJson(request)')
+ && !checkout.includes('await request.json()') && !billing.includes('await request.json()')
+ && source('src/data/network-billing-json.server.ts').includes('NETWORK_BILLING_JSON_MAX_BYTES = 4_096')
+ && source('src/data/network-billing-json.server.ts').includes('bytes>NETWORK_BILLING_JSON_MAX_BYTES')
+ && source('scripts/ci/run-premerge-validation.mjs').includes('network-billing-json.test.mjs'));
 check('checkout disabled by default',checkout.includes('if (!stripeCheckoutEnabled())'));
 check('checkout needs verified Supabase user',checkout.includes('email_confirmed_at')&&checkout.includes('auth.getUser(bearer)'));
 check('checkout needs authorized, enabled owner',checkout.includes('texasdefined_network_business_accounts')&&checkout.includes('.eq("owner_user_id", verified.user.id)')&&checkout.includes('.eq("access_enabled", true)'));
