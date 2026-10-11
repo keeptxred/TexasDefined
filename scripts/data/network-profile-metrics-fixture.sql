@@ -94,4 +94,31 @@ BEGIN
  IF other_count<>1 THEN RAISE EXCEPTION 'Second business was not recorded independently'; END IF;
 END
 $check$;
+-- Retention is service-only, bounded, and never deletes the 30-day report.
+INSERT INTO texasdefined_network_internal.profile_daily_metrics(
+ application_id,observed_on,action,event_count)
+VALUES('abababab-abab-4bab-8bab-abababababab',
+ (now() AT TIME ZONE 'UTC')::date-40,'profile_view',12);
+SET LOCAL ROLE anon;
+DO $privacy$
+BEGIN
+ IF has_function_privilege('anon','public.prune_texasdefined_network_profile_metrics()','EXECUTE')
+ THEN RAISE EXCEPTION 'Anonymous user can prune business history'; END IF;
+END
+$privacy$;
+RESET ROLE;
+SET LOCAL ROLE service_role;
+DO $retention$
+DECLARE removed integer; recent integer;
+BEGIN
+ SELECT public.prune_texasdefined_network_profile_metrics() INTO removed;
+ IF removed<>1 THEN RAISE EXCEPTION 'Expected to prune one stale row, got %',removed; END IF;
+ SELECT count(*) INTO recent FROM public.get_texasdefined_network_profile_metrics(
+  'abababab-abab-4bab-8bab-abababababab'::uuid);
+ IF recent<>2 THEN RAISE EXCEPTION 'Retention damaged recent paid-owner reporting'; END IF;
+ SELECT public.prune_texasdefined_network_profile_metrics() INTO removed;
+ IF removed<>0 THEN RAISE EXCEPTION 'Retention not idempotent, second batch removed %',removed; END IF;
+END
+$retention$;
+RESET ROLE;
 ROLLBACK;
