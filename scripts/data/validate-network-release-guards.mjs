@@ -39,6 +39,12 @@ check('checkout needs verified Supabase user',checkout.includes('email_confirmed
 check('checkout needs authorized, enabled owner',checkout.includes('texasdefined_network_business_accounts')&&checkout.includes('.eq("owner_user_id", verified.user.id)')&&checkout.includes('.eq("access_enabled", true)'));
 check('checkout blocks preexisting subscription',checkout.includes('data.stripe_subscription_id')&&checkout.includes('data.paid_entitlement_active'));
 check('checkout requires editorial approval',checkout.includes('data.status !== "approved"'));
+check('billing client invalidates stale responses on account changes and clears private memberships before fetching',
+ source(root+'network.billing.lazy.tsx').includes('const refreshSequence = useRef(0)')
+ && source(root+'network.billing.lazy.tsx').includes('requestSequence !== refreshSequence.current')
+ && source(root+'network.billing.lazy.tsx').includes('refreshSequence.current++;')
+ && source(root+'network.billing.lazy.tsx').includes('setSignedIn(false); setMemberships([]); setCheckoutAvailable(false)')
+ && source('scripts/data/network-owner-email.test.mjs').includes('billing Auth transitions synchronously clear prior owner'));
 check('suspended owners and closed portals retain an explicit sole-admin Office 365 billing/cancellation support path',
  source(root+'network.billing.lazy.tsx').includes('mailto:admin@texasdefined.com?subject=TexasDefined%20Network%20subscription%20support')
  && source(root+'network.billing.lazy.tsx').includes('This support option remains available even when the owner portal or checkout is closed')

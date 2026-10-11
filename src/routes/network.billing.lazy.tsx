@@ -1,6 +1,6 @@
 import "../network.css";
 import { createLazyFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Container } from "@/components/layout/Container";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -17,20 +17,42 @@ function NetworkBilling() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  // A previous owner's slow membership response must never overwrite the new
+  // owner or reappear after sign-out. Every Auth transition invalidates it.
+  const refreshSequence = useRef(0);
   async function refresh() {
+    const requestSequence = ++refreshSequence.current;
     const { data: { session } } = await supabase.auth.getSession();
+    if (requestSequence !== refreshSequence.current) return;
     if (!session) { setSignedIn(false); setMemberships([]); setCheckoutAvailable(false); return; }
     setSignedIn(true);
+    setMemberships([]); setCheckoutAvailable(false);
     const response = await fetch("/api/public/network-billing", { headers: { authorization: "Bearer " + session.access_token } });
+    if (requestSequence !== refreshSequence.current) return;
     if (!response.ok) throw new Error("Could not load your network memberships.");
     const result = await response.json();
-    setMemberships(result.memberships || []);
+    if (requestSequence !== refreshSequence.current) return;
+    setMemberships(Array.isArray(result.memberships) ? result.memberships : []);
     setCheckoutAvailable(result.checkoutAvailable === true);
   }
   useEffect(() => {
-    void refresh().catch(() => setError("Unable to load memberships."));
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => { void refresh().catch(() => setError("Unable to load memberships.")); });
-    return () => subscription.unsubscribe();
+    let mounted=true;
+    const load=()=>void refresh().catch(()=>{
+      if(mounted)setError("Unable to load memberships.");
+    });
+    load();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
+      // Clear owner-specific data synchronously, before beginning any next read.
+      refreshSequence.current++;
+      setSignedIn(false); setMemberships([]); setCheckoutAvailable(false);
+      setEmail(""); setError(""); setNotice("");
+      load();
+    });
+    return () => {
+      mounted=false;
+      refreshSequence.current++;
+      subscription.unsubscribe();
+    };
   }, []);
   async function signIn(event: FormEvent) {
     event.preventDefault(); if(!ownerPortalOpen){setError("Owner email sign-in is not yet active.");return} setBusy(true); setError(""); setNotice("");

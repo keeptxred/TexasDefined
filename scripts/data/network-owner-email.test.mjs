@@ -47,3 +47,13 @@ test('Network billing provides owner support and cancellation contact even with 
  assert.match(page,/This support option remains available even when the owner portal or checkout is closed/);
  assert.match(page,/Owner email sign-in is not available before Network launch/);
 });
+
+test('billing Auth transitions synchronously clear prior owner membership and prevent out-of-order response reuse',()=>{
+ const page=readFileSync('src/routes/network.billing.lazy.tsx','utf8');
+ assert.match(page,/const refreshSequence = useRef\(0\)/);
+ assert.match(page,/const requestSequence = \+\+refreshSequence\.current/);
+ assert.match(page,/if \(requestSequence !== refreshSequence\.current\) return/g);
+ assert.match(page,/setSignedIn\(false\); setMemberships\(\[\]\); setCheckoutAvailable\(false\)/);
+ assert.match(page,/refreshSequence\.current\+\+;\s*subscription\.unsubscribe\(\)/);
+ assert.match(page,/setEmail\(""\); setError\(""\); setNotice\(""\)/);
+});

@@ -289,3 +289,7 @@ The Featured dashboard treats a Storage remove API call as a **request**, not pr
 ### Owner-screen integrity and failed upload recovery — accepted premerge regression, 2026-10-11
 
 On commit `784efce14727b31e8507de3b0e5db8c8811e4d0d`, all four exact-head workflows passed: Merge Gate 38143532535, clean-room 38143532652, preview Chrome 38143532580, and local real GoTrue/Storage 38143532611. `scripts/data/network-owner-draft-cleanup.test.mjs` prevents treating Storage DELETE HTTP 200 with no deleted rows as confirmed successful cleanup; the dashboard checks private inventory and current enabled owner access before claiming success, and warns about unverified cleanup. An Auth account change purges previous-owner private review/draft/file/message/email state and prevents late `getUser()` responses from resurrecting the old identity. **This does not certify an authorized production deployment or hosted end-to-end owner testing.**
+
+### Account switch privacy regression — billing screen
+
+The billing client must not render a former owner's membership list when Auth sessions change or a delayed API response arrives after logout. A monotonic `refreshSequence` invalidates each asynchronous session, fetch, and JSON response; owner-specific membership and checkout controls are cleared synchronously on Auth events and teardown. Regression is checked through the existing Node billing test and Merge Gate. This is a client privacy safeguard layered on top of server-side verified-owner billing restrictions.
