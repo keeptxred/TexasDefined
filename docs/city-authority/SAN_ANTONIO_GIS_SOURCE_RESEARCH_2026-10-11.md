@@ -15,3 +15,9 @@
 **Accept a GIS PASS only after matching the ArcGIS publisher to the City's official download catalog, verifying latest annexation/vintage, checking 2026 city-owned polygon against county boundaries independently, and addressing slivers and limited-purpose/ETJ categories.** The raw spatial overlap is a research candidate, not legal certification.
 
 Keep all eleven city pages on PARTIAL until manual factual/visual accessibility, current school/tax/utility/visitor/transit source checks and sitemap/JSON-LD review also complete.
+
+## Direct primary government catalog confirmation — October 11
+
+This source is now **directly corroborated** against the official [City of San Antonio GIS Data catalog](https://www.sanantonio.gov/GIS/GISdata): its *Cosa Boundary* entry explicitly describes **"the City Limits of San Antonio"** and states a **quarterly** update cadence. The same official page links the City's [GIS Open Data Portal](https://opendata-cosagis.opendata.arcgis.com/). The city-associated [COSABoundary/FeatureServer/1](https://services.arcgis.com/g1fRTDLeMgspWrYp/arcgis/rest/services/COSABoundary/FeatureServer/1?f=pjson) is a polygon layer in the municipal ArcGIS organization, with last-edit timestamp in September 2026. The official catalog separately lists ETJ Cosa, other-city ETJ and limited annexation; the municipal boundary candidate is **not** one of those separate ETJ datasets.
+
+**The source-catalog/discovery task has independent government evidence now; the actual county intersection, legal status and separately coded limited-purpose annexation remain open until executed and reviewed.** The City itself cautions that GIS maps are **not legal representations** and directs individual boundary decisions to the responsible office. Do not treat data publication or county overlap as a legal address classification.
