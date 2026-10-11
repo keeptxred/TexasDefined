@@ -46,11 +46,13 @@ CITY_LAYERS = {
     "plano": "https://maps.planogis.org/arcgiswad/rest/services/OpenData/MunicipalBoundary/MapServer/0",
     "lubbock": "https://pubgis.ci.lubbock.tx.us/server/rest/services/Layers/ParcelMap/MapServer/13",
 }
-# This additional 2026 City of San Antonio-labelled layer is NOT confirmed as
-# City-published authoritative geometry. Published 2026-04-07, source data
-# reported 2026-03-17. Use only for explicitly provisional research.
+# City of San Antonio COSA ArcGIS Online REST org identified in 2026 via
+# COSA open-data ecosystem and independently attributed as City's REST by
+# project geospatial users. COSABoundary/1 edited July 28, 2026. However,
+# current annexation ordinance/quarterly city GIS release parity is NOT
+# independently certified: ONLY optional candidate research, never GIS PASS.
 CANDIDATE_LAYERS = {
-    "san-antonio": "https://services7.arcgis.com/BUFM2kw4MpxDUJVh/ArcGIS/rest/services/COSA_City_Limits/FeatureServer/0",
+    "san-antonio": "https://services.arcgis.com/g1fRTDLeMgspWrYp/arcgis/rest/services/COSABoundary/FeatureServer/1",
 }
 # Some source layers contain ETJ, other cities, or limited-purpose polygons.
 # Restrict the primary geometry explicitly to full-service/full-purpose limits.
