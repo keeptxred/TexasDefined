@@ -1,8 +1,9 @@
--- STAGING PROPOSAL ONLY: NOT YET AN APPLIED SUPABASE MIGRATION.
--- Execute only in disposable localhost network_replay as part of CI.
--- Before release, generate an official numbered migration with Supabase CLI
--- and apply after explicit approval; do not modify an applied migration.
--- Disabled Featured business owners must not SELECT prior private revision content.
+-- UNAPPLIED PENDING MIGRATION; awaiting sole-owner authorization for activation.
+-- Do NOT deploy to shared Supabase without explicit owner approval.
+-- Promotion procedure: move this exact numbered file into supabase/migrations/,
+-- first refresh 34-applied-version parity and verify staging Auth revocation.
+-- This controls only private Featured revision SELECT, not publication or billing.
+-- The existing 34 applied migrations remain unchanged.
 DROP POLICY IF EXISTS network_owner_revisions_read
 ON public.texasdefined_network_profile_revisions;
 CREATE POLICY network_owner_revisions_read

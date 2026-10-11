@@ -42,10 +42,10 @@ for(const filename of migrations){
  execSql(['-f',location],filename);
  console.log('REPLAY PASS '+filename);
 }
-// PROPOSED policy hardening is separately tested AFTER 34 actually applied
+// UNAPPLIED numbered pending migration is separately tested AFTER 34 applied
 // migrations. It is deliberately NOT included in the applied-version manifest
 // or deployed to the shared project by this runner.
-const proposedRevocation='scripts/data/network-proposed-revision-read-revocation.sql';
+const proposedRevocation='supabase/pending/20261011043000_network_owner_revision_read_revocation.sql';
 if(!existsSync(proposedRevocation))throw new Error('Proposed owner revision SELECT revocation missing');
 execSql(['-f',proposedRevocation],'staging-only disabled-owner revision SELECT policy hardening');
 console.log('REPLAY PROPOSED OWNER REVOCATION PASS: staging-only policy applied in disposable DB; production unchanged');
