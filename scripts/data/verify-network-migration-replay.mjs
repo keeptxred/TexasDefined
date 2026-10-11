@@ -16,7 +16,7 @@ if(process.env.NETWORK_MIGRATION_REPLAY_ISOLATED!=='yes-ephemeral-local-only' ||
 
 const manifest=readFileSync('scripts/data/validate-network-migration-parity.mjs','utf8');
 const migrations=[...manifest.matchAll(/"(202610\d{8}_[^"]+\.sql)"/g)].map(match=>match[1]);
-if(migrations.length!==34 || new Set(migrations).size!==34 ||
+if(migrations.length!==38 || new Set(migrations).size!==38 ||
    migrations.some((name,index)=>index>0 && name<=migrations[index-1]))
  throw new Error('Applied Network manifest count, order or uniqueness changed: stop and reconcile');
 const execSql=(args,label)=>{
@@ -44,13 +44,13 @@ for(const filename of migrations){
  execSql(['-f',location],filename);
  console.log('REPLAY PASS '+filename);
 }
-// UNAPPLIED numbered pending migration is separately tested AFTER 34 applied
-// migrations. It is deliberately NOT included in the applied-version manifest
-// or deployed to the shared project by this runner.
+// Re-execute four immutable original SQL source mirrors after the 38 officially
+// applied versions, exercising safe re-execution and disposable idempotency.
+// Do not run this replay script on shared Supabase.
 const proposedRevocation='supabase/pending/20261011043000_network_owner_revision_read_revocation.sql';
 if(!existsSync(proposedRevocation))throw new Error('Proposed owner revision SELECT revocation missing');
 execSql(['-f',proposedRevocation],'staging-only disabled-owner revision SELECT policy hardening');
-console.log('REPLAY PROPOSED OWNER REVOCATION PASS: staging-only policy applied in disposable DB; production unchanged');
+console.log('REPLAY PROPOSED OWNER REVOCATION PASS: staging-only policy applied in disposable DB; production changes are not made by isolated replay');
 const pendingAudit='supabase/pending/20261011044000_network_sensitive_action_audit.sql';
 if(!existsSync(pendingAudit))throw new Error('Pending private sensitive-action audit migration missing');
 execSql(['-f',pendingAudit],'pending sensitive-action audit trigger migration: disposable DB only');
@@ -107,11 +107,11 @@ BEGIN
     (SELECT count(*) FROM public.texasdefined_network_email_outbox)<>0 OR
     (SELECT count(*) FROM storage.objects WHERE bucket_id LIKE 'texasdefined-network-%')<>0
  THEN RAISE EXCEPTION 'Clean-room schema unexpectedly contains Network customer data'; END IF;
- RAISE NOTICE 'REPLAY VERIFIED: 34 sequential migrations; 8 RLS tables; 4 buckets; public privileged RPC denied; private helpers inaccessible anonymously; no records';
+ RAISE NOTICE 'REPLAY VERIFIED: 38 sequential migrations; 8 RLS tables; 4 buckets; public privileged RPC denied; private helpers inaccessible anonymously; no records';
 END
 $verification$;`;
 execSql(['-c',checks],'final schema/RLS/bucket/RPC verification');
-console.log('REPLAY RESULT PASS: 34/34 migrations in isolated PostgreSQL; NOT end-to-end Supabase certification');
+console.log('REPLAY RESULT PASS: 38/38 applied Network migrations in isolated PostgreSQL; NOT end-to-end Supabase certification');
 const auditFixture='scripts/data/network-sensitive-action-audit-fixture.sql';
 if(!existsSync(auditFixture))throw new Error('Missing isolated sensitive-action audit fixture');
 execSql(['-f',auditFixture],'single-administrator private audit state-transition rollback fixture');
@@ -150,7 +150,7 @@ catch(error){console.error(String(error?.stdout||''));console.error(String(error
 console.log('REPLAY FEATURED CONCURRENCY RESULT PASS: two independent database sessions enforce 24-image quota');
 
 // Test-only SQL override is generated and executed ONLY in this disposable localhost
-// database. It never replaces the 34 historical migrations or runs on hosted Supabase.
+// database. It never replaces the 38 historical migrations or runs on hosted Supabase.
 const isolatedStripeOverlay=execFileSync('node',['scripts/data/network-stripe-local-finalizer-overlay.mjs'],{encoding:'utf8'});
 execSql(['-c',isolatedStripeOverlay],'LOCAL-ONLY cs_test Checkout finalizer compatibility');
 const verifyIsolatedStripe=`DO $check$
