@@ -7,6 +7,7 @@ on:
       - 'supabase/migrations/**'
       - 'scripts/data/validate-network-migration-parity.mjs'
       - 'scripts/data/network-migration-replay-bootstrap.sql'
+      - 'scripts/data/network-migration-owner-rls-fixture.sql'
       - 'scripts/data/verify-network-migration-replay.mjs'
       - '.github/workflows/network-migration-cleanroom.yml'
       - 'docs/network/IMPLEMENTATION_STATUS.md'
