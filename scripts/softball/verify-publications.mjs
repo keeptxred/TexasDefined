@@ -9,14 +9,20 @@ const root = resolve(import.meta.dirname, '../..');
 const read = (p) => readFileSync(resolve(root,p),'utf8');
 const manifest = JSON.parse(read('src/data/softball/published-team-profiles.json'));
 const registry = JSON.parse(read('src/data/softball/uil-2026-27-registry.json'));
+const approvedIndex = JSON.parse(read('src/data/softball/published-team-index.json'));
+if (approvedIndex.version !== 1 || !Array.isArray(approvedIndex.pages)) throw new Error('Invalid approved softball directory index');
 const errors = validatePublishedManifest(manifest, registry);
 const staticRoutes = read('src/lib/public-routes.ts');
 const head = read('src/routes/sports.softball.{-$team}.tsx');
 const body = read('src/routes/sports.softball.{-$team}.lazy.tsx');
+const teamComponent = read('src/components/softball/SoftballPublishedTeamAuthorityPage.tsx');
+const directory = read('src/components/softball/SoftballSchoolsDirectory.tsx');
+const serverLookup = read('src/data/softball/softball-published-team.server.ts');
+const loader = read('src/data/softball/softball-published-team.functions.ts');
 const sourceFiles = readdirSync(resolve(root,'src/routes')).filter((p)=>p.includes('softball'));
 const published = new Set(manifest.pages.map(p=>p.slug));
 // A large verified directory never grants permission for mass page creation.
-// In each PR limit promotion to 8 hand-researched, reviewed team profiles.
+// Per-school publication permission comes ONLY after first-release research passes.
 if (process.env.GITHUB_BASE_REF) {
   let previous;
   try {
@@ -36,12 +42,36 @@ if (process.env.GITHUB_BASE_REF) {
   const removed = [...prior].filter(slug=>!published.has(slug));
   if (removed.length) errors.push('Unreviewed deletion of already-published softball pages: ' + removed.join(', '));
 }
+// A tiny exact-school approved index is the ONLY way the directory/sitemap
+// gains links. The full 1,050+ word manifest remains a server-only import.
+const indexedSlugs = new Set();
+for (const item of approvedIndex.pages) {
+  if (!item || typeof item.slug !== 'string' || indexedSlugs.has(item.slug)) {
+    errors.push('Duplicate or invalid published softball index slug: ' + String(item?.slug));
+    continue;
+  }
+  indexedSlugs.add(item.slug);
+  const original = manifest.pages.find(p => p.slug === item.slug);
+  if (!original) {
+    errors.push(item.slug + ': forbidden published index link without complete first-release manifest record');
+    continue;
+  }
+  const id = original.identity;
+  if (item.uilName !== id.uilName || item.conference !== id.conference || item.district !== id.district || item.region !== id.region) {
+    errors.push(item.slug + ': approved index school/district identity diverges from source-verified softball team');
+  }
+}
 for (const record of manifest.pages) {
-  const url = '/sports/softball/' + record.slug;
-  if (!staticRoutes.includes('"' + url + '"')) errors.push(record.slug + ': missing static canonical sitemap registration');
-  if (!head.includes("'" + record.slug + "'")) errors.push(record.slug + ': missing exact head-route slug recognition');
-  if (!body.includes("'" + record.slug + "'")) errors.push(record.slug + ': missing content-rendering route recognition');
-  if (!body.includes('SoftballAuthority')) errors.push(record.slug + ': lazy render should use a shared published-profile authority component');
+  if (!indexedSlugs.has(record.slug)) errors.push(record.slug + ': researched published page missing from exact approved index');
+}
+if (!staticRoutes.includes('publishedSoftballIndex') || !staticRoutes.includes('`/sports/softball/${entry.slug}`')) errors.push('Sitemap must derive team URLs solely from approved slim index');
+if (!head.includes('getPublishedSoftballTeamPage') || !head.includes('if (!approved) throw notFound()')) errors.push('Individual team routes must load approved server records and reject unknown slugs');
+if (!head.includes('loaderData') || !head.includes('SportsTeam') || !head.includes('jsonLd')) errors.push('Each approved team needs school-specific canonicals and structured data');
+if (!body.includes('approvedProfile') || !body.includes('SoftballPublishedTeamAuthorityPage')) errors.push('Approved school pages need a shared lazy authority renderer');
+if (!serverLookup.includes('published-team-profiles.json') || !loader.includes("import('./softball-published-team.server')")) errors.push('Full researched profile manifest must remain server-only');
+if (!directory.includes('approvedTeamByIdentity') || !directory.includes('Read complete, independently verified team guide')) errors.push('Directory may only link exact-season independently approved teams');
+for (const marker of ['profile.uniqueThesis', 'profile.sections', 'profile.claims', 'profile.sources', 'profile.media', 'profile.correctionsPolicy', 'profile.relatedPaths']) {
+  if (!teamComponent.includes(marker)) errors.push('Complete team renderer omitted required evidence material: '+marker);
 }
 // Catch indexable/bogus team pages not declared in the signed publication file.
 // Existing curated resources remain explicitly exempt.
