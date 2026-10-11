@@ -33,7 +33,7 @@ test('a missing or unknown read-after-delete inventory is never proof of cleanup
 test('real handler verifies authoritative completion before compensating and keeps orphaned rows if unverified',()=>{
  const handler=readFileSync('src/routes/api.public.network-application.ts','utf8');
  assert.match(handler,/select\("intake_complete"\)/);
- assert.match(handler,/current\.intake_complete===true/);
+ assert.match(handler,/current\?\.intake_complete===true/);
  assert.match(handler,/networkIntakeCleanupObjectPaths\(applicationId,existingMedia\)/);
  assert.match(handler,/networkIntakeCleanupFolderIsEmpty\(remainingMedia\)/);
  assert.match(handler,/\.delete\(\{count:"exact"\}\).*\.eq\("intake_complete",false\)/s);
