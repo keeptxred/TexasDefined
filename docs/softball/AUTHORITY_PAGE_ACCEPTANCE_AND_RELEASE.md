@@ -9,6 +9,33 @@
 
 Publishing fewer genuinely authoritative pages is preferable to producing 1,192 thin pages and facing AdSense quality problems, Google indexing suppression, duplicate-content penalties, or years of corrections. One comprehensive statewide directory is preferable to 1,192 lightly rewritten name-and-district stubs.
 
+## Full authority page on its FIRST publication — owner directive, October 11, 2026
+
+**Every school in the verified UIL softball registry is a candidate for a complete, permanent team page, just as in the high-school football network.** The existing statewide directory is the source inventory, not the final product and not a reason to omit school pages. The production rollout must pursue every independently verified program, not merely a curated sample. We publish no partial profiles in order to meet a calendar quota.
+
+**Do all possible research *before* the first public release of each school page.** We learned from the football rebuilds and repeated follow-up enrichments: do not ship a simple name/district page and subsequently bolt on stadium, enrollment, coach, county, schedules, historical championships, school aliases, community sources, or accessibility. The first version must contain the whole researched entity graph, school-specific original editorial treatment and functional interactive sections. Reuse the football architecture's tested canonical routes, typed loaders and SEO, but never reuse football's sport-specific facts or make unsupported assumptions.
+
+**A page can be ready without a fact that does not demonstrably exist.** Historical championship/roster records may be lost, a facility may have no named monument, and next season's official schedule may not yet have been posted. The editor must search and document sources, positively verify core current entities, accurately describe the observed source limitation in the relevant section, and avoid inventing content. A future source update is maintenance, not a reason to omit a research topic today. Do not publish a multi-section page of generic “information unavailable” placeholders.
+
+### All-first-release research dimensions: 38 individually signed-off areas
+
+The executable source of truth is `scripts/softball/complete-first-release-audit.mjs`. Every individual profile needs a per-topic decision, evidence IDs, an original evidence conclusion and a recent checked date. The matrix includes all of:
+
+1. Exact school/campus identity, ISD or operator, mascot, team identity, county/city, school athletics page.
+2. UIL softball-only season classification, district, region, district opponents and scheduling source. **Never import football districts or football's classification.**
+3. Current coaching and historic coaching; official public roster source with minor privacy; future/active season and complete past verified scores.
+4. Original program origins and pivotal moments; postseason history; properly attributed championships, records, titles, player/team/staff awards and verified notable alumni.
+5. Exact home field, address and prior facilities, published game-day policies/admission and appropriate disability access information; verified source rather than guessed ADA or parking claims.
+6. School enrollment (from dated school/TEA sources, not football alignment), recruiting/eligibility requirements, uniforms/brand rights, photos and licensing.
+7. Local press history, independently documented rivalries, community traditions, booster/local heritage connections and truly relevant working city/county/venue links.
+8. Original useful visitor/family FAQ, corrections and conflicting claims, accurate school-specific structured data and mobile/desktop/keyboard/contrast QA; compiled Worker SSR and status verification.
+
+**Publication outcome**: any missing/unresolved topic, an unverified critical school/venue/coach/current-source fact, source conflicts, privacy/media-rights gaps or low-quality duplicate prose automatically blocks promotion. The remaining research is performed *before* the page goes live. At no stage does this authorize “unknown” to be silently populated with AI-generated guesses.
+
+**Research evidence must be real:** automated sign-offs cannot replace opening the original documents, validating a coach's role, checking the original brackets or verifying an image license. The positive synthetic test fixture is solely a programmatic regression; never copy its made-up example data into site content.
+
+**Release batching:** batches may contain as many teams as have individually completed this contract and passed CI and browser/production tests. The original eight-pages-per-PR cap has been removed because it is unrelated to content completeness. Keep batches small enough to diagnose failures and roll back safely, but **do not accept weaker content for a larger batch** or force unnecessary manual continuation between every individual school.
+
 ## Every individual team page must have ALL of the following before publication
 
 | Research area | Nonnegotiable acceptance evidence |
@@ -37,7 +64,7 @@ When a school cannot meet the requirement, **keep it as a verified directory lis
 
 - `src/data/softball/published-team-profiles.json` starts with **zero** team pages. Each future profile requires deliberate insertion; a listing import cannot publish it.
 - `scripts/softball/authority-contract.mjs` checks official district identity, sources, factual claims, coverage, uniqueness, rights, corrections and editorial sign-off.
-- `scripts/softball/verify-publications.mjs` cross-checks public routes/sitemap, specific slug metadata, duplicate school-season, maximum **8 new pages per PR**, and previously published pages retained. Unknown teams return 404.
+- `scripts/softball/verify-publications.mjs` cross-checks public routes/sitemap, specific slug metadata, duplicate school-season, a complete research audit for every team in each batch, and previously published pages retained. Unknown teams return 404.
 - `scripts/softball/test-authority-contract.mjs` exercises a complete **synthetic test-only fixture** plus many intentionally invalid cases. That fixture must never be inserted into the public manifest.
 - The two validators run in `npm run softball:authority:validate`, `npm run softball:validate`, `npm run data:validate`, and **early within the protected `scripts/ci/run-premerge-validation.mjs` required Merge Gate**.
 - The existing built Cloudflare Worker SSR smoke script reads the published manifest and checks **every newly approved profile** for its school-specific heading. Never accept a 200 that actually shows the hub, a blank shell or a generic school page.
@@ -51,7 +78,7 @@ When a school cannot meet the requirement, **keep it as a verified directory lis
 
 **Phase 2 — production proof:** After pilot PR passes, inspect each live page at 360 px, 768 px and 1440 px, keyboard/focus, contrast, source links, canonical/robots, JSON-LD, matching sitemap URL, image rights, county/internal navigation, corrected 200/404 responses, Worker SSR, Cloudflare cache and Search Console indexation. Only proceed to next batch on success.
 
-**Phase 3 — incremental expansion:** At most **8 new genuinely researched team pages per PR**, with every page contract-clean. Continue season/source revalidation and avoid a high total of simultaneously open PRs. Increase rate **only after measurable evidence** of CI stability and editorial capacity, not a fixed quota.
+**Phase 3 — incremental expansion:** Every new team in the batch must be individually researched, source-complete and page-contract clean **before its first publication**. Batch size is dictated by research quality, verification throughput and deployment risk, not an arbitrary page count. Continue season/source revalidation and avoid many conflicting open PRs.
 
 ### Preflight and CI failure prevention
 

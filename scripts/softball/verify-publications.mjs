@@ -29,7 +29,10 @@ if (process.env.GITHUB_BASE_REF) {
   }
   const prior = new Set(previous.map(p=>p.slug));
   const newlyPublished = [...published].filter(slug=>!prior.has(slug));
-  if (newlyPublished.length > 8) errors.push('Batch too large: ' + newlyPublished.length + ' new pages; max 8 verified profiles per PR');
+  // Publication is gated by complete research for *every* proposed page, not
+  // an arbitrary number of schools. Large batches still require full CI,
+  // full page-specific verification and signoff; never publish thin placeholders.
+  if (newlyPublished.length) console.log('Validating ' + newlyPublished.length + ' newly researched softball pages for first-release completeness.');
   const removed = [...prior].filter(slug=>!published.has(slug));
   if (removed.length) errors.push('Unreviewed deletion of already-published softball pages: ' + removed.join(', '));
 }
