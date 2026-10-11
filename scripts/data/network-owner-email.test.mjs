@@ -40,3 +40,10 @@ test('Checkout checks the same exact normalized confirmed owner email on both si
  assert.doesNotMatch(route,/data\.contact_email\.toLowerCase\(\)/);
  assert.doesNotMatch(route,/\.ilike\(/);
 });
+
+test('Network billing provides owner support and cancellation contact even with suspended portal access',()=>{
+ const page=readFileSync('src/routes/network.billing.lazy.tsx','utf8');
+ assert.match(page,/href="mailto:admin@texasdefined\.com\?subject=TexasDefined%20Network%20subscription%20support"/);
+ assert.match(page,/This support option remains available even when the owner portal or checkout is closed/);
+ assert.match(page,/Owner email sign-in is not available before Network launch/);
+});

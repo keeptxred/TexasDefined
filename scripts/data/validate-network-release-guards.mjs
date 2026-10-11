@@ -39,6 +39,10 @@ check('checkout needs verified Supabase user',checkout.includes('email_confirmed
 check('checkout needs authorized, enabled owner',checkout.includes('texasdefined_network_business_accounts')&&checkout.includes('.eq("owner_user_id", verified.user.id)')&&checkout.includes('.eq("access_enabled", true)'));
 check('checkout blocks preexisting subscription',checkout.includes('data.stripe_subscription_id')&&checkout.includes('data.paid_entitlement_active'));
 check('checkout requires editorial approval',checkout.includes('data.status !== "approved"'));
+check('suspended owners and closed portals retain an explicit sole-admin Office 365 billing/cancellation support path',
+ source(root+'network.billing.lazy.tsx').includes('mailto:admin@texasdefined.com?subject=TexasDefined%20Network%20subscription%20support')
+ && source(root+'network.billing.lazy.tsx').includes('This support option remains available even when the owner portal or checkout is closed')
+ && source('scripts/ci/run-premerge-validation.mjs').includes('network-owner-email.test.mjs'));
 check('authorized Plus owner can start checkout only after launch',billing.includes('checkoutAvailable=stripeCheckoutEnabled()')&&billing.includes('checkoutEligible: item.status === "approved"')&&source(root+'network.billing.lazy.tsx').includes('disabled={busy||!checkoutAvailable}'));
 
 check('billing enforces verified sign-in',billing.includes('email_confirmed_at')&&billing.includes('auth.getUser(token)'));

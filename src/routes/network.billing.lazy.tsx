@@ -93,6 +93,7 @@ function NetworkBilling() {
       </section>}
       {notice && <p role="status" className="mt-5 rounded-xl bg-surface p-4">{notice}</p>}
       {error && <p role="alert" className="mt-5 rounded-xl bg-surface p-4 text-red-700">{error}</p>}
+      <p className="mt-8 text-sm leading-7 text-muted-foreground">If your business access was suspended, you cannot sign in, or you need to cancel or correct an existing subscription, contact <a className="font-semibold text-primary underline" href="mailto:admin@texasdefined.com?subject=TexasDefined%20Network%20subscription%20support">admin@texasdefined.com</a>. This support option remains available even when the owner portal or checkout is closed.</p>
       <a href="/network/join" className="mt-9 inline-block text-primary underline">Return to Network membership</a>
     </div>
   </Container></div>;
