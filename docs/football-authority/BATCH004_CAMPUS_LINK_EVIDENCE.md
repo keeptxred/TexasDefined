@@ -13,11 +13,11 @@ Research and implementation date: October 10, 2026. This file records only indep
 | Axtell Longhorns (`axtell`) | McLennan | [Axtell ISD](https://www.axtellisd.net/), McLennan County | county / school reciprocal |
 | Baird Bears (`baird`) | Callahan | [Baird ISD](https://www.bairdisd.org/), Callahan County | county / school reciprocal |
 
-On branch PR #4540: `src/routes/$kind.$slug.lazy.tsx` county inbound cards; `src/routes/texas-high-school-football-teams_.$slug.lazy.tsx` outbound county mapping; `REGISTRY.json` nine route records. All 9 link pairs are **committed only** and need real rendered production navigation tests after merge/deploy. No assertion that these schools have been independently verified.
+Historical pre-merge evidence on branch PR #4540: `src/routes/$kind.$slug.lazy.tsx` county inbound cards; `src/routes/texas-high-school-football-teams_.$slug.lazy.tsx` outbound county mapping; `REGISTRY.json` nine route records. At this earlier checkpoint all nine link pairs were **committed only**. **Later verification completed:** corrected deployed Chrome run [#38066125917](https://github.com/keeptxred/TexasDefined/actions/runs/38066125917) passed the 25 Batch 004 school viewports, all 10 relevant county guides, and 25 sitemap entries; [Oct 11 rerun #38115116709](https://github.com/keeptxred/TexasDefined/actions/runs/38115116709) also passed 72/72. The Batch 004 school records are now 25/25 VERIFIED; this is not an independent municipal GIS, stadium, or live event-accessibility certification.
 
-Remaining schools require first-party campus county proof before extending this map, especially metro Austin schools where district boundaries and city postal addresses can be misleading. Current football registry source is UIL alignment, which by itself establishes district/class, **not campus county**.
+At that earlier research stage, remaining schools required first-party campus county proof before extending this map, especially metro Austin schools where district boundaries and city postal addresses can be misleading. Current football registry source is UIL alignment, which by itself establishes district/class, **not campus county**.
 
-## Additional 16 campus-county connections, implemented as branch code (2026-10-10)
+## Additional 16 campus-county connections (original branch checkpoint, 2026-10-10; later production VERIFIED)
 
 The **Travis County** branch cards and school return links additionally cover these 15 distinct high-school programs:
 
@@ -39,4 +39,4 @@ The **Travis County** branch cards and school return links additionally cover th
 
 **Tarrant County**: `azle` — Azle High Hornets, school campus, not out-of-district football visitor sites: [Azle ISD](https://www.azleisd.net/), [DCTF program](https://www.texasfootball.com/team/azle-hornets).
 
-All 16 have an outbound county path on the school page, a corresponding county football card, and an `inboundLinks` registry declaration. They have **not** been inspected in live production or accepted as SEO-perfect. Multi-campus/district address ambiguity was specifically noted for Austin Achieve and school-vs-mailing-city boundaries for Lake Travis and Westlake. The county page is not a substitute for a city-specific reciprocal association.
+All 16 have an outbound county path on the school page, a corresponding county football card, and an `inboundLinks` registry declaration. These links were subsequently inspected in the full corrected live production desktop/mobile browser suite with zero final failures. No blanket independent claim of SEO perfection or municipal boundary certification is made. Multi-campus/district address ambiguity was specifically noted for Austin Achieve and school-vs-mailing-city boundaries for Lake Travis and Westlake. The county page is not a substitute for a city-specific reciprocal association.
