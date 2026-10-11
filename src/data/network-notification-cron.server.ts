@@ -10,7 +10,7 @@ import {prepareNetworkGraphBatch,NETWORK_GRAPH_WORKER_MAX_BATCH} from './network
 import {submitNetworkGraphHttpRequest} from './network-notification-graph-transport.server.ts';
 import {findNetworkGraphSentItemsEvidence,type NetworkSentEvidence} from './network-graph-sentitems.server.ts';
 import {acquireNetworkGraphAppToken,networkGraphCredentialsFromEnv} from './network-graph-token.server.ts';
-import type {NetworkOutboxClaim,NetworkGraphClaimPlan} from './network-notification-claim-plan.server.ts';
+import type {NetworkGraphClaimPlan} from './network-notification-claim-plan.server.ts';
 export type NetworkCronStats={claimed:number;previouslyHeld:number;verified:number;unconfirmed:number;rejected:number};
 export type NetworkCronDependencies={
  preflight:()=>Promise<void>;
@@ -68,6 +68,12 @@ export async function runNetworkNotificationCronOnWorker(
  transport:typeof fetch=fetch,
 ):Promise<NetworkCronStats|null>{
  if(!networkCronLaunchArmed(environment))return null;
+ // The scheduled Workers env and the Node-compatible runtime must agree;
+ // mismatched flag injection never creates an orphaned claimed outbox row.
+ const {NETWORK_EMAIL_DELIVERY_ENABLED}=await import('./network-notification-templates.server.ts');
+ const {NETWORK_GRAPH_DISPATCH_ENABLED}=await import('./network-notification-graph-readiness.server.ts');
+ if(!NETWORK_EMAIL_DELIVERY_ENABLED || !NETWORK_GRAPH_DISPATCH_ENABLED)
+  throw Error('Network Graph runtime release mismatch');
  const token=await acquireNetworkGraphAppToken(networkGraphCredentialsFromEnv(environment),transport);
  const bearer=token.accessToken;
  // Prove scoped mailbox read capability before durable outbox claim.
