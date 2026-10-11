@@ -55,6 +55,15 @@ export function validateNetworkHostedStageConfig(env) {
   const token=env['NETWORK_STAGE_OWNER_'+n+'_JWT']||'';
   if(!uuid.test(id) || token.length<60 || token.length>8192 ||
      !/^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(token))fail();
+  // Untrusted decode is only a local safety preflight; the actual signature,
+  // expiry and identity are independently validated by the hosted GoTrue
+  // /auth/v1/user request in each acceptance phase.
+  let claims;
+  try { claims=JSON.parse(Buffer.from(token.split('.')[1],'base64url').toString('utf8')); }
+  catch { fail(); }
+  if(claims?.role!=='authenticated' || claims.sub!==id ||
+     !Number.isFinite(claims.exp) || claims.exp <= Math.floor(Date.now()/1000)+30)
+     fail();
   return {id,token};
  }
  const one=owner('ONE'),two=owner('TWO');
