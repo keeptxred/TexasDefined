@@ -30,6 +30,25 @@ BEGIN
  SELECT object_count INTO c FROM texasdefined_network_internal.featured_storage_usage
   WHERE business_account_id='77777777-0000-4000-8000-000000000002';
  IF c<>24 THEN RAISE EXCEPTION 'Counter must commit exactly 24, got %',c; END IF;
+ -- Storage uses INSERT ... ON CONFLICT for retries/upserts. Neither a
+ -- duplicate DO NOTHING nor a privileged metadata upsert may consume one
+ -- extra media quota slot, even when already at the 24-file boundary.
+ -- BEFORE INSERT row triggers fire on attempted conflicted inserts; AFTER
+ -- INSERT accounting must instead count only rows actually inserted.
+ INSERT INTO storage.objects(bucket_id,name)
+ VALUES('texasdefined-network-featured-drafts',
+  '77777777-7777-4777-8777-777777777777/77777777-0000-4000-8000-000000000002/photo-1.png')
+ ON CONFLICT(bucket_id,name) DO NOTHING;
+ INSERT INTO storage.objects(bucket_id,name)
+ VALUES('texasdefined-network-featured-drafts',
+  '77777777-7777-4777-8777-777777777777/77777777-0000-4000-8000-000000000002/photo-1.png')
+ ON CONFLICT(bucket_id,name) DO UPDATE SET name=EXCLUDED.name;
+ SELECT object_count INTO c FROM texasdefined_network_internal.featured_storage_usage
+  WHERE business_account_id='77777777-0000-4000-8000-000000000002';
+ IF c<>24 THEN RAISE EXCEPTION 'ON CONFLICT retry/upsert incorrectly consumed quota slot: %',c; END IF;
+ IF (SELECT count(*) FROM storage.objects WHERE bucket_id='texasdefined-network-featured-drafts')<>c
+ THEN RAISE EXCEPTION 'Quota counter diverged after duplicate insert/upsert'; END IF;
+
  BEGIN
   INSERT INTO storage.objects(bucket_id,name)
   VALUES('texasdefined-network-featured-drafts',
