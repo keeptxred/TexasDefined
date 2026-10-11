@@ -317,3 +317,7 @@ The previous advisory-lock + RLS count safeguard **did not consistently enforce 
 ### Pending atomic quota UUID-path regression
 
 The pending Storage trigger's business account segment must be a canonical five-group UUID (`8-4-4-4-12`), matching the verified owner/account path that the real local Storage HTTP API uses. The disposable quota fixture tests both a valid owner-account path and an invalid four-group account segment. When `supabase start` fails in CI, only filtered PostgreSQL startup errors are logged; do not print secrets or connect to the shared Supabase project. This migration remains UNAPPLIED in hosted production.
+
+### Atomic quota migration requires its own transaction
+
+Pending `20261011046000_network_featured_storage_atomic_counter.sql` contains `LOCK TABLE storage.objects`; Supabase CLI can execute statements without an implicit outer transaction. The migration therefore **itself** must wrap the lock, object inventory preflight/backfill, counter functions, and trigger creation in explicit `BEGIN;` / `COMMIT;`. The isolated replay runner must not wrap an additional transaction around this file. Never execute only part of the file, never apply to hosted Supabase without sole-owner migration/deployment authorization and review of the brief Storage write lock.

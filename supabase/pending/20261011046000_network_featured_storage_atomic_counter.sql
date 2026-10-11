@@ -5,6 +5,11 @@
 -- Counts are durable, row-locked, and updated inside the same INSERT/DELETE tx.
 -- A failed Storage INSERT rolls back its counter increment automatically.
 
+-- Start an explicit transaction because Supabase CLI applies SQL statements
+-- individually and PostgreSQL LOCK TABLE is invalid outside a transaction.
+-- Backfill, usage guards, and all three triggers must activate atomically.
+BEGIN;
+
 -- Installing this on hosted Storage will briefly block writes while existing
 -- objects are backfilled. Review operational deployment window first.
 LOCK TABLE storage.objects IN SHARE ROW EXCLUSIVE MODE;
@@ -132,3 +137,7 @@ CREATE TRIGGER network_featured_usage_prevent_move BEFORE UPDATE OF name,bucket_
 
 -- Do not remove/relax owner-scoped RLS policies: this independent trigger
 -- enforces quota even if an RLS count check observes a stale snapshot.
+
+-- On any failure (including preflight) PostgreSQL rolls this whole migration
+-- back. No partially installed counter or trigger can survive.
+COMMIT;

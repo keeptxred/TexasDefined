@@ -21,6 +21,12 @@ const requiredPages=[
  'network.billing.tsx','network.business.$slug.tsx','business.dashboard.tsx',
  'admin.network-applications.tsx'
 ];
+check('pending Storage counter locks/backfills/triggers in a self-contained transaction supported by Supabase CLI',
+ source('supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql').includes('BEGIN;')
+ && source('supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql').includes('COMMIT;')
+ && source('supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql').includes('LOCK TABLE storage.objects IN SHARE ROW EXCLUSIVE MODE;')
+ && source('scripts/data/verify-network-migration-replay.mjs').includes("execSql(['-f',pendingAtomicQuota]")
+ && !source('scripts/data/verify-network-migration-replay.mjs').includes("execSql(['--single-transaction','-f',pendingAtomicQuota]"));
 check('pending atomic storage counter accepts canonical UUIDs and rejects malformed account segments',
  source('supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql').includes("v_account!~'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'")
  && source('scripts/data/network-featured-atomic-quota-fixture.sql').includes('Malformed account UUID segment bypassed atomic path guard')
