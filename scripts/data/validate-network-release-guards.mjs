@@ -123,6 +123,16 @@ check('Network email outbox remains service-only and idempotent',
 check('owner access requires audit-backed atomic provisioning',review.includes("supabaseAdmin.rpc('provision_verified_network_owner'")&&source('supabase/migrations/20261010214534_network_atomic_owner_verification_audit.sql').includes('FOR UPDATE')&&ownerUI.includes('Evidence reference'));
 
 check('Stripe checkout must claim and commit one durable reservation',checkout.includes('reserve_texasdefined_network_checkout')&&checkout.includes('complete_texasdefined_network_checkout')&&checkout.includes('session.expiresAt'));
+check('Checkout session is the same live open Plus subscription requested by this application',
+ source('src/data/network-stripe.server.ts').includes("result.object!=='checkout.session'")
+ && source('src/data/network-stripe.server.ts').includes('result.livemode!==true')
+ && source('src/data/network-stripe.server.ts').includes("result.mode!=='subscription'")
+ && source('src/data/network-stripe.server.ts').includes("result.status!=='open'")
+ && source('src/data/network-stripe.server.ts').includes('result.client_reference_id!==applicationId')
+ && source('src/data/network-stripe.server.ts').includes('result.metadata?.application_id!==applicationId')
+ && source('src/data/network-stripe.server.ts').includes('result.customer_email.trim().toLowerCase()!==email.trim().toLowerCase()')
+ && source('scripts/data/network-stripe-security.test.mjs').includes('foreign application metadata'));
+
 check('Checkout redirect requires exact Stripe hostname',source('src/data/network-stripe.server.ts').includes("target.hostname==='checkout.stripe.com'"));
 
 check('Stripe verified subscription cannot contain unrelated paid line items',webhook.includes('isExpectedNetworkPlusSubscription(subscription)')&&source('src/data/network-stripe.server.ts').includes('items.length===1'));
