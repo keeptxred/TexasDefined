@@ -88,10 +88,12 @@ for(const {id,email,app,account,name,city} of [
  * This is NOT a web app browser or a hosted Stripe/Graph staging test. */
 const metricSlug1='network-local-metric-business-a';
 const metricSlug2='network-local-metric-business-b';
+const metricProfile1=JSON.stringify({business_name:'Synthetic Metrics One'});
+const metricProfile2=JSON.stringify({business_name:'Synthetic Metrics Two'});
 sql("INSERT INTO public.texasdefined_network_public_listings "+
  "(application_id,slug,plan,profile,is_published) VALUES "+
- "('"+app1+"','"+metricSlug1+"','plus','{\\\"business_name\\\":\\\"Synthetic Metrics One\\\"}'::jsonb,true),"+
- "('"+app2+"','"+metricSlug2+"','plus','{\\\"business_name\\\":\\\"Synthetic Metrics Two\\\"}'::jsonb,true);");
+ "('"+app1+"','"+metricSlug1+"','plus','"+metricProfile1+"'::jsonb,true),"+
+ "('"+app2+"','"+metricSlug2+"','plus','"+metricProfile2+"'::jsonb,true);");
 const metricRecord=(token,slug,action)=>req('POST',
  '/rest/v1/rpc/record_texasdefined_network_profile_metric',
  token===service?service:anon,token,{p_slug:slug,p_action:action});
