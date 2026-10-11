@@ -130,3 +130,8 @@ The detailed [eleven-city acceptance matrix](INDEPENDENT_ACCEPTANCE_MATRIX_2026-
 ### Three new official current municipal polygon source references
 
 Austin City of Austin full-purpose polygons: https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/City_of_Austin_WFL1/FeatureServer/0 ; separate limited-purpose/ETJ source https://services.arcgis.com/0L95CJ0VTaxqcmED/arcgis/rest/services/BOUNDARIES_jurisdictions/FeatureServer/0. Corpus Christi city-maintained CITYLIMITS polygons: https://ccpublicgis.cctexas.com/server01/rest/services/CC_GENERAL_SERVICES/CC_GENERAL_SERVICES/MapServer/2. Lubbock City Limit polygons with annexation and update dates: https://pubgis.ci.lubbock.tx.us/server/rest/services/Layers/ParcelMap/MapServer/13, navigable from https://www.mylubbock.us/321/REST-Services. These are **SOURCE CONFIRMED / GEOMETRY AND VINTAGE NOT CERTIFIED** until live geometry succeeds and the county overlay is inspected. No original historical case is silently rewritten.
+
+
+### San Antonio current-layer discovery, provenance caution
+
+The City of San Antonio [official GIS data catalog](https://www.sanantonio.gov/GIS/GISData) identifies `Cosa Boundary` and a quarterly publication cadence. A separate [ArcGIS COSA City Limits vector service](https://services7.arcgis.com/BUFM2kw4MpxDUJVh/ArcGIS/rest/services/COSA_City_Limits/FeatureServer) states source data updated March 17, 2026 and service published April 7, 2026. **No evidence yet establishes that the hosted service is the authoritative city's current polygon**. Its endpoint is included as an explicitly optional, unverified spatial-research candidate, not an authoritative GIS PASS or proof of Bexar/Comal/Medina incorporated intersections. Keep ETJ and annexation categories separate.
