@@ -77,6 +77,13 @@ check('intake limits ACTUAL streamed bytes before multipart or JSON materializat
  && source('src/data/network-intake-limits.server.ts').includes('NETWORK_INTAKE_MAX_BYTES=16_000_000')
  && source('src/data/network-intake-limits.server.ts').includes('total>NETWORK_INTAKE_MAX_BYTES')
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-intake-limits.test.mjs'));
+check('isolated two-session Featured Storage quota enforces 24-object cap under concurrent writes',
+ source('scripts/data/verify-network-migration-replay.mjs').includes("concurrentQuota='scripts/data/verify-network-concurrent-media-quota.mjs'")
+ && source('scripts/data/verify-network-concurrent-media-quota.mjs').includes("Promise.all([race('one'),race('two')])")
+ && source('scripts/data/verify-network-concurrent-media-quota.mjs').includes('accepted.length!==1||rejected.length!==1')
+ && source('scripts/data/verify-network-concurrent-media-quota.mjs').includes('count!==24||contenders!==1')
+ && source('scripts/data/verify-network-concurrent-media-quota.mjs').includes("NETWORK_MIGRATION_REPLAY_ISOLATED==='yes-ephemeral-local-only'")
+ && source('.github/workflows/network-migration-cleanroom.yml').includes('verify-network-concurrent-media-quota.mjs'));
 check('separate committed Stripe delivery fixture verifies durable outbox dedupe and replay isolation',
  source('scripts/data/verify-network-migration-replay.mjs').includes("committedStripeFixture='scripts/data/network-migration-stripe-committed-deliveries-fixture.sql'")
  && source('scripts/data/network-migration-stripe-committed-deliveries-fixture.sql').includes('evt_separate_activation_001')
