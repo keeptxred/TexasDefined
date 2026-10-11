@@ -62,6 +62,56 @@ for (const city of cities) {
       row.axeStatus=row.violationCount===0?'PASS_AUTOMATED_ONLY':'ISSUES_DETECTED';
       report.totals.violations+=row.violationCount;
       report.totals.reviewNeeded+=row.incompleteCount;
+      // Independently interact with the actual mobile/tablet navigation rather
+      // than treating a successful Tab event as proof of menu functionality.
+      // Capture the open state as separately reviewable visual evidence.
+      row.navigationProbe={status:'UNVERIFIED',trigger:null,expanded:false,
+        navVisible:false,navLinks:0,closed:false,focusVisible:null,error:null};
+      if(label!=='desktop'){
+        try {
+          const trigger=page.locator('button[aria-controls="mobile-main-menu"]').first();
+          const triggerCount=await trigger.count();
+          if(triggerCount!==1 || !(await trigger.isVisible()))
+            throw new Error('Mobile navigation trigger absent or invisible');
+          row.navigationProbe.trigger=await trigger.evaluate(el=>{
+            const r=el.getBoundingClientRect();
+            return {name:el.getAttribute('aria-label'),expanded:el.getAttribute('aria-expanded'),
+              width:r.width,height:r.height};
+          });
+          if(!row.navigationProbe.trigger.name || row.navigationProbe.trigger.width<24 ||
+            row.navigationProbe.trigger.height<24 || row.navigationProbe.trigger.expanded!=='false')
+            throw new Error('Menu trigger missing accessible name, minimum 24px hit box or initially closed state');
+          await trigger.click();
+          await page.waitForFunction(()=>{
+            const trigger=document.querySelector('button[aria-controls="mobile-main-menu"]');
+            const menu=document.getElementById('mobile-main-menu');
+            return trigger?.getAttribute('aria-expanded')==='true' &&
+              !!menu && getComputedStyle(menu).display!=='none';
+          },undefined,{timeout:7000});
+          row.navigationProbe.expanded=true;
+          row.navigationProbe.navVisible=await page.locator('#mobile-main-menu nav[aria-label="Main menu"]').isVisible();
+          row.navigationProbe.navLinks=await page.locator('#mobile-main-menu nav a[href]').count();
+          await page.screenshot({path:out+'/'+city+'-'+label+'-menu-open.png',
+            fullPage:false,animations:'disabled'});
+          await trigger.click();
+          row.navigationProbe.closed=await trigger.getAttribute('aria-expanded')==='false' &&
+            !(await page.locator('#mobile-main-menu').isVisible());
+          if(!row.navigationProbe.navVisible || row.navigationProbe.navLinks<5 || !row.navigationProbe.closed)
+            throw new Error('Mobile menu did not open with links and then fully close');
+          row.navigationProbe.status='PASS_AUTOMATED_MENU_FLOW';
+        } catch(e) {
+          row.navigationProbe.status='REVIEW_REQUIRED';
+          row.navigationProbe.error=String(e).slice(0,420);
+        }
+      } else {
+        const nav=page.locator('nav[aria-label="Main navigation"]');
+        row.navigationProbe.navVisible=await nav.isVisible();
+        row.navigationProbe.navLinks=await nav.locator('a[href]').count();
+        row.navigationProbe.status=row.navigationProbe.navVisible&&row.navigationProbe.navLinks>=5
+          ?'PASS_AUTOMATED_DESKTOP_NAV':'REVIEW_REQUIRED';
+      }
+      if(row.navigationProbe.status==='REVIEW_REQUIRED')
+        row.errors.push('NAVIGATION_PROBE: '+(row.navigationProbe.error||'Missing usable desktop navigation'));
       // Capture all main-area rendered links, not an arbitrary 12-link sample.
       // Each link's contextual label and city are retained for human review.
       if(label==='desktop') {
@@ -85,7 +135,8 @@ for (const city of cities) {
     report.totals.cases++;
     console.log('A11Y',city,label,JSON.stringify({
       render:row.render,axeStatus:row.axeStatus,violations:row.violationCount,
-      incomplete:row.incompleteCount,error:row.errors[0]||null
+      incomplete:row.incompleteCount,navigation:row.navigationProbe?.status,
+      error:row.errors[0]||null
     }));
   }
 }
