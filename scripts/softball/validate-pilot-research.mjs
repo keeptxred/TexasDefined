@@ -109,6 +109,45 @@ assert.ok(collision,'Collision test requires Amarillo Highland Park Hornets');
 assert.equal(collision.identity.campusUrl,'https://www.hpisd.net/','Do not confuse Amarillo Hornets with Dallas Scots');
 assert.ok(collision.conflicts.some(s=>s.includes('Dallas')),'Record Dallas school identity collision');
 assert.ok(!pilot.pilotSchools.some(p=>p.identity.campusUrl.includes('hpisd.org')),'Dallas school never belongs in this pilot');
+// Statewide history crosswalk is one-time source research reusable across
+// eleven eventual high-quality school pages. DO NOT treat it as page readiness.
+const honors=get('docs/softball/research/uil-2026-state-champions-and-mvp.json');
+assert.equal(honors.version,1,'UIL annual award research schema');
+assert.equal(honors.season,'2025-26','Keep awards in their HISTORIC title season');
+assert.equal(honors.records.length,11,'Full official 2026 UIL softball division coverage');
+const honorsSources=new Map(honors.sources.map(s=>[s.id,s]));
+assert.ok(honorsSources.get('uil-champion-archive')?.url.endsWith('/softball/archives'),
+  'Championship identity must be anchored to original UIL archives');
+assert.ok(honorsSources.get('uil-all-tournament')?.url.includes('2026-uil-softball-state-all-tournament-teams'),
+  'State tournament MVP must be sourced to May 31 UIL release');
+const seenHonors=new Set(), seenChampion=new Set();
+for(const record of honors.records){
+  assert.ok(!seenHonors.has(record.classification),'Repeated UIL historical championship division');
+  seenHonors.add(record.classification);
+  assert.ok(!seenChampion.has(record.champion),'Unexpected duplicate 2026 title champion');
+  seenChampion.add(record.champion);
+  assert.ok(record.awardMvp.length>=6,'Each historical award must have a named official recipient');
+  assert.equal(record.championshipSourceId,'uil-champion-archive','Champions require official UIL source');
+  assert.equal(record.awardSourceId,'uil-all-tournament','MVP requires dated official UIL source');
+  assert.equal(record.athleteStatus,'historical-public-award-only','No private student roster or recruitment data inferred');
+  assert.equal(record.allowRosterPublication,false,'Never auto-republish minor rosters');
+  assert.equal(record.allowUnlicensedPhoto,false,'No school or student media without rights');
+  const key=record.registry2026_27;
+  const official=registry.schools.find(p=>p.name===key?.uilName);
+  assert.ok(official,'Every champion must map to exact current UIL softball campus with explicit alias if needed');
+  assert.equal(key.conference,official.conference,'Historical trophy class may differ from current UIL softball class');
+  assert.equal(key.district,official.district,'Never use football or historical title district for current softball alignment');
+  assert.equal(key.region,official.region,'Current region must match UIL softball alignment');
+}
+assert.equal(honors.records.find(p=>p.champion==='Mont Belvieu Barbers Hill')?.registry2026_27.conference,'6A',
+ '2026 5A-DI champ Barbers Hill is in UIL 2026–27 6A softball alignment');
+assert.equal(honors.records.find(p=>p.champion==='Jonesboro')?.registry2026_27.conference,'2A',
+ '2026 1A champ Jonesboro appears in current 2A softball alignment (do not infer overall 2A school size)');
+assert.equal(honors.records.find(p=>p.champion==='Santa Gertrudis Academy')?.registry2026_27.uilName,'Santa Gertrudis Acad',
+ 'Preserve exact 2026–27 UIL school abbreviation in join');
+assert.equal(honors.records.find(p=>p.champion==='Mont Belvieu Barbers Hill')?.registry2026_27.uilName,'Mt Belvieu Barbers Hill',
+ 'Explicit crosswalk prevents missing current UIL Barbers Hill campus');
+
 const required=new Set(SOFTBALL_RESEARCH_TOPICS.map(s=>s.id));
 assert.equal(required.size,38,'Keep complete-first-publish topic count stable');
 assert.ok(!pilot.publicationAuthorization,'No publish shortcut');
