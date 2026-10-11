@@ -1,5 +1,5 @@
 /** Server-only Stripe API helpers. Never import into a browser route component. */
-import {getNetworkStripeRuntime,networkStripeExpectedLivemode,networkStripeWebhookSecret,NETWORK_PLUS_LIVE_PRICE} from './network-stripe-mode.server.ts';
+import {getNetworkStripeRuntime,networkStripeExpectedLivemode,networkStripeWebhookSecret,NETWORK_PLUS_LIVE_PRICE,type NetworkStripeRuntime} from './network-stripe-mode.server.ts';
 export const NETWORK_PLUS_PRICE = NETWORK_PLUS_LIVE_PRICE;
 const stripeBase='https://api.stripe.com/v1';
 export async function stripeRequest(path:string,init:RequestInit={}) {
@@ -95,6 +95,26 @@ export function isNetworkBillingPortalUrl(url:unknown):url is string {
    && destination.username==='' && destination.password===''
    && destination.hash==='';
  }catch{return false}
+}
+
+/** Validate the ENTIRE Stripe portal-session response before returning its bearer URL.
+ * A Stripe-hosted URL alone is not proof the session belongs to this business.
+ * The server route supplies the exact verified customer and runtime context.
+ */
+export function isExpectedNetworkBillingPortalSession(
+ result:unknown,
+ expectedCustomer:unknown,
+ runtime: Pick<NetworkStripeRuntime,'livemode'|'siteOrigin'>,
+):result is {url:string} {
+ if(!result||typeof result!=='object'||Array.isArray(result)||
+    typeof expectedCustomer!=='string'||!/^cus_[A-Za-z0-9_]+$/.test(expectedCustomer))return false;
+ const session=result as Record<string,unknown>;
+ return session.object==='billing_portal.session'
+  && typeof session.id==='string' && /^bps_[A-Za-z0-9_]+$/.test(session.id)
+  && session.customer===expectedCustomer
+  && session.livemode===runtime.livemode
+  && session.return_url===runtime.siteOrigin+'/network/billing'
+  && isNetworkBillingPortalUrl(session.url);
 }
 
 export function isNetworkCheckoutUrl(url:unknown):url is string {
