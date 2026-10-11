@@ -145,3 +145,17 @@ The official Austin WFL1 layer actually includes `FULL`, `LTD`, ETJ and other-ci
 ### Additional official GIS source validation (Dallas, Fort Worth, Arlington)
 
 Dallas: the prior Basemap CityLimits/0 endpoint was not consistently available as a real polygon feature endpoint. Replace the independent-source reference in the GIS helper with the City of Dallas [Pbw_public/ROWMSReferenceLayers/MapServer/2 City Limit polygon](https://gis.dallascityhall.com/arcgis/rest/services/Pbw_public/ROWMSReferenceLayers/MapServer/2), query `CITY='Dallas'`. Fort Worth: use [CIVIC/OpenData_Boundaries/MapServer/0](https://mapit.fortworthtexas.gov/ags/rest/services/CIVIC/OpenData_Boundaries/MapServer/0), clearly documenting full/limited-purpose corporate limits (unlike ETJ); separate `DESIGNATION='Full Purpose'` and `DESIGNATION='Limited Purpose'`. Arlington: [Municipal Boundary/1](https://gis2.arlingtontx.gov/agsext2/rest/services/OpenData/OD_PoliticalBoundary/MapServer/1) must be restricted to `MUNICIPALNAME='Arlington'` rather than unconditionally unioning all municipalities. These corrections improve research safety but **do not constitute a spatial overlay, source freshness certification or legal parcel boundary evidence**.
+
+## Fort Worth — dated incorporated-versus-ETJ parcel inventory from the City
+
+The City of Fort Worth's [2023 adopted Comprehensive Plan, chapter 25, page 25-6](https://www.fortworthtexas.gov/files/assets/public/v/1/the-fwlab/documents/planning/comprehensive-planning/adopted/25-intergovernmental-cooperation-final-2023.pdf), reports a **2021 municipal Planning and Data Analytics inventory**, explicitly separating taxable city-limit parcels from extraterritorial jurisdiction (ETJ) parcels. The official [2023 adopted plan index](https://www.fortworthtexas.gov/departments/city-manager/department-divisions/planning/comprehensiveplan/adopted) identifies this as adopted municipal planning material. The City explicitly lists incorporated parts of **Tarrant, Denton, Parker, Johnson and Wise** counties.
+
+| County | Incorporated city-limit parcels **(2021)** | ETJ parcels **(2021)** |
+|---|---:|---:|
+| Tarrant | 263,685 | 24,975 |
+| Denton | 5,557 | 1,657 |
+| Parker | 76 | 6,378 |
+| Johnson | 52 | 4,620 |
+| Wise | 6 | 1,076 |
+
+**Method and limitations:** This is dated 2021 municipal source data republished with the 2023 city plan, not a verified count of 2026 parcels or population. The 2026 independent City GIS layer in [first GIS overlay results](FIRST_MUNICIPAL_COUNTY_SPATIAL_RESULTS_2026-10-10.md) independently found substantial full-purpose municipal polygon overlap in these five counties. The two methods are directionally consistent, but neither proves current parcel-level service jurisdiction. The City's [ETJ guidance](https://www.fortworthtexas.gov/departments/development-services/etj) separately defines ETJ outside incorporated city limits. **Evidence PASS limited to identifying the five historical incorporated counties; citywide GIS legal/current vintage remains PARTIAL.** The original 2023 municipal PDF could not be visually re-opened in this research environment (server HTTP 403); the values were cross-checked against its publicly indexed text and retained earlier PR #4610. Do not claim visual PDF verification or silently update population/source-check dates.
