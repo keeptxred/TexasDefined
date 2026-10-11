@@ -33,7 +33,11 @@ const officialExamples = [
   { when: 'October 24, 2026', event: 'Galen College Graduation', building: 'Freeman Coliseum' },
   { when: 'October 31–November 1, 2026', event: 'Brick Convention', building: 'Expo Hall A' },
   { when: 'November 6–8, 2026', event: 'San Antonio Auto Show', building: 'Expo Halls' },
+  { when: 'November 13–15, 2026', event: 'Villain Arts Tattoo Festival', building: 'Expo Hall C' },
+  { when: 'November 14, 2026', event: 'Time Travelers Vintage Expo', building: 'Freeman Expo Hall' },
+  { when: 'November 21–22, 2026', event: '47th Annual Christmas Showcase', building: 'Freeman Expo Hall' },
   { when: 'November 25, 2026', event: 'Intocable — Cultura Tour', building: 'Freeman Coliseum' },
+  { when: 'November 28, 2026', event: 'Yuri y Lucero — Entre Amigas Tour', building: 'Freeman Coliseum' },
 ];
 
 function Section({ eyebrow, title, children }: { eyebrow: string; title: string; children: ReactNode }) {
