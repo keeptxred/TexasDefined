@@ -52,7 +52,7 @@ test('provider errors and malformed responses fail without claiming proof',async
 
 test('bounded same-mailbox pagination recovers a verified message beyond the newest page',async()=>{
  const sent='https://graph.microsoft.com/v1.0/users/admin%40texasdefined.com/mailFolders/sentitems/messages';
- const next=sent+'?$skiptoken=SYNTHETIC_PAGE_TWO&$top=60';
+ const next=sent+'?$skip=60&$top=60';
  const seen=[];
  const read=async(url,request)=>{
   seen.push(url);
@@ -80,6 +80,9 @@ test('hostile Graph paging links never receive bearer credentials',async()=>{
   'https://user:pass@graph.microsoft.com/v1.0/users/admin%40texasdefined.com/mailFolders/sentitems/messages?$skiptoken=t',
   prefix+'?$skiptoken=t#fragment',
   prefix+'?$top=60',
+  prefix+'?$skip=-1',
+  prefix+'?$skip=not-a-number',
+  prefix+'?$skip=10000001',
  ]){
   assert.throws(()=>validateNetworkSentItemsNextLink(invalid),/pagination invalid/,invalid);
   let count=0;
