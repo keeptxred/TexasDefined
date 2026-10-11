@@ -104,4 +104,10 @@ const committedStripeFixture='scripts/data/network-migration-stripe-committed-de
 if(!existsSync(committedStripeFixture))throw new Error('Missing isolated committed Stripe delivery fixture');
 execSql(['-f',committedStripeFixture],'separately committed synthetic Stripe deliveries, idempotency and outbox audit');
 console.log('REPLAY STRIPE COMMITTED RESULT PASS: activation/failure/recovery in distinct transactions, durable independent notifications, replay denial; disposable DB');
+// Two actual concurrent PostgreSQL sessions exercise the quota advisory lock.
+// This commits ONLY to the same disposable localhost runner database.
+const concurrentQuota='scripts/data/verify-network-concurrent-media-quota.mjs';
+if(!existsSync(concurrentQuota))throw new Error('Missing isolated concurrent media quota fixture');
+execFileSync('node',[concurrentQuota],{stdio:'inherit'});
+console.log('REPLAY MEDIA CONCURRENCY RESULT PASS: one winner and one RLS rejection at 24 drafts');
 
