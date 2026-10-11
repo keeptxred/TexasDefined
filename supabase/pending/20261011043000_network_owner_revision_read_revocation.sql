@@ -4,6 +4,10 @@
 -- first refresh 34-applied-version parity and verify staging Auth revocation.
 -- This controls only private Featured revision SELECT, not publication or billing.
 -- The existing 34 applied migrations remain unchanged.
+BEGIN;
+SET LOCAL lock_timeout = '5s';
+SET LOCAL statement_timeout = '45s';
+
 DROP POLICY IF EXISTS network_owner_revisions_read
 ON public.texasdefined_network_profile_revisions;
 CREATE POLICY network_owner_revisions_read
@@ -29,3 +33,5 @@ BEGIN
  ) THEN RAISE EXCEPTION 'Proposed disabled-owner revision SELECT revocation policy missing'; END IF;
 END
 $verify$;
+
+COMMIT;
