@@ -1,5 +1,5 @@
 /** Prepare a brand-new, unlinked localhost Supabase CLI project for CI.
- * Copies ONLY the 34 applied Network migrations plus four pending proposals.
+ * Copies ONLY the 38 applied Network migrations plus four historical pending-source mirrors.
  * Never reads or copies .env, tokens, customer files, or actual production data.
  */
 import {existsSync,mkdirSync,copyFileSync,readFileSync,readdirSync} from 'node:fs';
@@ -19,7 +19,7 @@ mkdirSync(base,{recursive:true});
 if(readdirSync(base).some(s=>s.endsWith('.sql')))throw Error('Local migration directory not empty');
 const manifest=readFileSync('scripts/data/validate-network-migration-parity.mjs','utf8');
 const applied=[...manifest.matchAll(/"(202610\d{8}_[^"]+\.sql)"/g)].map(m=>m[1]);
-if(applied.length!==34||new Set(applied).size!==34)throw Error('Applied Network migration manifest changed');
+if(applied.length!==38||new Set(applied).size!==38)throw Error('Applied Network migration manifest changed');
 const pending=[
  '20261011043000_network_owner_revision_read_revocation.sql',
  '20261011044000_network_sensitive_action_audit.sql',
@@ -36,4 +36,4 @@ for(const f of pending){
  if(!existsSync(from))throw Error('Unapplied proposed release migration missing: '+f);
  copyFileSync(from,path.join(base,f));
 }
-console.log('LOCAL SUPABASE PREPARED: 34 applied Network-only migrations + 4 still-unapplied pending proposals copied into disposable, unlinked CLI project. No remote connection.');
+console.log('LOCAL SUPABASE PREPARED: 38 applied Network-only migrations + 4 source mirrors copied for idempotency into disposable, unlinked CLI project. No remote connection.');

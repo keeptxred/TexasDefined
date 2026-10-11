@@ -80,7 +80,7 @@ check('Network health diagnostic remains read-only and detects the critical secu
  source('scripts/data/network-operations-readonly.sql').includes('owner_revision_revocation_policy_present')
  && source('scripts/data/network-operations-readonly.sql').includes('paid_listing_entitlement_drift')
  && source('scripts/data/network-operations-readonly.sql').includes('notification_uncertain_claims')
- && source('scripts/data/network-operations-readonly.sql').includes('pending_upgrade_versions_applied')
+ && source('scripts/data/network-operations-readonly.sql').includes('applied_network_security_versions')
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-operations-readonly.test.mjs'));
 
 check('non-live Stripe is isolated and rejects production Supabase, host and price reuse',
@@ -292,7 +292,7 @@ check('real GoTrue Auth and Storage HTTP integration is confined to fresh, unlin
  && source('.github/workflows/network-local-auth-storage.yml').includes("'src/data/network-*'")
  && source('.github/workflows/network-local-auth-storage.yml').includes("'scripts/data/network-*'")
  && !source('.github/workflows/network-local-auth-storage.yml').includes('supabase link')
- && source('scripts/data/prepare-network-local-supabase.mjs').includes("applied.length!==34")
+ && source('scripts/data/prepare-network-local-supabase.mjs').includes("applied.length!==38")
  && source('scripts/data/prepare-network-local-supabase.mjs').includes("config.includes('ftkznprjljkhymknvhye')")
  && source('scripts/data/verify-network-local-supabase.mjs').includes("process.env.API_URL!==ORIGIN")
  && source('scripts/data/verify-network-local-supabase.mjs').includes('NETWORK REAL STORAGE CONCURRENT QUOTA PASS')
