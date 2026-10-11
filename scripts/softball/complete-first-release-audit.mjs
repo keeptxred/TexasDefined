@@ -44,7 +44,7 @@ export const SOFTBALL_RESEARCH_TOPICS = Object.freeze([
   { id: 'seoAndSchema', critical: true, note: 'Unique title, canonical, SportsTeam/Article markup and source-specific citations' },
   { id: 'imageAndMediaLicense', critical: true, note: 'Relevant original or licensed media, attribution, permission and alt text' },
   { id: 'mobileAndAccessibility', critical: true, note: 'Rendered mobile/tablet/desktop, contrast, keyboard navigation and readable layout' },
-  { id: 'liveAndWorkerQA', critical: true, note: 'SSR, links, sitemap, 200/404, cache, Worker and canonical-domain verification' },
+  { id: 'liveAndWorkerQA', critical: true, note: 'Pre-release built Worker SSR, links, sitemap and 200/404; separately require post-deploy live Worker/canonical verification' },
 ]);
 
 const MIN_NOTE_WORDS = 14;
