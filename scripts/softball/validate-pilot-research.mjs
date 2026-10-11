@@ -142,6 +142,8 @@ assert.ok(byName('Katy').venueResearch.namedField.includes('Kalum Haack'),
  'Post-July 2026 Katy field is named for retired longtime coach Kalum Haack; pre-2026 event label KHS-Softball Field is stale');
 verifiedFact('Katy','Kalum Haack','katy-2026-board-naming');
 verifiedFact('Katy','2015 state-champion softball team','katy-athletic-hall-2025');
+verifiedFact('Katy',"Kalum Haack was the Jayhawks' head coach every season from 1988 through 1995",'kansas-haack-original-records');
+verifiedFact('Katy','Gayle Luedke, not Kalum Haack, as the 1996 Jayhawks head coach','kansas-haack-original-records');
 assert.ok(byName('Katy').venueResearch.sourceIds.includes('katy-aug2026-field-name-report'),
  'Local independent account and July 27 school board item must accompany renamed Katy varsity venue');
 assert.equal(byName('Pearland').venueResearch.nameVerified,false,'Pearland high school does not imply named varsity diamond');
