@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHmac } from 'node:crypto';
-import { verifyStripeSignature, stripeCheckoutEnabled, verifiedNetworkSubscriptionOwnership, createNetworkCheckoutSession, isNetworkCheckoutUrl, isExpectedNetworkPlusSubscription, readNetworkWebhookPayload, NETWORK_WEBHOOK_MAX_BYTES } from '../../src/data/network-stripe.server.ts';
+import { verifyStripeSignature, stripeCheckoutEnabled, verifiedNetworkSubscriptionOwnership, createNetworkCheckoutSession, isNetworkCheckoutUrl, isExpectedNetworkPlusSubscription, readNetworkWebhookPayload, NETWORK_WEBHOOK_MAX_BYTES, readNetworkCurrentStripeSubscription } from '../../src/data/network-stripe.server.ts';
 
 const previousSecret=process.env.STRIPE_WEBHOOK_SECRET;
 const previousCheckout=process.env.NETWORK_CHECKOUT_ENABLED;
@@ -237,6 +237,62 @@ test('distinct failed Checkout reservations use distinct Stripe idempotency keys
   globalThis.fetch=oldFetch;
   if(oldFlag===undefined)delete process.env.NETWORK_CHECKOUT_ENABLED;
   else process.env.NETWORK_CHECKOUT_ENABLED=oldFlag;
+  if(oldKey===undefined)delete process.env.STRIPE_SECRET_KEY;
+  else process.env.STRIPE_SECRET_KEY=oldKey;
+ }
+});
+
+
+test('current Stripe webhook subscription read requires a live server credential and a strict subscription ID',async()=>{
+ const key=process.env.STRIPE_SECRET_KEY;
+ const priorFetch=globalThis.fetch;
+ let called=0;
+ globalThis.fetch=async()=>{called++;throw Error('must not fetch')};
+ try{
+  delete process.env.STRIPE_SECRET_KEY;
+  await assert.rejects(readNetworkCurrentStripeSubscription('sub_valid_mock'),/verification unavailable/);
+  process.env.STRIPE_SECRET_KEY='sk_test_mock';
+  await assert.rejects(readNetworkCurrentStripeSubscription('sub_valid_mock'),/verification unavailable/);
+  process.env.STRIPE_SECRET_KEY='sk_live_mock_never_sent';
+  for(const invalid of ['../../customers','cus_mock','sub_good?expand[]=customer','','sub_!?']){
+   await assert.rejects(readNetworkCurrentStripeSubscription(invalid),/verification unavailable/);
+  }
+  assert.equal(called,0,'invalid verification inputs must not issue network requests');
+ }finally{
+  globalThis.fetch=priorFetch;
+  if(key===undefined)delete process.env.STRIPE_SECRET_KEY;
+  else process.env.STRIPE_SECRET_KEY=key;
+ }
+});
+test('Stripe webhook subscription read treats outages, bad status and malformed JSON as failures, never acknowledgements',async()=>{
+ const oldFetch=globalThis.fetch,oldKey=process.env.STRIPE_SECRET_KEY;
+ process.env.STRIPE_SECRET_KEY='sk_live_mock_never_sent';
+ const responses=[
+  {name:'socket loss',mock:async()=>{throw new Error('mocked socket failure')}},
+  {name:'timeout',mock:async()=>{throw new DOMException('mocked timeout','TimeoutError')}},
+  {name:'remote 429',mock:async()=>({ok:false,status:429,json:async()=>({})})},
+  {name:'remote 503',mock:async()=>({ok:false,status:503,json:async()=>({})})},
+  {name:'invalid JSON',mock:async()=>({ok:true,status:200,json:async()=>{throw new SyntaxError('invalid JSON')}})},
+  {name:'null data',mock:async()=>({ok:true,status:200,json:async()=>null})},
+  {name:'array data',mock:async()=>({ok:true,status:200,json:async()=>[]})},
+ ];
+ try{
+  for(const scenario of responses){
+   globalThis.fetch=scenario.mock;
+   await assert.rejects(readNetworkCurrentStripeSubscription('sub_mocked'),undefined,scenario.name);
+  }
+  let observed;
+  globalThis.fetch=async(url,opts)=>{
+   observed={url,opts};
+   return {ok:true,status:200,json:async()=>({id:'sub_mocked',livemode:true})};
+  };
+  const payload=await readNetworkCurrentStripeSubscription('sub_mocked');
+  assert.equal(payload.id,'sub_mocked');
+  assert.equal(observed.url,'https://api.stripe.com/v1/subscriptions/sub_mocked');
+  assert.equal(observed.opts.headers.Authorization,'Bearer sk_live_mock_never_sent');
+  assert.ok(observed.opts.signal,'must bound Stripe API network request');
+ }finally{
+  globalThis.fetch=oldFetch;
   if(oldKey===undefined)delete process.env.STRIPE_SECRET_KEY;
   else process.env.STRIPE_SECRET_KEY=oldKey;
  }
