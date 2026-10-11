@@ -111,7 +111,10 @@ export default {
         unconfirmed:result.unconfirmed,rejected:result.rejected,
       });
     };
-    const operation=run().catch(()=>console.error("[network-cron] provider or claim operation failed; no automatic resend"));
+    const operation=run().catch(()=>{
+      console.error("[network-cron] provider or claim operation failed; no automatic resend");
+      throw Error("Network notification scheduled job did not complete");
+    });
     if(typeof ctx?.waitUntil==='function')ctx.waitUntil(operation);
     else await operation;
   },
