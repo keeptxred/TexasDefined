@@ -82,6 +82,18 @@ export async function verifyStripeSignature(raw:string,header:string|null) {
  return candidate.some(hex=>{if(!/^[0-9a-f]{64}$/i.test(hex))return false;let difference=0;for(let i=0;i<32;i++)difference|=expected[i]^Number.parseInt(hex.slice(i*2,i*2+2),16);return difference===0});
 }
 
+/** A returned customer portal location must be the Stripe-owned HTTPS origin. */
+export function isNetworkBillingPortalUrl(url:unknown):url is string {
+ if(typeof url!=='string')return false;
+ try{
+  const destination=new URL(url);
+  return destination.protocol==='https:'
+   && destination.hostname==='billing.stripe.com'
+   && destination.username==='' && destination.password===''
+   && destination.hash==='';
+ }catch{return false}
+}
+
 export function isNetworkCheckoutUrl(url:unknown):url is string {
  if(typeof url!=='string')return false;
  try {const target=new URL(url);return target.protocol==='https:'&&target.hostname==='checkout.stripe.com'&&target.username===''&&target.password==='';}
