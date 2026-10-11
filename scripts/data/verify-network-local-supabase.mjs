@@ -155,13 +155,56 @@ assert.ok(unchanged.bytes.equals(png),'Rejected upsert modified previously store
 console.log('NETWORK REAL LOCAL SIGNED MEDIA PASS: owner-only URL minting, one-second expiry, private download, immutable no-upsert bytes');
 
 
-for(let i=2;i<=24;i++){
+/* Exercise two ACTUAL concurrent binary Storage API requests against 23 existing
+   owner files, rather than merely sequential uploads or SQL-only sessions. */
+for(let i=2;i<=23;i++){
  allowed(await upload(one,one.id+'/'+account1+'/local-quota-'+i+'.png'),'Owner Storage draft '+i);
 }
-denied(await upload(one,one.id+'/'+account1+'/local-quota-25.png'),'25th Storage API draft upload');
-const storageRows=await req('POST','/storage/v1/object/list/'+bucket,anon,one.token,{prefix:one.id+'/'+account1});
+const racePaths=[
+ one.id+'/'+account1+'/local-race-24-a.png',
+ one.id+'/'+account1+'/local-race-24-b.png',
+];
+const raceResults=await Promise.all(racePaths.map(path=>upload(one,path)));
+const raceAccepted=raceResults.filter(result=>[200,201].includes(result.status));
+const raceRejected=raceResults.filter(result=>result.status>=400&&result.status<500);
+assert.equal(raceAccepted.length,1,'Concurrent Storage requests overshot or blocked quota; statuses='+raceResults.map(r=>r.status).join(','));
+assert.equal(raceRejected.length,1,'25th concurrent Storage request was not safely denied; statuses='+raceResults.map(r=>r.status).join(','));
+const raceWinner=racePaths[raceResults.findIndex(result=>[200,201].includes(result.status))];
+const rejectedPath=racePaths[raceResults.findIndex(result=>result.status>=400&&result.status<500)];
+denied(await upload(one,one.id+'/'+account1+'/local-quota-26.png'),'Additional Storage API upload beyond 24 drafts');
+async function listOwnMedia(){
+ return req('POST','/storage/v1/object/list/'+bucket,anon,one.token,{prefix:one.id+'/'+account1});
+}
+const storageRows=await listOwnMedia();
 allowed(storageRows,'Private Storage owner list');
-assert.equal(storageRows.json?.length,24,'24-object quota not enforced by actual Storage API');
+assert.equal(storageRows.json?.length,24,'24-object quota not enforced by actual concurrent Storage API');
+assert.ok(storageRows.json.some(item=>item.name==='local-race-24-a.png') !==
+ storageRows.json.some(item=>item.name==='local-race-24-b.png'),'Concurrent media winner not uniquely present');
+console.log('NETWORK REAL STORAGE CONCURRENT QUOTA PASS: 23 existing files, two actual simultaneous HTTP uploads, exactly one accepted, one safe 4xx denial, no 25th object');
+
+// Owner may clean an unreferenced draft through actual Storage DELETE API,
+// but an immutable revision reference must keep approved/pending media safe.
+sql("UPDATE public.texasdefined_network_profile_revisions SET "+
+ "proposed_profile=jsonb_build_object('logo_storage_path','"+path1+"') "+
+ "WHERE business_account_id='"+account1+"';");
+const deletePaths=async (paths)=>req('DELETE','/storage/v1/object/'+bucket,anon,one.token,{prefixes:paths});
+const protectedDelete=await deletePaths([path1]);
+assert.ok(protectedDelete.status>=400&&protectedDelete.status<500,
+ 'A private image referenced by a review was deleted: HTTP '+protectedDelete.status);
+const protectedDownload=await req('GET','/storage/v1/object/authenticated/'+bucket+'/'+path1,anon,one.token);
+allowed(protectedDownload,'Referenced draft retained after rejected deletion');
+assert.ok(protectedDownload.bytes.equals(png),'Referenced image bytes changed after failed deletion');
+const orphanPath=one.id+'/'+account1+'/local-quota-2.png';
+const cleaned=await deletePaths([orphanPath]);
+assert.ok([200,204].includes(cleaned.status),'Owner cannot remove unreferenced draft: HTTP '+cleaned.status+' '+cleaned.text);
+const afterCleanup=await listOwnMedia();
+allowed(afterCleanup,'List after owner-authorized orphan cleanup');
+assert.equal(afterCleanup.json?.length,23,'Unreferenced draft cleanup did not restore a quota slot');
+const replacementPath=one.id+'/'+account1+'/local-replaced-orphan.png';
+allowed(await upload(one,replacementPath),'Recovered Storage draft upload after cleanup');
+const afterRecovery=await listOwnMedia();
+assert.equal(afterRecovery.json?.length,24,'Recovered quota slot did not restore exactly 24 drafts');
+console.log('NETWORK REAL STORAGE CLEANUP PASS: referenced review image protected, unreferenced draft deletion permitted, original bytes immutable, freed quota slot restored');
 
 sql("UPDATE public.texasdefined_network_business_accounts SET access_enabled=false WHERE id='"+account1+"';");
 const after=await rest(one.token,'texasdefined_network_profile_revisions');
