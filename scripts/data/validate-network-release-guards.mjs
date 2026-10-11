@@ -77,6 +77,14 @@ check('intake limits ACTUAL streamed bytes before multipart or JSON materializat
  && source('src/data/network-intake-limits.server.ts').includes('NETWORK_INTAKE_MAX_BYTES=16_000_000')
  && source('src/data/network-intake-limits.server.ts').includes('total>NETWORK_INTAKE_MAX_BYTES')
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-intake-limits.test.mjs'));
+check('separate committed Stripe delivery fixture verifies durable outbox dedupe and replay isolation',
+ source('scripts/data/verify-network-migration-replay.mjs').includes("committedStripeFixture='scripts/data/network-migration-stripe-committed-deliveries-fixture.sql'")
+ && source('scripts/data/network-migration-stripe-committed-deliveries-fixture.sql').includes('evt_separate_activation_001')
+ && source('scripts/data/network-migration-stripe-committed-deliveries-fixture.sql').includes('evt_separate_failure_002')
+ && source('scripts/data/network-migration-stripe-committed-deliveries-fixture.sql').includes('evt_separate_recovery_003')
+ && source('scripts/data/network-migration-stripe-committed-deliveries-fixture.sql').includes('count(DISTINCT split_part(event_key')
+ && source('scripts/data/network-migration-stripe-committed-deliveries-fixture.sql').includes("active_count<>2 OR inactive_count<>1 OR tx_keys<>3")
+ && source('.github/workflows/network-migration-cleanroom.yml').includes('network-migration-stripe-committed-deliveries-fixture.sql'));
 check('Stripe entitlement and publication reconciliation uses isolated rollback fixtures',
  source('scripts/data/verify-network-migration-replay.mjs').includes("stripeReconciliationFixture='scripts/data/network-migration-stripe-reconciliation-fixture.sql'")
  && source('scripts/data/network-migration-stripe-reconciliation-fixture.sql').includes('evt_activation_001')
