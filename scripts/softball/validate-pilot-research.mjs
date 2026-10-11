@@ -121,8 +121,15 @@ assert.equal(byName('Ganado').venueResearch.namedField,'Ganado Softball Field');
 assert.equal(byName('Katy').venueResearch.namedField,'KHS-Softball Field');
 assert.equal(byName('Pearland').venueResearch.nameVerified,false,'Pearland high school does not imply named varsity diamond');
 assert.equal(byName('Amarillo Highland Park').venueResearch.nameVerified,false,'Never import Dallas Scots venues');
-for (const team of ['Shiner','Ganado','Katy','Pearland']) {
-  verifiedFact(team,'all-tournament','uil-2026-all-tournament');
+// Assert the actual UIL 2026 selection and award recipient, not the prose
+// label chosen by an editor ("all-star" and "all-tournament" are both fine).
+for (const [team, mvp] of [
+  ['Shiner', 'Lauren Springfield'],
+  ['Ganado', 'Saylor Bures'],
+  ['Katy', 'Haley Schmitt'],
+  ['Pearland', 'Madelyn Guzman'],
+]) {
+  verifiedFact(team, mvp, 'uil-2026-all-tournament');
 }
 verifiedFact('Shiner','eight championships','uil-all-time-appearances');
 verifiedFact('Ganado','Ganado Softball Field','ganado-school-calendar');
