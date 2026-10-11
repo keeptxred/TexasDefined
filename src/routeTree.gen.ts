@@ -1348,7 +1348,7 @@ const SportsVenuesRoute = SportsVenuesRouteImport.update({
   id: '/sports-venues',
   path: '/sports-venues',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() => import('./routes/sports-venues.lazy').then((d) => d.Route))
 const SportsRoute = SportsRouteImport.update({
   id: '/sports',
   path: '/sports',
