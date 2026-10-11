@@ -28,9 +28,12 @@ export function getNetworkStripeRuntime():NetworkStripeRuntime|null {
 }
 export function networkStripeHostAllowed(request:Request):boolean {
  const mode=process.env.NETWORK_STRIPE_MODE||'live';
- if(mode==='live')return true;
  const config=getNetworkStripeRuntime();
- if(!config || config.livemode)return false;
+ // A copied live Stripe secret must never open real billing on a preview host.
+ // Production Checkout and webhooks are pinned to the canonical HTTPS origin.
+ if(!config)return false;
+ if(mode==='live' && !config.livemode)return false;
+ if(mode==='test' && config.livemode)return false;
  try{return new URL(request.url).origin===config.siteOrigin;}catch{return false}
 }
 export function networkStripeExpectedLivemode():boolean|null {
