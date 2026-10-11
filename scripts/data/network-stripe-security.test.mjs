@@ -174,3 +174,70 @@ test('webhook rejects invalid UTF-8 instead of decoding replacement characters',
  });
  assert.equal(await readNetworkWebhookPayload(request),null);
 });
+
+
+test('Checkout rejects mocked Stripe transport failures, expired sessions, and forged redirect responses',async()=>{
+ const originalFetch=globalThis.fetch;
+ const originalFlag=process.env.NETWORK_CHECKOUT_ENABLED;
+ const originalKey=process.env.STRIPE_SECRET_KEY;
+ process.env.NETWORK_CHECKOUT_ENABLED='true';
+ process.env.STRIPE_SECRET_KEY='sk_live_mocked_never_sent';
+ const application='11111111-1111-4111-8111-111111111111';
+ const attempt='22222222-2222-4222-8222-222222222222';
+ const goodResponse=()=>({
+  id:'cs_live_mocked_for_unit_test',
+  url:'https://checkout.stripe.com/c/pay/cs_live_mocked_for_unit_test',
+  expires_at:Math.floor(Date.now()/1000)+1800,
+ });
+ const scenarios=[
+  {name:'transport failure',stub:()=>Promise.reject(new Error('mocked connection unavailable')),message:/mocked connection unavailable/},
+  {name:'Stripe non-success',stub:async()=>({ok:false,status:503,json:async()=>({error:'mocked outage'})}),message:/Stripe API unavailable: 503/},
+  {name:'Stripe invalid JSON',stub:async()=>({ok:true,status:200,json:async()=>{throw Error('mocked invalid JSON')}}),message:/mocked invalid JSON/},
+  {name:'expired Checkout session',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),expires_at:Math.floor(Date.now()/1000)-30})}),message:/Checkout session unavailable/},
+  {name:'malicious Checkout redirect',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),url:'https://checkout.stripe.com.attacker.invalid/pay'})}),message:/Checkout session unavailable/},
+  {name:'test-mode Checkout ID',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),id:'cs_test_mocked'})}),message:/Checkout session unavailable/},
+  {name:'missing Stripe session ID',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),id:undefined})}),message:/Checkout session unavailable/},
+ ];
+ try{
+  for(const scenario of scenarios){
+   globalThis.fetch=scenario.stub;
+   await assert.rejects(createNetworkCheckoutSession(application,'owner@example.invalid',attempt),scenario.message,scenario.name);
+  }
+ }finally{
+  globalThis.fetch=originalFetch;
+  if(originalFlag===undefined)delete process.env.NETWORK_CHECKOUT_ENABLED;
+  else process.env.NETWORK_CHECKOUT_ENABLED=originalFlag;
+  if(originalKey===undefined)delete process.env.STRIPE_SECRET_KEY;
+  else process.env.STRIPE_SECRET_KEY=originalKey;
+ }
+});
+test('distinct failed Checkout reservations use distinct Stripe idempotency keys',async()=>{
+ const oldFetch=globalThis.fetch;
+ const oldFlag=process.env.NETWORK_CHECKOUT_ENABLED;
+ const oldKey=process.env.STRIPE_SECRET_KEY;
+ process.env.NETWORK_CHECKOUT_ENABLED='true';
+ process.env.STRIPE_SECRET_KEY='sk_live_mocked_never_sent';
+ const keys=[];
+ globalThis.fetch=async(_url,opts)=>{
+  keys.push(opts.headers['Idempotency-Key']);
+  return {ok:true,status:200,json:async()=>({
+   id:'cs_live_mocked_for_unit_test',
+   url:'https://checkout.stripe.com/c/pay/cs_live_mocked_for_unit_test',
+   expires_at:Math.floor(Date.now()/1000)+1800,
+  })};
+ };
+ try{
+  const app='11111111-1111-4111-8111-111111111111';
+  const first='22222222-2222-4222-8222-222222222222';
+  const second='33333333-3333-4333-8333-333333333333';
+  await createNetworkCheckoutSession(app,'owner@example.invalid',first);
+  await createNetworkCheckoutSession(app,'owner@example.invalid',second);
+  assert.deepEqual(keys,['network-plus-'+app+'-'+first,'network-plus-'+app+'-'+second]);
+ }finally{
+  globalThis.fetch=oldFetch;
+  if(oldFlag===undefined)delete process.env.NETWORK_CHECKOUT_ENABLED;
+  else process.env.NETWORK_CHECKOUT_ENABLED=oldFlag;
+  if(oldKey===undefined)delete process.env.STRIPE_SECRET_KEY;
+  else process.env.STRIPE_SECRET_KEY=oldKey;
+ }
+});
