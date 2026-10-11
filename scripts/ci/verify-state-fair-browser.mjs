@@ -74,6 +74,25 @@ try {
       row.photoCount = archival.length;
       row.checks.photoCount = archival.length === 31;
       row.checks.photoAttribution = archival.every(e => e.alt && e.source && e.license.includes('by-sa') && e.credit.includes('Michael Barera'));
+      // Independently verify the 2026 photograph; do not conflate its CC0
+      // licensing with the preserved 31-photo Michael Barera CC BY-SA archive.
+      const freshFigure = page.locator('[data-state-fair-2026-licensed-photo]');
+      await freshFigure.locator('img').scrollIntoViewIfNeeded({ timeout: 15000 });
+      const freshImageLoaded = await page.waitForFunction(() => {
+        const img = document.querySelector('[data-state-fair-2026-licensed-photo] img');
+        return img instanceof HTMLImageElement && img.complete && img.naturalWidth > 0;
+      }, null, { timeout: 20000 }).then(() => true).catch(() => false);
+      row.currentYearPhoto = await freshFigure.evaluate(el => ({
+        alt: el.querySelector('img')?.alt || '',
+        source: el.querySelector('a[href*="commons.wikimedia.org"]')?.href || '',
+        cc0: el.querySelector('a[href*="creativecommons.org/publicdomain/zero/1.0"]')?.href || '',
+        credited: el.textContent?.includes('IcedCowboyCoffee') || false,
+      }));
+      row.checks.currentYearPhoto = freshImageLoaded &&
+        row.currentYearPhoto.alt.includes('2026') &&
+        row.currentYearPhoto.source.includes('The_Midway_of_the_State_Fair_of_Texas_2026.png') &&
+        !!row.currentYearPhoto.cc0 && row.currentYearPhoto.credited;
+      await freshFigure.screenshot({ path: out + '/' + viewport + '-2026-photo.png', timeout: 20000 });
       await page.screenshot({ path: out + '/' + viewport + '.png', fullPage: false });
       await page.locator('[data-state-fair-historical-gallery]').screenshot({ path: out + '/' + viewport + '-gallery.png', timeout: 20000 });
       // A root shell hydration marker is insufficient for this lazy route's
