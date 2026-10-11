@@ -25,7 +25,7 @@ const listProfiles = createServerFn({ method: "GET" }).handler(async () => {
       description: safe("description"),
     };
   });
-  return {profiles,indexable:profiles.length>0};
+  return {profiles,indexable:profiles.length>0 && process.env.NETWORK_ISOLATED_STAGING!=='true'};
 });
 
 export const Route = createFileRoute("/network/directory")({
