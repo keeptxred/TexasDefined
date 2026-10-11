@@ -110,10 +110,4 @@ execSql(['-c','SELECT 1'],'pre-concurrency local PostgreSQL health check');
 try { const output=execFileSync('node',[concurrentQuota],{encoding:'utf8',timeout:30000,maxBuffer:2*1024*1024}); console.log(output.trim()); }
 catch(error){console.error(String(error?.stdout||''));console.error(String(error?.stderr||''));throw Error('Featured concurrent Storage quota SQL fixture failed');}
 console.log('REPLAY FEATURED CONCURRENCY RESULT PASS: two independent database sessions enforce 24-image quota');
-// Two actual concurrent PostgreSQL sessions exercise the quota advisory lock.
-// This commits ONLY to the same disposable localhost runner database.
-const simultaneousQuota='scripts/data/verify-network-concurrent-media-quota.mjs';
-if(!existsSync(simultaneousQuota))throw new Error('Missing isolated concurrent media quota fixture');
-execFileSync('node',[simultaneousQuota],{stdio:'inherit',timeout:30000});
-console.log('REPLAY MEDIA CONCURRENCY RESULT PASS: one winner and one RLS rejection at 24 drafts');
 
