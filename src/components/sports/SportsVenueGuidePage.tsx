@@ -307,16 +307,19 @@ function VenueBreadcrumb({ venueName }: { venueName: string }) {
   );
 }
 
-function VenuePhoto({ photo, venueName, fallbackImageUrl }: { photo?: SportsVenuePhoto; venueName: string; fallbackImageUrl?: string }) {
+function VenuePhoto({ photo: originalPhoto, venueName, fallbackImageUrl }: { photo?: SportsVenuePhoto; venueName: string; fallbackImageUrl?: string }) {
   // Image delivery may fail independently of the verified original source.
   // Retry the approved source once before presenting an honest no-photo state.
   const [failedUrls, setFailedUrls] = useState<string[]>([]);
-  const source = photo && !failedUrls.includes(photo.imageUrl)
-    ? photo.imageUrl
-    : fallbackImageUrl && fallbackImageUrl !== photo?.imageUrl && !failedUrls.includes(fallbackImageUrl)
+  const source = originalPhoto && !failedUrls.includes(originalPhoto.imageUrl)
+    ? originalPhoto.imageUrl
+    : fallbackImageUrl && fallbackImageUrl !== originalPhoto?.imageUrl && !failedUrls.includes(fallbackImageUrl)
       ? fallbackImageUrl
       : null;
-  if (!photo || !source) {
+  // Preserve the established photo-rendering contract, including attribution
+  // metadata, while changing only its delivery URL after an error.
+  const photo = originalPhoto && source ? { ...originalPhoto, imageUrl: source } : undefined;
+  if (!photo) {
     return (
       <div
         className="flex items-center justify-center border border-border bg-muted px-8 py-12 text-center text-sm text-muted-foreground"
@@ -331,7 +334,7 @@ function VenuePhoto({ photo, venueName, fallbackImageUrl }: { photo?: SportsVenu
   return (
     <figure className="min-w-0 overflow-hidden bg-muted">
       <img
-        src={source}
+        src={photo.imageUrl}
         alt={photo.alt}
         width={photo.width}
         height={photo.height}
@@ -339,7 +342,7 @@ function VenuePhoto({ photo, venueName, fallbackImageUrl }: { photo?: SportsVenu
         fetchPriority="high"
         decoding="async"
         className="block h-auto w-full object-contain"
-        onError={() => setFailedUrls((previous) => previous.includes(source) ? previous : [...previous, source])}
+        onError={() => setFailedUrls((previous) => previous.includes(photo.imageUrl) ? previous : [...previous, photo.imageUrl])}
       />
     </figure>
   );
