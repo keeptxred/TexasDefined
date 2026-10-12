@@ -63,7 +63,7 @@ export const riverAuthorityRecords: RiverAuthorityRecord[] = [
     ],
     "image": "/images/editorial/texas-river-basins.jpg",
     "imageAlt": "Representative Texas waterway; not documented as the Comal River",
-    "summary": "Spring Lake and downtown New Braunfels tubing, with Guadalupe confluence"
+    "summary": "Comal Springs, Landa Lake and downtown New Braunfels tubing, with Guadalupe confluence"
   },
   {
     "key": "san-marcos",
