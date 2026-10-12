@@ -142,7 +142,7 @@ const townNames: Record<string, string> = Object.fromEntries(
 townNames["gruene-historic-district"] = "Gruene Historic District";
 
 const countyKey = (value: string) => value
-  .replace(/\\s+county$/i, "")
+  .replace(/\s+county$/i, "")
   .trim()
   .toLowerCase()
   .replace(/[^a-z0-9]+/g, "-")
