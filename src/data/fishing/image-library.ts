@@ -189,7 +189,7 @@ export const fishingLakeImages: Record<string, FishingVisualAsset> = {
   "lake-casa-blanca": commonsLake("lake-casa-blanca", "Entrance to Lake Casa Blanca, Laredo, TX IMG 2013.JPG", "Entrance to Lake Casa Blanca International State Park in Laredo, Texas", 2592, 1944, "Billy Hathorn", "CC BY-SA 3.0", CC_BY_SA_3, "cc-by-sa"),
   "lake-mineral-wells": commonsLake("lake-mineral-wells", "Lake Mineral Wells from State Park.jpg", "Lake Mineral Wells viewed from Lake Mineral Wells State Park", 3200, 1800, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by"),
   "lake-colorado-city": commonsLake("lake-colorado-city", "View Lake Colorado City State Park 2023.jpg", "Lake Colorado City viewed from Lake Colorado City State Park", 3556, 2000, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by"),
-  "lake-stamford": commonsLake("lake-stamford", "Lake Stamford June 2007.jpg", "Documentary view of Lake Stamford in Haskell County, Texas, photographed in June 2007", 2453, 1839, "Logan Nauert", "CC BY-SA 3.0", CC_BY_SA_3, "cc-by-sa"),
+  "lake-stamford": commonsLake("lake-stamford", "Lake Stamford June 2007.jpg", "Lake Stamford boat ramp looking east in June 2007 at full pool; historical photo, not a current water-level view", 2453, 1839, "Logann1", "CC BY-SA 3.0", CC_BY_SA_3, "cc-by-sa"),
   "lake-sweetwater": commonsLake("lake-sweetwater", "Lake Sweetwater Rec Area Rock Bench.jpg", "Historic Civilian Conservation Corps-era stone bench at Lake Sweetwater Recreation Area, Nolan County, Texas; not a current lake-water-level photograph", 2396, 1348, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by"),
 };
 
