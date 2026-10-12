@@ -22,7 +22,7 @@ const get = (node,key) => node.properties.find(p => ts.isPropertyAssignment(p) &
 const val = (node) => node && ts.isStringLiteral(node) ? node.text : "";
 const arr = (node) => node && ts.isArrayLiteralExpression(node) ? node.elements : [];
 const slugs = new Set();
-const required = ["slug","name","shortName","locality","county","denomination","summary","quickAnswer","foundation","presentBuilding","historicalContext","timeline","architecture","visitorNotes","significance","sources","paintedStatus","related","reviewedOn"];
+const required = ["slug","name","shortName","locality","county","denomination","summary","quickAnswer","foundation","presentBuilding","historicalContext","timeline","architecture","visitorNotes","significance","sources","faq","paintedStatus","related","reviewedOn"];
 if(records.length<5) failures.push("Fewer than five initial church profiles");
 for(const [index,node] of records.entries()){
   if(!ts.isObjectLiteralExpression(node)){failures.push("Church entry "+index+" is not a static object");continue}
@@ -32,10 +32,19 @@ for(const [index,node] of records.entries()){
   for(const key of required) if(!get(node,key)) failures.push(slug+": missing "+key);
   if(val(get(node,"summary")).length<75) failures.push(slug+": thin summary");
   if(val(get(node,"quickAnswer")).length<140) failures.push(slug+": insufficient direct answer");
-  for(const [key,minimum] of [["historicalContext",2],["timeline",4],["architecture",2],["visitorNotes",2],["significance",2],["sources",2],["related",1]]){
+  for(const [key,minimum] of [["historicalContext",2],["timeline",4],["architecture",2],["visitorNotes",2],["significance",2],["sources",2],["faq",3],["related",1]]){
     if(arr(get(node,key)).length<minimum) failures.push(slug+": "+key+" below authority minimum "+minimum);
   }
-  const sources = arr(get(node,"sources"));
+  const faq = arr(get(node,"faq"));
+  const faqQuestions = new Set();
+  for(const item of faq) {
+    if(!ts.isObjectLiteralExpression(item)) { failures.push(slug+": FAQ entry not a static object");continue; }
+    const q=val(get(item,"question")), a=val(get(item,"answer"));
+    if(q.length<15 || a.length<65) failures.push(slug+": incomplete FAQ answer or question");
+    if(faqQuestions.has(q)) failures.push(slug+": repeated FAQ question");
+    faqQuestions.add(q);
+  }
+    const sources = arr(get(node,"sources"));
   for(const item of sources){
     if(!ts.isObjectLiteralExpression(item)){failures.push(slug+": source entry invalid");continue}
     const url=val(get(item,"url"));
@@ -70,6 +79,7 @@ mustContain("src/routes/explore.painted-churches.tsx",["You may also be interest
 mustContain("src/routes/explore.painted-churches.census.tsx",["ellinger-st-marys-hostyn-hill"]);
 mustContain("src/data/painted-church-census.ts",["paintedChurchRelatedHistoricChurches", "ellinger-st-marys-hostyn-hill"]);
 mustContain("src/routes/explore.historic-churches.$slug.tsx",["Suggested companion historic church","related-historic"]);
+mustContain("src/routes/explore.historic-churches.$slug.tsx",["church.faq.map","FAQPage","Frequently asked questions"]);
 mustContain("src/routes/explore.historic-churches.tsx",["You may also be interested in"]);
 mustContain("src/routes/sitemap-explore[.]xml.ts",["historicChurchEntries","historicChurches.map"]);
 mustContain("src/lib/public-routes.ts",['"/explore/historic-churches"']);
