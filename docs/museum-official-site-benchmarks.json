@@ -1,7 +1,7 @@
 {
   "standard": "official-site-surpass-authority-v1",
   "scope": "Editorial authority and total usefulness compared with the museum's official collection of public pages, not Google rank.",
-  "reviewedAt": "2026-10-12",
+  "reviewedAt": null,
   "rules": {
     "decision": "Fail unless six coverage dimensions are independently evidenced and all unresolved gaps are closed. Competitive coverage must match or exceed the operator's current factual public guidance and provide substantially deeper independent synthesis. Do not replace operator's primary authority for live operations.",
     "dimensions": [
@@ -16,10 +16,6 @@
   "museums": {
     "bullock-texas-state-history-museum": {
       "name": "Bullock Texas State History Museum",
-      "operatorPagesInspected": [
-        "https://www.thestoryoftexas.com/visit/exhibits/texas-history-gallery",
-        "https://www.thestoryoftexas.com/"
-      ],
       "operatorStrengths": [
         "Museum-operated Texas history gallery coverage, La Belle and changing exhibit information",
         "Interpretive chronology and collection-related research"
@@ -32,15 +28,14 @@
       "decision": "not-certified",
       "dimensionEvidence": {},
       "independentReviewer": null,
-      "certifiedAt": null
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.thestoryoftexas.com/visit/exhibits/texas-history-gallery",
+        "https://www.thestoryoftexas.com/"
+      ]
     },
     "perot-museum-nature-science-dallas": {
       "name": "Perot Museum",
-      "operatorPagesInspected": [
-        "https://www.perotmuseum.org/exhibits/",
-        "https://www.perotmuseum.org/researchers/collections/",
-        "https://www.perotmuseum.org/visit/accessibility/"
-      ],
       "operatorStrengths": [
         "Eleven permanent halls with hall-level detail",
         "130,000+ cataloged research specimens, many not displayed",
@@ -54,14 +49,15 @@
       "decision": "not-certified",
       "dimensionEvidence": {},
       "independentReviewer": null,
-      "certifiedAt": null
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.perotmuseum.org/exhibits/",
+        "https://www.perotmuseum.org/researchers/collections/",
+        "https://www.perotmuseum.org/visit/accessibility/"
+      ]
     },
     "witte-museum": {
       "name": "Witte Museum",
-      "operatorPagesInspected": [
-        "https://www.wittemuseum.org/collections/",
-        "https://www.wittemuseum.org/plan-your-visit/exhibits/"
-      ],
       "operatorStrengths": [
         "More than 320,000 objects and collections spanning anthropology, geology, art and history",
         "Appointment-based researcher access to collection center",
@@ -75,15 +71,14 @@
       "decision": "not-certified",
       "dimensionEvidence": {},
       "independentReviewer": null,
-      "certifiedAt": null
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.wittemuseum.org/collections/",
+        "https://www.wittemuseum.org/plan-your-visit/exhibits/"
+      ]
     },
     "museum-of-the-big-bend-alpine": {
       "name": "Museum of the Big Bend",
-      "operatorPagesInspected": [
-        "https://www.museumofthebigbend.com/",
-        "https://maps.museumofthebigbend.com/about-the-collection/",
-        "https://maps.museumofthebigbend.com/visiting-the-map-collection/"
-      ],
       "operatorStrengths": [
         "Historical Big Bend exhibits and publicly accessible map interpretations",
         "Yana and Marty Davis cartographic collection including 2004 and 2015 donations",
@@ -97,14 +92,15 @@
       "decision": "not-certified",
       "dimensionEvidence": {},
       "independentReviewer": null,
-      "certifiedAt": null
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.museumofthebigbend.com/",
+        "https://maps.museumofthebigbend.com/about-the-collection/",
+        "https://maps.museumofthebigbend.com/visiting-the-map-collection/"
+      ]
     },
     "panhandle-plains-historical-museum-canyon": {
       "name": "Panhandle-Plains Historical Museum",
-      "operatorPagesInspected": [
-        "https://www.panhandleplains.org/",
-        "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates"
-      ],
       "operatorStrengths": [
         "Official temporary-closure and public-program updates",
         "Collections and research-center resources"
@@ -117,15 +113,14 @@
       "decision": "not-certified",
       "dimensionEvidence": {},
       "independentReviewer": null,
-      "certifiedAt": null
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.panhandleplains.org/",
+        "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates"
+      ]
     },
     "george-ranch-historical-park": {
       "name": "George Ranch Historical Park",
-      "operatorPagesInspected": [
-        "https://www.georgeranch.org/visit/hours-admissions-directions/",
-        "https://www.georgeranch.org/visit/faq/",
-        "https://www.georgeranch.org/visit/group-tours/"
-      ],
       "operatorStrengths": [
         "Saturdays general admission and booked weekday group schedules",
         "Multiple historic houses, demonstrations, tram and access policies"
@@ -138,15 +133,15 @@
       "decision": "not-certified",
       "dimensionEvidence": {},
       "independentReviewer": null,
-      "certifiedAt": null
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.georgeranch.org/visit/hours-admissions-directions/",
+        "https://www.georgeranch.org/visit/faq/",
+        "https://www.georgeranch.org/visit/group-tours/"
+      ]
     },
     "texas-maritime-museum-rockport": {
       "name": "Texas Maritime Museum",
-      "operatorPagesInspected": [
-        "https://texasmaritimemuseum.org/exhibits/",
-        "https://texasmaritimemuseum.org/collections-library/",
-        "https://texasmaritimemuseum.org/"
-      ],
       "operatorStrengths": [
         "Multiple distinct maritime display areas",
         "Research-only William A. Mann Library and oral history center",
@@ -160,14 +155,15 @@
       "decision": "not-certified",
       "dimensionEvidence": {},
       "independentReviewer": null,
-      "certifiedAt": null
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://texasmaritimemuseum.org/exhibits/",
+        "https://texasmaritimemuseum.org/collections-library/",
+        "https://texasmaritimemuseum.org/"
+      ]
     },
     "national-museum-pacific-war": {
       "name": "National Museum of the Pacific War",
-      "operatorPagesInspected": [
-        "https://www.pacificwarmuseum.org/",
-        "https://www.pacificwarmuseum.org/research-collections/center-for-pacific-war-studies"
-      ],
       "operatorStrengths": [
         "Multi-part Pacific War campus and exhibit narratives",
         "Thousands of archival items and oral histories",
@@ -181,14 +177,14 @@
       "decision": "not-certified",
       "dimensionEvidence": {},
       "independentReviewer": null,
-      "certifiedAt": null
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.pacificwarmuseum.org/",
+        "https://www.pacificwarmuseum.org/research-collections/center-for-pacific-war-studies"
+      ]
     },
     "frontier-texas": {
       "name": "Frontier Texas!",
-      "operatorPagesInspected": [
-        "https://www.frontiertexas.com/about-frontier-texas/",
-        "https://www.frontiertexas.com/"
-      ],
       "operatorStrengths": [
         "Immersive western storytelling and visitor-center functions",
         "Interpretation of Texas frontier and forts-trail corridor"
@@ -201,14 +197,14 @@
       "decision": "not-certified",
       "dimensionEvidence": {},
       "independentReviewer": null,
-      "certifiedAt": null
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.frontiertexas.com/about-frontier-texas/",
+        "https://www.frontiertexas.com/"
+      ]
     },
     "texas-energy-museum-beaumont": {
       "name": "Texas Energy Museum",
-      "operatorPagesInspected": [
-        "https://www.texasenergymuseum.org/about.html",
-        "https://www.texasenergymuseum.org/"
-      ],
       "operatorStrengths": [
         "1901 Spindletop history and petroleum technical interpretation",
         "Oil exploration, production and refinery exhibits"
@@ -221,7 +217,13 @@
       "decision": "not-certified",
       "dimensionEvidence": {},
       "independentReviewer": null,
-      "certifiedAt": null
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.texasenergymuseum.org/about.html",
+        "https://www.texasenergymuseum.org/"
+      ]
     }
-  }
+  },
+  "baselineCollectedAt": "2026-10-12",
+  "disclaimer": "Official URLs represent baseline resources to compare. Their inclusion is NOT proof of a complete page-by-page review or of superiority. All decisions are NOT CERTIFIED until direct evidence is recorded."
 }
