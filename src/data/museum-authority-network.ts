@@ -348,8 +348,11 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
 export function enrichMuseumAuthority(destination: Destination): Destination {
   const dossier = museumDossierFor(destination.slug);
   if (!dossier) return destination;
-  const additionalParagraphs = [dossier.whyVisit, dossier.visitorStrategy, dossier.researchValue];
   const existingText = destination.body.join(" ");
+  // Render the full research dossier only once in the dedicated museum section.
+  // Add extra overview depth only where an original destination is truly thin.
+  const needsBodyReinforcement = destination.body.length < 3 || existingText.length < 450;
+  const additionalParagraphs = needsBodyReinforcement ? [dossier.whyVisit, dossier.visitorStrategy, dossier.researchValue] : [];
   const newText = additionalParagraphs.filter((paragraph) => !existingText.includes(paragraph));
   return {
     ...destination,
