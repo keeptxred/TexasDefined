@@ -2,16 +2,19 @@
 /** All existing researched towns and major city-authority profiles—not a fixed shortlist.
  * Run: node scripts/data/validate-small-town-authority.mjs
  */
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 const read = (path) => readFileSync(path, "utf8");
 const errors = [];
 const warn = [];
 const check = (condition, message) => { if (!condition) errors.push(message); };
 
-const guideSources = [...Array.from({ length: 15 }, (_, i) => i + 1).map((i) => ({
-  filename: "src/data/small-town-destinations-wave" + i + ".ts",
-  text: read("src/data/small-town-destinations-wave" + i + ".ts"),
-})), { filename: "src/data/small-town-authority-wave16.ts", text: read("src/data/small-town-authority-wave16.ts") }];
+const waveNames = readdirSync("src/data")
+  .filter((name) => /^small-town-destinations-wave\\d+\\.ts$/.test(name))
+  .sort((a, b) => Number(a.match(/wave(\\d+)/)?.[1]) - Number(b.match(/wave(\\d+)/)?.[1]));
+const guideSources = [
+  ...waveNames.map((name) => ({ filename: "src/data/" + name, text: read("src/data/" + name) })),
+  { filename: "src/data/small-town-authority-wave16.ts", text: read("src/data/small-town-authority-wave16.ts") },
+];
 
 const guideSlugs = new Map();
 let recordCount = 0;
@@ -41,10 +44,15 @@ for (const { filename, text } of guideSources) {
 }
 check(guideSlugs.size === recordCount - 3, "Unexpected town duplicate count; currently 3 intentional duplicate records");
 check(guideSlugs.size >= 59, "Missing an established town: expected at least 59 distinct checked-in records");
+check(waveNames.length >= 15, "All original town waves 1–15 must be preserved");
 const network = read("src/data/town-authority-network.ts");
 for (const wave of guideSources) {
   const m = wave.filename.match(/wave(\d+)\.ts$/);
-  if (m) check(network.includes("smallTownWave" + m[1] + "Destinations"), wave.filename + ": not covered by universal authority network");
+  if (m) {
+    const symbol = "smallTownWave" + m[1] + "Destinations";
+    check(network.includes(symbol), wave.filename + ": not covered by universal authority network");
+    check(read("src/data/destination-preserved-catalog.ts").includes(symbol), wave.filename + ": absent from Explore catalog");
+  }
 }
 for (const key of [
   "export const TOWN_AUTHORITY_DIRECTORY", "export const TOWN_AUTHORITY_SLUGS",
