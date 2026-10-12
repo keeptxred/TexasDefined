@@ -32,6 +32,8 @@
 - **Reporting:** per-business anonymous aggregate page/display and contact actions with truthful counting; customer-only authorization, explicit tier reporting, defined 35-day retention and scheduled deletion. No persisted IP, device ID, visitor identity, raw browsing history or owner email in metrics.
 - **Operational safety:** scoped Graph messages, mailbox restrictions and independently confirmed delivery; payment/owner revocation immediately stops unreviewed page visibility; emergency unpublish must remain available. Hosted stage stays separate from production; never create billable branches without express permission.
 
+**Staging isolation:** Use a separate staging Supabase project (never the existing production project), a nonproduction Workers hostname, synthetic authenticated owners, Stripe test-mode billing and the controlled administrator mail sink. Do not provision a chargeable stage without explicit cost approval.
+
 ## One-launch acceptance and evidence
 
 **A new fifteenth category, `hostedWebsiteDelivered`, is added to `NETWORK_LAUNCH_EVIDENCE_KEYS`.** It must be supported by real two-owner staging/browser/database/Stripe evidence in addition to the existing fourteen categories. Do not mark this category passed based on CI, mocked fixtures, a pretty screenshot, a UI price card, a manually invented reference or a provider-free prototype.
