@@ -39,4 +39,17 @@ The editorial review must document (1) evidence-based comparable resources, (2) 
 
 ## Existing regional and special-interest guides
 
-The seven Explore region URLs are canonical. The three new scenic drive, statewide wine country and German-Texan heritage guides are supplementary canonical subjects. Any draft guide under PR #4689 remains **editorially incomplete** until all applicable release criteria above have evidence of completion. This status is independent of passing a minimum-word-count validator or a green CI build.
+The seven Explore region URLs are canonical. The three new scenic drive, statewide wine country and German-Texan heritage guides are supplementary canonical subjects. No new guide is considered a release deliverable until all applicable release criteria above have evidence of completion. Publishing an incomplete overview as a finished guide is not an acceptable substitute. This standard is independent of passing a minimum-word-count validator or a green CI build.
+
+## Mandatory Supabase fact-verification enrollment
+
+Every new indexable TexasDefined guide, article, county, city, destination, lake, river, park, museum, historic church or other authority URL must enter the Supabase `td_authority_verification_registry`. Sitemap discovery runs daily, so future published URLs enroll automatically; an absent URL or missing primary sources must be treated as an operational defect.
+
+- **1 day:** current fishing reports, events and immediately changing dates or schedules.
+- **7 days:** fishing guides and lake access/regulations; current sports or other highly changeable pages.
+- **30 days:** roads/scenic driving, coastal visitor access, Big Bend access, winery/venue information, state and national park visitor logistics, and business destinations.
+- **90 days or less:** comparatively stable museums, cultural history, painted churches, broad region overviews, archived historical references and long-lived facts.
+
+An individual record can be set to a stricter interval, never longer than 90 days. Data-driven services must obey their own faster refresh specifications. Check official URLs and their accessibility. HTTP 200 and unchanged hashes are *source reachability signals*, never factual verification. Flag changed/unreachable pages, retain source-check history and require source-based editorial/fact review before setting `last_verified_at`. Dated evidence, reviewer identity and discrepancy resolution must be recorded. Newly discovered pages lacking a primary-source inventory remain `awaiting_editorial_verification`.
+
+The Supabase registry monitors all published sitemap URLs and sources registered in `td_authority_verification_sources`. The initial scheduler and HTTP probes run under `td_maintenance` through Supabase Cron. Every subsequent guide build should register official sources as part of its same release work; do not rely on a crawler to guess which external links support which claims.
