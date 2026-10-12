@@ -114,7 +114,7 @@ for (let i = 0; i < topLevel.length; i += 1) {
   // Every statewide guide must offer named TPWD-reviewed visit planning, not one generic ramp inventory.
   const accessSegment = segment.match(/accessPoints:\s*\[([\s\S]*?)\n\s*\],/)?.[1];
   if (!accessSegment) fail(`${row.slug} is missing named public-access facilities`);
-  const facilityNames = [...accessSegment.matchAll(/\{ name: "([^"]+)"/g)].map((match) => match[1]);
+  const facilityNames = [...accessSegment.matchAll(/\{\s*name:\s*"([^"]+)"/g)].map((match) => match[1]);
   if (facilityNames.length < 1) fail(`${row.slug} has no independently named public-access sites`);
   if (new Set(facilityNames).size !== facilityNames.length) fail(`${row.slug} repeats the same facility in its access inventory`);
   for (const token of ["operator:", "launch:", "fee:", "availability:"]) {
