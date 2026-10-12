@@ -216,3 +216,10 @@ A follow-up branch contains **two fully researched new entries**:
 - **Benbrook Lake** (Tarrant): TPWD 3,635 acres, 70-ft depth, stocked hybrid striped bass, six specifically documented Corps parks/ramps, clearly dated April 21, 2026 low-water closures and campers-only/seasonal restrictions, TWDB September 29, 1952 impoundment. Image: USACE federal public domain (not TexasDefined field photography).
 
 **Pending production:** this separate expansion branch contains 54 completed-guide records, 121 unmatched TPWD listings, 149 named statewide facility entries, and 82 counties with reciprocal guide links. New-guide HTML, licensing display and exact operating conditions must pass required CI and release verification.
+
+## Second missing-lake expansion: Granger and Aquilla
+
+- **Granger Lake** — 4,009 TPWD acres, excellent crappie and catfish, poor largemouth bass, USACE Willow/brush habitat, named access at Willis Creek, San Gabriel WMA (canoe/jon-boat, no trailers), Taylor, Wilson H. Fox and Friendship parks. Fees for Corps ramps, required zebra-mussel cleaning, real operator source and campground checks. TWDB explains 1954 authorization under the Laneport name, construction from 1972, impoundment January 21, 1980, and 2013 hydrographic acreage vs TPWD's 4,009 figure. Historical public-domain USACE aerial photo, **not original TexasDefined field photography**.
+- **Aquilla Lake** — 3,020 TPWD acres, 59.5-ft depth, good catfish and crappie, free boat ramps at Dairy Hill and Old School; a third Tailrace fishing pier is **not a ramp**. TPWD lists no campsites at any of these three. TWDB says deliberate impoundment April 29, 1983, despite TPWD's generalized 1982 summary. Authentic public-domain USACE archival photo, **not original TexasDefined field photography**.
+
+All four recent authority expansions include source-specific visitor FAQs; the shared UI renders them only where researched. This follow-up branch moves the **registry** from 54 to **56** and the TPWD guide-gap snapshot from 121 to **119**, subject to protected CI, successful merge, deployed build and real-site check.
