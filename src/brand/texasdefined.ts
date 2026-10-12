@@ -172,6 +172,7 @@ export const texasDefinedBrand: BrandConfig = {
   legal: [
     { label: "Privacy & Site Terms", to: "/about#privacy-terms" },
     { label: "Returns & Refunds", to: "/return-refund-policy" },
+    { label: "Network Membership Terms", to: "/network/terms" },
     { label: "Search", to: "/search" },
   ],
 };
