@@ -3,6 +3,7 @@ import {createLazyFileRoute} from '@tanstack/react-router';
 import {useEffect,useState} from 'react';
 import {Container} from '@/components/layout/Container';
 import {HostedWebsiteTemplate} from '@/components/network/HostedWebsiteTemplate';
+import {HostedWebsiteEditor} from '@/components/network/HostedWebsiteEditor';
 import {WEBSITE_HOSTING_TIERS,validateHostedWebsiteDraft,type WebsiteHostingTier} from '@/data/network-commercial-model';
 
 export const Route=createLazyFileRoute('/network/website-demo')({component:HostedWebsiteDemo});
@@ -21,6 +22,7 @@ function samplePages(tier:WebsiteHostingTier){
 }
 function HostedWebsiteDemo(){
  const [query,setQuery]=useState({tier:'starter',page:'home'});
+ const [draft,setDraft]=useState({businessName:"Jimmy's Fishing Guide (Sample)",pages:samplePages('starter'),galleryStoragePaths:[] as string[]});
  useEffect(()=>{
   const params=new URLSearchParams(window.location.search);
   setQuery({tier:params.get('tier')||'starter',page:params.get('page')||'home'});
@@ -28,8 +30,8 @@ function HostedWebsiteDemo(){
  const tier:WebsiteHostingTier=WEBSITE_HOSTING_TIERS.some(t=>t.id===query.tier)?query.tier as WebsiteHostingTier:'starter';
  const pages=samplePages(tier);
  const pageSlug=pages.some(p=>p.slug===query.page)?query.page:'home';
- const sample={businessName:"Jimmy's Fishing Guide (Sample)",pages,galleryStoragePaths:[]};
- const result=validateHostedWebsiteDraft(tier,sample);
+ useEffect(()=>{setDraft({businessName:"Jimmy's Fishing Guide (Sample)",pages:samplePages(tier),galleryStoragePaths:[]});},[tier]);
+ const result=validateHostedWebsiteDraft(tier,draft);
  if(!result.ok)return <Container className="py-16"><h1>Sample website unavailable</h1></Container>;
  const href=(page:string)=>'/network/website-demo?tier='+tier+'&page='+page;
  return <div className="bg-[#fffaf3]">
@@ -46,5 +48,10 @@ function HostedWebsiteDemo(){
     site={{businessName:result.draft.businessName,locality:'Lake Conroe, Texas',
       category:'Fishing guide',shortDescription:'Illustrative guided trips on Lake Conroe',
       pages:result.draft.pages,galleryImages:[]}}/>
+  <Container className="pb-12"><details className="rounded-2xl border border-border bg-surface p-5">
+   <summary className="cursor-pointer text-lg font-semibold">Try the self-service editor (example only)</summary>
+   <div className="mt-6"><HostedWebsiteEditor tier={tier} draft={draft} onChange={setDraft}/></div>
+   <p className="mt-3 text-xs text-muted-foreground">Demo edits are not saved. No account, publication or purchase is created.</p>
+  </details></Container>
  </div>;
 }

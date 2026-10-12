@@ -85,3 +85,20 @@ test('full release gate still requires acceptance before standalone hosting is a
  for(const word of ['advertising','hosting','independent','Stripe','migration','noindex'])
   assert.match(doc,new RegExp(word,'i'));
 });
+
+
+test('template previews have true per-page navigation, are nonindexable and keep edits local',()=>{
+ const lazy=read('src/routes/network.website-demo.lazy.tsx');
+ const page=read('src/routes/network.website-demo.tsx');
+ const renderer=read('src/components/network/HostedWebsiteTemplate.tsx');
+ const editor=read('src/components/network/HostedWebsiteEditor.tsx');
+ assert.match(page,/noindex,nofollow,noarchive/);
+ assert.match(renderer,/href={buildPageHref\(page.slug\)}/);
+ assert.match(lazy,/tier==='starter'/);
+ assert.match(lazy,/tier==='business'/);
+ assert.match(lazy,/Try the self-service editor/);
+ assert.match(lazy,/Demo edits are not saved/);
+ assert.match(editor,/maxLength={12000}/);
+ assert.match(editor,/draft.pages.length>=limits.maxPages/);
+ assert.ok(!lazy.includes('supabaseAdmin')&&!lazy.includes('createCheckoutSession'));
+});
