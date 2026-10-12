@@ -168,7 +168,7 @@ for (const token of [
   "getLcraHydrometSiteNumber",
 ]) requireText(files.liveFetcher, token, `LCRA resilient fetch contract missing ${token}`);
 
-if ((files.network.match(/waterDataSlug: "/g) ?? []).length !== 34) fail("expected 34 statewide-network TWDB live-water mappings");
+if ((files.network.match(/waterDataSlug:\s*"/g) ?? []).length !== 38) fail("expected 38 statewide-network TWDB live-water mappings");
 if ((files.network.match(/lcraHydrometSiteNumber: "/g) ?? []).length !== 1) fail("expected exactly one statewide-network LCRA Hydromet mapping");
 if (files.network.includes("TPWD — current lake conditions entry point")) fail("obsolete pseudo-live TPWD current-conditions fallback remains");
 
