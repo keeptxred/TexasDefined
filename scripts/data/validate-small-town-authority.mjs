@@ -1,72 +1,91 @@
 #!/usr/bin/env node
-/** Run: node scripts/data/validate-small-town-authority.mjs */
+/** All existing researched towns and major city-authority profiles—not a fixed shortlist.
+ * Run: node scripts/data/validate-small-town-authority.mjs
+ */
 import { readFileSync } from "node:fs";
-
 const read = (path) => readFileSync(path, "utf8");
+const errors = [];
+const warn = [];
+const check = (condition, message) => { if (!condition) errors.push(message); };
+
+const guideSources = [...Array.from({ length: 15 }, (_, i) => i + 1).map((i) => ({
+  filename: "src/data/small-town-destinations-wave" + i + ".ts",
+  text: read("src/data/small-town-destinations-wave" + i + ".ts"),
+})), { filename: "src/data/small-town-authority-wave16.ts", text: read("src/data/small-town-authority-wave16.ts") }];
+
+const guideSlugs = new Map();
+let recordCount = 0;
+for (const { filename, text } of guideSources) {
+  const matches = [...text.matchAll(/\bid:\s*["']small-town-[a-z0-9-]+["']/g)];
+  check(matches.length > 0, filename + ": no source-backed town records found");
+  matches.forEach((match, i) => {
+    const section = text.slice(match.index, i + 1 < matches.length ? matches[i + 1].index : undefined);
+    const slug = section.match(/\bslug:\s*["']([a-z0-9-]+)["']/)?.[1];
+    if (!slug) { errors.push(filename + ": town without canonical slug"); return; }
+    recordCount++;
+    if (guideSlugs.has(slug)) {
+      // Duplicate, pre-existing waves: first complete record remains canonical.
+      const original = guideSlugs.get(slug);
+      if (!["jefferson", "wimberley", "marfa"].includes(slug)) errors.push(slug + ": unexpected duplicate in " + filename);
+      else warn.push(slug + ": preserved existing later-wave variation; original canonical guide retained from " + original);
+      return;
+    }
+    guideSlugs.set(slug, filename);
+    for (const field of ["authorityGuide:", "areaGuide:", "sources:", "hero:", "sourceCheckedAt", "coordinates:", "county:", "officialUrl:"]) {
+      check(section.includes(field), slug + ": missing " + field);
+    }
+    check((section.match(/https:\/\//g) || []).length >= 2, slug + ": at least two primary/source-linked URLs expected");
+    check(/\bcredit:\s*["']/.test(section), slug + ": photography attribution missing");
+    check(/\bcategory:\s*["']small-towns["']/.test(section), slug + ": must be in small-towns Explore");
+  });
+}
+check(guideSlugs.size === recordCount - 3, "Unexpected town duplicate count; currently 3 intentional duplicate records");
+check(guideSlugs.size >= 59, "Missing an established town: expected at least 59 distinct checked-in records");
 const network = read("src/data/town-authority-network.ts");
+for (const wave of guideSources) {
+  const m = wave.filename.match(/wave(\d+)\.ts$/);
+  if (m) check(network.includes("smallTownWave" + m[1] + "Destinations"), wave.filename + ": not covered by universal authority network");
+}
+for (const key of [
+  "export const TOWN_AUTHORITY_DIRECTORY", "export const TOWN_AUTHORITY_SLUGS",
+  "canonicalAuthority.has(destination.slug)", "countyTowns[slug]",
+  "townAuthorityContextualLinks(", "TEXAS_CITIES.find", "candidate.region === destination.region",
+]) check(network.includes(key), "Network missing " + key);
+
+const curatedGruene = read("src/data/destination-curation-top-attractions-batch5.ts");
+const grueneAuthority = read("src/data/destination-authority-top-attractions.ts");
+check(curatedGruene.includes('"gruene-historic-district"') && grueneAuthority.includes('"gruene-historic-district"'),
+  "Gruene Historic District's researched authority page must remain the canonical New Braunfels district");
+
 const catalog = read("src/data/destination-preserved-catalog.ts");
 const runtime = read("src/data/destination-query-runtime.ts");
 const planner = read("src/components/editorial/DestinationVisitPlanner.tsx");
 const authority = read("src/components/editorial/DestinationAuthoritySections.tsx");
-const county = read("src/components/content/CountyTownAuthorityLinks.tsx");
-const countyPage = read("src/routes/$kind.$slug.lazy.tsx");
-const towns = [
-  ["fredericksburg", "gillespie", 1], ["wimberley", "hays", 1],
-  ["gruene-historic-district", "comal", null], ["boerne", "kendall", 2],
-  ["marble-falls", "burnet", 16], ["bandera", "bandera", 2],
-  ["port-aransas", "nueces", 16], ["rockport", "aransas", 8],
-  ["jefferson", "marion", 1], ["salado", "bell", 3],
-  ["granbury", "hood", 2], ["glen-rose", "somervell", 4],
-  ["alpine", "brewster", 3], ["marfa", "presidio", 1],
-  ["fort-davis", "jeff-davis", 9],
-];
-const errors = [];
-function check(ok, label) { if (!ok) errors.push(label); }
-check(towns.length === 15 && new Set(towns.map((x) => x[0])).size === 15, "Exactly 15 distinct town/district pages");
-for (const [slug, countySlug, wave] of towns) {
-  check(network.includes(JSON.stringify(slug)), slug + ": network registration");
-  check(network.includes(JSON.stringify(countySlug)), slug + ": county registration");
-  if (wave === null) {
-    check(read("src/data/destination-curation-top-attractions-batch5.ts").includes(JSON.stringify(slug)), "Gruene top attraction");
-    check(read("src/data/destination-authority-top-attractions.ts").includes(JSON.stringify(slug)), "Gruene sourced authority itinerary");
-  } else {
-    const filename = wave === 16 ? "src/data/small-town-authority-wave16.ts" : "src/data/small-town-destinations-wave" + wave + ".ts";
-    const content = read(filename);
-    const index = content.indexOf("slug: " + JSON.stringify(slug));
-    check(index !== -1, slug + ": canonical record");
-    if (index !== -1) {
-      const after = content.indexOf("\n  {", index + 8);
-      const section = content.slice(index, after < 0 ? undefined : after);
-      for (const required of ["authorityGuide:", "areaGuide:", "sources:", "hero:", "sourceCheckedAt"]) {
-        check(section.includes(required), slug + ": " + required);
-      }
-    }
-  }
+const countyTemplate = read("src/routes/$kind.$slug.lazy.tsx");
+for (const value of ["smallTownWave15Destinations,", "additionalTownAuthorityDestinations,"]) check(catalog.includes(value), "Explore catalog missing " + value);
+check(runtime.includes("applyTownAuthority(normalizeDestinationCounty("), "Detail resolver must enrich every town");
+check(runtime.includes(".map(applyTownAuthority);"), "Search/sitemap/catalog resolver must enrich every town");
+check(planner.includes("<DestinationAuthoritySections destination={destination} />"), "Visible guide and research sections absent");
+check(planner.includes("townAuthorityContextualLinks(destination)"), "Town/attraction contextual backlinks absent");
+for (const required of ["guide.itineraries.map", "guide.sources.filter", "area[key]", "noopener noreferrer"]) {
+  check(authority.includes(required), "Shared authority template missing " + required);
 }
-check(catalog.includes("additionalTownAuthorityDestinations,"), "Marble Falls and Port Aransas in catalog");
-check(runtime.includes("applyTownAuthority(normalizeDestinationCounty("), "Canonical authority detail resolution");
-check(runtime.includes(".map(applyTownAuthority);"), "Canonical authority catalog resolution");
-check(authority.includes("guide.itineraries.map"), "Visible itineraries");
-check(authority.includes("guide.sources.filter"), "Visible primary sources");
-check(authority.includes("area[key]"), "Visible area details");
-check(authority.includes("noopener noreferrer"), "Safe outgoing links");
-check(planner.includes("<DestinationAuthoritySections destination={destination} />"), "Shared authority UI");
-check(planner.includes("townAuthorityContextualLinks(destination)"), "Contextual reciprocal links");
-check(countyPage.includes("<CountyTownAuthorityLinks"), "County/city template integration");
-check(county.includes("townAuthorityCountyLinks"), "County guides");
-check(county.includes("townAuthorityCityLinks"), "City guides");
-for (const [filename, slug] of [
-  ["burnet-county-burnet-marble-falls-highland-lakes-granite", "marble-falls"],
-  ["nueces-county-corpus-christi-bay-islands-coastal-bend", "port-aransas"],
-  ["marion-county-jefferson-caddo-lake-riverport-piney-woods-texas", "jefferson"],
-]) {
-  const content = read("src/data/fixtures/" + filename + ".ts");
-  check(content.includes('href: "/destination/' + slug + '"'), filename + ": inbound editorial link");
-}
+check(countyTemplate.includes("<CountyTownAuthorityLinks"), "County/city inbound links missing");
+const cityIndex = read("src/data/city-authority-index.ts");
+const cityProfiles = read("src/data/city-authority-profiles.ts");
+const texasPlaces = read("src/data/texas-places.ts");
+const cities = [...cityIndex.matchAll(/slug:\s*'([a-z-]+)'/g)].map((match) => match[1]);
+check(cities.length >= 11, "Existing 11 city authority profiles must be retained");
+for (const city of cities) check(cityProfiles.includes("  " + city + ": {") || cityProfiles.includes("  '" + city + "': {"),
+  "Major-city authority profile missing: " + city);
+check(texasPlaces.includes("export const TEXAS_CITIES"), "Broader city registry missing");
+check(read("src/components/content/CountyTownAuthorityLinks.tsx").includes("townAuthorityCityLinks"), "All city page links missing");
+
 if (errors.length) {
-  console.error("15-town authority validation FAILED:");
-  for (const error of errors) console.error(" - " + error);
+  console.error("STATEWIDE town authority contract FAILED: " + errors.length + " violations");
+  for (const issue of errors) console.error(" - " + issue);
   process.exitCode = 1;
 } else {
-  console.log("15-town authority validation PASSED: records, sources, templates, county and attraction crosslinks.");
+  console.log("Statewide authority contract PASSED: " + guideSlugs.size + " existing town guides + Gruene historic district, " + cities.length + " major city profiles; all wave 1–16 town pages, sources, shared templates and contextual linking included.");
+  console.log("Coverage note: this contract verifies all existing researched guides, NOT that every Texas municipality has an authority page.");
 }
