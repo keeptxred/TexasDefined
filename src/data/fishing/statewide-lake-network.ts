@@ -77,6 +77,7 @@ interface StatewideLakeDefinition {
   specialRules?: boolean;
   liveDataNote?: string;
   nearbyLakes: { slug: string; name: string }[];
+  nearbyDestinations?: { slug: string; name: string; reason: string }[];
   camping?: { name: string; summary: string };
   accessPoints?: ShowcaseLakePrototype["access"];
   travelAlerts?: string[];
@@ -1166,6 +1167,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     specialRules: true,
     nearbyLakes:[{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"joe-pool-lake",name:"Joe Pool Lake"}],
+    nearbyDestinations:[{slug:"dallas-arboretum-and-botanical-garden",name:"Dallas Arboretum and Botanical Garden",reason:"Lakeside garden and seasonal walking destination with views across White Rock Lake; admission and gardens are separately operated."}],
     travelAlerts:[
       "The current Dallas City Code section 32-40 generally prohibits operating a boat with a motor rated more than 10.5 horsepower on White Rock Lake, with defined exceptions. TPWD's older facts summary quotes a different 9.9-HP figure. Consult current City Code before boating; do not rely on an outdated fishing summary to determine the legal limit.",
       "TPWD expressly says NO camping is allowed at White Rock Lake. The City of Dallas designates picnic, sailing, walking, fishing and daytime park uses; do not imply campsite or RV-hookup availability.",
@@ -1352,13 +1354,14 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
     ],
     camping: [{
       name: def.camping?.name ?? `${def.name} trip-planning options`,
-      type: def.camping ? "Verified public recreation option" : "Camping and lodging planning",
+      type: def.camping ? "Source-listed recreation option" : "Camping and lodging planning",
       summary: def.camping?.summary ?? "Use TPWD's public-access inventory and the managing agency to confirm current camping, lodging and overnight-use options near the lake.",
       href: publicAccess.url,
     }],
     nearby: [
       ...def.counties.map((county) => ({ label: `${county} County`, description: `${def.name} is tied to ${county} County trip planning, access and nearby destinations.`, href: `/county/${countySlug(county)}`, external: false })),
       ...def.nearbyLakes.map((lake) => ({ label: lake.name, description: `Compare ${def.name} with another nearby or regionally related Texas fishing destination.`, href: `/fishing/lakes/${lake.slug}`, external: false })),
+      ...(def.nearbyDestinations ?? []).map((place) => ({label:place.name,description:place.reason,href:`/destination/${place.slug}`,external:false})),
     ],
     businessCategories: ["Fishing guides", "Marinas & fuel", "Bait & tackle", "Boat rentals & repair", "Campgrounds & lodging", "Restaurants"],
     reportSnapshot: { checkedAt: sourceVerifiedAt(def), summary: `TexasDefined does not convert durable ${def.name} patterns into a fake live report. Use a dated TexasDefined report when available and TPWD's current fishing report link for current conditions.` },
