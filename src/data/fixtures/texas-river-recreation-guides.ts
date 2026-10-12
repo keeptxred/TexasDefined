@@ -130,8 +130,8 @@ export const riverRecreationGuideRecords = [
     "region": "New Braunfels, Comal County",
     "overview": "The Comal is a comparatively short spring-fed river that rises in New Braunfels and joins the Guadalupe. Its tourism identity comes from accessible city parks, a developed tubing corridor and proximity to downtown, not from an expansive wilderness river or a statewide camping corridor. A useful guide must distinguish the Comal from nearby Guadalupe sections and tell visitors exactly which city rules and access points apply to their intended float.",
     "route": "Start with New Braunfels park and river information, then decide whether the trip is a city float, a family park day or a broader Comal–Guadalupe weekend. Landa Park is a land-based orientation point for the spring system; commercial tubing trips use designated access and exit arrangements that should be confirmed with the operator. Prince Solms Park and the downstream float area are common trip-planning references, but entrance, parking and river operation rules can change. Verify them at the city source instead of assuming last year's rules apply.",
-    "access": "Use New Braunfels municipal visitor information and the chosen permitted outfitter to verify river access, parking, shuttle, walking routes and any ticketing or seasonal restrictions. Do not map the entire river as a public campground or promise access through private frontage. Local policies can regulate float equipment, coolers, containers and river conduct; a general Texas river access page cannot replace city-specific rules.",
-    "float": "Comal tubing is a purpose-built visitor activity with take-out logistics, not an invitation to enter at any bank. Confirm water release or river advisory status, hazardous chutes or obstructions, equipment requirements, flotation devices and how to return to your parked car. Because the river is short, asking 'how long will the float take?' still requires a specific route, current flow, crowd level and shuttle plan.",
+    "access": "The City of New Braunfels identifies Prince Solms Park (100 Liebscher) and designated river access parks, with paid parking and specific park hours. The city's current visitor portal publishes Comal recreation advisories and flow-based closures, so check the official live river notice rather than relying on a fixed general rule. City ordinances ban disposable containers, restrict coolers and tube sizes, and require authorized access; do not substitute Guadalupe rules for Comal rules. Operators provide specific shuttles; bringing your own tube does not automatically entitle you to a shuttle return. River parking is not a public campground, and an available waterway does not imply access through private lots.",
+    "float": "The city's Comal float guidance identifies Hinman Island Park and Prince Solms Park as entry options, with a required Last Public Exit downstream; following the city route is fundamentally different from an unguided backcountry paddle. For bringing your own tube, the city states that return requires a walk rather than a provided municipal shuttle; licensed outfitters can offer separate transport. Current city rules restrict tubes over five feet, double tubes and disposable containers. The city publishes an estimated roughly 1.5–2-hour route under ordinary conditions, but that is not a guaranteed duration or a safety threshold; check actual flow, crowds, closures and exit signage.",
     "fish": "The Comal is a spring-dominated aquatic habitat where ecological protection and local recreation rules matter as much as angling opportunities. Do not promise unrestricted fishing in public parks or protected features. For fishing, consult TPWD species and regulations, identify explicitly legal locations and check whether local park or habitat rules restrict gear or bank access; anglers seeking broader river fisheries may choose verified Guadalupe reaches instead.",
     "camp": "The Comal is mainly an urban day-use and tubing destination. Do not label Landa Park or other municipal riverfront parks as overnight campgrounds without an explicit city authorization. For an overnight stay compare New Braunfels hotels, cabins or permitted commercial campgrounds, including along the nearby Guadalupe. Lodging near the Comal is not the same as a campsite on its banks; disclose which river a rental actually borders.",
     "nearby": "A useful New Braunfels itinerary combines a Comal River session with downtown heritage, Landa Park, Gruene and the nearby Guadalupe River, while preserving time for traffic, changing parking arrangements and dry clothes. A two-day itinerary can assign a separate day to Canyon Lake or a state park rather than pretending those sites lie on the same river.",
@@ -151,8 +151,8 @@ export const riverRecreationGuideRecords = [
         "That depends on the operator and route; confirm your put-in, take-out and return transport before entering."
       ],
       [
-        "Are there special tubing rules?",
-        "Yes, local New Braunfels rules may regulate containers, equipment and access. Check the city rules for the date of your trip."
+        "What are the Comal's special tubing rules?",
+        "New Braunfels prohibits disposable drink/food containers and restricts float-tube sizes and other equipment; review its current Comal-specific rules and operator notices before every trip."
       ],
       [
         "Can you fish the Comal?",
@@ -179,12 +179,16 @@ export const riverRecreationGuideRecords = [
     ],
     "official": [
       [
-        "City of New Braunfels",
-        "https://www.nbtexas.org/"
+        "New Braunfels Comal River guide",
+        "https://www.newbraunfels.gov/comalriver"
       ],
       [
-        "Texas river access law",
-        "https://tpwd.texas.gov/publications/nonpwdpubs/water_issues/rivers/navigation/riddell/publicaccess.phtml"
+        "New Braunfels river rules and prohibited equipment",
+        "https://www.newbraunfels.gov/4212/What-Can-I-Bring"
+      ],
+      [
+        "New Braunfels tubing routes and access",
+        "https://www.newbraunfels.gov/4210/How-to-Go-Tubing"
       ]
     ],
     "heroCredit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Comal_River_in_Landa_Park.jpg · License: https://creativecommons.org/licenses/by/4.0/",
