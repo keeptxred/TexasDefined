@@ -51,7 +51,7 @@ function NetworkJoinPreview() {
           <div className="grid min-h-[570px] items-center gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
             <div className="relative z-10 min-w-0">
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#b43b1a]">One Texas. Everything Connected.</p>
-              <h1 className="mt-7 max-w-[760px] font-display text-[clamp(2.8rem,5.1vw,6rem)] font-bold leading-none tracking-tight text-[#0a2242]">Put Your Business <span className="block">on the <span className="text-[#b53e20]">Texas Map</span></span></h1>
+              <h1 className="mt-7 max-w-[760px] font-display text-5xl sm:text-6xl font-bold leading-none tracking-tight text-[#0a2242]">Put Your Business <span className="block">on the <span className="text-[#b53e20]">Texas Map</span></span></h1>
               <p className="mt-7 max-w-[650px] text-lg leading-8 text-[#24354a] sm:text-xl">Join a growing community of Texas businesses. Get discovered by local customers, build your reputation, and be part of a stronger, more connected Texas.</p>
               <form role="search" onSubmit={(event) => { event.preventDefault(); const query = new FormData(event.currentTarget).get("q"); window.location.assign("/network/directory?q=" + encodeURIComponent(String(query || "").trim())); }} className="mt-8 flex max-w-[690px] items-center gap-2 rounded-full bg-white/95 p-2 shadow-lg">
                 <label className="sr-only" htmlFor="network-search-preview">Search Texas Defined</label>

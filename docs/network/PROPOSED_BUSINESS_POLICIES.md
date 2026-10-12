@@ -107,3 +107,21 @@ Data anticipated: contact/business information, owner Auth identity, proof-of-ow
 | Discovery | Only editorially approved and separately published listings indexable after launch authorization; private drafts/verification NEVER indexed; label paid promotion | Approve sponsor/featured disclosure and indexing launch timing |
 
 **Owner response required:** Mark each row `APPROVE` / `AMEND: …` / `DEFER`, assign exact Featured price or leave Featured disabled, and confirm whether sole-admin release permissions (SQL, staging, test mail, merge, live billing, indexing) are each individually granted. Absence of a response is **not** approval. Security revocation, hosted provider testing, and legal review remain release blockers regardless of commercial decisions.
+
+
+## Proposed Featured monthly price — 2026-10-11 continuation (NOT OWNER-APPROVED)
+
+**Proposed launch price: $49.95/month (USD).** The alternative $79.95/month should **not** be charged or advertised as the default at the initial Network launch unless the sole owner separately chooses it and the product demonstrably provides higher-value recurring distribution. This is a planning recommendation, **not** authorization to create a live Stripe price or charge anyone.
+
+**Existing verified Plus price:** $19.99/month, not $19.95. Do not silently change the existing customer price, price ID, or renewal disclosure. Basic remains free.
+
+**Featured's intended non-negotiable distinction from Plus, requiring real staged acceptance:**
+- All Plus fields, contact options, FAQ, gallery, and verified listing insights.
+- Expanded **Feature-tier** performance reporting with daily views, contact-channel breakdown and seven-day comparisons; no claims about unique people, leads, bookings or sales.
+- Independently reviewed owner-submitted revisions/media. Existing six-photo public gallery ceiling and revision-asset quota cannot be marketed as an enlarged published photo gallery until code, editorial processes and stage proof actually provide that benefit.
+- If sold as paid sponsored directory placement, it needs a real, repeatably testable, clearly labeled sponsored surface and eligibility rules, with no editorial-ranking or traffic guarantee.
+- Sponsored stories/extra promotions remain separately scoped and priced services; they are **not** automatically included in $49.95 membership unless the sole owner approves capacity and deliverables.
+
+**Currently missing:** Featured recurring Stripe product/price, owner-bound upgrade/Checkout/portal flow, invoice and entitlement reconciliation separate from Plus, final disclosure, tested downgrade/revocation behavior, real two-owner hosting/browser evidence, finalized sponsorship inventory. The present source only supports $19.99 Plus self-service and an administrator-managed Featured capability; it must not advertise the proposed $49.95 as already purchasable.
+
+**Owner decision remains required:** Explicitly approve $49.95 versus $79.95, term, taxes, refunds, cancellation, sponsorship allocation and included benefits. No unapproved public listing copy, automatic billing or production activation.

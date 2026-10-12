@@ -893,3 +893,10 @@ At this continuation, PR #4660 had source HEAD `902146b011c2b1e84c9721e754b9ad78
 **Reconciliation requirement before launch:** integrate main's verified customer/billing-account identity, shared invoice events and tests *with* the draft's dedicated Network signing secrets, strict per-application ownership and subscription validation, environment isolation, release gates, route generation and pending metrics migration. Run clean-room replay with all currently installed migrations, all four required CI workflows on the single reconciled exact HEAD, and hosted full Stripe subscription lifecycle acceptance. Source success against the older base must not be treated as acceptance of the combined program.
 
 **Latest CI observation:** GitHub's pull-request workflow-run list and combined commit statuses returned no run records at the new documentation-only HEAD at inspection; this does not establish a pass or a failure. Do not invent green certifications. Earlier `5744f51f...` failed Merge Gate and CSS/Calculator budget; the post-correction HEAD requires a real build.
+
+
+## October 11 follow-up — price clarification and CSS budget remediation
+
+Owner asked whether the advertised higher-tier plan should be $49.95 or $79.95 monthly. **Nonbinding engineering recommendation: $49.95/month Featured, pending explicit commercial/terms approval and verified benefit fulfillment.** Plus' configured live price is $19.99, not $19.95. Do not create live Featured prices or display a purchasable subscription until owner approval and full provider acceptance. Details: `docs/network/PROPOSED_BUSINESS_POLICIES.md`.
+
+Exact prior HEAD `3e3d307f4fe0af191417faba7b7e36267cd9282f`: disposable Auth/Storage, browser QA and migration replay passed; Merge Gate and Calculator both failed the **same** primary stylesheet check: 141,461 bytes versus hard cap 141,450 bytes (11 bytes above). Swapped one bespoke clamp font-size from the Network join heading for existing responsive typography classes **without raising the CSS cap**. This edit must be verified on the next exact committed HEAD; it is not itself proof of a green build.
