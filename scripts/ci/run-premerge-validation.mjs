@@ -62,6 +62,7 @@ const prebuildChecks = [
   ['NETWORK/HOSTED-STAGING', 'Verify hosted staging read-only check refuses production and proves two-owner isolation', 'node', ['--test', 'scripts/data/network-hosted-stage-readonly.test.mjs']],
   ['NETWORK/OPERATIONS', 'Verify Network health inventory only executes aggregate SELECT statements', 'node', ['--test', 'scripts/data/network-operations-readonly.test.mjs']],
   ['NETWORK/PUBLIC-INDEX', 'Verify only editorially published profiles are searchable after directory launch', 'node', ['--test', 'scripts/data/network-public-indexing.test.mjs']],
+  ['NETWORK/PLAN-INTEGRITY', 'Reject Basic expanded benefit leakage in SSR and public React pages', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-public-profile-policy.test.mjs']],
   ['NETWORK/INTAKE', 'Test hard actual-byte cap for streamed application uploads', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-intake-limits.test.mjs']],
   ['NETWORK/INTAKE', 'Verify interrupted media cleanup preserves uncertain application evidence and prevents orphaned private media', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-intake-cleanup.test.mjs']],
   ['NETWORK/MEDIA', 'Test immutable approved public-image copies and safe same-byte replay', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-published-media.test.mjs']],
