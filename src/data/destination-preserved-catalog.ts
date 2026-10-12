@@ -1,3 +1,4 @@
+import { canonicalHistoricStateParkDestinations } from "./canonical-historic-state-parks";
 import { newlyOpenedStateParks2026 } from "./newly-opened-state-parks-2026";
 import { stateParkAuthorityRecoveryDestinations } from "./state-park-authority-recovery";
 import { animalSanctuaryDestinations } from "./animal-sanctuary-destinations";
@@ -326,6 +327,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   smallTownWave15Destinations,
   stateParkAuthorityRecoveryDestinations,
   newlyOpenedStateParks2026,
+  canonicalHistoricStateParkDestinations,
   [shinerBreweryDestination],
   [shinerTownDestination],
   [newBraunfelsSeasonalFallback],
