@@ -115,7 +115,7 @@ export const fishingFishImages: Record<string, FishingVisualAsset> = {
 const lake = (id: string, src: string, alt: string, width: number, height: number, creator: string, licenseName: string, licenseUrl: string, rightsStatus: FishingImageRightsStatus): FishingVisualAsset => ({
   id, kind: "lake", src, alt, width, height,
   sourceName: "TexasDefined governed local asset · Wikimedia Commons provenance",
-  creator, licenseName, licenseUrl, rightsStatus, verifiedAt: checkedAt, actualLocation: true,
+  creator, licenseName, licenseUrl, rightsStatus, verifiedAt: VERIFIED_AT, actualLocation: true,
   credit: `${creator} · ${licenseName} · Wikimedia Commons`,
 });
 
@@ -125,7 +125,7 @@ const licensedRemoteLake = (id: string, src: string, sourceUrl: string, alt: str
 });
 
 const commonsLake = (id: string, filename: string, alt: string, width: number, height: number, creator: string, licenseName: string, licenseUrl: string, rightsStatus: FishingImageRightsStatus, sourceName = "Wikimedia Commons", checkedAt = VERIFIED_AT): FishingVisualAsset => ({
-  id, kind: "lake", src: commonsLakeImage(filename), alt, width, height, sourceName, sourceUrl: commonsFile(filename), creator, licenseName, licenseUrl, rightsStatus, verifiedAt: VERIFIED_AT, actualLocation: true,
+  id, kind: "lake", src: commonsLakeImage(filename), alt, width, height, sourceName, sourceUrl: commonsFile(filename), creator, licenseName, licenseUrl, rightsStatus, verifiedAt: checkedAt, actualLocation: true,
   credit: `${creator} · ${licenseName} · Wikimedia Commons`,
 });
 
