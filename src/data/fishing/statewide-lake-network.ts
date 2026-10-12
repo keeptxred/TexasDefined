@@ -96,7 +96,7 @@ const fish = (
 
 export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
   {
-    slug: "lake-buchanan", name: "Lake Buchanan", tpwdSlug: "buchanan", waterDataSlug: "buchanan", region: "hill-country",
+    slug: "lake-buchanan", name: "Lake Buchanan", verifiedAt: "2026-10-12", tpwdSlug: "buchanan", waterDataSlug: "buchanan", region: "hill-country",
     summary: "A large Highland Lakes reservoir on the Colorado River with nationally useful striped- and white-bass patterns plus largemouth bass and catfish.",
     surfaceAcres: 22211, maxDepthFeet: 132, impoundedYear: 1937, counties: ["Burnet", "Llano"], nearestCities: ["Burnet", "Kingsland", "Buchanan Dam"],
     waterway: "Colorado River", riverBasin: "Colorado River Basin", authority: "Lower Colorado River Authority", conservationPool: "Verify current LCRA operating level", fluctuation: "Considerable", clarity: "Clear near the dam; increasingly turbid upstream",
@@ -108,7 +108,12 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("largemouth-bass", "Largemouth bass", "good", "spring", "Rocky lower-lake banks and flooded shoreline cover support a useful bass fishery.", ["topwater","spinnerbaits","crankbaits","soft-plastics"]),
       fish("catfish", "Catfish", "excellent", "year-round", "Blue, channel and flathead catfish occur throughout the reservoir.", ["cut-bait","live-bait"]),
     ],
-    access: "TPWD lists multiple public and private boat ramps around the lake; low-water conditions can change ramp usability.", nearbyLakes: [{slug:"lake-lbj",name:"Lake LBJ"},{slug:"lake-travis",name:"Lake Travis"}],
+    access: "TPWD lists multiple public and private boat ramps around the lake; low-water conditions can change ramp usability.",     accessPoints: [
+      { name: "Burnet County Park", operator: "Burnet County", kind: "park", launch: "Off FM 2341 on the east shore at mid-lake. Two-lane concrete ramp; TPWD notes it is often usable during low water but vulnerable to northwest winds.", fee: "TPWD lists no launch fee", availability: "Listed year-round; check Burnet County and lake elevation before towing." },
+      { name: "Buchanan Dam Ramp", operator: "Private operator noted by TPWD", kind: "public-ramp", launch: "East side of Buchanan Dam, accessed via SH 29 and FM 690 from Burnet. Two-lane concrete ramp.", fee: "TPWD lists a fee; check current charge", availability: "TPWD does not confirm same-day usability; confirm directly before travel." },
+      { name: "Colorado Bend State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Upper Colorado River above Buchanan; primitive launch/wade-fishing corridor, NOT a standard improved large-boat ramp.", fee: "State park entrance fee; verify separately", availability: "Check TPWD park alerts, river flow and seasonal river-run conditions before traveling." },
+    ],
+    nearbyLakes: [{slug:"lake-lbj",name:"Lake LBJ"},{slug:"lake-travis",name:"Lake Travis"}],
     camping: { name: "Lake Buchanan and Colorado Bend corridor", summary: "TPWD points anglers to multiple camping options around the lake and upper Colorado River, including nearby public recreation areas." },
     travelAlerts: ["TPWD reports zebra mussels in Lake Buchanan. Clean, drain and dry boats, trailers, livewells, bait buckets and gear before visiting another water body; draining water is required by Texas law."],
   },
@@ -214,7 +219,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     nearbyLakes: [{slug:"ray-roberts-lake",name:"Ray Roberts Lake"},{slug:"grapevine-lake",name:"Grapevine Lake"}],
   },
   {
-    slug: "ray-roberts-lake", name: "Ray Roberts Lake", tpwdSlug: "ray_roberts", waterDataSlug: "ray-roberts", region: "prairies-lakes",
+    slug: "ray-roberts-lake", name: "Ray Roberts Lake", verifiedAt: "2026-10-12", tpwdSlug: "ray_roberts", waterDataSlug: "ray-roberts", region: "prairies-lakes",
     summary: "A 25,600-acre reservoir north of Denton with excellent largemouth bass, crappie and white bass plus extensive standing timber.",
     surfaceAcres: 25600, maxDepthFeet: 106, impoundedYear: 1987, counties: ["Denton", "Cooke", "Grayson"], nearestCities: ["Denton", "Sanger", "Pilot Point"],
     waterway: "Elm Fork Trinity River", riverBasin: "Trinity River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "632.5 ft msl", fluctuation: "About 3–5 feet", clarity: "Clear",
@@ -226,7 +231,13 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("white-bass","White bass","excellent","spring","Spring tributary runs and summer main-lake schools provide two major seasonal windows.",["topwater","vertical-jigging","live-bait"]),
       fish("catfish","Catfish","good","year-round","Blue and channel catfish support year-round fishing.",["cut-bait","live-bait"]),
     ],
-    access: "TPWD operates state-park units and satellite parks with ramps around the lake; other facilities are managed by USACE and local operators.", nearbyLakes: [{slug:"lewisville-lake",name:"Lewisville Lake"},{slug:"lake-texoma",name:"Lake Texoma"}],
+    access: "TPWD operates state-park units and satellite parks with ramps around the lake; other facilities are managed by USACE and local operators.",     accessPoints: [
+      { name: "Buck Creek Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "West side of US 377 about a mile south of Tioga. Two-lane concrete ramp with boarding pier; TPWD lists up to 75 parking spaces.", fee: "TPWD lists park access fee", availability: "Can close around lake elevation 634.7 ft per TPWD; verify current conditions (940) 686-2148." },
+      { name: "Jordan Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "About one mile west of Pilot Point on FM 1192. Four-lane concrete ramp with pier and up to 75 spaces.", fee: "TPWD lists fee", availability: "TPWD warns it can close near lake elevation 639.0 ft; confirm before towing (940) 686-2148." },
+      { name: "Isle du Bois State Park Unit", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Southern park unit of Ray Roberts Lake; official TPWD site map lists launch and campground amenities.", fee: "State park entry/launch charges may apply", availability: "Camping and marina/ramp usability depend on current TPWD unit alerts; (940) 686-2148." },
+      { name: "Johnson Branch State Park Unit", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Northern state park unit of Ray Roberts Lake with public launch and camping in TPWD access inventory.", fee: "State park entry/launch charges may apply", availability: "Check current status and park reservations directly with TPWD (940) 637-2294." },
+    ],
+    nearbyLakes: [{slug:"lewisville-lake",name:"Lewisville Lake"},{slug:"lake-texoma",name:"Lake Texoma"}],
     camping: {name:"Ray Roberts Lake State Park",summary:"State-park units provide established camping and lake access; verify reservations, closures and ramp conditions before travel."},
     travelAlerts: ["TPWD reports zebra mussels in Ray Roberts Lake. Drain and clean boats and equipment under the latest invasive-species rules."],
   },
@@ -313,7 +324,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "TPWD lists three public ramps and several commercial facilities, many with docks, camping or other amenities.", nearbyLakes: [{slug:"grapevine-lake",name:"Grapevine Lake"},{slug:"lake-bridgeport",name:"Lake Bridgeport"}],
   },
   {
-    slug: "lake-bridgeport", name: "Lake Bridgeport", tpwdSlug: "bridgeport", waterDataSlug: "bridgeport", region: "prairies-lakes",
+    slug: "lake-bridgeport", name: "Lake Bridgeport", verifiedAt: "2026-10-12", tpwdSlug: "bridgeport", waterDataSlug: "bridgeport", region: "prairies-lakes",
     summary: "A deep North Texas reservoir with excellent crappie and white/hybrid striped bass plus good largemouth and smallmouth bass.",
     surfaceAcres: 11954, maxDepthFeet: 85, impoundedYear: 1932, counties: ["Jack", "Wise"], nearestCities: ["Bridgeport", "Runaway Bay", "Decatur"],
     waterway: "West Fork Trinity River", riverBasin: "Trinity River Basin", authority: "Tarrant Regional Water District", conservationPool: "836 ft msl", fluctuation: "About 12 feet annually", clarity: "Moderately clear",
@@ -326,7 +337,13 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("largemouth-bass","Largemouth bass","good","year-round","Rock, riprap, points and coves create broad bass habitat.",["crankbaits","soft-plastics"]),
       fish("smallmouth-bass","Smallmouth bass","good","year-round","Clearer rocky water provides meaningful smallmouth opportunity.",["crankbaits","soft-plastics"]),
     ],
-    access: "Public and private launch sites are distributed around the reservoir; lake-level swings make current ramp verification important.", nearbyLakes: [{slug:"eagle-mountain-lake",name:"Eagle Mountain Lake"},{slug:"possum-kingdom-reservoir",name:"Possum Kingdom Reservoir"}],
+    access: "Public and private launch sites are distributed around the reservoir; lake-level swings make current ramp verification important.",     accessPoints: [
+      { name: "US 380 Bridge Ramp", operator: "Tarrant Regional Water District", kind: "public-ramp", launch: "West end of US 380 bridge over south arm at Runaway Bay. Single-lane concrete ramp with unpaved parking.", fee: "TPWD lists no fee", availability: "TPWD says unusable at high lake levels; TRWD (940) 683-2349 can confirm access." },
+      { name: "Dam Site Ramp", operator: "Tarrant Regional Water District", kind: "public-ramp", launch: "East shore by dam, about five miles west of Bridgeport on FM 1658 then across dam. Single lane with limited parking.", fee: "TPWD lists no fee", availability: "Year-round in TPWD inventory; verify operator and actual water access." },
+      { name: "Wise County Park", operator: "Wise County", kind: "park", launch: "North end west of FM 2952. Three two-lane ramps with parking; camping and day use in county park.", fee: "TPWD lists free launch/day use, camping and other services extra", availability: "Year-round in TPWD inventory; Wise County (940) 644-1910; check reservations." },
+      { name: "Lakeside Marina", operator: "Private operator in TPWD inventory", kind: "marina", launch: "From Bridgeport west on US 380 past bridge, first driveway on north side. TPWD lists a ramp for various boat sizes.", fee: "TPWD lists no fee; verify current private operations", availability: "Can be out of water at low lake levels; private operator historically (940) 575-2597." },
+    ],
+    nearbyLakes: [{slug:"eagle-mountain-lake",name:"Eagle Mountain Lake"},{slug:"possum-kingdom-reservoir",name:"Possum Kingdom Reservoir"}],
   },
   {
     slug: "lake-austin", name: "Lake Austin", tpwdSlug: "austin", waterDataSlug: "austin", region: "hill-country",
@@ -375,7 +392,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     camping: {name:"Lake Somerville State Park",summary:"Nails Creek and Birch Creek units provide established camping and lake access; verify park alerts and reservations before travel."},
   },
   {
-    slug: "belton-lake", name: "Belton Lake", tpwdSlug: "belton", waterDataSlug: "belton", region: "prairies-lakes",
+    slug: "belton-lake", name: "Belton Lake", verifiedAt: "2026-10-12", tpwdSlug: "belton", waterDataSlug: "belton", region: "prairies-lakes",
     summary: "A deep Central Texas reservoir with excellent smallmouth and hybrid striped bass plus good largemouth, white bass and catfish.",
     surfaceAcres: 12385, maxDepthFeet: 124, impoundedYear: 1954, counties: ["Bell", "Coryell"], nearestCities: ["Belton", "Temple", "Killeen"],
     waterway: "Leon River", riverBasin: "Brazos River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "594 ft msl", fluctuation: "About 3–5 feet", clarity: "Moderate",
@@ -388,7 +405,12 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("white-bass","White bass","good","spring","Spring fish move into the Leon River and upper reservoir.",["jigs-and-minnows","live-bait"]),
       fish("catfish","Catfish","good","year-round","Channel and flathead catfish add year-round bait fishing.",["cut-bait","live-bait"]),
     ],
-    access: "USACE parks provide boat ramps, bank-fishing access, camping and courtesy docks; marinas provide additional supplies and fuel.", nearbyLakes: [{slug:"stillhouse-hollow-reservoir",name:"Stillhouse Hollow Reservoir"},{slug:"lake-whitney",name:"Lake Whitney"}],
+    access: "USACE parks provide boat ramps, bank-fishing access, camping and courtesy docks; marinas provide additional supplies and fuel.",     accessPoints: [
+      { name: "Cedar Ridge Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "TPWD lists a Corps-operated Cedar Ridge access area with boat ramp and lakeside camping amenities; verify entrance and launch at the USACE/TPWD map.", fee: "TPWD says many Corps parks charge day-use fees; verify specific facility", availability: "Contact USACE about current ramp, camping and parking availability." },
+      { name: "Westcliff Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "TPWD identifies Westcliff Park boat access, picnic and camping amenities; confirm official approach on the operator map.", fee: "Check current Corps day-use and launch charges", availability: "USACE access status and campsite booking must be confirmed." },
+      { name: "Temple Lake Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "TPWD lists Temple Lake Park as a boat-access and picnicking facility on Belton Lake.", fee: "Check current Corps day-use and launch charges", availability: "Confirm current season, park openings and low-water access with the USACE." },
+    ],
+    nearbyLakes: [{slug:"stillhouse-hollow-reservoir",name:"Stillhouse Hollow Reservoir"},{slug:"lake-whitney",name:"Lake Whitney"}],
   },
   {
     slug: "stillhouse-hollow-reservoir", name: "Stillhouse Hollow Reservoir", tpwdSlug: "stillhouse_hollow", waterDataSlug: "stillhouse-hollow", region: "prairies-lakes",
@@ -559,7 +581,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     nearbyLakes: [{slug:"lake-conroe",name:"Lake Conroe"},{slug:"lake-livingston",name:"Lake Livingston"}],
   },
   {
-    slug: "joe-pool-lake", name: "Joe Pool Lake", tpwdSlug: "joe_pool", waterDataSlug: "joe-pool", verifiedAt: "2026-10-09", region: "prairies-lakes",
+    slug: "joe-pool-lake", name: "Joe Pool Lake", verifiedAt: "2026-10-12", tpwdSlug: "joe_pool", waterDataSlug: "joe-pool", verifiedAt: "2026-10-09", region: "prairies-lakes",
     summary: "A 6,469-acre Dallas-Fort Worth reservoir with hydrilla, flooded timber and roadbed structure supporting good largemouth bass, crappie, white bass and channel catfish fishing.",
     surfaceAcres: 6469, maxDepthFeet: 75, impoundedYear: 1986, counties: ["Tarrant", "Ellis", "Dallas"], nearestCities: ["Grand Prairie", "Cedar Hill", "Midlothian"],
     waterway: "Mountain Creek", riverBasin: "Trinity River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "522 ft msl", fluctuation: "2–4 feet annually", clarity: "Clear near the dam to stained",
@@ -572,6 +594,12 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("white-bass","White bass","good","summer","Schooling white bass commonly use the lower portion of the lake.",["topwater","vertical-jigging"]),
     ],
     access: "Cedar Hill State Park and City of Grand Prairie facilities provide major ramps, shoreline fishing, camping and day-use access; confirm fees and closures before travel.", specialRules: true,
+        accessPoints: [
+      { name: "Cedar Hill State Park north ramp", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "From I-20 follow FM 1382 south. TPWD describes a six-lane north ramp with about 175 parking spaces; preferred for larger boats over the silting-prone south ramp.", fee: "State park entrance fee required", availability: "Listed year-round; check TPWD state park alerts (972) 291-3900." },
+      { name: "Cedar Hill State Park south ramp", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Within Cedar Hill State Park on FM 1382. Two-lane ramp with about 150 spaces, but TPWD documents siltation concerns for larger boats.", fee: "State park entrance fee required", availability: "TPWD cautions larger boats to use north ramp; call park for conditions (972) 291-3900." },
+      { name: "Loyd Park", operator: "City of Grand Prairie", kind: "park", launch: "From I-20 follow SH 360 south then Ragland Road east. Four-lane ramp with about 35 vehicle spaces.", fee: "Fee listed by TPWD", availability: "TPWD lists year-round; verify city access and lake conditions (817) 467-2104." },
+      { name: "Lynn Creek Park", operator: "City of Grand Prairie", kind: "park", launch: "From I-20, Great Southwest Parkway south and Lake Ridge Parkway west. Eight boat lanes and about 100 spaces.", fee: "Fee listed by TPWD", availability: "Day-use only per TPWD; confirm public access (817) 633-6265." },
+    ],
     nearbyLakes: [{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"cedar-creek-reservoir",name:"Cedar Creek Reservoir"}],
     camping: {name:"Cedar Hill State Park",summary:"The state park on the east side of Joe Pool Lake combines camping, shoreline recreation and boat access; reserve busy dates and verify current ramp conditions."},
   },
@@ -594,7 +622,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     travelAlerts: ["TPWD warns that golden-alga blooms can occur on Lake Granbury and may harm fish and change fishing conditions; contact TPWD or check current bloom reports before planning a fishing-specific trip."],
   },
   {
-    slug: "lake-waco", name: "Lake Waco", tpwdSlug: "waco", waterDataSlug: "waco", verifiedAt: "2026-10-09", region: "prairies-lakes",
+    slug: "lake-waco", name: "Lake Waco", verifiedAt: "2026-10-12", tpwdSlug: "waco", waterDataSlug: "waco", verifiedAt: "2026-10-09", region: "prairies-lakes",
     summary: "An 8,465-acre Bosque River reservoir inside Waco with excellent largemouth and channel/blue catfish plus strong crappie, white bass and hybrid striped bass opportunity.",
     surfaceAcres: 8465, maxDepthFeet: 90, impoundedYear: 1965, counties: ["McLennan"], nearestCities: ["Waco", "Woodway", "Bellmead"],
     waterway: "North, Middle and South Bosque rivers", riverBasin: "Brazos River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "462 ft msl", fluctuation: "2–6 feet", clarity: "Stained to murky most of the year",
@@ -609,10 +637,15 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("hybrid-striped-bass","Hybrid striped bass","good","year-round","Palmetto bass add another open-water shad-oriented target.",["trolling","vertical-jigging","live-bait"]),
     ],
     access: "The U.S. Army Corps of Engineers operates a broad public-access network with ramps, bank fishing and camping around Lake Waco; individual parks have seasonal schedules and fees.", accessPage: "access2.phtml", specialRules: true,
+        accessPoints: [
+      { name: "Reynolds Creek Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "TPWD lists a public ramp, camping and shoreline recreation at Reynolds Creek on Lake Waco. Confirm entrance and ramp coordinates against USACE park map.", fee: "TPWD says most ramps charge launch fees; verify facility price", availability: "Verify USACE park and campground status before booking." },
+      { name: "Speegleville Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "Official TPWD access inventory lists launch, campground and picnicking facilities at Speegleville.", fee: "TPWD says most ramps charge launch fees; verify", availability: "USACE park status and operator reservations control overnight access." },
+      { name: "Midway Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "TPWD lists a launch and shoreline recreation park at Midway on Lake Waco.", fee: "TPWD says most ramps charge launch fees; verify", availability: "Check current USACE ramp condition and fee before travel." },
+    ],
     nearbyLakes: [{slug:"lake-whitney",name:"Lake Whitney"},{slug:"belton-lake",name:"Belton Lake"}],
   },
   {
-    slug: "lake-brownwood", name: "Lake Brownwood", tpwdSlug: "brownwood", waterDataSlug: "brownwood", verifiedAt: "2026-10-09", region: "hill-country",
+    slug: "lake-brownwood", name: "Lake Brownwood", verifiedAt: "2026-10-12", tpwdSlug: "brownwood", waterDataSlug: "brownwood", verifiedAt: "2026-10-09", region: "hill-country",
     summary: "A 6,490-acre Pecan Bayou reservoir north of Brownwood with excellent white bass, good largemouth and catfish, rocky shoreline, docks, timber and direct state-park access.",
     surfaceAcres: 6490, maxDepthFeet: 95, impoundedYear: 1933, counties: ["Brown"], nearestCities: ["Brownwood", "Early", "Bangs"],
     waterway: "Pecan Bayou and Jim Ned Creek", riverBasin: "Colorado River Basin", authority: "Brown County Water Control and Irrigation District No. 1", conservationPool: "1,425 ft msl", fluctuation: "Moderate and sometimes prone to long declines", clarity: "Clear to stained",
@@ -625,6 +658,11 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("crappie","Crappie","fair","spring","Crappie are a secondary target around timber, docks and brush.",["jigs-and-minnows"],"secondary"),
     ],
     access: "TPWD lists public boating access and Lake Brownwood State Park provides a major recreation base; verify lake level, ramp status and invasive-species guidance before travel.",
+        accessPoints: [
+      { name: "Dam public ramp", operator: "Brown County Water Control and Irrigation District No. 1", kind: "public-ramp", launch: "Across dam on FM 2632. TPWD lists a lighted multilane public ramp, courtesy dock and large parking area.", fee: "TPWD lists no fee", availability: "Year-round per TPWD; check lake condition with district (325) 643-2609." },
+      { name: "Flatrock Park", operator: "Brown County Water Control and Irrigation District No. 1", kind: "park", launch: "On FM 2632 just north of FM 3021 junction. Lighted two-lane ramp with parking for under 50 vehicles.", fee: "TPWD lists no fee", availability: "TPWD warns steep ramp needs caution when lake five feet low or more; check district (325) 643-2609." },
+      { name: "Lake Brownwood State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Off Park Road 15 east of SH 279. Lighted multiple-lane ramp with about 20 vehicle spaces, plus fishing pier and camping.", fee: "State park entrance fee", availability: "TPWD says year-round access, though cabins/camping can be seasonal; confirm park (325) 784-5223." },
+    ],
     nearbyLakes: [{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"proctor-lake",name:"Proctor Lake"}],
     camping: {name:"Lake Brownwood State Park",summary:"The state park provides established camping and lake recreation on the shoreline; check reservations, ramp conditions and current park alerts."},
     travelAlerts: ["TPWD reports zebra mussels in this reservoir. Follow current boat, livewell and equipment cleaning and draining requirements before entering other waters."],
@@ -647,7 +685,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     nearbyLakes: [{slug:"lake-brownwood",name:"Lake Brownwood"},{slug:"lake-granbury",name:"Lake Granbury"}],
   },
   {
-    slug: "lake-arrowhead", name: "Lake Arrowhead", tpwdSlug: "arrowhead", waterDataSlug: "arrowhead", verifiedAt: "2026-10-09", region: "panhandle",
+    slug: "lake-arrowhead", name: "Lake Arrowhead", verifiedAt: "2026-10-12", tpwdSlug: "arrowhead", waterDataSlug: "arrowhead", verifiedAt: "2026-10-09", region: "panhandle",
     summary: "A 14,969-acre reservoir southeast of Wichita Falls with excellent catfish, a strong spring white-crappie fishery, white bass, rocky structure, timber and unusual submerged oil-derrick habitat.",
     surfaceAcres: 14969, maxDepthFeet: 45, impoundedYear: 1966, counties: ["Clay"], nearestCities: ["Wichita Falls", "Henrietta", "Scotland"],
     waterway: "Little Wichita River", riverBasin: "Red River Basin", authority: "City of Wichita Falls", conservationPool: "926 ft msl", fluctuation: "4–6 feet", clarity: "Typically 1–2 feet of visibility",
@@ -660,6 +698,11 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("white-bass","White bass","fair","spring","White bass use rocky points in spring and school over shad in warmer months.",["topwater","vertical-jigging"],"secondary"),
     ],
     access: "Lake Arrowhead State Park and other public access sites provide ramps, fishing and shoreline recreation; check water level and facility status before towing.",
+        accessPoints: [
+      { name: "Lake Arrowhead State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "From US 281 take FM 1954 toward Park Road 63; TPWD lists an improved public boat ramp for multiple boat sizes and accessible shore fishing facilities.", fee: "TPWD state park entrance fee", availability: "TPWD lists year-round; confirm lake level and park ramp (940) 528-2211." },
+      { name: "West Arrowhead Park", operator: "City of Wichita Falls", kind: "park", launch: "From FM 1954 by state park take West Arrowhead Road to signed Boat Ramp Road, and follow to launch. Ramp accommodates varied boat sizes.", fee: "No launch fee listed by TPWD", availability: "Listed year-round; verify current use and reservoir level with City of Wichita Falls (940) 761-7491." },
+      { name: "Shoshone Park", operator: "City of Wichita Falls", kind: "park", launch: "At upper end east of US 281 just south of Little Wichita River bridge. Ramp intended for smaller boats.", fee: "No launch fee listed by TPWD", availability: "TPWD warns launch works only when reservoir is near conservation pool; verify with city (940) 761-7491." },
+    ],
     nearbyLakes: [{slug:"lake-bridgeport",name:"Lake Bridgeport"},{slug:"lake-stamford",name:"Lake Stamford"}],
     camping: {name:"Lake Arrowhead State Park",summary:"The state park is the clearest overnight and shoreline-access base for the reservoir; verify reservations and current ramp conditions."},
   },
