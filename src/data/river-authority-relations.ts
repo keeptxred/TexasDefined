@@ -88,7 +88,7 @@ export function riverAuthorityLinksForCounty(slug: string): ArticleInternalLink[
   return linksFor("counties", slug);
 }
 
-export function riverAuthorityLinksForDestination(slug: string): ArticleInternalLink[] {
+export function riverAuthorityLinksForDestination(slug: string): RiverAuthorityLink[] {
   return linksFor("destinations", slug);
 }
 
