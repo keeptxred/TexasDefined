@@ -1,5 +1,10 @@
 # TexasDefined High School Football — Batch 004 Final Production Acceptance Evidence
 
+## October 12, 2026 — Supabase source-monitoring remediation
+
+Verified directly in the existing TexasDefined Supabase authority-verification tables: all 25 immutable Batch 004 football URLs were already registered but were incorrectly classified at a 90-day generic-evergreen interval, with no source links, no completed source checks and no `last_verified_at`. On October 12, 2026, their registry cadence was updated to **14 days**, `next_review_at` was set due, and **71 canonical page/source rows** were inserted into `public.td_authority_verification_sources` from each school's already documented program-editorial sources (up to three school/UIL/independent references per page; the current Austin ISD directory was also added for McCallum). Read-back SQL verified **25/25 present, 25/25 at 14 days, 25/25 due and still editorially awaiting; 71 source rows spanning 25 pages, all awaiting first verification**. Existing active scheduled Supabase jobs `td-authority-enqueue-sources`, `td-authority-collect-sources` and `td-authority-mark-due` are reused, not duplicated. The collector cron has recent successful invocations, but **do not equate successful execution of the cron request with source-level HTTP or editorial verification results**. First network checks and human review of changed facts remain pending evidence.
+
+
 **October 12 directory correction:** PR #4700 corrects LASA's campus to 1012 Arthur Stiles Road and adds six missing Austin school campus contact records for Austin High, Bowie, Crockett, Eastside, LBJ and Navarro. All seven use the current Austin ISD high-school directory: https://www.austinisd.org/schools/level/H. Stadium gates and event parking are separate facts. Changes remain subject to protected merge and live acceptance.
 
 ## October 12, 2026 — Supplemental current source audit
