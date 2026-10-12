@@ -1,5 +1,11 @@
 # TexasDefined High School Football — Batch 004 Final Production Acceptance Evidence
 
+## October 12, 2026 — Supplemental current source audit
+
+Source inventory confirms all 25 Batch 004 program editorial records exist and have October 10, 2026 source verification dates; none contains a profile-specific photo. Shared site imagery has not been reviewed for licensing in this static check.
+
+[PR #4700](https://github.com/keeptxred/TexasDefined/pull/4700) introduces three evidence-producing independent checks: TEA school-site coordinates versus Austin full-purpose municipal polygons (12 linked sites and four exclusions), horizontally focused axe contrast rescans, and source URL reachability with photo-claim inventory. Results and any unresolved problems must be reviewed before those tasks are certified. Automated checks cannot replace hands-on assistive-technology, browser zoom, or live facility and photographer evidence.
+
 ## October 12, 2026 — Batch 004 accessibility remediation FINAL automated production acceptance (CURRENT)
 
 **Scope / verdict:** The original source-corrected **25/25 Batch 004 school registry statuses remain VERIFIED**, with no unassigned Batch 004 schools; 25/25 sitemap entries remain valid. The *additional* automated accessibility remediation now **PASSES** on the exact deployed merge commit `66f83208530c353708228a99f425d0687273ae52`. This acceptance is for the covered automated tests, **not** full manual WCAG or screen-reader certification.
