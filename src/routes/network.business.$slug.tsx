@@ -34,7 +34,7 @@ export const Route = createFileRoute("/network/business/$slug")({
     // Staging and unlaunched routes never advertise an indexable canonical URL.
     const profile = (loaderData?.profile ?? {}) as Record<string,unknown>;
     const safe = (key:string) =>
-      typeof profile[key]==="string" ? (profile[key] as string).replace(/\\s+/g," ").trim() : "";
+      typeof profile[key]==="string" ? (profile[key] as string).replace(/\s+/g," ").trim() : "";
     const name = safe("business_name") || "Texas Business";
     const area = [safe("category"),safe("city")].filter(Boolean).join(" in ");
     const summary = safe("description");
