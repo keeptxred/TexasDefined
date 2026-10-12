@@ -65,10 +65,12 @@ for (const slug of new Set([...required, ...allDossiers])) {
   const routes = section(entry, "routes");
   const sources = section(entry, "sources");
   const links = section(entry, "connections");
-  if ((exhibits.match(/heading: "/g) || []).length < 3 || (exhibits.match(/detail: "/g) || []).length < 3)
-    failures.push(slug + ": fewer than three exhibit interpretations");
-  if ((routes.match(/label: "/g) || []).length < 3 || (routes.match(/steps: \[/g) || []).length < 3)
-    failures.push(slug + ": fewer than three visit itineraries");
+  const exhibitCount = (exhibits.match(/heading: "/g) || []).length;
+  if (exhibitCount < 1 || exhibitCount > 10 || (exhibits.match(/detail: "/g) || []).length !== exhibitCount)
+    failures.push(slug + ": include 1–10 meaningful, briefly interpreted exhibit/topic highlights; do not inventory museum collections.");
+  const routeCount = (routes.match(/label: "/g) || []).length;
+  if (routeCount < 1 || routeCount > 4 || (routes.match(/steps: \[/g) || []).length !== routeCount)
+    failures.push(slug + ": provide 1–4 useful visit plans suited to this actual museum, never invented routes.");
   const urls = [...sources.matchAll(/url: "(https:\/\/[^"]+)"/g)].map((x) => x[1]);
   if (new Set(urls).size < 2 || urls.some((x) => x.includes("example.com") || x.includes("wikipedia.org")))
     failures.push(slug + ": fewer than two distinct authoritative source URLs");
