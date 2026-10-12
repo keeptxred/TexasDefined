@@ -37,5 +37,7 @@ export const NETWORK_TERMS_CANONICAL_TEXT = [
   ...NETWORK_TERMS_SECTIONS.flatMap(([heading, body]) => [heading, body, ""]),
 ].join("\n").trimEnd() + "\n";
 
-export const NETWORK_PLUS_RECURRING_DISCLOSURE_SHA256 = "d6f4996584f7ffbeb80e8ac3941ee1495b67fd15a096b86135623dd8bb3b120a";\n\nexport const NETWORK_PLUS_RECURRING_DISCLOSURE =
+export const NETWORK_PLUS_RECURRING_DISCLOSURE_SHA256 = "d6f4996584f7ffbeb80e8ac3941ee1495b67fd15a096b86135623dd8bb3b120a";
+
+export const NETWORK_PLUS_RECURRING_DISCLOSURE =
   "Plus is $19.99 per month plus applicable taxes and automatically renews every month until canceled. Cancel through the Stripe billing portal or by contacting admin@texasdefined.com. Unless otherwise stated at checkout, cancellation stops future renewal and takes effect at the end of the current paid billing period.";
