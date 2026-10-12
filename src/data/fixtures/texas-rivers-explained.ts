@@ -65,6 +65,11 @@ export const texasRiversExplainedArticle: Article = {
       label: "Guadalupe River profile",
       description: "Go deeper on spring-fed tributaries, Canyon Lake, Hill Country recreation and the route to San Antonio Bay.",
     },
+    { href: "/article/texas-frio-river-guide", label: "Frio River: Garner, Concan and camping", description: "Fishing, camping, authorized access and independent trip-planning guide." },
+    { href: "/article/texas-comal-river-guide", label: "Comal River: New Braunfels tubing", description: "Fishing, camping, authorized access and independent trip-planning guide." },
+    { href: "/article/texas-san-marcos-river-guide", label: "San Marcos River: springs and paddling", description: "Fishing, camping, authorized access and independent trip-planning guide." },
+    { href: "/article/texas-llano-river-guide", label: "Llano River: Junction and South Llano", description: "Fishing, camping, authorized access and independent trip-planning guide." },
+    { href: "/article/texas-pecos-river-guide", label: "Pecos River: West Texas river country", description: "Fishing, camping, authorized access and independent trip-planning guide." },
     {
       href: "/article/texas-trinity-river-guide",
       label: "Trinity River profile",
