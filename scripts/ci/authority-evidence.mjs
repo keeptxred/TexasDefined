@@ -48,6 +48,13 @@ export function auditAuthorityEvidence(url, html) {
     catch { return []; }
   }))];
   const officialHosts = external.filter(host => OFFICIAL_HOSTS.test(host));
+  // Candidates are discovery hints, NOT validated evidence for a factual claim.
+  const officialEvidenceCandidates = [...new Set(links.flatMap(link => {
+    try {
+      const u = new URL(link, url);
+      return u.protocol === 'https:' && OFFICIAL_HOSTS.test(u.hostname) ? [u.href] : [];
+    } catch { return []; }
+  }))].slice(0, 24);
   const internalPaths = [...new Set(links.filter(link => link.startsWith('/') && !link.startsWith('//')).map(link => link.split(/[?#]/)[0]))];
   const headingTags = [...scope.matchAll(/<h[2-4]\b[^>]*>([\s\S]*?)<\/h[2-4]>/gi)].map(x => strip(x[1]));
   const relevantImageAlts = [...scope.matchAll(/<img\b[^>]*>/gi)].map(match => attr(match[0], 'alt')).filter(alt => alt.length > 24);
@@ -70,6 +77,7 @@ export function auditAuthorityEvidence(url, html) {
   return {
     family, priority, mainWords, headings: headingTags.length,
     externalHosts: external.length, identifiablePrimarySourceHosts: officialHosts.length,
+    officialEvidenceCandidates,
     internalLinkDestinations: internalPaths.length, meaningfulImageAlts: relevantImageAlts.length,
     visibleSourceSection, visibleReviewDate, visibleAuthorship,
     reviewFlags, reviewChecklist: checklist,
