@@ -41,6 +41,7 @@ import { applyCuratedDestinationBatch49 } from "./destination-curation-batch49";
 import { applyCuratedDestinationBatch52 } from "./destination-curation-batch52";
 import { applyCuratedDestinationBatch53 } from "./destination-curation-batch53";
 import { applyMoodyGardensCurrentCuration } from "./destination-curation-moody-gardens";
+import { applyAttractionAuthority20261012 } from "./destination-curation-attraction-authority-20261012";
 import { cavernExpansionDestinations } from "./cavern-destination-expansion";
 import { topAttractionExpansionDestinations } from "./destination-curation-top-attractions-fallbacks";
 import { applyCuratedTopAttractions, topAttractionDestinations } from "./destination-curation-top-attractions";
@@ -153,6 +154,7 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyCuratedTopAttractionsBatch4,
   applyCuratedTopAttractionsBatch5,
   applyMoodyGardensCurrentCuration,
+  applyAttractionAuthority20261012,
 ];
 
 function runCurators(destination: Destination): Destination {
