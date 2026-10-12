@@ -495,7 +495,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("catfish","Catfish","good","year-round","Channel catfish are present in good numbers.",["cut-bait","live-bait"]),
       fish("white-bass","White bass","fair","spring","White bass remain a secondary schooling target as the fishery rebuilds from historic drought impacts.",["vertical-jigging","topwater"],"secondary"),
     ],
-    access: "National Park Service access includes multiple ramps when water levels allow, camping/picnic areas and an ADA-accessible fishing pier.", nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"}],
+    access: "National Park Service access includes multiple ramps when water levels allow, camping/picnic areas and an ADA-accessible fishing pier.", nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"lake-sweetwater",name:"Lake Sweetwater"}],
     camping: {name:"Lake Meredith National Recreation Area",summary:"The National Park Service manages developed and primitive camping around the reservoir; ramp availability depends on water level."},
     travelAlerts: ["TPWD links to a fish-consumption advisory for Lake Meredith. Consult the current Texas Department of State Health Services notice before eating fish from the reservoir."],
   },
@@ -616,7 +616,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("white-bass","White bass","fair","spring","White bass use rocky points in spring and school over shad in warmer months.",["topwater","vertical-jigging"],"secondary"),
     ],
     access: "Lake Arrowhead State Park and other public access sites provide ramps, fishing and shoreline recreation; check water level and facility status before towing.",
-    nearbyLakes: [{slug:"lake-bridgeport",name:"Lake Bridgeport"},{slug:"lake-meredith",name:"Lake Meredith"}],
+    nearbyLakes: [{slug:"lake-bridgeport",name:"Lake Bridgeport"},{slug:"lake-stamford",name:"Lake Stamford"}],
     camping: {name:"Lake Arrowhead State Park",summary:"The state park is the clearest overnight and shoreline-access base for the reservoir; verify reservations and current ramp conditions."},
   },
   {
