@@ -350,16 +350,16 @@ const photoSpecs: Record<number, (["park", string] | ["commons", string,string,s
       "Perot Museum of Nature and Science 01.jpg",
       "Joe Mabel",
       "CC BY-SA 3.0",
-      4288,
-      2848
+      2848,
+      4288
     ],
     [
       "commons",
       "Front entrance of Witte Museum.jpg",
       "Witte Museum",
       "CC BY-SA 4.0",
-      2400,
-      1600
+      6000,
+      4000
     ]
   ],
   "115": [
