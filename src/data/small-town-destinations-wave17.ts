@@ -54,6 +54,11 @@ export const smallTownWave17Destinations: Destination[] = [
         { name: "Fayette County", description: "Understand the other towns, settlement history and distances in Round Top's region.", href: "/county/fayette" }
       ],
     },
+    visitorFaqs: [
+      { question: "Are the Round Top antique markets open every weekend?", answer: "No. Major antiques events have their own spring and fall dates, and individual venues may maintain additional opening schedules. Round Top's everyday downtown and shops are a different trip.", sourceUrl: "https://www.visitroundtop.com/annual-events" },
+      { question: "Does one antique-show ticket cover all Round Top venues?", answer: "No. The antiques corridor consists of independently operated venues, fields and events. Check each venue's admission and parking conditions before you go.", sourceUrl: "https://www.visitroundtop.com/annual-events" },
+      { question: "What can I do in Round Top outside antique-show weeks?", answer: "Walk the historic village, visit Henkel Square, browse local shops and check Festival Hill for music programs; business and event schedules vary.", sourceUrl: "https://www.visitroundtop.com/things-to-do/round-top-festival-institute" },
+    ],
     authorityGuide: {
       whyItMatters: "Round Top is not simply a flea market: it is a rare combination of a preserved historic Texas town, an internationally recognized design-shopping corridor and a serious classical-music institution. The most valuable independent guide distinguishes ordinary-town travel from operator-specific antiques and concert events.",
       assessment: { recommendedVisit: "3–5 hours for the historic core; a full day or multi-day stay for major antique-show venues", physicalEffort: "Low to moderate", weatherExposure: "Mixed indoor/outdoor", planningLevel: "High", familyFit: "Works for short cultural trips; antiques events require patience and frequent breaks.", firstTimeValue: "Strong when venue dates and geography are confirmed before travel." },
@@ -118,6 +123,12 @@ export const smallTownWave17Destinations: Destination[] = [
         { name: "Purtis Creek State Park", description: "Plan a separate fishing, hiking or camping outing with TPWD's current park access guidance.", href: "https://tpwd.texas.gov/state-parks/purtis-creek" }
       ],
     },
+    visitorFaqs: [
+      { question: "Is First Monday Trade Days open on Monday?", answer: "No. It is held Thursday, Friday, Saturday and Sunday immediately preceding the first Monday of each month, not on Monday.", sourceUrl: "https://www.firstmondaycanton.com/frequently-asked-questions" },
+      { question: "Does Canton First Monday charge admission?", answer: "The city-operated Original First Monday Park has free admission, but city-operated parking and independent venues can charge separately. Verify the chosen entrance and lot.", sourceUrl: "https://www.firstmondaycanton.com/frequently-asked-questions" },
+      { question: "Is First Monday accessible for wheelchairs or scooters?", answer: "The operator lists accessible parking at designated entrances and scooter rentals. Market terrain and privately managed adjacent grounds vary, so confirm the specific route.", sourceUrl: "https://www.firstmondaycanton.com/frequently-asked-questions" },
+      { question: "Can I bring a dog to First Monday?", answer: "The Original First Monday Park permits non-aggressive dogs kept on leashes with owners cleaning up after them; other market properties may apply different restrictions.", sourceUrl: "https://www.firstmondaycanton.com/frequently-asked-questions" },
+    ],
     authorityGuide: {
       whyItMatters: "Canton combines one of America's largest recurring shopping destinations with the normal functioning life of an East Texas county seat. Independent planning value comes from explaining exactly when the named market operates, which admission and parking rules apply to which grounds, and what visitors can do when Trade Days is not in session.",
       assessment: { recommendedVisit: "Half day for courthouse square; one full day for First Monday; two days to combine market and East Texas outdoors", physicalEffort: "Moderate", weatherExposure: "Mixed indoor/outdoor", planningLevel: "High", familyFit: "Good with shorter browsing sessions and accessible parking or child-wagon planning.", firstTimeValue: "Outstanding for market-focused trips when the calendar and parking are checked." },
@@ -182,6 +193,11 @@ export const smallTownWave17Destinations: Destination[] = [
         { name: "Historic walking-tour map", description: "Use the city's building-by-building self-guided route as an independent source.", href: "https://taylormadetexas.com/about/architectural-walking-tour/" }
       ],
     },
+    visitorFaqs: [
+      { question: "Does Taylor have a self-guided historic walking tour?", answer: "Yes. Taylor's visitor bureau provides a self-guided architectural walking tour with more than 25 named downtown locations and a downloadable map. The route does not guarantee public entry into private buildings.", sourceUrl: "https://taylormadetexas.com/about/architectural-walking-tour/" },
+      { question: "What is there for families in downtown Taylor?", answer: "Heritage Square includes gathering and play areas; nearby Murphy Park offers larger recreation facilities. Verify current pool operations and reserved park programs.", sourceUrl: "https://taylormadetexas.com/parks-recreation/" },
+      { question: "When should I visit for a community event?", answer: "Check the city's current events calendar for Second Saturday shopping, Taylor Fest and seasonal gatherings rather than relying on fixed annual assumptions.", sourceUrl: "https://taylormadetexas.com/about/events/" },
+    ],
     authorityGuide: {
       whyItMatters: "Taylor preserves a substantial walkable rail-era commercial landscape alongside parks, living downtown businesses and Blackland Prairie community events. The independent visitor guide should connect specific building histories and addresses with practical stops, rather than reducing Taylor to a single food category or to Austin-area suburban growth.",
       assessment: { recommendedVisit: "3–5 hours for a downtown walking and dining trip; a full day when parks and events are included", physicalEffort: "Low to moderate", weatherExposure: "Mixed indoor/outdoor", planningLevel: "Moderate", familyFit: "Good if a long architecture walk is balanced with park and food breaks.", firstTimeValue: "Strong for architecture, rail and local-food interests east of Austin." },
