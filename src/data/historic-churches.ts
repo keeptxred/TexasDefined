@@ -7,7 +7,7 @@ export type HistoricChurch = {
   summary: string; quickAnswer: string; denomination: string; foundation: string; presentBuilding: string;
   historicalContext: string[]; timeline: { year: string; detail: string }[];
   architecture: string[]; visitorNotes: string[]; significance: string[];
-  sources: HistoricChurchSource[]; image?: HistoricChurchImage;
+  sources: HistoricChurchSource[]; image?: HistoricChurchImage; gallery?: HistoricChurchImage[];
   paintedStatus: "not-established" | "research-candidate";
   related: { href: string; label: string; why: string }[];
   reviewedOn: string;
@@ -15,7 +15,7 @@ export type HistoricChurch = {
 export const historicChurches: HistoricChurch[] = [
   {
     slug: "yoakum-st-joseph-catholic-church",
-    name: "St. Joseph Catholic Church", shortName: "St. Joseph's, Yoakum", locality: "Yoakum", county: "DeWitt and Lavaca area",
+    name: "St. Joseph Catholic Church", shortName: "St. Joseph's, Yoakum", locality: "Yoakum", county: "DeWitt / Lavaca",
     address: "401 Orth Street, Yoakum, TX 77995", denomination: "Roman Catholic",
     foundation: "Brushy mission church established about 1850; St. Joseph church dedicated in 1876",
     presentBuilding: "1912",
@@ -169,6 +169,7 @@ export const historicChurches: HistoricChurch[] = [
       {label:"Texas Historical Commission marker 5285005047",url:"https://atlas.thc.texas.gov/Details/5285005047",type:"historical-marker"}
     ],
     image:{file:"Moulton-tx2016-7(st-josephs-church).jpg",alt:"Exterior of St. Joseph Catholic Church in Moulton, Texas",author:"Darrylpearson",license:"CC BY-SA 4.0",sourceUrl:"https://commons.wikimedia.org/wiki/File:Moulton-tx2016-7(st-josephs-church).jpg",width:1279,height:1919},
+    gallery:[{file:"Moulton-tx2016-8(st-josephs-church).jpg",alt:"Second exterior view of Saint Joseph Catholic Church in Moulton",author:"Darrylpearson",license:"CC BY-SA 4.0",sourceUrl:"https://commons.wikimedia.org/wiki/File:Moulton-tx2016-8(st-josephs-church).jpg",width:2489,height:1659}],
     paintedStatus:"research-candidate",
     related:[{href:"/county/lavaca",label:"Lavaca County guide",why:"Explore the region's settlement and school histories"},{href:"/explore/painted-churches",label:"Painted Churches of Texas",why:"Distinguish historic churches from documented decorative-painting sites"}],
     reviewedOn:"2026-10-12"
@@ -208,6 +209,7 @@ export const historicChurches: HistoricChurch[] = [
       {label:"Current parish information",url:"https://www.peterandpaulparish.com/",type:"parish"}
     ],
     image:{file:"Frelsburg TX Catholic Church.jpg",alt:"Saints Peter and Paul Catholic Church in Frelsburg, Texas",author:"Djmaschek",license:"CC BY-SA 4.0",sourceUrl:"https://commons.wikimedia.org/wiki/File:Frelsburg_TX_Catholic_Church.jpg",width:1600,height:1200},
+    gallery:[{file:"Frelsburg TX Catholic Marker.jpg",alt:"Historical marker for Saints Peter and Paul in Frelsburg",author:"Djmaschek",license:"CC BY-SA 4.0",sourceUrl:"https://commons.wikimedia.org/wiki/File:Frelsburg_TX_Catholic_Marker.jpg",width:1600,height:1200}],
     paintedStatus:"research-candidate",
     related:[{href:"/county/colorado",label:"Colorado County guide",why:"Connect Frelsburg with Columbus and New Ulm"},{href:"/explore/painted-churches",label:"Painted Churches of Texas",why:"Compare historic altars with verified decorative-painting interiors"}],
     reviewedOn:"2026-10-12"
