@@ -1,3 +1,4 @@
+import { rayRobertsLakeStateParkAuthority } from "./ray-roberts-lake-state-park-authority";
 import { lakeSomervilleStateParkAuthority } from "./lake-somerville-state-park-authority";
 import { hillCountryStateNaturalAreaAuthority } from "./hill-country-state-natural-area-authority";
 import { canonicalHistoricStateParkDestinations } from "./canonical-historic-state-parks";
@@ -332,6 +333,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   canonicalHistoricStateParkDestinations,
   [hillCountryStateNaturalAreaAuthority],
   [lakeSomervilleStateParkAuthority],
+  [rayRobertsLakeStateParkAuthority],
   [shinerBreweryDestination],
   [shinerTownDestination],
   [newBraunfelsSeasonalFallback],
