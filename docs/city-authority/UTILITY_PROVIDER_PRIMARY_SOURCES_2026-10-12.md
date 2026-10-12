@@ -1,6 +1,6 @@
 # TexasDefined 11-city municipal utility fact revalidation
 
-**Independent official-source inspection: October 12, 2026.** Scope: **city utility identity, water/wastewater/gas responsibilities and address-availability cautions** only. This does not verify household eligibility, current billing accounts, emergency readiness, or the exact provider for any specific property; neither school nor tax statuses are changed.
+**Independent official-source inspection: October 12, 2026.** Scope: **city utility identity, water/wastewater/gas/electric-delivery responsibilities and address-availability cautions** only. This does not verify household eligibility, current billing accounts, emergency readiness, or the exact provider for any specific property; neither school nor tax statuses are changed.
 
 | City | Verified limited claim | Direct government/operator source checked | Scope/status |
 |---|---|---|---|
@@ -14,7 +14,7 @@
 | Hurst | Hurst Public Works handles distribution and wastewater; Fort Worth lists Hurst as a **wholesale water and wastewater customer** | [Hurst Water Division](https://www.hursttx.gov/about-us/departments/public-works/operations/water-division), [Fort Worth wholesale](https://www.fortworthtexas.gov/departments/water/wholesale) | Operator/upstream supply distinction PASS; **new public qualification** |
 | Corpus Christi | Corpus Christi Water operates drinking-water/wastewater; Corpus Christi Gas is a separate city natural-gas department | [City utilities](https://www.corpuschristitx.gov/living-in-our-community/utilities/), [CCW wastewater](https://www.corpuschristitx.gov/department-directory/corpus-christi-water/wastewater/) | Named services PASS; **new public qualification** |
 | Plano | City Customer & Utility Services handles water/sewer/trash; city publishes current 2026 water/utility rate notices | [2026 City Convenience Guide](https://www.plano.gov/2026-city-of-plano-convenience-guide), [Plano Water Resources](https://www.plano.gov/plano-water-resources) | Department/notice method PASS; **new direct source**, not a rate promise |
-| Lubbock | City utility and service details require fuller independent current operator review | City guide links remain existing operator references | **UNVERIFIED beyond previous baseline**, no date advanced |
+| Lubbock | City Water Utilities operates water/wastewater; city Utilities bills water, wastewater, stormwater and solid waste; LP&L delivers electricity and is not a retail electricity seller in its territory | [City Water Utilities](https://www.mylubbock.us/water), [City utility billing](https://www.mylubbock.us/COLU), [City retail electric providers](https://www.mylubbock.us/361/Retail-Providers), [PUCT transition explainer](https://ftp.puc.texas.gov/public/puct-info/agency/about/ope/Lubbock_Power_and_Light_%28LP%26L%29_Transition_to_Competition.pdf) | Operator and electricity-choice distinction PASS; address eligibility UNVERIFIED |
 
 ## Public changes in this review batch
 
@@ -22,9 +22,10 @@
 2. **Corpus Christi:** distinguish Corpus Christi Gas from the water/wastewater operator; link official city utilities and Corpus Christi Water instead of only the municipal homepage.
 3. **Austin:** document the official service-availability letter process and link to that **property/tract-specific** research source instead of treating an Austin mailing address as a water-service guarantee.
 4. **Plano:** add direct official water-resources and rate-update links, without hardcoding unstable bills, historical rates or universal retail electric providers.
+5. **Lubbock:** distinguish municipal water, wastewater and city bill administration from LP&L delivery-only electricity and separate retail electric provider choices.
 
 The source references in this file reflect *limited, individually checked claims*, not certification of all utility and emergency facts on the city pages. Avoid inferring a full electricity monopoly, guaranteeing a connection, or using household rates from a different billing cycle. Each modified system retains city-wide service-area caveats.
 
 ## Protected testing and acceptance
 
-Affected route data: `src/data/city-authority-profiles.ts` for exactly Austin, Hurst, Corpus Christi and Plano. Existing city route, schema, publisher attribution, school, tax, census and municipal county claims are unchanged. Require protected TypeScript build/validation and exact deployed-SHA 11-city Chrome and accessibility checks where configured. Only then mark the **four revised operator-identity/source claims** deployed and functionally checked. Other seven utility and all property-specific service data remain independently scoped; **overall city final status stays PARTIAL** until remaining categories are accepted.
+Affected route data: `src/data/city-authority-profiles.ts` for Austin, Hurst, Corpus Christi, Plano and Lubbock. Existing city route, schema, publisher attribution, school, tax, census and municipal county claims are unchanged. Require protected TypeScript build/validation and exact deployed-SHA 11-city Chrome and accessibility checks where configured. Only then mark the **five revised operator-identity/source claims** deployed and functionally checked. All property-specific service data remain independently scoped; **overall city final status stays PARTIAL** until remaining categories are accepted.
