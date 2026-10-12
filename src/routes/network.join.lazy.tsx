@@ -145,7 +145,7 @@ function NetworkJoinPreview() {
             <article className="rounded-2xl border border-border bg-surface p-6 sm:p-7">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <h3 className="font-display text-2xl">Your own domain name</h3>
-                <p className="text-lg font-bold">$39.99 <span className="text-sm font-normal text-muted-foreground">/ year</span></p>
+                <p className="text-sm font-semibold text-muted-foreground">Price to be confirmed</p>
               </div>
               <p className="mt-3 leading-7 text-muted-foreground">A domain like yourbusiness.com forwards visitors to your TexasDefined page. No separate website or hosting package to manage.</p>
               <p className="mt-4 text-xs leading-6 text-muted-foreground">Proposed price for eligible standard domains. Domain availability, renewal cost and final supplier terms must be confirmed before ordering. Premium domains priced separately.</p>
@@ -153,7 +153,7 @@ function NetworkJoinPreview() {
             <article className="rounded-2xl border border-border bg-surface p-6 sm:p-7">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <h3 className="font-display text-2xl">Professional business email</h3>
-                <p className="text-lg font-bold">~$6.99 <span className="text-sm font-normal text-muted-foreground">/ mailbox / month</span></p>
+                <p className="text-sm font-semibold text-muted-foreground">Price to be confirmed</p>
               </div>
               <p className="mt-3 leading-7 text-muted-foreground">Email like hello@yourbusiness.com, delivered through a familiar Microsoft Outlook service. Sign in and manage your inbox with the provider.</p>
               <p className="mt-4 text-xs leading-6 text-muted-foreground">Illustrative price only, not an available subscription. We're confirming official distributor pricing, eligibility and automated setup. Requires a domain you control.</p>
