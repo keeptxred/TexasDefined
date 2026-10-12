@@ -4,6 +4,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import caddoLake from "@/assets/caddo-lake.jpg";
 import { CampingDiscovery } from "@/components/camping/CampingDiscovery";
 import { Container } from "@/components/layout/Container";
+import { riverAuthorityRecords } from "@/data/river-authority-registry";
 
 const standoutCamping = [
   {
@@ -229,6 +230,16 @@ function CampingGuidePage() {
           <Link to="/explore/outdoors" className="border border-border bg-background p-4 hover:border-primary/50">Outdoors & wildlife →</Link>
           <Link to="/explore/trip-planner" search={{}} className="border border-border bg-background p-4 hover:border-primary/50">Trip Planner →</Link>
         </div>
+      </Container>
+    </section>
+    <section aria-labelledby="river-camping-guides" className="border-t border-border py-12">
+      <Container>
+        <p className="eyebrow text-primary">Plan your river weekend</p>
+        <h2 id="river-camping-guides" className="mt-2 font-display text-3xl">River camping and visitor guides</h2>
+        <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Match a confirmed campground or park to the river reach you actually want to visit. These guides explain legal access, nearby camping, paddling, fishing and changing flood conditions.</p>
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          {riverAuthorityRecords.map((river) => <li key={river.slug}><a className="block h-full rounded-lg border border-border p-4 text-sm font-semibold text-primary hover:border-primary/50" href={`/article/${river.slug}`}>{river.name} →</a></li>)}
+        </ul>
       </Container>
     </section>
   </main>;
