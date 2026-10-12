@@ -116,7 +116,9 @@ export const riverRecreationGuideRecords = [
         "https://tpwd.texas.gov/state-parks/garner/alert"
       ]
     ],
-    "heroCredit": "Garner State Park · existing TexasDefined licensed image; source record in image catalog"
+    "heroCredit": "Garner State Park · existing TexasDefined licensed image; source record in image catalog",
+    "heroWidth": 1600,
+    "heroHeight": 1067
   },
   {
     "slug": "texas-comal-river-guide",
@@ -185,7 +187,9 @@ export const riverRecreationGuideRecords = [
         "https://tpwd.texas.gov/publications/nonpwdpubs/water_issues/rivers/navigation/riddell/publicaccess.phtml"
       ]
     ],
-    "heroCredit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Comal_River_in_Landa_Park.jpg"
+    "heroCredit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Comal_River_in_Landa_Park.jpg · License: https://creativecommons.org/licenses/by/4.0/",
+    "heroWidth": 1801,
+    "heroHeight": 1201
   },
   {
     "slug": "texas-san-marcos-river-guide",
@@ -258,7 +262,9 @@ export const riverRecreationGuideRecords = [
         "https://tpwd.texas.gov/fishboat/boat/paddlingtrails/inland/luling/"
       ]
     ],
-    "heroCredit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:San_Marcos_River_San_Marcos_Texas_2023.jpg"
+    "heroCredit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:San_Marcos_River_San_Marcos_Texas_2023.jpg · License: https://creativecommons.org/licenses/by/4.0/",
+    "heroWidth": 3556,
+    "heroHeight": 2000
   },
   {
     "slug": "texas-llano-river-guide",
@@ -335,7 +341,9 @@ export const riverRecreationGuideRecords = [
         "https://tpwd.texas.gov/fishboat/fish/recreational/rivers/lease_access/"
       ]
     ],
-    "heroCredit": "South Llano River State Park · existing TexasDefined image source catalog"
+    "heroCredit": "South Llano River State Park · existing TexasDefined image source catalog",
+    "heroWidth": 1600,
+    "heroHeight": 1067
   },
   {
     "slug": "texas-pecos-river-guide",
@@ -408,7 +416,9 @@ export const riverRecreationGuideRecords = [
         "https://tpwd.texas.gov/state-parks/seminole-canyon"
       ]
     ],
-    "heroCredit": "Badener / Lutz Fischer-Lamprecht · CC BY-SA 3.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Pecos_River.jpg"
+    "heroCredit": "Badener / Lutz Fischer-Lamprecht · CC BY-SA 3.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Pecos_River.jpg · License: https://creativecommons.org/licenses/by-sa/3.0/",
+    "heroWidth": 2048,
+    "heroHeight": 1536
   }
 ] as const;
 
@@ -457,7 +467,7 @@ export const texasRiverRecreationGuideArticles: Article[] = riverRecreationGuide
   dek: river.summary,
   category: "lakes-rivers",
   region: river.slug === "texas-pecos-river-guide" ? "big-bend" : undefined,
-  hero: { src: river.hero, alt: river.heroAlt, width: 1600, height: 1067, credit: river.heroCredit },
+  hero: { src: river.hero, alt: river.heroAlt, width: river.heroWidth, height: river.heroHeight, credit: river.heroCredit },
   authorId: "a-marisol",
   publishedAt: "2026-10-12",
   updatedAt: "2026-10-12",
@@ -466,6 +476,7 @@ export const texasRiverRecreationGuideArticles: Article[] = riverRecreationGuide
   featured: false,
   sourceName: river.official[0][0],
   sourceUrl: river.official[0][1],
+  sources: river.official.map(([label, url]) => ({ label, url })),
   internalLinks: [...sharedRiverPlanningLinks, ...toLinks(river.extraLinks), ...toLinks(river.official)],
   body: buildBody(river),
   relatedCollections: [],
