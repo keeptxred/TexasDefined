@@ -89,7 +89,7 @@ try {
       }
       row.keyboardStatus=row.keyboard.every(x=>x.visible&&x.name&&x.focusVisible&&x.focusIndicator)?'PASS_SAMPLED_TABS':'REVIEW_REQUIRED';
      }else row.keyboardStatus='REVIEW_NO_MAIN_LINKS';
-     if(item.id.startsWith('school-')&&['arp','austin-johnson','austin-lake-travis','austin-vandegrift','baird'].includes(item.id.slice(7))){
+     if(item.id.startsWith('school-')&&['arp','austin-johnson','austin-lake-travis','austin-vandegrift','austin-westlake','baird'].includes(item.id.slice(7))){
       await page.screenshot({path:out+'/'+viewport+'-'+item.id+'-full.png',animations:'disabled',fullPage:true,timeout:45000});
      }
      if(row.semantics.mainCount!==1||row.semantics.h1s.length!==1||row.semantics.unlabeledLinks.length
@@ -111,8 +111,9 @@ try {
   }finally{await context.close()}
  }
 }finally{await browser.close()}
-report.summary.verdict=(report.summary.renderFailures||report.summary.semanticFailures||report.summary.runtimeFailures||report.summary.axeViolationNodes)
+report.summary.verdict=(report.summary.renderFailures||report.summary.semanticFailures||report.summary.runtimeFailures||report.summary.axeViolationNodes||report.summary.keyboardReviewCases)
  ?'ISSUES_DETECTED':'NO_AUTOMATED_VIOLATIONS_DETECTED';
+report.summary.reviewStatus=report.summary.axeIncompleteNodes ? 'AUTOMATED_CHECKS_WITH_INCOMPLETE_ITEMS_REQUIRING_REVIEW' : 'NO_INCOMPLETE_AXE_ITEMS';
 await writeFile(out+'/report.json',JSON.stringify(report,null,2)+'\n');
 console.log('FINAL B004 ACCESSIBILITY DIAGNOSTIC',JSON.stringify(report.summary));
 if(report.summary.verdict==='ISSUES_DETECTED')process.exitCode=1;
