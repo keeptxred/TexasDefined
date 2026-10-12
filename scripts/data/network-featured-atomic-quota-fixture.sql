@@ -3,10 +3,10 @@ BEGIN;
 INSERT INTO auth.users(id,email,email_confirmed_at) VALUES
  ('77777777-7777-4777-8777-777777777777','atomic-counter@example.invalid',now());
 INSERT INTO public.texasdefined_network_applications
- (id,plan,status,intake_complete,paid_entitlement_active,business_name,category,city,contact_email)
+ (id,plan,status,intake_complete,paid_entitlement_active,business_name,category,city,contact_email,terms_version,terms_snapshot_sha256,terms_accepted_at,representative_authority_accepted,facts_responsibility_accepted,media_responsibility_accepted,search_indexing_accepted)
  VALUES
  ('77777777-0000-4000-8000-000000000001','plus','published',true,true,
-  'Atomic Quota Fixture','Test','Katy','atomic-counter@example.invalid');
+  'Atomic Quota Fixture','Test','Katy','atomic-counter@example.invalid','2026-10-11-v1','166b237dc2572da5195e1f5217ec51c8ecc83b73f68a080a16b4478e35f9a6a6',now(),true,true,true,true);
 INSERT INTO public.texasdefined_network_business_accounts
  (id,application_id,owner_user_id,membership_tier,access_enabled)
  VALUES('77777777-0000-4000-8000-000000000002',
