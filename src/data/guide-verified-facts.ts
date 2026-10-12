@@ -83,4 +83,73 @@ export const verifiedGuideFactSets: Record<string, GuideVerifiedFact[]> = {
       context: "Check each venue's allowed vehicle classes, closures and operator rules before travel.",
     },
   ],
+  "texas-horseback-riding-guide": [
+    {
+      label: "Equestrian health documentation",
+      value: "TPWD requires proof of a negative Coggins test for each horse brought to a Texas state park or natural area",
+      sourceUrl: "https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian",
+      checkedAt: CHECKED_AT,
+      context: "Bring the required documentation and check park-specific entry rules.",
+    },
+    {
+      label: "Galveston Island beach riding",
+      value: "State-park beach horse riding is listed only for November through February",
+      sourceUrl: "https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian",
+      checkedAt: CHECKED_AT,
+      context: "Confirm closure notices, the designated equestrian parking area, and seasonal park instructions before visiting.",
+    },
+    {
+      label: "Big Bend Ranch equestrian access",
+      value: "TPWD describes about 238 miles of multiuse trails and requires a backcountry use permit for day or overnight equestrian use",
+      sourceUrl: "https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian",
+      checkedAt: CHECKED_AT,
+      context: "The desert setting requires planning for water, weed-free feed, trailer access and horse fitness.",
+    },
+  ],
+  "texas-mountain-biking-guide": [
+    {
+      label: "Texas state-park e-bike rule",
+      value: "TPWD lists electric bikes as permitted on public roadways, not on state park trails",
+      sourceUrl: "https://tpwd.texas.gov/state-parks/parks/things-to-do/biking-in-state-parks",
+      checkedAt: CHECKED_AT,
+      context: "Check current park regulations and route classifications before taking any e-bike onto a trail.",
+    },
+    {
+      label: "Biking at Wildlife Management Areas",
+      value: "TPWD says a Limited Public Use Permit is needed to enter many WMAs that offer bicycling",
+      sourceUrl: "https://tpwd.texas.gov/state-parks/parks/things-to-do/biking-in-state-parks",
+      checkedAt: CHECKED_AT,
+      context: "The availability of biking and permits depends on the specific WMA.",
+    },
+    {
+      label: "Franklin Mountains park trail network",
+      value: "TPWD reports over 100 miles of trails at Franklin Mountains State Park",
+      sourceUrl: "https://tpwd.texas.gov/state-parks/franklin-mountains/plan-your-visit",
+      checkedAt: CHECKED_AT,
+      context: "This is the park-wide trail network, NOT a verified claim that every mile permits mountain bikes.",
+    },
+  ],
+  "texas-rock-climbing-bouldering-guide": [
+    {
+      label: "Lake Mineral Wells bouldering rules",
+      value: "TPWD prohibits bouldering, free climbing and soloing at the Penitentiary Hollow climbing area",
+      sourceUrl: "https://tpwd.texas.gov/state-parks/lake-mineral-wells/rock-climbing",
+      checkedAt: CHECKED_AT,
+      context: "Climbing there also requires headquarters registration and a liability release on each visit.",
+    },
+    {
+      label: "Mineral Wells climbing closure conditions",
+      value: "The climbing area closes at sundown and under wet conditions",
+      sourceUrl: "https://tpwd.texas.gov/state-parks/lake-mineral-wells/rock-climbing",
+      checkedAt: CHECKED_AT,
+      context: "Call park headquarters about conditions before traveling.",
+    },
+    {
+      label: "Enchanted Rock climbing protection",
+      value: "TPWD forbids pitons, using trees for anchoring/rappelling, and rock or bolt alteration without explicit approval",
+      sourceUrl: "https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/rock-climb",
+      checkedAt: CHECKED_AT,
+      context: "Check the park's current climbing-management plan and route-specific descent guidance.",
+    },
+  ],
 };
