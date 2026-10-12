@@ -14,6 +14,7 @@ const historicCanonical = read("src/data/canonical-historic-state-parks.ts");
 const hillCountry = read("src/data/hill-country-state-natural-area-authority.ts");
 const lakeSomerville = read("src/data/lake-somerville-state-park-authority.ts");
 const rayRoberts = read("src/data/ray-roberts-lake-state-park-authority.ts");
+const estero = read("src/data/estero-llano-grande-state-park-authority.ts");
 const recovery = read("src/data/state-park-authority-recovery.ts");
 const planner = read("src/components/editorial/DestinationVisitPlanner.tsx");
 const essentials = read("src/components/editorial/StateParkVisitorEssentials.tsx");
@@ -64,6 +65,10 @@ assertContains(rayRoberts, 'slug: "ray-roberts-lake-state-park"', "Ray Roberts L
 assertContains(rayRoberts, "Greenbelt", "Ray Roberts park guide must note separate trail alert network");
 assertContains(preserved, "[rayRobertsLakeStateParkAuthority],", "Ray Roberts park must survive remote outages");
 assertContains(curation, "applyRayRobertsLakeStateParkAuthority,", "Ray Roberts canonical park guide missing curation integration");
+assertContains(estero, 'slug: "estero-llano-grande-state-park"', "Estero Llano Grande official birding park lacks canonical page");
+assertContains(estero, "Braille", "Estero needs specific ADA and assisted-access details");
+assertContains(preserved, "[esteroLlanoGrandeStateParkAuthority],", "Estero park not preserved across outages");
+assertContains(curation, "applyEsteroLlanoGrandeStateParkAuthority,", "Estero original research could be overwritten");
 const required = [
   "fort-richardson-state-park-state-historic-site",
   "seminole-canyon-state-park-and-historic-site",
