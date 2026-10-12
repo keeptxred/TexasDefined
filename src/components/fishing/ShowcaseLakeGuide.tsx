@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { Container } from "@/components/layout/Container";
 import { getFishingFishImage, getFishingLakeImage } from "@/data/fishing/image-library";
+import { LAKE_VISITOR_DESTINATIONS } from "@/data/fishing/destination-lake-crosslinks";
 import { fishingFoundationAnchor } from "@/data/fishing/slugs";
 import { fishingTechniqueCanonicalPath, isPublishedFishingTechniqueSlug } from "@/data/fishing/technique-routing";
 import { isLiveLakeLevelSource } from "@/data/fishing/live-lake-level-source";
@@ -110,6 +111,8 @@ function Overview({ pageData, businesses, placements }: { pageData: PageData; bu
       </div>
       <aside className="border-t-2 border-foreground pt-5"><p className="eyebrow text-primary">Map & water</p>{lakeImage ? <FishingPhoto image={lakeImage} className="mt-4" imageClassName="aspect-[4/3] w-full object-cover" /> : null}<div className={lakeImage ? "mt-6 aspect-[4/3] overflow-hidden border border-border bg-muted" : "mt-4 aspect-[4/3] overflow-hidden border border-border bg-muted"}><iframe title={`Map of ${o.name}`} src={`https://www.google.com/maps?q=${encodeURIComponent(o.mapQuery)}&output=embed`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="h-full w-full" /></div><a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(o.mapQuery)}`} target="_blank" rel="noreferrer noopener" className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">Open map →</a><a href={pageData.sources.liveLevel.url} target="_blank" rel="noreferrer noopener" className="eyebrow ml-5 mt-4 inline-block border-b border-primary pb-1 text-primary">{isLiveLakeLevelSource(pageData.sources.liveLevel.url) ? "Live lake level →" : "Official current conditions →"}</a>{pageData.liveDataNote ? <p className="mt-5 text-xs leading-6 text-muted-foreground">{pageData.liveDataNote}</p> : null}</aside>
     </section>
+
+    {(LAKE_VISITOR_DESTINATIONS[pageData.slug] ?? []).length > 0 ? <section aria-label="Public parks and national recreation areas on this lake"><p className="eyebrow text-primary">Public lands and park units</p><h2 className="mt-3 font-display text-3xl">Explore the parks at {o.name}</h2><p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These separate visitor guides cover state park or national recreation facilities associated with the same lake. The lake fishing guide covers the wider reservoir; parks operate their own accessibility, entrance, camping and reservation rules.</p><div className="mt-7 grid gap-5 sm:grid-cols-2">{(LAKE_VISITOR_DESTINATIONS[pageData.slug] ?? []).map((site) => <a href={`/destination/${site.slug}`} key={site.slug} className="border-t border-border pt-5 text-sm font-semibold hover:text-primary">{site.label} →</a>)}</div></section> : null}
 
     <section><p className="eyebrow text-primary">Cover & structure</p><h2 className="mt-3 font-display text-4xl">Fish Habitat and Structure</h2><div className="mt-7 grid gap-5 sm:grid-cols-2">{pageData.habitat.map((item) => <p key={item} className="border-t border-border pt-5 text-sm leading-7 text-muted-foreground">{item}</p>)}</div></section>
 
