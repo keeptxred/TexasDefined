@@ -1138,6 +1138,55 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
   },
 
+  {
+    slug: "white-rock-lake", name: "White Rock Lake", tpwdSlug: "white_rock", verifiedAt: "2026-10-12", region: "prairies-lakes",
+    summary: "An urban Dallas reservoir and trail park with excellent TPWD-rated largemouth bass and crappie, five named free-access boat ramps, municipal motor restrictions, no camping, and a documented 1910–1912 construction history.",
+    surfaceAcres: 1088, maxDepthFeet: 20, impoundedYear: 1912, counties: ["Dallas"], nearestCities: ["Dallas"],
+    waterway: "White Rock Creek, a Trinity River tributary", riverBasin: "Trinity River Basin", authority: "City of Dallas Parks and Recreation",
+    conservationPool: "approximately 458 ft msl", fluctuation: "Typically about 1–2 ft according to TPWD; flood, drought and sediment affect usable shore", clarity: "Stained",
+    identity: "White Rock Lake is Dallas's city-park lake, not a privately developed resort reservoir. The recreation emphasis is public shoreline access, sailing, walking and cycling, birding and fishing piers. TPWD rates largemouth bass and white crappie excellent, while catfish are fair. The surrounding park has free TPWD-listed launches but prohibits overnight camping. Dallas's current city ordinance states a general motor limit of 10.5 horsepower; TPWD's older fishing facts page instead says 9.9 horsepower, so use the current city code rather than treating the older number as controlling.",
+    habitat: [
+      "The lake has sparse underwater vegetation but beds of bulrush, water willow and reeds, plus creek mouths and fishing piers where bass use accessible structure.",
+      "TPWD identifies white crappie movements into White Rock Creek in spring. Anglers should account for pier closures, legal shoreline access and high urban use instead of presenting private club property as public.",
+      "The lake's relatively shallow maximum depth and changing sedimentation mean old acreage and water-storage figures differ. Use signed entrances and current City of Dallas water and recreation updates.",
+    ],
+    fish: [
+      fish("largemouth-bass","Largemouth bass","excellent","spring","TPWD rates the lake excellent for largemouth bass; fish the reed beds, creek mouths and structure around Dickson Branch using lures suited to shallow urban water.",["soft-plastics","spinnerbaits","topwater"]),
+      fish("crappie","Crappie","excellent","spring","TPWD identifies white crappie as an excellent fishery, particularly up White Rock Creek during the spring movement and around fishing piers.",["jigs-and-minnows","vertical-jigging"]),
+      fish("catfish","Catfish","fair","year-round","Channel catfish are present, but TPWD rates the lake fair for catfish; don't market it as a trophy catfish destination.",["cut-bait","live-bait"],"secondary"),
+    ],
+    access: "TPWD identifies five distinct city-operated, no-fee boat-access locations. West Lawther, Big Thicket, Corinthian Sailing Club, East Lawther and Filter Building have different lanes and parking limitations. Verify the public-entry conditions before towing; parking and club access are not identical at every location.",
+    accessPoints: [
+      {name:"West Lawther Ramp",operator:"City of Dallas",kind:"public-ramp",launch:"West shore opposite Fisher Road on West Lawther Drive; from I-30 north on East Grand, Winsted, White Rock Road, then West Lawther. One-lane ramp, approximately 30 parking spaces.",fee:"No fee according to TPWD",availability:"TPWD lists year-round; municipal operations, park hours and current access take precedence. Dallas Parks (214) 670-8281."},
+      {name:"Big Thicket Boat Ramp",operator:"City of Dallas",kind:"public-ramp",launch:"East shore via Buckner Boulevard, west on Mockingbird Lane, south on East Lawther Drive. Three concrete lanes with up to 30 vehicle spaces.",fee:"No fee according to TPWD",availability:"TPWD lists year-round; verify City of Dallas operator status."},
+      {name:"Corinthian Sailing Club Ramp",operator:"City of Dallas / sailing club",kind:"marina",launch:"East Lawther Drive on eastern shore via Mockingbird and Buckner. TPWD lists one ramp lane and 20 spaces.",fee:"TPWD reports no fee, but confirm any membership or shared-facility restrictions",availability:"Year-round in TPWD listing; do not assume unrestricted private-club amenities."},
+      {name:"East Lawther Ramp",operator:"City of Dallas",kind:"public-ramp",launch:"East shore off East Lawther Drive; one ramp lane with courtesy dock, NO on-site vehicle parking and limited nearby parking.",fee:"No fee according to TPWD",availability:"TPWD lists year-round but large trailer parking is not provided at the ramp."},
+      {name:"Filter Building Ramp",operator:"City of Dallas",kind:"public-ramp",launch:"West shore via East Grand, Winsted and White Rock Road under the bridge, beyond Filter Building Event Venue. One lane and little/no trailer parking.",fee:"No fee according to TPWD",availability:"TPWD lists year-round; verify city parking, event and launch restrictions."},
+    ],
+    specialRules: true,
+    nearbyLakes:[{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"joe-pool-lake",name:"Joe Pool Lake"}],
+    travelAlerts:[
+      "The current Dallas City Code section 32-40 generally prohibits operating a boat with a motor rated more than 10.5 horsepower on White Rock Lake, with defined exceptions. TPWD's older facts summary quotes a different 9.9-HP figure. Consult current City Code before boating; do not rely on an outdated fishing summary to determine the legal limit.",
+      "TPWD expressly says NO camping is allowed at White Rock Lake. The City of Dallas designates picnic, sailing, walking, fishing and daytime park uses; do not imply campsite or RV-hookup availability.",
+      "Dallas Parks gives its lake area as 1,015 acres, TPWD fishing facts says 1,088 acres, and a TWDB 2015 survey shows 995 acres at the specified conservation stage. These refer to different measurement conventions/vintages, not three distinct water bodies.",
+    ],
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/white_rock/index.asp",
+    visitorSourceUrl:"https://dallasparks.org/235/White-Rock-Lake",
+    liveDataNote:"White Rock Lake is a City of Dallas reservoir without a verified compatible TWDB real-time water-level source in this guide. Check the city park's current information, alerts and official maps before travel; an undated reference elevation is not a live level.",
+    historyNotes:[
+      "Dallas faced worsening shortages in the early twentieth century. Construction on White Rock Dam began in March 1910 and the earthfill dam was completed in September 1911, during a period of municipal water-system expansion.",
+      "TWDB records the reservoir as filled in August 1912; TPWD's simple angling facts sheet labels the lake 'impounded 1910,' apparently using the beginning of the project era rather than the detailed fill event. The guide retains the TWDB completion/filling chronology instead of repeating an oversimplified single year.",
+      "The reservoir became a public recreational centerpiece as Dallas secured larger drinking-water sources. Today the Bath House Cultural Center, shoreline trails and public fishing access make its urban visitor role very different from a Corps campground reservoir. TWDB's 2015 survey measured roughly 995 surface acres at its stated conservation level, while agency visitor summaries use different acreage figures."
+    ],
+    visitorFAQs:[
+      {question:"Does White Rock Lake allow overnight camping?",answer:"No. TPWD explicitly says camping is not allowed around White Rock Lake. Use separate established accommodations in Dallas."},
+      {question:"Can a boat with a large motor use White Rock Lake?",answer:"Dallas City Code 32-40 generally prohibits operation with motors above 10.5 horsepower, with certain official/authorized exceptions. TPWD's older fishing summary says 9.9; check current Dallas ordinances and park rules before launching."},
+      {question:"Where are the public ramps?",answer:"TPWD lists West Lawther, Big Thicket, Corinthian Sailing Club, East Lawther and Filter Building ramps. All show no launch fee, but parking and access vary by facility."},
+      {question:"Is the lake good for fishing?",answer:"TPWD rates largemouth bass and crappie excellent; catfish fair. The creek mouths, reed beds and fishing piers are important public fishing environments."},
+      {question:"Why do sources report 1910 and 1912?",answer:"TWDB dates construction start to March 1910, dam completion to September 1911 and reservoir filling to August 1912. TPWD's angling facts simplifies the history to 'impounded 1910'."},
+    ],
+  },
+
 ];
 
 const techniqueLabels: Record<TechniqueId, string> = {
