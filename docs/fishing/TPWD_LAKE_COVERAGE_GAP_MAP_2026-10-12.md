@@ -204,7 +204,7 @@
 | Welsh | **Not in completed-guide registry** |
 | Wheeler Branch | **Not in completed-guide registry** |
 | White River | **Not in completed-guide registry** |
-| White Rock | **Not in completed-guide registry** |
+| White Rock | [white-rock-lake](https://texasdefined.com/fishing/lakes/white-rock-lake) — pending release |
 | Whitney | [lake-whitney](https://texasdefined.com/fishing/lakes/lake-whitney) |
 | Wichita | **Not in completed-guide registry** |
 | Winnsboro | **Not in completed-guide registry** |
@@ -230,3 +230,7 @@ Granger and Aquilla now have separate researched authority records in the second
 ### Next research batch — Granger and Aquilla (October 12)
 
 Granger Lake and Aquilla Lake have complete source-reviewed fishing profiles in the next expansion branch: individual TPWD facility inventories, historical sources, lake photos with federal public-domain provenance, visitor FAQs, and county/nearby-lake crosslinks. The **branch registry contains 56 completed lake guides** against TPWD's 175 labeled entries, leaving **119 without a completed guide**. This is branch coverage only; release gates and actual production checks remain open. Field photography and live operator approvals are not verified.
+
+### Urban lake research addition — White Rock Lake
+
+White Rock Lake in Dallas is now represented by a full source-backed guide in the pending Granger/Aquilla expansion branch. Its no-camping restriction, five public ramps, local Dallas motor ordinance, TWDB historical chronology and genuine CC0 lake photograph are accounted for. The branch therefore contains **57 complete guides, 118 remaining directory gaps**. Site operators and real-time restrictions, site photography, production build and manual UX inspection are not certified by this inventory.
