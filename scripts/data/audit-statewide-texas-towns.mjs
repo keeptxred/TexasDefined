@@ -9,7 +9,7 @@
  * generic city stub. Unincorporated towns and census-designated places must be
  * reconciled in a separate evidence-backed inventory.
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, readdirSync } from "node:fs";
 const sourceUrl = "https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_incplace_2026_bas26_tx.html";
 const read = (p) => readFileSync(p, "utf8");
 const slugify = (s) => s.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -45,10 +45,11 @@ function censusPlaces(html) {
 
 function researchedTownSlugs() {
   const result = new Set();
-  for (let i = 1; i <= 16; i++) {
-    const path = i === 16 ? "src/data/small-town-authority-wave16.ts" : "src/data/small-town-destinations-wave" + i + ".ts";
-    const text = read(path);
-    for (const match of text.matchAll(/\bslug:\s*["']([a-z0-9-]+)["']/g)) result.add(match[1]);
+  const waves = readdirSync("src/data")
+    .filter((filename) => /^small-town-destinations-wave\d+\.ts$/.test(filename))
+    .map((filename) => "src/data/" + filename);
+  for (const path of [...waves, "src/data/small-town-authority-wave16.ts"]) {
+    for (const match of read(path).matchAll(/\bslug:\s*["']([a-z0-9-]+)["']/g)) result.add(match[1]);
   }
   return result;
 }
