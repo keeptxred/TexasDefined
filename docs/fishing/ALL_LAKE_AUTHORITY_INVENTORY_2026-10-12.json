@@ -3,24 +3,24 @@
   "date": "2026-10-12",
   "baseline": "TPWD more than 150 lake profiles",
   "summary": {
-    "total": 56,
+    "total": 57,
     "standardSectionsPerGuide": 9,
-    "statewide": 41,
-    "namedAccess": 56,
+    "statewide": 42,
+    "namedAccess": 57,
     "unknownAccess": 0,
     "namedCamping": 37,
-    "unknownCamping": 19,
-    "history": 14,
-    "noHistory": 42,
-    "photoMappings": 56,
+    "unknownCamping": 20,
+    "history": 10,
+    "noHistory": 47,
+    "photoMappings": 57,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 56,
+    "explicitNamedAccess": 57,
     "lackingNamedAccess": 0,
     "explicitNamedCamping": 37,
-    "lackingNamedCamping": 19,
-    "namedStatewideFacilities": 157,
-    "statewideTemplateGuidesWithNamedAccess": 41
+    "lackingNamedCamping": 20,
+    "namedStatewideFacilities": 162,
+    "statewideTemplateGuidesWithNamedAccess": 42
   },
   "entries": [
     {
@@ -901,6 +901,22 @@
       "risk": "Verify ramp owner and independently obtain field photography",
       "namedAccess": true,
       "accessFacilityCount": 3,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
+    },
+    {
+      "slug": "white-rock-lake",
+      "name": "White Rock Lake",
+      "kind": "Statewide",
+      "ramp": "Named",
+      "camping": "Not permitted by TPWD",
+      "history": "Reservoir source",
+      "fish": 3,
+      "photo": "Mapped",
+      "water": "Official city-source fallback",
+      "risk": "Confirm City of Dallas operations, original photographs and current trail/park use",
+      "namedAccess": true,
+      "accessFacilityCount": 5,
       "accessReviewedAt": "2026-10-12",
       "namedCamping": false
     }
