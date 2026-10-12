@@ -79,6 +79,7 @@ interface StatewideLakeDefinition {
   nearbyLakes: { slug: string; name: string }[];
   nearbyDestinations?: { slug: string; name: string; reason: string }[];
   camping?: { name: string; summary: string };
+  campingProhibited?: boolean;
   accessPoints?: ShowcaseLakePrototype["access"];
   travelAlerts?: string[];
   consumptionSourceUrl?: string;
@@ -307,6 +308,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Captain's Cove Marina", operator: "Private marina", kind: "marina", launch: "5965 Marina Drive, Garland; four concrete boat lanes, up to 50 spaces.", fee: "Launch fee listed", availability: "Year-round per TPWD; verify private operator (972) 226-7100." },
       { name: "Sapphire Bay", operator: "Private marina", kind: "marina", launch: "9051 Marina Vista, Rowlett; two-lane concrete ramp, courtesy docks, about 50 spaces.", fee: "TPWD lists no fee", availability: "Year-round per TPWD; verify private operation (972) 412-1977." },
     ],
+    campingProhibited: true,
     nearbyLakes: [{slug:"lake-lavon",name:"Lake Lavon"},{slug:"lewisville-lake",name:"Lewisville Lake"}],
   },
   {
@@ -1166,6 +1168,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       {name:"Filter Building Ramp",operator:"City of Dallas",kind:"public-ramp",launch:"West shore via East Grand, Winsted and White Rock Road under the bridge, beyond Filter Building Event Venue. One lane and little/no trailer parking.",fee:"No fee according to TPWD",availability:"TPWD lists year-round; verify city parking, event and launch restrictions."},
     ],
     specialRules: true,
+    campingProhibited: true,
     nearbyLakes:[{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"joe-pool-lake",name:"Joe Pool Lake"}],
     nearbyDestinations:[{slug:"dallas-arboretum-and-botanical-garden",name:"Dallas Arboretum and Botanical Garden",reason:"Lakeside garden and seasonal walking destination with views across White Rock Lake; admission and gardens are separately operated."}],
     travelAlerts:[
@@ -1322,6 +1325,7 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
     identityAngle: [def.identity, ...(def.travelAlerts ?? [])].join(" "),
     historyNotes: def.historyNotes,
     visitorFAQs: def.visitorFAQs,
+    campingProhibited: def.campingProhibited,
     habitat: def.habitat,
     fish: def.fish.map((target) => ({
       id: target.id,
