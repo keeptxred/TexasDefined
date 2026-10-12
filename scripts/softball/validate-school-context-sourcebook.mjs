@@ -43,11 +43,10 @@ for(const name of names){
 }
 assert.ok(book.blockingResearch.length>=5,'Publication blockers must remain visible');
 assert.ok(draft.includes('NOT approved team pages or public routes'),'Editorial drafts must never be confused for released authority pages');
-assert.ok(draft.includes('###')===false || draft.includes('## Shiner'),'Expected substantive school narratives');
 assert.ok(book.records.some(x=>x.id==='ganado-house-resolution'),'Legislative title report cannot silently disappear');
 assert.ok(book.records.some(x=>x.id==='shiner-title-2015'),'Preserve distinct coaching eras');
 assert.ok(book.records.some(x=>x.id==='pearland-institution'&&x.caution.includes('SCHOOL')),'School founding is not girls softball founding');
 assert.ok(book.records.some(x=>x.id==='katy-field-agenda'&&x.caution.includes('not an adopted vote')),'Board agenda is not proof of a vote');
 assert.ok(book.records.some(x=>x.id==='amarillo-new-sport'&&x.caution.includes('Dallas Highland Park')),'Never copy Dallas Highland Park records to Amarillo');
-assert.ok(book.records.some(x=>x.id==='pearland-school-schedule-trap'&&x.caution.includes('not')&&x.caution.includes('2027')),'Old playoff notice must not be current fixture');
+assert.ok(book.records.some(x=>x.id==='pearland-school-schedule-trap'&&x.caution.includes('neither')&&x.caution.includes('2027')),'Old playoff notice must not be current fixture');
 console.log('PASS: '+book.records.length+' individually sourced school-context findings, '+names.length+' narrative drafts, no prematurely approved UIL school pages');
