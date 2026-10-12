@@ -109,6 +109,19 @@ for (let i = 0; i < topLevel.length; i += 1) {
   if (officialFallbackSlugs.has(row.slug) && (hasTwdbLive || hasLcraLive)) fail(`${row.slug} must remain on an official-agency fallback until a monitored live source exists`);
   if (!expectsTwdbLive && hasTwdbLive) fail(`${row.slug} has an unexpected Water Data for Texas mapping`);
   if (!expectsLcraLive && hasLcraLive) fail(`${row.slug} has an unexpected LCRA Hydromet mapping`);
+  // Every statewide guide must offer named TPWD-reviewed visit planning, not one generic ramp inventory.
+  const accessSegment = segment.match(/accessPoints:\s*\[([\s\S]*?)\n\s*\],/)?.[1];
+  if (!accessSegment) fail(`${row.slug} is missing named public-access facilities`);
+  const facilityNames = [...accessSegment.matchAll(/\{ name: "([^"]+)"/g)].map((match) => match[1]);
+  if (facilityNames.length < 1) fail(`${row.slug} has no independently named public-access sites`);
+  if (new Set(facilityNames).size !== facilityNames.length) fail(`${row.slug} repeats the same facility in its access inventory`);
+  for (const token of ["operator:", "launch:", "fee:", "availability:"]) {
+    if (!accessSegment.includes(token)) fail(`${row.slug} access inventory is missing ${token}`);
+  }
+  if (segment.includes("public access inventory") && segment.includes("accessPoints:")) {
+    // The historical summary may mention an inventory; the actual accessPoints must not be a fabricated generic site.
+    if (accessSegment.includes("public access inventory")) fail(`${row.slug} includes a generic access item after review`);
+  }
   const fishCount = [...segment.matchAll(/fish\("/g)].length;
   if (fishCount < 3) fail(`${row.slug} is too thin: only ${fishCount} source-backed fish targets`);
   const relatedCount = [...segment.matchAll(/\{slug:"[^"]+",name:"[^"]+"\}/g)].length;
