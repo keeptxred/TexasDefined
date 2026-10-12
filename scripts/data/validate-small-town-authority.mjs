@@ -9,8 +9,8 @@ const warn = [];
 const check = (condition, message) => { if (!condition) errors.push(message); };
 
 const waveNames = readdirSync("src/data")
-  .filter((name) => /^small-town-destinations-wave\\d+\\.ts$/.test(name))
-  .sort((a, b) => Number(a.match(/wave(\\d+)/)?.[1]) - Number(b.match(/wave(\\d+)/)?.[1]));
+  .filter((name) => /^small-town-destinations-wave\d+\.ts$/.test(name))
+  .sort((a, b) => Number(a.match(/wave(\d+)/)?.[1]) - Number(b.match(/wave(\d+)/)?.[1]));
 const guideSources = [
   ...waveNames.map((name) => ({ filename: "src/data/" + name, text: read("src/data/" + name) })),
   { filename: "src/data/small-town-authority-wave16.ts", text: read("src/data/small-town-authority-wave16.ts") },
