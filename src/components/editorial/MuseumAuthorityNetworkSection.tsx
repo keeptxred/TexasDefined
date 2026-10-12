@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { Destination } from "@/data/types";
-import { museumAuthorityDirectory, museumDossierFor, museumAuthorityDossiers } from "@/data/museum-authority-network";
+import { museumAuthorityDirectory, museumDossierFor } from "@/data/museum-authority-network";
 import { Container } from "@/components/layout/Container";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 
