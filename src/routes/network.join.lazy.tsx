@@ -124,8 +124,9 @@ function NetworkJoinPreview() {
                     <li>✓ Business news and reports</li>
                     <li>✓ Mobile-friendly TexasDefined template</li>
                   </ul>
+                  <a href={`/network/website-demo?tier=${tier.id}`} className="mt-7 block rounded-full bg-primary px-4 py-3 text-center text-sm font-semibold text-primary-foreground">View sample website</a>
                   <a href={`mailto:admin@texasdefined.com?subject=TexasDefined%20${encodeURIComponent(tier.title)}%20Interest`}
-                     className="mt-7 block rounded-full border border-primary px-4 py-3 text-center text-sm font-semibold text-primary">Ask about this website</a>
+                     className="mt-3 block rounded-full border border-primary px-4 py-3 text-center text-sm font-semibold text-primary">Ask about this website</a>
                 </article>)}
               </div>
               <p className="mx-auto mt-7 max-w-4xl text-center text-sm leading-6 text-muted-foreground">One shared hosting system serves all three website tiers. Page and initial photo capacities are working engineering limits, not finalized commercial promises. Hosting does not include paid advertising placement. You can use a free listing, buy advertising separately, or link an existing website.</p>
