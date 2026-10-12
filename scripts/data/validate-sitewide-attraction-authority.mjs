@@ -17,6 +17,8 @@ const destinationQuality = read("src/data/destination-quality.ts");
 const visitPlanner = read("src/components/editorial/DestinationVisitPlanner.tsx");
 const relevance = read("src/data/destination-editorial-relevance.ts");
 const viator = read("src/components/editorial/DestinationViatorBooking.tsx");
+const categoryPage = read("src/components/editorial/CategoryPage.tsx");
+const entityDepth = read("src/components/content/EntityDepthSections.tsx");
 
 for (const key of ["VisitorFacilityFact", "DestinationVisitorFacilities", "visitorFacilities?: DestinationVisitorFacilities", "officialMapUrl?", "sourceUrl?", "checkedAt?"]) assert(types.includes(key), `Missing typed authority facility contract: ${key}`);
 for (const key of ["addVerifiedVisitorFacilities", "VERIFIED_VISITOR_FACILITIES", "editorialFocus"]) {
@@ -63,6 +65,14 @@ for (const unnecessary of ['Things to do and see', 'Visitor facilities', 'facili
 assert(visitPlanner.includes('destination.category === "road-trips"'), "Car rental promotion needs explicit travel category relevance.");
 assert(!viator.includes('viatorMarketsForPlace(destination.county)'), "Do not recommend generic county-market affiliate offers on unrelated attractions.");
 assert(viator.includes('viatorMarketsForPlace(destination.name)'), "Relevant attraction-specific affiliate matching must be preserved.");
+
+assert(!categoryPage.includes("How should I use this page?"), "Do not auto-generate navigation-instruction FAQs for every category page.");
+assert(!categoryPage.includes("What can I read here?"), "Category story counts belong in the content index, not manufactured FAQ copy.");
+assert(categoryPage.includes("LivingAuthorityPaths"), "Preserve useful category authority navigation.");
+assert(entityDepth.includes("needsServiceDecisionGuidance ? buildContextItems"), "Generic attraction/entity narrative boilerplate must stay disabled.");
+assert(entityDepth.includes("needsServiceDecisionGuidance ? practicalChecklist"), "Generic checklists must not be imposed on place pages.");
+assert(entityDepth.includes("needsServiceDecisionGuidance ? quickAnswers"), "Generic FAQs must not be generated for every attraction.");
+assert(entityDepth.includes("relatedItems.map"), "Preserve the entity's useful related-place discovery.");
 
 if (failures.length) {
   console.error("Attraction sitewide authority governance failed:\n" + failures.map(x=>"- "+x).join("\n"));
