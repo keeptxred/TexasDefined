@@ -295,6 +295,24 @@ for (const feature of ['COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexRead
 for (const feature of ['isPrimaryTripPlannerDestination','auditDestination','const indexableDestinations =','auditDestination(destination).readyForIndexing']) {
   if (!exploreSitemap.includes(feature)) errors.push(`Explore sitemap quality contract missing: ${feature}`);
 }
+
+// City-specific relocation methodology must never imply TEA maps establish
+// campus assignments or that a single municipal levy equals a property's tax.
+// Both primary-source explanations are visible only on the 11 deep city guides.
+for (const marker of [
+  'city-address-verification-title',
+  'tea.texas.gov/families-and-students/school-district-locator/school-district-locator-faq',
+  'comptroller.texas.gov/taxes/property-tax/rates/',
+  'The Texas Education Agency warns that its digital district maps are approximate',
+  'a published city tax rate is not the total rate for every address',
+  'cityProfile ? <aside',
+]) {
+  if (!entityDepth.includes(marker)) errors.push(`City primary-source verification missing: ${marker}`);
+}
+if (entityDepth.includes('Verify the district and campus from an exact address')) {
+  errors.push('City relocation cards must not claim district-map tools certify campus attendance zones.');
+}
+
 if (countyRoute.includes("dateModified: '2026-08-08'")) errors.push('County pages must not use a hard-coded modified date.');
 
 if (errors.length) {
