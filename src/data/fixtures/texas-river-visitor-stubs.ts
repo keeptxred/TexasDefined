@@ -14,7 +14,7 @@ export const texasRiverVisitorStubs: Article[] = riverAuthorityRecords
  .filter((river) => !LEGACY_RIVER_SLUGS.has(river.slug))
  .map((river) => ({
    id: `evergreen-${river.slug}`, brandId:"texasdefined", slug:river.slug,
-   title: `${river.name}: Fishing, Camping, Tubing & Travel Guide`,
+   title: `${river.name}: Fishing, Camping & Visitor Guide`,
    dek: `${river.summary}. Plan legal access, fishing, paddling, swimming, campsites and nearby visits using official sources.`,
    category:"lakes-rivers",
    hero:{src:river.image,alt:river.imageAlt,width:1600,height:1067},
