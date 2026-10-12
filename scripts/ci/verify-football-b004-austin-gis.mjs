@@ -10,6 +10,8 @@ import {mkdir,writeFile} from 'node:fs/promises';
 const teabase='https://services2.arcgis.com/5MVN2jsqIrNZD4tP/ArcGIS/rest/services/Schools_2024_to_2025/FeatureServer/0/query';
 const citybase='https://services.arcgis.com/0L95CJ0VTaxqcmED/arcgis/rest/services/BOUNDARIES_jurisdictions/FeatureServer/0/query';
 const routeSchoolNames={
+ 'austin-achieve':/austin\s*achieve.*(?:high|\bh\s*s\b)/i,
+ 'austin-vandegrift':/\bvandegrift\b/i,
  'austin':/^(?:austin\s*(?:high|h\s*s|h\.?s\.?))$/i,
  'austin-akins':/\bakins\b/i,
  'austin-anderson':/\banderson\b/i,
@@ -24,9 +26,7 @@ const routeSchoolNames={
  'austin-travis':/\btravis\b/i,
 };
 const excluded={
- 'austin-achieve':/austin\s*achieve.*(?:high|\bh\s*s\b)/i,
  'austin-lake-travis':/\blake\s*travis\b/i,
- 'austin-vandegrift':/\bvandegrift\b/i,
  'austin-westlake':/\bwestlake\b/i
 };
 const now=new Date().toISOString();
@@ -46,15 +46,15 @@ const result={schema:'b004-independent-geo-v1',verifiedAt:now,schoolDatasetVinta
 let records=[],fetchError=null;
 try{
  const q=await query(teabase,{
-    where:"USER_District_Number = '227901'",
+    where:"USER_District_Name = 'AUSTIN ISD'",
     outFields:'USER_School_Name,USER_District_Number,USER_District_Name,USER_School_Site_Street_Address,USER_School_Street_Address,USER_School_City,Score,Match_type',
     returnGeometry:'true',outSR:'4326',resultRecordCount:1000
  });
  result.sources.schoolQuery=q.url;records=q.data.features||[];
  if(q.data.exceededTransferLimit)throw Error('TEA school query truncated; cannot accept');
  if(records.length<12)throw Error('TEA query matched fewer than 12 schools: '+records.length);
- // The four deliberately excluded programs include charter, Lake Travis,
- // Leander and Eanes districts; do not pretend an Austin ISD-only query covers them.
+ // The GIS scope includes Austin Achieve charter, Lake Travis, Leander/Vandegrift
+ // and Eanes/Westlake; do not pretend an Austin ISD-only query covers them.
  const exclusionQ=await query(teabase,{
   where:"USER_School_Name LIKE '%Achieve%' OR USER_School_Name LIKE '%Lake Travis%' OR USER_School_Name LIKE '%Vandegrift%' OR USER_School_Name LIKE '%Westlake%'",
   outFields:'USER_School_Name,USER_District_Number,USER_District_Name,USER_School_Site_Street_Address,USER_School_Street_Address,USER_School_City,Score,Match_type',
