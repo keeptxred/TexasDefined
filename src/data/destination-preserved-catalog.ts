@@ -1,3 +1,4 @@
+import { lakeSomervilleStateParkAuthority } from "./lake-somerville-state-park-authority";
 import { hillCountryStateNaturalAreaAuthority } from "./hill-country-state-natural-area-authority";
 import { canonicalHistoricStateParkDestinations } from "./canonical-historic-state-parks";
 import { newlyOpenedStateParks2026 } from "./newly-opened-state-parks-2026";
@@ -330,6 +331,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   newlyOpenedStateParks2026,
   canonicalHistoricStateParkDestinations,
   [hillCountryStateNaturalAreaAuthority],
+  [lakeSomervilleStateParkAuthority],
   [shinerBreweryDestination],
   [shinerTownDestination],
   [newBraunfelsSeasonalFallback],
