@@ -1,6 +1,7 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
 import { stateParkHeroMap } from "@/data/state-park-hero-map";
 
 const officialSources = [
@@ -102,6 +103,8 @@ function TexasPaddlingGuidePage() {
             <h2 id="quick-answer" className="mt-2 font-display text-3xl">Choose the waterbody first, then verify today's conditions</h2>
             <p className="mt-4 max-w-4xl text-base leading-8">Texas Parks &amp; Wildlife lists 100 certified paddling trails (October 2026) across rivers, lakes, bayous and bays. The map gives you the route; current wind, flow, water level, weather, launch access and land-manager notices decide whether that route makes sense today.</p>
           </section>
+
+          <GuideVerifiedFacts guideSlug="texas-paddling-guide" />
 
           <section className="border-b border-border py-10" aria-labelledby="before-launch">
             <p className="eyebrow text-primary">Before you launch</p>
