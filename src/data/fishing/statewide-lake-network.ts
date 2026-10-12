@@ -79,6 +79,7 @@ interface StatewideLakeDefinition {
   camping?: { name: string; summary: string };
   accessPoints?: ShowcaseLakePrototype["access"];
   travelAlerts?: string[];
+  consumptionSourceUrl?: string;
   historySourceUrl?: string;
   visitorSourceUrl?: string;
 }
@@ -109,6 +110,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     access: "TPWD lists multiple public and private boat ramps around the lake; low-water conditions can change ramp usability.", nearbyLakes: [{slug:"lake-lbj",name:"Lake LBJ"},{slug:"lake-travis",name:"Lake Travis"}],
     camping: { name: "Lake Buchanan and Colorado Bend corridor", summary: "TPWD points anglers to multiple camping options around the lake and upper Colorado River, including nearby public recreation areas." },
+    travelAlerts: ["TPWD reports zebra mussels in Lake Buchanan. Clean, drain and dry boats, trailers, livewells, bait buckets and gear before visiting another water body; draining water is required by Texas law."],
   },
   {
     slug: "lake-lbj", name: "Lake LBJ", tpwdSlug: "lbj", waterDataSlug: "lyndon-b-johnson", region: "hill-country",
@@ -124,6 +126,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("catfish","Catfish","good","year-round","Blue, channel and flathead catfish occur throughout the reservoir.",["cut-bait","live-bait"]),
     ],
     access: "TPWD identifies two main public ramps plus smaller public ramps in Granite Shoals; verify fees and conditions before travel.", nearbyLakes: [{slug:"lake-buchanan",name:"Lake Buchanan"},{slug:"lake-travis",name:"Lake Travis"}],
+    travelAlerts: ["TPWD warns about algae blooms on Lake LBJ and links to LCRA water-quality updates. Check current local advisories before water-contact recreation.", "TPWD reports zebra mussels in Lake LBJ; follow current cleaning, draining and drying requirements. Bowfishing is also subject to LCRA-enforced special rules, so verify those before harvesting fish."],
   },
   {
     slug: "richland-chambers-reservoir", name: "Richland-Chambers Reservoir", tpwdSlug: "richland_chambers", waterDataSlug: "richland-chambers", region: "prairies-lakes",
@@ -479,6 +482,8 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     access: "Sam Wahl Recreation Area provides the principal public launch, fishing pier and primitive camping access; shoreline access is otherwise limited.", specialRules: true, nearbyLakes: [{slug:"lake-meredith",name:"Lake Meredith"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"}],
     camping: {name:"Sam Wahl Recreation Area",summary:"Primitive camping and self-contained RV parking are available near the main lake access; verify current city rules and fees."},
+    consumptionSourceUrl: "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories",
+    travelAlerts: ["A TPWD-listed mercury fish-consumption advisory applies to Lake Alan Henry. Check the current Texas fish-consumption advisory for affected species and vulnerable groups before eating the catch."],
   },
   {
     slug: "lake-meredith", name: "Lake Meredith", tpwdSlug: "meredith", waterDataSlug: "meredith", region: "panhandle",
@@ -497,6 +502,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     access: "National Park Service access includes multiple ramps when water levels allow, camping/picnic areas and an ADA-accessible fishing pier.", nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"lake-sweetwater",name:"Lake Sweetwater"}],
     camping: {name:"Lake Meredith National Recreation Area",summary:"The National Park Service manages developed and primitive camping around the reservoir; ramp availability depends on water level."},
+    consumptionSourceUrl: "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories",
     travelAlerts: ["TPWD links to a fish-consumption advisory for Lake Meredith. Consult the current Texas Department of State Health Services notice before eating fish from the reservoir."],
   },
   {
@@ -548,6 +554,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     access: "TPWD lists public and private access around Lake Granbury; changing lake levels can affect ramp usability, so verify the specific facility before towing.",
     nearbyLakes: [{slug:"lake-whitney",name:"Lake Whitney"},{slug:"possum-kingdom-reservoir",name:"Possum Kingdom Reservoir"}],
+    travelAlerts: ["TPWD warns that golden-alga blooms can occur on Lake Granbury and may harm fish and change fishing conditions; contact TPWD or check current bloom reports before planning a fishing-specific trip."],
   },
   {
     slug: "lake-waco", name: "Lake Waco", tpwdSlug: "waco", waterDataSlug: "waco", verifiedAt: "2026-10-09", region: "prairies-lakes",
@@ -896,6 +903,7 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
       tpwdRegulations: { label: "TPWD — current freshwater fishing regulations", url: TPWD_REGULATIONS },
       liveLevel: liveLevelSource,
       ...(def.historySourceUrl ? { reservoirHistory: { label: "Texas Water Development Board — reservoir history", url: def.historySourceUrl } } : {}),
+      ...(def.consumptionSourceUrl ? { fishConsumption: { label: "TPWD — current fish-consumption advisories", url: def.consumptionSourceUrl } } : {}),
       ...(def.visitorSourceUrl ? { cityRecreation: { label: "City of Sweetwater — official visitor information", url: def.visitorSourceUrl } } : {}),
     },
   };
