@@ -16,7 +16,7 @@ describe("destination location answers shared by every Explore destination", () 
     expect(destinationLocationAnswer({
       name: "Old Tunnel State Park", nearestTown: "Fredericksburg",
       countyLabel: "Gillespie County", address: "10619 Old San Antonio Road",
-    })).toContain("near Fredericksburg, Texas");
+    })).toContain("is at 10619 Old San Antonio Road");
   });
   it("keeps the state and county for destinations without a precise street address", () => {
     const text = destinationLocationAnswer({
