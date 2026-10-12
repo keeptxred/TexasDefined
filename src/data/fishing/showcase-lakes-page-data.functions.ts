@@ -22,12 +22,17 @@ async function loadPageLiveLakeLevel(sourceUrl: string) {
 export const getShowcaseLakePageData = createServerFn({ method: "GET" })
   .inputValidator((data: { slug: string }) => data)
   .handler(async ({ data }) => {
-    const lake = loadShowcaseLakesPageDataServer()[data.slug];
-    if (!lake) return null;
-    return {
-      ...lake,
-      liveLakeLevel: await loadPageLiveLakeLevel(lake.sources.liveLevel.url),
-    };
+    try {
+      const lake = loadShowcaseLakesPageDataServer()[data.slug];
+      if (!lake) return null;
+      return {
+        ...lake,
+        liveLakeLevel: await loadPageLiveLakeLevel(lake.sources.liveLevel.url),
+      };
+    } catch (error) {
+      console.error("[fishing-lake-page-data] Unable to render lake", data.slug, error);
+      throw error;
+    }
   });
 
 export const getShowcaseLakesPageData = createServerFn({ method: "GET" }).handler(async () => {
