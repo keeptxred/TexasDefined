@@ -7,9 +7,9 @@
 -- Delivery 0: create a reviewed synthetic application (no payments).
 BEGIN;
 INSERT INTO public.texasdefined_network_applications
- (id,plan,status,intake_complete,business_name,category,city,contact_email)
+ (id,plan,status,intake_complete,business_name,category,city,contact_email,terms_version,terms_snapshot_sha256,terms_accepted_at,representative_authority_accepted,facts_responsibility_accepted,media_responsibility_accepted,search_indexing_accepted)
 VALUES ('dddddddd-dddd-4ddd-8ddd-dddddddddddd','plus','approved',true,
- 'Cross-transaction Test Shop','Fixture','Katy','independent-deliveries@example.invalid');
+ 'Cross-transaction Test Shop','Fixture','Katy','independent-deliveries@example.invalid','2026-10-11-v1','166b237dc2572da5195e1f5217ec51c8ecc83b73f68a080a16b4478e35f9a6a6',now(),true,true,true,true);
 COMMIT;
 
 -- Delivery 1: independently verified paid subscription; activation commits.
