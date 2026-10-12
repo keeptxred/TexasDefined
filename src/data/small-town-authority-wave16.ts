@@ -110,7 +110,7 @@ export const additionalTownAuthorityDestinations: Destination[] = [
       nearbyAttractions: [
         { name: "Port Aransas Beach", description: "City-managed Gulf beach with variable surf, seasonal guards and vehicle-parking rules.", proximity: "In town", href: "https://cityofportaransas.org/departments/parks-and-recreation/port-aransas-beach/" },
         { name: "Mustang Island State Park", description: "Nearby state park with separately managed entry, reservations, camping and beach access.", proximity: "South on Mustang Island", href: "/destination/mustang-island-state-park" },
-        { name: "Port Aransas ferry", description: "Check current TxDOT conditions and anticipate busy-weekend and holiday queues.", proximity: "North end of town", href: "https://www.txdot.gov/discover/ferry-boat-schedules/ferry-boat-schedules.html" }
+        { name: "Port Aransas ferry", description: "Check current TxDOT conditions and anticipate busy-weekend and holiday queues.", proximity: "North end of town", href: "https://www.txdot.gov/discover/ferry-boat-schedules.html" }
       ],
       foodAndDrink: [{ name: "Harbor and central town", description: "Seafood, casual dining and coffee options are concentrated around the commercial core; check current operations." }],
       lodging: [{ name: "Beach rentals, hotels and RV parks", description: "Separate walk-to-beach access, designated resort amenities and legal beach camping when choosing a place to stay." }],
@@ -134,7 +134,7 @@ export const additionalTownAuthorityDestinations: Destination[] = [
         { label: "City of Port Aransas — beaches", url: "https://cityofportaransas.org/departments/parks-and-recreation/port-aransas-beach/", scope: "Public beach operations, rip currents, lifeguard coverage and permits" },
         { label: "City of Port Aransas — beach permits", url: "https://cityofportaransas.org/departments/parks-and-recreation/port-aransas-beach/beach-parking-permit-information/", scope: "City beach vehicle parking, free areas and camping regulations" },
         { label: "Port Aransas Tourism Bureau", url: "https://www.portaransas.org/", scope: "Visitor activities, dining, stays and local planning" },
-        { label: "Texas Department of Transportation — ferry", url: "https://www.txdot.gov/discover/ferry-boat-schedules/ferry-boat-schedules.html", scope: "Ferry schedule and travel planning" }
+        { label: "Texas Department of Transportation — ferry", url: "https://www.txdot.gov/discover/ferry-boat-schedules.html", scope: "Ferry schedule and travel planning" }
       ]
     },
     featured: true,
