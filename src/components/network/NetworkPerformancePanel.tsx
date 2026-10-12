@@ -52,9 +52,9 @@ export function NetworkPerformancePanel({applicationId,userId,tier}:{
     <p className="mt-5 text-sm">Last 7 days: <strong>{report.recentSevenDays}</strong> observed profile displays. Previous 7 days: <strong>{report.priorSevenDays}</strong>.</p>
     <h4 className="mt-5 font-semibold">Daily trend — last 14 days</h4>
     <div className="mt-3 space-y-2" role="list" aria-label="Daily observed listing traffic">
-     {report.daily.slice(-14).map(day=><div key={day.day} role="listitem" className="grid grid-cols-[7rem_1fr_5rem] items-center gap-3 text-sm">
+     {report.daily.slice(-14).map(day=><div key={day.day} role="listitem" className="flex items-center gap-3 text-sm">
       <span>{day.day.slice(5)}</span>
-      <div className="h-3 rounded-full bg-muted" aria-hidden="true"><div className="h-3 rounded-full bg-primary" style={{width:(day.views?Math.max(3,100*day.views/Math.max(1,...report.daily.map(x=>x.views))):0)+'%'}}/></div>
+      <div className="min-w-0 flex-1 h-3 rounded-full bg-muted" aria-hidden="true"><div className="h-3 rounded-full bg-primary" style={{width:(day.views?Math.max(3,100*day.views/Math.max(1,...report.daily.map(x=>x.views))):0)+'%'}}/></div>
       <span className="text-right tabular-nums">{day.views} views</span>
      </div>)}
     </div>
