@@ -79,7 +79,9 @@ for(const p of pilot.pilotSchools){
   }
   assert.ok(!p.sources.some(s=>s.kind==='identity-disambiguation-ONLY' && !s.title.includes('WRONG SCHOOL')),
     'Disambiguation sources must state they are excluded');
-  assert.ok(!/READY TO PUBLISH|ready-to-publish/.test(p.programStatus),'No partial program page is ready');
+  // A documented 'not-ready-to-publish' status must not trigger a false positive.
+  // Reject only affirmative publication-ready statuses, never a negative research warning.
+  assert.ok(!/^ready(?:[- ]to[- ]publish)(?:$|[- ])/i.test(p.programStatus),'No partial program page is ready');
   researched[p.name]=[p.facts.length,p.sources.length,p.gaps.length];
   facts+=p.facts.length;
   sources+=p.sources.length;
