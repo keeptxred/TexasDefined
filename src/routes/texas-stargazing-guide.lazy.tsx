@@ -1,6 +1,7 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
 import { stateParkHeroMap } from "@/data/state-park-hero-map";
 
 const officialSources = [
@@ -102,6 +103,8 @@ function TexasStargazingGuidePage() {
             <h2 id="quick-answer" className="mt-2 font-display text-3xl">A Dark Sky designation is the starting point, not the forecast</h2>
             <p className="mt-4 max-w-4xl text-base leading-8">TPWD currently lists Big Bend Ranch, Caprock Canyons, Copper Breaks, Enchanted Rock and South Llano River as International Dark Sky Parks. For the actual night, check moonrise and moonset, cloud cover, transparency, weather, park alerts, operating hours and any after-hours access rules. Lower Bortle numbers indicate darker skies, but even a Bortle Class 1 site can be disappointing under a bright moon or overcast sky.</p>
           </section>
+
+          <GuideVerifiedFacts guideSlug="texas-stargazing-guide" />
 
           <section className="border-b border-border py-10" aria-labelledby="stewardship">
             <p className="eyebrow text-primary">Night-sky stewardship</p>
