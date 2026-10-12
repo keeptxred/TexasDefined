@@ -48,7 +48,7 @@ for (const wave of guideSources) {
 }
 for (const key of [
   "export const TOWN_AUTHORITY_DIRECTORY", "export const TOWN_AUTHORITY_SLUGS",
-  "canonicalAuthority.has(destination.slug)", "countyTowns[slug]",
+  "canonicalAuthority.get(destination.slug)", "countyTowns[slug]",
   "townAuthorityContextualLinks(", "TEXAS_CITIES.find", "candidate.region === destination.region",
 ]) check(network.includes(key), "Network missing " + key);
 
