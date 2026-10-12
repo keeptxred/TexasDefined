@@ -55,8 +55,8 @@ function HistoricChurchPage() {
       <p className="mt-6 text-sm text-ink-foreground/65">Historical research reviewed {church.reviewedOn}. Visitor information can change; confirm with the parish.</p>
     </Container></section>
     <Container className="py-12 sm:py-16">
-      <div className="grid gap-10 lg:grid-cols-3">
-        <div className="lg:col-span-2">
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(280px,.55fr)]">
+        <div>
           {church.image ? <figure className="mb-10">
             <img className="w-full rounded-sm bg-surface object-cover" src={historicChurchImageSrc(church.image)} alt={church.image.alt} width={church.image.width} height={church.image.height} decoding="async" onError={e=>recoverOrHideImage(e.currentTarget)} />
             <figcaption className="mt-3 text-xs leading-6 text-muted-foreground">Photo: {church.image.author} · <a href={church.image.sourceUrl} target="_blank" rel="noreferrer" className="text-primary underline">Wikimedia Commons original</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer" className="underline">{church.image.license}</a>. No alterations to original indicated.</figcaption>
