@@ -4,12 +4,14 @@ on:
     branches: [main]
     paths:
       - 'scripts/ci/verify-football-b004-austin-gis.mjs'
+      - 'scripts/ci/audit-football-b004-sources.mjs'
       - 'scripts/ci/review-football-b004-mobile-contrast.mjs'
       - '.github/workflows/audit-football-b004-final-evidence.yml'
   push:
     branches: [main]
     paths:
       - 'scripts/ci/verify-football-b004-austin-gis.mjs'
+      - 'scripts/ci/audit-football-b004-sources.mjs'
       - 'scripts/ci/review-football-b004-mobile-contrast.mjs'
       - '.github/workflows/audit-football-b004-final-evidence.yml'
   workflow_dispatch:
@@ -62,5 +64,24 @@ jobs:
         with:
           name: football-b004-contrast-photo-evidence
           path: artifacts/football-b004-contrast-and-images/
+          if-no-files-found: warn
+          retention-days: 30
+
+  source-links:
+    name: Review 25 football sources
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check scripts/ci/audit-football-b004-sources.mjs
+      - run: node scripts/ci/audit-football-b004-sources.mjs
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-b004-source-evidence
+          path: artifacts/football-b004-source-evidence/
           if-no-files-found: warn
           retention-days: 30
