@@ -72,6 +72,7 @@ export const STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS = [
   "benbrook-lake",
   "granger-lake",
   "aquilla-lake",
+  "white-rock-lake",
 ] as const;
 
 export const COMPLETE_FISHING_LAKE_SLUGS = [
