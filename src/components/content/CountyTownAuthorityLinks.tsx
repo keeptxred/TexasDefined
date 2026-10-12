@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { townAuthorityCityLinks, townAuthorityCountyLinks } from "@/data/town-authority-network";
+import { townAuthorityCityLinks, townAuthorityCountyLinks } from "@/data/town-authority-links";
 
 export function CountyTownAuthorityLinks({ kind, slug, name }: { kind: "city" | "county"; slug: string; name: string }) {
   const links = kind === "county" ? townAuthorityCountyLinks(slug) : townAuthorityCityLinks(slug);
