@@ -10,12 +10,14 @@ function uniqueMarkets(markets: ViatorMatchMarket[]) {
 }
 
 function matchDestinationMarket(destination: Destination) {
-  const matches = uniqueMarkets([
-    ...viatorMarketsForPlace(destination.name),
-    ...viatorMarketsForPlace(destination.nearestTown),
-    ...(destination.county ? viatorMarketsForPlace(destination.county) : []),
-  ]);
-  return matches.find((market) => hasVerifiedViatorMarketUrl(market.slug)) ?? matches[0];
+  // A museum, spring or small nature preserve does not become a Viator
+  // experience simply because it shares a county with a bookable city.
+  // Match the named attraction itself, or an intentional travel-destination
+  // record, rather than automatically marketing its nearest town/county.
+  const relevantMarkets = destination.category === "small-towns" || destination.category === "road-trips"
+    ? uniqueMarkets([...viatorMarketsForPlace(destination.name), ...viatorMarketsForPlace(destination.nearestTown)])
+    : viatorMarketsForPlace(destination.name);
+  return relevantMarkets.find((market) => hasVerifiedViatorMarketUrl(market.slug));
 }
 
 function WmaHuntingLinks() {
