@@ -1,5 +1,6 @@
 import '../network.css';
 import {createLazyFileRoute} from '@tanstack/react-router';
+import {useEffect,useState} from 'react';
 import {Container} from '@/components/layout/Container';
 import {HostedWebsiteTemplate} from '@/components/network/HostedWebsiteTemplate';
 import {WEBSITE_HOSTING_TIERS,validateHostedWebsiteDraft,type WebsiteHostingTier} from '@/data/network-commercial-model';
@@ -19,11 +20,14 @@ function samplePages(tier:WebsiteHostingTier){
  return pages;
 }
 function HostedWebsiteDemo(){
- const tierInput=typeof window!=='undefined'?new URLSearchParams(window.location.search).get('tier'):'starter';
- const tier:WebsiteHostingTier=WEBSITE_HOSTING_TIERS.some(t=>t.id===tierInput)?tierInput as WebsiteHostingTier:'starter';
+ const [query,setQuery]=useState({tier:'starter',page:'home'});
+ useEffect(()=>{
+  const params=new URLSearchParams(window.location.search);
+  setQuery({tier:params.get('tier')||'starter',page:params.get('page')||'home'});
+ },[]);
+ const tier:WebsiteHostingTier=WEBSITE_HOSTING_TIERS.some(t=>t.id===query.tier)?query.tier as WebsiteHostingTier:'starter';
  const pages=samplePages(tier);
- const pageInput=typeof window!=='undefined'?new URLSearchParams(window.location.search).get('page'):'home';
- const pageSlug=pages.some(p=>p.slug===pageInput)?String(pageInput):'home';
+ const pageSlug=pages.some(p=>p.slug===query.page)?query.page:'home';
  const sample={businessName:"Jimmy's Fishing Guide (Sample)",pages,galleryStoragePaths:[]};
  const result=validateHostedWebsiteDraft(tier,sample);
  if(!result.ok)return <Container className="py-16"><h1>Sample website unavailable</h1></Container>;
