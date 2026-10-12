@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { SamRayburnContext } from "@/components/editorial/SamRayburnContext";
+import { RiverContextualLinks } from "@/components/content/RiverContextualLinks";
 import { GenericFishingLakeGuide } from "@/components/fishing/GenericFishingLakeGuide";
 import { LakeConroeGuide } from "@/components/fishing/LakeConroeGuide";
 import { LiveLakeLevelStrip } from "@/components/fishing/LiveLakeLevelStrip";
@@ -98,14 +99,16 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
 
 function FishingLakeOverviewRoute() {
   const data = Route.useLoaderData();
-  if (data.kind === "generic") return <GenericFishingLakeGuide lake={data.lake} species={data.species} relationships={data.relationships} reports={data.reports} guides={data.guides} access={data.access} businesses={data.businesses} />;
+  if (data.kind === "generic") return <><GenericFishingLakeGuide lake={data.lake} species={data.species} relationships={data.relationships} reports={data.reports} guides={data.guides} access={data.access} businesses={data.businesses} /><Container><RiverContextualLinks destinationSlug={data.lake.slug} /></Container></>;
   if (data.kind === "conroe") return <>
     <LiveLakeLevelStrip lakeName={data.pageData.overview.name} sourceUrl={data.pageData.sources.liveLevel.url} snapshot={data.liveLakeLevel} />
     <LakeConroeGuide reports={data.reports} guides={data.guides} pageData={data.pageData} />
+    <Container><RiverContextualLinks destinationSlug={data.lake.slug} /></Container>
   </>;
   return <>
     {isLiveLakeLevelSource(data.pageData.sources.liveLevel.url) && <LiveLakeLevelStrip lakeName={data.pageData.overview.name} sourceUrl={data.pageData.sources.liveLevel.url} snapshot={data.liveLakeLevel} />}
     {data.pageData.slug === "sam-rayburn-reservoir" ? <SamRayburnContext surface="reservoir" /> : null}
     <ShowcaseLakeGuide reports={data.reports} guides={data.guides} businesses={data.businesses} placements={data.placements} pageData={data.pageData} />
+    <Container><RiverContextualLinks destinationSlug={data.lake.slug} /></Container>
   </>;
 }
