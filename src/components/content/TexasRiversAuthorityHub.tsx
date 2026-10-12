@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { RIVER_AUTHORITY_RELATIONS } from "@/data/river-authority-relations";
 
 import { PublishableGraphic } from "@/components/editorial/PublishableGraphic";
 import { TexasRiversCitationTrust } from "@/components/content/TexasRiversCitationTrust";
@@ -24,13 +25,14 @@ const riverProfiles = [
   { name: "Sulphur", href: "/article/texas-sulphur-river-guide", region: "Northeast Texas", note: "Cooper Lake · Wright Patman · Red drainage", image: "/images/state-parks/cooper-lake-south-sulphur-unit-state-park.jpg" },
 ] as const;
 
-const tributaryRecreationProfiles = [
-  { name: "Frio River", href: "/article/texas-frio-river-guide", note: "Garner · Concan · tubing and camping" },
-  { name: "Comal River", href: "/article/texas-comal-river-guide", note: "New Braunfels · municipal river rules" },
-  { name: "San Marcos River", href: "/article/texas-san-marcos-river-guide", note: "Spring Lake · river parks · Luling paddling" },
-  { name: "Llano River", href: "/article/texas-llano-river-guide", note: "South Llano · Junction · Guadalupe bass" },
-  { name: "Pecos River", href: "/article/texas-pecos-river-guide", note: "Lower Pecos · canyon country · access planning" },
-] as const;
+const tributaryRecreationProfiles = RIVER_AUTHORITY_RELATIONS
+  // Dedicated recreation profiles not already listed among the 15 TWDB major basins.
+  .filter((river) => !riverProfiles.some((basin) => basin.href === `/article/${river.slug}`))
+  .map((river) => ({
+    name: river.name,
+    href: `/article/${river.slug}`,
+    note: "Fishing · camping · paddling · local access and visitor planning",
+  }));
 
 const riverRegions = [
   { title: "West Texas & the border", rivers: "Rio Grande · Pecos · Devils", description: "High desert, mountain basins, canyon country and an international river system." },
