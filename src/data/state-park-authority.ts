@@ -121,6 +121,15 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     camping: "TPWD lists 12 electric campsites, three electric tent-only sites, two water sites and five primitive sites. Exact access, reservation methods and showers vary by category.",
     maps: "TPWD publishes park and trails maps; the history of Mission San Francisco de los Tejas and Rice Family Log Home is interpreted through separate visitor materials.",
   },
+  "ray-roberts-lake-state-park": {
+    checkedAt: "2026-10-12",
+    sourceUrl: "https://tpwd.texas.gov/state-parks/ray-roberts-lake/fees-facilities/campsites",
+    restrooms: "Developed electrical sites at Isle du Bois and Johnson Branch list shower restrooms nearby. Walk-in primitive sites list ordinary restrooms; their exact distance differs by loop. Several accessible sites are named in TPWD's source.",
+    parking: "Use Isle du Bois 100 PW 4137, Pilot Point or Johnson Branch 100 PW 4153, Valley View. Walk-in primitive sites require carrying gear between 1/8 and 1/4 mile depending on the unit.",
+    camping: "Isle du Bois: 13 higher-amperage plus 102 ordinary electric sites and 53 walk-in primitive sites. Johnson Branch: 11 higher-amperage, 93 ordinary electric and 70 walk-in primitive sites. Both have specific accessible campsite numbers.",
+    access: "October 9, 2026 official park update: Johnson Branch DORBA trails open; Isle du Bois equestrian/DORBA open; Greenbelt south of Overlook closed. Recheck trail alerts after weather.",
+    maps: "Separate park maps for Isle du Bois and Johnson Branch plus a complex overview and distinct trails maps.",
+  },
   "lake-somerville-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/lake-somerville/fees-facilities/campsites",
