@@ -26,7 +26,12 @@ const cityRoster = [
 const cityBySchool = new Map(cityRoster.flatMap(({ city, schools }) => schools.map(slug => [slug, city])));
 const registry = JSON.parse(await readFile('docs/football-authority/REGISTRY.json', 'utf8'));
 assert.equal(roster.length, 25);
-assert.deepEqual(registry.batch.slugs, roster.map(([slug]) => slug));
+// Batch 002 must stay pinned to its completed immutable roster even when a
+// newer school-research batch is active. A roster mismatch must fail closed.
+const completedBatch002 = registry.completedBatches?.find(batch => batch.number === 2)
+  ?? (registry.batch?.number === 2 ? registry.batch : null);
+assert.ok(completedBatch002, 'Batch 002 registry record is missing');
+assert.deepEqual(completedBatch002.slugs, roster.map(([slug]) => slug));
 const bySlug = new Map(registry.schoolRecords.filter(x => x.batch === 2).map(x => [x.slug, x]));
 assert.equal(bySlug.size, 25);
 await mkdir(output, { recursive: true });
