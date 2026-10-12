@@ -22,7 +22,7 @@ function parseGuideSpecs(source, filename) {
   return JSON.parse(match[1]);
 }
 function parseJsonRegistry(name) {
-  const rx = new RegExp("const " + name + ": Record<number, [^=]+ = (\\{[\\s\\S]*?\\});\\nconst ");
+  const rx = new RegExp("const " + name + ": Record<number, [^=]+ = (\\{[\\s\\S]*?\\});\\n(?:const |export )");
   const match = files.evidence.match(rx);
   if (!match) throw new Error("Cannot parse " + name);
   return JSON.parse(match[1]);
