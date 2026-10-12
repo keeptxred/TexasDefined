@@ -5,6 +5,7 @@ const checks = [
   ['generated-page-quality', 'CODE/CONTENT', 'Validate generated page quality', 'node', ['scripts/data/validate-generated-page-quality.mjs']],
   ['runtime-data-constants', 'CODE/RUNTIME', 'Validate runtime data constants', 'node', ['scripts/data/validate-runtime-data-constants.mjs']],
   ['county-editorial-discovery', 'INTERNAL-LINKING', 'Validate county editorial discovery', 'node', ['scripts/data/validate-county-editorial-discovery.mjs']],
+  ['stamford-sweetwater-crosslinks', 'INTERNAL-LINKING', 'Validate lake-county reciprocal authority crosslinks', 'node', ['scripts/data/validate-stamford-sweetwater-crosslinks.mjs']],
   ['county-property-enrichment', 'CODE/CONTENT', 'Validate county property enrichment', 'node', ['scripts/data/validate-county-property-enrichment.mjs']],
   ['destination-indexing-policy', 'SEO/INDEXING', 'Validate destination indexing policy', 'node', ['scripts/data/validate-destination-indexing-policy.mjs']],
   ['homeowners-premium-research', 'SOURCE/QUALITY', 'Validate Texas homeowners premiums research', 'node', ['scripts/data/validate-homeowners-premium-research.mjs']],
@@ -98,6 +99,7 @@ const checks = [
 const predeployIds = new Set([
   'runtime-data-constants',
   'county-editorial-discovery',
+  'stamford-sweetwater-crosslinks',
   'machine-indexing', 'things-unique-to-texas', 'texas-icon-link-depth', 'texas-weather-authority',
   'texas-food-history', 'texas-culture-citation-index', 'texas-flag-authority', 'painted-churches-seo',
   'painted-church-search-intents', 'painted-church-map', 'painted-church-completion', 'military-history-expansion',
