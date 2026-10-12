@@ -116,8 +116,31 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
   ],
 };
 
+/** Topical entry links must be reciprocal with the ten statewide comparison guides. */
+const HIGH_INTENT_TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
+  "lakes-rivers": [
+    { to: "/article/best-fishing-lakes-in-texas", label: "Best fishing lakes in Texas", description: "Source-checked surface areas, fishing types, boater access and lake-specific differences." },
+    { to: "/article/best-lakes-for-swimming-in-texas", label: "Best lakes for swimming", description: "Choose lawful managed swimming areas, water safety and family-friendly lake settings." },
+    { to: "/article/best-rivers-for-tubing-in-texas", label: "Best rivers for tubing", description: "Compare float corridors, official river rules and flow-sensitive access." },
+  ],
+  "rv-parks": [{ to: "/article/best-rv-parks-in-texas", label: "Best Texas RV parks", description: "Compare rigs, hookups, campground types and actual site-fit constraints." }],
+  "state-parks": [{ to: "/article/best-state-parks-for-camping-in-texas", label: "Best state parks for camping", description: "Compare actual campsite categories, amenities and ranger-managed reservations." }],
+  "small-towns": [
+    { to: "/article/best-small-towns-to-visit-in-texas", label: "Best small towns to visit", description: "Find towns for history, heritage, food, outdoor and shopping-focused trips." },
+    { to: "/article/best-towns-for-antiquing-in-texas", label: "Best Texas towns for antiquing", description: "Distinguish year-round shops from seasonal dealer markets and trade days." },
+  ],
+  "historic-sites": [{ to: "/article/best-museums-in-texas", label: "Best Texas museums", description: "Choose museums by specialty, visitor logistics, exhibits and regional context." }],
+  "road-trips": [
+    { to: "/article/best-scenic-drives-in-texas", label: "Best Texas scenic drives", description: "Explore sourced route distances, responsible roadside stops and scenic regions." },
+    { to: "/article/best-weekend-getaways-in-texas", label: "Best Texas weekend getaways", description: "Plan realistic two-night trips, regional bases and weather alternatives." },
+  ],
+  ["swimming-holes-river-tubing" as CategorySlug]: [
+    { to: "/article/best-rivers-for-tubing-in-texas", label: "Best Texas tubing rivers", description: "Verify float access, segment-specific rules and flow conditions." },
+    { to: "/article/best-lakes-for-swimming-in-texas", label: "Best Texas lake swimming", description: "Find managed lake swimming and check park conditions." },
+  ],
+};
 export function ExploreTopicPaths({ category }: { category: CategorySlug }) {
-  const links = TOPIC_PATHS[category] ?? [];
+  const links = [...(TOPIC_PATHS[category] ?? []), ...(HIGH_INTENT_TOPIC_PATHS[category] ?? [])];
   if (!links.length) return null;
 
   return (
