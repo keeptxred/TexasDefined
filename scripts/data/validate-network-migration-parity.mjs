@@ -43,7 +43,9 @@ const applied=[
   "20261011183108_network_owner_revision_read_revocation_20261011.sql",
   "20261011183126_network_sensitive_action_audit_20261011.sql",
   "20261011183129_network_notification_manual_recovery_20261011.sql",
-  "20261011183131_network_featured_storage_atomic_counter_20261011.sql"
+  "20261011183131_network_featured_storage_atomic_counter_20261011.sql",
+  "20261012012227_require_network_customer_terms_acceptance.sql",
+  "20261012012809_make_network_terms_evidence_append_only.sql"
 ];
 let errors=0;
 for (const filename of applied){
