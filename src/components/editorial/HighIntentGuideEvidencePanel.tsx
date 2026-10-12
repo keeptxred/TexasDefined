@@ -30,13 +30,13 @@ export function HighIntentGuideEvidencePanel({ slug, blocks }: { slug: string; b
       <h3 id="quick-guide-comparison" className="font-display text-2xl">Compare all {picks.length} options at a glance</h3>
       <p className="mt-2 text-sm leading-6 text-muted-foreground">This is an editorial best-fit comparison, not a live ranking. Open each option's full discussion for its access and planning tradeoffs.</p>
       <div className="mt-5 overflow-x-auto">
-        <table className="w-full min-w-[640px] border-collapse text-left text-sm">
+        <table className="w-full border-collapse text-left text-sm">
           <caption className="sr-only">Best fit and practical planning notes for each recommendation</caption>
           <thead><tr className="border-y border-border"><th scope="col" className="px-3 py-4">Option</th><th scope="col" className="px-3 py-4">Best fit</th><th scope="col" className="px-3 py-4">Before you go</th></tr></thead>
           <tbody>{picks.map((pick) => <tr key={pick.title} className="border-b border-border align-top">
-            <th scope="row" className="min-w-40 px-3 py-4"><a href={`#${sectionAnchor(pick.title)}`} className="font-semibold text-primary underline underline-offset-4">{pick.place} ↓</a></th>
-            <td className="min-w-36 px-3 py-4">{pick.fit || "Read destination assessment"}</td>
-            <td className="min-w-72 px-3 py-4">{pick.note.split(/(?<=[.!?])\s/)[0]}</td>
+            <th scope="row" className="px-3 py-4"><a href={`#${sectionAnchor(pick.title)}`} className="font-semibold text-primary underline underline-offset-4">{pick.place} ↓</a></th>
+            <td className="px-3 py-4">{pick.fit || "Read destination assessment"}</td>
+            <td className="px-3 py-4">{pick.note.split(/(?<=[.!?])\s/)[0]}</td>
           </tr>)}</tbody>
         </table>
       </div>
@@ -46,9 +46,9 @@ export function HighIntentGuideEvidencePanel({ slug, blocks }: { slug: string; b
         <caption className="sr-only">Verified reference facts and their controlling primary sources</caption>
         <thead><tr className="border-y border-border"><th scope="col" className="px-3 py-4 font-semibold">Reference fact</th><th scope="col" className="px-3 py-4 font-semibold">Published value</th><th scope="col" className="px-3 py-4 font-semibold">Primary source</th></tr></thead>
         <tbody>{evidence.facts.map((fact) => <tr key={fact.label} className="border-b border-border align-top">
-          <th scope="row" className="min-w-40 px-3 py-4 font-semibold">{fact.label}</th>
-          <td className="min-w-56 px-3 py-4">{fact.value}</td>
-          <td className="min-w-36 px-3 py-4"><a href={fact.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">View original ↗</a><span className="mt-2 block text-xs text-muted-foreground">Checked {fact.verifiedAt}</span></td>
+          <th scope="row" className="px-3 py-4 font-semibold">{fact.label}</th>
+          <td className="px-3 py-4">{fact.value}</td>
+          <td className="px-3 py-4"><a href={fact.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">View original ↗</a><span className="mt-2 block text-xs text-muted-foreground">Checked {fact.verifiedAt}</span></td>
         </tr>)}</tbody>
       </table>
     </div>
