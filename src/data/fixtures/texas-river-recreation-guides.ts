@@ -115,15 +115,16 @@ export const riverRecreationGuideRecords = [
         "TPWD Garner alerts",
         "https://tpwd.texas.gov/state-parks/garner/alert"
       ]
-    ]
+    ],
+    "heroCredit": "Garner State Park · existing TexasDefined licensed image; source record in image catalog"
   },
   {
     "slug": "texas-comal-river-guide",
     "name": "Comal River",
     "title": "Comal River, New Braunfels: Tubing, Parks, Access, Rules & Visitor Guide",
     "summary": "A practical New Braunfels Comal River guide distinguishing its short spring-fed municipal float corridor from the Guadalupe, with official access, local rules, conservation and nearby stays.",
-    "hero": "/images/editorial/texas-river-basins.jpg",
-    "heroAlt": "Illustrated map of Texas river basins; a Comal River field photograph is pending licensed verification",
+    "hero": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Comal_River_in_Landa_Park.jpg",
+    "heroAlt": "Comal River flowing through Landa Park in New Braunfels, Texas",
     "region": "New Braunfels, Comal County",
     "overview": "The Comal is a comparatively short spring-fed river that rises in New Braunfels and joins the Guadalupe. Its tourism identity comes from accessible city parks, a developed tubing corridor and proximity to downtown, not from an expansive wilderness river or a statewide camping corridor. A useful guide must distinguish the Comal from nearby Guadalupe sections and tell visitors exactly which city rules and access points apply to their intended float.",
     "route": "Start with New Braunfels park and river information, then decide whether the trip is a city float, a family park day or a broader Comal–Guadalupe weekend. Landa Park is a land-based orientation point for the spring system; commercial tubing trips use designated access and exit arrangements that should be confirmed with the operator. Prince Solms Park and the downstream float area are common trip-planning references, but entrance, parking and river operation rules can change. Verify them at the city source instead of assuming last year's rules apply.",
@@ -183,15 +184,16 @@ export const riverRecreationGuideRecords = [
         "Texas river access law",
         "https://tpwd.texas.gov/publications/nonpwdpubs/water_issues/rivers/navigation/riddell/publicaccess.phtml"
       ]
-    ]
+    ],
+    "heroCredit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Comal_River_in_Landa_Park.jpg"
   },
   {
     "slug": "texas-san-marcos-river-guide",
     "name": "San Marcos River",
     "title": "San Marcos River: Springs, River Parks, Tubing, Paddling & Wildlife",
     "summary": "A visitor guide from the protected spring-fed headwaters and urban river parks of San Marcos to the lower paddling reaches near Luling, including city rules, access, angling and camping alternatives.",
-    "hero": "/images/editorial/texas-river-basins.jpg",
-    "heroAlt": "Illustrated Texas river basin overview; replace with a rights-verified San Marcos River image",
+    "hero": "https://upload.wikimedia.org/wikipedia/commons/4/45/San_Marcos_River_San_Marcos_Texas_2023.jpg",
+    "heroAlt": "San Marcos River at San Marcos with people enjoying the water in August 2023",
     "region": "Hays, Guadalupe and Caldwell counties",
     "overview": "The San Marcos River begins in a remarkable spring system at San Marcos, travels through busy urban parks and then becomes a less-developed river toward Martindale, Luling and its eventual meeting with the Guadalupe. Those are different experiences: a short swim, a managed float and a miles-long paddling trip should never be presented as interchangeable. The upper river contains sensitive aquatic habitat, including Texas wild-rice, so visitor planning starts with ecological rules as well as recreation.",
     "route": "In town, orient around City Park, the Lions Club tubing area and Rio Vista Park, then compare park-specific entry, parking and passes using the official San Marcos visitor and city notices. For a quieter and longer paddling choice, the TPWD Luling Zedler Mill trail runs from a state highway crossing toward Zedler Mill Park; it is a separate lower-river day trip and requires its own shuttle, gauge and access check. Do not assume the entire float from San Marcos to Luling is one maintained commercial loop.",
@@ -255,7 +257,8 @@ export const riverRecreationGuideRecords = [
         "TPWD Luling Zedler Mill trail",
         "https://tpwd.texas.gov/fishboat/boat/paddlingtrails/inland/luling/"
       ]
-    ]
+    ],
+    "heroCredit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:San_Marcos_River_San_Marcos_Texas_2023.jpg"
   },
   {
     "slug": "texas-llano-river-guide",
@@ -331,15 +334,16 @@ export const riverRecreationGuideRecords = [
         "TPWD river leased access",
         "https://tpwd.texas.gov/fishboat/fish/recreational/rivers/lease_access/"
       ]
-    ]
+    ],
+    "heroCredit": "South Llano River State Park · existing TexasDefined image source catalog"
   },
   {
     "slug": "texas-pecos-river-guide",
     "name": "Pecos River",
     "title": "Pecos River in Texas: Canyon History, Public Access, Fishing & Desert Travel",
     "summary": "An evidence-led West Texas Pecos River guide from the New Mexico line through remote desert country to the Rio Grande and Amistad, with realistic access expectations, conservation and historical places.",
-    "hero": "/images/explore/lakes-rivers/amistad-national-recreation-area.jpg",
-    "heroAlt": "Amistad National Recreation Area near the Pecos and Rio Grande canyon country",
+    "hero": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Pecos_River.jpg",
+    "heroAlt": "Pecos River in the Lower Pecos canyon of Texas, photographed in 2005",
     "region": "West Texas and the Lower Pecos",
     "overview": "The Pecos is a long, often remote river whose Texas journey differs fundamentally from the Comal or Frio. It enters Texas from New Mexico, runs through arid ranching and Permian Basin country and reaches the Rio Grande at the Amistad area. River conditions, ownership, salinity, access and water management differ radically along the route. It is misleading to sell it as one continuous public tubing corridor or to use an Amistad boat ramp as proof of access to every upstream reach.",
     "route": "For most visitors, the lower Pecos landscape is better explored by a road-and-history itinerary than a spontaneous float. Use Del Rio or Comstock as a service base, then visit the publicly managed Seminole Canyon area and the Pecos High Bridge corridor from lawful viewpoints. Amistad National Recreation Area offers water recreation where current NPS rules allow, but a reservoir outing is not the same as traveling up the free-flowing Pecos canyon.",
@@ -403,7 +407,8 @@ export const riverRecreationGuideRecords = [
         "TPWD Seminole Canyon State Park",
         "https://tpwd.texas.gov/state-parks/seminole-canyon"
       ]
-    ]
+    ],
+    "heroCredit": "Badener / Lutz Fischer-Lamprecht · CC BY-SA 3.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Pecos_River.jpg"
   }
 ] as const;
 
@@ -452,7 +457,7 @@ export const texasRiverRecreationGuideArticles: Article[] = riverRecreationGuide
   dek: river.summary,
   category: "lakes-rivers",
   region: river.slug === "texas-pecos-river-guide" ? "big-bend" : undefined,
-  hero: { src: river.hero, alt: river.heroAlt, width: 1600, height: 1067 },
+  hero: { src: river.hero, alt: river.heroAlt, width: 1600, height: 1067, credit: river.heroCredit },
   authorId: "a-marisol",
   publishedAt: "2026-10-12",
   updatedAt: "2026-10-12",
