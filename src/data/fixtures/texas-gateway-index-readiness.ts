@@ -39,6 +39,8 @@ export const SEASONAL_INTENT_INDEX_READY_SLUGS = new Set<string>([
 
 /** All new TexasDefined guides, including Best-of and category-specific field guides, must carry evidence instead of promotional prose. */
 export const AUTHORITY_GUIDE_STANDARD_EFFECTIVE = "2026-10-12";
+/** Release requires 100-pick factual signoff, per-asset rights QA and live rendered page acceptance. No automatic promotion on passing structure checks. */
+export const TEXAS_HIGH_INTENT_RELEASE_APPROVED_SLUGS = new Set<string>([]);
 export function isNewAuthorityGuideCandidate(article: Article): boolean {
   return article.brandId === "texasdefined"
     && (article.id.startsWith("texas-high-intent-")
@@ -77,6 +79,9 @@ export function isTexasGatewayIndexReadySlug(slug: string): boolean {
 }
 
 export function isTexasGatewayIndexReadyArticle(article: Pick<Article, "brandId" | "id" | "slug">): boolean {
+  if (article.brandId === "texasdefined" && article.id.startsWith("texas-high-intent-")) {
+    return TEXAS_HIGH_INTENT_RELEASE_APPROVED_SLUGS.has(article.slug);
+  }
   return !isTexasGatewayArticle(article) || isTexasGatewayIndexReadySlug(article.slug);
 }
 
