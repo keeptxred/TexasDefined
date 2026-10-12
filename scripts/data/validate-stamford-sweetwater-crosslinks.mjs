@@ -40,7 +40,11 @@ for (const lake of ["lake-stamford", "lake-sweetwater"]) {
   requireMatch(repo.lakes, `slug: "${lake}", name:`, `${lake} missing official lake data`);
   requireMatch(repo.explainer, `href: "/fishing/lakes/${lake}"`, `${lake} missing statewide reservoir explainer link`);
 }
-for (const county of ["haskell", "nolan"]) requireMatch(repo.lakes, `/county/${county}`, `missing reciprocal county URL ${county}`);
+for (const [lake, county] of [["lake-stamford", "Haskell"], ["lake-sweetwater", "Nolan"]]) {
+  const block = repo.lakes.slice(repo.lakes.indexOf(`slug: "${lake}", name:`));
+  requireMatch(block.slice(0, 850), `counties: ["${county}"]`, `${lake} missing correct county identity`);
+}
+requireMatch(repo.lakes, "href: `/county/${countySlug(county)}`", "shared lake template must provide reciprocal county links");
 requireMatch(repo.lakes, '{slug:"lake-stamford",name:"Lake Stamford"}', "neighboring lake route back to Stamford is missing");
 requireMatch(repo.lakes, '{slug:"lake-sweetwater",name:"Lake Sweetwater"}', "neighboring lake route back to Sweetwater is missing");
 requireMatch(repo.countyRenderer, "countySeriesArticle.internalLinks ?? []", "county landing pages no longer consume editorial cross-links");
