@@ -58,7 +58,6 @@ export const riverAuthorityRecords: RiverAuthorityRecord[] = [
       "comal"
     ],
     "destinations": [
-      "landa-park",
       "gruene-historic-district"
     ],
     "image": "/images/editorial/texas-river-basins.jpg",
@@ -76,10 +75,7 @@ export const riverAuthorityRecords: RiverAuthorityRecord[] = [
       "guadalupe",
       "gonzales"
     ],
-    "destinations": [
-      "rio-vista-park",
-      "blue-hole-wimberley"
-    ],
+    "destinations": []
     "image": "/images/editorial/texas-river-basins.jpg",
     "imageAlt": "Representative Texas waterway; not documented as the San Marcos River",
     "summary": "Spring Lake, San Marcos, Martindale and the Guadalupe River confluence"
