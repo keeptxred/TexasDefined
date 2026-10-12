@@ -1248,11 +1248,11 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "campus": {
-      "address": "7309 Lazy Creek Drive, Suite 225, Austin, TX 78724",
+      "address": "1012 Arthur Stiles Road, Austin, TX 78721",
       "phone": "512-414-5272",
-      "sourceUrl": "https://www.lasaraptors.com/",
-      "sourceLabel": "Official LASA athletics office listing",
-      "verifiedAt": "2026-10-10"
+      "sourceUrl": "https://www.austinisd.org/schools/level/H?page=4",
+      "sourceLabel": "Austin ISD public school directory — school campus, distinct from separate athletics office",
+      "verifiedAt": "2026-10-12"
     },
     "coach": {
       "name": "Gary Howard",
