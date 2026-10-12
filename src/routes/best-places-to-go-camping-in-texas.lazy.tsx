@@ -1,3 +1,4 @@
+import { isPublicHighIntentGuideHref } from "@/data/fixtures/texas-high-intent-guide-links";
 import { useState } from "react";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
@@ -78,7 +79,7 @@ function CampingGuidePage() {
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Start with standout Texas camping destinations, then search verified public campgrounds by region, camping style and the facilities that matter to your trip. Use the destination guides for the bigger picture and the official reservation links for live booking details.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href="#campground-finder" className="inline-flex border border-primary bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">Find a campground</a>
-            <Link to="/explore/rv-parks" className="inline-flex border border-border bg-background px-5 py-3 text-sm font-semibold">Browse the RV park directory</Link><Link to="/article/best-state-parks-for-camping-in-texas" className="inline-flex border border-border bg-background px-5 py-3 text-sm font-semibold">Compare camping state parks</Link><Link to="/article/best-rv-parks-in-texas" className="inline-flex border border-border bg-background px-5 py-3 text-sm font-semibold">Compare Texas RV parks</Link>
+            <Link to="/explore/rv-parks" className="inline-flex border border-border bg-background px-5 py-3 text-sm font-semibold">Browse the RV park directory</Link>{isPublicHighIntentGuideHref("/article/best-state-parks-for-camping-in-texas") && <Link to="/article/best-state-parks-for-camping-in-texas" className="inline-flex border border-border bg-background px-5 py-3 text-sm font-semibold">Compare camping state parks</Link>}{isPublicHighIntentGuideHref("/article/best-rv-parks-in-texas") && <Link to="/article/best-rv-parks-in-texas" className="inline-flex border border-border bg-background px-5 py-3 text-sm font-semibold">Compare Texas RV parks</Link>}
           </div>
           <p className="mt-5 max-w-2xl text-sm leading-6 text-muted-foreground">Availability, prices, closures, burn restrictions and beach conditions can change quickly. Confirm the final details with the managing agency immediately before booking or travel.</p>
         </div>
