@@ -8,6 +8,7 @@ import smallTown from "@/assets/small-town.jpg";
 
 import type { Article, ImageRef } from "../types";
 import { texasGatewayIndexReadyStubs } from "./texas-gateway-index-ready-stubs";
+import { regionalAuthorityArticleStubs } from "./regional-authority-stubs";
 
 const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
 const images = {
@@ -35,39 +36,7 @@ export const texasCoreArticleStubs: Article[] = [
   stub({ id: "ar-10", slug: "big-bend-in-winter", title: "Big Bend Is a Winter Park", dek: "Why November through February changes Big Bend: milder desert hiking, freezing nights, scarce services, busy campgrounds, long drives, and a park where checking conditions is part of the itinerary.", category: "outdoors", region: "big-bend", hero: images.bigBend, authorId: "a-hollis", publishedAt: "2026-08-20", readingMinutes: 15, tags: ["big bend", "national parks", "desert", "dark skies", "winter travel"], relatedCollections: ["campfire-kitchen"], relatedDestinations: ["big-bend-national-park"] }),
 ];
 
-// Canonical lightweight discovery stubs; full authority bodies remain lazy-loaded.
-texasCoreArticleStubs.push(
-  stub({ id: "evergreen-scenic-drives-in-texas", slug: "scenic-drives-in-texas", title: "Scenic Drives in Texas: Routes, Stops, Seasons and Road Conditions",
-    dek: "Choose a Texas scenic drive by landscape and road type, from the Hill Country and Piney Woods to Big Bend, Gulf Coast, Panhandle and South Texas—with realistic trip-planning advice.",
-    category: "road-trips", hero: images.roadTrip, authorId: "a-marisol", publishedAt: "2026-10-12", updatedAt: "2026-10-12",
-    readingMinutes: 27, tags: ["scenic drives in texas", "texas scenic routes", "big bend scenic drive", "texas road trips"], featured: true,
-    sourceName: "TxDOT — 2026 Texas State Travel Guide and Official Travel Map",
-    sourceUrl: "https://www.txdot.gov/about/newsroom/stories/get-your-kicks-with-the-2026-texas-travel-guide.html",
-    relatedCollections: [], relatedDestinations: [] }),
-  stub({ id: "evergreen-texas-wine-country", slug: "texas-wine-country", title: "Texas Wine Country: Regions, Vineyards and Planning a Wine Weekend",
-    dek: "Understand Texas wine regions beyond the Fredericksburg tasting corridor, including the Hill Country and Texas High Plains, with AVA geography, vineyard sourcing and practical visitor planning.",
-    category: "guides", hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas_Hills_vineyard.jpg?width=1280",
-      alt: "Vineyard rows at Texas Hills Vineyard near Johnson City, Texas", width: 1280, height: 960,
-      credit: "Jon Lebkowsky · Wikimedia Commons · CC BY-SA 2.0" },
-    authorId: "a-hollis", publishedAt: "2026-10-12", updatedAt: "2026-10-12", readingMinutes: 23,
-    tags: ["texas wine country", "texas wineries", "texas wine regions", "texas high plains ava"], featured: true,
-    sourceName: "U.S. Alcohol and Tobacco Tax and Trade Bureau — established American Viticultural Areas",
-    sourceUrl: "https://www.ttb.gov/regulated-commodities/beverage-alcohol/wine/established-avas",
-    relatedCollections: [], relatedDestinations: [] }),
-  stub({ id: "evergreen-texas-german-belt", slug: "texas-german-belt", title: "Texas German Belt: Towns, Churches, History and Heritage Routes",
-    dek: "Trace German-Texan immigration from New Braunfels and Fredericksburg to Comfort, Boerne and smaller communities, with historical context, churches, food traditions and a responsible heritage-drive itinerary.",
-    category: "texas-history", region: "hill-country",
-    hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fredericksburg%20July%202017%205%20%28Marktplatz%29.jpg?width=1600",
-      alt: "Fredericksburg Marktplatz and historic town center in Texas", width: 1600, height: 1067,
-      credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons" },
-    authorId: "a-marisol", publishedAt: "2026-10-12", updatedAt: "2026-10-12", readingMinutes: 26,
-    tags: ["texas german belt", "german towns in texas", "new braunfels", "fredericksburg"], featured: true,
-    sourceName: "Texas State Historical Association — Adelsverein",
-    sourceUrl: "https://www.tshaonline.org/handbook/entries/adelsverein",
-    relatedCollections: [], relatedDestinations: [] }),
-);
-
-texasCoreArticleStubs.push(...texasGatewayIndexReadyStubs);
+texasCoreArticleStubs.push(...texasGatewayIndexReadyStubs, ...regionalAuthorityArticleStubs);
 
 const coreSlugs = new Set(texasCoreArticleStubs.map((article) => article.slug));
 const gatewayReadySlugs = new Set(texasGatewayIndexReadyStubs.map((article) => article.slug));
