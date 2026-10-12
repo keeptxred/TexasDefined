@@ -7,7 +7,7 @@ export const Route = createLazyFileRoute("/network/join")({ component: NetworkJo
 
 const benefits = [
   ["Be discoverable", "Give Texans a simple place to learn who you are and how to reach you."],
-  ["Keep your identity", "Use your own business name, branding, and official website link."],
+  ["Keep your identity", "Give your business a consistent public identity, with enhanced website links in Plus."],
   ["Connect to Texas", "Be part of a growing network of communities, organizations and local places."],
 ];
 
