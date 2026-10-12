@@ -52,6 +52,9 @@ for(const item of records) {
    errors.push(item.slug+' lacks five substantial researched FAQs');
  if (!Array.isArray(item.official) || item.official.length<2 || item.official.some(x=>!/^https:\/\//.test(x[1])))
    errors.push(item.slug+' needs at least two valid official evidence URLs');
+ if(!Array.isArray(item.verifiedAccess) || item.verifiedAccess.length<1
+   || item.verifiedAccess.some(site=>site.name.length<15 || site.access.length<150 || !/^https:\/\//.test(site.source)))
+   errors.push(item.slug+' needs substantial, mapped or authority-backed reach-specific access details');
  if (!Array.isArray(item.extraLinks)||item.extraLinks.length<3||item.extraLinks.some(x=>!x[0].startsWith('/')))
    errors.push(item.slug+' needs contextual internal links');
  if (!(item.hero?.startsWith('/images/') || item.hero?.startsWith('https://upload.wikimedia.org/')) || !item.heroAlt || item.heroAlt.length<25 || !item.heroCredit)
@@ -69,6 +72,15 @@ if(!landscape.includes('RIVER_AUTHORITY_RELATIONS')) errors.push('River valleys 
 if(!related.includes('riverAuthorityLinksForDestination(slug)')) errors.push('Destination reciprocal links must be driven by river authority registry');
 const countyServer = read('src/data/county-series.server.ts');
 if(!countyServer.includes('riverAuthorityLinksForCounty(countySlug)')) errors.push('County river backlinks must be automatically maintained');
+const existingMatch = addon.match(/export const existingRiverAuthorityEnhancements = ([\s\S]*?) as const;/);
+let existingProfiles = {};
+try { existingProfiles = JSON.parse(existingMatch?.[1] ?? '{}'); }
+catch(e) { errors.push('Existing river upgrades not machine-readable: '+e.message); }
+for(const slug of existingUpgrades) {
+ const entry=existingProfiles[slug];
+ if(!entry || !Array.isArray(entry.verifiedAccess) || entry.verifiedAccess.length===0)
+   errors.push('Existing river upgrade missing documented visitor-access example: '+slug);
+}
 const known = new Set([...legacyBasins,...slugs]);
 // Detect addition of an unapproved river guide anywhere in the fixture catalog.
 // New pages must adopt the full recreation contract rather than adding a bare 'guide' stub.
