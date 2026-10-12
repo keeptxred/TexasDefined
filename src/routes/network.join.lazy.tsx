@@ -1,5 +1,7 @@
 import "../network.css";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { ADVERTISING_PLANS, WEBSITE_HOSTING_TIERS } from "@/data/network-commercial-model";
 import { Container } from "@/components/layout/Container";
 import hillCountryHero from "@/assets/hero-hill-country.jpg";
 
@@ -11,70 +13,9 @@ const benefits = [
   ["You stay in control", "Manage your information through one owner portal. No website-design experience needed."],
 ];
 
-const tiers = [
-  {
-    name: "Texas Defined Basic",
-    price: "Free",
-    frequency: "forever",
-    note: "A place in the TexasDefined network, even if you don't have a website.",
-    features: [
-      "Business name, category, and community",
-      "Short description, hours, and service area",
-      "Phone number and location details",
-      "Reviewed, searchable TexasDefined listing",
-    ],
-    status: "Free membership",
-    featured: false,
-  },
-  {
-    name: "Texas Defined Plus",
-    price: "$19.99",
-    frequency: "/ month",
-    note: "Give visitors more detail about your business.",
-    features: [
-      "Everything in Basic",
-      "Services and a longer business description",
-      "Photos, frequently asked questions, and updates",
-      "Official website and social links, if you have them",
-      "Basic profile and contact-action statistics",
-    ],
-    status: "Expanded business profile",
-    featured: false,
-  },
-  {
-    name: "Texas Defined Featured",
-    price: "$49.95",
-    frequency: "/ month",
-    note: "A richer presence and clearly marked visibility in the business directory.",
-    features: [
-      "Everything in Plus",
-      "Featured placement labeled as sponsored",
-      "Enhanced visitor and contact-action reporting",
-      "Owner-managed information with publication review",
-    ],
-    status: "Planned — not yet enrolling",
-    featured: false,
-  },
-  {
-    name: "Texas Defined Business Presence",
-    price: "$79.99",
-    frequency: "/ month",
-    note: "Your own professional business home, built inside the TexasDefined family.",
-    features: [
-      "Everything in Featured",
-      "A polished TexasDefined-branded business page",
-      "Automatic setup from one simple form",
-      "Up to 12 photos and your business logo",
-      "Private portal with unlimited self-service edits",
-      "Services, photos, hours, contact details, and SEO basics",
-      "No setup fee or separate website hosting required",
-    ],
-    status: "Planned — not yet enrolling",
-    featured: true,
-  },
-];
 
 function NetworkJoinPreview() {
+  const [selectedProduct,setSelectedProduct]=useState<"advertising"|"hosting">("advertising");
   return (
     <div>
       <section className="relative isolate overflow-hidden bg-[#f7eddf]">
@@ -85,12 +26,12 @@ function NetworkJoinPreview() {
             <div className="relative z-10 min-w-0">
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#b43b1a]">The TexasDefined business family</p>
               <h1 className="mt-5 max-w-[760px] font-display text-[clamp(2.6rem,4.8vw,4.8rem)] font-bold leading-[1.06] tracking-tight text-[#0a2242]">Your business belongs <span className="text-[#b53e20]">in TexasDefined.</span></h1>
-              <p className="mt-5 max-w-[650px] text-lg leading-8 text-[#24354a]">Give Texans a reliable place to find your business. Join our network, manage your details in one place, and become part of relevant TexasDefined discovery experiences.</p>
+              <p className="mt-5 max-w-[650px] text-lg leading-8 text-[#24354a]">Reach Texans with a relevant business listing, build a professional website hosted by TexasDefined, or choose both. You stay in control.</p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
-                <a href="#membership" className="inline-flex rounded-full bg-[#b53e20] px-7 py-3 text-sm font-semibold text-white hover:bg-[#982e17] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#982e17]">Explore membership</a>
+                <a href="#membership" className="inline-flex rounded-full bg-[#b53e20] px-7 py-3 text-sm font-semibold text-white hover:bg-[#982e17] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#982e17]">Explore options</a>
                 <a href="/network/directory" className="inline-flex rounded-full border border-[#0a2242] px-6 py-3 text-sm font-semibold text-[#0a2242] hover:bg-white/80">Browse the network</a>
               </div>
-              <p className="mt-4 text-sm text-[#31485b]">Start free. No setup fee. No separate website required.</p>
+              <p className="mt-4 text-sm text-[#31485b]">Advertising and website hosting are separate choices. Start with a free listing.</p>
             </div>
             <div className="relative mx-auto flex w-full max-w-[390px] items-center justify-center" aria-label="Texas map illustrating network locations">
               <svg viewBox="0 0 280 260" className="h-auto w-full drop-shadow-2xl" role="img" aria-label="Texas state map with business discovery locations">
@@ -126,33 +67,69 @@ function NetworkJoinPreview() {
       <section id="membership" className="border-y border-border bg-surface scroll-mt-24">
         <Container className="py-14 sm:py-20">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="eyebrow text-primary">Choose your place</p>
-            <h2 className="mt-3 font-display text-4xl sm:text-5xl">Straightforward membership. No surprises.</h2>
-            <p className="mt-4 leading-7 text-muted-foreground">All four plans are part of one TexasDefined network. Choose the presence your business needs today, with no setup fee and no pressure to buy extras.</p>
+            <p className="eyebrow text-primary">Choose what your business needs</p>
+            <h2 className="mt-3 font-display text-4xl sm:text-5xl">Two services. One TexasDefined network.</h2>
+            <p className="mt-4 leading-7 text-muted-foreground">Advertise where your business is relevant, or build a website hosted by TexasDefined. Choose either service on its own—or both. You don't need to buy advertising to have a website.</p>
           </div>
-          <div className="mt-10 grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {tiers.map((tier) => (
-              <article key={tier.name} className={`flex min-w-0 flex-col rounded-3xl border bg-background p-6 shadow-sm sm:p-7 ${tier.featured ? "border-primary ring-1 ring-primary/30" : "border-border"}`}>
-                <div className="flex min-h-16 flex-wrap items-start justify-between gap-2">
-                  <h3 className="max-w-48 font-display text-2xl leading-tight">{tier.name}</h3>
-                  {tier.featured && <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Business home</span>}
-                </div>
-                <p className="mt-4 text-3xl font-semibold">{tier.price}<span className="ml-2 text-sm font-normal text-muted-foreground">{tier.frequency}</span></p>
-                <p className="mt-4 min-h-20 text-sm leading-6 text-muted-foreground">{tier.note}</p>
-                <ul className="mt-5 flex-1 space-y-3 border-t border-border pt-5">
-                  {tier.features.map((item) => <li key={item} className="flex gap-3 text-sm leading-6"><span className="font-bold text-primary" aria-hidden="true">✓</span><span>{item}</span></li>)}
-                </ul>
-                {(tier.name === "Texas Defined Basic" || tier.name === "Texas Defined Plus") ?
-                  <>
-                    <a href={tier.name === "Texas Defined Basic" ? "/network/example/basic" : "/network/example/plus"} className="mt-7 block rounded-full border border-primary px-4 py-3 text-center text-sm font-semibold text-primary hover:bg-primary/10">See a {tier.name === "Texas Defined Basic" ? "Basic" : "Plus"} example</a>
-                    <a href={`/network/apply?plan=${tier.name === "Texas Defined Basic" ? "basic" : "plus"}`} className="mt-3 block rounded-full bg-primary px-4 py-3 text-center text-sm font-semibold text-primary-foreground hover:opacity-90">Choose {tier.name === "Texas Defined Basic" ? "Basic" : "Plus"}</a>
-                  </> :
-                  <a href={tier.name === "Texas Defined Featured" ? "/partner-with-us" : "mailto:admin@texasdefined.com?subject=TexasDefined%20Business%20Presence%20Interest"} className="mt-7 block rounded-full border border-primary px-4 py-3 text-center text-sm font-semibold text-primary hover:bg-primary/10">Ask about this plan</a>}
-                <p className="mt-3 text-center text-xs leading-5 text-muted-foreground">{tier.status}</p>
-              </article>
-            ))}
+          <div className="mx-auto mt-10 grid max-w-2xl grid-cols-2 gap-2 rounded-2xl border border-border bg-background p-2" role="group" aria-label="Choose a service">
+            <button type="button" aria-pressed={selectedProduct==="advertising"}
+              onClick={()=>setSelectedProduct("advertising")}
+              className={`rounded-xl px-3 py-4 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${selectedProduct==="advertising"?"bg-primary text-primary-foreground":"text-foreground hover:bg-surface"}`}>
+              Advertise my business
+            </button>
+            <button type="button" aria-pressed={selectedProduct==="hosting"}
+              onClick={()=>setSelectedProduct("hosting")}
+              className={`rounded-xl px-3 py-4 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${selectedProduct==="hosting"?"bg-primary text-primary-foreground":"text-foreground hover:bg-surface"}`}>
+              Build my website
+            </button>
           </div>
-          <p className="mx-auto mt-7 max-w-4xl text-center text-sm leading-6 text-muted-foreground">Every published business presence belongs to TexasDefined. Approved information can surface in relevant searches, guides and Explore pages; placements depend on relevance, and search-engine indexing or ranking is never guaranteed. Sponsored placements are clearly labeled. Featured and Business Presence enrollment is not open yet.</p>
+          {selectedProduct==="advertising" ?
+            <div id="advertising-plans" className="mt-10" aria-live="polite">
+              <div className="mx-auto max-w-3xl text-center">
+                <h3 className="font-display text-3xl">Business advertising</h3>
+                <p className="mt-3 text-muted-foreground">Appear only where your business genuinely fits—like fishing guides on a Lake Conroe page. Paid priority determines the order and size of qualifying listings, not independent editorial recommendations.</p>
+              </div>
+              <div className="mt-8 grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-4">
+                {ADVERTISING_PLANS.map(tier=><article key={tier.id} className="flex flex-col rounded-2xl border border-border bg-background p-6">
+                  <h4 className="font-display text-2xl">{tier.title}</h4>
+                  <p className="mt-4 text-xl font-semibold">{tier.id==="basic"?"Free":"Price to be finalized"}</p>
+                  <p className="mt-4 flex-1 text-sm leading-7 text-muted-foreground">{tier.illustration}.</p>
+                  <p className="mt-5 border-t border-border pt-4 text-sm">{tier.placementPriority===0?"Standard position":tier.placementPriority===1?"Above free listings":tier.placementPriority===2?"Above expanded listings":"Highest eligible advertising tier"}</p>
+                  {tier.sponsored&&<p className="mt-2 text-xs text-muted-foreground">Paid position labeled sponsored</p>}
+                  {tier.id==="basic" ?
+                   <a href="/network/example/basic" className="mt-6 rounded-full border border-primary px-4 py-3 text-center text-sm font-semibold text-primary">See a free listing</a>:
+                   tier.id==="plus" ?
+                   <a href="/network/example/plus" className="mt-6 rounded-full border border-primary px-4 py-3 text-center text-sm font-semibold text-primary">See a listing example</a>:
+                   <a href="mailto:admin@texasdefined.com?subject=TexasDefined%20Advertising%20Inquiry" className="mt-6 rounded-full border border-primary px-4 py-3 text-center text-sm font-semibold text-primary">Ask about advertising</a>}
+                </article>)}
+              </div>
+              <p className="mx-auto mt-7 max-w-4xl text-center text-sm leading-6 text-muted-foreground">Only independently approved businesses that actually serve the page's topic or area qualify. Paid listings are disclosed as sponsored. No ranking, traffic, lead volume or editorial recommendation is guaranteed. Paid advertising pricing is under review; the existing Plus Stripe configuration is not changed.</p>
+            </div>
+          : <div id="hosting-plans" className="mt-10" aria-live="polite">
+              <div className="mx-auto max-w-3xl text-center">
+                <h3 className="font-display text-3xl">Your own business website</h3>
+                <p className="mt-3 text-muted-foreground">Your website lives on TexasDefined, with individual pages for your business and a private self-service editor. No separate website host or custom design project required.</p>
+              </div>
+              <div className="mx-auto mt-8 grid max-w-6xl items-stretch gap-5 md:grid-cols-3">
+                {WEBSITE_HOSTING_TIERS.map((tier,i)=><article key={tier.id} className={`flex flex-col rounded-2xl border bg-background p-7 ${i===1?"border-primary":"border-border"}`}>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-primary">{i===0?"Simple start":i===1?"Room to grow":"Fuller site"}</p>
+                  <h4 className="mt-3 font-display text-2xl">{tier.title}</h4>
+                  <p className="mt-4 text-3xl font-semibold">{tier.maxPages} {tier.maxPages===1?"page":"pages"}</p>
+                  <p className="mt-2 text-sm font-semibold text-muted-foreground">Pricing being finalized</p>
+                  <p className="mt-4 flex-1 text-sm leading-7 text-muted-foreground">{tier.description}</p>
+                  <ul className="mt-6 space-y-3 border-t border-border pt-5 text-sm leading-6">
+                    <li>✓ Up to {tier.maxGalleryImages} photos (working limit)</li>
+                    <li>✓ Services, contact and social links</li>
+                    <li>✓ Self-service text and photo updates</li>
+                    <li>✓ Business news and reports</li>
+                    <li>✓ Mobile-friendly TexasDefined template</li>
+                  </ul>
+                  <a href={`mailto:admin@texasdefined.com?subject=TexasDefined%20${encodeURIComponent(tier.title)}%20Interest`}
+                     className="mt-7 block rounded-full border border-primary px-4 py-3 text-center text-sm font-semibold text-primary">Ask about this website</a>
+                </article>)}
+              </div>
+              <p className="mx-auto mt-7 max-w-4xl text-center text-sm leading-6 text-muted-foreground">One shared hosting system serves all three website tiers. Page and initial photo capacities are working engineering limits, not finalized commercial promises. Hosting does not include paid advertising placement. You can use a free listing, buy advertising separately, or link an existing website.</p>
+            </div>}
         </Container>
       </section>
 
@@ -161,7 +138,7 @@ function NetworkJoinPreview() {
           <div className="mx-auto max-w-3xl text-center">
             <p className="eyebrow text-primary">Only if you want them</p>
             <h2 className="mt-3 font-display text-3xl sm:text-4xl">A couple of optional conveniences.</h2>
-            <p className="mt-3 leading-7 text-muted-foreground">Your TexasDefined address works on its own. A custom domain or business email is a separate choice, never an automatic add-on.</p>
+            <p className="mt-3 leading-7 text-muted-foreground">Your hosted TexasDefined website works on its own. A custom domain or business email is a separate choice, never an automatic add-on.</p>
           </div>
           <div className="mx-auto mt-9 grid max-w-5xl gap-5 md:grid-cols-2">
             <article className="rounded-2xl border border-border bg-surface p-6 sm:p-7">
@@ -194,8 +171,8 @@ function NetworkJoinPreview() {
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {[
               ["01", "Tell us about your business", "Complete a simple form with your business name, location, services and photos."],
-              ["02", "See your TexasDefined presence", "A branded template is assembled from your details, then reviewed before it goes public."],
-              ["03", "Keep everything up to date", "Use your owner portal to manage details as often as needed; reviewed updates appear in relevant discovery experiences."],
+              ["02", "See your listing or website", "We use one reliable template system to assemble the pages and listing details you selected."],
+              ["03", "Manage your business", "Keep website content current in your owner portal. Advertising appears only in relevant discovery experiences."],
             ].map(([number, heading, body]) => (
               <div key={number} className="rounded-2xl bg-surface p-7">
                 <span className="text-sm font-bold tracking-widest text-primary">{number}</span>
