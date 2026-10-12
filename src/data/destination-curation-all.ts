@@ -1,3 +1,4 @@
+import { applyHillCountryStateNaturalAreaAuthority } from "./hill-country-state-natural-area-authority";
 import { applyCanonicalHistoricStatePark } from "./canonical-historic-state-parks";
 import { applyNewlyOpenedStateParkAuthority } from "./newly-opened-state-parks-2026";
 import { applyVerifiedStateParkHeadquarters } from "./state-park-verified-locations";
@@ -161,6 +162,7 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyVerifiedStateParkHeadquarters,
   applyNewlyOpenedStateParkAuthority,
   applyCanonicalHistoricStatePark,
+  applyHillCountryStateNaturalAreaAuthority,
 ];
 
 function runCurators(destination: Destination): Destination {
