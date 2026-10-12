@@ -82,12 +82,12 @@ const lcraLiveExpectedSlugs = new Set(["fayette-county-reservoir"]);
 const officialFallbackSlugs = new Set(["calaveras-lake", "lake-casa-blanca"]);
 const twdbLiveExpectedSlugs = expectedSlugs.filter((slug) => !lcraLiveExpectedSlugs.has(slug) && !officialFallbackSlugs.has(slug));
 const liveExpectedSlugs = expectedSlugs.filter((slug) => !officialFallbackSlugs.has(slug));
-if (JSON.stringify(statewide) !== JSON.stringify(expectedSlugs)) fail("statewide slug registry drifted from the authoritative 35-lake release order");
+if (JSON.stringify(statewide) !== JSON.stringify(expectedSlugs)) fail("statewide slug registry drifted from the authoritative 37-lake release order");
 
 const topLevel = [...files.network.matchAll(/^    slug: "([^"]+)", name: "([^"]+)"/gm)].map((match) => ({ slug: match[1], name: match[2], index: match.index }));
 if (topLevel.length !== 37) fail(`expected 37 top-level lake definitions, found ${topLevel.length}`);
-if (new Set(topLevel.map((row) => row.slug)).size !== 35) fail("duplicate statewide lake slug");
-if (new Set(topLevel.map((row) => row.name)).size !== 35) fail("duplicate statewide lake name");
+if (new Set(topLevel.map((row) => row.slug)).size !== topLevel.length) fail("duplicate statewide lake slug");
+if (new Set(topLevel.map((row) => row.name)).size !== topLevel.length) fail("duplicate statewide lake name");
 for (const [slug, name] of expected) {
   const row = topLevel.find((item) => item.slug === slug);
   if (!row || row.name !== name) fail(`missing or renamed lake definition: ${slug}`);
