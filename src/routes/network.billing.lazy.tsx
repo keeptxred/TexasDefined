@@ -2,6 +2,7 @@ import "../network.css";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Container } from "@/components/layout/Container";
+import { NETWORK_PLUS_RECURRING_DISCLOSURE, NETWORK_TERMS_VERSION } from "@/data/network-terms";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createLazyFileRoute("/network/billing")({ component: NetworkBilling });
@@ -17,6 +18,8 @@ function NetworkBilling() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const [termsAccepted,setTermsAccepted]=useState<Record<string,boolean>>({});
+  const [recurringAccepted,setRecurringAccepted]=useState<Record<string,boolean>>({});
   // A previous owner's slow membership response must never overwrite the new
   // owner or reappear after sign-out. Every Auth transition invalidates it.
   const refreshSequence = useRef(0);
@@ -69,7 +72,7 @@ function NetworkBilling() {
       const response=await fetch("/api/public/network-checkout",{
         method:"POST",
         headers:{"authorization":"Bearer "+session.access_token,"content-type":"application/json"},
-        body:JSON.stringify({applicationId:id,email:session.user.email}),
+        body:JSON.stringify({applicationId:id,email:session.user.email,termsVersion:NETWORK_TERMS_VERSION,termsAccepted:termsAccepted[id]===true,recurringBillingAccepted:recurringAccepted[id]===true}),
       });
       const result=await response.json();
       if(!response.ok||!result.url)throw new Error(result.error||"Checkout is unavailable.");
@@ -109,7 +112,11 @@ function NetworkBilling() {
         {memberships.map(item => <div key={item.id} className="rounded-2xl border border-border bg-surface p-6">
           <h3 className="font-display text-2xl">{item.name}</h3>
           <p className="mt-2 text-sm text-muted-foreground">Listing status: {item.status} · Subscription: {item.paid ? "Active" : "Not active"}</p>
-          {item.checkoutEligible && <button type="button" disabled={busy||!checkoutAvailable} onClick={() => void startCheckout(item.id)} className="mt-4 mr-3 rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground disabled:opacity-40">{checkoutAvailable ? "Start secure Plus checkout" : "Checkout not active yet"}</button>}
+          {item.checkoutEligible && <div className="mt-5 space-y-3 border-t border-border pt-4">
+            <label className="flex items-start gap-3 text-sm leading-6"><input type="checkbox" checked={termsAccepted[item.id]===true} onChange={e=>setTermsAccepted(old=>({...old,[item.id]:e.target.checked}))} className="mt-1 h-5 w-5"/><span>I agree to the <a href="/network/terms" target="_blank" rel="noreferrer" className="font-semibold text-primary underline">Business Network Membership Terms</a> (version {NETWORK_TERMS_VERSION}), including my responsibility for customer-supplied facts/images and the possibility that published content may be indexed or surfaced by search and discovery services.</span></label>
+            <label className="flex items-start gap-3 text-sm leading-6"><input type="checkbox" checked={recurringAccepted[item.id]===true} onChange={e=>setRecurringAccepted(old=>({...old,[item.id]:e.target.checked}))} className="mt-1 h-5 w-5"/><span><strong>Recurring billing authorization:</strong> {NETWORK_PLUS_RECURRING_DISCLOSURE}</span></label>
+            <button type="button" disabled={busy||!checkoutAvailable||termsAccepted[item.id]!==true||recurringAccepted[item.id]!==true} onClick={() => void startCheckout(item.id)} className="rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground disabled:opacity-40">{checkoutAvailable ? "Agree & start secure Plus checkout" : "Checkout not active yet"}</button>
+          </div>}
           {item.manageable && <button type="button" disabled={busy} onClick={() => void portal(item.id)} className="mt-4 rounded-full border border-primary px-6 py-3 font-semibold text-primary disabled:opacity-40">Manage subscription</button>}
         </div>)}
       </section>}
