@@ -117,7 +117,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
   };
   return <div className="editorial-body text-foreground/92">
     {articleSlug ? <UnusualBusinessAuthorityPanel slug={articleSlug} /> : null}
-    {HIGH_INTENT_GUIDE_ARTICLES.has(articleSlug) ? <Suspense fallback={null}><HighIntentGuideEvidencePanel slug={articleSlug} /></Suspense> : null}
+    {HIGH_INTENT_GUIDE_ARTICLES.has(articleSlug) ? <Suspense fallback={null}><HighIntentGuideEvidencePanel slug={articleSlug} blocks={blocks} /></Suspense> : null}
     {showSixManFootballAuthority ? <Suspense fallback={null}><SixManFootballAuthority /></Suspense> : null}
     {showLoopsSpursVisual ? <LoopsSpursVisual /> : null}
     {showBolivarHistoryPhotoSources ? <BolivarRestorationPhotoSources /> : null}
