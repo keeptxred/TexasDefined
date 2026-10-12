@@ -41,7 +41,7 @@ Maintain original building, replacement building, founding, parish formation, fi
 | Church | Research | Image rights | Painted classification |
 |---|---|---|---|
 | St. Joseph's — Yoakum | Parish sources and timeline | Awaiting correctly licensed real photo | Not established |
-| St. Mary's — Hostyn Hill near Ellinger | THC and independent travel sources | Awaiting correctly licensed real photo | Research candidate only |
+| St. Mary's — Hostyn Hill near Ellinger | THC marker, 1983 National Register grouping and Houstonia interior description | Awaiting correctly licensed real photo | Related historic-church suggestion: gilded altar, statuary, simple blue ceiling; not listed in the 1983 decorative-interior group |
 | St. Peter's — Blessing | Parish and published historical marker transcription | Awaiting correctly licensed real photo | Not established |
 | St. Joseph's — Moulton | Parish, THC marker | Two CC BY-SA 4.0 church photos from Wikimedia Commons | Research candidate only |
 | Sts. Peter and Paul — Frelsburg | Parish history | Two CC BY-SA 4.0 photographs from Wikimedia Commons (exterior, historic marker) | Research candidate only |
