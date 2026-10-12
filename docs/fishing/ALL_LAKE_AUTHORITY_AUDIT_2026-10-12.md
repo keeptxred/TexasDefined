@@ -137,6 +137,19 @@ For **each lake**, surpassing its controlling agency's *public visitor informati
 
 **P3 (trust and originality)** — Replace any rendered generic heroes with genuinely location-specific licensed/owned imagery, pursue original TexasDefined photographs/diagrams and field-verified maps, and add useful local recreational itineraries/county links.
 
+## First primary-source safety remediation completed in this branch
+
+Cross-checked current TPWD lake profiles and updated the shared statewide lake-guide data so visitor planning now surfaces these **lake-specific advisories** in overview, boating and regulations copy:
+
+- **Lake Buchanan:** zebra mussels, drain/clean/dry requirements ([TPWD](https://tpwd.texas.gov/fishboat/fish/recreational/lakes/buchanan/)).
+- **Lake LBJ:** algae guidance, zebra mussels, and LCRA-enforced bowfishing restrictions ([TPWD](https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lbj/)).
+- **Lake Granbury:** potential golden-alga blooms affecting fish and fishing conditions ([TPWD](https://tpwd.texas.gov/fishboat/fish/recreational/lakes/granbury/)).
+- **Alan Henry Reservoir:** fish-consumption mercury advisory, with a direct official current advisory source ([TPWD](https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories)).
+- **Lake Meredith:** retained the previously added fish-consumption note and linked the direct official advisory source.
+- **Lake Whitney:** inspected its wave-2 prototype and confirmed that golden-alga and access-closure notices already appear; no duplicate warning was added.
+
+These source-dated alerts must be revalidated as agency notices change. Their presence does not imply beach/swimming access, fish-consumption safety or operator open status has been independently certified.
+
 ## Verification limitations and acceptance gate
 
 This audit inspected the GitHub repository and sample TPWD primary pages (Lake Fork, Lake Houston, Lake Whitney, Lake Arrowhead, and Proctor Lake). **It did not manually compare all 52 against each agency's full website.** The live texasdefined.com HTML fetches were unavailable to the remote web reader; therefore production status codes, image rendering, accessibility and app interactions are **not independently verified**. Also, TexasDefined may have additional lake references in other fixture, state-park and destination systems outside the two quantified catalogs; 52 + 36 is **not** an assertion that only 88 lake-related URLs exist on the entire site.
