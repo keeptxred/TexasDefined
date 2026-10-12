@@ -1,5 +1,5 @@
 import type { Article, ArticleBlock } from "../types";
-import { sharedRiverPlanningLinks } from "./texas-river-recreation-guides";
+import { sharedRiverPlanningLinks } from "./texas-river-shared-links";
 
 const h = (text: string): ArticleBlock => ({type: "heading", text});
 const p = (text: string): ArticleBlock => ({type: "paragraph", text});
