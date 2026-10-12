@@ -94,6 +94,10 @@ const verifiedFact = (team, needle, sourceId) => {
 verifiedFact('Shiner', '2001, 2002, 2008, 2011, 2015, 2016, 2024 and 2026', 'uil-state-2026');
 verifiedFact('Shiner', 'Steven Cerny', 'uil-2017-team');
 verifiedFact('Shiner', 'runner-up', 'uil-2025-final');
+verifiedFact('Shiner','runner-up to Bosqueville in a 4–1 final','uil-2007-final');
+verifiedFact('Shiner','Bosqueville 11–1 in the state final','uil-2008-final');
+verifiedFact('Shiner','Brandon Siegel as head coach','uil-2011-team');
+verifiedFact('Shiner','tournament offensive benchmarks','uil-2011-recordbook');
 verifiedFact('Shiner', 'cutoff date', 'uil-2026-pairings');
 verifiedFact('Ganado', '2025–26 Ganado softball schedule', 'school-schedules');
 verifiedFact('Ganado', 'prefinal submitted tally', 'uil-2026-pairings');
