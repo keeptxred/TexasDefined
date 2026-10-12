@@ -4,20 +4,25 @@ import path from 'node:path';
 const read = (p) => fs.readFileSync(p,'utf8');
 const errors = [];
 const relations = read('src/data/river-authority-relations.ts');
-const canonicalSlugs = [...relations.matchAll(/slug:\s*"(texas-[a-z0-9-]+-river-guide)"/g)].map((m) => m[1]);
+const canonicalSlugs = [...relations.matchAll(/slug:\s*"(texas-[a-z0-9-]+-(?:river|river-basin)-guide)"/g)].map((m) => m[1]);
 const existingUpgrades = new Set([
   'texas-guadalupe-river-guide','texas-colorado-river-guide','texas-brazos-river-guide',
   'texas-neches-river-guide','texas-sabine-river-guide'
 ]);
-if(canonicalSlugs.length < 10 || new Set(canonicalSlugs).size !== canonicalSlugs.length)
- errors.push('River registry must contain at least ten unique, canonical river guide slugs.');
-const legacyBasins = new Set([
-  'texas-brazos-river-guide','texas-colorado-river-guide','texas-guadalupe-river-guide',
-  'texas-trinity-river-guide','texas-rio-grande-river-guide','texas-canadian-river-guide',
-  'texas-lavaca-river-guide','texas-neches-river-guide','texas-nueces-river-guide',
-  'texas-red-river-guide','texas-sabine-river-guide','texas-san-antonio-river-guide',
-  'texas-san-jacinto-river-guide','texas-sulphur-river-guide'
-]);
+if(canonicalSlugs.length === 0 || new Set(canonicalSlugs).size !== canonicalSlugs.length)
+ errors.push('River registry must contain every existing river and basin guide exactly once.');
+const publishedSource = [
+ read('src/data/fixtures/texas-explained-river-profiles.ts'),
+ read('src/data/fixtures/texas-explained-river-profiles-remaining.ts'),
+].join('\n');
+const publishedRiverSlugs = new Set([...publishedSource.matchAll(/slug:\s*"(texas-[a-z0-9-]+-(?:river|river-basin)-guide)"/g)].map((m) => m[1]));
+const legacyBasins = publishedRiverSlugs;
+const secondary = read('src/data/fixtures/texas-river-authority-remaining.ts');
+const secondaryMatch = secondary.match(/export const additionalExistingRiverAuthorityResearch = ([\\s\\S]*?) as const;/);
+let remainingEntries=[];
+try {remainingEntries = JSON.parse(secondaryMatch?.[1] || '[]');}
+catch(e) {errors.push('Other basin recreation research must be machine-readable: '+e.message);}
+const remainingBySlug = new Map(remainingEntries.map((item)=>[item.slug,item]));
 const full = read('src/data/fixtures/texas-river-recreation-guides.ts');
 const stub = read('src/data/fixtures/texas-river-recreation-guide-stubs.ts');
 const addon = read('src/data/fixtures/texas-river-authority-extensions.ts');
@@ -33,14 +38,31 @@ let records=[];
 try {records = JSON.parse(match?.[1] || '[]');}catch(e){errors.push('Failed to parse river recreation records: '+e.message);}
 const slugs = new Set(records.map(x=>x.slug));
 const all = new Set(canonicalSlugs);
+for(const slug of publishedRiverSlugs) {
+ if(!all.has(slug)) errors.push('Published existing river guide excluded from universal standard: '+slug);
+}
 for(const name of canonicalSlugs) {
- if (!name.startsWith('texas-') || !name.endsWith('-river-guide')) errors.push('Noncanonical river slug '+name);
- if (existingUpgrades.has(name)) {
-   if (!addon.includes(name)) errors.push('Existing river missing recreation upgrade: '+name);
+ if (!name.startsWith('texas-') || !/(?:river|river-basin)-guide$/.test(name))
+   errors.push('Noncanonical river slug '+name);
+ if (publishedRiverSlugs.has(name)) {
+   if (!existingUpgrades.has(name) && !remainingBySlug.has(name))
+     errors.push('Existing river guide missing river-specific recreation upgrade: '+name);
  } else {
-   if (!slugs.has(name)) errors.push('New river missing substantive recreation record: '+name);
-   if (!stub.includes(name)) errors.push('New river missing lazy preview: '+name);
+   if (!slugs.has(name)) errors.push('New river missing comprehensive, structured river profile: '+name);
+   if (!stub.includes(name)) errors.push('New river missing lazy discovery stub: '+name);
  }
+}
+for(const item of remainingEntries) {
+ if (!all.has(item.slug)) errors.push('Existing river extension excluded from registry: '+item.slug);
+ if (!publishedRiverSlugs.has(item.slug)) errors.push('Additional legacy river extension must match an existing profile: '+item.slug);
+ for(const key of ['name','context','route','fish','camp','visit']) {
+  if(typeof item[key] !== 'string' || item[key].length < 120)
+    errors.push('River '+item.slug+' lacks substantial, reach-specific '+key);
+ }
+ if(!Array.isArray(item.faq) || item.faq.length<5 || item.faq.some(q=>q.length!==2 || q[1].length<75))
+   errors.push('River '+item.slug+' missing source-informed questions and answers');
+ if(!Array.isArray(item.official) || item.official.length<2 || item.official.some(x=>!/^https:\/\//.test(x[1])))
+   errors.push('River '+item.slug+' missing independently checkable primary sources');
 }
 for(const item of records) {
  if (!all.has(item.slug)) errors.push('New river must be in canonical authority registry: '+item.slug);
@@ -81,18 +103,20 @@ for(const slug of existingUpgrades) {
  if(!entry || !Array.isArray(entry.verifiedAccess) || entry.verifiedAccess.length===0)
    errors.push('Existing river upgrade missing documented visitor-access example: '+slug);
 }
-const known = new Set([...legacyBasins,...slugs]);
+const known = new Set([...canonicalSlugs]);
 // Detect addition of an unapproved river guide anywhere in the fixture catalog.
 // New pages must adopt the full recreation contract rather than adding a bare 'guide' stub.
 for(const filename of fs.readdirSync('src/data/fixtures').filter(x=>x.endsWith('.ts'))) {
  const source=read(path.join('src/data/fixtures',filename));
- for(const m of source.matchAll(/\bslug:\s*["'](texas-[a-z0-9-]+-river-guide)["']/g)) {
+ for(const m of source.matchAll(/\bslug:\s*["'](texas-[a-z0-9-]+-(?:river|river-basin)-guide)["']/g)) {
   if (!known.has(m[1])) errors.push('New river guide without authority record: '+m[1]+' in '+filename);
  }
 }
+if (!lazy.includes('enhanceRemainingRiverGuide(enhanceExistingRiverGuide(article))'))
+ errors.push('Every legacy river must pass through the universal river authority enrichment layer');
 for(const marker of [
  'texasRiverRecreationGuideStubs','texasRiverRecreationGuideArticles',
- 'enhanceExistingRiverGuide','texas-river-authority-extensions'
+ 'enhanceExistingRiverGuide','enhanceRemainingRiverGuide','texas-river-authority-extensions'
 ]) if(!lazy.includes(marker))errors.push('Lazy loading missing river integration: '+marker);
 for(const marker of ['/article/texas-pecos-river-guide','/article/texas-llano-river-guide',
  '/article/texas-comal-river-guide','/article/texas-san-marcos-river-guide',
