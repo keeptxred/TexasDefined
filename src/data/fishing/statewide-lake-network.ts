@@ -82,6 +82,7 @@ interface StatewideLakeDefinition {
   travelAlerts?: string[];
   consumptionSourceUrl?: string;
   historySourceUrl?: string;
+  historyNotes?: string[];
   visitorSourceUrl?: string;
 }
 
@@ -109,7 +110,13 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("largemouth-bass", "Largemouth bass", "good", "spring", "Rocky lower-lake banks and flooded shoreline cover support a useful bass fishery.", ["topwater","spinnerbaits","crankbaits","soft-plastics"]),
       fish("catfish", "Catfish", "excellent", "year-round", "Blue, channel and flathead catfish occur throughout the reservoir.", ["cut-bait","live-bait"]),
     ],
-    access: "TPWD lists multiple public and private boat ramps around the lake; low-water conditions can change ramp usability.",     accessPoints: [
+    access: "TPWD lists multiple public and private boat ramps around the lake; low-water conditions can change ramp usability.",     historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/buchanan/",
+    historyNotes: [
+      "An 1850s proposal anticipated a dam near today's Buchanan site, but actual construction began in April 1931 under the private name Hamilton Dam. Financial collapse left the project unfinished, illustrating how fragile early Colorado River power plans were.",
+      "State-backed funding led to creation of the Lower Colorado River Authority in 1934. LCRA restarted construction in February 1935, began deliberate storage on May 20, 1937 and completed the dam in 1938; it was named for U.S. Representative J. P. Buchanan, who helped secure funding.",
+      "Buchanan became the upper storage cornerstone of the Highland Lakes system, supporting public water supply, flood management, hydroelectric production and recreation. Its role is different from Lake LBJ's more stable lower-chain operating level.",
+    ],
+    accessPoints: [
       { name: "Burnet County Park", operator: "Burnet County", kind: "park", launch: "Off FM 2341 on the east shore at mid-lake. Two-lane concrete ramp; TPWD notes it is often usable during low water but vulnerable to northwest winds.", fee: "TPWD lists no launch fee", availability: "Listed year-round; check Burnet County and lake elevation before towing." },
       { name: "Buchanan Dam Ramp", operator: "Private operator noted by TPWD", kind: "public-ramp", launch: "East side of Buchanan Dam, accessed via SH 29 and FM 690 from Burnet. Two-lane concrete ramp.", fee: "TPWD lists a fee; check current charge", availability: "TPWD does not confirm same-day usability; confirm directly before travel." },
       { name: "Colorado Bend State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Upper Colorado River above Buchanan; primitive launch/wade-fishing corridor, NOT a standard improved large-boat ramp.", fee: "State park entrance fee; verify separately", availability: "Check TPWD park alerts, river flow and seasonal river-run conditions before traveling." },
@@ -222,7 +229,13 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("hybrid-striped-bass","Hybrid striped bass","good","year-round","Hybrids use humps and ridges on Hickory Creek and the main lake.",["trolling","vertical-jigging","live-bait"]),
       fish("largemouth-bass","Largemouth bass","good","spring","Bass use shoreline structure and timbered coves.",["soft-plastics","crankbaits"]),
     ],
-    access: "USACE and surrounding communities operate major parks and ramps; most charge access or launch fees and closures can change.", specialRules: true,     accessPoints: [
+    access: "USACE and surrounding communities operate major parks and ramps; most charge access or launch fees and closures can change.", specialRules: true,     historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/lewisville/",
+    historyNotes: [
+      "Today's Lewisville Lake incorporates a much older municipal water project. Dallas finished Garza Dam in 1927 to impound Lake Dallas on the Elm Fork of the Trinity River, but sediment accumulation later reduced its usefulness.",
+      "The U.S. Army Corps of Engineers began Lewisville Dam in November 1948 and started deliberate impoundment on November 1, 1954. The project was completed in August 1955. In 1957 the old Lake Dallas dam was breached and its pool became part of the enlarged reservoir.",
+      "The modern project supplies the Dallas-Denton area while also controlling floods and providing public recreation. That history explains why older Lake Dallas references and Lewisville Lake refer to connected but not identical stages of the same water-supply landscape.",
+    ],
+    accessPoints: [
       { name: "Big Sandy Ramp", operator: "U.S. Army Corps of Engineers", kind: "public-ramp", launch: "From I-35E north of Lewisville, east on Shady Shores Road and north on Lake Shore. Two-lane concrete ramp; 24 spaces.", fee: "TPWD lists no launch fee", availability: "TPWD lists year-round; contact USACE (469) 645-9100 for changing ramp conditions." },
       { name: "Lewisville City Park", operator: "City of Lewisville", kind: "park", launch: "North Mill Street to Lake Park Road, east to park. TPWD lists 11 ramp lanes, 108 maximum parking spaces and a separately operated fishing barge.", fee: "TPWD lists fees; verify with city", availability: "Year-round per TPWD; City of Lewisville (972) 219-3550. Fishing barge is separate concession." },
       { name: "Pilot Knoll Park", operator: "Town of Flower Mound", kind: "park", launch: "From FM 407 in Lewisville, follow Chinn Road, Chapel Road and Orchard Hill Lane. Two-lane concrete ramp with 30 parking spaces.", fee: "Launch fee listed by TPWD", availability: "TPWD lists year-round; verify with Flower Mound (972) 874-6000." },
@@ -295,7 +308,13 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("white-bass","White bass","good","spring","Spring tributary flows and summer dam-area schools provide productive patterns.",["topwater","jigs-and-minnows"]),
       fish("channel-catfish","Channel catfish","good","summer","Early summer tributary and riprap patterns support good channel-catfish fishing.",["cut-bait"]),
     ],
-    access: "USACE parks and local facilities provide multiple boat ramps and bank-fishing areas; verify closures and fee policies.", specialRules: true,     accessPoints: [
+    access: "USACE parks and local facilities provide multiple boat ramps and bank-fishing areas; verify closures and fee policies.", specialRules: true,     historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/lavon/index.asp",
+    historyNotes: [
+      "The Corps-authorized East Fork of the Trinity flood-control project began construction in January 1948. Lavon Lake first held deliberate storage on September 14, 1953, and the original work was completed that same month.",
+      "Growing North Texas water needs changed the design after the initial project. Congress approved more water-supply storage in 1962; the major dam modification, which raised the supply and flood-control pools, was completed in December 1975.",
+      "That expansion is part of Lavon's identity as both municipal water infrastructure and a public-access lake. The 1975 enlargement should not be confused with the 1953 initial impoundment when interpreting historical photos, shoreline changes or older maps.",
+    ],
+    accessPoints: [
       { name: "Twin Groves", operator: "U.S. Army Corps of Engineers", kind: "public-ramp", launch: "Upstream Twin Groves Creek; from McKinney take US 380 east about 12 miles to signed north-side park approach before bridge. Two-lane ramp without dock.", fee: "No fee listed by TPWD", availability: "TPWD lists year-round; USACE (972) 442-3141; verify closures after flood events." },
       { name: "Elm Creek", operator: "U.S. Army Corps of Engineers", kind: "public-ramp", launch: "East shore uplake: from US 380 in Farmersville follow SH 78 south about 3.25 miles to west-side park entrance. Two-lane ramp.", fee: "No fee listed by TPWD", availability: "Year-round per TPWD; check USACE (972) 442-3141." },
       { name: "Little Ridge", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "East shore along SH 78 between Lavon and Farmersville. Four-lane ramp with dock.", fee: "No fee listed by TPWD", availability: "Year-round per TPWD; verify USACE closures (972) 442-3141." },
@@ -520,7 +539,13 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("white-bass","White bass","good","spring","Native white bass provide a strong seasonal schooling fishery.",["jigs-and-minnows","topwater"]),
       fish("catfish","Catfish","good","year-round","Blue and flathead catfish broaden the catfish opportunity.",["cut-bait","live-bait"]),
     ],
-    access: "USACE, Marion County and private marinas provide ramps; the Corps maintains free ramps in addition to developed parks.", specialRules: true,     accessPoints: [
+    access: "USACE, Marion County and private marinas provide ramps; the Corps maintains free ramps in addition to developed parks.", specialRules: true,     historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/otp/index.asp",
+    historyNotes: [
+      "Lake O' the Pines was built on Big Cypress Bayou near Jefferson as part of a larger regional flood-control strategy for the Red River basin below Denison Dam, authorized by the federal Flood Control Act of 1946.",
+      "Construction began in 1955; deliberate impoundment started in August 1957 and the reservoir became operational in 1959. These dates describe separate milestones, which is why some historical records assign different single 'built' years.",
+      "The U.S. Army Corps of Engineers remains the dam operator. The reservoir's water-supply, habitat and recreation roles now link multiple Piney Woods counties, marinas, campgrounds and the larger Cypress Bayou watershed.",
+    ],
+    accessPoints: [
       { name: "Lone Star Landing", operator: "U.S. Army Corps of Engineers", kind: "public-ramp", launch: "From Lone Star south on US 259 and left onto FM 729 before Big Cypress Creek crossing, then signed ramp spur.", fee: "TPWD lists no launch fee", availability: "Year-round TPWD listing; USACE (903) 665-2336." },
       { name: "Cedar Springs Ramp", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "South shore upriver off SH 155 from US 259 near Ore City; follow Cedar Springs ramp signs.", fee: "TPWD lists launch fee", availability: "Year-round TPWD listing; verify USACE conditions and primitive campsite use." },
       { name: "Pine Hill Ramp", operator: "U.S. Army Corps of Engineers", kind: "public-ramp", launch: "South shore midlake, about 12 miles northwest from Harleton on FM 450, signed county road to ramp.", fee: "TPWD lists no fee", availability: "Year-round TPWD listing; USACE (903) 665-2336." },
@@ -1062,6 +1087,7 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
       mapQuery: `${def.name}, Texas`,
     },
     identityAngle: [def.identity, ...(def.travelAlerts ?? [])].join(" "),
+    historyNotes: def.historyNotes,
     habitat: def.habitat,
     fish: def.fish.map((target) => ({
       id: target.id,
