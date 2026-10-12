@@ -46,6 +46,8 @@ check(guideSlugs.size === recordCount - 3, "Unexpected town duplicate count; cur
 check(guideSlugs.size >= 59, "Missing an established town: expected at least 59 distinct checked-in records");
 check(waveNames.length >= 15, "All original town waves 1–15 must be preserved");
 const network = read("src/data/town-authority-network.ts");
+const links = read("src/data/town-authority-links.ts");
+const linkIndex = read("src/data/town-authority-link-index.ts");
 for (const wave of guideSources) {
   const m = wave.filename.match(/wave(\d+)\.ts$/);
   if (m && wave.filename.includes("small-town-destinations-wave")) {
@@ -56,9 +58,11 @@ for (const wave of guideSources) {
 }
 for (const key of [
   "export const TOWN_AUTHORITY_DIRECTORY", "export const TOWN_AUTHORITY_SLUGS",
-  "canonicalAuthority.get(destination.slug)", "countyTowns[slug]",
-  "townAuthorityContextualLinks(", "TEXAS_CITIES.find", "candidate.region === destination.region",
+  "canonicalAuthority.get(destination.slug)",
 ]) check(network.includes(key), "Network missing " + key);
+for (const key of ["townAuthorityContextualLinks(", "TEXAS_CITIES.find", "countyTowns[countyKey", "candidate.region === destination.region"]) check(links.includes(key), "Lightweight linker missing " + key);
+for (const slug of guideSlugs.keys()) check(linkIndex.includes('"slug": "' + slug + '"'), "Lightweight index missing researched town " + slug);
+check(linkIndex.includes('"slug": "gruene-historic-district"'), "Lightweight index missing Gruene Historic District");
 
 const curatedGruene = read("src/data/destination-curation-top-attractions-batch5.ts");
 const grueneAuthority = read("src/data/destination-authority-top-attractions.ts");
@@ -75,10 +79,12 @@ check(runtime.includes("applyTownAuthority(normalizeDestinationCounty("), "Detai
 check(runtime.includes(".map(applyTownAuthority);"), "Search/sitemap/catalog resolver must enrich every town");
 check(planner.includes("<DestinationAuthoritySections destination={destination} />"), "Visible guide and research sections absent");
 check(planner.includes("townAuthorityContextualLinks(destination)"), "Town/attraction contextual backlinks absent");
+check(planner.includes('from "@/data/town-authority-links"'), "Destination client must import lightweight links only");
 for (const required of ["guide.itineraries.map", "guide.sources.filter", "area[key]", "noopener noreferrer"]) {
   check(authority.includes(required), "Shared authority template missing " + required);
 }
 check(countyTemplate.includes("<CountyTownAuthorityLinks"), "County/city inbound links missing");
+check(read("src/components/content/CountyTownAuthorityLinks.tsx").includes('from "@/data/town-authority-links"'), "County/city client must import lightweight links only");
 const cityIndex = read("src/data/city-authority-index.ts");
 const cityProfiles = read("src/data/city-authority-profiles.ts");
 const texasPlaces = read("src/data/texas-places.ts");
