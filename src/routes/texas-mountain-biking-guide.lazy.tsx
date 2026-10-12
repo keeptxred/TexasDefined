@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import heroHillCountry from "@/assets/hero-hill-country.jpg";
 import { Container } from "@/components/layout/Container";
+import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
 import { stateParkHeroMap } from "@/data/state-park-hero-map";
 
 const franklinImage = stateParkHeroMap["franklin-mountains-state-park"];
@@ -193,6 +194,8 @@ function TexasMountainBikingGuidePage() {
               </table>
             </div>
           </section>
+
+          <GuideVerifiedFacts guideSlug="texas-mountain-biking-guide" />
 
           <section className="border-b border-border py-10" aria-labelledby="why-these-five">
             <p className="eyebrow text-primary">Why these five?</p>
