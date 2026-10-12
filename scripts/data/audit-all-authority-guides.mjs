@@ -71,7 +71,7 @@ const rows = [...namedGuides].map(([file, components]) => {
   const ambiguous = hasShared && Object.values(presence).some((v) => !v);
   const missing = Object.entries(presence).filter(([, v]) => !v).map(([k]) => k);
   return {
-    kind: "standalone-route", id: slug, sourceFiles: components,
+    kind: "standalone-route", id: slug, routeFile: file, sourceFiles: components,
     topic, requiredEvidence: requiredByTopic[topic],
     structuralSignals: presence, status: missing.length ? (ambiguous ? "requires-shared-data-inspection" : "needs-remediation") : "requires-fact-and-photo-rights-verification",
     gaps: missing, dynamicDependencies: hasShared,
@@ -102,6 +102,11 @@ const churchFile = "src/data/painted-church-search-guides.ts";
 const churchSource = exists(churchFile) ? source(churchFile) : "";
 const body = churchSource.split("export const paintedChurchSearchGuides")[1]?.split("export const paintedChurchSearchCoverage")[0] || "";
 const paintedChurchCount = [...body.matchAll(/\bslug:\s*["']([^"']+)["']/g)].length;
+const registeredGuideRoutes = JSON.parse(source("docs/editorial/guide-route-registry.json")).routes;
+const registeredPaths = new Set(registeredGuideRoutes.map((row) => row.routeFile));
+const discoveredPaths = new Set(rows.map((row) => row.routeFile));
+const unregisteredGuideRoutes = [...discoveredPaths].filter((item) => !registeredPaths.has(item));
+const staleRegistryRoutes = [...registeredPaths].filter((item) => !discoveredPaths.has(item));
 const sorted = [...rows, ...fixtureRows].sort((a, b) => a.kind.localeCompare(b.kind) || a.id.localeCompare(b.id));
 const summary = {
   generatedAt: new Date().toISOString(),
@@ -109,6 +114,8 @@ const summary = {
   fixtureGuideCandidates: fixtureRows.length,
   paintedChurchSearchGuideRecords: paintedChurchCount,
   dynamicGuideFamilies: families.length,
+  unregisteredGuideRoutes,
+  staleRegistryRoutes,
   sourceCoverageNote: "Additional Supabase rows, generated pages, and externally managed guide records require runtime inventory. Source inspection alone never certifies full coverage.",
   byStatus: Object.fromEntries([...new Set(sorted.map((x) => x.status))].map((key) => [key, sorted.filter((x) => x.status === key).length])),
 };
@@ -120,4 +127,4 @@ if (output) {
 }
 console.log(JSON.stringify(summary, null, 2));
 console.log("Gap samples:", sorted.filter((x) => x.gaps?.length).slice(0, 12).map((x) => x.id + ": " + x.gaps.join(", ")).join(" | "));
-if (process.argv.includes("--fail-on-untracked") && (rows.length === 0 || fixtureRows.length === 0 || paintedChurchCount === 0)) process.exit(1);
+if (process.argv.includes("--fail-on-untracked") && (rows.length === 0 || fixtureRows.length === 0 || paintedChurchCount === 0 || unregisteredGuideRoutes.length > 0 || staleRegistryRoutes.length > 0)) { console.error("Guide routes not fully registered or data families unexpectedly absent:", unregisteredGuideRoutes, staleRegistryRoutes); process.exit(1); }
