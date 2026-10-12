@@ -24,10 +24,10 @@ export const Route = createFileRoute(path)({
 function HistoricChurchesPage() {
   return <main>
     <section className="border-b border-border bg-ink text-ink-foreground"><Container className="py-16 sm:py-24">
-      <nav aria-label="Breadcrumb"><ol className="flex flex-wrap gap-2 text-xs uppercase tracking-widest text-ink-foreground/65"><li><Link to="/">Home</Link></li><li aria-hidden="true">·</li><li><Link to="/explore">Explore</Link></li><li aria-hidden="true">·</li><li aria-current="page">Historic Churches</li></ol></nav>
+      <nav aria-label="Breadcrumb"><ol className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.14em] text-ink-foreground/60"><li><Link to="/">Home</Link></li><li aria-hidden="true">·</li><li><Link to="/explore">Explore</Link></li><li aria-hidden="true">·</li><li aria-current="page">Historic Churches</li></ol></nav>
       <p className="eyebrow mt-10 text-ink-foreground/70">Texas heritage · a growing, documented collection</p>
       <h1 className="mt-4 max-w-5xl font-display text-5xl leading-tight sm:text-7xl">Historic Churches of Texas</h1>
-      <p className="mt-5 max-w-4xl text-lg leading-8 text-ink-foreground/85">Explore the religious communities, buildings, immigrant traditions and local histories that helped shape Texas. Our guides distinguish congregational founding dates from current buildings, link back to original research and help you plan respectful visits.</p>
+      <p className="mt-5 max-w-4xl text-lg leading-8 text-ink-foreground/80">Explore the religious communities, buildings, immigrant traditions and local histories that helped shape Texas. Our guides distinguish congregational founding dates from current buildings, link back to original research and help you plan respectful visits.</p>
       <div className="mt-8 flex flex-wrap gap-5 text-sm"><span>{historicChurches.length} researched starting profiles</span><span>All denominations welcome</span><span>Growing statewide</span></div>
     </Container></section>
     <Container className="py-14 sm:py-18">
@@ -40,7 +40,7 @@ function HistoricChurchesPage() {
         <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">{historicChurches.map(church=><article key={church.slug} className="overflow-hidden border border-border bg-background">
           <div className="relative flex aspect-[4/3] items-end bg-surface p-5">
             {church.image ? <img loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" src={historicChurchImageSrc(church.image)} alt={church.image.alt} width={church.image.width} height={church.image.height} onError={e=>recoverOrHideImage(e.currentTarget)} /> : null}
-            <span className="relative bg-background/90 px-3 py-1 text-xs font-medium text-foreground">{church.locality}</span>
+            <span className="relative bg-background px-3 py-1 text-xs font-medium text-foreground">{church.locality}</span>
           </div>
           <div className="p-6"><p className="eyebrow text-primary">{church.county} area</p>
           <h3 className="mt-3 font-display text-3xl leading-tight"><Link to="/explore/historic-churches/$slug" params={{slug:church.slug}} className="hover:text-primary">{church.shortName}</Link></h3>
