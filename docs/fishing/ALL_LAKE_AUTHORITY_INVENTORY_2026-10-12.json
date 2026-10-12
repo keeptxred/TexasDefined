@@ -6,19 +6,19 @@
     "total": 52,
     "standardSectionsPerGuide": 9,
     "statewide": 37,
-    "namedAccess": 16,
-    "unknownAccess": 36,
-    "namedCamping": 33,
-    "unknownCamping": 19,
+    "namedAccess": 52,
+    "unknownAccess": 0,
+    "namedCamping": 34,
+    "unknownCamping": 18,
     "history": 5,
     "noHistory": 47,
     "photoMappings": 52,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 37,
-    "lackingNamedAccess": 15,
-    "explicitNamedCamping": 19,
-    "lackingNamedCamping": 33,
+    "explicitNamedAccess": 52,
+    "lackingNamedAccess": 0,
+    "explicitNamedCamping": 34,
+    "lackingNamedCamping": 18,
     "namedStatewideFacilities": 140,
     "statewideTemplateGuidesWithNamedAccess": 37
   },
@@ -33,7 +33,10 @@
       "fish": "Included",
       "photo": "Mapped",
       "water": "Official",
-      "risk": "Manual detailed audit pending"
+      "risk": "Manual detailed audit pending",
+      "namedAccess": true,
+      "namedCamping": true,
+      "accessReviewedAt": "Review source status and operations before travel"
     },
     {
       "name": "Lake Fork",
@@ -45,7 +48,10 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "lake-specific history"
+      "risk": "lake-specific history",
+      "namedAccess": true,
+      "namedCamping": true,
+      "accessReviewedAt": "Review source status and operations before travel"
     },
     {
       "name": "Sam Rayburn Reservoir",
@@ -57,7 +63,10 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "Operator, imagery and independent visitor QA"
+      "risk": "Operator, imagery and independent visitor QA",
+      "namedAccess": true,
+      "namedCamping": true,
+      "accessReviewedAt": "Review source status and operations before travel"
     },
     {
       "name": "Lake Livingston",
@@ -69,7 +78,10 @@
       "fish": 6,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "lake-specific history"
+      "risk": "lake-specific history",
+      "namedAccess": true,
+      "namedCamping": true,
+      "accessReviewedAt": "Review source status and operations before travel"
     },
     {
       "name": "Lake Texoma",
@@ -81,7 +93,10 @@
       "fish": 6,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "Operator, imagery and independent visitor QA"
+      "risk": "Operator, imagery and independent visitor QA",
+      "namedAccess": true,
+      "namedCamping": true,
+      "accessReviewedAt": "Review source status and operations before travel"
     },
     {
       "name": "Toledo Bend Reservoir",
@@ -93,7 +108,10 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "lake-specific history"
+      "risk": "lake-specific history",
+      "namedAccess": true,
+      "namedCamping": true,
+      "accessReviewedAt": "Review source status and operations before travel"
     },
     {
       "name": "Possum Kingdom Reservoir",
@@ -105,7 +123,10 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "lake-specific history"
+      "risk": "lake-specific history",
+      "namedAccess": true,
+      "namedCamping": true,
+      "accessReviewedAt": "Review source status and operations before travel"
     },
     {
       "name": "Canyon Lake",
@@ -117,7 +138,10 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "lake-specific history"
+      "risk": "lake-specific history",
+      "namedAccess": true,
+      "namedCamping": true,
+      "accessReviewedAt": "Review source status and operations before travel"
     },
     {
       "name": "Choke Canyon Reservoir",
@@ -129,7 +153,10 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "lake-specific history"
+      "risk": "lake-specific history",
+      "namedAccess": true,
+      "namedCamping": true,
+      "accessReviewedAt": "Review source status and operations before travel"
     },
     {
       "name": "Amistad Reservoir",
@@ -141,7 +168,10 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "lake-specific history"
+      "risk": "lake-specific history",
+      "namedAccess": true,
+      "namedCamping": true,
+      "accessReviewedAt": "Review source status and operations before travel"
     },
     {
       "name": "O.H. Ivie Lake",
@@ -153,7 +183,10 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "lake-specific history"
+      "risk": "lake-specific history",
+      "namedAccess": true,
+      "namedCamping": true,
+      "accessReviewedAt": "Review source status and operations before travel"
     },
     {
       "name": "Lake Travis",
@@ -165,7 +198,10 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "lake-specific history"
+      "risk": "lake-specific history",
+      "namedAccess": true,
+      "namedCamping": true,
+      "accessReviewedAt": "Review source status and operations before travel"
     },
     {
       "name": "Lake Whitney",
@@ -177,7 +213,10 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "lake-specific history"
+      "risk": "lake-specific history",
+      "namedAccess": true,
+      "namedCamping": true,
+      "accessReviewedAt": "Review source status and operations before travel"
     },
     {
       "name": "Lake Tawakoni",
@@ -189,7 +228,10 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "lake-specific history"
+      "risk": "lake-specific history",
+      "namedAccess": true,
+      "namedCamping": true,
+      "accessReviewedAt": "Review source status and operations before travel"
     },
     {
       "name": "Falcon International Reservoir",
@@ -201,7 +243,10 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "lake-specific history"
+      "risk": "lake-specific history",
+      "namedAccess": true,
+      "namedCamping": true,
+      "accessReviewedAt": "Review source status and operations before travel"
     },
     {
       "name": "Lake Buchanan",
