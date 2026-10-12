@@ -5,6 +5,7 @@
  */
 import type { Article, ArticleBlock, ArticleInternalLink } from "../types";
 import { riverAuthorityBySlug, riverAuthorityRecords } from "../river-authority-registry";
+import { texasRiverVisitorStubs } from "./texas-river-visitor-stubs";
 
 type RiverDetail = {
   position: string; fish: string[]; access: string[]; camp: string[];
@@ -408,16 +409,7 @@ export function strengthenTexasRiverArticle(article: Article): Article {
   };
 }
 /** New profiles reuse the same quality layer as existing full basin features. */
-export const texasRiverNewVisitorArticles: Article[] = riverAuthorityRecords
-  .filter((river) => ["frio","comal","san-marcos","llano","pecos"].includes(river.key))
-  .map((river) => strengthenTexasRiverArticle({
-    id: `evergreen-${river.slug}`, brandId: "texasdefined", slug: river.slug,
-    title: `${river.name}: Fishing, Camping, Tubing & Travel Guide`,
-    dek: `${river.summary}. Plan legal access, fishing, paddling, swimming, campsites and nearby visits using official local sources.`,
-    category: "lakes-rivers",
-    hero: {src:river.image,alt:river.imageAlt,width:1600,height:1067},
-    authorId:"a-marisol",publishedAt:"2026-10-12",readingMinutes:12,
-    tags:[river.name,"Texas rivers","river fishing","river camping","Texas paddling","Texas tourism"],
-    featured:false,body:[],internalLinks:[],relatedCollections:[],relatedDestinations:[],
-    sourceName:"Texas Water Development Board",sourceUrl:BASIN_SOURCES[river.basin],
-  }));
+export const texasRiverNewVisitorArticles: Article[] = texasRiverVisitorStubs.map((stub) => {
+ const river = riverAuthorityBySlug[stub.slug];
+ return strengthenTexasRiverArticle({...stub, sourceUrl: BASIN_SOURCES[river.basin]});
+});
