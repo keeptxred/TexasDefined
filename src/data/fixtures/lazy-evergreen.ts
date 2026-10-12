@@ -19,6 +19,7 @@ import {
 import { texasExplainedSupportStubs2, texasRailroadsTownGrowthGuideStub } from "./texas-explained-support-stubs-2";
 import { texasExplainedRiverProfileStubs } from "./texas-explained-river-profile-stubs";
 import { texasExplainedRemainingRiverProfileStubs } from "./texas-explained-river-profiles-remaining-stubs";
+import { texasRiverVisitorStubs } from "./texas-river-visitor-stubs";
 import { texasExplainedReservoirProfileStubs } from "./texas-explained-reservoir-profile-stubs";
 import { texasExplainedRoadSystemStubs } from "./texas-explained-road-system-stubs";
 import { texasHomeArchitectureRegionsStub } from "./texas-home-architecture-regions-stub";
@@ -126,7 +127,7 @@ export const lazyEvergreenArticleStubs: Article[] = [
   texasRoofsHailWindHeatStub, texasSchoolDistrictsExplainedStub, chooseElectricityPlanTexasStub, texasRiversExplainedStub,
   texasLakesReservoirsExplainedStub, texasHillCountryStub, texasTownCulturalRootsStub, texasCourthousesTownSquareStub,
   texasFoundationCareStub, prepareTexasHouseFreezeStub, mudsPidsHoasSpecialDistrictsStub,
-  ...texasExplainedSupportStubs, ...texasExplainedSupportStubs2, ...texasExplainedRiverProfileStubs, ...texasExplainedRemainingRiverProfileStubs, ...texasExplainedReservoirProfileStubs, ...texasExplainedRoadSystemStubs,
+  ...texasExplainedSupportStubs, ...texasExplainedSupportStubs2, ...texasExplainedRiverProfileStubs, ...texasExplainedRemainingRiverProfileStubs, ...texasRiverVisitorStubs, ...texasExplainedReservoirProfileStubs, ...texasExplainedRoadSystemStubs,
 ];
 
 const addSourceLinks = (article: Article, links: NonNullable<Article["internalLinks"]>): Article => {
@@ -215,15 +216,25 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
     return article;
   }
 
+  if (texasRiverVisitorStubs.some((article) => article.slug === slug)) {
+    const { texasRiverNewVisitorArticles } = await import("./texas-river-visitor-authority");
+    return texasRiverNewVisitorArticles.find((article) => article.slug === slug) ?? null;
+  }
+
   if (texasExplainedRiverProfileStubs.some((article) => article.slug === slug)) {
     const riverModule = await import("./texas-explained-river-profiles");
     const article = riverModule.texasExplainedRiverProfileArticles.find((candidate) => candidate.slug === slug);
-    return article ?? null;
+    if (!article) return null;
+    const { strengthenTexasRiverArticle } = await import("./texas-river-visitor-authority");
+    return strengthenTexasRiverArticle(article);
   }
 
   if (texasExplainedRemainingRiverProfileStubs.some((article) => article.slug === slug)) {
     const riverModule = await import("./texas-explained-river-profiles-remaining");
-    return riverModule.texasExplainedRemainingRiverProfileArticles.find((candidate) => candidate.slug === slug) ?? null;
+    const article = riverModule.texasExplainedRemainingRiverProfileArticles.find((candidate) => candidate.slug === slug);
+    if (!article) return null;
+    const { strengthenTexasRiverArticle } = await import("./texas-river-visitor-authority");
+    return strengthenTexasRiverArticle(article);
   }
 
   if (texasExplainedReservoirProfileStubs.some((article) => article.slug === slug)) {
