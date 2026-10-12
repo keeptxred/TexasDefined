@@ -226,3 +226,7 @@ Two TPWD listings, **Georgetown** and **Benbrook**, have fully sourced new fishi
 ### Wave-two update (October 12)
 
 Granger and Aquilla now have separate researched authority records in the second expansion branch, with TPWD-access facilities and TWDB histories, reviewed government public-domain imagery, and generated county links. Together with Georgetown and Benbrook the **branch** covers 56 lake guides, with 119 unmatched TPWD listings. No new URLs should be considered published until both stacked releases pass CI and production acceptance.
+
+### Next research batch — Granger and Aquilla (October 12)
+
+Granger Lake and Aquilla Lake have complete source-reviewed fishing profiles in the next expansion branch: individual TPWD facility inventories, historical sources, lake photos with federal public-domain provenance, visitor FAQs, and county/nearby-lake crosslinks. The **branch registry contains 56 completed lake guides** against TPWD's 175 labeled entries, leaving **119 without a completed guide**. This is branch coverage only; release gates and actual production checks remain open. Field photography and live operator approvals are not verified.
