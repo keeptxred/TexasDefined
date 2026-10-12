@@ -13,6 +13,7 @@ export interface MuseumAuthorityDossier {
   county: string;
   city: string;
   reviewed: string;
+  topics: readonly string[];
   whyVisit: string;
   visitorStrategy: string;
   accessibility: string;
@@ -28,6 +29,7 @@ export interface MuseumAuthorityDossier {
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
   "bullock-texas-state-history-museum": {
     name: "Bullock Texas State History Museum", slug: "bullock-texas-state-history-museum", county: "Travis", city: "Austin", reviewed: "2026-10-12",
+    topics: ["texas-history","archaeology","family"],
     whyVisit: "The Bullock is the most efficient statewide historical orientation for a visitor who wants more than a checklist of famous battles. Its interpretation extends from the first people of the region to Texas's changing cultures, economies and civic institutions. The excavated La Belle hull is particularly distinctive because the artifacts connect archaeology to France's short-lived Gulf Coast colonial ambitions.",
     visitorStrategy: "Begin with Becoming Texas and La Belle, then proceed through later centuries instead of rushing directly to the revolution. Allow two to three hours for history galleries, longer for a film or special exhibition. Museum galleries and IMAX programming are different ticket experiences: check the current admissions menu before booking either.",
     accessibility: "Use the museum's visitor guide for elevator locations, accessible facilities and theatre requirements; contact the museum about individual accommodations rather than assuming every temporary exhibit has identical access.",
@@ -55,6 +57,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
   },
   "perot-museum-nature-science-dallas": {
     name: "Perot Museum of Nature and Science", slug: "perot-museum-nature-science-dallas", county: "Dallas", city: "Dallas", reviewed: "2026-10-12",
+    topics: ["science","natural-history","family"],
     whyVisit: "The Perot offers a rare combination of specimen-rich natural history and experiment-based science. The eleven permanent exhibit halls range across ancient life, the human body, engineering, space and Earth's systems, making the visitor's selection of halls more important than a rigid start-to-finish route.",
     visitorStrategy: "Reserve an appropriate general admission entry, especially on weekends and school breaks. A focused visit needs approximately two to three hours, but children may spend much longer experimenting. A traveling exhibition or 3D film can add charges and time; compare add-ons with the permanent-hall admission rather than assuming they are included.",
     accessibility: "The main visitor page publishes permitted items, service-animal guidance and entry procedures. Ask guest services about sensory accommodations and elevators before visiting if those details affect your route.",
@@ -82,6 +85,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
   },
   "witte-museum": {
     name: "Witte Museum", slug: "witte-museum", county: "Bexar", city: "San Antonio", reviewed: "2026-10-12",
+    topics: ["science","natural-history","texas-history","family"],
     whyVisit: "The Witte blends science, ecology, archaeology and South Texas heritage rather than fitting the model of a single-subject museum. Opened in 1926, it marked its centennial in October 2026. Its focus on Texas Deep Time places fossils, water, Indigenous history and cultural change into a much longer chronological frame than the usual frontier narrative.",
     visitorStrategy: "Use the permanent galleries as the foundation and select temporary exhibitions separately. The museum's ticket language distinguishes general admission and some surcharged special exhibits; confirm the selected day's inclusions. Brackenridge Park makes a pleasant continuation, but it is not part of the indoor museum admission.",
     accessibility: "Review current visitor and campus access information with the Witte. Its multiple galleries and outdoor setting can make circulation and heat exposure relevant to a visitor's plan.",
@@ -109,6 +113,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
   },
   "museum-of-the-big-bend-alpine": {
     name: "Museum of the Big Bend", slug: "museum-of-the-big-bend-alpine", county: "Brewster", city: "Alpine", reviewed: "2026-10-12",
+    topics: ["texas-history","natural-history","archaeology","west-texas"],
     whyVisit: "This Sul Ross State University museum offers regional context that no single scenic stop can provide. Its exhibits connect the deserts, mountains and Rio Grande to archaeology, Indigenous lives, Spanish and Mexican history, ranching, mapping and borderland culture.",
     visitorStrategy: "Start with Big Bend Legacy before exploring the map holdings or current art displays. Enter the Sul Ross campus from Harrison Street via Entrance Four; the museum's visitor parking is across the street. Published visiting hours are Tuesday through Saturday, 10 a.m. to 4 p.m., with holiday exceptions; check the site before a long drive.",
     accessibility: "The museum reports an accessible building and campus routes. Contact staff for any specialized gallery, parking or guided-tour accommodations before arrival.",
@@ -136,6 +141,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
   },
   "panhandle-plains-historical-museum-canyon": {
     name: "Panhandle-Plains Historical Museum", slug: "panhandle-plains-historical-museum-canyon", county: "Randall", city: "Canyon", reviewed: "2026-10-12",
+    topics: ["texas-history","natural-history","west-texas","ranching"],
     whyVisit: "The Panhandle-Plains collections capture the Southern Plains as an interconnected history of geology, Indigenous people, ranching, transport, petroleum, art and regional settlement. Its breadth makes the institution an important research reference even when its galleries cannot be entered.",
     visitorStrategy: "IMPORTANT: As checked in October 2026, the museum's official website continues to advertise temporary-closure updates. Do not present routine museum admission as available until the operator explicitly confirms that the galleries have reopened. Check the closure page for exhibitions, off-site work and visitor-service changes.",
     accessibility: "Because the museum's main building has been subject to a temporary closure, do not assume ordinary gallery access or an active campus tour. Request current off-site program accessibility information directly from the institution.",
@@ -162,6 +168,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
   },
   "george-ranch-historical-park": {
     name: "George Ranch Historical Park", slug: "george-ranch-historical-park", county: "Fort Bend", city: "Richmond", reviewed: "2026-10-12",
+    topics: ["texas-history","ranching","living-history","family"],
     whyVisit: "The George Ranch is an unusually tangible way to study two centuries of Texas farm and ranch life. Its successive historic houses and working-landscape interpretation follow the Jones, Ryon, Davis and George families across settlement, enslavement, ranching and the transition to modern Fort Bend County.",
     visitorStrategy: "The operator currently lists public general admission on Saturdays from 9 a.m. to 5 p.m., with particular holiday and summer variations. Tuesday-to-Friday access is generally organized as pre-booked field trips and tours rather than ordinary walk-in admission. Plan three to four hours, closed-toe shoes and weather protection; sites and demonstrations may vary by day.",
     accessibility: "The site has an approximately one-mile paved interpretive loop and a tractor-pulled tram, but historic interiors, outdoor surfaces and transport features can differ. Consult the ranch's accessibility policy and call for individual mobility arrangements.",
@@ -189,6 +196,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
   },
   "texas-maritime-museum-rockport": {
     name: "Texas Maritime Museum", slug: "texas-maritime-museum-rockport", county: "Aransas", city: "Rockport", reviewed: "2026-10-12",
+    topics: ["texas-history","maritime","industry","gulf-coast"],
     whyVisit: "Rockport's Texas Maritime Museum is a needed corrective to an inland-heavy story of Texas. It treats the Gulf and bays as corridors of travel, work, environmental change and risk, interpreting fishing, shipbuilding, maritime commerce, shipwrecks and Indigenous coastal history.",
     visitorStrategy: "The museum currently advertises pay-what-you-can donation admission and Tuesday-to-Saturday hours, 10 a.m. to 4 p.m. Its Rockport location makes a compact cultural stop before walking the waterfront. Confirm the exhibition and program schedule because the museum's small scale makes temporary changes relevant.",
     accessibility: "Review accessibility and current entrance arrangements directly with the operator. For the rest of a Rockport day, consider heat, sun and coastal weather when moving between the indoor museum and waterfront.",
@@ -216,6 +224,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
   },
   "national-museum-pacific-war": {
     name: "National Museum of the Pacific War", slug: "national-museum-pacific-war", county: "Gillespie", city: "Fredericksburg", reviewed: "2026-10-12",
+    topics: ["texas-history","military","maritime","world-war-ii"],
     whyVisit: "This Fredericksburg campus explains the Pacific Theater through personal records, weapons, maritime history, military decision-making and the lives of combatants and civilians. The museum grew from Fleet Admiral Chester W. Nimitz's hometown story and is much larger and more historically varied than an ordinary town museum.",
     visitorStrategy: "Allow at least half a day. Current general admission includes several campus exhibitions, but the Pacific Combat Zone closes earlier than the rest of the museum and the separately ticketed immersive experience The Rescue is an add-on. The operator currently lists Wednesday-to-Monday opening and Tuesday closure. Do not plan the afternoon as though every building stays open until 5 p.m.",
     accessibility: "This is a multi-location museum campus with separate exhibition areas and outdoor memorial spaces. Use the current site map and contact visitor services about accessible connections, distances and programs.",
@@ -243,6 +252,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
   },
   "frontier-texas": {
     name: "Frontier Texas!", slug: "frontier-texas", county: "Taylor", city: "Abilene", reviewed: "2026-08-30",
+    topics: ["texas-history","military","ranching","living-history"],
     whyVisit: "Frontier Texas! uses immersive storytelling to introduce the frontier history of the Big Country while also operating as an Abilene visitor gateway. Its strongest use is to place later fort trips and ranch-history visits in context rather than treating the Old West as a single heroic narrative.",
     visitorStrategy: "Start at the interpretation center and check the theater schedule and last showtime before exploring exhibits; Sunday and holiday operations differ. Plan a focused one-to-two-hour stop, then continue into downtown Abilene or the wider Texas Forts Trail if time permits.",
     accessibility: "Confirm current accessibility, seating and theater arrangements directly with the museum. Downtown Abilene routes beyond the site may have different pedestrian conditions.",
@@ -269,6 +279,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
   },
   "texas-energy-museum-beaumont": {
     name: "Texas Energy Museum", slug: "texas-energy-museum-beaumont", county: "Jefferson", city: "Beaumont", reviewed: "2026-08-31",
+    topics: ["texas-history","science","industry","gulf-coast"],
     whyVisit: "The Texas Energy Museum interprets the 1901 Spindletop oil discovery as both a Southeast Texas event and an important turning point in worldwide petroleum development. Its strongest visitor value lies in connecting geology, drilling, refining and the lives of people affected by industrialization.",
     visitorStrategy: "Begin with the Spindletop discovery, then follow the sequence from underground resources through production and refining before visiting downtown Beaumont's other museums. Check current visitor arrangements on the operator's site; do not assume dated admission prices or special-event schedules remain valid.",
     accessibility: "The museum's downtown indoor setting may simplify a hot-weather visit, but visitors should confirm accessible entrances, gallery circulation and restrooms directly with the operator.",
@@ -295,7 +306,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
   },
 };
 
-export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county }) => ({ slug, name, city, county }));
+export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
 
 export function museumDossierFor(slug: string): MuseumAuthorityDossier | undefined {
   return museumAuthorityDossiers[slug];
