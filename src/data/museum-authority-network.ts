@@ -206,7 +206,8 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
     sources: [
       { label: "Texas Maritime Museum — official exhibitions and visitor information", url: "https://texasmaritimemuseum.org/", use: "Admission, operating schedule and permanent themes" },
-      { label: "Texas Maritime Museum — operator contact", url: "https://texasmaritimemuseum.org/", use: "Controlling updates and program availability" },
+      { label: "Texas Maritime Museum — exhibitions", url: "https://texasmaritimemuseum.org/exhibits/", use: "Exhibition content and interpretation topics" },
+      { label: "Texas Maritime Museum — education", url: "https://texasmaritimemuseum.org/museum-education-department/", use: "School tours, lectures and group bookings" },
     ],
     connections: [
       { label: "Aransas County", href: "/county/aransas", reason: "Explore Rockport and the surrounding bays." },
@@ -328,7 +329,7 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas_Energy_Museum%2C_front_entrance.jpg?width=1600",
     alt: "Front entrance of the Texas Energy Museum in downtown Beaumont",
     width: 1600, height: 901,
-    credit: "JJonahJackalope · Wikimedia Commons · Texas Energy Museum, front entrance.jpg (verify license on file page before distribution)",
+    credit: "JJonahJackalope · CC BY-SA 4.0 · Wikimedia Commons · File:Texas Energy Museum, front entrance.jpg",
   },
 };
 
