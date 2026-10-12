@@ -43,6 +43,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 
 const prebuildChecks = [
   ['SOFTBALL/PUBLISH', 'Reject thin or unapproved UIL softball team pages', 'npm', ['run', 'softball:authority:validate']],
+  ['NETWORK/TERMS', 'Validate customer terms, content responsibility and recurring billing acceptance', 'node', ['scripts/data/validate-network-customer-terms.mjs']],
   ['NETWORK/RELEASE', 'Validate Network security and unpublished release guards', 'node', ['scripts/data/validate-network-release-guards.mjs']],
   ['NETWORK/MIGRATIONS', 'Validate applied Supabase Network migration history', 'node', ['scripts/data/validate-network-migration-parity.mjs']],
   ['NETWORK/ADMIN', 'Verify dedicated Network administrator key', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-admin-access.test.mjs']],
