@@ -2,7 +2,7 @@ import caddoLake from "@/assets/caddo-lake.jpg";
 import paloDuro from "@/assets/palo-duro.jpg";
 import smallTown from "@/assets/small-town.jpg";
 import { highIntentImage, makeHighIntentGuide, type HighIntentGuideSpec } from "./texas-high-intent-guide-factory";
-const images = { lake: highIntentImage(caddoLake, "Cypress-lined Texas lake"), canyon: highIntentImage(paloDuro, "Palo Duro Canyon landscape in Texas"), town: highIntentImage(smallTown, "Historic Texas courthouse square") };
+const images = { rv: { src: "/images/rv-parks/mckinney-falls-state-park-rv-loop.jpg", alt: "Representative Texas RV campground scene at McKinney Falls State Park", width: 1600, height: 900, credit: "Texas Defined editorial image" }, lake: highIntentImage(caddoLake, "Cypress-lined Texas lake"), canyon: highIntentImage(paloDuro, "Palo Duro Canyon landscape in Texas"), town: highIntentImage(smallTown, "Historic Texas courthouse square") };
 const specs: Omit<HighIntentGuideSpec, "hero">[] = [
   {
     "number": 106,
@@ -440,4 +440,4 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
     ]
   }
 ];
-export const texasHighIntentGuidesA = specs.map((spec) => makeHighIntentGuide({ ...spec, hero: images[spec.number === 108 ? "town" : spec.number === 107 || spec.number === 109 ? "canyon" : "lake"] }));
+export const texasHighIntentGuidesA = specs.map((spec) => makeHighIntentGuide({ ...spec, hero: images[spec.number === 108 ? "town" : spec.number === 107 ? "rv" : spec.number === 109 ? "canyon" : "lake"] }));
