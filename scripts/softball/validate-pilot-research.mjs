@@ -31,6 +31,17 @@ const validSeasonOrHistoricalPeriod = value => {
   return end >= start && end - start <= 25;
 };
 
+// Contract self-tests: no invalid dates, invented 2027 records, malformed or
+// truncated 1988–1995 coaching intervals, or future source-verification dates.
+assert.ok(validSeasonOrHistoricalPeriod('1988-1995'));
+assert.ok(validSeasonOrHistoricalPeriod('1995-96'));
+assert.ok(validSeasonOrHistoricalPeriod('2026-27'));
+for (const bad of ['unknown', '1991-', '1988-2090', '2027-2026', 'spring-2027', '2026-13-50'])
+  assert.equal(validSeasonOrHistoricalPeriod(bad),false,'Reject invalid season/tenure '+bad);
+assert.equal(validDate('2026-02-30'),false,'Reject impossible calendar dates');
+assert.equal(researchDateValid('2026-10-13','2026-10-12'),false,'Reject tomorrow as already researched');
+assert.equal(researchDateValid('2026-10-11','2026-10-12'),true,'Retain original per-source check date');
+
 const registry=get('src/data/softball/uil-2026-27-registry.json');
 const pilot=get('docs/softball/research/PILOT_DOSSIERS_2026-10-11.json');
 const approved=get('src/data/softball/published-team-profiles.json');
@@ -165,6 +176,7 @@ assert.ok(byName('Katy').venueResearch.namedField.includes('Kalum Haack'),
 verifiedFact('Katy','Kalum Haack','katy-2026-board-naming');
 verifiedFact('Katy','2015 state-champion softball team','katy-athletic-hall-2025');
 verifiedFact('Katy',"Kalum Haack was the Jayhawks' head coach every season from 1988 through 1995",'kansas-haack-original-records');
+assert.equal(byName('Katy').facts.find(f=>f.claim.includes("Kalum Haack was the Jayhawks' head coach every season"))?.season,'1988-1995','Historic Kansas coach career must show the COMPLETE 1988–1995 span, not a fabricated 1991–95 subset');
 verifiedFact('Katy','Gayle Luedke, not Kalum Haack, as the 1996 Jayhawks head coach','kansas-haack-original-records');
 assert.ok(byName('Katy').venueResearch.sourceIds.includes('katy-aug2026-field-name-report'),
  'Local independent account and July 27 school board item must accompany renamed Katy varsity venue');
