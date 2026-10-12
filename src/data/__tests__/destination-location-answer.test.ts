@@ -12,7 +12,7 @@ describe("destination location answers shared by every Explore destination", () 
     expect(destinationLocationAnswer({
       name: "Enchanted Rock State Natural Area", nearestTown: "Fredericksburg",
       countyLabel: "Gillespie County", address: "16710 Ranch Road 965, Fredericksburg, TX 78624",
-    })).toContain("in Fredericksburg, Texas");
+    })).toContain("is at 16710 Ranch Road 965, Fredericksburg, TX 78624");
     expect(destinationLocationAnswer({
       name: "Old Tunnel State Park", nearestTown: "Fredericksburg",
       countyLabel: "Gillespie County", address: "10619 Old San Antonio Road",
