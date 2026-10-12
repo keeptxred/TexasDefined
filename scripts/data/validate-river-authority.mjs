@@ -92,6 +92,11 @@ if(!hub.includes('RIVER_AUTHORITY_RELATIONS')) errors.push('Statewide hub must g
 if(!lazy.includes('allRiverAuthorityNavigationLinks()')) errors.push('River pillar must automatically include future authority guides');
 if(!landscape.includes('RIVER_AUTHORITY_RELATIONS')) errors.push('River valleys guide must automatically include future river authority guides');
 if(!related.includes('riverAuthorityLinksForDestination(slug)')) errors.push('Destination reciprocal links must be driven by river authority registry');
+const articleRoute = read('src/routes/article.$slug.tsx');
+if(!relations.includes('riverAuthorityLinksForArticleMetadata'))
+ errors.push('Topical existing and future fishing, camping and travel articles must have generated contextual river links');
+if(!articleRoute.includes('riverAuthorityLinksForArticleMetadata(article)'))
+ errors.push('Article route must render automatically relevant river backlinks');
 const countyServer = read('src/data/county-series.server.ts');
 if(!countyServer.includes('riverAuthorityLinksForCounty(countySlug)')) errors.push('County river backlinks must be automatically maintained');
 const existingMatch = addon.match(/export const existingRiverAuthorityEnhancements = ([\s\S]*?) as const;/);
