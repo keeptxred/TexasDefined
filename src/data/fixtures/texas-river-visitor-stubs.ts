@@ -2,9 +2,16 @@ import type { Article } from "../types";
 import { riverAuthorityRecords } from "../river-authority-registry";
 
 /** Lightweight stubs keep the 10-river visitor body out of the initial bundle. */
-const NEW_RIVERS = new Set(["frio","comal","san-marcos","llano","pecos"]);
+import { texasExplainedRiverProfileStubs } from "./texas-explained-river-profile-stubs";
+import { texasExplainedRemainingRiverProfileStubs } from "./texas-explained-river-profiles-remaining-stubs";
+
+/** Existing basin guides keep their URLs and full editorial bodies. */
+const LEGACY_RIVER_SLUGS = new Set([
+  ...texasExplainedRiverProfileStubs,
+  ...texasExplainedRemainingRiverProfileStubs,
+].map((article) => article.slug));
 export const texasRiverVisitorStubs: Article[] = riverAuthorityRecords
- .filter((river) => NEW_RIVERS.has(river.key))
+ .filter((river) => !LEGACY_RIVER_SLUGS.has(river.slug))
  .map((river) => ({
    id: `evergreen-${river.slug}`, brandId:"texasdefined", slug:river.slug,
    title: `${river.name}: Fishing, Camping, Tubing & Travel Guide`,
