@@ -111,9 +111,9 @@ try {
   }finally{await context.close()}
  }
 }finally{await browser.close()}
-report.summary.verdict=(report.summary.renderFailures||report.summary.semanticFailures||report.summary.runtimeFailures||report.summary.axeViolationNodes)
+report.summary.verdict=(report.summary.renderFailures||report.summary.semanticFailures||report.summary.runtimeFailures||report.summary.axeViolationNodes||report.summary.keyboardReviewCases)
  ?'ISSUES_DETECTED':'NO_AUTOMATED_VIOLATIONS_DETECTED';
-await writeFile(out+'/report.json',JSON.stringify(report,null,2)+'\n');
 report.summary.reviewStatus=report.summary.axeIncompleteNodes ? 'AUTOMATED_CHECKS_WITH_INCOMPLETE_ITEMS_REQUIRING_REVIEW' : 'NO_INCOMPLETE_AXE_ITEMS';
+await writeFile(out+'/report.json',JSON.stringify(report,null,2)+'\n');
 console.log('FINAL B004 ACCESSIBILITY DIAGNOSTIC',JSON.stringify(report.summary));
 if(report.summary.verdict==='ISSUES_DETECTED')process.exitCode=1;
