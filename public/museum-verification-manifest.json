@@ -27,6 +27,11 @@
           "sourceUrl": "https://www.thestoryoftexas.com/visit",
           "fetchUrl": "https://www.thestoryoftexas.com/visit",
           "label": "FAQ verification: Is parking available at the Bullock Museum?"
+        },
+        {
+          "sourceUrl": "https://www.thestoryoftexas.com/visit/the-star-cafe",
+          "fetchUrl": "https://www.thestoryoftexas.com/visit/the-star-cafe",
+          "label": "Bullock official Star Cafe menu and operating hours"
         }
       ]
     },
