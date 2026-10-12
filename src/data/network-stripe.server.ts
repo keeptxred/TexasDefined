@@ -122,8 +122,12 @@ export function isNetworkCheckoutUrl(url:unknown):url is string {
  try {const target=new URL(url);return target.protocol==='https:'&&target.hostname==='checkout.stripe.com'&&target.username===''&&target.password==='';}
  catch{return false}
 }
-export async function createNetworkCheckoutSession(applicationId:string,email:string,attemptKey:string) {
- if(!/^[0-9a-f-]{36}$/i.test(applicationId)||!/^[0-9a-f-]{36}$/i.test(attemptKey))throw Error('Invalid reserved checkout attempt');
+export async function createNetworkCheckoutSession(
+ applicationId:string,attemptKey:string,stripeCustomerId:string,billingAccountId:string
+) {
+ if(!/^[0-9a-f-]{36}$/i.test(applicationId)||!/^[0-9a-f-]{36}$/i.test(attemptKey)||
+   !/^cus_[A-Za-z0-9_]+$/.test(stripeCustomerId)||!/^[0-9a-f-]{36}$/i.test(billingAccountId))
+  throw Error('Invalid reserved checkout attempt');
 
  if(!stripeCheckoutEnabled())throw new Error('Network billing is not activated');
  const runtime=getNetworkStripeRuntime();
@@ -132,10 +136,12 @@ export async function createNetworkCheckoutSession(applicationId:string,email:st
   mode:'subscription',
   'line_items[0][price]':runtime.priceId,
   'line_items[0][quantity]':'1',
-  customer_email:email,
+  customer:stripeCustomerId,
   client_reference_id:applicationId,
   'metadata[application_id]':applicationId,
+  'metadata[billing_account_id]':billingAccountId,
   'subscription_data[metadata][application_id]':applicationId,
+  'subscription_data[metadata][billing_account_id]':billingAccountId,
   'subscription_data[metadata][project]':'TexasDefined',
   success_url:runtime.siteOrigin+'/network/checkout-return?session_id={CHECKOUT_SESSION_ID}',
   cancel_url:runtime.siteOrigin+'/network/billing?checkout=cancelled',
@@ -149,8 +155,8 @@ export async function createNetworkCheckoutSession(applicationId:string,email:st
    result.mode!=='subscription'||result.status!=='open'||
    result.client_reference_id!==applicationId||
    result.metadata?.application_id!==applicationId||
-   typeof result.customer_email!=='string'||
-   result.customer_email.trim().toLowerCase()!==email.trim().toLowerCase()||
+   result.metadata?.billing_account_id!==billingAccountId||
+   result.customer!==stripeCustomerId||
    !isNetworkCheckoutUrl(result.url)||typeof result.id!=='string'||
    !(runtime.livemode?/^cs_live_[a-zA-Z0-9_]+$/:/^cs_test_[a-zA-Z0-9_]+$/).test(result.id)||
    typeof result.expires_at!=='number'||!Number.isSafeInteger(result.expires_at)||
@@ -194,7 +200,9 @@ export function isNetworkSubscriptionIdentity(subscription:Record<string,any>):b
   && typeof subscription.customer==='string' && /^cus_[A-Za-z0-9_]+$/.test(subscription.customer)
   && subscription.metadata?.project==='TexasDefined'
   && typeof subscription.metadata?.application_id==='string'
-  && /^[0-9a-f-]{36}$/i.test(subscription.metadata.application_id);
+  && /^[0-9a-f-]{36}$/i.test(subscription.metadata.application_id)
+  && typeof subscription.metadata?.billing_account_id==='string'
+  && /^[0-9a-f-]{36}$/i.test(subscription.metadata.billing_account_id);
 }
 
 /** Inspected subscription must describe exactly one approved $19.99 Plus line item. */
@@ -208,6 +216,8 @@ export function isExpectedNetworkPlusSubscription(subscription: Record<string,an
   && subscription.metadata?.project==='TexasDefined'
   && typeof subscription.metadata?.application_id==='string'
   && /^[0-9a-f-]{36}$/i.test(subscription.metadata.application_id)
+  && typeof subscription.metadata?.billing_account_id==='string'
+  && /^[0-9a-f-]{36}$/i.test(subscription.metadata.billing_account_id)
   && Array.isArray(items) && items.length===1
   && items[0]?.price?.id===expectedPrice
   && items[0]?.quantity===1;
