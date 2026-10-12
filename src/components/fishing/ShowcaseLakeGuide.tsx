@@ -56,6 +56,7 @@ export function ShowcaseLakeGuide({
     </nav></Container></div>
 
     <Container className="py-12 sm:py-16">
+      {!section && <OfficialTripPlanningChecklist pageData={pageData} />}
       {!section && <Overview pageData={pageData} businesses={businesses} placements={placements} />}
       {section === "fish" && <Fish pageData={pageData} />}
       {section === "access" && <Access pageData={pageData} />}
@@ -68,6 +69,31 @@ export function ShowcaseLakeGuide({
       <SourceFooter pageData={pageData} />
     </Container>
   </>;
+}
+
+function OfficialTripPlanningChecklist({ pageData }: { pageData: PageData }) {
+  const hasNamedAccess = pageData.access.some((site) => !site.name.toLowerCase().includes("public access inventory") && !site.name.toLowerCase().includes("access overview"));
+  const hasNamedCamping = pageData.camping.some((site) => !/camping and lodging planning|trip-planning options/i.test(site.type + " " + site.name));
+  const checks = [
+    { label: "Fishing, habitat & advisories", source: pageData.sources.tpwdLake },
+    { label: "Boat ramps, access & closures", source: pageData.sources.parkAlerts ?? pageData.sources.tpwdAccess },
+    { label: "Current water level / conditions", source: pageData.sources.liveLevel },
+    { label: "Current freshwater fishing rules", source: pageData.sources.tpwdRegulations },
+  ];
+  return <section className="mb-14 border-y-2 border-border py-7" aria-labelledby="lake-pretrip-heading">
+    <p className="eyebrow text-primary">Before you go · official-source checklist</p>
+    <h2 id="lake-pretrip-heading" className="mt-2 font-display text-3xl">Plan a trip to {pageData.overview.name}</h2>
+    <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
+      These are official information sources, not guarantees that a ramp, beach, campground or fishery is open today. Compare the lake level with the operator's current access updates; confirm fees, any swimming permission, camping reservations, weather and water-quality notices before driving.
+    </p>
+    <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{checks.map(({ label, source }) => <a key={label} href={source.url} target="_blank" rel="noreferrer noopener" className="block border-t border-border pt-3 text-sm font-semibold leading-6 underline decoration-primary/40 underline-offset-4 hover:text-primary">{label} →</a>)}</div>
+    <p className="mt-5 text-xs leading-6 text-muted-foreground">
+      {hasNamedAccess ? "This guide names specific access facilities, but does not verify their same-day operating status." : "Individual ramp names and current access fees have not yet been independently inventoried here; use the official access inventory."}
+      {" "}
+      {hasNamedCamping ? "Named overnight recreation options are listed; verify individual sites and reservations." : "No individual campground has yet cleared the guide's named-facility review. Camping availability is not confirmed."}
+      {" "}The general location map is not a boat-navigation chart or a verified ramp entrance map.
+    </p>
+  </section>;
 }
 
 function Overview({ pageData, businesses, placements }: { pageData: PageData; businesses: FishingBusiness[]; placements: FishingPlacement[] }) {
@@ -99,7 +125,7 @@ function Overview({ pageData, businesses, placements }: { pageData: PageData; bu
 
 function Fish({ pageData }: { pageData: PageData }) { return <section><p className="eyebrow text-primary">Species, seasons & techniques</p><h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Fish Species, Seasons and Techniques</h2><p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">These are durable patterns drawn from official fisheries guidance, not a claim about today's bite.</p><div className="mt-10 space-y-9">{pageData.fish.map((fish) => { const image = getFishingFishImage(fish.id); return <article key={fish.id} id={fish.id} className="scroll-mt-28 border-t border-border pt-7"><div className="grid gap-5 lg:grid-cols-[0.35fr_0.65fr]"><div>{image ? <FishingPhoto image={image} showCredit={false} className="mb-5" imageClassName="aspect-[4/3] w-full object-contain bg-muted/30 p-3" /> : null}<p className="eyebrow text-primary">{fish.prominence} · {fish.quality}</p><h3 className="mt-2 font-display text-3xl"><a href={fishingFoundationAnchor("species", fish.id)} className="hover:text-primary">{fish.name}</a></h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{fish.summary}</p><div className="mt-4 flex flex-wrap gap-2">{fish.techniques.map((technique) => <TechniquePill key={technique} label={technique} />)}</div></div><div className="grid gap-4 sm:grid-cols-2">{fish.seasons.map((pattern) => <div key={pattern.label} className="border-t border-border pt-4"><p className="eyebrow text-muted-foreground">{pattern.label}</p><p className="mt-2 text-sm leading-6">{pattern.text}</p></div>)}</div></div></article>; })}</div></section>; }
 
-function Access({ pageData }: { pageData: PageData }) { return <section><p className="eyebrow text-primary">Fishing access</p><h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Boat Ramps and Fishing Access</h2><p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">Facilities are drawn from official access inventories. Private fees, closures and water-level usability can change, so verify the operating source before travel.</p><div className="mt-9 grid gap-x-8 border-t border-border md:grid-cols-2">{pageData.access.map((item) => <article key={item.name} className="border-b border-border py-7"><p className="eyebrow text-primary">{item.operator}</p><h3 className="mt-2 font-display text-2xl">{item.name}</h3><dl className="mt-4 space-y-2 text-sm leading-6"><div><dt className="inline text-muted-foreground">Launch: </dt><dd className="inline">{item.launch}</dd></div><div><dt className="inline text-muted-foreground">Fee: </dt><dd className="inline">{item.fee}</dd></div><div><dt className="inline text-muted-foreground">Availability: </dt><dd className="inline">{item.availability}</dd></div></dl></article>)}</div><a href={pageData.sources.tpwdAccess.url} target="_blank" rel="noreferrer noopener" className="eyebrow mt-7 inline-block border-b border-primary pb-1 text-primary">Verify all access with TPWD →</a></section>; }
+function Access({ pageData }: { pageData: PageData }) { return <section><p className="eyebrow text-primary">Fishing access</p><h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Boat Ramps and Fishing Access</h2><p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">Named facilities, when shown, are drawn from source-reviewed records. If only a general access inventory appears below, individual ramps have not yet been independently cataloged. Fees, closures and water-level usability can change; verify the operating source before travel.</p><div className="mt-9 grid gap-x-8 border-t border-border md:grid-cols-2">{pageData.access.map((item) => <article key={item.name} className="border-b border-border py-7"><p className="eyebrow text-primary">{item.operator}</p><h3 className="mt-2 font-display text-2xl">{item.name}</h3><dl className="mt-4 space-y-2 text-sm leading-6"><div><dt className="inline text-muted-foreground">Launch: </dt><dd className="inline">{item.launch}</dd></div><div><dt className="inline text-muted-foreground">Fee: </dt><dd className="inline">{item.fee}</dd></div><div><dt className="inline text-muted-foreground">Availability: </dt><dd className="inline">{item.availability}</dd></div></dl></article>)}</div><a href={pageData.sources.tpwdAccess.url} target="_blank" rel="noreferrer noopener" className="eyebrow mt-7 inline-block border-b border-primary pb-1 text-primary">Verify all access with TPWD →</a></section>; }
 
 function Boating({ pageData }: { pageData: PageData }) {
   const o = pageData.overview;
