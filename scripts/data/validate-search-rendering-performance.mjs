@@ -180,7 +180,9 @@ for (const forbidden of ['body: destination.body', 'entryNote: destination.entry
 
 for (const feature of [
   "const pageSize = kind === 'attractions' ? 100 : sorted.length;",
-  'const visibleDestinations = sorted.slice(0, visibleCount);',
+  'const visibleDestinations = filtered.slice(0, visibleCount);',
+  'const filtered = kind === "attractions"',
+  'setVisibleCount(100)',
   'Show 100 more',
 ]) {
   if (!attractionsComparisonComponent.includes(feature)) errors.push(`Attractions comparison progressive-render guard missing: ${feature}`);
