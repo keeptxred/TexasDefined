@@ -182,6 +182,7 @@ export const historicChurches: HistoricChurch[] = [
   {
     slug:"frelsburg-sts-peter-and-paul",
     name:"Saints Peter and Paul Catholic Church",shortName:"Sts. Peter and Paul, Frelsburg",locality:"Frelsburg",county:"Colorado",
+    address:"1031 Church Lane, Frelsburg, TX",
     denomination:"Roman Catholic",foundation:"1844 log church; parish established 1847",presentBuilding:"1928",
     summary:"One of Texas's pioneer German Catholic communities: an 1844 log chapel, 1847 parish, 1854 seminary and a 1928 church rebuilt after the 1926 fire.",
     quickAnswer:"The historic church in Frelsburg is Saints Peter and Paul—not St. Mary's. Its roots reach to an 1844 log church and an 1847 parish. The current church was built in 1928 following a 1926 fire and contains altars imported from Germany.",
@@ -200,7 +201,7 @@ export const historicChurches: HistoricChurch[] = [
       {year:"1928",detail:"The current church was completed, with altars brought from Germany."}
     ],
     architecture:[
-      "The 1928 building is a post-fire reconstruction in the parish's long sequence. Historic imagery from 1844, 1861 and 1912 must never be presented as today's sanctuary.",
+      "The 1927–1928 sanctuary is a post-fire replacement in the parish\'s long sequence. The Texas Historical Commission identifies classical Corinthian columns, dentils and pedimented gable ends alongside Gothic windows and Tudor-arched double doors. Historic imagery from 1844, 1861 and 1912 must never be presented as today\'s sanctuary.",
       "The historic German altars and later stained glass are notable; neither by itself proves a qualifying historic decorative wall/ceiling painting program."
     ],
     visitorNotes:[
@@ -208,9 +209,10 @@ export const historicChurches: HistoricChurch[] = [
       "This is an active worship space. Current Mass times, events and cemetery access take precedence over tourist expectations.",
       "A broader visit can connect Frelsburg, Columbus and New Ulm, while distinguishing their separate congregations and denominations."
     ],
-    significance:["One of the older documented Texas Catholic parishes","Early seminary and wide regional mission influence","1926 fire and the 1928 church's German altars"],
+    significance:["One of the older documented Texas Catholic parishes","Early seminary and wide regional mission influence","Texas Historical Commission Recorded Texas Historic Landmark (RTHL)","1926 fire and the 1927–1928 church's German altars"],
     sources:[
       {label:"Saints Peter and Paul parish history",url:"https://www.peterandpaulparish.com/brief-parish-history",type:"parish"},
+      {label:"Texas Historical Commission historical marker 5089004490 (RTHL)",url:"https://atlas.thc.texas.gov/Details/5089004490",type:"historical-marker"},
       {label:"Current parish information",url:"https://www.peterandpaulparish.com/",type:"parish"}
     ],
     image:{file:"Frelsburg TX Catholic Church.jpg",alt:"Saints Peter and Paul Catholic Church in Frelsburg, Texas",author:"Djmaschek",license:"CC BY-SA 4.0",sourceUrl:"https://commons.wikimedia.org/wiki/File:Frelsburg_TX_Catholic_Church.jpg",width:1600,height:1200},
