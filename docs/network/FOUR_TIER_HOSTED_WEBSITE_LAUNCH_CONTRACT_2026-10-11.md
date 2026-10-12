@@ -1,3 +1,5 @@
+> **SUPERSEDED October 12, 2026.** The prior bundled advertising-plus-website prices and one-page Business Presence plan in this historical draft are **not** the current direction. See [Independent advertising and website hosting](INDEPENDENT_ADVERTISING_AND_HOSTING_2026-10-12.md). Do not implement prices or bundled entitlements from this file.
+
 # TexasDefined Business Network — Four-tier hosted Business Presence launch contract
 
 **State:** Engineering proposal, October 11, 2026. Not approved commercial terms, not customer-facing production acceptance, and **not an implemented website**. PR #4660 is unmerged. The sole TexasDefined administrator retains final authority over pricing, terms and production release. The Network launches only once, with all four plans independently tested and operational.
