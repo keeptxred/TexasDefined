@@ -21,6 +21,7 @@ export interface ShowcaseLakeAccess {
 export interface ShowcaseLakePrototype {
   slug: PublishedShowcaseLakeSlug;
   verifiedAt: string;
+  accessReviewedAt?: string;
   overview: {
     name: string;
     summary: string;
