@@ -68,6 +68,8 @@ export const STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS = [
   "lake-colorado-city",
   "lake-stamford",
   "lake-sweetwater",
+  "lake-georgetown",
+  "benbrook-lake",
 ] as const;
 
 export const COMPLETE_FISHING_LAKE_SLUGS = [

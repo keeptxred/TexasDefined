@@ -2,8 +2,8 @@
   "date": "2026-10-12",
   "officialDirectory": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
   "officialEntries": 175,
-  "completedGuideMatches": 52,
-  "gaps": 123,
+  "completedGuideMatches": 54,
+  "gaps": 121,
   "listing": [
     {
       "letter": "A",
@@ -134,8 +134,8 @@
     {
       "letter": "B",
       "tpwdListingName": "Benbrook",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "benbrook-lake",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -470,8 +470,8 @@
     {
       "letter": "G",
       "tpwdListingName": "Georgetown",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "lake-georgetown",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -1256,6 +1256,7 @@
   "notes": [
     "Listing has park entries and aliases; not all rows are unique reservoirs",
     "Gap means no completed fishing-guide registry entry, not no reference anywhere on site",
-    "Do not create thin pages; independently source facilities, rights and uniqueness"
+    "Do not create thin pages; independently source facilities, rights and uniqueness",
+    "Georgetown and Benbrook full TPWD/TWDB-sourced guides prepared in new expansion branch, not yet merged or production-certified"
   ]
 }

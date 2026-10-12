@@ -191,6 +191,8 @@ export const fishingLakeImages: Record<string, FishingVisualAsset> = {
   "lake-colorado-city": commonsLake("lake-colorado-city", "View Lake Colorado City State Park 2023.jpg", "Lake Colorado City viewed from Lake Colorado City State Park", 3556, 2000, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by"),
   "lake-stamford": commonsLake("lake-stamford", "Lake Stamford June 2007.jpg", "Lake Stamford boat ramp looking east in June 2007 at full pool; historical photo, not a current water-level view", 2453, 1839, "Logann1", "CC BY-SA 3.0", CC_BY_SA_3, "cc-by-sa", "Wikimedia Commons", "2026-10-12"),
   "lake-sweetwater": commonsLake("lake-sweetwater", "Lake Sweetwater Rec Area Rock Bench.jpg", "Historic Civilian Conservation Corps-era stone bench at Lake Sweetwater Recreation Area, Nolan County, Texas; not a current lake-water-level photograph", 2396, 1348, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by", "Wikimedia Commons", "2026-10-12"),
+  "lake-georgetown": commonsLake("lake-georgetown", "Golden Hour Sunset Lake Georgetown TX 2024.jpg", "Genuine photographic view across Lake Georgetown at sunset, photographed 2024; not a current water-level image", 4032, 3024, "8bit12man", "CC BY 4.0", CC_BY_4, "cc-by", "Wikimedia Commons", "2026-10-12"),
+  "benbrook-lake": commonsLake("benbrook-lake", "USACE Benbrook Lake and Dam.jpg", "Aerial view of Benbrook Lake and its Corps dam in Tarrant County, archival federal government photograph; not a current water-level view", 1500, 1001, "U.S. Army Corps of Engineers", "Public domain — U.S. federal government work", COMMONS_PD, "public-domain", "Wikimedia Commons / USACE", "2026-10-12"),
 };
 
 export function getFishingFishImage(slugOrId: string) {
