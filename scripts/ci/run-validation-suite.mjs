@@ -73,6 +73,7 @@ const checks = [
   ['phase7-technical-seo', 'SEO/TECHNICAL', 'Validate Phase 7 technical SEO batch', 'node', ['scripts/data/validate-phase7-technical-seo.mjs']],
   ['citation-magnets', 'SEO/CITATIONS', 'Validate citation magnets', 'node', ['scripts/data/validate-citation-magnets.mjs']],
   ['fishing-authority', 'SEO/AUTHORITY', 'Validate fishing citation and retrieval authority', 'node', ['scripts/data/validate-fishing-authority.mjs']],
+  ['all-lake-authority-inventory', 'SEO/AUTHORITY', 'Audit complete fishing-lake guide/source/photo/county inventory', 'node', ['scripts/data/audit-texas-lake-authority.mjs']],
   ['citation-downloads', 'SEO/CITATIONS', 'Validate citation downloads', 'node', ['scripts/data/validate-citation-downloads.mjs']],
   ['citypass-affiliate', 'MONETIZATION/AFFILIATE', 'Validate Texas CityPASS affiliate coverage', 'node', ['scripts/data/validate-citypass-affiliate.mjs']],
   ['seo-ci-contract', 'CI/CONTRACT', 'Validate SEO CI contract', 'node', ['scripts/data/validate-seo-ci-contract.mjs']],
@@ -108,7 +109,7 @@ const predeployIds = new Set([
   'texas-talent-content-depth', 'texas-talent-launch-metadata', 'texas-talent-reverse-links',
   'texas-talent-public-preview', 'texas-talent-music-authority',
   'relocation-insurance-authority', 'relocation-city-comparison', 'relocation-freshness',
-  'fishing-authority', 'citypass-affiliate', 'governed-seo-duplicates',
+  'fishing-authority', 'all-lake-authority-inventory', 'citypass-affiliate', 'governed-seo-duplicates',
 ]);
 
 const fullExcludedIds = new Set(['texas-flag-authority', 'painted-churches-seo', 'painted-church-map', 'painted-church-completion']);
