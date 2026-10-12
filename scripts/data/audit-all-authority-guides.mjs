@@ -102,16 +102,30 @@ const churchFile = "src/data/painted-church-search-guides.ts";
 const churchSource = exists(churchFile) ? source(churchFile) : "";
 const body = churchSource.split("export const paintedChurchSearchGuides")[1]?.split("export const paintedChurchSearchCoverage")[0] || "";
 const paintedChurchCount = [...body.matchAll(/\bslug:\s*["']([^"']+)["']/g)].length;
+const evergreenSharedFile = "src/components/editorial/TexasEvergreenGuide.tsx";
+const evergreenShared = source(evergreenSharedFile);
+const imagesChunk = evergreenShared.split("const guideImages:")[1]?.split("const guideSources")[0] ?? "";
+const imageKeys = [...imagesChunk.matchAll(/^\s+"([^"]+)":\s*\{/gm)];
+const sharedImageRows = imageKeys.map((match, index) => {
+  const block = imagesChunk.slice(match.index, imageKeys[index + 1]?.index ?? imagesChunk.length);
+  const missing = [
+    ...(!/\bcredit:\s*["']/.test(block) ? ["photo has no explicit credit/rights record"] : []),
+    ...(!/\bsourceHref:\s*["']https:\/\//.test(block) ? ["no original photographic source URL"] : []),
+  ];
+  return { kind: "shared-evergreen-image", id: match[1], sourceFiles: [evergreenSharedFile], topic: classify(match[1]), status: missing.length ? "needs-image-rights-remediation" : "requires-item-level-reverification", gaps: missing };
+});
 const registeredGuideRoutes = JSON.parse(source("docs/editorial/guide-route-registry.json")).routes;
 const registeredPaths = new Set(registeredGuideRoutes.map((row) => row.routeFile));
 const discoveredPaths = new Set(rows.map((row) => row.routeFile));
 const unregisteredGuideRoutes = [...discoveredPaths].filter((item) => !registeredPaths.has(item));
 const staleRegistryRoutes = [...registeredPaths].filter((item) => !discoveredPaths.has(item));
-const sorted = [...rows, ...fixtureRows].sort((a, b) => a.kind.localeCompare(b.kind) || a.id.localeCompare(b.id));
+const sorted = [...rows, ...fixtureRows, ...sharedImageRows].sort((a, b) => a.kind.localeCompare(b.kind) || a.id.localeCompare(b.id));
 const summary = {
   generatedAt: new Date().toISOString(),
   standaloneRoutes: rows.length,
   fixtureGuideCandidates: fixtureRows.length,
+  sharedEvergreenImageRecords: sharedImageRows.length,
+  uncreditedSharedEvergreenImages: sharedImageRows.filter((row) => row.gaps.length).length,
   paintedChurchSearchGuideRecords: paintedChurchCount,
   dynamicGuideFamilies: families.length,
   unregisteredGuideRoutes,
