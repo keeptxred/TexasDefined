@@ -194,7 +194,11 @@ export function townAuthorityContextualLinks(destination: Pick<Destination, "slu
       candidate.name.toLowerCase() === destination.nearestTown.toLowerCase())
     .map((candidate) => candidate.slug);
   const locationCounty = destination.county && !/[,;/&]/.test(destination.county)
-    ? countyTowns[countyKey(destination.county)] ?? []
+    ? (countyTowns[countyKey(destination.county)] ?? []).filter((slug) => {
+      if (slug === "gruene-historic-district") return true;
+      const candidate = canonicalAuthority.get(slug);
+      return candidate && destination.coordinates && near(destination.coordinates, candidate.coordinates) <= 60;
+    })
     : [];
   // Nearby is calculated from actual source coordinates; geographic-region
   // equality alone would make unrelated 300-mile "nearby town" recommendations.
