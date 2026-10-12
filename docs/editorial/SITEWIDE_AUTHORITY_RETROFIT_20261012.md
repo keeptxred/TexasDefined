@@ -1,0 +1,62 @@
+# TexasDefined — every existing page authority retrofit
+
+**Started:** October 12, 2026  
+**Scope:** all existing indexable TexasDefined URLs, **not** only guides or any selected list of attractions. This is an active remediation program, **not** a certification that the pages are finished. The previous authority standard, Google Search Central requirements and mandatory Supabase factual verification all apply.
+
+## Verified starting point
+
+Direct Supabase inventory at the start of this change counted **4,202 existing URL records**; the changing sitemap synchronizer later enrolled **4,211** in the acceptance ledger. Counts can change when pages publish, consolidate or disappear from their sitemap. All 4,211 initial acceptance records are in **editorial_research_required**, not accepted. The source-review queue also identified more than 4,000 pages with **no page-specific external source URL registered in Supabase**. This does **not** prove that the public HTML lacks sources; both source registration and the actual contents must be examined separately.
+
+Largest path families at inventory time:
+
+| Path family | Inventory | Intent-appropriate acceptance |
+| --- | ---: | --- |
+| High school football team profiles | 1,293 | Verified campus, mascot/classification, governing body, current district versus historical records, nearby venues, locality and related-team links |
+| Fishing | 489 | Current TPWD rules, species, facilities/access ownership, relevant water/closure reporting, local lake/river and county relationships |
+| Destination | 446 | Operator sources, history/identity, maps/directions, access/reservations and accessibility when appropriate, nearby trips and accurate images |
+| Explore | 416 | Useful geographic/subject scope, original researched depth, maps/nearby listings where helpful, internal network and original evidence |
+| County | 255 | County-specific identity/history, authoritative demographic and agency sources, appropriate city, park, lake, school and service relationships |
+| Texas Icons | 219 | Primary history/cultural records, the actual phenomenon described and contextual references |
+| Article | 216 | Original reporting/analysis, attributable verified claims, honest update dates, supporting internal links, licensed media |
+| Football district profiles | 193 | Verified current district classification from UIL/TAPPS and a clear season, member schools and campus crosslinks |
+
+**Important**: User-facing pages must be actually improved by source-specific research; a template badge, generic FAQ, appended SEO text or a score generated from word counts is never an authority upgrade.
+
+## Operating system in place
+
+1. **Weekly full production crawl** (existing `.github/workflows/audit-whole-site-production.yml`): every canonical sitemap URL is checked for HTTP success, title/description, canonical, one H1, unexpected noindex, thin/fallback rendering and duplicate title/description. The current change adds **topic-specific evidence diagnostics** plus a complete per-URL review TSV and a persistent categorized GitHub remediation issue. These diagnostic flags are not factual findings and do not individually certify a page.
+2. **Daily code/data quality watchdog** (existing `.github/workflows/site-quality-watchdog.yml`): adds regression tests for the new family-aware evidence classifier. Existing indexability, image, internal-link, freshness, content and generated-page gates remain unchanged.
+3. **Supabase source-watch automation**: `td_authority_verification_registry`, `td_authority_verification_sources`, `td_authority_verification_checks`, and sitemap discovery keep monitoring enrollment; topic-specific source checks run from daily through quarterly. Source uptime is not the same as factual verification.
+4. **Supabase editorial acceptance registry**: `td_authority_page_acceptance` includes **every enrolled URL** by automatic daily synchronization. `td_authority_release_readiness` distinguishes `editorial_research_required`, `fact_review_expired`, `source_recheck_required`, and `accepted_current`. Only `td_maintenance.accept_authority_page` with reviewer, current fact check, registered sources and **nine explicit evidence dimensions** can mark acceptance. No mass sign-off from a crawler or artificial word-count threshold.
+5. **Existing topical work remains authoritative where genuinely completed**. Reuse prior lake, river, city, museum, park, church, sport and county research and CI artifacts rather than republishing duplicate pages or reverting other PRs. Remediate only demonstrable gaps.
+
+## Evidence required to call a page complete
+
+- Independent, contemporary **primary research** appropriate to each changeable claim, and honest handling of disputes or unknowns
+- A useful, original experience that beats comparable references at the actual reader task, including relevant FAQs, maps, comparisons, history and visitor facts **only where relevant**
+- Actual content depth and source provenance—not arbitrary word counts, copied operator collections, stock passages or identical FAQ text
+- Accurate and permitted image rights, useful alt text, contextual map accuracy and appropriate captions
+- Real, working, **bidirectional contextual internal links** when a relationship serves readers; not gratuitous blanket cross-links
+- Google Search Central people-first and technical SEO compliance: indexability/canonical, metadata, mobile/accessibility, structured data matching visible facts, image SEO, page experience, and GSC production observation
+- Validated public production rendering, correct dates and no claims of real-time availability where the source can change
+- Enrollment in quarterly-or-faster Supabase source monitoring **and** evidenced current factual verification
+
+A source page remaining reachable is **not** a completed fact check. A sitemap being crawlable is **not** proof Google has indexed it. A passing technical CI is **not** approval to label a research page "best available."
+
+## Execution order
+
+Fix systemic **shared template and publishing defects** first, since one correct code change may improve hundreds of pages. In parallel prioritize rapidly changing public safety, fishing, event and government/service information, then school/district data, destinations/cities/counties, followed by longer-lived heritage and evergreen content. If a page lacks independently useful substance, keep its indexability gate honest until proper research exists—never fill it with an automatically expanded generic paragraph.
+
+Every real content change gets claim-level source evidence, relevant cross-link review, topic-specific QA, and production verification. If the evidence does not yet support it, leave the acceptance state open, do not close the task and do not invent another site or page to inflate coverage.
+
+## Concrete content correction in this batch
+
+A live Fredericksburg destination check surfaced ambiguous side-trip placement. The curated small-town source now distinguishes Fort Martin Scott at **1606 E Main Street**, Enchanted Rock **18 miles north on Ranch Road 965**, and Old Tunnel State Park south of town along **Old San Antonio Road**. It also adds THC and TPWD operator-specific context without freezing changeable hours. The source is committed; a successful protected deployment and public recheck are necessary before treating the live page as corrected.
+
+## Primary standards
+
+- [Google Search technical requirements](https://developers.google.com/search/docs/essentials/technical)
+- [Google people-first content guidance](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+- [Texas Historical Commission — Fort Martin Scott](https://thc.texas.gov/historic-sites/fort-martin-scott)
+- [TPWD — Enchanted Rock directions](https://tpwd.texas.gov/state-parks/enchanted-rock/map)
+- [TPWD — Old Tunnel State Park](https://tpwd.texas.gov/state-parks/old-tunnel)
