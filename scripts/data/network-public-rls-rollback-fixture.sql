@@ -2,10 +2,10 @@
 -- No customer identities, payments, emails, or media are permanently created.
 BEGIN;
 INSERT INTO public.texasdefined_network_applications
-(id,plan,status,intake_complete,business_name,category,city,contact_email)
+(id,plan,status,intake_complete,business_name,category,city,contact_email,terms_version,terms_snapshot_sha256,terms_accepted_at,representative_authority_accepted,facts_responsibility_accepted,media_responsibility_accepted,search_indexing_accepted)
 VALUES
-('aaaaaaaa-1000-4000-8000-111111111111','basic','pending_review',true,'Published Fixture Co','test','Test City','public-listing-qa1@example.invalid'),
-('bbbbbbbb-1000-4000-8000-222222222222','basic','pending_review',true,'Private Fixture Co','test','Other City','public-listing-qa2@example.invalid');
+('aaaaaaaa-1000-4000-8000-111111111111','basic','pending_review',true,'Published Fixture Co','test','Test City','public-listing-qa1@example.invalid','2026-10-11-v1','166b237dc2572da5195e1f5217ec51c8ecc83b73f68a080a16b4478e35f9a6a6',now(),true,true,true,true),
+('bbbbbbbb-1000-4000-8000-222222222222','basic','pending_review',true,'Private Fixture Co','test','Other City','public-listing-qa2@example.invalid','2026-10-11-v1','166b237dc2572da5195e1f5217ec51c8ecc83b73f68a080a16b4478e35f9a6a6',now(),true,true,true,true);
 UPDATE public.texasdefined_network_applications SET status='approved'
 WHERE id='aaaaaaaa-1000-4000-8000-111111111111';
 INSERT INTO public.texasdefined_network_public_listings
