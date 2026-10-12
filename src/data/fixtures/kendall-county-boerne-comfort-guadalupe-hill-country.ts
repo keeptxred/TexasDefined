@@ -35,6 +35,7 @@ export const kendallCountyBoerneComfortGuadalupeHillCountryArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/boerne", label: "Boerne authority travel guide", description: "Connect downtown Boerne with Cibolo Creek and the nearby Hill Country." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/bexar", label: "Explore Bexar County", description: "Continue southeast toward San Antonio, the missions and the metropolitan core." },
     { href: "/county/comal", label: "Explore Comal County", description: "Follow the Hill Country east toward New Braunfels, Canyon Lake and the Guadalupe." },
