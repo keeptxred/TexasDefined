@@ -19,7 +19,7 @@ A museum page is not a generic historic-site listing. It must answer what is pre
 
 - Search canonical destinations, aliases, remote data and sitemap before creating a museum; update an existing page instead of duplicating.
 - Research first-party collections and visitor operations, independent history, public photo licenses and museum-specific local context.
-- Add the destination if genuinely missing, and always add exactly one full dossier in src/data/museum-authority-network.ts. The required MuseumAuthorityDossier properties are name, slug, city, county, reviewed, whyVisit, visitorStrategy, accessibility, familiesAndGroups, researchValue, exhibits, routes, sources, and connections.
+- Add the destination if genuinely missing, and always add exactly one full dossier in src/data/museum-authority-network.ts. The required MuseumAuthorityDossier properties are name, slug, city, county, reviewed, **two or more research topics**, whyVisit, visitorStrategy, accessibility, familiesAndGroups, researchValue, exhibits, routes, sources, and connections. Shared topics automatically connect similar museums statewide, so tag accurate subjects rather than adding unrelated cross-links.
 - Render through the existing destination template and MuseumAuthorityNetworkSection. CountyCityMuseums automatically surfaces museums on matching city and county pages, while museum page modules contain inbound and outbound local and similar-site crosslinks.
 - Run node scripts/data/validate-museum-authority.mjs and npx tsc --noEmit; verify general data and SEO validators, imagery, accessibility and responsive production UI before deployment.
 - Check live museum pages, both directions of local cross-links, and accurate JSON-LD and noindex status after production deployment.
