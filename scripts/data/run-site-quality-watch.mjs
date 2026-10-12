@@ -3,6 +3,11 @@ import { spawnSync } from 'node:child_process';
 
 const checks = [
   {
+    id: 'authority-evidence-diagnostics',
+    label: 'Topic-sensitive sitewide authority diagnostic correctness',
+    script: 'scripts/ci/authority-evidence.test.mjs',
+  },
+  {
     id: 'generated-content',
     label: 'Thin, empty and generated-content quality',
     script: 'scripts/data/validate-generated-page-quality.mjs',
