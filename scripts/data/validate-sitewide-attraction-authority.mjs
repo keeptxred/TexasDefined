@@ -19,6 +19,8 @@ const relevance = read("src/data/destination-editorial-relevance.ts");
 const viator = read("src/components/editorial/DestinationViatorBooking.tsx");
 const categoryPage = read("src/components/editorial/CategoryPage.tsx");
 const entityDepth = read("src/components/content/EntityDepthSections.tsx");
+const destinationCard = read("src/components/editorial/DestinationCard.tsx");
+const articlePage = read("src/routes/article.$slug.tsx");
 
 for (const key of ["VisitorFacilityFact", "DestinationVisitorFacilities", "visitorFacilities?: DestinationVisitorFacilities", "officialMapUrl?", "sourceUrl?", "checkedAt?"]) assert(types.includes(key), `Missing typed authority facility contract: ${key}`);
 for (const key of ["addVerifiedVisitorFacilities", "VERIFIED_VISITOR_FACILITIES", "editorialFocus"]) {
@@ -73,6 +75,9 @@ assert(entityDepth.includes("needsServiceDecisionGuidance ? buildContextItems"),
 assert(entityDepth.includes("needsServiceDecisionGuidance ? practicalChecklist"), "Generic checklists must not be imposed on place pages.");
 assert(entityDepth.includes("needsServiceDecisionGuidance ? quickAnswers"), "Generic FAQs must not be generated for every attraction.");
 assert(entityDepth.includes("relatedItems.map"), "Preserve the entity's useful related-place discovery.");
+
+assert(destinationCard.includes("showSeasonDecision(destination)"), "A museum must not acquire generic best-season advice on Explore listing cards.");
+assert(articlePage.includes("showSeasonDecision(destination)"), "Related museum attractions in article cards must not display irrelevant seasonal trivia.");
 
 if (failures.length) {
   console.error("Attraction sitewide authority governance failed:\n" + failures.map(x=>"- "+x).join("\n"));
