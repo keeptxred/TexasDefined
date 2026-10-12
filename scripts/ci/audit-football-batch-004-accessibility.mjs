@@ -51,14 +51,15 @@ try {
      await page.locator('h1').first().waitFor({state:'visible',timeout:25000});
      await page.waitForTimeout(950);
      row.render='PASS';
-     row.semantics=await page.evaluate(()=>({
+     row.semantics=await page.evaluate((expectedViewportWidth)=>({
        mainCount:document.querySelectorAll('main').length,
        h1s:[...document.querySelectorAll('main h1')].map(x=>x.textContent.trim()),
        unlabeledLinks:[...document.querySelectorAll('main a[href]')].filter(x=>x.getClientRects().length&&
          !String(x.getAttribute('aria-label')||x.textContent||x.getAttribute('title')||'').trim()).map(x=>x.outerHTML.slice(0,280)),
        imagesWithoutAlt:[...document.querySelectorAll('main img')].filter(x=>x.getClientRects().length&&!x.hasAttribute('alt')).map(x=>x.src),
-       overflow:Math.max(0,document.documentElement.scrollWidth-innerWidth)
-     }));
+       overflow:Math.max(0,document.documentElement.scrollWidth-expectedViewportWidth)
+     }),width);
+     if(row.semantics.overflow>10) row.errors.push('Horizontal scroll overflow '+row.semantics.overflow+'px in '+width+'px viewport');
      const cdp=await context.newCDPSession(page);
      const tree=await cdp.send('Accessibility.getFullAXTree');
      await cdp.detach();
@@ -90,7 +91,9 @@ try {
       row.keyboardStatus=row.keyboard.every(x=>x.visible&&x.name&&x.focusVisible&&x.focusIndicator)?'PASS_SAMPLED_TABS':'REVIEW_REQUIRED';
      }else row.keyboardStatus='REVIEW_NO_MAIN_LINKS';
      if(item.id.startsWith('school-')&&['arp','austin-johnson','austin-lake-travis','austin-vandegrift','austin-westlake','baird'].includes(item.id.slice(7))){
-      await page.screenshot({path:out+'/'+viewport+'-'+item.id+'-full.png',animations:'disabled',fullPage:true,timeout:45000});
+      const screenshot=await page.screenshot({path:out+'/'+viewport+'-'+item.id+'-full.png',animations:'disabled',fullPage:true,timeout:45000});
+      row.fullPageScreenshotWidth=screenshot.readUInt32BE(16);
+      if(row.fullPageScreenshotWidth>width+10)row.errors.push('Full-page PNG '+row.fullPageScreenshotWidth+'px exceeds '+width+'px viewport');
      }
      if(row.semantics.mainCount!==1||row.semantics.h1s.length!==1||row.semantics.unlabeledLinks.length
         ||row.semantics.imagesWithoutAlt.length||row.ax.mains!==1||row.ax.unnamedLinks||row.ax.unnamedButtons)
