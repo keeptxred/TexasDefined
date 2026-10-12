@@ -118,7 +118,14 @@ export const riverRecreationGuideRecords = [
     ],
     "heroCredit": "Garner State Park · existing TexasDefined licensed image; source record in image catalog",
     "heroWidth": 1600,
-    "heroHeight": 1067
+    "heroHeight": 1067,
+    "verifiedAccess": [
+      {
+        "name": "Garner State Park: Frio day-use and overnight base",
+        "access": "TPWD describes approximately 2.9 miles of the Frio within Garner State Park. Enter through the official park and use designated river frontage; swimming, tubing, fishing and camping depend on current park rules and alerts. This is not an endorsement of floating the full 2.9 miles.",
+        "source": "https://tpwd.texas.gov/state-parks/garner"
+      }
+    ]
   },
   {
     "slug": "texas-comal-river-guide",
@@ -193,7 +200,14 @@ export const riverRecreationGuideRecords = [
     ],
     "heroCredit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Comal_River_in_Landa_Park.jpg · License: https://creativecommons.org/licenses/by/4.0/",
     "heroWidth": 1801,
-    "heroHeight": 1201
+    "heroHeight": 1201,
+    "verifiedAccess": [
+      {
+        "name": "Hinman Island or Prince Solms to the Last Public Exit",
+        "access": "City of New Braunfels describes a generally 1.5–2-hour Comal tubing corridor under normal conditions, with entry at Hinman Island or Prince Solms and mandatory exit at the Last Public Exit. Self-guided tubers walk back; commercial outfitters may offer shuttles. Seasonal wristbands and municipal equipment restrictions apply.",
+        "source": "https://newbraunfels.gov/4210/How-to-Go-Tubing"
+      }
+    ]
   },
   {
     "slug": "texas-san-marcos-river-guide",
@@ -268,7 +282,14 @@ export const riverRecreationGuideRecords = [
     ],
     "heroCredit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:San_Marcos_River_San_Marcos_Texas_2023.jpg · License: https://creativecommons.org/licenses/by/4.0/",
     "heroWidth": 3556,
-    "heroHeight": 2000
+    "heroHeight": 2000,
+    "verifiedAccess": [
+      {
+        "name": "Luling Zedler Mill Paddling Trail",
+        "access": "TPWD maps a 6.0-mile downstream route from the State Highway 90 River Crossing (29.6679, -97.6999) to Zedler Mill Park (29.6671, -97.6519), typically estimated 2–4 hours with normal flows. Exit before the dam beyond the mill. Arrange shuttle, inspect snags and verify current access.",
+        "source": "https://tpwd.texas.gov/fishboat/boat/paddlingtrails/inland/luling/"
+      }
+    ]
   },
   {
     "slug": "texas-llano-river-guide",
@@ -347,7 +368,14 @@ export const riverRecreationGuideRecords = [
     ],
     "heroCredit": "South Llano River State Park · existing TexasDefined image source catalog",
     "heroWidth": 1600,
-    "heroHeight": 1067
+    "heroHeight": 1067,
+    "verifiedAccess": [
+      {
+        "name": "South Llano Paddling Trail, Junction",
+        "access": "TPWD maps 6.3 miles from South Llano River State Park (30.4498, -99.8128), via Flatrock Lane Crossing (30.4789, -99.7778), to Junction City Park (30.4879, -99.7617). Typical published float estimate is 2–4 hours. TPWD warns a bridge apron has collapsed at the park entrance: obey barricades and portage around the bridge as directed.",
+        "source": "https://tpwd.texas.gov/boating/paddling-trails/hill-country/south-llano/"
+      }
+    ]
   },
   {
     "slug": "texas-pecos-river-guide",
@@ -422,7 +450,14 @@ export const riverRecreationGuideRecords = [
     ],
     "heroCredit": "Badener / Lutz Fischer-Lamprecht · CC BY-SA 3.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Pecos_River.jpg · License: https://creativecommons.org/licenses/by-sa/3.0/",
     "heroWidth": 2048,
-    "heroHeight": 1536
+    "heroHeight": 1536,
+    "verifiedAccess": [
+      {
+        "name": "Lower Pecos: designated park interpretation rather than an unsupported float",
+        "access": "The National Park Service documents the Pecos High Bridge/Viaduct history in the Lower Pecos–Amistad landscape, while TPWD operates Seminole Canyon State Park for regulated trail and cultural access. Neither an interpretive site nor a historic bridge establishes a legal free-flowing river launch. Contact the actual managing agency before an expedition.",
+        "source": "https://www.nps.gov/amis/learn/historyculture/viaduct.htm"
+      }
+    ]
   }
 ] as const;
 
@@ -434,6 +469,11 @@ const buildBody = (river: (typeof riverRecreationGuideRecords)[number]): Article
   p(river.overview),
   h("Choose the right stretch and build an itinerary"),
   p(river.route),
+  h("Officially documented access: an example to build from"),
+  ...river.verifiedAccess.flatMap((site) => [
+    h(site.name),
+    p(site.access + " Primary map or managing authority: " + site.source),
+  ]),
   h("Where you can legally enter, park and exit"),
   p(river.access),
   h("Tubing, kayaking and paddling: what actually works"),
