@@ -1,6 +1,7 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { stateParkHeroMap } from "@/data/state-park-hero-map";
 
 const officialSources = [
   { label: "Texas Parks & Wildlife — Stargazing in State Parks", href: "https://tpwd.texas.gov/state-parks/parks/things-to-do/stargazing-in-state-parks", note: "Statewide International Dark Sky Park list, very-dark-sky parks, observatory links and stargazing planning resources." },
@@ -90,6 +91,11 @@ function TexasStargazingGuidePage() {
             <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas Stargazing Guide</h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to Texas's five International Dark Sky Parks, with the moon, weather, Bortle rating, park-hours and access questions to resolve before making a night-sky trip.</p>
           </header>
+
+          <figure className="my-8 border-b border-border pb-8">
+            <img src={stateParkHeroMap["copper-breaks-state-park"].src} alt={stateParkHeroMap["copper-breaks-state-park"].alt} width={stateParkHeroMap["copper-breaks-state-park"].width} height={stateParkHeroMap["copper-breaks-state-park"].height} loading="lazy" decoding="async" className="h-auto w-full object-cover" />
+            <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">Copper Breaks State Park, one of the named dark-sky destinations. This daylight park photograph does not depict actual nighttime sky brightness. Photo: {stateParkHeroMap["copper-breaks-state-park"].credit}. <Link to="/destination/copper-breaks-state-park" className="text-primary underline">Detailed Copper Breaks State Park visitor guide →</Link></figcaption>
+          </figure>
 
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
             <p className="eyebrow text-primary">Quick answer</p>
