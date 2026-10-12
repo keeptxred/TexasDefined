@@ -42,7 +42,7 @@ for(const phrase of [
  'may be crawled, indexed, cached, copied, excerpted, displayed, ranked, or surfaced by Google',
  'Plus is currently offered at $19.99 per month',
  'automatically renews each month until canceled',
- 'checking an acceptance box',
+ 'Checking an acceptance box',
 ]){
  check('terms contain '+phrase.slice(0,48),terms.includes(phrase));
 }
