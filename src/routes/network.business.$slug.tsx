@@ -18,7 +18,9 @@ const getPublishedProfile = createServerFn({ method: "GET" })
       .eq("is_published", true)
       .maybeSingle();
     if (error) throw new Error("Published business profile is temporarily unavailable.");
-    return listing ? {...listing,indexable:process.env.NETWORK_ISOLATED_STAGING!=='true'} : null;
+    const {projectNetworkPublicProfile}=await import("@/data/network-public-profile-policy");
+    const visible=listing?projectNetworkPublicProfile(listing):null;
+    return visible ? {...visible,indexable:process.env.NETWORK_ISOLATED_STAGING!=='true'} : null;
   });
 
 export const Route = createFileRoute("/network/business/$slug")({
