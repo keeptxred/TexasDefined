@@ -80,13 +80,13 @@ function OfficialTripPlanningChecklist({ pageData }: { pageData: PageData }) {
     { label: "Current water level / conditions", source: pageData.sources.liveLevel },
     { label: "Current freshwater fishing rules", source: pageData.sources.tpwdRegulations },
   ];
-  return <section className="mb-14 border-y-2 border-border py-7" aria-labelledby="lake-pretrip-heading">
+  return <section className="mb-12 border-y border-border py-8" aria-labelledby="lake-pretrip-heading">
     <p className="eyebrow text-primary">Before you go · official-source checklist</p>
     <h2 id="lake-pretrip-heading" className="mt-2 font-display text-3xl">Plan a trip to {pageData.overview.name}</h2>
     <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
       These are official information sources, not guarantees that a ramp, beach, campground or fishery is open today. Compare the lake level with the operator's current access updates; confirm fees, any swimming permission, camping reservations, weather and water-quality notices before driving.
     </p>
-    <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{checks.map(({ label, source }) => <a key={label} href={source.url} target="_blank" rel="noreferrer noopener" className="block border-t border-border pt-3 text-sm font-semibold leading-6 underline decoration-primary/40 underline-offset-4 hover:text-primary">{label} →</a>)}</div>
+    <div className="mt-6 grid gap-4 sm:grid-cols-2">{checks.map(({ label, source }) => <a key={label} href={source.url} target="_blank" rel="noreferrer noopener" className="block border-t border-border pt-3 text-sm font-semibold leading-6 underline decoration-primary/40 underline-offset-4 hover:text-primary">{label} →</a>)}</div>
     <p className="mt-5 text-xs leading-6 text-muted-foreground">
       {hasNamedAccess ? "This guide names specific access facilities, but does not verify their same-day operating status." : "Individual ramp names and current access fees have not yet been independently inventoried here; use the official access inventory."}
       {" "}
