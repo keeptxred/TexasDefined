@@ -4,7 +4,7 @@ import type { Destination, VisitorFacilityFact } from "./types";
 
 export type AuthorityIssueCode =
   | "editorial-quality" | "parking-unverified" | "restrooms-unverified"
-  | "operator-map-unverified" | "visitor-context-missing" | "itineraries-missing"
+  | "operator-map-unverified" | "visitor-context-missing"
   | "primary-citation-missing" | "accessibility-unverified" | "county-unverified"
   | "image-license-unverified" | "facility-review-expired" | "facility-source-unverified"
   | "revisit-overdue" | "explore-publication-blocked";
@@ -75,8 +75,6 @@ export function auditAttractionAuthority(destination: Destination, now = new Dat
   const contextualBodyLength = destination.body.join(" ").trim().length;
   if (!destination.authorityGuide?.whyItMatters && contextualBodyLength < 950)
     add("visitor-context-missing", "The guide needs more distinctive, sourced context or practical decisions relevant to this particular visit.", "high");
-  if (destination.authorityGuide && destination.authorityGuide.itineraries.length === 0)
-    add("itineraries-missing", "The existing authority guide has no usable planning sequence; include itinerary guidance only when it genuinely helps.", "medium");
   if (destination.authorityGuide && !destination.authorityGuide.sources.some(source => validUrl(source.url)))
     add("primary-citation-missing", "Existing authority claims need supporting primary/institutional citations.", "high");
 
