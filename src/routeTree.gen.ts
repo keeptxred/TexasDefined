@@ -441,6 +441,7 @@ import { Route as AdminFishingReviewRouteImport } from './routes/admin.fishing-r
 import { Route as AdminEntityMaintenanceRouteImport } from './routes/admin.entity-maintenance'
 import { Route as AdminEntityImportReviewRouteImport } from './routes/admin.entity-import-review'
 import { Route as AdminEditorialOutreachRouteImport } from './routes/admin.editorial-outreach'
+import { Route as AdminBillingRouteImport } from './routes/admin.billing'
 import { Route as KindSlugRouteImport } from './routes/$kind.$slug'
 import { Route as TexasDataResearchTexasHomeownersPremiumsVsCoverageRouteImport } from './routes/texas-data.research.texas-homeowners-premiums-vs-coverage'
 import { Route as SportsSoftballChar123TeamChar125RouteImport } from './routes/sports.softball.{-$team}'
@@ -3232,6 +3233,11 @@ const AdminEditorialOutreachRoute = AdminEditorialOutreachRouteImport.update({
 } as any).lazy(() =>
   import('./routes/admin.editorial-outreach.lazy').then((d) => d.Route),
 )
+const AdminBillingRoute = AdminBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => AdminRoute,
+} as any).lazy(() => import('./routes/admin.billing.lazy').then((d) => d.Route))
 const KindSlugRoute = KindSlugRouteImport.update({
   id: '/$kind/$slug',
   path: '/$kind/$slug',
@@ -3899,6 +3905,7 @@ export interface FileRoutesByFullPath {
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
+  '/admin/billing': typeof AdminBillingRoute
   '/admin/editorial-outreach': typeof AdminEditorialOutreachRoute
   '/admin/entity-import-review': typeof AdminEntityImportReviewRoute
   '/admin/entity-maintenance': typeof AdminEntityMaintenanceRoute
@@ -4406,6 +4413,7 @@ export interface FileRoutesByTo {
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
+  '/admin/billing': typeof AdminBillingRoute
   '/admin/editorial-outreach': typeof AdminEditorialOutreachRoute
   '/admin/entity-import-review': typeof AdminEntityImportReviewRoute
   '/admin/entity-maintenance': typeof AdminEntityMaintenanceRoute
@@ -4917,6 +4925,7 @@ export interface FileRoutesById {
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
+  '/admin/billing': typeof AdminBillingRoute
   '/admin/editorial-outreach': typeof AdminEditorialOutreachRoute
   '/admin/entity-import-review': typeof AdminEntityImportReviewRoute
   '/admin/entity-maintenance': typeof AdminEntityMaintenanceRoute
@@ -5429,6 +5438,7 @@ export interface FileRouteTypes {
     | '/track-texas-drivers-license'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
+    | '/admin/billing'
     | '/admin/editorial-outreach'
     | '/admin/entity-import-review'
     | '/admin/entity-maintenance'
@@ -5936,6 +5946,7 @@ export interface FileRouteTypes {
     | '/track-texas-drivers-license'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
+    | '/admin/billing'
     | '/admin/editorial-outreach'
     | '/admin/entity-import-review'
     | '/admin/entity-maintenance'
@@ -6446,6 +6457,7 @@ export interface FileRouteTypes {
     | '/track-texas-drivers-license'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
+    | '/admin/billing'
     | '/admin/editorial-outreach'
     | '/admin/entity-import-review'
     | '/admin/entity-maintenance'
@@ -10195,6 +10207,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminEditorialOutreachRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/billing': {
+      id: '/admin/billing'
+      path: '/billing'
+      fullPath: '/admin/billing'
+      preLoaderRoute: typeof AdminBillingRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/$kind/$slug': {
       id: '/$kind/$slug'
       path: '/$kind/$slug'
@@ -10746,6 +10765,7 @@ const AdminTexasTalentRouteWithChildren =
   AdminTexasTalentRoute._addFileChildren(AdminTexasTalentRouteChildren)
 
 interface AdminRouteChildren {
+  AdminBillingRoute: typeof AdminBillingRoute
   AdminEditorialOutreachRoute: typeof AdminEditorialOutreachRoute
   AdminEntityImportReviewRoute: typeof AdminEntityImportReviewRoute
   AdminEntityMaintenanceRoute: typeof AdminEntityMaintenanceRoute
@@ -10766,6 +10786,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminBillingRoute: AdminBillingRoute,
   AdminEditorialOutreachRoute: AdminEditorialOutreachRoute,
   AdminEntityImportReviewRoute: AdminEntityImportReviewRoute,
   AdminEntityMaintenanceRoute: AdminEntityMaintenanceRoute,
