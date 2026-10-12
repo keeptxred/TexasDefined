@@ -1,5 +1,16 @@
 # TexasDefined High School Football — Batch 004 Final Production Acceptance Evidence
 
+## October 12 follow-up: accessibility retest and evidence correction
+
+The deployed [PR #4675](https://github.com/keeptxred/TexasDefined/pull/4675) merged at `f40c62dcdced63260dc61a23678032497e16479b`. Its exact-SHA [protected production deployment #38269244898](https://github.com/keeptxred/TexasDefined/actions/runs/38269244898) succeeded. The later [Batch 004 production accessibility run #38269245023](https://github.com/keeptxred/TexasDefined/actions/runs/38269245023), [artifact #11756463992](https://github.com/keeptxred/TexasDefined/actions/runs/38269245023/artifacts/11756463992), covered all **72 route/viewport cases** with **0 confirmed axe violations, 0 rendering failures**, but final verdict **ISSUES_DETECTED** due **2 desktop county semantic failures** (Smith and Tarrant missing main H1 at snapshot time), **1 keyboard review** (Tarrant missing main links at snapshot time) and **1 network runtime error** (Travis failed dynamic module import). **279 axe color-contrast incomplete nodes** remain for review: 9 Westlake mobile offscreen results cells and 270 offscreen mobile county tax-table cells. Axe says the background is partially obscured, not that color contrast is confirmed to fail. They are not certified as passes.
+
+The source diagnostic waited for *any* visible H1 and only a fixed 950ms, admitting pre-hydration county snapshots. [PR #4687](https://github.com/keeptxred/TexasDefined/pull/4687) requires a visible `main h1` and allows at most one **recorded** retry for genuine transient HTTP/network/module-load failures, never semantic/axe assertions. **PR merge, exact-SHA deployment and post-fix audit pending** as of this checkpoint. Do not claim the accessibility project finished.
+
+**Important browser evidence provenance:** [browser workflow #38269702465](https://github.com/keeptxred/TexasDefined/actions/runs/38269702465) recorded 72/72 passes and 25/25 sitemap entries in its report, but the artifact `report.json` and checkout logs explicitly identify tested SHA `83ee74abd03b7946bee0b98e9ffd2c99b7122d1f`, **not** `f40c62dcdced63260dc61a23678032497e16479b`. Therefore the workflow's green UI must not be presented as exact-SHA browser acceptance of the keyboard fix. A later exact-release test is still required.
+
+Continue to preserve the original Batch 004 **25/25 VERIFIED**, 0 assignments and historically source-corrected 72/72 QA independently of this unfinished accessibility gate. Do not touch the separately assigned Batch 005 roster. Manual screen-reader use, full WCAG and assistive-tech review, offscreen table color-contrast inspection, current schedules/venues/parking/ADA sourcing, and unlicensed photos remain distinct limitations.
+
+
 ## October 12, 2026 — Batch 004 accessibility remediation, verification pending
 
 **The original factual/structural certification remains intact: 25/25 schools VERIFIED, 0 remaining assignments, original 72/72 production browser cases and 25/25 sitemap entries.** Accessibility is a separate gate; an earlier structural pass cannot be used to assert complete WCAG compliance.
