@@ -88,6 +88,40 @@ for (const [path, marker] of [
 if (!read("src/data/museum-authority-new-destinations.ts").includes('slug: "george-ranch-historical-park"'))
   failures.push("Missing George Ranch destination record");
 
+// Museum FAQs are a researched publishing requirement, not generated boilerplate.
+const faqSource = read("src/data/museum-visitor-faqs.ts");
+const faqMatch = faqSource.match(/export const museumVisitorFaqs: Record<string, MuseumVisitorFaq\[\]> = (\{[\s\S]*?\});\nexport const museumVisitorFaqFor/);
+if (!faqMatch) failures.push("Museum FAQ registry must remain machine-readable and referenced in the UI.");
+let faqRegistry = {};
+try { faqRegistry = JSON.parse(faqMatch?.[1] ?? "{}"); } catch { failures.push("Museum FAQ registry cannot be parsed."); }
+for (const slug of allDossiers) {
+  const faqs = faqRegistry[slug] ?? [];
+  if (faqs.length < 4 || faqs.length > 16) failures.push(slug + ": need a researched, appropriately scoped FAQ (4–16 genuine questions, not a fixed template).");
+  const unique = new Set();
+  let independentlyDiscovered = 0;
+  for (const faq of faqs) {
+    if (typeof faq.question !== "string" || faq.question.length < 18 ||
+        typeof faq.answer !== "string" || faq.answer.length < 80)
+      failures.push(slug + ": a FAQ has a thin question or unsourced short answer.");
+    const normalized = (faq.question || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+    if (unique.has(normalized)) failures.push(slug + ": duplicate FAQ question.");
+    unique.add(normalized);
+    if (!["museum-faq", "visitor-qna", "editorial-research"].includes(faq.questionOrigin))
+      failures.push(slug + ": FAQ question origin must be documented.");
+    if (faq.questionOrigin !== "museum-faq") independentlyDiscovered++;
+    if (!/^https:\/\/[^/]+/.test(faq.verificationUrl || "") ||
+        !/^https:\/\/[^/]+/.test(faq.questionEvidenceUrl || ""))
+      failures.push(slug + ": FAQ source URL missing.");
+    if (!["monthly", "quarterly"].includes(faq.reviewCycle)) failures.push(slug + ": FAQ needs its fact review cadence.");
+    const date = Date.parse(faq.reviewed || "");
+    if (!Number.isFinite(date) || date > Date.now() + 86400000 || Date.now() - date > 365 * 86400000)
+      failures.push(slug + ": FAQ needs a real recent review date.");
+  }
+  if (independentlyDiscovered < 2) failures.push(slug + ": do not stop at the operator's FAQ; research other visitor questions.");
+}
+if (!read("src/components/editorial/MuseumAuthorityNetworkSection.tsx").includes("museumVisitorFaqFor"))
+  failures.push("Museum-specific FAQs must render on live museum guide templates.");
+
 const base = process.env.MUSEUM_AUTHORITY_BASE_REF;
 if (base) {
   try {
