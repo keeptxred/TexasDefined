@@ -28,10 +28,10 @@ test('four tiers reflect the agreed TexasDefined network model and honest add-on
 
 test('new plans and extras cannot accidentally enter old Plus Checkout or public projection',()=>{
  const src=read('src/routes/network.join.lazy.tsx');
- assert.doesNotMatch(src,/apply\\?plan=(?:website|business-presence|featured)/);
- assert.match(src,/mailto:admin@texasdefined.com\\?subject=TexasDefined%20Business%20Presence%20Interest/);
+ assert.ok(!['website','business-presence','featured'].some(plan=>src.includes('apply?plan='+plan)));
+ assert.ok(src.includes('mailto:admin@texasdefined.com?subject=TexasDefined%20Business%20Presence%20Interest'));
  const intake=read('src/routes/network.apply.lazy.tsx');
- assert.match(intake,/type Plan = "basic" \\| "plus"/);
+ assert.ok(intake.includes('type Plan = "basic" | "plus"'));
  const plusCheckout=read('src/routes/api.public.network-checkout.ts');
  assert.match(plusCheckout,/data.plan !== "plus"/);
  for (const plan of ['website','business-presence'])
@@ -41,7 +41,7 @@ test('new plans and extras cannot accidentally enter old Plus Checkout or public
 test('one complete customer launch still requires independent premium presence acceptance',()=>{
  const gate=read('src/data/network-atomic-launch-readiness.server.ts');
  assert.match(gate,/'hostedWebsiteDelivered'/);
- assert.match(gate,/for\\(const label of requiredEvidence\\)/);
+ assert.ok(gate.includes('for(const label of requiredEvidence)'));
  const docs=read('docs/network/FOUR_TIER_HOSTED_WEBSITE_LAUNCH_CONTRACT_2026-10-11.md');
  assert.match(docs,/hostedWebsiteDelivered/);
  assert.match(docs,/separate staging Supabase/i);
