@@ -1,0 +1,227 @@
+{
+  "standard": "official-site-surpass-authority-v1",
+  "scope": "Editorial authority and total usefulness compared with the museum's official collection of public pages, not Google rank.",
+  "reviewedAt": "2026-10-12",
+  "rules": {
+    "decision": "Fail unless six coverage dimensions are independently evidenced and all unresolved gaps are closed. Competitive coverage must match or exceed the operator's current factual public guidance and provide substantially deeper independent synthesis. Do not replace operator's primary authority for live operations.",
+    "dimensions": [
+      "museumCollectionAndExhibitCoverage",
+      "independentPrimaryAndSecondaryResearch",
+      "practicalVisitorPlanningAndAccessibility",
+      "originalComparativeInterpretation",
+      "photoAndMediaRights",
+      "cityCountyPeerLinksAndTechnicalQA"
+    ]
+  },
+  "museums": {
+    "bullock-texas-state-history-museum": {
+      "name": "Bullock Texas State History Museum",
+      "operatorPagesInspected": [
+        "https://www.thestoryoftexas.com/visit/exhibits/texas-history-gallery",
+        "https://www.thestoryoftexas.com/"
+      ],
+      "operatorStrengths": [
+        "Museum-operated Texas history gallery coverage, La Belle and changing exhibit information",
+        "Interpretive chronology and collection-related research"
+      ],
+      "openGaps": [
+        "Primary-source artifact-level annotations rather than general La Belle prose",
+        "Exhibit-by-exhibit visitor and study trails with historical context",
+        "Original multi-source comparison with neighboring Austin research collections"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null
+    },
+    "perot-museum-nature-science-dallas": {
+      "name": "Perot Museum",
+      "operatorPagesInspected": [
+        "https://www.perotmuseum.org/exhibits/",
+        "https://www.perotmuseum.org/researchers/collections/",
+        "https://www.perotmuseum.org/visit/accessibility/"
+      ],
+      "operatorStrengths": [
+        "Eleven permanent halls with hall-level detail",
+        "130,000+ cataloged research specimens, many not displayed",
+        "Extensive disability, sensory and wheelchair planning"
+      ],
+      "openGaps": [
+        "Explain major halls and signature specimens by name, not three general groups",
+        "Study publicly documented Perot research and distinctions between displayed vs stored collections",
+        "Create comparable sensory/family accessibility and realistic gallery-floor itineraries"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null
+    },
+    "witte-museum": {
+      "name": "Witte Museum",
+      "operatorPagesInspected": [
+        "https://www.wittemuseum.org/collections/",
+        "https://www.wittemuseum.org/plan-your-visit/exhibits/"
+      ],
+      "operatorStrengths": [
+        "More than 320,000 objects and collections spanning anthropology, geology, art and history",
+        "Appointment-based researcher access to collection center",
+        "2026 centennial and exhibit calendar"
+      ],
+      "openGaps": [
+        "Examine primary objects/research collections and Witte's methodology",
+        "Distinguish 2026–27 temporary exhibitions from permanent galleries and maintain their dates",
+        "Map exhibits to relevant Texas places and historically informed learning routes"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null
+    },
+    "museum-of-the-big-bend-alpine": {
+      "name": "Museum of the Big Bend",
+      "operatorPagesInspected": [
+        "https://www.museumofthebigbend.com/",
+        "https://maps.museumofthebigbend.com/about-the-collection/",
+        "https://maps.museumofthebigbend.com/visiting-the-map-collection/"
+      ],
+      "operatorStrengths": [
+        "Historical Big Bend exhibits and publicly accessible map interpretations",
+        "Yana and Marty Davis cartographic collection including 2004 and 2015 donations",
+        "Map archive access by appointment"
+      ],
+      "openGaps": [
+        "Interpret specific maps with sources and place-based itineraries",
+        "Explain the research collection access rules and how maps changed narratives about borders",
+        "Document exhibit coverage and original regional historical comparisons"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null
+    },
+    "panhandle-plains-historical-museum-canyon": {
+      "name": "Panhandle-Plains Historical Museum",
+      "operatorPagesInspected": [
+        "https://www.panhandleplains.org/",
+        "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates"
+      ],
+      "operatorStrengths": [
+        "Official temporary-closure and public-program updates",
+        "Collections and research-center resources"
+      ],
+      "openGaps": [
+        "Do not imply galleries are open; report closure accurately and verify the current statement",
+        "Build collection-level research trails beyond general ranching summary",
+        "Add documented alternatives/off-site exhibits and explain underlying regional sources"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null
+    },
+    "george-ranch-historical-park": {
+      "name": "George Ranch Historical Park",
+      "operatorPagesInspected": [
+        "https://www.georgeranch.org/visit/hours-admissions-directions/",
+        "https://www.georgeranch.org/visit/faq/",
+        "https://www.georgeranch.org/visit/group-tours/"
+      ],
+      "operatorStrengths": [
+        "Saturdays general admission and booked weekday group schedules",
+        "Multiple historic houses, demonstrations, tram and access policies"
+      ],
+      "openGaps": [
+        "Go beyond operator's house descriptions with archival labor and enslaved-person histories",
+        "Build period-specific routes and independent source corroboration",
+        "Offer detailed accessibility and weather alternatives aligned to known visitor policies"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null
+    },
+    "texas-maritime-museum-rockport": {
+      "name": "Texas Maritime Museum",
+      "operatorPagesInspected": [
+        "https://texasmaritimemuseum.org/exhibits/",
+        "https://texasmaritimemuseum.org/collections-library/",
+        "https://texasmaritimemuseum.org/"
+      ],
+      "operatorStrengths": [
+        "Multiple distinct maritime display areas",
+        "Research-only William A. Mann Library and oral history center",
+        "Museum research and collections policy"
+      ],
+      "openGaps": [
+        "Analyze key ships, wrecks and historical coastal evidence by name",
+        "Explain how and when library/oral history materials can be researched",
+        "Map coastal history and local routes against museum artifacts"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null
+    },
+    "national-museum-pacific-war": {
+      "name": "National Museum of the Pacific War",
+      "operatorPagesInspected": [
+        "https://www.pacificwarmuseum.org/",
+        "https://www.pacificwarmuseum.org/research-collections/center-for-pacific-war-studies"
+      ],
+      "operatorStrengths": [
+        "Multi-part Pacific War campus and exhibit narratives",
+        "Thousands of archival items and oral histories",
+        "Carl I. Duncan Research Library holding 6,000+ books"
+      ],
+      "openGaps": [
+        "Analyze named campaigns using multiple primary documents and curator collections",
+        "Cover exhibit-by-exhibit route, outdoor zone scheduling and separate tickets",
+        "Create historiographic comparisons and practical archive research instructions"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null
+    },
+    "frontier-texas": {
+      "name": "Frontier Texas!",
+      "operatorPagesInspected": [
+        "https://www.frontiertexas.com/about-frontier-texas/",
+        "https://www.frontiertexas.com/"
+      ],
+      "operatorStrengths": [
+        "Immersive western storytelling and visitor-center functions",
+        "Interpretation of Texas frontier and forts-trail corridor"
+      ],
+      "openGaps": [
+        "Document specific historic figures and primary source debate instead of generic frontier narrative",
+        "Cover interpretation technique and suitable ages/access needs",
+        "Cross-check forts-trail historical sites and town museums with independent archival evidence"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null
+    },
+    "texas-energy-museum-beaumont": {
+      "name": "Texas Energy Museum",
+      "operatorPagesInspected": [
+        "https://www.texasenergymuseum.org/about.html",
+        "https://www.texasenergymuseum.org/"
+      ],
+      "operatorStrengths": [
+        "1901 Spindletop history and petroleum technical interpretation",
+        "Oil exploration, production and refinery exhibits"
+      ],
+      "openGaps": [
+        "Add sourced industrial and geological case studies beyond the operator's overview",
+        "Explain environmental, labor and economic tradeoffs alongside industrial technology",
+        "Provide artifact-level information and access links to original Spindletop records"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null
+    }
+  }
+}
