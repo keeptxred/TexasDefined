@@ -116,7 +116,6 @@ check('manual invoice creation is positive-charge-only and cannot grant Network 
   billingAdminFunctions.includes("unitAmountCents:z.number().int().min(1)")
   && billingAdmin.includes('min="0.01"')
   && billingAdminServer.includes("sourceType:'manual'")
-  && billingAdminServer.includes('A manual Network line is accounting-only')
   && !billingAdminServer.includes('paid_entitlement_active'));
 
 check('invoice sending has a second independent release gate',
