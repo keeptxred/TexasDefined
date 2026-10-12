@@ -3,6 +3,21 @@ import type { Destination, DestinationAreaItem } from "@/data/types";
 
 type Props = { destination: Destination };
 
+function commonsPhotoCredit(destination: Destination) {
+  const { src, credit } = destination.hero;
+  if (!credit || !src.startsWith("https://commons.wikimedia.org/wiki/Special:Redirect/file/")) return null;
+  const encodedFile = src.split("/file/")[1]?.split("?")[0];
+  if (!encodedFile) return null;
+  const fileUrl = "https://commons.wikimedia.org/wiki/File:" + encodedFile;
+  const licenseCode = credit.match(/CC BY(?:-SA)? [0-9]+(?:\.[0-9]+)?/i)?.[0];
+  const licenseUrl = licenseCode
+    ? "https://creativecommons.org/licenses/" +
+      (licenseCode.includes("BY-SA") ? "by-sa/" : "by/") +
+      licenseCode.match(/[0-9]+(?:\.[0-9]+)?/)?.[0] + "/"
+    : null;
+  return { fileUrl, licenseCode, licenseUrl, credit };
+}
+
 const textGroupNames = {
   nearbyAttractions: "Attractions worth planning around",
   foodAndDrink: "Food and drink areas",
@@ -33,6 +48,7 @@ function SafeAreaLink({ item }: { item: DestinationAreaItem }) {
 export function DestinationAuthoritySections({ destination }: Props) {
   const guide = destination.authorityGuide;
   const area = destination.areaGuide;
+  const imageCredit = commonsPhotoCredit(destination);
   if (!guide && !area) return null;
 
   const groups = area ? (Object.keys(textGroupNames) as Array<keyof typeof textGroupNames>)
@@ -40,6 +56,9 @@ export function DestinationAuthoritySections({ destination }: Props) {
     .filter(({ entries }) => entries.length > 0) : [];
 
   return <div data-destination-authority-sections className="mt-12 space-y-12">
+    {imageCredit && <section aria-label="Photograph attribution" className="border-t border-border pt-5 text-xs leading-6 text-muted-foreground">
+      <p>Hero image: {imageCredit.credit}. <a href={imageCredit.fileUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Photograph and creator details ↗</a>{imageCredit.licenseUrl && <> · <a href={imageCredit.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{imageCredit.licenseCode} license ↗</a></>}.</p>
+    </section>}
     {guide && <section aria-labelledby="destination-authority-assessment" className="border-t border-border pt-8">
       <p className="eyebrow text-primary">Independent Texas Defined research</p>
       <h2 id="destination-authority-assessment" className="mt-3 font-display text-3xl">Why this place matters</h2>
