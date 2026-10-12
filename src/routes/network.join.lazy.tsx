@@ -44,14 +44,14 @@ const tiers = [
 function NetworkJoinPreview() {
   return (
     <div>
-      <section className="relative isolate overflow-hidden bg-background">
+      <section className="relative isolate overflow-hidden bg-[#f7eddf]">
         <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${hillCountryHero})` }} />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-[#fff8ed]/95 via-[#fff8ed]/70 to-[#fff8ed]/10" />
         <Container width="wide" className="relative py-12 sm:py-20 lg:py-24">
           <div className="grid min-h-[570px] items-center gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
             <div className="relative z-10 min-w-0">
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#b43b1a]">One Texas. Everything Connected.</p>
-              <h1 className="mt-7 max-w-[760px] font-display text-5xl sm:text-6xl font-bold leading-none tracking-tight text-[#0a2242]">Put Your Business <span className="block">on the <span className="text-[#b53e20]">Texas Map</span></span></h1>
+              <h1 className="mt-7 max-w-[760px] font-display text-[clamp(2.8rem,5.1vw,6rem)] font-bold leading-[1.01] tracking-tight text-[#0a2242]">Put Your Business <span className="block">on the <span className="text-[#b53e20]">Texas Map</span></span></h1>
               <p className="mt-7 max-w-[650px] text-lg leading-8 text-[#24354a] sm:text-xl">Join a growing community of Texas businesses. Get discovered by local customers, build your reputation, and be part of a stronger, more connected Texas.</p>
               <form role="search" onSubmit={(event) => { event.preventDefault(); const query = new FormData(event.currentTarget).get("q"); window.location.assign("/network/directory?q=" + encodeURIComponent(String(query || "").trim())); }} className="mt-8 flex max-w-[690px] items-center gap-2 rounded-full bg-white/95 p-2 shadow-lg">
                 <label className="sr-only" htmlFor="network-search-preview">Search Texas Defined</label>
@@ -75,7 +75,7 @@ function NetworkJoinPreview() {
                 <g fill="#b53e20" stroke="white" strokeWidth="1.4"><circle cx="117" cy="145" r="5"/><circle cx="164" cy="104" r="5"/><circle cx="225" cy="139" r="5"/><circle cx="185" cy="169" r="5"/><circle cx="141" cy="194" r="5"/><circle cx="94" cy="153" r="5"/></g>
                 <circle cx="175" cy="130" r="12" fill="#145571" stroke="white" strokeWidth="2.5"/><text x="175" y="135" textAnchor="middle" fontSize="14" fill="white">★</text>
               </svg>
-              <div className="absolute bottom-12 right-8 rounded-full bg-white px-4 py-2 text-xs font-bold text-[#0a2242] shadow-xl">Your business here</div>
+              <div className="absolute bottom-[24%] right-[16%] rounded-full bg-white px-4 py-2 text-xs font-bold text-[#0a2242] shadow-xl">Your business here</div>
             </div>
           </div>
         </Container>
