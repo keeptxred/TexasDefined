@@ -5,6 +5,7 @@ import { filterCurrentlyVisitableDestinations } from "./destination-availability
 import { filterSeoReadyDestinations, isSeoReadyDestination } from "./destination-audit";
 import { applyAllCuratedDestination, applyAllCuratedDestinations } from "./destination-curation-all";
 import { preservedExploreDestinations } from "./destination-preserved-catalog";
+import { applyTownAuthority } from "./town-authority-network";
 import { improveDestinationCatalog, improveDestinationQuality } from "./destination-quality";
 import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./explore-core-remote";
 import { applyDestinationHeroOverride, isDestinationPhotoPlaceholder, reconcileDestinationHeroes } from "./explore-hero-reconciliation";
@@ -175,7 +176,7 @@ function finishHistoricSiteEnrichment(destination: Destination) {
 }
 
 function applyResolvedHero(destination: Destination) {
-  return normalizeDestinationCounty(
+  return applyTownAuthority(normalizeDestinationCounty(
     enrichCavernAreaGuide(
       finishHistoricSiteEnrichment(
         improveDestinationQuality(
@@ -191,7 +192,7 @@ function applyResolvedHero(destination: Destination) {
         ),
       ),
     ),
-  );
+  ));
 }
 
 function resolveSeoReadyDestination(destination?: Destination | null) {
@@ -211,7 +212,8 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(applyHistoricSiteFactCorrections)
     .map(enrichNationalCemeteryDestination)
     .map(enrichCavernAreaGuide)
-    .map(normalizeDestinationCounty);
+    .map(normalizeDestinationCounty)
+    .map(applyTownAuthority);
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved));
 }
 
