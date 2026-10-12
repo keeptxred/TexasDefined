@@ -29,3 +29,28 @@
 - Additional destination-by-destination source validation, accurate travel and accessibility comparisons, map/route QA, image-render checks and owner/editorial judgment are required before the ten guides can be declared best-in-class.
 
 **Do not merge the draft PR solely because a build passes.** The above editorial conditions are release requirements, not optional enhancement ideas.
+
+## Explicit expansion: ALL existing and future TexasDefined guides
+
+The ten guides numbered 106–115 were the first batch **only**. The owner requires the authority standard on **every existing and future guide**, regardless of URL, template, publication date, or department. This includes all sources of guide pages in TexasDefined: long-form editorial articles, direct route guides, explore category guides, destination guides, fishing lake and outfitter references, RV/camping, museums/heritage, state parks, city/county/near pages, practical home/property/finance/legal guides, and Supabase-backed/generated pages.
+
+**No blanket exceptions or fake certifications.** Previously published guides must be audited and corrected; leaving a page live does not mean it passed. Do not mass-deindex established pages solely because legacy records lack the new authorityReview field or because the source-level parser cannot inspect shared components. Flag them for verified remediation. For new content, fail closed on missing review data rather than mass-publishing drafts.
+
+The authority package is *contextual*: museum guides need exhibitions, collections, ticketing and meaningful accessibility; historic churches need worship/visitor etiquette and source-linked heritage evidence; camping needs vehicle/site and restroom information when it matters; river fishing needs current licensing, access and seasonal flow; law/finance needs legal authority, eligibility, effective dates and direct steps. Avoid irrelevant amenities or universal ten-item/listicle quotas.
+
+Every guide is expected to deliver the strongest practical fact-based explanation we can substantiate, including meaningful free-to-use exact-subject photos, original graphics/maps or measurements when they help readers, timely primary sources, facts and figures, topic-specific FAQ research, bidirectional links to closely related pages and counties, appropriate affiliate referrals disclosed as commercial links, and a method for periodic real source review. No guarantee of outperforming other sites can be established by word count or automatic search rankings.
+
+### Committed enforcement and infrastructure
+
+- `src/data/guide-authority-policy.ts` provides article-level topic classification, gap assessment and maintenance cadences. Explicit `ArticleAuthorityReview` signoff, added to `src/data/types.ts`, requires evidence URLs checked, an actual verification date, image rights validation, methodology review, contextual-link QA and editor approval. An automatic HTTP HEAD/GET response is *not* human signoff.
+- `scripts/data/audit-all-authority-guides.mjs` inventories named guides, article fixture candidates and dynamic route families; `docs/editorial/guide-route-registry.json` registers direct routes, requiring newly added guide routes to be listed. Never mistake a static source scan for a complete count of live Supabase pages.
+- `.github/workflows/audit-all-authority-guides.yml` is configured to run weekly **after merged to the default branch**, upload a detailed report and maintain an open remediation issue while deficiencies remain. Do not claim that it has run or corrected pages until its production GitHub Actions history confirms this.
+- `src/data/existing-specialist-guides.ts` and `src/routes/guides.lazy.tsx` widen navigation to established specialist guides. The existing article/destination relationship systems remain active.
+- `src/data/guide-photo-provenance.ts` only recovers credits for an exact asset match already governed by TexasDefined; `src/data/guide-visual-registry.ts` adds a rights-described photo for each of four existing shared home/nature guides. Do not infer reuse rights from filenames, search snippets or image hosting alone.
+- Shared Supabase `td_authority_verification_registry` and `td_authority_verification_sources` provide the external recurrence and evidence inventory, but actual editorial source verification must be completed independently and recorded deliberately.
+
+### Current data-audit snapshot (October 12, 2026)
+
+The Supabase registry presently tracks **4,134** pages; **all 4,134** are in `awaiting_editorial_verification` and have no populated `last_verified_at` field. At initial inspection only 95 distinct paths had source relationships, and just 22 source-baseline check events were present. We added 13 known institutional reference URLs to the four shared birds/snakes/pests/pool guides, and 38 official references to six outdoor guide routes, without setting any `verified` or `last_verified_at` value. A current source baseline and content certification are different things.
+
+This is a real outstanding editorial backlog, not a reason to mark all pages as finished or a justification for mass rewriting valid facts. The migration to full guide authority is complete **only when every affected page has been independently checked and repaired, its evidence/images and reciprocal links are certified, production/browser QA is satisfactory and the repeated maintenance system has successfully checked the page at its required cadence**.
