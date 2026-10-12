@@ -8,6 +8,7 @@ import process from "node:process";
  */
 const read = (path) => fs.readFileSync(path, "utf8");
 const authority = read("src/data/state-park-authority.ts");
+const headquarters = read("src/data/state-park-verified-locations.ts");
 const recovery = read("src/data/state-park-authority-recovery.ts");
 const planner = read("src/components/editorial/DestinationVisitPlanner.tsx");
 const essentials = read("src/components/editorial/StateParkVisitorEssentials.tsx");
@@ -42,6 +43,12 @@ const required = [
   "seminole-canyon-state-park-and-historic-site",
   "lake-arrowhead-state-park",
 ];
+const verifiedParkSlugs = ["palo-duro-canyon-state-park","caprock-canyons-state-park","big-bend-ranch-state-park","mustang-island-state-park","goose-island-state-park","sea-rim-state-park","fort-boggy-state-park","copper-breaks-state-park","san-angelo-state-park","abilene-state-park","daingerfield-state-park","mission-tejas-state-park"];
+for (const slug of verifiedParkSlugs) {
+  assertContains(headquarters, `"${slug}": {`, `Missing individually verified TPWD headquarters: ${slug}`);
+  assertContains(authority, `"${slug}": {`, `Missing verified TPWD park facilities: ${slug}`);
+}
+assertContains(curation, "applyVerifiedStateParkHeadquarters,", "Independently researched park entrance locations must be applied to published destination pages");
 for (const slug of required) {
   assertContains(recovery, `slug: "${slug}"`, `Canonical recovery guide missing: ${slug}`);
   assertContains(authority, `"${slug}": {`, `Missing documented park-specific facilities verification: ${slug}`);
