@@ -75,7 +75,7 @@ export const riverAuthorityRecords: RiverAuthorityRecord[] = [
       "guadalupe",
       "gonzales"
     ],
-    "destinations": []
+    "destinations": [],
     "image": "/images/editorial/texas-river-basins.jpg",
     "imageAlt": "Representative Texas waterway; not documented as the San Marcos River",
     "summary": "Spring Lake, San Marcos, Martindale and the Guadalupe River confluence"
