@@ -43,6 +43,7 @@ export interface ShowcaseLakePrototype {
   identityAngle: string;
   historyNotes?: string[];
   visitorFAQs?: { question: string; answer: string }[];
+  campingProhibited?: boolean;
   habitat: string[];
   fish: ShowcaseLakeFish[];
   access: ShowcaseLakeAccess[];
