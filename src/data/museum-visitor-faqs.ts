@@ -245,6 +245,15 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionEvidenceUrl": "https://www.museumofthebigbend.com/",
       "reviewCycle": "quarterly",
       "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is there a café or restaurant inside the Museum of the Big Bend?",
+      "answer": "The museum's current public visit page does not clearly establish an on-site cafeteria, café or table-service restaurant. For a reliable meal break, plan on dining separately in Alpine unless visitor services confirms a current food option.",
+      "verificationUrl": "https://www.museumofthebigbend.com/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthebigbend.com/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
     }
   ],
   "panhandle-plains-historical-museum-canyon": [
@@ -300,6 +309,15 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates",
       "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Are food service and other museum amenities currently available?",
+      "answer": "The museum building is temporarily closed, so do not plan on a gallery visit, museum café or other on-site visitor amenities. Consult the institution's closure updates for events at separate locations and for any eventual reopening arrangements.",
+      "verificationUrl": "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     }
   ],
@@ -541,6 +559,15 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.frontiertexas.com/museum-updates/",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.frontiertexas.com/museum-updates/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I buy a meal at Frontier Texas! or is there only a gift shop?",
+      "answer": "Frontier Texas! advertises its General Store for gifts and souvenirs, but its published visitor information does not establish a cafeteria or full-service restaurant. Plan a separate meal in Abilene rather than assuming on-site dining.",
+      "verificationUrl": "https://www.frontiertexas.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.frontiertexas.com/",
       "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     }
