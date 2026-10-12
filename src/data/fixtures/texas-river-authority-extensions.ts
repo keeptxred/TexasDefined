@@ -62,6 +62,13 @@ export const existingRiverAuthorityEnhancements = {
         "TPWD Come and Take It trail",
         "https://tpwd.texas.gov/boating/paddling-trails/prairies-and-lakes/come-and-take-it/"
       ]
+    ],
+    "verifiedAccess": [
+      {
+        "name": "Come and Take It Paddling Trail near Gonzales",
+        "access": "TPWD charts an approximately 11-mile, 4–6-hour Guadalupe route from Lake Wood Park (29.4707, -97.4899) to the Come and Take It Dock (29.4978, -97.4558). This passes the San Marcos confluence and ends before the hydroelectric dam; obey the posted caution sign and use the designated exit dock. A lengthy route for more experienced paddlers, not a universal family float.",
+        "source": "https://tpwd.texas.gov/boating/paddling-trails/prairies-and-lakes/come-and-take-it/"
+      }
     ]
   },
   "texas-colorado-river-guide": {
@@ -117,7 +124,18 @@ export const existingRiverAuthorityEnhancements = {
       [
         "TPWD 2026 white bass access",
         "https://tpwd.texas.gov/newsmedia/releases/?req=20260223a"
+      ],
+      [
+        "Bastrop El Camino Real Paddling Trail primary map",
+        "https://tpwd.texas.gov/boating/paddling-trails/prairies-and-lakes/bastrop-el-camino-real/"
       ]
+    ],
+    "verifiedAccess": [
+      {
+        "name": "Bastrop El Camino Real Paddling Trail",
+        "access": "TPWD maps an approximately six-mile Colorado River trail from Fisherman's Park, Bastrop (30.1119, -97.3250) to Lost Pines Recreational Trails (30.0735, -97.3106). Its published 1.5–4-hour estimate varies with water releases, weather and stops. Post-flood access may change; verify both sites before launch.",
+        "source": "https://tpwd.texas.gov/boating/paddling-trails/prairies-and-lakes/bastrop-el-camino-real/"
+      }
     ]
   },
   "texas-brazos-river-guide": {
@@ -165,7 +183,18 @@ export const existingRiverAuthorityEnhancements = {
       [
         "TPWD white bass report",
         "https://tpwd.texas.gov/newsmedia/releases/?req=20260223a"
+      ],
+      [
+        "Brazos Bridges Paddling Trail in Waco primary map",
+        "https://tpwd.texas.gov/boating/paddling-trails/prairies-and-lakes/bosque-bluffs-and-brazos-bridges/"
       ]
+    ],
+    "verifiedAccess": [
+      {
+        "name": "Brazos Bridges Paddling Trail in Waco",
+        "access": "TPWD offers a 4.8-mile loop from Brazos Park East Kayak/Canoe Ramp (31.5879, -97.1534) to Bledsoe Miller Community Center Dock (31.5628, -97.1293) and back. It differs from the separate Bosque Bluffs loop; documented options range around 1–3 hours depending on route, wind, current and stops.",
+        "source": "https://tpwd.texas.gov/boating/paddling-trails/prairies-and-lakes/bosque-bluffs-and-brazos-bridges/"
+      }
     ]
   },
   "texas-neches-river-guide": {
@@ -213,7 +242,18 @@ export const existingRiverAuthorityEnhancements = {
       [
         "TPWD Neches rules",
         "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=1402"
+      ],
+      [
+        "Neches–Davy Crockett Paddling Trail primary map",
+        "https://tpwd.texas.gov/boating/paddling-trails/pineywoods/neches-davy-crockett/"
       ]
+    ],
+    "verifiedAccess": [
+      {
+        "name": "Neches–Davy Crockett Paddling Trail",
+        "access": "TPWD describes a 9.2-mile Neches trip from Anderson Crossing (31.4446, -95.0344) to State Highway 7 (31.3967, -94.9655), with a published 3–6-hour estimate. The upper put-in uses rural forest roads and limited parking. Fallen timber and changes after storms require fresh local inspection; this is not the same as Chandler River Park upstream of Lake Palestine.",
+        "source": "https://tpwd.texas.gov/boating/paddling-trails/pineywoods/neches-davy-crockett/"
+      }
     ]
   },
   "texas-sabine-river-guide": {
@@ -266,6 +306,13 @@ export const existingRiverAuthorityEnhancements = {
         "TPWD Grand Bluff lease record",
         "https://tpwd.texas.gov/fishboat/fish/recreational/rivers/lease_access/grand_bluff.phtml"
       ]
+    ],
+    "verifiedAccess": [
+      {
+        "name": "Sabine Sandbar Paddling Trail near Carthage",
+        "access": "TPWD documents FM 2517 Public Boat Ramp (32.1256, -94.2022) as the starting point; McFadden Landing at CR 438 (32.0026, -94.1323) is a 15-mile take-out, while Yellow Dog County Park at CR 455 (32.0043, -94.0922) is a 19-mile route. An alternative four-mile connection links the take-outs. Longer portions require roughly 7–10 hours in published guidance, so confirm flows, launch status and daylight.",
+        "source": "https://tpwd.texas.gov/boating/paddling-trails/pineywoods/sabine-sandbar/"
+      }
     ]
   }
 } as const;
@@ -273,10 +320,13 @@ export function enhanceExistingRiverGuide(article: Article): Article {
  const supplement = (existingRiverAuthorityEnhancements as Record<string, {
   segments:string;access:string;fishing:string;camp:string;faq:readonly (readonly [string,string])[];
   links:readonly (readonly [string,string])[];official:readonly (readonly [string,string])[];
+  verifiedAccess: readonly {name:string;access:string;source:string}[];
  }>)[article.slug];
  if (!supplement) return article;
  const extra:ArticleBlock[] = [
    h("Plan a river trip by reach, not by river name"),p(supplement.segments),
+   h("Mapped paddling or visitor-access example"),
+   ...supplement.verifiedAccess.flatMap((site)=>[h(site.name),p(site.access+" Official map and notes: "+site.source)]),
    h("Legal access, mapped launch points and parking"),p(supplement.access),
    h("Where to fish and which rules apply"),p(supplement.fishing),
    h("Camping, facilities, lodging and a second-day plan"),p(supplement.camp),
