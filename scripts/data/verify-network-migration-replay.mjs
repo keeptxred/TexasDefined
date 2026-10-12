@@ -16,7 +16,7 @@ if(process.env.NETWORK_MIGRATION_REPLAY_ISOLATED!=='yes-ephemeral-local-only' ||
 
 const manifest=readFileSync('scripts/data/validate-network-migration-parity.mjs','utf8');
 const migrations=[...manifest.matchAll(/"(202610\d{8}_[^"]+\.sql)"/g)].map(match=>match[1]);
-if(migrations.length!==38 || new Set(migrations).size!==38 ||
+if(migrations.length!==40 || new Set(migrations).size!==40 ||
    migrations.some((name,index)=>index>0 && name<=migrations[index-1]))
  throw new Error('Applied Network manifest count, order or uniqueness changed: stop and reconcile');
 const execSql=(args,label)=>{
@@ -44,7 +44,7 @@ for(const filename of migrations){
  execSql(['-f',location],filename);
  console.log('REPLAY PASS '+filename);
 }
-// Re-execute four immutable original SQL source mirrors after the 38 officially
+// Re-execute four immutable original SQL source mirrors after the 40 officially
 // applied versions, exercising safe re-execution and disposable idempotency.
 // Do not run this replay script on shared Supabase.
 const proposedRevocation='supabase/pending/20261011043000_network_owner_revision_read_revocation.sql';
@@ -70,7 +70,7 @@ BEGIN
  SELECT count(*) INTO network_tables FROM pg_class c
  JOIN pg_namespace n ON n.oid=c.relnamespace
  WHERE n.nspname='public' AND c.relkind='r' AND c.relname LIKE 'texasdefined_network_%';
- IF network_tables <> 8 THEN RAISE EXCEPTION 'Expected 8 Network tables; got %',network_tables; END IF;
+ IF network_tables <> 9 THEN RAISE EXCEPTION 'Expected 9 Network tables; got %',network_tables; END IF;
  IF EXISTS(
   SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
   WHERE n.nspname='public' AND c.relkind='r' AND c.relname LIKE 'texasdefined_network_%'
@@ -104,14 +104,15 @@ BEGIN
  IF (SELECT count(*) FROM public.texasdefined_network_applications)<>0 OR
     (SELECT count(*) FROM public.texasdefined_network_public_listings)<>0 OR
     (SELECT count(*) FROM public.texasdefined_network_checkout_attempts)<>0 OR
+    (SELECT count(*) FROM public.texasdefined_network_checkout_acceptances)<>0 OR
     (SELECT count(*) FROM public.texasdefined_network_email_outbox)<>0 OR
     (SELECT count(*) FROM storage.objects WHERE bucket_id LIKE 'texasdefined-network-%')<>0
  THEN RAISE EXCEPTION 'Clean-room schema unexpectedly contains Network customer data'; END IF;
- RAISE NOTICE 'REPLAY VERIFIED: 38 sequential migrations; 8 RLS tables; 4 buckets; public privileged RPC denied; private helpers inaccessible anonymously; no records';
+ RAISE NOTICE 'REPLAY VERIFIED: 40 sequential migrations; 9 RLS tables; 4 buckets; public privileged RPC denied; private helpers inaccessible anonymously; no records';
 END
 $verification$;`;
 execSql(['-c',checks],'final schema/RLS/bucket/RPC verification');
-console.log('REPLAY RESULT PASS: 38/38 applied Network migrations in isolated PostgreSQL; NOT end-to-end Supabase certification');
+console.log('REPLAY RESULT PASS: 40/40 applied Network migrations in isolated PostgreSQL; NOT end-to-end Supabase certification');
 const auditFixture='scripts/data/network-sensitive-action-audit-fixture.sql';
 if(!existsSync(auditFixture))throw new Error('Missing isolated sensitive-action audit fixture');
 execSql(['-f',auditFixture],'single-administrator private audit state-transition rollback fixture');

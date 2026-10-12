@@ -64,7 +64,13 @@ export const Route = createFileRoute("/api/public/network-application")({
       } catch {return response({error:"Invalid application"},400)}
       if(!input || typeof input!=="object" || Array.isArray(input))return response({error:"Invalid application"},400);
       if(clean(input.websiteField))return response({ok:true},202); // Bot honeypot
-      if(input.authorized!==true)return response({error:"You must confirm authority to submit this listing and media."},422);
+      const {NETWORK_TERMS_VERSION,NETWORK_TERMS_SNAPSHOT_SHA256}=await import("@/data/network-terms");
+      if(input.authorized!==true)return response({error:"You must confirm authority to represent this business."},422);
+      if(input.factsAccepted!==true)return response({error:"You must accept responsibility for the facts and claims you submit."},422);
+      if(input.mediaAccepted!==true)return response({error:"You must accept responsibility for image and media rights."},422);
+      if(input.indexingAccepted!==true)return response({error:"You must acknowledge public search and third-party discovery of published content."},422);
+      if(input.termsAccepted!==true||input.termsVersion!==NETWORK_TERMS_VERSION)
+        return response({error:"You must accept the current TexasDefined Business Network Membership Terms."},422);
       const plan=input.plan==="plus"?"plus":input.plan==="basic"?"basic":null;
       const businessName=clean(input.businessName,160),category=clean(input.category,120),city=clean(input.city,160),email=clean(input.email,254);
       if(!plan||businessName.length<2||!category||!city||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))return response({error:"Please complete all required fields and provide a valid email."},422);
@@ -74,6 +80,13 @@ export const Route = createFileRoute("/api/public/network-application")({
         hours:clean(input.hours,500),website:plan==="plus"?clean(input.website,300):null,
         social:plan==="plus"?clean(input.social,300):null,services:plan==="plus"?clean(input.services,1600):null,
         faq:plan==="plus"?clean(input.faq,1600):null,offer:plan==="plus"?clean(input.offer,500):null,
+        terms_version:NETWORK_TERMS_VERSION,
+        terms_snapshot_sha256:NETWORK_TERMS_SNAPSHOT_SHA256,
+        terms_accepted_at:new Date().toISOString(),
+        representative_authority_accepted:true,
+        facts_responsibility_accepted:true,
+        media_responsibility_accepted:true,
+        search_indexing_accepted:true,
       };
       try {
         const {supabaseAdmin}=await import("@/integrations/supabase/client.server");

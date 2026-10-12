@@ -17,8 +17,8 @@ $permissions$;
 INSERT INTO auth.users(id,email,email_confirmed_at)
 VALUES ('44444444-4444-4444-8444-444444444444','audit-owner@example.invalid',now());
 INSERT INTO public.texasdefined_network_applications
- (id,plan,status,business_name,category,city,contact_email,intake_complete,paid_entitlement_active)
-VALUES ('dddddddd-dddd-4ddd-8ddd-dddddddddddd','plus','approved','Audit Sample Company','Test','Katy','audit-owner@example.invalid',true,true);
+ (id,plan,status,business_name,category,city,contact_email,intake_complete,paid_entitlement_active,terms_version,terms_snapshot_sha256,terms_accepted_at,representative_authority_accepted,facts_responsibility_accepted,media_responsibility_accepted,search_indexing_accepted)
+VALUES ('dddddddd-dddd-4ddd-8ddd-dddddddddddd','plus','approved','Audit Sample Company','Test','Katy','audit-owner@example.invalid',true,true,'2026-10-11-v1','166b237dc2572da5195e1f5217ec51c8ecc83b73f68a080a16b4478e35f9a6a6',now(),true,true,true,true);
 UPDATE public.texasdefined_network_applications
  SET status='published' WHERE id='dddddddd-dddd-4ddd-8ddd-dddddddddddd';
 INSERT INTO public.texasdefined_network_business_accounts

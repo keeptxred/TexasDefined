@@ -112,7 +112,7 @@ check('suspended owners and closed portals retain an explicit sole-admin Office 
  source(root+'network.billing.lazy.tsx').includes('mailto:admin@texasdefined.com?subject=TexasDefined%20Network%20subscription%20support')
  && source(root+'network.billing.lazy.tsx').includes('This support option remains available even when the owner portal or checkout is closed')
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-owner-email.test.mjs'));
-check('authorized Plus owner can start checkout only after launch',billing.includes('checkoutAvailable=stripeCheckoutEnabled()')&&billing.includes('checkoutEligible: item.status === "approved"')&&source(root+'network.billing.lazy.tsx').includes('disabled={busy||!checkoutAvailable}'));
+check('authorized Plus owner can start checkout only after launch and explicit terms/recurring consent',billing.includes('checkoutAvailable=stripeCheckoutEnabled()')&&billing.includes('checkoutEligible: item.status === "approved"')&&source(root+'network.billing.lazy.tsx').includes('disabled={busy||!checkoutAvailable||termsAccepted[item.id]!==true||recurringAccepted[item.id]!==true}')&&checkout.includes('body.termsAccepted!==true||body.recurringBillingAccepted!==true||body.termsVersion!==NETWORK_TERMS_VERSION'));
 
 check('billing enforces verified sign-in',billing.includes('email_confirmed_at')&&billing.includes('auth.getUser(token)'));
 check('billing list filters owner bindings',billing.includes('.in("id",ids)')&&billing.includes('.eq("access_enabled", true)'));
@@ -292,7 +292,7 @@ check('real GoTrue Auth and Storage HTTP integration is confined to fresh, unlin
  && source('.github/workflows/network-local-auth-storage.yml').includes("'src/data/network-*'")
  && source('.github/workflows/network-local-auth-storage.yml').includes("'scripts/data/network-*'")
  && !source('.github/workflows/network-local-auth-storage.yml').includes('supabase link')
- && source('scripts/data/prepare-network-local-supabase.mjs').includes("applied.length!==38")
+ && source('scripts/data/prepare-network-local-supabase.mjs').includes("applied.length!==40")
  && source('scripts/data/prepare-network-local-supabase.mjs').includes("config.includes('ftkznprjljkhymknvhye')")
  && source('scripts/data/verify-network-local-supabase.mjs').includes("process.env.API_URL!==ORIGIN")
  && source('scripts/data/verify-network-local-supabase.mjs').includes('NETWORK REAL STORAGE CONCURRENT QUOTA PASS')

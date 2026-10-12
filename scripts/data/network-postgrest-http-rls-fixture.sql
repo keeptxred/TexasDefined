@@ -14,10 +14,10 @@ INSERT INTO auth.users(id,email,email_confirmed_at) VALUES
  ('55555555-5555-4555-8555-555555555555','http-owner-two@example.invalid',now()),
  ('88888888-8888-4888-8888-888888888888','http-outsider@example.invalid',now());
 INSERT INTO public.texasdefined_network_applications
- (id,plan,status,business_name,category,city,contact_email,intake_complete,paid_entitlement_active)
+ (id,plan,status,business_name,category,city,contact_email,intake_complete,paid_entitlement_active,terms_version,terms_snapshot_sha256,terms_accepted_at,representative_authority_accepted,facts_responsibility_accepted,media_responsibility_accepted,search_indexing_accepted)
  VALUES
- ('e1111111-1111-4111-8111-111111111111','plus','published','HTTP Owner One Fixture','Test','Katy','http-owner-one@example.invalid',true,true),
- ('e2222222-2222-4222-8222-222222222222','plus','published','HTTP Owner Two Fixture','Test','Austin','http-owner-two@example.invalid',true,true);
+ ('e1111111-1111-4111-8111-111111111111','plus','published','HTTP Owner One Fixture','Test','Katy','http-owner-one@example.invalid',true,true,'2026-10-11-v1','166b237dc2572da5195e1f5217ec51c8ecc83b73f68a080a16b4478e35f9a6a6',now(),true,true,true,true),
+ ('e2222222-2222-4222-8222-222222222222','plus','published','HTTP Owner Two Fixture','Test','Austin','http-owner-two@example.invalid',true,true,'2026-10-11-v1','166b237dc2572da5195e1f5217ec51c8ecc83b73f68a080a16b4478e35f9a6a6',now(),true,true,true,true);
 INSERT INTO public.texasdefined_network_business_accounts
  (id,application_id,owner_user_id,membership_tier,access_enabled) VALUES
  ('a1111111-1111-4111-8111-111111111111','e1111111-1111-4111-8111-111111111111','44444444-4444-4444-8444-444444444444','featured',true),

@@ -11,11 +11,11 @@ INSERT INTO auth.users(id,email,email_confirmed_at) VALUES
  ('33333333-3333-4333-8333-333333333333','outsider@example.invalid',now());
 
 INSERT INTO public.texasdefined_network_applications
- (id,plan,status,business_name,category,city,contact_email,intake_complete,paid_entitlement_active)
+ (id,plan,status,business_name,category,city,contact_email,intake_complete,paid_entitlement_active,terms_version,terms_snapshot_sha256,terms_accepted_at,representative_authority_accepted,facts_responsibility_accepted,media_responsibility_accepted,search_indexing_accepted)
 VALUES
- ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa','plus','published','Synthetic Business One','Test','Katy','owner-one@example.invalid',true,true),
- ('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb','plus','published','Synthetic Business Two','Test','Austin','owner-two@example.invalid',true,true),
- ('cccccccc-cccc-4ccc-8ccc-cccccccccccc','plus','approved','Unpaid Test Business','Test','Dallas','owner-two@example.invalid',true,false);
+ ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa','plus','published','Synthetic Business One','Test','Katy','owner-one@example.invalid',true,true,'2026-10-11-v1','166b237dc2572da5195e1f5217ec51c8ecc83b73f68a080a16b4478e35f9a6a6',now(),true,true,true,true),
+ ('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb','plus','published','Synthetic Business Two','Test','Austin','owner-two@example.invalid',true,true,'2026-10-11-v1','166b237dc2572da5195e1f5217ec51c8ecc83b73f68a080a16b4478e35f9a6a6',now(),true,true,true,true),
+ ('cccccccc-cccc-4ccc-8ccc-cccccccccccc','plus','approved','Unpaid Test Business','Test','Dallas','owner-two@example.invalid',true,false,'2026-10-11-v1','166b237dc2572da5195e1f5217ec51c8ecc83b73f68a080a16b4478e35f9a6a6',now(),true,true,true,true);
 
 INSERT INTO public.texasdefined_network_business_accounts
  (id,application_id,owner_user_id,membership_tier,access_enabled)

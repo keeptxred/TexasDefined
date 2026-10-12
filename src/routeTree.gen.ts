@@ -296,6 +296,7 @@ import { Route as PartnerWithUsExamplesRouteImport } from './routes/partner-with
 import { Route as PartnerWithUsBillingRouteImport } from './routes/partner-with-us.billing'
 import { Route as PartnerWithUsAgreementRouteImport } from './routes/partner-with-us.agreement'
 import { Route as NewsSlugRouteImport } from './routes/news.$slug'
+import { Route as NetworkTermsRouteImport } from './routes/network.terms'
 import { Route as NetworkJoinRouteImport } from './routes/network.join'
 import { Route as NetworkDirectoryRouteImport } from './routes/network.directory'
 import { Route as NetworkCheckoutReturnRouteImport } from './routes/network.checkout-return'
@@ -2382,6 +2383,11 @@ const NewsSlugRoute = NewsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => NewsRoute,
 } as any).lazy(() => import('./routes/news.$slug.lazy').then((d) => d.Route))
+const NetworkTermsRoute = NetworkTermsRouteImport.update({
+  id: '/network/terms',
+  path: '/network/terms',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/network.terms.lazy').then((d) => d.Route))
 const NetworkJoinRoute = NetworkJoinRouteImport.update({
   id: '/network/join',
   path: '/network/join',
@@ -4045,6 +4051,7 @@ export interface FileRoutesByFullPath {
   '/network/checkout-return': typeof NetworkCheckoutReturnRoute
   '/network/directory': typeof NetworkDirectoryRoute
   '/network/join': typeof NetworkJoinRoute
+  '/network/terms': typeof NetworkTermsRoute
   '/news/$slug': typeof NewsSlugRoute
   '/partner-with-us/agreement': typeof PartnerWithUsAgreementRoute
   '/partner-with-us/billing': typeof PartnerWithUsBillingRoute
@@ -4552,6 +4559,7 @@ export interface FileRoutesByTo {
   '/network/checkout-return': typeof NetworkCheckoutReturnRoute
   '/network/directory': typeof NetworkDirectoryRoute
   '/network/join': typeof NetworkJoinRoute
+  '/network/terms': typeof NetworkTermsRoute
   '/news/$slug': typeof NewsSlugRoute
   '/partner-with-us/agreement': typeof PartnerWithUsAgreementRoute
   '/partner-with-us/billing': typeof PartnerWithUsBillingRoute
@@ -5063,6 +5071,7 @@ export interface FileRoutesById {
   '/network/checkout-return': typeof NetworkCheckoutReturnRoute
   '/network/directory': typeof NetworkDirectoryRoute
   '/network/join': typeof NetworkJoinRoute
+  '/network/terms': typeof NetworkTermsRoute
   '/news/$slug': typeof NewsSlugRoute
   '/partner-with-us/agreement': typeof PartnerWithUsAgreementRoute
   '/partner-with-us/billing': typeof PartnerWithUsBillingRoute
@@ -5575,6 +5584,7 @@ export interface FileRouteTypes {
     | '/network/checkout-return'
     | '/network/directory'
     | '/network/join'
+    | '/network/terms'
     | '/news/$slug'
     | '/partner-with-us/agreement'
     | '/partner-with-us/billing'
@@ -6082,6 +6092,7 @@ export interface FileRouteTypes {
     | '/network/checkout-return'
     | '/network/directory'
     | '/network/join'
+    | '/network/terms'
     | '/news/$slug'
     | '/partner-with-us/agreement'
     | '/partner-with-us/billing'
@@ -6592,6 +6603,7 @@ export interface FileRouteTypes {
     | '/network/checkout-return'
     | '/network/directory'
     | '/network/join'
+    | '/network/terms'
     | '/news/$slug'
     | '/partner-with-us/agreement'
     | '/partner-with-us/billing'
@@ -7068,6 +7080,7 @@ export interface RootRouteChildren {
   NetworkCheckoutReturnRoute: typeof NetworkCheckoutReturnRoute
   NetworkDirectoryRoute: typeof NetworkDirectoryRoute
   NetworkJoinRoute: typeof NetworkJoinRoute
+  NetworkTermsRoute: typeof NetworkTermsRoute
   PropertyTaxCalculatorLocationRoute: typeof PropertyTaxCalculatorLocationRoute
   PropertyTaxCountiesRoute: typeof PropertyTaxCountiesRoute
   SportsVenueSlugRoute: typeof SportsVenueSlugRoute
@@ -9178,6 +9191,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/news/$slug'
       preLoaderRoute: typeof NewsSlugRouteImport
       parentRoute: typeof NewsRoute
+    }
+    '/network/terms': {
+      id: '/network/terms'
+      path: '/network/terms'
+      fullPath: '/network/terms'
+      preLoaderRoute: typeof NetworkTermsRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/network/join': {
       id: '/network/join'
@@ -11652,6 +11672,7 @@ const rootRouteChildren: RootRouteChildren = {
   NetworkCheckoutReturnRoute: NetworkCheckoutReturnRoute,
   NetworkDirectoryRoute: NetworkDirectoryRoute,
   NetworkJoinRoute: NetworkJoinRoute,
+  NetworkTermsRoute: NetworkTermsRoute,
   PropertyTaxCalculatorLocationRoute: PropertyTaxCalculatorLocationRoute,
   PropertyTaxCountiesRoute: PropertyTaxCountiesRoute,
   SportsVenueSlugRoute: SportsVenueSlugRoute,

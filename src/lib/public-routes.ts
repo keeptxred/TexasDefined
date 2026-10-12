@@ -444,6 +444,7 @@ export const NON_INDEXABLE_PUBLIC_PATHS = [
   "/network/example/basic",
   "/network/example/plus",
   "/network/join",
+  "/network/terms",
   "/texas-data/research",
   "/search",
   "/explore/search",
