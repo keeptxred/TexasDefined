@@ -26,6 +26,7 @@ export function HighIntentGuideEvidencePanel({ slug, blocks }: { slug: string; b
     <p className="eyebrow text-primary">Independent editorial research · sources last checked {evidence.reviewDate}</p>
     <h2 id="guide-source-facts" className="mt-3 font-display text-3xl sm:text-4xl">Facts you can verify</h2>
     <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These published figures are dated reference points, not live rates, permits, water conditions, campsite availability or road closures. Follow the individual primary source before traveling.</p>
+    <p className="mt-3 text-sm"><a href="/data/texasdefined-high-intent-authority-facts.csv" download className="font-semibold text-primary underline underline-offset-4">Download the dated, source-linked fact ledger (CSV) ↗</a></p>
     {picks.length > 0 && <section aria-labelledby="quick-guide-comparison" className="mt-8">
       <h3 id="quick-guide-comparison" className="font-display text-2xl">Compare all {picks.length} options at a glance</h3>
       <p className="mt-2 text-sm leading-6 text-muted-foreground">This is an editorial best-fit comparison, not a live ranking. Open each option's full discussion for its access and planning tradeoffs.</p>
