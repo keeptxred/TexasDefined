@@ -26,7 +26,7 @@ Code: src/routes/$kind.$slug.lazy.tsx inbound cards; src/routes/texas-high-schoo
 
 City of Austin's [official BOUNDARIES_jurisdictions feature layer](https://services.arcgis.com/0L95CJ0VTaxqcmED/arcgis/rest/services/BOUNDARIES_jurisdictions/FeatureServer/0) and [official open-data metadata](https://data.austintexas.gov/Locations-and-Maps/Jurisdiction-Austin/3pzb-6mbr/about) provide the appropriate city-limit / ETJ boundary source, maintained by Austin Technology Services GIS. The data was updated in October 2026. An Austin school district listing or Austin postal address **does not establish full-purpose Austin municipal jurisdiction**.
 
-**Remaining verification:** Independently locate each of the 12 school campus points from an official campus/NCES address, query this official polygon layer for that exact point, record matching jurisdiction type and query date, and check exclusions similarly before asserting 12/12 independently GIS verified. No such 12-point official GIS query evidence is preserved in this project yet, so the municipal GIS item remains explicitly open. The existing 12 source-qualified editorial links and separately verified 72/72 structural browser evidence remain intact; this source discovery does not justify adding or removing campuses on speculation.
+**Historical verification gap (now resolved by the current findings below):** At the start of October 12, no independent 12-campus point-in-polygon evidence had been preserved. Later on October 12 we obtained all 16 official point/polygon query results, added the two previously missing Austin city links and documented the exact addresses/coordinates and current live-verification gate below.
 
 
 ## October 12, 2026 — independent live city-jurisdiction findings (CURRENT)
