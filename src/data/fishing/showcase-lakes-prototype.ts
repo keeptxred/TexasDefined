@@ -42,6 +42,7 @@ export interface ShowcaseLakePrototype {
   };
   identityAngle: string;
   historyNotes?: string[];
+  visitorFAQs?: { question: string; answer: string }[];
   habitat: string[];
   fish: ShowcaseLakeFish[];
   access: ShowcaseLakeAccess[];
