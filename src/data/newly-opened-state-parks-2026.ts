@@ -47,3 +47,9 @@ export const newlyOpenedStateParks2026: Destination[] = [
     directions: "From I-20, exit toward Strawn, cross the railroad tracks and take FM 2372 approximately four miles to the Park Road 77 entrance. Use the official park map rather than an approximate lake or ridgeline pin.",
   },
 ];
+/** Keep source-backed new-park depth from being replaced by older short curation. */
+export function applyNewlyOpenedStateParkAuthority(destination: Destination): Destination {
+  const guide = newlyOpenedStateParks2026.find((park) => park.slug === destination.slug);
+  if (!guide) return destination;
+  return { ...destination, ...guide, id: destination.id, featured: destination.featured };
+}
