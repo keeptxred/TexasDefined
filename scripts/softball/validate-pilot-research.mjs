@@ -109,8 +109,8 @@ verifiedFact('Pearland', "potentially inconsistent 'Game 3' opponent", 'school-2
 verifiedFact('Pearland', 'Michele Hyden', 'school-general-current');
 assert.ok(byName('Shiner').sources.some(s => s.url.includes('/historical-archives/athletics/archives/softball/state/00_01/')),
   'Preserve primary original 2001 Shiner championship source rather than generic third-party archive');
-assert.ok(byName('Pearland').gaps.some(g => g.includes('softball stadium/field')),
-  'Keep Pearland softball field unverified until official venue-specific evidence is found');
+assert.ok(byName('Pearland').gaps.some(g => g.includes('precise address/entrance') && g.includes('accessible spectator parking/gates')),
+  'Pearland historic complex name is verified; precise current entrance and visitor access must remain unresolved');
 
 // Every pilot program needs an independently attributed *facility status*,
 // not an assumed football stadium, campus office, city park, or generic venue.
