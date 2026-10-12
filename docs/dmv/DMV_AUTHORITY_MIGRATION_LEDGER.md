@@ -90,3 +90,11 @@ Recovered all **11 of 11** historical route files at KeepTXRed commit `a8a2a24bc
 | vehicles.disabled-parking | placards, medical eligibility, renewal, veterans, misuse, FAQs | /texas-vehicle-registration#disabled-parking | Missing credential comparisons, renewal and misuse specifics |
 
 **Disposition:** all 11 source files recovered; none of the 11 are yet fully certified as migrated. Target anchors represent initial coverage, not standalone authority parity. Expand high-intent topics where user tasks warrant dedicated pages, and verify against current primary sources before adding exact procedural details.
+
+## CI triage — October 12, 2026
+
+Inspected GitHub Actions **Merge Gate** run `38114873584` for commit `dc13722d763bbf0c8d4271f8bd7606448e275a72`. The canonical pre-merge validation failed at `npm run performance:validate`: main client bundle `1,829,520` bytes versus budget `1,829,000` bytes (**520 bytes over**). The same commit's `Site quality watchdog` and `Audit indexable static orphan links` workflows concluded success. A prior run on commit `4a41eb5769277cc3402726804da2f0883185e95d` was cancelled and does not establish a passing gate. This is a real **merge blocker**. Do not raise the performance budget merely to force a pass. Investigate shared eager imports / chunk boundaries, apply a measured size reduction, and rerun the full canonical gate on the eventual merge head.
+
+Compared `src/routes/texas-dmv.tsx` with current `main`: the original already had three FAQ entries and the same `buildPrioritySearchHead` call signature; the migration modified and expanded them. The helper supports `data.faq` and emits FAQPage schema, so the route is not obviously broken by an unsupported SEO helper parameter. The FAQ entries must nevertheless remain consistent with visible on-page content.
+
+**Release state: BLOCKED — performance gate failed; branch drift and editorial/browser acceptance remain.**
