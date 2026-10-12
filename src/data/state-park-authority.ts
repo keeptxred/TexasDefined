@@ -121,6 +121,15 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     camping: "TPWD lists 12 electric campsites, three electric tent-only sites, two water sites and five primitive sites. Exact access, reservation methods and showers vary by category.",
     maps: "TPWD publishes park and trails maps; the history of Mission San Francisco de los Tejas and Rice Family Log Home is interpreted through separate visitor materials.",
   },
+  "lake-somerville-state-park": {
+    checkedAt: "2026-10-12",
+    sourceUrl: "https://tpwd.texas.gov/state-parks/lake-somerville/fees-facilities/campsites",
+    restrooms: "Birch Creek electrical loops list restrooms nearby; Nails Creek Cedar Creek and equestrian loops have separate restroom locations. Wolf Pond and Flag Pond primitive trail camps have chemical toilets but no potable water.",
+    parking: "Birch Creek (Park Road 57, Somerville) and Nails Creek (FM 180, Ledbetter) are separate park entrances on different sides of the lake. Note the 13-foot 4-inch FM 60 bridge near Deanville when taking a tall RV to Birch Creek.",
+    camping: "Birch Creek: 99 ordinary electrical sites plus 10 water-only equestrian sites. Nails Creek: 20 regular electrical, 20 equestrian electrical and 10 equestrian water sites. Flag Pond and Wolf Pond walk/hike/horse primitive Trailway sites have NO drinking water.",
+    access: "Park hours 6 a.m.–10 p.m.; separate Birch Creek, Nails Creek and 13.11-mile Trailway entrances and maps. Some primitive and group sites cannot be reserved ahead; verify water levels, active alerts and bookings.",
+    maps: "TPWD issues separate maps for Birch Creek Unit, Nails Creek Unit and the 13.11-mile Trailway, plus individual trails maps.",
+  },
   "hill-country-state-natural-area": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/hill-country/fees-facilities/campsites",
