@@ -100,7 +100,7 @@ function TexasPaddlingGuidePage() {
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
             <p className="eyebrow text-primary">Quick answer</p>
             <h2 id="quick-answer" className="mt-2 font-display text-3xl">Choose the waterbody first, then verify today's conditions</h2>
-            <p className="mt-4 max-w-4xl text-base leading-8">Texas Parks &amp; Wildlife maintains more than 100 certified paddling trails across rivers, lakes, bayous and bays. The map gives you the route; current wind, flow, water level, weather, launch access and land-manager notices decide whether that route makes sense today.</p>
+            <p className="mt-4 max-w-4xl text-base leading-8">Texas Parks &amp; Wildlife lists 100 certified paddling trails (October 2026) across rivers, lakes, bayous and bays. The map gives you the route; current wind, flow, water level, weather, launch access and land-manager notices decide whether that route makes sense today.</p>
           </section>
 
           <section className="border-b border-border py-10" aria-labelledby="before-launch">
