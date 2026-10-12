@@ -39,7 +39,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://tickets.thestoryoftexas.com/mainstore?vid=0",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://tickets.thestoryoftexas.com/mainstore?vid=0",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -57,7 +57,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.thestoryoftexas.com/",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.thestoryoftexas.com/",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -66,7 +66,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.thestoryoftexas.com/visit",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.thestoryoftexas.com/visit",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     }
   ],
@@ -77,7 +77,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.perotmuseum.org/visit/faqs/",
       "questionOrigin": "museum-faq",
       "questionEvidenceUrl": "https://www.perotmuseum.org/visit/faqs/",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -104,7 +104,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.perotmuseum.org/visit/",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.perotmuseum.org/visit/",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -151,7 +151,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.wittemuseum.org/wp-content/uploads/2026/02/1.9.26_VisitorGuide.pdf",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.wittemuseum.org/wp-content/uploads/2026/02/1.9.26_VisitorGuide.pdf",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -160,7 +160,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.wittemuseum.org/plan-your-visit/",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.wittemuseum.org/plan-your-visit/",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -169,7 +169,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.wittemuseum.org/plan-your-visit/",
       "questionOrigin": "visitor-qna",
       "questionEvidenceUrl": "https://www.tripadvisor.com/FAQ-g60956-d103611-Witte_Museum.html",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -178,7 +178,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.wittemuseum.org/plan-your-visit/",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.wittemuseum.org/plan-your-visit/",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -187,7 +187,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.wittemuseum.org/plan-your-visit/",
       "questionOrigin": "visitor-qna",
       "questionEvidenceUrl": "https://www.tripadvisor.com/FAQ-g60956-d103611-Witte_Museum.html",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     }
   ],
@@ -234,7 +234,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.museumofthebigbend.com/visit/",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.museumofthebigbend.com/visit/",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -254,7 +254,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -263,7 +263,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -281,7 +281,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -290,7 +290,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -337,7 +337,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.georgeranch.org/visit/faq/",
       "questionOrigin": "museum-faq",
       "questionEvidenceUrl": "https://www.georgeranch.org/visit/faq/",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -346,7 +346,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.georgeranch.org/visit/faq/",
       "questionOrigin": "museum-faq",
       "questionEvidenceUrl": "https://www.georgeranch.org/visit/faq/",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -375,7 +375,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://texasmaritimemuseum.org/",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://texasmaritimemuseum.org/",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -402,7 +402,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://texasmaritimemuseum.org/",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://texasmaritimemuseum.org/",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -420,7 +420,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://texasmaritimemuseum.org/",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://texasmaritimemuseum.org/",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     }
   ],
@@ -431,7 +431,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.pacificwarmuseum.org/visit",
       "questionOrigin": "visitor-qna",
       "questionEvidenceUrl": "https://www.tripadvisor.com/FAQ_Answers-g55863-d106301-t2183076-How_long_does_it_take_to_tour_the_museum.html",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -440,7 +440,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.pacificwarmuseum.org/purchase-tickets",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.pacificwarmuseum.org/purchase-tickets",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -541,7 +541,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.frontiertexas.com/museum-updates/",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.frontiertexas.com/museum-updates/",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     }
   ],
@@ -570,7 +570,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.texasenergymuseum.org/visit1.html",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.texasenergymuseum.org/visit1.html",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
@@ -588,7 +588,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "verificationUrl": "https://www.texasenergymuseum.org/visit1.html",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.texasenergymuseum.org/visit1.html",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
