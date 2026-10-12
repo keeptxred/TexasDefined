@@ -1,16 +1,16 @@
 {
-  "standard": "official-site-surpass-authority-v1",
-  "scope": "Editorial authority and total usefulness compared with the museum's official collection of public pages, not Google rank.",
+  "standard": "museum-visitor-guide-benchmark-v2",
+  "scope": "Be the most useful independent visitor and museum-understanding guide; NOT a duplicate of museum-owned collections, archives, artifact inventories or curatorial databases.",
   "reviewedAt": null,
   "rules": {
-    "decision": "Fail unless six coverage dimensions are independently evidenced and all unresolved gaps are closed. Competitive coverage must match or exceed the operator's current factual public guidance and provide substantially deeper independent synthesis. Do not replace operator's primary authority for live operations.",
+    "decision": "Certify only after direct side-by-side comparison finds no material visitor-planning gaps versus the institution's published visitor guidance, the TexasDefined guide adds independent visitor value, specific exhibit highlights are accurate and brief, the FAQ is researched beyond the operator's FAQ and photos/links/technical QA pass. The museum remains the source of truth for live operations.",
     "dimensions": [
-      "museumCollectionAndExhibitCoverage",
-      "independentPrimaryAndSecondaryResearch",
-      "practicalVisitorPlanningAndAccessibility",
-      "originalComparativeInterpretation",
-      "photoAndMediaRights",
-      "cityCountyPeerLinksAndTechnicalQA"
+      "museumIdentityAndExhibitThemesWithUpToTenBriefHighlights",
+      "familyFriendlySuitabilityAndAgeSpecificExperience",
+      "ticketsParkingTravelTimeAndDiningType",
+      "mobilitySensoryAccessAndGroupPolicies",
+      "researchBackedMuseumSpecificVisitorFAQ",
+      "licensedMediaContextualCrosslinksAndTechnicalQA"
     ]
   },
   "museums": {
@@ -21,9 +21,9 @@
         "Interpretive chronology and collection-related research"
       ],
       "openGaps": [
-        "Primary-source artifact-level annotations rather than general La Belle prose",
-        "Exhibit-by-exhibit visitor and study trails with historical context",
-        "Original multi-source comparison with neighboring Austin research collections"
+        "Confirm current Story of Texas Café service and visitor parking specifics, not merely historic marketing",
+        "Add distinct gallery highlight blurbs and visitor routes aligned to current galleries",
+        "Verify practical family and accessibility FAQ questions beyond museum tickets"
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},
@@ -42,9 +42,9 @@
         "Extensive disability, sensory and wheelchair planning"
       ],
       "openGaps": [
-        "Explain major halls and signature specimens by name, not three general groups",
-        "Study publicly documented Perot research and distinctions between displayed vs stored collections",
-        "Create comparable sensory/family accessibility and realistic gallery-floor itineraries"
+        "Prioritize the exhibit halls families ask about with short highlights, not the specimens inventory",
+        "Provide a family-facing comparison of a two-hour visit versus the full science experience",
+        "Track café, parking entrance construction, sensory supports, and separate add-on ticket requirements"
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},
@@ -64,9 +64,9 @@
         "2026 centennial and exhibit calendar"
       ],
       "openGaps": [
-        "Examine primary objects/research collections and Witte's methodology",
-        "Distinguish 2026–27 temporary exhibitions from permanent galleries and maintain their dates",
-        "Map exhibits to relevant Texas places and historically informed learning routes"
+        "Distinguish permanent experiences from short-run centennial exhibits and add concise highlights",
+        "Clarify Tremblay Family Café, picnic policy, stroller and mobility route, and free Tuesday rule",
+        "Verify specific parking distance and accessible drop-off guidance raised by visitors"
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},
@@ -85,9 +85,9 @@
         "Map archive access by appointment"
       ],
       "openGaps": [
-        "Interpret specific maps with sources and place-based itineraries",
-        "Explain the research collection access rules and how maps changed narratives about borders",
-        "Document exhibit coverage and original regional historical comparisons"
+        "Explain core Big Bend Legacy themes in short visitor-oriented exhibit blurbs",
+        "Verify campus entrance, parking, accessibility and family fit",
+        "Distinguish guided tours and temporary exhibitions while avoiding archival cataloguing"
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},
@@ -106,9 +106,9 @@
         "Collections and research-center resources"
       ],
       "openGaps": [
-        "Do not imply galleries are open; report closure accurately and verify the current statement",
-        "Build collection-level research trails beyond general ranching summary",
-        "Add documented alternatives/off-site exhibits and explain underlying regional sources"
+        "Foreground temporary building closure with correct visit alternatives and event calendar",
+        "Explain what the closed museum usually covers without advertising gallery admission",
+        "Research travel-intent FAQs for museum reopening, virtual tours, and active offsite programs"
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},
@@ -126,9 +126,9 @@
         "Multiple historic houses, demonstrations, tram and access policies"
       ],
       "openGaps": [
-        "Go beyond operator's house descriptions with archival labor and enslaved-person histories",
-        "Build period-specific routes and independent source corroboration",
-        "Offer detailed accessibility and weather alternatives aligned to known visitor policies"
+        "Explain Saturday public entry versus booked weekday groups",
+        "Cover outdoor surfaces, house accessibility, tram, picnicking, heat exposure and livestock rules",
+        "Include short highlights of historic houses and demonstrations, not a comprehensive artifacts inventory"
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},
@@ -148,9 +148,9 @@
         "Museum research and collections policy"
       ],
       "openGaps": [
-        "Analyze key ships, wrecks and historical coastal evidence by name",
-        "Explain how and when library/oral history materials can be researched",
-        "Map coastal history and local routes against museum artifacts"
+        "Explain donation-based admission and children's museum experiences",
+        "Cover shipbuilding, shipwreck and coastal topics in concise exhibit highlights",
+        "Verify current dining options and accessible entry instead of assuming museum has a café"
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},
@@ -170,9 +170,9 @@
         "Carl I. Duncan Research Library holding 6,000+ books"
       ],
       "openGaps": [
-        "Analyze named campaigns using multiple primary documents and curator collections",
-        "Cover exhibit-by-exhibit route, outdoor zone scheduling and separate tickets",
-        "Create historiographic comparisons and practical archive research instructions"
+        "Make multi-campus visit duration, maps, parking and earlier Combat Zone closure prominent",
+        "Clearly separate basic admission, free outdoor areas and paid Rescue experience",
+        "Explain potential sensitive material for children and available food arrangements"
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},
@@ -190,9 +190,9 @@
         "Interpretation of Texas frontier and forts-trail corridor"
       ],
       "openGaps": [
-        "Document specific historic figures and primary source debate instead of generic frontier narrative",
-        "Cover interpretation technique and suitable ages/access needs",
-        "Cross-check forts-trail historical sites and town museums with independent archival evidence"
+        "Document operating status during construction and theater last-show times",
+        "Explain museum versus official regional visitor center and General Store",
+        "Confirm practical access and dining beyond published visitor information"
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},
@@ -210,9 +210,9 @@
         "Oil exploration, production and refinery exhibits"
       ],
       "openGaps": [
-        "Add sourced industrial and geological case studies beyond the operator's overview",
-        "Explain environmental, labor and economic tradeoffs alongside industrial technology",
-        "Provide artifact-level information and access links to original Spindletop records"
+        "Distinguish Texas Energy Museum from separate Spindletop-Gladys City destination",
+        "Explain main energy-industry topics as engaging exhibit blurbs",
+        "Verify family programs, group reservations, accessible approach and on-site food arrangements"
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},
@@ -225,5 +225,5 @@
     }
   },
   "baselineCollectedAt": "2026-10-12",
-  "disclaimer": "Official URLs represent baseline resources to compare. Their inclusion is NOT proof of a complete page-by-page review or of superiority. All decisions are NOT CERTIFIED until direct evidence is recorded."
+  "disclaimer": "Comparison target URLs are not proof of manual signoff or market-leading superiority. Museum visitor FAQs are curated from official information, independent visitor questions and editorial visitor-intent research; frequency is not quantified without query data. No exhaustive museum collection duplication is required. NOT CERTIFIED until side-by-side visitor-guide evidence and live QA."
 }
