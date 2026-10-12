@@ -19,6 +19,14 @@ const required = [
   "frontier-texas",
   "texas-energy-museum-beaumont",
 ];
+const manifestStart = src.indexOf("export const museumAuthorityDossiers");
+const manifestEnd = src.indexOf("\n};\n\nexport const museumAuthorityDirectory", manifestStart);
+if (manifestStart < 0 || manifestEnd < 0) {
+  console.error("Museum dossier manifest cannot be identified.");
+  process.exit(1);
+}
+const allDossiers = [...src.slice(manifestStart, manifestEnd).matchAll(/^  "([a-z0-9-]+)": \{/gm)].map((m) => m[1]);
+if (new Set(allDossiers).size !== allDossiers.length) failures.push("Duplicate museum authority dossier keys.");
 function dossier(slug) {
   const start = src.indexOf('  "' + slug + '": {');
   if (start < 0) return "";
@@ -37,7 +45,7 @@ function value(entry, key) {
   const expression = new RegExp("\\b" + key + '\\s*:\\s*"([^"\\n]*)"');
   return entry.match(expression)?.[1] || "";
 }
-for (const slug of required) {
+for (const slug of new Set([...required, ...allDossiers])) {
   const entry = dossier(slug);
   if (!entry) { failures.push("No museum dossier for " + slug); continue; }
   for (const key of ["name", "slug", "county", "city", "reviewed", "whyVisit", "visitorStrategy", "accessibility", "familiesAndGroups", "researchValue"]) {
@@ -105,4 +113,4 @@ if (failures.length) {
   console.error("Museum authority gate FAILED:\n" + failures.map((x) => " - " + x).join("\n"));
   process.exit(1);
 }
-console.log("Museum authority gate PASSED: " + required.length + " museum guides + cross-links + new-museum rule.");
+console.log("Museum authority gate PASSED: " + allDossiers.length + " museum guides + cross-links + new-museum rule.");
