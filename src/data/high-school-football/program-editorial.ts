@@ -1250,7 +1250,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "campus": {
       "address": "1012 Arthur Stiles Road, Austin, TX 78721",
       "phone": "512-414-5272",
-      "sourceUrl": "https://www.austinisd.org/schools/level/H?page=4",
+      "sourceUrl": "https://www.austinisd.org/schools?page=4",
       "sourceLabel": "Austin ISD public school directory — school campus, distinct from separate athletics office",
       "verifiedAt": "2026-10-12"
     },
