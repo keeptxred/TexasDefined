@@ -489,5 +489,8 @@ export const TOWN_AUTHORITY_LINK_PLACES: readonly TownAuthorityLinkPlace[] = [
     "region": "hill-country",
     "lat": 29.7381,
     "lng": -98.1039
-  }
+  },
+  {"slug":"round-top","name":"Round Top","county":"Fayette","region":"prairies-lakes","lat":30.0651,"lng":-96.696},
+  {"slug":"canton","name":"Canton","county":"Van Zandt","region":"piney-woods","lat":32.5566,"lng":-95.8626},
+  {"slug":"taylor","name":"Taylor","county":"Williamson","region":"prairies-lakes","lat":30.5708,"lng":-97.4094}
 ];
