@@ -23,7 +23,7 @@ const records = [
     "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Comal_River_in_Landa_Park.jpg · License: https://creativecommons.org/licenses/by/4.0/",
     "width": 1801,
     "height": 1201,
-    "source": "https://www.nbtexas.org/",
+    "source": "https://www.newbraunfels.gov/comalriver",
     "name": "Comal River"
   },
   {
