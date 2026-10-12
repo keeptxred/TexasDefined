@@ -225,6 +225,10 @@
   ],
   "hill": [
     {
+      "slug": "aquilla-lake",
+      "name": "Aquilla Lake"
+    },
+    {
       "slug": "lake-whitney",
       "name": "Lake Whitney"
     }
@@ -558,6 +562,10 @@
     }
   ],
   "williamson": [
+    {
+      "slug": "granger-lake",
+      "name": "Granger Lake"
+    },
     {
       "slug": "lake-georgetown",
       "name": "Lake Georgetown"
