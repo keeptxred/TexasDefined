@@ -76,8 +76,11 @@ for(const [slug,pattern] of Object.entries({...routeSchoolNames,...excluded})){
  else if(candidates.length!==1)reason='Expected one distinct TEA campus point, found '+candidates.length;
  else {
   selected=candidates[0];const pt=selected.geometry;
+  const score=Number(selected.attributes?.Score);
   if(!Number.isFinite(pt?.x)||!Number.isFinite(pt?.y)||pt.x>-93||pt.x< -100||pt.y<29||pt.y>32)
     reason='Invalid or missing TEA campus point';
+  else if(!Number.isFinite(score)||score<85)
+    reason='Unreliable/unknown official AskTED geocoded site score: '+String(selected.attributes?.Score);
   else{
    try {
     const q=await query(citybase,{
@@ -87,7 +90,8 @@ for(const [slug,pattern] of Object.entries({...routeSchoolNames,...excluded})){
       returnGeometry:'false'
     });
     cityQuery=q.url;jurisdictions=(q.data.features||[]).map(x=>x.attributes);
-    const full=jurisdictions.some(x=>/austin/i.test(String(x.CITY_NAME))&&x.JURISDICTION_TYPE_SPECIFICS==='FULL PURPOSE');
+    const full=jurisdictions.some(x=>/austin/i.test(String(x.CITY_NAME)) &&
+      x.JURISDICTION_TYPE_SPECIFICS==='FULL PURPOSE' && String(x.JURISDICTION_TYPE||'').toUpperCase()==='FULL');
     if(expected){status=full?'VERIFIED_FULL_PURPOSE':'NOT_VERIFIED_FOR_CITY_LINK';reason=full?'TEA campus point within official Austin full-purpose polygon':'Campus point did not match Austin FULL PURPOSE; preserve as flag for editorial correction'}
     else {status=full?'EXCLUDED_BUT_IN_FULL_PURPOSE':'EXCLUSION_CONSISTENT';reason=full?'Excluded campus appears inside full-purpose Austin; review editorial city cross-links':'No official Austin full-purpose polygon at excluded campus point'}
    }catch(e){reason='City jurisdiction query failed: '+String(e)}
