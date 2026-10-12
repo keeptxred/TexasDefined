@@ -48,7 +48,7 @@ check(waveNames.length >= 15, "All original town waves 1–15 must be preserved"
 const network = read("src/data/town-authority-network.ts");
 for (const wave of guideSources) {
   const m = wave.filename.match(/wave(\d+)\.ts$/);
-  if (m) {
+  if (m && wave.filename.includes("small-town-destinations-wave")) {
     const symbol = "smallTownWave" + m[1] + "Destinations";
     check(network.includes(symbol), wave.filename + ": not covered by universal authority network");
     check(read("src/data/destination-preserved-catalog.ts").includes(symbol), wave.filename + ": absent from Explore catalog");
