@@ -1,5 +1,7 @@
 # TexasDefined High School Football — Batch 004 Final Production Acceptance Evidence
 
+**October 12 directory correction:** PR #4700 corrects LASA's campus to 1012 Arthur Stiles Road and adds six missing Austin school campus contact records for Austin High, Bowie, Crockett, Eastside, LBJ and Navarro. All seven use the current Austin ISD high-school directory: https://www.austinisd.org/schools/level/H. Stadium gates and event parking are separate facts. Changes remain subject to protected merge and live acceptance.
+
 ## October 12, 2026 — Supplemental current source audit
 
 Source inventory confirms all 25 Batch 004 program editorial records exist and have October 10, 2026 source verification dates; none contains a profile-specific photo. Shared site imagery has not been reviewed for licensing in this static check.
