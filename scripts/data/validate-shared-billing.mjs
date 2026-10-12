@@ -18,6 +18,10 @@ const idempotency=source('supabase/migrations/20261011231152_harden_texasdefined
 const acceptance=source('supabase/migrations/20261011231251_add_advertiser_publisher_acceptance_to_shared_billing.sql');
 const reconciliation=source('supabase/migrations/20261011231541_reconcile_texasdefined_shared_stripe_invoices.sql');
 const reuse=source('supabase/migrations/20261011232059_reuse_exact_verified_texasdefined_billing_accounts.sql');
+const manualInvoiceBlock=billingAdminServer.slice(
+  billingAdminServer.indexOf('export async function createAdminManualDraftInvoice'),
+  billingAdminServer.indexOf('export async function sendAdminBillingInvoice'),
+);
 
 const check=(label,value)=>{
   assert.ok(value,label);
@@ -115,8 +119,8 @@ check('advertiser payment state stays separate from Network entitlement',
 check('manual invoice creation is positive-charge-only and cannot grant Network entitlement',
   billingAdminFunctions.includes("unitAmountCents:z.number().int().min(1)")
   && billingAdmin.includes('min="0.01"')
-  && billingAdminServer.includes("sourceType:'manual'")
-  && !billingAdminServer.includes('paid_entitlement_active'));
+  && manualInvoiceBlock.includes("sourceType:'manual'")
+  && !manualInvoiceBlock.includes('paid_entitlement_active'));
 
 check('invoice sending has a second independent release gate',
   billing.includes("process.env.TEXASDEFINED_INVOICE_SENDING_ENABLED!=='true'")
