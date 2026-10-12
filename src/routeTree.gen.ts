@@ -9192,18 +9192,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NewsSlugRouteImport
       parentRoute: typeof NewsRoute
     }
-    '/network/join': {
-      id: '/network/join'
-      path: '/network/join'
-      fullPath: '/network/join'
-      preLoaderRoute: typeof NetworkJoinRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/network/terms': {
       id: '/network/terms'
       path: '/network/terms'
       fullPath: '/network/terms'
       preLoaderRoute: typeof NetworkTermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/network/join': {
+      id: '/network/join'
+      path: '/network/join'
+      fullPath: '/network/join'
+      preLoaderRoute: typeof NetworkJoinRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/network/directory': {
