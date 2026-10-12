@@ -148,6 +148,13 @@ export interface VisitorFacilityFact {
   checkedAt?: string;
 }
 export interface DestinationVisitorFacilities {
+  /**
+   * Opt-in, editor-selected visitor questions for THIS place. No visitor facility
+   * section is rendered just because the destination belongs to a category.
+   */
+  editorialFocus?: Array<"parking" | "restrooms" | "map">;
+  editorialHeading?: string;
+  editorialIntro?: string;
   parking?: VisitorFacilityFact;
   restrooms?: VisitorFacilityFact;
   /** Official attraction / park facility map, distinct from the location map. */
