@@ -1,4 +1,4 @@
-import heroHillCountry from "@/assets/hero-hill-country.jpg";
+import scenicRoadHero from "@/assets/road-trip.jpg";
 import germanLandscape from "@/assets/generated/hill-country-identity.jpg";
 import type { Article } from "../types";
 import { regionalAuthorityEnrichment } from "./regional-authority-enrichment";
@@ -13,8 +13,8 @@ const baseRegionalAuthorityArticles: Article[] = [
     "category": "road-trips",
     "region": "hill-country",
     "hero": {
-      "src": heroHillCountry,
-      "alt": "A winding roadway through the rolling hills of Central Texas",
+      "src": scenicRoadHero,
+      "alt": "A two-lane rural Texas road leading toward the distant horizon; representative scenic-driving image",
       "width": 1600,
       "height": 1067
     },
@@ -463,6 +463,7 @@ export const regionalAuthorityArticles: Article[] = baseRegionalAuthorityArticle
   return {
     ...article,
     ...depth,
+    region: article.slug === "texas-german-belt" ? "hill-country" : undefined,
     body: [...article.body, ...(depth.body ?? [])],
     internalLinks: [
       ...(article.internalLinks ?? []),
