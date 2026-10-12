@@ -2189,8 +2189,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "date": "2026",
         "title": "Five-win start",
         "body": "The public football results snapshot lists victories over Nacogdoches, Henderson, Pine Tree, Kaufman and Gladewater through September 25; it is not a complete October season report.",
-        "sourceUrl": "https://txfb.sidev.co/team/athens-hornets",
-        "sourceLabel": "Named source for school-specific milestone"
+        "sourceUrl": "https://www.maxpreps.com/tx/athens/athens-hornets/football/schedule/",
+        "sourceLabel": "MaxPreps Athens 2026 game-by-game results, Sept. 25 historical snapshot"
       }
     ],
     "overview": [
