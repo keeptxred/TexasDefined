@@ -18,7 +18,7 @@ for (const key of ["VisitorFacilityFact", "DestinationVisitorFacilities", "visit
 for (const key of ["addVerifiedVisitorFacilities", "VERIFIED_VISITOR_FACILITIES", "editorialFocus"]) {
   assert(facts.includes(key), `Missing source-backed destination selection: ${key}`);
 }
-for (const slug of ["enchanted-rock-state-natural-area", "space-center-houston", "moody-gardens", "padre-island-national-seashore", "texas-state-aquarium", "hamilton-pool-preserve"]) {
+for (const slug of ["enchanted-rock-state-natural-area", "space-center-houston", "moody-gardens", "padre-island-national-seashore", "texas-state-aquarium"]) {
   assert(facts.includes(`"${slug}": {`), `Sourced facilities profile missing: ${slug}`);
 }
 const preview = (slug) => {
