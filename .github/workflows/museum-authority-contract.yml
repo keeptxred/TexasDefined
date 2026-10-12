@@ -45,5 +45,5 @@ jobs:
         run: node scripts/data/validate-museum-authority.mjs
       - name: Install exact dependencies
         run: npm ci --ignore-scripts --no-audit --no-fund
-      - name: TypeScript static check
-        run: npx tsc --noEmit
+      - name: Build production application (canonical release check)
+        run: npm run build
