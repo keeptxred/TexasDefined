@@ -12,6 +12,7 @@ const headquarters = read("src/data/state-park-verified-locations.ts");
 const newOpenings = read("src/data/newly-opened-state-parks-2026.ts");
 const historicCanonical = read("src/data/canonical-historic-state-parks.ts");
 const hillCountry = read("src/data/hill-country-state-natural-area-authority.ts");
+const lakeSomerville = read("src/data/lake-somerville-state-park-authority.ts");
 const recovery = read("src/data/state-park-authority-recovery.ts");
 const planner = read("src/components/editorial/DestinationVisitPlanner.tsx");
 const essentials = read("src/components/editorial/StateParkVisitorEssentials.tsx");
@@ -54,6 +55,10 @@ assertContains(hillCountry, 'slug: "hill-country-state-natural-area"', "Missing 
 assertContains(hillCountry, 'CC BY 4.0', "Hill Country exact-place hero license missing");
 assertContains(preserved, "[hillCountryStateNaturalAreaAuthority],", "Hill Country fallback must remain available when remote is down");
 assertContains(curation, "applyHillCountryStateNaturalAreaAuthority,", "TPWD campsite facts must override generic Hill Country copy");
+assertContains(lakeSomerville, 'slug: "lake-somerville-state-park"', "Lake Somerville official 2-unit park lacks authority record");
+assertContains(lakeSomerville, "13.11-mile", "Lake Somerville Trailway planning needs length, maps and separate entrances");
+assertContains(preserved, "[lakeSomervilleStateParkAuthority],", "Lake Somerville must survive remote Explore outage");
+assertContains(curation, "applyLakeSomervilleStateParkAuthority,", "Lake Somerville park facts must override short inherited copy");
 const required = [
   "fort-richardson-state-park-state-historic-site",
   "seminole-canyon-state-park-and-historic-site",
