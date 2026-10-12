@@ -384,6 +384,24 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionEvidenceUrl": "https://www.georgeranch.org/visit/faq/",
       "reviewCycle": "quarterly",
       "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can someone using a wheelchair explore the historic buildings and tram?",
+      "answer": "The operator lists wheelchair ramps for first-floor access at three historic homes, a wheelchair-accessible tractor tram, marked accessible parking and accessible restrooms. Not every historic space is necessarily barrier-free, so consult the specific route information before traveling.",
+      "verificationUrl": "https://www.georgeranch.org/visit/accessibility/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.georgeranch.org/visit/accessibility/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does George Ranch offer teacher, veteran or military admission discounts?",
+      "answer": "The museum's official admissions page lists free general admission for local teachers with school identification and a reduced veteran or active-service admission tier. Older visitor reviews describe different benefits; follow the museum's current published terms, which can change for special events.",
+      "verificationUrl": "https://www.georgeranch.org/visit/hours-admissions-directions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.tripadvisor.com/Attraction_Review-g56542-d140031-Reviews-The_George_Ranch-Richmond_Texas.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
     }
   ],
   "texas-maritime-museum-rockport": [
