@@ -85,6 +85,7 @@ interface StatewideLakeDefinition {
   historyNotes?: string[];
   visitorFAQs?: { question: string; answer: string }[];
   visitorSourceUrl?: string;
+  localRegulationsSourceUrl?: string;
 }
 
 const fish = (
@@ -1172,6 +1173,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/white_rock/index.asp",
     visitorSourceUrl:"https://dallasparks.org/235/White-Rock-Lake",
+    localRegulationsSourceUrl:"https://codelibrary.amlegal.com/codes/dallas/latest/dallas_tx/0-0-0-115288",
     liveDataNote:"White Rock Lake is a City of Dallas reservoir without a verified compatible TWDB real-time water-level source in this guide. Check the city park's current information, alerts and official maps before travel; an undated reference elevation is not a live level.",
     historyNotes:[
       "Dallas faced worsening shortages in the early twentieth century. Construction on White Rock Dam began in March 1910 and the earthfill dam was completed in September 1911, during a period of municipal water-system expansion.",
@@ -1368,7 +1370,8 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
       liveLevel: liveLevelSource,
       ...(def.historySourceUrl ? { reservoirHistory: { label: "Texas Water Development Board — reservoir history", url: def.historySourceUrl } } : {}),
       ...(def.consumptionSourceUrl ? { fishConsumption: { label: "TPWD — current fish-consumption advisories", url: def.consumptionSourceUrl } } : {}),
-      ...(def.visitorSourceUrl ? { cityRecreation: { label: "City of Sweetwater — official visitor information", url: def.visitorSourceUrl } } : {}),
+      ...(def.visitorSourceUrl ? { cityRecreation: { label: "Official municipal lake visitor information", url: def.visitorSourceUrl } } : {}),
+      ...(def.localRegulationsSourceUrl ? { cityBoatRules: { label: "City code — local lake watercraft restrictions", url: def.localRegulationsSourceUrl } } : {}),
     },
   };
 }
