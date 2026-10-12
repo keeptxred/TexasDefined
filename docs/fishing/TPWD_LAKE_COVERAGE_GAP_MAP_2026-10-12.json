@@ -2,8 +2,8 @@
   "date": "2026-10-12",
   "officialDirectory": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
   "officialEntries": 175,
-  "completedGuideMatches": 56,
-  "gaps": 119,
+  "completedGuideMatches": 57,
+  "gaps": 118,
   "listing": [
     {
       "letter": "A",
@@ -1177,8 +1177,8 @@
     {
       "letter": "W",
       "tpwdListingName": "White Rock",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "white-rock-lake",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -1258,6 +1258,7 @@
     "Gap means no completed fishing-guide registry entry, not no reference anywhere on site",
     "Do not create thin pages; independently source facilities, rights and uniqueness",
     "Georgetown and Benbrook full TPWD/TWDB-sourced guides prepared in new expansion branch, not yet merged or production-certified",
-    "Two source-reviewed Granger/Aquilla entries prepared in follow-up expansion PR; live status requires CI, merge and deployment"
+    "Two source-reviewed Granger/Aquilla entries prepared in follow-up expansion PR; live status requires CI, merge and deployment",
+    "White Rock Lake Dallas: source-backed City of Dallas boating ordinance, five TPWD-listed ramps, no camping, TWDB history, real lake photo CC0; pending release"
   ]
 }
