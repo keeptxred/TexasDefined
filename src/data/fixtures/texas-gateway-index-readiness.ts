@@ -1,4 +1,5 @@
 import type { Article, ArticleBlock } from "../types";
+import { assessTexasDefinedGuide } from "../guide-authority-policy";
 
 /**
  * Gateway articles are acquisition drafts until an editor explicitly promotes
@@ -48,22 +49,11 @@ export function isNewAuthorityGuideCandidate(article: Article): boolean {
         && (/\bbest\b|\bguide\b|\bfield guide\b/i.test(article.title) || article.tags.includes("authority-guide"))));
 }
 export function meetsNewAuthorityGuideStandard(article: Article): boolean {
+  // All new guide families share the same factual/editorial acceptance policy;
+  // requirements adapt to the subject (e.g. museum ≠ camping ≠ tax).
+  // Existing published pages are audited, not retroactively deindexed before repairs.
   if (!isNewAuthorityGuideCandidate(article)) return true;
-  const headings = new Set(article.body.filter((block) => block.type === "heading").map((block) => block.text.toLowerCase()));
-  const galleryImages = article.body.filter((block) => block.type === "image");
-  const supportedWithStandaloneFactTable = article.id.startsWith("texas-high-intent-");
-  const httpsSources = (article.sources ?? []).filter((source) => /^https:\/\//.test(source.url));
-  const verifiedFactList = article.body.some((block) => block.type === "list" && block.items.length >= 3 && block.items.every((item) => item.includes("source: https://") && item.includes("checked")));
-  return articleBodyWordCount(article) >= 1000
-    && Boolean(article.hero.src && article.hero.credit && article.hero.width >= 1200 && article.hero.alt)
-    && galleryImages.length >= 2
-    && galleryImages.every((block) => Boolean(block.image.credit && block.image.alt && block.image.width >= 1200))
-    && Boolean(article.updatedAt && article.authorId)
-    && httpsSources.length >= 3
-    && (article.internalLinks?.length ?? 0) >= 4
-    && article.relatedDestinations.length >= 3
-    && headings.has("how we chose these destinations")
-    && (supportedWithStandaloneFactTable || (headings.has("verified facts and figures at a glance") && verifiedFactList));
+  return assessTexasDefinedGuide(article).certified;
 }
 export const ARTICLE_INDEX_MIN_BODY_WORDS = 600;
 export const SEASONAL_INTENT_INDEX_MIN_BODY_WORDS = 400;
