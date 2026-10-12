@@ -22,6 +22,17 @@ Largest path families at inventory time:
 
 **Important**: User-facing pages must be actually improved by source-specific research; a template badge, generic FAQ, appended SEO text or a score generated from word counts is never an authority upgrade.
 
+
+## Independently recovered full-production crawl: 2026-10-12
+
+[GitHub Actions production audit #38312630488](https://github.com/keeptxred/TexasDefined/actions/runs/38312630488) actually crawled **4,122 canonical sitemap-listed live URLs** across five sitemaps, with zero sitemap fetch failures. It found **76 hard technical SEO failures**:
+
+- **62 sitemap-listed URLs return `noindex, follow`**: 52 lake `/guides` pages and 10 lake `/reports` pages, whose current content does not satisfy the route's existing publication-readiness conditions. This is a contradiction in sitemap generation—not permission to index unverified content. The retrofit removes unconditional listing of these sections from `FISHING_SITEMAP_ENTRIES`, preserving the route's protective `noindex`. Separate official-data server loaders can now reinclude a section only if a verified guide or valid, current fishing report actually supports it. Regression `validate-fishing-sitemap-indexability.mjs` keeps that rule.
+- **14 excessively long title tags** (>90 characters under the existing quality-audit standard), distributed across articles, destinations, events, heritage, fishing, food and school football. The retrofit supplies **14 subject-specific readable title rewrites** through shared `buildMeta` SEO overrides while leaving editorial titles/body untouched.
+- **1,082 title-length review warnings** (longer than 70 characters), which are only editorial review suggestions rather than proof of a Google ranking defect. Google does not impose a universal title character limit; the focus remains descriptive distinct title text.
+
+These corrections are **committed in [PR #4703](https://github.com/keeptxred/TexasDefined/pull/4703)** and are not yet certified as live until the protected merge/deployment and another actual production audit confirm the published changes. The live production finding counts above remain the honest pre-deployment baseline.
+
 ## Operating system in place
 
 1. **Weekly full production crawl** (existing `.github/workflows/audit-whole-site-production.yml`): every canonical sitemap URL is checked for HTTP success, title/description, canonical, one H1, unexpected noindex, thin/fallback rendering and duplicate title/description. The current change adds **topic-specific evidence diagnostics** plus a complete per-URL review TSV and a persistent categorized GitHub remediation issue. These diagnostic flags are not factual findings and do not individually certify a page.
