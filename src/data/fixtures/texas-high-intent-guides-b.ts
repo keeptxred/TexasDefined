@@ -21,14 +21,14 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
     "caveats": "No passage here is a live flow report. Drought, water releases, flash flooding, temporary closures and jurisdictional rules can change between publication and a visit. Never enter floodwater, float beyond your ability or ignore barricades and posted restrictions. Local operators may close or alter trips independently of a city or park, and a lodging property's river frontage is not automatically shared public access. Some listed rivers are better thought of as river-trip candidates unless a verified float segment is available.",
     "conclusion": "Choose Comal for compact New Braunfels tubing infrastructure, a verified Guadalupe reach for a classic longer-feeling river trip, Frio for a camping-centered Hill Country weekend and a park-based river for an outdoors-first day. But let current conditions and legal access make the final decision. If the float is unsafe or closed, change the day rather than force the river to match an itinerary.",
     "sources": [
-      [
-        "TPWD Paddling Trail Safety and Flow",
-        "https://tpwd.texas.gov/boating/paddling-trails/faqs/"
-      ],
-      [
-        "Texas State Parks",
-        "https://tpwd.texas.gov/state-parks/"
-      ]
+      {
+        "label": "TPWD Paddling Trail Safety and Flow",
+        "url": "https://tpwd.texas.gov/boating/paddling-trails/faqs/"
+      },
+      {
+        "label": "Texas State Parks",
+        "url": "https://tpwd.texas.gov/state-parks/"
+      }
     ],
     "picks": [
       {
@@ -108,14 +108,14 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
     "caveats": "Merchants, vendors, market layouts and event calendars change frequently. We have not certified the authenticity of goods, counted currently operating antique stores or ranked individual sellers. Festivals and trading days can alter traffic and lodging demand, while regular weekdays may be quiet. Use official market calendars, visitor organizations and current operator information before committing to an expensive trip. A town's appearance on this list is a recommendation for a style of outing, not a commercial endorsement.",
     "conclusion": "Choose Round Top when seasonal design and antiques events are the trip, Canton for broad-scale treasure hunting, Jefferson for history with shop browsing, and Salado or Brenham for a slower day. The strongest Texas antiquing itinerary is built around the kind of merchandise you actually enjoy, with plenty of time to explore the places that surround it.",
     "sources": [
-      [
-        "Travel Texas Trip Planning",
-        "https://www.traveltexas.com/"
-      ],
-      [
-        "Texas Historical Commission",
-        "https://thc.texas.gov/"
-      ]
+      {
+        "label": "Travel Texas Trip Planning",
+        "url": "https://www.traveltexas.com/"
+      },
+      {
+        "label": "Texas Historical Commission",
+        "url": "https://thc.texas.gov/"
+      }
     ],
     "picks": [
       {
@@ -195,18 +195,18 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
     "caveats": "This article does not give live road closures, precise route coordinates or verified current travel times. Scenic roads can be affected by construction, severe weather, wildfires, flooding, storms and seasonal access rules. Some iconic drives are inside fee-based parks, while others use public highways that pass private property. Legal roadside parking and safe stopping are essential. A beautiful photograph cannot establish that a viewpoint can be accessed safely today.",
     "conclusion": "For mountains choose the Davis Mountains; for borderland cliffs investigate FM 170 and Big Bend; for short varied loops pick Hill Country towns; for historical context take Route 66; for a coast day let harbors and birding stops set the pace. The best scenic drive is the one that fits the season, vehicle and number of hours you actually have.",
     "sources": [
-      [
-        "Texas Department of Transportation",
-        "https://www.txdot.gov/"
-      ],
-      [
-        "National Park Service Big Bend",
-        "https://www.nps.gov/bibe/index.htm"
-      ],
-      [
-        "Texas Parks and Wildlife",
-        "https://tpwd.texas.gov/state-parks/"
-      ]
+      {
+        "label": "Texas Department of Transportation",
+        "url": "https://www.txdot.gov/"
+      },
+      {
+        "label": "National Park Service Big Bend",
+        "url": "https://www.nps.gov/bibe/index.htm"
+      },
+      {
+        "label": "Texas Parks and Wildlife",
+        "url": "https://tpwd.texas.gov/state-parks/"
+      }
     ],
     "picks": [
       {
@@ -286,18 +286,18 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
     "caveats": "This guide is not a ranking by collections value, attendance, peer review or universal educational merit. Smaller local institutions can be more relevant to a particular traveler than a large city museum. TexasDefined's 80 museum-guide directory is a growing collection, not an assertion that only 80 museums exist statewide. A listing should not be interpreted as live confirmation of hours, ticket prices or a specific exhibition, and accessibility details must be verified for the exact building or outdoor program.",
     "conclusion": "Choose the Bullock for broad history, the Perot for a science-first family visit, the Witte for San Antonio regional context, the Pacific War museum for specialized history and the Museum of the Big Bend for West Texas understanding. Art lovers can focus on the Kimbell or MFAH. Make the museum the reason for the day and use nearby attractions to deepen, not dilute, the visit.",
     "sources": [
-      [
-        "Texas Historical Commission",
-        "https://thc.texas.gov/"
-      ],
-      [
-        "Bullock Texas State History Museum",
-        "https://www.thestoryoftexas.com/"
-      ],
-      [
-        "National Museum of the Pacific War",
-        "https://www.pacificwarmuseum.org/"
-      ]
+      {
+        "label": "Texas Historical Commission",
+        "url": "https://thc.texas.gov/"
+      },
+      {
+        "label": "Bullock Texas State History Museum",
+        "url": "https://www.thestoryoftexas.com/"
+      },
+      {
+        "label": "National Museum of the Pacific War",
+        "url": "https://www.pacificwarmuseum.org/"
+      }
     ],
     "picks": [
       {
@@ -377,18 +377,18 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
     "caveats": "This is not a live lodging or ticket inventory. Hotel availability, rates, temporary closures, wildfire or flood conditions, festivals and park capacity can change, sometimes quickly. The famous attraction at a destination may require timed entry even when the town itself is freely accessible. A selected destination is not automatically reachable as a short weekend from every Texas metro. Check local weather and official operators, and treat a remote Big Bend country itinerary as a longer trip when necessary.",
     "conclusion": "If the goal is a relaxed small-town stay, choose a nearby Hill Country or East Texas base. If the goal is culture, choose San Antonio, Fort Worth or Houston. If it is scenery, plan Palo Duro or a properly paced West Texas trip. The best Texas weekend is not the one that includes the most attractions; it is the one that leaves time to enjoy the reason you traveled.",
     "sources": [
-      [
-        "Travel Texas Official Visitor Guide",
-        "https://www.traveltexas.com/"
-      ],
-      [
-        "Texas Parks and Wildlife",
-        "https://tpwd.texas.gov/state-parks/"
-      ],
-      [
-        "National Park Service Big Bend",
-        "https://www.nps.gov/bibe/index.htm"
-      ]
+      {
+        "label": "Travel Texas Official Visitor Guide",
+        "url": "https://www.traveltexas.com/"
+      },
+      {
+        "label": "Texas Parks and Wildlife",
+        "url": "https://tpwd.texas.gov/state-parks/"
+      },
+      {
+        "label": "National Park Service Big Bend",
+        "url": "https://www.nps.gov/bibe/index.htm"
+      }
     ],
     "picks": [
       {
