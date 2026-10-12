@@ -1017,6 +1017,76 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     historyNotes:["Congress authorized Benbrook Dam under the River and Harbor Act in March 1945, when growing flood exposure and water needs in the Fort Worth area led to additional Trinity Basin storage.","The U.S. Army Corps of Engineers started construction May 27, 1947 and finished the main project in December 1950; deliberate reservoir impoundment began September 29, 1952. The TWDB makes these separate phases explicit, helping readers distinguish completion of the physical dam from water storage.","Benbrook's earthfill dam spans roughly 9,130 feet including the spillway and remains a Corps flood-management and water-conservation asset, not just a fishing destination. Recreation options depend on operational water levels and park-specific rules, which explains the changing launch landscape."],
   },
 
+  {
+    slug: "granger-lake", name: "Granger Lake", tpwdSlug: "granger", waterDataSlug: "granger", verifiedAt: "2026-10-12", region: "prairies-lakes",
+    summary: "A 4,009-acre Corps-managed San Gabriel River reservoir near Taylor with outstanding crappie and catfish, five independently named ramp/recreation sites, Corps camping, and documented zebra mussels.",
+    surfaceAcres: 4009, maxDepthFeet: 50, impoundedYear: 1980, counties: ["Williamson"], nearestCities: ["Granger", "Taylor", "Georgetown"],
+    waterway: "San Gabriel River and Willis Creek", riverBasin: "Brazos River Basin", authority: "U.S. Army Corps of Engineers",
+    conservationPool: "504 ft msl", fluctuation: "Moderate; subject to dam operations and flood conditions", clarity: "Turbid to moderately turbid",
+    identity: "Granger Lake is not primarily a largemouth-bass destination. TPWD rates crappie and catfish excellent and white bass good, while largemouth bass are poor. The former Laneport Lake flood-control project began impounding in January 1980, and the Corps manages four park areas plus a limited small-craft launch at San Gabriel Wildlife Management Area. The basin has zebra mussels; draining water and cleaning watercraft are required.",
+    habitat: [
+      "Flooded willows, stumps, downed timber, channel bends and laydowns dominate a shallow, cloudy reservoir, making structure more useful than generic open-water tactics.",
+      "In February and early spring, crappie move into shallow timber and creek arms near spawning temperatures. In summer seek main-lake humps, drops and artificial brush, ideally located with the TPWD Habitat Structure Viewer.",
+      "Spring white bass runs extend into the San Gabriel River and Willis Creek arm after sufficient inflow; do not promise predictable river runs without checking flows.",
+    ],
+    fish: [
+      fish("crappie", "Crappie", "excellent", "spring", "The signature fishery: TPWD reports large numbers of keeper-sized fish around flooded timber; small tube jigs and minnows are effective around cover.", ["jigs-and-minnows", "vertical-jigging"]),
+      fish("catfish", "Catfish", "excellent", "year-round", "Excellent blue, channel and flathead catfish fishing over river-channel cover, timber and snag areas; cut bait for blue/channel, live bait for flathead.", ["cut-bait", "live-bait"]),
+      fish("white-bass", "White bass", "good", "spring", "Spring tributary movements depend on inflows; in summer white bass chase bait in the main-lake open-water zones.", ["jigs-and-minnows", "trolling", "topwater"]),
+      fish("largemouth-bass", "Largemouth bass", "poor", "spring", "TPWD rates largemouth bass poor because they are less abundant; do not plan a bass-first trip here.", ["spinnerbaits", "soft-plastics"], "secondary"),
+    ],
+    access: "TPWD lists four Corps recreation areas (Willis Creek, Taylor, Wilson H. Fox and Friendship) and the San Gabriel WMA small-craft launch. The WMA's primitive single lane does NOT accommodate trailered boats. All Corps parks charge fees per TPWD; check active conditions with the USACE.",
+    accessPoints: [
+      { name:"Willis Creek",operator:"U.S. Army Corps of Engineers",kind:"park",launch:"At the mouth of Willis Creek on County Road 346, three-lane concrete ramp, picnic/day-use and TPWD-listed camping.",fee:"Corps entrance/launch fee required",availability:"TPWD lists year-round; confirm USACE (512) 859-2668 for ramp closures and campground bookings." },
+      { name:"San Gabriel Wildlife Management Area launch",operator:"U.S. Army Corps of Engineers",kind:"public-ramp",launch:"From SH 95 north to County Road 347, travel roughly one mile to WMA entrance; primitive single-lane launch for canoes and jon boats ONLY; no boat trailers.",fee:"TPWD lists no fee",availability:"TPWD lists year-round; no trailer ramp. Confirm WMA restrictions and river-level status before small-craft launch." },
+      { name:"Taylor Park",operator:"U.S. Army Corps of Engineers",kind:"park",launch:"South shore off FM 1331, four-lane concrete ramp. TPWD also indicates accessible facilities; verify the exact ADA route and access with the operator.",fee:"Corps entrance/launch fee required",availability:"TPWD lists year-round; check USACE (512) 859-2668 for current closure or fee notice." },
+      { name:"Wilson H. Fox Park",operator:"U.S. Army Corps of Engineers",kind:"park",launch:"South shore off FM 1331, separate six-lane and two-lane concrete ramps, courtesy dock and Corps-managed recreation.",fee:"Corps entrance/launch fee required",availability:"TPWD lists year-round; confirm actual availability and accessible launch features with USACE (512) 859-2668." },
+      { name:"Friendship Park",operator:"U.S. Army Corps of Engineers",kind:"park",launch:"North shore off FM 971, four-lane concrete ramp and picnic area.",fee:"Corps entrance/launch fee required",availability:"TPWD lists year-round; check USACE (512) 859-2668 for current park status." },
+    ],
+    camping: {name:"Willis Creek, Taylor Park, Wilson H. Fox Park and Friendship Park",summary:"TPWD reports Corps-managed lakeside campgrounds, restrooms and picnic areas around Granger Lake, with the facility chart identifying overnight facilities at Willis Creek and potentially other Corps parks. These are different from the small-craft-only San Gabriel WMA. Verify actual campsite inventory, seasonal operations, reservation availability and ADA amenities directly with USACE/official reservation provider."},
+    nearbyLakes:[{slug:"lake-georgetown",name:"Lake Georgetown"},{slug:"lake-austin",name:"Lake Austin"}],
+    travelAlerts:["TPWD confirms zebra mussels in Granger Lake. Clean, drain and dry boats, trailers, bait buckets and other gear; draining is legally required before leaving the lake.","The San Gabriel Wildlife Management Area primitive launch is for canoes/jon boats with NO trailers. Do not route large trailered craft to that entrance.","TPWD warns that San Gabriel River bank access on County Road 348 has a steep descent and narrow shoulder parking; assess mobility needs and traffic safety before parking."],
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/granger/index.asp",
+    historyNotes:[
+      "The lake was first planned under the name Laneport Lake. Congress authorized that flood-control project on September 3, 1954; construction did not begin until October 24, 1972. This distinction matters when interpreting references to the reservoir's '1950s origins.'",
+      "Deliberate storage began on January 21, 1980, and Corps construction was completed in February 1980. The earthfill dam and spillway are about 16,320 feet long. In addition to reducing lower San Gabriel/Brazos flooding, the lake provides public water supply and recreation.",
+      "TWDB's 2013 volumetric survey reported about 4,159 acres at the 504-foot conservation pool, differing from TPWD's conventional fishing profile figure of 4,009 acres. These are survey and reporting differences, not two separate lakes."
+    ],
+  },
+  {
+    slug: "aquilla-lake", name: "Aquilla Lake", tpwdSlug: "aquilla", waterDataSlug: "aquilla", verifiedAt: "2026-10-12", region: "prairies-lakes",
+    summary: "A 3,020-acre Corps reservoir near Hillsboro with two free official public boat ramps, a separate below-dam fishing pier, good crappie and catfish, timber habitat and no TPWD-listed lakeshore campground in the ramp inventory.",
+    surfaceAcres: 3020, maxDepthFeet: 59.5, impoundedYear: 1983, counties: ["Hill"], nearestCities: ["Hillsboro", "Whitney", "Waco"],
+    waterway: "Aquilla and Hackberry creeks, tributaries of the Brazos River", riverBasin: "Brazos River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "537.5 ft msl", fluctuation: "Typically 3–4 feet; flood operations and drought can alter ramp usability", clarity: "Stained",
+    identity: "Aquilla Lake is a relatively uncrowded Corps flood-control and water-supply reservoir where public recreation is deliberately limited: TPWD lists Dairy Hill and Old School boat ramps, a separate dam tailrace fishing pier, and NO listed overnight campground in those three public-access areas. Catfish and crappie are TPWD-rated good, largemouth and white bass fair. Official sources use different initial years—TPWD's profile says 1982 impounded, but the TWDB construction record precisely dates deliberate water storage to April 29, 1983. This guide uses the documented TWDB date and explains the difference.",
+    habitat:[
+      "Aquilla and Hackberry creek arms contain standing timber, brush and submerged fencerows, but much of the upper shallow water is not productive in every season.",
+      "TPWD has installed habitat structures at selected mapped points; anglers should use the official Habitat Structure Viewer and avoid navigating through timber at unsafe speed.",
+      "Look for crappie around isolated large trees and deep brush, catfish over shallow flats or river channels, and seasonal bass around shore cover rather than inventing a universally productive hotspot.",
+    ],
+    fish:[
+      fish("catfish","Catfish","good","year-round","TPWD rates blue and channel catfish good; drifting flats, fishing shallow brush or using cut bait near channels may be effective.",["cut-bait","live-bait"]),
+      fish("crappie","Crappie","good","spring","Look for submerged brush piles, isolated large trees and minnows or small jigs as fish move with temperature.",["jigs-and-minnows","vertical-jigging"]),
+      fish("largemouth-bass","Largemouth bass","fair","spring","TPWD rates the catch opportunity fair. Slow soft plastics and spinnerbaits around creek channels, fencerows and trees are lake-specific choices.",["soft-plastics","spinnerbaits","crankbaits"]),
+      fish("white-bass","White bass","fair","spring","White bass are a secondary fishery; trolling or small lures over windswept flats can work, but verify current reports.",["trolling","jigs-and-minnows"],"secondary"),
+      fish("sunfish","Sunfish","fair","summer","TPWD considers sunfish a secondary fishery here; shoreline fishing is more practical from permitted areas.",["jigs-and-minnows"],"secondary"),
+    ],
+    access:"TPWD's public access inventory lists two free year-round Corps boat ramps, Dairy Hill and Old School. The third listed facility, Tailrace, is BELOW the dam and offers a free fishing pier but explicitly NO boat ramp. A generic Google lake pin cannot substitute for the ramp entrance maps.",
+    accessPoints:[
+      {name:"Dairy Hill Ramp",operator:"U.S. Army Corps of Engineers",kind:"public-ramp",launch:"East shore south of Peoria near southeast end of FM 1947 bridge. Boat ramp suitable for different boat types; TPWD lists restrooms and parking.",fee:"TPWD lists NO fee",availability:"Historically year-round; contact USACE (254) 694-3189 about current lake/launch status."},
+      {name:"Old School Ramp",operator:"U.S. Army Corps of Engineers",kind:"public-ramp",launch:"West shore off FM 933 between Waco and Whitney. TPWD lists an all-boats ramp, restrooms and parking.",fee:"TPWD lists NO fee",availability:"Historically year-round; verify ramp clearance with USACE (254) 694-3189."},
+      {name:"Tailrace public fishing pier",operator:"U.S. Army Corps of Engineers",kind:"park",launch:"Below Aquilla Dam off Highway 310. Public fishing pier; TPWD explicitly states NO boat launch at this site.",fee:"TPWD lists NO fee",availability:"TPWD lists year-round shore access; water releases and Corps operations may change safety or access."}
+    ],
+    nearbyLakes:[{slug:"lake-whitney",name:"Lake Whitney"},{slug:"lake-waco",name:"Lake Waco"}],
+    travelAlerts:["Aquilla Tailrace is a fishing-pier area with NO boat ramp. Do not use tailrace directions when hauling a boat.","TPWD's access table does not list campgrounds at Dairy Hill, Old School or Tailrace. Don't assume on-site camping; use verified neighboring campground sources or ask USACE.","TPWD's listing says impounded in 1982 while the TWDB historical narrative dates the start of deliberate impoundment to April 29, 1983; the latter is used for chronology, not a fabricated reconciliation."],
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/aquilla/index.asp",
+    historyNotes:[
+      "Aquilla Dam and Lake were built on Aquilla and Hackberry creeks as part of a wider Brazos Basin flood-control and public-water supply program. The project remains federally owned and Corps-operated, with water rights involving the Brazos River Authority.",
+      "TWDB documents that construction started June 14, 1978; deliberate impoundment began April 29, 1983; and the dam was completed May 16, 1983. TPWD's traditional fishing summary gives 1982 as 'impounded,' a different high-level project designation. When reporting a precise first-storage date, the TWDB's historical account is more specific.",
+      "A 2014 TWDB reservoir survey measured about 3,084 surface acres at conservation pool, while TPWD's recreational-lake directory presents 3,020 acres. The changing acreage reflects measurement vintages and stage assumptions; neither should be confused with currently exposed shoreline area."
+    ],
+  },
+
 ];
 
 const techniqueLabels: Record<TechniqueId, string> = {
