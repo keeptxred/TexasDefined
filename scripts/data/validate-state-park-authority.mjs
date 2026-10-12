@@ -11,6 +11,7 @@ const authority = read("src/data/state-park-authority.ts");
 const headquarters = read("src/data/state-park-verified-locations.ts");
 const newOpenings = read("src/data/newly-opened-state-parks-2026.ts");
 const historicCanonical = read("src/data/canonical-historic-state-parks.ts");
+const hillCountry = read("src/data/hill-country-state-natural-area-authority.ts");
 const recovery = read("src/data/state-park-authority-recovery.ts");
 const planner = read("src/components/editorial/DestinationVisitPlanner.tsx");
 const essentials = read("src/components/editorial/StateParkVisitorEssentials.tsx");
@@ -49,6 +50,10 @@ for (const slug of ["goliad-state-park-and-historic-site", "hueco-tanks-state-pa
 }
 assertContains(preserved, "canonicalHistoricStateParkDestinations,", "Canonical historic parks missing from resilient Explore catalog");
 assertContains(curation, "applyCanonicalHistoricStatePark,", "Canonical historic research must override legacy short curation");
+assertContains(hillCountry, 'slug: "hill-country-state-natural-area"', "Missing Hill Country Natural Area visitor and campground authority page");
+assertContains(hillCountry, 'CC BY 4.0', "Hill Country exact-place hero license missing");
+assertContains(preserved, "[hillCountryStateNaturalAreaAuthority],", "Hill Country fallback must remain available when remote is down");
+assertContains(curation, "applyHillCountryStateNaturalAreaAuthority,", "TPWD campsite facts must override generic Hill Country copy");
 const required = [
   "fort-richardson-state-park-state-historic-site",
   "seminole-canyon-state-park-and-historic-site",
