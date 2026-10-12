@@ -9,7 +9,7 @@ export type HistoricChurch = {
   architecture: string[]; visitorNotes: string[]; significance: string[];
   sources: HistoricChurchSource[]; image?: HistoricChurchImage; gallery?: HistoricChurchImage[];
   imageStatus: "rights-cleared" | "awaiting-licensed-photos";
-  paintedStatus: "not-established" | "research-candidate";
+  paintedStatus: "not-established" | "research-candidate" | "related-historic";
   related: { href: string; label: string; why: string }[];
   reviewedOn: string;
 };
@@ -67,7 +67,7 @@ export const historicChurches: HistoricChurch[] = [
     historicalContext:[
       "German and Czech Catholic households worshiped in the Ross Prairie area before the parish acquired this Hostyn Hill site. The Texas Historical Commission records an earlier log church called St. Joseph, a move to Live Oak Hill, and the 1879 Immaculate Conception/St. Mary's building.",
       "A 1905 fire destroyed the prior church. The current building dates to 1906. The church is often described informally as 'Ellinger's St. Mary's,' but 'Hostyn Hill' is the more precise location label.",
-      "A 2015 Houstonia feature discusses the blue ceiling and ornate altar and includes the stop in Painted Churches tourism. That travel classification does not establish membership in the formal National Register decorative-interior multiple-property grouping."
+      "A 2015 Houstonia feature describes the gilded altar, religious statuary and plain blue ceiling, contrasting them with the elaborate frescoes at High Hill. The 1983 National Register Churches with Decorative Interior Painting group does not include this Hostyn Hill church, but the details documented by Houstonia make it a worthwhile companion stop on a regional heritage trip."
     ],
     timeline:[
       {year:"1850s",detail:"German and Czech families received visits from Catholic clergy in the Ross Prairie area."},
@@ -79,21 +79,21 @@ export const historicChurches: HistoricChurch[] = [
     ],
     architecture:[
       "The Texas Historical Commission identifies the 1906 church as Gothic-styled; an arched-windowed wooden exterior and pointed steeple appear in independent reporting.",
-      "Houstonia's account describes a blue ceiling and ornate altar. These features merit interpretation, but a sourced historic muralist, stenciling date and documented preservation status are still needed before formal Painted Church classification."
+      "Houstonia describes a richly gilded altar and colorful statues set against a comparatively simple azure ceiling. Rather than equating altar ornament with the extensive murals and stenciling of formally listed Painted Churches, this guide presents Hostyn Hill as a related historic stop worth seeing."
     ],
     visitorNotes:[
       "From Ellinger, the historical marker directions are northeast on FM 2503 for roughly two miles, then east on CR 250 for about half a mile. Independently verify road conditions and access before departure.",
       "The grounds and adjacent cemetery are part of a living religious site. Never imply unrestricted interior access.",
       "Nearby Ellinger and Fayette County heritage itineraries can be paired with the established Schulenburg-area Painted Churches route without describing this church as part of the verified core six."
     ],
-    significance:["Distinctive Ross Prairie/Hostyn Hill German-Czech parish history","A documented 1905 fire and 1906 rebuilding","An important borderline example explaining why Painted Churches tourism and verified decorative-interior classification differ"],
+    significance:["Distinctive Ross Prairie/Hostyn Hill German-Czech parish history","A documented 1905 fire and 1906 rebuilding","An excellent companion stop for Painted Churches visitors because of the gilded altar, religious statuary and blue ceiling, without implying a National Register decorative-interior designation"],
     sources:[
       {label:"Texas Historical Commission marker 5149004468",url:"https://atlas.thc.texas.gov/Details/5149004468",type:"historical-marker"},
       {label:"Houstonia: In Ellinger, the painted church you may have missed",url:"https://www.houstoniamag.com/travel-and-outdoors/2015/12/in-ellinger-the-painted-church-you-may-have-missed",type:"independent"}
     ],
     imageStatus:"awaiting-licensed-photos",
-    paintedStatus:"research-candidate",
-    related:[{href:"/explore/painted-churches",label:"Painted Churches of Texas",why:"Learn why churches with painted features require separate evidence for formal inclusion"},{href:"/explore/painted-churches/census",label:"Painted Churches master census",why:"Check the pending research record for Ellinger / Hostyn Hill"},{href:"/county/fayette",label:"Fayette County guide",why:"Plan Ellinger and Schulenburg heritage travel"}],
+    paintedStatus:"related-historic",
+    related:[{href:"/explore/painted-churches",label:"Painted Churches of Texas",why:"See Hostyn Hill as a complementary historic stop to the decorated church circuit"},{href:"/explore/painted-churches/census",label:"Painted Churches classification and related stops",why:"Understand the narrower National Register list and nearby heritage suggestions"},{href:"/county/fayette",label:"Fayette County guide",why:"Plan Ellinger and Schulenburg heritage travel"}],
     reviewedOn:"2026-10-12"
   },
   {
