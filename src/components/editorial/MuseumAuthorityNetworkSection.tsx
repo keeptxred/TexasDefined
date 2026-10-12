@@ -20,13 +20,22 @@ export default function MuseumAuthorityNetworkSection({ destination }: { destina
       || Boolean(dossier?.connections.some((link) => link.href === `/destination/${entry.slug}`)))
   ).slice(0, 5);
 
-  // Curated geographic links come before broad topical recommendations.
-  const related = dossier && neighboring.length === 0
-    ? museumAuthorityDirectory.filter((entry) => entry.slug !== destination.slug
-      && museumAuthorityDossiers[entry.slug]?.connections.some((link) =>
-        dossier.connections.some((own) => own.href === link.href)
-      )).slice(0, 3)
-    : neighboring;
+  // Peer-museum relationships are regenerated automatically from editorial topic
+  // tags, with specific shared subjects weighted above generic Texas history.
+  // Every new registered museum participates without per-page link maintenance.
+  const themed = dossier
+    ? museumAuthorityDirectory.filter((item) => item.slug !== destination.slug)
+      .map((item) => ({
+        item,
+        score: item.topics.filter((topic) => dossier.topics.includes(topic))
+          .reduce((sum, topic) => sum + (topic === "texas-history" ? 1 : 3), 0),
+      }))
+      .filter(({ score }) => score >= 1)
+      .sort((a, b) => b.score - a.score || a.item.name.localeCompare(b.item.name))
+      .slice(0, 5)
+      .map(({ item }) => item)
+    : [];
+  const related = [...new Map([...neighboring, ...themed].map((item) => [item.slug, item])).values()].slice(0, 5);
 
   // Return nothing on unrelated destination pages. No site-wide boilerplate.
   if (!dossier && !related.length) return null;
@@ -98,7 +107,7 @@ export default function MuseumAuthorityNetworkSection({ destination }: { destina
     </Section>}
     {related.length > 0 && <Section>
       <Container>
-        <SectionHeader eyebrow="Connected museum guides" title="Museums to explore nearby" description={`Museum guides relevant to ${destination.nearestTown} and its surrounding history. Tickets, hours and travel arrangements are separate at each institution.`} />
+        <SectionHeader eyebrow="Connected museum guides" title={dossier ? "Related museums across Texas" : "Museums to explore nearby"} description={dossier ? "More researched museum guides linked by subject or region. Each museum has its own admission, hours and visitor policies." : `Museum guides relevant to ${destination.nearestTown} and its surrounding history. Tickets, hours and travel arrangements are separate at each institution.`} />
         <ul className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {related.map((item) => <li key={item.slug} className="border-t border-border pt-4">
             <Link to="/destination/$slug" params={{ slug: item.slug }} className="font-display text-xl underline decoration-primary/30 underline-offset-4 hover:text-primary">{item.name}</Link>
