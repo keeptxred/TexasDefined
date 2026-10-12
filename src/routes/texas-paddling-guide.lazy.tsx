@@ -1,6 +1,7 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { stateParkHeroMap } from "@/data/state-park-hero-map";
 
 const officialSources = [
   { label: "Texas Parks & Wildlife — Texas Paddling Trails", href: "https://tpwd.texas.gov/boating/paddling-trails/", note: "Statewide official trail system, trail finder and regional planning entry point." },
@@ -90,6 +91,11 @@ function TexasPaddlingGuidePage() {
             <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas Paddling Guide</h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to five official paddling trails, with the launch, takeout, water-level, wind, private-property and current-condition questions to resolve before getting on the water.</p>
           </header>
+
+          <figure className="my-8 border-b border-border pb-8">
+            <img src={stateParkHeroMap["caddo-lake-state-park"].src} alt={stateParkHeroMap["caddo-lake-state-park"].alt} width={stateParkHeroMap["caddo-lake-state-park"].width} height={stateParkHeroMap["caddo-lake-state-park"].height} loading="lazy" decoding="async" className="h-auto w-full object-cover" />
+            <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">Caddo Lake State Park, an access landscape associated with East Texas paddling. Photograph shows the location, not today's navigability, water level, or river flow. Photo: {stateParkHeroMap["caddo-lake-state-park"].credit}. <Link to="/destination/caddo-lake-state-park" className="text-primary underline">Detailed Caddo Lake State Park visitor guide →</Link></figcaption>
+          </figure>
 
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
             <p className="eyebrow text-primary">Quick answer</p>
