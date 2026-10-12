@@ -4,6 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import type { CategorySlug } from "@/data/types";
+import { isPublicHighIntentGuideHref } from "@/data/fixtures/texas-high-intent-guide-links";
 
 const EvergreenNextSteps = lazy(() =>
   import("@/components/monetization/EvergreenNextSteps").then((module) => ({ default: module.EvergreenNextSteps })),
@@ -140,7 +141,7 @@ const HIGH_INTENT_TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
   ],
 };
 export function ExploreTopicPaths({ category }: { category: CategorySlug }) {
-  const links = [...(TOPIC_PATHS[category] ?? []), ...(HIGH_INTENT_TOPIC_PATHS[category] ?? [])];
+  const links = [...(TOPIC_PATHS[category] ?? []), ...(HIGH_INTENT_TOPIC_PATHS[category] ?? [])].filter((item) => isPublicHighIntentGuideHref(item.to));
   if (!links.length) return null;
 
   return (
