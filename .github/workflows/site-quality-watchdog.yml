@@ -9,6 +9,8 @@ on:
     paths:
       - '.github/workflows/site-quality-watchdog.yml'
       - 'scripts/data/run-site-quality-watch.mjs'
+      - 'scripts/ci/authority-evidence*.mjs'
+      - 'scripts/ci/audit-production-pages.mjs'
       - 'scripts/data/validate-*.mjs'
       - 'src/routes/**'
       - 'src/data/**'
@@ -23,6 +25,8 @@ on:
     paths:
       - '.github/workflows/site-quality-watchdog.yml'
       - 'scripts/data/run-site-quality-watch.mjs'
+      - 'scripts/ci/authority-evidence*.mjs'
+      - 'scripts/ci/audit-production-pages.mjs'
       - 'scripts/data/validate-*.mjs'
       - 'src/routes/**'
       - 'src/data/**'
