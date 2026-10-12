@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import enchantedRock from "@/assets/enchanted-rock.jpg";
 import { Container } from "@/components/layout/Container";
+import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
 
 const officialSources = [
   { label: "Texas Parks & Wildlife — Hueco Tanks State Park & Historic Site", href: "https://tpwd.texas.gov/state-parks/hueco-tanks", note: "Current park access, reservation, orientation, guided/self-guided area and climbing-tour information." },
@@ -91,6 +92,8 @@ function TexasClimbingGuidePage() {
             <h2 id="quick-answer" className="mt-2 font-display text-3xl">Texas climbing is a patchwork, not one rulebook</h2>
             <p className="mt-4 max-w-4xl text-base leading-8">For a public-land climbing trip, start with Hueco Tanks, Enchanted Rock, Lake Mineral Wells and Milton Reimers Ranch. The important distinction is access: Hueco Tanks uses tightly managed guided and self-guided areas; Enchanted Rock requires climber check-in and follows a climbing-management plan; Lake Mineral Wells requires registration before climbing or rappelling; and Reimers Ranch is managed by Travis County rather than TPWD. Always use the managing agency's current instructions for reservations, closures, maps and climbing rules.</p>
           </section>
+
+          <GuideVerifiedFacts guideSlug="texas-rock-climbing-bouldering-guide" />
 
           <section className="border-b border-border py-10" aria-labelledby="before-climbing">
             <p className="eyebrow text-primary">Before you climb</p>
