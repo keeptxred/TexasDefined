@@ -1,3 +1,4 @@
+import { hillCountryStateNaturalAreaAuthority } from "./hill-country-state-natural-area-authority";
 import { canonicalHistoricStateParkDestinations } from "./canonical-historic-state-parks";
 import { newlyOpenedStateParks2026 } from "./newly-opened-state-parks-2026";
 import { stateParkAuthorityRecoveryDestinations } from "./state-park-authority-recovery";
@@ -328,6 +329,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   stateParkAuthorityRecoveryDestinations,
   newlyOpenedStateParks2026,
   canonicalHistoricStateParkDestinations,
+  [hillCountryStateNaturalAreaAuthority],
   [shinerBreweryDestination],
   [shinerTownDestination],
   [newBraunfelsSeasonalFallback],
