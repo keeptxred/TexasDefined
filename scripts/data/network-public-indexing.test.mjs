@@ -14,7 +14,8 @@ test('Only independently published business profiles become indexable; all priva
  const source=route('network.business.$slug.tsx');
  assert.match(source,/NETWORK_DIRECTORY_ENABLED!==["']true["']\)return null/);
  assert.match(source,/\.eq\(["']is_published["'],\s*true\)/);
- assert.match(source,/return listing \? \{\.\.\.listing,indexable:process\.env\.NETWORK_ISOLATED_STAGING!=='true'\} : null/);
+ assert.match(source,/const visible=listing\?projectNetworkPublicProfile\(listing\):null/);
+ assert.match(source,/return visible \? \{\.\.\.visible,indexable:process\.env\.NETWORK_ISOLATED_STAGING!=='true'\} : null/);
  assert.match(source,/loaderData\?\.indexable \? ["']index,follow["'] : ["']noindex,nofollow,noarchive["']/);
  for(const path of ['network.apply.tsx','business.dashboard.tsx','network.billing.tsx','admin.network-applications.tsx']){
   assert.match(route(path),/noindex/i,path+' must never be indexed');
