@@ -32,11 +32,11 @@ const tiers = [
   },
   {
     name: "Texas Defined Featured",
-    price: "Custom",
-    frequency: "",
-    note: "Additional opportunities to tell your story and reach Texas visitors.",
-    features: ["Everything in Plus", "Expanded photo and content options", "Optional, clearly labeled sponsored placements", "Optional sponsored business stories", "Additional promotional opportunities", "Expanded performance insights"],
-    status: "Featured opportunities",
+    price: "$49.95",
+    frequency: "/ month",
+    note: "Proposed premium membership with reviewed updates and clearly labeled sponsored directory discovery.",
+    features: ["Everything in Plus", "Verified-owner updates with editorial approval", "Clearly labeled Featured placement in the Network directory", "Daily performance trends and contact-action breakdown", "Seven-day performance comparisons", "Optional sponsored stories and promotions quoted separately"],
+    status: "Proposed offer — pending final approval",
     featured: false,
   },
 ];

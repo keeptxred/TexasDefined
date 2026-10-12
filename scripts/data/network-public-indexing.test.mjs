@@ -40,3 +40,14 @@ test('canonical metadata never signals publication for staging or unlaunched Net
  const directory=route('network.directory.tsx');
  assert.match(directory,/links:loaderData\?\.indexable \? /);
 });
+
+test('Featured directory sponsorship is labeled and limited to editorially published profiles',()=>{
+ const routeSource=route('network.directory.tsx');
+ const ui=route('network.directory.lazy.tsx');
+ assert.match(routeSource,/\.eq\("is_published",true\)\.eq\("plan","featured"\)/);
+ assert.match(routeSource,/\.eq\("is_published", true\)/);
+ assert.match(routeSource,/const seen = new Set<string>\(\)/);
+ assert.match(ui,/right\.plan==='featured'/);
+ assert.match(ui,/profile\.plan==='featured'&&<p/);
+ assert.match(ui,/Sponsored · Featured listing/);
+});
