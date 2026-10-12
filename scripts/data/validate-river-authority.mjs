@@ -52,7 +52,7 @@ for(const item of records) {
    errors.push(item.slug+' needs at least two valid official evidence URLs');
  if (!Array.isArray(item.extraLinks)||item.extraLinks.length<3||item.extraLinks.some(x=>!x[0].startsWith('/')))
    errors.push(item.slug+' needs contextual internal links');
- if (!item.hero?.startsWith('/images/') || !item.heroAlt || item.heroAlt.length<25)
+ if (!(item.hero?.startsWith('/images/') || item.hero?.startsWith('https://upload.wikimedia.org/')) || !item.heroAlt || item.heroAlt.length<25 || !item.heroCredit)
    errors.push(item.slug+' missing correctly described local imagery');
  if (item.hero.includes('texas-river-basins') && !/illustrat|map|overview/i.test(item.heroAlt))
    errors.push(item.slug+' mislabels an illustrative basin image as field photography');
