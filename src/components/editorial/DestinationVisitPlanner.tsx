@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
 import { DestinationAuthoritySections } from "@/components/editorial/DestinationAuthoritySections";
 import { destinationEditorialLinks } from "@/data/destination-editorial-links";
-import { townAuthorityContextualLinks } from "@/data/town-authority-network";
+import { townAuthorityContextualLinks } from "@/data/town-authority-links";
 import type { Destination } from "@/data/types";
 
 type Props = { destination: Destination };
