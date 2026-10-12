@@ -21,9 +21,13 @@ for (const key of ["addVerifiedVisitorFacilities", "VERIFIED_VISITOR_FACILITIES"
 for (const slug of ["enchanted-rock-state-natural-area", "space-center-houston", "moody-gardens", "padre-island-national-seashore", "texas-state-aquarium", "hamilton-pool-preserve"]) {
   assert(facts.includes(`"${slug}": {`), `Sourced facilities profile missing: ${slug}`);
 }
-assert(facts.includes('"enchanted-rock-state-natural-area": {\\n    editorialFocus: ["parking", "restrooms", "map"]'), "The remote hiking destination needs arrival, restroom and trail map priorities.");
-assert(facts.includes('"texas-state-aquarium": {\\n    editorialFocus: ["map"]'), "The aquarium's public planning UI must prioritize exhibit navigation, not advertise bathrooms.");
-assert(facts.includes('"space-center-houston": {\\n    editorialFocus: ["parking"]'), "Space Center Houston should emphasize an arrival decision instead of a universal facilities checklist.");
+const preview = (slug) => {
+  const start = facts.indexOf(`"${slug}": {`);
+  return start < 0 ? "" : facts.slice(start, start + 250);
+};
+assert(preview("enchanted-rock-state-natural-area").includes('editorialFocus: ["parking", "restrooms", "map"]'), "Backcountry visitor priorities should include access, facilities and trail map.");
+assert(preview("texas-state-aquarium").includes('editorialFocus: ["map"]'), "Aquarium visitor copy must focus on exhibit navigation rather than advertising bathrooms.");
+assert(preview("space-center-houston").includes('editorialFocus: ["parking"]'), "Space Center Houston highlights a meaningful arrival decision rather than a generic checklist.");
 for (const key of ["auditAttractionAuthority", "auditAttractionAuthorityCatalog", "selectedTopics.has(\"parking\")", "selectedTopics.has(\"restrooms\")", "selectedTopics.has(\"map\")", "isExhibitionVenue", "image-license-unverified", "revisit-overdue", "attractionReviewCadenceDays"]) {
   assert(audit.includes(key), `Missing context-sensitive authority audit rule: ${key}`);
 }
