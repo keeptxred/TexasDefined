@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import bigBend from "@/assets/big-bend.jpg";
 import { Container } from "@/components/layout/Container";
+import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
 
 const officialSources = [
   {
@@ -129,6 +130,8 @@ function TexasOhvGuidePage() {
               <p>Texas law also requires a current OHV decal at applicable legal venues on public lands or venues that receive Texas OHV Program grant funding. Decal requirements do not create access where riding is otherwise prohibited; they are one part of legal use at an eligible venue.</p>
             </div>
           </section>
+
+          <GuideVerifiedFacts guideSlug="texas-ohv-guide" />
 
           <section className="border-b border-border py-10" aria-labelledby="state-parks">
             <p className="eyebrow text-primary">A common mistake</p>
