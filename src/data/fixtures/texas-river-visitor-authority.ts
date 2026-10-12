@@ -252,7 +252,7 @@ const DETAILS: Record<string, RiverDetail> = {
     ],
     "swim": "Do not assume safe swimming in reservoirs, swamps or the brackish river mouth. Use designated water areas and check warnings and wildlife notices.",
     "trip": "Choose either a Lake Tawakoni-area lake weekend, a Toledo Bend fishing and state-park stay, or an Orange-area lower-river heritage excursion. Treat these as separate destinations, not one short drive.",
-    "culture": "The Sabine ties East Texas logging, energy, freshwater supply, international-style state-boundary geography and coastal wetlands together, including extensive two-state water management at Toledo Bend.",
+    "culture": "The Sabine ties East Texas logging, energy, freshwater supply, state-boundary and coastal geography and coastal wetlands together, including extensive two-state water management at Toledo Bend.",
     "extra": "Two-state travel and fishing requirements can differ; never assume a Texas license or property access right settles Louisiana-side requirements."
   },
   "pecos": {
@@ -370,6 +370,9 @@ function riverAuthoritySections(slug: string): ArticleBlock[] {
   return [
     h("Plan your visit: which stretch of this river?"),
     p(detail.position),
+    ...(river.imageAlt.toLowerCase().includes("representative") || river.imageAlt.toLowerCase().includes("not the") || river.imageAlt.toLowerCase().includes("watershed") ? [
+      p(`Photo context: ${river.imageAlt}. This image is regional watershed context, not documentary evidence of the appearance of the named river's main channel.`)
+    ] : []),
     p("This guide separates the watershed, the actual free-flowing river, nearby reservoirs, tributaries and official recreation areas. Being near the same named river does not guarantee the same access, swimming conditions, fishing rules or services. Check the specific reach before choosing lodging or a float."),
     h("Fishing: target water, habitat and regulations"),
     list(detail.fish),
@@ -416,6 +419,11 @@ function riverAuthorityLinks(slug: string): ArticleInternalLink[] {
   }));
   return [
     riverLink("texas-rivers-explained", "Texas river systems compared"),
+    ...river.destinations.map((slug) => ({
+      href: `/destination/${slug}`,
+      label: slug.replace(/(^|-)([a-z])/g, (_match, _dash: string, letter: string) => ` ${letter.toUpperCase()}`).trim(),
+      description: "Related existing park, lake or visitor destination in this river corridor or watershed; check its exact location and entry rules.",
+    })),
     {href:"/explore/lakes-rivers",label:"Explore Texas lakes and rivers",description:"Statewide water and recreation collections."},
     ...neighbors, ...countyLinks,
     {href:BASIN_SOURCES[river.basin],label:"TWDB official basin profile",description:"Water geography and basin management context."},
