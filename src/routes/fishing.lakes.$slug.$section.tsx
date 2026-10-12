@@ -42,6 +42,10 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Fishing guide unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
+    // Do not index thin report/guide sections until real dated reports or verified guides are present.
+    const unfilledSection = (loaderData.section === "reports" && loaderData.reports.length === 0)
+      || (loaderData.section === "guides" && !loaderData.guides.some((guide) => guide.verifiedListing));
+    const robots = unfilledSection ? "noindex, follow" : undefined;
     if (loaderData.kind === "conroe") {
       const { section, pageData } = loaderData;
       const page = pageData.sections.find((item) => item.slug === section);
@@ -51,7 +55,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
       const overviewUrl = `${siteUrl}${lakeConroeCanonicalPath()}`;
       const webPageSchema = { "@type": "WebPage", "@id": url, url, name: page.title, description: page.description, isPartOf: { "@id": `${siteUrl}/#website` }, about: { "@id": `${overviewUrl}#reservoir` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: pageData.verifiedAt, citation: sectionCitations(section, pageData.sources) };
       const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: siteUrl }, { "@type": "ListItem", position: 2, name: "Fishing", item: `${siteUrl}/fishing` }, { "@type": "ListItem", position: 3, name: pageData.overview.name, item: overviewUrl }, { "@type": "ListItem", position: 4, name: page.label, item: url }] };
-      return { meta: buildMeta(texasDefinedBrand, { title: page.title, description: page.description, canonicalPath }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, breadcrumbSchema] }) }] };
+      return { meta: buildMeta(texasDefinedBrand, { title: page.title, description: page.description, canonicalPath, robots }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, breadcrumbSchema] }) }] };
     }
     const { section, pageData } = loaderData;
     const page = pageData.sections.find((item) => item.slug === section);
@@ -61,7 +65,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
     const overviewUrl = `${siteUrl}${showcaseLakeCanonicalPath(pageData.slug)}`;
     const webPageSchema = { "@type": "WebPage", "@id": url, url, name: page.title, description: page.description, isPartOf: { "@id": `${siteUrl}/#website` }, about: { "@id": `${overviewUrl}#reservoir` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: pageData.verifiedAt, citation: showcaseSectionCitations(section, pageData.sources) };
     const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: siteUrl }, { "@type": "ListItem", position: 2, name: "Fishing", item: `${siteUrl}/fishing` }, { "@type": "ListItem", position: 3, name: pageData.overview.name, item: overviewUrl }, { "@type": "ListItem", position: 4, name: page.label, item: url }] };
-    return { meta: buildMeta(texasDefinedBrand, { title: page.title, description: page.description, canonicalPath }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, breadcrumbSchema] }) }] };
+    return { meta: buildMeta(texasDefinedBrand, { title: page.title, description: page.description, canonicalPath, robots }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, breadcrumbSchema] }) }] };
   },
   notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">Lake fishing guide</p><h1 className="mt-3 font-display text-4xl">This fishing section is not available</h1><p className="mt-4 max-w-xl text-base leading-7 text-muted-foreground">Return to the <Link to="/fishing" className="border-b border-primary text-primary">Texas fishing guide</Link>.</p></Container>,
   component: FishingLakeSectionRoute,
