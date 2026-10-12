@@ -96,8 +96,8 @@ test('mocked Checkout creates a bounded, owner-reserved session with a unique at
    outgoing={url,options};
    return {ok:true,status:200,json:async()=>({
      object:'checkout.session',livemode:true,mode:'subscription',status:'open',
-     client_reference_id:'11111111-1111-4111-8111-111111111111',metadata:{application_id:'11111111-1111-4111-8111-111111111111'},
-     customer_email:'test@example.invalid',
+     client_reference_id:'11111111-1111-4111-8111-111111111111',metadata:{application_id:'11111111-1111-4111-8111-111111111111',billing_account_id:'33333333-3333-4333-8333-333333333333'},
+     customer:'cus_mockedSharedBilling',
      id:'cs_live_mocked_for_unit_test',
      url:'https://checkout.stripe.com/c/pay/cs_live_mocked_for_unit_test',
      expires_at:Math.floor(Date.now()/1000)+1800,
@@ -106,12 +106,14 @@ test('mocked Checkout creates a bounded, owner-reserved session with a unique at
  try {
    const appId='11111111-1111-4111-8111-111111111111';
    const attempt='22222222-2222-4222-8222-222222222222';
-   const result=await createNetworkCheckoutSession(appId,'test@example.invalid',attempt);
+   const result=await createNetworkCheckoutSession(appId,attempt,'cus_mockedSharedBilling','33333333-3333-4333-8333-333333333333');
    assert.equal(result.sessionId,'cs_live_mocked_for_unit_test');
    assert.equal(outgoing.url,'https://api.stripe.com/v1/checkout/sessions');
    assert.equal(outgoing.options.headers['Idempotency-Key'],'network-plus-'+appId+'-'+attempt);
    const body=new URLSearchParams(outgoing.options.body);
    assert.equal(body.get('subscription_data[metadata][application_id]'),appId);
+   assert.equal(body.get('subscription_data[metadata][billing_account_id]'),'33333333-3333-4333-8333-333333333333');
+   assert.equal(body.get('customer'),'cus_mockedSharedBilling');
    assert.equal(body.get('line_items[0][price]'),'price_1UP28XLtRurj6GMNwFlYDW6N');
    assert.ok(body.get('success_url').includes('/network/checkout-return?'));
  } finally {
@@ -123,7 +125,7 @@ test('mocked Checkout creates a bounded, owner-reserved session with a unique at
 test('Checkout cannot create a session without explicit live authorization',async()=>{
  delete process.env.NETWORK_CHECKOUT_ENABLED;
  await assert.rejects(
-  createNetworkCheckoutSession('11111111-1111-4111-8111-111111111111','test@example.invalid','22222222-2222-4222-8222-222222222222'),
+  createNetworkCheckoutSession('11111111-1111-4111-8111-111111111111','22222222-2222-4222-8222-222222222222','cus_mockedSharedBilling','33333333-3333-4333-8333-333333333333'),
   /not activated/
  );
 });
@@ -132,7 +134,7 @@ test('Stripe Plus subscription verifier rejects extra items and cross-plan price
  const item={price:{id:'price_1UP28XLtRurj6GMNwFlYDW6N'},quantity:1};
  const valid={
   livemode:true,id:'sub_mocked_example',customer:'cus_mocked_example',
-  metadata:{application_id:'11111111-1111-4111-8111-111111111111',project:'TexasDefined'},
+  metadata:{application_id:'11111111-1111-4111-8111-111111111111',billing_account_id:'33333333-3333-4333-8333-333333333333',project:'TexasDefined'},
   items:{data:[item]}
  };
  assert.equal(isExpectedNetworkPlusSubscription(valid),true);
@@ -189,7 +191,7 @@ test('Checkout rejects mocked Stripe transport failures, expired sessions, and f
  const attempt='22222222-2222-4222-8222-222222222222';
  const goodResponse=()=>({
   object:'checkout.session',livemode:true,mode:'subscription',status:'open',
-  client_reference_id:application,metadata:{application_id:application},customer_email:'owner@example.invalid',
+  client_reference_id:application,metadata:{application_id:application,billing_account_id:'33333333-3333-4333-8333-333333333333'},customer:'cus_mockedSharedBilling',
   id:'cs_live_mocked_for_unit_test',
   url:'https://checkout.stripe.com/c/pay/cs_live_mocked_for_unit_test',
   expires_at:Math.floor(Date.now()/1000)+1800,
@@ -203,8 +205,9 @@ test('Checkout rejects mocked Stripe transport failures, expired sessions, and f
   {name:'test-mode Checkout ID',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),id:'cs_test_mocked'})}),message:/Checkout session unavailable/},
   {name:'missing Stripe session ID',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),id:undefined})}),message:/Checkout session unavailable/},
   {name:'foreign application reference',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),client_reference_id:'33333333-3333-4333-8333-333333333333'})}),message:/Checkout session unavailable/},
-  {name:'foreign application metadata',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),metadata:{application_id:'33333333-3333-4333-8333-333333333333'}})}),message:/Checkout session unavailable/},
-  {name:'different customer email',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),customer_email:'another-owner@example.invalid'})}),message:/Checkout session unavailable/},
+  {name:'foreign application metadata',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),metadata:{application_id:'44444444-4444-4444-8444-444444444444',billing_account_id:'33333333-3333-4333-8333-333333333333'}})}),message:/Checkout session unavailable/},
+  {name:'foreign billing account metadata',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),metadata:{application_id:application,billing_account_id:'44444444-4444-4444-8444-444444444444'}})}),message:/Checkout session unavailable/},
+  {name:'different Stripe customer',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),customer:'cus_otherBusiness'})}),message:/Checkout session unavailable/},
   {name:'Checkout in test mode despite live-looking id',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),livemode:false})}),message:/Checkout session unavailable/},
   {name:'payment-only Checkout rather than subscription',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),mode:'payment'})}),message:/Checkout session unavailable/},
   {name:'already-completed Checkout session',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),status:'complete'})}),message:/Checkout session unavailable/},
@@ -214,7 +217,7 @@ test('Checkout rejects mocked Stripe transport failures, expired sessions, and f
  try{
   for(const scenario of scenarios){
    globalThis.fetch=scenario.stub;
-   await assert.rejects(createNetworkCheckoutSession(application,'owner@example.invalid',attempt),scenario.message,scenario.name);
+   await assert.rejects(createNetworkCheckoutSession(application,attempt,'cus_mockedSharedBilling','33333333-3333-4333-8333-333333333333'),scenario.message,scenario.name);
   }
  }finally{
   globalThis.fetch=originalFetch;
@@ -235,7 +238,7 @@ test('distinct failed Checkout reservations use distinct Stripe idempotency keys
   keys.push(opts.headers['Idempotency-Key']);
   return {ok:true,status:200,json:async()=>({
    object:'checkout.session',livemode:true,mode:'subscription',status:'open',
-   client_reference_id:'11111111-1111-4111-8111-111111111111',metadata:{application_id:'11111111-1111-4111-8111-111111111111'},customer_email:'owner@example.invalid',
+   client_reference_id:'11111111-1111-4111-8111-111111111111',metadata:{application_id:'11111111-1111-4111-8111-111111111111',billing_account_id:'44444444-4444-4444-8444-444444444444'},customer:'cus_mockedSharedBilling',
    id:'cs_live_mocked_for_unit_test',
    url:'https://checkout.stripe.com/c/pay/cs_live_mocked_for_unit_test',
    expires_at:Math.floor(Date.now()/1000)+1800,
@@ -245,8 +248,8 @@ test('distinct failed Checkout reservations use distinct Stripe idempotency keys
   const app='11111111-1111-4111-8111-111111111111';
   const first='22222222-2222-4222-8222-222222222222';
   const second='33333333-3333-4333-8333-333333333333';
-  await createNetworkCheckoutSession(app,'owner@example.invalid',first);
-  await createNetworkCheckoutSession(app,'owner@example.invalid',second);
+  await createNetworkCheckoutSession(app,first,'cus_mockedSharedBilling','44444444-4444-4444-8444-444444444444');
+  await createNetworkCheckoutSession(app,second,'cus_mockedSharedBilling','44444444-4444-4444-8444-444444444444');
   assert.deepEqual(keys,['network-plus-'+app+'-'+first,'network-plus-'+app+'-'+second]);
  }finally{
   globalThis.fetch=oldFetch;

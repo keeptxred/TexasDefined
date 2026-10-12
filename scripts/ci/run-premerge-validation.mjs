@@ -58,6 +58,7 @@ const prebuildChecks = [
   ['NETWORK/MEDIA', 'Test immutable approved public-image copies and safe same-byte replay', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-published-media.test.mjs']],
   ['NETWORK/MEDIA', 'Reject foreign, malicious and unbounded draft image references before signing', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-revision-media.test.mjs']],
   ['NETWORK/MEDIA', 'Verify draft DELETE no-op, cleanup postconditions and owner identity state hygiene', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-owner-draft-cleanup.test.mjs']],
+  ['BILLING/SHARED', 'Validate unified TexasDefined customer and invoice architecture', 'node', ['scripts/data/validate-shared-billing.mjs']],
   ['NETWORK/BILLING', 'Verify case-insensitive but exact confirmed owner billing email and bindings', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-owner-email.test.mjs']],
   ['NETWORK/BILLING', 'Verify small actual-byte bound on Checkout and billing JSON', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-billing-json.test.mjs']],
   ['NETWORK/BILLING', 'Test Stripe webhook authentication and checkout launch gate', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-stripe-security.test.mjs']],
