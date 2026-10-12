@@ -30,11 +30,23 @@ The application route verifies signed-in owner, exact assigned business, active 
 
 ## Proposed paid Featured packaging (unmerged draft, not authorized for production)
 
-Provisional commercial presentation is **$49.95/month**, not $79.95, pending sole-owner approval, taxes, refunds, billing and end-to-end delivery. Draft Network join copy now includes a real sponsored directory slot: only separately editorially published `plan='featured'` rows appear there, and they are clearly labeled “Sponsored · Featured listing.” Featured sorting happens only after search matching; the directory still discloses that payments never buy favorable independent editorial reviews or search-engine rankings. This source is **not a verified customer entitlement** until provider/staging tests complete.
+Provisional **Featured** presentation is **$49.95/month**, with a separate proposed **Website** tier at **$79.95/month**; both await sole-owner approval, taxes, refunds, billing and end-to-end delivery. Draft Network join copy now includes a real sponsored directory slot: only separately editorially published `plan='featured'` rows appear there, and they are clearly labeled “Sponsored · Featured listing.” Featured sorting happens only after search matching; the directory still discloses that payments never buy favorable independent editorial reviews or search-engine rankings. This source is **not a verified customer entitlement** until provider/staging tests complete.
 
 Featured’s currently working draft differentiators are private, reviewed owner revisions, additional trend reports and sponsored directory placement; custom sponsored stories and other promotions are separate negotiated services. **Do not promise a larger gallery yet:** public profile projection and approved revisions still cap displayed gallery at six photos. The self-service subscription Checkout remains **Plus-only**; $49.95 Featured Checkout, actual Stripe price, safe invoice/subscription ownership/downgrade handling and separate owner-plan acceptance remain unfinished. That is an explicit blocker to releasing the presented $49.95 offer.
 
 
 ## Hosted business presence — distinct from standalone website service
 
-Owner identified Texas businesses **without their own website** as a key audience. The complete customer acceptance suite must verify published Basic/Plus/Featured pages are shareable, responsive, accessible, editorially controlled, and indexable only when approved. Any public offer should say hosting is included **for the TexasDefined page**, not claim a free separate website, domain, email, site builder or store. $79.95/month managed website service is a potential expanded tier, not a presently built or accepted entitlement. Pricing still requires explicit commercial approval.
+Owner identified Texas businesses **without their own website** as a key audience. The complete customer acceptance suite must verify published Basic/Plus/Featured pages are shareable, responsive, accessible, editorially controlled, and indexable only when approved. Any public offer should say hosting is included **for the TexasDefined page**, not claim a free separate website, domain, email, site builder or store. $79.95/month is now a distinct **proposed Website tier**, not a presently built or accepted entitlement. It requires separate multi-page publication, quota enforcement, billing and acceptance. Pricing still requires explicit commercial approval.
+
+
+## Fourth tier additional acceptance: Website $79.95/month — pending full implementation
+
+| Website deliverable | Evidence before a single Network production launch | Acceptance |
+| --- | --- | --- |
+| Real hosted five-page microsite | One approved site with Home/About/Services/Gallery/Contact or fewer if appropriate, independent pages and responsive navigation; owned by verified business, editorially approved, separate website page data and accurate metadata | **Not yet implemented/tested** |
+| Bounded managed setup and content edits | One assembled design, up to 12 uploaded photos, two reviewed update requests/billing month, hard DB/API/media controls and cancellation/portability workflow | **Not yet implemented/tested** |
+| Accurate $79.95 recurring paid entitlement | Independent live/test product, signed webhook + shared billing identity checks, upgrades/downgrades/revocation and billing portal including two separate owners | **Not yet implemented/tested** |
+| Website landing/public claims | No custom domain/email/store/booking/unlimited support implied, no hosting surcharge for the TexasDefined site, unique SEO URLs and staging noindex | **Copy draft only** |
+
+**Additional fail-closed release condition:** `hostedWebsiteDelivered` must be independently evidenced in the unified source launch gate alongside the original fourteen categories, rather than treating `planBenefitsDelivered` as a substitute. The older plan rows remain applicable. Full requirements: `FOUR_TIER_HOSTED_WEBSITE_LAUNCH_CONTRACT_2026-10-11.md`.
