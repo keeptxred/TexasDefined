@@ -1,0 +1,30 @@
+# TexasDefined authority-guide standard — effective 2026-10-12
+
+**Owner requirement:** Every new TexasDefined long-form visitor guide or "Best" comparison must be a useful, evidence-based reference, not a listicle. Existing guides are not exempt from upgrade when edited, and thin content must never be promoted merely to satisfy a publishing quota. Good editorial quality cannot be demonstrated by length alone.
+
+## Non-negotiable editorial package
+
+1. **Real-world utility.** Clearly answer who each option fits and who it does not; include travel logistics, current access and booking rules, seasonality, costs where reliable, amenities, mobility and other practical decision factors relevant to the topic. Do not publish invented rankings or scores. Explain selection criteria and disclose limitations.
+2. **Primary-source evidence.** At least three visible, independently source-linked practical facts with precise units and an explicit *checked on* date, with links to the controlling authority. Preserve as-of periods for changing rates, enrollment, fees, hours, water levels, rule changes and attendance counts. Never manufacture numbers to meet a quota. For facts not verifiable, omit or say unverified.
+3. **Full depth.** For the current 10 comparison guides, compare at least ten different options, each with individual planning analysis. Minimum words are a **floor**, not proof of authority; require on-topic sourcing and useful distinctions for every option. Add history, context, accessibility, safety, trip plans, routes, parking, contacts, maps, campgrounds, fishing methods or collections when relevant.
+4. **Rights-controlled imagery.** One exact-subject lead image and at least two useful supporting images; suitable real photography is preferred. Sitewide photo sourcing rules in `docs/free-image-sourcing.md` and `docs/site-image-governance.md` remain binding. For each media asset retain original creator, license with a valid license URL, exact image record or governed local registry, truthful location description, meaningful alt text, image dimensions, and captions. Do not claim unverified stock or AI imagery is a real documentary photo. A Commons asset is not free merely because it is searchable there; verify its file-level terms.
+5. **Two-way contextual links.** The new guide links back to matching destination, county, topic, guide and collection records; category pages and relevant existing destination pages link to the guide where helpful. Do not create indiscriminate global footers, fake entity pages or broken URLs just to inflate link counts. Only link from a destination when its subject actually matches the recommendation.
+6. **Visible accountability.** Author/editor, published and verified dates, method, facts/figures with sources, image provenance, stable canonical URL, source bibliography, and reason to trust the guidance. Prefer downloadable original comparison data and location maps when research supports them. No unsubstantiated claims of being "the best website".
+7. **Maintenance.** Verify water safety, tubing flow, fishing regulations, park alerts, museum operating details, markets, lodging, rates, campsites and road closures immediately before a visit using the official managers. Set a topic-appropriate editorial review frequency: river/weather conditions on every visit; campsite inventories and market schedules before seasonal promotion; stable history annually or when corrected.
+8. **Release acceptance.** The page must pass source/links/image rights checks, responsive and accessibility inspection, schema/canonical review, indexability/sitemap validation, no-broken-links scan, and production smoke tests. Never confuse passing static CI with complete factual verification.
+
+## Code gates
+
+- `src/data/fixtures/texas-high-intent-guide-factory.ts` enforces ten distinct options, three dated primary-source reference facts, three licensed/governed images, and at least three linked destinations for this high-intent template.
+- `src/data/fixtures/texas-high-intent-authority-evidence.ts` is the editable research ledger for facts, references, photo rights and place relationships. The shared renderer shows provenance, instead of hiding sources in developer metadata.
+- `src/data/fixtures/texas-gateway-index-readiness.ts` requires substantive authority fields for new TexasDefined guides and "Best" articles dated October 12, 2026 or later; incomplete candidates fail the normal public index/discovery readiness boundary. This does not prove factual accuracy by itself.
+- `scripts/data/validate-high-intent-authority-standard.mjs` is included in the canonical premerge validation. Extend its registry and corresponding source records whenever a guide is added.
+- `src/components/editorial/ExploreTopicPaths.tsx` and `src/routes/destination.$slug.tsx` provide inbound category/destination discovery to the relevant guides. Destination relations must use existing source-backed records.
+
+## Known acceptance gaps for the first 10-guide implementation
+
+- Some prior generic draft artwork has been replaced with governed local photography or Commons images, but external Commons delivery and image-origin cross-checks still need production testing. The park-image registry contains license credits but not always the exact Commons file URL; improve its provenance before treating it as a gold-standard reusable dataset.
+- Published facts in the first research wave come from official TPWD, NPS, museums or event organizers. These are not live availability feeds and should never be treated as such.
+- Additional destination-by-destination source validation, accurate travel and accessibility comparisons, map/route QA, image-render checks and owner/editorial judgment are required before the ten guides can be declared best-in-class.
+
+**Do not merge the draft PR solely because a build passes.** The above editorial conditions are release requirements, not optional enhancement ideas.
