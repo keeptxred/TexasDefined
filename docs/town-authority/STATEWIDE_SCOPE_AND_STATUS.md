@@ -4,8 +4,8 @@
 
 ## Production-state inventory
 
-- 15 existing small-town destination waves contain **60 records, 57 distinct towns**; three later duplicates (Jefferson, Wimberley and Marfa) must not replace their deeper master records.
-- Town authority wave 16 adds **Marble Falls and Port Aransas**, bringing checked-in researched town destinations to **59 unique town guides**.
+- 15 original small-town destination waves contain **60 records, 57 distinct towns**; three later duplicates (Jefferson, Wimberley and Marfa) must not replace their deeper master records.
+- Town authority wave 16 adds **Marble Falls and Port Aransas**. Town wave 17 adds **Round Top, Canton and Taylor**, bringing the current checked-in researched roster to **62 distinct town guides**.
 - Gruene is covered as **Gruene Historic District** in New Braunfels, not an invented separately incorporated town.
 - 11 major cities have `src/data/city-authority-profiles.ts` research profiles.
 - The existing `TEXAS_CITIES` civic reference directory contains 57 records; 46 are **not yet independently certified** at the comprehensive city-authority depth. A generic city reference page is not equivalent to a researched destination authority guide.
@@ -18,7 +18,7 @@
 2. The shared destination template visibly publishes existing on-page research: meaningful history and local context, practical accessibility and parking where relevant, suggested time budgets, sources, itinerary alternatives, food/lodging areas, nearby attractions, appropriately licensed image attribution.
 3. Town, city, county and attraction templates derive relevant reciprocal links from source-backed place identity, actual county and proximity, instead of inserting all towns into every page.
 4. The statewide validator discovers **every** `small-town-destinations-wave*.ts` file and fails CI if its pages lack required authority data or if the wave is omitted from the canonical town network/Explore catalog.
-5. Existing checked-in town pages are recorded in the permanent `td_authority_verification_registry` with primary visitor-source URLs in `td_authority_verification_sources`. Existing cadences stay unchanged. Newly missing registry entries have 30-day windows for dynamic water/coast conditions or 90-day windows for slower-changing town profiles. Registry enrollment does **not** count as completing editorial verification.
+5. All 62 checked-in town pages are recorded in the permanent `td_authority_verification_registry` with primary visitor-source URLs in `td_authority_verification_sources`. Existing cadences stay unchanged. Newly missing registry entries have 30-day windows for dynamic water/coast conditions or 90-day windows for slower-changing town profiles. Registry enrollment does **not** count as completing editorial verification.
 6. `scripts/data/audit-statewide-texas-towns.mjs` compares the Census incorporated roster with actual researched town/city coverage, keeping exact Census GEOIDs and geographic coordinates. A scheduled workflow exports gaps. **Missing-place records are research targets, not publishable placeholder pages.**
 
 ## Definition of completed authority guide
