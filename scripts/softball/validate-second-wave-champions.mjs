@@ -42,6 +42,18 @@ for (const p of book.programs) {
     facts++;
   }
 }
+const draft=readFileSync(resolve(root,'docs/softball/research/SECOND_WAVE_EDITORIAL_DRAFTS_2026-10-12.md'),'utf8');
+assert.ok(draft.length>=7000,'Five distinct researched original stories, not short name-and-district stubs');
+assert.ok(draft.includes('Publication is still prohibited'),'Editorial chapters must be research-only');
+for(const p of book.programs){
+  const lead=p.uilName === 'Santa Gertrudis Acad'?'Santa Gertrudis Academy':p.uilName;
+  assert.ok(draft.includes('## '+lead),'Every champion must have a dedicated original editorial chapter');
+  assert.ok(draft.includes(p.uilTeamSheet2026.url),'Every researched chapter needs its original UIL season sheet');
+  assert.ok(draft.includes(p.originalSchoolSource),'Every research chapter must cite a school-owned website');
+}
+assert.ok(draft.includes('Jonesboro, Arkansas'),'Do not confuse Texas Jonesboro with Arkansas');
+assert.ok(draft.includes('Liberty-Eylau ISD'),'Do not confuse Liberty ISD with Texarkana school');
+
 assert.deepEqual([...seen].sort(),[...wanted].sort());
 const by=(name)=>book.programs.find(x=>x.uilName===name);
 assert.equal(by('Jonesboro').alignment.conference,'2A');
