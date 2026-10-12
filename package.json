@@ -37,7 +37,7 @@
     "validate": "npm run calculators:validate && npm run county-property:validate && npm run seo:validate && npm run data:validate && npm run build && npm run performance:validate",
     "explore:verify:database": "bash scripts/explore/migrate-postgres.sh",
     "softball:validate": "node scripts/data/validate-texas-softball-authority.mjs && npm run softball:authority:validate",
-    "softball:authority:validate": "node scripts/softball/test-authority-contract.mjs && node scripts/softball/verify-publications.mjs && node scripts/softball/test-approved-team-engine.mjs && node scripts/softball/validate-pilot-research.mjs",
+    "softball:authority:validate": "node scripts/softball/test-authority-contract.mjs && node scripts/softball/verify-publications.mjs && node scripts/softball/test-approved-team-engine.mjs && node scripts/softball/validate-pilot-research.mjs && node scripts/softball/validate-school-context-sourcebook.mjs",
     "high-school-football:validate": "node scripts/data/validate-high-school-football-platform.mjs",
     "football:tea-links:validate": "node scripts/data/validate-football-tea-profile-links.mjs",
     "high-school-football-isds:validate": "node scripts/data/validate-high-school-football-isds.mjs",
