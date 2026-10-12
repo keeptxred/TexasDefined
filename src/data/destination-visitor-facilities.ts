@@ -6,6 +6,14 @@ import type { Destination, DestinationVisitorFacilities } from "./types";
  * Absence of a record is reported as unverified, never interpreted as "none".
  */
 export const VERIFIED_VISITOR_FACILITIES: Record<string, DestinationVisitorFacilities> = {
+  "natural-bridge-caverns": {
+    restrooms: {
+      status: "verified",
+      details: "The attraction describes restrooms near its Twisted Trails Tykes surface area. This does not establish restroom availability inside the caverns; plan to use facilities before the guided underground tour.",
+      sourceUrl: "https://naturalbridgecaverns.com/2025/06/18/planning-perfect-caverns-adventure-littles-family/",
+      checkedAt: "2026-10-12"
+    }
+  },
   "enchanted-rock-state-natural-area": {
     parking: {
       status: "verified",
@@ -91,7 +99,7 @@ export const VERIFIED_VISITOR_FACILITIES: Record<string, DestinationVisitorFacil
     restrooms: {
       status: "verified",
       details: "Travis County's countywide parks amenities brochure identifies restrooms at Hamilton Pool. Contact the county to confirm current facility access; swimming remains separately restricted.",
-      sourceUrl: "https://parks.traviscountytx.gov/parks/hamilton-pool-preserve",
+      sourceUrl: "https://parks.traviscountytx.gov/images/docs/TCP_Brochure_county-wide_2022_Eng.pdf",
       checkedAt: "2026-10-12"
     }
   }
