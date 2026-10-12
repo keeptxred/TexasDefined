@@ -8,7 +8,7 @@ import fs from "node:fs";
 const origin = (process.env.TEXASDEFINED_PRODUCTION_ORIGIN || "https://texasdefined.com").replace(/\/$/, "");
 const countyIndex = JSON.parse(fs.readFileSync("src/data/fishing/county-lake-links.generated.json", "utf8"));
 const destinationsSource = fs.readFileSync("src/data/fishing/destination-lake-crosslinks.ts", "utf8");
-const destinationJson = destinationsSource.split("export const DESTINATION_LAKE_GUIDE_LINKS:")[1]?.split(" = ")[1]?.split(";\nexport const LAKE_VISITOR_DESTINATIONS:")[0];
+const destinationJson = destinationsSource.match(/DESTINATION_LAKE_GUIDE_LINKS:[\s\S]*? = (\{[\s\S]*?\});\s*export const LAKE_VISITOR_DESTINATIONS:/)?.[1];
 if (!destinationJson) throw Error("Cannot identify source-backed destination/lake route contract");
 const destinations = JSON.parse(destinationJson);
 const lakeRows = new Map();
