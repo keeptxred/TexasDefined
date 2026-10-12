@@ -1,6 +1,6 @@
 /**
  * Live Batch 004 diagnostic: browser-rendered axe A/AA, semantic AX tree,
- * sampled keyboard tabs, and selected full-page screenshots.
+ * sampled keyboard tabs, and full-page screenshots for every school viewport.
  * Not a manual WCAG certification or live stadium-accessibility assessment.
  */
 import assert from 'node:assert/strict';
@@ -38,7 +38,6 @@ try {
   const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:1});
   try {
    for(const item of locations) {
-    if(viewport==='mobile'&&!item.id.startsWith('school-'))continue;
     const page=await context.newPage(), row={viewport,id:item.id,path:item.path,
       http:null,render:'UNVERIFIED',axe:'UNVERIFIED',violations:[],incomplete:[],
       ax:{},semantics:{},keyboard:[],keyboardStatus:'UNVERIFIED',errors:[],runtime:[]};
@@ -90,7 +89,7 @@ try {
       }
       row.keyboardStatus=row.keyboard.every(x=>x.visible&&x.name&&x.focusVisible&&x.focusIndicator)?'PASS_SAMPLED_TABS':'REVIEW_REQUIRED';
      }else row.keyboardStatus='REVIEW_NO_MAIN_LINKS';
-     if(item.id.startsWith('school-')&&['arp','austin-johnson','austin-lake-travis','austin-vandegrift','austin-westlake','baird'].includes(item.id.slice(7))){
+     if(item.id.startsWith('school-')||['county-travis','county-smith','city-austin'].includes(item.id)){
       const screenshot=await page.screenshot({path:out+'/'+viewport+'-'+item.id+'-full.png',animations:'disabled',fullPage:true,timeout:45000});
       row.fullPageScreenshotWidth=screenshot.readUInt32BE(16);
       if(row.fullPageScreenshotWidth>width+10)row.errors.push('Full-page PNG '+row.fullPageScreenshotWidth+'px exceeds '+width+'px viewport');
