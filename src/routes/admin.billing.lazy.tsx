@@ -115,7 +115,7 @@ function BillingAdmin(){
     {!dashboard?<form onSubmit={unlock} className="mt-8 flex flex-wrap items-end gap-3">
       <label className="grid gap-2 text-sm font-semibold">Dedicated admin key
         <input type="password" minLength={32} maxLength={200} value={key} onChange={e=>setKey(e.target.value)}
-          className="min-h-11 min-w-80 border border-border bg-background px-3 py-2" required/>
+          className="min-h-11 border border-border bg-background px-3 py-2" required/>
       </label>
       <button disabled={busy} className="min-h-11 bg-primary px-5 py-2 font-semibold text-primary-foreground disabled:opacity-50">{busy?'Checking…':'Unlock billing'}</button>
     </form>:<>
@@ -127,8 +127,8 @@ function BillingAdmin(){
       </div>
 
       <div className="mt-6 flex flex-wrap gap-3 text-sm">
-        <span className={dashboard.invoicingEnabled?'text-green-700':'text-amber-700'}>Draft invoice creation: <strong>{dashboard.invoicingEnabled?'enabled':'disabled'}</strong></span>
-        <span className={dashboard.invoiceSendingEnabled?'text-green-700':'text-amber-700'}>Invoice sending: <strong>{dashboard.invoiceSendingEnabled?'enabled':'disabled'}</strong></span>
+        <span className={dashboard.invoicingEnabled?'text-primary':'text-muted-foreground'}>Draft invoice creation: <strong>{dashboard.invoicingEnabled?'enabled':'disabled'}</strong></span>
+        <span className={dashboard.invoiceSendingEnabled?'text-primary':'text-muted-foreground'}>Invoice sending: <strong>{dashboard.invoiceSendingEnabled?'enabled':'disabled'}</strong></span>
         <button type="button" onClick={()=>void reload()} disabled={busy} className="border border-border px-3 py-1.5 font-semibold disabled:opacity-50">Refresh</button>
       </div>
 
@@ -136,7 +136,7 @@ function BillingAdmin(){
         <h2 className="font-display text-3xl">Customers</h2>
         <p className="mt-2 text-sm text-muted-foreground">A business may have Network and Advertising purchases under the same billing account. Matching is never based on email alone.</p>
         <div className="mt-5 overflow-x-auto">
-          <table className="w-full min-w-[900px] border-collapse text-left text-sm">
+          <table className="w-full border-collapse text-left text-sm">
             <thead><tr className="border-b border-border">
               <Th>Business</Th><Th>Billing</Th><Th>Stripe customer</Th><Th>Network</Th><Th>Advertising</Th>
             </tr></thead>
