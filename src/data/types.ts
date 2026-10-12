@@ -139,7 +139,25 @@ export interface DestinationAuthorityGuide {
   sources: DestinationAuthoritySource[];
 }
 
-export interface Destination { id: string; brandId: BrandId; slug: Slug; name: string; summary: string; category: CategorySlug; region: TexasRegion; geography?: TexasGeographyAssignment; nearestTown: string; coordinates: GeoPoint; hero: ImageRef; bestSeason: string; entryNote: string; highlights: string[]; body: string[]; managingAuthority?: string; officialUrl?: string; sourceCheckedAt?: string; reservationUrl?: string; county?: string; address?: string; directions?: string; accessibilityNotes?: string; areaGuide?: DestinationAreaGuide; authorityGuide?: DestinationAuthorityGuide; featured?: boolean; }
+export interface VisitorFacilityFact {
+  /** Confirmed onsite, absent, or unknown; never infer from destination category. */
+  status: "verified" | "not-available" | "unverified";
+  details: string;
+  /** The operator or managing agency page that supports this facility fact. */
+  sourceUrl?: string;
+  checkedAt?: string;
+}
+export interface DestinationVisitorFacilities {
+  parking?: VisitorFacilityFact;
+  restrooms?: VisitorFacilityFact;
+  /** Official attraction / park facility map, distinct from the location map. */
+  officialMapUrl?: string;
+  mapCheckedAt?: string;
+  /** Optional operator-verified distinctions beyond the map and entry guidance. */
+  visitorTips?: string[];
+}
+
+export interface Destination { id: string; brandId: BrandId; slug: Slug; name: string; summary: string; category: CategorySlug; region: TexasRegion; geography?: TexasGeographyAssignment; nearestTown: string; coordinates: GeoPoint; hero: ImageRef; bestSeason: string; entryNote: string; highlights: string[]; body: string[]; managingAuthority?: string; officialUrl?: string; sourceCheckedAt?: string; reservationUrl?: string; county?: string; address?: string; directions?: string; accessibilityNotes?: string; visitorFacilities?: DestinationVisitorFacilities; areaGuide?: DestinationAreaGuide; authorityGuide?: DestinationAuthorityGuide; featured?: boolean; }
 
 export interface ProductVariant { id: number; title: string; price: number; image?: string | null; images?: string[]; color?: string; is_enabled?: boolean; }
 export interface Product {
