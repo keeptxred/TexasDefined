@@ -976,8 +976,8 @@ const profiles: Record<string, CityAuthorityProfile> = {
     systems: [
       {
         title: 'City utilities',
-        summary: 'Lubbock’s city government provides local utility and public-service information, while specific electric arrangements and service territories can change over time. Verify the exact property before comparing costs or providers.',
-        links: [{ label: 'City of Lubbock', href: 'https://www.mylubbock.us/' }],
+        summary: 'Lubbock Water Utilities operates municipal water supply, treatment, distribution and wastewater facilities, while City of Lubbock Utilities handles consolidated city water, wastewater, stormwater and solid-waste accounts. In the LP&L electric delivery territory, customers choose a separate retail electric provider; LP&L is not their retail electricity seller. Verify the exact property and both utility service and billing boundaries.',
+        links: [{ label: 'Lubbock Water Utilities', href: 'https://www.mylubbock.us/water' }, { label: 'City of Lubbock Utility Billing', href: 'https://www.mylubbock.us/COLU' }, { label: 'Retail electric providers (City of Lubbock)', href: 'https://www.mylubbock.us/361/Retail-Providers' }],
       },
       {
         title: 'Public transportation',
