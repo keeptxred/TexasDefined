@@ -3,8 +3,8 @@
   "updatedAt": "2026-10-12",
   "scope": {
     "tpwdNamedEntries": 175,
-    "completedGuides": 56,
-    "missingCompleteGuideListings": 119,
+    "completedGuides": 57,
+    "missingCompleteGuideListings": 118,
     "legacyLakeAndParkDestinations": 36
   },
   "standards": {
@@ -3858,16 +3858,16 @@
     },
     {
       "tpwdEntry": "White Rock",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
+      "guideSlug": "white-rock-lake",
+      "guideStatus": "source-reviewed-guide-in-unmerged-expansion-pr",
       "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "namedFacilities": "five-TPWD-listed-City-of-Dallas-ramps-not-day-of-trip-certified",
+      "campgrounds": "NOT-ALLOWED-per-TPWD",
+      "primaryHistory": "TWDB-plus-City-of-Dallas-sourced-1910-to-1912-chronology",
+      "localPhoto": "real-White-Rock-Lake-CC0-2024-third-party-not-original-field-photography",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
+      "countyReciprocalLinks": "Dallas-County-generated-index-pending-deploy",
+      "destinationReciprocalLinks": "Dallas-city-generated-index-pending-deploy",
       "competitivePrimarySourceComparison": "not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
