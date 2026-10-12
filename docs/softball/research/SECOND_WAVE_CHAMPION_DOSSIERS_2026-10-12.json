@@ -1,0 +1,463 @@
+{
+  "version": 1,
+  "researchedAt": "2026-10-12",
+  "conferenceSeason": "2026-27",
+  "historicalTitleSeason": "2025-26",
+  "status": "research-only",
+  "publicationAuthorization": false,
+  "notes": "Five additional UIL state-champion programs receive authenticated historical tournament team sheets, current UIL 2026–27 conference/district/region joins, a school website and explicit counter-evidence. Historic submitted win–loss totals never presumed to be postfinal. Student rosters are never recopied, original photographs unlicensed absent affirmative permission, venues/campus names not guessed. Intended to inform complete first-release authority pages, not generate stubs.",
+  "programs": [
+    {
+      "uilName": "Jonesboro",
+      "identity": "Jonesboro ISD Lady Eagles",
+      "operator": "Jonesboro ISD",
+      "officialSchoolUrl": "https://www.jonesboroisd.net/",
+      "season": "2026-27",
+      "alignment": {
+        "conference": "2A",
+        "district": 26,
+        "region": 4,
+        "sourceUrl": "https://www.uiltexas.org/files/alignments/2ASB_Rvsd6-15.pdf"
+      },
+      "championshipHistory": {
+        "historical2026Class": "1A",
+        "titleYears": [
+          2024,
+          2025,
+          2026
+        ],
+        "originalChampionArchive": "https://www.uiltexas.org/softball/archives"
+      },
+      "uilTeamSheet2026": {
+        "url": "https://www.uiltexas.org/softball/state-team/jonesboro-2025-2026-softball",
+        "headCoach": "James Turner",
+        "assistants": [
+          "Keirsten Seahorn",
+          "Matt Dossey"
+        ],
+        "submittedRecord": "23-9-1",
+        "stateTournamentAppearanceYears": [
+          2024,
+          2025,
+          2026
+        ]
+      },
+      "originalSchoolSource": "https://www.jonesboroisd.net/live_feeds/12474129",
+      "prepublicationFacts": [
+        {
+          "id": "fact-1",
+          "text": "Jonesboro ISD's May 30, 2026 school announcement describes the Lady Eagles as UIL 1A state champions for a third consecutive season, specifically 2024, 2025 and 2026.",
+          "season": "2025-26",
+          "sourceUrl": "https://www.jonesboroisd.net/live_feeds/12474129",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-2",
+          "text": "UIL's 2025–26 tournament team sheet names head coach James Turner and assistants Keirsten Seahorn and Matt Dossey and lists the team as the Eagles in black, gold and white.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.uiltexas.org/softball/state-team/jonesboro-2025-2026-softball",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-3",
+          "text": "The 2025–26 UIL tournament team-sheet record is 23–9–1; it was submitted for the state tournament and must not be described as a confirmed final post-championship total.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.uiltexas.org/softball/state-team/jonesboro-2025-2026-softball",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-4",
+          "text": "The 2026 UIL 1A championship class is historical: the original *2026–27 softball alignment* places Jonesboro in the Conference 2A source document, District 26, Region IV.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.uiltexas.org/files/alignments/2ASB_Rvsd6-15.pdf",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-5",
+          "text": "The Jonesboro ISD June 29, 2026 announcement separately recognizes Texas High School Coaches Association 1A Super Elite awards; those are not automatically UIL state all-tournament awards.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.jonesboroisd.net/live_feeds/12590620",
+          "checkedAt": "2026-10-12"
+        }
+      ],
+      "identityConflicts": [
+        "Jonesboro, Texas in Coryell County is NOT Jonesboro, Arkansas; reject Jonesboro AR municipal youth softball field and schedules.",
+        "The 2026 1A state-title class differs from Jonesboro's 2026–27 softball-alignment listing of 2A; do not relabel historic 1A trophies."
+      ],
+      "openResearch": [
+        "2027 head coach verification from school-controlled staff appointment",
+        "School-specific varsity home softball field street location, entrance, ADA and parking",
+        "2027 public varsity softball schedule (not UIL calendar)",
+        "Coaching history before 2024 and older playoff milestones",
+        "Licensed original field media and rights evidence",
+        "Complete original 13-section article and 38-topic publication audit"
+      ],
+      "approvalStatus": "RESEARCH ONLY — NOT READY FOR TEAM PAGE"
+    },
+    {
+      "uilName": "Grandview",
+      "identity": "Grandview ISD Zebras",
+      "operator": "Grandview ISD",
+      "officialSchoolUrl": "https://www.gvisd.org/",
+      "season": "2026-27",
+      "alignment": {
+        "conference": "3A",
+        "district": 16,
+        "region": 2,
+        "sourceUrl": "https://www.uiltexas.org/files/alignments/263ASB.pdf"
+      },
+      "championshipHistory": {
+        "historical2026Class": "3A Division I",
+        "titleYears": [
+          2025,
+          2026
+        ],
+        "originalChampionArchive": "https://www.uiltexas.org/softball/archives"
+      },
+      "uilTeamSheet2026": {
+        "url": "https://www.uiltexas.org/softball/state-team/grandview-2025-2026-softball",
+        "headCoach": "Leigh Ebner",
+        "assistants": [
+          "Tim Ward",
+          "Allie Bennett"
+        ],
+        "submittedRecord": "35-3-1",
+        "stateTournamentAppearanceYears": [
+          2018,
+          2023,
+          2024,
+          2025,
+          2026
+        ]
+      },
+      "originalSchoolSource": "https://gvisd.org/softballschedule",
+      "prepublicationFacts": [
+        {
+          "id": "fact-1",
+          "text": "Grandview's UIL 2025–26 tournament record names Leigh Ebner as head coach with Tim Ward and Allie Bennett as assistants; these are archived 2026 season positions, not a guaranteed future assignment.",
+          "season": "2025-26",
+          "sourceUrl": "https://www.uiltexas.org/softball/state-team/grandview-2025-2026-softball",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-2",
+          "text": "UIL's 2026 school-team sheet lists tournament appearances in 2018, 2023, 2024, 2025 and 2026 and marks 2025 as a prior title season; the official championship archive confirms the 2026 title.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.uiltexas.org/softball/state-team/grandview-2025-2026-softball",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-3",
+          "text": "The UIL submitted Grandview 2025–26 record is 35–3–1; use its source cutoff rather than assuming it is the exact final championship record.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.uiltexas.org/softball/state-team/grandview-2025-2026-softball",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-4",
+          "text": "Grandview ISD maintains an official softball athletics resource at gvisd.org/softballschedule with its own school-controlled photos and content; these photographs require explicit third-party republication permission.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://gvisd.org/softballschedule",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-5",
+          "text": "The 2024–25 UIL team sheet identifies the same coach and assistants and records 33–3 at the tournament, providing a separately dated prior-season coaching snapshot.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.uiltexas.org/softball/state-team/grandview-2024-2025-softball",
+          "checkedAt": "2026-10-12"
+        }
+      ],
+      "identityConflicts": [
+        "The 2025 3A title and 2026 3A-DI title must be labelled by their actual year's UIL bracket.",
+        "Grandview district address 701 South Fifth Street is not a confirmed home softball-field spectator gate."
+      ],
+      "openResearch": [
+        "Original date-by-date first-season and pre-2018 program origins",
+        "Official 2027 staff and girls softball schedule",
+        "Actual varsity diamond parcel and visitor ADA/parking/ticket policies",
+        "Verified earlier conference-bracket title distinctions and final record cutoff",
+        "Original permissioned softball field photography",
+        "Complete 38-topic signoff and live technical acceptance"
+      ],
+      "approvalStatus": "RESEARCH ONLY — NOT READY FOR TEAM PAGE"
+    },
+    {
+      "uilName": "Santa Gertrudis Acad",
+      "identity": "Santa Gertrudis Academy High School Lady Lions",
+      "operator": "Santa Gertrudis ISD",
+      "officialSchoolUrl": "https://www.sgisd.net/",
+      "season": "2026-27",
+      "alignment": {
+        "conference": "3A",
+        "district": 30,
+        "region": 4,
+        "sourceUrl": "https://www.uiltexas.org/files/alignments/263ASB.pdf"
+      },
+      "championshipHistory": {
+        "historical2026Class": "3A Division II",
+        "titleYears": [
+          2018,
+          2026
+        ],
+        "originalChampionArchive": "https://www.uiltexas.org/softball/archives"
+      },
+      "uilTeamSheet2026": {
+        "url": "https://www.uiltexas.org/softball/state-team/santa-gertrudis-academy-2025-2026-softball",
+        "headCoach": "Thomas De Los Santos",
+        "assistants": [
+          "Daniel Fernandez",
+          "Kennedy Silva",
+          "Amanda Sanchez"
+        ],
+        "submittedRecord": "40-4",
+        "stateTournamentAppearanceYears": [
+          2013,
+          2016,
+          2017,
+          2018,
+          2023,
+          2026
+        ]
+      },
+      "originalSchoolSource": "https://www.sgisd.net/apps/pages/index.jsp?pREC_ID=1262603&type=d&uREC_ID=928070",
+      "prepublicationFacts": [
+        {
+          "id": "fact-1",
+          "text": "The 2026 UIL state-tournament entry calls the team 'Santa Gertrudis Academy' Lady Lions, coach Thomas De Los Santos and assistants Daniel Fernandez, Kennedy Silva and Amanda Sanchez.",
+          "season": "2025-26",
+          "sourceUrl": "https://www.uiltexas.org/softball/state-team/santa-gertrudis-academy-2025-2026-softball",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-2",
+          "text": "UIL's tournament sheet lists six state appearances: 2013, 2016, 2017, 2018, 2023 and 2026; the 2018 entry is marked as an older championship year and 2026 is the new Division II title.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.uiltexas.org/softball/state-team/santa-gertrudis-academy-2025-2026-softball",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-3",
+          "text": "The 2025–26 UIL team-sheet record is 40–4 at submission; it may have a different postfinal total and must be attributed as a historical tournament snapshot.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.uiltexas.org/softball/state-team/santa-gertrudis-academy-2025-2026-softball",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-4",
+          "text": "Santa Gertrudis ISD's *current school-managed coaching directory* explicitly identifies Thomas De Los Santos as Girls Athletic Coordinator, Head Volleyball and Head Softball, distinct from the UIL's historical 2026 roster.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.sgisd.net/apps/pages/index.jsp?pREC_ID=1714604&type=d&uREC_ID=930817",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-5",
+          "text": "The official school identity lists Santa Gertrudis Academy High at 1055 West Santa Gertrudis Street on the Texas A&M University–Kingsville campus in Poteet Hall; that campus address is NOT the home softball-field address.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.sgisd.net/apps/pages/index.jsp?pREC_ID=1262603&type=d&uREC_ID=928070",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-6",
+          "text": "The official 2026–27 UIL softball alignment abbreviates the campus 'Santa Gertrudis Acad' in 3A District 30 Region IV; retain official source alias mapping with its full school name.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.uiltexas.org/files/alignments/263ASB.pdf",
+          "checkedAt": "2026-10-12"
+        }
+      ],
+      "identityConflicts": [
+        "Santa Gertrudis Academy High is in Kingsville and is not the Texas A&M University–Kingsville NCAA/NJCAA softball team, despite sharing campus surroundings.",
+        "Campus academic building at 1055 West Santa Gertrudis is not a proven girls varsity softball diamond entrance.",
+        "The UIL archive uses full 'Santa Gertrudis Academy', current district list abbreviates 'Santa Gertrudis Acad'."
+      ],
+      "openResearch": [
+        "Full 2018 championship bracket and past coach succession",
+        "Specific 2027 season staff appointment beyond current website role",
+        "Named actual softball field and spectator gate location",
+        "Visitor tickets, school sport eligibility and ADA access",
+        "School/team media permission for original photos and logos",
+        "Complete 13-category article and 38-topic audited research matrix"
+      ],
+      "approvalStatus": "RESEARCH ONLY — NOT READY FOR TEAM PAGE"
+    },
+    {
+      "uilName": "Bullard",
+      "identity": "Bullard ISD Panthers softball",
+      "operator": "Bullard ISD",
+      "officialSchoolUrl": "https://www.bullardisd.net/",
+      "season": "2026-27",
+      "alignment": {
+        "conference": "4A",
+        "district": 17,
+        "region": 3,
+        "sourceUrl": "https://www.uiltexas.org/files/alignments/264ASB.pdf"
+      },
+      "championshipHistory": {
+        "historical2026Class": "4A Division I",
+        "titleYears": [
+          2026
+        ],
+        "originalChampionArchive": "https://www.uiltexas.org/softball/archives"
+      },
+      "uilTeamSheet2026": {
+        "url": "https://www.uiltexas.org/softball/state-team/bullard-2025-2026-softball",
+        "headCoach": "Julie Murry",
+        "assistants": [
+          "Brett Murry",
+          "Danielle Hudspeth",
+          "Callie Bailey"
+        ],
+        "submittedRecord": "36-7-1",
+        "stateTournamentAppearanceYears": [
+          2021,
+          2022,
+          2026
+        ]
+      },
+      "originalSchoolSource": "https://www.bullardisd.net/community/panther-sports-net",
+      "prepublicationFacts": [
+        {
+          "id": "fact-1",
+          "text": "The UIL 2026 4A-DI champion Bullard tournament sheet names Julie Murry as head coach with Brett Murry, Danielle Hudspeth and Callie Bailey assisting in the archived 2025–26 season.",
+          "season": "2025-26",
+          "sourceUrl": "https://www.uiltexas.org/softball/state-team/bullard-2025-2026-softball",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-2",
+          "text": "UIL's team archive lists Bullard state softball tournament appearances in 2021, 2022 and 2026 and a 36–7–1 record submitted during the championship tournament.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.uiltexas.org/softball/state-team/bullard-2025-2026-softball",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-3",
+          "text": "The 2026 championship is Bullard's first marked UIL state softball title within this tournament-appearance list; do not infer that the school's wider athletics department never won other sport titles.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.uiltexas.org/softball/state-team/bullard-2025-2026-softball",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-4",
+          "text": "Bullard ISD's school-operated Panther Sports Net reports that home softball-field contests have live video available through its Hudl service; this does not grant TexasDefined streaming/media republication rights.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.bullardisd.net/community/panther-sports-net",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-5",
+          "text": "Bullard's sports-media page quotes a particular 2026 subscription offer and explains varsity district and postseason audio coverage, but prices and availability are not permanent and must be reviewed before a visitor guide.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.bullardisd.net/community/panther-sports-net",
+          "checkedAt": "2026-10-12"
+        }
+      ],
+      "identityConflicts": [
+        "Bullard's streamed softball field is not necessarily at Panther Stadium; the school's media page lists them separately.",
+        "School video subscription permission does not transfer copyright to third-party images, streams or school logos."
+      ],
+      "openResearch": [
+        "Verified precise school softball diamond address and actual parking/ADA guidance",
+        "Current 2027 coaching assignments and actual game-by-game schedule",
+        "History and coach succession before 2021; verify inaugural season",
+        "Official school-field ticket policies separate from webcast prices",
+        "Source-backed school community traditions and professional original photographs with licenses",
+        "Complete 38-topic coverage and SSR/mobile acceptance"
+      ],
+      "approvalStatus": "RESEARCH ONLY — NOT READY FOR TEAM PAGE"
+    },
+    {
+      "uilName": "Liberty",
+      "identity": "Liberty ISD Lady Panthers",
+      "operator": "Liberty ISD",
+      "officialSchoolUrl": "https://www.libertyisd.net/",
+      "season": "2026-27",
+      "alignment": {
+        "conference": "4A",
+        "district": 19,
+        "region": 3,
+        "sourceUrl": "https://www.uiltexas.org/files/alignments/264ASB.pdf"
+      },
+      "championshipHistory": {
+        "historical2026Class": "4A Division II",
+        "titleYears": [
+          2018,
+          2021,
+          2022,
+          2026
+        ],
+        "originalChampionArchive": "https://www.uiltexas.org/softball/archives"
+      },
+      "uilTeamSheet2026": {
+        "url": "https://www.uiltexas.org/softball/state-team/liberty-2025-2026-softball",
+        "headCoach": "Karen Slack",
+        "assistants": [
+          "Joe Slack",
+          "Katherine McAdams",
+          "Maci Beam"
+        ],
+        "submittedRecord": "38-6",
+        "stateTournamentAppearanceYears": [
+          2018,
+          2021,
+          2022,
+          2023,
+          2024,
+          2025,
+          2026
+        ]
+      },
+      "originalSchoolSource": "https://www.libertyisd.net/",
+      "prepublicationFacts": [
+        {
+          "id": "fact-1",
+          "text": "Liberty's 2025–26 UIL state team profile identifies Karen Slack as head softball coach with Joe Slack, Katherine McAdams and Maci Beam as assistants, as recorded for the 2026 season.",
+          "season": "2025-26",
+          "sourceUrl": "https://www.uiltexas.org/softball/state-team/liberty-2025-2026-softball",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-2",
+          "text": "UIL records Liberty Lady Panthers softball appearances in 2018, 2021, 2022, 2023, 2024, 2025 and 2026; 2018, 2021 and 2022 were prior state-championship seasons.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.uiltexas.org/softball/state-team/liberty-2025-2026-softball",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-3",
+          "text": "Liberty's 2026 Division II championship added another title to its 2018/2021/2022 historical list; these are softball honors and must retain their actual conference/division labels.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.uiltexas.org/softball/archives",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-4",
+          "text": "The 2025–26 UIL submitted record is 38–6, a tournament entry that should not be represented as an independently confirmed final postchampionship season total.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.uiltexas.org/softball/state-team/liberty-2025-2026-softball",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "fact-5",
+          "text": "Official Liberty ISD's primary website is libertyisd.net and the district office is listed in Liberty, Texas; Liberty-Eylau ISD in Texarkana is a separate school district and must never supply this team's coach, city or home field.",
+          "season": "historical-as-labeled",
+          "sourceUrl": "https://www.libertyisd.net/",
+          "checkedAt": "2026-10-12"
+        }
+      ],
+      "identityConflicts": [
+        "Liberty ISD Lady Panthers in Liberty, Texas, ≠ Liberty-Eylau ISD Leopards in Texarkana; domain and place association required.",
+        "The Texas softball regular alignment is 2026–27 4A District 19, distinct from each historical state playoff bracket's division."
+      ],
+      "openResearch": [
+        "Physical girls softball playing field and source-controlled visitor access/tickets",
+        "Official spring 2027 softball calendar and position-specific staff",
+        "Primary season-by-season finals and community history before 2018",
+        "Legitimately licensed local-team/field imagery, media rights and accessible alternatives",
+        "Original complete distinct 13-section profile with verifiable local relationships",
+        "Full 38-topic audit and production verification"
+      ],
+      "approvalStatus": "RESEARCH ONLY — NOT READY FOR TEAM PAGE"
+    }
+  ]
+}
