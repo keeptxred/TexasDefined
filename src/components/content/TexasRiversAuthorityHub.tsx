@@ -24,6 +24,14 @@ const riverProfiles = [
   { name: "Sulphur", href: "/article/texas-sulphur-river-guide", region: "Northeast Texas", note: "Cooper Lake · Wright Patman · Red drainage", image: "/images/state-parks/cooper-lake-south-sulphur-unit-state-park.jpg" },
 ] as const;
 
+const tributaryRecreationProfiles = [
+  { name: "Frio River", href: "/article/texas-frio-river-guide", note: "Garner · Concan · tubing and camping" },
+  { name: "Comal River", href: "/article/texas-comal-river-guide", note: "New Braunfels · municipal river rules" },
+  { name: "San Marcos River", href: "/article/texas-san-marcos-river-guide", note: "Spring Lake · river parks · Luling paddling" },
+  { name: "Llano River", href: "/article/texas-llano-river-guide", note: "South Llano · Junction · Guadalupe bass" },
+  { name: "Pecos River", href: "/article/texas-pecos-river-guide", note: "Lower Pecos · canyon country · access planning" },
+] as const;
+
 const riverRegions = [
   { title: "West Texas & the border", rivers: "Rio Grande · Pecos · Devils", description: "High desert, mountain basins, canyon country and an international river system." },
   { title: "Central Texas & the plains", rivers: "Brazos · Colorado", description: "Long cross-state systems connecting drier western country, major reservoirs and the Gulf." },
@@ -216,6 +224,19 @@ export function TexasRiversAfterArticle() {
           <p className="mt-3 text-sm leading-6 text-muted-foreground">The statewide guide gives you the big picture. Every major TWDB basin now has a dedicated TexasDefined guide, with primary-source geography, tributaries, reservoirs and visitor guidance. Some representative photos do not depict the specific named river; always verify water conditions and public access with the responsible agency.</p>
         </div>
         <RiverProfileCards />
+      </section>
+
+      <section className="mt-9 border-t border-border pt-8" aria-labelledby="river-recreation-guides">
+        <h2 id="river-recreation-guides" className="font-display text-2xl sm:text-3xl">River-specific fishing, camping and visitor guides</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">These rivers and tributaries deserve their own visitor planning beyond the official 15-basin geography inventory. Always check current launches, floods, fishing rules and land access.</p>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {tributaryRecreationProfiles.map((river) => (
+            <Link key={river.href} to={river.href} className="rounded-sm border border-border p-5 transition-colors hover:border-primary">
+              <span className="font-display text-xl">{river.name} →</span>
+              <span className="mt-2 block text-sm text-muted-foreground">{river.note}</span>
+            </Link>
+          ))}
+        </div>
       </section>
 
       <section className="mt-9 border-t border-border pt-8" aria-labelledby="river-primary-source-links">
