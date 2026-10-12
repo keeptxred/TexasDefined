@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
+import './verify-research-status.mjs';
 import { validateProfile, validatePublishedManifest, SECTION_IDS } from './authority-contract.mjs';
 import { SOFTBALL_RESEARCH_TOPICS } from './complete-first-release-audit.mjs';
 

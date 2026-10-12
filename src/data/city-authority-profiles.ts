@@ -381,12 +381,12 @@ const profiles: Record<string, CityAuthorityProfile> = {
     systems: [
       {
         title: 'Water & electric utilities',
-        summary: 'Austin Water provides municipal water and wastewater services, while Austin Energy is the City of Austin’s electric utility. Service boundaries can extend beyond or stop short of a mailing-city label, so verify the actual address.',
-        links: [{ label: 'Austin Water', href: 'https://www.austintexas.gov/water' }, { label: 'Austin Energy', href: 'https://austinenergy.com/' }],
+        summary: 'Austin Water provides municipal water and wastewater services, while Austin Energy is the City of Austin’s electric utility. The utility service boundaries need not follow Austin mailing-city lines; Austin Water offers service-availability letters for individual tracts of land, so confirm the actual address before committing to a property.',
+        links: [{ label: 'Austin Water', href: 'https://www.austintexas.gov/water' }, { label: 'Austin Water service availability', href: 'https://www.austintexas.gov/water/programs/service-extension' }, { label: 'Austin Energy', href: 'https://austinenergy.com/' }],
       },
       {
         title: 'Public transportation',
-        summary: 'CapMetro is the public-transit agency for Austin and Central Texas, operating bus, rail and other mobility services. Use live system information for routes and schedules.',
+        summary: 'CapMetro operates Austin bus and commuter-rail service. Its Rapid 800 Pleasant Valley and Rapid 837 Expo Center bus corridors reached full frequency on June 7, 2026, improving connections east of I-35. Austin Light Rail is a future project, not an operating service; verify current routes, transfers, airport service and construction impacts with CapMetro’s live trip planner.',
         links: [{ label: 'CapMetro', href: 'https://www.capmetro.org/' }],
       },
       {
@@ -641,7 +641,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
       {
         title: 'Public transportation',
-        summary: 'Arlington uses a citywide on-demand rideshare transit model rather than a traditional fixed-route city bus network. The service also connects riders with the TRE CentrePort area for regional connections.',
+        summary: 'Arlington On-Demand operates shared rides through the Arlington Transportation app, not a conventional fixed-route city bus network. The service connects Arlington with CentrePort TRE Station and the Eastchase area in Fort Worth for regional transfers; the city lists Monday–Saturday service, with no regular Sunday rides. Verify the service area, current hours, fares and pickup location directly before planning a trip.',
         links: [{ label: 'Arlington On-Demand', href: 'https://www.arlingtontx.gov/City-Services/Transportation-Streets-Traffic/Arlington-On-Demand' }],
       },
       {
@@ -719,8 +719,8 @@ const profiles: Record<string, CityAuthorityProfile> = {
     systems: [
       {
         title: 'Water & city services',
-        summary: 'The City of Hurst Public Works system operates municipal water distribution and wastewater collection, while Utility Billing handles city water accounts. Electric service should still be verified for the exact address rather than inferred from the Hurst mailing label.',
-        links: [{ label: 'Hurst water & sewer', href: 'https://www.hursttx.gov/residents/city-services/water-and-sewer' }],
+        summary: 'City of Hurst Public Works operates local drinking-water distribution and wastewater collection, while Utility Billing manages city customer accounts. Fort Worth Water separately lists Hurst as a wholesale drinking-water and wastewater customer; that upstream supply contract does not establish which provider serves a particular address. Verify the property and electric service separately.',
+        links: [{ label: 'Hurst water & sewer', href: 'https://www.hursttx.gov/residents/city-services/water-and-sewer' }, { label: 'Fort Worth wholesale water customers', href: 'https://www.fortworthtexas.gov/departments/water/wholesale' }],
       },
       {
         title: 'Regional rail & airport access',
@@ -809,8 +809,8 @@ const profiles: Record<string, CityAuthorityProfile> = {
     systems: [
       {
         title: 'Water & city utilities',
-        summary: 'Corpus Christi municipal services include water and wastewater systems. Use the city’s current service portal for account, conservation, outage and utility information, and verify other service territories for the exact address.',
-        links: [{ label: 'City of Corpus Christi', href: 'https://www.corpuschristitx.gov/' }],
+        summary: 'Corpus Christi Water manages the city water and wastewater systems, and Corpus Christi Gas is a separate municipal natural-gas service. These service areas and electric service do not necessarily match a mailing-city boundary; confirm utility availability and any city account for the exact property.',
+        links: [{ label: 'City utility services: water and gas', href: 'https://www.corpuschristitx.gov/living-in-our-community/utilities/' }, { label: 'Corpus Christi Water', href: 'https://www.corpuschristitx.gov/department-directory/corpus-christi-water' }],
       },
       {
         title: 'Public transportation',
@@ -892,12 +892,12 @@ const profiles: Record<string, CityAuthorityProfile> = {
     systems: [
       {
         title: 'Water & city utilities',
-        summary: 'Plano Customer & Utility Services manages water, sewer and trash service accounts. Electric service remains address-specific and should be verified separately from the city utility account.',
-        links: [{ label: 'Plano Customer & Utility Services', href: 'https://cus.plano.gov/' }],
+        summary: 'Plano Customer & Utility Services manages city water, sewer and trash accounts, with current water resources and service-rate notices published by Plano. Electricity is a separate service-territory question; verify the exact address and current city rates rather than assuming one utility account covers every service.',
+        links: [{ label: 'Plano Customer & Utility Services', href: 'https://cus.plano.gov/' }, { label: 'Plano Water Resources and rate updates', href: 'https://www.plano.gov/plano-water-resources' }],
       },
       {
         title: 'Public transportation',
-        summary: 'Plano is connected to the wider North Texas transit network through DART. Use DART’s current maps and trip-planning tools for rail, bus and other service information.',
+        summary: 'Plano is served by DART rail, bus and on-demand GoLink. DART expanded Plano GoLink zones on October 5, 2026, including a new Southwest Plano zone and connections with the Silver Line and major transit centers. GoLink is organized by service zone, not one unrestricted citywide ride area; check the exact address, operating hours, transfer rules and current DART trip planner before traveling.',
         links: [{ label: 'DART', href: 'https://www.dart.org/' }],
       },
       {
@@ -976,12 +976,12 @@ const profiles: Record<string, CityAuthorityProfile> = {
     systems: [
       {
         title: 'City utilities',
-        summary: 'Lubbock’s city government provides local utility and public-service information, while specific electric arrangements and service territories can change over time. Verify the exact property before comparing costs or providers.',
-        links: [{ label: 'City of Lubbock', href: 'https://www.mylubbock.us/' }],
+        summary: 'Lubbock Water Utilities operates municipal water supply, treatment, distribution and wastewater facilities, while City of Lubbock Utilities handles consolidated city water, wastewater, stormwater and solid-waste accounts. In the LP&L electric delivery territory, customers choose a separate retail electric provider; LP&L is not their retail electricity seller. Verify the exact property and both utility service and billing boundaries.',
+        links: [{ label: 'Lubbock Water Utilities', href: 'https://www.mylubbock.us/water' }, { label: 'City of Lubbock Utility Billing', href: 'https://www.mylubbock.us/COLU' }, { label: 'Retail electric providers (City of Lubbock)', href: 'https://www.mylubbock.us/361/Retail-Providers' }],
       },
       {
         title: 'Public transportation',
-        summary: 'Citibus provides public transportation in Lubbock, including fixed-route and accessible services. Use its live route and trip-planning tools for current service.',
+        summary: 'Citibus operates Lubbock fixed-route, GoPass-bookable On-Demand and eligible CitiAccess services. New Route 205 and redesigned Routes 025, 211 and 214 entered service September 28, 2026; Texas Tech campus routes may follow academic calendars. Check Citibus current maps and GoPass rather than assuming old route numbers, uniform coverage or Sunday fixed-route service.',
         links: [{ label: 'Citibus', href: 'https://citibus.com/' }],
       },
       {

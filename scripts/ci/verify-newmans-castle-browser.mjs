@@ -62,6 +62,32 @@ try {
         const img = document.querySelector("article section.relative img");
         return img && img.complete;
       }, null, { timeout: 20000 });
+      const inlineFigures = page.locator(".editorial-body figure");
+      assert.equal(await inlineFigures.count(), 2, label + ": expected two rights-verified in-story photographs");
+      for (let photo = 0; photo < 2; photo += 1) {
+        const image = inlineFigures.nth(photo).locator("img");
+        await image.scrollIntoViewIfNeeded();
+        await page.waitForFunction((index) => {
+          const image = document.querySelectorAll(".editorial-body figure img")[index];
+          return image && image.complete;
+        }, photo, { timeout: 20000 });
+      }
+      entry.inlinePhotographs = await inlineFigures.evaluateAll((figures) => figures.map((figure) => {
+        const image = figure.querySelector("img");
+        return {
+          src: image?.currentSrc ?? image?.src ?? "",
+          alt: image?.alt ?? "",
+          width: image?.naturalWidth ?? 0,
+          height: image?.naturalHeight ?? 0,
+          credit: figure.querySelector("figcaption")?.innerText ?? "",
+        };
+      }));
+      assert.ok(entry.inlinePhotographs.every((photo) => photo.width > 0 && photo.height > 0),
+        label + ": castle photographs failed to load: " + JSON.stringify(entry.inlinePhotographs));
+      assert.equal(new Set(entry.inlinePhotographs.map((photo) => photo.src)).size, 2, label + ": duplicate photos");
+      assert.ok(entry.inlinePhotographs.every((photo) => photo.alt.includes("Newman's Castle") &&
+        photo.credit.includes("CC BY 2.0") && photo.credit.includes("flickr.com/photos/57412095")),
+        label + ": photo identity or per-image reuse attribution missing");
       const data = await snapshot(page);
       entry.metadata = { h1: data.heading, canonical: data.canonical, hero: data.hero, sourceCount: data.sourceLinks.length, overflow: data.scrollWidth - data.width };
       assert.equal(data.heading.length, 1, label + ": require exactly one H1");
@@ -77,7 +103,7 @@ try {
       assert.ok(data.body.includes("Chad Welty") && data.body.includes("Amanda"), label + ": family heritage missing");
       assert.ok(data.hero?.width > 0 && data.hero?.height > 0 && data.hero.alt.includes("Castle"), label + ": hero photograph not loaded");
       assert.ok(data.credit.includes("A Yee") && data.credit.includes("CC BY 2.0"), label + ": visible photo attribution missing");
-      assert.ok(data.sourceLinks.length >= 9, label + ": source citations not visible");
+      assert.ok(data.sourceLinks.length >= 16, label + ": source citations not visible");
       assert.ok(data.sourceLinks.every((link) => link.startsWith("https://")), label + ": invalid source URL");
       assert.ok(data.articleSchema.headline?.includes("Newman's Castle"), label + ": Article schema missing");
       assert.ok(String(data.articleSchema.citation).includes("newmanscastle.com"), label + ": primary-source schema missing");
@@ -87,6 +113,7 @@ try {
       entry.checks.push("HTTP 200, hydration, landmarks, SEO, responsive layout and absence of JS errors");
       entry.checks.push("Biography, dimensions, folklore qualifier, visitor guidance, loaded hero and rights");
       entry.checks.push("Visible bibliography, primary source schema, credited photo and visitor FAQs");
+      entry.checks.push("Two distinct in-story castle photos fully loaded, with photographer, individual source and CC BY 2.0 rights");
       if (label !== "tablet") {
         await page.addScriptTag({ path: process.env.AXE_CORE_PATH || "/tmp/texasdefined-castle-qa/node_modules/axe-core/axe.min.js" });
         entry.accessibility = await page.evaluate(async () => {
@@ -95,6 +122,8 @@ try {
         });
         assert.deepEqual(entry.accessibility.filter((v) => ["serious","critical"].includes(v.impact)), [], label + ": serious accessibility violations");
       }
+      await inlineFigures.first().screenshot({ path: out + "/" + label + "-inline-1.png" });
+      await inlineFigures.nth(1).screenshot({ path: out + "/" + label + "-inline-2.png" });
       await page.screenshot({ path: out + "/" + label + "-first-fold.png" });
       await page.locator("#authority-sources-heading").locator("xpath=..").screenshot({ path: out + "/" + label + "-citations.png" });
       entry.passed = true;

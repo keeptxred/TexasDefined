@@ -375,7 +375,7 @@ const newmansCastleBellvilleStub: Article = {
   },
   authorId: "a-marisol",
   publishedAt: "2026-10-11",
-  updatedAt: "2026-10-11",
+  updatedAt: "2026-10-12",
   readingMinutes: 15,
   tags: ["Newman's Castle", "Mike Newman", "Chad Welty", "Amanda Welty", "Bellville Texas", "Texas castles", "Texas Country Reporter"],
   featured: false,

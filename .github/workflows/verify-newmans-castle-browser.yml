@@ -8,6 +8,7 @@ on:
       - 'src/data/fixtures/newmans-castle-bellville-texas.ts'
       - 'src/routes/article.$slug.tsx'
       - 'src/data/image-rights.ts'
+      - 'src/styles.css'
   push:
     branches: [main]
     paths:
@@ -16,6 +17,7 @@ on:
       - 'src/data/fixtures/newmans-castle-bellville-texas.ts'
       - 'src/routes/article.$slug.tsx'
       - 'src/data/image-rights.ts'
+      - 'src/styles.css'
   workflow_dispatch:
 permissions:
   contents: read
