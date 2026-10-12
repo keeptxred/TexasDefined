@@ -35,7 +35,7 @@ function section(entry, key) {
 }
 function value(entry, key) {
   const expression = new RegExp("\\b" + key + '\\s*:\\s*"([^"\\n]*)"');
-  return entry.match(expression)?.[2] || "";
+  return entry.match(expression)?.[1] || "";
 }
 for (const slug of required) {
   const entry = dossier(slug);
