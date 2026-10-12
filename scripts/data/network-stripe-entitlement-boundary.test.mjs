@@ -7,9 +7,10 @@ const env={...process.env};
 after(()=>{for(const k of ['NETWORK_STRIPE_MODE','STRIPE_SECRET_KEY']){if(env[k]===undefined)delete process.env[k];else process.env[k]=env[k]}});
 delete process.env.NETWORK_STRIPE_MODE;
 const app='11111111-1111-4111-8111-111111111111';
+const billing='33333333-3333-4333-8333-333333333333';
 const subscription={
  livemode:true,id:'sub_knownVerifiedOne',customer:'cus_knownVerifiedOne',
- metadata:{project:'TexasDefined',application_id:app},
+ metadata:{project:'TexasDefined',application_id:app,billing_account_id:billing},
  status:'active',
  items:{data:[{price:{id:'price_1UP28XLtRurj6GMNwFlYDW6N'},quantity:1}]},
 };
@@ -46,7 +47,8 @@ test('price-mismatch revocation only processes verified current mode, app metada
  for(const bad of [
   {...changed,livemode:false},
   {...changed,id:'cus_invalid'}, {...changed,customer:'sub_invalid'},
-  {...changed,metadata:null}, {...changed,metadata:{application_id:app,project:'Someone Else'}},
-  {...changed,metadata:{application_id:'malformed',project:'TexasDefined'}},
+  {...changed,metadata:null}, {...changed,metadata:{application_id:app,billing_account_id:billing,project:'Someone Else'}},
+  {...changed,metadata:{application_id:'malformed',billing_account_id:billing,project:'TexasDefined'}},
+  {...changed,metadata:{application_id:app,billing_account_id:'malformed',project:'TexasDefined'}},
  ])assert.equal(isBoundNetworkSubscriptionPriceMismatch(bad,bound),false);
 });

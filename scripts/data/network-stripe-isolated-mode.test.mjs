@@ -18,7 +18,7 @@ function configure(){
  process.env.SUPABASE_URL='http://127.0.0.1:54321';
  process.env.STRIPE_SECRET_KEY='sk_test_synthetic_no_provider_request';
 }
-const app='11111111-1111-4111-8111-111111111111',attempt='22222222-2222-4222-8222-222222222222';
+const app='11111111-1111-4111-8111-111111111111',attempt='22222222-2222-4222-8222-222222222222',billing='33333333-3333-4333-8333-333333333333',customer='cus_testSharedBilling';
 test('test-mode cannot activate without all isolation signals and never binds production database',()=>{
  reset();process.env.NETWORK_STRIPE_MODE='test';
  process.env.NETWORK_CHECKOUT_ENABLED='true';
@@ -62,7 +62,7 @@ test('mock transport test Checkout only accepts cs_test and stage callback origi
  const oldFetch=globalThis.fetch; let called=0,params;
  const good=()=>({
    object:'checkout.session',livemode:false,mode:'subscription',status:'open',
-   client_reference_id:app,metadata:{application_id:app},customer_email:'owner@example.invalid',
+   client_reference_id:app,metadata:{application_id:app,billing_account_id:billing},customer,
    id:'cs_test_mockedTestSession',
    url:'https://checkout.stripe.com/c/pay/cs_test_mockedTestSession',
    expires_at:Math.floor(Date.now()/1000)+1800,
@@ -76,25 +76,27 @@ test('mock transport test Checkout only accepts cs_test and stage callback origi
   return {ok:true,status:200,json:async()=>payload};
  };
  try{
-  assert.equal((await createNetworkCheckoutSession(app,'owner@example.invalid',attempt)).sessionId,'cs_test_mockedTestSession');
+  assert.equal((await createNetworkCheckoutSession(app,attempt,customer,billing)).sessionId,'cs_test_mockedTestSession');
   assert.equal(params.get('line_items[0][price]'),'price_testExampleStaging');
   assert.equal(params.get('success_url'),'https://network-stage.example.invalid/network/checkout-return?session_id={CHECKOUT_SESSION_ID}');
   assert.equal(params.get('cancel_url'),'https://network-stage.example.invalid/network/billing?checkout=cancelled');
   for(const bad of [
    {...good(),id:'cs_live_wrong_mode'}, {...good(),livemode:true},
-   {...good(),metadata:{application_id:'00000000-0000-4000-8000-000000000000'}},
+   {...good(),metadata:{application_id:'00000000-0000-4000-8000-000000000000',billing_account_id:billing}},
+   {...good(),metadata:{application_id:app,billing_account_id:'00000000-0000-4000-8000-000000000000'}},
+   {...good(),customer:'cus_testOtherBusiness'},
   ]){
    payload=bad;
-   await assert.rejects(createNetworkCheckoutSession(app,'owner@example.invalid',attempt),/Checkout session unavailable/);
+   await assert.rejects(createNetworkCheckoutSession(app,attempt,customer,billing),/Checkout session unavailable/);
   }
-  assert.equal(called,4);
+  assert.equal(called,6);
  }finally{globalThis.fetch=oldFetch;reset();}
 });
 test('stage subscription reads only from isolated test key and rejects live/other price',async()=>{
  configure();
  const oldFetch=globalThis.fetch,valid={
   livemode:false,id:'sub_testMock',customer:'cus_testMock',
-  metadata:{project:'TexasDefined',application_id:app},
+  metadata:{project:'TexasDefined',application_id:app,billing_account_id:billing},
   items:{data:[{price:{id:'price_testExampleStaging'},quantity:1}]}
  };
  let read=false;
