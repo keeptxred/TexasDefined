@@ -124,6 +124,28 @@ for (const slug of allDossiers) {
 if (!read("src/components/editorial/MuseumAuthorityNetworkSection.tsx").includes("museumVisitorFaqFor"))
   failures.push("Museum-specific FAQs must render on live museum guide templates.");
 
+
+const sourceManifest = JSON.parse(read("public/museum-verification-manifest.json"));
+if (sourceManifest.schemaVersion !== 1 || !Array.isArray(sourceManifest.museums))
+  failures.push("The production Supabase museum verification source manifest is missing or invalid.");
+const manifestByPath = new Map((sourceManifest.museums || []).map((item) => [item.path, item]));
+for (const slug of allDossiers) {
+  const row = manifestByPath.get("/destination/" + slug);
+  const faqs = faqRegistry[slug] || [];
+  if (!row || row.cadenceDays > 30 || row.cadenceDays < 1)
+    failures.push(slug + ": missing current ≤30-day Supabase museum source registration.");
+  else {
+    if (row.faqCount !== faqs.length) failures.push(slug + ": manifest FAQ count differs from source FAQ registry.");
+    for (const faq of faqs) {
+      if (!row.sources.some((source) => source.sourceUrl === faq.verificationUrl &&
+          /^https:\/\//.test(source.fetchUrl)))
+        failures.push(slug + ": an FAQ verification source is missing from the automated Supabase source manifest.");
+    }
+  }
+}
+if (manifestByPath.size !== allDossiers.length)
+  failures.push("Museum source manifest has missing or stale museum paths relative to the complete dossier registry.");
+
 const base = process.env.MUSEUM_AUTHORITY_BASE_REF;
 if (base) {
   try {
