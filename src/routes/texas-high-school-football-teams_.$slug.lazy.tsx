@@ -531,7 +531,7 @@ function Page() {
               <Snapshot label="Record when checked" value={editorial.season.record} />
               <Snapshot label="Season data verified" value={editorial.season.verifiedAt} />
             </dl>
-            <div className="mt-5 w-full max-w-full overflow-x-auto border-y border-border">
+            <div role="region" aria-label="Scrollable 2026 football results and schedule table" tabIndex={0} className="mt-5 w-full max-w-full overflow-x-auto border-y border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
               <table className="w-full min-w-[38rem] text-left text-sm">
                 <thead className="border-b border-border text-xs uppercase tracking-[0.1em] text-muted-foreground">
                   <tr><th className="px-3 py-3">Date</th><th className="px-3 py-3">Opponent</th><th className="px-3 py-3">Site</th><th className="px-3 py-3">Result / status</th></tr>
