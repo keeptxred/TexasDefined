@@ -9,6 +9,7 @@ import process from "node:process";
 const read = (path) => fs.readFileSync(path, "utf8");
 const authority = read("src/data/state-park-authority.ts");
 const headquarters = read("src/data/state-park-verified-locations.ts");
+const newOpenings = read("src/data/newly-opened-state-parks-2026.ts");
 const recovery = read("src/data/state-park-authority-recovery.ts");
 const planner = read("src/components/editorial/DestinationVisitPlanner.tsx");
 const essentials = read("src/components/editorial/StateParkVisitorEssentials.tsx");
@@ -38,6 +39,10 @@ for (const [content, needle, description] of [
   [availability, "UNAVAILABLE_DESTINATION_SLUGS", "Closed parks must not be surfaced as visitable destinations"],
 ]) assertContains(content, needle, description);
 
+assertContains(newOpenings, 'slug: "palo-pinto-mountains-state-park"', "March 2026 Palo Pinto Mountains open park must have a canonical authority guide");
+assertContains(newOpenings, 'CC BY 3.0', "New state park hero must have source-confirmed license");
+assertContains(preserved, "newlyOpenedStateParks2026,", "2026 opening must resolve even when remote Explore is unavailable");
+assertContains(curation, "applyNewlyOpenedStateParkAuthority,", "Do not overwrite 2026 research with older short imported copy");
 const required = [
   "fort-richardson-state-park-state-historic-site",
   "seminole-canyon-state-park-and-historic-site",
