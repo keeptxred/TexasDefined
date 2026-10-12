@@ -11,7 +11,7 @@ import { isTexasStateParkDestination } from "./state-park-authority";
 export function getCountyStateParkLinks(countySlug: string) {
   const normalized = countySlug.trim().toLowerCase();
   const matches = preservedExploreDestinations
-    .filter((park) => (park.county ?? "").replace(/\s+county$/i, "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-") === normalized || (park.slug === "palo-pinto-mountains-state-park" && normalized === "stephens"))
+    .filter((park) => (park.county ?? "").replace(/\s+county$/i, "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-") === normalized || (park.slug === "palo-pinto-mountains-state-park" && normalized === "stephens") || (park.slug === "lake-somerville-state-park" && normalized === "lee"))
     .map((park) => improveDestinationQuality(applyAllCuratedDestination(applyExploreHeroAsset(applyStateParkHeroAsset(park)))))
     .filter((destination) => {
       return isTexasStateParkDestination(destination)
