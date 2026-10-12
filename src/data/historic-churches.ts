@@ -2,13 +2,14 @@
  * the Painted Churches census unless its qualifying interior is documented. */
 export type HistoricChurchSource = { label: string; url: string; type: "parish" | "historical-marker" | "archive" | "independent" };
 export type HistoricChurchImage = { file: string; alt: string; author: string; license: "CC BY-SA 4.0"; sourceUrl: string; width: number; height: number };
+export type HistoricChurchPhotoReference = { label: string; pageUrl: string; photographer?: string; reuseStatus: "permission-required" | "noncommercial-only"; note: string };
 export type HistoricChurch = {
   slug: string; name: string; shortName: string; locality: string; county: string; address?: string;
   summary: string; quickAnswer: string; denomination: string; foundation: string; presentBuilding: string;
   historicalContext: string[]; timeline: { year: string; detail: string }[];
   architecture: string[]; visitorNotes: string[]; significance: string[];
   sources: HistoricChurchSource[]; image?: HistoricChurchImage; gallery?: HistoricChurchImage[];
-  imageStatus: "rights-cleared" | "awaiting-licensed-photos";
+  imageStatus: "rights-cleared" | "awaiting-licensed-photos"; photoReferences?: HistoricChurchPhotoReference[];
   faq: { question: string; answer: string }[];
   paintedStatus: "not-established" | "research-candidate" | "related-historic";
   related: { href: string; label: string; why: string }[];
@@ -58,6 +59,7 @@ export const historicChurches: HistoricChurch[] = [
       { question:"Can visitors see the historic Brushy Church ruins?", answer:"The former stone church's remains are associated with St. Joseph Cemetery east of Yoakum. Do not assume unrestricted access to ruins; inquire through the parish first." },
       { question:"Is St. Joseph's in Yoakum a verified Painted Church?", answer:"This page documents the parish's mission history, railroad relocation and successive buildings. It does not claim a formal historic decorative-interior classification." }
     ],
+    photoReferences:[{label:"Photograph of today's St. Joseph Catholic Church exterior",pageUrl:"https://stjcatholicchurch.com/",reuseStatus:"permission-required",note:"The active parish displays a clear exterior photograph. Its contact page prohibits reproducing the parish site's materials without express pastor consent; link only until permission is documented."}],
     imageStatus:"awaiting-licensed-photos",
     paintedStatus:"not-established",
     related:[{href:"/county/lavaca",label:"Lavaca County guide",why:"Nearby Catholic and Czech-German parish networks"},{href:"/explore/painted-churches",label:"Painted Churches of Texas",why:"Compare confirmed decorative interiors without conflating classifications"}],
@@ -110,6 +112,7 @@ export const historicChurches: HistoricChurch[] = [
       { question:"When was the current church built?", answer:"Both the parish history and the Texas Historical Commission date the Gothic-style replacement to autumn 1906, after the previous church burned at Easter in 1905." },
       { question:"Where is St. Mary's and can visitors enter?", answer:"The parish lists 815 St. Mary's Church Road near Fayetteville. This is an active worship site; confirm current service times and interior access with the parish." }
     ],
+    photoReferences:[{label:"Photographs of St. Mary's Hostyn Hill sanctuary and exterior",pageUrl:"https://www.houstoniamag.com/travel-and-outdoors/2015/12/in-ellinger-the-painted-church-you-may-have-missed",reuseStatus:"permission-required",note:"Houstonia published verified photographs of the actual church, but its magazine photographs are not licensed for republication."},{label:"St. Mary's at Hostyn Hill / Ellinger photograph (2017)",pageUrl:"https://www.flickr.com/photos/pallrokk/37289127901/",photographer:"Jason John Paul Haskins",reuseStatus:"noncommercial-only",note:"CC BY-NC-SA 2.0: noncommercial photo, not approved for ad-supported TexasDefined use without separate written permission."}],
     imageStatus:"awaiting-licensed-photos",
     paintedStatus:"related-historic",
     related:[{href:"/explore/painted-churches",label:"Painted Churches of Texas",why:"See Hostyn Hill as a complementary historic stop to the decorated church circuit"},{href:"/explore/painted-churches/census",label:"Painted Churches classification and related stops",why:"Understand the narrower National Register list and nearby heritage suggestions"},{href:"/county/fayette",label:"Fayette County guide",why:"Plan Ellinger and Schulenburg heritage travel"}],
@@ -118,7 +121,7 @@ export const historicChurches: HistoricChurch[] = [
   {
     slug:"blessing-st-peters-catholic-church",
     name:"St. Peter's Catholic Church",shortName:"St. Peter's, Blessing",locality:"Blessing",county:"Matagorda",
-    address:"306 Hickory Street, Blessing, TX 77419",denomination:"Roman Catholic",
+    address:"206 N. Hickory Street, Blessing, TX 77419",denomination:"Roman Catholic",
     foundation:"Mass in the community by 1912; first church building completed in 1915",
     presentBuilding:"1976",
     summary:"A Matagorda County parish tied to Blessing's early settlement: 1912 home Masses, a donated 1914 church lot, wartime chapel reuse, and today's church.",
@@ -140,13 +143,14 @@ export const historicChurches: HistoricChurch[] = [
       "No reliable evidence found for an historic Painted Church decorative-interior campaign; its significance is parish continuity, community service and successive buildings."
     ],
     visitorNotes:[
-      "The active parish publishes current Masses, events, pastoral care and the location of its Blessing campus; check the parish site before visiting.",
+      "The parish's contact page and the Diocese of Victoria locate the church at 206 Hickory Street. A separate parish event lists its small hall at 306 Hickory Street: do not send readers to the hall for the church entrance. Check official Mass times and interior access before visiting.",
       "Historic photography of the 1915 structure or 1948 Army chapel requires provenance and reproduction permission before publication.",
       "Pair the stop with Blessing's railroad-era community history and Matagorda County cultural sites; the parish is not a public attraction with advertised tour hours."
     ],
     significance:["Early community worship tied to Blessing's townsite development","Documented reuse of a military chapel","Continuing parish service in Matagorda County"],
     sources:[
       {label:"St. Peter's parish and visitor information",url:"https://stpeterblessing.org/",type:"parish"},
+      {label:"Current parish contact: church at 206 Hickory Street",url:"https://www.stpeterblessing.org/contact-us",type:"parish"},
       {label:"Parish history index",url:"https://stpeterblessing.org/history-of-st-peters-catholic-church",type:"parish"},
       {label:"THC historical marker number 15337 and Matagorda County research file",url:"https://www.usgenwebsites.org/TXMatagorda/stpeter/church_bl_st_peters.htm",type:"archive"},
       {label:"Photographic record and inscription for marker 15337",url:"https://www.hmdb.org/m.asp?m=168640",type:"independent"},
@@ -159,6 +163,7 @@ export const historicChurches: HistoricChurch[] = [
       { question:"Does the church have a historical marker?", answer:"Yes. Texas Historical Commission marker 15337 recounts the local parish history. Matagorda County Historical Commission records its dedication in 2009." },
       { question:"Are sightseeing tours offered?", answer:"The active parish publishes worship information, but no guaranteed tourism hours were established in the reviewed official material. Contact the church before attempting an interior visit." }
     ],
+    photoReferences:[{label:"Three photographs of St. Peter's Catholic Church and its historical marker",pageUrl:"https://www.hmdb.org/m.asp?m=168640",photographer:"James Hulse",reuseStatus:"permission-required",note:"The Historical Marker Database includes actual photographs of the sanctuary viewed from the road and its marker; the photographer/site have not granted a commercial republication license."}],
     imageStatus:"awaiting-licensed-photos",
     paintedStatus:"not-established",
     related:[{href:"/county/matagorda",label:"Matagorda County guide",why:"Regional context for Blessing and the coastal prairie"}],
