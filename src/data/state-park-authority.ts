@@ -121,6 +121,14 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     camping: "TPWD lists 12 electric campsites, three electric tent-only sites, two water sites and five primitive sites. Exact access, reservation methods and showers vary by category.",
     maps: "TPWD publishes park and trails maps; the history of Mission San Francisco de los Tejas and Rice Family Log Home is interpreted through separate visitor materials.",
   },
+  "estero-llano-grande-state-park": {
+    checkedAt: "2026-10-12",
+    sourceUrl: "https://tpwd.texas.gov/state-parks/estero-llano-grande/fees-facilities/estero-llano-grande-accessibility",
+    restrooms: "TPWD verifies wheelchair-accessible restrooms at the Visitor Center and restrooms near the group hall. This wetland birding park is not advertised as an individual campground.",
+    parking: "Approach from FM 1015 south of U.S. Highway 83 at Weslaco. Visitor center access is wheelchair-friendly; verify designated parking space details with the park before visiting.",
+    access: "Open daily 8 a.m.–5 p.m.; accessible areas include portions of Camino de Aves, Green Jay, Spoonbill Boardwalk, Wader's Trail and Tropical Area, though some routes flood after rain.",
+    maps: "TPWD offers park, trail and Spanish-language trail maps plus Braille loan maps. Park staff can reserve a Grit Freedom Chair or motorized Trackchair.",
+  },
   "ray-roberts-lake-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/ray-roberts-lake/fees-facilities/campsites",
