@@ -1,8 +1,8 @@
 import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
-import caddoLake from "@/assets/caddo-lake.jpg";
+import blueHole from "@/assets/blue-hole.jpg";
 import { highIntentImage, makeHighIntentGuide, type HighIntentGuideSpec } from "./texas-high-intent-guide-factory";
-const images = { road: highIntentImage(roadTrip, "A Texas highway crossing an open landscape"), town: highIntentImage(smallTown, "Historic Texas courthouse square"), river: highIntentImage(caddoLake, "Cypress trees at a Texas lake; illustrative waterway image"), museum: highIntentImage(smallTown, "Historic Texas courthouse square; illustrative cultural-travel image") };
+const images = { road: highIntentImage(roadTrip, "A Texas highway crossing an open landscape"), town: highIntentImage(smallTown, "Historic Texas courthouse square"), river: highIntentImage(blueHole, "Cypress-shaded swimming water at Blue Hole in Wimberley; illustrative river recreation image"), museum: highIntentImage(smallTown, "Historic Texas courthouse square; illustrative cultural-travel image") };
 const specs: Omit<HighIntentGuideSpec, "hero">[] = [
   {
     "number": 111,
