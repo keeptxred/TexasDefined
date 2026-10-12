@@ -56,7 +56,7 @@ for (const guide of guides) {
 }
 for (const [label, content, marker] of [
   ["guide factory", files.factory, "guideEvidenceFor(spec.number)"],
-  ["guide fact cards", files.factory, 'Verified facts and figures at a glance'],
+  ["guide fact cards", files.panel, 'Facts you can verify'],
   ["sitewide guide gate", files.readiness, "isNewAuthorityGuideCandidate"],
   ["sitewide guide gate enforcement", files.readiness, "meetsNewAuthorityGuideStandard(article)"],
   ["image credits", files.panel, "Photo origins and reuse licenses"],
