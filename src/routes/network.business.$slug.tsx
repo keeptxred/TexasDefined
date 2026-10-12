@@ -29,10 +29,29 @@ export const Route = createFileRoute("/network/business/$slug")({
     if (!listing) throw notFound();
     return listing;
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      { title: `${typeof (loaderData?.profile as Record<string,unknown> | undefined)?.business_name === "string" ? (loaderData?.profile as Record<string,unknown>).business_name : "Texas Business"} | Texas Defined Network` },
-      { name: "robots", content: loaderData?.indexable ? "index,follow" : "noindex,nofollow,noarchive" },
-    ],
-  }),
+  head: ({ loaderData }) => {
+    // Only editorially published, projected public fields may enter the head.
+    // Staging and unlaunched routes never advertise an indexable canonical URL.
+    const profile = (loaderData?.profile ?? {}) as Record<string,unknown>;
+    const safe = (key:string) =>
+      typeof profile[key]==="string" ? (profile[key] as string).replace(/\\s+/g," ").trim() : "";
+    const name = safe("business_name") || "Texas Business";
+    const area = [safe("category"),safe("city")].filter(Boolean).join(" in ");
+    const summary = safe("description");
+    const description = (summary.length>=20
+      ? summary : `Explore ${name}${area ? " — "+area : ""} on the Texas Defined Network.`).slice(0,160);
+    const canonical = loaderData?.indexable && loaderData.slug
+      ? `https://texasdefined.com/network/business/${encodeURIComponent(loaderData.slug)}` : null;
+    return {
+      meta: [
+        { title: `${name} | Texas Defined Network` },
+        { name:"description", content:description },
+        { name:"robots", content:loaderData?.indexable ? "index,follow" : "noindex,nofollow,noarchive" },
+        { property:"og:title", content:`${name} | Texas Defined Network` },
+        { property:"og:description", content:description },
+        ...(canonical ? [{property:"og:url",content:canonical}] : []),
+      ],
+      links: canonical ? [{rel:"canonical",href:canonical}] : [],
+    };
+  },
 });
