@@ -29,7 +29,7 @@ function TexasMuseumsPage() {
       <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Museums across Texas</h1>
       <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{description} Hours, admission and temporary exhibitions can change, so each destination guide points back to its controlling visitor source.</p>
       <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm">
-        <Link to="/explore/historic-sites" className="border-b border-primary pb-1 text-primary">Historic Sites & Museums</Link>
+        <Link to="/explore/historic-sites" className="border-b border-primary pb-1 text-primary">Historic Sites & Museums</Link><Link to="/article/best-museums-in-texas" className="border-b border-primary pb-1 text-primary">Compare the best museums by specialty</Link>
         <Link to="/explore/trip-planner" className="border-b border-primary pb-1 text-primary">Trip planner</Link>
       </div>
       <section className="mt-12 border-t border-border pt-8" aria-labelledby="museum-guides">
