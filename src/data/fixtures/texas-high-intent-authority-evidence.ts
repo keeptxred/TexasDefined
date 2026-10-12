@@ -236,10 +236,10 @@ const photoSpecs: Record<number, (["park", string] | ["commons", string,string,s
     [
       "commons",
       "Main Street at Fredericksburg.JPG",
-      "Dylan Pierce",
+      "Lombana",
       "CC BY-SA 3.0",
-      2000,
-      1300
+      4608,
+      3072
     ],
     [
       "commons",
@@ -308,10 +308,10 @@ const photoSpecs: Record<number, (["park", string] | ["commons", string,string,s
     [
       "commons",
       "Main Street at Fredericksburg.JPG",
-      "Dylan Pierce",
+      "Lombana",
       "CC BY-SA 3.0",
-      2000,
-      1300
+      4608,
+      3072
     ],
     [
       "commons",
@@ -366,10 +366,10 @@ const photoSpecs: Record<number, (["park", string] | ["commons", string,string,s
     [
       "commons",
       "Main Street at Fredericksburg.JPG",
-      "Dylan Pierce",
+      "Lombana",
       "CC BY-SA 3.0",
-      2000,
-      1300
+      4608,
+      3072
     ],
     [
       "commons",
