@@ -81,14 +81,14 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
       }
     ],
     "sources": [
-      [
-        "TPWD Texas Lake Finder",
-        "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/"
-      ],
-      [
-        "TPWD Fishing Regulations",
-        "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/"
-      ]
+      {
+        "label": "TPWD Texas Lake Finder",
+        "url": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/"
+      },
+      {
+        "label": "TPWD Fishing Regulations",
+        "url": "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/"
+      }
     ]
   },
   {
@@ -168,14 +168,14 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
       }
     ],
     "sources": [
-      [
-        "TPWD State Park Reservations",
-        "https://tpwd.texas.gov/state-parks/reservations/"
-      ],
-      [
-        "TPWD State Parks Directory",
-        "https://tpwd.texas.gov/state-parks/"
-      ]
+      {
+        "label": "TPWD State Park Reservations",
+        "url": "https://tpwd.texas.gov/state-parks/reservations/"
+      },
+      {
+        "label": "TPWD State Parks Directory",
+        "url": "https://tpwd.texas.gov/state-parks/"
+      }
     ]
   },
   {
@@ -255,14 +255,14 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
       }
     ],
     "sources": [
-      [
-        "Travel Texas Visitor Planning",
-        "https://www.traveltexas.com/"
-      ],
-      [
-        "Texas Historical Commission",
-        "https://thc.texas.gov/"
-      ]
+      {
+        "label": "Travel Texas Visitor Planning",
+        "url": "https://www.traveltexas.com/"
+      },
+      {
+        "label": "Texas Historical Commission",
+        "url": "https://thc.texas.gov/"
+      }
     ]
   },
   {
@@ -342,14 +342,14 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
       }
     ],
     "sources": [
-      [
-        "TPWD State Parks",
-        "https://tpwd.texas.gov/state-parks/"
-      ],
-      [
-        "TPWD Reservations",
-        "https://tpwd.texas.gov/state-parks/reservations/"
-      ]
+      {
+        "label": "TPWD State Parks",
+        "url": "https://tpwd.texas.gov/state-parks/"
+      },
+      {
+        "label": "TPWD Reservations",
+        "url": "https://tpwd.texas.gov/state-parks/reservations/"
+      }
     ]
   },
   {
@@ -429,14 +429,14 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
       }
     ],
     "sources": [
-      [
-        "TPWD Swimming in State Parks",
-        "https://tpwd.texas.gov/state-parks/parks/things-to-do/swimming-in-state-parks-1/"
-      ],
-      [
-        "National Park Service Lake Meredith",
-        "https://www.nps.gov/lamr/index.htm"
-      ]
+      {
+        "label": "TPWD Swimming in State Parks",
+        "url": "https://tpwd.texas.gov/state-parks/parks/things-to-do/swimming-in-state-parks-1/"
+      },
+      {
+        "label": "National Park Service Lake Meredith",
+        "url": "https://www.nps.gov/lamr/index.htm"
+      }
     ]
   }
 ];
