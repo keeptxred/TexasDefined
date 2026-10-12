@@ -324,6 +324,38 @@ const COMMON_SOURCES: ArticleInternalLink[] = [
     "description": "Check warnings and understand the risk of rapidly rising water."
   }
 ];
+/** Verified primary operator pages; supplement general fishing, basin and safety sources. */
+const RIVER_OFFICIAL: Record<string, ArticleInternalLink[]> = {
+  guadalupe: [
+    {href:"https://tpwd.texas.gov/state-parks/guadalupe-river",label:"Guadalupe River State Park",description:"Official access, current alerts and campground reservations."},
+    {href:"https://www.newbraunfels.gov/3367/River-Recreation",label:"New Braunfels river operations",description:"City river closures, regulations, parking and recreation guidance."}],
+  frio: [
+    {href:"https://tpwd.texas.gov/state-parks/garner",label:"Garner State Park official guide",description:"Frio River access, park alerts and amenities."},
+    {href:"https://tpwd.texas.gov/state-parks/garner/fees-facilities/campsites/",label:"Garner State Park camping choices",description:"Campsite types, park fees and reservations."}],
+  comal: [
+    {href:"https://www.newbraunfels.gov/3368/Comal-River",label:"City of New Braunfels: Comal River",description:"Official current river conditions, rules, parking and tube chute information."},
+    {href:"https://www.newbraunfels.gov/3367/River-Recreation",label:"New Braunfels river recreation hub",description:"Compare Comal and Guadalupe river closures and rules."}],
+  "san-marcos": [
+    {href:"https://www.sanmarcostx.gov/Facilities/Facility/Details/City-Park-35",label:"San Marcos City Park authorized river access",description:"Official park amenities and river access at 170 Charles Austin Drive."},
+    {href:"https://www.sanmarcostx.gov/889/Park-Rules",label:"City of San Marcos river and park rules",description:"Current city park, container and habitat protections."},
+    {href:"https://tpwd.texas.gov/fishboat/fish/recreational/rivers/media/San_Marcos_River_maps.pdf",label:"TPWD San Marcos River access map",description:"Historic mapped access and portage locations; verify current open status."}],
+  llano: [
+    {href:"https://tpwd.texas.gov/state-parks/south-llano-river",label:"South Llano River State Park",description:"Official day-use, river conditions, alerts and camping information."},
+    {href:"https://tpwd.texas.gov/state-parks/south-llano-river/fees-facilities/campsites",label:"South Llano campsite options",description:"Official electric, walk-in and primitive campsite categories."}],
+  colorado: [
+    {href:"https://tpwd.texas.gov/state-parks/colorado-bend",label:"Colorado Bend State Park",description:"Official upstream park, river and camping access."}],
+  brazos: [
+    {href:"https://tpwd.texas.gov/state-parks/lake-somerville",label:"Lake Somerville State Park & Trailway",description:"Official reservoir-basin recreation and camping."}],
+  neches: [
+    {href:"https://tpwd.texas.gov/state-parks/village-creek",label:"Village Creek State Park",description:"Official tributary park activities and camping in the Neches watershed."},
+    {href:"https://www.nps.gov/bith/index.htm",label:"Big Thicket National Preserve",description:"Preserve rules, water trails and protected habitats."}],
+  sabine: [
+    {href:"https://tpwd.texas.gov/state-parks/lake-tawakoni",label:"Lake Tawakoni State Park",description:"Official state-park fishing and camping in the upper basin."}],
+  pecos: [
+    {href:"https://www.nps.gov/amis/planyourvisit/boating.htm",label:"NPS Amistad boat ramps and Pecos reach",description:"Check Pecos River boat ramp access and use-pass rules; ramp status is changeable."},
+    {href:"https://www.nps.gov/amis/planyourvisit/conditions.htm",label:"NPS Amistad current alerts",description:"Check boat-ramp status, closures and changing lake levels."},
+    {href:"https://tpwd.texas.gov/state-parks/seminole-canyon",label:"Seminole Canyon State Park",description:"Official visiting, cultural interpretation and campground information."}],
+};
 const h = (text: string): ArticleBlock => ({ type: "heading", text });
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
 const list = (items: string[]): ArticleBlock => ({ type: "list", items });
@@ -388,6 +420,8 @@ function riverAuthorityLinks(slug: string): ArticleInternalLink[] {
     ...neighbors, ...countyLinks,
     {href:BASIN_SOURCES[river.basin],label:"TWDB official basin profile",description:"Water geography and basin management context."},
     ...COMMON_SOURCES,
+    {href:"https://tpwd.texas.gov/fishboat/fish/recreational/rivers/",label:"TPWD river fishing and downloadable access maps",description:"River-specific fishing maps for San Marcos, Sabine, Llano, Neches, Colorado and other rivers."},
+    ...(RIVER_OFFICIAL[river.key] ?? []),
   ];
 }
 export function strengthenTexasRiverArticle(article: Article): Article {
@@ -404,7 +438,8 @@ export function strengthenTexasRiverArticle(article: Article): Article {
       {label:"TWDB official basin information",url:BASIN_SOURCES[riverAuthorityBySlug[article.slug].basin]},
       {label:"TPWD current Texas river access guidance",url:"https://tpwd.texas.gov/landwater/water/habitats/rivers/access/index.phtml"},
       {label:"TPWD 2026–2027 freshwater regulation exceptions",url:"https://tpwd.texas.gov/regulations/outdoor-annual/fishing/freshwater-fishing/freshwater-fishing-laws-and-exceptions"},
-      {label:"USGS National Water Dashboard",url:"https://dashboard.waterdata.usgs.gov/"}
+      {label:"USGS National Water Dashboard",url:"https://dashboard.waterdata.usgs.gov/"},
+      ...(RIVER_OFFICIAL[riverAuthorityBySlug[article.slug].key] ?? []).map((source) => ({label:source.label,url:source.href}))
     ],
   };
 }
