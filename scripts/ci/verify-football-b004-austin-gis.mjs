@@ -24,7 +24,7 @@ const routeSchoolNames={
  'austin-travis':/\btravis\b/i,
 };
 const excluded={
- 'austin-achieve':/austin\s*achieve/i,
+ 'austin-achieve':/austin\s*achieve.*(?:high|\bh\s*s\b)/i,
  'austin-lake-travis':/\blake\s*travis\b/i,
  'austin-vandegrift':/\bvandegrift\b/i,
  'austin-westlake':/\bwestlake\b/i
