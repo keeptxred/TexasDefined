@@ -5,8 +5,8 @@
 ## Counts and caveats
 
 - **175** separate alphabetical links/named entries in the TPWD public lake list (excluding its extra *Town Lake = Lady Bird Lake* alias line).
-- **54** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
-- **121** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
+- **56** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
+- **119** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
 - TPWD list entries include local ponds and some state-park-managed lakes as well as reservoirs; they cannot all be treated as equally high-demand or guaranteed distinct reservoirs.
 - This list does not include every Texas stock tank, private lake, community fishing pond, or small waterbody outside TPWD's own directory. It therefore cannot prove “every Texas lake.”
 
@@ -42,7 +42,7 @@
 | Alvarado Park | **Not in completed-guide registry** |
 | Amistad | [amistad-reservoir](https://texasdefined.com/fishing/lakes/amistad-reservoir) |
 | Amon G. Carter | **Not in completed-guide registry** |
-| Aquilla | **Not in completed-guide registry** |
+| Aquilla | [aquilla-lake](https://texasdefined.com/fishing/lakes/aquilla-lake) — pending deployment |
 | Arlington | **Not in completed-guide registry** |
 | Arrowhead | [lake-arrowhead](https://texasdefined.com/fishing/lakes/lake-arrowhead) |
 | Athens | **Not in completed-guide registry** |
@@ -109,7 +109,7 @@
 | Gonzales | **Not in completed-guide registry** |
 | Graham | **Not in completed-guide registry** |
 | Granbury | [lake-granbury](https://texasdefined.com/fishing/lakes/lake-granbury) |
-| Granger | **Not in completed-guide registry** |
+| Granger | [granger-lake](https://texasdefined.com/fishing/lakes/granger-lake) — pending deployment |
 | Grapevine | [grapevine-lake](https://texasdefined.com/fishing/lakes/grapevine-lake) |
 | Greenbelt | **Not in completed-guide registry** |
 | Halbert | **Not in completed-guide registry** |
@@ -222,3 +222,7 @@ TPWD's alphabetical labels are aligned with the canonical TexasDefined slug list
 ### Wave-one update (October 12)
 
 Two TPWD listings, **Georgetown** and **Benbrook**, have fully sourced new fishing authority definitions on the separate expansion branch. Their resulting guide registry count is **54**, with **121 listings without completed guides**. Both await review, CI and production deployment; TPWD snapshot counts include aliases and do not represent every privately held Texas waterbody.
+
+### Wave-two update (October 12)
+
+Granger and Aquilla now have separate researched authority records in the second expansion branch, with TPWD-access facilities and TWDB histories, reviewed government public-domain imagery, and generated county links. Together with Georgetown and Benbrook the **branch** covers 56 lake guides, with 119 unmatched TPWD listings. No new URLs should be considered published until both stacked releases pass CI and production acceptance.
