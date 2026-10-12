@@ -1,40 +1,49 @@
-# TexasDefined Museum Authority Standard (permanent)
+# TexasDefined Museum Visitor-Authority Standard (permanent)
 
-Last revised: 2026-10-12. Applies to every NEW museum destination and any authority-grade upgrade.
+Last revised: 2026-10-12. Applies to **every new museum and every existing museum updated to authority status**, not just the ten priority destinations.
 
-## Requirements
+## Mission and competitive definition
 
-A museum page is not a generic historic-site listing. It must answer what is preserved, why it matters, how to visit, and how the experience relates to the surrounding county, city, history and other museums.
+Create the **most useful independent guide for a person considering, planning and understanding a visit to each museum**. Benchmark the museum's entire publicly available **visitor information**, not only its home page, and add useful independent depth that the visitor could not get as conveniently from the operator alone. Do not claim to have surpassed the museum until a documented side-by-side visitor-guide comparison has been completed.
 
-1. **Canonical identity and provenance.** Reuse the museum's original slug and the existing destination template. Verify address, coordinates, operator, admission page, exhibits and current closure status. Never duplicate an old page to make a new authority page.
-2. **Distinctive original historical and scientific research.** Explain the museum's significance with at least three substantive exhibit/collection sections; distinguish interpretation from historical fact and current exhibitions from past ones. Include evidence about underrepresented groups and contextual controversies rather than promotional boilerplate.
-3. **Real visitor-planning advantage.** Include three distinct itineraries, advice on duration, parking and logistics, admissions, accessibility, family fit and organized school tours. Dates, fees, hours and temporary-exhibit offerings need first-party verification, and the operator controls today's operations.
-4. **Sources and editorial transparency.** Provide at least two different first-hand/reliable URLs, identified with what each establishes. Record the date of last actual checking; never auto-bump it just to suggest freshness.
-5. **Media rights.** Use exact-location, rights-cleared, attributed images only. Do not invent a museum picture, mislabel a nearby structure or silently borrow unrelated stock. Verify the image file license separately. Hold indexation when no acceptable primary image exists under current site indexing policy.
-6. **Structured, discoverable, accessible.** Clear museum headings and canonical URLs, descriptive meta, Museum and TouristAttraction JSON-LD, image attribution/alt text, internal links, desktop/mobile rendering and accessible controls. Review live pages for hydration and stale content.
-7. **Reciprocal link graph.** Museum guides link to local county and regional context; all matching canonical county/city pages should surface museums automatically; related destinations should recommend museums only where there is genuine geographic or thematic relevance. Add existing articles, tours, history hubs, comparable museums and school/family resources when genuinely useful. Link both ways rather than orphaning new museums.
-8. **Editorial honesty.** Never guarantee a Google ranking or assert superiority over the museum's own site without evidence. Build a more useful independent guide through original research, useful planning comparisons, citations and consistent updates.
+**We are not the museum.** Do not reproduce, scrape or seek to duplicate the whole collections database, catalog every item, supplant the museum's archivists, or reproduce substantial curatorial descriptions. Link visitors/researchers directly to the museum for exhaustive collections or research requests.
 
-## Implementation and repeatable workflow
+## Museum-specific visitor content requirements
 
-- Search canonical destinations, aliases, remote data and sitemap before creating a museum; update an existing page instead of duplicating.
-- Research first-party collections and visitor operations, independent history, public photo licenses and museum-specific local context.
-- Add the destination if genuinely missing, and always add exactly one full dossier in src/data/museum-authority-network.ts. The required MuseumAuthorityDossier properties are name, slug, city, county, reviewed, **two or more research topics**, whyVisit, visitorStrategy, accessibility, familiesAndGroups, researchValue, exhibits, routes, sources, and connections. Shared topics automatically connect similar museums statewide, so tag accurate subjects rather than adding unrelated cross-links.
-- Render through the existing destination template and MuseumAuthorityNetworkSection. CountyCityMuseums automatically surfaces museums on matching city and county pages, while museum page modules contain inbound and outbound local and similar-site crosslinks.
-- Run node scripts/data/validate-museum-authority.mjs and npx tsc --noEmit; verify general data and SEO validators, imagery, accessibility and responsive production UI before deployment.
-- Check live museum pages, both directions of local cross-links, and accurate JSON-LD and noindex status after production deployment.
+1. **Identity and first-hand facts.** Establish the correct institution, address, city, county, operator, official website, appropriate map and current status. Update its canonical destination rather than duplicating it.
+2. **Exhibit overview, not catalog duplication.** Describe key exhibit *topics* and **up to ten noteworthy permanent or currently available exhibits** with **brief original blurbs**. Fewer when appropriate; do not manufacture ten for a one-room institution. Clearly label temporary exhibitions, dates and closures. The goal is helping readers decide what interests them, not reproducing catalog records.
+3. **Family and visitor fit.** Answer whether it suits toddlers, young children, teens, adults, school groups and people with differing mobility or sensory needs *only as the actual institution warrants*. Call out potential frightening/intense themes, active learning vs quiet galleries and the time needed. If a historic building has steps, that matters more than a generic restroom badge.
+4. **Concrete trip logistics.** Verify admission and discounts; reservation or timed entry; typical visit length; opening times and closures; parking, entrances and maps; wheelchair/stroller/sensory considerations; photography or pet policies where important; gift store, drinking water and dining. **Distinguish cafeteria, snack counter, café, full-service restaurant and no verified food service; never silently turn a snack bar into a restaurant.** Only mention bathrooms when location/availability is genuinely important to visiting, not as museum page filler.
+5. **Museum-specific researched FAQs (required, visible on page).** Start with museum FAQ, visit/field-trip/accessibility/ticket pages. **Then independently look for common visitor questions** using appropriate visitor Q&A, genuine reviews, relevant forums, search-result related-questions or public search query data where available. Only record claims of frequency if measured; otherwise describe researched questions as visitor concerns, not statistically the most searched. Choose and prioritize the useful questions for that museum; four or more if evidence warrants, usually 6–12 for major attractions, no fixed ten-question template. Question and answer must both be museum-specific. Every answer has a link to a reliable verifying source, a question provenance link, last actually reviewed date and monthly/quarterly check schedule. **A museum FAQ is the START, never the END, of question research.** Research questions not addressed by the operator's FAQ as well.
+6. **Genuine editorial value.** Original explanation of why a few selected exhibits/topics matter, distinctive insights, practical tips and appropriate visit plans. Optional deeper history only when it improves a visitor's understanding; do not make archival replication the definition of authority.
+7. **Licensable exact-location visuals.** Verified rights to reuse, attribution, descriptive ALT, no mislabelled nearby places, no generic photos masquerading as this museum. Surface only media you can substantiate.
+8. **Contextual two-way links.** Relevant city/county, regional Explore, related cultural/history pages, nearby attractions, appropriate family itineraries and *actually relevant* peer museums. Verify targets exist; connect older pages back to the newly improved museum guide when meaningful. Add nonintrusive affiliates only when appropriate, never invented museum relationships.
+9. **Technical and live QA.** Accessible headings, readable mobile and desktop layouts, canonical metadata, appropriate Museum schema, live routing, fresh display status, safe source URLs and real image-license checks. Never guarantee rankings or assert superiority based on a template alone.
 
-## CI contract
+## FAQ data, sources and refresh requirements
 
-The .github/workflows/museum-authority-contract.yml workflow runs for pull requests and main branch changes. The script validates all ten current dossiers for required depth, recent checking dates, primary-source links, research content, three itineraries, contextual county links and integration into destination + county/city templates. On pull requests it scans changed source for new museum destination slugs. Newly introduced museum records WITHOUT a full dossier fail CI. Existing untouched older museum records are grandfathered to avoid breaking thousands of legacy pages; improve the legacy inventory in researched batches.
+- Museum-specific entries live in `src/data/museum-visitor-faqs.ts` and are rendered on each museum destination by `MuseumAuthorityNetworkSection`.
+- Every FAQ records: `question`, `answer`, `verificationUrl` (a reliable source for the *answer*), `questionOrigin` (operator's FAQ, observed visitor Q&A or editorial visitor-intent research), `questionEvidenceUrl`, `reviewed`, and `reviewCycle`.
+- Use `museum-faq` only if that *question* appears in an actual institution FAQ; `visitor-qna` only if the exact topic was observed in a genuine visitor question; `editorial-research` for questions derived from independently reviewing operator facts and visitor planning needs. Don't invent common-question frequency or mistake an old forum answer for current policy.
+- **Check answers against the operator** for hours, admission, food, permits, pet rules, closures, current exhibits and accessibility policies. Visitor Q&A is valuable for discovering questions, but older individual responses are not the truth source for changing policies.
+- Recheck volatile answers monthly or sooner where closure/ticket rules are changing, and more stable material quarterly. A scheduled job must record real checks and flag changes; it must not automatically bump `reviewed` with no verification.
+- If a fact can't be verified, say so clearly or omit it; never invent amenities or mark assumptions as confirmed. Do not publish FAQPage structured data merely to chase rich snippets; visible helpful FAQ content is the goal.
 
-This structural gate cannot validate real-world accuracy or copyright in isolation; maintain an editorial signoff and production QA. Research compliance and actual Google authority are outcomes to measure rather than properties a template can promise.
+## Repeatable implementation and acceptance
 
-## Known exceptions
+- Research official visitor resources AND independent visitor questions for the particular museum. Audit the museum's published visitor information side by side; create a visitor-focused gap list in `docs/museum-official-site-benchmarks.json`.
+- Update the canonical existing destination and its dossier in `src/data/museum-authority-network.ts`. Add up to ten concise exhibit/topic blurbs and only meaningful visit routes. Add museum-specific FAQs with direct question-provenance and answer verification URLs.
+- Confirm family fit, correct dining type, accessibility, ticketing, parking, map, timing, photo reuse rights and relevant reciprocal city/county/internal links. Do not mechanically display irrelevant facility notes for every museum.
+- Run `node scripts/data/validate-museum-authority.mjs` as part of the canonical `node scripts/ci/run-premerge-validation.mjs`; validate build, inspect live responsive pages, and verify reciprocal links and actual source claims.
+- The deterministic contract catches missing dossier/FAQ wiring, thin answers, review dates and source links. It **cannot** establish that visitors ask a question frequently or fact-check the whole web; evidence-based editorial and production QA are additional requirements.
+- **No production-complete declaration** until the side-by-side visitor-guide checklist and production QA are closed. Existing museum guides not yet audited remain backlog, not certified by being grandfathered into a validator.
 
-- Panhandle-Plains Historical Museum: check the official temporary-closure updates before advertising indoor visiting.
-- George Ranch Historical Park: public-admission days differ from reserved school/group dates.
-- Museum exhibits, admission hours, prices and educational programs change. Never infer open-now or availability from static content.
-- If an exact-location image cannot be cleared or a first-party visit source disappears, preserve the historical page but hold it out of the public index until resolved.
+## Current museum-specific precautions
 
-Priority October 2026 ten: Bullock, Perot, Witte, Museum of the Big Bend, Panhandle-Plains Historical, George Ranch, Texas Maritime, National Museum of the Pacific War, Frontier Texas!, and Texas Energy Museum.
+- Panhandle-Plains Historical Museum: building closure takes precedence over otherwise helpful admission and exhibit tips.
+- George Ranch: Saturday general admission differs from booked weekday group visits; outdoor walking and tram logistics matter.
+- National Museum of the Pacific War: main museum and Combat Zone have different access windows; add-on experiences and potentially intense content require clear advice.
+- Perot Museum: reserve timed entry, separate special exhibitions and compare family/sensory experience.
+- When dining is not independently confirmed, say **not confirmed** and give planning advice rather than asserting no food is available.
+
+Initial ten: Bullock, Perot, Witte, Museum of the Big Bend, Panhandle-Plains Historical, George Ranch, Texas Maritime, National Museum of the Pacific War, Frontier Texas!, and Texas Energy Museum.
