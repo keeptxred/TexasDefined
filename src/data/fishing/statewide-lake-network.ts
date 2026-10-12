@@ -77,6 +77,9 @@ interface StatewideLakeDefinition {
   liveDataNote?: string;
   nearbyLakes: { slug: string; name: string }[];
   camping?: { name: string; summary: string };
+  accessPoints?: ShowcaseLakePrototype["access"];
+  historySourceUrl?: string;
+  visitorSourceUrl?: string;
 }
 
 const fish = (
@@ -661,6 +664,54 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"}],
     camping: {name:"Lake Colorado City State Park",summary:"The state park provides camping and reservoir access, but anglers should check golden-alga notices, water level and current fish reports before building a trip around fishing."},
   },
+
+  {
+    slug: "lake-stamford", name: "Lake Stamford", tpwdSlug: "stamford", waterDataSlug: "stamford", verifiedAt: "2026-10-12", region: "panhandle",
+    summary: "A 5,124-acre city-owned Paint Creek reservoir in Haskell County, with an excellent white-crappie fishery, two TPWD-listed marina ramps, shoreline camping and substantial water-level swings.",
+    surfaceAcres: 5124, maxDepthFeet: 36, impoundedYear: 1953, counties: ["Haskell"], nearestCities: ["Stamford", "Haskell", "Rule"],
+    waterway: "Paint Creek, tributary of the Clear Fork Brazos River", riverBasin: "Brazos River Basin", authority: "City of Stamford", conservationPool: "1,416.8 ft msl", fluctuation: "Severe; TPWD describes 4–10 feet of annual variation", clarity: "Turbid, generally 1–2 feet of visibility",
+    identity: "Built by the City of Stamford for municipal and industrial water supply, the reservoir began impounding Paint Creek in June 1953 after dam construction begun in 1951. TPWD identifies white crappie as the outstanding fishery, with good largemouth bass and catfish. The real visitor-planning issue is the lake's highly variable level: check TWDB's dated gauge and individual ramp operators before traveling.",
+    habitat: ["Rocky structure, stumps and drop-offs are important when the water is low.", "Bulrush, cattail, pondweed and lily pads offer shallow fish cover when water is up.", "TPWD's Habitat Structure Viewer includes installed fish habitat with downloadable coordinates."],
+    fish: [
+      fish("crappie","Crappie","excellent","spring","TPWD rates white crappie excellent; structure such as submerged timber, humps and drop-offs supports vertical jig and minnow fishing.",["jigs-and-minnows","vertical-jigging"]),
+      fish("largemouth-bass","Largemouth bass","good","spring","Fish rocky cover and bulrush/cattail points when lake levels permit; spring and summer are TPWD's favored periods.",["soft-plastics","crankbaits","spinnerbaits","topwater"]),
+      fish("catfish","Catfish","good","year-round","Channel and blue catfish offer a useful secondary fishery; use local reports and water-level context before a dedicated trip.",["cut-bait","live-bait"]),
+      fish("white-bass","White bass","fair","spring","TPWD rates white bass fair; verify recent activity rather than assuming consistent schooling action.",["jigs-and-minnows","live-bait"],"secondary"),
+      fish("sunfish","Sunfish","fair","summer","Shallow vegetated areas can support sunfish, but TPWD rates the fishery fair.",["jigs-and-minnows"],"secondary"),
+    ],
+    access: "Stamford Marina at Stamford Park off FM 2976 has a TPWD-listed two-lane ramp; Anchor Marina at Silo Scott Memorial Park off FM 3495 has a one-lane ramp. Both listings say no launch fee, but verify current operation and usability after low water.",
+    accessPoints: [
+      { name: "Stamford Marina — Stamford Park", operator: "City of Stamford", kind: "marina", launch: "Off FM 2976; TPWD lists a two-lane ramp, about 20 parking spaces, shoreline access and a crappie house.", fee: "TPWD lists no ramp-launch fee; crappie house fee applies", availability: "Listed year-round; call operator and check lake elevation before towing" },
+      { name: "Anchor Marina — Silo Scott Memorial Park", operator: "Haskell County", kind: "marina", launch: "Off FM 3495; TPWD lists a one-lane ramp, about 20 parking spaces and bank-fishing access.", fee: "TPWD lists no ramp-launch fee; verify on arrival", availability: "Listed year-round; confirm campground and low-water ramp status" },
+    ],
+    historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/stamford/index.asp",
+    nearbyLakes: [{slug:"lake-arrowhead",name:"Lake Arrowhead"},{slug:"lake-brownwood",name:"Lake Brownwood"}],
+    camping: {name:"Stamford Park and Silo Scott Memorial Park",summary:"TPWD lists camping with hookups at both lakeside parks. Stamford Park additionally lists cabins, picnic sites and a crappie house. Verify prices, availability and access directly with the operator; nearby Fort Griffin State Historic Site provides an additional overnight option."},
+  },
+  {
+    slug: "lake-sweetwater", name: "Lake Sweetwater", tpwdSlug: "sweetwater", waterDataSlug: "sweetwater", verifiedAt: "2026-10-12", region: "panhandle",
+    summary: "A small city-owned Nolan County reservoir and historic recreation area, with camping and a municipal golf course; TPWD warns that golden-alga fish kills have severely reduced the fishery and water levels are currently far below conservation pool.",
+    surfaceAcres: 630, maxDepthFeet: 45, impoundedYear: 1930, counties: ["Nolan"], nearestCities: ["Sweetwater", "Roscoe", "Colorado City"],
+    waterway: "Bitter Creek and Cottonwood Creek", riverBasin: "Brazos River Basin", authority: "City of Sweetwater", conservationPool: "2,116.5 ft msl", fluctuation: "Moderate to prolonged major drawdown", clarity: "Clear to stained, occasionally up to four feet of visibility",
+    identity: "The City of Sweetwater completed the dam in 1930 for water supply and recreation; Civilian Conservation Corps work in the 1930s helped shape the historic lakeside park, amphitheater and recreation landscape. Treat this primarily as a park-and-history stop until current conditions improve: TPWD retains an active golden-alga warning and rates bass, catfish, crappie and sunfish poor. TWDB's gauge shows substantial drawdown, which can make published ramp details unreliable on the day of travel.",
+    habitat: ["TPWD documents bulrush and pondweed when the lake is near full pool; exposed shoreline and habitat differ markedly in drought.", "Fish populations have been heavily affected by golden-alga kills, so historical catch reports should not be used as current forecasts.", "TPWD's latest surveys and stocking history offer better context than generic claims of abundant fish."],
+    fish: [
+      fish("largemouth-bass","Largemouth bass","poor","spring","TPWD rates bass poor after repeated golden-alga impacts. Confirm fishery condition before a fishing-specific trip.",["soft-plastics","spinnerbaits"],"secondary"),
+      fish("channel-catfish","Channel catfish","poor","year-round","Historically present but currently poor by TPWD's rating; do not assume reliable catches.",["cut-bait","live-bait"],"secondary"),
+      fish("crappie","Crappie","poor","spring","White crappie historically occurred here but TPWD currently rates the fishery poor.",["jigs-and-minnows"],"secondary"),
+      fish("sunfish","Sunfish","poor","summer","Sunfish have also been affected by golden-alga kills; verify the most recent TPWD report.",["jigs-and-minnows"],"secondary"),
+    ],
+    access: "TPWD lists a lighted five-lane ramp south of I-20 off FM 2035 with a fee and approximately 50 parking spaces; City of Sweetwater lists lake-park facilities at 200 FM 2015. These are different published approach descriptions: confirm directions and actual ramp operability with the city before towing in low water.",
+    accessPoints: [
+      { name: "Lake Sweetwater city-operated ramp", operator: "City of Sweetwater", kind: "public-ramp", launch: "TPWD lists a five-lane lighted concrete ramp south of I-20 off FM 2035, with approximately 50 parking spaces.", fee: "Launch fee listed by TPWD; check current charges", availability: "TPWD says year-round, but low water can prevent launches; call City of Sweetwater before traveling" },
+      { name: "Lake Sweetwater Recreation Area", operator: "City of Sweetwater", kind: "park", launch: "The city lists 200 FM 2015 for park access, with a beach area, amphitheater, pavilions, play area, restrooms and overnight camping.", fee: "Verify day-use and camping fees with the city", availability: "Confirm swimming suitability, park access and campsite reservations; published amenities do not guarantee water access" },
+    ],
+    historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/sweetwater/index.asp",
+    visitorSourceUrl: "https://www.sweetwatertx.gov/159/Visit-Sweetwater",
+    liveDataNote: "Important: TPWD currently warns of a golden-alga bloom and describes poor angling across major sport-fish groups. TWDB shows this reservoir substantially below full pool. Check current TPWD advisories, water elevation and city access status before fishing, launching or swimming; conditions can change.",
+    nearbyLakes: [{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"lake-stamford",name:"Lake Stamford"}],
+    camping: {name:"Lake Sweetwater Recreation Area",summary:"The City of Sweetwater lists overnight camping and trailer facilities, picnic/pavilion space, a beach, playground, amphitheater and proximity to its municipal golf course. The city's reservation information is the authoritative source for current RV/campground booking, fees and open facilities."},
+  },
 ];
 
 const techniqueLabels: Record<TechniqueId, string> = {
@@ -799,7 +850,7 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
       seasons: [{ label: target.season === "year-round" ? "Year-round" : target.season.charAt(0).toUpperCase() + target.season.slice(1), text: target.summary }],
       techniques: target.techniques.map((id) => techniqueLabels[id]),
     })),
-    access: [{
+    access: def.accessPoints ?? [{
       name: `${def.name} public access inventory`,
       operator: "TPWD-listed public and private facilities",
       kind: "public-ramp",
@@ -835,6 +886,8 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
       tpwdAccess: { label: publicAccess.name, url: publicAccess.url },
       tpwdRegulations: { label: "TPWD — current freshwater fishing regulations", url: TPWD_REGULATIONS },
       liveLevel: liveLevelSource,
+      ...(def.historySourceUrl ? { reservoirHistory: { label: "Texas Water Development Board — reservoir history", url: def.historySourceUrl } } : {}),
+      ...(def.visitorSourceUrl ? { cityRecreation: { label: "City of Sweetwater — official visitor information", url: def.visitorSourceUrl } } : {}),
     },
   };
 }
