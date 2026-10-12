@@ -28,3 +28,15 @@ test('UI catalog no longer says inactive product while actual checkout remains s
  const server=readFileSync('src/data/network-stripe.server.ts','utf8');
  assert.match(server,/process\.env\.NETWORK_CHECKOUT_ENABLED==='true'/);
 });
+
+
+test('canonical metadata never signals publication for staging or unlaunched Network routes',()=>{
+ const business=route('network.business.$slug.tsx');
+ assert.match(business,/const canonical = loaderData\?\.indexable && loaderData\.slug/);
+ assert.match(business,/links: canonical \? \[\{rel:"canonical",href:canonical\}\] : \[\]/);
+ assert.match(business,/name:"description"/);
+ const join=route('network.join.tsx');
+ assert.match(join,/links:loaderData\?\.launchReady \? /);
+ const directory=route('network.directory.tsx');
+ assert.match(directory,/links:loaderData\?\.indexable \? /);
+});

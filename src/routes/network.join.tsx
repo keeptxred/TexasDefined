@@ -12,5 +12,6 @@ export const Route = createFileRoute("/network/join")({
       {name:"description",content:"Join the Texas Defined Network. Explore free and enhanced profiles for Texas organizations."},
       {name:"robots",content:loaderData?.launchReady?"index,follow":"noindex,nofollow,noarchive"},
     ],
+    links:loaderData?.launchReady ? [{rel:"canonical",href:"https://texasdefined.com/network/join"}] : [],
   }),
 });

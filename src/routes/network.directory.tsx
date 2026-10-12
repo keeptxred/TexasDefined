@@ -36,6 +36,7 @@ export const Route = createFileRoute("/network/directory")({
       { name: "robots", content: loaderData?.indexable ? "index,follow" : "noindex,nofollow,noarchive" },
       { name: "description", content: "Discover Texas businesses, museums, organizations, and places through the Texas Defined Network." },
     ],
+    links:loaderData?.indexable ? [{rel:"canonical",href:"https://texasdefined.com/network/directory"}] : [],
   }),
 });
 
