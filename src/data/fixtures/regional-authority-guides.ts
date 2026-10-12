@@ -7,6 +7,7 @@ import { regionalAuthorityEnrichment } from "./regional-authority-enrichment";
 const baseRegionalAuthorityArticles: Article[] = [
   {
     "id": "evergreen-scenic-drives-in-texas",
+    "brandId": "texasdefined",
     "slug": "scenic-drives-in-texas",
     "title": "Scenic Drives in Texas: Routes, Stops, Seasons and Road Conditions",
     "dek": "Choose a Texas scenic drive by landscape and road type, from the Hill Country and Piney Woods to Big Bend, Gulf Coast, Panhandle and South Texas—with realistic trip-planning advice.",
@@ -167,6 +168,7 @@ const baseRegionalAuthorityArticles: Article[] = [
   },
   {
     "id": "evergreen-texas-wine-country",
+    "brandId": "texasdefined",
     "slug": "texas-wine-country",
     "title": "Texas Wine Country: Regions, Vineyards and Planning a Wine Weekend",
     "dek": "Understand Texas wine regions beyond the Fredericksburg tasting corridor, including the Hill Country and Texas High Plains, with AVA geography, vineyard sourcing and practical visitor planning.",
@@ -308,6 +310,7 @@ const baseRegionalAuthorityArticles: Article[] = [
   },
   {
     "id": "evergreen-texas-german-belt",
+    "brandId": "texasdefined",
     "slug": "texas-german-belt",
     "title": "Texas German Belt: Towns, Churches, History and Heritage Routes",
     "dek": "Trace German-Texan immigration from New Braunfels and Fredericksburg to Comfort, Boerne and smaller communities, with historical context, churches, food traditions and a responsible heritage-drive itinerary.",
