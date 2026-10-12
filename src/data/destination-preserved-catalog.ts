@@ -87,6 +87,7 @@ import { realAleBlancoDestinations } from "./real-ale-blanco-destination";
 import { oldBlancoCountyCourthouseDestinations } from "./old-blanco-county-courthouse-destination";
 import { twinSistersDanceHallDestinations } from "./twin-sisters-dance-hall-destination";
 import { buggyBarnMuseumBlancoDestinations } from "./buggy-barn-museum-blanco-destination";
+import { additionalTownAuthorityDestinations } from "./small-town-authority-wave16";
 import { smallTownWave1Destinations } from "./small-town-destinations-wave1";
 import { smallTownWave2Destinations } from "./small-town-destinations-wave2";
 import { smallTownWave3Destinations } from "./small-town-destinations-wave3";
@@ -307,6 +308,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   wildlifeManagementAreaWave7Destinations,
   wildlifeManagementAreaWave8Destinations,
   wildlifeManagementAreaWave9Destinations,
+  additionalTownAuthorityDestinations,
   smallTownWave1Destinations,
   smallTownWave2Destinations,
   smallTownWave3Destinations,
