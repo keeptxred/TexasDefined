@@ -89,3 +89,12 @@ export function riverAuthorityLinksForCounty(slug: string): ArticleInternalLink[
 export function riverAuthorityLinksForDestination(slug: string): ArticleInternalLink[] {
   return linksFor("destinations", slug);
 }
+
+/** Statewide navigation is automatic for any editorially registered river. */
+export function allRiverAuthorityNavigationLinks(): ArticleInternalLink[] {
+  return RIVER_AUTHORITY_RELATIONS.map((river) => ({
+    href: `/article/${river.slug}`,
+    label: `${river.name} fishing, camping and visitor guide`,
+    description: "Compare source-led river access, water safety and recreation options by reach.",
+  }));
+}
