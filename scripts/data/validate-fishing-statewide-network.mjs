@@ -133,6 +133,17 @@ for (let i = 0; i < topLevel.length; i += 1) {
   if (relatedCount < 2) fail(`${row.slug} requires at least two related-lake links`);
 }
 
+for (const slug of ["white-rock-lake", "lake-ray-hubbard"]) {
+  const m = new RegExp('^    slug: "' + slug + '", name:', 'm').exec(files.network);
+  if (!m) fail(`missing source-supported no-camping lake ${slug}`);
+  const end = files.network.indexOf("\n  },", m.index);
+  if (!files.network.slice(m.index, end).includes("campingProhibited: true"))
+    fail(`${slug} must continue publishing its verified no-camping restriction`);
+}
+for (const token of ["pageData.campingProhibited", "No overnight camping at"]) {
+  requireText(files.component, token, "source-confirmed no-camping UI contract missing " + token);
+}
+
 for (const slug of expectedSlugs) {
   requireText(files.network, `id: def.slug`, "generated lake records must preserve the canonical slug");
   if (!statewide.includes(slug)) fail(`complete-lake registry missing ${slug}`);
