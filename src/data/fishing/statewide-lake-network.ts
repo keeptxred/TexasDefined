@@ -1125,7 +1125,7 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
       href: publicAccess.url,
     }],
     nearby: [
-      ...def.counties.slice(0, 2).map((county) => ({ label: `${county} County`, description: `${def.name} is tied to ${county} County trip planning, access and nearby destinations.`, href: `/county/${countySlug(county)}`, external: false })),
+      ...def.counties.map((county) => ({ label: `${county} County`, description: `${def.name} is tied to ${county} County trip planning, access and nearby destinations.`, href: `/county/${countySlug(county)}`, external: false })),
       ...def.nearbyLakes.map((lake) => ({ label: lake.name, description: `Compare ${def.name} with another nearby or regionally related Texas fishing destination.`, href: `/fishing/lakes/${lake.slug}`, external: false })),
     ],
     businessCategories: ["Fishing guides", "Marinas & fuel", "Bait & tackle", "Boat rentals & repair", "Campgrounds & lodging", "Restaurants"],
