@@ -85,6 +85,9 @@ mustContain("src/routes/sitemap-explore[.]xml.ts",["historicChurchEntries","hist
 mustContain("src/lib/public-routes.ts",['"/explore/historic-churches"']);
 mustContain("src/components/content/CountyHistoricSites.tsx",["historicChurches.filter","/explore/historic-churches/"]);
 mustContain("src/components/editorial/ExploreTopicPaths.tsx",["Historic Churches of Texas"]);
+mustContain("src/routes/explore.index.lazy.tsx",["Historic Churches of Texas","/explore/historic-churches"]);
+mustContain("src/routes/guides.lazy.tsx",["Historic Churches of Texas","/explore/historic-churches"]);
+mustContain("src/routes/texas-sacred-places.tsx",["Historic Churches of Texas","/explore/historic-churches"]);
 if(warnings.length) console.warn("Historic Churches outstanding image research:\n"+warnings.join("\n"));
 if(process.argv.includes("--strict-images") && warnings.length) failures.push("Strict publication check fails: "+warnings.length+" unlicensed church photo gaps");
 if(failures.length){console.error("Historic Churches validation FAILED:\n"+failures.map(s=>" - "+s).join("\n"));process.exit(1)}
