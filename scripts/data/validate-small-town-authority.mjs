@@ -17,6 +17,7 @@ const guideSources = [
 ];
 
 const guideSlugs = new Map();
+const researchedMetadata = new Map();
 let recordCount = 0;
 for (const { filename, text } of guideSources) {
   const matches = [...text.matchAll(/\bid:\s*["']small-town-[a-z0-9-]+["']/g)];
@@ -34,6 +35,16 @@ for (const { filename, text } of guideSources) {
       return;
     }
     guideSlugs.set(slug, filename);
+    const name = section.match(/\bname:\s*["']([^"']+)["']/)?.[1];
+    const county = section.match(/\bcounty:\s*["']([^"']+)["']/)?.[1];
+    const region = section.match(/\bregion:\s*["']([^"']+)["']/)?.[1];
+    const coords = section.match(/\bcoordinates:\s*\{\s*lat:\s*(-?\d+(?:\.\d+)?),\s*lng:\s*(-?\d+(?:\.\d+)?)/);
+    if (name && county && region && coords) {
+      researchedMetadata.set(slug, { name, county, region, lat: Number(coords[1]), lng: Number(coords[2]) });
+    } else check(false, slug + ": missing place identity or coordinates for the compact link index");
+    if (filename.endsWith("wave17.ts")) {
+      check(section.includes("visitorFaqs:"), slug + ": visitor FAQs must cite researched visitor questions");
+    }
     for (const field of ["authorityGuide:", "areaGuide:", "sources:", "hero:", "sourceCheckedAt", "coordinates:", "county:", "officialUrl:"]) {
       check(section.includes(field), slug + ": missing " + field);
     }
@@ -63,6 +74,22 @@ for (const key of [
 for (const key of ["townAuthorityContextualLinks(", "TEXAS_CITIES.find", "countyTowns[countyKey", "candidate.region === destination.region"]) check(links.includes(key), "Lightweight linker missing " + key);
 for (const slug of guideSlugs.keys()) check(linkIndex.includes('"slug": "' + slug + '"'), "Lightweight index missing researched town " + slug);
 check(linkIndex.includes('"slug": "gruene-historic-district"'), "Lightweight index missing Gruene Historic District");
+const indexStart = linkIndex.indexOf("= [");
+const indexEnd = linkIndex.lastIndexOf("];");
+let allLinkPlaces = [];
+try {
+  allLinkPlaces = JSON.parse(linkIndex.slice(indexStart + 2, indexEnd + 1));
+} catch { check(false, "Lightweight link index must remain an exact parseable JSON array"); }
+const indexedSlugs = new Set(allLinkPlaces.map((row) => row.slug));
+check(allLinkPlaces.length === indexedSlugs.size, "Lightweight link index has duplicate slugs");
+check(allLinkPlaces.length === guideSlugs.size + 1, "Lightweight link index must contain every researched town plus Gruene and no orphan records");
+for (const [slug, expected] of researchedMetadata) {
+  const actual = allLinkPlaces.find((row) => row.slug === slug);
+  if (!actual) continue;
+  for (const field of ["name", "county", "region"]) check(actual[field] === expected[field], slug + ": link index " + field + " diverges from researched guide");
+  for (const field of ["lat", "lng"]) check(Math.abs(actual[field] - expected[field]) < 0.00001, slug + ": link index coordinates diverge from researched guide");
+}
+
 
 const curatedGruene = read("src/data/destination-curation-top-attractions-batch5.ts");
 const grueneAuthority = read("src/data/destination-authority-top-attractions.ts");
