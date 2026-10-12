@@ -15,6 +15,9 @@ export const VERIFIED_VISITOR_FACILITIES: Record<string, DestinationVisitorFacil
     }
   },
   "enchanted-rock-state-natural-area": {
+    editorialFocus: ["parking", "restrooms", "map"],
+    editorialHeading: "Trailhead access and backcountry facilities",
+    editorialIntro: "The exposed summit hike, campsite access and primitive trails demand more preparation than the drive from Fredericksburg suggests.",
     parking: {
       status: "verified",
       details: "Day-use parking includes a designated ADA space, though paths and terrain are uneven. Walk-in campsites are 25–100 yards from parking; reserve entry before arriving.",
@@ -32,6 +35,9 @@ export const VERIFIED_VISITOR_FACILITIES: Record<string, DestinationVisitorFacil
     visitorTips: ["For routes, use the downloadable trail and backcountry maps, not only the location pin.", "Check current Summit Trail closures and park alerts before departure."]
   },
   "space-center-houston": {
+    editorialFocus: ["parking"],
+    editorialHeading: "Arriving at Space Center Houston",
+    editorialIntro: "Accessible parking and NASA Tram Tour access are important planning decisions; restroom locations are not a primary reason to select a ticket.",
     parking: {
       status: "verified",
       details: "Space Center Houston lists paid onsite parking, including accessible parking near the entrance and an additional accessible side lot. Verify current rates before arrival.",
@@ -49,6 +55,9 @@ export const VERIFIED_VISITOR_FACILITIES: Record<string, DestinationVisitorFacil
     visitorTips: ["Guest Services provides a free visitor map; the operator's app has an interactive map.", "NASA Tram Tour access is separately capacity-controlled and can change with operations."]
   },
   "moody-gardens": {
+    editorialFocus: ["parking", "map"],
+    editorialHeading: "Getting around the Moody Gardens campus",
+    editorialIntro: "The pyramids and other attractions occupy separate buildings. Campus access, parking and the operator's map help when choosing a ticketed itinerary.",
     parking: {
       status: "verified",
       details: "The official property map identifies several parking and drop-off areas. Review the property map and event-day instructions before arriving.",
@@ -65,6 +74,9 @@ export const VERIFIED_VISITOR_FACILITIES: Record<string, DestinationVisitorFacil
     mapCheckedAt: "2026-10-12"
   },
   "padre-island-national-seashore": {
+    editorialFocus: ["parking", "restrooms", "map"],
+    editorialHeading: "Malaquite facilities versus the remote beach",
+    editorialIntro: "A visit near Malaquite Visitor Center is very different from remote beach driving and primitive camping. Know where developed facilities end before traveling south.",
     parking: {
       status: "verified",
       details: "NPS lists vehicle, RV/bus and boat-trailer parking at Malaquite Visitor Center. This does not establish that remote down-island beach parking or driving is suitable today.",
@@ -81,6 +93,9 @@ export const VERIFIED_VISITOR_FACILITIES: Record<string, DestinationVisitorFacil
     mapCheckedAt: "2026-10-12"
   },
   "texas-state-aquarium": {
+    editorialFocus: ["map"],
+    editorialHeading: "Finding your way through the exhibits",
+    editorialIntro: "The official visitor map helps coordinate animal presentations and galleries, rather than assuming every experience is available at once.",
     parking: {
       status: "unverified",
       details: "The operator publishes directions to the North Beach entrance; specific parking availability and charges were not independently confirmed for this review.",
