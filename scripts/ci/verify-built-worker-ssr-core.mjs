@@ -1,4 +1,4 @@
-import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { appendFileSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { spawn } from 'node:child_process';
 import path from 'node:path';
 
@@ -79,6 +79,17 @@ const smokeTargets = [
   { path: '/guides/citypass-texas', requiredText: 'Is CityPASS® worth it in Texas?', label: 'guide child route body' },
   { path: '/explore/landscapes/hill-country', requiredText: 'The Hill Country is where the Edwards Plateau breaks into rounded hills', label: 'landscape child route body' },
   { path: '/sports/friday-night-lights', requiredText: 'Friday Night Lights, Defined', label: 'sports child route body' },
+  { path: '/sports/softball', requiredText: 'Women’s softball in Texas, defined', label: 'Texas women’s softball authority SSR' },
+  { path: '/sports/softball/schools', requiredText: 'Every listed Texas UIL softball school and district', label: '2026–27 1,192-school UIL softball directory SSR' },
+  // Each newly approved authority profile is tested on the BUILT Worker:
+  // dynamic routes must not return 200 with unrelated directory/hub content.
+  ...JSON.parse(readFileSync(new URL('../../src/data/softball/published-team-profiles.json', import.meta.url), 'utf8')).pages.map((p) => ({
+    path: p.canonicalPath,
+    requiredText: p.title,
+    label: 'source-reviewed softball team authority SSR: ' + p.slug,
+  })),
+  { path: '/sports/softball/paris-junior-college', requiredText: 'Paris Junior College Lady Dragons softball', label: 'PJC softball team authority SSR' },
+  { path: '/sports/softball/texas-volts', requiredText: 'Texas Volts: professional softball comes home to Round Rock', label: 'professional softball team authority SSR' },
   { path: '/texas-data/county-growth', requiredText: 'Texas county population growth, 2020–2025', label: 'Texas Data child route body' },
 ];
 
@@ -237,6 +248,24 @@ async function checkRedirectTarget(target, attemptToken) {
   }
 }
 
+// Do not accept a generic 200/hub for an unapproved or invented UIL team.
+// The built Worker must return a real HTTP 404, even before any profiles are live.
+const forbiddenSoftballRoute = { path: '/sports/softball/never-an-approved-uil-school-ci', label: 'Unapproved UIL school must be a 404' };
+async function checkForbiddenSoftballRoute(target, attemptToken) {
+  try {
+    const response = await fetch(smokeUrl(target.path, attemptToken), {
+      redirect: 'manual', cache: 'no-store', headers: requestHeaders,
+      signal: AbortSignal.timeout(requestTimeoutMs),
+    });
+    lastStatus.set(target.path, String(response.status));
+    if (response.status === 404) return '';
+    return target.label + ': expected true HTTP 404 but received ' + response.status;
+  } catch(error) {
+    const detail = error instanceof Error ? error.message : String(error);
+    return target.label + ': fetch failed: ' + detail;
+  }
+}
+
 async function verifyWithRetries(target, checker, label) {
   let failure = '';
 
@@ -311,6 +340,12 @@ try {
       );
       if (failure) failures.push(failure);
       else console.log(`[route] verified (200): ${group.path} (${group.checks.length} marker check${group.checks.length === 1 ? '' : 's'})`);
+    }
+
+    {
+      const failure = await verifyWithRetries(forbiddenSoftballRoute, checkForbiddenSoftballRoute, 'unapproved softball team 404');
+      if (failure) failures.push(failure);
+      else console.log('[route] verified (404): '+forbiddenSoftballRoute.path+' (never publish invented UIL schools)');
     }
 
     for (const target of redirectTargets) {

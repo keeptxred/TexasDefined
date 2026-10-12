@@ -39,6 +39,7 @@ export const phenixKnivesBellvilleArticle: Article = {
   internalLinks: [
     { href: "/county/austin", label: "Explore Austin County", description: "Connect the blacksmith shop with Bellville, Sealy, San Felipe and the Brazos River story." },
     { href: "/article/austin-county-bellville-san-felipe-sealy-brazos-texas", label: "Austin County: Bellville, San Felipe, Sealy and the Brazos River", description: "Read the deeper county guide behind Bellville and its historic town center." },
+    { href: "/article/newmans-castle-bellville-texas", label: "Newman's Castle in Bellville", description: "Pair the working blacksmith shop with another distinctive Bellville maker story and a reserved castle tour." },
     { href: "/article/unusual-texas-businesses-services", label: "Unusual Texas businesses & services", description: "Browse other specialized Texas businesses, makers and experiences worth a deeper look." },
     { href: "/explore/small-towns", label: "Texas small towns", description: "Use Bellville as part of a courthouse-town, craft and heritage weekend." },
     { href: "/things-unique-to-texas", label: "Things unique to Texas", description: "See the broader TexasDefined collection of distinctive traditions, places and experiences." },

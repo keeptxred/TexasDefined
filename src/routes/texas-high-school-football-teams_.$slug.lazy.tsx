@@ -222,10 +222,10 @@ function Page() {
 
       {editorial?.notice && <aside aria-label="Current school football season status" className="border-b border-border py-7">
         <div className="border-l-4 border-foreground bg-surface p-5 sm:p-7">
-          <p className="eyebrow text-primary">Important 2026 program update</p>
+          <p className="eyebrow text-surface-foreground">Important 2026 program update</p>
           <h2 className="mt-2 font-display text-3xl">{editorial.notice.title}</h2>
           <p className="mt-3 max-w-4xl text-sm leading-7 text-foreground">{editorial.notice.body}</p>
-          <a href={editorial.notice.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.notice.sourceLabel} ↗</a>
+          <a href={editorial.notice.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-surface-foreground underline underline-offset-4">{editorial.notice.sourceLabel} ↗</a>
           <p className="mt-2 text-xs text-muted-foreground">Reporting checked {editorial.notice.verifiedAt}; consult the district for later changes.</p>
         </div>
       </aside>}
@@ -295,10 +295,10 @@ function Page() {
         </div>
         <div className="grid gap-4 md:grid-cols-2">
           {editorial.milestones.map((milestone) => <article key={`${milestone.date}:${milestone.title}`} className="border-l-4 bg-surface p-5 sm:p-6" style={{ borderLeftColor: editorial.theme?.accentHex }}>
-            <p className="font-display text-2xl font-semibold" style={{ color: editorial.theme?.accentHex }}>{milestone.date}</p>
+            <p className="font-display text-2xl font-semibold text-surface-foreground">{milestone.date}</p>
             <h3 className="mt-3 font-display text-2xl leading-tight">{milestone.title}</h3>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{milestone.body}</p>
-            <a href={milestone.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{milestone.sourceLabel} ↗</a>
+            <a href={milestone.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-surface-foreground underline underline-offset-4">{milestone.sourceLabel} ↗</a>
           </article>)}
         </div>
       </section>}
@@ -525,13 +525,13 @@ function Page() {
           <h2 className="mt-2 font-display text-3xl">{editorial?.season ? '2026 results & schedule' : '2026 schedule & results sources'}</h2>
           {editorial?.season && <p className="mt-4 text-sm leading-7 text-muted-foreground">Season data checked {editorial.season.verifiedAt}. Recheck the school source before travel because kickoff times and venues can change.</p>}
         </div>
-        <div>
+        <div className="min-w-0">
           {editorial?.season ? <>
             <dl className="grid gap-px border border-border bg-border sm:grid-cols-2">
               <Snapshot label="Record when checked" value={editorial.season.record} />
               <Snapshot label="Season data verified" value={editorial.season.verifiedAt} />
             </dl>
-            <div className="mt-5 overflow-x-auto border-y border-border">
+            <div className="mt-5 w-full max-w-full overflow-x-auto border-y border-border">
               <table className="w-full min-w-[38rem] text-left text-sm">
                 <thead className="border-b border-border text-xs uppercase tracking-[0.1em] text-muted-foreground">
                   <tr><th className="px-3 py-3">Date</th><th className="px-3 py-3">Opponent</th><th className="px-3 py-3">Site</th><th className="px-3 py-3">Result / status</th></tr>

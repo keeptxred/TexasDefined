@@ -1,0 +1,103 @@
+name: Network clean-room migration replay
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'supabase/migrations/**'
+      - 'scripts/data/validate-network-migration-parity.mjs'
+      - 'scripts/data/network-migration-replay-bootstrap.sql'
+      - 'scripts/data/network-migration-owner-rls-fixture.sql'
+      - 'supabase/pending/20261011043000_network_owner_revision_read_revocation.sql'
+      - 'supabase/pending/20261011044000_network_sensitive_action_audit.sql'
+      - 'scripts/data/network-sensitive-action-audit-fixture.sql'
+      - 'supabase/pending/20261011045000_network_notification_manual_recovery.sql'
+      - 'supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql'
+      - 'scripts/data/network-featured-atomic-quota-fixture.sql'
+      - 'scripts/data/network-notification-manual-recovery-fixture.sql'
+      - 'scripts/data/network-migration-stripe-reconciliation-fixture.sql'
+      - 'scripts/data/network-migration-stripe-committed-deliveries-fixture.sql'
+      - 'scripts/data/network-notification-claim-rollback-fixture.sql'
+      - 'scripts/data/verify-network-concurrent-upload-quota.mjs'
+      - 'scripts/data/verify-network-migration-replay.mjs'
+      - 'scripts/data/network-stripe-local-finalizer-overlay.mjs'
+      - 'scripts/data/network-stripe-local-checkout-fixture.sql'
+      - 'scripts/data/validate-network-pending-atomicity.mjs'
+      - 'scripts/data/network-postgrest-http-rls-fixture.sql'
+      - 'scripts/data/verify-network-postgrest-http-rls.mjs'
+      - '.github/workflows/network-migration-cleanroom.yml'
+      - 'docs/network/IMPLEMENTATION_STATUS.md'
+      - 'docs/network/OWNER_VERIFICATION_RUNBOOK.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  replay:
+    name: Replay 38 Network migrations and isolated owner/Stripe transactions
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ephemeral-network-replay-only
+          POSTGRES_DB: network_replay
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d network_replay"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: '5432'
+      PGUSER: postgres
+      PGPASSWORD: ephemeral-network-replay-only
+      PGDATABASE: network_replay
+      NETWORK_MIGRATION_REPLAY_ISOLATED: yes-ephemeral-local-only
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Recreate tracked Network migrations in isolated PostgreSQL
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql --version
+          node scripts/data/verify-network-migration-replay.mjs 2>&1 | tee network-migration-replay.log
+      - name: Verify JWT owner isolation through actual local HTTP PostgREST
+        shell: bash
+        env:
+          PGRST_HTTP_TEST_BASE: http://127.0.0.1:3030
+        run: |
+          set -euo pipefail
+          psql -X -v ON_ERROR_STOP=1 -f scripts/data/network-postgrest-http-rls-fixture.sql >> network-migration-replay.log
+          # All credentials, users and data are synthetic on disposable localhost.
+          docker run --rm -d --name texasdefined-network-local-postgrest --network host \
+            -e PGRST_DB_URI="postgres://postgres:ephemeral-network-replay-only@127.0.0.1:5432/network_replay" \
+            -e PGRST_DB_SCHEMAS="public,storage" \
+            -e PGRST_DB_ANON_ROLE=anon \
+            -e PGRST_JWT_SECRET=ephemeral-network-http-jwt-secret-never-production-2026 \
+            -e PGRST_SERVER_PORT=3030 \
+            postgrest/postgrest:v14.14 >/dev/null
+          trap 'docker rm -f texasdefined-network-local-postgrest >/dev/null 2>&1 || true' EXIT
+          ready=0
+          for i in $(seq 1 45); do
+            if curl --silent --show-error --fail http://127.0.0.1:3030/ -o /dev/null 2>/dev/null; then ready=1; break; fi
+            sleep 1
+          done
+          if [ "$ready" != 1 ]; then docker logs texasdefined-network-local-postgrest 2>&1 | tail -40; exit 1; fi
+          node scripts/data/verify-network-postgrest-http-rls.mjs 2>&1 | tee -a network-migration-replay.log
+      - name: Save isolated migration validation evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: network-migration-cleanroom-evidence
+          path: network-migration-replay.log
+          if-no-files-found: warn
+          retention-days: 14

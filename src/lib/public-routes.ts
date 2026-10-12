@@ -1,3 +1,5 @@
+import publishedSoftballIndex from '@/data/softball/published-team-index.json';
+
 export const INDEXABLE_STATIC_PATHS = [
   "/",
   "/explore",
@@ -59,6 +61,11 @@ export const INDEXABLE_STATIC_PATHS = [
   "/dogs",
   "/sports",
   "/sports/friday-night-lights",
+  "/sports/softball",
+  "/sports/softball/schools",
+  ...(publishedSoftballIndex as { pages: { slug: string }[] }).pages.map((entry) => `/sports/softball/${entry.slug}`),
+  "/sports/softball/paris-junior-college",
+  "/sports/softball/texas-volts",
   "/gaming",
   "/gaming/video-game-industry",
   "/gaming/why-dallas-matters-online-gaming",
@@ -429,6 +436,15 @@ export const REDIRECT_ONLY_PATHS = [
 ] as const;
 
 export const NON_INDEXABLE_PUBLIC_PATHS = [
+  "/business/dashboard",
+  "/network/apply",
+  "/network/billing",
+  "/network/checkout-return",
+  "/network/directory",
+  "/network/example/basic",
+  "/network/example/plus",
+  "/network/join",
+  "/network/terms",
   "/texas-data/research",
   "/search",
   "/explore/search",

@@ -1,0 +1,1348 @@
+{
+  "title": "Texas high-school softball full-authority pilot research docket — NOT PUBLISHED",
+  "lastReviewed": "2026-10-11",
+  "season": "2026-27",
+  "dataPolicy": "Verified 2026–27 UIL softball district identities and clearly season-labelled 2025–26 historical team evidence. Research-only. No individual pages auto-published or approved by this file.",
+  "method": "Exact match school name+conference+district+region to official UIL softball PDF. Primary school/UIL records for historical facts. Unresolved areas stay in gaps and must be closed for complete-first-publication acceptance. Current staff cannot be inferred from prior championship rosters. Expanded with primary-source historical UIL finals, official school schedule/current-season caveats, school staff spelling corroboration and known stale postseason notices on October 11, 2026. Every historical claim remains season-labelled and neither roster reprints nor inferred playing-field addresses are approved. October 11 independent primary-source award pass: 2026 UIL TGCA all-tournament groups for four champions, 2025 Shiner/Ganado honors, 2025 Katy district venue naming and official 2026 Ganado calendar venue naming. Venue recognition DOES NOT imply exact field parcel, admission, ADA, parking or current 2027 location. Third-party Amarillo team records explicitly not elevated to official school confirmations. October 11 coach role research: current school athletic websites identify named Shiner, Pearland and Katy softball head coaches as-of verification (not explicit Spring 2027 appointments), Ganado official faculty listings confirm James Harp employment but do not imply current role, and Amarillo school live feed confirms actual softball launch activity without reliable program foundation year. October 11 independent TEA/NCES physical campus crosswalk: Katy HS campus is in Fort Bend County (despite Katy ISD district association with Harris County), Shiner HS is a combined grades 7–12 campus and TEA vs NCES student counts are not identical, and Ganado, Pearland, Amarillo Highland Park each have exact state campus IDs and dated non-UIL enrollments. No student private data collected.",
+  "publicationAuthorization": false,
+  "pilotSchools": [
+    {
+      "name": "Shiner",
+      "slug": "shiner",
+      "schoolOperator": "Shiner Independent School District",
+      "programStatus": "historic-program-verified",
+      "researchReadiness": "NOT READY TO PUBLISH",
+      "identity": {
+        "conference": "2A",
+        "district": 29,
+        "region": 4,
+        "team": "Lady Comanches",
+        "mascot": "Lady Comanches",
+        "city": "Shiner",
+        "county": "Lavaca",
+        "campusUrl": "https://www.shinerisd.net/",
+        "identityReview": "2025–26 team identity corroborated by school softball athletics and UIL; city/county distinct from district campus address Crosschecked independent exact TEA campus ID and physical campus county from 2024–25 TEA/NCES source record; school district administrative county and campus county must not be conflated.",
+        "teaCampusId": "143903001",
+        "campusAddress": "510 CR 348, Shiner, TX 77984",
+        "officialCampusGradeSpan": "07–12",
+        "historicalCampusEnrollment": {
+          "year": "2024-25",
+          "count": 309,
+          "sourceId": "official-campus-students",
+          "sourceMeasure": "TEA 2025 School Report Card students, 2024–25 data"
+        }
+      },
+      "sources": [
+        {
+          "id": "uil-alignment",
+          "title": "UIL 2026–27 softball 2A district alignment",
+          "url": "https://www.uiltexas.org/files/alignments/2ASB_Rvsd6-15.pdf",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-state-2026",
+          "title": "UIL Shiner 2025–26 state-team information",
+          "url": "https://www.uiltexas.org/softball/state-team/shiner-2025-2026-softball",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-state-2025",
+          "title": "UIL Shiner 2024–25 state-team information",
+          "url": "https://www.uiltexas.org/softball/state-team/shiner-2024-2025-softball",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-softball",
+          "title": "Shiner ISD Lady Comanche Softball athletics",
+          "url": "https://www.shinerisd.net/athletics/softball",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-2026-schedule",
+          "title": "Shiner ISD Lady Comanche 2026 schedule (PDF)",
+          "url": "https://resources.finalsite.net/images/v1769200591/shinerisdnet/a6kifn1wiub7akfmld5d/LadyComancheSoftball2026.pdf",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-champions",
+          "title": "UIL softball state championship archive",
+          "url": "https://www.uiltexas.org/softball/archives",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "local-final",
+          "title": "2026 Shiner 2A-DII final recap",
+          "url": "https://txhighschoolsoftball.com/2a/2a-dii-state-champs-shiner-lady-comanches/",
+          "kind": "independent-media",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-2001-final",
+          "title": "UIL 2001 historical softball championship: Shiner beats Joaquin",
+          "url": "https://www.uiltexas.org/historical-archives/athletics/archives/softball/state/00_01/index.html",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-2002-final",
+          "title": "UIL 2002 historical softball championship: Shiner beats Bosqueville",
+          "url": "https://www.uiltexas.org/historical-archives/athletics/archives/softball/state/01_02/index.html",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-2017-team",
+          "title": "UIL Shiner 2016-17 softball coaching and team history",
+          "url": "https://www.uiltexas.org/softball/state-team/shiner-2016-2017-softball",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-2025-final",
+          "title": "UIL 2025 2A DII final bracket: Sundown versus Shiner",
+          "url": "https://www.uiltexas.org/softball/state-bracket/2024-2025-2a-dii-softball-state-results",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-2026-pairings",
+          "title": "UIL May 24 2026 state softball tournament pairings",
+          "url": "https://www.uiltexas.org/press-releases/detail/2026-uil-softball-state-tournament-pairings",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-2026-all-tournament",
+          "title": "UIL 2026 softball state all-tournament awards, selected by TGCA",
+          "url": "https://www.uiltexas.org/press-releases/detail/2026-uil-softball-state-all-tournament-teams",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-all-time-appearances",
+          "title": "UIL all-time softball tournament appearances and championship tally",
+          "url": "https://www.uiltexas.org/softball/all-time-appearances",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-2025-all-tournament",
+          "title": "UIL 2025 softball state all-tournament honors and runners-up",
+          "url": "https://www.uiltexas.org/press-releases/detail/2025-uil-softball-state-all-tournament-teams",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "shiner-2002-community",
+          "title": "Shiner Comanche sports independently maintained 2001–02 team archives",
+          "url": "https://shinercomanchesports.com/shs2002.htm",
+          "kind": "independent-community-archive",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-current-softball-staff",
+          "title": "Shiner ISD current athletics softball staff page",
+          "url": "https://www.shinerisd.net/athletics/softball",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-students",
+          "title": "TEA 2025 School Report Card students, 2024–25 data for Shiner H S",
+          "url": "https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2025&from_tprs=2025&id=143903001&lev=C&prgopt=reports%2Fsrc%2Fsrc.sas",
+          "kind": "official-state-government",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-location",
+          "title": "Shiner H S physical campus location and county, not athletic playing field",
+          "url": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=484011004554",
+          "kind": "official-federal-government",
+          "checkedAt": "2026-10-11"
+        }
+      ],
+      "facts": [
+        {
+          "claim": "The 2026–27 UIL softball alignment lists Shiner in 2A District 29, Region IV, alongside Ganado, Flatonia, Danbury, Burton, Louise, Weimar and Moulton.",
+          "season": "2026-27",
+          "sourceIds": [
+            "uil-alignment"
+          ]
+        },
+        {
+          "claim": "Shiner won the 2026 UIL 2A Division II championship; the championship archive names Shiner as champion.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-champions",
+            "uil-state-2026"
+          ]
+        },
+        {
+          "claim": "The official 2025–26 state-team record names Jason Keller as head coach and lists Anastacia Rehak, Patrick Walker and Kailey Moeller as assistants.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-state-2026",
+            "school-softball"
+          ]
+        },
+        {
+          "claim": "The Shiner official 2025–26 state-team profile lists fifteen state-tournament appearances from 1996 through 2026, including championships marked in prior years.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-state-2026"
+          ]
+        },
+        {
+          "claim": "Shiner ISD's 2026 softball PDF published home-and-away opponents, varsity and JV distinctions, practices/scrimmages and a school contact line; it is a historical 2026 schedule, not proof of a released spring 2027 schedule.",
+          "season": "2025-26",
+          "sourceIds": [
+            "school-2026-schedule"
+          ]
+        },
+        {
+          "claim": "The 2026 title game against Sundown finished 5–2; a contemporaneous recap describes Shiner avenging its narrow 2025 championship defeat.",
+          "season": "2025-26",
+          "sourceIds": [
+            "local-final",
+            "uil-champions"
+          ]
+        },
+        {
+          "claim": "The official UIL 2025–26 state-team page displays a 31–7 record in its tournament entry; do not silently substitute a third-party 22–7 subset or call it the verified postfinal record.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-state-2026"
+          ]
+        },
+        {
+          "claim": "UIL's 2025–26 Shiner state-team sheet identifies championship years 2001, 2002, 2008, 2011, 2015, 2016, 2024 and 2026 within 15 state-tournament appearances; the 2001 and 2002 title-game results have separate historical UIL final records.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-state-2026",
+            "uil-2001-final",
+            "uil-2002-final",
+            "uil-champions"
+          ]
+        },
+        {
+          "claim": "UIL's historical 2001 softball championship archive records Shiner defeating Joaquin 2–0 in the 1A title game after a 2–1 semifinal over Brock, with extra-inning details preserved in the official bracket.",
+          "season": "2000-01",
+          "sourceIds": [
+            "uil-2001-final"
+          ]
+        },
+        {
+          "claim": "UIL's historical 2002 softball championship record shows Shiner winning the 1A championship over Bosqueville 11–1 in five innings after defeating Collinsville 10–0 in a five-inning semifinal.",
+          "season": "2001-02",
+          "sourceIds": [
+            "uil-2002-final"
+          ]
+        },
+        {
+          "claim": "UIL's Shiner 2016–17 state-team sheet identifies Steven Cerny as the coach with assistants John Hoelter and Ray Neal; these are verified historic staff roles, distinct from Jason Keller's 2025–26 tenure.",
+          "season": "2016-17",
+          "sourceIds": [
+            "uil-2017-team",
+            "uil-state-2026"
+          ]
+        },
+        {
+          "claim": "The UIL 2025 2A Division II final bracket identifies Sundown's 9–3 championship victory over Shiner on May 29, 2025, making Shiner a runner-up that season rather than the champion.",
+          "season": "2024-25",
+          "sourceIds": [
+            "uil-2025-final",
+            "uil-champions"
+          ]
+        },
+        {
+          "claim": "The UIL May 24, 2026 state-tournament pairings listed Shiner at 31–7 entering its Thursday May 28 final against Sundown; this shows the record's pre-title-game cutoff date, not a verified postfinal total.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-2026-pairings",
+            "uil-state-2026"
+          ]
+        },
+        {
+          "claim": "UIL's all-time softball tournament archive confirms Shiner had 15 state-tournament appearances and eight championships through 2026, despite crossing 1A, 2A, and 2A-Division-II eras; records must retain their historical conference rather than retroactively assigning all titles to modern 2A.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-all-time-appearances",
+            "uil-state-2026"
+          ]
+        },
+        {
+          "claim": "The UIL May 31, 2026 all-tournament release credits Shiner with five 2A Division II honorees, including its championship game MVP Lauren Springfield; tournament awards are not interchangeable with full-season all-district or statewide TGCA awards.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-2026-all-tournament"
+          ]
+        },
+        {
+          "claim": "UIL's 2025 all-tournament release records Shiner honorees even though Sundown defeated Shiner in the 2025 2A-DII title game; those distinctions belong to the 2025 season and must not be mislabelled as a team championship.",
+          "season": "2024-25",
+          "sourceIds": [
+            "uil-2025-all-tournament",
+            "uil-2025-final"
+          ]
+        },
+        {
+          "claim": "A Shiner local sports archive from the 2001–02 school year identifies David Goetz as Lady Comanches head coach, with Paula Lester as assistant, and reports an historic winning streak; corroborate with an original school/UIL coaching record before treating all ancillary streak totals as verified.",
+          "season": "2001-02",
+          "sourceIds": [
+            "shiner-2002-community",
+            "uil-2002-final"
+          ]
+        },
+        {
+          "claim": "The Shiner ISD athletics softball page currently names Jason Keller with Anastacia Rehak, Patrick Walker and Kailey Moeller in its Lady Comanche program coaching group, consistent with the 2025–26 UIL tournament submission; this is a present website listing checked October 11, 2026, not a dated 2027 appointment letter.",
+          "season": "2026-27",
+          "sourceIds": [
+            "school-current-softball-staff",
+            "uil-state-2026"
+          ]
+        },
+        {
+          "claim": "TEA campus 143903001 identifies Shiner High School in Lavaca County as a 7th–12th grade campus with 309 students in its 2025 School Report Card sourced to 2024–25. This is not 309 high-school varsity athletes or the special UIL alignment enrollment. NCES shows 311 enrollment using its different count definition.",
+          "season": "2024-25",
+          "sourceIds": [
+            "official-campus-students",
+            "official-campus-location"
+          ]
+        }
+      ],
+      "gaps": [
+        "Official school softball field identity, exact playable-address coordinates, source-verified parking/ADA and admission rules",
+        "Confirmation of 2026–27 coaching staff (2025–26 listing is historical until independently rechecked)",
+        "2027 released varsity schedule, roster access and fresh current official district contacts",
+        "All state championship years and runner-up years from individual archival brackets, plus coaches of each era",
+        "Dated campus enrollment, verified school-county and historical season-by-season coach/recruitment record",
+        "Original/permissioned on-site softball field photography and trademark rights"
+      ],
+      "venueResearch": {
+        "namedField": "No reliably sourced exact school varsity softball venue name yet",
+        "nameVerified": false,
+        "physicalAddressVerified": false,
+        "parkingVerified": false,
+        "accessibleSeatingVerified": false,
+        "sourceIds": [
+          "school-softball"
+        ],
+        "notes": "Searches of Shiner ISD softball athletics page and historic school sports archive have not established a current 2027 field address, public ingress, ticket policy or ADA routes. No placeholders or borrowed fields permitted."
+      },
+      "coachingResearch": {
+        "schoolWebsiteAsOf": "2026-10-11",
+        "listedHeadCoach": "Jason Keller",
+        "listedSupportStaff": [
+          "Anastacia Rehak",
+          "Patrick Walker",
+          "Kailey Moeller"
+        ],
+        "schoolStaffPageSourceId": "school-current-softball-staff",
+        "explicitSpring2027SeasonStaffPublished": false,
+        "notes": "Official school current softball page lists all four, but it does not label them as the confirmed future Spring 2027 competition staff."
+      }
+    },
+    {
+      "name": "Ganado",
+      "slug": "ganado",
+      "schoolOperator": "Ganado Independent School District",
+      "programStatus": "historic-program-verified",
+      "researchReadiness": "NOT READY TO PUBLISH",
+      "identity": {
+        "conference": "2A",
+        "district": 29,
+        "region": 4,
+        "team": "Maidens",
+        "mascot": "Maidens",
+        "city": "Ganado",
+        "county": "Jackson",
+        "campusUrl": "https://www.ganadoisd.org/",
+        "identityReview": "District website displays its 2026 softball champions and UIL publishes a dedicated team sheet Crosschecked independent exact TEA campus ID and physical campus county from 2024–25 TEA/NCES source record; school district administrative county and campus county must not be conflated.",
+        "teaCampusId": "120902001",
+        "campusAddress": "501 W Devers, Ganado, TX 77962",
+        "officialCampusGradeSpan": "09–12",
+        "historicalCampusEnrollment": {
+          "year": "2024-25",
+          "count": 221,
+          "sourceId": "official-campus-students",
+          "sourceMeasure": "TEA 2025 School Report Card students, 2024–25 data"
+        }
+      },
+      "sources": [
+        {
+          "id": "uil-alignment",
+          "title": "UIL 2026–27 softball 2A district alignment",
+          "url": "https://www.uiltexas.org/files/alignments/2ASB_Rvsd6-15.pdf",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-state-2026",
+          "title": "UIL Ganado 2025–26 state-team information",
+          "url": "https://www.uiltexas.org/softball/state-team/ganado-2025-2026-softball",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school",
+          "title": "Ganado ISD school and athletics directory",
+          "url": "https://www.ganadoisd.org/",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-champions",
+          "title": "UIL softball champions historical archive",
+          "url": "https://www.uiltexas.org/softball/archives",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "texas-legislature",
+          "title": "Texas House Resolution 1528 enrolled tribute to Ganado 2025 championship",
+          "url": "https://capitol.texas.gov/tlodocs/89R/billtext/html/HR01528F.htm",
+          "kind": "official-government",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "local-2026",
+          "title": "Ganado 2A-DI back-to-back championship game recap",
+          "url": "https://txhighschoolsoftball.com/2a/2a-di-state-champs-ganado-maidens/",
+          "kind": "independent-media",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-schedules",
+          "title": "Ganado ISD 2025–26 softball official school schedule index",
+          "url": "https://www.ganadoisd.org/departments/departments/schedules",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-2026-pairings",
+          "title": "UIL May 24 2026 official softball final pairings",
+          "url": "https://www.uiltexas.org/press-releases/detail/2026-uil-softball-state-tournament-pairings",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-2026-all-tournament",
+          "title": "UIL 2026 softball state all-tournament awards, selected by TGCA",
+          "url": "https://www.uiltexas.org/press-releases/detail/2026-uil-softball-state-all-tournament-teams",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "ganado-school-calendar",
+          "title": "Ganado High School official 2025–26 event calendar naming Ganado Softball Field",
+          "url": "https://ghs.ganadoisd.org/hs-and-athletic-calendars/~occur-id/743_2025-12-16t14%3A00%3A00z_2025-12-16t16%3A00%3A00z",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-2025-all-tournament",
+          "title": "UIL 2025 state softball all-tournament awards",
+          "url": "https://www.uiltexas.org/press-releases/detail/2025-uil-softball-state-all-tournament-teams",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "ganado-current-faculty",
+          "title": "Ganado High official staff directory with James Harp and Shauna Hazlewood",
+          "url": "https://ghs.ganadoisd.org/facultystaff-directory1",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "ganado-campus-address",
+          "title": "Ganado ISD official campus listing distinguishes school from district office",
+          "url": "https://www.ganadoisd.org/campus",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "ganado-stadium-maps",
+          "title": "Ganado ISD facilities map menu contains stadium and gyms but no verified softball-field map",
+          "url": "https://www.ganadoisd.org/departments/departments/facilities/facility-maps",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-students",
+          "title": "TEA 2025 School Report Card students, 2024–25 data for Ganado H S",
+          "url": "https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2025&from_tprs=2025&id=120902001&lev=C&prgopt=reports%2Fsrc%2Fsrc.sas",
+          "kind": "official-state-government",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-location",
+          "title": "Ganado H S physical campus location and county, not athletic playing field",
+          "url": "https://www.ganadoisd.org/campus",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        }
+      ],
+      "facts": [
+        {
+          "claim": "Ganado and Shiner are separate UIL 2A District 29 softball schools in the 2026–27 official alignment; Ganado is not in Shiner's football alignment by default.",
+          "season": "2026-27",
+          "sourceIds": [
+            "uil-alignment"
+          ]
+        },
+        {
+          "claim": "Ganado won the 2025 and 2026 UIL 2A Division I softball titles; the UIL source lists 2025 and 2026 tournament appearances.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-champions",
+            "uil-state-2026"
+          ]
+        },
+        {
+          "claim": "The 2025 Texas House enrolled resolution reports Ganado's first softball state championship, its unbeaten postseason and 5–4 final against Riesel.",
+          "season": "2024-25",
+          "sourceIds": [
+            "texas-legislature"
+          ]
+        },
+        {
+          "claim": "The 2026 championship game against Bosqueville ended 5–2, the second state title in a row according to contemporaneous coverage.",
+          "season": "2025-26",
+          "sourceIds": [
+            "local-2026",
+            "uil-champions"
+          ]
+        },
+        {
+          "claim": "UIL's 2025–26 team record identifies coach James Harp and assistant coaches Malina Andel, Matt Ervin and Shauna Hazlewood; treat these as 2026-season staff until a current 2027 directory confirms continuity.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-state-2026"
+          ]
+        },
+        {
+          "claim": "UIL's 2025–26 state-team entry displays 33–2–1, a tournament-sheet record that should not be called a definitive after-final record without dated reconciliation.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-state-2026"
+          ]
+        },
+        {
+          "claim": "Ganado ISD's schedules directory explicitly provides a 2025–26 Ganado softball schedule, while its other athletics listings distinguish baseball, football, track, basketball and volleyball; the dated 2026 softball source is historical, not the unreleased 2027 calendar.",
+          "season": "2025-26",
+          "sourceIds": [
+            "school-schedules"
+          ]
+        },
+        {
+          "claim": "The UIL May 24, 2026 championship pairings list Ganado at 33–2–1 against Bosqueville at 30–8–1 entering the 2A Division I final; the 33–2–1 record is a prefinal submitted tally.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-2026-pairings",
+            "uil-state-2026"
+          ]
+        },
+        {
+          "claim": "Ganado High School's school-controlled 2025–26 athletics calendar explicitly schedules varsity softball senior night and JV home games at the named Ganado Softball Field, establishing a real school-used field identity, but not a street address or verified accessibility/entrance details.",
+          "season": "2025-26",
+          "sourceIds": [
+            "ganado-school-calendar"
+          ]
+        },
+        {
+          "claim": "The UIL May 31, 2026 softball all-tournament awards list five Ganado 2A Division I selections, led by MVP Saylor Bures; these are season-specific honors selected by the Texas Girls Coaches Association.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-2026-all-tournament"
+          ]
+        },
+        {
+          "claim": "The UIL June 1, 2025 all-tournament list identifies Ganado's Kyla Stancik as 2025 2A-DI title-game MVP; this is a different season and honoree than Ganado's 2026 Saylor Bures MVP.",
+          "season": "2024-25",
+          "sourceIds": [
+            "uil-2025-all-tournament",
+            "uil-champions"
+          ]
+        },
+        {
+          "claim": "Ganado High's current faculty directory includes James Harp and Shauna Hazlewood as faculty and Joshua Ervin as athletics director. The 2025–26 UIL softball state-team sheet separately identifies James Harp as head coach and Shauna Hazlewood as an assistant, but the newer directory does not independently label either person as a 2027 softball coach.",
+          "season": "2026-27",
+          "sourceIds": [
+            "ganado-current-faculty",
+            "uil-state-2026"
+          ]
+        },
+        {
+          "claim": "Ganado ISD identifies Ganado High School at 501 West Devers and the separate district administration at 210 South 6th Street; neither address is source-labelled the varsity girls softball playing field, so use the campus address for school identity only.",
+          "season": "2026-27",
+          "sourceIds": [
+            "ganado-campus-address",
+            "ganado-school-calendar"
+          ]
+        },
+        {
+          "claim": "Ganado ISD's own facility map page links stadium, high school gym and junior high gym facilities but provides no separately labelled softball field map or visitor entrance. The school event calendar verifies Ganado Softball Field's name without revealing an address.",
+          "season": "2026-27",
+          "sourceIds": [
+            "ganado-stadium-maps",
+            "ganado-school-calendar"
+          ]
+        },
+        {
+          "claim": "TEA campus 120902001 is Ganado High School in Jackson County, 9th–12th grades, with 221 students in its 2025 school report card. Ganado ISD separately confirms the actual school campus at 501 West Devers; do not substitute the district headquarters at 210 South Sixth Street or presume it is the varsity softball field.",
+          "season": "2024-25",
+          "sourceIds": [
+            "official-campus-students",
+            "official-campus-location"
+          ]
+        }
+      ],
+      "gaps": [
+        "Precise Ganado Softball Field street address, campus parcel, accessible entrance, admission and parking remain unresolved; school calendar verifies its name only",
+        "Spring 2027 staff appointments, school softball web page and athletics calendar",
+        "2026 title season complete score breakdown, district results, official bracket and historical venue changes",
+        "School mascot and colors current site citation separate from UIL historical roster",
+        "Historical seasons before 2025, independent community archival sources and distinctive traditions",
+        "Licensed local venue/team imagery and matching media-permission records"
+      ],
+      "venueResearch": {
+        "namedField": "Ganado Softball Field",
+        "nameVerified": true,
+        "physicalAddressVerified": false,
+        "parkingVerified": false,
+        "accessibleSeatingVerified": false,
+        "sourceIds": [
+          "ganado-school-calendar",
+          "ganado-stadium-maps"
+        ],
+        "notes": "2025–26 official Ganado High calendar calls this venue 'Ganado Softball Field' on home varsity and JV games. Exact parcel/entrance address, current 2027 event confirmation, accessibility and ticket policies remain unverified. An additional check of the official Ganado ISD facilities maps shows stadium and gym map categories but no softball-specific map; the high school address is 501 West Devers, while the district office is 210 South 6th Street, neither labelled as the field location."
+      },
+      "coachingResearch": {
+        "schoolWebsiteAsOf": "2026-10-11",
+        "listedHeadCoach": null,
+        "listedSupportStaff": [],
+        "schoolStaffPageSourceId": "ganado-current-faculty",
+        "explicitSpring2027SeasonStaffPublished": false,
+        "notes": "2026 UIL lists James Harp as historic head coach, school faculty directory lists him as English faculty now but without softball assignment; do not infer the 2027 varsity head coach. Athletic director shown as Joshua Ervin."
+      }
+    },
+    {
+      "name": "Katy",
+      "slug": "katy",
+      "schoolOperator": "Katy Independent School District",
+      "programStatus": "historic-program-verified",
+      "researchReadiness": "NOT READY TO PUBLISH",
+      "identity": {
+        "conference": "6A",
+        "district": 22,
+        "region": 3,
+        "team": "Tigers",
+        "mascot": "Tigers",
+        "city": "Katy",
+        "county": "Fort Bend",
+        "campusUrl": "https://khs.katyisd.org/",
+        "identityReview": "School's identity distinguished from other Katy ISD campuses and similarly named teams; county is to be checked against campus geometry before publish Crosschecked independent exact TEA campus ID and physical campus county from 2024–25 TEA/NCES source record; school district administrative county and campus county must not be conflated.",
+        "teaCampusId": "101914001",
+        "campusAddress": "6331 Highway Blvd, Katy, TX 77494",
+        "officialCampusGradeSpan": "09–12",
+        "historicalCampusEnrollment": {
+          "year": "2024-25",
+          "count": 3543,
+          "sourceId": "official-campus-students",
+          "sourceMeasure": "NCES 2024–25 CCD public school enrollment"
+        }
+      },
+      "sources": [
+        {
+          "id": "uil-alignment",
+          "title": "UIL 2026–27 softball 6A alignment",
+          "url": "https://www.uiltexas.org/files/alignments/266ASB.pdf",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-team-2026",
+          "title": "UIL Katy 2025–26 state-team sheet",
+          "url": "https://www.uiltexas.org/softball/state-team/katy-2025-2026-softball",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-2026-title",
+          "title": "Katy ISD June 1 2026 championship report",
+          "url": "https://www.katyisd.org/news-details/~board/news-headlines-katy-independent-school-district-100/post/softball-dynasty-katy-softball-dominates-to-net-third-state-title-in-11-years",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-directory",
+          "title": "Katy High School current campus directory",
+          "url": "https://khs.katyisd.org/our-campus/directory?const_page=3",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-champions",
+          "title": "UIL softball state archive",
+          "url": "https://www.uiltexas.org/softball/archives",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-2026-pairings",
+          "title": "UIL 2026 championship pairings and prefinal season records",
+          "url": "https://www.uiltexas.org/press-releases/detail/2026-uil-softball-state-tournament-pairings",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-contact",
+          "title": "Katy High School official athletic campus contact and location",
+          "url": "https://khs.katyisd.org/athletics/contact-us",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-2026-all-tournament",
+          "title": "UIL 2026 softball state all-tournament awards, selected by TGCA",
+          "url": "https://www.uiltexas.org/press-releases/detail/2026-uil-softball-state-all-tournament-teams",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "katy-official-venue-2025",
+          "title": "Katy ISD Feb 7 2025 issued athletic calendar names KHS-Softball Field for girls home softball",
+          "url": "https://www.katyisd.org/cms/lib/TX50010808/Centricity/Domain/3801/AEC%202-10-25%20-%202-15-25.pdf",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-current-athletics-coaches",
+          "title": "Katy High athletics current sport-by-sport coach directory",
+          "url": "https://khs.katyisd.org/athletics/directory",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-current-coach-identity",
+          "title": "Katy High staff directory listing Megan Vanetta as Softball Head Coach",
+          "url": "https://khs.katyisd.org/our-campus/directory?const_page=3",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-students",
+          "title": "NCES 2024–25 CCD public school enrollment for Katy H S",
+          "url": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482517002809",
+          "kind": "official-federal-government",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-location",
+          "title": "Katy H S physical campus location and county, not athletic playing field",
+          "url": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482517002809",
+          "kind": "official-federal-government",
+          "checkedAt": "2026-10-11"
+        }
+      ],
+      "facts": [
+        {
+          "claim": "UIL's 2026–27 softball conference table lists Katy High School in Conference 6A, District 22, Region III, with eight other Katy-named campuses as district peers.",
+          "season": "2026-27",
+          "sourceIds": [
+            "uil-alignment"
+          ]
+        },
+        {
+          "claim": "Katy High School won the 2026 UIL 6A Division II state title, defeating Forney 7–2 in the championship game.",
+          "season": "2025-26",
+          "sourceIds": [
+            "school-2026-title",
+            "uil-champions"
+          ]
+        },
+        {
+          "claim": "Katy ISD's published post-championship recap reports the finished 2026 season at 39–5, with a 22-game winning streak and a reported 97th home run.",
+          "season": "2025-26",
+          "sourceIds": [
+            "school-2026-title"
+          ]
+        },
+        {
+          "claim": "The older UIL tournament team submission lists 38–5 before the championship and enumerates four state appearances (2007, 2015, 2019, 2026); annotate the submission date when comparing records.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-team-2026"
+          ]
+        },
+        {
+          "claim": "Katy ISD identifies 2015, 2019 and 2026 as its three 6A championship seasons.",
+          "season": "2025-26",
+          "sourceIds": [
+            "school-2026-title"
+          ]
+        },
+        {
+          "claim": "The UIL 2025–26 state-team profile identifies head coach Meghan Brown VanEtta and assistants Brian Schmitt and Judy Whillock; Katy High's school directory carries the coach's current staff role under a different display spelling.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-team-2026",
+            "school-directory"
+          ]
+        },
+        {
+          "claim": "Katy High School's official campus athletic contact page gives 6331 Highway Blvd, Katy TX 77494 as its general campus address; this is not, by itself, evidence for the precise softball home-field entrance or spectator parking.",
+          "season": "2026-27",
+          "sourceIds": [
+            "school-contact"
+          ]
+        },
+        {
+          "claim": "Katy's 2025–26 UIL submitted team sheet lists the Tigers' state appearances as 2007, 2015, 2019 and 2026, with title markers on 2015 and 2019; Katy ISD's June 1 report confirms 2026 as their third state championship.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-team-2026",
+            "school-2026-title"
+          ]
+        },
+        {
+          "claim": "The official February 7, 2025 Katy ISD athletics schedule calls Katy High's varsity softball venue 'KHS-Softball Field' and assigns multiple February 13–15 Katy home games there; this proves the named home venue in 2025, not a 2027 field policy or precise spectator entrance.",
+          "season": "2024-25",
+          "sourceIds": [
+            "katy-official-venue-2025"
+          ]
+        },
+        {
+          "claim": "UIL's May 31, 2026 awards release lists six Katy softball selections to the Conference 6A Division II state all-tournament team, including championship-game MVP Haley Schmitt; the list is historical 2026 recognition, not a future team roster.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-2026-all-tournament"
+          ]
+        },
+        {
+          "claim": "The Katy High School current athletics coaches directory identifies softball coach Megan Vanetta, while the separate faculty listing gives Megan Vanetta with a 'Science / Softball Head Coach' title. UIL's 2025–26 tournament sheet spells the previous season's head coach Meghan Brown VanEtta. Current school display spelling has priority for a present-tense school role, with the UIL archival form preserved only where discussing 2025–26.",
+          "season": "2026-27",
+          "sourceIds": [
+            "school-current-athletics-coaches",
+            "school-current-coach-identity",
+            "uil-team-2026"
+          ]
+        },
+        {
+          "claim": "Katy High's athletics directory identifies Judy Whillock as assistant athletic coordinator; the 2025–26 UIL tournament sheet lists her among softball assistants, but those are separately defined roles and do not alone establish her spring 2027 varsity-softball appointment.",
+          "season": "2026-27",
+          "sourceIds": [
+            "school-current-athletics-coaches",
+            "uil-team-2026"
+          ]
+        },
+        {
+          "claim": "Katy High School's exact Texas campus code is 101914001, and NCES records the physical 6331 Highway Boulevard school location in Fort Bend County with 3,543 students in 2024–25. Katy ISD has a Harris County district designation in some TEA reports, but that is not the Katy High campus county and must never be applied to its team page.",
+          "season": "2024-25",
+          "sourceIds": [
+            "official-campus-students",
+            "official-campus-location"
+          ]
+        }
+      ],
+      "conflicts": [
+        "Coach name appears as Meghan Brown VanEtta on 2026 UIL record; the Katy ISD article uses Meghan VanEtta; the searchable campus directory displays Megan Vanetta. Confirm chosen canonical display with the school before publication.",
+        "UIL tournament team-sheet 38–5 is not contradictory to Katy ISD's post-championship 39–5; distinguish cutoff dates.",
+        "Katy city/ISD territory spans county boundaries. Verify actual Katy HS campus county, not the city label, using TEA/official geographic source."
+      ],
+      "gaps": [
+        "Exact physical entrance, current 2027 use, parking, gate/ticket and accessibility for district-named 'KHS-Softball Field' (not verified by the 6331 Highway Blvd campus address)",
+        "Current 2027 coach verification under consistent official name and varsity assistants",
+        "2027 dated school-controlled schedules and public roster source",
+        "1990s–2010s program history, full 2007/2015/2019 brackets and award records",
+        "Historical individual statistical claims crosschecked against original scoring; never profile minors from nonpublic records",
+        "Licensed team-field original images, photography credits and visitor policies"
+      ],
+      "venueResearch": {
+        "namedField": "KHS-Softball Field",
+        "nameVerified": true,
+        "physicalAddressVerified": false,
+        "parkingVerified": false,
+        "accessibleSeatingVerified": false,
+        "sourceIds": [
+          "katy-official-venue-2025",
+          "school-contact"
+        ],
+        "notes": "Katy ISD official event schedule confirms the school-used name KHS-Softball Field in February 2025. Official campus contact provides 6331 Highway Blvd but does not document a specific softball field parcel/entrance, accessible seating or current 2027 policies."
+      },
+      "coachingResearch": {
+        "schoolWebsiteAsOf": "2026-10-11",
+        "listedHeadCoach": "Megan Vanetta",
+        "listedSupportStaff": [
+          "Judy Whillock — current Assistant Athletic Coordinator; 2025–26 UIL historical softball assistant",
+          "Brian Schmitt — 2025–26 historical UIL softball assistant"
+        ],
+        "schoolStaffPageSourceId": "school-current-athletics-coaches",
+        "explicitSpring2027SeasonStaffPublished": false,
+        "notes": "Current school has Megan Vanetta, while UIL 2026 historical team sheet calls coach Meghan Brown VanEtta; respect variant and verify school preferred presentation. 2027 full softball assistant appointments unavailable."
+      }
+    },
+    {
+      "name": "Pearland",
+      "slug": "pearland",
+      "schoolOperator": "Pearland Independent School District",
+      "programStatus": "historic-program-verified",
+      "researchReadiness": "NOT READY TO PUBLISH",
+      "identity": {
+        "conference": "6A",
+        "district": 19,
+        "region": 3,
+        "team": "Lady Oilers",
+        "mascot": "Lady Oilers",
+        "city": "Pearland",
+        "county": "Brazoria",
+        "campusUrl": "https://phs.pearlandisd.org/",
+        "identityReview": "Pearland ISD official high-school softball page verifies identity distinct from Pearland Dawson Crosschecked independent exact TEA campus ID and physical campus county from 2024–25 TEA/NCES source record; school district administrative county and campus county must not be conflated.",
+        "teaCampusId": "020908001",
+        "campusAddress": "3775 S Main St, Pearland, TX 77581",
+        "officialCampusGradeSpan": "09–12",
+        "historicalCampusEnrollment": {
+          "year": "2024-25",
+          "count": 3408,
+          "sourceId": "official-campus-students",
+          "sourceMeasure": "TEA 2025 School Report Card students, 2024–25 data"
+        }
+      },
+      "sources": [
+        {
+          "id": "uil-alignment",
+          "title": "UIL 2026–27 softball 6A alignment",
+          "url": "https://www.uiltexas.org/files/alignments/266ASB.pdf",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-team-2026",
+          "title": "UIL Pearland 2025–26 state-team information",
+          "url": "https://www.uiltexas.org/softball/state-team/pearland-2025-2026-softball",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-2026-title",
+          "title": "Pearland ISD June 3 2026 fourth state championship report",
+          "url": "https://www.pearlandisd.org/news/isd-news-details/~board/pearland-isd-news/post/pearland-oilers-capture-fourth-uil-6a-division-1-state-championship",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-softball",
+          "title": "Pearland High School official softball staffing and athletics links",
+          "url": "https://phs.pearlandisd.org/athletics-phs/womens/softball",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-general",
+          "title": "Pearland High School athletics campus address and programs",
+          "url": "https://phs.pearlandisd.org/athletics-phs/general-information",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-champions",
+          "title": "UIL softball champions historical archive",
+          "url": "https://www.uiltexas.org/softball/archives",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-2026-ticketing",
+          "title": "Pearland HS school-controlled softball schedule and ticketing page",
+          "url": "https://phs.pearlandisd.org/athletics-phs/schedules-ticketing-information/softball",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-live-calendar",
+          "title": "Pearland HS athletics official calendar and varsity/JV filter",
+          "url": "https://phs.pearlandisd.org/athletics-phs/phs-athletic-calendar",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-directions",
+          "title": "Pearland High School school-issued athletic directions",
+          "url": "https://phs.pearlandisd.org/athletics-phs/schedules-ticketing-information/directions-to-fields",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-general-current",
+          "title": "Pearland High School girls athletic coordinator school page",
+          "url": "https://phs.pearlandisd.org/athletics-phs/general-information",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "uil-2026-all-tournament",
+          "title": "UIL 2026 softball state all-tournament awards, selected by TGCA",
+          "url": "https://www.uiltexas.org/press-releases/detail/2026-uil-softball-state-all-tournament-teams",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-current-staff",
+          "title": "Pearland High official women's softball current coaching roles",
+          "url": "https://phs.pearlandisd.org/athletics-phs/womens/softball",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-students",
+          "title": "TEA 2025 School Report Card students, 2024–25 data for Pearland H S",
+          "url": "https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2025&from_tprs=2025&id=020908001&lev=C&prgopt=reports%2Fsrc%2Fsrc.sas",
+          "kind": "official-state-government",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-location",
+          "title": "Pearland H S physical campus location and county, not athletic playing field",
+          "url": "https://phs.pearlandisd.org/athletics-phs/general-information",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        }
+      ],
+      "facts": [
+        {
+          "claim": "Pearland is listed in UIL's 2026–27 6A District 19, Region III alongside Pearland Dawson, Alvin and other schools; school and Dawson teams must not be conflated.",
+          "season": "2026-27",
+          "sourceIds": [
+            "uil-alignment"
+          ]
+        },
+        {
+          "claim": "Pearland defeated Waco Midway 6–3 to win the 2026 UIL 6A Division I championship.",
+          "season": "2025-26",
+          "sourceIds": [
+            "school-2026-title",
+            "uil-champions"
+          ]
+        },
+        {
+          "claim": "Pearland ISD describes the 2026 title as the program's fourth, joining its 1996, 2010 and 2023 state championships.",
+          "season": "2025-26",
+          "sourceIds": [
+            "school-2026-title"
+          ]
+        },
+        {
+          "claim": "The school lists eight UIL softball state-tournament appearances through 2026, specifically 1995, 1996, 2009, 2010, 2011, 2016, 2023 and 2026.",
+          "season": "2025-26",
+          "sourceIds": [
+            "school-2026-title"
+          ]
+        },
+        {
+          "claim": "Pearland High's own softball page identifies head coach Michele Hyden and varsity assistant Lori Romero, and separate JV assistants. The official UIL team sheet lists additional 2026 assistants.",
+          "season": "2025-26",
+          "sourceIds": [
+            "school-softball",
+            "uil-team-2026"
+          ]
+        },
+        {
+          "claim": "The UIL 2025–26 state-team sheet displays 37–6; do not label that as a verified final postchampionship season total without checking updated school figures.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-team-2026"
+          ]
+        },
+        {
+          "claim": "Pearland High School athletics lists its campus at 3775 South Main, Pearland TX 77581; it is a campus address, NOT independently verified softball-field coordinates.",
+          "season": "2026-27",
+          "sourceIds": [
+            "school-general"
+          ]
+        },
+        {
+          "claim": "Pearland High's own athletics calendar lists separate varsity softball and JV softball filters, providing a school-controlled schedule lookup that avoids dependence on third-party scoreboard databases; current 2027 fixtures still require an actually posted calendar entry.",
+          "season": "2026-27",
+          "sourceIds": [
+            "school-live-calendar"
+          ]
+        },
+        {
+          "claim": "Pearland's school-issued softball ticket page has May 2026 semifinal game listings and a potentially inconsistent 'Game 3' opponent label; treat the page as a historical ticket notice rather than a validated current fixture or 2027 stadium announcement.",
+          "season": "2025-26",
+          "sourceIds": [
+            "school-2026-ticketing",
+            "uil-team-2026"
+          ]
+        },
+        {
+          "claim": "Pearland High's athletic directions and general information identify the campus at 3775 South Main Street; the school's softball team's exact physical home diamond cannot be inferred from city park softball inventories, other venues, or the football stadium.",
+          "season": "2026-27",
+          "sourceIds": [
+            "school-directions",
+            "school-general"
+          ]
+        },
+        {
+          "claim": "The current school athletics general-information page lists Michele Hyden as girls athletics coordinator, independently corroborating the spelling of the 2025–26 head softball coach in the official UIL team sheet.",
+          "season": "2026-27",
+          "sourceIds": [
+            "school-general-current",
+            "uil-team-2026"
+          ]
+        },
+        {
+          "claim": "UIL's May 31, 2026 tournament all-star selections list six Pearland softball honorees in the 6A Division I group, including championship-game MVP Madelyn Guzman; this award evidence is specific to the 2026 state event, not an endorsement of current varsity roster claims.",
+          "season": "2025-26",
+          "sourceIds": [
+            "uil-2026-all-tournament"
+          ]
+        },
+        {
+          "claim": "The Pearland High official women's softball page currently identifies Michele Hyden as head coach, Lori Romero as varsity assistant, Haley Jordan as JV1 assistant and Kaitlin Owens as JV2 assistant; the listing was reviewed October 11, 2026 without assuming each appointment will remain identical for the 2027 competition season.",
+          "season": "2026-27",
+          "sourceIds": [
+            "school-current-staff"
+          ]
+        },
+        {
+          "claim": "Pearland High School's TEA campus 020908001 belongs to Pearland ISD in Brazoria County and serves grades 9–12. TEA's 2025 school report card lists 3,408 students for 2024–25; NCES has published a different historical 3,412 figure under another reporting definition, so attribute the exact TEA count and year.",
+          "season": "2024-25",
+          "sourceIds": [
+            "official-campus-students",
+            "official-campus-location"
+          ]
+        }
+      ],
+      "conflicts": [
+        "Pearland school staffing page and UIL team sheet spell head coach Michele Hyden, while a Pearland ISD championship release quotes Michelle Hyden; resolve by official staff profile and preserve variant note.",
+        "UIL state tournament 37–6 record can be prefinal; never calculate a postfinal record from one box score without complete schedule."
+      ],
+      "gaps": [
+        "Specific softball stadium/field address, venue features and accessibility verified by school maps",
+        "2026–27 head coach/staff confirmation and released 2027 calendar",
+        "Detailed 1996, 2010 and 2023 original UIL archive brackets, season records and original coach history",
+        "Player development/college pathways sourced from school-published academic notices only",
+        "Distinctive venue photos with explicit rights, program history interviews and parking policy"
+      ],
+      "venueResearch": {
+        "namedField": "Unconfirmed — do not confuse campus/The RIG/city park with softball field",
+        "nameVerified": false,
+        "physicalAddressVerified": false,
+        "parkingVerified": false,
+        "accessibleSeatingVerified": false,
+        "sourceIds": [
+          "school-directions",
+          "school-general"
+        ],
+        "notes": "Pearland High confirms school campus 3775 South Main Street and publishes event calendars, but neither source reliably identifies the precise varsity girls softball playing field and entrance as of Oct 2026."
+      },
+      "coachingResearch": {
+        "schoolWebsiteAsOf": "2026-10-11",
+        "listedHeadCoach": "Michele Hyden",
+        "listedSupportStaff": [
+          "Lori Romero — Varsity Assistant",
+          "Haley Jordan — JV1 Assistant",
+          "Kaitlin Owens — JV2 Assistant"
+        ],
+        "schoolStaffPageSourceId": "school-current-staff",
+        "explicitSpring2027SeasonStaffPublished": false,
+        "notes": "Pearland official 2026-10-11 current athletics directory, not a separate spring-2027 roster/appointment statement. Michele spelling corroborated by official coach and coordinator pages."
+      }
+    },
+    {
+      "name": "Amarillo Highland Park",
+      "slug": "amarillo-highland-park",
+      "schoolOperator": "Highland Park Independent School District (Amarillo)",
+      "programStatus": "school-softball-alignment-verified",
+      "researchReadiness": "NOT READY TO PUBLISH",
+      "identity": {
+        "conference": "2A",
+        "district": 1,
+        "region": 1,
+        "team": "Hornets",
+        "mascot": "Hornets",
+        "city": "Amarillo",
+        "county": "Potter",
+        "campusUrl": "https://www.hpisd.net/",
+        "identityReview": "Critical collision: Amarillo Highland Park Hornets (hpisd.net) are NOT the Dallas Highland Park Scots (hpisd.org/scotsillustrated.com). Do not merge coaches, venues, districts or championships. Crosschecked independent exact TEA campus ID and physical campus county from 2024–25 TEA/NCES source record; school district administrative county and campus county must not be conflated.",
+        "teaCampusId": "188903001",
+        "campusAddress": "15300 Amarillo Blvd E, Amarillo, TX 79108",
+        "officialCampusGradeSpan": "09–12",
+        "historicalCampusEnrollment": {
+          "year": "2024-25",
+          "count": 213,
+          "sourceId": "official-campus-students",
+          "sourceMeasure": "TEA 2025 Campus Comparison Group students, 2024–25 data"
+        }
+      },
+      "sources": [
+        {
+          "id": "uil-alignment",
+          "title": "UIL 2026–27 softball 2A district alignment",
+          "url": "https://www.uiltexas.org/files/alignments/2ASB_Rvsd6-15.pdf",
+          "kind": "official-uil",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "amarillo-school",
+          "title": "Amarillo Highland Park ISD official school website",
+          "url": "https://www.hpisd.net/",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "amarillo-staff",
+          "title": "Amarillo Highland Park ISD school staff and school address",
+          "url": "https://www.hpisd.net/staff",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "independent-2026",
+          "title": "MaxPreps Amarillo Highland Park Hornets 2025–26 softball season summary",
+          "url": "https://www.maxpreps.com/tx/amarillo/highland-park-hornets/softball/",
+          "kind": "secondary-schedule",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "collision-dallas",
+          "title": "Dallas Highland Park Scots official softball department — WRONG SCHOOL for this profile",
+          "url": "https://www.scotsillustrated.com/sport/softball/girls/",
+          "kind": "identity-disambiguation-ONLY",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "independent-staff-snapshot",
+          "title": "MaxPreps 2025–26 Amarillo Highland Park softball team staff, archived season only",
+          "url": "https://www.maxpreps.com/tx/amarillo/highland-park-hornets/softball/",
+          "kind": "third-party-unverified-staff",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "amarillo-official-feed",
+          "title": "Amarillo Highland Park ISD official live feed announcing softball/baseball as newly added school programs",
+          "url": "https://www.hpisd.net/live-feed?page_no=27",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-students",
+          "title": "TEA 2025 Campus Comparison Group students, 2024–25 data for Highland Park H S",
+          "url": "https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2025&id=188903001&lev=C&prgopt=reports%2Facct%2Fcomparison_group.sas",
+          "kind": "official-state-government",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "official-campus-location",
+          "title": "Highland Park H S physical campus location and county, not athletic playing field",
+          "url": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=483556006160",
+          "kind": "official-federal-government",
+          "checkedAt": "2026-10-11"
+        }
+      ],
+      "facts": [
+        {
+          "claim": "UIL lists Amarillo Highland Park in 2026–27 softball Conference 2A, District 1, Region I; listed peers include Gruver, Sanford-Fritch, Stinnett West Texas, Sunray, Booker and Follett.",
+          "season": "2026-27",
+          "sourceIds": [
+            "uil-alignment"
+          ]
+        },
+        {
+          "claim": "The official Highland Park ISD website uses the Hornet identity and identifies its administrative address as 15300 Amarillo Blvd East, Amarillo TX 79108.",
+          "season": "2026-27",
+          "sourceIds": [
+            "amarillo-school",
+            "amarillo-staff"
+          ]
+        },
+        {
+          "claim": "This Amarillo school is entirely separate from Dallas's Highland Park Scots, which compete under a different district and have their own coaches and stadium. Dallas softball program sources must be excluded from this team's research.",
+          "season": "2026-27",
+          "sourceIds": [
+            "amarillo-school",
+            "collision-dallas",
+            "uil-alignment"
+          ]
+        },
+        {
+          "claim": "A third-party softball scoreboard provides a 2025–26 Amarillo Highland Park 9–16 record; this is a discovery lead and NOT a verified school-issued season total.",
+          "season": "2025-26",
+          "sourceIds": [
+            "independent-2026"
+          ]
+        },
+        {
+          "claim": "A third-party 2025–26 Amarillo Hornets softball snapshot identifies staff only as 'E. Martinez' (head coach) and 'M. Lieberknecht' (assistant), but first names and current appointments are not established by a Highland Park ISD primary source; neither can be published as verified 2026–27 staff.",
+          "season": "2025-26",
+          "sourceIds": [
+            "independent-staff-snapshot",
+            "amarillo-school"
+          ]
+        },
+        {
+          "claim": "The 2025–26 Amarillo Highland Park third-party season page records two April 23 playoff losses to Floydada, 0–16 and 1–17, but those scores must be checked against official UIL brackets or school athletics reports before inclusion as fully verified varsity program milestones.",
+          "season": "2025-26",
+          "sourceIds": [
+            "independent-staff-snapshot",
+            "uil-alignment"
+          ]
+        },
+        {
+          "claim": "The real Amarillo Highland Park ISD's archived live feed promotes merchandise for its 'two newest programs,' softball and baseball, and records an early softball parent meeting, offering genuine district evidence that the softball program had a comparatively recent school launch; the relative 'almost two years ago' feed labels are insufficient to claim a precise inaugural season or first varsity game.",
+          "season": "2024-25",
+          "sourceIds": [
+            "amarillo-official-feed",
+            "amarillo-school"
+          ]
+        },
+        {
+          "claim": "Amarillo Highland Park High School is TEA campus 188903001 in Potter County, grades 9–12, with 213 students shown in the 2025 TEA campus comparison report. The matching NCES physical location is 15300 Amarillo Boulevard East and cannot be substituted with the entirely different Dallas Highland Park campus or unrelated softball facility.",
+          "season": "2024-25",
+          "sourceIds": [
+            "official-campus-students",
+            "official-campus-location"
+          ]
+        }
+      ],
+      "gaps": [
+        "Original Amarillo district 2025–26 softball coach and 2026–27 current appointment; do not use Dallas's Michael Pullen",
+        "Specific home softball field, exact address and official parking/ADA source; official district office is not automatically the field",
+        "Independent official schedule and roster source, exact athletic program varsity/JV identity and team name",
+        "Historic playoff/championship archive, independently attributable school-specific milestones and records",
+        "Separate school campus/ISD/county spatial verification from district administrative location",
+        "Original softball/field photographs with usage licenses; no Dallas Scots images or insignia",
+        "Exact softball-specific and school-specific primary archives are sparse; exclude Dallas Scots and any unauthenticated venue/staff claims even when sports search results rank them first"
+      ],
+      "conflicts": [
+        "Name collision High Priority: Dallas Highland Park's scotsillustrated.com and hpisd.org have unrelated 5A/6A context; Amarillo uses hpisd.net, Hornets and 2A softball District 1."
+      ],
+      "venueResearch": {
+        "namedField": "Unverified (Amarillo Hornets program)",
+        "nameVerified": false,
+        "physicalAddressVerified": false,
+        "parkingVerified": false,
+        "accessibleSeatingVerified": false,
+        "sourceIds": [
+          "amarillo-school"
+        ],
+        "notes": "Third-party schedules reference 'Highland Park HS' and Plainview game locations, not an authoritative address for the Amarillo school's home softball diamond. Never substitute Dallas Scots fields."
+      },
+      "coachingResearch": {
+        "schoolWebsiteAsOf": "2026-10-11",
+        "listedHeadCoach": null,
+        "listedSupportStaff": [],
+        "schoolStaffPageSourceId": "amarillo-official-feed",
+        "explicitSpring2027SeasonStaffPublished": false,
+        "notes": "Official Amarillo school live feed confirms softball program activity, not a named current head coach. Third-party E. Martinez initial remains unverified; exclude Dallas Michael Pullen."
+      }
+    }
+  ]
+}
