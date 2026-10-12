@@ -13,6 +13,10 @@ const explorer = read("src/components/explore/ExploreDestinationComparison.tsx")
 const index = read("src/routes/explore.index.lazy.tsx");
 const inventory = read("scripts/data/audit-all-attraction-authority.mjs");
 const quality = read("src/data/destination-audit.ts");
+const destinationQuality = read("src/data/destination-quality.ts");
+const visitPlanner = read("src/components/editorial/DestinationVisitPlanner.tsx");
+const relevance = read("src/data/destination-editorial-relevance.ts");
+const viator = read("src/components/editorial/DestinationViatorBooking.tsx");
 
 for (const key of ["VisitorFacilityFact", "DestinationVisitorFacilities", "visitorFacilities?: DestinationVisitorFacilities", "officialMapUrl?", "sourceUrl?", "checkedAt?"]) assert(types.includes(key), `Missing typed authority facility contract: ${key}`);
 for (const key of ["addVerifiedVisitorFacilities", "VERIFIED_VISITOR_FACILITIES", "editorialFocus"]) {
@@ -42,6 +46,23 @@ assert(index.includes('to="/explore/attractions-comparison"'), "Explore entry po
 assert(explorer.includes("categoryFilter") && explorer.includes("searchTerm"), "Statewide Explore attraction index must support filtering and search.");
 assert(inventory.includes("typescript") && inventory.includes("sourceFilesInspected"), "Full source inventory / research backlog generator missing.");
 assert(quality.includes("readyForIndexing"), "Do not silently weaken existing publishing quality gates.");
+
+for (const needle of [
+  'showSeasonDecision(destination)', 'showAdvancePlanningDecision(destination)',
+  'showSeason &&', 'showEntryPlanning &&',
+]) assert(route.includes(needle), `Destination template does not suppress irrelevant trip questions: ${needle}`);
+for (const needle of ['destination.editorialDisplay?.showSeason', 'destination.editorialDisplay?.showEntryPlanning', 'indoorCollection'])
+  assert(relevance.includes(needle), `Visitor topic relevance override not implemented: ${needle}`);
+for (const unnecessary of [
+  'Those details make it easier to decide whether this stop fits',
+  'works best as part of a trip built around the surrounding region',
+  'is a Texas destination',
+]) assert(!destinationQuality.includes(unnecessary), `Generic auto-generated destination writing must stay removed: ${unnecessary}`);
+for (const unnecessary of ['Things to do and see', 'Visitor facilities', 'facilityPattern.test(item)', 'const activities = unique('])
+  assert(!visitPlanner.includes(unnecessary), `Shared visit planner must not duplicate destination highlights: ${unnecessary}`);
+assert(visitPlanner.includes('destination.category === "road-trips"'), "Car rental promotion needs explicit travel category relevance.");
+assert(!viator.includes('viatorMarketsForPlace(destination.county)'), "Do not recommend generic county-market affiliate offers on unrelated attractions.");
+assert(viator.includes('viatorMarketsForPlace(destination.name)'), "Relevant attraction-specific affiliate matching must be preserved.");
 
 if (failures.length) {
   console.error("Attraction sitewide authority governance failed:\n" + failures.map(x=>"- "+x).join("\n"));
