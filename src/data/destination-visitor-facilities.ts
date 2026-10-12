@@ -12,13 +12,13 @@ export const VERIFIED_VISITOR_FACILITIES: Record<string, DestinationVisitorFacil
     editorialIntro: "The exposed summit hike, campsite access and primitive trails demand more preparation than the drive from Fredericksburg suggests.",
     parking: {
       status: "verified",
-      details: "Day-use parking includes a designated ADA space, though paths and terrain are uneven. Walk-in campsites are 25–100 yards from parking; reserve entry before arriving.",
+      details: "TPWD identifies an accessible day-use parking space but warns that the surrounding ground is rough and uneven. Some walk-in campsites are near parking; others require stairs or a footbridge. Ask the park about the specific site before reserving.",
       sourceUrl: "https://tpwd.texas.gov/state-parks/enchanted-rock/fees-facilities/accessibility-information",
       checkedAt: "2026-10-12"
     },
     restrooms: {
       status: "verified",
-      details: "Walk-in camping has nearby shower restrooms; TPWD notes those facilities have an accessible parking space and sidewalk. Day-use restrooms are NOT wheelchair accessible. Primitive camping has composting toilets.",
+      details: "TPWD reports accessible parking and a sidewalk at the walk-in-camping restrooms, although the stall has a handrail rather than a fully accessible layout. Day-use restrooms are not wheelchair accessible. Confirm individual facilities before relying on them.",
       sourceUrl: "https://tpwd.texas.gov/state-parks/enchanted-rock/fees-facilities/accessibility-information",
       checkedAt: "2026-10-12"
     },
@@ -46,7 +46,7 @@ export const VERIFIED_VISITOR_FACILITIES: Record<string, DestinationVisitorFacil
     editorialIntro: "The pyramids and other attractions occupy separate buildings. Campus access, parking and the operator's map help when choosing a ticketed itinerary.",
     parking: {
       status: "verified",
-      details: "The official property map identifies several parking and drop-off areas. Review the property map and event-day instructions before arriving.",
+      details: "Moody Gardens offers free self-parking in surface lots across the property. Premium covered parking and valet options cost extra; accessible parking is listed in the Central and West lots and parking garage. Rates and availability may change.",
       sourceUrl: "https://www.moodygardens.com/visitor-info/map-directions",
       checkedAt: "2026-10-12"
     },
@@ -60,13 +60,13 @@ export const VERIFIED_VISITOR_FACILITIES: Record<string, DestinationVisitorFacil
     parking: {
       status: "verified",
       details: "NPS lists vehicle, RV/bus and boat-trailer parking at Malaquite Visitor Center. This does not establish that remote down-island beach parking or driving is suitable today.",
-      sourceUrl: "https://www.nps.gov/pais/planyourvisit/visitor-center.htm",
+      sourceUrl: "https://www.nps.gov/pais/planyourvisit/basicinfo.htm",
       checkedAt: "2026-10-12"
     },
     restrooms: {
       status: "verified",
       details: "Malaquite Visitor Center lists accessible restrooms, showers and drinking water. Do not assume any of these facilities exist along remote stretches of beach.",
-      sourceUrl: "https://www.nps.gov/pais/planyourvisit/visitor-center.htm",
+      sourceUrl: "https://www.nps.gov/pais/planyourvisit/basicinfo.htm",
       checkedAt: "2026-10-12"
     },
     officialMapUrl: "https://www.nps.gov/pais/planyourvisit/maps.htm",
