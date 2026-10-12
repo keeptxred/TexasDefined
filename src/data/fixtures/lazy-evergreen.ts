@@ -221,22 +221,18 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
     const riverModule = await import("./texas-explained-river-profiles");
     const article = riverModule.texasExplainedRiverProfileArticles.find((candidate) => candidate.slug === slug);
     if (!article) return null;
-    if (["texas-brazos-river-guide","texas-colorado-river-guide","texas-guadalupe-river-guide"].includes(slug)) {
-      const { enhanceExistingRiverGuide } = await import("./texas-river-authority-extensions");
-      return enhanceExistingRiverGuide(article);
-    }
-    return article;
+    const { enhanceExistingRiverGuide } = await import("./texas-river-authority-extensions");
+    const { enhanceRemainingRiverGuide } = await import("./texas-river-authority-remaining");
+    return enhanceRemainingRiverGuide(enhanceExistingRiverGuide(article));
   }
 
   if (texasExplainedRemainingRiverProfileStubs.some((article) => article.slug === slug)) {
     const riverModule = await import("./texas-explained-river-profiles-remaining");
     const article = riverModule.texasExplainedRemainingRiverProfileArticles.find((candidate) => candidate.slug === slug);
     if (!article) return null;
-    if (["texas-neches-river-guide","texas-sabine-river-guide"].includes(slug)) {
-      const { enhanceExistingRiverGuide } = await import("./texas-river-authority-extensions");
-      return enhanceExistingRiverGuide(article);
-    }
-    return article;
+    const { enhanceExistingRiverGuide } = await import("./texas-river-authority-extensions");
+    const { enhanceRemainingRiverGuide } = await import("./texas-river-authority-remaining");
+    return enhanceRemainingRiverGuide(enhanceExistingRiverGuide(article));
   }
 
   if (texasRiverRecreationGuideStubs.some((article) => article.slug === slug)) {
