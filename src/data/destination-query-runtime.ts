@@ -1,3 +1,4 @@
+import { isTexasStateParkDestination } from "./state-park-authority";
 import { abileneAreaDestinationFallbacks } from "./abilene-area-destinations";
 import { enrichAquariumMarineDestination } from "./aquarium-marine-destinations";
 import { enrichCavernAreaGuide } from "./cavern-area-guides";
@@ -216,6 +217,16 @@ function reconcileExploreCatalog(destinations: Destination[]) {
 }
 
 export async function listResolvedDestinations(params: Omit<DestinationQuery, "brandId"> = {}) {
+  // Include park properties which also have a beach, historic, cavern or river category.
+  // Resolve once without a category filter; preserve the normal SEO/readiness gate.
+  if (params.category === "state-parks") {
+    const parks = (await listResolvedDestinations())
+      .filter(isTexasStateParkDestination)
+      .sort((a, b) => a.name.localeCompare(b.name));
+    if (params.featured) return featuredFallback(parks, params.limit ?? 6);
+    return params.limit ? parks.slice(0, params.limit) : parks;
+  }
+
   if (params.category === WATER_COLLECTION) {
     const destinations = selectSwimmingHoleAndTubingDestinations(await listResolvedDestinations());
     if (params.featured) return featuredFallback(destinations, params.limit ?? 6);

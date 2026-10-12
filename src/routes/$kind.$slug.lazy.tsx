@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
 import { CountyCoastalPlaces } from '@/components/content/CountyCoastalPlaces';
+import { CountyStateParks } from '@/components/content/CountyStateParks';
 import { CountyGuideSections } from '@/components/content/CountyGuideSections';
 import { EntityDepthSections } from '@/components/content/EntityDepthSections';
 import { WildlifeDepthSections } from '@/components/content/WildlifeDepthSections';
@@ -250,7 +251,7 @@ const referenceKinds = new Set([...localGovernmentKinds, 'agency']);
 export const Route = createLazyFileRoute('/$kind/$slug')({ component: EntityPage });
 
 function EntityPage() {
-  const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations } = Route.useLoaderData();
+  const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations, countyStateParks } = Route.useLoaderData();
   // All canonical city and county routes wait for React hydration before
   // first-party affiliate scripts modify the route's DOM. Preserve the
   // established readiness signal for backward compatibility with county QA.
@@ -350,6 +351,7 @@ function EntityPage() {
         {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} countySeriesArticle={countySeriesArticle} /> : null}
         {(entity.kind === 'city' || entity.kind === 'county') && foodDestinations.length ? <Suspense fallback={null}><EntityFoodDestinations entity={entity} destinations={foodDestinations} /></Suspense> : null}
         {entity.kind === 'county' ? <CountyCoastalPlaces county={entity} /> : null}
+        {(entity.kind === 'county' || entity.kind === 'city') ? <CountyStateParks countyName={entity.name} parks={countyStateParks} scope={entity.kind} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
         {entity.kind === 'county' ? <Suspense fallback={null}><CountyHighSchoolFootball county={entity} /></Suspense> : null}
         {entity.kind === 'county' && batch002FootballCountyLinks[entity.slug] ? <section aria-label="Independent football histories from this county" className="border-b border-border py-9">

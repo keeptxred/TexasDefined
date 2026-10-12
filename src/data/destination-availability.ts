@@ -10,6 +10,7 @@ const UNAVAILABLE_DESTINATION_SLUGS = new Set([
   "chinati-mountains-state-natural-area",
   "fairfield-lake-state-park",
   "davis-hill-state-park",
+  "wyler-aerial-tramway-state-park",
   "battleship-texas",
   "battleship-texas-state-historic-site",
 ]);

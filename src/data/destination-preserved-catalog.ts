@@ -1,3 +1,4 @@
+import { stateParkAuthorityRecoveryDestinations } from "./state-park-authority-recovery";
 import { animalSanctuaryDestinations } from "./animal-sanctuary-destinations";
 import { aquariumMarineDestinations } from "./aquarium-marine-destinations";
 import { coastalDestinations } from "./coastal-destinations";
@@ -322,6 +323,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   smallTownWave13Destinations,
   smallTownWave14Destinations,
   smallTownWave15Destinations,
+  stateParkAuthorityRecoveryDestinations,
   [shinerBreweryDestination],
   [shinerTownDestination],
   [newBraunfelsSeasonalFallback],
