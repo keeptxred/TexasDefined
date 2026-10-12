@@ -41,7 +41,8 @@ for(const [index,node] of records.entries()){
     const url=val(get(item,"url"));
     if(!url.startsWith("https://")) failures.push(slug+": source URL must be HTTPS");
   }
-  if(val(get(node,"paintedStatus"))!=="not-established" && val(get(node,"paintedStatus"))!=="research-candidate") failures.push(slug+": illegal Painted Church promotion");
+  if(!["not-established","research-candidate","related-historic"].includes(val(get(node,"paintedStatus")))) failures.push(slug+": illegal Painted Church promotion");
+  if(slug==="ellinger-st-marys-hostyn-hill" && val(get(node,"paintedStatus"))!=="related-historic") failures.push("Hostyn Hill must be recommended as related historic church, not pending research");
   if(!/^\d{4}-\d{2}-\d{2}$/.test(val(get(node,"reviewedOn")))) failures.push(slug+": missing exact review date");
   const image=get(node,"image");
   const gallery=arr(get(node,"gallery"));
@@ -65,8 +66,11 @@ const mustContain = (path,tokens) => {
 };
 mustContain("src/routes/explore.historic-churches.tsx",["createFileRoute","Historic Churches of Texas","St. Mary","historicChurches.map","Painted Churches"]);
 mustContain("src/routes/explore.historic-churches.$slug.tsx",["createFileRoute","historicalContext.map","timeline.map","architecture.map","visitorNotes.map","sources.map","historicChurchImageSrc","church.related.map"]);
-mustContain("src/routes/explore.painted-churches.tsx",['to="/explore/historic-churches"',"Hostyn Hill"]);
+mustContain("src/routes/explore.painted-churches.tsx",["You may also be interested in","Hostyn Hill"]);
 mustContain("src/routes/explore.painted-churches.census.tsx",["ellinger-st-marys-hostyn-hill"]);
+mustContain("src/data/painted-church-census.ts",["paintedChurchRelatedHistoricChurches", "ellinger-st-marys-hostyn-hill"]);
+mustContain("src/routes/explore.historic-churches.$slug.tsx",["Suggested companion historic church","related-historic"]);
+mustContain("src/routes/explore.historic-churches.tsx",["You may also be interested in"]);
 mustContain("src/routes/sitemap-explore[.]xml.ts",["historicChurchEntries","historicChurches.map"]);
 mustContain("src/lib/public-routes.ts",['"/explore/historic-churches"']);
 mustContain("src/components/content/CountyHistoricSites.tsx",["historicChurches.filter","/explore/historic-churches/"]);
