@@ -16,6 +16,7 @@ const lazy = read("src/data/fixtures/lazy-evergreen.ts");
 const hub = read("src/components/content/TexasRiversAuthorityHub.tsx");
 const county = read("src/routes/$kind.$slug.lazy.tsx");
 const destination = read("src/routes/destination.$slug.tsx");
+const fishingLakes = read("src/routes/fishing.lakes.$slug.tsx");
 const related = read("src/components/content/RiverContextualLinks.tsx");
 const pillar = read("src/data/fixtures/texas-rivers-explained.ts");
 const topology = read("src/data/fixtures/newest-evergreen.ts");
@@ -41,6 +42,7 @@ for (const river of rivers) {
  const d = details[river.key];
  if (!d) {errors.push(`Missing visitor research for ${river.key}`);continue;}
  if (!river.slug.startsWith("texas-") || !river.slug.endsWith("-river-guide")) errors.push(`Invalid canonical slug ${river.slug}`);
+ if (river.destinations.some((name) => ["landa-park","rio-vista-park","blue-hole-wimberley"].includes(name))) errors.push(`Unverified or misattributed destination on ${river.key}`);
  if (!river.counties.length || !river.basin || !river.name || !river.summary) errors.push(`Missing region identity or crosslinks for ${river.key}`);
  if (!basins[river.basin]?.startsWith("https://www.twdb.texas.gov/")) errors.push(`Missing TWDB primary basin source for ${river.key}`);
  for (const field of ["position","swim","trip","culture","extra"]) if ((d[field]??"").trim().length < 65) errors.push(`${river.key} ${field} needs unique visitor research`);
@@ -57,6 +59,7 @@ for (const [file,label,tokens] of [
  [registry,"reciprocal county and destination graph",["riverLinksForCounty","riverLinksForDestination"]],
  [county,"county pages",["<RiverContextualLinks countySlug={entity.slug}"]],
  [destination,"destination pages",["<RiverContextualLinks destinationSlug={destination.slug}"]],
+ [fishingLakes,"fishing lake guides",["<RiverContextualLinks destinationSlug={data.lake.slug}"]],
  [related,"contextual link widget",["href={river.href}","riverLinksForCounty","riverLinksForDestination"]],
  [pillar,"pillar links",["texas-frio-river-guide","texas-comal-river-guide","texas-san-marcos-river-guide","texas-llano-river-guide","texas-pecos-river-guide"]],
  [topology,"evergreen topic topology",["texas-frio-river-guide","texas-comal-river-guide","texas-san-marcos-river-guide","texas-llano-river-guide","texas-pecos-river-guide"]],
