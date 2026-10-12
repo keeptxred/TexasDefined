@@ -58,7 +58,7 @@ for (const slug of new Set([...required, ...allDossiers])) {
   for (const key of ["whyVisit", "visitorStrategy", "accessibility", "familiesAndGroups", "researchValue"]) {
     if (value(entry, key).length < 100) failures.push(slug + ": thin " + key);
   }
-  const topics = section(entry, "topics");
+  const topics = entry.match(/\btopics:\s*\[([^\]]*)\]/)?.[1] || "";
   const topicValues = [...topics.matchAll(/"([a-z-]+)"/g)].map((match) => match[1]);
   if (new Set(topicValues).size < 2) failures.push(slug + ": at least two distinct research topics needed for automatic peer-museum linking");
   const exhibits = section(entry, "exhibits");
