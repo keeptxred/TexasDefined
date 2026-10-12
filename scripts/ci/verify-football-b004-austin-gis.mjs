@@ -9,25 +9,28 @@ import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
 const teabase='https://services2.arcgis.com/5MVN2jsqIrNZD4tP/ArcGIS/rest/services/Schools_2024_to_2025/FeatureServer/0/query';
 const citybase='https://services.arcgis.com/0L95CJ0VTaxqcmED/arcgis/rest/services/BOUNDARIES_jurisdictions/FeatureServer/0/query';
+// Exact 2024-25 AskTED campus labels, selected from the official point layer.
+// A broad /travis/ or /navarro/ regex also matches unrelated district campuses
+// and would generate a false unresolved duplicate. Fail closed on real renames.
 const routeSchoolNames={
- 'austin-achieve':/austin\s*achieve.*(?:high|\bh\s*s\b)/i,
- 'austin-vandegrift':/\bvandegrift\b/i,
- 'austin':/^(?:austin\s*(?:high|h\s*s|h\.?s\.?))$/i,
- 'austin-akins':/\bakins\b/i,
- 'austin-anderson':/\banderson\b/i,
- 'austin-bowie':/\bbowie\b/i,
- 'austin-crockett':/\bcrockett\b/i,
- 'austin-eastside':/\beastside\b/i,
- 'austin-johnson':/\b(?:lbj|lyndon\s*b\.?\s*johnson)\b/i,
- 'austin-lasa':/\blasa\b|liberal\s*arts.*science/i,
- 'austin-mccallum':/\bmccallum\b/i,
- 'austin-navarro':/\bnavarro\b|\blanier\b/i,
- 'austin-northeast':/\bnortheast\b|\breagan\b/i,
- 'austin-travis':/\btravis\b/i,
+ 'austin':/^AUSTIN H S$/i,
+ 'austin-achieve':/^AUSTIN ACHIEVE H S$/i,
+ 'austin-akins':/^AKINS EARLY COLLEGE H S$/i,
+ 'austin-anderson':/^ANDERSON H S$/i,
+ 'austin-bowie':/^BOWIE H S$/i,
+ 'austin-crockett':/^CROCKETT EARLY COLLEGE H S$/i,
+ 'austin-eastside':/^EASTSIDE EARLY COLLEGE H S$/i,
+ 'austin-johnson':/^LBJ EARLY COLLEGE H S$/i,
+ 'austin-lasa':/^LASA H S$/i,
+ 'austin-mccallum':/^MCCALLUM H S$/i,
+ 'austin-navarro':/^NAVARRO EARLY COLLEGE H S$/i,
+ 'austin-northeast':/^NORTHEAST EARLY COLLEGE H S$/i,
+ 'austin-travis':/^TRAVIS EARLY COLLEGE H S$/i,
+ 'austin-vandegrift':/^VANDEGRIFT H S$/i
 };
 const excluded={
- 'austin-lake-travis':/\blake\s*travis\b/i,
- 'austin-westlake':/\bwestlake\b/i
+ 'austin-lake-travis':/^LAKE TRAVIS H S$/i,
+ 'austin-westlake':/^WESTLAKE H S$/i
 };
 const now=new Date().toISOString();
 const out='artifacts/football-b004-municipal-gis';await mkdir(out,{recursive:true});
