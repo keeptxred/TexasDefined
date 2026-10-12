@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import bigBend from "@/assets/big-bend.jpg";
 import { Container } from "@/components/layout/Container";
+import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
 
 const officialSources = [
   { label: "Texas Parks & Wildlife — Horseback Riding in State Parks", href: "https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian", note: "Statewide equestrian access, facilities and documentation guidance, including the current negative-Coggins requirement." },
@@ -102,6 +103,8 @@ function TexasHorsebackRidingGuidePage() {
             <h2 id="quick-answer" className="mt-2 font-display text-3xl">Start with the paperwork, then choose the landscape</h2>
             <p className="mt-4 max-w-4xl text-base leading-8">Texas Parks &amp; Wildlife requires proof of a negative Equine Infectious Anemia test within the previous 12 months for each horse entering a state park or natural area. After that statewide requirement, local rules diverge: Big Bend Ranch requires backcountry permits; Hill Country State Natural Area is heavily shared-use; Palo Duro has dedicated riding acreage; Caprock combines canyon trails with a long trailway; and Dinosaur Valley uses a small primitive riding area. Verify the current park page before every trip.</p>
           </section>
+
+          <GuideVerifiedFacts guideSlug="texas-horseback-riding-guide" />
 
           <section className="border-b border-border py-10" aria-labelledby="trip-conditions">
             <p className="eyebrow text-primary">Before you haul</p>
