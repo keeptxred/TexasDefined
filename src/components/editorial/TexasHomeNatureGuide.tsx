@@ -53,7 +53,7 @@ export function TexasHomeNatureGuide({ data }: { data: TexasHomeNaturePublicGuid
           <p className="mt-4 text-sm text-muted-foreground">Editorial guidance reviewed {reviewedAt}.</p>
 
           {visual ? <figure className="mt-10 border-y border-border py-6">
-            <img src={editorialImageSrc(visual.image.src)} alt={visual.image.alt} width={visual.image.width} height={visual.image.height} loading="eager" decoding="async" className="h-auto max-h-[480px] w-full object-contain" />
+            <img src={editorialImageSrc(visual.image.src)} alt={visual.image.alt} width={visual.image.width} height={visual.image.height} loading="eager" decoding="async" className="h-auto w-full object-contain" />
             <figcaption className="mt-4 text-sm leading-6 text-muted-foreground">
               {visual.caption}{" "}{visual.image.credit}{" · "}
               <a href={visual.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">Original photo record ↗</a>{" · "}
