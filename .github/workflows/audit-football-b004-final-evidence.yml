@@ -6,6 +6,10 @@ on:
       - 'scripts/ci/verify-football-b004-austin-gis.mjs'
       - 'scripts/ci/audit-football-b004-sources.mjs'
       - 'scripts/ci/review-football-b004-mobile-contrast.mjs'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'docs/football-authority/REGISTRY.json'
+      - 'src/data/high-school-football/program-editorial.ts'
       - '.github/workflows/audit-football-b004-final-evidence.yml'
   push:
     branches: [main]
@@ -13,13 +17,17 @@ on:
       - 'scripts/ci/verify-football-b004-austin-gis.mjs'
       - 'scripts/ci/audit-football-b004-sources.mjs'
       - 'scripts/ci/review-football-b004-mobile-contrast.mjs'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'docs/football-authority/REGISTRY.json'
+      - 'src/data/high-school-football/program-editorial.ts'
       - '.github/workflows/audit-football-b004-final-evidence.yml'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   gis:
-    name: Independently resolve 12 Austin campus GIS links and exclusions
+    name: Verify 14 Austin city campuses and two exclusions against official GIS
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
