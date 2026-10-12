@@ -13,6 +13,7 @@ const privacy=src('src/routes/privacy.lazy.tsx');
 const brand=src('src/brand/texasdefined.ts');
 const publicRoutes=src('src/lib/public-routes.ts');
 const migration=src('supabase/migrations/20261012012227_require_network_customer_terms_acceptance.sql');
+const immutable=src('supabase/migrations/20261012012809_make_network_terms_evidence_append_only.sql');
 
 const VERSION='2026-10-11-v1';
 const HASH='166b237dc2572da5195e1f5217ec51c8ecc83b73f68a080a16b4478e35f9a6a6';
@@ -113,6 +114,13 @@ for(const marker of [
 ]){
  check('migration enforces '+marker,migration.includes(marker));
 }
+
+check('acceptance evidence is append-only under the website service role',
+ immutable.includes('GRANT SELECT, INSERT ON TABLE public.texasdefined_network_checkout_acceptances TO service_role')
+ &&immutable.includes('REVOKE ALL ON TABLE public.texasdefined_network_checkout_acceptances FROM service_role')
+ &&immutable.includes('CREATE TRIGGER network_application_terms_immutable')
+ &&immutable.includes("RAISE EXCEPTION 'Network terms acceptance evidence is immutable'")
+ &&immutable.includes('FROM PUBLIC, anon, authenticated'));
 
 check('privacy policy discloses Network data and third-party indexing',
  privacy.includes('Business Network Applications, Listings, and Owner Accounts')
