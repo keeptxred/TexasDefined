@@ -13,6 +13,7 @@ const newOpenings = read("src/data/newly-opened-state-parks-2026.ts");
 const historicCanonical = read("src/data/canonical-historic-state-parks.ts");
 const hillCountry = read("src/data/hill-country-state-natural-area-authority.ts");
 const lakeSomerville = read("src/data/lake-somerville-state-park-authority.ts");
+const rayRoberts = read("src/data/ray-roberts-lake-state-park-authority.ts");
 const recovery = read("src/data/state-park-authority-recovery.ts");
 const planner = read("src/components/editorial/DestinationVisitPlanner.tsx");
 const essentials = read("src/components/editorial/StateParkVisitorEssentials.tsx");
@@ -59,6 +60,10 @@ assertContains(lakeSomerville, 'slug: "lake-somerville-state-park"', "Lake Somer
 assertContains(lakeSomerville, "13.11-mile", "Lake Somerville Trailway planning needs length, maps and separate entrances");
 assertContains(preserved, "[lakeSomervilleStateParkAuthority],", "Lake Somerville must survive remote Explore outage");
 assertContains(curation, "applyLakeSomervilleStateParkAuthority,", "Lake Somerville park facts must override short inherited copy");
+assertContains(rayRoberts, 'slug: "ray-roberts-lake-state-park"', "Ray Roberts Lake state park complex lacks canonical visitor page");
+assertContains(rayRoberts, "Greenbelt", "Ray Roberts park guide must note separate trail alert network");
+assertContains(preserved, "[rayRobertsLakeStateParkAuthority],", "Ray Roberts park must survive remote outages");
+assertContains(curation, "applyRayRobertsLakeStateParkAuthority,", "Ray Roberts canonical park guide missing curation integration");
 const required = [
   "fort-richardson-state-park-state-historic-site",
   "seminole-canyon-state-park-and-historic-site",
