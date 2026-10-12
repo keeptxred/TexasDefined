@@ -14,6 +14,12 @@ Current evidence inventory: **16** lake guide records show named access faciliti
 
 **Critical content integrity:** Existing titles and SEO descriptions sometimes called general inventories “verified ramps” or “verified camping.” These were rewritten in this audit branch to distinguish independently named facilities from generic official access/camping planning. A new per-guide official-source pre-trip checklist directs visitors to fishing, access/closure, water-level and regulations sources and warns against treating generic maps as navigation charts.
 
+## Full TPWD comparison: 175 official listings / 123 guide gaps
+
+The official TPWD alphabetic snapshot was mapped entry-by-entry to our canonical 52 lake slugs. **175 TPWD named links** comprise **52 matched complete lake guides** and **123 unmatched official listings** after handling known aliases (e.g., `lake-lbj` / *Lyndon B. Johnson*). The numbers describe **completed fishing-guide coverage**, not a search of all site content and not necessarily 175 distinct major reservoirs. See [the full 175-entry gap map](TPWD_LAKE_COVERAGE_GAP_MAP_2026-10-12.md) and [machine-readable version](TPWD_LAKE_COVERAGE_GAP_MAP_2026-10-12.json).
+
+The gap list is a **research backlog**, not approval to create 123 thin pages. Validate each water body's identity, current operation, visitor demand, official source, unique maps and original photos before publication.
+
 ## Lake-by-lake evidence matrix (all registered complete guides)
 
 *Legend:* Named = explicitly named facility data; General = general access guidance only; Unverified = no individually verified campground in the lake record; Mapped image = data-library asset with provenance metadata, **not** original staff photography. No line below implies current facility operation, a proven working photo URL, manual production QA, or superior competitive coverage.
