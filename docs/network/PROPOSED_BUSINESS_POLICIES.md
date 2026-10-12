@@ -125,3 +125,14 @@ Data anticipated: contact/business information, owner Auth identity, proof-of-ow
 **Currently missing:** Featured recurring Stripe product/price, owner-bound upgrade/Checkout/portal flow, invoice and entitlement reconciliation separate from Plus, final disclosure, tested downgrade/revocation behavior, real two-owner hosting/browser evidence, finalized sponsorship inventory. The present source only supports $19.99 Plus self-service and an administrator-managed Featured capability; it must not advertise the proposed $49.95 as already purchasable.
 
 **Owner decision remains required:** Explicitly approve $49.95 versus $79.95, term, taxes, refunds, cancellation, sponsorship allocation and included benefits. No unapproved public listing copy, automatic billing or production activation.
+
+
+## Hosted business-page positioning — proposed owner review
+
+**Customer need:** A small Texas business without an existing website can have a shareable **TexasDefined-hosted business page**, with no separate hosting account or hosting charge for that page. An existing website is not required to join. The page remains on a `texasdefined.com/network/business/...` URL and is reviewed before public indexing.
+
+**Terminology/limits:** Do **not** call this a standalone free business website. Basic provides a free hosted **listing**; Plus and Featured are billed for enhancements to their hosted profiles. The service currently does not provide a custom domain, customer-controlled site builder, arbitrary extra pages, hosting business email, ecommerce, booking/checkout for the listed business, or guaranteed Google rankings/traffic. Custom domain and website ownership are not conveyed.
+
+**Price/value decision:** $79.95/month is defensible only for a genuinely more complete and managed business-web-presence service—e.g. professional setup, supported owner revisions, robust pages/sections, managed content and tested premium promotion. It is **not defensible merely by claiming the business avoids an inexpensive hosting bill**, because Google offers a free Business Profile and independent website builders offer hosting at much lower prices. The existing $49.95 proposal remains unapproved; owner may approve $49.95 for the current sponsored hosted-profile service, or direct construction of a distinct fully functioning $79.95 managed web-presence offer. Do not silently set $79.95 as a live Stripe price, charge an owner, or promise a full website until implemented and independently accepted.
+
+**Safe draft wording:** "Don't have a website? Your approved TexasDefined business page gives you an online home to share. We host your page on TexasDefined, so there's no extra hosting bill for this page. It's not a standalone custom-domain website."

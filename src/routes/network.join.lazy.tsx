@@ -7,7 +7,7 @@ export const Route = createLazyFileRoute("/network/join")({ component: NetworkJo
 
 const benefits = [
   ["Be discoverable", "Give Texans a simple place to learn who you are and how to reach you."],
-  ["Keep your identity", "Give your business a consistent public identity, with enhanced website links in Plus."],
+  ["Hosted by TexasDefined", "Even without an existing website, your business gets a shareable TexasDefined page, hosted by us."],
   ["Connect to Texas", "Be part of a growing network of communities, organizations and local places."],
 ];
 
@@ -25,7 +25,7 @@ const tiers = [
     name: "Texas Defined Plus",
     price: "$19.99",
     frequency: "/ month",
-    note: "Your expanded business presence, with more ways for customers to connect.",
+    note: "No website required. Your expanded TexasDefined business page is hosted by us.",
     features: ["Everything in Basic", "Prominent official website link", "Social-media profile links", "Longer description and services", "Photo gallery and FAQs", "Events or special offers", "Basic listing performance statistics"],
     status: "Enhanced profile",
     featured: true,
@@ -34,8 +34,8 @@ const tiers = [
     name: "Texas Defined Featured",
     price: "$49.95",
     frequency: "/ month",
-    note: "Proposed premium membership with reviewed updates and clearly labeled sponsored directory discovery.",
-    features: ["Everything in Plus", "Verified-owner updates with editorial approval", "Clearly labeled Featured placement in the Network directory", "Daily performance trends and contact-action breakdown", "Seven-day performance comparisons", "Optional sponsored stories and promotions quoted separately"],
+    note: "Proposed hosted business showcase with reviewed updates and sponsored discovery.",
+    features: ["Everything in Plus", "Shareable business showcase with no separate hosting bill", "Verified-owner updates with editorial approval", "Clearly labeled Featured placement in the Network directory", "Expanded performance insights: daily trends, contact-action breakdown and seven-day comparisons", "Optional sponsored stories and promotions quoted separately"],
     status: "Proposed offer — pending final approval",
     featured: false,
   },
@@ -123,7 +123,7 @@ function NetworkJoinPreview() {
               </article>
             ))}
           </div>
-          <p className="mx-auto mt-8 max-w-3xl text-center text-sm leading-6 text-muted-foreground">Paid promotions will be identified as sponsored. Paying for services will not determine inclusion in independent editorial coverage or organic search rankings.</p>
+          <p className="mx-auto mt-8 max-w-3xl text-center text-sm leading-6 text-muted-foreground">Every approved plan includes a shareable business page hosted on TexasDefined, with no separate hosting bill for that page. This is not a standalone website or custom domain; custom domains, online stores and third-party site hosting are not included. Paid promotions are labeled sponsored and do not determine independent editorial coverage or organic search rankings.</p>
         </Container>
       </section>
 

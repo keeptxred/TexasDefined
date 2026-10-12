@@ -86,7 +86,10 @@ test('the single launch gate includes independent delivery of every publicly adv
  const marketing=src('src/routes/network.join.lazy.tsx');
  assert.match(gate,/planBenefitsDelivered/);
  assert.match(marketing,/Basic listing performance statistics/);
- assert.match(marketing,/Expanded performance insights/);
+ assert.match(marketing,/Expanded performance insights: daily trends, contact-action breakdown and seven-day comparisons/);
+ assert.match(marketing,/no separate hosting bill/);
+ assert.match(marketing,/not a standalone website or custom domain/);
+ assert.match(marketing,/Paid promotions are labeled sponsored/);
 });
 
 test('Plus and Featured performance must have real collection, owner-only reports and pending rollout SQL',()=>{

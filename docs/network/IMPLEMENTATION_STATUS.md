@@ -905,3 +905,10 @@ Exact prior HEAD `3e3d307f4fe0af191417faba7b7e36267cd9282f`: disposable Auth/Sto
 ### Measured stylesheet-budget root cause, October 11 continuation
 
 The `src/styles.css` `@source not "./routes/network.*.lazy.tsx"` exclusion sends Network lazy-route utilities to the separate Network CSS output. Attempts to remove arbitrary classes from `network.join.lazy.tsx` did **not** affect the shared `styles-*.css` hash or measured 141,461-byte stylesheet, so those visual experiments were reverted. The primary stylesheet itself is now simplified by dropping an old `Book Antiqua` fallback between Palatino and Georgia, without changing the display font choice for devices with the preferred fonts, page functionality, or the 141,450-byte performance cap. Await an actual new exact-HEAD build for the measured byte count; do not infer a pass from source alone.
+
+
+### Hosted-page commercial clarification and Merge Gate source fix
+
+At `05a953667ab1a6411887eed144044629eaf1806d`, browser QA, disposable Auth/Storage, clean-room migration replay and Calculator passed. Merge Gate failed one actual claim/assertion: the outdated test expected the vague literal `Expanded performance insights` after the truthful marketing breakdown had been expanded. Test now requires the actual daily trends, action-channel counts, seven-day comparisons, hosting-limit disclaimer and paid-sponsorship labeling. This repairs the test fixture **without** bypassing the real `planBenefitsDelivered` release category.
+
+The owner emphasizes businesses without their own website can use the TexasDefined-hosted business page. The revised unmerged copy makes no-separate-hosting explicit while forbidding false custom-domain/standalone-website claims. Both $49.95 and $79.95 Featured/managed-web-presence decisions remain **commercial proposals, not approved billing**. Real provider acceptance remains undone.
