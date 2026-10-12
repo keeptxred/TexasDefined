@@ -6,6 +6,7 @@ on:
       - 'src/components/content/**'
       - 'src/routes/**'
       - 'scripts/data/validate-river-visitor-authority.mjs'
+      - 'tsconfig.river-authority.json'
       - '.github/workflows/river-authority-contract.yml'
   push:
     branches: [main]
@@ -28,4 +29,4 @@ jobs:
       - name: Typecheck river and site integration
         run: |
           npm ci --ignore-scripts --no-audit --no-fund
-          npx tsc --noEmit
+          npx tsc --project tsconfig.river-authority.json --noEmit
