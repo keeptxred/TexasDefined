@@ -17,6 +17,8 @@ const hub = read("src/components/content/TexasRiversAuthorityHub.tsx");
 const county = read("src/routes/$kind.$slug.lazy.tsx");
 const destination = read("src/routes/destination.$slug.tsx");
 const fishingLakes = read("src/routes/fishing.lakes.$slug.tsx");
+const fishingHub = read("src/components/fishing/FishingHub.tsx");
+const campingHub = read("src/routes/best-places-to-go-camping-in-texas.lazy.tsx");
 const related = read("src/components/content/RiverContextualLinks.tsx");
 const pillar = read("src/data/fixtures/texas-rivers-explained.ts");
 const topology = read("src/data/fixtures/newest-evergreen.ts");
@@ -60,6 +62,8 @@ for (const [file,label,tokens] of [
  [county,"county pages",["<RiverContextualLinks countySlug={entity.slug}"]],
  [destination,"destination pages",["<RiverContextualLinks destinationSlug={destination.slug}"]],
  [fishingLakes,"fishing lake guides",["<RiverContextualLinks destinationSlug={data.lake.slug}"]],
+ [fishingHub,"fishing hub discoverability",["riverAuthorityRecords.map","river-fishing-guides"]],
+ [campingHub,"camping hub discoverability",["riverAuthorityRecords.map","river-camping-guides"]],
  [related,"contextual link widget",["href={river.href}","riverLinksForCounty","riverLinksForDestination"]],
  [pillar,"pillar links",["texas-frio-river-guide","texas-comal-river-guide","texas-san-marcos-river-guide","texas-llano-river-guide","texas-pecos-river-guide"]],
  [topology,"evergreen topic topology",["texas-frio-river-guide","texas-comal-river-guide","texas-san-marcos-river-guide","texas-llano-river-guide","texas-pecos-river-guide"]],
