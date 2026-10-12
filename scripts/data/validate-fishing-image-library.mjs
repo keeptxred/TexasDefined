@@ -149,8 +149,8 @@ const completeLakeSlugs = [
   ...parseTuple(files.slugs, "STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS"),
 ];
 const allowedExactLakeImageGaps = new Set();
-if (new Set(completeLakeSlugs).size !== 56) fail(`expected 56 complete fishing lakes, found ${new Set(completeLakeSlugs).size}`);
-if (requiredLakes.length !== 56) fail(`expected 56 governed exact lake-photo mappings, found ${requiredLakes.length}`);
+if (new Set(completeLakeSlugs).size !== 57) fail(`expected 57 complete fishing lakes, found ${new Set(completeLakeSlugs).size}`);
+if (requiredLakes.length !== 57) fail(`expected 57 governed exact lake-photo mappings, found ${requiredLakes.length}`);
 for (const slug of completeLakeSlugs) {
   const hasMapping = requiredLakes.includes(slug);
   if (!hasMapping && !allowedExactLakeImageGaps.has(slug)) fail(`complete lake lacks governed image mapping or explicit exception: ${slug}`);
@@ -273,4 +273,4 @@ if (files.lakeDirectory.includes('showCredit={false}') || files.showcase.include
   fail("CC-capable lake photography must not suppress visible attribution");
 }
 
-console.log(`Fishing image library validation passed: all ${requiredFish.length} published fish species/groups and all ${requiredLakes.length}/56 complete lake guides have governed exact-location imagery with provenance, license metadata, reusable rendering and attribution rules.`);
+console.log(`Fishing image library validation passed: all ${requiredFish.length} published fish species/groups and all ${requiredLakes.length}/57 complete lake guides have governed exact-location imagery with provenance, license metadata, reusable rendering and attribution rules.`);
