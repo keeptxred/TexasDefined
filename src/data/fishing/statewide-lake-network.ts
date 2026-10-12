@@ -259,7 +259,13 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("white-bass","White bass","excellent","spring","Spring tributary runs and summer main-lake schools provide two major seasonal windows.",["topwater","vertical-jigging","live-bait"]),
       fish("catfish","Catfish","good","year-round","Blue and channel catfish support year-round fishing.",["cut-bait","live-bait"]),
     ],
-    access: "TPWD operates state-park units and satellite parks with ramps around the lake; other facilities are managed by USACE and local operators.",     accessPoints: [
+    access: "TPWD operates state-park units and satellite parks with ramps around the lake; other facilities are managed by USACE and local operators.",     historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/ray_roberts/index.asp",
+    historyNotes: [
+      "The Elm Fork Trinity project was first authorized by the 1965 Rivers and Harbors Act under the name Aubrey Lake. The future reservoir was renamed in 1980 to honor U.S. Congressman Ray Roberts.",
+      "Corps construction began May 31, 1982 and both the dam completion and first deliberate impoundment occurred June 30, 1987. The project was designed principally to supply the rapidly growing Dallas-Denton area.",
+      "TWDB records the conservation-pool acreage from its surveys; that area differs from the larger flood-control pool, and neither is proof that all state park units, boat ramps or trails are accessible today.",
+    ],
+    accessPoints: [
       { name: "Buck Creek Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "West side of US 377 about a mile south of Tioga. Two-lane concrete ramp with boarding pier; TPWD lists up to 75 parking spaces.", fee: "TPWD lists park access fee", availability: "Can close around lake elevation 634.7 ft per TPWD; verify current conditions (940) 686-2148." },
       { name: "Jordan Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "About one mile west of Pilot Point on FM 1192. Four-lane concrete ramp with pier and up to 75 spaces.", fee: "TPWD lists fee", availability: "TPWD warns it can close near lake elevation 639.0 ft; confirm before towing (940) 686-2148." },
       { name: "Isle du Bois State Park Unit", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Southern park unit of Ray Roberts Lake; official TPWD site map lists launch and campground amenities.", fee: "State park entry/launch charges may apply", availability: "Camping and marina/ramp usability depend on current TPWD unit alerts; (940) 686-2148." },
@@ -283,7 +289,13 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("largemouth-bass","Largemouth bass","good","year-round","Vegetation and riprap are core bass habitat.",["soft-plastics","crankbaits","spinnerbaits"]),
       fish("crappie","Crappie","good","year-round","Submerged brush piles and timber hold crappie.",["jigs-and-minnows"]),
     ],
-    access: "City parks and private marinas provide boat ramps; Robertson Park is a major day-use and bank-fishing access area.",     accessPoints: [
+    access: "City parks and private marinas provide boat ramps; Robertson Park is a major day-use and bank-fishing access area.",     historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/ray_hubbard/",
+    historyNotes: [
+      "Ray Hubbard's dam was not finished the year construction began: work started June 13, 1964, the channel was closed in September 1967, and deliberate impoundment began December 1, 1968. TWDB records final dam completion in January 1969.",
+      "Public water supply drove construction of this East Fork Trinity reservoir; industrial infrastructure soon joined the shoreline, with the Ray Hubbard Steam Electric Station's two units commissioned in 1970 and 1973.",
+      "The 2015 TWDB survey measured 20,947 acres at conservation pool and roughly 439,559 acre-feet of storage. This survey-based figure is not an instant reading of today's lake surface area; visitors should use current reservoir-level data separately.",
+    ],
+    accessPoints: [
       { name: "Paddle Point Park (paddle craft only)", operator: "City of Rowlett", kind: "park", launch: "6775 Miller Road, Rowlett; gravel/dirt put-in for non-motorized craft; not a motorboat launch.", fee: "Confirm city parking requirements", availability: "TPWD lists year-round; verify city park status." },
       { name: "Paul Jones Park", operator: "City of Garland", kind: "park", launch: "4099 Zion Road, Garland; four concrete lanes, up to 50 vehicle spaces and picnic access.", fee: "TPWD lists no fee", availability: "Year-round in TPWD listing; check City of Garland (972) 205-2750." },
       { name: "Harbor Bay Marina", operator: "Private marina", kind: "marina", launch: "From I-30 Horizon/Ridge exit follow Horizon and Windjammer Way. Two lanes, up to 50 spaces, fishing barge.", fee: "Launch fee listed", availability: "Year-round per TPWD; verify private operation (972) 771-0071." },
@@ -365,7 +377,13 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("spotted-bass","Spotted bass","good","year-round","Spotted bass share rocky and developed shoreline habitat.",["crankbaits","soft-plastics"]),
       fish("channel-catfish","Channel catfish","good","year-round","Channel catfish add a reliable bait fishery.",["cut-bait","live-bait"]),
     ],
-    access: "TPWD lists three public ramps and several commercial facilities, many with docks, camping or other amenities.",     accessPoints: [
+    access: "TPWD lists three public ramps and several commercial facilities, many with docks, camping or other amenities.",     historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/eagle_mountain/index.asp",
+    historyNotes: [
+      "Eagle Mountain Lake grew from the West Fork Trinity water-supply planning that preceded modern Fort Worth suburbs. The state authorized the dam May 1, 1928; construction began January 23, 1930, with physical completion on October 24, 1932.",
+      "Deliberate storage began February 28, 1934, a separate milestone from the 1932 dam completion. Its Tarrant Regional Water District ownership and operations combine municipal supply, flood management, irrigation and recreation.",
+      "The spillway was subsequently modernized, including a new service-spillway installation completed July 31, 1971. TWDB's 2018 survey reports conservation-pool area and capacity, distinct from today's fluctuating surface.",
+    ],
+    accessPoints: [
       { name: "West Bay Marina", operator: "Private marina", kind: "marina", launch: "From SH 199 and FM 730 north, Timber Road east to Liberty School Road, then marina; two-lane ramp, 50 parking spaces.", fee: "TPWD lists fee", availability: "Year-round in TPWD inventory; confirm operator (817) 444-1622." },
       { name: "Shady Grove Park", operator: "City of Azle", kind: "park", launch: "From FM 730 north of Azle, east on Stribling North; two-lane concrete ramp, about 35 spaces.", fee: "TPWD lists no fee", availability: "Year-round TPWD listing; City of Azle (817) 444-2541." },
       { name: "Pelican Bay Ramp", operator: "City of Pelican Bay", kind: "public-ramp", launch: "East off FM 730 north of Azle on Sandy Beach, south Liberty School Road and Pelican; two-lane ramp, 25 spaces.", fee: "TPWD lists fee", availability: "Year-round per TPWD; confirm City of Pelican Bay (817) 444-1234." },
@@ -774,7 +792,13 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("hybrid-striped-bass","Hybrid striped bass","good","year-round","Palmetto bass add another open-water shad-oriented target.",["trolling","vertical-jigging","live-bait"]),
     ],
     access: "The U.S. Army Corps of Engineers operates a broad public-access network with ramps, bank fishing and camping around Lake Waco; individual parks have seasonal schedules and fees.", accessPage: "access2.phtml", specialRules: true,
-        accessPoints: [
+        historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/waco/index.asp",
+    historyNotes: [
+      "Waco had a lake before its modern Corps reservoir. The City of Waco built the original dam in 1928–1929; the silted old water-supply pool shrank in storage capacity from roughly 39,378 acre-feet to 22,030 by the mid-1940s.",
+      "Congress authorized a replacement under the Flood Control Act of September 3, 1954. Corps construction began in 1958, and deliberate storage began in February 1965, when the old lake was integrated into the newer project.",
+      "Today's public recreation and water-supply facilities occupy a federal flood-control reservoir, not simply the footprint of the 1929 city lake. The transition matters when using historical maps, shoreline photographs and campground locations.",
+    ],
+    accessPoints: [
       { name: "Reynolds Creek Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "TPWD lists a public ramp, camping and shoreline recreation at Reynolds Creek on Lake Waco. Confirm entrance and ramp coordinates against USACE park map.", fee: "TPWD says most ramps charge launch fees; verify facility price", availability: "Verify USACE park and campground status before booking." },
       { name: "Speegleville Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "Official TPWD access inventory lists launch, campground and picnicking facilities at Speegleville.", fee: "TPWD says most ramps charge launch fees; verify", availability: "USACE park status and operator reservations control overnight access." },
       { name: "Midway Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "TPWD lists a launch and shoreline recreation park at Midway on Lake Waco.", fee: "TPWD says most ramps charge launch fees; verify", availability: "Check current USACE ramp condition and fee before travel." },
@@ -795,7 +819,13 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("crappie","Crappie","fair","spring","Crappie are a secondary target around timber, docks and brush.",["jigs-and-minnows"],"secondary"),
     ],
     access: "TPWD lists public boating access and Lake Brownwood State Park provides a major recreation base; verify lake level, ramp status and invasive-species guidance before travel.",
-        accessPoints: [
+        historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/brownwood/index.asp",
+    historyNotes: [
+      "The Brown County Water Improvement District secured its state water right in December 1929. Construction on the Pecan Bayou and Jim Ned Creek impoundment began in 1930 and finished in 1933, with deliberate impoundment starting in July 1933.",
+      "Brownwood Lake became a durable regional municipal-water and recreation resource rather than a recent suburban reservoir. TWDB documents a major 1982 strengthening, enlargement and raising of the original dam.",
+      "A 2013 TWDB bathymetric survey measured 6,814 acres at the stated conservation elevation and about 131,530 acre-feet of storage. Different TPWD profile-acreage numbers may reflect reporting date or survey basis rather than a second lake.",
+    ],
+    accessPoints: [
       { name: "Dam public ramp", operator: "Brown County Water Control and Irrigation District No. 1", kind: "public-ramp", launch: "Across dam on FM 2632. TPWD lists a lighted multilane public ramp, courtesy dock and large parking area.", fee: "TPWD lists no fee", availability: "Year-round per TPWD; check lake condition with district (325) 643-2609." },
       { name: "Flatrock Park", operator: "Brown County Water Control and Irrigation District No. 1", kind: "park", launch: "On FM 2632 just north of FM 3021 junction. Lighted two-lane ramp with parking for under 50 vehicles.", fee: "TPWD lists no fee", availability: "TPWD warns steep ramp needs caution when lake five feet low or more; check district (325) 643-2609." },
       { name: "Lake Brownwood State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Off Park Road 15 east of SH 279. Lighted multiple-lane ramp with about 20 vehicle spaces, plus fishing pier and camping.", fee: "State park entrance fee", availability: "TPWD says year-round access, though cabins/camping can be seasonal; confirm park (325) 784-5223." },
