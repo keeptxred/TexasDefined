@@ -12,12 +12,16 @@ for (const section of ["guides","reports"]) {
   if (!staticSitemap.includes(`section !== "${section}"`))
     errors.push(`Unconditionally sitemap-listed ${section} lake subpages may advertise noindex placeholders`);
 }
+// The normal individual fishing guide sitemap remains verifiedListing-only.
+// Optional lake subpages reuse the already-loaded official report/lake/guide
+// context instead of incurring another 5,000-lake fetch.
+if(!guideLoader.includes("verifiedListing: true")) errors.push("Guide discovery requires verified published listings");
 for(const marker of [
-  "qualifiedLakeIds.has(lake.id)",
-  "lakeConroeCanonicalPath(\"guides\")",
-  "showcaseLakeCanonicalPath(lake.slug, \"guides\")",
-  "verifiedListing: true",
-]) if(!guideLoader.includes(marker))errors.push(`Guide section indexability check missing: ${marker}`);
+  'guides.filter((guide) => guide.verifiedListing)',
+  "qualifiedGuideLakeIds.has(lake.id)",
+  'lakeConroeCanonicalPath("guides")',
+  'showcaseLakeCanonicalPath(lake.slug, "guides")',
+]) if(!reportLoader.includes(marker)) errors.push(`Lake /guides section indexability check missing: ${marker}`);
 for(const marker of [
   "isPublicFishingReportValid(report, context)",
   'fishingReportFreshness(report) !== "expired"',
