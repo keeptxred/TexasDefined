@@ -13,10 +13,17 @@ export const Route = createFileRoute("/api/public/network-checkout")({
     const {parseBoundedNetworkBillingJson}=await import("@/data/network-billing-json.server");
     const parsed=await parseBoundedNetworkBillingJson(request);
     if(!parsed.ok)return reply({error:parsed.status===413?"Request too large.":"Invalid request."},parsed.status);
-    const body=parsed.value as {applicationId?:unknown;email?:unknown}|null;
+    const body=parsed.value as {applicationId?:unknown;email?:unknown;termsVersion?:unknown;termsAccepted?:unknown;recurringBillingAccepted?:unknown}|null;
     if (!body || typeof body!=="object" || Array.isArray(body) ||
         typeof body.applicationId!=="string" || !/^[0-9a-f-]{36}$/i.test(body.applicationId))
       return reply({ error: "Application not found." }, 400);
+    const {
+      NETWORK_PLUS_RECURRING_DISCLOSURE_SHA256,
+      NETWORK_TERMS_SNAPSHOT_SHA256,
+      NETWORK_TERMS_VERSION,
+    }=await import("@/data/network-terms");
+    if(body.termsAccepted!==true||body.recurringBillingAccepted!==true||body.termsVersion!==NETWORK_TERMS_VERSION)
+      return reply({error:"Accept the current Network Membership Terms and recurring billing disclosure before checkout."},422);
     // Contact-email knowledge is not proof of business ownership. Require a confirmed sign-in before billing.
     const bearer = request.headers.get("authorization")?.match(/^Bearer ([\w.-]+)$/)?.[1];
     if (!bearer) return reply({ error: "Sign in with your confirmed application email before checkout." }, 401);
@@ -50,6 +57,26 @@ export const Route = createFileRoute("/api/public/network-checkout")({
     if (ownershipError || !ownership) {
       return reply({ error: "Business ownership must be verified before subscription checkout." }, 403);
     }
+    const {error:acceptanceError}=await supabaseAdmin
+      .from("texasdefined_network_checkout_acceptances")
+      .upsert({
+        application_id:data.id,
+        owner_user_id:verified.user.id,
+        accepted_email:verified.user.email.trim().toLowerCase(),
+        terms_version:NETWORK_TERMS_VERSION,
+        terms_snapshot_sha256:NETWORK_TERMS_SNAPSHOT_SHA256,
+        recurring_disclosure_sha256:NETWORK_PLUS_RECURRING_DISCLOSURE_SHA256,
+        terms_accepted:true,
+        recurring_billing_accepted:true,
+        facts_responsibility_accepted:true,
+        media_responsibility_accepted:true,
+        search_indexing_accepted:true,
+        metadata:{source:"plus_checkout"},
+      },{
+        onConflict:"application_id,owner_user_id,terms_version,recurring_disclosure_sha256",
+        ignoreDuplicates:true,
+      });
+    if(acceptanceError)return reply({error:"Terms acceptance could not be recorded. Checkout was not started."},503);
     // A paid or previously-created subscription must be managed through billing, not duplicated by Checkout.
     if (data.paid_entitlement_active || data.stripe_subscription_id) {
       return reply({ error: "A subscription already exists for this application. Use membership billing to manage it." }, 409);
