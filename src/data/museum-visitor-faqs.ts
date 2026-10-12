@@ -46,8 +46,8 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "question": "How long does a visit to the Bullock Museum take?",
       "answer": "Allow about two to three hours to examine the main Texas history galleries at a comfortable pace. A scheduled IMAX film, special exhibition or detailed reading can extend the outing; this is a planning estimate, not a museum-imposed limit.",
       "verificationUrl": "https://www.thestoryoftexas.com/visit/exhibits/texas-history-gallery",
-      "questionOrigin": "editorial-research",
-      "questionEvidenceUrl": "https://www.thestoryoftexas.com/visit/exhibits/texas-history-gallery",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://www.tripadvisor.com/FAQ_Answers-g30196-d209385-t9169398-I_am_into_history_and_reading_exhibits_How_long.html",
       "reviewCycle": "quarterly",
       "reviewed": "2026-10-12"
     },
@@ -64,8 +64,8 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "question": "Is parking available at the Bullock Museum?",
       "answer": "The museum operates a visitor parking garage. Charges and capacity can change, particularly around nearby Austin events; consult official directions or contact the museum before traveling.",
       "verificationUrl": "https://www.thestoryoftexas.com/visit",
-      "questionOrigin": "editorial-research",
-      "questionEvidenceUrl": "https://www.thestoryoftexas.com/visit",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://www.tripadvisor.com/FAQ_Answers-g30196-d209385-t561280-What_is_the_cost_and_the_hours_Where_to_park.html",
       "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     }
@@ -93,8 +93,8 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "question": "Is the Perot Museum suitable for toddlers and young children?",
       "answer": "Yes. The Moody Family Children's Museum is intended for younger visitors, while other permanent halls suit different ages. Bring your own stroller or wagon; availability in the children's area can be restricted on very crowded days.",
       "verificationUrl": "https://www.perotmuseum.org/visit/accessibility/",
-      "questionOrigin": "editorial-research",
-      "questionEvidenceUrl": "https://www.perotmuseum.org/visit/accessibility/",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://www.tripadvisor.com/FAQ_Answers-g55711-d3688568-t338205-Would_a_3_year_4_year_old_enjoy_the_museum_or.html",
       "reviewCycle": "quarterly",
       "reviewed": "2026-10-12"
     },
@@ -102,8 +102,8 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "question": "Does Perot have a cafeteria, restaurant or café?",
       "answer": "There is an on-site Museum Café serving casual prepared meals and snacks, operated by Wolfgang Puck Catering. It is a museum café rather than a traditional sit-down full-service restaurant; check current hours and menu before planning lunch.",
       "verificationUrl": "https://www.perotmuseum.org/visit/",
-      "questionOrigin": "editorial-research",
-      "questionEvidenceUrl": "https://www.perotmuseum.org/visit/",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://www.tripadvisor.com/FAQ-g55711-d3688568-Perot_Museum_of_Nature_and_Science.html",
       "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
