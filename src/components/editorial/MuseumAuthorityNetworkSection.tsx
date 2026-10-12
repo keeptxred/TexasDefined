@@ -50,7 +50,7 @@ export default function MuseumAuthorityNetworkSection({ destination }: { destina
           title={`Explore ${dossier.name} in depth`}
           description={dossier.whyVisit}
         />
-        <div className="mt-9 grid gap-9 lg:grid-cols-[1.6fr_1fr]">
+        <div className="mt-9 grid gap-9 lg:grid-cols-2">
           <div>
             <h3 className="font-display text-3xl">Exhibit highlights and topics</h3>
             <div className="mt-5 grid gap-6">
@@ -71,9 +71,9 @@ export default function MuseumAuthorityNetworkSection({ destination }: { destina
             <div className="mt-12" aria-labelledby={`museum-faq-${dossier.slug}`}>
               <h3 id={`museum-faq-${dossier.slug}`} className="font-display text-3xl">Frequently asked questions about {dossier.name}</h3>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">Questions drawn from museum information, visitor discussions and independent visitor research. Answers are checked against linked sources; check the museum for today's operating details.</p>
-              <div className="mt-5 divide-y divide-border border-y border-border">
-                {faqs.map((faq) => <details key={faq.question} className="group py-5">
-                  <summary className="cursor-pointer list-item font-semibold leading-6 text-foreground">{faq.question}</summary>
+              <div className="mt-5 border-t border-border">
+                {faqs.map((faq) => <details key={faq.question} className="border-b border-border py-5">
+                  <summary className="cursor-pointer font-semibold leading-6 text-foreground">{faq.question}</summary>
                   <p className="mt-3 text-sm leading-7 text-muted-foreground">{faq.answer}</p>
                   <p className="mt-2 text-xs text-muted-foreground">Checked <time dateTime={faq.reviewed}>{faq.reviewed}</time> · <a href={faq.verificationUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Source and current details</a></p>
                 </details>)}
@@ -82,8 +82,8 @@ export default function MuseumAuthorityNetworkSection({ destination }: { destina
             <h3 className="mt-12 font-display text-3xl">Historical and research context</h3>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">{dossier.researchValue}</p>
           </div>
-          <aside className="space-y-7">
-            <div className="border-t-2 border-foreground pt-5">
+          <aside className="space-y-6">
+            <div className="border-t border-foreground pt-5">
               <h3 className="font-display text-2xl">Before you go</h3>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">{dossier.visitorStrategy}</p>
             </div>
