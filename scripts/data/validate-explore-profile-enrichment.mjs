@@ -55,7 +55,6 @@ for (const feature of [
 for (const unwanted of ['Visitor facilities', 'Things to do and see', 'const activities = unique(', 'facilityPattern.test(item)']) {
   if (planner.includes(unwanted)) errors.push(`Generic/duplicative visitor content must not be auto-added: ${unwanted}`);
 }
-if (!planner.includes(feature)) errors.push(`Destination streamlined planning feature missing: ${feature}`);
 if (planner.includes('const practicalTips = unique([') || planner.includes('What to know before you go') || planner.includes('Keep exploring')) {
   errors.push('Destination visit planner must not duplicate the route-level visitor information or add another generic exploration tail.');
 }
