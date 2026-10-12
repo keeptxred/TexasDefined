@@ -295,7 +295,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/water-towers",
           ...PAINTED_CHURCH_STATIC_PATHS,
           "/explore/big-bend-scenic-drives",
-    "/explore/top-attractions",
+          "/explore/top-attractions",
           "/explore/top-attractions/methodology",
           "/explore/top-attractions/road-trips",
           ...route66Paths,
