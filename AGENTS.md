@@ -25,3 +25,8 @@ For every new Texas Defined editorial article:
 - Use descriptive anchor text and never generic text such as `click here`.
 - Verify every internal route exists. Never invent or guess an internal URL.
 - When a new article strengthens an existing topic cluster, consider adding reciprocal links from older related articles back to the new article.
+
+
+## Museum authority pages — automatic requirement
+
+When asked to create or improve a museum page, ALWAYS apply docs/museum-authority-standard.md instead of the generic historic-site content template. Search for the canonical destination first, research original collections and visitor logistics, add/update a MuseumAuthorityDossier in src/data/museum-authority-network.ts, use exact-location rights-cleared photographs, and verify two-way city/county and related-museum crosslinks. Never create a museum page from thin promotional copy. The structural gate is scripts/data/validate-museum-authority.mjs and runs in the canonical pre-merge contract; do not bypass it. Existing museums should be upgraded in place. Check official same-day hours, admission, access and temporary closures and do not promise rankings or museum-site superiority without measurement.
