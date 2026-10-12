@@ -77,7 +77,12 @@ export const Route = createFileRoute("/api/public/network-checkout")({
     if(status!=="create"||typeof key!=="string"||!/^[0-9a-f-]{36}$/i.test(key))
       return reply({error:"Checkout reservation could not be completed."},503);
     try {
-      const session=await createNetworkCheckoutSession(data.id,data.contact_email,key);
+      const {ensureNetworkBillingAccount,ensureTexasDefinedStripeCustomer}=await import("@/data/texasdefined-billing.server");
+      const billingAccount=await ensureNetworkBillingAccount(data.id,verified.user.id);
+      const stripeCustomerId=await ensureTexasDefinedStripeCustomer(billingAccount,'network');
+      const session=await createNetworkCheckoutSession(
+        data.id,key,stripeCustomerId,billingAccount.billingAccountId
+      );
       const {data:finalized,error:finalizeError}=await supabaseAdmin.rpc(
         "complete_texasdefined_network_checkout",{
           p_application_id:data.id,p_owner_user_id:verified.user.id,p_attempt_key:key,
