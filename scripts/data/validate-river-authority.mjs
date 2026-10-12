@@ -3,12 +3,14 @@ import path from 'node:path';
 
 const read = (p) => fs.readFileSync(p,'utf8');
 const errors = [];
-const canonicalSlugs = [
-  'texas-guadalupe-river-guide','texas-frio-river-guide','texas-comal-river-guide',
-  'texas-san-marcos-river-guide','texas-llano-river-guide','texas-colorado-river-guide',
-  'texas-brazos-river-guide','texas-neches-river-guide','texas-sabine-river-guide',
-  'texas-pecos-river-guide'
-];
+const relations = read('src/data/river-authority-relations.ts');
+const canonicalSlugs = [...relations.matchAll(/slug:\\s*"(texas-[a-z0-9-]+-river-guide)"/g)].map((m) => m[1]);
+const existingUpgrades = new Set([
+  'texas-guadalupe-river-guide','texas-colorado-river-guide','texas-brazos-river-guide',
+  'texas-neches-river-guide','texas-sabine-river-guide'
+]);
+if(canonicalSlugs.length < 10 || new Set(canonicalSlugs).size !== canonicalSlugs.length)
+ errors.push('River registry must contain at least ten unique, canonical river guide slugs.');
 const legacyBasins = new Set([
   'texas-brazos-river-guide','texas-colorado-river-guide','texas-guadalupe-river-guide',
   'texas-trinity-river-guide','texas-rio-grande-river-guide','texas-canadian-river-guide',
@@ -33,12 +35,12 @@ const slugs = new Set(records.map(x=>x.slug));
 const all = new Set(canonicalSlugs);
 for(const name of canonicalSlugs) {
  if (!name.startsWith('texas-') || !name.endsWith('-river-guide')) errors.push('Noncanonical river slug '+name);
- if (!hub.includes('/article/'+name) && !pillar.includes('/article/'+name)) errors.push('River missing from statewide hub/pillar: '+name);
- if (['texas-frio-river-guide','texas-comal-river-guide','texas-san-marcos-river-guide','texas-llano-river-guide','texas-pecos-river-guide'].includes(name)) {
-   if (!slugs.has(name)) errors.push('Missing detailed new river profile: '+name);
-   if (!stub.includes(name)) errors.push('Missing lazy stub: '+name);
-   if (!pillar.includes('/article/'+name)) errors.push('Missing reciprocal statewide pillar link: '+name);
- } else if (!addon.includes(name)) errors.push('Existing river missing enrichment: '+name);
+ if (existingUpgrades.has(name)) {
+   if (!addon.includes(name)) errors.push('Existing river missing recreation upgrade: '+name);
+ } else {
+   if (!slugs.has(name)) errors.push('New river missing substantive recreation record: '+name);
+   if (!stub.includes(name)) errors.push('New river missing lazy preview: '+name);
+ }
 }
 for(const item of records) {
  if (!all.has(item.slug)) errors.push('New river must be in canonical authority registry: '+item.slug);
@@ -57,6 +59,16 @@ for(const item of records) {
  if (item.hero.includes('texas-river-basins') && !/illustrat|map|overview/i.test(item.heroAlt))
    errors.push(item.slug+' mislabels an illustrative basin image as field photography');
 }
+for(const required of [
+ 'riverAuthorityLinksForCounty', 'riverAuthorityLinksForDestination',
+ 'allRiverAuthorityNavigationLinks'
+]) if(!relations.includes(required)) errors.push('River relationship engine lacks '+required);
+if(!hub.includes('RIVER_AUTHORITY_RELATIONS')) errors.push('Statewide hub must generate future river entries from canonical registry');
+if(!lazy.includes('allRiverAuthorityNavigationLinks()')) errors.push('River pillar must automatically include future authority guides');
+if(!landscape.includes('RIVER_AUTHORITY_RELATIONS')) errors.push('River valleys guide must automatically include future river authority guides');
+if(!related.includes('riverAuthorityLinksForDestination(slug)')) errors.push('Destination reciprocal links must be driven by river authority registry');
+const countyServer = read('src/data/county-series.server.ts');
+if(!countyServer.includes('riverAuthorityLinksForCounty(countySlug)')) errors.push('County river backlinks must be automatically maintained');
 const known = new Set([...legacyBasins,...slugs]);
 // Detect addition of an unapproved river guide anywhere in the fixture catalog.
 // New pages must adopt the full recreation contract rather than adding a bare 'guide' stub.
@@ -84,5 +96,5 @@ if(errors.length) {
  for(const error of errors) console.error(' - '+error);
  process.exitCode=1;
 } else {
- console.log('River authority contract passed: 10 river guides, 5 substantive new guides, 5 upgrades, reciprocal discovery, source/review requirements and future additions gate.');
+ console.log('River authority contract passed: '+canonicalSlugs.length+' registered river guides; new recreation records, existing upgrades, automated county/destination/pillar/landscape linking and future additions gate.');
 }
