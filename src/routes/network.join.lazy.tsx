@@ -39,6 +39,15 @@ const tiers = [
     status: "Proposed offer — pending final approval",
     featured: false,
   },
+  {
+    name: "Texas Defined Website",
+    price: "$79.95",
+    frequency: "/ month",
+    note: "Proposed managed five-page business microsite, hosted on TexasDefined. Designed for businesses without a website.",
+    features: ["Everything in Featured", "Up to five actual hosted pages with clear navigation", "One professionally assembled mobile-friendly layout", "Up to 12 approved photos and a business logo", "Up to two reviewed content-update requests per billing month", "Page-level SEO and phone/email contact links", "No extra TexasDefined website hosting bill"],
+    status: "Proposed — not yet available for enrollment",
+    featured: false,
+  },
 ];
 
 function NetworkJoinPreview() {
@@ -105,9 +114,9 @@ function NetworkJoinPreview() {
           <div className="mx-auto max-w-3xl text-center">
             <p className="eyebrow text-primary">Network membership</p>
             <h2 className="mt-3 font-display text-4xl sm:text-5xl">Start free. Grow with Texas.</h2>
-            <p className="mt-4 leading-7 text-muted-foreground">Start with a basic searchable listing at no cost. Upgrade to a richer profile for $19.99 per month, or explore custom featured opportunities.</p>
+            <p className="mt-4 leading-7 text-muted-foreground">Start with a free listing, upgrade to Plus for $19.99 a month, choose proposed Featured visibility for $49.95 a month, or explore a proposed fully managed five-page Website package for $79.95 a month. The two new offers require final acceptance before enrollment.</p>
           </div>
-          <div className="mt-12 grid items-stretch gap-6 lg:grid-cols-3">
+          <div className="mt-12 grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-4">
             {tiers.map((tier) => (
               <article key={tier.name} className={`flex flex-col rounded-3xl border bg-background p-7 shadow-sm ${tier.featured ? "border-primary ring-1 ring-primary/30" : "border-border"}`}>
                 <div className="flex flex-wrap items-center justify-between gap-2">
@@ -119,11 +128,16 @@ function NetworkJoinPreview() {
                 <ul className="mt-6 flex-1 space-y-4 border-t border-border pt-6">
                   {tier.features.map((item) => <li key={item} className="flex gap-3 text-sm leading-6"><span className="font-bold text-primary" aria-hidden="true">✓</span><span>{item}</span></li>)}
                 </ul>
-                {tier.name !== "Texas Defined Featured" && <a href={tier.name === "Texas Defined Basic" ? "/network/example/basic" : "/network/example/plus"} className="mt-8 block rounded-full border border-primary px-4 py-3 text-center text-sm font-semibold text-primary hover:bg-primary/10">See {tier.name === "Texas Defined Basic" ? "Basic" : "Plus"} example listing</a>}{tier.name !== "Texas Defined Featured" ? <a href={`/network/apply?plan=${tier.name === "Texas Defined Basic" ? "basic" : "plus"}`} className="mt-3 block rounded-full bg-primary px-4 py-3 text-center text-sm font-semibold text-primary-foreground">Build your {tier.name === "Texas Defined Basic" ? "Basic" : "Plus"} listing</a> : <a href="/partner-with-us" className="mt-3 block rounded-full bg-primary px-4 py-3 text-center text-sm font-semibold text-primary-foreground">Discuss a featured partnership</a>}<div className="mt-3 rounded-full bg-surface px-4 py-3 text-center text-sm font-medium text-muted-foreground">{tier.status}</div>
+                {(tier.name === "Texas Defined Basic" || tier.name === "Texas Defined Plus") && <a href={tier.name === "Texas Defined Basic" ? "/network/example/basic" : "/network/example/plus"} className="mt-8 block rounded-full border border-primary px-4 py-3 text-center text-sm font-semibold text-primary hover:bg-primary/10">See {tier.name === "Texas Defined Basic" ? "Basic" : "Plus"} example listing</a>}
+                {(tier.name === "Texas Defined Basic" || tier.name === "Texas Defined Plus") ?
+                  <a href={`/network/apply?plan=${tier.name === "Texas Defined Basic" ? "basic" : "plus"}`} className="mt-3 block rounded-full bg-primary px-4 py-3 text-center text-sm font-semibold text-primary-foreground">Build your {tier.name === "Texas Defined Basic" ? "Basic" : "Plus"} listing</a> :
+                  tier.name === "Texas Defined Featured" ?
+                  <a href="/partner-with-us" className="mt-3 block rounded-full bg-primary px-4 py-3 text-center text-sm font-semibold text-primary-foreground">Discuss a Featured partnership</a> :
+                  <a href="mailto:admin@texasdefined.com?subject=TexasDefined%20Network%20Website%20Plan" className="mt-3 block rounded-full bg-primary px-4 py-3 text-center text-sm font-semibold text-primary-foreground">Ask about the Website plan</a>}<div className="mt-3 rounded-full bg-surface px-4 py-3 text-center text-sm font-medium text-muted-foreground">{tier.status}</div>
               </article>
             ))}
           </div>
-          <p className="mx-auto mt-8 max-w-3xl text-center text-sm leading-6 text-muted-foreground">Every approved plan includes a shareable business page hosted on TexasDefined, with no separate hosting bill for that page. This is not a standalone website or custom domain; custom domains, online stores and third-party site hosting are not included. Paid promotions are labeled sponsored and do not determine independent editorial coverage or organic search rankings.</p>
+          <p className="mx-auto mt-8 max-w-3xl text-center text-sm leading-6 text-muted-foreground">Every approved plan includes a shareable page hosted on TexasDefined, with no separate hosting bill for that page. The proposed Website tier adds a managed, multi-page microsite at a TexasDefined address; it is not a standalone website or custom domain. Domain registration, business email hosting, online stores and unlimited changes are not included. The two higher-tier plans are not yet available to purchase. Paid promotions are labeled sponsored and do not determine independent editorial coverage or organic search rankings.</p>
         </Container>
       </section>
 
