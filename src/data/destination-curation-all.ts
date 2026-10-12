@@ -1,3 +1,4 @@
+import { applyVerifiedStateParkHeadquarters } from "./state-park-verified-locations";
 import { applyStateParkAuthorityRecovery } from "./state-park-authority-recovery";
 import { applyCuratedDestination } from "./destination-curation";
 import { applyCuratedDestinationBatch2 } from "./destination-curation-batch2";
@@ -155,6 +156,7 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyCuratedTopAttractionsBatch5,
   applyMoodyGardensCurrentCuration,
   applyStateParkAuthorityRecovery,
+  applyVerifiedStateParkHeadquarters,
 ];
 
 function runCurators(destination: Destination): Destination {
