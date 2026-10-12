@@ -16,7 +16,7 @@ export function RegionAuthorityGuide({ region }: { region: Region }) {
         <h3 className="mt-9 font-display text-2xl">Choose a practical base</h3>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {guide.bases.map(([name, description]) => (
-            <div key={name} className="rounded-sm border border-border bg-background p-5">
+            <div key={name} className="border border-border bg-background p-5">
               <h4 className="font-display text-xl">{name}</h4>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">{description}</p>
             </div>
@@ -28,7 +28,7 @@ export function RegionAuthorityGuide({ region }: { region: Region }) {
         <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {guide.links.map((link) => (
             <li key={link.href}>
-              <a href={link.href} className="block border-b border-border py-3 text-sm font-semibold text-primary underline-offset-4 hover:underline">
+              <a href={link.href} className="block border-b border-border py-3 text-sm font-semibold text-primary hover:underline">
                 {link.label} →
               </a>
             </li>
@@ -42,7 +42,7 @@ export function RegionAuthorityGuide({ region }: { region: Region }) {
           <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm">
             {guide.sources.map((source) => (
               <li key={source.href}>
-                <a href={source.href} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4 hover:no-underline">
+                <a href={source.href} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">
                   {source.label} ↗
                 </a>
               </li>
