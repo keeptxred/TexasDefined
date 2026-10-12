@@ -4,7 +4,7 @@ import path from 'node:path';
 const read = (p) => fs.readFileSync(p,'utf8');
 const errors = [];
 const relations = read('src/data/river-authority-relations.ts');
-const canonicalSlugs = [...relations.matchAll(/slug:\\s*"(texas-[a-z0-9-]+-river-guide)"/g)].map((m) => m[1]);
+const canonicalSlugs = [...relations.matchAll(/slug:\s*"(texas-[a-z0-9-]+-river-guide)"/g)].map((m) => m[1]);
 const existingUpgrades = new Set([
   'texas-guadalupe-river-guide','texas-colorado-river-guide','texas-brazos-river-guide',
   'texas-neches-river-guide','texas-sabine-river-guide'
