@@ -137,6 +137,12 @@ For **each lake**, surpassing its controlling agency's *public visitor informati
 
 **P3 (trust and originality)** — Replace any rendered generic heroes with genuinely location-specific licensed/owned imagery, pursue original TexasDefined photographs/diagrams and field-verified maps, and add useful local recreational itineraries/county links.
 
+## Thin-intent route control
+
+The lake system exposes eight subject-specific routes for each full lake guide; however, **/reports** and **/guides** routes can otherwise consist only of an empty-state notice. These are potentially repetitive low-value search pages. This audit updated the shared section route to set `robots: noindex, follow` **only when a reports section has no dated reports or a guides section has no verified guide listing**. Substantial pages remain indexable, and visitors can still navigate empty states to see what is not available. This is a pragmatic quality gate, not a claim that all nine URLs per lake should be indexed.
+
+**Follow-up:** the current static sitemap may still list empty `/reports` and `/guides` routes; implement per-lake conditional sitemap emission once the content-presence logic is shared with the sitemap loader. Confirm the final robots/canonical tags with rendered production inspection.
+
 ## First primary-source safety remediation completed in this branch
 
 Cross-checked current TPWD lake profiles and updated the shared statewide lake-guide data so visitor planning now surfaces these **lake-specific advisories** in overview, boating and regulations copy:
