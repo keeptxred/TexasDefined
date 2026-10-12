@@ -3,11 +3,11 @@
 -- ALL rows and notification outbox events are rolled back.
 BEGIN;
 INSERT INTO public.texasdefined_network_applications
- (id,plan,status,intake_complete,business_name,category,city,contact_email)
+ (id,plan,status,intake_complete,business_name,category,city,contact_email,terms_version,terms_snapshot_sha256,terms_accepted_at,representative_authority_accepted,facts_responsibility_accepted,media_responsibility_accepted,search_indexing_accepted)
 VALUES
- ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa','plus','approved',true,'Simulated Plus Shop','Fixture','Katy','billing-one@example.invalid'),
- ('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb','plus','approved',true,'Unrelated Plus Shop','Fixture','Austin','billing-two@example.invalid'),
- ('cccccccc-cccc-4ccc-8ccc-cccccccccccc','basic','approved',true,'Basic Fixture Shop','Fixture','Dallas','billing-basic@example.invalid');
+ ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa','plus','approved',true,'Simulated Plus Shop','Fixture','Katy','billing-one@example.invalid','2026-10-11-v1','166b237dc2572da5195e1f5217ec51c8ecc83b73f68a080a16b4478e35f9a6a6',now(),true,true,true,true),
+ ('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb','plus','approved',true,'Unrelated Plus Shop','Fixture','Austin','billing-two@example.invalid','2026-10-11-v1','166b237dc2572da5195e1f5217ec51c8ecc83b73f68a080a16b4478e35f9a6a6',now(),true,true,true,true),
+ ('cccccccc-cccc-4ccc-8ccc-cccccccccccc','basic','approved',true,'Basic Fixture Shop','Fixture','Dallas','billing-basic@example.invalid','2026-10-11-v1','166b237dc2572da5195e1f5217ec51c8ecc83b73f68a080a16b4478e35f9a6a6',now(),true,true,true,true);
 
 DO $stripe_initial$
 DECLARE result text; published jsonb;
