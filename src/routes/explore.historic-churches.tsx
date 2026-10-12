@@ -42,7 +42,7 @@ function HistoricChurchesPage() {
             {church.image ? <img loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" src={historicChurchImageSrc(church.image)} alt={church.image.alt} width={church.image.width} height={church.image.height} onError={e=>recoverOrHideImage(e.currentTarget)} /> : null}
             <span className="relative bg-background/90 px-3 py-1 text-xs font-medium text-foreground">{church.locality}</span>
           </div>
-          <div className="p-6"><p className="eyebrow text-primary">{church.county} County / area</p>
+          <div className="p-6"><p className="eyebrow text-primary">{church.county} area</p>
           <h3 className="mt-3 font-display text-3xl leading-tight"><Link to="/explore/historic-churches/$slug" params={{slug:church.slug}} className="hover:text-primary">{church.shortName}</Link></h3>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">{church.summary}</p>
           <p className="mt-4 text-xs text-muted-foreground">Current building: {church.presentBuilding}</p>
