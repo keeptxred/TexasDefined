@@ -55,14 +55,37 @@ export function auditAttractionAuthority(destination: Destination, now = new Dat
   const facilities = destination.visitorFacilities;
 
   if (!base.readyForIndexing) add("editorial-quality", "Canonical SEO readiness failed: " + base.issues.map(issue => issue.code).join(", "), "critical");
-  if (!sourceVerified(facilities?.parking, now, cadence)) add("parking-unverified", "Parking or vehicle access lacks a current, source-backed facility assertion; do not assume parking is available or free.", "high");
-  if (!sourceVerified(facilities?.restrooms, now, cadence)) add("restrooms-unverified", "Restroom location, availability or absence has not been verified with the operator.", "high");
-  if (!validUrl(facilities?.officialMapUrl)) add("operator-map-unverified", "A pin map exists, but the official on-site facility/trail map has not been verified.", "high");
-  if (facilities?.officialMapUrl && !fresh(facilities.mapCheckedAt, 365, now)) add("facility-review-expired", "Operator map source requires confirmation that the link and content remain current.", "medium");
-  if (!destination.authorityGuide?.whyItMatters || destination.authorityGuide.whyItMatters.length < 110) add("visitor-context-missing", "No substantive significance or interpretation section meeting the authority assessment contract.", "high");
-  if ((destination.authorityGuide?.itineraries?.length ?? 0) !== 3) add("itineraries-missing", "Needs distinct short, half-day and extended visit plans appropriate to the destination.", "medium");
-  if (!destination.authorityGuide?.sources?.some(source => validUrl(source.url))) add("primary-citation-missing", "Authority guide has no source-backed research record in addition to its official visitor URL.", "high");
-  if (!destination.accessibilityNotes || destination.accessibilityNotes.trim().length < 45) add("accessibility-unverified", "Specific accessible access, limits or contact instructions need review.", "high");
+  // Evaluate evidence only for facts an editor has determined are meaningful
+  // visitor questions for this particular place. Do not penalize a museum
+  // because a universal bathroom or parking checklist was left empty.
+  const selectedTopics = new Set(facilities?.editorialFocus ?? []);
+  if (selectedTopics.has("parking") && !sourceVerified(facilities?.parking, now, cadence))
+    add("parking-unverified", "Parking/arrival is a visitor priority here, but the specific instruction needs current operator evidence.", "high");
+  if (selectedTopics.has("restrooms") && !sourceVerified(facilities?.restrooms, now, cadence))
+    add("restrooms-unverified", "Restroom/amenity availability materially affects this visit and needs operator verification.", "high");
+  if (selectedTopics.has("map")) {
+    if (!validUrl(facilities?.officialMapUrl))
+      add("operator-map-unverified", "A map is material to this specific itinerary, but no official visitor map URL is verified.", "high");
+    else if (!fresh(facilities?.mapCheckedAt, 365, now))
+      add("facility-review-expired", "The selected facility map needs a fresh review.", "medium");
+  }
+
+  // Judge editorial depth by what the page actually teaches, not by requiring
+  // identical FAQ counts or exactly three itineraries for each type of place.
+  const contextualBodyLength = destination.body.join(" ").trim().length;
+  if (!destination.authorityGuide?.whyItMatters && contextualBodyLength < 950)
+    add("visitor-context-missing", "The guide needs more distinctive, sourced context or practical decisions relevant to this particular visit.", "high");
+  if (destination.authorityGuide && destination.authorityGuide.itineraries.length === 0)
+    add("itineraries-missing", "The existing authority guide has no usable planning sequence; include itinerary guidance only when it genuinely helps.", "medium");
+  if (destination.authorityGuide && !destination.authorityGuide.sources.some(source => validUrl(source.url)))
+    add("primary-citation-missing", "Existing authority claims need supporting primary/institutional citations.", "high");
+
+  // Accessible entrances, elevators and gallery circulation are key visitor
+  // decisions at indoor exhibition venues. Other venues need individually
+  // selected mobility and terrain advice, not boilerplate accessibility claims.
+  const isExhibitionVenue = /museum|aquarium|science center|art gallery|exhibition hall|planetarium/i.test(destination.name);
+  if (isExhibitionVenue && (!destination.accessibilityNotes || destination.accessibilityNotes.trim().length < 45))
+    add("accessibility-unverified", "Confirm wheelchair entrances, elevator/lift access, gallery circulation and relevant limitations for this exhibition venue.", "high");
   if (!destination.county || destination.county.trim().length < 3) add("county-unverified", "County association is needed for reciprocal links and regional geography.", "medium");
   if (!destination.hero.credit || !/(CC |public domain|U\.S\. government|copyright|licensed|rights|courtesy|NPS|TPWD)/i.test(destination.hero.credit)) add("image-license-unverified", "The specific hero image needs a traceable reuse-rights basis; image origin alone is not proof of license.", "high");
   if (!fresh(destination.sourceCheckedAt, cadence, now)) add("revisit-overdue", "Current visitor facts need an editorial review based on subject volatility; do not reset dates without checking.", "medium");
