@@ -14,7 +14,13 @@
     "noHistory": 47,
     "photoMappings": 52,
     "legacy": 36,
-    "legacyParks": 34
+    "legacyParks": 34,
+    "explicitNamedAccess": 37,
+    "lackingNamedAccess": 15,
+    "explicitNamedCamping": 19,
+    "lackingNamedCamping": 33,
+    "namedStatewideFacilities": 140,
+    "statewideTemplateGuidesWithNamedAccess": 37
   },
   "entries": [
     {
@@ -207,7 +213,11 @@
       "fish": 4,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; lake-specific history"
+      "risk": "facility-level access; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 3,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Lake LBJ",
@@ -219,7 +229,11 @@
       "fish": 4,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 2,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Richland-Chambers Reservoir",
@@ -231,7 +245,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 3,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Lake Palestine",
@@ -243,7 +261,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 7,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Cedar Creek Reservoir",
@@ -255,7 +277,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 6,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Lewisville Lake",
@@ -267,7 +293,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 6,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Ray Roberts Lake",
@@ -279,7 +309,11 @@
       "fish": 4,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; lake-specific history"
+      "risk": "facility-level access; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 4,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Lake Ray Hubbard",
@@ -291,7 +325,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 8,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Lake Lavon",
@@ -303,7 +341,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 6,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Grapevine Lake",
@@ -315,7 +357,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 6,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Eagle Mountain Lake",
@@ -327,7 +373,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 4,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Lake Bridgeport",
@@ -339,7 +389,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 4,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Lake Austin",
@@ -351,7 +405,11 @@
       "fish": 3,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 7,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Fayette County Reservoir",
@@ -363,7 +421,11 @@
       "fish": 3,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; lake-specific history"
+      "risk": "facility-level access; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 2,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Lake Somerville",
@@ -375,7 +437,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; lake-specific history"
+      "risk": "facility-level access; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 6,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Belton Lake",
@@ -387,7 +453,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 3,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Stillhouse Hollow Reservoir",
@@ -399,7 +469,11 @@
       "fish": 4,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 3,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Caddo Lake",
@@ -411,7 +485,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; lake-specific history"
+      "risk": "facility-level access; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 4,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Lake O' the Pines",
@@ -423,7 +501,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; lake-specific history"
+      "risk": "facility-level access; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 4,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Lake Bob Sandlin",
@@ -435,7 +517,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; lake-specific history"
+      "risk": "facility-level access; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 4,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Lake Nacogdoches",
@@ -447,7 +533,11 @@
       "fish": 3,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 2,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Calaveras Lake",
@@ -459,7 +549,11 @@
       "fish": 4,
       "photo": "Mapped",
       "water": "Official conditions",
-      "risk": "facility-level access; lake-specific history"
+      "risk": "facility-level access; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 1,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Lake Corpus Christi",
@@ -471,7 +565,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; lake-specific history"
+      "risk": "facility-level access; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 3,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Alan Henry Reservoir",
@@ -483,7 +581,11 @@
       "fish": 4,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; lake-specific history"
+      "risk": "facility-level access; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 1,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Lake Meredith",
@@ -495,7 +597,11 @@
       "fish": 6,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; lake-specific history"
+      "risk": "facility-level access; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 7,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Lake Houston",
@@ -507,7 +613,11 @@
       "fish": 4,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 4,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Joe Pool Lake",
@@ -519,7 +629,11 @@
       "fish": 4,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; lake-specific history"
+      "risk": "facility-level access; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 4,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Lake Granbury",
@@ -531,7 +645,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 5,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Lake Waco",
@@ -543,7 +661,11 @@
       "fish": 6,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 3,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Lake Brownwood",
@@ -555,7 +677,11 @@
       "fish": 4,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; lake-specific history"
+      "risk": "facility-level access; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 3,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Proctor Lake",
@@ -567,7 +693,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; named overnight options; lake-specific history"
+      "risk": "facility-level access; named overnight options; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 4,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": false
     },
     {
       "name": "Lake Arrowhead",
@@ -579,7 +709,11 @@
       "fish": 4,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; lake-specific history"
+      "risk": "facility-level access; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 3,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Lake Casa Blanca",
@@ -591,7 +725,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official conditions",
-      "risk": "facility-level access; lake-specific history"
+      "risk": "facility-level access; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 1,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Lake Mineral Wells",
@@ -603,7 +741,11 @@
       "fish": 4,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; lake-specific history"
+      "risk": "facility-level access; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 1,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Lake Colorado City",
@@ -615,7 +757,11 @@
       "fish": 3,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "facility-level access; lake-specific history"
+      "risk": "facility-level access; lake-specific history",
+      "namedAccess": true,
+      "accessFacilityCount": 2,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Lake Stamford",
@@ -627,7 +773,11 @@
       "fish": 5,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "Operator, imagery and independent visitor QA"
+      "risk": "Operator, imagery and independent visitor QA",
+      "namedAccess": true,
+      "accessFacilityCount": 2,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     },
     {
       "name": "Lake Sweetwater",
@@ -639,7 +789,11 @@
       "fish": 4,
       "photo": "Mapped",
       "water": "Official level",
-      "risk": "Operator, imagery and independent visitor QA"
+      "risk": "Operator, imagery and independent visitor QA",
+      "namedAccess": true,
+      "accessFacilityCount": 2,
+      "accessReviewedAt": "2026-10-12",
+      "namedCamping": true
     }
   ],
   "legacy": [
