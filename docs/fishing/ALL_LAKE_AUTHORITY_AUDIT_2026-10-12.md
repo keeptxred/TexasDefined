@@ -223,3 +223,11 @@ A follow-up branch contains **two fully researched new entries**:
 - **Aquilla Lake** — 3,020 TPWD acres, 59.5-ft depth, good catfish and crappie, free boat ramps at Dairy Hill and Old School; a third Tailrace fishing pier is **not a ramp**. TPWD lists no campsites at any of these three. TWDB says deliberate impoundment April 29, 1983, despite TPWD's generalized 1982 summary. Authentic public-domain USACE archival photo, **not original TexasDefined field photography**.
 
 All four recent authority expansions include source-specific visitor FAQs; the shared UI renders them only where researched. This follow-up branch moves the **registry** from 54 to **56** and the TPWD guide-gap snapshot from 121 to **119**, subject to protected CI, successful merge, deployed build and real-site check.
+
+## Second missing-guide expansion: Granger Lake and Aquilla Lake
+
+**Granger Lake (Williamson County)** — 4,009 acres in TPWD's reference guide, exceptional crappie/catfish ratings, five distinct Corps/WMA lake-access facilities, three verified launch features including Wilson H. Fox and a strictly no-trailer small-craft WMA launch; lake-specific zebra-mussel warnings, Corps camping context, TWDB January 21, 1980 impoundment date and differentiated public-domain USACE aerial. FAQ answers cover trailer access, campgrounds and fishery priorities.
+
+**Aquilla Lake (Hill County)** — 3,020 TPWD reference acres, the Dairy Hill and Old School Corps ramps, and the *separate below-dam Tailrace pier with no boat ramp*. Camping is not advertised for those three TPWD public facilities because their access records do not establish overnight stays. TWDB's April 29, 1983 deliberate-storage chronology is distinguished from TPWD's 1982 summary. USACE public-domain aerial and location-specific FAQ incorporated.
+
+**Research branch baseline:** 56 lake guides, 41 statewide-template guides, 157 named facility entries across those 41, 82 counties with source-derived reciprocal links, and 119 TPWD entries still without completed guides. New guides are not accepted until validator, photo-license review, protected CI, server rendering, and production QA all pass. No original field photography has been obtained for these projects.
