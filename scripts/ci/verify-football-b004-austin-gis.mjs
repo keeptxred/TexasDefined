@@ -53,6 +53,20 @@ try{
  result.sources.schoolQuery=q.url;records=q.data.features||[];
  if(q.data.exceededTransferLimit)throw Error('TEA school query truncated; cannot accept');
  if(records.length<12)throw Error('TEA query matched fewer than 12 schools: '+records.length);
+ // The four deliberately excluded programs include charter, Lake Travis,
+ // Leander and Eanes districts; do not pretend an Austin ISD-only query covers them.
+ const exclusionQ=await query(teabase,{
+  where:"USER_School_Name LIKE '%Achieve%' OR USER_School_Name LIKE '%Lake Travis%' OR USER_School_Name LIKE '%Vandegrift%' OR USER_School_Name LIKE '%Westlake%'",
+  outFields:'USER_School_Name,USER_District_Number,USER_District_Name,USER_School_Site_Street_Address,USER_School_Street_Address,USER_School_City,Score,Match_type',
+  returnGeometry:'true',outSR:'4326',resultRecordCount:200
+ });
+ result.sources.excludedSchoolQuery=exclusionQ.url;
+ if(exclusionQ.data.exceededTransferLimit)throw Error('Exclusion geocode query truncated');
+ for(const feature of exclusionQ.data.features||[]){
+   if(!records.some(existing=>existing.attributes?.USER_District_Number===feature.attributes?.USER_District_Number
+      &&existing.attributes?.USER_School_Name===feature.attributes?.USER_School_Name))records.push(feature);
+ }
+
 }catch(e){fetchError=String(e);result.errors=[fetchError]}
 for(const [slug,pattern] of Object.entries({...routeSchoolNames,...excluded})){
  const expected=Object.hasOwn(routeSchoolNames,slug);
@@ -83,8 +97,8 @@ for(const [slug,pattern] of Object.entries({...routeSchoolNames,...excluded})){
   school:selected?{name:selected.attributes.USER_School_Name,siteAddress:selected.attributes.USER_School_Site_Street_Address||selected.attributes.USER_School_Street_Address,city:selected.attributes.USER_School_City,score:selected.attributes.Score,coordinates:selected.geometry}:null,
   jurisdictions,cityQuery});
 }
-result.summary={expectedCityLinks:Object.keys(routeSchoolNames).length,verified:result.rows.filter(x=>x.expectedCityLink&&x.status==='VERIFIED_FULL_PURPOSE').length,unverified:result.rows.filter(x=>x.expectedCityLink&&x.status!=='VERIFIED_FULL_PURPOSE').map(x=>x.slug),excludedReviewed:Object.keys(excluded).length,excludedFullPurpose:result.rows.filter(x=>x.status==='EXCLUDED_BUT_IN_FULL_PURPOSE').map(x=>x.slug)};
-result.summary.verdict=result.summary.unverified.length===0&&result.summary.excludedFullPurpose.length===0?'GIS_VERIFIED_2024_25_POINTS':'EVIDENCE_OR_EDITORIAL_REVIEW_REQUIRED';
+result.summary={expectedCityLinks:Object.keys(routeSchoolNames).length,verified:result.rows.filter(x=>x.expectedCityLink&&x.status==='VERIFIED_FULL_PURPOSE').length,unverified:result.rows.filter(x=>x.expectedCityLink&&x.status!=='VERIFIED_FULL_PURPOSE').map(x=>x.slug),excludedReviewed:Object.keys(excluded).length,excludedUnresolved:result.rows.filter(x=>!x.expectedCityLink&&x.status==='UNRESOLVED').map(x=>x.slug),excludedFullPurpose:result.rows.filter(x=>x.status==='EXCLUDED_BUT_IN_FULL_PURPOSE').map(x=>x.slug)};
+result.summary.verdict=result.summary.unverified.length===0&&result.summary.excludedFullPurpose.length===0&&result.summary.excludedUnresolved.length===0?'GIS_VERIFIED_2024_25_POINTS':'EVIDENCE_OR_EDITORIAL_REVIEW_REQUIRED';
 await writeFile(out+'/report.json',JSON.stringify(result,null,2)+'\n');
 console.log('Batch004 independent GIS',JSON.stringify(result.summary));for(const row of result.rows)console.log(row.slug,row.status,row.school?.name||'',row.reason);
 assert.equal(result.summary.verdict,'GIS_VERIFIED_2024_25_POINTS','Campus/municipal evidence missing or contrary; do not certify without review');
