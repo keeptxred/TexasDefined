@@ -49,6 +49,16 @@ test('marketing plan benefits require independent real customer delivery proof, 
  assert.ok(out.missing.includes('e2e:planBenefitsDelivered'));
  assert.equal(inspectNetworkAtomicLaunch(env,proof).ready,true);
 });
+test('new hosted Website tier must be independently delivered before a one-cutover production launch',()=>{
+ const {env,proof}=fixture();
+ assert.ok(NETWORK_LAUNCH_EVIDENCE_KEYS.includes('hostedWebsiteDelivered'));
+ const missing={...proof}; delete missing.hostedWebsiteDelivered;
+ const outcome=inspectNetworkAtomicLaunch(env,missing);
+ assert.equal(outcome.ready,false);
+ assert.ok(outcome.missing.includes('e2e:hostedWebsiteDelivered'));
+ assert.equal(networkCustomerLaunchArmed({...env,NETWORK_LAUNCH_EVIDENCE_JSON:JSON.stringify(missing)}),false);
+});
+
 test('flags by themselves cannot certify a single launch',()=>{
  const {env}=fixture();
  const result=inspectNetworkAtomicLaunch(env,{});

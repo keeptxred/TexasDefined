@@ -36,12 +36,21 @@ $fixture$;
 -- Exercise real event recording, exact owner-business partitioning, and
 -- unpublished protection against two synthetic, transaction-only listings.
 INSERT INTO public.texasdefined_network_applications
- (id,plan,status,intake_complete,business_name,category,city,contact_email)
+
+ (id,plan,status,intake_complete,business_name,category,city,contact_email,
+  terms_version,terms_snapshot_sha256,terms_accepted_at,
+  representative_authority_accepted,facts_responsibility_accepted,
+  media_responsibility_accepted,search_indexing_accepted)
 VALUES
+ -- Test-only synthetic contract snapshots satisfy the same NOT NULL and
+ -- acceptance CHECKs as real submitted records. These are NOT actual people,
+ -- legal acceptances, or release evidence, and roll back in this transaction.
  ('abababab-abab-4bab-8bab-abababababab','basic','approved',true,
-  'Aggregates Test A','Fixture','Austin','network-stats-a@example.invalid'),
+  'Aggregates Test A','Fixture','Austin','network-stats-a@example.invalid',
+  'synthetic-fixture-v1',repeat('a',64),now(),true,true,true,true),
  ('cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcdcd','basic','approved',true,
-  'Aggregates Test B','Fixture','Dallas','network-stats-b@example.invalid');
+  'Aggregates Test B','Fixture','Dallas','network-stats-b@example.invalid',
+  'synthetic-fixture-v1',repeat('b',64),now(),true,true,true,true);
 INSERT INTO public.texasdefined_network_public_listings
  (application_id,slug,plan,profile,is_published)
 VALUES

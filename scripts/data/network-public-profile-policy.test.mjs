@@ -64,5 +64,6 @@ test('both the loader AND public React profile enforce paid tier, with coherent 
  }
  assert.match(display,/enhanced&&record\.gallery_storage_paths/);
  assert.match(join,/No prominent website or social-media buttons/);
- assert.match(join,/enhanced website links in Plus/);
+ assert.match(join,/Prominent official website link/);
+ assert.match(join,/No website required/);
 });
