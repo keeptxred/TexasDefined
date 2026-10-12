@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/data/river-authority-registry.ts",
+    "src/data/fixtures/texas-river-visitor-stubs.ts",
+    "src/data/fixtures/texas-river-visitor-authority.ts",
+    "src/components/content/RiverContextualLinks.tsx"
+  ],
+  "exclude": ["src/routes", "src/server.ts", "src/server-entry.ts"]
+}

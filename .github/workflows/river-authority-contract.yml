@@ -1,0 +1,32 @@
+name: River authority contract
+on:
+  pull_request:
+    paths:
+      - 'src/data/**'
+      - 'src/components/content/**'
+      - 'src/routes/**'
+      - 'scripts/data/validate-river-visitor-authority.mjs'
+      - 'tsconfig.river-authority.json'
+      - '.github/workflows/river-authority-contract.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/**'
+      - 'src/components/content/**'
+      - 'src/routes/**'
+      - 'scripts/data/validate-river-visitor-authority.mjs'
+      - '.github/workflows/river-authority-contract.yml'
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Enforce river page registration, depth and links
+        run: node scripts/data/validate-river-visitor-authority.mjs
+      - name: Typecheck river and site integration
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npx tsc --project tsconfig.river-authority.json --noEmit

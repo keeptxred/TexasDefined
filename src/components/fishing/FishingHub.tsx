@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
 import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { Container } from "@/components/layout/Container";
+import { riverAuthorityRecords } from "@/data/river-authority-registry";
 import { getFishingFishImage, getFishingLakeImage } from "@/data/fishing/image-library";
 import { fishingFoundationAnchor, isCompleteFishingLakeSlug } from "@/data/fishing/slugs";
 import type { FishSpecies, FishingLake, LakeSpeciesProfile } from "@/data/fishing/types";
@@ -114,6 +115,14 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
         </div>
       </section>
 
+      <section aria-labelledby="river-fishing-guides" className="border-t border-border py-12">
+        <p className="eyebrow text-primary">Beyond the reservoirs</p>
+        <h2 id="river-fishing-guides" className="mt-2 font-display text-3xl">Fishing Texas rivers</h2>
+        <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Each guide distinguishes free-flowing reaches from nearby reservoirs and links to current TPWD rules, access leases, paddling options and camping bases.</p>
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          {riverAuthorityRecords.map((river) => <li key={river.slug}><a href={`/article/${river.slug}`} className="block h-full rounded-lg border border-border p-4 text-sm font-semibold text-primary hover:border-primary/50">{river.name} →</a></li>)}
+        </ul>
+      </section>
       <TexasExplainedContextLinks surface="fishing" />
     </Container>
   </>;
