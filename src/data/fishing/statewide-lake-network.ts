@@ -83,6 +83,7 @@ interface StatewideLakeDefinition {
   consumptionSourceUrl?: string;
   historySourceUrl?: string;
   historyNotes?: string[];
+  visitorFAQs?: { question: string; answer: string }[];
   visitorSourceUrl?: string;
 }
 
@@ -981,6 +982,11 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       {name:"Russell Park",operator:"U.S. Army Corps of Engineers",kind:"park",launch:"North shore mid-lake. FM 2338 to FM 3405 and Russell Park Road / CR 262. Four-lane concrete ramp; TPWD marks day-use picnic facilities.",fee:"Launch fee listed; verify with operator",availability:"TPWD lists nominal year-round 6 AM–10 PM entry; check USACE for closures and water-level access."},
     ],
     camping:{name:"Cedar Breaks Park and Jim Hogg Park",summary:"The TPWD access inventory identifies both Corps parks as developed camping areas; it also describes primitive camping, group shelters, a swimming beach and a 26.5-mile lakeshore trail in the USACE recreation complex. Verify campground-specific reservation, swim-area permission, accessible facilities, entrance fees and current Corps closures."},
+    visitorFAQs: [
+      {question:"Which public ramps?",answer:"Cedar Breaks, Jim Hogg and Russell parks. Confirm USACE access and fees."},
+      {question:"Top fishery?",answer:"TPWD rates white bass excellent; spring river flows affect runs."},
+      {question:"Camping?",answer:"USACE manages campsites at Cedar Breaks and Jim Hogg parks."},
+    ],
     nearbyLakes: [{slug:"lake-travis",name:"Lake Travis"},{slug:"lake-lbj",name:"Lake LBJ"},{slug:"granger-lake",name:"Granger Lake"}],
     travelAlerts:["TPWD identifies established zebra mussels in Lake Georgetown. Clean, drain and dry boats, trailers, livewells, bait containers and gear before entering another water body; draining water is required by Texas law.","The lake has significant water-level fluctuations. A historically listed 4-lane ramp may be inoperable; verify the Corps' current closure report before towing."],
     historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/georgetown/index.asp",
@@ -1011,6 +1017,11 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       {name:"Rocky Creek Park",operator:"U.S. Army Corps of Engineers",kind:"park",launch:"Old Granbury Road south, west at Rocky Creek signs. Two ramps/three lanes, one Creek channel and one main-lake access.",fee:"Fees listed when open",availability:"TPWD marked walk-in-only April 21, 2026. Typically seasonal Apr–Sep; verify closure and marina access with USACE."},
     ],
     camping:{name:"Holiday Park South, Bear Creek Park, Mustang Park and Rocky Creek Park",summary:"TPWD indicates camping amenities in these Corps-managed facilities, but current water-level closures affect launch and day-use rights; Bear Creek and Rocky Creek are seasonal, and Holiday Park South/Bear Creek ramps are for registered campers. Use the official Corps campground and booking information before traveling."},
+    visitorFAQs: [
+      {question:"Are all ramps open?",answer:"No. TPWD's April 2026 inventory lists closures; check current USACE updates."},
+      {question:"Camper-only ramps?",answer:"Holiday Park South and Bear Creek are restricted to registered campers."},
+      {question:"Top fishery?",answer:"TPWD rates hybrid striped bass excellent."},
+    ],
     nearbyLakes:[{slug:"joe-pool-lake",name:"Joe Pool Lake"},{slug:"lake-granbury",name:"Lake Granbury"}],
     travelAlerts:["TPWD warned of major low-water ramp closures and campers-only launch limitations in its April 21, 2026 access inventory. The warning is historical and MUST be checked against current USACE closure reports; do not use this guide to assert a ramp is open today.","No general swim or boat-launch permission is inferred from a park's name. Confirm swimming areas, accessibility and seasonal hours with the Corps.","Clean, drain and dry watercraft and equipment under Texas invasive-species requirements before entering another reservoir."],
     historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/benbrook/index.asp",
@@ -1044,6 +1055,11 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name:"Friendship Park",operator:"U.S. Army Corps of Engineers",kind:"park",launch:"North shore off FM 971, four-lane concrete ramp and picnic area.",fee:"Corps entrance/launch fee required",availability:"TPWD lists year-round; check USACE (512) 859-2668 for current park status." },
     ],
     camping: {name:"Willis Creek, Taylor Park, Wilson H. Fox Park and Friendship Park",summary:"TPWD reports Corps-managed lakeside campgrounds, restrooms and picnic areas around Granger Lake, with the facility chart identifying overnight facilities at Willis Creek and potentially other Corps parks. These are different from the small-craft-only San Gabriel WMA. Verify actual campsite inventory, seasonal operations, reservation availability and ADA amenities directly with USACE/official reservation provider."},
+    visitorFAQs: [
+      {question:"Top fishery?",answer:"TPWD rates crappie and catfish excellent; largemouth bass poor."},
+      {question:"Does San Gabriel WMA accept boat trailers?",answer:"No; TPWD lists a primitive no-trailer launch for canoes and jon boats."},
+      {question:"Can I camp?",answer:"Corps parks, including Willis Creek, have listed campgrounds. Confirm reservations."},
+    ],
     nearbyLakes:[{slug:"lake-georgetown",name:"Lake Georgetown"},{slug:"lake-austin",name:"Lake Austin"}],
     travelAlerts:["TPWD confirms zebra mussels in Granger Lake. Clean, drain and dry boats, trailers, bait buckets and other gear; draining is legally required before leaving the lake.","The San Gabriel Wildlife Management Area primitive launch is for canoes/jon boats with NO trailers. Do not route large trailered craft to that entrance.","TPWD warns that San Gabriel River bank access on County Road 348 has a steep descent and narrow shoulder parking; assess mobility needs and traffic safety before parking."],
     historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/granger/index.asp",
@@ -1076,6 +1092,11 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       {name:"Dairy Hill Ramp",operator:"U.S. Army Corps of Engineers",kind:"public-ramp",launch:"East shore south of Peoria near southeast end of FM 1947 bridge. Boat ramp suitable for different boat types; TPWD lists restrooms and parking.",fee:"TPWD lists NO fee",availability:"Historically year-round; contact USACE (254) 694-3189 about current lake/launch status."},
       {name:"Old School Ramp",operator:"U.S. Army Corps of Engineers",kind:"public-ramp",launch:"West shore off FM 933 between Waco and Whitney. TPWD lists an all-boats ramp, restrooms and parking.",fee:"TPWD lists NO fee",availability:"Historically year-round; verify ramp clearance with USACE (254) 694-3189."},
       {name:"Tailrace public fishing pier",operator:"U.S. Army Corps of Engineers",kind:"park",launch:"Below Aquilla Dam off Highway 310. Public fishing pier; TPWD explicitly states NO boat launch at this site.",fee:"TPWD lists NO fee",availability:"TPWD lists year-round shore access; water releases and Corps operations may change safety or access."}
+    ],
+    visitorFAQs: [
+      {question:"Public boat ramps?",answer:"Dairy Hill and Old School, both historically free Corps ramps."},
+      {question:"Can I launch from Tailrace?",answer:"No. It has a fishing pier but no boat ramp."},
+      {question:"Can I camp at the listed ramps?",answer:"TPWD's three listed access facilities do not identify campgrounds."},
     ],
     nearbyLakes:[{slug:"lake-whitney",name:"Lake Whitney"},{slug:"lake-waco",name:"Lake Waco"}],
     travelAlerts:["Aquilla Tailrace is a fishing-pier area with NO boat ramp. Do not use tailrace directions when hauling a boat.","TPWD's access table does not list campgrounds at Dairy Hill, Old School or Tailrace. Don't assume on-site camping; use verified neighboring campground sources or ask USACE.","TPWD's listing says impounded in 1982 while the TWDB historical narrative dates the start of deliberate impoundment to April 29, 1983; the latter is used for chronology, not a fabricated reconciliation."],
@@ -1217,6 +1238,7 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
     },
     identityAngle: [def.identity, ...(def.travelAlerts ?? [])].join(" "),
     historyNotes: def.historyNotes,
+    visitorFAQs: def.visitorFAQs,
     habitat: def.habitat,
     fish: def.fish.map((target) => ({
       id: target.id,
