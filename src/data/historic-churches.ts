@@ -8,6 +8,7 @@ export type HistoricChurch = {
   historicalContext: string[]; timeline: { year: string; detail: string }[];
   architecture: string[]; visitorNotes: string[]; significance: string[];
   sources: HistoricChurchSource[]; image?: HistoricChurchImage; gallery?: HistoricChurchImage[];
+  imageStatus: "rights-cleared" | "awaiting-licensed-photos";
   paintedStatus: "not-established" | "research-candidate";
   related: { href: string; label: string; why: string }[];
   reviewedOn: string;
@@ -49,6 +50,7 @@ export const historicChurches: HistoricChurch[] = [
       {label:"St. Joseph parish visitor information",url:"https://stjcatholicchurch.com/",type:"parish"},
       {label:"Parish location and contacts",url:"https://stjcatholicchurch.com/contact-us",type:"parish"}
     ],
+    imageStatus:"awaiting-licensed-photos",
     paintedStatus:"not-established",
     related:[{href:"/county/lavaca",label:"Lavaca County guide",why:"Nearby Catholic and Czech-German parish networks"},{href:"/explore/painted-churches",label:"Painted Churches of Texas",why:"Compare confirmed decorative interiors without conflating classifications"}],
     reviewedOn:"2026-10-12"
@@ -89,6 +91,7 @@ export const historicChurches: HistoricChurch[] = [
       {label:"Texas Historical Commission marker 5149004468",url:"https://atlas.thc.texas.gov/Details/5149004468",type:"historical-marker"},
       {label:"Houstonia: In Ellinger, the painted church you may have missed",url:"https://www.houstoniamag.com/travel-and-outdoors/2015/12/in-ellinger-the-painted-church-you-may-have-missed",type:"independent"}
     ],
+    imageStatus:"awaiting-licensed-photos",
     paintedStatus:"research-candidate",
     related:[{href:"/explore/painted-churches",label:"Painted Churches of Texas",why:"Learn why churches with painted features require separate evidence for formal inclusion"},{href:"/explore/painted-churches/census",label:"Painted Churches master census",why:"Check the pending research record for Ellinger / Hostyn Hill"},{href:"/county/fayette",label:"Fayette County guide",why:"Plan Ellinger and Schulenburg heritage travel"}],
     reviewedOn:"2026-10-12"
@@ -129,6 +132,7 @@ export const historicChurches: HistoricChurch[] = [
       {label:"St. Peter's historical marker transcription (secondary transcription)",url:"https://www.usgenwebsites.org/TXMatagorda/stpeter/church_bl_st_peters.htm",type:"archive"},
       {label:"Parish event address confirmation",url:"https://www.stpeterblessing.org/events/knights-of-columbus-meeting-4/20260915",type:"parish"}
     ],
+    imageStatus:"awaiting-licensed-photos",
     paintedStatus:"not-established",
     related:[{href:"/county/matagorda",label:"Matagorda County guide",why:"Regional context for Blessing and the coastal prairie"}],
     reviewedOn:"2026-10-12"
@@ -170,6 +174,7 @@ export const historicChurches: HistoricChurch[] = [
     ],
     image:{file:"Moulton-tx2016-7(st-josephs-church).jpg",alt:"Exterior of St. Joseph Catholic Church in Moulton, Texas",author:"Darrylpearson",license:"CC BY-SA 4.0",sourceUrl:"https://commons.wikimedia.org/wiki/File:Moulton-tx2016-7(st-josephs-church).jpg",width:1279,height:1919},
     gallery:[{file:"Moulton-tx2016-8(st-josephs-church).jpg",alt:"Second exterior view of Saint Joseph Catholic Church in Moulton",author:"Darrylpearson",license:"CC BY-SA 4.0",sourceUrl:"https://commons.wikimedia.org/wiki/File:Moulton-tx2016-8(st-josephs-church).jpg",width:2489,height:1659}],
+    imageStatus:"rights-cleared",
     paintedStatus:"research-candidate",
     related:[{href:"/county/lavaca",label:"Lavaca County guide",why:"Explore the region's settlement and school histories"},{href:"/explore/painted-churches",label:"Painted Churches of Texas",why:"Distinguish historic churches from documented decorative-painting sites"}],
     reviewedOn:"2026-10-12"
@@ -210,6 +215,7 @@ export const historicChurches: HistoricChurch[] = [
     ],
     image:{file:"Frelsburg TX Catholic Church.jpg",alt:"Saints Peter and Paul Catholic Church in Frelsburg, Texas",author:"Djmaschek",license:"CC BY-SA 4.0",sourceUrl:"https://commons.wikimedia.org/wiki/File:Frelsburg_TX_Catholic_Church.jpg",width:1600,height:1200},
     gallery:[{file:"Frelsburg TX Catholic Marker.jpg",alt:"Historical marker for Saints Peter and Paul in Frelsburg",author:"Djmaschek",license:"CC BY-SA 4.0",sourceUrl:"https://commons.wikimedia.org/wiki/File:Frelsburg_TX_Catholic_Marker.jpg",width:1600,height:1200}],
+    imageStatus:"rights-cleared",
     paintedStatus:"research-candidate",
     related:[{href:"/county/colorado",label:"Colorado County guide",why:"Connect Frelsburg with Columbus and New Ulm"},{href:"/explore/painted-churches",label:"Painted Churches of Texas",why:"Compare historic altars with verified decorative-painting interiors"}],
     reviewedOn:"2026-10-12"
