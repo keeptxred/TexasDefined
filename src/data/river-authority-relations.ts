@@ -110,3 +110,32 @@ export function allRiverAuthorityNavigationLinks(): ArticleInternalLink[] {
     description: "Compare source-led river access, water safety and recreation options by reach.",
   }));
 }
+
+/**
+ * Automatic but conservative topical article backlinks. Do not match an entire
+ * article body: passing mentions of a river are not evidence of a useful trip link.
+ * An exact named river in title, dek or tags is a meaningful topic signal.
+ */
+export function riverAuthorityLinksForArticleMetadata(article: {
+  slug: string;
+  title: string;
+  dek: string;
+  tags: readonly string[];
+}): RiverAuthorityLink[] {
+  const haystack = [article.title, article.dek, ...article.tags]
+    .join(" | ")
+    .toLocaleLowerCase("en-US");
+  return RIVER_AUTHORITY_RELATIONS.filter((river) => {
+    if (river.slug === article.slug) return false;
+    const names = river.slug === "texas-cypress-river-basin-guide"
+      ? ["big cypress bayou", "cypress river basin"]
+      : river.slug === "texas-colorado-river-guide"
+      ? ["colorado river", "texas colorado"]
+      : [river.name.toLocaleLowerCase("en-US")];
+    return names.some((name) => haystack.includes(name));
+  }).slice(0, 4).map((river) => ({
+    href: `/article/${river.slug}`,
+    label: `Learn more about the ${river.name}`,
+    description: "Compare the named river's landscape, fishing, camping, mapped access and visitor-planning details.",
+  }));
+}
