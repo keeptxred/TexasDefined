@@ -9,6 +9,7 @@ export type HistoricChurch = {
   architecture: string[]; visitorNotes: string[]; significance: string[];
   sources: HistoricChurchSource[]; image?: HistoricChurchImage; gallery?: HistoricChurchImage[];
   imageStatus: "rights-cleared" | "awaiting-licensed-photos";
+  faq: { question: string; answer: string }[];
   paintedStatus: "not-established" | "research-candidate" | "related-historic";
   related: { href: string; label: string; why: string }[];
   reviewedOn: string;
@@ -17,7 +18,7 @@ export const historicChurches: HistoricChurch[] = [
   {
     slug: "yoakum-st-joseph-catholic-church",
     name: "St. Joseph Catholic Church", shortName: "St. Joseph's, Yoakum", locality: "Yoakum", county: "DeWitt / Lavaca",
-    address: "401 Orth Street, Yoakum, TX 77995", denomination: "Roman Catholic",
+    address: "210 Schrimscher Street, Yoakum, TX 77995", denomination: "Roman Catholic",
     foundation: "Brushy mission church established about 1850; St. Joseph church dedicated in 1876",
     presentBuilding: "1912",
     summary: "Trace the move from Brushy Creek frontier mission to Yoakum's 1912 parish church, the railroad's role, the older church ruins, and generations of Catholic schooling.",
@@ -40,7 +41,7 @@ export const historicChurches: HistoricChurch[] = [
       "A specifically documented decorative mural or stenciling campaign has not been established for the TexasDefined Painted Churches census."
     ],
     visitorNotes: [
-      "Use the active parish's current mass times, contact page and bulletins; this is not a ticketed museum.",
+      "The Diocese of Victoria lists the church at 210 Schrimscher Street, while the parish lists its office at 401 Orth Street. Confirm whether you are navigating to the sanctuary or office before departure; this is an active church, not a ticketed museum.",
       "The older Brushy Church remains, if sought, are associated with the cemetery off FM 318 and should not be treated as guaranteed publicly accessible structures.",
       "Connect a visit with Yoakum, Shiner and the broader Lavaca/DeWitt immigrant heritage corridor."
     ],
@@ -48,7 +49,14 @@ export const historicChurches: HistoricChurch[] = [
     sources: [
       {label:"St. Joseph parish history",url:"https://stjcatholicchurch.com/about",type:"parish"},
       {label:"St. Joseph parish visitor information",url:"https://stjcatholicchurch.com/",type:"parish"},
-      {label:"Parish location and contacts",url:"https://stjcatholicchurch.com/contact-us",type:"parish"}
+      {label:"Parish office address and contacts (401 Orth Street)",url:"https://stjcatholicchurch.com/contact-us",type:"parish"},
+      {label:"Diocese of Victoria parish locator (210 Schrimscher Street)",url:"https://www.victoriadiocese.org/parishfinder",type:"parish"}
+    ],
+    faq:[
+      { question:"When was today's St. Joseph church in Yoakum built?", answer:"The present church was completed in 1912. The parish's earlier Brushy Creek mission and 1876 stone church are distinct predecessors, not the same building." },
+      { question:"Where is St. Joseph Catholic Church in Yoakum?", answer:"The Diocese of Victoria lists 210 Schrimscher Street for the church; the parish website gives 401 Orth Street for its office. Verify which location you need before traveling." },
+      { question:"Can visitors see the historic Brushy Church ruins?", answer:"The former stone church's remains are associated with St. Joseph Cemetery east of Yoakum. Do not assume unrestricted access to ruins; inquire through the parish first." },
+      { question:"Is St. Joseph's in Yoakum a verified Painted Church?", answer:"This page documents the parish's mission history, railroad relocation and successive buildings. It does not claim a formal historic decorative-interior classification." }
     ],
     imageStatus:"awaiting-licensed-photos",
     paintedStatus:"not-established",
@@ -59,6 +67,7 @@ export const historicChurches: HistoricChurch[] = [
     slug:"ellinger-st-marys-hostyn-hill",
     name:"Immaculate Conception of the Blessed Virgin Mary (St. Mary's) — Hostyn Hill",
     shortName:"St. Mary's at Hostyn Hill", locality:"Near Ellinger", county:"Fayette",
+    address:"815 St. Mary's Church Road, Fayetteville, TX 78940",
     foundation:"1850s roots in the Ross Prairie Catholic community; moved to present area by 1864",
     presentBuilding:"1906",
     denomination:"Roman Catholic",
@@ -75,6 +84,7 @@ export const historicChurches: HistoricChurch[] = [
       {year:"1879",detail:"A larger church named Immaculate Conception of the Blessed Virgin Mary (St. Mary's) was built."},
       {year:"1905",detail:"Fire destroyed the previous building."},
       {year:"1906",detail:"The current Gothic-style church was erected at Hostyn Hill."},
+      {year:"2005",detail:"The active parish records a complete renovation of the church, whose intricate altar remains a point of interest."},
       {year:"1986",detail:"A Texas Sesquicentennial historical marker recorded the parish's chronology."}
     ],
     architecture:[
@@ -83,13 +93,22 @@ export const historicChurches: HistoricChurch[] = [
     ],
     visitorNotes:[
       "From Ellinger, the historical marker directions are northeast on FM 2503 for roughly two miles, then east on CR 250 for about half a mile. Independently verify road conditions and access before departure.",
-      "The grounds and adjacent cemetery are part of a living religious site. Never imply unrestricted interior access.",
+      "The grounds and adjacent cemetery are part of a living religious site. The active parish lists St. Mary's at 815 St. Mary's Church Road; check its service schedule and verify any sightseeing access in advance.",
       "Nearby Ellinger and Fayette County heritage itineraries can be paired with the established Schulenburg-area Painted Churches route without describing this church as part of the verified core six."
     ],
     significance:["Distinctive Ross Prairie/Hostyn Hill German-Czech parish history","A documented 1905 fire and 1906 rebuilding","An excellent companion stop for Painted Churches visitors because of the gilded altar, religious statuary and blue ceiling, without implying a National Register decorative-interior designation"],
     sources:[
       {label:"Texas Historical Commission marker 5149004468",url:"https://atlas.thc.texas.gov/Details/5149004468",type:"historical-marker"},
+      {label:"St. Mary's official parish history and 2005 renovation",url:"https://stjohnfayetteville.com/st-mary-history",type:"parish"},
+      {label:"St. Mary and St. John parish visitor information",url:"https://stjohnfayetteville.com/",type:"parish"},
       {label:"Houstonia: In Ellinger, the painted church you may have missed",url:"https://www.houstoniamag.com/travel-and-outdoors/2015/12/in-ellinger-the-painted-church-you-may-have-missed",type:"independent"}
+    ],
+    faq:[
+      { question:"Is St. Mary's at Hostyn Hill the same as Hostyn near La Grange?", answer:"No. Hostyn Hill near Ellinger is the St. Mary parish connected with St. John in Fayetteville. The separately named Hostyn parish near La Grange is a different church." },
+      { question:"What can visitors see inside St. Mary's at Hostyn Hill?", answer:"Houstonia describes its gilded altar, colorful religious statuary and simple azure ceiling; the parish reports that the sanctuary underwent a complete renovation in 2005." },
+      { question:"Is Hostyn Hill part of the official 1983 decorative-interior National Register group?", answer:"No. It is a recommended companion historic-church stop, valued for its own architectural and artistic features, rather than one of the 1983 National Register Churches with Decorative Interior Painting entries." },
+      { question:"When was the current church built?", answer:"Both the parish history and the Texas Historical Commission date the Gothic-style replacement to autumn 1906, after the previous church burned at Easter in 1905." },
+      { question:"Where is St. Mary's and can visitors enter?", answer:"The parish lists 815 St. Mary's Church Road near Fayetteville. This is an active worship site; confirm current service times and interior access with the parish." }
     ],
     imageStatus:"awaiting-licensed-photos",
     paintedStatus:"related-historic",
@@ -103,7 +122,7 @@ export const historicChurches: HistoricChurch[] = [
     foundation:"Mass in the community by 1912; first church building completed in 1915",
     presentBuilding:"1976",
     summary:"A Matagorda County parish tied to Blessing's early settlement: 1912 home Masses, a donated 1914 church lot, wartime chapel reuse, and today's church.",
-    quickAnswer:"St. Peter's in Blessing grew from home Masses recorded in 1912 to a 1915 church, then worshiped in a converted Army chapel in 1948. Local historical-marker transcription dates the present building's dedication to 1976.",
+    quickAnswer:"St. Peter's in Blessing grew from home Masses recorded in 1912 to a 1915 church, then worshiped in a converted Army chapel in 1948. The 2008 Texas Historical Commission subject marker dates the present building's dedication to 1976.",
     historicalContext:[
       "The church's history mirrors the early decades of Blessing. A surviving transcription of its historical marker reports that area Catholics first attended Mass in homes when itinerant priests were available.",
       "Town founder Jonathan Edwards Pierce's townsite company donated land for worship in 1914. A first church was built in 1915, and a resident priest arrived in 1930.",
@@ -129,8 +148,16 @@ export const historicChurches: HistoricChurch[] = [
     sources:[
       {label:"St. Peter's parish and visitor information",url:"https://stpeterblessing.org/",type:"parish"},
       {label:"Parish history index",url:"https://stpeterblessing.org/history-of-st-peters-catholic-church",type:"parish"},
-      {label:"St. Peter's historical marker transcription (secondary transcription)",url:"https://www.usgenwebsites.org/TXMatagorda/stpeter/church_bl_st_peters.htm",type:"archive"},
+      {label:"THC historical marker number 15337 and Matagorda County research file",url:"https://www.usgenwebsites.org/TXMatagorda/stpeter/church_bl_st_peters.htm",type:"archive"},
+      {label:"Photographic record and inscription for marker 15337",url:"https://www.hmdb.org/m.asp?m=168640",type:"independent"},
+      {label:"Matagorda County historical marker dedication records",url:"https://www.usgenwebsites.org/TXMatagorda/mchc/mchc.htm",type:"archive"},
       {label:"Parish event address confirmation",url:"https://www.stpeterblessing.org/events/knights-of-columbus-meeting-4/20260915",type:"parish"}
+    ],
+    faq:[
+      { question:"Was St. Peter's church in Blessing built in 1915 or 1976?", answer:"The original dedicated building was completed in 1915. The congregation later used a remodeled Army chapel before the present sanctuary was dedicated in 1976." },
+      { question:"Why did this parish worship in an Army chapel?", answer:"After acquiring new property in 1947, the congregation opened a remodeled military chapel there in 1948, using it until the current building replaced it." },
+      { question:"Does the church have a historical marker?", answer:"Yes. Texas Historical Commission marker 15337 recounts the local parish history. Matagorda County Historical Commission records its dedication in 2009." },
+      { question:"Are sightseeing tours offered?", answer:"The active parish publishes worship information, but no guaranteed tourism hours were established in the reviewed official material. Contact the church before attempting an interior visit." }
     ],
     imageStatus:"awaiting-licensed-photos",
     paintedStatus:"not-established",
@@ -174,6 +201,12 @@ export const historicChurches: HistoricChurch[] = [
     ],
     image:{file:"Moulton-tx2016-7(st-josephs-church).jpg",alt:"Exterior of St. Joseph Catholic Church in Moulton, Texas",author:"Darrylpearson",license:"CC BY-SA 4.0",sourceUrl:"https://commons.wikimedia.org/wiki/File:Moulton-tx2016-7(st-josephs-church).jpg",width:1279,height:1919},
     gallery:[{file:"Moulton-tx2016-8(st-josephs-church).jpg",alt:"Second exterior view of Saint Joseph Catholic Church in Moulton",author:"Darrylpearson",license:"CC BY-SA 4.0",sourceUrl:"https://commons.wikimedia.org/wiki/File:Moulton-tx2016-8(st-josephs-church).jpg",width:2489,height:1659}],
+    faq:[
+      { question:"What year was the present St. Joseph's church in Moulton built?", answer:"The active parish records a cornerstone in 1924. The exact completion year is not inferred from that milestone alone." },
+      { question:"What happened to the parish school?", answer:"The Sisters of Divine Providence opened it in 1894; a fire destroyed the first school in 1902, and a replacement followed. The school closed in 1965." },
+      { question:"Why does this church matter to Moulton history?", answer:"German and Czech settlers formed the parish during the community's railroad growth. Its church, school and affiliated immigrant communities are documented in parish and Texas Historical Commission records." },
+      { question:"Can visitors tour the church?", answer:"It is an active place of worship. Confirm interior access and current service information directly with the parish before visiting." }
+    ],
     imageStatus:"rights-cleared",
     paintedStatus:"research-candidate",
     related:[{href:"/county/lavaca",label:"Lavaca County guide",why:"Explore the region's settlement and school histories"},{href:"/explore/painted-churches",label:"Painted Churches of Texas",why:"Distinguish historic churches from documented decorative-painting sites"}],
@@ -217,6 +250,13 @@ export const historicChurches: HistoricChurch[] = [
     ],
     image:{file:"Frelsburg TX Catholic Church.jpg",alt:"Saints Peter and Paul Catholic Church in Frelsburg, Texas",author:"Djmaschek",license:"CC BY-SA 4.0",sourceUrl:"https://commons.wikimedia.org/wiki/File:Frelsburg_TX_Catholic_Church.jpg",width:1600,height:1200},
     gallery:[{file:"Frelsburg TX Catholic Marker.jpg",alt:"Historical marker for Saints Peter and Paul in Frelsburg",author:"Djmaschek",license:"CC BY-SA 4.0",sourceUrl:"https://commons.wikimedia.org/wiki/File:Frelsburg_TX_Catholic_Marker.jpg",width:1600,height:1200}],
+    faq:[
+      { question:"Is the historic Frelsburg church St. Mary's?", answer:"No. The church is Saints Peter and Paul Catholic Church, an early German Catholic community with worship roots dating to 1844." },
+      { question:"Why does the present church date to 1928?", answer:"A fire in 1926 destroyed the 1912 sanctuary; the congregation completed the replacement church in 1928." },
+      { question:"Why is Frelsburg significant to Catholic history in Texas?", answer:"The early parish was a regional missionary center and established a Catholic theological seminary in Frelsburg in 1854, according to parish history." },
+      { question:"What notable architecture survives?", answer:"The Texas Historical Commission records classical Corinthian columns alongside Gothic windows and Tudor-arched double doors. The parish also identifies altars imported from Germany." },
+      { question:"Can the church be visited?", answer:"It remains an active Catholic parish. Consult current parish contacts and service information before planning a special interior visit." }
+    ],
     imageStatus:"rights-cleared",
     paintedStatus:"research-candidate",
     related:[{href:"/county/colorado",label:"Colorado County guide",why:"Connect Frelsburg with Columbus and New Ulm"},{href:"/explore/painted-churches",label:"Painted Churches of Texas",why:"Compare historic altars with verified decorative-painting interiors"}],
