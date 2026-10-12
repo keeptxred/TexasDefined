@@ -1,9 +1,10 @@
 import heroHillCountry from "@/assets/hero-hill-country.jpg";
 import germanLandscape from "@/assets/generated/hill-country-identity.jpg";
 import type { Article } from "../types";
+import { regionalAuthorityEnrichment } from "./regional-authority-enrichment";
 
 /** Source-led statewide authority guides; do not confuse AVAs, cultural regions and travel regions. */
-export const regionalAuthorityArticles: Article[] = [
+const baseRegionalAuthorityArticles: Article[] = [
   {
     "id": "evergreen-scenic-drives-in-texas",
     "slug": "scenic-drives-in-texas",
@@ -453,3 +454,19 @@ export const regionalAuthorityArticles: Article[] = [
     ]
   }
 ];
+
+// One canonical article per topic. The enrichment supplies claim-specific primary sources,
+// media provenance and comprehensive planning detail without introducing competing URLs.
+export const regionalAuthorityArticles: Article[] = baseRegionalAuthorityArticles.map((article) => {
+  const depth = regionalAuthorityEnrichment[article.slug];
+  if (!depth) return article;
+  return {
+    ...article,
+    ...depth,
+    body: [...article.body, ...(depth.body ?? [])],
+    internalLinks: [
+      ...(article.internalLinks ?? []),
+      ...(depth.internalLinks ?? []).filter((link) => !(article.internalLinks ?? []).some((existing) => existing.href === link.href)),
+    ],
+  };
+});
