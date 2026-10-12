@@ -180,7 +180,17 @@ assert.equal(byName('Katy').facts.find(f=>f.claim.includes("Kalum Haack was the 
 verifiedFact('Katy','Gayle Luedke, not Kalum Haack, as the 1996 Jayhawks head coach','kansas-haack-original-records');
 assert.ok(byName('Katy').venueResearch.sourceIds.includes('katy-aug2026-field-name-report'),
  'Local independent account and July 27 school board item must accompany renamed Katy varsity venue');
-assert.equal(byName('Pearland').venueResearch.nameVerified,false,'Pearland high school does not imply named varsity diamond');
+assert.equal(byName('Pearland').venueResearch.nameVerified,true,'Historic first-party Pearland camp flyer verifies the softball COMPLEX NAME, not the 2027 gate');
+assert.equal(byName('Pearland').venueResearch.namedField,'PHS Lady Oiler Softball Complex');
+assert.equal(byName('Pearland').venueResearch.physicalAddressVerified,false,
+  'Do not mistake an off-campus private camp payment address for the school girls softball field');
+verifiedFact('Pearland','PHS Lady Oiler Softball Complex','pearland-official-2023-camp-flyer');
+verifiedFact('Pearland','Laneigh Clark','pearland-official-2023-camp-flyer');
+verifiedFact('Pearland','older camp flyer must NEVER','pearland-official-2023-camp-flyer');
+assert.ok(byName('Pearland').conflicts.some(x=>x.includes('incorrect') || x.includes('misleading')),
+  'Older Pearland school flyer erroneously labels state-appearance years as championship wins');
+assert.ok(byName('Pearland').facts.filter(f=>f.sourceIds.includes('pearland-official-2023-camp-flyer'))
+   .every(f=>f.season==='2023-24'),'August 2023 camp material belongs to incoming 2023–24 academic-year context, never 2027');
 assert.equal(byName('Amarillo Highland Park').venueResearch.nameVerified,true,'Official 2025 school report now verifies historic HP Softball Field name');
 assert.equal(byName('Amarillo Highland Park').venueResearch.namedField,'HP Softball Field');
 assert.equal(byName('Amarillo Highland Park').venueResearch.physicalAddressVerified,false,'School ribbon cutting is not a published softball field street/gate address');
