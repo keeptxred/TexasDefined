@@ -64,3 +64,24 @@
 4. **High-priority editorial additions:** surface explicit TPWD invasive-mussel/closed-ramp/bait-rule advisories; these are now in the generated overview/boating/regulations content for affected statewide lakes. Review Whitney golden-alga and Amistad cross-border specifics separately.
 5. **Next depth wave:** replace the 11 remaining generic statewide access records with named, independently verified ramp/park/campground inventories and historical primary sources. Add accurate directions/maps and original on-location imagery where rights permit.
 6. **Definition of complete authority:** each lake should have verified facility inventory with direct owner links, current restrictions, correct photos/rights, source-dated history, a useful map and nearby itinerary, accessible/mobile/browser QA, and a repeatable review process. The current implementation **does not yet satisfy every item of this stricter standard across all 15**.
+
+
+## October 12 county and topical cross-link extension
+
+The following **contextual, reciprocal and non-duplicate** site links were added to the feature branch after the initial 15-lake audit:
+
+| Source page | Lake destination | Editorial context |
+|---|---|---|
+| `/county/haskell` (and its county-series article) | `/fishing/lakes/lake-stamford` | Reservoir history, 1953 initial impoundment, white-crappie fishery, ramps and camping |
+| `/county/nolan` (and its county-series article) | `/fishing/lakes/lake-sweetwater` | Municipal recreation area, CCC heritage, poor fishery and low-water/golden-alga warnings |
+| `/county/jones` | `/fishing/lakes/lake-stamford` | Stamford city trip extension to the lake in neighboring Haskell County, not a claim the lake lies in Jones County |
+| `/county/mitchell` | `/fishing/lakes/lake-sweetwater` | Nearby Nolan County recreation alternative from the Colorado City region; warns that fishing and lake levels are poor |
+| `/article/texas-lakes-reservoirs-explained` | Both new lakes | Specific municipal-water-supply reservoir examples with differentiated history and caveats |
+| `/fishing/lakes/lake-arrowhead` | Lake Stamford | Regionally related reservoir navigation |
+| `/fishing/lakes/lake-colorado-city` | Lake Sweetwater | Nearby West Texas reservoir navigation |
+
+The existing shared statewide-lake generator already creates an outbound `/county/haskell` link from Lake Stamford and `/county/nolan` from Lake Sweetwater. The new incoming county links close these loops. The `/fishing/lakes` directory, fishing hub/search index, fishing planner and sitemap already derive entries from the completed-lake registry, so adding manually duplicated directory records would be incorrect.
+
+**Regression protection:** `scripts/data/validate-stamford-sweetwater-crosslinks.mjs` is registered in both the canonical full suite and the predeploy validation suite. It checks exact link targets, county-article link visibility (the county UI displays the first eight), reciprocal generator logic, lake registry and lake directory/search integration, and drought/chronology guardrails. A connector-based 26-point static inspection passed on the branch; that is separate from GitHub CI and rendered production browser acceptance.
+
+**Remaining release gate:** PR #4684 must pass required CI and merge/deploy before live county-page link verification. Recheck SSR HTML/visible nav and click targets on the four county pages plus both lake pages after deployment.
