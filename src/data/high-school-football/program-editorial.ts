@@ -1034,6 +1034,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "austin-navarro": {
     "slug": "austin-navarro",
+    "campus": {
+      "address": "1201 Payton Gin Road, Austin, TX 78758",
+      "phone": "512-414-2514",
+      "sourceUrl": "https://www.austinisd.org/schools/level/H",
+      "sourceLabel": "Austin ISD current high-school directory, school campus (not stadium)",
+      "verifiedAt": "2026-10-12"
+    },
     "theme": {
       "accentHex": "#8C354F",
       "label": "School-inspired original editorial styling, not a school logo"
@@ -1332,6 +1339,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "austin-johnson": {
     "slug": "austin-johnson",
+    "campus": {
+      "address": "7309 Lazy Creek Drive, Austin, TX 78724",
+      "phone": "512-414-2543",
+      "sourceUrl": "https://www.austinisd.org/schools/level/H",
+      "sourceLabel": "Austin ISD current high-school directory, school campus (not stadium)",
+      "verifiedAt": "2026-10-12"
+    },
     "theme": {
       "accentHex": "#5A2B77",
       "label": "Original school-inspired editorial accent; no logo reproduced"
@@ -1398,6 +1412,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "austin-eastside": {
     "slug": "austin-eastside",
+    "campus": {
+      "address": "900 Thompson Street, Austin, TX 78702",
+      "phone": "512-414-5810",
+      "sourceUrl": "https://www.austinisd.org/schools/level/H",
+      "sourceLabel": "Austin ISD current high-school directory, school campus (not stadium)",
+      "verifiedAt": "2026-10-12"
+    },
     "theme": {
       "accentHex": "#1E6D43",
       "label": "Original school-inspired editorial accent; no logo reproduced"
@@ -1471,6 +1492,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "austin-crockett": {
     "slug": "austin-crockett",
+    "campus": {
+      "address": "5601 Manchaca Road, Austin, TX 78745",
+      "phone": "512-414-2532",
+      "sourceUrl": "https://www.austinisd.org/schools/level/H",
+      "sourceLabel": "Austin ISD current high-school directory, school campus (not stadium)",
+      "verifiedAt": "2026-10-12"
+    },
     "theme": {
       "accentHex": "#19683A",
       "label": "Original school-inspired editorial accent; no logo reproduced"
@@ -1559,6 +1587,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "austin-bowie": {
     "slug": "austin-bowie",
+    "campus": {
+      "address": "4103 West Slaughter Lane, Austin, TX 78749",
+      "phone": "512-414-5247",
+      "sourceUrl": "https://www.austinisd.org/schools/level/H",
+      "sourceLabel": "Austin ISD current high-school directory, school campus (not stadium)",
+      "verifiedAt": "2026-10-12"
+    },
     "theme": {
       "accentHex": "#8D2525",
       "label": "Original school-inspired editorial accent; no logo reproduced"
@@ -1873,6 +1908,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "austin": {
     "slug": "austin",
+    "campus": {
+      "address": "1715 West Cesar Chavez Street, Austin, TX 78703",
+      "phone": "512-414-2505",
+      "sourceUrl": "https://www.austinisd.org/schools/level/H",
+      "sourceLabel": "Austin ISD current high-school directory, school campus (not stadium)",
+      "verifiedAt": "2026-10-12"
+    },
     "theme": {
       "accentHex": "#82213B",
       "label": "Editorial school-inspired accent; no official logo used"
