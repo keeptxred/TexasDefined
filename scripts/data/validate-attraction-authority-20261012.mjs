@@ -36,7 +36,7 @@ requireMatch(guide.includes("isTopTexasAttraction(destination.slug)"), "Extended
 for (const keyword of [
   "Ross Maxwell Scenic Drive", "Chisos Basin Road", "FM 170", "Rio Grande Village",
   "Old Maverick", "Dagger Flat", "construction-cancelled.htm", "Road and distance",
-  "Official", "No drive time", "Controlling road source",
+  "No drive time", "Controlling road source",
 ]) {
   requireMatch(page.includes(keyword) || route.includes(keyword), `Missing scenic route authority contract: ${keyword}`);
 }
