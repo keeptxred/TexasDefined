@@ -46,9 +46,6 @@ export function makeHighIntentGuide(spec: HighIntentGuideSpec): Article {
     tags: spec.tags,
     body: [
       { type: "paragraph", text: spec.introduction },
-      { type: "heading", text: "Verified facts and figures at a glance" },
-      { type: "paragraph", text: `Primary-source reference points reviewed on ${evidence.reviewDate}. These describe published characteristics, not live availability; numbers may be revised by the controlling agency.` },
-      { type: "list", items: evidence.facts.map((fact) => `${fact.label}: ${fact.value} (source: ${fact.sourceUrl}; checked ${fact.verifiedAt})`) },
       { type: "heading", text: "How we chose these destinations" },
       { type: "paragraph", text: spec.method },
       ...spec.picks.flatMap((pick) => [
