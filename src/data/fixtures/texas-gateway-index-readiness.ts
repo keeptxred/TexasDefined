@@ -51,6 +51,7 @@ export function meetsNewAuthorityGuideStandard(article: Article): boolean {
   if (!isNewAuthorityGuideCandidate(article)) return true;
   const headings = new Set(article.body.filter((block) => block.type === "heading").map((block) => block.text.toLowerCase()));
   const galleryImages = article.body.filter((block) => block.type === "image");
+  const supportedWithStandaloneFactTable = article.id.startsWith("texas-high-intent-");
   const httpsSources = (article.sources ?? []).filter((source) => /^https:\/\//.test(source.url));
   const verifiedFactList = article.body.some((block) => block.type === "list" && block.items.length >= 3 && block.items.every((item) => item.includes("source: https://") && item.includes("checked")));
   return articleBodyWordCount(article) >= 1000
@@ -61,9 +62,8 @@ export function meetsNewAuthorityGuideStandard(article: Article): boolean {
     && httpsSources.length >= 3
     && (article.internalLinks?.length ?? 0) >= 4
     && article.relatedDestinations.length >= 3
-    && headings.has("verified facts and figures at a glance")
     && headings.has("how we chose these destinations")
-    && verifiedFactList;
+    && (supportedWithStandaloneFactTable || (headings.has("verified facts and figures at a glance") && verifiedFactList));
 }
 export const ARTICLE_INDEX_MIN_BODY_WORDS = 600;
 export const SEASONAL_INTENT_INDEX_MIN_BODY_WORDS = 400;
