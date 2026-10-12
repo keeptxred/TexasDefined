@@ -122,8 +122,6 @@ for (const feature of [
 for (const unwanted of ['Visitor facilities', 'Things to do and see', 'const activities = unique(', 'facilityPattern.test(item)']) {
   if (destinationPlanner.includes(unwanted)) errors.push(`Destination planner must not reintroduce automatic low-value sections: ${unwanted}.`);
 }
-if (!destinationPlanner.includes(feature)) errors.push(`Destination visit-planner integrity feature missing: ${feature}.`);
-}
 for (const stale of [
   'const practicalTips = unique([',
   'What to know before you go',
