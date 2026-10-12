@@ -3,7 +3,7 @@ import paloDuro from "@/assets/palo-duro.jpg";
 import smallTown from "@/assets/small-town.jpg";
 import { highIntentImage, makeHighIntentGuide, type HighIntentGuideSpec } from "./texas-high-intent-guide-factory";
 const images = { lake: highIntentImage(caddoLake, "Cypress-lined Texas lake"), canyon: highIntentImage(paloDuro, "Palo Duro Canyon landscape in Texas"), town: highIntentImage(smallTown, "Historic Texas courthouse square") };
-const specs: HighIntentGuideSpec[] = [
+const specs: Omit<HighIntentGuideSpec, "hero">[] = [
   {
     "number": 106,
     "slug": "best-fishing-lakes-in-texas",
