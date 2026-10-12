@@ -110,6 +110,8 @@ export function applyAttractionAuthority20261012(destination: Destination): Dest
       accessibilityNotes: "The steep 0.8-mile Summit Trail is an exposed granite ascent rather than an accessible paved walk. Use TPWD's trail map and call park headquarters about mobility access and alternate lower trails."
     } : {}),
     ...(destination.slug === "fossil-rim-wildlife-center" ? {
+      region: "prairies-lakes" as const,
+      summary: "A nonprofit drive-through wildlife conservation center in Somervell County near Glen Rose, with giraffes, rhinos, antelope and other species living in broad North Central Texas pastures.",
       entryNote: "Buy self-drive tickets online before arrival; gate availability is not guaranteed. Pets and outside animal feed are not permitted, and feeding or contact is governed by staff instructions."
     } : {}),
     ...(destination.slug === "texas-state-aquarium" ? {
