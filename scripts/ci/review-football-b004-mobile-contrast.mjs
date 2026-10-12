@@ -35,6 +35,17 @@ try{
   const page=await context.newPage();
   try{
    await hydrate(page,route);
+   // County tax tables load client-side after the heading appears. Await real
+   // populated table rows for all nine counties represented in the 255-node
+   // initial audit, or fail closed rather than reporting a false zero.
+   if(!isSchool && slug!=='county-ellis'){
+     await page.locator('main [role="region"][aria-label$="property tax rates table"] table tbody tr').first()
+       .waitFor({state:'visible',timeout:28000});
+   }
+   if(slug==='austin-westlake'){
+     await page.locator('main [role="region"] table tbody tr').first()
+       .waitFor({state:'visible',timeout:28000});
+   }
    if(isSchool){
     const imageItems=await page.locator('main figure').evaluateAll(nodes=>nodes.filter(el=>el.querySelector('img')).map(el=>{
       const img=el.querySelector('img');const links=[...el.querySelectorAll('a[href]')];
