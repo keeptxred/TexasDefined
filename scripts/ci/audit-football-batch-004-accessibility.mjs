@@ -40,15 +40,40 @@ try {
    for(const item of locations) {
     const page=await context.newPage(), row={viewport,id:item.id,path:item.path,
       http:null,render:'UNVERIFIED',axe:'UNVERIFIED',violations:[],incomplete:[],
-      ax:{},semantics:{},keyboard:[],keyboardStatus:'UNVERIFIED',errors:[],runtime:[]};
+      ax:{},semantics:{},keyboard:[],keyboardStatus:'UNVERIFIED',errors:[],runtime:[],recoveredNetworkErrors:[]};
     report.results.push(row);report.summary.checks++;
     page.on('pageerror',e=>row.runtime.push(e.message));
     try {
-     const response=await page.goto(origin+item.path,{waitUntil:'domcontentloaded',timeout:55000});
-     row.http=response?.status()||0;
-     if(row.http!==200)throw Error('Non-200 response '+row.http);
-     await page.locator('h1').first().waitFor({state:'visible',timeout:25000});
-     await page.waitForTimeout(950);
+     // Do not mistake a site-shell H1 for the hydrated page's main heading.
+     // Only a genuine transient navigation/module-load failure may get one retry.
+     const transientModule=e=>/Failed to fetch dynamically imported module|Importing a module script failed|Failed to load module script/i.test(e);
+     let ready=false;
+     for(let attempt=1;attempt<=2;attempt++){
+      try{
+       const response=await page.goto(origin+item.path,{waitUntil:'domcontentloaded',timeout:55000});
+       row.http=response?.status()||0;
+       if(row.http!==200)throw Error('Non-200 response '+row.http);
+       await page.locator('main h1').first().waitFor({state:'visible',timeout:25000});
+       await page.waitForTimeout(950);
+      }catch(e){
+       const message=String(e?.message||e);
+       const isTransientNavigation=/(?:net::ERR_|Failed to fetch dynamically imported module|Importing a module script failed)/i.test(message)
+        || (row.http>=500 && row.http<=504)
+        || (row.runtime.length>0 && row.runtime.every(transientModule));
+       if(attempt!==1||!isTransientNavigation)throw e;
+       row.recoveredNetworkErrors.push({attempt,http:row.http,error:message,runtime:[...row.runtime]});
+       row.runtime.length=0;
+       continue;
+      }
+      if(attempt===1&&row.runtime.length>0&&row.runtime.every(transientModule)){
+       row.recoveredNetworkErrors.push({attempt,http:row.http,runtime:[...row.runtime]});
+       row.runtime.length=0;
+       continue;
+      }
+      ready=true;
+      break;
+     }
+     if(!ready)throw Error('Main page content did not reach the hydrated audit-ready state');
      row.render='PASS';
      row.semantics=await page.evaluate((expectedViewportWidth)=>({
        mainCount:document.querySelectorAll('main').length,
