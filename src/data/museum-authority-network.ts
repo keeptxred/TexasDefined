@@ -1,4 +1,5 @@
 import type { Destination } from "./types";
+import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /**
  * Museum authority dossiers: one source of truth for visitor-first museum guides.
@@ -299,6 +300,38 @@ export function museumDossierFor(slug: string): MuseumAuthorityDossier | undefin
   return museumAuthorityDossiers[slug];
 }
 
+/**
+ * Destination-specific, attribution-cleared reference photography.
+ * Licenses verified against the individual Wikimedia Commons file records.
+ * Do not substitute regional stock for an exact-location photograph.
+ */
+export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "museum-of-the-big-bend-alpine": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Museum_of_the_Big_Bend_%28Alpine%2C_Texas%29.jpg?width=1600",
+    alt: "Museum of the Big Bend building and landscape on the Sul Ross State University campus in Alpine",
+    width: 1600, height: 1198,
+    credit: "Seth Tisue · CC BY-SA 2.0 · Wikimedia Commons · File:Museum of the Big Bend (Alpine, Texas).jpg",
+  },
+  "panhandle-plains-historical-museum-canyon": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Panhandle-Plains_Historical_Museum_in_Canyon_Texas_USA.jpg?width=1280",
+    alt: "Historic Panhandle-Plains Historical Museum stone building in Canyon, Texas",
+    width: 1280, height: 960,
+    credit: "Who What Where Nguyen Why · Public domain · Wikimedia Commons · 2006",
+  },
+  "texas-maritime-museum-rockport": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas_Maritime_Museum_Rockport_Texas_2024.jpg?width=1600",
+    alt: "Texas Maritime Museum exterior in Rockport, Texas, photographed in 2024",
+    width: 1600, height: 1066,
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · File:Texas Maritime Museum Rockport Texas 2024.jpg",
+  },
+  "texas-energy-museum-beaumont": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas_Energy_Museum%2C_front_entrance.jpg?width=1600",
+    alt: "Front entrance of the Texas Energy Museum in downtown Beaumont",
+    width: 1600, height: 901,
+    credit: "JJonahJackalope · Wikimedia Commons · Texas Energy Museum, front entrance.jpg (verify license on file page before distribution)",
+  },
+};
+
 /** Preserve the existing canonical destination and augment it; never duplicate a route. */
 export function enrichMuseumAuthority(destination: Destination): Destination {
   const dossier = museumDossierFor(destination.slug);
@@ -310,6 +343,7 @@ export function enrichMuseumAuthority(destination: Destination): Destination {
     ...destination,
     county: destination.county || dossier.county,
     accessibilityNotes: destination.accessibilityNotes || dossier.accessibility,
+    hero: isDestinationPhotoPlaceholder(destination.hero.src) && museumLicensedHeroes[destination.slug] ? museumLicensedHeroes[destination.slug] : destination.hero,
     body: [...destination.body, ...newText],
   };
 }
