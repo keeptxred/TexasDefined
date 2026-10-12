@@ -7,6 +7,8 @@ import type { ArticleInternalLink } from "./types";
  * Associations are editorially curated: being in the same county does not imply
  * a public launch, trail, camping site, boating connection, or riverfront frontage.
  */
+export type RiverAuthorityLink = ArticleInternalLink & { description: string };
+
 export const RIVER_AUTHORITY_RELATIONS = [
   {
     slug: "texas-guadalupe-river-guide",
@@ -72,7 +74,7 @@ export const RIVER_AUTHORITY_RELATIONS = [
 
 type Relation = (typeof RIVER_AUTHORITY_RELATIONS)[number];
 
-function linksFor(kind: "counties" | "destinations", slug: string): ArticleInternalLink[] {
+function linksFor(kind: "counties" | "destinations", slug: string): RiverAuthorityLink[] {
   return RIVER_AUTHORITY_RELATIONS
     .filter((river) => (river[kind] as readonly string[]).includes(slug))
     .map((river: Relation) => ({
