@@ -19,6 +19,8 @@ const metroRelocationGuidePaths = new Set([
   "/article/moving-to-san-antonio-guide",
   "/article/moving-to-el-paso-guide",
 ]);
+const HighIntentGuideEvidencePanel = lazy(() => import("@/components/editorial/HighIntentGuideEvidencePanel").then((m) => ({ default: m.HighIntentGuideEvidencePanel })));
+const HIGH_INTENT_GUIDE_ARTICLES = new Set(["best-fishing-lakes-in-texas","best-rv-parks-in-texas","best-small-towns-to-visit-in-texas","best-state-parks-for-camping-in-texas","best-lakes-for-swimming-in-texas","best-rivers-for-tubing-in-texas","best-towns-for-antiquing-in-texas","best-scenic-drives-in-texas","best-museums-in-texas","best-weekend-getaways-in-texas"]);
 const SIX_MAN_FOOTBALL_PATH = "/article/texas-six-man-football-rules-explained";
 const LIGHTHOUSE_VISIT_PATH = "/article/best-lighthouses-to-visit-in-texas";
 const LighthouseVisitPlanner = lazy(() => import("@/components/content/LighthouseVisitPlanner"));
@@ -115,6 +117,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
   };
   return <div className="editorial-body text-foreground/92">
     {articleSlug ? <UnusualBusinessAuthorityPanel slug={articleSlug} /> : null}
+    {HIGH_INTENT_GUIDE_ARTICLES.has(articleSlug) ? <Suspense fallback={null}><HighIntentGuideEvidencePanel slug={articleSlug} /></Suspense> : null}
     {showSixManFootballAuthority ? <Suspense fallback={null}><SixManFootballAuthority /></Suspense> : null}
     {showLoopsSpursVisual ? <LoopsSpursVisual /> : null}
     {showBolivarHistoryPhotoSources ? <BolivarRestorationPhotoSources /> : null}
