@@ -1,4 +1,4 @@
-name: Validate 15-town authority
+name: Validate statewide town authority
 
 on:
   pull_request:
@@ -6,6 +6,9 @@ on:
       - 'src/data/small-town-destinations-wave*.ts'
       - 'src/data/small-town-authority-wave16.ts'
       - 'src/data/town-authority-network.ts'
+      - 'src/data/texas-places.ts'
+      - 'src/data/city-authority-profiles.ts'
+      - 'src/data/city-authority-index.ts'
       - 'src/data/destination-preserved-catalog.ts'
       - 'src/data/destination-query-runtime.ts'
       - 'src/components/editorial/DestinationVisitPlanner.tsx'
@@ -21,6 +24,9 @@ on:
       - 'src/data/small-town-destinations-wave*.ts'
       - 'src/data/small-town-authority-wave16.ts'
       - 'src/data/town-authority-network.ts'
+      - 'src/data/texas-places.ts'
+      - 'src/data/city-authority-profiles.ts'
+      - 'src/data/city-authority-index.ts'
       - 'src/data/destination-preserved-catalog.ts'
       - 'src/data/destination-query-runtime.ts'
       - 'src/components/editorial/DestinationVisitPlanner.tsx'
@@ -42,5 +48,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate authority content and cross-link contracts
+      - name: Validate every researched town and city authority contract
         run: node scripts/data/validate-small-town-authority.mjs
