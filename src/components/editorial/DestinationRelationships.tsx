@@ -118,6 +118,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     .slice(0, 6);
 
   return <>
+    {["big-bend-national-park", "big-bend-ranch-state-park", "river-road-fm-170"].includes(destination.slug) && <Container className="py-7"><div className="border-y border-border py-6"><p className="eyebrow text-primary">Scenic routes nearby</p><h2 className="mt-2 font-display text-2xl">Plan your Big Bend drive before you go</h2><p className="mt-3 max-w-2xl text-sm text-muted-foreground">Compare paved national-park routes, FM 170 and unpaved backcountry roads, including an important update about older Chisos Basin closure notices.</p><Link to="/explore/big-bend-scenic-drives" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Open the Big Bend scenic drives guide →</Link></div></Container>}
     {destination.slug === "moody-gardens" ? <MoodyGardensSpotlights /> : null}
     {isWhirlyBall ? <Section tone="surface"><Container><UnusualBusinessAuthorityPanel slug={destination.slug} /></Container></Section> : null}
     {topAttractionRank ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
