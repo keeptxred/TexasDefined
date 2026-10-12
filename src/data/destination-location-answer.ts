@@ -12,9 +12,13 @@ export function destinationLocationAnswer(input: {
     const place = countyLabel ? `${countyLabel}, Texas` : "Texas";
     return `${name} is a community in ${place}${regionName ? `, in the ${regionName} region` : ""}.`;
   }
-  const normalizedAddress = (address ?? "").toLowerCase().replace(/\s+/g, " ");
-  const localitySuffix = `, ${nearestTown.toLowerCase()}, tx`;
-  const isInTown = normalizedAddress.includes(localitySuffix);
-  const locality = nearestTown.trim() ? `${isInTown ? "in" : "near"} ${nearestTown}, Texas` : "in Texas";
+  // Postal cities include remote state parks outside municipal boundaries.
+  // Show the actual street/park-road address without claiming city-limit status.
+  const validAddress = (address ?? "").trim();
+  const isStreetAddress = /^\d+\s/.test(validAddress) || /^(?:FM|RR|CR|US|State Highway|County Road|Park Road)\s+\d/i.test(validAddress);
+  if (isStreetAddress) {
+    return `${name} is at ${validAddress}${countyLabel ? `, in ${countyLabel}` : ""}.`;
+  }
+  const locality = nearestTown.trim() ? `near ${nearestTown}, Texas` : "in Texas";
   return `${name} is ${locality}${countyLabel ? `, in ${countyLabel}` : ""}.`;
 }
