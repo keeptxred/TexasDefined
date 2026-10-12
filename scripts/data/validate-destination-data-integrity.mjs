@@ -97,7 +97,10 @@ for (const sourceMarker of [
   'works best as part of a trip built around the surrounding region',
   'Use the official visitor-information link on this page for the latest details',
 ]) {
-  if (!destinationQuality.includes(sourceMarker)) errors.push(`Destination quality fallback source marker changed without updating the indexing audit: ${sourceMarker}.`);
+  if (destinationQuality.includes(sourceMarker)) errors.push(`Generic copy is no longer permitted in destination quality enrichment: ${sourceMarker}.`);
+}
+for (const required of ['body: improved.body.filter(', 'summary: improved.summary', 'hero: improved.hero']) {
+  if (!destinationQuality.includes(required)) errors.push(`Destination curation must preserve original place-specific evidence: ${required}.`);
 }
 
 for (const feature of [
