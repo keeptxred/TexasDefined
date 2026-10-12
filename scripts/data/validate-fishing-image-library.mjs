@@ -138,6 +138,8 @@ const requiredLakes = [
   "lake-colorado-city",
   "lake-stamford",
   "lake-sweetwater",
+  "lake-georgetown",
+  "benbrook-lake",
 ];
 const parseTuple = (source, name) => {
   const match = source.match(new RegExp(`${name}\\s*=\\s*\\[([^\\]]+)\\]`, "s"));
