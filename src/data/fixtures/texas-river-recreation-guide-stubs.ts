@@ -9,6 +9,8 @@ const records = [
     "src": "/images/state-parks/garner-state-park.jpg",
     "alt": "Garner State Park on the upper Frio River in the Texas Hill Country",
     "credit": "Garner State Park · existing TexasDefined licensed image; source record in image catalog",
+    "width": 1600,
+    "height": 1067,
     "source": "https://tpwd.texas.gov/state-parks/garner",
     "name": "Frio River"
   },
@@ -18,7 +20,9 @@ const records = [
     "dek": "A practical New Braunfels Comal River guide distinguishing its short spring-fed municipal float corridor from the Guadalupe, with official access, local rules, conservation and nearby stays.",
     "src": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Comal_River_in_Landa_Park.jpg",
     "alt": "Comal River flowing through Landa Park in New Braunfels, Texas",
-    "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Comal_River_in_Landa_Park.jpg",
+    "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Comal_River_in_Landa_Park.jpg · License: https://creativecommons.org/licenses/by/4.0/",
+    "width": 1801,
+    "height": 1201,
     "source": "https://www.nbtexas.org/",
     "name": "Comal River"
   },
@@ -28,7 +32,9 @@ const records = [
     "dek": "A visitor guide from the protected spring-fed headwaters and urban river parks of San Marcos to the lower paddling reaches near Luling, including city rules, access, angling and camping alternatives.",
     "src": "https://upload.wikimedia.org/wikipedia/commons/4/45/San_Marcos_River_San_Marcos_Texas_2023.jpg",
     "alt": "San Marcos River at San Marcos with people enjoying the water in August 2023",
-    "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:San_Marcos_River_San_Marcos_Texas_2023.jpg",
+    "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:San_Marcos_River_San_Marcos_Texas_2023.jpg · License: https://creativecommons.org/licenses/by/4.0/",
+    "width": 3556,
+    "height": 2000,
     "source": "https://www.visitsanmarcos.com/san-marcos-river/",
     "name": "San Marcos River"
   },
@@ -39,6 +45,8 @@ const records = [
     "src": "/images/explore/lakes-rivers/south-llano-river-state-park.jpg",
     "alt": "South Llano River State Park and the Llano River watershed",
     "credit": "South Llano River State Park · existing TexasDefined image source catalog",
+    "width": 1600,
+    "height": 1067,
     "source": "https://tpwd.texas.gov/state-parks/south-llano-river",
     "name": "Llano River"
   },
@@ -48,7 +56,9 @@ const records = [
     "dek": "An evidence-led West Texas Pecos River guide from the New Mexico line through remote desert country to the Rio Grande and Amistad, with realistic access expectations, conservation and historical places.",
     "src": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Pecos_River.jpg",
     "alt": "Pecos River in the Lower Pecos canyon of Texas, photographed in 2005",
-    "credit": "Badener / Lutz Fischer-Lamprecht · CC BY-SA 3.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Pecos_River.jpg",
+    "credit": "Badener / Lutz Fischer-Lamprecht · CC BY-SA 3.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Pecos_River.jpg · License: https://creativecommons.org/licenses/by-sa/3.0/",
+    "width": 2048,
+    "height": 1536,
     "source": "https://www.nps.gov/amis/index.htm",
     "name": "Pecos River"
   }
@@ -56,7 +66,7 @@ const records = [
 export const texasRiverRecreationGuideStubs: Article[] = records.map((item) => ({
  id: "evergreen-" + item.slug, brandId: "texasdefined", slug: item.slug,
  title: item.title, dek: item.dek, category: "lakes-rivers",
- hero: { src: item.src, alt: item.alt, width: 1600, height: 1067, credit: item.credit },
+ hero: { src: item.src, alt: item.alt, width: item.width, height: item.height, credit: item.credit },
  authorId: "a-marisol", publishedAt: "2026-10-12", updatedAt: "2026-10-12", readingMinutes: 11,
  tags: [item.name, "Texas rivers", "river access", "fishing", "camping", "river tourism"],
  featured: false, sourceName: "Primary river operator / TPWD", sourceUrl: item.source,
