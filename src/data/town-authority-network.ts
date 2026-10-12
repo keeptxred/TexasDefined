@@ -14,6 +14,7 @@ import { smallTownWave12Destinations } from "./small-town-destinations-wave12";
 import { smallTownWave13Destinations } from "./small-town-destinations-wave13";
 import { smallTownWave14Destinations } from "./small-town-destinations-wave14";
 import { smallTownWave15Destinations } from "./small-town-destinations-wave15";
+import { TEXAS_CITIES } from "./texas-places";
 import type { Destination } from "./types";
 
 /** All existing researched town destinations are in scope, not a fixed shortlist.
@@ -175,9 +176,14 @@ export function townAuthorityCountyLinks(countySlug: string): TownLink[] {
 }
 export function townAuthorityCityLinks(citySlug: string): TownLink[] {
   const actual = citySlug === "gruene" || citySlug === "new-braunfels" ? "gruene-historic-district" : citySlug;
-  return TOWN_AUTHORITY_SLUGS.includes(actual)
-    ? [townLink(actual, townNames[actual], "Explore the independently researched town travel guide and linked local attractions.")]
-    : [];
+  if (TOWN_AUTHORITY_SLUGS.includes(actual)) {
+    return [townLink(actual, townNames[actual], "Explore the independently researched travel guide, local attractions and visitor logistics.")];
+  }
+  const city = TEXAS_CITIES.find((entry) => entry.slug === citySlug);
+  if (!city) return [];
+  const otherTowns = countyTowns[countyKey(city.county)] ?? [];
+  return otherTowns.slice(0, 3).map((slug) =>
+    townLink(slug, townNames[slug], "Explore a separately researched town in the same county, with its own history, attractions and visitor guidance."));
 }
 export function townAuthorityContextualLinks(destination: Pick<Destination, "slug" | "nearestTown" | "county" | "coordinates" | "region">): TownLink[] {
   const curated = pairedTowns[destination.slug] ?? [];
