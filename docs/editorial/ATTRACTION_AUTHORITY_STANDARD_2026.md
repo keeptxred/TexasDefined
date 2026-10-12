@@ -38,6 +38,20 @@ These are **starting prompts** for an editor. Individual attractions may need di
 - `src/data/destination-authority-audit.ts`: evaluates parking, restrooms and maps **only if explicitly prioritized for the destination**; separately suggests specific wheelchair/elevator/circulation verification for exhibition venues. This is a research/backlog tool, not a universal content generator.
 - `scripts/data/validate-sitewide-attraction-authority.mjs`: prevents reverting to the universal checklists and tests distinct presentation priorities for an aquarium versus a remote hiking site.
 
+## Existing-page cleanup applied through shared delivery
+
+The visitor-question principle is also enforced across the **existing canonical destination template**, not just future attraction records:
+
+- The visit planner no longer reprints highlights as a second generic section, nor creates a blanket "Visitor facilities" list.
+- A rental-car offer requires an actual driving-oriented road-trip record. References to a highway, airport, or town do not by themselves create a rental-car offer.
+- Citywide affiliate offers on place pages cannot be selected merely from the surrounding county or nearest-town name; only the named attraction's curated market or travel-centric town/road-trip records qualify.
+- The general destination enrichment pipeline preserves authored place-specific text instead of generating substitute boilerplate paragraphs or templated summary copy. The existing publication/indexing audit continues to flag weak records.
+- The universal "Best season" question is suppressed for indoor exhibition venues unless a dated/seasonal program actually changes visitor decisions. Editors can explicitly opt in or out for any destination using `editorialDisplay`.
+- Generic or empty advance-planning copy is no longer presented as a supposedly researched trip answer; substantive operator-confirmed guidance remains in place.
+- Sitewide validation protects these choices from accidental regression.
+
+**This is shared-template cleanup, not a claim that every custom museum, article, lake, park or standalone guide has been individually researched and accepted.** Those need evidence-based review of their own templates and source records before anyone certifies the entire site.
+
 ## What still requires editorial completion
 
 The live Supabase inventory, individually researched missing attractions, rights-cleared image collection, source-backed visitor decisions, useful internal links and final production QA require separate place-by-place evidence. Static audit scores do not certify first-hand review or publication quality.
