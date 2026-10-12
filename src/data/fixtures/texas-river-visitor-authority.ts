@@ -356,6 +356,59 @@ const RIVER_OFFICIAL: Record<string, ArticleInternalLink[]> = {
     {href:"https://www.nps.gov/amis/planyourvisit/conditions.htm",label:"NPS Amistad current alerts",description:"Check boat-ramp status, closures and changing lake levels."},
     {href:"https://tpwd.texas.gov/state-parks/seminole-canyon",label:"Seminole Canyon State Park",description:"Official visiting, cultural interpretation and campground information."}],
 };
+/** Exact official visitor starting points, not a claim of current open access. */
+const VERIFIED_ACCESS_DESK: Record<string, {places:string[]; source:string; note:string}> = {
+  guadalupe: {
+    places:["Nichol's Landing (Specht's Crossing), Old Spring Branch Road: official upper-river TPWD paddling put-in; alternate access at FM 311 crossing","Lake Wood Park near Gonzales: TPWD Come and Take It trail put-in downstream of H-5 Dam; this is a long advanced route, not a casual tubing loop"],
+    source:"https://tpwd.texas.gov/boating/paddling-trails/hill-country/upper-guadalupe/",
+    note:"TPWD's Upper Guadalupe–Nichol's Landing paddling trail describes a 9.9-mile reach; check flows, seasonal parking terms and reach suitability before launching."
+  },
+  frio: {
+    places:["Garner State Park: confirmed TPWD Frio River visitor area and official state-park campsite choices","Concan and Leakey: private outfitter and lodging base areas, NOT generalized public ramps"],
+    source:"https://tpwd.texas.gov/state-parks/garner",
+    note:"Contact TPWD or the actual outfitter about swimming zones and flows. Historic TPWD Frio river route descriptions are not evidence a private crossing remains open."
+  },
+  comal: {
+    places:["Prince Solms Park, 100 Liebscher, New Braunfels: official city-designated Comal river recreation access","Hinman Island Park: city-listed bring-your-own-tube entry option; do not assume free parking or a return shuttle"],
+    source:"https://www.newbraunfels.gov/comalriver",
+    note:"City Tube Chute, exits, float equipment rules and seasonal wristbands are subject to city policy. Recheck the official city site before traveling."
+  },
+  "san-marcos": {
+    places:["San Marcos City Park: city-managed recreation area; review posted park and river conditions","San Marcos River Retreat and Scull Rd Bridge Access: sites identified by the TPWD leased-access program; lease and operator terms must be confirmed before arrival"],
+    source:"https://tpwd.texas.gov/fishboat/fish/recreational/rivers/lease_access/index.phtml",
+    note:"Spring Lake is protected habitat and not an unrestricted public launch. Verify lease status because temporary public access contracts can expire."
+  },
+  llano: {
+    places:["Mainstem Llano at Castell Crossing: TPWD-listed leased river access; reconfirm active access and terms","South Llano at County Road 150 and Cupgrass: TPWD-listed leased access; not equivalent to public campground ownership"],
+    source:"https://tpwd.texas.gov/fishboat/fish/recreational/rivers/lease_access/index.phtml",
+    note:"TPWD's published river access maps distinguish Junction, Castell and Kingsland; check each river reach and any recently expired lease."
+  },
+  colorado: {
+    places:["Colorado Bend State Park: managed park destination for river-based recreation; use official entry and alerts","LCRA Highland Lakes operations: reservoir and dam information must inform choices on the Austin and downstream reaches"],
+    source:"https://tpwd.texas.gov/state-parks/colorado-bend",
+    note:"The Highland Lakes are segmented by dams. Do not present a reservoir-to-reservoir continuous paddling route."
+  },
+  brazos: {
+    places:["Brazos River Nature Center at Gholson: TPWD-listed leased river access downstream of Lake Whitney, with advance-arrival requirements and limited facilities","Brazos River Milam County sites: TPWD-described leased launch/take-out opportunity, subject to contact, gate and site-condition restrictions"],
+    source:"https://tpwd.texas.gov/fishboat/fish/recreational/rivers/lease_access/brazos_river_nature_center.phtml",
+    note:"The TPWD Brazos River Nature Center lease is currently described as running through August 31, 2027; this is a temporary contract, not a perpetual public easement."
+  },
+  neches: {
+    places:["Chandler River Park: TPWD-listed access on the Neches upstream of Lake Palestine","Village Creek State Park: protected watershed recreation on a tributary, not a mainstem Neches boat ramp"],
+    source:"https://tpwd.texas.gov/fishboat/fish/recreational/rivers/lease_access/index.phtml",
+    note:"Check current leased access and park rules; wooded floodplains can make entry impassable after rain."
+  },
+  sabine: {
+    places:["Grand Bluff Boat Ramp near Carthage: TPWD-listed access on the Sabine River","Toledo Bend and Lake Tawakoni: separate reservoir fisheries with facility-specific access; do not infer mainstem access from lake ramps"],
+    source:"https://tpwd.texas.gov/fishboat/fish/recreational/rivers/lease_access/index.phtml",
+    note:"Review TPWD's Sabine River waterbody-specific fishing exceptions before keeping fish, and distinguish Texas from Louisiana regulations."
+  },
+  pecos: {
+    places:["Pecos River ramp within Amistad National Recreation Area: consult NPS boating access and current conditions; its availability can be restricted by water level","Seminole Canyon State Park and the U.S. 90 high bridge: authorized land-based history and scenic stops, NOT casual boat launch locations"],
+    source:"https://www.nps.gov/amis/planyourvisit/boating.htm",
+    note:"Do not travel expecting the Pecos River ramp to be open; check current NPS ramp closure notices and avoid launching from bridge approaches."
+  }
+};
 const h = (text: string): ArticleBlock => ({ type: "heading", text });
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
 const list = (items: string[]): ArticleBlock => ({ type: "list", items });
@@ -379,6 +432,10 @@ function riverAuthoritySections(slug: string): ArticleBlock[] {
     p("Texas fishing requirements and special bag, length and waterbody rules change. For the September 1, 2026–August 31, 2027 license year consult TPWD directly; a river guide is not a substitute for the current regulation booklet. Look up fish-consumption advisories before keeping a catch."),
     h("Legal access, boat ramps and shoreline"),
     list(detail.access),
+    h("Named starting points: verify before arrival"),
+    list(VERIFIED_ACCESS_DESK[river.key].places),
+    p(VERIFIED_ACCESS_DESK[river.key].note),
+    p(`Official source for these locations: ${VERIFIED_ACCESS_DESK[river.key].source}. These are agency-listed reference points, not independently confirmed present-day openings; verify access, parking, ownership, closures and cost with the operator.`),
     p("Use the TPWD public river-access directory and the manager of the exact facility. Navigability does not itself grant a right to trespass across private land, park in a road shoulder or camp on any bank. Never rely on a bridge, satellite map or unverified social-media pin as proof of legal access."),
     h("Paddling, kayaking and tubing"),
     list(detail.paddle),
@@ -428,6 +485,7 @@ function riverAuthorityLinks(slug: string): ArticleInternalLink[] {
     ...neighbors, ...countyLinks,
     {href:BASIN_SOURCES[river.basin],label:"TWDB official basin profile",description:"Water geography and basin management context."},
     ...COMMON_SOURCES,
+    {href:VERIFIED_ACCESS_DESK[river.key].source,label:"Official named access starting points",description:VERIFIED_ACCESS_DESK[river.key].note},
     {href:"https://tpwd.texas.gov/fishboat/fish/recreational/rivers/",label:"TPWD river fishing and downloadable access maps",description:"River-specific fishing maps for San Marcos, Sabine, Llano, Neches, Colorado and other rivers."},
     ...(RIVER_OFFICIAL[river.key] ?? []),
   ];
