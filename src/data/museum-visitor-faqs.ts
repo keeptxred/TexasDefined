@@ -53,8 +53,8 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
     },
     {
       "question": "Does the Bullock Museum have a cafeteria or restaurant?",
-      "answer": "The museum has historically advertised the Story of Texas Café for casual on-site dining, not a separate formal table-service restaurant. Café operations can change; check the current museum dining information before relying on it for a meal.",
-      "verificationUrl": "https://www.thestoryoftexas.com/",
+      "answer": "Yes. The Bullock has The Star Cafe on its second floor, serving casual breakfast and lunch items, sandwiches, wraps, salads, coffee and snacks. This is a café with seating, not a separate formal table-service restaurant. The museum lists café hours as 10 a.m.–4 p.m., with hot food until 3 p.m.; museum admission is not required to eat there.",
+      "verificationUrl": "https://www.thestoryoftexas.com/visit/the-star-cafe",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.thestoryoftexas.com/",
       "reviewCycle": "monthly",
@@ -109,11 +109,11 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
     },
     {
       "question": "Where do you park for the Perot Museum?",
-      "answer": "The main visitor parking is Lot B under the Woodall Rodgers Freeway. The museum has published construction-related access changes, so follow its latest parking map instead of relying on an old navigation pin.",
+      "answer": "The main visitor parking is Lot B beneath Woodall Rodgers Freeway. The museum currently says Broom Street is CLOSED because of construction, so approach the garage via McKinney Avenue instead. Standard non-member parking is listed at $15 per vehicle, subject to change. Check the museum's current parking map before leaving.",
       "verificationUrl": "https://www.perotmuseum.org/visit/",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.perotmuseum.org/visit/",
-      "reviewCycle": "quarterly",
+      "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
     {
