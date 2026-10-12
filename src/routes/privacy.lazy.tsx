@@ -16,7 +16,7 @@ function PrivacyPolicyPage() {
           <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">
             This policy explains the information Texas Defined handles when you use the site, submit a form, shop, use interactive tools, or encounter advertising and analytics technologies.
           </p>
-          <p className="mt-4 text-sm text-muted-foreground">Last updated September 30, 2026.</p>
+          <p className="mt-4 text-sm text-muted-foreground">Last updated October 11, 2026.</p>
         </Container>
       </section>
 
@@ -96,6 +96,19 @@ function PrivacyPolicyPage() {
           </section>
 
           <section className="border-t border-border pt-6">
+            <h2 className="font-display text-3xl text-foreground">Business Network Applications, Listings, and Owner Accounts</h2>
+            <p className="mt-4">
+              When you apply to the TexasDefined Business Network, TexasDefined receives the business and contact information, descriptions, website and social links, submitted logos or images, plan selection, and required acceptance records you provide. Private application media and review information are used for application review, ownership verification, moderation, owner access, security, billing administration, and related service operations.
+            </p>
+            <p className="mt-3">
+              A submitted application is not public merely because it was received. If TexasDefined approves and publishes a listing, the approved public-facing business information and media become publicly accessible. Search engines, AI and answer systems, social networks, archives, directories, browsers, and other third parties may crawl, index, cache, excerpt, rank, display, or otherwise surface that public material. TexasDefined does not control third-party indexing or caching and cannot guarantee removal from third-party systems after a listing changes or is removed.
+            </p>
+            <p className="mt-3">
+              TexasDefined stores the version and cryptographic fingerprint of the Business Network Membership Terms accepted with an application and, for Plus checkout, a separate acceptance record tied to the verified owner account and recurring-billing disclosure. TexasDefined does not store full payment-card numbers; Stripe handles payment credentials and payment processing.
+            </p>
+          </section>
+
+          <section className="border-t border-border pt-6">
             <h2 className="font-display text-3xl text-foreground">Shop, Checkout, and Fulfillment</h2>
             <p className="mt-4">
               When you choose checkout, Texas Defined sends the selected product, variant, quantity, and related order information to the configured commerce service. Payment is completed through the checkout provider, and purchased items may be prepared and shipped by a print-production or fulfillment partner. Payment, tax, shipping, fraud-prevention, and fulfillment providers process information under their own terms and privacy practices.
@@ -116,6 +129,7 @@ function PrivacyPolicyPage() {
               <li>Use Google Ads Settings to manage personalized advertising choices.</li>
               <li>Decline optional consent choices when a consent message is presented.</li>
               <li>Do not submit optional forms if you do not want Texas Defined to receive the information requested by that form.</li>
+              <li>Business Network applicants should submit only business facts and media they are authorized to provide; approved public listing material may be indexed or cached by third-party discovery services.</li>
               <li>Do not include sensitive personal information in Ask Texas AI questions.</li>
             </ul>
           </section>
