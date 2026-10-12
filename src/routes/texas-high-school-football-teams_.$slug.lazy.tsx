@@ -525,13 +525,13 @@ function Page() {
           <h2 className="mt-2 font-display text-3xl">{editorial?.season ? '2026 results & schedule' : '2026 schedule & results sources'}</h2>
           {editorial?.season && <p className="mt-4 text-sm leading-7 text-muted-foreground">Season data checked {editorial.season.verifiedAt}. Recheck the school source before travel because kickoff times and venues can change.</p>}
         </div>
-        <div>
+        <div className="min-w-0">
           {editorial?.season ? <>
             <dl className="grid gap-px border border-border bg-border sm:grid-cols-2">
               <Snapshot label="Record when checked" value={editorial.season.record} />
               <Snapshot label="Season data verified" value={editorial.season.verifiedAt} />
             </dl>
-            <div className="mt-5 overflow-x-auto border-y border-border">
+            <div className="mt-5 w-full max-w-full overflow-x-auto border-y border-border">
               <table className="w-full min-w-[38rem] text-left text-sm">
                 <thead className="border-b border-border text-xs uppercase tracking-[0.1em] text-muted-foreground">
                   <tr><th className="px-3 py-3">Date</th><th className="px-3 py-3">Opponent</th><th className="px-3 py-3">Site</th><th className="px-3 py-3">Result / status</th></tr>

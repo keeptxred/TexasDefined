@@ -73,8 +73,8 @@ const check = (errors, condition, message) => { if (!condition) errors.push(mess
 const schoolPath = slug => '/texas-high-school-football-teams/' + slug;
 const tidy = text => String(text || '').trim().replace(/\s+/g, ' ');
 const pathname = href => { try { return new URL(href, origin).pathname.replace(/\/$/, ''); } catch { return ''; } };
-async function collect(page) {
-  return await page.evaluate(() => ({
+async function collect(page, expectedViewportWidth) {
+  return await page.evaluate((width) => ({
     title: document.title,
     h1: [...document.querySelectorAll('h1')].map(x => x.innerText.trim()),
     canonical: document.querySelector('link[rel=canonical]')?.href || '',
@@ -86,8 +86,8 @@ async function collect(page) {
     brokenImages: [...document.images].filter(x => x.complete && !x.naturalWidth && x.getBoundingClientRect().width > 0).map(x => x.currentSrc),
     missingImageAlts: [...document.images].filter(x => !x.hasAttribute('alt') && x.getBoundingClientRect().width > 0).map(x => x.currentSrc),
     documentWidth:document.documentElement.scrollWidth,
-    viewportWidth:window.innerWidth,
-  }));
+    viewportWidth:width,
+  }), expectedViewportWidth);
 }
 // A successful SSR H1 is not enough: React may briefly suspend the lazy
 // entity route during hydration. Wait for its post-hydration signal AND all
@@ -110,7 +110,7 @@ async function waitForReciprocalAuthority(page, slugs, timeout) {
 // accessibility, reciprocal-link, or hydration assertions. Both attempts
 // remain in report.json, and persistent errors always fail closed.
 const transientStatuses = new Set([502, 503, 504, 520, 521, 522, 523, 524]);
-async function visit(context, viewport, id, path, validate) {
+async function visit(context, viewport, expectedViewportWidth, id, path, validate) {
   const attempts = [];
   const canonicalPageUrl = origin + path;
   let finalResult = null;
@@ -136,7 +136,7 @@ async function visit(context, viewport, id, path, validate) {
       if (reciprocalSlugs) await waitForReciprocalAuthority(page, reciprocalSlugs, 45000);
       await page.waitForTimeout(900);
       if (reciprocalSlugs) await waitForReciprocalAuthority(page, reciprocalSlugs, 30000);
-      data = await collect(page);
+      data = await collect(page, expectedViewportWidth);
       validate(errors, data, status);
       check(errors, !runtime.length, 'client runtime errors: '+runtime.join(' | '));
       await page.screenshot({path:output+'/'+viewport+'-'+id+'.png',
@@ -175,7 +175,7 @@ try {
     contexts.push(context);
     for (const [slug,county] of roster) {
       const row = bySlug.get(slug);
-      await visit(context,viewport,'school-'+slug,schoolPath(slug),(err,d,status)=>{
+      await visit(context,viewport,width,'school-'+slug,schoolPath(slug),(err,d,status)=>{
         check(err,status===200,'non-200 school HTTP: '+status);
         check(err,d.h1.length===1,'expected exactly one H1');
         check(err,tidy(d.h1[0]).length>8,'missing specific school H1');
@@ -224,7 +224,7 @@ try {
     const countyToSlugs = new Map();
     for (const [slug,county] of roster) countyToSlugs.set(county,[...(countyToSlugs.get(county)||[]),slug]);
     for (const [county,slugs] of countyToSlugs) {
-      await visit(context,viewport,'county-'+county,'/county/'+county,(err,d,status)=>{
+      await visit(context,viewport,width,'county-'+county,'/county/'+county,(err,d,status)=>{
         check(err,status===200,'non-200 county HTTP: '+status);
         check(err,d.h1.length===1,'county H1 count not one');
         check(err,d.canonical===origin+'/county/'+county,'incorrect county canonical: '+d.canonical);
@@ -234,7 +234,7 @@ try {
       });
     }
     for (const { city, schools } of cityRoster) {
-      await visit(context,viewport,'city-'+city,'/city/'+city,(err,d,status)=>{
+      await visit(context,viewport,width,'city-'+city,'/city/'+city,(err,d,status)=>{
         check(err,status===200,'non-200 city HTTP: '+status);
         check(err,d.h1.length===1,'city H1 count not one');
         check(err,d.canonical===origin+'/city/'+city,'incorrect city canonical: '+d.canonical);
