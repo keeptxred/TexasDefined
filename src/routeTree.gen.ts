@@ -361,6 +361,7 @@ import { Route as ExploreNationalWildlifeRefugesRouteImport } from './routes/exp
 import { Route as ExploreMuseumsRouteImport } from './routes/explore.museums'
 import { Route as ExploreLighthousesRouteImport } from './routes/explore.lighthouses'
 import { Route as ExploreLandscapesRouteImport } from './routes/explore.landscapes'
+import { Route as ExploreHistoricChurchesRouteImport } from './routes/explore.historic-churches'
 import { Route as ExploreHillCountrySpringsRouteImport } from './routes/explore.hill-country-springs'
 import { Route as ExploreAttractionsComparisonRouteImport } from './routes/explore.attractions-comparison'
 import { Route as ExploreAquariumsRouteImport } from './routes/explore.aquariums'
@@ -495,6 +496,7 @@ import { Route as ExplorePaintedChurchesSlugRouteImport } from './routes/explore
 import { Route as ExploreNearMetroRouteImport } from './routes/explore.near.$metro'
 import { Route as ExploreLandscapesSlugRouteImport } from './routes/explore.landscapes.$slug'
 import { Route as ExploreLakeSlugRouteImport } from './routes/explore.lake.$slug'
+import { Route as ExploreHistoricChurchesSlugRouteImport } from './routes/explore.historic-churches.$slug'
 import { Route as ExploreCountyCountyRouteImport } from './routes/explore.county.$county'
 import { Route as ExploreCavernSlugRouteImport } from './routes/explore.cavern.$slug'
 import { Route as ApiPublicStoreProductsRouteImport } from './routes/api/public/store-products'
@@ -2756,6 +2758,11 @@ const ExploreLandscapesRoute = ExploreLandscapesRouteImport.update({
 } as any).lazy(() =>
   import('./routes/explore.landscapes.lazy').then((d) => d.Route),
 )
+const ExploreHistoricChurchesRoute = ExploreHistoricChurchesRouteImport.update({
+  id: '/explore/historic-churches',
+  path: '/explore/historic-churches',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExploreHillCountrySpringsRoute =
   ExploreHillCountrySpringsRouteImport.update({
     id: '/explore/hill-country-springs',
@@ -3569,6 +3576,12 @@ const ExploreLakeSlugRoute = ExploreLakeSlugRouteImport.update({
   path: '/explore/lake/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExploreHistoricChurchesSlugRoute =
+  ExploreHistoricChurchesSlugRouteImport.update({
+    id: '/$slug',
+    path: '/$slug',
+    getParentRoute: () => ExploreHistoricChurchesRoute,
+  } as any)
 const ExploreCountyCountyRoute = ExploreCountyCountyRouteImport.update({
   id: '/explore/county/$county',
   path: '/explore/county/$county',
@@ -3987,6 +4000,7 @@ export interface FileRoutesByFullPath {
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/historic-churches': typeof ExploreHistoricChurchesRouteWithChildren
   '/explore/landscapes': typeof ExploreLandscapesRouteWithChildren
   '/explore/lighthouses': typeof ExploreLighthousesRoute
   '/explore/museums': typeof ExploreMuseumsRoute
@@ -4163,6 +4177,7 @@ export interface FileRoutesByFullPath {
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/historic-churches/$slug': typeof ExploreHistoricChurchesSlugRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
   '/explore/landscapes/$slug': typeof ExploreLandscapesSlugRoute
   '/explore/near/$metro': typeof ExploreNearMetroRouteWithChildren
@@ -4495,6 +4510,7 @@ export interface FileRoutesByTo {
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/historic-churches': typeof ExploreHistoricChurchesRouteWithChildren
   '/explore/landscapes': typeof ExploreLandscapesRouteWithChildren
   '/explore/lighthouses': typeof ExploreLighthousesRoute
   '/explore/museums': typeof ExploreMuseumsRoute
@@ -4671,6 +4687,7 @@ export interface FileRoutesByTo {
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/historic-churches/$slug': typeof ExploreHistoricChurchesSlugRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
   '/explore/landscapes/$slug': typeof ExploreLandscapesSlugRoute
   '/explore/near/$metro': typeof ExploreNearMetroRouteWithChildren
@@ -5007,6 +5024,7 @@ export interface FileRoutesById {
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/historic-churches': typeof ExploreHistoricChurchesRouteWithChildren
   '/explore/landscapes': typeof ExploreLandscapesRouteWithChildren
   '/explore/lighthouses': typeof ExploreLighthousesRoute
   '/explore/museums': typeof ExploreMuseumsRoute
@@ -5183,6 +5201,7 @@ export interface FileRoutesById {
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/historic-churches/$slug': typeof ExploreHistoricChurchesSlugRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
   '/explore/landscapes/$slug': typeof ExploreLandscapesSlugRoute
   '/explore/near/$metro': typeof ExploreNearMetroRouteWithChildren
@@ -5520,6 +5539,7 @@ export interface FileRouteTypes {
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
     | '/explore/hill-country-springs'
+    | '/explore/historic-churches'
     | '/explore/landscapes'
     | '/explore/lighthouses'
     | '/explore/museums'
@@ -5696,6 +5716,7 @@ export interface FileRouteTypes {
     | '/api/public/store-products'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
+    | '/explore/historic-churches/$slug'
     | '/explore/lake/$slug'
     | '/explore/landscapes/$slug'
     | '/explore/near/$metro'
@@ -6028,6 +6049,7 @@ export interface FileRouteTypes {
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
     | '/explore/hill-country-springs'
+    | '/explore/historic-churches'
     | '/explore/landscapes'
     | '/explore/lighthouses'
     | '/explore/museums'
@@ -6204,6 +6226,7 @@ export interface FileRouteTypes {
     | '/api/public/store-products'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
+    | '/explore/historic-churches/$slug'
     | '/explore/lake/$slug'
     | '/explore/landscapes/$slug'
     | '/explore/near/$metro'
@@ -6539,6 +6562,7 @@ export interface FileRouteTypes {
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
     | '/explore/hill-country-springs'
+    | '/explore/historic-churches'
     | '/explore/landscapes'
     | '/explore/lighthouses'
     | '/explore/museums'
@@ -6715,6 +6739,7 @@ export interface FileRouteTypes {
     | '/api/public/store-products'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
+    | '/explore/historic-churches/$slug'
     | '/explore/lake/$slug'
     | '/explore/landscapes/$slug'
     | '/explore/near/$metro'
@@ -7032,6 +7057,7 @@ export interface RootRouteChildren {
   ExploreAquariumsRoute: typeof ExploreAquariumsRoute
   ExploreAttractionsComparisonRoute: typeof ExploreAttractionsComparisonRoute
   ExploreHillCountrySpringsRoute: typeof ExploreHillCountrySpringsRoute
+  ExploreHistoricChurchesRoute: typeof ExploreHistoricChurchesRouteWithChildren
   ExploreLandscapesRoute: typeof ExploreLandscapesRouteWithChildren
   ExploreLighthousesRoute: typeof ExploreLighthousesRoute
   ExploreMuseumsRoute: typeof ExploreMuseumsRoute
@@ -9647,6 +9673,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreLandscapesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/historic-churches': {
+      id: '/explore/historic-churches'
+      path: '/explore/historic-churches'
+      fullPath: '/explore/historic-churches'
+      preLoaderRoute: typeof ExploreHistoricChurchesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore/hill-country-springs': {
       id: '/explore/hill-country-springs'
       path: '/explore/hill-country-springs'
@@ -10585,6 +10618,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreLakeSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/historic-churches/$slug': {
+      id: '/explore/historic-churches/$slug'
+      path: '/$slug'
+      fullPath: '/explore/historic-churches/$slug'
+      preLoaderRoute: typeof ExploreHistoricChurchesSlugRouteImport
+      parentRoute: typeof ExploreHistoricChurchesRoute
+    }
     '/explore/county/$county': {
       id: '/explore/county/$county'
       path: '/explore/county/$county'
@@ -11121,6 +11161,20 @@ const TexasSymbolsRouteWithChildren = TexasSymbolsRoute._addFileChildren(
   TexasSymbolsRouteChildren,
 )
 
+interface ExploreHistoricChurchesRouteChildren {
+  ExploreHistoricChurchesSlugRoute: typeof ExploreHistoricChurchesSlugRoute
+}
+
+const ExploreHistoricChurchesRouteChildren: ExploreHistoricChurchesRouteChildren =
+  {
+    ExploreHistoricChurchesSlugRoute: ExploreHistoricChurchesSlugRoute,
+  }
+
+const ExploreHistoricChurchesRouteWithChildren =
+  ExploreHistoricChurchesRoute._addFileChildren(
+    ExploreHistoricChurchesRouteChildren,
+  )
+
 interface ExploreLandscapesRouteChildren {
   ExploreLandscapesSlugRoute: typeof ExploreLandscapesSlugRoute
 }
@@ -11611,6 +11665,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreAquariumsRoute: ExploreAquariumsRoute,
   ExploreAttractionsComparisonRoute: ExploreAttractionsComparisonRoute,
   ExploreHillCountrySpringsRoute: ExploreHillCountrySpringsRoute,
+  ExploreHistoricChurchesRoute: ExploreHistoricChurchesRouteWithChildren,
   ExploreLandscapesRoute: ExploreLandscapesRouteWithChildren,
   ExploreLighthousesRoute: ExploreLighthousesRoute,
   ExploreMuseumsRoute: ExploreMuseumsRoute,
