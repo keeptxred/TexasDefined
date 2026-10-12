@@ -76,8 +76,8 @@ for(const {id,email,app,account,name,city} of [
  {id:two.id,email:two.email,app:app2,account:account2,name:'GoTrue Owner Two Synthetic Business',city:'Austin'}
 ]){
  sql("INSERT INTO public.texasdefined_network_applications"+
- "(id,plan,status,business_name,category,city,contact_email,intake_complete,paid_entitlement_active) VALUES"+
- "('"+app+"','plus','published','"+name+"','Test','"+city+"','"+email+"',true,true);"+
+ "(id,plan,status,business_name,category,city,contact_email,intake_complete,paid_entitlement_active,terms_version,terms_snapshot_sha256,terms_accepted_at,representative_authority_accepted,facts_responsibility_accepted,media_responsibility_accepted,search_indexing_accepted) VALUES"+
+ "('"+app+"','plus','published','"+name+"','Test','"+city+"','"+email+"',true,true,'2026-10-11-v1','166b237dc2572da5195e1f5217ec51c8ecc83b73f68a080a16b4478e35f9a6a6',now(),true,true,true,true);"+
  "INSERT INTO public.texasdefined_network_business_accounts"+
  "(id,application_id,owner_user_id,membership_tier,access_enabled) VALUES"+
  "('"+account+"','"+app+"','"+id+"','featured',true);");
@@ -113,8 +113,8 @@ assert.equal(cross.json?.length,0,'Second user saw first owner private revision'
 // These fake documented verification claims MUST NOT be copied to production.
 const verifiedApp=randomUUID();
 sql("INSERT INTO public.texasdefined_network_applications"+
- "(id,plan,status,business_name,category,city,contact_email,intake_complete,paid_entitlement_active) VALUES"+
- "('"+verifiedApp+"','plus','approved','Synthetic Independent Verification','Test','Dallas','"+one.email+"',true,false);");
+ "(id,plan,status,business_name,category,city,contact_email,intake_complete,paid_entitlement_active,terms_version,terms_snapshot_sha256,terms_accepted_at,representative_authority_accepted,facts_responsibility_accepted,media_responsibility_accepted,search_indexing_accepted) VALUES"+
+ "('"+verifiedApp+"','plus','approved','Synthetic Independent Verification','Test','Dallas','"+one.email+"',true,false,'2026-10-11-v1','166b237dc2572da5195e1f5217ec51c8ecc83b73f68a080a16b4478e35f9a6a6',now(),true,true,true,true);");
 const provisionParams={
  p_application_id:verifiedApp,p_user_id:one.id,
  p_method:'registry_documents',
@@ -166,8 +166,8 @@ const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42
    A pending incomplete record MUST NOT create a receipt or publish by itself. */
 const interruptedApp=randomUUID(), interruptedEmail='interrupted-'+rand+'@example.invalid';
 sql("INSERT INTO public.texasdefined_network_applications"+
- "(id,plan,status,business_name,category,city,contact_email) VALUES"+
- "('"+interruptedApp+"','plus','pending_review','Interrupted Local Application','Test','Houston','"+interruptedEmail+"');");
+ "(id,plan,status,business_name,category,city,contact_email,terms_version,terms_snapshot_sha256,terms_accepted_at,representative_authority_accepted,facts_responsibility_accepted,media_responsibility_accepted,search_indexing_accepted) VALUES"+
+ "('"+interruptedApp+"','plus','pending_review','Interrupted Local Application','Test','Houston','"+interruptedEmail+"','2026-10-11-v1','166b237dc2572da5195e1f5217ec51c8ecc83b73f68a080a16b4478e35f9a6a6',now(),true,true,true,true);");
 const receiptForInterrupted=() => sql("SELECT COUNT(*) FROM public.texasdefined_network_email_outbox "+
  "WHERE event_key='application:"+interruptedApp+":received';");
 assert.equal(receiptForInterrupted(),'0','Unfinished intake enqueued an email receipt');
