@@ -1,3 +1,4 @@
+import { applyNewlyOpenedStateParkAuthority } from "./newly-opened-state-parks-2026";
 import { applyVerifiedStateParkHeadquarters } from "./state-park-verified-locations";
 import { applyStateParkAuthorityRecovery } from "./state-park-authority-recovery";
 import { applyCuratedDestination } from "./destination-curation";
@@ -157,6 +158,7 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyMoodyGardensCurrentCuration,
   applyStateParkAuthorityRecovery,
   applyVerifiedStateParkHeadquarters,
+  applyNewlyOpenedStateParkAuthority,
 ];
 
 function runCurators(destination: Destination): Destination {
