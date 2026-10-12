@@ -171,3 +171,31 @@ The audit is *open* until each page has source-checked, park/ramps/campground vi
 ## Repeatability
 
 Run `node scripts/data/audit-texas-lake-authority.mjs` for a structural invariant check; `node scripts/data/audit-texas-lake-authority.mjs --write` regenerates the machine-readable JSON inventory. Keep P1/P2 deficits visible; **do not lower standards simply to make counts appear complete.**
+
+## Facility-depth expansion — October 12 remediation batch
+
+After the initial static 52-row snapshot was generated, the team cross-checked 13 additional statewide-template lakes against TPWD's **individual public access inventories** and added **54 named facility records** to the existing guide template. The two new Lake Stamford/Lake Sweetwater guides already carried their own named facilities and are not included in this increment.
+
+| Lake | Added TPWD-described access facilities |
+|---|---:|
+| Lake LBJ | 2 |
+| Lewisville Lake | 6 |
+| Grapevine Lake | 6 |
+| Lake Lavon | 6 |
+| Lake Palestine | 7 |
+| Lake Buchanan | 3 |
+| Ray Roberts Lake | 4 |
+| Joe Pool Lake | 4 |
+| Lake Arrowhead | 3 |
+| Lake Brownwood | 3 |
+| Belton Lake | 3 |
+| Lake Waco | 3 |
+| Lake Bridgeport | 4 |
+| **Total newly researched** | **54** |
+
+The source pointers are the TPWD lake-specific access pages at `https://tpwd.texas.gov/fishboat/fish/recreational/lakes/{lake-id}/access.phtml`, including TPWD's more detailed `access2.phtml` inventory for Palestine, Lewisville and Lavon. The records include access roads, lanes, parking, fee status when listed, operator and specific limitations. **They are dated TPWD listings, not direct day-of-trip operator verification**. Fees and contact numbers may be historical; the guide and official-source links explicitly tell visitors to recheck.
+
+After this first batch, **15/37** statewide-template guides have named facility records (previously 2/37), and **22/37** still use generic access inventory links. The initial row-by-row matrix above is a baseline snapshot and should not be mistaken for the post-remediation access tally. A facility-map search link was added for each named record and clearly labeled as a search that requires entrance confirmation, not a precise surveyed map pin.
+
+Further gaps remain: full ramp inventories beyond those selected sites; additional named campgrounds, exact map entrance coordinates, current fee confirmation, water-quality advisories, original photographs and source-backed lake history across the rest of the network. These must not be silently declared complete.
+
