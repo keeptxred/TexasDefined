@@ -1,5 +1,6 @@
 import type { Region } from "@/data/types";
 import { REGION_AUTHORITY_OVERVIEWS } from "@/data/region-authority-overviews";
+import { REGION_AUTHORITY_DEPTH } from "@/data/region-authority-depth";
 import { Container } from "@/components/layout/Container";
 
 export function RegionAuthorityGuide({ region }: { region: Region }) {
@@ -20,6 +21,14 @@ export function RegionAuthorityGuide({ region }: { region: Region }) {
               <h4 className="font-display text-xl">{name}</h4>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">{description}</p>
             </div>
+          ))}
+        </div>
+        <div className="mt-10 max-w-4xl">
+          {REGION_AUTHORITY_DEPTH[region.id].map((section) => (
+            <section key={section.heading} className="mt-10">
+              <h3 className="font-display text-2xl">{section.heading}</h3>
+              <p className="mt-3 text-base leading-8 text-muted-foreground">{section.body}</p>
+            </section>
           ))}
         </div>
         <h3 className="mt-10 font-display text-2xl">Season, access and safety</h3>
