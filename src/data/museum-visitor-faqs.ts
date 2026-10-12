@@ -147,8 +147,8 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
     },
     {
       "question": "Does the Witte Museum have a cafeteria, café or full restaurant?",
-      "answer": "The Tremblay Family Café in the historic José Francisco Ruiz House offers food and snacks with indoor and outdoor seating. It is a casual museum café rather than an independent full-service restaurant; check current offerings before your visit.",
-      "verificationUrl": "https://www.wittemuseum.org/wp-content/uploads/2026/02/1.9.26_VisitorGuide.pdf",
+      "answer": "The Witte has the Tremblay Family Café, but its current official visitor information says the café is CLOSED for renovation. Do not plan on eating there until the museum announces reopening. The Witte allows food and drink only in designated outdoor picnic areas, not inside museum galleries.",
+      "verificationUrl": "https://www.wittemuseum.org/plan-your-visit/",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.wittemuseum.org/wp-content/uploads/2026/02/1.9.26_VisitorGuide.pdf",
       "reviewCycle": "monthly",
