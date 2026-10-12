@@ -41,6 +41,9 @@ const AUTHORITY_GUIDE_DESTINATION_SLUGS = new Set([
   SAM_HOUSTON_MUSEUM_SLUG,
   "whirlyball-hurst",
   "my-story-museum-crystal-city",
+  "enchanted-rock-state-natural-area",
+  "fossil-rim-wildlife-center",
+  "texas-state-aquarium",
 ]);
 
 const AREA_GROUPS: Array<{
