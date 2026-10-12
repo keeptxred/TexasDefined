@@ -201,6 +201,12 @@
       "name": "Benbrook Lake"
     }
   ],
+  "dallas": [
+    {
+      "slug": "white-rock-lake",
+      "name": "White Rock Lake"
+    }
+  ],
   "decatur": [
     {
       "slug": "lake-bridgeport",
