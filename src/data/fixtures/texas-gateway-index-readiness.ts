@@ -41,8 +41,9 @@ export const SEASONAL_INTENT_INDEX_READY_SLUGS = new Set<string>([
 export const AUTHORITY_GUIDE_STANDARD_EFFECTIVE = "2026-10-12";
 export function isNewAuthorityGuideCandidate(article: Article): boolean {
   return article.brandId === "texasdefined"
-    && article.publishedAt >= AUTHORITY_GUIDE_STANDARD_EFFECTIVE
-    && (/\bbest\b|\bguide\b|\bfield guide\b/i.test(article.title) || article.tags.includes("authority-guide"));
+    && (article.id.startsWith("texas-high-intent-")
+      || (article.publishedAt > AUTHORITY_GUIDE_STANDARD_EFFECTIVE
+        && (/\bbest\b|\bguide\b|\bfield guide\b/i.test(article.title) || article.tags.includes("authority-guide"))));
 }
 export function meetsNewAuthorityGuideStandard(article: Article): boolean {
   if (!isNewAuthorityGuideCandidate(article)) return true;
