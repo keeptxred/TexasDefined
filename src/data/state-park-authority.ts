@@ -121,6 +121,15 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     camping: "TPWD lists 12 electric campsites, three electric tent-only sites, two water sites and five primitive sites. Exact access, reservation methods and showers vary by category.",
     maps: "TPWD publishes park and trails maps; the history of Mission San Francisco de los Tejas and Rice Family Log Home is interpreted through separate visitor materials.",
   },
+  "hill-country-state-natural-area": {
+    checkedAt: "2026-10-12",
+    sourceUrl: "https://tpwd.texas.gov/state-parks/hill-country/fees-facilities/campsites",
+    restrooms: "West Verde Creek and Chaquita Falls walk-in camps have chemical toilets nearby; Comanche Bluff has vault toilets nearby. TPWD has not verified an equivalent restroom at each remote wilderness campsite.",
+    parking: "West Verde Creek campsites require carrying equipment up to 50 yards from parking, Comanche Bluff up to 25 yards and Chaquita Falls up to 75 yards. Backcountry sites can require hikes of 2.3–3.25 miles.",
+    camping: "Three West Verde Creek, three Comanche Bluff and four Chaquita Falls creekside walk-in sites have water nearby. Butterfly Springs (2 sites), Hermit's Shack (3) and Wilderness (5) hike-in areas have NO water and prohibit ground fires.",
+    access: "October 5, 2026 official alert reported all trails open but an active burn ban. Mud can close trails after rain. Park office 8:15 a.m.–4:45 p.m.; reserve day-use ahead.",
+    maps: "TPWD provides the separate park and trail maps, interpretive guide and bird checklist.",
+  },
   "palo-pinto-mountains-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/palo-pinto-mountains/fees-facilities/campsites",
