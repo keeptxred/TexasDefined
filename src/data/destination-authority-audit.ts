@@ -72,9 +72,12 @@ export function auditAttractionAuthority(destination: Destination, now = new Dat
 
   // Judge editorial depth by what the page actually teaches, not by requiring
   // identical FAQ counts or exactly three itineraries for each type of place.
-  const contextualBodyLength = destination.body.join(" ").trim().length;
-  if (!destination.authorityGuide?.whyItMatters && contextualBodyLength < 950)
-    add("visitor-context-missing", "The guide needs more distinctive, sourced context or practical decisions relevant to this particular visit.", "high");
+  // Do not force a fixed word or itinerary count on unrelated place types.
+  // Unresearchable generic filler is a problem, but short, useful material is
+  // not cured merely by adding more words.
+  const narrative = [destination.summary, ...destination.body].join(" ").toLowerCase();
+  if (/those details make it easier to decide whether this stop fits|works best as part of a trip built around the surrounding region|is a texas destination/.test(narrative))
+    add("visitor-context-missing", "Generic filler remains in the visitor narrative; replace it with useful, source-backed facts chosen for this specific location.", "high");
   if (destination.authorityGuide && !destination.authorityGuide.sources.some(source => validUrl(source.url)))
     add("primary-citation-missing", "Existing authority claims need supporting primary/institutional citations.", "high");
 
