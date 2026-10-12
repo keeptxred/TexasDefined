@@ -66,6 +66,8 @@ export const STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS = [
   "lake-casa-blanca",
   "lake-mineral-wells",
   "lake-colorado-city",
+  "lake-stamford",
+  "lake-sweetwater",
 ] as const;
 
 export const COMPLETE_FISHING_LAKE_SLUGS = [

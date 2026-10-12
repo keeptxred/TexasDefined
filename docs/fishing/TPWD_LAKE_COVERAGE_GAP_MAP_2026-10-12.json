@@ -1,0 +1,1261 @@
+{
+  "date": "2026-10-12",
+  "officialDirectory": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
+  "officialEntries": 175,
+  "completedGuideMatches": 52,
+  "gaps": 123,
+  "listing": [
+    {
+      "letter": "A",
+      "tpwdListingName": "Abilene",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "A",
+      "tpwdListingName": "Alan Henry",
+      "texasDefinedGuideSlug": "alan-henry-reservoir",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "A",
+      "tpwdListingName": "Alvarado Park",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "A",
+      "tpwdListingName": "Amistad",
+      "texasDefinedGuideSlug": "amistad-reservoir",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "A",
+      "tpwdListingName": "Amon G. Carter",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "A",
+      "tpwdListingName": "Aquilla",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "A",
+      "tpwdListingName": "Arlington",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "A",
+      "tpwdListingName": "Arrowhead",
+      "texasDefinedGuideSlug": "lake-arrowhead",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "A",
+      "tpwdListingName": "Athens",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "A",
+      "tpwdListingName": "Austin",
+      "texasDefinedGuideSlug": "lake-austin",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "A",
+      "tpwdListingName": "Averhoff",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "B.A. Steinhagen",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Bachman",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Balmorhea",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Bardwell",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Bastrop",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Baylor Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Belton",
+      "texasDefinedGuideSlug": "belton-lake",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Benbrook",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Big Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Bob Sandlin",
+      "texasDefinedGuideSlug": "lake-bob-sandlin",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Bois d'Arc",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Bonham",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Bonham State Park",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Brady Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Brandy Branch",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Braunig",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Brazos",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Bridgeport",
+      "texasDefinedGuideSlug": "lake-bridgeport",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Brownwood",
+      "texasDefinedGuideSlug": "lake-brownwood",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Bryan",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Bryson",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Buchanan",
+      "texasDefinedGuideSlug": "lake-buchanan",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Buffalo Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "B",
+      "tpwdListingName": "Buffalo Springs",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Caddo",
+      "texasDefinedGuideSlug": "caddo-lake",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Calaveras",
+      "texasDefinedGuideSlug": "calaveras-lake",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Canyon",
+      "texasDefinedGuideSlug": "canyon-lake",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Casa Blanca",
+      "texasDefinedGuideSlug": "lake-casa-blanca",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Cedar Creek",
+      "texasDefinedGuideSlug": "cedar-creek-reservoir",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Champion Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Choke Canyon",
+      "texasDefinedGuideSlug": "choke-canyon-reservoir",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Cisco",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Cleburne State Park",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Clyde",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Coffee Mill",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Coleman",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Coleto Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Colorado City",
+      "texasDefinedGuideSlug": "lake-colorado-city",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Comanche Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Conroe",
+      "texasDefinedGuideSlug": "lake-conroe",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Corpus Christi",
+      "texasDefinedGuideSlug": "lake-corpus-christi",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Crook",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "C",
+      "tpwdListingName": "Cypress Springs",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "D",
+      "tpwdListingName": "Daniel",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "D",
+      "tpwdListingName": "Davy Crockett",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "D",
+      "tpwdListingName": "Dunlap",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "E",
+      "tpwdListingName": "Eagle Mountain",
+      "texasDefinedGuideSlug": "eagle-mountain-lake",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "E",
+      "tpwdListingName": "E. V. Spence",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "F",
+      "tpwdListingName": "Falcon",
+      "texasDefinedGuideSlug": "falcon-international-reservoir",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "F",
+      "tpwdListingName": "Fayette County",
+      "texasDefinedGuideSlug": "fayette-county-reservoir",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "F",
+      "tpwdListingName": "Findley",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "F",
+      "tpwdListingName": "Fork",
+      "texasDefinedGuideSlug": "lake-fork",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "F",
+      "tpwdListingName": "Fort Parker State Park",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "F",
+      "tpwdListingName": "Fort Phantom Hill",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "F",
+      "tpwdListingName": "Fryer",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "G",
+      "tpwdListingName": "Georgetown",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "G",
+      "tpwdListingName": "Gilmer",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "G",
+      "tpwdListingName": "Gladewater",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "G",
+      "tpwdListingName": "Gonzales",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "G",
+      "tpwdListingName": "Graham",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "G",
+      "tpwdListingName": "Granbury",
+      "texasDefinedGuideSlug": "lake-granbury",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "G",
+      "tpwdListingName": "Granger",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "G",
+      "tpwdListingName": "Grapevine",
+      "texasDefinedGuideSlug": "grapevine-lake",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "G",
+      "tpwdListingName": "Greenbelt",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "H",
+      "tpwdListingName": "Halbert",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "H",
+      "tpwdListingName": "Hawkins",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "H",
+      "tpwdListingName": "Holbrook",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "H",
+      "tpwdListingName": "Hords Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "H",
+      "tpwdListingName": "Houston",
+      "texasDefinedGuideSlug": "lake-houston",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "H",
+      "tpwdListingName": "Houston County",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "H",
+      "tpwdListingName": "Hubbard Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "I",
+      "tpwdListingName": "Inks",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "J",
+      "tpwdListingName": "Jacksboro",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "J",
+      "tpwdListingName": "Jacksonville",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "J",
+      "tpwdListingName": "J.B. Thomas",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "J",
+      "tpwdListingName": "Jim Chapman",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "J",
+      "tpwdListingName": "Joe Pool",
+      "texasDefinedGuideSlug": "joe-pool-lake",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "K",
+      "tpwdListingName": "Kemp",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "K",
+      "tpwdListingName": "Kickapoo",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "K",
+      "tpwdListingName": "Kirby",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "K",
+      "tpwdListingName": "Kurth",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "L",
+      "tpwdListingName": "Lady Bird",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "L",
+      "tpwdListingName": "Lake O' The Pines",
+      "texasDefinedGuideSlug": "lake-o-the-pines",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "L",
+      "tpwdListingName": "Lavon",
+      "texasDefinedGuideSlug": "lake-lavon",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "L",
+      "tpwdListingName": "Leon",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "L",
+      "tpwdListingName": "Lewisville",
+      "texasDefinedGuideSlug": "lewisville-lake",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "L",
+      "tpwdListingName": "Limestone",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "L",
+      "tpwdListingName": "Livingston",
+      "texasDefinedGuideSlug": "lake-livingston",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "L",
+      "tpwdListingName": "Lone Star",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "L",
+      "tpwdListingName": "Lost Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "L",
+      "tpwdListingName": "Lyndon B. Johnson",
+      "texasDefinedGuideSlug": "lake-lbj",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "M",
+      "tpwdListingName": "Mackenzie",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "M",
+      "tpwdListingName": "Marble Falls",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "M",
+      "tpwdListingName": "Marine Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "M",
+      "tpwdListingName": "Martin Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "M",
+      "tpwdListingName": "McClellan",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "M",
+      "tpwdListingName": "Medina",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "M",
+      "tpwdListingName": "Meredith",
+      "texasDefinedGuideSlug": "lake-meredith",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "M",
+      "tpwdListingName": "Meridian State Park",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "M",
+      "tpwdListingName": "Mexia",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "M",
+      "tpwdListingName": "Mill Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "M",
+      "tpwdListingName": "Millers Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "M",
+      "tpwdListingName": "Mineral Wells",
+      "texasDefinedGuideSlug": "lake-mineral-wells",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "M",
+      "tpwdListingName": "Monticello",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "M",
+      "tpwdListingName": "Moss",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "M",
+      "tpwdListingName": "Muenster",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "M",
+      "tpwdListingName": "Murvaul",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "N",
+      "tpwdListingName": "Nacogdoches",
+      "texasDefinedGuideSlug": "lake-nacogdoches",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "N",
+      "tpwdListingName": "Naconiche",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "N",
+      "tpwdListingName": "Nasworthy",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "N",
+      "tpwdListingName": "Navarro Mills",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "N",
+      "tpwdListingName": "New Ballinger",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "N",
+      "tpwdListingName": "Nocona",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "O",
+      "tpwdListingName": "Oak Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "O",
+      "tpwdListingName": "O.C. Fisher",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "O",
+      "tpwdListingName": "O.H. Ivie",
+      "texasDefinedGuideSlug": "o-h-ivie-lake",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "P",
+      "tpwdListingName": "Palestine",
+      "texasDefinedGuideSlug": "lake-palestine",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "P",
+      "tpwdListingName": "Palo Duro",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "P",
+      "tpwdListingName": "Palo Pinto",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "P",
+      "tpwdListingName": "Pat Cleburne",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "P",
+      "tpwdListingName": "Pat Mayse",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "P",
+      "tpwdListingName": "Pinkston",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "P",
+      "tpwdListingName": "Placid",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "P",
+      "tpwdListingName": "Possum Kingdom",
+      "texasDefinedGuideSlug": "possum-kingdom-reservoir",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "P",
+      "tpwdListingName": "Proctor",
+      "texasDefinedGuideSlug": "proctor-lake",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "P",
+      "tpwdListingName": "Purtis Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "Q",
+      "tpwdListingName": "Quitman",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "R",
+      "tpwdListingName": "Raven",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "R",
+      "tpwdListingName": "Ray Hubbard",
+      "texasDefinedGuideSlug": "lake-ray-hubbard",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "R",
+      "tpwdListingName": "Ray Roberts",
+      "texasDefinedGuideSlug": "ray-roberts-lake",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "R",
+      "tpwdListingName": "Red Bluff",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "R",
+      "tpwdListingName": "Richland-Chambers",
+      "texasDefinedGuideSlug": "richland-chambers-reservoir",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "S",
+      "tpwdListingName": "Sam Rayburn",
+      "texasDefinedGuideSlug": "sam-rayburn-reservoir",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "S",
+      "tpwdListingName": "Sheldon",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "S",
+      "tpwdListingName": "Somerville",
+      "texasDefinedGuideSlug": "lake-somerville",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "S",
+      "tpwdListingName": "Stamford",
+      "texasDefinedGuideSlug": "lake-stamford",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "S",
+      "tpwdListingName": "Stillhouse Hollow",
+      "texasDefinedGuideSlug": "stillhouse-hollow-reservoir",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "S",
+      "tpwdListingName": "Striker",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "S",
+      "tpwdListingName": "Sulphur Springs",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "S",
+      "tpwdListingName": "Sweetwater",
+      "texasDefinedGuideSlug": "lake-sweetwater",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "T",
+      "tpwdListingName": "Tawakoni",
+      "texasDefinedGuideSlug": "lake-tawakoni",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "T",
+      "tpwdListingName": "Texana",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "T",
+      "tpwdListingName": "Texoma",
+      "texasDefinedGuideSlug": "lake-texoma",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "T",
+      "tpwdListingName": "Timpson",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "T",
+      "tpwdListingName": "Toledo Bend",
+      "texasDefinedGuideSlug": "toledo-bend-reservoir",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "T",
+      "tpwdListingName": "Tradinghouse Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "T",
+      "tpwdListingName": "Travis",
+      "texasDefinedGuideSlug": "lake-travis",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "T",
+      "tpwdListingName": "Twin Buttes",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "T",
+      "tpwdListingName": "Tyler",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "W",
+      "tpwdListingName": "Waco",
+      "texasDefinedGuideSlug": "lake-waco",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "W",
+      "tpwdListingName": "Walter E. Long",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "W",
+      "tpwdListingName": "Waxahachie",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "W",
+      "tpwdListingName": "Weatherford",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "W",
+      "tpwdListingName": "Welsh",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "W",
+      "tpwdListingName": "Wheeler Branch",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "W",
+      "tpwdListingName": "White River",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "W",
+      "tpwdListingName": "White Rock",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "W",
+      "tpwdListingName": "Whitney",
+      "texasDefinedGuideSlug": "lake-whitney",
+      "coverage": "complete-fishing-guide",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "W",
+      "tpwdListingName": "Wichita",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "W",
+      "tpwdListingName": "Winnsboro",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "W",
+      "tpwdListingName": "Winters-Elm Creek",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "W",
+      "tpwdListingName": "Wood",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "W",
+      "tpwdListingName": "Worth",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    },
+    {
+      "letter": "W",
+      "tpwdListingName": "Wright Patman",
+      "texasDefinedGuideSlug": null,
+      "coverage": "gap",
+      "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
+    }
+  ],
+  "highPriorityResearchCandidates": [
+    "Benbrook",
+    "Georgetown",
+    "Athens",
+    "Tyler",
+    "White Rock",
+    "Lady Bird",
+    "Worth",
+    "Medina",
+    "Nasworthy",
+    "O.C. Fisher",
+    "Limestone",
+    "Cypress Springs",
+    "Coleman",
+    "Weatherford",
+    "Wright Patman",
+    "Bois d'Arc",
+    "Jacksonville",
+    "Bardwell",
+    "Greenbelt",
+    "Fort Phantom Hill"
+  ],
+  "notes": [
+    "Listing has park entries and aliases; not all rows are unique reservoirs",
+    "Gap means no completed fishing-guide registry entry, not no reference anywhere on site",
+    "Do not create thin pages; independently source facilities, rights and uniqueness"
+  ]
+}
