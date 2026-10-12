@@ -10,6 +10,7 @@ const read = (path) => fs.readFileSync(path, "utf8");
 const authority = read("src/data/state-park-authority.ts");
 const headquarters = read("src/data/state-park-verified-locations.ts");
 const newOpenings = read("src/data/newly-opened-state-parks-2026.ts");
+const historicCanonical = read("src/data/canonical-historic-state-parks.ts");
 const recovery = read("src/data/state-park-authority-recovery.ts");
 const planner = read("src/components/editorial/DestinationVisitPlanner.tsx");
 const essentials = read("src/components/editorial/StateParkVisitorEssentials.tsx");
@@ -43,6 +44,11 @@ assertContains(newOpenings, 'slug: "palo-pinto-mountains-state-park"', "March 20
 assertContains(newOpenings, 'CC BY 3.0', "New state park hero must have source-confirmed license");
 assertContains(preserved, "newlyOpenedStateParks2026,", "2026 opening must resolve even when remote Explore is unavailable");
 assertContains(curation, "applyNewlyOpenedStateParkAuthority,", "Do not overwrite 2026 research with older short imported copy");
+for (const slug of ["goliad-state-park-and-historic-site", "hueco-tanks-state-park-and-historic-site", "lyndon-b-johnson-state-park-and-historic-site"]) {
+  assertContains(historicCanonical, `to: "${slug}"`, `Missing verified historic state park primary canonical path ${slug}`);
+}
+assertContains(preserved, "canonicalHistoricStateParkDestinations,", "Canonical historic parks missing from resilient Explore catalog");
+assertContains(curation, "applyCanonicalHistoricStatePark,", "Canonical historic research must override legacy short curation");
 const required = [
   "fort-richardson-state-park-state-historic-site",
   "seminole-canyon-state-park-and-historic-site",
