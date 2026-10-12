@@ -386,7 +386,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
       {
         title: 'Public transportation',
-        summary: 'CapMetro operates Austin bus and commuter-rail service. Its Rapid 800 Pleasant Valley and Rapid 837 Expo Center bus corridors reached full frequency on June 7, 2026, improving connections east of I-35. Austin Light Rail is a future project, not an operating service; verify current routes, transfers, airport service and construction impacts with CapMetro's live trip planner.',
+        summary: 'CapMetro operates Austin bus and commuter-rail service. Its Rapid 800 Pleasant Valley and Rapid 837 Expo Center bus corridors reached full frequency on June 7, 2026, improving connections east of I-35. Austin Light Rail is a future project, not an operating service; verify current routes, transfers, airport service and construction impacts with CapMetro’s live trip planner.',
         links: [{ label: 'CapMetro', href: 'https://www.capmetro.org/' }],
       },
       {
