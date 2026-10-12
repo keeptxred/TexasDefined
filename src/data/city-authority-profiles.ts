@@ -386,7 +386,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
       {
         title: 'Public transportation',
-        summary: 'CapMetro is the public-transit agency for Austin and Central Texas, operating bus, rail and other mobility services. Use live system information for routes and schedules.',
+        summary: 'CapMetro operates Austin bus and commuter-rail service. Its Rapid 800 Pleasant Valley and Rapid 837 Expo Center bus corridors reached full frequency on June 7, 2026, improving connections east of I-35. Austin Light Rail is a future project, not an operating service; verify current routes, transfers, airport service and construction impacts with CapMetro’s live trip planner.',
         links: [{ label: 'CapMetro', href: 'https://www.capmetro.org/' }],
       },
       {
@@ -641,7 +641,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
       {
         title: 'Public transportation',
-        summary: 'Arlington uses a citywide on-demand rideshare transit model rather than a traditional fixed-route city bus network. The service also connects riders with the TRE CentrePort area for regional connections.',
+        summary: 'Arlington On-Demand operates shared rides through the Arlington Transportation app, not a conventional fixed-route city bus network. The service connects Arlington with CentrePort TRE Station and the Eastchase area in Fort Worth for regional transfers; the city lists Monday–Saturday service, with no regular Sunday rides. Verify the service area, current hours, fares and pickup location directly before planning a trip.',
         links: [{ label: 'Arlington On-Demand', href: 'https://www.arlingtontx.gov/City-Services/Transportation-Streets-Traffic/Arlington-On-Demand' }],
       },
       {
@@ -897,7 +897,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
       {
         title: 'Public transportation',
-        summary: 'Plano is connected to the wider North Texas transit network through DART. Use DART’s current maps and trip-planning tools for rail, bus and other service information.',
+        summary: 'Plano is served by DART rail, bus and on-demand GoLink. DART expanded Plano GoLink zones on October 5, 2026, including a new Southwest Plano zone and connections with the Silver Line and major transit centers. GoLink is organized by service zone, not one unrestricted citywide ride area; check the exact address, operating hours, transfer rules and current DART trip planner before traveling.',
         links: [{ label: 'DART', href: 'https://www.dart.org/' }],
       },
       {
@@ -981,7 +981,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
       {
         title: 'Public transportation',
-        summary: 'Citibus provides public transportation in Lubbock, including fixed-route and accessible services. Use its live route and trip-planning tools for current service.',
+        summary: 'Citibus operates Lubbock fixed-route, GoPass-bookable On-Demand and eligible CitiAccess services. New Route 205 and redesigned Routes 025, 211 and 214 entered service September 28, 2026; Texas Tech campus routes may follow academic calendars. Check Citibus current maps and GoPass rather than assuming old route numbers, uniform coverage or Sunday fixed-route service.',
         links: [{ label: 'Citibus', href: 'https://citibus.com/' }],
       },
       {
