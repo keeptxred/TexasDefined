@@ -78,6 +78,7 @@ interface StatewideLakeDefinition {
   nearbyLakes: { slug: string; name: string }[];
   camping?: { name: string; summary: string };
   accessPoints?: ShowcaseLakePrototype["access"];
+  travelAlerts?: string[];
   historySourceUrl?: string;
   visitorSourceUrl?: string;
 }
@@ -203,6 +204,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     access: "TPWD operates state-park units and satellite parks with ramps around the lake; other facilities are managed by USACE and local operators.", nearbyLakes: [{slug:"lewisville-lake",name:"Lewisville Lake"},{slug:"lake-texoma",name:"Lake Texoma"}],
     camping: {name:"Ray Roberts Lake State Park",summary:"State-park units provide established camping and lake access; verify reservations, closures and ramp conditions before travel."},
+    travelAlerts: ["TPWD reports zebra mussels in Ray Roberts Lake. Drain and clean boats and equipment under the latest invasive-species rules."],
   },
   {
     slug: "lake-ray-hubbard", name: "Lake Ray Hubbard", tpwdSlug: "ray_hubbard", waterDataSlug: "ray-hubbard", region: "prairies-lakes",
@@ -235,6 +237,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("channel-catfish","Channel catfish","good","summer","Early summer tributary and riprap patterns support good channel-catfish fishing.",["cut-bait"]),
     ],
     access: "USACE parks and local facilities provide multiple boat ramps and bank-fishing areas; verify closures and fee policies.", specialRules: true, nearbyLakes: [{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"ray-roberts-lake",name:"Ray Roberts Lake"}],
+    travelAlerts: ["TPWD reports zebra mussels and identifies a lake-specific catfish regulation; check the Outdoor Annual and aquatic-invasive-species requirements before fishing or towing."],
   },
   {
     slug: "grapevine-lake", name: "Grapevine Lake", tpwdSlug: "grapevine", waterDataSlug: "grapevine", region: "prairies-lakes",
@@ -251,6 +254,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("crappie","Crappie","fair","year-round","Boat houses and flooded timber are the primary crappie framework.",["jigs-and-minnows"],"secondary"),
     ],
     access: "USACE and municipal parks provide ramps; access areas can close after flooding or repairs, so verify current status.", specialRules: true, nearbyLakes: [{slug:"lewisville-lake",name:"Lewisville Lake"},{slug:"eagle-mountain-lake",name:"Eagle Mountain Lake"}],
+    travelAlerts: ["TPWD reports zebra mussels and warns that some access sites are closed. Check the USACE closure report before launching and follow invasive-species transport rules."],
   },
   {
     slug: "eagle-mountain-lake", name: "Eagle Mountain Lake", tpwdSlug: "eagle_mountain", waterDataSlug: "eagle-mountain", region: "prairies-lakes",
@@ -394,6 +398,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     access: "USACE, Marion County and private marinas provide ramps; the Corps maintains free ramps in addition to developed parks.", specialRules: true, nearbyLakes: [{slug:"caddo-lake",name:"Caddo Lake"},{slug:"lake-bob-sandlin",name:"Lake Bob Sandlin"}],
     camping: {name:"Lake O' the Pines recreation areas",summary:"Developed and primitive USACE camping areas surround the reservoir; verify current ramp and campground conditions."},
+    travelAlerts: ["TPWD notes a special live-nongame-fish transport restriction in Big Cypress Bayou below the dam and connected Texas waters of Caddo Lake; check the current rule before collecting or transporting bait."],
   },
   {
     slug: "lake-bob-sandlin", name: "Lake Bob Sandlin", tpwdSlug: "bob_sandlin", waterDataSlug: "bob-sandlin", region: "piney-woods",
@@ -492,6 +497,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     access: "National Park Service access includes multiple ramps when water levels allow, camping/picnic areas and an ADA-accessible fishing pier.", nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"}],
     camping: {name:"Lake Meredith National Recreation Area",summary:"The National Park Service manages developed and primitive camping around the reservoir; ramp availability depends on water level."},
+    travelAlerts: ["TPWD links to a fish-consumption advisory for Lake Meredith. Consult the current Texas Department of State Health Services notice before eating fish from the reservoir."],
   },
   {
     slug: "lake-houston", name: "Lake Houston", tpwdSlug: "houston", waterDataSlug: "houston", region: "gulf-coast",
@@ -577,6 +583,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "TPWD lists public boating access and Lake Brownwood State Park provides a major recreation base; verify lake level, ramp status and invasive-species guidance before travel.",
     nearbyLakes: [{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"proctor-lake",name:"Proctor Lake"}],
     camping: {name:"Lake Brownwood State Park",summary:"The state park provides established camping and lake recreation on the shoreline; check reservations, ramp conditions and current park alerts."},
+    travelAlerts: ["TPWD reports zebra mussels in this reservoir. Follow current boat, livewell and equipment cleaning and draining requirements before entering other waters."],
   },
   {
     slug: "proctor-lake", name: "Proctor Lake", tpwdSlug: "proctor", waterDataSlug: "proctor", verifiedAt: "2026-10-09", region: "prairies-lakes",
@@ -839,7 +846,7 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
       controllingAuthority: def.authority,
       mapQuery: `${def.name}, Texas`,
     },
-    identityAngle: def.identity,
+    identityAngle: [def.identity, ...(def.travelAlerts ?? [])].join(" "),
     habitat: def.habitat,
     fish: def.fish.map((target) => ({
       id: target.id,
@@ -863,10 +870,12 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
       `${def.clarity} is the normal clarity pattern, not a same-day water-condition report.`,
       "Check official ramp and managing-agency notices immediately before travel, especially after drought, flooding or storm damage.",
       "Drain boats, livewells and bait containers as required by Texas aquatic-invasive-species rules before moving between public fresh waters.",
+      ...(def.travelAlerts ?? []),
     ],
     regulations: [
       { label: "Current rules", text: def.specialRules ? "TPWD identifies special regulations for one or more fishes on this lake. Use the current Outdoor Annual before harvesting fish." : "Use the current TPWD Outdoor Annual before harvesting fish; this page intentionally avoids freezing bag or length limits into evergreen copy." },
       { label: "Freshness", text: "Regulations, access restrictions and invasive-species requirements can change after this guide's source-review date." },
+      ...(def.travelAlerts ?? []).map((text) => ({ label: "Lake-specific notice", text })),
     ],
     camping: [{
       name: def.camping?.name ?? `${def.name} trip-planning options`,
