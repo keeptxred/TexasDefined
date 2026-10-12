@@ -19,7 +19,7 @@ mkdirSync(base,{recursive:true});
 if(readdirSync(base).some(s=>s.endsWith('.sql')))throw Error('Local migration directory not empty');
 const manifest=readFileSync('scripts/data/validate-network-migration-parity.mjs','utf8');
 const applied=[...manifest.matchAll(/"(202610\d{8}_[^"]+\.sql)"/g)].map(m=>m[1]);
-if(applied.length!==38||new Set(applied).size!==38)throw Error('Applied Network migration manifest changed');
+if(applied.length!==40||new Set(applied).size!==40)throw Error('Applied Network migration manifest changed');
 const pending=[
  '20261011043000_network_owner_revision_read_revocation.sql',
  '20261011044000_network_sensitive_action_audit.sql',
