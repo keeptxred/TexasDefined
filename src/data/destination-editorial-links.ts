@@ -1,3 +1,5 @@
+import { riverAuthorityLinksForDestination } from "@/data/river-authority-relations";
+
 export type DestinationEditorialLink = {
   href: string;
   label: string;
@@ -844,5 +846,10 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
 };
 
 export function destinationEditorialLinks(slug: string): DestinationEditorialLink[] {
-  return DESTINATION_EDITORIAL_LINKS[slug] ?? [];
+  const existing = DESTINATION_EDITORIAL_LINKS[slug] ?? [];
+  const seen = new Set(existing.map((item) => item.href));
+  return [
+    ...existing,
+    ...riverAuthorityLinksForDestination(slug).filter((link) => !seen.has(link.href)),
+  ];
 }
