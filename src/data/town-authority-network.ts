@@ -5,29 +5,42 @@ import { smallTownWave3Destinations } from "./small-town-destinations-wave3";
 import { smallTownWave4Destinations } from "./small-town-destinations-wave4";
 import { smallTownWave8Destinations } from "./small-town-destinations-wave8";
 import { smallTownWave9Destinations } from "./small-town-destinations-wave9";
+import { smallTownWave5Destinations } from "./small-town-destinations-wave5";
+import { smallTownWave6Destinations } from "./small-town-destinations-wave6";
+import { smallTownWave7Destinations } from "./small-town-destinations-wave7";
+import { smallTownWave10Destinations } from "./small-town-destinations-wave10";
+import { smallTownWave11Destinations } from "./small-town-destinations-wave11";
+import { smallTownWave12Destinations } from "./small-town-destinations-wave12";
+import { smallTownWave13Destinations } from "./small-town-destinations-wave13";
+import { smallTownWave14Destinations } from "./small-town-destinations-wave14";
+import { smallTownWave15Destinations } from "./small-town-destinations-wave15";
 import type { Destination } from "./types";
 
-/** Gruene is a neighborhood/historic district of New Braunfels, NOT a separate incorporated town. */
-export const TOWN_AUTHORITY_SLUGS = [
-  "fredericksburg", "wimberley", "gruene-historic-district", "boerne",
-  "marble-falls", "bandera", "port-aransas", "rockport", "jefferson",
-  "salado", "granbury", "glen-rose", "alpine", "marfa", "fort-davis",
-] as const;
+/** All existing researched town destinations are in scope, not a fixed shortlist.
+ * Gruene is the historic district of New Braunfels rather than an independent municipality. */
+export const TOWN_AUTHORITY_DIRECTORY: Destination[] = [
+  ...smallTownWave1Destinations, ...smallTownWave2Destinations, ...smallTownWave3Destinations,
+  ...smallTownWave4Destinations, ...smallTownWave5Destinations, ...smallTownWave6Destinations,
+  ...smallTownWave7Destinations, ...smallTownWave8Destinations, ...smallTownWave9Destinations,
+  ...smallTownWave10Destinations, ...smallTownWave11Destinations, ...smallTownWave12Destinations,
+  ...smallTownWave13Destinations, ...smallTownWave14Destinations, ...smallTownWave15Destinations,
+  ...additionalTownAuthorityDestinations,
+];
 
 type TownLink = { href: string; label: string; description: string };
 const townLink = (slug: string, label: string, description: string): TownLink => ({
   href: "/destination/" + slug, label, description,
 });
-const canonicalAuthority = new Map([
-  ...smallTownWave1Destinations,
-  ...smallTownWave2Destinations,
-  ...smallTownWave3Destinations,
-  ...smallTownWave4Destinations,
-  ...smallTownWave8Destinations,
-  ...smallTownWave9Destinations,
-  ...additionalTownAuthorityDestinations,
-].filter((destination) => TOWN_AUTHORITY_SLUGS.some((slug) => slug === destination.slug))
-  .map((destination) => [destination.slug, destination] as const));
+const canonicalAuthority = new Map<string, Destination>();
+// Earlier batches contain fuller original entries for Jefferson, Wimberley and Marfa.
+// Do not let their later duplicated records overwrite their researched master records.
+for (const destination of TOWN_AUTHORITY_DIRECTORY) {
+  if (!canonicalAuthority.has(destination.slug)) canonicalAuthority.set(destination.slug, destination);
+}
+export const TOWN_AUTHORITY_SLUGS: readonly string[] = [
+  ...canonicalAuthority.keys(),
+  "gruene-historic-district",
+];
 
 /**
  * Enriched Supabase Explore records can be shorter than our checked-in editorial pages.
@@ -123,20 +136,36 @@ const attractionToTowns: Record<string, string[]> = {
   "chinati-foundation": ["marfa"],
 };
 
-const townNames: Record<string, string> = {
-  "fredericksburg": "Fredericksburg", "wimberley": "Wimberley", "gruene-historic-district": "Gruene Historic District",
-  "boerne": "Boerne", "marble-falls": "Marble Falls", "bandera": "Bandera",
-  "port-aransas": "Port Aransas", "rockport": "Rockport", "jefferson": "Jefferson",
-  "salado": "Salado", "granbury": "Granbury", "glen-rose": "Glen Rose",
-  "alpine": "Alpine", "marfa": "Marfa", "fort-davis": "Fort Davis",
-};
+const townNames: Record<string, string> = Object.fromEntries(
+  [...canonicalAuthority.values()].map((destination) => [destination.slug, destination.name]),
+);
+townNames["gruene-historic-district"] = "Gruene Historic District";
 
-const countyTowns: Record<string, string[]> = {
-  "gillespie": ["fredericksburg"], "hays": ["wimberley"], "comal": ["gruene-historic-district"],
-  "kendall": ["boerne"], "burnet": ["marble-falls"], "bandera": ["bandera"],
-  "nueces": ["port-aransas"], "aransas": ["rockport"], "marion": ["jefferson"],
-  "bell": ["salado"], "hood": ["granbury"], "somervell": ["glen-rose"],
-  "brewster": ["alpine"], "presidio": ["marfa"], "jeff-davis": ["fort-davis"],
+const countyKey = (value: string) => value
+  .replace(/\\s+county$/i, "")
+  .trim()
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, "-")
+  .replace(/^-|-$/g, "");
+
+// All existing verified town guides are linked from their actual county, not
+// the historic 15-town list. Ambiguous multi-county records are not guessed.
+const countyTowns: Record<string, string[]> = {};
+for (const destination of canonicalAuthority.values()) {
+  if (!destination.county || /[,;/&]/.test(destination.county)) continue;
+  const slug = countyKey(destination.county);
+  if (!slug) continue;
+  (countyTowns[slug] ??= []).push(destination.slug);
+}
+(countyTowns.comal ??= []).push("gruene-historic-district");
+for (const slugs of Object.values(countyTowns)) slugs.sort((a, b) => townNames[a].localeCompare(townNames[b]));
+
+const near = (a: NonNullable<Destination["coordinates"]>, b: NonNullable<Destination["coordinates"]>) => {
+  const radians = (n: number) => n * Math.PI / 180;
+  const deltaLat = radians(b.lat - a.lat);
+  const deltaLon = radians(b.lng - a.lng);
+  const h = Math.sin(deltaLat / 2) ** 2 + Math.cos(radians(a.lat)) * Math.cos(radians(b.lat)) * Math.sin(deltaLon / 2) ** 2;
+  return 3958.8 * 2 * Math.asin(Math.sqrt(Math.min(1, h)));
 };
 
 export function townAuthorityCountyLinks(countySlug: string): TownLink[] {
@@ -146,19 +175,42 @@ export function townAuthorityCountyLinks(countySlug: string): TownLink[] {
 }
 export function townAuthorityCityLinks(citySlug: string): TownLink[] {
   const actual = citySlug === "gruene" || citySlug === "new-braunfels" ? "gruene-historic-district" : citySlug;
-  return TOWN_AUTHORITY_SLUGS.includes(actual as (typeof TOWN_AUTHORITY_SLUGS)[number])
+  return TOWN_AUTHORITY_SLUGS.includes(actual)
     ? [townLink(actual, townNames[actual], "Explore the independently researched town travel guide and linked local attractions.")]
     : [];
 }
-export function townAuthorityContextualLinks(destination: Pick<Destination, "slug" | "nearestTown">): TownLink[] {
-  const pairs = pairedTowns[destination.slug] ?? [];
-  const keyed = attractionToTowns[destination.slug] ?? [];
-  const sameTown = Object.entries(townNames)
-    .filter(([slug, name]) => slug !== destination.slug && name.toLowerCase() === destination.nearestTown.toLowerCase())
-    .map(([slug]) => slug);
-  return [...new Set([...pairs.map((item) => item.href), ...keyed.map((slug) => "/destination/" + slug), ...sameTown.map((slug) => "/destination/" + slug)])]
-    .map((href) => pairs.find((item) => item.href === href) ??
-      townLink(href.split("/").pop() ?? "", townNames[href.split("/").pop() ?? ""] ?? "Town guide", "Explore the nearby town and practical visitor-planning details."))
-    .filter((item) => item.href !== "/destination/" + destination.slug)
-    .slice(0, 4);
+export function townAuthorityContextualLinks(destination: Pick<Destination, "slug" | "nearestTown" | "county" | "coordinates" | "region">): TownLink[] {
+  const curated = pairedTowns[destination.slug] ?? [];
+  const explicit = attractionToTowns[destination.slug] ?? [];
+  const town = canonicalAuthority.get(destination.slug);
+  const sameTown = [...canonicalAuthority.values()]
+    .filter((candidate) => candidate.slug !== destination.slug &&
+      candidate.name.toLowerCase() === destination.nearestTown.toLowerCase())
+    .map((candidate) => candidate.slug);
+  const locationCounty = destination.county && !/[,;/&]/.test(destination.county)
+    ? countyTowns[countyKey(destination.county)] ?? []
+    : [];
+  // Nearby is calculated from actual source coordinates; geographic-region
+  // equality alone would make unrelated 300-mile "nearby town" recommendations.
+  const nearby = town && destination.coordinates
+    ? [...canonicalAuthority.values()]
+      .filter((candidate) => candidate.slug !== destination.slug && candidate.region === destination.region)
+      .map((candidate) => ({ slug: candidate.slug, miles: near(destination.coordinates, candidate.coordinates) }))
+      .filter((item) => item.miles <= 55)
+      .sort((a, b) => a.miles - b.miles)
+      .slice(0, 2)
+      .map((item) => item.slug)
+    : [];
+  const candidates = [...curated.map((item) => item.href),
+    ...explicit.map((slug) => "/destination/" + slug),
+    ...sameTown.map((slug) => "/destination/" + slug),
+    ...locationCounty.map((slug) => "/destination/" + slug),
+    ...nearby.map((slug) => "/destination/" + slug)];
+  return [...new Set(candidates)]
+    .filter((href) => href !== "/destination/" + destination.slug)
+    .filter((href) => canonicalAuthority.has(href.slice("/destination/".length)) || href === "/destination/gruene-historic-district" || href.startsWith("/county/"))
+    .slice(0, 4)
+    .map((href) => curated.find((item) => item.href === href) ??
+      townLink(href.split("/").pop() ?? "", townNames[href.split("/").pop() ?? ""] ?? "Town guide",
+        "Explore local history, visitor planning, attractions and independently sourced details."));
 }
