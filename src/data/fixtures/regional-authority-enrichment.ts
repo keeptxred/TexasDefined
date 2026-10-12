@@ -1,4 +1,4 @@
-import type { Article, ArticleBlock } from "../types";
+import type { Article } from "../types";
 export const regionalAuthorityEnrichment: Record<string, Partial<Article>> = {
   "scenic-drives-in-texas": {
     "body": [
