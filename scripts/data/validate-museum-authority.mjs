@@ -34,7 +34,7 @@ function section(entry, key) {
   return end < 0 ? "" : tail.slice(0, end);
 }
 function value(entry, key) {
-  const expression = new RegExp("(^|\\n)    " + key + ': "([^"\\n]*)"', "m");
+  const expression = new RegExp("\\b" + key + '\\s*:\\s*"([^"\\n]*)"');
   return entry.match(expression)?.[2] || "";
 }
 for (const slug of required) {
