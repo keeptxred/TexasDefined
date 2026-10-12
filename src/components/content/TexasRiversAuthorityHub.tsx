@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { PublishableGraphic } from "@/components/editorial/PublishableGraphic";
+import { riverAuthorityRecords } from "@/data/river-authority-registry";
 import { TexasRiversCitationTrust } from "@/components/content/TexasRiversCitationTrust";
 import { TexasRiverBasinInteractiveMap } from "@/components/content/TexasRiverBasinInteractiveMap";
 
@@ -8,25 +9,16 @@ const twdbMapUrl = "https://www.twdb.texas.gov/mapping/doc/maps/Major_River_Basi
 
 const riverProfiles = [
   { name: "Rio Grande", href: "/article/texas-rio-grande-river-guide", region: "West Texas & border", note: "International river · largest Texas basin by area", image: "/images/explore/lakes-rivers/amistad-national-recreation-area.jpg" },
-  { name: "Brazos", href: "/article/texas-brazos-river-guide", region: "West & Central Texas", note: "840 river miles · major agricultural and reservoir system", image: "/images/explore/lakes-rivers/lake-somerville-birch-creek-unit.jpg" },
-  { name: "Colorado", href: "/article/texas-colorado-river-guide", region: "West & Central Texas", note: "Texas-only river · Highland Lakes and Austin", image: "/images/explore/lakes-rivers/pedernales-falls-state-park.jpg" },
-  { name: "Frio", href: "/article/texas-frio-river-guide", region: "Hill Country", note: "Concan · Garner State Park · authorized float access", image: "/images/state-parks/garner-state-park.jpg" },
-  { name: "Comal", href: "/article/texas-comal-river-guide", region: "New Braunfels", note: "Spring-fed · short urban tube route · city river rules", image: "/images/editorial/texas-river-basins.jpg" },
-  { name: "San Marcos", href: "/article/texas-san-marcos-river-guide", region: "Central Texas", note: "Spring Lake · Rio Vista · sensitive aquatic habitat", image: "/images/editorial/texas-river-basins.jpg" },
-  { name: "Llano", href: "/article/texas-llano-river-guide", region: "Hill Country", note: "Junction · South Llano State Park · granite country", image: "/images/state-parks/south-llano-river-state-park.jpg" },
-  { name: "Pecos", href: "/article/texas-pecos-river-guide", region: "West Texas", note: "Remote canyon terrain · limited public access · Amistad", image: "/images/explore/lakes-rivers/amistad-national-recreation-area.jpg" },
-  { name: "Guadalupe", href: "/article/texas-guadalupe-river-guide", region: "Hill Country & Gulf Coast", note: "Spring-fed tributaries · Canyon Lake · tubing corridor", image: "/images/editorial/texas-guadalupe-river.jpg" },
   { name: "Trinity", href: "/article/texas-trinity-river-guide", region: "North Texas & Gulf Coast", note: "Entire basin in Texas · Dallas-Fort Worth water system", image: "/images/editorial/texas-trinity-river.jpg" },
   { name: "Canadian", href: "/article/texas-canadian-river-guide", region: "Panhandle", note: "Lake Meredith · Canadian River Compact", image: "/images/explore/lakes-rivers/lake-meredith-national-recreation-area.jpg" },
   { name: "Cypress", href: "/article/texas-cypress-river-basin-guide", region: "Northeast Texas", note: "Caddo Lake · Cypress Bayou · Red drainage", image: "/images/state-parks/caddo-lake-state-park.jpg" },
   { name: "Lavaca", href: "/article/texas-lavaca-river-guide", region: "Gulf Coast", note: "Navidad River · Lake Texana · Lavaca Bay", image: "/images/editorial/texas-river-basins.jpg" },
-  { name: "Neches", href: "/article/texas-neches-river-guide", region: "East Texas", note: "Angelina River · Sam Rayburn · Piney Woods", image: "/images/explore/lakes-rivers/village-creek-state-park.jpg" },
   { name: "Nueces", href: "/article/texas-nueces-river-guide", region: "Hill Country & South Texas", note: "Frio River · Choke Canyon · Nueces Bay", image: "/images/state-parks/garner-state-park.jpg" },
   { name: "Red", href: "/article/texas-red-river-guide", region: "North Texas", note: "Lake Texoma · Oklahoma boundary · Red River Compact", image: "/images/state-parks/eisenhower-state-park.jpg" },
-  { name: "Sabine", href: "/article/texas-sabine-river-guide", region: "East Texas & Louisiana border", note: "Toledo Bend · Sabine Lake · water supply", image: "/images/editorial/texas-river-basins.jpg" },
   { name: "San Antonio", href: "/article/texas-san-antonio-river-guide", region: "South-Central Texas", note: "Medina River · springs · Guadalupe confluence", image: "/images/editorial/moving/san-antonio.jpg" },
   { name: "San Jacinto", href: "/article/texas-san-jacinto-river-guide", region: "Houston & Gulf Coast", note: "Lake Houston · Lake Conroe · floodplain drainage", image: "/images/editorial/texas-river-basins.jpg" },
   { name: "Sulphur", href: "/article/texas-sulphur-river-guide", region: "Northeast Texas", note: "Cooper Lake · Wright Patman · Red drainage", image: "/images/state-parks/cooper-lake-south-sulphur-unit-state-park.jpg" },
+  ...riverAuthorityRecords.map((river) => ({name: river.name, href: `/article/${river.slug}`, region: river.basin === "riogrande" ? "West Texas" : "Texas watershed", note: river.summary, image: river.image})),
 ] as const;
 
 const riverRegions = [
