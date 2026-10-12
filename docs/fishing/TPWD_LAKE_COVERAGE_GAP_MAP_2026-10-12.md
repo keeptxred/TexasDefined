@@ -5,8 +5,8 @@
 ## Counts and caveats
 
 - **175** separate alphabetical links/named entries in the TPWD public lake list (excluding its extra *Town Lake = Lady Bird Lake* alias line).
-- **52** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
-- **123** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
+- **54** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
+- **121** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
 - TPWD list entries include local ponds and some state-park-managed lakes as well as reservoirs; they cannot all be treated as equally high-demand or guaranteed distinct reservoirs.
 - This list does not include every Texas stock tank, private lake, community fishing pond, or small waterbody outside TPWD's own directory. It therefore cannot prove “every Texas lake.”
 
@@ -55,7 +55,7 @@
 | Bastrop | **Not in completed-guide registry** |
 | Baylor Creek | **Not in completed-guide registry** |
 | Belton | [belton-lake](https://texasdefined.com/fishing/lakes/belton-lake) |
-| Benbrook | **Not in completed-guide registry** |
+| Benbrook | [benbrook-lake](https://texasdefined.com/fishing/lakes/benbrook-lake) — awaiting production |
 | Big Creek | **Not in completed-guide registry** |
 | Bob Sandlin | [lake-bob-sandlin](https://texasdefined.com/fishing/lakes/lake-bob-sandlin) |
 | Bois d'Arc | **Not in completed-guide registry** |
@@ -103,7 +103,7 @@
 | Fort Parker State Park | **Not in completed-guide registry** |
 | Fort Phantom Hill | **Not in completed-guide registry** |
 | Fryer | **Not in completed-guide registry** |
-| Georgetown | **Not in completed-guide registry** |
+| Georgetown | [lake-georgetown](https://texasdefined.com/fishing/lakes/lake-georgetown) — awaiting production |
 | Gilmer | **Not in completed-guide registry** |
 | Gladewater | **Not in completed-guide registry** |
 | Gonzales | **Not in completed-guide registry** |
@@ -218,3 +218,7 @@
 TPWD's alphabetical labels are aligned with the canonical TexasDefined slug list (for example, TPWD *Lyndon B. Johnson* = `lake-lbj`, TPWD *Fork* = `lake-fork`, TPWD *Lake O' The Pines* = `lake-o-the-pines`). No location, visitor facility, fish population or date was fabricated. Match status is a **registry comparison only**; actual page rendering, TPWD URL redirects, current fishing/park restrictions and competitive breadth require verification as part of the content expansion batches.
 
 **Acceptance objective:** 100% of the chosen high-intent, publicly visitable Texas lake inventory has a distinctive, primary-source-backed guide; do **not** publish low-value filler just to increase the count.
+
+### Wave-one update (October 12)
+
+Two TPWD listings, **Georgetown** and **Benbrook**, have fully sourced new fishing authority definitions on the separate expansion branch. Their resulting guide registry count is **54**, with **121 listings without completed guides**. Both await review, CI and production deployment; TPWD snapshot counts include aliases and do not represent every privately held Texas waterbody.
