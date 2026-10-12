@@ -88,6 +88,17 @@ async function auditPage(url){
    if(h1s!==1) issues.push({code:'h1-count',detail:String(h1s)});
    else if(severeTitleH1Conflict(title,h1)) issues.push({code:'title-h1-intent-conflict',detail:`title="${title}" h1="${h1}"`});
    const threshold=thinThreshold(new URL(url).pathname); if(words<threshold) issues.push({code:'thin-render',detail:words+' words < '+threshold});
+   // A genuine destination defect seen in production: location Q&A claimed
+   // that Fredericksburg was "near Fredericksburg". Treat self-referential
+   // place answers as a live regression, not an editorial suggestion.
+   if (new URL(url).pathname.startsWith('/destination/') && h1) {
+     const normalizedBody = normalizeSpace(stripTags(body)).toLowerCase();
+     const normalizedName = normalizeSpace(h1).toLowerCase();
+     if (normalizedBody.includes(`${normalizedName} is near ${normalizedName}`)
+       || normalizedBody.includes(`${normalizedName} is in ${normalizedName}`)) {
+       issues.push({code:'self-referential-location',detail:h1});
+     }
+   }
    const renderedText=stripTags(body);
    const pageFallbackMatch=renderedText.match(PAGE_FALLBACK_RE); if(pageFallbackMatch) issues.push({code:'page-level-fallback-copy',detail:pageFallbackMatch[0]});
    const imageFallbackMatch=renderedText.match(LOCALIZED_IMAGE_FALLBACK_RE); if(imageFallbackMatch) warnings.push({code:'localized-image-fallback',detail:imageFallbackMatch[0]});
