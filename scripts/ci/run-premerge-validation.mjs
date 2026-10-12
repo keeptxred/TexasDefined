@@ -42,6 +42,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['EDITORIAL/AUTHORITY', 'Reject newly published best-of and guide articles without source-backed authority evidence, licensed photos and reciprocal links', 'node', ['scripts/data/validate-high-intent-authority-standard.mjs']],
   ['SOFTBALL/PUBLISH', 'Reject thin or unapproved UIL softball team pages', 'npm', ['run', 'softball:authority:validate']],
   ['NETWORK/TERMS', 'Validate customer terms, content responsibility and recurring billing acceptance', 'node', ['scripts/data/validate-network-customer-terms.mjs']],
   ['NETWORK/RELEASE', 'Validate Network security and unpublished release guards', 'node', ['scripts/data/validate-network-release-guards.mjs']],
