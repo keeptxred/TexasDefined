@@ -18,7 +18,7 @@ const publishedSource = [
 const publishedRiverSlugs = new Set([...publishedSource.matchAll(/slug:\s*"(texas-[a-z0-9-]+-(?:river|river-basin)-guide)"/g)].map((m) => m[1]));
 const legacyBasins = publishedRiverSlugs;
 const secondary = read('src/data/fixtures/texas-river-authority-remaining.ts');
-const secondaryMatch = secondary.match(/export const additionalExistingRiverAuthorityResearch = ([\\s\\S]*?) as const;/);
+const secondaryMatch = secondary.match(/export const additionalExistingRiverAuthorityResearch = ([\s\S]*?) as const;/);
 let remainingEntries=[];
 try {remainingEntries = JSON.parse(secondaryMatch?.[1] || '[]');}
 catch(e) {errors.push('Other basin recreation research must be machine-readable: '+e.message);}
@@ -56,7 +56,7 @@ for(const item of remainingEntries) {
  if (!all.has(item.slug)) errors.push('Existing river extension excluded from registry: '+item.slug);
  if (!publishedRiverSlugs.has(item.slug)) errors.push('Additional legacy river extension must match an existing profile: '+item.slug);
  for(const key of ['name','context','route','fish','camp','visit']) {
-  if(typeof item[key] !== 'string' || item[key].length < 120)
+  if(typeof item[key] !== 'string' || item[key].length < (key === 'name' ? 4 : 120))
     errors.push('River '+item.slug+' lacks substantial, reach-specific '+key);
  }
  if(!Array.isArray(item.faq) || item.faq.length<5 || item.faq.some(q=>q.length!==2 || q[1].length<75))
