@@ -6,14 +6,6 @@ import type { Destination, DestinationVisitorFacilities } from "./types";
  * Absence of a record is reported as unverified, never interpreted as "none".
  */
 export const VERIFIED_VISITOR_FACILITIES: Record<string, DestinationVisitorFacilities> = {
-  "natural-bridge-caverns": {
-    restrooms: {
-      status: "verified",
-      details: "The attraction describes restrooms near its Twisted Trails Tykes surface area. This does not establish restroom availability inside the caverns; plan to use facilities before the guided underground tour.",
-      sourceUrl: "https://naturalbridgecaverns.com/2025/06/18/planning-perfect-caverns-adventure-littles-family/",
-      checkedAt: "2026-10-12"
-    }
-  },
   "enchanted-rock-state-natural-area": {
     editorialFocus: ["parking", "restrooms", "map"],
     editorialHeading: "Trailhead access and backcountry facilities",
@@ -37,16 +29,10 @@ export const VERIFIED_VISITOR_FACILITIES: Record<string, DestinationVisitorFacil
   "space-center-houston": {
     editorialFocus: ["parking"],
     editorialHeading: "Arriving at Space Center Houston",
-    editorialIntro: "Accessible parking and NASA Tram Tour access are important planning decisions; restroom locations are not a primary reason to select a ticket.",
+    editorialIntro: "The center has separate entry, paid onsite parking and NASA tour check-in procedures; review these before choosing your arrival time.",
     parking: {
       status: "verified",
       details: "Space Center Houston lists paid onsite parking, including accessible parking near the entrance and an additional accessible side lot. Verify current rates before arrival.",
-      sourceUrl: "https://spacecenter.org/accessibility-options/",
-      checkedAt: "2026-10-12"
-    },
-    restrooms: {
-      status: "verified",
-      details: "Accessible restrooms are available throughout the visitor center. Family restrooms are in The Food Lab; the operator also describes adult changing support on request.",
       sourceUrl: "https://spacecenter.org/accessibility-options/",
       checkedAt: "2026-10-12"
     },
@@ -61,12 +47,6 @@ export const VERIFIED_VISITOR_FACILITIES: Record<string, DestinationVisitorFacil
     parking: {
       status: "verified",
       details: "The official property map identifies several parking and drop-off areas. Review the property map and event-day instructions before arriving.",
-      sourceUrl: "https://www.moodygardens.com/visitor-info/map-directions",
-      checkedAt: "2026-10-12"
-    },
-    restrooms: {
-      status: "verified",
-      details: "Restroom locations are identified on Moody Gardens' current public property map; use the map to find the facilities nearest your ticketed attraction.",
       sourceUrl: "https://www.moodygardens.com/visitor-info/map-directions",
       checkedAt: "2026-10-12"
     },
@@ -96,28 +76,10 @@ export const VERIFIED_VISITOR_FACILITIES: Record<string, DestinationVisitorFacil
     editorialFocus: ["map"],
     editorialHeading: "Finding your way through the exhibits",
     editorialIntro: "The official visitor map helps coordinate animal presentations and galleries, rather than assuming every experience is available at once.",
-    parking: {
-      status: "unverified",
-      details: "The operator publishes directions to the North Beach entrance; specific parking availability and charges were not independently confirmed for this review.",
-      sourceUrl: "https://www.texasstateaquarium.org/plan-your-visit/visitor-information/map-directions/"
-    },
-    restrooms: {
-      status: "verified",
-      details: "The aquarium's downloadable 2026 visitor map identifies restroom locations alongside exhibits, dining and presentations.",
-      sourceUrl: "https://www.texasstateaquarium.org/plan-your-visit/visitor-information/map-directions/",
-      checkedAt: "2026-10-12"
-    },
     officialMapUrl: "https://www.texasstateaquarium.org/plan-your-visit/visitor-information/map-directions/",
     mapCheckedAt: "2026-10-12"
   },
-  "hamilton-pool-preserve": {
-    restrooms: {
-      status: "verified",
-      details: "Travis County's countywide parks amenities brochure identifies restrooms at Hamilton Pool. Contact the county to confirm current facility access; swimming remains separately restricted.",
-      sourceUrl: "https://parks.traviscountytx.gov/images/docs/TCP_Brochure_county-wide_2022_Eng.pdf",
-      checkedAt: "2026-10-12"
-    }
-  }
+
 };
 
 /** Preserve more detailed destination-specific notes when already present. */
