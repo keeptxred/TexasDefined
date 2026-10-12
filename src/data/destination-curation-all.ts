@@ -1,3 +1,4 @@
+import { applyRayRobertsLakeStateParkAuthority } from "./ray-roberts-lake-state-park-authority";
 import { applyLakeSomervilleStateParkAuthority } from "./lake-somerville-state-park-authority";
 import { applyHillCountryStateNaturalAreaAuthority } from "./hill-country-state-natural-area-authority";
 import { applyCanonicalHistoricStatePark } from "./canonical-historic-state-parks";
@@ -165,6 +166,7 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyCanonicalHistoricStatePark,
   applyHillCountryStateNaturalAreaAuthority,
   applyLakeSomervilleStateParkAuthority,
+  applyRayRobertsLakeStateParkAuthority,
 ];
 
 function runCurators(destination: Destination): Destination {
