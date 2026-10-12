@@ -16,6 +16,7 @@ const repo = {
   search: read("src/data/fishing/search.ts"),
   countyRenderer: read("src/components/content/CountyGuideSections.tsx"),
   explainer: read("src/data/fixtures/texas-lakes-reservoirs-explained.ts"),
+  explore: read("src/routes/explore.$category.lazy.tsx"),
 };
 
 const expectedCountyRoutes = [
@@ -39,12 +40,15 @@ for (const lake of ["lake-stamford", "lake-sweetwater"]) {
   requireMatch(repo.routing, `"${lake}"`, `${lake} not published by complete-lake registry`);
   requireMatch(repo.lakes, `slug: "${lake}", name:`, `${lake} missing official lake data`);
   requireMatch(repo.explainer, `href: "/fishing/lakes/${lake}"`, `${lake} missing statewide reservoir explainer link`);
+  requireMatch(repo.explore, `to="/fishing/lakes/${lake}"`, `${lake} missing explore lakes-rivers discovery link`);
 }
 for (const [lake, county] of [["lake-stamford", "Haskell"], ["lake-sweetwater", "Nolan"]]) {
   const block = repo.lakes.slice(repo.lakes.indexOf(`slug: "${lake}", name:`));
   requireMatch(block.slice(0, 850), `counties: ["${county}"]`, `${lake} missing correct county identity`);
 }
 requireMatch(repo.lakes, "href: `/county/${countySlug(county)}`", "shared lake template must provide reciprocal county links");
+requireMatch(repo.explore, 'match.slug === "lakes-rivers"', "lake links must only be in relevant explore section");
+for (const c of ["haskell", "nolan"]) requireMatch(repo.explore, `to="/county/${c}"`, `explore lake discovery missing ${c} county link`);
 requireMatch(repo.lakes, '{slug:"lake-stamford",name:"Lake Stamford"}', "neighboring lake route back to Stamford is missing");
 requireMatch(repo.lakes, '{slug:"lake-sweetwater",name:"Lake Sweetwater"}', "neighboring lake route back to Sweetwater is missing");
 requireMatch(repo.countyRenderer, "countySeriesArticle.internalLinks ?? []", "county landing pages no longer consume editorial cross-links");
@@ -58,4 +62,4 @@ requireMatch(repo.nolan, "golden-alga impacts", "county page missing Lake Sweetw
 requireMatch(repo.mitchell, "golden algae", "neighboring county link missing Lake Sweetwater fishery caution");
 requireMatch(repo.haskell, "began impounding Paint Creek in 1953", "Haskell county guide reverted to wrong impoundment year");
 
-console.log("Lake authority cross-links validated: Haskell, Nolan, Jones, Mitchell; 2 statewide explainers; reciprocal county/lake and related-lake links; fishing directory/site-search; dated safety context.");
+console.log("Lake authority cross-links validated: Haskell, Nolan, Jones, Mitchell; 2 statewide explainers and explore cards; reciprocal county/lake and related-lake links; fishing directory/site-search; dated safety context.");
