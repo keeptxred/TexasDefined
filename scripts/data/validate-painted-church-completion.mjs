@@ -30,7 +30,7 @@ const publicRoutes = read('src/lib/public-routes.ts');
 const robots = read('public/robots.txt');
 const releaseState = read('ops/editorial/painted-churches-release-state.json');
 
-const candidateSlugs = ['ellinger-st-marys-catholic-church','rockne-sacred-heart-catholic-church','san-antonio-san-fernando-cathedral'];
+const candidateSlugs = ['rockne-sacred-heart-catholic-church','san-antonio-san-fernando-cathedral'];
 for (const slug of candidateSlugs) {
   requireText(census, `slug: "${slug}"`, 'Candidate adjudication');
   requireText(sourceLibrary, `slug: "${slug}"`, 'Public research queue accounting');
@@ -38,7 +38,12 @@ for (const slug of candidateSlugs) {
 requireText(census, '16-slide San Fernando Cathedral decorative-painting research group', 'San Fernando hold evidence');
 requireText(census, 'https://sah-archipedia.org/buildings/TX-01-SA46', 'San Fernando SAH restoration evidence');
 requireText(census, 'plain mission-like whitewashed walls', 'San Fernando surviving-program scope caution');
-requireText(census, 'exact-building decorative evidence', 'Ellinger hold standard');
+requireText(census, 'export const paintedChurchRelatedHistoricChurches', 'Related historic heritage-stop category');
+requireText(census, 'ellinger-st-marys-hostyn-hill', 'Hostyn Hill related historic church coverage');
+requireText(census, '1983 National Register Churches with Decorative Interior Painting group', 'Hostyn Hill precise registration distinction');
+forbidText(census, 'slug: "ellinger-st-marys-catholic-church"', 'Outdated Ellinger candidate');
+requireText(sourceLibrary, 'St. Mary’s at Hostyn Hill near Ellinger', 'Source library related historic stop');
+forbidText(sourceLibrary, 'slug: "ellinger-st-marys-catholic-church"', 'Outdated Ellinger research queue');
 requireText(census, 'qualifying decorative evidence', 'Rockne hold standard');
 
 const expansionSlugs = [
