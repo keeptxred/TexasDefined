@@ -81,6 +81,21 @@ export const RIVER_AUTHORITY_CARD_PHOTOS: Record<string, { src: string; alt: str
     "license": "CC BY 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:San_Marcos_River_San_Marcos_Texas_2023.jpg"
+  },
+  "/article/texas-brazos-river-guide": {
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Brazos_River_at_Washington_on_the_Brazos.jpg?width=1600",
+    "alt": "Brazos River at Washington-on-the-Brazos in Texas",
+    "photographer": "Larry D. Moore",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Brazos_River_at_Washington_on_the_Brazos.jpg"
+  },
+  "/article/texas-trinity-river-guide": {
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Trinity-River-Dallas-TX-4667.jpg?width=1600",
+    "alt": "Trinity River in downtown Dallas Texas",
+    "photographer": "Loadmaster (David R. Tribble)",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Trinity-River-Dallas-TX-4667.jpg"
   }
 };
-
