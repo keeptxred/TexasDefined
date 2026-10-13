@@ -355,6 +355,18 @@ const fredericksburgHistoryWeekendGuideStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["national-museum-pacific-war", "fort-martin-scott"],
 };
 
+const fredericksburgJohnsonCityHistoricRoadTripStub: Article = {
+  id: "evergreen-fredericksburg-johnson-city-historic-road-trip", brandId: "texasdefined", slug: "fredericksburg-johnson-city-historic-road-trip",
+  title: "Fredericksburg to Johnson City: The Complete Historic Hill Country Road Trip",
+  dek: "Historic Fredericksburg, Fort Martin Scott, the Pacific War museum, Stonewall, LBJ Ranch, Sauer-Beckmann Farm, Hye and Johnson City with present-day closures, costs and a Luckenbach detour.",
+  category: "road-trips", region: "hill-country",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_martin_scott_2008.jpg?width=1600", alt: "Fort Martin Scott near Fredericksburg, Texas", width: 1600, height: 955, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" },
+  authorId: "a-dell", publishedAt: "2026-10-12", readingMinutes: 19,
+  tags: ["fredericksburg to johnson city", "lbj ranch", "hill country historic sites", "stonewall", "fort martin scott", "luckenbach"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/blog/historic-road-trip-fredericksburg-johnson-city",
+  body: [], relatedCollections: [], relatedDestinations: ["fredericksburg", "fort-martin-scott", "stonewall", "hye", "johnson-city", "luckenbach"],
+};
+
 export const standaloneEvergreenStubs: Article[] = [
   rodeo101Stub,
   texasHighSchoolFootballClassificationsStub,
@@ -386,6 +398,7 @@ export const standaloneEvergreenStubs: Article[] = [
   washingtonOnTheBrazosWeekendGuideStub,
   goliadHistoryWeekendGuideStub,
   fredericksburgHistoryWeekendGuideStub,
+  fredericksburgJohnsonCityHistoricRoadTripStub,
 ];
 
 export async function loadStandaloneEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -420,5 +433,6 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === washingtonOnTheBrazosWeekendGuideStub.slug) return import("./washington-on-the-brazos-weekend-guide").then((module) => module.washingtonOnTheBrazosWeekendGuideArticle);
   if (slug === goliadHistoryWeekendGuideStub.slug) return import("./goliad-history-weekend-guide").then((module) => module.goliadHistoryWeekendGuideArticle);
   if (slug === fredericksburgHistoryWeekendGuideStub.slug) return import("./fredericksburg-history-weekend-guide").then((module) => module.fredericksburgHistoryWeekendGuideArticle);
+  if (slug === fredericksburgJohnsonCityHistoricRoadTripStub.slug) return import("./fredericksburg-johnson-city-historic-road-trip").then((module) => module.fredericksburgJohnsonCityHistoricRoadTripArticle);
   return null;
 }
