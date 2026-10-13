@@ -75,7 +75,7 @@ try {
      }
      if(!ready)throw Error('Main page content did not reach the hydrated audit-ready state');
      row.render='PASS';
-     row.semantics=await page.evaluate((expectedViewportWidth)=>({
+     const captureSemantics=()=>page.evaluate((expectedViewportWidth)=>({
        mainCount:document.querySelectorAll('main').length,
        h1s:[...document.querySelectorAll('main h1')].map(x=>x.textContent.trim()),
        unlabeledLinks:[...document.querySelectorAll('main a[href]')].filter(x=>x.getClientRects().length&&
@@ -83,6 +83,18 @@ try {
        imagesWithoutAlt:[...document.querySelectorAll('main img')].filter(x=>x.getClientRects().length&&!x.hasAttribute('alt')).map(x=>x.src),
        overflow:Math.max(0,document.documentElement.scrollWidth-expectedViewportWidth)
      }),width);
+     row.semantics=await captureSemantics();
+     // Hydrated route transitions can temporarily remove an H1 after the
+     // initial visible heading. One bounded resample distinguishes transient
+     // rendering from a persistently missing semantic heading. Do not waive
+     // the exact-one-H1 requirement, and record every recovery.
+     if(row.semantics.h1s.length!==1){
+       row.headingResample={initialCount:row.semantics.h1s.length,reason:'Heading changed after hydration'};
+       await page.locator('main h1').first().waitFor({state:'visible',timeout:15000});
+       await page.waitForTimeout(350);
+       row.semantics=await captureSemantics();
+       row.headingResample.finalCount=row.semantics.h1s.length;
+     }
      if(row.semantics.overflow>10) row.errors.push('Horizontal scroll overflow '+row.semantics.overflow+'px in '+width+'px viewport');
      const cdp=await context.newCDPSession(page);
      const tree=await cdp.send('Accessibility.getFullAXTree');
