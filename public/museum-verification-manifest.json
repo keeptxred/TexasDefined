@@ -1431,6 +1431,62 @@
           "label": "FAQ source: Can families hike the desert trails after visiting the archaeology galleries?"
         }
       ]
+    },
+    {
+      "path": "/destination/crow-museum-asian-art-dallas",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://crowmuseum.org/dallas-arts-district/",
+          "fetchUrl": "https://crowmuseum.org/dallas-arts-district/",
+          "label": "Crow Dallas Arts District location"
+        },
+        {
+          "sourceUrl": "https://crowmuseum.org/visit/",
+          "fetchUrl": "https://crowmuseum.org/visit/",
+          "label": "Crow current exhibitions by venue"
+        },
+        {
+          "sourceUrl": "https://crowmuseum.org/where-to-park/",
+          "fetchUrl": "https://crowmuseum.org/where-to-park/",
+          "label": "Crow accessible entrances"
+        },
+        {
+          "sourceUrl": "https://crowmuseum.org/about-the-museum/faqs/",
+          "fetchUrl": "https://crowmuseum.org/about-the-museum/faqs/",
+          "label": "Crow general visitor FAQ"
+        }
+      ]
+    },
+    {
+      "path": "/destination/museum-american-railroad-frisco",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.historictrains.org/visit",
+          "fetchUrl": "https://www.historictrains.org/visit",
+          "label": "Museum official visiting calendar and fees"
+        },
+        {
+          "sourceUrl": "https://www.historictrains.org/traintopia",
+          "fetchUrl": "https://www.historictrains.org/traintopia",
+          "label": "TrainTopia activities"
+        },
+        {
+          "sourceUrl": "https://www.historictrains.org/virtual-tour",
+          "fetchUrl": "https://www.historictrains.org/virtual-tour",
+          "label": "Museum rolling stock virtual tour"
+        },
+        {
+          "sourceUrl": "https://www.historictrains.org/mission",
+          "fetchUrl": "https://www.historictrains.org/mission",
+          "label": "Museum institutional background"
+        }
+      ]
     }
   ]
 }
