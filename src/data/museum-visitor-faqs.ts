@@ -863,9 +863,9 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
     {
       "question": "Is the Babe Zaharias Museum open on Saturdays?",
       "answer": "Published hours conflict: the museum and Babe Zaharias Foundation say Monday–Saturday 9 a.m.–5 p.m., but Beaumont's municipal facility listing says Monday–Friday and Saturday closed. Telephone 409-833-4622 before making a Saturday or holiday trip; no one schedule can be treated as confirmed.",
-      "verificationUrl": "https://www.beaumonttexas.gov/facilities/facility/details/Babe-Zaharias-Museum-Visitor-Center-74",
+      "verificationUrl": "https://bdzfoundation.com/contact/",
       "questionOrigin": "editorial-research",
-      "questionEvidenceUrl": "https://bdzfoundation.com/contact/",
+      "questionEvidenceUrl": "https://www.beaumonttexas.gov/facilities/facility/details/Babe-Zaharias-Museum-Visitor-Center-74",
       "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     },
