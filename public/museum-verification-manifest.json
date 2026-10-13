@@ -343,9 +343,9 @@
           "label": "Babe Zaharias Museum — current visitor information"
         },
         {
-          "sourceUrl": "https://www.beaumonttexas.gov/facilities/facility/details/Babe-Zaharias-Museum-Visitor-Center-74",
-          "fetchUrl": "https://www.beaumonttexas.gov/facilities/facility/details/Babe-Zaharias-Museum-Visitor-Center-74",
-          "label": "City of Beaumont — facility listing"
+          "sourceUrl": "https://www.beaumontcvb.com/birding/birdies/babe/",
+          "fetchUrl": "https://www.beaumontcvb.com/birding/birdies/babe/",
+          "label": "Beaumont convention and visitors bureau — operator visitor schedules; direct city facilities page remains editorial conflict citation but blocks automated requests"
         },
         {
           "sourceUrl": "https://www.babezahariasmuseum.com/babe-zaharias/",
