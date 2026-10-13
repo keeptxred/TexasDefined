@@ -5,7 +5,6 @@ import { filterCurrentlyVisitableDestinations } from "./destination-availability
 import { filterSeoReadyDestinations, isSeoReadyDestination } from "./destination-audit";
 import { applyAllCuratedDestination, applyAllCuratedDestinations } from "./destination-curation-all";
 import { preservedExploreDestinations } from "./destination-preserved-catalog";
-import { applyTownAuthority } from "./town-authority-network";
 import { improveDestinationCatalog, improveDestinationQuality } from "./destination-quality";
 import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./explore-core-remote";
 import { applyDestinationHeroOverride, isDestinationPhotoPlaceholder, reconcileDestinationHeroes } from "./explore-hero-reconciliation";
@@ -17,6 +16,8 @@ import { enrichHistoricSiteEvergreenLinks } from "./historic-site-evergreen-link
 import { applyHistoricSiteFactCorrections } from "./historic-site-fact-corrections";
 import { enrichHistoricSiteRemoteHero } from "./historic-site-remote-heroes";
 import { enrichNationalCemeteryDestination } from "./national-cemetery-enrichment";
+import { filterDestinationsByScope } from "./destination-query-scope";
+import { applyTownAuthority } from "./town-authority-network";
 import { platform, scope } from "./index";
 import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
 import type { Destination, Slug } from "./types";
@@ -94,7 +95,7 @@ function mergeReadyCatalogs(primary: Destination[], fallback: Destination[]): De
 }
 
 function filterPreservedDestinations(rows: Destination[], query: Omit<DestinationQuery, "brandId">): Destination[] {
-  if (query.category) rows = rows.filter((destination) => destination.category === query.category);
+  rows = filterDestinationsByScope(rows, query);
   if (query.featured !== undefined) rows = rows.filter((destination) => Boolean(destination.featured) === query.featured);
   return query.limit ? rows.slice(0, query.limit) : rows;
 }
@@ -219,14 +220,14 @@ function reconcileExploreCatalog(destinations: Destination[]) {
 
 export async function listResolvedDestinations(params: Omit<DestinationQuery, "brandId"> = {}) {
   if (params.category === WATER_COLLECTION) {
-    const destinations = selectSwimmingHoleAndTubingDestinations(await listResolvedDestinations());
+    const destinations = filterDestinationsByScope(selectSwimmingHoleAndTubingDestinations(await listResolvedDestinations()), params);
     if (params.featured) return featuredFallback(destinations, params.limit ?? 6);
     return params.limit ? destinations.slice(0, params.limit) : destinations;
   }
 
   if (params.category === RV_COLLECTION) {
     const { listRvParkDestinations } = await import("./rv-parks");
-    const destinations = (await listRvParkDestinations()).map(normalizeDestinationCounty);
+    const destinations = filterDestinationsByScope((await listRvParkDestinations()).map(normalizeDestinationCounty), params);
     if (params.featured) return featuredFallback(destinations, params.limit ?? 6);
     return params.limit ? destinations.slice(0, params.limit) : destinations;
   }
@@ -259,7 +260,7 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
     cityPassPreserved,
   ));
   const merged = mergeReadyCatalogs(primaryReady, fallbackReady);
-  const scoped = params.category ? merged.filter((destination) => destination.category === params.category) : merged;
+  const scoped = filterDestinationsByScope(merged, params);
   if (params.featured) return featuredFallback(scoped, params.limit ?? 6);
   return params.limit ? scoped.slice(0, params.limit) : scoped;
 }

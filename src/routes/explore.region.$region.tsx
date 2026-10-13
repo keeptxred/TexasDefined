@@ -3,6 +3,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { RegionalDestinationGrid } from "@/components/editorial/RegionalDestinationGrid";
 import { RegionalHubSections } from "@/components/editorial/RegionalHubSections";
+import { RegionAuthorityGuide } from "@/components/editorial/RegionAuthorityGuide";
 import { SectionHeader } from "@/components/editorial/SectionHeader";
 import { TopAttractionCollectionLinks } from "@/components/editorial/TopAttractionCollectionLinks";
 import { Container } from "@/components/layout/Container";
@@ -91,6 +92,7 @@ function RegionPage() {
       </div>
     </Container>
 
+    <RegionAuthorityGuide region={region} />
     <RegionalHubSections destinations={destinations} region={region} allRegions={regions} />
     <TopAttractionCollectionLinks destinations={destinations} contextLabel={region.name} />
 

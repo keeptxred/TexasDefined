@@ -5,6 +5,8 @@ const checks = [
   ['generated-page-quality', 'CODE/CONTENT', 'Validate generated page quality', 'node', ['scripts/data/validate-generated-page-quality.mjs']],
   ['runtime-data-constants', 'CODE/RUNTIME', 'Validate runtime data constants', 'node', ['scripts/data/validate-runtime-data-constants.mjs']],
   ['county-editorial-discovery', 'INTERNAL-LINKING', 'Validate county editorial discovery', 'node', ['scripts/data/validate-county-editorial-discovery.mjs']],
+  ['stamford-sweetwater-crosslinks', 'INTERNAL-LINKING', 'Validate lake-county reciprocal authority crosslinks', 'node', ['scripts/data/validate-stamford-sweetwater-crosslinks.mjs']],
+  ['fishing-county-authority-links', 'INTERNAL-LINKING', 'Validate every lake guide has source-derived county discovery links', 'node', ['scripts/data/validate-fishing-county-authority-links.mjs']],
   ['county-property-enrichment', 'CODE/CONTENT', 'Validate county property enrichment', 'node', ['scripts/data/validate-county-property-enrichment.mjs']],
   ['destination-indexing-policy', 'SEO/INDEXING', 'Validate destination indexing policy', 'node', ['scripts/data/validate-destination-indexing-policy.mjs']],
   ['homeowners-premium-research', 'SOURCE/QUALITY', 'Validate Texas homeowners premiums research', 'node', ['scripts/data/validate-homeowners-premium-research.mjs']],
@@ -72,6 +74,7 @@ const checks = [
   ['phase7-technical-seo', 'SEO/TECHNICAL', 'Validate Phase 7 technical SEO batch', 'node', ['scripts/data/validate-phase7-technical-seo.mjs']],
   ['citation-magnets', 'SEO/CITATIONS', 'Validate citation magnets', 'node', ['scripts/data/validate-citation-magnets.mjs']],
   ['fishing-authority', 'SEO/AUTHORITY', 'Validate fishing citation and retrieval authority', 'node', ['scripts/data/validate-fishing-authority.mjs']],
+  ['all-lake-authority-inventory', 'SEO/AUTHORITY', 'Audit complete fishing-lake guide/source/photo/county inventory', 'node', ['scripts/data/audit-texas-lake-authority.mjs']],
   ['citation-downloads', 'SEO/CITATIONS', 'Validate citation downloads', 'node', ['scripts/data/validate-citation-downloads.mjs']],
   ['citypass-affiliate', 'MONETIZATION/AFFILIATE', 'Validate Texas CityPASS affiliate coverage', 'node', ['scripts/data/validate-citypass-affiliate.mjs']],
   ['seo-ci-contract', 'CI/CONTRACT', 'Validate SEO CI contract', 'node', ['scripts/data/validate-seo-ci-contract.mjs']],
@@ -98,6 +101,8 @@ const checks = [
 const predeployIds = new Set([
   'runtime-data-constants',
   'county-editorial-discovery',
+  'stamford-sweetwater-crosslinks',
+  'fishing-county-authority-links',
   'machine-indexing', 'things-unique-to-texas', 'texas-icon-link-depth', 'texas-weather-authority',
   'texas-food-history', 'texas-culture-citation-index', 'texas-flag-authority', 'painted-churches-seo',
   'painted-church-search-intents', 'painted-church-map', 'painted-church-completion', 'military-history-expansion',
@@ -106,7 +111,7 @@ const predeployIds = new Set([
   'texas-talent-content-depth', 'texas-talent-launch-metadata', 'texas-talent-reverse-links',
   'texas-talent-public-preview', 'texas-talent-music-authority',
   'relocation-insurance-authority', 'relocation-city-comparison', 'relocation-freshness',
-  'fishing-authority', 'citypass-affiliate', 'governed-seo-duplicates',
+  'fishing-authority', 'all-lake-authority-inventory', 'citypass-affiliate', 'governed-seo-duplicates',
 ]);
 
 const fullExcludedIds = new Set(['texas-flag-authority', 'painted-churches-seo', 'painted-church-map', 'painted-church-completion']);
