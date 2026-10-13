@@ -11,6 +11,8 @@ describe("editorial image delivery", () => {
 
     const unsplash = "https://images.unsplash.com/photo-123?auto=format";
     expect(editorialImageSrc(unsplash)).toBe(`/media/remote?url=${encodeURIComponent(unsplash)}`);
+    const usfsPhoto = "https://research.fs.usda.gov/sites/default/files/2023-02/srs-sfaef-bridge.jpg";
+    expect(editorialImageSrc(usfsPhoto)).toBe(`/media/remote?url=${encodeURIComponent(usfsPhoto)}`);
     const wikimedia = "https://upload.wikimedia.org/wikipedia/commons/a/a1/example.jpg";
     expect(editorialImageSrc(wikimedia)).toBe(`/media/remote?url=${encodeURIComponent(wikimedia)}`);
     const wikimediaThumb = "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/example.jpg/1280px-example.jpg";
