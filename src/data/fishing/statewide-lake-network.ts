@@ -217,7 +217,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "County Public Ramp (Caney Creek)", operator: "Henderson County", kind: "public-ramp", launch: "From SH 31 in Malakoff, north on FM 198 about three miles, cross Caney Creek; ramp at north end of bridge, two lanes, 40 spaces.", fee: "TPWD lists no fee", availability: "Year-round in TPWD listing; verify county status." },
       { name: "Fisherman's Wharf", operator: "Private marina", kind: "marina", launch: "From Malakoff north on FM 198, west on FM 3062, then north on CR 1703; ramp, about 40 spaces.", fee: "TPWD lists fee; verify current charge", availability: "Year-round in TPWD listing; verify private operation (903) 489-0710." },
     ],
-    nearbyLakes: [{slug:"richland-chambers-reservoir",name:"Richland-Chambers Reservoir"},{slug:"lake-palestine",name:"Lake Palestine"}],
+    nearbyLakes: [{slug:"richland-chambers-reservoir",name:"Richland-Chambers Reservoir"},{slug:"lake-palestine",name:"Lake Palestine"},{slug:"bardwell-lake",name:"Bardwell Lake"}],
   },
   {
     slug: "lewisville-lake", name: "Lewisville Lake", accessReviewedAt: "2026-10-12", tpwdSlug: "lewisville", waterDataSlug: "lewisville", region: "prairies-lakes",
@@ -456,7 +456,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Park Prairie Park", operator: "Lower Colorado River Authority", kind: "park", launch: "North shore about ten miles east of La Grange; from SH 159 take Park Prairie Road. Three-lane ramp and fishing pier.", fee: "Park fee required", availability: "TPWD lists year-round; LCRA (979) 249-3504. Reserve facilities through current LCRA reservation system." },
       { name: "Oak Thicket Park", operator: "Lower Colorado River Authority", kind: "park", launch: "North shore near Park Prairie Park; Oak Thicket Park Road off SH 159 two miles east of Park Prairie Road. Two-lane ramp and fishing pier.", fee: "Park fee required", availability: "Year-round TPWD listing; LCRA (979) 249-3504. Check campsite booking directly." },
     ],
-    nearbyLakes: [{slug:"lake-somerville",name:"Lake Somerville"},{slug:"lake-austin",name:"Lake Austin"}],
+    nearbyLakes: [{slug:"lake-somerville",name:"Lake Somerville"},{slug:"lake-austin",name:"Lake Austin"},{slug:"lake-bastrop",name:"Lake Bastrop"}],
     camping: {name:"Park Prairie and Oak Thicket parks",summary:"LCRA parks provide camping and fishing access; current reservations, fees and operating conditions should be verified before travel."},
   },
   {
@@ -481,7 +481,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Yegua Creek Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "South on SH 36 from Somerville then FM 1948; two public ramps.", fee: "TPWD lists fee; verify current amount", availability: "Year-round per TPWD; verify high-water damage and USACE notices." },
       { name: "Overlook Park and Lake Somerville Marina", operator: "USACE park / private marina", kind: "marina", launch: "South on SH 36 from Somerville, FM 1948 west then first right to marina; public park and separately operated marina.", fee: "TPWD lists launch fee; confirm whether park or marina entrance", availability: "Year-round listed; verify Corps closures and marina operation." },
     ],
-    nearbyLakes: [{slug:"fayette-county-reservoir",name:"Fayette County Reservoir"},{slug:"lake-conroe",name:"Lake Conroe"}],
+    nearbyLakes: [{slug:"fayette-county-reservoir",name:"Fayette County Reservoir"},{slug:"lake-conroe",name:"Lake Conroe"},{slug:"lake-bastrop",name:"Lake Bastrop"}],
     camping: {name:"Lake Somerville State Park",summary:"Nails Creek and Birch Creek units provide established camping and lake access; verify park alerts and reservations before travel."},
   },
   {
