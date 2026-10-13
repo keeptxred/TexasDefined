@@ -26,6 +26,8 @@ export const CANONICAL_DESTINATION_TRAVEL_REGIONS: Readonly<Record<string, Texas
   "galveston-island-historic-pleasure-pier": "gulf-coast",
   "padre-island-national-seashore": "gulf-coast",
   "houston-zoo": "gulf-coast",
+  "downtown-aquarium-houston": "gulf-coast",
+  "houston-interactive-aquarium-animal-preserve": "gulf-coast",
   "space-center-houston": "gulf-coast",
   "houston-museum-of-natural-science": "gulf-coast",
   "brazos-bend-state-park": "gulf-coast",
