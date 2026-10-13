@@ -3,13 +3,17 @@
 export type HistoricChurchSource = { label: string; url: string; type: "parish" | "historical-marker" | "archive" | "independent" };
 export type HistoricChurchImage = { file: string; alt: string; author: string; license: "CC BY-SA 4.0"; sourceUrl: string; width: number; height: number };
 export type HistoricChurchPhotoReference = { label: string; pageUrl: string; photographer?: string; reuseStatus: "permission-required" | "noncommercial-only"; note: string };
+export type HistoricChurchArchivalVisual = {
+  file: string; title: string; alt: string; date: string; credit: string;
+  sourceUrl: string; license: "Public domain (U.S.)"; note: string;
+};
 export type HistoricChurch = {
   slug: string; name: string; shortName: string; locality: string; county: string; address?: string;
   summary: string; quickAnswer: string; denomination: string; foundation: string; presentBuilding: string;
   historicalContext: string[]; timeline: { year: string; detail: string }[];
   architecture: string[]; visitorNotes: string[]; significance: string[];
   sources: HistoricChurchSource[]; image?: HistoricChurchImage; gallery?: HistoricChurchImage[];
-  imageStatus: "rights-cleared" | "awaiting-licensed-photos"; photoReferences?: HistoricChurchPhotoReference[];
+  imageStatus: "rights-cleared" | "awaiting-licensed-photos"; photoReferences?: HistoricChurchPhotoReference[]; archivalVisuals?: HistoricChurchArchivalVisual[];
   faq: { question: string; answer: string }[];
   paintedStatus: "not-established" | "research-candidate" | "related-historic";
   related: { href: string; label: string; why: string }[];
@@ -60,6 +64,16 @@ export const historicChurches: HistoricChurch[] = [
       { question:"Is St. Joseph's in Yoakum a verified Painted Church?", answer:"This page documents the parish's mission history, railroad relocation and successive buildings. It does not claim a formal historic decorative-interior classification." }
     ],
     photoReferences:[{label:"Photograph of today's St. Joseph Catholic Church exterior",pageUrl:"https://stjcatholicchurch.com/",reuseStatus:"permission-required",note:"The active parish displays a clear exterior photograph. Its contact page prohibits reproducing the parish site's materials without express pastor consent; link only until permission is documented."}],
+    archivalVisuals:[{
+      file:"Yoakum_1922_Sheet_14_-_DPLA_-_4457c73a6f6dfbf79394db00a77a51de.jpg",
+      title:"Yoakum's built environment in 1922",
+      alt:"Sanborn fire insurance map sheet documenting buildings and streets in Yoakum, Texas, in 1922",
+      date:"1922",
+      credit:"Sanborn Map Company; Dolph Briscoe Center for American History, via Digital Public Library of America and Wikimedia Commons",
+      sourceUrl:"https://commons.wikimedia.org/wiki/File:Yoakum_1922_Sheet_14_-_DPLA_-_4457c73a6f6dfbf79394db00a77a51de.jpg",
+      license:"Public domain (U.S.)",
+      note:"An archival map sheet of Yoakum in the railroad era, not a verified photograph or site plan of St. Joseph Catholic Church. It must not be presented as the church's exterior."
+    }],
     imageStatus:"awaiting-licensed-photos",
     paintedStatus:"not-established",
     related:[{href:"/county/lavaca",label:"Lavaca County guide",why:"Nearby Catholic and Czech-German parish networks"},{href:"/explore/painted-churches",label:"Painted Churches of Texas",why:"Compare confirmed decorative interiors without conflating classifications"}],
