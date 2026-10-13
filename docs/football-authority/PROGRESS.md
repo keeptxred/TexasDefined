@@ -1,5 +1,8 @@
 # Football Authority — Execution Ledger
 
+## October 13, 2026 — All 25 Batch 005 school dossiers implemented; production acceptance still needed
+The final 14 individually researched schools (Baytown Goose Creek Memorial, Baytown Lee, Baytown Sterling, Beaumont United, Beaumont West Brook, Beckville, Beeville Jones, Bells, Bellville, Belton, Ben Bolt–Palito Blanco, Benavides, Reagan County, Big Sandy) are recovered from the previously unmerged dependent branches and integrated into a current-main-derived release with their original research dossiers, program history, source links, verified mascot names and campus county links. Prior batches retain **80 verified**, plus **Benjamin VERIFIED** following its exact-sha 63/63 live Chrome acceptance. The other **24 Batch 005 are implemented but NOT yet individually VERIFIED**; 2026 fixture facts and image rights retain their source caveats. Registry counting is now 81 VERIFIED / 24 IMPLEMENTED across 1,292 current teams. These 14 have not been promoted merely because code was committed; production deployment and desktop/mobile/structured-data/backlink checks are next. Supersedes older dated ledger passages that describe this group as unimplemented.
+
 ## Batch 005 second five — safely restored on current main (Oct 13, 2026)
 Nueces Canyon, Bartlett, Bastrop, Cedar Creek and Bay City were rescued from conflicted dependent PR #4579 and their five unique sourced school dossiers and relevant county/identity/football data restored onto a clean new main-derived branch. These five are **IMPLEMENTED ON BRANCH**, not production-verified. Existing 81 VERIFIED (80 previous plus Benjamin) remain intact. Final production acceptance and crosslink tests are still required, and 14 Group3–5 schools remain to integrate.
 

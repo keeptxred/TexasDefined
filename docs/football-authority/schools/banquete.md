@@ -24,3 +24,6 @@ Distinct editorial overview, dated milestones and documentation, official athlet
 - Do not fabricate school championships where the official archive supports only finalist records or no title
 
 **Important:** `IMPLEMENTED` is not `VERIFIED`; original 80 completed schools are unchanged.
+
+## 2026 football source-dated scorecard — October 13 update
+[MaxPreps 2026 reporting](https://www.maxpreps.com/tx/banquete/banquete-bulldogs/football/) is used for independent scores and fixture context. Six results verified through October 9; the generic MaxPreps /football/schedule/ is the *2025* calendar, so the six 2026 results and the explicitly forecast Dilley/Monte Alto fixtures are taken only from 2026 team reporting. No invented other matchups. Source dates, unverified results and event-site uncertainties are described on the live profile. No 2025 games are misrepresented as 2026; no unauthorized school photography is used.
