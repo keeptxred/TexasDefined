@@ -83,6 +83,7 @@ import { statewideMuseumExpansionWave52Destinations } from "./museum-expansion-s
 import { nacogdochesSanAugustineAuthorityDestinations } from "./nacogdoches-san-augustine-authority-destinations";
 import { nacogdochesSanAugustineForestDestinations } from "./nacogdoches-san-augustine-forest-destinations";
 import { nacogdochesDowntownHistoricDistrictDestinations } from "./nacogdoches-downtown-historic-district-destination";
+import { zionHillNacogdochesAuthorityDestinations } from "./zion-hill-nacogdoches-authority-destinations";
 import { statewideMuseumExpansionWave53Destinations } from "./museum-expansion-statewide-wave53";
 import { statewideMuseumExpansionWave54Destinations } from "./museum-expansion-statewide-wave54";
 import { wacoMuseumDestinations } from "./museum-expansion-waco";
@@ -308,6 +309,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   nacogdochesSanAugustineAuthorityDestinations,
   nacogdochesSanAugustineForestDestinations,
   nacogdochesDowntownHistoricDistrictDestinations,
+  zionHillNacogdochesAuthorityDestinations,
   statewideMuseumExpansionWave53Destinations,
   statewideMuseumExpansionWave54Destinations,
   nationalWildlifeRefugeDestinations,
