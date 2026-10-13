@@ -25,6 +25,18 @@ export const texasGuidePickEvidence: Record<number, GuidePickEvidence[]> = {
     { title: "Amistad Reservoir — a remote border-lake experience", officialUrl: "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/amistad/", internalHref: "/fishing/lakes/amistad-reservoir", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — lake fishery and access overview" },
     { title: "Possum Kingdom Reservoir — rocky scenery with a fishery", officialUrl: "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/possum_kingdom/", internalHref: "/fishing/lakes/possum-kingdom-reservoir", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — lake fishery and access overview" },
   ],
+  109: [
+    { title: "Palo Duro Canyon — dramatic canyon camping", officialUrl: "https://tpwd.texas.gov/state-parks/palo-duro-canyon", internalHref: "/destination/palo-duro-canyon-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — park facilities, reservations and current visitor operations" },
+    { title: "Garner State Park — family trips centered on the Frio", officialUrl: "https://tpwd.texas.gov/state-parks/garner", internalHref: "/destination/garner-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — park facilities, reservations and current visitor operations" },
+    { title: "Mustang Island — Gulf Coast nights", officialUrl: "https://tpwd.texas.gov/state-parks/mustang-island", internalHref: "/destination/mustang-island-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — park facilities, reservations and current visitor operations" },
+    { title: "Caddo Lake — cypress landscape and paddling", officialUrl: "https://tpwd.texas.gov/state-parks/caddo-lake", internalHref: "/destination/caddo-lake-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — park facilities, reservations and current visitor operations" },
+    { title: "Brazos Bend — wildlife and short Houston-area travel", officialUrl: "https://tpwd.texas.gov/state-parks/brazos-bend", internalHref: "/destination/brazos-bend-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — park facilities, reservations and current visitor operations" },
+    { title: "Inks Lake — water recreation from a developed base", officialUrl: "https://tpwd.texas.gov/state-parks/inks-lake", internalHref: "/destination/inks-lake-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — park facilities, reservations and current visitor operations" },
+    { title: "Caprock Canyons — bison country and hiking", officialUrl: "https://tpwd.texas.gov/state-parks/caprock-canyons", internalHref: "/destination/caprock-canyons-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — park facilities, reservations and current visitor operations" },
+    { title: "Martin Dies, Jr. — forest and East Texas water", officialUrl: "https://tpwd.texas.gov/state-parks/martin-dies-jr", internalHref: "/destination/martin-dies-jr-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — park facilities, reservations and current visitor operations" },
+    { title: "Tyler State Park — compact lake and woods", officialUrl: "https://tpwd.texas.gov/state-parks/tyler", internalHref: "/destination/tyler-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — park facilities, reservations and current visitor operations" },
+    { title: "Big Bend Ranch State Park — prepared backcountry trips", officialUrl: "https://tpwd.texas.gov/state-parks/big-bend-ranch", internalHref: "/destination/big-bend-ranch-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — park facilities, reservations and current visitor operations" },
+  ],
 };
 export function sourceForGuidePick(number: number, title: string): GuidePickEvidence | undefined {
   return texasGuidePickEvidence[number]?.find((row) => row.title === title);
@@ -37,7 +49,7 @@ export function allGuidePicksIndividuallySourced(number: number, titles: string[
       const item = sourceForGuidePick(number, title);
       return Boolean(item
         && /^https:\/\/[^\s]+$/.test(item.officialUrl)
-        && item.internalHref.startsWith("/fishing/lakes/")
+        && (item.internalHref.startsWith("/fishing/lakes/") || item.internalHref.startsWith("/destination/"))
         && /^\d{4}-\d{2}-\d{2}$/.test(item.sourceCheckedAt));
     });
 }
