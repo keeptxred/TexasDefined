@@ -35,6 +35,7 @@ export const banderaCountyBanderaMedinaRiverCowboyHillCountryArticle: Article = 
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/bandera", label: "Bandera authority travel guide", description: "Use Bandera's cowboy heritage, Medina River and practical town itinerary." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/medina", label: "Explore Medina County", description: "Follow the Medina River south and east toward Hondo, Castroville and Alsatian Texas." },
     { href: "/county/real", label: "Explore Real County", description: "Continue west into the Frio and Nueces canyon country around Leakey and Camp Wood." },

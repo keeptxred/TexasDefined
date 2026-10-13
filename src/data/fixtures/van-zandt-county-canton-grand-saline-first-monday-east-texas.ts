@@ -36,6 +36,7 @@ export const vanZandtCountyCantonGrandSalineFirstMondayEastTexasArticle: Article
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/canton", label: "Canton authority visitor guide", description: "Market calendar, historic downtown and Van Zandt County visitor guide." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/rains", label: "Explore Rains County", description: "Continue north toward Emory, Lake Tawakoni and Lake Fork." },
     { href: "/county/hunt", label: "Explore Hunt County", description: "Travel northwest toward Greenville and the Blackland Prairie." },
