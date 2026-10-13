@@ -3090,6 +3090,163 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "dr-pepper-museum-waco": [
+    {
+      "question": "Do I need to reserve a Dr Pepper Museum ticket online?",
+      "answer": "No. The museum sells regular self-guided admission at the gate and does not sell general-admission tickets online. As of the official visitor listing, guests age 5 and up pay $12 and children age 4 and younger enter free. Make-A-Soda and other special experiences may be separately priced and reserved.",
+      "verificationUrl": "https://drpeppermuseum.com/plan-your-visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does a Dr Pepper Museum admission ticket include a soda?",
+      "answer": "Yes, each paid general-admission ticket includes a complimentary 12-ounce fountain drink or equivalent credit for an upgrade. Children admitted for free, some passes and other complimentary admissions do not automatically include a free soda voucher.",
+      "verificationUrl": "https://drpeppermuseum.com/plan-your-visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I enter the Dr Pepper Museum soda fountain without admission?",
+      "answer": "No. The operator says the soda fountain, gift shop and the World's Largest Dr Pepper Bottle are inside the ticketed museum campus. You must pay for museum admission to reach them even if you only want a drink or shop.",
+      "verificationUrl": "https://drpeppermuseum.com/frequently-asked-questions/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/frequently-asked-questions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should I park at the Dr Pepper Museum, and is parking free?",
+      "answer": "The public museum lot across South 5th Street is paid, approximately $10 plus fees for five hours, with no come-and-go privileges. There may be free on-street parking nearby. Do not park in the staff-only lot under the red neon sign; accessible parking with qualifying placard or plates has its own designated spaces.",
+      "verificationUrl": "https://drpeppermuseum.com/parking-information/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/parking-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I leave the Dr Pepper Museum and come back the same day?",
+      "answer": "The museum's current visitor FAQ says there is no reentry after exiting the museum campus. Finish the galleries, soda fountain and shop before leaving; public parking also does not provide a come-and-go privilege.",
+      "verificationUrl": "https://drpeppermuseum.com/frequently-asked-questions/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/frequently-asked-questions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How accessible is the historic Dr Pepper Museum for wheelchair or sensory-sensitive visitors?",
+      "answer": "Both buildings have accessible entrances, with elevators in the former bottling plant; wheelchairs may be borrowed subject to availability. The museum offers sensory-support resources and captioning or transcripts. Contact staff before arrival about individualized access or a specific Make-A-Soda program.",
+      "verificationUrl": "https://drpeppermuseum.com/accessibility/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/accessibility/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors bring large strollers or wagons into the Dr Pepper Museum?",
+      "answer": "The operator allows standard-sized strollers but not oversized strollers or wagons inside its buildings; those must be left in designated stroller parking areas.",
+      "verificationUrl": "https://drpeppermuseum.com/frequently-asked-questions/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/frequently-asked-questions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Dr Pepper Museum suitable for young children and school trips?",
+      "answer": "The bottling displays and fountain are popular family options, but toddlers may need short routes. School groups should book in advance and follow chaperone and group parking procedures. Paid museum admission does not include every add-on beverage experience.",
+      "verificationUrl": "https://drpeppermuseum.com/group-tour-field-trip-faqs/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are there tables where my group can eat at the Dr Pepper Museum?",
+      "answer": "The museum has public courtyard picnic tables but does not guarantee or reserve them for ordinary groups. The on-campus soda fountain is a drink and dessert counter, not a full-service restaurant. School and other groups should plan food logistics before arrival.",
+      "verificationUrl": "https://drpeppermuseum.com/group-tour-field-trip-faqs/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/group-tour-field-trip-faqs/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "texas-sports-hall-of-fame-waco": [
+    {
+      "question": "How much does admission to the Texas Sports Hall of Fame cost?",
+      "answer": "Current posted prices are adults $10, seniors age 60 and up $8, students K–college $6, children under six free, and active-duty military and veterans free. Ticket sales take place at the museum; group arrangements are separate.",
+      "verificationUrl": "https://tshof.org/contact-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tshof.org/contact-us/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Texas Sports Hall of Fame open Sundays?",
+      "answer": "No. The official visitor details list Monday through Saturday 9 a.m.–5 p.m. and Sunday closed. Special programs may have different schedules, so verify holiday and event days before a dedicated trip.",
+      "verificationUrl": "https://tshof.org/contact-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tshof.org/contact-us/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where can I park at the Texas Sports Hall of Fame?",
+      "answer": "The museum is at 1108 South University Parks Drive by Baylor University and offers free on-site visitor parking. Nearby sporting events may change traffic routes, but the official visitor guide does not list a routine museum parking charge.",
+      "verificationUrl": "https://tshof.org/contact-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tshof.org/contact-us/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Do I need advance tickets or a tour reservation?",
+      "answer": "Individual visitors can usually buy a general ticket when they arrive. Organized groups and guided tours should arrange a reservation in advance, since a standard admission ticket does not guarantee a staffed tour.",
+      "verificationUrl": "https://tshof.org/contact-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tshof.org/contact-us/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What kinds of sports can I learn about at the Texas Sports Hall of Fame?",
+      "answer": "The Hall interprets athletes and coaches across football, baseball, basketball, track, golf, rodeo and other sports. Texas High School Football and the former Southwest Conference provide important subtopics rather than being separate daily admission venues.",
+      "verificationUrl": "https://tshof.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tshof.org/contact-us/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much time should I allow for the Texas Sports Hall of Fame?",
+      "answer": "About one to two hours is an independent planning estimate, depending on whether the visitor focuses on one sport or studies many inductee displays. The operator does not promise an exact average visit duration.",
+      "verificationUrl": "https://tshof.org/contact-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tshof.org/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is there a full-service restaurant inside Texas Sports Hall of Fame?",
+      "answer": "The museum's official contact and visitor information does not establish an on-site café or full-service restaurant. Baylor-area dining is nearby but separate from the Hall. Plan food and dietary arrangements independently.",
+      "verificationUrl": "https://tshof.org/contact-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tshof.org/contact-us/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Texas Sports Hall of Fame wheelchair accessible?",
+      "answer": "The operator's basic visitor listing gives the location and free parking but does not document exact accessible parking spaces, step-free routes or sensory accommodations. Call 254-756-1633 before visiting if a particular accommodation is necessary.",
+      "verificationUrl": "https://tshof.org/contact-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tshof.org/contact-us/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
