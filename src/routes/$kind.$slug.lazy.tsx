@@ -4,6 +4,7 @@ import { createLazyFileRoute } from '@tanstack/react-router';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
 import { CountyCoastalPlaces } from '@/components/content/CountyCoastalPlaces';
 import { CountyTownAuthorityLinks } from '@/components/content/CountyTownAuthorityLinks';
+import { CountyCityMuseums } from '@/components/content/CountyCityMuseums';
 import { CountyGuideSections } from '@/components/content/CountyGuideSections';
 import { EntityDepthSections } from '@/components/content/EntityDepthSections';
 import { WildlifeDepthSections } from '@/components/content/WildlifeDepthSections';
@@ -36,6 +37,8 @@ const CountyHighSchoolFootball = lazy(() =>
 const batch002FootballCityLinks: Record<string, { name: string; slug: string; context: string }[]> = {
   austin: [
     { name: 'Austin High Maroons', slug: 'austin', context: '1942 state champion, House Park heritage' },
+    { name: 'Austin Achieve Polar Bears', slug: 'austin-achieve', context: 'Charter campus inside Austin full-purpose municipal limits, verified with TEA and city GIS' },
+    { name: 'Vandegrift Vipers', slug: 'austin-vandegrift', context: 'Leander ISD campus inside Austin full-purpose municipal limits; 2024 state title' },
     { name: 'Akins Eagles', slug: 'austin-akins', context: 'Burger Stadium varsity calendar' },
     { name: 'Anderson Trojans', slug: 'austin-anderson', context: '2025 10–2 playoff season' },
     { name: 'Bowie Bulldogs', slug: 'austin-bowie', context: 'Coach Jeff Ables and Bowie traditions' },
@@ -69,6 +72,12 @@ const batch002FootballCityLinks: Record<string, { name: string; slug: string; co
 
 // Exactly five independently researched football authority entries; campus county, not postal city or school-district footprint.
 const batch001FootballCountyLinks: Record<string, { name: string; href: string; description: string; campusCountySource: string }> = {
+  knox: {
+    name: 'Benjamin Mustangs',
+    href: '/texas-high-school-football-teams/benjamin',
+    description: 'Explore Benjamin ISD\'s 2022 and 2023 six-man titles, 2026 game reports and stadium visit information.',
+    campusCountySource: 'https://www.benjaminisd.net/',
+  },
   'van-zandt': {
     name: 'Wills Point Tigers',
     href: '/texas-high-school-football-teams/wills-point',
@@ -353,6 +362,7 @@ function EntityPage() {
         {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} countySeriesArticle={countySeriesArticle} /> : null}
         {(entity.kind === 'city' || entity.kind === 'county') && foodDestinations.length ? <Suspense fallback={null}><EntityFoodDestinations entity={entity} destinations={foodDestinations} /></Suspense> : null}
         {(entity.kind === 'county' || entity.kind === 'city') ? <CountyTownAuthorityLinks kind={entity.kind} slug={entity.slug} name={entity.name} /> : null}
+        <CountyCityMuseums kind={entity.kind} slug={entity.slug} name={entity.name} />
         {entity.kind === 'county' ? <CountyCoastalPlaces county={entity} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
         {entity.kind === 'county' ? <Suspense fallback={null}><CountyHighSchoolFootball county={entity} /></Suspense> : null}

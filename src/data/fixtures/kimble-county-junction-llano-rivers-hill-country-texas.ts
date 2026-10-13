@@ -34,6 +34,7 @@ export const kimbleCountyJunctionLlanoRiversHillCountryTexasArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-llano-river-guide", label: "Texas llano  River guide", description: "Access, river history, appropriate recreation, camping and verified current-source checks." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/menard", label: "Explore Menard County", description: "Continue north toward the San Saba River, Fort McKavett country and the western Hill Country." },
     { href: "/county/mason", label: "Explore Mason County", description: "Follow the Llano River east toward Mason, granite country and the heart of the Hill Country." },

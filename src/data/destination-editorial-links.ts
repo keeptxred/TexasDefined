@@ -1,3 +1,7 @@
+import { riverAuthorityLinksForDestination } from "@/data/river-authority-relations";
+import { fullHistoricSiteCrosslinks } from "./historic-site-crosslinks-all";
+import { sanAntonioHeritageLinks } from "./san-antonio-heritage-links";
+
 export type DestinationEditorialLink = {
   href: string;
   label: string;
@@ -5,7 +9,29 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "luckenbach": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
+  ],
+  "stonewall": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
+  ],
+  "fredericksburg-art-guild": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
+  ],
+  "national-museum-pacific-war": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
+  ],
+  "fort-martin-scott": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
+  ],
+  "fredericksburg-historic-district": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
+  ],
+  "fredericksburg": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
+  ],
   "lbj-boyhood-home-johnson-city": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
     {
       href: "/destination/lyndon-b-johnson-national-historical-park",
       label: "Explore the full LBJ National Historical Park",
@@ -28,6 +54,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "lyndon-b-johnson-state-park-and-historic-site": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
     {
       href: "/destination/lyndon-b-johnson-national-historical-park",
       label: "Continue into the LBJ Ranch",
@@ -87,6 +114,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "hye": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
     {
       href: "/destination/garrison-brothers-distillery-hye",
       label: "Tour Garrison Brothers",
@@ -394,6 +422,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "johnson-city": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
     {
       href: "/destination/science-mill-johnson-city",
       label: "Plan a Science Mill visit",
@@ -476,6 +505,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "science-mill-johnson-city": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
     {
       href: "/destination/johnson-city",
       label: "Explore Johnson City",
@@ -535,6 +565,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "lyndon-b-johnson-national-historical-park": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
     {
       href: "/destination/texas-vintage-motorcycle-museum-johnson-city",
       label: "See Johnson City's vintage motorcycle museum",
@@ -726,6 +757,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "garner-state-park": [
+    { href: "/article/texas-frio-river-guide", label: "Frio River authority guide", description: "Connect this destination to verified river-wide context, trip planning, fishing, access and conservation." },
     {
       href: "/explore/swimming-holes-river-tubing",
       label: "Compare Texas swimming and tubing destinations",
@@ -733,6 +765,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "leakey": [
+    { href: "/article/texas-frio-river-guide", label: "Frio River corridor guide", description: "Connect this destination to verified river-wide context, trip planning, fishing, access and conservation." },
     {
       href: "/explore/swimming-holes-river-tubing",
       label: "Plan a Frio Canyon water weekend",
@@ -757,6 +790,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "guadalupe-river-state-park": [
+    { href: "/article/texas-guadalupe-river-guide", label: "Guadalupe River access and recreation guide", description: "Connect this destination to verified river-wide context, trip planning, fishing, access and conservation." },
     {
       href: "/explore/swimming-holes-river-tubing",
       label: "Compare Texas swimming and tubing destinations",
@@ -779,6 +813,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "south-llano-river-state-park": [
+    { href: "/article/texas-llano-river-guide", label: "Llano River fishing, camping and paddling", description: "Connect this destination to verified river-wide context, trip planning, fishing, access and conservation." },
     {
       href: "/explore/swimming-holes-river-tubing",
       label: "Compare Texas swimming and tubing destinations",
@@ -813,6 +848,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "san-marcos": [
+    { href: "/article/texas-san-marcos-river-guide", label: "San Marcos River parks, rules and paddling", description: "Connect this destination to verified river-wide context, trip planning, fishing, access and conservation." },
     {
       href: "/explore/swimming-holes-river-tubing",
       label: "Explore Texas swimming holes and river tubing",
@@ -838,6 +874,301 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
   ],
 };
 
+const HISTORIC_SITE_CROSS_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "fort-davis-national-historic-site": [
+    {
+      "href": "/county/jeff-davis",
+      "label": "Jeff Davis County",
+      "description": "Connect the post with the Davis Mountains, observatory and mountain communities."
+    },
+    {
+      "href": "/destination/davis-mountains-state-park",
+      "label": "Davis Mountains State Park",
+      "description": "Compare two separate neighboring sites and plan mountain trails or an overnight stay."
+    },
+    {
+      "href": "/article/buffalo-soldiers-texas-frontier-guide",
+      "label": "Buffalo Soldiers across Texas",
+      "description": "Place Fort Davis's 9th Cavalry and other Black Regular Army service into the wider frontier history."
+    }
+  ],
+  "san-jacinto-battleground": [
+    {
+      "href": "/destination/the-alamo",
+      "label": "The Alamo",
+      "description": "Trace the 1836 campaign backward to San Antonio, the siege and its consequences."
+    },
+    {
+      "href": "/destination/washington-on-the-brazos",
+      "label": "Washington-on-the-Brazos",
+      "description": "Compare the independence convention and the battle that changed the military outcome."
+    },
+    {
+      "href": "/article/texas-revolution-historic-sites-road-trip",
+      "label": "Texas Revolution travel route",
+      "description": "Place San Jacinto at the end of a chronological route through political sites and battlefields."
+    }
+  ],
+  "the-alamo": [
+    {
+      "href": "/destination/san-antonio-missions-national-historical-park",
+      "label": "San Antonio Missions",
+      "description": "Understand how the earlier mission landscape shapes the Alamo's 1718-to-1836 history."
+    },
+    {
+      "href": "/destination/casa-navarro",
+      "label": "Casa Navarro",
+      "description": "Balance military history with the political story of Tejano independence leader José Antonio Navarro."
+    },
+    {
+      "href": "/destination/san-jacinto-battleground",
+      "label": "San Jacinto Battleground",
+      "description": "Follow the military campaign from San Antonio to its decisive April 1836 battle."
+    }
+  ],
+  "goliad-state-park": [
+    {
+      "href": "/destination/presidio-la-bahia",
+      "label": "Presidio La Bahía",
+      "description": "Visit the nearby fort as a separate site with its own hours, fees and 1836 history."
+    },
+    {
+      "href": "/destination/fannin-battleground",
+      "label": "Fannin Battleground",
+      "description": "Connect the mission era with the Coleto campaign and Goliad executions."
+    },
+    {
+      "href": "/destination/goliad",
+      "label": "Explore Goliad",
+      "description": "Plan a complete visit around the river, courthouse square and historic sites."
+    }
+  ],
+  "fort-lancaster": [
+    {
+      "href": "/destination/fort-mckavett",
+      "label": "Fort McKavett",
+      "description": "Compare the extensive rebuilt garrison with Fort Lancaster's remote foundations."
+    },
+    {
+      "href": "/destination/fort-davis-national-historic-site",
+      "label": "Fort Davis National Historic Site",
+      "description": "Contrast two different military responses to West Texas overland travel."
+    },
+    {
+      "href": "/article/texas-frontier-forts-road-trip",
+      "label": "Texas frontier forts route",
+      "description": "See how Lancaster fits into the larger frontier-road, water and logistics network."
+    }
+  ],
+  "fort-griffin": [
+    {
+      "href": "/destination/official-texas-longhorn-herd",
+      "label": "Official Texas Longhorn Herd",
+      "description": "See the preserved herd and understand Fort Griffin's cattle-trail setting."
+    },
+    {
+      "href": "/destination/fort-richardson-state-park-state-historic-site",
+      "label": "Fort Richardson",
+      "description": "Compare two North Texas posts with very different surviving buildings."
+    },
+    {
+      "href": "/county/shackelford",
+      "label": "Shackelford County guide",
+      "description": "Explore Albany, the Clear Fork and the wider ranching landscape."
+    }
+  ],
+  "fort-mckavett": [
+    {
+      "href": "/destination/fort-lancaster",
+      "label": "Fort Lancaster",
+      "description": "Contrast the reconstructed daily functions of a fort with a remote West Texas ruin."
+    },
+    {
+      "href": "/destination/fort-griffin",
+      "label": "Fort Griffin",
+      "description": "Compare military, settlement and cattle-trail histories in the post-Civil War frontier."
+    },
+    {
+      "href": "/county/menard",
+      "label": "Menard County guide",
+      "description": "Plan a longer visit through the Menard and San Saba River corridor."
+    }
+  ],
+  "washington-on-the-brazos": [
+    {
+      "href": "/destination/star-of-the-republic-museum",
+      "label": "Star of the Republic Museum",
+      "description": "Pair the 1836 townsite with the complex's artifact-focused museum when open."
+    },
+    {
+      "href": "/destination/barrington-living-history-farm",
+      "label": "Barrington Living History Farm",
+      "description": "See the farm-life history beyond the political convention."
+    },
+    {
+      "href": "/destination/san-felipe-de-austin",
+      "label": "San Felipe de Austin",
+      "description": "Compare Texas's earlier colonial headquarters with the independence convention."
+    }
+  ],
+  "presidio-la-bahia": [
+    {
+      "href": "/destination/goliad-state-park",
+      "label": "Mission Espíritu Santo",
+      "description": "Tour the nearby mission and learn the colonial history before the 1836 campaign."
+    },
+    {
+      "href": "/destination/fannin-battleground",
+      "label": "Fannin Battleground",
+      "description": "Start with the Battle of Coleto to understand what followed at La Bahía."
+    },
+    {
+      "href": "/article/goliad-history-weekend-guide",
+      "label": "Goliad history weekend",
+      "description": "Build a chronological visit through the Goliad mission, presidio and battlefield."
+    }
+  ],
+  "palo-alto-battlefield-national-historical-park": [
+    {
+      "href": "/destination/port-isabel-lighthouse",
+      "label": "Port Isabel Lighthouse",
+      "description": "Follow the Gulf supply line used in the opening 1846 campaign."
+    },
+    {
+      "href": "/destination/palmito-ranch-battlefield",
+      "label": "Palmito Ranch Battlefield",
+      "description": "Compare two wars fought along the same lower Rio Grande corridor."
+    },
+    {
+      "href": "/article/texas-us-mexican-war-palo-alto-guide",
+      "label": "U.S.–Mexican War context",
+      "description": "Understand the annexation, boundary dispute and how the 1846 battles changed the war."
+    }
+  ],
+  "goliad": [
+    {
+      "href": "/destination/goliad-state-park",
+      "label": "Mission Espíritu Santo at Goliad State Park",
+      "description": "Use the park's mission and river landscape to understand Goliad before the Revolution."
+    },
+    {
+      "href": "/destination/presidio-la-bahia",
+      "label": "Presidio La Bahía",
+      "description": "Plan a distinct fort visit alongside the Goliad mission landscape."
+    }
+  ],
+  "casa-navarro": [
+    {
+      "href": "/destination/the-alamo",
+      "label": "The Alamo",
+      "description": "Connect Navarro's Tejano political leadership to the downtown military landmark."
+    }
+  ],
+  "san-antonio-missions-national-historical-park": [
+    {
+      "href": "/destination/the-alamo",
+      "label": "The Alamo",
+      "description": "Complete the San Antonio mission-era story with the separate, downtown Alamo complex."
+    }
+  ],
+  "davis-mountains-state-park": [
+    {
+      "href": "/destination/fort-davis-national-historic-site",
+      "label": "Fort Davis National Historic Site",
+      "description": "Add the restored Army post and Buffalo Soldier history to a mountain trip."
+    }
+  ],
+  "official-texas-longhorn-herd": [
+    {
+      "href": "/destination/fort-griffin",
+      "label": "Fort Griffin Historic Site",
+      "description": "Connect the state herd with the historic post and ranching landscape."
+    }
+  ],
+  "fort-richardson-state-park-state-historic-site": [
+    {
+      "href": "/destination/fort-griffin",
+      "label": "Fort Griffin",
+      "description": "Compare another North Texas army post and its longhorn herd."
+    }
+  ],
+  "fannin-battleground": [
+    {
+      "href": "/destination/presidio-la-bahia",
+      "label": "Presidio La Bahía",
+      "description": "Continue from Coleto to the site associated with the captivity and Goliad executions."
+    },
+    {
+      "href": "/destination/goliad-state-park",
+      "label": "Goliad mission and park",
+      "description": "Place the campaign within the earlier Spanish mission landscape."
+    }
+  ],
+  "san-felipe-de-austin": [
+    {
+      "href": "/destination/washington-on-the-brazos",
+      "label": "Washington-on-the-Brazos",
+      "description": "Continue chronologically from the colony to the 1836 declaration."
+    }
+  ],
+  "star-of-the-republic-museum": [
+    {
+      "href": "/destination/washington-on-the-brazos",
+      "label": "Washington-on-the-Brazos townsite",
+      "description": "Walk the convention landscape after studying the Republic collection."
+    }
+  ],
+  "barrington-living-history-farm": [
+    {
+      "href": "/destination/washington-on-the-brazos",
+      "label": "Washington-on-the-Brazos",
+      "description": "Connect Anson Jones's home with the independence convention and nearby museum."
+    }
+  ],
+  "port-isabel-lighthouse": [
+    {
+      "href": "/destination/palo-alto-battlefield-national-historical-park",
+      "label": "Palo Alto Battlefield",
+      "description": "Understand how the coast supplied Taylor's 1846 military campaign."
+    }
+  ],
+  "palmito-ranch-battlefield": [
+    {
+      "href": "/destination/palo-alto-battlefield-national-historical-park",
+      "label": "Palo Alto Battlefield",
+      "description": "Compare Civil War and U.S.–Mexican War sites on the lower Rio Grande."
+    }
+  ],
+  "san-jacinto-monument-state-historic-site": [
+    {
+      "href": "/destination/san-jacinto-battleground",
+      "label": "San Jacinto Battleground",
+      "description": "Visit the nearby field and understand the monument's original historical context."
+    }
+  ],
+  "fort-martin-scott": [
+    {
+      "href": "/destination/fort-mckavett",
+      "label": "Fort McKavett",
+      "description": "Continue the frontier Army comparison with another restored garrison."
+    },
+    {
+      "href": "/destination/fort-lancaster",
+      "label": "Fort Lancaster",
+      "description": "Follow the Army's overland travel network west toward remote fort ruins."
+    }
+  ]
+};
+
 export function destinationEditorialLinks(slug: string): DestinationEditorialLink[] {
-  return DESTINATION_EDITORIAL_LINKS[slug] ?? [];
+  // Historic, river, and destination navigation all share one deduplicated
+  // editorial link graph; retain newer river links when adding historic links.
+  const combined = [
+    ...(DESTINATION_EDITORIAL_LINKS[slug] ?? []),
+    ...(HISTORIC_SITE_CROSS_LINKS[slug] ?? []),
+    ...fullHistoricSiteCrosslinks(slug),
+    ...sanAntonioHeritageLinks(slug),
+    ...riverAuthorityLinksForDestination(slug),
+  ];
+  return combined.filter((link, index) => combined.findIndex((item) => item.href === link.href) === index);
 }

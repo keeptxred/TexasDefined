@@ -24,6 +24,7 @@ export const brazosCountyBryanCollegeStationAggielandRiversArticle: Article = {
   tags: ["Brazos County", "Bryan", "College Station", "Texas A&M University", "Brazos River", "Navasota River", "Aggieland", "Central Texas", "Texas counties"],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-brazos-river-guide", label: "Texas brazos  River guide", description: "Connect county tourism, fisheries and camping with the full river authority guide." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/robertson", label: "Explore Robertson County", description: "Continue north toward Hearne, Calvert and the upper Brazos Valley." },
     { href: "/county/washington", label: "Explore Washington County", description: "Follow the Brazos Valley south toward Brenham and Independence." },

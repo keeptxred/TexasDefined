@@ -58,6 +58,200 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "benjamin": {
+    "slug": "benjamin",
+    "theme": {
+      "accentHex": "#703F8A",
+      "label": "Original, independently chosen editorial accent; no school logo reproduced"
+    },
+    "seo": {
+      "title": "Benjamin Mustangs Football: 2026 Scores, Schedule & State Titles",
+      "description": "Benjamin Mustangs six-man football: 2022 and 2023 state-title game stories, Grayson Rigdon's records, 2026 scores, District 9 fixtures, stadium and first-party sources."
+    },
+    "schedule": {
+      "label": "Benjamin ISD official football (2025 pictured schedule; check events for 2026)",
+      "sourceUrl": "https://www.benjaminisd.net/football",
+      "sourceLabel": "Benjamin ISD football",
+      "verifiedAt": "2026-10-12"
+    },
+    "development": {
+      "title": "Back-to-back 2022 and 2023 six-man Division II state championships",
+      "body": "UIL's official 2022 and 2023 Benjamin team records list the Mustangs as Class 1A Six-Man Division II state finalists led by coach Nathan Hayes in those historical years; independent Six-Man Football championship history identifies final scores of 68–20 over Loraine (2022) and 82–34 over Oglesby (2023). UIL's 2023 team archive shows a 14–0 season record entering the title game and names several notable players; the score and coaching details are dated records, not current player or coach claims. Third-party 2026 football listings name Aaron Kuehler coach, but a current Benjamin ISD first-party appointment is not independently established here.",
+      "sourceUrl": "https://www.uiltexas.org/football/state-team-mp-archive/benjamin-2023-2024-football",
+      "sourceLabel": "Official UIL 2023 Benjamin Mustangs championship team record",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2022",
+        "title": "First-ever Mustangs title: 68–20 over Loraine",
+        "body": "Benjamin finished 14–0 in 2022 and won its first state title at AT&T Stadium. Grayson Rigdon rushed for 255 yards and five touchdowns on ten carries, added two scoring passes and ten tackles. Nathan Hayes coached the championship season.",
+        "sourceUrl": "https://www.houstonchronicle.com/texas-sports-nation/hs-sports/football/article/State-HS-football-championship-recaps-Day-1-17653774.php",
+        "sourceLabel": "Houston Chronicle contemporary 2022 championship recap"
+      },
+      {
+        "date": "2023",
+        "title": "15–0 repeat: 82–34 over Oglesby",
+        "body": "The Mustangs repeated as six-man Division II champions, finishing 15–0. Grayson Rigdon scored seven touchdowns (six rushing, one receiving), threw three touchdown passes and earned offensive MVP. Keegan Hayes registered 14 tackles and was named defensive MVP; the 45-point rule ended the final in the third quarter.",
+        "sourceUrl": "https://www.texasfootball.com/article/2023/12/13/rigdon-leads-benjamin-to-back-to-back-state-titles",
+        "sourceLabel": "Dave Campbell's Texas Football 2023 game recap"
+      },
+      {
+        "date": "2013–23",
+        "title": "Nathan Hayes's four six-man championships",
+        "body": "Benjamin's 2022 and 2023 titles were coach Nathan Hayes's third and fourth six-man crowns. He had previously guided Crowell to back-to-back championships in 2013 and 2014. Those are Hayes's historic achievements across two different schools, not four Benjamin state titles.",
+        "sourceUrl": "https://www.texasfootball.com/article/2023/12/13/rigdon-leads-benjamin-to-back-to-back-state-titles",
+        "sourceLabel": "2023 retrospective on Nathan Hayes's coaching titles"
+      },
+      {
+        "date": "2024–25",
+        "title": "Strong post-title campaigns",
+        "body": "Six-Man Football's season archive lists a 9–2 finish for 2024 and 10–1 for 2025. These are independently archived season records, separate from the consecutive 2022–23 state titles and the live 2026 schedule.",
+        "sourceUrl": "https://sixmanfootball.com/teams/benjamin-mustangs.1041/schedule/",
+        "sourceLabel": "Six-Man Football year-by-year records"
+      },
+      {
+        "date": "2026",
+        "title": "District 9 schedule and October 9 result",
+        "body": "As checked October 12, Benjamin stood 3–3 after a reported 0–45 loss at Decatur Victory Christian. The upcoming District 9 matchups are Paint Creek, Lueders-Avoca, Knox City and Rule; this is a dated independent scoreboard snapshot.",
+        "sourceUrl": "https://www.maxpreps.com/tx/benjamin/benjamin-mustangs/football/",
+        "sourceLabel": "MaxPreps 2026 Benjamin Mustangs results"
+      }
+    ],
+    "overview": [
+      "Benjamin ISD's Mustangs represent Knox County in Texas six-player football. The team won consecutive UIL 1A Six-Man Division II championships, beating Loraine 68–20 in 2022 and Oglesby 82–34 in 2023. Those are two different season titles, not a 2026 performance claim.",
+      "The first championship came December 14, 2022, when Benjamin defeated Loraine 68–20 after surrendering just 20 points. Contemporary reporting credited Grayson Rigdon with five rushing touchdowns and two touchdown passes, along with ten tackles on defense. The Mustangs finished the 2022 season unbeaten at 14–0. This was Benjamin's first-ever UIL football championship, not one of coach Nathan Hayes's earlier Crowell titles.",
+      "On December 13, 2023, Benjamin defeated Oglesby 82–34 for another perfect 15–0 campaign. Dave Campbell's contemporary account identifies Grayson Rigdon as offensive MVP after seven total touchdowns, and Keegan Hayes as defensive MVP with 14 tackles. The game concluded under six-man's 45-point rule in the third quarter. The historic performances belong to the 2023 roster; they are not a 2026 lineup forecast.",
+      "UIL's historical 2022 and 2023 team archives name Nathan Hayes as head coach for those championship seasons. The independent Six-Man Football directory currently lists Aaron Kuehler as 2026 head coach, but a current appointment was not established from the district's own football page, and another third-party coaching roster conflicts. Verify current staffing with Benjamin ISD.",
+      "Benjamin's independently reported 2026 record was 3–3 through October 9, including a 45–0 loss at Decatur Victory Christian. The four remaining reported district matchups are Paint Creek, Lueders-Avoca, Knox City and Rule. Six-Man Football reports the Lueders-Avoca game for Friday, October 23, while an older September 25 MaxPreps snapshot listed Thursday, October 22; confirm the date directly with Benjamin ISD. The official Benjamin ISD football page currently displays an image labeled 2025, so it must not be presented as an official 2026 schedule.",
+      "Dave Campbell's identifies Ben Grill Field and the six-man specialist directory calls it Benjamin Mustangs Field. The school lists 300 W. Hays Street; confirm stadium access, tickets, parking and accessibility before traveling. No school-owned photography has been republished without evidence of a reuse license."
+    ],
+    "faq": [
+      {
+        "question": "Which football classification and district is Benjamin in for 2026?",
+        "answer": "UIL places Benjamin in 1A Six-Man Division II, District 9 for the 2026–28 alignment, with Haskell Paint Creek, Knox City, Lueders-Avoca and Rule."
+      },
+      {
+        "question": "How many football state titles has Benjamin won?",
+        "answer": "Two: the Mustangs won the 2022 Six-Man Division II state final 68–20 over Loraine and the 2023 final 82–34 over Oglesby."
+      },
+      {
+        "question": "Who coached the Mustangs during the championship years?",
+        "answer": "UIL's historical state-team archives name Nathan Hayes as head coach in the 2022 and 2023 championship seasons."
+      },
+      {
+        "question": "Who coaches Benjamin football in 2026?",
+        "answer": "Six-Man Football lists Aaron Kuehler, but Benjamin ISD's public football page does not independently confirm the current appointment and third-party listings conflict. Contact the school to verify."
+      },
+      {
+        "question": "What is Benjamin's 2026 football record?",
+        "answer": "MaxPreps reported 3–3 through October 9, as checked October 12. Newer games may change the record."
+      },
+      {
+        "question": "Where is Benjamin's football stadium?",
+        "answer": "Dave Campbell's calls it Ben Grill Field, while Six-Man Football calls it Benjamin Mustangs Field. The campus is listed at 300 W. Hays Street in Benjamin. Check entrance and accessibility details with Benjamin ISD."
+      },
+      {
+        "question": "Where is the 2026 Benjamin schedule?",
+        "answer": "See the dated 2026 game table above and verify any changes with Benjamin ISD's calendar. The image displayed on the district's football page is labeled as the 2025 varsity schedule."
+      },
+      {
+        "question": "What are the Mustangs' school colors?",
+        "answer": "Purple and white, recorded in the official UIL championship-team archive and the independent six-man football directory."
+      },
+      {
+        "question": "Who led Benjamin's 2023 state championship victory?",
+        "answer": "Grayson Rigdon earned 2023 championship offensive MVP after seven touchdowns, including six rushing and one receiving. Keegan Hayes earned defensive MVP with 14 tackles, according to Dave Campbell's contemporary final recap."
+      },
+      {
+        "question": "How many state titles did coach Nathan Hayes win?",
+        "answer": "Nathan Hayes coached Benjamin to the 2022 and 2023 six-man Division II championships and previously coached Crowell to titles in 2013 and 2014, totaling four across the two programs. Benjamin itself has two football titles."
+      }
+    ],
+    "campus": {
+      "address": "300 W Hays Street, Benjamin, TX 79505",
+      "phone": "940-459-2231",
+      "sourceUrl": "https://www.benjaminisd.net/",
+      "sourceLabel": "Official school or district location; confirm exact campus entrance where noted",
+      "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "3–3 through October 9, 2026",
+      "verifiedAt": "2026-10-12",
+      "sourceUrl": "https://www.maxpreps.com/tx/benjamin/benjamin-mustangs/football/",
+      "sourceLabel": "MaxPreps 2026 reports, with 5 earlier scores cross-checked against Dave Campbell's",
+      "games": [
+        {
+          "date": "Aug 27",
+          "opponent": "Memphis",
+          "site": "Home",
+          "result": "W 52–0"
+        },
+        {
+          "date": "Sep 4",
+          "opponent": "Groom",
+          "site": "Home",
+          "result": "W 48–40"
+        },
+        {
+          "date": "Sep 11",
+          "opponent": "Borden County",
+          "site": "Home",
+          "result": "L 16–66"
+        },
+        {
+          "date": "Sep 17",
+          "opponent": "Moran",
+          "site": "Away",
+          "result": "W 55–0"
+        },
+        {
+          "date": "Sep 24",
+          "opponent": "Harrold",
+          "site": "Home",
+          "result": "L 26–71"
+        },
+        {
+          "date": "Oct 9",
+          "opponent": "Decatur Victory Christian Academy",
+          "site": "Away",
+          "result": "L 0–45"
+        },
+        {
+          "date": "Oct 16",
+          "opponent": "Haskell Paint Creek",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct 23",
+          "opponent": "Lueders-Avoca",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct 30",
+          "opponent": "Knox City",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov 6",
+          "opponent": "Rule",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Ben Grill Field (also called Benjamin Mustangs Field)",
+      "address": "Benjamin, Texas (precise stadium entrance unverified; school: 300 W. Hays Street)",
+      "sourceUrl": "https://sixmanfootball.com/teams/benjamin-mustangs.1041/schedule/",
+      "sourceLabel": "Six-Man Football stadium and team information; historical Ben Grill Field name corroborated by a 2006 local school board report",
+      "verifiedAt": "2026-10-12",
+      "note": "Dave Campbell's calls the stadium Ben Grill Field, while Six-Man Football calls it Benjamin Mustangs Field. The school independently lists 300 W. Hays Street as its campus address; venue gates, parking, accessible seating and 2026 admission policies are not independently certified. Call Benjamin ISD at 940-459-2231 before a game-day visit."
+    }
+  },
   "ballinger": {
     "slug": "ballinger",
     "theme": {
@@ -1034,6 +1228,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "austin-navarro": {
     "slug": "austin-navarro",
+    "campus": {
+      "address": "1201 Payton Gin Road, Austin, TX 78758",
+      "phone": "512-414-2514",
+      "sourceUrl": "https://www.austinisd.org/schools/level/H",
+      "sourceLabel": "Austin ISD current high-school directory, school campus (not stadium)",
+      "verifiedAt": "2026-10-12"
+    },
     "theme": {
       "accentHex": "#8C354F",
       "label": "School-inspired original editorial styling, not a school logo"
@@ -1248,11 +1449,11 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "campus": {
-      "address": "7309 Lazy Creek Drive, Suite 225, Austin, TX 78724",
+      "address": "1012 Arthur Stiles Road, Austin, TX 78721",
       "phone": "512-414-5272",
-      "sourceUrl": "https://www.lasaraptors.com/",
-      "sourceLabel": "Official LASA athletics office listing",
-      "verifiedAt": "2026-10-10"
+      "sourceUrl": "https://www.austinisd.org/schools?page=4",
+      "sourceLabel": "Austin ISD public school directory — school campus, distinct from separate athletics office",
+      "verifiedAt": "2026-10-12"
     },
     "coach": {
       "name": "Gary Howard",
@@ -1332,6 +1533,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "austin-johnson": {
     "slug": "austin-johnson",
+    "campus": {
+      "address": "7309 Lazy Creek Drive, Austin, TX 78724",
+      "phone": "512-414-2543",
+      "sourceUrl": "https://www.austinisd.org/schools/level/H",
+      "sourceLabel": "Austin ISD current high-school directory, school campus (not stadium)",
+      "verifiedAt": "2026-10-12"
+    },
     "theme": {
       "accentHex": "#5A2B77",
       "label": "Original school-inspired editorial accent; no logo reproduced"
@@ -1398,6 +1606,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "austin-eastside": {
     "slug": "austin-eastside",
+    "campus": {
+      "address": "900 Thompson Street, Austin, TX 78702",
+      "phone": "512-414-5810",
+      "sourceUrl": "https://www.austinisd.org/schools/level/H",
+      "sourceLabel": "Austin ISD current high-school directory, school campus (not stadium)",
+      "verifiedAt": "2026-10-12"
+    },
     "theme": {
       "accentHex": "#1E6D43",
       "label": "Original school-inspired editorial accent; no logo reproduced"
@@ -1471,6 +1686,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "austin-crockett": {
     "slug": "austin-crockett",
+    "campus": {
+      "address": "5601 Manchaca Road, Austin, TX 78745",
+      "phone": "512-414-2532",
+      "sourceUrl": "https://www.austinisd.org/schools/level/H",
+      "sourceLabel": "Austin ISD current high-school directory, school campus (not stadium)",
+      "verifiedAt": "2026-10-12"
+    },
     "theme": {
       "accentHex": "#19683A",
       "label": "Original school-inspired editorial accent; no logo reproduced"
@@ -1559,6 +1781,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "austin-bowie": {
     "slug": "austin-bowie",
+    "campus": {
+      "address": "4103 West Slaughter Lane, Austin, TX 78749",
+      "phone": "512-414-5247",
+      "sourceUrl": "https://www.austinisd.org/schools/level/H",
+      "sourceLabel": "Austin ISD current high-school directory, school campus (not stadium)",
+      "verifiedAt": "2026-10-12"
+    },
     "theme": {
       "accentHex": "#8D2525",
       "label": "Original school-inspired editorial accent; no logo reproduced"
@@ -1873,6 +2102,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "austin": {
     "slug": "austin",
+    "campus": {
+      "address": "1715 West Cesar Chavez Street, Austin, TX 78703",
+      "phone": "512-414-2505",
+      "sourceUrl": "https://www.austinisd.org/schools/level/H",
+      "sourceLabel": "Austin ISD current high-school directory, school campus (not stadium)",
+      "verifiedAt": "2026-10-12"
+    },
     "theme": {
       "accentHex": "#82213B",
       "label": "Editorial school-inspired accent; no official logo used"
@@ -2147,8 +2383,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "date": "2026",
         "title": "Five-win start",
         "body": "The public football results snapshot lists victories over Nacogdoches, Henderson, Pine Tree, Kaufman and Gladewater through September 25; it is not a complete October season report.",
-        "sourceUrl": "https://txfb.sidev.co/team/athens-hornets",
-        "sourceLabel": "Named source for school-specific milestone"
+        "sourceUrl": "https://www.maxpreps.com/tx/athens/athens-hornets/football/schedule/",
+        "sourceLabel": "MaxPreps Athens 2026 game-by-game results, Sept. 25 historical snapshot"
       }
     ],
     "overview": [

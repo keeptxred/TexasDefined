@@ -43,17 +43,17 @@
     "state": "ASSIGNED_RESEARCH_IN_PROGRESS",
     "dateAssigned": "2026-10-10",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned in existing canonical schoolRecords order after verified Batch 004; protect 80 previous VERIFIED.",
-    "individuallyVerified": 0,
-    "remainingAssigned": 25,
+    "individuallyVerified": 1,
+    "remainingAssigned": 24,
     "assignmentBranch": "football-authority-batch-005-20261010",
     "repositoryMainAtAssignment": "193f24fb06e48fd43fd821d6a6bced28d958301a",
     "maxSchoolsPerBatch": 25,
     "currentSchool": null,
     "nextSchool": "barksdale-nueces-canyon",
-    "implementedOnBranch": 5,
-    "remainingToImplement": 20,
-    "remainingToVerify": 25,
-    "notes": "First five independently sourced editorial authority records, identities, protected campus county links and audit dossiers IMPLEMENTED on working branch; 20 unstarted. Zero Batch005 production verified, 80 prior verified preserved. Next barksdale-nueces-canyon."
+    "implementedOnBranch": 6,
+    "remainingToImplement": 19,
+    "remainingToVerify": 24,
+    "notes": "Benjamin Mustangs production VERIFIED at final 4661514b commit on Oct 13: 63/63 desktop/mobile browser checks, screenshots and reciprocal Knox County links; the initial five Batch005 researched entries remain IMPLEMENTED, the other nineteen are proposed in the unresolved group2-group5 branches. Previous 80 VERIFIED preserved. Continue remaining 24 without counting unmerged pages as deployed."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -4571,7 +4571,8 @@
         "a091077e5f6f426a950df7750523db9c6c6770ff"
       ],
       "inboundLinks": [
-        "/county/travis"
+        "/county/travis",
+        "/city/austin"
       ],
       "outboundCountyPath": "/county/travis",
       "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
@@ -4593,7 +4594,10 @@
         "sitemapResult": "PASS",
         "countyCityReciprocalLinks": "PASS",
         "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
-      }
+      },
+      "outboundCityPath": "/city/austin",
+      "cityLinkStatus": "OFFICIAL_AUSTIN_GIS_FULL_PURPOSE_CONFIRMED_PENDING_NEW_CHROME_RETEST",
+      "cityLinkEvidence": "Official AskTED 2024-25 school-site geocode (score 100) spatially intersects City of Austin BOUNDARIES_jurisdictions FULL PURPOSE/FULL polygon on 2026-10-12; city reciprocal implementation PR #4700; not yet independently post-deploy Chrome verified."
     },
     {
       "id": "uil:austin-akins",
@@ -5276,7 +5280,8 @@
         "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
       ],
       "inboundLinks": [
-        "/county/travis"
+        "/county/travis",
+        "/city/austin"
       ],
       "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCountyPath": "/county/travis",
@@ -5313,7 +5318,10 @@
       "correctionMergedPr": 4562,
       "correctionMergeCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
       "identityRetestEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917",
-      "identityDefectResolution": "Confirmed on corrected production 97c9571a3b7457d547430d7a63d6debd1144a7d6, desktop 1366x900 and mobile 390x844, run 38066125917: exact school/campus identity and Lake Travis season notice assertions passed; see 11674878954."
+      "identityDefectResolution": "Confirmed on corrected production 97c9571a3b7457d547430d7a63d6debd1144a7d6, desktop 1366x900 and mobile 390x844, run 38066125917: exact school/campus identity and Lake Travis season notice assertions passed; see 11674878954.",
+      "outboundCityPath": "/city/austin",
+      "cityLinkStatus": "OFFICIAL_AUSTIN_GIS_FULL_PURPOSE_CONFIRMED_PENDING_NEW_CHROME_RETEST",
+      "cityLinkEvidence": "Official AskTED 2024-25 school-site geocode (score 100) spatially intersects City of Austin BOUNDARIES_jurisdictions FULL PURPOSE/FULL polygon on 2026-10-12; city reciprocal implementation PR #4700; not yet independently post-deploy Chrome verified."
     },
     {
       "id": "uil:austin-westlake",
@@ -5999,8 +6007,61 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/benjamin",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "VERIFIED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-12",
+      "researchCompletedAt": "2026-10-12",
+      "implementedAt": "2026-10-12",
+      "implementedOnBranch": "football-benjamin-release-20261012",
+      "schoolNote": "docs/football-authority/schools/benjamin.md",
+      "actualProductionVerified": true,
+      "officialSchoolUrl": "https://www.benjaminisd.net/",
+      "officialAthleticsUrl": "https://www.benjaminisd.net/football",
+      "productionVerifiedAt": "2026-10-13T12:51:11Z",
+      "verifiedMascot": "Mustangs",
+      "verifiedColors": "Purple and White",
+      "specificMissing": [],
+      "sourceRecords": [
+        "https://www.benjaminisd.net/football",
+        "https://www.uiltexas.org/football/state-team/benjamin-2022-2023-boys-football",
+        "https://www.uiltexas.org/football/state-team-mp-archive/benjamin-2023-2024-football",
+        "https://sixmanfootball.com/teams/benjamin-mustangs.1041/schedule/",
+        "https://www.texasfootball.com/article/2023/12/13/rigdon-leads-benjamin-to-back-to-back-state-titles"
+      ],
+      "prNumber": 4729,
+      "followUpPrNumbers": [
+        4737,
+        4739
+      ],
+      "mergedPr": 4739,
+      "mergedAt": "2026-10-13",
+      "mergedCommit": "4661514b47e36cb86ea2abb72b3eb13618d8416e",
+      "inboundLinks": [
+        "/texas-high-school-football-teams",
+        "/county/knox"
+      ],
+      "productionQualityNotes": [
+        "63/63 dedicated live desktop/mobile checks passed at exact deployed SHA",
+        "No licensed Benjamin team photo available; no borrowed logo/image published",
+        "Current coach appointment not confirmed by Benjamin ISD; independent specialist source explicitly attributed",
+        "2026 schedule independently reported and date-conflicting sources qualified; school official football page still displays 2025 schedule",
+        "Stadium gate/ADA/parking admissions not source-certified; users instructed to contact Benjamin ISD"
+      ],
+      "deployment": {
+        "mergeCommit": "4661514b47e36cb86ea2abb72b3eb13618d8416e",
+        "date": "2026-10-13",
+        "checks": [
+          "texasdefined-production",
+          "texasdefined-live",
+          "texasdefined-build"
+        ],
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38400237148,
+        "dedicatedBrowserResult": "SUCCESS: 63 of 63 production Chrome checks passed across desktop/mobile Benjamin profile and Knox County reciprocal link; route, SEO, sitemap, JSON-LD, table, image, console and reflow",
+        "screenshotArtifactId": 11814648851,
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38400237148"
+      }
     },
     {
       "id": "uil:big-lake-reagan-co",
