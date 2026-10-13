@@ -997,6 +997,71 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     }
+  ],
+  "elisabet-ney-museum-austin": [
+    {
+      "question": "Is the Elisabet Ney Museum open to visitors in October 2026?",
+      "answer": "No. The City of Austin says the museum is closed for renovations that began December 30, 2024. Regular interior gallery admission and tours are not currently offered, even though the official site may list separate events and online collections.",
+      "verificationUrl": "https://www.austintexas.gov/ney",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "When will Elisabet Ney Museum reopen after renovation?",
+      "answer": "Austin currently anticipates reopening in spring 2027, but that is a projected season, not a confirmed reopening date or ticket offer. Check the city museum page and renovation updates for an actual reopening announcement before planning a visit.",
+      "verificationUrl": "https://www.austintexas.gov/parks/projects/elisabet-ney-museum-improvements",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I walk around Formosa or see Ney's sculpture while the building is closed?",
+      "answer": "The city has not established normal public museum access during construction. Some separately announced landscape programs and events may take place at 304 East 44th Street, but that does not mean sculpture galleries or studio interiors are open. Follow the specific event instructions.",
+      "verificationUrl": "https://www.austintexas.gov/ney/programs-education",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What can I see online from the Elisabet Ney Museum collections?",
+      "answer": "The City of Austin advertises the online exhibition Elisabet Ney: Art for Humanity's Sake, bringing together more than eighty items from the collection. It is a useful way to explore her portrait sculpture during the physical museum renovation.",
+      "verificationUrl": "https://www.austintexas.gov/ney/elisabet-ney-museum-exhibits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney/programs-education",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Which famous Texans did Elisabet Ney sculpt in Austin?",
+      "answer": "Ney made portraits of Sam Houston and Stephen F. Austin as part of her Texas work at Formosa. Her European work also portrayed figures such as Otto von Bismarck and Arthur Schopenhauer. Historic display information does not guarantee those objects are physically viewable while the museum is closed.",
+      "verificationUrl": "https://www.austintexas.gov/ney/about-elisabet-ney-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney/elisabet-ney-museum-exhibits",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the Elisabet Ney Museum free, and do I need a ticket now?",
+      "answer": "The City of Austin describes the museum's ordinary admission as free, but the building is presently closed for renovation, so there is no normal ticketed interior visit. Any separately scheduled event may have its own access and registration instructions.",
+      "verificationUrl": "https://www.austintexas.gov/ney",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does Elisabet Ney Museum offer accessible family or school programming during construction?",
+      "answer": "Normal on-site tours are suspended. Austin advertises the Breaking the Mold mobile art education initiative and separately announced events, but those programs differ from opening the historic house. For accessibility and school participation in any specific event, contact the museum directly.",
+      "verificationUrl": "https://www.austintexas.gov/ney/programs-education",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney/contact",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
