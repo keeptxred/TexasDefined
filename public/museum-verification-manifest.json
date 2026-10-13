@@ -421,6 +421,87 @@
       ]
     },
     {
+      "path": "/destination/amon-carter-museum-american-art-fort-worth",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://www.cartermuseum.org/frequently-asked-questions",
+          "fetchUrl": "https://www.cartermuseum.org/frequently-asked-questions",
+          "label": "Carter official FAQ"
+        },
+        {
+          "sourceUrl": "https://www.cartermuseum.org/plan-your-visit",
+          "fetchUrl": "https://www.cartermuseum.org/plan-your-visit",
+          "label": "Carter official plan your visit"
+        },
+        {
+          "sourceUrl": "https://www.cartermuseum.org/museum-shop",
+          "fetchUrl": "https://www.cartermuseum.org/museum-shop",
+          "label": "FAQ source: Does the Carter offer a café or a full-service restaurant?"
+        },
+        {
+          "sourceUrl": "https://www.cartermuseum.org/camp-bowie-boulevard-construction",
+          "fetchUrl": "https://www.cartermuseum.org/plan-your-visit/school-visits-tours/field-trips",
+          "label": "Carter 2026 Camp Bowie construction notice [first-party readable monitoring endpoint]"
+        },
+        {
+          "sourceUrl": "https://www.cartermuseum.org/plan-your-visit/family-visits",
+          "fetchUrl": "https://www.cartermuseum.org/plan-your-visit/family-visits",
+          "label": "FAQ source: Is the Amon Carter Museum good for toddlers or young children?"
+        },
+        {
+          "sourceUrl": "https://www.cartermuseum.org/plan-your-visit/accessibility",
+          "fetchUrl": "https://www.cartermuseum.org/plan-your-visit/accessibility",
+          "label": "Carter accessibility resources"
+        },
+        {
+          "sourceUrl": "https://www.cartermuseum.org/exhibitions",
+          "fetchUrl": "https://www.cartermuseum.org/exhibitions",
+          "label": "Carter current exhibitions"
+        }
+      ]
+    },
+    {
+      "path": "/destination/dallas-museum-of-art",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://dma.org/visit",
+          "fetchUrl": "https://cms.dma.org/visit",
+          "label": "DMA official visit rules [first-party readable monitoring endpoint]"
+        },
+        {
+          "sourceUrl": "https://dma.org/visit/dma-cafe",
+          "fetchUrl": "https://cms.dma.org/visit/additional-info?td_monitor=cafe",
+          "label": "DMA cafe and plaza service [first-party readable monitoring endpoint]"
+        },
+        {
+          "sourceUrl": "https://cms.dma.org/visit/DMA-Free-First-Sundays",
+          "fetchUrl": "https://cms.dma.org/visit/DMA-Free-First-Sundays",
+          "label": "FAQ source: How much does it cost to park at the Dallas Museum of Art?"
+        },
+        {
+          "sourceUrl": "https://dma.org/programs/access-programs",
+          "fetchUrl": "https://cms.dma.org/programs/access-programs",
+          "label": "DMA accessibility resources [first-party readable monitoring endpoint]"
+        },
+        {
+          "sourceUrl": "https://dma.org/art/exhibitions",
+          "fetchUrl": "https://cms.dma.org/art/exhibitions",
+          "label": "DMA gallery exhibitions [first-party readable monitoring endpoint]"
+        },
+        {
+          "sourceUrl": "https://dma.org/visit/additional-info",
+          "fetchUrl": "https://cms.dma.org/visit/additional-info",
+          "label": "DMA museum additional visitor information [first-party readable monitoring endpoint]"
+        }
+      ]
+    },
+    {
       "path": "/destination/el-paso-museum-of-art",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,

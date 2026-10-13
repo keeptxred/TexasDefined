@@ -1063,6 +1063,172 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewed": "2026-10-12"
     }
   ],
+  "amon-carter-museum-american-art-fort-worth": [
+    {
+      "question": "Is Amon Carter Museum admission free, including special exhibitions?",
+      "answer": "The Carter says museum admission is always free, including current regular gallery exhibitions; individual special events may carry their own fee. Confirm the event listing rather than paying a general-admission ticket reseller.",
+      "verificationUrl": "https://www.cartermuseum.org/frequently-asked-questions",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/frequently-asked-questions",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What time does the Amon Carter Museum close on Thursdays and Sundays?",
+      "answer": "The posted schedule closes at 8 p.m. on Thursdays, 5 p.m. on Tuesday, Wednesday, Friday and Saturday, and 5 p.m. on Sundays after a noon opening. The museum is closed Mondays and selected holidays.",
+      "verificationUrl": "https://www.cartermuseum.org/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does the Carter offer a café or a full-service restaurant?",
+      "answer": "The Carter offers a locally catered FOOD CART near the Museum Shop serving sandwiches, wraps and small bites; it is not a full-service restaurant or cafeteria. Eating is not permitted in the art galleries, but the plaza and outdoor tables are available.",
+      "verificationUrl": "https://www.cartermuseum.org/museum-shop",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/frequently-asked-questions",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Where can I park for free during the 2026 Camp Bowie road construction?",
+      "answer": "The Carter's lot off Camp Bowie Boulevard remains free and is expected to stay accessible despite work along the street. The museum posts detours and alternatives such as weekend UNT Health Science Center parking and paid nearby lots. Check its roadwork page before leaving.",
+      "verificationUrl": "https://www.cartermuseum.org/camp-bowie-boulevard-construction",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the Amon Carter Museum good for toddlers or young children?",
+      "answer": "Yes. The Carter advertises early-childhood art programs, family workshops, ARTivity Totes and a second-floor family pop-up area, although that pop-up space is not open every day. Parents can ask staff which family activities are available on their visit.",
+      "verificationUrl": "https://www.cartermuseum.org/plan-your-visit/family-visits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can visitors borrow a wheelchair or stroller at Amon Carter?",
+      "answer": "Yes. Free wheelchairs and forward-facing strollers are available first-come, first-served at the information desk. Museum entrances and gallery floors are accessible, but wagons pulled behind a visitor are prohibited in galleries.",
+      "verificationUrl": "https://www.cartermuseum.org/plan-your-visit/accessibility",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/plan-your-visit/family-visits",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I photograph the artworks at Amon Carter?",
+      "answer": "Personal, noncommercial photographs without flash are allowed for most artworks, unless a particular gallery or artwork prohibits photography. Tripods, monopods, gimbals and selfie sticks are not allowed, and commercial image use requires permission.",
+      "verificationUrl": "https://www.cartermuseum.org/plan-your-visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/museum-policies/photo-and-video-policy",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Are the Georgia O'Keeffe and Statue of Liberty exhibitions open now?",
+      "answer": "The Carter lists Georgia O'Keeffe and the Carter through September 2027, The Statue of Liberty from Bartholdi to Warhol through January 3, 2027, and Re/Framed rotations into April 2027. Check exhibition updates before traveling because particular works or spaces can rotate.",
+      "verificationUrl": "https://www.cartermuseum.org/exhibitions",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/exhibitions",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "How long should I plan to spend at the Carter?",
+      "answer": "Roughly one to two hours is a practical independent estimate for visitors choosing highlights and a current temporary exhibition. A full collection or guided program needs more time; the museum does not promise a fixed duration for self-guided visits.",
+      "verificationUrl": "https://www.cartermuseum.org/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/exhibitions",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    }
+  ],
+  "dallas-museum-of-art": [
+    {
+      "question": "Is the Dallas Museum of Art free and do I need a ticket?",
+      "answer": "General admission is free, but every visitor, including children, needs a general-admission ticket obtained in advance online or at Guest Services. Some temporary exhibitions require an additional paid reservation; free entry does not guarantee access to all shows.",
+      "verificationUrl": "https://dma.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "When is Dallas Museum of Art open during the week?",
+      "answer": "The museum's current public schedule is Wednesday through Sunday, 11 a.m.–5 p.m., closed Mondays and Tuesdays and on Thanksgiving, Christmas and New Year's Day. Its café and special events follow separate calendars.",
+      "verificationUrl": "https://dma.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does the DMA have a restaurant or just a snack counter?",
+      "answer": "The DMA Cafe near the north entrance is a real café with soups, salads, sandwiches and drinks, usually Wednesday through Sunday 11 a.m.–4 p.m. Separately, the plaza's Al Fresco stand offers desserts and beverages on selected event dates. Neither is a full-service formal restaurant.",
+      "verificationUrl": "https://dma.org/visit/dma-cafe",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "How much does it cost to park at the Dallas Museum of Art?",
+      "answer": "The museum uses a paid underground garage and has advertised a $25 card-only garage fee for certain 2026 museum programs; that is not a promise of a universal rate at every date or time. Check current garage pricing before your visit and consider local transit.",
+      "verificationUrl": "https://cms.dma.org/visit/DMA-Free-First-Sundays",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I bring a baby bottle, snacks or a stroller into the galleries?",
+      "answer": "Children are welcome, but no food or beverages, including baby bottles and children's snack cups, are permitted in the art galleries. Strollers are allowed subject to visitor guidelines, and visitors under age twelve require adult supervision.",
+      "verificationUrl": "https://dma.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does the DMA have wheelchair access and programs for sensory needs?",
+      "answer": "All public galleries, entrances and restrooms are wheelchair accessible; a limited number of wheelchairs is available at the north entrance. Accessible garage parking is on P1, P2 and P3, and the museum offers accommodations for sensory, hearing, vision and other needs by prior request.",
+      "verificationUrl": "https://dma.org/programs/access-programs",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does a school group need to book ahead at the Dallas Museum of Art?",
+      "answer": "School and other organized youth groups of ten or more students must use the separate school group program, reserve at least two weeks ahead and submit any required payment. Public general-admission tickets are not a substitute for school reservations.",
+      "verificationUrl": "https://dma.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/programs/school-programs/guided-visits",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Which exhibitions at Dallas Museum of Art are currently available?",
+      "answer": "For October 2026 the museum lists X Marks the Spot through November 8, Paradise on Earth: Florals in Indian Textiles through November 15, and ongoing or longer-running Bauhaus, Sonia Boyce and contemporary galleries. Exhibition dates and additional admission rules should be reconfirmed.",
+      "verificationUrl": "https://dma.org/art/exhibitions",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I do the Dallas Museum of Art in ninety minutes?",
+      "answer": "Yes, a 90-minute highlights visit is a reasonable independent planning estimate if you choose two or three collections or exhibitions first. The DMA is much larger than one short gallery route, so a complete exploration takes longer.",
+      "verificationUrl": "https://dma.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/art/exhibitions",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    }
+  ],
   "el-paso-museum-of-art": [
     {
       "question": "Is El Paso Museum of Art free, and which days can I visit?",
