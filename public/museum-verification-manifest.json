@@ -419,6 +419,49 @@
           "label": "City of Austin — artist, studio and historical background"
         }
       ]
+    },
+    {
+      "path": "/destination/el-paso-museum-of-art",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 11,
+      "sources": [
+        {
+          "sourceUrl": "https://epma.art/visit",
+          "fetchUrl": "https://epma.art/visit",
+          "label": "EPMA — Plan Your Visit"
+        },
+        {
+          "sourceUrl": "https://epma.art/visit/tours",
+          "fetchUrl": "https://epma.art/visit/tours",
+          "label": "EPMA — Tours and family education"
+        },
+        {
+          "sourceUrl": "https://epma.art/art/collections",
+          "fetchUrl": "https://epma.art/art/collections",
+          "label": "FAQ source: Which art should I see at the El Paso Museum of Art?"
+        },
+        {
+          "sourceUrl": "https://epma.art/",
+          "fetchUrl": "https://epma.art/",
+          "label": "EPMA — Art and exhibitions"
+        },
+        {
+          "sourceUrl": "https://epma.art/art/collections/european",
+          "fetchUrl": "https://epma.art/art/collections/european",
+          "label": "EPMA — European Collection"
+        },
+        {
+          "sourceUrl": "https://epma.art/art/collections/latinamerican",
+          "fetchUrl": "https://epma.art/art/collections/latinamerican",
+          "label": "EPMA — Latin American Collection"
+        },
+        {
+          "sourceUrl": "https://epma.art/art/collections/american",
+          "fetchUrl": "https://epma.art/art/collections/american",
+          "label": "EPMA — American Collection"
+        }
+      ]
     }
   ]
 }
