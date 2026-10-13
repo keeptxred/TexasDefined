@@ -27,3 +27,8 @@ The UIL 1972 football archive records Baytown Sterling as Class 4A state runner-
 
 ## Real acceptance still needed
 Protected gate, branch merge, deployed production and real mobile/desktop Chrome screenshots, accurate H1, correct canonical/schema, no hydration or broken links, reciprocal county pages, legal image rights, plus game-day venue/ADA/ticket confirmation. **Do not promote IMPLEMENTED to VERIFIED** without those observations. Past years' results and former coaching positions are not asserted as current.
+
+## October 13, 2026 — 2026 varsity game results and 10-game schedule
+- **Research snapshot:** 5–2 through 2026-10-08; 10 date/opponent/home-away/district entries with only actually reported scores. Public [2026 varsity source](https://www.maxpreps.com/tx/baytown/sterling-rangers/football/schedule/), independently sourced rather than represented as a first-party ISD schedule.
+- **Source discrepancy handling:** Sterling's old Oct 3 schedule still labels the Oct 8 West Brook contest upcoming. West Brook's newer Oct 9 scoreboard confirms Bruins 55–23 over Sterling, reflected as a 23–55 Rangers defeat.
+- **Acceptance boundary:** the October 13 structured game data and two new school-specific season FAQs are committed on a release branch. Protected CI, exact-SHA deployment and fresh 25-school production Chrome acceptance are still required; no unsupported current coach, game ticket, stadium or ADA guarantees are introduced.
