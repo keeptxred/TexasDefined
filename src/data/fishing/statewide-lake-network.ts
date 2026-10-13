@@ -79,6 +79,7 @@ interface StatewideLakeDefinition {
   nearbyLakes: { slug: string; name: string }[];
   nearbyDestinations?: { slug: string; name: string; reason: string }[];
   camping?: { name: string; summary: string };
+  campingUrl?: string;
   campingProhibited?: boolean;
   accessPoints?: ShowcaseLakePrototype["access"];
   travelAlerts?: string[];
@@ -217,7 +218,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "County Public Ramp (Caney Creek)", operator: "Henderson County", kind: "public-ramp", launch: "From SH 31 in Malakoff, north on FM 198 about three miles, cross Caney Creek; ramp at north end of bridge, two lanes, 40 spaces.", fee: "TPWD lists no fee", availability: "Year-round in TPWD listing; verify county status." },
       { name: "Fisherman's Wharf", operator: "Private marina", kind: "marina", launch: "From Malakoff north on FM 198, west on FM 3062, then north on CR 1703; ramp, about 40 spaces.", fee: "TPWD lists fee; verify current charge", availability: "Year-round in TPWD listing; verify private operation (903) 489-0710." },
     ],
-    nearbyLakes: [{slug:"richland-chambers-reservoir",name:"Richland-Chambers Reservoir"},{slug:"lake-palestine",name:"Lake Palestine"}],
+    nearbyLakes: [{slug:"richland-chambers-reservoir",name:"Richland-Chambers Reservoir"},{slug:"lake-palestine",name:"Lake Palestine"},{slug:"bardwell-lake",name:"Bardwell Lake"}],
   },
   {
     slug: "lewisville-lake", name: "Lewisville Lake", accessReviewedAt: "2026-10-12", tpwdSlug: "lewisville", waterDataSlug: "lewisville", region: "prairies-lakes",
@@ -456,7 +457,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Park Prairie Park", operator: "Lower Colorado River Authority", kind: "park", launch: "North shore about ten miles east of La Grange; from SH 159 take Park Prairie Road. Three-lane ramp and fishing pier.", fee: "Park fee required", availability: "TPWD lists year-round; LCRA (979) 249-3504. Reserve facilities through current LCRA reservation system." },
       { name: "Oak Thicket Park", operator: "Lower Colorado River Authority", kind: "park", launch: "North shore near Park Prairie Park; Oak Thicket Park Road off SH 159 two miles east of Park Prairie Road. Two-lane ramp and fishing pier.", fee: "Park fee required", availability: "Year-round TPWD listing; LCRA (979) 249-3504. Check campsite booking directly." },
     ],
-    nearbyLakes: [{slug:"lake-somerville",name:"Lake Somerville"},{slug:"lake-austin",name:"Lake Austin"}],
+    nearbyLakes: [{slug:"lake-somerville",name:"Lake Somerville"},{slug:"lake-austin",name:"Lake Austin"},{slug:"lake-bastrop",name:"Lake Bastrop"}],
     camping: {name:"Park Prairie and Oak Thicket parks",summary:"LCRA parks provide camping and fishing access; current reservations, fees and operating conditions should be verified before travel."},
   },
   {
@@ -481,7 +482,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Yegua Creek Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "South on SH 36 from Somerville then FM 1948; two public ramps.", fee: "TPWD lists fee; verify current amount", availability: "Year-round per TPWD; verify high-water damage and USACE notices." },
       { name: "Overlook Park and Lake Somerville Marina", operator: "USACE park / private marina", kind: "marina", launch: "South on SH 36 from Somerville, FM 1948 west then first right to marina; public park and separately operated marina.", fee: "TPWD lists launch fee; confirm whether park or marina entrance", availability: "Year-round listed; verify Corps closures and marina operation." },
     ],
-    nearbyLakes: [{slug:"fayette-county-reservoir",name:"Fayette County Reservoir"},{slug:"lake-conroe",name:"Lake Conroe"}],
+    nearbyLakes: [{slug:"fayette-county-reservoir",name:"Fayette County Reservoir"},{slug:"lake-conroe",name:"Lake Conroe"},{slug:"lake-bastrop",name:"Lake Bastrop"}],
     camping: {name:"Lake Somerville State Park",summary:"Nails Creek and Birch Creek units provide established camping and lake access; verify park alerts and reservations before travel."},
   },
   {
@@ -1194,6 +1195,93 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
   },
 
+
+  {
+    slug: "bardwell-lake", name: "Bardwell Lake", tpwdSlug: "bardwell", waterDataSlug: "bardwell", verifiedAt: "2026-10-13", accessReviewedAt: "2026-10-13", region: "prairies-lakes",
+    summary: "A 3,138-acre USACE reservoir on Waxahachie Creek near Ennis with strong white bass, hybrids, camping, and a consequential distinction between free, camper-only and temporarily closed launch facilities.",
+    surfaceAcres: 3138, maxDepthFeet: 43, impoundedYear: 1965, counties: ["Ellis"], nearestCities: ["Ennis", "Waxahachie", "Bardwell"],
+    waterway: "Waxahachie Creek above Chambers Creek", riverBasin: "Trinity River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "421 ft msl", fluctuation: "TPWD lists roughly four feet under normal conditions; flooding can change access", clarity: "Moderately clear to milky",
+    identity: "Known as both Bardwell Lake and Lake Bardwell, this Corps reservoir was built for flood control and municipal water conservation, not as a private shoreline resort. TPWD's standout fishery is white bass, while the Corps lists public ramps, fee day-use parks and designated reservable campgrounds. Operator park status and older boating text currently disagree on some closures; rely on the most recent Corps park notice and direct operator confirmation before towing.",
+    habitat: [
+      "Hydrilla is prevalent north of the State Highway 34 bridge, making shallow-water vegetation a viable largemouth pattern. The upper creek reaches are silted and can become too shallow for safe motorboat passage.",
+      "Open-water white bass and stocked hybrid striped bass feed over main-lake structure. The dam face, ledges and humps are more reliable than generic shoreline casting advice for those fish.",
+      "Use TPWD's white-bass reports and current water levels to choose between main-lake schooling fish, structure-oriented crappie and catfish, and the shallow vegetation fishery."
+    ],
+    fish: [
+      fish("white-bass","White bass","excellent","fall","TPWD rates white bass excellent. Look for schooling activity and bird concentrations during cooler months; avoid unsafe shallow upper reaches.",["topwater","vertical-jigging","trolling"]),
+      fish("hybrid-striped-bass","Hybrid striped bass","good","summer","Stocked hybrids use open-water cover and can be pursued with downrigging or other trolling and vertical techniques.",["trolling","vertical-jigging","live-bait"]),
+      fish("catfish","Catfish","good","year-round","Good-rated catfish can be targeted with fresh bait near channel edges and structure; choose legal locations away from courtesy docks and ramps.",["cut-bait","live-bait"]),
+      fish("crappie","Crappie","good","spring","Good crappie fishing centers on brush and submerged wood, with seasonal movement between shallower spawning cover and deeper structure.",["jigs-and-minnows","vertical-jigging"]),
+      fish("largemouth-bass","Largemouth bass","fair","spring","TPWD rates largemouth fair overall despite improved vegetation cover north of the Highway 34 bridge.",["soft-plastics","crankbaits","spinnerbaits"],"secondary"),
+      fish("sunfish","Sunfish","poor","summer","TPWD rates sunfish poor; this is not a recommended sunfish-first destination.",["jigs-and-minnows"],"secondary"),
+    ],
+    access: "The Corps operates designated public launches at Love Park, Little Mustang, High View, Mott and Waxahachie Creek parks. The TPWD State Public Ramp is marked CLOSED. Little Mustang is the Corps-listed free day-use launch; camping and launch permissions differ elsewhere. The Corps home page lists Waxahachie Creek Park closed and its older boating page includes a sweeping flood-closure notice, so current status must be resolved with the lake office (972) 875-5711 immediately before travel.",
+    accessPoints: [
+      { name: "Love Park", operator: "U.S. Army Corps of Engineers", kind: "public-ramp", launch: "Southeast side near Ennis via SH 34, Lakeview Drive and park entrance; four-lane ramp and day-use shelter. No overnight camping.", fee: "USACE lists a day-use/boat-launch charge; verify current amount", availability: "Operator posts park status separately from the older boating notice. Confirm today's ramp status before towing." },
+      { name: "Little Mustang Creek Park", operator: "U.S. Army Corps of Engineers", kind: "public-ramp", launch: "Upper creek area; Corps lists a four-lane ramp, courtesy dock and day-use shoreline access.", fee: "USACE identifies this park as free for day use", availability: "Corps FAQ identifies 24-hour access, subject to flood or maintenance closure; no campground." },
+      { name: "High View Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "Western shore off SH 34; four-lane ramp, courtesy dock and established campground. The Corps lists water/electric campsite hookups.", fee: "Day-use/launch fee or valid pass; campground reservation separate", availability: "USACE lists year-round camping, but confirm water level, park entrance and reservations directly." },
+      { name: "Mott Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "West shore via SH 34 and FM 985; Corps campground and bank-fishing areas are separate from open-water boating.", fee: "Campground or day-use fees apply as posted", availability: "Corps treats camping as seasonal; verify park and ramp status for the intended date." },
+      { name: "Waxahachie Creek Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "Waxahachie Creek arm off SH 34; two four-lane ramps and campground, with potentially shallow upper-creek navigation.", fee: "Fee required when access is open", availability: "USACE's lake status page lists the park and ramp closed; do not assume entry until the Corps confirms reopening." },
+    ],
+    campingUrl:"https://www.swf-wc.usace.army.mil/bardwell/Recreation/Camping/",
+    camping: {name:"High View Park, Mott Park and Waxahachie Creek Park",summary:"USACE requires reservations for designated camping. High View is listed year-round with 39 water/electric campsites; Mott and Waxahachie Creek are seasonal, and the Corps currently lists Waxahachie Creek closed. Love and Little Mustang are day-use facilities, not overnight campgrounds. Check current Recreation.gov inventory and Corps advisories; do not infer access from an old TPWD ramp list."},
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/bardwell/index.asp",
+    visitorSourceUrl:"https://www.swf-wc.usace.army.mil/bardwell/",
+    historyNotes:[
+      "Waxahachie Creek's flood-control and water-supply project received federal authorization under the Flood Control Act of March 31, 1960. Construction began in August 1963, after Trinity River Authority coordination established a route for regional water supply.",
+      "TWDB records deliberate impoundment on November 20, 1965 and physical dam completion on March 27, 1966. The Corps' shorter historical summary calls the project completed in 1965; those dates describe different stages rather than two separate reservoirs.",
+      "Bardwell's water-allocation arrangements helped supply Ennis and Waxahachie while the Corps managed flood storage above conservation pool. The 1965 impoundment date should not be mistaken for 1966 completion, nor should flood-pool elevations be described as normal operating water levels."
+    ],
+    visitorFAQs:[
+      {question:"Which Bardwell Lake boat launch is free?",answer:"USACE identifies Little Mustang Creek Park as the free public day-use ramp. It is not a campsite. Verify same-day opening if flooding or repairs are possible."},
+      {question:"Can I camp at Love Park?",answer:"No. The Corps lists Love Park as day-use only. High View, Mott and Waxahachie Creek are the named camping parks, with operator booking requirements and varying seasons."},
+      {question:"Are the ramps open after heavy rain?",answer:"Not necessarily. Corps park status and an older boating flood notice differ. Consult the Corps Bardwell status page or call the lake office before towing."},
+      {question:"What fish is Bardwell known for?",answer:"TPWD rates white bass excellent, hybrids and catfish good, and largemouth bass fair. Upper-end hydrilla improves cover but does not change the lake-wide published rating."},
+      {question:"When was Bardwell Lake built?",answer:"Construction started in 1963, impoundment began November 20, 1965, and TWDB records completion March 27, 1966."}
+    ],
+    nearbyLakes:[{slug:"joe-pool-lake",name:"Joe Pool Lake"},{slug:"cedar-creek-reservoir",name:"Cedar Creek Reservoir"},{slug:"richland-chambers-reservoir",name:"Richland-Chambers Reservoir"}],
+    travelAlerts:["USACE's park-status page and older boating information have conflicting closure language. Do not label an access point open based solely on a published seasonal schedule.","High View Marina is permanently closed according to USACE; it must not be advertised as an operating concession.","Upper Waxahachie Creek can be very shallow even when lower-lake ramps are serviceable."],
+  },
+  {
+    slug: "lake-bastrop", name: "Lake Bastrop", tpwdSlug: "bastrop", verifiedAt: "2026-10-13", accessReviewedAt: "2026-10-13", region: "prairies-lakes",
+    summary: "A 906-acre LCRA-managed warm-water cooling reservoir in Bastrop County with excellent largemouth fishing, two separately operated park entrances, reservable lakeside stays, paddling and swimming.",
+    surfaceAcres: 906, maxDepthFeet: 60, impoundedYear: 1964, counties: ["Bastrop"], nearestCities: ["Bastrop", "Elgin", "Smithville"],
+    waterway: "Spicer Creek, tributary of Piney Creek and the Colorado River", riverBasin: "Colorado River Basin", authority: "Lower Colorado River Authority", conservationPool: "450 ft msl", fluctuation: "Typically 1–2 feet under normal operations", clarity: "Clear to slightly stained",
+    identity: "Lake Bastrop was built in 1964 to provide cooling water for LCRA's Sim Gideon power station, a reason its winter fishing differs from deeper Highland Lakes reservoirs. Water can become unusually hot in summer. North Shore and South Shore are distinct LCRA reservation destinations; the smaller Bastrop State Park lake is another waterbody and must never be confused with this reservoir.",
+    habitat:["LCRA and TPWD document substantial beds of hydrilla, southern and marine naiad, coontail and pondweed, with creek channels, humps and ledges beneath the vegetation.","TPWD describes above-average winter and spring bass activity related to power-plant warming, but cautions that summer heat can reduce fishing success.","Structure-oriented crappie are sparse, while channel catfish and sunfish provide different expectations from the primary largemouth-bass fishery."],
+    fish:[
+      fish("largemouth-bass","Largemouth bass","excellent","spring","TPWD rates the bass fishery excellent, particularly February through June along vegetated flats; most fish are not record-sized trophies.",["crankbaits","soft-plastics","topwater","spinnerbaits"]),
+      fish("catfish","Catfish","good","spring","Good channel catfish populations are attractive in spring and early summer before dense aquatic vegetation complicates bottom fishing.",["cut-bait","live-bait"]),
+      fish("crappie","Crappie","fair","spring","TPWD identifies a low-density crappie fishery. This is not a reliable crappie-first alternative to better-rated area lakes.",["jigs-and-minnows","vertical-jigging"],"secondary"),
+      fish("sunfish","Sunfish","fair","summer","TPWD rates sunfish fair; sheltered park shorelines can suit casual outings with suitable tackle.",["jigs-and-minnows"],"secondary"),
+    ],
+    access:"The LCRA runs two separately ticketed park entrances. North Shore Park is reached via FM 1441 (603 FM 1441); South Shore Park via South Shore Road (375 South Shore Road). TPWD lists one-lane concrete ramps at both, with entrance fees. LCRA publishes park-specific camping, accessibility information, swimming areas, trail maps and reservations. Construction notices at South Shore include restroom work during 2026; confirm facilities before travel.",
+    accessPoints:[
+      {name:"Lake Bastrop North Shore Park",operator:"Lower Colorado River Authority",kind:"park",launch:"603 FM 1441, Bastrop. One-lane concrete public launch plus trailer parking; LCRA publishes a separate pier, swimming area and day-use facilities.",fee:"LCRA park admission is charged; confirm current launch fee and pass terms",availability:"LCRA lists daily park operations; check low-water status, rentals and admission before arrival."},
+      {name:"Lake Bastrop South Shore Park",operator:"Lower Colorado River Authority",kind:"park",launch:"375 South Shore Road, Bastrop, off SH 21. One-lane concrete ramp, fishing piers, paddle launch and designated swimming area.",fee:"LCRA charges park admission; reservations and rentals priced separately",availability:"LCRA's booking site warned of restroom work starting in 2026. Confirm which washrooms, launches and trails are available before arrival."},
+    ],
+    campingUrl:"https://lcraparks.com/parks/lake-bastrop-south-shore-park",
+    camping:{name:"Lake Bastrop North Shore Park and South Shore Park",summary:"LCRA publishes distinct overnight inventories: North Shore includes seven full-hookup RV sites, Airstream units and glamping/cabins; South Shore has both full-hookup and water/electric RV sites, cabins, and other stays. LCRA's dated South Shore park map lists 31 full-hookup and 29 water/electric campsites, while its marketing overview describes different counts; confirm the current live booking inventory rather than claiming every mapped pitch is reservable. Day-use tickets are not overnight permissions."},
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/bastrop/index.asp",
+    visitorSourceUrl:"https://lcraparks.com/parks/lake-bastrop-south-shore-park",
+    historyNotes:[
+      "Texas Water Development Board describes the site on Spicer Creek above Piney Creek, a tributary in the Colorado River watershed. A May 6, 1963 water-right permit preceded dam construction by Brown & Root and contractor H. B. Zachry, and the lake began filling upon completion in 1964.",
+      "Unlike most Corps flood-control reservoirs, Lake Bastrop was created principally as power-plant cooling storage for LCRA's Sim Gideon generation complex, with additional public recreation. LCRA's own facilities history dates Sim Gideon units to 1965, 1968 and 1972.",
+      "The engineered water regime explains both the relatively small normal water-level fluctuations and the unusual temperature profile that TPWD says favors winter and spring bass but can make summer fishing difficult. LCRA's North Shore and South Shore parks later developed as separate public recreation and overnight destinations."
+    ],
+    visitorFAQs:[
+      {question:"Are Lake Bastrop and Bastrop State Park Lake the same?",answer:"No. Lake Bastrop is an LCRA reservoir east of Bastrop; Bastrop State Park's smaller lake is a separate park feature. Use each park's exact entrance address."},
+      {question:"Where are the two Lake Bastrop boat ramps?",answer:"TPWD lists one-lane concrete launches at North Shore (603 FM 1441) and South Shore (375 South Shore Road). Both are LCRA fee parks."},
+      {question:"Can I swim or camp at Lake Bastrop?",answer:"LCRA lists designated swimming areas and reservable overnight accommodations at its North and South Shore parks. Confirm water conditions, current site types and booking availability at the operator."},
+      {question:"What is the best fishing season?",answer:"TPWD rates largemouth bass excellent and highlights February through June. Power-plant cooling can warm winter water, while summer heat can make fishing less productive."},
+      {question:"Does the lake have special fishing restrictions?",answer:"Yes. TPWD flags special bass rules and LCRA's ban on bowfishing. Check the current TPWD Outdoor Annual and LCRA rules before harvesting fish."},
+    ],
+    specialRules:true,
+    liveDataNote:"A TWDB real-time numeric lake gauge was not independently confirmed for this reservoir. Use current LCRA park and TPWD notices; a stable historic pool elevation does not verify today's water or launch conditions.",
+    nearbyLakes:[{slug:"lake-somerville",name:"Lake Somerville"},{slug:"fayette-county-reservoir",name:"Fayette County Reservoir"},{slug:"lake-austin",name:"Lake Austin"}],
+    travelAlerts:["LCRA's South Shore reservation website has a restroom-construction advisory for 2026. Confirm sanitation and accessible facilities before arrival.","TPWD notes special bass regulations and the LCRA prohibition on bowfishing; ordinary statewide bag-limit assumptions are not enough.","Lake Bastrop is not the separate small lake inside Bastrop State Park, and park entry and camping permissions are not interchangeable."],
+  },
+
 ];
 
 const techniqueLabels: Record<TechniqueId, string> = {
@@ -1360,7 +1448,7 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
       name: def.camping?.name ?? `${def.name} trip-planning options`,
       type: def.camping ? "Source-listed recreation option" : "Camping and lodging planning",
       summary: def.camping?.summary ?? "Use TPWD's public-access inventory and the managing agency to confirm current camping, lodging and overnight-use options near the lake.",
-      href: publicAccess.url,
+      href: def.campingUrl ?? publicAccess.url,
     }],
     nearby: [
       ...def.counties.map((county) => ({ label: `${county} County`, description: `${def.name} is tied to ${county} County trip planning, access and nearby destinations.`, href: `/county/${countySlug(county)}`, external: false })),
@@ -1377,7 +1465,7 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
       liveLevel: liveLevelSource,
       ...(def.historySourceUrl ? { reservoirHistory: { label: "Texas Water Development Board — reservoir history", url: def.historySourceUrl } } : {}),
       ...(def.consumptionSourceUrl ? { fishConsumption: { label: "TPWD — current fish-consumption advisories", url: def.consumptionSourceUrl } } : {}),
-      ...(def.visitorSourceUrl ? { cityRecreation: { label: "Official municipal lake visitor information", url: def.visitorSourceUrl } } : {}),
+      ...(def.visitorSourceUrl ? { cityRecreation: { label: `Official ${def.name} managing-agency visitor information`, url: def.visitorSourceUrl } } : {}),
       ...(def.localRegulationsSourceUrl ? { cityBoatRules: { label: "City code — local lake watercraft restrictions", url: def.localRegulationsSourceUrl } } : {}),
     },
   };
