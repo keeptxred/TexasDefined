@@ -906,7 +906,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Beckville Bearcats Football | UIL History, Stadium & 2026 Guide",
-      "description": "Independent Beckville Bearcats football research: verified school history, UIL alignment, official athletic schedule and visitor resources."
+      "description": "Beckville Bearcats football: 2026 varsity fixture results, schedule, UIL district, sourced history, practical visitor information, team FAQ and county cross-links."
     },
     "schedule": {
       "label": "Beckville ISD official football schedules",
@@ -942,12 +942,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "Beckville ISD provides a high-school address of 169 N Washington; a separate Texas football program source identifies R.C. Beauchamp Stadium, but current game entry and ADA details must be checked.",
         "sourceUrl": "https://www.beckvilleisd.net/students-parents",
         "sourceLabel": "District campus address"
+      },
+      {
+        "date": "2026-10-13",
+        "title": "2026 regular-season evidence checkpoint",
+        "body": "3–4 through October 9, 2026, based on the dated independently reported scoreboard available October 13. Only explicitly verified outcomes are scored; later or unverified games remain scheduled. The 3–4 snapshot includes the October 9 reported 26–42 defeat at Pewitt. The 2025 playoff record is a separate season and does not describe the current team.",
+        "sourceUrl": "https://www.maxpreps.com/tx/beckville/beckville-bearcats/football/schedule/",
+        "sourceLabel": "Current 2026 varsity schedule, independently reported"
       }
     ],
     "overview": [
       "Beckville Bearcats football is part of Beckville ISD in Panola County. The program has a documented run of recent postseason appearances, with NFHS carrying distinct archived 2025 UIL games against Paul Pewitt, Leon and San Augustine; do not misrepresent those recordings as live fixtures.",
       "School and stadium information deserves special care. Beckville ISD's own parent directory identifies its high-school campus at 169 N Washington, while third-party profiles list a Bearcat Drive address and a stadium name. For game-day driving, use the official event assignment rather than assuming that all addresses are interchangeable.",
-      "The current 2026–28 UIL assignment is 2A Division I District 11. Two football results databases disagree on the 2025 final W–L count, so this independent guide links those sources rather than publishing an unsourced definitive total. A third-party staff roster lists Cody Ross as 2026 head coach, but first-party confirmation is outstanding."
+      "The current 2026–28 UIL assignment is 2A Division I District 11. Two football results databases disagree on the 2025 final W–L count, so this independent guide links those sources rather than publishing an unsourced definitive total. A third-party staff roster lists Cody Ross as 2026 head coach, but first-party confirmation is outstanding.",
+      "The 3–4 snapshot includes the October 9 reported 26–42 defeat at Pewitt. The 2025 playoff record is a separate season and does not describe the current team."
     ],
     "faq": [
       {
@@ -961,6 +969,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Is the 2025 win-loss figure undisputed?",
         "answer": "No. Public football records disagree, so this page avoids publishing a specific final W–L number without stronger reconciliation."
+      },
+      {
+        "question": "What is the reported 2026 football record for Beckville Bearcats as of October 13?",
+        "answer": "The attributed scoreboard indicates 3–4 through October 9, 2026. This is a historical snapshot, not a live feed; consult the school for current results and changes."
+      },
+      {
+        "question": "How can I check Beckville Bearcats' 2026 varsity schedule?",
+        "answer": "Use the 2026 dated game table and linked independent varsity schedule on this page, and confirm kickoff, venue, admission and cancellations with the school's official athletics contacts. Unreported game results are not invented."
       }
     ],
     "campus": {
@@ -969,6 +985,81 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.beckvilleisd.net/students-parents",
       "sourceLabel": "First-party campus address",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "3–4 through October 9, 2026 (independent scoreboard snapshot)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/beckville/beckville-bearcats/football/schedule/",
+      "sourceLabel": "MaxPreps 2026–27 varsity schedule; October 13 checked snapshot with source-date caveats",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Joaquin",
+          "site": "Home",
+          "district": false,
+          "result": "L 14-43"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Frankston",
+          "site": "Away",
+          "district": false,
+          "result": "L 40-48"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Harmony",
+          "site": "Home",
+          "district": false,
+          "result": "W 51-0"
+        },
+        {
+          "date": "2026-09-17",
+          "opponent": "New Diana",
+          "site": "Away",
+          "district": false,
+          "result": "L 62-70"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Ore City",
+          "site": "Home",
+          "district": true,
+          "result": "W 48-0"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Waskom",
+          "site": "Away",
+          "district": true,
+          "result": "W 42-13"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Pewitt",
+          "site": "Away",
+          "district": true,
+          "result": "L 26-42"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Harleton",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Union Grove",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Elysian Fields",
+          "site": "Away",
+          "district": true
+        }
+      ]
     }
   },
   "beeville-jones": {
@@ -979,7 +1070,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Beeville A. C. Jones Trojans Football | UIL History, Stadium & 2026 Guide",
-      "description": "Independent Beeville A. C. Jones Trojans football research: verified school history, UIL alignment, official athletic schedule and visitor resources."
+      "description": "Beeville Jones Trojans football: 2026 varsity fixture results, schedule, UIL district, sourced history, practical visitor information, team FAQ and county cross-links."
     },
     "schedule": {
       "label": "Beeville ISD official football schedules",
@@ -1015,12 +1106,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The A. C. Jones coaches page lists Dave Holmgreen; the public 2026 MaxPreps roster lists CJ Rivera. A head-coach name is not presented as settled.",
         "sourceUrl": "https://acjoneshs.beevilleisd.net/51041_3",
         "sourceLabel": "Official high-school coaches directory"
+      },
+      {
+        "date": "2026-10-13",
+        "title": "2026 regular-season evidence checkpoint",
+        "body": "2–4 through October 2, 2026, based on the dated independently reported scoreboard available October 13. Only explicitly verified outcomes are scored; later or unverified games remain scheduled. The September 27 schedule table omitted the October 2 score, but the updated varsity team page confirms a 17–6 win over Moody. October 9 at King is not assigned a result absent a source confirmation. Varsity dates are not replaced with JV/freshman fixtures.",
+        "sourceUrl": "https://www.maxpreps.com/tx/beeville/jones-trojans/football/",
+        "sourceLabel": "Current 2026 varsity schedule, independently reported"
       }
     ],
     "overview": [
       "A. C. Jones High School's Trojans represent Beeville ISD in Bee County. The school's campus is 1902 N Adams Street, while the ISD district administration is elsewhere. The 2026–28 UIL football realignment lists Beeville Jones in 4A Division I District 15.",
       "The school's own football section still links a 2024 schedule. Beeville ISD's separate athletics document feed instead lists the 2026 Trojan Varsity schedule, a master athletics schedule and a separately identified 2026 Moreno Junior High calendar. Use the district feed for varsity game planning.",
-      "Coaching attribution is currently uncertain: the school coaches directory and an independent 2026 team roster give different head-coach names. This guide documents that conflict instead of inventing a current appointment. Similarly, no unverified state-title or rivalry claim is added."
+      "Coaching attribution is currently uncertain: the school coaches directory and an independent 2026 team roster give different head-coach names. This guide documents that conflict instead of inventing a current appointment. Similarly, no unverified state-title or rivalry claim is added.",
+      "The September 27 schedule table omitted the October 2 score, but the updated varsity team page confirms a 17–6 win over Moody. October 9 at King is not assigned a result absent a source confirmation. Varsity dates are not replaced with JV/freshman fixtures."
     ],
     "faq": [
       {
@@ -1034,6 +1133,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Is Moreno Junior High's schedule the same as varsity Jones football?",
         "answer": "No. Beeville ISD separately lists the 2026 Moreno JH schedule and the 2026 Trojan varsity schedule."
+      },
+      {
+        "question": "What is the reported 2026 football record for Beeville Jones Trojans as of October 13?",
+        "answer": "The attributed scoreboard indicates 2–4 through October 2, 2026. This is a historical snapshot, not a live feed; consult the school for current results and changes."
+      },
+      {
+        "question": "How can I check Beeville Jones Trojans' 2026 varsity schedule?",
+        "answer": "Use the 2026 dated game table and linked independent varsity schedule on this page, and confirm kickoff, venue, admission and cancellations with the school's official athletics contacts. Unreported game results are not invented."
       }
     ],
     "campus": {
@@ -1042,6 +1149,80 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://acjoneshs.beevilleisd.net/51042_3",
       "sourceLabel": "First-party campus address",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "2–4 through October 2, 2026 (independent scoreboard snapshot)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/beeville/jones-trojans/football/schedule/",
+      "sourceLabel": "MaxPreps 2026–27 varsity schedule; October 13 checked snapshot with source-date caveats",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Alice",
+          "site": "Away",
+          "district": false,
+          "result": "L 13-35"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "London",
+          "site": "Home",
+          "district": false,
+          "result": "L 25-35"
+        },
+        {
+          "date": "2026-09-10",
+          "opponent": "Carroll",
+          "site": "Away",
+          "district": false,
+          "result": "L 3-41"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Pleasanton",
+          "site": "Home",
+          "district": false,
+          "result": "W 26-14"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Miller",
+          "site": "Away",
+          "district": true,
+          "result": "L 8-40"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Corpus Christi Moody",
+          "site": "Home",
+          "district": true,
+          "result": "W 17-6"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "King",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Calhoun",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Calallen",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-11-05",
+          "opponent": "Tuloso-Midway",
+          "site": "Home",
+          "district": true
+        }
+      ]
     }
   },
   "bells": {
@@ -1052,7 +1233,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Bells Panthers Football | UIL History, Stadium & 2026 Guide",
-      "description": "Independent Bells Panthers football research: verified school history, UIL alignment, official athletic schedule and visitor resources."
+      "description": "Bells Panthers football: 2026 varsity fixture results, schedule, UIL district, sourced history, practical visitor information, team FAQ and county cross-links."
     },
     "schedule": {
       "label": "Bells ISD official football schedules",
@@ -1088,12 +1269,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "Current UIL realignment must be distinguished from the prior 2025 matchups displayed on third-party archives.",
         "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
         "sourceLabel": "Official 2026 UIL football alignment"
+      },
+      {
+        "date": "2026-10-13",
+        "title": "2026 regular-season evidence checkpoint",
+        "body": "5–2 through October 9, 2026, based on the dated independently reported scoreboard available October 13. Only explicitly verified outcomes are scored; later or unverified games remain scheduled. The October 13 MaxPreps schedule shows five wins, two losses, including a 43–12 win over Valley View on October 9. It reflects the new 2026 district, not the old 2025 schedule.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bells/bells-panthers/football/schedule/",
+        "sourceLabel": "Current 2026 varsity schedule, independently reported"
       }
     ],
     "overview": [
       "Bells High School Panthers football plays a distinctive role in its Grayson County town, where the district describes Panther Stadium and school gymnasiums as community hubs. The district's 'Panther Way' motto is part of the documented school culture, not an invented football-only chant.",
       "The Bells ISD athletic page provides separate download links for varsity football, junior-varsity/junior-high football and junior-high football. Visitors should choose the appropriate varsity schedule and confirm game-specific stadium, parking, accessibility and ticket details.",
-      "Bells' current 2026–28 UIL classification is Class 3A Division II District 7. No state championship, unconfirmed rivalry, coach appointment or single team record is asserted without reliable primary evidence; the useful distinguishing details here are the official school identity, event sources and accurate navigation."
+      "Bells' current 2026–28 UIL classification is Class 3A Division II District 7. No state championship, unconfirmed rivalry, coach appointment or single team record is asserted without reliable primary evidence; the useful distinguishing details here are the official school identity, event sources and accurate navigation.",
+      "The October 13 MaxPreps schedule shows five wins, two losses, including a 43–12 win over Valley View on October 9. It reflects the new 2026 district, not the old 2025 schedule."
     ],
     "faq": [
       {
@@ -1107,6 +1296,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Where is Bells High School?",
         "answer": "The district lists Bells High School at 1550 Ole Ambrose Road, Bells, Texas 75414. Confirm actual game-day entrances separately."
+      },
+      {
+        "question": "What is the reported 2026 football record for Bells Panthers as of October 13?",
+        "answer": "The attributed scoreboard indicates 5–2 through October 9, 2026. This is a historical snapshot, not a live feed; consult the school for current results and changes."
+      },
+      {
+        "question": "How can I check Bells Panthers' 2026 varsity schedule?",
+        "answer": "Use the 2026 dated game table and linked independent varsity schedule on this page, and confirm kickoff, venue, admission and cancellations with the school's official athletics contacts. Unreported game results are not invented."
       }
     ],
     "campus": {
@@ -1115,6 +1312,81 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://bellsisd.net/",
       "sourceLabel": "First-party campus address",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "5–2 through October 9, 2026 (independent scoreboard snapshot)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/bells/bells-panthers/football/schedule/",
+      "sourceLabel": "MaxPreps 2026–27 varsity schedule; October 13 checked snapshot with source-date caveats",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Pottsboro",
+          "site": "Away",
+          "district": false,
+          "result": "W 27-21"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Whitesboro",
+          "site": "Home",
+          "district": false,
+          "result": "L 22-42"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Collinsville",
+          "site": "Away",
+          "district": false,
+          "result": "L 14-34"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Farmersville",
+          "site": "Home",
+          "district": false,
+          "result": "W 62-49"
+        },
+        {
+          "date": "2026-09-24",
+          "opponent": "S & S Consolidated",
+          "site": "Away",
+          "district": true,
+          "result": "W 49-0"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Blue Ridge",
+          "site": "Home",
+          "district": true,
+          "result": "W 42-21"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Valley View",
+          "site": "Away",
+          "district": true,
+          "result": "W 43-12"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Howe",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Leonard",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Callisburg",
+          "site": "Home",
+          "district": true
+        }
+      ]
     }
   },
   "bellville": {
@@ -1125,7 +1397,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Bellville Brahmas Football | UIL History, Stadium & 2026 Guide",
-      "description": "Independent Bellville Brahmas football research: verified school history, UIL alignment, official athletic schedule and visitor resources."
+      "description": "Bellville Brahmas football: 2026 varsity fixture results, schedule, UIL district, sourced history, practical visitor information, team FAQ and county cross-links."
     },
     "schedule": {
       "label": "Bellville ISD official football schedules",
@@ -1168,12 +1440,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "Bellville ISD published 2026 reserved ticket sale information and identified September 11 as its Stafford varsity football homecoming at the high school.",
         "sourceUrl": "https://www.bellvilleisd.org/",
         "sourceLabel": "Bellville ISD official 2026 football and ticket notices"
+      },
+      {
+        "date": "2026-10-13",
+        "title": "2026 regular-season evidence checkpoint",
+        "body": "3–3 through October 9, 2026, based on the dated independently reported scoreboard available October 13. Only explicitly verified outcomes are scored; later or unverified games remain scheduled. A 35–13 October 9 win over Hitchcock brought Bellville to 3–3. The 2023 state-final history is not a 2026 result; MaxPreps abbreviates October 16 opponent as HSI, expanded here to Harmony School of Innovation.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bellville/bellville-brahmas/football/schedule/",
+        "sourceLabel": "Current 2026 varsity schedule, independently reported"
       }
     ],
     "overview": [
       "Bellville Brahmas football has three documented UIL state-finals appearances and no state football championship. Denver City won 26–21 in 1960, Wylie won 22–14 in 1977, and Gilmer won 28–26 in the 2023 Class 4A Division II title game. The near-miss 2023 run included a 35–33 semifinal win over Wimberley.",
       "Bellville's 2023 UIL historical team page names Grady Rowe as the 2023 coach and lists a 15–0 record entering the championship. That is dated historical staff evidence, not a current coaching appointment. The school's mascot is the Brahmas, and UIL's archived team colors are red and white.",
-      "Bellville ISD's September 11, 2026 calendar identified a Stafford varsity homecoming at Bellville High School, 850 Schumann Road, while the district also posted a July reserved-season-ticket announcement. The Bellville football program is in **Austin County**, not the city of Austin in Travis County; unrelated Austin city schools must not populate Bellville's county links."
+      "Bellville ISD's September 11, 2026 calendar identified a Stafford varsity homecoming at Bellville High School, 850 Schumann Road, while the district also posted a July reserved-season-ticket announcement. The Bellville football program is in **Austin County**, not the city of Austin in Travis County; unrelated Austin city schools must not populate Bellville's county links.",
+      "A 35–13 October 9 win over Hitchcock brought Bellville to 3–3. The 2023 state-final history is not a 2026 result; MaxPreps abbreviates October 16 opponent as HSI, expanded here to Harmony School of Innovation."
     ],
     "faq": [
       {
@@ -1187,6 +1467,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Is Bellville part of the Austin High School football scene?",
         "answer": "No. Bellville High School is in Bellville, Austin County. Austin city school teams are in the Austin/Travis County region, not in Austin County simply because of the name."
+      },
+      {
+        "question": "What is the reported 2026 football record for Bellville Brahmas as of October 13?",
+        "answer": "The attributed scoreboard indicates 3–3 through October 9, 2026. This is a historical snapshot, not a live feed; consult the school for current results and changes."
+      },
+      {
+        "question": "How can I check Bellville Brahmas' 2026 varsity schedule?",
+        "answer": "Use the 2026 dated game table and linked independent varsity schedule on this page, and confirm kickoff, venue, admission and cancellations with the school's official athletics contacts. Unreported game results are not invented."
       }
     ],
     "campus": {
@@ -1194,6 +1482,80 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://bhs.bellvilleisd.org/",
       "sourceLabel": "First-party campus address",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "3–3 through October 9, 2026 (independent scoreboard snapshot)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/bellville/bellville-brahmas/football/schedule/",
+      "sourceLabel": "MaxPreps 2026–27 varsity schedule; October 13 checked snapshot with source-date caveats",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Robinson",
+          "site": "Away",
+          "district": false,
+          "result": "W 36-35"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Sealy",
+          "site": "Home",
+          "district": false,
+          "result": "W 34-14"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Stafford",
+          "site": "Home",
+          "district": false,
+          "result": "L 25-29"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Columbus",
+          "site": "Away",
+          "district": false,
+          "result": "L 34-37"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Wimberley",
+          "site": "Away",
+          "district": false,
+          "result": "L 35-49"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Hitchcock",
+          "site": "Home",
+          "district": true,
+          "result": "W 35-13"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Harmony School of Innovation",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "La Grange",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "La Marque",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Brazosport",
+          "site": "Away",
+          "district": true
+        }
+      ]
     }
   },
   "belton": {
@@ -1204,7 +1566,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Belton Tigers Football | UIL History, Stadium & 2026 Guide",
-      "description": "Independent Belton Tigers football research: verified school history, UIL alignment, official athletic schedule and visitor resources."
+      "description": "Belton Tigers football: 2026 varsity fixture results, schedule, UIL district, sourced history, practical visitor information, team FAQ and county cross-links."
     },
     "schedule": {
       "label": "Belton ISD official football schedules",
@@ -1240,12 +1602,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "UIL reclassification lists Belton High in Class 5A Division II District 8. Lake Belton High has its own separate varsity sports listing and should not be conflated.",
         "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
         "sourceLabel": "UIL 2026–28 Belton assignment"
+      },
+      {
+        "date": "2026-10-13",
+        "title": "2026 regular-season evidence checkpoint",
+        "body": "4–2 through October 9, 2026, based on the dated independently reported scoreboard available October 13. Only explicitly verified outcomes are scored; later or unverified games remain scheduled. The 2026 Tigers fixture grid is independent of Lake Belton's varsity program. Bell County campus and venue checks should not conflate those two schools.",
+        "sourceUrl": "https://www.maxpreps.com/tx/belton/belton-tigers/football/schedule/",
+        "sourceLabel": "Current 2026 varsity schedule, independently reported"
       }
     ],
     "overview": [
       "Belton High School Tigers football is a Bell County school program with a dedicated first-party athletic website. The current UIL roster places Belton High in Class 5A Division II District 8, while Lake Belton High School is a **separate** program; shared district geography does not make them one team.",
       "The official 2026 football site has distinct varsity, JV Red, JV White and ninth-grade fixtures. An October 15 Waco JV game is listed at Tiger Stadium in Belton, but the October 16 varsity match is listed at Waco ISD Sports Complex. The useful travel instruction is to follow the precise squad and fixture, not merely search the school name.",
-      "Belton High School athletics publishes visitor documents including a clear-bag policy, a composite calendar and 2026–27 football listing. Its athletics contact footer identifies 624 Lake Road. No state-title claim or current coach role is invented from an unlabeled staff directory listing."
+      "Belton High School athletics publishes visitor documents including a clear-bag policy, a composite calendar and 2026–27 football listing. Its athletics contact footer identifies 624 Lake Road. No state-title claim or current coach role is invented from an unlabeled staff directory listing.",
+      "The 2026 Tigers fixture grid is independent of Lake Belton's varsity program. Bell County campus and venue checks should not conflate those two schools."
     ],
     "faq": [
       {
@@ -1259,6 +1629,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Is every Belton football event on the official site varsity?",
         "answer": "No. The website labels multiple freshman and JV groups separately from varsity. Check that label before traveling."
+      },
+      {
+        "question": "What is the reported 2026 football record for Belton Tigers as of October 13?",
+        "answer": "The attributed scoreboard indicates 4–2 through October 9, 2026. This is a historical snapshot, not a live feed; consult the school for current results and changes."
+      },
+      {
+        "question": "How can I check Belton Tigers' 2026 varsity schedule?",
+        "answer": "Use the 2026 dated game table and linked independent varsity schedule on this page, and confirm kickoff, venue, admission and cancellations with the school's official athletics contacts. Unreported game results are not invented."
       }
     ],
     "campus": {
@@ -1267,6 +1645,80 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.beltontigers.com/",
       "sourceLabel": "First-party campus address",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "4–2 through October 9, 2026 (independent scoreboard snapshot)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/belton/belton-tigers/football/schedule/",
+      "sourceLabel": "MaxPreps 2026–27 varsity schedule; October 13 checked snapshot with source-date caveats",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Hendrickson",
+          "site": "Home",
+          "district": false,
+          "result": "W 39-17"
+        },
+        {
+          "date": "2026-09-03",
+          "opponent": "Bryan",
+          "site": "Away",
+          "district": false,
+          "result": "W 48-23"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Bastrop",
+          "site": "Away",
+          "district": false,
+          "result": "W 41-0"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Midway",
+          "site": "Home",
+          "district": false,
+          "result": "L 10-21"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "San Angelo Central",
+          "site": "Away",
+          "district": false,
+          "result": "L 29-52"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Rudder",
+          "site": "Home",
+          "district": true,
+          "result": "W 42-15"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Waco",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Ellison",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-29",
+          "opponent": "University",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Brenham",
+          "site": "Away",
+          "district": true
+        }
+      ]
     }
   },
   "ben-bolt-palito-blanco": {
@@ -1277,7 +1729,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Ben Bolt–Palito Blanco Fighting Badgers Football | 2026 & Texas UIL History",
-      "description": "Independent Ben Bolt–Palito Blanco Fighting Badgers football research: verified school milestones, current UIL alignment, schedules, visitor guidance and original sources."
+      "description": "Ben Bolt–Palito Blanco Fighting Badgers football: 2026 varsity fixture results, schedule, UIL district, sourced history, practical visitor information, team FAQ and county cross-links."
     },
     "schedule": {
       "label": "Ben Bolt–Palito Blanco ISD official athletics and 2026 football news",
@@ -1313,12 +1765,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The 2026 calendar differentiates varsity at Riviera on October 23 from the preceding junior-high events.",
         "sourceUrl": "https://www.bbpbschools.net/apps/events/",
         "sourceLabel": "District varsity events"
+      },
+      {
+        "date": "2026-10-13",
+        "title": "2026 regular-season evidence checkpoint",
+        "body": "5–0 through September 25, 2026, based on the dated independently reported scoreboard available October 13. Only explicitly verified outcomes are scored; later or unverified games remain scheduled. The September 26 MaxPreps table only verifies five September wins. October 9 at Woodsboro is not marked as completed without newer reliable results. The provider abbreviates an opponent as MMA; no unsupported school expansion is asserted. School calendar source currently restricts automated access.",
+        "sourceUrl": "https://www.maxpreps.com/tx/ben-bolt/ben-bolt-badgers/football/schedule/",
+        "sourceLabel": "Current 2026 varsity schedule, independently reported"
       }
     ],
     "overview": [
       "Ben Bolt–Palito Blanco Fighting Badgers football is a Class 2A Division II District 16 eleven-man UIL program in the 2026–28 cycle. The district's name includes Ben Bolt and Palito Blanco, but its high school campus is physically listed at 172 Badger Lane near Alice, in Jim Wells County; school names and postal cities do not substitute for a campus location.",
       "The district itself posts a detailed 2026 calendar and distinguishes varsity from junior-high games. October 2 was an open week, October 9 was listed away at Woodsboro, October 16 is its designated Santa Maria homecoming, October 23 is at Riviera and October 30 at La Villa. These are published schedule events, not verified final scores.",
-      "Ben Bolt–Palito Blanco ISD explicitly identifies the Fighting Badgers, links to Online Game Tickets, and provides high-school calendars and contact information. Use the dated first-party entries for tickets and travel; campus address is not by itself proof of the specific Friday-night field entrance, parking or accessible seating."
+      "Ben Bolt–Palito Blanco ISD explicitly identifies the Fighting Badgers, links to Online Game Tickets, and provides high-school calendars and contact information. Use the dated first-party entries for tickets and travel; campus address is not by itself proof of the specific Friday-night field entrance, parking or accessible seating.",
+      "The September 26 MaxPreps table only verifies five September wins. October 9 at Woodsboro is not marked as completed without newer reliable results. The provider abbreviates an opponent as MMA; no unsupported school expansion is asserted. School calendar source currently restricts automated access."
     ],
     "faq": [
       {
@@ -1332,6 +1792,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "When is the Fighting Badgers' 2026 football homecoming?",
         "answer": "The district lists Friday, October 16 against Santa Maria as the homecoming high-school football fixture. Confirm kickoff, tickets and stadium entry directly."
+      },
+      {
+        "question": "What is the reported 2026 football record for Ben Bolt–Palito Blanco Fighting Badgers as of October 13?",
+        "answer": "The attributed scoreboard indicates 5–0 through September 25, 2026. This is a historical snapshot, not a live feed; consult the school for current results and changes."
+      },
+      {
+        "question": "How can I check Ben Bolt–Palito Blanco Fighting Badgers' 2026 varsity schedule?",
+        "answer": "Use the 2026 dated game table and linked independent varsity schedule on this page, and confirm kickoff, venue, admission and cancellations with the school's official athletics contacts. Unreported game results are not invented."
       }
     ],
     "campus": {
@@ -1340,6 +1808,79 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.bbpbschools.net/",
       "sourceLabel": "Official school or district location; confirm exact campus entrance where noted",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "5–0 through September 25, 2026 (independent scoreboard snapshot)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/ben-bolt/ben-bolt-badgers/football/schedule/",
+      "sourceLabel": "MaxPreps 2026–27 varsity schedule; October 13 checked snapshot with source-date caveats",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Skidmore-Tynan",
+          "site": "Home",
+          "district": false,
+          "result": "W 34-30"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Progreso",
+          "site": "Away",
+          "district": false,
+          "result": "W 46-14"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Banquete",
+          "site": "Home",
+          "district": false,
+          "result": "W 48-22"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "MMA",
+          "site": "Away",
+          "district": false,
+          "result": "W 50-28"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Louise",
+          "site": "Away",
+          "district": false,
+          "result": "W 52-30"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Woodsboro",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Santa Maria",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Kaufer",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "La Villa",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Agua Dulce",
+          "site": "Home",
+          "district": true
+        }
+      ]
     }
   },
   "benavides": {
@@ -1350,7 +1891,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Benavides Eagles Football | 2026 & Texas UIL History",
-      "description": "Independent Benavides Eagles football research: verified school milestones, current UIL alignment, schedules, visitor guidance and original sources."
+      "description": "Benavides Eagles football: 2026 varsity fixture results, schedule, UIL district, sourced history, practical visitor information, team FAQ and county cross-links."
     },
     "schedule": {
       "label": "Benavides ISD official athletics and 2026 football news",
@@ -1386,12 +1927,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "UIL realignment confirms 1A six-man Division II District 16. The format must be distinguished from neighboring eleven-man programs.",
         "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
         "sourceLabel": "UIL official six-man realignment"
+      },
+      {
+        "date": "2026-10-13",
+        "title": "2026 regular-season evidence checkpoint",
+        "body": "5–0 through September 25, 2026, based on the dated independently reported scoreboard available October 13. Only explicitly verified outcomes are scored; later or unverified games remain scheduled. The September 26 specialist schedule has nine identifiable varsity events, not ten. Do not invent a tenth opponent. Its reported 2–0 result at Pawnee is transcribed without assuming why that score occurred. AHCHS/CCHS/ACA abbreviations are deliberately not expanded without independent identity evidence.",
+        "sourceUrl": "https://www.maxpreps.com/tx/benavides/benavides-eagles/football/schedule/",
+        "sourceLabel": "Current 2026 varsity schedule, independently reported"
       }
     ],
     "overview": [
       "Benavides Eagles football competes in UIL Class 1A Six-Man Division II District 16 for the 2026–28 alignment cycle. This is the six-man form of Texas high-school football; score totals, rosters, district structure and game field cannot be compared indiscriminately with eleven-man programs.",
       "Benavides ISD visibly offers a current 2026 football schedule. Its athletics directory names Celso Oliveira athletic director, not automatically head varsity football coach; the school's motto explicitly refers to Eagle pride. These verified official links are more valuable than an unsourced claim of championships, rivals or 2026 coaches.",
-      "The ISD provides its general public contact at 106 W School Street in Benavides. That is not automatically the high-school field, ticket booth or visitor entrance. Ask athletics about the assigned 2026 home field, ticketing, parking and ADA accessibility before traveling; third-party score websites are historical context, not official scheduled results."
+      "The ISD provides its general public contact at 106 W School Street in Benavides. That is not automatically the high-school field, ticket booth or visitor entrance. Ask athletics about the assigned 2026 home field, ticketing, parking and ADA accessibility before traveling; third-party score websites are historical context, not official scheduled results.",
+      "The September 26 specialist schedule has nine identifiable varsity events, not ten. Do not invent a tenth opponent. Its reported 2–0 result at Pawnee is transcribed without assuming why that score occurred. AHCHS/CCHS/ACA abbreviations are deliberately not expanded without independent identity evidence."
     ],
     "faq": [
       {
@@ -1405,6 +1954,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Is Celso Oliveira confirmed as 2026 Eagles head football coach?",
         "answer": "No. The ISD lists him as athletic director. That title alone does not establish the current football head-coach appointment."
+      },
+      {
+        "question": "What is the reported 2026 football record for Benavides Eagles as of October 13?",
+        "answer": "The attributed scoreboard indicates 5–0 through September 25, 2026. This is a historical snapshot, not a live feed; consult the school for current results and changes."
+      },
+      {
+        "question": "How can I check Benavides Eagles' 2026 varsity schedule?",
+        "answer": "Use the 2026 dated game table and linked independent varsity schedule on this page, and confirm kickoff, venue, admission and cancellations with the school's official athletics contacts. Unreported game results are not invented."
       }
     ],
     "campus": {
@@ -1413,6 +1970,73 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.benavidesisd.net/",
       "sourceLabel": "Official school or district location; confirm exact campus entrance where noted",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "5–0 through September 25, 2026 (independent scoreboard snapshot)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/benavides/benavides-eagles/football/schedule/",
+      "sourceLabel": "MaxPreps 2026–27 varsity schedule; October 13 checked snapshot with source-date caveats",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "AHCHS",
+          "site": "Away",
+          "district": false,
+          "result": "W 27-20"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Victoria Cobra HomeSchool",
+          "site": "Home",
+          "district": false,
+          "result": "W 53-7"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Bruni",
+          "site": "Away",
+          "district": false,
+          "result": "W 26-12"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Pawnee",
+          "site": "Away",
+          "district": false,
+          "result": "W 2-0"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "CCHS",
+          "site": "Away",
+          "district": false,
+          "result": "W 45-0"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "ACA",
+          "site": "Away",
+          "district": false
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Pawnee",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Westhoff Academy",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Runge",
+          "site": "Away",
+          "district": true
+        }
+      ]
     }
   },
   "big-lake-reagan-co": {
@@ -1423,7 +2047,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Reagan County Owls Football | 2026 & Texas UIL History",
-      "description": "Independent Reagan County Owls football research: verified school milestones, current UIL alignment, schedules, visitor guidance and original sources."
+      "description": "Reagan County Owls football: 2026 varsity fixture results, schedule, UIL district, sourced history, practical visitor information, team FAQ and county cross-links."
     },
     "schedule": {
       "label": "Reagan County ISD official athletics and 2026 football news",
@@ -1459,12 +2083,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The district athletics feed identifies a varsity game at Miles and says tickets at the gate for that date; that policy is game-specific.",
         "sourceUrl": "https://www.reagancountyisd.net/live-feed?page_no=1",
         "sourceLabel": "Reagan County ISD first-party varsity notice"
+      },
+      {
+        "date": "2026-10-13",
+        "title": "2026 regular-season evidence checkpoint",
+        "body": "2–4 through October 2, 2026, based on the dated independently reported scoreboard available October 13. Only explicitly verified outcomes are scored; later or unverified games remain scheduled. The October 7 MaxPreps snapshot does not verify October 9 versus Colorado, so that score is intentionally absent. The official September 11 school notice separately corroborates the Miles road game but not the entire third-party schedule.",
+        "sourceUrl": "https://www.maxpreps.com/tx/big-lake/reagan-county-owls/football/schedule/",
+        "sourceLabel": "Current 2026 varsity schedule, independently reported"
       }
     ],
     "overview": [
       "Reagan County Owls football represents Big Lake, Reagan County, in the current UIL 2026–28 Class 2A Division I District 4. The school district uses 'Every Owl. Every Day.' and maintains its own athletic and schedule resources. 'Reagan County' is the high-school football program, not a San Antonio or Austin Reagan campus.",
       "The UIL's original 1986 2A playoff bracket tracks the Owls through four postseason wins before the Mart semifinal defeat. Listing that appearance precisely offers more historical value than incorrectly promoting the 1986 run as a state title.",
-      "The ISD's first-party September 2026 notices identify James H. Bird Memorial Stadium as a homecoming football setting and document the particular McCamey and Miles games. Its free-entry promotion for supporters wearing school colors applied to that homecoming, not necessarily every event. The school/district address is 1111 E 12th Street; confirm exact stadium navigation and 2026 ticket/accessible entrance details with the ISD."
+      "The ISD's first-party September 2026 notices identify James H. Bird Memorial Stadium as a homecoming football setting and document the particular McCamey and Miles games. Its free-entry promotion for supporters wearing school colors applied to that homecoming, not necessarily every event. The school/district address is 1111 E 12th Street; confirm exact stadium navigation and 2026 ticket/accessible entrance details with the ISD.",
+      "The October 7 MaxPreps snapshot does not verify October 9 versus Colorado, so that score is intentionally absent. The official September 11 school notice separately corroborates the Miles road game but not the entire third-party schedule."
     ],
     "faq": [
       {
@@ -1478,6 +2110,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Does the September 2026 free homecoming admission apply to every Owls game?",
         "answer": "No. The district announced a blue-and-gold apparel entry promotion for that specific homecoming event. Confirm other games' policies separately."
+      },
+      {
+        "question": "What is the reported 2026 football record for Reagan County Owls as of October 13?",
+        "answer": "The attributed scoreboard indicates 2–4 through October 2, 2026. This is a historical snapshot, not a live feed; consult the school for current results and changes."
+      },
+      {
+        "question": "How can I check Reagan County Owls' 2026 varsity schedule?",
+        "answer": "Use the 2026 dated game table and linked independent varsity schedule on this page, and confirm kickoff, venue, admission and cancellations with the school's official athletics contacts. Unreported game results are not invented."
       }
     ],
     "campus": {
@@ -1486,6 +2126,80 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.reagancountyisd.net/",
       "sourceLabel": "Official school or district location; confirm exact campus entrance where noted",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "2–4 through October 2, 2026 (independent scoreboard snapshot)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/big-lake/reagan-county-owls/football/schedule/",
+      "sourceLabel": "MaxPreps 2026–27 varsity schedule; October 13 checked snapshot with source-date caveats",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Mason",
+          "site": "Away",
+          "district": false,
+          "result": "L 0-58"
+        },
+        {
+          "date": "2026-09-03",
+          "opponent": "Grape Creek",
+          "site": "Home",
+          "district": false,
+          "result": "W 34-8"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Miles",
+          "site": "Away",
+          "district": false,
+          "result": "W 45-43 (OT)"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "McCamey",
+          "site": "Home",
+          "district": false,
+          "result": "L 22-38"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Ballinger",
+          "site": "Home",
+          "district": true,
+          "result": "L 22-41"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Forsan",
+          "site": "Away",
+          "district": true,
+          "result": "L 16-58"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Colorado",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Christoval",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Sonora",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Ozona",
+          "site": "Away",
+          "district": true
+        }
+      ]
     }
   },
   "big-sandy": {
@@ -1496,7 +2210,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Big Sandy Wildcats Football | 2026 & Texas UIL History",
-      "description": "Independent Big Sandy Wildcats football research: verified school milestones, current UIL alignment, schedules, visitor guidance and original sources."
+      "description": "Big Sandy Wildcats football: 2026 varsity fixture results, schedule, UIL district, sourced history, practical visitor information, team FAQ and county cross-links."
     },
     "schedule": {
       "label": "Big Sandy ISD official athletics and 2026 football news",
@@ -1539,12 +2253,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "An August 17 district bulletin links separate 2026 high-school and junior-high football schedules, making the season resource distinct from historic title records.",
         "sourceUrl": "https://www.bigsandyisd.org/live_feeds/12842018",
         "sourceLabel": "Big Sandy ISD first-party 2026 schedule news"
+      },
+      {
+        "date": "2026-10-13",
+        "title": "2026 regular-season evidence checkpoint",
+        "body": "3–2 through September 25, 2026, based on the dated independently reported scoreboard available October 13. Only explicitly verified outcomes are scored; later or unverified games remain scheduled. A September 29 MaxPreps schedule and later school results page agree on three early wins and two losses. The October 9 Detroit score is not confirmed there; preserve the date as an unscored fixture. Historic 1973–75 consecutive titles remain separate from 2026.",
+        "sourceUrl": "https://www.maxpreps.com/tx/big-sandy/big-sandy-wildcats/football/schedule/",
+        "sourceLabel": "Current 2026 varsity schedule, independently reported"
       }
     ],
     "overview": [
       "Big Sandy Wildcats in Upshur County have three consecutive UIL Class B football championships from 1973, 1974 and 1975. The 1974 title was shared with Celina after a 0–0 tie, not an ordinary victory; head coach Jim Norman is credited by UIL for that era.",
       "Big Sandy's 1973 undefeated title season features prominent football alumni Lovie Smith and David Overstreet in UIL's centennial account. The 1975 final against Groom has a documented disagreement within UIL's own sources—26–2 in the winners archive but 28–2 in the narrative season retrospective. Both are historical UIL figures; a single definitive score requires archival reconciliation.",
-      "The current Wildcats belong to UIL 2A Division II District 10, not the 1970s Class B system. On August 17, 2026, Big Sandy ISD issued a direct high-school and junior-high schedule announcement. The district lists 401 North Wildcat Drive in Big Sandy; away-game addresses and stadium entry should be verified against the appropriate varsity fixture."
+      "The current Wildcats belong to UIL 2A Division II District 10, not the 1970s Class B system. On August 17, 2026, Big Sandy ISD issued a direct high-school and junior-high schedule announcement. The district lists 401 North Wildcat Drive in Big Sandy; away-game addresses and stadium entry should be verified against the appropriate varsity fixture.",
+      "A September 29 MaxPreps schedule and later school results page agree on three early wins and two losses. The October 9 Detroit score is not confirmed there; preserve the date as an unscored fixture. Historic 1973–75 consecutive titles remain separate from 2026."
     ],
     "faq": [
       {
@@ -1558,6 +2280,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Why does Big Sandy's 1975 score sometimes appear as 26–2 or 28–2?",
         "answer": "UIL's historical championships table gives 26–2 against Groom, while its own centennial team-history page gives 28–2. Both are official sources, so the discrepancy needs archival resolution."
+      },
+      {
+        "question": "What is the reported 2026 football record for Big Sandy Wildcats as of October 13?",
+        "answer": "The attributed scoreboard indicates 3–2 through September 25, 2026. This is a historical snapshot, not a live feed; consult the school for current results and changes."
+      },
+      {
+        "question": "How can I check Big Sandy Wildcats' 2026 varsity schedule?",
+        "answer": "Use the 2026 dated game table and linked independent varsity schedule on this page, and confirm kickoff, venue, admission and cancellations with the school's official athletics contacts. Unreported game results are not invented."
       }
     ],
     "campus": {
@@ -1566,6 +2296,79 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.bigsandyisd.org/o/district",
       "sourceLabel": "Official school or district location; confirm exact campus entrance where noted",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "3–2 through September 25, 2026 (independent scoreboard snapshot)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/big-sandy/big-sandy-wildcats/football/schedule/",
+      "sourceLabel": "MaxPreps 2026–27 varsity schedule; October 13 checked snapshot with source-date caveats",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Cumby",
+          "site": "Home",
+          "district": false,
+          "result": "W 54-6"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Hawkins",
+          "site": "Away",
+          "district": false,
+          "result": "L 33-69"
+        },
+        {
+          "date": "2026-09-10",
+          "opponent": "Tenaha",
+          "site": "Home",
+          "district": false,
+          "result": "L 41-42"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Boles",
+          "site": "Away",
+          "district": false,
+          "result": "W 56-20"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Hemphill",
+          "site": "Home",
+          "district": false,
+          "result": "W 62-7"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Detroit",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-15",
+          "opponent": "Maud",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Clarksville",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Bowie",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Linden-Kildare",
+          "site": "Away",
+          "district": true
+        }
+      ]
     }
   },
   "barksdale-nueces-canyon": {
