@@ -433,6 +433,27 @@
         "https://hmh.org/visit/tour-and-photo-guidelines/",
         "https://hmh.org/"
       ]
+    },
+    "san-antonio-museum-of-art": {
+      "name": "San Antonio Museum of Art",
+      "operatorStrengths": [
+        "Operator visitor resources cover admissions, accessible planning, paid parking, dining and school group programs",
+        "Current exhibition information and important Bexar County free admission policy"
+      ],
+      "openGaps": [
+        "Perform final side-by-side comparative museum-guide inspection and current-device accessibility QA",
+        "Revalidate expiry of temporary exhibits and photo license before superiority certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.samuseum.org/visit/",
+        "https://www.samuseum.org/visit/restaurant/",
+        "https://www.samuseum.org/visit/tour/public-and-charter-schools/",
+        "https://www.samuseum.org/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
