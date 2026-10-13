@@ -26,6 +26,7 @@ export const fredericksburgHistoryWeekendGuideArticle: Article = {
   sourceName: "National Museum of the Pacific War",
   sourceUrl: "https://www.pacificwarmuseum.org/visit",
   internalLinks: [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Extend the history trail to Johnson City", description: "Connect this Fredericksburg weekend to the Stonewall ranch, Sauer-Beckmann Farm, Hye and LBJ’s boyhood home." },
     { href: "/destination/fredericksburg", label: "Fredericksburg travel guide", description: "Use the main destination guide for a broader Hill Country trip, including practical planning beyond this history-first itinerary." },
     { href: "/article/fredericksburg-texas-wineries-things-to-do-guide", label: "Fredericksburg wineries & things to do", description: "Use the broader authority guide for wine-country corridors, outdoor stops, farms, shopping, music and family alternatives." },
     { href: "/county/gillespie", label: "Gillespie County guide", description: "Connect the town's history to Stonewall, Luckenbach, ranch roads, agriculture and the wider county landscape." },
