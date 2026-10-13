@@ -181,6 +181,12 @@ if (!remote.includes('/images/texasdefined-destination-placeholder.svg')) {
   errors.push('Remote destination fallback image is not connected.');
 }
 
+// Historical and temporarily-closed museum guides may remain discoverable as
+// factual references, but these exact institutions must NOT re-enter trip planning.
+for (const slug of ['1940-air-terminal-museum-houston', 'elisabet-ney-museum-austin']) {
+  if (!fs.readFileSync(path.join(root, 'src/data/destination-availability.ts'), 'utf8').includes('"' + slug + '"')) errors.push('Closed museum missing from unavailable trip-planner set: ' + slug);
+}
+
 if (errors.length) {
   console.error('Editorial content integrity validation failed:');
   for (const error of errors) console.error(`- ${error}`);
@@ -188,9 +194,3 @@ if (errors.length) {
 }
 
 console.log('Article and destination data, single robots policy, indexing quality gate, lazy destination query resolution, visit-planner, relationship, breadcrumb, and entity graph integrity validation passed.');
-
-// Historical and temporarily-closed museum guides may remain discoverable as
-// factual references, but these exact institutions must NOT re-enter trip planning.
-for (const slug of ['1940-air-terminal-museum-houston', 'elisabet-ney-museum-austin']) {
-  if (!fs.readFileSync(path.join(root, 'src/data/destination-availability.ts'), 'utf8').includes('"' + slug + '"')) errors.push('Closed museum missing from unavailable trip-planner set: ' + slug);
-}
