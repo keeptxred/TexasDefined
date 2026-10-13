@@ -1,6 +1,8 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
-import enchantedRock from "@/assets/enchanted-rock.jpg";
+import { stateParkHeroMap } from "@/data/state-park-hero-map";
+
+const governedGuideHero = stateParkHeroMap["enchanted-rock-state-natural-area"];
 import { Container } from "@/components/layout/Container";
 import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
 
@@ -83,8 +85,8 @@ function TexasClimbingGuidePage() {
           </header>
 
           <figure className="border-b border-border py-8">
-            <img src={enchantedRock} alt="Granite dome landscape at Enchanted Rock in the Texas Hill Country" className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
-            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">Enchanted Rock is one of several Texas public landscapes where climbing access is managed alongside conservation and other visitor uses.</figcaption>
+            <img src={governedGuideHero.src} alt="Enchanted Rock granite dome and surrounding Hill Country terrain, a managed public climbing destination" width={governedGuideHero.width} height={governedGuideHero.height} className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
+            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">Enchanted Rock State Natural Area is one of Texas's managed climbing landscapes. This general photograph does not show a specific approved climbing route or current access. Photo: {governedGuideHero.credit}.</figcaption>
           </figure>
 
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
