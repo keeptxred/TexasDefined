@@ -1,5 +1,8 @@
 # Football Authority — Execution Ledger
 
+## Batch 005 group three — Baytown/Beaumont recovered on dependent release, Oct 13
+Goose Creek Memorial, Baytown Lee, Baytown Sterling, Beaumont United and Beaumont West Brook have separately researched editorial profiles, official school sources, date-qualified history and campus-county context. Five prior Group2 records are in the preceding release branch. All 81 earlier production VERIFIED entries remain unchanged. These five are **implemented in source** and require protected checks, exact production deployment and desktop/mobile browser verification.
+
 ## Batch 005 second five — safely restored on current main (Oct 13, 2026)
 Nueces Canyon, Bartlett, Bastrop, Cedar Creek and Bay City were rescued from conflicted dependent PR #4579 and their five unique sourced school dossiers and relevant county/identity/football data restored onto a clean new main-derived branch. These five are **IMPLEMENTED ON BRANCH**, not production-verified. Existing 81 VERIFIED (80 previous plus Benjamin) remain intact. Final production acceptance and crosslink tests are still required, and 14 Group3–5 schools remain to integrate.
 
