@@ -1091,6 +1091,48 @@
         "https://atlas.thc.texas.gov/Details/4200001108",
         "https://www.katyheritagesociety.com/"
       ]
+    },
+    "1919-san-augustine-county-jail-museum": {
+      "name": "1919 San Augustine County Jail Museum",
+      "operatorStrengths": [
+        "Local official tourism identifies museum hours, admission, restored jail themes and research records",
+        "Texas Historical Commission has authoritative architectural and jail-history chronology",
+        "Reusable exact-site 2015 exterior photograph sourced from Wikimedia Commons under CC BY 4.0 with full photographer attribution"
+      ],
+      "openGaps": [
+        "Specific step-free access and upper-floor policies require operator confirmation",
+        "Side-by-side visitor guide certification requires live review"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://visitsanaugustinetx.org/local-attractions/",
+        "https://atlas.thc.texas.gov/Details/5507018848",
+        "https://thc.texas.gov/historic-sites/mission-dolores"
+      ]
+    },
+    "the-agricultural-museum-arts-center-boerne": {
+      "name": "The AgriCultural Museum & Arts Center",
+      "operatorStrengths": [
+        "Operator's current Saturday admission by donation, living agricultural exhibits, blacksmith demonstrations and events",
+        "City of Boerne verifies former Agricultural Heritage Museum name and distinct spaces"
+      ],
+      "openGaps": [
+        "Confirm detailed step-free routes and sensory requirements with operator",
+        "Compare final live museum page side by side with the complete operator visitor pages"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://theagricultural.org/visit-the-agricultural/",
+        "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+        "https://theagricultural.org/",
+        "https://theagricultural.org/bluegrass-jams/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",

@@ -14,6 +14,173 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "the-agricultural-museum-arts-center-boerne": [
+    {
+      "question": "Is The AgriCultural Museum the same place as Boerne's old Agricultural Heritage Museum?",
+      "answer": "Yes. The nonprofit museum began as the Agricultural Heritage Center in 1986 and changed its public name to The AgriCultural Museum & Arts Center in 2018, reflecting its expanded arts and community-program role. It remains at 102 City Park Road in Boerne.",
+      "verificationUrl": "https://theagricultural.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://theagricultural.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "When is the AgriCultural Museum open and what does admission cost?",
+      "answer": "The museum operator advertises Saturdays from 10 a.m. to 4 p.m. at 102 City Park Road. Regular admission is by donation, rather than a fixed price. Private events and special programs can operate at other times and have distinct charges.",
+      "verificationUrl": "https://theagricultural.org/visit-the-agricultural/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What will children and adults see at The AgriCultural?",
+      "answer": "A five-acre site includes the Big Red Barn with vintage tractors and farm equipment, buggies, a chuck wagon, a blacksmith shop, a woodworking shop and a pioneer house. Younger children will appreciate visible machinery, while older visitors can explore changes in Hill Country farming and crafts.",
+      "verificationUrl": "https://theagricultural.org/visit-the-agricultural/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors watch an active blacksmith at The AgriCultural?",
+      "answer": "The operator advertises blacksmith demonstrations every Saturday. Times and individual demonstrators can change, and active forge equipment requires appropriate supervision and distance. Confirm the demonstration schedule if it is the main reason for your visit.",
+      "verificationUrl": "https://theagricultural.org/visit-the-agricultural/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which Saturdays have live bluegrass music at the museum?",
+      "answer": "Regular bluegrass jams take place on the second and fourth Saturdays from 11 a.m. to 1 p.m., and the operator says they are free to the public with donations appreciated. Check the events schedule before arriving, because museum hours alone do not guarantee a jam.",
+      "verificationUrl": "https://theagricultural.org/bluegrass-jams/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://theagricultural.org/bluegrass-jams/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have a cafeteria, restaurant or bar?",
+      "answer": "The regular visitor page does not advertise a cafeteria or full-service dining operation. The City mentions that the woodshop may be converted into a bar for private events, but that does not mean walk-in museum visitors can buy meals or drinks there.",
+      "verificationUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the agricultural museum accessible for wheelchairs or strollers?",
+      "answer": "The public museum and city pages describe five acres with outdoor equipment and multiple historic structures, but do not establish step-free entry into every building or provide complete accessible-route specifications. Call the operator at 210-445-1080 about routes, restrooms and weather before visiting.",
+      "verificationUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I tour the museum without joining a guided group?",
+      "answer": "Yes. The City of Boerne encourages a self-guided visit of the museum's buildings and equipment. Group events, private use of the Pioneer House and workshops require separate arrangements; routine museum entry does not include a booked group program.",
+      "verificationUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much time should I allow to see The AgriCultural?",
+      "answer": "Allow approximately one to two hours for a focused self-guided look at the barn, machinery and historic workshops. This is a TexasDefined editorial planning estimate, not an official time commitment. Tractor pulls, jams, markets or art workshops can make the outing considerably longer.",
+      "verificationUrl": "https://theagricultural.org/visit-the-agricultural/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+
+  "1919-san-augustine-county-jail-museum": [
+    {
+      "question": "Is the restored 1919 San Augustine County Jail open as a museum?",
+      "answer": "Yes. The official local visitor organization describes the restored 1919 jail as a law-enforcement and county-history museum. The former jail itself stopped housing prisoners in 2000. Check the local operator for holiday exceptions.",
+      "verificationUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the 1919 jail museum's hours and admission?",
+      "answer": "Visit San Augustine currently lists Monday through Friday 11 a.m.–3 p.m., with free admission and donations welcomed. It is a locally staffed historical attraction; confirm before a long trip rather than relying on the schedule of nearby Mission Dolores.",
+      "verificationUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can you see the original jail cells?",
+      "answer": "The building includes jail elements reused from the nineteenth-century predecessor as well as later jail cells. The original historic fabric is a primary attraction, but accessibility to each cell or floor is not described fully online; ask the operator what visitors may enter.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/5507018848",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/5507018848",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What makes the jail building historically significant?",
+      "answer": "Constructed in 1919 with reused bars and cell material from the earlier 1882 jail, the jail served the county until 2000. A 1973 stucco coating was removed during the 2016 restoration; the building carries a Recorded Texas Historic Landmark designation.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/5507018848",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/5507018848",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the 1919 jail appropriate for children?",
+      "answer": "The law-enforcement and local-history exhibits can interest school-age children, especially older students studying civic institutions. The setting involves actual imprisonment and jail cells, so families should decide what is appropriate for younger visitors; this is not a children's play museum.",
+      "verificationUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum offer historical research materials or a photo collection?",
+      "answer": "Yes. Local tourism identifies a Texana research library, county records, a rolling photo kiosk with images by Russell Lee and John Vachon, and town history timelines. Arrange detailed document research with staff rather than assuming all holdings are open for self-service.",
+      "verificationUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the former jail wheelchair accessible?",
+      "answer": "The publicly available sources do not clearly specify a lift, accessible second-floor route, or which restored cell interiors are step-free. Contact the locally operated museum before visiting if mobility access is essential; preservation status by itself does not guarantee all historic spaces are accessible.",
+      "verificationUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I visit Mission Dolores on the same ticket or schedule?",
+      "answer": "No. Mission Dolores is a separate Texas Historical Commission historic site at 701 South Broadway with its own admission and operating hours. The jail is normally free and open weekdays; verify both schedules independently before planning to combine them.",
+      "verificationUrl": "https://thc.texas.gov/historic-sites/mission-dolores",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is there a restaurant or café in the 1919 jail museum?",
+      "answer": "The local tourism listing describes museum exhibits and resources but does not advertise an on-site café, cafeteria or table-service restaurant. Plan to eat in town rather than assuming food service inside the preserved jail.",
+      "verificationUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
   "johnny-nelson-katy-heritage-museum": [
     {
       "question": "Is admission to the Johnny Nelson Katy Heritage Museum free?",

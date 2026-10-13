@@ -109,3 +109,9 @@ Both pages have explicit image placeholders pending rights-cleared exact-locatio
 ## El Paso Museum of Archaeology — source-cleared photo, October 13, 2026
 
 - Wikimedia Commons [Entrance to the El Paso Museum of Archaeology.jpg](https://commons.wikimedia.org/wiki/File:Entrance_to_the_El_Paso_Museum_of_Archaeology.jpg), **Susan Barnum, CC BY-SA 4.0**, photographed April 11, 2016. File original is 3264×2448 px; museum entrance pictured at the same museum, not a regional substitute. Attribution appears in the destination image credit. [License](https://creativecommons.org/licenses/by-sa/4.0/).
+
+## 1919 San Augustine County Jail Museum — October 13, 2026
+Exact-site image: [San augustine county tx former jail.jpg](https://commons.wikimedia.org/wiki/File:San_augustine_county_tx_former_jail.jpg), photographed April 3, 2015 by **Larry D. Moore**, **CC BY 4.0**. Wikimedia Commons records original dimensions 1,903 × 1,269 and coordinates at the San Augustine courthouse/jail. Credit, photographer, source and license are included on the destination hero. The 2015 image is historical evidence of the building, not a claim to current exterior changes or museum occupancy.
+
+## The AgriCultural Museum & Arts Center, Boerne — October 13, 2026
+Exact-site antique farm-equipment photograph: [Boerne ag museum 2013.jpg](https://commons.wikimedia.org/wiki/File:Boerne_ag_museum_2013.jpg), **Larry D. Moore**, **CC BY 4.0**, 2013, 1,791 × 1,194 pixels. Site: 102 City Park Road, Boerne, Texas. Photograph predates the institution's 2018 name change. Attribution is embedded in `museum-authority-heroes.ts`; the file must not be represented as a current 2026 exhibit photograph.

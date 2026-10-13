@@ -9,6 +9,33 @@ import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
  */
 export const museumAuthorityDestinations: Destination[] = [
   {
+    id: "museum-authority-agricultural-boerne",
+    brandId: "texasdefined",
+    slug: "the-agricultural-museum-arts-center-boerne",
+    name: "The AgriCultural Museum & Arts Center",
+    summary: "Boerne's former Agricultural Heritage Museum is now The AgriCultural Museum & Arts Center: five acres of farm machinery, pioneer buildings, blacksmithing, tractor demonstrations and community arts, with Saturday admission by donation.",
+    category: "historic-sites",
+    region: "hill-country",
+    nearestTown: "Boerne",
+    county: "Kendall County",
+    coordinates: { lat: 29.7808, lng: -98.7287 },
+    hero: museumLicensedHeroes["the-agricultural-museum-arts-center-boerne"],
+    bestSeason: "Saturday museum hours year-round; spring and fall are most comfortable for outdoor machinery and demonstrations.",
+    entryNote: "Open Saturdays 10 a.m.–4 p.m., admission by donation. Operator: 210-445-1080. Seasonal events, art workshops, tractor pulls and bluegrass jams have separate published dates and sometimes separate fees.",
+    highlights: ["Five-acre preserved agriculture campus and Big Red Barn", "Antique tractors, buggies, wagons and engines", "Working blacksmith demonstrations and woodworking", "Pioneer-house history, bluegrass and art workshops"],
+    body: [
+      "Founded in 1986 to preserve farming heritage, the Agricultural Heritage Center adopted its present AgriCultural Museum & Arts Center identity in 2018. It connects antique machinery and pioneer buildings with traditional crafts and an evolving schedule of community arts and music.",
+      "The Big Red Barn and outdoor exhibits tell the story of rural labor, tractors and mechanization. Blacksmith and woodworking shops add demonstrations that explain the skills needed to maintain equipment and households. Families can adapt their visit to demonstrations, outdoor weather and the ages of their children.",
+      "The operator's ordinary public museum schedule is Saturday 10 a.m.–4 p.m., with admission by donation. Bluegrass sessions, markets and antique tractor pulls are special programs with their own dates. Confirm before visiting and never mistake event-rental catering for a permanent museum restaurant."
+    ],
+    officialUrl: "https://theagricultural.org/visit-the-agricultural/",
+    managingAuthority: "The AgriCultural Museum & Arts Center nonprofit",
+    address: "102 City Park Road, Boerne, TX 78006",
+    sourceCheckedAt: "2026-10-13",
+    accessibilityNotes: "The campus includes several historic buildings and outdoor grounds. Detailed wheelchair-accessible pathways, toilet facilities and sensory accommodations have not been established on public visitor pages; call 210-445-1080 for specific routes.",
+  },
+
+  {
     id: "museum-authority-johnny-nelson-katy-heritage",
     brandId: "texasdefined",
     slug: "johnny-nelson-katy-heritage-museum",
