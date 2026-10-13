@@ -24,3 +24,8 @@ License compliance:
 - **Texas Forestry Museum, Lufkin**: Wikimedia Commons [File:Texas Forestry Museum, Lufkin, TX IMG 8594.JPG](https://commons.wikimedia.org/wiki/File:Texas_Forestry_Museum,_Lufkin,_TX_IMG_8594.JPG), Billy Hathorn, **CC BY-SA 3.0**, 2013 exterior photo. Do not relabel as a current exhibit image.
 
 Attribution is present in each destination hero credit. License checks are required at publication and on replacement.
+
+## Two existing North Texas museum image credits checked October 12, 2026
+
+- **Amon Carter Museum of American Art, Fort Worth:** [Commons file Amon Carter Museum of American Art, facade.jpg](https://commons.wikimedia.org/wiki/File:Amon_Carter_Museum_of_American_Art,_facade.jpg); **Steven Watson**, **CC BY-SA 4.0**. Specific museum façade, not an artwork photograph. Correct the pre-existing generic "licensed reusable media" credit in the DFW museum destination.
+- **Dallas Museum of Art:** [Commons file Dallas Museum of Art.jpg](https://commons.wikimedia.org/wiki/File:Dallas_Museum_of_Art.jpg); **Kent Wang**, **CC BY-SA 2.0**. Current destination already attributes this correctly. These licenses were independently checked via Wikimedia Commons API imageinfo.extmetadata, October 12, 2026.
