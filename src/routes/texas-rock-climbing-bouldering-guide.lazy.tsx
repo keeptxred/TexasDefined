@@ -1,12 +1,17 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
-import { stateParkHeroMap } from "@/data/state-park-hero-map";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 
 import { Container } from "@/components/layout/Container";
 import { SpecialistGuideDestinationLinks } from "@/components/editorial/SpecialistGuideDestinationLinks";
 import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
 
-const governedGuideHero = stateParkHeroMap["enchanted-rock-state-natural-area"];
+const governedGuideHero = {
+  src: editorialImageSrc("https://commons.wikimedia.org/wiki/Special:Redirect/file/GeologicalExfoliationOfGraniteRock.jpg?width=1600"),
+  width: 1600,
+  height: 1063,
+  credit: "Wing-Chi Poon · CC BY-SA 2.5 · Wikimedia Commons",
+};
 
 const officialSources = [
   { label: "Texas Parks & Wildlife — Hueco Tanks State Park & Historic Site", href: "https://tpwd.texas.gov/state-parks/hueco-tanks", note: "Current park access, reservation, orientation, guided/self-guided area and climbing-tour information." },
@@ -87,8 +92,8 @@ function TexasClimbingGuidePage() {
           </header>
 
           <figure className="border-b border-border py-8">
-            <img src={governedGuideHero.src} alt="Enchanted Rock granite dome and surrounding Hill Country terrain, a managed public climbing destination" width={governedGuideHero.width} height={governedGuideHero.height} className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
-            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">Enchanted Rock State Natural Area is one of Texas's managed climbing landscapes. This general photograph does not show a specific approved climbing route or current access. Photo: {governedGuideHero.credit}.{" "}<Link to="/destination/enchanted-rock-state-natural-area" className="text-primary underline">Enchanted Rock visitor guide →</Link></figcaption>
+            <img src={governedGuideHero.src} alt="Close view of exfoliating granite dome rock surfaces at Enchanted Rock State Natural Area, Texas" width={governedGuideHero.width} height={governedGuideHero.height} className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
+            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">Granite exfoliation at Enchanted Rock, photographed in 2005. This illustrates the climbing landscape, not a specific approved route or current climbing conditions. Photo: {governedGuideHero.credit}. <a href="https://commons.wikimedia.org/wiki/File:GeologicalExfoliationOfGraniteRock.jpg" target="_blank" rel="noopener noreferrer" className="text-primary underline">Original photograph</a>{" · "}<a href="https://creativecommons.org/licenses/by-sa/2.5/" target="_blank" rel="noopener noreferrer" className="text-primary underline">Reuse license</a>{" · "}<Link to="/destination/enchanted-rock-state-natural-area" className="text-primary underline">Enchanted Rock visitor guide →</Link></figcaption>
           </figure>
 
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
