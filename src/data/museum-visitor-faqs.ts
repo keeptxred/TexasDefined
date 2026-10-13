@@ -645,6 +645,210 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "quarterly",
       "reviewed": "2026-10-12"
     }
+  ],
+  "1940-air-terminal-museum-houston": [
+    {
+      "question": "Is the 1940 Air Terminal Museum still open to visitors?",
+      "answer": "No. The Houston Aeronautical Heritage Society's official homepage states that the museum has ceased operations. A March 2, 2026 closure announcement overrides older indexed pages that still show tickets, hours and visitor directions.",
+      "verificationUrl": "https://www.1940airterminal.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.click2houston.com/news/local/2026/07/01/texas-historical-commission-signs-short-term-lease-for-1940-air-terminal-museum-pauses-artifact-removal/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Why did the 1940 Air Terminal Museum close in 2026?",
+      "answer": "The former operator described unsustainable finances and lease difficulties. Its May 2026 letter said the nonprofit had defaulted on the lease and was preparing to vacate; a later Texas Historical Commission lease allowed preservation assessment, but not public reopening.",
+      "verificationUrl": "https://www.1940airterminal.org/news/hahs-letter-to-city-of-houston-amp-thc",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.click2houston.com/news/local/2026/07/01/texas-historical-commission-signs-short-term-lease-for-1940-air-terminal-museum-pauses-artifact-removal/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can you buy tickets or tour the old 1940 terminal building?",
+      "answer": "No public museum ticket should be assumed available. The former museum is closed, and the building stands on an operating airport site. Avoid attempting to enter museum galleries, hangars or other airport premises without advance authorization.",
+      "verificationUrl": "https://www.1940airterminal.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.1940airterminal.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What was displayed at Houston's 1940 Air Terminal Museum?",
+      "answer": "The former galleries interpreted Houston aviation from early flights through the jet era, including historic airline photographs, uniforms, business aviation, models and accounts of the Women Airforce Service Pilots. This describes former exhibitions, not an active visitor program.",
+      "verificationUrl": "https://www.1940airterminal.org/houston-municipal-airport",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.1940airterminal.org/houston-municipal-airport",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Will the 1940 Air Terminal Museum reopen as a Texas historic site?",
+      "answer": "Reopening is not confirmed. In July 2026, the Texas Historical Commission leased the property temporarily to evaluate preservation and the possible future of the building and collections. A study, lease or historic designation is not a museum-opening announcement.",
+      "verificationUrl": "https://www.1940airterminal.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.click2houston.com/news/local/2026/07/01/texas-historical-commission-signs-short-term-lease-for-1940-air-terminal-museum-pauses-artifact-removal/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does the old museum have a working cafeteria, accessible tour or public parking?",
+      "answer": "Not as an operating museum. Historical visitor instructions about parking or museum facilities should not be used to plan a visit after the closure. The terminal is at an active airport, so arrange any access questions with the responsible operator.",
+      "verificationUrl": "https://www.1940airterminal.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.1940airterminal.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    }
+  ],
+  "african-american-museum-dallas-fair-park": [
+    {
+      "question": "Is admission to the African American Museum in Dallas free?",
+      "answer": "Yes. Normal individual admission is free without an advance ticket, according to the museum. Reserved field trips or tours with more than ten people have different booking and possible charge requirements. Do not pay an unrelated ticket reseller for entry.",
+      "verificationUrl": "https://aamdallas.org/plan-your-visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://aamdallas.org/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What are the African American Museum Dallas opening hours?",
+      "answer": "The museum's visitor page lists Tuesday through Saturday from 10 a.m. to 5 p.m., closed on Sundays and Mondays in the ordinary schedule. Special events, holidays and exhibitions may alter access; check museum updates before leaving.",
+      "verificationUrl": "https://aamdallas.org/plan-your-visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://aamdallas.org/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Where should I park and which Fair Park gate should I use?",
+      "answer": "The operator directs most visitors to enter Fair Park through Gate 5 at 3536 Grand Avenue. Parking is generally available, but event days such as the State Fair can involve fees, security controls and different entry arrangements.",
+      "verificationUrl": "https://aamdallas.org/plan-your-visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://aamdallas.org/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the Nelson Mandela exhibition suitable for young children?",
+      "answer": "The current Mandela exhibition is recommended for ages eleven and up; families are welcome, but its accounts of apartheid, injustice and imprisonment may be emotionally intense for younger visitors. Adults should consider each child's readiness.",
+      "verificationUrl": "https://aamdallas.org/nelson-mandela-exhibition-plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://aamdallas.org/exhibits/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "How much time should I spend at the African American Museum Dallas?",
+      "answer": "Allow about 60 to 90 minutes for the Mandela exhibition's four gallery environments, according to its official visitor guide. A longer visit makes sense if other galleries or public programs are available that day.",
+      "verificationUrl": "https://aamdallas.org/nelson-mandela-exhibition-plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://aamdallas.org/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does the museum have a cafeteria or allow outside food?",
+      "answer": "The museum's visitor FAQ says food and drinks are not permitted inside, and there are no bag-lunch facilities within the institution. Do not assume it has a cafeteria or full-service restaurant; arrange meals elsewhere in Dallas or Fair Park.",
+      "verificationUrl": "https://aamdallas.org/plan-your-visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://aamdallas.org/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the museum wheelchair accessible and reachable by public transit?",
+      "answer": "The operator describes wheelchair-accessible exhibition spaces and subtitled media for the Mandela show. DART rail service reaches Fair Park Station, but visitors should confirm the best gate and accessible walking route on the day of the visit.",
+      "verificationUrl": "https://aamdallas.org/nelson-mandela-exhibition-plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://aamdallas.org/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can a teacher book a school tour without reservations?",
+      "answer": "No. The museum requires large groups and school tours to request and confirm a reservation in advance, even though ordinary individual admission is free. Ask about appropriate exhibition content and any charges before arriving with students.",
+      "verificationUrl": "https://aamdallas.org/plan-your-visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://aamdallas.org/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    }
+  ],
+  "texas-forestry-museum-lufkin": [
+    {
+      "question": "Is admission to the Texas Forestry Museum in Lufkin free?",
+      "answer": "Yes. The museum says general admission is free, with donations gratefully accepted. Special educational programs, booked group sessions and some events may carry separate charges, so check the specific reservation page before booking.",
+      "verificationUrl": "https://www.treetexas.com/visit-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.treetexas.com/visit-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is Texas Forestry Museum suitable for toddlers and younger children?",
+      "answer": "Yes. The Children's Wing, indoor train table, sawmill play setting, scavenger hunts, Nature Playscape and nature-art activities are suited to family learning. Adults should choose age-appropriate outdoor activities and supervise children around railroad equipment.",
+      "verificationUrl": "https://www.treetexas.com/visit-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.treetexas.com/exhibit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What can you see at the Texas Forestry Museum?",
+      "answer": "Highlights include the Sawmill Town history exhibits, Paper Mill Room, historic logging train and caboose, a children's area and outdoor Urban Wildscape Trail. The interpretive focus is Texas forest history and products, not only botanical displays.",
+      "verificationUrl": "https://www.treetexas.com/exhibit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.treetexas.com/exhibit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "How long should a visit to the Texas Forestry Museum take?",
+      "answer": "Allow roughly one to two hours for the indoor exhibits and selected outdoor highlights; families using the nature playscape or following the approximately 0.4-mile trail may prefer a longer visit. This is an independent planning estimate.",
+      "verificationUrl": "https://www.treetexas.com/visit-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.treetexas.com/exhibits/urban-wildscape-trail",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can someone using a wheelchair or with sensory sensitivities visit?",
+      "answer": "The museum advertises accessible restrooms, paved outdoor paths, ramps to the locomotive and Children's Wing, and free sensory backpacks. Not every outdoor surface or event is identical, so ask staff for the recommended route when arranging a visit.",
+      "verificationUrl": "https://www.treetexas.com/visit-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.treetexas.com/visit-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Do Texas Forestry Museum school and adult tours require reservations?",
+      "answer": "Yes. The official tour program asks school and organized adult groups to book ahead. Sawmill, paper-mill and outdoor railway topics can be combined. The separate adult tour form lists a fee for groups from outside Angelina County.",
+      "verificationUrl": "https://www.treetexas.com/exhibits-1/paper-mill-room",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.treetexas.com/blank-6",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is there a museum cafeteria, restaurant or somewhere to eat a picnic?",
+      "answer": "The museum visitor page advertises bottled water, a drinking fountain and outdoor picnic tables, but does not document a full-service on-site restaurant. Plan a picnic or meal elsewhere in Lufkin rather than assuming indoor food service.",
+      "verificationUrl": "https://www.treetexas.com/visit-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.treetexas.com/visit-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the Texas Forestry Museum open on Sunday or holidays?",
+      "answer": "The operator lists Monday through Saturday, 10 a.m. to 5 p.m., with closures on major holidays. Sunday is not included in its regular visiting schedule; consult the official page for holiday events and exceptions.",
+      "verificationUrl": "https://www.treetexas.com/visit-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.treetexas.com/visit-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
