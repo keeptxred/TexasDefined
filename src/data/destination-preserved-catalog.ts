@@ -81,6 +81,7 @@ import { statewideMuseumExpansionWave51Destinations } from "./museum-expansion-s
 import { youngCountyMuseumAuthorityDestinations } from "./young-county-museum-authority-destination";
 import { statewideMuseumExpansionWave52Destinations } from "./museum-expansion-statewide-wave52";
 import { nacogdochesSanAugustineAuthorityDestinations } from "./nacogdoches-san-augustine-authority-destinations";
+import { nacogdochesSanAugustineForestDestinations } from "./nacogdoches-san-augustine-forest-destinations";
 import { statewideMuseumExpansionWave53Destinations } from "./museum-expansion-statewide-wave53";
 import { statewideMuseumExpansionWave54Destinations } from "./museum-expansion-statewide-wave54";
 import { wacoMuseumDestinations } from "./museum-expansion-waco";
@@ -304,6 +305,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   youngCountyMuseumAuthorityDestinations,
   statewideMuseumExpansionWave52Destinations,
   nacogdochesSanAugustineAuthorityDestinations,
+  nacogdochesSanAugustineForestDestinations,
   statewideMuseumExpansionWave53Destinations,
   statewideMuseumExpansionWave54Destinations,
   nationalWildlifeRefugeDestinations,
