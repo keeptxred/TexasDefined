@@ -48,3 +48,37 @@ Maintain original building, replacement building, founding, parish formation, fi
 | Sts. Peter and Paul — Frelsburg | Parish history | Two CC BY-SA 4.0 photographs from Wikimedia Commons (exterior, historic marker) | Research candidate only |
 
 **Do not mistake early completion of five text profiles for fully cleared photography, independent browser validation or production acceptance.** No launch claim until those gates pass. Moulton's 1924 date denotes the present-church cornerstone, not a verified completion date. Ellinger/Hostyn Hill is distinct from Hostyn near La Grange and from other St. Mary's parishes. Frelsburg's subject is Saints Peter and Paul, not St. Mary's. Blessing's 1976 building and earlier sites are described on THC marker 15337, corroborated by marker photography and the local historical commission's 2009 dedication list. Yoakum's diocesan listing gives the church at 210 Schrimscher Street while the parish lists its office at 401 Orth Street: distinguish them in visitor mapping. The active St. Mary parish records the 2005 restoration and 815 St. Mary's Church Road address.
+
+## October 12 image-license cross-check: supplied image leads
+
+The following links were examined before publication and **are not authorized
+exact-church photographs for TexasDefined's commercial-use imagery gate**:
+
+1. **Yoakum — Historical Marker Database.** The [HMDB directory](https://www.hmdb.org/Search.asp)
+   and photographs are legitimate research references, but the site's
+   [copyright policy](https://www.hmdb.org/copyright.asp) explicitly reserves
+   commercial-use rights and requires written permission; credit and
+   educational purpose alone do not clear commercial republication.
+2. **Hostyn Hill — Commons image.** The Commons work
+   [Immaculate Conception Church Interior 01.jpg](https://commons.wikimedia.org/wiki/File:Immaculate_Conception_Church_Interior_01.jpg)
+   is genuinely CC BY-SA 4.0, but Commons identifies it as the Catholic
+   Church and Rectory **in Clarksville, Tennessee** (NRHP 82004032).
+   Its name is a false match for Texas St. Mary's; never display on the
+   Ellinger church page.
+   The separate [53-image Flickr collection of the real Texas church](https://www.flickr.com/photos/jacofoto/albums/72157626970644639/)
+   grants no album-wide free commercial-use license; verify a photo's
+   individual license or obtain permission before reuse.
+3. **Blessing — ChurchesList.** [St. Peter's Blessing listing](https://churcheslist.com/st-peter-70)
+   explicitly says **"no photographs"** in its visitor notes and does
+   not provide a free-use photograph of the building. The directory's
+   [general copyright policy](https://churcheslist.com/dmca-policy)
+   discusses open imagery elsewhere, but does not license an image absent
+   from this particular listing. James Hulse's actual-church images on
+   [HMDB](https://www.hmdb.org/m.asp?m=168640) remain under its
+   commercial-use restriction.
+
+Conclusion: **zero exact-church, commercially reusable photos newly cleared**
+from these leads. Retain `awaiting-licensed-photos` for all three until
+correct identification, photographer credit, image-specific rights and
+usable original bytes are established. The existing 1922 Yoakum Sanborn map
+is a real public-domain archival map, not a replacement church photograph.
