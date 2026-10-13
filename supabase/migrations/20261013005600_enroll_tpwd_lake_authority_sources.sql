@@ -2,6 +2,10 @@
 -- its independently curated 54-guide research dataset. This is source
 -- monitoring enrollment, NEVER automatic editorial/fact verification.
 -- Four pending routes auto-enroll only after a real canonical sitemap entry exists.
+-- Keep the manifest replay-safe in disposable schema-only CI databases: the
+-- pre-existing authority verification registry is a separately installed
+-- operations system, not necessarily part of the clean-room network schema.
+create schema if not exists td_maintenance;
 create table if not exists td_maintenance.tpwd_lake_source_manifest (
  path text primary key,
  source_url text not null check (source_url like 'https://tpwd.texas.gov/%'),
@@ -88,12 +92,19 @@ begin
 end;
 $function$;
 revoke all on function td_maintenance.enroll_tpwd_lake_sources() from public, anon, authenticated;
-select td_maintenance.enroll_tpwd_lake_sources();
+-- Only enroll source watchers when both live editorial registry tables exist.
+-- Clean-room migration replay intentionally skips this operations integration.
 do $block$
 begin
- if not exists(select 1 from cron.job where jobname='td-authority-enroll-tpwd-lake-sources') then
-   perform cron.schedule('td-authority-enroll-tpwd-lake-sources','54 4 * * *',
-     'select td_maintenance.enroll_tpwd_lake_sources();');
+ if to_regclass('public.td_authority_verification_sources') is not null
+    and to_regclass('public.td_authority_verification_registry') is not null then
+   perform td_maintenance.enroll_tpwd_lake_sources();
+ end if;
+ if to_regclass('cron.job') is not null then
+   if not exists(select 1 from cron.job where jobname='td-authority-enroll-tpwd-lake-sources') then
+     perform cron.schedule('td-authority-enroll-tpwd-lake-sources','54 4 * * *',
+       'select td_maintenance.enroll_tpwd_lake_sources();');
+   end if;
  end if;
 end;
 $block$;
