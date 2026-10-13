@@ -10,6 +10,8 @@ const mapSource = read("src/data/specialist-guide-destination-links.ts");
 const destinationRoute = read("src/routes/destination.$slug.tsx");
 const reverseComponent = read("src/components/editorial/SpecialistGuideDestinationLinks.tsx");
 const parks = read("src/data/state-park-hero-map.ts");
+const curation = fs.readdirSync("src/data").filter((name) => /^destination-curation(?:-batch\d+|-all)?\.ts$/.test(name))
+  .map((name) => read("src/data/" + name)).join("\n");
 const errors = [];
 const mapChunk = mapSource.split("const SPECIALIST_LINKS:")[1]?.split("export function specialistGuidesForDestination")[0] || "";
 const headings = [...mapChunk.matchAll(/^  "([^"]+)": \[/gm)];
@@ -19,7 +21,7 @@ let edgeCount = 0;
 for (let i=0;i<headings.length;i++) {
   const park = headings[i][1];
   const body = mapChunk.slice(headings[i].index, headings[i+1]?.index ?? mapChunk.length);
-  if (!parks.includes(`"${park}":`)) errors.push("Unrecognized canonical park asset/destination slug: " + park);
+  if (!parks.includes(`"${park}":`) && !curation.includes(`"${park}":`)) errors.push("No governed park asset or curated destination identity for slug: " + park);
   for (const link of body.matchAll(/\{ href: "(\/[^"]+)", label: "([^"]+)", context: "([^"]+)" \}/g)) {
     const [,href,label,context] = link;
     const key = park + "=>" + href;
