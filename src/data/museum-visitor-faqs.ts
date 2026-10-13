@@ -3765,6 +3765,80 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "el-paso-museum-of-archaeology": [
+    {
+      "question": "Is the El Paso Museum of Archaeology free and what days is it open?",
+      "answer": "Yes. The City of El Paso states that regular admission to the archaeological galleries is free. Its normal public schedule is Tuesday through Saturday, 9 a.m. to 5 p.m., with city-holiday closures; ticketed events or performances may have separate costs.",
+      "verificationUrl": "https://epmarch.org/about/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epmarch.org/about/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "When does the El Paso archaeology museum parking lot close?",
+      "answer": "The museum expressly locks its lot gates at 5 p.m. and recommends parking outside the gates if visitors intend to access the trails after 4 p.m. Do not plan on leaving a car inside the gated lot for an evening desert hike.",
+      "verificationUrl": "https://epmarch.org/about/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epmarch.org/about/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the El Paso Museum of Archaeology require advance booking for school tours?",
+      "answer": "Yes. Free museum-guided tours are offered to groups but must be scheduled at least two weeks in advance. Ordinary self-guided public entry does not require that group reservation; confirm any classroom programming details with museum staff.",
+      "verificationUrl": "https://epmarch.org/about/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epmarch.org/about/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the museum wheelchair accessible and does it lend wheelchairs?",
+      "answer": "The operator lists ADA-focused indoor access, accessible restrooms and first-come wheelchairs at the front desk. The outdoor desert trails have a different terrain and exposure profile; ask staff about mobility suitability before selecting a trail.",
+      "verificationUrl": "https://epmarch.org/about/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epmarch.org/about/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What archaeological periods and cultures are explored at this museum?",
+      "answer": "The institution describes approximately fourteen thousand years of El Paso and Southwestern prehistory, with dioramas and exhibits on Indigenous lifeways from Paleoindian communities to modern descendants. Exhibitions and the objects on display change over time.",
+      "verificationUrl": "https://epmarch.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epmarch.org/about/about-epmarch",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can families hike the desert trails after visiting the archaeology galleries?",
+      "answer": "Yes, the museum grounds connect with Wilderness Park's native-plants and nature-trail areas, but trail suitability depends on heat, daylight and terrain. The parking gates lock at 5 p.m.; outdoor access does not mean a late parking pass.",
+      "verificationUrl": "https://visitelpaso.com/places/el-paso-museum-of-archaeology-wilderness-park",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epmarch.org/about/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is visitor photography permitted inside the museum?",
+      "answer": "The official visitor page permits ordinary visitor photos with restrictions and asks visitors to respect exhibits and other people. Commercial media shoots or press interviews need advance approval through the City's public-information office.",
+      "verificationUrl": "https://epmarch.org/about/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epmarch.org/about/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the El Paso Museum of Archaeology have a cafeteria or restaurant?",
+      "answer": "The official visitor guidance describes an on-site museum store and outdoor nature trails but does not establish a café or full-service restaurant. Bring appropriate water for outdoor conditions and make dining plans outside the museum.",
+      "verificationUrl": "https://epmarch.org/about/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epmarch.org/about/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];

@@ -1403,6 +1403,34 @@
           "label": "Official Spanish museum entry, visitor hours and route"
         }
       ]
+    },
+    {
+      "path": "/destination/el-paso-museum-of-archaeology",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://epmarch.org/about/plan-your-visit",
+          "fetchUrl": "https://epmarch.org/about/plan-your-visit",
+          "label": "FAQ source: Does the El Paso Museum of Archaeology have a cafeteria or restaurant?"
+        },
+        {
+          "sourceUrl": "https://epmarch.org/",
+          "fetchUrl": "https://epmarch.org/",
+          "label": "FAQ source: What archaeological periods and cultures are explored at this museum?"
+        },
+        {
+          "sourceUrl": "https://epmarch.org/about/about-epmarch",
+          "fetchUrl": "https://epmarch.org/about/about-epmarch",
+          "label": "Museum — archaeology and education mission"
+        },
+        {
+          "sourceUrl": "https://visitelpaso.com/places/el-paso-museum-of-archaeology-wilderness-park",
+          "fetchUrl": "https://visitelpaso.com/places/el-paso-museum-of-archaeology-wilderness-park",
+          "label": "FAQ source: Can families hike the desert trails after visiting the archaeology galleries?"
+        }
+      ]
     }
   ]
 }

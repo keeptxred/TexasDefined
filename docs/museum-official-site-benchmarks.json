@@ -1050,6 +1050,26 @@
         "https://elpasoholocaustmuseum.org/dimensions-in-testimony/",
         "https://elpasoholocaustmuseum.org/"
       ]
+    },
+    "el-paso-museum-of-archaeology": {
+      "name": "El Paso Museum of Archaeology",
+      "operatorStrengths": [
+        "Official operator hours, booking, parking gates and ADA guidance",
+        "Official exhibit background and contemporary trail information"
+      ],
+      "openGaps": [
+        "Live site visit and mobile/accessibility validation",
+        "Side-by-side review versus full operator FAQs and independent user comments"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://epmarch.org/about/plan-your-visit",
+        "https://epmarch.org/",
+        "https://epmarch.org/about/about-epmarch"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",

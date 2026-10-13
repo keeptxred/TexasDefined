@@ -1675,6 +1675,42 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "el-paso-museum-of-archaeology": {
+    name: "El Paso Museum of Archaeology",
+    slug: "el-paso-museum-of-archaeology",
+    county: "El Paso",
+    city: "El Paso",
+    reviewed: "2026-10-13",
+    topics: ["archaeology", "indigenous-history", "desert-ecology", "family"],
+    whyVisit: "El Paso Museum of Archaeology connects the city's Borderlands archaeology with the extraordinary setting of the Franklin Mountains. Visitors can trace the lives and material cultures of Indigenous communities from Paleoindian peoples to the present, then step outside onto interpretive desert paths. The museum is particularly useful for understanding how archaeology reconstructs changing societies without reducing living Indigenous people to artifacts of the past.",
+    visitorStrategy: "At 4301 Woodrow Bean Transmountain Road, the city museum offers free admission to its galleries Tuesday–Saturday 9 a.m.–5 p.m.; city holidays can change this. Free guided tours need booking at least two weeks ahead. The parking lot gates are locked promptly at 5 p.m., so anyone walking exterior trails after 4 p.m. should follow the museum's advice to park outside the gates without blocking access. Museum opening hours and trail access are separate concerns, especially during heat and storms.",
+    accessibility: "The operator lists accessible gallery and restroom facilities and first-come loaner wheelchairs available from visitor services. Trained service animals are allowed under the museum's stated policy. Indoor ADA access should not be confused with the adjoining desert trails, which may have rock, slopes, sun exposure and uneven surfaces; visitors need to ask staff for appropriate outdoor routing. Its photography rules allow ordinary visitor photos under museum conditions, but media photography requires city public-information approval.",
+    familiesAndGroups: "Families can explore dioramas, archaeological interpretations, display drawers and the museum's desert setting. School and other organized groups may request free guided tours but must reserve at least two weeks in advance; book any specialist programming directly. A focused indoor visit can take about an hour by editorial estimate, with an additional hour for a short outdoor loop only if temperature and visitor ability make that sensible. The official visitor page does not establish a full-service restaurant, café or snack counter.",
+    researchValue: "The institution describes roughly 14,000 years of El Paso area prehistory, using dioramas and material-culture displays to interpret Paleoindian lifeways, later Southwestern and northern Mexican communities and continuities with present-day Native American peoples. Its Wilderness Park setting has interpretive trails, desert plants and birds, which makes it an unusual pairing of material history and living ecology. Avoid claiming that every archaeological specimen is currently displayed; exhibitions rotate and some collections are for study.",
+    exhibits: [
+      { heading: "Southwestern Indigenous cultures through time", detail: "Dioramas and artifacts help visitors consider how different communities inhabited the greater Southwest and northern Mexico, including continuity with living descendants." },
+      { heading: "Paleoindian and later lifeways", detail: "The displays use material evidence to introduce hunting, gathering, settlement and changing environments, with appropriate distinctions between archaeologists' interpretation and oral history." },
+      { heading: "Changing auditorium and North Gallery exhibitions", detail: "Special presentations rotate; confirm the current roster before traveling for a particular show." },
+      { heading: "Hands-on archaeological display drawers", detail: "The museum describes explore-able drawers containing artifacts and reference materials in the auditorium; contact visitor services about current availability and child supervision." },
+      { heading: "Wilderness Park and Chihuahuan Desert trails", detail: "About fifteen acres of native-plant grounds and connecting trails provide a practical outdoor context for archaeology; prepare for exposed, uneven terrain and summer heat." },
+    ],
+    routes: [
+      { label: "One-hour indoor museum introduction", steps: ["Start with the regional timeline and Indigenous-culture dioramas", "Compare material-culture displays and interpretive drawers where open", "Check the current changing exhibition before visiting the gift-shop or restrooms"] },
+      { label: "Museum and desert nature outing", steps: ["Tour indoor archaeology galleries while the museum is open", "Walk a short marked Wilderness Park trail only when weather and terrain are suitable", "Return to the parked car before gate locking at 5 p.m. or follow posted outside-gate parking rules"] },
+    ],
+    sources: [
+      { label: "Museum — official visitor guidance", url: "https://epmarch.org/about/plan-your-visit", use: "Free admission, hours, tours, access, parking gates and media policies" },
+      { label: "Museum — regional exhibits", url: "https://epmarch.org/", use: "Exhibit subjects, dioramas and archaeology interpretation" },
+      { label: "Museum — archaeology and education mission", url: "https://epmarch.org/about/about-epmarch", use: "Desert ecology programs and region covered" },
+      { label: "Visit El Paso — Wilderness Park visitor context", url: "https://visitelpaso.com/places/el-paso-museum-of-archaeology-wilderness-park", use: "Grounds, nature trails and local wildlife" },
+    ],
+    connections: [
+      { label: "El Paso County", href: "/county/el-paso", reason: "Connect archaeological interpretation with the broader Borderlands region." },
+      { label: "El Paso Holocaust Museum", href: "/destination/el-paso-holocaust-museum", reason: "Compare two unrelated museum subjects in the same city without conflating their narratives." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Explore archaeology and natural-history museums elsewhere in Texas." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
@@ -1818,6 +1854,13 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     alt: "Entrance to the Austin Nature and Science Center photographed in 2012",
     width: 1600, height: 1067,
     credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · File:Austin nature center entrance.jpg (2012)",
+  },
+
+  "el-paso-museum-of-archaeology": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Entrance_to_the_El_Paso_Museum_of_Archaeology.jpg?width=1600",
+    alt: "Entrance to El Paso Museum of Archaeology on Transmountain Road, photographed in 2016",
+    width: 1600, height: 1200,
+    credit: "Susan Barnum · CC BY-SA 4.0 · Wikimedia Commons · File:Entrance to the El Paso Museum of Archaeology.jpg",
   },
 
 };
