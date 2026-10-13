@@ -84,7 +84,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "Port Isabel Lighthouse", href: "/destination/port-isabel-lighthouse", reason: "Connect waterfront trade to ship navigation." },
       { label: "South Padre Island", href: "/destination/south-padre-island", reason: "Plan the adjacent beaches and ecology." },
       { label: "Cameron County", href: "/county/cameron", reason: "Place the museum in lower Valley history." }
-    ]
+    ],
   },
   "historic-brownsville-museum": {
     name: "Historic Brownsville Museum", slug: "historic-brownsville-museum", county: "Cameron", city: "Brownsville", reviewed: "2026-10-12",
@@ -114,7 +114,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "Palo Alto Battlefield", href: "/destination/palo-alto-battlefield-national-historical-park", reason: "Interpret the war and border dispute preceding Brownsville's growth." },
       { label: "Port Isabel Historical Museum", href: "/destination/port-isabel-historical-museum", reason: "Connect the railroad destination to its coastal terminus." },
       { label: "Cameron County", href: "/county/cameron", reason: "Explore Lower Rio Grande cultural and natural history." }
-    ]
+    ],
   },
   "bullock-texas-state-history-museum": {
     name: "Bullock Texas State History Museum", slug: "bullock-texas-state-history-museum", county: "Travis", city: "Austin", reviewed: "2026-10-12",
