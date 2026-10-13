@@ -49,11 +49,11 @@
     "repositoryMainAtAssignment": "193f24fb06e48fd43fd821d6a6bced28d958301a",
     "maxSchoolsPerBatch": 25,
     "currentSchool": null,
-    "nextSchool": "beckville",
-    "implementedOnBranch": 16,
-    "remainingToImplement": 9,
+    "nextSchool": "ben-bolt-palito-blanco",
+    "implementedOnBranch": 21,
+    "remainingToImplement": 4,
     "remainingToVerify": 24,
-    "notes": "81 previously VERIFIED preserved. Ten Group2 + Group3 recovered IMPLEMENTED on stacked branches, not yet production-verified. Nine Group4–5 schools remain to integrate; first five Batch005 IMPLEMENTED on main."
+    "notes": "81 verified existing programs preserved; 5 original plus 15 recovered group2-4 IMPLEMENTED in source branches, not production verified. Four remaining Group5 programs to integrate."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -5969,8 +5969,14 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beckville",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group4-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/beckville.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:beeville-jones",
@@ -5983,8 +5989,14 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beeville-jones",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group4-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/beeville-jones.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:bells",
@@ -5997,8 +6009,14 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bells",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group4-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/bells.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:bellville",
@@ -6011,8 +6029,14 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bellville",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group4-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/bellville.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:belton",
@@ -6025,8 +6049,14 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/belton",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group4-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/belton.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:ben-bolt-palito-blanco",
