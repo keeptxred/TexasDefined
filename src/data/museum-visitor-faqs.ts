@@ -1062,6 +1062,107 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     }
+  ],
+  "el-paso-museum-of-art": [
+    {
+      "question": "Is El Paso Museum of Art free to enter?",
+      "answer": "Yes. The El Paso Museum of Art advertises free general admission year-round, including ordinary exhibits and free museum-led tours when arranged in advance. Some separately ticketed programs are not described by standard gallery entry, so consult the specific event before visiting.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What days and hours is El Paso Museum of Art open?",
+      "answer": "The museum lists Wednesday through Saturday from 10 a.m. to 6 p.m., and Sunday 11 a.m. to 3 p.m. It is closed on Monday, Tuesday and major holidays. Check current temporary exhibit and construction notices before making a dedicated trip.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Where do visitors park for El Paso Museum of Art?",
+      "answer": "The museum is at One Arts Festival Plaza in central El Paso. Nearby facilities include the JPMorgan Chase, Mills and One Civic Center Plaza garages; garages and downtown meters charge fees that vary, so the museum recommends comparing parking locations and using the Park 915 app.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit/tours",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the museum wheelchair accessible and are service animals permitted?",
+      "answer": "Yes. The official visitor guide states that the facility is fully accessible, welcomes service animals and can lend a wheelchair without charge from the reception desk. Contact 915-212-0300 to arrange any additional accommodation or route information.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Are children and school groups welcome at the El Paso Museum of Art?",
+      "answer": "Yes. The museum offers family activity guides at Visitor Services, drawing activities and occasional augmented-reality art interpretation. School groups can reserve no-cost guided visits; students from kindergarten through twelfth grade may qualify for a guided Tour + Studio arts session.",
+      "verificationUrl": "https://epma.art/visit/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "How far ahead should I book an El Paso Museum of Art tour?",
+      "answer": "The museum's tour FAQ says guided tours for groups of 10–50 should be requested at least two weeks in advance and typically last 45–60 minutes. Tour + Studio programs for school groups require about four weeks' advance booking, and may last around 90 minutes.",
+      "verificationUrl": "https://epma.art/visit/tours",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://epma.art/visit/tours",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "May visitors photograph art inside the museum?",
+      "answer": "Yes, for personal noncommercial use if the individual work is not marked otherwise. The museum prohibits flash, tripods, selfie sticks and disruptive staged shoots without prior permission. Any artwork marked with a no-photography symbol must not be photographed.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does El Paso Museum of Art have a cafeteria or restaurant?",
+      "answer": "The museum's current public visitor and tour pages do not clearly confirm an in-gallery café, full-service restaurant or cafeteria. Food and drink are prohibited inside gallery spaces, so plan a meal elsewhere downtown rather than assuming the museum offers dining.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Which art should I see at the El Paso Museum of Art?",
+      "answer": "Start with whichever European Kress masterpieces, Mexican retablos, American paintings and changing contemporary exhibitions are actually on view. These collection themes are stable, but displays move during conservation or special programs; the published exhibition calendar is the source for today's galleries.",
+      "verificationUrl": "https://epma.art/art/collections",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/art/collections/european",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Are all second-floor European and American galleries reopened after the HVAC project?",
+      "answer": "The city temporarily closed the museum during a 2025–early 2026 HVAC improvement project. Current visitor information lists the museum open and promotes European and American collection areas, but individual galleries can change. Confirm the specific room's availability with Visitor Services rather than relying on older renovation FAQs.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What temporary exhibits are open in October 2026?",
+      "answer": "As of October 12, 2026, the museum lists EPISD Creativity Through Our Eyes until October 25, 2026, and America, The Beautiful: Zoe Diaz collection selections through January 3, 2027. Both are date-bound; check EPMA's updated calendar rather than relying on these dates after they pass.",
+      "verificationUrl": "https://epma.art/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
