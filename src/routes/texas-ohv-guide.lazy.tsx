@@ -1,6 +1,8 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
-import bigBend from "@/assets/big-bend.jpg";
+import { stateParkHeroMap } from "@/data/state-park-hero-map";
+
+const governedGuideHero = stateParkHeroMap["eisenhower-state-park"];
 import { Container } from "@/components/layout/Container";
 import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
 
@@ -118,8 +120,8 @@ function TexasOhvGuidePage() {
           </header>
 
           <figure className="border-b border-border py-8">
-            <img src={bigBend} alt="Rugged Texas public-land landscape used as general outdoor travel context" className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
-            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">This image provides general Texas outdoor context and does not depict a specific legal OHV trail. Use current land-manager maps—not landscape appearance—to determine where motorized recreation is allowed.</figcaption>
+            <img src={governedGuideHero.src} alt="Eisenhower State Park overlooking Lake Texoma in North Texas" width={governedGuideHero.width} height={governedGuideHero.height} className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
+            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">Eisenhower State Park in North Texas has specifically managed OHV access; this is a park-landscape photograph, not a depiction of an authorized OHV trail. Riding is allowed only on designated routes under current park rules. Photo: {governedGuideHero.credit}.</figcaption>
           </figure>
 
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
