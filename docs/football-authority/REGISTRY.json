@@ -49,11 +49,11 @@
     "repositoryMainAtAssignment": "193f24fb06e48fd43fd821d6a6bced28d958301a",
     "maxSchoolsPerBatch": 25,
     "currentSchool": null,
-    "nextSchool": "baytown-goose-creek-memorial",
-    "implementedOnBranch": 11,
-    "remainingToImplement": 14,
+    "nextSchool": "beckville",
+    "implementedOnBranch": 16,
+    "remainingToImplement": 9,
     "remainingToVerify": 24,
-    "notes": "81 VERIFIED including Benjamin preserved. Group2 five records IMPLEMENTED on new release branch; not yet production verified. Remaining 14 assigned Group3–5 schools unmerged."
+    "notes": "81 previously VERIFIED preserved. Ten Group2 + Group3 recovered IMPLEMENTED on stacked branches, not yet production-verified. Nine Group4–5 schools remain to integrate; first five Batch005 IMPLEMENTED on main."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -5869,8 +5869,14 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baytown-goose-creek-memorial",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group3-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/baytown-goose-creek-memorial.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:baytown-lee",
@@ -5883,8 +5889,14 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baytown-lee",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group3-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/baytown-lee.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:baytown-sterling",
@@ -5897,8 +5909,14 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baytown-sterling",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group3-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/baytown-sterling.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:beaumont-united",
@@ -5911,8 +5929,14 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beaumont-united",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group3-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/beaumont-united.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:beaumont-west-brook",
@@ -5925,8 +5949,14 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beaumont-west-brook",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group3-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/beaumont-west-brook.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:beckville",
