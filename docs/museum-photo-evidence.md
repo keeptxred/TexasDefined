@@ -40,3 +40,8 @@ Photo metadata independently checked using Wikimedia Commons API imageinfo.extme
 
 - **Amon Carter Museum of American Art, Fort Worth:** [Commons file Amon Carter Museum of American Art, facade.jpg](https://commons.wikimedia.org/wiki/File:Amon_Carter_Museum_of_American_Art,_facade.jpg); **Steven Watson**, **CC BY-SA 4.0**. Specific museum façade, not an artwork photograph. Correct the pre-existing generic "licensed reusable media" credit in the DFW museum destination.
 - **Dallas Museum of Art:** [Commons file Dallas Museum of Art.jpg](https://commons.wikimedia.org/wiki/File:Dallas_Museum_of_Art.jpg); **Kent Wang**, **CC BY-SA 2.0**. Current destination already attributes this correctly. These licenses were independently checked via Wikimedia Commons API imageinfo.extmetadata, October 12, 2026.
+
+## Existing art and history museums upgraded 2026-10-13
+
+- **Amarillo Museum of Art, Amarillo College:** [Wikimedia Commons exterior](https://commons.wikimedia.org/wiki/File:Amarillo_Texas_Amarillo_Museum_of_Art_2005-05-15.jpg), photographer Who What Where Nguyen Why, CC BY-SA 3.0; historic photo from 2005 and clearly labelled as such. Exact campus building, not current-exhibit footage. The licensed image replaces the old generic placeholder only when the source destination lacks specific media.
+- **Holocaust Museum Houston:** [Wikimedia Commons building exterior](https://commons.wikimedia.org/wiki/File:Holocaust_Museum_Houston_A.jpg), photographer WhisperToMe, CC0 1.0, photographed 2020. No institutional exhibit photographs have been copied without permission. The existing destination credit has been corrected with its actual public-domain dedication.
