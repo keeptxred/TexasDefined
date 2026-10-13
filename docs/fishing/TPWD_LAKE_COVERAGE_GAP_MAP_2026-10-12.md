@@ -5,8 +5,8 @@
 ## Counts and caveats
 
 - **175** separate alphabetical links/named entries in the TPWD public lake list (excluding its extra *Town Lake = Lady Bird Lake* alias line).
-- **57** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
-- **118** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
+- **59** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
+- **116** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
 - TPWD list entries include local ponds and some state-park-managed lakes as well as reservoirs; they cannot all be treated as equally high-demand or guaranteed distinct reservoirs.
 - This list does not include every Texas stock tank, private lake, community fishing pond, or small waterbody outside TPWD's own directory. It therefore cannot prove “every Texas lake.”
 
@@ -26,7 +26,7 @@
 - **Wright Patman** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Bois d'Arc** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Jacksonville** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
-- **Bardwell** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
+- **Bardwell** — primary-source-backed authority guide prepared in wave-3 development branch; not production certified. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Greenbelt** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Fort Phantom Hill** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 
@@ -48,8 +48,8 @@
 | B.A. Steinhagen | **Not in completed-guide registry** |
 | Bachman | **Not in completed-guide registry** |
 | Balmorhea | **Not in completed-guide registry** |
-| Bardwell | **Not in completed-guide registry** |
-| Bastrop | **Not in completed-guide registry** |
+| Bardwell | [bardwell-lake](https://texasdefined.com/fishing/lakes/bardwell-lake) — awaiting wave-3 release |
+| Bastrop | [lake-bastrop](https://texasdefined.com/fishing/lakes/lake-bastrop) — awaiting wave-3 release |
 | Baylor Creek | **Not in completed-guide registry** |
 | Belton | [belton-lake](https://texasdefined.com/fishing/lakes/belton-lake) |
 | Benbrook | [benbrook-lake](https://texasdefined.com/fishing/lakes/benbrook-lake) — awaiting production |
@@ -231,3 +231,10 @@ Granger Lake and Aquilla Lake have complete source-reviewed fishing profiles in 
 ### Urban lake research addition — White Rock Lake
 
 White Rock Lake in Dallas is now represented by a full source-backed guide in the pending Granger/Aquilla expansion branch. Its no-camping restriction, five public ramps, local Dallas motor ordinance, TWDB historical chronology and genuine CC0 lake photograph are accounted for. The branch therefore contains **57 complete guides, 118 remaining directory gaps**. Site operators and real-time restrictions, site photography, production build and manual UX inspection are not certified by this inventory.
+
+
+### Wave 3 — Bardwell Lake and Lake Bastrop (October 13)
+
+Both lakes now have individually sourced authority definitions **in the stacked development branch**, not guaranteed production URLs. Bardwell's Corps pages have apparently conflicting ramp/park closure notices and a permanently closed marina; Lake Bastrop has two different LCRA park entry and booking systems plus a 2026 South Shore restroom advisory. Named access, history, specific fishing evidence, genuine location-correct reusable photography and county/city reciprocals have been coded and must pass release QA.
+
+The proposed registry total is **59 source-researched lake guides** and **116 remaining TPWD labeled guide gaps**. These figures must not be used as production certification until both lake PRs deploy and route checks succeed. All original field-photo gaps remain outstanding.
