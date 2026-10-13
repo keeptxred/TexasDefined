@@ -624,6 +624,10 @@ jobs:
 
       - name: Run guarded IndexNow step
         id: indexnow
+        # IndexNow is an external advisory after the Worker and canonical live checks.
+        # Preserve verified Worker recovery state if Bing/Cloudflare networking times out;
+        # hourly bing-indexnow.yml retries notification independently.
+        continue-on-error: true
         run: node scripts/seo/submit-indexnow.mjs
 
       - name: Publish IndexNow advisory result
@@ -714,7 +718,7 @@ jobs:
           elif [[ "$RECOVERY_LEDGER_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: RECOVERY / STATE::Production passed blocking runtime verification, but the immutable verified-Worker recovery ledger could not be advanced.'
           elif [[ "$INDEXNOW_OUTCOME" == 'failure' ]]; then
-            echo '::error title=Pipeline failure class: INDEXING / EXTERNAL::Production verification passed; the guarded IndexNow stage failed.'
+            echo '::warning title=Advisory failure: INDEXING / EXTERNAL::Production verification passed; IndexNow notification failed and will be retried by the hourly Bing IndexNow workflow.'
           fi
 
       - name: Publish final production status
