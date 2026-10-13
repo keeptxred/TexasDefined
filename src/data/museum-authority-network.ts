@@ -1291,6 +1291,72 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "texas-ranger-hall-of-fame-museum-waco": {
+    name: "Texas Ranger Hall of Fame and Museum",
+    slug: "texas-ranger-hall-of-fame-museum-waco",
+    county: "McLennan",
+    city: "Waco",
+    reviewed: "2026-10-13",
+    topics: ["texas-history", "law-enforcement", "museum-heritage", "family"],
+    whyVisit: "The Texas Ranger Hall of Fame and Museum is the state-designated historical center for the Texas Rangers, with original artifacts, officer stories, a Hall of Fame, a film program and separate research facilities. A worthwhile visit considers both the Rangers' law-enforcement history and how their public image was constructed, rather than treating popular cowboy stories as complete historical evidence.",
+    visitorStrategy: "The museum is at 100 Texas Ranger Trail beside the Brazos River in Waco. It opens seven days, 9 a.m.–5 p.m., with last entry at 4:30 p.m., except listed holidays. Official adult admission is $10.50, ages 6–12 $4, under 6 free, seniors 60+ $8.50 and military with ID $8.50; discounts can change. Parking is free. The operator recommends around two hours. The separate Armstrong Research Center opens Monday–Friday, 9 a.m.–4 p.m., preferably by appointment; it does not keep general gallery hours.",
+    accessibility: "The museum's public visitor guidance confirms free parking and group check-in procedures but does not detail wheelchair routes, accessible restroom layout or hearing-support equipment. Contact the museum at 254-750-8631 about specific step-free access, mobility needs or visual/audio accommodations before a trip; do not infer availability from the research center or other Waco museums.",
+    familiesAndGroups: "The museum can work for school-age children interested in history, policing and historic objects; visitors may see weapons, conflict and period violence interpreted in exhibits. Groups of ten or more must reserve ahead. Operator-led tours are usually about 45 minutes, and the institution advises at least 90 minutes total including exhibits and shop. Food and drink are prohibited inside gallery spaces; no on-site full-service restaurant or café is confirmed on its official visit page.",
+    researchValue: "Interpret the Texas Rangers across almost two centuries and multiple governing periods, separating documented individual service, violence, frontier mythology and contemporary professional practice. The Hall of Fame focuses on individual members, while the Armstrong Research Center is a distinct archival facility. The 2026 Rangers Through Time exhibit examines 1840s–1990s imagery and is an opportunity to ask whose stories are celebrated and how memory changes.",
+    exhibits: [
+      { heading: "Texas Rangers through time", detail: "Artifacts, photographs, equipment and interpretive displays trace a law-enforcement organization whose changing mandate and public image must be read in historical context." },
+      { heading: "Hall of Fame and individual biographies", detail: "Learn how officers are recognized and compare personal career histories with larger and sometimes contested events." },
+      { heading: "Rangers Through Time (2026 special exhibition)", detail: "At the Armstrong research complex, selected art, medals, firearms and photographs examine imagery of Rangers from the 1840s to 1990s; verify whether the temporary display remains open." },
+      { heading: "Museum film and visitor orientation", detail: "An approximately 25-minute film is shown at published times subject to change; organize a visit around a confirmed screening rather than an assumed start time." },
+    ],
+    routes: [
+      { label: "Two-hour visitor essentials", steps: ["Confirm museum hours and tickets; begin with the historical overview", "Examine the Hall of Fame and one themed artifact gallery", "Allow time for the short film if a screening fits your visit"] },
+      { label: "Waco heritage half-day", steps: ["Begin with the Texas Ranger museum on the Brazos", "Read McLennan County history for context rather than treating its exhibits as the whole regional story", "Consider another independently open Waco museum based on interests"] },
+    ],
+    sources: [
+      { label: "Operator: current hours and admission", url: "https://www.texasranger.org/Visit", use: "Admission, parking, two-hour recommendation, research-center hours" },
+      { label: "Operator: guided tour FAQ", url: "https://www.texasranger.org/Pages/Education/FAQ", use: "Group sizes, food, film, photography and tour duration" },
+      { label: "Operator: Rangers Through Time exhibition", url: "https://www.texasranger.org/News-articles/Rangers-Through-Time", use: "2026 rotating exhibition and interpretation" },
+    ],
+    connections: [
+      { label: "McLennan County", href: "/county/mclennan", reason: "Link the museum with Waco history and the Brazos River corridor." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Compare state history and public service museums without treating collections as interchangeable." },
+    ],
+  },
+  "texas-transportation-museum-san-antonio": {
+    name: "Texas Transportation Museum",
+    slug: "texas-transportation-museum-san-antonio",
+    county: "Bexar",
+    city: "San Antonio",
+    reviewed: "2026-10-13",
+    topics: ["railroads", "family", "transportation", "texas-history"],
+    whyVisit: "Texas Transportation Museum in northeast San Antonio combines full-size rail equipment, historic road vehicles, model railroads and short operating train rides in an outdoor setting. The difference between viewing a historic locomotive and riding its volunteer-operated railway makes it especially engaging for families, but the train program is contingent on operating and weather conditions.",
+    visitorStrategy: "The entrance is at 11731 Wetmore Road, near Wurzbach Parkway. Regular public access is generally on selected Saturdays and Sundays, and Friday visits are reserved for schools/groups; check the operator's date-specific calendar. General admission lists adults age 13+ $12, ages 4–12 $10, under 4 free and seniors 65+ $9. The regular train ride is included when running. Seasonal ride times on the train page are 10:30 a.m., 12:30 p.m. and 2:30 p.m., but another older operator page lists additional trips. Follow the current calendar and staff announcements, not an older fixed timetable. Last general admission is published as 3 p.m.",
+    accessibility: "The main lot is gravel, with a marked accessible space near the depot ramp and a paved space by the depot platform and Main Display Building. The covered flatcar on the regular train is wheelchair-accessible; the historic caboose is not, and some preserved equipment cannot be entered because of its age. Contact the museum before travel about specific mobility access or an accommodated train ride.",
+    familiesAndGroups: "Children can enjoy moving trains and static displays, but rail grounds require supervision: use marked crossings, stay off tracks, avoid climbing equipment and follow conductors. The museum permits leashed well-behaved pets. Drinks are sold at the depot, with snacks usually only at events; there is not a documented full-service café or cafeteria. Families may bring food and use picnic tables. Weather, mechanical repairs or special events may change rides, costs and opening times.",
+    researchValue: "Use the museum to compare steam, diesel, road transportation and model railroad interpretation: rail travel is a system involving labor, signaling, maintenance and changing engines rather than just picturesque locomotives. The operator advertises a 1925 Baldwin steam locomotive and a 1911 Baldwin example, but steam rides are not currently scheduled due to inspection/maintenance. Do not promise an operating steam locomotive or a diesel cab ride; the ticket page says cab rides are suspended for repairs.",
+    exhibits: [
+      { heading: "Regular train ride and volunteer railroad", detail: "A scheduled 10–15-minute ride is normally included with admission, typically on a diesel-hauled train; the covered flatcar provides the accessible riding option." },
+      { heading: "Historic steam and diesel equipment", detail: "Compare the construction and roles of original railway stock, including preserved Baldwin locomotives; currently suspended steam operations should not be represented as running." },
+      { heading: "Model railroad and transportation displays", detail: "Indoor layouts and older road vehicles help explain switching, routes and how railways connected towns and industries." },
+      { heading: "Depot, signals and railroad working practices", detail: "Use the depot, crossings and equipment displays to discuss ticketing, signaling, infrastructure and the work of maintaining a railroad." },
+    ],
+    routes: [
+      { label: "Family train-and-museum outing", steps: ["Check the chosen day and train calendar, plus any weather advisories", "Arrive before an actual scheduled ride and observe train safety rules", "Explore the model railway and vehicle exhibits, ending with an outdoor picnic if weather permits"] },
+      { label: "Texas transport history visit", steps: ["Begin with the rail exhibits and locomotives", "Compare road vehicles, engines and model railway systems", "Read Bexar County context for how transport affected San Antonio's growth"] },
+    ],
+    sources: [
+      { label: "Operator: visit, tickets and calendar", url: "https://www.txtransportationmuseum.org/visit-us", use: "Admission, booked days, time and weather caveats" },
+      { label: "Operator: train operations and accessibility", url: "https://www.txtransportationmuseum.org/train-rides", use: "Ride length, flatcar access and current steam status" },
+      { label: "Operator: visitor FAQ, parking and food", url: "https://www.txtransportationmuseum.org/", use: "Parking, pets, safety and food options" },
+      { label: "Operator: current ticket limitations", url: "https://www.txtransportationmuseum.org/tickets", use: "Diesel cab-ride suspension and special event rules" },
+    ],
+    connections: [
+      { label: "Bexar County", href: "/county/bexar", reason: "Connect the railway history with greater San Antonio heritage." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Compare hands-on transport sites with historic and science museums." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
@@ -1421,6 +1487,13 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
 
   "fire-museum-of-texas-beaumont": { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fire_Museum_of_Texas%2C_Beaumont%2C_Texas.jpg?width=1600", alt: "Fire Museum of Texas historic fire station and exterior in downtown Beaumont", width: 1600, height: 904, credit: "JJonahJackalope · CC BY-SA 4.0 · Wikimedia Commons · File:Fire Museum of Texas, Beaumont, Texas.jpg" },
   "spindletop-gladys-city-boomtown-museum-beaumont": { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Spindletop-Gladys_City_Boomtown_Museum.jpg?width=1600", alt: "Recreated oil-boom town buildings at Spindletop Gladys City Boomtown Museum, Beaumont", width: 1600, height: 987, credit: "i_am_jim · CC BY-SA 3.0 · Wikimedia Commons · File:The Spindletop-Gladys City Boomtown Museum.jpg" },
+
+  "texas-transportation-museum-san-antonio": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/1911_Baldwin_2-8-0_Steam_at_Texas_Transportation_museum.jpg?width=1600",
+    alt: "Historic Baldwin steam locomotive on outdoor display at the Texas Transportation Museum in San Antonio, photographed in 2012",
+    width: 1600, height: 1062,
+    credit: "TParis · CC BY-SA 3.0 · Wikimedia Commons · File:1911 Baldwin 2-8-0 Steam at Texas Transportation museum.jpg (2012; static display, not a currently operating train)",
+  },
 
 };
 
