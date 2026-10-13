@@ -793,6 +793,29 @@
         "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
         "https://www.lamar.edu/spindletop-boomtown-museum/index.html"
       ]
+    },
+    "national-museum-funeral-history-houston": {
+      "name": "National Museum of Funeral History",
+      "operatorStrengths": [
+        "Operator FAQs document duration, child readiness, accessible visits and free parking",
+        "Official ticket, docent tours and 19-exhibit overview provide directly comparable visitor facts"
+      ],
+      "openGaps": [
+        "Compare actual rendered mobile guide and source-published visitor information for missing visitor concerns",
+        "Verify public imagery, crosslinks and schedule changes after deployment before certifying best-in-class guide"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://nmfh.org/faq-page/",
+        "https://nmfh.org/the-museum/",
+        "https://nmfh.org/exhibitions/",
+        "https://nmfh.org/book-a-tour/",
+        "https://nmfh.org/for-families/",
+        "https://nmfh.org/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
