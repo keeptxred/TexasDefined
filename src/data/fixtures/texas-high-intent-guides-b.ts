@@ -41,7 +41,7 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
       },
       {
         "title": "Frio River — a Concan and Garner holiday",
-        "advice": "The Frio gives travelers a cypress-lined Hill Country backdrop and a long association with summer camping around Concan and Garner State Park. River access and tube routes must be planned rather than inferred from a lodging address. Drought can reduce depth, while storms create an entirely different hazard. A good Frio weekend includes a park or small-town alternative so the vacation survives if the water is too low or conditions close the float."
+        "advice": "The Frio gives travelers a cypress-lined Hill Country backdrop. Garner State Park has 2.9 miles of the Frio running through it and TPWD allows swimming and floating on inner tubes, with tube rentals available through park services. This park access is not equivalent to an unlimited private outfitter shuttle along all of the Frio. TPWD's July 21, 2026 alert says river swimming is at visitors' own risk with no lifeguards, and notes specific trails closed; check current alerts before planning a trip. Drought can make a float too shallow while storms can create rapid dangerous flow. Confirm the launch, exit and transport for each separate float segment."
       },
       {
         "title": "San Marcos River — spring-fed central Texas outing",
@@ -61,7 +61,7 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
       },
       {
         "title": "Pedernales River — river recreation with important exclusions",
-        "advice": "The Pedernales features dramatic limestone country, including Pedernales Falls State Park. It also illustrates why a river's famous viewpoint is not automatically a permitted tubing zone. Swimming and wading are prohibited in the falls area; other park sections have their own posted rules. Confirm the designated recreation areas, heed flash-flood warnings and do not extrapolate from one access point to the whole river."
+        "advice": "Pedernales Falls State Park is not a place to put a tube in at the famous falls. TPWD explicitly prohibits swimming, wading, tube put-ins and take-outs in the Pedernales Falls area, but does permit tubing from the separate designated swimming-area access or Trammell's Crossing Trail when conditions allow. The swim access is at least a strenuous quarter-mile hike including steep steps without a handrail. Most importantly, a placid river can become a flash-flood torrent in minutes, and rising or muddy water means leave the river area immediately. Use the precise TPWD map and approved access—do not interpret one scenic overlook as a legal swimming beach or float launch."
       },
       {
         "title": "Nueces River — clear-water country and limited certainty",
@@ -69,7 +69,7 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
       },
       {
         "title": "Guadalupe River State Park — managed entry to the river",
-        "advice": "Within Guadalupe River State Park, river frontage makes it possible to plan swimming, paddling and tubing when conditions allow, without inventing a private access point. This is a park-style river day rather than the same service model as a commercial New Braunfels outfitter. Check TPWD instructions, reservations, current river condition and how you will return from any float before entering the water."
+        "advice": "Guadalupe River State Park provides four miles of river frontage with swimming, paddling, tubing and fishing under park access rules, not the same model as a commercial New Braunfels outfitter. TPWD prohibits glass and Styrofoam in the riverside day-use area and in the water. The park is also the starting point for an official five-mile paddling trail, but its length does not determine today's tubing suitability, shuttle or turnaround plan. Confirm park day-use reservations, flow, authorized access and exit plan before launch, and check official closures after rain or flooding."
       }
     ],
     "links": [
