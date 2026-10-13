@@ -392,6 +392,684 @@
         "https://dma.org/art/exhibitions",
         "https://dma.org/visit/additional-info"
       ]
+    },
+    "amarillo-museum-of-art": {
+      "name": "Amarillo Museum of Art",
+      "operatorStrengths": [
+        "Direct visitor guide for actual visit rules, amenities, access and age needs",
+        "Dated exhibitions and educational source guidance"
+      ],
+      "openGaps": [
+        "Conduct independent full visitor-side comparison and browser accessibility audit after deploy",
+        "Certify authority only once every material visitor need has a reliable answer and images load correctly"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.amoa.org/visit",
+        "https://www.amoa.org/past-exhibitions",
+        "https://www.amoa.org/"
+      ]
+    },
+    "holocaust-museum-houston": {
+      "name": "Holocaust Museum Houston",
+      "operatorStrengths": [
+        "Direct visitor guide for actual visit rules, amenities, access and age needs",
+        "Dated exhibitions and educational source guidance"
+      ],
+      "openGaps": [
+        "Conduct independent full visitor-side comparison and browser accessibility audit after deploy",
+        "Certify authority only once every material visitor need has a reliable answer and images load correctly"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://hmh.org/visit",
+        "https://hmh.org/visit/accessibility/",
+        "https://hmh.org/visit/tour-and-photo-guidelines/",
+        "https://hmh.org/"
+      ]
+    },
+    "san-antonio-museum-of-art": {
+      "name": "San Antonio Museum of Art",
+      "operatorStrengths": [
+        "Operator visitor resources cover admissions, accessible planning, paid parking, dining and school group programs",
+        "Current exhibition information and important Bexar County free admission policy"
+      ],
+      "openGaps": [
+        "Perform final side-by-side comparative museum-guide inspection and current-device accessibility QA",
+        "Revalidate expiry of temporary exhibits and photo license before superiority certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.samuseum.org/visit/",
+        "https://www.samuseum.org/visit/restaurant/",
+        "https://www.samuseum.org/visit/tour/public-and-charter-schools/",
+        "https://www.samuseum.org/"
+      ]
+    },
+    "kimbell-art-museum-fort-worth": {
+      "name": "Kimbell Art Museum",
+      "operatorStrengths": [
+        "Operator current public hours, ticket and parking policy",
+        "Two-building accessibility and current café operation source"
+      ],
+      "openGaps": [
+        "Side-by-side visitor-guidance comparison before independent authority certification",
+        "Live image loading and accessible FAQ browser QA before sitewide acceptance"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://kimbellart.org/visit",
+        "https://kimbellart.org/visit/accessibility",
+        "https://kimbellart.org/visit/dine",
+        "https://kimbellart.org/content/tours",
+        "https://kimbellart.org/tickets"
+      ]
+    },
+    "nasher-sculpture-center-dallas": {
+      "name": "Nasher Sculpture Center",
+      "operatorStrengths": [
+        "Museum operator current visitor, access and family guides researched",
+        "Specific current temporary closures or conflicting operating schedules identified"
+      ],
+      "openGaps": [
+        "Independently compare complete live visitor guide to current operator materials before competitive authority certification",
+        "Check mobile render, canonical links, photo rights and museum detail sections after production deployment"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+        "https://www.nashersculpturecenter.org/visit/cafe",
+        "https://www.nashersculpturecenter.org/visit/accessibility",
+        "https://www.nashersculpturecenter.org/visit/visit-resources"
+      ]
+    },
+    "national-cowgirl-museum-hall-fame-fort-worth": {
+      "name": "National Cowgirl Museum and Hall of Fame",
+      "operatorStrengths": [
+        "Museum operator current visitor, access and family guides researched",
+        "Specific current temporary closures or conflicting operating schedules identified"
+      ],
+      "openGaps": [
+        "Independently compare complete live visitor guide to current operator materials before competitive authority certification",
+        "Check mobile render, canonical links, photo rights and museum detail sections after production deployment"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://thecowgirl.org/",
+        "https://thecowgirl.org/event/expansion-grand-opening/",
+        "https://thecowgirl.org/visit/",
+        "https://thecowgirl.org/field-trips/",
+        "https://thecowgirl.org/exhibitions/hitting-the-mark-cowgirls-and-wild-west-shows-gallery/",
+        "https://thecowgirl.org/about/museum-expansion/"
+      ]
+    },
+    "fort-worth-museum-science-history": {
+      "name": "Fort Worth Museum of Science and History",
+      "operatorStrengths": [
+        "Official operator visitor, education, exhibition and admission pages individually reviewed",
+        "Visitor FAQs account for entry, accessibility, family suitability, ticket types and age guidance"
+      ],
+      "openGaps": [
+        "Complete independent side-by-side visitor usefulness certification against museum's entire current site",
+        "Verify post-deployment production markup, image load, reciprocal links and mobile user experience"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.fwmuseum.org/visit/plan-your-visit/",
+        "https://www.fwmuseum.org/learn/field-trips/",
+        "https://www.fwmuseum.org/",
+        "https://www.fwmuseum.org/contact/"
+      ]
+    },
+    "dallas-holocaust-human-rights-museum": {
+      "name": "Dallas Holocaust and Human Rights Museum",
+      "operatorStrengths": [
+        "Official operator visitor, education, exhibition and admission pages individually reviewed",
+        "Visitor FAQs account for entry, accessibility, family suitability, ticket types and age guidance"
+      ],
+      "openGaps": [
+        "Complete independent side-by-side visitor usefulness certification against museum's entire current site",
+        "Verify post-deployment production markup, image load, reciprocal links and mobile user experience"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.dhhrm.org/visit/faq/",
+        "https://www.dhhrm.org/exhibitions/",
+        "https://www.dhhrm.org/visit/",
+        "https://www.dhhrm.org/exhibitions/pivot-to-america-wing/"
+      ]
+    },
+    "modern-art-museum-fort-worth": {
+      "name": "Modern Art Museum of Fort Worth",
+      "operatorStrengths": [
+        "Current operator gallery closure, tickets, full-service restaurant, accessibility and family programming evidence individually researched",
+        "Visitor intent FAQs distinguish free 2026 lobby activities from unavailable collection galleries"
+      ],
+      "openGaps": [
+        "Post-deployment image, structured data, FAQ and reciprocal link browser QA",
+        "Independent competitive side-by-side evaluation before strongest-superlative authority certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.themodern.org/exhibition/making-sculpture-project",
+        "https://www.themodern.org/visit/hours-and-admission",
+        "https://www.themodern.org/caf%C3%A9-modern",
+        "https://www.themodern.org/tours",
+        "https://www.themodern.org/accessibility"
+      ]
+    },
+    "american-quarter-horse-hall-of-fame-museum-amarillo": {
+      "name": "American Quarter Horse Hall of Fame & Museum",
+      "operatorStrengths": [
+        "Museum operator contact/hours, Texas Historical Commission and Visit Amarillo source comparison",
+        "Visitor questions acknowledge conflicting hours, multi-year 2026 renovation and programmed rather than guaranteed horse encounters"
+      ],
+      "openGaps": [
+        "Resolve ordinary admission cost and updated opening time directly with operator",
+        "Verify photography and current on-site accessibility during ongoing phased renovation",
+        "Side-by-side visitor-site QA before certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://aqha-museum.myshopify.com/pages/contact-us",
+        "https://www.visitamarillo.com/listing/american-quarter-horse-hall-of-fame-%26-museum/650/",
+        "https://www.aqha.com/museum",
+        "https://www.newschannel10.com/2026/07/09/american-quarter-horse-hall-fame-museum-host-family-fun-day-saturday/",
+        "https://atlas.thc.texas.gov/Details/4200000009"
+      ]
+    },
+    "museum-of-fine-arts-houston": {
+      "name": "Museum of Fine Arts, Houston",
+      "operatorStrengths": [
+        "Official primary-source visitor and accessibility details",
+        "Specific admission or closure/reopening limitations and facility type"
+      ],
+      "openGaps": [
+        "Independent browser side-by-side comparison with all current operator visit FAQs for authority certification",
+        "On-device image and reciprocal navigation acceptance after deployment"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.mfah.org/visit",
+        "https://www.mfah.org/visit/admission-information",
+        "https://www.mfah.org/visit/visiting-guidelines",
+        "https://www.mfah.org/visit/accessibility-resources/"
+      ]
+    },
+    "art-museum-south-texas-corpus-christi": {
+      "name": "Art Museum of South Texas",
+      "operatorStrengths": [
+        "Official primary-source visitor and accessibility details",
+        "Specific admission or closure/reopening limitations and facility type"
+      ],
+      "openGaps": [
+        "Independent browser side-by-side comparison with all current operator visit FAQs for authority certification",
+        "On-device image and reciprocal navigation acceptance after deployment"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.artmuseumofsouthtexas.org/temporary-closure-update/",
+        "https://www.artmuseumofsouthtexas.org/free-admission-to-the-art-museum-of-south-texas-summer-2026/",
+        "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+        "https://www.artmuseumofsouthtexas.org/plan-your-visit/"
+      ]
+    },
+    "houston-museum-of-natural-science": {
+      "name": "Houston Museum of Natural Science",
+      "operatorStrengths": [
+        "Dedicated visit, ticket, parking, dining, accessibility and FAQ pages",
+        "Current attraction-specific gallery closures and included versus separately ticketed attractions",
+        "A live butterfly center with accessibility and stroller guidelines"
+      ],
+      "openGaps": [
+        "Full independent side-by-side visitor guide certification remains separate from source correctness",
+        "Post-deployment mobile, hero image, internal links and interactive FAQ verification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.hmns.org/visit/",
+        "https://www.hmns.org/visit/faq/",
+        "https://www.hmns.org/visit/directions-parking/",
+        "https://www.hmns.org/visit/accessibility/",
+        "https://www.hmns.org/visit/dining/",
+        "https://www.hmns.org/hmns-exhibits/"
+      ]
+    },
+    "el-paso-museum-of-art": {
+      "name": "El Paso Museum of Art",
+      "operatorStrengths": [
+        "Current official visitor page checked for dates, admission, parking and accessibility",
+        "Independently sourced family, travel, exhibit and FAQ requirements"
+      ],
+      "openGaps": [
+        "Final live browser and mobile QA after deployment",
+        "Competitive visitor-guide comparison before authority certification; historical photos accurately captioned"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://epma.art/visit",
+        "https://epma.art/art-school/classes-and-registration",
+        "https://epma.art/"
+      ]
+    },
+    "arlington-museum-of-art": {
+      "name": "Arlington Museum of Art",
+      "operatorStrengths": [
+        "Current official visitor page checked for dates, admission, parking and accessibility",
+        "Independently sourced family, travel, exhibit and FAQ requirements"
+      ],
+      "openGaps": [
+        "Final live browser and mobile QA after deployment",
+        "Competitive visitor-guide comparison before authority certification; historical photos accurately captioned"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://arlingtonmuseum.org/visitor-info",
+        "https://arlingtonmuseum.org/plan-your-visit",
+        "https://arlingtonmuseum.org/",
+        "https://www.arlingtontx.gov/News-Articles/2026/May/Arlington-Museum-of-Arts-More-Than-a-Match-Extended-Through-Aug.-30"
+      ]
+    },
+    "art-museum-southeast-texas-beaumont": {
+      "name": "Art Museum of Southeast Texas",
+      "operatorStrengths": [
+        "Official visit, exhibitions and tour pages checked",
+        "Free admission and group arrangements distinguished from ticketed classes"
+      ],
+      "openGaps": [
+        "Verify visual render, photo license/alt and responsive layout after release",
+        "Compare live guide against operator for visitor-guide completeness before authority certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://amset.org/visit-us-visitanos/",
+        "https://amset.org/",
+        "https://amset.org/schedule-a-tour/"
+      ]
+    },
+    "museum-of-the-gulf-coast-port-arthur": {
+      "name": "Museum of the Gulf Coast",
+      "operatorStrengths": [
+        "Official institution and visitor information linked to museum-specific questions",
+        "Visitor-first exhibit, access and regional crosslinking material"
+      ],
+      "openGaps": [
+        "Compare full live visitor guide against official operator information before superlative certification",
+        "Verify visitor imagery, accessibility rendering and all link targets after deployment"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.museumofthegulfcoast.org/",
+        "https://www.museumofthegulfcoast.org/permanent",
+        "https://www.museumofthegulfcoast.org/copy-of-about-the-museum",
+        "https://www.museumofthegulfcoast.org/halls-of-fame"
+      ]
+    },
+    "fire-museum-of-texas-beaumont": {
+      "name": "Fire Museum of Texas",
+      "operatorStrengths": [
+        "Official institution and visitor information linked to museum-specific questions",
+        "Visitor-first exhibit, access and regional crosslinking material"
+      ],
+      "openGaps": [
+        "Compare full live visitor guide against official operator information before superlative certification",
+        "Verify visitor imagery, accessibility rendering and all link targets after deployment"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.firemuseumoftexas.com/visit",
+        "https://www.beaumontcvb.com/listing/fire-museum-of-texas/20/"
+      ]
+    },
+    "spindletop-gladys-city-boomtown-museum-beaumont": {
+      "name": "Spindletop-Gladys City Boomtown Museum",
+      "operatorStrengths": [
+        "Official institution and visitor information linked to museum-specific questions",
+        "Visitor-first exhibit, access and regional crosslinking material"
+      ],
+      "openGaps": [
+        "Compare full live visitor guide against official operator information before superlative certification",
+        "Verify visitor imagery, accessibility rendering and all link targets after deployment"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+        "https://www.lamar.edu/spindletop-boomtown-museum/index.html"
+      ]
+    },
+    "national-museum-funeral-history-houston": {
+      "name": "National Museum of Funeral History",
+      "operatorStrengths": [
+        "Operator FAQs document duration, child readiness, accessible visits and free parking",
+        "Official ticket, docent tours and 19-exhibit overview provide directly comparable visitor facts"
+      ],
+      "openGaps": [
+        "Compare actual rendered mobile guide and source-published visitor information for missing visitor concerns",
+        "Verify public imagery, crosslinks and schedule changes after deployment before certifying best-in-class guide"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://nmfh.org/faq-page/",
+        "https://nmfh.org/the-museum/",
+        "https://nmfh.org/exhibitions/",
+        "https://nmfh.org/book-a-tour/",
+        "https://nmfh.org/for-families/",
+        "https://nmfh.org/"
+      ]
+    },
+    "texas-ranger-hall-of-fame-museum-waco": {
+      "name": "Texas Ranger Hall of Fame and Museum",
+      "operatorStrengths": [
+        "Official admission, operating days, group guidance and exhibit sources documented",
+        "Independent visit-plan synthesis with changing train/film/exhibit program caveats"
+      ],
+      "openGaps": [
+        "Compare all current operator visitor policies in a full browser at publication",
+        "Check mobile rendering, links and photographic attribution before external comparative authority certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.texasranger.org/Visit",
+        "https://www.texasranger.org/Pages/Education/FAQ",
+        "https://www.texasranger.org/News-articles/Rangers-Through-Time"
+      ]
+    },
+    "texas-transportation-museum-san-antonio": {
+      "name": "Texas Transportation Museum",
+      "operatorStrengths": [
+        "Official admission, operating days, group guidance and exhibit sources documented",
+        "Independent visit-plan synthesis with changing train/film/exhibit program caveats"
+      ],
+      "openGaps": [
+        "Compare all current operator visitor policies in a full browser at publication",
+        "Check mobile rendering, links and photographic attribution before external comparative authority certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.txtransportationmuseum.org/train-rides",
+        "https://www.txtransportationmuseum.org/visit-us",
+        "https://www.txtransportationmuseum.org/",
+        "https://www.txtransportationmuseum.org/tickets"
+      ]
+    },
+    "dr-pepper-museum-waco": {
+      "name": "Dr Pepper Museum",
+      "operatorStrengths": [
+        "Official detailed visitor rules and current admissions documented",
+        "Research-backed visitors' questions and contextual itineraries"
+      ],
+      "openGaps": [
+        "Cross-browser/mobility route QA in deployed production",
+        "Final independent side-by-side visitor-guide value certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://drpeppermuseum.com/plan-your-visit/",
+        "https://drpeppermuseum.com/frequently-asked-questions/",
+        "https://drpeppermuseum.com/parking-information/",
+        "https://drpeppermuseum.com/accessibility/",
+        "https://drpeppermuseum.com/group-tour-field-trip-faqs/"
+      ]
+    },
+    "texas-sports-hall-of-fame-waco": {
+      "name": "Texas Sports Hall of Fame",
+      "operatorStrengths": [
+        "Official detailed visitor rules and current admissions documented",
+        "Research-backed visitors' questions and contextual itineraries"
+      ],
+      "openGaps": [
+        "Cross-browser/mobility route QA in deployed production",
+        "Final independent side-by-side visitor-guide value certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://tshof.org/contact-us/",
+        "https://tshof.org/"
+      ]
+    },
+    "austin-nature-and-science-center": {
+      "name": "Austin Nature & Science Center",
+      "operatorStrengths": [
+        "Official visitor policies, schedules, family fit and exhibits researched from primary sources",
+        "Independent visitor routes, food-service and accessibility distinctions"
+      ],
+      "openGaps": [
+        "Confirm live image, FAQ and destination crosslinks after merge/deploy",
+        "Certify independent visitor usefulness only after side-by-side comparison and manual QA"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+        "https://www.austintexas.gov/parks/austin-nature-science-center-exhibits",
+        "https://www.austintexas.gov/parks/austin-nature-science-center-school-programs-and-group-reservations",
+        "https://www.austintexas.gov/parks/locations/austin-nature-and-science-center"
+      ]
+    },
+    "harry-ransom-center-austin": {
+      "name": "Harry Ransom Center",
+      "operatorStrengths": [
+        "Official visitor policies, schedules, family fit and exhibits researched from primary sources",
+        "Independent visitor routes, food-service and accessibility distinctions"
+      ],
+      "openGaps": [
+        "Confirm live image, FAQ and destination crosslinks after merge/deploy",
+        "Certify independent visitor usefulness only after side-by-side comparison and manual QA"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.hrc.utexas.edu/visit/",
+        "https://www.hrc.utexas.edu/exhibitions/",
+        "https://www.hrc.utexas.edu/group-tours/",
+        "https://www.hrc.utexas.edu/frequently-asked-questions/"
+      ]
+    },
+    "thinkery-austin-childrens-museum": {
+      "name": "Thinkery Children's Museum (Mueller)",
+      "operatorStrengths": [
+        "Official visitor policy, age-specific programming, interactive exhibit descriptions",
+        "Accessible routes, sensory accommodations and discounted admissions"
+      ],
+      "openGaps": [
+        "Confirm all source claims and external experience questions against current operator pages",
+        "Post-deployment crosslinks, exact-photo license, mobile UX and visitor-site comparison"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://thinkeryaustin.org/visit-us/",
+        "https://thinkeryaustin.org/guidelines/",
+        "https://thinkeryaustin.org/museum-accessibility/",
+        "https://thinkeryaustin.org/resources/",
+        "https://thinkeryaustin.org/exhibit/"
+      ]
+    },
+    "lbj-presidential-library-austin": {
+      "name": "LBJ Presidential Library",
+      "operatorStrengths": [
+        "Primary operator pages on admission, opening, special programs and exhibit topics",
+        "Family-specific and disabled-visitor guidance, independent comparison with nearby museums"
+      ],
+      "openGaps": [
+        "Browser proof of live accessibility and accurate canonical link paths",
+        "Full independent side-by-side comparison before superiority certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.lbjlibrary.org/visit",
+        "https://lbjlibrary.org/visit/know-before-you-go",
+        "https://lbjlibrary.org/visit/accessibility",
+        "https://www.lbjlibrary.org/visit/group-visits",
+        "https://www.lbjlibrary.org/exhibitions"
+      ]
+    },
+    "blanton-museum-of-art-austin": {
+      "name": "Blanton Museum of Art",
+      "operatorStrengths": [
+        "Primary operator pages on admission, opening, special programs and exhibit topics",
+        "Family-specific and disabled-visitor guidance, independent comparison with nearby museums"
+      ],
+      "openGaps": [
+        "Browser proof of live accessibility and accurate canonical link paths",
+        "Full independent side-by-side comparison before superiority certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://blantonmuseum.org/visit/",
+        "https://blantonmuseum.org/visit/parking/",
+        "https://blantonmuseum.org/visit/faqs/",
+        "https://blantonmuseum.org/visit/accessibility/",
+        "https://blantonmuseum.org/visit/group-visits/"
+      ]
+    },
+    "alvin-historical-museum": {
+      "name": "Alvin Historical Museum",
+      "operatorStrengths": [
+        "Operator-backed visitor location, opening-hours and research context",
+        "Visitor-focused family/group and exhibit questions"
+      ],
+      "openGaps": [
+        "Rights-cleared exact-site museum photograph: no approved reusable image found, placeholder is not publication-quality",
+        "Post-deployment browser, schema and accessibility QA",
+        "Independent side-by-side benchmarking before most-useful-guide certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://alvinmuseum.org/",
+        "https://alvinmuseum.org/alvin-musuem/",
+        "https://alvinmuseum.org/tour-01_intro-to-museum/",
+        "https://alvinmuseum.org/slover-rogers-cottage/"
+      ]
+    },
+    "el-paso-holocaust-museum": {
+      "name": "El Paso Holocaust Museum and Study Center",
+      "operatorStrengths": [
+        "Operator-backed visitor location, opening-hours and research context",
+        "Visitor-focused family/group and exhibit questions"
+      ],
+      "openGaps": [
+        "Rights-cleared exact-site museum photograph: no approved reusable image found, placeholder is not publication-quality",
+        "Post-deployment browser, schema and accessibility QA",
+        "Independent side-by-side benchmarking before most-useful-guide certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://elpasoholocaustmuseum.org/hours-and-closures/",
+        "https://elpasoholocaustmuseum.org/about-us/",
+        "https://elpasoholocaustmuseum.org/dimensions-in-testimony/",
+        "https://elpasoholocaustmuseum.org/"
+      ]
+    },
+    "el-paso-museum-of-archaeology": {
+      "name": "El Paso Museum of Archaeology",
+      "operatorStrengths": [
+        "Official operator hours, booking, parking gates and ADA guidance",
+        "Official exhibit background and contemporary trail information"
+      ],
+      "openGaps": [
+        "Live site visit and mobile/accessibility validation",
+        "Side-by-side review versus full operator FAQs and independent user comments"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://epmarch.org/about/plan-your-visit",
+        "https://epmarch.org/",
+        "https://epmarch.org/about/about-epmarch"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",

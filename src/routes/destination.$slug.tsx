@@ -22,7 +22,7 @@ import { getDestinationRelationshipGroups } from "@/data/destination-relationshi
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { articlesQuery, categoriesQuery, destinationQuery, regionsQuery } from "@/data/queries";
 import { isTopTexasAttraction } from "@/data/top-texas-attractions";
-import { enrichMuseumAuthority, museumDossierFor } from "@/data/museum-authority-network";
+import { museumAuthoritySlugs } from "@/data/museum-authority-slugs";
 import { hideImageFallbackLabel, recoverOrHideImage } from "@/lib/image-fallback";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from "@/platform/internal-link-policies";
@@ -138,7 +138,10 @@ export const Route = createFileRoute("/destination/$slug")({
       const { resolveTopAttractionAuthority } = await import("@/data/top-attraction-authority-resolver");
       destination = resolveTopAttractionAuthority(destination);
     }
-    destination = enrichMuseumAuthority(destination);
+    if (museumAuthoritySlugs.has(destination.slug)) {
+      const { enrichMuseumAuthority } = await import("@/data/museum-authority-network");
+      destination = enrichMuseumAuthority(destination);
+    }
     const [completeGraph, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([
       loadTexasKnowledgeGraph(),
       context.queryClient.ensureQueryData(categoriesQuery()),
@@ -153,7 +156,7 @@ export const Route = createFileRoute("/destination/$slug")({
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
     const { destination, categories, relationshipGroups } = loaderData;
     const isZapataMuseum = destination.slug === "zapata-county-museum-history";
-    const isAuthorityMuseum = Boolean(museumDossierFor(destination.slug));
+    const isAuthorityMuseum = museumAuthoritySlugs.has(destination.slug);
     const isYsletaMuseum = destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso";
     const isYoungCountyMuseum = destination.slug === "young-county-museum-of-history-and-culture";
     const authorityGuide = destination.authorityGuide;
