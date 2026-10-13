@@ -3981,9 +3981,9 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
     {
       "question": "Does Bell County Museum offer children’s special activities?",
       "answer": "Yes. The museum's posted calendar lists family events and age-specific activities such as Tiny Thinkers and science programming. These are scheduled activities, not permanent daily exhibits, so check dates and any required registration.",
-      "verificationUrl": "https://www.bellcountymuseum.org/location/add-location-name-here",
+      "verificationUrl": "https://www.bellcountymuseum.org/events",
       "questionOrigin": "editorial-research",
-      "questionEvidenceUrl": "https://www.bellcountymuseum.org/location/add-location-name-here",
+      "questionEvidenceUrl": "https://www.bellcountymuseum.org/events",
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
