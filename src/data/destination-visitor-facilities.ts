@@ -59,14 +59,14 @@ export const VERIFIED_VISITOR_FACILITIES: Record<string, DestinationVisitorFacil
     editorialIntro: "A visit near Malaquite Visitor Center is very different from remote beach driving and primitive camping. Know where developed facilities end before traveling south.",
     parking: {
       status: "verified",
-      details: "NPS lists vehicle, RV/bus and boat-trailer parking at Malaquite Visitor Center. This does not establish that remote down-island beach parking or driving is suitable today.",
-      sourceUrl: "https://www.nps.gov/pais/planyourvisit/basicinfo.htm",
+      details: "Malaquite Beach has a large vehicle parking lot at the visitor center, separate from remote down-island beach driving. The beach immediately beside the visitor center is closed to public vehicle driving; check conditions before entering other beach sections.",
+      sourceUrl: "https://www.nps.gov/places/malaquite-beach.htm",
       checkedAt: "2026-10-12"
     },
     restrooms: {
       status: "verified",
-      details: "Malaquite Visitor Center lists accessible restrooms, showers and drinking water. Do not assume any of these facilities exist along remote stretches of beach.",
-      sourceUrl: "https://www.nps.gov/pais/planyourvisit/basicinfo.htm",
+      details: "Malaquite Visitor Center has accessible restrooms and showers; the NPS current conditions page identifies 24-hour restrooms across the visitor-center deck and additional facilities by the parking lot. Remote beach sections have far fewer services.",
+      sourceUrl: "https://www.nps.gov/pais/planyourvisit/conditions.htm",
       checkedAt: "2026-10-12"
     },
     officialMapUrl: "https://www.nps.gov/pais/planyourvisit/maps.htm",
