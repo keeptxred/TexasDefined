@@ -1712,6 +1712,73 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "crow-museum-asian-art-dallas": {
+    name: "Crow Museum of Asian Art — Dallas Arts District",
+    slug: "crow-museum-asian-art-dallas",
+    county: "Dallas",
+    city: "Dallas",
+    reviewed: "2026-10-13",
+    topics: ["art", "asian-cultures", "family", "accessibility"],
+    whyVisit: "The Crow Museum's downtown Dallas galleries offer a concentrated look at Asian art and contemporary artistic conversations without charging general admission. It operates TWO locations—this is the Dallas Arts District guide, not the separate UT Dallas campus museum in Richardson. Visitors should focus on the galleries actually on view and compare Asian art traditions across periods rather than assuming every object in the collection is always exhibited.",
+    visitorStrategy: "The Dallas Arts District museum is at 2010 Flora Street and operates Tuesday–Sunday 11 a.m.–5 p.m.; Mondays and major holidays are closed. Admission is free, although donations are encouraged. The Trammell Crow Center garage is paid for nonmembers; visitors using Dallas transit can walk from Arts District stations. Confirm temporary closure dates and the exhibit location because a Crow exhibition may be at either Dallas or Richardson.",
+    accessibility: "The Flora Street main entrance near Olive Street is the step-free public route. Visitors entering from the Trammell Crow Center garage may need security help to reach an alternate ramp entrance rather than following stairs. Contact the front desk for specific accessible entry arrangements. The Dallas Arts District and Richardson campus parking instructions are not interchangeable.",
+    familiesAndGroups: "Free admission suits a short arts outing with older children and families. Children can compare artistic materials and subjects in a manageable gallery visit; confirm special family activities rather than assuming a permanent children's playroom. The museum site does not substantiate an on-site full-service restaurant, so arrange meals in the Arts District.",
+    researchValue: "The museum is part of the University of Texas at Dallas and now maintains a campus counterpart in Richardson. Independent guides should distinguish these physically separate institutions and specify where an exhibition actually appears. The Dallas site has hosted Paper Knife: Objects of Beauty in Early Modern Japan, Du Chau: Tracing the Threads of Memory and other dated rotating exhibitions; dates should be checked before a dedicated visit.",
+    exhibits: [
+      { heading: "Paper Knife: Objects of Beauty in Early Modern Japan", detail: "An advertised temporary exhibition exploring beautifully crafted objects and material culture; operator dates run November 8, 2025–August 29, 2027." },
+      { heading: "Du Chau: Tracing the Threads of Memory", detail: "A 2026–2027 Dallas Arts District exhibition examining material, memory and artistic practice; check current gallery availability." },
+      { heading: "Rotating Asian art exhibitions", detail: "The museum offers changing displays of historical and contemporary Asian art. Review the Dallas-specific schedule rather than treating campus exhibitions as downtown exhibits." },
+    ],
+    routes: [
+      { label: "Downtown Crow introduction", steps: ["Enter at Flora Street and confirm the day's Dallas exhibition list", "Choose two galleries to compare material and cultural context", "Walk the Arts District or visit another verified nearby art museum"] },
+      { label: "Dallas museum comparison", steps: ["Start with the Crow's focused Asian art program", "Continue to nearby Dallas Museum of Art for broader global collections", "Avoid routing to Richardson without a separate transit or driving plan"] },
+    ],
+    sources: [
+      { label: "Crow Dallas Arts District location", url: "https://crowmuseum.org/dallas-arts-district/", use: "Entrance, hours, garage and free admission" },
+      { label: "Crow general visitor FAQ", url: "https://crowmuseum.org/about-the-museum/faqs/", use: "Visitor questions, policies and distinction between the two sites" },
+      { label: "Crow current exhibitions by venue", url: "https://crowmuseum.org/visit/", use: "Exhibit location and dates" },
+      { label: "Crow accessible entrances", url: "https://crowmuseum.org/where-to-park/", use: "Step-free arrival and garage assistance" },
+    ],
+    connections: [
+      { label: "Dallas Museum of Art", href: "/destination/dallas-museum-of-art", reason: "Nearby global-art comparison." },
+      { label: "Dallas County", href: "/county/dallas", reason: "Arts District cultural context." },
+      { label: "African American Museum Dallas", href: "/destination/african-american-museum-dallas-fair-park", reason: "Another Dallas museum with a different mission." },
+    ],
+  },
+  "museum-american-railroad-frisco": {
+    name: "Museum of the American Railroad",
+    slug: "museum-american-railroad-frisco",
+    county: "Collin",
+    city: "Frisco",
+    reviewed: "2026-10-13",
+    topics: ["railroads", "texas-history", "family", "engineering"],
+    whyVisit: "The Museum of the American Railroad offers two distinct experiences in Frisco: an indoor TrainTopia model railroad exhibit and staff-led walking tours through the historic full-sized rolling-stock collection. It is especially useful for families who want to compare model railroads, freight and passenger equipment with enormous locomotives. The operator's two ticket types and different day schedules are central to planning.",
+    visitorStrategy: "Start at TrainTopia inside the Frisco Discovery Center, 8004 N Dallas Parkway, Suite 400. TrainTopia generally opens Wednesday–Saturday 10 a.m.–5 p.m. and Sunday 1–5 p.m. Outdoor walking tours run Wednesday–Saturday with no Sunday tours and can have reduced daily departures; the museum currently flags September 30–October 17 for 11 a.m.-only Wednesday–Friday departures. The advertised adult TrainTopia ticket is $12 and adult combined walking-tour ticket $18, subject to change. Book the actual time slot in advance.",
+    accessibility: "The indoor TrainTopia venue and outdoor rolling-stock tour should not be treated as equally accessible. The museum lists a dedicated walking-tour accessibility contact (jgarbutt@historictrains.org). Railway grounds and equipment can involve outdoor uneven surfaces or stairs, and the operator does not promise universal boarding of historic cars. Ask staff for precise wheelchair and mobility accommodations before purchasing an outdoor tour.",
+    familiesAndGroups: "TrainTopia is an approachable indoor experience for young children and rail fans, including a large model layout and scavenger hunts. Some walking tours may be less suitable for toddlers or visitors who cannot walk the full route. Under-three visitors are currently free for the published ticket categories; ages 3–12 have reduced prices. Food service in the Frisco Discovery Center is not established by the museum's visit page—plan snacks and meals separately.",
+    researchValue: "The museum's full-sized rolling stock includes historically significant steam, diesel-electric and electric equipment, rail passenger cars and cabooses. Its virtual tour names Union Pacific Big Boy 4018, Centennial 6913, Pennsylvania GG1 and several passenger cars; these are collection objects, not a guarantee that each may be entered or handled on every tour. Separating outdoor collections from the indoor model exhibit prevents misleading visitor expectations.",
+    exhibits: [
+      { heading: "TrainTopia large-scale model railroad", detail: "A permanent indoor model-train experience with carefully modeled scenes and downloadable family scavenger hunts. A TrainTopia ticket is not automatically an outdoor tour." },
+      { heading: "Union Pacific Big Boy and historic locomotives", detail: "The rolling-stock collection includes large locomotives such as UP 4018 and UP Centennial 6913, best interpreted through a guided tour; specific access depends on safety and operations." },
+      { heading: "Passenger cars and everyday rail travel", detail: "Historic dining, lounge and passenger cars connect railway engineering to how people worked, traveled and socialized." },
+      { heading: "Virtual tour from home", detail: "The museum's online equipment descriptions are useful for research and preparation before choosing an outdoor time slot." },
+    ],
+    routes: [
+      { label: "Indoor family visit", steps: ["Book TrainTopia admission and find the Frisco Discovery Center entrance", "Explore the model railway and choose an age-appropriate scavenger hunt", "Check the exit time and nearby city attractions before leaving"] },
+      { label: "Rail enthusiast visit", steps: ["Reserve a specific outdoor walking tour and verify accessibility/weather", "Explore locomotives and passenger equipment with the docent", "Add TrainTopia using the combination ticket if desired"] },
+    ],
+    sources: [
+      { label: "Museum official visiting calendar and fees", url: "https://www.historictrains.org/visit", use: "Distinct admissions, times and location" },
+      { label: "TrainTopia activities", url: "https://www.historictrains.org/traintopia", use: "Model railway, scavenger hunts and indoor visitor experience" },
+      { label: "Museum rolling stock virtual tour", url: "https://www.historictrains.org/virtual-tour", use: "Equipment names and interpretive research" },
+      { label: "Museum institutional background", url: "https://www.historictrains.org/mission", use: "Institutional purpose and public contact" },
+    ],
+    connections: [
+      { label: "Collin County", href: "/county/collin", reason: "North Texas railroad and city context." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Compare transportation collections with other museums." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
