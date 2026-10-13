@@ -42,6 +42,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['EDITORIAL/RECOMMENDATION-SOURCES', 'Verify exact official source records for every researched comparison recommendation and keep remaining guides staged', 'node', ['scripts/data/validate-guide-pick-source-coverage.mjs']],
   ['MUSEUM/AUTHORITY', 'Validate museum visitor research, references, new museum requirements and reciprocal links', 'node', ['scripts/data/validate-museum-authority.mjs']],
   ['EDITORIAL/RECIPROCAL-LINKS', 'Enforce all configured guide-to-destination crosslinks bidirectionally without a fixed list limit', 'node', ['scripts/data/validate-specialist-guide-crosslinks.mjs']],
   ['EDITORIAL/GUIDE-PUBLISH', 'Require documented editorial acceptance before any new standalone guide route goes live', 'node', ['scripts/data/validate-guide-publication-policy.mjs']],
