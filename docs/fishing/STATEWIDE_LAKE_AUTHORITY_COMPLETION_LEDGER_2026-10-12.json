@@ -3,8 +3,8 @@
   "updatedAt": "2026-10-13",
   "scope": {
     "tpwdNamedEntries": 175,
-    "completedGuides": 61,
-    "missingCompleteGuideListings": 114,
+    "completedGuides": 62,
+    "missingCompleteGuideListings": 113,
     "legacyLakeAndParkDestinations": 36
   },
   "standards": {
@@ -3996,17 +3996,17 @@
     },
     {
       "tpwdEntry": "Worth",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "lake-worth",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/worth/",
+      "namedFacilities": "four TPWD-named access parks; current openings and fees not same-day-certified",
+      "campgrounds": "TPWD explicitly prohibits camping at listed access parks",
+      "primaryHistory": "TWDB source-reviewed dam chronology 1912-1914; 1979/1997 interventions and 2001 survey",
+      "localPhoto": "actual-location Commons photo Larry D. Moore CC BY-SA 4.0; not original first-party",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Tarrant County and four relevant city index links declared",
+      "destinationReciprocalLinks": "nearby Eagle Mountain and Benbrook guides now reciprocate; exact Fort Worth park visitor page operator relationship still to inspect",
+      "competitivePrimarySourceComparison": "TPWD consumption warning versus revised DSHS advisory reconciled; full owner site benchmark remains not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -4015,7 +4015,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Source research completed for boat access, local safety, DSHS consumption discrepancy, TWDB chronology and authentic photo. Check current operator ramp fees and field photos before final all-authority certification."
     },
     {
       "tpwdEntry": "Wright Patman",
