@@ -125,3 +125,12 @@ The following existing or newly created canonical museum pages use photos of the
 | Armstrong Browning Library & Museum | Existing canonical hero [Armstrong browning library baylor 2014.jpg](https://commons.wikimedia.org/wiki/File:Armstrong_browning_library_baylor_2014.jpg) retained | Larry D. Moore, CC BY 4.0 |
 
 Media use must preserve attribution and source links in the actual displayed credit; no implied current status for historic interior photos.
+
+
+## Buffalo Soldiers, Texas Prison and Eisenhower Birthplace (October 13, 2026)
+
+- **Buffalo Soldiers National Museum, Houston:** [Kenneth C. Zirkel, Buffalo Soldiers National Museum entrance.jpg](https://commons.wikimedia.org/wiki/File:Buffalo_Soldiers_National_Museum_entrance.jpg), exact-site photograph taken February 2024, **CC BY 4.0**. ALT text identifies it as a historical view, not proof of 2026 opening.
+- **Texas Prison Museum, Huntsville:** [WhisperToMe, TexasPrisonMuseum.JPG](https://commons.wikimedia.org/wiki/File:TexasPrisonMuseum.JPG), historic exterior photographed 2010, **public domain**. The building image is not a representation of current exhibit content.
+- **Eisenhower Birthplace State Historic Site, Denison:** [Michael Barera, Denison July 2016 16 (Eisenhower Birthplace State Historic Site).jpg](https://commons.wikimedia.org/wiki/File:Denison_July_2016_16_(Eisenhower_Birthplace_State_Historic_Site).jpg), the actual birthplace house, photographed July 2016, **CC BY-SA 4.0**.
+
+Credits and exact location photo URLs live in `src/data/museum-authority-heroes.ts`. Check final page rendering and license attribution after deployment.
