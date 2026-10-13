@@ -75,6 +75,21 @@ function historicBody(site: HistoricSiteSeed): [string, string, string] {
   ];
 }
 
+const fortMartinScottVerifiedBody: string[] = [
+  "Fort Martin Scott began as a U.S. Army post in 1848, two years after Fredericksburg's founding by German immigrants. The fort was part of a system intended to support traffic and settlement on a contested frontier. A meaningful history must also acknowledge the Indigenous peoples whose communities, territorial rights and diplomatic relationships were affected by expansion. Its location east of the historic town makes the connections between immigration, trade, soldiers and military policy unusually tangible.",
+  "Do not mistake every visible structure for an intact 1840s building. The original limestone guardhouse and jail is the surviving anchor; other buildings and interpretive elements include reconstructions. Look at the cell arrangement, masonry, period materials and layout while distinguishing surviving fabric from modern interpretation. Interpretive programs and staffed guided tours should be confirmed before arrival rather than assumed available during all grounds hours.",
+  "The Texas Historical Commission's visitor page checked October 12, 2026 lists site hours Tuesday–Saturday, 9 a.m.–5 p.m. and grounds daily, 8 a.m.–8 p.m. Beginning September 2025, entry is charged: adults $10, seniors $5, ages 5–17 $5, and children 5 and under free. Guided tours at 10 a.m. and 2 p.m., Tuesday–Saturday, are offered upon request. These prices and schedules are operational facts to recheck before departure; do not confuse open grounds with fully staffed exhibits.",
+  "The fort makes a strong comparison with the National Museum of the Pacific War in central Fredericksburg: a nineteenth-century frontier garrison beside a twentieth-century global-conflict museum. For a fuller regional route, continue east to Stonewall, Sauer-Beckmann Farm, LBJ Ranch, Hye and Johnson City. The dedicated Fredericksburg–Johnson City historic-road-trip guide explains which stops can realistically fit one or two days, including the separate federal ranch driving permit.",
+  "Fort grounds are outdoors and may include uneven walking surfaces. The checked operator information did not establish accessible routes for every reconstruction or interior, so visitors with mobility needs should contact THC at 830-304-1848 about parking, doorways and route options. Public restrooms, water and school-program details should be confirmed directly; these facilities are not assumed available merely because outdoor grounds are open."
+];
+const fortMartinScottVisitorFaqs: NonNullable<Destination["visitorFaqs"]> = [
+  { question: "Is Fort Martin Scott free?", answer: "No. As checked October 12, 2026, THC lists admission of $10 for adults, $5 for seniors and visitors ages 5–17, and free admission for children 5 and under.", sourceUrl: "https://thc.texas.gov/historic-sites/fort-martin-scott" },
+  { question: "What time is Fort Martin Scott open?", answer: "THC lists staffed site hours Tuesday–Saturday 9 a.m.–5 p.m. and grounds daily 8 a.m.–8 p.m. Confirm holiday changes and what is accessible outside staffed hours.", sourceUrl: "https://thc.texas.gov/historic-sites/fort-martin-scott" },
+  { question: "Are guided tours available?", answer: "The operator advertises guided tours at 10 a.m. and 2 p.m. Tuesday–Saturday upon request. Contact site staff rather than expecting a walk-in tour at every advertised time.", sourceUrl: "https://thc.texas.gov/historic-sites/fort-martin-scott" },
+  { question: "Are all of the buildings original?", answer: "No. The fort includes an original nineteenth-century guardhouse and reconstructed interpretive buildings; distinguish originals from reproductions during the visit.", sourceUrl: "https://thc.texas.gov/historic-sites/fort-martin-scott" },
+  { question: "Can I visit Fort Martin Scott and the Pacific War museum together?", answer: "Yes, both are in Fredericksburg, but budget meaningful time for the Pacific War museum. The two sites interpret very different centuries of military history.", sourceUrl: "https://thc.texas.gov/blog/historic-road-trip-fredericksburg-johnson-city" }
+];
+
 export const historicSiteDestinations: Destination[] = historicSiteSeeds.map((site, index) => ({
   id: `historic-site-${index + 1}`,
   brandId: BRAND,
@@ -93,9 +108,10 @@ export const historicSiteDestinations: Destination[] = historicSiteSeeds.map((si
     height: 1067,
   },
   bestSeason: "Year-round; spring and fall are usually the most comfortable for outdoor portions of a visit.",
-  entryNote: "Check the official visitor page before departure for current hours, tours, fees, closures and accessibility details.",
+  entryNote: site.slug === "fort-martin-scott" ? "THC currently lists staffed hours Tue–Sat 9 a.m.–5 p.m., grounds daily 8 a.m.–8 p.m., and adult admission $10 (reduced rates for seniors and ages 5–17). Guided tours at 10 a.m. and 2 p.m. Tue–Sat are upon request. Verify current operation with THC." : "Check the official visitor page before departure for current hours, tours, fees, closures and accessibility details.",
   highlights: [...site.themes],
-  body: historicBody(site),
+  body: site.slug === "fort-martin-scott" ? fortMartinScottVerifiedBody : historicBody(site),
+  ...(site.slug === "fort-martin-scott" ? { visitorFaqs: fortMartinScottVisitorFaqs, accessibilityNotes: "Outdoor grounds include historical and reconstructed structures; verify step-free access and restroom details with site staff at 830-304-1848.", address: "1606 E Main St, Fredericksburg, TX 78624" } : {}),
   managingAuthority: site.officialUrl.includes("thc.texas.gov") ? "Texas Historical Commission" : site.officialUrl.includes("cem.va.gov") ? "U.S. Department of Veterans Affairs — National Cemetery Administration" : undefined,
   officialUrl: site.officialUrl,
   sourceCheckedAt: SOURCE_CHECKED_AT,
