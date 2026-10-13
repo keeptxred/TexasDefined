@@ -44,7 +44,8 @@ function sourceCheck(){
    const source=fs.readFileSync(file,'utf8');
    const start=source.indexOf('slug: "'+slug+'"');
    const next=start<0?'':source.slice(start,start+1200);
-   if(start<0||!next.includes('region: "gulf-coast"'))failures.push('Houston source catalog region regression: '+slug);
+   const taggedRegion=next.match(/region:\s*"([^"]+)"/)?.[1];
+   if(start<0||taggedRegion!=='gulf-coast')failures.push('Houston source catalog region regression: '+slug);
  }
 
 
