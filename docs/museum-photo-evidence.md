@@ -35,3 +35,8 @@ Photo metadata independently checked using Wikimedia Commons API imageinfo.extme
 ## Elisabet Ney Museum, Austin — October 12, 2026
 
 - **Historic Formosa studio and Elisabet Ney Museum exterior**: [Wikimedia Commons file](https://commons.wikimedia.org/wiki/File:Austin_-_Elisabet_Ney_Museum_-_20201006000619.jpg), photographer **MarkJGilmore**, **CC BY-SA 4.0**, photographed 2020. Licensed exterior is historical and must not imply the venue is open during the 2024–2027 capital-improvement closure. Confirm the original file's credit and license when refreshing the asset.
+
+## Two existing North Texas museum image credits checked October 12, 2026
+
+- **Amon Carter Museum of American Art, Fort Worth:** [Commons file Amon Carter Museum of American Art, facade.jpg](https://commons.wikimedia.org/wiki/File:Amon_Carter_Museum_of_American_Art,_facade.jpg); **Steven Watson**, **CC BY-SA 4.0**. Specific museum façade, not an artwork photograph. Correct the pre-existing generic "licensed reusable media" credit in the DFW museum destination.
+- **Dallas Museum of Art:** [Commons file Dallas Museum of Art.jpg](https://commons.wikimedia.org/wiki/File:Dallas_Museum_of_Art.jpg); **Kent Wang**, **CC BY-SA 2.0**. Current destination already attributes this correctly. These licenses were independently checked via Wikimedia Commons API imageinfo.extmetadata, October 12, 2026.
