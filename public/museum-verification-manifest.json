@@ -678,6 +678,62 @@
           "label": "Museum expansion and 2026 galleries"
         }
       ]
+    },
+    {
+      "path": "/destination/fort-worth-museum-science-history",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+          "fetchUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+          "label": "Museum current visit, parking and tickets"
+        },
+        {
+          "sourceUrl": "https://www.fwmuseum.org/learn/field-trips/",
+          "fetchUrl": "https://www.fwmuseum.org/learn/field-trips/",
+          "label": "Museum school field trips"
+        },
+        {
+          "sourceUrl": "https://www.fwmuseum.org/",
+          "fetchUrl": "https://www.fwmuseum.org/",
+          "label": "Museum official homepage"
+        },
+        {
+          "sourceUrl": "https://www.fwmuseum.org/contact/",
+          "fetchUrl": "https://www.fwmuseum.org/contact/",
+          "label": "Museum contact and assistance"
+        }
+      ]
+    },
+    {
+      "path": "/destination/dallas-holocaust-human-rights-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 10,
+      "sources": [
+        {
+          "sourceUrl": "https://www.dhhrm.org/visit/faq/",
+          "fetchUrl": "https://www.dhhrm.org/visit/faq/",
+          "label": "Museum 2026 visitor FAQ"
+        },
+        {
+          "sourceUrl": "https://www.dhhrm.org/exhibitions/",
+          "fetchUrl": "https://www.dhhrm.org/exhibitions/",
+          "label": "Museum permanent exhibitions"
+        },
+        {
+          "sourceUrl": "https://www.dhhrm.org/visit/",
+          "fetchUrl": "https://www.dhhrm.org/visit/",
+          "label": "Museum official visiting information"
+        },
+        {
+          "sourceUrl": "https://www.dhhrm.org/exhibitions/pivot-to-america-wing/",
+          "fetchUrl": "https://www.dhhrm.org/exhibitions/pivot-to-america-wing/",
+          "label": "Museum Pivot to America Wing"
+        }
+      ]
     }
   ]
 }
