@@ -3,7 +3,7 @@ import type { Destination } from "./types";
 /** An official TPWD state-park property; do not confuse a separately listed RV business with the park. */
 export function isTexasStateParkDestination(destination: Destination): boolean {
   if (destination.category === "rv-parks") return false;
-  if (!/\bstate park\b|\bstate natural area\b|\bindian lodge\b/i.test(destination.name)) return false;
+  if (!/\bstate park\b|\bstate natural area\b/i.test(destination.name)) return false;
   return /^https:\/\/tpwd\.texas\.gov\/state-parks\/[a-z0-9-]+\/?(?:[?#].*)?$/i.test(destination.officialUrl ?? "");
 }
 
