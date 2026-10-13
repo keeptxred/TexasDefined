@@ -35,6 +35,7 @@ export const kendallCountyBoerneComfortGuadalupeHillCountryArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/boerne", label: "Boerne authority travel guide", description: "Connect downtown Boerne with Cibolo Creek and the nearby Hill Country." },
     { href: "/article/texas-german-belt", label: "Boerne and Comfort in German-Texan history", description: "Understand how the heritage towns connect to other Central Texas settlement communities." },
     { href: "/article/scenic-drives-in-texas", label: "Hill Country road-trip routes", description: "Choose signed roads and public landscape stops." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },

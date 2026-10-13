@@ -18,6 +18,7 @@ import { applyHistoricSiteFactCorrections } from "./historic-site-fact-correctio
 import { enrichHistoricSiteRemoteHero } from "./historic-site-remote-heroes";
 import { enrichNationalCemeteryDestination } from "./national-cemetery-enrichment";
 import { filterDestinationsByScope } from "./destination-query-scope";
+import { applyTownAuthority } from "./town-authority-network";
 import { platform, scope } from "./index";
 import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
 import type { Destination, Slug } from "./types";
@@ -177,7 +178,7 @@ function finishHistoricSiteEnrichment(destination: Destination) {
 }
 
 function applyResolvedHero(destination: Destination) {
-  return enrichMuseumAuthority(normalizeDestinationCounty(
+  return applyTownAuthority(enrichMuseumAuthority(normalizeDestinationCounty(
     enrichCavernAreaGuide(
       finishHistoricSiteEnrichment(
         improveDestinationQuality(
@@ -193,7 +194,7 @@ function applyResolvedHero(destination: Destination) {
         ),
       ),
     ),
-  ));
+  )));
 }
 
 function resolveSeoReadyDestination(destination?: Destination | null) {
@@ -213,7 +214,8 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(applyHistoricSiteFactCorrections)
     .map(enrichNationalCemeteryDestination)
     .map(enrichCavernAreaGuide)
-    .map(normalizeDestinationCounty);
+    .map(normalizeDestinationCounty)
+    .map(applyTownAuthority);
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved));
 }
 

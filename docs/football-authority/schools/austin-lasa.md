@@ -24,3 +24,7 @@ LASA's [official athletics site](https://www.lasaraptors.com/) and [calendar](ht
 ## School-specific editorial accuracy correction — October 10, 2026
 Removed an outdated claim that LASA's coach was unverified: LASA's official 2026 football page names Gary Howard. Historic honors and photographer reuse rights remain unresolved. https://lasa.austinschools.org/athletics/uil-sports/football
 Correction committed after the previous Batch 004 production browser certification; protected CI, deployment, and a fresh rendered production audit must confirm this revised wording. Previous browser acceptance remains evidence of the earlier production build, not a substitute for testing new copy.
+
+## October 12, 2026 — LASA campus location correction
+
+Austin ISD's current directory lists LASA's instructional campus at 1012 Arthur Stiles Road, Austin, TX 78721 (https://www.austinisd.org/schools?page=4). A prior editorial campus field mistakenly contained 7309 Lazy Creek Drive, an athletics-office contact address rather than the school's present campus. Corrected in PR #4700. Neither location independently verifies a football game-day stadium entrance.
