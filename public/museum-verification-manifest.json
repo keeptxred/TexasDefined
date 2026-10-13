@@ -1454,6 +1454,29 @@
           "label": "Adjacent Katy Heritage Park and separately operated railroad museum"
         }
       ]
+    },
+    {
+      "path": "/destination/1919-san-augustine-county-jail-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+          "fetchUrl": "https://visitsanaugustinetx.org/local-attractions/",
+          "label": "San Augustine local tourism: actual hours, free admission, exhibits"
+        },
+        {
+          "sourceUrl": "https://texastimetravel.com/directory/1919-san-augustine-county-jail-museum/",
+          "fetchUrl": "https://texastimetravel.com/directory/1919-san-augustine-county-jail-museum/",
+          "label": "THC Texas Time Travel: museum identity, address and exhibits"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/5507018848",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/5507018848",
+          "label": "THC Atlas: building history, 1882 jail cells and designation"
+        }
+      ]
     }
   ]
 }
