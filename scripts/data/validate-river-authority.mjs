@@ -97,6 +97,17 @@ if(!relations.includes('riverAuthorityLinksForArticleMetadata'))
  errors.push('Topical existing and future fishing, camping and travel articles must have generated contextual river links');
 if(!articleRoute.includes('riverAuthorityLinksForArticleMetadata(article)'))
  errors.push('Article route must render automatically relevant river backlinks');
+const fishingHub = read('src/components/fishing/FishingHub.tsx');
+if(!fishingHub.includes('RIVER_AUTHORITY_RELATIONS.map'))
+ errors.push('The statewide fishing hub must link automatically to every published river guide');
+const campingGuide = read('src/routes/best-places-to-go-camping-in-texas.lazy.tsx');
+if(!campingGuide.includes('riverAuthorityLinksForArticleMetadata'))
+ errors.push('Relevant camping destinations must generate topical river backlinks');
+const photoCatalog = read('src/data/river-authority-photo-catalog.ts');
+if(!photoCatalog.includes('licenseUrl') || !photoCatalog.includes('photographer') || !photoCatalog.includes('sourceUrl'))
+ errors.push('River gallery photos must include reusable linked attribution and license metadata');
+if(!hub.includes('RIVER_AUTHORITY_CARD_PHOTOS') || !landscape.includes('RIVER_AUTHORITY_CARD_PHOTOS'))
+ errors.push('Both statewide river navigation surfaces must share the rights-cleared photo catalog');
 const countyServer = read('src/data/county-series.server.ts');
 if(!countyServer.includes('riverAuthorityLinksForCounty(countySlug)')) errors.push('County river backlinks must be automatically maintained');
 const existingMatch = addon.match(/export const existingRiverAuthorityEnhancements = ([\s\S]*?) as const;/);
