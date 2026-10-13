@@ -43,7 +43,7 @@ async function worker(){
    if(row.kind==="river"){
     if(!/rel=["']canonical["']/.test(html))missing.push("canonical SEO link");
     if(/<meta[^>]+robots[^>]+noindex/i.test(html))missing.push("indexability");
-    if(!html.includes("Frequently asked questions")&&!html.includes("Visitor questions"))missing.push("river FAQ");
+    if(!["Frequently asked questions","Visitor questions","River-specific visitor FAQs"].some(heading=>html.includes(heading)))missing.push("river FAQ");
    }
    if(missing.length)failed.push({...row,status:200,issue:"missing published content or backlinks",missing});
    else passed.push({path:row.path,kind:row.kind,status:200});
