@@ -70,9 +70,9 @@ function DallasBlackHistoryPage() {
     <main className="pb-20">
       <section className="border-b border-border bg-ink py-14 text-ink-foreground sm:py-20">
         <Container>
-          <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-[0.12em] text-ink-foreground/70"><a href="/" className="underline">Home</a> / <a href="/texas-history" className="underline">Texas History</a> / Dallas Black History</nav>
+          <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-wider text-ink-foreground/70"><a href="/" className="underline">Home</a> / <a href="/texas-history" className="underline">Texas History</a> / Dallas Black History</nav>
           <p className="eyebrow mt-10 text-ink-foreground/70">Texas Defined · Dallas history authority</p>
-          <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[1.02] sm:text-7xl">Dallas Black History: Places That Built a City</h1>
+          <h1 className="mt-3 max-w-5xl font-display text-5xl leading-tight sm:text-7xl">Dallas Black History: Places That Built a City</h1>
           <p className="mt-7 max-w-3xl text-lg leading-8 text-ink-foreground/85">
             Eight places tell interlocking but distinct stories of emancipation, schools, Black-owned commerce, faith,
             art, civil-rights organizing and the fight to preserve neighborhoods displaced by urban development.
