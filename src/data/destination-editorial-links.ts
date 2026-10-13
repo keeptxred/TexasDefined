@@ -1,5 +1,6 @@
 import { riverAuthorityLinksForDestination } from "@/data/river-authority-relations";
 import { fullHistoricSiteCrosslinks } from "./historic-site-crosslinks-all";
+import { sanAntonioHeritageLinks } from "./san-antonio-heritage-links";
 
 export type DestinationEditorialLink = {
   href: string;
@@ -1139,6 +1140,7 @@ export function destinationEditorialLinks(slug: string): DestinationEditorialLin
     ...(DESTINATION_EDITORIAL_LINKS[slug] ?? []),
     ...(HISTORIC_SITE_CROSS_LINKS[slug] ?? []),
     ...fullHistoricSiteCrosslinks(slug),
+    ...sanAntonioHeritageLinks(slug),
     ...riverAuthorityLinksForDestination(slug),
   ];
   return combined.filter((link, index) => combined.findIndex((item) => item.href === link.href) === index);

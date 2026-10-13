@@ -1,0 +1,52 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+
+const read = (path) => readFileSync(path, "utf8");
+const destination = read("src/data/san-antonio-heritage-destinations.ts");
+const existing = read("src/data/san-antonio-heritage-enrichment.ts");
+const registry = read("src/data/destination-preserved-catalog.ts");
+const article = read("src/data/fixtures/historic-san-antonio-heritage-road-trip.ts");
+const stubs = read("src/data/fixtures/lazy-standalone-evergreen.ts");
+const graph = read("src/data/san-antonio-heritage-links.ts");
+const links = read("src/data/destination-editorial-links.ts");
+const bexar = read("src/data/fixtures/bexar-county-san-antonio-missions-river.ts");
+const kingWilliam = read("src/data/viator-destination-expansion-base.ts");
+
+const newSlugs = [
+  "mission-concepcion-san-antonio", "mission-san-jose-san-antonio",
+  "mission-san-juan-capistrano-san-antonio", "mission-espada-san-antonio",
+  "san-fernando-cathedral", "bexar-county-courthouse-historic",
+  "guenther-house-san-antonio", "steves-homestead-san-antonio",
+  "la-villita-historic-district", "menger-hotel-san-antonio",
+];
+const upgradedSlugs = [
+  "casa-navarro", "spanish-governors-palace-san-antonio",
+  "king-william-historic-district", "villa-finale-museum-gardens-san-antonio",
+  "the-alamo", "san-antonio-missions-national-historical-park"
+];
+
+for (const slug of newSlugs) {
+  assert(destination.includes(`"slug": "${slug}"`), `Missing specific destination ${slug}`);
+  assert(graph.includes(`"${slug}": [`), `Missing destination graph for ${slug}`);
+  assert(article.includes(`"/destination/${slug}"`), `Missing article outgoing link ${slug}`);
+}
+for (const slug of upgradedSlugs) {
+  assert(existing.includes(`"${slug}": {`), `Missing existing-page upgrade ${slug}`);
+  assert(graph.includes(`"${slug}": [`), `Missing reciprocal graph for existing ${slug}`);
+}
+assert(registry.includes("sanAntonioHeritageDestinations,"), "New destinations not merged into canonical collection");
+assert(registry.includes(".map(enrichSanAntonioHeritageAuthority)"), "Existing pages not upgraded");
+assert(stubs.includes("historicSanAntonioHeritageRoadTripStub,"), "Road-trip guide not indexed in stub registry");
+assert(stubs.includes('import("./historic-san-antonio-heritage-road-trip")'), "Guide full content not lazily loaded");
+assert(links.includes("...sanAntonioHeritageLinks(slug)"), "Destination visitor planner missing reciprocal links");
+assert(bexar.includes("/article/historic-san-antonio-heritage-road-trip"), "Bexar County article missing guide");
+assert(bexar.includes("/destination/mission-san-jose-san-antonio"), "Bexar county missing mission links");
+assert(!kingWilliam.includes("Villa Finale and the Steves Homestead have their own admission rules and schedules"), "False Steves public tour implication remains");
+assert(destination.includes("sold the property in 2022"), "Steves access correction absent");
+assert(article.includes("SOLD") && article.includes("1897") && article.includes("1896"), "Known corrections missing in main guide");
+assert(!/license to confirm|verify attribution\/license|check current Commons license/.test(destination), "Unverified media license note in destination images");
+const objectCount = (destination.match(/"slug": "/g) ?? []).length;
+assert.equal(objectCount, newSlugs.length, "Unexpected destination count or duplicates");
+const sourceCount = (destination.match(/"sourceUrl": /g) ?? []).length;
+assert(sourceCount >= 40, "Every site needs multiple site-specific FAQ source URLs");
+console.log(`San Antonio heritage cluster verified: ${newSlugs.length} new, ${upgradedSlugs.length} upgraded, 1 guide, district and county reciprocal links.`);
