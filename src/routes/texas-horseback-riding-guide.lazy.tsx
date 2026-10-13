@@ -1,12 +1,17 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
-import { stateParkHeroMap } from "@/data/state-park-hero-map";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 
 import { Container } from "@/components/layout/Container";
 import { SpecialistGuideDestinationLinks } from "@/components/editorial/SpecialistGuideDestinationLinks";
 import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
 
-const governedGuideHero = stateParkHeroMap["big-bend-ranch-state-park"];
+const governedGuideHero = {
+  src: editorialImageSrc("https://commons.wikimedia.org/wiki/Special:Redirect/file/Trail%20Hill%20Country%20SNA%20Texas%202023.jpg?width=1600"),
+  width: 1600,
+  height: 900,
+  credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+};
 
 const officialSources = [
   { label: "Texas Parks & Wildlife — Horseback Riding in State Parks", href: "https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian", note: "Statewide equestrian access, facilities and documentation guidance, including the current negative-Coggins requirement." },
@@ -98,8 +103,8 @@ function TexasHorsebackRidingGuidePage() {
           </header>
 
           <figure className="border-b border-border py-8">
-            <img src={governedGuideHero.src} alt="Chihuahuan Desert mountains and open landscape within Big Bend Ranch State Park, a Texas equestrian destination" width={governedGuideHero.width} height={governedGuideHero.height} className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
-            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">Big Bend Ranch State Park permits equestrian trips in managed portions of its backcountry. This is a park landscape image, not a photograph of an equestrian trail or current horse-riding conditions. Photo: {governedGuideHero.credit}.{" "}<Link to="/destination/big-bend-ranch-state-park" className="text-primary underline">Big Bend Ranch State Park visitor guide →</Link></figcaption>
+            <img src={governedGuideHero.src} alt="Multiuse trail climbing toward West Peak Overlook at Hill Country State Natural Area in Bandera County, Texas" width={governedGuideHero.width} height={governedGuideHero.height} className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
+            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">A designated multiuse hiking, biking and horseback-riding trail at Hill Country State Natural Area, photographed in October 2023. This is not an image of a horseback ride in progress or current trail conditions. Photo: {governedGuideHero.credit}. <a href="https://commons.wikimedia.org/wiki/File:Trail_Hill_Country_SNA_Texas_2023.jpg" target="_blank" rel="noopener noreferrer" className="text-primary underline">Original photograph</a>{" · "}<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="text-primary underline">Reuse license</a>{" · "}<Link to="/destination/hill-country-state-natural-area" className="text-primary underline">Hill Country State Natural Area guide →</Link></figcaption>
           </figure>
 
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
