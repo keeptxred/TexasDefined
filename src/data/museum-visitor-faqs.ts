@@ -2656,6 +2656,24 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/permanent",
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I bring food or drinks into the Museum of the Gulf Coast?",
+      "answer": "No. The museum's published visitor policy prohibits food and drinks in the museum. Arrange snacks and lunch elsewhere in Port Arthur, and contact its education coordinator ahead of a school group outing to confirm any approved meal arrangements.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/copy-of-about-the-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/copy-of-about-the-museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are pets allowed, and can I take flash photographs at the Museum of the Gulf Coast?",
+      "answer": "The museum lists no pets except service animals and prohibits flash photography. It also prohibits unattended minors and firearms. Contact museum staff if you need permission for a specific photography project or group accommodation.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/copy-of-about-the-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/copy-of-about-the-museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
     }
   ],
   "fire-museum-of-texas-beaumont": [
