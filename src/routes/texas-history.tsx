@@ -22,6 +22,7 @@ export const Route = createFileRoute("/texas-history")({
     breadcrumbParentName: "Texas Life",
     breadcrumbParentPath: "/texas-living",
     items: [
+      { type: "WebPage" as const, name: "Recently listed Texas historic landmarks", url: "/texas-historic-landmarks", description: "The 2025–2026 THC National Register listing index, including designation and nomination-status distinctions." },
       { type: "WebPage" as const, name: "Texas Historic Sites & Museums", url: "/explore/historic-sites", description: "A statewide guide to battlefields, missions, museums, homes, forts and monuments." },
       { type: "WebPage" as const, name: "Texas Old West", url: "/texas-old-west", description: "A visitor-focused guide connecting ranching, cattle trails, frontier forts, Native history, Buffalo Soldiers, rodeo and western culture." },
       { type: "WebPage" as const, name: "Sacred Places in Texas", url: "/texas-sacred-places", description: "A respectful visitor guide to Painted Churches, missions, religious heritage and memorial landscapes." },
