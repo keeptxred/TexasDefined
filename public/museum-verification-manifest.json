@@ -1431,6 +1431,164 @@
           "label": "FAQ source: Can families hike the desert trails after visiting the archaeology galleries?"
         }
       ]
+    },
+    {
+      "path": "/destination/armstrong-browning-library-museum-waco",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
+          "label": "Baylor official visitor guidance"
+        },
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/directions-parking",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/directions-parking",
+          "label": "Baylor parking and accessible entrance"
+        },
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
+          "label": "Baylor tour policy"
+        },
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/building-map-online-tour",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/building-map-online-tour",
+          "label": "Baylor gallery map and rooms"
+        },
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/research-instruction/use-collections",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/research-instruction/use-collections",
+          "label": "FAQ source: May visitors handle rare letters and manuscripts in the museum?"
+        },
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/use-our-facility/portrait-policies",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/use-our-facility/portrait-policies",
+          "label": "FAQ source: Can I use the library as a venue for wedding portraits?"
+        }
+      ]
+    },
+    {
+      "path": "/destination/bell-county-museum-belton",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+          "fetchUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+          "label": "Museum official FAQ"
+        },
+        {
+          "sourceUrl": "https://www.bellcountymuseum.org/directions.aspx",
+          "fetchUrl": "https://www.bellcountymuseum.org/directions.aspx",
+          "label": "Museum posted hours"
+        },
+        {
+          "sourceUrl": "https://www.bellcountymuseum.org/p/visit",
+          "fetchUrl": "https://www.bellcountymuseum.org/p/visit",
+          "label": "Museum official visiting and free admission"
+        },
+        {
+          "sourceUrl": "https://www.bellcountymuseum.org/location/add-location-name-here",
+          "fetchUrl": "https://www.bellcountymuseum.org/location/add-location-name-here",
+          "label": "Museum public-program calendar"
+        }
+      ]
+    },
+    {
+      "path": "/destination/brenham-heritage-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.bhmtexas.org/visit",
+          "fetchUrl": "https://www.bhmtexas.org/visit",
+          "label": "Brenham Heritage Museum visitor rules"
+        },
+        {
+          "sourceUrl": "https://www.bhmtexas.org/visit/exhibits",
+          "fetchUrl": "https://www.bhmtexas.org/visit/exhibits",
+          "label": "Museum current exhibits"
+        },
+        {
+          "sourceUrl": "https://www.bhmtexas.org/",
+          "fetchUrl": "https://www.bhmtexas.org/",
+          "label": "Museum homepage"
+        }
+      ]
+    },
+    {
+      "path": "/destination/audie-murphy-american-cotton-museum-greenville",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://cottonmuseum.com/visit/",
+          "fetchUrl": "https://cottonmuseum.com/visit/",
+          "label": "Official visiting information"
+        },
+        {
+          "sourceUrl": "https://cottonmuseum.com/",
+          "fetchUrl": "https://cottonmuseum.com/",
+          "label": "Museum homepage and gallery highlights"
+        },
+        {
+          "sourceUrl": "https://cottonmuseum.com/about/",
+          "fetchUrl": "https://cottonmuseum.com/about/",
+          "label": "Museum history and grounds"
+        }
+      ]
+    },
+    {
+      "path": "/destination/brazos-valley-museum-natural-history-bryan",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.brazosvalleymuseum.org/visit",
+          "fetchUrl": "https://www.brazosvalleymuseum.org/visit",
+          "label": "Museum official visitor information"
+        },
+        {
+          "sourceUrl": "https://www.brazosvalleymuseum.org/about-the-museum",
+          "fetchUrl": "https://www.brazosvalleymuseum.org/about-the-museum",
+          "label": "Museum institutional mission and programming"
+        },
+        {
+          "sourceUrl": "https://www.brazosvalleymuseum.org/accessibility",
+          "fetchUrl": "https://www.brazosvalleymuseum.org/accessibility",
+          "label": "Museum website accessibility statement"
+        }
+      ]
+    },
+    {
+      "path": "/destination/czech-heritage-museum-genealogy-center-temple",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://czechheritagemuseum.org/contact-us",
+          "fetchUrl": "https://czechheritagemuseum.org/contact-us",
+          "label": "Museum official visiting hours and admission"
+        },
+        {
+          "sourceUrl": "https://czechheritagemuseum.org/plan-your-visit",
+          "fetchUrl": "https://czechheritagemuseum.org/plan-your-visit",
+          "label": "Museum tour choices and directions"
+        },
+        {
+          "sourceUrl": "https://czechheritagemuseum.org/",
+          "fetchUrl": "https://czechheritagemuseum.org/",
+          "label": "Museum official home"
+        }
+      ]
     }
   ]
 }
