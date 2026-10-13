@@ -171,15 +171,16 @@ if (base) {
   }
 }
 // A researched closed museum is historical reference content, not a bookable stop.
-const historicReferenceSlug = "1940-air-terminal-museum-houston";
+const historicalMuseumReferences = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin"];
 const museumAvailability = read("src/data/destination-availability.ts");
 const museumSeoRoute = read("src/routes/destination.$slug.tsx");
 const museumSitemapRoute = read("src/routes/sitemap-explore[.]xml.ts");
-if (!museumAvailability.includes('"' + historicReferenceSlug + '"'))
-  failures.push("Closed 1940 Air Terminal Museum must remain excluded from trip planning.");
-if (!museumSeoRoute.includes('destination.slug === "' + historicReferenceSlug + '"') ||
-    !museumSitemapRoute.includes('destination.slug === "' + historicReferenceSlug + '"'))
-  failures.push("The closed air terminal historical authority page must stay indexable and sitemap-listed while trip planner access remains disabled.");
+for(const historicalSlug of historicalMuseumReferences) {
+  if(!museumAvailability.includes('"' + historicalSlug + '"'))
+    failures.push("Closed historical museum is missing from trip planner exclusion: " + historicalSlug);
+  if(!museumSeoRoute.includes('"' + historicalSlug + '"') || !museumSitemapRoute.includes('"' + historicalSlug + '"'))
+    failures.push("Closed researched historical museum is missing from search-indexing exception: " + historicalSlug);
+}
 
 if (failures.length) {
   console.error("Museum authority gate FAILED:\n" + failures.map((x) => " - " + x).join("\n"));
