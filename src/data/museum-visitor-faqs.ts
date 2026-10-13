@@ -1228,6 +1228,163 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "quarterly",
       "reviewed": "2026-10-12"
     }
+  ],
+  "amarillo-museum-of-art": [
+    {
+      "question": "Is admission to the Amarillo Museum of Art free?",
+      "answer": "Yes. AMoA's official visitor page says that admission is always free. Educational programs or certain ticketed events may still require bookings; check the specific event rather than assuming every course and event is free.",
+      "verificationUrl": "https://www.amoa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.amoa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What days and times is Amarillo Museum of Art open?",
+      "answer": "Regular public hours are Wednesday through Saturday, 11 a.m. to 5 p.m., and Sunday, 1 p.m. to 5 p.m. The museum is closed Mondays, Tuesdays and specified holidays. Administrative-office hours are not gallery hours.",
+      "verificationUrl": "https://www.amoa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.amoa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should I park when visiting the Amarillo Museum of Art?",
+      "answer": "AMoA recommends Amarillo College lots 5 (north) and 6 (east), with designated accessible parking in lot 8 (south). Two museum-reserved spaces are east of the building across Van Buren. Campus parking does not require a permit for visitors.",
+      "verificationUrl": "https://www.amoa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.amoa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which entrance should I use at the Amarillo Museum of Art?",
+      "answer": "The main visitor entrance is at the Fine Arts Plaza on the building's west side, not the Van Buren administrative door. The official visit page gives driving directions from I-40 and I-27; school groups may use lot 5 for unloading.",
+      "verificationUrl": "https://www.amoa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.amoa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Amarillo Museum of Art wheelchair accessible?",
+      "answer": "AMoA reports accessible parking in lot 8, ramps at the plaza and lot 5, an elevator connecting its three gallery floors, and loaner wheelchairs on a first-come basis. An additional single-person elevator serves the Van Buren entrance.",
+      "verificationUrl": "https://www.amoa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.amoa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I take pictures or sketch inside the Amarillo Museum of Art?",
+      "answer": "Personal noncommercial photography is sometimes allowed, depending on the exhibition. Ask about the current rule before shooting, use no flash or tripods where prohibited, and keep a distance from works. Sketchpads with pencil are permitted under posted guidelines; wet media and pens are not.",
+      "verificationUrl": "https://www.amoa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.amoa.org/visit",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Amarillo Museum of Art have a cafeteria or full restaurant?",
+      "answer": "The museum's visitor guide does not advertise an on-site cafeteria or full-service restaurant, and food or drinks are prohibited in the galleries. Make meal plans elsewhere on or near the Amarillo College campus, rather than assuming food service inside.",
+      "verificationUrl": "https://www.amoa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.amoa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are the 2026 Route 66 photography exhibits still on display?",
+      "answer": "No, the operator lists Edward Keating's Route 66 photography exhibit as a past exhibition that ended August 16, 2026. Current highlighted shows include Jack Craft: Land Mass through January 3, 2027 and Hills Snyder: Strays through December 13, 2026; check before travelling.",
+      "verificationUrl": "https://www.amoa.org/past-exhibitions",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.amoa.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "holocaust-museum-houston": [
+    {
+      "question": "How much does a ticket to Holocaust Museum Houston cost?",
+      "answer": "The operator currently lists $22 for general adult admission, with separate senior and military rates. Visitors aged 18 and younger and college students with a valid student ID can enter free. Pricing can change, so the museum's Visit page controls.",
+      "verificationUrl": "https://hmh.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "When can I visit Holocaust Museum Houston for free?",
+      "answer": "The museum advertises free admission on Thursdays from 2 to 5 p.m., as well as free regular admission for visitors aged 18 or younger and college students with valid ID. Its special free-date listings change annually, so verify your date directly.",
+      "verificationUrl": "https://hmh.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the visiting hours and last entry time at Holocaust Museum Houston?",
+      "answer": "The regular schedule is Tuesday through Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m., with Monday closures except posted exceptions. Last entry is 4:30 p.m. A shorter late-day visit may not provide enough time for all galleries.",
+      "verificationUrl": "https://hmh.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Holocaust Museum Houston have a real café or restaurant?",
+      "answer": "Yes, the second-floor Bagel Shop @ The Museum is a café serving bagels, wraps, salads, pastries and coffee, not a formal full-service restaurant. The operator lists Tuesday through Saturday, 10 a.m. to 4 p.m., separately from museum operating hours.",
+      "verificationUrl": "https://hmh.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Holocaust Museum Houston wheelchair accessible and are there reduced admission rules?",
+      "answer": "All publicly accessible areas are described as wheelchair-accessible, with elevators and loaner manual wheelchairs. The museum admits visitors who identify as having a disability and a primary caregiver free of charge. Contact admissions@hmh.org for accommodations.",
+      "verificationUrl": "https://hmh.org/visit/accessibility/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit/accessibility/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "May I photograph exhibits at Holocaust Museum Houston?",
+      "answer": "Photography is generally prohibited in first-floor galleries unless indicated otherwise; non-flash photography is ordinarily allowed on the second floor. The institution can restrict photography at any time, so follow current signs and staff direction.",
+      "verificationUrl": "https://hmh.org/visit/tour-and-photo-guidelines/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit/tour-and-photo-guidelines/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I bring a backpack or food to Holocaust Museum Houston?",
+      "answer": "Security inspects bags and visitors pass through screening. Large bags and backpacks are restricted; necessary medical equipment receives accommodation from Visitor Services. Outside meals and sack lunches may not be brought into the museum, and gallery food/drink is prohibited.",
+      "verificationUrl": "https://hmh.org/visit/accessibility/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit/tour-and-photo-guidelines/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are guided tours available for schoolchildren and other groups?",
+      "answer": "The museum offers guided and self-guided group options. Docent tours last approximately one hour and require one adult chaperone for every fifteen visitors younger than 18. Book school and group experiences before travel and account for intense content.",
+      "verificationUrl": "https://hmh.org/visit/tour-and-photo-guidelines/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the 2026 Selling the Myth exhibit appropriate for younger children?",
+      "answer": "The museum began featuring Selling the Myth: Nazi Propaganda on October 3, 2026. The exhibition deals with antisemitism and the manipulative use of propaganda. There is no universal age cutoff in the cited listing; adults should consider their child's readiness and contact educators for recommendations.",
+      "verificationUrl": "https://hmh.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
