@@ -933,6 +933,75 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "museum-of-fine-arts-houston": {
+    name: "Museum of Fine Arts, Houston",
+    slug: "museum-of-fine-arts-houston",
+    county: "Harris",
+    city: "Houston",
+    reviewed: "2026-10-13",
+    topics: ["art", "family", "architecture", "accessibility", "houston-history"],
+    whyVisit: "One of Houston's principal cultural destinations, MFAH offers a broad world-art visit across three distinct gallery buildings, outdoor public spaces and changing exhibitions. A first visit works best by choosing a few periods or subjects rather than trying to view the entire collection. Its Sarofim Campus is separate from the Bayou Bend and Rienzi house museums, which have their own access arrangements.",
+    visitorStrategy: "The main Sarofim Campus normally opens Wednesday 11 a.m.–5 p.m., Thursday and Friday 11 a.m.–9 p.m., Saturday 11 a.m.–6 p.m. and Sunday 12:30–6 p.m.; closed Mondays and Tuesdays. As of this review, All Access adult admission is $24, youth 13–18 $20, and children 12 or younger free. Thursday permanent-collection admission is free, but a separate ticket may be needed for special exhibitions. Beck Garage (1144 Binz Street), Glassell Garage (5101 Montrose Boulevard) and Kinder Garage (5500 Main Street) serve different entrances: choose parking to fit the building you want to see. Allow 90 minutes for a focused visit or several hours for multiple buildings; these are editorial estimates.",
+    accessibility: "MFAH publishes accessible entrances and services across campus, including sensory-processing kits available at the Beck and Kinder coat checks, accessible audio-guide formats and advance visitor assistance. Its accessibility page identifies Wednesday and Friday from about 1–4 p.m. as quieter times; Thursday can be busy because permanent collection admission is free. Visitors with mobility, hearing, visual or sensory needs should consult the current building-specific visitor resources before arriving.",
+    familiesAndGroups: "Children under thirteen receive free entry, with all participants subject to the current ticket policy. Strollers and soft front-facing carriers are permitted; large bags, wagons and wheeled luggage are not. Galleries prohibit food and drinks. The campus has two Cafe Leonelli locations for casual Italian-inspired café meals or snacks, while Le Jardinier is a separate full-service, Michelin-starred restaurant; do not call all three food options a museum cafeteria. Group tours of ten or more require advance arrangements and may qualify for discounts.",
+    researchValue: "Explain how the Audrey Jones Beck, Caroline Wiess Law, and Nancy and Rich Kinder buildings divide the main museum's visitor experience, and why Bayou Bend and Rienzi require separate travel. The globally varied collection spans five millennia, but works move for conservation and exhibition changes. MFAH can be compared to Holocaust Museum Houston for a very different historical mission and to other Museum District institutions by audience and visit type.",
+    exhibits: [
+      { heading: "Audrey Jones Beck and Caroline Wiess Law buildings", detail: "These buildings frame portions of the historical and international collections. Use the current gallery map rather than assuming any particular masterwork is always hung." },
+      { heading: "Nancy and Rich Kinder Building", detail: "Designed for modern and contemporary art, Kinder adds a distinct architectural experience with its luminous glass exterior and spaces devoted to art of recent decades." },
+      { heading: "Cullen Sculpture Garden and campus spaces", detail: "Outdoor sculpture and the setting around the buildings offer breaks between galleries, subject to weather and the Museum's current access rules." },
+      { heading: "Changing international art exhibitions", detail: "Time-limited exhibitions may require All Access tickets even when the permanent galleries are free; check the exhibition list and ticket type." },
+      { heading: "Bayou Bend and Rienzi (separate house museums)", detail: "Both interpret historical decorative arts and collections but occupy different sites near Memorial Park. They are not galleries you can reach by walking from the main Sarofim Campus." },
+    ],
+    routes: [
+      { label: "90-minute first-time museum tour", steps: ["Select one of the three main Sarofim Campus gallery buildings based on your interests", "Choose a few galleries from the current map instead of trying the full collection", "Finish with outdoor campus architecture or sculpture if weather and access permit"] },
+      { label: "Museum District afternoon", steps: ["Check separate ticket eligibility for main collection and temporary exhibits", "Allow a meal at a café or reserve Le Jardinier if seeking full table service", "Link a second nearby museum only if time and visitor interests support it"] },
+    ],
+    sources: [
+      { label: "MFAH official plan your visit", url: "https://www.mfah.org/visit", use: "Hours, pricing, garage locations, food-service distinctions, group policy" },
+      { label: "MFAH admission and free Thursdays", url: "https://www.mfah.org/visit/admission-information", use: "Free permanent collection on Thursday, special exhibition rules" },
+      { label: "MFAH visitor guidelines", url: "https://www.mfah.org/visit/visiting-guidelines", use: "Bags, strollers, gallery photography and food" },
+      { label: "MFAH accessibility", url: "https://www.mfah.org/visit/accessibility-resources/", use: "Sensory resources and quieter visit times" },
+    ],
+    connections: [
+      { label: "Harris County", href: "/county/harris", reason: "Explore Houston and Museum District attractions in context." },
+      { label: "Holocaust Museum Houston", href: "/destination/holocaust-museum-houston", reason: "Compare an art museum with a testimony-centered history institution." },
+    ],
+  },
+  "art-museum-south-texas-corpus-christi": {
+    name: "Art Museum of South Texas",
+    slug: "art-museum-south-texas-corpus-christi",
+    county: "Nueces",
+    city: "Corpus Christi",
+    reviewed: "2026-10-13",
+    topics: ["art", "family", "architecture", "coastal-texas", "accessibility"],
+    whyVisit: "The Art Museum of South Texas pairs changing visual-art exhibitions with a memorable bayfront setting and buildings linked to architects Philip Johnson and Ricardo Legorreta. It is particularly useful for visitors interested in Texas and Americas art who want to combine an art visit with other Corpus Christi cultural sites. The Johnson Building also has dedicated family-activity facilities, which are not the same as a conventional children's museum.",
+    visitorStrategy: "The museum operates at 1902 North Shoreline Boulevard in the S.E.A. District. The museum was temporarily closed July 1, 2026 by an HVAC failure affecting the Legorreta building and Elizabeth's café, and explicitly announced reopening July 3, 2026. Do not perpetuate the closure alert as if it were still current. For exact admission, recurring free-entry dates, hours and special events, consult the museum's current Admission & Hours page; a free-admission summer promotion ended July 31, 2026 and is not an ongoing policy. Allow roughly 60–120 minutes for exhibits and possibly more for family activities, depending on availability.",
+    accessibility: "The operator says ADA-compliant parking exists in each museum parking lot and complies with ADA service-animal requirements. Visitors with specific physical-access arrangements should call 361-825-3500; the operator also highlights the ReBokeh iOS visual-accessibility tool for image adjustments. Individual exhibitions, older buildings and event access may have additional considerations, so avoid assuming every temporary exhibit is equally accessible without confirmation.",
+    familiesAndGroups: "The ArtCade Creation Station on the first floor of the Johnson Building offers youth-oriented art activities, drawing/animation computer stations, magnetic art and a children's reading area. It closes to public drop-in use during summer camps, and its opening schedule should be checked rather than promised year-round. The Blanche Moore Digital Studio has supervised, reserved hours and can serve ages ten and older accompanied by an adult. Elizabeth's is an actual café/restaurant inside the museum; call 361-882-8785 about dining hours and reservations rather than assuming gallery hours and restaurant hours match.",
+    researchValue: "The two-building complex offers a way to connect art with Corpus Christi's coastal architectural landscape. Interpret current work and collections from Texas and the Americas without reproducing the operator's artwork database. Since exhibition schedules and available galleries can change quickly, check the current exhibitions directory. The 2026 HVAC incident is important only as a caution against treating undated closure statements as timeless.",
+    exhibits: [
+      { heading: "Texas and Americas collection selections", detail: "The museum's collections and rotating exhibits provide an entry point into visual art shaped by Texas, Latin America and the wider Americas; confirm which works are on view." },
+      { heading: "Philip Johnson and Ricardo Legorreta architecture", detail: "The relationship between the bayfront, the Johnson Building and the Legorreta addition can be explored even on a short visit; museum and café access may vary independently." },
+      { heading: "Changing exhibitions in the two-building museum", detail: "Exhibition schedules make repeat visits worthwhile, but no particular past exhibit should be represented as continuing after its closing date." },
+      { heading: "ArtCade Creation Station", detail: "The Johnson Building's interactive family area includes drawing, animation and hands-on projects; it can close during children's camps." },
+      { heading: "Blanche Moore Digital Studio", detail: "Reserved, supervised computer and creative-software sessions offer art-technology activities; check age minimum, session fees and calendar before traveling." },
+    ],
+    routes: [
+      { label: "Family gallery and ArtCade visit", steps: ["Check that ArtCade is open for drop-in use rather than reserved for camps", "Choose one current art exhibition and a short period in the family creative space", "Consider Elizabeth's for a meal only after checking restaurant access"] },
+      { label: "Corpus Christi waterfront arts visit", steps: ["Start with the art museum's current exhibitions and architectural viewpoints", "Walk the bayfront when weather permits", "Use Nueces County and other local museum guides to plan a separate cultural stop"] },
+    ],
+    sources: [
+      { label: "AMST plan a visit and accessibility", url: "https://www.artmuseumofsouthtexas.org/plan-your-visit/", use: "Current admission, mobility help and visitor rules" },
+      { label: "AMST at the museum", url: "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/", use: "Elizabeth's café, ArtCade closure periods, digital studio" },
+      { label: "AMST July 2026 reopening statement", url: "https://www.artmuseumofsouthtexas.org/temporary-closure-update/", use: "Confirms July 3 reopening after brief HVAC-related closure" },
+      { label: "AMST seasonal free admission notice", url: "https://www.artmuseumofsouthtexas.org/free-admission-to-the-art-museum-of-south-texas-summer-2026/", use: "Free-admission promotion had a July 31 end date" },
+    ],
+    connections: [
+      { label: "Nueces County", href: "/county/nueces", reason: "Explore Corpus Christi and the coastal arts landscape." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Compare art, science and historical visitor experiences." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
