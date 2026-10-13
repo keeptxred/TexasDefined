@@ -179,7 +179,7 @@ function finishHistoricSiteEnrichment(destination: Destination) {
 }
 
 function applyResolvedHero(destination: Destination) {
-  return correctDestinationTravelRegion(applyTownAuthority(enrichMuseumAuthority(normalizeDestinationCounty(
+  return applyTownAuthority(enrichMuseumAuthority(normalizeDestinationCounty(
     enrichCavernAreaGuide(
       finishHistoricSiteEnrichment(
         improveDestinationQuality(
@@ -195,12 +195,12 @@ function applyResolvedHero(destination: Destination) {
         ),
       ),
     ),
-  ))));
+  )));
 }
 
 function resolveSeoReadyDestination(destination?: Destination | null) {
   if (!destination) return undefined;
-  const resolved = applyResolvedHero(destination);
+  const resolved = correctDestinationTravelRegion(applyResolvedHero(destination));
   return isSeoReadyDestination(resolved) ? resolved : undefined;
 }
 
@@ -286,7 +286,7 @@ export async function getResolvedDestination(slug: Slug) {
 
   const { getRvParkDestination } = await import("./rv-parks");
   const rvPark = await getRvParkDestination(slug);
-  if (rvPark) return applyResolvedHero(rvPark);
+  if (rvPark) return correctDestinationTravelRegion(applyResolvedHero(rvPark));
 
   const preserved = preservedExploreDestinations.find((destination) => destination.slug === slug);
   const readyPreserved = resolveSeoReadyDestination(preserved);
@@ -319,8 +319,8 @@ export async function getResolvedDestination(slug: Slug) {
   }
 
   const fallback = preserved ?? cavernPreserved ?? cityPassPreserved;
-  if (fallback) return applyResolvedHero(fallback);
-  if (!local && weakCandidates.length) return applyResolvedHero(weakCandidates[0]);
+  if (fallback) return correctDestinationTravelRegion(applyResolvedHero(fallback));
+  if (!local && weakCandidates.length) return correctDestinationTravelRegion(applyResolvedHero(weakCandidates[0]));
   return local ? applyResolvedHero(local) : local;
 }
 
