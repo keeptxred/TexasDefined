@@ -84,6 +84,8 @@ const deeperFacilities = [
   "franklin-mountains-state-park", "longhorn-cavern-state-park",
   "falcon-state-park", "kickapoo-cavern-state-park", "old-tunnel-state-park",
   "bentsen-rio-grande-valley-state-park",
+  "galveston-island-state-park", "inks-lake-state-park", "pedernales-falls-state-park",
+  "huntsville-state-park", "caddo-lake-state-park",
 ];
 for (const slug of deeperFacilities) {
   assertContains(authority, `"${slug}": {`, `Independently sourced TPWD facilities for ${slug} were lost`);
