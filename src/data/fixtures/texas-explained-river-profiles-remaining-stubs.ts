@@ -2,7 +2,7 @@ import type { Article } from "../types";
 
 export const texas_canadian_river_guideStub: Article = { id: "evergreen-texas-canadian-river-guide", brandId: "texasdefined", slug: "texas-canadian-river-guide",
   title: "Canadian River: Lake Meredith, the Panhandle & Interstate Water", dek: "Sangre de Cristo headwaters in New Mexico; Lake Meredith and drought across the Texas Panhandle", category: "lakes-rivers",
-  hero: {"src":"/images/explore/lakes-rivers/lake-meredith-national-recreation-area.jpg","alt":"Lake Meredith in the Canadian River basin","width":1600,"height":1067}, authorId: "a-marisol", publishedAt: "2026-10-09", readingMinutes: 11,
+  hero: {"src":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Canadian_River_in_Canadian_TX_IMG_6056.JPG?width=1600","alt":"Canadian River near the town of Canadian in Hemphill County, Texas","width":1600,"height":1200,"credit":"Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Canadian_River_in_Canadian_TX_IMG_6056.JPG · License: https://creativecommons.org/licenses/by-sa/3.0/"}, authorId: "a-marisol", publishedAt: "2026-10-09", readingMinutes: 11,
   tags: ["Canadian River","Canadian River basin","Texas rivers","Texas water","Texas Defined","TWDB"], featured: false,
   sourceName: "Texas Water Development Board", sourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/canadian/index.asp", body: [], relatedCollections: [], relatedDestinations: [] };
 
@@ -44,7 +44,7 @@ export const texas_sabine_river_guideStub: Article = { id: "evergreen-texas-sabi
 
 export const texas_san_antonio_river_guideStub: Article = { id: "evergreen-texas-san-antonio-river-guide", brandId: "texasdefined", slug: "texas-san-antonio-river-guide",
   title: "San Antonio River: Springs, Mission Reach, Medina & Guadalupe", dek: "Beyond the River Walk, the San Antonio River connects Bexar County springs to lower river and Guadalupe confluence", category: "lakes-rivers",
-  hero: {"src":"/images/editorial/moving/san-antonio.jpg","alt":"San Antonio city, which lies within the San Antonio River watershed","width":1600,"height":1067}, authorId: "a-marisol", publishedAt: "2026-10-09", readingMinutes: 11,
+  hero: {"src":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Brackenridge_Park_San_Antonio_River.jpg?width=1600","alt":"San Antonio River flowing through Brackenridge Park in San Antonio, Texas","width":1600,"height":1067,"credit":"Dogfort04 · CC BY-SA 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Brackenridge_Park_San_Antonio_River.jpg · License: https://creativecommons.org/licenses/by-sa/4.0/"}, authorId: "a-marisol", publishedAt: "2026-10-09", readingMinutes: 11,
   tags: ["San Antonio River","San Antonio River basin","Texas rivers","Texas water","Texas Defined","TWDB"], featured: false,
   sourceName: "Texas Water Development Board", sourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/sanantonio/index.asp", body: [], relatedCollections: [], relatedDestinations: [] };
 
