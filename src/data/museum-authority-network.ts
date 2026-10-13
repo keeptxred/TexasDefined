@@ -1113,6 +1113,41 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "art-museum-southeast-texas-beaumont": {
+    name: "Art Museum of Southeast Texas",
+    slug: "art-museum-southeast-texas-beaumont",
+    county: "Jefferson",
+    city: "Beaumont",
+    reviewed: "2026-10-13",
+    topics: ["art", "family", "texas-history", "regional-culture"],
+    whyVisit: "The Art Museum of Southeast Texas gives downtown Beaumont a free, visitor-friendly visual-arts counterpoint to the city's oil-industry and heritage museums. It presents artists from Southeast Texas alongside broader modern and contemporary work and temporary exhibitions, making a short first visit worthwhile and repeat visits substantially different.",
+    visitorStrategy: "AMSET lists free general admission and Monday–Friday 9 a.m.–5 p.m., Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m. hours, closed on major holidays. Find it at 500 Main Street. Allow an estimated 60–90 minutes for a current exhibition and selected permanent-collection galleries. Special adult classes and programs can be ticketed even when museum admission is free.",
+    accessibility: "AMSET publishes free admission and tour information but its primary visitor page does not fully document accessible parking, entrance and gallery routes, wheelchair loans or sensory aids. People with access needs should contact 409-832-3432 directly, rather than relying on amenities described for a nearby Beaumont museum. Spanish-language institutional information is available.",
+    familiesAndGroups: "AMSET's education team offers free, age-adapted tours from preschool to older-adult groups. Minimum group size is ten children or seven adults; schedule guided group tours at least two weeks ahead. Spanish and American Sign Language tour arrangements are available on request. On October 17, 2026 it has an advertised Family Arts Day, but event concessions do not mean there is a full-service restaurant or cafeteria every day.",
+    researchValue: "This art museum's rotating exhibits add an artistic perspective to the Gulf Coast's regional history. Its current calendar names Delilah Montoya: Activating Chicana Resistance (October 6, 2026–January 3, 2027) and Samantha Harrison: Land and Light (through November 8, 2026). Visitors should distinguish these limited-run shows from permanent collection themes and historical exhibition records.",
+    exhibits: [
+      { heading: "Delilah Montoya: Activating Chicana Resistance (through January 3, 2027)", detail: "A time-limited contemporary exhibit considering Chicana cultural representation, with an opening reception listed in October 2026." },
+      { heading: "Samantha Harrison: Land and Light (through November 8, 2026)", detail: "A regional community-artist exhibition with painting and photography addressing landscapes both imagined and encountered." },
+      { heading: "Modern and contemporary art of Southeast Texas", detail: "Collection selections connect local artists with American art and changes in the region. Exact displayed objects vary by rotation." },
+      { heading: "Regional folk art and education", detail: "Community programs and educational visits offer a different understanding of Beaumont beyond oil, engineering and city industry." },
+    ],
+    routes: [
+      { label: "Free downtown Beaumont museum hour", steps: ["Choose the current temporary show rather than assuming old exhibitions remain open", "Explore a second gallery theme or artist's work", "Connect with nearby downtown history museums if opening hours match"] },
+      { label: "Free educational group visit", steps: ["Reserve a tour two weeks ahead and discuss age or language needs", "Visit the current exhibitions and select age-appropriate hands-on art activity if scheduled", "Treat event snacks and meals as separately confirmed arrangements"] },
+    ],
+    sources: [
+      { label: "AMSET official visitor page", url: "https://amset.org/visit-us-visitanos/", use: "Free admission and museum identity" },
+      { label: "AMSET homepage and current autumn exhibitions", url: "https://amset.org/", use: "Seven-day schedule, dated exhibition programme" },
+      { label: "AMSET tours and education", url: "https://amset.org/schedule-a-tour/", use: "Free group tours, age suitability, booking lead time and Spanish/ASL" },
+    ],
+    connections: [
+      { label: "Jefferson County", href: "/county/jefferson", reason: "Understand Beaumont history and arts venues in county context." },
+      { label: "Texas Energy Museum", href: "/destination/texas-energy-museum-beaumont", reason: "Combine nearby art and oil-industry museums." },
+      { label: "Babe Zaharias Museum", href: "/destination/babe-didrikson-zaharias-museum-beaumont", reason: "Compare sports history with Beaumont visual arts." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Discover other free and specialist museums statewide." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
@@ -1238,6 +1273,8 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     width: 1600, height: 1117,
     credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons · File:Richard Greene Linear Park (Esports Stadium Arlington) (cropped).jpg · Pbrks crop; not a museum entrance photo",
   },
+
+  "art-museum-southeast-texas-beaumont": { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/AMSET_exterior.jpg?width=1600", alt: "Art Museum of Southeast Texas museum exterior, Beaumont", width: 1600, height: 1236, credit: "Ktimberlake · CC BY-SA 4.0 · Wikimedia Commons · File:AMSET exterior.jpg" },
 
 };
 
