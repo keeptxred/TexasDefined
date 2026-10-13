@@ -1,7 +1,14 @@
 import type { Destination, DestinationAreaGuide, DestinationAreaItem } from "./types";
 
 const local = (name: string, description: string): DestinationAreaItem => ({ name, description });
-const link = (name: string, slug: string, description: string): DestinationAreaItem => ({ name, description, href: `/destination/${slug}` });
+const HISTORIC_CANONICAL_ALIASES: Record<string, string> = {
+  "goliad-state-park": "goliad-state-park",
+  "san-jacinto-battleground": "san-jacinto-battleground",
+  "washington-on-the-brazos": "washington-on-the-brazos",
+};
+const link = (name: string, slug: string, description: string): DestinationAreaItem => ({
+  name, description, href: `/destination/${HISTORIC_CANONICAL_ALIASES[slug] ?? slug}`,
+});
 
 const guides: Record<string, DestinationAreaGuide> = {
   "barrington-living-history-farm": {
