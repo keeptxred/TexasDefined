@@ -3247,6 +3247,154 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "austin-nature-and-science-center": [
+    {
+      "question": "Is there an entry fee for the Austin Nature & Science Center?",
+      "answer": "No. General individual and family admission to the exhibits and outdoor center is free. School and organized groups of fifteen or more require registration and may face charges for instructor-led sessions, which have separate booking arrangements.",
+      "verificationUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where is the Austin Nature & Science Center's entrance and where should I park?",
+      "answer": "Use the visitor address 2389 Stratford Drive, Austin. Free car parking is under MoPac across Stratford Drive, with accessible spaces connecting to the entrance sidewalk. The separate mailing address at 301 Nature Center Drive is not the recommended visitor arrival.",
+      "verificationUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Dino Pit a good activity for young children?",
+      "answer": "Yes. The outdoor Dino Pit offers hands-on fossil exploration and is among the center's signature family experiences. Younger children should be supervised and plan for sun, heat, uneven outdoor activity surfaces and appropriate clothing.",
+      "verificationUrl": "https://www.austintexas.gov/parks/austin-nature-science-center-exhibits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/parks/locations/austin-nature-and-science-center",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can children bring rocks, feathers or fossils to the Trade Counter?",
+      "answer": "The Naturalist Workshop's Trade Counter accepts eligible nature objects under strict restrictions and is staffed only at selected hours. Do not bring anything collected from public preserves, bird parts, human artifacts, endangered or purchased items, or things killed to trade. Ask staff before collecting or bringing an uncertain object.",
+      "verificationUrl": "https://www.austintexas.gov/parks/austin-nature-science-center-exhibits",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors pet the animals or bring a dog to the center?",
+      "answer": "No pets are allowed on the center or nature-preserve property under the City of Austin's rules. Animal ambassadors are injured or imprinted wildlife receiving permanent care and are educational displays, not a petting zoo. Service animal accommodations should be discussed with the operator.",
+      "verificationUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.austintexas.gov/parks/austin-nature-science-center-exhibits",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is there a cafeteria or an indoor place to eat lunch at the Austin Nature & Science Center?",
+      "answer": "No. The City's group guidance explicitly says there are no indoor or covered dining facilities. Groups may use a limited number of outdoor Meadow picnic tables when space and weather permit, and must pack out their trash. Do not plan an indoor lunch at the center.",
+      "verificationUrl": "https://www.austintexas.gov/parks/austin-nature-science-center-school-programs-and-group-reservations",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Do school field trips or large family groups need a reservation?",
+      "answer": "Yes. The City requires a Group Reservation for fifteen or more visitors, including schools, camps, homeschools and large family parties. Instructors and school programs have separate registration and fees; buses must use designated drop-off and parking, not the public car parking under MoPac.",
+      "verificationUrl": "https://www.austintexas.gov/parks/austin-nature-science-center-school-programs-and-group-reservations",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the nearby nature preserve open at the same hours as the center?",
+      "answer": "Not exactly. The City describes the adjoining preserve as open from dawn to dusk, but some access gates and parking areas lock by 5 p.m. The former gate from the Birds of Prey area into the preserve is closed; use designated external trailheads and do not go off trail.",
+      "verificationUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.austintexas.gov/parks/locations/austin-nature-and-science-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "harry-ransom-center-austin": [
+    {
+      "question": "Is the Harry Ransom Center free to visit?",
+      "answer": "Yes. Admission to the public exhibition galleries is free. The research Reading Room is a different facility with its own identification and registration process; free entry to galleries does not automatically permit immediate access to archival manuscripts.",
+      "verificationUrl": "https://www.hrc.utexas.edu/visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.hrc.utexas.edu/frequently-asked-questions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are the Harry Ransom Center Reading Room and exhibitions open on the same days?",
+      "answer": "No. Current gallery hours are Tuesday through Friday 10 a.m.–5 p.m. and Saturday–Sunday noon–5 p.m., with galleries closed Mondays. The Reading Room generally opens Monday through Saturday 9 a.m.–5 p.m. and is closed Sundays; holiday schedules differ.",
+      "verificationUrl": "https://www.hrc.utexas.edu/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hrc.utexas.edu/frequently-asked-questions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors see the Gutenberg Bible and the earliest surviving photograph?",
+      "answer": "The Gutenberg Bible and Niépce Heliograph are signature displayed objects in the public exhibition area. Conservation, loans or temporary display changes can interrupt availability, so consult the current official exhibition listing before making a special trip for one item.",
+      "verificationUrl": "https://www.hrc.utexas.edu/exhibitions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hrc.utexas.edu/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which Harry Ransom Center exhibitions are open in autumn 2026?",
+      "answer": "The official schedule lists Houdini's Library through January 24, 2027 and The Worlds of Gertrude Stein through January 10, 2027. Those are time-limited exhibitions, not permanent galleries; check the museum's live exhibition directory on the day of travel.",
+      "verificationUrl": "https://www.hrc.utexas.edu/exhibitions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hrc.utexas.edu/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should visitors park near the Harry Ransom Center?",
+      "answer": "Metered Guadalupe Street parking may be available and is free on Sundays; nearby University of Texas garages generally charge. Designated accessible parking in garages also has a fee, and some curbside ADA spaces are only available at specified evening or weekend hours.",
+      "verificationUrl": "https://www.hrc.utexas.edu/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hrc.utexas.edu/group-tours/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can a visitor photograph exhibits, bring bags or eat inside?",
+      "answer": "Personal non-flash photography is generally permitted in exhibition galleries unless gallery signage says otherwise. Large bags and backpacks must be stored in available lockers; eating and drinking are not permitted in galleries, theater or the research Reading Room.",
+      "verificationUrl": "https://www.hrc.utexas.edu/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hrc.utexas.edu/group-tours/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can a teacher or family arrange a private tour at the Ransom Center?",
+      "answer": "Docent-led group visits for ten or more people must be requested at least two weeks ahead and are normally capped at thirty visitors. Walk-up groups cannot assume a docent is available. Standard organized tours run approximately one hour.",
+      "verificationUrl": "https://www.hrc.utexas.edu/group-tours/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hrc.utexas.edu/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Harry Ransom Center accessible for visitors using wheelchairs or ASL interpretation?",
+      "answer": "The public spaces and restrooms are ADA-compliant, and a wheelchair is available for visitors. Contact hrctours@austin.utexas.edu at least five business days before a visit to arrange ASL or specific accessibility accommodations; garage parking may have a fee.",
+      "verificationUrl": "https://www.hrc.utexas.edu/visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.hrc.utexas.edu/group-tours/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
