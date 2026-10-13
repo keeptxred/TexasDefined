@@ -31,3 +31,7 @@ Attribution is present in each destination hero credit. License checks are requi
 - **20th Century Technology Museum at Wharton County Historical Museum:** [Commons file Wharton County Museum IMG 1054.JPG](https://commons.wikimedia.org/wiki/File:Wharton_County_Museum_IMG_1054.JPG), Billy Hathorn, **CC BY-SA 3.0**. Shows shared museum building (label accordingly), not necessarily inside the technology exhibits.
 
 Photo metadata independently checked using Wikimedia Commons API imageinfo.extmetadata. No unlicensed operator photos copied.
+
+## Elisabet Ney Museum, Austin — October 12, 2026
+
+- **Historic Formosa studio and Elisabet Ney Museum exterior**: [Wikimedia Commons file](https://commons.wikimedia.org/wiki/File:Austin_-_Elisabet_Ney_Museum_-_20201006000619.jpg), photographer **MarkJGilmore**, **CC BY-SA 4.0**, photographed 2020. Licensed exterior is historical and must not imply the venue is open during the 2024–2027 capital-improvement closure. Confirm the original file's credit and license when refreshing the asset.
