@@ -27,6 +27,95 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "corpus-christi-museum-science-history": {
+    name: "Corpus Christi Museum of Science and History", slug: "corpus-christi-museum-science-history", county: "Nueces", city: "Corpus Christi", reviewed: "2026-10-12",
+    topics: ["maritime-archaeology","history","science","family"],
+    whyVisit: "One museum links two distinct Texas shipwreck stories with South Texas natural history and interactive science. The 1554 Spanish fleet evidence should be distinguished from La Belle, La Salle's French ship lost in 1686; the interpretation connects recovered objects with the methods archaeologists use to study the coast.",
+    visitorStrategy: "The operator's current visitor page lists Tuesday–Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m., with Monday closure and special summer hours. Free surface parking is identified directly in front and across N. Chaparral Street. General admission and discounted Museums for All tickets have distinct eligibility and prices; check the operator before traveling. A history-and-science visit typically merits two hours or more, adjusted for children and temporary exhibits.",
+    accessibility: "The public visit page confirms parking locations but does not comprehensively establish wheelchairs for loan, every exhibit's step-free route or sensory accommodations. Contact the museum's visitor services at 361-826-4667 about mobility, elevator, accessible parking, restrooms and sensory needs; do not claim facilities that the operator has not confirmed.",
+    familiesAndGroups: "Families seeking hands-on learning can emphasize science experiences and scheduled educational programming; older children with history interests can explore the shipwreck displays. The operator requires advance scheduling for parties of ten or more and for school groups; homeschool programs have separate registration. The presence of food service or indoor lunch facilities is not independently confirmed.",
+    researchValue: "Read the recovered shipwreck objects in context: the 1554 wrecks led to major Texas marine archaeological policy, while La Belle offers a different seventeenth-century colonial episode. Compare what the 1554 material says about transatlantic trade with what La Belle tells us about a failed French expedition.",
+    exhibits: [
+      { heading: "Shipwreck! and the 1554 Spanish fleet", detail: "Look for the recovered wooden keel, cargo and shipboard objects; a reconstructed wreck scene helps visitors distinguish an original artifact from interpretation." },
+      { heading: "La Belle and the La Salle Odyssey", detail: "Relate objects connected with the French expedition to Fort St. Louis and the protected recovered hull now at the Bullock Museum, not at this institution." },
+      { heading: "Coastal Bend science and ecology", detail: "Explore biological, geological and environmental displays to understand the Gulf shoreline as a changing system, not just a scenic setting." },
+      { heading: "Hands-on science and children's programming", detail: "Reserve flexibility for stations and group programs; exact activity availability varies by age, date and the museum's calendar." }
+    ],
+    routes: [
+      { label: "Shipwreck and archaeology visit", steps: ["Begin with the 1554 Spanish shipwreck context", "Compare La Belle and its later French expedition", "Discuss what makes recovered artifacts reliable evidence"] },
+      { label: "Family science and history visit", steps: ["Select current hands-on science stations", "Spend focused time in a shipwreck or local-history gallery", "Allow space for the outdoor garden or a scheduled program if operating"] },
+      { label: "Corpus Christi heritage day", steps: ["Start at the museum in the SEA District", "Continue to the USS Lexington on North Beach as a separate ticketed site", "Extend to Rockport's Texas Maritime Museum on a different day if pursuing the La Salle Odyssey"] }
+    ],
+    sources: [
+      { label: "Corpus Christi Museum — current visit page", url: "https://www.ccmuseum.com/visit/", use: "Tickets, Museums for All, parking, school groups, location and seasonal hours" },
+      { label: "Corpus Christi Museum — exhibits", url: "https://www.ccmuseum.com/museum-exhibits/", use: "1554 shipwreck, science galleries and exhibits" },
+      { label: "Corpus Christi Museum — education", url: "https://www.ccmuseum.com/education-programs/", use: "Group and homeschool registration" },
+      { label: "Texas Historical Commission — La Salle archaeology", url: "https://thc.texas.gov/learn/archeological-spotlight/la-salle-archeology-projects", use: "Original expedition and separate La Belle hull location" }
+    ],
+    connections: [
+      { label: "Nueces County", href: "/county/nueces", reason: "Place the museum in Coastal Bend history." },
+      { label: "USS Lexington", href: "/destination/uss-lexington-museum-corpus-christi", reason: "Compare maritime stories across different centuries." },
+      { label: "La Salle Odyssey", href: "/destination/la-salle-odyssey-texas-coast", reason: "Travel the seven-museum network." }
+    ],
+  },
+  "port-isabel-historical-museum": {
+    name: "Port Isabel Historical Museum", slug: "port-isabel-historical-museum", county: "Cameron", city: "Port Isabel", reviewed: "2026-10-12",
+    topics: ["borderlands","architecture","local-history","maritime"],
+    whyVisit: "The museum's 1899 Champion Building and its 1906 fish mural are as important as the objects on display. The two levels explain why the Laguna Madre coastline became a fishing, port, trade and military gateway instead of simply a route to South Padre Island.",
+    visitorStrategy: "The museum's own current site publishes admission categories but directs visitors to telephone 956-943-7602 for current hours. Do not rely on older third-party Wednesday–Saturday schedules. Plan a brief museum visit with the Port Isabel Lighthouse a few blocks away, allowing additional time to examine the 1906 fish mural and exterior.",
+    accessibility: "The museum occupies a two-level historic commercial building. Independent visitors have reported an elevator, but the museum's official page has not established its present working status or the full accessible route. Confirm elevator operation, entrances, restrooms and access arrangements by phone before a mobility-dependent visit.",
+    familiesAndGroups: "The mural and Champion Building can start conversations with children about fishing and nineteenth-century Gulf commerce. More detailed historical exhibits may work best for school-age children. The operator lists group tours but directs visitors to call for arrangements. Food and dining on site are not confirmed; choose nearby Port Isabel options separately.",
+    researchValue: "Use the galleries to compare local memory with artifacts concerning Laguna Madre Indigenous societies, nineteenth-century trade and the borderland conflicts. The building itself demonstrates how waterfront commerce left durable commercial architecture in Port Isabel.",
+    exhibits: [
+      { heading: "The Champion Building and 1906 fish mural", detail: "Begin outside. Explain why a late nineteenth-century store became a landmark and why the fishing mural is a historical artifact rather than incidental decoration." },
+      { heading: "Laguna Madre and port history", detail: "Follow the role of fishing, maritime trade and waterfront settlement in the region's development." },
+      { heading: "Borderland and community life", detail: "Use local-history exhibits to place Port Isabel within overlapping Indigenous, Mexican and U.S. histories." }
+    ],
+    routes: [
+      { label: "Quick historic Port Isabel", steps: ["View the Champion Building's 1906 mural", "Tour the museum's available galleries", "Walk to the nearby historic lighthouse"] },
+      { label: "Family maritime history", steps: ["Discuss fishing and trade in the museum", "Compare the lighthouse's navigation function", "Finish at a public Laguna Madre overlook"] },
+      { label: "Lower Rio Grande history day", steps: ["Start in the museum and at the lighthouse", "Continue to Palo Alto Battlefield for the 1846 conflict", "Return to South Padre Island only when the weather and time permit"] }
+    ],
+    sources: [
+      { label: "Port Isabel Historical Museum — operator", url: "https://portisabelhistory.com/", use: "Museum building, mural, exhibit levels, prices and contact-for-hours instruction" },
+      { label: "Port Isabel Historical Museum — visitor account", url: "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html", use: "Independent visitor question on elevator; not confirmation of current access" }
+    ],
+    connections: [
+      { label: "Port Isabel Lighthouse", href: "/destination/port-isabel-lighthouse", reason: "Connect waterfront trade to ship navigation." },
+      { label: "South Padre Island", href: "/destination/south-padre-island", reason: "Plan the adjacent beaches and ecology." },
+      { label: "Cameron County", href: "/county/cameron", reason: "Place the museum in lower Valley history." }
+    ]
+  },
+  "historic-brownsville-museum": {
+    name: "Historic Brownsville Museum", slug: "historic-brownsville-museum", county: "Cameron", city: "Brownsville", reviewed: "2026-10-12",
+    topics: ["texas-history","railroads","borderlands","family"],
+    whyVisit: "This restored 1928 Southern Pacific depot makes Brownsville's railroad history tangible and explains the city's growth. Its included Simón Celaya Railroad Gallery is a strong reason to visit: the 1872 Rio Grande Railroad locomotive represents the earlier Brownsville–Point Isabel line and should not be mistaken for a 1928-era train.",
+    visitorStrategy: "The Brownsville Historical Association advertises Tuesday–Saturday 10 a.m.–4 p.m. operation and adult, senior, student and concession ticket categories. Ordinary admission covers the restored depot, Simón Celaya Railroad Gallery and Mary A. Yturria Education Center where open; educational center exhibitions are not assured on every day. Confirm current operating arrangements before travel.",
+    accessibility: "The historic depot and separate gallery buildings require building-specific access checks; the operator's description does not establish accessible routes for every display. Request current entrance, accessible parking, restroom and mobility details before travel. Do not assume museum-group tours follow the same arrangements as walk-in admission.",
+    familiesAndGroups: "The renovated railroad gallery explicitly advertises hands-on displays for children explaining pistons, locomotion and transport. The Brownsville Historical Association offers roughly one-hour guided tours with advance arrangements and separate group and school pricing; do not assume a docent tour is included with every walk-in ticket. No on-site restaurant is verified.",
+    researchValue: "Compare the 1872 Rio Grande Railroad between Brownsville and Point Isabel with the later Southern Pacific depot. This distinction reveals successive transport networks and the links among Brownsville's border trade, coastal ports and inland growth.",
+    exhibits: [
+      { heading: "Southern Pacific depot architecture (1928)", detail: "Inspect the Spanish Colonial Revival railroad building as a preserved historic place and relate its design to the twentieth-century passenger-rail era." },
+      { heading: "Simón Celaya Railroad Gallery and locomotive", detail: "An 1872 Rio Grande Railroad locomotive anchors interactive interpretation of earlier narrow-gauge travel, engine mechanics and the corridor toward Port Isabel." },
+      { heading: "Brownsville founding and changing exhibits", detail: "Permanent interpretation addresses Brownsville's origins; rotating local-history exhibitions add topics that should be confirmed ahead of time." },
+      { heading: "Mary A. Yturria Education Center", detail: "A related venue for educational and cultural programming, with event-specific schedules that differ from gallery availability." }
+    ],
+    routes: [
+      { label: "Depot and train highlights", steps: ["Begin with the architecture and Brownsville's founding story", "Visit the Simón Celaya gallery and locomotive", "Compare nineteenth- and twentieth-century railroad histories"] },
+      { label: "Family transportation visit", steps: ["Explore the restored depot", "Give children time with the locomotive's hands-on mechanical exhibits", "Add a second Brownsville Historical Association site only if hours allow"] },
+      { label: "Borderlands history day", steps: ["Study rail commerce at the museum", "Continue to Palo Alto Battlefield for the U.S.–Mexican War", "Connect Port Isabel maritime transport and the Rio Grande corridor"] }
+    ],
+    sources: [
+      { label: "Brownsville Historical Association — Historic Brownsville Museum", url: "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html", use: "Operator hours, admission, restored depot and included galleries" },
+      { label: "Brownsville Historical Association — railroad gallery", url: "https://brownsvillehistory.org/simon-celaya-railroad-gallery-brownsville-historical-association.html", use: "Interactive railroad displays and locomotive" },
+      { label: "Brownsville Historical Association — tours", url: "https://www.brownsvillehistory.org/museum-tours-brownsville-historical-association.html", use: "Advance group itineraries, student/education offerings and separate group pricing" }
+    ],
+    connections: [
+      { label: "Palo Alto Battlefield", href: "/destination/palo-alto-battlefield-national-historical-park", reason: "Interpret the war and border dispute preceding Brownsville's growth." },
+      { label: "Port Isabel Historical Museum", href: "/destination/port-isabel-historical-museum", reason: "Connect the railroad destination to its coastal terminus." },
+      { label: "Cameron County", href: "/county/cameron", reason: "Explore Lower Rio Grande cultural and natural history." }
+    ]
+  },
   "bullock-texas-state-history-museum": {
     name: "Bullock Texas State History Museum", slug: "bullock-texas-state-history-museum", county: "Travis", city: "Austin", reviewed: "2026-10-12",
     topics: ["texas-history","archaeology","family"],
