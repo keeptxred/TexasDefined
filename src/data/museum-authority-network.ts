@@ -1741,7 +1741,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     connections: [
       { label: "Fort Bend County", href: "/county/fort-bend", reason: "Relate Katy's farming and settlement heritage to other Fort Bend communities." },
       { label: "Texas museum directory", href: "/explore/museums", reason: "Explore other independently sourced Texas museums." }
-    ]
+    ],
   },
 
 };
