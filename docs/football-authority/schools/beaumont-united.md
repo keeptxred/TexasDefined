@@ -27,3 +27,6 @@ Beaumont ISD's November 12, 2025 first-party report documents the Timberwolves' 
 
 ## Real acceptance still needed
 Protected gate, branch merge, deployed production and real mobile/desktop Chrome screenshots, accurate H1, correct canonical/schema, no hydration or broken links, reciprocal county pages, legal image rights, plus game-day venue/ADA/ticket confirmation. **Do not promote IMPLEMENTED to VERIFIED** without those observations. Past years' results and former coaching positions are not asserted as current.
+
+## October 13, 2026 — 2026 football fixture and scorecard research
+MaxPreps [2026 varsity schedule](https://www.maxpreps.com/tx/beaumont/beaumont-united-timberwolves/football/schedule/) used for dated results and 10 listed matchups. 5–1 through October 9; 25–18 overtime loss to New Caney and 24–21 win over Goose Creek Memorial are independently reported, not first-party event logistics. School district remains authoritative on venue, accessible entry and tickets. Do not publish unknown games as W/L or repurpose unlicensed team pictures.
