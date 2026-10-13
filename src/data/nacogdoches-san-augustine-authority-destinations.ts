@@ -511,11 +511,11 @@ export const nacogdochesSanAugustineAuthorityDestinations: Destination[] = [
       "lng": -94.11115
     },
     "hero": {
-      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/San_augustine_county_tx_courthouse_2015.jpg?width=1600",
-      "alt": "San Augustine historic courthouse square centered on its 1927 county courthouse",
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Retail_Stores_San_Augustine_%281_of_1%29.jpg?width=1600",
+      "alt": "Historic brick storefronts along San Augustine's downtown commercial district",
       "width": 1600,
-      "height": 1067,
-      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+      "height": 912,
+      "credit": "Renelibrary · CC BY-SA 4.0 · Wikimedia Commons · File:Retail Stores San Augustine (1 of 1).jpg"
     },
     "entryNote": "Historic downtown streets are public, but the county courthouse is a working government building, Mission Dolores has separate museum admission and operating hours, and the 1919 jail museum has its own limited schedule.",
     "highlights": [
