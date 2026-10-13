@@ -1109,7 +1109,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     connections: [
       { label: "Tarrant County", href: "/county/tarrant", reason: "Place the Entertainment District museum among Arlington cultural and history attractions." },
       { label: "Dallas Museum of Art", href: "/destination/dallas-museum-of-art", reason: "Contrast rotating immersive/ticketed installations with a free global collection museum." },
-      { label: "Texas homecoming mums", href: "/topics/texas-homecoming-mums", reason: "Connect the MUMENTOUS touring exhibition to broader Texas homecoming traditions." },
+      { label: "Texas homecoming mums", href: "/texas-homecoming-mums", reason: "Connect the MUMENTOUS touring exhibition to broader Texas homecoming traditions." },
     ],
   },
 
