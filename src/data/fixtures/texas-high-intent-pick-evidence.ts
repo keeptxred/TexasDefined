@@ -25,6 +25,18 @@ export const texasGuidePickEvidence: Record<number, GuidePickEvidence[]> = {
     { title: "Amistad Reservoir — a remote border-lake experience", officialUrl: "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/amistad/", internalHref: "/fishing/lakes/amistad-reservoir", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — lake fishery and access overview" },
     { title: "Possum Kingdom Reservoir — rocky scenery with a fishery", officialUrl: "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/possum_kingdom/", internalHref: "/fishing/lakes/possum-kingdom-reservoir", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — lake fishery and access overview" },
   ],
+  107: [
+    { title: "Palo Duro Canyon State Park — camp near canyon trails", officialUrl: "https://tpwd.texas.gov/state-parks/palo-duro-canyon", internalHref: "/destination/palo-duro-canyon-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks & Wildlife — canyon camping and site types" },
+    { title: "Garner State Park — a Frio River vacation", officialUrl: "https://tpwd.texas.gov/state-parks/garner", internalHref: "/destination/garner-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks & Wildlife — park camping and Frio River facilities" },
+    { title: "Mustang Island State Park — beach-oriented camping", officialUrl: "https://tpwd.texas.gov/state-parks/mustang-island", internalHref: "/destination/mustang-island-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks & Wildlife — coastal camping and beach access" },
+    { title: "Caddo Lake State Park — East Texas water and woods", officialUrl: "https://tpwd.texas.gov/state-parks/caddo-lake", internalHref: "/destination/caddo-lake-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks & Wildlife — developed RV/campground choices" },
+    { title: "Brazos Bend State Park — an outdoor base near Houston", officialUrl: "https://tpwd.texas.gov/state-parks/brazos-bend", internalHref: "/destination/brazos-bend-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks & Wildlife — campsite and wildlife logistics" },
+    { title: "Inks Lake State Park — central Hill Country water", officialUrl: "https://tpwd.texas.gov/state-parks/inks-lake", internalHref: "/destination/inks-lake-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks & Wildlife — lake camping and swimming" },
+    { title: "Balmorhea State Park — a distinctive West Texas overnight", officialUrl: "https://tpwd.texas.gov/state-parks/balmorhea/fees-facilities/campsites", internalHref: "/destination/balmorhea-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks & Wildlife — individual RV-site electrical service and campsite inventory" },
+    { title: "Atlanta State Park — a Northeast Texas lake base", officialUrl: "https://tpwd.texas.gov/state-parks/atlanta", internalHref: "/destination/atlanta-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks & Wildlife — RV camping and Wright Patman Lake" },
+    { title: "Abilene State Park — an accessible West-Central Texas stop", officialUrl: "https://tpwd.texas.gov/state-parks/abilene", internalHref: "/destination/abilene-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks & Wildlife — reservable camping and facility details" },
+    { title: "Andy Bowie County Park — South Padre Island coastal access", officialUrl: "https://www.cameroncountytx.gov/parks-coastal-parks/parks-andy-bowie/", internalHref: "/explore/rv-parks", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Cameron County Parks — reservations, renovation closure warning and current operations" },
+  ],
   109: [
     { title: "Palo Duro Canyon — dramatic canyon camping", officialUrl: "https://tpwd.texas.gov/state-parks/palo-duro-canyon", internalHref: "/destination/palo-duro-canyon-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — park facilities, reservations and current visitor operations" },
     { title: "Garner State Park — family trips centered on the Frio", officialUrl: "https://tpwd.texas.gov/state-parks/garner", internalHref: "/destination/garner-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — park facilities, reservations and current visitor operations" },
@@ -49,7 +61,7 @@ export function allGuidePicksIndividuallySourced(number: number, titles: string[
       const item = sourceForGuidePick(number, title);
       return Boolean(item
         && /^https:\/\/[^\s]+$/.test(item.officialUrl)
-        && (item.internalHref.startsWith("/fishing/lakes/") || item.internalHref.startsWith("/destination/"))
+        && (item.internalHref.startsWith("/fishing/lakes/") || item.internalHref.startsWith("/destination/") || item.internalHref === "/explore/rv-parks")
         && /^\d{4}-\d{2}-\d{2}$/.test(item.sourceCheckedAt));
     });
 }
