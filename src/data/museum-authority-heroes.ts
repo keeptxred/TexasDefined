@@ -141,6 +141,29 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     credit: "Susan Barnum · CC BY-SA 4.0 · Wikimedia Commons · File:Entrance to the El Paso Museum of Archaeology.jpg",
   },
 
+  "buffalo-soldiers-national-museum-houston": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Buffalo_Soldiers_National_Museum_entrance.jpg?width=1600",
+    alt: "The former Houston Light Guard Armory, home of the Buffalo Soldiers National Museum, photographed in 2024 before the current renovation closure",
+    width: 1600, height: 1067,
+    credit: "Kenneth C. Zirkel (Kzirkel) · CC BY 4.0 · Wikimedia Commons · File:Buffalo Soldiers National Museum entrance.jpg · photographed 2024",
+  },
+
+
+  "brazos-valley-museum-natural-history-bryan": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Brazos_valley_museum_of_natural_history.jpg?width=1600",
+    alt: "Brazos Valley Museum of Natural History building in Bryan, photographed in February 2014",
+    width: 1600, height: 987,
+    credit: "Larry D. Moore (Wikimedia user Nv8200p) · CC BY 4.0 · Wikimedia Commons · File:Brazos valley museum of natural history.jpg · photographed 2014",
+  },
+
+
+  "the-history-center-diboll": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Southern_Pine_Lumber_Company_sawmills_near_Diboll%2C_Texas_in_1907.jpg?width=660",
+    alt: "Historical photograph of the Southern Pine Lumber Company sawmill and railcars near Diboll in 1907, from collections supplied by The History Center; this is not a photograph of today's visitor center",
+    width: 660, height: 402,
+    credit: "J. D. Cress, 1907 · public domain (US pre-1931 publication) · The History Center / Portal to Texas History · Wikimedia Commons · File:The Southern Pine Lumber Company sawmills near Diboll, Texas in 1907.jpg",
+  },
+
 };
 
 /** Exact subject, attribution-cleared media may enhance discovery without importing every long museum dossier. */

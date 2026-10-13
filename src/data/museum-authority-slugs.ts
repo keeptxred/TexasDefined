@@ -52,4 +52,8 @@ export const museumAuthoritySlugs: ReadonlySet<string> = new Set([
   "alvin-historical-museum",
   "el-paso-holocaust-museum",
   "el-paso-museum-of-archaeology",
+  "buffalo-soldiers-national-museum-houston",
+  "the-history-center-diboll",
+  "brazos-valley-museum-natural-history-bryan",
+  "texas-broadcast-museum-kilgore",
 ]);

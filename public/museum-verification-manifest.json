@@ -1431,6 +1431,128 @@
           "label": "FAQ source: Can families hike the desert trails after visiting the archaeology galleries?"
         }
       ]
+    },
+    {
+      "path": "/destination/buffalo-soldiers-national-museum-houston",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://buffalosoldiersmuseum.org/visit/",
+          "fetchUrl": "https://buffalosoldiersmuseum.org/visit/",
+          "label": "Official museum current visit and renovation status"
+        },
+        {
+          "sourceUrl": "https://buffalosoldiersmuseum.org/",
+          "fetchUrl": "https://buffalosoldiersmuseum.org/",
+          "label": "Visitor FAQ: Does the closed museum offer online exhibits or educational resources?"
+        },
+        {
+          "sourceUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+          "fetchUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+          "label": "Official museum exhibitions"
+        },
+        {
+          "sourceUrl": "https://houmuse.org/institution/buffalo-soldiers-national-museum/",
+          "fetchUrl": "https://houmuse.org/institution/buffalo-soldiers-national-museum/?td_monitor=1",
+          "label": "Houston Museum District museum listing"
+        }
+      ]
+    },
+    {
+      "path": "/destination/the-history-center-diboll",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.thehistorycenteronline.com/plan-your-visit",
+          "fetchUrl": "https://www.thehistorycenteronline.com/plan-your-visit",
+          "label": "History Center current plan-a-visit"
+        },
+        {
+          "sourceUrl": "https://www.thehistorycenteronline.com/exhibits/outdoor-railroad-exhibit",
+          "fetchUrl": "https://www.thehistorycenteronline.com/exhibits/outdoor-railroad-exhibit",
+          "label": "History Center Engine 13 exhibit"
+        },
+        {
+          "sourceUrl": "https://www.thehistorycenteronline.com/exhibits",
+          "fetchUrl": "https://www.thehistorycenteronline.com/exhibits",
+          "label": "History Center exhibit overview"
+        },
+        {
+          "sourceUrl": "https://www.thehistorycenteronline.com/about",
+          "fetchUrl": "https://www.thehistorycenteronline.com/about",
+          "label": "History Center historical overview"
+        }
+      ]
+    },
+    {
+      "path": "/destination/brazos-valley-museum-natural-history-bryan",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.brazosvalleymuseum.org/visit",
+          "fetchUrl": "https://www.brazosvalleymuseum.org/visit",
+          "label": "Official museum visit and admission"
+        },
+        {
+          "sourceUrl": "https://www.brazosvalleymuseum.org/exhibits",
+          "fetchUrl": "https://www.brazosvalleymuseum.org/exhibits",
+          "label": "Official museum exhibits"
+        },
+        {
+          "sourceUrl": "https://www.brazosvalleymuseum.org/",
+          "fetchUrl": "https://www.brazosvalleymuseum.org/",
+          "label": "Official museum homepage"
+        },
+        {
+          "sourceUrl": "https://visit.cstx.gov/directory/brazos-valley-museum-of-natural-history-arts-culture/",
+          "fetchUrl": "https://visit.cstx.gov/directory/brazos-valley-museum-of-natural-history-arts-culture/",
+          "label": "Visit College Station museum directory"
+        }
+      ]
+    },
+    {
+      "path": "/destination/texas-broadcast-museum-kilgore",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://cityofkilgore.com/293/Kilgore-Cultural-District",
+          "fetchUrl": "https://cityofkilgore.com/293/Kilgore-Cultural-District",
+          "label": "City of Kilgore cultural district listing"
+        },
+        {
+          "sourceUrl": "https://tabshow.org/texas-broadcast-museum/",
+          "fetchUrl": "https://tabshow.org/texas-broadcast-museum/",
+          "label": "Texas Association of Broadcasters 2026 museum profile"
+        },
+        {
+          "sourceUrl": "https://texasbroadcastmuseum.com/museum/",
+          "fetchUrl": "https://texasbroadcastmuseum.com/museum/",
+          "label": "Texas Broadcast Museum collections"
+        },
+        {
+          "sourceUrl": "https://texasbroadcastmuseum.com/",
+          "fetchUrl": "https://texasbroadcastmuseum.com/",
+          "label": "Texas Broadcast Museum operator homepage"
+        },
+        {
+          "sourceUrl": "https://texasbroadcastmuseum.com/reviews/",
+          "fetchUrl": "https://texasbroadcastmuseum.com/reviews/",
+          "label": "Operator's visitor reviews"
+        },
+        {
+          "sourceUrl": "https://texasbroadcastmuseum.com/contact-us/",
+          "fetchUrl": "https://texasbroadcastmuseum.com/contact-us/",
+          "label": "Visitor FAQ: Does the museum have a cafeteria or is Studio 4 a restaurant?"
+        }
+      ]
     }
   ]
 }
