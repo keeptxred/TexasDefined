@@ -2,9 +2,10 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { stateParkHeroMap } from "@/data/state-park-hero-map";
 
-const governedGuideHero = stateParkHeroMap["enchanted-rock-state-natural-area"];
 import { Container } from "@/components/layout/Container";
 import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
+
+const governedGuideHero = stateParkHeroMap["enchanted-rock-state-natural-area"];
 
 const officialSources = [
   { label: "Texas Parks & Wildlife — Hueco Tanks State Park & Historic Site", href: "https://tpwd.texas.gov/state-parks/hueco-tanks", note: "Current park access, reservation, orientation, guided/self-guided area and climbing-tour information." },
