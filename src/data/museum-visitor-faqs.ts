@@ -97,6 +97,89 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewed": "2026-10-13"
     }
   ],
+  "johnny-nelson-katy-heritage-museum": [
+    {
+      "question": "Is admission to the Johnny Nelson Katy Heritage Museum free?",
+      "answer": "Yes. The City of Katy lists free general admission to the Johnny Nelson Katy Heritage Museum at 6002 George Bush Drive. Confirm any special group-program arrangements directly rather than assuming separately scheduled tours are always staffed.",
+      "verificationUrl": "https://www.cityofkaty.com/visitors/museums",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200001108",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the Katy Heritage Museum's current opening hours?",
+      "answer": "The City currently publishes Thursday, Friday and Saturday 10 a.m.–5 p.m. and Sunday 11 a.m.–5 p.m. It does not advertise regular Monday–Wednesday admission. The Texas Historical Commission Atlas contains an older schedule; use the newer City posting and recheck before a holiday visit.",
+      "verificationUrl": "https://www.cityofkaty.com/visitors/museums",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200001108",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What can children see at the Katy Heritage Museum?",
+      "answer": "Children can examine historical tractors, rice-farming machinery, local photographs and household artifacts that explain Katy's development. This is a traditional history museum with physical objects, not a dedicated hands-on play center. Shorter routes may better suit young children.",
+      "verificationUrl": "https://www.cityofkaty.com/visitors/museums",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200001108",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Katy Heritage Museum the same as Katy Heritage Park?",
+      "answer": "No. Johnny Nelson Katy Heritage Museum is a museum building at 6002 George Bush Drive. Neighboring Katy Heritage Park preserves historic houses and a bandstand. The grounds and tours of the houses have different public hours; do not confuse the separate schedules.",
+      "verificationUrl": "https://www.katyheritagesociety.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.katyheritagesociety.com/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the MKT Railroad Depot Museum at the same address?",
+      "answer": "No. The MKT Railroad Depot Museum and Katy Railroad Park are at 5615 First Street, a separate historic downtown site with a rail depot, railroad interpretation and a red caboose. Verify its hours independently before adding it to your outing.",
+      "verificationUrl": "https://www.cityofkaty.com/visitors/museums",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.cityofkaty.com/visitors/museums",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can a school or club arrange a special museum visit?",
+      "answer": "The City of Katy explicitly invites schools, clubs and groups to arrange special tours. Ask the museum about staffing, group size, timing and accessibility before arriving; regular free public admission is not a guaranteed private guided tour.",
+      "verificationUrl": "https://www.cityofkaty.com/visitors/museums",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200001108",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Katy Heritage Museum have a café or cafeteria?",
+      "answer": "The City's official museum overview does not advertise a cafeteria, snack counter or restaurant inside Johnny Nelson Katy Heritage Museum. Do not count on on-site meals; plan a separate stop in Katy or confirm any special-event facilities directly.",
+      "verificationUrl": "https://www.cityofkaty.com/visitors/museums",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200001108",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the museum wheelchair accessible and can I park nearby?",
+      "answer": "The museum's address and visitor contact are published, but the City page does not provide enough detail to confirm every accessible entrance, parking stall, route or restroom. Call museum staff at 281-574-8618 for specific mobility or stroller arrangements before a visit.",
+      "verificationUrl": "https://www.cityofkaty.com/visitors/museums",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200001108",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How long should I allow to visit the Katy Heritage Museum?",
+      "answer": "A focused 45–90 minutes is a practical independent estimate for the agricultural machinery and historical photographs, not an official museum duration. Add separate time if you plan to visit the adjacent Heritage Park or downtown railroad museum.",
+      "verificationUrl": "https://www.cityofkaty.com/visitors/museums",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200001108",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
   "bullock-texas-state-history-museum": [
     {
       "question": "What can I see at the Bullock Texas State History Museum?",

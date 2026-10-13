@@ -1433,6 +1433,29 @@
       ]
     },
     {
+      "path": "/destination/johnny-nelson-katy-heritage-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://www.cityofkaty.com/visitors/museums",
+          "fetchUrl": "https://www.cityofkaty.com/visitors/museums",
+          "label": "City of Katy — current museum hours, admission, visitor and group policies"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/4200001108",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/4200001108",
+          "label": "Texas Historical Commission museum identity and historical record"
+        },
+        {
+          "sourceUrl": "https://www.katyheritagesociety.com/",
+          "fetchUrl": "https://www.katyheritagesociety.com/",
+          "label": "Adjacent Katy Heritage Park and separately operated railroad museum"
+        }
+      ]
+    },
+    {
       "path": "/destination/1919-san-augustine-county-jail-museum",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
