@@ -59,7 +59,7 @@ export default function MuseumAuthorityNetworkSection({ destination }: { destina
                 <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.detail}</p>
               </article>)}
             </div>
-            <h3 className="mt-12 font-display text-3xl">Three ways to plan the visit</h3>
+            <h3 className="mt-12 font-display text-3xl">Ways to explore the museum and its history</h3>
             <div className="mt-5 grid gap-6 sm:grid-cols-3">
               {dossier.routes.map((route) => <article key={route.label} className="border-t border-border pt-4">
                 <h4 className="font-display text-xl">{route.label}</h4>
