@@ -94,7 +94,9 @@ for (const link of allLinkItems) {
 if (!fs.readFileSync('src/components/editorial/DestinationAuthorityGuide.tsx', 'utf8').includes('historicSiteAuthorityTimeline(destination.slug)')) {
   failures.push('Historic authority chronological source panel is not connected.');
 }
-if (!crosslinksText.includes('combined.filter((entry, index)')) failures.push('Historic links need cross-list duplicate handling.');
+if (!crosslinksText.includes('combined.filter(') || !crosslinksText.includes('combined.findIndex(') || !crosslinksText.includes('href ===')) {
+  failures.push('Historic links need href-based cross-list duplicate handling.');
+}
 
 
 
