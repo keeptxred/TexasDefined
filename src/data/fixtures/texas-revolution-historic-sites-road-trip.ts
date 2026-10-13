@@ -26,6 +26,8 @@ export const texasRevolutionHistoricSitesRoadTripArticle: Article = {
   sourceName: "Texas Historical Commission",
   sourceUrl: "https://thc.texas.gov/historic-sites",
   internalLinks: [
+    { href: "/destination/the-alamo", label: "The Alamo", description: "Add San Antonio as a separate optional leg before the 1836 San Jacinto campaign." },
+    { href: "/destination/goliad-state-park", label: "Goliad State Park and Mission Espíritu Santo", description: "See the mission-presidio landscape alongside the Goliad battlefield and fort." },
     { href: "/explore/historic-sites", label: "Texas historic sites", description: "Browse the statewide historic-site collection and build a larger history itinerary." },
     { href: "/destination/san-felipe-de-austin", label: "San Felipe de Austin", description: "Begin with Stephen F. Austin's colonial headquarters on the Brazos." },
     { href: "/destination/washington-on-the-brazos", label: "Washington-on-the-Brazos", description: "Visit the convention landscape where delegates declared Texas independence in March 1836." },
@@ -35,8 +37,9 @@ export const texasRevolutionHistoricSitesRoadTripArticle: Article = {
     { href: "/destination/sam-houston-memorial-museum-republic-texas-presidential-library-huntsville", label: "Sam Houston Memorial Museum & Republic of Texas Presidential Library", description: "Continue from the battlefield into Houston's Huntsville home landscape, artifacts, family history and Republic-era research collections." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["san-felipe-de-austin", "washington-on-the-brazos", "star-of-the-republic-museum", "fannin-battleground", "presidio-la-bahia", "san-jacinto-battleground", "sam-houston-memorial-museum-republic-texas-presidential-library-huntsville", "first-capitol-of-texas", "stephen-f-austin-memorial"],
+  relatedDestinations: ["san-felipe-de-austin", "washington-on-the-brazos", "star-of-the-republic-museum", "fannin-battleground", "presidio-la-bahia", "san-jacinto-battleground", "sam-houston-memorial-museum-republic-texas-presidential-library-huntsville", "first-capitol-of-texas", "stephen-f-austin-memorial", "the-alamo", "goliad-state-park"],
   body: [
+    p("Optional San Antonio extension: The Alamo is an essential earlier chapter of the 1836 campaign but is a substantial drive west of this southeast-Texas route. Add a separate day or overnight for the Alamo and the broader mission landscape. At Goliad, pair Presidio La Bahía with Mission Espíritu Santo inside Goliad State Park, remembering that the two sites have separate operators and entry arrangements."),
     p("The easiest way to flatten the Texas Revolution is to reduce it to three names: the Alamo, Goliad and San Jacinto. Those places matter enormously, but the larger story becomes clearer when you travel through the political and settlement landscape that existed before the fighting, then follow the campaign in chronological order."),
     p("This route does that. It begins at San Felipe de Austin, moves to Washington-on-the-Brazos, turns south toward the Goliad campaign, and finishes at San Jacinto. A longer version adds the Republic-era political sites around West Columbia after independence. The result is less a checklist of monuments than a road trip through the changing geography of Texas in 1835 and 1836."),
     h("How to use this route"),
