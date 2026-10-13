@@ -1398,9 +1398,9 @@
           "label": "FAQ source: Can a teacher arrange a Holocaust education group tour?"
         },
         {
-          "sourceUrl": "https://www.txdot.gov/content/dam/project-sites/reimaginei10/docs/historic-resources-survey-report-1.pdf",
-          "fetchUrl": "https://www.txdot.gov/content/dam/project-sites/reimaginei10/docs/historic-resources-survey-report-1.pdf",
-          "label": "TxDOT site survey"
+          "sourceUrl": "https://elpasoholocaustmuseum.org/ubicacion-horario-y-cierres/",
+          "fetchUrl": "https://elpasoholocaustmuseum.org/ubicacion-horario-y-cierres/",
+          "label": "Official Spanish museum entry, visitor hours and route"
         }
       ]
     }
