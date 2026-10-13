@@ -49,11 +49,11 @@
     "repositoryMainAtAssignment": "193f24fb06e48fd43fd821d6a6bced28d958301a",
     "maxSchoolsPerBatch": 25,
     "currentSchool": null,
-    "nextSchool": "barksdale-nueces-canyon",
-    "implementedOnBranch": 6,
-    "remainingToImplement": 19,
+    "nextSchool": "baytown-goose-creek-memorial",
+    "implementedOnBranch": 11,
+    "remainingToImplement": 14,
     "remainingToVerify": 24,
-    "notes": "Benjamin Mustangs production VERIFIED at final 4661514b commit on Oct 13: 63/63 desktop/mobile browser checks, screenshots and reciprocal Knox County links; the initial five Batch005 researched entries remain IMPLEMENTED, the other nineteen are proposed in the unresolved group2-group5 branches. Previous 80 VERIFIED preserved. Continue remaining 24 without counting unmerged pages as deployed."
+    "notes": "81 VERIFIED including Benjamin preserved. Group2 five records IMPLEMENTED on new release branch; not yet production verified. Remaining 14 assigned Group3–5 schools unmerged."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -5769,8 +5769,14 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/barksdale-nueces-canyon",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group2-main-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/barksdale-nueces-canyon.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:bartlett",
@@ -5783,8 +5789,14 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bartlett",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group2-main-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/bartlett.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:bastrop",
@@ -5797,8 +5809,14 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bastrop",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group2-main-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/bastrop.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:bastrop-cedar-creek",
@@ -5811,8 +5829,14 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bastrop-cedar-creek",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group2-main-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/bastrop-cedar-creek.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:bay-city",
@@ -5825,8 +5849,14 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bay-city",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group2-main-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/bay-city.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:baytown-goose-creek-memorial",
