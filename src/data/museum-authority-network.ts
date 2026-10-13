@@ -499,6 +499,45 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "el-paso-museum-of-art": {
+    name: "El Paso Museum of Art",
+    slug: "el-paso-museum-of-art",
+    county: "El Paso",
+    city: "El Paso",
+    reviewed: "2026-10-12",
+    topics: ["art", "texas-history", "family", "border-culture"],
+    whyVisit: "The El Paso Museum of Art (EPMA) gives downtown visitors a rare chance to compare European old-master paintings, Mexican devotional art, American painting and borderlands contemporary exhibitions in one free public institution. Its location at Arts Festival Plaza and bilingual tours make it an inviting cultural stop for local families and travelers from Texas, New Mexico and northern Mexico.",
+    visitorStrategy: "Admission is always free. The official plan-a-visit page lists Wednesday–Saturday 10 a.m.–6 p.m., Sunday 11 a.m.–3 p.m., and closure Monday, Tuesday and major holidays. The museum is at One Arts Festival Plaza downtown, where nearby public garages and metered street parking charge variable rates. Allocate 60–90 minutes for highlights or longer if art is a special interest. A 2025–early 2026 HVAC closure has concluded, but not every gallery is continuously on display; consult today's exhibition schedule.",
+    accessibility: "The museum states it is fully accessible, welcomes service animals and lends a wheelchair free at its reception desk; visitors who need other accommodations should contact 915-212-0300. Parking is not free and is provided by downtown garages and meters, so plan an accessible route from your chosen garage. The museum provides English and Spanish tour options; museum guides prohibit amplified guided-tour equipment in galleries.",
+    familiesAndGroups: "Families can request an activity guide at Visitor Services, try augmented-reality exploration of select work and use pencil-based observation exercises in designated galleries. Free guided tours are available to groups of ten to fifty with two weeks' booking; school tours of up to sixty require one adult for every ten students. A school Tour + Studio option for grades K–12 reserves four weeks ahead and includes artmaking without charge. Do not confuse an art school education studio with an unsupervised toddler play area or a public cafeteria.",
+    researchValue: "Founded in 1959, EPMA's collections foreground the cultural exchange between the American Southwest, Mexico, the wider Americas and Europe. Its Kress Collection underpinned the original institution, while its substantial Mexican retablos, American portraits and contemporary acquisitions broaden the conversation. The city-supported museum serves a border community where artwork, religion, identity and migration are often examined through overlapping traditions.",
+    exhibits: [
+      { heading: "European old masters and the Samuel H. Kress Collection", detail: "The Kress gift formed EPMA's original cornerstone, including paintings spanning Byzantine, Renaissance and Baroque European traditions. Collections remain held by the museum even when individual rooms rotate or close for conservation; confirm which Kress galleries can be entered today." },
+      { heading: "Mexican colonial paintings and retablos", detail: "Small devotional works on tin or copper and Spanish colonial paintings show how image-making changed as artistic traditions crossed the Atlantic. EPMA describes an especially substantial retablo repository—a distinctive reason to visit from outside El Paso." },
+      { heading: "American paintings and portraits", detail: "Nineteenth-century portraits and twentieth-century paintings illuminate changing American artistic subjects and styles, including the Ashcan School. Compare these images to Mexican and borderlands works rather than expecting one national story." },
+      { heading: "America, The Beautiful: Zoe Diaz selections", detail: "A 2026 temporary exhibition scheduled July 25, 2026 through January 3, 2027. Exhibition dates are time-sensitive and should be reconfirmed before travel." },
+      { heading: "EPISD Creativity Through Our Eyes", detail: "Community/student creativity exhibition listed August 22 through October 25, 2026. The short remaining run makes date-specific checking essential; never represent it as permanent." },
+    ],
+    routes: [
+      { label: "Free 60–90-minute highlights", steps: ["Begin with the contemporary exhibition currently on view", "Compare a European Kress work with Mexican retablos if galleries are open", "Finish with an American or local borderlands work and visitor reflection"] },
+      { label: "Family and art-learning visit", steps: ["Pick up a family activity guide at visitor services", "Explore selected paintings with observation prompts or augmented-reality activity", "Check the education program calendar or book Tour + Studio well ahead for school groups"] },
+      { label: "Downtown El Paso arts afternoon", steps: ["Visit EPMA during confirmed open hours", "Explore nearby downtown cultural institutions as separate stops", "Use downtown parking/transit information before setting out"] },
+    ],
+    sources: [
+      { label: "EPMA — Plan Your Visit", url: "https://epma.art/visit", use: "Free entry, hours, visitor rules, parking and wheelchair access" },
+      { label: "EPMA — Tours and family education", url: "https://epma.art/visit/tours", use: "Advance group reservations, accessible learning and tour lengths" },
+      { label: "EPMA — Art and exhibitions", url: "https://epma.art/", use: "Current date-bound exhibitions" },
+      { label: "EPMA — European Collection", url: "https://epma.art/art/collections/european", use: "Kress collection history" },
+      { label: "EPMA — Latin American Collection", url: "https://epma.art/art/collections/latinamerican", use: "Mexican retablos and colonial art" },
+      { label: "EPMA — American Collection", url: "https://epma.art/art/collections/american", use: "American portrait and landscape interpretation" },
+    ],
+    connections: [
+      { label: "El Paso County", href: "/county/el-paso", reason: "Explore the border city and surrounding county's identity, history and arts." },
+      { label: "Museums across Texas", href: "/explore/museums", reason: "Compare El Paso's art museum with other independently researched visitor guides." },
+      { label: "Elisabet Ney Museum", href: "/destination/elisabet-ney-museum-austin", reason: "A different Texas sculpture tradition; Austin's historic museum remains closed for renovation." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
@@ -574,6 +613,13 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     alt: "Historic limestone Formosa studio and Elisabet Ney Museum in Austin, photographed in October 2020",
     width: 1600, height: 1067,
     credit: "MarkJGilmore · CC BY-SA 4.0 · Wikimedia Commons · File:Austin - Elisabet Ney Museum - 20201006000619.jpg",
+  },
+
+  "el-paso-museum-of-art": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/El_Paso_Museum_of_Art._El_Paso%2C_Texas.jpg?width=1600",
+    alt: "Entrance building of the El Paso Museum of Art at Arts Festival Plaza in downtown El Paso",
+    width: 1600, height: 1200,
+    credit: "Wmpearl · Public domain · Wikimedia Commons · File:El Paso Museum of Art. El Paso, Texas.jpg",
   },
 
 };
