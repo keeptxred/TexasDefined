@@ -1,6 +1,7 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { SpecialistGuideDestinationLinks } from "@/components/editorial/SpecialistGuideDestinationLinks";
 import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
 import { stateParkHeroMap } from "@/data/state-park-hero-map";
 
@@ -142,6 +143,8 @@ function TexasPaddlingGuidePage() {
               ))}
             </nav>
           </section>
+
+          <SpecialistGuideDestinationLinks guideHref="/texas-paddling-guide" />
 
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
