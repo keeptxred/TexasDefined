@@ -58,4 +58,7 @@ export const museumAuthoritySlugs: ReadonlySet<string> = new Set([
   "audie-murphy-american-cotton-museum-greenville",
   "brazos-valley-museum-natural-history-bryan",
   "czech-heritage-museum-genealogy-center-temple",
+  "buffalo-soldiers-national-museum-houston",
+  "texas-prison-museum-huntsville",
+  "eisenhower-birthplace",
 ]);
