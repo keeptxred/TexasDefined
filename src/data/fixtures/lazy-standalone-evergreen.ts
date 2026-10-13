@@ -45,7 +45,7 @@ const texasHighSchoolFootballPlayoffsStub: Article = {
   dek: "From district qualification and bi-district matchups to 6A's Division I/II split, neutral sites and state championships, here is how the UIL football postseason works in 2026.",
   category: "sports",
   hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Cultural_District_June_2016_09_%28Farrington_Field%29.jpg?width=1800", alt: "Farrington Field, a historic high school football stadium in Fort Worth, Texas", width: 1800, height: 1200, credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons" },
-  authorId: "a-marisol", publishedAt: "2026-09-19", readingMinutes: 12,
+  authorId: "a-marisol", publishedAt: "2026-09-19", updatedAt: "2026-10-13", readingMinutes: 12,
   tags: ["texas high school football playoffs", "uil football playoffs", "texas football bracket", "bi-district football", "6A football playoffs", "texas state championships"], featured: false,
   sourceName: "University Interscholastic League", sourceUrl: "https://www.uiltexas.org/football/playoff-brackets",
   body: [], relatedCollections: [], relatedDestinations: [],
@@ -125,6 +125,18 @@ const texasRevolutionHistoricSitesRoadTripStub: Article = {
   tags: ["texas revolution", "texas independence", "texas history road trip", "san felipe de austin", "washington on the brazos", "goliad", "san jacinto"], featured: true,
   sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/historic-sites",
   body: [], relatedCollections: [], relatedDestinations: ["san-felipe-de-austin", "washington-on-the-brazos", "star-of-the-republic-museum", "fannin-battleground", "presidio-la-bahia", "san-jacinto-battleground"],
+};
+
+const nacogdochesSanAugustineHistoricRoadTripStub: Article = {
+  id: "evergreen-nacogdoches-san-augustine-historic-road-trip", brandId: "texasdefined", slug: "nacogdoches-san-augustine-historic-road-trip",
+  title: "Historic Road Trip: Nacogdoches, Caddo Country & San Augustine",
+  dek: "A two-to-three-day East Texas heritage trip with Caddo Mounds, Mission Dolores and El Camino Real.",
+  category: "texas-history",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Nacogdoches%20downtown.jpg?width=1600", alt: "Historic downtown Nacogdoches", width: 1200, height: 804, credit: "Chris Litherland · CC BY 3.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-10-12", updatedAt: "2026-10-12", readingMinutes: 18,
+  tags: ["Nacogdoches","San Augustine","Caddo Mounds","Mission Dolores","El Camino Real"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/travel/historic-road-trips",
+  body: [], relatedCollections: [], relatedDestinations: ["nacogdoches","mission-dolores","caddo-mounds-state-historic-site","san-augustine"]
 };
 
 const texasFrontierFortsRoadTripStub: Article = {
@@ -367,6 +379,18 @@ const historicSanAntonioHeritageRoadTripStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["the-alamo", "casa-navarro", "san-antonio-missions-national-historical-park", "king-william-historic-district", "menger-hotel-san-antonio", "mission-san-jose-san-antonio"],
 };
 
+const fredericksburgJohnsonCityHistoricRoadTripStub: Article = {
+  id: "evergreen-fredericksburg-johnson-city-historic-road-trip", brandId: "texasdefined", slug: "fredericksburg-johnson-city-historic-road-trip",
+  title: "Fredericksburg to Johnson City: The Complete Historic Hill Country Road Trip",
+  dek: "Historic Fredericksburg, Fort Martin Scott, the Pacific War museum, Stonewall, LBJ Ranch, Sauer-Beckmann Farm, Hye and Johnson City with present-day closures, costs and a Luckenbach detour.",
+  category: "road-trips", region: "hill-country",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Lyndon_B._Johnson_Ranch_October_2020_28_%28Texas_White_House%29.jpg?width=1600", alt: "The Texas White House at LBJ Ranch near Stonewall; exterior image, interior currently closed", width: 1600, height: 1067, credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons" },
+  authorId: "a-dell", publishedAt: "2026-10-12", readingMinutes: 19,
+  tags: ["fredericksburg to johnson city", "lbj ranch", "hill country historic sites", "stonewall", "fort martin scott", "luckenbach"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/blog/historic-road-trip-fredericksburg-johnson-city",
+  body: [], relatedCollections: [], relatedDestinations: ["fredericksburg", "fort-martin-scott", "stonewall", "hye", "johnson-city", "luckenbach"],
+};
+
 export const standaloneEvergreenStubs: Article[] = [
   historicSanAntonioHeritageRoadTripStub,
   rodeo101Stub,
@@ -381,6 +405,7 @@ export const standaloneEvergreenStubs: Article[] = [
   sixFlagsOverTexasMeaningStub,
   texasRevolutionHistoricSitesRoadTripStub,
   texasFrontierFortsRoadTripStub,
+  nacogdochesSanAugustineHistoricRoadTripStub,
   presidentialTexasHistoricHomesStub,
   brazoriaPlantationsSlaveryEmancipationHistoryStub,
   sallieHoggTexasLegacyStub,
@@ -399,6 +424,7 @@ export const standaloneEvergreenStubs: Article[] = [
   washingtonOnTheBrazosWeekendGuideStub,
   goliadHistoryWeekendGuideStub,
   fredericksburgHistoryWeekendGuideStub,
+  fredericksburgJohnsonCityHistoricRoadTripStub,
 ];
 
 export async function loadStandaloneEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -415,6 +441,7 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === sixFlagsOverTexasMeaningStub.slug) return import("./six-flags-over-texas-meaning").then((module) => module.sixFlagsOverTexasMeaningArticle);
   if (slug === texasRevolutionHistoricSitesRoadTripStub.slug) return import("./texas-revolution-historic-sites-road-trip").then((module) => module.texasRevolutionHistoricSitesRoadTripArticle);
   if (slug === texasFrontierFortsRoadTripStub.slug) return import("./texas-frontier-forts-road-trip").then((module) => module.texasFrontierFortsRoadTripArticle);
+  if (slug === nacogdochesSanAugustineHistoricRoadTripStub.slug) return import("./nacogdoches-san-augustine-historic-road-trip").then((module) => module.nacogdochesSanAugustineHistoricRoadTripArticle);
   if (slug === presidentialTexasHistoricHomesStub.slug) return import("./presidential-texas-historic-homes").then((module) => module.presidentialTexasHistoricHomesArticle);
   if (slug === brazoriaPlantationsSlaveryEmancipationHistoryStub.slug) return import("./brazoria-plantations-slavery-emancipation-history").then((module) => module.brazoriaPlantationsSlaveryEmancipationHistoryArticle);
   if (slug === sallieHoggTexasLegacyStub.slug) return import("./sallie-hogg-texas-legacy").then((module) => module.sallieHoggTexasLegacyArticle);
@@ -434,5 +461,6 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === washingtonOnTheBrazosWeekendGuideStub.slug) return import("./washington-on-the-brazos-weekend-guide").then((module) => module.washingtonOnTheBrazosWeekendGuideArticle);
   if (slug === goliadHistoryWeekendGuideStub.slug) return import("./goliad-history-weekend-guide").then((module) => module.goliadHistoryWeekendGuideArticle);
   if (slug === fredericksburgHistoryWeekendGuideStub.slug) return import("./fredericksburg-history-weekend-guide").then((module) => module.fredericksburgHistoryWeekendGuideArticle);
+  if (slug === fredericksburgJohnsonCityHistoricRoadTripStub.slug) return import("./fredericksburg-johnson-city-historic-road-trip").then((module) => module.fredericksburgJohnsonCityHistoricRoadTripArticle);
   return null;
 }

@@ -150,7 +150,7 @@ export const lbjBoyhoodHomeDestinations: Destination[] = [
           description:
             "The adjacent state park near Stonewall adds German-Texan living history, longhorns, bison and the Pedernales River landscape.",
           proximity: "Near the LBJ Ranch",
-          href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
+          href: "/destination/lyndon-b-johnson-state-park-historic-site",
         },
       ],
     },

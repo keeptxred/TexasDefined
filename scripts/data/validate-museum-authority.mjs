@@ -26,6 +26,8 @@ if (manifestStart < 0 || manifestEnd < 0) {
   process.exit(1);
 }
 const allDossiers = [...src.slice(manifestStart, manifestEnd).matchAll(/^  "([a-z0-9-]+)": \{/gm)].map((m) => m[1]);
+const lightweightSlugs = [...read("src/data/museum-authority-slugs.ts").matchAll(/^  "([a-z0-9-]+)",$/gm)].map(m => m[1]);
+if (lightweightSlugs.length !== allDossiers.length || lightweightSlugs.some(s => !allDossiers.includes(s))) failures.push("Museum SEO slug index must match all dossier keys exactly.");
 if (new Set(allDossiers).size !== allDossiers.length) failures.push("Duplicate museum authority dossier keys.");
 function dossier(slug) {
   const start = src.indexOf('  "' + slug + '": {');
@@ -80,13 +82,21 @@ for (const slug of new Set([...required, ...allDossiers])) {
 }
 for (const [path, marker] of [
   ["src/data/destination-preserved-catalog.ts", "museumAuthorityDestinations"],
-  ["src/data/destination-query-runtime.ts", "enrichMuseumAuthority"],
+  ["src/data/destination-query-runtime.ts", "enrichMuseumMedia"],
   ["src/components/editorial/DestinationRelationships.tsx", "MuseumAuthorityNetworkSection"],
-  ["src/routes/destination.$slug.tsx", "museumDossierFor"],
+  ["src/routes/destination.$slug.tsx", "museumAuthoritySlugs"],
   ["src/routes/$kind.$slug.lazy.tsx", "CountyCityMuseums"],
 ]) {
   if (!read(path).includes(marker)) failures.push("Missing museum integration in " + path);
 }
+// Main destination discovery must not import the full museum research dossier payload.
+for (const path of ["src/data/destination-query-runtime.ts", "src/data/destination-preserved-catalog.ts", "src/data/museum-authority-new-destinations.ts"]) {
+  if (read(path).includes('from "./museum-authority-network"')) failures.push(path + ": heavyweight dossier import regresses main client performance.");
+}
+if (!read("src/data/museum-authority-heroes.ts").includes("export const museumLicensedHeroes")) failures.push("Lightweight license-cleared museum heroes module missing.");
+if (!read("src/routes/destination.$slug.tsx").includes("enrichMuseumAuthority")) failures.push("Museum body enrichment must remain in the museum destination page, not global search.");
+if (read("src/routes/destination.$slug.tsx").includes('from "@/data/museum-authority-network"')) failures.push("Museum route must lazily load full research dossiers.");
+
 if (!read("src/data/museum-authority-new-destinations.ts").includes('slug: "george-ranch-historical-park"'))
   failures.push("Missing George Ranch destination record");
 
@@ -163,16 +173,20 @@ if (base) {
     const diff = execFileSync("git", ["diff", "--no-ext-diff", "--unified=8", base + "...HEAD", "--", ...candidatePaths], { encoding: "utf8", maxBuffer: 32 * 1024 * 1024 });
     const added = diff.split("\n").filter((line) => line.startsWith("+") && !line.startsWith("+++")).map((line) => line.slice(1)).join("\n");
     const found = new Set();
-    for (const match of added.matchAll(/slug:\s*"([a-z0-9-]+)"/g)) {
-      const slug = match[1];
-      const context = added.slice(Math.max(0, match.index - 300), match.index + 450);
+    // Parse actual newly added destination records, not nearby references,
+    // FAQ data or unrelated taxonomy slugs like "law-enforcement".
+    // Requiring the adjacent id/brandId/slug/name sequence prevents false
+    // positives from concatenated git diff hunks without weakening the gate.
+    for (const match of added.matchAll(/\bid:\s*"[^"\n]+"\s*,\s*brandId:\s*"[^"\n]+"\s*,\s*slug:\s*"([a-z0-9-]+)"\s*,\s*name:\s*"([^"\n]+)"/g)) {
+      const [, slug, name] = match;
       if (/(museum|historical-park|science-center)/i.test(slug) ||
-          /name:\s*["'][^"'\n]*(museum|historical park|science center)[^"'\n]*["']/i.test(context)) {
-        found.add(slug);
-      }
+          /(museum|historical park|science center)/i.test(name)) found.add(slug);
     }
+    // Triples such as ["texas-history", "law-enforcement", "museum-heritage"]
+    // are category taxonomy, not a destination tuple. Require a HUMAN museum
+    // name, with museum as an independent word (not "museum-heritage").
     for (const match of added.matchAll(/"[^"]+",\s*"([a-z0-9-]+)",\s*"([^"]+)"/g)) {
-      if (/(museum|historical park|science center)/i.test(match[2])) found.add(match[1]);
+      if (/(?:^|[\s(])(?:museums?|historical park|science center)(?=$|[\s),.!])/i.test(match[2])) found.add(match[1]);
     }
     for (const slug of found) {
       if (!dossier(slug)) failures.push("NEW museum destination " + slug + " lacks museum authority dossier. See docs/museum-authority-standard.md");

@@ -2,8 +2,11 @@ import { Link } from "@tanstack/react-router";
 import type { Destination } from "@/data/types";
 import { museumAuthorityDirectory, museumDossierFor } from "@/data/museum-authority-network";
 import { museumVisitorFaqFor } from "@/data/museum-visitor-faqs";
+import { unavailableDestinationSlugs } from "@/data/destination-availability";
 import { Container } from "@/components/layout/Container";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
+
+const currentlyClosedMuseumSlugs = new Set(unavailableDestinationSlugs());
 
 /**
  * Museum editorial depth and two-way relationship links.
@@ -17,6 +20,7 @@ export default function MuseumAuthorityNetworkSection({ destination }: { destina
   const county = (destination.county || "").replace(/\s+County$/i, "").trim().toLowerCase();
   const neighboring = museumAuthorityDirectory.filter((entry) =>
     entry.slug !== destination.slug &&
+    !currentlyClosedMuseumSlugs.has(entry.slug) &&
     (entry.city.toLowerCase() === destination.nearestTown.trim().toLowerCase()
       || (county.length > 0 && entry.county.toLowerCase() === county)
       || Boolean(dossier?.connections.some((link) => link.href === `/destination/${entry.slug}`)))
@@ -26,7 +30,7 @@ export default function MuseumAuthorityNetworkSection({ destination }: { destina
   // tags, with specific shared subjects weighted above generic Texas history.
   // Every new registered museum participates without per-page link maintenance.
   const themed = dossier
-    ? museumAuthorityDirectory.filter((item) => item.slug !== destination.slug)
+    ? museumAuthorityDirectory.filter((item) => item.slug !== destination.slug && !currentlyClosedMuseumSlugs.has(item.slug))
       .map((item) => ({
         item,
         score: item.topics.filter((topic) => dossier.topics.includes(topic))

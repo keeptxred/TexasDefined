@@ -42,6 +42,10 @@ assert(links.includes("...sanAntonioHeritageLinks(slug)"), "Destination visitor 
 assert(bexar.includes("/article/historic-san-antonio-heritage-road-trip"), "Bexar County article missing guide");
 assert(bexar.includes("/destination/mission-san-jose-san-antonio"), "Bexar county missing mission links");
 assert(!kingWilliam.includes("Villa Finale and the Steves Homestead have their own admission rules and schedules"), "False Steves public tour implication remains");
+assert(!graph.includes('"href": "/destination/san-antonio"'), "No 404 destination-city aliases in San Antonio graph");
+assert(graph.includes('"href": "/city/san-antonio"'), "City gateway must resolve via canonical /city/san-antonio");
+assert(!article.includes('"href": "/destination/san-antonio"'), "Guide city gateway must not use broken /destination/san-antonio");
+assert(article.includes('"href": "/city/san-antonio"'), "Guide must link to canonical city page");
 assert(destination.includes("sold the property in 2022"), "Steves access correction absent");
 assert(article.includes("SOLD") && article.includes("1897") && article.includes("1896"), "Known corrections missing in main guide");
 assert(!/license to confirm|verify attribution\/license|check current Commons license/.test(destination), "Unverified media license note in destination images");
