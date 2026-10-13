@@ -24,3 +24,10 @@ License compliance:
 - **Texas Forestry Museum, Lufkin**: Wikimedia Commons [File:Texas Forestry Museum, Lufkin, TX IMG 8594.JPG](https://commons.wikimedia.org/wiki/File:Texas_Forestry_Museum,_Lufkin,_TX_IMG_8594.JPG), Billy Hathorn, **CC BY-SA 3.0**, 2013 exterior photo. Do not relabel as a current exhibit image.
 
 Attribution is present in each destination hero credit. License checks are required at publication and on replacement.
+
+## Public-domain museum photographs: El Paso and Huntsville, October 12, 2026
+
+- **El Paso Museum of Art**: [File:El Paso Museum of Art. El Paso, Texas.jpg](https://commons.wikimedia.org/wiki/File:El_Paso_Museum_of_Art._El_Paso,_Texas.jpg), **Wmpearl**, public domain, museum building exterior, 3,648 × 2,736 px. Do not imply photo depicts a specific current temporary exhibition.
+- **Texas Prison Museum**: [File:TexasPrisonMuseum.JPG](https://commons.wikimedia.org/wiki/File:TexasPrisonMuseum.JPG), **WhisperToMe**, public domain dedication, exact Huntsville museum exterior (2010), 2,272 × 1,704 px. Not a working prison or capital-punishment artifact.
+
+Reuse and authorship verified on Wikimedia Commons, including imageinfo license metadata for the El Paso building and Commons file's public-domain declaration for Huntsville.
