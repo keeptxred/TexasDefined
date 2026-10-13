@@ -26,6 +26,7 @@ import { garrisonBrothersHyeDestinations } from "./garrison-brothers-hye-destina
 import { williamChrisVineyardsHyeDestinations } from "./william-chris-vineyards-hye-destination";
 import { fredericksburgWineryAuthorityDestinations } from "./fredericksburg-winery-authority-destinations";
 import { hyeTexasDestinations } from "./hye-texas-destination";
+import { fredericksburgJohnsonCityHeritageDestinations } from "./fredericksburg-johnson-city-heritage-destinations";
 import { houstonGalvestonMuseumDestinations } from "./museum-expansion-houston-galveston";
 import { hoggLegacyDestinations } from "./hogg-legacy-destinations";
 import { sanAntonioMuseumDestinations } from "./museum-expansion-san-antonio";
@@ -83,6 +84,10 @@ import { statewideMuseumExpansionWave49Destinations } from "./museum-expansion-s
 import { statewideMuseumExpansionWave50Destinations } from "./museum-expansion-statewide-wave50";
 import { statewideMuseumExpansionWave51Destinations } from "./museum-expansion-statewide-wave51";
 import { youngCountyMuseumAuthorityDestinations } from "./young-county-museum-authority-destination";
+import { nacogdochesSanAugustineAuthorityDestinations } from "./nacogdoches-san-augustine-authority-destinations";
+import { nacogdochesSanAugustineForestDestinations } from "./nacogdoches-san-augustine-forest-destinations";
+import { nacogdochesDowntownHistoricDistrictDestinations } from "./nacogdoches-downtown-historic-district-destination";
+import { zionHillNacogdochesAuthorityDestinations } from "./zion-hill-nacogdoches-authority-destinations";
 import { statewideMuseumExpansionWave52Destinations } from "./museum-expansion-statewide-wave52";
 import { statewideMuseumExpansionWave53Destinations } from "./museum-expansion-statewide-wave53";
 import { statewideMuseumExpansionWave54Destinations } from "./museum-expansion-statewide-wave54";
@@ -231,6 +236,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   legacyExploreDestinations,
   legacyLakeDestinations,
   johnsonCityAuthorityDestinations,
+  fredericksburgJohnsonCityHeritageDestinations,
   johnsonCityWildlifeDestinations,
   lbjBoyhoodHomeDestinations,
   pedernalesRiverNatureParkDestinations,
@@ -308,6 +314,10 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   statewideMuseumExpansionWave50Destinations,
   statewideMuseumExpansionWave51Destinations,
   youngCountyMuseumAuthorityDestinations,
+  nacogdochesSanAugustineAuthorityDestinations,
+  nacogdochesSanAugustineForestDestinations,
+  nacogdochesDowntownHistoricDistrictDestinations,
+  zionHillNacogdochesAuthorityDestinations,
   statewideMuseumExpansionWave52Destinations,
   statewideMuseumExpansionWave53Destinations,
   statewideMuseumExpansionWave54Destinations,
