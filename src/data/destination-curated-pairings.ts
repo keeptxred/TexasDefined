@@ -12,6 +12,9 @@ const CURATED_PAIRINGS: Readonly<Record<string, readonly string[]>> = {
   "kokernot-field": ["alpine-downtown-historic-district", "alpine"],
   "alpine-downtown-historic-district": ["kokernot-field", "alpine", "holland-hotel"],
   "castro-county-courthouse": ["dimmitt"],
+  "bailey-county-courthouse": ["muleshoe"],
+  "wimberley-downtown-square-historic-district": ["wimberley", "blue-hole-regional-park"],
+  "sour-lake-downtown-historic-district": ["sour-lake"],
   "downtown-bryan-historic-district": ["bryan", "carnegie-history-center-bryan", "queen-theatre-bryan"],
   "olivewood-cemetery": ["houston"],
   "natural-bridge-caverns": [
