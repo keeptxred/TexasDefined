@@ -1883,6 +1883,89 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "modern-art-museum-fort-worth": [
+    {
+      "question": "Are the galleries at the Modern Art Museum of Fort Worth open in October 2026?",
+      "answer": "No. The museum officially closes its exhibition galleries September 29 through October 30, 2026 while installing the next collection presentation. The rest of the building offers FREE In the Making sculpture-making activities, cinema and performance programming, its shop and Café Modern. Verify the announced October 31 gallery reopening before making a gallery-focused trip.",
+      "verificationUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Modern free to visit in October 2026?",
+      "answer": "Yes for its special October 2026 lobby sculpture project and museum entry during gallery installation, according to the operator. Galleries are closed the entire September 29–October 30 period. Outside this temporary arrangement regular adult gallery admission is $16, with the museum's weekly free-Friday and half-price Sunday policies.",
+      "verificationUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "When are regular museum galleries normally open?",
+      "answer": "Ordinary public hours are Tuesday–Thursday 10 a.m.–5 p.m., Friday 10 a.m.–8 p.m., Saturday and Sunday 10 a.m.–5 p.m., closed Monday and major holidays. These hours do not mean the exhibition galleries are open during the October 2026 installation period.",
+      "verificationUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Café Modern serve a full meal or just snacks?",
+      "answer": "Café Modern is a full-service restaurant and bar with indoor and patio tables, lunch Tuesday–Friday 11 a.m.–2:30 p.m., brunch Saturday 11 a.m.–2:30 p.m. and Sunday 10 a.m.–3 p.m., and Friday dinner seatings starting at 5 p.m. Reservations are available; its menu and hours are distinct from gallery admission.",
+      "verificationUrl": "https://www.themodern.org/caf%C3%A9-modern",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.themodern.org/caf%C3%A9-modern",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Modern Art Museum of Fort Worth offer free Fridays or half-price Sundays?",
+      "answer": "Yes, during normal gallery operations Fridays offer free general museum admission and Sundays offer half-price tickets. The October 2026 gallery closure supersedes normal expectations; visitors may instead attend free public lobby programs.",
+      "verificationUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are there children's programs and Sunday family tours during the October installation?",
+      "answer": "The free In the Making: The Sculpture Project provides hands-on artmaking suitable for families during the October closure. The operator separately states there are no normal Public Tours or Sunday Family Tours in October 2026, with family tour dates advertised to resume after reopening.",
+      "verificationUrl": "https://www.themodern.org/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the museum wheelchair accessible, including Café Modern?",
+      "answer": "Yes. The operator describes wheelchair-accessible public entrances, elevators, galleries when open, theater, restrooms, Café Modern and its shop, plus accessible parking. Borrowed wheelchairs and portable seats are available first come, and some screenings offer assisted listening or captions.",
+      "verificationUrl": "https://www.themodern.org/accessibility",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.themodern.org/accessibility",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where is Modern Art Museum of Fort Worth and how long should I allow?",
+      "answer": "The Modern is at 3200 Darnell Street in Fort Worth's Cultural District, a short walk from the Kimbell and Amon Carter. During October 2026 an architecture, free artmaking and restaurant visit may be shorter than a conventional gallery outing. When exhibition rooms reopen, allow roughly 90 minutes to two hours for a selective art-focused visit; this is an editorial estimate.",
+      "verificationUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are visitors allowed to take photos, bring food, or sketch in galleries?",
+      "answer": "Personal non-flash photography is generally permitted outside restricted works and loan exhibitions. No food or drinks are permitted in galleries, and visitors must keep their distance from artworks. Pencil sketching is allowed within size restrictions, while large bags and bulky items must be checked. Check staff signs for current exhibition-specific rules.",
+      "verificationUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
