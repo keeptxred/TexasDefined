@@ -75,6 +75,22 @@ const required = [
   "seminole-canyon-state-park-and-historic-site",
   "lake-arrowhead-state-park",
 ];
+// Existing and newly researched park-specific sources must survive subsequent revisions.
+// This protects actual facility facts, not a generic category description.
+const deeperFacilities = [
+  "garner-state-park", "enchanted-rock-state-natural-area", "brazos-bend-state-park",
+  "guadalupe-river-state-park", "mckinney-falls-state-park",
+  "dinosaur-valley-state-park", "lost-maples-state-natural-area", "colorado-bend-state-park",
+  "franklin-mountains-state-park", "longhorn-cavern-state-park",
+  "falcon-state-park", "kickapoo-cavern-state-park", "old-tunnel-state-park",
+  "bentsen-rio-grande-valley-state-park",
+];
+for (const slug of deeperFacilities) {
+  assertContains(authority, `"${slug}": {`, `Independently sourced TPWD facilities for ${slug} were lost`);
+}
+assertContains(authority, 'destination.slug === "longhorn-cavern-state-park"', "Longhorn Cavern must book actual cave tours, never imply campsite reservations");
+assertContains(authority, "https://www.visitlonghorncavern.com/", "Longhorn Cavern tour operator link missing");
+assertContains(essentials, "entries.map(({ title, detail })", "Park essentials must show checked facts instead of multiple boilerplate unverified claims");
 const verifiedParkSlugs = ["palo-duro-canyon-state-park","caprock-canyons-state-park","big-bend-ranch-state-park","mustang-island-state-park","goose-island-state-park","sea-rim-state-park","fort-boggy-state-park","copper-breaks-state-park","san-angelo-state-park","abilene-state-park","daingerfield-state-park","mission-tejas-state-park"];
 for (const slug of verifiedParkSlugs) {
   assertContains(headquarters, `"${slug}": {`, `Missing individually verified TPWD headquarters: ${slug}`);
