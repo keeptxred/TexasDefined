@@ -1845,6 +1845,71 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "brazos-valley-museum-natural-history-bryan": {
+    name: "Brazos Valley Museum of Natural History",
+    slug: "brazos-valley-museum-natural-history-bryan",
+    county: "Brazos",
+    city: "Bryan",
+    reviewed: "2026-10-13",
+    topics: ["natural-history", "archaeology", "family"],
+    whyVisit: "Bryan's Brazos Valley Museum introduces natural and cultural history in one affordable stop. Its exhibits and education programming connect fossils, wildlife, mineral resources, archaeological evidence and the people of the Brazos Valley; visitors can extend the indoor visit into nearby Boonville Heritage Park when weather and access are suitable.",
+    visitorStrategy: "Visit at 3232 Briarcrest Drive in Bryan, normally Tuesday through Saturday from 10 a.m. to 5 p.m. General adult admission is listed at $5, with a discount for children, seniors and students, and free entry for children three and under with a paying adult. The first Tuesday each month is currently a $1 admission day.",
+    accessibility: "The museum publishes a website accessibility commitment, but that does not on its own verify all physical gallery door widths, wheelchair access or sensory facilities. Ask the operator directly about specific mobility or sensory needs, and plan outdoor Boonville Heritage Park separately from indoor museum access.",
+    familiesAndGroups: "The museum organizes children's nature camps, school programs, birthday activities and science education throughout the year. Families with toddlers may prefer a short gallery visit, while primary and middle-school learners can use the natural-history displays and educational kits. A scheduled nature camp should never be mistaken for daily drop-in programming.",
+    researchValue: "Displays connect Brazos Valley wildlife and geology with archaeology and local cultural history, helping readers place their daily landscape in deep natural time. The museum's mission explicitly includes stewardship, so the guide can discuss preservation and environmental responsibility without pretending to reproduce or provide access to an institutional collections inventory.",
+    exhibits: [
+      { heading: "Natural science and wildlife interpretation", detail: "Use specimens and ecological storytelling to connect familiar Central Texas wildlife to the Brazos Valley habitats where it lives." },
+      { heading: "Regional archaeology and cultural history", detail: "Interpret everyday community history and early settlement evidence alongside natural resources without confusing modern and prehistoric time scales." },
+      { heading: "School discovery programs", detail: "Nature camps and educational outreach give families ways to explore science more deeply, but registration and dates must be checked for each program." },
+    ],
+    routes: [
+      { label: "Indoor natural-history highlights", steps: ["Start with the museum's regional science displays", "Include one cultural-history or archaeology stop", "Ask staff about any seasonal exhibition"] },
+      { label: "Family outdoor extension", steps: ["Tour the museum during paid public admission hours", "Check weather and access for Boonville Heritage Park", "Use county guides to connect the two subjects"] },
+    ],
+    sources: [
+      { label: "Museum official visitor information", url: "https://www.brazosvalleymuseum.org/visit", use: "Operating hours, address, admissions and Dollar Days" },
+      { label: "Museum institutional mission and programming", url: "https://www.brazosvalleymuseum.org/about-the-museum", use: "Camps, school programs, stewardship and exhibits" },
+      { label: "Museum website accessibility statement", url: "https://www.brazosvalleymuseum.org/accessibility", use: "Clarify limits of website versus physical-access information" },
+    ],
+    connections: [
+      { label: "Brazos County", href: "/county/brazos", reason: "Relate nature and heritage to Bryan and College Station." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Compare family-friendly science and history programs." },
+      { label: "Bell County Museum", href: "/destination/bell-county-museum-belton", reason: "Another Central Texas institution combining archaeology and local history." },
+    ],
+  },
+  "czech-heritage-museum-genealogy-center-temple": {
+    name: "Czech Heritage Museum & Genealogy Center",
+    slug: "czech-heritage-museum-genealogy-center-temple",
+    county: "Bell",
+    city: "Temple",
+    reviewed: "2026-10-13",
+    topics: ["immigration", "heritage", "genealogy"],
+    whyVisit: "Temple's Czech Heritage Museum & Genealogy Center connects Czech and Czech-Texan immigration to the domestic arts, clothing, family histories, cultural organizations and traditions that still influence Central Texas. It is both a modest visitor museum and a place to ask how migration and family records connect people to the region.",
+    visitorStrategy: "The museum is at 119 West French Avenue in Temple and currently lists Thursday through Saturday from 10 a.m. to 4 p.m. Published basic admission is $4 for adults, $3 for seniors aged 60 and older, and $2 for children twelve and under. Self-guided visiting and arranged guided tours are separate options; book organized groups rather than assuming walk-in guide availability.",
+    accessibility: "The operator publishes a location map and contact information but does not substantiate every building accessibility feature on its general visit pages. Visitors requiring wheelchair entry, accessible toilets, seating or sensory accommodations should contact the museum before travel rather than trusting inferred amenities.",
+    familiesAndGroups: "Families can use material culture, maps of immigration and traditional dolls to begin conversations about language, clothing, foodways and cultural continuity. A genealogical research session is different from hands-on children's play, and families with very young children may prefer a shorter guided introduction. Schools and clubs can request groups or guided tours.",
+    researchValue: "The center is a point of connection for Czech-Texan genealogy and migration records. Its exhibits allow visitors to explore why families arrived and formed communities in Texas, while detailed genealogical inquiry may require advance coordination. Link interested readers to the museum's own archive services instead of copying family data or unverified lineage claims.",
+    exhibits: [
+      { heading: "Czech immigration to Central Texas", detail: "Regional maps and interpretation trace where Czech-speaking immigrants settled and formed communities, providing context for familiar towns and festivals." },
+      { heading: "Traditional clothing, dolls and domestic arts", detail: "Artifacts and folk material from Czech families illustrate craft, clothing and cultural identity in ways that complement written history." },
+      { heading: "Genealogy center and family stories", detail: "The center helps visitors pursue documentary family history; access to specialist resources should be arranged under the museum's actual research policies." },
+    ],
+    routes: [
+      { label: "45–90-minute heritage introduction", steps: ["Visit the cultural exhibits during confirmed public hours", "Explore migration and family-history themes", "Ask staff about any temporary show or research display"] },
+      { label: "Genealogy-oriented appointment", steps: ["Contact the museum about records before travel", "Bring known family names and dates to refine research questions", "Explore Temple's linked local-history destinations"] },
+    ],
+    sources: [
+      { label: "Museum official visiting hours and admission", url: "https://czechheritagemuseum.org/contact-us", use: "Published fees, days and address" },
+      { label: "Museum tour choices and directions", url: "https://czechheritagemuseum.org/plan-your-visit", use: "Self-guided and advance group tours" },
+      { label: "Museum official home", url: "https://czechheritagemuseum.org/", use: "Institution, exhibits and genealogy mission" },
+    ],
+    connections: [
+      { label: "Bell County", href: "/county/bell", reason: "Place Czech-Texan heritage alongside Temple history." },
+      { label: "Bell County Museum", href: "/destination/bell-county-museum-belton", reason: "Visit a nearby general county-history museum for wider context." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Find related cultural and immigrant-history museums." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
