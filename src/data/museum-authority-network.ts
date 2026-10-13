@@ -487,6 +487,184 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "babe-didrikson-zaharias-museum-beaumont": {
+    name: "Babe Didrikson Zaharias Museum & Visitor Center",
+    slug: "babe-didrikson-zaharias-museum-beaumont",
+    county: "Jefferson",
+    city: "Beaumont",
+    reviewed: "2026-10-12",
+    topics: ["sports", "texas-history", "women-in-history"],
+    whyVisit: "Beaumont's Babe Didrikson Zaharias Museum introduces the extraordinary range of sports mastered by Mildred Ella 'Babe' Didrikson Zaharias, from Olympic track and field to basketball and professional golf. The museum's artifacts and athletic honors allow visitors to follow one athlete's career across very different eras of women's sport and changing opportunities for women.",
+    visitorStrategy: "Plan the museum as a focused Beaumont sports-history stop rather than a full-day attraction. Both the museum and Babe Zaharias Foundation advertise free admission at 1750 Interstate 10 frontage road in Beaumont. Their pages list Monday–Saturday, 9 a.m.–5 p.m., but the city facilities directory lists Saturday closed and Monday–Friday only. That mismatch must be shown clearly: call 409-833-4622 before any Saturday or holiday visit. A 45–90-minute visit is an editorial estimate, not an operator promise.",
+    accessibility: "The Babe Zaharias Foundation describes access for disabled visitors, but does not publish comprehensive route-by-route or sensory-accessibility specifications. Confirm accessible parking, entrance and restroom arrangements with the museum before visiting if those features are critical. The museum is inside a distinct circular building near the Interstate 10 frontage road, not at the Babe Zaharias golf course or adjacent city park.",
+    familiesAndGroups: "Museum interpretation is strongest for families and school-age children interested in athletes, records, fairness in sport and women's history. Children who enjoy trophies and stories of multi-sport achievement can compare 1932 Olympic events with later professional golf. There is no official evidence of a children's play gallery or museum cafeteria, so visitors should not expect either. Contact staff for groups before arriving.",
+    researchValue: "Babe won javelin and hurdles gold at the 1932 Los Angeles Olympics and later became a defining figure in women's professional golf, helping establish the LPGA era. Museum narratives should distinguish her sporting legacy from promotional superlatives, explain that her Port Arthur birth and Beaumont upbringing are different places, and prioritize objects the operator confirms are on display, such as the Dead Head golf trophy.",
+    exhibits: [
+      { heading: "1932 Olympics and multi-sport achievement", detail: "Follow Babe's Los Angeles track-and-field success and connect it with her basketball, baseball and other athletic pursuits. The broader story is how she excelled when women's sporting opportunities were limited." },
+      { heading: "Professional golf victories and trophies", detail: "Golf memorabilia introduces Babe's transition to tournament golf and her participation in shaping women's professional competition. Her Dead Head trophy is explicitly noted by the museum as displayed." },
+      { heading: "Local legacy and Beaumont memories", detail: "Photographs and awards tell the story of a Port Arthur-born athlete who grew up in Beaumont, later became a national figure, and remains a defining name in the city's sports history." },
+    ],
+    routes: [
+      { label: "An hour with Babe's sporting legacy", steps: ["Begin with the Olympic and early sports stories", "Compare golf achievements and the museum's displayed memorabilia", "Read the local Beaumont connection before leaving"] },
+      { label: "Beaumont women-and-sports history day", steps: ["Visit the Babe Museum when staff confirm opening", "Read broader Jefferson County history and museum links", "Continue to another independently open Beaumont cultural museum if desired"] },
+    ],
+    sources: [
+      { label: "Babe Zaharias Museum — current visitor information", url: "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/", use: "Admission, address, museum's hours and FAQ" },
+      { label: "Babe Didrikson Zaharias Foundation — contact", url: "https://bdzfoundation.com/contact/", use: "Foundation schedule and accessibility note" },
+      { label: "City of Beaumont — facility listing", url: "https://www.beaumonttexas.gov/facilities/facility/details/Babe-Zaharias-Museum-Visitor-Center-74", use: "Conflicting Saturday-hours listing" },
+      { label: "Babe Zaharias Museum — athlete and exhibit history", url: "https://www.babezahariasmuseum.com/babe-zaharias/", use: "Displayed Dead Head trophy and athletic interpretation" },
+    ],
+    connections: [
+      { label: "Jefferson County", href: "/county/jefferson", reason: "Explore Beaumont and Port Arthur heritage in local context." },
+      { label: "Texas Energy Museum", href: "/destination/texas-energy-museum-beaumont", reason: "Contrast sports achievement with the city's industrial history." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Browse independently verified Texas visitor guides." },
+    ],
+  },
+  "20th-century-technology-museum-wharton": {
+    name: "20th Century Technology Museum",
+    slug: "20th-century-technology-museum-wharton",
+    county: "Wharton",
+    city: "Wharton",
+    reviewed: "2026-10-12",
+    topics: ["science", "industry", "family", "texas-history"],
+    whyVisit: "The 20th Century Technology Museum inside Wharton County Historical Museum invites visitors to see how familiar twentieth-century technologies changed daily life: toys, early personal computers, arcade machines and experimental aircraft. Its strength is the comparison between technologies children encounter digitally today and the actual machines people used a generation or two ago.",
+    visitorStrategy: "Visit the shared museum complex at 3615 North Richmond Road in Wharton, not the museum's original 2005 former-jail location sometimes shown in older descriptions. The Wharton County Historical Museum currently advertises Monday–Friday 9 a.m.–4 p.m. and free entry; the Technology Museum's independent page lists a narrower Tuesday and Thursday schedule of 11 a.m.–3 p.m. as its 2025 update. Because these notices are not aligned, call 979-532-2600 or 979-488-7773 before treating the technology wing as open on a particular day. Allow roughly 60–90 minutes as an editorial estimate.",
+    accessibility: "The site operates in a shared museum facility, but current official visit and technology exhibit pages do not specify wheelchair entrance details, hearing or sensory accommodations, or step-free access to each display. Ask the host museum about arrival, museum floor plan and any interactive displays before arranging a visit; an old wheelchair note from the former jail should not be assumed to apply to the current building.",
+    familiesAndGroups: "Families with school-age children can compare 1970s–1980s arcade controls, historic toys and early computers with phones and gaming systems used today. Some machines may be displayed rather than playable; never promise visitors can operate every item. There is no published evidence of a full-service restaurant or museum cafeteria, so plan meals separately in Wharton. Ask the operator about demonstrations and suitable group experiences.",
+    researchValue: "The technology galleries are one half of a wider historical museum context. The operator highlights early consumer computers, toys, arcade equipment and airplanes, connecting electronics with leisure, communication and transportation. Note that historical museum pages may mention radios, a jukebox or experimental airplanes; the contemporary host's listed exhibits are the better basis for deciding what to expect in the current wing.",
+    exhibits: [
+      { heading: "Personal computers from the early PC era to the 2000s", detail: "Compare how household computers changed in size, interface and use as the digital era moved from specialist equipment to a daily tool." },
+      { heading: "Arcade machines of the 1970s and 1980s", detail: "The exhibit highlights game cabinets from a period when play took place in public arcades. Confirm whether specific games are running before promising hands-on access." },
+      { heading: "20th-century toys and familiar gadgets", detail: "Mechanical, electronic and everyday toys provide an approachable explanation of changing childhood, manufacturing and consumer technology." },
+      { heading: "Experimental aircraft and transport displays", detail: "The host museum describes several airplanes in its technology collections; check exhibit availability and whether any displays are temporarily relocated." },
+    ],
+    routes: [
+      { label: "Family technology highlights", steps: ["Start with a comparison of old computers and today's digital devices", "Continue to arcade and toy interpretation", "End with aircraft or technology history according to the day's available displays"] },
+      { label: "Wharton museum afternoon", steps: ["Confirm separately that the technology wing is open", "Visit the county's local-history galleries in the shared building", "Connect the displays to the surrounding Wharton County history and community"] },
+    ],
+    sources: [
+      { label: "Host museum — contemporary technology exhibit", url: "https://www.whartoncountymuseum.org/tech-museum", use: "Computer, toy, arcade and aircraft display topics" },
+      { label: "Wharton County Historical Museum — visit", url: "https://www.whartoncountymuseum.org/", use: "Building, address, host opening times and admission" },
+      { label: "Technology museum — independent schedule", url: "https://www.20thcenturytech.com/location.html", use: "Narrow 2025 updated technology-wing opening hours" },
+      { label: "Texas Historical Commission museum Atlas", url: "https://atlas.thc.texas.gov/Details/4200001087", use: "Historical institutional record, not current hours" },
+    ],
+    connections: [
+      { label: "Wharton County", href: "/county/wharton", reason: "Connect technology stories to wider county and Colorado River history." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Discover other Texas science and family museums." },
+    ],
+  },
+
+  "elisabet-ney-museum-austin": {
+    name: "Elisabet Ney Museum",
+    slug: "elisabet-ney-museum-austin",
+    county: "Travis",
+    city: "Austin",
+    reviewed: "2026-10-12",
+    topics: ["art", "texas-history", "architecture", "sculpture"],
+    whyVisit: "The Elisabet Ney Museum preserves the Austin studio and residence known as Formosa, where German-born sculptor Elisabet Ney worked on portraits of significant figures including Sam Houston and Stephen F. Austin. Its historic limestone architecture, collection of portrait sculpture and restored native-prairie landscape make it a distinctive Texas arts landmark—although interior museum visits are currently suspended for renovation.",
+    visitorStrategy: "CLOSED FOR RENOVATIONS SINCE DECEMBER 30, 2024. The City of Austin currently anticipates reopening in spring 2027, but that is a forecast, not a confirmed admission date. Do not follow outdated normal-hour listings or assume access to sculpture galleries, restrooms or grounds on ordinary museum visiting days. Instead use the museum's online exhibition and check city-posted education programs or individually announced on-site events, which can have separate registration and access rules.",
+    accessibility: "The historic house and grounds are undergoing a capital-improvement, interpretation and landscape project intended to improve accessibility and visitor experience. These plans do not guarantee step-free access during construction or at every future historic room. The city lists the facility as closed; contact the museum to confirm accessibility for any separately announced event rather than assuming regular public access.",
+    familiesAndGroups: "There is no normal museum admission or school group tour during the renovation closure. Families and educators can use the online sculpture exhibition and city-run 'Breaking the Mold' outreach activities; scheduled events must be checked individually. Once the museum reopens, age-appropriate discussions about portraiture, public monuments and an unconventional nineteenth-century woman artist may benefit older children and teens.",
+    researchValue: "Ney purchased the property in 1892 and built Formosa as a sculpture studio after an earlier European portrait career. She modeled prominent Texans while maintaining links to European intellectual and artistic circles. Her studio later became a gathering place and after her death in 1907 was preserved as a public museum. Reopening interpretation will be shaped by the city's newer interpretive and landscape plans; exhibit availability should never be inferred from old photographs.",
+    exhibits: [
+      { heading: "Formosa: artist studio and historic limestone architecture", detail: "The 1892 stone studio and Ney's former residence is itself a major historical object. During renovation, explore the city’s historical account and photographs rather than promising a building tour." },
+      { heading: "Portraits of Stephen F. Austin and Sam Houston", detail: "Ney's sculptures of these Texas figures help explain how the state chose to commemorate its founders. The museum has major related work, but galleries remain closed until official reopening." },
+      { heading: "European portrait sculpture and Ney's independent career", detail: "The museum's interpretive history connects Ney's portraits of European political and intellectual leaders to the artistic network she carried into Texas." },
+      { heading: "Art for Humanity's Sake: online exhibition", detail: "The official digital exhibition makes more than eighty collection items available for remote viewing while physical galleries cannot be visited." },
+    ],
+    routes: [
+      { label: "Research Formosa from home", steps: ["Read the city museum's closure and renovation notice", "View Elisabet Ney: Art for Humanity's Sake online exhibition", "Explore the official artist-and-studio history for context"] },
+      { label: "A future Austin art visit", steps: ["Confirm an actual reopening announcement, not just an anticipated date", "Check current admission, timed tours and accessibility after the renovation", "Combine a confirmed visit with another independently open Austin art museum"] },
+    ],
+    sources: [
+      { label: "City of Austin — current closure and visitor status", url: "https://www.austintexas.gov/ney", use: "Closing date and anticipated 2027 reopening" },
+      { label: "City of Austin — artist, studio and historical background", url: "https://www.austintexas.gov/ney/about-elisabet-ney-museum", use: "Formosa studio and original sculpture topics" },
+      { label: "City of Austin — exhibit and online access", url: "https://www.austintexas.gov/ney/elisabet-ney-museum-exhibits", use: "On-site museum exhibits versus online access" },
+      { label: "City of Austin — improvement project", url: "https://www.austintexas.gov/parks/projects/elisabet-ney-museum-improvements", use: "Public works, landscape and interpretation plans" },
+    ],
+    connections: [
+      { label: "Travis County", href: "/county/travis", reason: "Connect the museum to Austin's creative and civic heritage." },
+      { label: "Texas museums directory", href: "/explore/museums", reason: "Find another currently open art or history museum before traveling." },
+    ],
+  },
+
+  "amon-carter-museum-american-art-fort-worth": {
+    name: "Amon Carter Museum of American Art",
+    slug: "amon-carter-museum-american-art-fort-worth",
+    county: "Tarrant",
+    city: "Fort Worth",
+    reviewed: "2026-10-12",
+    topics: ["art", "photography", "family", "texas-history"],
+    whyVisit: "The Carter is one of Fort Worth's most accessible major art destinations because its permanent collection, rotating American-art exhibitions and galleries are all free to enter. Its scope goes far beyond cowboy paintings: western imagery, early and contemporary photography, landscapes, modernism and socially engaged American art let visitors see how the country has represented itself over time. The Fort Worth Cultural District setting makes it practical to combine with a second museum or a relaxed outdoor break.",
+    visitorStrategy: "The Carter is at 3501 Camp Bowie Boulevard in Fort Worth. Admission is free, including regular special exhibitions. Hours are Tuesday, Wednesday, Friday and Saturday 10 a.m.–5 p.m.; Thursday 10 a.m.–8 p.m.; Sunday noon–5 p.m.; closed Monday and several holidays. Its own parking lot is free, but Camp Bowie Boulevard construction in 2026 can affect approaches, so follow the official parking map rather than assuming the simplest turn is open. A selective gallery visit takes roughly 60–120 minutes by editorial estimate. Thursday evening can work for visitors who want more time outside a typical museum day.",
+    accessibility: "Both visitor entrances and all gallery floors have barrier-free access, with elevators, free first-come wheelchairs and strollers, accessible restrooms, and designated parking off Camp Bowie Boulevard or Lancaster Avenue. Sensory and accessibility resources include assistive listening, large-print labels, communication boards, tactile kits and arranged multisensory or ASL tours. A rear-pulled wagon is not allowed in galleries, though forward-pushed wagons are. These are substantive visit-planning options, not promises of a staff member on demand.",
+    familiesAndGroups: "The Carter supports families with children as young as infants, including a pop-up space that is not open every day, ARTivity Totes available at the information desk and scheduled toddler and school-age workshops. For a short family visit, choose two or three artworks and an age-appropriate activity, rather than attempting every gallery. Food service is a small, locally catered food cart near the shop—not a cafeteria or full-service restaurant—and eating in galleries is prohibited; outdoor tables and the plaza are options.",
+    researchValue: "The museum began with Amon G. Carter Sr.'s western art interests but interprets the larger history of American art through paintings, sculpture, prints and photographic holdings. Its changing 2026 schedule includes Re/Framed museum-wide collection rotations from October 10 into 2027, Georgia O'Keeffe and the Carter through September 2027 and The Statue of Liberty from Bartholdi to Warhol through January 3, 2027. Rotations mean exact works and rooms cannot be assumed permanent. Cite its exhibition page for the day of travel rather than promising a particular object is always displayed.",
+    exhibits: [
+      { heading: "American landscapes and the West", detail: "Historic western paintings, landscapes and bronzes provide one entry into how artists depicted expansion, land and national myths; interpret the images critically rather than treating them as a complete historical record." },
+      { heading: "Photography and American experience", detail: "The Carter's photographic holdings span different eras and genres, allowing visitors to connect city life, people and social changes with the history of photographic media. Gallery selection rotates." },
+      { heading: "Georgia O'Keeffe and the Carter (through September 2027)", detail: "The current exhibition combines O'Keeffe paintings and works on paper with letters and photographs exploring her relationships to the institution and American modernism." },
+      { heading: "Re/Framed (October 2026–April 2027)", detail: "This collection-wide series rotates artworks and curatorial perspectives; it is valuable on repeat visits precisely because the same walls may show different works." },
+      { heading: "Statue of Liberty from Bartholdi to Warhol (through January 3, 2027)", detail: "A temporary exhibition traces how the statue's image has changed in American visual culture since the late nineteenth century. Check which parts are open during the visit." },
+    ],
+    routes: [
+      { label: "Free 75-minute first visit", steps: ["Start with the gallery map and choose one American art theme", "Explore a photography or landscape gallery", "Check the current temporary-exhibition floor before finishing on the plaza"] },
+      { label: "Family visit with a break", steps: ["Borrow an ARTivity Tote or ask which children’s activities are available", "Spend a short period comparing two contrasting artworks", "Use the food cart or outdoor tables outside the galleries"] },
+      { label: "Fort Worth arts half-day", steps: ["Visit the Carter during its published hours", "Walk the Cultural District and choose one additional independent museum", "Return for a later exhibition rotation rather than attempting all collections in one outing"] },
+    ],
+    sources: [
+      { label: "Carter official plan your visit", url: "https://www.cartermuseum.org/plan-your-visit", use: "Admission, hours, transport, parking and visitor rules" },
+      { label: "Carter official FAQ", url: "https://www.cartermuseum.org/frequently-asked-questions", use: "Food cart and admission policy" },
+      { label: "Carter accessibility resources", url: "https://www.cartermuseum.org/plan-your-visit/accessibility", use: "Wheelchair, sensory, stroller and accessible tours" },
+      { label: "Carter current exhibitions", url: "https://www.cartermuseum.org/exhibitions", use: "Current exhibit dates and rotation" },
+      { label: "Carter 2026 Camp Bowie construction notice", url: "https://www.cartermuseum.org/camp-bowie-boulevard-construction", use: "Live access during roadworks" },
+    ],
+    connections: [
+      { label: "Tarrant County", href: "/county/tarrant", reason: "Fort Worth neighborhoods, art and cultural history in local context." },
+      { label: "Texas museum guide", href: "/explore/museums", reason: "Compare family art-museum options around Texas." },
+      { label: "Dallas Museum of Art", href: "/destination/dallas-museum-of-art", reason: "A larger global collection makes a useful counterpart to the Carter's American-art focus." },
+    ],
+  },
+
+  "dallas-museum-of-art": {
+    name: "Dallas Museum of Art",
+    slug: "dallas-museum-of-art",
+    county: "Dallas",
+    city: "Dallas",
+    reviewed: "2026-10-12",
+    topics: ["art", "family", "history", "architecture"],
+    whyVisit: "The Dallas Museum of Art has a global collection of more than 25,000 works from roughly 5,000 years and offers multiple visit experiences: a free first-time highlights tour, a family art outing or a deeper focus on African, Asian, Indigenous American, European or contemporary art. Because the institution is large, visitor value comes from selecting a route and understanding what may require reservations and paid special-exhibition entry—not from enumerating its thousands of holdings.",
+    visitorStrategy: "Enter at 1717 North Harwood in the Dallas Arts District. Regular gallery hours are Wednesday through Sunday, 11 a.m.–5 p.m.; closed Monday and Tuesday and key holidays. General admission is free, but everyone—including children—must obtain a free ticket or reservation. Special exhibitions may be ticketed. The underground museum garage is paid (the museum has advertised $25 for certain 2026 public programs, payable by card), and event-day rules can change. A practical selective visit takes around 90 minutes to two hours as an independent estimate. Museum entrance and cafe opening schedules should be checked separately.",
+    accessibility: "Public museum galleries, entrances and restrooms are wheelchair accessible. A limited supply of wheelchairs is available at the main north entrance, and accessible parking is designated on P1, P2 and P3 of the museum garage. Families and visitors needing ASL or other accommodations should contact access@dma.org ahead of time; some public programs need two to three weeks of advance notice. Service animals are permitted, but pets and emotional-support animals do not receive the same access.",
+    familiesAndGroups: "DMA provides family classes and seasonal activities, but children under twelve must be supervised by an adult, and everyone still needs a general-admission ticket. School groups of ten or more students require a separate program booking and advance payment; general public tickets are not a valid substitute. The DMA Cafe near the north entrance is a true café serving soups, salads, sandwiches and drinks, usually Wednesday through Sunday 11 a.m.–4 p.m., unlike a snack cart. Al Fresco on the plaza is a separately scheduled dessert and beverage counter. No food, drinks, bottles or snacks are allowed in the galleries.",
+    researchValue: "The museum's current autumn 2026 roster spans international perspectives, including The First Bauhaus Portfolio (through August 15, 2027), Sonia Boyce: One Hundred Ways to Love (through August 22, 2027), X Marks the Spot: Contemporary Screenprinting at Brand X Editions (through November 8, 2026), Paradise on Earth: Florals in Indian Textiles (through November 15, 2026), and ongoing global and contemporary galleries. Exhibition titles and dates change quickly, and some installations are not included with a general ticket. Use the current exhibition directory to confirm what is on view.",
+    exhibits: [
+      { heading: "Ancient and global collection galleries", detail: "The museum's breadth includes art from Africa, the Americas, Asia and Europe spanning millennia. Choose a region or a theme rather than promising that every historic artwork is on view." },
+      { heading: "X Marks the Spot: Contemporary Screenprinting (through November 8, 2026)", detail: "This temporary presentation explores contemporary printmaking through Brand X Editions; confirm whether ticketing differs from general gallery admission." },
+      { heading: "The First Bauhaus Portfolio (through August 15, 2027)", detail: "A presentation of early Bauhaus prints provides a focused way to understand modernist design and interwar artistic experiments." },
+      { heading: "Sonia Boyce: One Hundred Ways to Love (through August 22, 2027)", detail: "The installation brings a contemporary artist's perspective into the broader collection narrative; check its current gallery placement." },
+      { heading: "Paradise on Earth: Florals in Indian Textiles (through November 15, 2026)", detail: "Historic and decorative textile imagery offers a concise entry point for visitors interested in design, global material culture and floral representation." },
+    ],
+    routes: [
+      { label: "90-minute free-first visit", steps: ["Collect or show a free general-admission ticket", "Choose two contrasting art regions rather than trying every wing", "Finish with a current temporary display if it is included in your ticket"] },
+      { label: "Family art and cafe afternoon", steps: ["Check age-suitable museum events for the day", "Visit a short selection of accessible galleries without carrying snacks inside", "Use the DMA Cafe or plaza service when its current schedule confirms availability"] },
+      { label: "Dallas Arts District museum day", steps: ["Start with the DMA's permanent collection highlights", "Walk the neighboring Arts District and choose another museum with a different specialty", "Add the African American Museum at Fair Park on a separate route if the day's logistics permit"] },
+    ],
+    sources: [
+      { label: "DMA official visit rules", url: "https://dma.org/visit", use: "Ticket requirements, hours, school groups, basic access" },
+      { label: "DMA cafe and plaza service", url: "https://dma.org/visit/dma-cafe", use: "Actual food options and meal-service days" },
+      { label: "DMA gallery exhibitions", url: "https://dma.org/art/exhibitions", use: "Temporary and permanent exhibit roster" },
+      { label: "DMA accessibility resources", url: "https://dma.org/programs/access-programs", use: "Wheelchairs, accessible garage and services" },
+      { label: "DMA museum additional visitor information", url: "https://dma.org/visit/additional-info", use: "Family and historical notes, some outdated sections require caution" },
+    ],
+    connections: [
+      { label: "Dallas County", href: "/county/dallas", reason: "Dallas Arts District and nearby local cultural visits." },
+      { label: "African American Museum at Fair Park", href: "/destination/african-american-museum-dallas-fair-park", reason: "Compare complementary Black history and art interpretation at a different Dallas institution." },
+      { label: "Perot Museum of Nature and Science", href: "/destination/perot-museum-nature-science-dallas", reason: "Science-focused family learning as an alternative to an art-gallery visit." },
+      { label: "Amon Carter Museum", href: "/destination/amon-carter-museum-american-art-fort-worth", reason: "Independent free admission museum specializing in American art in nearby Fort Worth." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
@@ -544,6 +722,26 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     credit: "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons · File:Texas Forestry Museum, Lufkin, TX IMG 8594.JPG",
   },
 
+  "babe-didrikson-zaharias-museum-beaumont": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Zaharias_museum.jpg?width=1280",
+    alt: "Circular Babe Didrikson Zaharias Museum and Visitor Center building in Beaumont, photographed in 2007",
+    width: 1280, height: 1066,
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · File:Zaharias museum.jpg (2007)",
+  },
+  "20th-century-technology-museum-wharton": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Wharton_County_Museum_IMG_1054.JPG?width=1600",
+    alt: "Wharton County Historical Museum building, shared with the 20th Century Technology Museum",
+    width: 1600, height: 1200,
+    credit: "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons · File:Wharton County Museum IMG 1054.JPG",
+  },
+
+  "elisabet-ney-museum-austin": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Austin_-_Elisabet_Ney_Museum_-_20201006000619.jpg?width=1600",
+    alt: "Historic limestone Formosa studio and Elisabet Ney Museum in Austin, photographed in October 2020",
+    width: 1600, height: 1067,
+    credit: "MarkJGilmore · CC BY-SA 4.0 · Wikimedia Commons · File:Austin - Elisabet Ney Museum - 20201006000619.jpg",
+  },
+
 };
 
 /** Preserve the existing canonical destination and augment it; never duplicate a route. */
@@ -562,5 +760,6 @@ export function enrichMuseumAuthority(destination: Destination): Destination {
     accessibilityNotes: destination.accessibilityNotes || dossier.accessibility,
     hero: isDestinationPhotoPlaceholder(destination.hero.src) && museumLicensedHeroes[destination.slug] ? museumLicensedHeroes[destination.slug] : destination.hero,
     body: [...destination.body, ...newText],
+    sourceCheckedAt: dossier.reviewed,
   };
 }

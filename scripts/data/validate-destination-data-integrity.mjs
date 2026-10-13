@@ -30,7 +30,8 @@ for (const feature of [
   '"@id": `${url}#primaryimage`',
   'categories.find((category) => category.slug === destination.category)?.name',
   'const audit = auditDestination(destination)',
-  'const indexable = audit.readyForIndexing && isPrimaryTripPlannerDestination(destination)',
+  'const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference)',
+  'const isHistoricalMuseumReference = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin"].includes(destination.slug)',
   'robots: indexable ? undefined : "noindex, follow"',
 ]) {
   if (!destinationRoute.includes(feature)) errors.push(`Destination integrity feature missing: ${feature}.`);
@@ -178,6 +179,12 @@ for (const feature of [
 
 if (!remote.includes('/images/texasdefined-destination-placeholder.svg')) {
   errors.push('Remote destination fallback image is not connected.');
+}
+
+// Historical and temporarily-closed museum guides may remain discoverable as
+// factual references, but these exact institutions must NOT re-enter trip planning.
+for (const slug of ['1940-air-terminal-museum-houston', 'elisabet-ney-museum-austin']) {
+  if (!fs.readFileSync(path.join(root, 'src/data/destination-availability.ts'), 'utf8').includes('"' + slug + '"')) errors.push('Closed museum missing from unavailable trip-planner set: ' + slug);
 }
 
 if (errors.length) {
