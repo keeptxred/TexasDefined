@@ -500,6 +500,57 @@
           "label": "DMA museum additional visitor information [first-party readable monitoring endpoint]"
         }
       ]
+    },
+    {
+      "path": "/destination/amarillo-museum-of-art",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.amoa.org/visit",
+          "fetchUrl": "https://www.amoa.org/visit",
+          "label": "Museum: visiting and parking"
+        },
+        {
+          "sourceUrl": "https://www.amoa.org/past-exhibitions",
+          "fetchUrl": "https://www.amoa.org/past-exhibitions",
+          "label": "Museum: past exhibits"
+        },
+        {
+          "sourceUrl": "https://www.amoa.org/",
+          "fetchUrl": "https://www.amoa.org/",
+          "label": "Museum: current exhibits"
+        }
+      ]
+    },
+    {
+      "path": "/destination/holocaust-museum-houston",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://hmh.org/visit",
+          "fetchUrl": "https://hmh.org/visit",
+          "label": "Museum: hours, tickets, parking and dining"
+        },
+        {
+          "sourceUrl": "https://hmh.org/visit/accessibility/",
+          "fetchUrl": "https://hmh.org/visit/accessibility/",
+          "label": "Museum: accessibility"
+        },
+        {
+          "sourceUrl": "https://hmh.org/visit/tour-and-photo-guidelines/",
+          "fetchUrl": "https://hmh.org/visit/tour-and-photo-guidelines/",
+          "label": "Museum: tours and photography"
+        },
+        {
+          "sourceUrl": "https://hmh.org/",
+          "fetchUrl": "https://hmh.org/",
+          "label": "Museum: exhibition updates"
+        }
+      ]
     }
   ]
 }
