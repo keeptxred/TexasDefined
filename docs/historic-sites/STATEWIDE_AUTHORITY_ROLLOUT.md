@@ -1,0 +1,131 @@
+# TexasDefined Historic Sites — Whole-Catalog Authority Rollout
+
+Reviewed October 12, 2026. This is a persistent implementation and editorial QA ledger, **not** a claim that the published pages are the strongest online or that manual verification has passed.
+
+## Scope and inventory
+
+- The repository includes **46** legacy state/federal historic-site seeds.
+- All **40** legacy seed sites not included in the original ten have now received two distinct contextual paragraphs, tailored visitor planning and structured authority records where an operator source exists.
+- The first ten retain separate deeper guides, chronologies and itinerary content; Goliad, San Jacinto and Washington use **canonical** destination slugs instead of hidden/duplicate legacy slugs.
+- The live Explore Historic Sites & Museums page recently displayed **78 mapped records**, but this number includes museums, national parks and general attractions, and it is not identical to the catalog of dedicated historic sites. Other qualifying `historic-sites` destinations are covered by the general authority adapter only when sufficiently rich official-source and original planning details already exist.
+- **50** canonical historic/heritage destinations are enrolled in the Supabase `td_authority_verification_registry`. Cadences are at most 90 days, preserving existing 30-day schedules. Records marked `awaiting_editorial_verification` have **not** been marked verified.
+
+## Coverage by canonical destination
+
+- [ ] `/destination/acton-state-historic-site` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/barrington-living-history-farm` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/bush-family-home` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/caddo-mounds-state-historic-site` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/casa-navarro` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/confederate-reunion-grounds` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/eisenhower-birthplace` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/fannin-battleground` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/fanthorp-inn` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/first-capitol-of-texas` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/fort-griffin` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/fort-lancaster` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/fort-martin-scott` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/fort-mckavett` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/french-legation` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/fulton-mansion` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/goodnight-ranch` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/iwo-jima-museum-monument` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/kreische-brewery` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/landmark-inn` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/levi-jordan-plantation` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/lipantitlan` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/magoffin-home` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/mission-dolores` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/monument-hill` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/national-museum-pacific-war` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/official-texas-longhorn-herd` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/old-socorro-mission` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/palmito-ranch-battlefield` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/port-isabel-lighthouse` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/presidio-la-bahia` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/sabine-pass-battleground` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/sam-bell-maxey-house` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/sam-rayburn-house` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/san-felipe-de-austin` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/san-jacinto-battleground` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/slaton-harvey-house` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/star-of-the-republic-museum` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/starr-family-home` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/stephen-f-austin-memorial` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/varner-hogg-plantation` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/washington-on-the-brazos` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/zaragoza-birthplace` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/fort-sam-houston-national-cemetery` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/houston-national-cemetery` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/dallas-fort-worth-national-cemetery` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/fort-davis-national-historic-site` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/the-alamo` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/palo-alto-battlefield-national-historical-park` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/goliad-state-park` — authority baseline / editorial research present; final individual live, source and image certification still required
+
+**Historic URL and publishing correction:** The three established primary URLs are `/destination/goliad-state-park`, `/destination/san-jacinto-battleground`, and `/destination/washington-on-the-brazos`. Source and sitemap policies must follow these actual pages; category labels do not suppress their research/authority panels. Non-primary variants redirect to primary URLs and are excluded from the sitemap. Certification is defined by actual live content and checks, not by a fact-review queue.\n\n**October 12 source automation proof:** The documented live-route correction retains `/destination/san-jacinto-battleground`, `/destination/goliad-state-park` and `/destination/washington-on-the-brazos` rather than redirecting them to absent duplicate URLs. Their Supabase review/monitoring records now use those **existing published URLs**. Each of the 50 canonical historic/heritage records has a per-site official source. All 57 source URLs completed an HTTP baseline probe with no unreachable responses or outstanding requests. This is **post-publication maintenance**, never an instruction to withhold publishing a completed page. It is not a substitute for editorial research or valid photo licensing.
+
+## October 12 expanded operator-source and visitor-closure research
+
+- Compared the 46 original destination records with the THC state historic-site directory and its current site sitemap. The 46-record seed file includes three VA national cemeteries; the remaining sites represent the THC-operated catalog. The four additional historical destinations bring this specific PR's catalog to **50 paths**. Other museums, historic markers, National Register listings and community heritage venues require their own distinct inventory and must not be silently counted as certified by this PR.
+- The THC currently says **First Capitol of Texas in West Columbia is Not Open**. It must not be offered as an ordinary ticketed tour. Its guide now distinguishes the 1830s state-capital buildings from the 1976–77 replica and redirects itineraries to public interpretation and separately managed venues.
+- The THC currently says **Old Socorro Mission original state site is Closed to the Public**, without on-site visitor facilities. It is distinct from the functioning current Socorro Mission. No suggestions to enter the original protected site.
+- Added exact site operator research for **Caddo Mounds** (museum and trail accessibility, Tuesday–Sunday schedule), **Fanthorp Inn** (free Friday–Sunday visits, prearranged groups), **Landmark Inn** (day tours, separate eight-room lodging, access barriers), and **Fort Griffin** (fort, one- to two-hour tour options and 33 campsites). See the official operator links within individual authority guides; operating policies are monitored for later changes.
+- Updated **Washington-on-the-Brazos** with its $57 million redevelopment reopening in November 2025, the distinction between reconstructed and original 1836 fabric, and the operator's different weekday access for museum, farm, townsite, grounds and visitor center.
+- The live Supabase check against the exact **50 ledger paths** now reports **68 registered individual sources, 68/68 baseline HTTP checks completed, zero unreachable and zero pending**. These are mechanical publication-maintenance checks; they are **not** 68 human historical certifications or evidence that this PR has deployed.
+- The historic-site reciprocal-link selection now prioritizes lesser-known sites before filling neighborhood clusters; an independent structural graph check found **49 of 49 linked nodes with at least two reciprocal related-destination links** and none isolated. Goliad and other companion destinations may be served under different category records, so their canonical publication must still be checked individually.
+
+## Additional site-specific operator checks (October 12)
+
+Six previously researched sites and ten additional historic-site guides now receive **substantive, site-specific** entry/access facts rather than generic assessment copy. This sixteen-site source-review set covers:
+
+- **First Capitol of Texas:** THC says Not Open. Replaced inappropriate on-site tour itinerary with accessible public/history alternatives; distinguished the 1836 original and later replica.
+- **Old Socorro Mission:** original archaeological site closed, distinct from the functioning present-day church; no entry suggested.
+- **Caddo Mounds:** museum/mound trail accessibility, 0.7-mile interpretive trail and current operating days.
+- **Fanthorp Inn:** Friday–Sunday free public visits versus prearranged groups; the historic 17-room stagecoach inn.
+- **Landmark Inn:** daytime tours versus reserved overnight guest rooms, ground-floor access limits.
+- **Fort Griffin:** site visit, herd-viewing uncertainty and separate campground reservations.
+- **Barrington Living History Farm:** Wednesday–Sunday ticketed farm hours, Monday–Tuesday closures and the enslaved labor underpinning the Jones cotton farm.
+- **Fort McKavett:** self-guided versus reserved tours, limited wheelchair access and golf-cart option.
+- **Fort Lancaster:** frontier battlefield/ruins, gravel access limitations and separate scheduled tours.
+- **Mission Dolores:** no standing original mission, Ais/Spanish archaeological history, museum and distinct RV campground.
+- **Acton:** free Elizabeth Crockett cemetery monument, not an indoor museum.
+- **Goodnight Ranch:** separate Victorian house tours and upper-floor inaccessibility; ranching and bison conservation.
+- **French Legation:** separate museum versus garden access times and the 1841 diplomatic house.
+- **Fannin Battleground:** free outdoor self-guided visit, accessible facilities and separately reserved guided tours.
+- **Kreische Brewery:** bluff/house history, difficult stepped 0.75-mile ruins walking route versus accessible visitor center/bluff trail.
+- **Confederate Reunion Grounds:** interpret actual Navasota River gathering/reunion/oil-era landscape; operator's general overview says Wednesday–Sunday but the visit planner says daily, so hours must be reconfirmed with staff rather than asserted.
+
+These are **16 named** research entries. Washington-on-the-Brazos was upgraded separately with its late-2025 reopening and daily facility schedules. Each is a substantive improvement, **not** full manual photograph-by-photograph or production-browser certification. New operator URLs are stored in the same permanent post-publication source monitoring system, and the code now contains validation guards to prevent them from being silently lost.
+
+## Crosslinks / visitor planning
+
+- Every currently seeded historical destination uses the same operator-backed authority-guide structure, including three visit strategies and accessible structured source references.
+- The statewide county-and-historical-theme graph provides reciprocal contextual links where site pairs share real county or themed historical relationships. County guides automatically link historic-site records; Goliad, Harris and Washington county guides additionally link non-historic-category canonical heritage records.
+- The history hub and Revolution/frontier/Mexican-War road trip guides receive chronological and thematic context links. The existing public Goliad, San Jacinto and Washington routes are the primary destinations; longer duplicate slugs redirect **to** them with permanent 301s.
+
+## October 12 fact-check source-registration correction
+
+- Supabase project `ftkznprjljkhymknvhye`, permanent tables `td_authority_verification_registry` and `td_authority_verification_sources`.
+- The earlier statewide registry enrolled 50 canonical historic/heritage paths, but a subsequent source-table audit found only **one of the 46 legacy paths** had an actual probe source.
+- **Remediated October 12:** inserted the 46 legacy site-specific operator URLs from the repository's canonical seeds, plus NPS sources for Fort Davis and Palo Alto and the official Alamo Trust visitor page for The Alamo; existing Goliad TPWD source retained.
+- The post-insert SQL check confirms **50/50 canonical paths have registered probe sources, 57 source rows in total**. Entries are per-site, not merely links to a statewide directory.
+- Triggered `td_maintenance.queue_source_probes(100)` after verifying the bounded function's source-selection logic. It queued 100 due source fetches across the larger TexasDefined authority registry. Cron collection is already active, but **queued requests do not prove HTTP success, historical accuracy, or completed editorial review**.
+- Source review remains fail-closed: sites are `awaiting_editorial_verification` until explicit review evidence exists. Source-probe baseline results alone must not advance `last_verified_at` or an authority certification.
+- Existing maintenance schedule includes `queue_source_probes` (daily), `collect_source_probes` (twice hourly), and `mark_due_reviews` (daily). Those jobs are enabled; as of the check the newly registered historic-site operator sources had not yet accumulated complete source-check results.
+
+## Critical remaining certification work
+
+1. **Individual fact checking**: Site-specific claims, operator status, access/fees, exhibits and reconstruction/original-fabric distinctions still require page-by-page operator and independent-source comparison. Automatic assembly of a structured guide does not count as such verification.
+2. **Images**: `lipantitlan` lacks an approved source-specific licensed hero in the current protected historic-hero registry. The Texas Historical Commission provides a Lipantitlán site photograph elsewhere, but reusability has not been established; don't silently copy it. Other image licenses and subject accuracy must still be reviewed file by file.
+3. **Full-surface release testing**: Build, historic-site validator, internal-link validation, keyboard/screen-reader experience, three viewport layouts, deployed canonical redirects and production metadata are mandatory before final certification.
+4. **Additional public historic pages** outside the 46 seed records should be discovered from the merged resolved Explore catalog and independently graded. The live 78 count is not evidence that every record is a historic-site destination requiring this particular template.
+5. **Refresh automation**: Supabase registry due dates schedule verification work. A due-date registration is **not** itself proof that an operator/source-fetching job checked and approved the facts. A separate review/action ledger must confirm evidence before advancing `last_verified_at`.
+
+## Image status and publishing rule
+
+1 seed without a verified site-specific hero: `lipantitlan`. Do not substitute unrelated stock images or claim unseen imagery is original. An image-free site can keep its public reference information, but it must not receive complete authority certification until rights and relevance are resolved.
+
+## Permanent standards
+
+See `docs/historic-sites/AUTHORITY_STANDARD.md` and the `scripts/data/validate-historic-sites.mjs` CI guard. No future historic site may be called fully certified merely because it inherits a template or automatic related links.

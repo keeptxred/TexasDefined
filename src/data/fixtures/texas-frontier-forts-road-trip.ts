@@ -26,6 +26,7 @@ export const texasFrontierFortsRoadTripArticle: Article = {
   sourceName: "Texas Historical Commission",
   sourceUrl: "https://thc.texas.gov/historic-sites",
   internalLinks: [
+    { href: "/destination/fort-davis-national-historic-site", label: "Fort Davis National Historic Site", description: "Optional Trans-Pecos extension for Buffalo Soldier history, restored garrison buildings and the San Antonio–El Paso Road." },
     { href: "/explore/historic-sites", label: "Texas historic sites", description: "Browse the statewide historic-site collection beyond the frontier forts." },
     { href: "/destination/fort-martin-scott", label: "Fort Martin Scott", description: "Explore the early U.S. Army post beside Fredericksburg." },
     { href: "/destination/fort-griffin", label: "Fort Griffin", description: "See the ruins, ranch-country setting and state longhorn herd near Albany." },
@@ -33,8 +34,9 @@ export const texasFrontierFortsRoadTripArticle: Article = {
     { href: "/destination/fort-lancaster", label: "Fort Lancaster", description: "Read the San Antonio-El Paso road from a remote West Texas military post." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["fort-martin-scott", "fort-griffin", "fort-mckavett", "fort-lancaster", "official-texas-longhorn-herd"],
+  relatedDestinations: ["fort-martin-scott", "fort-griffin", "fort-mckavett", "fort-lancaster", "official-texas-longhorn-herd", "fort-davis-national-historic-site"],
   body: [
+    p("Optional Trans-Pecos extension: Fort Davis National Historic Site is another major frontier post, but it is not an easy detour from the four-stop core route. Allow an additional travel day if extending west from the Interstate 10 corridor. Its preserved barracks and officers' quarters provide a built-environment contrast to Fort Lancaster's foundations and deepen the history of Black Regular Army service after 1867."),
     p("Texas frontier forts are easiest to misunderstand when they are treated as a chain of interchangeable stone ruins. They were not identical, and they did not exist in a vacuum. Each post responded to a different stretch of geography, a different transportation problem and a different phase of U.S. expansion across lands already occupied and used by Native nations."),
     p("A good fort road trip therefore is not about collecting parade grounds. It is about comparing systems. Where did water come from? Which road or settlement was being protected? How far away was the next post? Who served there? What communities appeared nearby? Which Native peoples were displaced, fought or negotiated with expanding U.S. power? The four sites on this route make those questions visible in very different landscapes."),
     h("How to plan the route"),

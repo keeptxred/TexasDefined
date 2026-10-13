@@ -1,6 +1,6 @@
 import { DESTINATION_LAKE_GUIDE_LINKS } from "@/data/fishing/destination-lake-crosslinks";
 import { lazy, Suspense } from "react";
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 
 import caddoLake from "@/assets/caddo-lake.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
@@ -120,7 +120,17 @@ function destinationSeoTitle(name: string, categoryName: string) {
   return `${name} | Texas Travel Guide`;
 }
 
+const HISTORIC_DUPLICATE_SLUGS: Record<string, string> = {
+  "goliad-state-park-and-historic-site": "goliad-state-park",
+  "san-jacinto-battleground-state-historic-site": "san-jacinto-battleground",
+  "washington-on-the-brazos-state-historic-site": "washington-on-the-brazos",
+};
+
 export const Route = createFileRoute("/destination/$slug")({
+  beforeLoad: ({ params }) => {
+    const primary = HISTORIC_DUPLICATE_SLUGS[params.slug];
+    if (primary) throw redirect({ to: "/destination/$slug", params: { slug: primary }, statusCode: 301 });
+  },
   loader: async ({ context, params }) => {
     let destination = await context.queryClient.ensureQueryData(destinationQuery(params.slug));
     if (!destination) throw notFound();
@@ -158,7 +168,7 @@ export const Route = createFileRoute("/destination/$slug")({
     const categoryPath = destination.category === "sports" ? "/sports" : `/explore/${destination.category}`;
     const validGeo = hasValidCoordinates(destination.coordinates.lat, destination.coordinates.lng);
     const relatedPlaces = [...new Map(relationshipGroups.flatMap((group) => group.destinations).map((item) => [item.slug, item])).values()];
-    const webPageSchema = { "@type": "WebPage", "@id": url, url, name: destination.name, description: destination.summary, isPartOf: { "@id": `${siteUrl}/#website` }, ...(hasUsableHero ? { primaryImageOfPage: { "@id": `${url}#primaryimage` } } : {}), mainEntity: { "@id": `${url}#attraction` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, ...(relatedPlaces.length > 0 ? { hasPart: { "@id": `${url}#related-places` } } : {}), ...(authorityCitations.length > 0 ? { citation: authorityCitations } : validExternalUrl(destination.officialUrl) ? { citation: destination.officialUrl } : {}), ...(authorityGuide ? { author: { "@type": "Organization", "@id": `${siteUrl}/authors/a-hollis#desk`, name: "Texas Defined Editorial Desk", url: `${siteUrl}/authors/a-hollis` }, isBasedOn: `${siteUrl}/explore/top-attractions/methodology` } : {}), ...(destination.sourceCheckedAt ? { dateModified: destination.sourceCheckedAt } : {}) };
+    const webPageSchema = { "@type": "WebPage", "@id": url, url, name: destination.name, description: destination.summary, isPartOf: { "@id": `${siteUrl}/#website` }, ...(hasUsableHero ? { primaryImageOfPage: { "@id": `${url}#primaryimage` } } : {}), mainEntity: { "@id": `${url}#attraction` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, ...(relatedPlaces.length > 0 ? { hasPart: { "@id": `${url}#related-places` } } : {}), ...(authorityCitations.length > 0 ? { citation: authorityCitations } : validExternalUrl(destination.officialUrl) ? { citation: destination.officialUrl } : {}), ...(authorityGuide ? { author: { "@type": "Organization", "@id": `${siteUrl}/authors/a-hollis#desk`, name: "Texas Defined Editorial Desk", url: `${siteUrl}/authors/a-hollis` }, ...(isTopTexasAttraction(destination.slug) ? { isBasedOn: `${siteUrl}/explore/top-attractions/methodology` } : {}) } : {}), ...(destination.sourceCheckedAt ? { dateModified: destination.sourceCheckedAt } : {}) };
     const attractionSchema = { "@type": isZapataMuseum || isYsletaMuseum || isYoungCountyMuseum || isAuthorityMuseum ? ["Museum", "TouristAttraction"] : "TouristAttraction", "@id": `${url}#attraction`, url, mainEntityOfPage: { "@id": url }, name: destination.name, description: destination.summary, ...(isZapataMuseum ? { telephone: "+1-956-765-8983", openingHoursSpecification: ["Tuesday", "Wednesday", "Thursday", "Friday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(isYoungCountyMuseum ? { telephone: "+1-940-282-2887", openingHoursSpecification: ["Wednesday", "Thursday", "Friday", "Saturday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(hasUsableHero && imageUrl ? { image: [{ "@type": "ImageObject", "@id": `${url}#primaryimage`, url: imageUrl, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height, ...(destination.hero.credit ? { creditText: destination.hero.credit } : {}) }] } : {}), ...(validGeo ? { geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } } : {}), address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US", ...(destination.address ? { streetAddress: isZapataMuseum ? "805 N U.S. Highway 83" : destination.address } : {}) }, containedInPlace: { "@type": "State", name: "Texas" }, touristType: categoryName, ...(destination.managingAuthority ? { provider: { "@type": "Organization", name: destination.managingAuthority } } : {}), ...(validExternalUrl(destination.officialUrl) ? { sameAs: destination.officialUrl } : {}) };
     const relatedSchema = { "@type": "ItemList", "@id": `${url}#related-places`, name: `Places related to ${destination.name}`, numberOfItems: relatedPlaces.length, itemListElement: relatedPlaces.map((item, index) => ({ "@type": "ListItem", position: index + 1, item: { "@type": "TouristAttraction", name: item.name, description: item.summary, url: `${siteUrl}/destination/${item.slug}`, image: absoluteUrl(texasDefinedBrand, item.hero.src) } })) };
     const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` }, { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` }, { "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}${categoryPath}` }, { "@type": "ListItem", position: 4, name: destination.name, item: url }] };
