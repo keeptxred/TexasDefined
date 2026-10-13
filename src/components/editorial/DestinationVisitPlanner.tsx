@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
+import { DestinationAuthoritySections } from "@/components/editorial/DestinationAuthoritySections";
 import { destinationEditorialLinks } from "@/data/destination-editorial-links";
+import { townAuthorityContextualLinks } from "@/data/town-authority-links";
 import type { Destination } from "@/data/types";
 
 type Props = { destination: Destination };
@@ -11,7 +13,7 @@ type Props = { destination: Destination };
 const drivingIntentPattern = /\b(?:drive|driving|road trip|highway|scenic route|route)\b/i;
 
 export function DestinationVisitPlanner({ destination }: Props) {
-  const editorialLinks = destinationEditorialLinks(destination.slug);
+  const editorialLinks = [...new Map([...destinationEditorialLinks(destination.slug), ...townAuthorityContextualLinks(destination)].map((item) => [item.href, item])).values()];
   const showRentalCarOption = destination.category === "road-trips"
     && drivingIntentPattern.test([destination.summary, destination.entryNote, ...destination.highlights].join(" "));
 
@@ -25,6 +27,7 @@ export function DestinationVisitPlanner({ destination }: Props) {
           title={`Planning a drive around ${destination.name}?`}
         />
       ) : null}
+      <DestinationAuthoritySections destination={destination} />
       {editorialLinks.length > 0 ? (
         <nav aria-label={`Related editorial guides for ${destination.name}`} className="mt-10 border-t border-border pt-7">
           <p className="eyebrow text-primary">Useful nearby reading</p>

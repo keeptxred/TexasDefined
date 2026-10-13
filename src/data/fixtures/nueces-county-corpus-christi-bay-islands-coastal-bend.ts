@@ -35,6 +35,7 @@ export const nuecesCountyCorpusChristiBayIslandsCoastalBendArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/port-aransas", label: "Port Aransas authority travel guide", description: "Plan Mustang Island beach access, permits, ferries, fishing and nature stops." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/article/horses-on-the-beach-corpus-christi", label: "Horses on the Beach in Corpus Christi", description: "Plan a guided horseback ride on the Padre Island shoreline and connect it to the wider Coastal Bend." },
     { href: "/county/san-patricio", label: "Explore San Patricio County", description: "Continue north and west through Sinton, Portland, the Nueces River country and Coastal Bend prairie." },

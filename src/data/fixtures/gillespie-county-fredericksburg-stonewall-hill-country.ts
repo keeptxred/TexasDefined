@@ -33,6 +33,9 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-wine-country", label: "Texas wine-country regions", description: "Distinguish Gillespie County's tasting rooms from the wider state's grape-growing appellations." },
+    { href: "/article/texas-german-belt", label: "Historic German-Texan communities", description: "Connect local history to the broader 1840s settlement geography." },
+    { href: "/article/scenic-drives-in-texas", label: "Scenic routes through Gillespie County", description: "Choose public Hill Country road corridors with practical parking and safety context." },
     { href: "/county/llano", label: "Explore Llano County", description: "Follow the granite country and Llano River north of Fredericksburg." },
     { href: "/county/kerr", label: "Explore Kerr County", description: "Explore Kerrville and the Guadalupe River to the southwest." },
     {

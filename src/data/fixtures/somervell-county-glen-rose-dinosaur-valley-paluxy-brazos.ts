@@ -35,6 +35,7 @@ export const somervellCountyGlenRoseDinosaurValleyPaluxyBrazosArticle: Article =
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/glen-rose", label: "Glen Rose authority travel guide", description: "Plan Paluxy River, dinosaur tracks and nearby family attractions." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/hood", label: "Explore Hood County", description: "Continue north toward Granbury, Lake Granbury and the Brazos corridor." },
     { href: "/county/bosque", label: "Explore Bosque County", description: "Head south toward Meridian, Clifton and the Bosque River country." },
