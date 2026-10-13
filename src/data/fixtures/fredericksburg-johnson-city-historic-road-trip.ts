@@ -319,7 +319,7 @@ export const fredericksburgJohnsonCityHistoricRoadTripArticle: Article = {
     },
     {
       "type": "paragraph",
-      "text": "Primary public sources verified October 12, 2026: Texas Historical Commission's September 30 historic road-trip feature and Fort Martin Scott visitor page; National Park Service LBJ conditions, ranch permit, visitor center and accessibility pages; Texas Parks and Wildlife LBJ State Park page; Fredericksburg Art Guild's about/contact/gallery pages; official Luckenbach Texas history and event calendar. Each dedicated destination links to its responsible operator. Visit operations can change without warning; the operator's current alert, ticket and calendar pages take precedence over static prose."
+      "text": "Primary public sources verified October 12, 2026: Texas Historical Commission's historic road-trip feature (the official live page is dated July 16, 2020) and Fort Martin Scott visitor page; National Park Service LBJ conditions, ranch permit, visitor center and accessibility pages; Texas Parks and Wildlife LBJ State Park page; Fredericksburg Art Guild's about/contact/gallery pages; official Luckenbach Texas history and event calendar. Each dedicated destination links to its responsible operator. Visit operations can change without warning; the operator's current alert, ticket and calendar pages take precedence over static prose."
     },
     {
       "type": "paragraph",
