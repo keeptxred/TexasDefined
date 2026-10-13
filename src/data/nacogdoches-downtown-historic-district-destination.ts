@@ -84,6 +84,7 @@ export const nacogdochesDowntownHistoricDistrictDestinations: Destination[] = [
         }
       ],
       "sideTrips": [
+        { "name": "Zion Hill Baptist Church and Historic District", "description": "Visit Nacogdoches\u2019 historic Black community landmark and learn about the separately listed residential district.", "href": "/destination/zion-hill-baptist-church-nacogdoches" },
         {
           "name": "SFA Gardens",
           "description": "Extend into the campus botanical landscape.",
