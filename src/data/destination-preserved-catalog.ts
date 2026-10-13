@@ -16,6 +16,7 @@ import { historicSiteDestinations } from "./historic-sites";
 import { olivewoodCemeteryDestinations } from "./olivewood-cemetery-authority-destination";
 import { thcHistoricLandmarkAuthorityBatch01Destinations } from "./thc-historic-landmarks-authority-batch01";
 import { thcHistoricLandmarkAuthorityBatch02Destinations } from "./thc-historic-landmarks-authority-batch02";
+import { hollandHotelAuthorityDestination } from "./thc-holland-hotel-authority";
 import { hidalgoPumphouseAuthorityDestinations } from "./hidalgo-pumphouse-authority-destination";
 import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
@@ -220,6 +221,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   olivewoodCemeteryDestinations,
   thcHistoricLandmarkAuthorityBatch01Destinations,
   thcHistoricLandmarkAuthorityBatch02Destinations,
+  [hollandHotelAuthorityDestination],
   animalSanctuaryDestinations,
   aquariumMarineDestinations,
   museumAuthorityDestinations,
