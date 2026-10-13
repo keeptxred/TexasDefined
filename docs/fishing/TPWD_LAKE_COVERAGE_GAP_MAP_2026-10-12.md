@@ -5,8 +5,8 @@
 ## Counts and caveats
 
 - **175** separate alphabetical links/named entries in the TPWD public lake list (excluding its extra *Town Lake = Lady Bird Lake* alias line).
-- **61** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
-- **114** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
+- **62** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
+- **113** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
 - TPWD list entries include local ponds and some state-park-managed lakes as well as reservoirs; they cannot all be treated as equally high-demand or guaranteed distinct reservoirs.
 - This list does not include every Texas stock tank, private lake, community fishing pond, or small waterbody outside TPWD's own directory. It therefore cannot prove “every Texas lake.”
 
@@ -15,7 +15,6 @@
 - **Athens** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Tyler** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Lady Bird** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
-- **Worth** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Medina** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Nasworthy** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **O.C. Fisher** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
@@ -207,7 +206,7 @@
 | Winnsboro | **Not in completed-guide registry** |
 | Winters-Elm Creek | **Not in completed-guide registry** |
 | Wood | **Not in completed-guide registry** |
-| Worth | **Not in completed-guide registry** |
+| Worth | [lake-worth](https://texasdefined.com/fishing/lakes/lake-worth) |
 | Wright Patman | **Not in completed-guide registry** |
 
 ## Method
@@ -241,4 +240,8 @@ The proposed registry total is **59 source-researched lake guides** and **116 re
 
 ### Wave 4 — Arlington and Cedar Lake
 
-Two lake-specific source-researched authority definitions on wave-4 development branch: **61** proposed guides, **114** unmatched TPWD listing gaps. Neither is production-certified. Arlington city's permit/ramp distinctions and Cedar Lake state-park no-wake/ADA/fishing rules were researched; first-party field photography and official operator day-of-visit confirmation remain outstanding.
+Two lake-specific source-researched authority definitions on wave-4 development branch: **62** researched guide definitions, **113** unmatched TPWD listing gaps. Neither is production-certified. Arlington city's permit/ramp distinctions and Cedar Lake state-park no-wake/ADA/fishing rules were researched; first-party field photography and official operator day-of-visit confirmation remain outstanding.
+
+## October 13 source-reviewed Lake Worth authority
+
+Lake Worth adds four independently named public-access parks, one canoe/kayak-only Nature Center launch, one shallow small-craft ramp, an explicit no-camping rule, TWDB dam/impoundment history and live TWDB reservoir gauge. The current DSHS fish-consumption advisory contradicts the older static TPWD Lake Worth profile on several species: the guide points to the updated DSHS table and distinguishes no-eat bans from monthly consumption limits. The actual-location Lake Worth photo is Commons-licensed CC BY-SA 4.0 (Larry D. Moore), **not first-party field photography**. Current city ramp fees, closures and comprehensive production/editorial acceptance remain uncertified.
