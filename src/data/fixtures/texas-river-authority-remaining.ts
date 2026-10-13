@@ -9,7 +9,7 @@ export const additionalExistingRiverAuthorityResearch = [
     "name": "Trinity River",
     "context": "The Trinity is not one Dallas-Fort Worth float. Its West Fork, Elm Fork, East Fork and lower basin serve different communities and have different flood behavior, wastewater influence, dams, access and fishing pressure. The lower river's wide floodplain and wetland habitat need separate treatment from the developed urban reach.",
     "route": "For visitors near Arlington, TPWD's River Legacy Parks Paddling Trail has an identified access point inside the park at Collins Street, near the pedestrian bridge (32.7882, -97.1003). Dallas's separate 10.2-mile TPWD trail includes a channelized stretch, the Dallas Wave feature and a more natural downstream section; do not confuse the access instructions or assume unmarked hydraulic features are safe. Each river park has its own local hours and closures.",
-    "fish": "Urban stretches may hold catfish, sunfish and bass, but assess river health, water quality and consumption advisories by exact location before recommending a harvest. Larger downstream fishing and reservoir trips have other access and regulations. The river is not a substitute for an unrestricted shore-fishing park everywhere it passes.",
+    "fish": "On the River Legacy Parks paddling reach of the West Fork of the Trinity in Arlington, TPWD explicitly warns that a fish-consumption advisory covers all fish species and advises anglers not to eat fish taken from that stretch. Its recreation description also says the river there is suitable for paddling and incidental water contact, not swimming. Anglers may still encounter sunfish, largemouth bass and catfish, but fishing opportunity must be separated from harvest safety. Confirm the current Texas Department of State Health Services advisory boundary before keeping fish from any other Trinity reach. Reservoir fisheries, downstream waters and other forks may have distinct advisories, regulations and access conditions.",
     "camp": "For a weekend, pair the named public river park with approved campgrounds near Lake Worth, Lake Lewisville or Lake Livingston as separately identified *reservoir and basin* destinations; none of those is automatically a campsite on the flowing Trinity main stem. Confirm boat ramps, night access, permits, RV facilities and water-quality notices with the operator.",
     "visit": "An urban itinerary may pair a River Legacy Parks access morning with the park's nature-trail network; a different trip uses Dallas access and downtown river history. For families and people with mobility requirements, contact the managing park about paths to water, ramps and accessible restrooms; trail mileage does not prove accessible launch facilities.",
     "faq": [
@@ -32,6 +32,14 @@ export const additionalExistingRiverAuthorityResearch = [
       [
         "How do I check if the Trinity is safe to paddle today?",
         "Use real-time nearby USGS gauges, NWS flood products and the launch operator's current advice; neither gauge data nor a historic route estimate guarantees safety."
+      ],
+      [
+        "Is swimming advised at Arlington's River Legacy Parks paddling trail?",
+        "No. TPWD's River Legacy Parks trail description says the West Fork site is intended for paddling and incidental water contact but not swimming. Check current river quality notices before any outing."
+      ],
+      [
+        "Can I eat fish from the River Legacy Parks section of the Trinity?",
+        "TPWD describes an all-species fish consumption advisory for its River Legacy Parks trail reach and advises against eating caught fish there. Consult current Texas DSHS advisories for any other Trinity location."
       ]
     ],
     "official": [
