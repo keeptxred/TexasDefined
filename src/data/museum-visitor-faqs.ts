@@ -4283,6 +4283,228 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "buffalo-soldiers-national-museum-houston": [
+    {
+      "question": "Is the Buffalo Soldiers National Museum in Houston open in October 2026?",
+      "answer": "No. The museum's official home and visitor pages still say it is temporarily closed for renovations as of October 2026, despite an earlier anticipated summer reopening. Do not book a ticket or arrive expecting access until a dated reopening notice is published.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can schools book an in-person Buffalo Soldiers National Museum tour now?",
+      "answer": "Not at present. The museum has posted an explicit notice that all in-person group tours are temporarily cancelled until further notice. Older prices, advance booking policies and tour hours remain online but do not establish available reservations.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/group-tours/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/group-tours/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How can students learn about the Buffalo Soldiers while the museum is closed?",
+      "answer": "The museum continues to describe virtual field trips, digital interpretation and education outreach. Their current availability and booking requirements are not confirmed on all older pages, so teachers should contact the museum before scheduling virtual or off-site programming.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What does the museum teach about Black soldiers and civil rights?",
+      "answer": "It interprets Black military service from early United States Colored Troops and frontier regiments through the 92nd Infantry Division, the struggle for integration, and contemporary service. These are published interpretation topics rather than presently open gallery displays.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the Women Who Served exhibit about?",
+      "answer": "The institution highlights Black women in United States military history, including Cathay Williams, who enlisted under an assumed male identity. The public exhibit description is useful background, but an in-person exhibition visit is not possible while the building remains closed.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum still have free Thursday admission and parking?",
+      "answer": "The website includes pre-renovation Thursday admission promotions and surface parking descriptions, but no regular on-site visits are currently available. Do not treat those older terms as a valid free-entry schedule until reopening and updated visitor policies are confirmed.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Buffalo Soldiers National Museum wheelchair accessible during renovations?",
+      "answer": "Its historical visitor profile notes accessibility, but the Houston building is closed for public museum admission. Before any future visit, ask staff to confirm the accessible entrance and whether renovation has changed ramps, restrooms and visitor routes.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What can families visit nearby instead while the museum is closed?",
+      "answer": "Plan a different institution that is independently confirmed open and appropriate to your interests. The museum's website may offer off-site events, but event availability must be confirmed directly; do not assume the closed Caroline Street building is a visitor stop.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "texas-prison-museum-huntsville": [
+    {
+      "question": "What are the Texas Prison Museum's current hours and admission prices?",
+      "answer": "The museum's current homepage lists Monday through Saturday 10 a.m.–5 p.m., Sunday noon–5 p.m., adults $8, children 6–17 $7, qualifying seniors, military, first responders, TDCJ staff and SHSU students $6, and free admission for ages five and under. Group rates are separately published.",
+      "verificationUrl": "https://www.txprisonmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Texas Prison Museum the same as the Huntsville Unit prison?",
+      "answer": "No. The Texas Prison Museum is a separate public nonprofit museum on Texas Highway 75 North. It explains the history of the state's correctional institutions, including the historic Huntsville Unit called the Walls; the exhibit tour is not a tour inside the operating prison.",
+      "verificationUrl": "https://www.txprisonmuseum.org/about-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/about-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum display the real electric chair called Old Sparky?",
+      "answer": "Yes. Its official exhibit guide identifies Old Sparky as the decommissioned electric chair once used by Texas. The museum states 361 prisoners were executed using it between 1924 and 1964. The subject is disturbing and requires sensitive interpretation, especially for children.",
+      "verificationUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Texas Prison Museum suitable for younger children?",
+      "answer": "The museum welcomes school groups, but some displays depict execution equipment, imprisonment, weapons and violent crime. A visit is better planned around each child's maturity; adults may omit the capital-punishment section and choose other social-history interpretation.",
+      "verificationUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the Texas Prison Rodeo and can I attend it today?",
+      "answer": "The museum interprets a historic prison rodeo that began in 1931 and ran through 1986. Its collections and narratives are historical; there is no current public Texas Prison Rodeo event to attend at the museum.",
+      "verificationUrl": "https://www.txprisonmuseum.org/copy-of-captain-joe-byrd-cemetery",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/copy-of-captain-joe-byrd-cemetery",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much time should I allow to see the Texas Prison Museum?",
+      "answer": "The museum suggests that a quick visitor may browse in approximately 45 minutes, while readers interested in the full history can spend several hours. Allow more time if discussing sensitive exhibits with family or school visitors.",
+      "verificationUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the prison museum have a working restaurant or cafeteria?",
+      "answer": "The institution's official admission and exhibits information does not establish an on-site cafeteria or full-service restaurant. Plan dining elsewhere in Huntsville and ask staff whether drinking water or snacks are permitted inside the galleries.",
+      "verificationUrl": "https://www.txprisonmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is there wheelchair access and are tours of the operating prison included?",
+      "answer": "The official museum sources reviewed do not confirm every doorway or gallery accommodation, so contact museum staff about physical access. Public museum admission does not include entry into any functioning Texas prison, and the guide must never imply that it does.",
+      "verificationUrl": "https://www.txprisonmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "eisenhower-birthplace": [
+    {
+      "question": "Where is Dwight Eisenhower's Texas birthplace and how do I reach its parking lot?",
+      "answer": "Use 609 South Lamar Avenue in Denison for the Texas Historical Commission visitor center and lot. Some nearby Shepherd, Day and Lamar street approaches have closures, so follow the THC route directions rather than driving directly to a historical house pin.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much do guided tours at Eisenhower Birthplace cost?",
+      "answer": "The THC lists adults $6, seniors, teachers and veterans $5, youth $4, children five and under free, and a $12 family admission package. School and adult groups have separate advertised tour prices. Confirm the current category when reserving.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I visit the Eisenhower Birthplace without a reservation?",
+      "answer": "The site offers tours starting on the hour, with walk-ins admitted only as capacity allows. Reserve at least one week ahead if a specific time is essential. Public tours generally run Tuesday through Saturday and Sunday afternoon; holiday changes require checking.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Was Dwight Eisenhower raised in the Denison house?",
+      "answer": "No. Dwight Eisenhower was born there on October 14, 1890, while his father worked around railroad shops. His family moved back to Kansas when he was about 18 months old; the Texas house represents his birthplace, not the whole childhood.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/eisenhower-birthplace-history",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/eisenhower-birthplace-history",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Eisenhower Birthplace accessible to wheelchair users?",
+      "answer": "THC lists wheelchair-accessible ramps at both the Birthplace house and visitor center, plus accessible restrooms at the picnic pavilion. There is a short walk between the buildings; ask visitor services about specific mobility needs or outdoor surfaces.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Eisenhower Birthplace have a café or allow packed food?",
+      "answer": "The operator states that food and drinks are not sold on site and cannot be consumed inside the historic house. You may bring your own food and drinks to the picnic pavilion, where water fountains and restrooms are located.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are the tours suitable for school-age children?",
+      "answer": "Yes. THC's educational program introduces railroad-era working-family life through a house tour, interpretive video and supervised period activities such as croquet, paper quilting and historic washing. School tours are book-ahead sessions distinct from general public admission.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Eisenhower Birthplace the same as the Eisenhower home in Abilene or Gettysburg?",
+      "answer": "No. The Denison house marks Eisenhower's 1890 birth. His Kansas boyhood home and Pennsylvania retirement farm are distinct historic locations that describe other life periods, and should not be mistaken for Texas museum sites.",
+      "verificationUrl": "https://thc.texas.gov/blog/homes-president-eisenhower",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/blog/homes-president-eisenhower",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
