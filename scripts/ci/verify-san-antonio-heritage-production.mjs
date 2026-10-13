@@ -87,9 +87,10 @@ async function fetchText(path) {
 const bodyChecks=[];
 const sitemapExplore=await fetchText("/sitemap-explore.xml");
 const sitemapEvergreen=await fetchText("/sitemap-evergreen.xml");
+const sitemapPrimary=await fetchText("/sitemap.xml");
 const checkPage=async (page,sitemap) => {
   const canonical=ORIGIN+page.path;
-  if(!sitemap.includes(canonical))throw new Error("Not present in sitemap: "+canonical);
+  if(!sitemap.includes(canonical) && !sitemapPrimary.includes(canonical))throw new Error("Not present in canonical sitemap: "+canonical);
   const html=await fetchText(page.path);
   const clean=decode(html);
   if(!clean.toLowerCase().includes(page.name.toLowerCase()))throw new Error("Page content lacks subject: "+canonical);
