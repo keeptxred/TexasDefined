@@ -26,6 +26,9 @@ export const nacogdochesSanAugustineHistoricRoadTripArticle: Article = {
     { href: "/destination/mission-tejas-state-park", label: "Mission Tejas State Park", description: "1930s mission commemoration, restored Rice home and forest trails." },
     { href: "/destination/stone-fort-museum-nacogdoches", label: "Stone Fort Museum", description: "An explicitly reconstructed stone house interpreting Gil Y'Barbo and early Nacogdoches." },
     { href: "/destination/sterne-hoya-house-museum", label: "Sterne-Hoya House", description: "Historic house and district; museum is presently closed for maintenance." },
+    { href: "/destination/angelina-national-forest", label: "Angelina National Forest", description: "Land, trails, ecology and permitted recreation across four Piney Woods counties." },
+    { href: "/destination/stephen-f-austin-experimental-forest", label: "Stephen F. Austin Experimental Forest", description: "Accessible Jack Creek and more rugged research-forest management trails." },
+    { href: "/destination/aldridge-sawmill-ruins", label: "Aldridge Sawmill ruins", description: "Remote industrial archaeological remains on the Sawmill Hiking Trail." },
     { href: "/destination/ruby-m-mize-azalea-garden", label: "Ruby M. Mize Azalea Garden", description: "SFA's public garden and seasonal Nacogdoches nature stop." },
     { href: "/destination/san-augustine-county-courthouse", label: "San Augustine Courthouse", description: "1927 Classical Revival county courthouse and restoration." },
     { href: "/destination/1919-san-augustine-county-jail-museum", label: "San Augustine County Jail Museum", description: "Historic civic institution and local-history museum." },
@@ -33,7 +36,7 @@ export const nacogdochesSanAugustineHistoricRoadTripArticle: Article = {
     { href: "/explore/historic-sites", label: "More Texas historic sites", description: "Expand the route to other history destinations." }
   ],
   relatedCollections: [],
-  relatedDestinations: ["nacogdoches","mission-dolores","caddo-mounds-state-historic-site","mission-tejas-state-park","stone-fort-museum-nacogdoches","sterne-hoya-house-museum","ruby-m-mize-azalea-garden","san-augustine-county-courthouse","1919-san-augustine-county-jail-museum"],
+  relatedDestinations: ["nacogdoches","mission-dolores","caddo-mounds-state-historic-site","mission-tejas-state-park","stone-fort-museum-nacogdoches","sterne-hoya-house-museum","ruby-m-mize-azalea-garden","san-augustine-county-courthouse","1919-san-augustine-county-jail-museum","angelina-national-forest","stephen-f-austin-experimental-forest","aldridge-sawmill-ruins"],
   body: [
     { type: "paragraph", text: "This road trip follows a historic route through Caddo country, Spanish mission landscapes, early Republic-era towns, and public history that is still being interpreted by local communities. The key is not to mistake these places for one linear timeline: Caddo communities were established here long before European colonialism, and their descendants remain a living nation." },
     { type: "heading", text: "Route at a glance" },
