@@ -34,6 +34,8 @@ describe("geographic consistency across all Explore regional routes", () => {
     destination("texas-state-aquarium", "hill-country", 27.81, -97.39),
     destination("moody-gardens", "hill-country", 29.2739, -94.8506),
     destination("houston-zoo", "hill-country", 29.7158, -95.3903),
+    destination("downtown-aquarium-houston", "hill-country", 29.76, -95.37),
+    destination("houston-interactive-aquarium-animal-preserve", "hill-country", 29.63, -95.17),
     destination("space-center-houston", "hill-country", 29.5519, -95.0981),
     destination("palo-duro-canyon-state-park", "hill-country", 34.9845, -101.7017),
     destination("caprock-canyons-state-park", "hill-country", 34.4, -101.07),
@@ -51,7 +53,7 @@ describe("geographic consistency across all Explore regional routes", () => {
 
   it("puts incorrectly tagged known places back into their checked regional catalogs", () => {
     expect(filterDestinationsByScope(mislabeled, { region: "gulf-coast" }).map((d) => d.slug))
-      .toEqual(["texas-state-aquarium", "moody-gardens", "houston-zoo", "space-center-houston", "brazos-bend-state-park"]);
+      .toEqual(["texas-state-aquarium", "moody-gardens", "houston-zoo", "downtown-aquarium-houston", "houston-interactive-aquarium-animal-preserve", "space-center-houston", "brazos-bend-state-park"]);
     expect(filterDestinationsByScope(mislabeled, { region: "panhandle" }).map((d) => d.slug))
       .toEqual(["palo-duro-canyon-state-park", "caprock-canyons-state-park"]);
     expect(filterDestinationsByScope(mislabeled, { region: "big-bend" }).map((d) => d.slug))
