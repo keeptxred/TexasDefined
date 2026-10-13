@@ -56,7 +56,7 @@ async function liveCheck(){
   console.log('SWIMMING destinations='+count+' noindexMeta='+robots.length);
  }catch(error){failures.push(path+': '+(error?.message||String(error)));}
 }
-if(process.argv.includes('--source'))sourceCheck();
-else await liveCheck();
+if(process.argv.includes('--live'))await liveCheck();
+else sourceCheck();
 if(failures.length){failures.forEach(e=>console.error('FAIL '+e));process.exitCode=1;}
-else console.log('PASS: '+(process.argv.includes('--source')?'region/source contract':'live seven-region and swim category SSR scope/indexability'));
+else console.log('PASS: '+(process.argv.includes('--live')?'live seven-region and swim category SSR scope/indexability':'region/source contract'));
