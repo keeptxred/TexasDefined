@@ -643,6 +643,41 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "san-antonio-museum-of-art": {
+    name: "San Antonio Museum of Art",
+    slug: "san-antonio-museum-of-art",
+    county: "Bexar",
+    city: "San Antonio",
+    reviewed: "2026-10-13",
+    topics: ["art", "world-history", "family", "accessibility"],
+    whyVisit: "The San Antonio Museum of Art brings five thousand years of world art into a former Lone Star Brewery along San Antonio's Museum Reach, combining an unusual industrial building with global collections. Its scale rewards selecting a topic—ancient Mediterranean art, Asian objects, Latin American art or changing exhibitions—rather than trying to examine every gallery in one visit.",
+    visitorStrategy: "The museum is at 200 W. Jones Avenue. Current general adult admission is $24, with free admission for children 12 and under; Bexar County residents have free general admission Tuesday 4–7 p.m. and the second Sunday 10 a.m.–noon with proof of residency. Special-exhibition charges can apply. Public gallery hours are Tuesday and Friday 10 a.m.–7 p.m., Wednesday/Thursday/Saturday/Sunday 10 a.m.–5 p.m., closed Monday. The paid lot across the street uses a vehicle-registration service; museum members have separate parking provisions.",
+    accessibility: "Wheelchairs are available upon request at the front desk first come, first served, and folding cane-stools are offered near the Great Hall. The museum's visitor information identifies accessible parking and welcomes service animals while excluding pets. The old brewery structure can involve a complex route, so visitors with detailed mobility or sensory requirements should discuss the gallery path with the museum before arrival.",
+    familiesAndGroups: "Children age twelve and under receive free general admission; family visitors should focus on a few suitable rooms with outdoor breaks on Museum Reach. SAMA offers guided school tours with around 50 minutes of interpretation; Texas school groups and required chaperones are generally admitted free on confirmed tours, but at least two weeks' advance booking is necessary and special fees can apply. Tre Trattoria is a full-service Italian restaurant in the historic Hops House, NOT a museum snack cart or cafeteria; its dining hours run beyond the gallery's closing time.",
+    researchValue: "Contrast SAMA's encyclopedic collections with San Antonio's other art institutions, and explain how a brewery became an art museum. Cite its current collections and temporary exhibit directory rather than implying every artifact is on display. Clarify that Bexar County free hours require proof of residency and that special-exhibition charges can remain, while the restaurant can operate when galleries are closed.",
+    exhibits: [
+      { heading: "Ancient Egypt, Greece and Rome", detail: "Select a few artifacts to compare ritual, daily life, sculpture and visual storytelling, while referring deeper catalogue research to the museum's own collection resources." },
+      { heading: "Asian and Latin American art", detail: "Explore major cultural traditions across different time periods. Do not treat an entire region as one style or assume every collection object is always on view." },
+      { heading: "The historic Lone Star Brewery building", detail: "The adaptive reuse of the nineteenth-century industrial complex is itself a reason to visit, with the museum's galleries arranged inside former brewery structures." },
+      { heading: "The Etruscans: From the Heart of Ancient Italy (opens October 31, 2026)", detail: "A forthcoming exhibit on ancient Italy. Label it upcoming before October 31 and verify exhibit status for later visits." },
+    ],
+    routes: [
+      { label: "A global-art museum visit", steps: ["Choose two cultural regions or artistic periods at the beginning", "Compare a few representative artworks and read their interpretation", "Finish with historic brewery architecture and the current special exhibition if available"] },
+      { label: "Museum Reach art and river day", steps: ["Visit SAMA galleries during current museum hours", "Walk the Museum Reach toward the Pearl district if mobility and weather permit", "Reserve Tre Trattoria separately if dining there is part of the visit"] },
+    ],
+    sources: [
+      { label: "SAMA current hours, ticket and parking policy", url: "https://www.samuseum.org/visit/", use: "Operating times, paid parking, Bexar County residency rules, group restrictions" },
+      { label: "SAMA restaurant", url: "https://www.samuseum.org/visit/restaurant/", use: "Tre Trattoria food service and post-gallery-hour entrances" },
+      { label: "SAMA school and group programs", url: "https://www.samuseum.org/visit/tour/public-and-charter-schools/", use: "Tour booking, student access, education programs" },
+      { label: "SAMA current exhibitions", url: "https://www.samuseum.org/", use: "Temporary gallery availability, forthcoming Etruscan exhibition" },
+    ],
+    connections: [
+      { label: "Bexar County", href: "/county/bexar", reason: "Place the former brewery and Museum Reach in local history." },
+      { label: "Witte Museum", href: "/destination/witte-museum", reason: "A different San Antonio institution emphasizing Texas nature and history." },
+      { label: "Museums across Texas", href: "/explore/museums", reason: "Compare art galleries and historical institutions in Texas." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
