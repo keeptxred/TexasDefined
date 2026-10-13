@@ -1182,6 +1182,62 @@
           "label": "Texas Sports Hall of Fame home"
         }
       ]
+    },
+    {
+      "path": "/destination/austin-nature-and-science-center",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+          "fetchUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+          "label": "City of Austin — plan your visit"
+        },
+        {
+          "sourceUrl": "https://www.austintexas.gov/parks/austin-nature-science-center-exhibits",
+          "fetchUrl": "https://www.austintexas.gov/parks/austin-nature-science-center-exhibits",
+          "label": "City of Austin — exhibits"
+        },
+        {
+          "sourceUrl": "https://www.austintexas.gov/parks/austin-nature-science-center-school-programs-and-group-reservations",
+          "fetchUrl": "https://www.austintexas.gov/parks/austin-nature-science-center-school-programs-and-group-reservations",
+          "label": "City of Austin — group reservations"
+        },
+        {
+          "sourceUrl": "https://www.austintexas.gov/parks/locations/austin-nature-and-science-center",
+          "fetchUrl": "https://www.austintexas.gov/parks/locations/austin-nature-and-science-center",
+          "label": "City of Austin — center operation"
+        }
+      ]
+    },
+    {
+      "path": "/destination/harry-ransom-center-austin",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.hrc.utexas.edu/visit/",
+          "fetchUrl": "https://www.hrc.utexas.edu/visit/",
+          "label": "Harry Ransom Center — plan your visit"
+        },
+        {
+          "sourceUrl": "https://www.hrc.utexas.edu/exhibitions/",
+          "fetchUrl": "https://www.hrc.utexas.edu/exhibitions/",
+          "label": "Harry Ransom Center — exhibitions"
+        },
+        {
+          "sourceUrl": "https://www.hrc.utexas.edu/group-tours/",
+          "fetchUrl": "https://www.hrc.utexas.edu/group-tours/",
+          "label": "Harry Ransom Center — group tours"
+        },
+        {
+          "sourceUrl": "https://www.hrc.utexas.edu/frequently-asked-questions/",
+          "fetchUrl": "https://www.hrc.utexas.edu/frequently-asked-questions/",
+          "label": "Harry Ransom Center — FAQs"
+        }
+      ]
     }
   ]
 }
