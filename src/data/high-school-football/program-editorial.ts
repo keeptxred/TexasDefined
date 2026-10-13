@@ -93,14 +93,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "date": "2023",
         "title": "15–0 repeat: 82–34 over Oglesby",
         "body": "The Mustangs repeated as six-man Division II champions, finishing 15–0. Grayson Rigdon scored seven touchdowns (six rushing, one receiving), threw three touchdown passes and earned offensive MVP. Keegan Hayes registered 14 tackles and was named defensive MVP; the 45-point rule ended the final in the third quarter.",
-        "sourceUrl": "https://www.texasfootball.com/articles/article/default.aspx?url=2023%2F12%2F13%2Frigdon-leads-benjamin-to-back-to-back-state-titles",
+        "sourceUrl": "https://www.texasfootball.com/article/2023/12/13/rigdon-leads-benjamin-to-back-to-back-state-titles",
         "sourceLabel": "Dave Campbell's Texas Football 2023 game recap"
       },
       {
         "date": "2013–23",
         "title": "Nathan Hayes's four six-man championships",
         "body": "Benjamin's 2022 and 2023 titles were coach Nathan Hayes's third and fourth six-man crowns. He had previously guided Crowell to back-to-back championships in 2013 and 2014. Those are Hayes's historic achievements across two different schools, not four Benjamin state titles.",
-        "sourceUrl": "https://www.texasfootball.com/articles/article/default.aspx?url=2023%2F12%2F13%2Frigdon-leads-benjamin-to-back-to-back-state-titles",
+        "sourceUrl": "https://www.texasfootball.com/article/2023/12/13/rigdon-leads-benjamin-to-back-to-back-state-titles",
         "sourceLabel": "2023 retrospective on Nathan Hayes's coaching titles"
       },
       {
