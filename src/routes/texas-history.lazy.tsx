@@ -44,6 +44,7 @@ const historicAuthorityGuides = [
 ] as const;
 
 const heritagePaths = [
+  { to: "/dallas-black-history", eyebrow: "African American history · Dallas", title: "Dallas Black History", description: "Eight deeply researched landmarks connect Freedmen’s Towns, civil-rights activism, a historic school, a Black church, Deep Ellum, and art held at Fair Park." },
   { to: "/texas-old-west", eyebrow: "Ranch · frontier · rodeo", title: "Texas Old West", description: "Connect cattle culture, forts, Native history, Buffalo Soldiers, longhorns, rodeo and dance halls without turning western history into mythology." },
   { to: "/texas-sacred-places", eyebrow: "Faith · heritage · remembrance", title: "Sacred Places in Texas", description: "Move between Painted Churches, missions, immigrant religious communities and memorial landscapes with visitor access and living worship kept distinct." },
   { to: "/texas-music", eyebrow: "Music · rooms · communities", title: "Texas Music", description: "Follow migration, Black performance circuits, border music, dance halls, recording infrastructure and city scenes through the places where Texas sounds developed." },
