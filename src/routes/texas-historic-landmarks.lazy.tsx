@@ -23,6 +23,7 @@ const completedAuthoritySlugs: Record<string,string> = {
   "Kokernot Field": "kokernot-field",
   "Alpine Downtown Historic District": "alpine-downtown-historic-district",
   "Downtown Bryan Historic District": "downtown-bryan-historic-district",
+  "Sycamore Creek Bridge": "sycamore-creek-bridge-fort-worth",
 };
 const kindLabels: Record<string, string> = {
   building: "Historic buildings",
