@@ -1070,6 +1070,27 @@
         "https://epmarch.org/",
         "https://epmarch.org/about/about-epmarch"
       ]
+    },
+    "johnny-nelson-katy-heritage-museum": {
+      "name": "Johnny Nelson Katy Heritage Museum",
+      "operatorStrengths": [
+        "Current City of Katy hours, location, admission and group-tour contact",
+        "Official local heritage society provides nearby historic-home and railroad museum tour schedules"
+      ],
+      "openGaps": [
+        "Museum-specific mobility and sensory details require direct contact with City visitor services",
+        "Exact-site photo requires explicit reusable license or fresh original photography; do not republish third-party images without permission",
+        "Side-by-side live visitor-guide inspection needed for quality certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.cityofkaty.com/visitors/museums",
+        "https://atlas.thc.texas.gov/Details/4200001108",
+        "https://www.katyheritagesociety.com/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
