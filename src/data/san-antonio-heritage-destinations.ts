@@ -67,39 +67,39 @@ export const sanAntonioHeritageDestinations: Destination[] = [
     "authorityGuide": {
       "whyItMatters": "The remarkably intact 1755 stone church and rare surviving colonial frescoes make Concepción essential to understanding the Spanish, Indigenous and living religious histories of San Antonio.",
       "assessment": {
-        "recommendedVisit": "Plan 30–120 minutes, depending on guided programs and the site's interpretive depth",
+        "recommendedVisit": "45–60 minutes",
         "physicalEffort": "Low to moderate",
         "weatherExposure": "Mixed indoor/outdoor",
         "planningLevel": "Moderate",
         "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "An important complement to the San Antonio historic road-trip network"
+        "firstTimeValue": "Most useful when combined with concepción and san josé; official entry conditions apply."
       },
       "itineraries": [
         {
-          "label": "Focused site visit",
-          "duration": "45–90 minutes",
+          "label": "Original fresco and stone",
+          "duration": "45–60 minutes",
           "steps": [
-            "Confirm the operator's current access policies",
-            "Explore the public history of Mission Concepción",
-            "Connect the building's past to the neighborhood"
+            "Use the NPS orientation signs and respect parish access",
+            "Study surviving frescoes and original stonework",
+            "Compare the 1731 move and 1755 church completion"
           ]
         },
         {
-          "label": "San Antonio history district",
+          "label": "Concepción and San José",
           "duration": "Half day",
           "steps": [
-            "Start at Mission Concepción",
-            "Continue to historically connected nearby landmarks",
-            "Allow time for access limits and interpretive exhibits"
+            "Begin at Concepción for original fabric",
+            "Continue to San José for the larger compound and visitor center",
+            "Check ranger walk schedules before setting the order"
           ]
         },
         {
-          "label": "Full historic city circuit",
-          "duration": "Two days",
+          "label": "Four-mission architectural circuit",
+          "duration": "Full day",
           "steps": [
-            "Tour downtown and King William history sites",
-            "Visit the four missions along the river corridor",
-            "Review sources, preservation and contemporary community history"
+            "See Concepción and San José in the north",
+            "Continue to San Juan for the agricultural story",
+            "Finish at Espada and the separate aqueduct"
           ]
         }
       ],
@@ -182,39 +182,39 @@ export const sanAntonioHeritageDestinations: Destination[] = [
     "authorityGuide": {
       "whyItMatters": "San José, the largest Spanish colonial mission complex in San Antonio, is the National Park Service orientation hub, with a church, granary, former residential quarters, gristmill and Rose Window.",
       "assessment": {
-        "recommendedVisit": "Plan 30–120 minutes, depending on guided programs and the site's interpretive depth",
+        "recommendedVisit": "90–120 minutes",
         "physicalEffort": "Low to moderate",
         "weatherExposure": "Mixed indoor/outdoor",
         "planningLevel": "Moderate",
         "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "An important complement to the San Antonio historic road-trip network"
+        "firstTimeValue": "Most useful when combined with two-mission comparison; official entry conditions apply."
       },
       "itineraries": [
         {
-          "label": "Focused site visit",
-          "duration": "45–90 minutes",
+          "label": "Park orientation and church",
+          "duration": "90–120 minutes",
           "steps": [
-            "Confirm the operator's current access policies",
-            "Explore the public history of Mission San José",
-            "Connect the building's past to the neighborhood"
+            "Begin in the main NPS visitor center",
+            "Examine the Rose Window and restored perimeter compound",
+            "Use a ranger-led program if offered"
           ]
         },
         {
-          "label": "San Antonio history district",
+          "label": "Two-mission comparison",
           "duration": "Half day",
           "steps": [
-            "Start at Mission San José",
-            "Continue to historically connected nearby landmarks",
-            "Allow time for access limits and interpretive exhibits"
+            "Start at San José for the larger mission settlement",
+            "Continue to Concepción to compare surviving original fabric",
+            "Study differences between church art and reconstructed quarters"
           ]
         },
         {
-          "label": "Full historic city circuit",
-          "duration": "Two days",
+          "label": "Mission labor and irrigation trail",
+          "duration": "Full day",
           "steps": [
-            "Tour downtown and King William history sites",
-            "Visit the four missions along the river corridor",
-            "Review sources, preservation and contemporary community history"
+            "San José: housing, gristmill and granary",
+            "San Juan: acequia and agricultural demonstration",
+            "Espada: weaving and separately accessed aqueduct"
           ]
         }
       ],
@@ -302,39 +302,39 @@ export const sanAntonioHeritageDestinations: Destination[] = [
     "authorityGuide": {
       "whyItMatters": "Mission San Juan's surviving church and acequia-fed demonstration farm reveal the agricultural, Indigenous and living-community story behind San Antonio's colonial mission system.",
       "assessment": {
-        "recommendedVisit": "Plan 30–120 minutes, depending on guided programs and the site's interpretive depth",
+        "recommendedVisit": "45–75 minutes",
         "physicalEffort": "Low to moderate",
         "weatherExposure": "Mixed indoor/outdoor",
         "planningLevel": "Moderate",
         "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "An important complement to the San Antonio historic road-trip network"
+        "firstTimeValue": "Most useful when combined with southern missions and aqueduct; official entry conditions apply."
       },
       "itineraries": [
         {
-          "label": "Focused site visit",
-          "duration": "45–90 minutes",
+          "label": "Acequia and church",
+          "duration": "45–75 minutes",
           "steps": [
-            "Confirm the operator's current access policies",
-            "Explore the public history of Mission San Juan Capistrano",
-            "Connect the building's past to the neighborhood"
+            "Study San Juan's church from the accessible public approach",
+            "Trace the historic acequia and its agricultural role",
+            "Check whether any farm interpretation is offered that day"
           ]
         },
         {
-          "label": "San Antonio history district",
+          "label": "Southern missions and aqueduct",
           "duration": "Half day",
           "steps": [
-            "Start at Mission San Juan Capistrano",
-            "Continue to historically connected nearby landmarks",
-            "Allow time for access limits and interpretive exhibits"
+            "Start at San Juan for farm interpretation",
+            "Continue south to Mission Espada",
+            "Add the separate Espada Aqueduct if road and site access permit"
           ]
         },
         {
-          "label": "Full historic city circuit",
-          "duration": "Two days",
+          "label": "How the missions fed San Antonio",
+          "duration": "Full day",
           "steps": [
-            "Tour downtown and King William history sites",
-            "Visit the four missions along the river corridor",
-            "Review sources, preservation and contemporary community history"
+            "San José's gristmill and granary",
+            "San Juan's agricultural community and acequia",
+            "Espada's aqueduct, weaving and managed fields"
           ]
         }
       ],
@@ -417,39 +417,39 @@ export const sanAntonioHeritageDestinations: Destination[] = [
     "authorityGuide": {
       "whyItMatters": "The oldest mission enterprise in Texas by founding date, Espada moved to San Antonio in 1731; its church, textile history and nearby aqueduct reveal a settlement built around irrigation and labor.",
       "assessment": {
-        "recommendedVisit": "Plan 30–120 minutes, depending on guided programs and the site's interpretive depth",
+        "recommendedVisit": "45–75 minutes",
         "physicalEffort": "Low to moderate",
         "weatherExposure": "Mixed indoor/outdoor",
         "planningLevel": "Moderate",
         "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "An important complement to the San Antonio historic road-trip network"
+        "firstTimeValue": "Most useful when combined with espada aqueduct field visit; official entry conditions apply."
       },
       "itineraries": [
         {
-          "label": "Focused site visit",
-          "duration": "45–90 minutes",
+          "label": "Mission church and textiles",
+          "duration": "45–75 minutes",
           "steps": [
-            "Confirm the operator's current access policies",
-            "Explore the public history of Mission Espada",
-            "Connect the building's past to the neighborhood"
+            "Begin at Espada's church and courtyard",
+            "Ask if loom interpretation is scheduled",
+            "Study the mission's East Texas origins before its 1731 relocation"
           ]
         },
         {
-          "label": "San Antonio history district",
+          "label": "Espada Aqueduct field visit",
           "duration": "Half day",
           "steps": [
-            "Start at Mission Espada",
-            "Continue to historically connected nearby landmarks",
-            "Allow time for access limits and interpretive exhibits"
+            "Visit the mission's historic buildings",
+            "Travel separately to Espada Aqueduct using an NPS map",
+            "Examine why acequias were necessary to support fields"
           ]
         },
         {
-          "label": "Full historic city circuit",
-          "duration": "Two days",
+          "label": "Southside irrigation circuit",
+          "duration": "Full day",
           "steps": [
-            "Tour downtown and King William history sites",
-            "Visit the four missions along the river corridor",
-            "Review sources, preservation and contemporary community history"
+            "Begin at Mission San Juan's acequia",
+            "Continue to Espada's church and textile interpretation",
+            "Finish at the nearby aqueduct and San Antonio River landscape"
           ]
         }
       ],
@@ -532,39 +532,39 @@ export const sanAntonioHeritageDestinations: Destination[] = [
     "authorityGuide": {
       "whyItMatters": "A 1731 religious community and living civic landmark whose nineteenth-century Gothic Revival front connects colonial San Antonio with its later urban history.",
       "assessment": {
-        "recommendedVisit": "Plan 30–120 minutes, depending on guided programs and the site's interpretive depth",
+        "recommendedVisit": "30–45 minutes",
         "physicalEffort": "Low to moderate",
         "weatherExposure": "Mixed indoor/outdoor",
         "planningLevel": "Moderate",
         "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "An important complement to the San Antonio historic road-trip network"
+        "firstTimeValue": "Most useful when combined with main plaza religious and civil institutions; official entry conditions apply."
       },
       "itineraries": [
         {
-          "label": "Focused site visit",
-          "duration": "45–90 minutes",
+          "label": "Cathedral architecture",
+          "duration": "30–45 minutes",
           "steps": [
-            "Confirm the operator's current access policies",
-            "Explore the public history of San Fernando Cathedral",
-            "Connect the building's past to the neighborhood"
+            "Check worship and photography access before arrival",
+            "Compare the original parish history with nineteenth-century facade changes",
+            "Explore public Main Plaza features"
           ]
         },
         {
-          "label": "San Antonio history district",
+          "label": "Main Plaza religious and civil institutions",
+          "duration": "90–120 minutes",
+          "steps": [
+            "San Fernando Cathedral exterior or permitted interior",
+            "Bexar County Courthouse exterior",
+            "Spanish Governor's Palace museum when open"
+          ]
+        },
+        {
+          "label": "Spanish civilian town and Tejano history",
           "duration": "Half day",
           "steps": [
-            "Start at San Fernando Cathedral",
-            "Continue to historically connected nearby landmarks",
-            "Allow time for access limits and interpretive exhibits"
-          ]
-        },
-        {
-          "label": "Full historic city circuit",
-          "duration": "Two days",
-          "steps": [
-            "Tour downtown and King William history sites",
-            "Visit the four missions along the river corridor",
-            "Review sources, preservation and contemporary community history"
+            "Start at San Fernando and Main Plaza",
+            "Visit Spanish Governor's Palace",
+            "Continue to Casa Navarro to interpret Tejano political leadership"
           ]
         }
       ],
@@ -647,39 +647,39 @@ export const sanAntonioHeritageDestinations: Destination[] = [
     "authorityGuide": {
       "whyItMatters": "The red sandstone Romanesque Revival courthouse by James Riely Gordon is a working seat of county government and a leading Texas historic-preservation project.",
       "assessment": {
-        "recommendedVisit": "Plan 30–120 minutes, depending on guided programs and the site's interpretive depth",
+        "recommendedVisit": "20–30 minutes",
         "physicalEffort": "Low to moderate",
         "weatherExposure": "Mixed indoor/outdoor",
         "planningLevel": "Moderate",
         "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "An important complement to the San Antonio historic road-trip network"
+        "firstTimeValue": "Most useful when combined with main plaza civic institutions; official entry conditions apply."
       },
       "itineraries": [
         {
-          "label": "Focused site visit",
-          "duration": "45–90 minutes",
+          "label": "Exterior architecture",
+          "duration": "20–30 minutes",
           "steps": [
-            "Confirm the operator's current access policies",
-            "Explore the public history of Historic Bexar County Courthouse",
-            "Connect the building's past to the neighborhood"
+            "View Gordon's sandstone Romanesque Revival exterior from Main Plaza",
+            "Look for restoration work and successive courthouse phases",
+            "Do not plan an unscheduled interior tour"
           ]
         },
         {
-          "label": "San Antonio history district",
+          "label": "Main Plaza civic institutions",
+          "duration": "90 minutes",
+          "steps": [
+            "Compare courthouse and San Fernando Cathedral facades",
+            "Visit the Spanish Governor's Palace when available",
+            "Discuss colonial, religious and modern government history"
+          ]
+        },
+        {
+          "label": "Historic courthouse preservation route",
           "duration": "Half day",
           "steps": [
-            "Start at Historic Bexar County Courthouse",
-            "Continue to historically connected nearby landmarks",
-            "Allow time for access limits and interpretive exhibits"
-          ]
-        },
-        {
-          "label": "Full historic city circuit",
-          "duration": "Two days",
-          "steps": [
-            "Tour downtown and King William history sites",
-            "Visit the four missions along the river corridor",
-            "Review sources, preservation and contemporary community history"
+            "Study the Bexar courthouse restoration record",
+            "Visit neighboring civic and religious landmarks",
+            "Follow the wider downtown historical trail to Casa Navarro"
           ]
         }
       ],
@@ -762,39 +762,39 @@ export const sanAntonioHeritageDestinations: Destination[] = [
     "authorityGuide": {
       "whyItMatters": "Carl Hilmar Guenther's historic riverside home connects German-Texan immigration and the Pioneer Flour Mills to a present-day restaurant, shop and interpretive museum.",
       "assessment": {
-        "recommendedVisit": "Plan 30–120 minutes, depending on guided programs and the site's interpretive depth",
+        "recommendedVisit": "60–90 minutes",
         "physicalEffort": "Low to moderate",
         "weatherExposure": "Mixed indoor/outdoor",
         "planningLevel": "Moderate",
         "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "An important complement to the San Antonio historic road-trip network"
+        "firstTimeValue": "Most useful when combined with king william walk; official entry conditions apply."
       },
       "itineraries": [
         {
-          "label": "Focused site visit",
-          "duration": "45–90 minutes",
+          "label": "Mill-house breakfast and history",
+          "duration": "60–90 minutes",
           "steps": [
-            "Confirm the operator's current access policies",
-            "Explore the public history of The Guenther House",
-            "Connect the building's past to the neighborhood"
+            "Verify actual restaurant hours before arriving",
+            "Examine house features and any open historic displays",
+            "View the exterior relationship to Pioneer Flour Mills"
           ]
         },
         {
-          "label": "San Antonio history district",
+          "label": "King William walk",
           "duration": "Half day",
           "steps": [
-            "Start at The Guenther House",
-            "Continue to historically connected nearby landmarks",
-            "Allow time for access limits and interpretive exhibits"
+            "Start or finish a meal at Guenther House",
+            "Walk King William public sidewalks and view Steves Homestead from outside",
+            "Check Villa Finale's separately booked historic-house program"
           ]
         },
         {
-          "label": "Full historic city circuit",
-          "duration": "Two days",
+          "label": "Immigrant industry and preservation",
+          "duration": "Full day",
           "steps": [
-            "Tour downtown and King William history sites",
-            "Visit the four missions along the river corridor",
-            "Review sources, preservation and contemporary community history"
+            "Guenther's flour-milling story",
+            "King William business houses and Villa Finale",
+            "Downtown Menger Hotel and La Villita's immigrant-era layers"
           ]
         }
       ],
@@ -877,39 +877,39 @@ export const sanAntonioHeritageDestinations: Destination[] = [
     "authorityGuide": {
       "whyItMatters": "The 1876 Second Empire residence of Edward Steves remains a King William landmark, but it should no longer be advertised as a public house museum without confirming new ownership and access after its 2022 sale.",
       "assessment": {
-        "recommendedVisit": "Exterior viewing only until admission verified",
+        "recommendedVisit": "15–20 minutes",
         "physicalEffort": "Low to moderate",
         "weatherExposure": "Mixed indoor/outdoor",
         "planningLevel": "Moderate",
         "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "An important complement to the San Antonio historic road-trip network"
+        "firstTimeValue": "Most useful when combined with king william preservation walk; official entry conditions apply."
       },
       "itineraries": [
         {
-          "label": "Focused site visit",
-          "duration": "45–90 minutes",
+          "label": "Exterior-only architectural stop",
+          "duration": "15–20 minutes",
           "steps": [
-            "Confirm the operator's current access policies",
-            "Explore the public history of Steves Homestead",
-            "Connect the building's past to the neighborhood"
+            "Observe the 1876 mansard-roofed home from public sidewalks",
+            "Read the former museum's sale and preservation history",
+            "Do not imply interiors are publicly accessible"
           ]
         },
         {
-          "label": "San Antonio history district",
+          "label": "King William preservation walk",
+          "duration": "60–90 minutes",
+          "steps": [
+            "View Steves and adjacent residential streets",
+            "Compare Villa Finale's preservation campaign",
+            "Continue to Guenther House for industrial heritage"
+          ]
+        },
+        {
+          "label": "Historic homes with honest access guidance",
           "duration": "Half day",
           "steps": [
-            "Start at Steves Homestead",
-            "Continue to historically connected nearby landmarks",
-            "Allow time for access limits and interpretive exhibits"
-          ]
-        },
-        {
-          "label": "Full historic city circuit",
-          "duration": "Two days",
-          "steps": [
-            "Tour downtown and King William history sites",
-            "Visit the four missions along the river corridor",
-            "Review sources, preservation and contemporary community history"
+            "Study the Steves exterior as a preservation case",
+            "Reserve any open Villa Finale house program separately",
+            "Visit public exhibits at Guenther House if operating"
           ]
         }
       ],
@@ -992,39 +992,39 @@ export const sanAntonioHeritageDestinations: Destination[] = [
     "authorityGuide": {
       "whyItMatters": "San Antonio's historic La Villita neighborhood combines centuries of Indigenous, colonial, Mexican and immigrant settlement with a modern arts village by the River Walk.",
       "assessment": {
-        "recommendedVisit": "Plan 30–120 minutes, depending on guided programs and the site's interpretive depth",
+        "recommendedVisit": "45–75 minutes",
         "physicalEffort": "Low to moderate",
         "weatherExposure": "Mixed indoor/outdoor",
         "planningLevel": "Moderate",
         "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "An important complement to the San Antonio historic road-trip network"
+        "firstTimeValue": "Most useful when combined with river walk and la villita circuit; official entry conditions apply."
       },
       "itineraries": [
         {
-          "label": "Focused site visit",
-          "duration": "45–90 minutes",
+          "label": "Historic streets and building layers",
+          "duration": "45–75 minutes",
           "steps": [
-            "Confirm the operator's current access policies",
-            "Explore the public history of La Villita Historic District",
-            "Connect the building's past to the neighborhood"
+            "Enter via the River Walk or South Alamo public approaches",
+            "Read streetside historic markers before focusing on shops",
+            "Compare historic construction materials and artisan uses"
           ]
         },
         {
-          "label": "San Antonio history district",
+          "label": "River Walk and La Villita circuit",
           "duration": "Half day",
           "steps": [
-            "Start at La Villita Historic District",
-            "Continue to historically connected nearby landmarks",
-            "Allow time for access limits and interpretive exhibits"
+            "Walk the downtown river loop",
+            "Explore La Villita's historic buildings and courtyards",
+            "Continue toward the Alamo and Menger Hotel"
           ]
         },
         {
-          "label": "Full historic city circuit",
-          "duration": "Two days",
+          "label": "Downtown civilian and commercial history",
+          "duration": "Full day",
           "steps": [
-            "Tour downtown and King William history sites",
-            "Visit the four missions along the river corridor",
-            "Review sources, preservation and contemporary community history"
+            "Start at Main Plaza's cathedral and courthouse",
+            "Follow La Villita's early civilian and immigrant history",
+            "Finish with Alamo Plaza commercial and preservation landmarks"
           ]
         }
       ],
@@ -1112,39 +1112,39 @@ export const sanAntonioHeritageDestinations: Destination[] = [
     "authorityGuide": {
       "whyItMatters": "An operating historic hotel opened by Mary and William Menger in 1859, associated with nineteenth-century commerce, the Alamo Plaza visitor district and Theodore Roosevelt's Rough Riders.",
       "assessment": {
-        "recommendedVisit": "Plan 30–120 minutes, depending on guided programs and the site's interpretive depth",
+        "recommendedVisit": "30–45 minutes, subject to access",
         "physicalEffort": "Low to moderate",
         "weatherExposure": "Mixed indoor/outdoor",
         "planningLevel": "Moderate",
         "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "An important complement to the San Antonio historic road-trip network"
+        "firstTimeValue": "Most useful when combined with alamo plaza historical contrast; official entry conditions apply."
       },
       "itineraries": [
         {
-          "label": "Focused site visit",
-          "duration": "45–90 minutes",
+          "label": "Historic hotel interiors",
+          "duration": "30–45 minutes, subject to access",
           "steps": [
-            "Confirm the operator's current access policies",
-            "Explore the public history of Menger Hotel",
-            "Connect the building's past to the neighborhood"
+            "Ask the operating hotel about public lobby or bar entry",
+            "Identify Victorian and later architectural phases",
+            "Distinguish documented Roosevelt history from folklore"
           ]
         },
         {
-          "label": "San Antonio history district",
+          "label": "Alamo Plaza historical contrast",
           "duration": "Half day",
           "steps": [
-            "Start at Menger Hotel",
-            "Continue to historically connected nearby landmarks",
-            "Allow time for access limits and interpretive exhibits"
+            "Start with the Alamo's pre-1836 mission story",
+            "Study the Menger's 1859 commercial history",
+            "Extend south to La Villita via the downtown streets"
           ]
         },
         {
-          "label": "Full historic city circuit",
-          "duration": "Two days",
+          "label": "Downtown hospitality and culture",
+          "duration": "Full day",
           "steps": [
-            "Tour downtown and King William history sites",
-            "Visit the four missions along the river corridor",
-            "Review sources, preservation and contemporary community history"
+            "Menger Hotel's hotel and brewery origins",
+            "La Villita's vernacular urban landscape",
+            "Main Plaza's colonial and nineteenth-century civic institutions"
           ]
         }
       ],
