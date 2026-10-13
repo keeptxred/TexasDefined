@@ -47,8 +47,8 @@ City of Austin's [official BOUNDARIES_jurisdictions feature layer](https://servi
 | austin-navarro | 1201 PAYTON GIN RD | -97.7080635, 30.3603030 | 100 | Austin FULL |
 | austin-northeast | 7104 BERKMAN DR | -97.6911615, 30.3243660 | 100 | Austin FULL |
 | austin-travis | 1211 E OLTORF ST | -97.7442615, 30.2336910 | 100 | Austin FULL |
-| **austin-achieve (new city link)** | 7424 E HWY 290 BUILDING 2 | -97.6802591, 30.3234970 | 100 | **Austin FULL** |
-| **austin-vandegrift (new city link)** | 9500 MCNEIL DR | -97.8267195, 30.3978960 | 100 | **Austin FULL** |
+| `austin-achieve` — new city link | 7424 E HWY 290 BUILDING 2 | -97.6802591, 30.3234970 | 100 | **Austin FULL** |
+| `austin-vandegrift` — new city link | 9500 MCNEIL DR | -97.8267195, 30.3978960 | 100 | **Austin FULL** |
 | austin-lake-travis (no city link) | 3324 RANCH RD 620 S | -97.9699500, 30.3276150 | 100 | No Austin full-purpose polygon |
 | austin-westlake (no city link) | 4100 WESTBANK DR | -97.8139800, 30.2760180 | 100 | No Austin full-purpose polygon |
 
