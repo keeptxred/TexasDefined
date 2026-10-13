@@ -576,6 +576,73 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "amarillo-museum-of-art": {
+    name: "Amarillo Museum of Art",
+    slug: "amarillo-museum-of-art",
+    county: "Potter",
+    city: "Amarillo",
+    reviewed: "2026-10-13",
+    topics: ["art", "family", "texas-history", "accessibility"],
+    whyVisit: "Amarillo Museum of Art is a free-admission cultural institution on Amarillo College's campus, bringing changing contemporary and historical art exhibitions to the Panhandle. Its permanent collections and special exhibitions connect local practice with global artistic traditions, so it works as a focused stop even for visitors without a prior interest in art.",
+    visitorStrategy: "Admission is always free. The operator lists public hours Wednesday–Saturday 11 a.m.–5 p.m. and Sunday 1–5 p.m.; the museum closes Mondays, Tuesdays and listed holidays. Use the west-facing plaza entrance, not the Van Buren administrative door. Park in Amarillo College lots 5 or 6, with accessible spaces in lot 8. Campus museum visitors do not need parking permits. Allow approximately one to two hours for a selective tour; that is an editorial estimate.",
+    accessibility: "AMoA confirms wheelchair access, ramps to the plaza entrance and from the north parking lot, a small elevator at the Van Buren entrance, and elevator access across the museum's three floors. Loaner wheelchairs are free on a first-come basis and accessible restrooms are located on the third floor. Accessible parking is in lot 8; school buses may unload at lot 5. Contact visitor services if a detailed mobility route is important.",
+    familiesAndGroups: "Visitors with children can choose one changing exhibition, then discuss a few artworks and materials rather than attempting the entire building. School groups need arrangements through the museum's education team; free school programs may depend on available funding. No food or drink is allowed in galleries, and no full-service museum restaurant is substantiated by its visitor page. Outside meals and photo rules should be planned with the actual museum policies.",
+    researchValue: "Do not treat rotating exhibitions as permanent displays. The official calendar lists Jack Craft: Land Mass (September 18, 2026–January 3, 2027) and Hills Snyder: Strays (August 29–December 13, 2026). AMoA's Asian art holdings grew through donations from the Price family, giving an international dimension to an institution also engaged with Texas and the Panhandle.",
+    exhibits: [
+      { heading: "Jack Craft: Land Mass (through January 3, 2027)", detail: "Contemporary work joining sculptural and woodblock-print techniques around landscape and material. This is a dated exhibition, not a permanently available collection." },
+      { heading: "Hills Snyder: Strays (through December 13, 2026)", detail: "A cross-decade selection by an artist who worked in the Texas and New Mexico art scenes. Verify that it remains on view for your visit date." },
+      { heading: "Asian art and the Price Collection", detail: "Gifts from Dr. and Mrs. William T. Price expanded AMoA's Asian art resources; current displays vary and should not be assumed to reproduce a complete collection catalogue." },
+      { heading: "Panhandle landscapes and artists", detail: "Temporary shows and permanent-collection selections can connect regional places with wider art movements. Former Route 66 photography shows ended in summer 2026 and should not be advertised as current." },
+    ],
+    routes: [
+      { label: "Free art hour", steps: ["Use the Amarillo College plaza entrance and current exhibit directory", "Choose a temporary show and one contrasting collection theme", "Leave room to reflect on an artwork without rushing the whole gallery"] },
+      { label: "Panhandle culture outing", steps: ["Explore Amarillo Museum of Art", "Continue to a verified nearby local history or culture destination", "Use Potter County as context for downtown and regional history"] },
+    ],
+    sources: [
+      { label: "Museum: visiting and parking", url: "https://www.amoa.org/visit", use: "Current admission, hours, accessible parking, tours and photo policies" },
+      { label: "Museum: current exhibits", url: "https://www.amoa.org/", use: "Time-sensitive 2026–27 exhibition dates" },
+      { label: "Museum: past exhibits", url: "https://www.amoa.org/past-exhibitions", use: "Do not mistake old Route 66 and other exhibits as currently open" },
+    ],
+    connections: [
+      { label: "Potter County", href: "/county/potter", reason: "Connect Amarillo College with Panhandle art and culture." },
+      { label: "Museums across Texas", href: "/explore/museums", reason: "Explore related art and local history museums." },
+    ],
+  },
+  "holocaust-museum-houston": {
+    name: "Holocaust Museum Houston",
+    slug: "holocaust-museum-houston",
+    county: "Harris",
+    city: "Houston",
+    reviewed: "2026-10-13",
+    topics: ["world-history", "civil-rights", "family", "accessibility"],
+    whyVisit: "Holocaust Museum Houston is a testimony-centered history museum where artifacts, recorded experiences and exhibits confront persecution, antisemitism, genocide and human rights. It is not a casual entertainment attraction: give the stories time and plan a reflective visit, with attention to the emotional weight of the material and the different ways survivors and families are represented.",
+    visitorStrategy: "Official hours are Tuesday–Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m., normally closed Mondays; last entry is 4:30 p.m. The posted adult general admission is $22; ages 0–18 and college students with valid student ID are free. General public entry is free Thursdays 2–5 p.m. The museum has paid visitor parking after the first thirty minutes. Use the operator's current visitor page for any seasonal changes and ticket rules before arrival.",
+    accessibility: "HMH says public areas are wheelchair accessible and offers elevators, visitor-service loaner wheelchairs, accessible parking, restrooms and a family restroom. Self-identified visitors with disabilities and a primary caregiver are admitted without charge. Service animals are allowed. Staff can accommodate medically necessary bags despite normal size restrictions, but contact Visitor Services about individualized assistance or sensory needs.",
+    familiesAndGroups: "Children can enter free, but free admission does not mean the museum's Holocaust accounts and footage are suitable for every child's age or readiness. Adults should review content expectations with young visitors. Docent-led group tours last approximately one hour and require one chaperone for every 15 participants under 18; arrange school tours in advance. Outside lunches cannot be brought into the building, and gallery photography restrictions vary by floor.",
+    researchValue: "Guide visitors through permanent Holocaust remembrance, survivor stories and the accompanying discussion of human rights, taking care not to conflate different historical events. In October 2026, the museum features Selling the Myth: Nazi Propaganda (opened October 3); exact exhibition availability must be checked each visit. The Boniuk Library serves research needs separately from gallery tours; Bagel Shop @ The Museum is a second-floor café, not a full-service restaurant.",
+    exhibits: [
+      { heading: "Permanent galleries and survivor testimony", detail: "Read individual accounts and view materials that explain the experiences of persecution and survival; allow time for interpretation rather than treating the gallery as a chronological checklist." },
+      { heading: "Human rights interpretation", detail: "Connect historical examples to the museum's examination of human rights while preserving the distinct historical context of each event." },
+      { heading: "Selling the Myth: Nazi Propaganda (opened October 3, 2026)", detail: "A time-limited exhibition examining manipulation, exclusion and propaganda. Confirm the closing date with the institution before describing it as current." },
+      { heading: "Boniuk Library", detail: "This research library offers a separate route for deeper learning; it is not the museum's standard self-guided gallery and may follow separate access procedures." },
+      { heading: "Bagel Shop @ The Museum", detail: "A second-floor café offering bagels, wraps, salads and coffee. The posted schedule is Tuesday–Saturday 10 a.m.–4 p.m., not identical to all museum hours." },
+    ],
+    routes: [
+      { label: "Reflective first visit", steps: ["Start with the operator's current visitor and content information", "Follow survivor testimony and permanent museum galleries", "Add a temporary human rights exhibition only if the visit schedule and energy allow"] },
+      { label: "Educational group visit", steps: ["Reserve an appropriate docent-led visit with sufficient adult chaperones", "Plan for security screening and restrictions on lunch bags", "Arrange later reflection or discussion rather than rushing on to another attraction"] },
+    ],
+    sources: [
+      { label: "Museum: hours, tickets, parking and dining", url: "https://hmh.org/visit", use: "Current visitor policy, price, free periods and café" },
+      { label: "Museum: accessibility", url: "https://hmh.org/visit/accessibility/", use: "Disability admission, wheelchair access and service animal rules" },
+      { label: "Museum: tours and photography", url: "https://hmh.org/visit/tour-and-photo-guidelines/", use: "Tour duration, group chaperone and gallery photo policy" },
+      { label: "Museum: exhibition updates", url: "https://hmh.org/", use: "New and expiring exhibitions, operating status" },
+    ],
+    connections: [
+      { label: "Harris County", href: "/county/harris", reason: "Place the Museum District within wider Houston cultural history." },
+      { label: "Museums across Texas", href: "/explore/museums", reason: "Compare history and interpretation museums across the state." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
@@ -651,6 +718,13 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     alt: "Historic limestone Formosa studio and Elisabet Ney Museum in Austin, photographed in October 2020",
     width: 1600, height: 1067,
     credit: "MarkJGilmore · CC BY-SA 4.0 · Wikimedia Commons · File:Austin - Elisabet Ney Museum - 20201006000619.jpg",
+  },
+
+  "amarillo-museum-of-art": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Amarillo_Texas_Amarillo_Museum_of_Art_2005-05-15.jpg?width=1600",
+    alt: "Amarillo Museum of Art building on the Amarillo College campus, photographed in 2005",
+    width: 1600, height: 1124,
+    credit: "Who What Where Nguyen Why · CC BY-SA 3.0 · Wikimedia Commons · File:Amarillo Texas Amarillo Museum of Art 2005-05-15.jpg",
   },
 
 };
