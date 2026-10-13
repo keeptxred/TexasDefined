@@ -40,6 +40,11 @@ export const fortBendCountyBrazosRichmondSugarLandArticle: Article = {
       description: "Explore all 254 Texas county references and county guides.",
     },
     {
+      href: "/destination/george-ranch-historical-park",
+      label: "George Ranch Historical Park authority guide",
+      description: "Research the historic ranch houses, daily visitor rules, living-history interpretation and the two-century Fort Bend ranch story.",
+    },
+    {
       href: "/county/harris",
       label: "Continue to Harris County",
       description: "Follow the Houston-region story east into bayous, the Ship Channel, San Jacinto and the road to space.",
@@ -61,7 +66,7 @@ export const fortBendCountyBrazosRichmondSugarLandArticle: Article = {
     },
   ],
   relatedCollections: [],
-  relatedDestinations: [],
+  relatedDestinations: ["george-ranch-historical-park"],
   body: [
     p("Fort Bend County is one of the clearest places to see how the Houston region changed from river country into metropolitan Texas. The Brazos still bends past Richmond. Old rail corridors still explain why Rosenberg grew where it did. Sugar Land still carries the name of the crop and company town that shaped its early economy. Yet master-planned communities, corporate campuses, international restaurants, schools, tollways and suburban business districts now occupy land that was once prairie, plantation, farm or ranch. The county does not have one identity so much as a visible sequence of Texas eras laid beside one another."),
 
