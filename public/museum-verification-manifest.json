@@ -1455,7 +1455,7 @@
         },
         {
           "sourceUrl": "https://houmuse.org/institution/buffalo-soldiers-national-museum/",
-          "fetchUrl": "https://houmuse.org/institution/buffalo-soldiers-national-museum/",
+          "fetchUrl": "https://houmuse.org/institution/buffalo-soldiers-national-museum/?td_monitor=1",
           "label": "Houston Museum District museum listing"
         }
       ]
