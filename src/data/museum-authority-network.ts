@@ -715,6 +715,78 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "nasher-sculpture-center-dallas": {
+    name: "Nasher Sculpture Center",
+    slug: "nasher-sculpture-center-dallas",
+    county: "Dallas",
+    city: "Dallas",
+    reviewed: "2026-10-13",
+    topics: ["art", "sculpture", "architecture", "family"],
+    whyVisit: "The Nasher pairs intimate galleries for modern and contemporary sculpture with an accessible outdoor sculpture garden in the Dallas Arts District. Its visitor experience depends as much on moving around three-dimensional objects, the changing light and the Renzo Piano-designed building as on viewing a particular famous artist. Unlike the broad Dallas Museum of Art next door, the Nasher offers a focused encounter with sculpture and the relationship between artworks and public space.",
+    visitorStrategy: "The current Plan a Visit page lists Wednesday–Sunday 11 a.m.–5 p.m. and closure on Monday and Tuesday. An older hours page still advertises Tuesday admission and should not override the newer plan-a-visit schedule. Standard adult admission is $10; under-twelves and qualifying groups enter free. Free First Saturdays and third-Friday evening programs have their own hours. The Nasher does not provide a general-public parking lot: use the paid Dallas Museum of Art garage, other nearby garages, street meters or DART Rail to Pearl/Arts District or St. Paul.",
+    accessibility: "The Nasher documents an ADA-compliant curbless main entrance, ramps on both sides of its sculpture garden, step-free indoor galleries, visitor wheelchairs and portable seats on request. Visitor services offers a quiet room, sensory kits, family guides and advance help with other needs. Service animals are welcome; a sculpture garden is not automatically a children's playground, and distance from artworks still matters.",
+    familiesAndGroups: "Families with young children can borrow family activity kits or use exhibit-specific guides and Free First Saturdays programming, generally offered between 11 a.m. and 2 p.m. The museum's cafe is an actual seasonal-sandwich, salad and soup cafe, not a full-service restaurant. It normally serves Wednesday–Sunday 11 a.m.–2:30 p.m.; general admission is required even to visit the cafe. Only food purchased at the cafe is permitted in the garden. Book student groups and any structured tours in advance; don't infer current policies from decade-old school-tour PDFs.",
+    researchValue: "The Nasher's emphasis on modern and contemporary sculpture makes it a strong independent complement to the Dallas Museum of Art, Crow Museum of Asian Art and public artwork around the Arts District. Visitors should compare how a sculpture changes when viewed from different positions, how weather and daylight affect an outdoor installation, and which artworks are temporary versus part of a changing collection installation. Named works cannot be assumed on view permanently.",
+    exhibits: [
+      { heading: "Light-filled Renzo Piano galleries", detail: "The architecture is part of the experience: natural light, narrow sightlines and indoor-to-garden transitions encourage visitors to consider material, scale and space." },
+      { heading: "Outdoor sculpture garden", detail: "Trees, water and outdoor artworks allow viewers to walk around sculptures rather than experience them only from one frontal viewpoint; some installations and routes may change." },
+      { heading: "Modern masters and twentieth-century sculpture", detail: "Works by artists such as Matisse, Picasso and Giacometti are central to the institution's collection identity, but the gallery selection changes with conservation and exhibitions." },
+      { heading: "Nasher Public and temporary exhibitions", detail: "Rotating exhibits by living artists and changing installations make repeat visits different. Check the exhibition calendar instead of promising a particular artwork is always available." },
+    ],
+    routes: [
+      { label: "75-minute sculpture-focused visit", steps: ["Check today's gallery map and choose two contrasting sculpture materials", "Explore the indoor galleries slowly, changing your viewpoint around each object", "Finish in the accessible garden if weather permits"] },
+      { label: "Dallas art and architecture outing", steps: ["Begin at the Nasher to compare architecture and sculpture", "Visit Dallas Museum of Art separately for a broader global collection", "Take an Arts District or Klyde Warren Park break depending on the weather"] },
+    ],
+    sources: [
+      { label: "Nasher current visit plan", url: "https://www.nashersculpturecenter.org/visit/plan-a-visit", use: "Current days, tickets, free programs, garage, transit" },
+      { label: "Nasher accessibility", url: "https://www.nashersculpturecenter.org/visit/accessibility", use: "Ramp routes, wheelchairs, sensory and quiet room" },
+      { label: "Nasher Cafe official page", url: "https://www.nashersculpturecenter.org/visit/cafe", use: "Cafe menu type, admission access and hours" },
+      { label: "Nasher visitor resources", url: "https://www.nashersculpturecenter.org/visit/visit-resources", use: "Family guides and independently useful museum interpretation" },
+    ],
+    connections: [
+      { label: "Dallas County", href: "/county/dallas", reason: "Connect the museum to Downtown Dallas and the Arts District." },
+      { label: "Dallas Museum of Art", href: "/destination/dallas-museum-of-art", reason: "Compare global art and free general collection access with this focused sculpture collection." },
+      { label: "African American Museum Dallas", href: "/destination/african-american-museum-dallas-fair-park", reason: "Another specialized Dallas arts-and-history institution with different visitor goals." },
+    ],
+  },
+  "national-cowgirl-museum-hall-fame-fort-worth": {
+    name: "National Cowgirl Museum and Hall of Fame",
+    slug: "national-cowgirl-museum-hall-fame-fort-worth",
+    county: "Tarrant",
+    city: "Fort Worth",
+    reviewed: "2026-10-13",
+    topics: ["texas-history", "women-in-history", "western-culture", "family"],
+    whyVisit: "The Cowgirl tells American western history through the lives of women who worked as ranchers, rodeo champions, artists, writers, entrepreneurs and performers. Its biographies, clothing, historical artifacts and interactive installations challenge the notion that the West was built exclusively by cowboys. It is a distinctly different experience from Fort Worth's more general art and science museums, and its Fort Worth Cultural District setting makes cross-museum comparisons practical.",
+    visitorStrategy: "IMPORTANT OCTOBER 2026 CLOSURE: The institution's current homepage announces closure to the general public beginning October 19, 2026, ahead of its expansion opening November 7. On November 7, its member preview begins at 10 a.m. and general public opening at noon. Do not recommend a normal visit during October 19–November 6. When operating normally, its listed schedule is Tuesday–Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m., closed Monday. Admission prices and city-controlled parking depend on visit category and event; check the latest official page, especially around the Fort Worth Stock Show.",
+    accessibility: "The institution welcomes wheelchairs, mobility scooters, canes and walkers in permitted museum areas. Large bags, oversized strollers and wagons cannot be brought into crowded galleries. The building and exhibit mix are changing for a major 2026 expansion, so do not infer that all new galleries, elevators or interactive activities will be available before November 7. Contact visitor services at 817-336-4475 for specific access and sensory support.",
+    familiesAndGroups: "Interactive Western Design and Bucking Bronc galleries reopened partially in April 2026, but the museum closes to the general public October 19–November 6 for expansion. Newly added galleries and an 18-horse carousel are scheduled for the November 7 public reopening; do not promise them before that date. School field trips are described as resuming after Thanksgiving 2026; organized tour pages may still display earlier pricing and group rules. The museum does not advertise a full-service restaurant inside. Food and drink are barred from galleries; outdoor benches and Alice Walton Park picnic tables are nearby.",
+    researchValue: "A permanent exhibit, Hitting the Mark, interprets women performers in Wild West shows, including an Annie Oakley interpretation that uses Pepper's Ghost technology and historical artifacts. Western Design and Bucking Bronc were available before the autumn closure, and the expansion proposes fashion, photography, personal-collection galleries and carousel. Treat opening dates as explicit transitions rather than timeless inventory; compare how women actually worked with later theatrical portrayals of the 'cowgirl'.",
+    exhibits: [
+      { heading: "Hitting the Mark: Cowgirls and Wild West Shows", detail: "A permanent gallery investigates women who performed in Wild West shows from the 1880s into the early twentieth century, with photographs, posters and an Annie Oakley multimedia presentation." },
+      { heading: "Western Design Room", detail: "An interactive table explores the influence of Western dress and design; the museum announced its partial return in April 2026 before the later October expansion closure." },
+      { heading: "Bucking Bronc Room", detail: "An immersive simulated rodeo experience allows visitors to see themselves in a bronc-riding video; availability changes with renovation and expansion schedules." },
+      { heading: "Cowgirl Hall of Fame stories", detail: "Personal narratives connect women working in ranching, art, business, entertainment, public life and competitive sport. The exhibition presentation can rotate." },
+      { heading: "Expansion galleries and Cowgirl Carousel", detail: "New gallery spaces and a custom-made carousel are planned for the November 7, 2026 reopening. These are future features until the operator confirms public access." },
+    ],
+    routes: [
+      { label: "Visit after the November 7 reopening", steps: ["Verify the museum has actually reopened and check event-day hours", "Choose Wild West Show stories and a Hall of Fame exhibit", "Explore the new expansion galleries and carousel only if they are open"] },
+      { label: "Cultural District women's history day", steps: ["Tour the Cowgirl on a confirmed operating date", "Compare women's sporting history with a wider Texas museum or research guide", "Pair the outing with Fort Worth's adjacent science museum if same-day tickets suit your group"] },
+    ],
+    sources: [
+      { label: "Museum official homepage closure banner", url: "https://thecowgirl.org/", use: "October 19 to November 7 public closure" },
+      { label: "Museum Plan Your Visit", url: "https://thecowgirl.org/visit/", use: "Hours, admission, parking, bag and food policies" },
+      { label: "Museum November 7 expansion event", url: "https://thecowgirl.org/event/expansion-grand-opening/", use: "Member preview, public opening and event traffic" },
+      { label: "Museum expansion and 2026 galleries", url: "https://thecowgirl.org/about/museum-expansion/", use: "Planned galleries and carousel, not preopening guarantees" },
+      { label: "Museum Hitting the Mark gallery", url: "https://thecowgirl.org/exhibitions/hitting-the-mark-cowgirls-and-wild-west-shows-gallery/", use: "Permanent Wild West Show interpretation" },
+      { label: "Museum school group policy", url: "https://thecowgirl.org/field-trips/", use: "School field trip pause until after Thanksgiving" },
+    ],
+    connections: [
+      { label: "Tarrant County", href: "/county/tarrant", reason: "Connect Fort Worth Cultural District museums and women's regional history." },
+      { label: "Amon Carter Museum", href: "/destination/amon-carter-museum-american-art-fort-worth", reason: "Compare American art with the lived cultural history of western women." },
+      { label: "Babe Didrikson Zaharias Museum", href: "/destination/babe-didrikson-zaharias-museum-beaumont", reason: "Compare a Fort Worth western-women focus with Beaumont's women-in-sport history." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
