@@ -103,10 +103,20 @@ const checkPage=async (page,sitemap) => {
 };
 for(const page of sites)await checkPage(page,sitemapExplore);
 await checkPage(guide,sitemapEvergreen);
+// The ten newly researched landmark pages must display their photo provenance
+// visibly rather than hiding media credits only in schema metadata.
+for (const site of sites.slice(0, 10)) {
+  const html=decode(await fetchText(site.path));
+  if (!html.includes("Research sources and image rights") ||
+      !html.includes("Historic-site photo: source, original creator and usage rights") ||
+      !html.includes("commons.wikimedia.org/wiki/File:")) {
+    throw new Error("Landmark lacks visible documentary photo/source citations: "+site.path);
+  }
+}
 for(const slug of ["mission-san-jose-san-antonio","casa-navarro","steves-homestead-san-antonio"]) {
   const html=decode(await fetchText("/destination/"+slug));
   if(!html.includes("historic-san-antonio-heritage-road-trip"))throw new Error("Missing inbound historic road trip link: "+slug);
 }
 const steves=decode(await fetchText("/destination/steves-homestead-san-antonio"));
 if(!steves.includes("2022"))throw new Error("Steves 2022 sale correction absent");
-console.log(JSON.stringify({result:"passed",verifiedPages:bodyChecks.length,scopedSitemaps:["explore","evergreen"],inboundLinksChecked:3,verifiedAt:new Date().toISOString()}));
+console.log(JSON.stringify({result:"passed",verifiedPages:bodyChecks.length,scopedSitemaps:["explore","main","evergreen"],inboundLinksChecked:3,verifiedAt:new Date().toISOString()}));
