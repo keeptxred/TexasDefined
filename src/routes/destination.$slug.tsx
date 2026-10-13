@@ -7,8 +7,6 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
-import { DallasBlackHistoryAuthority } from "@/components/editorial/DallasBlackHistoryAuthority";
-import { dallasBlackHistoryFor } from "@/data/dallas-black-history-research";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { DestinationRelationships } from "@/components/editorial/DestinationRelationships";
 import { DestinationVisitPlanner } from "@/components/editorial/DestinationVisitPlanner";
@@ -55,6 +53,12 @@ const ZapataCountyMuseumAuthority = lazy(() =>
 
 const YoungCountyMuseumAuthority = lazy(() =>
   import("@/components/editorial/YoungCountyMuseumAuthority")
+);
+
+const DallasBlackHistoryAuthority = lazy(() =>
+  import("@/components/editorial/DallasBlackHistoryAuthority").then((module) => ({
+    default: module.DallasBlackHistoryAuthority,
+  })),
 );
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -149,17 +153,19 @@ export const Route = createFileRoute("/destination/$slug")({
       context.queryClient.ensureQueryData(articlesQuery({ category: destination.category, limit: 3 })),
     ]);
     const graph = destinationAutoLinkGraph(destination, completeGraph);
-    return { destination, graph, categories, regions, relatedArticles, relationshipGroups };
+    const dallasHeritage = destination.category === "historic-sites" && destination.nearestTown === "Dallas"
+      ? (await import("@/data/dallas-black-history-research")).dallasBlackHistoryFor(destination.slug)
+      : undefined;
+    return { destination, graph, categories, regions, relatedArticles, relationshipGroups, dallasHeritage };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
-    const { destination, categories, relationshipGroups } = loaderData;
+    const { destination, categories, relationshipGroups, dallasHeritage } = loaderData;
     const isZapataMuseum = destination.slug === "zapata-county-museum-history";
     const isAuthorityMuseum = Boolean(museumDossierFor(destination.slug));
     const isYsletaMuseum = destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso";
     const isYoungCountyMuseum = destination.slug === "young-county-museum-of-history-and-culture";
     const authorityGuide = destination.authorityGuide;
-    const dallasHeritage = dallasBlackHistoryFor(destination.slug);
     const authorityCitations = [...(authorityGuide?.sources.map((source) => source.url) ?? []), ...(dallasHeritage?.sources.map((source) => source.url) ?? [])].filter(validExternalUrl);
     const audit = auditDestination(destination);
     const indexable = audit.readyForIndexing && isPrimaryTripPlannerDestination(destination);
@@ -192,7 +198,7 @@ export const Route = createFileRoute("/destination/$slug")({
 });
 
 function DestinationPage() {
-  const { destination, graph, categories, regions, relatedArticles, relationshipGroups } = Route.useLoaderData();
+  const { destination, graph, categories, regions, relatedArticles, relationshipGroups, dallasHeritage } = Route.useLoaderData();
 
   if (destination.slug === "mayborn-museum-waco") return <Suspense fallback={null}><MaybornMuseumAuthority /></Suspense>;
   if (destination.slug === "zapata-county-museum-history") return <Suspense fallback={null}><ZapataCountyMuseumAuthority /></Suspense>;
@@ -287,7 +293,7 @@ function DestinationPage() {
           <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">{destinationExperienceTitle(destination.name, categoryName)}</h2>
           <div className="editorial-body mt-7 text-foreground/90">{destination.body.map((paragraph) => <p key={paragraph} className="mt-6 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}</div>
         </section>
-        <DallasBlackHistoryAuthority slug={destination.slug} />
+        {dallasHeritage && <Suspense fallback={null}><DallasBlackHistoryAuthority slug={destination.slug} /></Suspense>}
         <section aria-labelledby="before-you-go" className={isChokeCanyon ? "mt-10 border-t border-border pt-6" : "mt-16 border-t border-border pt-8"}>
           <p className="eyebrow text-primary">The details</p>
           <h2 id="before-you-go" className="mt-3 font-display text-3xl">Planning your visit</h2>
