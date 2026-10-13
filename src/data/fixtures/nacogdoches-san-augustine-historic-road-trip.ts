@@ -19,6 +19,8 @@ export const nacogdochesSanAugustineHistoricRoadTripArticle: Article = {
   sourceUrl: "https://thc.texas.gov/travel/historic-road-trips",
   internalLinks: [
     { href: "/destination/nacogdoches", label: "Nacogdoches", description: "Historic downtown, SFA and the region's visitor base." },
+    { href: "/destination/zion-hill-historic-district-nacogdoches", label: "Zion Hill Historic District", description: "Black Nacogdoches residential heritage and its National Register designation." },
+    { href: "/destination/zion-hill-baptist-church-nacogdoches", label: "Zion Hill Baptist Church", description: "The restored 1914 Gothic Revival landmark with city-operated history tours." },
     { href: "/destination/nacogdoches-downtown-historic-district", label: "Downtown historic district", description: "Self-guided walk, brick streets, visitor center and public heritage sites." },
     { href: "/county/nacogdoches", label: "Nacogdoches County", description: "Caddo, Spanish, Mexican and Republic-era layers in the region." },
     { href: "/county/san-augustine", label: "San Augustine County", description: "Mission Dolores, El Camino Real and courthouse-era history." },
@@ -37,7 +39,7 @@ export const nacogdochesSanAugustineHistoricRoadTripArticle: Article = {
     { href: "/explore/historic-sites", label: "More Texas historic sites", description: "Expand the route to other history destinations." }
   ],
   relatedCollections: [],
-  relatedDestinations: ["nacogdoches","mission-dolores","caddo-mounds-state-historic-site","mission-tejas-state-park","stone-fort-museum-nacogdoches","sterne-hoya-house-museum","ruby-m-mize-azalea-garden","san-augustine-county-courthouse","1919-san-augustine-county-jail-museum","angelina-national-forest","stephen-f-austin-experimental-forest","aldridge-sawmill-ruins"],
+  relatedDestinations: ["nacogdoches","mission-dolores","caddo-mounds-state-historic-site","mission-tejas-state-park","stone-fort-museum-nacogdoches","sterne-hoya-house-museum","ruby-m-mize-azalea-garden","san-augustine-county-courthouse","1919-san-augustine-county-jail-museum","angelina-national-forest","stephen-f-austin-experimental-forest","aldridge-sawmill-ruins","zion-hill-historic-district-nacogdoches","zion-hill-baptist-church-nacogdoches"],
   body: [
     { type: "paragraph", text: "This road trip follows a historic route through Caddo country, Spanish mission landscapes, early Republic-era towns, and public history that is still being interpreted by local communities. The key is not to mistake these places for one linear timeline: Caddo communities were established here long before European colonialism, and their descendants remain a living nation." },
     { type: "heading", text: "Route at a glance" },
