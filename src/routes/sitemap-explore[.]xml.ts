@@ -252,7 +252,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
 
         const destinations = await resolveDestinationCatalog(rawDestinations);
         const indexableDestinations = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
-          .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
+          .filter((destination) => (isPrimaryTripPlannerDestination(destination) || destination.slug === "1940-air-terminal-museum-houston") && auditDestination(destination).readyForIndexing);
         const indexableRvParkDestinations = [...new Map(loadRvParkDestinationsServer().filter((item) => item.slug).map((item) => [item.slug, item])).values()]
           .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
         const sitemapIndexableDestinations = mergeDestinationSources(indexableDestinations, indexableRvParkDestinations);
