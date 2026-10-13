@@ -14,6 +14,7 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import YsletaDelSurMuseumAuthority from "@/components/editorial/YsletaDelSurMuseumAuthority";
 import { highIntentGuideLinksForDestination } from "@/data/fixtures/texas-high-intent-guide-links";
+import { specialistGuidesForDestination } from "@/data/specialist-guide-destination-links";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { auditDestination } from "@/data/destination-audit";
 import { distanceMiles } from "@/data/destination-relationships";
@@ -291,6 +292,14 @@ function DestinationPage() {
       </aside>
     </Container>
 
+    {specialistGuidesForDestination(destination.slug).length > 0 && <Section className="py-10 sm:py-12">
+      <Container>
+        <SectionHeader eyebrow="Related Texas field guides" title="Plan the activity, not just the destination" description="Specialist guides cover site-specific access rules, safety, seasons and what to check before traveling." />
+        <nav aria-label="Specialist guides for this destination" className="mt-7 flex flex-wrap gap-3">
+          {specialistGuidesForDestination(destination.slug).map((guide) => <Link key={guide.href} to={guide.href} title={guide.context} className="rounded-lg border border-border px-4 py-3 text-sm font-semibold text-primary hover:underline">{guide.label} →</Link>)}
+        </nav>
+      </Container>
+    </Section>}
     {highIntentGuideLinksForDestination(destination.slug).length > 0 && <Section className="py-10 sm:py-12">
       <Container>
         <SectionHeader eyebrow="Verified TexasDefined comparisons" title="Compare this place with other Texas destinations" description="These source-backed statewide field guides give this destination context by trip type, access, season and practical tradeoffs." />
