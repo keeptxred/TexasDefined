@@ -21,7 +21,7 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "alt": "Stone church and twin bell towers at Mission Concepción",
       "width": 2476,
       "height": 1967,
-      "credit": "Travis Witt · free-use Wikimedia Commons photo (verify attribution/license) · Wikimedia Commons"
+      "credit": "Travis Witt · CC BY-SA 3.0 · Wikimedia Commons"
     },
     "bestSeason": "Cooler fall and spring weather is best for exploring the outdoor grounds.",
     "entryNote": "The exterior grounds are generally accessible by daylight; the interpretive facilities and church operate on different schedules. Active parish services can affect entry. NPS park admission is free.",
@@ -254,8 +254,8 @@ export const sanAntonioHeritageDestinations: Destination[] = [
     "hero": {
       "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mission%20San%20Juan%20Capistrano%2C%20San%20Antonio%2C%20Texas.jpg?width=1600",
       "alt": "White church facade and grounds of Mission San Juan Capistrano",
-      "width": 1600,
-      "height": 1200,
+      "width": 3456,
+      "height": 4894,
       "credit": "Sjgphotography2018 · CC BY-SA 4.0 · Wikimedia Commons"
     },
     "bestSeason": "Fall and spring are most comfortable for a farm and river landscape walk.",
@@ -371,7 +371,7 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "alt": "Stone church at Mission Espada in southern San Antonio",
       "width": 3211,
       "height": 2123,
-      "credit": "Wikimedia Commons original creator · reuse license to confirm at image record · Wikimedia Commons"
+      "credit": "Michaelluckey · CC BY 4.0 · Wikimedia Commons"
     },
     "bestSeason": "Visit in cooler months or earlier in the day; the aqueduct and grounds are outdoors.",
     "entryNote": "Mission Espada's contact station generally runs 10 a.m.–4:30 p.m. Outdoors and the separate aqueduct have different access rules. Loom demonstrations are not guaranteed. NPS admission is free.",
@@ -831,7 +831,7 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "alt": "1876 limestone Steves Homestead in the King William historic district",
       "width": 1801,
       "height": 1200,
-      "credit": "Larry D. Moore · CC BY 4.0 (check current Commons license) · Wikimedia Commons"
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
     },
     "bestSeason": "Fall through spring for the outside neighborhood heritage walk.",
     "entryNote": "Important change: the San Antonio Conservation Society states it operated the house museum from 1954 through 2022 and sold the property in 2022. Older tourism listings with tour times are outdated. Treat it as an exterior public-sidewalk stop unless current admission is independently confirmed.",
@@ -1064,9 +1064,9 @@ export const sanAntonioHeritageDestinations: Destination[] = [
     "hero": {
       "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Menger%20Hotel%2C%20San%20Antonio%2C%202-2-2009.jpg?width=1600",
       "alt": "Historic Menger Hotel building next to Alamo Plaza",
-      "width": 1600,
-      "height": 1200,
-      "credit": "Wikimedia Commons photographer · CC BY-SA 2.0 · Wikimedia Commons"
+      "width": 2047,
+      "height": 1536,
+      "credit": "Bob & Mary · CC BY-SA 2.0 · Wikimedia Commons"
     },
     "bestSeason": "Year-round; most convenient on a downtown walking circuit.",
     "entryNote": "The hotel, bar and restaurants are active private businesses, not free public museums. Verify non-guest lobby and bar access and current Alamo Plaza construction and parking before arriving.",
