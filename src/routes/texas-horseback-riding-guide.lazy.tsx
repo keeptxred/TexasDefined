@@ -2,9 +2,10 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { stateParkHeroMap } from "@/data/state-park-hero-map";
 
-const governedGuideHero = stateParkHeroMap["big-bend-ranch-state-park"];
 import { Container } from "@/components/layout/Container";
 import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
+
+const governedGuideHero = stateParkHeroMap["big-bend-ranch-state-park"];
 
 const officialSources = [
   { label: "Texas Parks & Wildlife — Horseback Riding in State Parks", href: "https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian", note: "Statewide equestrian access, facilities and documentation guidance, including the current negative-Coggins requirement." },
