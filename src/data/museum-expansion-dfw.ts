@@ -236,7 +236,7 @@ export const dfwMuseumDestinations: Destination[] = [
       alt: "Facade of the Amon Carter Museum of American Art in Fort Worth",
       width: 1600,
       height: 1067,
-      credit: "Steven Watson · Wikimedia Commons · licensed reusable media",
+      credit: "Steven Watson · CC BY-SA 4.0 · Wikimedia Commons · File:Amon Carter Museum of American Art, facade.jpg",
     },
     bestSeason: "Year-round indoor museum; cooler months are especially pleasant for walking the surrounding Cultural District museum campus.",
     entryNote: "Admission to the museum and its special exhibitions is free. The Carter is closed Mondays and several holidays; confirm current hours and exhibition transitions on the official visitor page.",

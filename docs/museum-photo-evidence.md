@@ -24,3 +24,19 @@ License compliance:
 - **Texas Forestry Museum, Lufkin**: Wikimedia Commons [File:Texas Forestry Museum, Lufkin, TX IMG 8594.JPG](https://commons.wikimedia.org/wiki/File:Texas_Forestry_Museum,_Lufkin,_TX_IMG_8594.JPG), Billy Hathorn, **CC BY-SA 3.0**, 2013 exterior photo. Do not relabel as a current exhibit image.
 
 Attribution is present in each destination hero credit. License checks are required at publication and on replacement.
+
+## Further authority museum photographs, October 12, 2026
+
+- **Babe Didrikson Zaharias Museum and Visitor Center, Beaumont:** [Commons file Zaharias museum.jpg](https://commons.wikimedia.org/wiki/File:Zaharias_museum.jpg), Larry D. Moore, **CC BY 4.0**, building photographed June 12, 2007. Specific museum exterior, not nearby park; credited in hero.
+- **20th Century Technology Museum at Wharton County Historical Museum:** [Commons file Wharton County Museum IMG 1054.JPG](https://commons.wikimedia.org/wiki/File:Wharton_County_Museum_IMG_1054.JPG), Billy Hathorn, **CC BY-SA 3.0**. Shows shared museum building (label accordingly), not necessarily inside the technology exhibits.
+
+Photo metadata independently checked using Wikimedia Commons API imageinfo.extmetadata. No unlicensed operator photos copied.
+
+## Elisabet Ney Museum, Austin — October 12, 2026
+
+- **Historic Formosa studio and Elisabet Ney Museum exterior**: [Wikimedia Commons file](https://commons.wikimedia.org/wiki/File:Austin_-_Elisabet_Ney_Museum_-_20201006000619.jpg), photographer **MarkJGilmore**, **CC BY-SA 4.0**, photographed 2020. Licensed exterior is historical and must not imply the venue is open during the 2024–2027 capital-improvement closure. Confirm the original file's credit and license when refreshing the asset.
+
+## Two existing North Texas museum image credits checked October 12, 2026
+
+- **Amon Carter Museum of American Art, Fort Worth:** [Commons file Amon Carter Museum of American Art, facade.jpg](https://commons.wikimedia.org/wiki/File:Amon_Carter_Museum_of_American_Art,_facade.jpg); **Steven Watson**, **CC BY-SA 4.0**. Specific museum façade, not an artwork photograph. Correct the pre-existing generic "licensed reusable media" credit in the DFW museum destination.
+- **Dallas Museum of Art:** [Commons file Dallas Museum of Art.jpg](https://commons.wikimedia.org/wiki/File:Dallas_Museum_of_Art.jpg); **Kent Wang**, **CC BY-SA 2.0**. Current destination already attributes this correctly. These licenses were independently checked via Wikimedia Commons API imageinfo.extmetadata, October 12, 2026.
