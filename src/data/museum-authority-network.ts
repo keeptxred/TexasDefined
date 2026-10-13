@@ -1530,6 +1530,79 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "lbj-presidential-library-austin": {
+    name: "LBJ Presidential Library",
+    slug: "lbj-presidential-library-austin",
+    county: "Travis",
+    city: "Austin",
+    reviewed: "2026-10-13",
+    topics: ["texas-history", "politics", "family", "civil-rights"],
+    whyVisit: "LBJ Presidential Library follows Lyndon B. Johnson's presidency and Texas career through recorded conversations, the replica Oval Office, Lady Bird Johnson's office, and interpretive exhibits on the Great Society, civil rights and the Vietnam War. It presents a visitor-friendly selection of a far larger National Archives research collection.",
+    visitorStrategy: "At 2313 Red River Street, free visitor parking is in UT lot 38. The museum opens every day 9 a.m.–5 p.m., with last admission at 4 p.m. Current prices include $16 adults, $12 seniors 62+, $6 students and ages 13–18; children under 12 enter free. Tuesday admission is half price, and the museum has scheduled 2026 free days. A typical visit takes 90 minutes to two hours. UT football traffic may affect arrival.",
+    accessibility: "Accessible parking in lot 38 leads over an approximately 250-foot plaza approach to the entrance; ramps and elevators connect the public exhibition floors. Loaner wheelchairs, captioned videos and printed audio transcripts are provided. Request ASL at least two weeks ahead or an escort for guests with vision impairments at least one week ahead; wheelchair-accessible restrooms are on floor two.",
+    familiesAndGroups: "A short family route can feature the replica Oval Office, Lady Bird Johnson's office, the animatronic LBJ and a film without expecting children to read every panel. Older students can compare civil rights legislation with the Vietnam War. Groups of fifteen or more require reservations, normally three weeks ahead for adult groups. No current public confirmation establishes a full-service cafeteria, so plan meals elsewhere.",
+    researchValue: "Present Johnson's domestic social reforms and the contentious Vietnam conflict side by side, rather than reducing the library to a presidential tribute. Current temporary shows include The American Experiment through January 10, 2027 and Austin Past & Present and What We Bring to the Table through January 3, 2027. Distinguish archival holdings from gallery access, and treat exhibit end dates as review-sensitive.",
+    exhibits: [
+      { heading: "Oval Office and Lady Bird Johnson's office", detail: "Recreated working spaces introduce presidential decision-making; neither is an original Washington Oval Office." },
+      { heading: "Great Hall and presidential recordings", detail: "Selected objects and recorded calls convey the scale of Johnson's decisions while the underlying archives remain a separate research resource." },
+      { heading: "Civil rights, Great Society and Vietnam", detail: "Interpret domestic legislative change alongside the human and diplomatic costs of war." },
+      { heading: "The American Experiment: Pursuing Our Promise", detail: "The current temporary exhibition runs through January 10, 2027 and draws on significant national historical documents." },
+      { heading: "Austin Past & Present and What We Bring to the Table", detail: "Dated temporary displays, currently scheduled through January 3, 2027, extend the historical context." },
+    ],
+    routes: [
+      { label: "Quick 45-minute presidential introduction", steps: ["Start on the tenth floor with the Oval Office and Lady Bird Johnson's office", "See the animatronic LBJ and an introductory film if time permits", "Leave before last admission restrictions affect entry"] },
+      { label: "Two-hour balanced history visit", steps: ["Explore the president's Texas career and Great Society legislation", "Compare the Vietnam galleries and civil rights history", "Add a documentary, recordings or current temporary show"] },
+    ],
+    sources: [
+      { label: "LBJ current visit, prices and free days", url: "https://www.lbjlibrary.org/visit", use: "Admission, hours and parking" },
+      { label: "LBJ visit length and highlights", url: "https://lbjlibrary.org/visit/know-before-you-go", use: "Visitor priorities and expected time" },
+      { label: "LBJ active exhibitions", url: "https://www.lbjlibrary.org/exhibitions", use: "Time-limited exhibitions" },
+      { label: "LBJ accessibility", url: "https://lbjlibrary.org/visit/accessibility", use: "ADA access and ASL" },
+      { label: "LBJ groups", url: "https://www.lbjlibrary.org/visit/group-visits", use: "Booking requirements" },
+    ],
+    connections: [
+      { label: "Travis County", href: "/county/travis", reason: "Connect Austin's presidential and civic history." },
+      { label: "Bullock Texas State History Museum", href: "/destination/bullock-texas-state-history-museum", reason: "Compare political and statewide history interpretation." },
+      { label: "Harry Ransom Center", href: "/destination/harry-ransom-center-austin", reason: "Discover a separate UT cultural exhibition and research institution." },
+    ],
+  },
+  "blanton-museum-of-art-austin": {
+    name: "Blanton Museum of Art",
+    slug: "blanton-museum-of-art-austin",
+    county: "Travis",
+    city: "Austin",
+    reviewed: "2026-10-13",
+    topics: ["art", "family", "architecture", "accessibility"],
+    whyVisit: "The Blanton Museum of Art on the UT Austin campus combines major Latin American and U.S. art holdings, European paintings and site-specific modern art. Austin by Ellsworth Kelly is a freestanding colored-glass artwork designed as a space for quiet reflection. The museum's varied galleries invite a focused visit based on periods, regions or particular artistic questions.",
+    visitorStrategy: "The Blanton opens Tuesday–Friday 10 a.m.–5 p.m., Saturday 10 a.m.–8 p.m. and Sunday 10 a.m.–5 p.m.; closed Mondays. Admission is $15 adults, $12 seniors 65+, $8 youth ages 6–17 and free for children five and under or UT ID holders; Tuesdays are free. Paid campus garages serve visitors, with rates and football-day restrictions on the official parking page. The museum's own FAQ still says its new café is under construction, so do not promise on-site food service until reopening is confirmed.",
+    accessibility: "Brazos Street has a museum drop-off and accessible approaches to the Check-In building. Elevators, wave-operated entrance doors, accessible bathrooms and loaner wheelchairs serve public spaces including Austin by Ellsworth Kelly. Accessible garage parking is paid, and routes differ on football days. Ask at least two weeks ahead for ASL interpretation; captioning and assisted listening are available for some programming.",
+    familiesAndGroups: "Children younger than twelve must be accompanied and supervised by an adult. Family activity boxes and occasional guided artmaking offer engaging shorter experiences; Ellsworth Kelly's Austin is a quiet environment, not a play area. Groups of eight or more must request access at least two weeks ahead, even if self-guided, and unauthorised paid private guides cannot lead groups. Food must stay out of galleries; picnic outside or use nearby restaurants until the planned café opens.",
+    researchValue: "More than 22,000 works underlie the museum's changing displays; only part of the collection is on view. Explain how the museum's Latin American work, Italian Renaissance and Baroque paintings, prints, drawings and newer art differ, and that special exhibits rotate. Austin by Ellsworth Kelly is a permanent installation distinct from a temporary exhibition, and is included with admission.",
+    exhibits: [
+      { heading: "Austin by Ellsworth Kelly", detail: "The stone building's colored windows, wooden totem and marble panels create a distinctive encounter with modern art and architecture." },
+      { heading: "Latin American and contemporary work", detail: "Use a rotating set of galleries to compare artists, places and media rather than implying every collected object is on view." },
+      { heading: "Italian Renaissance and Baroque painting", detail: "Historical European works offer a contrast with Latin American and contemporary galleries." },
+      { heading: "Prints, drawings and themed vault displays", detail: "Works on paper rotate frequently because their display and conservation requirements differ." },
+      { heading: "Free-with-admission public tours", detail: "English and Spanish tours can provide a themed first visit, depending on the day's schedule." },
+    ],
+    routes: [
+      { label: "90-minute highlights route", steps: ["Start at Check-In and review the current map and exhibitions", "Visit Austin by Ellsworth Kelly and two contrasting galleries", "Take a break on the grounds before leaving"] },
+      { label: "Free-Tuesday art visit", steps: ["Reserve or claim Tuesday's free entry under current ticketing rules", "Focus on Latin American or contemporary works", "Join a scheduled public tour if one is offered"] },
+    ],
+    sources: [
+      { label: "Blanton visit and pricing", url: "https://blantonmuseum.org/visit/", use: "Hours, admission and café status" },
+      { label: "Blanton museum visitor FAQ", url: "https://blantonmuseum.org/visit/faqs/", use: "Dining and family policies" },
+      { label: "Blanton accessibility", url: "https://blantonmuseum.org/visit/accessibility/", use: "Wheelchair access and interpretation" },
+      { label: "Blanton parking", url: "https://blantonmuseum.org/visit/parking/", use: "Garage pricing and game days" },
+      { label: "Blanton group visits", url: "https://blantonmuseum.org/visit/group-visits/", use: "Group reservation threshold" },
+    ],
+    connections: [
+      { label: "Travis County", href: "/county/travis", reason: "Explore Austin's major museums in context." },
+      { label: "Bullock Texas State History Museum", href: "/destination/bullock-texas-state-history-museum", reason: "Compare Texas history with the Blanton's art focus." },
+      { label: "Harry Ransom Center", href: "/destination/harry-ransom-center-austin", reason: "Continue to UT humanities exhibitions and research history." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
