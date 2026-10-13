@@ -51,3 +51,28 @@ const SPECIALIST_LINKS: Record<string, SpecialistGuideDestinationLink[]> = {
 export function specialistGuidesForDestination(slug: string): SpecialistGuideDestinationLink[] {
   return SPECIALIST_LINKS[slug] ?? [];
 }
+
+const PARK_NAMES: Record<string, string> = {
+  "eisenhower-state-park": "Eisenhower State Park",
+  "big-bend-ranch-state-park": "Big Bend Ranch State Park",
+  "enchanted-rock-state-natural-area": "Enchanted Rock State Natural Area",
+  "caddo-lake-state-park": "Caddo Lake State Park",
+  "copper-breaks-state-park": "Copper Breaks State Park",
+  "caprock-canyons-state-park": "Caprock Canyons State Park",
+  "south-llano-river-state-park": "South Llano River State Park",
+  "franklin-mountains-state-park": "Franklin Mountains State Park",
+  "tyler-state-park": "Tyler State Park",
+  "palo-duro-canyon-state-park": "Palo Duro Canyon State Park",
+  "lake-mineral-wells-state-park": "Lake Mineral Wells State Park",
+};
+
+export function destinationsForSpecialistGuide(href: string): SpecialistGuideDestinationLink[] {
+  return Object.entries(SPECIALIST_LINKS)
+    .flatMap(([slug, guides]) => guides
+      .filter((guide) => guide.href === href)
+      .map((guide) => ({
+        href: `/destination/${slug}`,
+        label: PARK_NAMES[slug] ?? slug.replace(/-/g, " "),
+        context: guide.context,
+      })));
+}
