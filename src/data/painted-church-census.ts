@@ -62,17 +62,6 @@ export const paintedChurchCandidateCensus: PaintedChurchCensusEntry[] = [
     ],
   },
   {
-    slug: "ellinger-st-marys-catholic-church",
-    name: "St. Mary’s Catholic Church",
-    city: "Ellinger",
-    status: "candidate",
-    reason: "Held for exact-subject evidence. THC and historic newspaper records verify Catholic history in the Ellinger area, but current archival searches repeatedly resolve to St. Mary's at Hostyn near Ellinger rather than a securely identified surviving Ellinger painted interior. Texas Defined will not promote the church until exact-building decorative evidence is located.",
-    sourceUrls: [
-      "https://atlas.thc.texas.gov/Details/5149004468",
-      "https://texashistory.unt.edu/ark:/67531/metapth1348985/m1/7/",
-    ],
-  },
-  {
     slug: "rockne-sacred-heart-catholic-church",
     name: "Sacred Heart Catholic Church",
     city: "Rockne",
@@ -116,3 +105,19 @@ export const paintedChurchCandidateCensus: PaintedChurchCensusEntry[] = [
 
 export const paintedChurchCandidates = paintedChurchCandidateCensus.filter((entry) => entry.status === "candidate");
 export const paintedChurchExclusions = paintedChurchCandidateCensus.filter((entry) => entry.status === "excluded");
+
+/** Related historic churches: editorial companions, NOT a queue of unfinished Painted Church research. */
+export const paintedChurchRelatedHistoricChurches = [
+  {
+    slug: "ellinger-st-marys-hostyn-hill",
+    name: "St. Mary's Catholic Church at Hostyn Hill",
+    city: "Hostyn Hill near Ellinger, Fayette County",
+    href: "/explore/historic-churches/ellinger-st-marys-hostyn-hill",
+    reason: "The Texas Historical Commission documents its German and Czech roots, a 1905 fire and the Gothic-style church built in 1906. Houstonia describes its gilded altar, religious statuary and simple blue ceiling. While the church is not listed in the 1983 National Register Churches with Decorative Interior Painting group, its distinctive art and heritage make it a worthwhile companion stop for readers interested in Texas Painted Churches.",
+    sourceUrls: [
+      "https://atlas.thc.texas.gov/Details/5149004468",
+      "https://atlas.thc.texas.gov/AdvancedSearch/MPS?mpsid=12",
+      "https://www.houstoniamag.com/travel-and-outdoors/2015/12/in-ellinger-the-painted-church-you-may-have-missed",
+    ],
+  },
+] as const;

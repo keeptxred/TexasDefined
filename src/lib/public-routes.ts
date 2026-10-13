@@ -10,6 +10,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/explore/museums",
   "/explore/aquariums",
   "/explore/wildlife",
+  "/explore/historic-churches",
   "/explore/painted-churches",
   "/explore/painted-churches-plan",
   "/explore/painted-churches/map",

@@ -30,6 +30,7 @@ const EXPLORE_REGION_SLUGS = [
 ];
 
 const PAINTED_CHURCH_STATIC_PATHS = [
+  "/explore/historic-churches",
   "/explore/painted-churches",
   "/explore/painted-churches-plan",
   "/explore/painted-churches/map",
@@ -171,6 +172,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const { publicCavernDestinationFallbacks } = await import("@/data/public-cavern-destinations");
         const { whirlyballHurstDestinations } = await import("@/data/whirlyball-hurst-destination");
         const { paintedChurchGlossary } = await import("@/data/painted-church-glossary");
+        const { historicChurches } = await import("@/data/historic-churches");
         const { paintedChurchSearchGuides } = await import("@/data/painted-church-search-guides");
         const { loadRvParkDestinationsServer } = await import("@/data/rv-parks/registry.server");
         const { selectSwimmingHoleAndTubingDestinations } = await import("@/data/water-recreation");
@@ -314,6 +316,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const proximityEntries = (await loadMetroProximitySitemapEntriesServer())
           .map((item) => entry(item.path, item.lastmod))
           .filter((item): item is string => Boolean(item));
+        const historicChurchEntries = historicChurches.map(church => entry(`/explore/historic-churches/${church.slug}`, church.reviewedOn)).filter((item): item is string => Boolean(item));
         const paintedChurchEntries = expandedPaintedChurches
           .map((church) => entry(`/explore/painted-churches/${church.slug}`, church.sourceCheckedAt))
           .filter((item): item is string => Boolean(item));
@@ -330,6 +333,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...staticEntries,
           ...destinationEntries,
           ...proximityEntries,
+          ...historicChurchEntries,
           ...paintedChurchEntries,
           ...techniqueEntries,
           ...symbolEntries,

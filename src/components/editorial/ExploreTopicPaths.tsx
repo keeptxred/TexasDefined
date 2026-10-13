@@ -68,6 +68,7 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
   ],
   "historic-sites": [
     { to: "/explore/lighthouses", label: "Texas lighthouses", description: "Follow surviving and relocated Gulf Coast lights through shipping, storms, war, preservation and the counties they served." },
+    { to: "/explore/historic-churches", label: "Historic Churches of Texas", description: "Explore researched parish timelines, church architecture, immigrant heritage and current visitor information across denominations." },
     { to: "/explore/painted-churches", label: "Painted Churches of Texas", description: "Explore 28 verified churches through history, immigrant heritage, decorative art, preservation and current visitor guidance." },
     { to: "/texas-history", label: "Texas history", description: "Read the deeper stories behind the places preserved across the state." },
     { to: "/texas-dance-halls-honky-tonks", label: "Dance halls & honky-tonks", description: "Connect historic places to Texas music, community gathering spaces and living western culture." },
@@ -81,6 +82,7 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
     { to: "/explore/beaches-coast", label: "Beaches & Gulf Coast", description: "Use beach access, birding, fishing and maritime stops to build a focused coastal route." },
   ],
   "small-towns": [
+    { to: "/explore/historic-churches", label: "Historic Churches of Texas", description: "Find historic religious buildings and parish stories in small-town Texas, not only decorated Painted Churches." },
     { to: "/explore/painted-churches", label: "Painted Churches", description: "Connect immigrant communities, parish history and painted interiors across small-town Texas." },
     { to: "/explore/food-bbq", label: "Food & barbecue", description: "Pair town squares and main streets with regional food traditions and destination meals." },
     { to: "/things-unique-to-texas/roadside-small-towns", label: "Unique roadside & small-town Texas", description: "Connect courthouse squares and main streets with only-in-Texas stops and regional character." },

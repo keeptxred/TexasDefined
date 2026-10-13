@@ -7,6 +7,8 @@ const canonicalPath = "/texas-sacred-places";
 const title = "Sacred Places in Texas: Missions, Painted Churches & Heritage";
 const description = "Visit Texas missions, Painted Churches, historic religious communities and memorial landscapes with context for living worship, sacred spaces, visitor access and respectful travel.";
 const collectionItems = [
+  ["Historic Churches of Texas", "/explore/historic-churches"],
+  ["St. Mary’s at Hostyn Hill", "/explore/historic-churches/ellinger-st-marys-hostyn-hill"],
   ["Painted Churches of Texas", "/explore/painted-churches"],
   ["Painted Churches cultural heritage", "/explore/painted-churches/heritage"],
   ["Painted Churches routes", "/explore/painted-churches/routes"],
