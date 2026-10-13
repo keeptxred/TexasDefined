@@ -61,6 +61,17 @@ try{
     }
    }
    if(!ready)throw Error('Route failed to hydrate');
+   // Hydration of the shell H1 does not guarantee the county tax tables or
+   // Westlake's schedule have populated. Await real table rows before axe:
+   // otherwise an incompletely loaded page can produce a false contrast pass.
+   if(item.kind==='county' && item.slug!=='ellis'){
+     await page.locator('main [role="region"][aria-label$="property tax rates table"] table tbody tr').first()
+       .waitFor({state:'visible',timeout:28000});
+   }
+   if(item.kind==='school' && item.slug==='austin-westlake'){
+     await page.locator('main [role="region"] table tbody tr').first()
+       .waitFor({state:'visible',timeout:28000});
+   }
    row.semantics=await page.evaluate(()=>{
      const doc=document.documentElement,main=document.querySelector('main');
      const h1=main?.querySelector('h1');
