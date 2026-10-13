@@ -58,3 +58,7 @@ Photo metadata independently checked using Wikimedia Commons API imageinfo.extme
 ## Modern Art Museum of Fort Worth — October 13, 2026
 
 - Existing museum image placeholder replaced with an **exact-site public-domain photograph**, [Wikimedia Commons, Fort Worth Texas Modern Art Museum 2003.jpg](https://commons.wikimedia.org/wiki/File:Fort_Worth_Texas_Modern_Art_Museum_2003.jpg), by Andreas Praefcke. Photo depicts the Fort Worth building in 2003. Do not imply it shows currently accessible 2026 galleries or new 2026 exhibits. Metadata on Commons identifies public-domain dedication.
+
+## American Quarter Horse Hall of Fame & Museum — 2026-10-13
+
+- **Amarillo AQHA museum exterior:** [Wikimedia Commons File:Amarillo Texas - AQHA - Outside.jpg](https://commons.wikimedia.org/wiki/File:Amarillo_Texas_-_AQHA_-_Outside.jpg), J. Nguyen, **CC BY-SA 3.0** photographic license, captured in 2006. Accurate historic exterior of the exact museum; label as historic and do not imply the building or exhibits remain exactly as pictured after renovations. The image includes sculptural elements, so a derivative commercial use should consider independent artwork rights before using cropped or prominently focused sculptures; the photographer's free license does not itself license every depicted sculpture.
