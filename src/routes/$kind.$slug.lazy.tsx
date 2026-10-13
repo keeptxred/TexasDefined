@@ -35,6 +35,8 @@ const CountyHighSchoolFootball = lazy(() =>
 const batch002FootballCityLinks: Record<string, { name: string; slug: string; context: string }[]> = {
   austin: [
     { name: 'Austin High Maroons', slug: 'austin', context: '1942 state champion, House Park heritage' },
+    { name: 'Austin Achieve Polar Bears', slug: 'austin-achieve', context: 'Charter campus inside Austin full-purpose municipal limits, verified with TEA and city GIS' },
+    { name: 'Vandegrift Vipers', slug: 'austin-vandegrift', context: 'Leander ISD campus inside Austin full-purpose municipal limits; 2024 state title' },
     { name: 'Akins Eagles', slug: 'austin-akins', context: 'Burger Stadium varsity calendar' },
     { name: 'Anderson Trojans', slug: 'austin-anderson', context: '2025 10–2 playoff season' },
     { name: 'Bowie Bulldogs', slug: 'austin-bowie', context: 'Coach Jeff Ables and Bowie traditions' },
