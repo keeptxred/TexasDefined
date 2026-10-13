@@ -48,7 +48,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           PRODUCTION_COMMIT_SHA: ${{ github.sha }}
         run: node scripts/ci/wait-for-protected-production.mjs
+      - name: Validate production verifier syntax before deployment
+        run: node --check scripts/ci/verify-nacogdoches-san-augustine-production.mjs
       - name: Verify canonical URLs, sitemap, sources, reciprocal links, and real images
+        if: github.event_name != 'pull_request'
         env:
           PRODUCTION_COMMIT_SHA: ${{ github.sha }}
         run: node scripts/ci/verify-nacogdoches-san-augustine-production.mjs
