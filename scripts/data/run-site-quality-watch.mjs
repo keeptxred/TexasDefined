@@ -3,6 +3,11 @@ import { spawnSync } from 'node:child_process';
 
 const checks = [
   {
+    id: 'tpwd-lake-official-source-enrollment',
+    label: 'Every completed lake guide has its official state-agency source registered for continued checking',
+    script: 'scripts/data/validate-tpwd-lake-source-enrollment.mjs',
+  },
+  {
     id: 'authority-reciprocal-link-graph',
     label: 'Real inbound and reciprocal links across all sitemap pages',
     script: 'scripts/ci/authority-link-graph.test.mjs',
