@@ -110,8 +110,8 @@ export function DestinationAuthoritySections({ destination }: Props) {
     {destination.visitorFaqs && destination.visitorFaqs.length > 0 && <section aria-labelledby="destination-visitor-faqs" className="border-t border-border pt-8">
       <p className="eyebrow text-primary">Practical questions</p>
       <h2 id="destination-visitor-faqs" className="mt-3 font-display text-3xl">Frequently asked questions about {destination.name}</h2>
-      <dl className="mt-6 divide-y divide-border border-y border-border">
-        {destination.visitorFaqs.map((item) => <div key={item.question} className="py-5">
+      <dl className="mt-6">
+        {destination.visitorFaqs.map((item) => <div key={item.question} className="border-t border-border pt-5">
           <dt className="font-semibold text-foreground">{item.question}</dt>
           <dd className="mt-3 text-sm leading-7 text-muted-foreground">{item.answer}
             {item.sourceUrl && /^https:\/\//.test(item.sourceUrl) && <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="ml-2 text-primary underline underline-offset-4">Check official details ↗</a>}
