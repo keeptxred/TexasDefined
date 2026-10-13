@@ -9,6 +9,9 @@ import type { Destination } from "./types";
  * gives state parks and adjacent attractions a reverse link back to the cavern.
  */
 const CURATED_PAIRINGS: Readonly<Record<string, readonly string[]>> = {
+  "southern-pacific-passenger-depot-del-rio": ["whitehead-memorial-museum", "del-rio"],
+  "clifton-whipple-truss-bridge": ["clifton", "bosque-museum"],
+  "regency-suspension-bridge": ["goldthwaite", "san-saba"],
   "kokernot-field": ["alpine-downtown-historic-district", "alpine"],
   "alpine-downtown-historic-district": ["kokernot-field", "alpine", "holland-hotel"],
   "castro-county-courthouse": ["dimmitt"],
