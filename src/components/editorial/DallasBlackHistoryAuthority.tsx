@@ -20,7 +20,7 @@ export function DallasBlackHistoryAuthority({ slug }: { slug: string }) {
         </p>
         <div className="mt-8 space-y-10">
           {profile.sections.map((section) => (
-            <div key={section.heading} className="border-l-2 border-primary/40 pl-5 sm:pl-7">
+            <div key={section.heading} className="border-l-2 border-primary/40 pl-5">
               <h3 className="font-display text-2xl leading-snug">{section.heading}</h3>
               <div className="editorial-body mt-4 space-y-4 text-foreground/90">
                 {section.paragraphs.map((paragraph) => <p key={paragraph} className="leading-8">{paragraph}</p>)}
