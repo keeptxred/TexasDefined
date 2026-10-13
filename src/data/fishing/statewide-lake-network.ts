@@ -394,7 +394,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Pelican Bay Ramp", operator: "City of Pelican Bay", kind: "public-ramp", launch: "East off FM 730 north of Azle on Sandy Beach, south Liberty School Road and Pelican; two-lane ramp, 25 spaces.", fee: "TPWD lists fee", availability: "Year-round per TPWD; confirm City of Pelican Bay (817) 444-1234." },
       { name: "Twin Points Park", operator: "Tarrant Regional Water District", kind: "park", launch: "From SH 199, north on Boat Club Road, west on Ten Mile Bridge Road; two-lane concrete ramp and 60 spaces.", fee: "TPWD lists fee", availability: "Year-round in TPWD inventory; verify TRWD conditions (817) 237-8585." },
     ],
-    nearbyLakes: [{slug:"grapevine-lake",name:"Grapevine Lake"},{slug:"lake-bridgeport",name:"Lake Bridgeport"}],
+    nearbyLakes: [{slug:"grapevine-lake",name:"Grapevine Lake"},{slug:"lake-bridgeport",name:"Lake Bridgeport"},{slug:"lake-worth",name:"Lake Worth"}],
   },
   {
     slug: "lake-bridgeport", name: "Lake Bridgeport", accessReviewedAt: "2026-10-12", tpwdSlug: "bridgeport", waterDataSlug: "bridgeport", region: "prairies-lakes",
@@ -1057,7 +1057,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       {question:"Camper-only ramps?",answer:"Holiday Park South and Bear Creek are restricted to registered campers."},
       {question:"Top fishery?",answer:"TPWD rates hybrid striped bass excellent."},
     ],
-    nearbyLakes:[{slug:"joe-pool-lake",name:"Joe Pool Lake"},{slug:"lake-granbury",name:"Lake Granbury"},{slug:"lake-arlington",name:"Lake Arlington"}],
+    nearbyLakes:[{slug:"joe-pool-lake",name:"Joe Pool Lake"},{slug:"lake-granbury",name:"Lake Granbury"},{slug:"lake-arlington",name:"Lake Arlington"},{slug:"lake-worth",name:"Lake Worth"}],
     travelAlerts:["TPWD warned of major low-water ramp closures and campers-only launch limitations in its April 21, 2026 access inventory. The warning is historical and MUST be checked against current USACE closure reports; do not use this guide to assert a ramp is open today.","No general swim or boat-launch permission is inferred from a park's name. Confirm swimming areas, accessibility and seasonal hours with the Corps.","Clean, drain and dry watercraft and equipment under Texas invasive-species requirements before entering another reservoir."],
     historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/benbrook/index.asp",
     historyNotes:["Congress authorized Benbrook Dam under the River and Harbor Act in March 1945, when growing flood exposure and water needs in the Fort Worth area led to additional Trinity Basin storage.","The U.S. Army Corps of Engineers started construction May 27, 1947 and finished the main project in December 1950; deliberate reservoir impoundment began September 29, 1952. The TWDB makes these separate phases explicit, helping readers distinguish completion of the physical dam from water storage.","Benbrook's earthfill dam spans roughly 9,130 feet including the spillway and remains a Corps flood-management and water-conservation asset, not just a fishing destination. Recreation options depend on operational water levels and park-specific rules, which explains the changing launch landscape."],
@@ -1373,6 +1373,103 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     travelAlerts:["Full-lake no-wake boating rule; no personal watercraft.","The current park page and TPWD fisheries page use different lake-acre figures. Preserve the source-specific values.","Check park alerts before travel; campground booking, swimming, paddle rentals and boat launches may have separate operating conditions."],
   },
 
+  {
+    slug: "lake-worth", name: "Lake Worth", tpwdSlug: "worth", waterDataSlug: "worth",
+    region: "prairies-lakes", verifiedAt: "2026-10-13", accessReviewedAt: "2026-10-13",
+    summary: "Fort Worth's historic West Fork Trinity reservoir, with excellent crappie and catfish fishing, four distinct city-managed access parks, a documented fish-consumption advisory, no camping at lake ramps, and real-time TWDB water levels.",
+    surfaceAcres: 3489, maxDepthFeet: 22, impoundedYear: 1914, counties: ["Tarrant"],
+    nearestCities: ["Fort Worth", "Lake Worth", "River Oaks", "Azle"],
+    waterway: "West Fork of the Trinity River", riverBasin: "Trinity River Basin",
+    authority: "City of Fort Worth — Lake Worth Management Office", conservationPool: "594 ft msl",
+    fluctuation: "TPWD reports moderate fluctuations; shallow ramps are especially sensitive to water elevation",
+    clarity: "Stained",
+    identity: "Lake Worth is a Fort Worth municipal water-supply reservoir with a naturally shallow riverine layout, not a private fishing resort or an overnight camping park. Catfish and crappie earn TPWD's excellent ratings, but consumption advice is a separate public-health issue. TPWD's individual lake overview contains an older no-eat warning for blue and channel catfish. The current statewide DSHS advisory posted by TPWD instead prohibits smallmouth buffalo and lists species-specific monthly meal limits for blue and flathead catfish and other fish. Confirm the latest DSHS restrictions BEFORE eating any catch. The West Fork also connects this reservoir to upstream Eagle Mountain Lake and the Fort Worth Nature Center.",
+    habitat: [
+      "The original river channel, submerged standing timber, small points, boat docks and fishing piers break up Lake Worth's shallow shoreline. TPWD describes cattail flats and other emergent vegetation rather than extensive offshore grass.",
+      "Crappie use brush beneath piers, reed beds and nearshore structure; catfish are spread throughout the reservoir and can be located along the creek-channel transition with appropriate tackle.",
+      "The lake's shallow arms make navigation and trailer depth uncertain at lower lake elevations. Treat TPWD's historical 'open all year' ramp labels as operator inventories, not live closure confirmations.",
+      "The Fort Worth Nature Center has a dedicated kayak/canoe launch and overlooks the lake from the Canyon Ridge/Lone Point corridor. That is not a powered-trailer ramp or a campground."
+    ],
+    fish: [
+      fish("crappie", "White crappie", "excellent", "spring",
+        "TPWD calls crappie excellent; work reed edges, docks, shaded brush and fishing piers with small jigs or minnows. Spring movement can shift into the West Fork tributary corridors.",
+        ["jigs-and-minnows", "vertical-jigging"]),
+      fish("catfish", "Catfish", "excellent", "year-round",
+        "Lake Worth is a strong blue and channel-catfish fishery with fish across open-water channels and shoreline structure. CATCHING fish is distinct from safely eating them: a DSHS consumption advisory covers several species.",
+        ["cut-bait", "live-bait"]),
+      fish("largemouth-bass", "Largemouth bass", "fair", "spring",
+        "TPWD rates largemouth fair, not trophy-grade. Rocky banks, dock edges and emerging shoreline cover are a practical starting point.",
+        ["soft-plastics", "spinnerbaits", "crankbaits", "topwater"], "secondary"),
+      fish("white-bass", "White bass", "fair", "spring",
+        "TPWD rates white bass fair; seasonal spawning movement up the West Fork can offer opportunities but fluctuates with flow. Current DSHS consumption limits also include white bass.",
+        ["vertical-jigging", "trolling", "jigs-and-minnows"], "secondary")
+    ],
+    access: "TPWD names four distinct Lake Worth access parks; one is paddlecraft-only, one is shallow small-craft-only, and the others offer concrete trailer ramps. Arrow 'S' Park (two lanes, about 50 parking spaces), Casino Beach Park (one lane, about 20 spaces), Fort Worth Nature Center (kayak/canoe only), and Sunset Park (shallow one lane, small craft only, about 20 spaces) are not interchangeable. TPWD lists a fee at each and NO overnight camping. Confirm current ramp depth, hours and fees with Fort Worth Lake Worth Management (817) 392-7148 or the Nature Center before driving with a trailer.",
+    accessPoints: [
+      {
+        name: "Arrow 'S' Park launch", operator: "City of Fort Worth", kind: "public-ramp",
+        launch: "From Loop 820 use the Cahoba exit and follow the west frontage road. TPWD lists a two-lane concrete boat ramp with roughly 50 parking spaces and accessible facilities.",
+        fee: "TPWD lists a fee; confirm latest city park/boat-launch price",
+        availability: "Listed year-round by TPWD, NOT independently certified open today. City Lake Worth Management (817) 392-7148."
+      },
+      {
+        name: "Fort Worth Nature Center canoe and kayak launch", operator: "City of Fort Worth — Nature Center & Refuge", kind: "park",
+        launch: "From State Highway 199 take the Buffalo Road / Confederate Road exit and follow Nature Center signs. This is a CANOE/KAYAK-only launch, not a motorboat trailer ramp.",
+        fee: "Nature Center admission/launch fee listed by TPWD; confirm current policies",
+        availability: "Confirm admission, weather, water access and on-site nature-center rules before traveling."
+      },
+      {
+        name: "Casino Beach Park boat ramp", operator: "City of Fort Worth", kind: "public-ramp",
+        launch: "From Highway 199 use Surfside west toward the park. TPWD describes one concrete launch lane and parking for roughly 20 vehicles.",
+        fee: "Fee required in TPWD access directory; current price unconfirmed",
+        availability: "Historically listed year-round. Call city lake staff (817) 392-7148 about current use and trailer access."
+      },
+      {
+        name: "Sunset Park small-craft ramp", operator: "City of Fort Worth", kind: "public-ramp",
+        launch: "Follow Watercress west from Highway 199. TPWD lists a SHALLOW one-lane ramp, roughly 20 parking spaces, suitable for smaller boats only.",
+        fee: "Fee required per TPWD's source inventory; check city policy",
+        availability: "Low water can change small-craft usability; verify the current ramp and fee before arrival."
+      }
+    ],
+    campingProhibited: true,
+    camping: {
+      name: "No camping at Lake Worth public ramp parks",
+      summary: "TPWD explicitly states camping is not allowed at the four Lake Worth access parks. Fort Worth Nature Center is a daytime wildlife-refuge visit, not a lakeside campground. Find separately operated established campgrounds or accommodations elsewhere rather than implying lake access includes overnight use."
+    },
+    specialRules: true,
+    historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/worth/index.asp",
+    visitorSourceUrl: "https://www.fortworthtexas.gov/departments/parks",
+    consumptionSourceUrl: "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories",
+    historyNotes: [
+      "TWDB dates the start of dam construction to 1912, deliberate water impoundment to June 1914 and dam completion to October 1914. Fort Worth built this West Fork project primarily for municipal water supply. John B. Hawley engineered it, while construction passed from Underground Construction Company to the city during 1913.",
+      "The original earthfill dam measured about 3,200 feet long and 50 feet high; its uncontrolled spillway was approximately 700 feet long at a crest elevation of 594.3 feet above mean sea level. Water-supply withdrawals, controlled river passage and recreation remain central to its use.",
+      "TWDB documents significant dam/spillway work in 1979 and an embankment-crest increase in 1997. The 2001 hydrographic survey found about 3,458 surface acres and 33,495 acre-feet storage at a defined conservation stage; TPWD's 3,489-acre lake fact box uses a different source vintage/measurement. Neither static acreage describes today's wet shoreline.",
+      "The Fort Worth Nature Center preserves surrounding ecosystems and remnants of a never-completed CCC state-park effort, including Lone Point structures. A reused historical photograph from that overlook represents the actual lake but is NOT a live picture of current fishing, ramps or water level."
+    ],
+    visitorFAQs: [
+      { question: "Can I eat fish caught in Lake Worth?", answer: "Check the current Texas DSHS fish-consumption advisory. It prohibits eating smallmouth buffalo from Lake Worth/affected West Fork waters. It lists limited monthly meals for blue and flathead catfish, striped/white bass, common carp and freshwater drum, with stricter rules for women of childbearing age and children under 12. The older TPWD lake fact sheet conflicts on blue-catfish advice; follow the current advisory before eating any catch." },
+      { question: "Is camping allowed at Lake Worth?", answer: "No at its four TPWD-listed lake access parks. Camping is not included with day-use boat ramps or Fort Worth Nature Center entry. Stay at an independently operated off-site campground or hotel." },
+      { question: "Which ramp is suitable for a motorboat trailer?", answer: "Arrow 'S' Park has two concrete lanes and approximately 50 parking spaces; Casino Beach has one lane and approximately 20 spaces. Sunset Park is shallow and marked small-craft-only. The Fort Worth Nature Center launch is for canoes/kayaks only." },
+      { question: "Is boating at Lake Worth free?", answer: "TPWD lists a fee at each of the four named access facilities. It does not establish today's fee or guarantee same-day openings. Call the City of Fort Worth Lake Worth Management Office or the Nature Center for current details." },
+      { question: "What fish are Lake Worth known for?", answer: "TPWD rates crappie and catfish excellent, while largemouth and white bass are fair. Consumption advisories apply to eating some fish regardless of their angling quality." },
+      { question: "Does Lake Worth have a real-time level gauge?", answer: "Yes. Water Data for Texas provides measured reservoir level and percent full at the Lake Worth station. The current value belongs in the live-level strip, not as an undated number in an evergreen paragraph. Check the timestamp and ramp-depth status separately." },
+      { question: "Are there accessible fishing facilities?", answer: "TPWD's access symbols mark ADA facilities at Arrow 'S' Park; its management survey also identified two accessible fishing piers. Verify current access routes, pier conditions and facilities with the city before relying on a specific accommodation." },
+      { question: "Why do lake guides show 3,489 acres and 3,458 acres?", answer: "TPWD lists 3,489 acres in its fisheries profile; TWDB's 2001 surveyed conservation-pool table reports 3,458 acres. They are source-specific reference measurements, not interchangeable current measured surface area." },
+      { question: "How old is Lake Worth?", answer: "Construction began in 1912; deliberate impoundment started June 1914 and TWDB dates dam completion to October 1914. The city built it as a water-supply reservoir on the West Fork of the Trinity River." }
+    ],
+    travelAlerts: [
+      "PUBLIC-HEALTH WARNING: Current DSHS restrictions on consuming fish from Lake Worth include a complete smallmouth-buffalo no-eat advisory and species/age-specific meal limits; compare today's official consumption page before keeping fish for food. The older TPWD Lake Worth overview has a different blue-catfish warning.",
+      "INVASIVE SPECIES: TPWD reports zebra mussels at Lake Worth. Clean, drain and dry boat, trailer, livewells and equipment; draining water is required under Texas law.",
+      "TPWD shows no camping at the four access parks. The Nature Center is canoe/kayak-only and Sunset Park's shallow lane is intended for small craft; do not send large trailers to either.",
+      "All four access listings historically state fee required. Check city rules, water level, ramp depth and possible closures before launching; TPWD's 'open all year' is not a live operator status."
+    ],
+    nearbyLakes: [
+      { slug: "eagle-mountain-lake", name: "Eagle Mountain Lake" },
+      { slug: "benbrook-lake", name: "Benbrook Lake" },
+      { slug: "lake-arlington", name: "Lake Arlington" },
+      { slug: "grapevine-lake", name: "Grapevine Lake" }
+    ],
+  },
 ];
 
 const techniqueLabels: Record<TechniqueId, string> = {
