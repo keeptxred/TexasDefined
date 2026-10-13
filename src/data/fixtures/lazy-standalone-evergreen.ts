@@ -360,7 +360,7 @@ const fredericksburgJohnsonCityHistoricRoadTripStub: Article = {
   title: "Fredericksburg to Johnson City: The Complete Historic Hill Country Road Trip",
   dek: "Historic Fredericksburg, Fort Martin Scott, the Pacific War museum, Stonewall, LBJ Ranch, Sauer-Beckmann Farm, Hye and Johnson City with present-day closures, costs and a Luckenbach detour.",
   category: "road-trips", region: "hill-country",
-  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_martin_scott_2008.jpg?width=1600", alt: "Fort Martin Scott near Fredericksburg, Texas", width: 1600, height: 955, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" },
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Lyndon_B._Johnson_Ranch_October_2020_28_%28Texas_White_House%29.jpg?width=1600", alt: "The Texas White House at LBJ Ranch near Stonewall; exterior image, interior currently closed", width: 1600, height: 1067, credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons" },
   authorId: "a-dell", publishedAt: "2026-10-12", readingMinutes: 19,
   tags: ["fredericksburg to johnson city", "lbj ranch", "hill country historic sites", "stonewall", "fort martin scott", "luckenbach"], featured: true,
   sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/blog/historic-road-trip-fredericksburg-johnson-city",
