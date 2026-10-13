@@ -386,6 +386,39 @@
           "label": "Texas Historical Commission museum Atlas"
         }
       ]
+    },
+    {
+      "path": "/destination/elisabet-ney-museum-austin",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 7,
+      "sources": [
+        {
+          "sourceUrl": "https://www.austintexas.gov/ney",
+          "fetchUrl": "https://www.austintexas.gov/ney",
+          "label": "City of Austin — current closure and visitor status"
+        },
+        {
+          "sourceUrl": "https://www.austintexas.gov/parks/projects/elisabet-ney-museum-improvements",
+          "fetchUrl": "https://www.austintexas.gov/parks/projects/elisabet-ney-museum-improvements",
+          "label": "City of Austin — improvement project"
+        },
+        {
+          "sourceUrl": "https://www.austintexas.gov/ney/programs-education",
+          "fetchUrl": "https://www.austintexas.gov/ney/programs-education",
+          "label": "FAQ: Does Elisabet Ney Museum offer accessible family or school programming during construction?"
+        },
+        {
+          "sourceUrl": "https://www.austintexas.gov/ney/elisabet-ney-museum-exhibits",
+          "fetchUrl": "https://www.austintexas.gov/ney/elisabet-ney-museum-exhibits",
+          "label": "City of Austin — exhibit and online access"
+        },
+        {
+          "sourceUrl": "https://www.austintexas.gov/ney/about-elisabet-ney-museum",
+          "fetchUrl": "https://www.austintexas.gov/ney/about-elisabet-ney-museum",
+          "label": "City of Austin — artist, studio and historical background"
+        }
+      ]
     }
   ]
 }
