@@ -1,4 +1,5 @@
 import { animalSanctuaryDestinations } from "./animal-sanctuary-destinations";
+import { coastalHeritageAuthorityDestinations, enrichCoastalHeritageAuthority } from "./coastal-heritage-authority";
 import { museumAuthorityDestinations } from "./museum-authority-new-destinations";
 import { enrichMuseumAuthority } from "./museum-authority-network";
 import { aquariumMarineDestinations } from "./aquarium-marine-destinations";
@@ -213,6 +214,7 @@ function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
  */
 export const preservedExploreDestinations = mergePreservedDestinations(
   olivewoodCemeteryDestinations,
+  coastalHeritageAuthorityDestinations,
   animalSanctuaryDestinations,
   aquariumMarineDestinations,
   museumAuthorityDestinations,
@@ -335,4 +337,4 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   [shinerTownDestination],
   [newBraunfelsSeasonalFallback],
   [sanMarcosWaterGatewayFallback],
-).map(enrichMuseumAuthority);
+).map(enrichMuseumAuthority).map(enrichCoastalHeritageAuthority);
