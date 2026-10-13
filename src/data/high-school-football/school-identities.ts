@@ -11,6 +11,11 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'beckville', mascot: 'Bearcats', sourceUrl: 'https://www.beckvilleisd.net/students-parents', sourceLabel: 'Beckville ISD school athletic source', verifiedAt: '2026-10-10' },
+  { slug: 'beeville-jones', mascot: 'Trojans', sourceUrl: 'https://acjoneshs.beevilleisd.net/51042_3', sourceLabel: 'Beeville ISD school athletic source', verifiedAt: '2026-10-10' },
+  { slug: 'bells', mascot: 'Panthers', sourceUrl: 'https://bellsisd.net/', sourceLabel: 'Bells ISD school athletic source', verifiedAt: '2026-10-10' },
+  { slug: 'bellville', mascot: 'Brahmas', sourceUrl: 'https://bhs.bellvilleisd.org/', sourceLabel: 'Bellville ISD school athletic source', verifiedAt: '2026-10-10' },
+  { slug: 'belton', mascot: 'Tigers', sourceUrl: 'https://www.beltontigers.com/', sourceLabel: 'Belton ISD school athletic source', verifiedAt: '2026-10-10' },
   { slug: 'baytown-goose-creek-memorial', mascot: 'Patriots', sourceUrl: 'https://schools.gccisd.net/page/gcmhs.home/', sourceLabel: 'Goose Creek CISD original school page and athletics identity', verifiedAt: '2026-10-10' },
   { slug: 'baytown-lee', mascot: 'Ganders', sourceUrl: 'https://schools.gccisd.net/page/relhs.sl.athletics', sourceLabel: 'Goose Creek CISD original school page and athletics identity', verifiedAt: '2026-10-10' },
   { slug: 'baytown-sterling', mascot: 'Rangers', sourceUrl: 'https://schools.gccisd.net/page/rsshs.home', sourceLabel: 'Goose Creek CISD original school page and athletics identity', verifiedAt: '2026-10-10' },
