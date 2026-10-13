@@ -1,6 +1,7 @@
 import { animalSanctuaryDestinations } from "./animal-sanctuary-destinations";
 import { museumAuthorityDestinations } from "./museum-authority-new-destinations";
 import { enrichMuseumAuthority } from "./museum-authority-network";
+import { enrichSanAntonioHeritageAuthority } from "./san-antonio-heritage-enrichment";
 import { aquariumMarineDestinations } from "./aquarium-marine-destinations";
 import { coastalDestinations } from "./coastal-destinations";
 import { topAttractionDestinations } from "./destination-curation-top-attractions";
@@ -337,4 +338,4 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   [shinerTownDestination],
   [newBraunfelsSeasonalFallback],
   [sanMarcosWaterGatewayFallback],
-).map(enrichMuseumAuthority);
+).map(enrichMuseumAuthority).map(enrichSanAntonioHeritageAuthority);
