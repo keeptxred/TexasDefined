@@ -1,5 +1,6 @@
 import type { Article, CategorySlug, ImageRef } from "../types";
 import { guideEvidenceFor } from "./texas-high-intent-authority-evidence";
+import { texasGuidePickEvidence } from "./texas-high-intent-pick-evidence";
 
 /** Source-backed editorial decision guides. Comparisons are trip-fit judgments, not unverified universal rankings. */
 export interface HighIntentGuideSpec {
@@ -64,7 +65,7 @@ export function makeHighIntentGuide(spec: HighIntentGuideSpec): Article {
     internalLinks: spec.links,
     relatedCollections: [],
     relatedDestinations: evidence.relevantDestinationSlugs,
-    sources: [...spec.sources, ...evidence.facts.map((fact) => ({ label: fact.label, url: fact.sourceUrl }))].filter((source, index, list) => list.findIndex((item) => item.url === source.url) === index),
+    sources: [...spec.sources, ...evidence.facts.map((fact) => ({ label: fact.label, url: fact.sourceUrl })), ...(texasGuidePickEvidence[spec.number] ?? []).map((item) => ({ label: item.title + " — TPWD lake-specific fishing guide", url: item.officialUrl }))].filter((source, index, list) => list.findIndex((item) => item.url === source.url) === index),
     sourceName: evidence.facts[0].label,
     sourceUrl: evidence.facts[0].sourceUrl,
   };
