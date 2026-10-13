@@ -54,3 +54,7 @@ Photo metadata independently checked using Wikimedia Commons API imageinfo.extme
 
 - Nasher Sculpture Center, Dallas: existing exact-destination hero in `src/data/museum-expansion-dfw.ts` uses the Wikimedia Commons file `Nasher Sculpture Center Dallas.jpg`, credited to Andreas Praefcke, CC BY 3.0. Retained instead of inventing an exhibit photograph; perform an individual source-file check if replacing.
 - National Cowgirl Museum and Hall of Fame, Fort Worth: existing exact-destination exterior hero `Fort Worth Cultural District June 2016 06 (National Cowgirl Museum and Hall of Fame).jpg`, credited to Michael Barera, CC BY-SA 4.0. Retained as an exterior historical image only; it must not be used to imply a new 2026 interior exhibit or that the temporarily closed building is currently open.
+
+## Modern Art Museum of Fort Worth — October 13, 2026
+
+- Existing museum image placeholder replaced with an **exact-site public-domain photograph**, [Wikimedia Commons, Fort Worth Texas Modern Art Museum 2003.jpg](https://commons.wikimedia.org/wiki/File:Fort_Worth_Texas_Modern_Art_Museum_2003.jpg), by Andreas Praefcke. Photo depicts the Fort Worth building in 2003. Do not imply it shows currently accessible 2026 galleries or new 2026 exhibits. Metadata on Commons identifies public-domain dedication.
