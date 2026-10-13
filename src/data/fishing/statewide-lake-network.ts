@@ -1284,7 +1284,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
 
 
   {
-    slug:"lake-arlington", name:"Lake Arlington", tpwdSlug:"arlington", waterDataSlug:"arlington", region:"prairies-lakes", verifiedAt:"2026-10-13", accessReviewedAt:"2026-10-13",
+    slug: "lake-arlington", name: "Lake Arlington", tpwdSlug:"arlington", waterDataSlug:"arlington", region:"prairies-lakes", verifiedAt:"2026-10-13", accessReviewedAt:"2026-10-13",
     summary:"An urban Tarrant County Village Creek reservoir with outstanding largemouth and channel-catfish opportunities, three named municipal boat ramps, city-issued boating permits and a longstanding power-plant cooling-water history.",
     surfaceAcres:1939, maxDepthFeet:51, impoundedYear:1957, counties:["Tarrant"], nearestCities:["Arlington","Fort Worth","Kennedale"],
     waterway:"Village Creek, tributary of the West Fork Trinity River", riverBasin:"Trinity River Basin", authority:"City of Arlington", conservationPool:"550 ft msl", fluctuation:"TPWD lists approximately 12 feet", clarity:"Stained",
@@ -1328,7 +1328,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     nearbyLakes:[{slug:"benbrook-lake",name:"Benbrook Lake"},{slug:"joe-pool-lake",name:"Joe Pool Lake"},{slug:"grapevine-lake",name:"Grapevine Lake"}],
   },
   {
-    slug:"cedar-lake-cleburne-state-park", name:"Cedar Lake at Cleburne State Park", tpwdSlug:"cleburnesp", region:"prairies-lakes", verifiedAt:"2026-10-13", accessReviewedAt:"2026-10-13",
+    slug: "cedar-lake-cleburne-state-park", name: "Cedar Lake at Cleburne State Park", tpwdSlug:"cleburnesp", region:"prairies-lakes", verifiedAt:"2026-10-13", accessReviewedAt:"2026-10-13",
     summary:"The no-wake spring-fed Cedar Lake inside Cleburne State Park, with an accessible covered fishing pier, state-park camping, swimming, a one-lane boat ramp and restored CCC-era park infrastructure.",
     surfaceAcres:107,maxDepthFeet:29,impoundedYear:1934,counties:["Johnson"],nearestCities:["Cleburne","Glen Rose","Joshua"],
     waterway:"Cedar Lake and the Camp Creek watershed",riverBasin:"Brazos River Basin",authority:"Texas Parks and Wildlife Department",conservationPool:"Check TPWD park lake conditions",fluctuation:"TPWD states one to three feet",clarity:"Moderately clear",
