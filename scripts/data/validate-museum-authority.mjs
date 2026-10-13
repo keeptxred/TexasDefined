@@ -80,13 +80,20 @@ for (const slug of new Set([...required, ...allDossiers])) {
 }
 for (const [path, marker] of [
   ["src/data/destination-preserved-catalog.ts", "museumAuthorityDestinations"],
-  ["src/data/destination-query-runtime.ts", "enrichMuseumAuthority"],
+  ["src/data/destination-query-runtime.ts", "enrichMuseumMedia"],
   ["src/components/editorial/DestinationRelationships.tsx", "MuseumAuthorityNetworkSection"],
   ["src/routes/destination.$slug.tsx", "museumDossierFor"],
   ["src/routes/$kind.$slug.lazy.tsx", "CountyCityMuseums"],
 ]) {
   if (!read(path).includes(marker)) failures.push("Missing museum integration in " + path);
 }
+// Main destination discovery must not import the full museum research dossier payload.
+for (const path of ["src/data/destination-query-runtime.ts", "src/data/destination-preserved-catalog.ts", "src/data/museum-authority-new-destinations.ts"]) {
+  if (read(path).includes('from "./museum-authority-network"')) failures.push(path + ": heavyweight dossier import regresses main client performance.");
+}
+if (!read("src/data/museum-authority-heroes.ts").includes("export const museumLicensedHeroes")) failures.push("Lightweight license-cleared museum heroes module missing.");
+if (!read("src/routes/destination.$slug.tsx").includes("enrichMuseumAuthority")) failures.push("Museum body enrichment must remain in the museum destination page, not global search.");
+
 if (!read("src/data/museum-authority-new-destinations.ts").includes('slug: "george-ranch-historical-park"'))
   failures.push("Missing George Ranch destination record");
 
