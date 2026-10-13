@@ -14,3 +14,8 @@ Official campus 1902 N Adams Street, Beeville, TX 78102, school https://acjonesh
 
 ## Changes and remaining proof
 Original school-specific accent and SEO; 3 verified-date editorial milestones, three original school/program narratives, three FAQs, first-party links and correct campus identity, as well as concrete dispute disclosures. County links set explicitly rather than inferred from district or stadium. No unlicensed school photo, logo or promotional art used. Must still pass protected checks, merge and deploy, test mobile/desktop hydration, schema, canonical, county reciprocal paths, source-link quality and legal rights. Match day ticket/venue/ADA/coaching status may change. **Do not mark VERIFIED** until independent production browser QA. 
+
+## October 13, 2026 — dated varsity game-by-game authority checkpoint
+- Independently reviewed [MaxPreps 2026 varsity schedule](https://www.maxpreps.com/tx/beeville/jones-trojans/football/schedule/); **2–4 through Oct 2**, with **10** distinct reported date/opponent/home-away rows; unreported future results are intentionally blank. This is not a first-party ISD guarantee.
+- **School-specific discrepancy check:** Sept 27 schedule was stale: updated varsity team page records 17–6 win over Moody on Oct 2; later King result not independently confirmed. Neither JV nor freshman dates used.
+- Added an individually written explanatory paragraph, a dated 2026 milestone and two season-specific visitor FAQs. This release must pass protected CI, actual production deployment and exact-SHA desktop/mobile Chrome acceptance before calling the new fixture table live.
