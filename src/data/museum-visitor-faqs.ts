@@ -2049,6 +2049,172 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "museum-of-fine-arts-houston": [
+    {
+      "question": "How much is general admission to the Museum of Fine Arts, Houston?",
+      "answer": "The museum currently lists All Access tickets at $24 for adults 19+, $20 for youth 13–18 and $20 for seniors 65+ with ID; children 12 and younger enter free. Special program or exhibition admissions may differ. Confirm prices at purchase, not from a stale screenshot.",
+      "verificationUrl": "https://www.mfah.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/admission-information",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I visit MFAH for free on Thursday?",
+      "answer": "Yes. Thursday general admission to the permanent collection is free for everyone. Special exhibitions still require a separate discounted All Access ticket, so the Thursday promotion does not mean every temporary show is free.",
+      "verificationUrl": "https://www.mfah.org/visit/admission-information",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is MFAH open late on Thursday and Friday?",
+      "answer": "The current Sarofim Campus schedule lists Thursday and Friday 11 a.m.–9 p.m. It lists Wednesday 11 a.m.–5 p.m., Saturday 11 a.m.–6 p.m., Sunday 12:30–6 p.m., and closures Monday and Tuesday. Special programs and holiday dates may differ.",
+      "verificationUrl": "https://www.mfah.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should I park for the Kinder Building or MFAH?",
+      "answer": "The MFAH official campus map directs visitors to Beck Garage at 1144 Binz Street, Glassell Garage at 5101 Montrose Boulevard and Kinder Garage at 5500 Main Street. Choose the building and entry point before driving, and use current garage rates.",
+      "verificationUrl": "https://www.mfah.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Museum of Fine Arts Houston have a cafeteria or full restaurant?",
+      "answer": "MFAH operates Cafe Leonelli on the main campus and another Leonelli at the Glassell School for casual Italian food, drinks and snacks. Le Jardinier is a separate full-service fine-dining restaurant; this is not one generic cafeteria. Confirm dining hours and reservations separately.",
+      "verificationUrl": "https://www.mfah.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Museum of Fine Arts Houston good for kids and strollers?",
+      "answer": "Yes, with a selective family visit. Children 12 or younger have free admission. Strollers and soft front-facing baby carriers are allowed, but pull wagons, rolling luggage and large bags are prohibited. Food and drinks must stay outside galleries.",
+      "verificationUrl": "https://www.mfah.org/visit/visiting-guidelines",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does MFAH offer sensory-friendly options or a quieter visit time?",
+      "answer": "Yes. The operator provides sensory-processing kits at Beck and Kinder coat checks, accessible audio formats and other assistance. It suggests Wednesday and Friday between approximately 1–4 p.m. as generally quieter periods; those are estimates, not guaranteed low-crowd appointments.",
+      "verificationUrl": "https://www.mfah.org/visit/accessibility-resources/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/accessibility-resources/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Bayou Bend or Rienzi inside the MFAH main museum?",
+      "answer": "No. Bayou Bend and Rienzi are separately located MFAH house museums near Memorial Park, with their own ticketing and visitor arrangements. They are not inside the Sarofim Campus's three main gallery buildings.",
+      "verificationUrl": "https://www.mfah.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can a group of ten visit MFAH without arranging a group reservation?",
+      "answer": "Individuals may purchase tickets normally, but groups of ten or more seeking group pricing or a private guided tour are directed to advance group booking. School program rules are separate; contact the museum in advance for school visits.",
+      "verificationUrl": "https://www.mfah.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "art-museum-south-texas-corpus-christi": [
+    {
+      "question": "Is the Art Museum of South Texas still closed because of the July 2026 air-conditioning failure?",
+      "answer": "No. The museum announced it reopened July 3, 2026 after a July 1 HVAC closure. Treat the temporary closure notice as historical, not an ongoing closure; check the latest visitor page for new developments.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/temporary-closure-update/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is admission to the Art Museum of South Texas always free?",
+      "answer": "No blanket free-admission policy can be inferred from its summer promotion. The museum specifically advertised free entry June 1–July 31, 2026. That promotion ended; check the current Admission & Hours page for today's price and any designated free days.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/free-admission-to-the-art-museum-of-south-texas-summer-2026/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the address of the Art Museum of South Texas?",
+      "answer": "The museum is at 1902 North Shoreline Boulevard, Corpus Christi, Texas 78401, on the bayfront. It has more than one building within its waterfront complex; use the museum's visitor information for accessible parking and a preferred entrance.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Art Museum of South Texas have a real restaurant?",
+      "answer": "Yes. Elizabeth's is a restaurant/café in the museum complex, not just a vending area. The museum gives 361-882-8785 for dining information and reservations. Confirm its schedule and seating directly rather than assuming it stays open for every gallery hour.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can young children use the ArtCade at the Art Museum of South Texas?",
+      "answer": "When open to the public, the first-floor Johnson Building ArtCade has drawing, animation, a reading area and other hands-on creative activities. It is closed to public drop-ins during summer camps, so confirm activity-room access before promising it to children.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What age is required for the Art Museum of South Texas Digital Studio?",
+      "answer": "The Blanche Moore Digital Studio's supervised sessions serve adults and children age ten and older accompanied by an adult. Its hours are reserved and session fees can vary; check the museum events calendar before planning a special computer-art visit.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Art Museum of South Texas wheelchair accessible?",
+      "answer": "The operator advertises ADA-compliant parking in its lots and ADA service-animal policies. Visitors needing customized accommodation should contact 361-825-3500. It also supports use of the ReBokeh iOS visual-accessibility tool. Do not assume every historic or special-event room has identical access.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much time should I allow at the Art Museum of South Texas?",
+      "answer": "One to two hours is a reasonable independent planning estimate for a focused gallery visit. Families attending an ArtCade or Digital Studio session may need longer, and availability of those activities varies.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are Elizabeth's restaurant and the ArtCade always open whenever the galleries are open?",
+      "answer": "No. Dining hours and reservations are separate, and the ArtCade is closed during some camp periods. Check restaurant staff and the museum's daily activity schedule rather than planning those facilities from gallery hours alone.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/temporary-closure-update/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
