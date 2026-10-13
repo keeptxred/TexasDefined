@@ -2,7 +2,7 @@ import fs from 'node:fs';
 
 const origin = 'https://texasdefined.com';
 const regionSpecs = [
-  { id:'hill-country', title:'Hill Country', allowed:'enchanted-rock-state-natural-area', forbidden:['texas-state-aquarium','moody-gardens','houston-zoo','space-center-houston','palo-duro-canyon-state-park','caprock-canyons-state-park','big-bend-national-park','guadalupe-mountains-national-park','dinosaur-valley-state-park','brazos-bend-state-park'] },
+  { id:'hill-country', title:'Hill Country', allowed:'enchanted-rock-state-natural-area', forbidden:['texas-state-aquarium','moody-gardens','houston-zoo','downtown-aquarium-houston','houston-interactive-aquarium-animal-preserve','space-center-houston','palo-duro-canyon-state-park','caprock-canyons-state-park','big-bend-national-park','guadalupe-mountains-national-park','dinosaur-valley-state-park','brazos-bend-state-park'] },
   { id:'gulf-coast', title:'Gulf Coast', allowed:'texas-state-aquarium', forbidden:['palo-duro-canyon-state-park','big-bend-national-park','enchanted-rock-state-natural-area'] },
   { id:'panhandle', title:'Panhandle Plains', allowed:'palo-duro-canyon-state-park', forbidden:['texas-state-aquarium','moody-gardens','big-bend-national-park'] },
   { id:'big-bend', title:'Big Bend Country', allowed:'big-bend-national-park', forbidden:['texas-state-aquarium','moody-gardens','palo-duro-canyon-state-park'] },
@@ -21,7 +21,7 @@ function sourceCheck(){
  const destinationRuntime=fs.readFileSync('src/data/destination-query-runtime.ts','utf8');
  for(const [slug,expectedRegion] of [
   ['texas-state-aquarium','gulf-coast'], ['moody-gardens','gulf-coast'],
-  ['houston-zoo','gulf-coast'], ['space-center-houston','gulf-coast'],
+  ['houston-zoo','gulf-coast'], ['downtown-aquarium-houston','gulf-coast'], ['houston-interactive-aquarium-animal-preserve','gulf-coast'], ['space-center-houston','gulf-coast'],
   ['palo-duro-canyon-state-park','panhandle'], ['caprock-canyons-state-park','panhandle'],
   ['big-bend-national-park','big-bend'], ['guadalupe-mountains-national-park','big-bend'],
   ['dinosaur-valley-state-park','prairies-lakes'], ['brazos-bend-state-park','gulf-coast'],
