@@ -2924,6 +2924,172 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "texas-ranger-hall-of-fame-museum-waco": [
+    {
+      "question": "What does admission to the Texas Ranger Hall of Fame and Museum cost?",
+      "answer": "Current official prices: adults $10.50, children 6–12 $4, under 6 free, seniors age 60+ $8.50 and military with ID $8.50. The museum lists separate law enforcement and other eligible discounts; prices should be confirmed for the actual visit.",
+      "verificationUrl": "https://www.texasranger.org/Visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.texasranger.org/Visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How long do most people spend at the Texas Ranger Hall of Fame and Museum?",
+      "answer": "The museum recommends approximately two hours for a self-directed visit. An organized guided tour is usually about 45 minutes, but the operator advises allowing at least 90 minutes so the group can explore the galleries and shop.",
+      "verificationUrl": "https://www.texasranger.org/Pages/Education/FAQ",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.texasranger.org/Pages/Education/FAQ",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Texas Ranger Hall of Fame Museum open every day?",
+      "answer": "Regular public hours are seven days a week, 9 a.m.–5 p.m., with final admission at 4:30 p.m. The museum closes on Easter Sunday, Thanksgiving, Christmas Eve, Christmas Day and New Year's Day according to the operator.",
+      "verificationUrl": "https://www.texasranger.org/Visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.texasranger.org/Visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is parking at the Waco Texas Ranger museum free?",
+      "answer": "Yes, ordinary museum parking is listed as free on the operator visit page. Baylor game days and special events can affect nearby roads and spaces; check current directions for the chosen date rather than relying on an old parking map.",
+      "verificationUrl": "https://www.texasranger.org/Visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.texasranger.org/Visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can a school or large group arrive without booking?",
+      "answer": "Groups of ten or more need advance reservations. Museum tour guidance asks arriving 10–15 minutes before the start; groups of 25–50 may be split into smaller tours. If the group is late or attendance changes, telephone 254-750-8631.",
+      "verificationUrl": "https://www.texasranger.org/Pages/Education/FAQ",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.texasranger.org/Pages/Education/FAQ",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are photos allowed inside the Texas Ranger museum?",
+      "answer": "The museum's group-tour FAQ says personal photography of the exhibits is welcomed. Visitors should follow any gallery-specific notices or staff instructions on the day.",
+      "verificationUrl": "https://www.texasranger.org/Pages/Education/FAQ",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.texasranger.org/Pages/Education/FAQ",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Texas Ranger museum have a cafeteria or restaurant?",
+      "answer": "Official group rules prohibit food and drinks inside museum exhibits. The published visit guide does not establish an on-site full-service restaurant or cafeteria; plan a meal elsewhere in Waco instead of expecting one in the galleries.",
+      "verificationUrl": "https://www.texasranger.org/Pages/Education/FAQ",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.texasranger.org/Visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Texas Ranger Research Center keep the same hours as the museum?",
+      "answer": "No. The adjacent Armstrong research facility lists Monday–Friday 9 a.m.–4 p.m. and asks researchers to call ahead for an appointment; the museum galleries generally open every day. A museum ticket does not itself guarantee research assistance.",
+      "verificationUrl": "https://www.texasranger.org/Visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.texasranger.org/News-articles/Rangers-Through-Time",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the 2026 Rangers Through Time exhibition?",
+      "answer": "The museum announced a special exhibit in May 2026 in Spindletop Tower at the Armstrong Research Center. It uses paintings, photographs, medals, firearms and sculpture to examine Ranger imagery from the 1840s to 1990s. Check availability before planning around it.",
+      "verificationUrl": "https://www.texasranger.org/News-articles/Rangers-Through-Time",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.texasranger.org/News-articles/Rangers-Through-Time",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "texas-transportation-museum-san-antonio": [
+    {
+      "question": "Are train rides included with Texas Transportation Museum admission?",
+      "answer": "Yes, regular train rides are included with general admission when the railroad is operating. The museum says rides last roughly 10–15 minutes and passengers can ride more than once, subject to safe capacity and operating conditions. Special event tickets follow their own rules.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/train-rides",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/train-rides",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Texas Transportation Museum open Fridays?",
+      "answer": "Ordinary public visiting days are selected Saturdays and Sundays, and Fridays are reserved for school or booked groups. Opening hours are date-dependent, so check the live calendar before travelling. Last regular public admission is generally 3 p.m.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/visit-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/visit-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much are tickets to the Texas Transportation Museum?",
+      "answer": "The current general admission page lists adults 13+ $12, children 4–12 $10, under age four free and seniors 65+ $9. Event days and discounts may be priced differently; the separate admissions page may show older prices, so use the current Visit Us calendar and checkout total.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/visit-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/tickets",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are train rides at Texas Transportation Museum wheelchair accessible?",
+      "answer": "The operator says the covered flatcar is accessible to people using wheelchairs but the historic caboose is not. Some preserved rolling stock is also inaccessible. Arrange any particular access accommodation before visiting.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/train-rides",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/train-rides",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Texas Transportation Museum have paved accessible parking?",
+      "answer": "Most of the museum parking area is gravel; the operator identifies accessible spaces beside the depot ramp and a paved space near the platform and main display building. Parking is free. Confirm the route that works for your mobility needs.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are Texas Transportation Museum steam engines running now?",
+      "answer": "Do not assume so. The operator's current train-ride page says that no live-steam days are scheduled because of inspection and maintenance. Its normal public ride can use diesel equipment; confirm at the museum before setting expectations for a steam-hauled trip.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/train-rides",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/train-rides",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors ride in the locomotive driver's cab?",
+      "answer": "Current ticket information says diesel cab rides are suspended due to mechanical repairs. This is distinct from ordinary passenger rides and should not be sold or promised until the museum explicitly resumes it.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/tickets",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/train-rides",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors bring food or pets to the Texas Transportation Museum?",
+      "answer": "The museum allows well-behaved leashed pets and outside food at its picnic tables. Drinks are available in the depot, while snacks generally appear only during special events. There is no documented on-site full-service café or cafeteria.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What if rain or another problem cancels the museum train?",
+      "answer": "The museum may close early during inclement weather or change services for equipment issues. Its Visit Us page says rainchecks or refunds may be offered. Always check the event calendar and current notices before setting out.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/visit-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/visit-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
