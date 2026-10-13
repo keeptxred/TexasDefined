@@ -131,7 +131,7 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
       },
       {
         "title": "Balmorhea State Park — a distinctive West Texas overnight",
-        "advice": "Balmorhea offers a memorable spring-fed swimming-pool destination and a useful stop in the West Texas travel corridor. Its campground is relatively small, making reservation planning more important than at a sprawling commercial park. Check the exact site's utility configuration, swimming-pool notices, travel distance and availability. Treat this as a special stop rather than assuming it can serve an arbitrary long-stay itinerary."
+        "advice": "Balmorhea is a distinctive spring-fed-pool overnight, but not every electric campsite accommodates every RV. TPWD lists 15 pull-through spaces with 20/30/50-amp service and 18 back-in electric sites generally limited to 30 amps; among those back-in listings, sites 12–17 are tent-only and cannot take an RV. Check-in is 2 p.m. and early entry is not allowed. A visitor needing 50-amp electric must choose an eligible pull-through, not assume a converter can substitute at a 30-amp site. Verify exact rig length, water hookup, the current pool notice and reservations with TPWD before towing to West Texas."
       },
       {
         "title": "Atlanta State Park — a Northeast Texas lake base",
@@ -143,7 +143,7 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
       },
       {
         "title": "Andy Bowie County Park — South Padre Island coastal access",
-        "advice": "Andy Bowie is a county-run coastal RV area near South Padre Island rather than a typical inland state-park campground. The island setting suits a beach-first vacation but can expose rigs to wind, sun and storm-related disruption. Confirm park-specific reservations, hookups and county notices, and distinguish the exact RV area from nearby beach day-use facilities when navigating or making a booking."
+        "advice": "Andy Bowie is a Cameron County Gulf Coast RV area near South Padre Island, not an inland state-park campground. Operational status needs particular care: at the October 2026 source check, the county's Andy Bowie listing still displayed a 'Closed for Renovations' notice graphic alongside office hours and an RV reservations link. Those mixed signals do not establish that your booked space is open. Contact Cameron County Parks at 956-761-3704, verify current reopening and campground inventory in the county reservation system, then confirm rig-length limits, utility hookups, storm conditions and the exact RV area before setting out. Do not treat a generic park-hours listing as an active RV reservation."
       }
     ],
     "logistics": "Measure the total length of your vehicle and any tow setup, plus height, width and slide-out needs. Check electrical service, water, sewer or dump-station access, site surface, maximum occupancy, generator rules, pets, stay limits and arrival windows directly with the operator. For state parks, TPWD's online reservation system lists site-specific options and popular parks can fill well ahead. Private RV resorts need their own verification; no directory record can replace the operator's current site inventory and terms. Build a route with realistic fuel, heat, and storm contingencies.",
