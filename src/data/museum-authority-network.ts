@@ -1666,7 +1666,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "El Paso Holocaust Museum — mission and permanent galleries", url: "https://elpasoholocaustmuseum.org/about-us/", use: "Exhibition topics and bilingual interpretation" },
       { label: "El Paso Holocaust Museum — interactive testimony", url: "https://elpasoholocaustmuseum.org/dimensions-in-testimony/", use: "Testimony technology and daily schedules" },
       { label: "El Paso Holocaust Museum — education and group programs", url: "https://elpasoholocaustmuseum.org/", use: "Current group booking and visitor contact" },
-      { label: "TxDOT site survey", url: "https://www.txdot.gov/content/dam/project-sites/reimaginei10/docs/historic-resources-survey-report-1.pdf", use: "GPS point verified for 715 N Oregon museum" },
+      { label: "El Paso Holocaust Museum — Spanish directions", url: "https://elpasoholocaustmuseum.org/ubicacion-horario-y-cierres/", use: "Independent Spanish-language directions, opening hours and visitor parking details" },
     ],
     connections: [
       { label: "El Paso County", href: "/county/el-paso", reason: "Connect downtown cultural history with the wider borderland region." },
