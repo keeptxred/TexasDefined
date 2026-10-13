@@ -398,6 +398,107 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "babe-didrikson-zaharias-museum-beaumont": {
+    name: "Babe Didrikson Zaharias Museum & Visitor Center",
+    slug: "babe-didrikson-zaharias-museum-beaumont",
+    county: "Jefferson",
+    city: "Beaumont",
+    reviewed: "2026-10-12",
+    topics: ["sports", "texas-history", "women-in-history"],
+    whyVisit: "Beaumont's Babe Didrikson Zaharias Museum introduces the extraordinary range of sports mastered by Mildred Ella 'Babe' Didrikson Zaharias, from Olympic track and field to basketball and professional golf. The museum's artifacts and athletic honors allow visitors to follow one athlete's career across very different eras of women's sport and changing opportunities for women.",
+    visitorStrategy: "Plan the museum as a focused Beaumont sports-history stop rather than a full-day attraction. Both the museum and Babe Zaharias Foundation advertise free admission at 1750 Interstate 10 frontage road in Beaumont. Their pages list Monday–Saturday, 9 a.m.–5 p.m., but the city facilities directory lists Saturday closed and Monday–Friday only. That mismatch must be shown clearly: call 409-833-4622 before any Saturday or holiday visit. A 45–90-minute visit is an editorial estimate, not an operator promise.",
+    accessibility: "The Babe Zaharias Foundation describes access for disabled visitors, but does not publish comprehensive route-by-route or sensory-accessibility specifications. Confirm accessible parking, entrance and restroom arrangements with the museum before visiting if those features are critical. The museum is inside a distinct circular building near the Interstate 10 frontage road, not at the Babe Zaharias golf course or adjacent city park.",
+    familiesAndGroups: "Museum interpretation is strongest for families and school-age children interested in athletes, records, fairness in sport and women's history. Children who enjoy trophies and stories of multi-sport achievement can compare 1932 Olympic events with later professional golf. There is no official evidence of a children's play gallery or museum cafeteria, so visitors should not expect either. Contact staff for groups before arriving.",
+    researchValue: "Babe won javelin and hurdles gold at the 1932 Los Angeles Olympics and later became a defining figure in women's professional golf, helping establish the LPGA era. Museum narratives should distinguish her sporting legacy from promotional superlatives, explain that her Port Arthur birth and Beaumont upbringing are different places, and prioritize objects the operator confirms are on display, such as the Dead Head golf trophy.",
+    exhibits: [
+      { heading: "1932 Olympics and multi-sport achievement", detail: "Follow Babe's Los Angeles track-and-field success and connect it with her basketball, baseball and other athletic pursuits. The broader story is how she excelled when women's sporting opportunities were limited." },
+      { heading: "Professional golf victories and trophies", detail: "Golf memorabilia introduces Babe's transition to tournament golf and her participation in shaping women's professional competition. Her Dead Head trophy is explicitly noted by the museum as displayed." },
+      { heading: "Local legacy and Beaumont memories", detail: "Photographs and awards tell the story of a Port Arthur-born athlete who grew up in Beaumont, later became a national figure, and remains a defining name in the city's sports history." },
+    ],
+    routes: [
+      { label: "An hour with Babe's sporting legacy", steps: ["Begin with the Olympic and early sports stories", "Compare golf achievements and the museum's displayed memorabilia", "Read the local Beaumont connection before leaving"] },
+      { label: "Beaumont women-and-sports history day", steps: ["Visit the Babe Museum when staff confirm opening", "Read broader Jefferson County history and museum links", "Continue to another independently open Beaumont cultural museum if desired"] },
+    ],
+    sources: [
+      { label: "Babe Zaharias Museum — current visitor information", url: "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/", use: "Admission, address, museum's hours and FAQ" },
+      { label: "Babe Didrikson Zaharias Foundation — contact", url: "https://bdzfoundation.com/contact/", use: "Foundation schedule and accessibility note" },
+      { label: "City of Beaumont — facility listing", url: "https://www.beaumonttexas.gov/facilities/facility/details/Babe-Zaharias-Museum-Visitor-Center-74", use: "Conflicting Saturday-hours listing" },
+      { label: "Babe Zaharias Museum — athlete and exhibit history", url: "https://www.babezahariasmuseum.com/babe-zaharias/", use: "Displayed Dead Head trophy and athletic interpretation" },
+    ],
+    connections: [
+      { label: "Jefferson County", href: "/county/jefferson", reason: "Explore Beaumont and Port Arthur heritage in local context." },
+      { label: "Texas Energy Museum", href: "/destination/texas-energy-museum-beaumont", reason: "Contrast sports achievement with the city's industrial history." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Browse independently verified Texas visitor guides." },
+    ],
+  },
+  "20th-century-technology-museum-wharton": {
+    name: "20th Century Technology Museum",
+    slug: "20th-century-technology-museum-wharton",
+    county: "Wharton",
+    city: "Wharton",
+    reviewed: "2026-10-12",
+    topics: ["science", "industry", "family", "texas-history"],
+    whyVisit: "The 20th Century Technology Museum inside Wharton County Historical Museum invites visitors to see how familiar twentieth-century technologies changed daily life: toys, early personal computers, arcade machines and experimental aircraft. Its strength is the comparison between technologies children encounter digitally today and the actual machines people used a generation or two ago.",
+    visitorStrategy: "Visit the shared museum complex at 3615 North Richmond Road in Wharton, not the museum's original 2005 former-jail location sometimes shown in older descriptions. The Wharton County Historical Museum currently advertises Monday–Friday 9 a.m.–4 p.m. and free entry; the Technology Museum's independent page lists a narrower Tuesday and Thursday schedule of 11 a.m.–3 p.m. as its 2025 update. Because these notices are not aligned, call 979-532-2600 or 979-488-7773 before treating the technology wing as open on a particular day. Allow roughly 60–90 minutes as an editorial estimate.",
+    accessibility: "The site operates in a shared museum facility, but current official visit and technology exhibit pages do not specify wheelchair entrance details, hearing or sensory accommodations, or step-free access to each display. Ask the host museum about arrival, museum floor plan and any interactive displays before arranging a visit; an old wheelchair note from the former jail should not be assumed to apply to the current building.",
+    familiesAndGroups: "Families with school-age children can compare 1970s–1980s arcade controls, historic toys and early computers with phones and gaming systems used today. Some machines may be displayed rather than playable; never promise visitors can operate every item. There is no published evidence of a full-service restaurant or museum cafeteria, so plan meals separately in Wharton. Ask the operator about demonstrations and suitable group experiences.",
+    researchValue: "The technology galleries are one half of a wider historical museum context. The operator highlights early consumer computers, toys, arcade equipment and airplanes, connecting electronics with leisure, communication and transportation. Note that historical museum pages may mention radios, a jukebox or experimental airplanes; the contemporary host's listed exhibits are the better basis for deciding what to expect in the current wing.",
+    exhibits: [
+      { heading: "Personal computers from the early PC era to the 2000s", detail: "Compare how household computers changed in size, interface and use as the digital era moved from specialist equipment to a daily tool." },
+      { heading: "Arcade machines of the 1970s and 1980s", detail: "The exhibit highlights game cabinets from a period when play took place in public arcades. Confirm whether specific games are running before promising hands-on access." },
+      { heading: "20th-century toys and familiar gadgets", detail: "Mechanical, electronic and everyday toys provide an approachable explanation of changing childhood, manufacturing and consumer technology." },
+      { heading: "Experimental aircraft and transport displays", detail: "The host museum describes several airplanes in its technology collections; check exhibit availability and whether any displays are temporarily relocated." },
+    ],
+    routes: [
+      { label: "Family technology highlights", steps: ["Start with a comparison of old computers and today's digital devices", "Continue to arcade and toy interpretation", "End with aircraft or technology history according to the day's available displays"] },
+      { label: "Wharton museum afternoon", steps: ["Confirm separately that the technology wing is open", "Visit the county's local-history galleries in the shared building", "Connect the displays to the surrounding Wharton County history and community"] },
+    ],
+    sources: [
+      { label: "Host museum — contemporary technology exhibit", url: "https://www.whartoncountymuseum.org/tech-museum", use: "Computer, toy, arcade and aircraft display topics" },
+      { label: "Wharton County Historical Museum — visit", url: "https://www.whartoncountymuseum.org/", use: "Building, address, host opening times and admission" },
+      { label: "Technology museum — independent schedule", url: "https://www.20thcenturytech.com/location.html", use: "Narrow 2025 updated technology-wing opening hours" },
+      { label: "Texas Historical Commission museum Atlas", url: "https://atlas.thc.texas.gov/Details/4200001087", use: "Historical institutional record, not current hours" },
+    ],
+    connections: [
+      { label: "Wharton County", href: "/county/wharton", reason: "Connect technology stories to wider county and Colorado River history." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Discover other Texas science and family museums." },
+    ],
+  },
+
+  "elisabet-ney-museum-austin": {
+    name: "Elisabet Ney Museum",
+    slug: "elisabet-ney-museum-austin",
+    county: "Travis",
+    city: "Austin",
+    reviewed: "2026-10-12",
+    topics: ["art", "texas-history", "architecture", "sculpture"],
+    whyVisit: "The Elisabet Ney Museum preserves the Austin studio and residence known as Formosa, where German-born sculptor Elisabet Ney worked on portraits of significant figures including Sam Houston and Stephen F. Austin. Its historic limestone architecture, collection of portrait sculpture and restored native-prairie landscape make it a distinctive Texas arts landmark—although interior museum visits are currently suspended for renovation.",
+    visitorStrategy: "CLOSED FOR RENOVATIONS SINCE DECEMBER 30, 2024. The City of Austin currently anticipates reopening in spring 2027, but that is a forecast, not a confirmed admission date. Do not follow outdated normal-hour listings or assume access to sculpture galleries, restrooms or grounds on ordinary museum visiting days. Instead use the museum's online exhibition and check city-posted education programs or individually announced on-site events, which can have separate registration and access rules.",
+    accessibility: "The historic house and grounds are undergoing a capital-improvement, interpretation and landscape project intended to improve accessibility and visitor experience. These plans do not guarantee step-free access during construction or at every future historic room. The city lists the facility as closed; contact the museum to confirm accessibility for any separately announced event rather than assuming regular public access.",
+    familiesAndGroups: "There is no normal museum admission or school group tour during the renovation closure. Families and educators can use the online sculpture exhibition and city-run 'Breaking the Mold' outreach activities; scheduled events must be checked individually. Once the museum reopens, age-appropriate discussions about portraiture, public monuments and an unconventional nineteenth-century woman artist may benefit older children and teens.",
+    researchValue: "Ney purchased the property in 1892 and built Formosa as a sculpture studio after an earlier European portrait career. She modeled prominent Texans while maintaining links to European intellectual and artistic circles. Her studio later became a gathering place and after her death in 1907 was preserved as a public museum. Reopening interpretation will be shaped by the city's newer interpretive and landscape plans; exhibit availability should never be inferred from old photographs.",
+    exhibits: [
+      { heading: "Formosa: artist studio and historic limestone architecture", detail: "The 1892 stone studio and Ney's former residence is itself a major historical object. During renovation, explore the city’s historical account and photographs rather than promising a building tour." },
+      { heading: "Portraits of Stephen F. Austin and Sam Houston", detail: "Ney's sculptures of these Texas figures help explain how the state chose to commemorate its founders. The museum has major related work, but galleries remain closed until official reopening." },
+      { heading: "European portrait sculpture and Ney's independent career", detail: "The museum's interpretive history connects Ney's portraits of European political and intellectual leaders to the artistic network she carried into Texas." },
+      { heading: "Art for Humanity's Sake: online exhibition", detail: "The official digital exhibition makes more than eighty collection items available for remote viewing while physical galleries cannot be visited." },
+    ],
+    routes: [
+      { label: "Research Formosa from home", steps: ["Read the city museum's closure and renovation notice", "View Elisabet Ney: Art for Humanity's Sake online exhibition", "Explore the official artist-and-studio history for context"] },
+      { label: "A future Austin art visit", steps: ["Confirm an actual reopening announcement, not just an anticipated date", "Check current admission, timed tours and accessibility after the renovation", "Combine a confirmed visit with another independently open Austin art museum"] },
+    ],
+    sources: [
+      { label: "City of Austin — current closure and visitor status", url: "https://www.austintexas.gov/ney", use: "Closing date and anticipated 2027 reopening" },
+      { label: "City of Austin — artist, studio and historical background", url: "https://www.austintexas.gov/ney/about-elisabet-ney-museum", use: "Formosa studio and original sculpture topics" },
+      { label: "City of Austin — exhibit and online access", url: "https://www.austintexas.gov/ney/elisabet-ney-museum-exhibits", use: "On-site museum exhibits versus online access" },
+      { label: "City of Austin — improvement project", url: "https://www.austintexas.gov/parks/projects/elisabet-ney-museum-improvements", use: "Public works, landscape and interpretation plans" },
+    ],
+    connections: [
+      { label: "Travis County", href: "/county/travis", reason: "Connect the museum to Austin's creative and civic heritage." },
+      { label: "Texas museums directory", href: "/explore/museums", reason: "Find another currently open art or history museum before traveling." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
@@ -453,6 +554,26 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     alt: "The Texas Forestry Museum building in Lufkin, Texas",
     width: 1600, height: 1200,
     credit: "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons · File:Texas Forestry Museum, Lufkin, TX IMG 8594.JPG",
+  },
+
+  "babe-didrikson-zaharias-museum-beaumont": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Zaharias_museum.jpg?width=1280",
+    alt: "Circular Babe Didrikson Zaharias Museum and Visitor Center building in Beaumont, photographed in 2007",
+    width: 1280, height: 1066,
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · File:Zaharias museum.jpg (2007)",
+  },
+  "20th-century-technology-museum-wharton": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Wharton_County_Museum_IMG_1054.JPG?width=1600",
+    alt: "Wharton County Historical Museum building, shared with the 20th Century Technology Museum",
+    width: 1600, height: 1200,
+    credit: "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons · File:Wharton County Museum IMG 1054.JPG",
+  },
+
+  "elisabet-ney-museum-austin": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Austin_-_Elisabet_Ney_Museum_-_20201006000619.jpg?width=1600",
+    alt: "Historic limestone Formosa studio and Elisabet Ney Museum in Austin, photographed in October 2020",
+    width: 1600, height: 1067,
+    credit: "MarkJGilmore · CC BY-SA 4.0 · Wikimedia Commons · File:Austin - Elisabet Ney Museum - 20201006000619.jpg",
   },
 
 };
