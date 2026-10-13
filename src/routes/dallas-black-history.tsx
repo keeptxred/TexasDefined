@@ -106,7 +106,7 @@ function DallasBlackHistoryPage() {
               const entry = dallasBlackHistoryResearch.find((row) => row.slug === slug);
               if (!entry) return null;
               return (
-                <a key={slug} href={`/destination/${slug}`} className="block rounded-lg border border-border p-6 hover:bg-muted/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                <a key={slug} href={`/destination/${slug}`} className="block rounded-lg border border-border p-6 hover:text-primary">
                   <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Historic place {i + 1} of 8</p>
                   <h3 className="mt-2 font-display text-2xl">{entry.shortName}</h3>
                   <p className="mt-3 text-sm leading-7 text-muted-foreground">{entry.focus}</p>
