@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router';
+import { RIVER_AUTHORITY_CARD_PHOTOS } from '@/data/river-authority-photo-catalog';
 
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Section, SectionHeader } from '@/components/editorial/SectionHeader';
@@ -8,91 +9,6 @@ import { RIVER_AUTHORITY_RELATIONS } from '@/data/river-authority-relations';
 import type { EnrichedLandscapeRecord } from '@/data/texas-landscape-profile-enrichment';
 
 const TWDB_BASIN_MAP = 'https://www.twdb.texas.gov/mapping/doc/maps/Major_River_Basins_8x11.pdf';
-
-/** Attribution is displayed beside the river card, not nested inside its navigation link. */
-const RIVER_CARD_PHOTOS: Record<string, { src: string; alt: string; photographer: string; license: string; licenseUrl: string; sourceUrl: string } | undefined> =
-{
-  "/article/texas-colorado-river-guide": {
-    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Colorado_River_at_Smithville_Texas_2026.jpg?width=1600",
-    "alt": "Colorado River flowing through Smithville, Texas, in 2026",
-    "photographer": "Larry D. Moore",
-    "license": "CC BY 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Colorado_River_at_Smithville_Texas_2026.jpg"
-  },
-  "/article/texas-canadian-river-guide": {
-    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Canadian_River_in_Canadian_TX_IMG_6056.JPG?width=1600",
-    "alt": "Canadian River near Canadian, Hemphill County, Texas",
-    "photographer": "Billy Hathorn",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Canadian_River_in_Canadian_TX_IMG_6056.JPG"
-  },
-  "/article/texas-san-antonio-river-guide": {
-    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Brackenridge_Park_San_Antonio_River.jpg?width=1600",
-    "alt": "San Antonio River in Brackenridge Park, San Antonio, Texas",
-    "photographer": "Dogfort04",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Brackenridge_Park_San_Antonio_River.jpg"
-  },
-  "/article/texas-lavaca-river-guide": {
-    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Swing_Bridge_Over_Lavaca_River.jpg?width=1600",
-    "alt": "Lavaca River near Lolita, Texas, with a railroad swing bridge",
-    "photographer": "Patrick Feller",
-    "license": "CC BY 2.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Swing_Bridge_Over_Lavaca_River.jpg"
-  },
-  "/article/texas-sabine-river-guide": {
-    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Sabine_River_near_Big_Sandy%2C_TX_IMG_5294.JPG?width=1600",
-    "alt": "Sabine River near Big Sandy, Texas",
-    "photographer": "Billy Hathorn",
-    "license": "CC BY 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sabine_River_near_Big_Sandy,_TX_IMG_5294.JPG"
-  },
-  "/article/texas-san-jacinto-river-guide": {
-    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/West_Fork_San_Jacinto_River.jpg?width=1600",
-    "alt": "West Fork San Jacinto River at McDade Park in Conroe, Texas",
-    "photographer": "Stedil",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:West_Fork_San_Jacinto_River.jpg"
-  },
-  "/article/texas-nueces-river-guide": {
-    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Nueces_River_between_La_Pryor_and_Uvalde%2C_TX_IMG_4256.JPG?width=1600",
-    "alt": "Nueces River between La Pryor and Uvalde, Texas",
-    "photographer": "Billy Hathorn",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nueces_River_between_La_Pryor_and_Uvalde,_TX_IMG_4256.JPG"
-  },
-  "/article/texas-pecos-river-guide": {
-    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Pecos_River.jpg?width=1600",
-    "alt": "Pecos River in the Lower Pecos canyon",
-    "photographer": "Badener / Lutz Fischer-Lamprecht",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pecos_River.jpg"
-  },
-  "/article/texas-comal-river-guide": {
-    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Comal_River_in_Landa_Park.jpg?width=1600",
-    "alt": "Comal River in Landa Park, New Braunfels, Texas",
-    "photographer": "Larry D. Moore",
-    "license": "CC BY 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Comal_River_in_Landa_Park.jpg"
-  },
-  "/article/texas-san-marcos-river-guide": {
-    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/San_Marcos_River_San_Marcos_Texas_2023.jpg?width=1600",
-    "alt": "San Marcos River in San Marcos, Texas",
-    "photographer": "Larry D. Moore",
-    "license": "CC BY 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:San_Marcos_River_San_Marcos_Texas_2023.jpg"
-  }
-};
 
 const featuredRivers = [
   { name: 'Rio Grande', region: 'West Texas & the border', href: '/article/texas-rio-grande-river-guide', image: '/images/explore/lakes-rivers/amistad-national-recreation-area.jpg', description: 'Texas’s great border river crosses desert basins, cuts spectacular canyons and ties mountain runoff, springs, reservoirs and irrigated valleys into one international system.' },
@@ -218,7 +134,7 @@ export function TexasRiverValleysLandscapePage({ item, nearby }: { item: Enriche
     <Section><Container><SectionHeader eyebrow="Read the landscape" title="Six river-valley features worth knowing" description="These plain-language terms explain what you are actually seeing beside a Texas river." /><div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{landforms.map((feature) => <section key={feature.title} className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl">{feature.title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{feature.body}</p></section>)}</div></Container></Section>
 
     <Section tone="surface"><Container><SectionHeader eyebrow="Major systems" title={`${rivers.length} rivers that explain Texas`} description="These rivers are useful reference points because together they cross nearly every major Texas landscape." /><div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">{rivers.map((river) => {
-  const photo = RIVER_CARD_PHOTOS[river.href];
+  const photo = RIVER_AUTHORITY_CARD_PHOTOS[river.href];
   return <div key={river.href} className="overflow-hidden rounded-sm border border-border bg-background">
     <Link to={river.href} className="group block transition-colors hover:text-primary">
       <div className="aspect-[16/9] overflow-hidden bg-surface">
