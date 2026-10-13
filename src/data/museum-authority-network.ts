@@ -1745,9 +1745,9 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "African American Museum Dallas", href: "/destination/african-american-museum-dallas-fair-park", reason: "Another Dallas museum with a different mission." },
     ],
   },
-  "museum-american-railroad-frisco": {
+  "museum-of-the-american-railroad-frisco": {
     name: "Museum of the American Railroad",
-    slug: "museum-american-railroad-frisco",
+    slug: "museum-of-the-american-railroad-frisco",
     county: "Collin",
     city: "Frisco",
     reviewed: "2026-10-13",
