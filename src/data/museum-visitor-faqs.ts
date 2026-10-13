@@ -14,6 +14,89 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "1919-san-augustine-county-jail-museum": [
+    {
+      "question": "Is the restored 1919 San Augustine County Jail open as a museum?",
+      "answer": "Yes. The official local visitor organization describes the restored 1919 jail as a law-enforcement and county-history museum. The former jail itself stopped housing prisoners in 2000. Check the local operator for holiday exceptions.",
+      "verificationUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the 1919 jail museum's hours and admission?",
+      "answer": "Visit San Augustine currently lists Monday through Friday 11 a.m.–3 p.m., with free admission and donations welcomed. It is a locally staffed historical attraction; confirm before a long trip rather than relying on the schedule of nearby Mission Dolores.",
+      "verificationUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can you see the original jail cells?",
+      "answer": "The building includes jail elements reused from the nineteenth-century predecessor as well as later jail cells. The original historic fabric is a primary attraction, but accessibility to each cell or floor is not described fully online; ask the operator what visitors may enter.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/5507018848",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/5507018848",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What makes the jail building historically significant?",
+      "answer": "Constructed in 1919 with reused bars and cell material from the earlier 1882 jail, the jail served the county until 2000. A 1973 stucco coating was removed during the 2016 restoration; the building carries a Recorded Texas Historic Landmark designation.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/5507018848",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/5507018848",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the 1919 jail appropriate for children?",
+      "answer": "The law-enforcement and local-history exhibits can interest school-age children, especially older students studying civic institutions. The setting involves actual imprisonment and jail cells, so families should decide what is appropriate for younger visitors; this is not a children's play museum.",
+      "verificationUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum offer historical research materials or a photo collection?",
+      "answer": "Yes. Local tourism identifies a Texana research library, county records, a rolling photo kiosk with images by Russell Lee and John Vachon, and town history timelines. Arrange detailed document research with staff rather than assuming all holdings are open for self-service.",
+      "verificationUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the former jail wheelchair accessible?",
+      "answer": "The publicly available sources do not clearly specify a lift, accessible second-floor route, or which restored cell interiors are step-free. Contact the locally operated museum before visiting if mobility access is essential; preservation status by itself does not guarantee all historic spaces are accessible.",
+      "verificationUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I visit Mission Dolores on the same ticket or schedule?",
+      "answer": "No. Mission Dolores is a separate Texas Historical Commission historic site at 701 South Broadway with its own admission and operating hours. The jail is normally free and open weekdays; verify both schedules independently before planning to combine them.",
+      "verificationUrl": "https://thc.texas.gov/historic-sites/mission-dolores",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is there a restaurant or café in the 1919 jail museum?",
+      "answer": "The local tourism listing describes museum exhibits and resources but does not advertise an on-site café, cafeteria or table-service restaurant. Plan to eat in town rather than assuming food service inside the preserved jail.",
+      "verificationUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
   "bullock-texas-state-history-museum": [
     {
       "question": "What can I see at the Bullock Texas State History Museum?",
