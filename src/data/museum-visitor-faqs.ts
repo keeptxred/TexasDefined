@@ -4135,6 +4135,154 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "brazos-valley-museum-natural-history-bryan": [
+    {
+      "question": "How much are tickets at the Brazos Valley Museum of Natural History?",
+      "answer": "Its visitor page lists regular adult admission of five dollars, discounted admission for youth, seniors and students, and free entry for children aged three and under with a paying adult. Check categories at the front desk before the visit.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have a dollar admission day?",
+      "answer": "Yes. The museum advertises Dollar Days on the first Tuesday of each month, when regular museum admission is one dollar. Confirm the date and any special exhibition or holiday rules before planning a dedicated drive.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "When is the Brazos Valley Museum open in Bryan?",
+      "answer": "The operator lists Tuesday through Saturday from 10 a.m. to 5 p.m. at 3232 Briarcrest Drive in Bryan. Sunday and Monday are not listed as regular visiting days; programming and holidays may affect the schedule.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Brazos Valley Museum suitable for young children and field trips?",
+      "answer": "Yes. The museum provides school programs, children's nature camps, outreach activities and education materials for younger audiences. Some programs require advance reservations and are not available as unscheduled walk-in activities.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/about-the-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/about-the-museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What should families expect to learn at the Brazos Valley Museum?",
+      "answer": "The institution emphasizes natural and cultural history, including wildlife, science and local heritage. Families should choose the current exhibitions and programs suited to their children's ages rather than assuming every exhibit is hands-on.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/about-the-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/about-the-museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Boonville Heritage Park part of an indoor museum ticket?",
+      "answer": "Boonville Heritage Park is a separate outdoor historic setting that can complement a museum visit. Do not assume its hours, weather conditions, accessibility or any event entrance requirements are identical to indoor museum admission.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have wheelchair or sensory accessibility services?",
+      "answer": "The institution publishes a website accessibility statement, but its webpage does not establish all physical accessibility features. Contact museum visitor services about wheelchair routes, sensory accommodation and specific exhibit access before a trip.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/accessibility",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/accessibility",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Brazos Valley Museum have an on-site cafeteria or restaurant?",
+      "answer": "The museum's public visit and programming descriptions do not establish a full-service public restaurant or permanent cafeteria. Plan food separately in Bryan and ask visitor services about any rules for bringing drinks into galleries.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "czech-heritage-museum-genealogy-center-temple": [
+    {
+      "question": "What hours is the Czech Heritage Museum in Temple open?",
+      "answer": "The institution publishes Thursday, Friday and Saturday hours from 10 a.m. to 4 p.m. Weekday and holiday changes may occur; contact the museum rather than relying on older travel listings for a Monday-to-Wednesday visit.",
+      "verificationUrl": "https://czechheritagemuseum.org/contact-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://czechheritagemuseum.org/contact-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What does admission to the Czech Heritage Museum cost?",
+      "answer": "The museum currently lists four dollars for adults, three dollars for seniors aged sixty or older and two dollars for children twelve and under. Contact it directly about group packages and special events before assuming general ticket rates apply.",
+      "verificationUrl": "https://czechheritagemuseum.org/contact-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://czechheritagemuseum.org/contact-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I visit the Czech Heritage Museum without a tour guide?",
+      "answer": "Yes. The museum explicitly offers a self-guided visit at your own pace as well as booked guided tours. Groups can arrange guided or self-directed visits, with booking policies depending on the group.",
+      "verificationUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is there to see beyond genealogical records?",
+      "answer": "The museum's visitor resources describe displays on Czech history, immigrant life, cultural artifacts and folk traditions. It is a heritage museum as well as a genealogical center, so visitors without family research interests can still enjoy exhibits.",
+      "verificationUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where is the Czech Heritage Museum in Temple?",
+      "answer": "The museum is at 119 West French Avenue in Temple, on the corner opposite a local business referenced in its directions. It supplies a map on its official visit page, which should be consulted rather than relying on unofficial pins.",
+      "verificationUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I trace my family's Czech ancestry on a casual museum visit?",
+      "answer": "The museum has a genealogy mission, but focused family-history research benefits from contacting staff before traveling with surnames, locations and known dates. Do not assume records or specialist assistance are instantly available to walk-ins.",
+      "verificationUrl": "https://czechheritagemuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://czechheritagemuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are Czech Heritage Museum school or group tours available?",
+      "answer": "Yes. The operator offers standard groups and guided group tours for classes, clubs and other organizations, with a reservation process outlined on its plan-your-visit page. Confirm staffing and any extra costs when booking.",
+      "verificationUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Czech Heritage Museum have a cafeteria or restaurant?",
+      "answer": "Its published visiting resources establish exhibits, tour options, admission and directions, but do not confirm an on-site cafeteria or table-service restaurant. Plan eating in Temple separately and ask about visitor food restrictions.",
+      "verificationUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
