@@ -87,3 +87,8 @@ The museum's July 2026 air-conditioning closure was followed by an official July
 ## National Museum of Funeral History (Houston) — October 13, 2026
 
 - Existing canonical destination hero is the **real museum building**, [Wikimedia Commons: File:National Museum of Funeral History.jpg](https://commons.wikimedia.org/wiki/File:National_Museum_of_Funeral_History.jpg), photographed **October 22, 2017**, by **Jim Evans**, with license **CC BY-SA 4.0**. The existing source data credits the author and license; preserve exact-museum attribution and avoid replacing it with stock funeral vehicles. The museum's 2026 galleries and current exhibits cannot be inferred from the 2017 exterior photo.
+
+## Texas Transportation Museum exact-location photo — October 13, 2026
+
+- **1911 Baldwin 2-8-0 Steam at Texas Transportation museum.jpg**, photographer TParis, Wikimedia Commons, **Creative Commons Attribution-ShareAlike 3.0**. The photograph was made in 2012 and represents preserved railway equipment rather than proof of current operating steam rides. [Original and license details](https://commons.wikimedia.org/wiki/File:1911_Baldwin_2-8-0_Steam_at_Texas_Transportation_museum.jpg).
+- The Waco Texas Ranger Hall of Fame and Museum keeps its existing exact-location **Ranger museum entry.jpg** photograph and its current Larry D. Moore attribution; it is not replaced with a stock image.
