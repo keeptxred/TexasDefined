@@ -1,7 +1,17 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
-import bigBend from "@/assets/big-bend.jpg";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
+
 import { Container } from "@/components/layout/Container";
+import { SpecialistGuideDestinationLinks } from "@/components/editorial/SpecialistGuideDestinationLinks";
+import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
+
+const governedGuideHero = {
+  src: editorialImageSrc("https://commons.wikimedia.org/wiki/Special:Redirect/file/Trail%20Hill%20Country%20SNA%20Texas%202023.jpg?width=1600"),
+  width: 1600,
+  height: 900,
+  credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+};
 
 const officialSources = [
   { label: "Texas Parks & Wildlife — Horseback Riding in State Parks", href: "https://tpwd.texas.gov/state-parks/parks/things-to-do/equestrian", note: "Statewide equestrian access, facilities and documentation guidance, including the current negative-Coggins requirement." },
@@ -93,8 +103,8 @@ function TexasHorsebackRidingGuidePage() {
           </header>
 
           <figure className="border-b border-border py-8">
-            <img src={bigBend} alt="Rugged West Texas public-land landscape associated with horseback riding trips" className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
-            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">Texas public-land riding ranges from remote Chihuahuan Desert backcountry to shared Hill Country trails and compact primitive areas; current land-manager rules should control every trip plan.</figcaption>
+            <img src={governedGuideHero.src} alt="Multiuse trail climbing toward West Peak Overlook at Hill Country State Natural Area in Bandera County, Texas" width={governedGuideHero.width} height={governedGuideHero.height} className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
+            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">A designated multiuse hiking, biking and horseback-riding trail at Hill Country State Natural Area, photographed in October 2023. This is not an image of a horseback ride in progress or current trail conditions. Photo: {governedGuideHero.credit}. <a href="https://commons.wikimedia.org/wiki/File:Trail_Hill_Country_SNA_Texas_2023.jpg" target="_blank" rel="noopener noreferrer" className="text-primary underline">Original photograph</a>{" · "}<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="text-primary underline">Reuse license</a>{" · "}<Link to="/destination/hill-country-state-natural-area" className="text-primary underline">Hill Country State Natural Area guide →</Link></figcaption>
           </figure>
 
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
@@ -102,6 +112,13 @@ function TexasHorsebackRidingGuidePage() {
             <h2 id="quick-answer" className="mt-2 font-display text-3xl">Start with the paperwork, then choose the landscape</h2>
             <p className="mt-4 max-w-4xl text-base leading-8">Texas Parks &amp; Wildlife requires proof of a negative Equine Infectious Anemia test within the previous 12 months for each horse entering a state park or natural area. After that statewide requirement, local rules diverge: Big Bend Ranch requires backcountry permits; Hill Country State Natural Area is heavily shared-use; Palo Duro has dedicated riding acreage; Caprock combines canyon trails with a long trailway; and Dinosaur Valley uses a small primitive riding area. Verify the current park page before every trip.</p>
           </section>
+
+          <GuideVerifiedFacts guideSlug="texas-horseback-riding-guide" />
+
+          <aside className="border-b border-border py-8" aria-label="Hill Country equestrian area conditions">
+            <h2 className="font-display text-2xl">Hill Country State Natural Area: current trail status and horse facilities</h2>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">TPWD's October 5, 2026 park notice says all Hill Country State Natural Area trails reopened; they may close again after precipitation. For a horse trip, the day-use area near headquarters has a water trough, hitching posts and a flush toilet. Equestrian camping is available, but there is no horse-washing station. The arena requires advance reservation; riders must carry current Coggins documentation. Call (830) 796-4413 about trail conditions and check the <a href="https://tpwd.texas.gov/state-parks/hill-country" target="_blank" rel="noopener noreferrer" className="text-primary underline">official park alerts and equestrian details</a> before hauling. These are dated conditions, not a promise of ongoing trail access.</p>
+          </aside>
 
           <section className="border-b border-border py-10" aria-labelledby="trip-conditions">
             <p className="eyebrow text-primary">Before you haul</p>
@@ -148,6 +165,8 @@ function TexasHorsebackRidingGuidePage() {
               ))}
             </nav>
           </section>
+
+          <SpecialistGuideDestinationLinks guideHref="/texas-horseback-riding-guide" />
 
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>

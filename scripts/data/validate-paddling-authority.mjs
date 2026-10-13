@@ -31,7 +31,7 @@ for (const marker of [
   'Check the route, weather and exit plan before launching',
   'Confirm the legal put-in and takeout, shuttle plan',
   'thunderstorms, flood flows, strong wind, tides, water quality, heat, poor visibility or access conditions',
-  'more than 100 certified paddling trails',
+  'lists 100 certified paddling trails (October 2026)',
   'Lady Bird Lake Paddling Trail',
   'Buffalo Bayou Paddling Trail',
   'Bosque Bluffs & Brazos Bridges Paddling Trails',

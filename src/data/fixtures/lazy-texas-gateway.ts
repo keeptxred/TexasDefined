@@ -131,6 +131,8 @@ function loadAllTexasGatewayArticles(): Promise<Article[]> {
     import("./texas-gateway-occasion-batch14").then((module) => module.texasGatewayOccasionBatch14Articles),
     import("./texas-gateway-monthly-batch15").then((module) => module.texasGatewayMonthlyBatch15Articles),
     import("./texas-gateway-identity-batch16").then((module) => module.texasGatewayIdentityBatch16Articles),
+    import("./texas-high-intent-guides-a").then((module) => module.texasHighIntentGuidesA),
+    import("./texas-high-intent-guides-b").then((module) => module.texasHighIntentGuidesB),
   ]).then((batches) => batches.flat().map(normalizeGatewayArticle));
 
   return allGatewayArticlesPromise;

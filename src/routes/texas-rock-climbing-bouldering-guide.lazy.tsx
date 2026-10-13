@@ -1,7 +1,17 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
-import enchantedRock from "@/assets/enchanted-rock.jpg";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
+
 import { Container } from "@/components/layout/Container";
+import { SpecialistGuideDestinationLinks } from "@/components/editorial/SpecialistGuideDestinationLinks";
+import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
+
+const governedGuideHero = {
+  src: editorialImageSrc("https://commons.wikimedia.org/wiki/Special:Redirect/file/GeologicalExfoliationOfGraniteRock.jpg?width=1600"),
+  width: 1600,
+  height: 1063,
+  credit: "Wing-Chi Poon · CC BY-SA 2.5 · Wikimedia Commons",
+};
 
 const officialSources = [
   { label: "Texas Parks & Wildlife — Hueco Tanks State Park & Historic Site", href: "https://tpwd.texas.gov/state-parks/hueco-tanks", note: "Current park access, reservation, orientation, guided/self-guided area and climbing-tour information." },
@@ -35,7 +45,7 @@ const areas = [
     summary: "Sandstone climbing at Penitentiary Hollow with formal registration requirements at park headquarters.",
     details: [
       "Lake Mineral Wells gives North Texas a public natural-rock option at Penitentiary Hollow. TPWD identifies the area as one of the relatively few natural climbing venues in North Texas and publishes a route map for the rock formations.",
-      "Registration is not optional: TPWD says individuals and groups must register at park headquarters before rock climbing or rappelling. Commercial and instructional group use has additional restrictions, including approved guide-service requirements. Those rules are a good example of why a statewide climbing guide should teach visitors where to verify access rather than assuming every Texas climbing area operates the same way.",
+      "Registration is required at park headquarters before every climbing or rappelling visit, with a signed liability release. TPWD prohibits free climbing, soloing and bouldering at Penitentiary Hollow; climbers must use the authorized area and follow park rules. The climbing area closes at sundown and during wet conditions, and approved guides are required for led groups. Do not assume that permission to boulder at another Texas park applies here. Confirm current restrictions and capacity before departure.",
     ],
   },
   {
@@ -82,8 +92,8 @@ function TexasClimbingGuidePage() {
           </header>
 
           <figure className="border-b border-border py-8">
-            <img src={enchantedRock} alt="Granite dome landscape at Enchanted Rock in the Texas Hill Country" className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
-            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">Enchanted Rock is one of several Texas public landscapes where climbing access is managed alongside conservation and other visitor uses.</figcaption>
+            <img src={governedGuideHero.src} alt="Close view of exfoliating granite dome rock surfaces at Enchanted Rock State Natural Area, Texas" width={governedGuideHero.width} height={governedGuideHero.height} className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
+            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">Granite exfoliation at Enchanted Rock, photographed in 2005. This illustrates the climbing landscape, not a specific approved route or current climbing conditions. Photo: {governedGuideHero.credit}. <a href="https://commons.wikimedia.org/wiki/File:GeologicalExfoliationOfGraniteRock.jpg" target="_blank" rel="noopener noreferrer" className="text-primary underline">Original photograph</a>{" · "}<a href="https://creativecommons.org/licenses/by-sa/2.5/" target="_blank" rel="noopener noreferrer" className="text-primary underline">Reuse license</a>{" · "}<Link to="/destination/enchanted-rock-state-natural-area" className="text-primary underline">Enchanted Rock visitor guide →</Link></figcaption>
           </figure>
 
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
@@ -91,6 +101,8 @@ function TexasClimbingGuidePage() {
             <h2 id="quick-answer" className="mt-2 font-display text-3xl">Texas climbing is a patchwork, not one rulebook</h2>
             <p className="mt-4 max-w-4xl text-base leading-8">For a public-land climbing trip, start with Hueco Tanks, Enchanted Rock, Lake Mineral Wells and Milton Reimers Ranch. The important distinction is access: Hueco Tanks uses tightly managed guided and self-guided areas; Enchanted Rock requires climber check-in and follows a climbing-management plan; Lake Mineral Wells requires registration before climbing or rappelling; and Reimers Ranch is managed by Travis County rather than TPWD. Always use the managing agency's current instructions for reservations, closures, maps and climbing rules.</p>
           </section>
+
+          <GuideVerifiedFacts guideSlug="texas-rock-climbing-bouldering-guide" />
 
           <section className="border-b border-border py-10" aria-labelledby="before-climbing">
             <p className="eyebrow text-primary">Before you climb</p>
@@ -137,6 +149,8 @@ function TexasClimbingGuidePage() {
               ))}
             </nav>
           </section>
+
+          <SpecialistGuideDestinationLinks guideHref="/texas-rock-climbing-bouldering-guide" />
 
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>

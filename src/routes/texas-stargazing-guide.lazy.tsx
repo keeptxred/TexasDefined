@@ -1,6 +1,9 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { SpecialistGuideDestinationLinks } from "@/components/editorial/SpecialistGuideDestinationLinks";
+import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
+import { stateParkHeroMap } from "@/data/state-park-hero-map";
 
 const officialSources = [
   { label: "Texas Parks & Wildlife — Stargazing in State Parks", href: "https://tpwd.texas.gov/state-parks/parks/things-to-do/stargazing-in-state-parks", note: "Statewide International Dark Sky Park list, very-dark-sky parks, observatory links and stargazing planning resources." },
@@ -91,11 +94,24 @@ function TexasStargazingGuidePage() {
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to Texas's five International Dark Sky Parks, with the moon, weather, Bortle rating, park-hours and access questions to resolve before making a night-sky trip.</p>
           </header>
 
+          <figure className="my-8 border-b border-border pb-8">
+            <img src={stateParkHeroMap["copper-breaks-state-park"].src} alt={stateParkHeroMap["copper-breaks-state-park"].alt} width={stateParkHeroMap["copper-breaks-state-park"].width} height={stateParkHeroMap["copper-breaks-state-park"].height} loading="lazy" decoding="async" className="h-auto w-full object-cover" />
+            <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">Copper Breaks State Park, one of the named dark-sky destinations. This daylight park photograph does not depict actual nighttime sky brightness. Photo: {stateParkHeroMap["copper-breaks-state-park"].credit}. <Link to="/destination/copper-breaks-state-park" className="text-primary underline">Detailed Copper Breaks State Park visitor guide →</Link></figcaption>
+          </figure>
+
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
             <p className="eyebrow text-primary">Quick answer</p>
             <h2 id="quick-answer" className="mt-2 font-display text-3xl">A Dark Sky designation is the starting point, not the forecast</h2>
             <p className="mt-4 max-w-4xl text-base leading-8">TPWD currently lists Big Bend Ranch, Caprock Canyons, Copper Breaks, Enchanted Rock and South Llano River as International Dark Sky Parks. For the actual night, check moonrise and moonset, cloud cover, transparency, weather, park alerts, operating hours and any after-hours access rules. Lower Bortle numbers indicate darker skies, but even a Bortle Class 1 site can be disappointing under a bright moon or overcast sky.</p>
           </section>
+
+          <GuideVerifiedFacts guideSlug="texas-stargazing-guide" />
+
+          <aside className="border-b border-border py-8" aria-label="Night-sky site specific access">
+            <h2 className="font-display text-2xl">Two park-specific details that change the plan</h2>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>South Llano River:</strong> TPWD says visitors who want to continue stargazing beyond 10 p.m. need to add the night-activity fee when paying entry. That is not the same as unrestricted overnight park access. Confirm the <a href="https://tpwd.texas.gov/state-parks/south-llano-river/dark-skies" target="_blank" rel="noopener noreferrer" className="text-primary underline">night-activity requirements</a> and parking instructions before travel.</p>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>Big Bend Ranch:</strong> The park identifies River Road, West Contrabando Trailhead, Big Hill and the Hoodoos as stargazing locations accessible by ordinary vehicles. That does not eliminate the need for safe driving, current park access checks or weather planning. Use the <a href="https://tpwd.texas.gov/state-parks/big-bend-ranch/dark-skies/" target="_blank" rel="noopener noreferrer" className="text-primary underline">official dark-sky guide</a> to select a site before heading into remote terrain.</p>
+          </aside>
 
           <section className="border-b border-border py-10" aria-labelledby="stewardship">
             <p className="eyebrow text-primary">Night-sky stewardship</p>
@@ -133,6 +149,8 @@ function TexasStargazingGuidePage() {
               ))}
             </nav>
           </section>
+
+          <SpecialistGuideDestinationLinks guideHref="/texas-stargazing-guide" />
 
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>

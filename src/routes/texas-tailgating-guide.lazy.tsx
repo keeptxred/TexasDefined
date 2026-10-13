@@ -1,6 +1,7 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 
 export const Route = createLazyFileRoute("/texas-tailgating-guide")({ component: TexasTailgatingGuide });
 
@@ -19,6 +20,18 @@ function TexasTailgatingGuide() {
       <p className="eyebrow mt-10 text-primary">Texas sports · game day · tailgating</p>
       <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Tailgating in Texas starts with the rules for that exact place</h1>
       <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Texas tailgating is not one statewide rulebook. A Saturday in Aggieland, a Longhorn game in Austin, a Texas Tech weekend in Lubbock and an NFL Sunday in Arlington can differ on parking access, lot opening times, reserved areas, tents, cooking, alcohol, RVs and when setups must come down. Use Texas Defined for the trip structure, then use the team or venue as the final authority for operating rules.</p>
+      <figure className="mt-8 border-t border-border pt-6">
+        <img
+          src={editorialImageSrc("https://commons.wikimedia.org/wiki/Special:Redirect/file/13399-Homecoming%20Tailgate%20and%20Game%207965%20%2810872554616%29.jpg?width=1600")}
+          alt="Archival 2013 homecoming game and tailgate scene from Texas A&M University-Commerce"
+          width={1600} height={900} loading="lazy" decoding="async" className="h-auto w-full object-cover"
+        />
+        <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">
+          Archival scene from the 2013 Texas A&amp;M–Commerce football homecoming and tailgate. This photo does not represent current tailgating access or policies. Texas A&amp;M University–Commerce Marketing Communications Photography · CC BY 2.0.
+          {" "}<a href="https://commons.wikimedia.org/wiki/File:13399-Homecoming_Tailgate_and_Game_7965_(10872554616).jpg" target="_blank" rel="noopener noreferrer" className="text-primary underline">Original image record ↗</a>
+          {" · "}<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer" className="text-primary underline">License ↗</a>
+        </figcaption>
+      </figure>
     </Container></section>
 
     <section className="border-b border-border bg-background"><Container className="py-12 sm:py-16"><div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:gap-14">

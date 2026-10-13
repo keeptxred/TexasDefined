@@ -1,9 +1,20 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
-import bigBend from "@/assets/big-bend.jpg";
+import { stateParkHeroMap } from "@/data/state-park-hero-map";
+
 import { Container } from "@/components/layout/Container";
+import { SpecialistGuideDestinationLinks } from "@/components/editorial/SpecialistGuideDestinationLinks";
+import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
+
+const governedGuideHero = stateParkHeroMap["eisenhower-state-park"];
 
 const officialSources = [
+  {
+    label: "Texas Parks & Wildlife — Eisenhower State Park current trail closure",
+    href: "https://tpwd.texas.gov/state-parks/eisenhower",
+    note: "The park currently reports OHV trails CLOSED as of September 30, 2026; hiking and biking trails remain open. A live park alert overrides general descriptions of the OHV trail system.",
+  },
+
   {
     label: "Texas Parks & Wildlife — Texas Off-Highway Vehicle Program",
     href: "https://tpwd.texas.gov/state-parks/texas-off-highway-program",
@@ -43,6 +54,7 @@ const ohvAreas = [
     summary: "A rare Texas state-park OHV exception with a small designated trail system and tightly defined access rules.",
     details: [
       "Eisenhower is useful precisely because it shows that state-park access is not a blanket permission. TPWD operates about 2.5 miles of designated OHV trails here for ATVs and dirt bikes, while its statewide specialty-vehicle guidance says OHVs generally are not allowed in state parks outside specific exceptions.",
+      "Current alert checked October 12, 2026: Eisenhower State Park's official operator page reports that its OHV trails have been CLOSED since September 30, 2026, even though hiking/biking trails are OPEN. Do not travel to Eisenhower expecting to ride the Ironweed system unless TPWD announces reopening. Check the current park alert immediately before departure.",
       "The park requires an OHV permit before entering the trail system and lists current OHV decal, safety certification, helmet and eye-protection requirements. Vehicle width and daily trail capacity also matter, and rain can close the system. Treat Eisenhower's own OHV page and posted conditions as the authority for whether a planned visit is actually legal and open that day.",
     ],
   },
@@ -117,8 +129,8 @@ function TexasOhvGuidePage() {
           </header>
 
           <figure className="border-b border-border py-8">
-            <img src={bigBend} alt="Rugged Texas public-land landscape used as general outdoor travel context" className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
-            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">This image provides general Texas outdoor context and does not depict a specific legal OHV trail. Use current land-manager maps—not landscape appearance—to determine where motorized recreation is allowed.</figcaption>
+            <img src={governedGuideHero.src} alt="Eisenhower State Park overlooking Lake Texoma in North Texas" width={governedGuideHero.width} height={governedGuideHero.height} className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
+            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">Eisenhower State Park in North Texas has specifically managed OHV access; this is a park-landscape photograph, not a depiction of an authorized OHV trail. Riding is allowed only on designated routes under current park rules. Photo: {governedGuideHero.credit}. <a href="https://commons.wikimedia.org/wiki/File:Eisenhower_State_Park_(Texas).jpg" target="_blank" rel="noopener noreferrer" className="text-primary underline">Original photo</a>{" · "}<a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener noreferrer" className="text-primary underline">Reuse license</a>{" · "}<Link to="/destination/eisenhower-state-park" className="text-primary underline">Eisenhower State Park visitor guide →</Link></figcaption>
           </figure>
 
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
@@ -129,6 +141,12 @@ function TexasOhvGuidePage() {
               <p>Texas law also requires a current OHV decal at applicable legal venues on public lands or venues that receive Texas OHV Program grant funding. Decal requirements do not create access where riding is otherwise prohibited; they are one part of legal use at an eligible venue.</p>
             </div>
           </section>
+
+          <GuideVerifiedFacts guideSlug="texas-ohv-guide" />
+
+          <aside className="border-b border-border py-6" aria-label="Current Eisenhower OHV closure">
+            <p className="text-sm leading-7"><strong>Eisenhower OHV closure (verified October 12, 2026):</strong> TPWD reports the park's motorized OHV trails CLOSED since September 30, 2026. Hiking and biking trails are open, but that does not allow OHVs on them. Check the <a href="https://tpwd.texas.gov/state-parks/eisenhower" target="_blank" rel="noopener noreferrer" className="text-primary underline">official park alerts</a> for a reopening update before planning a riding trip.</p>
+          </aside>
 
           <section className="border-b border-border py-10" aria-labelledby="state-parks">
             <p className="eyebrow text-primary">A common mistake</p>
@@ -175,6 +193,8 @@ function TexasOhvGuidePage() {
               ))}
             </nav>
           </section>
+
+          <SpecialistGuideDestinationLinks guideHref="/texas-ohv-guide" />
 
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>

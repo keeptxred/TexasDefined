@@ -3,6 +3,8 @@ import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import type { TexasHomeNaturePublicGuide } from "@/data/texas-home-nature-public";
 import { TEXAS_WILDLIFE_SPECIES } from "@/data/knowledge-graph/wildlife-species";
+import { texasHomeNatureGuideVisuals } from "@/data/guide-visual-registry";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 
 const HOME_NATURE_GUIDES = [
   { href: "/texas-pool-guide", label: "Texas pool guide" },
@@ -28,6 +30,7 @@ const BIRD_SPECIES_CONTEXT = [
 export function TexasHomeNatureGuide({ data }: { data: TexasHomeNaturePublicGuide }) {
   const { guide, sources, reviewedAt } = data;
   const isBirdGuide = guide.slug === "texas-birds-guide";
+  const visual = texasHomeNatureGuideVisuals[guide.slug];
   return (
     <main className="pb-20">
       <Container className="pt-8">
@@ -56,6 +59,15 @@ export function TexasHomeNatureGuide({ data }: { data: TexasHomeNaturePublicGuid
           <h1 className="mt-3 font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">{guide.title}</h1>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">{guide.dek}</p>
           <p className="mt-4 text-sm text-muted-foreground">Editorial guidance reviewed {reviewedAt}.</p>
+
+          {visual ? <figure className="mt-10 border-y border-border py-6">
+            <img src={editorialImageSrc(visual.image.src)} alt={visual.image.alt} width={visual.image.width} height={visual.image.height} loading="eager" decoding="async" className="h-auto w-full object-contain" />
+            <figcaption className="mt-4 text-sm leading-6 text-muted-foreground">
+              {visual.caption}{" "}{visual.image.credit}{" · "}
+              <a href={visual.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">Original photo record ↗</a>{" · "}
+              <a href={visual.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">Reuse license ↗</a>
+            </figcaption>
+          </figure> : null}
 
           <section className="mt-10 rounded-2xl border bg-card p-6 sm:p-8" aria-labelledby="quick-answer">
             <h2 id="quick-answer" className="font-display text-2xl">Quick answer</h2>

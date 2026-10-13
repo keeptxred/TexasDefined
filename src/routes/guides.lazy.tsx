@@ -7,6 +7,7 @@ import { GuideCard } from "@/components/editorial/GuideCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { guidesQuery } from "@/data/queries";
+import { existingSpecialistGuides } from "@/data/existing-specialist-guides";
 import { absoluteUrl } from "@/lib/seo";
 
 import { description, texasExplainedGuide, travelIntro } from "./guides";
@@ -36,7 +37,8 @@ const travelGuides = [
   { to: "/sports-venues", label: "Texas Sports Venue Guide", body: "Browse stadiums, arenas, ballparks, racetracks, college venues and other sports destinations by market and sport.", note: "Verified venue guides for planning game days and sports weekends." },
 ] as const;
 
-const allFeaturedGuides = [...travelGuides, ...practicalGuides];
+const standaloneSpecialistGuides = existingSpecialistGuides.filter((guide) => ![...travelGuides, ...practicalGuides].some((listed) => listed.to === guide.to));
+const allFeaturedGuides = [...travelGuides, ...practicalGuides, ...standaloneSpecialistGuides];
 const guideAnchor = (index: number) => `guide-${index + 1}`;
 const guidesUrl = absoluteUrl(texasDefinedBrand, "/guides");
 const guidesStructuredData = {
@@ -74,6 +76,19 @@ function GuidesPage() {
     <DepartmentHero current="Guides" eyebrow="The Texas Guidebook" title="Travel well. Live well. Know Texas better." description={description} />
     <Section tone="surface"><Container><SectionHeader eyebrow="Travel guides" title="Where to go and how to make the most of it" description={travelIntro} /><ul className="mt-10 divide-y divide-border border-y border-border md:grid md:grid-cols-2 md:divide-y-0 lg:grid-cols-4">{travelGuides.map((guide, index) => <li key={`${guide.label}-${guide.to}`} id={guideAnchor(index)} className="border-border py-6 md:border-b md:p-6 lg:border-r lg:last:border-r-0"><Link to={guide.to} className="group block h-full"><p className="eyebrow text-muted-foreground">Guide {String(index + 1).padStart(2, "0")}</p><h2 className="mt-3 font-display text-2xl leading-tight group-hover:text-primary">{guide.label}</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.body}</p><p className="mt-4 text-xs leading-5 text-muted-foreground">{guide.note}</p><span className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary">Read the guide</span></Link></li>)}</ul></Container></Section>
     <Section><Container><SectionHeader eyebrow="Living here" title="Practical guides for making Texas home" /><ul className="mt-10 grid gap-x-8 gap-y-0 md:grid-cols-2 lg:grid-cols-4">{practicalGuides.map((guide, index) => <li key={guide.to} id={guideAnchor(travelGuides.length + index)} className="border-t border-border py-6"><Link to={guide.to} className="group block"><h2 className="font-display text-2xl leading-tight group-hover:text-primary">{guide.label}</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.body}</p><span className="eyebrow mt-5 inline-block text-primary">{guide.action} →</span></Link></li>)}</ul></Container></Section>
+    <Section tone="surface"><Container>
+      <SectionHeader eyebrow="Specialist guides" title="Deeper Texas reference and field guides" description="These dedicated guides cover particular outdoor activities, species, weather, Texas food, homeowner decisions and rules. Choose the subject that fits your actual question." />
+      <ul className="mt-10 grid gap-x-8 md:grid-cols-2 lg:grid-cols-3">
+        {standaloneSpecialistGuides.map((guide, index) => <li key={guide.to} id={guideAnchor(travelGuides.length + practicalGuides.length + index)} className="border-t border-border py-6">
+          <Link to={guide.to} className="block">
+            <p className="eyebrow text-primary">{guide.topic}</p>
+            <h2 className="mt-3 font-display text-2xl">{guide.label}</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.body}</p>
+            <span className="mt-4 inline-block text-sm font-semibold text-primary">Open the guide →</span>
+          </Link>
+        </li>)}
+      </ul>
+    </Container></Section>
     {topics.map((topic, index) => {
       const topicCopy = TOPIC_LABELS[topic] ?? { eyebrow: editorialLabel(topic), title: `Explore ${editorialLabel(topic)}` };
       return <Section key={topic} tone={index % 2 === 0 ? "surface" : "default"}><Container><SectionHeader eyebrow={topicCopy.eyebrow} title={topicCopy.title} /><ul className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">{guides.filter((guide) => guide.topic === topic).map((guide) => <li key={guide.id}><GuideCard guide={guide} /></li>)}</ul></Container></Section>;

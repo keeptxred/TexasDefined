@@ -2,9 +2,6 @@ import { Link } from "@tanstack/react-router";
 
 import { hideFailedImageContainer } from "@/lib/image-fallback";
 
-import bbqBrisket from "@/assets/bbq-brisket.jpg";
-import bigBend from "@/assets/big-bend.jpg";
-import kolacheKlobasnek from "@/assets/kolache-klobasnek-hero-photo.jpg";
 import { Container } from "@/components/layout/Container";
 import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPartners";
 import type { TexasEvergreenGuide as TexasEvergreenGuideData } from "@/data/texas-evergreen-guides";
@@ -48,9 +45,18 @@ type GuideImage = {
   caption: string;
   credit?: string;
   sourceHref?: string;
+  licenseHref?: string;
 };
 
 const guideImages: Partial<Record<string, GuideImage>> = {
+  "texas-blue-norther-weather-guide": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Snow%20covering%20the%20hill%20leading%20to%20the%20Texas%20Capitol.jpg?width=1600",
+    alt: "Snow blankets the hill leading to the Texas State Capitol as residents walk through Austin's February 2021 freeze",
+    caption: "Austin, February 15, 2021. This photograph documents an exceptional Texas winter cold event; it is illustrative and does not label that particular storm a meteorological Blue Norther.",
+    credit: "Jno.skinner · CC BY-SA 4.0 · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:Snow_covering_the_hill_leading_to_the_Texas_Capitol.jpg",
+    licenseHref: "https://creativecommons.org/licenses/by-sa/4.0/",
+  },
   "texas-homecoming-mums": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goldthwaite_High_School_Homecoming_Mum.jpg?width=1200",
     alt: "Goldthwaite High School homecoming mum with ribbons, charms and school colors",
@@ -59,9 +65,12 @@ const guideImages: Partial<Record<string, GuideImage>> = {
     sourceHref: "https://commons.wikimedia.org/wiki/File:Goldthwaite_High_School_Homecoming_Mum.jpg",
   },
   "texas-food-trail": {
-    src: bbqBrisket,
-    alt: "Sliced Texas barbecue brisket showing dark bark and a smoke ring",
-    caption: "Barbecue is one chapter of the Texas food story, not the whole story.",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/A%20plate%20of%20barbecued%20meats%2C%20including%20beef%20brisket%2C%20pork%20ribs%2C%20spicy%20pepper%20jack%20sausage%20and%20pulled%20pork%20at%20Truth%20BBQ%20in%20Houston%2C%20TX%20in%20July%202026.jpg?width=1600",
+    alt: "Photograph of a plate of sliced beef brisket, pork ribs, sausage and pulled pork served at Truth BBQ in Houston, Texas, July 2026",
+    caption: "Houston barbecue photographed in July 2026. Barbecue is one part of the broader Texas food story; the guide also covers other regional cuisines.",
+    credit: "Gatorfan252525 · CC BY-SA 4.0 · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:A_plate_of_barbecued_meats%2C_including_beef_brisket%2C_pork_ribs%2C_spicy_pepper_jack_sausage_and_pulled_pork_at_Truth_BBQ_in_Houston%2C_TX_in_July_2026.jpg",
+    licenseHref: "https://creativecommons.org/licenses/by-sa/4.0/",
   },
   "texas-chili-con-carne-history": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Pot_of_Chili_Con_Carne.jpg?width=1600",
@@ -99,14 +108,20 @@ const guideImages: Partial<Record<string, GuideImage>> = {
     sourceHref: "https://commons.wikimedia.org/wiki/File:Puffy_taco.jpg",
   },
   "texas-natural-wonders-bucket-list": {
-    src: bigBend,
-    alt: "Big Bend landscape with desert terrain and distant mountains",
-    caption: "Big Bend is one anchor in a natural-wonders list that stretches from desert mountains to cypress swamps and barrier islands.",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Gfp-texas-big-bend-national-park-mountain-landscape.jpg?width=1600",
+    alt: "Photograph of mountains and desert terrain in the Chisos Basin, Big Bend National Park, Texas",
+    caption: "A photograph of the Chisos Basin in Big Bend National Park. Big Bend is one of many landscapes in this Texas natural-wonders guide.",
+    credit: "Yinan Chen · public-domain dedication · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:Gfp-texas-big-bend-national-park-mountain-landscape.jpg",
+    licenseHref: "https://commons.wikimedia.org/wiki/Commons:Public_domain",
   },
   "german-czech-texas-towns": {
-    src: kolacheKlobasnek,
-    alt: "Texas Czech-style kolache and klobasnek pastries",
-    caption: "Food is one of the most visible surviving links to Czech and German settlement, but the heritage also lives in churches, halls, festivals and town landscapes.",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas%20kolache%20sausage%20cheese%20jalapeno.jpg?width=1600",
+    alt: "Sliced jalapeño, cheese and sausage klobasnek photographed at an Austin Texas bakery",
+    caption: "A 2023 Austin-made klobasnek, often called a Texas kolache. Traditional fruit- or cheese-filled Czech koláče and Texas sausage pastries have distinct histories.",
+    credit: "Steveprutz · CC BY-SA 4.0 · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:Texas_kolache_sausage_cheese_jalapeno.jpg",
+    licenseHref: "https://creativecommons.org/licenses/by-sa/4.0/",
   },
   "dr-pepper-texas-history": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Cupola_Dr_Pepper_Museum_Waco_Texas_2024.jpg?width=1600",
@@ -352,6 +367,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">
             {image.caption}
             {image.credit ? <>{" "}{image.sourceHref ? <a href={image.sourceHref} target="_blank" rel="noreferrer noopener" className="underline decoration-border underline-offset-2">{image.credit}</a> : image.credit}</> : null}
+            {image.licenseHref ? <>{" · "}<a href={image.licenseHref} target="_blank" rel="noreferrer noopener" className="underline decoration-border underline-offset-2">Reuse license</a></> : null}
           </figcaption>
         </figure> : null}
 

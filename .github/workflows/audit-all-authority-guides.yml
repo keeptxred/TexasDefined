@@ -1,0 +1,93 @@
+name: Audit every TexasDefined guide
+
+on:
+  schedule:
+    - cron: "23 13 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: texasdefined-all-guide-authority
+  cancel-in-progress: true
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Inventory every registered and generated guide family
+        run: |
+          mkdir -p artifacts
+          node scripts/data/audit-all-authority-guides.mjs --output=artifacts/all-guide-authority-audit.json --fail-on-untracked
+
+      - name: Upload authority audit with unresolved cases
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-guide-authority-${{ github.run_id }}
+          path: artifacts/all-guide-authority-audit.json
+          if-no-files-found: warn
+          retention-days: 90
+
+      - name: Summarize outstanding guide authority work
+        if: always()
+        run: |
+          node -e '
+          const fs = require("fs");
+          if (!fs.existsSync("artifacts/all-guide-authority-audit.json")) process.exit(1);
+          const { summary, rows } = JSON.parse(fs.readFileSync("artifacts/all-guide-authority-audit.json"));
+          const due = rows.filter(x => x.gaps && x.gaps.length);
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,
+            "## Full guide authority audit\n\n" +
+            "- Standalone guide routes: " + summary.standaloneRoutes + "\n" +
+            "- Source-level article guide candidates: " + summary.fixtureGuideCandidates + "\n" +
+            "- Painted Churches search guide records: " + summary.paintedChurchSearchGuideRecords + "\n" +
+            "- Dynamic guide families: " + summary.dynamicGuideFamilies + "\n" +
+            "- Cases requiring editorial and/or data review: " + due.length + "\n\n" +
+            "**These findings are not certified live-guide counts; Supabase-driven content requires independent catalog inspection.**\n\n" +
+            "Never mark facts verified from source reachability alone.\n");
+          '
+
+      - name: Open or refresh sitewide authority remediation issue
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+            const title = "TexasDefined: complete all-guide authority remediation";
+            let body = "The full-library authority scan did not produce a report. Investigate the workflow; do not mark guide certification complete.";
+            if (fs.existsSync("artifacts/all-guide-authority-audit.json")) {
+              const data = JSON.parse(fs.readFileSync("artifacts/all-guide-authority-audit.json", "utf8"));
+              const gaps = data.rows.filter((r) => r.gaps?.length);
+              body = [
+                "This is the remediation ledger for every existing and newly created guide.",
+                "",
+                "Do not mistake this inventory for publication approval or verified research.",
+                "",
+                "Source-level findings: " + gaps.length + " outstanding records",
+                "Standalone route guides: " + data.summary.standaloneRoutes,
+                "Fixture article guide candidates: " + data.summary.fixtureGuideCandidates,
+                "Painted Church guide entries: " + data.summary.paintedChurchSearchGuideRecords,
+                "Dynamic families requiring production data review: " + data.summary.dynamicGuideFamilies,
+                "",
+                "Audit: " + context.serverUrl + "/" + context.repo.owner + "/" + context.repo.repo + "/actions/runs/" + context.runId,
+                "Download all-guide-authority-" + context.runId + " from the run artifacts for the full itemized backlog.",
+                "",
+                "First issues (not a complete list):",
+                ...gaps.slice(0, 25).map((r) => "- " + r.kind + ": " + r.id + " — " + r.gaps.join(", ")),
+                "",
+                "Completion requires source-level fact checks, real licensed photos, contextual links, topical depth, review dates and verified live rendering—not merely an empty CI warning.",
+              ].join("\n");
+            }
+            const { data: issues } = await github.rest.issues.listForRepo({ owner: context.repo.owner, repo: context.repo.repo, state: "open", per_page: 100 });
+            const existing = issues.find((issue) => issue.title === title && !issue.pull_request);
+            if (existing) await github.rest.issues.update({ owner: context.repo.owner, repo: context.repo.repo, issue_number: existing.number, body });
+            else await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo, title, body });

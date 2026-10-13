@@ -1,4 +1,5 @@
 import { normalizeArticleEditorialDesk } from "@/data/editorial-desk-routing";
+import { recoverKnownGuideImageProvenance } from "@/data/guide-photo-provenance";
 import type { Article, Destination, ImageRef } from "@/data/types";
 
 export const REMOTE_IMAGE_PATH = "/media/remote";
@@ -31,8 +32,9 @@ export function editorialImageSrc(src: string) {
 }
 
 function deliverImage(image: ImageRef): ImageRef {
-  const src = editorialImageSrc(image.src);
-  return src === image.src ? image : { ...image, src };
+  const verified = recoverKnownGuideImageProvenance(image);
+  const src = editorialImageSrc(verified.src);
+  return src === verified.src ? verified : { ...verified, src };
 }
 
 export function prepareArticleForDelivery(article: Article): Article {

@@ -2,6 +2,8 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import heroHillCountry from "@/assets/hero-hill-country.jpg";
 import { Container } from "@/components/layout/Container";
+import { SpecialistGuideDestinationLinks } from "@/components/editorial/SpecialistGuideDestinationLinks";
+import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
 import { stateParkHeroMap } from "@/data/state-park-hero-map";
 
 const franklinImage = stateParkHeroMap["franklin-mountains-state-park"];
@@ -194,6 +196,8 @@ function TexasMountainBikingGuidePage() {
             </div>
           </section>
 
+          <GuideVerifiedFacts guideSlug="texas-mountain-biking-guide" />
+
           <section className="border-b border-border py-10" aria-labelledby="why-these-five">
             <p className="eyebrow text-primary">Why these five?</p>
             <h2 id="why-these-five" className="mt-2 font-display text-3xl">A statewide sampler, not five interchangeable parks</h2>
@@ -273,6 +277,8 @@ function TexasMountainBikingGuidePage() {
               ))}
             </nav>
           </section>
+
+          <SpecialistGuideDestinationLinks guideHref="/texas-mountain-biking-guide" />
 
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>

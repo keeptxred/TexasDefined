@@ -1,0 +1,196 @@
+{
+  "version": 1,
+  "scope": "Every checked-in direct guide route, dynamic guide route family and deliberately excluded utility",
+  "reviewStatus": "not-certified",
+  "routes": [
+    {
+      "routeFile": "src/routes/best-places-to-go-camping-in-texas.tsx",
+      "type": "direct-guide-route",
+      "topic": "outdoors",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/citation-guide.tsx",
+      "type": "excluded-utility",
+      "topic": "general",
+      "certification": "requires-content-level-verification",
+      "exclusionReason": "Documentation about citing TexasDefined, not a destination/editorial guide"
+    },
+    {
+      "routeFile": "src/routes/explore.painted-churches.print-guide.tsx",
+      "type": "excluded-utility",
+      "topic": "history",
+      "certification": "requires-content-level-verification",
+      "exclusionReason": "Print utility for an existing separately governed heritage guide"
+    },
+    {
+      "routeFile": "src/routes/explore.painted-churches_.guides.tsx",
+      "type": "direct-guide-route",
+      "topic": "history",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/explore.painted-churches_.guides_.$slug.tsx",
+      "type": "dynamic-guide-family",
+      "topic": "history",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/explore.texas-camping-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "outdoors",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/explore.texas-lakes-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "water",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/explore.texas-state-parks-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "general",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/fishing.guides.$slug.tsx",
+      "type": "dynamic-guide-family",
+      "topic": "water",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/fishing.guides.submit.tsx",
+      "type": "excluded-utility",
+      "topic": "water",
+      "certification": "requires-content-level-verification",
+      "exclusionReason": "Submission form, not a published guide"
+    },
+    {
+      "routeFile": "src/routes/fishing.guides.tsx",
+      "type": "direct-guide-route",
+      "topic": "water",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/guides.citypass-texas.tsx",
+      "type": "direct-guide-route",
+      "topic": "general",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/guides.tsx",
+      "type": "direct-guide-route",
+      "topic": "general",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/learn.over-65-property-tax-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "law-and-finance",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/property-tax-guides.tsx",
+      "type": "direct-guide-route",
+      "topic": "law-and-finance",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/texas-birds-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "home-and-nature",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/texas-blue-norther-weather-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "general",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/texas-breakfast-taco-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "general",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/texas-chicken-fried-steak-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "general",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/texas-horseback-riding-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "outdoors",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/texas-mountain-biking-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "general",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/texas-ohv-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "outdoors",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/texas-paddling-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "water",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/texas-pests-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "home-and-nature",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/texas-pool-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "home-and-nature",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/texas-property-tax-protest-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "law-and-finance",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/texas-ranch-water-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "general",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/texas-rock-climbing-bouldering-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "outdoors",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/texas-snakes-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "home-and-nature",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/texas-stargazing-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "outdoors",
+      "certification": "requires-content-level-verification"
+    },
+    {
+      "routeFile": "src/routes/texas-tailgating-guide.tsx",
+      "type": "direct-guide-route",
+      "topic": "general",
+      "certification": "requires-content-level-verification"
+    }
+  ]
+}

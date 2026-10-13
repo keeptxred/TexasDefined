@@ -42,7 +42,12 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['EDITORIAL/RECOMMENDATION-SOURCES', 'Verify exact official source records for every researched comparison recommendation and keep remaining guides staged', 'node', ['scripts/data/validate-guide-pick-source-coverage.mjs']],
   ['MUSEUM/AUTHORITY', 'Validate museum visitor research, references, new museum requirements and reciprocal links', 'node', ['scripts/data/validate-museum-authority.mjs']],
+  ['EDITORIAL/RECIPROCAL-LINKS', 'Enforce all configured guide-to-destination crosslinks bidirectionally without a fixed list limit', 'node', ['scripts/data/validate-specialist-guide-crosslinks.mjs']],
+  ['EDITORIAL/GUIDE-PUBLISH', 'Require documented editorial acceptance before any new standalone guide route goes live', 'node', ['scripts/data/validate-guide-publication-policy.mjs']],
+  ['EDITORIAL/FULL-LIBRARY', 'Inventory all guide families and expose source, imagery, recency and internal-link gaps', 'node', ['scripts/data/audit-all-authority-guides.mjs', '--output=guide-authority-audit.json', '--fail-on-untracked']],
+  ['EDITORIAL/AUTHORITY', 'Reject newly published best-of and guide articles without source-backed authority evidence, licensed photos and reciprocal links', 'node', ['scripts/data/validate-high-intent-authority-standard.mjs']],
   ['SOFTBALL/PUBLISH', 'Reject thin or unapproved UIL softball team pages', 'npm', ['run', 'softball:authority:validate']],
   ['NETWORK/TERMS', 'Validate customer terms, content responsibility and recurring billing acceptance', 'node', ['scripts/data/validate-network-customer-terms.mjs']],
   ['NETWORK/RELEASE', 'Validate Network security and unpublished release guards', 'node', ['scripts/data/validate-network-release-guards.mjs']],

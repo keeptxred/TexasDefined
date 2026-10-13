@@ -1,6 +1,9 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { SpecialistGuideDestinationLinks } from "@/components/editorial/SpecialistGuideDestinationLinks";
+import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 
 const officialSources = [
   { label: "Texas Parks & Wildlife — Texas Paddling Trails", href: "https://tpwd.texas.gov/boating/paddling-trails/", note: "Statewide official trail system, trail finder and regional planning entry point." },
@@ -91,11 +94,23 @@ function TexasPaddlingGuidePage() {
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A visitor-first guide to five official paddling trails, with the launch, takeout, water-level, wind, private-property and current-condition questions to resolve before getting on the water.</p>
           </header>
 
+          <figure className="my-8 border-b border-border pb-8">
+            <img src={editorialImageSrc("https://commons.wikimedia.org/wiki/Special:Redirect/file/Canoeing%20Caddo%20Lake%20State%20Park%20Texas%202023.jpg?width=1600")} alt="Canoeing on Saw Mill Pond in Caddo Lake State Park, Harrison County, Texas" width={1600} height={900} loading="lazy" decoding="async" className="h-auto w-full object-cover" />
+            <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">Canoeing on Saw Mill Pond in Caddo Lake State Park, photographed May 18, 2023. This illustrates genuine paddling at the park, not live flow or launch conditions. Photo: Larry D. Moore · CC BY 4.0. <a href="https://commons.wikimedia.org/wiki/File:Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg" target="_blank" rel="noopener noreferrer" className="text-primary underline">Original photograph</a>{" · "}<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="text-primary underline">Reuse license</a>{" · "}<Link to="/destination/caddo-lake-state-park" className="text-primary underline">Detailed Caddo Lake visitor guide →</Link></figcaption>
+          </figure>
+
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
             <p className="eyebrow text-primary">Quick answer</p>
             <h2 id="quick-answer" className="mt-2 font-display text-3xl">Choose the waterbody first, then verify today's conditions</h2>
-            <p className="mt-4 max-w-4xl text-base leading-8">Texas Parks &amp; Wildlife maintains more than 100 certified paddling trails across rivers, lakes, bayous and bays. The map gives you the route; current wind, flow, water level, weather, launch access and land-manager notices decide whether that route makes sense today.</p>
+            <p className="mt-4 max-w-4xl text-base leading-8">Texas Parks &amp; Wildlife lists 100 certified paddling trails (October 2026) across rivers, lakes, bayous and bays. The map gives you the route; current wind, flow, water level, weather, launch access and land-manager notices decide whether that route makes sense today.</p>
           </section>
+
+          <GuideVerifiedFacts guideSlug="texas-paddling-guide" />
+
+          <aside className="border-b border-border py-8" aria-label="Caddo Lake canoe rental planning">
+            <h2 className="font-display text-2xl">Caddo Lake canoe-rental specifics</h2>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">At Caddo Lake State Park, TPWD currently rents canoes first-come, first-served; they are not reservable. Renters must be 18 or older, present identification and sign a waiver. The park requires rental canoes to launch at Saw Mill Pond and does not provide staff to help carry or launch them. Rental pickup is advertised from 8:15 a.m. to 3 p.m.; day-use canoes must return by 4:30 p.m. Rental availability and hours can change with weather. Check the <a href="https://tpwd.texas.gov/state-parks/caddo-lake/paddling-rental-information" target="_blank" rel="noopener noreferrer" className="text-primary underline">official canoe-rental rules</a> before departure, and distinguish Saw Mill Pond rentals from self-guided bayou or lake routes.</p>
+          </aside>
 
           <section className="border-b border-border py-10" aria-labelledby="before-launch">
             <p className="eyebrow text-primary">Before you launch</p>
@@ -133,6 +148,8 @@ function TexasPaddlingGuidePage() {
               ))}
             </nav>
           </section>
+
+          <SpecialistGuideDestinationLinks guideHref="/texas-paddling-guide" />
 
           <section className="py-10" aria-labelledby="sources">
             <p className="eyebrow text-primary">Official sources</p>
