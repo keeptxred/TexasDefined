@@ -122,6 +122,7 @@ function destinationSeoTitle(name: string, categoryName: string) {
 
 const HISTORIC_DUPLICATE_SLUGS: Record<string, string> = {
   "lyndon-b-johnson-state-park-and-historic-site": "lyndon-b-johnson-state-park-historic-site",
+  "lyndon-b-johnson-state-park-state-historic-site": "lyndon-b-johnson-state-park-historic-site",
   "goliad-state-park-and-historic-site": "goliad-state-park",
   "san-jacinto-battleground-state-historic-site": "san-jacinto-battleground",
   "washington-on-the-brazos-state-historic-site": "washington-on-the-brazos",
