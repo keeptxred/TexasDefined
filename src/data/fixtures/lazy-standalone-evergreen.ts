@@ -379,6 +379,18 @@ const historicSanAntonioHeritageRoadTripStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["the-alamo", "casa-navarro", "san-antonio-missions-national-historical-park", "king-william-historic-district", "menger-hotel-san-antonio", "mission-san-jose-san-antonio"],
 };
 
+const fredericksburgJohnsonCityHistoricRoadTripStub: Article = {
+  id: "evergreen-fredericksburg-johnson-city-historic-road-trip", brandId: "texasdefined", slug: "fredericksburg-johnson-city-historic-road-trip",
+  title: "Fredericksburg to Johnson City: The Complete Historic Hill Country Road Trip",
+  dek: "Historic Fredericksburg, Fort Martin Scott, the Pacific War museum, Stonewall, LBJ Ranch, Sauer-Beckmann Farm, Hye and Johnson City with present-day closures, costs and a Luckenbach detour.",
+  category: "road-trips", region: "hill-country",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Lyndon_B._Johnson_Ranch_October_2020_28_%28Texas_White_House%29.jpg?width=1600", alt: "The Texas White House at LBJ Ranch near Stonewall; exterior image, interior currently closed", width: 1600, height: 1067, credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons" },
+  authorId: "a-dell", publishedAt: "2026-10-12", readingMinutes: 19,
+  tags: ["fredericksburg to johnson city", "lbj ranch", "hill country historic sites", "stonewall", "fort martin scott", "luckenbach"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/blog/historic-road-trip-fredericksburg-johnson-city",
+  body: [], relatedCollections: [], relatedDestinations: ["fredericksburg", "fort-martin-scott", "stonewall", "hye", "johnson-city", "luckenbach"],
+};
+
 export const standaloneEvergreenStubs: Article[] = [
   historicSanAntonioHeritageRoadTripStub,
   rodeo101Stub,
@@ -412,6 +424,7 @@ export const standaloneEvergreenStubs: Article[] = [
   washingtonOnTheBrazosWeekendGuideStub,
   goliadHistoryWeekendGuideStub,
   fredericksburgHistoryWeekendGuideStub,
+  fredericksburgJohnsonCityHistoricRoadTripStub,
 ];
 
 export async function loadStandaloneEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -448,5 +461,6 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === washingtonOnTheBrazosWeekendGuideStub.slug) return import("./washington-on-the-brazos-weekend-guide").then((module) => module.washingtonOnTheBrazosWeekendGuideArticle);
   if (slug === goliadHistoryWeekendGuideStub.slug) return import("./goliad-history-weekend-guide").then((module) => module.goliadHistoryWeekendGuideArticle);
   if (slug === fredericksburgHistoryWeekendGuideStub.slug) return import("./fredericksburg-history-weekend-guide").then((module) => module.fredericksburgHistoryWeekendGuideArticle);
+  if (slug === fredericksburgJohnsonCityHistoricRoadTripStub.slug) return import("./fredericksburg-johnson-city-historic-road-trip").then((module) => module.fredericksburgJohnsonCityHistoricRoadTripArticle);
   return null;
 }

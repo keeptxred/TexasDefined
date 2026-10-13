@@ -39,6 +39,26 @@ const META_DESCRIPTION_MAX_LENGTH = 160;
 type TechnicalSeoOverride = { title: string; description?: string };
 
 const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride> = {
+  "/article/fredericksburg-johnson-city-historic-road-trip": {
+    title: "Fredericksburg to Johnson City Historic Road Trip | Texas",
+    description: "Plan Fredericksburg, Fort Martin Scott, LBJ Ranch, Sauer-Beckmann Farm, Hye and Johnson City with stops, costs, accessibility and 2026 closures.",
+  },
+  "/destination/fredericksburg-art-guild": {
+    title: "Fredericksburg Art Guild: Gallery, Art Shows & Hours",
+    description: "Explore Fredericksburg Art Guild, founded in 1971: member shows, history, public gallery hours and visitor details across from the Pacific War Museum.",
+  },
+  "/destination/luckenbach": {
+    title: "Luckenbach Texas Dance Hall: Live Music, Events & Guide",
+    description: "Plan Luckenbach's historic dance hall, general store and music visit with official event schedules, tickets, history and Fredericksburg travel tips.",
+  },
+  "/destination/stonewall": {
+    title: "Stonewall Texas: LBJ Ranch, Sauer-Beckmann & Visitor Guide",
+    description: "Plan historic Stonewall, the LBJ Ranch driving permit, Sauer-Beckmann Farm, peach country and what remains open during Texas White House repairs.",
+  },
+  "/destination/fort-martin-scott": {
+    title: "Fort Martin Scott: Tickets, Hours, Tours & History",
+    description: "Visit Fredericksburg's 1848 frontier fort. See THC admission prices, guided tours, original versus reconstructed buildings and current hours.",
+  },
   // Individually rewritten titles from the 2026-10-12 full production crawl.
   // Keep stable long-form page headings; title metadata communicates distinct reader intent.
   "/article/king-ranch-texas-history-cattle-legacy": { title: "King Ranch History: Cattle, Land & South Texas Legacy" },
