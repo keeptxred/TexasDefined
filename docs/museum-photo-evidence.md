@@ -62,3 +62,11 @@ Photo metadata independently checked using Wikimedia Commons API imageinfo.extme
 ## American Quarter Horse Hall of Fame & Museum — 2026-10-13
 
 - **Amarillo AQHA museum exterior:** [Wikimedia Commons File:Amarillo Texas - AQHA - Outside.jpg](https://commons.wikimedia.org/wiki/File:Amarillo_Texas_-_AQHA_-_Outside.jpg), J. Nguyen, **CC BY-SA 3.0** photographic license, captured in 2006. Accurate historic exterior of the exact museum; label as historic and do not imply the building or exhibits remain exactly as pictured after renovations. The image includes sculptural elements, so a derivative commercial use should consider independent artwork rights before using cropped or prominently focused sculptures; the photographer's free license does not itself license every depicted sculpture.
+
+
+## October 13, 2026 — Houston MFAH and Corpus Christi AMST authority upgrades
+
+- **Museum of Fine Arts, Houston:** Existing exact-location photo retained, Wikimedia Commons [File:MFA houston.jpg](https://commons.wikimedia.org/wiki/File:MFA_houston.jpg), credited to Hequals2henry, **CC BY-SA 3.0**, December 2011. Shows the Caroline Wiess Law Building, not the entire multi-building campus. Attribution and license link must remain with the image.
+- **Art Museum of South Texas, Corpus Christi:** Replacement for prior sitewide placeholder: Wikimedia Commons [File:Art Museum of South Texas -- Corpus.jpg](https://commons.wikimedia.org/wiki/File:Art_Museum_of_South_Texas_--_Corpus.jpg), Jim Evans, **CC BY-SA 4.0**, photographed October 2018 (2,016 × 1,613 source). The hero credit identifies the year and location. Do not imply this photo documents 2026 temporary exhibits.
+
+The museum's July 2026 air-conditioning closure was followed by an official July 3 reopening; no closed flag is appropriate without newer evidence. Staff and visitor-center availability may change independently of gallery access.
