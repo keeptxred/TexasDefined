@@ -4,8 +4,17 @@ const source=fs.readFileSync("src/data/river-authority-relations.ts","utf8");
 const pattern=/slug:\s*"(texas-[a-z0-9-]+-(?:river|river-basin)-guide)"[\s\S]*?"?counties"?:\s*(\[[^\]]*\])[\s\S]*?"?destinations"?:\s*(\[[^\]]*\])/g;
 const rivers=[...source.matchAll(pattern)].map(m=>({slug:m[1],counties:JSON.parse(m[2]),destinations:JSON.parse(m[3])}));
 if(!rivers.length||new Set(rivers.map(r=>r.slug)).size!==rivers.length)throw Error("Invalid river registry");
-const newer=new Set(["texas-frio-river-guide","texas-comal-river-guide","texas-san-marcos-river-guide","texas-llano-river-guide","texas-pecos-river-guide"]);
-const upgraded=new Set(["texas-guadalupe-river-guide","texas-colorado-river-guide","texas-brazos-river-guide","texas-neches-river-guide","texas-sabine-river-guide"]);
+function fixtureJson(path, symbol) {
+ const contents=fs.readFileSync(path,"utf8");
+ const escaped=symbol.replace(/[.*+?^${}()|[\\]\\]/g,"\\const newer=new Set(["texas-frio-river-guide","texas-comal-river-guide","texas-san-marcos-river-guide","texas-llano-river-guide","texas-pecos-river-guide"]);
+const upgraded=new Set(["texas-guadalupe-river-guide","texas-colorado-river-guide","texas-brazos-river-guide","texas-neches-river-guide","texas-sabine-river-guide"]);");
+ const result=contents.match(new RegExp("export const "+escaped+" = ([\\\\s\\\\S]*?) as const;"));
+ if(!result)throw Error("Missing structured river source: "+path);
+ return JSON.parse(result[1]);
+}
+const newer=new Set(fixtureJson("src/data/fixtures/texas-river-recreation-guides.ts","riverRecreationGuideRecords").map(x=>x.slug));
+const upgraded=new Set(Object.keys(fixtureJson("src/data/fixtures/texas-river-authority-extensions.ts","existingRiverAuthorityEnhancements")));
+const legacy=new Set(fixtureJson("src/data/fixtures/texas-river-authority-remaining.ts","additionalExistingRiverAuthorityResearch").map(x=>x.slug));
 const planned=new Map();
 function add(path,kind,required=[]){
  const old=planned.get(path);
@@ -13,6 +22,7 @@ function add(path,kind,required=[]){
  planned.set(path,{path,kind,required:[...new Set(required)]});
 }
 for(const river of rivers){
+ if(!newer.has(river.slug)&&!upgraded.has(river.slug)&&!legacy.has(river.slug))throw Error("River page has no production content contract: "+river.slug);
  const heading=newer.has(river.slug)?"Officially documented access: an example to build from":upgraded.has(river.slug)?"Mapped paddling or visitor-access example":"From watershed map to a real visit";
  add("/article/"+river.slug,"river",[heading,"Fishing","Camping"]);
  for(const county of river.counties)add("/county/"+county,"county",["/article/"+river.slug]);
