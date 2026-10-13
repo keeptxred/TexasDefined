@@ -1,5 +1,6 @@
 import { animalSanctuaryDestinations } from "./animal-sanctuary-destinations";
 import { museumAuthorityDestinations } from "./museum-authority-new-destinations";
+import { dallasBlackHistoryDestinations } from "./dallas-black-history-destinations";
 import { enrichMuseumAuthority } from "./museum-authority-network";
 import { aquariumMarineDestinations } from "./aquarium-marine-destinations";
 import { coastalDestinations } from "./coastal-destinations";
@@ -216,6 +217,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   animalSanctuaryDestinations,
   aquariumMarineDestinations,
   museumAuthorityDestinations,
+  dallasBlackHistoryDestinations,
   topAttractionDestinations,
   topAttractionExpansionDestinations,
   coastalDestinations,
