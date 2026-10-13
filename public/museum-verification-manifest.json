@@ -1089,18 +1089,18 @@
       "sources": [
         {
           "sourceUrl": "https://www.texasranger.org/Visit",
-          "fetchUrl": "https://www.texasranger.org/Visit",
-          "label": "Operator: current hours and admission"
+          "fetchUrl": "https://r.jina.ai/https://www.texasranger.org/Visit",
+          "label": "Operator: current hours and admission (official page read-only snapshot)"
         },
         {
           "sourceUrl": "https://www.texasranger.org/Pages/Education/FAQ",
-          "fetchUrl": "https://www.texasranger.org/Pages/Education/FAQ",
-          "label": "Operator: guided tour FAQ"
+          "fetchUrl": "https://r.jina.ai/https://www.texasranger.org/Pages/Education/FAQ",
+          "label": "Operator: guided tour FAQ (official page read-only snapshot)"
         },
         {
           "sourceUrl": "https://www.texasranger.org/News-articles/Rangers-Through-Time",
-          "fetchUrl": "https://www.texasranger.org/News-articles/Rangers-Through-Time",
-          "label": "Operator: Rangers Through Time exhibition"
+          "fetchUrl": "https://r.jina.ai/https://www.texasranger.org/News-articles/Rangers-Through-Time",
+          "label": "Operator: Rangers Through Time exhibition (official page read-only snapshot)"
         }
       ]
     },
