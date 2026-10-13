@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
+import { zionHillNacogdochesAuthorityDestinations } from "@/data/zion-hill-nacogdoches-authority-destinations";
 import { auditDestination } from "@/data/destination-audit";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
@@ -245,6 +246,16 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         // remote row with the same slug must not shadow the checked-in record and
         // make the canonical page disappear from the Explore sitemap.
         for (const canonicalDestination of whirlyballHurstDestinations) {
+          const existingIndex = rawDestinations.findIndex((destination) => destination.slug === canonicalDestination.slug);
+          if (existingIndex >= 0) rawDestinations[existingIndex] = canonicalDestination;
+          else rawDestinations.push(canonicalDestination);
+        }
+
+        // Two original-source Black heritage guides were merged to the checked-in catalog.
+        // A thinner Explore API row with the same slug must not replace the researched
+        // authority record and quietly remove its canonical URL from this sitemap.
+        // Run the ordinary auditDestination indexability gate on the resolved results.
+        for (const canonicalDestination of zionHillNacogdochesAuthorityDestinations) {
           const existingIndex = rawDestinations.findIndex((destination) => destination.slug === canonicalDestination.slug);
           if (existingIndex >= 0) rawDestinations[existingIndex] = canonicalDestination;
           else rawDestinations.push(canonicalDestination);

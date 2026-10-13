@@ -24,6 +24,14 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  // Exact corridor publication proofs: 200 alone is insufficient; require
+  // researched on-page narrative so remote/generic fallback cannot mask a release.
+  { path: '/article/fredericksburg-johnson-city-historic-road-trip', requiredText: 'Fredericksburg to Johnson City: The Complete Historic Hill Country Road Trip', label: 'Fredericksburg Johnson City historic itinerary' },
+  { path: '/destination/stonewall', requiredText: 'Stonewall is a practical geographic key', label: 'Stonewall LBJ Ranch source-reviewed guide' },
+  { path: '/destination/luckenbach', requiredText: 'Luckenbach is often described as a tiny Texas town', label: 'Luckenbach Dance Hall authority narrative' },
+  { path: '/destination/fredericksburg-art-guild', requiredText: 'The Fredericksburg Art Guild is not a historic-house museum', label: 'Fredericksburg Art Guild primary-source narrative' },
+  { path: '/destination/fort-martin-scott', requiredText: 'Fort Martin Scott began as a U.S. Army post in 1848', label: 'Fort Martin Scott research supersedes old generic prose' },
+  { path: '/destination/fort-martin-scott', requiredText: 'THC pages conflict', label: 'Fort Martin Scott competing official tour notices disclosed' },
   { path: '/', requiredText: rootRequiredText, label: 'homepage' },
   {
     path: '/best-places-to-go-camping-in-texas',

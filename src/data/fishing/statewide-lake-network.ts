@@ -77,13 +77,18 @@ interface StatewideLakeDefinition {
   specialRules?: boolean;
   liveDataNote?: string;
   nearbyLakes: { slug: string; name: string }[];
+  nearbyDestinations?: { slug: string; name: string; reason: string }[];
   camping?: { name: string; summary: string };
+  campingUrl?: string;
+  campingProhibited?: boolean;
   accessPoints?: ShowcaseLakePrototype["access"];
   travelAlerts?: string[];
   consumptionSourceUrl?: string;
   historySourceUrl?: string;
   historyNotes?: string[];
+  visitorFAQs?: { question: string; answer: string }[];
   visitorSourceUrl?: string;
+  localRegulationsSourceUrl?: string;
 }
 
 const fish = (
@@ -213,7 +218,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "County Public Ramp (Caney Creek)", operator: "Henderson County", kind: "public-ramp", launch: "From SH 31 in Malakoff, north on FM 198 about three miles, cross Caney Creek; ramp at north end of bridge, two lanes, 40 spaces.", fee: "TPWD lists no fee", availability: "Year-round in TPWD listing; verify county status." },
       { name: "Fisherman's Wharf", operator: "Private marina", kind: "marina", launch: "From Malakoff north on FM 198, west on FM 3062, then north on CR 1703; ramp, about 40 spaces.", fee: "TPWD lists fee; verify current charge", availability: "Year-round in TPWD listing; verify private operation (903) 489-0710." },
     ],
-    nearbyLakes: [{slug:"richland-chambers-reservoir",name:"Richland-Chambers Reservoir"},{slug:"lake-palestine",name:"Lake Palestine"}],
+    nearbyLakes: [{slug:"richland-chambers-reservoir",name:"Richland-Chambers Reservoir"},{slug:"lake-palestine",name:"Lake Palestine"},{slug:"bardwell-lake",name:"Bardwell Lake"}],
   },
   {
     slug: "lewisville-lake", name: "Lewisville Lake", accessReviewedAt: "2026-10-12", tpwdSlug: "lewisville", waterDataSlug: "lewisville", region: "prairies-lakes",
@@ -258,7 +263,13 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("white-bass","White bass","excellent","spring","Spring tributary runs and summer main-lake schools provide two major seasonal windows.",["topwater","vertical-jigging","live-bait"]),
       fish("catfish","Catfish","good","year-round","Blue and channel catfish support year-round fishing.",["cut-bait","live-bait"]),
     ],
-    access: "TPWD operates state-park units and satellite parks with ramps around the lake; other facilities are managed by USACE and local operators.",     accessPoints: [
+    access: "TPWD operates state-park units and satellite parks with ramps around the lake; other facilities are managed by USACE and local operators.",     historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/ray_roberts/index.asp",
+    historyNotes: [
+      "The Elm Fork Trinity project was first authorized by the 1965 Rivers and Harbors Act under the name Aubrey Lake. The future reservoir was renamed in 1980 to honor U.S. Congressman Ray Roberts.",
+      "Corps construction began May 31, 1982 and both the dam completion and first deliberate impoundment occurred June 30, 1987. The project was designed principally to supply the rapidly growing Dallas-Denton area.",
+      "TWDB records the conservation-pool acreage from its surveys; that area differs from the larger flood-control pool, and neither is proof that all state park units, boat ramps or trails are accessible today.",
+    ],
+    accessPoints: [
       { name: "Buck Creek Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "West side of US 377 about a mile south of Tioga. Two-lane concrete ramp with boarding pier; TPWD lists up to 75 parking spaces.", fee: "TPWD lists park access fee", availability: "Can close around lake elevation 634.7 ft per TPWD; verify current conditions (940) 686-2148." },
       { name: "Jordan Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "About one mile west of Pilot Point on FM 1192. Four-lane concrete ramp with pier and up to 75 spaces.", fee: "TPWD lists fee", availability: "TPWD warns it can close near lake elevation 639.0 ft; confirm before towing (940) 686-2148." },
       { name: "Isle du Bois State Park Unit", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Southern park unit of Ray Roberts Lake; official TPWD site map lists launch and campground amenities.", fee: "State park entry/launch charges may apply", availability: "Camping and marina/ramp usability depend on current TPWD unit alerts; (940) 686-2148." },
@@ -282,7 +293,13 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("largemouth-bass","Largemouth bass","good","year-round","Vegetation and riprap are core bass habitat.",["soft-plastics","crankbaits","spinnerbaits"]),
       fish("crappie","Crappie","good","year-round","Submerged brush piles and timber hold crappie.",["jigs-and-minnows"]),
     ],
-    access: "City parks and private marinas provide boat ramps; Robertson Park is a major day-use and bank-fishing access area.",     accessPoints: [
+    access: "City parks and private marinas provide boat ramps; Robertson Park is a major day-use and bank-fishing access area.",     historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/ray_hubbard/",
+    historyNotes: [
+      "Ray Hubbard's dam was not finished the year construction began: work started June 13, 1964, the channel was closed in September 1967, and deliberate impoundment began December 1, 1968. TWDB records final dam completion in January 1969.",
+      "Public water supply drove construction of this East Fork Trinity reservoir; industrial infrastructure soon joined the shoreline, with the Ray Hubbard Steam Electric Station's two units commissioned in 1970 and 1973.",
+      "The 2015 TWDB survey measured 20,947 acres at conservation pool and roughly 439,559 acre-feet of storage. This survey-based figure is not an instant reading of today's lake surface area; visitors should use current reservoir-level data separately.",
+    ],
+    accessPoints: [
       { name: "Paddle Point Park (paddle craft only)", operator: "City of Rowlett", kind: "park", launch: "6775 Miller Road, Rowlett; gravel/dirt put-in for non-motorized craft; not a motorboat launch.", fee: "Confirm city parking requirements", availability: "TPWD lists year-round; verify city park status." },
       { name: "Paul Jones Park", operator: "City of Garland", kind: "park", launch: "4099 Zion Road, Garland; four concrete lanes, up to 50 vehicle spaces and picnic access.", fee: "TPWD lists no fee", availability: "Year-round in TPWD listing; check City of Garland (972) 205-2750." },
       { name: "Harbor Bay Marina", operator: "Private marina", kind: "marina", launch: "From I-30 Horizon/Ridge exit follow Horizon and Windjammer Way. Two lanes, up to 50 spaces, fishing barge.", fee: "Launch fee listed", availability: "Year-round per TPWD; verify private operation (972) 771-0071." },
@@ -292,6 +309,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Captain's Cove Marina", operator: "Private marina", kind: "marina", launch: "5965 Marina Drive, Garland; four concrete boat lanes, up to 50 spaces.", fee: "Launch fee listed", availability: "Year-round per TPWD; verify private operator (972) 226-7100." },
       { name: "Sapphire Bay", operator: "Private marina", kind: "marina", launch: "9051 Marina Vista, Rowlett; two-lane concrete ramp, courtesy docks, about 50 spaces.", fee: "TPWD lists no fee", availability: "Year-round per TPWD; verify private operation (972) 412-1977." },
     ],
+    campingProhibited: true,
     nearbyLakes: [{slug:"lake-lavon",name:"Lake Lavon"},{slug:"lewisville-lake",name:"Lewisville Lake"}],
   },
   {
@@ -364,7 +382,13 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("spotted-bass","Spotted bass","good","year-round","Spotted bass share rocky and developed shoreline habitat.",["crankbaits","soft-plastics"]),
       fish("channel-catfish","Channel catfish","good","year-round","Channel catfish add a reliable bait fishery.",["cut-bait","live-bait"]),
     ],
-    access: "TPWD lists three public ramps and several commercial facilities, many with docks, camping or other amenities.",     accessPoints: [
+    access: "TPWD lists three public ramps and several commercial facilities, many with docks, camping or other amenities.",     historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/eagle_mountain/index.asp",
+    historyNotes: [
+      "Eagle Mountain Lake grew from the West Fork Trinity water-supply planning that preceded modern Fort Worth suburbs. The state authorized the dam May 1, 1928; construction began January 23, 1930, with physical completion on October 24, 1932.",
+      "Deliberate storage began February 28, 1934, a separate milestone from the 1932 dam completion. Its Tarrant Regional Water District ownership and operations combine municipal supply, flood management, irrigation and recreation.",
+      "The spillway was subsequently modernized, including a new service-spillway installation completed July 31, 1971. TWDB's 2018 survey reports conservation-pool area and capacity, distinct from today's fluctuating surface.",
+    ],
+    accessPoints: [
       { name: "West Bay Marina", operator: "Private marina", kind: "marina", launch: "From SH 199 and FM 730 north, Timber Road east to Liberty School Road, then marina; two-lane ramp, 50 parking spaces.", fee: "TPWD lists fee", availability: "Year-round in TPWD inventory; confirm operator (817) 444-1622." },
       { name: "Shady Grove Park", operator: "City of Azle", kind: "park", launch: "From FM 730 north of Azle, east on Stribling North; two-lane concrete ramp, about 35 spaces.", fee: "TPWD lists no fee", availability: "Year-round TPWD listing; City of Azle (817) 444-2541." },
       { name: "Pelican Bay Ramp", operator: "City of Pelican Bay", kind: "public-ramp", launch: "East off FM 730 north of Azle on Sandy Beach, south Liberty School Road and Pelican; two-lane ramp, 25 spaces.", fee: "TPWD lists fee", availability: "Year-round per TPWD; confirm City of Pelican Bay (817) 444-1234." },
@@ -433,7 +457,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Park Prairie Park", operator: "Lower Colorado River Authority", kind: "park", launch: "North shore about ten miles east of La Grange; from SH 159 take Park Prairie Road. Three-lane ramp and fishing pier.", fee: "Park fee required", availability: "TPWD lists year-round; LCRA (979) 249-3504. Reserve facilities through current LCRA reservation system." },
       { name: "Oak Thicket Park", operator: "Lower Colorado River Authority", kind: "park", launch: "North shore near Park Prairie Park; Oak Thicket Park Road off SH 159 two miles east of Park Prairie Road. Two-lane ramp and fishing pier.", fee: "Park fee required", availability: "Year-round TPWD listing; LCRA (979) 249-3504. Check campsite booking directly." },
     ],
-    nearbyLakes: [{slug:"lake-somerville",name:"Lake Somerville"},{slug:"lake-austin",name:"Lake Austin"}],
+    nearbyLakes: [{slug:"lake-somerville",name:"Lake Somerville"},{slug:"lake-austin",name:"Lake Austin"},{slug:"lake-bastrop",name:"Lake Bastrop"}],
     camping: {name:"Park Prairie and Oak Thicket parks",summary:"LCRA parks provide camping and fishing access; current reservations, fees and operating conditions should be verified before travel."},
   },
   {
@@ -458,7 +482,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Yegua Creek Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "South on SH 36 from Somerville then FM 1948; two public ramps.", fee: "TPWD lists fee; verify current amount", availability: "Year-round per TPWD; verify high-water damage and USACE notices." },
       { name: "Overlook Park and Lake Somerville Marina", operator: "USACE park / private marina", kind: "marina", launch: "South on SH 36 from Somerville, FM 1948 west then first right to marina; public park and separately operated marina.", fee: "TPWD lists launch fee; confirm whether park or marina entrance", availability: "Year-round listed; verify Corps closures and marina operation." },
     ],
-    nearbyLakes: [{slug:"fayette-county-reservoir",name:"Fayette County Reservoir"},{slug:"lake-conroe",name:"Lake Conroe"}],
+    nearbyLakes: [{slug:"fayette-county-reservoir",name:"Fayette County Reservoir"},{slug:"lake-conroe",name:"Lake Conroe"},{slug:"lake-bastrop",name:"Lake Bastrop"}],
     camping: {name:"Lake Somerville State Park",summary:"Nails Creek and Birch Creek units provide established camping and lake access; verify park alerts and reservations before travel."},
   },
   {
@@ -773,12 +797,18 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("hybrid-striped-bass","Hybrid striped bass","good","year-round","Palmetto bass add another open-water shad-oriented target.",["trolling","vertical-jigging","live-bait"]),
     ],
     access: "The U.S. Army Corps of Engineers operates a broad public-access network with ramps, bank fishing and camping around Lake Waco; individual parks have seasonal schedules and fees.", accessPage: "access2.phtml", specialRules: true,
-        accessPoints: [
+        historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/waco/index.asp",
+    historyNotes: [
+      "Waco had a lake before its modern Corps reservoir. The City of Waco built the original dam in 1928–1929; the silted old water-supply pool shrank in storage capacity from roughly 39,378 acre-feet to 22,030 by the mid-1940s.",
+      "Congress authorized a replacement under the Flood Control Act of September 3, 1954. Corps construction began in 1958, and deliberate storage began in February 1965, when the old lake was integrated into the newer project.",
+      "Today's public recreation and water-supply facilities occupy a federal flood-control reservoir, not simply the footprint of the 1929 city lake. The transition matters when using historical maps, shoreline photographs and campground locations.",
+    ],
+    accessPoints: [
       { name: "Reynolds Creek Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "TPWD lists a public ramp, camping and shoreline recreation at Reynolds Creek on Lake Waco. Confirm entrance and ramp coordinates against USACE park map.", fee: "TPWD says most ramps charge launch fees; verify facility price", availability: "Verify USACE park and campground status before booking." },
       { name: "Speegleville Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "Official TPWD access inventory lists launch, campground and picnicking facilities at Speegleville.", fee: "TPWD says most ramps charge launch fees; verify", availability: "USACE park status and operator reservations control overnight access." },
       { name: "Midway Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "TPWD lists a launch and shoreline recreation park at Midway on Lake Waco.", fee: "TPWD says most ramps charge launch fees; verify", availability: "Check current USACE ramp condition and fee before travel." },
     ],
-    nearbyLakes: [{slug:"lake-whitney",name:"Lake Whitney"},{slug:"belton-lake",name:"Belton Lake"}],
+    nearbyLakes: [{slug:"lake-whitney",name:"Lake Whitney"},{slug:"belton-lake",name:"Belton Lake"},{slug:"aquilla-lake",name:"Aquilla Lake"}],
   },
   {
     slug: "lake-brownwood", name: "Lake Brownwood", accessReviewedAt: "2026-10-12", tpwdSlug: "brownwood", waterDataSlug: "brownwood", verifiedAt: "2026-10-09", region: "hill-country",
@@ -794,7 +824,13 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("crappie","Crappie","fair","spring","Crappie are a secondary target around timber, docks and brush.",["jigs-and-minnows"],"secondary"),
     ],
     access: "TPWD lists public boating access and Lake Brownwood State Park provides a major recreation base; verify lake level, ramp status and invasive-species guidance before travel.",
-        accessPoints: [
+        historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/brownwood/index.asp",
+    historyNotes: [
+      "The Brown County Water Improvement District secured its state water right in December 1929. Construction on the Pecan Bayou and Jim Ned Creek impoundment began in 1930 and finished in 1933, with deliberate impoundment starting in July 1933.",
+      "Brownwood Lake became a durable regional municipal-water and recreation resource rather than a recent suburban reservoir. TWDB documents a major 1982 strengthening, enlargement and raising of the original dam.",
+      "A 2013 TWDB bathymetric survey measured 6,814 acres at the stated conservation elevation and about 131,530 acre-feet of storage. Different TPWD profile-acreage numbers may reflect reporting date or survey basis rather than a second lake.",
+    ],
+    accessPoints: [
       { name: "Dam public ramp", operator: "Brown County Water Control and Irrigation District No. 1", kind: "public-ramp", launch: "Across dam on FM 2632. TPWD lists a lighted multilane public ramp, courtesy dock and large parking area.", fee: "TPWD lists no fee", availability: "Year-round per TPWD; check lake condition with district (325) 643-2609." },
       { name: "Flatrock Park", operator: "Brown County Water Control and Irrigation District No. 1", kind: "park", launch: "On FM 2632 just north of FM 3021 junction. Lighted two-lane ramp with parking for under 50 vehicles.", fee: "TPWD lists no fee", availability: "TPWD warns steep ramp needs caution when lake five feet low or more; check district (325) 643-2609." },
       { name: "Lake Brownwood State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Off Park Road 15 east of SH 279. Lighted multiple-lane ramp with about 20 vehicle spaces, plus fishing pier and camping.", fee: "State park entrance fee", availability: "TPWD says year-round access, though cabins/camping can be seasonal; confirm park (325) 784-5223." },
@@ -981,7 +1017,12 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       {name:"Russell Park",operator:"U.S. Army Corps of Engineers",kind:"park",launch:"North shore mid-lake. FM 2338 to FM 3405 and Russell Park Road / CR 262. Four-lane concrete ramp; TPWD marks day-use picnic facilities.",fee:"Launch fee listed; verify with operator",availability:"TPWD lists nominal year-round 6 AM–10 PM entry; check USACE for closures and water-level access."},
     ],
     camping:{name:"Cedar Breaks Park and Jim Hogg Park",summary:"The TPWD access inventory identifies both Corps parks as developed camping areas; it also describes primitive camping, group shelters, a swimming beach and a 26.5-mile lakeshore trail in the USACE recreation complex. Verify campground-specific reservation, swim-area permission, accessible facilities, entrance fees and current Corps closures."},
-    nearbyLakes:[{slug:"lake-travis",name:"Lake Travis"},{slug:"lake-lbj",name:"Lake LBJ"}],
+    visitorFAQs: [
+      {question:"Which public ramps?",answer:"Cedar Breaks, Jim Hogg and Russell parks. Confirm USACE access and fees."},
+      {question:"Top fishery?",answer:"TPWD rates white bass excellent; spring river flows affect runs."},
+      {question:"Camping?",answer:"USACE manages campsites at Cedar Breaks and Jim Hogg parks."},
+    ],
+    nearbyLakes: [{slug:"lake-travis",name:"Lake Travis"},{slug:"lake-lbj",name:"Lake LBJ"},{slug:"granger-lake",name:"Granger Lake"}],
     travelAlerts:["TPWD identifies established zebra mussels in Lake Georgetown. Clean, drain and dry boats, trailers, livewells, bait containers and gear before entering another water body; draining water is required by Texas law.","The lake has significant water-level fluctuations. A historically listed 4-lane ramp may be inoperable; verify the Corps' current closure report before towing."],
     historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/georgetown/index.asp",
     historyNotes:["Federal authorization for a San Gabriel flood-control reservoir system including Georgetown came in 1962. The Corps began the Georgetown dam project in the early 1970s, serving water supply, flood management and public recreation rather than building a private-lot resort lake.","The Texas Water Development Board dates the start of deliberate impoundment to March 3, 1980, while dam work was completed in October of that year and associated facilities formally completed in 1982. Different dates in older references therefore describe different stages, not conflicting reservoirs.","Today the Corps-managed shoreline protects a different visitor experience from Lake Austin or Lake LBJ: fewer private docks, three named USACE launch parks and a connected 26.5-mile walking route. The limestone geology and fluctuating water also explain the lack of sustained lake vegetation."],
@@ -1011,10 +1052,234 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       {name:"Rocky Creek Park",operator:"U.S. Army Corps of Engineers",kind:"park",launch:"Old Granbury Road south, west at Rocky Creek signs. Two ramps/three lanes, one Creek channel and one main-lake access.",fee:"Fees listed when open",availability:"TPWD marked walk-in-only April 21, 2026. Typically seasonal Apr–Sep; verify closure and marina access with USACE."},
     ],
     camping:{name:"Holiday Park South, Bear Creek Park, Mustang Park and Rocky Creek Park",summary:"TPWD indicates camping amenities in these Corps-managed facilities, but current water-level closures affect launch and day-use rights; Bear Creek and Rocky Creek are seasonal, and Holiday Park South/Bear Creek ramps are for registered campers. Use the official Corps campground and booking information before traveling."},
+    visitorFAQs: [
+      {question:"Are all ramps open?",answer:"No. TPWD's April 2026 inventory lists closures; check current USACE updates."},
+      {question:"Camper-only ramps?",answer:"Holiday Park South and Bear Creek are restricted to registered campers."},
+      {question:"Top fishery?",answer:"TPWD rates hybrid striped bass excellent."},
+    ],
     nearbyLakes:[{slug:"joe-pool-lake",name:"Joe Pool Lake"},{slug:"lake-granbury",name:"Lake Granbury"}],
     travelAlerts:["TPWD warned of major low-water ramp closures and campers-only launch limitations in its April 21, 2026 access inventory. The warning is historical and MUST be checked against current USACE closure reports; do not use this guide to assert a ramp is open today.","No general swim or boat-launch permission is inferred from a park's name. Confirm swimming areas, accessibility and seasonal hours with the Corps.","Clean, drain and dry watercraft and equipment under Texas invasive-species requirements before entering another reservoir."],
     historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/benbrook/index.asp",
     historyNotes:["Congress authorized Benbrook Dam under the River and Harbor Act in March 1945, when growing flood exposure and water needs in the Fort Worth area led to additional Trinity Basin storage.","The U.S. Army Corps of Engineers started construction May 27, 1947 and finished the main project in December 1950; deliberate reservoir impoundment began September 29, 1952. The TWDB makes these separate phases explicit, helping readers distinguish completion of the physical dam from water storage.","Benbrook's earthfill dam spans roughly 9,130 feet including the spillway and remains a Corps flood-management and water-conservation asset, not just a fishing destination. Recreation options depend on operational water levels and park-specific rules, which explains the changing launch landscape."],
+  },
+
+  {
+    slug: "granger-lake", name: "Granger Lake", tpwdSlug: "granger", waterDataSlug: "granger", verifiedAt: "2026-10-12", region: "prairies-lakes",
+    summary: "A 4,009-acre Corps-managed San Gabriel River reservoir near Taylor with outstanding crappie and catfish, five independently named ramp/recreation sites, Corps camping, and documented zebra mussels.",
+    surfaceAcres: 4009, maxDepthFeet: 50, impoundedYear: 1980, counties: ["Williamson"], nearestCities: ["Granger", "Taylor", "Georgetown"],
+    waterway: "San Gabriel River and Willis Creek", riverBasin: "Brazos River Basin", authority: "U.S. Army Corps of Engineers",
+    conservationPool: "504 ft msl", fluctuation: "Moderate; subject to dam operations and flood conditions", clarity: "Turbid to moderately turbid",
+    identity: "Granger Lake is not primarily a largemouth-bass destination. TPWD rates crappie and catfish excellent and white bass good, while largemouth bass are poor. The former Laneport Lake flood-control project began impounding in January 1980, and the Corps manages four park areas plus a limited small-craft launch at San Gabriel Wildlife Management Area. The basin has zebra mussels; draining water and cleaning watercraft are required.",
+    habitat: [
+      "Flooded willows, stumps, downed timber, channel bends and laydowns dominate a shallow, cloudy reservoir, making structure more useful than generic open-water tactics.",
+      "In February and early spring, crappie move into shallow timber and creek arms near spawning temperatures. In summer seek main-lake humps, drops and artificial brush, ideally located with the TPWD Habitat Structure Viewer.",
+      "Spring white bass runs extend into the San Gabriel River and Willis Creek arm after sufficient inflow; do not promise predictable river runs without checking flows.",
+    ],
+    fish: [
+      fish("crappie", "Crappie", "excellent", "spring", "The signature fishery: TPWD reports large numbers of keeper-sized fish around flooded timber; small tube jigs and minnows are effective around cover.", ["jigs-and-minnows", "vertical-jigging"]),
+      fish("catfish", "Catfish", "excellent", "year-round", "Excellent blue, channel and flathead catfish fishing over river-channel cover, timber and snag areas; cut bait for blue/channel, live bait for flathead.", ["cut-bait", "live-bait"]),
+      fish("white-bass", "White bass", "good", "spring", "Spring tributary movements depend on inflows; in summer white bass chase bait in the main-lake open-water zones.", ["jigs-and-minnows", "trolling", "topwater"]),
+      fish("largemouth-bass", "Largemouth bass", "poor", "spring", "TPWD rates largemouth bass poor because they are less abundant; do not plan a bass-first trip here.", ["spinnerbaits", "soft-plastics"], "secondary"),
+    ],
+    access: "TPWD lists four Corps recreation areas (Willis Creek, Taylor, Wilson H. Fox and Friendship) and the San Gabriel WMA small-craft launch. The WMA's primitive single lane does NOT accommodate trailered boats. All Corps parks charge fees per TPWD; check active conditions with the USACE.",
+    accessPoints: [
+      { name:"Willis Creek",operator:"U.S. Army Corps of Engineers",kind:"park",launch:"At the mouth of Willis Creek on County Road 346, three-lane concrete ramp, picnic/day-use and TPWD-listed camping.",fee:"Corps entrance/launch fee required",availability:"TPWD lists year-round; confirm USACE (512) 859-2668 for ramp closures and campground bookings." },
+      { name:"San Gabriel Wildlife Management Area launch",operator:"U.S. Army Corps of Engineers",kind:"public-ramp",launch:"From SH 95 north to County Road 347, travel roughly one mile to WMA entrance; primitive single-lane launch for canoes and jon boats ONLY; no boat trailers.",fee:"TPWD lists no fee",availability:"TPWD lists year-round; no trailer ramp. Confirm WMA restrictions and river-level status before small-craft launch." },
+      { name:"Taylor Park",operator:"U.S. Army Corps of Engineers",kind:"park",launch:"South shore off FM 1331, four-lane concrete ramp. TPWD also indicates accessible facilities; verify the exact ADA route and access with the operator.",fee:"Corps entrance/launch fee required",availability:"TPWD lists year-round; check USACE (512) 859-2668 for current closure or fee notice." },
+      { name:"Wilson H. Fox Park",operator:"U.S. Army Corps of Engineers",kind:"park",launch:"South shore off FM 1331, separate six-lane and two-lane concrete ramps, courtesy dock and Corps-managed recreation.",fee:"Corps entrance/launch fee required",availability:"TPWD lists year-round; confirm actual availability and accessible launch features with USACE (512) 859-2668." },
+      { name:"Friendship Park",operator:"U.S. Army Corps of Engineers",kind:"park",launch:"North shore off FM 971, four-lane concrete ramp and picnic area.",fee:"Corps entrance/launch fee required",availability:"TPWD lists year-round; check USACE (512) 859-2668 for current park status." },
+    ],
+    camping: {name:"Willis Creek, Taylor Park, Wilson H. Fox Park and Friendship Park",summary:"TPWD reports Corps-managed lakeside campgrounds, restrooms and picnic areas around Granger Lake, with the facility chart identifying overnight facilities at Willis Creek and potentially other Corps parks. These are different from the small-craft-only San Gabriel WMA. Verify actual campsite inventory, seasonal operations, reservation availability and ADA amenities directly with USACE/official reservation provider."},
+    visitorFAQs: [
+      {question:"Top fishery?",answer:"TPWD rates crappie and catfish excellent; largemouth bass poor."},
+      {question:"Does San Gabriel WMA accept boat trailers?",answer:"No; TPWD lists a primitive no-trailer launch for canoes and jon boats."},
+      {question:"Can I camp?",answer:"Corps parks, including Willis Creek, have listed campgrounds. Confirm reservations."},
+    ],
+    nearbyLakes:[{slug:"lake-georgetown",name:"Lake Georgetown"},{slug:"lake-austin",name:"Lake Austin"}],
+    travelAlerts:["TPWD confirms zebra mussels in Granger Lake. Clean, drain and dry boats, trailers, bait buckets and other gear; draining is legally required before leaving the lake.","The San Gabriel Wildlife Management Area primitive launch is for canoes/jon boats with NO trailers. Do not route large trailered craft to that entrance.","TPWD warns that San Gabriel River bank access on County Road 348 has a steep descent and narrow shoulder parking; assess mobility needs and traffic safety before parking."],
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/granger/index.asp",
+    historyNotes:[
+      "The lake was first planned under the name Laneport Lake. Congress authorized that flood-control project on September 3, 1954; construction did not begin until October 24, 1972. This distinction matters when interpreting references to the reservoir's '1950s origins.'",
+      "Deliberate storage began on January 21, 1980, and Corps construction was completed in February 1980. The earthfill dam and spillway are about 16,320 feet long. In addition to reducing lower San Gabriel/Brazos flooding, the lake provides public water supply and recreation.",
+      "TWDB's 2013 volumetric survey reported about 4,159 acres at the 504-foot conservation pool, differing from TPWD's conventional fishing profile figure of 4,009 acres. These are survey and reporting differences, not two separate lakes."
+    ],
+  },
+  {
+    slug: "aquilla-lake", name: "Aquilla Lake", tpwdSlug: "aquilla", waterDataSlug: "aquilla", verifiedAt: "2026-10-12", region: "prairies-lakes",
+    summary: "A 3,020-acre Corps reservoir near Hillsboro with two free official public boat ramps, a separate below-dam fishing pier, good crappie and catfish, timber habitat and no TPWD-listed lakeshore campground in the ramp inventory.",
+    surfaceAcres: 3020, maxDepthFeet: 59.5, impoundedYear: 1983, counties: ["Hill"], nearestCities: ["Hillsboro", "Whitney", "Waco"],
+    waterway: "Aquilla and Hackberry creeks, tributaries of the Brazos River", riverBasin: "Brazos River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "537.5 ft msl", fluctuation: "Typically 3–4 feet; flood operations and drought can alter ramp usability", clarity: "Stained",
+    identity: "Aquilla Lake is a relatively uncrowded Corps flood-control and water-supply reservoir where public recreation is deliberately limited: TPWD lists Dairy Hill and Old School boat ramps, a separate dam tailrace fishing pier, and NO listed overnight campground in those three public-access areas. Catfish and crappie are TPWD-rated good, largemouth and white bass fair. Official sources use different initial years—TPWD's profile says 1982 impounded, but the TWDB construction record precisely dates deliberate water storage to April 29, 1983. This guide uses the documented TWDB date and explains the difference.",
+    habitat:[
+      "Aquilla and Hackberry creek arms contain standing timber, brush and submerged fencerows, but much of the upper shallow water is not productive in every season.",
+      "TPWD has installed habitat structures at selected mapped points; anglers should use the official Habitat Structure Viewer and avoid navigating through timber at unsafe speed.",
+      "Look for crappie around isolated large trees and deep brush, catfish over shallow flats or river channels, and seasonal bass around shore cover rather than inventing a universally productive hotspot.",
+    ],
+    fish:[
+      fish("catfish","Catfish","good","year-round","TPWD rates blue and channel catfish good; drifting flats, fishing shallow brush or using cut bait near channels may be effective.",["cut-bait","live-bait"]),
+      fish("crappie","Crappie","good","spring","Look for submerged brush piles, isolated large trees and minnows or small jigs as fish move with temperature.",["jigs-and-minnows","vertical-jigging"]),
+      fish("largemouth-bass","Largemouth bass","fair","spring","TPWD rates the catch opportunity fair. Slow soft plastics and spinnerbaits around creek channels, fencerows and trees are lake-specific choices.",["soft-plastics","spinnerbaits","crankbaits"]),
+      fish("white-bass","White bass","fair","spring","White bass are a secondary fishery; trolling or small lures over windswept flats can work, but verify current reports.",["trolling","jigs-and-minnows"],"secondary"),
+      fish("sunfish","Sunfish","fair","summer","TPWD considers sunfish a secondary fishery here; shoreline fishing is more practical from permitted areas.",["jigs-and-minnows"],"secondary"),
+    ],
+    access:"TPWD's public access inventory lists two free year-round Corps boat ramps, Dairy Hill and Old School. The third listed facility, Tailrace, is BELOW the dam and offers a free fishing pier but explicitly NO boat ramp. A generic Google lake pin cannot substitute for the ramp entrance maps.",
+    accessPoints:[
+      {name:"Dairy Hill Ramp",operator:"U.S. Army Corps of Engineers",kind:"public-ramp",launch:"East shore south of Peoria near southeast end of FM 1947 bridge. Boat ramp suitable for different boat types; TPWD lists restrooms and parking.",fee:"TPWD lists NO fee",availability:"Historically year-round; contact USACE (254) 694-3189 about current lake/launch status."},
+      {name:"Old School Ramp",operator:"U.S. Army Corps of Engineers",kind:"public-ramp",launch:"West shore off FM 933 between Waco and Whitney. TPWD lists an all-boats ramp, restrooms and parking.",fee:"TPWD lists NO fee",availability:"Historically year-round; verify ramp clearance with USACE (254) 694-3189."},
+      {name:"Tailrace public fishing pier",operator:"U.S. Army Corps of Engineers",kind:"park",launch:"Below Aquilla Dam off Highway 310. Public fishing pier; TPWD explicitly states NO boat launch at this site.",fee:"TPWD lists NO fee",availability:"TPWD lists year-round shore access; water releases and Corps operations may change safety or access."}
+    ],
+    visitorFAQs: [
+      {question:"Public boat ramps?",answer:"Dairy Hill and Old School, both historically free Corps ramps."},
+      {question:"Can I launch from Tailrace?",answer:"No. It has a fishing pier but no boat ramp."},
+      {question:"Can I camp at the listed ramps?",answer:"TPWD's three listed access facilities do not identify campgrounds."},
+    ],
+    nearbyLakes:[{slug:"lake-whitney",name:"Lake Whitney"},{slug:"lake-waco",name:"Lake Waco"}],
+    travelAlerts:["Aquilla Tailrace is a fishing-pier area with NO boat ramp. Do not use tailrace directions when hauling a boat.","TPWD's access table does not list campgrounds at Dairy Hill, Old School or Tailrace. Don't assume on-site camping; use verified neighboring campground sources or ask USACE.","TPWD's listing says impounded in 1982 while the TWDB historical narrative dates the start of deliberate impoundment to April 29, 1983; the latter is used for chronology, not a fabricated reconciliation."],
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/aquilla/index.asp",
+    historyNotes:[
+      "Aquilla Dam and Lake were built on Aquilla and Hackberry creeks as part of a wider Brazos Basin flood-control and public-water supply program. The project remains federally owned and Corps-operated, with water rights involving the Brazos River Authority.",
+      "TWDB documents that construction started June 14, 1978; deliberate impoundment began April 29, 1983; and the dam was completed May 16, 1983. TPWD's traditional fishing summary gives 1982 as 'impounded,' a different high-level project designation. When reporting a precise first-storage date, the TWDB's historical account is more specific.",
+      "A 2014 TWDB reservoir survey measured about 3,084 surface acres at conservation pool, while TPWD's recreational-lake directory presents 3,020 acres. The changing acreage reflects measurement vintages and stage assumptions; neither should be confused with currently exposed shoreline area."
+    ],
+  },
+
+  {
+    slug: "white-rock-lake", name: "White Rock Lake", tpwdSlug: "white_rock", verifiedAt: "2026-10-12", region: "prairies-lakes",
+    summary: "An urban Dallas reservoir and trail park with excellent TPWD-rated largemouth bass and crappie, five named free-access boat ramps, municipal motor restrictions, no camping, and a documented 1910–1912 construction history.",
+    surfaceAcres: 1088, maxDepthFeet: 20, impoundedYear: 1912, counties: ["Dallas"], nearestCities: ["Dallas"],
+    waterway: "White Rock Creek, a Trinity River tributary", riverBasin: "Trinity River Basin", authority: "City of Dallas Parks and Recreation",
+    conservationPool: "approximately 458 ft msl", fluctuation: "Typically about 1–2 ft according to TPWD; flood, drought and sediment affect usable shore", clarity: "Stained",
+    identity: "White Rock Lake is Dallas's city-park lake, not a privately developed resort reservoir. The recreation emphasis is public shoreline access, sailing, walking and cycling, birding and fishing piers. TPWD rates largemouth bass and white crappie excellent, while catfish are fair. The surrounding park has free TPWD-listed launches but prohibits overnight camping. Dallas's current city ordinance states a general motor limit of 10.5 horsepower; TPWD's older fishing facts page instead says 9.9 horsepower, so use the current city code rather than treating the older number as controlling.",
+    habitat: [
+      "The lake has sparse underwater vegetation but beds of bulrush, water willow and reeds, plus creek mouths and fishing piers where bass use accessible structure.",
+      "TPWD identifies white crappie movements into White Rock Creek in spring. Anglers should account for pier closures, legal shoreline access and high urban use instead of presenting private club property as public.",
+      "The lake's relatively shallow maximum depth and changing sedimentation mean old acreage and water-storage figures differ. Use signed entrances and current City of Dallas water and recreation updates.",
+    ],
+    fish: [
+      fish("largemouth-bass","Largemouth bass","excellent","spring","TPWD rates the lake excellent for largemouth bass; fish the reed beds, creek mouths and structure around Dickson Branch using lures suited to shallow urban water.",["soft-plastics","spinnerbaits","topwater"]),
+      fish("crappie","Crappie","excellent","spring","TPWD identifies white crappie as an excellent fishery, particularly up White Rock Creek during the spring movement and around fishing piers.",["jigs-and-minnows","vertical-jigging"]),
+      fish("catfish","Catfish","fair","year-round","Channel catfish are present, but TPWD rates the lake fair for catfish; don't market it as a trophy catfish destination.",["cut-bait","live-bait"],"secondary"),
+    ],
+    access: "TPWD identifies five distinct city-operated, no-fee boat-access locations. West Lawther, Big Thicket, Corinthian Sailing Club, East Lawther and Filter Building have different lanes and parking limitations. Verify the public-entry conditions before towing; parking and club access are not identical at every location.",
+    accessPoints: [
+      {name:"West Lawther Ramp",operator:"City of Dallas",kind:"public-ramp",launch:"West shore opposite Fisher Road on West Lawther Drive; from I-30 north on East Grand, Winsted, White Rock Road, then West Lawther. One-lane ramp, approximately 30 parking spaces.",fee:"No fee according to TPWD",availability:"TPWD lists year-round; municipal operations, park hours and current access take precedence. Dallas Parks (214) 670-8281."},
+      {name:"Big Thicket Boat Ramp",operator:"City of Dallas",kind:"public-ramp",launch:"East shore via Buckner Boulevard, west on Mockingbird Lane, south on East Lawther Drive. Three concrete lanes with up to 30 vehicle spaces.",fee:"No fee according to TPWD",availability:"TPWD lists year-round; verify City of Dallas operator status."},
+      {name:"Corinthian Sailing Club Ramp",operator:"City of Dallas / sailing club",kind:"marina",launch:"East Lawther Drive on eastern shore via Mockingbird and Buckner. TPWD lists one ramp lane and 20 spaces.",fee:"TPWD reports no fee, but confirm any membership or shared-facility restrictions",availability:"Year-round in TPWD listing; do not assume unrestricted private-club amenities."},
+      {name:"East Lawther Ramp",operator:"City of Dallas",kind:"public-ramp",launch:"East shore off East Lawther Drive; one ramp lane with courtesy dock, NO on-site vehicle parking and limited nearby parking.",fee:"No fee according to TPWD",availability:"TPWD lists year-round but large trailer parking is not provided at the ramp."},
+      {name:"Filter Building Ramp",operator:"City of Dallas",kind:"public-ramp",launch:"West shore via East Grand, Winsted and White Rock Road under the bridge, beyond Filter Building Event Venue. One lane and little/no trailer parking.",fee:"No fee according to TPWD",availability:"TPWD lists year-round; verify city parking, event and launch restrictions."},
+    ],
+    specialRules: true,
+    campingProhibited: true,
+    nearbyLakes:[{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"joe-pool-lake",name:"Joe Pool Lake"}],
+    nearbyDestinations:[{slug:"dallas-arboretum-and-botanical-garden",name:"Dallas Arboretum and Botanical Garden",reason:"Lakeside garden and seasonal walking destination with views across White Rock Lake; admission and gardens are separately operated."}],
+    travelAlerts:[
+      "The current Dallas City Code section 32-40 generally prohibits operating a boat with a motor rated more than 10.5 horsepower on White Rock Lake, with defined exceptions. TPWD's older facts summary quotes a different 9.9-HP figure. Consult current City Code before boating; do not rely on an outdated fishing summary to determine the legal limit.",
+      "TPWD expressly says NO camping is allowed at White Rock Lake. The City of Dallas designates picnic, sailing, walking, fishing and daytime park uses; do not imply campsite or RV-hookup availability.",
+      "Dallas Parks gives its lake area as 1,015 acres, TPWD fishing facts says 1,088 acres, and a TWDB 2015 survey shows 995 acres at the specified conservation stage. These refer to different measurement conventions/vintages, not three distinct water bodies.",
+    ],
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/white_rock/index.asp",
+    visitorSourceUrl:"https://dallasparks.org/235/White-Rock-Lake",
+    localRegulationsSourceUrl:"https://codelibrary.amlegal.com/codes/dallas/latest/dallas_tx/0-0-0-115288",
+    liveDataNote:"White Rock Lake is a City of Dallas reservoir without a verified compatible TWDB real-time water-level source in this guide. Check the city park's current information, alerts and official maps before travel; an undated reference elevation is not a live level.",
+    historyNotes:[
+      "Dallas faced worsening shortages in the early twentieth century. Construction on White Rock Dam began in March 1910 and the earthfill dam was completed in September 1911, during a period of municipal water-system expansion.",
+      "TWDB records the reservoir as filled in August 1912; TPWD's simple angling facts sheet labels the lake 'impounded 1910,' apparently using the beginning of the project era rather than the detailed fill event. The guide retains the TWDB completion/filling chronology instead of repeating an oversimplified single year.",
+      "The reservoir became a public recreational centerpiece as Dallas secured larger drinking-water sources. Today the Bath House Cultural Center, shoreline trails and public fishing access make its urban visitor role very different from a Corps campground reservoir. TWDB's 2015 survey measured roughly 995 surface acres at its stated conservation level, while agency visitor summaries use different acreage figures."
+    ],
+    visitorFAQs:[
+      {question:"Does White Rock Lake allow overnight camping?",answer:"No. TPWD explicitly says camping is not allowed around White Rock Lake. Use separate established accommodations in Dallas."},
+      {question:"Can a boat with a large motor use White Rock Lake?",answer:"Dallas City Code 32-40 generally prohibits operation with motors above 10.5 horsepower, with certain official/authorized exceptions. TPWD's older fishing summary says 9.9; check current Dallas ordinances and park rules before launching."},
+      {question:"Where are the public ramps?",answer:"TPWD lists West Lawther, Big Thicket, Corinthian Sailing Club, East Lawther and Filter Building ramps. All show no launch fee, but parking and access vary by facility."},
+      {question:"Is the lake good for fishing?",answer:"TPWD rates largemouth bass and crappie excellent; catfish fair. The creek mouths, reed beds and fishing piers are important public fishing environments."},
+      {question:"Why do sources report 1910 and 1912?",answer:"TWDB dates construction start to March 1910, dam completion to September 1911 and reservoir filling to August 1912. TPWD's angling facts simplifies the history to 'impounded 1910'."},
+    ],
+  },
+
+
+  {
+    slug: "bardwell-lake", name: "Bardwell Lake", tpwdSlug: "bardwell", waterDataSlug: "bardwell", verifiedAt: "2026-10-13", accessReviewedAt: "2026-10-13", region: "prairies-lakes",
+    summary: "A 3,138-acre USACE reservoir on Waxahachie Creek near Ennis with strong white bass, hybrids, camping, and a consequential distinction between free, camper-only and temporarily closed launch facilities.",
+    surfaceAcres: 3138, maxDepthFeet: 43, impoundedYear: 1965, counties: ["Ellis"], nearestCities: ["Ennis", "Waxahachie", "Bardwell"],
+    waterway: "Waxahachie Creek above Chambers Creek", riverBasin: "Trinity River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "421 ft msl", fluctuation: "TPWD lists roughly four feet under normal conditions; flooding can change access", clarity: "Moderately clear to milky",
+    identity: "Known as both Bardwell Lake and Lake Bardwell, this Corps reservoir was built for flood control and municipal water conservation, not as a private shoreline resort. TPWD's standout fishery is white bass, while the Corps lists public ramps, fee day-use parks and designated reservable campgrounds. Operator park status and older boating text currently disagree on some closures; rely on the most recent Corps park notice and direct operator confirmation before towing.",
+    habitat: [
+      "Hydrilla is prevalent north of the State Highway 34 bridge, making shallow-water vegetation a viable largemouth pattern. The upper creek reaches are silted and can become too shallow for safe motorboat passage.",
+      "Open-water white bass and stocked hybrid striped bass feed over main-lake structure. The dam face, ledges and humps are more reliable than generic shoreline casting advice for those fish.",
+      "Use TPWD's white-bass reports and current water levels to choose between main-lake schooling fish, structure-oriented crappie and catfish, and the shallow vegetation fishery."
+    ],
+    fish: [
+      fish("white-bass","White bass","excellent","fall","TPWD rates white bass excellent. Look for schooling activity and bird concentrations during cooler months; avoid unsafe shallow upper reaches.",["topwater","vertical-jigging","trolling"]),
+      fish("hybrid-striped-bass","Hybrid striped bass","good","summer","Stocked hybrids use open-water cover and can be pursued with downrigging or other trolling and vertical techniques.",["trolling","vertical-jigging","live-bait"]),
+      fish("catfish","Catfish","good","year-round","Good-rated catfish can be targeted with fresh bait near channel edges and structure; choose legal locations away from courtesy docks and ramps.",["cut-bait","live-bait"]),
+      fish("crappie","Crappie","good","spring","Good crappie fishing centers on brush and submerged wood, with seasonal movement between shallower spawning cover and deeper structure.",["jigs-and-minnows","vertical-jigging"]),
+      fish("largemouth-bass","Largemouth bass","fair","spring","TPWD rates largemouth fair overall despite improved vegetation cover north of the Highway 34 bridge.",["soft-plastics","crankbaits","spinnerbaits"],"secondary"),
+      fish("sunfish","Sunfish","poor","summer","TPWD rates sunfish poor; this is not a recommended sunfish-first destination.",["jigs-and-minnows"],"secondary"),
+    ],
+    access: "The Corps operates designated public launches at Love Park, Little Mustang, High View, Mott and Waxahachie Creek parks. The TPWD State Public Ramp is marked CLOSED. Little Mustang is the Corps-listed free day-use launch; camping and launch permissions differ elsewhere. The Corps home page lists Waxahachie Creek Park closed and its older boating page includes a sweeping flood-closure notice, so current status must be resolved with the lake office (972) 875-5711 immediately before travel.",
+    accessPoints: [
+      { name: "Love Park", operator: "U.S. Army Corps of Engineers", kind: "public-ramp", launch: "Southeast side near Ennis via SH 34, Lakeview Drive and park entrance; four-lane ramp and day-use shelter. No overnight camping.", fee: "USACE lists a day-use/boat-launch charge; verify current amount", availability: "Operator posts park status separately from the older boating notice. Confirm today's ramp status before towing." },
+      { name: "Little Mustang Creek Park", operator: "U.S. Army Corps of Engineers", kind: "public-ramp", launch: "Upper creek area; Corps lists a four-lane ramp, courtesy dock and day-use shoreline access.", fee: "USACE identifies this park as free for day use", availability: "Corps FAQ identifies 24-hour access, subject to flood or maintenance closure; no campground." },
+      { name: "High View Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "Western shore off SH 34; four-lane ramp, courtesy dock and established campground. The Corps lists water/electric campsite hookups.", fee: "Day-use/launch fee or valid pass; campground reservation separate", availability: "USACE lists year-round camping, but confirm water level, park entrance and reservations directly." },
+      { name: "Mott Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "West shore via SH 34 and FM 985; Corps campground and bank-fishing areas are separate from open-water boating.", fee: "Campground or day-use fees apply as posted", availability: "Corps treats camping as seasonal; verify park and ramp status for the intended date." },
+      { name: "Waxahachie Creek Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "Waxahachie Creek arm off SH 34; two four-lane ramps and campground, with potentially shallow upper-creek navigation.", fee: "Fee required when access is open", availability: "USACE's lake status page lists the park and ramp closed; do not assume entry until the Corps confirms reopening." },
+    ],
+    campingUrl:"https://www.swf-wc.usace.army.mil/bardwell/Recreation/Camping/",
+    camping: {name:"High View Park, Mott Park and Waxahachie Creek Park",summary:"USACE requires reservations for designated camping. High View is listed year-round with 39 water/electric campsites; Mott and Waxahachie Creek are seasonal, and the Corps currently lists Waxahachie Creek closed. Love and Little Mustang are day-use facilities, not overnight campgrounds. Check current Recreation.gov inventory and Corps advisories; do not infer access from an old TPWD ramp list."},
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/bardwell/index.asp",
+    visitorSourceUrl:"https://www.swf-wc.usace.army.mil/bardwell/",
+    historyNotes:[
+      "Waxahachie Creek's flood-control and water-supply project received federal authorization under the Flood Control Act of March 31, 1960. Construction began in August 1963, after Trinity River Authority coordination established a route for regional water supply.",
+      "TWDB records deliberate impoundment on November 20, 1965 and physical dam completion on March 27, 1966. The Corps' shorter historical summary calls the project completed in 1965; those dates describe different stages rather than two separate reservoirs.",
+      "Bardwell's water-allocation arrangements helped supply Ennis and Waxahachie while the Corps managed flood storage above conservation pool. The 1965 impoundment date should not be mistaken for 1966 completion, nor should flood-pool elevations be described as normal operating water levels."
+    ],
+    visitorFAQs:[
+      {question:"Which Bardwell Lake boat launch is free?",answer:"USACE identifies Little Mustang Creek Park as the free public day-use ramp. It is not a campsite. Verify same-day opening if flooding or repairs are possible."},
+      {question:"Can I camp at Love Park?",answer:"No. The Corps lists Love Park as day-use only. High View, Mott and Waxahachie Creek are the named camping parks, with operator booking requirements and varying seasons."},
+      {question:"Are the ramps open after heavy rain?",answer:"Not necessarily. Corps park status and an older boating flood notice differ. Consult the Corps Bardwell status page or call the lake office before towing."},
+      {question:"What fish is Bardwell known for?",answer:"TPWD rates white bass excellent, hybrids and catfish good, and largemouth bass fair. Upper-end hydrilla improves cover but does not change the lake-wide published rating."},
+      {question:"When was Bardwell Lake built?",answer:"Construction started in 1963, impoundment began November 20, 1965, and TWDB records completion March 27, 1966."}
+    ],
+    nearbyLakes:[{slug:"joe-pool-lake",name:"Joe Pool Lake"},{slug:"cedar-creek-reservoir",name:"Cedar Creek Reservoir"},{slug:"richland-chambers-reservoir",name:"Richland-Chambers Reservoir"}],
+    travelAlerts:["USACE's park-status page and older boating information have conflicting closure language. Do not label an access point open based solely on a published seasonal schedule.","High View Marina is permanently closed according to USACE; it must not be advertised as an operating concession.","Upper Waxahachie Creek can be very shallow even when lower-lake ramps are serviceable."],
+  },
+  {
+    slug: "lake-bastrop", name: "Lake Bastrop", tpwdSlug: "bastrop", verifiedAt: "2026-10-13", accessReviewedAt: "2026-10-13", region: "prairies-lakes",
+    summary: "A 906-acre LCRA-managed warm-water cooling reservoir in Bastrop County with excellent largemouth fishing, two separately operated park entrances, reservable lakeside stays, paddling and swimming.",
+    surfaceAcres: 906, maxDepthFeet: 60, impoundedYear: 1964, counties: ["Bastrop"], nearestCities: ["Bastrop", "Elgin", "Smithville"],
+    waterway: "Spicer Creek, tributary of Piney Creek and the Colorado River", riverBasin: "Colorado River Basin", authority: "Lower Colorado River Authority", conservationPool: "450 ft msl", fluctuation: "Typically 1–2 feet under normal operations", clarity: "Clear to slightly stained",
+    identity: "Lake Bastrop was built in 1964 to provide cooling water for LCRA's Sim Gideon power station, a reason its winter fishing differs from deeper Highland Lakes reservoirs. Water can become unusually hot in summer. North Shore and South Shore are distinct LCRA reservation destinations; the smaller Bastrop State Park lake is another waterbody and must never be confused with this reservoir.",
+    habitat:["LCRA and TPWD document substantial beds of hydrilla, southern and marine naiad, coontail and pondweed, with creek channels, humps and ledges beneath the vegetation.","TPWD describes above-average winter and spring bass activity related to power-plant warming, but cautions that summer heat can reduce fishing success.","Structure-oriented crappie are sparse, while channel catfish and sunfish provide different expectations from the primary largemouth-bass fishery."],
+    fish:[
+      fish("largemouth-bass","Largemouth bass","excellent","spring","TPWD rates the bass fishery excellent, particularly February through June along vegetated flats; most fish are not record-sized trophies.",["crankbaits","soft-plastics","topwater","spinnerbaits"]),
+      fish("catfish","Catfish","good","spring","Good channel catfish populations are attractive in spring and early summer before dense aquatic vegetation complicates bottom fishing.",["cut-bait","live-bait"]),
+      fish("crappie","Crappie","fair","spring","TPWD identifies a low-density crappie fishery. This is not a reliable crappie-first alternative to better-rated area lakes.",["jigs-and-minnows","vertical-jigging"],"secondary"),
+      fish("sunfish","Sunfish","fair","summer","TPWD rates sunfish fair; sheltered park shorelines can suit casual outings with suitable tackle.",["jigs-and-minnows"],"secondary"),
+    ],
+    access:"The LCRA runs two separately ticketed park entrances. North Shore Park is reached via FM 1441 (603 FM 1441); South Shore Park via South Shore Road (375 South Shore Road). TPWD lists one-lane concrete ramps at both, with entrance fees. LCRA publishes park-specific camping, accessibility information, swimming areas, trail maps and reservations. Construction notices at South Shore include restroom work during 2026; confirm facilities before travel.",
+    accessPoints:[
+      {name:"Lake Bastrop North Shore Park",operator:"Lower Colorado River Authority",kind:"park",launch:"603 FM 1441, Bastrop. One-lane concrete public launch plus trailer parking; LCRA publishes a separate pier, swimming area and day-use facilities.",fee:"LCRA park admission is charged; confirm current launch fee and pass terms",availability:"LCRA lists daily park operations; check low-water status, rentals and admission before arrival."},
+      {name:"Lake Bastrop South Shore Park",operator:"Lower Colorado River Authority",kind:"park",launch:"375 South Shore Road, Bastrop, off SH 21. One-lane concrete ramp, fishing piers, paddle launch and designated swimming area.",fee:"LCRA charges park admission; reservations and rentals priced separately",availability:"LCRA's booking site warned of restroom work starting in 2026. Confirm which washrooms, launches and trails are available before arrival."},
+    ],
+    campingUrl:"https://lcraparks.com/parks/lake-bastrop-south-shore-park",
+    camping:{name:"Lake Bastrop North Shore Park and South Shore Park",summary:"LCRA publishes distinct overnight inventories: North Shore includes seven full-hookup RV sites, Airstream units and glamping/cabins; South Shore has both full-hookup and water/electric RV sites, cabins, and other stays. LCRA's dated South Shore park map lists 31 full-hookup and 29 water/electric campsites, while its marketing overview describes different counts; confirm the current live booking inventory rather than claiming every mapped pitch is reservable. Day-use tickets are not overnight permissions."},
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/bastrop/index.asp",
+    visitorSourceUrl:"https://lcraparks.com/parks/lake-bastrop-south-shore-park",
+    historyNotes:[
+      "Texas Water Development Board describes the site on Spicer Creek above Piney Creek, a tributary in the Colorado River watershed. A May 6, 1963 water-right permit preceded dam construction by Brown & Root and contractor H. B. Zachry, and the lake began filling upon completion in 1964.",
+      "Unlike most Corps flood-control reservoirs, Lake Bastrop was created principally as power-plant cooling storage for LCRA's Sim Gideon generation complex, with additional public recreation. LCRA's own facilities history dates Sim Gideon units to 1965, 1968 and 1972.",
+      "The engineered water regime explains both the relatively small normal water-level fluctuations and the unusual temperature profile that TPWD says favors winter and spring bass but can make summer fishing difficult. LCRA's North Shore and South Shore parks later developed as separate public recreation and overnight destinations."
+    ],
+    visitorFAQs:[
+      {question:"Are Lake Bastrop and Bastrop State Park Lake the same?",answer:"No. Lake Bastrop is an LCRA reservoir east of Bastrop; Bastrop State Park's smaller lake is a separate park feature. Use each park's exact entrance address."},
+      {question:"Where are the two Lake Bastrop boat ramps?",answer:"TPWD lists one-lane concrete launches at North Shore (603 FM 1441) and South Shore (375 South Shore Road). Both are LCRA fee parks."},
+      {question:"Can I swim or camp at Lake Bastrop?",answer:"LCRA lists designated swimming areas and reservable overnight accommodations at its North and South Shore parks. Confirm water conditions, current site types and booking availability at the operator."},
+      {question:"What is the best fishing season?",answer:"TPWD rates largemouth bass excellent and highlights February through June. Power-plant cooling can warm winter water, while summer heat can make fishing less productive."},
+      {question:"Does the lake have special fishing restrictions?",answer:"Yes. TPWD flags special bass rules and LCRA's ban on bowfishing. Check the current TPWD Outdoor Annual and LCRA rules before harvesting fish."},
+    ],
+    specialRules:true,
+    liveDataNote:"A TWDB real-time numeric lake gauge was not independently confirmed for this reservoir. Use current LCRA park and TPWD notices; a stable historic pool elevation does not verify today's water or launch conditions.",
+    nearbyLakes:[{slug:"lake-somerville",name:"Lake Somerville"},{slug:"fayette-county-reservoir",name:"Fayette County Reservoir"},{slug:"lake-austin",name:"Lake Austin"}],
+    travelAlerts:["LCRA's South Shore reservation website has a restroom-construction advisory for 2026. Confirm sanitation and accessible facilities before arrival.","TPWD notes special bass regulations and the LCRA prohibition on bowfishing; ordinary statewide bag-limit assumptions are not enough.","Lake Bastrop is not the separate small lake inside Bastrop State Park, and park entry and camping permissions are not interchangeable."],
   },
 
 ];
@@ -1147,6 +1412,8 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
     },
     identityAngle: [def.identity, ...(def.travelAlerts ?? [])].join(" "),
     historyNotes: def.historyNotes,
+    visitorFAQs: def.visitorFAQs,
+    campingProhibited: def.campingProhibited,
     habitat: def.habitat,
     fish: def.fish.map((target) => ({
       id: target.id,
@@ -1179,13 +1446,14 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
     ],
     camping: [{
       name: def.camping?.name ?? `${def.name} trip-planning options`,
-      type: def.camping ? "Verified public recreation option" : "Camping and lodging planning",
+      type: def.camping ? "Source-listed recreation option" : "Camping and lodging planning",
       summary: def.camping?.summary ?? "Use TPWD's public-access inventory and the managing agency to confirm current camping, lodging and overnight-use options near the lake.",
-      href: publicAccess.url,
+      href: def.campingUrl ?? publicAccess.url,
     }],
     nearby: [
       ...def.counties.map((county) => ({ label: `${county} County`, description: `${def.name} is tied to ${county} County trip planning, access and nearby destinations.`, href: `/county/${countySlug(county)}`, external: false })),
       ...def.nearbyLakes.map((lake) => ({ label: lake.name, description: `Compare ${def.name} with another nearby or regionally related Texas fishing destination.`, href: `/fishing/lakes/${lake.slug}`, external: false })),
+      ...(def.nearbyDestinations ?? []).map((place) => ({label:place.name,description:place.reason,href:`/destination/${place.slug}`,external:false})),
     ],
     businessCategories: ["Fishing guides", "Marinas & fuel", "Bait & tackle", "Boat rentals & repair", "Campgrounds & lodging", "Restaurants"],
     reportSnapshot: { checkedAt: sourceVerifiedAt(def), summary: `TexasDefined does not convert durable ${def.name} patterns into a fake live report. Use a dated TexasDefined report when available and TPWD's current fishing report link for current conditions.` },
@@ -1197,7 +1465,8 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
       liveLevel: liveLevelSource,
       ...(def.historySourceUrl ? { reservoirHistory: { label: "Texas Water Development Board — reservoir history", url: def.historySourceUrl } } : {}),
       ...(def.consumptionSourceUrl ? { fishConsumption: { label: "TPWD — current fish-consumption advisories", url: def.consumptionSourceUrl } } : {}),
-      ...(def.visitorSourceUrl ? { cityRecreation: { label: "City of Sweetwater — official visitor information", url: def.visitorSourceUrl } } : {}),
+      ...(def.visitorSourceUrl ? { cityRecreation: { label: `Official ${def.name} managing-agency visitor information`, url: def.visitorSourceUrl } } : {}),
+      ...(def.localRegulationsSourceUrl ? { cityBoatRules: { label: "City code — local lake watercraft restrictions", url: def.localRegulationsSourceUrl } } : {}),
     },
   };
 }
