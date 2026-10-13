@@ -106,8 +106,15 @@ const authority = read("src/components/editorial/DestinationAuthoritySections.ts
 const related = read("src/components/editorial/DestinationRelationships.tsx");
 const countyTemplate = read("src/routes/$kind.$slug.lazy.tsx");
 for (const value of ["smallTownWave15Destinations,", "additionalTownAuthorityDestinations,"]) check(catalog.includes(value), "Explore catalog missing " + value);
-check(/return\s+applyTownAuthority\(\s*(?:enrich[A-Za-z]+Authority\(\s*)?normalizeDestinationCounty\(/.test(runtime), "Detail resolver must enrich every town (including optional museum enrichment)");
-check(runtime.includes(".map(applyTownAuthority);"), "Search/sitemap/catalog resolver must enrich every town");
+// Both direct and catalog paths must keep town enrichment first, then apply
+// narrower evidence-preservation overlays without losing town authority.
+check(/return\s+(?:enforceFredericksburgJohnsonCityHeritageAuthority\()?applyTownAuthority\(\s*(?:enrich[A-Za-z]+Authority\(\s*)?normalizeDestinationCounty\(/.test(runtime), "Detail resolver must enrich every town (including optional museum enrichment)");
+check(/\.map\(applyTownAuthority\)\s*\.map\(enforceFredericksburgJohnsonCityHeritageAuthority\);/.test(runtime) || runtime.includes(".map(applyTownAuthority);"), "Search/sitemap/catalog resolver must enrich every town");
+check(runtime.includes("import { enforceFredericksburgJohnsonCityHeritageAuthority }") &&
+      runtime.includes("return enforceFredericksburgJohnsonCityHeritageAuthority(applyTownAuthority(") &&
+      /\.map\(applyTownAuthority\)\s*\.map\(enforceFredericksburgJohnsonCityHeritageAuthority\);/.test(runtime),
+      "Corridor authority must follow all generic town, museum and historic enrichments in both resolvers");
+
 check(planner.includes("<DestinationAuthoritySections destination={destination} />"), "Visible guide and research sections absent");
 check(planner.includes("townAuthorityContextualLinks(destination)"), "Town/attraction contextual backlinks absent");
 check(planner.includes('from "@/data/town-authority-links"'), "Destination client must import lightweight links only");
