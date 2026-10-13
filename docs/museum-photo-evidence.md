@@ -40,3 +40,10 @@ Photo metadata independently checked using Wikimedia Commons API imageinfo.extme
 
 - **Amon Carter Museum of American Art, Fort Worth:** [Commons file Amon Carter Museum of American Art, facade.jpg](https://commons.wikimedia.org/wiki/File:Amon_Carter_Museum_of_American_Art,_facade.jpg); **Steven Watson**, **CC BY-SA 4.0**. Specific museum façade, not an artwork photograph. Correct the pre-existing generic "licensed reusable media" credit in the DFW museum destination.
 - **Dallas Museum of Art:** [Commons file Dallas Museum of Art.jpg](https://commons.wikimedia.org/wiki/File:Dallas_Museum_of_Art.jpg); **Kent Wang**, **CC BY-SA 2.0**. Current destination already attributes this correctly. These licenses were independently checked via Wikimedia Commons API imageinfo.extmetadata, October 12, 2026.
+
+## Public-domain museum photographs: El Paso and Huntsville, October 12, 2026
+
+- **El Paso Museum of Art**: [File:El Paso Museum of Art. El Paso, Texas.jpg](https://commons.wikimedia.org/wiki/File:El_Paso_Museum_of_Art._El_Paso,_Texas.jpg), **Wmpearl**, public domain, museum building exterior, 3,648 × 2,736 px. Do not imply photo depicts a specific current temporary exhibition.
+- **Texas Prison Museum**: [File:TexasPrisonMuseum.JPG](https://commons.wikimedia.org/wiki/File:TexasPrisonMuseum.JPG), **WhisperToMe**, public domain dedication, exact Huntsville museum exterior (2010), 2,272 × 1,704 px. Not a working prison or capital-punishment artifact.
+
+Reuse and authorship verified on Wikimedia Commons, including imageinfo license metadata for the El Paso building and Commons file's public-domain declaration for Huntsville.

@@ -576,6 +576,79 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "el-paso-museum-of-art": {
+    name: "El Paso Museum of Art",
+    slug: "el-paso-museum-of-art",
+    county: "El Paso",
+    city: "El Paso",
+    reviewed: "2026-10-12",
+    topics: ["art", "borderlands", "family", "texas-history"],
+    whyVisit: "El Paso Museum of Art offers an unusually strong cross-border perspective for a free major art museum: Mexican and Spanish Colonial art, European painting, American and regional artists, and temporary exhibitions addressing life on both sides of the border. Located in the walkable Downtown Arts District, the museum is an efficient starting point for visitors interested in the art of the El Paso–Ciudad Juárez region rather than a conventional isolated gallery visit.",
+    visitorStrategy: "The museum's address is One Arts Festival Plaza, El Paso, Texas 79901. Normal hours are Wednesday through Saturday 10 a.m.–6 p.m. and Sunday 11 a.m.–3 p.m.; Monday, Tuesday and major holidays closed. General admission is always free. Several paid downtown garages and meters serve the Arts District; do not promise a museum-owned free parking lot or a fixed garage price. Allow around 60–90 minutes for a selective self-guided experience, or use the museum's advertised 45–60-minute guided format if arranged ahead.",
+    accessibility: "The museum states its public facility is fully accessible, service animals are welcome, and a wheelchair is available on request at reception free of charge. Contact 915-212-0300 about a particular mobility, sensory or other accommodation; public transport and accessible drop-off routes should be planned using the museum's downtown visitor guide. Accessible exhibits may vary while installations are changed.",
+    familiesAndGroups: "Families can use activity guides from the visitor desk and may add the optional Canaletto augmented-reality experience where supported. Groups of 10–50 seeking a free guided tour should reserve at least two weeks ahead; Tour + Studio arrangements for K–12 school groups require four weeks. The operator recommends one adult chaperone per ten students. The museum does not advertise an on-site cafeteria or full-service restaurant; its visitor information instead points groups to nearby San Jacinto Plaza for lunch and downtown food options.",
+    researchValue: "Established in 1959, this institution interprets Borderplex art history through Mexican, American and European works and bilingual programming. Its current exhibition slate includes the 2026 Border Biennial / Bienal Fronteriza through May 2, 2027; Eric Santoscoy-Mckillip: composites-my eyes tear in the sun through February 21, 2027; and America, The Beautiful: Selections from the Zoe Diaz Collection through January 3, 2027. Dates are operator-supplied and should never imply every gallery or artwork is guaranteed on a given day.",
+    exhibits: [
+      { heading: "Mexican and Spanish Colonial art", detail: "The permanent collection's notable Mexican retablos and Spanish Colonial themes help visitors see the cultural history connecting northern Mexico and the U.S. Southwest." },
+      { heading: "European collection and historical painting", detail: "European works complement the regional art with another lens on centuries of artistic techniques, patronage and representations of people and landscape. Confirm current gallery access before travel." },
+      { heading: "2026 Border Biennial / Bienal Fronteriza (through May 2, 2027)", detail: "A time-limited exhibition centered on contemporary artistic conversations across the U.S.–Mexico border; its very premise is a reason for visitors interested in regional identities to plan a visit." },
+      { heading: "Eric Santoscoy-Mckillip: composites-my eyes tear in the sun (through February 21, 2027)", detail: "A contemporary presentation rooted in place, memory and the porous connections among culture, history and landscapes." },
+      { heading: "America, The Beautiful: Selections from the Zoe Diaz Collection (through January 3, 2027)", detail: "A changing gallery presentation from a private collection that connects regional and wider American artistic perspectives." },
+    ],
+    routes: [
+      { label: "Borderlands-focused first visit", steps: ["Start with the gallery plan and current temporary shows", "Choose the Mexican/Spanish Colonial interpretation where the gallery is accessible", "Finish with the current Border Biennial and a walk through Arts Festival Plaza"] },
+      { label: "Family art afternoon", steps: ["Collect a family activity guide at the visitor desk", "Explore two short galleries using questions and comparisons", "Have lunch outside the galleries at a downtown venue"] },
+      { label: "Walkable Downtown Arts District", steps: ["Visit EPMA during its free opening hours", "Explore nearby San Jacinto Plaza and public art", "Consider another museum or cultural destination after checking its independent hours"] },
+    ],
+    sources: [
+      { label: "EPMA official visitor information", url: "https://epma.art/visit", use: "Hours, admissions, parking, accessibility and photo rules" },
+      { label: "EPMA official group tours and visitor FAQs", url: "https://epma.art/visit/tours", use: "Kids activities, group time, chaperones and offsite lunch" },
+      { label: "EPMA current gallery directory", url: "https://epma.art/art", use: "Current and rotating exhibition titles and dates" },
+      { label: "EPMA about and institutional history", url: "https://epma.art/about", use: "Borderlands collection, institutional background and cultural mission" },
+    ],
+    connections: [
+      { label: "El Paso County", href: "/county/el-paso", reason: "Border history, downtown context and additional heritage attractions." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Discover other specialized art, history and science museum visitor guides." },
+      { label: "Dallas Museum of Art", href: "/destination/dallas-museum-of-art", reason: "Another free major art collection, useful for comparing visitors' art-museum experiences statewide." },
+    ],
+  },
+
+  "texas-prison-museum-huntsville": {
+    name: "Texas Prison Museum",
+    slug: "texas-prison-museum-huntsville",
+    county: "Walker",
+    city: "Huntsville",
+    reviewed: "2026-10-12",
+    topics: ["texas-history", "criminal-justice", "social-history", "family"],
+    whyVisit: "The Texas Prison Museum offers an unusually tangible history of incarceration in Texas and Huntsville's long relationship with the correctional system, using original equipment, personal accounts, prison-produced art and the controversial decommissioned electric chair known as Old Sparky. Unlike a prison tour, it is a museum about historical institutions and the people affected by them; its strongest independent guide explains sensitive content and visitor fit before a family or group arrives.",
+    visitorStrategy: "Visit the museum at 491 State Highway 75 North in Huntsville. The operator lists Monday through Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m., with separate holiday closures. Admission listed effective January 2025 is $8 adults, $7 ages 6–17, free for age five and under; $6 for seniors, military personnel, first responders, TDCJ employees and Sam Houston State students, with published $5 group rates. The operator says even a 45-minute visit is useful, but allow one or two hours to consider several exhibits thoughtfully; current rates and holiday exceptions should be checked before travel.",
+    accessibility: "The museum's current public site provides visitor and contact information but no complete published breakdown of wheelchair entrances, sensory accommodations, seating or gallery access. Contact the institution at 936-295-2155 about needs before arranging a visit. An ordinary museum admission does not include authorized access to nearby working correctional facilities, and visitors should never assume they can tour a jail or prison in Huntsville.",
+    familiesAndGroups: "The museum can be educational for teens and mature schoolchildren studying Texas history, criminal justice, labor, civil rights or institutional policy; however, Old Sparky and other capital-punishment and restraint exhibits may be disturbing to younger visitors. Families should make an informed choice about those rooms. Its gift shop includes prison-made arts and crafts, but a catering-capable private conference room is not evidence that the regular museum has a public café or cafeteria.",
+    researchValue: "The museum opened in 1989 and later moved to its present Huntsville facility. Its interpretation includes the 1924–1964 electric-chair era, contraband and security equipment, historical Texas prison rodeos, prison labor, prison art and daily life. Present court policy or capital-punishment practice must be distinguished from historic objects and exhibits. The museum states Old Sparky was used for 361 executions, and such a claim should be dated and attributed to the institution.",
+    exhibits: [
+      { heading: "Old Sparky and capital-punishment history", detail: "The decommissioned Texas electric chair is a central and potentially distressing exhibit. The museum identifies 361 executions between 1924 and 1964; this is a history of real people and public policy, not a spectacle." },
+      { heading: "Prison hardware and ball-and-chain displays", detail: "Restraints, locks and security equipment show changes in correctional technology and daily control, offering an entry point to questions about institutions, safety and human rights." },
+      { heading: "Prison-made art and craft", detail: "Objects made by incarcerated people invite questions about labor, creativity, skilled work and the lived experience of confinement. Gallery holdings can change." },
+      { heading: "Contraband, criminal cases and Texas Prison Rodeo", detail: "These displays explain everyday institutional security challenges, popular history and the old prison rodeo, while avoiding simplified romanticization of incarceration." },
+    ],
+    routes: [
+      { label: "Serious history in 60 minutes", steps: ["Read the museum's overview of Texas prison-system development", "Choose a historical equipment and daily-life gallery", "Decide whether the capital-punishment display is appropriate for the visitor"] },
+      { label: "Huntsville heritage day", steps: ["Visit the Texas Prison Museum during its published hours", "Explore Huntsville and Walker County heritage without entering any working prison", "Pair the museum's institutional history with broader Texas state history and community contexts"] },
+    ],
+    sources: [
+      { label: "Texas Prison Museum official homepage", url: "https://www.txprisonmuseum.org/", use: "Current opening hours, admissions, holiday notices and location" },
+      { label: "Texas Prison Museum popular exhibits", url: "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4", use: "Old Sparky and other exhibit topics" },
+      { label: "Texas Prison Museum institutional history", url: "https://www.txprisonmuseum.org/about-us", use: "Museum founding and correctional history" },
+      { label: "Texas Prison Museum gift shop", url: "https://www.txprisonmuseum.org/gift-shop", use: "Prison-made art and retail, not restaurant service" },
+      { label: "Texas Historical Commission Atlas record", url: "https://atlas.thc.texas.gov/Details/4200000500", use: "Independent museum location and institutional listing" },
+    ],
+    connections: [
+      { label: "Walker County", href: "/county/walker", reason: "Place Huntsville correctional history in its wider community context." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Compare museums with differing historical and family experiences." },
+      { label: "Texas history", href: "/explore/historic-sites", reason: "Explore state history outside the prison-system context." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
@@ -651,6 +724,20 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     alt: "Historic limestone Formosa studio and Elisabet Ney Museum in Austin, photographed in October 2020",
     width: 1600, height: 1067,
     credit: "MarkJGilmore · CC BY-SA 4.0 · Wikimedia Commons · File:Austin - Elisabet Ney Museum - 20201006000619.jpg",
+  },
+
+  "el-paso-museum-of-art": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/El_Paso_Museum_of_Art._El_Paso%2C_Texas.jpg?width=1600",
+    alt: "El Paso Museum of Art building in downtown El Paso, photographed before 2026",
+    width: 1600, height: 1200,
+    credit: "Wmpearl · Public domain · Wikimedia Commons · File:El Paso Museum of Art. El Paso, Texas.jpg",
+  },
+
+  "texas-prison-museum-huntsville": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/TexasPrisonMuseum.JPG?width=1600",
+    alt: "Exterior of the Texas Prison Museum in Huntsville, Texas, photographed in 2010",
+    width: 1600, height: 1200,
+    credit: "WhisperToMe · Public domain · Wikimedia Commons · File:TexasPrisonMuseum.JPG",
   },
 
 };
