@@ -92,3 +92,9 @@ The museum's July 2026 air-conditioning closure was followed by an official July
 
 - **1911 Baldwin 2-8-0 Steam at Texas Transportation museum.jpg**, photographer TParis, Wikimedia Commons, **Creative Commons Attribution-ShareAlike 3.0**. The photograph was made in 2012 and represents preserved railway equipment rather than proof of current operating steam rides. [Original and license details](https://commons.wikimedia.org/wiki/File:1911_Baldwin_2-8-0_Steam_at_Texas_Transportation_museum.jpg).
 - The Waco Texas Ranger Hall of Fame and Museum keeps its existing exact-location **Ranger museum entry.jpg** photograph and its current Larry D. Moore attribution; it is not replaced with a stock image.
+
+## Austin Nature & Science Center — October 13, 2026
+
+The site's hero depicts the **actual Austin Nature & Science Center entrance**. Image: [Austin nature center entrance.jpg](https://commons.wikimedia.org/wiki/File:Austin_nature_center_entrance.jpg) by **Larry D. Moore**, photographed March 2, 2012, **CC BY 4.0**. The credit and original historic image date must remain visible when publishing. The photograph does not imply any specific exhibition is on view today.
+
+The Harry Ransom Center reuses the already-credited exact-site licensed hero from the preserved destination catalog and retains that canonical museum URL; no substitute placeholder or gallery object image is fabricated.
