@@ -261,6 +261,12 @@ if (sitemap.includes('const destinations = remoteFailed ? fixtureDestinations : 
   failures.push('Explore sitemap must not audit raw remote destination records before source merging, curation, hero reconciliation and quality improvement.');
 }
 
+// Historical and temporarily-closed museum guides may remain discoverable as
+// factual references, but these exact institutions must NOT re-enter trip planning.
+for (const slug of ['1940-air-terminal-museum-houston', 'elisabet-ney-museum-austin']) {
+  if (!availability.includes('"' + slug + '"')) failures.push('Closed museum missing from unavailable trip-planner set: ' + slug);
+}
+
 if (failures.length) {
   console.error('Destination indexing policy validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
@@ -268,9 +274,3 @@ if (failures.length) {
 }
 
 console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; live destination resolution/search and the Explore sitemap share an import-order-independent preserved catalog containing Top 25 attractions plus expansion fallbacks, legacy Explore destinations, legacy lakes and statewide historic sites before the same curation/readiness gate; all known legacy curation aliases except explicitly documented curation-only adapters are non-primary; legacy Enchanted Rock and Palo Duro slugs consolidate with permanent 301 redirects; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; and reviewed curation overlays remain tracked separately from guaranteed local routes.');
-
-// Historical and temporarily-closed museum guides may remain discoverable as
-// factual references, but these exact institutions must NOT re-enter trip planning.
-for (const slug of ['1940-air-terminal-museum-houston', 'elisabet-ney-museum-austin']) {
-  if (!availability.includes('"' + slug + '"')) failures.push('Closed museum missing from unavailable trip-planner set: ' + slug);
-}
