@@ -1712,6 +1712,38 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "johnny-nelson-katy-heritage-museum": {
+    name: "Johnny Nelson Katy Heritage Museum",
+    slug: "johnny-nelson-katy-heritage-museum",
+    county: "Fort Bend",
+    city: "Katy",
+    reviewed: "2026-10-13",
+    topics: ["texas-history", "agriculture", "family", "railroad"],
+    whyVisit: "The City of Katy's heritage museum preserves a local story that can disappear beneath the region's modern suburban identity: rice cultivation, farm machinery, early settlement, transportation and the people who made Katy an agricultural community. Vintage tools, farming equipment, household antiques and photographs make a useful introduction to the landscape before the energy and residential boom. The museum was renamed for founder Johnny Nelson in 2018.",
+    visitorStrategy: "The City lists the Johnny Nelson Katy Heritage Museum at 6002 George Bush Drive, with free admission and opening Thursday–Saturday from 10 a.m. to 5 p.m., Sunday from 11 a.m. to 5 p.m. These are NOT the same hours as the neighboring Heritage Park house tours. A focused museum visit is estimated at 45–90 minutes; confirm staffing and holiday schedules before driving. Pair the indoor displays with the adjacent historical homes only if those tours are operating.",
+    accessibility: "The City lists the physical address but does not publish a comprehensive wheelchair route, stroller policy, sensory accommodation guide, or accessible restroom inventory specifically for this museum. Contact City visitor services at 281-574-8618 if these arrangements are essential. The neighboring historic houses have separate arrangements; do not assume their steps or entrances match the museum building.",
+    familiesAndGroups: "The agricultural equipment, farm implements, photographs and household antiques are suitable subjects for school-age children learning how Katy developed. Children looking for interactive play exhibits may find this more of a traditional local-history museum. The city says schools, clubs and organized groups can arrange special tours; verify the available staff and advance-booking requirements. There is no verified indoor cafeteria or full-service restaurant.",
+    researchValue: "The museum is an accessible starting point for interpreting Katy's rice-growing history and economic transition. Johnny Nelson helped build the collection and donated or interpreted equipment associated with local farming, including a family rice combine. Its distinct purpose should not be confused with the neighboring Katy Heritage Park's restored homes or the separate MKT Railroad Depot Museum on First Street.",
+    exhibits: [
+      { heading: "Rice farming and historic agricultural machinery", detail: "Study implements used in planting, harvesting and processing rice, a defining crop in Katy's early economy. Vintage tractors and harvesters make the area's changing land use easier to imagine than a list of dates." },
+      { heading: "Local settlement photographs and household objects", detail: "Old photographs, antique household pieces and pioneer material show how daily life and commerce developed around farms, rail access and community institutions." },
+      { heading: "Johnny Nelson and local preservation", detail: "The institution's naming honors Johnny Nelson, a former city leader who collected and preserved Katy agricultural history. The story also illustrates why small local museums matter even as cities grow." }
+    ],
+    routes: [
+      { label: "Local-history highlights", steps: ["Begin with rice-farming machinery and tools", "Examine early Katy community photographs and objects", "Compare historical agriculture with today's Katy landscape"] },
+      { label: "Katy heritage half day", steps: ["Visit Johnny Nelson Katy Heritage Museum during confirmed hours", "Walk to the adjacent Heritage Park exterior and check whether historic-home tours are offered", "Make a separate downtown stop at the MKT Railroad Depot Museum if it is open"] }
+    ],
+    sources: [
+      { label: "City of Katy — museums and current admission", url: "https://www.cityofkaty.com/visitors/museums", use: "Exact museum address, hours, free admission, exhibit themes, group tours and separate museum locations" },
+      { label: "Texas Historical Commission Atlas — museum record", url: "https://atlas.thc.texas.gov/Details/4200001108", use: "Official museum identity and recorded history; older Atlas hours superseded by current City schedule" },
+      { label: "Katy Heritage Society — nearby museum and historic-home tours", url: "https://www.katyheritagesociety.com/", use: "Distinguish neighboring homes and separately located railroad depot from the Johnny Nelson museum" }
+    ],
+    connections: [
+      { label: "Fort Bend County", href: "/county/fort-bend", reason: "Relate Katy's farming and settlement heritage to other Fort Bend communities." },
+      { label: "Texas museum directory", href: "/explore/museums", reason: "Explore other independently sourced Texas museums." }
+    ]
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
