@@ -330,6 +330,67 @@
           "label": "Museum: tours and education"
         }
       ]
+    },
+    {
+      "path": "/destination/el-paso-museum-of-art",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://epma.art/visit",
+          "fetchUrl": "https://epma.art/visit",
+          "label": "EPMA official visitor information"
+        },
+        {
+          "sourceUrl": "https://epma.art/visit/tours",
+          "fetchUrl": "https://epma.art/visit/tours",
+          "label": "EPMA official group tours and visitor FAQs"
+        },
+        {
+          "sourceUrl": "https://epma.art/art",
+          "fetchUrl": "https://epma.art/art",
+          "label": "EPMA current gallery directory"
+        },
+        {
+          "sourceUrl": "https://epma.art/about",
+          "fetchUrl": "https://epma.art/about",
+          "label": "EPMA about and institutional history"
+        }
+      ]
+    },
+    {
+      "path": "/destination/texas-prison-museum-huntsville",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://www.txprisonmuseum.org/",
+          "fetchUrl": "https://www.txprisonmuseum.org/",
+          "label": "Texas Prison Museum official homepage"
+        },
+        {
+          "sourceUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+          "fetchUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+          "label": "Texas Prison Museum popular exhibits"
+        },
+        {
+          "sourceUrl": "https://www.txprisonmuseum.org/gift-shop",
+          "fetchUrl": "https://www.txprisonmuseum.org/gift-shop",
+          "label": "Texas Prison Museum gift shop"
+        },
+        {
+          "sourceUrl": "https://www.txprisonmuseum.org/about-us",
+          "fetchUrl": "https://www.txprisonmuseum.org/about-us",
+          "label": "Texas Prison Museum institutional history"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/4200000500",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/4200000500",
+          "label": "Texas Historical Commission Atlas record"
+        }
+      ]
     }
   ]
 }
