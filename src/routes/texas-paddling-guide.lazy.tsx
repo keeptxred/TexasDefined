@@ -3,7 +3,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { SpecialistGuideDestinationLinks } from "@/components/editorial/SpecialistGuideDestinationLinks";
 import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
-import { stateParkHeroMap } from "@/data/state-park-hero-map";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 
 const officialSources = [
   { label: "Texas Parks & Wildlife — Texas Paddling Trails", href: "https://tpwd.texas.gov/boating/paddling-trails/", note: "Statewide official trail system, trail finder and regional planning entry point." },
@@ -95,8 +95,8 @@ function TexasPaddlingGuidePage() {
           </header>
 
           <figure className="my-8 border-b border-border pb-8">
-            <img src={stateParkHeroMap["caddo-lake-state-park"].src} alt={stateParkHeroMap["caddo-lake-state-park"].alt} width={stateParkHeroMap["caddo-lake-state-park"].width} height={stateParkHeroMap["caddo-lake-state-park"].height} loading="lazy" decoding="async" className="h-auto w-full object-cover" />
-            <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">Caddo Lake State Park, an access landscape associated with East Texas paddling. Photograph shows the location, not today's navigability, water level, or river flow. Photo: {stateParkHeroMap["caddo-lake-state-park"].credit}. <Link to="/destination/caddo-lake-state-park" className="text-primary underline">Detailed Caddo Lake State Park visitor guide →</Link></figcaption>
+            <img src={editorialImageSrc("https://commons.wikimedia.org/wiki/Special:Redirect/file/Canoeing%20Caddo%20Lake%20State%20Park%20Texas%202023.jpg?width=1600")} alt="Canoeing on Saw Mill Pond in Caddo Lake State Park, Harrison County, Texas" width={1600} height={900} loading="lazy" decoding="async" className="h-auto w-full object-cover" />
+            <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">Canoeing on Saw Mill Pond in Caddo Lake State Park, photographed May 18, 2023. This illustrates genuine paddling at the park, not live flow or launch conditions. Photo: Larry D. Moore · CC BY 4.0. <a href="https://commons.wikimedia.org/wiki/File:Canoeing_Caddo_Lake_State_Park_Texas_2023.jpg" target="_blank" rel="noopener noreferrer" className="text-primary underline">Original photograph</a>{" · "}<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="text-primary underline">Reuse license</a>{" · "}<Link to="/destination/caddo-lake-state-park" className="text-primary underline">Detailed Caddo Lake visitor guide →</Link></figcaption>
           </figure>
 
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
