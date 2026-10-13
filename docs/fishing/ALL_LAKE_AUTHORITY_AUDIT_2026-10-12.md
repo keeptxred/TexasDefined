@@ -216,3 +216,24 @@ A follow-up branch contains **two fully researched new entries**:
 - **Benbrook Lake** (Tarrant): TPWD 3,635 acres, 70-ft depth, stocked hybrid striped bass, six specifically documented Corps parks/ramps, clearly dated April 21, 2026 low-water closures and campers-only/seasonal restrictions, TWDB September 29, 1952 impoundment. Image: USACE federal public domain (not TexasDefined field photography).
 
 **Pending production:** this separate expansion branch contains 54 completed-guide records, 121 unmatched TPWD listings, 149 named statewide facility entries, and 82 counties with reciprocal guide links. New-guide HTML, licensing display and exact operating conditions must pass required CI and release verification.
+
+## Second missing-lake expansion: Granger and Aquilla
+
+- **Granger Lake** — 4,009 TPWD acres, excellent crappie and catfish, poor largemouth bass, USACE Willow/brush habitat, named access at Willis Creek, San Gabriel WMA (canoe/jon-boat, no trailers), Taylor, Wilson H. Fox and Friendship parks. Fees for Corps ramps, required zebra-mussel cleaning, real operator source and campground checks. TWDB explains 1954 authorization under the Laneport name, construction from 1972, impoundment January 21, 1980, and 2013 hydrographic acreage vs TPWD's 4,009 figure. Historical public-domain USACE aerial photo, **not original TexasDefined field photography**.
+- **Aquilla Lake** — 3,020 TPWD acres, 59.5-ft depth, good catfish and crappie, free boat ramps at Dairy Hill and Old School; a third Tailrace fishing pier is **not a ramp**. TPWD lists no campsites at any of these three. TWDB says deliberate impoundment April 29, 1983, despite TPWD's generalized 1982 summary. Authentic public-domain USACE archival photo, **not original TexasDefined field photography**.
+
+All four recent authority expansions include source-specific visitor FAQs; the shared UI renders them only where researched. This follow-up branch moves the **registry** from 54 to **56** and the TPWD guide-gap snapshot from 121 to **119**, subject to protected CI, successful merge, deployed build and real-site check.
+
+## Second missing-guide expansion: Granger Lake and Aquilla Lake
+
+**Granger Lake (Williamson County)** — 4,009 acres in TPWD's reference guide, exceptional crappie/catfish ratings, five distinct Corps/WMA lake-access facilities, three verified launch features including Wilson H. Fox and a strictly no-trailer small-craft WMA launch; lake-specific zebra-mussel warnings, Corps camping context, TWDB January 21, 1980 impoundment date and differentiated public-domain USACE aerial. FAQ answers cover trailer access, campgrounds and fishery priorities.
+
+**Aquilla Lake (Hill County)** — 3,020 TPWD reference acres, the Dairy Hill and Old School Corps ramps, and the *separate below-dam Tailrace pier with no boat ramp*. Camping is not advertised for those three TPWD public facilities because their access records do not establish overnight stays. TWDB's April 29, 1983 deliberate-storage chronology is distinguished from TPWD's 1982 summary. USACE public-domain aerial and location-specific FAQ incorporated.
+
+**Research branch baseline:** 56 lake guides, 41 statewide-template guides, 157 named facility entries across those 41, 82 counties with source-derived reciprocal links, and 119 TPWD entries still without completed guides. New guides are not accepted until validator, photo-license review, protected CI, server rendering, and production QA all pass. No original field photography has been obtained for these projects.
+
+## Dallas urban lake authority expansion — White Rock Lake (October 12)
+
+The researched **White Rock Lake** guide adds five individually named TPWD boat access sites, Dallas municipal visitor/trail information, public fishing recommendations, and historic dates documented by the Texas Water Development Board. State fishing rules and local municipal boating rules are distinguished rather than conflated. **Current Dallas Code §32-40 generally imposes a 10.5-horsepower ceiling on operated motors**, whereas TPWD's older fishing profile says 9.9 HP; the city ordinance is linked as a separate official source. Park camping is explicitly prohibited by TPWD. Surface area also differs across TPWD, Dallas Parks and TWDB surveys; the guide explains different vintages rather than presenting one as precise current water extent.
+
+Photo provenance is a real CC0 photo of White Rock Lake with the Bath House Cultural Center and skyline, uploaded by **DronePhotographer** in March 2024, not a TexasDefined-original photograph. **57 guides** exist in the research branch, with **118 official TPWD listing gaps** remaining. All original field photography and independent current operator/production QA remain open.

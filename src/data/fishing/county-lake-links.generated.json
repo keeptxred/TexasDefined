@@ -139,6 +139,10 @@
     {
       "slug": "lake-ray-hubbard",
       "name": "Lake Ray Hubbard"
+    },
+    {
+      "slug": "white-rock-lake",
+      "name": "White Rock Lake"
     }
   ],
   "denton": [
@@ -224,6 +228,10 @@
     }
   ],
   "hill": [
+    {
+      "slug": "aquilla-lake",
+      "name": "Aquilla Lake"
+    },
     {
       "slug": "lake-whitney",
       "name": "Lake Whitney"
@@ -558,6 +566,10 @@
     }
   ],
   "williamson": [
+    {
+      "slug": "granger-lake",
+      "name": "Granger Lake"
+    },
     {
       "slug": "lake-georgetown",
       "name": "Lake Georgetown"
