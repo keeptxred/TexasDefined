@@ -15,6 +15,17 @@ const photoFromPark = (slug: string): GuidePhoto => {
     : "https://commons.wikimedia.org/wiki/Commons:Public_domain";
   return { image, sourceUrl: "https://commons.wikimedia.org/", licenseUrl, exactSubject: slug, status: "governed-local" };
 };
+const COMMONS_ALT: Record<string, string> = {
+  "Campground Palo Duro Canyon State Park Texas 2024.jpg": "Recreational vehicle campsite with water and electricity hookups in the Juniper campground at Palo Duro Canyon State Park, Texas",
+  "Main Street at Fredericksburg.JPG": "Historic Main Street in Fredericksburg, Texas, with shops and a beer garden",
+  "Round Top Historic Library -- Round Top, Texas.jpg": "Historic public library building in Round Top, Texas, photographed in 2011",
+  "Canton October 2017 09 (First Monday Trade Days Main Gate).jpg": "Main public entrance to First Monday Trade Days in Canton, Texas, photographed in 2017",
+  "Salado, TX, Civic Center IMG 4058.JPG": "Exterior of the civic center building in Salado, Texas; a town landmark, not an antique store",
+  "Texas state history museum.jpg": "Bob Bullock Texas State History Museum building in Austin, Texas",
+  "Perot Museum of Nature and Science 01.jpg": "Exterior of the Perot Museum of Nature and Science building in downtown Dallas, Texas",
+  "Front entrance of Witte Museum.jpg": "Front entrance to the Witte Museum in San Antonio, Texas",
+  "Galveston March 2022 06 (Strand Historic District).jpg": "Historic commercial buildings along the Strand district in Galveston, Texas, photographed in 2022",
+};
 const commons = (filename: string, creator: string, license: string, width: number, height: number): GuidePhoto => {
   const sourceUrl = `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(filename).replace(/%20/g, "_")}`;
   const src = `https://commons.wikimedia.org/wiki/Special:Redirect/file/${encodeURIComponent(filename)}?width=1600`;
@@ -22,7 +33,7 @@ const commons = (filename: string, creator: string, license: string, width: numb
   const version = license.match(/\d\.\d/)?.[0];
   if (!version) throw new Error("Unrecognized Commons license: " + license);
   return {
-    image: { src, alt: filename.replace(/\.[^.]+$/, "").replace(/[-_]/g, " "), width: 1600, height: Math.round(height * 1600 / width), credit: `${creator} · ${license} · Wikimedia Commons` },
+    image: { src, alt: COMMONS_ALT[filename] ?? filename.replace(/\.[^.]+$/, "").replace(/[-_]/g, " "), width: 1600, height: Math.round(height * 1600 / width), credit: `${creator} · ${license} · Wikimedia Commons` },
     sourceUrl, licenseUrl: `https://creativecommons.org/licenses/${type}/${version}/`,
     exactSubject: filename, status: "item-verified",
   };
