@@ -978,6 +978,70 @@
           "label": "Free school tour and access arrangements"
         }
       ]
+    },
+    {
+      "path": "/destination/museum-of-the-gulf-coast-port-arthur",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://www.museumofthegulfcoast.org/",
+          "fetchUrl": "https://www.museumofthegulfcoast.org/",
+          "label": "Museum current homepage and temporary closure"
+        },
+        {
+          "sourceUrl": "https://www.museumofthegulfcoast.org/permanent",
+          "fetchUrl": "https://www.museumofthegulfcoast.org/permanent",
+          "label": "Museum permanent exhibit descriptions"
+        },
+        {
+          "sourceUrl": "https://www.museumofthegulfcoast.org/copy-of-about-the-museum",
+          "fetchUrl": "https://www.museumofthegulfcoast.org/copy-of-about-the-museum",
+          "label": "Museum admissions and history page"
+        },
+        {
+          "sourceUrl": "https://www.museumofthegulfcoast.org/halls-of-fame",
+          "fetchUrl": "https://www.museumofthegulfcoast.org/halls-of-fame",
+          "label": "Museum halls of fame"
+        }
+      ]
+    },
+    {
+      "path": "/destination/fire-museum-of-texas-beaumont",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.firemuseumoftexas.com/visit",
+          "fetchUrl": "https://www.firemuseumoftexas.com/visit",
+          "label": "Fire Museum of Texas official visiting page"
+        },
+        {
+          "sourceUrl": "https://www.beaumontcvb.com/listing/fire-museum-of-texas/20/",
+          "fetchUrl": "https://www.beaumontcvb.com/listing/fire-museum-of-texas/20/",
+          "label": "Beaumont tourism museum listing"
+        }
+      ]
+    },
+    {
+      "path": "/destination/spindletop-gladys-city-boomtown-museum-beaumont",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+          "fetchUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+          "label": "Lamar University Boomtown visitor guide"
+        },
+        {
+          "sourceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/index.html",
+          "fetchUrl": "https://www.lamar.edu/spindletop-boomtown-museum/index.html",
+          "label": "Lamar Boomtown history and special events"
+        }
+      ]
     }
   ]
 }
