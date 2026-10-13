@@ -109,3 +109,6 @@ Both pages have explicit image placeholders pending rights-cleared exact-locatio
 ## El Paso Museum of Archaeology — source-cleared photo, October 13, 2026
 
 - Wikimedia Commons [Entrance to the El Paso Museum of Archaeology.jpg](https://commons.wikimedia.org/wiki/File:Entrance_to_the_El_Paso_Museum_of_Archaeology.jpg), **Susan Barnum, CC BY-SA 4.0**, photographed April 11, 2016. File original is 3264×2448 px; museum entrance pictured at the same museum, not a regional substitute. Attribution appears in the destination image credit. [License](https://creativecommons.org/licenses/by-sa/4.0/).
+
+## The AgriCultural Museum & Arts Center, Boerne — October 13, 2026
+Exact-site antique farm-equipment photograph: [Boerne ag museum 2013.jpg](https://commons.wikimedia.org/wiki/File:Boerne_ag_museum_2013.jpg), **Larry D. Moore**, **CC BY 4.0**, 2013, 1,791 × 1,194 pixels. Site: 102 City Park Road, Boerne, Texas. Photograph predates the institution's 2018 name change. Attribution is embedded in `museum-authority-heroes.ts`; the file must not be represented as a current 2026 exhibit photograph.
