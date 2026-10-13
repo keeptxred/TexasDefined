@@ -1,26 +1,26 @@
 {
   "schemaVersion": 1,
-  "date": "2026-10-12",
+  "date": "2026-10-13",
   "baseline": "TPWD more than 150 lake profiles",
   "summary": {
-    "total": 57,
+    "total": 59,
     "standardSectionsPerGuide": 9,
-    "statewide": 42,
-    "namedAccess": 57,
+    "statewide": 44,
+    "namedAccess": 59,
     "unknownAccess": 0,
-    "namedCamping": 37,
+    "namedCamping": 39,
     "unknownCamping": 20,
-    "history": 10,
+    "history": 12,
     "noHistory": 47,
-    "photoMappings": 57,
+    "photoMappings": 59,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 57,
+    "explicitNamedAccess": 59,
     "lackingNamedAccess": 0,
-    "explicitNamedCamping": 37,
+    "explicitNamedCamping": 39,
     "lackingNamedCamping": 20,
-    "namedStatewideFacilities": 162,
-    "statewideTemplateGuidesWithNamedAccess": 42
+    "namedStatewideFacilities": 169,
+    "statewideTemplateGuidesWithNamedAccess": 44
   },
   "entries": [
     {
@@ -919,6 +919,38 @@
       "accessFacilityCount": 5,
       "accessReviewedAt": "2026-10-12",
       "namedCamping": false
+    },
+    {
+      "slug": "bardwell-lake",
+      "name": "Bardwell Lake",
+      "kind": "Statewide",
+      "ramp": "Named",
+      "camping": "Named; verify active operator closures",
+      "history": "Reservoir source",
+      "fish": 6,
+      "photo": "Mapped",
+      "water": "Official TWDB level",
+      "risk": "Conflicting dated Corps boating closure notice; obtain original imagery and live visit-level verification",
+      "namedAccess": true,
+      "accessFacilityCount": 5,
+      "accessReviewedAt": "2026-10-13",
+      "namedCamping": true
+    },
+    {
+      "slug": "lake-bastrop",
+      "name": "Lake Bastrop",
+      "kind": "Statewide",
+      "ramp": "Named",
+      "camping": "Named; verify reservation inventory",
+      "history": "Reservoir source",
+      "fish": 4,
+      "photo": "Mapped",
+      "water": "Official LCRA park source fallback",
+      "risk": "Verify 2026 South Shore restroom construction, campsite counts and lake-operational status; obtain first-party photos",
+      "namedAccess": true,
+      "accessFacilityCount": 2,
+      "accessReviewedAt": "2026-10-13",
+      "namedCamping": true
     }
   ],
   "legacy": [
