@@ -1744,6 +1744,39 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "1919-san-augustine-county-jail-museum": {
+    name: "1919 San Augustine County Jail Museum",
+    slug: "1919-san-augustine-county-jail-museum",
+    county: "San Augustine",
+    city: "San Augustine",
+    reviewed: "2026-10-13",
+    topics: ["texas-history", "law-enforcement", "historic-preservation", "family"],
+    whyVisit: "The former San Augustine County jail is an unusually tangible way to understand more than a century of local law enforcement and civic history. Built in 1919 from portions of the 1882 jail, it reused earlier iron bars and cells, continued as a jail until 2000, and is now a small public law-enforcement and Texana museum beside the historic courthouse square. The restoration itself is part of the story: concrete-like stucco was removed to recover the building's historic brick exterior.",
+    visitorStrategy: "The local San Augustine tourism organization advertises the museum at 100 W. Columbia Street with free, donation-supported admission and weekday hours, Monday through Friday 11 a.m. to 3 p.m. The Texas Historical Commission's tourism directory independently confirms the address and exhibits. These modest operating hours may depend on volunteer staffing, so contact the museum at the1919jailmuseum@gmail.com before making a special trip. Allow about 30–60 minutes for the principal rooms; the duration is an editorial estimate, not a guaranteed guided-tour length.",
+    accessibility: "The building is a preserved two-story county jail containing original and reused cell components. Neither the local tourism page nor the historical commission's visitor listing confirms step-free access to every floor, an elevator, wheelchair-accessible historic cells, sensory accommodations or restroom arrangements. Visitors with mobility needs should request current entrance and floor-access details before traveling rather than assuming the historic rooms are fully accessible.",
+    familiesAndGroups: "School-age children may find the old cell construction, photographs and law-enforcement history compelling, but parents should explain the context of incarceration and justice. The displays center on historical interpretation rather than a hands-on children's activity center; ask ahead about group visits, library research access and volunteer staffing. The listed visitor sources do not establish an on-site restaurant or café, so plan food around the courthouse square.",
+    researchValue: "The THC historical marker specifies that the 1919 building incorporated portions of an 1882 jail and bars reportedly pulled from their brick moorings using teams of horses. The museum also brings together records and photography of the wider community, including Russell Lee's 1939 photographs and John Vachon's World War II-era work. Connecting jail, courthouse, Mission Dolores and community-history materials helps explain changing institutions beyond the building's architecture.",
+    exhibits: [
+      { heading: "1919 jail architecture and surviving cells", detail: "Compare the restored brick building with original jail construction: the THC marker documents reuse of earlier iron bars and jail-cell material. The building itself is a major interpretive object, not merely a gallery container." },
+      { heading: "Local officers and justice history", detail: "Explore historical accounts of sheriffs, judges, Texas Rangers, game wardens, highway patrol officers and municipal police in the county, without treating every enforcement institution as identical across historical periods." },
+      { heading: "Russell Lee and John Vachon photographs", detail: "A rotating kiosk introduces documentary images of San Augustine from 1939 and the World War II years, giving visitors another perspective on everyday life beyond the jail." },
+      { heading: "Texana library, county records and Mission Dolores timeline", detail: "The research corner and chronology link the county's legal institutions with older East Texas settlement, Spanish mission history and later civic life. Confirm access to requested records with staff." }
+    ],
+    routes: [
+      { label: "Short first visit", steps: ["Start with the historic jail building and 1919/1882 construction story", "Explore the law-enforcement displays and photography kiosk", "Ask about the research library if interested in county history"] },
+      { label: "San Augustine heritage walk", steps: ["Visit the jail during confirmed hours", "Continue to the adjoining courthouse square and architectural history", "Explore the town's historical interpretation and Mission Dolores references as separately available"] }
+    ],
+    sources: [
+      { label: "Visit San Augustine — local attraction guide", url: "https://visitsanaugustinetx.org/local-attractions/", use: "Current visitor admission, published weekday hours, displays, public history and contact" },
+      { label: "Texas Historical Commission — Texas Time Travel visitor listing", url: "https://texastimetravel.com/directory/1919-san-augustine-county-jail-museum/", use: "Verified identity, address, historical interpretation and exhibit topics" },
+      { label: "Texas Historical Commission Atlas — San Augustine County Jail marker", url: "https://atlas.thc.texas.gov/Details/5507018848", use: "1919 construction, reused 1882 jail materials, restoration and historic designations" }
+    ],
+    connections: [
+      { label: "San Augustine County", href: "/county/san-augustine", reason: "Discover the county courthouse, local historical resources and Piney Woods heritage." },
+      { label: "Explore Texas museums", href: "/explore/museums", reason: "Compare Texas local-history institutions and plan other museum visits." }
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
