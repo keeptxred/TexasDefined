@@ -673,6 +673,47 @@
         "https://www.hmns.org/visit/dining/",
         "https://www.hmns.org/hmns-exhibits/"
       ]
+    },
+    "el-paso-museum-of-art": {
+      "name": "El Paso Museum of Art",
+      "operatorStrengths": [
+        "Current official visitor page checked for dates, admission, parking and accessibility",
+        "Independently sourced family, travel, exhibit and FAQ requirements"
+      ],
+      "openGaps": [
+        "Final live browser and mobile QA after deployment",
+        "Competitive visitor-guide comparison before authority certification; historical photos accurately captioned"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://epma.art/visit",
+        "https://epma.art/art-school/classes-and-registration",
+        "https://epma.art/"
+      ]
+    },
+    "arlington-museum-of-art": {
+      "name": "Arlington Museum of Art",
+      "operatorStrengths": [
+        "Current official visitor page checked for dates, admission, parking and accessibility",
+        "Independently sourced family, travel, exhibit and FAQ requirements"
+      ],
+      "openGaps": [
+        "Final live browser and mobile QA after deployment",
+        "Competitive visitor-guide comparison before authority certification; historical photos accurately captioned"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://arlingtonmuseum.org/visitor-info",
+        "https://arlingtonmuseum.org/plan-your-visit",
+        "https://arlingtonmuseum.org/",
+        "https://www.arlingtontx.gov/News-Articles/2026/May/Arlington-Museum-of-Arts-More-Than-a-Match-Extended-Through-Aug.-30"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
