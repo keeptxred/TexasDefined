@@ -520,6 +520,48 @@
         "https://thecowgirl.org/exhibitions/hitting-the-mark-cowgirls-and-wild-west-shows-gallery/",
         "https://thecowgirl.org/about/museum-expansion/"
       ]
+    },
+    "fort-worth-museum-science-history": {
+      "name": "Fort Worth Museum of Science and History",
+      "operatorStrengths": [
+        "Official operator visitor, education, exhibition and admission pages individually reviewed",
+        "Visitor FAQs account for entry, accessibility, family suitability, ticket types and age guidance"
+      ],
+      "openGaps": [
+        "Complete independent side-by-side visitor usefulness certification against museum's entire current site",
+        "Verify post-deployment production markup, image load, reciprocal links and mobile user experience"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.fwmuseum.org/visit/plan-your-visit/",
+        "https://www.fwmuseum.org/learn/field-trips/",
+        "https://www.fwmuseum.org/",
+        "https://www.fwmuseum.org/contact/"
+      ]
+    },
+    "dallas-holocaust-human-rights-museum": {
+      "name": "Dallas Holocaust and Human Rights Museum",
+      "operatorStrengths": [
+        "Official operator visitor, education, exhibition and admission pages individually reviewed",
+        "Visitor FAQs account for entry, accessibility, family suitability, ticket types and age guidance"
+      ],
+      "openGaps": [
+        "Complete independent side-by-side visitor usefulness certification against museum's entire current site",
+        "Verify post-deployment production markup, image load, reciprocal links and mobile user experience"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.dhhrm.org/visit/faq/",
+        "https://www.dhhrm.org/exhibitions/",
+        "https://www.dhhrm.org/visit/",
+        "https://www.dhhrm.org/exhibitions/pivot-to-america-wing/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
