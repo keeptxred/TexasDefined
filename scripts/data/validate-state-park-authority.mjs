@@ -115,6 +115,28 @@ const specialStatuses = ["developing", "closed-to-general-visits", "visitor-cent
 if (officialEntries.length !== 90) failures.push(`Expected all 90 TPWD official entries; received ${officialEntries.length}`);
 if (new Set(entrySlugs).size !== entrySlugs.length) failures.push("Duplicate TPWD official park source slugs");
 if (officialEntries.filter((entry) => entry.status === "public-park").length !== 83) failures.push("Park inventory status mix unexpectedly changed: reconcile against current TPWD, never blindly relabel");
+// Require a distinct TPWD source, dated evidence and a useful park-specific
+// facilities/access/parking account for EVERY public park, not just the initial 15.
+// Intentionally count one main park per TPWD directory entry; independent
+// units remain detailed within the parent authority record.
+const trackedFacs = [...authority.matchAll(/^  "([a-z0-9-]+)": \\{$/gm)].map((match) => match[1]);
+if (trackedFacs.length !== 83 || new Set(trackedFacs).size !== 83) {
+  failures.push(`Expected exactly 83 unique TPWD public park facility records, received ${trackedFacs.length} (${new Set(trackedFacs).size} unique)`);
+}
+for (const entry of officialEntries.filter((item) => item.status === "public-park")) {
+  const canonicalSlug = entry.associatedPath?.split("/destination/")[1];
+  if (!canonicalSlug) continue;
+  const recordMarker = `  "${canonicalSlug}": {`;
+  const start = authority.indexOf(recordMarker);
+  if (start < 0) { failures.push(`Official TPWD park lacks researched facility layer: ${canonicalSlug}`); continue; }
+  const nextRecord = authority.indexOf("\\n  \\"", start + recordMarker.length);
+  const section = authority.slice(start, nextRecord >= 0 ? nextRecord : authority.length);
+  if (!section.includes('checkedAt: "2026-10-12"')) failures.push(`Missing dated facility source verification: ${canonicalSlug}`);
+  if (!/sourceUrl: "https:\\/\\/tpwd\\.texas\\.gov\\/state-parks\\//.test(section)) failures.push(`Missing actual official TPWD park-level source: ${canonicalSlug}`);
+  if (!section.includes("parking:") && !section.includes("access:")) failures.push(`No independently researched parking/access information: ${canonicalSlug}`);
+  if (!section.includes("maps:")) failures.push(`No park-specific official map information: ${canonicalSlug}`);
+  if (!section.includes("camping:") && !section.includes("restrooms:")) failures.push(`No verified facility, campground or correct day-use policy: ${canonicalSlug}`);
+}
 for (const entry of officialEntries) {
   if (!entry.officialUrl || entry.officialUrl !== `https://tpwd.texas.gov/state-parks/${entry.tpwdSlug}`) failures.push(`Wrong official park base URL for ${entry.tpwdSlug}`);
   if (entry.status === "public-park" && !entry.associatedPath?.startsWith("/destination/")) failures.push(`Missing canonical destination path for open TPWD park ${entry.tpwdSlug}`);
@@ -149,10 +171,10 @@ for (const set of ["NON_PRIMARY_TRIP_PLANNER_SLUGS", "UNAVAILABLE_DESTINATION_SL
   else for (const match of availability.slice(start, end).matchAll(/"([^"]+)"/g)) knownAlias.add(match[1]);
 }
 const unresolvedCandidates = [...candidate].filter((slug) => !knownAlias.has(slug) && !required.includes(slug));
-process.stdout.write(`State-park authority: 3 emergency canonical records guarded; ${unresolvedCandidates.length} additional park-related fixture/image slugs need individual facilities, photography, links and publication review.\n`);
+process.stdout.write(`State-park authority: 83 distinct park-specific source records monitored; ${unresolvedCandidates.length} older park/image fixture aliases still need exact photo/route review; non-facility authority certification requires separate browser and SEO checks.\n`);
 if (failures.length) {
   for (const problem of failures) process.stderr.write(`FAIL ${problem}\n`);
   process.exitCode = 1;
 } else {
-  process.stdout.write("PASS State park canonical recovery, Explore inclusion, source transparency and visitor map/facility contracts.\n");
+  process.stdout.write("PASS All 83 official Texas public park source-backed visitor/facility layers; distinct canonical records, honest maps and county access contracts.\n");
 }
