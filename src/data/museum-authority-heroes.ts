@@ -141,6 +141,13 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     credit: "Susan Barnum · CC BY-SA 4.0 · Wikimedia Commons · File:Entrance to the El Paso Museum of Archaeology.jpg",
   },
 
+  "crow-museum-asian-art-dallas": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Crow_Museum_of_Asian_Art.jpg?width=1600",
+    alt: "Entrance of the Crow Museum of Asian Art at the Dallas Arts District photographed in 2022",
+    width: 1600, height: 1200,
+    credit: "LittleT889 · CC BY-SA 4.0 · Wikimedia Commons · File:Crow Museum of Asian Art.jpg",
+  },
+
 };
 
 /** Exact subject, attribution-cleared media may enhance discovery without importing every long museum dossier. */

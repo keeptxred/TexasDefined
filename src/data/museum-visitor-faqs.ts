@@ -3839,6 +3839,154 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "crow-museum-asian-art-dallas": [
+    {
+      "question": "Is the Crow Museum in Dallas free?",
+      "answer": "Yes. The Crow Museum of Asian Art at the Dallas Arts District provides free general admission. Donations are encouraged but not required.",
+      "verificationUrl": "https://crowmuseum.org/dallas-arts-district/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://crowmuseum.org/about-the-museum/faqs/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the Crow Museum's hours?",
+      "answer": "The Dallas Arts District site lists Tuesday–Sunday 11 a.m.–5 p.m., closed Mondays and major holidays, with occasional event or weather exceptions.",
+      "verificationUrl": "https://crowmuseum.org/dallas-arts-district/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://crowmuseum.org/about-the-museum/faqs/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Crow Museum have two locations?",
+      "answer": "Yes. One location is at 2010 Flora Street in Dallas; a second is at UT Dallas in Richardson. Check which campus is showing the exhibition you want before visiting.",
+      "verificationUrl": "https://crowmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://crowmuseum.org/about-the-museum/faqs/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should I park at the Dallas Crow Museum?",
+      "answer": "The Trammell Crow Center garage is paid for ordinary nonmember parking. Parking pricing and member benefits differ; verify the current operator parking map and event restrictions.",
+      "verificationUrl": "https://crowmuseum.org/dallas-arts-district/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://crowmuseum.org/where-to-park/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors avoid stairs at the Crow Museum entrance?",
+      "answer": "Yes. The Flora Street main entrance is step-free. If arriving from the Trammell Crow Center parking garage, alert security for ramp or alternative access assistance; contact the museum for your particular mobility needs.",
+      "verificationUrl": "https://crowmuseum.org/where-to-park/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://crowmuseum.org/where-to-park/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Crow Museum appropriate for children?",
+      "answer": "The free galleries can work for families and school-age children interested in art, especially when you plan a short selective visit. Look up current family programming rather than expecting a permanent play museum.",
+      "verificationUrl": "https://crowmuseum.org/dallas-arts-district/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://crowmuseum.org/visit/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are all Crow Museum exhibitions shown downtown?",
+      "answer": "No. The Dallas and Richardson sites publish exhibitions separately. Check the museum's exhibition calendar for the specific venue and closing date.",
+      "verificationUrl": "https://crowmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://crowmuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is there a restaurant inside the Crow Museum?",
+      "answer": "Official Dallas visitor information does not establish a full-service restaurant inside the museum. Plan food in the surrounding Arts District rather than promising a cafeteria.",
+      "verificationUrl": "https://crowmuseum.org/dallas-arts-district/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://crowmuseum.org/dallas-arts-district/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "museum-of-the-american-railroad-frisco": [
+    {
+      "question": "Where is the Museum of the American Railroad in Frisco?",
+      "answer": "The museum's daily operations and check-in are at TrainTopia inside the Frisco Discovery Center, 8004 North Dallas Parkway, Suite 400, Frisco. Do not confuse this with the Grapevine train events.",
+      "verificationUrl": "https://www.historictrains.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.historictrains.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I tour full-size locomotives on Sunday?",
+      "answer": "The indoor TrainTopia exhibit is normally open Sundays 1–5 p.m., but the museum advertises no Sunday walking tours of the outdoor rolling-stock collection.",
+      "verificationUrl": "https://www.historictrains.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.historictrains.org/traintopia",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much does the Museum of the American Railroad cost?",
+      "answer": "Its published prices list adults at $12 for TrainTopia alone and $18 for the combined walking tour and TrainTopia, with reduced rates for ages 3–12 and free entry under age three. Check current tickets and exceptions before booking.",
+      "verificationUrl": "https://www.historictrains.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.historictrains.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is TrainTopia the same experience as the outdoor railroad tour?",
+      "answer": "No. TrainTopia is the indoor G-scale model layout; the walking tour is a guided outdoor visit to historic railroad equipment. Each has different schedules and ticket options.",
+      "verificationUrl": "https://www.historictrains.org/traintopia",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.historictrains.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors get inside Big Boy locomotive 4018?",
+      "answer": "The museum's virtual tour identifies UP Big Boy 4018 among its equipment, but that does not guarantee boarding. Ask about the specific day's guided-tour safety rules and accessible viewing areas.",
+      "verificationUrl": "https://www.historictrains.org/virtual-tour",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.historictrains.org/virtual-tour",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the outdoor walking tour wheelchair accessible?",
+      "answer": "The museum publishes a dedicated walking-tour accessibility contact (jgarbutt@historictrains.org). Conditions around outdoor rolling stock and historic steps differ from the indoor model exhibit; verify accommodations before buying a tour ticket.",
+      "verificationUrl": "https://www.historictrains.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.historictrains.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the museum suitable for toddlers?",
+      "answer": "TrainTopia's models and scavenger-hunt activities can interest younger children. Outdoor tours involve more walking and safety supervision, so choose separately based on children's interests and stamina.",
+      "verificationUrl": "https://www.historictrains.org/traintopia",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.historictrains.org/visit",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have a café or on-site lunch service?",
+      "answer": "The railroad museum's official visitor page does not confirm a dedicated museum cafeteria or restaurant. Plan meals elsewhere in Frisco or check current Frisco Discovery Center concessions directly.",
+      "verificationUrl": "https://www.historictrains.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.historictrains.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
