@@ -82,3 +82,7 @@ from these leads. Retain `awaiting-licensed-photos` for all three until
 correct identification, photographer credit, image-specific rights and
 usable original bytes are established. The existing 1922 Yoakum Sanborn map
 is a real public-domain archival map, not a replacement church photograph.
+
+## Future parish media outreach
+
+The user approved personalized complimentary media-kit and photography permission requests to all newly researched churches. Before sending, verify the exact church and official contact, check duplicate sends, and use the permission-safe terms and persistent status ledger in [MEDIA_KIT_OUTREACH_LEDGER.md](./MEDIA_KIT_OUTREACH_LEDGER.md). An outbound request is **not** image-license clearance; keep the publication rights gate unchanged.
