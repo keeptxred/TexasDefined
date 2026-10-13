@@ -1,4 +1,4 @@
--- Register actual TexasDeclared lake-specific TPWD sources already present in
+-- Register actual TexasDefined lake-specific TPWD sources already present in
 -- its independently curated 54-guide research dataset. This is source
 -- monitoring enrollment, NEVER automatic editorial/fact verification.
 -- Four pending routes auto-enroll only after a real canonical sitemap entry exists.
