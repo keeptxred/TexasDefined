@@ -1188,6 +1188,67 @@
         "https://czechheritagemuseum.org/plan-your-visit",
         "https://czechheritagemuseum.org/"
       ]
+    },
+    "buffalo-soldiers-national-museum-houston": {
+      "name": "Buffalo Soldiers National Museum",
+      "operatorStrengths": [
+        "Official operator primary-source visitor and heritage information",
+        "Source-checked key logistics, current closure or admission rules"
+      ],
+      "openGaps": [
+        "Post-deployment live page, image and cross-link browser QA",
+        "Independent full operator visitor resource side-by-side quality certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://buffalosoldiersmuseum.org/visit/",
+        "https://buffalosoldiersmuseum.org/visit/group-tours/",
+        "https://buffalosoldiersmuseum.org/visit/exhibits/",
+        "https://buffalosoldiersmuseum.org/",
+        "https://houmuse.org/institution/buffalo-soldiers-national-museum/"
+      ]
+    },
+    "texas-prison-museum-huntsville": {
+      "name": "Texas Prison Museum",
+      "operatorStrengths": [
+        "Official operator primary-source visitor and heritage information",
+        "Source-checked key logistics, current closure or admission rules"
+      ],
+      "openGaps": [
+        "Post-deployment live page, image and cross-link browser QA",
+        "Independent full operator visitor resource side-by-side quality certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.txprisonmuseum.org/",
+        "https://www.txprisonmuseum.org/about-us",
+        "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+        "https://www.txprisonmuseum.org/copy-of-captain-joe-byrd-cemetery"
+      ]
+    },
+    "eisenhower-birthplace": {
+      "name": "Eisenhower Birthplace State Historic Site",
+      "operatorStrengths": [
+        "Official operator primary-source visitor and heritage information",
+        "Source-checked key logistics, current closure or admission rules"
+      ],
+      "openGaps": [
+        "Post-deployment live page, image and cross-link browser QA",
+        "Independent full operator visitor resource side-by-side quality certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+        "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/eisenhower-birthplace-history",
+        "https://thc.texas.gov/blog/homes-president-eisenhower",
+        "https://atlas.thc.texas.gov/Details/4200000469"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
