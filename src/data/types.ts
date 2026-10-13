@@ -139,7 +139,38 @@ export interface DestinationAuthorityGuide {
   sources: DestinationAuthoritySource[];
 }
 
-export interface Destination { id: string; brandId: BrandId; slug: Slug; name: string; summary: string; category: CategorySlug; region: TexasRegion; geography?: TexasGeographyAssignment; nearestTown: string; coordinates: GeoPoint; hero: ImageRef; bestSeason: string; entryNote: string; highlights: string[]; body: string[]; managingAuthority?: string; officialUrl?: string; sourceCheckedAt?: string; reservationUrl?: string; county?: string; address?: string; directions?: string; accessibilityNotes?: string; areaGuide?: DestinationAreaGuide; authorityGuide?: DestinationAuthorityGuide; visitorFaqs?: Array<{ question: string; answer: string; sourceUrl?: string }>; featured?: boolean; }
+export interface VisitorFacilityFact {
+  /** Confirmed onsite, absent, or unknown; never infer from destination category. */
+  status: "verified" | "not-available" | "unverified";
+  details: string;
+  /** The operator or managing agency page that supports this facility fact. */
+  sourceUrl?: string;
+  checkedAt?: string;
+}
+export interface DestinationVisitorFacilities {
+  /**
+   * Opt-in, editor-selected visitor questions for THIS place. No visitor facility
+   * section is rendered just because the destination belongs to a category.
+   */
+  editorialFocus?: Array<"parking" | "restrooms" | "map">;
+  editorialHeading?: string;
+  editorialIntro?: string;
+  parking?: VisitorFacilityFact;
+  restrooms?: VisitorFacilityFact;
+  /** Official attraction / park facility map, distinct from the location map. */
+  officialMapUrl?: string;
+  mapCheckedAt?: string;
+  /** Optional operator-verified distinctions beyond the map and entry guidance. */
+  visitorTips?: string[];
+}
+
+export interface DestinationEditorialDisplay {
+  /** Manual decision: does seasonal timing materially change this particular visit? */
+  showSeason?: boolean;
+  /** Manual decision: does the visit require additional advance planning? */
+  showEntryPlanning?: boolean;
+}
+export interface Destination { id: string; brandId: BrandId; slug: Slug; name: string; summary: string; category: CategorySlug; region: TexasRegion; geography?: TexasGeographyAssignment; nearestTown: string; coordinates: GeoPoint; hero: ImageRef; bestSeason: string; entryNote: string; highlights: string[]; body: string[]; managingAuthority?: string; officialUrl?: string; sourceCheckedAt?: string; reservationUrl?: string; county?: string; address?: string; directions?: string; accessibilityNotes?: string; visitorFacilities?: DestinationVisitorFacilities; editorialDisplay?: DestinationEditorialDisplay; areaGuide?: DestinationAreaGuide; authorityGuide?: DestinationAuthorityGuide; visitorFaqs?: Array<{ question: string; answer: string; sourceUrl?: string }>; featured?: boolean; }
 
 export interface ProductVariant { id: number; title: string; price: number; image?: string | null; images?: string[]; color?: string; is_enabled?: boolean; }
 export interface Product {

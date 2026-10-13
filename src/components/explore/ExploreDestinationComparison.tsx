@@ -79,7 +79,13 @@ export function ExploreDestinationComparison({ destinations, kind }: { destinati
   const sorted = [...destinations].sort((a, b) => a.name.localeCompare(b.name));
   const pageSize = kind === 'attractions' ? 100 : sorted.length;
   const [visibleCount, setVisibleCount] = useState(pageSize);
-  const visibleDestinations = sorted.slice(0, visibleCount);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const categories = [...new Set(sorted.map((destination) => destination.category))].sort();
+  const filtered = kind === "attractions"
+    ? sorted.filter((destination) => (categoryFilter === "all" || destination.category === categoryFilter) && [destination.name, destination.nearestTown, destination.county ?? "", destination.region].some((part) => part.toLowerCase().includes(searchTerm.trim().toLowerCase())))
+    : sorted;
+  const visibleDestinations = filtered.slice(0, visibleCount);
 
   return (
     <section className="border-t border-border bg-surface" aria-labelledby={`${kind}-comparison-heading`}>
@@ -88,6 +94,18 @@ export function ExploreDestinationComparison({ destinations, kind }: { destinati
         <h2 id={`${kind}-comparison-heading`} className="mt-2 font-display text-4xl">{copy.title}</h2>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">{copy.description}</p>
 
+        {kind === "attractions" ? <div className="mt-7 grid gap-5 sm:grid-cols-2" role="search" aria-label="Filter the maintained attractions catalog">
+          <label className="block text-sm font-semibold">Find an attraction or town
+            <input type="search" value={searchTerm} onChange={(event) => { setSearchTerm(event.target.value); setVisibleCount(100); }} placeholder="Attraction, town, county or region" className="mt-2 block w-full border border-border bg-background px-4 py-3 font-normal" />
+          </label>
+          <label className="block text-sm font-semibold">Explore category
+            <select value={categoryFilter} onChange={(event) => { setCategoryFilter(event.target.value); setVisibleCount(100); }} className="mt-2 block w-full border border-border bg-background px-4 py-3 font-normal">
+              <option value="all">All attraction categories</option>
+              {categories.map((category) => <option key={category} value={category}>{category.replace(/-/g, " ")}</option>)}
+            </select>
+          </label>
+          <p className="text-sm text-muted-foreground sm:col-span-2" role="status">{filtered.length.toLocaleString("en-US")} matching maintained destinations; open a guide for the operator map, parking and restroom verification status.</p>
+        </div> : null}
         <div className="mt-7 overflow-x-auto border-y border-border">
           <table className="w-full min-w-[1040px] text-left text-sm">
             <thead>
@@ -121,10 +139,10 @@ export function ExploreDestinationComparison({ destinations, kind }: { destinati
           </table>
         </div>
 
-        {kind === 'attractions' && visibleCount < sorted.length ? (
+        {kind === 'attractions' && visibleCount < filtered.length ? (
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-            <p className="text-sm text-muted-foreground">Showing {visibleDestinations.length.toLocaleString("en-US")} of {sorted.length.toLocaleString("en-US")} maintained destinations.</p>
-            <button type="button" className="border border-border px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary" onClick={() => setVisibleCount((count) => Math.min(count + 100, sorted.length))}>Show 100 more</button>
+            <p className="text-sm text-muted-foreground">Showing {visibleDestinations.length.toLocaleString("en-US")} of {filtered.length.toLocaleString("en-US")} matching maintained destinations.</p>
+            <button type="button" className="border border-border px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary" onClick={() => setVisibleCount((count) => Math.min(count + 100, filtered.length))}>Show 100 more</button>
           </div>
         ) : null}
 

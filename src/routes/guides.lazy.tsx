@@ -24,6 +24,7 @@ const practicalGuides = [
 
 const travelGuides = [
   texasExplainedGuide,
+  { to: "/explore/big-bend-scenic-drives", label: "Big Bend Scenic Drives", body: "Choose between Ross Maxwell Scenic Drive, Chisos Basin Road, FM 170 River Road and remote tracks with NPS/TPWD sources, road-safety checks and flexible itineraries.", note: "Primary-source route comparison, checked October 2026." },
   { to: "/guides/citypass-texas", label: "CityPASS® in Texas", body: "Compare Dallas CityPASS®, Houston CityPASS® and San Antonio CityPASS®, 21 listed attraction choices across three separate city products, the nine-day use window and the math to do before buying.", note: "A practical bundle-versus-individual-ticket guide for all three current Texas CityPASS® markets." },
   { to: "/explore/painted-churches", label: "Painted Churches of Texas", body: "Explore the verified statewide collection, church-by-church history, artists, techniques, symbols, archival evidence, map and road-trip routes.", note: "A source-backed heritage reference and travel-planning system for 28 verified churches." },
   { to: "/explore/state-parks", label: "Texas State Parks Guide", body: "Choose parks by region, season, activity, camping style and drive time.", note: "A statewide guide covering all seven regions." },

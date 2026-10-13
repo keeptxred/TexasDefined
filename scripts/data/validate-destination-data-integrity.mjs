@@ -97,7 +97,10 @@ for (const sourceMarker of [
   'works best as part of a trip built around the surrounding region',
   'Use the official visitor-information link on this page for the latest details',
 ]) {
-  if (!destinationQuality.includes(sourceMarker)) errors.push(`Destination quality fallback source marker changed without updating the indexing audit: ${sourceMarker}.`);
+  if (destinationQuality.includes(sourceMarker)) errors.push(`Generic copy is no longer permitted in destination quality enrichment: ${sourceMarker}.`);
+}
+for (const required of ['body: improved.body.filter(', 'summary: improved.summary', 'hero: improved.hero']) {
+  if (!destinationQuality.includes(required)) errors.push(`Destination curation must preserve original place-specific evidence: ${required}.`);
 }
 
 for (const feature of [
@@ -109,23 +112,18 @@ for (const feature of [
 if (!queries.includes('await import("./destination-query-runtime")')) errors.push('Destination query resolution must remain behind the dynamic runtime boundary.');
 
 for (const feature of [
-  'function unique(values: string[])',
-  'activityPattern.test(item)',
-  'facilityPattern.test(item)',
-  '!activities.includes(item)',
-  '!facilities.includes(item)',
   'data-stay-nearby-slot',
+  'destinationEditorialLinks(destination.slug)',
   'BookingCarRentalCard',
   'drivingIntentPattern',
   'showRentalCarOption',
-  'While you’re there',
-  'Things to do and see',
-  '{ title: "Highlights", items: unique([...activities, ...otherHighlights]) }',
-  '{ title: "Visitor facilities", items: facilities }',
-  'groups.map((group, index)',
-  'group.items.map((item)',
+  'destination.category === "road-trips"',
+  'Useful nearby reading',
 ]) {
-  if (!destinationPlanner.includes(feature)) errors.push(`Destination visit-planner integrity feature missing: ${feature}.`);
+  if (!destinationPlanner.includes(feature)) errors.push(`Destination visitor-led planning feature missing: ${feature}.`);
+}
+for (const unwanted of ['Visitor facilities', 'Things to do and see', 'const activities = unique(', 'facilityPattern.test(item)']) {
+  if (destinationPlanner.includes(unwanted)) errors.push(`Destination planner must not reintroduce automatic low-value sections: ${unwanted}.`);
 }
 for (const stale of [
   'const practicalTips = unique([',

@@ -2,7 +2,6 @@ import { lazy, Suspense } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 
-import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCollectionGrid } from "@/components/editorial/DestinationCollectionGrid";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
@@ -67,27 +66,7 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
   const others = lead ? articles.slice(1) : articles;
   const belongsToTexasLife = TEXAS_LIFE_DEPARTMENTS.has(category);
   const belongsToExplore = !belongsToTexasLife;
-  const answerItems = [
-    {
-      question: `What is this ${belongsToExplore ? "Texas guide" : "section"} about?`,
-      answer: intro,
-    },
-    ...(destinations.length > 0 ? [{
-      question: "What can I explore here?",
-      answer: `${destinations.length.toLocaleString("en-US")} places are currently mapped in this section of the Texas Defined guide.`,
-    }] : []),
-    ...(articles.length > 0 ? [{
-      question: "What can I read here?",
-      answer: `${articles.length.toLocaleString("en-US")} editorial ${articles.length === 1 ? "story is" : "stories are"} currently available, including practical guides and deeper features.`,
-    }] : []),
-    ...(belongsToExplore ? [{
-      question: "How should I use this page?",
-      answer: "Start with the mapped places, then use the related stories and regional links to narrow down where to go and what to know before the trip.",
-    }] : [{
-      question: "How should I use this page?",
-      answer: "Use the featured stories and practical links as a starting point, then move into the related Texas Life guides for more specific planning.",
-    }]),
-  ];
+
 
   return (
     <>
@@ -117,12 +96,6 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
           </Container>
         </section>
       )}
-
-      <AnswerSummary
-        eyebrow="At a glance"
-        title={`What to know about ${eyebrow}`}
-        items={answerItems}
-      />
 
       {belongsToExplore && authorityHtml ? (
         <div dangerouslySetInnerHTML={{ __html: authorityHtml }} />

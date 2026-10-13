@@ -1,0 +1,65 @@
+name: Texas attraction authority inventory
+
+on:
+  schedule:
+    # Weekly discovery audit; current rules and amenities get rechecked
+    # on subject-specific 30/90-day editorial cadences, not silently rewritten.
+    - cron: "41 11 * * 1"
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - ".github/workflows/attraction-authority-inventory.yml"
+      - "src/data/**"
+      - "src/routes/destination.*"
+      - "src/components/editorial/DestinationVisitorEssentials.tsx"
+      - "src/components/explore/ExploreDestinationComparison.tsx"
+      - "scripts/data/audit-all-attraction-authority.mjs"
+      - "scripts/data/validate-sitewide-attraction-authority.mjs"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: attraction-authority-inventory-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  inventory:
+    name: Sitewide authority inventory and structural checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: Validate all attraction authority wiring
+        run: npm run explore:authority:validate
+      # Canonical Merge Gate owns the full production build. A standalone
+      # tsc --noEmit run currently fails on existing baseline route-type errors,
+      # so this report job does not duplicate it as a false content blocker.
+      - name: Generate source inventory and remediation queue
+        env:
+          ATTRACTION_AUDIT_OUTPUT: artifacts/attraction-authority-source-inventory.json
+        run: npm run attractions:inventory
+      - name: Upload inventory snapshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: attraction-authority-inventory-${{ github.run_id }}
+          path: artifacts/attraction-authority-source-inventory.json
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Summarize limitations and operator follow-up
+        if: always()
+        run: |
+          {
+            echo "## TexasDefined attraction authority"
+            echo "- Download the full source-level inventory artifact for individual gaps."
+            echo "- Static source candidates are **not** proof of a live visitor page or of facility availability."
+            echo "- Compare against the live Supabase-backed catalog before declaring missing attractions."
+            echo "- Never update a source review date automatically without checking the operator."
+            echo "- Research only the visitor facts this specific type of place needs (for example wheelchair access in a museum, trailhead conditions in a remote park). Do not mandate restroom/parking/map panels."
+          } >> "$GITHUB_STEP_SUMMARY"
