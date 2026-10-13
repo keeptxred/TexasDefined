@@ -21,21 +21,48 @@ function decodeHtml(value) {
     .replace(/&nbsp;/g, ' ');
 }
 
-async function fetchText(pathname) {
+const FETCH_ATTEMPTS = 3;
+const FETCH_TIMEOUT_MS = 30_000;
+const RETRY_DELAY_MS = 1_000;
+
+async function fetchVerifiedResponse(pathname, token) {
   const separator = pathname.includes('?') ? '&' : '?';
-  const url = `${baseUrl}${pathname}${separator}td_verify=${encodeURIComponent(verifyToken)}`;
-  const response = await fetch(url, {
-    cache: 'no-store',
-    signal: AbortSignal.timeout(30_000),
-    headers: {
-      'cache-control': 'no-cache',
-      pragma: 'no-cache',
-      'user-agent': 'TexasDefined production editorial verifier',
-    },
-    redirect: 'follow',
-  });
-  if (!response.ok) throw new Error(`${pathname} returned HTTP ${response.status}`);
-  return { url, text: await response.text() };
+  const url = `${baseUrl}${pathname}${separator}td_verify=${encodeURIComponent(token)}`;
+  let lastError;
+  for (let attempt = 1; attempt <= FETCH_ATTEMPTS; attempt++) {
+    try {
+      const response = await fetch(url, {
+        cache: 'no-store',
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+        headers: {
+          'cache-control': 'no-cache',
+          pragma: 'no-cache',
+          'user-agent': 'TexasDefined production editorial verifier',
+        },
+        redirect: 'follow',
+      });
+      if (!response.ok) {
+        const httpError = new Error(`${pathname} returned HTTP ${response.status}`);
+        // Deterministic route/data failures must fail the release immediately.
+        if (response.status < 500 && response.status !== 429) throw httpError;
+        lastError = httpError;
+      } else {
+        return { url, text: await response.text() };
+      }
+    } catch (error) {
+      if (error instanceof Error && / returned HTTP 4(?:0[0-9]|1[0-9]|2[0-8])/.test(error.message)) throw error;
+      lastError = error;
+    }
+    if (attempt < FETCH_ATTEMPTS) {
+      console.warn(`[sports-venue-prod] ${pathname} attempt ${attempt}/${FETCH_ATTEMPTS} failed transiently; retrying`);
+      await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
+    }
+  }
+  throw new Error(`Production verification fetch failed for ${pathname} after ${FETCH_ATTEMPTS} attempts: ${lastError?.message || lastError}`);
+}
+
+async function fetchText(pathname) {
+  return fetchVerifiedResponse(pathname, verifyToken);
 }
 
 function assertAbsent(text, marker, label) {

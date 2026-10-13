@@ -1,9 +1,9 @@
 {
-  "date": "2026-10-12",
+  "date": "2026-10-13",
   "officialDirectory": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
   "officialEntries": 175,
-  "completedGuideMatches": 54,
-  "gaps": 121,
+  "completedGuideMatches": 59,
+  "gaps": 116,
   "listing": [
     {
       "letter": "A",
@@ -43,8 +43,8 @@
     {
       "letter": "A",
       "tpwdListingName": "Aquilla",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "aquilla-lake",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -106,15 +106,15 @@
     {
       "letter": "B",
       "tpwdListingName": "Bardwell",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "bardwell-lake",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
       "letter": "B",
       "tpwdListingName": "Bastrop",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "lake-bastrop",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -512,8 +512,8 @@
     {
       "letter": "G",
       "tpwdListingName": "Granger",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "granger-lake",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -1177,8 +1177,8 @@
     {
       "letter": "W",
       "tpwdListingName": "White Rock",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "white-rock-lake",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -1257,6 +1257,9 @@
     "Listing has park entries and aliases; not all rows are unique reservoirs",
     "Gap means no completed fishing-guide registry entry, not no reference anywhere on site",
     "Do not create thin pages; independently source facilities, rights and uniqueness",
-    "Georgetown and Benbrook full TPWD/TWDB-sourced guides prepared in new expansion branch, not yet merged or production-certified"
+    "Georgetown and Benbrook full TPWD/TWDB-sourced guides prepared in new expansion branch, not yet merged or production-certified",
+    "Two source-reviewed Granger/Aquilla entries prepared in follow-up expansion PR; live status requires CI, merge and deployment",
+    "White Rock Lake Dallas: source-backed City of Dallas boating ordinance, five TPWD-listed ramps, no camping, TWDB history, real lake photo CC0; pending release",
+    "Bardwell and Bastrop guides researched and prepared in a stacked unmerged development branch on October 13; count is for proposed registry, not verified public production."
   ]
 }

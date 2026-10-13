@@ -11,6 +11,12 @@
       "name": "Sam Rayburn Reservoir"
     }
   ],
+  "bastrop": [
+    {
+      "slug": "lake-bastrop",
+      "name": "Lake Bastrop"
+    }
+  ],
   "bell": [
     {
       "slug": "belton-lake",
@@ -139,6 +145,10 @@
     {
       "slug": "lake-ray-hubbard",
       "name": "Lake Ray Hubbard"
+    },
+    {
+      "slug": "white-rock-lake",
+      "name": "White Rock Lake"
     }
   ],
   "denton": [
@@ -156,6 +166,10 @@
     }
   ],
   "ellis": [
+    {
+      "slug": "bardwell-lake",
+      "name": "Bardwell Lake"
+    },
     {
       "slug": "joe-pool-lake",
       "name": "Joe Pool Lake"
@@ -224,6 +238,10 @@
     }
   ],
   "hill": [
+    {
+      "slug": "aquilla-lake",
+      "name": "Aquilla Lake"
+    },
     {
       "slug": "lake-whitney",
       "name": "Lake Whitney"
@@ -558,6 +576,10 @@
     }
   ],
   "williamson": [
+    {
+      "slug": "granger-lake",
+      "name": "Granger Lake"
+    },
     {
       "slug": "lake-georgetown",
       "name": "Lake Georgetown"
