@@ -29,3 +29,6 @@ Authored 2 sourced history/season milestones, three unique program narratives an
 - Genuine team photographs remain unavailable without documented reuse rights, license, attribution and alt text
 - Not a school-endorsed page; 2026–28 UIL alignment is not a current game record
 - Keep **IMPLEMENTED** status until independent live evidence supports stronger states
+
+## 2026 football source-dated scorecard — October 13 update
+[MaxPreps 2026 reporting](https://www.maxpreps.com/tx/bastrop/bastrop-bears/football/schedule/) is used for independent scores and fixture context. Five scores and five fixtures; 1–4 through September 25 is an old scoreboard. Do not confuse the 2026 Texas Bears with the 2025 Bears or Louisiana Bastrop Rams; Oct 9 result is unknown. Source dates, unverified results and event-site uncertainties are described on the live profile. No 2025 games are misrepresented as 2026; no unauthorized school photography is used.
