@@ -37,6 +37,18 @@ export const texasGuidePickEvidence: Record<number, GuidePickEvidence[]> = {
     { title: "Abilene State Park — an accessible West-Central Texas stop", officialUrl: "https://tpwd.texas.gov/state-parks/abilene", internalHref: "/destination/abilene-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks & Wildlife — reservable camping and facility details" },
     { title: "Andy Bowie County Park — South Padre Island coastal access", officialUrl: "https://www.cameroncountytx.gov/parks-coastal-parks/parks-andy-bowie/", internalHref: "/explore/rv-parks", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Cameron County Parks — reservations, renovation closure warning and current operations" },
   ],
+  110: [
+    { title: "Inks Lake State Park — classic Highland Lakes swimming", officialUrl: "https://tpwd.texas.gov/state-parks/inks-lake", internalHref: "/destination/inks-lake-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "TPWD park swimming access" },
+    { title: "Tyler State Park — wooded lake swimming", officialUrl: "https://tpwd.texas.gov/state-parks/tyler", internalHref: "/destination/tyler-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "TPWD park lake access and activities" },
+    { title: "Lake Tawakoni State Park — a North Texas reservoir outing", officialUrl: "https://tpwd.texas.gov/state-parks/lake-tawakoni", internalHref: "/destination/lake-tawakoni-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "TPWD park designated recreation and water safety" },
+    { title: "Lake Whitney State Park — limestone shores and lake views", officialUrl: "https://tpwd.texas.gov/state-parks/lake-whitney", internalHref: "/destination/lake-whitney-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "TPWD park waterfront and swimming" },
+    { title: "Lake Brownwood State Park — swimming with historic park character", officialUrl: "https://tpwd.texas.gov/state-parks/lake-brownwood", internalHref: "/destination/lake-brownwood-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "TPWD park swimming and CCC facilities" },
+    { title: "Lake Casa Blanca International State Park — South Texas option", officialUrl: "https://tpwd.texas.gov/state-parks/lake-casa-blanca", internalHref: "/destination/lake-casa-blanca-international-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "TPWD designated swim area and visitor rules" },
+    { title: "Bonham State Park — a smaller lake experience", officialUrl: "https://tpwd.texas.gov/state-parks/bonham", internalHref: "/destination/bonham-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "TPWD park 65-acre lake, water safety and swimming" },
+    { title: "Lake Meredith National Recreation Area — Panhandle water trip", officialUrl: "https://www.nps.gov/lamr/planyourvisit", internalHref: "/explore/lakes-rivers", sourceCheckedAt: "2026-10-12", reviewingAuthority: "NPS visitor information — Spring Canyon swimming area" },
+    { title: "Lake Corpus Christi State Park — water recreation near Mathis", officialUrl: "https://tpwd.texas.gov/state-parks/lake-corpus-christi", internalHref: "/destination/lake-corpus-christi-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "TPWD park swimming and current water recreation" },
+    { title: "Possum Kingdom State Park — scenic reservoir access", officialUrl: "https://tpwd.texas.gov/state-parks/possum-kingdom", internalHref: "/destination/possum-kingdom-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "TPWD lake recreation and swimming" },
+  ],
   109: [
     { title: "Palo Duro Canyon — dramatic canyon camping", officialUrl: "https://tpwd.texas.gov/state-parks/palo-duro-canyon", internalHref: "/destination/palo-duro-canyon-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — park facilities, reservations and current visitor operations" },
     { title: "Garner State Park — family trips centered on the Frio", officialUrl: "https://tpwd.texas.gov/state-parks/garner", internalHref: "/destination/garner-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks and Wildlife Department — park facilities, reservations and current visitor operations" },
@@ -61,7 +73,7 @@ export function allGuidePicksIndividuallySourced(number: number, titles: string[
       const item = sourceForGuidePick(number, title);
       return Boolean(item
         && /^https:\/\/[^\s]+$/.test(item.officialUrl)
-        && (item.internalHref.startsWith("/fishing/lakes/") || item.internalHref.startsWith("/destination/") || item.internalHref === "/explore/rv-parks")
+        && (item.internalHref.startsWith("/fishing/lakes/") || item.internalHref.startsWith("/destination/") || item.internalHref === "/explore/rv-parks" || item.internalHref === "/explore/lakes-rivers")
         && /^\d{4}-\d{2}-\d{2}$/.test(item.sourceCheckedAt));
     });
 }
