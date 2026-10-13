@@ -1966,6 +1966,89 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "american-quarter-horse-hall-of-fame-museum-amarillo": [
+    {
+      "question": "What are the current museum hours and is it open Mondays?",
+      "answer": "The museum-specific operator contact page lists Tuesday–Saturday 9 a.m.–5 p.m., while the 2024 Texas Historical Commission record still shows Tuesday–Friday until 4 p.m. and Saturday until 5 p.m.; much older brochures give Monday hours. These conflicting published sources are not grounds to assume Monday opening. Call 806-376-5181 to confirm.",
+      "verificationUrl": "https://aqha-museum.myshopify.com/pages/contact-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200000009",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much is admission to American Quarter Horse Hall of Fame Museum?",
+      "answer": "Visit Amarillo labels regular museum admission as paid, but the accessible operator information reviewed here does not establish a reliable current adult ticket amount. Special free family events in 2026 are not a permanent free-admission policy. Confirm normal ticket prices and discounts with the museum before traveling.",
+      "verificationUrl": "https://www.visitamarillo.com/listing/american-quarter-horse-hall-of-fame-%26-museum/650/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.newschannel10.com/2026/07/09/american-quarter-horse-hall-fame-museum-host-family-fun-day-saturday/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where is the American Quarter Horse Hall of Fame Museum?",
+      "answer": "The museum is at 2601 East Interstate Drive, Amarillo, Texas 79104, near I-40, distinct from American Quarter Horse Foundation administrative office visits. Its museum telephone number is 806-376-5181 and museum email is museum@aqha.org.",
+      "verificationUrl": "https://aqha-museum.myshopify.com/pages/contact-us",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://aqha-museum.myshopify.com/pages/contact-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the American Quarter Horse Museum undergoing renovation?",
+      "answer": "Yes. A 2026 local operator interview described five renovation phases to create classroom space, interactive galleries, a shop and live-horse demonstrations, with work expected through the end of the decade. Some exhibits may move or be unavailable while work proceeds, although the museum has maintained its general operations.",
+      "verificationUrl": "https://www.aqha.com/museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.telemundoamarillo.com/2026/02/27/grandes-renovaciones-estn-marcha-para-museo-american-quarter-horse-hall-fame/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can families meet or ride a real American Quarter Horse at the museum?",
+      "answer": "The museum introduced its Wagonhound Paddock at a July 2026 family event with a live-horse demonstration, but there is no evidence that a live horse is present for every regular visit or that horseback riding is offered. Ask for the schedule of actual animal programs before promising a child a live encounter.",
+      "verificationUrl": "https://www.newschannel10.com/2026/07/09/american-quarter-horse-hall-fame-museum-host-family-fun-day-saturday/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitamarillo.com/listing/american-quarter-horse-hall-of-fame-%26-museum/650/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the Hall of Fame exhibits about?",
+      "answer": "Visitors learn how the American Quarter Horse became known for short-distance speed, ranch work, racing and showing, and about famous horses and the people who bred, trained or rode them. Historical artifacts, western art and rotating interactive experiences support these themes; individual displays may be relocated during renovations.",
+      "verificationUrl": "https://www.visitamarillo.com/listing/american-quarter-horse-hall-of-fame-%26-museum/650/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.aqha.com/museum",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Quarter Horse Hall of Fame suitable for a young child?",
+      "answer": "Its Hall of Fame stories, horse-themed art and family educational activities can appeal to school-age children, and individual free Family Fun Days have included crafts and demonstrations. Family programming should not be mistaken for guaranteed toddler play space or continuous animal experiences. Check program dates.",
+      "verificationUrl": "https://www.newschannel10.com/2026/07/09/american-quarter-horse-hall-fame-museum-host-family-fun-day-saturday/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitamarillo.com/listing/american-quarter-horse-hall-of-fame-%26-museum/650/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have a cafeteria or full-service restaurant?",
+      "answer": "The museum advertises a shop and private-event rental spaces, but the current public visitor sources do not establish a daily cafeteria or full-service restaurant. Private events may hire outside caterers; this does not mean visitors can buy meals on a normal museum day. Plan eating elsewhere in Amarillo.",
+      "verificationUrl": "https://www.visitamarillo.com/listing/american-quarter-horse-hall-of-fame-%26-museum/650/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.aqha.com/resource-detail-view/-/asset_publisher/D6hvXWsL9zzH/content/rental-program",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the museum wheelchair accessible during the 2026 renovation?",
+      "answer": "The operator accepts accommodation requests for booked events, but the publicly available current museum information does not establish a complete step-free route or guarantee that every gallery is accessible during phased construction. Contact museum staff in advance about entrances, restrooms, surfaces and group needs.",
+      "verificationUrl": "https://aqha-museum.myshopify.com/pages/contact-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://aqha-museum.myshopify.com/pages/faqs",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
