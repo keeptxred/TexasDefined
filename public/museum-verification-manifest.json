@@ -1080,6 +1080,57 @@
           "label": "Official institution home and news/temporary event announcements"
         }
       ]
+    },
+    {
+      "path": "/destination/texas-ranger-hall-of-fame-museum-waco",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://www.texasranger.org/Visit",
+          "fetchUrl": "https://www.texasranger.org/Visit",
+          "label": "Operator: current hours and admission"
+        },
+        {
+          "sourceUrl": "https://www.texasranger.org/Pages/Education/FAQ",
+          "fetchUrl": "https://www.texasranger.org/Pages/Education/FAQ",
+          "label": "Operator: guided tour FAQ"
+        },
+        {
+          "sourceUrl": "https://www.texasranger.org/News-articles/Rangers-Through-Time",
+          "fetchUrl": "https://www.texasranger.org/News-articles/Rangers-Through-Time",
+          "label": "Operator: Rangers Through Time exhibition"
+        }
+      ]
+    },
+    {
+      "path": "/destination/texas-transportation-museum-san-antonio",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://www.txtransportationmuseum.org/train-rides",
+          "fetchUrl": "https://www.txtransportationmuseum.org/train-rides",
+          "label": "Operator: train operations and accessibility"
+        },
+        {
+          "sourceUrl": "https://www.txtransportationmuseum.org/visit-us",
+          "fetchUrl": "https://www.txtransportationmuseum.org/visit-us",
+          "label": "Operator: visit, tickets and calendar"
+        },
+        {
+          "sourceUrl": "https://www.txtransportationmuseum.org/",
+          "fetchUrl": "https://www.txtransportationmuseum.org/",
+          "label": "Operator: visitor FAQ, parking and food"
+        },
+        {
+          "sourceUrl": "https://www.txtransportationmuseum.org/tickets",
+          "fetchUrl": "https://www.txtransportationmuseum.org/tickets",
+          "label": "Operator: current ticket limitations"
+        }
+      ]
     }
   ]
 }
