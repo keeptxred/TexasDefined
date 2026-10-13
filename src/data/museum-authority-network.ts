@@ -1230,7 +1230,7 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/El_Paso_Museum_of_Art_Migrant_Worker_Exhibit.jpg?width=1600",
     alt: "An exhibition at El Paso Museum of Art photographed in 2015, showing the museum's gallery environment, not a current 2026 exhibit",
     width: 1600, height: 900,
-    credit: "Wikimedia Commons contributor · CC BY-SA 4.0 · File:El Paso Museum of Art Migrant Worker Exhibit.jpg · historical 2015 gallery photograph",
+    credit: "Susan Barnum · CC BY-SA 4.0 · Wikimedia Commons · File:El Paso Museum of Art Migrant Worker Exhibit.jpg · historical 2015 gallery photograph",
   },
   "arlington-museum-of-art": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Richard_Greene_Linear_Park_%28Esports_Stadium_Arlington%29_%28cropped%29.jpg?width=1600",
