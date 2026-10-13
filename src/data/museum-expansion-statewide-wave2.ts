@@ -57,7 +57,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     coordinates: { lat: 35.18858, lng: -101.8451 },
     hero: museumPlaceholder("Amarillo Museum of Art"),
     bestSeason: "Year-round indoor museum; a useful all-weather stop during Panhandle heat, cold, wind or thunderstorms.",
-    entryNote: "General admission is currently free. The museum is closed to the public on Mondays and Tuesdays and observes major holiday closures; confirm current hours before traveling.",
+    entryNote: "Admission is always free. Galleries open Wednesday–Saturday 11 a.m.–5 p.m. and Sunday 1–5 p.m.; closed Monday and Tuesday. Use Amarillo College's west plaza entrance, park in lots 5 or 6 (accessible lot 8), and consult the operator for holiday changes.",
     highlights: ["Free admission", "Changing art exhibitions", "Amarillo College campus", "Amarillo Cultural District"],
     body: [
       "Amarillo Museum of Art provides a visual-arts counterpoint to the Panhandle's ranching, transportation and frontier museums. Its galleries rotate through exhibitions drawn from the permanent collection and visiting artists, giving travelers a cultural stop that changes significantly from one visit to the next.",
