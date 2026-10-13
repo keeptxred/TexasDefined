@@ -940,6 +940,28 @@
         "https://www.hrc.utexas.edu/group-tours/",
         "https://www.hrc.utexas.edu/frequently-asked-questions/"
       ]
+    },
+    "thinkery-austin-childrens-museum": {
+      "name": "Thinkery Children's Museum (Mueller)",
+      "operatorStrengths": [
+        "Official visitor policy, age-specific programming, interactive exhibit descriptions",
+        "Accessible routes, sensory accommodations and discounted admissions"
+      ],
+      "openGaps": [
+        "Confirm all source claims and external experience questions against current operator pages",
+        "Post-deployment crosslinks, exact-photo license, mobile UX and visitor-site comparison"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://thinkeryaustin.org/visit-us/",
+        "https://thinkeryaustin.org/guidelines/",
+        "https://thinkeryaustin.org/museum-accessibility/",
+        "https://thinkeryaustin.org/resources/",
+        "https://thinkeryaustin.org/exhibit/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
