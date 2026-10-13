@@ -649,6 +649,30 @@
         "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
         "https://www.artmuseumofsouthtexas.org/plan-your-visit/"
       ]
+    },
+    "houston-museum-of-natural-science": {
+      "name": "Houston Museum of Natural Science",
+      "operatorStrengths": [
+        "Dedicated visit, ticket, parking, dining, accessibility and FAQ pages",
+        "Current attraction-specific gallery closures and included versus separately ticketed attractions",
+        "A live butterfly center with accessibility and stroller guidelines"
+      ],
+      "openGaps": [
+        "Full independent side-by-side visitor guide certification remains separate from source correctness",
+        "Post-deployment mobile, hero image, internal links and interactive FAQ verification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.hmns.org/visit/",
+        "https://www.hmns.org/visit/faq/",
+        "https://www.hmns.org/visit/directions-parking/",
+        "https://www.hmns.org/visit/accessibility/",
+        "https://www.hmns.org/visit/dining/",
+        "https://www.hmns.org/hmns-exhibits/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
