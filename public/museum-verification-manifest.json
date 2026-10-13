@@ -950,9 +950,9 @@
           "label": "AMA exhibitions and scheduled Arlington 150"
         },
         {
-          "sourceUrl": "https://www.arlingtontx.gov/News-Articles/2026/May/Arlington-Museum-of-Arts-More-Than-a-Match-Extended-Through-Aug.-30",
-          "fetchUrl": "https://www.arlingtontx.gov/News-Articles/2026/May/Arlington-Museum-of-Arts-More-Than-a-Match-Extended-Through-Aug.-30",
-          "label": "City of Arlington official past World Cup exhibition"
+          "sourceUrl": "https://arlingtonmuseum.org/exhibitions",
+          "fetchUrl": "https://arlingtonmuseum.org/exhibitions",
+          "label": "Official museum exhibitions and completed 2026 programming; the city's 2026 archival article remains a separate editorial citation"
         }
       ]
     }
