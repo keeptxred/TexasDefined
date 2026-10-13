@@ -476,6 +476,50 @@
         "https://kimbellart.org/content/tours",
         "https://kimbellart.org/tickets"
       ]
+    },
+    "nasher-sculpture-center-dallas": {
+      "name": "Nasher Sculpture Center",
+      "operatorStrengths": [
+        "Museum operator current visitor, access and family guides researched",
+        "Specific current temporary closures or conflicting operating schedules identified"
+      ],
+      "openGaps": [
+        "Independently compare complete live visitor guide to current operator materials before competitive authority certification",
+        "Check mobile render, canonical links, photo rights and museum detail sections after production deployment"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+        "https://www.nashersculpturecenter.org/visit/cafe",
+        "https://www.nashersculpturecenter.org/visit/accessibility",
+        "https://www.nashersculpturecenter.org/visit/visit-resources"
+      ]
+    },
+    "national-cowgirl-museum-hall-fame-fort-worth": {
+      "name": "National Cowgirl Museum and Hall of Fame",
+      "operatorStrengths": [
+        "Museum operator current visitor, access and family guides researched",
+        "Specific current temporary closures or conflicting operating schedules identified"
+      ],
+      "openGaps": [
+        "Independently compare complete live visitor guide to current operator materials before competitive authority certification",
+        "Check mobile render, canonical links, photo rights and museum detail sections after production deployment"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://thecowgirl.org/",
+        "https://thecowgirl.org/event/expansion-grand-opening/",
+        "https://thecowgirl.org/visit/",
+        "https://thecowgirl.org/field-trips/",
+        "https://thecowgirl.org/exhibitions/hitting-the-mark-cowgirls-and-wild-west-shows-gallery/",
+        "https://thecowgirl.org/about/museum-expansion/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
