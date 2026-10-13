@@ -859,6 +859,43 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "modern-art-museum-fort-worth": {
+    name: "Modern Art Museum of Fort Worth",
+    slug: "modern-art-museum-fort-worth",
+    county: "Tarrant",
+    city: "Fort Worth",
+    reviewed: "2026-10-13",
+    topics: ["art", "architecture", "family", "accessibility"],
+    whyVisit: "The Modern Art Museum of Fort Worth combines Tadao Ando's concrete and glass architecture, a monumental reflecting pond, a serious twentieth- and twenty-first-century art collection and one of Fort Worth's few true full-service museum restaurants. Visitors should distinguish its paid galleries and temporary exhibitions from the architecture, café, cinema and public programs. The Fort Worth Cultural District setting makes it a natural complement to the Kimbell's international historical art and the Carter's American art.",
+    visitorStrategy: "CRITICAL AUTUMN 2026 ACCESS CHANGE: exhibition galleries are CLOSED September 29–October 30, 2026 for installation; the museum remains open for FREE visitor activities in its grand lobby, In the Making: The Sculpture Project, films, programs, shop and Café Modern. The new collection presentation is advertised for October 31, 2026–August 15, 2027. Outside the closure period, normal hours are Tuesday–Thursday and Saturday–Sunday 10 a.m.–5 p.m., Friday 10 a.m.–8 p.m., Monday closed. Standard gallery admission is $16 adults, $12 seniors/military/first responders, $10 students, under 18 free, with free Fridays and half-price Sundays. These rates do not override the free October 2026 lobby program. Check current reopening before promising galleries.",
+    accessibility: "The Modern's Darnell Street visitor entrances and public spaces, including lobby, museum galleries when open, auditoriums, elevators, Café Modern and the Modern Shop, are wheelchair accessible. Accessible parking is near the main entrance; visitors may borrow wheelchairs or portable seats. The auditorium has assisted listening and sometimes captioned films, including a phone-based Listen Everywhere option. Specific assistance is arranged through the operator; do not promise special-film availability without checking the schedule.",
+    familiesAndGroups: "During October 2026, the FREE In the Making: The Sculpture Project offers hands-on artmaking for all ages in the lobby while the galleries are shut. Regular Sunday Family Tours are paused during the October gallery installation and are expected to return after reopening; do not advertise them for October. Outside installation periods, visitors under 18 enter galleries free and can request a child activity book; pushchairs are normally permitted with supervision. Café Modern is a full-service restaurant and bar with lunch, weekend brunch and Friday dinner. No food or drink is permitted in galleries.",
+    researchValue: "The Modern's strongest visitor themes are the relationship between Tadao Ando's building, its reflective pool and changing sculpture, and the art of the postwar and contemporary eras. Visitors in October 2026 should not be led to expect a permanent painting or sculpture gallery accessible during installation. The official site distinguishes October's lobby sculpture project from the Stories from the Collection presentation starting October 31. The visible public program can still support an architecture- and artmaking-centered museum outing.",
+    exhibits: [
+      { heading: "Tadao Ando museum architecture and reflecting pond", detail: "The building's poured-concrete planes, extensive glazing and large reflecting pond are essential parts of a visit and remain relevant even when collections are temporarily unavailable; confirm outdoor access." },
+      { heading: "In the Making: The Sculpture Project (through October 30, 2026)", detail: "Temporary free all-ages artmaking in the Grand Lobby, presented during a period when the museum galleries are entirely closed for installation." },
+      { heading: "In the Making: Stories from the Collection (opens October 31, 2026)", detail: "The forthcoming multi-room collection exhibition surveys modern and contemporary artworks. Until October 31 it is a future opening, not an accessible display." },
+      { heading: "Modern and contemporary art collection", detail: "The museum's collection includes postwar painting, photography, sculpture and installation; the particular works visible depend on exhibition rotations and conservation." },
+      { heading: "Café Modern, shop and cinema", detail: "The café is an operating full-service restaurant and the museum hosts film and auditorium programs separately from its galleries; verify film times and table availability." },
+    ],
+    routes: [
+      { label: "October 2026 lobby and café visit", steps: ["Enter for the free lobby sculpture-making activity, not a gallery tour", "Explore the architecture and reflective pond only where publicly accessible", "Book Café Modern separately for lunch or Friday dinner if desired"] },
+      { label: "Gallery visit after October 31 reopening", steps: ["Confirm the exhibition reopened rather than rely only on an announced date", "Choose one or two galleries and check the current tour schedule", "Compare the Modern with the nearby Carter or Kimbell if time and interest allow"] },
+    ],
+    sources: [
+      { label: "Modern official visitor hours and temporary gallery closure", url: "https://www.themodern.org/visit/hours-and-admission", use: "Full September 29–October 30 gallery closure; normal tickets and gallery hours" },
+      { label: "Modern October sculpture program", url: "https://www.themodern.org/exhibition/making-sculpture-project", use: "Free October lobby program; galleries closed" },
+      { label: "Modern Café Modern", url: "https://www.themodern.org/caf%C3%A9-modern", use: "Full-service restaurant rather than snack bar" },
+      { label: "Modern accessibility", url: "https://www.themodern.org/accessibility", use: "Wheelchair, sensory and auditorium support" },
+      { label: "Modern tours", url: "https://www.themodern.org/tours", use: "October public-tour suspension and reopening plans" },
+    ],
+    connections: [
+      { label: "Tarrant County", href: "/county/tarrant", reason: "Understand Fort Worth's Cultural District and its walkable cluster of art museums." },
+      { label: "Amon Carter Museum", href: "/destination/amon-carter-museum-american-art-fort-worth", reason: "Compare American art with the Modern's wider postwar and contemporary focus." },
+      { label: "Kimbell Art Museum", href: "/destination/kimbell-art-museum-fort-worth", reason: "Compare historic international art with modern and contemporary collecting." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
@@ -941,6 +978,13 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     alt: "Amarillo Museum of Art building on the Amarillo College campus, photographed in 2005",
     width: 1600, height: 1124,
     credit: "Who What Where Nguyen Why · CC BY-SA 3.0 · Wikimedia Commons · File:Amarillo Texas Amarillo Museum of Art 2005-05-15.jpg",
+  },
+
+  "modern-art-museum-fort-worth": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Texas_Modern_Art_Museum_2003.jpg?width=938",
+    alt: "Modern Art Museum of Fort Worth exterior by Tadao Ando, photographed in 2003",
+    width: 938, height: 496,
+    credit: "Andreas Praefcke · Public domain · Wikimedia Commons · File:Fort Worth Texas Modern Art Museum 2003.jpg (historic exterior)",
   },
 
 };
