@@ -346,6 +346,29 @@
         "https://www.austintexas.gov/ney/elisabet-ney-museum-exhibits",
         "https://www.austintexas.gov/ney/about-elisabet-ney-museum"
       ]
+    },
+    "el-paso-museum-of-art": {
+      "name": "El Paso Museum of Art",
+      "operatorStrengths": [
+        "Official free visitor guidance, gallery access, parking and accessibility",
+        "Education/tour FAQ, major collection and temporary-exhibition information"
+      ],
+      "openGaps": [
+        "Document side-by-side operator visitor guide review and independent question coverage",
+        "Verify gallery and licensed exterior image presentation in production on desktop and mobile"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://epma.art/visit",
+        "https://epma.art/visit/tours",
+        "https://epma.art/art/collections",
+        "https://epma.art/",
+        "https://epma.art/art/collections/european",
+        "https://epma.art/art/collections/latinamerican"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
