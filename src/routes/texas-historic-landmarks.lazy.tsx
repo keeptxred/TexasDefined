@@ -93,7 +93,7 @@ function TexasHistoricLandmarksPage() {
       <Container className="py-10 sm:py-14">
         <h2 className="font-display text-3xl sm:text-4xl">Find a landmark, district or community story</h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Some records are amendments to existing districts; places appearing here should not be interpreted as new public attractions. Use the official source for designation documentation.</p>
-        <div className="mt-7 grid gap-3 md:grid-cols-[minmax(0,1fr)_12rem_13rem]">
+        <div className="mt-7 grid gap-3 md:grid-cols-3">
           <label className="grid gap-2 text-sm font-semibold">
             Search by name, city or county
             <input className="w-full rounded border border-border bg-background px-4 py-3 text-base font-normal" type="search" value={textQuery} onChange={(event) => setTextQuery(event.target.value)} placeholder="Try Houston, church or bridge" />
