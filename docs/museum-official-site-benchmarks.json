@@ -282,6 +282,52 @@
         "https://www.treetexas.com/exhibit",
         "https://www.treetexas.com/exhibits-1/paper-mill-room"
       ]
+    },
+    "amon-carter-museum-american-art-fort-worth": {
+      "name": "Amon Carter Museum of American Art",
+      "operatorStrengths": [
+        "Official full visitor FAQ and gallery information",
+        "Visitor access, family and exhibitions sources"
+      ],
+      "openGaps": [
+        "Perform side-by-side visitor benchmark to qualify as objectively more useful than the operator's visitor information",
+        "Post-deployment image, layout and reciprocal route verification required"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.cartermuseum.org/frequently-asked-questions",
+        "https://www.cartermuseum.org/plan-your-visit",
+        "https://www.cartermuseum.org/museum-shop",
+        "https://www.cartermuseum.org/camp-bowie-boulevard-construction",
+        "https://www.cartermuseum.org/plan-your-visit/family-visits",
+        "https://www.cartermuseum.org/plan-your-visit/accessibility"
+      ]
+    },
+    "dallas-museum-of-art": {
+      "name": "Dallas Museum of Art",
+      "operatorStrengths": [
+        "Official full visitor FAQ and gallery information",
+        "Visitor access, family and exhibitions sources"
+      ],
+      "openGaps": [
+        "Perform side-by-side visitor benchmark to qualify as objectively more useful than the operator's visitor information",
+        "Post-deployment image, layout and reciprocal route verification required"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://dma.org/visit",
+        "https://dma.org/visit/dma-cafe",
+        "https://cms.dma.org/visit/DMA-Free-First-Sundays",
+        "https://dma.org/programs/access-programs",
+        "https://dma.org/art/exhibitions",
+        "https://dma.org/visit/additional-info"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
