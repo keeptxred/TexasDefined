@@ -36,7 +36,7 @@ for (let i=0;i<headings.length;i++) {
 }
 if (!destinationRoute.includes("specialistGuidesForDestination(destination.slug)")) errors.push("Destination template does not render specialist guide links");
 if (!reverseComponent.includes("destinationsForSpecialistGuide(guideHref)")) errors.push("Reverse links are not derived from the same source");
-if (!mapSource.includes("guides.filter((guide) => guide.href === href)")) errors.push("Reverse map does not filter by exact activity-guide route");
+if (!/\.filter\(\(guide\)\s*=>\s*guide\.href\s*===\s*href\)/.test(mapSource)) errors.push("Reverse map does not filter by exact activity-guide route");
 for(const href of guideHrefs) {
   const guidePath = `src/routes/${href.slice(1)}.lazy.tsx`;
   if (!fs.existsSync(guidePath)) { errors.push("No visible guide renderer for " + href); continue; }
