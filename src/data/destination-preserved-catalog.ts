@@ -1,6 +1,7 @@
 import { animalSanctuaryDestinations } from "./animal-sanctuary-destinations";
 import { museumAuthorityDestinations } from "./museum-authority-new-destinations";
 import { enrichMuseumAuthority } from "./museum-authority-network";
+import { enrichSanAntonioHeritageAuthority } from "./san-antonio-heritage-enrichment";
 import { aquariumMarineDestinations } from "./aquarium-marine-destinations";
 import { coastalDestinations } from "./coastal-destinations";
 import { topAttractionDestinations } from "./destination-curation-top-attractions";
@@ -27,6 +28,7 @@ import { hyeTexasDestinations } from "./hye-texas-destination";
 import { houstonGalvestonMuseumDestinations } from "./museum-expansion-houston-galveston";
 import { hoggLegacyDestinations } from "./hogg-legacy-destinations";
 import { sanAntonioMuseumDestinations } from "./museum-expansion-san-antonio";
+import { sanAntonioHeritageDestinations } from "./san-antonio-heritage-destinations";
 import { sanAntonioContemporaryMuseumDestinations } from "./museum-expansion-san-antonio-contemporary";
 import { statewideMuseumExpansionDestinations } from "./museum-expansion-statewide";
 import { statewideMuseumExpansionWave2Destinations } from "./museum-expansion-statewide-wave2";
@@ -249,6 +251,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   hyeTexasDestinations,
   austinMuseumDestinations,
   sanAntonioMuseumDestinations,
+  sanAntonioHeritageDestinations,
   sanAntonioContemporaryMuseumDestinations,
   wacoMuseumDestinations,
   statewideMuseumExpansionDestinations,
@@ -337,4 +340,4 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   [shinerTownDestination],
   [newBraunfelsSeasonalFallback],
   [sanMarcosWaterGatewayFallback],
-).map(enrichMuseumAuthority);
+).map(enrichMuseumAuthority).map(enrichSanAntonioHeritageAuthority);
