@@ -109,3 +109,28 @@ Both pages have explicit image placeholders pending rights-cleared exact-locatio
 ## El Paso Museum of Archaeology — source-cleared photo, October 13, 2026
 
 - Wikimedia Commons [Entrance to the El Paso Museum of Archaeology.jpg](https://commons.wikimedia.org/wiki/File:Entrance_to_the_El_Paso_Museum_of_Archaeology.jpg), **Susan Barnum, CC BY-SA 4.0**, photographed April 11, 2016. File original is 3264×2448 px; museum entrance pictured at the same museum, not a regional substitute. Attribution appears in the destination image credit. [License](https://creativecommons.org/licenses/by-sa/4.0/).
+
+
+## Museum visitor-authority additions — October 13, 2026
+
+The following existing or newly created canonical museum pages use photos of the **actual institution or its own displayed objects**, not generic community stock. Their hero image captions distinguish dated displays from present access. Verify thumbnails in the live browser before declaring final photo QA complete.
+
+| Museum guide | Image source and identification | Reuse terms |
+| --- | --- | --- |
+| Bell County Museum, Belton | [Carnegie Museum in Belton, TX IMG 2412.JPG](https://commons.wikimedia.org/wiki/File:Carnegie_Museum_in_Belton,_TX_IMG_2412.JPG) — historical exterior of Bell County Museum in the Carnegie Library building | Billy Hathorn, CC BY-SA 3.0 |
+| Brenham Heritage Museum | [Brenham Heritage Museum.jpg](https://commons.wikimedia.org/wiki/File:Brenham_Heritage_Museum.jpg) — former federal post office, Brenham | Jim Evans, CC BY-SA 4.0 |
+| Brazos Valley Museum of Natural History | [Brazos valley museum of natural history.jpg](https://commons.wikimedia.org/wiki/File:Brazos_valley_museum_of_natural_history.jpg) — museum building, Bryan | Larry D. Moore, CC BY-SA 3.0 |
+| Czech Heritage Museum & Genealogy Center, Temple | [Czech dolls at the museum, Library of Congress LCCN2014633953](https://commons.wikimedia.org/wiki/Category:Czech_Heritage_Museum_%26_Genealogy_Center) — 2014 historic exhibit image | Carol M. Highsmith, Lyda Hill Texas Collection, LOC: no known publication restrictions |
+| Audie Murphy/American Cotton Museum | [Audie Murphy Hunt County War Memorial, museum grounds, 2015](https://commons.wikimedia.org/wiki/File:Audie_Murphy_American_Cotton_Museum_July_2015_52_(Audie_Murphy_Hunt_County_War_Memorial).jpg) — memorial, not main entrance | Michael Barera, CC BY-SA 4.0 |
+| Armstrong Browning Library & Museum | Existing canonical hero [Armstrong browning library baylor 2014.jpg](https://commons.wikimedia.org/wiki/File:Armstrong_browning_library_baylor_2014.jpg) retained | Larry D. Moore, CC BY 4.0 |
+
+Media use must preserve attribution and source links in the actual displayed credit; no implied current status for historic interior photos.
+
+
+## Buffalo Soldiers, Texas Prison and Eisenhower Birthplace (October 13, 2026)
+
+- **Buffalo Soldiers National Museum, Houston:** [Kenneth C. Zirkel, Buffalo Soldiers National Museum entrance.jpg](https://commons.wikimedia.org/wiki/File:Buffalo_Soldiers_National_Museum_entrance.jpg), exact-site photograph taken February 2024, **CC BY 4.0**. ALT text identifies it as a historical view, not proof of 2026 opening.
+- **Texas Prison Museum, Huntsville:** [WhisperToMe, TexasPrisonMuseum.JPG](https://commons.wikimedia.org/wiki/File:TexasPrisonMuseum.JPG), historic exterior photographed 2010, **public domain**. The building image is not a representation of current exhibit content.
+- **Eisenhower Birthplace State Historic Site, Denison:** [Michael Barera, Denison July 2016 16 (Eisenhower Birthplace State Historic Site).jpg](https://commons.wikimedia.org/wiki/File:Denison_July_2016_16_(Eisenhower_Birthplace_State_Historic_Site).jpg), the actual birthplace house, photographed July 2016, **CC BY-SA 4.0**.
+
+Credits and exact location photo URLs live in `src/data/museum-authority-heroes.ts`. Check final page rendering and license attribution after deployment.

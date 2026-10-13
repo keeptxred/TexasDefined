@@ -3839,6 +3839,672 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "armstrong-browning-library-museum-waco": [
+    {
+      "question": "Is admission to Baylor's Armstrong Browning Library & Museum free?",
+      "answer": "Yes. Baylor explicitly says that the Armstrong Browning Library & Museum is free and open to the public. A museum visit to the public rooms is different from requesting restricted scholarly materials, which requires separate registration.",
+      "verificationUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should I park, and which entrance should wheelchair visitors use?",
+      "answer": "Baylor designates visitor parking along 8th Street and James Avenue near 710 Speight Avenue. The institution specifically directs visitors with disabilities to the rear James Avenue entrance for easy access; campus parking rules can change.",
+      "verificationUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/directions-parking",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/directions-parking",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I tour the Armstrong Browning Library without an appointment?",
+      "answer": "Yes. Baylor welcomes walk-in self-guided visitors, while a docent-led tour depends on who is available that day. Groups of ten or more are asked to arrange a scheduled tour at least two weeks ahead.",
+      "verificationUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is special about the Browning Library's stained glass and Treasure Room?",
+      "answer": "The Hankamer Treasure Room displays stained glass inspired by Browning poems, historic portraits and literary objects. The building's galleries are an aesthetic experience in their own right, but the collections are curated and not open-access shelves.",
+      "verificationUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/building-map-online-tour",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/building-map-online-tour",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "May visitors handle rare letters and manuscripts in the museum?",
+      "answer": "Not as part of an ordinary walk-in gallery tour. Baylor's noncirculating research items are used under supervision in its third-floor Belew Scholars' Room; researchers must present identification and register and should contact staff ahead of time.",
+      "verificationUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/research-instruction/use-collections",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/research-instruction/use-collections",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have a public cafeteria or restaurant?",
+      "answer": "Baylor's publicly described museum rooms do not establish a permanent walk-in cafeteria or full-service restaurant. Reception space is used for scheduled university functions, not evidence of a daily dining service; plan food elsewhere on campus.",
+      "verificationUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are the Browning Library exhibits suitable for toddlers and school groups?",
+      "answer": "Younger children may enjoy the stained glass and architecture, but this is primarily a quiet literary museum and research facility rather than a hands-on children's museum. Baylor offers tailored school tours when arranged in advance.",
+      "verificationUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I use the library as a venue for wedding portraits?",
+      "answer": "Professional or staged portrait photography is subject to separate Baylor approval and permit rules, even though public museum visiting is free. Do not assume that a normal gallery visit includes permission for a formal photo session.",
+      "verificationUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/use-our-facility/portrait-policies",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/use-our-facility/portrait-policies",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "bell-county-museum-belton": [
+    {
+      "question": "How much does admission to the Bell County Museum cost?",
+      "answer": "General admission to the Bell County Museum is free. Museum programs or traveling exhibits may have separate reservations or special arrangements, so verify the event description before bringing a school or group.",
+      "verificationUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What days and times is the Bell County Museum open?",
+      "answer": "The museum lists noon to 5 p.m. Tuesday through Friday and 10 a.m. to 5 p.m. Saturday, with Sunday and Monday closures. Check official hours for holidays or unusual events before driving to Belton.",
+      "verificationUrl": "https://www.bellcountymuseum.org/directions.aspx",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bellcountymuseum.org/directions.aspx",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the museum wheelchair-accessible, including the second floor?",
+      "answer": "The institution says all visitor entrances are wheelchair accessible and an elevator reaches the second floor. Accessible restrooms are on the first floor; ask staff about any temporary construction or unusual exhibit layouts.",
+      "verificationUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I take photographs inside Bell County Museum?",
+      "answer": "The museum permits photography and video in its galleries but asks visitors to take care around fragile artifacts. Different temporary loans or public events could carry their own restrictions, so follow posted exhibit signs.",
+      "verificationUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "May I bring food, snacks or drinks into the exhibits?",
+      "answer": "No. The museum's FAQ asks visitors not to bring food and drink into exhibition galleries. Its visitor information does not substantiate a full-service restaurant on site; plan refreshments or a meal in Belton separately.",
+      "verificationUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the Gault Site exhibit and who will enjoy it?",
+      "answer": "The museum highlights the Gault Site archaeology exhibit alongside Bell County history in the historic Carnegie Library. School-age visitors may enjoy the archaeological interpretation, while younger children may prefer a scheduled activity.",
+      "verificationUrl": "https://www.bellcountymuseum.org/p/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bellcountymuseum.org/p/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I borrow books from the museum genealogy and research library?",
+      "answer": "No. Bell County Museum says genealogy and research materials are available for guests to use inside the library, but they cannot be checked out or taken away. Research visits and public gallery exploration have different purposes.",
+      "verificationUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Bell County Museum offer children’s special activities?",
+      "answer": "Yes. The museum's posted calendar lists family events and age-specific activities such as Tiny Thinkers and science programming. These are scheduled activities, not permanent daily exhibits, so check dates and any required registration.",
+      "verificationUrl": "https://www.bellcountymuseum.org/events",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bellcountymuseum.org/events",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "brenham-heritage-museum": [
+    {
+      "question": "What is the current admission price at Brenham Heritage Museum?",
+      "answer": "The museum lists adult general admission at $10, discounted entry for seniors, students and veterans, $5 for children ages five to twelve, and free entry for ages four and under. Membership and group rates differ, so check current categories.",
+      "verificationUrl": "https://www.bhmtexas.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bhmtexas.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "When is Brenham Heritage Museum open to the public?",
+      "answer": "Ordinary hours are Tuesday through Saturday, 10 a.m. to 4 p.m. The museum advertises special extended hours and free admission October 16–18, 2026; those festival exceptions should not be mistaken for its usual calendar.",
+      "verificationUrl": "https://www.bhmtexas.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bhmtexas.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where can visitors using wheelchairs or strollers enter?",
+      "answer": "The operator directs wheelchair and stroller visitors to its rear entrance, which has a ramp and elevator. If you are being dropped off, the museum recommends East Main Street near that rear accessible entrance.",
+      "verificationUrl": "https://www.bhmtexas.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bhmtexas.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should a charter bus or large school group park?",
+      "answer": "The museum warns that ramps into its main lot at 105 South Market Street are steep for buses. Bus drivers are advised to use alternative parking near its office or the fire museum and use the rear entrance drop-off.",
+      "verificationUrl": "https://www.bhmtexas.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bhmtexas.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are guided tours available for school groups or large parties?",
+      "answer": "Yes, but guided tours are arranged by appointment rather than guaranteed on arrival. The museum has different group and school rates and encourages reservations for groups of ten or more.",
+      "verificationUrl": "https://www.bhmtexas.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bhmtexas.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What displays will I see at Brenham Heritage Museum?",
+      "answer": "The permanent interpretation includes Washington County timelines, slavery and Reconstruction, immigration, farming, transportation, Maifest traditions, interactive postal stations and multimedia rooms. Traveling art displays change by date.",
+      "verificationUrl": "https://www.bhmtexas.org/visit/exhibits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bhmtexas.org/visit/exhibits",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I still see the October 2026 arts festival exhibit later in the year?",
+      "answer": "The museum's current page lists the Texas Arts and Music Festival displays as a temporary exhibition from October 1 through October 31, 2026. Do not expect that temporary show to remain after the published end date.",
+      "verificationUrl": "https://www.bhmtexas.org/visit/exhibits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bhmtexas.org/visit/exhibits",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Brenham Heritage Museum have a restaurant or public cafe?",
+      "answer": "Current museum visitor material documents the museum, its admission policies and accessible parking but not a full-service public museum restaurant. Plan lunch in downtown Brenham separately rather than assuming a cafe is inside.",
+      "verificationUrl": "https://www.bhmtexas.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bhmtexas.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "audie-murphy-american-cotton-museum-greenville": [
+    {
+      "question": "What is the address and regular visiting schedule of the Audie Murphy American Cotton Museum?",
+      "answer": "The museum is at 600 Interstate 30 East, Greenville, Texas. It normally opens Tuesday through Saturday from 10 a.m. to 5 p.m. and closes on Sundays, Mondays and major holidays. Check the operator for special arrangements.",
+      "verificationUrl": "https://cottonmuseum.com/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cottonmuseum.com/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the museum's admission prices for children and students?",
+      "answer": "The operator lists adult admission at $10, but some current pages disagree about student and youth age brackets and fees. Check the dedicated admissions desk or contact the museum for your exact category rather than relying on conflicting summaries.",
+      "verificationUrl": "https://cottonmuseum.com/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cottonmuseum.com/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Audie Murphy the only subject covered by this museum?",
+      "answer": "No. The museum also interprets the cotton economy, plantation-era and later agricultural labor, processing machinery, Hunt County communities and historic domestic life. Its military galleries include other local and national service stories.",
+      "verificationUrl": "https://cottonmuseum.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cottonmuseum.com/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What does the Military Hall of Heroes show visitors?",
+      "answer": "The military gallery includes a World War I trench interpretation, weapons and artifacts from later conflicts, and military figures including Audie Murphy. Sensitive depictions of combat can be intense for younger children.",
+      "verificationUrl": "https://cottonmuseum.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cottonmuseum.com/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the historic Ende-Gaillard House part of the museum grounds?",
+      "answer": "Yes. The museum describes the nineteenth-century Ende-Gaillard House on the grounds, along with memorial features. Confirm whether the house is staffed and open on the day you intend to visit, since outdoor and historic-building access can vary.",
+      "verificationUrl": "https://cottonmuseum.com/about/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cottonmuseum.com/about/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I book a private group tour?",
+      "answer": "The museum offers guided tours for groups of at least ten people by advance appointment. Individuals can explore the galleries on a self-guided basis, and the visitor page provides a telephone number for reservation details.",
+      "verificationUrl": "https://cottonmuseum.com/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cottonmuseum.com/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors using wheelchairs explore the museum?",
+      "answer": "The museum says its principal visitor facilities are accessible and reports one wheelchair and one walker available on a first-come basis. Confirm the historic home's entrance and outdoor memorial approaches separately if barrier-free access is essential.",
+      "verificationUrl": "https://cottonmuseum.com/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cottonmuseum.com/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have a restaurant or place to eat?",
+      "answer": "The museum visitor page confirms a picnic area on its grounds, but does not establish a cafeteria or table-service restaurant. Bring suitable picnic provisions or plan dining in Greenville outside the exhibits.",
+      "verificationUrl": "https://cottonmuseum.com/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cottonmuseum.com/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "brazos-valley-museum-natural-history-bryan": [
+    {
+      "question": "How much are tickets at the Brazos Valley Museum of Natural History?",
+      "answer": "Its visitor page lists regular adult admission of five dollars, discounted admission for youth, seniors and students, and free entry for children aged three and under with a paying adult. Check categories at the front desk before the visit.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have a dollar admission day?",
+      "answer": "Yes. The museum advertises Dollar Days on the first Tuesday of each month, when regular museum admission is one dollar. Confirm the date and any special exhibition or holiday rules before planning a dedicated drive.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "When is the Brazos Valley Museum open in Bryan?",
+      "answer": "The operator lists Tuesday through Saturday from 10 a.m. to 5 p.m. at 3232 Briarcrest Drive in Bryan. Sunday and Monday are not listed as regular visiting days; programming and holidays may affect the schedule.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Brazos Valley Museum suitable for young children and field trips?",
+      "answer": "Yes. The museum provides school programs, children's nature camps, outreach activities and education materials for younger audiences. Some programs require advance reservations and are not available as unscheduled walk-in activities.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/about-the-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/about-the-museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What should families expect to learn at the Brazos Valley Museum?",
+      "answer": "The institution emphasizes natural and cultural history, including wildlife, science and local heritage. Families should choose the current exhibitions and programs suited to their children's ages rather than assuming every exhibit is hands-on.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/about-the-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/about-the-museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Boonville Heritage Park part of an indoor museum ticket?",
+      "answer": "Boonville Heritage Park is a separate outdoor historic setting that can complement a museum visit. Do not assume its hours, weather conditions, accessibility or any event entrance requirements are identical to indoor museum admission.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have wheelchair or sensory accessibility services?",
+      "answer": "The institution publishes a website accessibility statement, but its webpage does not establish all physical accessibility features. Contact museum visitor services about wheelchair routes, sensory accommodation and specific exhibit access before a trip.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/accessibility",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/accessibility",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Brazos Valley Museum have an on-site cafeteria or restaurant?",
+      "answer": "The museum's public visit and programming descriptions do not establish a full-service public restaurant or permanent cafeteria. Plan food separately in Bryan and ask visitor services about any rules for bringing drinks into galleries.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "czech-heritage-museum-genealogy-center-temple": [
+    {
+      "question": "What hours is the Czech Heritage Museum in Temple open?",
+      "answer": "The institution publishes Thursday, Friday and Saturday hours from 10 a.m. to 4 p.m. Weekday and holiday changes may occur; contact the museum rather than relying on older travel listings for a Monday-to-Wednesday visit.",
+      "verificationUrl": "https://czechheritagemuseum.org/contact-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://czechheritagemuseum.org/contact-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What does admission to the Czech Heritage Museum cost?",
+      "answer": "The museum currently lists four dollars for adults, three dollars for seniors aged sixty or older and two dollars for children twelve and under. Contact it directly about group packages and special events before assuming general ticket rates apply.",
+      "verificationUrl": "https://czechheritagemuseum.org/contact-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://czechheritagemuseum.org/contact-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I visit the Czech Heritage Museum without a tour guide?",
+      "answer": "Yes. The museum explicitly offers a self-guided visit at your own pace as well as booked guided tours. Groups can arrange guided or self-directed visits, with booking policies depending on the group.",
+      "verificationUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is there to see beyond genealogical records?",
+      "answer": "The museum's visitor resources describe displays on Czech history, immigrant life, cultural artifacts and folk traditions. It is a heritage museum as well as a genealogical center, so visitors without family research interests can still enjoy exhibits.",
+      "verificationUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where is the Czech Heritage Museum in Temple?",
+      "answer": "The museum is at 119 West French Avenue in Temple, on the corner opposite a local business referenced in its directions. It supplies a map on its official visit page, which should be consulted rather than relying on unofficial pins.",
+      "verificationUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I trace my family's Czech ancestry on a casual museum visit?",
+      "answer": "The museum has a genealogy mission, but focused family-history research benefits from contacting staff before traveling with surnames, locations and known dates. Do not assume records or specialist assistance are instantly available to walk-ins.",
+      "verificationUrl": "https://czechheritagemuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://czechheritagemuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are Czech Heritage Museum school or group tours available?",
+      "answer": "Yes. The operator offers standard groups and guided group tours for classes, clubs and other organizations, with a reservation process outlined on its plan-your-visit page. Confirm staffing and any extra costs when booking.",
+      "verificationUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Czech Heritage Museum have a cafeteria or restaurant?",
+      "answer": "Its published visiting resources establish exhibits, tour options, admission and directions, but do not confirm an on-site cafeteria or table-service restaurant. Plan eating in Temple separately and ask about visitor food restrictions.",
+      "verificationUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://czechheritagemuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "buffalo-soldiers-national-museum-houston": [
+    {
+      "question": "Is the Buffalo Soldiers National Museum in Houston open in October 2026?",
+      "answer": "No. The museum's official home and visitor pages still say it is temporarily closed for renovations as of October 2026, despite an earlier anticipated summer reopening. Do not book a ticket or arrive expecting access until a dated reopening notice is published.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can schools book an in-person Buffalo Soldiers National Museum tour now?",
+      "answer": "Not at present. The museum has posted an explicit notice that all in-person group tours are temporarily cancelled until further notice. Older prices, advance booking policies and tour hours remain online but do not establish available reservations.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/group-tours/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/group-tours/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How can students learn about the Buffalo Soldiers while the museum is closed?",
+      "answer": "The museum continues to describe virtual field trips, digital interpretation and education outreach. Their current availability and booking requirements are not confirmed on all older pages, so teachers should contact the museum before scheduling virtual or off-site programming.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What does the museum teach about Black soldiers and civil rights?",
+      "answer": "It interprets Black military service from early United States Colored Troops and frontier regiments through the 92nd Infantry Division, the struggle for integration, and contemporary service. These are published interpretation topics rather than presently open gallery displays.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the Women Who Served exhibit about?",
+      "answer": "The institution highlights Black women in United States military history, including Cathay Williams, who enlisted under an assumed male identity. The public exhibit description is useful background, but an in-person exhibition visit is not possible while the building remains closed.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum still have free Thursday admission and parking?",
+      "answer": "The website includes pre-renovation Thursday admission promotions and surface parking descriptions, but no regular on-site visits are currently available. Do not treat those older terms as a valid free-entry schedule until reopening and updated visitor policies are confirmed.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Buffalo Soldiers National Museum wheelchair accessible during renovations?",
+      "answer": "Its historical visitor profile notes accessibility, but the Houston building is closed for public museum admission. Before any future visit, ask staff to confirm the accessible entrance and whether renovation has changed ramps, restrooms and visitor routes.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What can families visit nearby instead while the museum is closed?",
+      "answer": "Plan a different institution that is independently confirmed open and appropriate to your interests. The museum's website may offer off-site events, but event availability must be confirmed directly; do not assume the closed Caroline Street building is a visitor stop.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "texas-prison-museum-huntsville": [
+    {
+      "question": "What are the Texas Prison Museum's current hours and admission prices?",
+      "answer": "The museum's current homepage lists Monday through Saturday 10 a.m.–5 p.m., Sunday noon–5 p.m., adults $8, children 6–17 $7, qualifying seniors, military, first responders, TDCJ staff and SHSU students $6, and free admission for ages five and under. Group rates are separately published.",
+      "verificationUrl": "https://www.txprisonmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Texas Prison Museum the same as the Huntsville Unit prison?",
+      "answer": "No. The Texas Prison Museum is a separate public nonprofit museum on Texas Highway 75 North. It explains the history of the state's correctional institutions, including the historic Huntsville Unit called the Walls; the exhibit tour is not a tour inside the operating prison.",
+      "verificationUrl": "https://www.txprisonmuseum.org/about-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/about-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum display the real electric chair called Old Sparky?",
+      "answer": "Yes. Its official exhibit guide identifies Old Sparky as the decommissioned electric chair once used by Texas. The museum states 361 prisoners were executed using it between 1924 and 1964. The subject is disturbing and requires sensitive interpretation, especially for children.",
+      "verificationUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Texas Prison Museum suitable for younger children?",
+      "answer": "The museum welcomes school groups, but some displays depict execution equipment, imprisonment, weapons and violent crime. A visit is better planned around each child's maturity; adults may omit the capital-punishment section and choose other social-history interpretation.",
+      "verificationUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the Texas Prison Rodeo and can I attend it today?",
+      "answer": "The museum interprets a historic prison rodeo that began in 1931 and ran through 1986. Its collections and narratives are historical; there is no current public Texas Prison Rodeo event to attend at the museum.",
+      "verificationUrl": "https://www.txprisonmuseum.org/copy-of-captain-joe-byrd-cemetery",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/copy-of-captain-joe-byrd-cemetery",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much time should I allow to see the Texas Prison Museum?",
+      "answer": "The museum suggests that a quick visitor may browse in approximately 45 minutes, while readers interested in the full history can spend several hours. Allow more time if discussing sensitive exhibits with family or school visitors.",
+      "verificationUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the prison museum have a working restaurant or cafeteria?",
+      "answer": "The institution's official admission and exhibits information does not establish an on-site cafeteria or full-service restaurant. Plan dining elsewhere in Huntsville and ask staff whether drinking water or snacks are permitted inside the galleries.",
+      "verificationUrl": "https://www.txprisonmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is there wheelchair access and are tours of the operating prison included?",
+      "answer": "The official museum sources reviewed do not confirm every doorway or gallery accommodation, so contact museum staff about physical access. Public museum admission does not include entry into any functioning Texas prison, and the guide must never imply that it does.",
+      "verificationUrl": "https://www.txprisonmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "eisenhower-birthplace": [
+    {
+      "question": "Where is Dwight Eisenhower's Texas birthplace and how do I reach its parking lot?",
+      "answer": "Use 609 South Lamar Avenue in Denison for the Texas Historical Commission visitor center and lot. Some nearby Shepherd, Day and Lamar street approaches have closures, so follow the THC route directions rather than driving directly to a historical house pin.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much do guided tours at Eisenhower Birthplace cost?",
+      "answer": "The THC lists adults $6, seniors, teachers and veterans $5, youth $4, children five and under free, and a $12 family admission package. School and adult groups have separate advertised tour prices. Confirm the current category when reserving.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I visit the Eisenhower Birthplace without a reservation?",
+      "answer": "The site offers tours starting on the hour, with walk-ins admitted only as capacity allows. Reserve at least one week ahead if a specific time is essential. Public tours generally run Tuesday through Saturday and Sunday afternoon; holiday changes require checking.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Was Dwight Eisenhower raised in the Denison house?",
+      "answer": "No. Dwight Eisenhower was born there on October 14, 1890, while his father worked around railroad shops. His family moved back to Kansas when he was about 18 months old; the Texas house represents his birthplace, not the whole childhood.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/eisenhower-birthplace-history",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/eisenhower-birthplace-history",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Eisenhower Birthplace accessible to wheelchair users?",
+      "answer": "THC lists wheelchair-accessible ramps at both the Birthplace house and visitor center, plus accessible restrooms at the picnic pavilion. There is a short walk between the buildings; ask visitor services about specific mobility needs or outdoor surfaces.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Eisenhower Birthplace have a café or allow packed food?",
+      "answer": "The operator states that food and drinks are not sold on site and cannot be consumed inside the historic house. You may bring your own food and drinks to the picnic pavilion, where water fountains and restrooms are located.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are the tours suitable for school-age children?",
+      "answer": "Yes. THC's educational program introduces railroad-era working-family life through a house tour, interpretive video and supervised period activities such as croquet, paper quilting and historic washing. School tours are book-ahead sessions distinct from general public admission.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Eisenhower Birthplace the same as the Eisenhower home in Abilene or Gettysburg?",
+      "answer": "No. The Denison house marks Eisenhower's 1890 birth. His Kansas boyhood home and Pennsylvania retirement farm are distinct historic locations that describe other life periods, and should not be mistaken for Texas museum sites.",
+      "verificationUrl": "https://thc.texas.gov/blog/homes-president-eisenhower",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/blog/homes-president-eisenhower",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];

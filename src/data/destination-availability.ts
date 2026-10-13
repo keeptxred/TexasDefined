@@ -12,7 +12,8 @@ const UNAVAILABLE_DESTINATION_SLUGS = new Set([
   "davis-hill-state-park",
   "battleship-texas",
   "battleship-texas-state-historic-site",
-  "1940-air-terminal-museum-houston", // closed March 2026; historic reference page remains accessible
+  "1940-air-terminal-museum-houston",
+  "buffalo-soldiers-national-museum-houston", // official closure persists as of 2026-10-13 // closed March 2026; historic reference page remains accessible
   "elisabet-ney-museum-austin", // closed for renovations until anticipated spring 2027 reopening
 ]);
 

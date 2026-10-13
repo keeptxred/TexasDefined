@@ -196,7 +196,7 @@ if (base) {
   }
 }
 // A researched closed museum is historical reference content, not a bookable stop.
-const historicalMuseumReferences = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin"];
+const historicalMuseumReferences = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin", "buffalo-soldiers-national-museum-houston"];
 const museumAvailability = read("src/data/destination-availability.ts");
 const museumSeoRoute = read("src/routes/destination.$slug.tsx");
 const museumSitemapRoute = read("src/routes/sitemap-explore[.]xml.ts");

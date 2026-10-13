@@ -10,6 +10,68 @@ import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 export const museumAuthorityDestinations: Destination[] = [
   ...cityPassDestinationExpansion.filter((destination) => destination.slug === "witte-museum"),
   {
+    id: "museum-authority-buffalo-soldiers-houston",
+    brandId: "texasdefined",
+    slug: "buffalo-soldiers-national-museum-houston",
+    name: "Buffalo Soldiers National Museum",
+    summary: "Buffalo Soldiers National Museum in Houston is temporarily CLOSED for renovations as of October 2026. Learn about Black military history, women who served, civil rights in the armed forces, and the former Houston Light Guard Armory while awaiting an official reopening.",
+    category: "historic-sites",
+    region: "gulf-coast",
+    nearestTown: "Houston",
+    county: "Harris County",
+    coordinates: { lat: 29.736125, lng: -95.378003 },
+    hero: museumLicensedHeroes["buffalo-soldiers-national-museum-houston"],
+    bestSeason: "Historical research and digital materials may be accessed year-round, but the museum building is currently closed to ordinary visitors for renovation.",
+    entryNote: "TEMPORARILY CLOSED. The official website still says closed for renovations; all in-person organized tours are cancelled until further notice. Older hours, free Thursday entry and ticket prices are not currently actionable. Do not visit 3816 Caroline Street expecting public gallery access.",
+    highlights: [
+      "Post-Civil War Black military service and the Buffalo Soldiers",
+      "Cathay Williams and Women Who Served",
+      "Civil rights and desegregation in the U.S. Armed Forces",
+      "Traveling exhibitions and off-site programs subject to separate confirmation"
+    ],
+    body: [
+      "The Buffalo Soldiers National Museum explores how African American service members shaped American military history and civic life, from the frontier regiments and military service after emancipation through the world wars, segregation and the movements for equal rights. Its galleries have used uniforms, personal accounts, historic images and contemporary artistic interpretation to tell those stories.",
+      "The museum occupies Houston's former Light Guard Armory at 3816 Caroline Street. The institution's visitor site currently announces that the building is temporarily closed for a major renovation. Older ticket rates and visitor hours still appear on parts of its site, but should not be interpreted as permission to enter the museum. Its group-tour page separately confirms all in-person tours are cancelled until further notice.",
+      "Readers can explore subjects such as Cathay Williams and women in military service, the 92nd Infantry Division, United States Colored Troops, and the civil rights campaign to integrate the Armed Forces through official public resources. The museum mentions off-site programming and virtual field trips, but each opportunity needs its own current date or availability confirmation; no opening date is guaranteed."
+    ],
+    managingAuthority: "Buffalo Soldiers National Museum",
+    officialUrl: "https://buffalosoldiersmuseum.org/visit/",
+    address: "3816 Caroline Street, Houston, TX 77004",
+    sourceCheckedAt: "2026-10-13",
+    accessibilityNotes: "Ordinary on-site museum admission is not available during renovations. Reconfirm wheelchair entrance, access routes and other assistance after the institution announces reopening."
+  },
+  {
+    id: "museum-authority-audie-murphy-american-cotton-greenville",
+    brandId: "texasdefined",
+    slug: "audie-murphy-american-cotton-museum-greenville",
+    name: "Audie Murphy/American Cotton Museum",
+    summary: "Greenville visitor guide to the Audie Murphy/American Cotton Museum: military history, cotton production and historic machinery, the Ende-Gaillard House, accessible admission, family suitability and grounds.",
+    category: "historic-sites",
+    region: "prairies-lakes",
+    nearestTown: "Greenville",
+    county: "Hunt County",
+    coordinates: { lat: 33.12592, lng: -96.08950 },
+    hero: museumLicensedHeroes["audie-murphy-american-cotton-museum-greenville"],
+    bestSeason: "Year-round indoor galleries, with spring and fall preferred for exploring outdoor memorials and historic-house grounds.",
+    entryNote: "Regular visiting hours are Tuesday–Saturday 10 a.m.–5 p.m. at 600 I-30 East, Greenville. Adult admission is listed at $10. The museum website has inconsistent youth and student fee tiers, so confirm the price for your age group with the operator before arrival.",
+    highlights: [
+      "Audie Murphy and other Hunt County military service stories",
+      "Cotton industry exhibits, historical machinery and social history",
+      "1850s Ende-Gaillard House on the grounds",
+      "Hunt County military memorial and outdoor heritage interpretation"
+    ],
+    body: [
+      "Hunt County's cotton economy and its military service history are brought together in the museum's two complementary areas. Cotton cultivation, labor and machinery shaped Greenville's commercial development; the military displays interpret the lives and choices of service members in successive conflicts. Treat those histories together rather than reducing the institution to one celebrity.",
+      "The Military Hall of Heroes includes wartime artifacts, trench interpretation and exhibits about Audie Murphy alongside others from Hunt County. The agricultural galleries connect cotton processing with everyday domestic and farm life. The grounds include a historic nineteenth-century house and memorial features whose current access should be checked separately.",
+      "The operator recommends advance booking for guided parties of ten or more and describes accessible general museum facilities, with a wheelchair and walker available first-come. Children can learn from machinery and home-life interpretation, while adults should use judgment around weapons and wartime subjects. A picnic area is advertised; a museum restaurant is not established."
+    ],
+    managingAuthority: "Audie Murphy/American Cotton Museum",
+    officialUrl: "https://cottonmuseum.com/visit/",
+    address: "600 I-30 East, Greenville, TX 75401",
+    sourceCheckedAt: "2026-10-13",
+    accessibilityNotes: "The operator describes accessible main galleries and one loan wheelchair and walker, but historic-house accessibility must be verified separately."
+  },
+  {
     id: "museum-authority-1940-air-terminal-houston",
     brandId: "texasdefined",
     slug: "1940-air-terminal-museum-houston",

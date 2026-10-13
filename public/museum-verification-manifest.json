@@ -1431,6 +1431,253 @@
           "label": "FAQ source: Can families hike the desert trails after visiting the archaeology galleries?"
         }
       ]
+    },
+    {
+      "path": "/destination/armstrong-browning-library-museum-waco",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
+          "label": "Baylor official visitor guidance"
+        },
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/directions-parking",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/directions-parking",
+          "label": "Baylor parking and accessible entrance"
+        },
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
+          "label": "Baylor tour policy"
+        },
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/building-map-online-tour",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/building-map-online-tour",
+          "label": "Baylor gallery map and rooms"
+        },
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/research-instruction/use-collections",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/research-instruction/use-collections",
+          "label": "FAQ source: May visitors handle rare letters and manuscripts in the museum?"
+        },
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/use-our-facility/portrait-policies",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/use-our-facility/portrait-policies",
+          "label": "FAQ source: Can I use the library as a venue for wedding portraits?"
+        }
+      ]
+    },
+    {
+      "path": "/destination/bell-county-museum-belton",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+          "fetchUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+          "label": "Museum official FAQ"
+        },
+        {
+          "sourceUrl": "https://www.bellcountymuseum.org/directions.aspx",
+          "fetchUrl": "https://www.bellcountymuseum.org/directions.aspx",
+          "label": "Museum posted hours"
+        },
+        {
+          "sourceUrl": "https://www.bellcountymuseum.org/p/visit",
+          "fetchUrl": "https://www.bellcountymuseum.org/p/visit",
+          "label": "Museum official visiting and free admission"
+        },
+        {
+          "sourceUrl": "https://www.bellcountymuseum.org/events",
+          "fetchUrl": "https://www.bellcountymuseum.org/events",
+          "label": "Official Bell County Museum event calendar"
+        }
+      ]
+    },
+    {
+      "path": "/destination/brenham-heritage-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.bhmtexas.org/visit",
+          "fetchUrl": "https://www.bhmtexas.org/visit",
+          "label": "Brenham Heritage Museum visitor rules"
+        },
+        {
+          "sourceUrl": "https://www.bhmtexas.org/visit/exhibits",
+          "fetchUrl": "https://www.bhmtexas.org/visit/exhibits",
+          "label": "Museum current exhibits"
+        },
+        {
+          "sourceUrl": "https://www.bhmtexas.org/",
+          "fetchUrl": "https://www.bhmtexas.org/",
+          "label": "Museum homepage"
+        }
+      ]
+    },
+    {
+      "path": "/destination/audie-murphy-american-cotton-museum-greenville",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://cottonmuseum.com/visit/",
+          "fetchUrl": "https://cottonmuseum.com/visit/",
+          "label": "Official visiting information"
+        },
+        {
+          "sourceUrl": "https://cottonmuseum.com/",
+          "fetchUrl": "https://cottonmuseum.com/",
+          "label": "Museum homepage and gallery highlights"
+        },
+        {
+          "sourceUrl": "https://cottonmuseum.com/about/",
+          "fetchUrl": "https://cottonmuseum.com/about/",
+          "label": "Museum history and grounds"
+        }
+      ]
+    },
+    {
+      "path": "/destination/brazos-valley-museum-natural-history-bryan",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.brazosvalleymuseum.org/visit",
+          "fetchUrl": "https://www.brazosvalleymuseum.org/visit",
+          "label": "Museum official visitor information"
+        },
+        {
+          "sourceUrl": "https://www.brazosvalleymuseum.org/about-the-museum",
+          "fetchUrl": "https://www.brazosvalleymuseum.org/about-the-museum",
+          "label": "Museum institutional mission and programming"
+        },
+        {
+          "sourceUrl": "https://www.brazosvalleymuseum.org/accessibility",
+          "fetchUrl": "https://www.brazosvalleymuseum.org/accessibility",
+          "label": "Museum website accessibility statement"
+        }
+      ]
+    },
+    {
+      "path": "/destination/czech-heritage-museum-genealogy-center-temple",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://czechheritagemuseum.org/contact-us",
+          "fetchUrl": "https://czechheritagemuseum.org/contact-us",
+          "label": "Museum official visiting hours and admission"
+        },
+        {
+          "sourceUrl": "https://czechheritagemuseum.org/plan-your-visit",
+          "fetchUrl": "https://czechheritagemuseum.org/plan-your-visit",
+          "label": "Museum tour choices and directions"
+        },
+        {
+          "sourceUrl": "https://czechheritagemuseum.org/",
+          "fetchUrl": "https://czechheritagemuseum.org/",
+          "label": "Museum official home"
+        }
+      ]
+    },
+    {
+      "path": "/destination/buffalo-soldiers-national-museum-houston",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://buffalosoldiersmuseum.org/visit/",
+          "fetchUrl": "https://buffalosoldiersmuseum.org/visit/",
+          "label": "Museum official closure and previous policies"
+        },
+        {
+          "sourceUrl": "https://buffalosoldiersmuseum.org/visit/group-tours/",
+          "fetchUrl": "https://buffalosoldiersmuseum.org/visit/group-tours/",
+          "label": "Museum group tour cancellation"
+        },
+        {
+          "sourceUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+          "fetchUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+          "label": "Museum exhibit and digital themes"
+        },
+        {
+          "sourceUrl": "https://buffalosoldiersmuseum.org/",
+          "fetchUrl": "https://buffalosoldiersmuseum.org/",
+          "label": "FAQ source: What can families visit nearby instead while the museum is closed?"
+        },
+        {
+          "sourceUrl": "https://houmuse.org/institution/buffalo-soldiers-national-museum/",
+          "fetchUrl": "https://houmuse.org/institution/buffalo-soldiers-national-museum/?td_monitor=1",
+          "label": "Houston Museum District independent institutional status; uses content-readable cache bypass"
+        }
+      ]
+    },
+    {
+      "path": "/destination/texas-prison-museum-huntsville",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.txprisonmuseum.org/",
+          "fetchUrl": "https://www.txprisonmuseum.org/",
+          "label": "Museum official home, hours and ticket prices"
+        },
+        {
+          "sourceUrl": "https://www.txprisonmuseum.org/about-us",
+          "fetchUrl": "https://www.txprisonmuseum.org/about-us",
+          "label": "Museum background and Huntsville connection"
+        },
+        {
+          "sourceUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+          "fetchUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+          "label": "Museum popular exhibits"
+        },
+        {
+          "sourceUrl": "https://www.txprisonmuseum.org/copy-of-captain-joe-byrd-cemetery",
+          "fetchUrl": "https://www.txprisonmuseum.org/copy-of-captain-joe-byrd-cemetery",
+          "label": "Texas Prison Rodeo history"
+        }
+      ]
+    },
+    {
+      "path": "/destination/eisenhower-birthplace",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+          "fetchUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+          "label": "THC current visitor guide and tour booking"
+        },
+        {
+          "sourceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/eisenhower-birthplace-history",
+          "fetchUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/eisenhower-birthplace-history",
+          "label": "THC official birthplace history"
+        },
+        {
+          "sourceUrl": "https://thc.texas.gov/blog/homes-president-eisenhower",
+          "fetchUrl": "https://thc.texas.gov/blog/homes-president-eisenhower",
+          "label": "THC presidential-home comparison"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/4200000469",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/4200000469",
+          "label": "THC historic site Atlas"
+        }
+      ]
     }
   ]
 }
