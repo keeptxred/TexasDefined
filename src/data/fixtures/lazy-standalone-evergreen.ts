@@ -45,7 +45,7 @@ const texasHighSchoolFootballPlayoffsStub: Article = {
   dek: "From district qualification and bi-district matchups to 6A's Division I/II split, neutral sites and state championships, here is how the UIL football postseason works in 2026.",
   category: "sports",
   hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Cultural_District_June_2016_09_%28Farrington_Field%29.jpg?width=1800", alt: "Farrington Field, a historic high school football stadium in Fort Worth, Texas", width: 1800, height: 1200, credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons" },
-  authorId: "a-marisol", publishedAt: "2026-09-19", readingMinutes: 12,
+  authorId: "a-marisol", publishedAt: "2026-09-19", updatedAt: "2026-10-13", readingMinutes: 12,
   tags: ["texas high school football playoffs", "uil football playoffs", "texas football bracket", "bi-district football", "6A football playoffs", "texas state championships"], featured: false,
   sourceName: "University Interscholastic League", sourceUrl: "https://www.uiltexas.org/football/playoff-brackets",
   body: [], relatedCollections: [], relatedDestinations: [],
