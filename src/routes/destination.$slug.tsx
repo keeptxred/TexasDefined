@@ -15,6 +15,7 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import YsletaDelSurMuseumAuthority from "@/components/editorial/YsletaDelSurMuseumAuthority";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
+import { destinationLocationAnswer } from "@/data/destination-location-answer";
 import { auditDestination } from "@/data/destination-audit";
 import { distanceMiles } from "@/data/destination-relationships";
 import { getDestinationRelationshipGroups } from "@/data/destination-relationships.functions";
@@ -194,10 +195,16 @@ function DestinationPage() {
   const countySlug = countyRouteSlug(destination.county);
   const countyLabel = destination.county ? countyDisplayName(destination.county) : "";
   const isChokeCanyon = destination.slug === "choke-canyon-state-park";
-  const addressIsInNearestTown = Boolean(destination.address && destination.address.toLowerCase().includes(`, ${destination.nearestTown.toLowerCase()}, tx`));
+
   const locationAnswer = isChokeCanyon
     ? `${destination.name} has two public units west of Three Rivers: Calliham in McMullen County and South Shore in Live Oak County.`
-    : `${destination.name} is ${addressIsInNearestTown ? "in" : "near"} ${destination.nearestTown}, Texas${countyLabel ? `, in ${countyLabel}` : ""}.`;
+    : destinationLocationAnswer({
+        name: destination.name,
+        nearestTown: destination.nearestTown,
+        countyLabel,
+        regionName: region?.name,
+        address: destination.address,
+      });
   const relationshipGroupsForPage = isChokeCanyon
     ? relationshipGroups
       .map((group) => ({
