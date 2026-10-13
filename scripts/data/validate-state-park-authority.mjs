@@ -99,7 +99,10 @@ if (new Set(entrySlugs).size !== entrySlugs.length) failures.push("Duplicate TPW
 if (officialEntries.filter((entry) => entry.status === "public-park").length !== 83) failures.push("Park inventory status mix unexpectedly changed: reconcile against current TPWD, never blindly relabel");
 for (const entry of officialEntries) {
   if (!entry.officialUrl || entry.officialUrl !== `https://tpwd.texas.gov/state-parks/${entry.tpwdSlug}`) failures.push(`Wrong official park base URL for ${entry.tpwdSlug}`);
-  if (!entry.associatedPath?.startsWith("/destination/")) failures.push(`Missing actual or associated destination canonical path for ${entry.tpwdSlug}`);
+  if (entry.status === "public-park" && !entry.associatedPath?.startsWith("/destination/")) failures.push(`Missing canonical destination path for open TPWD park ${entry.tpwdSlug}`);
+  if (entry.associatedPath && !entry.associatedPath.startsWith("/destination/")) failures.push(`Wrong associated path format for ${entry.tpwdSlug}`);
+  // Developing/closed sites intentionally have no live route recommendation.
+  if (["developing", "closed-to-general-visits"].includes(entry.status) && entry.associatedPath) failures.push(`Unavailable park must not be recommended as an ordinary published destination: ${entry.tpwdSlug}`);
   if (entry.status !== "public-park" && !specialStatuses.includes(entry.status)) failures.push(`Untracked special-site status for ${entry.tpwdSlug}`);
 }
 for (const slug of ["albert-bessie-kronkosky-state-natural-area","powderhorn-state-park","wyler-aerial-tramway-state-park"]) {
