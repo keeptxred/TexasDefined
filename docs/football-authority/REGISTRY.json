@@ -43,8 +43,8 @@
     "state": "ASSIGNED_RESEARCH_IN_PROGRESS",
     "dateAssigned": "2026-10-10",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned in existing canonical schoolRecords order after verified Batch 004; protect 80 previous VERIFIED.",
-    "individuallyVerified": 0,
-    "remainingAssigned": 25,
+    "individuallyVerified": 1,
+    "remainingAssigned": 24,
     "assignmentBranch": "football-authority-batch-005-20261010",
     "repositoryMainAtAssignment": "193f24fb06e48fd43fd821d6a6bced28d958301a",
     "maxSchoolsPerBatch": 25,
@@ -52,8 +52,8 @@
     "nextSchool": "barksdale-nueces-canyon",
     "implementedOnBranch": 6,
     "remainingToImplement": 19,
-    "remainingToVerify": 25,
-    "notes": "First five researched school entries already on main; Benjamin separately implemented on football-benjamin-release-20261012 because dependency PR #4579 conflicts. Other 19 assigned schools are proposed in unmerged dependent branches, not main. Zero Batch005 production verified; 80 prior verified preserved. Next barksdale-nueces-canyon."
+    "remainingToVerify": 24,
+    "notes": "Benjamin Mustangs production VERIFIED at final 4661514b commit on Oct 13: 63/63 desktop/mobile browser checks, screenshots and reciprocal Knox County links; the initial five Batch005 researched entries remain IMPLEMENTED, the other nineteen are proposed in the unresolved group2-group5 branches. Previous 80 VERIFIED preserved. Continue remaining 24 without counting unmerged pages as deployed."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6007,16 +6007,61 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/benjamin",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-12",
       "researchCompletedAt": "2026-10-12",
       "implementedAt": "2026-10-12",
       "implementedOnBranch": "football-benjamin-release-20261012",
       "schoolNote": "docs/football-authority/schools/benjamin.md",
-      "actualProductionVerified": false,
+      "actualProductionVerified": true,
       "officialSchoolUrl": "https://www.benjaminisd.net/",
-      "officialAthleticsUrl": "https://www.benjaminisd.net/football"
+      "officialAthleticsUrl": "https://www.benjaminisd.net/football",
+      "productionVerifiedAt": "2026-10-13T12:51:11Z",
+      "verifiedMascot": "Mustangs",
+      "verifiedColors": "Purple and White",
+      "specificMissing": [],
+      "sourceRecords": [
+        "https://www.benjaminisd.net/football",
+        "https://www.uiltexas.org/football/state-team/benjamin-2022-2023-boys-football",
+        "https://www.uiltexas.org/football/state-team-mp-archive/benjamin-2023-2024-football",
+        "https://sixmanfootball.com/teams/benjamin-mustangs.1041/schedule/",
+        "https://www.texasfootball.com/article/2023/12/13/rigdon-leads-benjamin-to-back-to-back-state-titles"
+      ],
+      "prNumber": 4729,
+      "followUpPrNumbers": [
+        4737,
+        4739
+      ],
+      "mergedPr": 4739,
+      "mergedAt": "2026-10-13",
+      "mergedCommit": "4661514b47e36cb86ea2abb72b3eb13618d8416e",
+      "inboundLinks": [
+        "/texas-high-school-football-teams",
+        "/county/knox"
+      ],
+      "productionQualityNotes": [
+        "63/63 dedicated live desktop/mobile checks passed at exact deployed SHA",
+        "No licensed Benjamin team photo available; no borrowed logo/image published",
+        "Current coach appointment not confirmed by Benjamin ISD; independent specialist source explicitly attributed",
+        "2026 schedule independently reported and date-conflicting sources qualified; school official football page still displays 2025 schedule",
+        "Stadium gate/ADA/parking admissions not source-certified; users instructed to contact Benjamin ISD"
+      ],
+      "deployment": {
+        "mergeCommit": "4661514b47e36cb86ea2abb72b3eb13618d8416e",
+        "date": "2026-10-13",
+        "checks": [
+          "texasdefined-production",
+          "texasdefined-live",
+          "texasdefined-build"
+        ],
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38400237148,
+        "dedicatedBrowserResult": "SUCCESS: 63 of 63 production Chrome checks passed across desktop/mobile Benjamin profile and Knox County reciprocal link; route, SEO, sitemap, JSON-LD, table, image, console and reflow",
+        "screenshotArtifactId": 11814648851,
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38400237148"
+      }
     },
     {
       "id": "uil:big-lake-reagan-co",
