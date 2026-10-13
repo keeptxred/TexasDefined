@@ -185,4 +185,7 @@ if (failures.length) {
   console.error("Museum authority gate FAILED:\n" + failures.map((x) => " - " + x).join("\n"));
   process.exit(1);
 }
+// Dallas heritage network uses the same no-cost source-led editorial contract.
+// This call is also exercised by the canonical premerge data:validate path.
+execFileSync(process.execPath, ["scripts/data/validate-dallas-black-history.mjs"], { stdio: "inherit" });
 console.log("Museum authority gate PASSED: " + allDossiers.length + " museum guides + cross-links + new-museum rule.");
