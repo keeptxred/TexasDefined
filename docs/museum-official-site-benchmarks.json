@@ -562,6 +562,28 @@
         "https://www.dhhrm.org/visit/",
         "https://www.dhhrm.org/exhibitions/pivot-to-america-wing/"
       ]
+    },
+    "modern-art-museum-fort-worth": {
+      "name": "Modern Art Museum of Fort Worth",
+      "operatorStrengths": [
+        "Current operator gallery closure, tickets, full-service restaurant, accessibility and family programming evidence individually researched",
+        "Visitor intent FAQs distinguish free 2026 lobby activities from unavailable collection galleries"
+      ],
+      "openGaps": [
+        "Post-deployment image, structured data, FAQ and reciprocal link browser QA",
+        "Independent competitive side-by-side evaluation before strongest-superlative authority certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.themodern.org/exhibition/making-sculpture-project",
+        "https://www.themodern.org/visit/hours-and-admission",
+        "https://www.themodern.org/caf%C3%A9-modern",
+        "https://www.themodern.org/tours",
+        "https://www.themodern.org/accessibility"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
