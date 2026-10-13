@@ -1,5 +1,4 @@
-import { Link } from "@tanstack/react-router";
-import type { Destination, DestinationAreaItem } from "@/data/types";
+import type { Destination } from "@/data/types";
 
 type Props = { destination: Destination };
 
@@ -18,26 +17,6 @@ function commonsPhotoCredit(destination: Destination) {
   return { fileUrl, licenseCode, licenseUrl, credit };
 }
 
-const textGroupNames = {
-  nearbyAttractions: "Attractions worth planning around",
-  foodAndDrink: "Food and drink areas",
-  lodging: "Where to stay",
-  neighborhoods: "Neighborhoods and historic centers",
-  familyStops: "Family-friendly options",
-  sideTrips: "Nearby places and longer outings",
-} as const;
-
-function SafeAreaLink({ item }: { item: DestinationAreaItem }) {
-  if (!item.href) return <strong className="font-semibold text-foreground">{item.name}</strong>;
-  if (item.href.startsWith("/")) {
-    return <Link to={item.href} className="font-semibold text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary">{item.name}</Link>;
-  }
-  if (/^https:\/\//.test(item.href)) {
-    return <a href={item.href} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary">{item.name} ↗</a>;
-  }
-  return <strong className="font-semibold text-foreground">{item.name}</strong>;
-}
-
 /**
  * Shared, server-renderable authority presentation:
  * - renders existing researched content rather than hiding it in schema-only metadata
@@ -47,13 +26,8 @@ function SafeAreaLink({ item }: { item: DestinationAreaItem }) {
  */
 export function DestinationAuthoritySections({ destination }: Props) {
   const guide = destination.authorityGuide;
-  const area = destination.areaGuide;
   const imageCredit = commonsPhotoCredit(destination);
-  if (!guide && !area) return null;
-
-  const groups = area ? (Object.keys(textGroupNames) as Array<keyof typeof textGroupNames>)
-    .map((key) => ({ key, label: textGroupNames[key], entries: area[key] }))
-    .filter(({ entries }) => entries.length > 0) : [];
+  if (!guide && !destination.visitorFaqs?.length) return null;
 
   return <div data-destination-authority-sections className="mt-12 space-y-12">
     {imageCredit && <section aria-label="Photograph attribution" className="border-t border-border pt-5 text-xs leading-6 text-muted-foreground">
@@ -85,24 +59,6 @@ export function DestinationAuthoritySections({ destination }: Props) {
           <ol className="mt-4 list-decimal space-y-3 pl-5 text-sm leading-6 text-muted-foreground">
             {trip.steps.map((step, i) => <li key={i}>{step}</li>)}
           </ol>
-        </section>)}
-      </div>
-    </section>}
-
-    {area && <section aria-labelledby="destination-authority-local" className="border-t border-border pt-8">
-      <p className="eyebrow text-primary">Local-area guide</p>
-      <h2 id="destination-authority-local" className="mt-3 font-display text-3xl">Explore {destination.name} by interest</h2>
-      <p className="mt-4 max-w-3xl text-base leading-8 text-foreground/85">{area.intro}</p>
-      <div className="mt-8 grid gap-x-7 gap-y-6 sm:grid-cols-2">
-        {groups.map((group) => <section key={group.key} className="border-t border-border pt-5">
-          <h3 className="font-display text-xl">{group.label}</h3>
-          <ul className="mt-4 space-y-5">
-            {group.entries.map((item, index) => <li key={item.name + index} className="text-sm leading-6">
-              <SafeAreaLink item={item} />
-              {item.proximity && <span className="ml-2 text-xs text-muted-foreground">· {item.proximity}</span>}
-              <p className="mt-1 text-muted-foreground">{item.description}</p>
-            </li>)}
-          </ul>
         </section>)}
       </div>
     </section>}
