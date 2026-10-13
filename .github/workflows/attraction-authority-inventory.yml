@@ -61,5 +61,5 @@ jobs:
             echo "- Static source candidates are **not** proof of a live visitor page or of facility availability."
             echo "- Compare against the live Supabase-backed catalog before declaring missing attractions."
             echo "- Never update a source review date automatically without checking the operator."
-            echo "- New visitor fields need source-specific parking, restrooms, official map, accessibility, image reuse rights, canonical page and reciprocal links."
+            echo "- Research only the visitor facts this specific type of place needs (for example wheelchair access in a museum, trailhead conditions in a remote park). Do not mandate restroom/parking/map panels."
           } >> "$GITHUB_STEP_SUMMARY"
