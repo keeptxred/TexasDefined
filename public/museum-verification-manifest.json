@@ -856,6 +856,54 @@
           "label": "AMST plan a visit and accessibility"
         }
       ]
+    },
+    {
+      "path": "/destination/houston-museum-of-natural-science",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 11,
+      "sources": [
+        {
+          "sourceUrl": "https://www.hmns.org/visit/",
+          "fetchUrl": "https://www.hmns.org/visit/",
+          "label": "FAQ: How much time should a family allow at HMNS?"
+        },
+        {
+          "sourceUrl": "https://www.hmns.org/visit/faq/",
+          "fetchUrl": "https://www.hmns.org/visit/faq/",
+          "label": "FAQ: Which hours and address apply to the main Houston science museum?"
+        },
+        {
+          "sourceUrl": "https://www.hmns.org/visit/directions-parking/",
+          "fetchUrl": "https://www.hmns.org/visit/directions-parking/",
+          "label": "FAQ: Where should I park and can I reserve a space?"
+        },
+        {
+          "sourceUrl": "https://www.hmns.org/hmns-exhibits/",
+          "fetchUrl": "https://www.hmns.org/hmns-exhibits/",
+          "label": "FAQ: Are the gem hall and the insect hall currently open at HMNS?"
+        },
+        {
+          "sourceUrl": "https://www.hmns.org/visit/dining/",
+          "fetchUrl": "https://www.hmns.org/visit/dining/",
+          "label": "FAQ: Does the Houston Museum of Natural Science have an on-site restaurant?"
+        },
+        {
+          "sourceUrl": "https://www.hmns.org/visit/accessibility/",
+          "fetchUrl": "https://www.hmns.org/visit/accessibility/",
+          "label": "FAQ: Can visitors leave HMNS for lunch and come back?"
+        },
+        {
+          "sourceUrl": "https://www.hmns.org/exhibits/cockrell-butterfly-center/",
+          "fetchUrl": "https://www.hmns.org/exhibits/cockrell-butterfly-center/",
+          "label": "FAQ: Can families take a stroller through the Cockrell Butterfly Center?"
+        },
+        {
+          "sourceUrl": "https://help.hmns.org/support/solutions/articles/151000051328/",
+          "fetchUrl": "https://help.hmns.org/support/solutions/articles/151000051328/",
+          "label": "FAQ: What is actually free at the Houston Museum of Natural Science on Tuesday evenings?"
+        }
+      ]
     }
   ]
 }
