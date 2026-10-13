@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 
 const root = process.cwd();
@@ -185,5 +186,8 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
+
+// Dallas Black history is a standing authority requirement for every release.
+execFileSync(process.execPath, ['scripts/data/validate-dallas-black-history.mjs'], { stdio: 'inherit' });
 
 console.log('Article and destination data, single robots policy, indexing quality gate, lazy destination query resolution, visit-planner, relationship, breadcrumb, and entity graph integrity validation passed.');
