@@ -2215,6 +2215,107 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "houston-museum-of-natural-science": [
+    {
+      "question": "Does one HMNS ticket include the planetarium, Butterfly Center and every exhibition?",
+      "answer": "No. A regular permanent-hall ticket includes most permanent exhibitions but does not automatically include the Burke Baker Planetarium, Wortham Giant Screen Theatre, Cockrell Butterfly Center or certain ticketed special exhibits. Verify individual admission and timed-entry reservations before purchasing.",
+      "verificationUrl": "https://www.hmns.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is actually free at the Houston Museum of Natural Science on Tuesday evenings?",
+      "answer": "Permanent exhibition halls at HMNS in Hermann Park are free on Tuesdays from 5 to 8 p.m. This does not include the Butterfly Center, planetarium, giant screen theater, paid special exhibits or parking. Free-Tuesday tickets are distributed in person and cannot be reserved in advance.",
+      "verificationUrl": "https://help.hmns.org/support/solutions/articles/151000051328/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://help.hmns.org/support/solutions/articles/151000051328/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much do HMNS general admission and parking cost?",
+      "answer": "The operator currently lists permanent-hall admission at $25 for adults and $16 for children ages 3–11 or seniors 62 and older. The attached garage currently charges $30 for nonmembers or $10 for members, including Free Tuesdays. Check live prices and any eligibility discounts before leaving.",
+      "verificationUrl": "https://www.hmns.org/visit/directions-parking/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which hours and address apply to the main Houston science museum?",
+      "answer": "HMNS at Hermann Park is at 5555 Hermann Park Drive, Houston, not the separately operated Sugar Land location. Its visitor FAQ lists Monday–Thursday 9 a.m.–5 p.m. and Friday–Sunday 9 a.m.–6 p.m., with seasonal changes and closures on Thanksgiving and Christmas. Confirm daily updates before visiting.",
+      "verificationUrl": "https://www.hmns.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should I park and can I reserve a space?",
+      "answer": "The attached HMNS garage is first-come, not reservable, and has a 6-foot-8-inch height limit. Accessible spaces are available on garage levels, with some alternatives near Caroline Street. Parking rates are separate from museum tickets; allow extra time during Museum District events.",
+      "verificationUrl": "https://www.hmns.org/visit/directions-parking/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/directions-parking/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are the gem hall and the insect hall currently open at HMNS?",
+      "answer": "Not currently. The museum identifies Cullen Hall of Gems & Minerals as closed for a makeover and Brown Hall of Entomology as closed for renovations. The independently ticketed Cockrell Butterfly Center remains a separate attraction. Do not plan around the closed galleries until HMNS posts reopening dates.",
+      "verificationUrl": "https://www.hmns.org/hmns-exhibits/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can families take a stroller through the Cockrell Butterfly Center?",
+      "answer": "Ordinary strollers and wagons are not permitted inside the live butterfly conservatory, because they present an escape risk to butterflies. A stroller parking area is provided. Wheelchairs and mobility devices required for accessibility can use the center's accessible routes and elevators.",
+      "verificationUrl": "https://www.hmns.org/exhibits/cockrell-butterfly-center/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.hmns.org/exhibits/cockrell-butterfly-center/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Houston Museum of Natural Science have an on-site restaurant?",
+      "answer": "It has casual food service rather than a conventional table-service restaurant. Periodic Table is a bistro-style counter near the Butterfly Center with sandwiches, salads, snacks and coffee; Elements Grill serves burgers, fries, hot dogs, chicken and some vegetarian choices. Check service hours separately from museum hours.",
+      "verificationUrl": "https://www.hmns.org/visit/dining/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the science museum accessible for wheelchairs and visitors with sensory sensitivities?",
+      "answer": "HMNS provides elevators across exhibit levels, designated accessible parking, adult-changing tables in two family restrooms, and detailed visual and sensory guidance that describes lighting, sound and other stimuli by exhibition area. Some attractions have different accommodation and stroller policies, so consult the museum's current accessibility guide.",
+      "verificationUrl": "https://www.hmns.org/visit/accessibility/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much time should a family allow at HMNS?",
+      "answer": "Allow roughly two to three hours for a selective visit to the main permanent halls, or three to five hours when adding timed attractions and meal breaks. These are independent planning estimates, not minimum museum requirements. For toddlers, plan one or two highlight halls rather than an exhaustive circuit.",
+      "verificationUrl": "https://www.hmns.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/faq/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors leave HMNS for lunch and come back?",
+      "answer": "The museum says a permanent-exhibit admission ticket allows visitors to exit and re-enter the permanent halls throughout the day, so a meal break is possible. Some special exhibits are single-entry only. Schools have separate lunch-storage and preorder procedures, so confirm them before a field trip.",
+      "verificationUrl": "https://www.hmns.org/visit/accessibility/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/dining/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
