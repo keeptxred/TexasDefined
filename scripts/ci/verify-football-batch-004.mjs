@@ -76,7 +76,7 @@ for (const [slug, county] of Object.entries(linked)) {
 // Parse only the 25 individually authored JSON-style editorial records.
 // Every entry must have its own substantive summary, distinct SEO, and school-specific FAQ.
 // School-city reciprocal paths are distinct from county routes, and only documented city campuses qualify.
-const citySchoolSlugs = ["austin","austin-akins","austin-anderson","austin-bowie","austin-crockett","austin-eastside","austin-johnson","austin-lasa","austin-mccallum","austin-navarro","austin-northeast","austin-travis"];
+const citySchoolSlugs = ["austin","austin-achieve","austin-vandegrift","austin-akins","austin-anderson","austin-bowie","austin-crockett","austin-eastside","austin-johnson","austin-lasa","austin-mccallum","austin-navarro","austin-northeast","austin-travis"];
 const cityCards = countyRoute.split('const batch002FootballCityLinks:')[1]?.split('const batch001FootballCountyLinks:')[0] ?? '';
 const schoolCities = footballRoute.split('const batch002CityGuide:')[1]?.split('const cityGuide =')[0] ?? '';
 const cityEvidence = read('docs/football-authority/BATCH004_CITY_LINK_EVIDENCE.md');

@@ -35,7 +35,7 @@ const roster = [
 ];
 // Independently documented campus-city links, not inferred from district areas.
 const cityRoster = [
-  { city: 'austin', schools: ['austin','austin-akins','austin-anderson','austin-bowie','austin-crockett','austin-eastside','austin-johnson','austin-lasa','austin-mccallum','austin-navarro','austin-northeast','austin-travis'] },
+  { city: 'austin', schools: ['austin','austin-achieve','austin-vandegrift','austin-akins','austin-anderson','austin-bowie','austin-crockett','austin-eastside','austin-johnson','austin-lasa','austin-mccallum','austin-navarro','austin-northeast','austin-travis'] },
 ];
 const cityBySchool = new Map(cityRoster.flatMap(({ city, schools }) => schools.map(slug => [slug, city])));
 const registry = JSON.parse(await readFile('docs/football-authority/REGISTRY.json', 'utf8'));
