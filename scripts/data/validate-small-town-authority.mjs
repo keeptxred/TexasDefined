@@ -72,8 +72,9 @@ for (const key of [
   "canonicalAuthority.get(destination.slug)",
 ]) check(network.includes(key), "Network missing " + key);
 for (const key of ["townAuthorityContextualLinks(", "TEXAS_CITIES.find", "countyTowns[countyKey", "candidate.region === destination.region"]) check(links.includes(key), "Lightweight linker missing " + key);
-for (const slug of guideSlugs.keys()) check(linkIndex.includes('"slug": "' + slug + '"'), "Lightweight index missing researched town " + slug);
-check(linkIndex.includes('"slug": "gruene-historic-district"'), "Lightweight index missing Gruene Historic District");
+// The link projection deliberately allows compact JSON syntax as well as pretty-printed records.
+// Validate normalized parsed data, never fragile exact whitespace in a code string.
+
 const indexStart = linkIndex.indexOf("= [");
 const indexEnd = linkIndex.lastIndexOf("];");
 let allLinkPlaces = [];
@@ -81,6 +82,8 @@ try {
   allLinkPlaces = JSON.parse(linkIndex.slice(indexStart + 2, indexEnd + 1));
 } catch { check(false, "Lightweight link index must remain an exact parseable JSON array"); }
 const indexedSlugs = new Set(allLinkPlaces.map((row) => row.slug));
+for (const slug of guideSlugs.keys()) check(indexedSlugs.has(slug), "Lightweight index missing researched town " + slug);
+check(indexedSlugs.has("gruene-historic-district"), "Lightweight index missing Gruene Historic District");
 check(allLinkPlaces.length === indexedSlugs.size, "Lightweight link index has duplicate slugs");
 check(allLinkPlaces.length === guideSlugs.size + 1, "Lightweight link index must contain every researched town plus Gruene and no orphan records");
 for (const [slug, expected] of researchedMetadata) {
