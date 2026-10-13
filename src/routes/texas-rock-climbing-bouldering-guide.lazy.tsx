@@ -87,7 +87,7 @@ function TexasClimbingGuidePage() {
 
           <figure className="border-b border-border py-8">
             <img src={governedGuideHero.src} alt="Enchanted Rock granite dome and surrounding Hill Country terrain, a managed public climbing destination" width={governedGuideHero.width} height={governedGuideHero.height} className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
-            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">Enchanted Rock State Natural Area is one of Texas's managed climbing landscapes. This general photograph does not show a specific approved climbing route or current access. Photo: {governedGuideHero.credit}.</figcaption>
+            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">Enchanted Rock State Natural Area is one of Texas's managed climbing landscapes. This general photograph does not show a specific approved climbing route or current access. Photo: {governedGuideHero.credit}.{" "}<Link to="/destination/enchanted-rock-state-natural-area" className="text-primary underline">Enchanted Rock visitor guide →</Link></figcaption>
           </figure>
 
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
