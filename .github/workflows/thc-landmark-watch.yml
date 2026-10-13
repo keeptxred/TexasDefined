@@ -15,6 +15,9 @@ on:
       - "scripts/data/validate-thc-landmark-authority-batch02.mjs"
       - "scripts/data/validate-thc-landmark-authority-batch03.mjs"
       - "scripts/data/validate-thc-landmark-authority-batch04.mjs"
+      - "scripts/data/validate-thc-landmark-authority-batch05.mjs"
+      - "src/data/thc-bosque-river-bridge-meridian.ts"
+      - "src/data/thc-del-rio-southern-pacific-depot.ts"
       - "src/data/thc-landmark-heritage-builder.ts"
       - "src/routes/texas-historic-landmarks*"
       - "scripts/data/validate-thc-landmark-watch.mjs"
@@ -39,6 +42,8 @@ jobs:
         run: node scripts/data/validate-thc-landmark-authority-batch03.mjs
       - name: Check Regency suspension bridge chronology and rights
         run: node scripts/data/validate-thc-landmark-authority-batch04.mjs
+      - name: Validate 1940 Meridian bridge authority and road-safety claims
+        run: node scripts/data/validate-thc-landmark-authority-batch05.mjs
 
   live-source-watch:
     if: github.event_name != 'pull_request'
