@@ -186,6 +186,11 @@ function TexasHistoricLandmarksPage() {
           </p>
           <Link to="/destination/$slug" params={{ slug: "clifton-whipple-truss-bridge" }} className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Read the Clifton bridge history and safe viewing guide →</Link>
         </div>
+        <div className="mt-7 border-t border-border pt-4">
+          <h3 className="font-display text-2xl">Another historic bridge: Regency Suspension Bridge</h3>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Regency was built in 1939 and was recognized federally in 1976, with a separate Texas designation in 2019. It is not a newly listed 2025–2026 property. Current traffic or weight-limit information must come from road authorities.</p>
+          <Link to="/destination/$slug" params={{ slug: "regency-suspension-bridge" }} className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">See the Regency bridge history and access guidance →</Link>
+        </div>
         <p className="mt-7 max-w-4xl text-sm leading-7 text-muted-foreground">Methodology: the baseline is transcribed from THC's 2025–2026 recent listings and separate nomination-status sections as reviewed on {THC_RESEARCH_REVIEWED_ON}. Each row identifies a named listing, county, THC listing month, and broad property type—not the property's operating conditions. This rolling index supplements the statewide historical-site pages, and is not an exhaustive listing of the many thousands of Texas historic resources.</p>
       </Container>
     </section>
