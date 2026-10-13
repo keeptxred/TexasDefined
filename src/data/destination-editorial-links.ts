@@ -8,6 +8,9 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "fort-martin-scott": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
+  ],
   "luckenbach": [
     { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
   ],
@@ -1143,7 +1146,6 @@ const HISTORIC_SITE_CROSS_LINKS: Record<string, DestinationEditorialLink[]> = {
     }
   ],
   "fort-martin-scott": [
-    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
     {
       "href": "/destination/fort-mckavett",
       "label": "Fort McKavett",
