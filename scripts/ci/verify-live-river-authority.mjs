@@ -6,9 +6,7 @@ const rivers=[...source.matchAll(pattern)].map(m=>({slug:m[1],counties:JSON.pars
 if(!rivers.length||new Set(rivers.map(r=>r.slug)).size!==rivers.length)throw Error("Invalid river registry");
 function fixtureJson(path, symbol) {
  const contents=fs.readFileSync(path,"utf8");
- const escaped=symbol.replace(/[.*+?^${}()|[\\]\\]/g,"\\const newer=new Set(["texas-frio-river-guide","texas-comal-river-guide","texas-san-marcos-river-guide","texas-llano-river-guide","texas-pecos-river-guide"]);
-const upgraded=new Set(["texas-guadalupe-river-guide","texas-colorado-river-guide","texas-brazos-river-guide","texas-neches-river-guide","texas-sabine-river-guide"]);");
- const result=contents.match(new RegExp("export const "+escaped+" = ([\\\\s\\\\S]*?) as const;"));
+ const result=contents.match(new RegExp("export const "+symbol+" = ([\\s\\S]*?) as const;"));
  if(!result)throw Error("Missing structured river source: "+path);
  return JSON.parse(result[1]);
 }
