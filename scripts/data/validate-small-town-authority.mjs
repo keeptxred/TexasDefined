@@ -106,7 +106,7 @@ const authority = read("src/components/editorial/DestinationAuthoritySections.ts
 const related = read("src/components/editorial/DestinationRelationships.tsx");
 const countyTemplate = read("src/routes/$kind.$slug.lazy.tsx");
 for (const value of ["smallTownWave15Destinations,", "additionalTownAuthorityDestinations,"]) check(catalog.includes(value), "Explore catalog missing " + value);
-check(runtime.includes("applyTownAuthority(normalizeDestinationCounty("), "Detail resolver must enrich every town");
+check(/return\s+applyTownAuthority\(\s*(?:enrich[A-Za-z]+Authority\(\s*)?normalizeDestinationCounty\(/.test(runtime), "Detail resolver must enrich every town (including optional museum enrichment)");
 check(runtime.includes(".map(applyTownAuthority);"), "Search/sitemap/catalog resolver must enrich every town");
 check(planner.includes("<DestinationAuthoritySections destination={destination} />"), "Visible guide and research sections absent");
 check(planner.includes("townAuthorityContextualLinks(destination)"), "Town/attraction contextual backlinks absent");
