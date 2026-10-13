@@ -256,6 +256,80 @@
           "label": "Texas Energy Museum — official institution"
         }
       ]
+    },
+    {
+      "path": "/destination/1940-air-terminal-museum-houston",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 6,
+      "sources": [
+        {
+          "sourceUrl": "https://www.1940airterminal.org/",
+          "fetchUrl": "https://www.1940airterminal.org/",
+          "label": "Operator: current closure notice"
+        },
+        {
+          "sourceUrl": "https://www.1940airterminal.org/news/hahs-letter-to-city-of-houston-amp-thc",
+          "fetchUrl": "https://www.1940airterminal.org/news/hahs-letter-to-city-of-houston-amp-thc",
+          "label": "FAQ verification: Why did the 1940 Air Terminal Museum close in 2026?"
+        },
+        {
+          "sourceUrl": "https://www.1940airterminal.org/houston-municipal-airport",
+          "fetchUrl": "https://www.1940airterminal.org/houston-municipal-airport",
+          "label": "Operator: 1940 terminal historical interpretation"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/4200000902",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/4200000902",
+          "label": "Texas Historical Commission Atlas"
+        }
+      ]
+    },
+    {
+      "path": "/destination/african-american-museum-dallas-fair-park",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://aamdallas.org/plan-your-visit/",
+          "fetchUrl": "https://aamdallas.org/plan-your-visit/",
+          "label": "Museum: visiting and FAQ"
+        },
+        {
+          "sourceUrl": "https://aamdallas.org/nelson-mandela-exhibition-plan-your-visit/",
+          "fetchUrl": "https://aamdallas.org/nelson-mandela-exhibition-plan-your-visit/",
+          "label": "Museum: Mandela exhibit plan"
+        },
+        {
+          "sourceUrl": "https://aamdallas.org/exhibits/",
+          "fetchUrl": "https://aamdallas.org/exhibits/",
+          "label": "Museum: current and past exhibitions"
+        }
+      ]
+    },
+    {
+      "path": "/destination/texas-forestry-museum-lufkin",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.treetexas.com/visit-us",
+          "fetchUrl": "https://www.treetexas.com/visit-us",
+          "label": "Museum: plan your visit"
+        },
+        {
+          "sourceUrl": "https://www.treetexas.com/exhibit",
+          "fetchUrl": "https://www.treetexas.com/exhibit",
+          "label": "Museum: exhibit guide"
+        },
+        {
+          "sourceUrl": "https://www.treetexas.com/exhibits-1/paper-mill-room",
+          "fetchUrl": "https://www.treetexas.com/exhibits-1/paper-mill-room",
+          "label": "Museum: tours and education"
+        }
+      ]
     }
   ]
 }
