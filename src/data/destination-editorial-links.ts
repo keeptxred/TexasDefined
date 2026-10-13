@@ -9,7 +9,29 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "luckenbach": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
+  ],
+  "stonewall": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
+  ],
+  "fredericksburg-art-guild": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
+  ],
+  "national-museum-pacific-war": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
+  ],
+  "fort-martin-scott": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
+  ],
+  "fredericksburg-historic-district": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
+  ],
+  "fredericksburg": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
+  ],
   "lbj-boyhood-home-johnson-city": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
     {
       href: "/destination/lyndon-b-johnson-national-historical-park",
       label: "Explore the full LBJ National Historical Park",
@@ -32,6 +54,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "lyndon-b-johnson-state-park-and-historic-site": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
     {
       href: "/destination/lyndon-b-johnson-national-historical-park",
       label: "Continue into the LBJ Ranch",
@@ -91,6 +114,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "hye": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
     {
       href: "/destination/garrison-brothers-distillery-hye",
       label: "Tour Garrison Brothers",
@@ -398,6 +422,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "johnson-city": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
     {
       href: "/destination/science-mill-johnson-city",
       label: "Plan a Science Mill visit",
@@ -480,6 +505,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "science-mill-johnson-city": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
     {
       href: "/destination/johnson-city",
       label: "Explore Johnson City",
@@ -539,6 +565,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "lyndon-b-johnson-national-historical-park": [
+    { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
     {
       href: "/destination/texas-vintage-motorcycle-museum-johnson-city",
       label: "See Johnson City's vintage motorcycle museum",

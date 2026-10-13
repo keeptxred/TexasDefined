@@ -36,6 +36,7 @@ export const fredericksburgAuthorityArticles: Article[] = [
     sourceName: "Fredericksburg Convention & Visitor Bureau",
     sourceUrl: "https://www.visitfredericksburgtx.com/things-to-do/",
     internalLinks: [
+      { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Fredericksburg to Johnson City historic drive", description: "Plan the complete museum, frontier fort, LBJ Ranch, Stonewall, Hye and Johnson City heritage itinerary." },
     { href: "/article/texas-wine-country", label: "Statewide Texas wine country", description: "Compare the Fredericksburg tasting corridor with growing regions and regulated appellations." },
     { href: "/article/texas-german-belt", label: "German heritage beyond Fredericksburg", description: "Connect Fredericksburg's founding to New Braunfels, Boerne, Comfort and rural settlements." },
     { href: "/article/scenic-drives-in-texas", label: "Scenic drives in Texas", description: "Build the U.S. 290 and Hill Country portion of a longer road trip." },
