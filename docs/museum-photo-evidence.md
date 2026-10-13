@@ -35,3 +35,7 @@ Photo metadata independently checked using Wikimedia Commons API imageinfo.extme
 ## Elisabet Ney Museum, Austin — October 12, 2026
 
 - **Historic Formosa studio and Elisabet Ney Museum exterior**: [Wikimedia Commons file](https://commons.wikimedia.org/wiki/File:Austin_-_Elisabet_Ney_Museum_-_20201006000619.jpg), photographer **MarkJGilmore**, **CC BY-SA 4.0**, photographed 2020. Licensed exterior is historical and must not imply the venue is open during the 2024–2027 capital-improvement closure. Confirm the original file's credit and license when refreshing the asset.
+
+## El Paso Museum of Art — October 12, 2026
+
+- **Downtown museum building and entrance**: [Commons exact museum exterior](https://commons.wikimedia.org/wiki/File:El_Paso_Museum_of_Art._El_Paso,_Texas.jpg), photographer **Wmpearl**, **public domain** as recorded in Wikimedia Commons imageinfo metadata; 3,648-pixel original. The architecture can be pictured without suggesting that every pictured exhibition or room is open today. The redirect URL used by the destination retains this attribution.
