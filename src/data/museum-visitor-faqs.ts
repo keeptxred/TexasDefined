@@ -3469,6 +3469,154 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "lbj-presidential-library-austin": [
+    {
+      "question": "How much does it cost to visit the LBJ Presidential Library?",
+      "answer": "Regular admission is currently $16 for adults, $12 seniors aged 62 or older, $6 students and youth aged 13–18, and free for children under twelve. Tuesdays are half price, and the museum posts selected free-admission days. Check the current price chart before booking.",
+      "verificationUrl": "https://www.lbjlibrary.org/visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the LBJ Presidential Library free on Tuesdays or certain holidays?",
+      "answer": "The library advertises half-price admission every Tuesday and specific free-admission dates, including President Johnson's birthday and several designated holidays. Not every public holiday is free, and access can vary around university events, so verify the posted calendar.",
+      "verificationUrl": "https://www.lbjlibrary.org/visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should visitors park for the LBJ Library in Austin?",
+      "answer": "Use the visitor lot number 38 off Red River Street at 2313 Red River Street; ordinary car parking is free. On UT football days, Red River traffic and drop-off points can be disrupted, and the operator recommends checking local conditions before departure.",
+      "verificationUrl": "https://www.lbjlibrary.org/visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How long should a family spend at the LBJ Presidential Library?",
+      "answer": "The library recommends 90 minutes to two hours for a normal visit, adding roughly half an hour for special exhibitions. Its official quick-visit route takes about 30–45 minutes and includes the Oval Office, Lady Bird's office and animatronic LBJ.",
+      "verificationUrl": "https://lbjlibrary.org/visit/know-before-you-go",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors see the actual Oval Office at the LBJ Library?",
+      "answer": "The tenth-floor Oval Office exhibition is a replica of the president's White House workspace, not the original Oval Office in Washington. It is useful alongside Lady Bird Johnson's office and recordings that interpret Johnson's public decisions.",
+      "verificationUrl": "https://lbjlibrary.org/visit/know-before-you-go",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lbjlibrary.org/exhibitions",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the LBJ Presidential Library wheelchair accessible?",
+      "answer": "The visitor lot 38 has accessible parking and a ramped route across the plaza. Public exhibits are reached by elevators, with wheelchairs available free, accessible restrooms, captioned videos and printed transcripts. Staff need advance notice for ASL or a vision-impairment escort.",
+      "verificationUrl": "https://lbjlibrary.org/visit/accessibility",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://lbjlibrary.org/visit/accessibility",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can a school or family group walk into the library with more than fourteen people?",
+      "answer": "An organized group of fifteen or more must make a reservation. Adult group reservations currently require at least three weeks' notice, and school field trips follow separate procedures. The ordinary museum ticket does not itself reserve a docent-led group program.",
+      "verificationUrl": "https://www.lbjlibrary.org/visit/group-visits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the LBJ Library have a cafeteria or a restaurant inside?",
+      "answer": "Current operator visitor pages describe the ticket desk, store and museum amenities but do not establish a reliable, operating full-service cafeteria. Plan dining elsewhere on or around campus instead of assuming the museum itself provides lunch.",
+      "verificationUrl": "https://www.lbjlibrary.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://lbjlibrary.org/visit/know-before-you-go",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "blanton-museum-of-art-austin": [
+    {
+      "question": "Is the Blanton Museum of Art free on Tuesdays?",
+      "answer": "Yes. Blanton offers free museum admission every Tuesday through a dedicated entry-ticket arrangement. Regular non-Tuesday prices currently include $15 adults, $12 seniors 65 and older, $8 ages 6–17, and free children five and under and UT ID holders.",
+      "verificationUrl": "https://blantonmuseum.org/visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://blantonmuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the regular Blanton Museum opening hours?",
+      "answer": "Current operator hours are Tuesday through Friday 10 a.m.–5 p.m., Saturday 10 a.m.–8 p.m., and Sunday 10 a.m.–5 p.m. The museum is closed Mondays. Holiday closures and university-campus events can change access, so check the calendar on your visit date.",
+      "verificationUrl": "https://blantonmuseum.org/visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://blantonmuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should Blanton visitors park and how much does it cost?",
+      "answer": "Parking is in paid University of Texas garages, including Brazos Garage for many visitors. The published price table currently starts at $6 for one to two hours and $9 for two to three hours; member and home-football-game arrangements differ.",
+      "verificationUrl": "https://blantonmuseum.org/visit/parking/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://blantonmuseum.org/visit/accessibility/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Blanton's new museum café already open?",
+      "answer": "The official visitor FAQ still describes the new café as under construction, with an opening planned during 2026. A projected opening date is not proof of current food service, so arrange meals at nearby restaurants or an allowed outdoor picnic area unless the operator confirms reopening.",
+      "verificationUrl": "https://blantonmuseum.org/visit/faqs/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://blantonmuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I visit Ellsworth Kelly's Austin without another admission charge?",
+      "answer": "The freestanding colored-glass artwork Austin by Ellsworth Kelly is a permanent part of the Blanton collection, and entry is included with the museum ticket, including qualifying free Tuesday admission. Visitors should treat it as a quiet, reflective artwork.",
+      "verificationUrl": "https://blantonmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://blantonmuseum.org/permanent-collection/austin/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Blanton Museum wheelchair accessible and can I request ASL?",
+      "answer": "Museum buildings, elevators, accessible restrooms and Ellsworth Kelly's Austin have accessible routes; loaner wheelchairs are available. The Brazos Street drop-off supports accessible arrival. Request ASL interpretation at least two weeks in advance for events or guided programs.",
+      "verificationUrl": "https://blantonmuseum.org/visit/accessibility/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://blantonmuseum.org/visit/accessibility/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Do groups need a reservation to tour the Blanton?",
+      "answer": "Non-UT groups of eight or more must register at least two weeks ahead, including a self-guided group. Unauthorized commercial or third-party guided lecturing is not permitted, and paid guided visits follow different admission rules than general admission.",
+      "verificationUrl": "https://blantonmuseum.org/visit/group-visits/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://blantonmuseum.org/visit/faqs/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Blanton Museum a good visit with children under twelve?",
+      "answer": "Yes. The museum offers activity boxes, family art events and public tours, but children younger than twelve must be supervised by adults throughout. Ellsworth Kelly's Austin is not a play room; pick a few works and galleries appropriate to each child's interests.",
+      "verificationUrl": "https://blantonmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://blantonmuseum.org/visit/families/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
