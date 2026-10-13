@@ -8,6 +8,7 @@ import type { LocalGovernmentProfile } from '@/data/local-government-profile';
 import { canonicalEntityPath, type RankedRelatedEntity } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { expandedPaintedChurches } from '@/data/painted-churches-expanded';
+import lakeAuthorityByCounty from '@/data/fishing/county-lake-links.generated.json';
 import { getCountyPropertyRecordBySlug } from '@/data/property/county-property-data';
 import { isCountyPropertyIndexReady } from '@/data/property/county-property-schema';
 import { hideFailedImageContainer } from "@/lib/image-fallback";
@@ -97,12 +98,15 @@ export function CountyGuideSections({ entity, profile, localGovernment, related,
     articleInternalLinks[countySeriesArticle.slug] ?? [],
   ).slice(0, 8) : [];
   const countyIndustryPathways = COUNTY_INDUSTRY_PATHWAYS[entity.slug] ?? [];
+  const countyLakeGuides = (lakeAuthorityByCounty as Record<string, { slug: string; name: string }[]>)[entity.slug] ?? [];
 
   return <>
     {entity.slug === 'van-zandt' ? <VanZandtCountySpotlight /> : null}
 
 
     <CountyIdentitySection countyName={entity.name} region={entity.region} profile={profile} />
+
+    {countyLakeGuides.length ? <section className="border-b border-border py-12" aria-labelledby="county-fishing-lakes-heading"><div className="grid gap-8 lg:grid-cols-[14rem_1fr]"><div><p className="eyebrow text-primary">Lakes and recreation</p><h2 id="county-fishing-lakes-heading" className="mt-2 font-display text-4xl">Fishing lakes in {entity.name}</h2></div><div><p className="max-w-3xl text-base leading-7 text-muted-foreground">These source-backed TexasDefined guides cover reservoirs and public lakes associated with this county. Review access and the managing agency's current notices before travel; a county link does not imply every part of a lake or every ramp lies within the county.</p><div className="mt-7 grid gap-5 sm:grid-cols-2">{countyLakeGuides.map((lake) => <a key={lake.slug} href={`/fishing/lakes/${lake.slug}`} className="group border-t border-border pt-5"><strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{lake.name}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">Fish species, public launch sites, boating, camping and official trip-day sources →</span></a>)}</div><a href="/fishing/lakes" className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Explore all completed Texas fishing lake guides →</a></div></div></section> : null}
 
     {countyChurches.length ? <section className="border-b border-border py-12" aria-labelledby="county-painted-churches-heading"><div className="grid gap-8 lg:grid-cols-[14rem_1fr]"><div><p className="eyebrow text-primary">Painted Churches</p><h2 id="county-painted-churches-heading" className="mt-2 font-display text-4xl">Painted Churches in {entity.name}</h2></div><div><p className="max-w-3xl text-base leading-7 text-muted-foreground">Our statewide Painted Churches collection includes {countyChurches.length} {countyChurches.length === 1 ? 'church' : 'churches'} in {entity.name}. This guide connects {countyChurches.length === 1 ? 'its' : 'their'} local history, architecture, decorative arts, preservation, and immigrant heritage to the broader story of Texas Painted Churches.</p><div className="mt-7 grid gap-5 sm:grid-cols-2">{countyChurches.map((church) => <a key={church.slug} href={`/explore/painted-churches/${church.slug}`} className="group border-t border-border pt-5"><span className="eyebrow text-primary">{church.city}</span><strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{church.shortName}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{church.summary}</span></a>)}</div><div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold"><a href="/explore/painted-churches" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Statewide Painted Churches guide</a><a href="/explore/painted-churches/map" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Interactive statewide map</a><a href="/explore/painted-churches/routes" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Routes & itineraries</a></div></div></div></section> : null}
 

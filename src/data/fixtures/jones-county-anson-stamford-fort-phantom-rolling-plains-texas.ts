@@ -39,6 +39,7 @@ export const jonesCountyAnsonStamfordFortPhantomRollingPlainsTexasArticle: Artic
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county reference pages and enriched county guides." },
     { href: "/county/fisher", label: "Explore Fisher County", description: "Continue west toward Roby, Rotan and the Double Mountain Fork country." },
     { href: "/county/haskell", label: "Explore Haskell County", description: "Head north into Haskell, Rice Springs and upper Brazos country." },
+    { href: "/fishing/lakes/lake-stamford", label: "Lake Stamford near Stamford", description: "Extend a Jones County trip to the neighboring Haskell County reservoir for lake history, crappie fishing, camping and boat-ramp planning." },
     { href: "/county/taylor", label: "Explore Taylor County", description: "Travel south toward Abilene and the central West Texas crossroads." },
     { href: "/county/shackelford", label: "Explore Shackelford County", description: "Follow the Clear Fork east toward Albany, Fort Griffin country and ranching history." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how distance, settlement and courthouse access shaped the Texas county map." },
