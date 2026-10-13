@@ -71,20 +71,27 @@ for (const match of verified.matchAll(/^  "([a-z0-9-]+)": \{/gm)) record(match[1
 
 const raw = [...rows.values()].filter(row => row.originKinds.some(kind=>kind === "destination-record" || kind === "destination-curation"));
 const flags = [
-  ["authorityGuide", "editorial-depth-and-visitor-decision-review"],
   ["county", "county-context-review"],
   ["hero", "image-license-review"],
   ["officialUrl", "operator-source-review"],
 ];
+// A full "authorityGuide" data structure is NOT obligatory when an existing
+// custom article, researched narrative, or place-specific area guide already
+// answers the real visitor decisions. Only flag an apparent lack of all three;
+// this remains a candidate for review, not proof the page is thin.
+const contextualDepthFlag = "specific-visitor-value-assessment";
 const catalog = raw.map(row=>({
   slug: row.slug,
   files: row.files.sort(),
   originKinds: row.originKinds,
   sourceSignals: row.evidence,
-  possibleGaps: flags.filter(([field])=>!row.evidence[field]).map(([, gap])=>gap)
+  possibleGaps: [
+    ...(["body", "authorityGuide", "areaGuide"].some(field => row.evidence[field]) ? [] : [contextualDepthFlag]),
+    ...flags.filter(([field]) => !row.evidence[field]).map(([, gap]) => gap)
+  ]
 })).sort((a,b)=>b.possibleGaps.length-a.possibleGaps.length||a.slug.localeCompare(b.slug));
 const knownTop25NotFound = topKeys.filter(slug=>!raw.some(x=>x.slug === slug));
-const issueCounts = Object.fromEntries(flags.map(([,issue])=>[issue,catalog.filter(row=>row.possibleGaps.includes(issue)).length]));
+const issueCounts = Object.fromEntries([contextualDepthFlag, ...flags.map(([,issue])=>issue)].map(issue=>[issue,catalog.filter(row=>row.possibleGaps.includes(issue)).length]));
 const report = {
   generatedAt: reviewDate,
   limitation: "Static TypeScript source inventory, not a live Supabase census or a claim that all pages lack authority. Composite records, dynamic overlays, and remote-only entries need separate verification. No blanket parking, restroom, maps, or itinerary requirements are imposed; investigate only questions relevant to that visitor experience.",
