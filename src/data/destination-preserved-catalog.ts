@@ -23,6 +23,7 @@ import { garrisonBrothersHyeDestinations } from "./garrison-brothers-hye-destina
 import { williamChrisVineyardsHyeDestinations } from "./william-chris-vineyards-hye-destination";
 import { fredericksburgWineryAuthorityDestinations } from "./fredericksburg-winery-authority-destinations";
 import { hyeTexasDestinations } from "./hye-texas-destination";
+import { fredericksburgJohnsonCityHeritageDestinations } from "./fredericksburg-johnson-city-heritage-destinations";
 import { houstonGalvestonMuseumDestinations } from "./museum-expansion-houston-galveston";
 import { hoggLegacyDestinations } from "./hogg-legacy-destinations";
 import { sanAntonioMuseumDestinations } from "./museum-expansion-san-antonio";
@@ -225,6 +226,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   legacyExploreDestinations,
   legacyLakeDestinations,
   johnsonCityAuthorityDestinations,
+  fredericksburgJohnsonCityHeritageDestinations,
   johnsonCityWildlifeDestinations,
   lbjBoyhoodHomeDestinations,
   pedernalesRiverNatureParkDestinations,
