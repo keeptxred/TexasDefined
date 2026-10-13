@@ -159,7 +159,11 @@ export const Route = createFileRoute("/destination/$slug")({
     const authorityGuide = destination.authorityGuide;
     const authorityCitations = authorityGuide?.sources.map((source) => source.url).filter(validExternalUrl) ?? [];
     const audit = auditDestination(destination);
-    const indexable = audit.readyForIndexing && isPrimaryTripPlannerDestination(destination);
+    const isHistoricalMuseumReference = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin"].includes(destination.slug);
+// This closed museum's researched historical guide is indexable even though the
+// institution must remain excluded from visit planning and attraction recommendations.
+// The normal editorial quality gate still applies; this is NOT a trip-planner override.
+const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference);
     const hasUsableHero = !audit.issues.some((issue) => issue.code === "hero-placeholder");
     const canonicalPath = `/destination/${params.slug}`;
     const url = `${siteUrl}${canonicalPath}`;
@@ -205,6 +209,10 @@ function DestinationPage() {
   const limit = (requested: number) => Math.max(0, Math.min(requested, surfacePolicy.blockBudget, remainingLinks));
   const spend = (requested: number) => { const value = limit(requested); remainingLinks -= value; return value; };
   const verifiedLabel = checkedDate(destination.sourceCheckedAt);
+  const authoritySourceLinks = [...new Map((destination.authorityGuide?.sources ?? [])
+    .filter((source) => validExternalUrl(source.url))
+    .map((source) => [source.url, source] as const)).values()];
+  const documentaryPhotoSource = authoritySourceLinks.find((source) => source.label === "Historic-site photo: source, original creator and usage rights");
   const countySlug = countyRouteSlug(destination.county);
   const countyLabel = destination.county ? countyDisplayName(destination.county) : "";
   const isChokeCanyon = destination.slug === "choke-canyon-state-park";
@@ -261,7 +269,7 @@ function DestinationPage() {
         <p className="eyebrow text-ink-foreground/80">{region?.name ?? "Texas"} · {categoryName}</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{destination.name}</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/85">{destination.summary}</p>
-        {destination.hero.credit && <p className="mt-6 text-[0.7rem] uppercase tracking-[0.12em] text-ink-foreground/60">Photography: {destination.hero.credit}</p>}
+        {destination.hero.credit && <p className="mt-6 text-[0.7rem] uppercase tracking-[0.12em] text-ink-foreground/60">Photography: {documentaryPhotoSource ? <a href={documentaryPhotoSource.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{destination.hero.credit}</a> : destination.hero.credit}</p>}
       </Container>
     </section>
 
@@ -298,6 +306,17 @@ function DestinationPage() {
           </dl>
           <div className="mt-7 flex flex-wrap gap-6">{validExternalUrl(destination.reservationUrl) && <a href={destination.reservationUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Reservations</a>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official visitor information</a>}{isChokeCanyon && <a href="https://tpwd.texas.gov/state-parks/choke-canyon/alert" target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Current park alerts</a>}</div>
         </section>
+        {authoritySourceLinks.length > 0 && <section aria-labelledby="destination-research-sources" className="mt-10 border-t border-border pt-8">
+          <p className="eyebrow text-primary">{documentaryPhotoSource ? "Evidence and photo credits" : "Evidence and citations"}</p>
+          <h2 id="destination-research-sources" className="mt-3 font-display text-3xl">{documentaryPhotoSource ? "Research sources and image rights" : "Research sources"}</h2>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">{documentaryPhotoSource ? "Read the original operator records, preservation research and documentary photography license for this guide." : "Read the original operator records and supporting research for this guide."}</p>
+          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+            {authoritySourceLinks.map((source) => <li key={source.url} className="border-l-2 border-border pl-4">
+              <a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">{source.label}</a>
+              {source.scope && <p className="mt-1 text-xs leading-5 text-muted-foreground">{source.scope}</p>}
+            </li>)}
+          </ul>
+        </section>}
         {!isChokeCanyon && <Suspense fallback={null}><DestinationViatorBooking destination={destination} /></Suspense>}
         {DESTINATION_LAKE_GUIDE_LINKS[destination.slug] ? <section className="mt-10 border-t border-border pt-8" aria-label="Related lake fishing and recreation guide"><p className="eyebrow text-primary">Explore this lake</p><h2 className="mt-3 font-display text-3xl">Fishing, boat ramps and lake conditions</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">This park is part of a larger lake trip. Our separate lake guide connects species, launch facilities, boating and nearby counties; confirm park admission, accessibility, overnight reservations and closures with the operator.</p><a href={`/fishing/lakes/${DESTINATION_LAKE_GUIDE_LINKS[destination.slug].slug}`} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">{DESTINATION_LAKE_GUIDE_LINKS[destination.slug].name} visitor and fishing guide →</a></section> : null}
         {!isChokeCanyon && <div className="mt-10"><DestinationVisitPlanner destination={destination} /></div>}

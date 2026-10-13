@@ -367,7 +367,20 @@ const fredericksburgHistoryWeekendGuideStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["national-museum-pacific-war", "fort-martin-scott"],
 };
 
+const historicSanAntonioHeritageRoadTripStub: Article = {
+  id: "evergreen-historic-san-antonio-heritage-road-trip", brandId: "texasdefined", slug: "historic-san-antonio-heritage-road-trip",
+  title: "Historic San Antonio Road Trip: Missions, King William, the Alamo and Downtown",
+  dek: "A two-day heritage route with the missions, downtown plazas, King William and independently verified visitor access.",
+  category: "texas-history", region: "south-texas",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mission%20San%20Jose%20San%20Antonio%2001.jpg?width=1600", alt: "Historic stonework at Mission San José in San Antonio", width: 4608, height: 3456, credit: "Steven B Yount · CC BY-SA 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-10-12", updatedAt: "2026-10-12", readingMinutes: 21,
+  tags: ["San Antonio history", "historic San Antonio road trip", "San Antonio Missions", "King William", "Tejano history"],
+  featured: true, sourceName: "National Park Service and Texas Historical Commission", sourceUrl: "https://www.nps.gov/saan/planyourvisit/index.htm",
+  body: [], relatedCollections: [], relatedDestinations: ["the-alamo", "casa-navarro", "san-antonio-missions-national-historical-park", "king-william-historic-district", "menger-hotel-san-antonio", "mission-san-jose-san-antonio"],
+};
+
 export const standaloneEvergreenStubs: Article[] = [
+  historicSanAntonioHeritageRoadTripStub,
   rodeo101Stub,
   texasHighSchoolFootballClassificationsStub,
   texasSixManFootballExplainedStub,
@@ -425,6 +438,7 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === hoggFoundationMentalHealthHistoryStub.slug) return import("./hogg-foundation-mental-health-texas-history").then((module) => module.hoggFoundationMentalHealthHistoryArticle);
   if (slug === hoggFamilyHeritageTrailTexasStub.slug) return import("./hogg-family-heritage-trail-texas").then((module) => module.hoggFamilyHeritageTrailTexasArticle);
   if (slug === riverOaksHoggBrothersPlanningHistoryStub.slug) return import("./river-oaks-hogg-brothers-houston-planning-history").then((module) => module.riverOaksHoggBrothersPlanningHistoryArticle);
+  if (slug === historicSanAntonioHeritageRoadTripStub.slug) return import("./historic-san-antonio-heritage-road-trip").then((module) => module.historicSanAntonioHeritageRoadTripArticle);
   if (slug === texasBorderlandsHistoricSitesGuideStub.slug) return import("./texas-borderlands-historic-sites-guide").then((module) => module.texasBorderlandsHistoricSitesGuideArticle);
   if (slug === texasWorldWarIIHistoricSitesGuideStub.slug) return import("./texas-world-war-ii-historic-sites-guide").then((module) => module.texasWorldWarIIHistoricSitesGuideArticle);
   if (slug === battleshipTexasBB35HistoryRestorationStub.slug) return import("./battleship-texas-bb-35-history-restoration").then((module) => module.battleshipTexasBB35HistoryRestorationArticle);
