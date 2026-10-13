@@ -27,3 +27,6 @@ UIL championship archives show Baytown Lee reached two consecutive Class 4A titl
 
 ## Real acceptance still needed
 Protected gate, branch merge, deployed production and real mobile/desktop Chrome screenshots, accurate H1, correct canonical/schema, no hydration or broken links, reciprocal county pages, legal image rights, plus game-day venue/ADA/ticket confirmation. **Do not promote IMPLEMENTED to VERIFIED** without those observations. Past years' results and former coaching positions are not asserted as current.
+
+## October 13, 2026 — 2026 football fixture and scorecard research
+MaxPreps [2026 varsity schedule](https://www.maxpreps.com/tx/baytown/lee-ganders/football/schedule/) used for dated results and 10 listed matchups. 0–6 through October 2; Oct 15 and later dates still lack verified scores; distinguish this Ganders calendar from Sterling and Goose Creek Memorial. School district remains authoritative on venue, accessible entry and tickets. Do not publish unknown games as W/L or repurpose unlicensed team pictures.
