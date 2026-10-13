@@ -1,6 +1,6 @@
 import type { Destination } from "./types";
 import { cityPassDestinationExpansion } from "./citypass-destination-expansion";
-import { museumLicensedHeroes } from "./museum-authority-network";
+import { museumLicensedHeroes } from "./museum-authority-heroes";
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 
 /**
