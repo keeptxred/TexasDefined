@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { RIVER_AUTHORITY_RELATIONS } from "@/data/river-authority-relations";
+import { RIVER_AUTHORITY_CARD_PHOTOS } from "@/data/river-authority-photo-catalog";
 
 import { PublishableGraphic } from "@/components/editorial/PublishableGraphic";
 import { TexasRiversCitationTrust } from "@/components/content/TexasRiversCitationTrust";
@@ -23,6 +25,15 @@ const riverProfiles = [
   { name: "San Jacinto", href: "/article/texas-san-jacinto-river-guide", region: "Houston & Gulf Coast", note: "Lake Houston · Lake Conroe · floodplain drainage", image: "/images/editorial/texas-river-basins.jpg" },
   { name: "Sulphur", href: "/article/texas-sulphur-river-guide", region: "Northeast Texas", note: "Cooper Lake · Wright Patman · Red drainage", image: "/images/state-parks/cooper-lake-south-sulphur-unit-state-park.jpg" },
 ] as const;
+
+const tributaryRecreationProfiles = RIVER_AUTHORITY_RELATIONS
+  // Dedicated recreation profiles not already listed among the 15 TWDB major basins.
+  .filter((river) => !riverProfiles.some((basin) => basin.href === `/article/${river.slug}`))
+  .map((river) => ({
+    name: river.name,
+    href: `/article/${river.slug}`,
+    note: "Fishing · camping · paddling · local access and visitor planning",
+  }));
 
 const riverRegions = [
   { title: "West Texas & the border", rivers: "Rio Grande · Pecos · Devils", description: "High desert, mountain basins, canyon country and an international river system." },
@@ -150,18 +161,22 @@ function TexasRiverOrientationMap() {
 function RiverProfileCards() {
   return (
     <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-      {riverProfiles.map((river) => (
-        <Link key={river.href} to={river.href} className="group overflow-hidden rounded-sm border border-border bg-background transition-colors hover:border-primary">
-          <div className="aspect-[4/3] overflow-hidden bg-surface">
-            <img src={river.image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
-          </div>
-          <div className="p-4">
-            <span className="font-display text-xl group-hover:text-primary">{river.name}</span>
-            <span className="mt-1 block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{river.region}</span>
-            <span className="mt-2 block text-sm leading-5 text-muted-foreground">{river.note}</span>
-          </div>
-        </Link>
-      ))}
+      {riverProfiles.map((river) => {
+        const photo = RIVER_AUTHORITY_CARD_PHOTOS[river.href];
+        return <div key={river.href} className="overflow-hidden rounded-sm border border-border bg-background">
+          <Link to={river.href} className="group block transition-colors hover:border-primary">
+            <div className="aspect-[4/3] overflow-hidden bg-surface">
+              <img src={photo?.src ?? river.image} alt={photo?.alt ?? `${river.name} river basin or associated watershed destination`} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
+            </div>
+            <div className="p-4">
+              <span className="font-display text-xl group-hover:text-primary">{river.name}</span>
+              <span className="mt-1 block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{river.region}</span>
+              <span className="mt-2 block text-sm leading-5 text-muted-foreground">{river.note}</span>
+            </div>
+          </Link>
+          {photo ? <p className="px-4 pb-4 text-xs text-muted-foreground">Photo: <a href={photo.sourceUrl} target="_blank" rel="noreferrer" className="underline">{photo.photographer}</a> · <a href={photo.licenseUrl} target="_blank" rel="noreferrer" className="underline">{photo.license}</a> · Wikimedia Commons</p> : null}
+        </div>;
+      })}
     </div>
   );
 }
@@ -216,6 +231,19 @@ export function TexasRiversAfterArticle() {
           <p className="mt-3 text-sm leading-6 text-muted-foreground">The statewide guide gives you the big picture. Every major TWDB basin now has a dedicated TexasDefined guide, with primary-source geography, tributaries, reservoirs and visitor guidance. Some representative photos do not depict the specific named river; always verify water conditions and public access with the responsible agency.</p>
         </div>
         <RiverProfileCards />
+      </section>
+
+      <section className="mt-9 border-t border-border pt-8" aria-labelledby="river-recreation-guides">
+        <h2 id="river-recreation-guides" className="font-display text-2xl sm:text-3xl">River-specific fishing, camping and visitor guides</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">These rivers and tributaries deserve their own visitor planning beyond the official 15-basin geography inventory. Always check current launches, floods, fishing rules and land access.</p>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {tributaryRecreationProfiles.map((river) => (
+            <Link key={river.href} to={river.href} className="rounded-sm border border-border p-5 transition-colors hover:border-primary">
+              <span className="font-display text-xl">{river.name} →</span>
+              <span className="mt-2 block text-sm text-muted-foreground">{river.note}</span>
+            </Link>
+          ))}
+        </div>
       </section>
 
       <section className="mt-9 border-t border-border pt-8" aria-labelledby="river-primary-source-links">

@@ -9,6 +9,7 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPartners";
 import { articleInternalLinks } from "@/data/article-internal-links";
+import { riverAuthorityLinksForArticleMetadata } from "@/data/river-authority-relations";
 import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
 import { shouldNoindexTexasGatewayArticle } from "@/data/fixtures/texas-gateway-index-readiness";
 import { imageRightsFor } from "@/data/image-rights";
@@ -378,12 +379,11 @@ function ArticlePage() {
     : null;
   const embeddedInternalLinks = article.internalLinks ?? [];
   const supplementalInternalLinks = articleInternalLinks[article.slug] ?? [];
-  const internalLinks = [
-    ...embeddedInternalLinks,
-    ...supplementalInternalLinks.filter(
-      (link) => !embeddedInternalLinks.some((existing) => existing.href === link.href),
-    ),
-  ];
+  const topicallyRelevantRiverLinks = riverAuthorityLinksForArticleMetadata(article);
+  const availableArticleLinks = [...embeddedInternalLinks, ...supplementalInternalLinks, ...topicallyRelevantRiverLinks];
+  const internalLinks = availableArticleLinks.filter(
+    (link, index, links) => links.findIndex((item) => item.href === link.href) === index,
+  );
   const relatedDestinations = article.relatedDestinations
     .map((destinationSlug) => destinations.find((destination) => destination.slug === destinationSlug))
     .filter((destination): destination is NonNullable<typeof destination> => Boolean(destination))

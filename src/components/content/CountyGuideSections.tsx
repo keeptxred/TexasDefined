@@ -2,6 +2,7 @@ import { CountyIdentitySection } from '@/components/content/CountyIdentitySectio
 import { VanZandtCountySpotlight } from '@/components/content/VanZandtCountySpotlight';
 import { ArticleBody } from '@/components/editorial/ArticleBody';
 import { articleInternalLinks } from '@/data/article-internal-links';
+import { riverAuthorityLinksForCounty } from '@/data/river-authority-relations';
 import type { Article, ArticleInternalLink } from '@/data/types';
 import { formatDensity, type CountyProfile } from '@/data/county-profile';
 import type { LocalGovernmentProfile } from '@/data/local-government-profile';
@@ -98,6 +99,7 @@ export function CountyGuideSections({ entity, profile, localGovernment, related,
     articleInternalLinks[countySeriesArticle.slug] ?? [],
   ).slice(0, 8) : [];
   const countyIndustryPathways = COUNTY_INDUSTRY_PATHWAYS[entity.slug] ?? [];
+  const countyRiverLinks = riverAuthorityLinksForCounty(entity.slug);
   const countyLakeGuides = (lakeAuthorityByCounty as Record<string, { slug: string; name: string }[]>)[entity.slug] ?? [];
 
   return <>
@@ -130,6 +132,8 @@ export function CountyGuideSections({ entity, profile, localGovernment, related,
         <a href="/destination/graham" className="text-primary underline underline-offset-4">Explore Graham →</a>
       </div>
     </section> : null}
+
+    {countyRiverLinks.length ? <section className="border-b border-border py-12" aria-labelledby="county-river-guides-heading"><div className="grid gap-8 lg:grid-cols-[14rem_1fr]"><div><p className="eyebrow text-primary">Waterways</p><h2 id="county-river-guides-heading" className="mt-2 font-display text-3xl">Rivers connected to {entity.name}</h2></div><div className="min-w-0"><p className="max-w-3xl text-sm leading-7 text-muted-foreground">Explore these rivers in their regional context. A county connection alone does not establish public river access, camping, parking or a safe paddling launch.</p><nav aria-label={`River guides related to ${entity.name}`} className="mt-6 grid gap-4 sm:grid-cols-2">{countyRiverLinks.map((link) => <a key={link.href} href={link.href} className="group border-t border-border pt-4"><strong className="block font-display text-xl group-hover:text-primary">{link.label}</strong>{link.description ? <span className="mt-2 block text-sm leading-6 text-muted-foreground">{link.description}</span> : null}</a>)}</nav></div></div></section> : null}
 
     {countySeriesArticle ? <section className="border-b border-border py-12" aria-labelledby="county-feature-heading"><div className="grid gap-8 lg:grid-cols-[14rem_1fr]"><div><p className="eyebrow text-primary">County feature</p><h2 id="county-feature-heading" className="mt-2 font-display text-4xl">The story of {entity.name}</h2></div><div className="min-w-0"><figure className="overflow-hidden bg-muted"><img src={countySeriesArticle.hero.src} alt={countySeriesArticle.hero.alt} width={countySeriesArticle.hero.width} height={countySeriesArticle.hero.height} loading="eager" decoding="async" className="aspect-[16/9] w-full object-cover" onError={(event) => hideFailedImageContainer(event.currentTarget)} />{countySeriesArticle.hero.credit ? <figcaption className="border-t border-border px-4 py-3 text-xs text-muted-foreground">Photography: {countySeriesArticle.hero.credit}</figcaption> : null}</figure><div className="mt-8 max-w-3xl"><h3 className="font-display text-4xl leading-tight sm:text-5xl">{countySeriesArticle.title}</h3><p className="mt-4 text-lg leading-8 text-muted-foreground">{countySeriesArticle.dek}</p><p className="mt-3 text-xs uppercase tracking-[0.12em] text-muted-foreground">Published {formatDate(countySeriesArticle.publishedAt)}{countySeriesArticle.updatedAt ? ` · Updated ${formatDate(countySeriesArticle.updatedAt)}` : ''} · {countySeriesArticle.readingMinutes} min read</p></div><div className="mt-10 max-w-3xl"><ArticleBody blocks={countySeriesArticle.body} entities={relatedEntities} /></div>{countyEditorialLinks.length ? <nav className="mt-12 max-w-3xl border-t border-border pt-7" aria-label={`More Texas Defined guides related to ${entity.name}`}><p className="eyebrow text-primary">Keep exploring {entity.name}</p><div className="mt-5 grid gap-4 sm:grid-cols-2">{countyEditorialLinks.map((link) => { const external = isExternalHref(link.href); return <a key={link.href} href={link.href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined} className="group rounded-md border border-border p-4 transition-colors hover:border-primary/50"><strong className="block font-display text-xl leading-tight group-hover:text-primary">{link.label}</strong>{link.description ? <span className="mt-2 block text-sm leading-6 text-muted-foreground">{link.description}</span> : null}</a>; })}</div></nav> : null}</div></div></section> : null}
 

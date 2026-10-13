@@ -1,3 +1,5 @@
+import { riverAuthorityLinksForDestination } from "@/data/river-authority-relations";
+
 export type DestinationEditorialLink = {
   href: string;
   label: string;
@@ -726,6 +728,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "garner-state-park": [
+    { href: "/article/texas-frio-river-guide", label: "Frio River authority guide", description: "Connect this destination to verified river-wide context, trip planning, fishing, access and conservation." },
     {
       href: "/explore/swimming-holes-river-tubing",
       label: "Compare Texas swimming and tubing destinations",
@@ -733,6 +736,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "leakey": [
+    { href: "/article/texas-frio-river-guide", label: "Frio River corridor guide", description: "Connect this destination to verified river-wide context, trip planning, fishing, access and conservation." },
     {
       href: "/explore/swimming-holes-river-tubing",
       label: "Plan a Frio Canyon water weekend",
@@ -757,6 +761,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "guadalupe-river-state-park": [
+    { href: "/article/texas-guadalupe-river-guide", label: "Guadalupe River access and recreation guide", description: "Connect this destination to verified river-wide context, trip planning, fishing, access and conservation." },
     {
       href: "/explore/swimming-holes-river-tubing",
       label: "Compare Texas swimming and tubing destinations",
@@ -779,6 +784,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "south-llano-river-state-park": [
+    { href: "/article/texas-llano-river-guide", label: "Llano River fishing, camping and paddling", description: "Connect this destination to verified river-wide context, trip planning, fishing, access and conservation." },
     {
       href: "/explore/swimming-holes-river-tubing",
       label: "Compare Texas swimming and tubing destinations",
@@ -813,6 +819,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "san-marcos": [
+    { href: "/article/texas-san-marcos-river-guide", label: "San Marcos River parks, rules and paddling", description: "Connect this destination to verified river-wide context, trip planning, fishing, access and conservation." },
     {
       href: "/explore/swimming-holes-river-tubing",
       label: "Explore Texas swimming holes and river tubing",
@@ -839,5 +846,10 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
 };
 
 export function destinationEditorialLinks(slug: string): DestinationEditorialLink[] {
-  return DESTINATION_EDITORIAL_LINKS[slug] ?? [];
+  const existing = DESTINATION_EDITORIAL_LINKS[slug] ?? [];
+  const seen = new Set(existing.map((item) => item.href));
+  return [
+    ...existing,
+    ...riverAuthorityLinksForDestination(slug).filter((link) => !seen.has(link.href)),
+  ];
 }
