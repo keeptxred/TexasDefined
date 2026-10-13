@@ -22,7 +22,7 @@ export const bosqueRiverBridgeMeridianAuthority = makeThcHeritageDestination({
   imageWidth:1200,imageHeight:876,
   officialUrl:register,operator:"Texas Department of Transportation (state-maintained public highway)",
   season:"Year-round historical interest; only approach from a lawful public viewpoint in safe weather. Flood conditions, storms and road construction can change access.",
-  entry:"This is an operating highway bridge, not a ticketed exhibit. There is no independently verified public parking pullout or designated pedestrian-viewing platform at the crossing; never stop on the bridge, shoulder or active travel lane to take pictures.",
+  entry:"This is an operating highway bridge, not a ticketed exhibit. There is no independently verified public parking pullout or designated pedestrian-viewing platform at the crossing. Never stop on the bridge, shoulder or active travel lane to take pictures. Do not cross highway barriers or enter riverbanks without legally permitted access.",
   accessibility:"No verified pedestrian sidewalk, wheelchair route or accessible overlook at the bridge. Driving across the highway may be possible when the route is open, but consult TxDOT and current local road conditions. Do not attempt a roadside walking tour without an authorized safe viewing location.",
   highlights:[
     "State-sponsored Works Progress Administration construction completed in 1940",
