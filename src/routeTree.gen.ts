@@ -87,6 +87,7 @@ import { Route as TexasHomeEquityGrowthCalculatorRouteImport } from './routes/te
 import { Route as TexasHomeEquityCalculatorRouteImport } from './routes/texas-home-equity-calculator'
 import { Route as TexasHomeAffordabilityCalculatorRouteImport } from './routes/texas-home-affordability-calculator'
 import { Route as TexasHistoryRouteImport } from './routes/texas-history'
+import { Route as TexasHistoricLandmarksRouteImport } from './routes/texas-historic-landmarks'
 import { Route as TexasHipHopRouteImport } from './routes/texas-hip-hop'
 import { Route as TexasHighSchoolFootballTeamsRouteImport } from './routes/texas-high-school-football-teams'
 import { Route as TexasHighSchoolFootballIsdsRouteImport } from './routes/texas-high-school-football-isds'
@@ -1069,6 +1070,13 @@ const TexasHistoryRoute = TexasHistoryRouteImport.update({
   path: '/texas-history',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/texas-history.lazy').then((d) => d.Route))
+const TexasHistoricLandmarksRoute = TexasHistoricLandmarksRouteImport.update({
+  id: '/texas-historic-landmarks',
+  path: '/texas-historic-landmarks',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/texas-historic-landmarks.lazy').then((d) => d.Route),
+)
 const TexasHipHopRoute = TexasHipHopRouteImport.update({
   id: '/texas-hip-hop',
   path: '/texas-hip-hop',
@@ -3833,6 +3841,7 @@ export interface FileRoutesByFullPath {
   '/texas-high-school-football-isds': typeof TexasHighSchoolFootballIsdsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
+  '/texas-historic-landmarks': typeof TexasHistoricLandmarksRoute
   '/texas-history': typeof TexasHistoryRoute
   '/texas-home-affordability-calculator': typeof TexasHomeAffordabilityCalculatorRoute
   '/texas-home-equity-calculator': typeof TexasHomeEquityCalculatorRoute
@@ -4342,6 +4351,7 @@ export interface FileRoutesByTo {
   '/texas-high-school-football-isds': typeof TexasHighSchoolFootballIsdsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
+  '/texas-historic-landmarks': typeof TexasHistoricLandmarksRoute
   '/texas-history': typeof TexasHistoryRoute
   '/texas-home-affordability-calculator': typeof TexasHomeAffordabilityCalculatorRoute
   '/texas-home-equity-calculator': typeof TexasHomeEquityCalculatorRoute
@@ -4855,6 +4865,7 @@ export interface FileRoutesById {
   '/texas-high-school-football-isds': typeof TexasHighSchoolFootballIsdsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
+  '/texas-historic-landmarks': typeof TexasHistoricLandmarksRoute
   '/texas-history': typeof TexasHistoryRoute
   '/texas-home-affordability-calculator': typeof TexasHomeAffordabilityCalculatorRoute
   '/texas-home-equity-calculator': typeof TexasHomeEquityCalculatorRoute
@@ -5369,6 +5380,7 @@ export interface FileRouteTypes {
     | '/texas-high-school-football-isds'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
+    | '/texas-historic-landmarks'
     | '/texas-history'
     | '/texas-home-affordability-calculator'
     | '/texas-home-equity-calculator'
@@ -5878,6 +5890,7 @@ export interface FileRouteTypes {
     | '/texas-high-school-football-isds'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
+    | '/texas-historic-landmarks'
     | '/texas-history'
     | '/texas-home-affordability-calculator'
     | '/texas-home-equity-calculator'
@@ -6390,6 +6403,7 @@ export interface FileRouteTypes {
     | '/texas-high-school-football-isds'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
+    | '/texas-historic-landmarks'
     | '/texas-history'
     | '/texas-home-affordability-calculator'
     | '/texas-home-equity-calculator'
@@ -6903,6 +6917,7 @@ export interface RootRouteChildren {
   TexasHighSchoolFootballIsdsRoute: typeof TexasHighSchoolFootballIsdsRoute
   TexasHighSchoolFootballTeamsRoute: typeof TexasHighSchoolFootballTeamsRoute
   TexasHipHopRoute: typeof TexasHipHopRoute
+  TexasHistoricLandmarksRoute: typeof TexasHistoricLandmarksRoute
   TexasHistoryRoute: typeof TexasHistoryRoute
   TexasHomeAffordabilityCalculatorRoute: typeof TexasHomeAffordabilityCalculatorRoute
   TexasHomeEquityCalculatorRoute: typeof TexasHomeEquityCalculatorRoute
@@ -7740,6 +7755,13 @@ declare module '@tanstack/react-router' {
       path: '/texas-history'
       fullPath: '/texas-history'
       preLoaderRoute: typeof TexasHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-historic-landmarks': {
+      id: '/texas-historic-landmarks'
+      path: '/texas-historic-landmarks'
+      fullPath: '/texas-historic-landmarks'
+      preLoaderRoute: typeof TexasHistoricLandmarksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-hip-hop': {
@@ -11466,6 +11488,7 @@ const rootRouteChildren: RootRouteChildren = {
   TexasHighSchoolFootballIsdsRoute: TexasHighSchoolFootballIsdsRoute,
   TexasHighSchoolFootballTeamsRoute: TexasHighSchoolFootballTeamsRoute,
   TexasHipHopRoute: TexasHipHopRoute,
+  TexasHistoricLandmarksRoute: TexasHistoricLandmarksRoute,
   TexasHistoryRoute: TexasHistoryRoute,
   TexasHomeAffordabilityCalculatorRoute: TexasHomeAffordabilityCalculatorRoute,
   TexasHomeEquityCalculatorRoute: TexasHomeEquityCalculatorRoute,
