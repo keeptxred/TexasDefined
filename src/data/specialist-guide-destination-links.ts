@@ -37,6 +37,9 @@ const SPECIALIST_LINKS: Record<string, SpecialistGuideDestinationLink[]> = {
   "franklin-mountains-state-park": [
     { href: "/texas-mountain-biking-guide", label: "Texas mountain biking", context: "El Paso desert biking trails and weather precautions" },
   ],
+  "hill-country-state-natural-area": [
+    { href: "/texas-horseback-riding-guide", label: "Texas horseback riding", context: "West Peak Overlook multiuse trails, horse access and trip readiness" },
+  ],
   "tyler-state-park": [
     { href: "/texas-mountain-biking-guide", label: "Texas mountain biking", context: "East Texas forest trail conditions and route selection" },
   ],
@@ -61,6 +64,7 @@ const PARK_NAMES: Record<string, string> = {
   "caprock-canyons-state-park": "Caprock Canyons State Park",
   "south-llano-river-state-park": "South Llano River State Park",
   "franklin-mountains-state-park": "Franklin Mountains State Park",
+  "hill-country-state-natural-area": "Hill Country State Natural Area",
   "tyler-state-park": "Tyler State Park",
   "palo-duro-canyon-state-park": "Palo Duro Canyon State Park",
   "lake-mineral-wells-state-park": "Lake Mineral Wells State Park",
