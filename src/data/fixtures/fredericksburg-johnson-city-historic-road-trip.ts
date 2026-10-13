@@ -9,11 +9,11 @@ export const fredericksburgJohnsonCityHistoricRoadTripArticle: Article = {
   "category": "road-trips",
   "region": "hill-country",
   "hero": {
-    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_martin_scott_2008.jpg?width=1600",
-    "alt": "Fort Martin Scott historic Army post, Fredericksburg, Texas, western end of the historic Hill Country itinerary",
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Lyndon_B._Johnson_Ranch_October_2020_28_%28Texas_White_House%29.jpg?width=1600",
+    "alt": "Texas White House at LBJ Ranch near Stonewall in 2020; the historic house interior is closed for structural rehabilitation in 2026",
     "width": 1600,
-    "height": 955,
-    "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    "height": 1067,
+    "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
   },
   "authorId": "a-dell",
   "publishedAt": "2026-10-12",
@@ -323,7 +323,7 @@ export const fredericksburgJohnsonCityHistoricRoadTripArticle: Article = {
     },
     {
       "type": "paragraph",
-      "text": "The lead photograph shows Fort Martin Scott and is credited to Larry D. Moore via Wikimedia Commons under CC BY 4.0. Attribution is part of the reusable photo's license. Do not copy photographs from THC or venue sites simply because they are on a government or nonprofit page; obtain explicit permission or verified compatible licensing before publishing them."
+      "text": "The lead photograph shows the exterior of the Texas White House at LBJ Ranch in 2020, before the current closure; it is credited to Michael Barera via Wikimedia Commons under CC BY-SA 4.0. Attribution is part of the reusable photo's license. Do not copy photographs from THC or venue sites simply because they are on a government or nonprofit page; obtain explicit permission or verified compatible licensing before publishing them."
     }
   ]
 };
