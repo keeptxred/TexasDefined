@@ -11,6 +11,7 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'benjamin', mascot: 'Mustangs', colors: 'Purple and White', sourceUrl: 'https://www.uiltexas.org/football/state-team-mp-archive/benjamin-2023-2024-football', sourceLabel: 'UIL state-team archive: Mustangs and purple-and-white colors', verifiedAt: '2026-10-12' },
   { slug: 'ballinger', mascot: 'Bearcats', sourceUrl: 'https://bhs.ballingerisd.net/', sourceLabel: 'Ballinger ISD official school/athletics identity', verifiedAt: '2026-10-10' },
   { slug: 'balmorhea', mascot: 'Bears', sourceUrl: 'https://www.bisdbears.esc18.net/football', sourceLabel: 'Balmorhea ISD official school/athletics identity', verifiedAt: '2026-10-10' },
   { slug: 'bandera', mascot: 'Bulldogs', sourceUrl: 'https://www.banderaisd.net/', sourceLabel: 'Bandera ISD official school/athletics identity', verifiedAt: '2026-10-10' },
