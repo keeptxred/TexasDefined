@@ -66,7 +66,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Goose Creek Memorial Patriots Football: UIL History, 2026 & Game-Day Guide",
-      "description": "Goose Creek Memorial Patriots football: verified milestones, current UIL alignment, real school identity and stadium/visitor sources."
+      "description": "Goose Creek Memorial Patriots Football: sourced 2026 football ten-game scorecard and dated results, UIL historical milestones and school visitor links."
     },
     "schedule": {
       "label": "Goose Creek CISD first-party school/athletics resources",
@@ -102,12 +102,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The 2026–28 UIL alignment places GCM in 5A Division I District 9. Check current district schedules for the relevant season instead of carrying 2025 standings forward.",
         "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
         "sourceLabel": "Official 2026–28 UIL alignment"
+      },
+      {
+        "date": "2026",
+        "title": "2026 varsity results and forthcoming district fixtures",
+        "body": "The Patriots beat Baytown Lee 38–7 on September 4 and West Brook 35–28 on September 11; a 24–21 loss to Beaumont United on October 9 left the reported season at 3–4.",
+        "sourceUrl": "https://www.maxpreps.com/tx/baytown/goose-creek-memorial-patriots/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 published scores and matchups"
       }
     ],
     "overview": [
       "Goose Creek Memorial Patriots football represents a distinct Baytown high school founded in 2008. GCM is not Robert E. Lee High School or Ross S. Sterling High School, the district's other older comprehensive campuses.",
       "The 2025 varsity season archive records 7 wins and 4 losses, including games against fellow Goose Creek CISD campuses Sterling and Lee. The Patriots' next UIL realignment is 5A Division I District 9, so old 2025 standings should not be assumed to match 2026.",
-      "GCM's campus is 6001 E Wallisville Road, Baytown. District staff sources name JayMond Cleveland campus athletics coordinator, but that title alone does not verify the current head football coach. The school's own athletics link and district event calendar are the most appropriate starting points for schedules and game-specific locations."
+      "GCM's campus is 6001 E Wallisville Road, Baytown. District staff sources name JayMond Cleveland campus athletics coordinator, but that title alone does not verify the current head football coach. The school's own athletics link and district event calendar are the most appropriate starting points for schedules and game-specific locations.",
+      "Goose Creek Memorial's October 12 scoreboard lists a 3–4 record through the October 9 defeat to Beaumont United. The seven reported results include an early non-district win against Baytown Lee and a district victory over Beaumont West Brook, followed by four losses. The three remaining fixtures with New Caney, Lufkin and Ball are not assigned outcomes. Goose Creek CISD webpages had SSL errors for Supabase monitoring, so independently reported scorecards and UIL alignment documents are cross-referenced, not represented as school-verified live results."
     ],
     "faq": [
       {
@@ -121,6 +129,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Is Goose Creek Memorial the same team as Baytown Sterling or Lee?",
         "answer": "No. The Patriots are one of three separate Goose Creek CISD comprehensive high school football programs. Confirm the specific school's match venue."
+      },
+      {
+        "question": "Is the 2026 record on this page the team's current live record?",
+        "answer": "No. The reported win-loss record ends on the explicit checkpoint date from the source. Later games without documented results are listed as scheduled fixtures only, even if the date has passed."
+      },
+      {
+        "question": "How can fans verify the next game's location and admission rules?",
+        "answer": "Consult the relevant high school or district's official athletics schedule first. Third-party scorecard listings do not establish final stadium entrances, parking, accessibility, ticket prices or weather postponements."
       }
     ],
     "campus": {
@@ -129,6 +145,81 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://schools.gccisd.net/page/gcmhs.home/",
       "sourceLabel": "Goose Creek CISD official campus",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "3–4 through October 9, 2026 (MaxPreps)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/baytown/goose-creek-memorial-patriots/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity season snapshot; last confirmed game named in record",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Kingwood Park",
+          "site": "Away",
+          "district": false,
+          "result": "W 40-19"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Baytown Lee",
+          "site": "Home",
+          "district": false,
+          "result": "W 38-7"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "West Brook",
+          "site": "Home",
+          "district": true,
+          "result": "W 35-28"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "La Porte",
+          "site": "Away",
+          "district": true,
+          "result": "L 33-52"
+        },
+        {
+          "date": "2026-09-24",
+          "opponent": "Port Arthur Memorial",
+          "site": "Home",
+          "district": true,
+          "result": "L 0-23"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Sterling",
+          "site": "Away",
+          "district": true,
+          "result": "L 21-28"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Beaumont United",
+          "site": "Home",
+          "district": true,
+          "result": "L 21-24"
+        },
+        {
+          "date": "2026-10-17",
+          "opponent": "New Caney",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Lufkin",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Ball",
+          "site": "Away",
+          "district": true
+        }
+      ]
     }
   },
   "baytown-lee": {
@@ -139,7 +230,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Baytown Lee Ganders Football: UIL History, 2026 & Game-Day Guide",
-      "description": "Baytown Lee Ganders football: verified milestones, current UIL alignment, real school identity and stadium/visitor sources."
+      "description": "Baytown Lee Ganders Football: sourced 2026 football ten-game scorecard and dated results, UIL historical milestones and school visitor links."
     },
     "schedule": {
       "label": "Goose Creek CISD first-party school/athletics resources",
@@ -175,12 +266,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "Baytown Lee is in the 2026–28 UIL 5A Division II District 10 realignment, unlike both Goose Creek Memorial and Sterling in 5A Division I District 9.",
         "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
         "sourceLabel": "Official UIL 2026–28 alignment"
+      },
+      {
+        "date": "2026",
+        "title": "2026 varsity results and forthcoming district fixtures",
+        "body": "Lee's 2026 opening six reported games ended in losses, including an August 28 10–31 result against Baytown Sterling and an October 2 6–40 result at Nederland. Next results remain unconfirmed in this dated source.",
+        "sourceUrl": "https://www.maxpreps.com/tx/baytown/lee-ganders/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 published scores and matchups"
       }
     ],
     "overview": [
       "Robert E. Lee High School Ganders football has two historically documented UIL championship-game appearances. Both came in Class 4A against Lubbock in 1951 (14–12) and 1952 (12–7); UIL's record lists **zero state football championships** for Baytown Lee.",
       "The Lee campus is 1809 Market Street in Baytown. Goose Creek CISD maintains its athletic information and student-life pages, but the official pages differ on the campus athletics coordinator's name. Neither listing is proof of a 2026 varsity head-coach appointment. Current staff needs district confirmation.",
-      "The Ganders' 2026–28 UIL alignment is 5A Division II District 10. This differs from Baytown's Goose Creek Memorial Patriots and Sterling Rangers, and is a reason to avoid uncritically pooling the three Baytown teams' schedules or historical titles."
+      "The Ganders' 2026–28 UIL alignment is 5A Division II District 10. This differs from Baytown's Goose Creek Memorial Patriots and Sterling Rangers, and is a reason to avoid uncritically pooling the three Baytown teams' schedules or historical titles.",
+      "Baytown Lee's independently reported 2026 varsity calendar identifies a 0–6 opening through October 2. It distinguishes the Ganders' real late-2026 5A Division II fixtures from their 1951 and 1952 historical state-runner-up programs; modern Goose Creek Memorial and Sterling are separate district high schools. Games listed for October 15 onward carry no result in the October 7 source checkpoint, and Goose Creek CISD online sources were SSL-inaccessible to automated monitoring."
     ],
     "faq": [
       {
@@ -194,6 +293,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Is Baytown Lee in the same 2026 district as Sterling?",
         "answer": "No. Lee is 5A Division II District 10, while Sterling is 5A Division I District 9 in the 2026–28 UIL alignment."
+      },
+      {
+        "question": "Is the 2026 record on this page the team's current live record?",
+        "answer": "No. The reported win-loss record ends on the explicit checkpoint date from the source. Later games without documented results are listed as scheduled fixtures only, even if the date has passed."
+      },
+      {
+        "question": "How can fans verify the next game's location and admission rules?",
+        "answer": "Consult the relevant high school or district's official athletics schedule first. Third-party scorecard listings do not establish final stadium entrances, parking, accessibility, ticket prices or weather postponements."
       }
     ],
     "campus": {
@@ -202,6 +309,80 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://schools.gccisd.net/page/relhs.sl.athletics",
       "sourceLabel": "Goose Creek CISD official campus",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "0–6 through October 2, 2026 (MaxPreps Oct 7 snapshot)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/baytown/lee-ganders/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity season snapshot; last confirmed game named in record",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Sterling",
+          "site": "Home",
+          "district": false,
+          "result": "L 10-31"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Goose Creek Memorial",
+          "site": "Away",
+          "district": false,
+          "result": "L 7-38"
+        },
+        {
+          "date": "2026-09-10",
+          "opponent": "Eisenhower",
+          "site": "Home",
+          "district": false,
+          "result": "L 14-28"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Lumberton",
+          "site": "Away",
+          "district": false,
+          "result": "L 19-38"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Dayton",
+          "site": "Home",
+          "district": true,
+          "result": "L 20-41"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Nederland",
+          "site": "Away",
+          "district": true,
+          "result": "L 6-40"
+        },
+        {
+          "date": "2026-10-15",
+          "opponent": "Galena Park",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Santa Fe",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Port Neches-Groves",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Texas City",
+          "site": "Away",
+          "district": true
+        }
+      ]
     }
   },
   "baytown-sterling": {
@@ -212,7 +393,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Baytown Sterling Rangers Football: UIL History, 2026 & Game-Day Guide",
-      "description": "Baytown Sterling Rangers football: verified milestones, current UIL alignment, real school identity and stadium/visitor sources."
+      "description": "Baytown Sterling Rangers Football: sourced 2026 football ten-game scorecard and dated results, UIL historical milestones and school visitor links."
     },
     "schedule": {
       "label": "Goose Creek CISD first-party school/athletics resources",
@@ -248,12 +429,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "Beaumont ISD's 2025 report records United's 24–14 victory against Sterling, a context-specific historic game; do not reuse it as a 2026 result.",
         "sourceUrl": "https://www.bmtisd.com/departments/community-and-media-relations/news-archive/news-details/~board/2025-26-bisd-current-news/post/find-a-way-first-year-coach-leads-beaumont-united-to-historic-first-winning-season-and-playoff-return",
         "sourceLabel": "Official Beaumont ISD 2025 game report"
+      },
+      {
+        "date": "2026",
+        "title": "2026 varsity results and forthcoming district fixtures",
+        "body": "The Rangers defeated Baytown Lee 31–10 in the season opener and Goose Creek Memorial 28–21 on October 2; four more district games were listed but not yet reported in the captured source.",
+        "sourceUrl": "https://www.maxpreps.com/tx/baytown/sterling-rangers/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 published scores and matchups"
       }
     ],
     "overview": [
       "Baytown Sterling Rangers reached the Class 4A state football championship game in 1972. Their final ended with Odessa Permian winning 37–7. Official UIL histories do not credit the Sterling program with a state championship.",
       "The Rangers' own school materials prominently preserve the 'Spirit of Sterling' school song and blue-and-silver identity. These school-supplied traditions distinguish Sterling from nearby Baytown Lee Ganders and Goose Creek Memorial Patriots.",
-      "Sterling's campus is at 300 W Baker Road, Baytown, and its 2026–28 varsity UIL football alignment is 5A Division I District 9. A 2025 opponent result against Beaumont United is useful historical context only, not a current ticket or game-location guarantee."
+      "Sterling's campus is at 300 W Baker Road, Baytown, and its 2026–28 varsity UIL football alignment is 5A Division I District 9. A 2025 opponent result against Beaumont United is useful historical context only, not a current ticket or game-location guarantee.",
+      "Baytown Sterling's early October varsity scoreboard reports a 5–1 record after a 28–21 October 2 win over Goose Creek Memorial. The squad previously beat Lee in the Baytown rivalry, then New Caney and Ball in the district, losing only to Lufkin in six confirmed games. Four later district opponents were on the October 3 schedule but lack verified outcomes, including an October 8 trip to Beaumont West Brook; this is a dated snapshot and not a live 5–1 claim after October 2."
     ],
     "faq": [
       {
@@ -267,6 +456,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Where is Ross S. Sterling High School?",
         "answer": "The official campus address is 300 W Baker Road, Baytown, Texas. A varsity game may be at a different venue; use the current schedule."
+      },
+      {
+        "question": "Is the 2026 record on this page the team's current live record?",
+        "answer": "No. The reported win-loss record ends on the explicit checkpoint date from the source. Later games without documented results are listed as scheduled fixtures only, even if the date has passed."
+      },
+      {
+        "question": "How can fans verify the next game's location and admission rules?",
+        "answer": "Consult the relevant high school or district's official athletics schedule first. Third-party scorecard listings do not establish final stadium entrances, parking, accessibility, ticket prices or weather postponements."
       }
     ],
     "campus": {
@@ -275,6 +472,80 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://schools.gccisd.net/page/rsshs.home",
       "sourceLabel": "Goose Creek CISD official campus",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "5–1 through October 2, 2026 (MaxPreps Oct 3 snapshot)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/baytown/sterling-rangers/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity season snapshot; last confirmed game named in record",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Baytown Lee",
+          "site": "Away",
+          "district": false,
+          "result": "W 31-10"
+        },
+        {
+          "date": "2026-09-03",
+          "opponent": "Alvin",
+          "site": "Home",
+          "district": false,
+          "result": "W 41-10"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "New Caney",
+          "site": "Away",
+          "district": true,
+          "result": "W 28-27"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Lufkin",
+          "site": "Home",
+          "district": true,
+          "result": "L 14-35"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Ball",
+          "site": "Away",
+          "district": true,
+          "result": "W 43-20"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Goose Creek Memorial",
+          "site": "Home",
+          "district": true,
+          "result": "W 28-21"
+        },
+        {
+          "date": "2026-10-08",
+          "opponent": "West Brook",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "La Porte",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Port Arthur Memorial",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-11-05",
+          "opponent": "Beaumont United",
+          "site": "Home",
+          "district": true
+        }
+      ]
     }
   },
   "beaumont-united": {
@@ -285,7 +556,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Beaumont United Timberwolves Football: UIL History, 2026 & Game-Day Guide",
-      "description": "Beaumont United Timberwolves football: verified milestones, current UIL alignment, real school identity and stadium/visitor sources."
+      "description": "Beaumont United Timberwolves Football: sourced 2026 football ten-game scorecard and dated results, UIL historical milestones and school visitor links."
     },
     "schedule": {
       "label": "Beaumont ISD first-party school/athletics resources",
@@ -321,12 +592,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "UIL alignment lists United in 5A Division I District 9; previous 2025 postseason stories are not a basis to invent a championship.",
         "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
         "sourceLabel": "UIL 2026–28 conference placement"
+      },
+      {
+        "date": "2026",
+        "title": "2026 varsity results and forthcoming district fixtures",
+        "body": "A 39–14 win against Ball on October 2 preceded Beaumont United's 24–21 district road win at Goose Creek Memorial on October 9; the independent results list a 5–1 record.",
+        "sourceUrl": "https://www.maxpreps.com/tx/beaumont/beaumont-united-timberwolves/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 published scores and matchups"
       }
     ],
     "overview": [
       "Beaumont United Timberwolves football reached a historic milestone in fall 2025: Beaumont ISD identifies the 6–4 regular season under new head coach Drenard Williams as the school's first winning varsity football campaign, followed by a bi-district playoff appearance. Its 24–14 game against Baytown Sterling was important to that result.",
       "The school's campus is 3443 Fannett Road and its colors are maroon and gold, as the first-party school site verifies. Beaumont ISD lists Doggett Family Stadium as its major district football venue; the field is not at United's campus, and away/neutral game sites vary.",
-      "The annual Beaumont Bowl is a documented city football rivalry between the Timberwolves and West Brook Bruins; the first-party 2025 event notice describes the Oct. 24 game and tailgate, but does not establish the 2026 date. Beaumont ISD's published stadium rules call for online-only tickets and student ID/accompaniment requirements. Do not count United's separate basketball championships as football championships."
+      "The annual Beaumont Bowl is a documented city football rivalry between the Timberwolves and West Brook Bruins; the first-party 2025 event notice describes the Oct. 24 game and tailgate, but does not establish the 2026 date. Beaumont ISD's published stadium rules call for online-only tickets and student ID/accompaniment requirements. Do not count United's separate basketball championships as football championships.",
+      "Beaumont United's independent scorecard updated October 10 shows a 5–1 season through the October 9 24–21 victory at Goose Creek Memorial. Its only recorded defeat was an overtime district loss to New Caney, 18–25, on September 18. The four next listed district games against West Brook, La Porte, Port Arthur Memorial and Sterling have no outcomes yet. Beaumont ISD's official first-party athletics pages and Beaumont Bowl notices remain the sources for venue, admission and event changes."
     ],
     "faq": [
       {
@@ -340,6 +619,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Where should Timberwolves visitors buy game tickets?",
         "answer": "Beaumont ISD's published district stadium policy directs fans to online ticketing, with student ID and young-spectator rules. Check the game-specific venue and current policies."
+      },
+      {
+        "question": "Is the 2026 record on this page the team's current live record?",
+        "answer": "No. The reported win-loss record ends on the explicit checkpoint date from the source. Later games without documented results are listed as scheduled fixtures only, even if the date has passed."
+      },
+      {
+        "question": "How can fans verify the next game's location and admission rules?",
+        "answer": "Consult the relevant high school or district's official athletics schedule first. Third-party scorecard listings do not establish final stadium entrances, parking, accessibility, ticket prices or weather postponements."
       }
     ],
     "campus": {
@@ -363,6 +650,80 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "BISD stadium operational bulletin",
       "verifiedAt": "2026-10-10",
       "note": "District stadium for United and West Brook; check current game assignment, mobile ticketing, student ID and accessibility."
+    },
+    "season": {
+      "record": "5–1 through October 9, 2026 (MaxPreps)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/beaumont/beaumont-united-timberwolves/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity season snapshot; last confirmed game named in record",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Lumberton",
+          "site": "Away",
+          "district": false,
+          "result": "W 34-24"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Pasadena Memorial",
+          "site": "Home",
+          "district": false,
+          "result": "W 19-14"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "New Caney",
+          "site": "Home",
+          "district": true,
+          "result": "L 18-25 (OT)"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Lufkin",
+          "site": "Away",
+          "district": true,
+          "result": "W 62-27"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Ball",
+          "site": "Home",
+          "district": true,
+          "result": "W 39-14"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Goose Creek Memorial",
+          "site": "Away",
+          "district": true,
+          "result": "W 24-21"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "West Brook",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "La Porte",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Port Arthur Memorial",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-05",
+          "opponent": "Sterling",
+          "site": "Away",
+          "district": true
+        }
+      ]
     }
   },
   "beaumont-west-brook": {
@@ -1432,7 +1793,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Bay City Blackcats Football | UIL History, 2026 & Game-Day Guide",
-      "description": "Independent Bay City Blackcats football guide: source-verified history, 2026 UIL alignment, campus and stadium details, official athletics links."
+      "description": "Bay City Blackcats Football | UIL History, 2026 & Game-Day Guide: sourced 2026 football ten-game scorecard and dated results, UIL historical milestones and school visitor links."
     },
     "schedule": {
       "label": "Bay City Blackcats official football schedules and athletics",
@@ -1468,12 +1829,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The Blackcats returned to the Class 4A Division II state final the following season, finishing runner-up to Ennis 21–0; this was not a third championship.",
         "sourceUrl": "https://www.uiltexas.org/football/archives/P272",
         "sourceLabel": "UIL 2001–02 championship result"
+      },
+      {
+        "date": "2026",
+        "title": "2026 varsity results and forthcoming district fixtures",
+        "body": "Bay City's four reported consecutive wins after an opening Columbus loss included a 62–0 September 10 road result at Furr and a September 25 district victory over Royal 49–7.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bay-city/bay-city-blackcats/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 published scores and matchups"
       }
     ],
     "overview": [
       "Bay City Blackcats football has two UIL state championships. The 1983 Class 4A team went unbeaten under Ron Mills and shut out Lubbock Estacado 30–0. The 2000 Blackcats won 4A Division I over Denton Ryan 24–2; their 2001 appearance ended as runners-up to Ennis.",
       "Bay City ISD's athletics history separately lists Hilliard High School football championships in 1959 and 1966. Those cannot be retroactively counted as additional Bay City Blackcats program titles. The 2026–28 Blackcats classification is 4A Division I District 11 and is separate from historical 4A/5A archive labels.",
-      "For current trips, Bay City High School is at 400 7th Street, with district Memorial Stadium at the same published street address. The official varsity and JV/FR 2026 schedules are separate. The school sells GoFan mobile tickets and reports card purchase at the gate but no cash sales, unlike Bastrop ISD's online-only rule. The high school explicitly corrected older PO Box mailing information in October 2025."
+      "For current trips, Bay City High School is at 400 7th Street, with district Memorial Stadium at the same published street address. The official varsity and JV/FR 2026 schedules are separate. The school sells GoFan mobile tickets and reports card purchase at the gate but no cash sales, unlike Bastrop ISD's online-only rule. The high school explicitly corrected older PO Box mailing information in October 2025.",
+      "Bay City's September 28 MaxPreps schedule snapshot lists five 2026 results, a 4–1 start through September 25 with a 49–7 district win over Royal. It also lists five subsequent district opponents; October 2 Navasota and October 9 Sealy are NOT certified scores in the archived snapshot. This 2026 Blackcats table does not represent a live standings total; check Bay City ISD for changed games or stadium policies."
     ],
     "faq": [
       {
@@ -1487,6 +1856,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Can fans pay cash at Bay City home football games?",
         "answer": "The district's ticket page says mobile GoFan admission or card payment at the gate is available, but no cash tickets; confirm policy before the game."
+      },
+      {
+        "question": "Is the 2026 record on this page the team's current live record?",
+        "answer": "No. The reported win-loss record ends on the explicit checkpoint date from the source. Later games without documented results are listed as scheduled fixtures only, even if the date has passed."
+      },
+      {
+        "question": "How can fans verify the next game's location and admission rules?",
+        "answer": "Consult the relevant high school or district's official athletics schedule first. Third-party scorecard listings do not establish final stadium entrances, parking, accessibility, ticket prices or weather postponements."
       }
     ],
     "campus": {
@@ -1503,6 +1880,79 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "District Memorial Stadium",
       "verifiedAt": "2026-10-10",
       "note": "Official stadium location; consult district stadium rules, updated tickets, accessible entrances and parking before travel."
+    },
+    "season": {
+      "record": "4–1 through September 25, 2026 (MaxPreps Sept 28 schedule snapshot)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/bay-city/bay-city-blackcats/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity season snapshot; last confirmed game named in record",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Columbus",
+          "site": "Home",
+          "district": false,
+          "result": "L 19-34"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "La Marque",
+          "site": "Home",
+          "district": false,
+          "result": "W 27-13"
+        },
+        {
+          "date": "2026-09-10",
+          "opponent": "Furr",
+          "site": "Away",
+          "district": false,
+          "result": "W 62-0"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "West Orange-Stark",
+          "site": "Home",
+          "district": false,
+          "result": "W 18-7"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Royal",
+          "site": "Home",
+          "district": true,
+          "result": "W 49-7"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Navasota",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Sealy",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "El Campo",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Needville",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Columbia",
+          "site": "Away",
+          "district": true
+        }
+      ]
     }
   },
   "benjamin": {
