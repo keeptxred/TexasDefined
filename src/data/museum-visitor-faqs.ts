@@ -68,7 +68,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionEvidenceUrl": "https://www.tripadvisor.com/Attraction_Review-g60927-d199035-Reviews-Corpus_Christi_Museum_of_Science_and_History-Corpus_Christi_Texas.html",
       "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
-    },
+    }
   ],
   "port-isabel-historical-museum": [
     {
@@ -115,7 +115,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionEvidenceUrl": "https://portisabelhistory.com/",
       "reviewCycle": "quarterly",
       "reviewed": "2026-10-12"
-    },
+    }
   ],
   "historic-brownsville-museum": [
     {
@@ -171,7 +171,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionEvidenceUrl": "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
       "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
-    },
+    }
   ],
   "bullock-texas-state-history-museum": [
     {
