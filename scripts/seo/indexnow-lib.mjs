@@ -71,12 +71,15 @@ export async function fetchText(url, { fetchImpl = fetch, userAgent = 'IndexNowD
         redirect: 'follow',
         signal: AbortSignal.timeout(20_000),
       });
-      if (response.ok) return response.text();
+      if (response.ok) return await response.text();
       const problem = new Error(`${url} returned HTTP ${response.status}`);
-      if (![408, 429, 500, 502, 503, 504].includes(response.status)) throw problem;
+      if (![408, 429, 500, 502, 503, 504].includes(response.status)) {
+        problem.retryable = false;
+        throw problem;
+      }
       lastError = problem;
     } catch (error) {
-      if (error instanceof Error && /returned HTTP (?:40[0-79]|41[0-9]|42[0-8]|4[34][0-9])(?:\\s|$)/.test(error.message)) throw error;
+      if (error instanceof Error && error.retryable === false) throw error;
       lastError = error;
     }
     if (attempt < 3) await new Promise((resolve) => setTimeout(resolve, 1_500 * attempt));
