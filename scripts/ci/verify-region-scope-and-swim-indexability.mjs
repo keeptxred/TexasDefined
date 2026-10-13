@@ -2,7 +2,7 @@ import fs from 'node:fs';
 
 const origin = 'https://texasdefined.com';
 const regionSpecs = [
-  { id:'hill-country', title:'Hill Country', allowed:'enchanted-rock-state-natural-area', forbidden:['texas-state-aquarium','moody-gardens','houston-zoo','space-center-houston','palo-duro-canyon-state-park','big-bend-national-park'] },
+  { id:'hill-country', title:'Hill Country', allowed:'enchanted-rock-state-natural-area', forbidden:['texas-state-aquarium','moody-gardens','houston-zoo','space-center-houston','palo-duro-canyon-state-park','caprock-canyons-state-park','big-bend-national-park','guadalupe-mountains-national-park','dinosaur-valley-state-park','brazos-bend-state-park'] },
   { id:'gulf-coast', title:'Gulf Coast', allowed:'texas-state-aquarium', forbidden:['palo-duro-canyon-state-park','big-bend-national-park','enchanted-rock-state-natural-area'] },
   { id:'panhandle', title:'Panhandle Plains', allowed:'palo-duro-canyon-state-park', forbidden:['texas-state-aquarium','moody-gardens','big-bend-national-park'] },
   { id:'big-bend', title:'Big Bend Country', allowed:'big-bend-national-park', forbidden:['texas-state-aquarium','moody-gardens','palo-duro-canyon-state-park'] },
@@ -16,6 +16,24 @@ const destinationLinks = html => [...new Set([...html.matchAll(/<a\b[^>]*\bhref=
 const main = html => html.match(/<main\b[^>]*>[\s\S]*?<\/main>/i)?.[0];
 function sourceCheck(){
  const route=fs.readFileSync('src/routes/explore.region.$region.tsx','utf8');
+ const consistency=fs.readFileSync('src/data/destination-region-consistency.ts','utf8');
+ const destinationScope=fs.readFileSync('src/data/destination-query-scope.ts','utf8');
+ const destinationRuntime=fs.readFileSync('src/data/destination-query-runtime.ts','utf8');
+ for(const [slug,expectedRegion] of [
+  ['texas-state-aquarium','gulf-coast'], ['moody-gardens','gulf-coast'],
+  ['houston-zoo','gulf-coast'], ['space-center-houston','gulf-coast'],
+  ['palo-duro-canyon-state-park','panhandle'], ['caprock-canyons-state-park','panhandle'],
+  ['big-bend-national-park','big-bend'], ['guadalupe-mountains-national-park','big-bend'],
+  ['dinosaur-valley-state-park','prairies-lakes'], ['brazos-bend-state-park','gulf-coast'],
+ ]) {
+  if(!consistency.includes('"'+slug+'": "'+expectedRegion+'"'))failures.push('Canonical region mapping missing '+slug+' → '+expectedRegion);
+ }
+ if(!consistency.includes('isGeographicallyPlausibleForTravelRegion'))failures.push('Geographically impossible remote region memberships are not rejected');
+ if(!destinationScope.includes('destinations.map(correctDestinationTravelRegion)'))failures.push('Scoped regional lists missing canonical geography normalization');
+ if(!destinationScope.includes('isGeographicallyPlausibleForTravelRegion(destination, query.region)'))failures.push('Scoped regional lists missing geographic contradiction check');
+ if(!destinationRuntime.includes('improved.map(correctDestinationTravelRegion)'))failures.push('Merged destination catalog missing geographic corrections');
+ if(!destinationRuntime.includes('correctDestinationTravelRegion(applyResolvedHero(destination))'))failures.push('Destination detail resolver missing geographic corrections');
+
  const category=fs.readFileSync('src/routes/explore.$category.tsx','utf8');
  const staticAuthority=fs.readFileSync('public/content/explore-category-authority/swimming-holes-river-tubing.html','utf8');
  if(!route.includes('filterDestinationsByScope(loadedDestinations, { region: region.id })'))failures.push('Region route lacks strict final regional filter');
