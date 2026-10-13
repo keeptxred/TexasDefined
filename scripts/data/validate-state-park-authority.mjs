@@ -25,6 +25,7 @@ const availability = read("src/data/destination-availability.ts");
 const parkHeroes = read("src/data/state-park-hero-map.ts");
 const legacyExplore = read("src/data/fixtures/legacy-explore.ts");
 const legacyLakes = read("src/data/fixtures/legacy-lakes.ts");
+const sourceDirectory = JSON.parse(read("docs/state-parks/TPWD_OFFICIAL_90_SITE_INVENTORY_2026-10-12.json"));
 const failures = [];
 
 function assertContains(text, substring, what) {
@@ -34,7 +35,7 @@ for (const [content, needle, description] of [
   [authority, "isTexasStateParkDestination", "State-park classification must distinguish park properties from unrelated RV businesses"],
   [authority, "VERIFIED_PARK_FACILITIES", "Facility notes must cite park-specific TPWD sources"],
   [planner, "<StateParkVisitorEssentials destination={destination} />", "Destination template must display park-specific essentials"],
-  [essentials, "Park-specific facility verification pending", "Unknown facilities must not be represented as present"],
+  [essentials, "We do not infer restrooms, hookups, drinking water or accessibility", "Unknown facilities must not be represented as present"],
   [essentials, "Official park, parking and trails maps", "Every TPWD park must expose a park-map discovery route"],
   [essentials, "Fees, campsites and facility types", "Every TPWD park must expose official fees/facilities source"],
   [runtime, 'params.category === "state-parks"', "Explore State Parks must include parks from other topical categories"],
@@ -88,6 +89,26 @@ for (const marker of ["sourceCheckedAt: \"2026-10-12\"", "CC BY", "officialUrl: 
   assertContains(recovery, marker, `Recovery guides lack editorial provenance field: ${marker}`);
 }
 
+// Exact 2026-10-12 TPWD official listing includes 90 distinct sites; duplicate
+// Cooper, Lake Somerville and Ray Roberts units share parent park entries.
+const officialEntries = sourceDirectory.entries;
+const entrySlugs = officialEntries.map((entry) => entry.tpwdSlug);
+const specialStatuses = ["developing", "closed-to-general-visits", "visitor-center", "historic-site", "lodge", "guided-only"];
+if (officialEntries.length !== 90) failures.push(`Expected all 90 TPWD official entries; received ${officialEntries.length}`);
+if (new Set(entrySlugs).size !== entrySlugs.length) failures.push("Duplicate TPWD official park source slugs");
+if (officialEntries.filter((entry) => entry.status === "public-park").length !== 83) failures.push("Park inventory status mix unexpectedly changed: reconcile against current TPWD, never blindly relabel");
+for (const entry of officialEntries) {
+  if (!entry.officialUrl || entry.officialUrl !== `https://tpwd.texas.gov/state-parks/${entry.tpwdSlug}`) failures.push(`Wrong official park base URL for ${entry.tpwdSlug}`);
+  if (!entry.associatedPath?.startsWith("/destination/")) failures.push(`Missing actual or associated destination canonical path for ${entry.tpwdSlug}`);
+  if (entry.status !== "public-park" && !specialStatuses.includes(entry.status)) failures.push(`Untracked special-site status for ${entry.tpwdSlug}`);
+}
+for (const slug of ["albert-bessie-kronkosky-state-natural-area","powderhorn-state-park","wyler-aerial-tramway-state-park"]) {
+  assertContains(availability, `"${slug}"`, `Closed or undeveloped TPWD site must not appear as ordinary open park: ${slug}`);
+}
+const hillCountryPhoto = read("src/data/hill-country-state-natural-area-authority.ts");
+assertContains(hillCountryPhoto, "Larry D. Moore · CC BY 4.0", "Wikimedia user name must not be substituted for real photographer attribution");
+const countyLinks = read("src/data/state-park-county-index.ts");
+for (const county of ["stephens", "lee", "cooke"]) assertContains(countyLinks, `normalized === "${county}"`, `Missing secondary state-park county cross-link: ${county}`);
 const candidate = new Set();
 for (const src of [legacyExplore, legacyLakes]) {
   for (const line of src.split("\n")) {
