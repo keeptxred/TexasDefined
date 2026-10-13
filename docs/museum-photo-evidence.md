@@ -47,3 +47,5 @@ Photo metadata independently checked using Wikimedia Commons API imageinfo.extme
 - **Holocaust Museum Houston:** [Wikimedia Commons building exterior](https://commons.wikimedia.org/wiki/File:Holocaust_Museum_Houston_A.jpg), photographer WhisperToMe, CC0 1.0, photographed 2020. No institutional exhibit photographs have been copied without permission. The existing destination credit has been corrected with its actual public-domain dedication.
 
 - **San Antonio Museum of Art, former Lone Star Brewery:** [FirstLoneStarBrewery.JPG](https://commons.wikimedia.org/wiki/File:FirstLoneStarBrewery.JPG), Brownings, public-domain dedication by the photographer, photographed June 29, 2006. Retain historic-date alt/credit context; the building image is not evidence of the galleries' current installation or opening hours.
+
+- **Kimbell Art Museum, Fort Worth:** [Kimbell Art Museum Fort Worth 01.jpg](https://commons.wikimedia.org/wiki/File:Kimbell_Art_Museum_Fort_Worth_01.jpg), Andreas Praefcke, self-photographed October 2009, creator-dedicated **public domain**; exact Kimbell building exterior, not current galleries.
