@@ -96,7 +96,7 @@ export const dallasBlackHistoryDestinations: Destination[] = [
     managingAuthority: "City of Dallas Office of Arts and Culture",
     officialUrl: "https://dallasculture.org/cultural-venues/juanita-craft-house/",
     address: "2618 Warren Avenue, Dallas, TX 75215", sourceCheckedAt: checked,
-    accessibilityNotes: "As a restored historic house, circulation and accessible-tour provisions should be confirmed directly with its operator. Do not assume every original doorway or room is fully accessible.",
+    accessibilityNotes: "The 2025 Preservation Texas rehabilitation account documents widened or adjusted doorways and a newly accessible restroom in the adjacent Little House. Confirm the currently usable accessible tour route and accommodations with the museum before visiting.",
     directions: "Located in the Wheatley Place area of South Dallas. This is a residential neighborhood; respect driveways and neighboring properties.",
   },
   {
