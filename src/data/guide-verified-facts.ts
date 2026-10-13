@@ -63,6 +63,13 @@ export const verifiedGuideFactSets: Record<string, GuideVerifiedFact[]> = {
   ],
   "texas-ohv-guide": [
     {
+      label: "Eisenhower OHV trail status (time-sensitive)",
+      value: "CLOSED — TPWD states the OHV trails have been closed since September 30, 2026; hiking and biking trails remain open",
+      sourceUrl: "https://tpwd.texas.gov/state-parks/eisenhower",
+      checkedAt: CHECKED_AT,
+      context: "This is a dated operator notice, not a permanent closure. Check the park's current notice for any reopening before planning travel.",
+    },
+    {
       label: "Texas OHV program effective date",
       value: "January 1, 2006, following the 2005 legislative session",
       sourceUrl: "https://tpwd.texas.gov/state-parks/texas-off-highway-program",
