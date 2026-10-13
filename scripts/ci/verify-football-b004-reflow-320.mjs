@@ -33,7 +33,7 @@ const pathOut='artifacts/football-b004-reflow-320';await mkdir(pathOut,{recursiv
 const report={schema:'football-b004-wcag1410-reflow-proxy-v1',
  createdAt:new Date().toISOString(),testedCommit:process.env.PRODUCTION_COMMIT_SHA||process.env.GITHUB_SHA||null,
  method:'320 CSS-pixel rendered browser viewport, corresponding to CSS layout width at 400% zoom on a 1280px reference viewport. Not native GUI browser zoom; not an assistive-technology or manual WCAG certificate.',
- results:[],summary:{cases:0,passes:0,failures:0,axeViolationNodes:0,axeIncompleteNodes:0,recoveredTransient:0,cityReturnLinks:0,cityInboundLinks:0,fullScreenshots:0}};
+ results:[],summary:{cases:0,passes:0,failures:0,axeViolationNodes:0,axeIncompleteNodes:0,focusedContrastPasses:0,focusedContrastRemaining:0,focusedContrastViolations:0,recoveredTransient:0,cityReturnLinks:0,cityInboundLinks:0,fullScreenshots:0}};
 const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_BIN||'/usr/bin/google-chrome',
  args:['--no-sandbox','--disable-dev-shm-usage']});
 const context=await browser.newContext({viewport:{width:320,height:800},isMobile:false,hasTouch:false,deviceScaleFactor:1});
@@ -112,6 +112,49 @@ try{
    report.summary.axeViolationNodes+=violations;
    report.summary.axeIncompleteNodes+=row.axeIncompletes.reduce((a,x)=>a+x.count,0);
    if(violations)row.errors.push(violations+' confirmed axe violation nodes');
+
+   // Axe cannot infer the background of cells hidden within scrollable data
+   // tables. Move every original incomplete color-contrast node into view and
+   // demand a fresh axe PASS. Missing results are NOT proof of compliance.
+   const uncertain=scan.incomplete.filter(rule=>rule.id==='color-contrast')
+     .flatMap(rule=>rule.nodes.map(n=>({selector:String(n.target?.[0]||''),
+       reason:(n.failureSummary||'').slice(0,220)})));
+   row.focusedContrast=[];
+   for(const original of uncertain){
+     const finding={...original,result:'UNRESOLVED'};
+     row.focusedContrast.push(finding);
+     try{
+       const scrolled=await page.evaluate(selector=>{
+         const el=document.querySelector(selector);
+         if(!el)return {found:false};
+         el.scrollIntoView({block:'center',inline:'center',behavior:'instant'});
+         const r=el.getBoundingClientRect();
+         return {found:true,rect:{left:r.left,right:r.right,width:r.width,top:r.top,bottom:r.bottom}};
+       },finding.selector);
+       finding.scrolled=scrolled;
+       if(!scrolled.found){finding.result='ELEMENT_MISSING'}
+       else if(scrolled.rect.width<1||scrolled.rect.right<=0||scrolled.rect.left>=320)
+         finding.result='ELEMENT_OFFSCREEN_AFTER_SCROLL';
+       else{
+         const result=await page.evaluate(async selector=>{
+           const el=document.querySelector(selector);if(!el)return {passes:0,violations:0,incomplete:0};
+           const result=await window.axe.run(el,{
+             runOnly:{type:'rule',values:['color-contrast']},
+             resultTypes:['passes','violations','incomplete']});
+           const n=arr=>arr.filter(x=>x.id==='color-contrast').reduce((sum,x)=>sum+x.nodes.length,0);
+           return {passes:n(result.passes),violations:n(result.violations),incomplete:n(result.incomplete)};
+         },finding.selector);
+         finding.rescan=result;
+         finding.result=result.violations?'CONTRAST_VIOLATION':
+           result.incomplete?'INCOMPLETE_AFTER_SCROLL':
+           result.passes?'PASS_AFTER_SCROLL':'NO_VERIFIABLE_RESULT';
+       }
+     }catch(e){finding.result='RESCAN_ERROR';finding.error=String(e).slice(0,220)}
+     if(finding.result==='PASS_AFTER_SCROLL')report.summary.focusedContrastPasses++;
+     else if(finding.result==='CONTRAST_VIOLATION'){report.summary.focusedContrastViolations++;row.errors.push('confirmed focused contrast violation: '+finding.selector)}
+     else{report.summary.focusedContrastRemaining++;row.errors.push('unresolved focused contrast: '+finding.selector+' ('+finding.result+')')}
+   }
+
    // Sample keyboard focusability at the constrained width; separately,
    // real keyboard and screen reader acceptance still needs manual use.
    const first=page.locator('main a[href]:visible').first();
@@ -148,4 +191,6 @@ console.log('Batch004 320px reflow summary',JSON.stringify(report.summary));
 assert.equal(report.summary.cases,36,'Scope must cover 25 schools + 10 counties + Austin city');
 assert.equal(report.summary.cityInboundLinks,14,'14 Austin city inbound school links required');
 assert.equal(report.summary.cityReturnLinks,14,'14 Austin school return links required');
+assert.equal(report.summary.focusedContrastRemaining,0,'All initial incomplete color-contrast nodes must be resolved by scroll-to-visible rescans');
+assert.equal(report.summary.focusedContrastViolations,0,'No confirmed focus-rescan contrast violations permitted');
 assert.equal(report.summary.failures,0,'Reflow failures must be investigated, not marked accepted');
