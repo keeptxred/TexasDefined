@@ -42,6 +42,17 @@ const AUTHORITY_GUIDE_DESTINATION_SLUGS = new Set([
   SAM_HOUSTON_MUSEUM_SLUG,
   "whirlyball-hurst",
   "my-story-museum-crystal-city",
+  // Include live history destinations curated under other public categories.
+  "fort-davis-national-historic-site",
+  "san-jacinto-battleground",
+  "the-alamo",
+  "goliad-state-park",
+  "fort-lancaster",
+  "fort-griffin",
+  "fort-mckavett",
+  "washington-on-the-brazos",
+  "presidio-la-bahia",
+  "palo-alto-battlefield-national-historical-park",
 ]);
 
 const AREA_GROUPS: Array<{
@@ -104,7 +115,10 @@ function DestinationAreaGuideSection({ destination }: { destination: Destination
 
 export function DestinationRelationships({ destination, groups, regionName }: { destination: Destination; groups: DestinationRelationshipGroup[]; regionName?: string }) {
   const topAttractionRank = topTexasAttractionRank(destination.slug);
-  const hasExtendedAuthorityGuide = Boolean(destination.authorityGuide) && AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug);
+  const historicGuide = destination.category === "historic-sites" ||
+    ["goliad-state-park-and-historic-site", "san-jacinto-battleground-state-historic-site", "washington-on-the-brazos-state-historic-site"].includes(destination.slug);
+  const hasExtendedAuthorityGuide = Boolean(destination.authorityGuide) &&
+    (AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug) || historicGuide);
   const isWhirlyBall = destination.slug === WHIRLYBALL_SLUG;
   const hasCampingProfile = CAMPING_DESTINATION_SLUGS.has(destination.slug);
   const hasSamRayburnHouseContext = destination.slug === "sam-rayburn-house";
