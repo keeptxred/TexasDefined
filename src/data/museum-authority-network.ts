@@ -1046,6 +1046,73 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "el-paso-museum-of-art": {
+    name: "El Paso Museum of Art",
+    slug: "el-paso-museum-of-art",
+    county: "El Paso",
+    city: "El Paso",
+    reviewed: "2026-10-13",
+    topics: ["art", "borderlands", "family", "architecture"],
+    whyVisit: "El Paso Museum of Art is one of the most useful downtown El Paso stops for exploring art across the borderlands and the world without paying admission. Rather than a comprehensive artwork catalogue, this guide helps visitors choose between regional, American, European and changing temporary exhibitions and make an accessible museum visit amid downtown's cultural institutions.",
+    visitorStrategy: "The museum at One Arts Festival Plaza is always free. Regular hours: Wednesday–Saturday 10 a.m.–6 p.m., Sunday 11 a.m.–3 p.m.; closed Mondays, Tuesdays and major holidays. The downtown JPMorgan Chase, Mills and One Civic Center Plaza parking garages charge varying fees; metered street parking also exists. Admission may be free while the adjacent downtown garage is not. Allow 60–120 minutes for a selective visit, an independent estimate rather than an official time requirement.",
+    accessibility: "The operator says the museum is fully accessible, welcomes trained service animals and provides a free loaner wheelchair at the reception desk. Visitors with mobility, sensory or language needs can arrange accommodations at 915-212-0300 or EPMA-info@elpasotexas.gov. Specific gallery closures related to prior HVAC work and renovations should be reconfirmed; do not promise every historical gallery is open on a given date.",
+    familiesAndGroups: "EPMA is suitable for short intergenerational visits centered on one theme rather than every gallery. Its art school offers separately scheduled and sometimes paid classes for children ages 6–13 and workshops for teens and adults. Photographs without flash are generally allowed for personal use unless a work is marked otherwise; photoshoots require separate approval. Food and drink are barred in galleries, and the museum does not currently document an on-site full-service restaurant in its visitor guide.",
+    researchValue: "El Paso's downtown art museum brings together borderlands visual culture and global art. As of October 2026, the operator lists EPISD Creativity Through Our Eyes (August 22–October 25) and America, The Beautiful: Selections from the Zoe Diaz Collection (July 25, 2026–January 3, 2027). Treat these as temporary and verify before a trip; collection departments do not guarantee every artwork is on view.",
+    exhibits: [
+      { heading: "America, The Beautiful: Selections from the Zoe Diaz Collection (through January 3, 2027)", detail: "An exhibition on differing visions of American identity; a dated October 2026 example rather than a permanent feature." },
+      { heading: "EPISD Creativity Through Our Eyes (through October 25, 2026)", detail: "A temporary exhibition foregrounding local student art and regional creative education. Availability changes immediately after the closing date." },
+      { heading: "European and American collection selections", detail: "Artistic traditions spanning centuries offer a useful contrast to contemporary and borderlands work. Check which rooms and collection galleries are open on the visit date." },
+      { heading: "Modern and contemporary art with borderlands context", detail: "Use current works, exhibitions and installations to connect El Paso's cultural geography with national and international art traditions without claiming all works are simultaneously displayed." },
+    ],
+    routes: [
+      { label: "Free downtown art visit", steps: ["Start with the current exhibition map and any closure notices", "Select one changing exhibition and a contrasting permanent-collection gallery", "Take time in Arts Festival Plaza before visiting another downtown destination"] },
+      { label: "Family art and creativity", steps: ["Choose a small number of accessible galleries suited to the children's ages", "Discuss a work's colors, materials or subject instead of reading every label", "Investigate art-school classes separately; general free admission is not a class reservation"] },
+    ],
+    sources: [
+      { label: "EPMA official visitor information", url: "https://epma.art/visit", use: "Free entry, times, parking garages, service animals, photo permissions" },
+      { label: "EPMA exhibitions and news", url: "https://epma.art/", use: "Time-sensitive October 2026 shows and collection categories" },
+      { label: "EPMA classes and workshops", url: "https://epma.art/art-school/classes-and-registration", use: "Children's classes, tuition and workshop availability" },
+    ],
+    connections: [
+      { label: "El Paso County", href: "/county/el-paso", reason: "Connect downtown art with El Paso's cultural history and borderlands setting." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Compare galleries, science museums and heritage museums across Texas." },
+    ],
+  },
+  "arlington-museum-of-art": {
+    name: "Arlington Museum of Art",
+    slug: "arlington-museum-of-art",
+    county: "Tarrant",
+    city: "Arlington",
+    reviewed: "2026-10-13",
+    topics: ["art", "texas-culture", "family", "interactive"],
+    whyVisit: "The Arlington Museum of Art combines major ticketed exhibitions, changing regional stories, large immersive spaces and arts education in the city's Entertainment District. Its current home opened March 30, 2024, in the former convention center complex beside Esports Stadium Arlington, rather than the former downtown museum site. Check the subject, age suitability and ticket requirement for the specific show before planning a trip.",
+    visitorStrategy: "Current venue: 1200 Ballpark Way, Arlington. Through October 17, 2026, the published museum schedule is Tuesday–Friday 10 a.m.–5 p.m., closed Saturday through Monday; the website also has older generic listings with different weekend hours. After October 17, consult a dated current schedule rather than extrapolating. The closest City-managed lot west of the building charges $10 under published terms, and exhibition tickets have show-specific prices; AMA membership covers regular exhibition tickets according to the operator. Allow around 60–120 minutes for a chosen show, an independent estimate.",
+    accessibility: "AMA's visitor FAQ states all exhibition spaces occupy the main level and restrooms are wheelchair accessible. Accessible parking is available south of the building near the entrance, with a south-side loading area for car or tour-bus drop-off. Service animals are welcome; pets and emotional-support animals do not have the same access. Personal audio tours sometimes use QR codes and visitors need their own headphones. Benches are available in galleries.",
+    familiesAndGroups: "Children 15 and younger must stay with a guardian and follow the museum's no-touch gallery rules unless a display is explicitly interactive. Groups of ten or more may qualify for discounted tickets, while a guided group or school tour should be requested at least two weeks ahead. Groups over fifty should make advance arrangements; large bags have no monitored check. Food, bottled water and baby bottles cannot be consumed in exhibitions. The museum directs visitors to Entertainment District restaurants, not to a verified on-site full-service restaurant or cafeteria.",
+    researchValue: "The new AMA hosts changing ticketed exhibitions and immersive environments, so the current lineup matters more for trip planning than old examples. The 2026 World Cup-linked More Than a Match exhibition finished August 30, 2026 and should not be described as currently open. An Arlington 150: Stories of a Legacy exhibition is scheduled October 17, 2026–February 28, 2027; as of October 13 it is upcoming, not open. The museum also originated the MUMENTOUS homecoming-mums exhibition, which has toured elsewhere; distinguish institutional history from what is currently on view in Arlington.",
+    exhibits: [
+      { heading: "Immersive exhibition galleries", detail: "AMA operates large indoor immersive rooms; admission, subject and sensory intensity are specific to the current exhibition, not fixed permanent displays." },
+      { heading: "Arlington 150: Stories of a Legacy (scheduled October 17, 2026–February 28, 2027)", detail: "A future local-history exhibition at the time of this October 13 review. Do not tell visitors it is already open." },
+      { heading: "MUMENTOUS: The Upsizing of a Texas Tradition (touring work)", detail: "The institution created a multimedia exploration of Texas homecoming mums, but the exhibition has toured other cities and should not be assumed currently available at AMA." },
+      { heading: "Past World Cup art and map exhibitions (closed August 30, 2026)", detail: "Arlington's More Than a Match included art, historic maps and fan-culture interpretation. It has finished; reference it as past programming rather than a current visitor attraction." },
+    ],
+    routes: [
+      { label: "Ticketed 90-minute exhibition visit", steps: ["Check the current exhibition ticket page and dated opening calendar", "Plan the Ballpark Way parking lot or accessible arrival south of the building", "Allow time for the exhibit's interactive or audio-guide elements"] },
+      { label: "Arlington cultural-history afternoon", steps: ["Choose AMA only after confirming its current exhibition and ticket terms", "Read city and county connections for Arlington history and Texas high-school traditions", "Combine with nearby attractions in the Entertainment District only if schedules allow"] },
+    ],
+    sources: [
+      { label: "Arlington Museum of Art visitor information", url: "https://arlingtonmuseum.org/visitor-info", use: "Current dated hours, fee-bearing parking, tickets, tours and new location" },
+      { label: "Arlington Museum of Art detailed visitor FAQ", url: "https://arlingtonmuseum.org/plan-your-visit", use: "Accessibility, group sizes, food, photography and children rules" },
+      { label: "AMA exhibitions and scheduled Arlington 150", url: "https://arlingtonmuseum.org/", use: "Current events and approaching October 17 opening" },
+      { label: "City of Arlington official past World Cup exhibition", url: "https://www.arlingtontx.gov/News-Articles/2026/May/Arlington-Museum-of-Arts-More-Than-a-Match-Extended-Through-Aug.-30", use: "Confirm historic show closed August 30, 2026" },
+    ],
+    connections: [
+      { label: "Tarrant County", href: "/county/tarrant", reason: "Place the Entertainment District museum among Arlington cultural and history attractions." },
+      { label: "Dallas Museum of Art", href: "/destination/dallas-museum-of-art", reason: "Contrast rotating immersive/ticketed installations with a free global collection museum." },
+      { label: "Texas homecoming mums", href: "/topics/texas-homecoming-mums", reason: "Connect the MUMENTOUS touring exhibition to broader Texas homecoming traditions." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
@@ -1157,6 +1224,19 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     alt: "Houston Museum of Natural Science entrance in Hermann Park, photographed in 2012",
     width: 1600, height: 1200,
     credit: "Another Believer · CC BY-SA 3.0 · Wikimedia Commons · File:Houston Museum of Natural Science, entrance in 2012.JPG",
+  },
+
+  "el-paso-museum-of-art": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/El_Paso_Museum_of_Art_Migrant_Worker_Exhibit.jpg?width=1600",
+    alt: "An exhibition at El Paso Museum of Art photographed in 2015, showing the museum's gallery environment, not a current 2026 exhibit",
+    width: 1600, height: 900,
+    credit: "Wikimedia Commons contributor · CC BY-SA 4.0 · File:El Paso Museum of Art Migrant Worker Exhibit.jpg · historical 2015 gallery photograph",
+  },
+  "arlington-museum-of-art": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Richard_Greene_Linear_Park_%28Esports_Stadium_Arlington%29_%28cropped%29.jpg?width=1600",
+    alt: "Arlington Entertainment District's former convention center and Esports Stadium complex in 2020, before Arlington Museum of Art opened there in 2024",
+    width: 1600, height: 1117,
+    credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons · File:Richard Greene Linear Park (Esports Stadium Arlington) (cropped).jpg · Pbrks crop; not a museum entrance photo",
   },
 
 };
