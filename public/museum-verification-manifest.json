@@ -551,6 +551,34 @@
           "label": "Museum: exhibition updates"
         }
       ]
+    },
+    {
+      "path": "/destination/san-antonio-museum-of-art",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://www.samuseum.org/visit/",
+          "fetchUrl": "https://www.samuseum.org/visit/",
+          "label": "SAMA current hours, ticket and parking policy"
+        },
+        {
+          "sourceUrl": "https://www.samuseum.org/visit/restaurant/",
+          "fetchUrl": "https://www.samuseum.org/visit/restaurant/",
+          "label": "SAMA restaurant"
+        },
+        {
+          "sourceUrl": "https://www.samuseum.org/visit/tour/public-and-charter-schools/",
+          "fetchUrl": "https://www.samuseum.org/visit/tour/public-and-charter-schools/",
+          "label": "SAMA school and group programs"
+        },
+        {
+          "sourceUrl": "https://www.samuseum.org/",
+          "fetchUrl": "https://www.samuseum.org/",
+          "label": "SAMA current exhibitions"
+        }
+      ]
     }
   ]
 }
