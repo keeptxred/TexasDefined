@@ -141,6 +141,13 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     credit: "Susan Barnum · CC BY-SA 4.0 · Wikimedia Commons · File:Entrance to the El Paso Museum of Archaeology.jpg",
   },
 
+  "buffalo-soldiers-national-museum-houston": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Buffalo_Soldiers_National_Museum_entrance.jpg?width=1600",
+    alt: "The former Houston Light Guard Armory, home of the Buffalo Soldiers National Museum, photographed in 2024 before the current renovation closure",
+    width: 1600, height: 1067,
+    credit: "Kenneth C. Zirkel (Kzirkel) · CC BY 4.0 · Wikimedia Commons · File:Buffalo Soldiers National Museum entrance.jpg · photographed 2024",
+  },
+
 };
 
 /** Exact subject, attribution-cleared media may enhance discovery without importing every long museum dossier. */
