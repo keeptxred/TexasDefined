@@ -1,4 +1,4 @@
-import type { Article, ArticleBlock } from "../types";
+import type { Article } from "../types";
 /** Independent San Antonio heritage route, fact checked against official sources on October 12 2026. */
 export const historicSanAntonioHeritageRoadTripArticle: Article = {
   "id": "evergreen-historic-san-antonio-heritage-road-trip",
