@@ -22,7 +22,7 @@ export function HighIntentGuideEvidencePanel({ slug, blocks }: { slug: string; b
   const evidence = guideEvidenceFor(number);
   if (!evidence) return null;
 
-  return <section className="my-12 border-y-2 border-foreground py-8" aria-labelledby="guide-source-facts">
+  return <section className="my-12 border-y border-foreground py-8" aria-labelledby="guide-source-facts">
     <p className="eyebrow text-primary">Independent editorial research · sources last checked {evidence.reviewDate}</p>
     <h2 id="guide-source-facts" className="mt-3 font-display text-3xl sm:text-4xl">Facts you can verify</h2>
     <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These published figures are dated reference points, not live rates, permits, water conditions, campsite availability or road closures. Follow the individual primary source before traveling.</p>
