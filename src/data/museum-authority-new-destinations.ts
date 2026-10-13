@@ -8,6 +8,33 @@ import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
  * Witte's existing destination is adopted from the CityPASS expansion.
  */
 export const museumAuthorityDestinations: Destination[] = [
+  {
+    id: "museum-authority-johnny-nelson-katy-heritage",
+    brandId: "texasdefined",
+    slug: "johnny-nelson-katy-heritage-museum",
+    name: "Johnny Nelson Katy Heritage Museum",
+    summary: "Visit Katy's free agricultural-history museum to explore rice-farming equipment, early settlement photographs, antiques and Johnny Nelson's local preservation legacy. Includes practical advice for Heritage Park and the separate MKT depot.",
+    category: "historic-sites",
+    region: "gulf-coast",
+    nearestTown: "Katy",
+    county: "Fort Bend County",
+    coordinates: { lat: 29.785, lng: -95.822 },
+    hero: { src: DESTINATION_PHOTO_PLACEHOLDER, alt: "An exact-location rights-cleared photograph of Johnny Nelson Katy Heritage Museum has not yet been secured", width: 1600, height: 1067 },
+    bestSeason: "Year-round for indoor displays; spring and fall are more comfortable for the adjacent historic park.",
+    entryNote: "Admission is FREE. The City's current published schedule is Thursday–Saturday 10 a.m.–5 p.m., Sunday 11 a.m.–5 p.m. Closed on other regular weekdays. Call 281-574-8618 before special trips; holiday access may differ.",
+    highlights: ["Katy rice-farming implements and vintage machinery", "Historic local photographs and pioneer objects", "The museum's dedication to preservation founder Johnny Nelson", "Adjacent Heritage Park historic homes with separately scheduled tours"],
+    body: [
+      "Before modern Katy became a major part of west Houston's suburban landscape, rice farming, cattle ranching and railroads shaped the town. Johnny Nelson Katy Heritage Museum interprets that earlier economy with real machinery, agricultural tools, antiques and photographs contributed by local families.",
+      "The museum opened in 2002 and was later renamed for Johnny Nelson, whose work collecting and interpreting agricultural history helps preserve the city's connection to the rice fields and early commercial community. This is a compact traditional local-history museum, not a science discovery center or all-day children's attraction.",
+      "It sits beside Katy Heritage Park's historic homes, but those buildings have a separate tour schedule. The MKT Railroad Depot Museum is another institution altogether at 5615 First Street. Verify the current schedule for each site independently, especially if combining several in one afternoon."
+    ],
+    managingAuthority: "City of Katy",
+    officialUrl: "https://www.cityofkaty.com/visitors/museums",
+    address: "6002 George Bush Drive, Katy, TX 77493",
+    sourceCheckedAt: "2026-10-13",
+    accessibilityNotes: "Specific wheelchair, stroller and sensory-access arrangements are not detailed on the City museum page. Contact City museum staff at 281-574-8618 before visiting if these features matter.",
+  },
+
   ...cityPassDestinationExpansion.filter((destination) => destination.slug === "witte-museum"),
   {
     id: "museum-authority-1940-air-terminal-houston",
