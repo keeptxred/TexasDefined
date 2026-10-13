@@ -189,11 +189,11 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
       "lng": -94.756136
     },
     "hero": {
-      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Angelina_National_Forest%2C_Angelina_County%2C_Texas%2C_USA_%28November_2020%29.jpg?width=1600",
-      "alt": "Representative Angelina National Forest woodland; not a photograph of the specific SFA interpretive trail",
-      "width": 1600,
-      "height": 867,
-      "credit": "Representative regional forest landscape · William L. Farr · CC BY-SA 4.0"
+      "src": "https://research.fs.usda.gov/sites/default/files/2023-02/srs-sfaef-bridge.jpg",
+      "alt": "Wooden bridge along the Stephen F. Austin Experimental Forest interpretive trail at Jack Creek, photographed for the USDA Forest Service site",
+      "width": 1200,
+      "height": 800,
+      "credit": "USDA Forest Service, Southern Research Station · official SFA Experimental Forest trail photograph · U.S. government work; source: research.fs.usda.gov/srs/forestsandranges/locations/austin"
     },
     "bestSeason": "Year-round, especially spring and autumn for comfortable hiking; mosquitoes and humidity can be significant in summer.",
     "entryNote": "Day use only. The USDA Forest Service reports public trails open during daylight hours for foot and wheelchair traffic, with pets leashed. The 0.8-mile Jack Creek Loop offers a surfaced accessible route; the Management Loop is unpaved and more strenuous. The detailed official trail map calls it 1.5 miles, while the webpage describes 2.0 miles; navigate by the downloadable map and signs. Check posted forest orders, storm damage and path conditions.",
@@ -309,7 +309,12 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
         {
           "label": "USDA Forest Service Experimental Forest",
           "url": "https://research.fs.usda.gov/srs/forestsandranges/locations/austin",
-          "scope": "Primary operator or historical source for geography, ecology, visitor rules and interpretation"
+          "scope": "Primary operator or historical source for geography, ecology, visitor rules and interpretation",
+        },
+        {
+          "label": "USDA Forest Service original interpretive trail photography",
+          "url": "https://research.fs.usda.gov/srs/forestsandranges/locations/austin",
+          "scope": "Exact-location image of the Jack Creek interpretive trail's wooden bridge; agency-published image without a third-party credit on the official page"
         },
         {
           "label": "USDA detailed Stephen F. Austin Interpretive Trail map",
