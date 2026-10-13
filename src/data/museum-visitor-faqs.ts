@@ -1385,6 +1385,89 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "san-antonio-museum-of-art": [
+    {
+      "question": "When is San Antonio Museum of Art free to Bexar County residents?",
+      "answer": "Residents who can show Bexar County residency get free general admission Tuesday from 4 to 7 p.m. and on the second Sunday of each month from 10 a.m. to noon. Special exhibition surcharges may still apply, and nonresidents pay normal rates.",
+      "verificationUrl": "https://www.samuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much is admission to the San Antonio Museum of Art?",
+      "answer": "The museum's current standard price is $24 for adults and free for children aged twelve and younger, with published senior, military, student and SNAP discounts. The SNAP Museums for All rate is $3 per person for up to four qualifying family members, purchased onsite. Recheck before traveling.",
+      "verificationUrl": "https://www.samuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How late does SAMA stay open on Tuesdays and Fridays?",
+      "answer": "SAMA's galleries are open 10 a.m. to 7 p.m. on Tuesday and Friday, and 10 a.m. to 5 p.m. Wednesday, Thursday, Saturday and Sunday. It closes Mondays and various holidays. Tre Trattoria has a separate evening dining schedule.",
+      "verificationUrl": "https://www.samuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does San Antonio Museum of Art have a proper restaurant, not just a snack bar?",
+      "answer": "Yes. Tre Trattoria is a separately operated full-service Italian restaurant in the museum's historic Hops House overlooking the river. Its kitchen serves lunch and dinner and dining can continue after galleries close; use the Sculpture Garden or West Courtyard side entrance after museum hours.",
+      "verificationUrl": "https://www.samuseum.org/visit/restaurant/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/restaurant/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How does parking work at the San Antonio Museum of Art?",
+      "answer": "The public lot opposite the museum uses Metropolis vehicle registration and is not automatically free for nonmembers. Museum members have a separate complimentary parking registration program, and accessible spaces are provided. Guests can also approach by River Walk or VIA bus.",
+      "verificationUrl": "https://www.samuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I arrive at the San Antonio Museum of Art from the River Walk?",
+      "answer": "Yes. The museum sits on the Museum Reach of the San Antonio River Walk with access for GoRio river taxis. The operator describes approximately ten minutes' walking from the Pearl and roughly thirty minutes from central downtown hotels, depending on route and walking pace.",
+      "verificationUrl": "https://www.samuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are wheelchairs and service animals permitted inside SAMA?",
+      "answer": "The museum offers first-come loaner wheelchairs and lightweight cane-stools, and service animals are permitted. Pets are not allowed on the museum campus. Visitors who need a precise step-free route through the old brewery can call 210-978-8100.",
+      "verificationUrl": "https://www.samuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can Texas school groups visit SAMA for free?",
+      "answer": "The official school tour rules state that Texas students and the required chaperones generally receive free admission on a confirmed school booking. Docent tours last about 50 minutes and need at least two weeks' advance reservation, with one adult chaperone for every ten students and separate rules for commercial travel groups.",
+      "verificationUrl": "https://www.samuseum.org/visit/tour/public-and-charter-schools/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/tour/public-and-charter-schools/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which ancient art collections are highlights at San Antonio Museum of Art?",
+      "answer": "SAMA holds significant galleries devoted to ancient Mediterranean cultures alongside Asian and Latin American art. For short visits, choose a region and compare a few objects; no particular object is guaranteed to be on view at all times. Temporary Etruscan programming is scheduled to begin October 31, 2026.",
+      "verificationUrl": "https://www.samuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
