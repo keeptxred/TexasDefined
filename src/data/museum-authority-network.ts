@@ -304,6 +304,100 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "Texas science and industry", href: "/texas-science-technology-industry", reason: "Explore the role of energy in Texas industrial development." },
     ],
   },
+  "1940-air-terminal-museum-houston": {
+    name: "1940 Air Terminal Museum",
+    slug: "1940-air-terminal-museum-houston",
+    county: "Harris",
+    city: "Houston",
+    reviewed: "2026-10-12",
+    topics: ["aviation", "texas-history", "architecture"],
+    whyVisit: "The former 1940 Air Terminal Museum told Houston's commercial-aviation story inside Joseph Finger's Art Deco municipal airport terminal at Hobby Airport. Its significance survives the 2026 museum closure: the terminal building and historic aviation materials illuminate how Texas air travel grew before today's airports. This is now a historical reference guide, not a place to purchase museum admission.",
+    visitorStrategy: "CLOSED TO PUBLIC MUSEUM VISITS. The Houston Aeronautical Heritage Society states that its museum ceased operations effective March 2, 2026. Old hours and ticket pages remain online but are superseded by the closure. The Texas Historical Commission took a short-term lease in July to consider preservation; that does not establish reopening. Do not travel to the working airport expecting access to the building, hangar or collections.",
+    accessibility: "Public museum visitor routes, restroom access, parking and wheelchair arrangements are not operating during the closure. The terminal is on active airport property, and a historic site designation or preservation assessment is not permission to enter restricted airside locations. Contact the responsible institution before arranging any site-related accessibility request.",
+    familiesAndGroups: "The former museum offered galleries, a theater and observation of passing aircraft; none of those former programs should be recommended as currently accessible. Families and field-trip organizers should choose an independently operating Houston aviation destination. An exterior landmark view may not be available without authorization because the area is part of an active airport.",
+    researchValue: "The terminal opened September 28, 1940, served airline passengers into 1955, and reflects Houston's transition from small-airfield service to regional and international connections. Distinguish the protected 1940 building and its architectural history from the museum nonprofit, its dispersed or retained artifacts, and the separate Texas Historical Commission's assessment of future stewardship.",
+    exhibits: [
+      { heading: "Art Deco Houston Municipal Airport terminal", detail: "The restored terminal itself was the primary historic object: Joseph Finger's architecture expressed the confidence of early commercial air travel. View architectural photographs and the museum's historical account rather than promising entry." },
+      { heading: "North and South Wing collections (historical)", detail: "Earlier galleries covered Houston airline operators, models, uniforms, WASP history and business aviation. These are descriptions of the former museum interpretation, not claims that displays are still open or intact." },
+      { heading: "Carter Airmail Hangar and historic aircraft (historical)", detail: "The associated 1928 hangar and historic airplanes connected civil aviation with air-mail networks. All access to the hangar now requires separate authorized arrangements; do not infer it remains a public exhibit." },
+    ],
+    routes: [
+      { label: "Historical research from home", steps: ["Read the institution's current closure and historic-terminal pages", "Review the Texas Historical Commission museum and historic-site records", "Check for any new preservation or reopening announcement before planning travel"] },
+    ],
+    sources: [
+      { label: "Operator: current closure notice", url: "https://www.1940airterminal.org/", use: "Museum has ceased operations" },
+      { label: "Operator: 1940 terminal historical interpretation", url: "https://www.1940airterminal.org/houston-municipal-airport", use: "Architecture, galleries and aviation significance" },
+      { label: "Texas Historical Commission Atlas", url: "https://atlas.thc.texas.gov/Details/4200000902", use: "Institution's recorded place and legacy information" },
+    ],
+    connections: [
+      { label: "Harris County", href: "/county/harris", reason: "Connect the site to Houston's growth, airports and industrial development." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Choose an institution independently verified as open before making a museum outing." },
+    ],
+  },
+  "african-american-museum-dallas-fair-park": {
+    name: "African American Museum, Dallas",
+    slug: "african-american-museum-dallas-fair-park",
+    county: "Dallas",
+    city: "Dallas",
+    reviewed: "2026-10-12",
+    topics: ["african-american-history", "art", "civil-rights", "family"],
+    whyVisit: "The African American Museum in Dallas brings African American art and cultural history into the landmark Fair Park campus, connecting Texas stories with wider national and international struggles for representation and civil rights. Its temporary exhibitions, documentary photographs and historical interpretation reward a focused visit rather than a quick detour between rides or stadium events.",
+    visitorStrategy: "Find the museum at 3536 Grand Avenue within Dallas's Fair Park and usually enter through Gate 5. The operator lists Tuesday through Saturday, 10 a.m. to 5 p.m.; normal admission is free, but organized groups of more than ten must reserve and may pay a fee. During the 2026 State Fair or major Fair Park events, access and parking charges can differ from regular visitor conditions.",
+    accessibility: "The museum identifies wheelchair accessibility and subtitled content for its current Mandela exhibition. Visitors with mobility or sensory needs should check the latest entrance, drop-off and exhibition-specific arrangements before travel. DART's Fair Park station is a viable transit choice, but walking routes within the grounds should be planned by the person visiting.",
+    familiesAndGroups: "This is an excellent place for older children and teens ready for discussions about art, race, freedom and civil rights. The Mandela exhibition recommends ages eleven and older because some content can be emotionally intense. A museum visit is not a play-based children's museum experience; teachers should reserve organized groups ahead of time and choose the galleries appropriate to the students' ages.",
+    researchValue: "The institution's long-running work in collecting African American art, preserving documentary photography and interpreting Black life in Texas helps visitors understand voices often minimized in general state-history narratives. The Nelson Mandela exhibition is on view June 13 to November 1, 2026; separate historical exhibitions listed on the site may have ended and must not be called current.",
+    exhibits: [
+      { heading: "Mandela: The Official Exhibition (through November 1, 2026)", detail: "A time-limited exhibition with four immersive galleries traces Mandela's life, imprisonment, activism and presidency. Its suggested audience is eleven and older and admission is free for general visitors." },
+      { heading: "African American visual art and cultural interpretation", detail: "The institution presents permanent and rotating exhibitions exploring Black artistic traditions and experiences; check the current gallery roster rather than assuming past exhibitions remain on display." },
+      { heading: "Sepia photographic legacy (past exhibition and research context)", detail: "The 2026 exhibit on Sepia Magazine highlighted the museum's extraordinary photographic archive but ended in August. Its larger contribution remains an instructive example of preserving Black journalism and cultural memory." },
+    ],
+    routes: [
+      { label: "60–90-minute focused visit", steps: ["Enter Fair Park through the access gate given for today's event", "Choose the exhibition currently on view and read its age/content advisory", "Allow time to reflect on art and historical interpretation rather than rushing"] },
+      { label: "Dallas cultural-history outing", steps: ["Start at the African American Museum", "Explore nearby Fair Park architecture and public spaces independently", "Connect the museum themes to other existing Dallas history guides"] },
+    ],
+    sources: [
+      { label: "Museum: visiting and FAQ", url: "https://aamdallas.org/plan-your-visit/", use: "Hours, tickets, groups, gate and parking policies" },
+      { label: "Museum: Mandela exhibit plan", url: "https://aamdallas.org/nelson-mandela-exhibition-plan-your-visit/", use: "2026 exhibits, dates, duration, accessibility and suggested age" },
+      { label: "Museum: current and past exhibitions", url: "https://aamdallas.org/exhibits/", use: "Track changes to exhibition roster" },
+    ],
+    connections: [
+      { label: "Dallas County", href: "/county/dallas", reason: "Connect Fair Park to Dallas history and cultural institutions." },
+      { label: "Perot Museum", href: "/destination/perot-museum-nature-science-dallas", reason: "Another Dallas museum offering a very different family and learning experience." },
+    ],
+  },
+  "texas-forestry-museum-lufkin": {
+    name: "Texas Forestry Museum",
+    slug: "texas-forestry-museum-lufkin",
+    county: "Angelina",
+    city: "Lufkin",
+    reviewed: "2026-10-12",
+    topics: ["natural-history", "texas-history", "industry", "family"],
+    whyVisit: "The Texas Forestry Museum in Lufkin combines East Texas sawmill-town history, logging technology, working-forest interpretation and hands-on family learning. Its outdoor train display, forest trail and children's activities help visitors connect the state's timber economy to real landscapes rather than treating forestry as an abstract industry.",
+    visitorStrategy: "The museum is at 1905 Atkinson Drive in Lufkin. Its visitor page lists Monday through Saturday 10 a.m. to 5 p.m., closed major holidays, with free regular admission. Allow roughly one to two hours for galleries and children's activities, and add time for the 0.4-mile Urban Wildscape Trail when weather allows. School and adult-group tours require advance arrangements; some out-of-county adult tours have a fee.",
+    accessibility: "The museum specifically lists accessible restrooms, paved outdoor trail, ramps to the locomotive and Children's Wing and free sensory backpacks. Its grounds combine indoor and outdoor attractions, so visitors with wheelchairs, strollers or sensitivity to heat should plan the trail separately and confirm specific equipment or weather-dependent features with visitor services.",
+    familiesAndGroups: "Children can use scavenger hunts, a train table, sawmill-town play structures, lawn games and a nature playscape. Pre-K groups have different activities from older students, and formal tours can include a sawmill history wing, paper-mill room and outdoor railway. A gift shop and bottled water are advertised, while picnic tables are available outside; no full-service restaurant is established on the official visit page.",
+    researchValue: "The museum documents how logging, sawmill communities, rail transport, paper production and forest conservation transformed Angelina County and the wider Piney Woods. Visitors can ask how extractive industry changed forests and communities over time, and contrast that history with present-day sustainable forestry and recreational forest stewardship.",
+    exhibits: [
+      { heading: "Sawmill Town history", detail: "Exhibits explore the work and everyday lives behind the East Texas lumber boom, an essential complement to seeing only old machinery." },
+      { heading: "Outdoor train, depot and caboose", detail: "The historical railway equipment illustrates how logs and goods moved across the Piney Woods. A trail or a train exhibit may be weather-dependent, so treat outdoor access separately." },
+      { heading: "Paper Mill Room", detail: "The Southland paper-mill story shows how the wood-products economy diversified and how pulp manufacturing contributed to Lufkin's industries." },
+      { heading: "Children's Wing, Nature Playscape and Urban Wildscape Trail", detail: "Hands-on activity areas and a roughly 0.4-mile interpretive trail provide different ways for toddlers, schoolchildren and adults to learn about forest ecology." },
+    ],
+    routes: [
+      { label: "Family highlights in about an hour", steps: ["Explore the Children's Wing and sawmill-town stories", "Visit the train and caboose if outdoor conditions permit", "Use a scavenger hunt or hands-on exhibit"] },
+      { label: "Half-day forestry and history", steps: ["Read the sawmill and paper-mill galleries", "Visit the outdoor equipment and trail", "Pair the museum with Angelina County or Lufkin heritage material"] },
+    ],
+    sources: [
+      { label: "Museum: plan your visit", url: "https://www.treetexas.com/visit-us", use: "Address, hours, free admission, family amenities and accessibility" },
+      { label: "Museum: exhibit guide", url: "https://www.treetexas.com/exhibit", use: "Current indoor and outdoor attractions" },
+      { label: "Museum: tours and education", url: "https://www.treetexas.com/exhibits-1/paper-mill-room", use: "Group programming and sawmill/papermill interpretation" },
+    ],
+    connections: [
+      { label: "Angelina County", href: "/county/angelina", reason: "Read the timber and railroad story in wider Piney Woods context." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Compare industrial and natural-history museums across Texas." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
@@ -342,6 +436,25 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     width: 1600, height: 901,
     credit: "JJonahJackalope · CC BY-SA 4.0 · Wikimedia Commons · File:Texas Energy Museum, front entrance.jpg",
   },
+  "1940-air-terminal-museum-houston": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/1940_Air_Terminal_Museum.jpg?width=1024",
+    alt: "Art Deco historic 1940 Air Terminal Museum building on the west side of Houston Hobby Airport",
+    width: 1024, height: 768,
+    credit: "Mlickliter · CC BY-SA 3.0 · Wikimedia Commons · File:1940 Air Terminal Museum.jpg",
+  },
+  "african-american-museum-dallas-fair-park": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/African_American_Museum_August_2016_03.jpg?width=1600",
+    alt: "Exterior of the African American Museum at Fair Park in Dallas, photographed in 2016",
+    width: 1600, height: 1067,
+    credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons · File:African American Museum August 2016 03.jpg",
+  },
+  "texas-forestry-museum-lufkin": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas_Forestry_Museum%2C_Lufkin%2C_TX_IMG_8594.JPG?width=1600",
+    alt: "The Texas Forestry Museum building in Lufkin, Texas",
+    width: 1600, height: 1200,
+    credit: "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons · File:Texas Forestry Museum, Lufkin, TX IMG 8594.JPG",
+  },
+
 };
 
 /** Preserve the existing canonical destination and augment it; never duplicate a route. */
