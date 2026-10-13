@@ -1,0 +1,335 @@
+{
+  "schemaVersion": 1,
+  "description": "Production museum visitor-guide sources for the existing TexasDefined Supabase authority verification registry; no collection replicas.",
+  "museums": [
+    {
+      "path": "/destination/bullock-texas-state-history-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 6,
+      "sources": [
+        {
+          "sourceUrl": "https://www.thestoryoftexas.com/visit/exhibits/texas-history-gallery",
+          "fetchUrl": "https://www.thestoryoftexas.com/visit/exhibits/texas-history-gallery",
+          "label": "Bullock Museum — Texas History Galleries"
+        },
+        {
+          "sourceUrl": "https://tickets.thestoryoftexas.com/mainstore?vid=0",
+          "fetchUrl": "https://tickets.thestoryoftexas.com/mainstore?vid=0",
+          "label": "Bullock Museum — museum visit and ticketing"
+        },
+        {
+          "sourceUrl": "https://www.thestoryoftexas.com/",
+          "fetchUrl": "https://www.thestoryoftexas.com/",
+          "label": "Bullock Museum — official home"
+        },
+        {
+          "sourceUrl": "https://www.thestoryoftexas.com/visit",
+          "fetchUrl": "https://www.thestoryoftexas.com/visit",
+          "label": "FAQ verification: Is parking available at the Bullock Museum?"
+        },
+        {
+          "sourceUrl": "https://www.thestoryoftexas.com/visit/the-star-cafe",
+          "fetchUrl": "https://www.thestoryoftexas.com/visit/the-star-cafe",
+          "label": "Bullock official Star Cafe menu and operating hours"
+        }
+      ]
+    },
+    {
+      "path": "/destination/perot-museum-nature-science-dallas",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 7,
+      "sources": [
+        {
+          "sourceUrl": "https://www.perotmuseum.org/visit/faqs/",
+          "fetchUrl": "https://www.perotmuseum.org/visit/faqs/",
+          "label": "FAQ verification: When is the Perot Museum busiest with school groups?"
+        },
+        {
+          "sourceUrl": "https://www.perotmuseum.org/visit/accessibility/",
+          "fetchUrl": "https://www.perotmuseum.org/visit/accessibility/",
+          "label": "FAQ verification: Are there sensory accommodations at Perot?"
+        },
+        {
+          "sourceUrl": "https://www.perotmuseum.org/visit/",
+          "fetchUrl": "https://www.perotmuseum.org/visit/",
+          "label": "Perot Museum — visit"
+        },
+        {
+          "sourceUrl": "https://www.perotmuseum.org/tickets/",
+          "fetchUrl": "https://www.perotmuseum.org/tickets/",
+          "label": "Perot Museum — tickets"
+        },
+        {
+          "sourceUrl": "https://www.perotmuseum.org/education/field-trips/",
+          "fetchUrl": "https://www.perotmuseum.org/education/field-trips/",
+          "label": "Perot Museum — field trips"
+        }
+      ]
+    },
+    {
+      "path": "/destination/witte-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 6,
+      "sources": [
+        {
+          "sourceUrl": "https://www.wittemuseum.org/plan-your-visit/",
+          "fetchUrl": "https://www.wittemuseum.org/plan-your-visit/",
+          "label": "Witte Museum — visitor information"
+        },
+        {
+          "sourceUrl": "https://www.wittemuseum.org/exhibitions/",
+          "fetchUrl": "https://www.wittemuseum.org/exhibitions/",
+          "label": "Witte Museum — exhibitions"
+        },
+        {
+          "sourceUrl": "https://www.wittemuseum.org/exhibitions/the-witte-museum-100-years/",
+          "fetchUrl": "https://www.wittemuseum.org/exhibitions/the-witte-museum-100-years/",
+          "label": "Witte Museum — 100 Years"
+        }
+      ]
+    },
+    {
+      "path": "/destination/museum-of-the-big-bend-alpine",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 7,
+      "sources": [
+        {
+          "sourceUrl": "https://www.museumofthebigbend.com/visit/",
+          "fetchUrl": "https://www.museumofthebigbend.com/visit/",
+          "label": "Museum of the Big Bend — visit"
+        },
+        {
+          "sourceUrl": "https://www.museumofthebigbend.com/",
+          "fetchUrl": "https://www.museumofthebigbend.com/",
+          "label": "Museum of the Big Bend — institution"
+        },
+        {
+          "sourceUrl": "https://www.museumofthebigbend.com/exhibits/",
+          "fetchUrl": "https://www.museumofthebigbend.com/exhibits/",
+          "label": "Museum of the Big Bend — exhibitions"
+        }
+      ]
+    },
+    {
+      "path": "/destination/panhandle-plains-historical-museum-canyon",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 7,
+      "sources": [
+        {
+          "sourceUrl": "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates",
+          "fetchUrl": "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates",
+          "label": "PPHM — temporary-closure updates"
+        },
+        {
+          "sourceUrl": "https://www.panhandleplains.org/",
+          "fetchUrl": "https://www.panhandleplains.org/",
+          "label": "Panhandle-Plains Historical Museum"
+        }
+      ]
+    },
+    {
+      "path": "/destination/george-ranch-historical-park",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://www.georgeranch.org/visit/faq/",
+          "fetchUrl": "https://www.georgeranch.org/visit/faq/?texasdefined_check=1",
+          "label": "The George Ranch — FAQ"
+        },
+        {
+          "sourceUrl": "https://www.georgeranch.org/visit/accessibility/",
+          "fetchUrl": "https://www.georgeranch.org/visit/accessibility/",
+          "label": "FAQ verification: Can someone using a wheelchair explore the historic buildings and tram?"
+        },
+        {
+          "sourceUrl": "https://www.georgeranch.org/visit/hours-admissions-directions/",
+          "fetchUrl": "https://www.georgeranch.org/visit/hours-admissions-directions/?texasdefined_check=1",
+          "label": "The George Ranch — admission and directions"
+        },
+        {
+          "sourceUrl": "https://www.georgeranch.org/visit/group-tours/",
+          "fetchUrl": "https://www.georgeranch.org/visit/group-tours/?texasdefined_check=1",
+          "label": "The George Ranch — group tours"
+        }
+      ]
+    },
+    {
+      "path": "/destination/texas-maritime-museum-rockport",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 6,
+      "sources": [
+        {
+          "sourceUrl": "https://texasmaritimemuseum.org/",
+          "fetchUrl": "https://texasmaritimemuseum.org/",
+          "label": "Texas Maritime Museum — official exhibitions and visitor information"
+        },
+        {
+          "sourceUrl": "https://texasmaritimemuseum.org/museum-education-department/",
+          "fetchUrl": "https://texasmaritimemuseum.org/museum-education-department/",
+          "label": "Texas Maritime Museum — education"
+        },
+        {
+          "sourceUrl": "https://texasmaritimemuseum.org/exhibits/",
+          "fetchUrl": "https://texasmaritimemuseum.org/exhibits/",
+          "label": "Texas Maritime Museum — exhibitions"
+        }
+      ]
+    },
+    {
+      "path": "/destination/national-museum-pacific-war",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 7,
+      "sources": [
+        {
+          "sourceUrl": "https://www.pacificwarmuseum.org/visit",
+          "fetchUrl": "https://www.pacificwarmuseum.org/visit",
+          "label": "National Museum of the Pacific War — visit"
+        },
+        {
+          "sourceUrl": "https://www.pacificwarmuseum.org/purchase-tickets",
+          "fetchUrl": "https://www.pacificwarmuseum.org/purchase-tickets",
+          "label": "FAQ verification: Are the Japanese Garden of Peace and Memorial Courtyard free?"
+        },
+        {
+          "sourceUrl": "https://www.pacificwarmuseum.org/visit/accessibility-covid-guidelines",
+          "fetchUrl": "https://www.pacificwarmuseum.org/visit/accessibility-covid-guidelines",
+          "label": "FAQ verification: Can we eat in the Pacific War museum galleries?"
+        },
+        {
+          "sourceUrl": "https://www.pacificwarmuseum.org/visit/exhibits",
+          "fetchUrl": "https://www.pacificwarmuseum.org/visit/exhibits",
+          "label": "National Museum of the Pacific War — exhibitions"
+        },
+        {
+          "sourceUrl": "https://www.pacificwarmuseum.org/visit/ticket-prices",
+          "fetchUrl": "https://www.pacificwarmuseum.org/visit/ticket-prices",
+          "label": "National Museum of the Pacific War — tickets"
+        }
+      ]
+    },
+    {
+      "path": "/destination/frontier-texas",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 7,
+      "sources": [
+        {
+          "sourceUrl": "https://www.frontiertexas.com/visit/",
+          "fetchUrl": "https://www.frontiertexas.com/visit/",
+          "label": "Frontier Texas! — visitor information"
+        },
+        {
+          "sourceUrl": "https://www.frontiertexas.com/",
+          "fetchUrl": "https://www.frontiertexas.com/",
+          "label": "Frontier Texas! — official museum"
+        },
+        {
+          "sourceUrl": "https://www.frontiertexas.com/museum-updates/",
+          "fetchUrl": "https://www.frontiertexas.com/museum-updates/",
+          "label": "FAQ verification: Is Frontier Texas! open while the expansion work continues?"
+        }
+      ]
+    },
+    {
+      "path": "/destination/texas-energy-museum-beaumont",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 6,
+      "sources": [
+        {
+          "sourceUrl": "https://www.texasenergymuseum.org/visit1.html",
+          "fetchUrl": "https://www.texasenergymuseum.org/visit1.html",
+          "label": "Texas Energy Museum — visit"
+        },
+        {
+          "sourceUrl": "https://www.texasenergymuseum.org/",
+          "fetchUrl": "https://www.texasenergymuseum.org/",
+          "label": "Texas Energy Museum — official institution"
+        }
+      ]
+    },
+    {
+      "path": "/destination/1940-air-terminal-museum-houston",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 6,
+      "sources": [
+        {
+          "sourceUrl": "https://www.1940airterminal.org/",
+          "fetchUrl": "https://www.1940airterminal.org/",
+          "label": "Operator: current closure notice"
+        },
+        {
+          "sourceUrl": "https://www.1940airterminal.org/news/hahs-letter-to-city-of-houston-amp-thc",
+          "fetchUrl": "https://www.1940airterminal.org/news/hahs-letter-to-city-of-houston-amp-thc",
+          "label": "FAQ verification: Why did the 1940 Air Terminal Museum close in 2026?"
+        },
+        {
+          "sourceUrl": "https://www.1940airterminal.org/houston-municipal-airport",
+          "fetchUrl": "https://www.1940airterminal.org/houston-municipal-airport",
+          "label": "Operator: 1940 terminal historical interpretation"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/4200000902",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/4200000902",
+          "label": "Texas Historical Commission Atlas"
+        }
+      ]
+    },
+    {
+      "path": "/destination/african-american-museum-dallas-fair-park",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://aamdallas.org/plan-your-visit/",
+          "fetchUrl": "https://aamdallas.org/plan-your-visit/",
+          "label": "Museum: visiting and FAQ"
+        },
+        {
+          "sourceUrl": "https://aamdallas.org/nelson-mandela-exhibition-plan-your-visit/",
+          "fetchUrl": "https://aamdallas.org/nelson-mandela-exhibition-plan-your-visit/",
+          "label": "Museum: Mandela exhibit plan"
+        },
+        {
+          "sourceUrl": "https://aamdallas.org/exhibits/",
+          "fetchUrl": "https://aamdallas.org/exhibits/",
+          "label": "Museum: current and past exhibitions"
+        }
+      ]
+    },
+    {
+      "path": "/destination/texas-forestry-museum-lufkin",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.treetexas.com/visit-us",
+          "fetchUrl": "https://www.treetexas.com/visit-us",
+          "label": "Museum: plan your visit"
+        },
+        {
+          "sourceUrl": "https://www.treetexas.com/exhibit",
+          "fetchUrl": "https://www.treetexas.com/exhibit",
+          "label": "Museum: exhibit guide"
+        },
+        {
+          "sourceUrl": "https://www.treetexas.com/exhibits-1/paper-mill-room",
+          "fetchUrl": "https://www.treetexas.com/exhibits-1/paper-mill-room",
+          "label": "Museum: tours and education"
+        }
+      ]
+    }
+  ]
+}

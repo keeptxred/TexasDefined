@@ -12,6 +12,7 @@ const UNAVAILABLE_DESTINATION_SLUGS = new Set([
   "davis-hill-state-park",
   "battleship-texas",
   "battleship-texas-state-historic-site",
+  "1940-air-terminal-museum-houston", // closed March 2026; historic reference page remains accessible
 ]);
 
 /**
