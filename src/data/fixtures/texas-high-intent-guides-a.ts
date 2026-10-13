@@ -388,15 +388,15 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
       },
       {
         "title": "Lake Casa Blanca International State Park — South Texas option",
-        "advice": "Lake Casa Blanca sits by Laredo and offers a practical public-park setting for South Texas visitors who want lake recreation without traveling to the Hill Country. Hot weather makes timing, hydration and shade important. Lake and facility conditions can vary, so plan a legal swimming area, confirm park operating notices and keep an alternative picnic or short outing available if the water does not look suitable."
+        "advice": "Lake Casa Blanca sits within Laredo, and TPWD explicitly lists an actual park swimming area, alongside playgrounds, boating, fishing and picnicking. That specific park facility makes it a clearer family swim candidate than an unmarked reservoir shore. The park notes a roughly 1,680-acre lake, but its size does not certify water quality or conditions in the swim area. Heat makes hydration, shade and an earlier visit worthwhile. Confirm the designated swimming access, current alerts and a suitable second activity before travel."
       },
       {
         "title": "Bonham State Park — a smaller lake experience",
-        "advice": "Bonham State Park offers a smaller water setting, historic structures and trails near North Texas communities. It is useful for travelers who prefer a compact park outing to a broad, high-traffic reservoir. Do not assume that smaller water is automatically safer. Check whether swimming is currently allowed, identify the recommended park access and allow for weather or water-quality closures after heavy rain."
+        "advice": "Bonham State Park offers a compact 65-acre lake, swimming and paddling, and CCC-built features for a day out northeast of Dallas. TPWD lists swimming as an authorized activity and a 5-mph lake speed limit, useful contrasts with larger multiuse reservoirs. Smaller water is still not necessarily safer: check swimming access, today's water and weather notices, and the park's recommended location. Its short lakeside outing suits families who want trails and a picnic available if swimming conditions are unsuitable."
       },
       {
         "title": "Lake Meredith National Recreation Area — Panhandle water trip",
-        "advice": "Lake Meredith is unusual in a list dominated by central and eastern Texas: it brings major water recreation to the Panhandle. The National Park Service manages recreation areas around the reservoir, including Spring Canyon. Conditions can differ by access area and season. Verify the exact location, water level, recreation rules and roads; long distances and hot sun make improvising at a remote reservoir unwise."
+        "advice": "Lake Meredith offers Panhandle scenery, but NPS identifies Spring Canyon as the designated swimming area, distinct from arbitrary reservoir shorelines or motorboat launch ramps. Plan specifically for Spring Canyon, not the assumption that all of Lake Meredith is a swim beach. The NPS notes changing lake levels, shallow or submerged hazards, major winds and weather changes. Check the exact recreation area, swimming permissions and road conditions before making the drive; the national recreation area is not one interchangeable lakeshore access point."
       },
       {
         "title": "Lake Corpus Christi State Park — water recreation near Mathis",
