@@ -120,11 +120,11 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
     "picks": [
       {
         "title": "Round Top and Warrenton — destination antiques events",
-        "advice": "The Round Top–Warrenton corridor is a major Texas antiques destination especially around its seasonal show periods. It is a full regional experience involving different venues, fields, dealers and driving between sites, not just a single walkable storefront. Before traveling, confirm dates with the event organizers and identify the venues that match the category of goods you seek. Lodging, weather, parking and vehicle space for purchases deserve advance thought."
+        "advice": "The Round Top–Warrenton corridor is a major Texas antiques destination in seasonal show windows, not a single walkable storefront. Round Top's local show calendar currently lists October 15–November 1 for the 2026 Fall Antiques & Design Show, but individual dealers and venues may open on different days. The visitor guide distinguishes year-round shops from venues marked 'open only during the show.' Build a route around named fields and venues, and independently confirm each vendor's hours and admission instead of assuming the entire corridor opens at once. Reserve lodging early, allow vehicle space for purchases and use the current Round Top show schedule before traveling."
       },
       {
         "title": "Canton — First Monday Trade Days and large-scale hunting",
-        "advice": "Canton is known for First Monday Trade Days, a shopping event with broad flea-market, collectible, vintage and other merchandise rather than a conventional concentration of fine-antique storefronts. The scale is part of the appeal, but visitors need the actual event calendar and site logistics. Comfortable shoes, a plan for carrying finds and a meeting point for the group are more useful than an unsourced promise about which vendors will attend."
+        "advice": "Canton First Monday Trade Days is a large mixed flea, collectibles, vintage, furniture and crafts market, not merely a row of permanent fine-antique stores. The destination's official October 2026 calendar advertises the next market for October 29–November 1 and separately specifies parking at the West Gate's Yellow Lot; this is a dated example, not a promise of all future market dates, fees or vendor attendance. The important planning step is to confirm the exact Thursday–Sunday market session and current official map before travel. Wear comfortable shoes, bring a cart where permitted and agree on a group meeting point."
       },
       {
         "title": "Jefferson — historic streets with collectible browsing",
