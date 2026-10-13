@@ -607,6 +607,48 @@
         "https://www.newschannel10.com/2026/07/09/american-quarter-horse-hall-fame-museum-host-family-fun-day-saturday/",
         "https://atlas.thc.texas.gov/Details/4200000009"
       ]
+    },
+    "museum-of-fine-arts-houston": {
+      "name": "Museum of Fine Arts, Houston",
+      "operatorStrengths": [
+        "Official primary-source visitor and accessibility details",
+        "Specific admission or closure/reopening limitations and facility type"
+      ],
+      "openGaps": [
+        "Independent browser side-by-side comparison with all current operator visit FAQs for authority certification",
+        "On-device image and reciprocal navigation acceptance after deployment"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.mfah.org/visit",
+        "https://www.mfah.org/visit/admission-information",
+        "https://www.mfah.org/visit/visiting-guidelines",
+        "https://www.mfah.org/visit/accessibility-resources/"
+      ]
+    },
+    "art-museum-south-texas-corpus-christi": {
+      "name": "Art Museum of South Texas",
+      "operatorStrengths": [
+        "Official primary-source visitor and accessibility details",
+        "Specific admission or closure/reopening limitations and facility type"
+      ],
+      "openGaps": [
+        "Independent browser side-by-side comparison with all current operator visit FAQs for authority certification",
+        "On-device image and reciprocal navigation acceptance after deployment"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.artmuseumofsouthtexas.org/temporary-closure-update/",
+        "https://www.artmuseumofsouthtexas.org/free-admission-to-the-art-museum-of-south-texas-summer-2026/",
+        "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+        "https://www.artmuseumofsouthtexas.org/plan-your-visit/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
