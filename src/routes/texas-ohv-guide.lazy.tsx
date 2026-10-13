@@ -2,9 +2,10 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { stateParkHeroMap } from "@/data/state-park-hero-map";
 
-const governedGuideHero = stateParkHeroMap["eisenhower-state-park"];
 import { Container } from "@/components/layout/Container";
 import { GuideVerifiedFacts } from "@/components/editorial/GuideVerifiedFacts";
+
+const governedGuideHero = stateParkHeroMap["eisenhower-state-park"];
 
 const officialSources = [
   {
