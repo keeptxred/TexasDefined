@@ -3395,6 +3395,80 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "thinkery-austin-childrens-museum": [
+    {
+      "question": "How much is Thinkery general admission for babies, children and adults?",
+      "answer": "The Mueller museum's current general-admission price is $19.95 for visitors ages one year and older; babies under one are free, while members get ordinary admission without that ticket charge. Special programs, Baby Bloomers and eligibility-based discounts have different prices and rules.",
+      "verificationUrl": "https://thinkeryaustin.org/visit-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thinkeryaustin.org/guidelines/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What days is Thinkery in Austin open and how long does a visit take?",
+      "answer": "Thinkery lists Tuesday through Sunday, 10 a.m.–5 p.m., with Mondays closed outside special programs. The operator says families typically spend 1.5–2 hours exploring and advises allowing at least 90 minutes. Separate early morning Baby Bloomers sessions use different tickets.",
+      "verificationUrl": "https://thinkeryaustin.org/visit-us/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thinkeryaustin.org/guidelines/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should we park for Thinkery and is parking free?",
+      "answer": "The museum offers up to three hours of validated parking in designated McBee Street District and Simond garages during qualifying visits. Current parking instructions require a Metropolis account; verify the exact garage and redemption requirements before arriving. Metered street parking is another option.",
+      "verificationUrl": "https://thinkeryaustin.org/visit-us/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thinkeryaustin.org/guidelines/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can children be dropped off at Thinkery without an adult?",
+      "answer": "No. A guardian aged eighteen or older must accompany and supervise children throughout the galleries. Thinkery requires at least one supervising adult for every five children on the exhibit floor; museum staff do not serve as individual babysitters.",
+      "verificationUrl": "https://thinkeryaustin.org/guidelines/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thinkeryaustin.org/visit-us/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is there a café or can families bring snacks to Thinkery?",
+      "answer": "Outside food and drinks are allowed in the designated Snack Area, not inside the interactive exhibit galleries. The official visitor FAQ does not promise a full-service on-site restaurant; plan a meal or picnic separately in Mueller if your family needs more than a snack.",
+      "verificationUrl": "https://thinkeryaustin.org/guidelines/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thinkeryaustin.org/visit-us/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Thinkery suitable for toddlers and children sensitive to loud sounds or flashing lights?",
+      "answer": "Baby Bloomers is a separately scheduled program for the youngest visitors, and Fresh! Farmers Market is designed for early learners. Sound-reducing earmuffs and sensory aids are available in limited numbers. Light Lab includes a bright strobe effect in Frozen Shadows, so light-sensitive children may prefer other exhibits.",
+      "verificationUrl": "https://thinkeryaustin.org/museum-accessibility/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thinkeryaustin.org/exhibit/light-lab/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Thinkery offer wheelchair access and reduced or free admissions?",
+      "answer": "Thinkery's two Mueller floors are accessible by elevator, with a limited loaner wheelchair supply at Admissions. The museum also offers eligibility-based reduced admission and in-person ACM/ASTC reciprocal benefits; bring the required photo ID and membership or program documents. Some offers do not apply online.",
+      "verificationUrl": "https://thinkeryaustin.org/resources/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thinkeryaustin.org/museum-accessibility/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are Thinkery and Thinkery Del Valle the same destination?",
+      "answer": "No. The Meredith Learning Lab is at 1830 Simond Avenue in Austin's Mueller neighborhood. Thinkery also operates a separate Del Valle location with its own admission policies, audience and parking. Make sure you book tickets for the intended site rather than assuming one location's benefits apply to the other.",
+      "verificationUrl": "https://thinkeryaustin.org/visit-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thinkeryaustin.org/delvalle/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
