@@ -109,3 +109,10 @@ Both pages have explicit image placeholders pending rights-cleared exact-locatio
 ## El Paso Museum of Archaeology — source-cleared photo, October 13, 2026
 
 - Wikimedia Commons [Entrance to the El Paso Museum of Archaeology.jpg](https://commons.wikimedia.org/wiki/File:Entrance_to_the_El_Paso_Museum_of_Archaeology.jpg), **Susan Barnum, CC BY-SA 4.0**, photographed April 11, 2016. File original is 3264×2448 px; museum entrance pictured at the same museum, not a regional substitute. Attribution appears in the destination image credit. [License](https://creativecommons.org/licenses/by-sa/4.0/).
+
+## Authority expansion: October 13, 2026
+
+- **Buffalo Soldiers National Museum, Houston** — [Wikimedia Commons: museum entrance](https://commons.wikimedia.org/wiki/File:Buffalo_Soldiers_National_Museum_entrance.jpg), photograph by **Kenneth C. Zirkel**, taken February 2024, **CC BY 4.0**. Depicts the correct historic armory and museum entrance. Caption notes the photo predates the current renovation closure; a photograph is not evidence of open-now status.
+- **Brazos Valley Museum of Natural History, Bryan** — [Wikimedia Commons: museum exterior](https://commons.wikimedia.org/wiki/File:Brazos_valley_museum_of_natural_history.jpg), **Larry D. Moore** (Nv8200p), **CC BY 4.0**, taken February 2014. Wikimedia MediaWiki API was checked live for the license and author; credit appears on the museum hero. Do not reuse an image of the separate Brazos Valley African American Museum.
+- **The History Center, Diboll** — no rights-cleared exact-site photo established yet. The canonical route retains a clearly described placeholder. Do not substitute an unrelated railroad locomotive or archival image as a picture of the visitor center.
+- **Texas Broadcast Museum, Kilgore** — no rights-cleared exact-site photo established yet. Existing placeholder remains; contact institution or source an accurately identified, reusable photo of 416 E Main, not a generic broadcast studio.
