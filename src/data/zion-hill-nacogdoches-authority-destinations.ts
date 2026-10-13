@@ -209,11 +209,11 @@ export const zionHillNacogdochesAuthorityDestinations: Destination[] = [
       "lng": -94.6475
     },
     "hero": {
-      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Zion_Hill_Historic_District1_%281_of_1%29.jpg?width=1600",
-      "alt": "Zion Hill Historic District in Nacogdoches, a historically African American neighborhood associated with the 1914 Baptist church",
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Nacogdoches_August_2017_39_%28Zion_Hill_First_Baptist_Church%29.jpg?width=1600",
+      "alt": "Zion Hill First Baptist Church, the preserved 1914 white-painted wooden sanctuary in Nacogdoches, Texas",
       "width": 1600,
       "height": 1067,
-      "credit": "Renelibrary · CC BY-SA 4.0 · Wikimedia Commons · File:Zion Hill Historic District1 (1 of 1).jpg"
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons · File:Nacogdoches August 2017 39 (Zion Hill First Baptist Church).jpg"
     },
     "summary": "A restored 1914 Diedrich Rulfs-designed landmark and former home of one of Nacogdoches' oldest Black Baptist congregations, now offering free historic-site tours and community programming.",
     "address": "324 N. Lanana St., Nacogdoches, TX 75961",
