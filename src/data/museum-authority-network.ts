@@ -398,6 +398,82 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "amon-carter-museum-american-art-fort-worth": {
+    name: "Amon Carter Museum of American Art",
+    slug: "amon-carter-museum-american-art-fort-worth",
+    county: "Tarrant",
+    city: "Fort Worth",
+    reviewed: "2026-10-12",
+    topics: ["art", "photography", "family", "texas-history"],
+    whyVisit: "The Carter is one of Fort Worth's most accessible major art destinations because its permanent collection, rotating American-art exhibitions and galleries are all free to enter. Its scope goes far beyond cowboy paintings: western imagery, early and contemporary photography, landscapes, modernism and socially engaged American art let visitors see how the country has represented itself over time. The Fort Worth Cultural District setting makes it practical to combine with a second museum or a relaxed outdoor break.",
+    visitorStrategy: "The Carter is at 3501 Camp Bowie Boulevard in Fort Worth. Admission is free, including regular special exhibitions. Hours are Tuesday, Wednesday, Friday and Saturday 10 a.m.–5 p.m.; Thursday 10 a.m.–8 p.m.; Sunday noon–5 p.m.; closed Monday and several holidays. Its own parking lot is free, but Camp Bowie Boulevard construction in 2026 can affect approaches, so follow the official parking map rather than assuming the simplest turn is open. A selective gallery visit takes roughly 60–120 minutes by editorial estimate. Thursday evening can work for visitors who want more time outside a typical museum day.",
+    accessibility: "Both visitor entrances and all gallery floors have barrier-free access, with elevators, free first-come wheelchairs and strollers, accessible restrooms, and designated parking off Camp Bowie Boulevard or Lancaster Avenue. Sensory and accessibility resources include assistive listening, large-print labels, communication boards, tactile kits and arranged multisensory or ASL tours. A rear-pulled wagon is not allowed in galleries, though forward-pushed wagons are. These are substantive visit-planning options, not promises of a staff member on demand.",
+    familiesAndGroups: "The Carter supports families with children as young as infants, including a pop-up space that is not open every day, ARTivity Totes available at the information desk and scheduled toddler and school-age workshops. For a short family visit, choose two or three artworks and an age-appropriate activity, rather than attempting every gallery. Food service is a small, locally catered food cart near the shop—not a cafeteria or full-service restaurant—and eating in galleries is prohibited; outdoor tables and the plaza are options.",
+    researchValue: "The museum began with Amon G. Carter Sr.'s western art interests but interprets the larger history of American art through paintings, sculpture, prints and photographic holdings. Its changing 2026 schedule includes Re/Framed museum-wide collection rotations from October 10 into 2027, Georgia O'Keeffe and the Carter through September 2027 and The Statue of Liberty from Bartholdi to Warhol through January 3, 2027. Rotations mean exact works and rooms cannot be assumed permanent. Cite its exhibition page for the day of travel rather than promising a particular object is always displayed.",
+    exhibits: [
+      { heading: "American landscapes and the West", detail: "Historic western paintings, landscapes and bronzes provide one entry into how artists depicted expansion, land and national myths; interpret the images critically rather than treating them as a complete historical record." },
+      { heading: "Photography and American experience", detail: "The Carter's photographic holdings span different eras and genres, allowing visitors to connect city life, people and social changes with the history of photographic media. Gallery selection rotates." },
+      { heading: "Georgia O'Keeffe and the Carter (through September 2027)", detail: "The current exhibition combines O'Keeffe paintings and works on paper with letters and photographs exploring her relationships to the institution and American modernism." },
+      { heading: "Re/Framed (October 2026–April 2027)", detail: "This collection-wide series rotates artworks and curatorial perspectives; it is valuable on repeat visits precisely because the same walls may show different works." },
+      { heading: "Statue of Liberty from Bartholdi to Warhol (through January 3, 2027)", detail: "A temporary exhibition traces how the statue's image has changed in American visual culture since the late nineteenth century. Check which parts are open during the visit." },
+    ],
+    routes: [
+      { label: "Free 75-minute first visit", steps: ["Start with the gallery map and choose one American art theme", "Explore a photography or landscape gallery", "Check the current temporary-exhibition floor before finishing on the plaza"] },
+      { label: "Family visit with a break", steps: ["Borrow an ARTivity Tote or ask which children’s activities are available", "Spend a short period comparing two contrasting artworks", "Use the food cart or outdoor tables outside the galleries"] },
+      { label: "Fort Worth arts half-day", steps: ["Visit the Carter during its published hours", "Walk the Cultural District and choose one additional independent museum", "Return for a later exhibition rotation rather than attempting all collections in one outing"] },
+    ],
+    sources: [
+      { label: "Carter official plan your visit", url: "https://www.cartermuseum.org/plan-your-visit", use: "Admission, hours, transport, parking and visitor rules" },
+      { label: "Carter official FAQ", url: "https://www.cartermuseum.org/frequently-asked-questions", use: "Food cart and admission policy" },
+      { label: "Carter accessibility resources", url: "https://www.cartermuseum.org/plan-your-visit/accessibility", use: "Wheelchair, sensory, stroller and accessible tours" },
+      { label: "Carter current exhibitions", url: "https://www.cartermuseum.org/exhibitions", use: "Current exhibit dates and rotation" },
+      { label: "Carter 2026 Camp Bowie construction notice", url: "https://www.cartermuseum.org/camp-bowie-boulevard-construction", use: "Live access during roadworks" },
+    ],
+    connections: [
+      { label: "Tarrant County", href: "/county/tarrant", reason: "Fort Worth neighborhoods, art and cultural history in local context." },
+      { label: "Texas museum guide", href: "/explore/museums", reason: "Compare family art-museum options around Texas." },
+      { label: "Dallas Museum of Art", href: "/destination/dallas-museum-of-art", reason: "A larger global collection makes a useful counterpart to the Carter's American-art focus." },
+    ],
+  },
+  "dallas-museum-of-art": {
+    name: "Dallas Museum of Art",
+    slug: "dallas-museum-of-art",
+    county: "Dallas",
+    city: "Dallas",
+    reviewed: "2026-10-12",
+    topics: ["art", "family", "history", "architecture"],
+    whyVisit: "The Dallas Museum of Art has a global collection of more than 25,000 works from roughly 5,000 years and offers multiple visit experiences: a free first-time highlights tour, a family art outing or a deeper focus on African, Asian, Indigenous American, European or contemporary art. Because the institution is large, visitor value comes from selecting a route and understanding what may require reservations and paid special-exhibition entry—not from enumerating its thousands of holdings.",
+    visitorStrategy: "Enter at 1717 North Harwood in the Dallas Arts District. Regular gallery hours are Wednesday through Sunday, 11 a.m.–5 p.m.; closed Monday and Tuesday and key holidays. General admission is free, but everyone—including children—must obtain a free ticket or reservation. Special exhibitions may be ticketed. The underground museum garage is paid (the museum has advertised $25 for certain 2026 public programs, payable by card), and event-day rules can change. A practical selective visit takes around 90 minutes to two hours as an independent estimate. Museum entrance and cafe opening schedules should be checked separately.",
+    accessibility: "Public museum galleries, entrances and restrooms are wheelchair accessible. A limited supply of wheelchairs is available at the main north entrance, and accessible parking is designated on P1, P2 and P3 of the museum garage. Families and visitors needing ASL or other accommodations should contact access@dma.org ahead of time; some public programs need two to three weeks of advance notice. Service animals are permitted, but pets and emotional-support animals do not receive the same access.",
+    familiesAndGroups: "DMA provides family classes and seasonal activities, but children under twelve must be supervised by an adult, and everyone still needs a general-admission ticket. School groups of ten or more students require a separate program booking and advance payment; general public tickets are not a valid substitute. The DMA Cafe near the north entrance is a true café serving soups, salads, sandwiches and drinks, usually Wednesday through Sunday 11 a.m.–4 p.m., unlike a snack cart. Al Fresco on the plaza is a separately scheduled dessert and beverage counter. No food, drinks, bottles or snacks are allowed in the galleries.",
+    researchValue: "The museum's current autumn 2026 roster spans international perspectives, including The First Bauhaus Portfolio (through August 15, 2027), Sonia Boyce: One Hundred Ways to Love (through August 22, 2027), X Marks the Spot: Contemporary Screenprinting at Brand X Editions (through November 8, 2026), Paradise on Earth: Florals in Indian Textiles (through November 15, 2026), and ongoing global and contemporary galleries. Exhibition titles and dates change quickly, and some installations are not included with a general ticket. Use the current exhibition directory to confirm what is on view.",
+    exhibits: [
+      { heading: "Ancient and global collection galleries", detail: "The museum's breadth includes art from Africa, the Americas, Asia and Europe spanning millennia. Choose a region or a theme rather than promising that every historic artwork is on view." },
+      { heading: "X Marks the Spot: Contemporary Screenprinting (through November 8, 2026)", detail: "This temporary presentation explores contemporary printmaking through Brand X Editions; confirm whether ticketing differs from general gallery admission." },
+      { heading: "The First Bauhaus Portfolio (through August 15, 2027)", detail: "A presentation of early Bauhaus prints provides a focused way to understand modernist design and interwar artistic experiments." },
+      { heading: "Sonia Boyce: One Hundred Ways to Love (through August 22, 2027)", detail: "The installation brings a contemporary artist's perspective into the broader collection narrative; check its current gallery placement." },
+      { heading: "Paradise on Earth: Florals in Indian Textiles (through November 15, 2026)", detail: "Historic and decorative textile imagery offers a concise entry point for visitors interested in design, global material culture and floral representation." },
+    ],
+    routes: [
+      { label: "90-minute free-first visit", steps: ["Collect or show a free general-admission ticket", "Choose two contrasting art regions rather than trying every wing", "Finish with a current temporary display if it is included in your ticket"] },
+      { label: "Family art and cafe afternoon", steps: ["Check age-suitable museum events for the day", "Visit a short selection of accessible galleries without carrying snacks inside", "Use the DMA Cafe or plaza service when its current schedule confirms availability"] },
+      { label: "Dallas Arts District museum day", steps: ["Start with the DMA's permanent collection highlights", "Walk the neighboring Arts District and choose another museum with a different specialty", "Add the African American Museum at Fair Park on a separate route if the day's logistics permit"] },
+    ],
+    sources: [
+      { label: "DMA official visit rules", url: "https://dma.org/visit", use: "Ticket requirements, hours, school groups, basic access" },
+      { label: "DMA cafe and plaza service", url: "https://dma.org/visit/dma-cafe", use: "Actual food options and meal-service days" },
+      { label: "DMA gallery exhibitions", url: "https://dma.org/art/exhibitions", use: "Temporary and permanent exhibit roster" },
+      { label: "DMA accessibility resources", url: "https://dma.org/programs/access-programs", use: "Wheelchairs, accessible garage and services" },
+      { label: "DMA museum additional visitor information", url: "https://dma.org/visit/additional-info", use: "Family and historical notes, some outdated sections require caution" },
+    ],
+    connections: [
+      { label: "Dallas County", href: "/county/dallas", reason: "Dallas Arts District and nearby local cultural visits." },
+      { label: "African American Museum at Fair Park", href: "/destination/african-american-museum-dallas-fair-park", reason: "Compare complementary Black history and art interpretation at a different Dallas institution." },
+      { label: "Perot Museum of Nature and Science", href: "/destination/perot-museum-nature-science-dallas", reason: "Science-focused family learning as an alternative to an art-gallery visit." },
+      { label: "Amon Carter Museum", href: "/destination/amon-carter-museum-american-art-fort-worth", reason: "Independent free admission museum specializing in American art in nearby Fort Worth." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
@@ -473,5 +549,6 @@ export function enrichMuseumAuthority(destination: Destination): Destination {
     accessibilityNotes: destination.accessibilityNotes || dossier.accessibility,
     hero: isDestinationPhotoPlaceholder(destination.hero.src) && museumLicensedHeroes[destination.slug] ? museumLicensedHeroes[destination.slug] : destination.hero,
     body: [...destination.body, ...newText],
+    sourceCheckedAt: dossier.reviewed,
   };
 }
