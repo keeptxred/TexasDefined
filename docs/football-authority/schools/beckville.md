@@ -14,3 +14,8 @@ Official campus 169 N Washington Street, Beckville, TX 75631, school https://www
 
 ## Changes and remaining proof
 Original school-specific accent and SEO; 3 verified-date editorial milestones, three original school/program narratives, three FAQs, first-party links and correct campus identity, as well as concrete dispute disclosures. County links set explicitly rather than inferred from district or stadium. No unlicensed school photo, logo or promotional art used. Must still pass protected checks, merge and deploy, test mobile/desktop hydration, schema, canonical, county reciprocal paths, source-link quality and legal rights. Match day ticket/venue/ADA/coaching status may change. **Do not mark VERIFIED** until independent production browser QA. 
+
+## October 13, 2026 — dated varsity game-by-game authority checkpoint
+- Independently reviewed [MaxPreps 2026 varsity schedule](https://www.maxpreps.com/tx/beckville/beckville-bearcats/football/schedule/); **3–4 through Oct 9**, with **10** distinct reported date/opponent/home-away rows; unreported future results are intentionally blank. This is not a first-party ISD guarantee.
+- **School-specific discrepancy check:** Reported 26–42 loss at Pewitt October 9; not an extension of 2025 postseason.
+- Added an individually written explanatory paragraph, a dated 2026 milestone and two season-specific visitor FAQs. This release must pass protected CI, actual production deployment and exact-SHA desktop/mobile Chrome acceptance before calling the new fixture table live.

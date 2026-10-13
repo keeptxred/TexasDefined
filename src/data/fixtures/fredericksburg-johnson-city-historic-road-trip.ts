@@ -64,7 +64,7 @@ export const fredericksburgJohnsonCityHistoricRoadTripArticle: Article = {
       "description": "Organize the state park and federal LBJ Ranch districts."
     },
     {
-      "href": "/destination/lyndon-b-johnson-state-park-and-historic-site",
+      "href": "/destination/lyndon-b-johnson-state-park-historic-site",
       "label": "LBJ State Park and Sauer-Beckmann Farm",
       "description": "Living-history farm and the pickup location for free ranch driving permits."
     },

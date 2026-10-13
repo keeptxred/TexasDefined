@@ -15,3 +15,8 @@ Official campus 850 Schumann Road, Bellville, TX 77418, school https://bhs.bellv
 
 ## Changes and remaining proof
 Original school-specific accent and SEO; 4 verified-date editorial milestones, three original school/program narratives, three FAQs, first-party links and correct campus identity, as well as concrete dispute disclosures. County links set explicitly rather than inferred from district or stadium. No unlicensed school photo, logo or promotional art used. Must still pass protected checks, merge and deploy, test mobile/desktop hydration, schema, canonical, county reciprocal paths, source-link quality and legal rights. Match day ticket/venue/ADA/coaching status may change. **Do not mark VERIFIED** until independent production browser QA. Additional repair: the /county/austin school-card mapping previously listed Austin city (Travis County) school programs; this patch narrowly replaces those erroneous county links with Bellville while retaining separate city links.
+
+## October 13, 2026 — dated varsity game-by-game authority checkpoint
+- Independently reviewed [MaxPreps 2026 varsity schedule](https://www.maxpreps.com/tx/bellville/bellville-brahmas/football/schedule/); **3–3 through Oct 9**, with **10** distinct reported date/opponent/home-away rows; unreported future results are intentionally blank. This is not a first-party ISD guarantee.
+- **School-specific discrepancy check:** The Oct 9 Hitchcock 35–13 result is dated 2026 evidence, not 2023 runner-up history.
+- Added an individually written explanatory paragraph, a dated 2026 milestone and two season-specific visitor FAQs. This release must pass protected CI, actual production deployment and exact-SHA desktop/mobile Chrome acceptance before calling the new fixture table live.
