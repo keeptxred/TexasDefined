@@ -392,6 +392,47 @@
         "https://dma.org/art/exhibitions",
         "https://dma.org/visit/additional-info"
       ]
+    },
+    "amarillo-museum-of-art": {
+      "name": "Amarillo Museum of Art",
+      "operatorStrengths": [
+        "Direct visitor guide for actual visit rules, amenities, access and age needs",
+        "Dated exhibitions and educational source guidance"
+      ],
+      "openGaps": [
+        "Conduct independent full visitor-side comparison and browser accessibility audit after deploy",
+        "Certify authority only once every material visitor need has a reliable answer and images load correctly"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.amoa.org/visit",
+        "https://www.amoa.org/past-exhibitions",
+        "https://www.amoa.org/"
+      ]
+    },
+    "holocaust-museum-houston": {
+      "name": "Holocaust Museum Houston",
+      "operatorStrengths": [
+        "Direct visitor guide for actual visit rules, amenities, access and age needs",
+        "Dated exhibitions and educational source guidance"
+      ],
+      "openGaps": [
+        "Conduct independent full visitor-side comparison and browser accessibility audit after deploy",
+        "Certify authority only once every material visitor need has a reliable answer and images load correctly"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://hmh.org/visit",
+        "https://hmh.org/visit/accessibility/",
+        "https://hmh.org/visit/tour-and-photo-guidelines/",
+        "https://hmh.org/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
