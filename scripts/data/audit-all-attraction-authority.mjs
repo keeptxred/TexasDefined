@@ -71,8 +71,7 @@ for (const match of verified.matchAll(/^  "([a-z0-9-]+)": \{/gm)) record(match[1
 
 const raw = [...rows.values()].filter(row => row.originKinds.some(kind=>kind === "destination-record" || kind === "destination-curation"));
 const flags = [
-  ["authorityGuide", "needs-authority-assessment"],
-  ["visitorFacilities", "needs-parking-restroom-map-research"],
+  ["authorityGuide", "editorial-depth-and-visitor-decision-review"],
   ["county", "county-context-review"],
   ["hero", "image-license-review"],
   ["officialUrl", "operator-source-review"],
@@ -88,7 +87,7 @@ const knownTop25NotFound = topKeys.filter(slug=>!raw.some(x=>x.slug === slug));
 const issueCounts = Object.fromEntries(flags.map(([,issue])=>[issue,catalog.filter(row=>row.possibleGaps.includes(issue)).length]));
 const report = {
   generatedAt: reviewDate,
-  limitation: "Static TypeScript source inventory, not a live Supabase census or proof of on-site facility status. Composite records, dynamic overlays, and remote-only entries need separate verification; lack of a literal field is an investigation flag rather than confirmed absence.",
+  limitation: "Static TypeScript source inventory, not a live Supabase census or a claim that all pages lack authority. Composite records, dynamic overlays, and remote-only entries need separate verification. No blanket parking, restroom, maps, or itinerary requirements are imposed; investigate only questions relevant to that visitor experience.",
   sourceFilesInspected: files.length,
   destinationCandidates: catalog.length,
   top25AuthorityRegistryCount: topKeys.length,
