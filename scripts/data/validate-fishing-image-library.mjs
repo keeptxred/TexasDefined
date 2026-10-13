@@ -228,7 +228,7 @@ for (const slug of commonsLakeBlocks) {
   const start = files.library.indexOf(`  "${slug}": commonsLake(`);
   const end = files.library.indexOf("\n  ),", start);
   const block = files.library.slice(start, end > start ? end + 5 : start + 1600);
-  if (!block.includes("CC BY") && !block.includes("Public domain")) fail(`Commons lake image missing explicit reusable license: ${slug}`);
+  if (!block.includes("CC BY") && !block.includes("Public domain") && !block.includes("CC0 1.0")) fail(`Commons lake image missing explicit reusable license: ${slug}`);
 }
 
 for (const token of [
