@@ -282,6 +282,49 @@
         "https://www.treetexas.com/exhibit",
         "https://www.treetexas.com/exhibits-1/paper-mill-room"
       ]
+    },
+    "el-paso-museum-of-art": {
+      "name": "El Paso Museum of Art",
+      "operatorStrengths": [
+        "Museum's official visitor information, institution and interpretation resources",
+        "Independent first-party visitor FAQs, sensitive-content and accessibility questions"
+      ],
+      "openGaps": [
+        "Manual side-by-side visitor source comparison required before certifying superiority",
+        "Post-deployment browser, media license and contextual crosslink acceptance"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://epma.art/visit",
+        "https://epma.art/visit/tours",
+        "https://epma.art/art",
+        "https://epma.art/about"
+      ]
+    },
+    "texas-prison-museum-huntsville": {
+      "name": "Texas Prison Museum",
+      "operatorStrengths": [
+        "Museum's official visitor information, institution and interpretation resources",
+        "Independent first-party visitor FAQs, sensitive-content and accessibility questions"
+      ],
+      "openGaps": [
+        "Manual side-by-side visitor source comparison required before certifying superiority",
+        "Post-deployment browser, media license and contextual crosslink acceptance"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.txprisonmuseum.org/",
+        "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+        "https://www.txprisonmuseum.org/gift-shop",
+        "https://www.txprisonmuseum.org/about-us",
+        "https://atlas.thc.texas.gov/Details/4200000500"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
