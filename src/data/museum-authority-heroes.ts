@@ -156,6 +156,14 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     credit: "Larry D. Moore (Wikimedia user Nv8200p) · CC BY 4.0 · Wikimedia Commons · File:Brazos valley museum of natural history.jpg · photographed 2014",
   },
 
+
+  "the-history-center-diboll": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Southern_Pine_Lumber_Company_sawmills_near_Diboll%2C_Texas_in_1907.jpg?width=660",
+    alt: "Historical photograph of the Southern Pine Lumber Company sawmill and railcars near Diboll in 1907, from collections supplied by The History Center; this is not a photograph of today's visitor center",
+    width: 660, height: 402,
+    credit: "J. D. Cress, 1907 · public domain (US pre-1931 publication) · The History Center / Portal to Texas History · Wikimedia Commons · File:The Southern Pine Lumber Company sawmills near Diboll, Texas in 1907.jpg",
+  },
+
 };
 
 /** Exact subject, attribution-cleared media may enhance discovery without importing every long museum dossier. */
