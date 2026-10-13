@@ -17,6 +17,10 @@ const CURATED_PAIRINGS: Readonly<Record<string, readonly string[]>> = {
   "sour-lake-downtown-historic-district": ["sour-lake"],
   "downtown-bryan-historic-district": ["bryan", "carnegie-history-center-bryan", "queen-theatre-bryan"],
   "olivewood-cemetery": ["houston"],
+  "southern-pacific-passenger-depot-del-rio": ["del-rio","whitehead-memorial-museum"],
+  "bosque-river-bridge-meridian": ["meridian","meridian-state-park"],
+  "holland-hotel": ["alpine-downtown-historic-district","kokernot-field","alpine"],
+
   "natural-bridge-caverns": [
     "natural-bridge-wildlife-ranch",
     "guadalupe-river-state-park",
