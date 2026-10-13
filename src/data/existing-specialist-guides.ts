@@ -20,7 +20,7 @@ export const existingSpecialistGuides = [
   { to: "/texas-pests-guide", label: "Texas Home Pest Guide", topic: "Home & Garden", body: "Identification, seasonality and safer home management using verified sources." },
   { to: "/texas-pool-guide", label: "Texas Pool Ownership", topic: "Home & Garden", body: "Pool maintenance, weather, water and equipment questions for Texas owners." },
   { to: "/property-tax-guides", label: "Texas Property Tax Guide", topic: "Property Taxes", body: "Current exemption, appraisal, protest and payment reference hub." },
-  { to: "/texas-property-tax-protest-guide", label: "Texas Property Tax Protest", topic: "Property Taxes", body: "Protest process, documentation, official schedules and local variation." },
+  { to: "/do/property-tax-protest", label: "Texas Property Tax Protest", topic: "Property Taxes", body: "Protest process, documentation, official schedules and local variation." },
   { to: "/learn/over-65-property-tax-guide", label: "Over-65 Texas Property Tax", topic: "Property Taxes", body: "Eligibility, deadlines and relief for older homeowners." },
   { to: "/guides/citypass-texas", label: "Texas CityPASS", topic: "Visitor Planning", body: "A comparison of Dallas, Houston and San Antonio attraction ticket bundles." },
 ] as const;
