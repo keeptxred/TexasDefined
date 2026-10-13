@@ -115,7 +115,7 @@ export const dfwMuseumDestinations: Destination[] = [
       credit: "MacTheWikiman · Wikimedia Commons · CC BY-SA 4.0",
     },
     bestSeason: "Year-round indoor museum; plan the visit when you can give the galleries two to three unhurried hours.",
-    entryNote: "The museum is normally open 10 a.m.–5 p.m. except Tuesdays and recommends visitors be at least 12 because of the subject matter. Security screening is required; confirm current hours, closures and ticket options before arrival.",
+    entryNote: "Normally open 10 a.m.–5 p.m. except Tuesdays and holiday closures; permanent exhibition entrance closes 4 p.m. Recommended for ages 12 and over. Tickets from $19 adults, with discounts and separate timed Dimensions in Testimony reservations. Main public entrance 300 N. Houston Street, group tours enter on Ross; security and bag screening required.",
     highlights: ["Holocaust and Shoah galleries", "Human-rights history", "Survivor testimony", "Dallas West End location"],
     body: [
       "Dallas Holocaust and Human Rights Museum is organized around historical evidence, testimony and the choices individuals and institutions make under systems of persecution. Its permanent experience begins with the Holocaust and then broadens into human rights and American civic history, allowing visitors to connect a specific genocide with wider questions of law, responsibility and resistance.",
@@ -301,7 +301,7 @@ export const dfwMuseumDestinations: Destination[] = [
       credit: "Andreas Praefcke · Wikimedia Commons · CC BY 3.0",
     },
     bestSeason: "Year-round indoor family attraction; particularly useful during hot summer afternoons, winter weather or rainy days in Fort Worth.",
-    entryNote: "The museum is normally open Tuesday through Sunday. General visitor entry moved to the Omni Theater lobby on Lansford Lane in August 2026, so check the official plan-your-visit page for the current entrance, parking and ticket details.",
+    entryNote: "General public entrance: Lansford Lane/Omni Theater lobby (Gendy Street is for field-trip groups). Open Tuesday–Saturday 10 a.m.–5 p.m., Sunday noon–5 p.m.; closed Monday. Noble Planetarium and Cattle Raisers Museum are included in general admission; 8K Omni films require SEPARATE tickets. Use Western Heritage Garage via Gate 19, with paid parking.",
     highlights: ["Science and regional-history galleries", "TCU Children's Gallery", "Planetarium", "Omni Theater"],
     body: [
       "Fort Worth Museum of Science and History combines several kinds of family learning under one roof rather than operating as a narrowly specialized science center. Exhibits move between science, technology, local and regional history, and children's discovery, while the planetarium and Omni Theater add scheduled experiences that can shape how long a family stays.",
