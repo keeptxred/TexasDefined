@@ -119,7 +119,7 @@ if (officialEntries.filter((entry) => entry.status === "public-park").length !==
 // facilities/access/parking account for EVERY public park, not just the initial 15.
 // Intentionally count one main park per TPWD directory entry; independent
 // units remain detailed within the parent authority record.
-const trackedFacs = [...authority.matchAll(/^  "([a-z0-9-]+)": \\{$/gm)].map((match) => match[1]);
+const trackedFacs = [...authority.matchAll(/^  "([a-z0-9-]+)": \{$/gm)].map((match) => match[1]);
 if (trackedFacs.length !== 83 || new Set(trackedFacs).size !== 83) {
   failures.push(`Expected exactly 83 unique TPWD public park facility records, received ${trackedFacs.length} (${new Set(trackedFacs).size} unique)`);
 }
@@ -129,10 +129,10 @@ for (const entry of officialEntries.filter((item) => item.status === "public-par
   const recordMarker = `  "${canonicalSlug}": {`;
   const start = authority.indexOf(recordMarker);
   if (start < 0) { failures.push(`Official TPWD park lacks researched facility layer: ${canonicalSlug}`); continue; }
-  const nextRecord = authority.indexOf("\\n  \\"", start + recordMarker.length);
+  const nextRecord = authority.indexOf('\n  "', start + recordMarker.length);
   const section = authority.slice(start, nextRecord >= 0 ? nextRecord : authority.length);
   if (!section.includes('checkedAt: "2026-10-12"')) failures.push(`Missing dated facility source verification: ${canonicalSlug}`);
-  if (!/sourceUrl: "https:\\/\\/tpwd\\.texas\\.gov\\/state-parks\\//.test(section)) failures.push(`Missing actual official TPWD park-level source: ${canonicalSlug}`);
+  if (!/sourceUrl: "https:\/\/tpwd\.texas\.gov\/state-parks\//.test(section)) failures.push(`Missing actual official TPWD park-level source: ${canonicalSlug}`);
   if (!section.includes("parking:") && !section.includes("access:")) failures.push(`No independently researched parking/access information: ${canonicalSlug}`);
   if (!section.includes("maps:")) failures.push(`No park-specific official map information: ${canonicalSlug}`);
   if (!section.includes("camping:") && !section.includes("restrooms:")) failures.push(`No verified facility, campground or correct day-use policy: ${canonicalSlug}`);
