@@ -3840,5 +3840,302 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewed": "2026-10-13"
     }
   ]
+  "buffalo-soldiers-national-museum-houston": [
+        {
+      "question": "Can I visit the Buffalo Soldiers National Museum in Houston right now?",
+      "answer": "No regular in-person gallery visit should be planned. The museum's official homepage and visitor page continue to display a temporary closure notice for renovations in October 2026. Older hours and ticket pricing shown farther down that page are superseded by the closure.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Did the Buffalo Soldiers National Museum reopen in summer 2026?",
+      "answer": "The museum's visitor page still says CLOSED UNTIL SUMMER 2026 but also displays a more current closed-for-renovations warning. The target season passing does not constitute an announcement that the building reopened. Wait for a dated announcement from the operator.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://houmuse.org/institution/buffalo-soldiers-national-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Where is the museum located and can I park there while it is closed?",
+      "answer": "The historic museum location is 3816 Caroline Street, Houston, in the former Houston Light Guard Armory. The usual surface parking information describes ordinary operations, not access to a closed gallery; do not arrive expecting public admission or confirmed visitor parking.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://houmuse.org/institution/buffalo-soldiers-national-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Can I book a guided school tour during the museum renovation?",
+      "answer": "Historic booking sections list school tours and even old COVID-era requirements, but these appear below the site's overriding renovation closure notice. Do not assume group tours are presently available; contact staff directly about virtual programming or independently announced off-site events.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "What is the difference between Buffalo Soldiers and the museum's broader military exhibits?",
+      "answer": "The historical Buffalo Soldiers included Black regiments created after the Civil War, while this Houston museum also interprets the wider service of African Americans in other wars and roles, including the stories of women such as Cathy Williams. Many exhibit descriptions predate the current renovation.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Is the museum's Thursday free admission currently available?",
+      "answer": "The operator still displays an older free-admission-on-Thursdays schedule under its regular prices. Because the museum also states it is closed for renovations, that schedule cannot currently be relied upon for an in-person visit. Verify reopening and any updated free day first.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Does the closed museum offer online exhibits or educational resources?",
+      "answer": "Its website continues to describe subjects including military uniforms, African American units, women who served and military-inspired art. Online material can support independent study, but check the website for an active digital event before describing it as an available live tour.",
+      "verificationUrl": "https://buffalosoldiersmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Can visitors use wheelchairs or bring young children to the museum?",
+      "answer": "The institution historically describes the building as wheelchair-accessible, and its subjects suit age-appropriate lessons on military and civil-rights history. Physical galleries are currently closed, so accessibility and family programming must be confirmed for any separate off-site event or eventual reopening.",
+      "verificationUrl": "https://houmuse.org/institution/buffalo-soldiers-national-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://houmuse.org/institution/buffalo-soldiers-national-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+  ],
+  "the-history-center-diboll": [
+        {
+      "question": "Is The History Center in Diboll free to visit?",
+      "answer": "Yes. The operator explicitly states admission to the history center and its public exhibits is free. The visitor page also describes free guided tours, but these require advance arrangements; bring the current schedule rather than relying on an old directory listing.",
+      "verificationUrl": "https://www.thehistorycenteronline.com/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.thehistorycenteronline.com/plan-your-visit",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Is The History Center open on Saturdays?",
+      "answer": "The current operator lists Monday through Friday 8 a.m. to 5 p.m. as ordinary public hours. Saturdays are available by appointment with at least two weeks' advance notice, not as an ordinary drop-in period; the center is closed for most major holidays.",
+      "verificationUrl": "https://www.thehistorycenteronline.com/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.thehistorycenteronline.com/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Can children actually climb aboard the steam locomotive at Diboll?",
+      "answer": "Yes, the operator describes its 1920 Baldwin Engine 13 and 1948 caboose as accessible stationary railroad exhibits and invites supervised visitors to climb aboard, ring the bell or blow the whistle when the display is available. It is not a working excursion train.",
+      "verificationUrl": "https://www.thehistorycenteronline.com/exhibits/outdoor-railroad-exhibit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.thehistorycenteronline.com/exhibits",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Does The History Center offer a working train ride?",
+      "answer": "No scheduled moving-train excursion is advertised. The locomotive and caboose are restored stationary exhibits used to explain the timber and railroad economy; visitors can explore the preserved equipment rather than buy a railroad passenger ticket.",
+      "verificationUrl": "https://www.thehistorycenteronline.com/exhibits/outdoor-railroad-exhibit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.thehistorycenteronline.com/plan-your-visit",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "What will I see inside the Diboll History Center?",
+      "answer": "Its Diboll: An Enduring Community exhibition has 11 panels and more than 100 photographs, interpreting the town's growth and its lumber, railroad and social history. Rotating exhibits may feature other regional history topics, and the extensive archives remain a separate research resource.",
+      "verificationUrl": "https://www.thehistorycenteronline.com/exhibits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.thehistorycenteronline.com/exhibits",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "How long do guided tours take and how early must I book?",
+      "answer": "The center says free staff-led guided tours usually take 50 to 60 minutes and should be arranged at least two weeks beforehand. Visitors can ask for an age-appropriate school group tour or a specialized research orientation; call the center to confirm availability.",
+      "verificationUrl": "https://www.thehistorycenteronline.com/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.thehistorycenteronline.com/plan-your-visit",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Is the 1920 engine accessible for visitors using wheelchairs?",
+      "answer": "The operator describes its outdoor railroad exhibit as fully accessible and invites visitors to interact with the preserved locomotive and caboose. For a particular wheelchair, walker, stroller or sensory accommodation, verify the exact route with the center ahead of arrival.",
+      "verificationUrl": "https://www.thehistorycenteronline.com/exhibits/outdoor-railroad-exhibit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.thehistorycenteronline.com/plan-your-visit",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Does the history center have a full-service restaurant or cafeteria?",
+      "answer": "The operator's current visitor guide discusses exhibits, research, gift items and the free tour experience but does not document an on-site cafeteria or full-service restaurant. Plan meals in Diboll or nearby Lufkin instead of assuming food service inside the archives.",
+      "verificationUrl": "https://www.thehistorycenteronline.com/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.thehistorycenteronline.com/plan-your-visit",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+  ],
+  "brazos-valley-museum-natural-history-bryan": [
+        {
+      "question": "How much does the Brazos Valley Museum of Natural History cost?",
+      "answer": "The museum currently lists adult tickets at $5, students, seniors and children ages four through seventeen at $4, children ages three and younger free with a paying adult, and $3.50 per person for qualifying groups of ten or more. Recheck current posted rates before arrival.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "What are Dollar Days at the Brazos Valley Museum?",
+      "answer": "The museum advertises $1 admission on the first Tuesday of each month, which is different from ordinary admission rates. Holiday closures, event changes or updated policies could affect an individual visit, so confirm the specific date on the museum's current visit page.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/visit",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Are live animals and hands-on activities available for younger children?",
+      "answer": "Yes. The Discovery Room is described with live reptiles, arachnids and other animals, a freshwater aquarium, an observation beehive and hands-on puzzles and books. Animals and interactive programs can change, and adults should supervise rather than assume every animal may be touched.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/exhibits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/exhibits",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Can I see real mammoth or mastodon fossils at the museum?",
+      "answer": "The museum describes mastodon and Columbian mammoth skulls found near the Brazos River, displayed with prehistoric animal fossils and life-size dinosaur skull casts. The casts help compare large species, but a replica or cast should not be described as an original fossil.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/exhibits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/exhibits",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Is Boonville Heritage Park inside the museum building?",
+      "answer": "No. The museum operates or interprets Boonville Heritage Park as a separate outdoor historic site on Boonville Road. The site includes the 1856 Turner–Peters log house and old county-seat cemetery; check independent weather, access and travel logistics.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/exhibits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/exhibits",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Is The Brazos: Legacy of a Mighty River a permanent exhibition?",
+      "answer": "No. The museum homepage gives November 14, 2025 through October 24, 2026 as its published display dates. Do not promise that exhibition to visitors after October 24 unless the museum announces an extension or new exhibition.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "What is a practical visit length for families?",
+      "answer": "For the museum's fossil and wildlife displays and the Discovery Room, about one to one-and-a-half hours is a reasonable independent planning estimate. Families with very engaged children may prefer longer; the separate Boonville Heritage Park adds extra driving and touring time.",
+      "verificationUrl": "https://www.brazosvalleymuseum.org/exhibits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visit.cstx.gov/directory/brazos-valley-museum-of-natural-history-arts-culture/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Does the Bryan museum have parking and wheelchair access?",
+      "answer": "Visit College Station's museum directory identifies the institution as accessible, family-friendly and offering parking, while the official site provides its location at 3232 Briarcrest Drive. Ask staff directly about the exact entry route and accommodations for any special program.",
+      "verificationUrl": "https://visit.cstx.gov/directory/brazos-valley-museum-of-natural-history-arts-culture/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brazosvalleymuseum.org/visit",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+  ],
+  "texas-broadcast-museum-kilgore": [
+        {
+      "question": "When can I visit the Texas Broadcast Museum in Kilgore?",
+      "answer": "The City of Kilgore and Texas Association of Broadcasters list regular museum hours Friday and Saturday from 10 a.m. to 5 p.m., with group appointments on other days. Because this specialty museum has limited hours, confirm directly before a long drive.",
+      "verificationUrl": "https://cityofkilgore.com/293/Kilgore-Cultural-District",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tabshow.org/texas-broadcast-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "What does admission to the Texas Broadcast Museum cost?",
+      "answer": "A Texas Association of Broadcasters profile lists $10 adults, $8 seniors, students, military and first responders, $5 ages three to eleven and free under age three. Older directories still show lower prices, so treat the current operator's reply as the final price before buying.",
+      "verificationUrl": "https://tabshow.org/texas-broadcast-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tabshow.org/texas-broadcast-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Is there a camera connected with the killing of Lee Harvey Oswald on display?",
+      "answer": "The operator lists a broadcast camera associated with the live television coverage of Jack Ruby shooting Lee Harvey Oswald in 1963. It is a serious historical journalism artifact; explain the recording context appropriately for children rather than marketing it as entertainment.",
+      "verificationUrl": "https://texasbroadcastmuseum.com/museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texasbroadcastmuseum.com/museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Can visitors try being television news anchors or radio DJs?",
+      "answer": "The operator describes functioning radio and TV studio displays where guests can role-play a news anchor, weather reporter or disc jockey. These hands-on opportunities distinguish the museum from a static equipment display, although working equipment can occasionally be unavailable.",
+      "verificationUrl": "https://texasbroadcastmuseum.com/",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://texasbroadcastmuseum.com/reviews/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "What is the DuMont Telecruiser and can you see it at the museum?",
+      "answer": "The museum identifies a restored 1949 DuMont Telecruiser, a large early mobile television production vehicle. The historic truck demonstrates how complicated remote broadcasting once was; ask staff before travel whether its interior can be accessed by your group.",
+      "verificationUrl": "https://texasbroadcastmuseum.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texasbroadcastmuseum.com/museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Is the museum good for young children or teens?",
+      "answer": "The broadcast camera, microphone, news set and operating radio studio can appeal to school-age children and especially teens interested in media. Some crime-history interpretation needs parental context. Visitors with younger children should arrange a shorter supervised program.",
+      "verificationUrl": "https://texasbroadcastmuseum.com/reviews/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texasbroadcastmuseum.com/reviews/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "How much time should I budget for the Texas Broadcast Museum?",
+      "answer": "The museum's own reviews describe guests finding more historic material and hands-on activities than expected. An hour to two hours is a sensible editorial estimate, rather than assuming it is a quick 30-minute stop; ask staff if you need a scheduled tour.",
+      "verificationUrl": "https://texasbroadcastmuseum.com/reviews/",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://texasbroadcastmuseum.com/reviews/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+        {
+      "question": "Does the museum have a cafeteria or is Studio 4 a restaurant?",
+      "answer": "The operator describes Studio 4 as a rentable event space, not a public cafeteria or full-service restaurant. Its public pages do not establish everyday museum food service; plan to eat elsewhere in Kilgore unless staff confirms a specific event's catering.",
+      "verificationUrl": "https://texasbroadcastmuseum.com/contact-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texasbroadcastmuseum.com/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+  ],
+
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
