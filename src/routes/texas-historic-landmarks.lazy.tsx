@@ -26,6 +26,7 @@ const completedAuthoritySlugs: Record<string,string> = {
   "Southern Pacific Passenger Depot": "southern-pacific-passenger-depot-del-rio",
   "Bosque River Bridge": "bosque-river-bridge-meridian",
   "Holland Hotel": "holland-hotel",
+  "Sycamore Creek Bridge": "sycamore-creek-bridge-fort-worth",
 };
 const kindLabels: Record<string, string> = {
   building: "Historic buildings",

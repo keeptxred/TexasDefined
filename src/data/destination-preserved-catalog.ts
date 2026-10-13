@@ -18,6 +18,7 @@ import { thcHistoricLandmarkAuthorityBatch01Destinations } from "./thc-historic-
 import { thcHistoricLandmarkAuthorityBatch02Destinations } from "./thc-historic-landmarks-authority-batch02";
 import { thcHistoricLandmarkAuthorityBatch03Destinations } from "./thc-historic-landmarks-authority-batch03";
 import { hollandHotelAuthorityDestination } from "./thc-holland-hotel-authority";
+import { sycamoreCreekBridgeFortWorthAuthority } from "./thc-sycamore-creek-bridge-fort-worth";
 import { hidalgoPumphouseAuthorityDestinations } from "./hidalgo-pumphouse-authority-destination";
 import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
@@ -227,7 +228,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   thcHistoricLandmarkAuthorityBatch01Destinations,
   thcHistoricLandmarkAuthorityBatch02Destinations,
   thcHistoricLandmarkAuthorityBatch03Destinations,
-  [hollandHotelAuthorityDestination],
+  [hollandHotelAuthorityDestination, sycamoreCreekBridgeFortWorthAuthority],
   animalSanctuaryDestinations,
   aquariumMarineDestinations,
   museumAuthorityDestinations,
