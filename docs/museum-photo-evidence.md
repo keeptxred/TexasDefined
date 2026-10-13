@@ -16,3 +16,11 @@ License compliance:
 - Official museum exhibit photos remain unavailable for copying absent permission or a clearly applicable reuse license.
 - A museum's own marketing images are not automatically free to reproduce.
 - These records do not prove the image URL will load through every image optimization proxy; verify SSR image HTML and production CDN behavior after merge.
+
+## New verified photographs, October 12, 2026
+
+- **1940 Air Terminal Museum, Houston**: Wikimedia Commons [File:1940 Air Terminal Museum.jpg](https://commons.wikimedia.org/wiki/File:1940_Air_Terminal_Museum.jpg), Mlickliter, **CC BY-SA 3.0**. The image shows the historical building, *not a currently open museum*.
+- **African American Museum at Fair Park, Dallas**: Wikimedia Commons [File:African American Museum August 2016 03.jpg](https://commons.wikimedia.org/wiki/File:African_American_Museum_August_2016_03.jpg), Michael Barera, **CC BY-SA 4.0**, 2016 exterior photo; avoid implying a historical photograph is current exhibition imagery.
+- **Texas Forestry Museum, Lufkin**: Wikimedia Commons [File:Texas Forestry Museum, Lufkin, TX IMG 8594.JPG](https://commons.wikimedia.org/wiki/File:Texas_Forestry_Museum,_Lufkin,_TX_IMG_8594.JPG), Billy Hathorn, **CC BY-SA 3.0**, 2013 exterior photo. Do not relabel as a current exhibit image.
+
+Attribution is present in each destination hero credit. License checks are required at publication and on replacement.
