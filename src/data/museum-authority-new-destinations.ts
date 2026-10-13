@@ -9,6 +9,32 @@ import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
  */
 export const museumAuthorityDestinations: Destination[] = [
   {
+    id: "museum-authority-san-augustine-county-jail",
+    brandId: "texasdefined",
+    slug: "1919-san-augustine-county-jail-museum",
+    name: "1919 San Augustine County Jail Museum",
+    summary: "Visit San Augustine's restored 1919 jail and law-enforcement museum for original jail history, Russell Lee documentary photographs, Texas county records and courthouse-square heritage.",
+    category: "historic-sites",
+    region: "piney-woods",
+    nearestTown: "San Augustine",
+    county: "San Augustine County",
+    coordinates: { lat: 31.5295, lng: -94.1096 },
+    hero: { src: DESTINATION_PHOTO_PLACEHOLDER, alt: "Exact-location, reusable modern photograph of San Augustine County Jail has not yet been verified", width: 1600, height: 1067 },
+    bestSeason: "Year-round for the small indoor museum; walk the courthouse square in milder spring or autumn weather.",
+    entryNote: "The local tourism office lists Monday–Friday, 11 a.m.–3 p.m. and free admission, donations welcome. Confirm staffing and special-event hours via the1919jailmuseum@gmail.com before a long drive.",
+    highlights: ["Historic restored two-story 1919 jail with reused 1882 jail cells", "San Augustine law-enforcement and county history", "Russell Lee and John Vachon documentary photographs", "Texana research library and Mission Dolores timeline"],
+    body: [
+      "The jail was constructed in 1919 using elements of an earlier 1882 jail and housed county prisoners until 2000. After later reuse and deterioration, local preservation work restored the brick exterior, and it reopened as a history museum dedicated to regional law enforcement and civic memory.",
+      "Visitors can study old jail construction, historical officers and the photographic history of San Augustine. A small Texana library and chronology of county history connect the building to the wider region, including Mission Dolores and the courthouse square.",
+      "This is a small locally staffed museum, not an amusement attraction. The current local tourism listing gives free weekday admission, but the preserved two-story structure has no fully documented accessible route. Confirm the opening and any accommodations in advance."
+    ],
+    officialUrl: "https://visitsanaugustinetx.org/local-attractions/",
+    managingAuthority: "San Augustine County historical preservation volunteers",
+    address: "100 W Columbia St, San Augustine, TX 75972",
+    sourceCheckedAt: "2026-10-13",
+    accessibilityNotes: "Historic two-story jail: wheelchair-accessible entrance and upper-floor routes are not established in official visitor listings. Ask museum staff before travel."
+  },
+  {
     id: "museum-authority-johnny-nelson-katy-heritage",
     brandId: "texasdefined",
     slug: "johnny-nelson-katy-heritage-museum",
