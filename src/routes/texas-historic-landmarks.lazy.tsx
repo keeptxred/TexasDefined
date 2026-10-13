@@ -71,7 +71,7 @@ function TexasHistoricLandmarksPage() {
           <Link to="/texas-history">Texas History</Link> <span aria-hidden="true"> / </span>
           <span aria-current="page">Recent historic landmarks</span>
         </nav>
-        <p className="eyebrow mt-9 text-primary">Historic preservation · Official designation records</p>
+        <p className="eyebrow mt-8 text-primary">Historic preservation · Official designation records</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-tight sm:text-6xl">Texas's newly recognized historic places</h1>
         <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">
           The National Register preserves a written record of places that shaped Texas: neighborhoods, schools, working buildings, churches, bridges, cemeteries and cultural landscapes. Browse the recent 2025–2026 listings below by name, county and subject.
@@ -113,8 +113,8 @@ function TexasHistoricLandmarksPage() {
         <p className="mt-5 text-sm text-muted-foreground" role="status">{filtered.length} listed {filtered.length === 1 ? "record" : "records"} match your filters.</p>
         {filtered.length ? <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {filtered.map((landmark) => <article key={`${landmark.year}-${landmark.name}`} className="rounded border border-border bg-surface p-5">
-            <p className="text-xs font-semibold uppercase tracking-wider text-primary">{kindLabels[landmark.kind]}</p>
-            <h3 className="mt-3 font-display text-2xl leading-snug">{landmark.name}</h3>
+            <p className="text-xs font-semibold uppercase tracking-wide text-primary">{kindLabels[landmark.kind]}</p>
+            <h3 className="mt-3 font-display text-2xl leading-tight">{landmark.name}</h3>
             <p className="mt-3 text-sm">{landmark.town} · {landmark.county} County</p>
             <p className="mt-2 text-xs text-muted-foreground">National Register listing: {landmark.month} {landmark.year}</p>
             {landmark.name === "Olivewood Cemetery" && <Link to="/destination/$slug" params={{ slug: "olivewood-cemetery" }} className="mr-4 mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Read TexasDefined's Olivewood authority guide →</Link>}
@@ -136,7 +136,7 @@ function TexasHistoricLandmarksPage() {
       <Container className="py-12 sm:py-16">
         <h2 className="font-display text-4xl">Nominations still in progress are not listings</h2>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">THC separates properties submitted to the National Park Service and those still in final-draft review from officially listed properties. These {thcPendingLandmarks.length} records belong in a research watch, not in the list of completed designations. Their status may change after this review date.</p>
-        <div className="mt-7 grid gap-x-7 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {thcPendingLandmarks.map((item) => <div key={item.name} className="border-t border-border pt-4">
             <h3 className="text-base font-semibold">{item.name}</h3>
             <p className="mt-1 text-sm text-muted-foreground">{item.town} · {item.county} County</p>
