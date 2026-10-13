@@ -3914,7 +3914,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewed": "2026-10-13"
     }
   ],
-  "museum-american-railroad-frisco": [
+  "museum-of-the-american-railroad-frisco": [
     {
       "question": "Where is the Museum of the American Railroad in Frisco?",
       "answer": "The museum's daily operations and check-in are at TrainTopia inside the Frisco Discovery Center, 8004 North Dallas Parkway, Suite 400, Frisco. Do not confuse this with the Grapevine train events.",
