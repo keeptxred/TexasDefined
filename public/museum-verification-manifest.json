@@ -1589,6 +1589,95 @@
           "label": "Museum official home"
         }
       ]
+    },
+    {
+      "path": "/destination/buffalo-soldiers-national-museum-houston",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://buffalosoldiersmuseum.org/visit/",
+          "fetchUrl": "https://buffalosoldiersmuseum.org/visit/",
+          "label": "Museum official closure and previous policies"
+        },
+        {
+          "sourceUrl": "https://buffalosoldiersmuseum.org/visit/group-tours/",
+          "fetchUrl": "https://buffalosoldiersmuseum.org/visit/group-tours/",
+          "label": "Museum group tour cancellation"
+        },
+        {
+          "sourceUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+          "fetchUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+          "label": "Museum exhibit and digital themes"
+        },
+        {
+          "sourceUrl": "https://buffalosoldiersmuseum.org/",
+          "fetchUrl": "https://buffalosoldiersmuseum.org/",
+          "label": "FAQ source: What can families visit nearby instead while the museum is closed?"
+        },
+        {
+          "sourceUrl": "https://houmuse.org/institution/buffalo-soldiers-national-museum/",
+          "fetchUrl": "https://houmuse.org/institution/buffalo-soldiers-national-museum/",
+          "label": "Houston Museum District institution record"
+        }
+      ]
+    },
+    {
+      "path": "/destination/texas-prison-museum-huntsville",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.txprisonmuseum.org/",
+          "fetchUrl": "https://www.txprisonmuseum.org/",
+          "label": "Museum official home, hours and ticket prices"
+        },
+        {
+          "sourceUrl": "https://www.txprisonmuseum.org/about-us",
+          "fetchUrl": "https://www.txprisonmuseum.org/about-us",
+          "label": "Museum background and Huntsville connection"
+        },
+        {
+          "sourceUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+          "fetchUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+          "label": "Museum popular exhibits"
+        },
+        {
+          "sourceUrl": "https://www.txprisonmuseum.org/copy-of-captain-joe-byrd-cemetery",
+          "fetchUrl": "https://www.txprisonmuseum.org/copy-of-captain-joe-byrd-cemetery",
+          "label": "Texas Prison Rodeo history"
+        }
+      ]
+    },
+    {
+      "path": "/destination/eisenhower-birthplace",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+          "fetchUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+          "label": "THC current visitor guide and tour booking"
+        },
+        {
+          "sourceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/eisenhower-birthplace-history",
+          "fetchUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/eisenhower-birthplace-history",
+          "label": "THC official birthplace history"
+        },
+        {
+          "sourceUrl": "https://thc.texas.gov/blog/homes-president-eisenhower",
+          "fetchUrl": "https://thc.texas.gov/blog/homes-president-eisenhower",
+          "label": "THC presidential-home comparison"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/4200000469",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/4200000469",
+          "label": "THC historic site Atlas"
+        }
+      ]
     }
   ]
 }
