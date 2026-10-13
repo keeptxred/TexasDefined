@@ -454,6 +454,28 @@
         "https://www.samuseum.org/visit/tour/public-and-charter-schools/",
         "https://www.samuseum.org/"
       ]
+    },
+    "kimbell-art-museum-fort-worth": {
+      "name": "Kimbell Art Museum",
+      "operatorStrengths": [
+        "Operator current public hours, ticket and parking policy",
+        "Two-building accessibility and current café operation source"
+      ],
+      "openGaps": [
+        "Side-by-side visitor-guidance comparison before independent authority certification",
+        "Live image loading and accessible FAQ browser QA before sitewide acceptance"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://kimbellart.org/visit",
+        "https://kimbellart.org/visit/accessibility",
+        "https://kimbellart.org/visit/dine",
+        "https://kimbellart.org/content/tours",
+        "https://kimbellart.org/tickets"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
