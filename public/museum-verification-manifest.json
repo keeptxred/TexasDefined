@@ -767,6 +767,39 @@
           "label": "Modern accessibility"
         }
       ]
+    },
+    {
+      "path": "/destination/american-quarter-horse-hall-of-fame-museum-amarillo",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://aqha-museum.myshopify.com/pages/contact-us",
+          "fetchUrl": "https://aqha-museum.myshopify.com/pages/contact-us",
+          "label": "Museum operator current contact and museum hours"
+        },
+        {
+          "sourceUrl": "https://www.visitamarillo.com/listing/american-quarter-horse-hall-of-fame-%26-museum/650/",
+          "fetchUrl": "https://www.visitamarillo.com/listing/american-quarter-horse-hall-of-fame-%26-museum/650/",
+          "label": "Amarillo tourism official listing"
+        },
+        {
+          "sourceUrl": "https://www.aqha.com/museum",
+          "fetchUrl": "https://www.aqha.com/museum",
+          "label": "AQHA museum event and family access"
+        },
+        {
+          "sourceUrl": "https://www.newschannel10.com/2026/07/09/american-quarter-horse-hall-fame-museum-host-family-fun-day-saturday/",
+          "fetchUrl": "https://www.newschannel10.com/2026/07/09/american-quarter-horse-hall-fame-museum-host-family-fun-day-saturday/",
+          "label": "2026 Family Fun Day and paddock opening report"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/4200000009",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/4200000009",
+          "label": "Texas Historical Commission Atlas"
+        }
+      ]
     }
   ]
 }
