@@ -1070,6 +1070,124 @@
         "https://epmarch.org/",
         "https://epmarch.org/about/about-epmarch"
       ]
+    },
+    "armstrong-browning-library-museum-waco": {
+      "name": "Armstrong Browning Library & Museum",
+      "operatorStrengths": [
+        "Museum provides firsthand opening, access and visitor guidance",
+        "Museum maintains current exhibit and learning information"
+      ],
+      "openGaps": [
+        "Full live post-deployment browser and exact-location image load testing",
+        "Direct visitor-experience and operator-guide side-by-side gap certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
+        "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/directions-parking",
+        "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
+        "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/building-map-online-tour",
+        "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/research-instruction/use-collections",
+        "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/use-our-facility/portrait-policies"
+      ]
+    },
+    "bell-county-museum-belton": {
+      "name": "Bell County Museum",
+      "operatorStrengths": [
+        "Museum provides firsthand opening, access and visitor guidance",
+        "Museum maintains current exhibit and learning information"
+      ],
+      "openGaps": [
+        "Full live post-deployment browser and exact-location image load testing",
+        "Direct visitor-experience and operator-guide side-by-side gap certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.bellcountymuseum.org/p/visit/faqs",
+        "https://www.bellcountymuseum.org/directions.aspx",
+        "https://www.bellcountymuseum.org/p/visit",
+        "https://www.bellcountymuseum.org/location/add-location-name-here"
+      ]
+    },
+    "brenham-heritage-museum": {
+      "name": "Brenham Heritage Museum",
+      "operatorStrengths": [
+        "Museum provides firsthand opening, access and visitor guidance",
+        "Museum maintains current exhibit and learning information"
+      ],
+      "openGaps": [
+        "Full live post-deployment browser and exact-location image load testing",
+        "Direct visitor-experience and operator-guide side-by-side gap certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.bhmtexas.org/visit",
+        "https://www.bhmtexas.org/visit/exhibits",
+        "https://www.bhmtexas.org/"
+      ]
+    },
+    "audie-murphy-american-cotton-museum-greenville": {
+      "name": "Audie Murphy/American Cotton Museum",
+      "operatorStrengths": [
+        "Museum provides firsthand opening, access and visitor guidance",
+        "Museum maintains current exhibit and learning information"
+      ],
+      "openGaps": [
+        "Full live post-deployment browser and exact-location image load testing",
+        "Direct visitor-experience and operator-guide side-by-side gap certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://cottonmuseum.com/visit/",
+        "https://cottonmuseum.com/",
+        "https://cottonmuseum.com/about/"
+      ]
+    },
+    "brazos-valley-museum-natural-history-bryan": {
+      "name": "Brazos Valley Museum of Natural History",
+      "operatorStrengths": [
+        "Museum provides firsthand opening, access and visitor guidance",
+        "Museum maintains current exhibit and learning information"
+      ],
+      "openGaps": [
+        "Full live post-deployment browser and exact-location image load testing",
+        "Direct visitor-experience and operator-guide side-by-side gap certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.brazosvalleymuseum.org/visit",
+        "https://www.brazosvalleymuseum.org/about-the-museum",
+        "https://www.brazosvalleymuseum.org/accessibility"
+      ]
+    },
+    "czech-heritage-museum-genealogy-center-temple": {
+      "name": "Czech Heritage Museum & Genealogy Center",
+      "operatorStrengths": [
+        "Museum provides firsthand opening, access and visitor guidance",
+        "Museum maintains current exhibit and learning information"
+      ],
+      "openGaps": [
+        "Full live post-deployment browser and exact-location image load testing",
+        "Direct visitor-experience and operator-guide side-by-side gap certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://czechheritagemuseum.org/contact-us",
+        "https://czechheritagemuseum.org/plan-your-visit",
+        "https://czechheritagemuseum.org/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
