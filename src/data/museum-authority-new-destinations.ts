@@ -10,6 +10,37 @@ import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 export const museumAuthorityDestinations: Destination[] = [
   ...cityPassDestinationExpansion.filter((destination) => destination.slug === "witte-museum"),
   {
+    id: "museum-authority-buffalo-soldiers-houston",
+    brandId: "texasdefined",
+    slug: "buffalo-soldiers-national-museum-houston",
+    name: "Buffalo Soldiers National Museum",
+    summary: "Buffalo Soldiers National Museum in Houston is temporarily CLOSED for renovations as of October 2026. Learn about Black military history, women who served, civil rights in the armed forces, and the former Houston Light Guard Armory while awaiting an official reopening.",
+    category: "historic-sites",
+    region: "gulf-coast",
+    nearestTown: "Houston",
+    county: "Harris County",
+    coordinates: { lat: 29.736125, lng: -95.378003 },
+    hero: museumLicensedHeroes["buffalo-soldiers-national-museum-houston"],
+    bestSeason: "Historical research and digital materials may be accessed year-round, but the museum building is currently closed to ordinary visitors for renovation.",
+    entryNote: "TEMPORARILY CLOSED. The official website still says closed for renovations; all in-person organized tours are cancelled until further notice. Older hours, free Thursday entry and ticket prices are not currently actionable. Do not visit 3816 Caroline Street expecting public gallery access.",
+    highlights: [
+      "Post-Civil War Black military service and the Buffalo Soldiers",
+      "Cathay Williams and Women Who Served",
+      "Civil rights and desegregation in the U.S. Armed Forces",
+      "Traveling exhibitions and off-site programs subject to separate confirmation"
+    ],
+    body: [
+      "The Buffalo Soldiers National Museum explores how African American service members shaped American military history and civic life, from the frontier regiments and military service after emancipation through the world wars, segregation and the movements for equal rights. Its galleries have used uniforms, personal accounts, historic images and contemporary artistic interpretation to tell those stories.",
+      "The museum occupies Houston's former Light Guard Armory at 3816 Caroline Street. The institution's visitor site currently announces that the building is temporarily closed for a major renovation. Older ticket rates and visitor hours still appear on parts of its site, but should not be interpreted as permission to enter the museum. Its group-tour page separately confirms all in-person tours are cancelled until further notice.",
+      "Readers can explore subjects such as Cathay Williams and women in military service, the 92nd Infantry Division, United States Colored Troops, and the civil rights campaign to integrate the Armed Forces through official public resources. The museum mentions off-site programming and virtual field trips, but each opportunity needs its own current date or availability confirmation; no opening date is guaranteed."
+    ],
+    managingAuthority: "Buffalo Soldiers National Museum",
+    officialUrl: "https://buffalosoldiersmuseum.org/visit/",
+    address: "3816 Caroline Street, Houston, TX 77004",
+    sourceCheckedAt: "2026-10-13",
+    accessibilityNotes: "Ordinary on-site museum admission is not available during renovations. Reconfirm wheelchair entrance, access routes and other assistance after the institution announces reopening."
+  },
+  {
     id: "museum-authority-audie-murphy-american-cotton-greenville",
     brandId: "texasdefined",
     slug: "audie-murphy-american-cotton-museum-greenville",
