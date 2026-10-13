@@ -590,21 +590,6 @@ export function museumDossierFor(slug: string): MuseumAuthorityDossier | undefin
  * Do not substitute regional stock for an exact-location photograph.
  */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
-
-};
-
-export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
-
-export function museumDossierFor(slug: string): MuseumAuthorityDossier | undefined {
-  return museumAuthorityDossiers[slug];
-}
-
-/**
- * Destination-specific, attribution-cleared reference photography.
- * Licenses verified against the individual Wikimedia Commons file records.
- * Do not substitute regional stock for an exact-location photograph.
- */
-export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
   "museum-of-the-big-bend-alpine": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Museum_of_the_Big_Bend_%28Alpine%2C_Texas%29.jpg?width=1600",
     alt: "Museum of the Big Bend building and landscape on the Sul Ross State University campus in Alpine",
