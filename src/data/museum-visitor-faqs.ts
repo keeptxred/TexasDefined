@@ -1708,6 +1708,181 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "quarterly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "fort-worth-museum-science-history": [
+    {
+      "question": "Where is the public entrance for the Fort Worth Museum of Science and History in 2026?",
+      "answer": "General visitors and members must use the Omni Theater entrance on Lansford Lane. Since August 11, 2026, the former Gendy Street entrance is for school groups, chaperones and field trips only. The Western Heritage Garage accessed via Gate 19 on Gendy is nearest the new public entrance.",
+      "verificationUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Fort Worth Omni Theater included with general museum admission?",
+      "answer": "No. The Jane & John Justin Foundation Omni Theater has separately priced tickets and reserved movie times. Public Noble Planetarium shows and the Cattle Raisers Museum are included with regular museum admission, subject to the current schedule and capacity.",
+      "verificationUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is admission to the Fort Worth Museum of Science and History?",
+      "answer": "The operator lists museum general admission at $16 for adults ages 12–64, $14 seniors ages 65 and over, $12 children ages 3–11, and free for children under three. Omni Theater film tickets cost extra. Prices and discounts should be rechecked when booking.",
+      "verificationUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should families park, and is parking free?",
+      "answer": "The museum suggests the city-managed Western Heritage Garage accessed through Gate 19 on Gendy. The currently published ordinary rates are $6 up to two hours, $12 for two to three hours, and $15 for longer stays. Event dates can carry different rates, and ordinary museum admission does not include parking.",
+      "verificationUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Fort Worth Children's Gallery suitable for a toddler or school child?",
+      "answer": "The TCU Children's Gallery focuses on the museum's youngest learners. Its school field-trip rules currently limit the Children's Museum to second grade and below; independent families can choose age-appropriate exhibits such as DinoDig and design activities for older children.",
+      "verificationUrl": "https://www.fwmuseum.org/learn/field-trips/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is there a real café at the Fort Worth Museum of Science and History?",
+      "answer": "Yes. Exhibit Café serves sandwiches, salads, flatbreads and other light meals inside the museum, generally Tuesday–Friday 11 a.m.–3 p.m. and Saturday 10:30 a.m.–3 p.m. It is listed as closed Sunday. This is a museum café, not a formal full-service restaurant.",
+      "verificationUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum support wheelchair users and visitors with sensory needs?",
+      "answer": "The operator describes wheelchair-accessible public facilities, a limited number of loaner wheelchairs, a Calming Room, sensory backpacks, communication boards and sensory-friendly programs. The Calming Room is reserved for one family at a time.",
+      "verificationUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does a Fort Worth school field trip use the new Lansford Lane public entrance?",
+      "answer": "No. Under the August 2026 separation of visitor entrances, field-trip groups and chaperones use the Gendy Street school-group entrance while ordinary visitors use the Lansford Lane/Omni entrance. Book school trips through the separate group program.",
+      "verificationUrl": "https://www.fwmuseum.org/learn/field-trips/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How long should a family allow at the Fort Worth Museum of Science and History?",
+      "answer": "A focused family visit of about two to three hours is a reasonable independent estimate. Reserve additional time for a separately ticketed Omni film or limited-seat planetarium show. The museum does not guarantee every exhibition is fully accessible or that every presentation runs continuously.",
+      "verificationUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "dallas-holocaust-human-rights-museum": [
+    {
+      "question": "When is Dallas Holocaust and Human Rights Museum closed?",
+      "answer": "The current official visitor FAQ lists 10 a.m.–5 p.m. on regular open days with Tuesday closed, plus published holiday exceptions. The entrance to the permanent exhibition closes at 4 p.m., so do not arrive near closing time expecting the full experience.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.dhhrm.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Dallas Holocaust and Human Rights Museum suitable for a child under 12?",
+      "answer": "The museum recommends that visitors be at least 12 because the permanent Holocaust exhibition includes disturbing historical subject matter. Some temporary exhibitions may be more appropriate for younger children. Guardians should evaluate content before booking.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.dhhrm.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much time should I plan for Dallas Holocaust and Human Rights Museum?",
+      "answer": "The institution recommends roughly two to three hours to experience the permanent wings, current special exhibition and theaters. Weekday afternoons after 1 p.m. or weekends can be less busy than school-group mornings.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.dhhrm.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does a general admission ticket include Dimensions in Testimony?",
+      "answer": "Yes, the interactive recorded-survivor theater is part of general admission, along with the permanent exhibition and other museum theaters. A timed reservation from Guest Services is needed when spaces are limited. Admission alone does not guarantee an immediate session.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.dhhrm.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much are admission and parking at Dallas Holocaust Museum?",
+      "answer": "The operator lists general admission at $19 for adults, $17 for certain groups including seniors 55+, and $12 for students. Parking is available across the street at 301 N. Houston; its garage is paid except for qualifying members, and rates can change. DART West End Station is about one block away.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.dhhrm.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I bring a stroller, backpack or camera to the museum?",
+      "answer": "Security screening applies to visitors and belongings. Bags larger than 19×17×8 inches are prohibited; there is no bag or coat check, and strollers are not allowed inside the theaters. Non-flash personal still photography is allowed where permitted, but flash, video, livestreaming, tripods and selfie sticks are prohibited.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.dhhrm.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Dallas Holocaust Museum have a cafeteria, café or restaurant?",
+      "answer": "The current visitor FAQ prohibits outside food and drink but does not identify an operating in-house dining venue. The 'Piccadilly Cafeteria' mentioned in the Pivot to America Wing is a historical interpretation of a Dallas civil-rights sit-in, not a public restaurant inside the museum. Plan food in the nearby West End.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.dhhrm.org/exhibitions/pivot-to-america-wing/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the Dallas Holocaust and Human Rights Museum's permanent galleries?",
+      "answer": "The three permanent wings are Holocaust/Shoah, Human Rights, and Pivot to America. Interactive survivor testimony and a reflection room complement them. The Disney Studios and World War II exhibition ended September 10, 2026 and must not be described as current.",
+      "verificationUrl": "https://www.dhhrm.org/exhibitions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.dhhrm.org/exhibitions/pivot-to-america-wing/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Dallas Holocaust and Human Rights Museum accessible?",
+      "answer": "The museum describes accessible entrances, galleries, theaters and restrooms, permits ADA-defined service animals, and offers English and Spanish captioning. Its security and stroller restrictions still apply; request specific accommodations directly when booking.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.dhhrm.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which entrance should an individual use versus a school group?",
+      "answer": "The main visitor entrance is 300 N. Houston Street, while group tours enter on Ross Avenue. Visitors should plan for bag screening. The West End DART rail stop is about a block away.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.dhhrm.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
