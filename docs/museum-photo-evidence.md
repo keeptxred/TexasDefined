@@ -49,3 +49,8 @@ Photo metadata independently checked using Wikimedia Commons API imageinfo.extme
 - **San Antonio Museum of Art, former Lone Star Brewery:** [FirstLoneStarBrewery.JPG](https://commons.wikimedia.org/wiki/File:FirstLoneStarBrewery.JPG), Brownings, public-domain dedication by the photographer, photographed June 29, 2006. Retain historic-date alt/credit context; the building image is not evidence of the galleries' current installation or opening hours.
 
 - **Kimbell Art Museum, Fort Worth:** [Kimbell Art Museum Fort Worth 01.jpg](https://commons.wikimedia.org/wiki/File:Kimbell_Art_Museum_Fort_Worth_01.jpg), Andreas Praefcke, self-photographed October 2009, creator-dedicated **public domain**; exact Kimbell building exterior, not current galleries.
+
+## Existing hero preservation — October 13, 2026
+
+- Nasher Sculpture Center, Dallas: existing exact-destination hero in `src/data/museum-expansion-dfw.ts` uses the Wikimedia Commons file `Nasher Sculpture Center Dallas.jpg`, credited to Andreas Praefcke, CC BY 3.0. Retained instead of inventing an exhibit photograph; perform an individual source-file check if replacing.
+- National Cowgirl Museum and Hall of Fame, Fort Worth: existing exact-destination exterior hero `Fort Worth Cultural District June 2016 06 (National Cowgirl Museum and Hall of Fame).jpg`, credited to Michael Barera, CC BY-SA 4.0. Retained as an exterior historical image only; it must not be used to imply a new 2026 interior exhibit or that the temporarily closed building is currently open.
