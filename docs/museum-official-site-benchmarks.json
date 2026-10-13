@@ -857,6 +857,47 @@
         "https://www.txtransportationmuseum.org/",
         "https://www.txtransportationmuseum.org/tickets"
       ]
+    },
+    "dr-pepper-museum-waco": {
+      "name": "Dr Pepper Museum",
+      "operatorStrengths": [
+        "Official detailed visitor rules and current admissions documented",
+        "Research-backed visitors' questions and contextual itineraries"
+      ],
+      "openGaps": [
+        "Cross-browser/mobility route QA in deployed production",
+        "Final independent side-by-side visitor-guide value certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://drpeppermuseum.com/plan-your-visit/",
+        "https://drpeppermuseum.com/frequently-asked-questions/",
+        "https://drpeppermuseum.com/parking-information/",
+        "https://drpeppermuseum.com/accessibility/",
+        "https://drpeppermuseum.com/group-tour-field-trip-faqs/"
+      ]
+    },
+    "texas-sports-hall-of-fame-waco": {
+      "name": "Texas Sports Hall of Fame",
+      "operatorStrengths": [
+        "Official detailed visitor rules and current admissions documented",
+        "Research-backed visitors' questions and contextual itineraries"
+      ],
+      "openGaps": [
+        "Cross-browser/mobility route QA in deployed production",
+        "Final independent side-by-side visitor-guide value certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://tshof.org/contact-us/",
+        "https://tshof.org/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
