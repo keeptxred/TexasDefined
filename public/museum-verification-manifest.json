@@ -800,6 +800,62 @@
           "label": "Texas Historical Commission Atlas"
         }
       ]
+    },
+    {
+      "path": "/destination/museum-of-fine-arts-houston",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://www.mfah.org/visit",
+          "fetchUrl": "https://www.mfah.org/visit",
+          "label": "MFAH official plan your visit"
+        },
+        {
+          "sourceUrl": "https://www.mfah.org/visit/admission-information",
+          "fetchUrl": "https://www.mfah.org/visit/admission-information",
+          "label": "MFAH admission and free Thursdays"
+        },
+        {
+          "sourceUrl": "https://www.mfah.org/visit/visiting-guidelines",
+          "fetchUrl": "https://www.mfah.org/visit/visiting-guidelines",
+          "label": "MFAH visitor guidelines"
+        },
+        {
+          "sourceUrl": "https://www.mfah.org/visit/accessibility-resources/",
+          "fetchUrl": "https://www.mfah.org/visit/accessibility-resources/",
+          "label": "MFAH accessibility"
+        }
+      ]
+    },
+    {
+      "path": "/destination/art-museum-south-texas-corpus-christi",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://www.artmuseumofsouthtexas.org/temporary-closure-update/",
+          "fetchUrl": "https://www.artmuseumofsouthtexas.org/temporary-closure-update/",
+          "label": "AMST July 2026 reopening statement"
+        },
+        {
+          "sourceUrl": "https://www.artmuseumofsouthtexas.org/free-admission-to-the-art-museum-of-south-texas-summer-2026/",
+          "fetchUrl": "https://www.artmuseumofsouthtexas.org/free-admission-to-the-art-museum-of-south-texas-summer-2026/",
+          "label": "AMST seasonal free admission notice"
+        },
+        {
+          "sourceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+          "fetchUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+          "label": "AMST at the museum"
+        },
+        {
+          "sourceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/",
+          "fetchUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/",
+          "label": "AMST plan a visit and accessibility"
+        }
+      ]
     }
   ]
 }
