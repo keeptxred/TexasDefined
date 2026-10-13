@@ -898,6 +898,48 @@
         "https://tshof.org/contact-us/",
         "https://tshof.org/"
       ]
+    },
+    "austin-nature-and-science-center": {
+      "name": "Austin Nature & Science Center",
+      "operatorStrengths": [
+        "Official visitor policies, schedules, family fit and exhibits researched from primary sources",
+        "Independent visitor routes, food-service and accessibility distinctions"
+      ],
+      "openGaps": [
+        "Confirm live image, FAQ and destination crosslinks after merge/deploy",
+        "Certify independent visitor usefulness only after side-by-side comparison and manual QA"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+        "https://www.austintexas.gov/parks/austin-nature-science-center-exhibits",
+        "https://www.austintexas.gov/parks/austin-nature-science-center-school-programs-and-group-reservations",
+        "https://www.austintexas.gov/parks/locations/austin-nature-and-science-center"
+      ]
+    },
+    "harry-ransom-center-austin": {
+      "name": "Harry Ransom Center",
+      "operatorStrengths": [
+        "Official visitor policies, schedules, family fit and exhibits researched from primary sources",
+        "Independent visitor routes, food-service and accessibility distinctions"
+      ],
+      "openGaps": [
+        "Confirm live image, FAQ and destination crosslinks after merge/deploy",
+        "Certify independent visitor usefulness only after side-by-side comparison and manual QA"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.hrc.utexas.edu/visit/",
+        "https://www.hrc.utexas.edu/exhibitions/",
+        "https://www.hrc.utexas.edu/group-tours/",
+        "https://www.hrc.utexas.edu/frequently-asked-questions/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
