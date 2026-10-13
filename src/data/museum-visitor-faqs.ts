@@ -14,6 +14,90 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "the-agricultural-museum-arts-center-boerne": [
+    {
+      "question": "Is The AgriCultural Museum the same place as Boerne's old Agricultural Heritage Museum?",
+      "answer": "Yes. The nonprofit museum began as the Agricultural Heritage Center in 1986 and changed its public name to The AgriCultural Museum & Arts Center in 2018, reflecting its expanded arts and community-program role. It remains at 102 City Park Road in Boerne.",
+      "verificationUrl": "https://theagricultural.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://theagricultural.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "When is the AgriCultural Museum open and what does admission cost?",
+      "answer": "The museum operator advertises Saturdays from 10 a.m. to 4 p.m. at 102 City Park Road. Regular admission is by donation, rather than a fixed price. Private events and special programs can operate at other times and have distinct charges.",
+      "verificationUrl": "https://theagricultural.org/visit-the-agricultural/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What will children and adults see at The AgriCultural?",
+      "answer": "A five-acre site includes the Big Red Barn with vintage tractors and farm equipment, buggies, a chuck wagon, a blacksmith shop, a woodworking shop and a pioneer house. Younger children will appreciate visible machinery, while older visitors can explore changes in Hill Country farming and crafts.",
+      "verificationUrl": "https://theagricultural.org/visit-the-agricultural/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors watch an active blacksmith at The AgriCultural?",
+      "answer": "The operator advertises blacksmith demonstrations every Saturday. Times and individual demonstrators can change, and active forge equipment requires appropriate supervision and distance. Confirm the demonstration schedule if it is the main reason for your visit.",
+      "verificationUrl": "https://theagricultural.org/visit-the-agricultural/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which Saturdays have live bluegrass music at the museum?",
+      "answer": "Regular bluegrass jams take place on the second and fourth Saturdays from 11 a.m. to 1 p.m., and the operator says they are free to the public with donations appreciated. Check the events schedule before arriving, because museum hours alone do not guarantee a jam.",
+      "verificationUrl": "https://theagricultural.org/bluegrass-jams/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://theagricultural.org/bluegrass-jams/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have a cafeteria, restaurant or bar?",
+      "answer": "The regular visitor page does not advertise a cafeteria or full-service dining operation. The City mentions that the woodshop may be converted into a bar for private events, but that does not mean walk-in museum visitors can buy meals or drinks there.",
+      "verificationUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the agricultural museum accessible for wheelchairs or strollers?",
+      "answer": "The public museum and city pages describe five acres with outdoor equipment and multiple historic structures, but do not establish step-free entry into every building or provide complete accessible-route specifications. Call the operator at 210-445-1080 about routes, restrooms and weather before visiting.",
+      "verificationUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I tour the museum without joining a guided group?",
+      "answer": "Yes. The City of Boerne encourages a self-guided visit of the museum's buildings and equipment. Group events, private use of the Pioneer House and workshops require separate arrangements; routine museum entry does not include a booked group program.",
+      "verificationUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much time should I allow to see The AgriCultural?",
+      "answer": "Allow approximately one to two hours for a focused self-guided look at the barn, machinery and historic workshops. This is a TexasDefined editorial planning estimate, not an official time commitment. Tractor pulls, jams, markets or art workshops can make the outing considerably longer.",
+      "verificationUrl": "https://theagricultural.org/visit-the-agricultural/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+
   "1919-san-augustine-county-jail-museum": [
     {
       "question": "Is the restored 1919 San Augustine County Jail open as a museum?",
