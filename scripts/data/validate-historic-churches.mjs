@@ -53,7 +53,14 @@ for(const [index,node] of records.entries()){
   if(!["not-established","research-candidate","related-historic"].includes(val(get(node,"paintedStatus")))) failures.push(slug+": illegal Painted Church promotion");
   if(slug==="ellinger-st-marys-hostyn-hill" && val(get(node,"paintedStatus"))!=="related-historic") failures.push("Hostyn Hill must be recommended as related historic church, not pending research");
   if(!/^\d{4}-\d{2}-\d{2}$/.test(val(get(node,"reviewedOn")))) failures.push(slug+": missing exact review date");
-  const image=get(node,"image");
+  for (const archival of arr(get(node,"archivalVisuals"))) {
+    if(!ts.isObjectLiteralExpression(archival)) {failures.push(slug+": non-static archival visual");continue;}
+    for (const key of ["file","title","alt","date","credit","sourceUrl","license","note"]) if(!get(archival,key)) failures.push(slug+": archival visual lacks "+key);
+    if(val(get(archival,"license"))!=="Public domain (U.S.)") failures.push(slug+": archival visual requires separately verified US public domain status");
+    if(!val(get(archival,"sourceUrl")).startsWith("https://commons.wikimedia.org/wiki/File:")) failures.push(slug+": archival visual must link to its original Commons rights record");
+    if(val(get(archival,"note")).length<70) failures.push(slug+": archival caption requires substantial provenance and accurate depiction scope");
+  }
+    const image=get(node,"image");
   const gallery=arr(get(node,"gallery"));
   const imageStatus=val(get(node,"imageStatus"));
   if(imageStatus!=="rights-cleared" && imageStatus!=="awaiting-licensed-photos") failures.push(slug+": explicit image clearance status required");
@@ -79,6 +86,7 @@ mustContain("src/routes/explore.painted-churches.tsx",["You may also be interest
 mustContain("src/routes/explore.painted-churches.census.tsx",["ellinger-st-marys-hostyn-hill"]);
 mustContain("src/data/painted-church-census.ts",["paintedChurchRelatedHistoricChurches", "ellinger-st-marys-hostyn-hill"]);
 mustContain("src/routes/explore.historic-churches.$slug.tsx",["Suggested companion historic church","related-historic"]);
+mustContain("src/routes/explore.historic-churches.$slug.tsx",["archivalVisuals","Public domain local history imagery","rights statement"]);
 mustContain("src/routes/explore.historic-churches.$slug.tsx",["church.faq.map","FAQPage","Frequently asked questions"]);
 mustContain("src/routes/explore.historic-churches.tsx",["You may also be interested in"]);
 mustContain("src/routes/sitemap-explore[.]xml.ts",["historicChurchEntries","historicChurches.map"]);
