@@ -17,6 +17,7 @@ const CURATED_PAIRINGS: Readonly<Record<string, readonly string[]>> = {
   "sour-lake-downtown-historic-district": ["sour-lake"],
   "downtown-bryan-historic-district": ["bryan", "carnegie-history-center-bryan", "queen-theatre-bryan"],
   "olivewood-cemetery": ["houston"],
+  "sycamore-creek-bridge-fort-worth": ["fort-worth","sycamore-park"],
   "natural-bridge-caverns": [
     "natural-bridge-wildlife-ranch",
     "guadalupe-river-state-park",
