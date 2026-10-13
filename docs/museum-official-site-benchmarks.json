@@ -324,6 +324,28 @@
         "https://www.whartoncountymuseum.org/",
         "https://atlas.thc.texas.gov/Details/4200001087"
       ]
+    },
+    "elisabet-ney-museum-austin": {
+      "name": "Elisabet Ney Museum",
+      "operatorStrengths": [
+        "City of Austin primary visitor closure notice and renovation plan",
+        "Artist/studio history, collection resources, and current virtual exhibits"
+      ],
+      "openGaps": [
+        "Compare entire operator visitor guidance to independent visitor needs after reopening",
+        "Check current site routes and image licensing in production browser"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.austintexas.gov/ney",
+        "https://www.austintexas.gov/parks/projects/elisabet-ney-museum-improvements",
+        "https://www.austintexas.gov/ney/programs-education",
+        "https://www.austintexas.gov/ney/elisabet-ney-museum-exhibits",
+        "https://www.austintexas.gov/ney/about-elisabet-ney-museum"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
