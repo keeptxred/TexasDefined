@@ -35,6 +35,10 @@
     {
       "slug": "eagle-mountain-lake",
       "name": "Eagle Mountain Lake"
+    },
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
     }
   ],
   "ballinger": [
@@ -327,6 +331,10 @@
     {
       "slug": "lake-granbury",
       "name": "Lake Granbury"
+    },
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
     }
   ],
   "fritch": [
@@ -985,6 +993,18 @@
     {
       "slug": "falcon-international-reservoir",
       "name": "Falcon International Reservoir"
+    }
+  ],
+  "lake-worth": [
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
+    }
+  ],
+  "river-oaks": [
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
     }
   ]
 }
