@@ -163,7 +163,7 @@ export const fredericksburgJohnsonCityHistoricRoadTripArticle: Article = {
       "items": [
         "Texas White House: the historic ranch house and Hangar Visitor Center are closed for structural rehabilitation. The NPS says the ranch driving tour, Junction School, reconstructed birthplace, family cemetery viewing area and Show Barn remain accessible as scheduled. No house tours can be promised.",
         "LBJ Ranch driving permit: collect a free permit and route map at the adjacent TPWD-run Lyndon B. Johnson State Park & Historic Site visitor center before driving into the federal ranch district. State and national park admission and operations are separate.",
-        "Fort Martin Scott: unlike older travel articles, the Texas Historical Commission currently lists paid admission beginning September 2025. As checked October 2026, adults $10, seniors and ages 5–17 $5, children 5 and under free. The site lists Tuesday–Saturday 9 a.m.–5 p.m., while open grounds are listed daily 8 a.m.–8 p.m.; requested guided tours are advertised at 10 a.m. and 2 p.m. Tuesday–Saturday. Confirm before departure."
+        "Fort Martin Scott: unlike older travel articles, the Texas Historical Commission currently lists paid admission beginning September 2025. As checked October 2026, adults $10, seniors and ages 5–17 $5, children 5 and under free. The site lists Tuesday–Saturday 9 a.m.–5 p.m., while open grounds are listed daily 8 a.m.–8 p.m.; THC's main page advertises requested guided tours at 10 a.m. and 2 p.m., but its separate Plan Your Visit page says self-guided visits only. Contact site staff to resolve the discrepancy before relying on a guided tour."
       ]
     },
     {
@@ -197,7 +197,7 @@ export const fredericksburgJohnsonCityHistoricRoadTripArticle: Article = {
     },
     {
       "type": "paragraph",
-      "text": "Fort Martin Scott follows a very different chronology. Founded in 1848 as a U.S. Army frontier post, it shows how federal military infrastructure accompanied expanding settlement. The original guardhouse and reconstructed features should be identified honestly: the historic site does not consist entirely of original 1840s buildings. Discuss the roles of the German settlement, soldiers and Indigenous nations rather than suggesting that the frontier was empty land. The THC manages the site and publishes admission, operating times and tour requirements."
+      "text": "Fort Martin Scott follows a very different chronology. Founded in 1848 as a U.S. Army frontier post, it shows how federal military infrastructure accompanied expanding settlement. The original guardhouse and reconstructed features should be identified honestly: the historic site does not consist entirely of original 1840s buildings. Discuss the roles of the German settlement, soldiers and Indigenous nations rather than suggesting that the frontier was empty land. The THC manages the site and publishes admission and operating times, but its main visitor page and Plan Your Visit page currently conflict about guided versus self-guided tours. Check directly before relying on a guided program. The visitor center and most grounds are wheelchair accessible, whereas historic/reconstructed structures and the nature trail are not ADA accessible."
     },
     {
       "type": "paragraph",
@@ -264,7 +264,7 @@ export const fredericksburgJohnsonCityHistoricRoadTripArticle: Article = {
       "items": [
         "Fredericksburg Art Guild: gallery hours published by the nonprofit; no general admission price confirmed in the source consulted. Call about access and special shows.",
         "National Museum of the Pacific War: paid museum with its own pricing and operating calendar; use the official ticket page rather than an out-of-date travel price.",
-        "Fort Martin Scott: THC currently publishes $10 adult admission, with reduced senior/youth rates. Outdoor grounds have a different schedule from staffed site/tour hours.",
+        "Fort Martin Scott: THC currently publishes $10 adult admission, with reduced senior/youth rates. The visitor center and most grounds are accessible but not the historic interiors or nature trail; conflicting THC tour pages require direct confirmation.",
         "LBJ State Park and Sauer-Beckmann Farm: state park currently lists free admission; hours and demonstrations can differ from the federal park.",
         "LBJ Ranch and Johnson City districts: NPS lists no entrance fee; the ranch driving permit is still required. The Texas White House Complex is closed.",
         "Johnson Settlement: NPS publishes detailed trail grade, surface and accessibility information. Contact staff for mobility-specific plans.",
