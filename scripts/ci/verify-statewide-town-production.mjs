@@ -66,7 +66,7 @@ const errors = (target, body, finalUrl) => {
   if (target.kind === "guide") {
     if (!plain.includes(target.name)) failures.push("town name absent from HTML");
     for (const marker of ["Why this place matters", "Itineraries that fit real trips",
-      "Primary sources and fact checks", "Explore " + target.name + " by interest"]) {
+      "Primary sources and fact checks", "What to do near " + target.name]) {
       if (!plain.includes(marker)) failures.push("research section absent: " + marker);
     }
     if (!hasHref(body, "/county/" + target.countySlug)) {
