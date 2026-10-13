@@ -148,6 +148,14 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     credit: "Kenneth C. Zirkel (Kzirkel) · CC BY 4.0 · Wikimedia Commons · File:Buffalo Soldiers National Museum entrance.jpg · photographed 2024",
   },
 
+
+  "brazos-valley-museum-natural-history-bryan": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Brazos_valley_museum_of_natural_history.jpg?width=1600",
+    alt: "Brazos Valley Museum of Natural History building in Bryan, photographed in February 2014",
+    width: 1600, height: 987,
+    credit: "Larry D. Moore (Wikimedia user Nv8200p) · CC BY 4.0 · Wikimedia Commons · File:Brazos valley museum of natural history.jpg · photographed 2014",
+  },
+
 };
 
 /** Exact subject, attribution-cleared media may enhance discovery without importing every long museum dossier. */
