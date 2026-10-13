@@ -63,6 +63,8 @@ const expected = [
   ["granger-lake", "Granger Lake"],
   ["aquilla-lake", "Aquilla Lake"],
   ["white-rock-lake", "White Rock Lake"],
+  ["bardwell-lake", "Bardwell Lake"],
+  ["lake-bastrop", "Lake Bastrop"],
 ];
 
 const fail = (message) => { throw new Error(`Statewide fishing network validation failed: ${message}`); };
@@ -78,19 +80,19 @@ const wave2 = parseTuple(files.slugs, "WAVE2_COMPLETE_FISHING_LAKE_SLUGS");
 const statewide = parseTuple(files.slugs, "STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS");
 if (base.length !== 10) fail(`expected 10 legacy complete lakes, found ${base.length}`);
 if (wave2.length !== 5) fail(`expected 5 wave-2 complete lakes, found ${wave2.length}`);
-if (statewide.length !== 42) fail(`expected 42 statewide-network lakes, found ${statewide.length}`);
+if (statewide.length !== 44) fail(`expected 44 statewide-network lakes, found ${statewide.length}`);
 const complete = [...base, ...wave2, ...statewide];
-if (new Set(complete).size !== 57) fail(`expected 57 unique complete lakes, found ${new Set(complete).size}`);
+if (new Set(complete).size !== 59) fail(`expected 59 unique complete lakes, found ${new Set(complete).size}`);
 
 const expectedSlugs = expected.map(([slug]) => slug);
 const lcraLiveExpectedSlugs = new Set(["fayette-county-reservoir"]);
-const officialFallbackSlugs = new Set(["calaveras-lake", "lake-casa-blanca", "white-rock-lake"]);
+const officialFallbackSlugs = new Set(["calaveras-lake", "lake-casa-blanca", "white-rock-lake", "lake-bastrop"]);
 const twdbLiveExpectedSlugs = expectedSlugs.filter((slug) => !lcraLiveExpectedSlugs.has(slug) && !officialFallbackSlugs.has(slug));
 const liveExpectedSlugs = expectedSlugs.filter((slug) => !officialFallbackSlugs.has(slug));
-if (JSON.stringify(statewide) !== JSON.stringify(expectedSlugs)) fail("statewide slug registry drifted from the authoritative 42-lake release order");
+if (JSON.stringify(statewide) !== JSON.stringify(expectedSlugs)) fail("statewide slug registry drifted from the authoritative 44-lake release order");
 
 const topLevel = [...files.network.matchAll(/^    slug: "([^"]+)", name: "([^"]+)"/gm)].map((match) => ({ slug: match[1], name: match[2], index: match.index }));
-if (topLevel.length !== 42) fail(`expected 42 top-level lake definitions, found ${topLevel.length}`);
+if (topLevel.length !== 44) fail(`expected 44 top-level lake definitions, found ${topLevel.length}`);
 if (new Set(topLevel.map((row) => row.slug)).size !== topLevel.length) fail("duplicate statewide lake slug");
 if (new Set(topLevel.map((row) => row.name)).size !== topLevel.length) fail("duplicate statewide lake name");
 for (const [slug, name] of expected) {
@@ -180,7 +182,7 @@ for (const token of [
   "getLcraHydrometSiteNumber",
 ]) requireText(files.liveFetcher, token, `LCRA resilient fetch contract missing ${token}`);
 
-if ((files.network.match(/waterDataSlug:\s*"/g) ?? []).length !== 38) fail("expected 38 statewide-network TWDB live-water mappings");
+if ((files.network.match(/waterDataSlug:\s*"/g) ?? []).length !== 39) fail("expected 39 statewide-network TWDB live-water mappings");
 if ((files.network.match(/lcraHydrometSiteNumber: "/g) ?? []).length !== 1) fail("expected exactly one statewide-network LCRA Hydromet mapping");
 if (files.network.includes("TPWD — current lake conditions entry point")) fail("obsolete pseudo-live TPWD current-conditions fallback remains");
 
@@ -195,8 +197,8 @@ for (const slug of officialFallbackSlugs) {
   }
 }
 for (const token of [
-  "All 54 monitored lake page-data snapshots and server paths are current",
-  "All 54 monitored lake snapshots and live UI surfaces passed",
+  "All 55 monitored lake page-data snapshots and server paths are current",
+  "All 55 monitored lake snapshots and live UI surfaces passed",
 ]) requireText(files.liveWorkflow, token, `production live-water workflow coverage contract missing ${token}`);
 
 for (const token of [
@@ -279,8 +281,8 @@ const sectionMatch = files.routing.match(/SHOWCASE_LAKE_SECTION_SLUGS\s*=\s*\[([
 const sectionCount = sectionMatch ? [...sectionMatch[1].matchAll(/"([a-z0-9-]+)"/g)].length : 0;
 if (sectionCount !== 8) fail(`expected 8 lake intent sections, found ${sectionCount}`);
 const newEntryUrls = statewide.length * (1 + sectionCount);
-if (newEntryUrls !== 378) fail(`expected 378 statewide-network overview/intent URLs, found ${newEntryUrls}`);
+if (newEntryUrls !== 396) fail(`expected 396 statewide-network overview/intent URLs, found ${newEntryUrls}`);
 
 if (files.network.includes('from "@/data/types";\\nimport')) fail("literal escaped newline remains in statewide import block");
 
-console.log(`Statewide fishing network validation passed: 15 existing + 42 statewide-network lakes = 57 complete lake guides; ${newEntryUrls} statewide-network overview/intent URLs; source-backed identity, species/technique relationships, canonical routing, sitemap discovery, related-lake/county links, report freshness language, 38 TWDB live-water mappings, one resilient LCRA Hydromet live mapping, three explicit official-agency fallbacks, current-condition honesty and duplicate-route safeguards are protected.`);
+console.log(`Statewide fishing network validation passed: 15 existing + 44 statewide-network lakes = 59 complete lake guides; ${newEntryUrls} statewide-network overview/intent URLs; source-backed identity, species/technique relationships, canonical routing, sitemap discovery, related-lake/county links, report freshness language, 39 TWDB live-water mappings, one resilient LCRA Hydromet live mapping, three explicit official-agency fallbacks, current-condition honesty and duplicate-route safeguards are protected.`);
