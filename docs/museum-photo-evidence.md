@@ -83,3 +83,7 @@ The museum's July 2026 air-conditioning closure was followed by an official July
 
 ## Art Museum of Southeast Texas (Beaumont) — October 13, 2026
 - [Wikimedia Commons File:AMSET exterior.jpg](https://commons.wikimedia.org/wiki/File:AMSET_exterior.jpg), **Ktimberlake**, **CC BY-SA 4.0**, 3906×3018 original pixels; confirmed from Commons imageinfo license/artist metadata. Exact-place building photograph, not a generic Beaumont museum. The guide includes attribution in the image credit.
+
+## National Museum of Funeral History (Houston) — October 13, 2026
+
+- Existing canonical destination hero is the **real museum building**, [Wikimedia Commons: File:National Museum of Funeral History.jpg](https://commons.wikimedia.org/wiki/File:National_Museum_of_Funeral_History.jpg), photographed **October 22, 2017**, by **Jim Evans**, with license **CC BY-SA 4.0**. The existing source data credits the author and license; preserve exact-museum attribution and avoid replacing it with stock funeral vehicles. The museum's 2026 galleries and current exhibits cannot be inferred from the 2017 exterior photo.
