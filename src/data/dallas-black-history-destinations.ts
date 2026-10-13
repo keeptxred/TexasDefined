@@ -19,7 +19,7 @@ const cemeteryPhoto = commons("African American Museum August 2016 10 (Facing th
 const craftPhoto = commons("P1520669-1.jpg", "Historic Juanita Craft Civil Rights House at 2618 Warren Avenue, Dallas, photographed in 2014", 3776, 2138, "Drewp4vp · CC BY-SA 3.0 · 2014 photograph");
 const stPaulPhoto = commons("Dallas - St. Paul United Methodist Church 01A.jpg", "The historic red-brick St. Paul United Methodist Church building in the Dallas Arts District, photographed in 2008", 2292, 1833, "Joe Mabel · CC BY-SA 3.0 · 2008 photograph");
 const queenCityPhoto = commons("MASS Building.jpg", "MASS Building within the historic Queen City Heights district of South Dallas, photographed in 2014", 3614, 2352, "Drewp4vp · CC BY-SA 3.0 · 2014 photograph");
-const tenthPhoto = commons("Tenth Street Historic District Freedmen's Town TxHM (29573143580).jpg", "Texas historical marker documenting the Tenth Street Freedmen's Town in Oak Cliff, photographed in 2016", 2160, 3840, "QuesterMark · Wikimedia Commons, license review in source ledger");
+const tenthPhoto = commons("Tenth Street Historic District Freedmen's Town TxHM (29573143580).jpg", "Texas historical marker documenting the Tenth Street Freedmen's Town in Oak Cliff, photographed in 2016", 2160, 3840, "QuesterMark · CC BY-SA 2.0 · 2016 marker photograph");
 
 export const dallasBlackHistoryDestinations: Destination[] = [
   {
@@ -94,7 +94,7 @@ export const dallasBlackHistoryDestinations: Destination[] = [
       "Juanita Craft's story connects to the Booker T. Washington School, St. Paul's congregation, the neighborhoods in which Black Dallas residents built institutions, and the wider history of Texas civil rights. This guide treats her as an organizer and civic leader rather than just a name attached to a restored building."
     ],
     managingAuthority: "City of Dallas Office of Arts and Culture",
-    officialUrl: "https://dallasculture.org/juanita-craft/",
+    officialUrl: "https://dallasculture.org/cultural-venues/juanita-craft-house/",
     address: "2618 Warren Avenue, Dallas, TX 75215", sourceCheckedAt: checked,
     accessibilityNotes: "As a restored historic house, circulation and accessible-tour provisions should be confirmed directly with its operator. Do not assume every original doorway or room is fully accessible.",
     directions: "Located in the Wheatley Place area of South Dallas. This is a residential neighborhood; respect driveways and neighboring properties.",
