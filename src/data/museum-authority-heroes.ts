@@ -3,6 +3,12 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "1919-san-augustine-county-jail-museum": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/San_augustine_county_tx_former_jail.jpg?width=1600",
+    alt: "Exterior of the restored 1919 San Augustine County Jail building in San Augustine, Texas, photographed in April 2015",
+    width: 1600, height: 1067,
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · File:San augustine county tx former jail.jpg",
+  },
   "museum-of-the-big-bend-alpine": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Museum_of_the_Big_Bend_%28Alpine%2C_Texas%29.jpg?width=1600",
     alt: "Museum of the Big Bend building and landscape on the Sul Ross State University campus in Alpine",
