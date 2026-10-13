@@ -1493,6 +1493,43 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "thinkery-austin-childrens-museum": {
+    name: "Thinkery Children's Museum",
+    slug: "thinkery-austin-childrens-museum",
+    county: "Travis",
+    city: "Austin",
+    reviewed: "2026-10-13",
+    topics: ["science", "family", "accessibility", "play"],
+    whyVisit: "Thinkery is Austin's hands-on STEAM children's museum in Mueller where young visitors test ideas through light, water, construction and imaginative play. It is different from a passive art or history museum because participation, experimentation and repeated attempts are central to the exhibits. Parents can choose areas that fit children's ages instead of trying to visit every gallery in one session.",
+    visitorStrategy: "Visit the Meredith Learning Lab at 1830 Simond Avenue, not the separate Thinkery Del Valle location. Ordinary public admission hours are Tuesday through Sunday 10 a.m.–5 p.m.; closed Monday except special programs. Standard admission for ages one and older is listed at $19.95, members free, and infants younger than one free. Allow 90 minutes to two hours. The museum currently offers up to three hours of validated parking in the McBee Street District Garage and Simond Garage, with current instructions requiring a Metropolis account. Parking validation and access during special programs can differ.",
+    accessibility: "Both public floors are wheelchair accessible by elevator, with limited wheelchairs and sensory earmuffs available from Admissions on a first-come basis. The museum also publishes a social story, floor map and sensory resources. For light-sensitive visitors, the Light Lab's Frozen Shadows feature includes bright strobe lighting. Service animals are permitted; regular pets and emotional-support animals are not admitted under ordinary policies.",
+    familiesAndGroups: "Adults must accompany children throughout the museum and Thinkery requires a 1:5 adult-to-child ratio on the exhibit floor. Babies and toddlers may benefit from Baby Bloomers on specified Friday and Saturday mornings with a separately priced ticket. Fresh! Farmers Market is particularly suited to young learners; Light Lab can be more stimulating and loud. The museum allows outside food and beverages in a designated Snack Area, not gallery spaces. There is no basis to promise a full-service museum restaurant.",
+    researchValue: "The museum's learning focus is experimenting, asking questions and making, not a static record of scientific instruments. Explain distinctions among standard general admission, Baby Bloomers, in-person-only reciprocal memberships, and separately programmed events. Policies and fees change more quickly than underlying STEAM exhibit themes. A separate Thinkery in Del Valle has different prices and accessibility, and must not be conflated with this Mueller destination.",
+    exhibits: [
+      { heading: "Light Lab", detail: "Hands-on color mixing, glowing art and Frozen Shadows let children investigate light, but the latter includes strobe effects that should be flagged for light-sensitive guests." },
+      { heading: "Currents and water experimentation", detail: "Water and flow activities create opportunities to explore cause and effect, movement and the idea of testing designs. Check the gallery's operating condition before promising every hands-on feature." },
+      { heading: "Fresh! Farmers Market", detail: "Younger visitors can sort and weigh play produce, collect pretend eggs and assemble recipe cards in a market-and-kitchen environment." },
+      { heading: "Innovators' Workshop and Spark Shop", detail: "Maker-oriented exhibits encourage children to build, test, iterate and use their own ideas, with changing activity supplies and supervised interactive spaces." },
+      { heading: "Our Backyard and family exploration", detail: "Indoor and outdoor play settings connect imagination with everyday science and give families contrasting levels of activity." },
+    ],
+    routes: [
+      { label: "90-minute first visit", steps: ["Arrive with validated parking instructions and check in at Admissions", "Begin with an age-appropriate gallery such as Farmers Market or Light Lab", "Allow time for Currents or an engineering activity rather than rushing all stations"] },
+      { label: "Toddler-paced family visit", steps: ["Reserve the separately scheduled Baby Bloomers session if that age program suits your family", "Alternate a quiet period with play galleries designed for early learners", "Use the Snack Area for brought food, not the gallery floors"] },
+    ],
+    sources: [
+      { label: "Thinkery — current visit, fees and parking", url: "https://thinkeryaustin.org/visit-us/", use: "Admission, hours and parking validation conditions" },
+      { label: "Thinkery — policies and visitor FAQ", url: "https://thinkeryaustin.org/guidelines/", use: "Age supervision, food, lockers and accessible entry" },
+      { label: "Thinkery — accessibility resources", url: "https://thinkeryaustin.org/museum-accessibility/", use: "Wheelchairs, hearing/sensory supports and social story" },
+      { label: "Thinkery — interactive exhibit roster", url: "https://thinkeryaustin.org/exhibit/", use: "Age and gallery themes" },
+      { label: "Thinkery — reduced admission", url: "https://thinkeryaustin.org/resources/", use: "Museums for All and reciprocal membership requirements" },
+    ],
+    connections: [
+      { label: "Travis County", href: "/county/travis", reason: "Find family activities in the larger Austin and Mueller context." },
+      { label: "Austin Nature & Science Center", href: "/destination/austin-nature-and-science-center", reason: "Compare a free outdoor nature experience with Thinkery's paid indoor STEAM play." },
+      { label: "Harry Ransom Center", href: "/destination/harry-ransom-center-austin", reason: "Contrast a humanities research exhibition with a hands-on children's museum." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
