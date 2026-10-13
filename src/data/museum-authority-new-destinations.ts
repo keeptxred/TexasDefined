@@ -10,6 +10,37 @@ import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 export const museumAuthorityDestinations: Destination[] = [
   ...cityPassDestinationExpansion.filter((destination) => destination.slug === "witte-museum"),
   {
+    id: "museum-authority-audie-murphy-american-cotton-greenville",
+    brandId: "texasdefined",
+    slug: "audie-murphy-american-cotton-museum-greenville",
+    name: "Audie Murphy/American Cotton Museum",
+    summary: "Greenville visitor guide to the Audie Murphy/American Cotton Museum: military history, cotton production and historic machinery, the Ende-Gaillard House, accessible admission, family suitability and grounds.",
+    category: "historic-sites",
+    region: "prairies-lakes",
+    nearestTown: "Greenville",
+    county: "Hunt County",
+    coordinates: { lat: 33.12592, lng: -96.08950 },
+    hero: museumLicensedHeroes["audie-murphy-american-cotton-museum-greenville"],
+    bestSeason: "Year-round indoor galleries, with spring and fall preferred for exploring outdoor memorials and historic-house grounds.",
+    entryNote: "Regular visiting hours are Tuesday–Saturday 10 a.m.–5 p.m. at 600 I-30 East, Greenville. Adult admission is listed at $10. The museum website has inconsistent youth and student fee tiers, so confirm the price for your age group with the operator before arrival.",
+    highlights: [
+      "Audie Murphy and other Hunt County military service stories",
+      "Cotton industry exhibits, historical machinery and social history",
+      "1850s Ende-Gaillard House on the grounds",
+      "Hunt County military memorial and outdoor heritage interpretation"
+    ],
+    body: [
+      "Hunt County's cotton economy and its military service history are brought together in the museum's two complementary areas. Cotton cultivation, labor and machinery shaped Greenville's commercial development; the military displays interpret the lives and choices of service members in successive conflicts. Treat those histories together rather than reducing the institution to one celebrity.",
+      "The Military Hall of Heroes includes wartime artifacts, trench interpretation and exhibits about Audie Murphy alongside others from Hunt County. The agricultural galleries connect cotton processing with everyday domestic and farm life. The grounds include a historic nineteenth-century house and memorial features whose current access should be checked separately.",
+      "The operator recommends advance booking for guided parties of ten or more and describes accessible general museum facilities, with a wheelchair and walker available first-come. Children can learn from machinery and home-life interpretation, while adults should use judgment around weapons and wartime subjects. A picnic area is advertised; a museum restaurant is not established."
+    ],
+    managingAuthority: "Audie Murphy/American Cotton Museum",
+    officialUrl: "https://cottonmuseum.com/visit/",
+    address: "600 I-30 East, Greenville, TX 75401",
+    sourceCheckedAt: "2026-10-13",
+    accessibilityNotes: "The operator describes accessible main galleries and one loan wheelchair and walker, but historic-house accessibility must be verified separately."
+  },
+  {
     id: "museum-authority-1940-air-terminal-houston",
     brandId: "texasdefined",
     slug: "1940-air-terminal-museum-houston",
