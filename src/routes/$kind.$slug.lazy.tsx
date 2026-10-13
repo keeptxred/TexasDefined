@@ -71,6 +71,12 @@ const batch002FootballCityLinks: Record<string, { name: string; slug: string; co
 
 // Exactly five independently researched football authority entries; campus county, not postal city or school-district footprint.
 const batch001FootballCountyLinks: Record<string, { name: string; href: string; description: string; campusCountySource: string }> = {
+  knox: {
+    name: 'Benjamin Mustangs',
+    href: '/texas-high-school-football-teams/benjamin',
+    description: 'Explore Benjamin ISD\'s 2022 and 2023 six-man titles, 2026 game reports and stadium visit information.',
+    campusCountySource: 'https://www.benjaminisd.net/',
+  },
   'van-zandt': {
     name: 'Wills Point Tigers',
     href: '/texas-high-school-football-teams/wills-point',
