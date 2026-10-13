@@ -21,6 +21,7 @@ const completedAuthoritySlugs: Record<string,string> = {
   "Sour Lake Historic District": "sour-lake-downtown-historic-district",
   "Sour Lake Downtown Historic District": "sour-lake-downtown-historic-district",
   "Kokernot Field": "kokernot-field",
+  "Holland Hotel": "holland-hotel",
   "Alpine Downtown Historic District": "alpine-downtown-historic-district",
   "Downtown Bryan Historic District": "downtown-bryan-historic-district",
 };
