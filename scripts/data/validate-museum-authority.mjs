@@ -26,6 +26,8 @@ if (manifestStart < 0 || manifestEnd < 0) {
   process.exit(1);
 }
 const allDossiers = [...src.slice(manifestStart, manifestEnd).matchAll(/^  "([a-z0-9-]+)": \{/gm)].map((m) => m[1]);
+const lightweightSlugs = [...read("src/data/museum-authority-slugs.ts").matchAll(/^  "([a-z0-9-]+)",$/gm)].map(m => m[1]);
+if (lightweightSlugs.length !== allDossiers.length || lightweightSlugs.some(s => !allDossiers.includes(s))) failures.push("Museum SEO slug index must match all dossier keys exactly.");
 if (new Set(allDossiers).size !== allDossiers.length) failures.push("Duplicate museum authority dossier keys.");
 function dossier(slug) {
   const start = src.indexOf('  "' + slug + '": {');
@@ -82,7 +84,7 @@ for (const [path, marker] of [
   ["src/data/destination-preserved-catalog.ts", "museumAuthorityDestinations"],
   ["src/data/destination-query-runtime.ts", "enrichMuseumMedia"],
   ["src/components/editorial/DestinationRelationships.tsx", "MuseumAuthorityNetworkSection"],
-  ["src/routes/destination.$slug.tsx", "museumDossierFor"],
+  ["src/routes/destination.$slug.tsx", "museumAuthoritySlugs"],
   ["src/routes/$kind.$slug.lazy.tsx", "CountyCityMuseums"],
 ]) {
   if (!read(path).includes(marker)) failures.push("Missing museum integration in " + path);
@@ -93,6 +95,7 @@ for (const path of ["src/data/destination-query-runtime.ts", "src/data/destinati
 }
 if (!read("src/data/museum-authority-heroes.ts").includes("export const museumLicensedHeroes")) failures.push("Lightweight license-cleared museum heroes module missing.");
 if (!read("src/routes/destination.$slug.tsx").includes("enrichMuseumAuthority")) failures.push("Museum body enrichment must remain in the museum destination page, not global search.");
+if (read("src/routes/destination.$slug.tsx").includes('from "@/data/museum-authority-network"')) failures.push("Museum route must lazily load full research dossiers.");
 
 if (!read("src/data/museum-authority-new-destinations.ts").includes('slug: "george-ranch-historical-park"'))
   failures.push("Missing George Ranch destination record");
