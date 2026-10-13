@@ -1485,7 +1485,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Nueces Canyon Panthers Football | UIL History, 2026 & Game-Day Guide",
-      "description": "Independent Nueces Canyon Panthers football guide: source-verified history, 2026 UIL alignment, campus and stadium details, official athletics links."
+      "description": "Nueces Canyon Panthers Football | UIL History, 2026 & Game-Day Guide: dated 2026 football schedule and reported results, school-specific UIL history, game-day sources and FAQ."
     },
     "schedule": {
       "label": "Nueces Canyon Panthers official football schedules and athletics",
@@ -1514,12 +1514,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "District athletics lists its game field at 301 S Guadalupe in Camp Wood, distinct from the high-school campus in Barksdale.",
         "sourceUrl": "https://ncjhhs.nccisd.net/athletics",
         "sourceLabel": "Official athletic department field address"
+      },
+      {
+        "date": "2026",
+        "title": "Reported 2026 results and remaining fixtures",
+        "body": "Nueces Canyon earned a reported 46–0 road win at Our Lady of the Hills on September 11, while a 44–8 October 9 loss to Knippa brought the independently reported record to 1–4.",
+        "sourceUrl": "https://www.maxpreps.com/tx/barksdale/nueces-canyon-panthers/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 season results; opponent schedule details separately verified where noted"
       }
     ],
     "overview": [
       "Nueces Canyon's small-school Panthers play six-man football under the 2026–28 UIL 1A Division I District 16 alignment. That format is distinct from eleven-man games and classifications.",
       "This football community has two practical locations: Nueces Canyon JH/HS is at 200 E Taylor Street in Barksdale, Edwards County; district athletics publishes Floyd Collins Field at Northcutt Stadium at 301 S Guadalupe in Camp Wood. A school address alone is not a safe stadium-navigation link.",
-      "The official campus site separates a 2026 high-school football schedule from its junior-high calendar and lists a named staff group without explicitly resolving each individual's 2026 head-coaching role. The district calendar publishes October 23 homecoming activity against Prairie Lea; check the school for updates before traveling."
+      "The official campus site separates a 2026 high-school football schedule from its junior-high calendar and lists a named staff group without explicitly resolving each individual's 2026 head-coaching role. The district calendar publishes October 23 homecoming activity against Prairie Lea; check the school for updates before traveling.",
+      "An October 10 MaxPreps schedule lists nine published varsity fixtures for the Nueces Canyon six-man Panthers, including five recorded results through October 9. The 1–4 snapshot contains a win at Our Lady of the Hills and district loss to Knippa. Upcoming Bruni, Prairie Lea, Medina, and Leakey games have no known results in this checkpoint. Do not invent a tenth game simply to force a ten-row grid; the district's first-party football calendar remains the official source for changes."
     ],
     "faq": [
       {
@@ -1533,6 +1541,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Is the varsity calendar the same as junior-high football?",
         "answer": "No. The official Nueces Canyon football page publishes separate 2026 HS and JH documents, so consult the high-school schedule for varsity games."
+      },
+      {
+        "question": "How current are the 2026 scores on this page?",
+        "answer": "The displayed win-loss record is limited to the latest named result date on the third-party source, not a continuously refreshed official season tally. Scores are shown only when verified in that cited snapshot. Confirm later games with the school."
+      },
+      {
+        "question": "Where should I confirm varsity game times, venues and tickets?",
+        "answer": "Use the school or district's official athletics calendar linked above. Independent scorecards may lag or conflict with first-party event announcements, especially after a game date has passed."
       }
     ],
     "campus": {
@@ -1549,6 +1565,73 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "District athletics field address",
       "verifiedAt": "2026-10-10",
       "note": "Stadium is in Camp Wood; campus is in Barksdale. Gate, parking and accessibility details require confirmation."
+    },
+    "season": {
+      "record": "1–4 through October 9, 2026 (MaxPreps)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/barksdale/nueces-canyon-panthers/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity reporting; record limited to named source checkpoint",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Bracken Christian",
+          "site": "Home",
+          "district": false,
+          "result": "L 0-54"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Our Lady of the Hills",
+          "site": "Away",
+          "district": false,
+          "result": "W 46-0"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Rocksprings",
+          "site": "Away",
+          "district": false,
+          "result": "L 0-47"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "TCSACH",
+          "site": "Home",
+          "district": false,
+          "result": "L 0-46"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Knippa",
+          "site": "Home",
+          "district": true,
+          "result": "L 8-44"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Bruni",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Prairie Lea",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Medina",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Leakey",
+          "site": "Away",
+          "district": true
+        }
+      ]
     }
   },
   "bartlett": {
@@ -1559,7 +1642,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Bartlett Bulldogs Football | UIL History, 2026 & Game-Day Guide",
-      "description": "Independent Bartlett Bulldogs football guide: source-verified history, 2026 UIL alignment, campus and stadium details, official athletics links."
+      "description": "Bartlett Bulldogs Football | UIL History, 2026 & Game-Day Guide: dated 2026 football schedule and reported results, school-specific UIL history, game-day sources and FAQ."
     },
     "schedule": {
       "label": "Bartlett Bulldogs official football schedules and athletics",
@@ -1595,12 +1678,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The Bulldogs defeated Aspermont 35–6, establishing the program's third UIL football championship.",
         "sourceUrl": "https://www.uiltexas.org/football/archives/P296",
         "sourceLabel": "UIL 1999–2000 championship result"
+      },
+      {
+        "date": "2026",
+        "title": "Reported 2026 results and remaining fixtures",
+        "body": "Four consecutive 2026 wins (including 52–20 over Snook) were followed by a 26–69 district loss at Burton on October 2, bringing the third-party scorecard to 4–1 through that date.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bartlett/bartlett-bulldogs/football/",
+        "sourceLabel": "MaxPreps 2026 season results; opponent schedule details separately verified where noted"
       }
     ],
     "overview": [
       "Bartlett's Bulldogs have three documented Class 1A eleven-man football state championships: 1990 against Munday, 1992 against Sudan and 1999 against Aspermont. This achievement belongs to Bartlett's history; the current 2026–28 UIL classification is independently 2A Division II District 13.",
       "The 1992 UIL playoff record names head coach/athletic director Terry Cron and documents Bartlett's run through the semifinals before its 33–26 win over Sudan. That historical leadership attribution is not evidence of the 2026 coaching staff.",
-      "Bartlett ISD's athletics page offers a specifically labeled 2026 Bulldog varsity schedule as distinct from its junior-high schedule and older 2025 PDFs. Match-day opponents, kickoff, tickets and stadium entrance should be confirmed with the district."
+      "Bartlett ISD's athletics page offers a specifically labeled 2026 Bulldog varsity schedule as distinct from its junior-high schedule and older 2025 PDFs. Match-day opponents, kickoff, tickets and stadium entrance should be confirmed with the district.",
+      "Bartlett's 2026 MaxPreps schedule snapshot remained at 4–0 through September 25, but its current team home reports an October 2 road loss to Burton, 26–69, bringing the independently reported record to 4–1. This combines the ten listed schedule slots with a separately verified fifth final; it does not assume a score for the October 9 Bremond game. Bartlett's historical UIL championships are distinguished from these 2026 results."
     ],
     "faq": [
       {
@@ -1614,6 +1705,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Is Bartlett currently Class 1A?",
         "answer": "No. The 2026–28 UIL roster lists Bartlett in 2A Division II, District 13; 1A refers to its historical championship years."
+      },
+      {
+        "question": "How current are the 2026 scores on this page?",
+        "answer": "The displayed win-loss record is limited to the latest named result date on the third-party source, not a continuously refreshed official season tally. Scores are shown only when verified in that cited snapshot. Confirm later games with the school."
+      },
+      {
+        "question": "Where should I confirm varsity game times, venues and tickets?",
+        "answer": "Use the school or district's official athletics calendar linked above. Independent scorecards may lag or conflict with first-party event announcements, especially after a game date has passed."
       }
     ],
     "campus": {
@@ -1621,6 +1720,79 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://bartlett.txed.net/",
       "sourceLabel": "Bartlett ISD official campus",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "4–1 through October 2, 2026 (current team home; older schedule omits fifth result)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/bartlett/bartlett-bulldogs/football/",
+      "sourceLabel": "MaxPreps 2026 varsity reporting; record limited to named source checkpoint",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "TLFA",
+          "site": "Home",
+          "district": false,
+          "result": "W 69-0"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "John Paul II",
+          "site": "Away",
+          "district": false,
+          "result": "W 36-23"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Florence",
+          "site": "Away",
+          "district": false,
+          "result": "W 36-23"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Snook",
+          "site": "Home",
+          "district": true,
+          "result": "W 52-20"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Burton",
+          "site": "Away",
+          "district": true,
+          "result": "L 26-69"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Bremond",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Chilton",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Somerville",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Milano",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Holland",
+          "site": "Home",
+          "district": true
+        }
+      ]
     }
   },
   "bastrop": {
@@ -1631,7 +1803,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Bastrop Bears Football | UIL History, 2026 & Game-Day Guide",
-      "description": "Independent Bastrop Bears football guide: source-verified history, 2026 UIL alignment, campus and stadium details, official athletics links."
+      "description": "Bastrop Bears Football | UIL History, 2026 & Game-Day Guide: dated 2026 football schedule and reported results, school-specific UIL history, game-day sources and FAQ."
     },
     "schedule": {
       "label": "Bastrop Bears official football schedules and athletics",
@@ -1660,12 +1832,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "Bastrop Bears are 5A Division II District 12; Cedar Creek Eagles are 5A Division I District 13 in 2026–28. Sharing a stadium does not imply identical district competition.",
         "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
         "sourceLabel": "Official UIL 2026–28 Bastrop alignment"
+      },
+      {
+        "date": "2026",
+        "title": "Reported 2026 results and remaining fixtures",
+        "body": "Bastrop's reported early 2026 win was a 28–18 road victory at Chaparral on September 4; through September 25 the team stood 1–4 after a 40–3 loss at Brenham.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bastrop/bastrop-bears/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 season results; opponent schedule details separately verified where noted"
       }
     ],
     "overview": [
       "Bastrop's Bears play eleven-man football in UIL 5A Division II District 12 for the 2026–28 realignment cycle. Their campus is Bastrop High School, 1614 Chambers Street in Bastrop, rather than the Cedar Creek site where district varsity games are often played.",
       "The district identifies the Bears' home venue as Bastrop ISD Memorial Stadium, a shared 8,000-seat facility at 755 TX-21 W in Cedar Creek, opened in 2009. Cedar Creek Eagles share that stadium but compete as a different program, in a different current UIL division and district.",
-      "Bastrop High's athletics directory lists Jake Griedl for football. Official Bastrop ISD policy says ticket purchases are online-only, with no cash-ticket sale at the gate; clear bags are required and certain younger spectators must be accompanied by an adult. Consult the event's district listing for changes and specific access needs."
+      "Bastrop High's athletics directory lists Jake Griedl for football. Official Bastrop ISD policy says ticket purchases are online-only, with no cash-ticket sale at the gate; clear bags are required and certain younger spectators must be accompanied by an adult. Consult the event's district listing for changes and specific access needs.",
+      "The 2026–27 Bastrop Bears varsity schedule, not Louisiana's Bastrop Rams or the Texas Bears' 2025 11–2 season, reports a 1–4 start through September 25. It lists five 2026 district fixtures beginning October 9 against Crockett, but this particular scoreboard snapshot has not verified those later outcomes. The table retains those as scheduled events only, not proven future dates or victories. Game locations and ticketing remain subject to Bastrop ISD confirmation."
     ],
     "faq": [
       {
@@ -1679,6 +1859,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Can I buy Bastrop ISD football tickets with cash at the stadium?",
         "answer": "The district says athletic event tickets must be purchased online and enforces a clear-bag rule at its venues; check the official athletics page for any event-specific policies."
+      },
+      {
+        "question": "How current are the 2026 scores on this page?",
+        "answer": "The displayed win-loss record is limited to the latest named result date on the third-party source, not a continuously refreshed official season tally. Scores are shown only when verified in that cited snapshot. Confirm later games with the school."
+      },
+      {
+        "question": "Where should I confirm varsity game times, venues and tickets?",
+        "answer": "Use the school or district's official athletics calendar linked above. Independent scorecards may lag or conflict with first-party event announcements, especially after a game date has passed."
       }
     ],
     "campus": {
@@ -1702,6 +1890,79 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "Official stadium information",
       "verifiedAt": "2026-10-10",
       "note": "Shared with Cedar Creek Eagles. District requires online tickets and clear bags; confirm ADA and entry details."
+    },
+    "season": {
+      "record": "1–4 through September 25, 2026 (older MaxPreps schedule snapshot)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/bastrop/bastrop-bears/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity reporting; record limited to named source checkpoint",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Lake Creek",
+          "site": "Away",
+          "district": false,
+          "result": "L 34-52"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Chaparral",
+          "site": "Away",
+          "district": false,
+          "result": "W 28-18"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Belton",
+          "site": "Home",
+          "district": false,
+          "result": "L 0-41"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Midland",
+          "site": "Home",
+          "district": false,
+          "result": "L 0-49"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Brenham",
+          "site": "Away",
+          "district": false,
+          "result": "L 3-40"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Crockett",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Pflugerville",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Navarro",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Elgin",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-05",
+          "opponent": "LASAA",
+          "site": "Away",
+          "district": true
+        }
+      ]
     }
   },
   "bastrop-cedar-creek": {
@@ -1712,7 +1973,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Cedar Creek Eagles Football | UIL History, 2026 & Game-Day Guide",
-      "description": "Independent Cedar Creek Eagles football guide: source-verified history, 2026 UIL alignment, campus and stadium details, official athletics links."
+      "description": "Cedar Creek Eagles Football | UIL History, 2026 & Game-Day Guide: dated 2026 football schedule and reported results, school-specific UIL history, game-day sources and FAQ."
     },
     "schedule": {
       "label": "Cedar Creek Eagles official football schedules and athletics",
@@ -1741,12 +2002,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "Memorial Stadium opened in 2009 and is the district's home venue for both Cedar Creek Eagles and Bastrop Bears.",
         "sourceUrl": "https://www.bisdtx.org/departments/athletics/memorial-stadium",
         "sourceLabel": "Bastrop ISD Memorial Stadium"
+      },
+      {
+        "date": "2026",
+        "title": "Reported 2026 results and remaining fixtures",
+        "body": "Cedar Creek beat Travis 27–24 and Navarro 55–3 before five reported district defeats, most recently a 52–14 loss at Manor on October 9 (independent MaxPreps snapshot).",
+        "sourceUrl": "https://www.maxpreps.com/tx/cedar-creek/cedar-creek-eagles/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 season results; opponent schedule details separately verified where noted"
       }
     ],
     "overview": [
       "Cedar Creek Eagles football represents Cedar Creek High School, not Bastrop High. Both schools belong to Bastrop ISD and play games at its Memorial Stadium, but in the 2026–28 UIL football cycle Cedar Creek is a Class 5A Division I District 13 program, separate from the Bears' 5A Division II District 12 schedule.",
       "The Cedar Creek High School campus is at 793 Union Chapel Road; the district's shared Memorial Stadium is at 755 TX-21 W. A trip to the campus and a trip to a varsity game may require different navigation; check the school athletics game-location list before leaving.",
-      "The Eagles' official athletics coach directory identifies Jared Shaw as athletic coordinator/head football coach. The Cedar Creek game-location pages list multiple opponent stadiums; those are travel destinations, not multiple Cedar Creek 'home stadiums.' Bastrop ISD publishes districtwide online-ticket, clear-bag and younger-spectator policies."
+      "The Eagles' official athletics coach directory identifies Jared Shaw as athletic coordinator/head football coach. The Cedar Creek game-location pages list multiple opponent stadiums; those are travel destinations, not multiple Cedar Creek 'home stadiums.' Bastrop ISD publishes districtwide online-ticket, clear-bag and younger-spectator policies.",
+      "Cedar Creek's MaxPreps scoreboard updated October 10 reports a 2–5 start through the October 9 loss at Manor, with 2026 non-district wins over Travis and Navarro, then five successive district losses. The ten-game snapshot separately lists remaining Lehman, Anderson and Lockhart fixtures; those are not reported results, and the 2026 Bears schedule from Bastrop High School must not be conflated with the Cedar Creek Eagles' different district and division."
     ],
     "faq": [
       {
@@ -1760,6 +2029,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Where does Cedar Creek play football?",
         "answer": "Memorial Stadium at 755 TX-21 W in Cedar Creek is an official shared home venue. The high-school campus is at 793 Union Chapel Road, a different location."
+      },
+      {
+        "question": "How current are the 2026 scores on this page?",
+        "answer": "The displayed win-loss record is limited to the latest named result date on the third-party source, not a continuously refreshed official season tally. Scores are shown only when verified in that cited snapshot. Confirm later games with the school."
+      },
+      {
+        "question": "Where should I confirm varsity game times, venues and tickets?",
+        "answer": "Use the school or district's official athletics calendar linked above. Independent scorecards may lag or conflict with first-party event announcements, especially after a game date has passed."
       }
     ],
     "campus": {
@@ -1783,6 +2060,81 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "Official district stadium information",
       "verifiedAt": "2026-10-10",
       "note": "Also serves Bastrop Bears; check Eagles game-location list for away fixtures and ticket policies."
+    },
+    "season": {
+      "record": "2–5 through October 9, 2026 (MaxPreps)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/cedar-creek/cedar-creek-eagles/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity reporting; record limited to named source checkpoint",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Travis",
+          "site": "Home",
+          "district": false,
+          "result": "W 27-24"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Navarro",
+          "site": "Home",
+          "district": false,
+          "result": "W 55-3"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Boerne Champion",
+          "site": "Away",
+          "district": true,
+          "result": "L 0-55"
+        },
+        {
+          "date": "2026-09-17",
+          "opponent": "Seguin",
+          "site": "Home",
+          "district": true,
+          "result": "L 28-49"
+        },
+        {
+          "date": "2026-09-24",
+          "opponent": "Smithson Valley",
+          "site": "Away",
+          "district": true,
+          "result": "L 7-84"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "McCallum",
+          "site": "Home",
+          "district": true,
+          "result": "L 18-52"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Manor",
+          "site": "Away",
+          "district": true,
+          "result": "L 14-52"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Lehman",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-29",
+          "opponent": "Anderson",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Lockhart",
+          "site": "Home",
+          "district": true
+        }
+      ]
     }
   },
   "bay-city": {
@@ -2758,7 +3110,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Banquete Bulldogs Football: UIL History, 2026 Schedule & School Guide",
-      "description": "Independent guide to Banquete Bulldogs football: source-documented 2026 varsity schedules published by banquete isd, current UIL alignment, official schedules, campus details and fan resources."
+      "description": "Banquete Bulldogs Football: dated 2026 football schedule and reported results, school-specific UIL history, game-day sources and FAQ."
     },
     "schedule": {
       "label": "Banquete ISD's published 2026 varsity football schedule",
@@ -2780,12 +3132,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The first-party Banquete athletics schedules page publishes a 2026 high school varsity football schedule separately from its 2026 junior-high and JV schedules. Those posted fixture documents should not be used to fabricate final results or claim historically unverified state football titles.",
         "sourceUrl": "https://www.banqueteisd.net/departments/athletics",
         "sourceLabel": "Banquete ISD Bulldog athletics programs and school resources"
+      },
+      {
+        "date": "2026",
+        "title": "Reported 2026 results and remaining fixtures",
+        "body": "One reported win, 20–7 over Marine Military Academy (September 4), and five losses including Premont 20–22 (October 9); the feed also lists Dilley and Monte Alto as future games, not completed results.",
+        "sourceUrl": "https://www.maxpreps.com/tx/banquete/banquete-bulldogs/football/",
+        "sourceLabel": "MaxPreps 2026 season results; opponent schedule details separately verified where noted"
       }
     ],
     "overview": [
       "Banquete High School's Bulldogs have their own 2026 varsity schedule in Banquete ISD's athletics directory. The junior-high and JV file is separate; mixing its kickoff times, opponents or sites into the varsity schedule would be misleading for visiting football families.",
       "Banquete's high school is at 5519 Texas Highway 44 in Nueces County. The school address should not be confused with the district administration address, and a campus location does not automatically establish the stadium's preferred parking entrance or disabled-access arrangements.",
-      "The first-party district calendar lists the October 23, 2026 varsity homecoming contest versus Monte Alto at Bulldog Stadium. As of October 10 it is a future scheduled event; results, final attendance details and any later venue changes must be sourced from the school rather than forecast."
+      "The first-party district calendar lists the October 23, 2026 varsity homecoming contest versus Monte Alto at Bulldog Stadium. As of October 10 it is a future scheduled event; results, final attendance details and any later venue changes must be sourced from the school rather than forecast.",
+      "MaxPreps's 2026 team feed reports six Banquete games through October 9: a 1–5 record including the September 4 victory over Marine Military Academy and October 9 district loss to Premont. It previews Dilley and Monte Alto as later fixtures, but it does not supply a complete 2026 ten-game result table in a current season-specific schedule. The ordinary MaxPreps /football/schedule/ URL displays 2025; never import its 2025 fixtures as 2026 games. Banquete ISD publishes a 2026 varsity football schedule as an image, but those unseen fixtures are not invented here."
     ],
     "faq": [
       {
@@ -2799,6 +3159,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Is the October 23 homecoming game already final?",
         "answer": "No. Banquete ISD listed the October 23, 2026 Monte Alto homecoming game at Bulldog Stadium as a future fixture; check the district for current venue and ticket information."
+      },
+      {
+        "question": "How current are the 2026 scores on this page?",
+        "answer": "The displayed win-loss record is limited to the latest named result date on the third-party source, not a continuously refreshed official season tally. Scores are shown only when verified in that cited snapshot. Confirm later games with the school."
+      },
+      {
+        "question": "Where should I confirm varsity game times, venues and tickets?",
+        "answer": "Use the school or district's official athletics calendar linked above. Independent scorecards may lag or conflict with first-party event announcements, especially after a game date has passed."
       }
     ],
     "campus": {
@@ -2807,6 +3175,68 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://bhs.banqueteisd.net/departments/contact-us",
       "sourceLabel": "Official school high-school campus address and contact",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "1–5 through October 9, 2026 (MaxPreps; six results verified)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/banquete/banquete-bulldogs/football/",
+      "sourceLabel": "MaxPreps 2026 varsity reporting; record limited to named source checkpoint",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Odem",
+          "site": "Home",
+          "district": false,
+          "result": "L 18-42"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Marine Military Academy",
+          "site": "Home",
+          "district": false,
+          "result": "W 20-7"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Ben Bolt",
+          "site": "Home",
+          "district": false,
+          "result": "L 22-48"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Skidmore-Tynan",
+          "site": "Home",
+          "district": false,
+          "result": "L 14-39"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Refugio",
+          "site": "Home",
+          "district": true,
+          "result": "L 20-74"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Premont",
+          "site": "Home",
+          "district": true,
+          "result": "L 20-22"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Dilley",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Monte Alto",
+          "site": "Home",
+          "district": true
+        }
+      ]
     }
   },
   "baird": {
