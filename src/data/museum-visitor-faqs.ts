@@ -849,6 +849,172 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
     }
+  ],
+  "el-paso-museum-of-art": [
+    {
+      "question": "Is El Paso Museum of Art free, and which days can I visit?",
+      "answer": "The museum lists free general admission for every visitor. Normal hours are Wednesday through Saturday 10 a.m.–6 p.m., Sunday 11 a.m.–3 p.m.; closed Monday, Tuesday and major holidays. Check special exhibition and event announcements before making a trip.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does El Paso Museum of Art have a restaurant or café inside?",
+      "answer": "The museum's published visitor and tour pages do not establish a full-service on-site restaurant or cafeteria. For lunch, its student tour FAQ recommends nearby San Jacinto Plaza, and its cultural district guide lists downtown restaurants. Plan meals outside the gallery.",
+      "verificationUrl": "https://epma.art/visit/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/cultural-guide/restaurants-accomodations",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Where can you park for the El Paso Museum of Art?",
+      "answer": "The museum lists several downtown paid garages and street meters around One Arts Festival Plaza, including Mills and the Civic Center area. It does not promise free museum parking, and garage prices vary. Check today's Arts District parking map before arrival.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I bring a wheelchair or service animal to the El Paso Museum of Art?",
+      "answer": "Yes. EPMA states the museum is fully accessible and service animals are welcome. A wheelchair may be borrowed from reception free of charge. Contact 915-212-0300 to discuss a specific mobility or sensory accommodation in advance.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Are there free guided tours in Spanish or English at EPMA?",
+      "answer": "Yes. The museum offers English- and Spanish-language tours, including free guided group tours for 10–50 people with two weeks' notice. Its tour-and-art-studio program has different booking requirements, including four weeks for school groups.",
+      "verificationUrl": "https://epma.art/visit/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Are there activities for children rather than only adult art galleries?",
+      "answer": "EPMA provides family activity guides at the visitor desk, a Canaletto-related optional augmented-reality experience and scheduled studio workshops. Activities vary by day; do not assume that an art-school class is drop-in or free without checking its listing.",
+      "verificationUrl": "https://epma.art/visit/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/about",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Which 2026 temporary exhibitions are worth planning around?",
+      "answer": "The museum currently advertises the 2026 Border Biennial through May 2, 2027, Eric Santoscoy-Mckillip through February 21, 2027, and America, The Beautiful through January 3, 2027. Exhibition dates and availability should be checked against the museum's live gallery directory.",
+      "verificationUrl": "https://epma.art/art",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/art",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I photograph art inside El Paso Museum of Art?",
+      "answer": "Personal handheld nonflash photography is generally permitted unless a particular gallery or object has a no-photography sign. Selfie sticks, tripods and commercial shoots have additional restrictions and may require prior permission.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "How long does an El Paso Museum of Art visit take?",
+      "answer": "An independently planned gallery selection can take about 60–90 minutes. The museum's guided-tour page explicitly offers 45–60-minute tours, while multi-gallery visits or added classes require more time. This is not a fixed museum-imposed visit length.",
+      "verificationUrl": "https://epma.art/visit/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    }
+  ],
+  "texas-prison-museum-huntsville": [
+    {
+      "question": "What does admission to the Texas Prison Museum cost?",
+      "answer": "The museum's published admission rates effective January 2025 are $8 adults; $7 ages six through seventeen; free age five and younger; and $6 for eligible seniors, military members, first responders, TDCJ workers and SHSU students. It also publishes a $5 group rate, which requires confirming booking conditions.",
+      "verificationUrl": "https://www.txprisonmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What days and hours is Texas Prison Museum open?",
+      "answer": "Regular hours are Monday through Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m. The operator posts specific holiday and special closures on its homepage, so a visitor should check those current announcements before traveling to Huntsville.",
+      "verificationUrl": "https://www.txprisonmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the electric chair called Old Sparky really displayed at the museum?",
+      "answer": "Yes. The museum lists Old Sparky as a major historical exhibit, and states the decommissioned electric chair was used for 361 executions from 1924 to 1964. The exhibit involves capital punishment and may be disturbing; visitors should choose consciously whether to see it.",
+      "verificationUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/about-us",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the Texas Prison Museum appropriate for younger children?",
+      "answer": "That depends on the child. Historic prison restraints and the Old Sparky capital-punishment exhibit address incarceration and death in a direct way. The museum may be especially useful for teenagers studying Texas history and public policy, but parents should decide whether sensitive rooms are appropriate.",
+      "verificationUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can visitors tour a working Texas prison after seeing the museum?",
+      "answer": "No ordinary museum ticket provides access to the Huntsville Unit or other operating state prisons. The Texas Prison Museum is a separate educational institution; do not treat its museum admission as a correctional-facility visit or attempt to enter secure prison property.",
+      "verificationUrl": "https://www.txprisonmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/about-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does the Texas Prison Museum have a café, cafeteria or gift shop?",
+      "answer": "The institution has a gift shop selling prison-made crafts, leather, metal and other goods. Its meeting facility may support privately arranged catering, but that is not evidence of a public museum restaurant or cafeteria. Plan meals elsewhere in Huntsville.",
+      "verificationUrl": "https://www.txprisonmuseum.org/gift-shop",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/conference-room",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I see historic prison equipment, prisoner-made art and Texas Prison Rodeo exhibits?",
+      "answer": "The museum identifies prison restraints, contraband, prison artwork and material about the historic Texas Prison Rodeo among its exhibits. Particular items may change, so use the current official exhibit list and contact staff if a specific object matters.",
+      "verificationUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "How long should I plan to spend at the Texas Prison Museum?",
+      "answer": "The operator says visitors can make a worthwhile short stop in roughly 45 minutes. A more thoughtful self-guided visit spanning the exhibits may take one or two hours; this longer range is an editorial estimate and depends on individual interest.",
+      "verificationUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txprisonmuseum.org/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the museum wheelchair accessible and where is its entrance?",
+      "answer": "The museum is at 491 State Highway 75 North in Huntsville, distinct from active prison property. Its public website does not provide a complete present-day breakdown of wheelchair routes or sensory accommodations. Contact staff at 936-295-2155 before travel for specific needs.",
+      "verificationUrl": "https://www.txprisonmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200000500",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
