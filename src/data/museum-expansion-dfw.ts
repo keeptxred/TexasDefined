@@ -205,10 +205,10 @@ export const dfwMuseumDestinations: Destination[] = [
       alt: "Louis Kahn-designed Kimbell Art Museum in Fort Worth",
       width: 1600,
       height: 993,
-      credit: "Andreas Praefcke · Wikimedia Commons · public domain",
+      credit: "Andreas Praefcke · Public domain (author dedicated) · Wikimedia Commons · File:Kimbell Art Museum Fort Worth 01.jpg · October 2009",
     },
     bestSeason: "Year-round indoor museum; fall through spring is ideal for walking between the Kimbell, the Modern and the Amon Carter in Fort Worth's Cultural District.",
-    entryNote: "Admission to the Kimbell's permanent collection is free; special exhibitions are ticketed. The museum is closed Mondays, so confirm current exhibition hours and ticket options before visiting.",
+    entryNote: "Permanent collection admission is free; special exhibitions currently cost $18 for general adults, with half-price Tuesday and Friday-evening options. Tuesday–Thursday/Saturday 10 a.m.–5 p.m., Friday noon–8 p.m., Sunday noon–5 p.m., Monday closed. The Kimbell underground garage and designated museum lots provide free parking.",
     highlights: ["Louis Kahn architecture", "Free permanent collection", "Old Master and global art", "Fort Worth Cultural District"],
     body: [
       "The Kimbell Art Museum is famous for quality and architecture more than sheer collection size. Its holdings are intentionally selective, giving individual paintings, sculptures and antiquities unusual breathing room. Visitors encounter major European masters alongside Asian, African, Mesoamerican and ancient Mediterranean works without the fatigue that can come from an enormous encyclopedic museum.",
