@@ -93,7 +93,7 @@ export function DestinationAuthoritySections({ destination }: Props) {
       <p className="eyebrow text-primary">Local-area guide</p>
       <h2 id="destination-authority-local" className="mt-3 font-display text-3xl">Explore {destination.name} by interest</h2>
       <p className="mt-4 max-w-3xl text-base leading-8 text-foreground/85">{area.intro}</p>
-      <div className="mt-8 grid gap-x-9 gap-y-9 sm:grid-cols-2">
+      <div className="mt-8 grid gap-x-7 gap-y-6 sm:grid-cols-2">
         {groups.map((group) => <section key={group.key} className="border-t border-border pt-5">
           <h3 className="font-display text-xl">{group.label}</h3>
           <ul className="mt-4 space-y-5">
