@@ -11,7 +11,7 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
     "category": "outdoors",
     "region": "piney-woods",
     "nearestTown": "Zavalla",
-    "county": "Jasper County (Boykin Springs access; forest also spans Angelina, Nacogdoches and San Augustine counties)",
+    "county": "Jasper County",
     "coordinates": {
       "lat": 31.05186,
       "lng": -94.26804
@@ -21,7 +21,7 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
       "alt": "Woodland landscape within Angelina National Forest, Texas",
       "width": 1600,
       "height": 867,
-      "credit": "Wikimedia Commons contributor · CC BY-SA 4.0 · File: Angelina National Forest, Angelina County, Texas, USA (November 2020).jpg"
+      "credit": "William L. Farr · CC BY-SA 4.0 · File: Angelina National Forest, Angelina County, Texas, USA (November 2020).jpg"
     },
     "bestSeason": "Fall through spring for comfortable long hikes; spring migration and blooms and year-round forest birding depend on local conditions.",
     "entryNote": "This map marker locates Boykin Springs Recreation Area, one of many entry points, not the geographic center of the 153,179-acre national forest. Some forest lands within proclaimed boundaries are privately owned; heed property signs. Campground amenities, fees, fire restrictions and trail closures change.",
@@ -193,7 +193,7 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
       "alt": "Representative Angelina National Forest woodland; not a photograph of the specific SFA interpretive trail",
       "width": 1600,
       "height": 867,
-      "credit": "Representative regional forest landscape · Wikimedia Commons contributor · CC BY-SA 4.0"
+      "credit": "Representative regional forest landscape · William L. Farr · CC BY-SA 4.0"
     },
     "bestSeason": "Year-round, especially spring and autumn for comfortable hiking; mosquitoes and humidity can be significant in summer.",
     "entryNote": "Day use only. The USDA Forest Service reports public trails open during daylight hours for foot and wheelchair traffic, with pets leashed. The 0.8-mile Jack Creek Loop offers a surfaced accessible route; the 2-mile Management Loop is more strenuous. Check posted forest orders, storm damage and path conditions.",
