@@ -107,7 +107,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Benjamin ISD's Mustangs represent Knox County in Texas six-player football. The team won consecutive UIL 1A Six-Man Division II championships, beating Loraine 68–20 in 2022 and Oglesby 82–34 in 2023. Those are two different season titles, not a 2026 performance claim.",
       "UIL's historical 2022 and 2023 team archives name Nathan Hayes as head coach for those championship seasons. The independent Six-Man Football directory currently lists Aaron Kuehler as 2026 head coach, but a current appointment was not established from the district's own football page, and another third-party coaching roster conflicts. Verify current staffing with Benjamin ISD.",
-      "Benjamin's independently reported 2026 record was 3–3 through October 9, including a 45–0 loss at Decatur Victory Christian. The four remaining reported district matchups are Paint Creek, Lueders-Avoca, Knox City and Rule. The official Benjamin ISD football page currently displays an image labeled 2025, so it must not be presented as an official 2026 schedule.",
+      "Benjamin's independently reported 2026 record was 3–3 through October 9, including a 45–0 loss at Decatur Victory Christian. The four remaining reported district matchups are Paint Creek, Lueders-Avoca, Knox City and Rule. Six-Man Football reports the Lueders-Avoca game for Friday, October 23, while an older September 25 MaxPreps snapshot listed Thursday, October 22; confirm the date directly with Benjamin ISD. The official Benjamin ISD football page currently displays an image labeled 2025, so it must not be presented as an official 2026 schedule.",
       "Dave Campbell's identifies Ben Grill Field and the six-man specialist directory calls it Benjamin Mustangs Field. The school lists 300 W. Hays Street; confirm stadium access, tickets, parking and accessibility before traveling. No school-owned photography has been republished without evidence of a reuse license."
     ],
     "faq": [
@@ -221,9 +221,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Ben Grill Field (also called Benjamin Mustangs Field)",
-      "address": "300 W. Hays Street, Benjamin, TX 79505",
-      "sourceUrl": "https://www.texasfootball.com/team/benjamin-mustangs",
-      "sourceLabel": "Dave Campbell's Texas Football stadium listing",
+      "address": "Benjamin, Texas (precise stadium entrance unverified; school: 300 W. Hays Street)",
+      "sourceUrl": "https://sixmanfootball.com/teams/benjamin-mustangs.1041/schedule/",
+      "sourceLabel": "Six-Man Football stadium and team information; historical Ben Grill Field name corroborated by a 2006 local school board report",
       "verifiedAt": "2026-10-12",
       "note": "Dave Campbell's calls the stadium Ben Grill Field, while Six-Man Football calls it Benjamin Mustangs Field. The school independently lists 300 W. Hays Street as its campus address; venue gates, parking, accessible seating and 2026 admission policies are not independently certified. Call Benjamin ISD at 940-459-2231 before a game-day visit."
     }
