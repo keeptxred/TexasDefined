@@ -1,5 +1,8 @@
 # Football Authority — Execution Ledger
 
+## Batch005 Group4 — recovered school dossiers and authority content (Oct 13)
+Beckville, Beeville A.C. Jones, Bells, Bellville and Belton added as sourced program-specific content on Group4 dependent branch; 81 earlier VERIFIED preserved. Protected release and mobile/desktop acceptance are required; four final Group5 profiles still need extraction.
+
 ## Batch 005 group three — Baytown/Beaumont recovered on dependent release, Oct 13
 Goose Creek Memorial, Baytown Lee, Baytown Sterling, Beaumont United and Beaumont West Brook have separately researched editorial profiles, official school sources, date-qualified history and campus-county context. Five prior Group2 records are in the preceding release branch. All 81 earlier production VERIFIED entries remain unchanged. These five are **implemented in source** and require protected checks, exact production deployment and desktop/mobile browser verification.
 
