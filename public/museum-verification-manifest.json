@@ -612,6 +612,72 @@
           "label": "Kimbell tickets and exhibitions"
         }
       ]
+    },
+    {
+      "path": "/destination/nasher-sculpture-center-dallas",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+          "fetchUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+          "label": "Nasher current visit plan"
+        },
+        {
+          "sourceUrl": "https://www.nashersculpturecenter.org/visit/cafe",
+          "fetchUrl": "https://www.nashersculpturecenter.org/visit/cafe",
+          "label": "Nasher Cafe official page"
+        },
+        {
+          "sourceUrl": "https://www.nashersculpturecenter.org/visit/accessibility",
+          "fetchUrl": "https://www.nashersculpturecenter.org/visit/accessibility",
+          "label": "Nasher accessibility"
+        },
+        {
+          "sourceUrl": "https://www.nashersculpturecenter.org/visit/visit-resources",
+          "fetchUrl": "https://www.nashersculpturecenter.org/visit/visit-resources",
+          "label": "Nasher visitor resources"
+        }
+      ]
+    },
+    {
+      "path": "/destination/national-cowgirl-museum-hall-fame-fort-worth",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://thecowgirl.org/",
+          "fetchUrl": "https://thecowgirl.org/",
+          "label": "Museum official homepage closure banner"
+        },
+        {
+          "sourceUrl": "https://thecowgirl.org/event/expansion-grand-opening/",
+          "fetchUrl": "https://thecowgirl.org/event/expansion-grand-opening/",
+          "label": "Museum November 7 expansion event"
+        },
+        {
+          "sourceUrl": "https://thecowgirl.org/visit/",
+          "fetchUrl": "https://thecowgirl.org/visit/",
+          "label": "Museum Plan Your Visit"
+        },
+        {
+          "sourceUrl": "https://thecowgirl.org/field-trips/",
+          "fetchUrl": "https://thecowgirl.org/field-trips/",
+          "label": "Museum school group policy"
+        },
+        {
+          "sourceUrl": "https://thecowgirl.org/exhibitions/hitting-the-mark-cowgirls-and-wild-west-shows-gallery/",
+          "fetchUrl": "https://thecowgirl.org/exhibitions/hitting-the-mark-cowgirls-and-wild-west-shows-gallery/",
+          "label": "Museum Hitting the Mark gallery"
+        },
+        {
+          "sourceUrl": "https://thecowgirl.org/about/museum-expansion/",
+          "fetchUrl": "https://thecowgirl.org/about/museum-expansion/",
+          "label": "Museum expansion and 2026 galleries"
+        }
+      ]
     }
   ]
 }
