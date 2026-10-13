@@ -62,7 +62,7 @@ export function isGeographicallyPlausibleForTravelRegion(
   destination: Destination,
   requestedRegion: TexasRegion,
 ): boolean {
-  const { lat, lng } = destination.coordinates;
+  const { lat, lng } = destination.coordinates ?? { lat: 0, lng: 0 };
   if (!Number.isFinite(lat) || !Number.isFinite(lng) || (lat === 0 && lng === 0)) {
     return true; // Unknown coordinates require individual research, not a guess.
   }
