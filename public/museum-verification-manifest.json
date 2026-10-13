@@ -955,6 +955,29 @@
           "label": "Official museum exhibitions and completed 2026 programming; the city's 2026 archival article remains a separate editorial citation"
         }
       ]
+    },
+    {
+      "path": "/destination/art-museum-southeast-texas-beaumont",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://amset.org/visit-us-visitanos/",
+          "fetchUrl": "https://amset.org/visit-us-visitanos/",
+          "label": "AMSET visitor facts"
+        },
+        {
+          "sourceUrl": "https://amset.org/",
+          "fetchUrl": "https://amset.org/",
+          "label": "Current exhibitions and public hours"
+        },
+        {
+          "sourceUrl": "https://amset.org/schedule-a-tour/",
+          "fetchUrl": "https://amset.org/schedule-a-tour/",
+          "label": "Free school tour and access arrangements"
+        }
+      ]
     }
   ]
 }
