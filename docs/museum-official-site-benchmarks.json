@@ -222,6 +222,66 @@
         "https://www.texasenergymuseum.org/about.html",
         "https://www.texasenergymuseum.org/"
       ]
+    },
+    "1940-air-terminal-museum-houston": {
+      "name": "1940 Air Terminal Museum",
+      "operatorStrengths": [
+        "Primary institutional visitor information and historical/exhibition overview",
+        "Official access, family and schedule resources where available"
+      ],
+      "openGaps": [
+        "Independently compare the complete visitor guide against current operator FAQs and exhibition details",
+        "Perform live browser accessibility, image attribution and reciprocal link QA before superlative certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.1940airterminal.org/",
+        "https://www.1940airterminal.org/news/hahs-letter-to-city-of-houston-amp-thc",
+        "https://www.1940airterminal.org/houston-municipal-airport"
+      ]
+    },
+    "african-american-museum-dallas-fair-park": {
+      "name": "African American Museum, Dallas",
+      "operatorStrengths": [
+        "Primary institutional visitor information and historical/exhibition overview",
+        "Official access, family and schedule resources where available"
+      ],
+      "openGaps": [
+        "Independently compare the complete visitor guide against current operator FAQs and exhibition details",
+        "Perform live browser accessibility, image attribution and reciprocal link QA before superlative certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://aamdallas.org/plan-your-visit/",
+        "https://aamdallas.org/nelson-mandela-exhibition-plan-your-visit/",
+        "https://aamdallas.org/exhibits/"
+      ]
+    },
+    "texas-forestry-museum-lufkin": {
+      "name": "Texas Forestry Museum",
+      "operatorStrengths": [
+        "Primary institutional visitor information and historical/exhibition overview",
+        "Official access, family and schedule resources where available"
+      ],
+      "openGaps": [
+        "Independently compare the complete visitor guide against current operator FAQs and exhibition details",
+        "Perform live browser accessibility, image attribution and reciprocal link QA before superlative certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.treetexas.com/visit-us",
+        "https://www.treetexas.com/exhibit",
+        "https://www.treetexas.com/exhibits-1/paper-mill-room"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
