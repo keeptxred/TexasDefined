@@ -1070,6 +1070,46 @@
         "https://epmarch.org/",
         "https://epmarch.org/about/about-epmarch"
       ]
+    },
+    "crow-museum-asian-art-dallas": {
+      "name": "Crow Museum of Asian Art — Dallas Arts District",
+      "operatorStrengths": [
+        "Official current visitor hours and access",
+        "Source-grounded exhibit and family planning"
+      ],
+      "openGaps": [
+        "Complete independent side-by-side certification after production browser check",
+        "Validate actual photo rendering and all internal link targets"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://crowmuseum.org/dallas-arts-district/",
+        "https://crowmuseum.org/visit/",
+        "https://crowmuseum.org/where-to-park/"
+      ]
+    },
+    "museum-of-the-american-railroad-frisco": {
+      "name": "Museum of the American Railroad",
+      "operatorStrengths": [
+        "Official current visitor hours and access",
+        "Source-grounded exhibit and family planning"
+      ],
+      "openGaps": [
+        "Complete independent side-by-side certification after production browser check",
+        "Validate actual photo rendering and all internal link targets"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.historictrains.org/visit",
+        "https://www.historictrains.org/traintopia",
+        "https://www.historictrains.org/virtual-tour"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
