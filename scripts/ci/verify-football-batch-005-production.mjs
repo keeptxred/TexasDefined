@@ -38,6 +38,37 @@ const check = (pass, label, detail = {}) => {
 };
 await mkdir(outputDir, { recursive: true });
 const registry = JSON.parse(await readFile('docs/football-authority/REGISTRY.json','utf8'));
+const editorialSource = await readFile('src/data/high-school-football/program-editorial.ts','utf8');
+function extractWrittenProgram(slug) {
+  const marker = '  "' + slug + '": {';
+  const start = editorialSource.indexOf(marker);
+  if (start < 0) return null;
+  const brace = editorialSource.indexOf('{',start);
+  let depth=0, quoted=false, escaped=false;
+  for (let i=brace;i<editorialSource.length;i++) {
+    const char=editorialSource[i];
+    if (quoted) { if (escaped) escaped=false; else if (char==='\\') escaped=true; else if (char==='"') quoted=false; }
+    else if (char==='"') quoted=true;
+    else if (char==='{') depth++;
+    else if (char==='}' && --depth===0) return JSON.parse(editorialSource.slice(brace,i+1));
+  }
+  throw new Error('Unclosed school-specific editorial object: '+slug);
+}
+for (const [slug] of schools) {
+  const profile=extractWrittenProgram(slug);
+  check(!!profile,slug+': individually authored football editorial record');
+  if (!profile) continue;
+  check((profile.overview?.length||0)>=3,slug+': at least three individual research paragraphs');
+  check((profile.faq?.length||0)>=5,slug+': at least five visitor questions');
+  check((profile.milestones?.length||0)>=2,slug+': historic/source-backed milestones');
+  check((profile.season?.games?.length||0)>=8,slug+': no generic or empty 2026 varsity season');
+  check(/^https:\/\//.test(profile.season?.sourceUrl||''),slug+': citable 2026 season source');
+  const games=profile.season?.games || [];
+  check(new Set(games.map(game=>game.date+':'+game.opponent)).size===games.length,slug+': no duplicate 2026 fixtures');
+  check(games.every(game=>game.opponent && ['Home','Away','Neutral'].includes(game.site)),slug+': individually named opponent and venue type');
+  check((profile.seo?.description||'').length>=65 && (profile.seo?.title||'').length>=20,slug+': unique researched SEO package');
+}
+
 check(schools.length === 25 && new Set(schools.map(x => x[0])).size === 25,'All 25 unique Batch005 schools');
 check(schools.every(([slug]) => registry.schoolRecords.some(r=>r.slug===slug && r.batch===5 && ['IMPLEMENTED','VERIFIED'].includes(r.status))),'Registry tracks all 25 as implemented or verified');
 const sitemapResponse = await fetch(origin+'/sitemap.xml',{signal:AbortSignal.timeout(90000)});
