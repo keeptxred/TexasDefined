@@ -482,11 +482,11 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "lng": -98.4932
     },
     "hero": {
-      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/SanFernandoCathedral.jpg?width=1600",
-      "alt": "Historic stone façade of San Fernando Cathedral near Main Plaza",
-      "width": 453,
-      "height": 604,
-      "credit": "Brandon Groff · CC BY 3.0 · Wikimedia Commons"
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Gfp-texas-san-antonio-san-fernando-cathedral.jpg?width=1600",
+      "alt": "Daylight view of San Fernando Cathedral and its Gothic Revival façade at Main Plaza in San Antonio",
+      "width": 3264,
+      "height": 2448,
+      "credit": "Yinan Chen · public domain · Wikimedia Commons"
     },
     "bestSeason": "Year-round for a short Main Plaza architecture walk.",
     "entryNote": "San Fernando is a working cathedral, not a ticketed house museum. Public visitor access is subject to Mass, parish events and special ceremonies; check the cathedral's current schedule.",
