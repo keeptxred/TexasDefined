@@ -579,6 +579,39 @@
           "label": "SAMA current exhibitions"
         }
       ]
+    },
+    {
+      "path": "/destination/kimbell-art-museum-fort-worth",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://kimbellart.org/visit",
+          "fetchUrl": "https://kimbellart.org/visit",
+          "label": "Kimbell operator hours and admission"
+        },
+        {
+          "sourceUrl": "https://kimbellart.org/visit/accessibility",
+          "fetchUrl": "https://kimbellart.org/visit/accessibility",
+          "label": "Kimbell accessibility and transit"
+        },
+        {
+          "sourceUrl": "https://kimbellart.org/visit/dine",
+          "fetchUrl": "https://kimbellart.org/visit/dine",
+          "label": "Kimbell dining"
+        },
+        {
+          "sourceUrl": "https://kimbellart.org/content/tours",
+          "fetchUrl": "https://kimbellart.org/content/tours",
+          "label": "Kimbell group tour rules"
+        },
+        {
+          "sourceUrl": "https://kimbellart.org/tickets",
+          "fetchUrl": "https://kimbellart.org/tickets",
+          "label": "Kimbell tickets and exhibitions"
+        }
+      ]
     }
   ]
 }
