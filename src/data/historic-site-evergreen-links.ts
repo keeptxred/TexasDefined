@@ -7,6 +7,14 @@ type RouteGuide = {
 
 const routeGuides: RouteGuide[] = [
   {
+    slugs: new Set(["caddo-mounds-state-historic-site", "mission-dolores"]),
+    item: {
+      name: "Nacogdoches–San Augustine historic road trip",
+      description: "Travel Caddo homelands, the historic Nacogdoches settlement, Mission Dolores and San Augustine courthouse country on a paced East Texas itinerary.",
+      href: "/article/nacogdoches-san-augustine-historic-road-trip",
+    },
+  },
+  {
     slugs: new Set([
       "the-alamo",
       "goliad-state-park",
