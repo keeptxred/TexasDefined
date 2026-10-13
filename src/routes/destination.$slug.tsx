@@ -149,7 +149,11 @@ export const Route = createFileRoute("/destination/$slug")({
     const authorityGuide = destination.authorityGuide;
     const authorityCitations = authorityGuide?.sources.map((source) => source.url).filter(validExternalUrl) ?? [];
     const audit = auditDestination(destination);
-    const indexable = audit.readyForIndexing && isPrimaryTripPlannerDestination(destination);
+    const isHistoricalMuseumReference = destination.slug === "1940-air-terminal-museum-houston";
+// This closed museum's researched historical guide is indexable even though the
+// institution must remain excluded from visit planning and attraction recommendations.
+// The normal editorial quality gate still applies; this is NOT a trip-planner override.
+const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference);
     const hasUsableHero = !audit.issues.some((issue) => issue.code === "hero-placeholder");
     const canonicalPath = `/destination/${params.slug}`;
     const url = `${siteUrl}${canonicalPath}`;
