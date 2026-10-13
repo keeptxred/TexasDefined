@@ -15,7 +15,9 @@ export function stateParkOfficialResources(destination: Destination) {
     official,
     map: `${official}/map`,
     feesAndFacilities: `${official}/fees-facilities`,
-    reservations: destination.reservationUrl?.startsWith("https://") ? destination.reservationUrl : "https://texasstateparks.reserveamerica.com/",
+    reservations: destination.slug === "longhorn-cavern-state-park"
+      ? "https://www.visitlonghorncavern.com/"
+      : destination.reservationUrl?.startsWith("https://") ? destination.reservationUrl : "https://texasstateparks.reserveamerica.com/",
   };
 }
 
