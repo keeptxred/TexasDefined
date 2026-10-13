@@ -1070,6 +1070,27 @@
         "https://epmarch.org/",
         "https://epmarch.org/about/about-epmarch"
       ]
+    },
+    "1919-san-augustine-county-jail-museum": {
+      "name": "1919 San Augustine County Jail Museum",
+      "operatorStrengths": [
+        "Local official tourism identifies museum hours, admission, restored jail themes and research records",
+        "Texas Historical Commission has authoritative architectural and jail-history chronology"
+      ],
+      "openGaps": [
+        "Specific step-free access and upper-floor policies require operator confirmation",
+        "No exact-site reusable museum hero photo is yet licensed; keep faithful placeholder and noindex/quality safeguards until obtained",
+        "Side-by-side visitor guide certification requires live review"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://visitsanaugustinetx.org/local-attractions/",
+        "https://atlas.thc.texas.gov/Details/5507018848",
+        "https://thc.texas.gov/historic-sites/mission-dolores"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
