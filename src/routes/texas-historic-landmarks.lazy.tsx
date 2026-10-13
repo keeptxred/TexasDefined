@@ -13,6 +13,13 @@ import {
 
 export const Route = createLazyFileRoute("/texas-historic-landmarks")({ component: TexasHistoricLandmarksPage });
 
+const completedAuthoritySlugs: Record<string,string> = {
+  "Olivewood Cemetery": "olivewood-cemetery",
+  "Castro County Courthouse": "castro-county-courthouse",
+  "Kokernot Field": "kokernot-field",
+  "Alpine Downtown Historic District": "alpine-downtown-historic-district",
+  "Downtown Bryan Historic District": "downtown-bryan-historic-district",
+};
 const kindLabels: Record<string, string> = {
   building: "Historic buildings",
   district: "Historic districts",
@@ -117,7 +124,7 @@ function TexasHistoricLandmarksPage() {
             <h3 className="mt-3 font-display text-2xl leading-tight">{landmark.name}</h3>
             <p className="mt-3 text-sm">{landmark.town} · {landmark.county} County</p>
             <p className="mt-2 text-xs text-muted-foreground">National Register listing: {landmark.month} {landmark.year}</p>
-            {landmark.name === "Olivewood Cemetery" && <Link to="/destination/$slug" params={{ slug: "olivewood-cemetery" }} className="mr-4 mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Read TexasDefined's Olivewood authority guide →</Link>}
+            {completedAuthoritySlugs[landmark.name] && <Link to="/destination/$slug" params={{ slug: completedAuthoritySlugs[landmark.name] }} className="mr-4 mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Read the research-backed authority guide →</Link>}
             <a href={THC_LISTINGS_URL} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Check official THC listing ↗</a>
           </article>)}
         </div> : <p className="mt-7 rounded border border-border p-5 text-muted-foreground">No records match these filters. Try another county, year or property type.</p>}
