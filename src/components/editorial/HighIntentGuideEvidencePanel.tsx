@@ -35,12 +35,12 @@ export function HighIntentGuideEvidencePanel({ slug, blocks }: { slug: string; b
       <div className="mt-5 overflow-x-auto">
         <table className="w-full border-collapse text-left text-sm">
           <caption className="sr-only">Best fit and practical planning notes for each recommendation</caption>
-          <thead><tr className="border-y border-border"><th scope="col" className="px-3 py-4">Option</th><th scope="col" className="px-3 py-4">Best fit</th><th scope="col" className="px-3 py-4">Before you go</th>{hasPickSources && <th scope="col" className="px-3 py-4">Original lake research</th>}</tr></thead>
+          <thead><tr className="border-y border-border"><th scope="col" className="px-3 py-4">Option</th><th scope="col" className="px-3 py-4">Best fit</th><th scope="col" className="px-3 py-4">Before you go</th>{hasPickSources && <th scope="col" className="px-3 py-4">Operator source & local guide</th>}</tr></thead>
           <tbody>{picks.map((pick) => <tr key={pick.title} className="border-b border-border align-top">
             <th scope="row" className="px-3 py-4"><a href={`#${sectionAnchor(pick.title)}`} className="font-semibold text-primary underline underline-offset-4">{pick.place} ↓</a></th>
             <td className="px-3 py-4">{pick.fit || "Read destination assessment"}</td>
             <td className="px-3 py-4">{pick.note.split(/(?<=[.!?])\s/)[0]}</td>
-            {hasPickSources && <td className="px-3 py-4">{sourceForGuidePick(number, pick.title) ? <><a href={sourceForGuidePick(number, pick.title)!.officialUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline">TPWD fishery ↗</a><span className="mt-2 block text-xs text-muted-foreground">Source checked {sourceForGuidePick(number, pick.title)!.sourceCheckedAt}</span><a href={sourceForGuidePick(number, pick.title)!.internalHref} className="mt-2 block font-semibold text-primary underline">Detailed lake authority guide →</a></> : <span className="text-muted-foreground">Individual research pending</span>}</td>}
+            {hasPickSources && <td className="px-3 py-4">{sourceForGuidePick(number, pick.title) ? <><a href={sourceForGuidePick(number, pick.title)!.officialUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline">Official operator source ↗</a><span className="mt-2 block text-xs text-muted-foreground">Source checked {sourceForGuidePick(number, pick.title)!.sourceCheckedAt}</span><a href={sourceForGuidePick(number, pick.title)!.internalHref} className="mt-2 block font-semibold text-primary underline">{sourceForGuidePick(number, pick.title)!.internalHref === "/explore/rv-parks" ? "Browse RV directory →" : "Detailed TexasDefined guide →"}</a></> : <span className="text-muted-foreground">Individual research pending</span>}</td>}
           </tr>)}</tbody>
         </table>
       </div>
