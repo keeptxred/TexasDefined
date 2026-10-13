@@ -3839,6 +3839,302 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "armstrong-browning-library-museum-waco": [
+    {
+      "question": "Is admission to Baylor's Armstrong Browning Library & Museum free?",
+      "answer": "Yes. Baylor explicitly says that the Armstrong Browning Library & Museum is free and open to the public. A museum visit to the public rooms is different from requesting restricted scholarly materials, which requires separate registration.",
+      "verificationUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should I park, and which entrance should wheelchair visitors use?",
+      "answer": "Baylor designates visitor parking along 8th Street and James Avenue near 710 Speight Avenue. The institution specifically directs visitors with disabilities to the rear James Avenue entrance for easy access; campus parking rules can change.",
+      "verificationUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/directions-parking",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/directions-parking",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I tour the Armstrong Browning Library without an appointment?",
+      "answer": "Yes. Baylor welcomes walk-in self-guided visitors, while a docent-led tour depends on who is available that day. Groups of ten or more are asked to arrange a scheduled tour at least two weeks ahead.",
+      "verificationUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is special about the Browning Library's stained glass and Treasure Room?",
+      "answer": "The Hankamer Treasure Room displays stained glass inspired by Browning poems, historic portraits and literary objects. The building's galleries are an aesthetic experience in their own right, but the collections are curated and not open-access shelves.",
+      "verificationUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/building-map-online-tour",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/building-map-online-tour",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "May visitors handle rare letters and manuscripts in the museum?",
+      "answer": "Not as part of an ordinary walk-in gallery tour. Baylor's noncirculating research items are used under supervision in its third-floor Belew Scholars' Room; researchers must present identification and register and should contact staff ahead of time.",
+      "verificationUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/research-instruction/use-collections",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/research-instruction/use-collections",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have a public cafeteria or restaurant?",
+      "answer": "Baylor's publicly described museum rooms do not establish a permanent walk-in cafeteria or full-service restaurant. Reception space is used for scheduled university functions, not evidence of a daily dining service; plan food elsewhere on campus.",
+      "verificationUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are the Browning Library exhibits suitable for toddlers and school groups?",
+      "answer": "Younger children may enjoy the stained glass and architecture, but this is primarily a quiet literary museum and research facility rather than a hands-on children's museum. Baylor offers tailored school tours when arranged in advance.",
+      "verificationUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I use the library as a venue for wedding portraits?",
+      "answer": "Professional or staged portrait photography is subject to separate Baylor approval and permit rules, even though public museum visiting is free. Do not assume that a normal gallery visit includes permission for a formal photo session.",
+      "verificationUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/use-our-facility/portrait-policies",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/use-our-facility/portrait-policies",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "bell-county-museum-belton": [
+    {
+      "question": "How much does admission to the Bell County Museum cost?",
+      "answer": "General admission to the Bell County Museum is free. Museum programs or traveling exhibits may have separate reservations or special arrangements, so verify the event description before bringing a school or group.",
+      "verificationUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What days and times is the Bell County Museum open?",
+      "answer": "The museum lists noon to 5 p.m. Tuesday through Friday and 10 a.m. to 5 p.m. Saturday, with Sunday and Monday closures. Check official hours for holidays or unusual events before driving to Belton.",
+      "verificationUrl": "https://www.bellcountymuseum.org/directions.aspx",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bellcountymuseum.org/directions.aspx",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the museum wheelchair-accessible, including the second floor?",
+      "answer": "The institution says all visitor entrances are wheelchair accessible and an elevator reaches the second floor. Accessible restrooms are on the first floor; ask staff about any temporary construction or unusual exhibit layouts.",
+      "verificationUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I take photographs inside Bell County Museum?",
+      "answer": "The museum permits photography and video in its galleries but asks visitors to take care around fragile artifacts. Different temporary loans or public events could carry their own restrictions, so follow posted exhibit signs.",
+      "verificationUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "May I bring food, snacks or drinks into the exhibits?",
+      "answer": "No. The museum's FAQ asks visitors not to bring food and drink into exhibition galleries. Its visitor information does not substantiate a full-service restaurant on site; plan refreshments or a meal in Belton separately.",
+      "verificationUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the Gault Site exhibit and who will enjoy it?",
+      "answer": "The museum highlights the Gault Site archaeology exhibit alongside Bell County history in the historic Carnegie Library. School-age visitors may enjoy the archaeological interpretation, while younger children may prefer a scheduled activity.",
+      "verificationUrl": "https://www.bellcountymuseum.org/p/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bellcountymuseum.org/p/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I borrow books from the museum genealogy and research library?",
+      "answer": "No. Bell County Museum says genealogy and research materials are available for guests to use inside the library, but they cannot be checked out or taken away. Research visits and public gallery exploration have different purposes.",
+      "verificationUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Bell County Museum offer children’s special activities?",
+      "answer": "Yes. The museum's posted calendar lists family events and age-specific activities such as Tiny Thinkers and science programming. These are scheduled activities, not permanent daily exhibits, so check dates and any required registration.",
+      "verificationUrl": "https://www.bellcountymuseum.org/location/add-location-name-here",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bellcountymuseum.org/location/add-location-name-here",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "brenham-heritage-museum": [
+    {
+      "question": "What is the current admission price at Brenham Heritage Museum?",
+      "answer": "The museum lists adult general admission at $10, discounted entry for seniors, students and veterans, $5 for children ages five to twelve, and free entry for ages four and under. Membership and group rates differ, so check current categories.",
+      "verificationUrl": "https://www.bhmtexas.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bhmtexas.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "When is Brenham Heritage Museum open to the public?",
+      "answer": "Ordinary hours are Tuesday through Saturday, 10 a.m. to 4 p.m. The museum advertises special extended hours and free admission October 16–18, 2026; those festival exceptions should not be mistaken for its usual calendar.",
+      "verificationUrl": "https://www.bhmtexas.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bhmtexas.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where can visitors using wheelchairs or strollers enter?",
+      "answer": "The operator directs wheelchair and stroller visitors to its rear entrance, which has a ramp and elevator. If you are being dropped off, the museum recommends East Main Street near that rear accessible entrance.",
+      "verificationUrl": "https://www.bhmtexas.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bhmtexas.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should a charter bus or large school group park?",
+      "answer": "The museum warns that ramps into its main lot at 105 South Market Street are steep for buses. Bus drivers are advised to use alternative parking near its office or the fire museum and use the rear entrance drop-off.",
+      "verificationUrl": "https://www.bhmtexas.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bhmtexas.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are guided tours available for school groups or large parties?",
+      "answer": "Yes, but guided tours are arranged by appointment rather than guaranteed on arrival. The museum has different group and school rates and encourages reservations for groups of ten or more.",
+      "verificationUrl": "https://www.bhmtexas.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bhmtexas.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What displays will I see at Brenham Heritage Museum?",
+      "answer": "The permanent interpretation includes Washington County timelines, slavery and Reconstruction, immigration, farming, transportation, Maifest traditions, interactive postal stations and multimedia rooms. Traveling art displays change by date.",
+      "verificationUrl": "https://www.bhmtexas.org/visit/exhibits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bhmtexas.org/visit/exhibits",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I still see the October 2026 arts festival exhibit later in the year?",
+      "answer": "The museum's current page lists the Texas Arts and Music Festival displays as a temporary exhibition from October 1 through October 31, 2026. Do not expect that temporary show to remain after the published end date.",
+      "verificationUrl": "https://www.bhmtexas.org/visit/exhibits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bhmtexas.org/visit/exhibits",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Brenham Heritage Museum have a restaurant or public cafe?",
+      "answer": "Current museum visitor material documents the museum, its admission policies and accessible parking but not a full-service public museum restaurant. Plan lunch in downtown Brenham separately rather than assuming a cafe is inside.",
+      "verificationUrl": "https://www.bhmtexas.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bhmtexas.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "audie-murphy-american-cotton-museum-greenville": [
+    {
+      "question": "What is the address and regular visiting schedule of the Audie Murphy American Cotton Museum?",
+      "answer": "The museum is at 600 Interstate 30 East, Greenville, Texas. It normally opens Tuesday through Saturday from 10 a.m. to 5 p.m. and closes on Sundays, Mondays and major holidays. Check the operator for special arrangements.",
+      "verificationUrl": "https://cottonmuseum.com/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cottonmuseum.com/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the museum's admission prices for children and students?",
+      "answer": "The operator lists adult admission at $10, but some current pages disagree about student and youth age brackets and fees. Check the dedicated admissions desk or contact the museum for your exact category rather than relying on conflicting summaries.",
+      "verificationUrl": "https://cottonmuseum.com/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cottonmuseum.com/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Audie Murphy the only subject covered by this museum?",
+      "answer": "No. The museum also interprets the cotton economy, plantation-era and later agricultural labor, processing machinery, Hunt County communities and historic domestic life. Its military galleries include other local and national service stories.",
+      "verificationUrl": "https://cottonmuseum.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cottonmuseum.com/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What does the Military Hall of Heroes show visitors?",
+      "answer": "The military gallery includes a World War I trench interpretation, weapons and artifacts from later conflicts, and military figures including Audie Murphy. Sensitive depictions of combat can be intense for younger children.",
+      "verificationUrl": "https://cottonmuseum.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cottonmuseum.com/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the historic Ende-Gaillard House part of the museum grounds?",
+      "answer": "Yes. The museum describes the nineteenth-century Ende-Gaillard House on the grounds, along with memorial features. Confirm whether the house is staffed and open on the day you intend to visit, since outdoor and historic-building access can vary.",
+      "verificationUrl": "https://cottonmuseum.com/about/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cottonmuseum.com/about/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I book a private group tour?",
+      "answer": "The museum offers guided tours for groups of at least ten people by advance appointment. Individuals can explore the galleries on a self-guided basis, and the visitor page provides a telephone number for reservation details.",
+      "verificationUrl": "https://cottonmuseum.com/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cottonmuseum.com/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors using wheelchairs explore the museum?",
+      "answer": "The museum says its principal visitor facilities are accessible and reports one wheelchair and one walker available on a first-come basis. Confirm the historic home's entrance and outdoor memorial approaches separately if barrier-free access is essential.",
+      "verificationUrl": "https://cottonmuseum.com/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cottonmuseum.com/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have a restaurant or place to eat?",
+      "answer": "The museum visitor page confirms a picnic area on its grounds, but does not establish a cafeteria or table-service restaurant. Bring suitable picnic provisions or plan dining in Greenville outside the exhibits.",
+      "verificationUrl": "https://cottonmuseum.com/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cottonmuseum.com/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
