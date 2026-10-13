@@ -1152,6 +1152,13 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     credit: "Jim Evans · CC BY-SA 4.0 · Wikimedia Commons · File:Art Museum of South Texas -- Corpus.jpg (2018)",
   },
 
+  "houston-museum-of-natural-science": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Houston_Museum_of_Natural_Science%2C_entrance_in_2012.JPG?width=1600",
+    alt: "Houston Museum of Natural Science entrance in Hermann Park, photographed in 2012",
+    width: 1600, height: 1200,
+    credit: "Another Believer · CC BY-SA 3.0 · Wikimedia Commons · File:Houston Museum of Natural Science, entrance in 2012.JPG",
+  },
+
 };
 
 /** Preserve the existing canonical destination and augment it; never duplicate a route. */
