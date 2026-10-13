@@ -43,6 +43,18 @@
       "name": "Lake Brownwood"
     }
   ],
+  "bardwell": [
+    {
+      "slug": "bardwell-lake",
+      "name": "Bardwell Lake"
+    }
+  ],
+  "bastrop": [
+    {
+      "slug": "lake-bastrop",
+      "name": "Lake Bastrop"
+    }
+  ],
   "bellmead": [
     {
       "slug": "lake-waco",
@@ -253,6 +265,12 @@
       "name": "Lake Casa Blanca"
     }
   ],
+  "elgin": [
+    {
+      "slug": "lake-bastrop",
+      "name": "Lake Bastrop"
+    }
+  ],
   "elmendorf": [
     {
       "slug": "calaveras-lake",
@@ -263,6 +281,12 @@
     {
       "slug": "lake-fork",
       "name": "Lake Fork"
+    }
+  ],
+  "ennis": [
+    {
+      "slug": "bardwell-lake",
+      "name": "Bardwell Lake"
     }
   ],
   "fayetteville": [
@@ -761,6 +785,12 @@
       "name": "Lake Texoma"
     }
   ],
+  "smithville": [
+    {
+      "slug": "lake-bastrop",
+      "name": "Lake Bastrop"
+    }
+  ],
   "snyder": [
     {
       "slug": "lake-colorado-city",
@@ -859,6 +889,12 @@
     {
       "slug": "lake-whitney",
       "name": "Lake Whitney"
+    }
+  ],
+  "waxahachie": [
+    {
+      "slug": "bardwell-lake",
+      "name": "Bardwell Lake"
     }
   ],
   "weatherford": [
