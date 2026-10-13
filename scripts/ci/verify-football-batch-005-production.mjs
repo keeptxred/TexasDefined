@@ -13,6 +13,15 @@ const schools = [
   ['beckville','panola'],['beeville-jones','bee'],['bells','grayson'],['bellville','austin'],['belton','bell'],
   ['ben-bolt-palito-blanco','jim-wells'],['benavides','duval'],['benjamin','knox'],['big-lake-reagan-co','reagan'],['big-sandy','upshur']
 ];
+const independentlyDatedSchedules = new Set(['bay-city','baytown-goose-creek-memorial','baytown-lee','baytown-sterling','beaumont-united','beaumont-west-brook']);
+const knownFixtureEvidence = {
+  'bay-city':'Sealy',
+  'baytown-goose-creek-memorial':'Beaumont United',
+  'baytown-lee':'Nederland',
+  'baytown-sterling':'West Brook',
+  'beaumont-united':'Goose Creek Memorial',
+  'beaumont-west-brook':'Sterling',
+};
 const report = { targetSha: process.env.ACCEPTANCE_SHA || '', checkedAt: new Date().toISOString(), checks: [], failures: [], schoolResults: [] };
 const check = (pass, label, detail = {}) => {
   const row = { label, pass: Boolean(pass), ...detail }; report.checks.push(row);
@@ -48,6 +57,7 @@ try {
      body:document.body?.innerText||'',
      anchors:[...document.querySelectorAll('a[href]')].map(x=>x.href),
      schema:[...document.querySelectorAll('script[type="application/ld+json"]')].map(x=>x.textContent||'').join('\n'),
+     scheduleRows:[...document.querySelectorAll('tbody tr')].map(x=>x.innerText),
      width:document.documentElement.scrollWidth,
      brokenImages:[...document.images].filter(i=>i.complete && !i.naturalWidth && i.getBoundingClientRect().width>0).map(i=>i.currentSrc)
     }));
@@ -62,6 +72,12 @@ try {
     check(details.schema.includes('SportsTeam'),view+' '+slug+': structured SportsTeam');
     check(details.width<=width+3,view+' '+slug+': no horizontal overflow',{scrollWidth:details.width});
     check(details.brokenImages.length===0,view+' '+slug+': no broken visible images');
+    if(independentlyDatedSchedules.has(slug)) {
+      check(details.scheduleRows.length >= 10,view+' '+slug+': 10 researched 2026 varsity fixtures',{rows:details.scheduleRows.length});
+      check(details.body.includes('2026') && details.body.includes('MaxPreps'),view+' '+slug+': dated 2026 scoreboard source visible');
+      check(details.scheduleRows.some(row=>row.includes(knownFixtureEvidence[slug])),view+' '+slug+': independently reported school-specific fixture visible');
+      check(details.schema.includes('FAQPage'),view+' '+slug+': authority FAQ structured data');
+    }
     check(errors.length===0,view+' '+slug+': no JS runtime errors',{errors});
     await page.screenshot({path:outputDir+'/'+view+'-'+slug+'.png',animations:'disabled',fullPage:false,timeout:30000});
     report.schoolResults.push({view,slug,http:response?.status(),h1:details.h1,title:details.title,canonical:details.canonical,bodyLength:details.body.length});
