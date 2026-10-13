@@ -1424,6 +1424,75 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "austin-nature-and-science-center": {
+    name: "Austin Nature & Science Center",
+    slug: "austin-nature-and-science-center",
+    county: "Travis",
+    city: "Austin",
+    reviewed: "2026-10-13",
+    topics: ["natural-history", "science", "family", "outdoors"],
+    whyVisit: "A free, hands-on nature education stop on the west edge of Austin's Zilker Park, with animal ambassadors, fossil digging, a naturalist workshop and accessible outdoor learning paths. It is not a conventional indoor collection museum: families can move among live wildlife, fossils, ponds and forest interpretation while learning how to respect Central Texas ecosystems.",
+    visitorStrategy: "Visit at 2389 Stratford Drive, not the mailing address at 301 Nature Center Drive. Free parking for cars is under the MoPac overpass across Stratford Drive, with accessible spaces close to the entry sidewalk. Normal hours are Monday through Saturday 9 a.m.–5 p.m. and Sunday noon–5 p.m.; the center resumed regular opening October 12 after its 2026 ACL Festival and maintenance closure. Check event-day traffic or holiday notices, since nearby Zilker events affect access. The Trade Counter has its own shorter hours.",
+    accessibility: "Accessible parking spaces near the Stratford Drive entrance connect with an ADA-compliant sidewalk. The operator identifies accessible routes around its pond exhibits, but the adjoining Zilker Nature Preserve has separate rugged trailheads and gates; do not assume all trails are step-free. Confirm an accessible route with staff before visiting the outdoor parts; some areas are exposed to heat or rain.",
+    familiesAndGroups: "The Dino Pit fossil dig, Small Wonders, Birds of Prey and Naturalist Workshop are built for hands-on family learning, but wildlife is not a petting zoo and visitors must leave animals and wild plants undisturbed. Preschool-aged kids can enjoy tactile activities with adult supervision; older children can follow the science of fossils, ecosystems and adaptations. Groups of 15 or more need reservations, with paid instructor-led options; buses must not park under MoPac. There is no indoor or covered dining facility. Groups may picnic at a limited number of outdoor Meadow tables, weather permitting.",
+    researchValue: "The city has operated this nature-learning center since 1960. Interpretation of injured or imprinted animal ambassadors should explain rehabilitation ethics and why the animals cannot return to the wild. Distinguish the free center's ordinary opening hours from the separate Naturalist Workshop Trade Counter, the public preserve trails and the renovated Bathhouse satellite site. Never encourage bringing items collected from a preserve for trading.",
+    exhibits: [
+      { heading: "Dino Pit fossil dig and trackway", detail: "Children can explore paleontology and fossil discovery in an outdoor interactive environment; the activity connects fossil interpretation with real finds from Central Texas." },
+      { heading: "Birds of Prey, Animal Aisle and Small Wonders", detail: "Permanent wildlife ambassadors include injured or imprinted animals unable to return to the wild. Compare adaptations and conservation rather than promising hands-on contact with live animals." },
+      { heading: "Naturalist Workshop and Trade Counter", detail: "Examine bones, rocks, minerals and specimens in a touch-friendly learning area. Trading has shorter staffed hours and rules against protected bird parts, human artifacts, purchased objects and items collected in preserves." },
+      { heading: "Forest Trail, ponds and native gardens", detail: "Explore a self-guided outdoor collection of 45 tree plantings, pond habitats and native pollinators; conditions and accessibility differ from indoor galleries." },
+      { heading: "Honeybee observation hive and human sundial", detail: "An indoor bee display and outdoor interactive sundial introduce insect ecology and solar movement, subject to operations and seasonal conditions." },
+    ],
+    routes: [
+      { label: "Free family discovery visit", steps: ["Park under MoPac and use the Stratford Drive entrance", "Start with the Dino Pit and wildlife exhibits", "Choose the Naturalist Workshop or ponds based on weather and interests"] },
+      { label: "Nature-learning half day", steps: ["Begin with animal ambassadors and the forest trail", "Visit the Trade Counter during its separately posted opening hours", "Use a picnic table only if conditions and available space permit"] },
+    ],
+    sources: [
+      { label: "City of Austin — plan your visit", url: "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center", use: "Address, hours, no-pets rule, parking and accessible routes" },
+      { label: "City of Austin — exhibits", url: "https://www.austintexas.gov/parks/austin-nature-science-center-exhibits", use: "Dino Pit, wildlife, Trade Counter and forest exhibits" },
+      { label: "City of Austin — group reservations", url: "https://www.austintexas.gov/parks/austin-nature-science-center-school-programs-and-group-reservations", use: "School reservations, bus access and outdoor picnic conditions" },
+      { label: "City of Austin — center operation", url: "https://www.austintexas.gov/parks/locations/austin-nature-and-science-center", use: "Annual maintenance closure and actual reopening" },
+    ],
+    connections: [
+      { label: "Travis County", href: "/county/travis", reason: "Place Zilker's nature center in Austin's outdoor and family travel context." },
+      { label: "Harry Ransom Center", href: "/destination/harry-ransom-center-austin", reason: "For a separate free Austin museum experience focused on culture and historic artifacts." },
+    ],
+  },
+  "harry-ransom-center-austin": {
+    name: "Harry Ransom Center",
+    slug: "harry-ransom-center-austin",
+    county: "Travis",
+    city: "Austin",
+    reviewed: "2026-10-13",
+    topics: ["literature", "photography", "art", "history"],
+    whyVisit: "The University of Texas's Harry Ransom Center offers free public exhibition galleries showing manuscripts, historic photography, rare books and cultural history. It is particularly rewarding for curious visitors who want a short focused exhibition rather than a tour of a vast archive. The landmark Gutenberg Bible and Niépce heliograph are among the institution's signature displays, while exhibitions change throughout the year.",
+    visitorStrategy: "The exhibition entrance is at 300 West 21st Street. Galleries open Tuesday–Friday 10 a.m.–5 p.m. and Saturday–Sunday noon–5 p.m.; galleries close Mondays. Admission is free. The separate research Reading Room normally opens Monday–Saturday 9 a.m.–5 p.m. and requires registration and photo identification; its opening hours can differ from the exhibition rooms, including during university holidays. Street parking on Guadalupe is metered except Sundays; campus garages charge fees.",
+    accessibility: "Public exhibition areas and restrooms are ADA compliant, with a wheelchair available for use; parking for visitors with disability permits is available in designated campus garages for a fee. For ASL or particular access accommodations, the Ransom Center asks for at least five business days' notice at hrctours@austin.utexas.edu. Large bags and food/drink must be left in lockers or outside gallery spaces.",
+    familiesAndGroups: "Older children and teenagers with interests in magic, creative writing, photography or literature may enjoy current exhibitions, the Gutenberg Bible and the photography display. This is primarily a humanities exhibition and research setting rather than a tactile children's play museum. Docent group tours for 10 or more require advance requests at least two weeks before the visit, and groups of more than 30 need special logistics. No café or indoor public restaurant is identified in current visitor guidance; arrange meals on the UT campus.",
+    researchValue: "The Center's research collections are not equivalent to what's currently on public display. In autumn 2026, the operator lists Houdini's Library (through January 24, 2027) and The Worlds of Gertrude Stein (through January 10, 2027). The Gutenberg Bible and Niépce Heliograph are signature displays, but schedules and object conservation can affect access. Distinguish non-flash photography permitted in the public galleries from restricted photography of Reading Room documents.",
+    exhibits: [
+      { heading: "The Gutenberg Bible", detail: "One of the earliest substantial printed books made with movable type in Europe offers a concise way to connect printing technology, publishing and the spread of knowledge." },
+      { heading: "Niépce Heliograph", detail: "The earliest surviving photograph produced in a camera obscura introduces the history of photography; confirm its current display status before a visit centered on that object." },
+      { heading: "Houdini's Library (August 29, 2026–January 24, 2027)", detail: "A temporary exhibition uses rare books and performance materials to investigate Harry Houdini's interests and public image. Its closing date matters when planning travel." },
+      { heading: "The Worlds of Gertrude Stein (August 15, 2026–January 10, 2027)", detail: "A temporary exhibition on an influential literary and artistic figure connects writing, collecting and twentieth-century modernism." },
+      { heading: "Carson McCullers portrait and rotating collection", detail: "Collection highlights and gallery displays change; the current exhibit directory is the best source for what is actually on view." },
+    ],
+    routes: [
+      { label: "Free 60–90-minute cultural stop", steps: ["Check today's exhibition directory and university holiday schedule", "See the Gutenberg Bible and photography display if accessible", "Choose one rotating exhibition for a more concentrated visit"] },
+      { label: "Literature and creative work visit", steps: ["Start with the current literary exhibition", "Connect selected manuscripts and historic objects to artists' creative processes", "Research separately in the Reading Room only after completing its registration and ID requirements"] },
+    ],
+    sources: [
+      { label: "Harry Ransom Center — plan your visit", url: "https://www.hrc.utexas.edu/visit/", use: "Distinct gallery and Reading Room hours, parking, access and visitor policies" },
+      { label: "Harry Ransom Center — exhibitions", url: "https://www.hrc.utexas.edu/exhibitions/", use: "Dates and identity of active exhibitions and signature objects" },
+      { label: "Harry Ransom Center — group tours", url: "https://www.hrc.utexas.edu/group-tours/", use: "Reservation requirements and group size" },
+      { label: "Harry Ransom Center — FAQs", url: "https://www.hrc.utexas.edu/frequently-asked-questions/", use: "Researcher versus gallery visitation policies" },
+    ],
+    connections: [
+      { label: "Travis County", href: "/county/travis", reason: "Connect UT's humanities museums with Austin arts, history and educational attractions." },
+      { label: "Austin Nature & Science Center", href: "/destination/austin-nature-and-science-center", reason: "Compare an indoor humanities museum with a free family nature-learning visit." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
@@ -1560,6 +1629,13 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     alt: "Historic Baldwin steam locomotive on outdoor display at the Texas Transportation Museum in San Antonio, photographed in 2012",
     width: 1600, height: 1062,
     credit: "TParis · CC BY-SA 3.0 · Wikimedia Commons · File:1911 Baldwin 2-8-0 Steam at Texas Transportation museum.jpg (2012; static display, not a currently operating train)",
+  },
+
+  "austin-nature-and-science-center": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Austin_nature_center_entrance.jpg?width=1600",
+    alt: "Entrance to the Austin Nature and Science Center photographed in 2012",
+    width: 1600, height: 1067,
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · File:Austin nature center entrance.jpg (2012)",
   },
 
 };
