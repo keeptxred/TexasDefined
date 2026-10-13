@@ -53,7 +53,7 @@ export const texasColoradoRiverGuideArticle: Article = {
   title: "The Colorado River Explained: The Texas River That Runs Through Austin",
   dek: "Texas' Colorado River begins far west of Austin and runs entirely within the state to Matagorda Bay. Its long, relatively dry basin and chain of reservoirs show why river length and water yield are not the same thing.",
   category: "lakes-rivers",
-  hero: { src: "/images/explore/lakes-rivers/pedernales-falls-state-park.jpg", alt: "Limestone river channel and flowing water in the Colorado River basin", width: 1600, height: 1067 },
+  hero: {"src":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Colorado_River_at_Smithville_Texas_2026.jpg?width=1600","alt":"Colorado River passing beneath the Loop 230 bridge at Smithville, Texas, photographed September 2026","width":1600,"height":1067,"credit":"Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Colorado_River_at_Smithville_Texas_2026.jpg · License: https://creativecommons.org/licenses/by/4.0/"},
   authorId: "a-marisol", publishedAt: "2026-08-16", readingMinutes: 10,
   tags: ["Colorado River Texas", "Colorado River basin", "Highland Lakes", "Texas rivers", "Austin water", "TWDB"], featured: false,
   sourceName: "Texas Water Development Board", sourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/colorado/",
