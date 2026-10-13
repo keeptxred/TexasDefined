@@ -440,7 +440,7 @@ function Page() {
 
       {editorial?.development && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
-          <p className="eyebrow text-primary">Campus development</p>
+          <p className="eyebrow text-primary">Program background</p>
           <h2 className="mt-2 font-display text-3xl">{editorial.development.title}</h2>
         </div>
         <div>
