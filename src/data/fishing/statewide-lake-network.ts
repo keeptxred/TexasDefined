@@ -79,6 +79,7 @@ interface StatewideLakeDefinition {
   nearbyLakes: { slug: string; name: string }[];
   nearbyDestinations?: { slug: string; name: string; reason: string }[];
   camping?: { name: string; summary: string };
+  campingUrl?: string;
   campingProhibited?: boolean;
   accessPoints?: ShowcaseLakePrototype["access"];
   travelAlerts?: string[];
@@ -1222,6 +1223,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Mott Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "West shore via SH 34 and FM 985; Corps campground and bank-fishing areas are separate from open-water boating.", fee: "Campground or day-use fees apply as posted", availability: "Corps treats camping as seasonal; verify park and ramp status for the intended date." },
       { name: "Waxahachie Creek Park", operator: "U.S. Army Corps of Engineers", kind: "park", launch: "Waxahachie Creek arm off SH 34; two four-lane ramps and campground, with potentially shallow upper-creek navigation.", fee: "Fee required when access is open", availability: "USACE's lake status page lists the park and ramp closed; do not assume entry until the Corps confirms reopening." },
     ],
+    campingUrl:"https://www.swf-wc.usace.army.mil/bardwell/Recreation/Camping/",
     camping: {name:"High View Park, Mott Park and Waxahachie Creek Park",summary:"USACE requires reservations for designated camping. High View is listed year-round with 39 water/electric campsites; Mott and Waxahachie Creek are seasonal, and the Corps currently lists Waxahachie Creek closed. Love and Little Mustang are day-use facilities, not overnight campgrounds. Check current Recreation.gov inventory and Corps advisories; do not infer access from an old TPWD ramp list."},
     historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/bardwell/index.asp",
     visitorSourceUrl:"https://www.swf-wc.usace.army.mil/bardwell/",
@@ -1258,6 +1260,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       {name:"Lake Bastrop North Shore Park",operator:"Lower Colorado River Authority",kind:"park",launch:"603 FM 1441, Bastrop. One-lane concrete public launch plus trailer parking; LCRA publishes a separate pier, swimming area and day-use facilities.",fee:"LCRA park admission is charged; confirm current launch fee and pass terms",availability:"LCRA lists daily park operations; check low-water status, rentals and admission before arrival."},
       {name:"Lake Bastrop South Shore Park",operator:"Lower Colorado River Authority",kind:"park",launch:"375 South Shore Road, Bastrop, off SH 21. One-lane concrete ramp, fishing piers, paddle launch and designated swimming area.",fee:"LCRA charges park admission; reservations and rentals priced separately",availability:"LCRA's booking site warned of restroom work starting in 2026. Confirm which washrooms, launches and trails are available before arrival."},
     ],
+    campingUrl:"https://lcraparks.com/parks/lake-bastrop-south-shore-park",
     camping:{name:"Lake Bastrop North Shore Park and South Shore Park",summary:"LCRA publishes distinct overnight inventories: North Shore includes seven full-hookup RV sites, Airstream units and glamping/cabins; South Shore has both full-hookup and water/electric RV sites, cabins, and other stays. LCRA's dated South Shore park map lists 31 full-hookup and 29 water/electric campsites, while its marketing overview describes different counts; confirm the current live booking inventory rather than claiming every mapped pitch is reservable. Day-use tickets are not overnight permissions."},
     historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/bastrop/index.asp",
     visitorSourceUrl:"https://lcraparks.com/parks/lake-bastrop-south-shore-park",
@@ -1445,7 +1448,7 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
       name: def.camping?.name ?? `${def.name} trip-planning options`,
       type: def.camping ? "Source-listed recreation option" : "Camping and lodging planning",
       summary: def.camping?.summary ?? "Use TPWD's public-access inventory and the managing agency to confirm current camping, lodging and overnight-use options near the lake.",
-      href: publicAccess.url,
+      href: def.campingUrl ?? publicAccess.url,
     }],
     nearby: [
       ...def.counties.map((county) => ({ label: `${county} County`, description: `${def.name} is tied to ${county} County trip planning, access and nearby destinations.`, href: `/county/${countySlug(county)}`, external: false })),
@@ -1462,7 +1465,7 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
       liveLevel: liveLevelSource,
       ...(def.historySourceUrl ? { reservoirHistory: { label: "Texas Water Development Board — reservoir history", url: def.historySourceUrl } } : {}),
       ...(def.consumptionSourceUrl ? { fishConsumption: { label: "TPWD — current fish-consumption advisories", url: def.consumptionSourceUrl } } : {}),
-      ...(def.visitorSourceUrl ? { cityRecreation: { label: "Official municipal lake visitor information", url: def.visitorSourceUrl } } : {}),
+      ...(def.visitorSourceUrl ? { cityRecreation: { label: `Official ${def.name} managing-agency visitor information`, url: def.visitorSourceUrl } } : {}),
       ...(def.localRegulationsSourceUrl ? { cityBoatRules: { label: "City code — local lake watercraft restrictions", url: def.localRegulationsSourceUrl } } : {}),
     },
   };
