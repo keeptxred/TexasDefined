@@ -172,8 +172,11 @@ if (base) {
       if (/(museum|historical-park|science-center)/i.test(slug) ||
           /(museum|historical park|science center)/i.test(name)) found.add(slug);
     }
+    // Triples such as ["texas-history", "law-enforcement", "museum-heritage"]
+    // are category taxonomy, not a destination tuple. Require a HUMAN museum
+    // name, with museum as an independent word (not "museum-heritage").
     for (const match of added.matchAll(/"[^"]+",\s*"([a-z0-9-]+)",\s*"([^"]+)"/g)) {
-      if (/(museum|historical park|science center)/i.test(match[2])) found.add(match[1]);
+      if (/(?:^|[\s(])(?:museums?|historical park|science center)(?=$|[\s),.!])/i.test(match[2])) found.add(match[1]);
     }
     for (const slug of found) {
       if (!dossier(slug)) failures.push("NEW museum destination " + slug + " lacks museum authority dossier. See docs/museum-authority-standard.md");
