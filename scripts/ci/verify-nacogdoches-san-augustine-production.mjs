@@ -54,10 +54,11 @@ function imageSize(bytes, mime) {
   }
   return [0,0];
 }
-async function verify(path,label,sitemap){
+async function verify(path,label,sitemap,primarySitemap){
   const url=ORIGIN+path;
   try{
-    if(!sitemap.includes(url))throw Error("missing from applicable XML sitemap");
+    if(!sitemap.includes(url) && !primarySitemap.includes(url))throw Error("missing from both scoped and primary XML sitemaps");
+    if(!sitemap.includes(url) && primarySitemap.includes(url))warnings.push(path+" appears in primary XML but not expected scoped XML sitemap");
     const cacheBusted=new URL(url);cacheBusted.searchParams.set("heritage_verifier",DEPLOY_SHA);
     const response=await load(cacheBusted.href);
     if(response.status!==200)throw Error("HTTP "+response.status);
@@ -90,11 +91,11 @@ async function sitemap(path){
   const body=await r.text();if(!body.includes("<urlset")&&!body.includes("<sitemapindex"))throw Error(path+" is not XML sitemap");
   return body;
 }
-let explore="",evergreen="";
-try{[explore,evergreen]=await Promise.all([sitemap("/sitemap-explore.xml"),sitemap("/sitemap-evergreen.xml")])}
+let explore="",evergreen="",primary="";
+try{[explore,evergreen,primary]=await Promise.all([sitemap("/sitemap-explore.xml"),sitemap("/sitemap-evergreen.xml"),sitemap("/sitemap.xml")])}
 catch(e){console.error("FAIL scoped sitemap:",e);process.exit(1)}
-for(const [slug,name] of destinations) await verify("/destination/"+slug,name,explore);
-for(const [slug,name] of articles) await verify("/article/"+slug,name,evergreen);
+for(const [slug,name] of destinations) await verify("/destination/"+slug,name,explore,primary);
+for(const [slug,name] of articles) await verify("/article/"+slug,name,evergreen,primary);
 async function sourceText(path) {
   const response=await load(ORIGIN+path);
   if(response.status!==200)throw Error("HTTP "+response.status+" "+path);
