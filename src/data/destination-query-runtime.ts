@@ -14,6 +14,9 @@ import { fetchExploreDestination, fetchExploreDestinations } from "./explore-rem
 import { enrichRemainingHistoricSiteAreaGuide } from "./historic-site-area-guides-extra";
 import { enrichHistoricSiteCatalog, enrichHistoricSiteDestination } from "./historic-site-enrichment";
 import { enrichHistoricSiteEvergreenLinks } from "./historic-site-evergreen-links";
+import { enrichTexasHistoricSiteAuthority } from "./historic-site-authority-2026";
+import { enrichFullHistoricSiteAuthority } from "./historic-site-authority-full-catalog";
+import { enrichResearchedHistoricSiteDepth } from "./historic-site-depth-all";
 import { applyHistoricSiteFactCorrections } from "./historic-site-fact-corrections";
 import { enrichHistoricSiteRemoteHero } from "./historic-site-remote-heroes";
 import { enrichNationalCemeteryDestination } from "./national-cemetery-enrichment";
@@ -166,7 +169,7 @@ async function loadCoreCatalog(
 }
 
 function finishHistoricSiteEnrichment(destination: Destination) {
-  return enrichNationalCemeteryDestination(
+  const enriched = enrichNationalCemeteryDestination(
     applyHistoricSiteFactCorrections(
       enrichHistoricSiteEvergreenLinks(
         enrichHistoricSiteRemoteHero(
@@ -175,6 +178,7 @@ function finishHistoricSiteEnrichment(destination: Destination) {
       ),
     ),
   );
+  return enrichResearchedHistoricSiteDepth(enrichFullHistoricSiteAuthority(enrichTexasHistoricSiteAuthority(enriched)));
 }
 
 function applyResolvedHero(destination: Destination) {
@@ -213,6 +217,9 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(enrichHistoricSiteEvergreenLinks)
     .map(applyHistoricSiteFactCorrections)
     .map(enrichNationalCemeteryDestination)
+    .map(enrichTexasHistoricSiteAuthority)
+    .map(enrichFullHistoricSiteAuthority)
+    .map(enrichResearchedHistoricSiteDepth)
     .map(enrichCavernAreaGuide)
     .map(normalizeDestinationCounty)
     .map(applyTownAuthority);
