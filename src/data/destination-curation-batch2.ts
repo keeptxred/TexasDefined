@@ -46,7 +46,7 @@ const curatedBatch2: Record<string, Partial<Destination>> = {
     summary: "A cypress-and-Spanish-moss East Texas park on the maze-like waters of Caddo Lake, with paddling, fishing, CCC cabins and easy access to one of the state’s most distinctive wetland landscapes.",
     nearestTown: "Karnack",
     bestSeason: "Fall through spring for cooler paddling and hiking; spring is especially good for birding",
-    entryNote: "Reserve day use or cabins in advance for busy periods. Canoe rentals are available through park headquarters when conditions and operations allow.",
+    entryNote: "Reserve day use or cabins in advance for busy periods. Park canoe rentals are first-come, first-served, never reserved in advance, and can close for weather; launch rentals at Saw Mill Pond.",
     highlights: [
       "Bald cypress forest draped in Spanish moss",
       "Canoeing and kayaking through marked bayous and boat roads",
@@ -57,6 +57,12 @@ const curatedBatch2: Record<string, Partial<Destination>> = {
       "Caddo Lake State Park is the gateway to a landscape that looks unlike almost anywhere else in Texas. Bald cypress trunks rise from dark water, Spanish moss hangs from branches, and narrow channels lead into a broad wetland maze shared by Texas and Louisiana.",
       "Paddling is the defining experience, whether from a rented canoe or your own kayak. The park also gives visitors a dry-land base with trails, fishing access and CCC-built cabins, making it possible to experience the lake at first and last light instead of treating it as a quick stop.",
       "Navigation and weather deserve respect here. Stay on marked routes, carry a map or downloaded navigation, and check current lake and park conditions before launching. Cabins and popular campsites can book well ahead during pleasant-weather months.",
+    ],
+    visitorFaqs: [
+      { question: "Can I reserve a rental canoe at Caddo Lake State Park?", answer: "No. As reviewed October 12, 2026, TPWD rents canoes first-come, first-served without advance reservations. Renters must be 18 or older, show identification, and complete a waiver.", sourceUrl: "https://tpwd.texas.gov/state-parks/caddo-lake/paddling-rental-information" },
+      { question: "Where may I launch a canoe rented from the park?", answer: "The park requires its rental canoes to launch at Saw Mill Pond only; renters cannot transport them by vehicle. Visitors must be able to carry and launch the canoe themselves because park staff do not provide assistance. This restriction applies to park rentals, not every privately owned kayak route.", sourceUrl: "https://tpwd.texas.gov/state-parks/caddo-lake/paddling-rental-information" },
+      { question: "When do park canoe rentals close?", answer: "TPWD lists rental pickup at the park office from 8:15 a.m. to 3 p.m., with day-use rental returns by 4:30 p.m. Rental hours and availability can change with weather. Check the current operator rules before travel.", sourceUrl: "https://tpwd.texas.gov/state-parks/caddo-lake/paddling-rental-information" },
+      { question: "What should I know before fishing and paddling at Caddo Lake?", answer: "TPWD lists more than 70 fish species and indicates that fishing from shore within a Texas state park does not require a fishing license. Alligators occur here. Paddlers need current lake conditions, appropriate safety equipment and an exit plan.", sourceUrl: "https://tpwd.texas.gov/state-parks/caddo-lake" },
     ],
     managingAuthority: TPWD,
     officialUrl: "https://tpwd.texas.gov/state-parks/caddo-lake",

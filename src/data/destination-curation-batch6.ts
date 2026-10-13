@@ -53,9 +53,15 @@ const curated: Record<string, Partial<Destination>> = {
   },
   "hill-country-state-natural-area": {
     summary: "A rugged former ranch near Bandera preserved for backcountry hiking, horseback riding and primitive camping across limestone ridges, grasslands and creek valleys with minimal developed recreation.",
-    nearestTown: "Bandera", bestSeason: "Fall through spring; summer heat makes exposed routes demanding", entryNote: "This is a natural area rather than a developed resort-style park. Carry water, download maps and expect limited services and rough trails.",
+    nearestTown: "Bandera", bestSeason: "Fall through spring; summer heat makes exposed routes demanding", entryNote: "A primitive, rugged natural area; all trails were reported reopened October 5, 2026, but may close again after rain. Carry water, download maps and confirm trail status with TPWD.",
     highlights: ["Backcountry Hill Country trails", "Horseback riding and equestrian camping", "Primitive campsites", "Ranch landscape with limestone ridges and open grassland"],
     body: ["Hill Country State Natural Area deliberately keeps development light. The former ranch landscape is crossed by a substantial trail network but offers fewer conveniences than many state parks, preserving a stronger backcountry character.", "Hikers and equestrians move through grasslands, rocky ridges and creek valleys, with primitive campsites extending trips beyond a day hike. Routes can be rough and exposed, and distances feel longer in hot weather.", "Bring navigation, ample water and realistic expectations about services. Check trail conditions and weather before arrival, particularly after heavy rain or during periods of extreme heat."],
+    visitorFaqs: [
+      { question: "Are trails currently open at Hill Country State Natural Area?", answer: "TPWD's dated October 5, 2026 update reported all trails reopened. Trails may close again after rain or adverse weather; for today's status, check the park notice or call (830) 796-4413 before departure.", sourceUrl: "https://tpwd.texas.gov/state-parks/hill-country" },
+      { question: "Can I bring my own horse to Hill Country State Natural Area?", answer: "Yes, TPWD permits horseback riding on designated multiuse trails, with proof of a current negative Coggins test required. Terrain ranges from flat prairie to steep, rocky canyons; check closures before loading a trailer.", sourceUrl: "https://tpwd.texas.gov/state-parks/hill-country" },
+      { question: "Are there horse facilities and camping?", answer: "The day-use equestrian area near headquarters has a water trough, hitching posts and a flush toilet. Equestrian campsites are available, but the park has no horse-washing stations. The equestrian arena requires advance reservation.", sourceUrl: "https://tpwd.texas.gov/state-parks/hill-country" },
+      { question: "Are showers and developed campsite amenities available?", answer: "Primitive walk-in and hike-in sites have nearby vault toilets but no showers. The park has a separate lodge and equestrian overnight facilities. Do not confuse these choices or assume every campsite includes a horse pen.", sourceUrl: "https://tpwd.texas.gov/state-parks/hill-country" },
+    ],
     managingAuthority: TPWD, officialUrl: "https://tpwd.texas.gov/state-parks/hill-country",
   },
   "indian-lodge": {
