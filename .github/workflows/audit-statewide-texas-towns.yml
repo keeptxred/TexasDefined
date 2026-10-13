@@ -1,0 +1,24 @@
+name: Statewide Texas municipality authority coverage
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 12 1 * *'
+permissions:
+  contents: read
+jobs:
+  census-gap-inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Compare Census incorporated places with researched TexasDefined guides
+        run: node scripts/data/audit-statewide-texas-towns.mjs --output=statewide-town-gaps.json
+      - name: Archive exact official-roster coverage gaps
+        uses: actions/upload-artifact@v4
+        with:
+          name: statewide-town-authority-coverage
+          path: statewide-town-gaps.json
+          retention-days: 90

@@ -36,6 +36,9 @@ export const fredericksburgAuthorityArticles: Article[] = [
     sourceName: "Fredericksburg Convention & Visitor Bureau",
     sourceUrl: "https://www.visitfredericksburgtx.com/things-to-do/",
     internalLinks: [
+    { href: "/article/texas-wine-country", label: "Statewide Texas wine country", description: "Compare the Fredericksburg tasting corridor with growing regions and regulated appellations." },
+    { href: "/article/texas-german-belt", label: "German heritage beyond Fredericksburg", description: "Connect Fredericksburg's founding to New Braunfels, Boerne, Comfort and rural settlements." },
+    { href: "/article/scenic-drives-in-texas", label: "Scenic drives in Texas", description: "Build the U.S. 290 and Hill Country portion of a longer road trip." },
       { href: "/destination/fredericksburg", label: "Fredericksburg destination guide", description: "Use the main Explore destination for maps, nearby-place relationships, current planning context and bookable-experience pathways." },
       { href: "/county/gillespie", label: "Gillespie County guide", description: "Connect Fredericksburg with Stonewall, Luckenbach, ranch roads, peaches, LBJ country and the wider county." },
       { href: "/destination/fredericksburg-historic-district", label: "Fredericksburg Historic District", description: "Use the walkable historic core as the anchor for museums, architecture, shopping and downtown tasting rooms." },

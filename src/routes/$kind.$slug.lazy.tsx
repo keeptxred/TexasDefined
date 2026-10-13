@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
 import { CountyCoastalPlaces } from '@/components/content/CountyCoastalPlaces';
+import { CountyTownAuthorityLinks } from '@/components/content/CountyTownAuthorityLinks';
 import { CountyGuideSections } from '@/components/content/CountyGuideSections';
 import { EntityDepthSections } from '@/components/content/EntityDepthSections';
 import { WildlifeDepthSections } from '@/components/content/WildlifeDepthSections';
@@ -351,6 +352,7 @@ function EntityPage() {
         {entity.kind === 'city' ? <Suspense fallback={null}><CityPassContextualCallout surface="city" slug={entity.slug} /></Suspense> : null}
         {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} countySeriesArticle={countySeriesArticle} /> : null}
         {(entity.kind === 'city' || entity.kind === 'county') && foodDestinations.length ? <Suspense fallback={null}><EntityFoodDestinations entity={entity} destinations={foodDestinations} /></Suspense> : null}
+        {(entity.kind === 'county' || entity.kind === 'city') ? <CountyTownAuthorityLinks kind={entity.kind} slug={entity.slug} name={entity.name} /> : null}
         {entity.kind === 'county' ? <CountyCoastalPlaces county={entity} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
         {entity.kind === 'county' ? <Suspense fallback={null}><CountyHighSchoolFootball county={entity} /></Suspense> : null}

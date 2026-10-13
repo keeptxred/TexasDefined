@@ -36,6 +36,7 @@ export const nolanCountySweetwaterWaspWindRailroadsBigCountryTexasArticle: Artic
   featured: false,
   internalLinks: [
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county reference pages and enriched county guides." },
+    { href: "/fishing/lakes/lake-sweetwater", label: "Lake Sweetwater recreation and visitor guide", description: "Explore the Nolan County lake park, CCC history, camping and fishing warnings, with official water level and city access links." },
     { href: "/county/taylor", label: "Explore Taylor County", description: "Continue east toward Abilene, Buffalo Gap and the heart of the Big Country." },
     { href: "/county/fisher", label: "Explore Fisher County", description: "Head north toward Roby, Rotan and the Double Mountain Fork of the Brazos." },
     { href: "/county/mitchell", label: "Explore Mitchell County", description: "Continue west toward Colorado City and the rolling edge of West Texas." },
@@ -99,6 +100,7 @@ export const nolanCountySweetwaterWaspWindRailroadsBigCountryTexasArticle: Artic
     h("Water supply remains one of the county's defining practical challenges"),
     p("Wind may dominate modern views, but water still sets the limits for daily life. Lake Sweetwater was built as a municipal water source and remains part of the region's water-planning history. Lake Trammell and groundwater wells have also supported Sweetwater, while Oak Creek Reservoir in neighboring Coke County was developed for municipal and industrial supply and is operated by the City of Sweetwater."),
     p("Drought exposes how interconnected those sources are. Texas Water Development Board planning documents show that Sweetwater has had to balance reservoirs and groundwater during extended dry periods. For visitors, the reservoirs may appear mainly recreational, but for residents they represent infrastructure, drought planning and the long history of communities in semi-arid Texas investing heavily to secure dependable water."),
+    p("Lake Sweetwater also preserves recreation history through its CCC-era lakeside landscape and municipal park. For a visit today, do not assume fishing or launching is viable: Texas Parks and Wildlife warns of golden-alga impacts and poor sport fishing, while drought can make ramp access unavailable. Consult the dedicated Lake Sweetwater visitor guide for current agency links, water levels, camping and park details."),
 
     h("Roscoe remains more than its turbines"),
     p("Roscoe's modern association with wind energy can obscure the older town beneath it. The community grew because the railroad and surrounding farms created a need for gins, elevators, merchants, schools and churches. Its street grid, rail corridor and agricultural businesses still make that history easy to read. Wind development added a new source of revenue and a new visual identity without erasing the agricultural system that created the town."),

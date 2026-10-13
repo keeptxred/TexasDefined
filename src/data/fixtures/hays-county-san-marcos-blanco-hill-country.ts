@@ -24,6 +24,7 @@ export const haysCountySanMarcosBlancoHillCountryArticle: Article = {
   tags: ["Hays County", "San Marcos", "Wimberley", "Kyle", "Buda", "Dripping Springs", "Blanco River", "San Marcos River", "Hill Country", "Central Texas", "Texas counties"],
   featured: false,
   internalLinks: [
+    { href: "/destination/wimberley", label: "Wimberley authority travel guide", description: "Add the independent Cypress Creek, Blue Hole and Hill Country village guide." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/travis", label: "Explore Travis County", description: "Continue north into Austin and the Colorado River corridor." },
     { href: "/county/bexar", label: "Explore Bexar County", description: "Continue south toward San Antonio and the southern end of the I-35 growth corridor." },

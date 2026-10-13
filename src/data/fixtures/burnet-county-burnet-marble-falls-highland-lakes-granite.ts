@@ -35,6 +35,7 @@ export const burnetCountyBurnetMarbleFallsHighlandLakesGraniteArticle: Article =
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/marble-falls", label: "Marble Falls authority travel guide", description: "Explore Burnet County's Lake Marble Falls and Highland Lakes visitor hub." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county reference pages and completed county guides." },
     { href: "/destination/inks-lake-state-park", label: "Explore Inks Lake State Park", description: "Plan a visit to one of the Highland Lakes' most distinctive granite-and-water landscapes." },
     { href: "/county/blanco", label: "Explore Blanco County", description: "Continue south into the Pedernales country around Johnson City and Blanco." },
