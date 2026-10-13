@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
 
 concurrency:
   # This is intentionally a production-only crawl. Running it on pull requests
@@ -28,6 +29,8 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Audit every production URL
+        id: audit
+        continue-on-error: true
         run: npm run production:pages:audit
       - name: Upload complete page-quality report
         if: always()
@@ -37,4 +40,67 @@ jobs:
           path: |
             /tmp/texasdefined-page-audit.json
             /tmp/texasdefined-page-audit.tsv
+            /tmp/texasdefined-authority-review.tsv
           if-no-files-found: warn
+      - name: Preserve the ongoing existing-page authority remediation issue
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const file = '/tmp/texasdefined-page-audit.json';
+            const title = '[Sitewide Authority] Existing-page research, SEO and factual QA backlog';
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const run = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
+            const data = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : null;
+            const totals = data?.totals ?? { pages: 0, failingPages: 0 };
+            const familyRows = Object.entries(data?.authorityByFamily ?? {})
+              .sort((a,b) => b[1].withReviewFlags - a[1].withReviewFlags)
+              .map(([name, x]) => `| ${name} | ${x.pages} | ${x.withReviewFlags} | ${x.missingPrimarySourceCandidates} |`)
+              .slice(0, 30);
+            const flagRows = Object.entries(data?.authorityFlags ?? {})
+              .sort((a,b)=>b[1]-a[1])
+              .map(([flag, count]) => `| ${flag} | ${count} |`);
+            const candidates = (data?.results ?? [])
+              .filter(r => r.issues?.length || r.authority?.reviewFlags?.length)
+              .sort((a,b)=>(a.authority?.priority ?? 9)-(b.authority?.priority ?? 9)||b.issues.length-a.issues.length)
+              .slice(0,40).map(r => `- ${r.url}: technical [${r.issues.map(x=>x.code).join(', ')||'none'}], editorial review [${r.authority?.reviewFlags?.join(', ')||'none'}]`);
+            const body = [
+              '# Live TexasDefined authority retrofit queue',
+              '',
+              'This is a review queue, **not** a declaration that each page is wrong. Evidence signals are only prompts for individually verified research; a green crawl cannot certify historical, fishing, venue, municipal or other factual claims.',
+              'No page is accepted as ultimate authority until relevant factual sources, content, cross-links, images, accessibility and live Google-search eligibility are independently evidenced.',
+              '',
+              `Production audit: ${run}`,
+              `Audited: ${data?.auditedAt ?? 'audit did not produce a report'}`,
+              `Sitemap URLs audited: ${totals.pages}`,
+              `Technical fail pages: ${totals.failingPages}`,
+              `Sitemap failures: ${data?.sitemapFailures?.length ?? 'unknown'}`,
+              '',
+              '## Grouped review findings',
+              '',
+              '| Page family | URLs | Evidence review flags | No recognizable primary-source host |',
+              '| --- | ---: | ---: | ---: |',
+              ...familyRows,
+              '',
+              '## Review evidence gaps (signals only)',
+              '',
+              '| Signal | URLs |',
+              '| --- | ---: |',
+              ...flagRows,
+              '',
+              '## Immediate review candidates',
+              '',
+              ...candidates,
+              '',
+              'The complete per-URL ledger is preserved in the workflow artifact: `texasdefined-authority-review.tsv`. Remediate by template only for genuine shared defects; original source research and appropriate contextual links still require page-level verification.',
+              'Do **not** close this issue on technical-only checks. A separate editorial-acceptance ledger must substantiate all applicable pages before closure.',
+            ].join('\n').slice(0,59000);
+            const issues = await github.paginate(github.rest.issues.listForRepo, { owner, repo, state:'open', per_page:100 });
+            const existing = issues.find(issue => !issue.pull_request && issue.title === title);
+            if (existing) await github.rest.issues.update({owner,repo,issue_number:existing.number,body});
+            else await github.rest.issues.create({owner,repo,title,body});
+      - name: Keep production technical audit fail-closed
+        if: steps.audit.outcome == 'failure'
+        run: exit 1

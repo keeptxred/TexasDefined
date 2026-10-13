@@ -3,6 +3,16 @@ import { spawnSync } from 'node:child_process';
 
 const checks = [
   {
+    id: 'fishing-sitemap-indexability',
+    label: 'Empty lake guides/reports excluded from sitemaps until verified',
+    script: 'scripts/data/validate-fishing-sitemap-indexability.mjs',
+  },
+  {
+    id: 'authority-evidence-diagnostics',
+    label: 'Topic-sensitive sitewide authority diagnostic correctness',
+    script: 'scripts/ci/authority-evidence.test.mjs',
+  },
+  {
     id: 'generated-content',
     label: 'Thin, empty and generated-content quality',
     script: 'scripts/data/validate-generated-page-quality.mjs',

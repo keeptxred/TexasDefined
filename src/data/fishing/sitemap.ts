@@ -33,10 +33,16 @@ export const FISHING_SITEMAP_ENTRIES = [
     .map((slug) => ({ path: fishingTechniqueCanonicalPath(slug), lastmod: FISHING_TECHNIQUES_VERIFIED_AT })),
   { path: FISHING_REGULATIONS_PATH, lastmod: FISHING_REGULATIONS_VERIFIED_AT },
   { path: lakeConroeCanonicalPath(), lastmod: LAKE_CONROE_VERIFIED_AT },
-  ...LAKE_CONROE_SECTION_SLUGS.map((section) => ({ path: lakeConroeCanonicalPath(section), lastmod: LAKE_CONROE_VERIFIED_AT })),
+  // Guides/reports receive noindex until verified records actually exist. The
+  // qualified section URLs are emitted from the corresponding server loaders.
+  ...LAKE_CONROE_SECTION_SLUGS
+    .filter((section) => section !== "guides" && section !== "reports")
+    .map((section) => ({ path: lakeConroeCanonicalPath(section), lastmod: LAKE_CONROE_VERIFIED_AT })),
   ...ALL_SHOWCASE_LAKE_SLUGS.flatMap((slug) => [
     { path: showcaseLakeCanonicalPath(slug), lastmod: lakeSitemapDate(slug) },
-    ...SHOWCASE_LAKE_SECTION_SLUGS.map((section) => ({ path: showcaseLakeCanonicalPath(slug, section), lastmod: lakeSitemapDate(slug) })),
+    ...SHOWCASE_LAKE_SECTION_SLUGS
+      .filter((section) => section !== "guides" && section !== "reports")
+      .map((section) => ({ path: showcaseLakeCanonicalPath(slug, section), lastmod: lakeSitemapDate(slug) })),
   ]),
   { path: FISHING_SPECIES_DIRECTORY_PATH, lastmod: FISHING_SPECIES_VERIFIED_AT },
   ...COMPLETE_FISHING_SPECIES_SLUGS.map((slug) => ({ path: fishingSpeciesCanonicalPath(slug), lastmod: FISHING_SPECIES_VERIFIED_AT })),
