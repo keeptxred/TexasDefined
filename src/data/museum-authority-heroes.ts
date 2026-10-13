@@ -171,6 +171,24 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     width: 1600, height: 1067,
     credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons · historic exterior grounds view",
   },
+  "buffalo-soldiers-national-museum-houston": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Buffalo%20Soldiers%20National%20Museum%20entrance.jpg?width=1600",
+    alt: "Exterior of the former Houston Light Guard Armory housing Buffalo Soldiers National Museum in 2024; museum currently closed for renovations",
+    width: 1600, height: 1067,
+    credit: "Kenneth C. Zirkel · CC BY 4.0 · Wikimedia Commons · museum entrance photographed February 2024, before renovation closure",
+  },
+  "texas-prison-museum-huntsville": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/TexasPrisonMuseum.JPG?width=1600",
+    alt: "Texas Prison Museum building in Huntsville, Texas, in a historic public-domain photo",
+    width: 1600, height: 1200,
+    credit: "WhisperToMe · public domain · Wikimedia Commons · Texas Prison Museum building photographed 2010",
+  },
+  "eisenhower-birthplace": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Denison%20July%202016%2016%20(Eisenhower%20Birthplace%20State%20Historic%20Site).jpg?width=1600",
+    alt: "Restored two-story white-frame Eisenhower birthplace house in Denison, Texas, photographed in 2016",
+    width: 1600, height: 1125,
+    credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons · actual Eisenhower birthplace in Denison, 2016",
+  },
 };
 
 /** Exact subject, attribution-cleared media may enhance discovery without importing every long museum dossier. */
