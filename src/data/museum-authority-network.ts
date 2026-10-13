@@ -678,6 +678,43 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "kimbell-art-museum-fort-worth": {
+    name: "Kimbell Art Museum",
+    slug: "kimbell-art-museum-fort-worth",
+    county: "Tarrant",
+    city: "Fort Worth",
+    reviewed: "2026-10-13",
+    topics: ["art", "architecture", "family", "accessibility"],
+    whyVisit: "The Kimbell combines a purposely selective art collection with two remarkable architectural buildings: Louis Kahn's daylight-filled original galleries and Renzo Piano's neighboring pavilion. Rather than trying to catalogue thousands of works, a strong visit compares a small number of globally significant artworks and notices how the gallery spaces shape their viewing.",
+    visitorStrategy: "The permanent collection is always free, but admission to special exhibitions is separately ticketed. The museum opens Tuesday–Thursday 10 a.m.–5 p.m., Friday noon–8 p.m., Saturday 10 a.m.–5 p.m., Sunday noon–5 p.m.; closed Monday. Current special-exhibition adult admission is $18, with discounted half-price hours Tuesdays and Friday evenings. Parking is free in the museum underground garage and designated lots. The Piano Pavilion hosts many special exhibitions while the Kahn building houses regular collection galleries.",
+    accessibility: "Wheelchair users should enter the Kahn building from the east via Van Cliburn Way, because its west entrance is not wheelchair accessible. The Piano Pavilion is accessible from the underground garage and designated group drop-off. Accessible parking, limited loaner wheelchairs, benches and folding stools are offered, and a campus assistance vehicle connects the two buildings. Sensory hours, social narratives, hearing support and ASL arrangements are available with appropriate advance requests.",
+    familiesAndGroups: "Families can visit the permanent collection free, use child-friendly audio material and register for sensory-friendly programming when scheduled. Studio or educational experiences vary by day, not all galleries are appropriate for play, and families must keep food and drink out of galleries. The Kimbell Café in the Kahn Building serves lunch, take-away food and afternoon tea; it is a proper museum café with dining tables but not a formal full-service restaurant. The Piano Café is currently listed as temporarily closed.",
+    researchValue: "The collection is intentionally modest in size compared with encyclopedic museums; its scope includes European, African, Asian and ancient works. On view October 4, 2026–January 17, 2027, Photography's First Century is a ticketed special exhibition drawing from France's national library collections. Distinguish gallery admission from exhibition tickets, the two architects' buildings and the Kimbell's café from neighboring Fort Worth cultural institutions.",
+    exhibits: [
+      { heading: "Permanent global art collection", detail: "Compare selected European, Asian, African, ancient and Mesoamerican artworks. Object rotations and conservation mean a famous piece may not always be on view." },
+      { heading: "Louis Kahn's original museum building", detail: "Observe the daylight entering the concrete vaults and the sequence of quiet gallery rooms, which are an important part of the institution's legacy." },
+      { heading: "Renzo Piano Pavilion", detail: "Explore the companion building and how its natural light and gallery scale support temporary exhibitions and public programming." },
+      { heading: "Photography's First Century (October 4, 2026–January 17, 2027)", detail: "A ticketed display of early photography from the Bibliothèque nationale de France. Check remaining entry times and whether reduced-price sessions suit the visit." },
+      { heading: "Kimbell Café in the Kahn Building", detail: "Lunch, boxed meals and afternoon tea are offered separately from gallery opening times; the Piano Café remains temporarily closed according to current operator information." },
+    ],
+    routes: [
+      { label: "Free first visit in 75 minutes", steps: ["Enter through the Kahn building for free collection galleries", "Choose two or three works from different periods or cultures", "Pause to understand the architecture and natural lighting"] },
+      { label: "Cultural District art afternoon", steps: ["Start with the Kimbell's free collection or a booked special exhibition", "Visit the nearby Amon Carter Museum for American art", "Choose the Modern Art Museum or a café stop depending on time and interests"] },
+    ],
+    sources: [
+      { label: "Kimbell operator hours and admission", url: "https://kimbellart.org/visit", use: "Current schedule, discounted special exhibition and parking" },
+      { label: "Kimbell accessibility and transit", url: "https://kimbellart.org/visit/accessibility", use: "Two-building accessibility, ramp routes and sensory programs" },
+      { label: "Kimbell dining", url: "https://kimbellart.org/visit/dine", use: "Kimbell Café menu, hours, afternoon tea and closed Piano Café" },
+      { label: "Kimbell tickets and exhibitions", url: "https://kimbellart.org/tickets", use: "Permanent collection free; ticketed temporary shows" },
+      { label: "Kimbell group tour rules", url: "https://kimbellart.org/content/tours", use: "Advance tour bookings and group experience" },
+    ],
+    connections: [
+      { label: "Tarrant County", href: "/county/tarrant", reason: "Fort Worth's cultural and architectural heritage." },
+      { label: "Amon Carter Museum of American Art", href: "/destination/amon-carter-museum-american-art-fort-worth", reason: "A nearby American-art collection with a different mission." },
+      { label: "Museums across Texas", href: "/explore/museums", reason: "Compare family-friendly art museums around the state." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
