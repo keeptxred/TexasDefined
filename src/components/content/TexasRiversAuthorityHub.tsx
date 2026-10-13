@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { RIVER_AUTHORITY_RELATIONS } from "@/data/river-authority-relations";
+import { RIVER_AUTHORITY_CARD_PHOTOS } from "@/data/river-authority-photo-catalog";
 
 import { PublishableGraphic } from "@/components/editorial/PublishableGraphic";
 import { TexasRiversCitationTrust } from "@/components/content/TexasRiversCitationTrust";
@@ -160,18 +161,22 @@ function TexasRiverOrientationMap() {
 function RiverProfileCards() {
   return (
     <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-      {riverProfiles.map((river) => (
-        <Link key={river.href} to={river.href} className="group overflow-hidden rounded-sm border border-border bg-background transition-colors hover:border-primary">
-          <div className="aspect-[4/3] overflow-hidden bg-surface">
-            <img src={river.image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
-          </div>
-          <div className="p-4">
-            <span className="font-display text-xl group-hover:text-primary">{river.name}</span>
-            <span className="mt-1 block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{river.region}</span>
-            <span className="mt-2 block text-sm leading-5 text-muted-foreground">{river.note}</span>
-          </div>
-        </Link>
-      ))}
+      {riverProfiles.map((river) => {
+        const photo = RIVER_AUTHORITY_CARD_PHOTOS[river.href];
+        return <div key={river.href} className="overflow-hidden rounded-sm border border-border bg-background">
+          <Link to={river.href} className="group block transition-colors hover:border-primary">
+            <div className="aspect-[4/3] overflow-hidden bg-surface">
+              <img src={photo?.src ?? river.image} alt={photo?.alt ?? `${river.name} river basin or associated watershed destination`} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
+            </div>
+            <div className="p-4">
+              <span className="font-display text-xl group-hover:text-primary">{river.name}</span>
+              <span className="mt-1 block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{river.region}</span>
+              <span className="mt-2 block text-sm leading-5 text-muted-foreground">{river.note}</span>
+            </div>
+          </Link>
+          {photo ? <p className="px-4 pb-4 text-xs text-muted-foreground">Photo: <a href={photo.sourceUrl} target="_blank" rel="noreferrer" className="underline">{photo.photographer}</a> · <a href={photo.licenseUrl} target="_blank" rel="noreferrer" className="underline">{photo.license}</a> · Wikimedia Commons</p> : null}
+        </div>;
+      })}
     </div>
   );
 }
