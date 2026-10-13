@@ -2491,6 +2491,89 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "art-museum-southeast-texas-beaumont": [
+    {
+      "question": "Is admission to Art Museum of Southeast Texas free?",
+      "answer": "Yes. AMSET says general admission is always free for visitors. Special classes or separately priced adult workshops may require registration and payment, which is different from regular gallery admission.",
+      "verificationUrl": "https://amset.org/visit-us-visitanos/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/visit-us-visitanos/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What days and hours is Art Museum of Southeast Texas open?",
+      "answer": "The museum lists Monday–Friday 9 a.m.–5 p.m., Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m., with major-holiday closures. Temporary exhibition changes and special programming may affect access, so consult the operator calendar.",
+      "verificationUrl": "https://amset.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the address of the Art Museum of Southeast Texas in Beaumont?",
+      "answer": "AMSET is at 500 Main Street, downtown Beaumont. Texas Energy Museum is nearby at 600 Main Street, making the two a practical multi-museum outing when both institutions are open.",
+      "verificationUrl": "https://amset.org/visit-us-visitanos/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/visit-us-visitanos/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How long should visitors spend at AMSET?",
+      "answer": "Allow roughly 60–90 minutes for the main galleries and a current temporary exhibition, an independent estimate rather than an operator-required visit duration. A guided education group or adult workshop can take longer.",
+      "verificationUrl": "https://amset.org/visit-us-visitanos/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Art Museum of Southeast Texas have guided school and group tours?",
+      "answer": "Yes. AMSET offers free tours for audiences from preschool through senior citizens, with tours booked at least two weeks ahead. The minimum is ten children or seven adults, and advance requests can cover Spanish or ASL guidance.",
+      "verificationUrl": "https://amset.org/schedule-a-tour/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/schedule-a-tour/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is AMSET suitable for young children and family groups?",
+      "answer": "Yes, the museum offers age-adapted guided experiences and special family art programming. Family Arts Day is advertised for October 17, 2026, but art-making activities and concessions on an event day are not promises of permanent toddler play areas or everyday dining.",
+      "verificationUrl": "https://amset.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/schedule-a-tour/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What exhibits are on view at AMSET during October 2026?",
+      "answer": "The operator lists Delilah Montoya: Activating Chicana Resistance from October 6, 2026 through January 3, 2027, and Samantha Harrison: Land and Light through November 8, 2026. Both are time-limited. Confirm current and closing dates immediately before traveling.",
+      "verificationUrl": "https://amset.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does AMSET have an on-site restaurant or café?",
+      "answer": "AMSET's official visit and tour information does not establish a regular full-service museum restaurant or cafeteria. Some special events advertise concessions, but visitors should plan ordinary meals separately in downtown Beaumont.",
+      "verificationUrl": "https://amset.org/visit-us-visitanos/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/visit-us-visitanos/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What accessibility accommodations does AMSET offer?",
+      "answer": "The museum's public visitor and tour pages do not provide a complete accessible entrance, restroom, wheelchair-loan or sensory-support specification. For particular access needs, call 409-832-3432 before visiting. Do not rely on amenities belonging to nearby Beaumont museums.",
+      "verificationUrl": "https://amset.org/visit-us-visitanos/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/visit-us-visitanos/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
