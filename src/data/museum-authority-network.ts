@@ -1002,6 +1002,50 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "houston-museum-of-natural-science": {
+    name: "Houston Museum of Natural Science",
+    slug: "houston-museum-of-natural-science",
+    county: "Harris",
+    city: "Houston",
+    reviewed: "2026-10-13",
+    topics: ["natural-history", "science", "family", "energy", "accessibility", "dinosaurs"],
+    whyVisit: "The Houston Museum of Natural Science in Hermann Park combines large-scale natural history, paleontology, Texas energy engineering, astronomy, ancient cultures and living butterflies. It serves different visitors in different ways: dinosaur fans may want only the Morian fossil hall; families can plan hands-on science and live butterflies; adults can compare energy systems or ancient cultural exhibits. A selective visit is more enjoyable than attempting every hall, theater and special attraction in one admission window.",
+    visitorStrategy: "HMNS at Hermann Park is at 5555 Hermann Park Drive, not its separate Sugar Land location. The operator lists museum hours Monday–Thursday 9 a.m.–5 p.m. and Friday–Sunday 9 a.m.–6 p.m.; extended-season and holiday changes occur. Regular permanent-hall general admission currently costs $25 for adults and $16 for ages 3–11 and seniors 62+, but prices can change. The attached garage is currently $30 for nonmembers, $10 for members, cannot be reserved, and has a 6-foot-8-inch vehicle clearance. Public permanent halls are free Tuesdays from 5–8 p.m.; that does not include the planetarium, giant screen theater, Butterfly Center, special exhibits or parking. Purchase/confirm specific attraction tickets and entry slots separately.",
+    accessibility: "HMNS documents elevators to its multi-level halls, reserved accessible garage parking on every level, limited Caroline Street accessible spaces, accessible family restrooms with two adult-changing tables, and a published sensory guide rating sound, lighting, touch and smell by gallery. Sensory-friendly accommodations and mobility-device access depend on the attraction. Ordinary strollers may not enter the planetarium, giant screen theater or Cockrell Butterfly Center; mobility devices used as an accessibility accommodation are treated differently. For a specific accessibility need, use the museum's current accommodation page before travel.",
+    familiesAndGroups: "Younger visitors often find the Morian Hall of Paleontology, wildlife halls and Butterfly Center especially engaging, while older children may spend longer with energy technology and astronomy. The Butterfly Center is a live animal exhibit, so do not touch wildlife and park ordinary strollers at its entrance. Plan breaks; ordinary permanent-hall tickets permit re-entry for meals, while many special exhibitions are single-entry. There are two actual museum eating options: Periodic Table, a bistro-style sandwich, salad and coffee counter near the Butterfly Center, and Elements Grill, a casual grill serving burgers, fries, chicken and vegetarian options—not a formal full-service restaurant. School groups can preorder meals and must follow group booking rules.",
+    researchValue: "The museum offers a useful comparison of scientific method and public storytelling: a dinosaur timeline in Morian Hall, a simulated drilling landscape in the Wiess Energy Hall, and wildlife/ecology galleries tell very different stories. Its current exhibits directory identifies the Cullen Hall of Gems & Minerals as CLOSED for an extreme makeover and the Brown Hall of Entomology as CLOSED for a renovation expected to extend into 2027. Do not advertise those as open just because legacy articles, tickets or search snippets mention them. The Cockrell Butterfly Center itself remains an independently ticketed open attraction. Rotating exhibits, including the planned Dead Sea Scrolls exhibition opening November 20, 2026, require date-specific checks.",
+    exhibits: [
+      { heading: "Morian Hall of Paleontology", detail: "Walk through fossil evidence of changing life and ecosystems rather than looking only for the biggest skeleton. One of the strongest family starting points and part of permanent-hall admission." },
+      { heading: "Wiess Energy Hall", detail: "Large-scale drilling and energy technology installations connect Houston's petroleum history with renewable and emerging energy. Use the displays to compare methods and tradeoffs, not as a complete energy policy primer." },
+      { heading: "The World Around Us and ecological galleries", detail: "A useful introduction to interconnections between wildlife, the environment and the systems that sustain them; the specific activities and display selection may rotate." },
+      { heading: "Hall of Ancient Egypt and cultural exhibits", detail: "Interpret objects as evidence of societies, belief and craftsmanship; select a manageable section instead of rushing between science and history galleries." },
+      { heading: "Cockrell Butterfly Center", detail: "The three-story rainforest conservatory is a separately ticketed live-butterfly attraction. Ordinary strollers and wagons are barred to protect the butterfly population; accessible devices are accommodated." },
+      { heading: "Burke Baker Planetarium and Wortham Giant Screen Theatre", detail: "These are separately scheduled ticketed experiences, not automatic inclusions with standard permanent-hall admission. Review individual show times, age fit and sensory effects." },
+      { heading: "Cullen Gems & Minerals and Brown Entomology: renovations", detail: "Both galleries are closed as of October 2026. Older HMNS guides may still feature them, but visitors should not plan their route around entry until reopening is officially confirmed." },
+    ],
+    routes: [
+      { label: "Two-hour science essentials", steps: ["Buy a permanent-hall ticket or obtain a Free Tuesday ticket at the box office during eligible hours", "Start with Morian Hall of Paleontology and select one second permanent hall", "Leave room for a quick stop in ecology or Texas energy, instead of trying the full building"] },
+      { label: "Half-day family museum", steps: ["Book or check admission for permanent halls and any separately ticketed live-butterfly or theater experience", "Prioritize dinosaurs or wildlife before attention wanes", "Break for Periodic Table or Elements Grill and re-enter permanent galleries if desired"] },
+      { label: "Science plus Hermann Park", steps: ["Allow roughly three to five hours if adding a timed butterfly or planetarium visit", "Use the attached garage or a verified alternate parking arrangement", "Enjoy Hermann Park separately if weather and family energy permit"] },
+    ],
+    sources: [
+      { label: "HMNS visit, admission and visitor overview", url: "https://www.hmns.org/visit/", use: "Admission pricing, location and attraction differences" },
+      { label: "HMNS FAQs and guidelines", url: "https://www.hmns.org/visit/faq/", use: "Regular hours, free Tuesdays, ticket types and stroller policies" },
+      { label: "HMNS directions and parking", url: "https://www.hmns.org/visit/directions-parking/", use: "Garage rates, clearance, accessible spots and first-come availability" },
+      { label: "HMNS exhibits, current gallery closures", url: "https://www.hmns.org/hmns-exhibits/", use: "Permanent halls, Brown Entomology and Cullen Gems temporary closures" },
+      { label: "HMNS dining", url: "https://www.hmns.org/visit/dining/", use: "Distinguish Periodic Table bistro from Elements Grill" },
+      { label: "HMNS visitor accessibility", url: "https://www.hmns.org/visit/accessibility/", use: "Elevator maps, mobility, adult changing tables and sensory resources" },
+      { label: "Cockrell Butterfly Center rules", url: "https://www.hmns.org/exhibits/cockrell-butterfly-center/", use: "Live butterfly entry, stroller policy, separate ticketing" },
+      { label: "HMNS Tuesday admission help", url: "https://help.hmns.org/support/solutions/articles/151000051328/", use: "Free Tuesday inclusions and exclusions" },
+    ],
+    connections: [
+      { label: "Harris County", href: "/county/harris", reason: "See the museum within Houston and the surrounding Museum District." },
+      { label: "Museum of Fine Arts, Houston", href: "/destination/museum-of-fine-arts-houston", reason: "Compare a major science museum with a nearby art institution." },
+      { label: "Holocaust Museum Houston", href: "/destination/holocaust-museum-houston", reason: "Another Museum District destination with a different mission and content suitability." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Discover researched museum visits statewide." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
