@@ -23,6 +23,10 @@ const completedAuthoritySlugs: Record<string,string> = {
   "Kokernot Field": "kokernot-field",
   "Alpine Downtown Historic District": "alpine-downtown-historic-district",
   "Downtown Bryan Historic District": "downtown-bryan-historic-district",
+  "Southern Pacific Passenger Depot": "southern-pacific-passenger-depot-del-rio",
+  "Bosque River Bridge": "bosque-river-bridge-meridian",
+  "Holland Hotel": "holland-hotel",
+
 };
 const kindLabels: Record<string, string> = {
   building: "Historic buildings",
