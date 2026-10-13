@@ -77,7 +77,7 @@ export const dallasBlackHistoryDestinations: Destination[] = [
     id: "dallas-history-juanita-craft-house",
     brandId: "texasdefined",
     slug: "juanita-craft-civil-rights-house-dallas",
-    name: "Juanita J. Craft Civil Rights House and Museum",
+    name: "Juanita J. Craft Civil Rights House",
     summary: "Explore the Warren Avenue home where organizer Juanita Craft helped shape Dallas civil rights history, youth leadership and the struggle against segregation.",
     category: "historic-sites", region: "prairies-lakes", nearestTown: "Dallas", county: "Dallas",
     coordinates: { lat: 32.765, lng: -96.761944 }, hero: craftPhoto,
