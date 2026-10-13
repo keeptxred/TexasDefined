@@ -54,7 +54,7 @@ export const historicSanAntonioHeritageRoadTripArticle: Article = {
   "sourceUrl": "https://www.nps.gov/saan/planyourvisit/index.htm",
   "internalLinks": [
     {
-      "href": "/destination/san-antonio",
+      "href": "/city/san-antonio",
       "label": "Explore San Antonio",
       "description": "Build accommodations, food and additional city attractions around the heritage circuit."
     },
