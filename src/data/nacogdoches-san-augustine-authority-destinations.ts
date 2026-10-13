@@ -173,7 +173,7 @@ export const nacogdochesSanAugustineAuthorityDestinations: Destination[] = [
     "slug": "ruby-m-mize-azalea-garden",
     "name": "Ruby M. Mize Azalea Garden",
     "summary": "An 11-acre SFA garden celebrating native and cultivated azaleas, camellias, Japanese maples and East Texas plants, with free dawn-to-dusk public access.",
-    "category": "parks",
+    "category": "outdoors",
     "region": "piney-woods",
     "nearestTown": "Nacogdoches",
     "county": "Nacogdoches County",
