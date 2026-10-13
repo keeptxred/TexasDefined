@@ -29,3 +29,6 @@ Authored 2 sourced history/season milestones, three unique program narratives an
 - Genuine team photographs remain unavailable without documented reuse rights, license, attribution and alt text
 - Not a school-endorsed page; 2026–28 UIL alignment is not a current game record
 - Keep **IMPLEMENTED** status until independent live evidence supports stronger states
+
+## 2026 football source-dated scorecard — October 13 update
+[MaxPreps 2026 reporting](https://www.maxpreps.com/tx/cedar-creek/cedar-creek-eagles/football/schedule/) is used for independent scores and fixture context. Seven verified results through October 9 and three remaining fixtures; 2–5 is the October 10 scorecard checkpoint. Do not merge Cedar Creek's 5A Division I schedule with Bastrop High's 5A Division II schedule. Source dates, unverified results and event-site uncertainties are described on the live profile. No 2025 games are misrepresented as 2026; no unauthorized school photography is used.
