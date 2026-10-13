@@ -49,6 +49,14 @@ type GuideImage = {
 };
 
 const guideImages: Partial<Record<string, GuideImage>> = {
+  "texas-blue-norther-weather-guide": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Snow%20covering%20the%20hill%20leading%20to%20the%20Texas%20Capitol.jpg?width=1600",
+    alt: "Snow blankets the hill leading to the Texas State Capitol as residents walk through Austin's February 2021 freeze",
+    caption: "Austin, February 15, 2021. This photograph documents an exceptional Texas winter cold event; it is illustrative and does not label that particular storm a meteorological Blue Norther.",
+    credit: "Jno.skinner · CC BY-SA 4.0 · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:Snow_covering_the_hill_leading_to_the_Texas_Capitol.jpg",
+    licenseHref: "https://creativecommons.org/licenses/by-sa/4.0/",
+  },
   "texas-homecoming-mums": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goldthwaite_High_School_Homecoming_Mum.jpg?width=1200",
     alt: "Goldthwaite High School homecoming mum with ribbons, charms and school colors",
