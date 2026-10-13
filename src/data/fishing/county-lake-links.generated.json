@@ -11,6 +11,12 @@
       "name": "Sam Rayburn Reservoir"
     }
   ],
+  "bastrop": [
+    {
+      "slug": "lake-bastrop",
+      "name": "Lake Bastrop"
+    }
+  ],
   "bell": [
     {
       "slug": "belton-lake",
@@ -160,6 +166,10 @@
     }
   ],
   "ellis": [
+    {
+      "slug": "bardwell-lake",
+      "name": "Bardwell Lake"
+    },
     {
       "slug": "joe-pool-lake",
       "name": "Joe Pool Lake"
