@@ -14,7 +14,7 @@ export const delRioSouthernPacificDepotAuthority = makeThcHeritageDestination({
   name:"Southern Pacific Passenger Depot — Del Rio",
   summary:"Del Rio's 1929 Southern Pacific Passenger Depot is a Spanish Mediterranean Revival landmark that still anchors the city's rail and regional-transportation story. Its February 2, 2026 National Register listing recognizes the depot's railroad-era architecture and its role in southwest Texas commerce, travel and wartime mobility.",
   town:"Del Rio",county:"Val Verde",region:"south-texas",
-  coordinates:{lat:29.3625,lng:-100.9004},address:"100 N. Main Street, Del Rio, TX 78840",
+  coordinates:{lat:29.3624,lng:-100.9021},address:"101 W. Ogden Street (historic NR property); Amtrak boarding access: 100 N. Main Street, Del Rio, TX 78840",
   imageFile:image,imageAlt:"Del Rio's historic Southern Pacific station building, photographed beside the tracks in 2014",
   imageCredit:"Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons · 2014",
   imageWidth:640,imageHeight:480,
@@ -44,7 +44,7 @@ export const delRioSouthernPacificDepotAuthority = makeThcHeritageDestination({
     thcFaq("Is the station still used by Amtrak?","Yes, Del Rio is served by Amtrak. Check the current Sunset Limited/Texas Eagle schedules because trains do not operate like frequent urban transit.",station),
     thcFaq("Can I use the station waiting room or buy tickets inside?","Amtrak identifies the passenger stop as platform-only, without a staffed ticket office or published waiting-room hours. Check directly for any separate city-center functions.",station),
     thcFaq("Are accessible boarding and parking available?","Amtrak lists an accessible platform, free accessible parking and a wheelchair lift, while warning that station restrooms, ticket office and waiting room are unavailable.",station),
-    thcFaq("Where is the historic depot?","The city transportation center and passenger station are at 100 North Main Street in Del Rio, Val Verde County.",station),
+    thcFaq("Where is the historic depot?","The historic building is listed at 101 West Ogden Street, while Amtrak directs passengers to 100 North Main Street in Del Rio. Verify the appropriate current entrance for your visit.",station),
     thcFaq("When was it added to the National Register?","The federal listing date is February 2, 2026, with National Register reference number 100012685.",register),
   ],
   sources:[
