@@ -1357,6 +1357,73 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "dr-pepper-museum-waco": {
+    name: "Dr Pepper Museum",
+    slug: "dr-pepper-museum-waco",
+    county: "McLennan",
+    city: "Waco",
+    reviewed: "2026-10-13",
+    topics: ["texas-history", "food-and-drink", "industry", "family"],
+    whyVisit: "The Dr Pepper Museum makes the history of an iconic Texas soft drink tangible through the former 1906 Artesian Manufacturing and Bottling Company building, historic equipment and advertising, and an operating soda fountain in a second building. The best experience is understanding how a Waco beverage became a national brand and how bottling, marketing and soda fountains changed everyday life.",
+    visitorStrategy: "The museum is at 300 South 5th Street, Waco, in two separate buildings. Official regular hours are seven days, 10 a.m.–5:30 p.m., with final general admission sold at 4:30 p.m. The current general admission is $12 for guests age 5 and up; age four and younger enter free. General-admission tickets are purchased on arrival, not online, and include one 12-ounce soda voucher for paid admissions. Additional Liquid Lab or Make-A-Soda programs cost extra and may require advance reservations. Do not confuse museum admission with parking: the public lot across 5th Street costs about $10 plus fees for five hours, with no reentry privilege; accessible parking is provided with qualifying plates or permits. The campus does not permit reentry after exiting.",
+    accessibility: "Both historic buildings have accessible entrances and ramps, with elevators in the original bottling building. Wheelchairs are available on request, and the museum offers sensory-support items, captioned exhibit media and limited accessibility parking. Large wagons and oversized strollers cannot enter; use a standard stroller or designated parking area. ASL arrangements for guided experiences may need around two weeks' notice. These measures do not turn crowded stairwells or the soda-making programs into universally accessible experiences without prior coordination.",
+    familiesAndGroups: "Families with children can follow bottling machinery, advertising examples, soda-making demonstrations and history displays. The soda fountain is a drink and dessert counter on the museum campus, not a separate free-access full-service restaurant: an admission ticket is required to reach it. Paid admissions include a fountain drink; free child admission, some library passes and other voucher entries do not. School tours need advance booking, with designated chaperones and limited bus parking. The courtyard has picnic tables but group spaces cannot be reserved casually.",
+    researchValue: "The Artesian Manufacturing and Bottling Company building dates to 1906. Visitor-facing interpretation should distinguish local pharmaceutical and beverage history, changing manufacturing methods, commercial advertising and the social importance of soda fountains from the corporation's promotional claims. Temporary 2026 Waco road closures affect approaches; the museum lists South Fourth Street disruptions. Facts about pricing, parking, time-sensitive experiences and reentry deserve monthly checks.",
+    exhibits: [
+      { heading: "Historic artesian bottling building", detail: "Explore three floors of displays about the creation, bottling, packaging and marketing of Texas soft drinks inside the early twentieth-century industrial building." },
+      { heading: "Soda Fountain and Kellum-Rotan Building", detail: "The second museum building houses the soda counter, beverage experiences and additional exhibits, all inside the paid campus rather than a public restaurant outside the gate." },
+      { heading: "Keurig Dr Pepper Liquid Lab", detail: "Shows and a separately charged Make-A-Soda program offer hands-on explanations of beverage formulation. Check times, dietary alternatives and reservations first." },
+      { heading: "Waco lunch-counter history and commercial culture", detail: "Use the museum's interpretive displays to compare social history, advertising, local manufacturing and changing food-service customs without treating brand promotion as a substitute for history." },
+    ],
+    routes: [
+      { label: "Family museum visit", steps: ["Buy general admission at the museum rather than a third-party ticket seller", "Tour the former bottling plant and follow the production and advertising story", "Redeem the paid-admission fountain-drink voucher before leaving the non-reentry campus"] },
+      { label: "Downtown Waco history outing", steps: ["Visit the museum with an intentional parking plan", "Explore another downtown historical attraction if schedule permits", "Use McLennan County history to put bottling, railroads and local industry in context"] },
+    ],
+    sources: [
+      { label: "Operator: visitor hours, fees and admission", url: "https://drpeppermuseum.com/plan-your-visit/", use: "Ticket, closing, complimentary drink and campus access rules" },
+      { label: "Operator: researched visitor FAQ", url: "https://drpeppermuseum.com/frequently-asked-questions/", use: "Parking, strollers, reentry, soda fountain and card-only admission" },
+      { label: "Operator: parking and construction", url: "https://drpeppermuseum.com/parking-information/", use: "Public and accessible parking, current street closures" },
+      { label: "Operator: accommodations", url: "https://drpeppermuseum.com/accessibility/", use: "Accessible buildings, sensory accommodations and services" },
+    ],
+    connections: [
+      { label: "McLennan County", href: "/county/mclennan", reason: "Place Waco's historic bottling industry in local context." },
+      { label: "Texas Ranger Hall of Fame and Museum", href: "/destination/texas-ranger-hall-of-fame-museum-waco", reason: "Another Waco museum, but a very different history and interpretation." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Compare industrial and cultural museum visits statewide." },
+    ],
+  },
+  "texas-sports-hall-of-fame-waco": {
+    name: "Texas Sports Hall of Fame",
+    slug: "texas-sports-hall-of-fame-waco",
+    county: "McLennan",
+    city: "Waco",
+    reviewed: "2026-10-13",
+    topics: ["sports", "texas-history", "family", "college-athletics"],
+    whyVisit: "The Texas Sports Hall of Fame interprets Texas athletes, coaches and teams across sports and generations through artifacts, records and historic halls of fame. It is useful both for visitors who want to trace high-school football into college and professional careers, and for families interested in a wider range of sports than a single stadium tour would provide.",
+    visitorStrategy: "The museum is at 1108 South University Parks Drive in Waco, close to Baylor University and Interstate 35, with free on-site parking. The official site currently lists Monday–Saturday 9 a.m.–5 p.m., closed Sunday. General admission is $10 for adults, $8 for seniors age 60+, $6 for students K–college, free for children under six and free for active-duty military and veterans. Tickets can be purchased at the door. Plan 60–120 minutes depending on sport interests as an editorial estimate. Guided group experiences should be reserved rather than assumed walk-in.",
+    accessibility: "The official visitor/contact pages confirm free parking and building access but provide few technical details about elevators, step-free transitions, restrooms or sensory accommodations. Before travel, contact the hall at 254-756-1633 to verify the best wheelchair entrance, group access and any requested support. Do not describe every historic sports artifact display as interactive or wheelchair-accessible unless independently confirmed.",
+    familiesAndGroups: "A successful family visit is selective: choose a sport, an athlete from home, and one historical comparison between high school, college and professional play. Children may learn from equipment, trophies and interactive displays, but not every exhibition case permits touching. Group tours and special educational programs need advance arrangements. An on-site full-service restaurant or cafeteria is not documented on the official visitor pages; nearby Baylor-area restaurants are separate businesses.",
+    researchValue: "The Hall of Fame dates to 1951 and covers more than the iconic names of Texas football. Comparing women's and men's competition, rodeo, Olympic events, coaching, high-school programs and conference histories makes the museum valuable as a regional sports-history resource. The Southwest Conference and Texas High School Football Hall of Fame material should be identified as themes within the wider institution, not independently assumed to have daily standalone visitor hours.",
+    exhibits: [
+      { heading: "Hall of Fame inductees and athlete stories", detail: "Compare Texas careers across sports and eras, keeping Hall of Fame membership distinct from general professional achievements." },
+      { heading: "High school football heritage", detail: "Trace Texas school teams, coaches and players through historical displays and how community school sports became a major statewide institution." },
+      { heading: "Southwest Conference and college athletics", detail: "Explore former collegiate competitions and the transition to the modern university sports landscape, using Baylor and the Southwest Conference as concrete context." },
+      { heading: "Texas sports beyond football", detail: "Look for track, golf, basketball, baseball and other athlete stories to balance the visit and understand the breadth of the Hall's mission." },
+    ],
+    routes: [
+      { label: "One-hour sports-history highlights", steps: ["Begin at the general Hall of Fame overview", "Follow one athlete or sport across school and later-career contexts", "Choose one gallery that broadens the family's view beyond football"] },
+      { label: "Waco sports and history trip", steps: ["Start at Texas Sports Hall of Fame", "Explore nearby Baylor or Brazos public spaces independently", "Connect to the Texas Ranger Hall of Fame only if time and interests justify the separate admission"] },
+    ],
+    sources: [
+      { label: "Texas Sports Hall of Fame: contact, tickets and visit", url: "https://tshof.org/contact-us/", use: "Hours, admissions, parking, contact, group booking" },
+      { label: "Texas Sports Hall of Fame home", url: "https://tshof.org/", use: "Institutional purpose, public exhibitions and event context" },
+    ],
+    connections: [
+      { label: "McLennan County", href: "/county/mclennan", reason: "Put Texas sports and university traditions in regional context." },
+      { label: "Texas Ranger Hall of Fame and Museum", href: "/destination/texas-ranger-hall-of-fame-museum-waco", reason: "Nearby state-history museum with a distinct focus." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Explore sports history alongside other Texas culture museums." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
