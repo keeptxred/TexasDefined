@@ -1,10 +1,10 @@
 {
   "project": "TexasDefined statewide lake authority",
-  "updatedAt": "2026-10-12",
+  "updatedAt": "2026-10-13",
   "scope": {
     "tpwdNamedEntries": 175,
-    "completedGuides": 57,
-    "missingCompleteGuideListings": 118,
+    "completedGuides": 59,
+    "missingCompleteGuideListings": 116,
     "legacyLakeAndParkDestinations": 36
   },
   "standards": {
@@ -339,16 +339,16 @@
     },
     {
       "tpwdEntry": "Bardwell",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "bardwell-lake",
+      "guideStatus": "source-reviewed-guide-in-unmerged-expansion-pr",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bardwell/",
+      "namedFacilities": "TPWD-and-operator-named-not-same-day-certified",
+      "campgrounds": "USACE-operator-parks-and-TPWD-ramp-info-not-same-day-certified",
+      "primaryHistory": "TWDB-1965-impoundment-and-1966-completion-source-reviewed",
+      "localPhoto": "USACE-public-domain-aerial-not-TexasDefined-original",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
+      "countyReciprocalLinks": "generated-reciprocal-links-pending-deployment",
+      "destinationReciprocalLinks": "needs-verified-nearby-park-and-destination-acceptance",
       "competitivePrimarySourceComparison": "not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
@@ -358,20 +358,20 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Research and guide source references are in wave-3 development branch. Publication, live operator notices, field photography, mobile/accessibility and official-site competitive comparison are not yet certified."
     },
     {
       "tpwdEntry": "Bastrop",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "lake-bastrop",
+      "guideStatus": "source-reviewed-guide-in-unmerged-expansion-pr",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bastrop/",
+      "namedFacilities": "TPWD-and-operator-named-not-same-day-certified",
+      "campgrounds": "TPWD-and-LCRA-2026-reservation-amenities-not-live-availability-certified",
+      "primaryHistory": "TWDB-1964-power-station-cooling-reservoir-source-reviewed",
+      "localPhoto": "Larry-D-Moore-CC-BY-4-lakeshore-not-TexasDefined-original",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
+      "countyReciprocalLinks": "generated-reciprocal-links-pending-deployment",
+      "destinationReciprocalLinks": "needs-verified-nearby-park-and-destination-acceptance",
       "competitivePrimarySourceComparison": "not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
@@ -381,7 +381,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Research and guide source references are in wave-3 development branch. Publication, live operator notices, field photography, mobile/accessibility and official-site competitive comparison are not yet certified."
     },
     {
       "tpwdEntry": "Baylor Creek",
