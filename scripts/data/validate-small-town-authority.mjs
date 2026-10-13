@@ -108,12 +108,12 @@ const countyTemplate = read("src/routes/$kind.$slug.lazy.tsx");
 for (const value of ["smallTownWave15Destinations,", "additionalTownAuthorityDestinations,"]) check(catalog.includes(value), "Explore catalog missing " + value);
 // Both direct and catalog paths must keep town enrichment first, then apply
 // narrower evidence-preservation overlays without losing town authority.
-check(/return\\s+(?:enforceFredericksburgJohnsonCityHeritageAuthority\\()?applyTownAuthority\\(\\s*(?:enrich[A-Za-z]+Authority\\(\\s*)?normalizeDestinationCounty\\(/.test(runtime), "Detail resolver must enrich every town (including optional museum enrichment)");
-
-check(/\\.map\\(applyTownAuthority\\)\\s*\\.map\\(enforceFredericksburgJohnsonCityHeritageAuthority\\);/.test(runtime) || runtime.includes(".map(applyTownAuthority);"), "Search/sitemap/catalog resolver must enrich every town");
+check(/return\s+(?:enforceFredericksburgJohnsonCityHeritageAuthority\()?applyTownAuthority\(\s*(?:enrich[A-Za-z]+Authority\(\s*)?normalizeDestinationCounty\(/.test(runtime), "Detail resolver must enrich every town (including optional museum enrichment)");
+check(/\.map\(applyTownAuthority\)\s*\.map\(enforceFredericksburgJohnsonCityHeritageAuthority\);/.test(runtime) || runtime.includes(".map(applyTownAuthority);"), "Search/sitemap/catalog resolver must enrich every town");
 check(runtime.includes("import { enforceFredericksburgJohnsonCityHeritageAuthority }") &&
       runtime.includes("return enforceFredericksburgJohnsonCityHeritageAuthority(applyTownAuthority(") &&
-      runtime.includes(".map(applyTownAuthority)\\n    .map(enforceFredericksburgJohnsonCityHeritageAuthority);".replace("\\n", "\n")), "Corridor authority must follow all generic town, museum and historic enrichments in both resolvers");
+      /\.map\(applyTownAuthority\)\s*\.map\(enforceFredericksburgJohnsonCityHeritageAuthority\);/.test(runtime),
+      "Corridor authority must follow all generic town, museum and historic enrichments in both resolvers");
 
 check(planner.includes("<DestinationAuthoritySections destination={destination} />"), "Visible guide and research sections absent");
 check(planner.includes("townAuthorityContextualLinks(destination)"), "Town/attraction contextual backlinks absent");
