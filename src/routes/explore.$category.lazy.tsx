@@ -73,6 +73,27 @@ function ExploreCategoryPage() {
 
   return <>
     <CategoryPage category={match.slug as CategorySlug} eyebrow={match.eyebrow} title={match.name} intro={match.description} image={match.image} authorityHtml={authorityHtml} />
+
+    {match.slug === "lakes-rivers" ? <Container className="pb-10 sm:pb-14">
+      <section aria-labelledby="lakes-fishing-depth-heading" className="border-y border-border py-8">
+        <p className="eyebrow text-primary">Lake-by-lake visitor planning</p>
+        <h2 id="lakes-fishing-depth-heading" className="mt-2 font-display text-3xl">Two West Texas Lakes, Two Different Trips</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Our detailed lake guides connect county history to fishing, camping, ramps, water levels and current agency notices. Check conditions before traveling, especially where drought affects access.</p>
+        <div className="mt-7 grid gap-6 md:grid-cols-2">
+          <article className="border-t border-border pt-5">
+            <h3 className="font-display text-2xl">Lake Stamford · Haskell County</h3>
+            <p className="mt-2 text-sm leading-7 text-muted-foreground">A Paint Creek reservoir with a noted crappie fishery, lakeside camping and named marina ramps. Water levels can change launch access.</p>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold"><Link to="/fishing/lakes/lake-stamford" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Lake Stamford guide →</Link><Link to="/county/haskell" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Haskell County →</Link></div>
+          </article>
+          <article className="border-t border-border pt-5">
+            <h3 className="font-display text-2xl">Lake Sweetwater · Nolan County</h3>
+            <p className="mt-2 text-sm leading-7 text-muted-foreground">Explore a historic municipal park and lakeside recreation area. Golden-alga impacts and prolonged low water currently make fishing and ramp verification essential.</p>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold"><Link to="/fishing/lakes/lake-sweetwater" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Lake Sweetwater guide →</Link><Link to="/county/nolan" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Nolan County →</Link></div>
+          </article>
+        </div>
+        <Link to="/fishing/lakes" className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Browse all completed Texas fishing lake guides →</Link>
+      </section>
+    </Container> : null}
     {pointGraphic ? <Container className="pb-10 sm:pb-14"><section className="border-t-2 border-foreground pt-8"><div className="mb-6 max-w-3xl"><p className="eyebrow text-primary">Original TexasDefined map</p><h2 className="mt-2 font-display text-4xl">{pointGraphic.title}</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Built from the same maintained destination records used by this guide, then made available for editorial reuse in PNG and SVG formats.</p></div><TexasPointMapGraphic {...pointGraphic} points={mapPoints} /></section></Container> : null}
     {unusualBusinessSpotlight ? <Container className="pb-10 sm:pb-14"><section className="grid gap-6 border-y border-border py-7 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"><div><p className="eyebrow text-primary">{unusualBusinessSpotlight.eyebrow}</p><h2 className="mt-2 font-display text-3xl">{unusualBusinessSpotlight.title}</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{unusualBusinessSpotlight.text}</p><Link to="/article/unusual-texas-businesses-services" {...unusualBusinessAnalyticsAttributes("/article/unusual-texas-businesses-services", `explore-${match.slug}:hub`)} className="mt-4 inline-block text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">More unusual Texas businesses →</Link></div><Link to={unusualBusinessSpotlight.href} {...unusualBusinessAnalyticsAttributes(unusualBusinessSpotlight.href, `explore-${match.slug}:spotlight`)} className="eyebrow inline-block border-b border-primary pb-1 text-primary">{unusualBusinessSpotlight.cta}</Link></section></Container> : null}
     {showRoadTripRentalCar ? <Container className="pb-10 sm:pb-14"><BookingCarRentalCard placement="road-trips-category" title="Need a rental car for your Texas road trip?" /></Container> : null}
