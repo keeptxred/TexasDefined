@@ -101,7 +101,7 @@ for (const sourceMarker of [
 }
 
 for (const feature of [
-  'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))',
+  'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved.map(correctDestinationTravelRegion)))',
   'function reconcileExploreCatalog',
 ]) {
   if (!queryImplementation.includes(feature)) errors.push(`Destination catalog quality filter missing: ${feature}.`);
