@@ -1006,6 +1006,50 @@
         "https://blantonmuseum.org/visit/accessibility/",
         "https://blantonmuseum.org/visit/group-visits/"
       ]
+    },
+    "alvin-historical-museum": {
+      "name": "Alvin Historical Museum",
+      "operatorStrengths": [
+        "Operator-backed visitor location, opening-hours and research context",
+        "Visitor-focused family/group and exhibit questions"
+      ],
+      "openGaps": [
+        "Rights-cleared exact-site museum photograph: no approved reusable image found, placeholder is not publication-quality",
+        "Post-deployment browser, schema and accessibility QA",
+        "Independent side-by-side benchmarking before most-useful-guide certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://alvinmuseum.org/",
+        "https://alvinmuseum.org/alvin-musuem/",
+        "https://alvinmuseum.org/tour-01_intro-to-museum/",
+        "https://alvinmuseum.org/slover-rogers-cottage/"
+      ]
+    },
+    "el-paso-holocaust-museum": {
+      "name": "El Paso Holocaust Museum and Study Center",
+      "operatorStrengths": [
+        "Operator-backed visitor location, opening-hours and research context",
+        "Visitor-focused family/group and exhibit questions"
+      ],
+      "openGaps": [
+        "Rights-cleared exact-site museum photograph: no approved reusable image found, placeholder is not publication-quality",
+        "Post-deployment browser, schema and accessibility QA",
+        "Independent side-by-side benchmarking before most-useful-guide certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://elpasoholocaustmuseum.org/hours-and-closures/",
+        "https://elpasoholocaustmuseum.org/about-us/",
+        "https://elpasoholocaustmuseum.org/dimensions-in-testimony/",
+        "https://elpasoholocaustmuseum.org/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",

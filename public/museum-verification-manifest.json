@@ -1337,6 +1337,72 @@
           "label": "Blanton group visits"
         }
       ]
+    },
+    {
+      "path": "/destination/alvin-historical-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://alvinmuseum.org/",
+          "fetchUrl": "https://alvinmuseum.org/",
+          "label": "FAQ source: Is there an admission fee to Alvin Historical Museum?"
+        },
+        {
+          "sourceUrl": "https://alvinmuseum.org/alvin-musuem/",
+          "fetchUrl": "https://alvinmuseum.org/alvin-musuem/",
+          "label": "FAQ source: Does Alvin Museum have a café or gift shop?"
+        },
+        {
+          "sourceUrl": "https://alvinmuseum.org/tour-01_intro-to-museum/",
+          "fetchUrl": "https://alvinmuseum.org/tour-01_intro-to-museum/",
+          "label": "FAQ source: Can wheelchair users visit the former Alvin post office building?"
+        },
+        {
+          "sourceUrl": "https://alvinmuseum.org/slover-rogers-cottage/",
+          "fetchUrl": "https://alvinmuseum.org/slover-rogers-cottage/",
+          "label": "FAQ source: Do I need an appointment for the Slover–Rogers Cottage?"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/4200000007",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/4200000007",
+          "label": "Texas Historical Commission — institutional record"
+        }
+      ]
+    },
+    {
+      "path": "/destination/el-paso-holocaust-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+          "fetchUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+          "label": "FAQ source: Does the museum have a cafeteria or accessible gallery entrances?"
+        },
+        {
+          "sourceUrl": "https://elpasoholocaustmuseum.org/about-us/",
+          "fetchUrl": "https://elpasoholocaustmuseum.org/about-us/",
+          "label": "FAQ source: Is El Paso Holocaust Museum suitable for young children?"
+        },
+        {
+          "sourceUrl": "https://elpasoholocaustmuseum.org/dimensions-in-testimony/",
+          "fetchUrl": "https://elpasoholocaustmuseum.org/dimensions-in-testimony/",
+          "label": "FAQ source: What is Dimensions in Testimony and can visitors speak with a survivor?"
+        },
+        {
+          "sourceUrl": "https://elpasoholocaustmuseum.org/",
+          "fetchUrl": "https://elpasoholocaustmuseum.org/",
+          "label": "FAQ source: Can a teacher arrange a Holocaust education group tour?"
+        },
+        {
+          "sourceUrl": "https://www.txdot.gov/content/dam/project-sites/reimaginei10/docs/historic-resources-survey-report-1.pdf",
+          "fetchUrl": "https://www.txdot.gov/content/dam/project-sites/reimaginei10/docs/historic-resources-survey-report-1.pdf",
+          "label": "TxDOT site survey"
+        }
+      ]
     }
   ]
 }

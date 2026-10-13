@@ -1603,6 +1603,78 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "alvin-historical-museum": {
+    name: "Alvin Historical Museum",
+    slug: "alvin-historical-museum",
+    county: "Brazoria",
+    city: "Alvin",
+    reviewed: "2026-10-13",
+    topics: ["texas-history", "railroads", "sports", "family"],
+    whyVisit: "Alvin Historical Museum is a volunteer-run local-history museum where the former 1940 Alvin post office is itself an important part of the visit. Instead of attempting to interpret all Texas history, its exhibits make the town's railroad origins, agriculture, schools, military experience and community ties concrete. A restored post-office mural and Nolan Ryan memorabilia give families two unusually memorable entry points to Alvin's past.",
+    visitorStrategy: "The Alvin Museum Society publishes Tuesday through Saturday 11 a.m.–3 p.m. for the downtown museum. The separate Slover–Rogers Cottage is at 113 E Dumble Street and requires an advance appointment; do not assume access when the historical museum is open. The operator's newer homepage gives 300 West Sealy while an older Texas Historical Commission record gives 303 W Sealy: follow the museum's own current address. Call 281-331-4469 to verify volunteer staffing and holiday exceptions. The museum's website does not clearly post a regular admission price, so check directly instead of inventing a free-entry promise.",
+    accessibility: "The operator describes a wheelchair-accessible entry added on the east wall of the former post office. It does not fully document the accessible route through all twenty-one permanent exhibit areas, restroom details or sensory supports. Confirm access to particular rooms, mobility equipment or accommodations before a visit. The 1909 Slover–Rogers Cottage is a separate historic property with different accessibility constraints and appointment procedures.",
+    familiesAndGroups: "Families can choose a focused visit based on Nolan Ryan's early baseball life, the former post office, school history or how the railroads shaped Alvin. An independent 60–90-minute estimate allows time for a handful of exhibits without suggesting that every artifact must be seen. The operator operates a small museum gift shop, not a documented on-site café or restaurant. School groups and cottage tours should contact the volunteer society before arriving.",
+    researchValue: "The Society began in 1978 and the museum opened in the former Alvin post office in May 2007. Interpretation ranges from prehistory and early Texas through rail transport, dairying, wartime communities and Alvin Independent School District. The restored 'Emigrants at Nightfall' mural was returned to the original post-office building with assistance from Nolan and Ruth Ryan. Explain the difference between the main historic museum and the separately booked Victorian cottage, rather than silently combining their exhibits or times.",
+    exhibits: [
+      { heading: "Nolan Ryan's Alvin baseball story", detail: "See how the hometown athlete's youth and Major League career are reflected in personal objects, including a Little League home plate and late-career jersey mentioned by the museum." },
+      { heading: "Historic 1940 post office and restored mural", detail: "The building retains elements of its post-office use. 'Emigrants at Nightfall' is an important restored public-art object returned to its original setting." },
+      { heading: "Schools, railroads and dairy farming", detail: "Compare how transportation, school development and agriculture changed Alvin from a rail stop into a growing Gulf Coast community." },
+      { heading: "Alvin wartime stories", detail: "Civil War, World War I and World War II materials connect national events with the experiences of local families and veterans." },
+      { heading: "Slover–Rogers Cottage (separate appointment)", detail: "The museum society also operates a 1909 Victorian-style house nearby. Its rooms and furnishings require a separate docent tour arranged ahead of time." },
+    ],
+    routes: [
+      { label: "60-minute family highlights", steps: ["Enter the former post-office building during its posted hours", "Choose Nolan Ryan, mural and local school/railroad stories", "Stop at the volunteer-operated gift shop if open"] },
+      { label: "A deeper Alvin history visit", steps: ["Allow time for downtown museum history and agriculture exhibits", "Arrange the Slover–Rogers Cottage separately before travel", "Use the Brazoria County guide to connect the museum stories with nearby heritage sites"] },
+    ],
+    sources: [
+      { label: "Museum Society — official hours and location", url: "https://alvinmuseum.org/", use: "Current site hours, phone, address, cottage appointment distinction" },
+      { label: "Alvin Museum — exhibits", url: "https://alvinmuseum.org/alvin-musuem/", use: "Nolan Ryan, schools, war, post-office mural" },
+      { label: "Alvin Museum — building interpretation", url: "https://alvinmuseum.org/tour-01_intro-to-museum/", use: "Former post-office story and accessible east entrance" },
+      { label: "Alvin Museum — separate cottage booking", url: "https://alvinmuseum.org/slover-rogers-cottage/", use: "Slover–Rogers location and advance tours" },
+      { label: "Texas Historical Commission — institutional record", url: "https://atlas.thc.texas.gov/Details/4200000007", use: "Historic record; operator supersedes stale address" },
+    ],
+    connections: [
+      { label: "Brazoria County", href: "/county/brazoria", reason: "Connect Alvin to regional railroad, farm and coastal history." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Compare volunteer-led community museums with statewide institutions." },
+    ],
+  },
+  "el-paso-holocaust-museum": {
+    name: "El Paso Holocaust Museum and Study Center",
+    slug: "el-paso-holocaust-museum",
+    county: "El Paso",
+    city: "El Paso",
+    reviewed: "2026-10-13",
+    topics: ["world-history", "human-rights", "texas-history", "education"],
+    whyVisit: "El Paso Holocaust Museum and Study Center is an intimate, bilingual museum focused on the lives of Jewish people before, during and after the Nazi genocide, and on survivors who made their homes in the borderland community. Its galleries use personal stories, testimony, a recreated railcar setting and reflection to help visitors encounter the historical consequences of antisemitism and persecution without turning remembrance into entertainment.",
+    visitorStrategy: "The institution publishes free admission, with donations appreciated, at 715 N Oregon Street. The public entrance is on Yandell Drive between Oregon and El Paso streets, not at the mailing-address front. Free visitor parking is adjacent, at Yandell and El Paso Street. Posted hours are Tuesday–Friday 9 a.m.–5 p.m. and Saturday 1–5 p.m., closed Mondays; Sundays are by appointment. All self-guided tours must start at least 30 minutes before closing. Holiday closures include Jewish holidays and major civic holidays, so check the official notice before traveling.",
+    accessibility: "Current public pages confirm a dedicated museum entrance and adjacent free parking, but do not provide a detailed statement on wheelchair routes, hearing accommodations, stroller policies or sensory needs. Contact the museum at 915-351-0048 ahead of time for specific mobility or communication requirements. All galleries are presented in English and Spanish, which is an important visitor language accommodation; do not infer that all recordings are captioned without checking.",
+    familiesAndGroups: "Content about violent persecution and death is emotionally difficult and should be approached with adult guidance for younger children. Teachers can schedule museum group tours or borrow curriculum trunks; school staff may also request a speaker when a trip cannot be arranged. A self-guided public visit may take roughly 60–90 minutes as an independent estimate, while a testimony program can add time. No full-service restaurant or museum cafeteria is established in the official visitor information.",
+    researchValue: "The permanent galleries trace European Jewish life, the Nazis' rise, propaganda, Kristallnacht, ghettos, deportations, concentration camps, liberation and the Righteous Among the Nations. A memorial and reflection room and a gallery of El Paso survivors show how global events connect with local lives. 'Dimensions in Testimony,' developed with the USC Shoah Foundation, presents interactive prerecorded survivor or liberator accounts; the featured testimony rotates by week and show times have a separate schedule.",
+    exhibits: [
+      { heading: "Europe before Nazism and the rise of persecution", detail: "Multimedia interpretation shows how Jewish communities lived before Hitler's rise, and how propaganda and state action shaped persecution." },
+      { heading: "Ghettos, rail transport and concentration camps", detail: "Galleries cover forced displacement, deportation and camps. Visitors should expect emotionally difficult, historically specific material." },
+      { heading: "Liberation, resistance and the Righteous", detail: "Explore how people responded to persecution and what liberation did—and did not—resolve for survivors." },
+      { heading: "El Paso survivor testimonies and memorial room", detail: "The local survivor gallery and a space for reflection connect international history to families who lived in West Texas." },
+      { heading: "Dimensions in Testimony", detail: "Interactive prerecorded testimony allows visitors to ask questions of digitized biographies of survivors and liberators. Speakers and schedules rotate, so verify the day’s show times." },
+    ],
+    routes: [
+      { label: "Reflective self-guided visit", steps: ["Arrive at the Yandell Drive entrance and plan before the last-entry cutoff", "Follow the permanent history galleries in their intended sequence", "Set aside quiet time in the local survivor and reflection galleries"] },
+      { label: "Group or educator visit", steps: ["Book guided visits and curriculum support in advance", "Prepare students for difficult images and sensitive historical discussion", "Confirm whether a Dimensions in Testimony presentation is included in the group's timing"] },
+    ],
+    sources: [
+      { label: "El Paso Holocaust Museum — visitor hours, parking and admission", url: "https://elpasoholocaustmuseum.org/hours-and-closures/", use: "Operator current schedule and location" },
+      { label: "El Paso Holocaust Museum — mission and permanent galleries", url: "https://elpasoholocaustmuseum.org/about-us/", use: "Exhibition topics and bilingual interpretation" },
+      { label: "El Paso Holocaust Museum — interactive testimony", url: "https://elpasoholocaustmuseum.org/dimensions-in-testimony/", use: "Testimony technology and daily schedules" },
+      { label: "El Paso Holocaust Museum — education and group programs", url: "https://elpasoholocaustmuseum.org/", use: "Current group booking and visitor contact" },
+      { label: "TxDOT site survey", url: "https://www.txdot.gov/content/dam/project-sites/reimaginei10/docs/historic-resources-survey-report-1.pdf", use: "GPS point verified for 715 N Oregon museum" },
+    ],
+    connections: [
+      { label: "El Paso County", href: "/county/el-paso", reason: "Connect downtown cultural history with the wider borderland region." },
+      { label: "Holocaust Museum Houston", href: "/destination/holocaust-museum-houston", reason: "Compare two distinct Texas Holocaust education institutions rather than conflating exhibits." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Explore other researched Texas heritage and history sites." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));

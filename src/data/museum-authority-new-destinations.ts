@@ -1,6 +1,7 @@
 import type { Destination } from "./types";
 import { cityPassDestinationExpansion } from "./citypass-destination-expansion";
 import { museumLicensedHeroes } from "./museum-authority-network";
+import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 
 /**
  * Fill structural gaps without replacing existing researched museum slugs.
@@ -279,6 +280,58 @@ export const museumAuthorityDestinations: Destination[] = [
     address: "2389 Stratford Drive, Austin, TX 78746",
     sourceCheckedAt: "2026-10-13",
     accessibilityNotes: "Accessible spaces and an ADA-compliant entry sidewalk are documented at Stratford Drive; the adjacent preserve has separate rugged trails. Ask visitor services at 512-974-3888 to identify routes appropriate to your mobility needs.",
+  },
+  {
+    id: "museum-authority-alvin-historical-museum",
+    brandId: "texasdefined",
+    slug: "alvin-historical-museum",
+    name: "Alvin Historical Museum",
+    summary: "Alvin Historical Museum is a volunteer-run local-history museum where the former 1940 Alvin post office is itself an important part of the visit. Instead of attempting to interpret all Texas history, its exhibi",
+    category: "historic-sites",
+    region: "gulf-coast",
+    nearestTown: "Alvin",
+    county: "Brazoria County",
+    coordinates: { lat: 29.423918, lng: -95.2460146 },
+    hero: { src: DESTINATION_PHOTO_PLACEHOLDER, alt: "Alvin Historical Museum — no rights-cleared exact-location photograph yet; do not substitute a different museum", width: 1600, height: 1067 },
+    bestSeason: "Year-round during individually confirmed museum public hours.",
+    entryNote: "The Alvin Museum Society publishes Tuesday through Saturday 11 a.m.–3 p.m. for the downtown museum. The separate Slover–Rogers Cottage is at 113 E Dumble Street and requires an advance appointment; do not assume access when the historical museum is open. The operator's newer homepage gives 300 West Sealy while an older Texas Historical Commission record gives 303 W Sealy: follow the museum's own current address. Call 281-331-4469 to verify volunteer staffing and holiday exceptions. The museum's website does not clearly post a regular admission price, so check directly instead of inventing a fr",
+    highlights: ["Nolan Ryan's Alvin baseball story", "Historic 1940 post office and restored mural", "Schools, railroads and dairy farming", "Alvin wartime stories", "Slover–Rogers Cottage (separate appointment)"],
+    body: [
+      "Alvin Historical Museum is a volunteer-run local-history museum where the former 1940 Alvin post office is itself an important part of the visit. Instead of attempting to interpret all Texas history, its exhibits make the town's railroad origins, agriculture, schools, military experience and community ties concrete. A restored post-office mural and Nolan Ryan memorabilia give families two unusually memorable entry points to Alvin's past.",
+      "The Alvin Museum Society publishes Tuesday through Saturday 11 a.m.–3 p.m. for the downtown museum. The separate Slover–Rogers Cottage is at 113 E Dumble Street and requires an advance appointment; do not assume access when the historical museum is open. The operator's newer homepage gives 300 West Sealy while an older Texas Historical Commission record gives 303 W Sealy: follow the museum's own current address. Call 281-331-4469 to verify volunteer staffing and holiday exceptions. The museum's website does not clearly post a regular admission price, so check directly instead of inventing a free-entry promise.",
+      "The Society began in 1978 and the museum opened in the former Alvin post office in May 2007. Interpretation ranges from prehistory and early Texas through rail transport, dairying, wartime communities and Alvin Independent School District. The restored 'Emigrants at Nightfall' mural was returned to the original post-office building with assistance from Nolan and Ruth Ryan. Explain the difference between the main historic museum and the separately booked Victorian cottage, rather than silently combining their exhibits or times.",
+    ],
+    managingAuthority: "Alvin Historical Museum",
+    officialUrl: "https://alvinmuseum.org/",
+    address: "300 W Sealy St, Alvin, TX 77511",
+    sourceCheckedAt: "2026-10-13",
+    accessibilityNotes: "The operator describes a wheelchair-accessible entry added on the east wall of the former post office. It does not fully document the accessible route through all twenty-one permanent exhibit areas, restroom details or sensory supports. Confirm access to particular rooms, mobility equipment or accommodations before a visit. The 1909 Slover–Rogers Cottage is a separate historic property with different accessibility constraints and appointment procedures.",
+  },
+  {
+    id: "museum-authority-el-paso-holocaust-museum",
+    brandId: "texasdefined",
+    slug: "el-paso-holocaust-museum",
+    name: "El Paso Holocaust Museum and Study Center",
+    summary: "El Paso Holocaust Museum and Study Center is an intimate, bilingual museum focused on the lives of Jewish people before, during and after the Nazi genocide, and on survivors who made their homes in the borderla",
+    category: "historic-sites",
+    region: "big-bend",
+    nearestTown: "El Paso",
+    county: "El Paso County",
+    coordinates: { lat: 31.762358, lng: -106.49198 },
+    hero: { src: DESTINATION_PHOTO_PLACEHOLDER, alt: "El Paso Holocaust Museum and Study Center — no rights-cleared exact-location photograph yet; do not substitute a different museum", width: 1600, height: 1067 },
+    bestSeason: "Year-round during individually confirmed museum public hours.",
+    entryNote: "The institution publishes free admission, with donations appreciated, at 715 N Oregon Street. The public entrance is on Yandell Drive between Oregon and El Paso streets, not at the mailing-address front. Free visitor parking is adjacent, at Yandell and El Paso Street. Posted hours are Tuesday–Friday 9 a.m.–5 p.m. and Saturday 1–5 p.m., closed Mondays; Sundays are by appointment. All self-guided tours must start at least 30 minutes before closing. Holiday closures include Jewish holidays and major civic holidays, so check the official notice before traveling.",
+    highlights: ["Europe before Nazism and the rise of persecution", "Ghettos, rail transport and concentration camps", "Liberation, resistance and the Righteous", "El Paso survivor testimonies and memorial room", "Dimensions in Testimony"],
+    body: [
+      "El Paso Holocaust Museum and Study Center is an intimate, bilingual museum focused on the lives of Jewish people before, during and after the Nazi genocide, and on survivors who made their homes in the borderland community. Its galleries use personal stories, testimony, a recreated railcar setting and reflection to help visitors encounter the historical consequences of antisemitism and persecution without turning remembrance into entertainment.",
+      "The institution publishes free admission, with donations appreciated, at 715 N Oregon Street. The public entrance is on Yandell Drive between Oregon and El Paso streets, not at the mailing-address front. Free visitor parking is adjacent, at Yandell and El Paso Street. Posted hours are Tuesday–Friday 9 a.m.–5 p.m. and Saturday 1–5 p.m., closed Mondays; Sundays are by appointment. All self-guided tours must start at least 30 minutes before closing. Holiday closures include Jewish holidays and major civic holidays, so check the official notice before traveling.",
+      "The permanent galleries trace European Jewish life, the Nazis' rise, propaganda, Kristallnacht, ghettos, deportations, concentration camps, liberation and the Righteous Among the Nations. A memorial and reflection room and a gallery of El Paso survivors show how global events connect with local lives. 'Dimensions in Testimony,' developed with the USC Shoah Foundation, presents interactive prerecorded survivor or liberator accounts; the featured testimony rotates by week and show times have a separate schedule.",
+    ],
+    managingAuthority: "El Paso Holocaust Museum and Study Center",
+    officialUrl: "https://elpasoholocaustmuseum.org/hours-and-closures/",
+    address: "715 N Oregon St, El Paso, TX 79902",
+    sourceCheckedAt: "2026-10-13",
+    accessibilityNotes: "Current public pages confirm a dedicated museum entrance and adjacent free parking, but do not provide a detailed statement on wheelchair routes, hearing accommodations, stroller policies or sensory needs. Contact the museum at 915-351-0048 ahead of time for specific mobility or communication requirements. All galleries are presented in English and Spanish, which is an important visitor language accommodation; do not infer that all recordings are captioned without checking.",
   },
   {
     id: "museum-authority-george-ranch",

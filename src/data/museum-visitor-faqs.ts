@@ -3617,6 +3617,154 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "alvin-historical-museum": [
+    {
+      "question": "What days and times is Alvin Historical Museum open?",
+      "answer": "The museum society lists Tuesday through Saturday, 11 a.m. to 3 p.m. Since local volunteers operate the museum, verify holiday or staffing changes directly at 281-331-4469 before making a dedicated trip.",
+      "verificationUrl": "https://alvinmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://alvinmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Do I need an appointment for the Slover–Rogers Cottage?",
+      "answer": "Yes. The separately located Slover–Rogers Cottage at 113 East Dumble Street is only available by appointment. Its historic-house tours are not included automatically in a normal walk-in visit to the downtown historical museum.",
+      "verificationUrl": "https://alvinmuseum.org/slover-rogers-cottage/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://alvinmuseum.org/slover-rogers-cottage/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Nolan Ryan exhibit part of the Alvin Historical Museum?",
+      "answer": "Yes. The museum lists personal objects covering Nolan Ryan's youth and career, including a Little League home plate and a jersey associated with his final professional appearance. Which individual objects are on display can change.",
+      "verificationUrl": "https://alvinmuseum.org/alvin-musuem/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://alvinmuseum.org/alvin-musuem/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where is Alvin Historical Museum and is it still in the old post office?",
+      "answer": "The Alvin Museum Society now lists 300 West Sealy Street as its address. The site occupies Alvin's former 1940 post office, with historic architectural elements and a restored mural. Older directory records list a different West Sealy street number, so use the museum's current instructions.",
+      "verificationUrl": "https://alvinmuseum.org/tour-01_intro-to-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://alvinmuseum.org/tour-01_intro-to-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can wheelchair users visit the former Alvin post office building?",
+      "answer": "The museum reports that an accessible door was installed on the east wall when the old post-office building was adapted. Ask staff at 281-331-4469 about gallery routes, restroom access, and any needs the published building history does not address.",
+      "verificationUrl": "https://alvinmuseum.org/tour-01_intro-to-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://alvinmuseum.org/tour-01_intro-to-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How long does a typical visit to the Alvin museum take?",
+      "answer": "A focused visit of about 60–90 minutes is an independent planning estimate for selected galleries about railroad, baseball, school and town history; it is not a museum-issued timed ticket. A Slover–Rogers Cottage tour requires a separate appointment.",
+      "verificationUrl": "https://alvinmuseum.org/alvin-musuem/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://alvinmuseum.org/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Alvin Museum have a café or gift shop?",
+      "answer": "The museum has a volunteer-run gift shop in the former post-office foyer, usually open during museum hours. Its official pages do not establish a cafeteria or full-service restaurant; plan meals elsewhere in Alvin.",
+      "verificationUrl": "https://alvinmuseum.org/alvin-musuem/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://alvinmuseum.org/alvin-musuem/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is there an admission fee to Alvin Historical Museum?",
+      "answer": "The museum homepage clearly gives public visiting hours but does not publish a dependable current admission price. Rather than assume entry is free, call the society at 281-331-4469 to check admission or group costs before traveling.",
+      "verificationUrl": "https://alvinmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://alvinmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "el-paso-holocaust-museum": [
+    {
+      "question": "Is admission to El Paso Holocaust Museum free?",
+      "answer": "Yes. The museum's current visit page explicitly states that general admission is free and that donations are appreciated. Guided school groups and special programs still need to follow their own reservation instructions.",
+      "verificationUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the museum's hours and can I visit on Sunday?",
+      "answer": "The museum lists Tuesday–Friday 9 a.m.–5 p.m., Saturday 1–5 p.m., Monday closed, and Sunday visits by appointment only. Self-guided visits must begin at least 30 minutes before closing and listed religious or public holiday closures can override regular hours.",
+      "verificationUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where is the visitor entrance and is parking free?",
+      "answer": "The postal address is 715 North Oregon Street, but the visitor entrance is on Yandell Drive between Oregon and El Paso streets. The operator advertises free parking adjacent to the museum at the intersection of Yandell and El Paso streets.",
+      "verificationUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are El Paso Holocaust Museum exhibits available in Spanish?",
+      "answer": "The museum says its permanent gallery materials are presented in English and Spanish. It also rotates a Spanish-language Dimensions in Testimony experience with survivor Lea Noverra; check that week's schedule before expecting that particular testimony.",
+      "verificationUrl": "https://elpasoholocaustmuseum.org/about-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://elpasoholocaustmuseum.org/dimensions-in-testimony/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is Dimensions in Testimony and can visitors speak with a survivor?",
+      "answer": "The interactive exhibit uses digitally recorded testimony and language technology so visitors can ask questions and hear prerecorded answers from a Holocaust survivor or liberator. It is not a live conversation. The featured biography changes weekly and presentation times are separate from ordinary gallery hours.",
+      "verificationUrl": "https://elpasoholocaustmuseum.org/dimensions-in-testimony/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://elpasoholocaustmuseum.org/dimensions-in-testimony/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is El Paso Holocaust Museum suitable for young children?",
+      "answer": "The museum includes explicit historical accounts of persecution, concentration camps, death and survivor experiences. There is no blanket published minimum age on its general visitor page; caregivers and teachers should judge readiness and contact the education team for age-appropriate group guidance.",
+      "verificationUrl": "https://elpasoholocaustmuseum.org/about-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://elpasoholocaustmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can a teacher arrange a Holocaust education group tour?",
+      "answer": "Yes. The museum invites schools and other groups to reserve guided visits and offers curriculum trunks and outreach speakers. Booking ahead is important even though ordinary self-guided entry is free. Call 915-351-0048 for group program details.",
+      "verificationUrl": "https://elpasoholocaustmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://elpasoholocaustmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have a cafeteria or accessible gallery entrances?",
+      "answer": "The official visitor material documents a Yandell Drive public entrance and free adjoining parking, but does not substantiate an on-site cafeteria or give comprehensive step-free gallery and restroom details. Confirm food and specific accessibility needs with the museum before arrival.",
+      "verificationUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];

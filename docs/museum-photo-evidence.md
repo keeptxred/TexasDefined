@@ -98,3 +98,10 @@ The museum's July 2026 air-conditioning closure was followed by an official July
 The site's hero depicts the **actual Austin Nature & Science Center entrance**. Image: [Austin nature center entrance.jpg](https://commons.wikimedia.org/wiki/File:Austin_nature_center_entrance.jpg) by **Larry D. Moore**, photographed March 2, 2012, **CC BY 4.0**. The credit and original historic image date must remain visible when publishing. The photograph does not imply any specific exhibition is on view today.
 
 The Harry Ransom Center reuses the already-credited exact-site licensed hero from the preserved destination catalog and retains that canonical museum URL; no substitute placeholder or gallery object image is fabricated.
+
+## Museum photo rights gap, October 13, 2026
+
+- **Alvin Historical Museum**: no exact-building photograph with verified reuse permission yet. Do not copy Nolan Ryan material or operator exhibit photos without permission. Exact-site image needed at former post office, 300 W Sealy, Alvin.
+- **El Paso Holocaust Museum and Study Center**: available contemporary editorial images are not automatically licensed for TexasDefined. Do not reproduce news photography or graphic Holocaust artifacts without rights review. Exact-site exterior image needed at 715 N Oregon/Yandell Dr.
+
+Both pages have explicit image placeholders pending rights-cleared exact-location media. Do not label a different museum or generic Texas landmark as the institution or certify photographic completeness prematurely.
