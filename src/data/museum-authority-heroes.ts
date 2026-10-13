@@ -141,6 +141,36 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     credit: "Susan Barnum · CC BY-SA 4.0 · Wikimedia Commons · File:Entrance to the El Paso Museum of Archaeology.jpg",
   },
 
+  "bell-county-museum-belton": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Carnegie%20Museum%20in%20Belton%2C%20TX%20IMG%202412.JPG?width=1600",
+    alt: "Exterior of the historic Carnegie Library building housing Bell County Museum in downtown Belton",
+    width: 1600, height: 1200,
+    credit: "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons · 2009",
+  },
+  "brenham-heritage-museum": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Brenham%20Heritage%20Museum.jpg?width=1600",
+    alt: "Historic former federal post office now housing Brenham Heritage Museum in downtown Brenham",
+    width: 1600, height: 1128,
+    credit: "Jim Evans · CC BY-SA 4.0 · Wikimedia Commons · 2014",
+  },
+  "brazos-valley-museum-natural-history-bryan": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Brazos%20valley%20museum%20of%20natural%20history.jpg?width=1600",
+    alt: "Exterior of the Brazos Valley Museum of Natural History in Bryan, Texas",
+    width: 1600, height: 987,
+    credit: "Larry D. Moore · CC BY-SA 3.0 · Wikimedia Commons · original museum-specific image",
+  },
+  "czech-heritage-museum-genealogy-center-temple": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Czech%20dolls%2C%20including%20some%20donated%20by%20the%20Czech%20embassy%20in%20Washington%2C%20D.C.%2C%20displayed%20at%20the%20Czech%20Heritage%20Museum%20%26%20Genealogy%20Center%20in%20Temple%2C%20Texas%20LCCN2014633953.tif?width=1600",
+    alt: "Czech traditional dolls displayed at the Czech Heritage Museum and Genealogy Center in Temple, photographed in 2014; historic exhibit image",
+    width: 1600, height: 1067,
+    credit: "Carol M. Highsmith · Library of Congress Carol Highsmith Collection · no known restrictions; historic exhibit photo",
+  },
+  "audie-murphy-american-cotton-museum-greenville": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Audie%20Murphy%20American%20Cotton%20Museum%20July%202015%2052%20(Audie%20Murphy%20Hunt%20County%20War%20Memorial).jpg?width=1600",
+    alt: "Audie Murphy and Hunt County War Memorial on the grounds of the Audie Murphy American Cotton Museum in Greenville, photographed in 2015",
+    width: 1600, height: 1067,
+    credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons · historic exterior grounds view",
+  },
 };
 
 /** Exact subject, attribution-cleared media may enhance discovery without importing every long museum dossier. */
