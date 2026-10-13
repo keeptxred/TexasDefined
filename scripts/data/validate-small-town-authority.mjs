@@ -42,7 +42,7 @@ for (const { filename, text } of guideSources) {
     if (name && county && region && coords) {
       researchedMetadata.set(slug, { name, county, region, lat: Number(coords[1]), lng: Number(coords[2]) });
     } else check(false, slug + ": missing place identity or coordinates for the compact link index");
-    if (filename.endsWith("wave17.ts")) {
+    if (/small-town-destinations-wave(?:1[7-9]|[2-9]\d)\.ts$/.test(filename)) {
       check(section.includes("visitorFaqs:"), slug + ": visitor FAQs must cite researched visitor questions");
     }
     for (const field of ["authorityGuide:", "areaGuide:", "sources:", "hero:", "sourceCheckedAt", "coordinates:", "county:", "officialUrl:"]) {
