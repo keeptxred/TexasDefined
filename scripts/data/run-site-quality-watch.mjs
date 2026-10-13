@@ -3,6 +3,11 @@ import { spawnSync } from 'node:child_process';
 
 const checks = [
   {
+    id: 'authority-reciprocal-link-graph',
+    label: 'Real inbound and reciprocal links across all sitemap pages',
+    script: 'scripts/ci/authority-link-graph.test.mjs',
+  },
+  {
     id: 'fishing-sitemap-indexability',
     label: 'Empty lake guides/reports excluded from sitemaps until verified',
     script: 'scripts/data/validate-fishing-sitemap-indexability.mjs',
