@@ -1070,6 +1070,91 @@
         "https://epmarch.org/",
         "https://epmarch.org/about/about-epmarch"
       ]
+    },
+    "buffalo-soldiers-national-museum-houston": {
+      "name": "Buffalo Soldiers National Museum",
+      "operatorStrengths": [
+        "Current operator visitor access and exhibit descriptions",
+        "Independently checked visiting context and regional history"
+      ],
+      "openGaps": [
+        "Live-rendered guide/mobile/accessibility/metadata and bidirectional links require post-release verification",
+        "Manual competitive visitor-information comparison pending before asserting best guide status"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://buffalosoldiersmuseum.org/visit/",
+        "https://buffalosoldiersmuseum.org/",
+        "https://buffalosoldiersmuseum.org/visit/exhibits/",
+        "https://houmuse.org/institution/buffalo-soldiers-national-museum/"
+      ]
+    },
+    "the-history-center-diboll": {
+      "name": "The History Center (Diboll)",
+      "operatorStrengths": [
+        "Current operator visitor access and exhibit descriptions",
+        "Independently checked visiting context and regional history"
+      ],
+      "openGaps": [
+        "Live-rendered guide/mobile/accessibility/metadata and bidirectional links require post-release verification",
+        "Manual competitive visitor-information comparison pending before asserting best guide status"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.thehistorycenteronline.com/plan-your-visit",
+        "https://www.thehistorycenteronline.com/exhibits/outdoor-railroad-exhibit",
+        "https://www.thehistorycenteronline.com/exhibits",
+        "https://www.thehistorycenteronline.com/about"
+      ]
+    },
+    "brazos-valley-museum-natural-history-bryan": {
+      "name": "Brazos Valley Museum of Natural History",
+      "operatorStrengths": [
+        "Current operator visitor access and exhibit descriptions",
+        "Independently checked visiting context and regional history"
+      ],
+      "openGaps": [
+        "Live-rendered guide/mobile/accessibility/metadata and bidirectional links require post-release verification",
+        "Manual competitive visitor-information comparison pending before asserting best guide status"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.brazosvalleymuseum.org/visit",
+        "https://www.brazosvalleymuseum.org/exhibits",
+        "https://www.brazosvalleymuseum.org/",
+        "https://visit.cstx.gov/directory/brazos-valley-museum-of-natural-history-arts-culture/"
+      ]
+    },
+    "texas-broadcast-museum-kilgore": {
+      "name": "Texas Broadcast Museum",
+      "operatorStrengths": [
+        "Current operator visitor access and exhibit descriptions",
+        "Independently checked visiting context and regional history"
+      ],
+      "openGaps": [
+        "Live-rendered guide/mobile/accessibility/metadata and bidirectional links require post-release verification",
+        "Manual competitive visitor-information comparison pending before asserting best guide status"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://cityofkilgore.com/293/Kilgore-Cultural-District",
+        "https://tabshow.org/texas-broadcast-museum/",
+        "https://texasbroadcastmuseum.com/museum/",
+        "https://texasbroadcastmuseum.com/",
+        "https://texasbroadcastmuseum.com/reviews/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
