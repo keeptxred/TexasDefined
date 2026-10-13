@@ -2316,6 +2316,181 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "el-paso-museum-of-art": [
+    {
+      "question": "Is the El Paso Museum of Art free to enter?",
+      "answer": "Yes. El Paso Museum of Art says general admission is always free. Museum art-school workshops and separately organized events can require a separate registration or tuition, so free museum admission does not imply a free class.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/art-school/classes-and-registration",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which days and hours is the El Paso Museum of Art open?",
+      "answer": "The operator lists Wednesday–Saturday 10 a.m.–6 p.m. and Sunday 11 a.m.–3 p.m., with Monday, Tuesday and major-holiday closures. Exhibition openings and event hours may differ. Confirm with the museum before a holiday visit.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should I park for the El Paso Museum of Art?",
+      "answer": "There is no blanket promise of free museum parking. The museum lists nearby fee-bearing downtown garages including JPMorgan Chase, Mills and One Civic Center Plaza, plus metered street parking. Check the lot's actual price and entrances before travel.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the El Paso Museum of Art provide wheelchairs and accessible access?",
+      "answer": "The museum says it is fully accessible, welcomes trained service animals, and can lend a wheelchair at reception without charge. For special mobility, interpretation or sensory requests, contact museum visitor services at 915-212-0300.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I take photos at the El Paso Museum of Art?",
+      "answer": "Ordinary personal noncommercial photos are generally permitted without flash unless a specific work carries a no-photo sign. No tripods, monopods, selfie sticks, gimbals or commercial photo shoots without museum approval. Keep clear of doorways and stay back from exhibits.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the El Paso Museum of Art good for children?",
+      "answer": "The free galleries can support a short family outing, while the museum's separately registered art school offers programs for children ages 6–13, teens and adults. Classes are not automatically free. Choose a few objects by interest rather than expecting a dedicated toddler play center.",
+      "verificationUrl": "https://epma.art/art-school/classes-and-registration",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are the October 2026 student-art and Zoe Diaz exhibitions permanent?",
+      "answer": "No. The museum lists EPISD Creativity Through Our Eyes from August 22 through October 25, 2026, and America, The Beautiful: Selections from the Zoe Diaz Collection from July 25, 2026 through January 3, 2027. Both are dated displays; check the current exhibition page before travel.",
+      "verificationUrl": "https://epma.art/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does El Paso Museum of Art have a cafeteria or restaurant?",
+      "answer": "Its official visitor guide does not establish a full-service on-site restaurant or cafeteria, and food and drink are prohibited in galleries. Make meal plans in downtown El Paso rather than promising museum food service.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much time do visitors need for El Paso Museum of Art?",
+      "answer": "About 60–120 minutes is an independent planning estimate for a few exhibitions and collection galleries. The museum sets no fixed time requirement, and visitors with children or a special interest may adjust.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "arlington-museum-of-art": [
+    {
+      "question": "Where is Arlington Museum of Art now—downtown or Ballpark Way?",
+      "answer": "The museum moved into the Arlington Entertainment District at 1200 Ballpark Way and opened there in March 2024. Older downtown museum addresses and photographs are outdated. The building is part of the large complex associated with Esports Stadium Arlington.",
+      "verificationUrl": "https://arlingtonmuseum.org/visitor-info",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/visitor-info",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the Arlington Museum of Art hours in October 2026?",
+      "answer": "Its dated visitor page says that through October 17, 2026, it opens Tuesday–Friday 10 a.m.–5 p.m., with Saturday–Monday closed. Since older museum pages show different weekend hours and this schedule ends October 17, check the current live schedule for any later visit.",
+      "verificationUrl": "https://arlingtonmuseum.org/visitor-info",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/visitor-info",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are tickets to Arlington Museum of Art free?",
+      "answer": "Do not assume general admission is free. The Arlington Museum of Art sells exhibition-specific tickets, with discounts for groups of at least ten. Members receive free entry to its exhibitions under the stated membership benefits. Confirm the current show, price and ticket availability directly.",
+      "verificationUrl": "https://arlingtonmuseum.org/visitor-info",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/visitor-info",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is parking free at Arlington Museum of Art?",
+      "answer": "The closest City parking lot west of the building is listed at $10, accessible from Ballpark Way. Accessible spaces are also available near the south entrance; additional Entertainment District lots have varying prices and operators.",
+      "verificationUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can younger children visit Arlington Museum of Art?",
+      "answer": "Yes, but all children aged fifteen or younger must be accompanied by a parent or guardian and keep a safe distance from art unless an interactive object is explicitly marked. Sensory suitability depends on each ticketed or immersive exhibition.",
+      "verificationUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the new Arlington Museum of Art wheelchair accessible?",
+      "answer": "The museum says all exhibition rooms are on the main level, restrooms are wheelchair accessible, and accessible parking is close to the south-side museum entrance. Bus drop-off is also near the south entrance, and service animals are welcome.",
+      "verificationUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I bring snacks, drinks, a backpack or stroller inside Arlington Museum of Art?",
+      "answer": "Food and drinks—including water and baby bottles—cannot be consumed in gallery rooms. The operator allows strollers and soft front baby carriers, but has no staffed bag check and recommends leaving large bags elsewhere.",
+      "verificationUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Arlington Museum of Art have an on-site restaurant or cafeteria?",
+      "answer": "The institution points visitors to the many restaurants and cafés in Arlington's Entertainment District. Its visitor FAQ does not establish an in-museum full-service restaurant or cafeteria, so plan a meal outside the galleries.",
+      "verificationUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Arlington 150 exhibition currently open, and what happened to the soccer exhibition?",
+      "answer": "As reviewed October 13, 2026, Arlington 150: Stories of a Legacy is scheduled to begin October 17 and run through February 28, 2027, so it is not yet open. The World Cup-themed More Than a Match exhibition ended August 30, 2026 and is no longer a current attraction.",
+      "verificationUrl": "https://arlingtonmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.arlingtontx.gov/News-Articles/2026/May/Arlington-Museum-of-Arts-More-Than-a-Match-Extended-Through-Aug.-30",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How should a school or large group arrange a visit?",
+      "answer": "Request a guided school or youth tour at least two weeks in advance. Groups of ten or more may qualify for discounted tickets, groups over fifty should make special arrangements, and buses can use the south-side loading area without leaving vehicles unattended.",
+      "verificationUrl": "https://arlingtonmuseum.org/visitor-info",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/visitor-info",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
