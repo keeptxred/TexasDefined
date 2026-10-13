@@ -734,6 +734,65 @@
         "https://amset.org/",
         "https://amset.org/schedule-a-tour/"
       ]
+    },
+    "museum-of-the-gulf-coast-port-arthur": {
+      "name": "Museum of the Gulf Coast",
+      "operatorStrengths": [
+        "Official institution and visitor information linked to museum-specific questions",
+        "Visitor-first exhibit, access and regional crosslinking material"
+      ],
+      "openGaps": [
+        "Compare full live visitor guide against official operator information before superlative certification",
+        "Verify visitor imagery, accessibility rendering and all link targets after deployment"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.museumofthegulfcoast.org/",
+        "https://www.museumofthegulfcoast.org/permanent",
+        "https://www.museumofthegulfcoast.org/copy-of-about-the-museum",
+        "https://www.museumofthegulfcoast.org/halls-of-fame"
+      ]
+    },
+    "fire-museum-of-texas-beaumont": {
+      "name": "Fire Museum of Texas",
+      "operatorStrengths": [
+        "Official institution and visitor information linked to museum-specific questions",
+        "Visitor-first exhibit, access and regional crosslinking material"
+      ],
+      "openGaps": [
+        "Compare full live visitor guide against official operator information before superlative certification",
+        "Verify visitor imagery, accessibility rendering and all link targets after deployment"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.firemuseumoftexas.com/visit",
+        "https://www.beaumontcvb.com/listing/fire-museum-of-texas/20/"
+      ]
+    },
+    "spindletop-gladys-city-boomtown-museum-beaumont": {
+      "name": "Spindletop-Gladys City Boomtown Museum",
+      "operatorStrengths": [
+        "Official institution and visitor information linked to museum-specific questions",
+        "Visitor-first exhibit, access and regional crosslinking material"
+      ],
+      "openGaps": [
+        "Compare full live visitor guide against official operator information before superlative certification",
+        "Verify visitor imagery, accessibility rendering and all link targets after deployment"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+        "https://www.lamar.edu/spindletop-boomtown-museum/index.html"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
