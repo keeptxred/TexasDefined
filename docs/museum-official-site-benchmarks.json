@@ -714,6 +714,26 @@
         "https://arlingtonmuseum.org/",
         "https://www.arlingtontx.gov/News-Articles/2026/May/Arlington-Museum-of-Arts-More-Than-a-Match-Extended-Through-Aug.-30"
       ]
+    },
+    "art-museum-southeast-texas-beaumont": {
+      "name": "Art Museum of Southeast Texas",
+      "operatorStrengths": [
+        "Official visit, exhibitions and tour pages checked",
+        "Free admission and group arrangements distinguished from ticketed classes"
+      ],
+      "openGaps": [
+        "Verify visual render, photo license/alt and responsive layout after release",
+        "Compare live guide against operator for visitor-guide completeness before authority certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://amset.org/visit-us-visitanos/",
+        "https://amset.org/",
+        "https://amset.org/schedule-a-tour/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
