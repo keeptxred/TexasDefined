@@ -1551,6 +1551,163 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "nasher-sculpture-center-dallas": [
+    {
+      "question": "Is the Nasher Sculpture Center open on Tuesdays?",
+      "answer": "The museum's current Plan a Visit page lists Wednesday through Sunday, 11 a.m.–5 p.m., with Monday and Tuesday closed. An older Hours and Admissions page still shows Tuesday opening; use the current Plan a Visit page and contact the museum about special events.",
+      "verificationUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nashersculpturecenter.org/visit/hours-admissions",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Nasher Sculpture Center free, and are children free?",
+      "answer": "General adult admission is currently $10, while children younger than twelve, members, and qualifying military, first responders, SNAP EBT cardholders and some other groups enter free. Public Free First Saturdays usually waive admission; ticketed events can vary.",
+      "verificationUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Nasher's ticket include the sculpture garden and special exhibitions?",
+      "answer": "Yes. The operator says ordinary admission includes interior galleries, outdoor sculpture garden and special exhibitions. Outdoor access may be affected by weather or private events, and particular exhibitions change.",
+      "verificationUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where can visitors park for the Nasher Sculpture Center?",
+      "answer": "The Nasher does not operate a general-public parking garage. Paid underground parking is available at Dallas Museum of Art and nearby private garages; metered street parking also exists. Nasher members get complimentary parking at the DMA garage when visiting, subject to availability and proof of membership.",
+      "verificationUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Nasher have an actual cafe or only a snack bar?",
+      "answer": "Nasher Cafe serves seasonal soups, salads and sandwiches Wednesday through Sunday from 11 a.m. to 2:30 p.m. A museum admission ticket is required to reach it. Cafe-purchased food and drinks may be consumed in the garden, but do not assume the cafe is accessible separately from museum admission.",
+      "verificationUrl": "https://www.nashersculpturecenter.org/visit/cafe",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nashersculpturecenter.org/visit/cafe",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Nasher's outdoor sculpture garden wheelchair accessible?",
+      "answer": "The operator confirms a curbless main entrance, access to all museum galleries and garden paths with ramps on both sides. Wheelchairs, portable seats, a quiet room and sensory kits are available on request, and service animals are welcome.",
+      "verificationUrl": "https://www.nashersculpturecenter.org/visit/accessibility",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nashersculpturecenter.org/visit/accessibility",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Nasher Sculpture Center good for young children?",
+      "answer": "It has free family guides, creative activity kits, sensory resources and rotating Free First Saturdays family programming. Children need supervision around vulnerable art; the sculpture garden is an art space, not a playground. A short focused visit is usually more suitable than trying every display.",
+      "verificationUrl": "https://www.nashersculpturecenter.org/visit/visit-resources",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I visit the Nasher and Dallas Museum of Art in the same day?",
+      "answer": "Yes. They are adjacent in the Dallas Arts District and can be paired on foot. They have different admissions and museum experiences: the Nasher specializes in sculpture and a garden, while DMA has a broader world-art collection and its own ticketing rules.",
+      "verificationUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "national-cowgirl-museum-hall-fame-fort-worth": [
+    {
+      "question": "Is the National Cowgirl Museum open in late October 2026?",
+      "answer": "No. The museum's October 2026 announcement says it will close to the general public beginning October 19 and reopen on November 7 for its expansion celebration. Do not plan a regular gallery visit between October 19 and November 6; special announcements are not general admission.",
+      "verificationUrl": "https://thecowgirl.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thecowgirl.org/event/expansion-grand-opening/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "When can the public enter the Cowgirl Museum on November 7, 2026?",
+      "answer": "The expansion opening announcement schedules a members-only preview beginning at 10 a.m. November 7 and a public opening at noon, with a parade affecting nearby roads. Verify the event details again on the day of travel.",
+      "verificationUrl": "https://thecowgirl.org/event/expansion-grand-opening/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thecowgirl.org/event/expansion-grand-opening/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the normal Cowgirl Museum admission prices and hours?",
+      "answer": "Outside the announced closure, the museum lists Tuesday–Saturday 10 a.m.–5 p.m., Sunday noon–5 p.m., closed Monday. Standard admission is $10 for adults, $7 seniors, and $4 children ages 4–12. Children three or younger are free with a full-price adult; rates and event admissions may vary.",
+      "verificationUrl": "https://thecowgirl.org/visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thecowgirl.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much does parking cost at the National Cowgirl Museum?",
+      "answer": "The current museum parking page lists city-managed parking at $6 for up to two hours, $12 for over two hours, and $15 for over three hours, with event-specific charges and member discounts subject to restrictions. Stock Show events and the November opening can change traffic and rates.",
+      "verificationUrl": "https://thecowgirl.org/visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thecowgirl.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can children try the Cowgirl Museum's bucking bronc and interactive galleries?",
+      "answer": "The Western Design and Bucking Bronc rooms were partially reopened in April 2026 and support hands-on interpretation. They will be affected by the October 19–November 6 closure. New galleries and the carousel are part of the November expansion, not guaranteed before the reopening.",
+      "verificationUrl": "https://thecowgirl.org/event/expansion-grand-opening/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thecowgirl.org/news/the-cowgirl-reopens-second-floor-immersive-experiences/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are Cowgirl Museum school field trips running in October 2026?",
+      "answer": "The museum says school field trips will resume after Thanksgiving 2026. Do not bring a class expecting walk-in docent tours or a routine October booking. The group visit page also notes reservations and self-guided options for eligible visits.",
+      "verificationUrl": "https://thecowgirl.org/field-trips/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thecowgirl.org/field-trips/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is food allowed inside the Cowgirl Museum and is there a restaurant?",
+      "answer": "Food and drink are not allowed in museum galleries. The museum recommends outside benches near its entrance and picnic tables in Alice Walton Park for visitor-brought food. Its current plan-a-visit guide does not establish a full-service on-site restaurant.",
+      "verificationUrl": "https://thecowgirl.org/visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thecowgirl.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Cowgirl Museum accessible with a wheelchair or stroller?",
+      "answer": "Wheelchairs, scooters, walkers and canes are welcome under the museum's mobility-device policy. Oversized and double strollers and wagons are restricted in galleries, as are large bags. The expanded galleries may have different routes once the November reopening is complete, so check accessibility details with visitor staff.",
+      "verificationUrl": "https://thecowgirl.org/visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thecowgirl.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the Hitting the Mark Wild West Show gallery?",
+      "answer": "It is the museum's permanent exhibition on women who performed in Wild West shows. Interpretive highlights include historic posters, an Annie Oakley presentation, letters and other artifacts. Check whether the gallery has reopened after the expansion work before traveling.",
+      "verificationUrl": "https://thecowgirl.org/exhibitions/hitting-the-mark-cowgirls-and-wild-west-shows-gallery/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thecowgirl.org/event/expansion-grand-opening/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
