@@ -1042,6 +1042,44 @@
           "label": "Lamar Boomtown history and special events"
         }
       ]
+    },
+    {
+      "path": "/destination/national-museum-funeral-history-houston",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 10,
+      "sources": [
+        {
+          "sourceUrl": "https://nmfh.org/faq-page/",
+          "fetchUrl": "https://nmfh.org/faq-page/",
+          "label": "Museum FAQ — parking, accessibility, self-guided tours, children and time"
+        },
+        {
+          "sourceUrl": "https://nmfh.org/the-museum/",
+          "fetchUrl": "https://nmfh.org/the-museum/",
+          "label": "Visitor admission, regular hours and disability access"
+        },
+        {
+          "sourceUrl": "https://nmfh.org/exhibitions/",
+          "fetchUrl": "https://nmfh.org/exhibitions/",
+          "label": "Operator exhibit topics and current permanent displays"
+        },
+        {
+          "sourceUrl": "https://nmfh.org/book-a-tour/",
+          "fetchUrl": "https://nmfh.org/book-a-tour/",
+          "label": "Docent arrangements, audio equipment and accessibility"
+        },
+        {
+          "sourceUrl": "https://nmfh.org/for-families/",
+          "fetchUrl": "https://nmfh.org/for-families/",
+          "label": "Museum-specific family suitability and scavenger hunt"
+        },
+        {
+          "sourceUrl": "https://nmfh.org/",
+          "fetchUrl": "https://nmfh.org/",
+          "label": "Official institution home and news/temporary event announcements"
+        }
+      ]
     }
   ]
 }
