@@ -1251,6 +1251,46 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "national-museum-funeral-history-houston": {
+    name: "National Museum of Funeral History",
+    slug: "national-museum-funeral-history-houston",
+    county: "Harris",
+    city: "Houston",
+    reviewed: "2026-10-13",
+    topics: ["world-history", "texas-history", "family", "material-culture"],
+    whyVisit: "The National Museum of Funeral History in north Houston explores how people remember and honor the dead, from horse-drawn hearses and handmade caskets to presidential funerals and customs across cultures. It is an unusually approachable look at social, technological and religious history rather than an attraction devoted to shock or horror. Visitors can choose a few themed exhibits instead of attempting the entire collection.",
+    visitorStrategy: "Find the museum at 415 Barren Springs Drive off the north Houston Interstate 45 corridor, not in the downtown Museum District. The operator lists Monday–Friday 10 a.m.–4 p.m., Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m., with special events or holidays capable of changing those times. Adult admission is $15, seniors 55+ and veterans $12, ages 6–11 $7 and ages five or younger free. Parking is free on site. The museum FAQ suggests two to four hours for a full visit, but a focused visit of about 60–90 minutes is an editorial estimate.",
+    accessibility: "The operator describes the building as wheelchair accessible, with benches for rest throughout the galleries and free on-site parking. Hearing or vision accommodations can be arranged with advance notice by calling 281-876-3063 or contacting contact@nmfh.org. Prearranged docent tours can provide wireless headset amplification, with a limited equipment supply and identification deposit. Confirm particular mobility, sensory and restroom needs with the museum.",
+    familiesAndGroups: "The museum recommends its subject matter most strongly for children older than seven, although younger children have visited. Historical hearses and imaginative Ghanaian coffins may be easier for young visitors to discuss than memorial exhibits with detailed grief or tragedy. Parents can use the operator's scavenger hunt and choose content by age and readiness. Groups of at least 25 may qualify for separate rates; docent-led tours need advance booking. The gift shop is advertised, but there is no clearly documented daily public restaurant or cafeteria.",
+    researchValue: "In contrast to conventional art or science collections, funeral-service artifacts reveal changing craft, transportation, faith and public ceremony. Highlights include authentic historical hearses, the development of embalming, Victorian mourning, Jazz Funerals of New Orleans, Ghanaian fantasy coffins and a replica of the Shroud of Turin. Explain that the latter is a certified reproduction, not the original relic, and that the operator's older FAQ refers to fifteen exhibits while its current exhibition pages list nineteen.",
+    exhibits: [
+      { heading: "Historical hearses and mourning transport", detail: "Compare elaborate nineteenth-century horse-drawn funeral coaches with later motorized hearses, tracing both vehicle engineering and public mourning customs." },
+      { heading: "Presidential funerals and George H. W. Bush", detail: "State funeral artifacts and presidential remembrance illustrate how public ceremonies differ from private family traditions, including the museum's George H. W. Bush memorial exhibit." },
+      { heading: "Fantasy Coffins from Ghana", detail: "Colorful sculptural coffins connect craftsmanship, symbolism and cultural tradition; they are not amusement-park props and deserve respectful interpretation." },
+      { heading: "Papal funeral traditions and the Shroud of Turin replica", detail: "The Vatican-collaborative display explores papal ceremony; the separate Shroud of Turin presentation exhibits a certified reproduction rather than the original in Italy." },
+      { heading: "Embalming, Victorian mourning and changing funeral care", detail: "Follow the practical and social history of death care without assuming every historical treatment represents modern professional practice." },
+      { heading: "Día de los Muertos and New Orleans jazz funerals", detail: "Contrasting cultural memorial practices show different traditions of music, community and remembrance without reducing them to a single American custom." },
+    ],
+    routes: [
+      { label: "A focused 90-minute cultural-history visit", steps: ["Start with the museum map and choose three topics that interest your group", "Visit the historic hearses and one craftsmanship or world-customs exhibit", "Reserve reflective time for a presidential or memorial gallery before leaving"] },
+      { label: "Family visit with age-appropriate highlights", steps: ["Review the operator's recommended age guidance and ask about the scavenger hunt", "Begin with vehicles and carefully chosen cultural displays", "Avoid or discuss more sensitive tragedy-related material according to the children's readiness"] },
+      { label: "Full collection visit", steps: ["Allow two to four hours according to the museum's tour FAQ", "Move between transportation, rituals, public funerals and trade history", "Use rest benches and arrange a prebooked docent tour if desired"] },
+    ],
+    sources: [
+      { label: "Museum official FAQ", url: "https://nmfh.org/faq-page/", use: "Visitor duration, child guidance, free parking, accessibility and guided vs self-guided touring" },
+      { label: "Museum visitor tickets and admission", url: "https://nmfh.org/the-museum/", use: "Current entry hours, age categories and ticket prices" },
+      { label: "Museum exhibits and gallery descriptions", url: "https://nmfh.org/exhibitions/", use: "Current thematic exhibits and historically significant displayed objects" },
+      { label: "Museum tour arrangements and accessibility", url: "https://nmfh.org/book-a-tour/", use: "Docent booking, hearing assistance, accessible spaces" },
+      { label: "Museum family education resources", url: "https://nmfh.org/for-families/", use: "Activities and differentiated visit suitability" },
+    ],
+    connections: [
+      { label: "Harris County", href: "/county/harris", reason: "Explore Houston's museums, airport areas and broader urban history." },
+      { label: "Holocaust Museum Houston", href: "/destination/holocaust-museum-houston", reason: "A separate institution focused on victims and history rather than funeral professions; do not mistake the two experiences for equivalents." },
+      { label: "Houston Museum of Natural Science", href: "/destination/houston-museum-of-natural-science", reason: "A different family museum that focuses on natural science and may better fit younger children's interests." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Browse other Texas museum visitor guides by theme and region." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
