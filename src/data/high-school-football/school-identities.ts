@@ -11,6 +11,11 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'baytown-goose-creek-memorial', mascot: 'Patriots', sourceUrl: 'https://schools.gccisd.net/page/gcmhs.home/', sourceLabel: 'Goose Creek CISD original school page and athletics identity', verifiedAt: '2026-10-10' },
+  { slug: 'baytown-lee', mascot: 'Ganders', sourceUrl: 'https://schools.gccisd.net/page/relhs.sl.athletics', sourceLabel: 'Goose Creek CISD original school page and athletics identity', verifiedAt: '2026-10-10' },
+  { slug: 'baytown-sterling', mascot: 'Rangers', sourceUrl: 'https://schools.gccisd.net/page/rsshs.home', sourceLabel: 'Goose Creek CISD original school page and athletics identity', verifiedAt: '2026-10-10' },
+  { slug: 'beaumont-united', mascot: 'Timberwolves', sourceUrl: 'https://united.bmtisd.com/about-our-school', sourceLabel: 'Beaumont ISD original school page and athletics identity', verifiedAt: '2026-10-10' },
+  { slug: 'beaumont-west-brook', mascot: 'Bruins', sourceUrl: 'https://wb.bmtisd.com/about-our-school', sourceLabel: 'Beaumont ISD original school page and athletics identity', verifiedAt: '2026-10-10' },
   { slug: 'barksdale-nueces-canyon', mascot: 'Panthers', sourceUrl: 'https://ncjhhs.nccisd.net/', sourceLabel: 'Nueces Canyon CISD official school identification', verifiedAt: '2026-10-10' },
   { slug: 'bartlett', mascot: 'Bulldogs', sourceUrl: 'https://bartlett.txed.net/', sourceLabel: 'Bartlett ISD official school identification', verifiedAt: '2026-10-10' },
   { slug: 'bastrop', mascot: 'Bears', sourceUrl: 'https://bhs.bisdtx.org/', sourceLabel: 'Bastrop ISD official school identification', verifiedAt: '2026-10-10' },
