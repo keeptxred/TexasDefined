@@ -44,7 +44,14 @@ for (const article of specs) {
   if (article.picks.length < 10) errors.push(article.number + ": incomplete destination count");
 }
 const readiness = content(standardFile);
-if (!readiness.includes("allGuidePicksIndividuallySourced(number, pickHeadings)") || !readiness.includes("TEXAS_HIGH_INTENT_RELEASE_APPROVED_SLUGS = new Set<string>([])")) errors.push("Release gate no longer prevents publication of unfinished comparisons");
+if (!readiness.includes("allGuidePicksIndividuallySourced(number, pickHeadings)")) errors.push("Release gate no longer enforces item-level research for all comparison guides");
+const approvals = readiness.match(/TEXAS_HIGH_INTENT_RELEASE_APPROVED_SLUGS = new Set<string>\(\[([\s\S]*?)\]\)/);
+if (!approvals) errors.push("Explicit public release approval registry is missing");
+else {
+  const approved = [...approvals[1].matchAll(/"([^"]+)"/g)].map((x) => x[1]);
+  const mapped = new Set(covered.map((x) => specs.find((spec) => spec.number === x.number)?.slug));
+  for (const slug of approved) if (!mapped.has(slug)) errors.push("Unresearched comparison already approved for publication: " + slug);
+}
 const missing = specs.filter((article) => !covered.some((row) => row.number === article.number)).map((article) => article.number);
 const mappedRows = covered.reduce((sum, row) => sum + row.sourceRows, 0);
 if (errors.length) {
