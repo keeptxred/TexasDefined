@@ -465,6 +465,40 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "elisabet-ney-museum-austin": {
+    name: "Elisabet Ney Museum",
+    slug: "elisabet-ney-museum-austin",
+    county: "Travis",
+    city: "Austin",
+    reviewed: "2026-10-12",
+    topics: ["art", "texas-history", "architecture", "sculpture"],
+    whyVisit: "The Elisabet Ney Museum preserves the Austin studio and residence known as Formosa, where German-born sculptor Elisabet Ney worked on portraits of significant figures including Sam Houston and Stephen F. Austin. Its historic limestone architecture, collection of portrait sculpture and restored native-prairie landscape make it a distinctive Texas arts landmark—although interior museum visits are currently suspended for renovation.",
+    visitorStrategy: "CLOSED FOR RENOVATIONS SINCE DECEMBER 30, 2024. The City of Austin currently anticipates reopening in spring 2027, but that is a forecast, not a confirmed admission date. Do not follow outdated normal-hour listings or assume access to sculpture galleries, restrooms or grounds on ordinary museum visiting days. Instead use the museum's online exhibition and check city-posted education programs or individually announced on-site events, which can have separate registration and access rules.",
+    accessibility: "The historic house and grounds are undergoing a capital-improvement, interpretation and landscape project intended to improve accessibility and visitor experience. These plans do not guarantee step-free access during construction or at every future historic room. The city lists the facility as closed; contact the museum to confirm accessibility for any separately announced event rather than assuming regular public access.",
+    familiesAndGroups: "There is no normal museum admission or school group tour during the renovation closure. Families and educators can use the online sculpture exhibition and city-run 'Breaking the Mold' outreach activities; scheduled events must be checked individually. Once the museum reopens, age-appropriate discussions about portraiture, public monuments and an unconventional nineteenth-century woman artist may benefit older children and teens.",
+    researchValue: "Ney purchased the property in 1892 and built Formosa as a sculpture studio after an earlier European portrait career. She modeled prominent Texans while maintaining links to European intellectual and artistic circles. Her studio later became a gathering place and after her death in 1907 was preserved as a public museum. Reopening interpretation will be shaped by the city's newer interpretive and landscape plans; exhibit availability should never be inferred from old photographs.",
+    exhibits: [
+      { heading: "Formosa: artist studio and historic limestone architecture", detail: "The 1892 stone studio and Ney's former residence is itself a major historical object. During renovation, explore the city’s historical account and photographs rather than promising a building tour." },
+      { heading: "Portraits of Stephen F. Austin and Sam Houston", detail: "Ney's sculptures of these Texas figures help explain how the state chose to commemorate its founders. The museum has major related work, but galleries remain closed until official reopening." },
+      { heading: "European portrait sculpture and Ney's independent career", detail: "The museum's interpretive history connects Ney's portraits of European political and intellectual leaders to the artistic network she carried into Texas." },
+      { heading: "Art for Humanity's Sake: online exhibition", detail: "The official digital exhibition makes more than eighty collection items available for remote viewing while physical galleries cannot be visited." },
+    ],
+    routes: [
+      { label: "Research Formosa from home", steps: ["Read the city museum's closure and renovation notice", "View Elisabet Ney: Art for Humanity's Sake online exhibition", "Explore the official artist-and-studio history for context"] },
+      { label: "A future Austin art visit", steps: ["Confirm an actual reopening announcement, not just an anticipated date", "Check current admission, timed tours and accessibility after the renovation", "Combine a confirmed visit with another independently open Austin art museum"] },
+    ],
+    sources: [
+      { label: "City of Austin — current closure and visitor status", url: "https://www.austintexas.gov/ney", use: "Closing date and anticipated 2027 reopening" },
+      { label: "City of Austin — artist, studio and historical background", url: "https://www.austintexas.gov/ney/about-elisabet-ney-museum", use: "Formosa studio and original sculpture topics" },
+      { label: "City of Austin — exhibit and online access", url: "https://www.austintexas.gov/ney/elisabet-ney-museum-exhibits", use: "On-site museum exhibits versus online access" },
+      { label: "City of Austin — improvement project", url: "https://www.austintexas.gov/parks/projects/elisabet-ney-museum-improvements", use: "Public works, landscape and interpretation plans" },
+    ],
+    connections: [
+      { label: "Travis County", href: "/county/travis", reason: "Connect the museum to Austin's creative and civic heritage." },
+      { label: "Texas museums directory", href: "/explore/museums", reason: "Find another currently open art or history museum before traveling." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
@@ -533,6 +567,13 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     alt: "Wharton County Historical Museum building, shared with the 20th Century Technology Museum",
     width: 1600, height: 1200,
     credit: "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons · File:Wharton County Museum IMG 1054.JPG",
+  },
+
+  "elisabet-ney-museum-austin": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Austin_-_Elisabet_Ney_Museum_-_20201006000619.jpg?width=1600",
+    alt: "Historic limestone Formosa studio and Elisabet Ney Museum in Austin, photographed in October 2020",
+    width: 1600, height: 1067,
+    credit: "MarkJGilmore · CC BY-SA 4.0 · Wikimedia Commons · File:Austin - Elisabet Ney Museum - 20201006000619.jpg",
   },
 
 };
