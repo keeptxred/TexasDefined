@@ -39,6 +39,22 @@ const META_DESCRIPTION_MAX_LENGTH = 160;
 type TechnicalSeoOverride = { title: string; description?: string };
 
 const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride> = {
+  // Individually rewritten titles from the 2026-10-12 full production crawl.
+  // Keep stable long-form page headings; title metadata communicates distinct reader intent.
+  "/article/king-ranch-texas-history-cattle-legacy": { title: "King Ranch History: Cattle, Land & South Texas Legacy" },
+  "/article/lake-travis-water-system-guide": { title: "Lake Travis Water System: Dams, Levels & Colorado River" },
+  "/article/newmans-castle-bellville-texas": { title: "Newman's Castle Bellville: Tours, History & Visitor Guide" },
+  "/article/texas-health-safety-daily-living": { title: "Texas Health & Safety: Emergency, Weather & Daily Life" },
+  "/article/will-hogg-texas-legacy": { title: "Will Hogg: Texas Oil, Philanthropy & Public Service" },
+  "/destination/old-hidalgo-pumphouse-museum": { title: "Old Hidalgo Pumphouse Museum: History & Visitor Guide" },
+  "/event/bill-pickett-rodeo-fort-worth": { title: "Bill Pickett Rodeo Fort Worth: Dates & Visitor Guide" },
+  "/explore/painted-churches/guides/st-john-the-baptist-la-grange": { title: "St. John the Baptist Church La Grange: History & Visit" },
+  "/fishing/lakes/falcon-international-reservoir": { title: "Falcon Reservoir Fishing: Species, Access & Rules" },
+  "/food/cattlemans-steakhouse-fabens": { title: "Cattleman's Steakhouse Fabens: Dining & Visitor Guide" },
+  "/texas-high-school-football-teams/allen": { title: "Allen Eagles Football: UIL District & Team Guide" },
+  "/texas-high-school-football-teams/alto": { title: "Alto Football: UIL District & Team Guide" },
+  "/texas-high-school-football-teams/anson": { title: "Anson Football: UIL District & Team Guide" },
+  "/texas-high-school-football-teams/san-antonio-young-mens-leadership": { title: "San Antonio Young Men's Leadership Football Guide" },
   "/county/bexar": { title: "Bexar County, Texas Guide" },
   "/explore": { title: "Explore Texas: Places, Road Trips & Outdoors" },
   "/explore/top-attractions": { title: "Top 25 Texas Attractions" },

@@ -215,6 +215,13 @@ async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutM
       return '';
     }
 
+    // Capture a bounded server-rendered failure body for diagnosing real lake route 500s.
+    // Never log cookies, authorization headers, query credentials or entire HTML documents.
+    if (response.status >= 500) {
+      const preview = body.slice(0, 1800).replace(/[\r\n\t]+/g, " ");
+      appendFileSync(logPath, `[smoke:ssr-error] ${group.path} HTTP ${response.status}: ${preview}\n`);
+      process.stdout.write(`[smoke:ssr-error] ${group.path}: ${preview}\n`);
+    }
     return `${group.path} returned HTTP ${response.status}`;
   } catch (error) {
     const detail = error instanceof Error ? error.message : String(error);

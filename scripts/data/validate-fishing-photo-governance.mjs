@@ -2,6 +2,19 @@ import fs from "node:fs";
 
 const registry = fs.readFileSync("src/data/fishing/image-library.ts", "utf8");
 const governance = fs.readFileSync("src/data/fishing/lake-photo-governance.ts", "utf8");
+
+// Guard the image helper against undeclared variables that can crash every lake SSR route.
+// One October 12 lake-release build failed because `lake()` referenced `checkedAt`
+// even though only `commonsLake()` accepted that parameter.
+const localLakeHelper = registry.split("const lake = (")[1]?.split("const licensedRemoteLake")[0];
+if (!localLakeHelper || !localLakeHelper.includes("verifiedAt: VERIFIED_AT"))
+  throw new Error("Local lake image factory has invalid or missing verification date");
+if (localLakeHelper.includes("verifiedAt: checkedAt"))
+  throw new Error("Undefined checkedAt would crash local lake images on SSR");
+const commonsHelper = registry.split("const commonsLake = (")[1]?.split("const nasaLake")[0];
+if (!commonsHelper || !commonsHelper.includes("verifiedAt: checkedAt"))
+  throw new Error("Commons lake metadata no longer preserves its checkedAt date");
+
 const photoComponent = fs.readFileSync("src/components/fishing/FishingPhoto.tsx", "utf8");
 
 const requiredOverrideIds = [
@@ -61,7 +74,7 @@ for (const file of exactReplacementFiles) {
 const mappingMatch = registry.match(/export const fishingLakeImages:[\s\S]*?= \{([\s\S]*?)\n\};\n\nexport function getFishingFishImage/);
 if (!mappingMatch) throw new Error("Could not locate fishingLakeImages registry");
 const lakeMappings = [...mappingMatch[1].matchAll(/^\s{2}\"([^\"]+)\":/gm)].map((m) => m[1]);
-if (lakeMappings.length !== 50) throw new Error(`Expected 50 complete-lake photo mappings, found ${lakeMappings.length}`);
+if (lakeMappings.length !== 54) throw new Error(`Expected 54 complete-lake photo mappings, found ${lakeMappings.length}`);
 if (new Set(lakeMappings).size !== lakeMappings.length) throw new Error("Duplicate lake slugs in fishingLakeImages");
 
-console.log(`Fishing photo governance verified: ${lakeMappings.length}/50 lake mappings; ${requiredOverrideIds.length} legacy local mappings carry traceable governance overrides.`);
+console.log(`Fishing photo governance verified: ${lakeMappings.length}/54 lake mappings; ${requiredOverrideIds.length} legacy local mappings carry traceable governance overrides.`);
