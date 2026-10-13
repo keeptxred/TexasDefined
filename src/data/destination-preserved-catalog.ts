@@ -14,6 +14,7 @@ import { johnsonCityWildlifeDestinations } from "./johnson-city-wildlife-destina
 import { lbjBoyhoodHomeDestinations } from "./lbj-boyhood-home-destination";
 import { historicSiteDestinations } from "./historic-sites";
 import { olivewoodCemeteryDestinations } from "./olivewood-cemetery-authority-destination";
+import { thcHistoricLandmarkAuthorityBatch01Destinations } from "./thc-historic-landmarks-authority-batch01";
 import { hidalgoPumphouseAuthorityDestinations } from "./hidalgo-pumphouse-authority-destination";
 import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
@@ -215,6 +216,7 @@ function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
  */
 export const preservedExploreDestinations = mergePreservedDestinations(
   olivewoodCemeteryDestinations,
+  thcHistoricLandmarkAuthorityBatch01Destinations,
   animalSanctuaryDestinations,
   aquariumMarineDestinations,
   museumAuthorityDestinations,
