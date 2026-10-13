@@ -12,6 +12,8 @@ on:
       - "src/data/destination-curated-pairings.ts"
       - "src/data/destination-preserved-catalog.ts"
       - "scripts/data/validate-thc-landmark-authority-batch.mjs"
+      - "scripts/data/validate-thc-landmark-authority-batch02.mjs"
+      - "src/data/thc-landmark-heritage-builder.ts"
       - "src/routes/texas-historic-landmarks*"
       - "scripts/data/validate-thc-landmark-watch.mjs"
       - ".github/workflows/thc-landmark-watch.yml"
@@ -29,6 +31,8 @@ jobs:
         run: node scripts/data/validate-thc-landmark-watch.mjs
       - name: Validate each landmark authority publication
         run: node scripts/data/validate-thc-landmark-authority-batch.mjs
+      - name: Validate separately researched batch02 authority pages
+        run: node scripts/data/validate-thc-landmark-authority-batch02.mjs
 
   live-source-watch:
     if: github.event_name != 'pull_request'
