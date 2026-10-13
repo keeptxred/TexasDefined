@@ -208,6 +208,9 @@ export const smallTownWave5Destinations: Destination[] = [
         { name: "SFA gardens", description: "Flexible outdoor time for families interested in plants, seasonal color and a less structured attraction." },
       ],
       sideTrips: [
+        { name: "Historic road trip: Nacogdoches and San Augustine", description: "Travel from the city's historic districts toward Mission Dolores and Caddo country, with current tour-closure notes.", href: "/article/nacogdoches-san-augustine-historic-road-trip" },
+        { name: "Sterne-Hoya House Museum", description: "Texas Revolution-era household interpretation; check the current maintenance closure.", href: "/destination/sterne-hoya-house-museum" },
+        { name: "Ruby M. Mize Azalea Garden", description: "Free SFA public garden with azaleas, camellias and seasonal color.", href: "/destination/ruby-m-mize-azalea-garden" },
         { name: "Piney Woods region", description: "Connect Nacogdoches with East Texas forests, lakes, historic towns and wildlife destinations.", href: "/explore/region/piney-woods" },
         { name: "Texas Trip Planner", description: "Build an East Texas route around Nacogdoches and nearby Piney Woods destinations.", href: "/explore/trip-planner?destination=nacogdoches" },
       ],
