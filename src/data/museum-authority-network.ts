@@ -896,6 +896,43 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "american-quarter-horse-hall-of-fame-museum-amarillo": {
+    name: "American Quarter Horse Hall of Fame & Museum",
+    slug: "american-quarter-horse-hall-of-fame-museum-amarillo",
+    county: "Potter",
+    city: "Amarillo",
+    reviewed: "2026-10-13",
+    topics: ["texas-history", "western-culture", "family", "sports"],
+    whyVisit: "The Amarillo American Quarter Horse Hall of Fame & Museum interprets the fastest quarter-mile breed, its role in ranch work, rodeo, racing and recreation, and the breeders, trainers, owners and horses celebrated in the Hall of Fame. It is a focused western-history stop, not a stable offering routine recreational horseback rides. The building also displays western art, artifacts and breed history, making it useful for people without an equestrian background.",
+    visitorStrategy: "The operator's museum-specific commerce contact page lists Tuesday–Saturday 9 a.m.–5 p.m., but the Texas Historical Commission's older museum Atlas record says Tuesday–Friday until 4 p.m. and Saturday until 5 p.m. Older tourism brochures list Monday access too. This disagreement makes it important to call 806-376-5181 before a trip; do not confuse weekday American Quarter Horse Foundation office hours with museum opening. Admission is ordinarily paid according to Visit Amarillo; special Family Fun Days may be free, but no reliable current standard ticket amount is established. The museum sits at 2601 East Interstate Drive in Amarillo and is undergoing a multistage renovation through the decade.",
+    accessibility: "The museum operator's public information does not provide a current detailed accessible-entrance, restroom, tactile or sensory map. The event booking service offers a way to request disability accommodations, but that specific event FAQ should not be treated as a complete guarantee for normal museum tours. Confirm access and ongoing construction routes through museum@aqha.org or 806-376-5181 before travel.",
+    familiesAndGroups: "Families interested in horses and the West can explore Hall of Fame stories, breed-related artworks and changing interactive education displays. In July 2026, the museum opened the outdoor Wagonhound Paddock for scheduled live-horse experiences; visitors should not expect a horse or demonstration to be present throughout ordinary public hours. A 2026 five-phase renovation may temporarily move galleries and educational rooms. The museum has a gift shop, but no verified general visitor café, cafeteria or full-service restaurant. Private event catering arrangements do not constitute public dining service.",
+    researchValue: "Quarter Horses are named for their speed over roughly a quarter-mile, but modern history reaches much further into cattle work, ranching, horse breeding, showing and recreation. Hall of Fame people and horses provide a useful lens for understanding that transition. The institutional history and past exhibition descriptions should be separated from galleries demonstrably open during multiyear 2026–2030 construction. Distinguish the HQ offices, rental event halls and the museum public admission.",
+    exhibits: [
+      { heading: "Hall of Fame people and horses", detail: "Biographical honors feature influential Quarter Horses, breeders, riders and other contributors to the breed. The honored individual roster changes with inductions." },
+      { heading: "Quarter-mile speed and ranching heritage", detail: "Connect the breed's early sprinting abilities with later stock-horse work, racing and the development of western sport rather than limiting the history to shows." },
+      { heading: "Western paintings and horse-themed art", detail: "The institution houses western art and a museum shop, but specific works are not guaranteed to remain hung during ongoing renovations." },
+      { heading: "Wagonhound Paddock and education (2026 development)", detail: "A new outdoor area was introduced in July 2026 for encounters with an actual Quarter Horse at organized events. Check museum programming and weather before promising a live animal visit." },
+      { heading: "Changing interactive galleries", detail: "A multiyear phased renovation is adding classrooms and immersive features; past promotional photos do not prove an interactive is available now." },
+    ],
+    routes: [
+      { label: "Breed and Hall of Fame introduction", steps: ["Confirm the museum's current opening time and renovation access by telephone", "Explore Hall of Fame history and historical Quarter Horse achievements", "Check what art or interactive gallery is operating that day"] },
+      { label: "Amarillo horse and Panhandle history day", steps: ["Start at the American Quarter Horse Hall of Fame Museum", "Read Potter County's ranching history and other Amarillo heritage material", "Pair with a separately verified open museum or Route 66 destination if time allows"] },
+    ],
+    sources: [
+      { label: "Museum operator current contact and museum hours", url: "https://aqha-museum.myshopify.com/pages/contact-us", use: "Operator-posted Tuesday–Saturday 9–5 schedule and contact" },
+      { label: "Texas Historical Commission Atlas", url: "https://atlas.thc.texas.gov/Details/4200000009", use: "Older conflicting hours and museum identity, date-stamped 2024" },
+      { label: "Amarillo tourism official listing", url: "https://www.visitamarillo.com/listing/american-quarter-horse-hall-of-fame-%26-museum/650/", use: "Admission-fee designation and visitor attraction themes" },
+      { label: "AQHA museum event and family access", url: "https://www.aqha.com/museum", use: "Official museum institution and events (some automated requests are blocked)" },
+      { label: "2026 Family Fun Day and paddock opening report", url: "https://www.newschannel10.com/2026/07/09/american-quarter-horse-hall-fame-museum-host-family-fun-day-saturday/", use: "Evidence of 2026 Wagonhound Paddock and live horse event" },
+    ],
+    connections: [
+      { label: "Potter County", href: "/county/potter", reason: "Understand Amarillo ranching, Route 66 and Plains history." },
+      { label: "Amarillo Museum of Art", href: "/destination/amarillo-museum-of-art", reason: "Contrast Quarter Horse ranch heritage with a focused visual art institution." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Compare equestrian, sports and regional history collections." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
@@ -985,6 +1022,13 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     alt: "Modern Art Museum of Fort Worth exterior by Tadao Ando, photographed in 2003",
     width: 938, height: 496,
     credit: "Andreas Praefcke · Public domain · Wikimedia Commons · File:Fort Worth Texas Modern Art Museum 2003.jpg (historic exterior)",
+  },
+
+  "american-quarter-horse-hall-of-fame-museum-amarillo": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Amarillo_Texas_-_AQHA_-_Outside.jpg?width=1500",
+    alt: "Historical exterior view of American Quarter Horse Hall of Fame and Museum in Amarillo, photographed in 2006",
+    width: 1500, height: 1200,
+    credit: "J. Nguyen · CC BY-SA 3.0 · Wikimedia Commons · File:Amarillo Texas - AQHA - Outside.jpg (2006 historical exterior)",
   },
 
 };
