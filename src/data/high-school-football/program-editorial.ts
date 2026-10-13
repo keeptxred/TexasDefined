@@ -66,7 +66,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Benjamin Mustangs Football: 2026 Scores, Schedule & State Titles",
-      "description": "Benjamin Mustangs six-man football: 2026 game results, 2022 and 2023 state titles, District 9 schedule, Ben Grill Field, coaching-source context and official links."
+      "description": "Benjamin Mustangs six-man football: 2022 and 2023 state-title game stories, Grayson Rigdon's records, 2026 scores, District 9 fixtures, stadium and first-party sources."
     },
     "schedule": {
       "label": "Benjamin ISD official football (2025 pictured schedule; check events for 2026)",
@@ -84,17 +84,31 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "milestones": [
       {
         "date": "2022",
-        "title": "First of two consecutive six-man titles",
-        "body": "Benjamin defeated Loraine 68–20 for the 2022 1A Six-Man Division II state championship. UIL's official team record identifies Nathan Hayes as 2022 head coach.",
-        "sourceUrl": "https://www.uiltexas.org/football/state-team/benjamin-2022-2023-boys-football",
-        "sourceLabel": "UIL Benjamin 2022 team archive"
+        "title": "First-ever Mustangs title: 68–20 over Loraine",
+        "body": "Benjamin finished 14–0 in 2022 and won its first state title at AT&T Stadium. Grayson Rigdon rushed for 255 yards and five touchdowns on ten carries, added two scoring passes and ten tackles. Nathan Hayes coached the championship season.",
+        "sourceUrl": "https://www.houstonchronicle.com/texas-sports-nation/hs-sports/football/article/State-HS-football-championship-recaps-Day-1-17653774.php",
+        "sourceLabel": "Houston Chronicle contemporary 2022 championship recap"
       },
       {
         "date": "2023",
-        "title": "Another Division II football championship",
-        "body": "Benjamin beat Oglesby 82–34 in the 2023 final; UIL's 2023–24 school record shows a 14–0 season heading into the championship game.",
-        "sourceUrl": "https://www.uiltexas.org/football/state-team-mp-archive/benjamin-2023-2024-football",
-        "sourceLabel": "UIL Benjamin 2023 team archive"
+        "title": "15–0 repeat: 82–34 over Oglesby",
+        "body": "The Mustangs repeated as six-man Division II champions, finishing 15–0. Grayson Rigdon scored seven touchdowns (six rushing, one receiving), threw three touchdown passes and earned offensive MVP. Keegan Hayes registered 14 tackles and was named defensive MVP; the 45-point rule ended the final in the third quarter.",
+        "sourceUrl": "https://www.texasfootball.com/articles/article/default.aspx?url=2023%2F12%2F13%2Frigdon-leads-benjamin-to-back-to-back-state-titles",
+        "sourceLabel": "Dave Campbell's Texas Football 2023 game recap"
+      },
+      {
+        "date": "2013–23",
+        "title": "Nathan Hayes's four six-man championships",
+        "body": "Benjamin's 2022 and 2023 titles were coach Nathan Hayes's third and fourth six-man crowns. He had previously guided Crowell to back-to-back championships in 2013 and 2014. Those are Hayes's historic achievements across two different schools, not four Benjamin state titles.",
+        "sourceUrl": "https://www.texasfootball.com/articles/article/default.aspx?url=2023%2F12%2F13%2Frigdon-leads-benjamin-to-back-to-back-state-titles",
+        "sourceLabel": "2023 retrospective on Nathan Hayes's coaching titles"
+      },
+      {
+        "date": "2024–25",
+        "title": "Strong post-title campaigns",
+        "body": "Six-Man Football's season archive lists a 9–2 finish for 2024 and 10–1 for 2025. These are independently archived season records, separate from the consecutive 2022–23 state titles and the live 2026 schedule.",
+        "sourceUrl": "https://sixmanfootball.com/teams/benjamin-mustangs.1041/schedule/",
+        "sourceLabel": "Six-Man Football year-by-year records"
       },
       {
         "date": "2026",
@@ -106,6 +120,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     ],
     "overview": [
       "Benjamin ISD's Mustangs represent Knox County in Texas six-player football. The team won consecutive UIL 1A Six-Man Division II championships, beating Loraine 68–20 in 2022 and Oglesby 82–34 in 2023. Those are two different season titles, not a 2026 performance claim.",
+      "The first championship came December 14, 2022, when Benjamin defeated Loraine 68–20 after surrendering just 20 points. Contemporary reporting credited Grayson Rigdon with five rushing touchdowns and two touchdown passes, along with ten tackles on defense. The Mustangs finished the 2022 season unbeaten at 14–0. This was Benjamin's first-ever UIL football championship, not one of coach Nathan Hayes's earlier Crowell titles.",
+      "On December 13, 2023, Benjamin defeated Oglesby 82–34 for another perfect 15–0 campaign. Dave Campbell's contemporary account identifies Grayson Rigdon as offensive MVP after seven total touchdowns, and Keegan Hayes as defensive MVP with 14 tackles. The game concluded under six-man's 45-point rule in the third quarter. The historic performances belong to the 2023 roster; they are not a 2026 lineup forecast.",
       "UIL's historical 2022 and 2023 team archives name Nathan Hayes as head coach for those championship seasons. The independent Six-Man Football directory currently lists Aaron Kuehler as 2026 head coach, but a current appointment was not established from the district's own football page, and another third-party coaching roster conflicts. Verify current staffing with Benjamin ISD.",
       "Benjamin's independently reported 2026 record was 3–3 through October 9, including a 45–0 loss at Decatur Victory Christian. The four remaining reported district matchups are Paint Creek, Lueders-Avoca, Knox City and Rule. Six-Man Football reports the Lueders-Avoca game for Friday, October 23, while an older September 25 MaxPreps snapshot listed Thursday, October 22; confirm the date directly with Benjamin ISD. The official Benjamin ISD football page currently displays an image labeled 2025, so it must not be presented as an official 2026 schedule.",
       "Dave Campbell's identifies Ben Grill Field and the six-man specialist directory calls it Benjamin Mustangs Field. The school lists 300 W. Hays Street; confirm stadium access, tickets, parking and accessibility before traveling. No school-owned photography has been republished without evidence of a reuse license."
@@ -142,6 +158,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "What are the Mustangs' school colors?",
         "answer": "Purple and white, recorded in the official UIL championship-team archive and the independent six-man football directory."
+      },
+      {
+        "question": "Who led Benjamin's 2023 state championship victory?",
+        "answer": "Grayson Rigdon earned 2023 championship offensive MVP after seven touchdowns, including six rushing and one receiving. Keegan Hayes earned defensive MVP with 14 tackles, according to Dave Campbell's contemporary final recap."
+      },
+      {
+        "question": "How many state titles did coach Nathan Hayes win?",
+        "answer": "Nathan Hayes coached Benjamin to the 2022 and 2023 six-man Division II championships and previously coached Crowell to titles in 2013 and 2014, totaling four across the two programs. Benjamin itself has two football titles."
       }
     ],
     "campus": {
