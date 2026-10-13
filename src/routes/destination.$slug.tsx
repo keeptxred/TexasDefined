@@ -7,6 +7,8 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
+import { DallasBlackHistoryAuthority } from "@/components/editorial/DallasBlackHistoryAuthority";
+import { dallasBlackHistoryFor } from "@/data/dallas-black-history-research";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { DestinationRelationships } from "@/components/editorial/DestinationRelationships";
 import { DestinationVisitPlanner } from "@/components/editorial/DestinationVisitPlanner";
@@ -157,7 +159,8 @@ export const Route = createFileRoute("/destination/$slug")({
     const isYsletaMuseum = destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso";
     const isYoungCountyMuseum = destination.slug === "young-county-museum-of-history-and-culture";
     const authorityGuide = destination.authorityGuide;
-    const authorityCitations = authorityGuide?.sources.map((source) => source.url).filter(validExternalUrl) ?? [];
+    const dallasHeritage = dallasBlackHistoryFor(destination.slug);
+    const authorityCitations = [...(authorityGuide?.sources.map((source) => source.url) ?? []), ...(dallasHeritage?.sources.map((source) => source.url) ?? [])].filter(validExternalUrl);
     const audit = auditDestination(destination);
     const indexable = audit.readyForIndexing && isPrimaryTripPlannerDestination(destination);
     const hasUsableHero = !audit.issues.some((issue) => issue.code === "hero-placeholder");
@@ -181,7 +184,7 @@ export const Route = createFileRoute("/destination/$slug")({
         ...(hasUsableHero ? { image: destination.hero.src, imageAlt: destination.hero.alt } : {}),
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-      scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, attractionSchema, ...(relatedPlaces.length > 0 ? [relatedSchema] : []), breadcrumbSchema] }) }],
+      scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, attractionSchema, ...(relatedPlaces.length > 0 ? [relatedSchema] : []), ...(dallasHeritage ? [{ "@type": "FAQPage", "@id": `${url}#faq`, mainEntity: dallasHeritage.faqs.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) }] : []), breadcrumbSchema] }) }],
     };
   },
   notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">Destination guide</p><h1 className="mt-3 font-display text-4xl">This place isn’t in our guide yet</h1><p className="mt-4 max-w-xl text-base leading-7 text-muted-foreground">Browse the places we have mapped in <Link to="/explore" className="border-b border-primary text-primary">Explore Texas</Link>.</p></Container>,
@@ -284,6 +287,7 @@ function DestinationPage() {
           <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">{destinationExperienceTitle(destination.name, categoryName)}</h2>
           <div className="editorial-body mt-7 text-foreground/90">{destination.body.map((paragraph) => <p key={paragraph} className="mt-6 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}</div>
         </section>
+        <DallasBlackHistoryAuthority slug={destination.slug} />
         <section aria-labelledby="before-you-go" className={isChokeCanyon ? "mt-10 border-t border-border pt-6" : "mt-16 border-t border-border pt-8"}>
           <p className="eyebrow text-primary">The details</p>
           <h2 id="before-you-go" className="mt-3 font-display text-3xl">Planning your visit</h2>
