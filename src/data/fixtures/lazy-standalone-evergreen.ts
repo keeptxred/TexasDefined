@@ -127,6 +127,18 @@ const texasRevolutionHistoricSitesRoadTripStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["san-felipe-de-austin", "washington-on-the-brazos", "star-of-the-republic-museum", "fannin-battleground", "presidio-la-bahia", "san-jacinto-battleground"],
 };
 
+const nacogdochesSanAugustineHistoricRoadTripStub: Article = {
+  id: "evergreen-nacogdoches-san-augustine-historic-road-trip", brandId: "texasdefined", slug: "nacogdoches-san-augustine-historic-road-trip",
+  title: "Historic Road Trip: Nacogdoches, Caddo Country & San Augustine",
+  dek: "A two-to-three-day East Texas heritage trip with Caddo Mounds, Mission Dolores and El Camino Real.",
+  category: "texas-history",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Nacogdoches%20downtown.jpg?width=1600", alt: "Historic downtown Nacogdoches", width: 1200, height: 804, credit: "Chris Litherland · CC BY 3.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-10-12", updatedAt: "2026-10-12", readingMinutes: 18,
+  tags: ["Nacogdoches","San Augustine","Caddo Mounds","Mission Dolores","El Camino Real"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/travel/historic-road-trips",
+  body: [], relatedCollections: [], relatedDestinations: ["nacogdoches","mission-dolores","caddo-mounds-state-historic-site","san-augustine"]
+};
+
 const texasFrontierFortsRoadTripStub: Article = {
   id: "evergreen-texas-frontier-forts-road-trip", brandId: "texasdefined", slug: "texas-frontier-forts-road-trip",
   title: "Texas Frontier Forts Road Trip: Four Army Posts That Explain the West",
@@ -368,6 +380,7 @@ export const standaloneEvergreenStubs: Article[] = [
   sixFlagsOverTexasMeaningStub,
   texasRevolutionHistoricSitesRoadTripStub,
   texasFrontierFortsRoadTripStub,
+  nacogdochesSanAugustineHistoricRoadTripStub,
   presidentialTexasHistoricHomesStub,
   brazoriaPlantationsSlaveryEmancipationHistoryStub,
   sallieHoggTexasLegacyStub,
@@ -402,6 +415,7 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === sixFlagsOverTexasMeaningStub.slug) return import("./six-flags-over-texas-meaning").then((module) => module.sixFlagsOverTexasMeaningArticle);
   if (slug === texasRevolutionHistoricSitesRoadTripStub.slug) return import("./texas-revolution-historic-sites-road-trip").then((module) => module.texasRevolutionHistoricSitesRoadTripArticle);
   if (slug === texasFrontierFortsRoadTripStub.slug) return import("./texas-frontier-forts-road-trip").then((module) => module.texasFrontierFortsRoadTripArticle);
+  if (slug === nacogdochesSanAugustineHistoricRoadTripStub.slug) return import("./nacogdoches-san-augustine-historic-road-trip").then((module) => module.nacogdochesSanAugustineHistoricRoadTripArticle);
   if (slug === presidentialTexasHistoricHomesStub.slug) return import("./presidential-texas-historic-homes").then((module) => module.presidentialTexasHistoricHomesArticle);
   if (slug === brazoriaPlantationsSlaveryEmancipationHistoryStub.slug) return import("./brazoria-plantations-slavery-emancipation-history").then((module) => module.brazoriaPlantationsSlaveryEmancipationHistoryArticle);
   if (slug === sallieHoggTexasLegacyStub.slug) return import("./sallie-hogg-texas-legacy").then((module) => module.sallieHoggTexasLegacyArticle);
