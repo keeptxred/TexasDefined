@@ -86,10 +86,10 @@ export const coastalHeritageAuthorityDestinations: Destination[] = [
     nearestTown: "Rockport",
     coordinates: { lat: 28.1523, lng: -96.9767 },
     hero: {
-      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Big_tree.jpg?width=1600",
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Big_Tree_Texas_2024.jpg?width=1600",
       alt: "The Big Tree, a massive protected coastal live oak with a sprawling canopy at Goose Island State Park",
-      width: 1794, height: 1299,
-      credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · 2007"
+      width: 4500, height: 3000,
+      credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · Big Tree Texas 2024.jpg (22 April 2024)"
     },
     bestSeason: "Fall through spring for comfortable temperatures and coastal birding; cooler mornings make a shorter outdoor stop more pleasant.",
     entryNote: "The Big Tree is in a separate mainland area associated with Goose Island State Park, not beside the island's fishing pier. Respect barriers and park notices. Contact TPWD for current access and any fees.",
