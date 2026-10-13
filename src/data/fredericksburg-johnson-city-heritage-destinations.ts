@@ -583,3 +583,100 @@ export const fredericksburgJohnsonCityHeritageDestinations: Destination[] = [
     ]
   }
 ];
+
+
+/**
+ * Preserve individually researched visitor information after remote records,
+ * curator waves, and generic historic-site enrichment. A remotely stored
+ * older/shorter record must not silently replace independently verified facts.
+ * This overlay is limited to named, sourced corridor subjects.
+ */
+import { historicSiteDestinations } from "./historic-sites";
+
+const researchedBySlug = new Map(fredericksburgJohnsonCityHeritageDestinations.map((item) => [item.slug, item]));
+const historicFort = historicSiteDestinations.find((item) => item.slug === "fort-martin-scott");
+
+const fortMartinScottAuthority: NonNullable<Destination["authorityGuide"]> = {
+  whyItMatters: "Fort Martin Scott reveals what followed the 1846 founding of Fredericksburg: a United States Army frontier post established in 1848, its relationship with German settlers, frontier trade and military roads, and the Indigenous nations whose homelands and diplomatic relationships were affected. The surviving limestone guardhouse must be distinguished from reconstructed interpretive buildings.",
+  assessment: {
+    recommendedVisit: "About 60–90 minutes for the grounds and interpretation, longer when a guided program is confirmed",
+    physicalEffort: "Low to moderate",
+    weatherExposure: "Mostly outdoors",
+    planningLevel: "Moderate",
+    familyFit: "Worthwhile outdoor frontier-history stop; check the summer heat and mobility needs",
+    firstTimeValue: "Connects Fredericksburg's German founding with the Army presence before visiting the Pacific War Museum",
+  },
+  itineraries: [
+    {
+      label: "Fort essentials",
+      duration: "60–90 minutes",
+      steps: [
+        "Confirm whether the day has staffed interpretation or self-guided visitation; THC's tour pages currently conflict.",
+        "Start with the surviving limestone guardhouse and the original 1848 post chronology.",
+        "Compare preserved masonry with reconstructed buildings and outdoor interpretation.",
+      ],
+    },
+    {
+      label: "Fredericksburg military-history day",
+      duration: "Half to full day",
+      steps: [
+        "Visit Fort Martin Scott during its staffed hours, allowing time for outdoor interpretation.",
+        "Travel back into Fredericksburg for the National Museum of the Pacific War.",
+        "Contrast nineteenth-century frontier life with the Pacific theater and Fleet Admiral Chester W. Nimitz.",
+      ],
+    },
+    {
+      label: "Hill Country heritage drive",
+      duration: "Two days",
+      steps: [
+        "Study Fredericksburg's historic district, Fort Martin Scott and the Pacific War Museum.",
+        "Continue east along U.S. 290 through Stonewall and collect the free LBJ Ranch driving permit at the state park.",
+        "Visit the ranch's available stops, then Hye and Johnson City; the Texas White House complex is closed.",
+      ],
+    },
+  ],
+  sources: [
+    {
+      label: "Texas Historical Commission — Fort Martin Scott",
+      url: "https://thc.texas.gov/historic-sites/fort-martin-scott",
+      scope: "Historic site, fees, staffed/grounds hours and operator tour listing",
+    },
+    {
+      label: "Texas Historical Commission — Plan Your Visit",
+      url: "https://thc.texas.gov/state-historic-sites/fort-martin-scott/plan-your-visit-fort-martin-scott",
+      scope: "Visitor center, accessibility, non-ADA historic structures, site facilities and self-guided tour guidance",
+    },
+    {
+      label: "Texas Historical Commission — Historic Fredericksburg to Johnson City road trip",
+      url: "https://thc.texas.gov/blog/historic-road-trip-fredericksburg-johnson-city",
+      scope: "Regional connection to Fredericksburg German settlement and Johnson City heritage",
+    },
+  ],
+};
+
+export function enforceFredericksburgJohnsonCityHeritageAuthority(destination: Destination): Destination {
+  const researched = researchedBySlug.get(destination.slug);
+  if (researched) {
+    // Deliberate field precedence: source-reviewed complete destination over
+    // older public-data payload and generic curator replacements.
+    return { ...destination, ...researched };
+  }
+  if (destination.slug !== "fort-martin-scott" || !historicFort) return destination;
+  return {
+    ...destination,
+    body: historicFort.body,
+    entryNote: historicFort.entryNote,
+    highlights: [
+      "1848 U.S. Army frontier post",
+      "Original limestone guardhouse and jail",
+      "Reconstructed interpretive buildings",
+      "German-Texan Fredericksburg and Indigenous frontier history",
+      "THC visitor center and self-guided historic grounds",
+    ],
+    sourceCheckedAt: "2026-10-12",
+    accessibilityNotes: historicFort.accessibilityNotes,
+    address: historicFort.address,
+    visitorFaqs: historicFort.visitorFaqs,
+    authorityGuide: fortMartinScottAuthority,
+  };
+}
