@@ -70,3 +70,8 @@ Photo metadata independently checked using Wikimedia Commons API imageinfo.extme
 - **Art Museum of South Texas, Corpus Christi:** Replacement for prior sitewide placeholder: Wikimedia Commons [File:Art Museum of South Texas -- Corpus.jpg](https://commons.wikimedia.org/wiki/File:Art_Museum_of_South_Texas_--_Corpus.jpg), Jim Evans, **CC BY-SA 4.0**, photographed October 2018 (2,016 × 1,613 source). The hero credit identifies the year and location. Do not imply this photo documents 2026 temporary exhibits.
 
 The museum's July 2026 air-conditioning closure was followed by an official July 3 reopening; no closed flag is appropriate without newer evidence. Staff and visitor-center availability may change independently of gallery access.
+
+## Houston Museum of Natural Science (Hermann Park), reviewed October 13, 2026
+
+- Exterior/entrance photograph (2012): [Another Believer, *Houston Museum of Natural Science, entrance in 2012.JPG*](https://commons.wikimedia.org/wiki/File:Houston_Museum_of_Natural_Science,_entrance_in_2012.JPG), **CC BY-SA 3.0**, 4,000 × 3,000 native pixels. File depicts the actual museum entrance; alt text discloses the historical photo date. Hero uses Commons Special:Redirect with full photographer and license credit.
+- Museum supplies current closures and galleries through its own source-linked exhibits page; old gallery photographs must not be interpreted as evidence of current exhibit access.
