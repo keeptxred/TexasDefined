@@ -1100,6 +1100,14 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     credit: "J. Nguyen · CC BY-SA 3.0 · Wikimedia Commons · File:Amarillo Texas - AQHA - Outside.jpg (2006 historical exterior)",
   },
 
+  "art-museum-south-texas-corpus-christi": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Art_Museum_of_South_Texas_--_Corpus.jpg?width=1600",
+    alt: "Art Museum of South Texas waterfront museum exterior in Corpus Christi, photographed in 2018",
+    width: 1600,
+    height: 1280,
+    credit: "Jim Evans · CC BY-SA 4.0 · Wikimedia Commons · File:Art Museum of South Texas -- Corpus.jpg (2018)",
+  },
+
 };
 
 /** Preserve the existing canonical destination and augment it; never duplicate a route. */
