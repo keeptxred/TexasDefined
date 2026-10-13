@@ -1238,6 +1238,39 @@
           "label": "Harry Ransom Center — FAQs"
         }
       ]
+    },
+    {
+      "path": "/destination/thinkery-austin-childrens-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://thinkeryaustin.org/visit-us/",
+          "fetchUrl": "https://thinkeryaustin.org/visit-us/",
+          "label": "Thinkery — current visit, fees and parking"
+        },
+        {
+          "sourceUrl": "https://thinkeryaustin.org/guidelines/",
+          "fetchUrl": "https://thinkeryaustin.org/guidelines/",
+          "label": "Thinkery — policies and visitor FAQ"
+        },
+        {
+          "sourceUrl": "https://thinkeryaustin.org/museum-accessibility/",
+          "fetchUrl": "https://thinkeryaustin.org/museum-accessibility/",
+          "label": "Thinkery — accessibility resources"
+        },
+        {
+          "sourceUrl": "https://thinkeryaustin.org/resources/",
+          "fetchUrl": "https://thinkeryaustin.org/resources/",
+          "label": "Thinkery — reduced admission"
+        },
+        {
+          "sourceUrl": "https://thinkeryaustin.org/exhibit/",
+          "fetchUrl": "https://thinkeryaustin.org/exhibit/",
+          "label": "Thinkery — interactive exhibit roster"
+        }
+      ]
     }
   ]
 }
