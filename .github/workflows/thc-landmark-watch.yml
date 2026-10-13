@@ -13,6 +13,7 @@ on:
       - "src/data/destination-preserved-catalog.ts"
       - "scripts/data/validate-thc-landmark-authority-batch.mjs"
       - "scripts/data/validate-thc-landmark-authority-batch02.mjs"
+      - "scripts/data/validate-thc-sycamore-bridge-authority.mjs"
       - "src/data/thc-landmark-heritage-builder.ts"
       - "src/routes/texas-historic-landmarks*"
       - "scripts/data/validate-thc-landmark-watch.mjs"
@@ -33,6 +34,8 @@ jobs:
         run: node scripts/data/validate-thc-landmark-authority-batch.mjs
       - name: Validate separately researched batch02 authority pages
         run: node scripts/data/validate-thc-landmark-authority-batch02.mjs
+      - name: Validate Fort Worth Sycamore Creek bridge authority
+        run: node scripts/data/validate-thc-sycamore-bridge-authority.mjs
 
   live-source-watch:
     if: github.event_name != 'pull_request'
