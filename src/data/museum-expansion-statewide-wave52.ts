@@ -1,16 +1,4 @@
-import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
-import type { Destination, ImageRef } from "./types";
-
-const SOURCE_CHECKED_AT = "2026-09-02";
-
-function museumPlaceholder(name: string): ImageRef {
-  return {
-    src: DESTINATION_PHOTO_PLACEHOLDER,
-    alt: `${name} — destination-specific photograph not yet available`,
-    width: 1600,
-    height: 1067,
-  };
-}
+import type { Destination } from "./types";
 
 /**
  * Fifty-second statewide museum wave. This Nacogdoches record adds SFA's
