@@ -40,6 +40,11 @@ export const texasRiversExplainedArticle: Article = {
   sourceName: "Texas Water Development Board",
   sourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp",
   internalLinks: [
+    { href: "/article/texas-frio-river-guide", label: "Frio River recreation guide", description: "Detailed river-specific access, recreation, visitor planning and primary sources." },
+    { href: "/article/texas-comal-river-guide", label: "Comal River tubing and tourism", description: "Detailed river-specific access, recreation, visitor planning and primary sources." },
+    { href: "/article/texas-san-marcos-river-guide", label: "San Marcos River parks and paddling", description: "Detailed river-specific access, recreation, visitor planning and primary sources." },
+    { href: "/article/texas-llano-river-guide", label: "Llano River fishing and camping", description: "Detailed river-specific access, recreation, visitor planning and primary sources." },
+    { href: "/article/texas-pecos-river-guide", label: "Pecos River travel and access", description: "Detailed river-specific access, recreation, visitor planning and primary sources." },
     {
       href: "/explore/lakes-rivers",
       label: "Explore Texas lakes and rivers",
