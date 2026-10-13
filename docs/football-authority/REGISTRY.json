@@ -49,11 +49,11 @@
     "repositoryMainAtAssignment": "193f24fb06e48fd43fd821d6a6bced28d958301a",
     "maxSchoolsPerBatch": 25,
     "currentSchool": null,
-    "nextSchool": "ben-bolt-palito-blanco",
-    "implementedOnBranch": 21,
-    "remainingToImplement": 4,
+    "nextSchool": null,
+    "implementedOnBranch": 25,
+    "remainingToImplement": 0,
     "remainingToVerify": 24,
-    "notes": "81 verified existing programs preserved; 5 original plus 15 recovered group2-4 IMPLEMENTED in source branches, not production verified. Four remaining Group5 programs to integrate."
+    "notes": "25/25 individually researched Batch005 source implementations preserved across first five main and dependent Groups2–5; Benjamin independently VERIFIED; all other 24 NOT declared production-verified, group2–5 await sequential protected merge, deploy and browser QA. Original 80 VERIFIED preserved."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6069,8 +6069,14 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/ben-bolt-palito-blanco",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group5-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/ben-bolt-palito-blanco.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:benavides",
@@ -6083,8 +6089,14 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/benavides",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group5-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/benavides.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:benjamin",
@@ -6164,8 +6176,14 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/big-lake-reagan-co",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group5-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/big-lake-reagan-co.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:big-sandy",
@@ -6178,8 +6196,14 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/big-sandy",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-13",
+      "implementedOnBranch": "football-batch005-group5-recovery-20261013",
+      "schoolNote": "docs/football-authority/schools/big-sandy.md",
+      "actualProductionVerified": false
     },
     {
       "id": "uil:big-sandy-harmony",
