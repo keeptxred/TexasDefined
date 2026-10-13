@@ -850,6 +850,219 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewed": "2026-10-12"
     }
   ],
+  "babe-didrikson-zaharias-museum-beaumont": [
+    {
+      "question": "Is admission to the Babe Didrikson Zaharias Museum free?",
+      "answer": "Yes. The museum's official visitor FAQ and the Babe Didrikson Zaharias Foundation both list free regular admission. Call the museum if planning an organized group or a special event, since ordinary admission terms do not guarantee a hosted tour.",
+      "verificationUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the Babe Zaharias Museum open on Saturdays?",
+      "answer": "Published hours conflict: the museum and Babe Zaharias Foundation say Monday–Saturday 9 a.m.–5 p.m., but Beaumont's municipal facility listing says Monday–Friday and Saturday closed. Telephone 409-833-4622 before making a Saturday or holiday trip; no one schedule can be treated as confirmed.",
+      "verificationUrl": "https://bdzfoundation.com/contact/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.beaumonttexas.gov/facilities/facility/details/Babe-Zaharias-Museum-Visitor-Center-74",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Where is the Babe Didrikson Zaharias Museum located?",
+      "answer": "The museum is at 1750 I-10 Frontage Road in Beaumont, in a distinctive circular brick building near the freeway. Do not confuse the museum with nearby Babe Zaharias Park or her namesake golf course, which are different locations.",
+      "verificationUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What sporting achievements and trophies can visitors see at the museum?",
+      "answer": "The museum interprets Babe's track-and-field and golf careers and displays awards, memorabilia and the famous Dead Head golf trophy. Exhibit availability may change, so confirm any object you especially want to see before making the trip.",
+      "verificationUrl": "https://www.babezahariasmuseum.com/babe-zaharias/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the Babe Zaharias Museum suitable for children?",
+      "answer": "School-age children interested in athletes, Olympic records and women's sports may enjoy the museum's stories and memorabilia. It is an interpretive sports-history museum, not a confirmed hands-on children's science or play museum.",
+      "verificationUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.babezahariasmuseum.com/babe-zaharias/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "How long should I plan to spend at the Babe Zaharias Museum?",
+      "answer": "About 45–90 minutes is a reasonable independent estimate for a focused visit to the museum exhibits. This is not an operator-guaranteed visit length; visitors with a special interest in sports history may wish to allow longer.",
+      "verificationUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.babezahariasmuseum.com/babe-zaharias/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is Babe Zaharias Museum wheelchair accessible?",
+      "answer": "The Babe Zaharias Foundation describes the Museum & Visitor Center as accessible and welcoming to disabled visitors, but the public pages do not fully specify step-free gallery routes, accessible parking or sensory features. Confirm your particular needs directly with museum staff.",
+      "verificationUrl": "https://bdzfoundation.com/contact/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://bdzfoundation.com/contact/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does Babe Zaharias Museum have a cafeteria or restaurant?",
+      "answer": "The museum's official visitor and foundation pages do not clearly establish an on-site café, cafeteria or full-service restaurant. Plan to eat elsewhere in Beaumont rather than assuming food service is available inside the museum.",
+      "verificationUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    }
+  ],
+  "20th-century-technology-museum-wharton": [
+    {
+      "question": "What are the real opening hours for the 20th Century Technology Museum?",
+      "answer": "The technology museum's own visitor notice, updated for 2025, states Tuesday and Thursday 11 a.m.–3 p.m., while the host Wharton County Historical Museum lists Monday–Friday 9 a.m.–4 p.m. These are different schedules; call 979-488-7773 to confirm access to the technology wing.",
+      "verificationUrl": "https://www.20thcenturytech.com/location.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.whartoncountymuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is there an admission charge to visit the Wharton technology museum?",
+      "answer": "Both the technology museum's independent visitor page and the host county museum say admission is free, with voluntary donations encouraged. That does not establish whether an organized program or separate special event has a fee.",
+      "verificationUrl": "https://www.20thcenturytech.com/location.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.20thcenturytech.com/location.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Where is the 20th Century Technology Museum today?",
+      "answer": "The current museum is housed with Wharton County Historical Museum at 3615 North Richmond Road, Wharton, Texas. Older descriptions refer to its original 2005 location in the former county jail, but the combined building opened in 2012.",
+      "verificationUrl": "https://www.20thcenturytech.com/location.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.whartoncountymuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Are the arcade games and old computers available for visitors to play?",
+      "answer": "The host operator lists vintage arcade machines and personal computers among the exhibits, but does not guarantee that every device is switched on or available for unsupervised use. Ask a museum docent which demonstrations are available that day.",
+      "verificationUrl": "https://www.whartoncountymuseum.org/tech-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.20thcenturytech.com/location.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What makes Wharton's technology museum enjoyable for children?",
+      "answer": "Younger visitors can compare toys, computers and 1970s–1980s arcade cabinets with the modern devices they know. It is a dense collection-oriented museum rather than a dedicated toddler play center, so parents should select activities based on age and interest.",
+      "verificationUrl": "https://www.whartoncountymuseum.org/tech-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.whartoncountymuseum.org/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What exhibits are inside the 20th Century Technology Museum?",
+      "answer": "The host's current exhibit page highlights old personal computers, toys, arcade machines and airplanes. Historical descriptions also discuss household electronics, radios and telephones; check today's exhibit arrangement before expecting every older object to be on display.",
+      "verificationUrl": "https://www.whartoncountymuseum.org/tech-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200001087",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I visit the technology museum and Wharton County Museum together?",
+      "answer": "Yes, the technology wing is part of the same current Wharton County Historical Museum complex at 3615 North Richmond Road, but the wing publishes more limited hours. Call before arrival if you want to see both on the same visit.",
+      "verificationUrl": "https://www.whartoncountymuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.20thcenturytech.com/location.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does Wharton's technology museum have a restaurant or cafeteria?",
+      "answer": "Neither the contemporary host's visit page nor the museum's independent visiting instructions establishes an on-site restaurant or cafeteria. Plan to dine elsewhere in Wharton and ask the museum about water and food policies for groups.",
+      "verificationUrl": "https://www.whartoncountymuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.whartoncountymuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    }
+  ],
+  "elisabet-ney-museum-austin": [
+    {
+      "question": "Is the Elisabet Ney Museum open to visitors in October 2026?",
+      "answer": "No. The City of Austin says the museum is closed for renovations that began December 30, 2024. Regular interior gallery admission and tours are not currently offered, even though the official site may list separate events and online collections.",
+      "verificationUrl": "https://www.austintexas.gov/ney",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "When will Elisabet Ney Museum reopen after renovation?",
+      "answer": "Austin currently anticipates reopening in spring 2027, but that is a projected season, not a confirmed reopening date or ticket offer. Check the city museum page and renovation updates for an actual reopening announcement before planning a visit.",
+      "verificationUrl": "https://www.austintexas.gov/parks/projects/elisabet-ney-museum-improvements",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I walk around Formosa or see Ney's sculpture while the building is closed?",
+      "answer": "The city has not established normal public museum access during construction. Some separately announced landscape programs and events may take place at 304 East 44th Street, but that does not mean sculpture galleries or studio interiors are open. Follow the specific event instructions.",
+      "verificationUrl": "https://www.austintexas.gov/ney/programs-education",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What can I see online from the Elisabet Ney Museum collections?",
+      "answer": "The City of Austin advertises the online exhibition Elisabet Ney: Art for Humanity's Sake, bringing together more than eighty items from the collection. It is a useful way to explore her portrait sculpture during the physical museum renovation.",
+      "verificationUrl": "https://www.austintexas.gov/ney/elisabet-ney-museum-exhibits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney/programs-education",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Which famous Texans did Elisabet Ney sculpt in Austin?",
+      "answer": "Ney made portraits of Sam Houston and Stephen F. Austin as part of her Texas work at Formosa. Her European work also portrayed figures such as Otto von Bismarck and Arthur Schopenhauer. Historic display information does not guarantee those objects are physically viewable while the museum is closed.",
+      "verificationUrl": "https://www.austintexas.gov/ney/about-elisabet-ney-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney/elisabet-ney-museum-exhibits",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the Elisabet Ney Museum free, and do I need a ticket now?",
+      "answer": "The City of Austin describes the museum's ordinary admission as free, but the building is presently closed for renovation, so there is no normal ticketed interior visit. Any separately scheduled event may have its own access and registration instructions.",
+      "verificationUrl": "https://www.austintexas.gov/ney",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does Elisabet Ney Museum offer accessible family or school programming during construction?",
+      "answer": "Normal on-site tours are suspended. Austin advertises the Breaking the Mold mobile art education initiative and separately announced events, but those programs differ from opening the historic house. For accessibility and school participation in any specific event, contact the museum directly.",
+      "verificationUrl": "https://www.austintexas.gov/ney/programs-education",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney/contact",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    }
+  ],
   "el-paso-museum-of-art": [
     {
       "question": "Is El Paso Museum of Art free, and which days can I visit?",

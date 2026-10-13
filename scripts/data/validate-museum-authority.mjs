@@ -181,6 +181,18 @@ if (base) {
     failures.push("Cannot validate changed museum records against " + base + ": " + String(error));
   }
 }
+// A researched closed museum is historical reference content, not a bookable stop.
+const historicalMuseumReferences = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin"];
+const museumAvailability = read("src/data/destination-availability.ts");
+const museumSeoRoute = read("src/routes/destination.$slug.tsx");
+const museumSitemapRoute = read("src/routes/sitemap-explore[.]xml.ts");
+for(const historicalSlug of historicalMuseumReferences) {
+  if(!museumAvailability.includes('"' + historicalSlug + '"'))
+    failures.push("Closed historical museum is missing from trip planner exclusion: " + historicalSlug);
+  if(!museumSeoRoute.includes('"' + historicalSlug + '"') || !museumSitemapRoute.includes('"' + historicalSlug + '"'))
+    failures.push("Closed researched historical museum is missing from search-indexing exception: " + historicalSlug);
+}
+
 if (failures.length) {
   console.error("Museum authority gate FAILED:\n" + failures.map((x) => " - " + x).join("\n"));
   process.exit(1);

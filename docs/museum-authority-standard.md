@@ -47,3 +47,10 @@ Create the **most useful independent guide for a person considering, planning an
 - When dining is not independently confirmed, say **not confirmed** and give planning advice rather than asserting no food is available.
 
 Initial ten: Bullock, Perot, Witte, Museum of the Big Bend, Panhandle-Plains Historical, George Ranch, Texas Maritime, National Museum of the Pacific War, Frontier Texas!, and Texas Energy Museum.
+
+## Historically important museums that close
+
+- Separate **visitor availability** from the quality and discoverability of a well-researched historical guide. A museum that has ceased operations should never appear as a currently visitable Trip Planner stop or carry stale booking instructions.
+- Where independently documented historical and architectural value makes the guide useful, preserve canonical SEO metadata, factual closure status, authoritative cross-links and eligible sitemap inclusion. Do not automatically add noindex merely because the museum is no longer open to tourists; the same editorial quality gate must still pass.
+- The 1940 Air Terminal Museum in Houston is a current example: the site carries closure details and research resources while the closed destination is excluded from trip-planning recommendations.
+- Do not treat a preservation assessment, a public-archive record or a historic designation as evidence of reopening. Monitor operator and government announcements on the regular museum verification schedule.

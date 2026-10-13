@@ -25,6 +25,17 @@ License compliance:
 
 Attribution is present in each destination hero credit. License checks are required at publication and on replacement.
 
+## Further authority museum photographs, October 12, 2026
+
+- **Babe Didrikson Zaharias Museum and Visitor Center, Beaumont:** [Commons file Zaharias museum.jpg](https://commons.wikimedia.org/wiki/File:Zaharias_museum.jpg), Larry D. Moore, **CC BY 4.0**, building photographed June 12, 2007. Specific museum exterior, not nearby park; credited in hero.
+- **20th Century Technology Museum at Wharton County Historical Museum:** [Commons file Wharton County Museum IMG 1054.JPG](https://commons.wikimedia.org/wiki/File:Wharton_County_Museum_IMG_1054.JPG), Billy Hathorn, **CC BY-SA 3.0**. Shows shared museum building (label accordingly), not necessarily inside the technology exhibits.
+
+Photo metadata independently checked using Wikimedia Commons API imageinfo.extmetadata. No unlicensed operator photos copied.
+
+## Elisabet Ney Museum, Austin — October 12, 2026
+
+- **Historic Formosa studio and Elisabet Ney Museum exterior**: [Wikimedia Commons file](https://commons.wikimedia.org/wiki/File:Austin_-_Elisabet_Ney_Museum_-_20201006000619.jpg), photographer **MarkJGilmore**, **CC BY-SA 4.0**, photographed 2020. Licensed exterior is historical and must not imply the venue is open during the 2024–2027 capital-improvement closure. Confirm the original file's credit and license when refreshing the asset.
+
 ## Public-domain museum photographs: El Paso and Huntsville, October 12, 2026
 
 - **El Paso Museum of Art**: [File:El Paso Museum of Art. El Paso, Texas.jpg](https://commons.wikimedia.org/wiki/File:El_Paso_Museum_of_Art._El_Paso,_Texas.jpg), **Wmpearl**, public domain, museum building exterior, 3,648 × 2,736 px. Do not imply photo depicts a specific current temporary exhibition.
