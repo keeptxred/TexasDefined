@@ -21,8 +21,6 @@ const page = fs.readFileSync(pagePath, "utf8");
 const head = fs.readFileSync(headPath, "utf8");
 
 function block(name) {
-  const pattern = new RegExp(`export const ${name} = \\``); // overwritten below without relying on a TypeScript parser
-  void pattern;
   const prefix = `export const ${name} = `;
   const start = code.indexOf(prefix);
   if (start < 0) throw Error(`Missing catalog block ${name}`);
