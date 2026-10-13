@@ -1492,9 +1492,9 @@
           "label": "Museum official visiting and free admission"
         },
         {
-          "sourceUrl": "https://www.bellcountymuseum.org/location/add-location-name-here",
-          "fetchUrl": "https://www.bellcountymuseum.org/location/add-location-name-here",
-          "label": "Museum public-program calendar"
+          "sourceUrl": "https://www.bellcountymuseum.org/events",
+          "fetchUrl": "https://www.bellcountymuseum.org/events",
+          "label": "Official Bell County Museum event calendar"
         }
       ]
     },
