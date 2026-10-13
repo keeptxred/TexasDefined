@@ -734,6 +734,39 @@
           "label": "Museum Pivot to America Wing"
         }
       ]
+    },
+    {
+      "path": "/destination/modern-art-museum-fort-worth",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+          "fetchUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+          "label": "Modern October sculpture program"
+        },
+        {
+          "sourceUrl": "https://www.themodern.org/visit/hours-and-admission",
+          "fetchUrl": "https://www.themodern.org/visit/hours-and-admission",
+          "label": "Modern official visitor hours and temporary gallery closure"
+        },
+        {
+          "sourceUrl": "https://www.themodern.org/caf%C3%A9-modern",
+          "fetchUrl": "https://www.themodern.org/caf%C3%A9-modern",
+          "label": "Modern Café Modern"
+        },
+        {
+          "sourceUrl": "https://www.themodern.org/tours",
+          "fetchUrl": "https://www.themodern.org/tours",
+          "label": "Modern tours"
+        },
+        {
+          "sourceUrl": "https://www.themodern.org/accessibility",
+          "fetchUrl": "https://www.themodern.org/accessibility",
+          "label": "Modern accessibility"
+        }
+      ]
     }
   ]
 }
