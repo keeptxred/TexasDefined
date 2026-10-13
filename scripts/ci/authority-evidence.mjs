@@ -59,7 +59,7 @@ export function auditAuthorityEvidence(url, html) {
   const headingTags = [...scope.matchAll(/<h[2-4]\b[^>]*>([\s\S]*?)<\/h[2-4]>/gi)].map(x => strip(x[1]));
   const relevantImageAlts = [...scope.matchAll(/<img\b[^>]*>/gi)].map(match => attr(match[0], 'alt')).filter(alt => alt.length > 24);
   const visibleReviewDate = /\b(?:last verified|sources? checked|fact.checked|last reviewed|research verified)\b/i.test(mainText);
-  const visibleAuthorship = /\b(?:by|written by|edited by)\s+[A-Z][\p{L}.' -]{3,}/u.test(mainText);
+  const visibleAuthorship = /\b(?:by|written by|edited by)\s+[A-Z][\p{L}.' -]{3,}/iu.test(mainText);
   const visibleSourceSection = headingTags.some(heading => /^(?:sources|references|source transparency|sources and further reading|research sources|methodology|official sources)\b/i.test(heading));
   const reviewFlags = [];
   if (!optOut) {
