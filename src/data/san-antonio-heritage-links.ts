@@ -154,7 +154,7 @@ const sanAntonioHistoricLinks: Record<string, DestinationEditorialLink[]> = {
       "description": "Continue the San Antonio heritage route with San Antonio Missions National Historical Park, adding context from the city's different historical eras."
     },
     {
-      "href": "/destination/san-antonio",
+      "href": "/city/san-antonio",
       "label": "San Antonio",
       "description": "Continue the San Antonio heritage route with San Antonio, adding context from the city's different historical eras."
     }
@@ -216,7 +216,7 @@ const sanAntonioHistoricLinks: Record<string, DestinationEditorialLink[]> = {
       "description": "Continue the San Antonio heritage route with Mission Espada, adding context from the city's different historical eras."
     },
     {
-      "href": "/destination/san-antonio",
+      "href": "/city/san-antonio",
       "label": "San Antonio",
       "description": "Continue the San Antonio heritage route with San Antonio, adding context from the city's different historical eras."
     }
@@ -327,7 +327,7 @@ const sanAntonioHistoricLinks: Record<string, DestinationEditorialLink[]> = {
       "description": "Continue the San Antonio heritage route with Villa Finale, adding context from the city's different historical eras."
     },
     {
-      "href": "/destination/san-antonio",
+      "href": "/city/san-antonio",
       "label": "San Antonio",
       "description": "Continue the San Antonio heritage route with San Antonio, adding context from the city's different historical eras."
     },
@@ -445,7 +445,7 @@ const sanAntonioHistoricLinks: Record<string, DestinationEditorialLink[]> = {
       "description": "Continue the San Antonio heritage route with Casa Navarro, adding context from the city's different historical eras."
     },
     {
-      "href": "/destination/san-antonio",
+      "href": "/city/san-antonio",
       "label": "San Antonio",
       "description": "Continue the San Antonio heritage route with San Antonio, adding context from the city's different historical eras."
     },
@@ -622,7 +622,7 @@ const sanAntonioHistoricLinks: Record<string, DestinationEditorialLink[]> = {
       "description": "Follow verified access information and the downtown, King William and four-mission circuits."
     },
     {
-      "href": "/destination/san-antonio",
+      "href": "/city/san-antonio",
       "label": "San Antonio",
       "description": "Continue the San Antonio heritage route with San Antonio, adding context from the city's different historical eras."
     },
