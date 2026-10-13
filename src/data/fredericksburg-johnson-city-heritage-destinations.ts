@@ -453,7 +453,7 @@ export const fredericksburgJohnsonCityHeritageDestinations: Destination[] = [
         {
           "name": "LBJ State Park & Historic Site",
           "description": "Sauer-Beckmann Farm and ranch permit center.",
-          "href": "/destination/lyndon-b-johnson-state-park-and-historic-site"
+          "href": "/destination/lyndon-b-johnson-state-park-historic-site"
         }
       ],
       "foodAndDrink": [
@@ -486,7 +486,7 @@ export const fredericksburgJohnsonCityHeritageDestinations: Destination[] = [
         {
           "name": "Sauer-Beckmann Farm",
           "description": "Family-friendly interpretive stop with farm life and historical demonstrations.",
-          "href": "/destination/lyndon-b-johnson-state-park-and-historic-site"
+          "href": "/destination/lyndon-b-johnson-state-park-historic-site"
         }
       ],
       "sideTrips": [
