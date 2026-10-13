@@ -30,3 +30,6 @@ Authored 3 sourced history/season milestones, three unique program narratives an
 - Genuine team photographs remain unavailable without documented reuse rights, license, attribution and alt text
 - Not a school-endorsed page; 2026–28 UIL alignment is not a current game record
 - Keep **IMPLEMENTED** status until independent live evidence supports stronger states
+
+## October 13, 2026 — 2026 football fixture and scorecard research
+MaxPreps [2026 varsity schedule](https://www.maxpreps.com/tx/bay-city/bay-city-blackcats/football/schedule/) used for dated results and 10 listed matchups. 4–1 through September 25; archive dated September 28 means October 2 and October 9 games have UNKNOWN scores, not assigned results. School district remains authoritative on venue, accessible entry and tickets. Do not publish unknown games as W/L or repurpose unlicensed team pictures.
