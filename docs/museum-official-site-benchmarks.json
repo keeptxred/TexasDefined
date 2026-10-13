@@ -283,6 +283,70 @@
         "https://www.treetexas.com/exhibits-1/paper-mill-room"
       ]
     },
+    "babe-didrikson-zaharias-museum-beaumont": {
+      "name": "Babe Didrikson Zaharias Museum & Visitor Center",
+      "operatorStrengths": [
+        "Operator visitor, exhibits and contact pages checked",
+        "Independent research into admission, hours, visitor fit and accessibility"
+      ],
+      "openGaps": [
+        "Side-by-side full visitor resource review before visitor superiority certification",
+        "Post-deployment mobile/browser QA and image load check"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+        "https://www.beaumonttexas.gov/facilities/facility/details/Babe-Zaharias-Museum-Visitor-Center-74",
+        "https://www.babezahariasmuseum.com/babe-zaharias/",
+        "https://bdzfoundation.com/contact/"
+      ]
+    },
+    "20th-century-technology-museum-wharton": {
+      "name": "20th Century Technology Museum",
+      "operatorStrengths": [
+        "Operator visitor, exhibits and contact pages checked",
+        "Independent research into admission, hours, visitor fit and accessibility"
+      ],
+      "openGaps": [
+        "Side-by-side full visitor resource review before visitor superiority certification",
+        "Post-deployment mobile/browser QA and image load check"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.20thcenturytech.com/location.html",
+        "https://www.whartoncountymuseum.org/tech-museum",
+        "https://www.whartoncountymuseum.org/",
+        "https://atlas.thc.texas.gov/Details/4200001087"
+      ]
+    },
+    "elisabet-ney-museum-austin": {
+      "name": "Elisabet Ney Museum",
+      "operatorStrengths": [
+        "City of Austin primary visitor closure notice and renovation plan",
+        "Artist/studio history, collection resources, and current virtual exhibits"
+      ],
+      "openGaps": [
+        "Compare entire operator visitor guidance to independent visitor needs after reopening",
+        "Check current site routes and image licensing in production browser"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.austintexas.gov/ney",
+        "https://www.austintexas.gov/parks/projects/elisabet-ney-museum-improvements",
+        "https://www.austintexas.gov/ney/programs-education",
+        "https://www.austintexas.gov/ney/elisabet-ney-museum-exhibits",
+        "https://www.austintexas.gov/ney/about-elisabet-ney-museum"
+      ]
+    },
     "amon-carter-museum-american-art-fort-worth": {
       "name": "Amon Carter Museum of American Art",
       "operatorStrengths": [

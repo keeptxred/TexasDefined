@@ -332,6 +332,95 @@
       ]
     },
     {
+      "path": "/destination/babe-didrikson-zaharias-museum-beaumont",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+          "fetchUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+          "label": "Babe Zaharias Museum — current visitor information"
+        },
+        {
+          "sourceUrl": "https://www.beaumontcvb.com/birding/birdies/babe/",
+          "fetchUrl": "https://www.beaumontcvb.com/birding/birdies/babe/",
+          "label": "Beaumont convention and visitors bureau — operator visitor schedules; direct city facilities page remains editorial conflict citation but blocks automated requests"
+        },
+        {
+          "sourceUrl": "https://www.babezahariasmuseum.com/babe-zaharias/",
+          "fetchUrl": "https://www.babezahariasmuseum.com/babe-zaharias/",
+          "label": "Babe Zaharias Museum — athlete and exhibit history"
+        },
+        {
+          "sourceUrl": "https://bdzfoundation.com/contact/",
+          "fetchUrl": "https://bdzfoundation.com/contact/",
+          "label": "Babe Didrikson Zaharias Foundation — contact"
+        }
+      ]
+    },
+    {
+      "path": "/destination/20th-century-technology-museum-wharton",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.20thcenturytech.com/location.html",
+          "fetchUrl": "https://www.20thcenturytech.com/location.html",
+          "label": "Technology museum — independent schedule"
+        },
+        {
+          "sourceUrl": "https://www.whartoncountymuseum.org/tech-museum",
+          "fetchUrl": "https://www.whartoncountymuseum.org/tech-museum",
+          "label": "Host museum — contemporary technology exhibit"
+        },
+        {
+          "sourceUrl": "https://www.whartoncountymuseum.org/",
+          "fetchUrl": "https://www.whartoncountymuseum.org/",
+          "label": "Wharton County Historical Museum — visit"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/4200001087",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/4200001087",
+          "label": "Texas Historical Commission museum Atlas"
+        }
+      ]
+    },
+    {
+      "path": "/destination/elisabet-ney-museum-austin",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 7,
+      "sources": [
+        {
+          "sourceUrl": "https://www.austintexas.gov/ney",
+          "fetchUrl": "https://www.austintexas.gov/ney",
+          "label": "City of Austin — current closure and visitor status"
+        },
+        {
+          "sourceUrl": "https://www.austintexas.gov/parks/projects/elisabet-ney-museum-improvements",
+          "fetchUrl": "https://www.austintexas.gov/parks/projects/elisabet-ney-museum-improvements",
+          "label": "City of Austin — improvement project"
+        },
+        {
+          "sourceUrl": "https://www.austintexas.gov/ney/programs-education",
+          "fetchUrl": "https://www.austintexas.gov/ney/programs-education",
+          "label": "FAQ: Does Elisabet Ney Museum offer accessible family or school programming during construction?"
+        },
+        {
+          "sourceUrl": "https://www.austintexas.gov/ney/elisabet-ney-museum-exhibits",
+          "fetchUrl": "https://www.austintexas.gov/ney/elisabet-ney-museum-exhibits",
+          "label": "City of Austin — exhibit and online access"
+        },
+        {
+          "sourceUrl": "https://www.austintexas.gov/ney/about-elisabet-ney-museum",
+          "fetchUrl": "https://www.austintexas.gov/ney/about-elisabet-ney-museum",
+          "label": "City of Austin — artist, studio and historical background"
+        }
+      ]
+    },
+    {
       "path": "/destination/amon-carter-museum-american-art-fort-worth",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
