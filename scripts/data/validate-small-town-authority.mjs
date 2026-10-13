@@ -103,6 +103,7 @@ const catalog = read("src/data/destination-preserved-catalog.ts");
 const runtime = read("src/data/destination-query-runtime.ts");
 const planner = read("src/components/editorial/DestinationVisitPlanner.tsx");
 const authority = read("src/components/editorial/DestinationAuthoritySections.tsx");
+const related = read("src/components/editorial/DestinationRelationships.tsx");
 const countyTemplate = read("src/routes/$kind.$slug.lazy.tsx");
 for (const value of ["smallTownWave15Destinations,", "additionalTownAuthorityDestinations,"]) check(catalog.includes(value), "Explore catalog missing " + value);
 check(runtime.includes("applyTownAuthority(normalizeDestinationCounty("), "Detail resolver must enrich every town");
@@ -110,9 +111,11 @@ check(runtime.includes(".map(applyTownAuthority);"), "Search/sitemap/catalog res
 check(planner.includes("<DestinationAuthoritySections destination={destination} />"), "Visible guide and research sections absent");
 check(planner.includes("townAuthorityContextualLinks(destination)"), "Town/attraction contextual backlinks absent");
 check(planner.includes('from "@/data/town-authority-links"'), "Destination client must import lightweight links only");
-for (const required of ["guide.itineraries.map", "guide.sources.filter", "area[key]", "noopener noreferrer"]) {
+for (const required of ["guide.itineraries.map", "guide.sources.filter", "noopener noreferrer"]) {
   check(authority.includes(required), "Shared authority template missing " + required);
 }
+check(related.includes("DestinationAreaGuideSection") && related.includes("destination.areaGuide"), "Existing local-area guide must render once, downstream of authority research");
+check(!authority.includes("area[key]") && !authority.includes("SafeAreaLink"), "Authority research must not duplicate the existing local-area guide");
 check(countyTemplate.includes("<CountyTownAuthorityLinks"), "County/city inbound links missing");
 check(read("src/components/content/CountyTownAuthorityLinks.tsx").includes('from "@/data/town-authority-links"'), "County/city client must import lightweight links only");
 const cityIndex = read("src/data/city-authority-index.ts");
