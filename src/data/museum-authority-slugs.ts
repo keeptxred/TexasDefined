@@ -53,4 +53,5 @@ export const museumAuthoritySlugs: ReadonlySet<string> = new Set([
   "el-paso-holocaust-museum",
   "el-paso-museum-of-archaeology",
   "johnny-nelson-katy-heritage-museum",
+  "1919-san-augustine-county-jail-museum",
 ]);
