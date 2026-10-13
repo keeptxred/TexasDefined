@@ -117,8 +117,9 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
   const topAttractionRank = topTexasAttractionRank(destination.slug);
   const historicGuide = destination.category === "historic-sites" ||
     ["goliad-state-park-and-historic-site", "san-jacinto-battleground-state-historic-site", "washington-on-the-brazos-state-historic-site"].includes(destination.slug);
-  const hasExtendedAuthorityGuide = Boolean(destination.authorityGuide) &&
-    (AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug) || historicGuide);
+  const isIndividuallyRegisteredAuthorityGuide = Boolean(destination.authorityGuide) && AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug);
+  const hasExtendedAuthorityGuide = isIndividuallyRegisteredAuthorityGuide ||
+    (Boolean(destination.authorityGuide) && historicGuide);
   const isWhirlyBall = destination.slug === WHIRLYBALL_SLUG;
   const hasCampingProfile = CAMPING_DESTINATION_SLUGS.has(destination.slug);
   const hasSamRayburnHouseContext = destination.slug === "sam-rayburn-house";
