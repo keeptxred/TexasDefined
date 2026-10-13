@@ -16,7 +16,7 @@ export const hillCountryStateNaturalAreaAuthority: Destination = {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Overlook_View_Hill_Country_SNA_Texas_2023.jpg?width=1600",
     alt: "Scenic Hill Country State Natural Area ridgeline overlook photographed on-site October 2023",
     width: 1600, height: 900,
-    credit: "Nv8200pa · CC BY 4.0 · Wikimedia Commons · photo October 14, 2023",
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · photo October 14, 2023",
   },
   summary: "A rugged backcountry natural area southwest of Bandera with 40 miles of hiking and equestrian routes, primitive creekside and remote camping, and hillside overlooks that require careful trail-and-water planning.",
   bestSeason: "Spring and fall are typically most comfortable for walking, riding and primitive camping; the open Hill Country landscape can be exposed to summer heat.",
