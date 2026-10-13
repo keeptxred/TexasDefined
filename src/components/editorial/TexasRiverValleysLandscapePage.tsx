@@ -1,28 +1,46 @@
 import { Link } from '@tanstack/react-router';
+import { RIVER_AUTHORITY_CARD_PHOTOS } from '@/data/river-authority-photo-catalog';
 
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Section, SectionHeader } from '@/components/editorial/SectionHeader';
 import { Container } from '@/components/layout/Container';
 import type { LandscapeCatalogItem } from '@/data/texas-landscape-catalog';
+import { RIVER_AUTHORITY_RELATIONS } from '@/data/river-authority-relations';
 import type { EnrichedLandscapeRecord } from '@/data/texas-landscape-profile-enrichment';
 
 const TWDB_BASIN_MAP = 'https://www.twdb.texas.gov/mapping/doc/maps/Major_River_Basins_8x11.pdf';
 
-const rivers = [
+const featuredRivers = [
   { name: 'Rio Grande', region: 'West Texas & the border', href: '/article/texas-rio-grande-river-guide', image: '/images/explore/lakes-rivers/amistad-national-recreation-area.jpg', description: 'Texas’s great border river crosses desert basins, cuts spectacular canyons and ties mountain runoff, springs, reservoirs and irrigated valleys into one international system.' },
-  { name: 'Pecos River', region: 'Far West Texas', href: '/explore/landscapes/trans-pecos-far-west-texas', image: '/images/explore/lakes-rivers/amistad-national-recreation-area.jpg', description: 'A desert river whose flow, salinity and broad valley show how scarce water behaves in the Trans-Pecos before joining the Rio Grande.' },
+  { name: 'Pecos River', region: 'Far West Texas', href: '/article/texas-pecos-river-guide', image: '/images/explore/lakes-rivers/amistad-national-recreation-area.jpg', description: 'A desert river whose flow, salinity and broad valley show how scarce water behaves in the Trans-Pecos before joining the Rio Grande.' },
   { name: 'Brazos River', region: 'Plains to Gulf Coast', href: '/article/texas-brazos-river-guide', image: '/images/explore/lakes-rivers/lake-somerville-birch-creek-unit.jpg', description: 'One of the state’s longest rivers, linking High Plains tributaries, prairie country, reservoirs, agricultural bottomlands and a broad lower coastal valley.' },
   { name: 'Colorado River', region: 'West & Central Texas', href: '/article/texas-colorado-river-guide', image: '/images/explore/lakes-rivers/pedernales-falls-state-park.jpg', description: 'The Texas Colorado crosses limestone country, the Highland Lakes and Austin before flattening into a lower coastal river on its way to Matagorda Bay.' },
   { name: 'Guadalupe River', region: 'Hill Country to coast', href: '/article/texas-guadalupe-river-guide', image: '/images/editorial/texas-guadalupe-river.jpg', description: 'Spring-influenced Hill Country water, limestone channels and cypress-lined banks give way downstream to wider floodplain country and the Guadalupe estuary.' },
+  { name: 'Frio River', region: 'Real and Uvalde counties', href: '/article/texas-frio-river-guide', image: '/images/state-parks/garner-state-park.jpg', description: 'Garner, Concan and the upper Frio canyon give swimmers and campers an identifiable managed-access river destination.' },
+  { name: 'Comal River', region: 'New Braunfels', href: '/article/texas-comal-river-guide', image: '/images/editorial/texas-river-basins.jpg', description: 'A short spring-fed city river with visitor-focused tubing rules and a confluence with the Guadalupe.' },
+  { name: 'San Marcos River', region: 'Hays and Caldwell counties', href: '/article/texas-san-marcos-river-guide', image: '/images/editorial/texas-river-basins.jpg', description: 'Spring Lake headwaters, protected plants, urban river parks and a separate lower-river paddling corridor.' },
+  { name: 'Llano River', region: 'Junction to Highland Lakes', href: '/article/texas-llano-river-guide', image: '/images/explore/lakes-rivers/south-llano-river-state-park.jpg', description: 'North and South Llano forks, spring-fed park access and fishing through Hill Country towns.' },
   { name: 'Trinity River', region: 'North Texas to Trinity Bay', href: '/article/texas-trinity-river-guide', image: '/images/editorial/texas-trinity-river.jpg', description: 'A major urban and water-supply system that drains Dallas–Fort Worth, crosses East Texas bottomlands and reaches the Galveston Bay system.' },
-  { name: 'Sabine River', region: 'East Texas', href: '/explore/landscapes/piney-woods', image: '/images/editorial/texas-trinity-river.jpg', description: 'A humid, forested East Texas river with broad bottomlands, reservoirs and a lower valley influenced by Gulf Coast wetlands.' },
-  { name: 'Neches River', region: 'Piney Woods', href: '/explore/landscapes/piney-woods', image: '/images/editorial/texas-trinity-river.jpg', description: 'Forested floodplains, sloughs and bottomland hardwoods make the Neches one of the clearest examples of an East Texas river landscape.' },
-  { name: 'Nueces River', region: 'Edwards Plateau to South Texas', href: '/explore/lakes-rivers', image: '/images/editorial/texas-guadalupe-river.jpg', description: 'Clear upper reaches in limestone country transition toward drier South Texas landscapes and a much broader lower basin.' },
-  { name: 'Frio River', region: 'Hill Country', href: '/explore/lakes-rivers', image: '/images/editorial/texas-guadalupe-river.jpg', description: 'Cold, clear water, limestone gravel and bald-cypress corridors make the Frio a classic spring-influenced Hill Country river.' },
-  { name: 'San Antonio River', region: 'Central & South Texas', href: '/explore/lakes-rivers', image: '/images/editorial/texas-guadalupe-river.jpg', description: 'A spring-origin river whose upper urban reach gives way to a larger watershed that joins the Guadalupe system downstream.' },
-  { name: 'Red River', region: 'North Texas', href: '/explore/landscapes/prairies-and-grasslands', image: '/images/explore/lakes-rivers/lake-somerville-birch-creek-unit.jpg', description: 'A sediment-rich northern boundary river shaped by plains runoff, wide valleys, tributaries and major reservoirs.' },
-  { name: 'Canadian River', region: 'Texas Panhandle', href: '/explore/landscapes/texas-panhandle', image: '/images/explore/lakes-rivers/lake-somerville-birch-creek-unit.jpg', description: 'A High Plains and Panhandle river that cuts into canyon and breaks country, showing how streams dissect the edge of the plateau.' },
+  { name: 'Sabine River', region: 'East Texas', href: '/article/texas-sabine-river-guide', image: '/images/editorial/texas-river-basins.jpg', description: 'A humid, forested East Texas river with broad bottomlands, reservoirs and a lower valley influenced by Gulf Coast wetlands.' },
+  { name: 'Neches River', region: 'Piney Woods', href: '/article/texas-neches-river-guide', image: '/images/explore/lakes-rivers/village-creek-state-park.jpg', description: 'Forested floodplains, sloughs and bottomland hardwoods make the Neches one of the clearest examples of an East Texas river landscape.' },
+  { name: 'Nueces River', region: 'Edwards Plateau to South Texas', href: '/article/texas-nueces-river-guide', image: '/images/editorial/texas-guadalupe-river.jpg', description: 'Clear upper reaches in limestone country transition toward drier South Texas landscapes and a much broader lower basin.' },
+  { name: 'San Antonio River', region: 'Central & South Texas', href: '/article/texas-san-antonio-river-guide', image: '/images/editorial/texas-guadalupe-river.jpg', description: 'A spring-origin river whose upper urban reach gives way to a larger watershed that joins the Guadalupe system downstream.' },
+  { name: 'Red River', region: 'North Texas', href: '/article/texas-red-river-guide', image: '/images/explore/lakes-rivers/lake-somerville-birch-creek-unit.jpg', description: 'A sediment-rich northern boundary river shaped by plains runoff, wide valleys, tributaries and major reservoirs.' },
+  { name: 'Canadian River', region: 'Texas Panhandle', href: '/article/texas-canadian-river-guide', image: '/images/explore/lakes-rivers/lake-somerville-birch-creek-unit.jpg', description: 'A High Plains and Panhandle river that cuts into canyon and breaks country, showing how streams dissect the edge of the plateau.' },
 ] as const;
+
+const rivers = [
+  ...featuredRivers,
+  ...RIVER_AUTHORITY_RELATIONS
+    .filter((river) => !featuredRivers.some((existing) => existing.href === `/article/${river.slug}`))
+    .map((river) => ({
+      name: river.name,
+      region: "Texas river corridor",
+      href: `/article/${river.slug}`,
+      image: "/images/editorial/texas-river-basins.jpg",
+      description: "Open the source-led river guide for geography, real access conditions, fishing, camping and nearby destinations.",
+    })),
+];
 
 const regions = [
   { title: 'Hill Country rivers', rivers: 'Guadalupe · Frio · Nueces · Llano · Blanco · Pedernales', body: 'Limestone, springs and aquifers help create some of Texas’s clearest and most recognizable river corridors. Bald cypress, gravel bars, exposed bedrock and sudden flood pulses are common visual clues.' },
@@ -115,7 +133,22 @@ export function TexasRiverValleysLandscapePage({ item, nearby }: { item: Enriche
 
     <Section><Container><SectionHeader eyebrow="Read the landscape" title="Six river-valley features worth knowing" description="These plain-language terms explain what you are actually seeing beside a Texas river." /><div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{landforms.map((feature) => <section key={feature.title} className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl">{feature.title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{feature.body}</p></section>)}</div></Container></Section>
 
-    <Section tone="surface"><Container><SectionHeader eyebrow="Major systems" title="Thirteen rivers that explain Texas" description="These rivers are useful reference points because together they cross nearly every major Texas landscape." /><div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">{rivers.map((river) => <Link key={river.name} to={river.href} className="group overflow-hidden rounded-sm border border-border bg-background transition-colors hover:border-primary"><div className="aspect-[16/9] overflow-hidden bg-surface"><img src={river.image} alt={river.name + ' landscape in Texas'} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" /></div><div className="p-5"><p className="eyebrow text-primary">{river.region}</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">{river.name}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{river.description}</p></div></Link>)}</div></Container></Section>
+    <Section tone="surface"><Container><SectionHeader eyebrow="Major systems" title={`${rivers.length} rivers that explain Texas`} description="These rivers are useful reference points because together they cross nearly every major Texas landscape." /><div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">{rivers.map((river) => {
+  const photo = RIVER_AUTHORITY_CARD_PHOTOS[river.href];
+  return <div key={river.href} className="overflow-hidden rounded-sm border border-border bg-background">
+    <Link to={river.href} className="group block transition-colors hover:text-primary">
+      <div className="aspect-[16/9] overflow-hidden bg-surface">
+        <img src={photo?.src ?? river.image} alt={photo?.alt ?? (river.image.includes('texas-river-basins') ? 'Illustrated map of the Texas river basins' : river.name + ' watershed or nearby representative landscape in Texas')} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
+      </div>
+      <div className="p-5">
+        <p className="eyebrow text-primary">{river.region}</p>
+        <h3 className="mt-2 font-display text-2xl group-hover:text-primary">{river.name}</h3>
+        <p className="mt-3 text-sm leading-7 text-muted-foreground">{river.description}</p>
+      </div>
+    </Link>
+    {photo ? <p className="px-5 pb-5 text-xs text-muted-foreground">Photo: <a href={photo.sourceUrl} target="_blank" rel="noreferrer" className="underline">{photo.photographer}</a> · <a href={photo.licenseUrl} target="_blank" rel="noreferrer" className="underline">{photo.license}</a> · Wikimedia Commons</p> : null}
+  </div>;
+})}</div></Container></Section>
 
     <Section><Container>
       <div className="grid gap-10 lg:grid-cols-2">

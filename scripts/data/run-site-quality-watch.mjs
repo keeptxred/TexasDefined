@@ -3,6 +3,26 @@ import { spawnSync } from 'node:child_process';
 
 const checks = [
   {
+    id: 'wildlife-ecological-discovery',
+    label: 'Contextual animal profile links from authoritative wildlife, bird and hunting guides',
+    script: 'scripts/data/validate-contextual-wildlife-crosslinks.mjs',
+  },
+  {
+    id: 'region-and-swimming-publication-scope',
+    label: 'Seven-region SSR scope and research-gated swim guide indexing',
+    script: 'scripts/ci/verify-region-scope-and-swim-indexability.mjs',
+  },
+  {
+    id: 'fishing-sitemap-indexability',
+    label: 'Empty lake guides/reports excluded from sitemaps until verified',
+    script: 'scripts/data/validate-fishing-sitemap-indexability.mjs',
+  },
+  {
+    id: 'authority-evidence-diagnostics',
+    label: 'Topic-sensitive sitewide authority diagnostic correctness',
+    script: 'scripts/ci/authority-evidence.test.mjs',
+  },
+  {
     id: 'generated-content',
     label: 'Thin, empty and generated-content quality',
     script: 'scripts/data/validate-generated-page-quality.mjs',

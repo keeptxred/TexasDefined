@@ -37,6 +37,9 @@ export const texasRegionsExplainedArticle: Article = {
   ],
   featured: true,
   internalLinks: [
+    { href: "/article/scenic-drives-in-texas", label: "Scenic drives across all seven regions", description: "Practical route and vehicle guidance from Hill Country to Big Bend and the coast." },
+    { href: "/article/texas-wine-country", label: "Texas wine country and grape-growing regions", description: "Compare tourism corridors with federally defined viticultural areas." },
+    { href: "/article/texas-german-belt", label: "German-Texan settlement heritage", description: "Explore the cultural footprint across several counties rather than treating it as a travel region." },
     {
       href: "/explore",
       label: "Explore Texas by place",

@@ -41,6 +41,16 @@ export const texasLakesReservoirsExplainedArticle: Article = {
       description: "Find reservoirs, river parks, paddling water and places built around Texas waterways.",
     },
     {
+      href: "/fishing/lakes/lake-stamford",
+      label: "Lake Stamford: a 1950s municipal reservoir",
+      description: "Follow the Paint Creek dam story into Haskell County and check current boat ramps, crappie fishing and lake levels.",
+    },
+    {
+      href: "/fishing/lakes/lake-sweetwater",
+      label: "Lake Sweetwater: water supply, drought and recreation",
+      description: "See how a Nolan County water-supply reservoir became a city park—and why low water and golden algae matter to visitors.",
+    },
+    {
       href: "/article/texas-rivers-explained",
       label: "The rivers that built Texas",
       description: "See the river systems underneath the reservoir map and how they divide the state into major basins.",
@@ -121,6 +131,7 @@ export const texasLakesReservoirsExplainedArticle: Article = {
     h("Texas is not building giant reservoirs at the pace it once did"),
     p("The great reservoir-building era slowed after the 1960s and 1970s. The Texas Water Development Board has pointed to several reasons: the best dam sites are limited, projects are expensive, environmental review is more complex and permitting can be difficult. New reservoirs still appear in long-range water plans, but building one is a much larger undertaking than drawing a blue shape on a planning map."),
     p("That makes existing reservoirs increasingly important. Maintaining dams, protecting storage capacity from sediment, coordinating water rights and moving water efficiently can matter as much as building something new. Texas is also expanding other strategies, including groundwater management, conservation, reuse, desalination and transfers between systems."),
+    p("The story is visible in smaller city reservoirs too. Lake Stamford began impounding Paint Creek in 1953 to serve municipal water needs and became a Haskell County fishing and camping destination. Lake Sweetwater began as a 1930 water-supply reservoir and later supported a municipal park, but drought and golden-alga impacts can make its fishing and launching conditions very different from historic photographs. Each has a dedicated TexasDefined lake guide linked below, with dated sources and current-agency checks."),
     h("How to read a Texas lake like a Texan"),
     list(
       "Find the dam. It immediately tells you which end of the lake is deepest and confirms that the lake is an impoundment.",

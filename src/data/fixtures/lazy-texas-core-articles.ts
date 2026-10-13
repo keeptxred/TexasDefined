@@ -8,6 +8,7 @@ import smallTown from "@/assets/small-town.jpg";
 
 import type { Article, ImageRef } from "../types";
 import { texasGatewayIndexReadyStubs } from "./texas-gateway-index-ready-stubs";
+import { regionalAuthorityArticleStubs } from "./regional-authority-stubs";
 
 const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
 const images = {
@@ -36,9 +37,11 @@ export const texasCoreArticleStubs: Article[] = [
 ];
 
 texasCoreArticleStubs.push(...texasGatewayIndexReadyStubs);
+texasCoreArticleStubs.push(...regionalAuthorityArticleStubs);
 
 const coreSlugs = new Set(texasCoreArticleStubs.map((article) => article.slug));
 const gatewayReadySlugs = new Set(texasGatewayIndexReadyStubs.map((article) => article.slug));
+const regionalAuthoritySlugs = new Set(["scenic-drives-in-texas", "texas-wine-country", "texas-german-belt"]);
 
 const depthSlugs = new Set([
   "bluebonnet-season-field-guide",
@@ -52,7 +55,7 @@ const depthSlugs = new Set([
 export async function loadTexasCoreArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
 
-  if (gatewayReadySlugs.has(slug) || !coreSlugs.has(slug)) {
+  if (gatewayReadySlugs.has(slug) || regionalAuthoritySlugs.has(slug) || !coreSlugs.has(slug)) {
     const { loadTexasGatewayArticle } = await import("./lazy-texas-gateway");
     return loadTexasGatewayArticle(brandId, slug);
   }

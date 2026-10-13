@@ -34,6 +34,7 @@ export const uvaldeCountyUvaldeGarnerFrioFortIngeArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-frio-river-guide", label: "Full frio  River guide", description: "Plan the related river with official access, fishing, camping and visitor information." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/real", label: "Explore Real County", description: "Follow the Frio and Nueces canyons north toward Leakey and Camp Wood." },
     { href: "/county/edwards", label: "Explore Edwards County", description: "Continue northwest toward Rocksprings, Devil's Sinkhole and the Edwards Plateau." },

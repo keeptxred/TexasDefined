@@ -34,6 +34,7 @@ export const aransasCountyRockportFultonBaysCoastalHeritageArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/rockport", label: "Rockport authority travel guide", description: "Plan Rockport waterfront, galleries, birding and Aransas Bay excursions." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/refugio", label: "Explore Refugio County", description: "Continue northwest toward Refugio, Woodsboro, the Mission River and coastal prairie." },
     { href: "/county/calhoun", label: "Explore Calhoun County", description: "Follow the middle Texas coast northeast toward Port Lavaca, Indianola and Matagorda Bay." },

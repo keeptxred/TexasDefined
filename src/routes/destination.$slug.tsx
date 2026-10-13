@@ -1,3 +1,4 @@
+import { DESTINATION_LAKE_GUIDE_LINKS } from "@/data/fishing/destination-lake-crosslinks";
 import { lazy, Suspense } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
@@ -16,12 +17,14 @@ import YsletaDelSurMuseumAuthority from "@/components/editorial/YsletaDelSurMuse
 import { highIntentGuideLinksForDestination } from "@/data/fixtures/texas-high-intent-guide-links";
 import { specialistGuidesForDestination } from "@/data/specialist-guide-destination-links";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
+import { destinationLocationAnswer } from "@/data/destination-location-answer";
 import { auditDestination } from "@/data/destination-audit";
 import { distanceMiles } from "@/data/destination-relationships";
 import { getDestinationRelationshipGroups } from "@/data/destination-relationships.functions";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { articlesQuery, categoriesQuery, destinationQuery, regionsQuery } from "@/data/queries";
 import { isTopTexasAttraction } from "@/data/top-texas-attractions";
+import { enrichMuseumAuthority, museumDossierFor } from "@/data/museum-authority-network";
 import { hideImageFallbackLabel, recoverOrHideImage } from "@/lib/image-fallback";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from "@/platform/internal-link-policies";
@@ -127,6 +130,7 @@ export const Route = createFileRoute("/destination/$slug")({
       const { resolveTopAttractionAuthority } = await import("@/data/top-attraction-authority-resolver");
       destination = resolveTopAttractionAuthority(destination);
     }
+    destination = enrichMuseumAuthority(destination);
     const [completeGraph, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([
       loadTexasKnowledgeGraph(),
       context.queryClient.ensureQueryData(categoriesQuery()),
@@ -141,6 +145,7 @@ export const Route = createFileRoute("/destination/$slug")({
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
     const { destination, categories, relationshipGroups } = loaderData;
     const isZapataMuseum = destination.slug === "zapata-county-museum-history";
+    const isAuthorityMuseum = Boolean(museumDossierFor(destination.slug));
     const isYsletaMuseum = destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso";
     const isYoungCountyMuseum = destination.slug === "young-county-museum-of-history-and-culture";
     const authorityGuide = destination.authorityGuide;
@@ -156,7 +161,7 @@ export const Route = createFileRoute("/destination/$slug")({
     const validGeo = hasValidCoordinates(destination.coordinates.lat, destination.coordinates.lng);
     const relatedPlaces = [...new Map(relationshipGroups.flatMap((group) => group.destinations).map((item) => [item.slug, item])).values()];
     const webPageSchema = { "@type": "WebPage", "@id": url, url, name: destination.name, description: destination.summary, isPartOf: { "@id": `${siteUrl}/#website` }, ...(hasUsableHero ? { primaryImageOfPage: { "@id": `${url}#primaryimage` } } : {}), mainEntity: { "@id": `${url}#attraction` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, ...(relatedPlaces.length > 0 ? { hasPart: { "@id": `${url}#related-places` } } : {}), ...(authorityCitations.length > 0 ? { citation: authorityCitations } : validExternalUrl(destination.officialUrl) ? { citation: destination.officialUrl } : {}), ...(authorityGuide ? { author: { "@type": "Organization", "@id": `${siteUrl}/authors/a-hollis#desk`, name: "Texas Defined Editorial Desk", url: `${siteUrl}/authors/a-hollis` }, isBasedOn: `${siteUrl}/explore/top-attractions/methodology` } : {}), ...(destination.sourceCheckedAt ? { dateModified: destination.sourceCheckedAt } : {}) };
-    const attractionSchema = { "@type": isZapataMuseum || isYsletaMuseum || isYoungCountyMuseum ? ["Museum", "TouristAttraction"] : "TouristAttraction", "@id": `${url}#attraction`, url, mainEntityOfPage: { "@id": url }, name: destination.name, description: destination.summary, ...(isZapataMuseum ? { telephone: "+1-956-765-8983", openingHoursSpecification: ["Tuesday", "Wednesday", "Thursday", "Friday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(isYoungCountyMuseum ? { telephone: "+1-940-282-2887", openingHoursSpecification: ["Wednesday", "Thursday", "Friday", "Saturday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(hasUsableHero && imageUrl ? { image: [{ "@type": "ImageObject", "@id": `${url}#primaryimage`, url: imageUrl, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height, ...(destination.hero.credit ? { creditText: destination.hero.credit } : {}) }] } : {}), ...(validGeo ? { geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } } : {}), address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US", ...(destination.address ? { streetAddress: isZapataMuseum ? "805 N U.S. Highway 83" : destination.address } : {}) }, containedInPlace: { "@type": "State", name: "Texas" }, touristType: categoryName, ...(destination.managingAuthority ? { provider: { "@type": "Organization", name: destination.managingAuthority } } : {}), ...(validExternalUrl(destination.officialUrl) ? { sameAs: destination.officialUrl } : {}) };
+    const attractionSchema = { "@type": isZapataMuseum || isYsletaMuseum || isYoungCountyMuseum || isAuthorityMuseum ? ["Museum", "TouristAttraction"] : "TouristAttraction", "@id": `${url}#attraction`, url, mainEntityOfPage: { "@id": url }, name: destination.name, description: destination.summary, ...(isZapataMuseum ? { telephone: "+1-956-765-8983", openingHoursSpecification: ["Tuesday", "Wednesday", "Thursday", "Friday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(isYoungCountyMuseum ? { telephone: "+1-940-282-2887", openingHoursSpecification: ["Wednesday", "Thursday", "Friday", "Saturday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(hasUsableHero && imageUrl ? { image: [{ "@type": "ImageObject", "@id": `${url}#primaryimage`, url: imageUrl, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height, ...(destination.hero.credit ? { creditText: destination.hero.credit } : {}) }] } : {}), ...(validGeo ? { geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } } : {}), address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US", ...(destination.address ? { streetAddress: isZapataMuseum ? "805 N U.S. Highway 83" : destination.address } : {}) }, containedInPlace: { "@type": "State", name: "Texas" }, touristType: categoryName, ...(destination.managingAuthority ? { provider: { "@type": "Organization", name: destination.managingAuthority } } : {}), ...(validExternalUrl(destination.officialUrl) ? { sameAs: destination.officialUrl } : {}) };
     const relatedSchema = { "@type": "ItemList", "@id": `${url}#related-places`, name: `Places related to ${destination.name}`, numberOfItems: relatedPlaces.length, itemListElement: relatedPlaces.map((item, index) => ({ "@type": "ListItem", position: index + 1, item: { "@type": "TouristAttraction", name: item.name, description: item.summary, url: `${siteUrl}/destination/${item.slug}`, image: absoluteUrl(texasDefinedBrand, item.hero.src) } })) };
     const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` }, { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` }, { "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}${categoryPath}` }, { "@type": "ListItem", position: 4, name: destination.name, item: url }] };
     return {
@@ -195,10 +200,16 @@ function DestinationPage() {
   const countySlug = countyRouteSlug(destination.county);
   const countyLabel = destination.county ? countyDisplayName(destination.county) : "";
   const isChokeCanyon = destination.slug === "choke-canyon-state-park";
-  const addressIsInNearestTown = Boolean(destination.address && destination.address.toLowerCase().includes(`, ${destination.nearestTown.toLowerCase()}, tx`));
+
   const locationAnswer = isChokeCanyon
     ? `${destination.name} has two public units west of Three Rivers: Calliham in McMullen County and South Shore in Live Oak County.`
-    : `${destination.name} is ${addressIsInNearestTown ? "in" : "near"} ${destination.nearestTown}, Texas${countyLabel ? `, in ${countyLabel}` : ""}.`;
+    : destinationLocationAnswer({
+        name: destination.name,
+        nearestTown: destination.nearestTown,
+        countyLabel,
+        regionName: region?.name,
+        address: destination.address,
+      });
   const relationshipGroupsForPage = isChokeCanyon
     ? relationshipGroups
       .map((group) => ({
@@ -280,6 +291,7 @@ function DestinationPage() {
           <div className="mt-7 flex flex-wrap gap-6">{validExternalUrl(destination.reservationUrl) && <a href={destination.reservationUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Reservations</a>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official visitor information</a>}{isChokeCanyon && <a href="https://tpwd.texas.gov/state-parks/choke-canyon/alert" target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Current park alerts</a>}</div>
         </section>
         {!isChokeCanyon && <Suspense fallback={null}><DestinationViatorBooking destination={destination} /></Suspense>}
+        {DESTINATION_LAKE_GUIDE_LINKS[destination.slug] ? <section className="mt-10 border-t border-border pt-8" aria-label="Related lake fishing and recreation guide"><p className="eyebrow text-primary">Explore this lake</p><h2 className="mt-3 font-display text-3xl">Fishing, boat ramps and lake conditions</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">This park is part of a larger lake trip. Our separate lake guide connects species, launch facilities, boating and nearby counties; confirm park admission, accessibility, overnight reservations and closures with the operator.</p><a href={`/fishing/lakes/${DESTINATION_LAKE_GUIDE_LINKS[destination.slug].slug}`} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">{DESTINATION_LAKE_GUIDE_LINKS[destination.slug].name} visitor and fishing guide →</a></section> : null}
         {!isChokeCanyon && <div className="mt-10"><DestinationVisitPlanner destination={destination} /></div>}
         {destination.slug === "spoetzl-brewery" && <Suspense fallback={null}><ShinerBreweryAuthority /></Suspense>}
       </div>

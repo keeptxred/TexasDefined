@@ -57,6 +57,11 @@ jobs:
           set -o pipefail
           node scripts/ci/run-premerge-validation.mjs 2>&1 | tee canonical-premerge-output.txt
 
+      # Every river and river-basin authority guide, including future additions,
+      # must pass the machine-readable quality and reciprocal-link contract before merge.
+      - name: Validate universal river authority
+        run: node scripts/data/validate-river-authority.mjs
+
       - name: Publish required protected-branch status
         if: github.event_name == 'pull_request'
         env:

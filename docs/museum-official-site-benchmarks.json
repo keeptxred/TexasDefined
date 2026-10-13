@@ -1,0 +1,289 @@
+{
+  "standard": "museum-visitor-guide-benchmark-v2",
+  "scope": "Be the most useful independent visitor and museum-understanding guide; NOT a duplicate of museum-owned collections, archives, artifact inventories or curatorial databases.",
+  "reviewedAt": null,
+  "rules": {
+    "decision": "Certify only after direct side-by-side comparison finds no material visitor-planning gaps versus the institution's published visitor guidance, the TexasDefined guide adds independent visitor value, specific exhibit highlights are accurate and brief, the FAQ is researched beyond the operator's FAQ and photos/links/technical QA pass. The museum remains the source of truth for live operations.",
+    "dimensions": [
+      "museumIdentityAndExhibitThemesWithUpToTenBriefHighlights",
+      "familyFriendlySuitabilityAndAgeSpecificExperience",
+      "ticketsParkingTravelTimeAndDiningType",
+      "mobilitySensoryAccessAndGroupPolicies",
+      "researchBackedMuseumSpecificVisitorFAQ",
+      "licensedMediaContextualCrosslinksAndTechnicalQA"
+    ]
+  },
+  "museums": {
+    "bullock-texas-state-history-museum": {
+      "name": "Bullock Texas State History Museum",
+      "operatorStrengths": [
+        "Museum-operated Texas history gallery coverage, La Belle and changing exhibit information",
+        "Interpretive chronology and collection-related research"
+      ],
+      "openGaps": [
+        "Confirm current Story of Texas Café service and visitor parking specifics, not merely historic marketing",
+        "Add distinct gallery highlight blurbs and visitor routes aligned to current galleries",
+        "Verify practical family and accessibility FAQ questions beyond museum tickets"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.thestoryoftexas.com/visit/exhibits/texas-history-gallery",
+        "https://www.thestoryoftexas.com/"
+      ]
+    },
+    "perot-museum-nature-science-dallas": {
+      "name": "Perot Museum",
+      "operatorStrengths": [
+        "Eleven permanent halls with hall-level detail",
+        "130,000+ cataloged research specimens, many not displayed",
+        "Extensive disability, sensory and wheelchair planning"
+      ],
+      "openGaps": [
+        "Prioritize the exhibit halls families ask about with short highlights, not the specimens inventory",
+        "Provide a family-facing comparison of a two-hour visit versus the full science experience",
+        "Track café, parking entrance construction, sensory supports, and separate add-on ticket requirements"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.perotmuseum.org/exhibits/",
+        "https://www.perotmuseum.org/researchers/collections/",
+        "https://www.perotmuseum.org/visit/accessibility/"
+      ]
+    },
+    "witte-museum": {
+      "name": "Witte Museum",
+      "operatorStrengths": [
+        "More than 320,000 objects and collections spanning anthropology, geology, art and history",
+        "Appointment-based researcher access to collection center",
+        "2026 centennial and exhibit calendar"
+      ],
+      "openGaps": [
+        "Distinguish permanent experiences from short-run centennial exhibits and add concise highlights",
+        "Clarify Tremblay Family Café, picnic policy, stroller and mobility route, and free Tuesday rule",
+        "Verify specific parking distance and accessible drop-off guidance raised by visitors"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.wittemuseum.org/collections/",
+        "https://www.wittemuseum.org/plan-your-visit/exhibits/"
+      ]
+    },
+    "museum-of-the-big-bend-alpine": {
+      "name": "Museum of the Big Bend",
+      "operatorStrengths": [
+        "Historical Big Bend exhibits and publicly accessible map interpretations",
+        "Yana and Marty Davis cartographic collection including 2004 and 2015 donations",
+        "Map archive access by appointment"
+      ],
+      "openGaps": [
+        "Explain core Big Bend Legacy themes in short visitor-oriented exhibit blurbs",
+        "Verify campus entrance, parking, accessibility and family fit",
+        "Distinguish guided tours and temporary exhibitions while avoiding archival cataloguing"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.museumofthebigbend.com/",
+        "https://maps.museumofthebigbend.com/about-the-collection/",
+        "https://maps.museumofthebigbend.com/visiting-the-map-collection/"
+      ]
+    },
+    "panhandle-plains-historical-museum-canyon": {
+      "name": "Panhandle-Plains Historical Museum",
+      "operatorStrengths": [
+        "Official temporary-closure and public-program updates",
+        "Collections and research-center resources"
+      ],
+      "openGaps": [
+        "Foreground temporary building closure with correct visit alternatives and event calendar",
+        "Explain what the closed museum usually covers without advertising gallery admission",
+        "Research travel-intent FAQs for museum reopening, virtual tours, and active offsite programs"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.panhandleplains.org/",
+        "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates"
+      ]
+    },
+    "george-ranch-historical-park": {
+      "name": "George Ranch Historical Park",
+      "operatorStrengths": [
+        "Saturdays general admission and booked weekday group schedules",
+        "Multiple historic houses, demonstrations, tram and access policies"
+      ],
+      "openGaps": [
+        "Explain Saturday public entry versus booked weekday groups",
+        "Cover outdoor surfaces, house accessibility, tram, picnicking, heat exposure and livestock rules",
+        "Include short highlights of historic houses and demonstrations, not a comprehensive artifacts inventory"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.georgeranch.org/visit/hours-admissions-directions/",
+        "https://www.georgeranch.org/visit/faq/",
+        "https://www.georgeranch.org/visit/group-tours/"
+      ]
+    },
+    "texas-maritime-museum-rockport": {
+      "name": "Texas Maritime Museum",
+      "operatorStrengths": [
+        "Multiple distinct maritime display areas",
+        "Research-only William A. Mann Library and oral history center",
+        "Museum research and collections policy"
+      ],
+      "openGaps": [
+        "Explain donation-based admission and children's museum experiences",
+        "Cover shipbuilding, shipwreck and coastal topics in concise exhibit highlights",
+        "Verify current dining options and accessible entry instead of assuming museum has a café"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://texasmaritimemuseum.org/exhibits/",
+        "https://texasmaritimemuseum.org/collections-library/",
+        "https://texasmaritimemuseum.org/"
+      ]
+    },
+    "national-museum-pacific-war": {
+      "name": "National Museum of the Pacific War",
+      "operatorStrengths": [
+        "Multi-part Pacific War campus and exhibit narratives",
+        "Thousands of archival items and oral histories",
+        "Carl I. Duncan Research Library holding 6,000+ books"
+      ],
+      "openGaps": [
+        "Make multi-campus visit duration, maps, parking and earlier Combat Zone closure prominent",
+        "Clearly separate basic admission, free outdoor areas and paid Rescue experience",
+        "Explain potential sensitive material for children and available food arrangements"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.pacificwarmuseum.org/",
+        "https://www.pacificwarmuseum.org/research-collections/center-for-pacific-war-studies"
+      ]
+    },
+    "frontier-texas": {
+      "name": "Frontier Texas!",
+      "operatorStrengths": [
+        "Immersive western storytelling and visitor-center functions",
+        "Interpretation of Texas frontier and forts-trail corridor"
+      ],
+      "openGaps": [
+        "Document operating status during construction and theater last-show times",
+        "Explain museum versus official regional visitor center and General Store",
+        "Confirm practical access and dining beyond published visitor information"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.frontiertexas.com/about-frontier-texas/",
+        "https://www.frontiertexas.com/"
+      ]
+    },
+    "texas-energy-museum-beaumont": {
+      "name": "Texas Energy Museum",
+      "operatorStrengths": [
+        "1901 Spindletop history and petroleum technical interpretation",
+        "Oil exploration, production and refinery exhibits"
+      ],
+      "openGaps": [
+        "Distinguish Texas Energy Museum from separate Spindletop-Gladys City destination",
+        "Explain main energy-industry topics as engaging exhibit blurbs",
+        "Verify family programs, group reservations, accessible approach and on-site food arrangements"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.texasenergymuseum.org/about.html",
+        "https://www.texasenergymuseum.org/"
+      ]
+    },
+    "1940-air-terminal-museum-houston": {
+      "name": "1940 Air Terminal Museum",
+      "operatorStrengths": [
+        "Primary institutional visitor information and historical/exhibition overview",
+        "Official access, family and schedule resources where available"
+      ],
+      "openGaps": [
+        "Independently compare the complete visitor guide against current operator FAQs and exhibition details",
+        "Perform live browser accessibility, image attribution and reciprocal link QA before superlative certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.1940airterminal.org/",
+        "https://www.1940airterminal.org/news/hahs-letter-to-city-of-houston-amp-thc",
+        "https://www.1940airterminal.org/houston-municipal-airport"
+      ]
+    },
+    "african-american-museum-dallas-fair-park": {
+      "name": "African American Museum, Dallas",
+      "operatorStrengths": [
+        "Primary institutional visitor information and historical/exhibition overview",
+        "Official access, family and schedule resources where available"
+      ],
+      "openGaps": [
+        "Independently compare the complete visitor guide against current operator FAQs and exhibition details",
+        "Perform live browser accessibility, image attribution and reciprocal link QA before superlative certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://aamdallas.org/plan-your-visit/",
+        "https://aamdallas.org/nelson-mandela-exhibition-plan-your-visit/",
+        "https://aamdallas.org/exhibits/"
+      ]
+    },
+    "texas-forestry-museum-lufkin": {
+      "name": "Texas Forestry Museum",
+      "operatorStrengths": [
+        "Primary institutional visitor information and historical/exhibition overview",
+        "Official access, family and schedule resources where available"
+      ],
+      "openGaps": [
+        "Independently compare the complete visitor guide against current operator FAQs and exhibition details",
+        "Perform live browser accessibility, image attribution and reciprocal link QA before superlative certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.treetexas.com/visit-us",
+        "https://www.treetexas.com/exhibit",
+        "https://www.treetexas.com/exhibits-1/paper-mill-room"
+      ]
+    }
+  },
+  "baselineCollectedAt": "2026-10-12",
+  "disclaimer": "Comparison target URLs are not proof of manual signoff or market-leading superiority. Museum visitor FAQs are curated from official information, independent visitor questions and editorial visitor-intent research; frequency is not quantified without query data. No exhaustive museum collection duplication is required. NOT CERTIFIED until side-by-side visitor-guide evidence and live QA."
+}

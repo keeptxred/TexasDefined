@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
+import { DestinationAuthoritySections } from "@/components/editorial/DestinationAuthoritySections";
 import { destinationEditorialLinks } from "@/data/destination-editorial-links";
+import { townAuthorityContextualLinks } from "@/data/town-authority-links";
 import type { Destination } from "@/data/types";
 
 type Props = { destination: Destination };
@@ -17,7 +19,7 @@ export function DestinationVisitPlanner({ destination }: Props) {
   const activities = unique(destination.highlights.filter((item) => activityPattern.test(item)));
   const facilities = unique(destination.highlights.filter((item) => facilityPattern.test(item) && !activities.includes(item)));
   const otherHighlights = unique(destination.highlights.filter((item) => !activities.includes(item) && !facilities.includes(item)));
-  const editorialLinks = destinationEditorialLinks(destination.slug);
+  const editorialLinks = [...new Map([...destinationEditorialLinks(destination.slug), ...townAuthorityContextualLinks(destination)].map((item) => [item.href, item])).values()];
   const drivingIntentText = [
     destination.summary,
     destination.entryNote,
@@ -45,6 +47,7 @@ export function DestinationVisitPlanner({ destination }: Props) {
           title={`Need a rental car for ${destination.name}?`}
         />
       ) : null}
+      <DestinationAuthoritySections destination={destination} />
       {(groups.length > 0 || editorialLinks.length > 0) && <section aria-labelledby="things-to-do-there" className="border-t border-border pt-8">
         <p className="eyebrow text-primary">While you’re there</p>
         <h2 id="things-to-do-there" className="mt-3 font-display text-3xl">Things to do and see</h2>
