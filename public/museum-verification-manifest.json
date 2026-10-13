@@ -330,6 +330,62 @@
           "label": "Museum: tours and education"
         }
       ]
+    },
+    {
+      "path": "/destination/babe-didrikson-zaharias-museum-beaumont",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+          "fetchUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+          "label": "Babe Zaharias Museum — current visitor information"
+        },
+        {
+          "sourceUrl": "https://www.beaumonttexas.gov/facilities/facility/details/Babe-Zaharias-Museum-Visitor-Center-74",
+          "fetchUrl": "https://www.beaumonttexas.gov/facilities/facility/details/Babe-Zaharias-Museum-Visitor-Center-74",
+          "label": "City of Beaumont — facility listing"
+        },
+        {
+          "sourceUrl": "https://www.babezahariasmuseum.com/babe-zaharias/",
+          "fetchUrl": "https://www.babezahariasmuseum.com/babe-zaharias/",
+          "label": "Babe Zaharias Museum — athlete and exhibit history"
+        },
+        {
+          "sourceUrl": "https://bdzfoundation.com/contact/",
+          "fetchUrl": "https://bdzfoundation.com/contact/",
+          "label": "Babe Didrikson Zaharias Foundation — contact"
+        }
+      ]
+    },
+    {
+      "path": "/destination/20th-century-technology-museum-wharton",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.20thcenturytech.com/location.html",
+          "fetchUrl": "https://www.20thcenturytech.com/location.html",
+          "label": "Technology museum — independent schedule"
+        },
+        {
+          "sourceUrl": "https://www.whartoncountymuseum.org/tech-museum",
+          "fetchUrl": "https://www.whartoncountymuseum.org/tech-museum",
+          "label": "Host museum — contemporary technology exhibit"
+        },
+        {
+          "sourceUrl": "https://www.whartoncountymuseum.org/",
+          "fetchUrl": "https://www.whartoncountymuseum.org/",
+          "label": "Wharton County Historical Museum — visit"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/4200001087",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/4200001087",
+          "label": "Texas Historical Commission museum Atlas"
+        }
+      ]
     }
   ]
 }
