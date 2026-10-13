@@ -1,7 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
+import { texasDefinedBrand } from "@/brand/texasdefined";
+import { canonicalLink } from "@/lib/seo";
 import { dallasBlackHistoryResearch } from "@/data/dallas-black-history-research";
 
+const canonicalPath = "/dallas-black-history";
 const canonical = "https://texasdefined.com/dallas-black-history";
 const title = "Dallas Black History: Eight Historic Places, Civil Rights and Freedmen's Towns";
 const description = "A deeply researched guide to eight Dallas Black history landmarks: Freedmen's Towns, Juanita Craft, Deep Ellum, historic churches, education, art and preservation.";
@@ -16,7 +19,7 @@ export const Route = createFileRoute("/dallas-black-history")({
       { property: "og:type", content: "article" },
       { property: "og:url", content: canonical },
     ],
-    links: [{ rel: "canonical", href: canonical }],
+    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [{
       type: "application/ld+json",
       children: JSON.stringify({
