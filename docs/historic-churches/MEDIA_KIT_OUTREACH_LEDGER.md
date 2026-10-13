@@ -1,0 +1,34 @@
+# Historic Churches — Media Kit Outreach Ledger
+
+Last updated: 2026-10-12 (America/Chicago)
+
+This is the permanent record for requests from the connected `admin@texasdefined.com` Outlook mailbox. The church-research standard includes verified official contact research and a personalized, complimentary media-kit/photography permission request. The user authorized outreach to the initial three churches and to other churches as research adds them.
+
+## Emails sent October 12, 2026
+
+The connected Outlook send action returned successfully for each email, with saving to Sent Items requested. This records **submitted/sent**, not inbox delivery or copyright permission.
+
+| Canonical church / location | Email address | Subject | Outreach status | Photo rights status |
+| --- | --- | --- | --- | --- |
+| St. Joseph Catholic Church — Yoakum | pastor@stjcatholicchurch.com | TexasDefined.com — Media Kit & Photography Request for St. Joseph Catholic Church | Sent 2026-10-12 | Pending written permission |
+| Immaculate Conception of the Blessed Virgin Mary (St. Mary's at Hostyn Hill) — near Ellinger | stsjm@stjohnfayetteville.com | TexasDefined.com — Historic St. Mary's at Hostyn Hill Photography & Media Kit Request | Sent 2026-10-12 | Pending written permission |
+| St. Peter's Catholic Church — Blessing | stpeterblessing@tisd.net | TexasDefined.com — St. Peter's Catholic Church Historic Feature & Media Kit Request | Sent 2026-10-12 | Pending written permission |
+| St. Joseph's Catholic Church — Moulton | st_joe@sbcglobal.net | TexasDefined Historic Churches Guide — St. Joseph's Moulton Media Kit and Parish History | Sent 2026-10-12 | New permission pending; existing Commons CC BY-SA imagery remains governed by its own license |
+| Saints Peter and Paul Catholic Church — Frelsburg | office@peterandpaulparish.com | TexasDefined Historic Churches Guide — Saints Peter and Paul Frelsburg Photography & Archives | Sent 2026-10-12 | New permission pending; existing Commons CC BY-SA imagery remains governed by its own license |
+
+Sources for the addresses: official parish webpages for Hostyn Hill, Blessing, Moulton and Frelsburg; Yoakum `pastor@stjcatholicchurch.com` independently listed in a Catholic parish directory, while the official parish contact form obscures email addresses.
+
+## Standing rules for newly researched churches
+
+1. Research the **exact parish, denomination, locality, and church**; never confuse churches sharing a dedication/name. Check its official contact page or responsible diocese before addressing anyone.
+2. Search this ledger and the connected Outlook **Sent Items** for the church and recipient before sending. Do not send duplicate requests to churches already contacted. Do not resend automatically just because there is no response.
+3. Write an individual message from TexasDefined's connected mailbox describing the church's actual documented history, the guide being built, discoverability/links to the parish, and a request for a media kit, original high-resolution exterior/interior/historic photos, and archival sources.
+4. State accurately that the inclusion is **complimentary**, no advertising purchase or financial support is requested, and the site **may carry ads**.
+5. Request **free permission for commercial/advertising-supported web use** with proper credit, plus **separate social-media permission**. Ask for the copyright holder's name, the exact permitted images, attribution and any restrictions. A received photograph, press packet, or public image URL **does not itself prove commercial republication rights**.
+6. Send only to a verified official or authoritative parish/diocesan contact. If the contact cannot be verified, **do not guess**; record the issue and pursue another source.
+7. Record the date, recipient, exact subject and mail outcome in this ledger; record replies and permissions with exact image/source scope. Do not label any image rights-cleared until explicitly licensed/approved; comply with any refusal or unsubscribe request.
+8. On new batches, ensure outreach only applies to **genuinely researched church authority pages** and does not send blanket mass mail to unresearched or unrelated institutions.
+
+## Existing church rights audit
+
+The first three church records in `src/data/historic-churches.ts` still correctly say `awaiting-licensed-photos`. These requests do **not** change that status until copyright permission and actual images are provided and checked.
