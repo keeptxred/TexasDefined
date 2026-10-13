@@ -4,6 +4,7 @@
 import fs from "node:fs";
 const read = path => fs.readFileSync(path, "utf8");
 const source = read("src/data/thc-del-rio-southern-pacific-depot.ts");
+const bridge=read("src/data/thc-clifton-whipple-truss-bridge.ts");
 const catalog = read("src/data/destination-preserved-catalog.ts");
 const index = read("src/routes/texas-historic-landmarks.lazy.tsx");
 const pairings = read("src/data/destination-curated-pairings.ts");
@@ -25,5 +26,15 @@ expect(catalog.includes("thcHistoricLandmarkAuthorityBatch03Destinations"),"Abse
 expect(index.includes('"Southern Pacific Passenger Depot": "'+slug+'"'),"No link from THC listing index");
 expect(pairings.includes('"'+slug+'"'),"No reverse contextual links");
 expect(workflow.includes("validate-thc-landmark-authority-batch03.mjs"),"No permanent CI coverage");
+expect(bridge.includes('slug:"clifton-whipple-truss-bridge"'),"Clifton bridge slug missing");
+expect(bridge.includes("makeThcHeritageDestination({"),"Clifton full authority record missing");
+expect(bridge.includes("TexasSpyder")&&bridge.includes("CC BY-SA 4.0")&&bridge.includes("commonsFilePage(photo)"),"Exact-bridge rights missing");
+expect(bridge.includes("1884")&&bridge.includes("1996"),"1884 origin and 1996 RTHL distinct designation missing");
+expect(bridge.includes("deck")&&bridge.includes("removed")&&bridge.includes("accessibility:"),"Closed old bridge or visitor safety warning absent");
+expect((bridge.match(/thcFaq\(/g)||[]).length>=6,"At least six source-backed bridge FAQs required");
+expect((bridge.match(/thcSource\(/g)||[]).length>=5,"Five bridge sources required");
+expect((bridge.slice(bridge.indexOf("body:["),bridge.indexOf("faqs:[")).match(/\n    "/g)||[]).length>=6,"Six bridge history paragraphs required");
+expect(bridge.includes("firstVisitSteps:"),"Bridge visitor safety itinerary missing");
+expect(pairings.includes('"clifton-whipple-truss-bridge"'),"Clifton contextual linking missing");
 console.log(JSON.stringify({site:slug,checksPassed:errors.length===0,errors},null,2));
 if(errors.length)process.exitCode=1;
