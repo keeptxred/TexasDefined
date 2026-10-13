@@ -11,6 +11,7 @@ import type { Destination } from "./types";
 const CURATED_PAIRINGS: Readonly<Record<string, readonly string[]>> = {
   "kokernot-field": ["alpine-downtown-historic-district", "alpine"],
   "alpine-downtown-historic-district": ["kokernot-field", "alpine", "holland-hotel"],
+  "holland-hotel": ["alpine-downtown-historic-district", "kokernot-field", "alpine"],
   "castro-county-courthouse": ["dimmitt"],
   "bailey-county-courthouse": ["muleshoe"],
   "wimberley-downtown-square-historic-district": ["wimberley", "blue-hole-regional-park"],
