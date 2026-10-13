@@ -35,9 +35,9 @@ export function DallasBlackHistoryAuthority({ slug }: { slug: string }) {
         <h2 id="dallas-heritage-faq" className="mt-3 font-display text-3xl">Questions about this historic place</h2>
         <div className="mt-6 divide-y divide-border border-y border-border">
           {profile.faqs.map(({ question, answer }) => (
-            <details key={question} className="group py-5">
-              <summary className="flex cursor-pointer list-none items-start justify-between gap-5 font-semibold leading-6 [&::-webkit-details-marker]:hidden">
-                <span>{question}</span><span aria-hidden="true" className="shrink-0 text-primary group-open:rotate-45">+</span>
+            <details key={question} className="py-5">
+              <summary className="cursor-pointer font-semibold leading-6">
+                <span>{question}</span>
               </summary>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{answer}</p>
             </details>
@@ -75,7 +75,7 @@ export function DallasBlackHistoryAuthority({ slug }: { slug: string }) {
         <ul className="mt-6 grid gap-3 sm:grid-cols-2">
           {related.map(({ slug: destinationSlug, shortName, focus }) => (
             <li key={destinationSlug}>
-              <a href={`/destination/${destinationSlug}`} className="block rounded-md border border-border p-4 transition-colors hover:bg-muted/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+              <a href={`/destination/${destinationSlug}`} className="block rounded-md border border-border p-4 hover:text-primary">
                 <span className="font-semibold text-primary">{shortName} →</span>
                 <span className="mt-1 block text-xs leading-5 text-muted-foreground">{focus}</span>
               </a>
