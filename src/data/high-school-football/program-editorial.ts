@@ -1707,7 +1707,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Ballinger Bearcats Football: UIL History, 2026 Schedule & School Guide",
-      "description": "Independent guide to Ballinger Bearcats football: source-documented 1953 class 2a state runner-up, current UIL alignment, official schedules, campus details and fan resources."
+      "description": "Ballinger Bearcats Football: source-dated 2026 10-game schedule and reported results, UIL history, visitor information and independently checked links."
     },
     "schedule": {
       "label": "Ballinger ISD 2026 reserved football ticket announcements",
@@ -1729,12 +1729,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "Ballinger reached the 1953 UIL Class 2A championship game, losing to Huntsville 40–6. That season's historical Class 2A classification should not be substituted for Ballinger's separate 2026–28 Class 2A Division I District 4 alignment.",
         "sourceUrl": "https://www.uiltexas.org/football/archives/P648",
         "sourceLabel": "UIL historical archive, 1953–54 Class 2A final"
+      },
+      {
+        "date": "2026",
+        "title": "Date-stamped current football scoreboard",
+        "body": "A 40–37 victory over Forsan on October 9 moved the independently reported record to 5–1. Scores are credited to MaxPreps and should be updated as new verified games are played.",
+        "sourceUrl": "https://www.maxpreps.com/tx/ballinger/ballinger-bearcats/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 varsity results and fixtures"
       }
     ],
     "overview": [
       "Ballinger's football identity includes the 1953 Class 2A championship appearance, a 40–6 loss to Huntsville confirmed by the UIL. That historic classification is separate from the current 2026–28 UIL 2A Division I District 4 placement; an old final appearance should not be styled as a Bearcats state title.",
       "The school's official site lists Ballinger High School at 2107 North Broadway, while the ISD office is separately located at 802 Conda Avenue. In July 2026 the district announced reserved football ticket sales, an actionable resource that does not establish every game's venue, gate or current ticket availability.",
-      "A first-party 2025 Bearcats football schedule remains indexed beside the district's newer 2026 reserved ticket notice. For 2026 fixtures and venue changes, fans should consult Ballinger ISD's current athletic posts rather than treat 2025 PDF dates or a third-party score feed as a 2026 schedule."
+      "A first-party 2025 Bearcats football schedule remains indexed beside the district's newer 2026 reserved ticket notice. For 2026 fixtures and venue changes, fans should consult Ballinger ISD's current athletic posts rather than treat 2025 PDF dates or a third-party score feed as a 2026 schedule.",
+      "A 2026 MaxPreps scorecard updated October 12 lists Ballinger at 5–1 through the October 9 home win over Forsan, with district fixtures against Colorado, Christoval, Sonora and Ozona scheduled after that checkpoint. These are independent scoreboard results, not the district's official 2026 fixture announcement; check Ballinger ISD for changes."
     ],
     "faq": [
       {
@@ -1748,6 +1756,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Is Ballinger's 2026 classification the same as its 1953 final?",
         "answer": "No. The 1953 Class 2A final was under that era's UIL alignment; the 2026–28 roster independently lists Ballinger in Class 2A Division I, District 4."
+      },
+      {
+        "question": "Where can I verify the 2026 football scores and game dates?",
+        "answer": "Use the school's first-party athletics calendar for official arrangements and the date-stamped third-party scoreboard linked on this page for reported results. Entries without a confirmed score are fixtures only, not wins or losses."
+      },
+      {
+        "question": "Does this team's 2026 record include every game played so far?",
+        "answer": "No claim of a live complete season record is made. The record is explicitly limited to the final dated result in the cited MaxPreps snapshot; later results should be independently rechecked."
       }
     ],
     "campus": {
@@ -1756,6 +1772,80 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://bhs.ballingerisd.net/",
       "sourceLabel": "Official school high-school campus address and contact",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "5–1 through October 9, 2026 (MaxPreps)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/ballinger/ballinger-bearcats/football/schedule/",
+      "sourceLabel": "MaxPreps 2026–27 varsity schedule; source checkpoint stated in prose",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Eastland",
+          "site": "Away",
+          "district": false,
+          "result": "W 27-6"
+        },
+        {
+          "date": "2026-09-03",
+          "opponent": "Compass Academy",
+          "site": "Away",
+          "district": false,
+          "result": "W 27-20"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Early",
+          "site": "Away",
+          "district": false,
+          "result": "L 0-34"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Brady",
+          "site": "Home",
+          "district": false,
+          "result": "W 40-35"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Reagan County",
+          "site": "Away",
+          "district": true,
+          "result": "W 41-22"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Forsan",
+          "site": "Home",
+          "district": true,
+          "result": "W 40-37"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Colorado",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Christoval",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Sonora",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Ozona",
+          "site": "Home",
+          "district": true
+        }
+      ]
     }
   },
   "balmorhea": {
@@ -1766,7 +1856,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Balmorhea Bears Football: UIL History, 2026 Schedule & School Guide",
-      "description": "Independent guide to Balmorhea Bears football: source-documented 2020 season: six-man division ii state champion, current UIL alignment, official schedules, campus details and fan resources."
+      "description": "Balmorhea Bears Football: source-dated 2026 10-game schedule and reported results, UIL history, visitor information and independently checked links."
     },
     "schedule": {
       "label": "Balmorhea ISD first-party football staff and documents",
@@ -1788,12 +1878,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "UIL records Balmorhea's 74–38 win over Richland Springs as the 2020–21 Class 1A Six-Man Division II title. A Texas House resolution explicitly dates the final to January 5, 2021 at San Angelo Stadium: it was the 2020-season championship, not a second 2021-season title.",
         "sourceUrl": "https://www.uiltexas.org/football/archives/P46",
         "sourceLabel": "UIL archived 2020–21 six-man Division II championship"
+      },
+      {
+        "date": "2026",
+        "title": "Date-stamped current football scoreboard",
+        "body": "Balmorhea's first six reported 2026 games were wins, most recently 52–16 over Buena Vista on October 2. The October 9 Fort Davis result is not confirmed by the captured schedule.",
+        "sourceUrl": "https://www.maxpreps.com/tx/balmorhea/balmorhea-bears/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 varsity results and fixtures"
       }
     ],
     "overview": [
       "Balmorhea's 2020-season Class 1A Six-Man Division II championship was decided on January 5, 2021, when the Bears beat Richland Springs 74–38. This unusual calendar detail matters: the official UIL archive and the Texas House's 2021 congratulatory resolution both describe the same championship, not separate titles.",
       "Balmorhea is a Reeves County six-man football program, listed for the 2026–28 cycle in UIL Class 1A Division II District 6. It should not be compared directly with 11-man teams' win totals, enrollments, field dimensions or playoff brackets without identifying the format.",
-      "Balmorhea ISD's official football page identifies Abel Garcia as head coach and athletic director and provides staff information, but its visible varsity schedule and roster downloads are labeled 2024. Treat them as historical documents; obtain 2026 fixtures and game-site instructions directly from the school."
+      "Balmorhea ISD's official football page identifies Abel Garcia as head coach and athletic director and provides staff information, but its visible varsity schedule and roster downloads are labeled 2024. Treat them as historical documents; obtain 2026 fixtures and game-site instructions directly from the school.",
+      "The independently reported Balmorhea 2026 scorecard lists a 6–0 start through an October 2 win over Buena Vista, with six-man district opponents Grandfalls-Royalty, Rocksprings and Sanderson scheduled later. A Fort Davis fixture was listed October 9 but had no confirmed score in the published snapshot. Do not infer a current undefeated record after October 2 without a newer score verification."
     ],
     "faq": [
       {
@@ -1807,6 +1905,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Is the schedule on the school site the 2026 schedule?",
         "answer": "The publicly visible documents on the school's football page are labeled 2024. Use the district's newer updates or confirm with athletics for 2026 varsity fixtures."
+      },
+      {
+        "question": "Where can I verify the 2026 football scores and game dates?",
+        "answer": "Use the school's first-party athletics calendar for official arrangements and the date-stamped third-party scoreboard linked on this page for reported results. Entries without a confirmed score are fixtures only, not wins or losses."
+      },
+      {
+        "question": "Does this team's 2026 record include every game played so far?",
+        "answer": "No claim of a live complete season record is made. The record is explicitly limited to the final dated result in the cited MaxPreps snapshot; later results should be independently rechecked."
       }
     ],
     "coach": {
@@ -1815,6 +1921,80 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.bisdbears.esc18.net/football",
       "sourceLabel": "Official Balmorhea ISD football staff page",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "6–0 through October 2, 2026 (MaxPreps)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/balmorhea/balmorhea-bears/football/schedule/",
+      "sourceLabel": "MaxPreps 2026–27 varsity schedule; source checkpoint stated in prose",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Lubbock Titans",
+          "site": "Away",
+          "district": false,
+          "result": "W 41-20"
+        },
+        {
+          "date": "2026-09-05",
+          "opponent": "Holy Cross",
+          "site": "Away",
+          "district": false,
+          "result": "W 61-13"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Marfa",
+          "site": "Home",
+          "district": false,
+          "result": "W 52-6"
+        },
+        {
+          "date": "2026-09-17",
+          "opponent": "Dell City",
+          "site": "Home",
+          "district": false,
+          "result": "W 70-7"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "EPLAE (as listed by MaxPreps)",
+          "site": "Home",
+          "district": false,
+          "result": "W 48-0"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Buena Vista",
+          "site": "Home",
+          "district": false,
+          "result": "W 52-16"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Fort Davis",
+          "site": "Away",
+          "district": false
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Grandfalls-Royalty",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Rocksprings",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Sanderson",
+          "site": "Home",
+          "district": true
+        }
+      ]
     }
   },
   "bandera": {
@@ -1825,7 +2005,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Bandera Bulldogs Football: UIL History, 2026 Schedule & School Guide",
-      "description": "Independent guide to Bandera Bulldogs football: source-documented 2002 class 3a division ii state championship, current UIL alignment, official schedules, campus details and fan resources."
+      "description": "Bandera Bulldogs Football: source-dated 2026 10-game schedule and reported results, UIL history, visitor information and independently checked links."
     },
     "schedule": {
       "label": "Bandera ISD athletics-run 2026 varsity football schedule and staff",
@@ -1847,12 +2027,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "Bandera won the 2002 UIL Class 3A Division II state title 27–24 over Midland Greenwood after two overtimes. The 2002 history must not be mislabeled as a current 4A Division II trophy or attributed to Bangs' nearby Class 2A championship final.",
         "sourceUrl": "https://www.uiltexas.org/football/archives/P272",
         "sourceLabel": "UIL 2002–03 3A Division II final"
+      },
+      {
+        "date": "2026",
+        "title": "Date-stamped current football scoreboard",
+        "body": "Bandera's independent 2026 results through September 25 include shutout victories over Hondo and Lytle before the Llano game. October district fixtures were listed without verified results in the retrieved source.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bandera/bandera-bulldogs/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 varsity results and fixtures"
       }
     ],
     "overview": [
       "Bandera won the 2002 UIL Class 3A Division II football championship with a 27–24 double-overtime victory over Midland Greenwood. The championship belongs to that era's Class 3A structure; the Bulldogs' 2026–28 UIL placement is Class 4A Division II District 15.",
       "The school's athletics-run site identifies Joel Fontenot-Amedee as athletic director and head coach and posts separate 2026 varsity and junior-varsity football schedule resources. These school-published materials are a stronger guide to upcoming fixtures than recycled results from past seasons.",
-      "Bandera High School's campus address is 474 Old San Antonio Highway; Bandera ISD events also identify Bulldog Stadium for specific home activities. School campus addresses, field entrances and occasional neutral or away game locations are distinct, so parking and ADA entrance details should be checked on the official athletics site per event."
+      "Bandera High School's campus address is 474 Old San Antonio Highway; Bandera ISD events also identify Bulldog Stadium for specific home activities. School campus addresses, field entrances and occasional neutral or away game locations are distinct, so parking and ADA entrance details should be checked on the official athletics site per event.",
+      "MaxPreps's September 26 schedule snapshot reports Bandera at 2–3 through the September 25 Llano loss. It lists five additional games, including Gonzales on October 9, but that entry did not show a verified outcome as of this source checkpoint. Treat the older result as a dated snapshot, not current standings; confirm October games directly with Bandera ISD."
     ],
     "faq": [
       {
@@ -1866,6 +2054,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Where can fans find Bandera's 2026 football schedule?",
         "answer": "Bandera ISD operates a Bulldogs football athletics page with 2026 varsity and subvarsity schedules and staff information."
+      },
+      {
+        "question": "Where can I verify the 2026 football scores and game dates?",
+        "answer": "Use the school's first-party athletics calendar for official arrangements and the date-stamped third-party scoreboard linked on this page for reported results. Entries without a confirmed score are fixtures only, not wins or losses."
+      },
+      {
+        "question": "Does this team's 2026 record include every game played so far?",
+        "answer": "No claim of a live complete season record is made. The record is explicitly limited to the final dated result in the cited MaxPreps snapshot; later results should be independently rechecked."
       }
     ],
     "campus": {
@@ -1880,6 +2076,79 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://sites.google.com/banderaisd2.net/bisdathleticsweareone/fallwinter-sports/football",
       "sourceLabel": "Bandera ISD school-operated football athletics site",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "2–3 through September 25, 2026 (outdated MaxPreps snapshot)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/bandera/bandera-bulldogs/football/schedule/",
+      "sourceLabel": "MaxPreps 2026–27 varsity schedule; source checkpoint stated in prose",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Fredericksburg",
+          "site": "Away",
+          "district": false,
+          "result": "L 24-36"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Hondo",
+          "site": "Home",
+          "district": false,
+          "result": "W 27-0"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Lytle",
+          "site": "Home",
+          "district": false,
+          "result": "W 63-0"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Ingram Moore",
+          "site": "Away",
+          "district": false,
+          "result": "L 14-44"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Llano",
+          "site": "Home",
+          "district": false,
+          "result": "L 20-34"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Gonzales",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Pearsall",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "San Antonio Memorial",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Navarro",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Cuero",
+          "site": "Away",
+          "district": false
+        }
+      ]
     }
   },
   "bangs": {
@@ -1890,7 +2159,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Bangs Dragons Football: UIL History, 2026 Schedule & School Guide",
-      "description": "Independent guide to Bangs Dragons football: source-documented 2002 and 2003 consecutive state runner-up seasons, current UIL alignment, official schedules, campus details and fan resources."
+      "description": "Bangs Dragons Football: source-dated 2026 10-game schedule and reported results, UIL history, visitor information and independently checked links."
     },
     "schedule": {
       "label": "Bangs ISD 2026 varsity Dragons football schedule downloads",
@@ -1912,12 +2181,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "Bangs reached consecutive UIL state title games: the 2002 Class 2A Division I final (33–14 loss to Corrigan-Camden) and the 2003 Class 2A Division II final (27–0 loss to Garrison). The teams were runners-up in two different divisions; neither is a state championship win.",
         "sourceUrl": "https://www.uiltexas.org/football/archives/P264",
         "sourceLabel": "UIL 2002–03 and 2003–04 state finalists"
+      },
+      {
+        "date": "2026",
+        "title": "Date-stamped current football scoreboard",
+        "body": "Through October 9 the independently reported Dragons were 3–3, including a 42–0 September 25 win at Grape Creek and a 51–0 October 9 defeat at Mason.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bangs/bangs-dragons/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 varsity results and fixtures"
       }
     ],
     "overview": [
       "Bangs has a rare two-year run of UIL football state-final appearances in different Class 2A divisions: Corrigan-Camden beat the Dragons 33–14 in 2002 Division I, and Garrison beat them 27–0 in 2003 Division II. These are documented runner-up seasons, not two state titles.",
       "For 2026–28, UIL lists Bangs as an 11-man Class 2A Division I District 7 program, distinct from the historical 2003 Division II run. The district's 2026–27 athletics page publishes a 2026 Dragons football schedule file, so future game dates should be checked against that official document.",
-      "Bangs ISD lists the high school campus at 305 North Third Street and the district office at 200 East Hall Street. Neither location alone confirms a football stadium entry gate, fan parking, disability-access route or final kickoff time; the official school schedule and event notice should be used for game planning."
+      "Bangs ISD lists the high school campus at 305 North Third Street and the district office at 200 East Hall Street. Neither location alone confirms a football stadium entry gate, fan parking, disability-access route or final kickoff time; the official school schedule and event notice should be used for game planning.",
+      "A 2026 third-party scorecard updated October 10 lists Bangs 3–3 through October 9, following a 51–0 district loss at Mason. It identifies upcoming district fixtures with Coleman, Brady, San Saba and Johnson City. These results are date-stamped third-party reporting rather than a live district-certified table; verify late changes with Bangs ISD."
     ],
     "faq": [
       {
@@ -1931,6 +2208,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Where is the official 2026 Dragons schedule?",
         "answer": "Bangs ISD's athletics schedules directory links the 2026 Dragons varsity football schedule file. Recheck the school for later kickoff or venue changes."
+      },
+      {
+        "question": "Where can I verify the 2026 football scores and game dates?",
+        "answer": "Use the school's first-party athletics calendar for official arrangements and the date-stamped third-party scoreboard linked on this page for reported results. Entries without a confirmed score are fixtures only, not wins or losses."
+      },
+      {
+        "question": "Does this team's 2026 record include every game played so far?",
+        "answer": "No claim of a live complete season record is made. The record is explicitly limited to the final dated result in the cited MaxPreps snapshot; later results should be independently rechecked."
       }
     ],
     "campus": {
@@ -1939,6 +2224,80 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.bangsisd.net/",
       "sourceLabel": "Official school high-school campus address and contact",
       "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "3–3 through October 9, 2026 (MaxPreps)",
+      "verifiedAt": "2026-10-13",
+      "sourceUrl": "https://www.maxpreps.com/tx/bangs/bangs-dragons/football/schedule/",
+      "sourceLabel": "MaxPreps 2026–27 varsity schedule; source checkpoint stated in prose",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Dublin",
+          "site": "Home",
+          "district": false,
+          "result": "W 42-7"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Haskell",
+          "site": "Home",
+          "district": false,
+          "result": "L 44-62"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Cross Plains",
+          "site": "Home",
+          "district": false,
+          "result": "W 51-12"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Harper",
+          "site": "Away",
+          "district": false,
+          "result": "L 7-21"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Grape Creek",
+          "site": "Away",
+          "district": false,
+          "result": "W 42-0"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Mason",
+          "site": "Away",
+          "district": true,
+          "result": "L 0-51"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Coleman",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Brady",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "San Saba",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Johnson City",
+          "site": "Home",
+          "district": true
+        }
+      ]
     }
   },
   "banquete": {
