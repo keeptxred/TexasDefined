@@ -1477,6 +1477,34 @@
           "label": "Separately operated Mission Dolores current visitor guidance"
         }
       ]
+    },
+    {
+      "path": "/destination/the-agricultural-museum-arts-center-boerne",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://theagricultural.org/visit-the-agricultural/",
+          "fetchUrl": "https://theagricultural.org/visit-the-agricultural/",
+          "label": "Official hours, admission, areas, live blacksmith demonstrations"
+        },
+        {
+          "sourceUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+          "fetchUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+          "label": "City of Boerne historical museum identity and community programming"
+        },
+        {
+          "sourceUrl": "https://theagricultural.org/",
+          "fetchUrl": "https://theagricultural.org/",
+          "label": "Official history, 2018 name change, event schedule"
+        },
+        {
+          "sourceUrl": "https://theagricultural.org/bluegrass-jams/",
+          "fetchUrl": "https://theagricultural.org/bluegrass-jams/",
+          "label": "Official current recurring bluegrass jam schedule"
+        }
+      ]
     }
   ]
 }

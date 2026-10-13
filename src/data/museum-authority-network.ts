@@ -1774,6 +1774,37 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "Texas museum directory", href: "/explore/museums", reason: "Find other source-reviewed local history and heritage museums." }
     ],
   },
+  "the-agricultural-museum-arts-center-boerne": {
+    name: "The AgriCultural Museum & Arts Center",
+    slug: "the-agricultural-museum-arts-center-boerne",
+    county: "Kendall", city: "Boerne", reviewed: "2026-10-13",
+    topics: ["agriculture", "texas-history", "family", "art"],
+    whyVisit: "The AgriCultural Museum & Arts Center connects Texas Hill Country farming and rural life with living craft demonstrations, antique machinery and community arts. Founded in 1986 as the Agricultural Heritage Center and renamed in 2018, this five-acre nonprofit site is more than a room of objects: families can see tractors and engines, the Big Red Barn, a pioneer house, blacksmith workshop, woodshop, farm wagons and scheduled demonstrations. Do not confuse the old Agricultural Heritage Museum name with a separate, still-operating museum.",
+    visitorStrategy: "The operator publishes regular museum hours Saturday 10 a.m.–4 p.m. at 102 City Park Road in Boerne. Admission is by donation, not a required ticket price. Self-guided visits can cover the barn, historic agricultural machinery and demonstration spaces; whether a blacksmith works that day or a craft event is running should be checked against the calendar. Second and fourth Saturdays normally include 11 a.m.–1 p.m. bluegrass jams, and the third Saturday is listed for the HandCrafted Market. Allow an estimated one to two hours for the museum, longer for an event.",
+    accessibility: "The five-acre grounds combine outdoor machinery, historic structures and indoor rooms; surfaces, thresholds and active workshops can vary. Neither the operator's visitor page nor Boerne's city listing establishes that every workshop, pioneer house, restroom or event space is wheelchair accessible. Ask visitor services at 210-445-1080 for a specific step-free route or sensory accommodations, especially in wet weather.",
+    familiesAndGroups: "Tractors, engines, buggies and hands-on blacksmith demonstrations provide concrete ways for families to discuss work in the historical Hill Country. Children should be supervised around antique machinery and active forge or craft demonstrations. Some visits are quieter self-guided museum exploration, while tractor pulls, markets, art workshops and bluegrass sessions may be noisy or crowded. No ordinary museum cafeteria or full-service restaurant is confirmed; food or bar arrangements advertised for private rentals should not be presented as walk-in dining.",
+    researchValue: "Unlike a generic farm-equipment collection, this site lets readers examine how agriculture, machine power, blacksmithing, woodworking and domestic life fit together. A self-guided circuit can connect individual exhibits to nineteenth- and twentieth-century rural changes. The operator's transition from Agricultural Heritage Center to the AgriCultural Museum & Arts Center in 2018 also helps explain how preservation and community arts coexist at the same site.",
+    exhibits: [
+      { heading: "Big Red Barn and antique farm implements", detail: "The barn holds preserved tractors, a buggy, chuck wagon, vintage agricultural tools and equipment illustrating field work, transport and mechanization in Hill Country agriculture." },
+      { heading: "Working blacksmith shop", detail: "The museum advertises Saturday blacksmith demonstrations. Watch techniques and discuss how skilled metalwork supported farms and settlements, but verify the actual day's demonstrator schedule." },
+      { heading: "Woodworking shop and pioneer house", detail: "Historic work and domestic spaces connect agricultural production to carpentry, household labor and the everyday needs of earlier rural families." },
+      { heading: "Arts, tractor pulls and bluegrass gatherings", detail: "The museum now holds community programs as well as historical objects. Tractor pulls, second- and fourth-Saturday music, art workshops and monthly markets have their own dates; distinguish events from daily-access exhibits." }
+    ],
+    routes: [
+      { label: "Saturday museum highlights", steps: ["Start in the Big Red Barn with tractors and farm equipment", "Visit the blacksmith and woodworking areas during their posted public demonstrations", "Walk past the pioneer house and outdoor exhibits, allowing for weather and accessibility"] },
+      { label: "Boerne family and heritage half day", steps: ["Tour the AgriCultural on a regular Saturday", "Stay for a bluegrass jam or handcraft market only when scheduled", "Explore Boerne's other historical attractions as separate admissions and visits"] }
+    ],
+    sources: [
+      { label: "Museum operator — current visitor details", url: "https://theagricultural.org/visit-the-agricultural/", use: "Current hours, donations, five-acre layout, barn, blacksmithing, exhibits, events and address" },
+      { label: "City of Boerne — current institution profile", url: "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center", use: "Confirms renamed museum, distinct workshop areas, historical equipment and event/rental context" },
+      { label: "Museum operator — history and event calendar", url: "https://theagricultural.org/", use: "1986 founding, 2018 name change, Saturday hours and recurring public programming" }
+    ],
+    connections: [
+      { label: "Kendall County", href: "/county/kendall", reason: "Connect the museum to Boerne and the wider Hill Country's rural heritage." },
+      { label: "Texas museum directory", href: "/explore/museums", reason: "Compare farm history and living-craft museums around Texas." }
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));

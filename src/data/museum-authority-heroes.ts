@@ -3,6 +3,12 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "the-agricultural-museum-arts-center-boerne": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Boerne_ag_museum_2013.jpg?width=1600",
+    alt: "Antique farm equipment on display at the AgriCultural Museum in Boerne, Texas, photographed in 2013",
+    width: 1600, height: 1067,
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · File:Boerne ag museum 2013.jpg",
+  },
   "1919-san-augustine-county-jail-museum": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/San_augustine_county_tx_former_jail.jpg?width=1600",
     alt: "Exterior of the restored 1919 San Augustine County Jail building in San Augustine, Texas, photographed in April 2015",
