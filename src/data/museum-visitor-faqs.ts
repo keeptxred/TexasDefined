@@ -2832,6 +2832,98 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "quarterly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "national-museum-funeral-history-houston": [
+    {
+      "question": "How much does admission to the National Museum of Funeral History cost?",
+      "answer": "The operator lists $15 for adults, $12 for seniors age 55 or older and veterans, $7 for children ages 6–11, and free entry for children ages five and younger. SCI employees with identification may qualify for a separate discount. Event tickets and group rates differ.",
+      "verificationUrl": "https://nmfh.org/the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://nmfh.org/the-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is parking free at the National Museum of Funeral History?",
+      "answer": "Yes. The museum's published visitor FAQ confirms free on-site parking at 415 Barren Springs Drive in north Houston. This is not in the central Houston Museum District; approaching from I-45 and Richey Road is more practical than planning a Museum District walk.",
+      "verificationUrl": "https://nmfh.org/faq-page/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://nmfh.org/faq-page/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How long should I allow for the National Museum of Funeral History?",
+      "answer": "The museum FAQ recommends about two to four hours for someone touring all exhibits, depending on reading and viewing time. An approximately 60–90 minute selective tour of a few themes is an independent planning estimate, not the operator's full-tour duration.",
+      "verificationUrl": "https://nmfh.org/faq-page/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://nmfh.org/faq-page/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is this funeral museum appropriate for children or is it scary?",
+      "answer": "The museum recommends visitors generally be over seven years old and describes its displays as educational rather than deliberately gruesome or spooky. Some exhibits feature coffins, grief and historical deaths; choose galleries based on a child's readiness, and ask about family scavenger-hunt activities.",
+      "verificationUrl": "https://nmfh.org/faq-page/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://nmfh.org/for-families/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I visit the National Museum of Funeral History on Sundays?",
+      "answer": "The museum's published regular schedule is noon to 5 p.m. on Sundays, 10 a.m. to 4 p.m. Monday through Friday, and 10 a.m. to 5 p.m. Saturday. Holidays and private events may change access; check current announcements before setting out.",
+      "verificationUrl": "https://nmfh.org/the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://nmfh.org/the-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are tours self-guided or do I need to book a docent?",
+      "answer": "Normal museum visits are self-guided. Groups may book a docent-led tour in advance by calling 281-876-3063 or writing to contact@nmfh.org. The museum has a limited supply of wireless listening headsets for tours; identification is required as a deposit.",
+      "verificationUrl": "https://nmfh.org/book-a-tour/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://nmfh.org/faq-page/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can wheelchair users or visitors with hearing and vision disabilities visit?",
+      "answer": "The operator says its museum is wheelchair accessible and provides benches. It asks visitors who need specific hearing or vision accommodations to contact staff in advance, and docent tours can use wireless listening headsets. Confirm the suitability of individual arrangements before traveling.",
+      "verificationUrl": "https://nmfh.org/faq-page/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://nmfh.org/faq-page/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Shroud of Turin in the Houston museum the original?",
+      "answer": "No. The exhibit uses a certified replica of the Shroud of Turin, not the original religious textile in Italy. The museum also interprets funeral customs and rites involving popes in a separate exhibit. Do not advertise the copy as the original.",
+      "verificationUrl": "https://nmfh.org/exhibitions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://nmfh.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have a restaurant or cafeteria?",
+      "answer": "The operator advertises a gift shop, but its standard visitor, tour and FAQ pages do not establish a regularly operating on-site cafeteria or full-service restaurant. Plan a meal elsewhere in north Houston and contact staff about group food arrangements if needed.",
+      "verificationUrl": "https://nmfh.org/the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://nmfh.org/the-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can a school class or large group receive a discount or guided tour?",
+      "answer": "The museum offers advance-booked guided tours and separate group rates, generally for groups of at least 25, and educational field-trip options. Arrange the itinerary with museum staff rather than assuming an unreserved class can obtain discounted admission.",
+      "verificationUrl": "https://nmfh.org/the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://nmfh.org/book-a-tour/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
