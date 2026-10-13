@@ -753,7 +753,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Loyd Park", operator: "City of Grand Prairie", kind: "park", launch: "From I-20 follow SH 360 south then Ragland Road east. Four-lane ramp with about 35 vehicle spaces.", fee: "Fee listed by TPWD", availability: "TPWD lists year-round; verify city access and lake conditions (817) 467-2104." },
       { name: "Lynn Creek Park", operator: "City of Grand Prairie", kind: "park", launch: "From I-20, Great Southwest Parkway south and Lake Ridge Parkway west. Eight boat lanes and about 100 spaces.", fee: "Fee listed by TPWD", availability: "Day-use only per TPWD; confirm public access (817) 633-6265." },
     ],
-    nearbyLakes: [{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"cedar-creek-reservoir",name:"Cedar Creek Reservoir"},{slug:"benbrook-lake",name:"Benbrook Lake"}],
+    nearbyLakes: [{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"cedar-creek-reservoir",name:"Cedar Creek Reservoir"},{slug:"benbrook-lake",name:"Benbrook Lake"},{slug:"lake-arlington",name:"Lake Arlington"}],
     camping: {name:"Cedar Hill State Park",summary:"The state park on the east side of Joe Pool Lake combines camping, shoreline recreation and boat access; reserve busy dates and verify current ramp conditions."},
   },
   {
@@ -778,7 +778,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Rough Creek Park", operator: "Brazos River Authority", kind: "park", launch: "Off SH 144 south of Granbury; ramp for various boat types.", fee: "TPWD lists no fee", availability: "Year-round per TPWD; BRA (817) 573-3212." },
       { name: "De Cordova Bend", operator: "Brazos River Authority", kind: "park", launch: "Near dam via US 377, FM 4 and Road 167; ramp, fishing pier and tailrace access.", fee: "TPWD lists no fee", availability: "Year-round per TPWD; BRA (817) 573-3212." },
     ],
-    nearbyLakes: [{slug:"lake-whitney",name:"Lake Whitney"},{slug:"possum-kingdom-reservoir",name:"Possum Kingdom Reservoir"}],
+    nearbyLakes: [{slug:"lake-whitney",name:"Lake Whitney"},{slug:"possum-kingdom-reservoir",name:"Possum Kingdom Reservoir"},{slug:"cedar-lake-cleburne-state-park",name:"Cedar Lake at Cleburne State Park"}],
     travelAlerts: ["TPWD warns that golden-alga blooms can occur on Lake Granbury and may harm fish and change fishing conditions; contact TPWD or check current bloom reports before planning a fishing-specific trip."],
   },
   {
@@ -1057,7 +1057,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       {question:"Camper-only ramps?",answer:"Holiday Park South and Bear Creek are restricted to registered campers."},
       {question:"Top fishery?",answer:"TPWD rates hybrid striped bass excellent."},
     ],
-    nearbyLakes:[{slug:"joe-pool-lake",name:"Joe Pool Lake"},{slug:"lake-granbury",name:"Lake Granbury"}],
+    nearbyLakes:[{slug:"joe-pool-lake",name:"Joe Pool Lake"},{slug:"lake-granbury",name:"Lake Granbury"},{slug:"lake-arlington",name:"Lake Arlington"}],
     travelAlerts:["TPWD warned of major low-water ramp closures and campers-only launch limitations in its April 21, 2026 access inventory. The warning is historical and MUST be checked against current USACE closure reports; do not use this guide to assert a ramp is open today.","No general swim or boat-launch permission is inferred from a park's name. Confirm swimming areas, accessibility and seasonal hours with the Corps.","Clean, drain and dry watercraft and equipment under Texas invasive-species requirements before entering another reservoir."],
     historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/benbrook/index.asp",
     historyNotes:["Congress authorized Benbrook Dam under the River and Harbor Act in March 1945, when growing flood exposure and water needs in the Fort Worth area led to additional Trinity Basin storage.","The U.S. Army Corps of Engineers started construction May 27, 1947 and finished the main project in December 1950; deliberate reservoir impoundment began September 29, 1952. The TWDB makes these separate phases explicit, helping readers distinguish completion of the physical dam from water storage.","Benbrook's earthfill dam spans roughly 9,130 feet including the spillway and remains a Corps flood-management and water-conservation asset, not just a fishing destination. Recreation options depend on operational water levels and park-specific rules, which explains the changing launch landscape."],
