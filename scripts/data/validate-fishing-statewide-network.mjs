@@ -95,7 +95,7 @@ const liveExpectedSlugs = expectedSlugs.filter((slug) => !officialFallbackSlugs.
 if (JSON.stringify(statewide) !== JSON.stringify(expectedSlugs)) fail("statewide slug registry drifted from the authoritative 47-lake release order");
 
 const topLevel = [...files.network.matchAll(/^    slug: "([^"]+)", name: "([^"]+)"/gm)].map((match) => ({ slug: match[1], name: match[2], index: match.index }));
-if (topLevel.length !== 47) fail(`expected 46 top-level lake definitions, found ${topLevel.length}`);
+if (topLevel.length !== 47) fail(`expected 47 top-level lake definitions, found ${topLevel.length}`);
 if (new Set(topLevel.map((row) => row.slug)).size !== topLevel.length) fail("duplicate statewide lake slug");
 if (new Set(topLevel.map((row) => row.name)).size !== topLevel.length) fail("duplicate statewide lake name");
 for (const [slug, name] of expected) {
