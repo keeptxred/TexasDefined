@@ -787,6 +787,78 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "fort-worth-museum-science-history": {
+    name: "Fort Worth Museum of Science and History",
+    slug: "fort-worth-museum-science-history",
+    county: "Tarrant",
+    city: "Fort Worth",
+    reviewed: "2026-10-13",
+    topics: ["science", "texas-history", "family", "accessibility"],
+    whyVisit: "This Cultural District institution blends hands-on science, regional history, early-childhood learning, a planetarium and the separate large-format Omni Theater. Families can spend time in DinoDig and the TCU Children's Gallery while older visitors compare Texas ranching history, planetarium presentations and more exploratory science programs. Rather than one identical museum experience for every age, visitors should choose exhibits according to children's developmental stage and whether they want an Omni film.",
+    visitorStrategy: "General public visitors must enter through the Omni Theater lobby on Lansford Lane, not the old Gendy Street entrance, which as of August 11, 2026 is reserved for school groups. The museum is normally open Tuesday–Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m.; closed Monday. Tickets for the Omni Theater are sold separately from general museum admission, while Noble Planetarium shows and the Cattle Raisers Museum are included subject to showtimes and capacity. Parking is city-managed: Western Heritage Garage is closest to the public entrance, accessed through Gate 19 on Gendy, with event surcharges possible.",
+    accessibility: "The operator advertises wheelchair-accessible museum areas and limited loaner wheelchairs at the admissions desk, along with a Calming Room for sensory breaks, free sensory backpacks, communication boards and scheduled Sensory Saturday programming. Mobility parking is limited in nearby Cultural District lots. Some planetarium and Omni presentations have specific times, sensory intensities or seating restrictions; visitors requiring adaptations should confirm these in advance with guest services.",
+    familiesAndGroups: "Children in pre-kindergarten through early elementary school may enjoy the new TCU Children's Gallery, designed primarily for the youngest learners; school field-trip materials limit the Children's Museum to second grade and under. DinoDig encourages participatory paleontology, while planetarium programming appeals to school-age children and adults. Exhibit Café is a real café serving salads, sandwiches and flatbreads, normally Tuesday–Saturday daytime; it is CLOSED Sundays. Field trips require separate booking and arrive through Gendy Street, not the general public entrance. Food and drink cannot be taken into exhibits.",
+    researchValue: "A high-quality visit guide must distinguish the included Noble Planetarium from the separately ticketed 8K LED Omni Theater, and the Cattle Raisers Museum inside from the independent Cowgirl museum next door. A stale site map may still label the old main entrance as Gendy Street, so use the current August 2026 operating announcement. Exhibitions and shows rotate: do not promise a dinosaur object, Omni film or planetarium program without checking today's selection.",
+    exhibits: [
+      { heading: "DinoDig and DinoLabs", detail: "Participatory dinosaur and fossil exhibits bring the geology and prehistory of North Texas to life, with hands-on opportunities suited especially to children." },
+      { heading: "TCU Children's Gallery", detail: "The newer child-centered gallery emphasizes age-appropriate exploration, pretend play and discovery. Check the current age limit for school visits, which differ from family attendance." },
+      { heading: "Noble Planetarium", detail: "Public planetarium shows are included with museum admission when available, but showtimes and seat counts can limit access." },
+      { heading: "Cattle Raisers Museum", detail: "Interpretation of cattle raising and ranch culture is inside the museum and generally included with ordinary admission. It is not the separate National Cowgirl Museum." },
+      { heading: "Jane & John Justin Foundation Omni Theater", detail: "An 8K LED dome presents immersive films in a distinct separately ticketed experience; a general museum ticket alone does not guarantee entry." },
+      { heading: "Innovation Studios and science galleries", detail: "Hands-on experiments and design activities complement regional-history exhibits; current room availability depends on rotating exhibits and programming." },
+    ],
+    routes: [
+      { label: "Family science visit in about two hours", steps: ["Use the Lansford Lane public entrance and select a child's age-suitable hands-on gallery", "Explore DinoDig or the new TCU Children's Gallery as appropriate", "Check the included Noble Planetarium schedule and reserve time for a show if seats are available"] },
+      { label: "Science, history and Omni afternoon", steps: ["Start with science galleries and the Cattle Raisers Museum", "Choose a separately ticketed Omni film, checking start time before the museum tour", "Visit Exhibit Café only during its published operating days and times"] },
+    ],
+    sources: [
+      { label: "Museum current visit, parking and tickets", url: "https://www.fwmuseum.org/visit/plan-your-visit/", use: "New entrance, admission, planetarium vs Omni, food and accessibility" },
+      { label: "Museum official homepage", url: "https://www.fwmuseum.org/", use: "Current exhibitions, TCU Children's Gallery and visitor notices" },
+      { label: "Museum school field trips", url: "https://www.fwmuseum.org/learn/field-trips/", use: "Age limits, chaperones and group entrance" },
+      { label: "Museum contact and assistance", url: "https://www.fwmuseum.org/contact/", use: "Group and visitor contacts" },
+    ],
+    connections: [
+      { label: "Tarrant County", href: "/county/tarrant", reason: "Connect Fort Worth Cultural District museums and family outing options." },
+      { label: "National Cowgirl Museum", href: "/destination/national-cowgirl-museum-hall-fame-fort-worth", reason: "A neighboring but separate museum on western women's lives and history." },
+      { label: "Amon Carter Museum", href: "/destination/amon-carter-museum-american-art-fort-worth", reason: "Contrast interactive science with American art across the Cultural District." },
+    ],
+  },
+  "dallas-holocaust-human-rights-museum": {
+    name: "Dallas Holocaust and Human Rights Museum",
+    slug: "dallas-holocaust-human-rights-museum",
+    county: "Dallas",
+    city: "Dallas",
+    reviewed: "2026-10-13",
+    topics: ["texas-history", "civil-rights", "human-rights", "accessibility"],
+    whyVisit: "The Dallas Holocaust and Human Rights Museum uses Holocaust survivor testimony, documentary exhibits and interactive human-rights interpretation to examine historical atrocities, moral choices and civic responsibility. Its three permanent wings connect the Holocaust/Shoah with universal human rights and the efforts of upstanders to challenge injustice in American history. A visit is emotionally demanding and should not be treated like a quick entertainment stop.",
+    visitorStrategy: "The current 2026 visitor FAQ lists public hours of 10 a.m.–5 p.m. daily EXCEPT Tuesdays, with holiday exceptions. Public entry is at 300 N. Houston Street in the West End, while groups use the Ross Avenue entrance. The museum recommends weekday visits after 1 p.m. to avoid school-group crowds. Current adult admission is $19 and students $12, with other discounts depending on eligibility. Visitors must pass security screening. Admission includes the permanent wings, the special exhibition gallery, a theater and Dimensions in Testimony subject to the latter's timed reservation and limited capacity.",
+    accessibility: "The museum states its public visitor routes, theaters and restrooms comply with ADA access standards and allows service animals. Recorded exhibition material offers English and Spanish captions and there are accessible and sensory-oriented visitor tools. The site restricts bags larger than 19 by 17 by 8 inches; strollers cannot enter theaters and there is no bag or coat check. The West End DART station is about a block away, while covered visitor parking is across the street at 301 N. Houston.",
+    familiesAndGroups: "The museum recommends ages twelve and above because of the Holocaust permanent collection's disturbing historical subject matter. Younger children's suitability depends on the individual child and exhibition. Most visitors need approximately two to three hours for the three permanent wings, temporary show and theaters; organized groups require advance arrangements. There is no documented general visitor café or cafeteria in the current FAQ. The Piccadilly Cafeteria named in the Pivot to America exhibition is a historic civil-rights case study, NOT an on-site restaurant.",
+    researchValue: "The Holocaust/Shoah Wing documents genocide and survivor stories; the Human Rights Wing broadens the historical framework, and Pivot to America examines American ideals, injustice and repair through interactive kiosks. Its Texas Upstander Wall and Piccadilly Cafeteria sit-in content connect broader history to local civil-rights events. The prior Walt Disney Studios and World War II temporary exhibition ended September 10, 2026, and must not be advertised as currently on view.",
+    exhibits: [
+      { heading: "Holocaust/Shoah Wing", detail: "Personal testimony, documents and history trace Nazi persecution, genocide and the experiences of Jewish victims and other targeted communities. Consider whether every visitor is prepared for the material." },
+      { heading: "Human Rights Wing", detail: "A historical framework for rights violations and moral choices provides a bridge between Holocaust remembrance and broader civic responsibilities." },
+      { heading: "Pivot to America Wing", detail: "Interactive kiosks explore American ideals and historical repair, including the Texas Upstander Wall and Dallas civil-rights examples." },
+      { heading: "Dimensions in Testimony Theater", detail: "Visitors can pose questions to interactive recorded survivor testimony. It is part of general admission but requires a time and reservation when space is limited." },
+      { heading: "Memorial and Reflection Room", detail: "A space to remember the dead and reflect on Dallas families' losses helps visitors engage without rushing directly into another attraction." },
+    ],
+    routes: [
+      { label: "Two-hour reflective first visit", steps: ["Review age and security guidance, including bag limits, before arrival", "Follow the Holocaust/Shoah, Human Rights and Pivot to America wings at a sustainable pace", "Use the memorial space before leaving; check if Dimensions in Testimony has an available time"] },
+      { label: "Educator and civic-history outing", steps: ["Book the group through the museum's group entrance procedures", "Focus on survivor testimony and selected Texas Upstander stories rather than an exhaustive artifact inventory", "Connect museum learning to wider Dallas civil-rights history and reflection activities"] },
+    ],
+    sources: [
+      { label: "Museum 2026 visitor FAQ", url: "https://www.dhhrm.org/visit/faq/", use: "Current hours, tickets, age guidance, policies, parking and food" },
+      { label: "Museum official visiting information", url: "https://www.dhhrm.org/visit/", use: "Arrival and tour options" },
+      { label: "Museum permanent exhibitions", url: "https://www.dhhrm.org/exhibitions/", use: "Permanent wings and formerly dated temporary exhibitions" },
+      { label: "Museum Pivot to America Wing", url: "https://www.dhhrm.org/exhibitions/pivot-to-america-wing/", use: "Texas upstanders, Piccadilly historic interpretation and memorial" },
+    ],
+    connections: [
+      { label: "Dallas County", href: "/county/dallas", reason: "Connect the West End museum to Dallas cultural and civil-rights history." },
+      { label: "African American Museum Dallas", href: "/destination/african-american-museum-dallas-fair-park", reason: "Compare interpretive approaches to Texas Black history and activism." },
+      { label: "Dallas Museum of Art", href: "/destination/dallas-museum-of-art", reason: "Nearby major arts destination with very different tone and focus." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
