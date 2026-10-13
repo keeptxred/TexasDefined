@@ -1148,6 +1148,109 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "museum-of-the-gulf-coast-port-arthur": {
+    name: "Museum of the Gulf Coast",
+    slug: "museum-of-the-gulf-coast-port-arthur",
+    county: "Jefferson",
+    city: "Port Arthur",
+    reviewed: "2026-10-13",
+    topics: ["music", "sports", "regional-history", "maritime"],
+    whyVisit: "Port Arthur's Museum of the Gulf Coast traces the cultures, landscapes, music and sports of Southeast Texas and Southwest Louisiana, pairing a broad regional-history mural with one of the strongest concentrations of Gulf Coast musical and athletic personalities in a single museum. It's not simply a Janis Joplin display: a natural-history collection, maritime material, painting and folk stories connect people with the coastal environment.",
+    visitorStrategy: "The museum is at 700 Procter Street in Port Arthur; the public entrance and parking are behind the museum on Lakeshore Drive. The museum posts Monday–Saturday 9 a.m.–5 p.m., closed Sundays and holidays. Official admission information conflicts: most pages list $8 adults, $6 seniors, $4 college students and $3 ages 4–18, while a separate admission/history page quotes $10 adults and $8 seniors. Confirm the actual ticket price with 409-982-7000 before travelling. Allow 90–150 minutes as an editorial estimate.",
+    accessibility: "The museum has two exhibition floors; public visitor pages do not give a complete route-by-route statement for wheelchair users, elevator availability, sensory accommodations or assistive listening. Visitors should call 409-982-7000 about the entrance on Lakeshore Drive and their specific access needs. Do not confuse the permanently located downtown museum with the separately operated Pompeiian Villa, which the operator says is temporarily closed for renovation.",
+    familiesAndGroups: "A 13½-foot mounted alligator, a huge indoor historical mural, a Janis Joplin Porsche replica and music/sports memorabilia offer different starting points for school-age children, music fans and sports-focused groups. Advance-booked groups of 10 or more can request guided experiences; free school tours have grade/college policies that differ between current website sections, so coordinators must verify dates and eligibility. Public pages do not establish a full-service museum restaurant or cafeteria.",
+    researchValue: "The museum explains how shipping, petroleum, coastal ecosystems, migration and popular music shaped the upper Gulf Coast. The permanent exhibit list includes a Sabine Bank Lighthouse Fresnel lens, a Texas Navy maritime display, Janis Joplin-related items and athlete memorabilia. The museum says its associated Pompeiian Villa is closed for renovations; that building should not be offered as part of an open same-day interior tour.",
+    exhibits: [
+      { heading: "Gulf Coast Hall of Fame galleries", detail: "Music, sports and other local-achievement displays tell how the Texas–Louisiana coast influenced nationally known figures including Janis Joplin and Jimmy Johnson." },
+      { heading: "Janis Joplin history and reproduced psychedelic Porsche", detail: "A replica car and related exhibits are available as interpretive context, but it is not her original Porsche; distinguish replicas from original artifacts." },
+      { heading: "Sabine Bank Lighthouse lens and Texas Navy exhibit", detail: "Coastal navigation and maritime history complement the museum's music and sports focus." },
+      { heading: "13½-foot alligator and natural-history material", detail: "A dramatic mounted alligator helps families connect the upper Gulf Coast's swamps and wildlife to regional settlement and industry." },
+      { heading: "Large mural and Dunn rotating gallery", detail: "The 125-foot historical mural covers Gulf Coast eras and the Dunn Gallery hosts dated visiting exhibits; check the current exhibition roster." },
+    ],
+    routes: [
+      { label: "First Port Arthur visit", steps: ["Use the rear Lakeshore Drive museum entrance rather than a closed door on Procter", "Begin with the broad Gulf Coast mural and natural-history exhibits", "Choose music and sports Hall of Fame highlights according to interest"] },
+      { label: "Upper Gulf Coast cultural day", steps: ["Explore the museum's Janis Joplin and maritime connections", "Use Port Arthur and Jefferson County history for context", "Add another actually open local museum or landmark; do not assume the Pompeiian Villa accepts visits"] },
+    ],
+    sources: [
+      { label: "Museum current homepage and temporary closure", url: "https://www.museumofthegulfcoast.org/", use: "Museum hours, pricing and Pompeiian Villa closure" },
+      { label: "Museum permanent exhibit descriptions", url: "https://www.museumofthegulfcoast.org/permanent", use: "Core exhibit highlights and rear parking" },
+      { label: "Museum admissions and history page", url: "https://www.museumofthegulfcoast.org/copy-of-about-the-museum", use: "Conflicting admission prices, tour booking and eligibility" },
+      { label: "Museum halls of fame", url: "https://www.museumofthegulfcoast.org/halls-of-fame", use: "Music, sports and notable Gulf Coast figures" },
+    ],
+    connections: [
+      { label: "Jefferson County", href: "/county/jefferson", reason: "Connect Port Arthur port history, coastal heritage and regional museums." },
+      { label: "Babe Zaharias Museum", href: "/destination/babe-didrikson-zaharias-museum-beaumont", reason: "Compare the Gulf Coast's broad Hall of Fame with a focused athletic biography." },
+      { label: "Texas Energy Museum", href: "/destination/texas-energy-museum-beaumont", reason: "Pair Gulf Coast culture with Beaumont's oil history." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Browse statewide museums by region and visitor interest." },
+    ],
+  },
+  "fire-museum-of-texas-beaumont": {
+    name: "Fire Museum of Texas",
+    slug: "fire-museum-of-texas-beaumont",
+    county: "Jefferson",
+    city: "Beaumont",
+    reviewed: "2026-10-13",
+    topics: ["safety", "family", "texas-history", "technology"],
+    whyVisit: "Beaumont's Fire Museum of Texas occupies a former city fire station and gives families a tangible look at firefighting across more than a century. Historic engines, children's fire-safety experiences and the gigantic Dalmatian-painted working fire hydrant outdoors create a distinctive stop in the downtown museum cluster.",
+    visitorStrategy: "Admission is free. The official site posts Monday–Friday 8 a.m.–4:30 p.m. and says the museum is closed Saturdays and Sundays, regardless of some third-party weekend listings. Address: 400 Walnut Street, Beaumont. Staff can be reached at 409-880-3927 about holidays, field trips and event access. The outside oversized working fire hydrant is a landmark; do not assume water demonstrations happen continuously or that the plaza can be used at any hour.",
+    accessibility: "The operator's site describes upstairs and downstairs visitor areas, including a children's museum, but does not publish a detailed accessible elevator route, stair alternatives or bathroom specifics. Before arranging a visit for someone who cannot use stairs, contact museum staff for ground-floor options and the actual status of an elevator. The large hydrant and plaza have distinct outdoor conditions; never assume every feature is equally accessible.",
+    familiesAndGroups: "Children can explore fire prevention and emergency response through the fire-safety house, Smokey Bear material and interactive education. The museum also advertises paid birthday and event rentals, which must not be confused with the free regular admission. A 60–90 minute general visit is an editorial estimate. The site describes optional popcorn rental for parties and a kitchen for event hires, not a daily museum café or full-service visitor restaurant.",
+    researchValue: "The museum traces firefighting from the mid-1800s to the present and includes a 1915 LaFrance fire engine used on President Lyndon B. Johnson's ranch. Its well-known Dalmatian-painted 'world's largest working fire hydrant' was donated by Disney for the 1999 101 Dalmatians film release event. Treat engine stories as museum interpretation, not a substitute for specific city fire-safety instructions.",
+    exhibits: [
+      { heading: "Historic fire engines and equipment", detail: "Vehicles and tools show how fire response changed between horse-drawn technology, motorized equipment and modern emergency services." },
+      { heading: "1915 LaFrance presidential ranch fire engine", detail: "A notable vehicle links a local fire museum to LBJ's ranch history and the story of safety infrastructure." },
+      { heading: "Children's museum and fire-safety house", detail: "Hands-on activities introduce fire prevention and emergency response, designed for family rather than specialist-archive use." },
+      { heading: "Giant Dalmatian working fire hydrant", detail: "The prominent outdoor landmark commemorates Disney's 1999 donation; water operation is event-specific rather than an everyday scheduled show." },
+    ],
+    routes: [
+      { label: "Free family fire-safety hour", steps: ["Begin with real fire engines and equipment", "Use children's fire-safety displays as age permits", "See the oversized Dalmatian hydrant outdoors if conditions allow"] },
+      { label: "Beaumont downtown museum pairing", steps: ["Visit the Fire Museum on a weekday during stated hours", "Walk or drive to the Art Museum of Southeast Texas, if open", "Add the Texas Energy Museum for a different technology and industrial-history perspective"] },
+    ],
+    sources: [
+      { label: "Fire Museum of Texas official visiting page", url: "https://www.firemuseumoftexas.com/visit", use: "Weekday hours, free admission, facilities and exhibits" },
+      { label: "Beaumont tourism museum listing", url: "https://www.beaumontcvb.com/listing/fire-museum-of-texas/20/", use: "Museum identity, exterior landmark and local visitor context" },
+    ],
+    connections: [
+      { label: "Jefferson County", href: "/county/jefferson", reason: "Understand Beaumont's emergency response and civic history." },
+      { label: "Art Museum of Southeast Texas", href: "/destination/art-museum-southeast-texas-beaumont", reason: "Another Beaumont downtown cultural stop with a different visitor experience." },
+      { label: "Texas Energy Museum", href: "/destination/texas-energy-museum-beaumont", reason: "Connect historic fire response and industrial oil history." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Compare children's and specialist museums across Texas." },
+    ],
+  },
+  "spindletop-gladys-city-boomtown-museum-beaumont": {
+    name: "Spindletop-Gladys City Boomtown Museum",
+    slug: "spindletop-gladys-city-boomtown-museum-beaumont",
+    county: "Jefferson",
+    city: "Beaumont",
+    reviewed: "2026-10-13",
+    topics: ["oil-history", "family", "texas-history", "outdoors"],
+    whyVisit: "Spindletop–Gladys City Boomtown Museum on the Lamar University campus reconstructs a turn-of-the-century oil boomtown to show what changed when the Lucas gusher erupted January 10, 1901. Visitors walk among reproduced storefronts, drilling structures and outdoor interpretation rather than only reading indoor exhibits; this is an especially useful companion to the Texas Energy Museum's geology and refinery exhibits.",
+    visitorStrategy: "The university lists Tuesday–Saturday 10 a.m.–5 p.m. and Sunday 1–5 p.m., with Mondays and major holidays closed; the final admission is at 4 p.m. Standard prices: $5 adults, $3 seniors 60+, $2 ages 6–12 and free for ages 5 or younger; Lamar-affiliated students/staff and eligible military visitors have stated ID-based free admission. Its former City name may appear as Gladys City Boomtown Museum. Dress for outdoor sun and variable ground conditions; allow 75–120 minutes by editorial estimate.",
+    accessibility: "Lamar says much of the boomtown complex is wheelchair accessible and provides resting benches outside several buildings. Because parts of the venue are historical reconstructions with thresholds and mixed outdoor conditions, 'much' is not the same as every building. Contact museum staff at 409-880-1750 to plan a wheelchair or stroller route and any needed support.",
+    familiesAndGroups: "This venue can work well for school-age children interested in buildings, old storefronts, oil derricks and hands-on historical interpretation. University instructions allow leashed pets around the grounds, but not inside exhibit buildings; service animals may enter. Book groups of ten or more ahead. Guided tours depend on a guide's availability; no guided tour is offered for more than 30 at once. Special youth-tour rates and chaperone ratios vary by school-year/summer dates, so coordinators should book with the museum rather than assuming a free field trip.",
+    researchValue: "The Lucas gusher transformed Beaumont and the American oil economy in 1901; the outdoor reconstructed boomtown explains the workers, merchants, families, machines and speculative economy behind that turning point. The buildings are recreations rather than the original downtown settlement, an important distinction for visitors interpreting photography and regional history.",
+    exhibits: [
+      { heading: "Recreated Gladys City commercial street", detail: "Walk the replica shops, businesses and period streetscapes that explain the lives of workers and families in the 1901 oil boom." },
+      { heading: "Oil derricks and gusher interpretation", detail: "Reconstructed drilling structures explain how oil was extracted and what made the Lucas gusher so disruptive to the regional and national economy." },
+      { heading: "Storefronts and occupational history", detail: "The log-cabin saloon, stores and period trade exhibits show commerce and everyday life rather than merely celebrating industrial machinery." },
+      { heading: "Seasonal living-history programs", detail: "Interpretive demonstrations and public events may bring the boomtown to life, but schedules depend on staffing; do not promise reenactors or a gusher demonstration on every visit." },
+    ],
+    routes: [
+      { label: "Oil boomtown first visit", steps: ["Check the outdoor weather and last admission before traveling", "Explore reconstructed commercial streets and drilling equipment", "Connect the museum's 1901 story to Beaumont's later industrial transformation"] },
+      { label: "Beaumont energy-history itinerary", steps: ["Begin at Spindletop's outdoor boomtown complex", "Continue to the Texas Energy Museum for engineering and refinery context", "Explore nearby city and county history if both museum schedules permit"] },
+    ],
+    sources: [
+      { label: "Lamar University Boomtown visitor guide", url: "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/", use: "Current hours, last admission, fares, pets, group and wheelchair rules" },
+      { label: "Lamar Boomtown history and special events", url: "https://www.lamar.edu/spindletop-boomtown-museum/index.html", use: "1901 Lucas gusher, site context and commemorative events" },
+    ],
+    connections: [
+      { label: "Jefferson County", href: "/county/jefferson", reason: "Find Spindletop's place in Beaumont's oil and Gulf Coast history." },
+      { label: "Texas Energy Museum", href: "/destination/texas-energy-museum-beaumont", reason: "Compare reconstructed boomtown life to petroleum science and production." },
+      { label: "Fire Museum of Texas", href: "/destination/fire-museum-of-texas-beaumont", reason: "A complementary Beaumont family history stop." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Explore other Texas industrial and open-air heritage museums." },
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
@@ -1275,6 +1378,9 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
   },
 
   "art-museum-southeast-texas-beaumont": { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/AMSET_exterior.jpg?width=1600", alt: "Art Museum of Southeast Texas museum exterior, Beaumont", width: 1600, height: 1236, credit: "Ktimberlake · CC BY-SA 4.0 · Wikimedia Commons · File:AMSET exterior.jpg" },
+
+  "fire-museum-of-texas-beaumont": { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fire_Museum_of_Texas%2C_Beaumont%2C_Texas.jpg?width=1600", alt: "Fire Museum of Texas historic fire station and exterior in downtown Beaumont", width: 1600, height: 904, credit: "JJonahJackalope · CC BY-SA 4.0 · Wikimedia Commons · File:Fire Museum of Texas, Beaumont, Texas.jpg" },
+  "spindletop-gladys-city-boomtown-museum-beaumont": { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Spindletop-Gladys_City_Boomtown_Museum.jpg?width=1600", alt: "Recreated oil-boom town buildings at Spindletop Gladys City Boomtown Museum, Beaumont", width: 1600, height: 987, credit: "i_am_jim · CC BY-SA 3.0 · Wikimedia Commons · File:The Spindletop-Gladys City Boomtown Museum.jpg" },
 
 };
 
