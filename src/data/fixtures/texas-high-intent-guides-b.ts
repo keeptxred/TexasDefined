@@ -322,7 +322,7 @@ const specs: Omit<HighIntentGuideSpec, "hero">[] = [
       },
       {
         "title": "Panhandle–Plains Historical Museum — Panhandle regional depth",
-        "advice": "The museum in Canyon is a strong fit for visitors seeking a regional perspective on the Panhandle and Plains rather than only a quick photo at Palo Duro Canyon. A visit can provide historical and cultural context for the surrounding landscape. Confirm current galleries and museum operating details, then set aside a separate outdoor block for the canyon rather than squeezing both into a single rushed stop."
+        "advice": "Do not plan an ordinary indoor visit to the Panhandle–Plains Historical Museum in Canyon at present. The museum's official closure update says its building remains temporarily closed for safety and needed capital improvements; the museum continues through pop-up programs, traveling exhibitions and outreach while seeking a future reopening. Its more than two million artifacts and interpretation of Plains, Panhandle, paleontology and regional history still matter, but a historic collection is not the same as a currently accessible gallery. Check the museum's closure-update and current event pages for legitimate off-site or virtual opportunities. If the building remains closed, choose Palo Duro Canyon or another independently verified visitor attraction rather than arriving for inaccessible exhibits."
       },
       {
         "title": "George Ranch Historical Park — interpreted rural history",
