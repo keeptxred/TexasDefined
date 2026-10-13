@@ -191,8 +191,8 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
     "hero": {
       "src": "https://research.fs.usda.gov/sites/default/files/2023-02/srs-sfaef-bridge.jpg",
       "alt": "Wooden bridge along the Stephen F. Austin Experimental Forest interpretive trail at Jack Creek, photographed for the USDA Forest Service site",
-      "width": 1200,
-      "height": 800,
+      "width": 800,
+      "height": 600,
       "credit": "USDA Forest Service, Southern Research Station · official SFA Experimental Forest trail photograph · U.S. government work; source: research.fs.usda.gov/srs/forestsandranges/locations/austin"
     },
     "bestSeason": "Year-round, especially spring and autumn for comfortable hiking; mosquitoes and humidity can be significant in summer.",
