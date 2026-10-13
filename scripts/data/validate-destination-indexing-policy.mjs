@@ -126,8 +126,27 @@ if (!aliasBlock) {
 } else {
   const aliasKeys = [...aliasBlock[1].matchAll(/"([^"]+)"\s*:/g)].map((match) => match[1]);
   const curationOnlyExceptions = new Set(['possum-kingdom-lake']);
+  // These three *live primary URLs* intentionally resolve to richer curation
+  // entries under older long-form keys. A curation lookup key does NOT imply
+  // that the public URL is a duplicate. Guard both sides of the relationship.
+  const primaryHistoricLookups = {
+    'goliad-state-park': 'goliad-state-park-and-historic-site',
+    'san-jacinto-battleground': 'san-jacinto-battleground-state-historic-site',
+    'washington-on-the-brazos': 'washington-on-the-brazos-state-historic-site',
+  };
+  const nonPrimaryBlock = availability.split('const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([')[1]?.split(']);')[0] ?? '';
+  for (const [primary, curationKey] of Object.entries(primaryHistoricLookups)) {
+    if (!aliasBlock[1].includes(`"${primary}": "${curationKey}"`))
+      failures.push(`Historic primary ${primary} must reuse its original, source-backed curation record.`);
+    if (nonPrimaryBlock.includes(`"${primary}",`))
+      failures.push(`Live historic primary must be eligible for publication: ${primary}`);
+    if (!nonPrimaryBlock.includes(`"${curationKey}",`))
+      failures.push(`Historic long-form duplicate must be suppressed from discovery: ${curationKey}`);
+    if (!route.includes(`"${curationKey}": "${primary}"`) || !route.includes('statusCode: 301'))
+      failures.push(`Historic long-form duplicate must permanently redirect to live primary: ${curationKey}`);
+  }
   for (const slug of aliasKeys) {
-    if (curationOnlyExceptions.has(slug)) continue;
+    if (curationOnlyExceptions.has(slug) || Object.hasOwn(primaryHistoricLookups, slug)) continue;
     if (!availability.includes(`"${slug}"`)) {
       failures.push(`Known legacy/duplicate curation alias is still eligible as a primary destination: ${slug}`);
     }
