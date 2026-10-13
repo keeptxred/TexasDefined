@@ -16,6 +16,7 @@ export const Route = createLazyFileRoute("/texas-historic-landmarks")({ componen
 const completedAuthoritySlugs: Record<string,string> = {
   "Olivewood Cemetery": "olivewood-cemetery",
   "Castro County Courthouse": "castro-county-courthouse",
+  "Southern Pacific Passenger Depot": "southern-pacific-passenger-depot-del-rio",
   "Bailey County Courthouse": "bailey-county-courthouse",
   "Wimberley Downtown Square Historic District": "wimberley-downtown-square-historic-district",
   "Sour Lake Historic District": "sour-lake-downtown-historic-district",
