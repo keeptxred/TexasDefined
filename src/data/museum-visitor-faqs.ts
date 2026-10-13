@@ -1998,9 +1998,9 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
     {
       "question": "Is the American Quarter Horse Museum undergoing renovation?",
       "answer": "Yes. A 2026 local operator interview described five renovation phases to create classroom space, interactive galleries, a shop and live-horse demonstrations, with work expected through the end of the decade. Some exhibits may move or be unavailable while work proceeds, although the museum has maintained its general operations.",
-      "verificationUrl": "https://www.aqha.com/museum",
+      "verificationUrl": "https://www.telemundoamarillo.com/2026/02/27/grandes-renovaciones-estn-en-marcha-para-el-museo-american-quarter-horse-hall-fame/?outputType=amp",
       "questionOrigin": "editorial-research",
-      "questionEvidenceUrl": "https://www.telemundoamarillo.com/2026/02/27/grandes-renovaciones-estn-marcha-para-museo-american-quarter-horse-hall-fame/",
+      "questionEvidenceUrl": "https://www.telemundoamarillo.com/2026/02/27/grandes-renovaciones-estn-en-marcha-para-el-museo-american-quarter-horse-hall-fame/?outputType=amp",
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     },
