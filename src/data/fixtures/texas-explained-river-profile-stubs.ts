@@ -31,7 +31,7 @@ export const texasBrazosRiverGuideStub = riverStub(
   "texas-brazos-river-guide",
   "The Brazos River Explained: The Texas Basin With the Biggest Flow",
   "The Brazos crosses an enormous slice of Texas from the Rolling Plains to the Gulf. Its tributaries, reservoirs and changing water demands help explain farming, cities, floodplains and the state's surface-water map.",
-  { src: "/images/explore/lakes-rivers/lake-somerville-birch-creek-unit.jpg", alt: "Open water and wooded shoreline in the Brazos River basin", width: 1600, height: 1067 },
+  {"src":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Brazos_River_at_Washington_on_the_Brazos.jpg?width=1600","alt":"Brazos River flowing past Washington-on-the-Brazos State Historic Site in Texas","width":1600,"height":900,"credit":"Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Brazos_River_at_Washington_on_the_Brazos.jpg · License: https://creativecommons.org/licenses/by/4.0/"},
   "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/brazos/index.asp",
   ["Brazos River", "Brazos River basin", "Texas rivers", "Texas water", "Texas geography", "TWDB"],
 );
@@ -58,7 +58,7 @@ export const texasTrinityRiverGuideStub = riverStub(
   "texas-trinity-river-guide",
   "The Trinity River Explained: The River System Behind Dallas-Fort Worth",
   "The Trinity River basin is entirely inside Texas and sits beneath much of Dallas-Fort Worth's water story. Its forks, reservoirs and downstream exports connect a major metro area with the Gulf Coast.",
-  { src: "/images/editorial/texas-trinity-river.jpg", alt: "Reservoir shoreline and open water in the upper Trinity River basin", width: 1600, height: 1067 },
+  {"src":"https://commons.wikimedia.org/wiki/Special:Redirect/file/Trinity-River-Dallas-TX-4667.jpg?width=1600","alt":"Trinity River flowing through downtown Dallas, Texas","width":1600,"height":900,"credit":"Loadmaster (David R. Tribble) · CC BY-SA 3.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Trinity-River-Dallas-TX-4667.jpg · License: https://creativecommons.org/licenses/by-sa/3.0/"},
   "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/trinity/index.asp",
   ["Trinity River", "Trinity River basin", "Dallas Fort Worth water", "Texas rivers", "Texas reservoirs", "TWDB"],
 );
