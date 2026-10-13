@@ -1,6 +1,6 @@
-import { dallasBlackHistoryDestinations } from "./dallas-black-history-destinations";
 import { animalSanctuaryDestinations } from "./animal-sanctuary-destinations";
 import { museumAuthorityDestinations } from "./museum-authority-new-destinations";
+import { dallasBlackHistoryDestinations } from "./dallas-black-history-destinations";
 import { enrichMuseumAuthority } from "./museum-authority-network";
 import { aquariumMarineDestinations } from "./aquarium-marine-destinations";
 import { coastalDestinations } from "./coastal-destinations";
@@ -13,6 +13,7 @@ import { johnsonCityAuthorityDestinations } from "./johnson-city-authority-desti
 import { johnsonCityWildlifeDestinations } from "./johnson-city-wildlife-destinations";
 import { lbjBoyhoodHomeDestinations } from "./lbj-boyhood-home-destination";
 import { historicSiteDestinations } from "./historic-sites";
+import { olivewoodCemeteryDestinations } from "./olivewood-cemetery-authority-destination";
 import { hidalgoPumphouseAuthorityDestinations } from "./hidalgo-pumphouse-authority-destination";
 import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
@@ -212,6 +213,7 @@ function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
  * curation module's import-time mutation of topAttractionDestinations.
  */
 export const preservedExploreDestinations = mergePreservedDestinations(
+  olivewoodCemeteryDestinations,
   animalSanctuaryDestinations,
   aquariumMarineDestinations,
   museumAuthorityDestinations,
