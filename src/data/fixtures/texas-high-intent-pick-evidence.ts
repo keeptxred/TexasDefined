@@ -37,6 +37,18 @@ export const texasGuidePickEvidence: Record<number, GuidePickEvidence[]> = {
     { title: "Abilene State Park — an accessible West-Central Texas stop", officialUrl: "https://tpwd.texas.gov/state-parks/abilene", internalHref: "/destination/abilene-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas Parks & Wildlife — reservable camping and facility details" },
     { title: "Andy Bowie County Park — South Padre Island coastal access", officialUrl: "https://www.cameroncountytx.gov/parks-coastal-parks/parks-andy-bowie/", internalHref: "/explore/rv-parks", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Cameron County Parks — reservations, renovation closure warning and current operations" },
   ],
+  114: [
+    { title: "Bullock Texas State History Museum — broad Texas storytelling", officialUrl: "https://tickets.thestoryoftexas.com/mainstore?categoryId=1237&vid=0", internalHref: "/destination/bullock-texas-state-history-museum", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Bullock Museum official admission and current visitor rules" },
+    { title: "Perot Museum of Nature and Science — family science day", officialUrl: "https://www.perotmuseum.org/visit/", internalHref: "/destination/perot-museum-nature-science-dallas", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Perot Museum exhibits, accessibility, hours and ticket rules" },
+    { title: "Witte Museum — nature, people and regional heritage", officialUrl: "https://www.wittemuseum.org/plan-your-visit/", internalHref: "/destination/witte-museum", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Witte Museum operator current admissions and visitor access" },
+    { title: "National Museum of the Pacific War — focused military history", officialUrl: "https://www.pacificwarmuseum.org/visit", internalHref: "/destination/national-museum-pacific-war", sourceCheckedAt: "2026-10-12", reviewingAuthority: "NMPW official gallery access, separate Pacific Combat Zone hours and operator rules" },
+    { title: "Museum of the Big Bend — understand Far West Texas", officialUrl: "https://www.museumofthebigbend.com/visit/", internalHref: "/destination/museum-of-the-big-bend-alpine", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Museum of the Big Bend Sul Ross campus entrance, hours, accessibility" },
+    { title: "Panhandle–Plains Historical Museum — Panhandle regional depth", officialUrl: "https://www.panhandleplains.org/p/about/pphm-temporary-closure-updates", internalHref: "/destination/panhandle-plains-historical-museum-canyon", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Museum official closure notice — museum building NOT currently admitting visitors" },
+    { title: "George Ranch Historical Park — interpreted rural history", officialUrl: "https://www.georgeranch.org/visit/hours-admissions-directions/", internalHref: "/destination/george-ranch-historical-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "The George Ranch operator: Saturday general admission, weekday prebooked visits" },
+    { title: "Kimbell Art Museum — a concentrated art visit", officialUrl: "https://kimbellart.org/visit", internalHref: "/explore/museums", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Kimbell Art Museum free permanent collection, exhibition ticket rules" },
+    { title: "Museum of Fine Arts, Houston — major art collections", officialUrl: "https://www.mfah.org/visit", internalHref: "/explore/museums", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Museum of Fine Arts Houston Sarofim campus, tickets and accessibility" },
+    { title: "Texas State Aquarium — marine education and conservation", officialUrl: "https://www.texasstateaquarium.org/plan-your-visit/visitor-information/", internalHref: "/explore/museums", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Texas State Aquarium operator: separate aquarium and wildlife conservation institution, cashless payment and seasonal amenities" },
+  ],
   110: [
     { title: "Inks Lake State Park — classic Highland Lakes swimming", officialUrl: "https://tpwd.texas.gov/state-parks/inks-lake", internalHref: "/destination/inks-lake-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "TPWD park swimming access" },
     { title: "Tyler State Park — wooded lake swimming", officialUrl: "https://tpwd.texas.gov/state-parks/tyler", internalHref: "/destination/tyler-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "TPWD park lake access and activities" },
@@ -73,7 +85,7 @@ export function allGuidePicksIndividuallySourced(number: number, titles: string[
       const item = sourceForGuidePick(number, title);
       return Boolean(item
         && /^https:\/\/[^\s]+$/.test(item.officialUrl)
-        && (item.internalHref.startsWith("/fishing/lakes/") || item.internalHref.startsWith("/destination/") || item.internalHref === "/explore/rv-parks" || item.internalHref === "/explore/lakes-rivers")
+        && (item.internalHref.startsWith("/fishing/lakes/") || item.internalHref.startsWith("/destination/") || item.internalHref === "/explore/rv-parks" || item.internalHref === "/explore/lakes-rivers" || item.internalHref === "/explore/museums")
         && /^\d{4}-\d{2}-\d{2}$/.test(item.sourceCheckedAt));
     });
 }
