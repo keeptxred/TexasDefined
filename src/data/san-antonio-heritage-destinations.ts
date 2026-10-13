@@ -113,6 +113,16 @@ export const sanAntonioHeritageDestinations: Destination[] = [
           "label": "National Park Service hours",
           "url": "https://www.nps.gov/saan/planyourvisit/hours.htm",
           "scope": "Site-specific authoritative history, preservation record and/or visitor access"
+        },
+        {
+          "label": "Historic-site photo: source, original creator and usage rights",
+          "url": "https://commons.wikimedia.org/wiki/File:Mission_Concepcion_San_Antonio.JPG",
+          "scope": "Verify the documentary hero photo's creator and image license before reuse"
+        },
+        {
+          "label": "Creative Commons media reuse license",
+          "url": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "scope": "Required license attribution and share-alike conditions where applicable"
         }
       ]
     }
@@ -128,8 +138,8 @@ export const sanAntonioHeritageDestinations: Destination[] = [
     "nearestTown": "San Antonio",
     "county": "Bexar County",
     "coordinates": {
-      "lat": 29.362,
-      "lng": -98.48
+      "lat": 29.36015,
+      "lng": -98.480325
     },
     "hero": {
       "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mission%20San%20Jose%20San%20Antonio%2001.jpg?width=1600",
@@ -233,6 +243,16 @@ export const sanAntonioHeritageDestinations: Destination[] = [
           "label": "NPS hours",
           "url": "https://www.nps.gov/saan/planyourvisit/hours.htm",
           "scope": "Site-specific authoritative history, preservation record and/or visitor access"
+        },
+        {
+          "label": "Historic-site photo: source, original creator and usage rights",
+          "url": "https://commons.wikimedia.org/wiki/File:Mission_San_Jose_San_Antonio_01.jpg",
+          "scope": "Verify the documentary hero photo's creator and image license before reuse"
+        },
+        {
+          "label": "Creative Commons media reuse license",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "scope": "Required license attribution and share-alike conditions where applicable"
         }
       ]
     }
@@ -348,6 +368,16 @@ export const sanAntonioHeritageDestinations: Destination[] = [
           "label": "National Park Service visitor planning",
           "url": "https://www.nps.gov/saan/planyourvisit/index.htm",
           "scope": "Site-specific authoritative history, preservation record and/or visitor access"
+        },
+        {
+          "label": "Historic-site photo: source, original creator and usage rights",
+          "url": "https://commons.wikimedia.org/wiki/File:Mission_San_Juan_Capistrano%2C_San_Antonio%2C_Texas.jpg",
+          "scope": "Verify the documentary hero photo's creator and image license before reuse"
+        },
+        {
+          "label": "Creative Commons media reuse license",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "scope": "Required license attribution and share-alike conditions where applicable"
         }
       ]
     }
@@ -463,6 +493,16 @@ export const sanAntonioHeritageDestinations: Destination[] = [
           "label": "NPS Espada amenities",
           "url": "https://www.nps.gov/places/mission-espada.htm",
           "scope": "Site-specific authoritative history, preservation record and/or visitor access"
+        },
+        {
+          "label": "Historic-site photo: source, original creator and usage rights",
+          "url": "https://commons.wikimedia.org/wiki/File:Mission_Espada_in_San_Antonio%2C_Texas.jpg",
+          "scope": "Verify the documentary hero photo's creator and image license before reuse"
+        },
+        {
+          "label": "Creative Commons media reuse license",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "scope": "Required license attribution and share-alike conditions where applicable"
         }
       ]
     }
@@ -578,6 +618,11 @@ export const sanAntonioHeritageDestinations: Destination[] = [
           "label": "Texas Historical Commission historic road trip",
           "url": "https://thc.texas.gov/blog/historic-road-trip-san-antonio",
           "scope": "Site-specific authoritative history, preservation record and/or visitor access"
+        },
+        {
+          "label": "Historic-site photo: source, original creator and usage rights",
+          "url": "https://commons.wikimedia.org/wiki/File:Gfp-texas-san-antonio-san-fernando-cathedral.jpg",
+          "scope": "Verify the documentary hero photo's creator and image license before reuse"
         }
       ]
     }
@@ -693,6 +738,16 @@ export const sanAntonioHeritageDestinations: Destination[] = [
           "label": "Texas Historical Commission restoration",
           "url": "https://thc.texas.gov/preserve/preservation-programs/courthouse-preservation/restored-historic-courthouses/bexar-county",
           "scope": "Site-specific authoritative history, preservation record and/or visitor access"
+        },
+        {
+          "label": "Historic-site photo: source, original creator and usage rights",
+          "url": "https://commons.wikimedia.org/wiki/File:Bexar_County_Courthouse_SAN_ANTONIO.jpg",
+          "scope": "Verify the documentary hero photo's creator and image license before reuse"
+        },
+        {
+          "label": "Creative Commons media reuse license",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "scope": "Required license attribution and share-alike conditions where applicable"
         }
       ]
     }
@@ -808,6 +863,16 @@ export const sanAntonioHeritageDestinations: Destination[] = [
           "label": "NPS National Register record",
           "url": "https://npgallery.nps.gov/AssetDetail/9839eb65-e4ed-4c76-9d36-dfa363d35d48",
           "scope": "Site-specific authoritative history, preservation record and/or visitor access"
+        },
+        {
+          "label": "Historic-site photo: source, original creator and usage rights",
+          "url": "https://commons.wikimedia.org/wiki/File:Carl_guenther_house_2012.jpg",
+          "scope": "Verify the documentary hero photo's creator and image license before reuse"
+        },
+        {
+          "label": "Creative Commons media reuse license",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "scope": "Required license attribution and share-alike conditions where applicable"
         }
       ]
     }
@@ -823,8 +888,8 @@ export const sanAntonioHeritageDestinations: Destination[] = [
     "nearestTown": "San Antonio",
     "county": "Bexar County",
     "coordinates": {
-      "lat": 29.4117,
-      "lng": -98.4906
+      "lat": 29.41245,
+      "lng": -98.49499
     },
     "hero": {
       "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Edward%20steves%20homestead.jpg?width=1600",
@@ -923,6 +988,16 @@ export const sanAntonioHeritageDestinations: Destination[] = [
           "label": "Conservation Society timeline",
           "url": "https://www.saconservation.org/who-we-are-2/milestones/",
           "scope": "Site-specific authoritative history, preservation record and/or visitor access"
+        },
+        {
+          "label": "Historic-site photo: source, original creator and usage rights",
+          "url": "https://commons.wikimedia.org/wiki/File:Edward_steves_homestead.jpg",
+          "scope": "Verify the documentary hero photo's creator and image license before reuse"
+        },
+        {
+          "label": "Creative Commons media reuse license",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "scope": "Required license attribution and share-alike conditions where applicable"
         }
       ]
     }
@@ -1043,6 +1118,11 @@ export const sanAntonioHeritageDestinations: Destination[] = [
           "label": "La Villita history",
           "url": "https://www.lavillitasanantonio.com/History",
           "scope": "Site-specific authoritative history, preservation record and/or visitor access"
+        },
+        {
+          "label": "Historic-site photo: source, original creator and usage rights",
+          "url": "https://commons.wikimedia.org/wiki/File:La_Villita%2C_San_Antonio.jpg",
+          "scope": "Verify the documentary hero photo's creator and image license before reuse"
         }
       ]
     }
@@ -1058,8 +1138,8 @@ export const sanAntonioHeritageDestinations: Destination[] = [
     "nearestTown": "San Antonio",
     "county": "Bexar County",
     "coordinates": {
-      "lat": 29.4243,
-      "lng": -98.4851
+      "lat": 29.42472,
+      "lng": -98.48639
     },
     "hero": {
       "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Menger%20Hotel%2C%20San%20Antonio%2C%202-2-2009.jpg?width=1600",
@@ -1163,6 +1243,16 @@ export const sanAntonioHeritageDestinations: Destination[] = [
           "label": "Historic Hotels of America history",
           "url": "https://www.historichotels.org/us/hotels-resorts/the-menger-hotel/history",
           "scope": "Site-specific authoritative history, preservation record and/or visitor access"
+        },
+        {
+          "label": "Historic-site photo: source, original creator and usage rights",
+          "url": "https://commons.wikimedia.org/wiki/File:Menger_Hotel%2C_San_Antonio%2C_2-2-2009.jpg",
+          "scope": "Verify the documentary hero photo's creator and image license before reuse"
+        },
+        {
+          "label": "Creative Commons media reuse license",
+          "url": "https://creativecommons.org/licenses/by-sa/2.0/",
+          "scope": "Required license attribution and share-alike conditions where applicable"
         }
       ]
     }
