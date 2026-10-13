@@ -61,6 +61,18 @@ export const texasGuidePickEvidence: Record<number, GuidePickEvidence[]> = {
     { title: "Fredericksburg — browse alongside a bigger Hill Country trip", officialUrl: "https://www.visitfredericksburgtx.com/things-to-do/shopping/antiques/", internalHref: "/destination/fredericksburg", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Fredericksburg Convention & Visitor Bureau antiques listings" },
     { title: "Comfort — smaller-scale historic Hill Country browsing", officialUrl: "https://www.comfortchamber.com/about-comfort", internalHref: "/destination/comfort", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Greater Comfort Chamber & Visitor Center historic shopping information" },
   ],
+  115: [
+    { title: "Fredericksburg and Gillespie County — food, heritage and wine", officialUrl: "https://www.visitfredericksburgtx.com/plan/visitor-center/", internalHref: "/destination/fredericksburg", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Fredericksburg visitor bureau two-night itinerary and local access" },
+    { title: "Wimberley and San Marcos country — rivers and small-town browsing", officialUrl: "https://www.visitwimberleytx.org/plan-your-visit/", internalHref: "/destination/wimberley", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Wimberley city-authorized visitor planning and river/arts context" },
+    { title: "Galveston — historic architecture with a Gulf horizon", officialUrl: "https://www.visitgalveston.com/", internalHref: "/explore/beaches-coast", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Galveston Park Board official island visit/conditions guide" },
+    { title: "Rockport and Aransas coast — art, birds and harbor days", officialUrl: "https://www.visitrockportfulton.com/plan/visitors-center/", internalHref: "/destination/rockport", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Rockport-Fulton tourism center and wildlife/arts itinerary" },
+    { title: "San Antonio — missions, food and walkable history", officialUrl: "https://www.visitsanantonio.com/plan-your-trip/", internalHref: "/explore/historic-sites", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Visit San Antonio official downtown/mission destination planning" },
+    { title: "Fort Worth — art museums and western heritage", officialUrl: "https://www.fwculture.com/visitors", internalHref: "/explore/museums", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Fort Worth Cultural District Alliance operator guide and museum cluster" },
+    { title: "Jefferson and Caddo Lake — East Texas heritage and water", officialUrl: "https://visitjeffersontexas.com/", internalHref: "/destination/jefferson", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Jefferson visitor bureau walking tour, historic downtown and lodging" },
+    { title: "Alpine and Fort Davis — museums, mountains and night skies", officialUrl: "https://visitalpinetx.com/request-info/", internalHref: "/destination/alpine", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Alpine city tourism office and Big Bend base town" },
+    { title: "Palo Duro Canyon and Canyon — Panhandle scenery", officialUrl: "https://tpwd.texas.gov/state-parks/palo-duro-canyon", internalHref: "/destination/palo-duro-canyon-state-park", sourceCheckedAt: "2026-10-12", reviewingAuthority: "TPWD park guide, day-use capacity and canyon conditions" },
+    { title: "Houston Museum District and nearby neighborhoods — city culture", officialUrl: "https://www.visithoustontexas.com/travel-planning/trip-ideas/cultural-districts/museum-district/", internalHref: "/explore/museums", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Houston official tourism Museum District cultural visitor guide" },
+  ],
   114: [
     { title: "Bullock Texas State History Museum — broad Texas storytelling", officialUrl: "https://tickets.thestoryoftexas.com/mainstore?categoryId=1237&vid=0", internalHref: "/destination/bullock-texas-state-history-museum", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Bullock Museum official admission and current visitor rules" },
     { title: "Perot Museum of Nature and Science — family science day", officialUrl: "https://www.perotmuseum.org/visit/", internalHref: "/destination/perot-museum-nature-science-dallas", sourceCheckedAt: "2026-10-12", reviewingAuthority: "Perot Museum exhibits, accessibility, hours and ticket rules" },
@@ -109,7 +121,7 @@ export function allGuidePicksIndividuallySourced(number: number, titles: string[
       const item = sourceForGuidePick(number, title);
       return Boolean(item
         && /^https:\/\/[^\s]+$/.test(item.officialUrl)
-        && (item.internalHref.startsWith("/fishing/lakes/") || item.internalHref.startsWith("/destination/") || item.internalHref === "/explore/rv-parks" || item.internalHref === "/explore/lakes-rivers" || item.internalHref === "/explore/museums")
+        && (item.internalHref.startsWith("/fishing/lakes/") || item.internalHref.startsWith("/destination/") || item.internalHref === "/explore/rv-parks" || item.internalHref === "/explore/lakes-rivers" || item.internalHref === "/explore/museums" || item.internalHref === "/explore/beaches-coast" || item.internalHref === "/explore/historic-sites")
         && /^\d{4}-\d{2}-\d{2}$/.test(item.sourceCheckedAt));
     });
 }
