@@ -179,6 +179,13 @@ function TexasHistoricLandmarksPage() {
       <Container className="py-12 sm:py-16">
         <h2 className="font-display text-4xl">Continue with TexasDefined's destination guides</h2>
         <div className="mt-7 grid gap-4 sm:grid-cols-2">{regionGuides.map(({label,to}) => <Link key={to} to={to} className="border-t border-border py-4 text-base font-semibold text-primary hover:underline">{label} →</Link>)}</div>
+        <div className="mt-7 border-t border-border pt-4">
+          <h3 className="font-display text-2xl">Earlier landmark to explore: Clifton's 1884 Whipple Truss Bridge</h3>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
+            This separate 1996 Recorded Texas Historic Landmark preserves rare nineteenth-century bridge engineering. It is not part of the 2025–2026 National Register listing above; the old span's deck has been removed and it is not open for crossing.
+          </p>
+          <Link to="/destination/$slug" params={{ slug: "clifton-whipple-truss-bridge" }} className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Read the Clifton bridge history and safe viewing guide →</Link>
+        </div>
         <p className="mt-7 max-w-4xl text-sm leading-7 text-muted-foreground">Methodology: the baseline is transcribed from THC's 2025–2026 recent listings and separate nomination-status sections as reviewed on {THC_RESEARCH_REVIEWED_ON}. Each row identifies a named listing, county, THC listing month, and broad property type—not the property's operating conditions. This rolling index supplements the statewide historical-site pages, and is not an exhaustive listing of the many thousands of Texas historic resources.</p>
       </Container>
     </section>
