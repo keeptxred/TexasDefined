@@ -26,6 +26,7 @@ import { hyeTexasDestinations } from "./hye-texas-destination";
 import { houstonGalvestonMuseumDestinations } from "./museum-expansion-houston-galveston";
 import { hoggLegacyDestinations } from "./hogg-legacy-destinations";
 import { sanAntonioMuseumDestinations } from "./museum-expansion-san-antonio";
+import { sanAntonioHeritageDestinations } from "./san-antonio-heritage-destinations";
 import { sanAntonioContemporaryMuseumDestinations } from "./museum-expansion-san-antonio-contemporary";
 import { statewideMuseumExpansionDestinations } from "./museum-expansion-statewide";
 import { statewideMuseumExpansionWave2Destinations } from "./museum-expansion-statewide-wave2";
@@ -247,6 +248,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   hyeTexasDestinations,
   austinMuseumDestinations,
   sanAntonioMuseumDestinations,
+  sanAntonioHeritageDestinations,
   sanAntonioContemporaryMuseumDestinations,
   wacoMuseumDestinations,
   statewideMuseumExpansionDestinations,
