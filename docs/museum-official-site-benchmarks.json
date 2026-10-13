@@ -962,6 +962,50 @@
         "https://thinkeryaustin.org/resources/",
         "https://thinkeryaustin.org/exhibit/"
       ]
+    },
+    "lbj-presidential-library-austin": {
+      "name": "LBJ Presidential Library",
+      "operatorStrengths": [
+        "Primary operator pages on admission, opening, special programs and exhibit topics",
+        "Family-specific and disabled-visitor guidance, independent comparison with nearby museums"
+      ],
+      "openGaps": [
+        "Browser proof of live accessibility and accurate canonical link paths",
+        "Full independent side-by-side comparison before superiority certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.lbjlibrary.org/visit",
+        "https://lbjlibrary.org/visit/know-before-you-go",
+        "https://lbjlibrary.org/visit/accessibility",
+        "https://www.lbjlibrary.org/visit/group-visits",
+        "https://www.lbjlibrary.org/exhibitions"
+      ]
+    },
+    "blanton-museum-of-art-austin": {
+      "name": "Blanton Museum of Art",
+      "operatorStrengths": [
+        "Primary operator pages on admission, opening, special programs and exhibit topics",
+        "Family-specific and disabled-visitor guidance, independent comparison with nearby museums"
+      ],
+      "openGaps": [
+        "Browser proof of live accessibility and accurate canonical link paths",
+        "Full independent side-by-side comparison before superiority certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://blantonmuseum.org/visit/",
+        "https://blantonmuseum.org/visit/parking/",
+        "https://blantonmuseum.org/visit/faqs/",
+        "https://blantonmuseum.org/visit/accessibility/",
+        "https://blantonmuseum.org/visit/group-visits/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
