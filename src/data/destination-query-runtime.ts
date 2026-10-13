@@ -18,6 +18,7 @@ import { applyHistoricSiteFactCorrections } from "./historic-site-fact-correctio
 import { enrichHistoricSiteRemoteHero } from "./historic-site-remote-heroes";
 import { enrichNationalCemeteryDestination } from "./national-cemetery-enrichment";
 import { filterDestinationsByScope } from "./destination-query-scope";
+import { correctDestinationTravelRegion } from "./destination-region-consistency";
 import { applyTownAuthority } from "./town-authority-network";
 import { platform, scope } from "./index";
 import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
@@ -178,7 +179,7 @@ function finishHistoricSiteEnrichment(destination: Destination) {
 }
 
 function applyResolvedHero(destination: Destination) {
-  return applyTownAuthority(enrichMuseumAuthority(normalizeDestinationCounty(
+  return correctDestinationTravelRegion(applyTownAuthority(enrichMuseumAuthority(normalizeDestinationCounty(
     enrichCavernAreaGuide(
       finishHistoricSiteEnrichment(
         improveDestinationQuality(
@@ -194,7 +195,7 @@ function applyResolvedHero(destination: Destination) {
         ),
       ),
     ),
-  )));
+  ))));
 }
 
 function resolveSeoReadyDestination(destination?: Destination | null) {
@@ -216,7 +217,7 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(enrichCavernAreaGuide)
     .map(normalizeDestinationCounty)
     .map(applyTownAuthority);
-  return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved));
+  return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved.map(correctDestinationTravelRegion)));
 }
 
 export async function listResolvedDestinations(params: Omit<DestinationQuery, "brandId"> = {}) {
