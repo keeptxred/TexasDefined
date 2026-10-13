@@ -21,6 +21,8 @@ describe("editorial image delivery", () => {
 
   it("rejects non-HTTPS and unapproved hosts from the remote-image policy", () => {
     expect(allowedRemoteImageUrl("http://images.unsplash.com/photo.jpg")).toBeNull();
+    expect(allowedRemoteImageUrl("http://research.fs.usda.gov/sites/default/files/2023-02/srs-sfaef-bridge.jpg")).toBeNull();
+    expect(allowedRemoteImageUrl("https://research.fs.usda.gov.evil.example/srs-sfaef-bridge.jpg")).toBeNull();
     expect(allowedRemoteImageUrl("http://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/example.jpg/1280px-example.jpg")).toBeNull();
     expect(allowedRemoteImageUrl("https://evil.example/photo.jpg")).toBeNull();
     expect(allowedRemoteImageUrl("javascript:alert(1)")).toBeNull();
