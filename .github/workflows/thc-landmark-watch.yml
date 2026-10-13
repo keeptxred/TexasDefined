@@ -14,6 +14,7 @@ on:
       - "scripts/data/validate-thc-landmark-authority-batch.mjs"
       - "scripts/data/validate-thc-landmark-authority-batch02.mjs"
       - "scripts/data/validate-thc-landmark-authority-batch03.mjs"
+      - "scripts/data/validate-thc-landmark-authority-batch04.mjs"
       - "src/data/thc-landmark-heritage-builder.ts"
       - "src/routes/texas-historic-landmarks*"
       - "scripts/data/validate-thc-landmark-watch.mjs"
@@ -36,6 +37,8 @@ jobs:
         run: node scripts/data/validate-thc-landmark-authority-batch02.mjs
       - name: Validate Del Rio station authority including licensed photography
         run: node scripts/data/validate-thc-landmark-authority-batch03.mjs
+      - name: Check Regency suspension bridge chronology and rights
+        run: node scripts/data/validate-thc-landmark-authority-batch04.mjs
 
   live-source-watch:
     if: github.event_name != 'pull_request'
