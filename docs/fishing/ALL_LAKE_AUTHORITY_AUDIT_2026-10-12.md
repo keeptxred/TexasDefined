@@ -207,3 +207,12 @@ The final 22 originally generic statewide-template guides were researched in two
 Direct primary-source anchors include [Richland-Chambers](https://tpwd.texas.gov/fishboat/fish/recreational/lakes/richland_chambers/access2.phtml), [Eagle Mountain](https://tpwd.texas.gov/fishboat/fish/recreational/lakes/eagle_mountain/access2.phtml), [Caddo Lake](https://tpwd.texas.gov/fishboat/fish/recreational/lakes/caddo/access.phtml), [O' the Pines](https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lop/access2.phtml), [Lake Corpus Christi](https://tpwd.texas.gov/fishboat/fish/recreational/lakes/corpus_christi/access.phtml), and the per-lake TPWD access source already referenced in the generated guide footer. The dates attached to these access inventories **do not retroactively reverify older TPWD species, habitat and history claims**. This is why `accessReviewedAt` is maintained separately from `verifiedAt` on the records.
 
 The next authority threshold still requires ramp-by-ramp current owner operation, accurate entrance pins, public-access ADA amenities, complete camping inventory and booking paths, distinctive primary-source history, original field photography, and independent competitive + mobile/production QA.
+
+## First missing-lake expansion: Georgetown and Benbrook
+
+A follow-up branch contains **two fully researched new entries**:
+
+- **Lake Georgetown** (Williamson): TPWD 1,297 acres, 85-ft depth, North Fork San Gabriel white-bass runs, three named USACE four-lane ramps (Cedar Breaks, Jim Hogg, Russell), Corps camping, and the 26.5-mile trail. TWDB history distinguishes March 3, 1980 impoundment from completion in 1982. Zebra mussels and water data. True-lake image by 8bit12man, CC BY 4.0 (not TexasDefined field photography).
+- **Benbrook Lake** (Tarrant): TPWD 3,635 acres, 70-ft depth, stocked hybrid striped bass, six specifically documented Corps parks/ramps, clearly dated April 21, 2026 low-water closures and campers-only/seasonal restrictions, TWDB September 29, 1952 impoundment. Image: USACE federal public domain (not TexasDefined field photography).
+
+**Pending production:** this separate expansion branch contains 54 completed-guide records, 121 unmatched TPWD listings, 149 named statewide facility entries, and 82 counties with reciprocal guide links. New-guide HTML, licensing display and exact operating conditions must pass required CI and release verification.

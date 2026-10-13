@@ -479,6 +479,10 @@
   ],
   "tarrant": [
     {
+      "slug": "benbrook-lake",
+      "name": "Benbrook Lake"
+    },
+    {
       "slug": "eagle-mountain-lake",
       "name": "Eagle Mountain Lake"
     },
@@ -551,6 +555,12 @@
     {
       "slug": "lake-casa-blanca",
       "name": "Lake Casa Blanca"
+    }
+  ],
+  "williamson": [
+    {
+      "slug": "lake-georgetown",
+      "name": "Lake Georgetown"
     }
   ],
   "wise": [
