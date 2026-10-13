@@ -3922,6 +3922,80 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "1919-san-augustine-county-jail-museum": [
+    {
+      "question": "Is admission to the 1919 San Augustine County Jail Museum free?",
+      "answer": "Yes. The local San Augustine tourism authority lists free admission and welcomes donations. This is a small local-history attraction rather than a paid commercial jail tour; confirm current staffing before traveling.",
+      "verificationUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the jail museum's opening hours?",
+      "answer": "The local tourism guide publishes Monday through Friday from 11 a.m. until 3 p.m. Local volunteer schedules and special events can affect access, so email the1919jailmuseum@gmail.com to confirm a dedicated visit.",
+      "verificationUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is this the jail museum in St. Augustine, Florida?",
+      "answer": "No. The 1919 San Augustine County Jail Museum is in San Augustine, Texas, at 100 West Columbia Street. It is a separate institution from the privately ticketed Old Jail Museum in St. Augustine, Florida. Check the city and state before using map or ticket links.",
+      "verificationUrl": "https://texastimetravel.com/directory/1919-san-augustine-county-jail-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/1919-san-augustine-county-jail-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is inside the restored jail museum?",
+      "answer": "The Texas visitor guide describes a Texana research library, county records, documentary-photo kiosk featuring Russell Lee and John Vachon, timelines of local and Mission Dolores history, and displays about regional law-enforcement officers.",
+      "verificationUrl": "https://texastimetravel.com/directory/1919-san-augustine-county-jail-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/1919-san-augustine-county-jail-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are the original 1919 jail cells still there?",
+      "answer": "The Texas Historical Commission explains that the 1919 building incorporated jail bars and cells from an earlier 1882 jail. They help interpret the site's history, but public visitor sources do not establish access to every former cell or upper-level room.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/5507018848",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/5507018848",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the historic jail wheelchair accessible?",
+      "answer": "The official visitor descriptions do not confirm a fully step-free two-story route, an elevator or access into all former cells. Visitors needing wheelchair access should contact the museum directly to confirm the actual entrance and which displays can be visited.",
+      "verificationUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the former county jail suitable for children?",
+      "answer": "School-age children interested in historic buildings, old jail cells, photography and Texas history may enjoy a short supervised visit. Some incarceration and law-enforcement themes may warrant an adult explanation; this is not an interactive children's play museum.",
+      "verificationUrl": "https://texastimetravel.com/directory/1919-san-augustine-county-jail-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/1919-san-augustine-county-jail-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the San Augustine jail museum have a café or restaurant?",
+      "answer": "Neither the local tourism guide nor the Texas Historical Commission's visitor listing advertises a cafeteria, restaurant or snack counter inside the museum. Plan any meal separately around San Augustine's courthouse square.",
+      "verificationUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
