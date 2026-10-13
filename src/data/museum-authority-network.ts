@@ -1770,7 +1770,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "Museum official visiting and free admission", url: "https://www.bellcountymuseum.org/p/visit", use: "Location and interpretation" },
       { label: "Museum official FAQ", url: "https://www.bellcountymuseum.org/p/visit/faqs", use: "Photography, accessibility, genealogy room, food restrictions" },
       { label: "Museum posted hours", url: "https://www.bellcountymuseum.org/directions.aspx", use: "Operating days and address" },
-      { label: "Museum public-program calendar", url: "https://www.bellcountymuseum.org/location/add-location-name-here", use: "Current programs and events" },
+      { label: "Museum public-program calendar", url: "https://www.bellcountymuseum.org/events", use: "Current programs and events" },
     ],
     connections: [
       { label: "Bell County", href: "/county/bell", reason: "Place the museum in Belton and Temple history." },
