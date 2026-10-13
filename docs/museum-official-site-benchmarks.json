@@ -1112,6 +1112,27 @@
         "https://atlas.thc.texas.gov/Details/5507018848",
         "https://thc.texas.gov/historic-sites/mission-dolores"
       ]
+    },
+    "the-agricultural-museum-arts-center-boerne": {
+      "name": "The AgriCultural Museum & Arts Center",
+      "operatorStrengths": [
+        "Operator's current Saturday admission by donation, living agricultural exhibits, blacksmith demonstrations and events",
+        "City of Boerne verifies former Agricultural Heritage Museum name and distinct spaces"
+      ],
+      "openGaps": [
+        "Confirm detailed step-free routes and sensory requirements with operator",
+        "Compare final live museum page side by side with the complete operator visitor pages"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://theagricultural.org/visit-the-agricultural/",
+        "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+        "https://theagricultural.org/",
+        "https://theagricultural.org/bluegrass-jams/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
