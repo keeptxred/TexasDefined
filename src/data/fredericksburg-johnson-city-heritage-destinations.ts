@@ -9,7 +9,7 @@ export const fredericksburgJohnsonCityHeritageDestinations: Destination[] = [
     "brandId": "texasdefined",
     "slug": "fredericksburg-art-guild",
     "name": "Fredericksburg Art Guild",
-    "category": "museums-culture",
+    "category": "historic-sites",
     "region": "hill-country",
     "geography": {
       "primaryRegionId": "central-texas",
