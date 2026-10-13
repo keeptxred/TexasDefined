@@ -163,13 +163,14 @@ if (base) {
     const diff = execFileSync("git", ["diff", "--no-ext-diff", "--unified=8", base + "...HEAD", "--", ...candidatePaths], { encoding: "utf8", maxBuffer: 32 * 1024 * 1024 });
     const added = diff.split("\n").filter((line) => line.startsWith("+") && !line.startsWith("+++")).map((line) => line.slice(1)).join("\n");
     const found = new Set();
-    for (const match of added.matchAll(/slug:\s*"([a-z0-9-]+)"/g)) {
-      const slug = match[1];
-      const context = added.slice(Math.max(0, match.index - 300), match.index + 450);
+    // Parse actual newly added destination records, not nearby references,
+    // FAQ data or unrelated taxonomy slugs like "law-enforcement".
+    // Requiring the adjacent id/brandId/slug/name sequence prevents false
+    // positives from concatenated git diff hunks without weakening the gate.
+    for (const match of added.matchAll(/\bid:\s*"[^"\n]+"\s*,\s*brandId:\s*"[^"\n]+"\s*,\s*slug:\s*"([a-z0-9-]+)"\s*,\s*name:\s*"([^"\n]+)"/g)) {
+      const [, slug, name] = match;
       if (/(museum|historical-park|science-center)/i.test(slug) ||
-          /name:\s*["'][^"'\n]*(museum|historical park|science center)[^"'\n]*["']/i.test(context)) {
-        found.add(slug);
-      }
+          /(museum|historical park|science center)/i.test(name)) found.add(slug);
     }
     for (const match of added.matchAll(/"[^"]+",\s*"([a-z0-9-]+)",\s*"([^"]+)"/g)) {
       if (/(museum|historical park|science center)/i.test(match[2])) found.add(match[1]);
