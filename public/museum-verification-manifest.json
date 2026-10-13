@@ -1431,6 +1431,29 @@
           "label": "FAQ source: Can families hike the desert trails after visiting the archaeology galleries?"
         }
       ]
+    },
+    {
+      "path": "/destination/1919-san-augustine-county-jail-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+          "fetchUrl": "https://visitsanaugustinetx.org/local-attractions/",
+          "label": "Official tourism museum hours, exhibits and history"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/5507018848",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/5507018848",
+          "label": "Texas Historical Commission jail historical-marker evidence"
+        },
+        {
+          "sourceUrl": "https://thc.texas.gov/historic-sites/mission-dolores",
+          "fetchUrl": "https://thc.texas.gov/historic-sites/mission-dolores",
+          "label": "Separately operated Mission Dolores current visitor guidance"
+        }
+      ]
     }
   ]
 }
