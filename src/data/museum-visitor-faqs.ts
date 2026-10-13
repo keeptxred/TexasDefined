@@ -2574,6 +2574,246 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "museum-of-the-gulf-coast-port-arthur": [
+    {
+      "question": "What does admission cost at Museum of the Gulf Coast?",
+      "answer": "Official pages conflict: the homepage and permanent exhibitions page list $8 adults and $6 seniors, but its separate admissions/history page lists $10 adults and $8 seniors. The museum also lists $3 for ages 4–18 and free admission for children under four. Confirm the current price at 409-982-7000 before a trip.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/copy-of-about-the-museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where do I park and enter Museum of the Gulf Coast?",
+      "answer": "The street address is 700 Procter Street, Port Arthur, but the museum specifically directs visitor parking and the entrance to the back of the building along Lakeshore Drive. Do not rely only on the front street address to locate its public entry.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/permanent",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/permanent",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Museum of the Gulf Coast open on Sundays?",
+      "answer": "No. The current museum pages list Monday–Saturday from 9 a.m. until 5 p.m. and closures on Sundays and holidays. Check the museum's posted holiday calendar for a trip around a school break.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I see Janis Joplin's psychedelic Porsche at the museum?",
+      "answer": "The museum identifies its famous psychedelic Porsche as a reproduction, not Janis Joplin's original vehicle. The music galleries also include other objects connected with regional musicians; check current display changes before promising an exact item.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/permanent",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/halls-of-fame",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the associated Pompeiian Villa open for tours?",
+      "answer": "No. The museum's official homepage currently identifies the Pompeiian Villa as closed for renovations. Do not include an interior visit in a same-day itinerary until the operator explicitly announces reopening.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Museum of the Gulf Coast interesting for children?",
+      "answer": "School-age children often have several approachable topics to choose from: a 13½-foot mounted alligator, a sweeping Gulf Coast history mural, a maritime lighthouse lens and music/sports galleries. Its exhibits are history-focused, not a dedicated children's play area; choose topics based on interests.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/permanent",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can schools and other large groups get tours or discounts?",
+      "answer": "Groups of ten or more can arrange tours ahead of time. The museum advertises group discounts and free school tours but its pages differ on grade eligibility and booking notice. The museum recommends planning at least two weeks ahead for a preferred date and guide.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/copy-of-about-the-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is there a museum restaurant or cafeteria?",
+      "answer": "The museum's official visitor, admissions and permanent-exhibit pages do not establish an everyday on-site full-service restaurant or cafeteria. Arrange meals separately in Port Arthur, and ask about food policies for field trips.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How accessible are the two floors of Museum of the Gulf Coast?",
+      "answer": "The museum's visitor pages identify two exhibit floors but do not fully document the current elevator, wheelchair, restroom and sensory-support arrangements. Call 409-982-7000 with specific access needs before making the trip.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/permanent",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/permanent",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "fire-museum-of-texas-beaumont": [
+    {
+      "question": "Is admission to the Fire Museum of Texas free?",
+      "answer": "Yes. The official visiting page states that ordinary museum admission is free. Birthday parties, private rental, and special booked activities are separately priced and are not part of general admission.",
+      "verificationUrl": "https://www.firemuseumoftexas.com/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.firemuseumoftexas.com/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Fire Museum of Texas open on weekends?",
+      "answer": "No. The operator lists Monday through Friday, 8 a.m.–4:30 p.m., with Saturdays and Sundays closed. Museum event schedules or third-party weekend listings should not be treated as normal walk-in hours.",
+      "verificationUrl": "https://www.firemuseumoftexas.com/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.firemuseumoftexas.com/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the giant spotted fire hydrant outside the Fire Museum?",
+      "answer": "The enormous white Dalmatian-painted hydrant is a working fire hydrant installed with a Disney donation for the 1999 101 Dalmatians release. Outdoor water demonstrations are not guaranteed daily.",
+      "verificationUrl": "https://www.firemuseumoftexas.com/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.beaumontcvb.com/listing/fire-museum-of-texas/20/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Will young children enjoy the Fire Museum of Texas?",
+      "answer": "The museum offers a children's museum area, a fire-safety house, Smokey Bear fire-prevention education and fire engines. The children's learning theme is safety rather than an unrestricted indoor play center, so adult supervision is needed.",
+      "verificationUrl": "https://www.firemuseumoftexas.com/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.firemuseumoftexas.com/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors see a fire engine connected to Lyndon B. Johnson?",
+      "answer": "Yes. The museum says a 1915 LaFrance engine used at LBJ's former ranch is one of its historical display highlights. It also shows how firefighting equipment developed across generations.",
+      "verificationUrl": "https://www.firemuseumoftexas.com/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.firemuseumoftexas.com/visit",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Fire Museum accessible to wheelchair users?",
+      "answer": "The operator refers to both downstairs and upstairs museum spaces but does not publish a complete elevator or stair-free route. Contact staff at 409-880-3927 to confirm the exhibits and restroom facilities accessible to a particular visitor.",
+      "verificationUrl": "https://www.firemuseumoftexas.com/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.firemuseumoftexas.com/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Fire Museum of Texas have a cafeteria or restaurant?",
+      "answer": "The museum advertises a kitchen and optional popcorn-machine rental for privately booked events, not a normal public café or full-service restaurant. Plan meals elsewhere in Beaumont unless your booked event specifies catering.",
+      "verificationUrl": "https://www.firemuseumoftexas.com/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.firemuseumoftexas.com/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can you reserve the Fire Museum for birthday parties?",
+      "answer": "Yes. The operator advertises birthday and small-event rental packages that include access to children's exhibit areas and, in some packages, a fire engine visit. Rates and deposits are separate from its free everyday admission; confirm booking availability directly.",
+      "verificationUrl": "https://www.firemuseumoftexas.com/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.firemuseumoftexas.com/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "spindletop-gladys-city-boomtown-museum-beaumont": [
+    {
+      "question": "What does it cost to enter Spindletop Gladys City Boomtown Museum?",
+      "answer": "Lamar University lists standard admission as $5 adults, $3 seniors age 60+, $2 ages 6–12, with ages five or under free. Certain Lamar-affiliated visitors and eligible military personnel receive ID-based free admission. Check current event pricing and qualifications.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "When does Spindletop Boomtown close and what is its last admission time?",
+      "answer": "The official visiting page lists Tuesday–Saturday 10 a.m.–5 p.m. and Sunday 1–5 p.m., closed Mondays and major holidays. Last admission is 4 p.m.; arriving shortly before closing is not ideal for the open-air museum.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are the Gladys City storefronts original buildings from 1901?",
+      "answer": "The historic boomtown streets and buildings are reconstructions that interpret life during the 1901 Spindletop oil boom. They are not the original intact town, so treat period settings as museum interpretation rather than untouched nineteenth-century buildings.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/index.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Spindletop Gladys City Boomtown accessible with a wheelchair or stroller?",
+      "answer": "Lamar says much of the complex is wheelchair accessible, with benches on several porches. Outdoor surfaces and thresholds differ between reconstructed buildings; ask the museum for an actual route instead of assuming every display is step-free.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are dogs allowed at the Boomtown Museum?",
+      "answer": "Leashed pets are allowed on the premises but not inside exhibition buildings, according to Lamar University's visitor page. Service animals are allowed inside according to the museum's service-animal rule; confirm any special accommodation directly.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have guided tours and field trips?",
+      "answer": "Tours can be guided when docents are available, otherwise self-guided. Groups of 10 or more should book ahead; the operator does not give guided tours to groups over 30 people at once, although larger youth groups may be split. School-year and summer prices differ, and educators should confirm chaperone rules.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum recreate the 1901 Lucas gusher every day?",
+      "answer": "The museum interprets the 1901 Lucas gusher through replica derricks, reconstructed commercial buildings and occasional scheduled events. Do not assume a live gusher demonstration or reenactors are available on every ordinary visit.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/index.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/index.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Spindletop Boomtown have a restaurant or cafe?",
+      "answer": "The operator's current plan-your-visit page does not establish a regular full-service café or restaurant; there is a gift shop but that is not a dining facility. Plan an outdoor-appropriate outing and meals elsewhere in Beaumont.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How long should we allow for Spindletop Gladys City Boomtown?",
+      "answer": "An estimated 75–120 minutes is reasonable for a selective walk among recreated shops and derricks, accounting for heat, shade and individual mobility. It is an editorial estimate, not the museum's required tour length.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/index.html",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
