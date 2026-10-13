@@ -1468,6 +1468,89 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "quarterly",
       "reviewed": "2026-10-13"
     }
+  ],
+  "kimbell-art-museum-fort-worth": [
+    {
+      "question": "Is the Kimbell Art Museum in Fort Worth free to visit?",
+      "answer": "The Kimbell's permanent collection is always free, including regular access to its Kahn Building galleries. Special exhibitions are separately ticketed; the museum currently lists $18 for general adult exhibition admission and different reduced rates for eligible visitors.",
+      "verificationUrl": "https://kimbellart.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which days is Kimbell Art Museum open late?",
+      "answer": "The operator schedules Friday hours from noon until 8 p.m. Tuesdays through Thursdays and Saturdays are 10 a.m. to 5 p.m.; Sundays noon to 5 p.m.; Mondays closed. Last entry to ticketed special exhibitions is 30 minutes before closing.",
+      "verificationUrl": "https://kimbellart.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How can I get half-price tickets to a Kimbell special exhibition?",
+      "answer": "Kimbell advertises half-price special exhibition admission Tuesday from 10 a.m. to 5 p.m. and Friday from 5 to 8 p.m. Friday discounted tickets must be purchased at the Piano Pavilion box office; verify special-exhibition dates before reserving.",
+      "verificationUrl": "https://kimbellart.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/tickets",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is parking free at Kimbell Art Museum?",
+      "answer": "Yes. The official visit page describes free parking in the underground garage and the museum's designated Kahn and Kimbell East lots, along with available free on-street parking. Follow the current parking map, since Cultural District events may complicate nearby roads.",
+      "verificationUrl": "https://kimbellart.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which Kimbell building and entrance should wheelchair users choose?",
+      "answer": "Most campus spaces are accessible, but the west entrance of the Louis Kahn Building is not wheelchair accessible. Use its east entrance on Van Cliburn Way. The Piano Pavilion is accessible through the underground garage and from designated drop-off; staff can assist with transfer between buildings.",
+      "verificationUrl": "https://kimbellart.org/visit/accessibility",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/visit/accessibility",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Kimbell Art Museum have a café or full restaurant?",
+      "answer": "The Kimbell Café in the Kahn Building serves seated lunch, take-away options and afternoon tea, including a rotating selection of soups, sandwiches and quiche. The Piano Café is currently listed as temporarily closed. It is a museum café, not a formal table-service restaurant.",
+      "verificationUrl": "https://kimbellart.org/visit/dine",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/visit/dine",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can children and visitors with sensory needs use the Kimbell?",
+      "answer": "The Kimbell offers free regular collection access, child-friendly learning material, advance-booked sensory hours, social narratives and communication tools. Limited loaner wheelchairs and mobility assistance are available, but check any family studio opening for your chosen day.",
+      "verificationUrl": "https://kimbellart.org/visit/accessibility",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/visit/accessibility",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the Kimbell's 2026 photography exhibition?",
+      "answer": "Photography's First Century: Masterworks from the Bibliothèque nationale de France is scheduled October 4, 2026 through January 17, 2027. It requires a special-exhibition ticket, unlike the museum's permanent collection; check the gallery and booking rules for the date.",
+      "verificationUrl": "https://kimbellart.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/tickets",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How far ahead must group tours be arranged at the Kimbell?",
+      "answer": "Operator tour guidance asks for at least three weeks' advance notice for arranged docent-led and self-guided group visits. Guided visits generally last about an hour, and the tour format depends on group size and museum availability.",
+      "verificationUrl": "https://kimbellart.org/content/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/content/tours",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
   ]
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
