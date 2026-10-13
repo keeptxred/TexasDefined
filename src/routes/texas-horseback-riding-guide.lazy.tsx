@@ -98,7 +98,7 @@ function TexasHorsebackRidingGuidePage() {
 
           <figure className="border-b border-border py-8">
             <img src={governedGuideHero.src} alt="Chihuahuan Desert mountains and open landscape within Big Bend Ranch State Park, a Texas equestrian destination" width={governedGuideHero.width} height={governedGuideHero.height} className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
-            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">Big Bend Ranch State Park permits equestrian trips in managed portions of its backcountry. This is a park landscape image, not a photograph of an equestrian trail or current horse-riding conditions. Photo: {governedGuideHero.credit}.</figcaption>
+            <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">Big Bend Ranch State Park permits equestrian trips in managed portions of its backcountry. This is a park landscape image, not a photograph of an equestrian trail or current horse-riding conditions. Photo: {governedGuideHero.credit}.{" "}<Link to="/destination/big-bend-ranch-state-park" className="text-primary underline">Big Bend Ranch State Park visitor guide →</Link></figcaption>
           </figure>
 
           <section className="border-b border-border py-9" aria-labelledby="quick-answer">
