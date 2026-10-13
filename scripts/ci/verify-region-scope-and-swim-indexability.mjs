@@ -34,6 +34,20 @@ function sourceCheck(){
  if(!destinationRuntime.includes('improved.map(correctDestinationTravelRegion)'))failures.push('Merged destination catalog missing geographic corrections');
  if(!destinationRuntime.includes('correctDestinationTravelRegion(applyResolvedHero(destination))'))failures.push('Destination detail resolver missing geographic corrections');
 
+ // Check the actual curated source fields, not just a downstream override that
+ // could hide incorrect records from the editor and future data exports.
+ for(const [file,slug] of [
+   ['src/data/aquarium-marine-destinations-2.ts','downtown-aquarium-houston'],
+   ['src/data/aquarium-marine-destinations-3.ts','houston-interactive-aquarium-animal-preserve'],
+   ['src/data/aquarium-marine-destinations-4.ts','houston-zoo'],
+ ]) {
+   const source=fs.readFileSync(file,'utf8');
+   const start=source.indexOf('slug: "'+slug+'"');
+   const next=start<0?'':source.slice(start,start+1200);
+   if(start<0||!next.includes('region: "gulf-coast"'))failures.push('Houston source catalog region regression: '+slug);
+ }
+
+
  const category=fs.readFileSync('src/routes/explore.$category.tsx','utf8');
  const staticAuthority=fs.readFileSync('public/content/explore-category-authority/swimming-holes-river-tubing.html','utf8');
  if(!route.includes('filterDestinationsByScope(loadedDestinations, { region: region.id })'))failures.push('Region route lacks strict final regional filter');
