@@ -41,6 +41,10 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'ben-bolt-palito-blanco': 'jim-wells',
+    'benavides': 'duval',
+    'big-lake-reagan-co': 'reagan',
+    'big-sandy': 'upshur',
     'beckville': 'panola',
     'beeville-jones': 'bee',
     'bells': 'grayson',
