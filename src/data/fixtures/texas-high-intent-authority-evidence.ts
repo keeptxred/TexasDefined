@@ -299,11 +299,11 @@ const photoSpecs: Record<number, (["park", string] | ["commons", string,string,s
   "112": [
     [
       "commons",
-      "Round Top Historic Library -- Round Top, Texas.jpg",
-      "Jim Evans",
+      "Canton October 2017 09 (First Monday Trade Days Main Gate).jpg",
+      "Michael Barera",
       "CC BY-SA 4.0",
-      2514,
-      2096
+      6000,
+      4000
     ],
     [
       "commons",
