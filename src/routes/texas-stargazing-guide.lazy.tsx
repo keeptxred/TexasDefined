@@ -107,6 +107,12 @@ function TexasStargazingGuidePage() {
 
           <GuideVerifiedFacts guideSlug="texas-stargazing-guide" />
 
+          <aside className="border-b border-border py-8" aria-label="Night-sky site specific access">
+            <h2 className="font-display text-2xl">Two park-specific details that change the plan</h2>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>South Llano River:</strong> TPWD says visitors who want to continue stargazing beyond 10 p.m. need to add the night-activity fee when paying entry. That is not the same as unrestricted overnight park access. Confirm the <a href="https://tpwd.texas.gov/state-parks/south-llano-river/dark-skies" target="_blank" rel="noopener noreferrer" className="text-primary underline">night-activity requirements</a> and parking instructions before travel.</p>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>Big Bend Ranch:</strong> The park identifies River Road, West Contrabando Trailhead, Big Hill and the Hoodoos as stargazing locations accessible by ordinary vehicles. That does not eliminate the need for safe driving, current park access checks or weather planning. Use the <a href="https://tpwd.texas.gov/state-parks/big-bend-ranch/dark-skies/" target="_blank" rel="noopener noreferrer" className="text-primary underline">official dark-sky guide</a> to select a site before heading into remote terrain.</p>
+          </aside>
+
           <section className="border-b border-border py-10" aria-labelledby="stewardship">
             <p className="eyebrow text-primary">Night-sky stewardship</p>
             <h2 id="stewardship" className="mt-2 font-display text-3xl">Protect the darkness you came to see</h2>

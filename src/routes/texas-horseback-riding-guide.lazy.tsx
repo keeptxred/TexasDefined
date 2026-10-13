@@ -115,6 +115,11 @@ function TexasHorsebackRidingGuidePage() {
 
           <GuideVerifiedFacts guideSlug="texas-horseback-riding-guide" />
 
+          <aside className="border-b border-border py-8" aria-label="Hill Country equestrian area conditions">
+            <h2 className="font-display text-2xl">Hill Country State Natural Area: current trail status and horse facilities</h2>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">TPWD's October 5, 2026 park notice says all Hill Country State Natural Area trails reopened; they may close again after precipitation. For a horse trip, the day-use area near headquarters has a water trough, hitching posts and a flush toilet. Equestrian camping is available, but there is no horse-washing station. The arena requires advance reservation; riders must carry current Coggins documentation. Call (830) 796-4413 about trail conditions and check the <a href="https://tpwd.texas.gov/state-parks/hill-country" target="_blank" rel="noopener noreferrer" className="text-primary underline">official park alerts and equestrian details</a> before hauling. These are dated conditions, not a promise of ongoing trail access.</p>
+          </aside>
+
           <section className="border-b border-border py-10" aria-labelledby="trip-conditions">
             <p className="eyebrow text-primary">Before you haul</p>
             <h2 id="trip-conditions" className="mt-2 font-display text-3xl">Conditions that should change the plan</h2>

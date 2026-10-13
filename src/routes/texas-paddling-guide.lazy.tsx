@@ -107,6 +107,11 @@ function TexasPaddlingGuidePage() {
 
           <GuideVerifiedFacts guideSlug="texas-paddling-guide" />
 
+          <aside className="border-b border-border py-8" aria-label="Caddo Lake canoe rental planning">
+            <h2 className="font-display text-2xl">Caddo Lake canoe-rental specifics</h2>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">At Caddo Lake State Park, TPWD currently rents canoes first-come, first-served; they are not reservable. Renters must be 18 or older, present identification and sign a waiver. The park requires rental canoes to launch at Saw Mill Pond and does not provide staff to help carry or launch them. Rental pickup is advertised from 8:15 a.m. to 3 p.m.; day-use canoes must return by 4:30 p.m. Rental availability and hours can change with weather. Check the <a href="https://tpwd.texas.gov/state-parks/caddo-lake/paddling-rental-information" target="_blank" rel="noopener noreferrer" className="text-primary underline">official canoe-rental rules</a> before departure, and distinguish Saw Mill Pond rentals from self-guided bayou or lake routes.</p>
+          </aside>
+
           <section className="border-b border-border py-10" aria-labelledby="before-launch">
             <p className="eyebrow text-primary">Before you launch</p>
             <h2 id="before-launch" className="mt-2 font-display text-3xl">Check the route, weather and exit plan before launching</h2>

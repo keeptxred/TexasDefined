@@ -17,6 +17,20 @@ const CHECKED_AT = "2026-10-12";
 export const verifiedGuideFactSets: Record<string, GuideVerifiedFact[]> = {
   "texas-paddling-guide": [
     {
+      label: "Caddo Lake State Park canoe rentals",
+      value: "First-come, first-served; no reservations; renters must be 18 or older; park rental canoes must launch from Saw Mill Pond",
+      sourceUrl: "https://tpwd.texas.gov/state-parks/caddo-lake/paddling-rental-information",
+      checkedAt: CHECKED_AT,
+      context: "TPWD states visitors must carry and launch rented canoes without staff assistance and sign a waiver.",
+    },
+    {
+      label: "Caddo Lake day-use canoe rental hours",
+      value: "Park office rental 8:15 a.m.–3 p.m.; day-use canoes returned by 4:30 p.m.",
+      sourceUrl: "https://tpwd.texas.gov/state-parks/caddo-lake/paddling-rental-information",
+      checkedAt: CHECKED_AT,
+      context: "The source lists weather-dependent closures and final/nonrefundable payments; confirm before traveling.",
+    },
+    {
       label: "Texas certified paddling trails",
       value: "100 trails listed by TPWD after the July 23, 2026 Palacios launch",
       sourceUrl: "https://tpwd.texas.gov/boating/paddling-trails/",
@@ -39,6 +53,20 @@ export const verifiedGuideFactSets: Record<string, GuideVerifiedFact[]> = {
     },
   ],
   "texas-stargazing-guide": [
+    {
+      label: "South Llano River late-night viewing",
+      value: "TPWD requires the additional night-activity fee for stargazing after 10 p.m.",
+      sourceUrl: "https://tpwd.texas.gov/state-parks/south-llano-river/dark-skies",
+      checkedAt: CHECKED_AT,
+      context: "Park activity fees and access may change; verify after-hours parking and admission terms.",
+    },
+    {
+      label: "Big Bend Ranch stargazing viewpoints",
+      value: "TPWD identifies River Road, West Contrabando Trailhead, Big Hill and the Hoodoos as locations accessible by any vehicle",
+      sourceUrl: "https://tpwd.texas.gov/state-parks/big-bend-ranch/dark-skies/",
+      checkedAt: CHECKED_AT,
+      context: "Check current road notices and weather; vehicle accessibility is no guarantee of safe travel.",
+    },
     {
       label: "International Dark Sky Parks in Texas state parks",
       value: "Five: Big Bend Ranch, Caprock Canyons, Copper Breaks, Enchanted Rock and South Llano River",
@@ -91,6 +119,20 @@ export const verifiedGuideFactSets: Record<string, GuideVerifiedFact[]> = {
     },
   ],
   "texas-horseback-riding-guide": [
+    {
+      label: "Hill Country State Natural Area trail status",
+      value: "TPWD October 5, 2026 notice: all trails reopened, subject to closure after rain",
+      sourceUrl: "https://tpwd.texas.gov/state-parks/hill-country",
+      checkedAt: CHECKED_AT,
+      context: "Not a real-time open-now claim; call (830) 796-4413 for current equestrian trail conditions.",
+    },
+    {
+      label: "Hill Country equestrian facilities",
+      value: "Water trough, hitching posts and flush toilet at day-use equestrian area; campsites available; arena reservation required; no horse-washing station",
+      sourceUrl: "https://tpwd.texas.gov/state-parks/hill-country",
+      checkedAt: CHECKED_AT,
+      context: "Bring your own horse and current Coggins documentation.",
+    },
     {
       label: "Equestrian health documentation",
       value: "TPWD requires proof of a negative Coggins test for each horse brought to a Texas state park or natural area",
