@@ -283,7 +283,7 @@ const sectionMatch = files.routing.match(/SHOWCASE_LAKE_SECTION_SLUGS\s*=\s*\[([
 const sectionCount = sectionMatch ? [...sectionMatch[1].matchAll(/"([a-z0-9-]+)"/g)].length : 0;
 if (sectionCount !== 8) fail(`expected 8 lake intent sections, found ${sectionCount}`);
 const newEntryUrls = statewide.length * (1 + sectionCount);
-if (newEntryUrls !== 406) fail(`expected 406 statewide-network overview/intent URLs, found ${newEntryUrls}`);
+if (newEntryUrls !== 414) fail(`expected 414 statewide-network overview/intent URLs across the 46 statewide lake guides, found ${newEntryUrls}`);
 
 if (files.network.includes('from "@/data/types";\\nimport')) fail("literal escaped newline remains in statewide import block");
 
