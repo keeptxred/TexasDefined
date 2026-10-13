@@ -149,7 +149,18 @@ if (manifestByPath.size !== allDossiers.length)
 const base = process.env.MUSEUM_AUTHORITY_BASE_REF;
 if (base) {
   try {
-    const diff = execFileSync("git", ["diff", "--no-ext-diff", "--unified=8", base + "...HEAD", "--", "src/data"], { encoding: "utf8", maxBuffer: 32 * 1024 * 1024 });
+    // A new museum record must be a destination definition, not a reference to
+    // a historic site in a cross-link graph, itinerary, timeline or FAQ.
+    // Keep checking the source catalogs where new museum records are authored.
+    const candidatePaths = [
+      "src/data/*museum*",
+      "src/data/*destination*",
+      "src/data/historic-sites.ts",
+      "src/data/*top-attraction*",
+      "src/data/fixtures/*museum*",
+      "src/data/fixtures/*destination*",
+    ];
+    const diff = execFileSync("git", ["diff", "--no-ext-diff", "--unified=8", base + "...HEAD", "--", ...candidatePaths], { encoding: "utf8", maxBuffer: 32 * 1024 * 1024 });
     const added = diff.split("\n").filter((line) => line.startsWith("+") && !line.startsWith("+++")).map((line) => line.slice(1)).join("\n");
     const found = new Set();
     for (const match of added.matchAll(/slug:\s*"([a-z0-9-]+)"/g)) {

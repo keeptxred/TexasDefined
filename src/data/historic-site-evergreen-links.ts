@@ -8,6 +8,8 @@ type RouteGuide = {
 const routeGuides: RouteGuide[] = [
   {
     slugs: new Set([
+      "the-alamo",
+      "goliad-state-park",
       "san-felipe-de-austin",
       "washington-on-the-brazos",
       "star-of-the-republic-museum",
@@ -65,6 +67,7 @@ const routeGuides: RouteGuide[] = [
     slugs: new Set([
       "fannin-battleground",
       "presidio-la-bahia",
+      "goliad-state-park",
     ]),
     item: {
       name: "Plan a Goliad history weekend",
@@ -88,6 +91,7 @@ const routeGuides: RouteGuide[] = [
       "fort-martin-scott",
       "fort-griffin",
       "fort-mckavett",
+      "fort-davis-national-historic-site",
       "fort-lancaster",
       "official-texas-longhorn-herd",
     ]),
@@ -101,6 +105,7 @@ const routeGuides: RouteGuide[] = [
     slugs: new Set([
       "fort-mckavett",
       "fort-lancaster",
+      "fort-davis-national-historic-site",
     ]),
     item: {
       name: "Buffalo Soldiers in Texas",
@@ -216,6 +221,10 @@ const routeGuides: RouteGuide[] = [
     slugs: new Set([
       "san-felipe-de-austin",
       "washington-on-the-brazos",
+      "the-alamo",
+      "goliad-state-park",
+      "fort-davis-national-historic-site",
+      "palo-alto-battlefield-national-historical-park",
       "fannin-battleground",
       "presidio-la-bahia",
       "san-jacinto-battleground",
@@ -254,6 +263,7 @@ const routeGuides: RouteGuide[] = [
   },
   {
     slugs: new Set([
+      "palo-alto-battlefield-national-historical-park",
       "palmito-ranch-battlefield",
       "port-isabel-lighthouse",
       "iwo-jima-museum-monument",
@@ -280,10 +290,16 @@ const routeGuides: RouteGuide[] = [
 ];
 
 export function enrichHistoricSiteEvergreenLinks(destination: Destination): Destination {
-  if (destination.category !== "historic-sites" || !destination.areaGuide) return destination;
+  const aliases: Record<string, string> = {
+    "goliad-state-park-and-historic-site": "goliad-state-park",
+    "san-jacinto-battleground-state-historic-site": "san-jacinto-battleground",
+    "washington-on-the-brazos-state-historic-site": "washington-on-the-brazos",
+  };
+  if ((destination.category !== "historic-sites" && !aliases[destination.slug]) || !destination.areaGuide) return destination;
+  const sourceSlug = aliases[destination.slug] ?? destination.slug;
 
   const additions = routeGuides
-    .filter((guide) => guide.slugs.has(destination.slug))
+    .filter((guide) => guide.slugs.has(sourceSlug))
     .map((guide) => guide.item)
     .filter((item) => !destination.areaGuide?.sideTrips.some((existing) => existing.href === item.href));
 
