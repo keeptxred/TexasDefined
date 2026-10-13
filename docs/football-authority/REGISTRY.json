@@ -50,10 +50,10 @@
     "maxSchoolsPerBatch": 25,
     "currentSchool": null,
     "nextSchool": "barksdale-nueces-canyon",
-    "implementedOnBranch": 5,
-    "remainingToImplement": 20,
+    "implementedOnBranch": 6,
+    "remainingToImplement": 19,
     "remainingToVerify": 25,
-    "notes": "First five independently sourced editorial authority records, identities, protected campus county links and audit dossiers IMPLEMENTED on working branch; 20 unstarted. Zero Batch005 production verified, 80 prior verified preserved. Next barksdale-nueces-canyon."
+    "notes": "First five researched school entries already on main; Benjamin separately implemented on football-benjamin-release-20261012 because dependency PR #4579 conflicts. Other 19 assigned schools are proposed in unmerged dependent branches, not main. Zero Batch005 production verified; 80 prior verified preserved. Next barksdale-nueces-canyon."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6007,8 +6007,16 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/benjamin",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "auditCompletedAt": "2026-10-12",
+      "researchCompletedAt": "2026-10-12",
+      "implementedAt": "2026-10-12",
+      "implementedOnBranch": "football-benjamin-release-20261012",
+      "schoolNote": "docs/football-authority/schools/benjamin.md",
+      "actualProductionVerified": false,
+      "officialSchoolUrl": "https://www.benjaminisd.net/",
+      "officialAthleticsUrl": "https://www.benjaminisd.net/football"
     },
     {
       "id": "uil:big-lake-reagan-co",
