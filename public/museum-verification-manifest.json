@@ -904,6 +904,57 @@
           "label": "FAQ: What is actually free at the Houston Museum of Natural Science on Tuesday evenings?"
         }
       ]
+    },
+    {
+      "path": "/destination/el-paso-museum-of-art",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://epma.art/visit",
+          "fetchUrl": "https://epma.art/visit",
+          "label": "EPMA official visitor information"
+        },
+        {
+          "sourceUrl": "https://epma.art/art-school/classes-and-registration",
+          "fetchUrl": "https://epma.art/art-school/classes-and-registration",
+          "label": "EPMA classes and workshops"
+        },
+        {
+          "sourceUrl": "https://epma.art/",
+          "fetchUrl": "https://epma.art/",
+          "label": "EPMA exhibitions and news"
+        }
+      ]
+    },
+    {
+      "path": "/destination/arlington-museum-of-art",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 10,
+      "sources": [
+        {
+          "sourceUrl": "https://arlingtonmuseum.org/visitor-info",
+          "fetchUrl": "https://arlingtonmuseum.org/visitor-info",
+          "label": "Arlington Museum of Art visitor information"
+        },
+        {
+          "sourceUrl": "https://arlingtonmuseum.org/plan-your-visit",
+          "fetchUrl": "https://arlingtonmuseum.org/plan-your-visit",
+          "label": "Arlington Museum of Art detailed visitor FAQ"
+        },
+        {
+          "sourceUrl": "https://arlingtonmuseum.org/",
+          "fetchUrl": "https://arlingtonmuseum.org/",
+          "label": "AMA exhibitions and scheduled Arlington 150"
+        },
+        {
+          "sourceUrl": "https://www.arlingtontx.gov/News-Articles/2026/May/Arlington-Museum-of-Arts-More-Than-a-Match-Extended-Through-Aug.-30",
+          "fetchUrl": "https://www.arlingtontx.gov/News-Articles/2026/May/Arlington-Museum-of-Arts-More-Than-a-Match-Extended-Through-Aug.-30",
+          "label": "City of Arlington official past World Cup exhibition"
+        }
+      ]
     }
   ]
 }
