@@ -24,6 +24,8 @@ export const comalCountyNewBraunfelsCanyonLakeGuadalupeArticle: Article = {
   tags: ["Comal County", "New Braunfels", "Canyon Lake", "Guadalupe River", "Comal River", "Gruene", "Spring Branch", "German Texas", "Hill Country", "Central Texas", "Texas counties"],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-german-belt", label: "German-Texan settlement history", description: "Read the 1845 New Braunfels story in its statewide historical setting." },
+    { href: "/article/scenic-drives-in-texas", label: "Hill Country scenic drives", description: "Plan Comal-Guadalupe landscape trips without assuming every river road has public access." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/hays", label: "Explore Hays County", description: "Continue north toward San Marcos, the Blanco River and the Austin-San Antonio corridor." },
     { href: "/county/bexar", label: "Explore Bexar County", description: "Continue southwest into San Antonio and the southern edge of the Hill Country." },

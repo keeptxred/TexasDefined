@@ -21,6 +21,9 @@ export const texasHillCountryWhatMakesItArticle: Article = {
   tags: ["texas hill country", "hill country", "central texas", "texas geography", "fredericksburg", "texas travel"],
   featured: true,
   internalLinks: [
+    { href: "/article/scenic-drives-in-texas", label: "Texas Hill Country scenic drives", description: "Compare western ranch roads, granite country and U.S. 290 corridors." },
+    { href: "/article/texas-wine-country", label: "Texas wine country", description: "Understand vineyards, tasting corridors and origin designations." },
+    { href: "/article/texas-german-belt", label: "German-Texan heritage", description: "Historic communities and settlement beyond the tourism corridors." },
     { href: "/explore/region/hill-country", label: "Explore the Hill Country", description: "Find parks, towns, rivers and destinations across the region." },
     { href: "/article/texas-rivers-explained", label: "The rivers that built Texas", description: "Follow the Guadalupe, Colorado, Brazos, Rio Grande and other river systems that shape the state." },
     { href: "/article/texas-regions-explained", label: "Texas regions explained", description: "See how the Hill Country fits into the larger Texas landscape." },
