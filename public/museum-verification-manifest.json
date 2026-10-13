@@ -785,9 +785,9 @@
           "label": "Amarillo tourism official listing"
         },
         {
-          "sourceUrl": "https://www.aqha.com/museum",
-          "fetchUrl": "https://www.aqha.com/museum",
-          "label": "AQHA museum event and family access"
+          "sourceUrl": "https://www.telemundoamarillo.com/2026/02/27/grandes-renovaciones-estn-en-marcha-para-el-museo-american-quarter-horse-hall-fame/?outputType=amp",
+          "fetchUrl": "https://www.telemundoamarillo.com/2026/02/27/grandes-renovaciones-estn-en-marcha-para-el-museo-american-quarter-horse-hall-fame/?outputType=amp",
+          "label": "2026 museum renovation reporting; operator AQHA.com blocks automated requests"
         },
         {
           "sourceUrl": "https://www.newschannel10.com/2026/07/09/american-quarter-horse-hall-fame-museum-host-family-fun-day-saturday/",
