@@ -4571,7 +4571,8 @@
         "a091077e5f6f426a950df7750523db9c6c6770ff"
       ],
       "inboundLinks": [
-        "/county/travis"
+        "/county/travis",
+        "/city/austin"
       ],
       "outboundCountyPath": "/county/travis",
       "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
@@ -4593,7 +4594,10 @@
         "sitemapResult": "PASS",
         "countyCityReciprocalLinks": "PASS",
         "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
-      }
+      },
+      "outboundCityPath": "/city/austin",
+      "cityLinkStatus": "OFFICIAL_AUSTIN_GIS_FULL_PURPOSE_CONFIRMED_PENDING_NEW_CHROME_RETEST",
+      "cityLinkEvidence": "Official AskTED 2024-25 school-site geocode (score 100) spatially intersects City of Austin BOUNDARIES_jurisdictions FULL PURPOSE/FULL polygon on 2026-10-12; city reciprocal implementation PR #4700; not yet independently post-deploy Chrome verified."
     },
     {
       "id": "uil:austin-akins",
@@ -5276,7 +5280,8 @@
         "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
       ],
       "inboundLinks": [
-        "/county/travis"
+        "/county/travis",
+        "/city/austin"
       ],
       "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCountyPath": "/county/travis",
@@ -5313,7 +5318,10 @@
       "correctionMergedPr": 4562,
       "correctionMergeCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
       "identityRetestEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917",
-      "identityDefectResolution": "Confirmed on corrected production 97c9571a3b7457d547430d7a63d6debd1144a7d6, desktop 1366x900 and mobile 390x844, run 38066125917: exact school/campus identity and Lake Travis season notice assertions passed; see 11674878954."
+      "identityDefectResolution": "Confirmed on corrected production 97c9571a3b7457d547430d7a63d6debd1144a7d6, desktop 1366x900 and mobile 390x844, run 38066125917: exact school/campus identity and Lake Travis season notice assertions passed; see 11674878954.",
+      "outboundCityPath": "/city/austin",
+      "cityLinkStatus": "OFFICIAL_AUSTIN_GIS_FULL_PURPOSE_CONFIRMED_PENDING_NEW_CHROME_RETEST",
+      "cityLinkEvidence": "Official AskTED 2024-25 school-site geocode (score 100) spatially intersects City of Austin BOUNDARIES_jurisdictions FULL PURPOSE/FULL polygon on 2026-10-12; city reciprocal implementation PR #4700; not yet independently post-deploy Chrome verified."
     },
     {
       "id": "uil:austin-westlake",

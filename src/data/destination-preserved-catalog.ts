@@ -6,6 +6,8 @@ import { canonicalHistoricStateParkDestinations } from "./canonical-historic-sta
 import { newlyOpenedStateParks2026 } from "./newly-opened-state-parks-2026";
 import { stateParkAuthorityRecoveryDestinations } from "./state-park-authority-recovery";
 import { animalSanctuaryDestinations } from "./animal-sanctuary-destinations";
+import { museumAuthorityDestinations } from "./museum-authority-new-destinations";
+import { enrichMuseumAuthority } from "./museum-authority-network";
 import { aquariumMarineDestinations } from "./aquarium-marine-destinations";
 import { coastalDestinations } from "./coastal-destinations";
 import { topAttractionDestinations } from "./destination-curation-top-attractions";
@@ -94,6 +96,8 @@ import { realAleBlancoDestinations } from "./real-ale-blanco-destination";
 import { oldBlancoCountyCourthouseDestinations } from "./old-blanco-county-courthouse-destination";
 import { twinSistersDanceHallDestinations } from "./twin-sisters-dance-hall-destination";
 import { buggyBarnMuseumBlancoDestinations } from "./buggy-barn-museum-blanco-destination";
+import { additionalTownAuthorityDestinations } from "./small-town-authority-wave16";
+import { smallTownWave17Destinations } from "./small-town-destinations-wave17";
 import { smallTownWave1Destinations } from "./small-town-destinations-wave1";
 import { smallTownWave2Destinations } from "./small-town-destinations-wave2";
 import { smallTownWave3Destinations } from "./small-town-destinations-wave3";
@@ -216,6 +220,7 @@ function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
 export const preservedExploreDestinations = mergePreservedDestinations(
   animalSanctuaryDestinations,
   aquariumMarineDestinations,
+  museumAuthorityDestinations,
   topAttractionDestinations,
   topAttractionExpansionDestinations,
   coastalDestinations,
@@ -314,6 +319,8 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   wildlifeManagementAreaWave7Destinations,
   wildlifeManagementAreaWave8Destinations,
   wildlifeManagementAreaWave9Destinations,
+  additionalTownAuthorityDestinations,
+  smallTownWave17Destinations,
   smallTownWave1Destinations,
   smallTownWave2Destinations,
   smallTownWave3Destinations,
@@ -340,4 +347,4 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   [shinerTownDestination],
   [newBraunfelsSeasonalFallback],
   [sanMarcosWaterGatewayFallback],
-);
+).map(enrichMuseumAuthority);

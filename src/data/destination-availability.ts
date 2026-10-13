@@ -10,9 +10,10 @@ const UNAVAILABLE_DESTINATION_SLUGS = new Set([
   "chinati-mountains-state-natural-area",
   "fairfield-lake-state-park",
   "davis-hill-state-park",
-  "wyler-aerial-tramway-state-park",
   "battleship-texas",
   "battleship-texas-state-historic-site",
+  "wyler-aerial-tramway-state-park", // TPWD closed to normal park entry
+  "1940-air-terminal-museum-houston", // closed March 2026; historic reference page remains accessible
 ]);
 
 /**

@@ -127,6 +127,8 @@ function Page() {
     'arlington-seguin': { slug: 'arlington', name: 'Arlington' },
     // Austin city campuses; school-district and postal designations alone do not include suburban campuses.
     'austin': { slug: 'austin', name: 'Austin' },
+    'austin-achieve': { slug: 'austin', name: 'Austin' },
+    'austin-vandegrift': { slug: 'austin', name: 'Austin' },
     'austin-akins': { slug: 'austin', name: 'Austin' },
     'austin-anderson': { slug: 'austin', name: 'Austin' },
     'austin-bowie': { slug: 'austin', name: 'Austin' },
