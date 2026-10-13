@@ -19,6 +19,7 @@ export const nacogdochesSanAugustineHistoricRoadTripArticle: Article = {
   sourceUrl: "https://thc.texas.gov/travel/historic-road-trips",
   internalLinks: [
     { href: "/destination/nacogdoches", label: "Nacogdoches", description: "Historic downtown, SFA and the region's visitor base." },
+    { href: "/destination/nacogdoches-downtown-historic-district", label: "Downtown historic district", description: "Self-guided walk, brick streets, visitor center and public heritage sites." },
     { href: "/county/nacogdoches", label: "Nacogdoches County", description: "Caddo, Spanish, Mexican and Republic-era layers in the region." },
     { href: "/county/san-augustine", label: "San Augustine County", description: "Mission Dolores, El Camino Real and courthouse-era history." },
     { href: "/destination/mission-dolores", label: "Mission Dolores", description: "Archaeology of the 1721 mission and the Ais–Spanish frontier." },
