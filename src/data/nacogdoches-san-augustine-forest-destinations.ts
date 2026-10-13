@@ -11,7 +11,7 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
     "category": "outdoors",
     "region": "piney-woods",
     "nearestTown": "Zavalla",
-    "county": "Jasper County",
+    "county": "Angelina County",
     "coordinates": {
       "lat": 31.05186,
       "lng": -94.26804
