@@ -47,6 +47,12 @@ assert(article.includes("SOLD") && article.includes("1897") && article.includes(
 assert(!/license to confirm|verify attribution\/license|check current Commons license/.test(destination), "Unverified media license note in destination images");
 const objectCount = (destination.match(/"slug": "/g) ?? []).length;
 assert.equal(objectCount, newSlugs.length, "Unexpected destination count or duplicates");
+assert.equal((destination.match(/Historic-site photo: source, original creator and usage rights/g) ?? []).length, newSlugs.length,
+  "Each hero image must link to the original license and creator record");
+for (const corrected of ['"lat": 29.41245', '"lng": -98.49499', '"lat": 29.42472', '"lng": -98.48639', '"lat": 29.36015', '"lng": -98.480325']) {
+  assert(destination.includes(corrected), `Missing verified heritage map coordinate: ${corrected}`);
+}
+
 const sourceCount = (destination.match(/"sourceUrl": /g) ?? []).length;
 assert(sourceCount >= 40, "Every site needs multiple site-specific FAQ source URLs");
 console.log(`San Antonio heritage cluster verified: ${newSlugs.length} new, ${upgradedSlugs.length} upgraded, 1 guide, district and county reciprocal links.`);
