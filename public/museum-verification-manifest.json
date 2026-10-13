@@ -1271,6 +1271,72 @@
           "label": "Thinkery — interactive exhibit roster"
         }
       ]
+    },
+    {
+      "path": "/destination/lbj-presidential-library-austin",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.lbjlibrary.org/visit",
+          "fetchUrl": "https://www.lbjlibrary.org/visit",
+          "label": "LBJ current visit, prices and free days"
+        },
+        {
+          "sourceUrl": "https://lbjlibrary.org/visit/know-before-you-go",
+          "fetchUrl": "https://lbjlibrary.org/visit/know-before-you-go",
+          "label": "LBJ visit length and highlights"
+        },
+        {
+          "sourceUrl": "https://lbjlibrary.org/visit/accessibility",
+          "fetchUrl": "https://lbjlibrary.org/visit/accessibility",
+          "label": "LBJ accessibility"
+        },
+        {
+          "sourceUrl": "https://www.lbjlibrary.org/visit/group-visits",
+          "fetchUrl": "https://www.lbjlibrary.org/visit/group-visits",
+          "label": "LBJ groups"
+        },
+        {
+          "sourceUrl": "https://www.lbjlibrary.org/exhibitions",
+          "fetchUrl": "https://www.lbjlibrary.org/exhibitions",
+          "label": "LBJ active exhibitions"
+        }
+      ]
+    },
+    {
+      "path": "/destination/blanton-museum-of-art-austin",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://blantonmuseum.org/visit/",
+          "fetchUrl": "https://blantonmuseum.org/visit/",
+          "label": "Blanton visit and pricing"
+        },
+        {
+          "sourceUrl": "https://blantonmuseum.org/visit/parking/",
+          "fetchUrl": "https://blantonmuseum.org/visit/parking/",
+          "label": "Blanton parking"
+        },
+        {
+          "sourceUrl": "https://blantonmuseum.org/visit/faqs/",
+          "fetchUrl": "https://blantonmuseum.org/visit/faqs/",
+          "label": "Blanton museum visitor FAQ"
+        },
+        {
+          "sourceUrl": "https://blantonmuseum.org/visit/accessibility/",
+          "fetchUrl": "https://blantonmuseum.org/visit/accessibility/",
+          "label": "Blanton accessibility"
+        },
+        {
+          "sourceUrl": "https://blantonmuseum.org/visit/group-visits/",
+          "fetchUrl": "https://blantonmuseum.org/visit/group-visits/",
+          "label": "Blanton group visits"
+        }
+      ]
     }
   ]
 }
