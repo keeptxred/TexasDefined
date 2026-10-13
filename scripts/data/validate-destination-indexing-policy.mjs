@@ -136,7 +136,7 @@ if (!aliasBlock) {
 
 for (const marker of [
   'import { preservedExploreDestinations } from "./destination-preserved-catalog"',
-  'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))',
+  'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved.map(correctDestinationTravelRegion)))',
   'reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))',
   'reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))',
 ]) {
