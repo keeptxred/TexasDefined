@@ -2058,7 +2058,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
   {
     slug: "brady-creek-reservoir", name: "Brady Creek Reservoir", tpwdSlug: "brady_creek", waterDataSlug: "brady-creek",
     region: "hill-country", verifiedAt: "2026-10-14", accessReviewedAt: "2026-10-14",
-    summary: "The City of Brady's San Saba–Colorado basin water-supply reservoir with a single documented public launch, water-sensitive ramp usability, recovering bass fishery, city-park camping indicators, USGS gauging evidence and a source-verified 1961–1963 dam history.",
+    summary: "The City of Brady's San Saba–Colorado basin water-supply reservoir with a single documented public launch, water-sensitive ramp usability, recovering bass fishery, official cabins, RV hookups and tent camping, USGS gauging evidence and a source-verified 1961–1963 dam history.",
     surfaceAcres: 2020, maxDepthFeet: 48, impoundedYear: 1963, counties: ["McCulloch"], nearestCities: ["Brady"],
     waterway: "Brady Creek, tributary to the San Saba River", riverBasin: "Colorado River Basin",
     authority: "City of Brady", conservationPool: "1,743 feet above mean sea level (TPWD reference)",
@@ -2096,12 +2096,13 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
         availability: "TPWD historic year-round park label is not proof of a usable ramp. Call Brady city offices (325) 597-2152 and check timestamped water level immediately before a fishing or boating trip."
       }
     ],
+    campingUrl: "https://www.bradytx.us/881/Brady-Lake",
     camping: {
-      name: "City Park at Dam — verify camping with the city",
-      summary: "TPWD's icon legend includes a camping symbol for the dam-side city park, but it does not publish a current reservation inventory, official campsites, seasonal gate procedure or sanitation/hookup details. Ask the City of Brady which marked areas legally permit overnight use, which fees apply and whether camping is open. Do not present informal shoreline parking, the boat ramp, a private dock or the USGS gauge as an established campsite."
+      name: "Brady Lake City Park and Marina — cabins, RV hookups and tent sites",
+      summary: "Unlike TPWD's sparse lake-ramp inventory, Brady's official municipal Brady Lake page details a developed overnight facility: eight cabanas and 12 rental cabins at Brady Lake Marina, 23 RV hookups in the park area plus additional pavilion-area RV hookups, 15 tent sites and three primitive campsites. The city also advertises showers/restrooms and publishes seasonal marina hours. These are operator-advertised counts rather than same-day vacant inventory: book or verify by phone at (325) 597-1823 or through the city's linked CampSpot reservation system. Do not confuse Brady Lake marina with separate Richards Park RV sites in downtown Brady."
     },
     historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/brady_creek/index.asp",
-    visitorSourceUrl: "https://www.bradytx.us/",
+    visitorSourceUrl: "https://www.bradytx.us/881/Brady-Lake",
     historyNotes: [
       "TWDB describes Brady Creek Reservoir approximately three miles west of Brady, where Brady Creek drains toward the San Saba River and ultimately the Colorado. The City of Brady received Water Right Permit 1953 on May 2, 1960, authorizing a municipal/industrial water-supply project with recreational use.",
       "Construction began December 27, 1961. TWDB dates dam completion to May 14, 1963, followed by the start of deliberate impoundment on May 22, 1963. These are separate engineering and filling milestones; an undated 'built 1963' statement loses the distinction.",
@@ -2110,7 +2111,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     visitorFAQs: [
       {question:"Where is the public boat ramp?",answer:"TPWD identifies one public launch: City Park at Dam, west of Brady via FM 2028 and FM 3022. It specifically says that the ramp works well only at HIGH WATER. Call the city before towing rather than relying on a 'year-round' park label."},
-      {question:"Can I camp overnight at Brady Creek Reservoir?",answer:"TPWD marks camping as available at the City Park at Dam, but does not document current reservable sites, hookup counts, fees or overnight regulations. Call the City of Brady to confirm designated camping areas and actual operations before planning an overnight stay."},
+      {question:"Can I camp overnight at Brady Creek Reservoir?",answer:"Yes. The City of Brady explicitly lists RV hookups, 15 tent sites, three primitive campsites and marina cabin/cabana rentals at Brady Lake. Call (325) 597-1823 or follow the municipal Brady Lake Campspot reservation link to confirm live availability, site type and price; separate downtown Richards Park RV sites are not at this lake."},
       {question:"Is the Brady Creek boat ramp usable at low lake levels?",answer:"It may not be. TPWD states that the ramp is good at high water levels; shallow trailer launching may be unsafe or impossible under drought conditions. Use the current TWDB level, then verify actual ramp access with the operator."},
       {question:"Is this a good trophy bass lake?",answer:"TPWD currently rates largemouth bass FAIR, not excellent. The fishery has been rebuilding after golden-alga impacts and prolonged drought; stocker releases and isolated catches do not override the official lake-wide quality classification."},
       {question:"What other fish can I catch?",answer:"TPWD identifies channel catfish, white crappie and white bass among its main fish species. It rates all of those FAIR; seek submerged rocky banks, timber, creek channels and the old railroad bed according to lake elevation."},
@@ -2122,7 +2123,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     travelAlerts: [
       "RAMP DEPTH ALERT: The sole TPWD-named city-park ramp is described as good only at HIGH WATER. 'Open all year' describes a historic park listing, NOT current trailer launchability.",
       "FISHERY RECOVERY: TPWD describes a slow comeback from a 2012 golden-alga bloom and drought. All four rated fisheries remain FAIR in its public angling table; do not infer recent stocking guarantees success.",
-      "CAMPING: TPWD shows a camping icon at the city park but not a current official booking or hookup schedule; obtain operator confirmation before staying overnight.",
+      "CAMPING: The City of Brady posts 23 park-area RV hookups, additional pavilion RV sites, 15 tent sites, three primitive campsites, eight cabanas and 12 cabins; reserve through the official municipal CampSpot handoff or (325) 597-1823. Advertised capacity is not vacancy confirmation.",
       "PHOTO CONTEXT: The actual Brady Lake photograph was captured May 26, 2021 and is not a visual representation of current reservoir levels, access ramps or recent construction.",
       "Boaters must comply with statewide drain/clean requirements to prevent the spread of invasive aquatic species, and should check live weather, TPWD rules and city notices."
     ],
