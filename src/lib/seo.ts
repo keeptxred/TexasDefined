@@ -44,6 +44,62 @@ const META_DESCRIPTION_MAX_LENGTH = 160;
 type TechnicalSeoOverride = { title: string; description?: string };
 
 const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride> = {
+  "/article/bluebonnet-animal-preservation-athens": {
+    title: "Bluebonnet Animal Preservation Athens: Pet Aftercare Guide",
+    description: "Explore Bluebonnet Animal Preservation in Athens, Texas, including pet cremation and freeze-dry preservation options for companion animals.",
+  },
+  "/article/fort-worth-stockyards-history-cattle-culture": {
+    title: "Fort Worth Stockyards: Cattle Trade, Railroads & History",
+    description: "Explore the cattle trade, railroads and meatpacking history that made Fort Worth famous and shaped its surviving Stockyards district.",
+  },
+  "/article/historic-san-antonio-heritage-road-trip": {
+    title: "Historic San Antonio Road Trip: Missions, Alamo & King William",
+    description: "Plan a two-day San Antonio history route through National Park Service missions, the Alamo, Spanish plazas, Tejano heritage and King William.",
+  },
+  "/article/how-to-choose-electricity-plan-texas": {
+    title: "Choose a Texas Electricity Plan: Rates, Fees & EFL",
+    description: "Learn to read the Electricity Facts Label, compare Texas plans at your actual usage and check bill credits, minimums and fees before signing.",
+  },
+  "/article/mexican-texas-military-history": {
+    title: "Military in Mexican Texas: Presidios, Anahuac & Revolution",
+    description: "Follow Mexican-era Texas military history from presidio garrisons and militias to Anahuac and the tensions preceding the Texas Revolution.",
+  },
+  "/article/muds-pids-hoas-special-districts-texas": {
+    title: "Texas MUDs, PIDs & HOAs: Homebuyer Taxes & Fees",
+    description: "Understand Texas MUD, PID and HOA assessments and how special districts can affect neighborhood costs beyond a mortgage and city taxes.",
+  },
+  "/article/republic-of-texas-government-trail": {
+    title: "Republic of Texas Government Trail: San Felipe to Austin",
+    description: "Trace Texas government from San Felipe and Washington-on-the-Brazos through Columbia and Austin with heritage stops and historical context.",
+  },
+  "/article/texas-bucket-list-by-season": {
+    title: "Texas Bucket List by Season: Spring Through Winter",
+    description: "Plan Texas trips by season, from spring wildflowers and summer swimming to fall football, festivals and winter desert hiking.",
+  },
+  "/article/texas-civil-war-sites-guide": {
+    title: "Texas Civil War Sites: Battlefields, Emancipation & Memory",
+    description: "Explore Texas Civil War and Reconstruction sites, from Gulf Coast fighting and Palmito Ranch to Juneteenth, emancipation and historic memory.",
+  },
+  "/article/texas-historic-travel-transportation-guide": {
+    title: "Historic Texas Travel: Stagecoaches, Wagon Roads & Trains",
+    description: "Explore travel before Texas highways through Fanthorp Inn, Landmark Inn and the Slaton Harvey House, from stage roads to railroads.",
+  },
+  "/article/texas-oil-boom-wichita-falls-west-texas-rigs": {
+    title: "Texas Oil Boom: Wichita Falls, Permian Basin & Legacy",
+    description: "How oil development in Wichita Falls and West Texas transformed drilling, communities, employment and Texas landscapes.",
+  },
+  "/article/texas-wildfire-home-protection-guide": {
+    title: "Texas Wildfire Home Protection: Embers, Roofs & Evacuation",
+    description: "Learn how to assess Texas wildfire risk, harden roofs and vents, manage defensible space, protect rural property and plan evacuation.",
+  },
+  "/article/women-in-texas-military-history": {
+    title: "Women in Texas Military History: Nurses, WASP & Service",
+    description: "Explore women’s military service in Texas, from Army nurses and Oveta Culp Hobby to WASP pilots and modern military careers.",
+  },
+  "/texas-capital-designations": {
+    title: "Official Texas Capital Designations: Cities & Counties",
+    description: "Learn how Texas law recognizes special capital designations for cities and counties, including Cowboy, Fishing, Pie, Garden and Peanut.",
+  },
   "/article/texas-high-school-football-2026-season-calendar": {
     title: "Texas High School Football 2026: UIL Season & Playoff Calendar",
     description: "See the UIL 2026 high school football calendar, from preseason practice and Week 1 to district certification, playoff rounds and the state finals.",
