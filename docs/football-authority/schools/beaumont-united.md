@@ -27,3 +27,8 @@ Beaumont ISD's November 12, 2025 first-party report documents the Timberwolves' 
 
 ## Real acceptance still needed
 Protected gate, branch merge, deployed production and real mobile/desktop Chrome screenshots, accurate H1, correct canonical/schema, no hydration or broken links, reciprocal county pages, legal image rights, plus game-day venue/ADA/ticket confirmation. **Do not promote IMPLEMENTED to VERIFIED** without those observations. Past years' results and former coaching positions are not asserted as current.
+
+## October 13, 2026 — 2026 varsity game results and 10-game schedule
+- **Research snapshot:** 5–1 through 2026-10-09; 10 date/opponent/home-away/district entries with only actually reported scores. Public [2026 varsity source](https://www.maxpreps.com/tx/beaumont/beaumont-united-timberwolves/football/schedule/), independently sourced rather than represented as a first-party ISD schedule.
+- **Source discrepancy handling:** The dated 2026 varsity scoreboard lists October 9 victory at Goose Creek Memorial 24–21. The 2025 first-winning-season context remains distinct from 2026 results.
+- **Acceptance boundary:** the October 13 structured game data and two new school-specific season FAQs are committed on a release branch. Protected CI, exact-SHA deployment and fresh 25-school production Chrome acceptance are still required; no unsupported current coach, game ticket, stadium or ADA guarantees are introduced.

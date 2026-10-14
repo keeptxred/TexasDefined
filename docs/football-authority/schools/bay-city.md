@@ -30,3 +30,8 @@ Authored 3 sourced history/season milestones, three unique program narratives an
 - Genuine team photographs remain unavailable without documented reuse rights, license, attribution and alt text
 - Not a school-endorsed page; 2026–28 UIL alignment is not a current game record
 - Keep **IMPLEMENTED** status until independent live evidence supports stronger states
+
+## October 13, 2026 — 2026 varsity game results and 10-game schedule
+- **Research snapshot:** 6–1 through 2026-10-09; 10 date/opponent/home-away/district entries with only actually reported scores. Public [2026 varsity source](https://www.maxpreps.com/tx/bay-city/bay-city-blackcats/football/schedule/), independently sourced rather than represented as a first-party ISD schedule.
+- **Source discrepancy handling:** The schedule snapshot was last updated Sep 28; a newer Bay City team game-results page independently reports wins over Navasota 28–21 (Oct 2) and Sealy 34–7 (Oct 9). Do not interpret the older two unscored schedule rows as unplayed.
+- **Acceptance boundary:** the October 13 structured game data and two new school-specific season FAQs are committed on a release branch. Protected CI, exact-SHA deployment and fresh 25-school production Chrome acceptance are still required; no unsupported current coach, game ticket, stadium or ADA guarantees are introduced.

@@ -3,6 +3,13 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "port-isabel-historical-museum": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Part_of_an_elaborate_%22fish_mural,%22_painted_in_1906_by_a_local_(reputedly_one-armed)_fisherman_on_the_acade_of_the_Champion_Building,_Port_Isabel,_Texas_LCCN2014630503.tif?width=1200",
+    alt: "Fish mural across the historic 1899 Charles Champion Building facade, home of the Port Isabel Historical Museum, photographed in 2014",
+    width: 1200, height: 443,
+    credit: "Carol M. Highsmith · 2014 · Library of Congress, Lyda Hill Texas Collection · LC-DIG-highsm-26303 · no known restrictions on publication",
+  },
+
   "museum-of-the-big-bend-alpine": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Museum_of_the_Big_Bend_%28Alpine%2C_Texas%29.jpg?width=1600",
     alt: "Museum of the Big Bend building and landscape on the Sul Ross State University campus in Alpine",
@@ -28,10 +35,10 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     credit: "JJonahJackalope · CC BY-SA 4.0 · Wikimedia Commons · File:Texas Energy Museum, front entrance.jpg",
   },
   "1940-air-terminal-museum-houston": {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/1940_Air_Terminal_Museum.jpg?width=1024",
-    alt: "Art Deco historic 1940 Air Terminal Museum building on the west side of Houston Hobby Airport",
-    width: 1024, height: 768,
-    credit: "Mlickliter · CC BY-SA 3.0 · Wikimedia Commons · File:1940 Air Terminal Museum.jpg",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/1940sAirTerminalMuseumHobby.JPG?width=1600",
+    alt: "Historic 1940 Air Terminal Museum building at Houston Hobby Airport, with the Art Deco terminal exterior",
+    width: 1600, height: 1200,
+    credit: "WhisperToMe · CC0 1.0 · Wikimedia Commons · File:1940sAirTerminalMuseumHobby.JPG",
   },
   "african-american-museum-dallas-fair-park": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/African_American_Museum_August_2016_03.jpg?width=1600",
@@ -74,10 +81,10 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
   },
 
   "modern-art-museum-fort-worth": {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Texas_Modern_Art_Museum_2003.jpg?width=938",
-    alt: "Modern Art Museum of Fort Worth exterior by Tadao Ando, photographed in 2003",
-    width: 938, height: 496,
-    credit: "Andreas Praefcke · Public domain · Wikimedia Commons · File:Fort Worth Texas Modern Art Museum 2003.jpg (historic exterior)",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Courtyard_of_the_Modern_Art_Museum_of_Fort_Worth.jpg?width=1600",
+    alt: "Courtyard and exterior architecture of the Modern Art Museum of Fort Worth",
+    width: 1600, height: 1066,
+    credit: "Andrewnward · CC BY-SA 4.0 · Wikimedia Commons · File:Courtyard of the Modern Art Museum of Fort Worth.jpg",
   },
 
   "american-quarter-horse-hall-of-fame-museum-amarillo": {

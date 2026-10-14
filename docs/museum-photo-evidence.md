@@ -109,3 +109,21 @@ Both pages have explicit image placeholders pending rights-cleared exact-locatio
 ## El Paso Museum of Archaeology — source-cleared photo, October 13, 2026
 
 - Wikimedia Commons [Entrance to the El Paso Museum of Archaeology.jpg](https://commons.wikimedia.org/wiki/File:Entrance_to_the_El_Paso_Museum_of_Archaeology.jpg), **Susan Barnum, CC BY-SA 4.0**, photographed April 11, 2016. File original is 3264×2448 px; museum entrance pictured at the same museum, not a regional substitute. Attribution appears in the destination image credit. [License](https://creativecommons.org/licenses/by-sa/4.0/).
+
+## South Texas coastal authority image additions (October 12, 2026)
+
+- **Corpus Christi Museum of Science and History:** [Larry D. Moore, *Corpus christi museum of science history.jpg*](https://commons.wikimedia.org/wiki/File:Corpus_christi_museum_of_science_history.jpg), photographed May 2014. **CC BY 4.0**. Depicts the actual Nueces County institution; do not imply it documents today's rotating exhibits. Original 2,159 × 1,438.
+- **Historic Brownsville Museum:** [25or6to4, *Southern Pacific Railroad Passenger Depot Brownsville Texas.jpg*](https://commons.wikimedia.org/wiki/File:Southern_Pacific_Railroad_Passenger_Depot_Brownsville_Texas.jpg), photographed August 2011. **CC BY-SA 3.0**. Shows the correct 1928 Southern Pacific depot now used as the museum; do not substitute a separate Brownsville freight depot. Original 4,608 × 3,072. Include required share-alike attribution for adaptations.
+- **The Big Tree at Goose Island:** [Larry D. Moore, *Big Tree Texas 2024.jpg*](https://commons.wikimedia.org/wiki/File:Big_Tree_Texas_2024.jpg), photographed April 2024. **CC BY 4.0**. Correct exact landmark location, 4,500 × 3,000. Age assertions in the image description are historical estimates, not established scientific dating; editorial copy follows TPWD's current "exact age unknown" statement.
+- **South Padre Island:** [Spheroidite, *South Padre Island beach panorama.jpg*](https://commons.wikimedia.org/wiki/File:South_Padre_Island_beach_panorama.jpg), photographed June 2022. **CC BY-SA 4.0**, 7,328 × 3,274. Panoramic beach photograph of the correct island; do not confuse with Padre Island National Seashore.
+- **La Salle Odyssey:** [Larry D. Moore, *Texas Maritime Museum Rockport Texas 2024.jpg*](https://commons.wikimedia.org/wiki/File:Texas_Maritime_Museum_Rockport_Texas_2024.jpg), **CC BY 4.0**. This already licensed Rockport institution serves as a truthful representative museum image; no misleading reconstructed ship or stock artifact is implied.
+
+**Port Isabel Historical Museum image:** A direct historic-building photograph has not been licensed and attached yet. The Library of Congress Carol M. Highsmith photos of the Champion Building fish mural include "no known restrictions on publication" advisories; specific file and stable usable image delivery need independent confirmation before replacing the existing placeholder. Do not mislabel an unrelated lighthouse photo as the museum.
+
+## Port Isabel Historical Museum hero photograph (October 13, 2026)
+
+- **Exact location:** Port Isabel Historical Museum at the 1899 Charles Champion Building. The selected 2014 Carol M. Highsmith photograph shows the landmark's original 1906 fish-mural facade, not a generic Port Isabel lighthouse or a different museum.
+- **Source of record:** [Library of Congress item 2014630503](https://www.loc.gov/item/2014630503/), image identification **LC-DIG-highsm-26303**, in the Lyda Hill Texas Collection of Photographs in the Carol M. Highsmith Archive.
+- **Rights advisory:** Library of Congress lists **“No known restrictions on publication”**. It does not grant a license on behalf of third parties. Retain Highsmith and the collection's explicit credit line as provenance; don't misrepresent the record as a Creative Commons license.
+- **Deliverable:** A Wikimedia Commons-hosted 1,200px JPEG rendition of the original 7,360 × 2,717 TIFF. The exact redirect path returned HTTP 200 with `image/jpeg` in the live source probe. The source photograph dates to March 2014, not current museum conditions.
+- **Visual description:** A portion of the Charles Champion fish-mural facade; do not imply the photo shows a current gallery or interior accessibility arrangements. Recheck redirected thumbnail delivery after production deployment.

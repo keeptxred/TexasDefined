@@ -57,8 +57,15 @@ function imageSize(bytes, mime) {
 async function verify(path,label,sitemap,primarySitemap){
   const url=ORIGIN+path;
   try{
-    if(!sitemap.includes(url) && !primarySitemap.includes(url))throw Error("missing from both scoped and primary XML sitemaps");
-    if(!sitemap.includes(url) && primarySitemap.includes(url))warnings.push(path+" appears in primary XML but not expected scoped XML sitemap");
+    // Destinations belong to Explore; locally authored articles belong to the
+    // primary article sitemap. The static evergreen sitemap is a curated subset,
+    // not an exhaustive article index. Do not warn about correct primary ownership.
+    const articlePath = path.startsWith("/article/");
+    const requiredSitemap = articlePath ? primarySitemap : sitemap;
+    const sitemapName = articlePath ? "primary" : "Explore";
+    if (!requiredSitemap.includes("<loc>"+url+"</loc>")) {
+      throw Error("missing exact canonical URL from required "+sitemapName+" XML sitemap");
+    }
     const cacheBusted=new URL(url);cacheBusted.searchParams.set("heritage_verifier",DEPLOY_SHA);
     const response=await load(cacheBusted.href);
     if(response.status!==200)throw Error("HTTP "+response.status);

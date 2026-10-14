@@ -23,3 +23,8 @@ The site's generated 2026–28 UIL profile for Reagan County Owls supplied the c
 
 ## Still outstanding
 Protected CI and sequential dependency merges, fresh successful Cloudflare deploy, per-school desktop/mobile screenshot audit, hydrated page H1/canonical/schema, sitemap and county reciprocity, factual revalidation of season events and school media rights. No reproduction of school photography without explicit valid license/attribution/alt. Current seats, gate, 2026 head coach, parking and ADA requirements remain school-confirmation items. Status is intentionally **IMPLEMENTED, not VERIFIED**.
+
+## October 13, 2026 — dated varsity game-by-game authority checkpoint
+- Independently reviewed [MaxPreps 2026 varsity schedule](https://www.maxpreps.com/tx/big-lake/reagan-county-owls/football/schedule/); **2–4 through Oct 2**, with **10** distinct reported date/opponent/home-away rows; unreported future results are intentionally blank. This is not a first-party ISD guarantee.
+- **School-specific discrepancy check:** The Oct 7 dated provider does not verify Oct 9 Colorado result; no score assumed.
+- Added an individually written explanatory paragraph, a dated 2026 milestone and two season-specific visitor FAQs. This release must pass protected CI, actual production deployment and exact-SHA desktop/mobile Chrome acceptance before calling the new fixture table live.
