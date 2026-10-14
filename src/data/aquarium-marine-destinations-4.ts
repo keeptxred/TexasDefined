@@ -31,7 +31,7 @@ export const aquariumMarineDestinations4: Destination[] = [
     name: "Houston Zoo",
     summary: "A major conservation-focused zoo in Hermann Park with Galápagos Islands, African Forest, Texas Wetlands and an unusually convenient Museum District location.",
     category: "outdoors",
-    region: "prairies-lakes",
+    region: "gulf-coast",
     nearestTown: "Houston",
     county: "Harris",
     address: "6200 Hermann Park Dr, Houston, TX 77030",
