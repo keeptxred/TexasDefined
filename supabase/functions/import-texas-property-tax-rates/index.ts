@@ -524,20 +524,26 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
-    const raw: RawRecord[] = [];
     const diagnostics: any[] = [];
+    const schoolSourceUrl =
+      "https://comptroller.texas.gov/taxes/property-tax/docs/" + year + "-" + FILES["school-district"];
+    const schoolBytes = await fetchBytes(schoolSourceUrl, "TexasDefined tax-rate importer/5.1");
+    const schoolRaw = parseWorkbook("school-district", schoolSourceUrl, schoolBytes);
+    const normalized = normalizeYear(schoolRaw, year);
+    diagnostics.push({ type: "school-district", rawRows: schoolRaw.length, sourceUrl: schoolSourceUrl });
 
-    for (const type of Object.keys(FILES) as UnitType[]) {
+    const schoolAuthority = await reconcileSchoolRates(normalized, year);
+    let rawCount = schoolRaw.length;
+
+    for (const type of ["city", "county", "special-district"] as UnitType[]) {
       const sourceUrl =
         "https://comptroller.texas.gov/taxes/property-tax/docs/" + year + "-" + FILES[type];
-      const bytes = await fetchBytes(sourceUrl, "TexasDefined tax-rate importer/5.0");
+      const bytes = await fetchBytes(sourceUrl, "TexasDefined tax-rate importer/5.1");
       const records = parseWorkbook(type, sourceUrl, bytes);
-      raw.push(...records);
+      rawCount += records.length;
+      normalized.push(...normalizeYear(records, year));
       diagnostics.push({ type, rawRows: records.length, sourceUrl });
     }
-
-    const normalized = normalizeYear(raw, year);
-    const schoolAuthority = await reconcileSchoolRates(normalized, year);
 
     if (!dryRun) {
       const { error: deleteError } = await supabase
@@ -559,7 +565,7 @@ Deno.serve(async (req: Request) => {
         ok: true,
         dryRun,
         year,
-        rawCount: raw.length,
+        rawCount,
         normalizedCount: normalized.length,
         schoolAuthority,
         notReportedCount: normalized.filter((row) => row.source_status === "not-reported").length,
