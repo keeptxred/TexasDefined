@@ -1,6 +1,7 @@
 import type { BrandConfig } from "@/brand/types";
 import { texasEventDateKey } from "@/data/event-occurrence-lifecycle";
 import { resolveEventSnippet } from "@/data/event-snippet-lifecycle";
+import { cleanMetaDescription } from "@/lib/seo-snippet-trim";
 
 /** Brand-agnostic head/meta and schema builders. */
 
@@ -860,14 +861,6 @@ function cleanMetaText(value: string) {
   return value.replace(/\s+/g, " ").trim();
 }
 
-function cleanMetaDescription(value: string) {
-  const cleaned = cleanMetaText(value);
-  if (cleaned.length <= META_DESCRIPTION_MAX_LENGTH) return cleaned;
-  const slice = cleaned.slice(0, META_DESCRIPTION_MAX_LENGTH - 1);
-  const wordBoundary = slice.lastIndexOf(" ");
-  const trimmed = (wordBoundary >= 120 ? slice.slice(0, wordBoundary) : slice).replace(/[,:;\s]+$/, "");
-  return `${trimmed}.`;
-}
 
 export function absoluteUrl(brand: BrandConfig, value: string) {
   if (/^https?:\/\//i.test(value)) return value;
@@ -891,7 +884,7 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
       }, texasEventDateKey())
     : { title: rawTitle, description: rawDescription };
   const pageTitle = cleanMetaText(governedSnippet.title);
-  const description = cleanMetaDescription(governedSnippet.description);
+  const description = cleanMetaDescription(governedSnippet.description, META_DESCRIPTION_MAX_LENGTH);
   const titleTemplateOverhead = cleanMetaText(brand.seo.titleTemplate.replace("%s", "")).length;
   const maxPageTitleLength = brand.identity.id === "texasdefined" ? Math.max(24, 90 - titleTemplateOverhead) : Number.POSITIVE_INFINITY;
   const budgetedPageTitle = (pageTitle.length > maxPageTitleLength
