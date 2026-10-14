@@ -5,6 +5,12 @@
       "name": "Lake Meredith"
     }
   ],
+  "arlington": [
+    {
+      "slug": "lake-arlington",
+      "name": "Lake Arlington"
+    }
+  ],
   "athens": [
     {
       "slug": "cedar-creek-reservoir",
@@ -150,6 +156,10 @@
     }
   ],
   "cleburne": [
+    {
+      "slug": "cedar-lake-cleburne-state-park",
+      "name": "Cedar Lake at Cleburne State Park"
+    },
     {
       "slug": "lake-granbury",
       "name": "Lake Granbury"
@@ -311,6 +321,10 @@
       "name": "Eagle Mountain Lake"
     },
     {
+      "slug": "lake-arlington",
+      "name": "Lake Arlington"
+    },
+    {
       "slug": "lake-granbury",
       "name": "Lake Granbury"
     }
@@ -341,6 +355,12 @@
     {
       "slug": "lake-georgetown",
       "name": "Lake Georgetown"
+    }
+  ],
+  "glen-rose": [
+    {
+      "slug": "cedar-lake-cleburne-state-park",
+      "name": "Cedar Lake at Cleburne State Park"
     }
   ],
   "graford": [
@@ -457,6 +477,12 @@
       "name": "Lake O' the Pines"
     }
   ],
+  "joshua": [
+    {
+      "slug": "cedar-lake-cleburne-state-park",
+      "name": "Cedar Lake at Cleburne State Park"
+    }
+  ],
   "justiceburg": [
     {
       "slug": "alan-henry-reservoir",
@@ -467,6 +493,12 @@
     {
       "slug": "caddo-lake",
       "name": "Caddo Lake"
+    }
+  ],
+  "kennedale": [
+    {
+      "slug": "lake-arlington",
+      "name": "Lake Arlington"
     }
   ],
   "kerens": [

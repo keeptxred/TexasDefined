@@ -262,6 +262,16 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         }
 
         const destinations = await resolveDestinationCatalog(rawDestinations);
+        // The Explore/search summaries for these authority destinations are deliberately
+        // lightweight to stay within the tested client JS bundle budget. The sitemap
+        // must audit full researched guides, not summaries, before including URLs.
+        // Load the larger authoritative records inside this server-only handler.
+        const { coastalHeritageAuthorityDestinations } = await import("@/data/coastal-heritage-authority");
+        for (const canonicalDestination of coastalHeritageAuthorityDestinations) {
+          const position = destinations.findIndex((item) => item.slug === canonicalDestination.slug);
+          if (position >= 0) destinations[position] = canonicalDestination;
+          else destinations.push(canonicalDestination);
+        }
         const indexableDestinations = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
           .filter((destination) => (isPrimaryTripPlannerDestination(destination) || ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin"].includes(destination.slug)) && auditDestination(destination).readyForIndexing);
         const indexableRvParkDestinations = [...new Map(loadRvParkDestinationsServer().filter((item) => item.slug).map((item) => [item.slug, item])).values()]

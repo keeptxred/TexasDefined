@@ -9,6 +9,7 @@ on:
       - 'src/data/nacogdoches-downtown-historic-district-destination.ts'
       - 'src/data/zion-hill-nacogdoches-authority-destinations.ts'
       - 'scripts/ci/verify-zion-hill-image-provenance.mjs'
+      - 'scripts/ci/verify-nacogdoches-san-augustine-image-uniqueness.mjs'
       - 'src/data/fixtures/nacogdoches-san-augustine-historic-road-trip.ts'
   push:
     branches: [main]
@@ -19,6 +20,7 @@ on:
       - 'src/data/nacogdoches-downtown-historic-district-destination.ts'
       - 'src/data/zion-hill-nacogdoches-authority-destinations.ts'
       - 'scripts/ci/verify-zion-hill-image-provenance.mjs'
+      - 'scripts/ci/verify-nacogdoches-san-augustine-image-uniqueness.mjs'
       - 'src/data/fixtures/nacogdoches-san-augustine-historic-road-trip.ts'
   workflow_dispatch:
 
@@ -52,6 +54,8 @@ jobs:
         run: node scripts/ci/wait-for-protected-production.mjs
       - name: Verify Zion Hill church photograph filename, creator, license, and uniqueness
         run: node scripts/ci/verify-zion-hill-image-provenance.mjs
+      - name: Verify distinct, licensed hero photographs across this authority release
+        run: node scripts/ci/verify-nacogdoches-san-augustine-image-uniqueness.mjs
       - name: Validate production verifier syntax before deployment
         run: node --check scripts/ci/verify-nacogdoches-san-augustine-production.mjs
       - name: Verify canonical URLs, sitemap, sources, reciprocal links, and real images
