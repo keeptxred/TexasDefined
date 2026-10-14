@@ -94,10 +94,23 @@ export function CountyGuideSections({ entity, profile, localGovernment, related,
   ];
   const countyName = entity.name.replace(/\s+County$/i, '').trim().toLowerCase();
   const countyChurches = expandedPaintedChurches.filter((church) => church.county.trim().toLowerCase() === countyName);
-  const countyEditorialLinks = countySeriesArticle ? mergeEditorialLinks(
-    countySeriesArticle.internalLinks ?? [],
-    articleInternalLinks[countySeriesArticle.slug] ?? [],
-  ).slice(0, 8) : [];
+  // Both counties are geographic anchors on the independently researched
+  // Fredericksburg–Johnson City history itinerary. Keep its reciprocal link
+  // visible in the county guide rather than burying it beyond the eight-link cap.
+  const corridorItineraryLinks: ArticleInternalLink[] =
+    entity.slug === 'gillespie' || entity.slug === 'blanco'
+      ? [{
+          href: '/article/fredericksburg-johnson-city-historic-road-trip',
+          label: 'Fredericksburg to Johnson City historic road trip',
+          description: 'Follow the sourced Hill Country itinerary across Fredericksburg, Stonewall, LBJ State Park, the LBJ Ranch and Johnson City, with current visit information.',
+        }]
+      : [];
+  const countyEditorialLinks = countySeriesArticle
+    ? mergeEditorialLinks(
+        [...corridorItineraryLinks, ...(countySeriesArticle.internalLinks ?? [])],
+        articleInternalLinks[countySeriesArticle.slug] ?? [],
+      ).slice(0, 8)
+    : corridorItineraryLinks;
   const countyIndustryPathways = COUNTY_INDUSTRY_PATHWAYS[entity.slug] ?? [];
   const countyRiverLinks = riverAuthorityLinksForCounty(entity.slug);
   const countyLakeGuides = (lakeAuthorityByCounty as Record<string, { slug: string; name: string }[]>)[entity.slug] ?? [];
