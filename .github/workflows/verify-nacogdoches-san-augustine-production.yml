@@ -10,6 +10,9 @@ on:
       - 'src/data/zion-hill-nacogdoches-authority-destinations.ts'
       - 'scripts/ci/verify-zion-hill-image-provenance.mjs'
       - 'scripts/ci/verify-nacogdoches-san-augustine-image-uniqueness.mjs'
+      - 'scripts/ci/verify-east-texas-forest-facts.mjs'
+      - 'supabase/migrations/20261014023500_sfa_forest_current_alerts_source.sql'
+      - 'supabase/migrations/20261014023800_angelina_forest_2025_factsheet_sources.sql'
       - 'src/data/fixtures/nacogdoches-san-augustine-historic-road-trip.ts'
   push:
     branches: [main]
@@ -21,6 +24,9 @@ on:
       - 'src/data/zion-hill-nacogdoches-authority-destinations.ts'
       - 'scripts/ci/verify-zion-hill-image-provenance.mjs'
       - 'scripts/ci/verify-nacogdoches-san-augustine-image-uniqueness.mjs'
+      - 'scripts/ci/verify-east-texas-forest-facts.mjs'
+      - 'supabase/migrations/20261014023500_sfa_forest_current_alerts_source.sql'
+      - 'supabase/migrations/20261014023800_angelina_forest_2025_factsheet_sources.sql'
       - 'src/data/fixtures/nacogdoches-san-augustine-historic-road-trip.ts'
   workflow_dispatch:
 
@@ -56,6 +62,8 @@ jobs:
         run: node scripts/ci/verify-zion-hill-image-provenance.mjs
       - name: Verify distinct, licensed hero photographs across this authority release
         run: node scripts/ci/verify-nacogdoches-san-augustine-image-uniqueness.mjs
+      - name: Validate official East Texas forest facts and monitored sources
+        run: node scripts/ci/verify-east-texas-forest-facts.mjs
       - name: Validate production verifier syntax before deployment
         run: node --check scripts/ci/verify-nacogdoches-san-augustine-production.mjs
       - name: Verify canonical URLs, sitemap, sources, reciprocal links, and real images
