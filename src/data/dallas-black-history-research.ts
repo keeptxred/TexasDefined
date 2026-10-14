@@ -136,7 +136,8 @@ export const dallasBlackHistoryResearch: DallasHeritageProfile[] = [
       { label: "Dallas Office of Historic Preservation — Freedman's Cemetery", url: "https://www.dallascityhall.com/departments/sustainabledevelopment/historicpreservation/Pages/freedman_s_cemetery.aspx", supports: "1861 date, North Dallas context, landmark" },
       { label: "Texas Historical Commission — African Americans in Texas", url: "https://www.thc.texas.gov/public/upload/African-Americans-in-Texas-2021.pdf", supports: "1869 dedication, preservation and memorial account" },
       { label: "TxDOT — ENVision Freedman's Cemetery Project", url: "https://www.dot.state.tx.us/ENV/pdf/envisionpdf/19Fall00.pdf", supports: "1,157 individuals, excavation and reburial" },
-      { label: "Dallas Parks — Freedman's Cemetery", url: "https://dallasparks.org/766/Freedmans-Cemetery", supports: "Current public remembrance and memorial setting" }
+      { label: "Dallas Parks — Freedman's Cemetery", url: "https://dallasparks.org/766/Freedmans-Cemetery", supports: "Current public remembrance and memorial setting" },
+      { label: "Dallas Parks — Freedman's Memorial Cemetery photo gallery", url: "https://dallasparks.org/Facilities/Facility/Details/Freedmans-Memorial-Cemetery-769", supports: "Official photographs showing the actual memorial entrance, artworks and plaza; these are not the Fair Park museum-exhibition photo" }
     ]
   },
   {
