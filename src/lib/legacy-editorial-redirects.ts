@@ -3,6 +3,11 @@
 const destinationAliases: Record<string, string> = {
   "lipantitlan-state-historic-site": "lipantitlan",
   "choke-canyon-south-shore-unit-state-park": "choke-canyon-state-park",
+  // This old North Shore import is not an independently visitable TPWD unit.
+  // The existing park guide explicitly distinguishes Calliham and South Shore.
+  "choke-canyon-north-shore-unit-state-park": "choke-canyon-state-park",
+  // Estelline is a Trailway access point, not a separate state park guide.
+  "caprock-canyons-trailway-estelline-terminal-state-park": "caprock-canyons-state-park",
   "san-jacinto-monument-state-historic-site": "san-jacinto-battleground",
   "seminole-canyon-state-park-and-historic-site": "seminole-canyon-state-park",
   "seminole-canyon-state-park-state-historic-site": "seminole-canyon-state-park",
