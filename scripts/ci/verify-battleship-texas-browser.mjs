@@ -16,7 +16,7 @@ const cases = [
   { name:'original', path:'/article/uss-texas-1895-original-battleship', minimum:6, phrases:['San Marcos','1895','Spanish'] },
   { name:'visitor', path:'/destination/battleship-texas', minimum:6, phrases:['Gulf Copper','Pier 21','Pier 15','2027'] },
 ];
-const report = { checkedAt:new Date().toISOString(), origin, revision:process.env.PRODUCTION_COMMIT_SHA || process.env.DEPLOY_SHA || 'manual', checks:[], failures:[] };
+const report = { checkedAt:new Date().toISOString(), origin, revision:process.env.PRODUCTION_COMMIT_SHA || process.env.DEPLOY_SHA || 'manual', verifierRevision:process.env.VERIFIER_COMMIT_SHA || 'manual', checks:[], failures:[] };
 await mkdir(dir,{recursive:true});
 function must(condition,message){if(!condition) throw Error(message);}
 async function capture(browser,c,mode) {
