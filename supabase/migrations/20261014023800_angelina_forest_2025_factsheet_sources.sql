@@ -9,7 +9,9 @@ FROM (
     ('https://www.fs.usda.gov/sites/nfs/files/r08/texas/publication/National%20Forests%20and%20Grasslands%20Fingertip%20Facts_03262025_0.pdf',
      'USFS March 2025 Fingertip Facts: Angelina National Forest acreage and county breakdown'),
     ('https://www.fs.usda.gov/r08/texas',
-     'USFS official National Forests and Grasslands in Texas site')
+     'USFS official National Forests and Grasslands in Texas site'),
+    ('https://www.recreation.gov/camping/campgrounds/10158892',
+     'Federal Recreation.gov Townsend site description: 153,179-acre conflicting reference')
 ) AS v(source_url,label)
 WHERE EXISTS (
   SELECT 1 FROM public.td_authority_verification_registry
