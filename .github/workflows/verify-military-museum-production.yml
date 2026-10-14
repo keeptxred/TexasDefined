@@ -31,6 +31,16 @@ jobs:
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${DEPLOY_SHA}" \
             --data '{"state":"pending","context":"texasdefined-military-visitor-live","description":"Verifying military museum visitor routes"}' >/dev/null
 
+      - name: Check out exact deployed source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Set up Node.js for naval page verification
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       - name: Verify military visitor routes
         id: live
         shell: bash
@@ -65,6 +75,16 @@ jobs:
           fetch_assert wasp-museum '/destination/national-wasp-wwii-museum-sweetwater' 'National WASP WWII Museum'
           fetch_assert silent-wings '/destination/silent-wings-museum-lubbock' 'Silent Wings Museum'
           fetch_assert texas-history '/texas-history' 'Texas Military Museums'
+          PRODUCTION_COMMIT_SHA="$DEPLOY_SHA" node scripts/ci/verify-naval-heritage-production.mjs
+
+      - name: Preserve naval history production acceptance report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: naval-heritage-live-${{ github.run_id }}
+          path: .artifacts/naval-heritage-production.json
+          if-no-files-found: warn
+          retention-days: 90
 
       - name: Publish success status
         if: ${{ steps.live.outcome == 'success' }}
