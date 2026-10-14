@@ -11,6 +11,50 @@ const eventAuthority = fs.readFileSync('src/data/major-event-authority.ts', 'utf
 const eventRoute = fs.readFileSync('src/routes/event.$slug.tsx', 'utf8');
 const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const failures = [];
+const cutOffTitleCorrections = [
+  {
+    "path": "/article/texas-high-school-football-2026-season-calendar",
+    "title": "Texas High School Football 2026: UIL Season & Playoff Calendar",
+    "descriptionStart": "See the UIL 2026 high school football calendar, fr"
+  },
+  {
+    "path": "/article/texas-llano-river-guide",
+    "title": "Llano River Texas: Fishing, Paddling & Camping Guide",
+    "descriptionStart": "Explore the Llano and South Llano rivers, with Jun"
+  },
+  {
+    "path": "/article/texas-red-river-war-guide",
+    "title": "Red River War in Texas: Adobe Walls & Palo Duro Canyon",
+    "descriptionStart": "Learn how the 1874–75 Red River War unfolded acros"
+  },
+  {
+    "path": "/destination/george-washington-carver-museum-austin",
+    "title": "George Washington Carver Museum Austin: Visitor Guide",
+    "descriptionStart": "Visit Austin's George Washington Carver Museum, Cu"
+  },
+  {
+    "path": "/event/bands-of-america-san-antonio-super-regional",
+    "title": "Bands of America San Antonio Super Regional 2026",
+    "descriptionStart": "Plan the 2026 Bands of America San Antonio Super R"
+  },
+  {
+    "path": "/fishing/lakes/cedar-lake-cleburne-state-park",
+    "title": "Cedar Lake at Cleburne State Park: Fishing Guide",
+    "descriptionStart": "Plan Cedar Lake fishing at Cleburne State Park wit"
+  }
+];
+for (const fix of cutOffTitleCorrections) {
+  for (const marker of ['"' + fix.path + '"', fix.title, fix.descriptionStart]) {
+    if (!seo.includes(marker)) failures.push('A source-verified truncated-title repair was lost: ' + fix.path + ' ' + marker);
+  }
+}
+for (const marker of [
+  'Never ship an automatically shortened search title ending in dangling glue',
+  '.replace(/(?:\\s+(?:and|or|of|for|to|with|in|at|the)|\\s+&)$/i, "")',
+]) {
+  if (!seo.includes(marker)) failures.push('Budgeted title ending guard missing: ' + marker);
+}
+
 
 for (const [source, markers] of [
   [seo, ['resolveEventSnippet({', 'eventOccurrenceEndDate: page.eventOccurrenceEndDate', 'texasEventDateKey()']],
