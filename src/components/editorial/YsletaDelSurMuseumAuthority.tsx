@@ -37,8 +37,8 @@ const timeline = [
   { date: "1680", title: "The Pueblo Revolt", body: "Conflict with Spanish colonial authority in New Mexico led to southward movement of Pueblo people and Spanish settlers. The journeys included both voluntary and coerced relocation; avoid describing every Tigua family as having made the same choice.", url: missionUrl },
   { date: "1682", title: "Community rooted in the El Paso Valley", body: "Ysleta del Sur Pueblo identifies 1682 as the founding of its community and government. The mission dates to this same era, but the historic church and today's museum are different sites.", url: puebloUrl },
   { date: "1975", title: "A museum opens", body: "The Handbook of Texas records the Ysleta del Sur Pueblo Museum opening in the historic Alderette-Candelaria House. Its historic account should not be mistaken for a description of the current building.", url: texasHistoryUrl },
-  { date: "1992", title: "Rebuilding after a fire", body: "According to the Handbook of Texas, the earlier museum structure was largely destroyed by fire and was being rebuilt in the spring of 1992.", url: texasHistoryUrl },
   { date: "1987", title: "Federal restoration legislation", body: "The Ysleta del Sur Pueblo Restoration Act recognized the Pueblo's federal relationship and sovereign governmental framework. The tribe's current government continues beyond the museum walls.", url: "https://www.ysletadelsurpueblo.org/news_detail.sstg?id=104" },
+  { date: "1992", title: "Rebuilding after a fire", body: "According to the Handbook of Texas, the earlier museum structure was largely destroyed by fire and was being rebuilt in the spring of 1992.", url: texasHistoryUrl },
   { date: "2016", title: "Cultural preservation reorganized", body: "The Pueblo established its Department of Cultural Preservation, bringing cultural center activities, development and repatriation within a coordinated tribal program.", url: preservationUrl },
 ];
 const questions = [
