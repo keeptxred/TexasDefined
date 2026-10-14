@@ -20,6 +20,24 @@ for (const [label, content] of [["destination", aamRecord], ["FAQ", aamFaq]]) {
   }
 }
 
+// Rockport's 2026 exhibition claims must cite their specific official
+// event detail pages and remain explicitly time-bounded. The licensed
+// museum exterior is already provided by museum-authority-heroes.
+const rockportRecords = read("src/data/museum-expansion-statewide-wave2.ts");
+const rockportDossier = src.split('  "texas-maritime-museum-rockport": {')[1]?.split('  "national-museum-pacific-war": {')[0] || "";
+const rockportFaq = aamFaqSource.split('  "texas-maritime-museum-rockport": [')[1]?.split('  "national-museum-pacific-war": [')[0] || "";
+const rockportManifest = read("public/museum-verification-manifest.json");
+const rockportManifestEntry = rockportManifest.split('"path": "/destination/texas-maritime-museum-rockport"')[1]?.split('"path": "/destination/texas-ranger-hall-of-fame-museum-waco"')[0] || "";
+const rockportDestination = rockportRecords.split('slug: "texas-maritime-museum-rockport"')[1]?.split('slug: "museum-south-texas-history-edinburg"')[0] || "";
+for (const [label, value, markers] of [
+  ["destination", rockportDestination, ["Tides of Freedom", "Built for Victory", "December 31, 2026", "10 a.m.–4 p.m.", "2026-10-14"]],
+  ["dossier", rockportDossier, ["https://texasmaritimemuseum.org/event/tides-of-freedom/", "https://texasmaritimemuseum.org/event/built-for-victory/", "September 30–December 31, 2026"]],
+  ["FAQ", rockportFaq, ["Tides of Freedom", "Built for Victory", "December 31, 2026", "https://texasmaritimemuseum.org/event/tides-of-freedom/", "https://texasmaritimemuseum.org/event/built-for-victory/"]],
+  ["source manifest", rockportManifestEntry, ['"faqCount": 7', "https://texasmaritimemuseum.org/event/tides-of-freedom/", "https://texasmaritimemuseum.org/event/built-for-victory/"]],
+]) {
+  for (const marker of markers) if (!value.includes(marker)) failures.push("Texas Maritime Museum " + label + " source/visitor detail missing: " + marker);
+}
+
 const required = [
   "bullock-texas-state-history-museum",
   "perot-museum-nature-science-dallas",
