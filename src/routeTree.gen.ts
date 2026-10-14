@@ -1961,7 +1961,9 @@ const TexasDataDatasetSlugRoute = TexasDataDatasetSlugRouteImport.update({
   id: '/$datasetSlug',
   path: '/$datasetSlug',
   getParentRoute: () => TexasDataRoute,
-} as any)
+} as any).lazy(() =>
+  import('./routes/texas-data.$datasetSlug.lazy').then((d) => d.Route),
+)
 const TexasCostOfLivingCalculatorLocationRoute =
   TexasCostOfLivingCalculatorLocationRouteImport.update({
     id: '/texas-cost-of-living-calculator_/$location',
