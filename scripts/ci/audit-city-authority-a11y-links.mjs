@@ -81,6 +81,11 @@ for (const city of cities) {
           if(!row.navigationProbe.trigger.name || row.navigationProbe.trigger.width<24 ||
             row.navigationProbe.trigger.height<24 || row.navigationProbe.trigger.expanded!=='false')
             throw new Error('Menu trigger missing accessible name, minimum 24px hit box or initially closed state');
+          // A server-rendered button is visible before React wires its click
+          // listener. A click in that window is not a product failure, and a
+          // missing hydration signal must remain a real audit failure.
+          await page.locator('header[data-hydrated="true"]').first()
+            .waitFor({state:'attached',timeout:20000});
           await trigger.click();
           await page.waitForFunction(()=>{
             const trigger=document.querySelector('button[aria-controls="mobile-main-menu"]');
