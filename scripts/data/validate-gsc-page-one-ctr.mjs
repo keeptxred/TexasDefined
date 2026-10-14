@@ -26,14 +26,14 @@ for (const required of [
 // search-intent-focused SSR snippets rather than treating them as indexing work.
 const priorityPageOneCtrRecovery = [
   { path: '/article/texas-rivers-explained', title: 'Major Rivers in Texas: Boundary Rivers, Regions & Map', description: "Find Texas's major and boundary rivers by region" },
-  { path: '/texas-homecoming-mums', title: 'Texas Homecoming Mums Explained: Meaning, History & Tradition', description: 'What are Texas homecoming mums?' },
+  { path: '/texas-homecoming-mums', title: 'Texas Homecoming Mums: History, Meaning, Colors & Traditions', description: 'Texas homecoming mums explained: history, colors, senior traditions, garters, costs' },
   { path: '/event/heart-o-texas-fair-rodeo', title: "Heart O' Texas Fair & Rodeo 2026: Dates, Schedule & Tickets", description: "The 2026 Heart O' Texas Fair & Rodeo runs Oct. 8-18 in Waco" },
-  { path: '/article/texas-river-basins-guide', title: 'Texas River Basins: 15 Major, 8 Coastal & Watershed Map', description: "Texas's 15 major and eight coastal basins" },
+  { path: '/article/texas-river-basins-guide', title: 'Texas River Basins: 15 Major, 8 Coastal & Watershed Map', description: "15 major and eight coastal river basins" },
   { path: '/article/texas-lakes-reservoirs-explained', title: 'Texas Lakes & Reservoirs: Why Most Are Man-Made', description: 'most familiar inland Texas lakes are reservoirs' },
   { path: '/article/texas-trinity-river-guide', title: 'Trinity River Texas: Dallas-Fort Worth, Basin & Gulf Guide', description: 'Follow the Trinity River through North Texas toward Trinity Bay' },
   { path: '/sports-venue/jones-att-stadium', title: 'Jones AT&T Stadium (Now Galaxy Stadium): Texas Tech Guide', description: 'Looking for Jones AT&T Stadium?' },
   { path: '/article/texas-settlement-patterns-explained', title: 'Texas Settlement Patterns: How Geography Shaped Towns', description: 'See how rivers and reliable water drew early Texas settlement' },
-  { path: '/event/addison-oktoberfest', title: 'Addison Oktoberfest 2026: Dates, Hours, Tickets & Parking', description: 'Addison Oktoberfest runs Sept. 17-20, 2026' },
+  { path: '/event/addison-oktoberfest', title: 'Addison Oktoberfest: Dates, Hours, Tickets & Parking', description: 'latest confirmed dates, festival hours, tickets, parking, hotel and official planning links' },
   { path: '/sports-venue/mesquite-memorial-stadium', title: 'Mesquite Memorial Stadium: Parking, Tickets & Events', description: 'verified parking, directions, ticket and event links' },
   { path: '/explore/painted-churches', title: 'Painted Churches of Texas: Complete Statewide Guide', description: 'verified church profiles, history, architecture, photos and visitor information' },
 ];
@@ -65,7 +65,7 @@ const experiments = [
   {
     path: '/article/texas-river-basins-guide',
     title: 'Texas River Basins: 15 Major, 8 Coastal & Watershed Map',
-    description: "Learn how Texas's 15 major and eight coastal basins divide the state by watershed",
+    description: "15 major and eight coastal river basins on a watershed map",
   },
   {
     path: '/sports-venue/legacy-stadium-katy',
@@ -179,7 +179,7 @@ const thirdWave = [
 ];
 
 const fourthWaveCorrections = [
-  { path: '/event/sweetwater-rattlesnake-roundup', title: 'Sweetwater Rattlesnake Roundup 2027: Dates & Visitor Guide', description: 'Sweetwater Rattlesnake Roundup 2027 planning window: March 12-14' },
+  { path: '/event/sweetwater-rattlesnake-roundup', title: 'Sweetwater Rattlesnake Roundup 2027: Projected Dates & Guide', description: 'Sweetwater Rattlesnake Roundup 2027 projected planning window: March 12-14' },
   { path: '/event/charro-days-fiesta', title: 'Charro Days Fiesta 2027: Dates, Parade & Brownsville Guide', description: 'Charro Days Fiesta 2027 core dates are Feb. 25-27 in Brownsville' },
 ];
 
@@ -251,7 +251,7 @@ if (sixthWave.length !== 20) {
 
 const seventhWave = [
   { path: "/event/addison-oktoberfest", title: "Addison Oktoberfest: Dates, Hours, Tickets & Parking", description: "latest confirmed dates" },
-  { path: "/texas-state-fair", title: "State Fair of Texas 2026: Dates, Hours, Schedule & Tickets", description: "The State Fair of Texas runs Sept. 25-Oct. 18, 2026" },
+  { path: "/texas-state-fair", title: "State Fair of Texas 2026: Dates, Hours, Schedule & Tickets", description: "State Fair of Texas 2026 runs Sept. 25-Oct. 18" },
   { path: "/article/el-paso-county-missions-rio-grande-texas", title: "El Paso County Missions & Rio Grande: Borderlands History Guide", description: "Explore El Paso County through the Rio Grande, Ysleta Mission" },
   { path: "/article/texas-barbecue-styles-explained", title: "Texas Barbecue Styles: Central, East, South & West Texas BBQ", description: "Compare Texas barbecue styles by region" },
   { path: "/article/texas-business-routes-explained", title: "What Is a Business Highway? Texas Business Routes Explained", description: "Learn what a business highway or business route is" },
