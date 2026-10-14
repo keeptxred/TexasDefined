@@ -19,11 +19,48 @@ const cases = [
 const report = { checkedAt:new Date().toISOString(), origin, revision:process.env.PRODUCTION_COMMIT_SHA || process.env.DEPLOY_SHA || 'manual', verifierRevision:process.env.VERIFIER_COMMIT_SHA || 'manual', checks:[], failures:[] };
 await mkdir(dir,{recursive:true});
 function must(condition,message){if(!condition) throw Error(message);}
+
+// Capture evidence for the recurring BB-35 HTML hydration mismatch without
+// removing any strict production assertion. Compare isolated fresh Chrome
+// contexts: all current integrations; Expedia removed; other deferred DOM
+// integrations removed; all five removed. This pinpoints root vs route races.
+async function isolateHydrationMismatch(browser,path) {
+  const cases=[
+    {name:'baseline',block:[]},
+    {name:'without-expedia',block:['expedia-travel.js']},
+    {name:'without-city-integration',block:['city-experience-affiliate.js','angi-home-services.js']},
+    {name:'without-all-deferred',block:['expedia-travel.js','stay-affiliate-options.js','stay-nearby-context-images.js','city-experience-affiliate.js','texas-brand-locator.js','angi-home-services.js']},
+  ];
+  report.hydrationIsolation=[];
+  for(const test of cases){
+    const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+    const page=await context.newPage(),errors=[];
+    page.on('pageerror',e=>errors.push({message:e.message,stack:(e.stack||'').slice(0,1200)}));
+    try{
+      for(const script of test.block) await page.route('**/'+script+'*',r=>r.abort());
+      const response=await page.goto(origin+path+'?bb35_hydration_isolation='+encodeURIComponent(test.name)+'-'+encodeURIComponent(report.revision),{waitUntil:'domcontentloaded',timeout:35000});
+      await page.waitForFunction(()=>document.documentElement.dataset.tdRootHydrated==='1',undefined,{timeout:16000}).catch(()=>{});
+      await page.waitForTimeout(1200);
+      const dom=await page.evaluate(()=>({innerWidth,clientWidth:document.documentElement.clientWidth,h1:document.querySelector('h1')?.textContent?.slice(0,100),articleHydrated:document.documentElement.dataset.tdBattleshipArticleHydrated,rootHydrated:document.documentElement.dataset.tdRootHydrated,expediaSurface:Boolean(document.getElementById('expedia-travel-surface'))}));
+      report.hydrationIsolation.push({test:test.name,status:response?.status(),dom,errors});
+      console.log('HYDRATION ISOLATION '+test.name+' errors='+errors.length+' root='+dom.rootHydrated);
+    }catch(e){report.hydrationIsolation.push({test:test.name,error:String(e),errors});}
+    finally{await context.close();}
+  }
+}
 async function capture(browser,c,mode) {
   const mobile=mode==='mobile';
   const context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1366,height:900},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:1});
-  const page=await context.newPage(), pageErrors=[];
+  const page=await context.newPage(), pageErrors=[],mediaIssues=[];
   page.on('pageerror', e => pageErrors.push(e.message));
+  page.on('response',response=>{
+    if(response.url().includes('/media/remote?') && response.status()>=400){
+      mediaIssues.push({url:response.url(),status:response.status()});
+    }
+  });
+  page.on('requestfailed',request=>{
+    if(request.url().includes('/media/remote?')) mediaIssues.push({url:request.url(),networkError:request.failure()});
+  });
   const pathname=c.path;
   try {
     const response=await page.goto(origin+pathname+'?naval_browser='+encodeURIComponent(report.revision)+'-'+mode,{waitUntil:'domcontentloaded',timeout:60000});
@@ -59,13 +96,23 @@ async function capture(browser,c,mode) {
         viewportMeta:document.querySelector('meta[name="viewport"]')?.content||'',
         headerVisible:[...document.querySelectorAll('header')].some(h=>{const b=h.getBoundingClientRect();return b.width>0&&b.height>0}),
         robots:document.querySelector('meta[name="robots"]')?.content||'',
-        h1:attrs('h1').map(x=>x.textContent.trim()),viewport:innerWidth,docWidth:document.documentElement.scrollWidth,
+        h1:attrs('h1').map(x=>x.textContent.trim()),viewport:innerWidth,
+        cssClientWidth:document.documentElement.clientWidth,
+        visualViewportWidth:window.visualViewport?.width||null,
+        physicalScreenWidth:screen.width,
+        docWidth:document.documentElement.scrollWidth,
+        // Display the deepest content that exceeds the intended CSS width.
+        // Full-body overflow alone never identifies the min-content culprit.
+        mobileOffenders:innerWidth>400?[...document.body.querySelectorAll('*')].map(el=>{
+          const b=el.getBoundingClientRect(),style=getComputedStyle(el);
+          return {tag:el.tagName,cls:String(el.className?.baseVal||el.className||'').slice(0,95),width:Math.round(b.width),right:Math.round(b.right),minWidth:style.minWidth,overflow:style.overflowX,text:(el.textContent||'').trim().slice(0,45),depth:el.closest('main')?1:0};
+        }).filter(x=>x.width>390&&x.right>398).sort((a,b)=>b.width-a.width).slice(0,32):[],
         text:document.body.innerText,images,
         creditLinks:attrs('a[href]').filter(a=>/commons\.wikimedia\.org\/wiki\/File:|creativecommons\.org\/licenses\//.test(a.href)).map(a=>a.href),
         links:attrs('a[href]').map(a=>new URL(a.href,location.href).pathname),
       };
     });
-    const evidence={path:pathname,mode,http:response.status(),canonical:data.canonical,robots:data.robots,h1:data.h1,requestedViewport:mobile?390:1366,rootHydrated:data.rootHydrated,viewportMeta:data.viewportMeta,headerVisible:data.headerVisible,viewport:data.viewport,docWidth:data.docWidth,images:data.images,credits:data.creditLinks.length,pageErrors};
+    const evidence={path:pathname,mode,http:response.status(),canonical:data.canonical,robots:data.robots,h1:data.h1,requestedViewport:mobile?390:1366,rootHydrated:data.rootHydrated,viewportMeta:data.viewportMeta,headerVisible:data.headerVisible,viewport:data.viewport,cssClientWidth:data.cssClientWidth,visualViewportWidth:data.visualViewportWidth,physicalScreenWidth:data.physicalScreenWidth,mobileOffenders:mobile?data.mobileOffenders:[],docWidth:data.docWidth,images:data.images,mediaIssues,credits:data.creditLinks.length,pageErrors};
     const failures=[];
     const test=(ok,msg)=>{if(!ok) failures.push(msg);};
     test(data.pathname===pathname,'wrong route');
@@ -97,6 +144,9 @@ async function capture(browser,c,mode) {
     report.checks.push({...evidence,failures});
     if(failures.length) report.failures.push({page:c.name,mode,failures});
     console.log((failures.length?'FAIL ':'PASS ')+pathname+' '+mode+' images='+archival.length+' credits='+data.creditLinks.length+' overflow='+Math.max(0,data.docWidth-data.viewport));
+    if(c.name==='bb35' && mode==='mobile' && pageErrors.some(e=>e.includes('#418'))) {
+      await isolateHydrationMismatch(browser,pathname);
+    }
   }catch(e){
     report.failures.push({page:c.name,mode,error:String(e)});
     console.error('FAIL '+pathname+' '+mode+': '+String(e));
