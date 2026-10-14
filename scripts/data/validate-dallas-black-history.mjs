@@ -13,6 +13,7 @@ const preserved = read("src/data/destination-preserved-catalog.ts");
 const template = read("src/routes/destination.$slug.tsx");
 const panel = read("src/components/editorial/DallasBlackHistoryAuthority.tsx");
 const hub = read("src/routes/dallas-black-history.tsx");
+const hubContent = read("src/components/editorial/DallasBlackHistoryPage.tsx");
 const failures = [];
 
 const slugs = [
@@ -46,7 +47,7 @@ if (!panel.includes("dallasBlackHistoryResearch.filter") || !panel.includes("pro
   failures.push("Visible panel must show other sites, cited sources, and FAQs.");
 if (!panel.includes('href="/dallas-black-history"'))
   failures.push("Each place must link to the hub.");
-if (!hub.includes('createFileRoute("/dallas-black-history")') || !hub.includes("dallasBlackHistoryResearch.map"))
+if (!hub.includes('createFileRoute("/dallas-black-history")') || !hub.includes("landmarks.map") || !hubContent.includes("dallasBlackHistoryResearch.find"))
   failures.push("Public authority hub and ItemList must exist.");
 if (!places.includes("Wikimedia Commons") || !places.includes("CC BY-SA"))
   failures.push("Licensed heroes and credits must be retained.");
