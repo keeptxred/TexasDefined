@@ -1099,11 +1099,20 @@
         "Multiple exhibit areas and group/school education access"
       ],
       "openGaps": [
-        "Verify actual mobility/sensory facilities and on-site dining directly with guest services",
-        "Complete photo rendering and responsive public-page QA"
+        "Confirm mobility and sensory accommodations and on-site dining directly with museum guest services",
+        "Complete independent side-by-side operator comparison and responsive mobile/desktop browser review; SSR image and licensed photographer credit passed production acceptance"
       ],
       "decision": "not-certified",
-      "dimensionEvidence": {},
+      "dimensionEvidence": {
+        "licensedMediaContextualCrosslinksAndTechnicalQA": {
+          "status": "partial-evidence",
+          "source": "docs/museum-photo-evidence.md",
+          "productionHtmlAndAttribution": "https://github.com/keeptxred/TexasDefined/actions/runs/38512266599",
+          "checkedAt": "2026-10-13",
+          "verified": "HTTP 200, canonical, noindex, key on-page facts, internal links, licensed photo credit; source thumbnail image/jpeg HTTP 200 in separate pg_net check",
+          "outstanding": "Complete real-browser responsive layout and accessibility verification; test image bytes in CI after next deployment"
+        }
+      },
       "independentReviewer": null,
       "certifiedAt": null,
       "operatorPagesToBenchmark": [
@@ -1119,11 +1128,20 @@
         "Explicit instruction to call for current opening hours"
       ],
       "openGaps": [
-        "Confirm elevator and accessible facilities with museum operator; one older visitor review is not proof",
-        "Obtain licensed exact-location museum photograph and perform production rendering QA"
+        "Confirm elevator operations, accessible restroom and step-free routes directly with the operator; an older visitor report is insufficient",
+        "Complete independent side-by-side operator comparison and responsive mobile/desktop browser review; exact-site Carol M. Highsmith photograph, licensing record and production source reachability are already verified"
       ],
       "decision": "not-certified",
-      "dimensionEvidence": {},
+      "dimensionEvidence": {
+        "licensedMediaContextualCrosslinksAndTechnicalQA": {
+          "status": "partial-evidence",
+          "source": "docs/museum-photo-evidence.md",
+          "productionHtmlAndAttribution": "https://github.com/keeptxred/TexasDefined/actions/runs/38512266599",
+          "checkedAt": "2026-10-13",
+          "verified": "HTTP 200, canonical, noindex, key on-page facts, internal links, licensed photo credit; source thumbnail image/jpeg HTTP 200 in separate pg_net check",
+          "outstanding": "Complete real-browser responsive layout and accessibility verification; test image bytes in CI after next deployment"
+        }
+      },
       "independentReviewer": null,
       "certifiedAt": null,
       "operatorPagesToBenchmark": [
@@ -1138,11 +1156,20 @@
         "Current museum operator admission, hours and guided group tour information"
       ],
       "openGaps": [
-        "Confirm access across separate buildings and on-site food policy",
-        "Obtain rights-cleared exact-site hero and verify gallery additions live"
+        "Confirm step-free access across museum buildings and availability of visitor food facilities with the operator",
+        "Complete independent side-by-side operator comparison and responsive mobile/desktop browser review; licensed depot hero and production SSR passed checks"
       ],
       "decision": "not-certified",
-      "dimensionEvidence": {},
+      "dimensionEvidence": {
+        "licensedMediaContextualCrosslinksAndTechnicalQA": {
+          "status": "partial-evidence",
+          "source": "docs/museum-photo-evidence.md",
+          "productionHtmlAndAttribution": "https://github.com/keeptxred/TexasDefined/actions/runs/38512266599",
+          "checkedAt": "2026-10-13",
+          "verified": "HTTP 200, canonical, noindex, key on-page facts, internal links, licensed photo credit; source thumbnail image/jpeg HTTP 200 in separate pg_net check",
+          "outstanding": "Complete real-browser responsive layout and accessibility verification; test image bytes in CI after next deployment"
+        }
+      },
       "independentReviewer": null,
       "certifiedAt": null,
       "operatorPagesToBenchmark": [
