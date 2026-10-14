@@ -42,7 +42,7 @@ function SixManFieldDiagram() {
     <figure className="mt-6 overflow-hidden rounded-2xl border border-border bg-card">
       <div className="overflow-x-auto p-2 sm:p-5" role="region" aria-label="Six-man field illustration; scroll horizontally on small screens" tabIndex={0}>
         <svg
-          className="h-auto min-w-[660px] w-full"
+          className="h-auto w-full" style={{ minWidth: 660 }}
           viewBox="0 0 1080 550"
           role="img"
           aria-labelledby="six-man-field-title six-man-field-description"
