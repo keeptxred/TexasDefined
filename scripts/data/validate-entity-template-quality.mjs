@@ -44,6 +44,15 @@ for (const feature of ['isCountyPropertyIndexReady(county)',"robots: indexReady 
 for (const feature of ['export function isIndexableEntityPage',"['active', 'seasonal'].includes(entity.status)",'description.length < 180','!entity.sourceCheckedAt',"['official', 'high'].includes(entity.sourceConfidence)",'hasEntitySpecificOfficialUrl(entity)','NON_SPECIFIC_OFFICIAL_URLS',"'https://www.texas.gov/texas-county-websites.html'",'LOCAL_GOVERNMENT_KINDS.has(entity.kind)',"entity.sourceConfidence !== 'official'","entity.status !== 'active'",'contextSignals >= 3']) {
   if (!entityRelationships.includes(feature)) errors.push(`Generic entity quality gate missing: ${feature}`);
 }
+// Indexability must not fluctuate when Census TIGERWeb coordinates are
+// unavailable, while the full county editorial and relationship gates remain.
+const countyGate = entityRelationships.match(/if \(entity\.kind === 'county'\) \{[\s\S]*?\n  \}/)?.[0] ?? '';
+for (const token of ["'county-series-complete'", 'countyRelationshipsComplete = entity.relationships.length >= 2', '&& editorialComplete', '&& countyRelationshipsComplete']) {
+  if (!countyGate.includes(token)) errors.push('County indexation quality gate missing: ' + token);
+}
+if (countyGate.includes('Boolean(entity.coordinates)')) {
+  errors.push('County SEO indexability must not require an intermittent Census coordinates lookup.');
+}
 for (const feature of ['const entityCounty = countyContext(entity)','if (!isIndexableEntityPage(candidate)) return false;','const sameCounty = Boolean(entityCounty && candidateCounty && entityCounty === candidateCounty)',"score += 120; reasons.push('direct relationship')","score += 70; reasons.push('same county')",'const miles = distanceMiles(entity, candidate)',"miles <= 25","miles <= 75","miles <= 150",'sharedTags.length * 6','LOCAL_GOVERNMENT_KINDS.has(entity.kind) && !sameCounty && !directlyRelated && !incomingRelated','proximityTieBreak(entity, a.entity, b.entity)','function distanceMiles(a: TexasEntityRecord, b: TexasEntityRecord)']) {
   if (!entityRelationships.includes(feature)) errors.push(`Related-entity ranking contract missing: ${feature}`);
 }

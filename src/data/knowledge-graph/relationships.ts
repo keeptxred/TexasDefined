@@ -175,11 +175,15 @@ export function isIndexableEntityPage(entity: TexasEntityRecord) {
 
   if (entity.kind === 'county') {
     const editorialComplete = entity.tags?.includes('county-series-complete') ?? false;
+    const countyRelationshipsComplete = entity.relationships.length >= 2;
+    // Census TIGERWeb coordinates are supplementary context; an intermittent
+    // geocoding lookup must never change search eligibility for a completed,
+    // source-verified county editorial guide.
     return description.length >= 180
       && entity.sourceConfidence === 'official'
       && entity.status === 'active'
-      && Boolean(entity.coordinates)
-      && (editorialComplete || entity.relationships.length >= 2);
+      && editorialComplete
+      && countyRelationshipsComplete;
   }
 
   if (description.length < 180) return false;
