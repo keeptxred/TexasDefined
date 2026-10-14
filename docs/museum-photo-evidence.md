@@ -169,3 +169,10 @@ Exact-site antique farm-equipment photograph: [Boerne ag museum 2013.jpg](https:
 - Source: Carol M. Highsmith, Library of Congress Prints and Photographs, item `2014632610`, digital ID `highsm.28410`: https://www.loc.gov/item/2014632610/ .
 - Reuse status: Library of Congress records **no known restrictions on publication** and Wikimedia Commons categorizes this original Highsmith photograph as public domain: https://commons.wikimedia.org/wiki/File:View,_in_2014,_of_Dealey_Plaza_and_the_Texas_School_Book_Depository_in_Dallas,_Texas.jpg . Rights assessment applies to this exact image, not unrelated museum exhibits, logos or gallery photographs.
 - Editorial display status: existing correct subject and attribution in `src/data/destination-curation-top-attractions-batch2.ts`; new authority dossier deliberately preserves the original hero. The actual rendered photo, ALT, attribution link and mobile layout still require production acceptance. **Not automatically marked image-compliant or authority-certified.**
+
+## USS Lexington Museum — October 14, 2026
+
+- Existing canonical museum hero is the identifiable ship at North Beach, photographed February 9, 2018 by Matthew T Rader: https://commons.wikimedia.org/wiki/File:An_aerial_photo_of_the_USS_Lexington_in_Corpus_Christi.jpg .
+- Source licensing: **CC BY-SA 4.0** with creator requirement for visible credit `Matthew T Rader`, creator website `https://matthewtrader.com`, and proper license reference `https://creativecommons.org/licenses/by-sa/4.0/`. This is not public-domain U.S. Navy imagery.
+- `src/data/military-museum-destinations.ts` already credits `Matthew T Rader / MatthewTRader.com · CC BY-SA 4.0 · Wikimedia Commons` and uses the actual 2018 aerial museum-era photograph. Preserve it and distinguish historic wartime gallery photographs by dates and source.
+- Browser-rendered attribution links, image dimensions, any derivative change notation, and small-screen display remain **unverified** until production acceptance. Do not certify merely from valid source metadata.
