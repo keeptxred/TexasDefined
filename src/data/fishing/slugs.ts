@@ -79,6 +79,7 @@ export const STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS = [
   "cedar-lake-cleburne-state-park",
   "lake-worth",
   "lake-nasworthy",
+  "fort-parker-state-park-lake",
 ] as const;
 
 export const COMPLETE_FISHING_LAKE_SLUGS = [

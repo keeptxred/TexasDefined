@@ -202,6 +202,7 @@ export const fishingLakeImages: Record<string, FishingVisualAsset> = {
   "cedar-lake-cleburne-state-park": commonsLake("cedar-lake-cleburne-state-park", "Cedar Lake Cleburne State Park Texas 2023.jpg", "Actual February 2023 Cedar Lake shoreline and kayaker inside Cleburne State Park, Johnson County, Texas", 3556, 2000, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by", "Wikimedia Commons", "2026-10-13"),
   "lake-worth": commonsLake("lake-worth", "Lake Worth from Lone Point Shelter.jpg", "Actual Lake Worth in Fort Worth, Texas, photographed from Lone Point Shelter in the Nature Center; not a current water-level or ramp-status image", 3049, 1800, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by", "Wikimedia Commons", "2026-10-13"),
   "lake-nasworthy": commonsLake("lake-nasworthy", "Lake Nasworthy at Sunset (115464108).jpg", "Actual sunset photograph of Lake Nasworthy in San Angelo, Texas, September 2003; historic view not a live marina or boat-ramp status report", 1177, 1571, "Jonathan Cutrer", "CC BY 2.0", CC_BY_2, "cc-by", "Wikimedia Commons / Flickr verified", "2026-10-13"),
+  "fort-parker-state-park-lake": commonsLake("fort-parker-state-park-lake", "Lake Fort Parker State Park Texas 2025.jpg", "Actual Fort Parker Lake inside Fort Parker State Park in Limestone County, Texas at dawn, 27 September 2025; not a current lake-level or ramp-status image", 3000, 2000, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by", "Wikimedia Commons", "2026-10-13"),
 };
 
 export function getFishingFishImage(slugOrId: string) {
