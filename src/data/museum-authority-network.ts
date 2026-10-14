@@ -1045,8 +1045,8 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { heading: "Boatbuilding and coastal commerce", detail: "Interpret ship design and industrial materials as responses to shallow bays, Gulf weather, port needs and regional commercial networks." },
       { heading: "Shipwrecks, Indigenous coastal history and navigation", detail: "Examine how archaeology and maritime objects recover histories that written commercial records may ignore, especially along the long-inhabited Gulf Coast." },
       { heading: "Fishing and offshore industries", detail: "Commercial fishing and energy are presented as parts of a working coastline, not simply as recreational attractions; connect the galleries to the harbor you can see outside." },
-      { heading: "Tides of Freedom (temporary 2026)", detail: "The museum's 2026 calendar describes a time-limited exhibition about Spain's role in American independence; confirm its displayed dates and location before visiting." },
-      { heading: "Built for Victory (temporary September–December 2026)", detail: "The museum advertises a World War I shipbuilding and coastal-industry exhibition. Treat this as temporary programming, not a permanent gallery." },
+      { heading: "Tides of Freedom (February 2–December 31, 2026)", detail: "This dated exhibit examines Bernardo de Gálvez, Gulf Coast campaigns and Texas cattle sent to provision Spanish troops in the American Revolution. The museum lists it through December 31, 2026, not as a permanent gallery." },
+      { heading: "Built for Victory (September 30–December 31, 2026)", detail: "A temporary exhibit on Texas coastal shipyards in World War I, including Ferris-class wooden steamships, Aransas Pass concrete barges and Rockport’s Heldenfels Brothers Shipyard. The museum lists an end date of December 31, 2026." },
     ],
     routes: [
       { label: "Museum highlights", steps: ["Focus on shipbuilding and shipwrecks", "Compare fishing and offshore industry displays", "Walk a short stretch of the nearby waterfront"] },
@@ -1058,6 +1058,8 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "Texas Maritime Museum — exhibitions", url: "https://texasmaritimemuseum.org/exhibits/", use: "Exhibition content and interpretation topics" },
       { label: "Texas Maritime Museum — education", url: "https://texasmaritimemuseum.org/museum-education-department/", use: "School tours, lectures and group bookings" },
       { label: "Texas Maritime Museum — October 2026 event calendar", url: "https://texasmaritimemuseum.org/events/month/2026-10/", use: "Time-bounded fall and winter 2026 exhibitions and museum events" },
+      { label: "Texas Maritime Museum — Tides of Freedom", url: "https://texasmaritimemuseum.org/event/tides-of-freedom/", use: "Exact February 2–December 31, 2026 exhibition dates, Bernardo de Gálvez and Spanish-Gulf history" },
+      { label: "Texas Maritime Museum — Built for Victory", url: "https://texasmaritimemuseum.org/event/built-for-victory/", use: "Exact September 30–December 31, 2026 exhibition dates, World War I shipyards and Rockport industry" },
     ],
     connections: [
       { label: "Aransas County", href: "/county/aransas", reason: "Explore Rockport and the surrounding bays." },
