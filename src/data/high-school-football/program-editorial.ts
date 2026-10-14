@@ -58,6 +58,179 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "big-sandy-harmony": {
+    "slug": "big-sandy-harmony",
+    "theme": {
+      "accentHex": "#9D2A36",
+      "label": "Independent TexasDefined editorial accent; school-owned marks and logos not reproduced"
+    },
+    "seo": {
+      "title": "Harmony Eagles Football | Big Sandy, 2026 Results, History & Eagle Stadium",
+      "description": "Harmony ISD Eagles football in Big Sandy: 2026 scores, 2022 state-semifinal run, 3A Division II district, Eagle Stadium and verified Upshur County links."
+    },
+    "campus": {
+      "address": "9788 State Highway 154 West, Big Sandy, TX 75755",
+      "phone": "903-725-5495",
+      "sourceUrl": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482256002294",
+      "sourceLabel": "NCES 2025–26 Harmony High School campus and Upshur County directory",
+      "verifiedAt": "2026-10-14"
+    },
+    "schedule": {
+      "label": "Harmony ISD official 2026 football schedules and athletics announcements",
+      "sourceUrl": "https://www.harmonyisd.net/o/ha/page/harmony-football",
+      "sourceLabel": "Harmony ISD Athletics 2026 football schedules; verify kickoff, tickets and any late changes directly",
+      "verifiedAt": "2026-10-14"
+    },
+    "season": {
+      "record": "0–7 through October 9, 2026 (MaxPreps; may change)",
+      "verifiedAt": "2026-10-14",
+      "sourceUrl": "https://www.maxpreps.com/tx/big-sandy/harmony-eagles/football/",
+      "sourceLabel": "MaxPreps Harmony varsity 2026 results observed October 14; not a certified district scoreboard",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Hughes Springs",
+          "site": "Away",
+          "result": "L 14–34"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Redwater",
+          "site": "Away",
+          "result": "L 13–42"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Beckville",
+          "site": "Away",
+          "result": "L 0–51"
+        },
+        {
+          "date": "2026-09-17",
+          "opponent": "Waskom",
+          "site": "Home",
+          "result": "L 20–62"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Lone Oak",
+          "site": "Home",
+          "district": true,
+          "result": "L 37–51"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Chisum",
+          "site": "Away",
+          "district": true,
+          "result": "L 31–34"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Quitman",
+          "site": "Home",
+          "district": true,
+          "result": "L 28–33"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Edgewood",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Grand Saline",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Prairiland",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Harmony Eagle Stadium",
+      "address": "9788 SH 154 W, Big Sandy, TX 75755 (athletics campus address; confirm event gate)",
+      "sourceUrl": "https://www.harmonyisd.net/o/ha",
+      "sourceLabel": "Harmony ISD Athletics official Eagle Stadium and contact information",
+      "verifiedAt": "2026-10-14",
+      "note": "Harmony ISD calls its football home Harmony Eagle Stadium. The campus mailing/street address is supplied as an orientation point, not independently established as the precise vehicle gate. Check the official athletics calendar for event venue, parking, accessible seating and ticket rules; those items are not publicly verified here."
+    },
+    "development": {
+      "title": "The 2022 Eagles reached the 3A Division II state semifinals",
+      "body": "Harmony won four 2022 postseason games after a 5–1 district campaign, including 36–22 against Newton in the regional final, before the Eagles' semifinal season ended 51–28 against Poth on December 9, 2022. The UIL's Poth state-team record explicitly lists Big Sandy Harmony as the semifinal opponent and that final score. This is Harmony ISD's Eagles—not the separate Big Sandy Wildcats program or the similarly named Houston-based Harmony Public Schools network.",
+      "sourceUrl": "https://www.uiltexas.org/football/state-team/poth-2022-2023-football",
+      "sourceLabel": "UIL official 2022 Poth opponent/score archive, corroborated by 2022 Harmony season archive",
+      "verifiedAt": "2026-10-14"
+    },
+    "milestones": [
+      {
+        "date": "2022",
+        "title": "Four postseason wins and a state-semifinal appearance",
+        "body": "After wins over New Waverly (25–20), Hooks (37–23), West Rusk (38–35), and Newton (36–22), Harmony lost 51–28 to Poth in the 3A Division II state semifinal. Its historical playoff run is not a state title.",
+        "sourceUrl": "https://www.maxpreps.com/tx/big-sandy/harmony-eagles/football/22-23/schedule/",
+        "sourceLabel": "Harmony 2022 season record, checked against official UIL Poth final"
+      },
+      {
+        "date": "2023",
+        "title": "Another 10-win campaign",
+        "body": "MaxPreps' past-season index lists Harmony 10–3 overall and 6–0 in district play for the 2023 season; unlike the 2022 semifinal, no state-final result is claimed.",
+        "sourceUrl": "https://www.maxpreps.com/tx/big-sandy/harmony-eagles/football/history/",
+        "sourceLabel": "MaxPreps Harmony year-by-year football results"
+      },
+      {
+        "date": "2026",
+        "title": "Updated Class 3A Division II District 8",
+        "body": "The UIL 2026–28 realignment places Big Sandy Harmony in 3A Division II District 8, while 2026 game reports are sourced separately from dated live results. Its 2025 season belonged to a different realignment cycle.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "sourceLabel": "Official UIL 2026–28 3A Division II alignment"
+      },
+      {
+        "date": "2026-10-09",
+        "title": "A close District 8 game against Quitman",
+        "body": "Harmony's third reported district loss came 33–28 against Quitman on October 9; MaxPreps shows 0–7 through that completed contest. Later games require a new verification, not a prediction.",
+        "sourceUrl": "https://www.maxpreps.com/tx/big-sandy/harmony-eagles/football/",
+        "sourceLabel": "Dated MaxPreps Harmony result reported October 9, observed October 14"
+      }
+    ],
+    "overview": [
+      "Harmony High School's Eagles represent Harmony Independent School District on State Highway 154 west of Big Sandy in Upshur County. The school is not Big Sandy ISD of Dallardsville in Polk County, and its varsity is not the separate Big Sandy Wildcats program. NCES confirms Harmony High's Big Sandy campus, and the district maintains its own athletics office, events and football schedule.",
+      "The defining modern Harmony football run came in 2022. The Eagles reached the Class 3A Division II state semifinals after a postseason path through New Waverly, Hooks, West Rusk and Newton. UIL records confirm a 51–28 semifinal loss to Poth. This was a deep playoff season, not a state championship; Harmony's own 2023 ten-win season adds another chapter.",
+      "For 2026, the school is in UIL 3A Division II District 8. MaxPreps reported seven losses through the October 9 Quitman game, including two narrow defeats against Chisum (34–31) and Quitman (33–28). Scores and kickoff details can change; the table preserves the as-of date and points fans back to Harmony Athletics and a separately attributed live scoreboard.",
+      "Harmony ISD identifies Eagle Stadium as the athletics home ground and posts school events and ticket information. The athletics office's SH 154 W address is useful for orientation, but neither an entrance gate nor accessible parking or seating has been independently confirmed. Use the official schedule for any game-specific venue, entry or ticketing requirement.",
+      "Personnel information needs particular care: a MaxPreps 2026 listing names Jeremy Jenkins head coach, while KLTV's 2026 school preview identifies Brian Mauk as head coach. Until Harmony ISD directly confirms current appointment, this profile intentionally does not assert a single current coach. The school and mascot identity are independently verified."
+    ],
+    "faq": [
+      {
+        "question": "Is Big Sandy Harmony the same team as the Big Sandy Wildcats?",
+        "answer": "No. The Harmony Eagles are the Harmony ISD team in Upshur County near Big Sandy, at 9788 SH 154 W. The Big Sandy Wildcats are a different local school program, and a separate Big Sandy ISD also exists in Polk County. Confirm the school name before planning a game."
+      },
+      {
+        "question": "Did Harmony win the 2022 Texas state football championship?",
+        "answer": "No. The Harmony Eagles reached the Class 3A Division II state semifinals in 2022, losing 51–28 to Poth according to the official UIL archive. Reaching the semifinal is not winning the championship."
+      },
+      {
+        "question": "What classification and district are Harmony Eagles in for 2026?",
+        "answer": "The UIL 2026–28 football alignment places Big Sandy Harmony in Class 3A Division II District 8. Older 2025 district tables reflect a previous cycle and must not be substituted for the 2026 classification."
+      },
+      {
+        "question": "Where is Harmony Eagle Stadium and is parking accessible?",
+        "answer": "Harmony ISD names Harmony Eagle Stadium and lists its athletics campus at 9788 SH 154 W in Big Sandy. The exact game-day gate, visitor parking and accessible seating arrangements have not been independently verified. Contact Harmony Athletics at 903-725-5495 and consult the current event calendar before travelling."
+      },
+      {
+        "question": "Who coaches Harmony football in 2026?",
+        "answer": "Sources conflict: the 2026 MaxPreps staff listing names Jeremy Jenkins, while KLTV's 2026 preview lists Brian Mauk. An authoritative current Harmony ISD coaching confirmation was not found at this research checkpoint, so the position is deliberately not presented as settled."
+      },
+      {
+        "question": "How did the Harmony Eagles finish the 2026 football season?",
+        "answer": "The season was still under way on October 14, 2026. The latest completed result independently checked was an October 9 loss to Quitman, with MaxPreps listing Harmony 0–7 at that point. Future fixtures are not final results."
+      }
+    ]
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {
