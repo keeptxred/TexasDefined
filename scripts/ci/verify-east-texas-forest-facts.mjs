@@ -40,6 +40,9 @@ has(angelina, '153,179', 'disclosed conflicting federal acreage');
 has(angelina, 'National%20Forests%20and%20Grasslands%20Fingertip%20Facts_03262025_0.pdf', '2025 dated USDA primary factsheet');
 has(angelina, 'https://www.recreation.gov/camping/campgrounds/10158892', 'federal Recreation.gov conflicting figure citation');
 has(angelina, 'https://www.fs.usda.gov/r08/texas', 'current official Forest Service Texas homepage');
+has(angelina, 'https://www.recreation.gov/camping/campgrounds/233239', 'Boykin Springs road access source');
+has(angelina, 'the federally published Recreation.gov coordinates', 'mapping-point accuracy caution');
+has(angelina, 'Forest Road 313', 'signed forest entrance route');
 lacks(angelina, 'field_rec_forest_target_id=All&page=549', 'non-specific deep-paginated visitor FAQ citation');
 
 // Trail map vs USDA description must remain explicit; do not invent a
