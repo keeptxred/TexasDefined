@@ -1283,14 +1283,24 @@
       "faqCount": 5,
       "sources": [
         {
-          "sourceUrl": "https://portisabelhistory.com/",
-          "fetchUrl": "https://portisabelhistory.com/",
-          "label": "FAQ verification: What else should I see near the museum?"
+          "sourceUrl": "https://portisabel-texas.com/blog/history/",
+          "fetchUrl": "https://portisabel-texas.com/blog/history/",
+          "label": "City of Port Isabel — current museum schedule and lighthouse pairing"
+        },
+        {
+          "sourceUrl": "https://business.spichamber.com/list/member/port-isabel-historical-museum-18",
+          "fetchUrl": "https://business.spichamber.com/list/member/port-isabel-historical-museum-18",
+          "label": "South Padre Island Chamber — museum hours, last ticket and contact"
+        },
+        {
+          "sourceUrl": "https://thc.texas.gov/blog/beyond-beach",
+          "fetchUrl": "https://thc.texas.gov/blog/beyond-beach",
+          "label": "Texas Historical Commission — June 2026 museum heritage and exhibit context"
         },
         {
           "sourceUrl": "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html",
           "fetchUrl": "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html",
-          "label": "Museum research and visitor source"
+          "label": "Independent visitor evidence — historical elevator question only"
         }
       ]
     },
