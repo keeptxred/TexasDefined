@@ -809,6 +809,10 @@
   ],
   "san-angelo": [
     {
+      "slug": "lake-nasworthy",
+      "name": "Lake Nasworthy"
+    },
+    {
       "slug": "o-h-ivie-lake",
       "name": "O.H. Ivie Lake"
     }
