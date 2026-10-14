@@ -5,7 +5,7 @@
 ## Production-state inventory
 
 - 15 original small-town destination waves contain **60 records, 57 distinct towns**; three later duplicates (Jefferson, Wimberley and Marfa) must not replace their deeper master records.
-- Town authority wave 16 adds **Marble Falls and Port Aransas**. Town wave 17 adds **Round Top, Canton and Taylor**, bringing the current checked-in researched roster to **62 distinct town guides**.
+- Town authority wave 16 adds **Marble Falls and Port Aransas**. Town wave 17 adds **Round Top, Canton and Taylor**. Town wave 18 adds **Waxahachie, Weatherford and Grapevine**, bringing the current checked-in researched roster to **65 distinct town guides**.
 - Gruene is covered as **Gruene Historic District** in New Braunfels, not an invented separately incorporated town.
 - 11 major cities have `src/data/city-authority-profiles.ts` research profiles.
 - The existing `TEXAS_CITIES` civic reference directory contains 57 records; 46 are **not yet independently certified** at the comprehensive city-authority depth. A generic city reference page is not equivalent to a researched destination authority guide.
@@ -18,7 +18,7 @@
 2. The shared destination template visibly publishes existing on-page research: meaningful history and local context, practical accessibility and parking where relevant, suggested time budgets, sources, itinerary alternatives, food/lodging areas, nearby attractions, appropriately licensed image attribution.
 3. Town, city, county and attraction templates derive relevant reciprocal links from source-backed place identity, actual county and proximity, instead of inserting all towns into every page.
 4. The statewide validator discovers **every** `small-town-destinations-wave*.ts` file and fails CI if its pages lack required authority data or if the wave is omitted from the canonical town network/Explore catalog.
-5. All 62 checked-in town pages are recorded in the permanent `td_authority_verification_registry` with primary visitor-source URLs in `td_authority_verification_sources`. Existing cadences stay unchanged. Newly missing registry entries have 30-day windows for dynamic water/coast conditions or 90-day windows for slower-changing town profiles. Registry enrollment does **not** count as completing editorial verification.
+5. The 62 previously merged town pages are already recorded; wave18 adds three new town guides to the same authority review system in the permanent `td_authority_verification_registry` with primary visitor-source URLs in `td_authority_verification_sources`. Existing cadences stay unchanged. Newly missing registry entries have 30-day windows for dynamic water/coast conditions or 90-day windows for slower-changing town profiles. Registry enrollment does **not** count as completing editorial verification.
 6. `scripts/data/audit-statewide-texas-towns.mjs` compares the Census incorporated roster with actual researched town/city coverage, keeping exact Census GEOIDs and geographic coordinates. A scheduled workflow exports gaps. **Missing-place records are research targets, not publishable placeholder pages.**
 
 ## Definition of completed authority guide
@@ -36,3 +36,10 @@ Official site material is a source to verify against, not content to copy. The g
 - Clear and investigate source-verification rows that remain `awaiting_editorial_verification`. A running monitor is not evidence that individual facts have been verified.
 
 **No project closure until the statewide inventory is reconciled and each intended public guide meets substantive authority acceptance.** The 15 originally requested places remain a completed-code batch, not the definition of full statewide completion.
+
+## Wave 18 and independent production acceptance
+
+- New researched incorporated-city destinations: Waxahachie (Ellis County cotton economy and historic courthouse), Weatherford (Parker County and Chandor Gardens, with date-specific 2026 closures), Grapevine (Cotton Belt railroad history, separate TEXRail and heritage railroad systems).
+- New records contain institution-specific visitor FAQ answers, original travel itineraries, source-backed practical access information and individually attributed CC-licensed photographs. Their existing county authority articles now link to them.
+- The separate live acceptance workflow tests **every checked-in researched guide** and all corresponding county pages after protected deployment; it records page and two-way link defects as actual failures, not as an unverified success.
+- The 65-record catalog is still **not** full Texas incorporated-place coverage and none of the remaining unresearched towns is to be represented as editorially complete.
