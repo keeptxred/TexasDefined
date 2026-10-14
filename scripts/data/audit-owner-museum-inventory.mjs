@@ -41,7 +41,8 @@ const issueNames=[
  ["museum of the western prairie","Owner explicitly marked skip"],
  ["mid-america museum of aviation","Owner explicitly marked out-of-state substitution"],
  ["southern new mexico wing","New Mexico location needs exclusion"],
- ["cade museum of science","Florida museum; Texas location not established"],
+ ["cade museum of science","Cade Museum for Creativity & Invention is in Gainesville, Florida; not a Texas destination"],
+ ["art museum of the americas","Organization of American States art museum is in Washington, DC; exclude from Texas"],
  ["texas association of museums exhibit","Professional association is not itself a confirmed visitable museum"]
 ];
 const firstOccurrenceByName=new Map();
@@ -59,7 +60,13 @@ const rows=parts.map((title,index)=>{
 });
 // Keep every submitted occurrence in rows, including repeat names: nothing from
 // the malformed raw source may be silently removed by reconciliation.
-const distinct=[...new Map([...rows].reverse().map(row=>[normalize(row.submittedName),row])).values()].reverse();
+const seenNames=new Set();
+const distinct=rows.filter(row=>{
+  const key=normalize(row.submittedName);
+  if(seenNames.has(key)) return false;
+  seenNames.add(key);
+  return true;
+});
 const repeatedOccurrences=rows.filter(row=>row.duplicateOfOccurrence!==null);
 const unresolved=distinct.filter(r=>r.status==="requires-independent-source-research");
 const flagged=distinct.filter(r=>r.status==="identity-or-geography-problem");
