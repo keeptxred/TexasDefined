@@ -84,6 +84,7 @@ export const STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS = [
   "medina-lake",
   "lake-weatherford",
   "lake-abilene",
+  "lake-cypress-springs",
 ] as const;
 
 export const COMPLETE_FISHING_LAKE_SLUGS = [
