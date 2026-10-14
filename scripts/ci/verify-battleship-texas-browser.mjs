@@ -29,6 +29,14 @@ async function capture(browser,c,mode) {
     const response=await page.goto(origin+pathname+'?naval_browser='+encodeURIComponent(report.revision)+'-'+mode,{waitUntil:'domcontentloaded',timeout:60000});
     must(response?.status()===200,c.name+' '+mode+': HTTP '+response?.status());
     await page.locator('h1').first().waitFor({state:'visible',timeout:30000});
+    // A readable SSR document is not equivalent to a hydrated mobile site.
+    // On 2026-10-14 the original USS Texas screenshot rendered at 694 CSS px
+    // despite a requested 390 CSS px, with the lazy Header absent. Fail closed.
+    await page.waitForFunction(
+      () => document.documentElement.dataset.tdRootHydrated === '1',
+      undefined,{timeout:35000}
+    );
+    await page.locator('header').first().waitFor({state:'visible',timeout:35000});
     await page.evaluate(()=>document.fonts?.ready);
     await page.waitForTimeout(700);
     // Force lazy image requests and inspect each actual image rather than one
@@ -47,6 +55,9 @@ async function capture(browser,c,mode) {
       });
       return {
         pathname:location.pathname,canonical:document.querySelector('link[rel="canonical"]')?.href,
+        rootHydrated:document.documentElement.dataset.tdRootHydrated==='1',
+        viewportMeta:document.querySelector('meta[name="viewport"]')?.content||'',
+        headerVisible:[...document.querySelectorAll('header')].some(h=>{const b=h.getBoundingClientRect();return b.width>0&&b.height>0}),
         robots:document.querySelector('meta[name="robots"]')?.content||'',
         h1:attrs('h1').map(x=>x.textContent.trim()),viewport:innerWidth,docWidth:document.documentElement.scrollWidth,
         text:document.body.innerText,images,
@@ -54,13 +65,17 @@ async function capture(browser,c,mode) {
         links:attrs('a[href]').map(a=>new URL(a.href,location.href).pathname),
       };
     });
-    const evidence={path:pathname,mode,http:response.status(),canonical:data.canonical,robots:data.robots,h1:data.h1,viewport:data.viewport,docWidth:data.docWidth,images:data.images,credits:data.creditLinks.length,pageErrors};
+    const evidence={path:pathname,mode,http:response.status(),canonical:data.canonical,robots:data.robots,h1:data.h1,requestedViewport:mobile?390:1366,rootHydrated:data.rootHydrated,viewportMeta:data.viewportMeta,headerVisible:data.headerVisible,viewport:data.viewport,docWidth:data.docWidth,images:data.images,credits:data.creditLinks.length,pageErrors};
     const failures=[];
     const test=(ok,msg)=>{if(!ok) failures.push(msg);};
     test(data.pathname===pathname,'wrong route');
     test(data.canonical===origin+pathname,'wrong self canonical');
     test(!/\bnoindex\b/i.test(data.robots),'noindex directive');
     test(data.h1.length===1,'expected exactly one H1');
+    test(data.rootHydrated,'React root hydration never completed');
+    test(data.headerVisible,'site header missing after hydration');
+    test(/width=device-width/i.test(data.viewportMeta),'responsive viewport meta missing');
+    test(data.viewport===(mobile?390:1366),'actual layout viewport '+data.viewport+' does not match requested '+(mobile?390:1366));
     test(data.docWidth<=data.viewport+8,'horizontal overflow '+data.docWidth+'/'+data.viewport);
     for(const phrase of c.phrases)test(data.text.toLowerCase().includes(phrase.toLowerCase()),'missing fact '+phrase);
     const archival=data.images.filter(i=>i.visible && (/\/media\/remote\?/.test(i.src)||/commons\.wikimedia\.org|upload\.wikimedia\.org/.test(i.src)));
