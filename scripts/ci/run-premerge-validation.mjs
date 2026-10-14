@@ -42,6 +42,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['SEO/SITEMAP', 'Reject escaped and literal route-template tokens in crawlable paths', 'node', ['--experimental-strip-types', '--test', 'src/lib/public-route-tokens.test.ts']],
   ['CONTENT/AUTHORITY', 'Validate true historic photo subjects and closed-original visit policies', 'node', ['scripts/data/validate-historic-sites.mjs']],
   ['SEO/SITEMAP', 'Syntax-check historic photo production verifier', 'node', ['--check', 'scripts/ci/verify-historic-photo-indexability-production.mjs']],
   ['SEO/SITEMAP', 'Ensure swimming authority uses bundled server content and all canonical sitemap rules', 'node', ['scripts/data/validate-swimming-authority-ssr.mjs']],
