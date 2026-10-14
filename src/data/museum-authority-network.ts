@@ -1030,7 +1030,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
     connections: [
       { label: "Fort Bend County", href: "/county/fort-bend", reason: "See the county's settlement and agricultural history." },
-      { label: "Fort Bend County heritage guide", href: "/article/fort-bend-county-brazos-richmond-sugar-land-texas", reason: "Place the ranch within two centuries of Brazos history." },
+
     ],
   },
   "texas-maritime-museum-rockport": {
