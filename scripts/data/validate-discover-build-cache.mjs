@@ -1,17 +1,26 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
 
 const workflow = readFileSync(".github/workflows/deploy-production.yml", "utf8");
 const materializer = readFileSync("scripts/assets/materialize-discover-overrides.mjs", "utf8");
 
 assert.match(workflow, /- name: Fingerprint governed Discover source registry/);
-assert.match(workflow, /sha256sum scripts\/assets\/materialize-discover-overrides\.mjs/);
+const fingerprintCommand = "node scripts/assets/materialize-discover-overrides.mjs --fingerprint";
+assert.equal(workflow.split(fingerprintCommand).length - 1, 2,
+  "both cache-restore and archive namespaces must fingerprint source URLs and output transform, not script implementation");
+assert.match(materializer, /DERIVATIVE_TRANSFORM_CONTRACT = "webp-1600x900-center-crop-quality82-strip-v1"/);
+assert.match(materializer, /JSON\.stringify\(\{ transform: DERIVATIVE_TRANSFORM_CONTRACT, entries \}\)/);
+assert.match(materializer, /process\.argv\.includes\("--fingerprint"\)/);
+const fpResult = spawnSync("node", ["scripts/assets/materialize-discover-overrides.mjs", "--fingerprint"], {encoding:"utf8"});
+assert.equal(fpResult.status, 0, "registry fingerprint must be printable with no materialization or network calls");
+assert.match(fpResult.stdout.trim(), /^[a-f0-9]{64}$/, "source/transform fingerprint must be SHA-256");
 assert.match(workflow, /artifact_prefix="governed-discover-derivatives-\$\{source_fingerprint\}-"/);
 assert.match(workflow, /select\(\.expired == false and \(\.name \| startswith\(\$prefix\)\)\)/);
 assert.match(workflow, /- name: Preserve verified governed Discover derivatives for the next build/);
 assert.match(workflow, /- name: Capture governed Discover derivatives after failed build/);
 const explicitPrebuild = workflow.indexOf("npm run prebuild");
-const discoverMaterialize = workflow.indexOf("node scripts/assets/materialize-discover-overrides.mjs");
+const discoverMaterialize = workflow.indexOf("\n          node scripts/assets/materialize-discover-overrides.mjs\n", explicitPrebuild);
 const normalBuild = workflow.indexOf("npm run build", explicitPrebuild + 1);
 assert.ok(explicitPrebuild > 0, "production deploy must explicitly generate prebuild-owned local image sources before Discover materialization");
 assert.ok(discoverMaterialize > explicitPrebuild, "Discover materialization must run after explicit prebuild source generation");
@@ -28,6 +37,8 @@ assert.ok(deferredSourceGuard > 0, "deferred local sources need an explicit guar
 assert.ok(materializer.indexOf("verifyDerivative(slug, output);", deferredSourceGuard) > deferredSourceGuard,
   "existing derivative must be dimension-verified before the build may reuse it");
 assert.match(materializer, /if \(identify\.status !== 0 \|\| identify\.stdout\.trim\(\) !== "1600x900"\)/);
+assert.match(materializer, /header\.toString\("ascii", 0, 4\) !== "RIFF"/);
+assert.match(materializer, /header\.toString\("ascii", 8, 12\) !== "WEBP"/);
 assert.match(materializer, /if \(!type\.toLowerCase\(\)\.startsWith\("image\/"\)\)/);
 assert.match(workflow, /- name: Verify current direct Worker before deploy/);
 assert.match(workflow, /- name: Verify current canonical domain before deploy/);
