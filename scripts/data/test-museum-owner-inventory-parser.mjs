@@ -25,6 +25,10 @@ assert.equal(report.nameSegments, entries.length);
 assert.equal(report.rows.length, entries.length, "No raw submitted name occurrence may be lost");
 assert.equal(report.uniqueRows.length, report.uniqueNameSegments);
 assert.equal(report.repeatedSubmittedNameOccurrences, report.nameSegments - report.uniqueNameSegments);
+assert.ok(report.uniqueRows.every((row, index) => index === 0 || report.uniqueRows[index - 1].rawOccurrence < row.rawOccurrence),
+  "The first occurrence of each unique name must preserve owner source order");
+assert.ok(report.flagged.some(row => row.submittedName === "Art Museum of the Americas"),
+  "Washington, DC Art Museum of the Americas must be excluded from Texas inventory");
 const scurry = report.rows.filter(row => row.submittedName === "Scurry County Museum");
 assert.ok(scurry.length >= 2, "Repeated Scurry County Museum entries must be preserved");
 assert.ok(scurry.some(row => row.duplicateOfOccurrence !== null), "Repeated names must point to their first occurrence");
