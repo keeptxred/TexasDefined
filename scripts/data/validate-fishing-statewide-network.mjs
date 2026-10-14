@@ -3,6 +3,7 @@ import fs from "node:fs";
 const read = (path) => fs.readFileSync(path, "utf8");
 const paths = {
   network: "src/data/fishing/statewide-lake-network.ts",
+  fortParkerPark: "src/data/destination-curation-batch6.ts",
   species: "src/data/fishing/species-catalog.ts",
   slugs: "src/data/fishing/slugs.ts",
   routing: "src/data/fishing/showcase-lake-routing.ts",
@@ -149,6 +150,25 @@ for (const slug of ["white-rock-lake", "lake-ray-hubbard"]) {
 }
 for (const token of ["pageData.campingProhibited", "No overnight camping at"]) {
   requireText(files.component, token, "source-confirmed no-camping UI contract missing " + token);
+}
+
+// Operator-specific safety gates: retain current low-water, pier and construction warnings
+// on BOTH the fishing authority and its related state-park destination page.
+const fortParkerStart = files.network.indexOf('    slug: "fort-parker-state-park-lake", name:');
+if (fortParkerStart < 0) fail("Fort Parker Lake must remain independently registered");
+const fortParkerEnd = files.network.indexOf("\n  },", fortParkerStart);
+const fortParkerGuide = files.network.slice(fortParkerStart, fortParkerEnd);
+for (const token of [
+  "fort_parker", "2016", "2026", "2027", "motorized launching",
+  "fishing piers", "burn ban", "Navasota River", "Lake Springfield",
+  "campingUrl:", "liveDataNote:",
+]) requireText(fortParkerGuide, token, "Fort Parker Lake source/access warning missing " + token);
+const parkStart = files.fortParkerPark.indexOf('"fort-parker-state-park": {');
+if (parkStart < 0) fail("Fort Parker park curation missing");
+const parkEnd = files.fortParkerPark.indexOf('"galveston-island-state-park": {', parkStart);
+const fortParkerPark = files.fortParkerPark.slice(parkStart, parkEnd);
+for (const token of ["Fort Parker Lake", "low water", "both fishing piers", "burn ban", "May 2027", "Navasota River"]) {
+  requireText(fortParkerPark, token, "Fort Parker state-park destination lost its active operator warning " + token);
 }
 
 for (const slug of expectedSlugs) {
