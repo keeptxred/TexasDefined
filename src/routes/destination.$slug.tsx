@@ -142,6 +142,7 @@ const HISTORIC_DUPLICATE_SLUGS: Record<string, string> = {
   "goliad-state-park-and-historic-site": "goliad-state-park",
   "san-jacinto-battleground-state-historic-site": "san-jacinto-battleground",
   "washington-on-the-brazos-state-historic-site": "washington-on-the-brazos",
+  "battleship-texas-state-historic-site": "battleship-texas",
 };
 
 export const Route = createFileRoute("/destination/$slug")({
