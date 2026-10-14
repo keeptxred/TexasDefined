@@ -3,8 +3,8 @@
   "updatedAt": "2026-10-14",
   "scope": {
     "tpwdNamedEntries": 175,
-    "completedGuides": 70,
-    "missingCompleteGuideListings": 105,
+    "completedGuides": 71,
+    "missingCompleteGuideListings": 104,
     "legacyLakeAndParkDestinations": 36
   },
   "standards": {
@@ -201,17 +201,17 @@
     },
     {
       "tpwdEntry": "Athens",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "lake-athens",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/athens/",
+      "namedFacilities": "One TPWD-named Lake Athens Marina two-lane public boat ramp, about 30 parking spaces; private marina's RV park is separate from ramp entry",
+      "campgrounds": "Private Lake Athens Marina & RV Park advertises 30/50A full-hookup reservable sites; no assumed general lake camping",
+      "primaryHistory": "TWDB verified start Sep 25 1961; deliberate impoundment Nov 1 1962; project completed May 1963; 1998 survey 1799 acres; older AMWA owner source says 1520 acres with different vintage",
+      "localPhoto": "Flickr https://www.flickr.com/photos/texasbackroads/8534467047/ actual Nov 3 2012 Lake Athens, Nicolas Henderson / TexasExplorer98, CC BY 2.0; static large image HTTP 200; not first-party",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Henderson County and Athens city source-driven crosslinks generated",
+      "destinationReciprocalLinks": "Lake Palestine reciprocal relevant-nearby-lake relationship; Texas Freshwater Fisheries Center neighboring operator not falsely represented as a lake-ramp source",
+      "competitivePrimarySourceComparison": "AMWA 2025 official boat and shoreline restrictions, TWDB water-right construction chronology, TPWD 2021 species and harvest evidence, marina site full-hookup context reconciled; full field competitor benchmark not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -220,7 +220,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Verify owner February 2025 revised boating rules and concession fees/access day-of-use, assess current Fisheries Center hours, recent lake fish surveys, first-party photos, live levels, outdoor conditions, SSR and responsive media."
     },
     {
       "tpwdEntry": "Austin",
