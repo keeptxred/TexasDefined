@@ -47,6 +47,12 @@
       "name": "O.H. Ivie Lake"
     }
   ],
+  "bandera": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
   "bangs": [
     {
       "slug": "lake-brownwood",
@@ -565,6 +571,12 @@
       "name": "Lake Worth"
     }
   ],
+  "lakehills": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
   "lakeway": [
     {
       "slug": "lake-travis",
@@ -651,6 +663,12 @@
     {
       "slug": "fort-parker-state-park-lake",
       "name": "Fort Parker State Park Lake"
+    }
+  ],
+  "mico": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
     }
   ],
   "midlothian": [
@@ -833,6 +851,10 @@
     {
       "slug": "calaveras-lake",
       "name": "Calaveras Lake"
+    },
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
     }
   ],
   "sanger": [
