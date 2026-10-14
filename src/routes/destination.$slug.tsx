@@ -327,6 +327,24 @@ function DestinationPage() {
           <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">{destinationExperienceTitle(destination.name, categoryName)}</h2>
           <div className="editorial-body mt-7 text-foreground/90">{destination.body.map((paragraph) => <p key={paragraph} className="mt-6 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}</div>
         </section>
+        {destination.gallery && destination.gallery.length > 0 && (
+          <section aria-labelledby="destination-photo-archive" className="mt-12 border-t border-border pt-8">
+            <p className="eyebrow text-primary">Documentary photographs</p>
+            <h2 id="destination-photo-archive" className="mt-3 font-display text-3xl">See the ship across its history</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">Images are individually dated and licensed. Older views do not represent today's shipyard or visitor access.</p>
+            <div className="mt-7 grid gap-6 sm:grid-cols-2">
+              {destination.gallery.map((item) => (
+                <figure key={item.image.src} className="min-w-0 overflow-hidden border border-border">
+                  <img src={item.image.src} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" decoding="async" className="aspect-[4/3] w-full bg-surface object-contain" onError={(event) => recoverOrHideImage(event.currentTarget)} />
+                  <figcaption className="space-y-2 p-4 text-sm leading-6">
+                    <p>{item.caption}</p>
+                    <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-primary underline underline-offset-2">Image source and reuse terms — {item.image.credit}</a>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        )}
         {dallasHeritage && <Suspense fallback={null}><DallasBlackHistoryAuthority slug={destination.slug} /></Suspense>}
         <section aria-labelledby="before-you-go" className={isChokeCanyon ? "mt-10 border-t border-border pt-6" : "mt-16 border-t border-border pt-8"}>
           <p className="eyebrow text-primary">The details</p>
