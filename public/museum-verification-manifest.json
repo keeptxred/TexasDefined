@@ -1328,6 +1328,39 @@
       ]
     },
     {
+      "path": "/destination/sixth-floor-museum-at-dealey-plaza",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 11,
+      "sources": [
+        {
+          "sourceUrl": "https://www.jfk.org/plan-your-visit/",
+          "fetchUrl": "https://www.jfk.org/plan-your-visit/",
+          "label": "Museum current visit and logistics"
+        },
+        {
+          "sourceUrl": "https://www.jfk.org/plan-your-visit/visitation-guidelines/",
+          "fetchUrl": "https://www.jfk.org/plan-your-visit/visitation-guidelines/",
+          "label": "Museum timed entry and food policies"
+        },
+        {
+          "sourceUrl": "https://www.jfk.org/accessibility/",
+          "fetchUrl": "https://www.jfk.org/accessibility/",
+          "label": "Accessibility and sensory resources"
+        },
+        {
+          "sourceUrl": "https://www.jfk.org/exhibition/john-f-kennedy-and-the-memory-of-a-nation/",
+          "fetchUrl": "https://www.jfk.org/exhibition/john-f-kennedy-and-the-memory-of-a-nation/",
+          "label": "Permanent historical exhibition"
+        },
+        {
+          "sourceUrl": "https://www.jfk.org/faq/",
+          "fetchUrl": "https://www.jfk.org/faq/",
+          "label": "Museum official FAQ"
+        }
+      ]
+    },
+    {
       "path": "/destination/spindletop-gladys-city-boomtown-museum-beaumont",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
