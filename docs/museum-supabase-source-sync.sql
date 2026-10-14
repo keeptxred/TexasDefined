@@ -118,7 +118,7 @@ begin
    -- a bounded 64-KiB range. The existing collector treats HTTP 206
    -- application/pdf as binary HTTP reachability, never as a content hash
    -- or approval that the historical facts have been editorially verified.
-   if lower(v.source_url) ~ '\\.pdf($|\\?)' then
+   if lower(v.source_url) ~ '\.pdf($|\?)' then
      v_headers:=v_headers || jsonb_build_object('Range','bytes=0-65535');
    end if;
    v_req:=net.http_get(url:=v.source_url,headers:=v_headers,timeout_milliseconds:=20000);
