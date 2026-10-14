@@ -127,3 +127,33 @@ Both pages have explicit image placeholders pending rights-cleared exact-locatio
 - **Rights advisory:** Library of Congress lists **“No known restrictions on publication”**. It does not grant a license on behalf of third parties. Retain Highsmith and the collection's explicit credit line as provenance; don't misrepresent the record as a Creative Commons license.
 - **Deliverable:** A Wikimedia Commons-hosted 1,200px JPEG rendition of the original 7,360 × 2,717 TIFF. The exact redirect path returned HTTP 200 with `image/jpeg` in the live source probe. The source photograph dates to March 2014, not current museum conditions.
 - **Visual description:** A portion of the Charles Champion fish-mural facade; do not imply the photo shows a current gallery or interior accessibility arrangements. Recheck redirected thumbnail delivery after production deployment.
+
+## 1919 San Augustine County Jail Museum — October 13, 2026
+Exact-site image: [San augustine county tx former jail.jpg](https://commons.wikimedia.org/wiki/File:San_augustine_county_tx_former_jail.jpg), photographed April 3, 2015 by **Larry D. Moore**, **CC BY 4.0**. Wikimedia Commons records original dimensions 1,903 × 1,269 and coordinates at the San Augustine courthouse/jail. Credit, photographer, source and license are included on the destination hero. The 2015 image is historical evidence of the building, not a claim to current exterior changes or museum occupancy.
+
+## Museum visitor-authority additions — October 13, 2026
+
+The following existing or newly created canonical museum pages use photos of the **actual institution or its own displayed objects**, not generic community stock. Their hero image captions distinguish dated displays from present access. Verify thumbnails in the live browser before declaring final photo QA complete.
+
+| Museum guide | Image source and identification | Reuse terms |
+| --- | --- | --- |
+| Bell County Museum, Belton | [Carnegie Museum in Belton, TX IMG 2412.JPG](https://commons.wikimedia.org/wiki/File:Carnegie_Museum_in_Belton,_TX_IMG_2412.JPG) — historical exterior of Bell County Museum in the Carnegie Library building | Billy Hathorn, CC BY-SA 3.0 |
+| Brenham Heritage Museum | [Brenham Heritage Museum.jpg](https://commons.wikimedia.org/wiki/File:Brenham_Heritage_Museum.jpg) — former federal post office, Brenham | Jim Evans, CC BY-SA 4.0 |
+| Brazos Valley Museum of Natural History | [Brazos valley museum of natural history.jpg](https://commons.wikimedia.org/wiki/File:Brazos_valley_museum_of_natural_history.jpg) — museum building, Bryan | Larry D. Moore, CC BY-SA 3.0 |
+| Czech Heritage Museum & Genealogy Center, Temple | [Czech dolls at the museum, Library of Congress LCCN2014633953](https://commons.wikimedia.org/wiki/Category:Czech_Heritage_Museum_%26_Genealogy_Center) — 2014 historic exhibit image | Carol M. Highsmith, Lyda Hill Texas Collection, LOC: no known publication restrictions |
+| Audie Murphy/American Cotton Museum | [Audie Murphy Hunt County War Memorial, museum grounds, 2015](https://commons.wikimedia.org/wiki/File:Audie_Murphy_American_Cotton_Museum_July_2015_52_(Audie_Murphy_Hunt_County_War_Memorial).jpg) — memorial, not main entrance | Michael Barera, CC BY-SA 4.0 |
+| Armstrong Browning Library & Museum | Existing canonical hero [Armstrong browning library baylor 2014.jpg](https://commons.wikimedia.org/wiki/File:Armstrong_browning_library_baylor_2014.jpg) retained | Larry D. Moore, CC BY 4.0 |
+
+Media use must preserve attribution and source links in the actual displayed credit; no implied current status for historic interior photos.
+
+
+## Buffalo Soldiers, Texas Prison and Eisenhower Birthplace (October 13, 2026)
+
+- **Buffalo Soldiers National Museum, Houston:** [Kenneth C. Zirkel, Buffalo Soldiers National Museum entrance.jpg](https://commons.wikimedia.org/wiki/File:Buffalo_Soldiers_National_Museum_entrance.jpg), exact-site photograph taken February 2024, **CC BY 4.0**. ALT text identifies it as a historical view, not proof of 2026 opening.
+- **Texas Prison Museum, Huntsville:** [WhisperToMe, TexasPrisonMuseum.JPG](https://commons.wikimedia.org/wiki/File:TexasPrisonMuseum.JPG), historic exterior photographed 2010, **public domain**. The building image is not a representation of current exhibit content.
+- **Eisenhower Birthplace State Historic Site, Denison:** [Michael Barera, Denison July 2016 16 (Eisenhower Birthplace State Historic Site).jpg](https://commons.wikimedia.org/wiki/File:Denison_July_2016_16_(Eisenhower_Birthplace_State_Historic_Site).jpg), the actual birthplace house, photographed July 2016, **CC BY-SA 4.0**.
+
+Credits and exact location photo URLs live in `src/data/museum-authority-heroes.ts`. Check final page rendering and license attribution after deployment.
+
+## The AgriCultural Museum & Arts Center, Boerne — October 13, 2026
+Exact-site antique farm-equipment photograph: [Boerne ag museum 2013.jpg](https://commons.wikimedia.org/wiki/File:Boerne_ag_museum_2013.jpg), **Larry D. Moore**, **CC BY 4.0**, 2013, 1,791 × 1,194 pixels. Site: 102 City Park Road, Boerne, Texas. Photograph predates the institution's 2018 name change. Attribution is embedded in `museum-authority-heroes.ts`; the file must not be represented as a current 2026 exhibit photograph.
