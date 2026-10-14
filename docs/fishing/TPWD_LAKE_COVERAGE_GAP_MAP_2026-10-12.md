@@ -5,8 +5,8 @@
 ## Counts and caveats
 
 - **175** separate alphabetical links/named entries in the TPWD public lake list (excluding its extra *Town Lake = Lady Bird Lake* alias line).
-- **67** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
-- **108** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
+- **68** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
+- **107** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
 - TPWD list entries include local ponds and some state-park-managed lakes as well as reservoirs; they cannot all be treated as equally high-demand or guaranteed distinct reservoirs.
 - This list does not include every Texas stock tank, private lake, community fishing pond, or small waterbody outside TPWD's own directory. It therefore cannot prove “every Texas lake.”
 
@@ -29,7 +29,7 @@
 
 | TPWD listing | TexasDefined completed fishing guide |
 |---|---|
-| Abilene | **Not in completed-guide registry** |
+| Abilene | [lake-abilene](https://texasdefined.com/fishing/lakes/lake-abilene) |
 | Alan Henry | [alan-henry-reservoir](https://texasdefined.com/fishing/lakes/alan-henry-reservoir) |
 | Alvarado Park | **Not in completed-guide registry** |
 | Amistad | [amistad-reservoir](https://texasdefined.com/fishing/lakes/amistad-reservoir) |
@@ -261,3 +261,7 @@ The **66th proposed complete guide** covers Medina Lake, distinct from Medina Di
 ## October 13 — Lake Weatherford authority addition
 
 The **67th complete-guide definition** separates a full-size improved trailer launch at TPWD-listed Weatherford Marina from two unnamed unimproved upper-lake ramps suitable ONLY for small aluminum boats, and from the City of Weatherford's PEDESTRIAN floating boardwalk trailheads at **2864 East Lake Drive** and **1198 West Lake Drive**. The 4,313-foot boardwalk is open 6 a.m.–10 p.m. according to city information and is not a boat ramp. TPWD states **NO overnight camping anywhere on the lake**. TWDB confirms the June 1956 start / March 1957 filling of the Clear Fork dam, reconstruction after 1993 flood damage and distinct 2008 surveyed area. Exact-location May 2024 boardwalk photo *Section of Lake Weatherford boardwalk.jpg* is Forssa01's Commons **CC0 1.0** image (4624×3468), not an image of the marina and not first-party. TWDB Water Data for Texas live levels are integrated for launch planning without hard-coded current depth. Remaining unmatched directory entries are **108 of 175**. Current operator/ramp access, field photos and production acceptance are not certified.
+
+## October 14 — Lake Abilene: binding drought closure, park camping elsewhere
+
+The next source-researched guide brings the staged registry to **68** complete lake authority definitions and **107** unmatched TPWD entries. Lake Abilene on Elm Creek is **NOT** Kirby Lake or Buffalo Wallow Pond. The City of Abilene owns the reservoir; TPWD operates the lake and park access. TPWD's CURRENT PARK ALERT dated October 20, 2025 (still shown at source review) CLOSED both Dam and Creek one-lane ramps, prohibits Lake Abilene fishing and swimming, and suspends kayak rentals. This supersedes the older fishing-access inventory's year-round ramp label; the four historically present fish categories (bass/catfish/crappie/sunfish) are all rated POOR. Normal public entry used a separate FM 89 gate, requires park admission and code, and historically closed at sunset; no launch or lake angling is allowed while the dated alert remains in effect. Separately reservable campgrounds lie across FM 89 on the main Abilene State Park campus; the CCC swimming pool has its own renovation closure. TWDB dates dam completion May 1921, deliberate impoundment August 1 1921 and major repairs 1941/1957. One actual **Lake Abilene** shoreline photograph taken June 8, 2011 is *Abilene State Park 1.jpg* (mr_t_77, CC BY-SA 2.0, 4000×3000), verified against the original Commons metadata and correctly labeled historical. Operator-day call, original field media and public production acceptance are NOT certified.
