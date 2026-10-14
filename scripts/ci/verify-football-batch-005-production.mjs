@@ -157,10 +157,11 @@ try {
   // Test reciprocal links on each distinct campus county. Wait for the county route
   // hydration marker: SSR-only HTML is not evidence of client-side link availability.
   for(const county of [...new Set(schools.map(x=>x[1]))]) {
-   const page=await ctx.newPage(),errs=[];
+   let page=await ctx.newPage(),errs=[];
+   let firstModuleErrors=[];
    page.on('pageerror',e=>errs.push(String(e.message||e)));
    try {
-    const res=await page.goto(origin+'/county/'+county,{waitUntil:'domcontentloaded',timeout:60000});
+    let res=await page.goto(origin+'/county/'+county,{waitUntil:'domcontentloaded',timeout:60000});
     await page.locator('h1').first().waitFor({state:'visible',timeout:25000});
     // Retry one full navigation when the county hydration signal is slow.
     // Do NOT bypass actual client hydration or reciprocal-link verification:
@@ -173,13 +174,29 @@ try {
       await page.waitForFunction(()=>document.documentElement.dataset.tdFootballCountyHydrated==='1',null,{timeout:35000});
       check(true,view+' '+county+': client hydration recovered after one fresh navigation',{firstAttempt:String(firstHydrationError.message||firstHydrationError).slice(0,160)});
     }
-    const links=await page.locator('a[href]').evaluateAll(a=>a.filter(x=>x.getBoundingClientRect().width>0).map(x=>new URL(x.href).pathname.replace(/\/$/,'')));
+    let links=await page.locator('a[href]').evaluateAll(a=>a.filter(x=>x.getBoundingClientRect().width>0).map(x=>new URL(x.href).pathname.replace(/\/$/,'')));
+    // A lazy chunk fetch failure may be transient during an edge deployment,
+    // but it is NOT a pass. Require one NEW page with complete hydration,
+    // county links and zero runtime errors. Persistent failures remain fatal.
+    const transientChunk=/Failed to fetch dynamically imported module|Importing a module script failed|Failed to load module script/i;
+    if(res?.status()===200 && errs.length>0 && errs.every(e=>transientChunk.test(e))) {
+      firstModuleErrors=[...errs];
+      await page.close();
+      page=await ctx.newPage();
+      errs=[];
+      page.on('pageerror',e=>errs.push(String(e.message||e)));
+      res=await page.goto(origin+'/county/'+county,{waitUntil:'domcontentloaded',timeout:60000});
+      await page.locator('h1').first().waitFor({state:'visible',timeout:25000});
+      await page.waitForFunction(()=>document.documentElement.dataset.tdFootballCountyHydrated==='1',null,{timeout:35000});
+      links=await page.locator('a[href]').evaluateAll(a=>a.filter(x=>x.getBoundingClientRect().width>0).map(x=>new URL(x.href).pathname.replace(/\/$/,'')));
+      if(errs.length===0) check(true,view+' '+county+': transient lazy-module import recovered on fresh page',{firstRuntimeErrors:firstModuleErrors});
+    }
     check(res?.status()===200,view+' '+county+' county: HTTP 200');
     for(const [slug,mappedCounty] of schools.filter(x=>x[1]===county)) check(links.includes('/texas-high-school-football-teams/'+slug),view+' '+county+': reciprocal '+slug);
     check(errs.length===0,view+' '+county+': no runtime errors',{errors:errs});
     await page.screenshot({path:outputDir+'/'+view+'-county-'+county+'.png',animations:'disabled',fullPage:false,timeout:30000});
    } catch(e) {
-    check(false,view+' '+county+': county browser exception',{error:String(e.message||e).slice(0,900)});
+    check(false,view+' '+county+': county browser exception',{error:String(e.message||e).slice(0,900),firstModuleErrors});
    } finally {await page.close();}
   }
   await ctx.close();
