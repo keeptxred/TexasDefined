@@ -1404,12 +1404,12 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
         "TPWD rates white bass fair; seasonal spawning movement up the West Fork can offer opportunities but fluctuates with flow. Current DSHS consumption limits also include white bass.",
         ["vertical-jigging", "trolling", "jigs-and-minnows"], "secondary")
     ],
-    access: "TPWD names four distinct Lake Worth access parks; one is paddlecraft-only, one is shallow small-craft-only, and the others offer concrete trailer ramps. Arrow 'S' Park (two lanes, about 50 parking spaces), Casino Beach Park (one lane, about 20 spaces), Fort Worth Nature Center (kayak/canoe only), and Sunset Park (shallow one lane, small craft only, about 20 spaces) are not interchangeable. TPWD lists a fee at each and NO overnight camping. Confirm current ramp depth, hours and fees with Fort Worth Lake Worth Management (817) 392-7148 or the Nature Center before driving with a trailer.",
+    access: "TPWD names four distinct Lake Worth access parks; one is paddlecraft-only, one is shallow small-craft-only, and the others offer concrete trailer ramps. Arrow 'S' Park (two lanes, about 50 parking spaces), Casino Beach Park (one lane, about 20 spaces), Fort Worth Nature Center (kayak/canoe only), and Sunset Park (shallow one lane, small craft only, about 20 spaces) are not interchangeable. TPWD lists a fee at each and NO overnight camping. Fort Worth's current Lake Worth Lease Management page says boat-ramp passes for Arrow Park and Casino Beach are purchased digitally through posted QR signs or city-linked online checkout, with daily, weekly and annual options; physical stickers at Navajo Burgers are discontinued. Confirm current rates, the exact fee for each facility, water level and ramp availability with the city before towing.",
     accessPoints: [
       {
         name: "Arrow 'S' Park launch", operator: "City of Fort Worth", kind: "public-ramp",
         launch: "From Loop 820 use the Cahoba exit and follow the west frontage road. TPWD lists a two-lane concrete boat ramp with roughly 50 parking spaces and accessible facilities.",
-        fee: "TPWD lists a fee; confirm latest city park/boat-launch price",
+        fee: "Fort Worth now offers Arrow Park ramp passes through a posted QR code or its official online permit system (day, week or year); check the live rate",
         availability: "Listed year-round by TPWD, NOT independently certified open today. City Lake Worth Management (817) 392-7148."
       },
       {
@@ -1421,7 +1421,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       {
         name: "Casino Beach Park boat ramp", operator: "City of Fort Worth", kind: "public-ramp",
         launch: "From Highway 199 use Surfside west toward the park. TPWD describes one concrete launch lane and parking for roughly 20 vehicles.",
-        fee: "Fee required in TPWD access directory; current price unconfirmed",
+        fee: "Fort Worth now sells Casino Beach boat-ramp passes by on-site QR code or city-linked online checkout; daily, weekly and annual options, check current rate",
         availability: "Historically listed year-round. Call city lake staff (817) 392-7148 about current use and trailer access."
       },
       {
@@ -1438,7 +1438,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     },
     specialRules: true,
     historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/worth/index.asp",
-    visitorSourceUrl: "https://www.fortworthtexas.gov/departments/parks",
+    visitorSourceUrl: "https://www.fortworthtexas.gov/departments/property-management/real-estate-division/lake-worth-lease-management-section",
     consumptionSourceUrl: "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories",
     historyNotes: [
       "TWDB dates the start of dam construction to 1912, deliberate water impoundment to June 1914 and dam completion to October 1914. Fort Worth built this West Fork project primarily for municipal water supply. John B. Hawley engineered it, while construction passed from Underground Construction Company to the city during 1913.",
@@ -1450,7 +1450,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { question: "Can I eat fish caught in Lake Worth?", answer: "Check the current Texas DSHS fish-consumption advisory. It prohibits eating smallmouth buffalo from Lake Worth/affected West Fork waters. It lists limited monthly meals for blue and flathead catfish, striped/white bass, common carp and freshwater drum, with stricter rules for women of childbearing age and children under 12. The older TPWD lake fact sheet conflicts on blue-catfish advice; follow the current advisory before eating any catch." },
       { question: "Is camping allowed at Lake Worth?", answer: "No at its four TPWD-listed lake access parks. Camping is not included with day-use boat ramps or Fort Worth Nature Center entry. Stay at an independently operated off-site campground or hotel." },
       { question: "Which ramp is suitable for a motorboat trailer?", answer: "Arrow 'S' Park has two concrete lanes and approximately 50 parking spaces; Casino Beach has one lane and approximately 20 spaces. Sunset Park is shallow and marked small-craft-only. The Fort Worth Nature Center launch is for canoes/kayaks only." },
-      { question: "Is boating at Lake Worth free?", answer: "TPWD lists a fee at each of the four named access facilities. It does not establish today's fee or guarantee same-day openings. Call the City of Fort Worth Lake Worth Management Office or the Nature Center for current details." },
+      { question: "Is boating at Lake Worth free?", answer: "TPWD lists fees at the four access facilities. The City of Fort Worth now sells Arrow Park and Casino Beach boat-ramp passes through on-site QR codes and its official online system with daily, weekly or annual options; it says Navajo Burgers no longer sells stickers. Check the city Lake Worth Lease Management page for current costs and verify other facility admission separately." },
       { question: "What fish are Lake Worth known for?", answer: "TPWD rates crappie and catfish excellent, while largemouth and white bass are fair. Consumption advisories apply to eating some fish regardless of their angling quality." },
       { question: "Does Lake Worth have a real-time level gauge?", answer: "Yes. Water Data for Texas provides measured reservoir level and percent full at the Lake Worth station. The current value belongs in the live-level strip, not as an undated number in an evergreen paragraph. Check the timestamp and ramp-depth status separately." },
       { question: "Are there accessible fishing facilities?", answer: "TPWD's access symbols mark ADA facilities at Arrow 'S' Park; its management survey also identified two accessible fishing piers. Verify current access routes, pier conditions and facilities with the city before relying on a specific accommodation." },
@@ -1461,7 +1461,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       "PUBLIC-HEALTH WARNING: Current DSHS restrictions on consuming fish from Lake Worth include a complete smallmouth-buffalo no-eat advisory and species/age-specific meal limits; compare today's official consumption page before keeping fish for food. The older TPWD Lake Worth overview has a different blue-catfish warning.",
       "INVASIVE SPECIES: TPWD reports zebra mussels at Lake Worth. Clean, drain and dry boat, trailer, livewells and equipment; draining water is required under Texas law.",
       "TPWD shows no camping at the four access parks. The Nature Center is canoe/kayak-only and Sunset Park's shallow lane is intended for small craft; do not send large trailers to either.",
-      "All four access listings historically state fee required. Check city rules, water level, ramp depth and possible closures before launching; TPWD's 'open all year' is not a live operator status."
+      "Fort Worth offers current QR-code/online boat ramp permits at Arrow Park and Casino Beach (day/week/year) and no longer sells physical stickers at Navajo Burgers. Confirm city fee, water level, ramp depth and live opening before launching; TPWD's 'open all year' is not a current operator status."
     ],
     nearbyLakes: [{slug:"eagle-mountain-lake",name:"Eagle Mountain Lake"},{slug:"benbrook-lake",name:"Benbrook Lake"},{slug:"lake-arlington",name:"Lake Arlington"},{slug:"grapevine-lake",name:"Grapevine Lake"},{slug:"lake-weatherford",name:"Lake Weatherford"}],
   },
