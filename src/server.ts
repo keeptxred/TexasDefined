@@ -106,7 +106,7 @@ function canonicalEntityRedirect(request: Request) {
   return Response.redirect(url.toString(), 301);
 }
 
-async function fetchAllowedRemoteImage(initialUrl: URL) {
+async function fetchAllowedRemoteImageOnce(initialUrl: URL) {
   let target = initialUrl;
 
   for (let redirectCount = 0; redirectCount <= MAX_REMOTE_IMAGE_REDIRECTS; redirectCount += 1) {
@@ -127,10 +127,29 @@ async function fetchAllowedRemoteImage(initialUrl: URL) {
   return new Response("Too many remote image redirects", { status: 508 });
 }
 
+const RETRYABLE_REMOTE_IMAGE_STATUSES = new Set([408, 429, 500, 502, 503, 504]);
+
+// The remote broker never substitutes a different photo. Retry the same
+// rights-checked source on transient upstream throttling before failing closed.
+// Cloudflare's per-POP cache still serves verified 200 image bytes normally.
+async function fetchAllowedRemoteImage(initialUrl: URL): Promise<Response> {
+  let response = await fetchAllowedRemoteImageOnce(initialUrl);
+  for (let retry = 1; retry <= 2 && RETRYABLE_REMOTE_IMAGE_STATUSES.has(response.status); retry += 1) {
+    const retryAfter = Number(response.headers.get("retry-after"));
+    const delay = Number.isFinite(retryAfter) && retryAfter > 0
+      ? Math.min(8_000, Math.max(1_000, retryAfter * 1_000))
+      : retry * 2_000;
+    await response.body?.cancel();
+    await new Promise((resolve) => setTimeout(resolve, delay));
+    response = await fetchAllowedRemoteImageOnce(initialUrl);
+  }
+  return response;
+}
+
 function cachedHeadResponse(response: Response) {
   return new Response(null, {
-    status: cacheSafeResponse.status,
-    statusText: cacheSafeResponse.statusText,
+    status: response.status,
+    statusText: response.statusText,
     headers: response.headers,
   });
 }
