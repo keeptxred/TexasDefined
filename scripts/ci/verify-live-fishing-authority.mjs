@@ -56,7 +56,7 @@ const worker=async()=>{
       if(check.type==="lake"){
         if(!html.includes(check.name))missing.push("expected lake name");
         if(!html.includes("rel=\"canonical\""))missing.push("canonical HTML tag");
-        if(!html.includes("Commons")&&!html.includes("photo")&&!html.includes("Photo"))missing.push("photo attribution indicator");
+        if(!html.includes("<figcaption") || !html.includes("Photo credit:"))missing.push("visible governed image with labeled photographer/license attribution");
       }
       if(missing.length)failures.push({...check,status:response.status,issue:"missing content",missing});
       else successes.push({type:check.type,path:check.path,status:200});
