@@ -1465,6 +1465,77 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     nearbyLakes: [{slug:"eagle-mountain-lake",name:"Eagle Mountain Lake"},{slug:"benbrook-lake",name:"Benbrook Lake"},{slug:"lake-arlington",name:"Lake Arlington"},{slug:"grapevine-lake",name:"Grapevine Lake"}],
   },
+  {
+    slug: "lake-nasworthy", name: "Lake Nasworthy", tpwdSlug: "nasworthy", waterDataSlug: "nasworthy",
+    region: "panhandle-plains", verifiedAt: "2026-10-13", accessReviewedAt: "2026-10-13",
+    summary: "San Angelo's historic South Concho River recreation lake: good bass, catfish, crappie and white bass fishing, 11 separately named shoreline access areas, permitted camping in just two city parks, and a 2026 boat-ramp reconstruction program with active closures.",
+    surfaceAcres: 1380, maxDepthFeet: 29, impoundedYear: 1930,
+    counties: ["Tom Green"], nearestCities: ["San Angelo"],
+    waterway: "South Concho River, tributary of the Concho and Colorado rivers", riverBasin: "Colorado River Basin",
+    authority: "City of San Angelo — Parks & Recreation", conservationPool: "TPWD reference 1,871 ft msl; consult TWDB for vertical-datum-aware live level",
+    fluctuation: "TPWD says usually near-constant, regulated by releases from upstream Twin Buttes; level and usable launches still change",
+    clarity: "Slightly stained",
+    identity: "Lake Nasworthy is a historic city-managed San Angelo reservoir, not San Angelo State Park and not neighboring O.C. Fisher Lake. TPWD's 1,380-acre angling measurement is a historical reference, not today's measured lake acreage. The fishery supports largemouth bass, crappie, catfish and white bass. A critical current-operator difference: TPWD's old access inventory generally marks individual ramps open year-round, while San Angelo's June 12, 2026 construction notice identifies the Knickerbocker Road ramp as closed beginning June 15 for reconstruction, followed by South Concho and Beaty Road in sequence. The city currently lists Knickerbocker Park as closed for construction. Confirm which ramp is actually open before towing a boat; 'open all year' is not a live notice.",
+    habitat: [
+      "Bulrushes and alligator weed line much of the shallow shoreline; TPWD also documents sago pondweed, coontail and star grass, plus isolated riprap, mud bank, bridge pilings and boat docks.",
+      "TPWD and local partners installed PVC habitat structures at selected lake sites; use TPWD's fish-attractor mapping rather than treating all submerged structures as publicly accessible fishing docks.",
+      "The shallow littoral margin rewards careful spring and summer presentation. TPWD describes long-rod 'dabbling' with jigs and trailers between bulrush stems for bass; crappie use bridge/dock pilings and catfish distribute more broadly."
+    ],
+    fish: [
+      fish("largemouth-bass", "Largemouth bass", "good", "spring", "TPWD rates largemouth good and describes dabbling a jig-and-trailer on a long rod around bulrushes. Small soft plastics and spinnerbaits can also cover shoreline gaps without trampling bank vegetation.", ["soft-plastics", "jigs-and-minnows", "spinnerbaits", "topwater"]),
+      fish("catfish", "Channel and flathead catfish", "good", "summer", "TPWD rates catfish good and notes both live and prepared baits across this shallow reservoir. Confirm fish-specific harvest rules and weather before keeping a catch.", ["cut-bait", "live-bait"]),
+      fish("crappie", "White crappie", "good", "spring", "TPWD rates crappie good; jigs and minnows alongside bridge or dock pilings offer a distinct alternative to reed-bed bass fishing.", ["jigs-and-minnows", "vertical-jigging"]),
+      fish("white-bass", "White bass", "good", "spring", "TPWD rates white bass good. Schools move with forage and river conditions; monitor fresh reports rather than relying on a fixed spot.", ["vertical-jigging", "trolling", "jigs-and-minnows"]),
+      fish("sunfish", "Sunfish", "fair", "summer", "TPWD rates sunfish fair. Small hooks and appropriately sized bait near alligator weed and riprap provide shoreline opportunities.", ["jigs-and-minnows"], "secondary")
+    ],
+    access: "TPWD inventories 11 named access areas around Lake Nasworthy, with two camping-eligible city parks and a mix of trailer ramps and bank-only access. Most city ramps are listed without a fee, while Middle Concho and Spring Creek have seasonal day-use fees and camping permit requirements. Importantly, San Angelo's official June 2026 boat-ramp replacement schedule conflicts with year-round labels in the TPWD directory: Knickerbocker Road ramp closed starting June 15; when that work completes, South Concho Drive and then Beaty Road are the planned next phases. San Angelo's Knickerbocker Park page currently says closed for construction. Do not publish old year-round labels as real-time availability.",
+    accessPoints: [
+      {name:"Middle Concho Park ramp",operator:"City of San Angelo",kind:"park",launch:"Off Red Bluff Road via Middle Concho Drive; TPWD lists two single-lane concrete ramps, parking, picnic and designated camping.",fee:"Seasonal city day-use fee and mandatory overnight camping permit; check posted payment method",availability:"Confirm seasonal gate rules; city parks line (325) 277-8766."},
+      {name:"Spring Creek Marina / park ramp",operator:"City of San Angelo / Spring Creek Marina",kind:"marina",launch:"From Knickerbocker Road to Fisherman's Road, a one-lane concrete ramp and an operator-managed marina with camping at designated park sites.",fee:"Seasonal day-use fees and separate camping permit/booking; verify current marina operation",availability:"TPWD lists (325) 944-3850; check city and marina before arrival."},
+      {name:"Red Bluff Road ramp",operator:"City of San Angelo",kind:"public-ramp",launch:"Public ramp off Red Bluff Road. A separate future reconstruction of this site is mentioned for Phase 2, not a current completed improvement.",fee:"TPWD traditionally lists no fee; verify current city conditions",availability:"City (325) 277-8766; Phase 2 redesign is not proof of an active closure."},
+      {name:"Hot Water Slough Park bank access",operator:"City of San Angelo",kind:"park",launch:"North shoreline off Red Bluff Road from Knickerbocker Road; TPWD lists BANK ACCESS ONLY, not a trailer or kayak launch.",fee:"TPWD lists no access fee; verify park rules",availability:"Verify local bank access and posted hours; no boat ramp documented."},
+      {name:"Knickerbocker Park ramp — construction closure",operator:"City of San Angelo",kind:"public-ramp",launch:"6402 Knickerbocker Road, west of the power-plant intake canal. Historically a one-lane concrete ramp; city rebuilding underway in 2026.",fee:"Historically no fee; unusable while the construction closure remains",availability:"City lists the park CLOSED FOR CONSTRUCTION and its June 2026 notice closed this ramp starting June 15. Recheck city park status before travel."},
+      {name:"Beaty Road Park ramp — planned replacement",operator:"City of San Angelo",kind:"public-ramp",launch:"Knickerbocker Road at Beaty Road; historically a one-lane concrete launch. The city plans replacement after work at South Concho Drive.",fee:"Historically no fee in TPWD inventory; verify current city policy",availability:"Closure may change as construction moves between sites; call (325) 277-8766."},
+      {name:"Fisherman's Road ramp",operator:"City of San Angelo",kind:"public-ramp",launch:"From Knickerbocker Road onto Fisherman's Road. Historically one single-lane concrete ramp; a NEW full-service ramp is only proposed for Phase 2.",fee:"TPWD historically lists no fee; verify current city schedule",availability:"Do not imply Phase 2 upgrades already exist; confirm live access."},
+      {name:"Mary Lee Park ramp",operator:"City of San Angelo",kind:"public-ramp",launch:"On Knickerbocker Road next to San Angelo Nature Center; historically one concrete lane and parking.",fee:"TPWD lists no fee; confirm recent city fee notices",availability:"Check city park access and possible seasonal events."},
+      {name:"Lake Nasworthy Marina city ramp",operator:"City of San Angelo",kind:"public-ramp",launch:"Southern lake shore near Knickerbocker Road. TPWD lists one concrete launch lane and courtesy parking.",fee:"TPWD lists no fee for its specific public launch; nearby private marina services may cost extra",availability:"Call city for current ramp/parking access."},
+      {name:"South Concho Drive ramp — construction sequence",operator:"City of San Angelo",kind:"public-ramp",launch:"Access off South Concho Drive; historically a one-lane concrete launch. Scheduled for replacement after Knickerbocker Road ramp.",fee:"TPWD historically lists no fee; verify live city notices",availability:"City's 2026 sequence means this ramp may close once preceding site reopens; check current closure status before towing."},
+      {name:"Pecan Creek Park ramp",operator:"City of San Angelo",kind:"public-ramp",launch:"Public ramp off South Concho Drive; one concrete lane documented by TPWD.",fee:"TPWD historically lists no fee; confirm day-of-visit operation",availability:"City (325) 277-8766; don't assume identical accessibility to South Concho Drive ramp."}
+    ],
+    campingUrl:"https://www.sanangelo.gov/388/Lake-Parks",
+    camping: {
+      name:"Designated Middle Concho Park and Spring Creek Park campsites ONLY",
+      summary:"The City of San Angelo expressly permits camping around Lake Nasworthy only at designated unfenced camping sites in Middle Concho and Spring Creek parks; a camping permit is required year-round. The city's posted lake-park rate at the time of research is $10/day, subject to change; consult current entrance/gate instructions and seasonal card-only day-use payment rules. TPWD also refers to camping at San Angelo State Park, but that park is on a DIFFERENT reservoir, O.C. Fisher, not Lake Nasworthy. Other named boat ramps and picnic/bank areas do not become campsites."
+    },
+    specialRules:true,
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/nasworthy/index.asp",
+    visitorSourceUrl:"https://www.sanangelo.gov/388/Lake-Parks",
+    historyNotes: [
+      "TWDB documents the project on the South Concho River, six miles southwest of central San Angelo. It was initially built by West Texas Utilities Company for industrial/municipal supply and recreation; the lake was named after John R. Nasworthy, who sold the land to the city.",
+      "TWDB dates dam construction to January 1929 through June 1930, with deliberate impoundment beginning March 28, 1930. The original concrete-and-earthfill project extended approximately 5,480 feet with a maximum dam height near 50 feet; the original water right was issued April 15, 1929.",
+      "The City of San Angelo acquired water rights from West Texas Utilities in May 1950, and TWDB's later hydrographic reports describe further authorized municipal withdrawals. Keep historic 1993 survey capacities and today's TWDB gauge elevation distinct; the TWDB gauge datum changed in August 2023, so its current NAVD88 conservation figure cannot be naively compared with older TPWD MSL values."
+    ],
+    visitorFAQs: [
+      {question:"Is Knickerbocker Park boat ramp open?",answer:"The city currently lists Knickerbocker Park CLOSED FOR CONSTRUCTION, and its June 12, 2026 announcement says boat-ramp reconstruction began June 15. TPWD's older 'open year-round' access inventory does not supersede this current city closure. Check the city park page before towing."},
+      {question:"Are South Concho Drive and Beaty Road ramps open?",answer:"The city's June 2026 project plan replaces Knickerbocker first, then South Concho, then Beaty. Only one ramp was planned to close at a time; the active closure changes as the project advances. Verify today's posted schedule with city parks rather than relying on a static construction sequence."},
+      {question:"Where is lakefront camping legal?",answer:"The city permits camping only in designated areas at Middle Concho Park and Spring Creek Park, with year-round permits and possible seasonal day-entry fees. Other listed ramps and shoreline picnic sites are not established camping facilities."},
+      {question:"How many public-access areas are around Lake Nasworthy?",answer:"TPWD lists 11 distinct named access sites. Hot Water Slough is bank-only and not a boat launch. Sites have different lanes, operators, charges and construction status."},
+      {question:"What species offer the best fishing?",answer:"TPWD rates largemouth, catfish, crappie and white bass good, while sunfish are fair. Fish bulrushes and alligator weed for bass, pilings for crappie, and appropriate open-water structure for catfish/white bass."},
+      {question:"Does Lake Nasworthy have zebra mussels?",answer:"Yes. TPWD labels the lake invaded: clean, drain and dry boats and equipment and follow mandatory draining requirements before traveling to another water body."},
+      {question:"Why do TPWD and TWDB show different lake elevations?",answer:"TPWD's reference conservation elevation is rounded and older. TWDB distinguishes gauges and vertical datums, with a documented change in August 2023. Use the current timestamped TWDB gauge's own conservation datum, not a comparison of two old nominal elevations."},
+      {question:"Is San Angelo State Park on Lake Nasworthy?",answer:"No. San Angelo State Park's shore is on O.C. Fisher Lake. Lake Nasworthy city park camping is in designated Middle Concho and Spring Creek areas."},
+      {question:"When was Lake Nasworthy built?",answer:"TWDB gives January 1929 for construction start, March 28, 1930 for deliberate impoundment and June 1930 for dam completion. The city acquired the water rights in 1950."},
+      {question:"Is the proposed new Fisherman's Road boat ramp complete?",answer:"No completion is verified. The city describes a full-service replacement ramp as part of a separately designed Phase 2 tentatively planned for 2027 and dependent on funding. Use only existing operating facilities confirmed by the city."}
+    ],
+    travelAlerts: [
+      "ACTIVE ACCESS ALERT: San Angelo's June 2026 reconstruction began with Knickerbocker ramp CLOSED; its live facility page still says closed for construction. The planned next ramps are South Concho and then Beaty, which may change without an older TPWD directory update.",
+      "CAMPING RULE: City camping is limited to designated, permitted sites at Middle Concho and Spring Creek parks. No other TPWD-listed shoreline launch implies an overnight camping right.",
+      "ZEBRA MUSSELS: TPWD confirms Lake Nasworthy is invaded. Clean, drain and dry equipment; obey mandatory drain rules.",
+      "Live TWDB Nasworthy water levels have their own source timestamp and NAVD88 datum; avoid mixing old TPWD conservation figures with modern gauge units.",
+      "City Phase 2 construction concept for Fisherman's Road and kayak launches is not an existing amenity or an authorized future completion date."
+    ],
+    nearbyLakes:[{slug:"o-h-ivie-lake",name:"O. H. Ivie Lake"},{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"lake-brownwood",name:"Lake Brownwood"}],
+  },
 ];
 
 const techniqueLabels: Record<TechniqueId, string> = {
