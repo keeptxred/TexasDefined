@@ -24,8 +24,17 @@ for(const slug of paths.keys()){
   if(!matched.includes(slug))errs.push('Lake authority-source manifest includes an unconfirmed coverage item: '+slug);
 }
 const statewide=fs.readFileSync('src/data/fishing/statewide-lake-network.ts','utf8');
-for(const match of statewide.matchAll(/slug:\s*"([a-z0-9-]+)"\s*,\s*name:\s*"[^"]+"\s*,([\s\S]{0,250}?)tpwdSlug:\s*"([a-z0-9_]+)"/g)){
-  const [_,slug,tpwd]=[match[0],match[1],match[3]];
+// Only real top-level lake definition rows are lake sources. An unanchored
+// slug/name regex can mistake nearbyDestinations for an actual lake and
+// erroneously assign that related destination the NEXT lake's TPWD slug.
+const topLevel=[...statewide.matchAll(/^    slug:\s*"([a-z0-9-]+)",\s*name:\s*"[^"]+",/gm)];
+if(topLevel.length===0)errs.push('No top-level statewide lake definitions recognized');
+for(let i=0;i<topLevel.length;i++){
+  const slug=topLevel[i][1];
+  const end=i+1<topLevel.length?topLevel[i+1].index:statewide.indexOf('\n];',topLevel[i].index);
+  const block=statewide.slice(topLevel[i].index,end>topLevel[i].index?end:undefined);
+  const tpwd=block.match(/\btpwdSlug:\s*"([a-z0-9_]+)"/)?.[1];
+  if(!tpwd){errs.push('Missing lake-specific TPWD slug in '+slug);continue;}
   const expected='https://tpwd.texas.gov/fishboat/fish/recreational/lakes/'+tpwd+'/';
   if(paths.get(slug)!==expected)errs.push('Wrong TPWD source for '+slug);
 }
