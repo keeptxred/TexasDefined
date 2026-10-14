@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-13",
+  "asOf": "2026-10-14",
   "repository": "keeptxred/TexasDefined",
   "production": "https://texasdefined.com",
   "supabaseProjectId": "ftkznprjljkhymknvhye",
@@ -18,13 +18,16 @@
     "certifiedBenchmarks": 0
   },
   "liveSupabaseLastRead": {
-    "museumRegistryRecords": 66,
+    "museumRegistryRecords": 69,
     "registryStatusVerified": 65,
+    "registryStatusAwaitingEditorialVerification": 3,
     "registryStatusSourceUnreachable": 1,
-    "museumMonitoredSourceRecords": 281,
-    "sourceBaseline": 280,
+    "museumMonitoredSourceRecords": 305,
+    "pathsWithMonitoredSources": 69,
     "sourceUnreachable": 1,
-    "cityOfKatySource403": "https://www.cityofkaty.com/visitors/museums"
+    "cityOfKatySource403": "https://www.cityofkaty.com/visitors/museums",
+    "recordedSourceLastCheckUtc": "2026-10-14T05:05:43Z",
+    "note": "SQL inspection of live authority registry and sources on 2026-10-14. Supabase 'verified' status does not constitute independent museum authority certification."
   },
   "recoveryPullRequest": {
     "url": "https://github.com/keeptxred/TexasDefined/pull/4792",
@@ -68,7 +71,7 @@
     "Resolve or document City of Katy upstream HTTP 403; browser request headers were already tested and returned HTTP 403.",
     "Ensure missing exact-site licensed photos are secured or honestly acknowledged, never replaced with unrelated images.",
     "Verify live production routes, FAQ content, responsive layout, SEO/sitemap, image licensing and current visitor status.",
-    "Sync merged manifest into existing Supabase verification jobs and confirm source checks, alerts and actual editorial evidence.",
+    "Registry now has 69 museum records and 305 monitored sources across 69 paths; verify actual monitoring execution, source-change alerts, editorial reviews and production acceptance rather than re-enrolling the existing manifest.",
     "Reconcile remaining open museum PRs after verified merge; avoid duplicates.",
     "Merge through passing protected checks and verify deployed content; no green CI means no production-complete claim.",
     "Diboll has a rights-cleared public-domain 1907 archived local photograph; obtain a licensed present-day museum or actual Engine 13 photo before completing site-photo editorial acceptance.",
@@ -113,5 +116,46 @@
       ],
       "limits": "No image reuse permission or full vehicle interior accessibility implied"
     }
-  ]
+  ],
+  "reconciliationObservations20261014": {
+    "githubMainObservedCommit": "82fa4f86558f96e6f2b4b066474f0b1ea425b910",
+    "mergedPRs": [
+      4792,
+      4817
+    ],
+    "canonicalManifestEntryCount": 69,
+    "independentlyAuthorityCertifiedCount": 0,
+    "ownerNameInventoryComplete": false,
+    "ownerRawNameOccurrences": "Verify via updated node scripts/data/test-museum-owner-inventory-parser.mjs; raw repeated name occurrences must remain visible",
+    "duplicateSourceExample": "Scurry County Museum appears more than once in owner submitted source; repeated occurrence now retained with first occurrence pointer",
+    "observedOpenRegistryRecords": [
+      "/destination/corpus-christi-museum-science-history",
+      "/destination/historic-brownsville-museum",
+      "/destination/port-isabel-historical-museum"
+    ],
+    "observedExternalSourceBlocker": {
+      "path": "/destination/johnny-nelson-katy-heritage-museum",
+      "url": "https://www.cityofkaty.com/visitors/museums",
+      "httpStatus": 403,
+      "alternateSource": "https://www.katyedc.org/quality-of-life/arts-culture-and-events",
+      "alternateHttpStatus": 200,
+      "disposition": "Keep City URL unverified; independent editorial facts must be based on reachable official/authoritative documents"
+    },
+    "portIsabelProductionMedia": {
+      "path": "/destination/port-isabel-historical-museum",
+      "observed": "2026-10-14 live-page crawl displayed destination-specific photograph not yet available",
+      "sourceFile": "src/data/museum-authority-heroes.ts",
+      "sourceAsset": "2014 Carol M. Highsmith photograph of 1906 fish mural on Champion Building",
+      "sourceConnectivity": "Original Wikimedia asset URL recorded HTTP 200 on 2026-10-14 00:17 UTC",
+      "fix": "Final Explore catalog licensed-media enrichment added; recheck canonical page post-deploy separately before clearing media defect",
+      "acceptance": "NOT ACCEPTED until responsive browser confirms image display and attribution"
+    },
+    "routeAcceptance": {
+      "portIsabel": "Content appeared in public page crawl but hero remains placeholder",
+      "diboll": "Direct retrieval tool unable to establish current production HTML or HTTP status; not a confirmed 404 or 200",
+      "texasBroadcast": "Direct retrieval tool unable to establish current production HTTP status",
+      "sanAugustineJail": "Direct retrieval tool unable to establish current production HTTP status"
+    },
+    "currentImplementation": "Feature branch change: preserve all inventory raw name occurrences; enrich Explore catalog museum photos after curation; add parser and media regression guards; requires merged CI and production verification"
+  }
 }
