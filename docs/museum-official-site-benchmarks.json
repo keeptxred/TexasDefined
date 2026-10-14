@@ -148,9 +148,9 @@
         "Museum research and collections policy"
       ],
       "openGaps": [
-        "Explain donation-based admission and children's museum experiences",
-        "Cover shipbuilding, shipwreck and coastal topics in concise exhibit highlights",
-        "Verify current dining options and accessible entry instead of assuming museum has a café"
+        "Independently verify visitor accessibility, including elevator/service availability and sensory needs, rather than inferring from reviews",
+        "Verify visit-duration guidance, event-day parking and whether on-site refreshments are available",
+        "Complete independent side-by-side visitor-guide and responsive photo-rights acceptance before certifying the page"
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},
@@ -159,7 +159,9 @@
       "operatorPagesToBenchmark": [
         "https://texasmaritimemuseum.org/exhibits/",
         "https://texasmaritimemuseum.org/collections-library/",
-        "https://texasmaritimemuseum.org/"
+        "https://texasmaritimemuseum.org/",
+        "https://texasmaritimemuseum.org/event/tides-of-freedom/",
+        "https://texasmaritimemuseum.org/event/built-for-victory/"
       ]
     },
     "national-museum-pacific-war": {
