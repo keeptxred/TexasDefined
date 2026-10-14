@@ -115,6 +115,16 @@ function destinationExperienceTitle(name: string, categoryName: string) {
   return `What to know about ${name}`;
 }
 
+// Exact topic-specific metadata for long museum/historic names that previously
+// exceeded the internal 90-character live audit limit after brand suffixing.
+// Preserve the full institutional names in H1, schema and body copy.
+const DESTINATION_EDITORIAL_SEO_TITLES: Readonly<Record<string,string>> = {
+  "babe-didrikson-zaharias-museum-beaumont": "Babe Didrikson Zaharias Museum: Hours & Exhibits",
+  "booker-t-washington-high-school-dallas": "Booker T. Washington Arts High School: Dallas History",
+  "crow-museum-asian-art-dallas": "Crow Museum of Asian Art: Dallas Exhibits & Visit",
+  "tenth-street-historic-district-oak-cliff": "Tenth Street Freedmen's Town: Dallas History & Heritage",
+};
+
 function destinationSeoTitle(name: string, categoryName: string) {
   const category = categoryName.toLowerCase();
   if (category.includes("state park") || category.includes("natural area")) return `${name} | Texas State Park Guide`;
@@ -211,7 +221,7 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
     const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` }, { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` }, { "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}${categoryPath}` }, { "@type": "ListItem", position: 4, name: destination.name, item: url }] };
     return {
       meta: buildMeta(texasDefinedBrand, {
-        title: destination.slug === "mayborn-museum-waco" ? "Mayborn Museum Waco: Hours, Tickets & Exhibits" : isZapataMuseum ? "Zapata County Museum of History: Exhibits, Hours & Admission" : isYsletaMuseum ? "Ysleta del Sur Pueblo Museum: Exhibits, Hours & Tigua History" : isYoungCountyMuseum ? "Young County Museum Graham: Exhibits, Hours & History" : destinationSeoTitle(destination.name, categoryName),
+        title: destination.slug === "mayborn-museum-waco" ? "Mayborn Museum Waco: Hours, Tickets & Exhibits" : isZapataMuseum ? "Zapata County Museum of History: Exhibits, Hours & Admission" : isYsletaMuseum ? "Ysleta del Sur Pueblo Museum: Exhibits, Hours & Tigua History" : isYoungCountyMuseum ? "Young County Museum Graham: Exhibits, Hours & History" : (DESTINATION_EDITORIAL_SEO_TITLES[destination.slug] ?? destinationSeoTitle(destination.name, categoryName)),
         description: destination.summary,
         canonicalPath,
         robots: indexable ? undefined : "noindex, follow",
