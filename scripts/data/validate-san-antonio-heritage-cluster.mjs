@@ -60,3 +60,12 @@ for (const corrected of ['"lat": 29.41245', '"lng": -98.49499', '"lat": 29.42472
 const sourceCount = (destination.match(/"sourceUrl": /g) ?? []).length;
 assert(sourceCount >= 40, "Every site needs multiple site-specific FAQ source URLs");
 console.log(`San Antonio heritage cluster verified: ${newSlugs.length} new, ${upgradedSlugs.length} upgraded, 1 guide, district and county reciprocal links.`);
+
+// Existing heritage links must make the historical/visitor-access relation explicit.
+assert(!graph.includes("Continue the San Antonio heritage route"), "Generic San Antonio crosslink filler returned");
+assert(graph.includes('"href": "/destination/san-antonio-missions-national-historical-park"'), "Alamo must link back to four-park NPS missions");
+
+const city = read("src/data/city-authority-profiles.ts");
+assert(city.includes("'Two-day San Antonio heritage route'") && city.includes("'/article/historic-san-antonio-heritage-road-trip'"), "City must link to the historic San Antonio article");
+assert(city.includes("'Missions day'") && city.includes("href: '/destination/san-antonio-missions-national-historical-park'"), "San Antonio city page must link to mission authority");
+assert(city.includes("'Casa Navarro'") && city.includes("href: '/destination/casa-navarro'"), "San Antonio city hub must expose Tejano heritage");
