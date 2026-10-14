@@ -54,7 +54,7 @@ export const andrewsCountyOilRanchingHighPlainsWestTexasArticle: Article = {
       description: "See how distance, settlement and local government produced Texas's unusually large county map.",
     },
     {
-      href: "/article/texas-oil-boom-history-spindletop-permian-basin",
+      href: "/article/texas-oil-boom-wichita-falls-west-texas-rigs",
       label: "Texas oil history",
       description: "Place Andrews County's petroleum story in the larger history of Texas oil development.",
     },
