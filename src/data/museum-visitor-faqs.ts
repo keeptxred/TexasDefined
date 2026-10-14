@@ -2295,12 +2295,12 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
     },
     {
       "question": "What are the African American Museum Dallas opening hours?",
-      "answer": "The museum's visitor page lists Tuesday through Saturday from 10 a.m. to 5 p.m., closed on Sundays and Mondays in the ordinary schedule. Special events, holidays and exhibitions may alter access; check museum updates before leaving.",
+      "answer": "The operator publishes conflicting schedules on the same page: its headline visitor grid lists Tuesday–Saturday, 10 a.m.–5 p.m., while a later FAQ says Tuesday–Friday, 11 a.m.–5 p.m. and Saturday, 10 a.m.–5 p.m. Its State Fair FAQ additionally lists seven-day 10 a.m.–7 p.m. hours during the fair. Call 214-565-9026 to confirm the day's actual timetable and Fair Park gate access rather than relying on one inconsistent block.",
       "verificationUrl": "https://aamdallas.org/plan-your-visit/",
       "questionOrigin": "museum-faq",
       "questionEvidenceUrl": "https://aamdallas.org/plan-your-visit/",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-12"
+      "reviewed": "2026-10-14"
     },
     {
       "question": "Where should I park and which Fair Park gate should I use?",
