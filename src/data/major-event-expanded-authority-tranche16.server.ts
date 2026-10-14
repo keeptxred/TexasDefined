@@ -25,7 +25,6 @@ const records: MajorEventAuthorityRecord[] = [
     relatedLinks: [
       { href: "/destination/national-wasp-wwii-museum-sweetwater", label: "National WASP WWII Museum", description: "Visit Avenger Field and explore the story of the Women Airforce Service Pilots who trained in Sweetwater during World War II." },
       { href: "/destination/pioneer-city-county-museum-sweetwater", label: "Pioneer City County Museum", description: "Add Sweetwater and Nolan County history to the roundup weekend." },
-      { href: "/article/nolan-county-sweetwater-wasp-wind-railroads-big-country-texas", label: "Nolan County guide", description: "Go deeper on Sweetwater, railroads, wind energy, aviation history and the surrounding county." },
       { href: "/county/nolan", label: "Explore Nolan County", description: "Find more places, communities and local resources around Sweetwater." },
       { href: "/events", label: "Texas events calendar", description: "Compare other major Texas spring events." },
     ],

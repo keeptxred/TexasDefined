@@ -55,7 +55,7 @@ export const battleshipTexasBB35HistoryRestorationArticle: Article = {
     { href: "/article/republic-of-texas-navy-history", label: "Republic of Texas Navy", description: "Understand the independent Republic’s earlier naval forces, which were not U.S. Navy battleships." },
     { href: "/destination/battleship-texas", label: "Battleship Texas visitor and restoration guide", description: "See the current closure status, Galveston location and future Pier 15 museum information." },
     { href: "/article/texas-world-war-ii-historic-sites-guide", label: "Texas and World War II", description: "Put Battleship Texas beside other Texas places that preserve leadership, combat, logistics and wartime memory." },
-    { href: "/article/galveston-county-island-port-juneteenth-texas", label: "Galveston County", description: "Place the ship's new home inside the island's port, storm, Juneteenth and maritime history." },
+    { href: "/county/galveston", label: "Galveston County", description: "Place the ship's new home inside the island's port, storm, Juneteenth and maritime history." },
     { href: "/explore/historic-sites", label: "Texas historic sites and museums", description: "Browse battlefields, forts, homes, museums and historic landscapes across the state." },
     { href: "/texas-history", label: "Texas History", description: "Continue into the people, conflicts, communities and industries that shaped Texas." },
     { href: "/destination/galveston-island-historic-pleasure-pier", label: "Galveston Island Historic Pleasure Pier", description: "Pair a future Battleship Texas visit with the island's Gulf-front amusement landmark." },
