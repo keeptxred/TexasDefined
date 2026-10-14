@@ -15,7 +15,7 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     env:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -26,15 +26,17 @@ jobs:
           test -n "$SUPABASE_URL" || { echo "SUPABASE_URL is not configured"; exit 1; }
           test -n "$SUPABASE_SERVICE_ROLE_KEY" || { echo "SUPABASE_SERVICE_ROLE_KEY is not configured"; exit 1; }
 
-      - name: Import newest published Comptroller tax-rate workbooks
+      - name: Refresh current and prior statewide tax-rate sources
         shell: bash
         run: |
-          set -euo pipefail
+          set -u
           current_year="$(date -u +%Y)"
           previous_year="$((current_year - 1))"
+          current_ok=0
+          previous_ok=0
 
           for year in "$current_year" "$previous_year"; do
-            echo "Trying Texas property-tax rate import for $year"
+            echo "Refreshing Texas property-tax rate import for $year"
             response_file="$(mktemp)"
             status="$(curl --silent --show-error \
               --output "$response_file" \
@@ -44,12 +46,20 @@ jobs:
               "$SUPABASE_URL/functions/v1/import-texas-property-tax-rates?year=$year")"
             cat "$response_file"
             echo
+
             if [ "$status" -ge 200 ] && [ "$status" -lt 300 ]; then
-              echo "Imported finalized/publicly available $year statewide rate workbooks."
-              exit 0
+              if [ "$year" = "$current_year" ]; then current_ok=1; else previous_ok=1; fi
+              echo "Refreshed $year statewide tax-rate sources."
+            else
+              echo "Year $year refresh failed or is not published yet (HTTP $status)."
             fi
-            echo "Year $year is not importable yet (HTTP $status); trying the prior year."
           done
 
-          echo "No current or prior-year statewide rate set could be imported."
-          exit 1
+          if [ "$previous_ok" -ne 1 ]; then
+            echo "Prior-year refresh is required so the latest TEA-verified school-rate year stays current."
+            exit 1
+          fi
+
+          if [ "$current_ok" -ne 1 ]; then
+            echo "Current-year sources are not fully importable yet; prior-year verified data was refreshed successfully."
+          fi
