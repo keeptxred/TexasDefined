@@ -42,6 +42,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['DEPLOY/RECOVERY', 'Test Cloudflare Git-build API transient retries and fail-closed behavior', 'node', ['--test', 'scripts/ci/wait-for-cloudflare-git-build.test.mjs']],
   ['COMMERCE/SEO', 'Verify accurate Merchant delivery and variant photo signals', 'node', ['--experimental-strip-types', '--test', 'scripts/data/merchant-quality-signals.test.mjs']],
   ['SEO/CTR', 'Protect readable truncated meta descriptions', 'node', ['--experimental-strip-types','--test','src/lib/seo-snippet-trim.test.ts']],
   ['SEO/CTR', 'Detect stale edition claims in finished major-event snippets', 'node', ['--test', 'scripts/ci/expired-event-snippet.test.mjs']],
