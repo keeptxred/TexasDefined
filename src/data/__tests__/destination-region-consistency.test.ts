@@ -81,4 +81,30 @@ describe("geographic consistency across all Explore regional routes", () => {
     expect(corrected).not.toBe(input);
     expect(CANONICAL_DESTINATION_TRAVEL_REGIONS["moody-gardens"]).toBe("gulf-coast");
   });
+  it("repairs unrecognized attractions in unambiguous cities instead of waiting for per-slug overrides", () => {
+    const rows = [
+      { ...destination("new-houston-museum", "hill-country", 29.76, -95.37), nearestTown: "Houston" },
+      { ...destination("new-corpus-christi-venue", "hill-country", 27.80, -97.40), nearestTown: "Corpus Christi" },
+      { ...destination("new-amarillo-canyon-stop", "hill-country", 35.21, -101.83), nearestTown: "Amarillo" },
+      { ...destination("new-marfa-gallery", "hill-country", 30.31, -104.02), nearestTown: "Marfa" },
+      { ...destination("new-dallas-history-site", "hill-country", 32.78, -96.8), nearestTown: "Dallas" },
+    ];
+    expect(filterDestinationsByScope(rows, { region: "hill-country" })).toEqual([]);
+    expect(filterDestinationsByScope(rows, { region: "gulf-coast" }).map((row) => row.slug))
+      .toEqual(["new-houston-museum", "new-corpus-christi-venue"]);
+    expect(filterDestinationsByScope(rows, { region: "panhandle" }).map((row) => row.slug))
+      .toEqual(["new-amarillo-canyon-stop"]);
+    expect(filterDestinationsByScope(rows, { region: "big-bend" }).map((row) => row.slug))
+      .toEqual(["new-marfa-gallery"]);
+    expect(filterDestinationsByScope(rows, { region: "prairies-lakes" }).map((row) => row.slug))
+      .toEqual(["new-dallas-history-site"]);
+  });
+
+  it("does not silently relabel borderline towns or override a source-checked venue slug", () => {
+    const border = { ...destination("boundary-venue", "hill-country", 29.43, -98.49), nearestTown: "San Antonio" };
+    expect(correctDestinationTravelRegion(border)).toBe(border);
+    const venue = { ...destination("moody-gardens", "hill-country", 29.27, -94.85), nearestTown: "Dallas" };
+    expect(correctDestinationTravelRegion(venue).region).toBe("gulf-coast");
+  });
+
 });

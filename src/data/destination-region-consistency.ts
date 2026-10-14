@@ -46,8 +46,53 @@ export const CANONICAL_DESTINATION_TRAVEL_REGIONS: Readonly<Record<string, Texas
   "gruene-historic-district": "hill-country",
 } as const;
 
+// City-level corrections apply only where the seven TexasDefined travel regions
+// are unambiguous. Do not infer a destination's region from an arbitrary county
+// postal address, nearby metro, or a rough statewide coordinate rectangle.
+// Border cities such as San Antonio are deliberately excluded for manual review.
+export const UNAMBIGUOUS_CITY_TRAVEL_REGIONS: Readonly<Record<string, TexasRegion>> = {
+  "houston": "gulf-coast",
+  "galveston": "gulf-coast",
+  "corpus christi": "gulf-coast",
+  "webster": "gulf-coast",
+  "league city": "gulf-coast",
+  "port aransas": "gulf-coast",
+  "rockport": "gulf-coast",
+  "amarillo": "panhandle",
+  "canyon": "panhandle",
+  "lubbock": "panhandle",
+  "quitaque": "panhandle",
+  "dallas": "prairies-lakes",
+  "fort worth": "prairies-lakes",
+  "arlington": "prairies-lakes",
+  "denton": "prairies-lakes",
+  "glen rose": "prairies-lakes",
+  "el paso": "big-bend",
+  "alpine": "big-bend",
+  "marfa": "big-bend",
+  "terlingua": "big-bend",
+  "fort davis": "big-bend",
+  "balmorhea": "big-bend",
+  "tyler": "piney-woods",
+  "nacogdoches": "piney-woods",
+  "lufkin": "piney-woods",
+  "jefferson": "piney-woods",
+  "brownsville": "south-texas",
+  "mcallen": "south-texas",
+  "laredo": "south-texas",
+  "edinburg": "south-texas",
+  "fredericksburg": "hill-country",
+  "kerrville": "hill-country",
+  "wimberley": "hill-country",
+  "blanco": "hill-country",
+  "boerne": "hill-country",
+} as const;
+
 export function correctDestinationTravelRegion(destination: Destination): Destination {
-  const verifiedRegion = CANONICAL_DESTINATION_TRAVEL_REGIONS[destination.slug];
+  // Exact verified venue assignments take precedence over a mailing city.
+  const city = destination.nearestTown?.trim().toLocaleLowerCase("en-US") ?? "";
+  const verifiedRegion = CANONICAL_DESTINATION_TRAVEL_REGIONS[destination.slug]
+    ?? UNAMBIGUOUS_CITY_TRAVEL_REGIONS[city];
   return verifiedRegion && verifiedRegion !== destination.region
     ? { ...destination, region: verifiedRegion }
     : destination;
