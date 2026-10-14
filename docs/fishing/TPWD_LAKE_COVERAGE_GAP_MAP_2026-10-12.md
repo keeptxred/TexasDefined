@@ -5,8 +5,8 @@
 ## Counts and caveats
 
 - **175** separate alphabetical links/named entries in the TPWD public lake list (excluding its extra *Town Lake = Lady Bird Lake* alias line).
-- **70** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
-- **105** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
+- **71** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
+- **104** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
 - TPWD list entries include local ponds and some state-park-managed lakes as well as reservoirs; they cannot all be treated as equally high-demand or guaranteed distinct reservoirs.
 - This list does not include every Texas stock tank, private lake, community fishing pond, or small waterbody outside TPWD's own directory. It therefore cannot prove “every Texas lake.”
 
@@ -36,7 +36,7 @@
 | Aquilla | [aquilla-lake](https://texasdefined.com/fishing/lakes/aquilla-lake) — pending deployment |
 | Arlington | [lake-arlington](https://texasdefined.com/fishing/lakes/lake-arlington) — awaiting wave-4 release |
 | Arrowhead | [lake-arrowhead](https://texasdefined.com/fishing/lakes/lake-arrowhead) |
-| Athens | **Not in completed-guide registry** |
+| Athens | [lake-athens](https://texasdefined.com/fishing/lakes/lake-athens) |
 | Austin | [lake-austin](https://texasdefined.com/fishing/lakes/lake-austin) |
 | Averhoff | **Not in completed-guide registry** |
 | B.A. Steinhagen | **Not in completed-guide registry** |
@@ -272,3 +272,7 @@ The Franklin County Water District rules revised August 2026 control vessel size
 ## October 14 — Bachman Lake researched Dallas authority
 
 Bachman Lake is an urban **132-acre TPWD fishing reservoir** inside the city's separately measured approximately **205-acre metropolitan park**. The guide distinguishes the only documented Shorecrest Drive boat-launch facility (TPWD says two lanes, an older survey says one; only five trailer parking spaces) from bank fishing. It preserves the city’s March 31, 2026 dam-and-spillway ribbon-cutting milestone without claiming that every ramp or path is open today. The current July 2026 Dallas City Code §32-40 gives a general **10.5 HP** maximum motor operating rating with exceptions, differing from the old TPWD public fishing page's **5 HP**. Swimming in the reservoir and sundown-to-sunup boating are prohibited by city rules; adjacent recreational pools are separate. The exact lake photo is a 2,272×1,704 2005 image by **Ansem27** on Wikimedia Commons, **CC BY-SA 3.0**. No original field imagery is claimed. The new release would establish **70/175** complete guides, **105 unmatched** entries after source and production checks; operator rechecks and full editorial certification remain open.
+
+## October 14 — Lake Athens researched authority
+
+TPWD fishery profile and the 2021 management survey identify a 1,799-acre East Texas Lake Athens reservoir on Flat Creek, managed by Athens Municipal Water Authority (AMWA). TPWD names ONE marina public-access ramp, while the active privately operated Lake Athens Marina & RV Park separately advertises full-hookup camping, storage and rental services; old TPWD 'no fee' language must not be taken as a current concession price. AMWA revised its boating/property rules February 2025; general vessel-size limits and no-fishing zones are operator-specific. TWDB places dam construction September 1961, impoundment November 1962 and completion May 1963, with a 1998 survey of 1,799 acres. Older owner 1,520-acre figures are distinguished by source vintage. The **actual lake photograph** was taken Nov 2012 by Nicolas Henderson / TexasExplorer98 and licensed **CC BY 2.0** on Flickr; the direct 1024w file returns HTTP 200. First-party field images, operator same-day status and production page QA are not certified. Proposed statewide authority inventory becomes **71 guides / 175 TPWD lake listings**, leaving **104** unmatched entries.
