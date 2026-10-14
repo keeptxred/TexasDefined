@@ -31,7 +31,7 @@ const requiredPage = [
   ['source URL row provenance', 'sourceUrl: string', loader],
   ['correction count contract', 'officialCorrectionCount: number', loader],
   ['Dataset schema', "'@type': 'Dataset'", eagerRoute],
-  ['Dataset variable measurements', 'variableMeasured: loaderData.rows.map', eagerRoute],
+  ['Dataset variable measurements', 'variableMeasured: loaderData.schoolRates ? [', eagerRoute],
   ['Dataset source schema', 'isBasedOn: loaderData.sourceUrl', eagerRoute],
   ['Breadcrumb schema', "'@type': 'BreadcrumbList'", eagerRoute],
   ['lazy route dispatch', "params.datasetSlug === schoolDistrictSlug", eagerRoute],
@@ -71,6 +71,7 @@ if (registry.includes("{ label: 'Judson ISD', value: 1.3022")) failures.push('ob
 const correctionIndex = importer.indexOf('applyKnown2025SchoolRateCorrection(u);');
 const conflictGuardIndex = importer.indexOf('maintenance_operations_rate<TEA_2025_MINIMUM_MCR');
 const unresolvedIndex = importer.indexOf('const unresolvedSchoolConflicts=');
+const preflightIndex = importer.indexOf('const preflightIssues=validateImportPreflight(normalized,year)');
 const deleteIndex = importer.indexOf('.from("texas_property_tax_rates").delete().eq("year",year)');
 
 if (correctionIndex < 0 || conflictGuardIndex < 0 || correctionIndex > conflictGuardIndex) {
@@ -79,6 +80,11 @@ if (correctionIndex < 0 || conflictGuardIndex < 0 || correctionIndex > conflictG
 if (unresolvedIndex < 0 || deleteIndex < 0 || unresolvedIndex > deleteIndex) {
   failures.push('unresolved 2025 school-rate conflicts must be checked before replacing production rows');
 }
+
+if (!importer.includes('school-district: expected 1013 districts in finalized 2025 file')) failures.push('finalized 2025 school imports must require 1,013 rows');
+if (!importer.includes('school-district: M&O/I&S sum differs from total')) failures.push('all school rates must validate M&O plus I&S against total');
+if (preflightIndex < 0 || deleteIndex < 0 || preflightIndex > deleteIndex) failures.push('statewide structural preflight must run before destructive replacement');
+if (!importer.includes('url.searchParams.get("dryRun")==="true"')) failures.push('authenticated non-destructive import dry run must be supported');
 
 if (failures.length) {
   console.error('Property-tax source/page integrity contract failed:');
