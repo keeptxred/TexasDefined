@@ -835,7 +835,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Flatrock Park", operator: "Brown County Water Control and Irrigation District No. 1", kind: "park", launch: "On FM 2632 just north of FM 3021 junction. Lighted two-lane ramp with parking for under 50 vehicles.", fee: "TPWD lists no fee", availability: "TPWD warns steep ramp needs caution when lake five feet low or more; check district (325) 643-2609." },
       { name: "Lake Brownwood State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Off Park Road 15 east of SH 279. Lighted multiple-lane ramp with about 20 vehicle spaces, plus fishing pier and camping.", fee: "State park entrance fee", availability: "TPWD says year-round access, though cabins/camping can be seasonal; confirm park (325) 784-5223." },
     ],
-    nearbyLakes: [{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"proctor-lake",name:"Proctor Lake"}],
+    nearbyLakes: [{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"proctor-lake",name:"Proctor Lake"},{slug:"lake-nasworthy",name:"Lake Nasworthy"}],
     camping: {name:"Lake Brownwood State Park",summary:"The state park provides established camping and lake recreation on the shoreline; check reservations, ramp conditions and current park alerts."},
     travelAlerts: ["TPWD reports zebra mussels in this reservoir. Follow current boat, livewell and equipment cleaning and draining requirements before entering other waters."],
   },
@@ -943,7 +943,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Lake Colorado City State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Southwest shore, five miles south of I-20 on FM 2836; paved multi-lane ramp and parking.", fee: "Park entry/launch fee", availability: "Ramps listed year-round; TPWD notes no camping December–February. Check current park operations and lake level." },
       { name: "Cooper's Cove", operator: "Private operator", kind: "resort", launch: "East side of Lake Colorado City off SH 163; paved boat ramp and camping in TPWD inventory.", fee: "TPWD lists fees", availability: "Year-round ramp in TPWD listing; verify current operator (325) 728-5885." },
     ],
-    nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"}],
+    nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"lake-nasworthy",name:"Lake Nasworthy"}],
     camping: {name:"Lake Colorado City State Park",summary:"The state park provides camping and reservoir access, but anglers should check golden-alga notices, water level and current fish reports before building a trip around fishing."},
   },
 
