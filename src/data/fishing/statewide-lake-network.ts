@@ -1689,6 +1689,69 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     nearbyLakes:[{slug:"lake-palestine",name:"Lake Palestine"},{slug:"lake-bob-sandlin",name:"Lake Bob Sandlin"},{slug:"lake-nacogdoches",name:"Lake Nacogdoches"}],
   },
+  {
+    slug:"medina-lake", name:"Medina Lake", tpwdSlug:"medina", waterDataSlug:"medina",
+    region:"hill-country", verifiedAt:"2026-10-13", accessReviewedAt:"2026-10-13",
+    summary:"A historic 1913 Medina River reservoir northwest of San Antonio with drought-sensitive ramps, invasive zebra mussels, two TPWD-listed launch facilities, striped-bass and catfish fishing, and a dramatic gap between full-pool and today's water extent.",
+    surfaceAcres:5426, maxDepthFeet:152, impoundedYear:1913,
+    counties:["Bandera","Medina"], nearestCities:["Lakehills","Mico","Bandera","San Antonio"],
+    waterway:"Medina River, tributary of the San Antonio River", riverBasin:"San Antonio River Basin",
+    authority:"Bexar-Medina-Atascosa Water Control and Improvement District No. 1 (BMA); Bandera County ramp operator",
+    conservationPool:"1,064.20 feet NGVD29 (TWDB monitored conservation level)",
+    fluctuation:"Large drought/rainfall swings; 40-plus feet below conservation is possible",
+    clarity:"Normally clear when water levels and runoff permit",
+    identity:"Medina Lake is the Medina River impoundment reaching Bandera and Medina counties, NOT nearby Medina Diversion Lake below the main dam. Two actual public access entries appear in TPWD's source inventory: the privately operated Red Cove Camp launch and Bandera County's Park Road 37 launch. Both are water-elevation-sensitive. In its October 13, 2026 snapshot, TWDB showed only 28.6% of conservation storage and an elevation 43.64 feet BELOW the full-pool reference; this is historical date-stamped context, never a static claim about today's level. Lake level and ramp operability must be checked separately before towing a boat. TPWD also designates Medina as invaded by zebra mussels, triggering clean/drain/dry obligations.",
+    habitat:[
+      "The reservoir covers coves, steep rocky outcrops, channel bends and feeder-creek beds. Native aquatic vegetation is sparse according to TPWD; old high-water shoreline photographs should not be mistaken for today's shoreline or ramp accessibility.",
+      "Largemouth and smallmouth bass occupy different cover: largemouth near channel breaks, creek arms and points, with smallmouth using harder rock and steep banks. Dropping levels may change where both species can be reached safely.",
+      "Hybrid stripers tend to concentrate near deep open-water points, humps and the dam; white bass schools move with forage. Catfish also use the deeper feeder coves and creek channels."
+    ],
+    fish:[
+      fish("largemouth-bass","Largemouth bass","fair","spring","TPWD rates largemouth fair. Try points and deeper breaks with soft plastics, crankbaits and shad-shaped lures; inspect boat accessibility and legal shoreline permissions first.",["soft-plastics","crankbaits","spinnerbaits"],"primary"),
+      fish("smallmouth-bass","Smallmouth bass","fair","spring","Smallmouth bass are a fair secondary target around rocky outcrops and ledges. Crawfish-colored crankbaits and jigs suit hard-bottom structure.",["crankbaits","soft-plastics"],"secondary"),
+      fish("catfish","Blue and channel catfish","good","summer","TPWD rates catfish good, including blue and channel fish. Its tactics emphasize bait near deep coves and tributary creek beds.",["cut-bait","live-bait"]),
+      fish("hybrid-striped-bass","Hybrid striped bass","good","summer","TPWD currently rates hybrid striped bass good. Fish deep open-water points and humps with trolling spoons or vertical presentations, adjusting to oxygen/temperature and water level.",["trolling","vertical-jigging"]),
+      fish("white-bass","White bass","fair","spring","White bass are present in smaller numbers. Watch for schooling forage and seasonal movements at open-water points, using small spoons or shad-like jigs.",["vertical-jigging","trolling"],"secondary"),
+      fish("crappie","Crappie","poor","spring","TPWD rates crappie poor; do not promise a reliable high-yield crappie trip just because the species exists in the reservoir.",["jigs-and-minnows"],"secondary")
+    ],
+    access:"TPWD documents two named launch facilities, not a universally accessible shoreline. Red Cove Camp in Mico off FM 1283 has a two-lane concrete ramp that TPWD says depends on lake level, with possible gravel-bank launching under some conditions. Park Road 37, operated by Bandera County at Plum Creek Cove, has a concrete ramp and TPWD describes a gravel-bank fallback if below ramp end. Neither fallback is a guarantee that vehicle access, launch depth, bank strength or safe navigation is available today. Both require fees; the private ramp and county park have different hours. Call the operator and check timestamped TWDB elevations before trailering.",
+    accessPoints:[
+      {name:"Red Cove Camp private launch",operator:"Private concession at Red Cove Camp",kind:"marina",launch:"Mico, reached from FM 1283. Two-lane concrete ramp. TPWD says its ramp is usable at sufficient lake level and mentions conditional gravel-bank launching in low water; do not interpret the old threshold as today's open/closed signal.",fee:"Fee required; verify directly with concession",availability:"TPWD lists year-round, but drought and gravel-bank suitability can override that historic directory label. Call (830) 612-2715."},
+      {name:"Bandera County Park Road 37 launch",operator:"Bandera County",kind:"public-ramp",launch:"At the end of Park Road 37 in Plum Creek Cove. Concrete ramp with potential gravel-bank launch when below ramp end; verify gate, water depth and tow-vehicle safety.",fee:"County launch/park fees apply; check current amount and payment method",availability:"TPWD lists launch access 24 hours but park day-use 7 a.m.–8 p.m. Confirm current county policies, lake levels and possible closures before arrival."}
+    ],
+    camping:{
+      name:"Separate campground bookings, not automatic with ramp entry",
+      summary:"Neither of the two TPWD Lake Medina public-access records establishes a public campground at its ramp. Red Cove's name does not itself prove campsite inventory or current rentals. Search individual licensed concession/campground operators and verify legal camping, reservation terms, restroom access and water-level impacts directly; boat-launch day fees do not include overnight rights."
+    },
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/medina/index.asp",
+    visitorSourceUrl:"https://tpwd.texas.gov/fishboat/fish/recreational/lakes/medina/access.phtml",
+    specialRules:true,
+    historyNotes:[
+      "TWDB dates the first construction at Medina Dam to November 1911, completion to 1913 and the deliberate start of impoundment to May 7, 1913. The project began with Medina Valley Irrigation Company water rights filed November 16, 1910, and was subsequently operated by the Bexar-Medina-Atascosa water district.",
+      "The 1,580-foot-long concrete gravity dam reaches about 164 feet high and was a major early twentieth-century Texas engineering undertaking. The separate Medina Diversion Dam, about four miles downstream, directs irrigation water to canals and should not be confused with the main Medina Lake fishing waters.",
+      "TWDB's 1995 survey describes 6,066 acres at its defined 1,064.2-foot conservation pool, whereas TPWD's fishing profile lists 5,426 acres. The agencies rely on differing survey vintages/reference conventions; these numbers are not today's water surface. The modern TWDB gauge reports live storage and surface area, with provisional timestamps.",
+      "The reservoir is chiefly an irrigation and water-supply asset, and severe multiyear droughts can put boat ramps well above the water. Exact photographic evidence matters: the attributed 2010 shore photograph documents the true Medina Lake location but CANNOT demonstrate contemporary levels, marina operations or access."
+    ],
+    visitorFAQs:[
+      {question:"Are Medina Lake boat ramps open right now?",answer:"An online lake directory cannot confirm this. TWDB publishes a recent elevation and TPWD lists two ramps, Red Cove Camp and Park Road 37. Water depth, operator access, bank stability and fee/gate rules are separate; call each operator before towing."},
+      {question:"How low was Medina Lake in October 2026?",answer:"TWDB's October 13, 2026 historical snapshot reported 28.6% conservation storage and 43.64 feet below conservation pool. This is NOT the live level for future visitors; follow the source's current timestamp instead."},
+      {question:"Does Park Road 37 stay open after the concrete ramp dries up?",answer:"TPWD describes a potential gravel-bank fallback below the ramp end and different listed hours for the launch versus the park. That does not certify today's gravel quality, access permission or usable depth; verify with Bandera County."},
+      {question:"Can I launch a large boat at Red Cove Camp during drought?",answer:"TPWD identifies a two-lane concrete ramp with water-level sensitivity, plus a conditional gravel-bank option. Do not equate a fee-paying concession or year-round label with safe present launching. Contact (830) 612-2715 with the boat and trailer details."},
+      {question:"Is Medina Lake the same as Medina Diversion Lake?",answer:"No. Medina Lake is upstream of Medina Dam. Medina Diversion Lake is a smaller downstream structure feeding the irrigation canal system, so its water measurements and access are not interchangeable."},
+      {question:"Which fish offer the best prospects?",answer:"TPWD currently rates catfish and hybrid striped bass good; largemouth, smallmouth and white bass fair; crappie poor. Conditions can change with water levels, recent stocking and fish surveys."},
+      {question:"Are zebra mussels present?",answer:"Yes. TPWD lists Medina Lake as invaded. Clean, drain and dry gear, and follow Texas mandatory water-draining rules to prevent spreading zebra mussels."},
+      {question:"Why do TPWD and TWDB list different acreage figures?",answer:"TPWD's lake facts report 5,426 acres; TWDB's historical 1995 survey reports 6,066 acres at its conservation elevation. They are source-era measurements, not competing real-time surface estimates."},
+      {question:"Can I camp at the public boat launches?",answer:"Do not assume so. TPWD's two launch entries do not affirm a public campsite at either ramp. Obtain a confirmed reservation or explicit permission from an actual camping concession before overnight stays."},
+      {question:"When was Medina Dam built?",answer:"Construction began in November 1911, first deliberate impoundment began May 7, 1913 and the dam was completed in 1913, according to TWDB's reservoir history."}
+    ],
+    travelAlerts:[
+      "LOW-WATER RAMP SAFETY: Only two TPWD-listed launch sites; both have level-dependent concrete ramps and conditional gravel-bank references. A TWDB elevation does not by itself certify that towing, launch or recovery is safe today.",
+      "ZEBRA MUSSELS: TPWD specifically identifies Medina Lake as invaded; clean, drain and dry boats and equipment and follow mandatory drain-water rules.",
+      "The TPWD 5,426-acre facts box and TWDB 6,066-acre 1995 surveyed area reflect differing vintages. Do not publish either number as today's measured surface extent.",
+      "The Commons 2010 historical Medina Lake photograph does not depict current drought conditions or facility opening status. No original field photographs or operator day-of-visit certification have been claimed."
+    ],
+    nearbyLakes:[{slug:"canyon-lake",name:"Canyon Lake"},{slug:"calaveras-lake",name:"Calaveras Lake"},{slug:"choke-canyon-reservoir",name:"Choke Canyon Reservoir"}],
+  },
 ];
 
 const techniqueLabels: Record<TechniqueId, string> = {
