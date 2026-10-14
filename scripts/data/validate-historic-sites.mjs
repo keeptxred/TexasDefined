@@ -25,6 +25,27 @@ const destinationRoute = fs.readFileSync('src/routes/destination.$slug.tsx', 'ut
 const cachePurge = fs.readFileSync('scripts/ci/purge-cloudflare-cache.mjs', 'utf8');
 const failures = [];
 
+// Prevent a verified, time-sensitive visitor fact from regressing to generic
+// "check the operator" prose or losing its controlling Texas Historical Commission source.
+const visitDepth = fs.readFileSync('src/data/historic-site-depth-all.ts', 'utf8');
+const fullCatalog = fs.readFileSync('src/data/historic-site-authority-full-catalog.ts', 'utf8');
+const fultonVisitorRecord = visitDepth.split('  "fulton-mansion": {')[1]?.split('  "goodnight-ranch": {')[0] || '';
+for (const marker of [
+  'last ticket 3:15 p.m.', 'ages 6–17 $4', 'walk-in only',
+  'at least two weeks in advance', 'wheelchair lift',
+  'full flight of stairs', 'notebook of images',
+]) if (!fultonVisitorRecord.includes(marker)) failures.push('Fulton Mansion visitor facts or accessible alternative missing: ' + marker);
+for (const marker of [
+  'fulton-mansion/plan-your-visit-fulton-mansion',
+  'The public self-guided visit',
+]) {
+  // The exact official-tour URL is required; prose may differ between pages.
+  if (marker.includes('plan-your-visit-') && !fullCatalog.includes(marker)) failures.push('Fulton Mansion primary operator tour citation missing');
+}
+if (!fullCatalog.includes('last ticket at 3:15 p.m.')) failures.push('Fulton Mansion opening/last-ticket planning detail missing from authority assessment');
+if (!visitDepth.includes('destination.slug === "fulton-mansion" ? "2026-10-14"')) failures.push('Fulton Mansion verified visitor date missing');
+
+
 const expandedHistoricSlugs = [
   'fort-davis-national-historic-site',
   'san-jacinto-battleground',
