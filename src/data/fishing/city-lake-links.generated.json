@@ -423,6 +423,12 @@
       "name": "Lake Tawakoni"
     }
   ],
+  "groesbeck": [
+    {
+      "slug": "fort-parker-state-park-lake",
+      "name": "Fort Parker State Park Lake"
+    }
+  ],
   "gun-barrel-city": [
     {
       "slug": "cedar-creek-reservoir",
@@ -639,6 +645,12 @@
     {
       "slug": "lake-lavon",
       "name": "Lake Lavon"
+    }
+  ],
+  "mexia": [
+    {
+      "slug": "fort-parker-state-park-lake",
+      "name": "Fort Parker State Park Lake"
     }
   ],
   "midlothian": [
@@ -937,6 +949,10 @@
     {
       "slug": "aquilla-lake",
       "name": "Aquilla Lake"
+    },
+    {
+      "slug": "fort-parker-state-park-lake",
+      "name": "Fort Parker State Park Lake"
     },
     {
       "slug": "lake-waco",
