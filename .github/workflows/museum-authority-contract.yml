@@ -12,6 +12,8 @@ on:
       - 'scripts/data/audit-owner-museum-inventory.mjs'
       - 'scripts/data/museum-owner-inventory-parser.mjs'
       - 'scripts/data/test-museum-owner-inventory-parser.mjs'
+      - 'scripts/data/museum-owner-inventory-parser.mjs'
+      - 'scripts/data/test-museum-owner-inventory-parser.mjs'
       - 'docs/museums/**'
       - 'docs/museum-authority-standard.md'
       - '.github/workflows/museum-authority-contract.yml'
@@ -25,6 +27,8 @@ on:
       - 'src/routes/$kind.$slug.lazy.tsx'
       - 'scripts/data/validate-museum-authority.mjs'
       - 'scripts/data/audit-owner-museum-inventory.mjs'
+      - 'scripts/data/museum-owner-inventory-parser.mjs'
+      - 'scripts/data/test-museum-owner-inventory-parser.mjs'
       - 'scripts/data/museum-owner-inventory-parser.mjs'
       - 'scripts/data/test-museum-owner-inventory-parser.mjs'
       - 'docs/museums/**'
@@ -52,6 +56,8 @@ jobs:
           MUSEUM_AUTHORITY_BASE_REF: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || '' }}
         run: node scripts/data/validate-museum-authority.mjs
       - name: Test owner museum identity boundary parsing
+        run: node scripts/data/test-museum-owner-inventory-parser.mjs
+      - name: Validate all 668 provisional owner-name boundaries
         run: node scripts/data/test-museum-owner-inventory-parser.mjs
       - name: Reconcile owner-supplied statewide museum inventory
         run: |
