@@ -61,6 +61,9 @@ assert(!heritageDescriptions.some((description) => description.includes("adding 
 assert(destination.includes("sold the property in 2022"), "Steves access correction absent");
 assert(article.includes("SOLD") && article.includes("1897") && article.includes("1896"), "Known corrections missing in main guide");
 assert(!/license to confirm|verify attribution\/license|check current Commons license/.test(destination), "Unverified media license note in destination images");
+assert(!destination.includes("Most useful when combined with"), "Templated visitor-assessment text remains");
+assert(!destination.includes("History and architecture interest, subject to heat, active use and accessibility"), "Generic family-visit notes remain");
+
 const objectCount = (destination.match(/"slug": "/g) ?? []).length;
 assert.equal(objectCount, newSlugs.length, "Unexpected destination count or duplicates");
 assert.equal((destination.match(/Historic-site photo: source, original creator and usage rights/g) ?? []).length, newSlugs.length,
