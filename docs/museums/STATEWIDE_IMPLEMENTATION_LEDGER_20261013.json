@@ -157,5 +157,67 @@
       "sanAugustineJail": "Direct retrieval tool unable to establish current production HTTP status"
     },
     "currentImplementation": "Feature branch change: preserve all inventory raw name occurrences; enrich Explore catalog museum photos after curation; add parser and media regression guards; requires merged CI and production verification"
+  },
+  "researchedOutOfStateExclusions20261014": {
+    "reviewedAt": "2026-10-14",
+    "scope": "Independently verified name records appearing in owner's concatenated historical source. Annotation fragments and proposed Texas substitutions are not additional proof of new Texas museum identity. Do not publish these out-of-state originals as Texas destinations.",
+    "records": [
+      {
+        "rawMatch": "Mabee-Gerrer Museum",
+        "officialName": "Mabee-Gerrer Museum of Art",
+        "city": "Shawnee",
+        "state": "Oklahoma",
+        "organization": "Mabee-Gerrer Museum of Art",
+        "officialUrl": "https://www.mgmoa.org/visit",
+        "disposition": "excluded-out-of-state"
+      },
+      {
+        "rawMatch": "Cade Museum of Science and Invention",
+        "officialName": "Cade Museum for Creativity & Invention",
+        "city": "Gainesville",
+        "state": "Florida",
+        "organization": "Cade Museum",
+        "officialUrl": "https://cademuseum.org/about/contact-us/",
+        "disposition": "excluded-out-of-state"
+      },
+      {
+        "rawMatch": "Mid-America Museum of Aviation and Transportation",
+        "officialName": "Mid America Museum of Aviation & Transportation",
+        "city": "Sioux City",
+        "state": "Iowa",
+        "organization": "Mid America Museum of Aviation & Transportation",
+        "officialUrl": "https://www.midamericaairmuseum.org/",
+        "disposition": "excluded-out-of-state"
+      },
+      {
+        "rawMatch": "Museum of the Red River",
+        "officialName": "Museum of the Red River",
+        "city": "Idabel",
+        "state": "Oklahoma",
+        "organization": "Idabel Museum Society, Inc.",
+        "officialUrl": "https://museumoftheredriver.org/visit/",
+        "disposition": "excluded-out-of-state"
+      },
+      {
+        "rawMatch": "Museum of the Western Prairie",
+        "officialName": "Museum of the Western Prairie",
+        "city": "Altus",
+        "state": "Oklahoma",
+        "organization": "Oklahoma Historical Society",
+        "officialUrl": "https://www.okhistory.org/sites/visit-mwp",
+        "disposition": "excluded-out-of-state"
+      },
+      {
+        "rawMatch": "Art Museum of the Americas",
+        "officialName": "Art Museum of the Americas",
+        "city": "Washington",
+        "state": "District of Columbia",
+        "organization": "Organization of American States",
+        "officialUrl": "https://museum.oas.org/Visit/Contact-Us",
+        "disposition": "excluded-out-of-state"
+      }
+    ],
+    "count": 6,
+    "note": "These six operator-grounded original names are excluded from Texas institution candidate totals, but not all have clean standalone parsed segments; automated parser boundaries and owner substitution annotations require further reconciliation. No museum page created."
   }
 }
