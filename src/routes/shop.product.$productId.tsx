@@ -35,7 +35,7 @@ export const Route = createFileRoute("/shop/product/$productId")({
         "@context": "https://schema.org",
         "@type": "Product",
         name: product.name,
-        image: product.image.src,
+        image: Array.from(new Set([product.image.src, ...enabled.flatMap((variant) => [variant.image, ...(variant.images ?? [])])].filter((image): image is string => Boolean(image)))),
         url: canonicalUrl,
         offers: (enabled.length ? enabled : [null]).map((variant) => ({
           "@type": "Offer",
