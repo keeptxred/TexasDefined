@@ -58,7 +58,20 @@ if (!panel.includes('href="/dallas-black-history"'))
   failures.push("Each place must link to the hub.");
 if (!hub.includes('createFileRoute("/dallas-black-history")') || !hub.includes("landmarks.map") || !hubContent.includes("dallasBlackHistoryResearch.find"))
   failures.push("Public authority hub and ItemList must exist.");
-if (!places.includes('const cemeteryPhoto = commons(') || !places.includes('2016 exhibit photograph", true)') || !places.includes('2016 marker photograph", true)')) failures.push('Dallas heritage Commons originals must avoid failing 1600px thumbnail redirects for cemetery and Tenth Street images.');
+// Both historic photographs must be the exact item-level licensed Commons
+// originals. The old thumbnail-redirect string check was tied to a source
+// initializer shape, rather than verifying these stronger direct URLs.
+const requiredDallasOriginals = [
+  "const cemeteryPhoto: ImageRef = {",
+  "2016 exhibit photograph\", true)",
+  "https://upload.wikimedia.org/wikipedia/commons/9/91/African_American_Museum_August_2016_10_%28Facing_the_Rising_Sun_Freedman%27s_Cemetery_exhibit%29.jpg",
+  "const tenthPhoto: ImageRef = {",
+  "2016 marker photograph\", true)",
+  "https://upload.wikimedia.org/wikipedia/commons/4/40/Tenth_Street_Historic_District_Freedmen%27s_Town_TxHM_%2829573143580%29.jpg",
+];
+if (requiredDallasOriginals.some((needle) => !places.includes(needle))) {
+  failures.push('Dallas heritage images must retain the source-verified Commons originals with accurate credit and dimensions; no broken 1600px redirect or substitute photo.');
+}
 if (!places.includes("Wikimedia Commons") || !places.includes("CC BY-SA"))
   failures.push("Licensed heroes and credits must be retained.");
 for (const phrase of ["1861", "1869", "1,157", "1924", "1927", "182", "185", "National Register", "accessible"]) {

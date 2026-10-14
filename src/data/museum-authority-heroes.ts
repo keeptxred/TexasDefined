@@ -16,10 +16,13 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons · File:Frisco June 2019 28 (Museum of the American Railroad).jpg · 2019 on-site view",
   },
   "the-history-center-diboll": {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Southern_Pine_Lumber_Company_sawmills_near_Diboll%2C_Texas_in_1907.jpg?width=660",
-    alt: "Archival 1907 photograph of Southern Pine Lumber Company sawmills and timber railroad cars in Diboll, Texas, from The History Center collection; not the present-day museum building",
-    width: 660, height: 402,
-    credit: "J. D. Cress · 1907 · US public domain · The History Center / UNT Portal / Wikimedia Commons · archival collection photo, not museum exterior",
+    // The History Center collection item (1994:004) depicts the historic
+    // Diboll–Lufkin lumber railroad. Genuine 1500px archive original, not an
+    // upscaled version of the previously used 660px sawmill scan.
+    src: "https://upload.wikimedia.org/wikipedia/commons/3/33/Texas_South-Eastern_Railroad_Engine_4.jpg",
+    alt: "Archival 1907 Texas South-Eastern Railroad steam locomotive hauling pine logs; a photograph from The History Center's Diboll lumber-industry collection, not the present-day museum building",
+    width: 1500, height: 1137,
+    credit: "J. D. Cress · American Lumberman, 1907 · The History Center, Diboll / UNT Portal, collection 1994:004 · US public domain · Wikimedia Commons · File:Texas South-Eastern Railroad Engine 4.jpg · archival railroad photo, not museum exterior",
   },
   "the-agricultural-museum-arts-center-boerne": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Boerne_ag_museum_2013.jpg?width=1600",
