@@ -18,6 +18,13 @@ const batch52Curation = read('src/data/destination-curation-batch52.ts');
 const coreFallbacks = read('src/data/destination-curation-batch53.ts');
 const failures = [];
 
+// A historic closed-site duplicate must never create an independently indexable
+// copy that competes with the published Battleship Texas museum history.
+if (!route.includes('"battleship-texas-state-historic-site": "battleship-texas"')) {
+  failures.push("Legacy Battleship Texas destination must 301 to the canonical historical visitor guide.");
+}
+
+
 for (const marker of [
   'const audit = auditDestination(destination)',
   'const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference)',
