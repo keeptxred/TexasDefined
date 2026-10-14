@@ -36,10 +36,10 @@ def rate(s):
 def show(label,items):print(label,len(items),json.dumps(items[:40]),flush=True)
 name,rr=sheet(SOURCES['history'])
 head=rr[0]
-mo=next((k for k,v in head.items() if '2025-2026' in v and 'm&o' in v.lower()),None)
-debt=next((k for k,v in head.items() if '2025-2026' in v and 'i&s' in v.lower()),None)
+mo=next((k for k,v in head.items() if '2024-2025' in v and 'm&o' in v.lower()),None)
+debt=next((k for k,v in head.items() if '2024-2025' in v and 'i&s' in v.lower()),None)
 print('HISTORY',name,len(rr)-1,'COLUMNS',mo,debt,'LAST_HEADERS',list(head.items())[-6:],flush=True)
-if not mo or not debt:raise RuntimeError('Missing TEA 2025 adopted rate columns')
+if not mo or not debt:raise RuntimeError('Missing TEA 2024 adopted rate history columns')
 hist={}
 for x in rr[1:]:
  cdn=x.get('A','').zfill(6)
@@ -52,10 +52,10 @@ unmatched=[];differences=[]
 for x in production:
  h=h_names.get(norm(x['name']))
  if not h:unmatched.append(x['name']);continue
- for label,a,b in [('M&O',x['maintenanceOperationsRate'],h['mo']),('I&S',x['debtServiceRate'],h['debt'])]:
-  if a is None or b is None or abs(float(a)-b)>0.00015:differences.append({'cdn':h['cdn'],'name':x['name'],'field':label,'production':a,'TEA':b})
+ for label,a,b in [('2024 total',x['priorRate'],None if h['mo'] is None or h['debt'] is None else h['mo']+h['debt'])]:
+  if a is None or b is None or abs(float(a)-b)>0.00015:differences.append({'cdn':h['cdn'],'name':x['name'],'field':label,'production_2024':a,'TEA_2024':b})
 print('PRODUCTION_YEAR',api.get('year'),'PRODUCTION_ROWS',len(production),'HISTORY_NAME_MATCHES',len(production)-len(unmatched),flush=True)
-show('UNMATCHED_NAMES',unmatched);show('HISTORY_DIFFERENCES',differences)
+show('UNMATCHED_NAMES',unmatched);show('HISTORY_2024_DIFFERENCES',differences)
 sof_name,sr=sheet(SOURCES['sof'],'inputs_lpe')
 sh=sr[0];smo=next((k for k,v in sh.items() if v.strip().lower()=='py1_mo_rate_adopt'),None)
 si=next((k for k,v in sh.items() if v.strip().lower()=='i_s_rate'),None)
