@@ -3,24 +3,24 @@
   "date": "2026-10-13",
   "baseline": "TPWD more than 150 lake profiles",
   "summary": {
-    "total": 62,
+    "total": 63,
     "standardSectionsPerGuide": 9,
-    "statewide": 47,
-    "namedAccess": 62,
+    "statewide": 48,
+    "namedAccess": 63,
     "unknownAccess": 0,
-    "namedCamping": 40,
+    "namedCamping": 41,
     "unknownCamping": 22,
-    "history": 14,
+    "history": 15,
     "noHistory": 48,
-    "photoMappings": 62,
+    "photoMappings": 63,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 62,
+    "explicitNamedAccess": 63,
     "lackingNamedAccess": 0,
-    "explicitNamedCamping": 40,
+    "explicitNamedCamping": 41,
     "lackingNamedCamping": 22,
-    "namedStatewideFacilities": 179,
-    "statewideTemplateGuidesWithNamedAccess": 47
+    "namedStatewideFacilities": 190,
+    "statewideTemplateGuidesWithNamedAccess": 48
   },
   "entries": [
     {
@@ -999,6 +999,22 @@
       "accessFacilityCount": 4,
       "accessReviewedAt": "2026-10-13",
       "namedCamping": false
+    },
+    {
+      "slug": "lake-nasworthy",
+      "name": "Lake Nasworthy",
+      "kind": "Statewide",
+      "ramp": "Named",
+      "camping": "Only designated Middle Concho and Spring Creek park campsites, permit required",
+      "history": "TWDB lake dam/reservoir 1929-1930 chronology",
+      "fish": 5,
+      "photo": "Mapped",
+      "water": "TWDB current measured level + gauge datum",
+      "risk": "2026 Knickerbocker Park construction closure, sequential ramp replacements, and city camping gate rules must remain current; first-party field shots and day-of-use operator check missing",
+      "namedAccess": true,
+      "accessFacilityCount": 11,
+      "accessReviewedAt": "2026-10-13",
+      "namedCamping": true
     }
   ],
   "legacy": [
