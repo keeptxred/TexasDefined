@@ -3,24 +3,24 @@
   "date": "2026-10-13",
   "baseline": "TPWD more than 150 lake profiles",
   "summary": {
-    "total": 65,
+    "total": 67,
     "standardSectionsPerGuide": 9,
-    "statewide": 50,
-    "namedAccess": 65,
+    "statewide": 52,
+    "namedAccess": 67,
     "unknownAccess": 0,
     "namedCamping": 43,
-    "unknownCamping": 22,
-    "history": 17,
+    "unknownCamping": 24,
+    "history": 19,
     "noHistory": 48,
-    "photoMappings": 65,
+    "photoMappings": 67,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 65,
+    "explicitNamedAccess": 67,
     "lackingNamedAccess": 0,
     "explicitNamedCamping": 43,
-    "lackingNamedCamping": 22,
-    "namedStatewideFacilities": 201,
-    "statewideTemplateGuidesWithNamedAccess": 50
+    "lackingNamedCamping": 24,
+    "namedStatewideFacilities": 206,
+    "statewideTemplateGuidesWithNamedAccess": 52
   },
   "entries": [
     {
@@ -1047,6 +1047,38 @@
       "accessFacilityCount": 8,
       "accessReviewedAt": "2026-10-13",
       "namedCamping": true
+    },
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake",
+      "kind": "Statewide",
+      "ramp": "Named",
+      "camping": "No onsite camping inferred from the two TPWD ramp listings",
+      "history": "TWDB 1911-1913 Medina Dam construction and impoundment",
+      "fish": 6,
+      "photo": "Mapped",
+      "water": "TWDB live Medina Lake elevation and dated reservoir storage",
+      "risk": "Severe drought / low-water launches, Red Cove and Park Road 37 gravel-bank fallback conditional, zebra mussel restrictions, historic source area conflict, field photos and operator safety certification outstanding",
+      "namedAccess": true,
+      "accessFacilityCount": 2,
+      "accessReviewedAt": "2026-10-13",
+      "namedCamping": false
+    },
+    {
+      "slug": "lake-weatherford",
+      "name": "Lake Weatherford",
+      "kind": "Statewide",
+      "ramp": "Named improved marina launch plus unnamed upper-lake small-craft ramps (separate boardwalk trailheads)",
+      "camping": "No camping: TPWD expressly prohibits overnight camping anywhere on lake",
+      "history": "TWDB 1956–57 dam construction, 1993 spillway work, 2008 survey",
+      "fish": 5,
+      "photo": "Mapped",
+      "water": "TWDB live numerical reservoir level",
+      "risk": "City actual marina operator/fees and lower-level launch depth unverified; first-party field imagery and production QA remain outstanding",
+      "namedAccess": true,
+      "accessFacilityCount": 3,
+      "accessReviewedAt": "2026-10-13",
+      "namedCamping": false
     }
   ],
   "legacy": [
