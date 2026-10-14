@@ -129,6 +129,9 @@ async function verify() {
     const response = await responseFor(path);
     assert(response.status === 200, 'Corridor link ' + path + ' returned ' + response.status);
     const body = await response.text();
+    const routeHead = body.slice(0, body.indexOf('</head>') + 7);
+    assert(routeHead.includes(`<link rel="canonical" href="${origin}${path}"`), 'Missing exact live self-canonical for corridor target ' + path);
+    assert(routeHead.includes('<meta name="robots" content="index, follow'), 'Unexpected noindex on published corridor target ' + path);
     assert(body.includes(`href="${article}"`), 'Missing live reciprocal itinerary anchor on ' + path);
     checkVisiblePhotoRights(path, body);
   }
