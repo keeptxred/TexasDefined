@@ -11,7 +11,9 @@ FROM (
     ('https://www.fs.usda.gov/r08/texas',
      'USFS official National Forests and Grasslands in Texas site'),
     ('https://www.recreation.gov/camping/campgrounds/10158892',
-     'Federal Recreation.gov Townsend site description: 153,179-acre conflicting reference')
+     'Federal Recreation.gov Townsend site description: 153,179-acre conflicting reference'),
+    ('https://www.recreation.gov/camping/campgrounds/233239',
+     'Federal Recreation.gov Boykin Springs Pavilion map reference and FR 313 directions')
 ) AS v(source_url,label)
 WHERE EXISTS (
   SELECT 1 FROM public.td_authority_verification_registry
