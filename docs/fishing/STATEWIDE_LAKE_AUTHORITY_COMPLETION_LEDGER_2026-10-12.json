@@ -1469,8 +1469,8 @@
       "guideSlug": "fort-parker-state-park-lake",
       "guideStatus": "complete-existing-guide",
       "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fort_parker/index.phtml",
-      "namedFacilities": "TPWD official lake boat ramp, separate Navasota River ramp and bank-fishing area; low-water navigation risk independently warned",
-      "campgrounds": "TPWD site inventory: 24 water/electric campsites, one electric tent-only, ten water-only, plus shelter/cabin options; verify live bookings",
+      "namedFacilities": "One actual Fort Parker Lake state-park ramp, separate Navasota River ramp and shore fishing. TPWD Sept 25, 2026: motorboat launch NOT recommended due to low water; both fishing piers CLOSED since Jan 7, 2025.",
+      "campgrounds": "TPWD 24 water/electric + 1 electric tent-only + 10 water-only tent sites plus shelters/cabins, subject to Oct 2026–May 2027 road construction and July 2026 burn ban",
       "primaryHistory": "Official TPWD park history records CCC-era dam finished 1939, with fisheries profile 'impounded 1935' unresolved disagreement",
       "localPhoto": "Original 2025 Fort Parker Lake photo by Larry D. Moore, Commons File ID 175793883, 3000x2000 CC BY 4.0 exact lake image verified",
       "originalFieldPhoto": "not-collected",
@@ -1485,7 +1485,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "TPWD angler facts 725 acres / 1935 impoundment versus park 750 acres / CCC dam 1939, and 2022 survey warns upper two-thirds generally unnavigable; no current live gauge. Operator same-day restrictions and first-party field photos outstanding."
+      "reviewNotes": "HIGH-VOLATILITY OPERATOR NOTICES: TPWD park alert https://tpwd.texas.gov/state-parks/fort-parker/alert cites motorized boat ramp not recommended as of Sept 25 2026, both fishing piers closed since Jan 7 2025, July 28 2026 ash-producing fire ban and Aug 2026 park road/renovation closures through May 2027. Registered daily source monitoring on both park and lake guides. No first-party field media or current operator phone verification; remain not certified for production until deployment and live QA."
     },
     {
       "tpwdEntry": "Fort Phantom Hill",
