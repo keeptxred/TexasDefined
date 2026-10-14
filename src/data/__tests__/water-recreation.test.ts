@@ -48,6 +48,7 @@ describe("Swimming Holes & River Tubing qualification", () => {
 
   it("excludes destinations with a current all-site swimming closure", () => {
     const item = destination({
+      slug: "blanco-state-park",
       summary: "A spring-fed swimming hole.",
       entryNote: "Swimming is cancelled until further notice.",
     });
