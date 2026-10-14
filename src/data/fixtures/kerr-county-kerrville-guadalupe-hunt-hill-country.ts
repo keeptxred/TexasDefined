@@ -39,7 +39,7 @@ export const kerrCountyKerrvilleGuadalupeHuntHillCountryArticle: Article = {
     { href: "/county/kendall", label: "Explore Kendall County", description: "Follow the Guadalupe southeast toward Comfort, Boerne and the southern Hill Country." },
     { href: "/county/gillespie", label: "Explore Gillespie County", description: "Head northeast toward Fredericksburg and the German-Texan heart of the Hill Country." },
     { href: "/county/bandera", label: "Explore Bandera County", description: "Travel south toward Bandera, the Medina River and cowboy country." },
-    { href: "/destination/texas-highway-16-hill-country", label: "Drive Texas Highway 16", description: "Use one of the Hill Country's signature north-south routes through Kerrville and neighboring counties." },
+    { href: "/explore/region/hill-country", label: "Explore Hill Country routes", description: "Plan regional drives around Kerrville and neighboring Hill Country towns using the canonical regional guide." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how distance, settlement and courthouse access shaped the Texas county map." },
   ],
   relatedCollections: [],
