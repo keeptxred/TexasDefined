@@ -206,6 +206,7 @@ export const fishingLakeImages: Record<string, FishingVisualAsset> = {
   "medina-lake": commonsLake("medina-lake", "Medina lake 2010.jpg", "Actual Medina Lake photographed July 2010 in Medina County, Texas; historical view not a current shoreline or boat-launch status report", 1652, 964, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by", "Wikimedia Commons", "2026-10-13"),
   "fort-parker-state-park-lake": commonsLake("fort-parker-state-park-lake", "Lake Fort Parker State Park Texas 2025.jpg", "Actual Fort Parker Lake inside Fort Parker State Park in Limestone County, Texas at dawn, 27 September 2025; not a current lake-level or ramp-status image", 3000, 2000, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by", "Wikimedia Commons", "2026-10-13"),
   "lake-weatherford": commonsLake("lake-weatherford", "Section of Lake Weatherford boardwalk.jpg", "Actual May 2024 photograph of the floating boardwalk at Lake Weatherford, Parker County, Texas; not a depiction of the marina ramp or current water-level conditions", 4624, 3468, "Forssa01", "CC0 1.0", CC0_1, "public-domain", "Wikimedia Commons", "2026-10-13"),
+  "lake-abilene": commonsLake("lake-abilene", "Abilene State Park 1.jpg", "Actual Lake Abilene shoreline in Taylor County Texas, photographed June 8 2011 from the state park; historical lake view does not depict current fishing permission, closed boat ramps or current water level", 4000, 3000, "mr_t_77", "CC BY-SA 2.0", CC_BY_SA_2, "cc-by-sa", "Wikimedia Commons / Flickr", "2026-10-14"),
 };
 
 export function getFishingFishImage(slugOrId: string) {

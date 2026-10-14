@@ -943,7 +943,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Lake Colorado City State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Southwest shore, five miles south of I-20 on FM 2836; paved multi-lane ramp and parking.", fee: "Park entry/launch fee", availability: "Ramps listed year-round; TPWD notes no camping December–February. Check current park operations and lake level." },
       { name: "Cooper's Cove", operator: "Private operator", kind: "resort", launch: "East side of Lake Colorado City off SH 163; paved boat ramp and camping in TPWD inventory.", fee: "TPWD lists fees", availability: "Year-round ramp in TPWD listing; verify current operator (325) 728-5885." },
     ],
-    nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"lake-nasworthy",name:"Lake Nasworthy"}],
+    nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"lake-nasworthy",name:"Lake Nasworthy"},{slug:"lake-abilene",name:"Lake Abilene"}],
     camping: {name:"Lake Colorado City State Park",summary:"The state park provides camping and reservoir access, but anglers should check golden-alga notices, water level and current fish reports before building a trip around fishing."},
   },
 
@@ -991,7 +991,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/sweetwater/index.asp",
     visitorSourceUrl: "https://www.sweetwatertx.gov/159/Visit-Sweetwater",
     liveDataNote: "Important: TPWD currently warns of a golden-alga bloom and describes poor angling across major sport-fish groups. TWDB shows this reservoir substantially below full pool. Check current TPWD advisories, water elevation and city access status before fishing, launching or swimming; conditions can change.",
-    nearbyLakes: [{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"lake-stamford",name:"Lake Stamford"}],
+    nearbyLakes: [{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"lake-stamford",name:"Lake Stamford"},{slug:"lake-abilene",name:"Lake Abilene"}],
     camping: {name:"Lake Sweetwater Recreation Area",summary:"The City of Sweetwater lists overnight camping and trailer facilities, picnic/pavilion space, a beach, playground, amphitheater and proximity to its municipal golf course. The city's reservation information is the authoritative source for current RV/campground booking, fees and open facilities."},
   },
   {
@@ -1805,6 +1805,70 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       "The 2024 actual-location Commons photo documents the lake's boardwalk, not the current marina launch or real-time reservoir water level."
     ],
     nearbyLakes:[{slug:"lake-mineral-wells",name:"Lake Mineral Wells"},{slug:"lake-worth",name:"Lake Worth"},{slug:"benbrook-lake",name:"Benbrook Lake"}],
+  },
+  {
+    slug: "lake-abilene", name: "Lake Abilene", tpwdSlug: "abilene", waterDataSlug: "abilene",
+    region: "panhandle-plains", verifiedAt: "2026-10-14", accessReviewedAt: "2026-10-14",
+    summary: "A 1921 City of Abilene reservoir reached through the separate Lake Abilene unit of Abilene State Park; the operator's active drought alert prohibits lake fishing and swimming and closes both boat ramps. Historical fishery, precise ramp locations, 1921 dam chronology, park camping distinctions and an actual-lake licensed image are documented without pretending the lake is open.",
+    surfaceAcres: 595, maxDepthFeet: 25, impoundedYear: 1921, counties: ["Taylor"],
+    nearestCities: ["Tuscola", "Buffalo Gap", "Abilene"],
+    waterway: "Elm Creek, a tributary of the Clear Fork Brazos River", riverBasin: "Brazos River Basin",
+    authority: "City of Abilene (reservoir owner); Texas Parks and Wildlife Department (park access operator)",
+    conservationPool: "2,012.3 ft msl, reference datum used in the TWDB reservoir history",
+    fluctuation: "Long drought drawdowns; TPWD says lake ramps become largely unusable about seven feet below spillway level", clarity: "Very muddy",
+    identity: "Lake Abilene is the City of Abilene-owned Elm Creek reservoir in Taylor County, NOT Kirby Lake in Abilene or the smaller Buffalo Wallow Pond on Abilene State Park's main campus. The public lake unit and its Dam and Creek ramps lie across FM 89 from the main state-park campground. TPWD's CURRENT PARK ALERT, originally dated October 20, 2025 and still posted when reviewed in October 2026, expressly says BOTH LAKE RAMPS ARE CLOSED, no kayak rentals, and NO FISHING OR SWIMMING at Lake Abilene due to low water. Historic fishing guides and year-round ramp inventory listings do not supersede this operator notice. The historic park swimming pool is a separate facility and also has a renovation closure. Review the latest park alert or call (325) 572-3204 before travel; treat all fishery tips here as historical descriptions while fishing is prohibited.",
+    habitat: [
+      "When at conservation pool, the historically muddy reservoir had black willow, buttonbush, rocky banks and flooded dead terrestrial vegetation. TPWD explicitly lists no established aquatic vegetation; this is not a grassy high-clarity bass lake.",
+      "Following major water loss and a refill in 2016, TPWD restocked gamefish and installed Fishiding artificial habitat structures. Cover remaining during low-water periods is primarily brush piles and rock; former shoreline features may be exposed.",
+      "The historical location of submerged cover does not confer a right to fish during a TPWD drought closure. Use TPWD's fish habitat viewer only as an archival reference while the lake's fishing prohibition remains posted."
+    ],
+    fish: [
+      fish("largemouth-bass", "Largemouth bass", "poor", "spring", "TPWD currently rates bass POOR. Historically anglers flipped lures around flooded willow, buttonbush and brush piles during normal lake elevations; there is no legal lake fishing while the operator's low-water closure remains in force.", ["soft-plastics", "spinnerbaits"], "secondary"),
+      fish("channel-catfish", "Channel catfish", "poor", "summer", "TPWD currently rates catfish POOR. Historically bank anglers used live or cut bait where accessible. The official state-park alert currently prohibits all Lake Abilene fishing; these are historical context rather than a recommendation to fish now.", ["cut-bait", "live-bait"], "secondary"),
+      fish("crappie", "White crappie", "poor", "spring", "TPWD currently rates crappie POOR. When open and at higher levels, crappie traditionally related to flooded terrestrial brush and artificial cover. The state park's current lake-fishing prohibition overrides all those tactics.", ["jigs-and-minnows", "vertical-jigging"], "secondary"),
+      fish("sunfish", "Sunfish", "poor", "summer", "TPWD lists sunfish as POOR. Historically small fish inhabited shallow rocky and brushy structure; there is no lake angling permitted under the posted operator closure.", ["jigs-and-minnows"], "secondary")
+    ],
+    access: "TPWD's access inventory identifies exactly TWO distinct, single-lane ramps, Dam and Creek, both on the Lake Abilene unit west of FM 89. From Abilene, take FM 89 south and turn west on the paved lake road about one mile southwest of Abilene State Park's main entrance; pay at state-park headquarters and obtain a code for the lake gate when public access is permitted. Each ramp has an approximately 10-vehicle lot and is normally closed sunset-to-sunrise. At low water, TPWD says four-wheel-drive vehicles are required for launching and the ramps become unusable about seven feet below spillway; HOWEVER, do not attempt either site now: TPWD's October 2025 park alert, still posted during this 2026 review, CLOSES BOTH RAMPS and prohibits fishing/swimming. Wildly different main-campus campground and Buffalo Wallow Pond rules should not be merged into lake-ramp rules. Call the park (325) 572-3204 and confirm the latest official alert.",
+    accessPoints: [
+      {name:"Lake Abilene Dam ramp — closed under drought alert",operator:"Texas Parks and Wildlife Department, Abilene State Park",kind:"public-ramp",launch:"FM 89 south from Abilene to the paved lake-unit road approximately one mile southwest of the state-park headquarters entrance; follow lake signs to the Dam ramp. One concrete lane with about 10 parking spaces; separate coded gate from the park office.",fee:"Park admission required before gate code; verify current admission rather than assuming historic posted rate",availability:"CLOSED under TPWD's posted October 20, 2025 low-water alert. No fishing or swimming at lake. Do not use the older TPWD 'open all year' statement."},
+      {name:"Lake Abilene Creek ramp — closed under drought alert",operator:"Texas Parks and Wildlife Department, Abilene State Park",kind:"public-ramp",launch:"Same separate Lake Abilene unit entrance from FM 89, then the signed Creek ramp. One concrete lane with roughly 10 parking spaces; not the Buffalo Wallow Pond or main camping campus.",fee:"Park admission and gate code normally required; operator-day fee and access must be reconfirmed",availability:"CLOSED under current posted low-water lake alert. Historically closed sunset-to-sunrise; the drought closure overrides that normal schedule."}
+    ],
+    campingUrl: "https://tpwd.texas.gov/state-parks/abilene/fees-facilities/campsites",
+    camping: {
+      name:"Abilene State Park main-campus designated campgrounds across FM 89",
+      summary:"TPWD's Lake Abilene access matrix lists camping across FM 89 on the main Abilene State Park campus, NOT as a campsite at the Dam or Creek ramps. The main campus offers separately bookable tent, RV, shelter and yurt sites; check reservation availability, park burn bans and the separate pool-renovation closure. Staying overnight at the main campground does not give permission to fish, swim or launch at the closed lake. The lake-unit land can also close for managed hunts while main-campus reservations remain usable."
+    },
+    specialRules: true,
+    historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/abilene/index.asp",
+    visitorSourceUrl: "https://tpwd.texas.gov/state-parks/abilene/alert/",
+    historyNotes: [
+      "TWDB locates Abilene Dam on Elm Creek about six miles northwest of Tuscola in Taylor County. The City of Abilene owns this historically municipal emergency-water-supply and recreational reservoir, while TPWD operates visitor access through its adjacent state park.",
+      "A state water permit on September 7, 1918 authorized construction; work began in 1919. TWDB's detailed dam plate gives completion in May 1921 and deliberate impoundment beginning August 1, 1921, while its overview summarizes completion in 1921. This chronology is different from the much younger Kirby Lake on Cedar Creek.",
+      "After its 1921 construction, Lake Abilene Dam underwent substantial repairs in 1941 and 1957. TWDB's historical survey records a 5,040-foot earthfill embankment, a maximum height of about 64 feet and a historic conservation-pool reference elevation of 2,012.3 feet above mean sea level.",
+      "TPWD lists 595 surface acres at the old reference pool. TWDB's storage figures are tied to the conservation-stage curve, not a claim that 595 acres of water are present today. Drought can strand launch ramps, restrict fish survival and change every aspect of a visitor trip.",
+      "The 2011 Wikimedia Commons photograph of the actual Lake Abilene shoreline predates the present drought closure. Its creator released it as CC BY-SA 2.0. It is documentary evidence of the named lake's setting, not a live water-level, fishing-permission or boat-ramp-status image."
+    ],
+    visitorFAQs: [
+      {question:"Is Lake Abilene open for fishing right now?",answer:"NO under the park's currently posted low-water alert (dated October 20, 2025): TPWD prohibits fishing and swimming at Lake Abilene and has closed both ramps. Check https://tpwd.texas.gov/state-parks/abilene/alert/ or call (325) 572-3204 for any newer operator decision before travel."},
+      {question:"Can I launch a boat at the Dam or Creek ramp?",answer:"Both are closed under the currently posted state-park drought alert. TPWD's older access directory describes two single-lane ramps as open year-round and normally closed overnight, but that is superseded by the dated park closure notice."},
+      {question:"Does Abilene State Park still offer camping?",answer:"Yes, the main state-park campus across FM 89 offers reservable campsites and other lodging separately from the Lake Abilene unit. Campground access does NOT mean lake swimming, fishing, paddling rentals or ramps are open."},
+      {question:"Is Buffalo Wallow Pond the same as Lake Abilene?",answer:"No. Buffalo Wallow is a smaller spring-fed pond on Abilene State Park's main campus. The Lake Abilene drought prohibition concerns the separate City of Abilene reservoir reached by the Lake Abilene unit entrance. Read any independent pond notices before fishing there."},
+      {question:"What is the difference between Lake Abilene and Kirby Lake?",answer:"Lake Abilene is the 1921 Elm Creek reservoir near Tuscola. Kirby Lake is another City of Abilene water body on Cedar Creek much nearer the city, with a different dam, access rules and fishing conditions."},
+      {question:"Which fish are found in Lake Abilene?",answer:"TPWD names largemouth bass, channel catfish and white crappie, and also rates sunfish. Its displayed present fishing-quality ratings are POOR for bass, catfish, crappie and sunfish. Even when fish exist, the state-park no-fishing closure remains binding."},
+      {question:"Why are the ramps unsuitable even without a closure?",answer:"TPWD warns that the two launches become largely unusable around seven feet below spillway level and can need four-wheel-drive launching at low levels. The currently posted blanket closure is stricter: do not launch or attempt shoreline fishing."},
+      {question:"Do lake and campground closures coincide?",answer:"Not necessarily. TPWD sometimes closes the entire Lake Abilene unit for managed wildlife hunts while the main campground across FM 89 remains open. Separate lake drought, burn-ban and historic swimming-pool renovation alerts may coexist."},
+      {question:"Is the historic park swimming pool available?",answer:"The pool is on the main state-park campus, not Lake Abilene. Its June 3, 2026 reservation alert says the CCC-era pool remains closed for renovations until further notice; check an updated park notice."},
+      {question:"When was Lake Abilene constructed?",answer:"TWDB records authorization in 1918, dam construction starting in 1919, dam completion May 1921 and deliberate impoundment August 1, 1921. Major dam repairs occurred in 1941 and 1957."}
+    ],
+    travelAlerts: [
+      "CURRENT OPERATOR SAFETY CLOSURE — TPWD Abilene State Park alert dated October 20, 2025 and still posted at this review says Lake Abilene's two boat ramps are CLOSED; swimming, fishing and kayak rental at the lake are PROHIBITED. Don't plan a fishing or swimming trip based on TPWD's older generic lake page.",
+      "STATE PARK HUNTS — Some posted managed-hunt dates close the lake unit to everyone other than permitted hunters; the main campground across FM 89 can operate separately. Recheck the dated closures before travel.",
+      "CAMPGROUND, POND AND POOL ARE DIFFERENT — Main-campus campground reservations, Buffalo Wallow Pond activities and CCC swimming-pool renovations are NOT a statement that the closed Lake Abilene reservoir is available for fishing or swimming.",
+      "NO PRESENT-DAY FISHING FORECAST — TPWD currently rates bass, catfish, crappie and sunfish poor; there is no valid access while the lake's operator prohibits fishing. Live lake elevation cannot override park authorization.",
+      "Historical photograph is of the exact Lake Abilene shoreline in June 2011 and carries a CC BY-SA 2.0 reuse license; it is not first-party current-water photographic evidence."
+    ],
+    nearbyLakes:[{slug:"lake-sweetwater",name:"Lake Sweetwater"},{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"lake-brownwood",name:"Lake Brownwood"}],
+    nearbyDestinations:[{slug:"abilene-state-park",name:"Abilene State Park",reason:"Separate main-campus campsite and nature-trail visitor guide, distinguished from the Lake Abilene drought closure."}]
   },
 ];
 

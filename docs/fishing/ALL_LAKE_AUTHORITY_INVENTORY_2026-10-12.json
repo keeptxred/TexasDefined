@@ -1,26 +1,26 @@
 {
   "schemaVersion": 1,
-  "date": "2026-10-13",
+  "date": "2026-10-14",
   "baseline": "TPWD more than 150 lake profiles",
   "summary": {
-    "total": 67,
+    "total": 68,
     "standardSectionsPerGuide": 9,
-    "statewide": 52,
-    "namedAccess": 67,
+    "statewide": 53,
+    "namedAccess": 68,
     "unknownAccess": 0,
-    "namedCamping": 43,
+    "namedCamping": 44,
     "unknownCamping": 24,
-    "history": 19,
+    "history": 20,
     "noHistory": 48,
-    "photoMappings": 67,
+    "photoMappings": 68,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 67,
+    "explicitNamedAccess": 68,
     "lackingNamedAccess": 0,
-    "explicitNamedCamping": 43,
+    "explicitNamedCamping": 44,
     "lackingNamedCamping": 24,
-    "namedStatewideFacilities": 206,
-    "statewideTemplateGuidesWithNamedAccess": 52
+    "namedStatewideFacilities": 208,
+    "statewideTemplateGuidesWithNamedAccess": 53
   },
   "entries": [
     {
@@ -1079,6 +1079,22 @@
       "accessFacilityCount": 3,
       "accessReviewedAt": "2026-10-13",
       "namedCamping": false
+    },
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene",
+      "kind": "Statewide",
+      "ramp": "Two TPWD named gated boat ramps: Dam and Creek, both closed by active lake low-water operator prohibition",
+      "camping": "Main Abilene State Park campus campground across FM89, not lake ramp shoreline",
+      "history": "TWDB original 1919–1921 dam, August 1921 impoundment, 1941 and 1957 repairs",
+      "fish": 4,
+      "photo": "Mapped",
+      "water": "TWDB live numerical reservoir level, operator closure controls visitor legality",
+      "risk": "Operator's October 2025 closure remains posted as October 2026; do not advertise currently allowed lake fishing/swimming or launching. Genuine historical 2011 photo, no first-party field media, production pending",
+      "namedAccess": true,
+      "accessFacilityCount": 2,
+      "accessReviewedAt": "2026-10-14",
+      "namedCamping": true
     }
   ],
   "legacy": [
