@@ -96,7 +96,7 @@ for (const path of ["src/data/destination-query-runtime.ts", "src/data/destinati
 if (!read("src/data/museum-authority-heroes.ts").includes("export const museumLicensedHeroes")) failures.push("Lightweight license-cleared museum heroes module missing.");
 // Both canonical destination lookups and the broader Explore catalog must use
 // licensed institution-specific images after all remote/curated transforms.
-if (!read("src/data/destination-query-runtime.ts").includes(".map(enrichMuseumMedia);"))
+if (!/\.map\(enrichMuseumMedia\)\s*\.map\(applyTownAuthority\)\s*\.map\(enforceFredericksburgJohnsonCityHeritageAuthority\);/.test(read("src/data/destination-query-runtime.ts")))
   failures.push("Explore catalog lacks final licensed museum hero reconciliation.");
 execFileSync(process.execPath, ["scripts/data/test-museum-owner-inventory-parser.mjs"], { stdio: "inherit" });
 if (!read("src/routes/destination.$slug.tsx").includes("enrichMuseumAuthority")) failures.push("Museum body enrichment must remain in the museum destination page, not global search.");
