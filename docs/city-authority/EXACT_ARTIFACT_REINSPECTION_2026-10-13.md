@@ -28,6 +28,12 @@ The new [Supabase city enrollment ledger](SUPABASE_CITY_FACT_SOURCE_ENROLLMENT_2
 
 [Follow-up source-cadence migration PR #4802](https://github.com/keeptxred/TexasDefined/pull/4802) adds only a nullable source-specific interval and preserves 90-day page editorial review; it is **not effective** until explicitly applied and checked in the shared live Supabase project. Different cadence reflects only source monitoring, not claim-level truth freshness or editor sign-off.
 
-## 5. Still not accepted
+## 5. Expanded official-source enrollment and full first-probe result
+
+After the initial 69-reference batch recorded in the immutable original enrollment ledger, compared **all** non-image primary-source `https://` references declared in the eleven `src/data/city-authority-profiles.ts` profile objects with active Supabase monitoring rows. Idempotently added the remaining 25 official links, including school and municipal utility exceptions and official airports. Because Fort Worth's retired `the-fwlab` PDF was superseded by the independently checked, direct `city-manager` canonical PDF source (also present in the 25 new records), removed that **single stale monitoring row**; the earlier `td_authority_verification_checks` audit entry with its HTTP-403 outcome is preserved separately. Net live inventory: **93 city source references**.
+
+Actually submitted and collected the **25 additional** probe requests through the existing `td_maintenance.queue_source_probes(25)` and `collect_source_probes()` functions. The current combined **93/93** city source rows have at least one completed HTTP check, **63** with HTTP 2xx and **30** with HTTP 401/403/429 restrictions. None of these automated HTTP outcomes is a completed factual claim verification. No recorded city page acceptance state or `last_verified_at` was promoted. The mismatch between HTTP-denied government sources and human-browser accessibility is an explicitly open source-monitoring limitation.
+
+## 6. Still not accepted
 
 All eleven city editorial and jurisdiction acceptance decisions remain open until current exact-deployed-SHA audits, complete individual actual-image/manual interaction review, claim-by-claim school/tax/utility/visitor/restaurant checks, destination reciprocity, 37 historic link exception triages, and independent GIS municipal legal exceptions are resolved. **No final accepted city status can be inferred from automated success.**
