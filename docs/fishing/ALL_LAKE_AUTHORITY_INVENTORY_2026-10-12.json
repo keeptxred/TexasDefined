@@ -3,24 +3,24 @@
   "date": "2026-10-13",
   "baseline": "TPWD more than 150 lake profiles",
   "summary": {
-    "total": 63,
+    "total": 64,
     "standardSectionsPerGuide": 9,
-    "statewide": 48,
-    "namedAccess": 63,
+    "statewide": 49,
+    "namedAccess": 64,
     "unknownAccess": 0,
-    "namedCamping": 41,
+    "namedCamping": 42,
     "unknownCamping": 22,
-    "history": 15,
+    "history": 16,
     "noHistory": 48,
-    "photoMappings": 63,
+    "photoMappings": 64,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 63,
+    "explicitNamedAccess": 64,
     "lackingNamedAccess": 0,
-    "explicitNamedCamping": 41,
+    "explicitNamedCamping": 42,
     "lackingNamedCamping": 22,
-    "namedStatewideFacilities": 190,
-    "statewideTemplateGuidesWithNamedAccess": 48
+    "namedStatewideFacilities": 193,
+    "statewideTemplateGuidesWithNamedAccess": 49
   },
   "entries": [
     {
@@ -1013,6 +1013,22 @@
       "risk": "2026 Knickerbocker Park construction closure, sequential ramp replacements, and city camping gate rules must remain current; first-party field shots and day-of-use operator check missing",
       "namedAccess": true,
       "accessFacilityCount": 11,
+      "accessReviewedAt": "2026-10-13",
+      "namedCamping": true
+    },
+    {
+      "slug": "fort-parker-state-park-lake",
+      "name": "Fort Parker State Park Lake",
+      "kind": "Statewide",
+      "ramp": "Named",
+      "camping": "Official bookable state-park campsites and sheltered options",
+      "history": "TPWD CCC dam history, contradictions documented",
+      "fish": 5,
+      "photo": "Mapped",
+      "water": "State-park operator status fallback (no verified public live gauge)",
+      "risk": "Severe siltation leaves upper two-thirds generally unnavigable; active park alerts, day-use reservation, and source-specific acreage/chronology discrepancies need ongoing review; first-party field-photo set pending",
+      "namedAccess": true,
+      "accessFacilityCount": 3,
       "accessReviewedAt": "2026-10-13",
       "namedCamping": true
     }
