@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-10-13",
+  "repository": "keeptxred/TexasDefined",
+  "production": "https://texasdefined.com",
+  "supabaseProjectId": "ftkznprjljkhymknvhye",
+  "ownerInventory": "docs/museums/owner-submitted-museum-names-20261012.txt",
+  "ownerInventoryComplete": false,
+  "notes": [
+    "Owner inventory concatenates names and currently lacks a definitive individually verified Texas-institution count.",
+    "An HTTP 200 source connection and Supabase verified status do not certify research or visitor authority.",
+    "This document records GitHub/Supabase recovery progress; it is not a false statewide completion certificate."
+  ],
+  "mainBeforeCurrentPullRequest": {
+    "museumSourceManifestEntries": 54,
+    "museumFaqs": 440,
+    "museumBenchmarks": 54,
+    "certifiedBenchmarks": 0
+  },
+  "liveSupabaseLastRead": {
+    "museumRegistryRecords": 66,
+    "registryStatusVerified": 65,
+    "registryStatusSourceUnreachable": 1,
+    "museumMonitoredSourceRecords": 281,
+    "sourceBaseline": 280,
+    "sourceUnreachable": 1,
+    "cityOfKatySource403": "https://www.cityofkaty.com/visitors/museums"
+  },
+  "recoveryPullRequest": {
+    "url": "https://github.com/keeptxred/TexasDefined/pull/4792",
+    "status": "PR #4792 merged 2026-10-14T04:00:44Z; verify new 69-entry manifest and live museum pages independently before calling deployed.",
+    "newGuideDossiers": 15,
+    "newFaqs": 123,
+    "newMonthlySourceRegisteredMuseums": 15,
+    "proposedTotalMuseumSourceManifestEntries": 69,
+    "proposedTotalMuseumFaqs": 563,
+    "proposedTotalMuseumSourceURLs": 281,
+    "proposedBenchmarks": 69,
+    "certifiedBenchmarks": 0,
+    "slugs": [
+      "1919-san-augustine-county-jail-museum",
+      "armstrong-browning-library-museum-waco",
+      "bell-county-museum-belton",
+      "brenham-heritage-museum",
+      "audie-murphy-american-cotton-museum-greenville",
+      "brazos-valley-museum-natural-history-bryan",
+      "czech-heritage-museum-genealogy-center-temple",
+      "buffalo-soldiers-national-museum-houston",
+      "texas-prison-museum-huntsville",
+      "eisenhower-birthplace",
+      "crow-museum-asian-art-dallas",
+      "museum-of-the-american-railroad-frisco",
+      "the-agricultural-museum-arts-center-boerne",
+      "the-history-center-diboll",
+      "texas-broadcast-museum-kilgore"
+    ],
+    "museumPagesNotYetCertified": 69,
+    "ciIssueRemediation": "Changed existing broad indexing/content-integrity validators to inspect actual explicit closure allowlist rather than brittle two-item literal; all listed closed museums must remain excluded from trip planning.",
+    "mainReconciliation": "Reconciled all changed files against newest main at 79b334dd87ba7d86e0c54764abebf8bcd27c66d1; no overlapping paths at that point.",
+    "coastalIndexingRegressionFixed": "Restored the preexisting full-researched coastal authority overlays and fail-closed coastal sitemap validator while adding explicit museum closure exemptions; the earlier recovery PR had inadvertently removed these protections.",
+    "lbjCanonicalReconciliation": "Preserved current main LBJ State Park source/canonical slug corrections in both the destination availability set and destination indexing validator.",
+    "archivalDibollMedia": "Public-domain, 1907 Diboll sawmill collection photo; explicitly archival and not a present-day museum photo. Exact modern site photograph remains outstanding."
+  },
+  "remainingIncomplete": [
+    "Independently reconcile all submitted owner inventory names into valid unique Texas museum identities, excluding aliases/false positives/out-of-state places.",
+    "Create or upgrade all remaining qualifying canonical guides after actual source research and rights verification.",
+    "Complete genuine side-by-side independent visitor-guide certification for all museum benchmarks.",
+    "Resolve or document City of Katy upstream HTTP 403; browser request headers were already tested and returned HTTP 403.",
+    "Ensure missing exact-site licensed photos are secured or honestly acknowledged, never replaced with unrelated images.",
+    "Verify live production routes, FAQ content, responsive layout, SEO/sitemap, image licensing and current visitor status.",
+    "Sync merged manifest into existing Supabase verification jobs and confirm source checks, alerts and actual editorial evidence.",
+    "Reconcile remaining open museum PRs after verified merge; avoid duplicates.",
+    "Merge through passing protected checks and verify deployed content; no green CI means no production-complete claim.",
+    "Diboll has a rights-cleared public-domain 1907 archived local photograph; obtain a licensed present-day museum or actual Engine 13 photo before completing site-photo editorial acceptance.",
+    "Live page verification found Port Isabel historical museum still showing a placeholder despite source-referenced hero in main; investigate deployment, hydration and generated hero routing before certification."
+  ],
+  "externalSourceFailure": "The City of Katy official page returns Access Denied to current Supabase pg_net request even with standard browser User-Agent; two independent THC and Katy Heritage Society sources return 200. Do not mark failed City URL healthy.",
+  "reviewedBy": "Repository and live Supabase connector observations; not independently researched all ~600 provisional owner segments",
+  "katyFallback": {
+    "url": "https://www.katyedc.org/quality-of-life/arts-culture-and-events",
+    "kind": "local economic development authority",
+    "verifiedBy": "actual Supabase pg_net HTTP 200 2026-10-13T19:33CDT plus HTML text verified to contain museum name, exhibits, free admission",
+    "sourceMonitoringState": "source_baseline",
+    "scope": "institution identity, visitor exhibits, school groups, general free admission; not actual opening hours",
+    "cityOfficialUrlStillBlocked": true
+  },
+  "existingSupabaseVsProposedManifestReconciliation": {
+    "comparedOn": "2026-10-13",
+    "beforeBoerneSourceManifestPending": [
+      "/destination/corpus-christi-museum-science-history",
+      "/destination/historic-brownsville-museum",
+      "/destination/port-isabel-historical-museum"
+    ],
+    "sourceRegistryNotYetInPublishedManifest": [
+      "/destination/texas-broadcast-museum-kilgore",
+      "/destination/the-history-center-diboll"
+    ],
+    "boerneRestoredInProposedManifest": true,
+    "sourceRegistryEnrollmentDoesNotProveProductionPages": true
+  },
+  "operatorSourceConfirmations": [
+    {
+      "path": "/destination/texas-broadcast-museum-kilgore",
+      "date": "2026-10-13",
+      "urls": [
+        "https://texasbroadcastmuseum.com/",
+        "https://texasbroadcastmuseum.com/espn-mobile-unit/"
+      ],
+      "checked": [
+        "Friday–Saturday 10 a.m.–5 p.m.; groups by appointment",
+        "Adult admission $10, discounted categories $8, child ages 3–11 $5, under 3 free",
+        "Original ESPN mobile broadcast vehicle 327 is on public display"
+      ],
+      "limits": "No image reuse permission or full vehicle interior accessibility implied"
+    }
+  ]
+}

@@ -492,5 +492,8 @@ export const TOWN_AUTHORITY_LINK_PLACES: readonly TownAuthorityLinkPlace[] = [
   },
   {"slug":"round-top","name":"Round Top","county":"Fayette","region":"prairies-lakes","lat":30.0651,"lng":-96.696},
   {"slug":"canton","name":"Canton","county":"Van Zandt","region":"piney-woods","lat":32.5566,"lng":-95.8626},
-  {"slug":"taylor","name":"Taylor","county":"Williamson","region":"prairies-lakes","lat":30.5708,"lng":-97.4094}
+  {"slug":"taylor","name":"Taylor","county":"Williamson","region":"prairies-lakes","lat":30.5708,"lng":-97.4094},
+  {"slug":"waxahachie","name":"Waxahachie","county":"Ellis","region":"prairies-lakes","lat":32.386,"lng":-96.8477},
+  {"slug":"weatherford","name":"Weatherford","county":"Parker","region":"prairies-lakes","lat":32.7593,"lng":-97.7972},
+  {"slug":"grapevine","name":"Grapevine","county":"Tarrant","region":"prairies-lakes","lat":32.9344,"lng":-97.0781}
 ];

@@ -24,6 +24,7 @@ export const tarrantCountyFortWorthTrinityWesternHeritageArticle: Article = {
   tags: ["Tarrant County", "Fort Worth", "Trinity River", "Tarrant County Courthouse", "Stockyards", "Arlington", "Grapevine", "North Texas", "Western heritage", "Aviation"],
   featured: false,
   internalLinks: [
+    { href: "/destination/grapevine", label: "Grapevine researched visitor guide", description: "Grapevine visitor guide: historic Cotton Belt Depot, separate Vintage Railroad and TEXRail routes, Main Street parking." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/destination/whirlyball-hurst", label: "WhirlyBall Hurst", description: "Try the unusual bumper-car team sport, two-story LaserWhirld arena and arcade in Hurst." },
     { href: "/county/dallas", label: "Explore Dallas County", description: "Continue east across the Metroplex toward Dallas, the Trinity River and the Blackland Prairie." },
