@@ -201,7 +201,7 @@ export const nacogdochesSanAugustineAuthorityDestinations: Destination[] = [
       "Different beds have their own seasonal rhythm. SFA identifies azalea displays generally in March through May, cooler-season camellias and autumn maple foliage. Visitors who only arrive during the annual azalea publicity window may miss compelling winter and fall displays, but no month guarantees exact flowers.",
       "SFA lists the grounds as free and open from dawn until dusk. The Ruby Mize visitor parking lot is accessed from University Drive; wider campus parking rules still apply. Garden walking surfaces and any mobility accommodations should be checked with SFA rather than assuming all landscaped routes meet the same grade or surface standard. Pair with SFA museums, Lanana Creek or downtown Nacogdoches."
     ],
-    "officialUrl": "https://sfaweb.sfasu.edu/gardens/explore/azalea-garden",
+    "officialUrl": "https://www.sfasu.edu/gardens/explore/azalea-garden",
     "managingAuthority": "Stephen F. Austin State University Gardens",
     "directions": "Use the Ruby Mize Garden visitor lot accessed from University Drive; see the SFA Gardens visitor-parking map.",
     "accessibilityNotes": "Garden paths, grades and creek crossings may vary; consult university gardens staff for the suitable accessible path and parking arrangement.",
@@ -293,7 +293,7 @@ export const nacogdochesSanAugustineAuthorityDestinations: Destination[] = [
       "sources": [
         {
           "label": "SFA Ruby Mize Garden",
-          "url": "https://sfaweb.sfasu.edu/gardens/explore/azalea-garden",
+          "url": "https://www.sfasu.edu/gardens/explore/azalea-garden",
           "scope": "Primary source for historic interpretation, visitor operation and date-specific verification"
         },
         {
@@ -307,22 +307,22 @@ export const nacogdochesSanAugustineAuthorityDestinations: Destination[] = [
       {
         "question": "How big is the Ruby Mize Garden?",
         "answer": "SFA currently describes the Ruby M. Mize Azalea Garden as 11 acres.",
-        "sourceUrl": "https://sfaweb.sfasu.edu/gardens/explore/azalea-garden"
+        "sourceUrl": "https://www.sfasu.edu/gardens/explore/azalea-garden"
       },
       {
         "question": "Is admission free?",
         "answer": "Yes. SFA lists free garden admission from dawn to dusk.",
-        "sourceUrl": "https://sfaweb.sfasu.edu/gardens/explore/azalea-garden"
+        "sourceUrl": "https://www.sfasu.edu/gardens/explore/azalea-garden"
       },
       {
         "question": "When do azaleas bloom?",
         "answer": "SFA describes peak azalea displays in spring, generally March–May; actual timing is weather dependent.",
-        "sourceUrl": "https://sfaweb.sfasu.edu/gardens/explore/azalea-garden"
+        "sourceUrl": "https://www.sfasu.edu/gardens/explore/azalea-garden"
       },
       {
         "question": "Where do I park?",
         "answer": "The small garden visitor lot is accessed from University Drive; check SFA's official parking map.",
-        "sourceUrl": "https://sfaweb.sfasu.edu/gardens/explore/azalea-garden"
+        "sourceUrl": "https://www.sfasu.edu/gardens/explore/azalea-garden"
       }
     ]
   },
