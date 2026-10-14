@@ -11,6 +11,11 @@ const graph = read("src/data/san-antonio-heritage-links.ts");
 const links = read("src/data/destination-editorial-links.ts");
 const bexar = read("src/data/fixtures/bexar-county-san-antonio-missions-river.ts");
 const kingWilliam = read("src/data/viator-destination-expansion-base.ts");
+const cityProfiles = read("src/data/city-authority-profiles.ts");
+const sanAntonioCity = cityProfiles.split("'san-antonio': {")[1]?.split("'el-paso': {")[0];
+assert(sanAntonioCity, "Missing San Antonio city authority profile");
+assert(sanAntonioCity.includes("href: '/article/historic-san-antonio-heritage-road-trip'"), "San Antonio city must link to heritage road trip");
+assert(sanAntonioCity.includes("href: '/destination/san-antonio-missions-national-historical-park'"), "City missions itinerary must link to the park guide");
 
 const newSlugs = [
   "mission-concepcion-san-antonio", "mission-san-jose-san-antonio",
@@ -46,9 +51,19 @@ assert(!graph.includes('"href": "/destination/san-antonio"'), "No 404 destinatio
 assert(graph.includes('"href": "/city/san-antonio"'), "City gateway must resolve via canonical /city/san-antonio");
 assert(!article.includes('"href": "/destination/san-antonio"'), "Guide city gateway must not use broken /destination/san-antonio");
 assert(article.includes('"href": "/city/san-antonio"'), "Guide must link to canonical city page");
+const heritageGraphJson = graph.slice(graph.indexOf("= {") + 2, graph.lastIndexOf("};") + 1);
+const heritageGraphEntries = JSON.parse(heritageGraphJson);
+const heritageDescriptions = Object.values(heritageGraphEntries).flatMap((entries) => entries.map((entry) => entry.description));
+assert(heritageDescriptions.length >= 121, "Unexpected drop in San Antonio contextual cross-link coverage");
+assert.equal(new Set(heritageDescriptions).size, heritageDescriptions.length, "Cross-links must have source-and-target-specific explanations");
+assert(!heritageDescriptions.some((description) => description.includes("adding context from the city's different historical eras")), "Generic history-crosslink filler remains");
+
 assert(destination.includes("sold the property in 2022"), "Steves access correction absent");
 assert(article.includes("SOLD") && article.includes("1897") && article.includes("1896"), "Known corrections missing in main guide");
 assert(!/license to confirm|verify attribution\/license|check current Commons license/.test(destination), "Unverified media license note in destination images");
+assert(!destination.includes("Most useful when combined with"), "Templated visitor-assessment text remains");
+assert(!destination.includes("History and architecture interest, subject to heat, active use and accessibility"), "Generic family-visit notes remain");
+
 const objectCount = (destination.match(/"slug": "/g) ?? []).length;
 assert.equal(objectCount, newSlugs.length, "Unexpected destination count or duplicates");
 assert.equal((destination.match(/Historic-site photo: source, original creator and usage rights/g) ?? []).length, newSlugs.length,

@@ -428,6 +428,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
     ],
     featured: [
       { eyebrow: 'Texas history', title: 'The Alamo', summary: 'Start with the former mission and battle site, then connect it to the wider Spanish colonial mission story.', href: '/destination/the-alamo' },
+      { eyebrow: 'Historic route', title: 'Historic San Antonio: two-day heritage road trip', summary: 'Plan the four missions, Casa Navarro, La Villita, King William and the historic downtown core with a researched stop-by-stop route.', href: '/article/historic-san-antonio-heritage-road-trip' },
       { eyebrow: 'City icon', title: 'San Antonio River Walk', summary: 'Use the river corridor to connect downtown, Museum Reach, Pearl and the Mission Reach landscape.', href: '/destination/san-antonio-river-walk' },
       { eyebrow: 'Nearby trips', title: 'Explore near San Antonio', summary: 'Build Hill Country, river, cavern and small-town extensions around the city.', href: '/explore/near/san-antonio' },
       { eyebrow: 'Moving', title: 'Moving to San Antonio', summary: 'Compare Bexar-area commutes, city boundaries, school districts and utility systems before choosing an address.', href: '/article/moving-to-san-antonio-guide' },
@@ -436,7 +437,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       firstTime: [
         { title: 'Alamo + downtown River Walk', summary: 'Start with the historic core and river level on the same day rather than driving between distant attractions.', href: '/destination/the-alamo' },
         { title: 'Pearl + Museum Reach', summary: 'Follow the river north for food, public space and museums without treating Pearl as a separate cross-town trip.', href: '/destination/san-antonio-river-walk' },
-        { title: 'Missions day', summary: 'Reserve a separate block for the southern mission corridor and Mission Reach so the World Heritage landscape is not reduced to a quick drive-by.' },
+        { title: 'Missions day', summary: 'Reserve a separate block for the southern mission corridor and Mission Reach so the World Heritage landscape is not reduced to a quick drive-by.', href: '/destination/san-antonio-missions-national-historical-park' },
       ],
       stayAreas: [
         { title: 'Downtown / River Walk', summary: 'Best for a first leisure visit centered on historic sites, river walks, conventions and central dining.' },
@@ -445,12 +446,12 @@ const profiles: Record<string, CityAuthorityProfile> = {
       ],
       freeThings: [
         { title: 'River Walk public paths', summary: 'Walking the public river corridor costs nothing; cruises, attractions and dining are separate purchases.', href: '/destination/san-antonio-river-walk' },
-        { title: 'San Antonio Missions landscape', summary: 'The national historical park’s mission grounds and river corridor can anchor a low-cost history day; confirm current NPS access details.' },
+        { title: 'San Antonio Missions landscape', summary: 'The national historical park’s mission grounds and river corridor can anchor a low-cost history day; confirm current NPS access details.', href: '/destination/san-antonio-missions-national-historical-park' },
         { title: 'Historic plazas & Market Square area', summary: 'Explore downtown plazas, public art and the market district without requiring a ticketed attraction.' },
       ],
       family: [
         { title: 'Alamo + River Walk', summary: 'Keep the first family history day compact by pairing the Alamo with the downtown river rather than adding a long cross-city attraction.', href: '/destination/the-alamo' },
-        { title: 'Mission corridor', summary: 'Use one or two missions plus Mission Reach as a slower history-and-outdoors day, with water, shade and heat planning for younger visitors.' },
+        { title: 'Mission corridor', summary: 'Use one or two missions plus Mission Reach as a slower history-and-outdoors day, with water, shade and heat planning for younger visitors.', href: '/article/historic-san-antonio-heritage-road-trip' },
         { title: 'Pearl + Museum Reach', summary: 'Combine public space, food, river walking and nearby museums in a single north-of-downtown cluster.', href: '/destination/san-antonio-river-walk' },
       ],
       gettingAround: [

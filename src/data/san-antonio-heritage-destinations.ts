@@ -69,10 +69,10 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "assessment": {
         "recommendedVisit": "45–60 minutes",
         "physicalEffort": "Low to moderate",
-        "weatherExposure": "Mixed indoor/outdoor",
+        "weatherExposure": "Outdoor mission grounds and a working church interior only when accessible.",
         "planningLevel": "Moderate",
-        "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "Most useful when combined with concepción and san josé; official entry conditions apply."
+        "familyFit": "Especially valuable for families interested in architecture and murals; respect active worship and plan for heat.",
+        "firstTimeValue": "Best for original stonework and rare surviving colonial wall paintings; use San José as a comparison, not a substitute."
       },
       "itineraries": [
         {
@@ -194,10 +194,10 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "assessment": {
         "recommendedVisit": "90–120 minutes",
         "physicalEffort": "Low to moderate",
-        "weatherExposure": "Mixed indoor/outdoor",
+        "weatherExposure": "Primarily outdoor compound, with visitor-center access dependent on posted hours.",
         "planningLevel": "Moderate",
-        "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "Most useful when combined with two-mission comparison; official entry conditions apply."
+        "familyFit": "Works well for family history trips using ranger interpretation; allow time and water for the exposed grounds.",
+        "firstTimeValue": "Strong orientation stop for first-time mission visitors because of the larger compound, church, granary and NPS interpretation."
       },
       "itineraries": [
         {
@@ -324,10 +324,10 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "assessment": {
         "recommendedVisit": "45–75 minutes",
         "physicalEffort": "Low to moderate",
-        "weatherExposure": "Mixed indoor/outdoor",
+        "weatherExposure": "Mostly open-air grounds; museum and contact-station hours may differ.",
         "planningLevel": "Moderate",
-        "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "Most useful when combined with southern missions and aqueduct; official entry conditions apply."
+        "familyFit": "Best for families curious about farming and historic irrigation; shade and indoor exhibits may be limited.",
+        "firstTimeValue": "Choose San Juan for the acequia-fed agricultural mission story rather than expecting San José-scale monumental buildings."
       },
       "itineraries": [
         {
@@ -449,10 +449,10 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "assessment": {
         "recommendedVisit": "45–75 minutes",
         "physicalEffort": "Low to moderate",
-        "weatherExposure": "Mixed indoor/outdoor",
+        "weatherExposure": "Mostly outdoor church and mission landscape, with a separate aqueduct stop.",
         "planningLevel": "Moderate",
-        "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "Most useful when combined with espada aqueduct field visit; official entry conditions apply."
+        "familyFit": "Especially useful for families interested in engineering and water history; supervise around waterways and plan for sun.",
+        "firstTimeValue": "Best for connecting the mission church with the separate historic aqueduct and acequia system, allowing time for both locations."
       },
       "itineraries": [
         {
@@ -574,10 +574,10 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "assessment": {
         "recommendedVisit": "30–45 minutes",
         "physicalEffort": "Low to moderate",
-        "weatherExposure": "Mixed indoor/outdoor",
+        "weatherExposure": "Cathedral interior only during permitted visitor access; nearby Main Plaza is outdoors.",
         "planningLevel": "Moderate",
-        "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "Most useful when combined with main plaza religious and civil institutions; official entry conditions apply."
+        "familyFit": "A compact architecture and city-history stop for families when services permit; maintain the quiet of active worship.",
+        "firstTimeValue": "Best for tracing the original 1731 parish through the nineteenth-century cathedral and today's living Main Plaza worship community."
       },
       "itineraries": [
         {
@@ -694,10 +694,10 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "assessment": {
         "recommendedVisit": "20–30 minutes",
         "physicalEffort": "Low to moderate",
-        "weatherExposure": "Mixed indoor/outdoor",
+        "weatherExposure": "Primarily an outdoor Main Plaza view; interior access involves courthouse operations and security.",
         "planningLevel": "Moderate",
-        "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "Most useful when combined with main plaza civic institutions; official entry conditions apply."
+        "familyFit": "Suitable for a short family architecture stop on Main Plaza; don't assume courthouse rooms are tourist attractions.",
+        "firstTimeValue": "Best treated as an exterior architectural and civic-history stop, not a drop-in government-building tour."
       },
       "itineraries": [
         {
@@ -819,10 +819,10 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "assessment": {
         "recommendedVisit": "60–90 minutes",
         "physicalEffort": "Low to moderate",
-        "weatherExposure": "Mixed indoor/outdoor",
+        "weatherExposure": "Restaurant and shop interiors when operating, with limited outdoor historic context.",
         "planningLevel": "Moderate",
-        "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "Most useful when combined with king william walk; official entry conditions apply."
+        "familyFit": "Families can pair food with a short milling-history stop; restaurant, displays and museum access are not interchangeable.",
+        "firstTimeValue": "Best for tying a meal or shop visit, when operating, to the Guenther family's flour-milling and King William history."
       },
       "itineraries": [
         {
@@ -944,10 +944,10 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "assessment": {
         "recommendedVisit": "15–20 minutes",
         "physicalEffort": "Low to moderate",
-        "weatherExposure": "Mixed indoor/outdoor",
+        "weatherExposure": "Outdoor-only public streetscape viewing; do not plan interior access.",
         "planningLevel": "Moderate",
-        "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "Most useful when combined with king william preservation walk; official entry conditions apply."
+        "familyFit": "Keep this a brief exterior architecture stop, not a children's museum or a ticketed historic-house tour.",
+        "firstTimeValue": "A short public-sidewalk exterior stop to understand the 1876 house and its preservation history; do not expect former museum tours."
       },
       "itineraries": [
         {
@@ -1069,10 +1069,10 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "assessment": {
         "recommendedVisit": "45–75 minutes",
         "physicalEffort": "Low to moderate",
-        "weatherExposure": "Mixed indoor/outdoor",
+        "weatherExposure": "Mostly outdoor lanes and courtyards, with independently operated indoor shops.",
         "planningLevel": "Moderate",
-        "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "Most useful when combined with river walk and la villita circuit; official entry conditions apply."
+        "familyFit": "Good for a flexible family walk; uneven historic surfaces, heat and merchant hours may affect the visit.",
+        "firstTimeValue": "Best for a self-guided historic neighborhood walk, using building details and interpretation rather than treating it only as a shopping arcade."
       },
       "itineraries": [
         {
@@ -1194,10 +1194,10 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "assessment": {
         "recommendedVisit": "30–45 minutes, subject to access",
         "physicalEffort": "Low to moderate",
-        "weatherExposure": "Mixed indoor/outdoor",
+        "weatherExposure": "Operating hotel interiors only with permission, with adjacent Alamo Plaza outdoors.",
         "planningLevel": "Moderate",
-        "familyFit": "History and architecture interest, subject to heat, active use and accessibility",
-        "firstTimeValue": "Most useful when combined with alamo plaza historical contrast; official entry conditions apply."
+        "familyFit": "Keep any family visit brief and respectful of hotel guests; non-guest interior access is not guaranteed.",
+        "firstTimeValue": "Best for the evolution of Alamo Plaza's visitor economy since 1859; confirm whether non-guests may enter historic interior spaces."
       },
       "itineraries": [
         {
