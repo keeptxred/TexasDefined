@@ -1,4 +1,7 @@
 import type { BrandConfig } from "@/brand/types";
+import { texasEventDateKey } from "@/data/event-occurrence-lifecycle";
+import { resolveEventSnippet } from "@/data/event-snippet-lifecycle";
+import { cleanMetaDescription } from "@/lib/seo-snippet-trim";
 
 /** Brand-agnostic head/meta and schema builders. */
 
@@ -15,6 +18,9 @@ export interface PageSeo {
   robots?: string;
   publishedTime?: string;
   modifiedTime?: string;
+  /** Latest documented event occurrence end date (Texas-local YYYY-MM-DD). */
+  eventOccurrenceEndDate?: string | null;
+  eventName?: string;
 }
 
 interface EditorialCollectionItem {
@@ -39,6 +45,118 @@ const META_DESCRIPTION_MAX_LENGTH = 160;
 type TechnicalSeoOverride = { title: string; description?: string };
 
 const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride> = {
+  "/article/adopting-a-dog-in-texas": { title: "Adopting a Dog in Texas: Shelters, Rabies & Matching Tips" },
+  "/article/audie-murphy-texas-war-hero-actor": { title: "Audie Murphy: Texas WWII Hero, Soldier & Actor" },
+  "/article/hiking-texas-trails-with-your-dog": { title: "Hiking Texas Trails With Your Dog: Heat & Leash Rules" },
+  "/article/hogg-foundation-mental-health-texas-history": { title: "Hogg Foundation for Mental Health: Texas History & Mission" },
+  "/article/ima-hogg-texas-legacy": { title: "Ima Hogg: Texas Philanthropist, Art & Public Legacy" },
+  "/article/juan-seguin-tejano-texas-revolution": { title: "Juan Seguín: Tejano Revolutionary Leader & Texas Exile" },
+  "/article/mirabeau-b-lamar-president-republic-texas": { title: "Mirabeau B. Lamar: President of the Republic of Texas" },
+  "/article/sallie-hogg-texas-legacy": { title: "Sallie Hogg: Texas First Lady & Public-Service Legacy" },
+  "/article/san-antonio-spurs-texas-basketball-culture": { title: "San Antonio Spurs: Team Culture & Basketball History" },
+  "/article/san-antonio-stock-show-rodeo-history-guide": { title: "San Antonio Stock Show & Rodeo: History & Scholarships" },
+  "/article/texas-backup-power-generator-guide": { title: "Texas Backup Power Guide: Generators & Transfer Switches" },
+  "/article/texas-borderlands-historic-sites-guide": { title: "Texas Borderlands History: Missions & Tejano Heritage" },
+  "/article/texas-cold-war-military-history": { title: "Cold War Texas: Bombers, Missile Silos & Pantex" },
+  "/article/texas-dog-friendly-patios-law": { title: "Texas Dog-Friendly Patios: Rules & State Law Guide" },
+  "/article/texas-dog-lake-river-safety": { title: "Texas Dog Water Safety: Lakes, Rivers & Algae" },
+  "/article/texas-gulf-coast-erosion-shoreline-retreat-guide": { title: "Texas Gulf Coast Erosion: Shoreline Retreat & Risk" },
+  "/article/texas-homeowner-field-manual": { title: "Texas Homeowner Field Manual: Weather, Utilities & Insurance" },
+  "/article/texas-household-pests-guide": { title: "Texas Household Pests: Termites, Ants, Roaches & Control" },
+  "/article/texas-military-museums-historic-sites-guide": { title: "Texas Military Museums & Historic Sites: Visitor Guide" },
+  "/article/texas-pecos-river-guide": { title: "Pecos River Texas: Canyons, Fishing & Public Access" },
+  "/article/texas-pool-owner-guide": { title: "Texas Pool Owner Guide: Chemistry, Pumps & Freeze Protection" },
+  "/article/texas-spanish-american-war-guide": { title: "Texas in the Spanish-American War: Rough Riders & History" },
+  "/article/texas-trees-around-home-guide": { title: "Texas Trees Near Homes: Storms, Roots & Oak Wilt" },
+  "/article/texas-us-mexican-war-palo-alto-guide": { title: "Texas in the Mexican-American War: Palo Alto & Border" },
+  "/article/texas-world-war-i-history-guide": { title: "Texas in World War I: Border, Camps & Military History" },
+  "/article/texas-world-war-ii-bases-pow-camps": { title: "Texas WWII Bases, Training Camps & POW Camps" },
+  "/article/texas-world-war-ii-historic-sites-guide": { title: "Texas World War II Historic Sites: Five Places to Visit" },
+  "/article/toledo-bend-water-system-guide": { title: "Toledo Bend Reservoir: Texas Water System Guide" },
+  "/explore/painted-churches/guides/dubina-texas-population": { title: "Dubina Texas: Population, History & Painted Church" },
+  "/explore/painted-churches/guides/praha-texas-czech-heritage": { title: "Praha Texas: Czech Heritage & Painted Church" },
+  "/explore/painted-churches/guides/st-stanislaus-plantersville": { title: "St. Stanislaus Church Plantersville: Location & History" },
+  "/news/most-popular-dog-breeds-in-texas-chihuahua-data": { title: "Is the Chihuahua Texas's Most Popular Dog? Data Explained" },
+  "/article/bluebonnet-animal-preservation-athens": {
+    title: "Bluebonnet Animal Preservation Athens: Pet Aftercare Guide",
+    description: "Explore Bluebonnet Animal Preservation in Athens, Texas, including pet cremation and freeze-dry preservation options for companion animals.",
+  },
+  "/article/fort-worth-stockyards-history-cattle-culture": {
+    title: "Fort Worth Stockyards: Cattle Trade, Railroads & History",
+    description: "Explore the cattle trade, railroads and meatpacking history that made Fort Worth famous and shaped its surviving Stockyards district.",
+  },
+  "/article/historic-san-antonio-heritage-road-trip": {
+    title: "Historic San Antonio Road Trip: Missions, Alamo & King William",
+    description: "Plan a two-day San Antonio history route through National Park Service missions, the Alamo, Spanish plazas, Tejano heritage and King William.",
+  },
+  "/article/how-to-choose-electricity-plan-texas": {
+    title: "Choose a Texas Electricity Plan: Rates, Fees & EFL",
+    description: "Learn to read the Electricity Facts Label, compare Texas plans at your actual usage and check bill credits, minimums and fees before signing.",
+  },
+  "/article/mexican-texas-military-history": {
+    title: "Military in Mexican Texas: Presidios, Anahuac & Revolution",
+    description: "Follow Mexican-era Texas military history from presidio garrisons and militias to Anahuac and the tensions preceding the Texas Revolution.",
+  },
+  "/article/muds-pids-hoas-special-districts-texas": {
+    title: "Texas MUDs, PIDs & HOAs: Homebuyer Taxes & Fees",
+    description: "Understand Texas MUD, PID and HOA assessments and how special districts can affect neighborhood costs beyond a mortgage and city taxes.",
+  },
+  "/article/republic-of-texas-government-trail": {
+    title: "Republic of Texas Government Trail: San Felipe to Austin",
+    description: "Trace Texas government from San Felipe and Washington-on-the-Brazos through Columbia and Austin with heritage stops and historical context.",
+  },
+  "/article/texas-bucket-list-by-season": {
+    title: "Texas Bucket List by Season: Spring Through Winter",
+    description: "Plan Texas trips by season, from spring wildflowers and summer swimming to fall football, festivals and winter desert hiking.",
+  },
+  "/article/texas-civil-war-sites-guide": {
+    title: "Texas Civil War Sites: Battlefields, Emancipation & Memory",
+    description: "Explore Texas Civil War and Reconstruction sites, from Gulf Coast fighting and Palmito Ranch to Juneteenth, emancipation and historic memory.",
+  },
+  "/article/texas-historic-travel-transportation-guide": {
+    title: "Historic Texas Travel: Stagecoaches, Wagon Roads & Trains",
+    description: "Explore travel before Texas highways through Fanthorp Inn, Landmark Inn and the Slaton Harvey House, from stage roads to railroads.",
+  },
+  "/article/texas-oil-boom-wichita-falls-west-texas-rigs": {
+    title: "Texas Oil Boom: Wichita Falls, Permian Basin & Legacy",
+    description: "How oil development in Wichita Falls and West Texas transformed drilling, communities, employment and Texas landscapes.",
+  },
+  "/article/texas-wildfire-home-protection-guide": {
+    title: "Texas Wildfire Home Protection: Embers, Roofs & Evacuation",
+    description: "Learn how to assess Texas wildfire risk, harden roofs and vents, manage defensible space, protect rural property and plan evacuation.",
+  },
+  "/article/women-in-texas-military-history": {
+    title: "Women in Texas Military History: Nurses, WASP & Service",
+    description: "Explore women’s military service in Texas, from Army nurses and Oveta Culp Hobby to WASP pilots and modern military careers.",
+  },
+  "/texas-capital-designations": {
+    title: "Official Texas Capital Designations: Cities & Counties",
+    description: "Learn how Texas law recognizes special capital designations for cities and counties, including Cowboy, Fishing, Pie, Garden and Peanut.",
+  },
+  "/article/texas-high-school-football-2026-season-calendar": {
+    title: "Texas High School Football 2026: UIL Season & Playoff Calendar",
+    description: "See the UIL 2026 high school football calendar, from preseason practice and Week 1 to district certification, playoff rounds and the state finals.",
+  },
+  "/article/texas-llano-river-guide": {
+    title: "Llano River Texas: Fishing, Paddling & Camping Guide",
+    description: "Explore the Llano and South Llano rivers, with Junction, Castell, fishing, paddling, camping and source-backed visitor information.",
+  },
+  "/article/texas-red-river-war-guide": {
+    title: "Red River War in Texas: Adobe Walls & Palo Duro Canyon",
+    description: "Learn how the 1874–75 Red River War unfolded across the Texas Panhandle, from Adobe Walls to Palo Duro Canyon and the forced removal of Plains peoples.",
+  },
+  "/destination/george-washington-carver-museum-austin": {
+    title: "George Washington Carver Museum Austin: Visitor Guide",
+    description: "Visit Austin's George Washington Carver Museum, Cultural and Genealogy Center, focused on African American history, art and community life.",
+  },
+  "/event/bands-of-america-san-antonio-super-regional": {
+    title: "Bands of America San Antonio Super Regional 2026",
+    description: "Plan the 2026 Bands of America San Antonio Super Regional with event dates, venue guidance and links to official organizer information.",
+  },
+  "/fishing/lakes/cedar-lake-cleburne-state-park": {
+    title: "Cedar Lake at Cleburne State Park: Fishing Guide",
+    description: "Plan Cedar Lake fishing at Cleburne State Park with source-backed fish species, access, regulations, fishing reports and local guidance.",
+  },
   "/article/fredericksburg-johnson-city-historic-road-trip": {
     title: "Fredericksburg to Johnson City Historic Road Trip | Texas",
     description: "Plan Fredericksburg, Fort Martin Scott, LBJ Ranch, Sauer-Beckmann Farm, Hye and Johnson City with stops, costs, accessibility and 2026 closures.",
@@ -259,8 +377,8 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "Follow Battleship Texas BB-35 from World War I and World War II service through preservation, dry-dock work, restoration and its Texas legacy.",
   },
   "/event/floresville-peanut-festival": {
-    title: "Floresville Peanut Festival 2026: Dates, Schedule & Tickets",
-    description: "Plan the 2026 Floresville Peanut Festival with verified dates, parade and schedule information, ticket details, official sources and Wilson County context.",
+    title: "Floresville Peanut Festival: Visitor Guide & Next Dates",
+    description: "Explore Floresville Peanut Festival traditions, parade guidance and Wilson County visitor information. Check organizers for the next confirmed dates.",
   },
   "/sports-venue/childrens-health-stadium-prosper": {
     title: "Children's Health Stadium Prosper: Parking & Events",
@@ -775,14 +893,6 @@ function cleanMetaText(value: string) {
   return value.replace(/\s+/g, " ").trim();
 }
 
-function cleanMetaDescription(value: string) {
-  const cleaned = cleanMetaText(value);
-  if (cleaned.length <= META_DESCRIPTION_MAX_LENGTH) return cleaned;
-  const slice = cleaned.slice(0, META_DESCRIPTION_MAX_LENGTH - 1);
-  const wordBoundary = slice.lastIndexOf(" ");
-  const trimmed = (wordBoundary >= 120 ? slice.slice(0, wordBoundary) : slice).replace(/[,:;\s]+$/, "");
-  return `${trimmed}.`;
-}
 
 export function absoluteUrl(brand: BrandConfig, value: string) {
   if (/^https?:\/\//i.test(value)) return value;
@@ -794,13 +904,28 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
   const technicalOverride = brand.identity.id === "texasdefined" && page.canonicalPath
     ? TEXASDEFINED_GSC_SSR_OVERRIDES[page.canonicalPath] ?? TEXASDEFINED_TECHNICAL_SEO_OVERRIDES[page.canonicalPath]
     : undefined;
-  const pageTitle = cleanMetaText(technicalOverride?.title ?? page.title);
-  const description = cleanMetaDescription(technicalOverride?.description ?? page.description);
+  const rawTitle = technicalOverride?.title ?? page.title;
+  const rawDescription = technicalOverride?.description ?? page.description;
+  const governedSnippet = brand.identity.id === "texasdefined"
+    ? resolveEventSnippet({
+        canonicalPath: page.canonicalPath,
+        title: rawTitle,
+        description: rawDescription,
+        eventOccurrenceEndDate: page.eventOccurrenceEndDate,
+        eventName: page.eventName,
+      }, texasEventDateKey())
+    : { title: rawTitle, description: rawDescription };
+  const pageTitle = cleanMetaText(governedSnippet.title);
+  const description = cleanMetaDescription(governedSnippet.description, META_DESCRIPTION_MAX_LENGTH);
   const titleTemplateOverhead = cleanMetaText(brand.seo.titleTemplate.replace("%s", "")).length;
   const maxPageTitleLength = brand.identity.id === "texasdefined" ? Math.max(24, 90 - titleTemplateOverhead) : Number.POSITIVE_INFINITY;
   const budgetedPageTitle = pageTitle.length > maxPageTitleLength
-    ? pageTitle.slice(0, maxPageTitleLength + 1).replace(/\s+\S*$/, "").trim()
-    : pageTitle;
+    ? pageTitle.slice(0, maxPageTitleLength + 1)
+      .replace(/\s+\S*$/, "")
+      // Never ship an automatically shortened search title ending in dangling glue.
+      .replace(/(?:\s+(?:and|or|of|for|to|with|in|at|the)|\s+&)$/i, "")
+      .trim()
+    : pageTitle; // A short complete title like "Worth Pulling Over For" is preserved.
   const fullTitle = cleanMetaText(brand.seo.titleTemplate.replace("%s", budgetedPageTitle));
   const canonicalUrl = page.canonicalPath ? absoluteUrl(brand, page.canonicalPath) : undefined;
   const fallbackImage = SOCIAL_IMAGE_FALLBACKS[brand.identity.id];
