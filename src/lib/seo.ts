@@ -1,4 +1,6 @@
 import type { BrandConfig } from "@/brand/types";
+import { texasEventDateKey } from "@/data/event-occurrence-lifecycle";
+import { resolveEventSnippet } from "@/data/event-snippet-lifecycle";
 
 /** Brand-agnostic head/meta and schema builders. */
 
@@ -15,6 +17,9 @@ export interface PageSeo {
   robots?: string;
   publishedTime?: string;
   modifiedTime?: string;
+  /** Latest documented event occurrence end date (Texas-local YYYY-MM-DD). */
+  eventOccurrenceEndDate?: string | null;
+  eventName?: string;
 }
 
 interface EditorialCollectionItem {
@@ -794,8 +799,19 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
   const technicalOverride = brand.identity.id === "texasdefined" && page.canonicalPath
     ? TEXASDEFINED_GSC_SSR_OVERRIDES[page.canonicalPath] ?? TEXASDEFINED_TECHNICAL_SEO_OVERRIDES[page.canonicalPath]
     : undefined;
-  const pageTitle = cleanMetaText(technicalOverride?.title ?? page.title);
-  const description = cleanMetaDescription(technicalOverride?.description ?? page.description);
+  const rawTitle = technicalOverride?.title ?? page.title;
+  const rawDescription = technicalOverride?.description ?? page.description;
+  const governedSnippet = brand.identity.id === "texasdefined"
+    ? resolveEventSnippet({
+        canonicalPath: page.canonicalPath,
+        title: rawTitle,
+        description: rawDescription,
+        eventOccurrenceEndDate: page.eventOccurrenceEndDate,
+        eventName: page.eventName,
+      }, texasEventDateKey())
+    : { title: rawTitle, description: rawDescription };
+  const pageTitle = cleanMetaText(governedSnippet.title);
+  const description = cleanMetaDescription(governedSnippet.description);
   const titleTemplateOverhead = cleanMetaText(brand.seo.titleTemplate.replace("%s", "")).length;
   const maxPageTitleLength = brand.identity.id === "texasdefined" ? Math.max(24, 90 - titleTemplateOverhead) : Number.POSITIVE_INFINITY;
   const budgetedPageTitle = pageTitle.length > maxPageTitleLength
