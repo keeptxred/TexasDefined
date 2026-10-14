@@ -177,7 +177,8 @@ if (!errors.length) {
 
   for (const marker of [
     "const seoName = program?.schoolName || displayName",
-    "title: editorial?.seo?.title ?? `${teamName} Football: 2026 District & Team Guide`",
+    'title: slug === "ben-bolt-palito-blanco" ? "Ben Bolt–Palito Blanco Fighting Badgers Football (2026)"',
+    '(editorial?.seo?.title ?? `${teamName} Football: 2026 District & Team Guide`)',
     "const description = editorial?.seo?.description ?? `${teamName} football:",
   ]) requireText(featuredProfileRoute, marker, 'Football profile unique SEO metadata');
 
