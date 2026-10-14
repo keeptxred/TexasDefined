@@ -3,7 +3,8 @@
 // source records. Do NOT create museum pages directly from inferred names.
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-const normalize=s=>s.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").replace(/&/g,"and").replace(/[^a-z0-9]/g,"");
+import { segmentOwnerMuseumNames, ownerMuseumIdentityKey, provisionalIdentityIssues } from "./museum-owner-inventory-parser.mjs";
+const normalize=ownerMuseumIdentityKey;
 const owner="docs/museums/owner-submitted-museum-names-20261012.txt";
 const raw=readFileSync(owner,"utf8").replace(/\r/g,"").trim();
 const files=readdirSync("src/data").filter(x=>/museum|destination/i.test(x)&&x.endsWith(".ts"));
@@ -26,9 +27,7 @@ const aliases={
  "maritime museum of texas":"texas-maritime-museum-rockport"
 };
 const byAlias=new Map(Object.entries(aliases).map(([name,slug])=>[normalize(name),slug]));
-const endings=["Museum","Museums","Center","Gallery","Galleries","Mansion","House","Park","Farm","Village","Ranch","Archives","Library","Foundation","Depot","Exhibit","Memorial","Monument","Chapel","Artpace","Art","Arts","Theatre","Square","Site","Station","System","Palace","Sanctuary","War","Texas","History","Heritage","Institute","Association"];
-const boundaries=new RegExp("("+endings.sort((a,b)=>b.length-a.length).join("|")+")(?=[A-Z0-9])","g");
-const parts=raw.split("\n").flatMap(line=>line.replace(boundaries,"$1\n").split("\n")).map(x=>x.trim()).filter(Boolean);
+const parts=segmentOwnerMuseumNames(raw);
 const issueNames=[
  ["mabee-gerrer","Oklahoma location flagged by owner"],
  ["museum of the red river","Owner explicitly marked Oklahoma skip"],
@@ -41,9 +40,10 @@ const issueNames=[
 const rows=parts.map(title=>{
  const key=normalize(title),existing=normNames.get(key),alias=byAlias.get(key);
  const error=issueNames.find(([phrase])=>title.toLowerCase().includes(phrase))?.[1]??null;
+ const parseIssues=provisionalIdentityIssues(title);
  return {submittedName:title,canonicalSlug:existing?.slug??(bySlug.has(alias)?alias:null),
          catalogFile:existing?.file??null,status:error?"identity-or-geography-problem":existing||bySlug.has(alias)?"existing-destination-needs-authority-audit":"requires-independent-source-research",
-         ...(error?{warning:error}:{})};
+         ...(error?{warning:error}:{}),parseIssues,publicationApproved:false};
 });
 const distinct=[...new Map(rows.map(row=>[normalize(row.submittedName),row])).values()];
 const unresolved=distinct.filter(r=>r.status==="requires-independent-source-research");
@@ -56,6 +56,6 @@ const report={generatedAt:"2026-10-12",rawChars:raw.length,sourceCatalogFiles:fi
   matchingExistingRecords:known.length,requiringIndependentResearch:unresolved.length,
   flaggedOutOfStateOrAmbiguous:flagged.length,
   duplicateCanonicalSlugs:[...new Set(records.filter((r,i)=>records.findIndex(v=>v.slug===r.slug)!==i).map(r=>r.slug))],
-  flagged,unresolved:unresolved.slice(0,100),
-  notice:"Raw names were concatenated without separators. Boundaries and aliases are provisional until verified; this report never authorizes bulk publication."};
+  flagged,unresolved,rows:distinct,
+  notice:"Raw names were concatenated without separators. Every candidate is provisional, including parser boundaries and name aliases; this report is a COMPLETE reconciliation backlog, never authority certification or permission to publish."};
 console.log(JSON.stringify(report,null,2));
