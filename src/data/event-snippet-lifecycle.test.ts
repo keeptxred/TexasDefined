@@ -19,9 +19,22 @@ test("confirmed end date remains current through Texas-local final event day", (
 
 test("expired event edition is not advertised as upcoming", () => {
   const result = resolveEventSnippet(heart, "2026-10-19");
-  assert.equal(result.title, "Heart O' Texas Fair & Rodeo: Dates, Schedule & Tickets");
+  assert.equal(result.title, "Heart O' Texas Fair & Rodeo: Visitor Guide & Next Dates");
   assert.doesNotMatch(result.description, /2026|Oct\. 8-18/);
   assert.match(result.description, /confirm the next schedule/);
+});
+
+test("already-ended Floresville multi-window edition loses the 2026 ticket claim", () => {
+  const source = {
+    canonicalPath: "/event/floresville-peanut-festival",
+    title: "Floresville Peanut Festival 2026: Dates, Schedule & Tickets",
+    description: "Plan the 2026 Floresville Peanut Festival with tickets.",
+    eventName: "Floresville Peanut Festival",
+    eventOccurrenceEndDate: "2026-10-10",
+  };
+  const snippet = resolveEventSnippet(source, "2026-10-14");
+  assert.equal(snippet.title, "Floresville Peanut Festival: Visitor Guide & Next Dates");
+  assert.doesNotMatch(snippet.description, /2026|tickets/i);
 });
 
 test("a documented future edition retains its current year and description", () => {
@@ -64,6 +77,6 @@ test("State Fair standalone route remains correct after October 18", () => {
     title: stateFair.title, description: stateFair.description,
   });
   const ended = resolveEventSnippet(stateFair, "2026-10-19");
-  assert.equal(ended.title, "State Fair of Texas: Dates, Hours, Schedule & Tickets");
+  assert.equal(ended.title, "State Fair of Texas: Visitor Guide & Next Dates");
   assert.doesNotMatch(ended.description, /2026|Sept\. 25-Oct\. 18/);
 });
