@@ -40,7 +40,7 @@ export function makeThcHeritageDestination(site: ThcHeritageProfile): Destinatio
       src:"https://commons.wikimedia.org/wiki/Special:Redirect/file/"+encodeURIComponent(site.imageFile)+"?width=1600",
       alt:site.imageAlt,credit:site.imageCredit,width:site.imageWidth,height:site.imageHeight,
     },
-    bestSeason:site.season,entryNote:site.entry,accessibilityNotes:site.access,
+    bestSeason:site.season,entryNote:site.entry,accessibilityNotes:site.accessibility,
     officialUrl:site.officialUrl,managingAuthority:site.operator,
     sourceCheckedAt:"2026-10-12",highlights:site.highlights,body:site.body,
     visitorFaqs:site.faqs,
