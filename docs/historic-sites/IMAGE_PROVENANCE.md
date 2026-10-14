@@ -37,3 +37,16 @@ These are **file-specific, independently checked** image rights, not a blanket l
 3. Use descriptive alt text for the real subject, not generic hero text.
 4. Preserve original proportions and avoid false claims of original site buildings where reconstruction has occurred.
 5. A single verified hero does **not** satisfy a multiple-image or original field-photography requirement. Additional views require separate file-by-file clearance.
+
+
+## 4. Holland Hotel, Alpine — independently licensed 2025 facade
+
+- Canonical destination: `/destination/holland-hotel`.
+- Exact source: https://commons.wikimedia.org/wiki/File:Alpine_-_Holland_Hotel.jpg
+- Photographer: **P. Hughes** (Wikimedia account Indies1); photographed **February 3, 2025**.
+- Copyright: **Creative Commons Attribution 4.0 International**, https://creativecommons.org/licenses/by/4.0/ .
+- Original dimensions: **5,012 × 3,896**; photographed facade is the actual Holland Hotel at 209 West Holland Avenue, Alpine.
+- Original file page responded HTTP 200, identified photographer and CC BY 4.0. The derived 1,600-pixel Commons redirect responded HTTP 200 image/jpeg on October 14, 2026.
+- **Reason for replacing the hero:** the hotel's old Adavyd 2014 Commons image was already being used by the Alpine Downtown Historic District guide. The site-wide image uniqueness rule replaced the duplicated hotel image with a placeholder and the hotel vanished from the Explore sitemap. Keep the district's old source-specific image; use P. Hughes's distinct image for the hotel.
+- Credit P. Hughes with the CC BY 4.0 license and link the exact Commons file; if edited, indicate modifications. This is an independently licensed photograph, **not** TexasDefined's original field photography. Its 2025 date is not evidence of current hotel access or active renovations.
+- Premerge photo uniqueness and post-deploy 14-landmark sitemap tests now protect against a recurrence. Do not claim this remediation is live until the corresponding production commit and sitemap have passed.
