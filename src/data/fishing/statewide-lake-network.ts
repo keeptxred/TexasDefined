@@ -2129,6 +2129,92 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     nearbyLakes: [{slug:"lake-brownwood",name:"Lake Brownwood"},{slug:"o-h-ivie-lake",name:"O. H. Ivie Lake"},{slug:"lake-colorado-city",name:"Lake Colorado City"}],
   },
+  {
+    slug: "b-a-steinhagen-lake", name: "B. A. Steinhagen Lake", tpwdSlug: "steinhagen", waterDataSlug: "b-a-steinhagen",
+    region: "piney-woods", verifiedAt: "2026-10-14", accessReviewedAt: "2026-10-14",
+    summary: "Neches River reservoir with seven named public access sites, current federal and state-park ramp/camping closures, strong catfish and spotted-bass fishing, a serious fish-consumption advisory, and a documented 1947–1953 construction history.",
+    surfaceAcres: 10687, maxDepthFeet: 35, impoundedYear: 1951, counties: ["Jasper", "Tyler"],
+    nearestCities: ["Jasper", "Woodville", "Colmesneil"],
+    waterway: "Neches River below the Angelina–Neches confluence", riverBasin: "Neches River Basin",
+    authority: "U.S. Army Corps of Engineers — Town Bluff Project; TPWD manages Martin Dies, Jr. State Park",
+    conservationPool: "TPWD references 82.5 ft MSL; TWDB's modern NGVD29 gauge lists 83.00 ft. Compare only within each source's stated datum.",
+    fluctuation: "TPWD reports an annual average near three feet; controlled dam operation, flooding, vegetation and changing ramps override old reference levels",
+    clarity: "Typically turbid, with cypress sloughs and shallow backwaters",
+    identity: "B. A. Steinhagen Lake, also historically Dam B or Town Bluff Reservoir, lies on the Neches River in Jasper and Tyler counties. It is neither nearby Sam Rayburn Reservoir nor an alternative name for the entire Angelina-Neches Wildlife Management Area. TPWD's 10,687-acre figure describes a reference impoundment and not a measurement of usable water today. The seven TPWD-listed launches and bank facilities span TWO operators: Martin Dies, Jr. State Park (TPWD) and federal Town Bluff parks (USACE). Their current alerts override older TPWD year-round listings. In September 2026 TPWD closed the Hen House Ridge boat ramp and several campground loops through construction; the federal Town Bluff status lists a Campers Cove boat ramp OPEN while its campground is CLOSED. Most importantly, the Neches River fish-consumption advisory explicitly covers B. A. Steinhagen: smallmouth buffalo must not be eaten and susceptible groups must avoid the listed other fish. Follow current state advisory before retaining a catch for food.",
+    habitat: [
+      "The Neches and Angelina backwaters combine flooded hardwood/cypress stands, shallow timber, creek channels and lily pads with extensive aquatic vegetation. TPWD identifies water hyacinth, hydrilla and American lotus as major cover.",
+      "Catfish use the Neches channel and deeper flow paths. TPWD reports an excellent catfish fishery, with blue and channel catfish on cut bait and flatheads associated with live bait; consumption safety is a separate, species-specific issue.",
+      "Spotted bass in the Angelina River and crappie around cypress/timber are rated good; largemouth bass in this highly vegetated, turbid lake are rated fair, and white bass poor.",
+      "Aquatic plants can obstruct shoreline routes and narrow waterways. The lake is a shallow floodplain reservoir even when the historic maximum depth sounds relatively deep; confirm water and navigation conditions before launching into backwaters."
+    ],
+    fish: [
+      fish("catfish", "Blue, channel and flathead catfish", "excellent", "summer",
+        "TPWD rates catfish excellent: cut bait in Neches River channels suits blue/channel catfish, and live bait is commonly used for flatheads. IMPORTANT: the revised state fish-consumption advisory restricts flatheads and some other fish; catching them is not advice to eat them.",
+        ["cut-bait", "live-bait"]),
+      fish("spotted-bass", "Spotted bass", "good", "year-round",
+        "TPWD rates spotted bass good, particularly in the Angelina River reach above the lake. Small crankbaits, spinnerbaits and topwater lures along timber and brush provide an alternative to vegetated main-lake largemouth cover.",
+        ["crankbaits", "spinnerbaits", "topwater"]),
+      fish("crappie", "Crappie", "good", "spring",
+        "TPWD calls crappie good, with seasonal concentration near shallow trees, cypress edges and brush in the spring spawning period.",
+        ["jigs-and-minnows", "vertical-jigging"]),
+      fish("largemouth-bass", "Largemouth bass", "fair", "spring",
+        "TPWD rates largemouth FAIR, not excellent. Cover around vegetation and cypress knees with soft plastics, small spinnerbaits and seasonal surface baits; compare floodwater/vegetation alerts before a trip.",
+        ["soft-plastics", "spinnerbaits", "topwater"], "secondary"),
+      fish("sunfish", "Bluegill and redear sunfish", "good", "summer",
+        "TPWD rates sunfish good and identifies high numbers. Shoreline shallows, protected stems and small fish-friendly presentations suit family-oriented angling.",
+        ["jigs-and-minnows"], "secondary"),
+      fish("white-bass", "White bass", "poor", "spring",
+        "TPWD rates white bass POOR. A limited upstream spring spawning run is not a reliable central reason to book the lake.",
+        ["vertical-jigging", "trolling"], "secondary")
+    ],
+    access: "Seven TPWD-named destinations exist around the lake: Walnut Ridge, Tidelands, Hen House Ridge and Wolf Creek in Martin Dies, Jr. State Park, plus Sandy Creek, Campers Cove and Magnolia Ridge in USACE's Town Bluff project. The published TPWD access pages can be stale. TPWD's September 18, 2026 operator alert CLOSED the Hen House Ridge boat ramp and 100/200 camping loops for construction, though Hen House day use remains open. USACE currently lists Magnolia Ridge and Sandy Creek ramps and campgrounds OPEN, the Campers Cove RAMP OPEN but CAMPGROUND CLOSED, and federal River Campsites as open camping. Cash payments are no longer accepted at federally run ramps/campgrounds. Verify operator alerts and storm impacts immediately before travel.",
+    accessPoints: [
+      {name: "Walnut Ridge Unit state park ramp",operator:"Texas Parks and Wildlife Department",kind:"park",launch:"Martin Dies Jr State Park west of Jasper near US 190; one-lane concrete launch within Walnut Ridge unit; campgrounds and day-use park paths are separate reservation facilities.",fee:"Texas state park admission/pass; posted daily and campsite rates can change",availability:"TPWD historically says year-round, but check current Martin Dies Jr unit alerts and park capacity at (409) 384-5231."},
+      {name: "Tidelands state park ramp and pier",operator:"Texas Parks and Wildlife Department",kind:"park",launch:"State park entry from US 190; one lane with courtesy dock and TPWD-listed fishing pier, serving boating/day-use rather than an independent overnight camping reservation.",fee:"State park admission/pass required",availability:"TPWD's park activities page permits early launches for duck hunters at Tidelands; verify current boat and park access."},
+      {name: "Hen House Ridge state park ramp — CLOSED for construction",operator:"Texas Parks and Wildlife Department",kind:"park",launch:"Enter Hen House Ridge from Park Road 48 south of US 190. Legacy TPWD inventory shows a one-lane ramp; the September 18, 2026 park alert explicitly CLOSES this ramp until an anticipated spring 2027 reopening.",fee:"Do not drive to this ramp expecting current access; verify closure lifting with park",availability:"TPWD operator alert confirms boat ramp closed; the 100 and 200 camping loops, associated restrooms and fish-cleaning station also closed through February 2027. Day use remains open."},
+      {name: "Sandy Creek USACE park ramps",operator:"U.S. Army Corps of Engineers — Town Bluff",kind:"public-ramp",launch:"West of Jasper via US 190, then CR 156 to Sandy Creek. TPWD lists three single-lane concrete ramps with federal park day-use facilities.",fee:"USACE accepts NO cash at operated ramps; legacy TPWD $3 rate is not a current price",availability:"Current Town Bluff status lists ramp OPEN and campground OPEN. Call the Town Bluff office (409) 429-3491 before travel."},
+      {name: "Campers Cove USACE ramp — campground CLOSED",operator:"U.S. Army Corps of Engineers — Town Bluff",kind:"public-ramp",launch:"Off FM 92 south of the US 190 crossing; TPWD lists two single-lane boat ramps and associated picnic/day-use infrastructure.",fee:"No cash at federal ramps; verify card/online passes and exact use charges with USACE",availability:"Town Bluff status marks BOAT RAMP OPEN, DAY USE OPEN, but CAMPGROUND CLOSED. Do not infer overnight lodging from an accessible boat launch."},
+      {name: "Wolf Creek state park unit ramps",operator:"Texas Parks and Wildlife Department",kind:"park",launch:"Western side of US 190 Neches bridge; TPWD inventory lists two single-lane ramps. State park activities note Wolf Creek and Rush Creek ramps allow early duck-hunter launch with park entry.",fee:"State park admission/pass applies; check actual unit gate conditions",availability:"Check the park alert, unit access and storm closures; a state park listing is not live verification."},
+      {name: "Magnolia Ridge USACE ramps",operator:"U.S. Army Corps of Engineers — Town Bluff",kind:"park",launch:"Two miles north of the US 190/FM 92 crossing. TPWD lists three separate one-lane boat ramps and established federal recreation campground.",fee:"USACE operated facilities do not accept cash; verify Recreation.gov bookings and current fees",availability:"Town Bluff status lists boat ramp, campground and day-use OPEN. Confirm operating notices and reservable availability with (409) 429-3491."}
+    ],
+    campingUrl: "https://tpwd.texas.gov/state-parks/martin-dies-jr/fees-facilities/campsites",
+    camping: {
+      name: "Two operators, distinct restrictions: Martin Dies Jr and Town Bluff USACE",
+      summary: "Martin Dies, Jr. State Park offers named, reservable water/electric and water-only sites, cabins and screened shelters in units of Walnut Ridge and Hen House Ridge. The TPWD reservation inventory separately lists 50-amp, 30-amp, and water-only campsite categories, but its September 2026 alert CLOSED the Hen House 100/200 camping loops, restrooms and fish-cleaning station through February 2027. Do not promise a site solely from category counts; reserve through TPWD and check the exact unit. USACE Town Bluff lists Magnolia Ridge and Sandy Creek campgrounds open, River Campsites open, but Campers Cove campground CLOSED though its BOAT RAMP remains open. Book USACE camping separately via Recreation.gov or 1-877-444-6777, and note that USACE no longer accepts cash at its parks."
+    },
+    specialRules: false,
+    historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/ba_steinhagen/index.asp",
+    visitorSourceUrl: "https://www.swf-wc.usace.army.mil/townbluff/",
+    consumptionSourceUrl: "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories",
+    nearbyDestinations: [{slug:"martin-dies-jr-state-park",name:"Martin Dies, Jr. State Park",reason:"State park camping, paddling, accessible day-use options and Hen House unit closure notices directly affect lake trip planning."}],
+    historyNotes: [
+      "The Neches River project was originally called Dam B and was authorized by the 1945 River and Harbor Act. TWDB and USACE record dam construction beginning March 1947, deliberate impoundment beginning in April 1951 and completion in June 1953. Do not confuse impoundment and completion dates.",
+      "In July 1967 the project was renamed Town Bluff Dam and B. A. Steinhagen Lake for local civic leader B. A. Steinhagen. It lies between USACE Sam Rayburn upstream and the lower Neches drainage below; its primary operating purpose integrates flood control, hydroelectric power and water resources.",
+      "USACE's Robert D. Willis Hydropower Project began construction in March 1987 and reached commercial service in November 1989, decades after the dam's initial construction. The hydropower project's history is not the reservoir's impoundment date.",
+      "TWDB's Water Data for Texas uses a documented NGVD29 elevation reference and supplies timestamped observed level and conservation storage. TPWD's old 82.5-foot 'msl' reference and TWDB's 83.00-foot normal pool do not justify comparing raw figures without their datum/methodology."
+    ],
+    visitorFAQs: [
+      {question:"Is the Hen House Ridge boat ramp open?",answer:"No, TPWD's operator alert dated September 18, 2026 closes the Hen House Ridge boat ramp for construction, with a planned reopening in spring 2027. The adjacent 100/200 campground loops, restrooms and fish cleaning station are closed through February 2027, but the Hen House day-use area remains open. Check for newer updates."},
+      {question:"Is Campers Cove open for camping?",answer:"The USACE Town Bluff operating table explicitly marks the Campers Cove RAMP OPEN and DAY USE OPEN but the CAMPGROUND CLOSED. This is not interchangeable with the open Magnolia Ridge or Sandy Creek campgrounds."},
+      {question:"Can I eat fish from Steinhagen Reservoir?",answer:"Read the currently revised TPWD/DSHS Neches River advisory covering B. A. Steinhagen and Sam Rayburn. Smallmouth buffalo: DO NOT EAT. Adults: flathead catfish and gar no more than one 8-oz serving/month; blue catfish over 30 inches and largemouth/spotted bass over 16 inches no more than two 8-oz servings/month. Women of childbearing age and children under 12 should NOT eat the listed fishes. Other current advisories may change; follow the official page."},
+      {question:"Is the lake good for catfish?",answer:"TPWD rates catfish excellent, with blue, channel and flatheads commonly using channels and live/cut bait. Quality as a sportfish is separate from the serious DSHS consumption advisory."},
+      {question:"Which ramps are run by USACE instead of Texas State Parks?",answer:"Magnolia Ridge, Sandy Creek and Campers Cove are USACE facilities; Walnut Ridge, Tidelands, Hen House Ridge and Wolf Creek are Martin Dies Jr State Park access areas. Compare each operator's notices for permits, admission, ramps and construction."},
+      {question:"Can I pay cash at Town Bluff USACE boat ramps?",answer:"No. The USACE Town Bluff page says cash is no longer accepted at federally operated campgrounds or boat ramps; follow posted electronic/card or Recreation.gov procedures."},
+      {question:"How many public ramp locations does TPWD list?",answer:"Seven named public-access locations appear in TPWD's fishing access inventory. Agency facilities may contain more than one lane or ramp; older surveys count broader access areas differently."},
+      {question:"Can I swim in the reservoir?",answer:"TPWD identifies a designated swimming area at Martin Dies Jr Hen House Ridge open sunrise to sunset, with no lifeguards. Current park alerts and water safety conditions must be checked. Do not treat all vegetated sloughs or navigable river channels as suitable swim areas."},
+      {question:"Is there a live reservoir level?",answer:"Yes. Water Data for Texas provides timestamped measurements and a conservation-pool reference under its stated NGVD29 datum. The live level is not a guarantee that a specific boat lane or road is open."},
+      {question:"Why are there different dam completion dates?",answer:"Construction began March 1947; deliberate water impoundment started April 1951; the dam was completed June 1953. TPWD's 'impounded 1951' refers to the filling milestone, not the end of construction."},
+      {question:"Is the lake photograph current?",answer:"No. The actual photographed B. A. Steinhagen Reservoir morning mist was captured on October 19, 2013 by Plazak, with CC BY-SA 3.0 rights recorded on Wikimedia Commons. It does not prove today's water levels, campground or ramp status."}
+    ],
+    travelAlerts: [
+      "CURRENT TPWD PARK CLOSURE (September 18, 2026): Hen House Ridge boat ramp CLOSED; Hen House 100 and 200 camp loops, restrooms and fish-cleaning station closed through February 2027, while day use remains open.",
+      "USACE CURRENT FACILITIES: Campers Cove boat ramp open but campground CLOSED; Magnolia Ridge and Sandy Creek ramps and campgrounds open; cash not accepted at USACE parks.",
+      "PUBLIC HEALTH: current DSHS Neches River fish-consumption advisory covers Steinhagen. Smallmouth buffalo DO NOT EAT. Women of childbearing age and children under 12 should not eat the listed fish species; others have restricted consumption limits.",
+      "Flooded cypress, submerged timber, shallow meanders, aquatic weeds and variable controlled releases require current map/water conditions; the old TPWD maximum depth is not navigational clearance.",
+      "Water levels and parks have different operators and update cycles. Verify original TPWD alert, USACE Town Bluff park status and TWDB timestamped gauge immediately before departure."
+    ],
+    nearbyLakes: [{slug:"sam-rayburn-reservoir",name:"Sam Rayburn Reservoir"},{slug:"lake-livingston",name:"Lake Livingston"},{slug:"toledo-bend-reservoir",name:"Toledo Bend Reservoir"}],
+  },
 ];
 
 const techniqueLabels: Record<TechniqueId, string> = {
