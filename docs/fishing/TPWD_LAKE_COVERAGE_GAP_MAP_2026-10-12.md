@@ -5,8 +5,8 @@
 ## Counts and caveats
 
 - **175** separate alphabetical links/named entries in the TPWD public lake list (excluding its extra *Town Lake = Lady Bird Lake* alias line).
-- **72** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
-- **103** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
+- **73** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
+- **102** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
 - TPWD list entries include local ponds and some state-park-managed lakes as well as reservoirs; they cannot all be treated as equally high-demand or guaranteed distinct reservoirs.
 - This list does not include every Texas stock tank, private lake, community fishing pond, or small waterbody outside TPWD's own directory. It therefore cannot prove “every Texas lake.”
 
@@ -39,7 +39,7 @@
 | Athens | **Not in completed-guide registry** |
 | Austin | [lake-austin](https://texasdefined.com/fishing/lakes/lake-austin) |
 | Averhoff | **Not in completed-guide registry** |
-| B.A. Steinhagen | **Not in completed-guide registry** |
+| B.A. Steinhagen | [B. A. Steinhagen Lake](/fishing/lakes/b-a-steinhagen-lake) |
 | Bachman | [bachman-lake](https://texasdefined.com/fishing/lakes/bachman-lake) |
 | Balmorhea | **Not in completed-guide registry** |
 | Bardwell | [bardwell-lake](https://texasdefined.com/fishing/lakes/bardwell-lake) — awaiting wave-3 release |
@@ -280,3 +280,7 @@ Source-researched dossier on Colorado River Municipal Water District's Robert Le
 ## October 14 — Brady Creek Reservoir authority
 
 TPWD lists a single City Park at Dam ramp that operates well only at **high water**, despite the old year-round park label. The City of Brady's [Brady Lake operator page](https://www.bradytx.us/881/Brady-Lake) independently confirms 23 RV hookups in its park plus pavilion hookups, 15 tent sites, three primitive sites, eight cabanas, 12 cabins and real operator reservation contact. TWDB dates the dam from December 1961 construction to May 1963 completion and deliberate impoundment; TPWD documents 2012 golden algae and FAIR fish quality ratings. Wikimedia Commons' 3,214×1,808 Brady Lake image by Larry D. Moore was verified from original file metadata as **CC BY 4.0**, not an invented stock lake photo. The new branch proposes **72** completed guide matches, **103** unmatched TPWD directory entries. Current ramp functionality, first-party photo inventory and production editorial certification are not claimed.
+
+## October 14 — B.A. Steinhagen Reservoir authority
+
+This researched profile reconciles seven exact TPWD park/ramp entries with TPWD's September 18, 2026 **Hen House Ridge boat-ramp closure** and its 100/200 campground-loop closures through February 2027, alongside current USACE Town Bluff status: **Campers Cove ramp open but campground closed**, Magnolia Ridge/Sandy Creek ramp and campground open, and federal parks not accepting cash. DSHS's revised Neches River fish-consumption advisory covering Steinhagen prohibits smallmouth buffalo consumption and requires species-/age-specific restrictions. TWDB and USACE chronologies distinguish March 1947 construction, April 1951 impoundment and June 1953 completion. The 2100×1605 actual reservoir image by Plazak was documented as October 19, 2013 CC BY-SA 3.0 through Commons original metadata. The proposed 73-guide registry still leaves 102 unmatched TPWD entries, and full field photography/current operational signoff/production proof remain uncertified.
