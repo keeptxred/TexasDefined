@@ -327,6 +327,8 @@ export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
 ] as const;
 
 export const REDIRECT_ONLY_PATHS = [
+  "/destination/choke-canyon-north-shore-unit-state-park",
+  "/state-park/caprock-canyons-trailway-estelline-terminal-state-park",
   "/museum/barrington-farm-site",
   "/advertising-billing",
   "/advertising-terms",
