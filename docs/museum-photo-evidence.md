@@ -173,3 +173,18 @@ Exact-site antique farm-equipment photograph: [Boerne ag museum 2013.jpg](https:
 - **Exact museum building:** [Former alvin tx post office.jpg](https://commons.wikimedia.org/wiki/File:Former_alvin_tx_post_office.jpg) on Wikimedia Commons. The Commons file description identifies this particular **1940 former U.S. Post Office building in Alvin as the present Alvin Historical Museum** (300 W. Sealy Street), not the separate still-active Alvin post office at 455 E. House Street.
 - **Author/rights:** **Larry D. Moore**, photographed **May 12, 2015**, original **1789 × 1193 pixels**, **CC BY 4.0**, verified directly from Commons API imageinfo.extmetadata (artist, original dimensions, descriptive museum identity, license and license URL). License link: https://creativecommons.org/licenses/by/4.0/ . Visible museum hero credit and source/license links are wired through the existing destination photo-rights display.
 - **Temporal scope:** 2015 exterior is site-specific historical imagery, not proof that 2026 hours, access features or exhibitions are unchanged. Source checks continue through original 30-day museum manifest. Do not confuse with Wikimedia Commons **Alvin TX US Post Office.jpg**, which depicts a different working post office on E. House Street.
+
+## The Sixth Floor Museum at Dealey Plaza — October 14, 2026
+
+- Existing canonical hero source: `https://commons.wikimedia.org/wiki/Special:Redirect/file/View,_in_2014,_of_Dealey_Plaza_and_the_Texas_School_Book_Depository_in_Dallas,_Texas.jpg?width=1600`.
+- Identified subject: 2014 photograph of Dealey Plaza and former Texas School Book Depository in Dallas, not an interior view or original 1963 photograph.
+- Source: Carol M. Highsmith, Library of Congress Prints and Photographs, item `2014632610`, digital ID `highsm.28410`: https://www.loc.gov/item/2014632610/ .
+- Reuse status: Library of Congress records **no known restrictions on publication** and Wikimedia Commons categorizes this original Highsmith photograph as public domain: https://commons.wikimedia.org/wiki/File:View,_in_2014,_of_Dealey_Plaza_and_the_Texas_School_Book_Depository_in_Dallas,_Texas.jpg . Rights assessment applies to this exact image, not unrelated museum exhibits, logos or gallery photographs.
+- Editorial display status: existing correct subject and attribution in `src/data/destination-curation-top-attractions-batch2.ts`; new authority dossier deliberately preserves the original hero. The actual rendered photo, ALT, attribution link and mobile layout still require production acceptance. **Not automatically marked image-compliant or authority-certified.**
+
+## USS Lexington Museum — October 14, 2026
+
+- Existing canonical museum hero is the identifiable ship at North Beach, photographed February 9, 2018 by Matthew T Rader: https://commons.wikimedia.org/wiki/File:An_aerial_photo_of_the_USS_Lexington_in_Corpus_Christi.jpg .
+- Source licensing: **CC BY-SA 4.0** with creator requirement for visible credit `Matthew T Rader`, creator website `https://matthewtrader.com`, and proper license reference `https://creativecommons.org/licenses/by-sa/4.0/`. This is not public-domain U.S. Navy imagery.
+- `src/data/military-museum-destinations.ts` already credits `Matthew T Rader / MatthewTRader.com · CC BY-SA 4.0 · Wikimedia Commons` and uses the actual 2018 aerial museum-era photograph. Preserve it and distinguish historic wartime gallery photographs by dates and source.
+- Browser-rendered attribution links, image dimensions, any derivative change notation, and small-screen display remain **unverified** until production acceptance. Do not certify merely from valid source metadata.

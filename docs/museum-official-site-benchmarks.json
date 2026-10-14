@@ -1456,6 +1456,61 @@
         "https://texasbroadcastmuseum.com/",
         "https://texasbroadcastmuseum.com/reviews/"
       ]
+    },
+    "sixth-floor-museum-at-dealey-plaza": {
+      "name": "The Sixth Floor Museum at Dealey Plaza",
+      "operatorStrengths": [
+        "Detailed original exhibit interpretation, evidence-gallery provenance and current operator Q&A",
+        "Current timed entry, adult/senior/youth pricing and last-entry policies",
+        "Detailed access: ramp, wheelchair loans, service-animal and sensory-bag resources",
+        "Current school-group and general group distinctions"
+      ],
+      "openGaps": [
+        "Compare browser-rendered TexasDefined guide and FAQs against operator material after deployment",
+        "Confirm recurring Supabase ingestion and actual source checks after merge, without advancing review dates automatically",
+        "Perform responsive, image-rendering, reciprocal-link and structured-data production acceptance",
+        "Side-by-side independent visitor experience assessment and photographic display-rights review before any certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.jfk.org/plan-your-visit/",
+        "https://www.jfk.org/plan-your-visit/visitation-guidelines/",
+        "https://www.jfk.org/accessibility/",
+        "https://www.jfk.org/exhibition/john-f-kennedy-and-the-memory-of-a-nation/",
+        "https://www.jfk.org/faq/"
+      ]
+    },
+    "uss-lexington-museum-corpus-christi": {
+      "name": "USS Lexington Museum on the Bay",
+      "operatorStrengths": [
+        "Current 2026 pricing, card surcharge, holiday and summer/regular hours",
+        "Operator-defined five self-guided circuits and specialty tours",
+        "Specific Hangar/Flight Deck wheelchair access with LEX LIFT",
+        "Current Mess Deck Café lunch menu and schedule",
+        "Detailed flight-deck aircraft interpretation"
+      ],
+      "openGaps": [
+        "Confirm on-page hero, CC BY-SA attribution/license link, current image metadata and responsive layout",
+        "Reconcile operator five self-guided route descriptions with visitor-specific depth and visitor-intent FAQ",
+        "Check county/Coastal Bend reciprocal links and Museum schema on live canonical page",
+        "Verify the new Supabase manifest enrollment and actual checked sources before independently certifying"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://usslexington.com/visit/hours-admission/",
+        "https://usslexington.com/tours/self-guided-tours/",
+        "https://usslexington.com/attractions/the-flight-deck/",
+        "https://usslexington.com/visit/mess-deck-cafe/",
+        "https://usslexington.com/attractions/",
+        "https://usslexington.com/learn/education/",
+        "https://usslexington.com/visit/directions-map-how-to-get-to-lex/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",

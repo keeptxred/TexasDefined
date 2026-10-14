@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-13",
+  "asOf": "2026-10-14",
   "repository": "keeptxred/TexasDefined",
   "production": "https://texasdefined.com",
   "supabaseProjectId": "ftkznprjljkhymknvhye",
@@ -19,9 +19,9 @@
   },
   "liveSupabaseLastRead": {
     "museumRegistryRecords": 69,
-    "registryStatusVerified": 65,
+    "registryStatusVerified": 63,
     "registryStatusSourceUnreachable": 1,
-    "museumMonitoredSourceRecords": 302,
+    "museumMonitoredSourceRecords": 305,
     "sourceBaseline": 280,
     "sourceUnreachable": 1,
     "cityOfKatySource403": "https://www.cityofkaty.com/visitors/museums",
@@ -31,7 +31,10 @@
       "processed": 1,
       "failed": 0,
       "requestId": 6478
-    }
+    },
+    "registryStatusSourceChanged": 2,
+    "registryStatusAwaitingEditorialVerification": 3,
+    "pathsWithMonitoredSources": 69
   },
   "recoveryPullRequest": {
     "url": "https://github.com/keeptxred/TexasDefined/pull/4792",
@@ -140,5 +143,148 @@
       "johnny-nelson-katy-heritage-museum"
     ],
     "status": "Transport and live reachability audited; missing licensed site photos gate noindex and cannot be silently waived. Recheck noindex after real-photo production deployments."
-  }
+  },
+  "reconciliationObservations20261014": {
+    "githubMainObservedCommit": "82fa4f86558f96e6f2b4b066474f0b1ea425b910",
+    "mergedPRs": [
+      4792,
+      4817
+    ],
+    "canonicalManifestEntryCount": 69,
+    "independentlyAuthorityCertifiedCount": 0,
+    "ownerNameInventoryComplete": false,
+    "ownerRawNameOccurrences": "Verify via updated node scripts/data/test-museum-owner-inventory-parser.mjs; raw repeated name occurrences must remain visible",
+    "duplicateSourceExample": "Scurry County Museum appears more than once in owner submitted source; repeated occurrence now retained with first occurrence pointer",
+    "observedOpenRegistryRecords": [
+      "/destination/corpus-christi-museum-science-history",
+      "/destination/historic-brownsville-museum",
+      "/destination/port-isabel-historical-museum"
+    ],
+    "observedExternalSourceBlocker": {
+      "path": "/destination/johnny-nelson-katy-heritage-museum",
+      "url": "https://www.cityofkaty.com/visitors/museums",
+      "httpStatus": 403,
+      "alternateSource": "https://www.katyedc.org/quality-of-life/arts-culture-and-events",
+      "alternateHttpStatus": 200,
+      "disposition": "Keep City URL unverified; independent editorial facts must be based on reachable official/authoritative documents"
+    },
+    "portIsabelProductionMedia": {
+      "path": "/destination/port-isabel-historical-museum",
+      "observed": "2026-10-14 live-page crawl displayed destination-specific photograph not yet available",
+      "sourceFile": "src/data/museum-authority-heroes.ts",
+      "sourceAsset": "2014 Carol M. Highsmith photograph of 1906 fish mural on Champion Building",
+      "sourceConnectivity": "Original Wikimedia asset URL recorded HTTP 200 on 2026-10-14 00:17 UTC",
+      "fix": "Final Explore catalog licensed-media enrichment added; recheck canonical page post-deploy separately before clearing media defect",
+      "acceptance": "NOT ACCEPTED until responsive browser confirms image display and attribution"
+    },
+    "routeAcceptance": {
+      "portIsabel": "Content appeared in public page crawl but hero remains placeholder",
+      "diboll": "Direct retrieval tool unable to establish current production HTML or HTTP status; not a confirmed 404 or 200",
+      "texasBroadcast": "Direct retrieval tool unable to establish current production HTTP status",
+      "sanAugustineJail": "Direct retrieval tool unable to establish current production HTTP status"
+    },
+    "currentImplementation": "Feature branch change: preserve all inventory raw name occurrences; enrich Explore catalog museum photos after curation; add parser and media regression guards; requires merged CI and production verification"
+  },
+  "researchedOutOfStateExclusions20261014": {
+    "reviewedAt": "2026-10-14",
+    "scope": "Independently verified name records appearing in owner's concatenated historical source. Annotation fragments and proposed Texas substitutions are not additional proof of new Texas museum identity. Do not publish these out-of-state originals as Texas destinations.",
+    "records": [
+      {
+        "rawMatch": "Mabee-Gerrer Museum",
+        "officialName": "Mabee-Gerrer Museum of Art",
+        "city": "Shawnee",
+        "state": "Oklahoma",
+        "organization": "Mabee-Gerrer Museum of Art",
+        "officialUrl": "https://www.mgmoa.org/visit",
+        "disposition": "excluded-out-of-state"
+      },
+      {
+        "rawMatch": "Cade Museum of Science and Invention",
+        "officialName": "Cade Museum for Creativity & Invention",
+        "city": "Gainesville",
+        "state": "Florida",
+        "organization": "Cade Museum",
+        "officialUrl": "https://cademuseum.org/about/contact-us/",
+        "disposition": "excluded-out-of-state"
+      },
+      {
+        "rawMatch": "Mid-America Museum of Aviation and Transportation",
+        "officialName": "Mid America Museum of Aviation & Transportation",
+        "city": "Sioux City",
+        "state": "Iowa",
+        "organization": "Mid America Museum of Aviation & Transportation",
+        "officialUrl": "https://www.midamericaairmuseum.org/",
+        "disposition": "excluded-out-of-state"
+      },
+      {
+        "rawMatch": "Museum of the Red River",
+        "officialName": "Museum of the Red River",
+        "city": "Idabel",
+        "state": "Oklahoma",
+        "organization": "Idabel Museum Society, Inc.",
+        "officialUrl": "https://museumoftheredriver.org/visit/",
+        "disposition": "excluded-out-of-state"
+      },
+      {
+        "rawMatch": "Museum of the Western Prairie",
+        "officialName": "Museum of the Western Prairie",
+        "city": "Altus",
+        "state": "Oklahoma",
+        "organization": "Oklahoma Historical Society",
+        "officialUrl": "https://www.okhistory.org/sites/visit-mwp",
+        "disposition": "excluded-out-of-state"
+      },
+      {
+        "rawMatch": "Art Museum of the Americas",
+        "officialName": "Art Museum of the Americas",
+        "city": "Washington",
+        "state": "District of Columbia",
+        "organization": "Organization of American States",
+        "officialUrl": "https://museum.oas.org/Visit/Contact-Us",
+        "disposition": "excluded-out-of-state"
+      }
+    ],
+    "count": 6,
+    "note": "These six operator-grounded original names are excluded from Texas institution candidate totals, but not all have clean standalone parsed segments; automated parser boundaries and owner substitution annotations require further reconciliation. No museum page created."
+  },
+  "pendingMuseumAuthorityExpansion20261014": {
+    "branch": "feature/museum-statewide-source-ledger-media-20261014",
+    "pullRequest": 4844,
+    "scope": "Existing canonical museum page upgrades, not new competing destinations",
+    "addedDossiers": [
+      "sixth-floor-museum-at-dealey-plaza",
+      "uss-lexington-museum-corpus-christi"
+    ],
+    "researchedFaqAdditions": 22,
+    "sourceManifestAdditionalMuseumPaths": 2,
+    "operatorSourcesAddedForNewMuseums": 13,
+    "additionalOperatorCalendarSource": "https://texasmaritimemuseum.org/events/month/2026-10/",
+    "proposedTotalManifestMuseums": 71,
+    "proposedTotalMuseumFaqs": 585,
+    "proposedTotalManifestSourceRecords": 298,
+    "proposedTotalComparativeBenchmarks": 71,
+    "independentlyCertifiedCount": 0,
+    "goLiveState": "Branch only: awaiting protected CI, merge, deployment, live source ingestion and browser verification; no publication or certification claim.",
+    "photoRights": {
+      "sixthFloor": "Existing public-domain Carol Highsmith 2014 photograph LOC highsm.28410 confirmed; browser image verification outstanding",
+      "lexington": "Existing Matthew T Rader Feb 2018 image CC BY-SA 4.0; visible credit and rendered display verification outstanding"
+    },
+    "mergeReconciliation": "Preserved main productionVerification, the original 69-guide live-route audit, two upstream source manifest additions, and other concurrently merged museum photo provenance records."
+  },
+  "newSourceChangeAlerts20261014": [
+    {
+      "path": "/destination/african-american-museum-dallas-fair-park",
+      "source": "https://aamdallas.org/plan-your-visit/",
+      "status": "source_changed",
+      "response": 200,
+      "observed": "Current operator page contradicts itself on regular opening hours (top table 10 a.m. vs FAQ 11 a.m. Tues-Fri), lists special State Fair hours, and has a stale May 1 reopening banner; published guide and FAQ now warn and direct day-of confirmation; maintain alert until operator clarifies."
+    },
+    {
+      "path": "/destination/texas-maritime-museum-rockport",
+      "source": "https://texasmaritimemuseum.org/",
+      "status": "source_changed",
+      "response": 200,
+      "observed": "Live 2026 operator programming advertises Tides of Freedom and Built for Victory temporary exhibitions; updated guide with dated exhibits and source calendar; retain change alert pending independent source fingerprint/editorial review."
+    }
+  ]
 }

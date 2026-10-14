@@ -41,18 +41,33 @@ const issueNames=[
  ["museum of the western prairie","Owner explicitly marked skip"],
  ["mid-america museum of aviation","Owner explicitly marked out-of-state substitution"],
  ["southern new mexico wing","New Mexico location needs exclusion"],
- ["cade museum of science","Florida museum; Texas location not established"],
+ ["cade museum of science","Cade Museum for Creativity & Invention is in Gainesville, Florida; not a Texas destination"],
+ ["art museum of the americas","Organization of American States art museum is in Washington, DC; exclude from Texas"],
  ["texas association of museums exhibit","Professional association is not itself a confirmed visitable museum"]
 ];
-const rows=parts.map(title=>{
- const key=normalize(title),existing=normNames.get(key),alias=byAlias.get(key);
+const firstOccurrenceByName=new Map();
+const rows=parts.map((title,index)=>{
+ const key=normalize(title);
+ const firstOccurrence=firstOccurrenceByName.get(key)??null;
+ if(firstOccurrence===null)firstOccurrenceByName.set(key,index+1);
+ const existing=normNames.get(key),alias=byAlias.get(key);
  const error=issueNames.find(([phrase])=>title.toLowerCase().includes(phrase))?.[1]??null;
  const parseIssues=provisionalIdentityIssues(title);
- return {submittedName:title,canonicalSlug:existing?.slug??(bySlug.has(alias)?alias:null),
+ return {submittedName:title,rawOccurrence:index+1,duplicateOfOccurrence:firstOccurrence,
+         canonicalSlug:existing?.slug??(bySlug.has(alias)?alias:null),
          catalogFile:existing?.file??null,status:error?"identity-or-geography-problem":authorityDossiers.has(existing?.slug??alias)?"existing-authority-dossier-needs-independent-certification":existing||bySlug.has(alias)?"existing-destination-needs-authority-audit":"requires-independent-source-research",
          ...(error?{warning:error}:{}),parseIssues,publicationApproved:false};
 });
-const distinct=[...new Map(rows.map(row=>[normalize(row.submittedName),row])).values()];
+// Keep every submitted occurrence in rows, including repeat names: nothing from
+// the malformed raw source may be silently removed by reconciliation.
+const seenNames=new Set();
+const distinct=rows.filter(row=>{
+  const key=normalize(row.submittedName);
+  if(seenNames.has(key)) return false;
+  seenNames.add(key);
+  return true;
+});
+const repeatedOccurrences=rows.filter(row=>row.duplicateOfOccurrence!==null);
 const unresolved=distinct.filter(r=>r.status==="requires-independent-source-research");
 const flagged=distinct.filter(r=>r.status==="identity-or-geography-problem");
 const known=distinct.filter(r=>r.status==="existing-destination-needs-authority-audit");
@@ -61,9 +76,11 @@ if(records.length<50||!raw.includes("1940 Air Terminal Museum"))throw Error("Mus
 const report={generatedAt:"2026-10-14",rawChars:raw.length,sourceCatalogFiles:files.length,
   sourceMuseumDestinationRecords:records.length,uniqueSourceSlugs:bySlug.size,
   nameSegments:parts.length,uniqueNameSegments:distinct.length,
+  repeatedSubmittedNameOccurrences:repeatedOccurrences.length,
+  repeatedSubmittedNames:repeatedOccurrences.map(({submittedName,rawOccurrence,duplicateOfOccurrence})=>({submittedName,rawOccurrence,duplicateOfOccurrence})),
   matchingExistingRecords:known.length,matchingExistingAuthorityDossiers:dossiersAlready.length,requiringIndependentResearch:unresolved.length,
   flaggedOutOfStateOrAmbiguous:flagged.length,
   duplicateCanonicalSlugs:[...new Set(records.filter((r,i)=>records.findIndex(v=>v.slug===r.slug)!==i).map(r=>r.slug))],
-  flagged,unresolved,known,dossiersAlready,rows:distinct,
+  flagged,unresolved,known,dossiersAlready,rows,uniqueRows:distinct,
   notice:"Raw names were concatenated without separators. Every candidate is provisional, including parser boundaries and name aliases; this report is a COMPLETE reconciliation backlog, never authority certification or permission to publish."};
 console.log(JSON.stringify(report,null,2));

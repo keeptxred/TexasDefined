@@ -107,6 +107,10 @@ for (const path of ["src/data/destination-query-runtime.ts", "src/data/destinati
   if (read(path).includes('from "./museum-authority-network"')) failures.push(path + ": heavyweight dossier import regresses main client performance.");
 }
 if (!read("src/data/museum-authority-heroes.ts").includes("export const museumLicensedHeroes")) failures.push("Lightweight license-cleared museum heroes module missing.");
+// Licensed museum photos must survive final catalog reconciliation before corridor authority overlays.
+if (!/\.map\(enrichMuseumMedia\)\s*\.map\(applyTownAuthority\)\s*\.map\(enforceFredericksburgJohnsonCityHeritageAuthority\);/.test(read("src/data/destination-query-runtime.ts")))
+  failures.push("Explore catalog lacks final licensed museum hero reconciliation.");
+execFileSync(process.execPath, ["scripts/data/test-museum-owner-inventory-parser.mjs"], { stdio: "inherit" });
 if (!read("src/routes/destination.$slug.tsx").includes("enrichMuseumAuthority")) failures.push("Museum body enrichment must remain in the museum destination page, not global search.");
 if (read("src/routes/destination.$slug.tsx").includes('from "@/data/museum-authority-network"')) failures.push("Museum route must lazily load full research dossiers.");
 
@@ -196,9 +200,11 @@ if (base) {
           /(museum|historical park|science center)/i.test(name)) found.add(slug);
     }
     // Triples such as ["texas-history", "law-enforcement", "museum-heritage"]
-    // are category taxonomy, not a destination tuple. Require a HUMAN museum
-    // name, with museum as an independent word (not "museum-heritage").
-    for (const match of added.matchAll(/"[^"]+",\s*"([a-z0-9-]+)",\s*"([^"]+)"/g)) {
+    // are category taxonomy, not a destination tuple. Only a complete,
+    // exactly three-field [id, slug, human name] record qualifies; an
+    // embedded topic like ["presidential-history", "dallas-history", "museum", ...]
+    // is not a new museum destination. Require museum in the human name.
+    for (const match of added.matchAll(/\[\s*"[^"\n]+"\s*,\s*"([a-z0-9-]+)"\s*,\s*"([^"\n]+)"\s*\]/g)) {
       if (/(?:^|[\s(])(?:museums?|historical park|science center)(?=$|[\s),.!])/i.test(match[2])) found.add(match[1]);
     }
     for (const slug of found) {

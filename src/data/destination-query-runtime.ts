@@ -224,6 +224,10 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(enrichResearchedHistoricSiteDepth)
     .map(enrichCavernAreaGuide)
     .map(normalizeDestinationCounty)
+    // Remote Explore results can still carry missing-image placeholders. Apply
+    // subject-specific museum media before town/corridor authority overlays,
+    // preserving their existing precedence and historic-site protections.
+    .map(enrichMuseumMedia)
     .map(applyTownAuthority)
     .map(enforceFredericksburgJohnsonCityHeritageAuthority);
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved.map(correctDestinationTravelRegion)));
