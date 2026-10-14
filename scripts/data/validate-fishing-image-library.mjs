@@ -244,6 +244,15 @@ for (const slug of commonsLakeBlocks) {
   if (!block.includes("CC BY") && !block.includes("Public domain") && !block.includes("CC0 1.0")) fail(`Commons lake image missing explicit reusable license: ${slug}`);
 }
 
+// Cypress Springs needs a real, attributed photograph alongside its scientifically useful
+// maps. The Commons original is 640x480, so never present it as a 1200px hero.
+for (const token of ['"lake-cypress-springs-photo": commonsLake(', '"Lake Cypress Springs, view from north branch.jpg"', '640, 480, "Maxup10", "CC0 1.0", CC0_1']) {
+  requireText(files.library, token, "Cypress Springs exact-photo provenance missing: " + token);
+}
+for (const token of ['getFishingLakeImage(`${pageData.slug}-photo`)', '<FishingPhoto image={actualLakePhoto}', 'Historic lake photograph']) {
+  requireText(files.showcase, token, "Cypress Springs authentic photo not rendered above maps: " + token);
+}
+
 for (const token of [
   "applyLakePhotoGovernance(image)",
   "governedImage.credit",
