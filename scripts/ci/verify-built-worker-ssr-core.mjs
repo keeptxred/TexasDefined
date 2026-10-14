@@ -27,6 +27,7 @@ const smokeTargets = [
   { path: '/county/gillespie', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Gillespie County links to researched historic corridor itinerary' },
   { path: '/county/blanco', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Blanco County links to researched historic corridor itinerary' },
   { path: '/destination/lyndon-b-johnson-state-park-historic-site', requiredText: 'Sauer-Beckmann', label: 'canonical LBJ State Park and living-history farm' },
+  { path: '/destination/lyndon-b-johnson-state-park-historic-site', requiredText: '<meta name="robots" content="index, follow', label: 'canonical LBJ State Park is indexable after ordinary content and photo-quality gates' },
   // Exact corridor publication proofs: 200 alone is insufficient; require
   // researched on-page narrative so remote/generic fallback cannot mask a release.
   { path: '/article/fredericksburg-johnson-city-historic-road-trip', requiredText: 'Fredericksburg to Johnson City: The Complete Historic Hill Country Road Trip', label: 'Fredericksburg Johnson City historic itinerary' },
