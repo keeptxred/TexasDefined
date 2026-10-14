@@ -60,6 +60,7 @@ for (const [label, marker, source] of requiredPage) {
 
 if (!publicEndpoint.includes('SUPABASE_ANON_KEY')) failures.push('public school-rate endpoint must use the anon/public RLS key');
 if (publicEndpoint.includes('SUPABASE_SERVICE_ROLE_KEY')) failures.push('public school-rate endpoint must not use the service-role key');
+if (!publicEndpoint.includes('.range(from, from + PAGE_SIZE - 1)')) failures.push('public school-rate endpoint must paginate beyond the PostgREST 1000-row cap');
 if (!publicEndpoint.includes('"cache-control": "public, max-age=3600, stale-while-revalidate=86400"')) failures.push('public school-rate endpoint must retain cache headers');
 if (registry.includes("title: 'Texas School-District Tax Rate Examples'")) failures.push('obsolete six-example school-tax registry title returned');
 if (registry.includes("{ label: 'Judson ISD', value: 1.3022")) failures.push('obsolete six-row school-tax sample returned');
