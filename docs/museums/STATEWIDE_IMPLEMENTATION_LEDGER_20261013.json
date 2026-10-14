@@ -56,7 +56,9 @@
     ],
     "museumPagesNotYetCertified": 69,
     "ciIssueRemediation": "Changed existing broad indexing/content-integrity validators to inspect actual explicit closure allowlist rather than brittle two-item literal; all listed closed museums must remain excluded from trip planning.",
-    "mainReconciliation": "Reconciled all changed files against newest main at 79b334dd87ba7d86e0c54764abebf8bcd27c66d1; no overlapping paths at that point."
+    "mainReconciliation": "Reconciled all changed files against newest main at 79b334dd87ba7d86e0c54764abebf8bcd27c66d1; no overlapping paths at that point.",
+    "coastalIndexingRegressionFixed": "Restored the preexisting full-researched coastal authority overlays and fail-closed coastal sitemap validator while adding explicit museum closure exemptions; the earlier recovery PR had inadvertently removed these protections.",
+    "lbjCanonicalReconciliation": "Preserved current main LBJ State Park source/canonical slug corrections in both the destination availability set and destination indexing validator."
   },
   "remainingIncomplete": [
     "Independently reconcile all submitted owner inventory names into valid unique Texas museum identities, excluding aliases/false positives/out-of-state places.",

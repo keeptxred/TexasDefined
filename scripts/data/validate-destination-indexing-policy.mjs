@@ -66,6 +66,18 @@ for (const marker of [
 ]) {
   if (!sitemap.includes(marker)) failures.push(`Explore sitemap resolved-catalog/indexing contract missing: ${marker}`);
 }
+// Full authority guides are loaded only within the server-side Explore sitemap.
+// If someone changes discovery card summaries without this overlay, the normal
+// 3-paragraph/450-character indexability gate correctly excludes all new pages.
+const coastalAuthoritySitemapImport = 'const { coastalHeritageAuthorityDestinations } = await import("@/data/coastal-heritage-authority")';
+if (!sitemap.includes(coastalAuthoritySitemapImport) ||
+    !sitemap.includes('for (const canonicalDestination of coastalHeritageAuthorityDestinations)') ||
+    !sitemap.includes('auditDestination(destination).readyForIndexing')) {
+  failures.push('Coastal authority sitemap must audit complete sourced guides, not thin main-client discovery summaries.');
+}
+if (sitemap.includes('import { coastalHeritageAuthorityDestinations } from "@/data/coastal-heritage-authority"')) {
+  failures.push('Do not eagerly import full coastal authority into the sitemap route; keep the server-handler dynamic import.');
+}
 const preservedCatalogDynamicImport = 'const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog")';
 if (!sitemap.includes(preservedCatalogDynamicImport)) {
   failures.push('Explore sitemap must lazy-load the shared preserved destination catalog rather than rebuilding a narrower fallback locally.');
@@ -134,6 +146,7 @@ if (!aliasBlock) {
     'goliad-state-park': 'goliad-state-park-and-historic-site',
     'san-jacinto-battleground': 'san-jacinto-battleground-state-historic-site',
     'washington-on-the-brazos': 'washington-on-the-brazos-state-historic-site',
+    'lyndon-b-johnson-state-park-historic-site': 'lyndon-b-johnson-state-park-and-historic-site',
   };
   const nonPrimaryBlock = availability.split('const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([')[1]?.split(']);')[0] ?? '';
   for (const [primary, curationKey] of Object.entries(primaryHistoricLookups)) {
