@@ -1,3 +1,4 @@
+import lakeGuidesNearCity from "@/data/fishing/city-lake-links.generated.json";
 import { lazy, Suspense, useEffect } from 'react';
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
@@ -72,6 +73,12 @@ const batch002FootballCityLinks: Record<string, { name: string; slug: string; co
 
 // Exactly five independently researched football authority entries; campus county, not postal city or school-district footprint.
 const batch001FootballCountyLinks: Record<string, { name: string; href: string; description: string; campusCountySource: string }> = {
+  knox: {
+    name: 'Benjamin Mustangs',
+    href: '/texas-high-school-football-teams/benjamin',
+    description: 'Explore Benjamin ISD\'s 2022 and 2023 six-man titles, 2026 game reports and stadium visit information.',
+    campusCountySource: 'https://www.benjaminisd.net/',
+  },
   'van-zandt': {
     name: 'Wills Point Tigers',
     href: '/texas-high-school-football-teams/wills-point',
@@ -161,7 +168,22 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
 // Independently researched Batch 002 and Batch 003 county links. Lists retain
 // multiple teams in the same county rather than replacing an existing card.
 const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
-  harris: [{ name: 'Alief Taylor Lions', slug: 'alief-taylor', context: '2026 District 20 opening streak and documented Elsik and Hastings games' }],
+  // Batch 005 remaining 14 researched team links, retaining prior schools per county.
+  jefferson: [{ name: "Beaumont United Timberwolves", slug: 'beaumont-united', context: "2025 first winning varsity season under Drenard Williams and Beaumont Bowl" }, { name: "Beaumont West Brook Bruins", slug: 'beaumont-west-brook', context: "1982 UIL champion, 2018 6A Division II runner-up and Beaumont Bowl rivalry" }],
+  'panola': [{ name: "Beckville Bearcats", slug: 'beckville', context: "Playoff football in Panola County, and a real campus-versus-stadium distinction" }],
+  'bee': [{ name: "Beeville A. C. Jones Trojans", slug: 'beeville-jones', context: "Beeville's Trojans: the current 2026 district schedule versus stale school football pages" }],
+  'grayson': [{ name: "Bells Panthers", slug: 'bells', context: "The Panther Way and real Friday-night games at Panther Stadium" }],
+  'jim-wells': [{ name: "Ben Bolt–Palito Blanco Fighting Badgers", slug: 'ben-bolt-palito-blanco', context: "Jim Wells County Fighting Badgers with a first-party 2026 game calendar" }],
+  'duval': [{ name: "Benavides Eagles", slug: 'benavides', context: "Benavides Eagles: a published 2026 six-man football schedule, not eleven-man" }],
+  'reagan': [{ name: "Reagan County Owls", slug: 'big-lake-reagan-co', context: "Big Lake's Reagan County Owls, 1986 Class 2A semifinals and James H. Bird Memorial Stadium" }],
+  'upshur': [{ name: "Big Sandy Wildcats", slug: 'big-sandy', context: "Big Sandy's 1973–75 dynasty, 1974 co-championship tie and Lovie Smith connection" }],
+  austin: [{ name: 'Bellville Brahmas', slug: 'bellville', context: '1960, 1977 and 2023 UIL football state-final appearances in Austin County' }],
+  // Batch 005 school-specific campus county links, distinct from away-game stadiums.
+  'edwards': [{ name: "Nueces Canyon Panthers", slug: "barksdale-nueces-canyon", context: "six-man Panthers and Camp Wood stadium" }],
+  'bell': [{ name: "Bartlett Bulldogs", slug: "bartlett", context: "1990, 1992 and 1999 UIL titles" }, { name: "Belton Tigers", slug: 'belton', context: "2026 Tiger Stadium guide: distinguish varsity games from JV and Lake Belton" }],
+  'bastrop': [{ name: "Bastrop Bears", slug: "bastrop", context: "Bears football and shared Memorial Stadium" }, { name: "Cedar Creek Eagles", slug: "bastrop-cedar-creek", context: "Eagles football and shared Memorial Stadium" }],
+  'matagorda': [{ name: "Bay City Blackcats", slug: "bay-city", context: "1983 and 2000 UIL championships" }],
+  harris: [{ name: 'Alief Taylor Lions', slug: 'alief-taylor', context: '2026 District 20 opening streak and documented Elsik and Hastings games' }, { name: "Goose Creek Memorial Patriots", slug: 'baytown-goose-creek-memorial', context: "Patriots founded in 2008 and their 2025 playoff season" }, { name: "Baytown Lee Ganders", slug: 'baytown-lee', context: "Back-to-back 1951 and 1952 Class 4A state finalists, never champions" }, { name: "Baytown Sterling Rangers", slug: 'baytown-sterling', context: "1972 Class 4A state-final season and the school's Spirit of Sterling traditions" }],
   tarrant: [
     { name: 'Azle Hornets', slug: 'azle', context: 'Hornet Field visitor guide and 2026 5A Division I fixtures' },
     { name: "Fort Worth All Saints' Episcopal Saints", slug: 'all-saints-fort-worth', context: 'Back-to-back 2024–25 undefeated TAPPS Division II champions at McNair Stadium' },
@@ -351,6 +373,7 @@ function EntityPage() {
           {entity.coordinates && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={`https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`} target="_blank" rel="noreferrer">Open in maps ↗</a>}
         </div>
 
+        {entity.kind === 'city' && (lakeGuidesNearCity as Record<string, {slug: string; name: string}[]>)[entity.slug]?.length ? <section className="border-b border-border py-9" aria-label="Nearby lake recreation and fishing guides"><p className="eyebrow text-primary">Lakes and outdoor recreation</p><h2 className="mt-2 font-display text-3xl">Lakes to explore near {entity.name}</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Explore source-backed TexasDefined guides connected with this city and surrounding communities. Location associations are for trip planning, not measured drive times or permission to enter privately owned shoreline. Verify public launch and camping status before travel.</p><div className="mt-5 grid gap-4 sm:grid-cols-2">{((lakeGuidesNearCity as Record<string, {slug: string; name: string}[]>)[entity.slug] ?? []).map((lake) => <a key={lake.slug} href={`/fishing/lakes/${lake.slug}`} className="border-t border-border py-4"><strong className="block font-display text-2xl hover:text-primary">{lake.name}</strong><span className="mt-2 block text-sm text-muted-foreground">Fishing, ramps, water levels and nearby public parks →</span></a>)}</div><a href="/fishing/lakes" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Compare all Texas fishing lakes →</a></section> : null}
         {entity.kind === 'city' ? <Suspense fallback={null}><CityPassContextualCallout surface="city" slug={entity.slug} /></Suspense> : null}
         {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} countySeriesArticle={countySeriesArticle} /> : null}
         {(entity.kind === 'city' || entity.kind === 'county') && foodDestinations.length ? <Suspense fallback={null}><EntityFoodDestinations entity={entity} destinations={foodDestinations} /></Suspense> : null}

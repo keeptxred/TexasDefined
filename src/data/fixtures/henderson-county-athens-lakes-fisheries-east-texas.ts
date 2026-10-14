@@ -35,6 +35,7 @@ export const hendersonCountyAthensLakesFisheriesEastTexasArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-neches-river-guide", label: "Texas neches  River guide", description: "Connect county tourism, fisheries and camping with the full river authority guide." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county reference pages and enriched county guides." },
     { href: "/article/bluebonnet-animal-preservation-athens", label: "Bluebonnet Animal Preservation in Athens", description: "See how this unusual Athens business handles pet cremation and freeze-dry preservation." },
     { href: "/county/van-zandt", label: "Explore Van Zandt County", description: "Continue north toward Canton, Grand Saline and the transition into Northeast Texas." },

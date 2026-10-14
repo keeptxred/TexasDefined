@@ -442,3 +442,4 @@ await import('./verify-texas-industries-production.mjs');
 await import('./verify-gaming-production.mjs');
 await import('./verify-hurst-whirlyball-production.mjs');
 await import('./verify-viator-production.mjs');
+await import('./verify-fredericksburg-corridor-production.mjs');

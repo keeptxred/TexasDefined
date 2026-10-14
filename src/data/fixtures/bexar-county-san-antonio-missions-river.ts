@@ -33,6 +33,13 @@ export const bexarCountySanAntonioMissionsRiverArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/historic-san-antonio-heritage-road-trip", label: "Historic San Antonio heritage road trip", description: "Follow the complete two-day itinerary with current site access and interpretation." },
+    { href: "/destination/mission-concepcion-san-antonio", label: "Mission Concepción", description: "See the original colonial stone church and surviving frescoes." },
+    { href: "/destination/mission-san-jose-san-antonio", label: "Mission San José", description: "Begin at the NPS visitor center and explore the larger mission complex." },
+    { href: "/destination/mission-san-juan-capistrano-san-antonio", label: "Mission San Juan", description: "Study the agricultural landscape and acequia irrigation system." },
+    { href: "/destination/mission-espada-san-antonio", label: "Mission Espada", description: "Learn about the aqueduct, textile work and historic mission church." },
+    { href: "/destination/casa-navarro", label: "Casa Navarro", description: "Add José Antonio Navarro's Tejano political history to the downtown itinerary." },
+    { href: "/destination/king-william-historic-district", label: "King William Historic District", description: "Follow the immigrant commercial and preservation history of the residential district." },
     { href: "/county/comal", label: "Explore Comal County", description: "Continue north toward New Braunfels, Canyon Lake and the Hill Country." },
     { href: "/county/guadalupe", label: "Explore Guadalupe County", description: "Follow the Guadalupe River toward Seguin and the eastern San Antonio region." },
     {
@@ -63,6 +70,12 @@ export const bexarCountySanAntonioMissionsRiverArticle: Article = {
   ],
   relatedCollections: [],
   relatedDestinations: [
+    "mission-concepcion-san-antonio",
+    "mission-san-jose-san-antonio",
+    "mission-san-juan-capistrano-san-antonio",
+    "mission-espada-san-antonio",
+    "casa-navarro",
+    "king-william-historic-district",
     "san-antonio-missions-national-historical-park",
     "the-alamo",
     "san-antonio-river-walk",

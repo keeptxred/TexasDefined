@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
 import type { TexasHomeNaturePublicGuide } from "@/data/texas-home-nature-public";
+import { TEXAS_WILDLIFE_SPECIES } from "@/data/knowledge-graph/wildlife-species";
 
 const HOME_NATURE_GUIDES = [
   { href: "/texas-pool-guide", label: "Texas pool guide" },
@@ -15,6 +16,13 @@ const BIRDING_TRIP_PATHS = [
   { href: "/explore/beaches-coast", label: "Beaches & Gulf Coast", description: "Connect migration and shorebird habitat to barrier islands, marshes and coastal access." },
   { href: "/explore/state-parks", label: "Texas state parks", description: "Use managed public lands as birding, trail and camping anchors across the state." },
   { href: "/explore/lakes-rivers", label: "Lakes & rivers", description: "Add riparian habitat, reservoirs and water-focused wildlife stops to the trip." },
+] as const;
+
+const BIRD_SPECIES_CONTEXT = [
+  { slug: "painted-bunting", context: "Seasonal songbird of brush, stream edges and dense cover" },
+  { slug: "roseate-spoonbill", context: "Pink wading bird of Gulf Coast marshes and estuaries" },
+  { slug: "whooping-crane", context: "Endangered migrant wintering along the Texas coast" },
+  { slug: "wild-turkey", context: "Native woodland and edge-habitat bird" },
 ] as const;
 
 export function TexasHomeNatureGuide({ data }: { data: TexasHomeNaturePublicGuide }) {
@@ -66,6 +74,24 @@ export function TexasHomeNatureGuide({ data }: { data: TexasHomeNaturePublicGuid
                 ))}
               </div>
             </nav>
+          ) : null}
+
+          {isBirdGuide ? (
+            <section aria-labelledby="bird-species-field-profiles" className="mt-10 border-t border-border pt-8">
+              <h2 id="bird-species-field-profiles" className="font-display text-3xl">Identify the bird before planning the trip</h2>
+              <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">These separate TexasDefined species profiles connect the general birding guide to official wildlife sources, habitat, seasonal range and conservation context. They are not reports of where a bird has been sighted today.</p>
+              <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+                {BIRD_SPECIES_CONTEXT.map((entry) => {
+                  const species = TEXAS_WILDLIFE_SPECIES.find((record) => record.slug === entry.slug);
+                  return species ? (
+                    <li key={entry.slug} className="border border-border p-5">
+                      <h3 className="font-display text-xl"><a href={`/wildlife-species/${entry.slug}`} className="text-primary underline decoration-primary/40 underline-offset-4">{species.name}</a></h3>
+                      <p className="mt-2 text-sm leading-6 text-muted-foreground">{entry.context}. See the researched profile for range and the official TPWD source.</p>
+                    </li>
+                  ) : null;
+                })}
+              </ul>
+            </section>
           ) : null}
 
           <nav aria-label="Texas home and nature guides" className="mt-8 rounded-2xl border p-5">
