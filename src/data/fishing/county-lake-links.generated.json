@@ -11,6 +11,12 @@
       "name": "Sam Rayburn Reservoir"
     }
   ],
+  "bandera": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
   "bastrop": [
     {
       "slug": "lake-bastrop",
@@ -317,6 +323,12 @@
       "name": "Lake Somerville"
     }
   ],
+  "limestone": [
+    {
+      "slug": "fort-parker-state-park-lake",
+      "name": "Fort Parker State Park Lake"
+    }
+  ],
   "live-oak": [
     {
       "slug": "choke-canyon-reservoir",
@@ -357,6 +369,12 @@
     {
       "slug": "choke-canyon-reservoir",
       "name": "Choke Canyon Reservoir"
+    }
+  ],
+  "medina": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
     }
   ],
   "mitchell": [
@@ -419,6 +437,12 @@
     {
       "slug": "possum-kingdom-reservoir",
       "name": "Possum Kingdom Reservoir"
+    }
+  ],
+  "parker": [
+    {
+      "slug": "lake-weatherford",
+      "name": "Lake Weatherford"
     }
   ],
   "polk": [
@@ -493,6 +517,10 @@
     {
       "slug": "lake-palestine",
       "name": "Lake Palestine"
+    },
+    {
+      "slug": "lake-tyler",
+      "name": "Lake Tyler (East and West)"
     }
   ],
   "starr": [
@@ -527,10 +555,22 @@
       "name": "Lake Worth"
     }
   ],
+  "taylor": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
+    }
+  ],
   "titus": [
     {
       "slug": "lake-bob-sandlin",
       "name": "Lake Bob Sandlin"
+    }
+  ],
+  "tom-green": [
+    {
+      "slug": "lake-nasworthy",
+      "name": "Lake Nasworthy"
     }
   ],
   "travis": [

@@ -1,4 +1,10 @@
 {
+  "abilene": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
+    }
+  ],
   "amarillo": [
     {
       "slug": "lake-meredith",
@@ -45,6 +51,12 @@
     {
       "slug": "o-h-ivie-lake",
       "name": "O.H. Ivie Lake"
+    }
+  ],
+  "bandera": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
     }
   ],
   "bangs": [
@@ -127,6 +139,12 @@
     {
       "slug": "lake-buchanan",
       "name": "Lake Buchanan"
+    }
+  ],
+  "buffalo-gap": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
     }
   ],
   "burkeville": [
@@ -423,6 +441,12 @@
       "name": "Lake Tawakoni"
     }
   ],
+  "groesbeck": [
+    {
+      "slug": "fort-parker-state-park-lake",
+      "name": "Fort Parker State Park Lake"
+    }
+  ],
   "gun-barrel-city": [
     {
       "slug": "cedar-creek-reservoir",
@@ -559,6 +583,12 @@
       "name": "Lake Worth"
     }
   ],
+  "lakehills": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
   "lakeway": [
     {
       "slug": "lake-travis",
@@ -639,6 +669,18 @@
     {
       "slug": "lake-lavon",
       "name": "Lake Lavon"
+    }
+  ],
+  "mexia": [
+    {
+      "slug": "fort-parker-state-park-lake",
+      "name": "Fort Parker State Park Lake"
+    }
+  ],
+  "mico": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
     }
   ],
   "midlothian": [
@@ -809,6 +851,10 @@
   ],
   "san-angelo": [
     {
+      "slug": "lake-nasworthy",
+      "name": "Lake Nasworthy"
+    },
+    {
       "slug": "o-h-ivie-lake",
       "name": "O.H. Ivie Lake"
     }
@@ -817,6 +863,10 @@
     {
       "slug": "calaveras-lake",
       "name": "Calaveras Lake"
+    },
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
     }
   ],
   "sanger": [
@@ -923,16 +973,36 @@
       "name": "Choke Canyon Reservoir"
     }
   ],
+  "troup": [
+    {
+      "slug": "lake-tyler",
+      "name": "Lake Tyler (East and West)"
+    }
+  ],
+  "tuscola": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
+    }
+  ],
   "tyler": [
     {
       "slug": "lake-palestine",
       "name": "Lake Palestine"
+    },
+    {
+      "slug": "lake-tyler",
+      "name": "Lake Tyler (East and West)"
     }
   ],
   "waco": [
     {
       "slug": "aquilla-lake",
       "name": "Aquilla Lake"
+    },
+    {
+      "slug": "fort-parker-state-park-lake",
+      "name": "Fort Parker State Park Lake"
     },
     {
       "slug": "lake-waco",
@@ -953,12 +1023,22 @@
     {
       "slug": "lake-mineral-wells",
       "name": "Lake Mineral Wells"
+    },
+    {
+      "slug": "lake-weatherford",
+      "name": "Lake Weatherford"
     }
   ],
   "west-lake-hills": [
     {
       "slug": "lake-austin",
       "name": "Lake Austin"
+    }
+  ],
+  "whitehouse": [
+    {
+      "slug": "lake-tyler",
+      "name": "Lake Tyler (East and West)"
     }
   ],
   "whitney": [

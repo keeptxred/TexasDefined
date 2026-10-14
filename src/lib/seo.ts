@@ -246,6 +246,10 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     title: "Texas Rock & Rockabilly: Artists, History & Sound",
     description: "Explore Texas rock and rockabilly through the artists, scenes, venues and sounds that helped shape the state's place in American music history.",
   },
+  "/article/uss-texas-1895-original-battleship": {
+    title: "Original USS Texas (1895): Santiago, San Marcos & Photos",
+    description: "Meet the first USS Texas: a Spanish–American War battleship, veteran of Santiago de Cuba and later target ship San Marcos. Timeline, design, original archival photographs and historical sources.",
+  },
   "/article/battleship-texas-bb-35-history-restoration": {
     title: "Battleship Texas (BB-35): History & Restoration",
     description: "Follow Battleship Texas BB-35 from World War I and World War II service through preservation, dry-dock work, restoration and its Texas legacy.",

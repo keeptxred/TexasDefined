@@ -41,6 +41,7 @@ jobs:
             /tmp/texasdefined-page-audit.json
             /tmp/texasdefined-page-audit.tsv
             /tmp/texasdefined-authority-review.tsv
+            /tmp/texasdefined-contextual-link-graph.tsv
           if-no-files-found: warn
       - name: Preserve the ongoing existing-page authority remediation issue
         if: always()
@@ -59,6 +60,11 @@ jobs:
               .sort((a,b) => b[1].withReviewFlags - a[1].withReviewFlags)
               .map(([name, x]) => `| ${name} | ${x.pages} | ${x.withReviewFlags} | ${x.missingPrimarySourceCandidates} |`)
               .slice(0, 30);
+            const graph = data?.linkGraph?.totals ?? {};
+            const graphByFamily = Object.entries(data?.linkGraph?.byFamily ?? {})
+              .sort((a,b) => b[1].noInbound - a[1].noInbound)
+              .slice(0,22).map(([family, stats]) =>
+                `| ${family} | ${stats.pages} | ${stats.noInbound} | ${stats.noReciprocal} | ${stats.linkedPathsOutsideSitemap} |`);
             const flagRows = Object.entries(data?.authorityFlags ?? {})
               .sort((a,b)=>b[1]-a[1])
               .map(([flag, count]) => `| ${flag} | ${count} |`);
@@ -89,6 +95,18 @@ jobs:
               '| Signal | URLs |',
               '| --- | ---: |',
               ...flagRows,
+              '',
+              '## Actual on-page contextual link graph',
+              '',
+              `Pages with no main-content inbound link from another sitemap URL: ${graph.noInbound ?? 'unknown'}`,
+              `Pages with outgoing links but no reciprocal main-content link: ${graph.noReciprocal ?? 'unknown'}`,
+              `Pages linking to at least one path not listed in the audited sitemaps: ${graph.pagesWithUnsitemappedLinks ?? 'unknown'}`,
+              '',
+              '| Page family | Audited pages | No contextual inbound | No reciprocal outbound | Links outside sitemap |',
+              '| --- | ---: | ---: | ---: | ---: |',
+              ...graphByFamily,
+              '',
+              'The full contextual-link graph is in `texasdefined-contextual-link-graph.tsv`. Missing reciprocal links and paths outside the sitemap are **research candidates**, not instructions to insert irrelevant links or index noindex URLs.',
               '',
               '## Immediate review candidates',
               '',
