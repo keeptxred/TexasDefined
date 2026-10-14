@@ -1857,6 +1857,11 @@
           "sourceUrl": "https://www.historictrains.org/mission",
           "fetchUrl": "https://www.historictrains.org/mission",
           "label": "Museum institutional background"
+        },
+        {
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S._Army_Alco_RSD-1_No._8000.jpg",
+          "fetchUrl": "https://commons.wikimedia.org/wiki/File:U.S._Army_Alco_RSD-1_No._8000.jpg",
+          "label": "Rights source: exact on-site 2025 ALCO RSD-1 No. 8000 museum photograph, CC BY 4.0"
         }
       ]
     },

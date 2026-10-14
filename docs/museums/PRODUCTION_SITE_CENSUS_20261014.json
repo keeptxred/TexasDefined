@@ -1,0 +1,608 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-14",
+  "site": "https://texasdefined.com",
+  "method": "One-time cache-bypassed pg_net HTTP GET production SSR HTML; pages identified by their canonical <link>; HTTP responses in net._http_response by request_id. Canonical/indexing/image information concerns server HTML and is not a full browser interaction or human editorial review.",
+  "museumManifestEntries": 69,
+  "sourceManifestEntries": 282,
+  "databaseMuseumRegistryEntries": 69,
+  "databaseWatchedSourceRecords": 305,
+  "declaredSourceURLsMatchedOnSourceUrlOrFetchUrl": 282,
+  "additionalMonitoredHistoricalOrSupplementaryURLs": 23,
+  "independentAuthorityCertified": 0,
+  "counts": {
+    "requested": 69,
+    "http200": 69,
+    "canonical": 69,
+    "readyToIndexBasedOnRobotsOnly": 63,
+    "noindex": 6,
+    "placeholder": 6
+  },
+  "exceptions": [
+    {
+      "path": "/destination/museum-of-the-american-railroad-frisco",
+      "problem": "noindex and placeholder museum hero",
+      "pendingStatus": "CC BY 4.0 exact-site image proposed in PR #4836, pending verified production deployment"
+    },
+    {
+      "path": "/destination/texas-broadcast-museum-kilgore",
+      "problem": "noindex and placeholder museum hero",
+      "pendingStatus": "No rights-cleared exact-museum image approved; fail closed"
+    },
+    {
+      "path": "/destination/alvin-historical-museum",
+      "problem": "noindex and placeholder museum hero",
+      "pendingStatus": "No rights-cleared exact-museum image approved; fail closed"
+    },
+    {
+      "path": "/destination/el-paso-holocaust-museum",
+      "problem": "noindex and placeholder museum hero",
+      "pendingStatus": "No rights-cleared exact-museum image approved; fail closed"
+    },
+    {
+      "path": "/destination/johnny-nelson-katy-heritage-museum",
+      "problem": "noindex and placeholder museum hero",
+      "pendingStatus": "No rights-cleared exact-museum image approved; fail closed"
+    },
+    {
+      "path": "/destination/museum-of-the-gulf-coast-port-arthur",
+      "problem": "noindex and placeholder museum hero",
+      "pendingStatus": "No rights-cleared exact-museum image approved; fail closed"
+    }
+  ],
+  "routes": [
+    {
+      "path": "/destination/1919-san-augustine-county-jail-museum",
+      "httpStatus": 200,
+      "canonical": "/destination/1919-san-augustine-county-jail-museum",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6916
+    },
+    {
+      "path": "/destination/armstrong-browning-library-museum-waco",
+      "httpStatus": 200,
+      "canonical": "/destination/armstrong-browning-library-museum-waco",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6917
+    },
+    {
+      "path": "/destination/bell-county-museum-belton",
+      "httpStatus": 200,
+      "canonical": "/destination/bell-county-museum-belton",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6918
+    },
+    {
+      "path": "/destination/brenham-heritage-museum",
+      "httpStatus": 200,
+      "canonical": "/destination/brenham-heritage-museum",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6919
+    },
+    {
+      "path": "/destination/audie-murphy-american-cotton-museum-greenville",
+      "httpStatus": 200,
+      "canonical": "/destination/audie-murphy-american-cotton-museum-greenville",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6920
+    },
+    {
+      "path": "/destination/brazos-valley-museum-natural-history-bryan",
+      "httpStatus": 200,
+      "canonical": "/destination/brazos-valley-museum-natural-history-bryan",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6921
+    },
+    {
+      "path": "/destination/czech-heritage-museum-genealogy-center-temple",
+      "httpStatus": 200,
+      "canonical": "/destination/czech-heritage-museum-genealogy-center-temple",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6922
+    },
+    {
+      "path": "/destination/buffalo-soldiers-national-museum-houston",
+      "httpStatus": 200,
+      "canonical": "/destination/buffalo-soldiers-national-museum-houston",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6923
+    },
+    {
+      "path": "/destination/texas-prison-museum-huntsville",
+      "httpStatus": 200,
+      "canonical": "/destination/texas-prison-museum-huntsville",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6924
+    },
+    {
+      "path": "/destination/eisenhower-birthplace",
+      "httpStatus": 200,
+      "canonical": "/destination/eisenhower-birthplace",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6925
+    },
+    {
+      "path": "/destination/crow-museum-asian-art-dallas",
+      "httpStatus": 200,
+      "canonical": "/destination/crow-museum-asian-art-dallas",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6926
+    },
+    {
+      "path": "/destination/museum-of-the-american-railroad-frisco",
+      "httpStatus": 200,
+      "canonical": "/destination/museum-of-the-american-railroad-frisco",
+      "robots": "noindex, follow",
+      "heroPlaceholder": true,
+      "requestId": 6927
+    },
+    {
+      "path": "/destination/the-agricultural-museum-arts-center-boerne",
+      "httpStatus": 200,
+      "canonical": "/destination/the-agricultural-museum-arts-center-boerne",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6928
+    },
+    {
+      "path": "/destination/the-history-center-diboll",
+      "httpStatus": 200,
+      "canonical": "/destination/the-history-center-diboll",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6929
+    },
+    {
+      "path": "/destination/texas-broadcast-museum-kilgore",
+      "httpStatus": 200,
+      "canonical": "/destination/texas-broadcast-museum-kilgore",
+      "robots": "noindex, follow",
+      "heroPlaceholder": true,
+      "requestId": 6930
+    },
+    {
+      "path": "/destination/1940-air-terminal-museum-houston",
+      "httpStatus": 200,
+      "canonical": "/destination/1940-air-terminal-museum-houston",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6943
+    },
+    {
+      "path": "/destination/20th-century-technology-museum-wharton",
+      "httpStatus": 200,
+      "canonical": "/destination/20th-century-technology-museum-wharton",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6944
+    },
+    {
+      "path": "/destination/african-american-museum-dallas-fair-park",
+      "httpStatus": 200,
+      "canonical": "/destination/african-american-museum-dallas-fair-park",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6945
+    },
+    {
+      "path": "/destination/alvin-historical-museum",
+      "httpStatus": 200,
+      "canonical": "/destination/alvin-historical-museum",
+      "robots": "noindex, follow",
+      "heroPlaceholder": true,
+      "requestId": 6946
+    },
+    {
+      "path": "/destination/amarillo-museum-of-art",
+      "httpStatus": 200,
+      "canonical": "/destination/amarillo-museum-of-art",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6947
+    },
+    {
+      "path": "/destination/american-quarter-horse-hall-of-fame-museum-amarillo",
+      "httpStatus": 200,
+      "canonical": "/destination/american-quarter-horse-hall-of-fame-museum-amarillo",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6948
+    },
+    {
+      "path": "/destination/amon-carter-museum-american-art-fort-worth",
+      "httpStatus": 200,
+      "canonical": "/destination/amon-carter-museum-american-art-fort-worth",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6949
+    },
+    {
+      "path": "/destination/arlington-museum-of-art",
+      "httpStatus": 200,
+      "canonical": "/destination/arlington-museum-of-art",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6950
+    },
+    {
+      "path": "/destination/art-museum-south-texas-corpus-christi",
+      "httpStatus": 200,
+      "canonical": "/destination/art-museum-south-texas-corpus-christi",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6951
+    },
+    {
+      "path": "/destination/art-museum-southeast-texas-beaumont",
+      "httpStatus": 200,
+      "canonical": "/destination/art-museum-southeast-texas-beaumont",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6952
+    },
+    {
+      "path": "/destination/austin-nature-and-science-center",
+      "httpStatus": 200,
+      "canonical": "/destination/austin-nature-and-science-center",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6953
+    },
+    {
+      "path": "/destination/babe-didrikson-zaharias-museum-beaumont",
+      "httpStatus": 200,
+      "canonical": "/destination/babe-didrikson-zaharias-museum-beaumont",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6954
+    },
+    {
+      "path": "/destination/blanton-museum-of-art-austin",
+      "httpStatus": 200,
+      "canonical": "/destination/blanton-museum-of-art-austin",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6955
+    },
+    {
+      "path": "/destination/bullock-texas-state-history-museum",
+      "httpStatus": 200,
+      "canonical": "/destination/bullock-texas-state-history-museum",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6956
+    },
+    {
+      "path": "/destination/corpus-christi-museum-science-history",
+      "httpStatus": 200,
+      "canonical": "/destination/corpus-christi-museum-science-history",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6957
+    },
+    {
+      "path": "/destination/dallas-holocaust-human-rights-museum",
+      "httpStatus": 200,
+      "canonical": "/destination/dallas-holocaust-human-rights-museum",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6958
+    },
+    {
+      "path": "/destination/dallas-museum-of-art",
+      "httpStatus": 200,
+      "canonical": "/destination/dallas-museum-of-art",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6959
+    },
+    {
+      "path": "/destination/dr-pepper-museum-waco",
+      "httpStatus": 200,
+      "canonical": "/destination/dr-pepper-museum-waco",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6960
+    },
+    {
+      "path": "/destination/el-paso-holocaust-museum",
+      "httpStatus": 200,
+      "canonical": "/destination/el-paso-holocaust-museum",
+      "robots": "noindex, follow",
+      "heroPlaceholder": true,
+      "requestId": 6961
+    },
+    {
+      "path": "/destination/el-paso-museum-of-archaeology",
+      "httpStatus": 200,
+      "canonical": "/destination/el-paso-museum-of-archaeology",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6962
+    },
+    {
+      "path": "/destination/el-paso-museum-of-art",
+      "httpStatus": 200,
+      "canonical": "/destination/el-paso-museum-of-art",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6963
+    },
+    {
+      "path": "/destination/elisabet-ney-museum-austin",
+      "httpStatus": 200,
+      "canonical": "/destination/elisabet-ney-museum-austin",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6964
+    },
+    {
+      "path": "/destination/fire-museum-of-texas-beaumont",
+      "httpStatus": 200,
+      "canonical": "/destination/fire-museum-of-texas-beaumont",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6965
+    },
+    {
+      "path": "/destination/fort-worth-museum-science-history",
+      "httpStatus": 200,
+      "canonical": "/destination/fort-worth-museum-science-history",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6966
+    },
+    {
+      "path": "/destination/frontier-texas",
+      "httpStatus": 200,
+      "canonical": "/destination/frontier-texas",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6967
+    },
+    {
+      "path": "/destination/george-ranch-historical-park",
+      "httpStatus": 200,
+      "canonical": "/destination/george-ranch-historical-park",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6968
+    },
+    {
+      "path": "/destination/harry-ransom-center-austin",
+      "httpStatus": 200,
+      "canonical": "/destination/harry-ransom-center-austin",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6969
+    },
+    {
+      "path": "/destination/historic-brownsville-museum",
+      "httpStatus": 200,
+      "canonical": "/destination/historic-brownsville-museum",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6970
+    },
+    {
+      "path": "/destination/holocaust-museum-houston",
+      "httpStatus": 200,
+      "canonical": "/destination/holocaust-museum-houston",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6971
+    },
+    {
+      "path": "/destination/houston-museum-of-natural-science",
+      "httpStatus": 200,
+      "canonical": "/destination/houston-museum-of-natural-science",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6972
+    },
+    {
+      "path": "/destination/johnny-nelson-katy-heritage-museum",
+      "httpStatus": 200,
+      "canonical": "/destination/johnny-nelson-katy-heritage-museum",
+      "robots": "noindex, follow",
+      "heroPlaceholder": true,
+      "requestId": 6973
+    },
+    {
+      "path": "/destination/kimbell-art-museum-fort-worth",
+      "httpStatus": 200,
+      "canonical": "/destination/kimbell-art-museum-fort-worth",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6974
+    },
+    {
+      "path": "/destination/lbj-presidential-library-austin",
+      "httpStatus": 200,
+      "canonical": "/destination/lbj-presidential-library-austin",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6975
+    },
+    {
+      "path": "/destination/modern-art-museum-fort-worth",
+      "httpStatus": 200,
+      "canonical": "/destination/modern-art-museum-fort-worth",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6976
+    },
+    {
+      "path": "/destination/museum-of-fine-arts-houston",
+      "httpStatus": 200,
+      "canonical": "/destination/museum-of-fine-arts-houston",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6977
+    },
+    {
+      "path": "/destination/museum-of-the-big-bend-alpine",
+      "httpStatus": 200,
+      "canonical": "/destination/museum-of-the-big-bend-alpine",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6978
+    },
+    {
+      "path": "/destination/museum-of-the-gulf-coast-port-arthur",
+      "httpStatus": 200,
+      "canonical": "/destination/museum-of-the-gulf-coast-port-arthur",
+      "robots": "noindex, follow",
+      "heroPlaceholder": true,
+      "requestId": 6979
+    },
+    {
+      "path": "/destination/nasher-sculpture-center-dallas",
+      "httpStatus": 200,
+      "canonical": "/destination/nasher-sculpture-center-dallas",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6980
+    },
+    {
+      "path": "/destination/national-cowgirl-museum-hall-fame-fort-worth",
+      "httpStatus": 200,
+      "canonical": "/destination/national-cowgirl-museum-hall-fame-fort-worth",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6981
+    },
+    {
+      "path": "/destination/national-museum-funeral-history-houston",
+      "httpStatus": 200,
+      "canonical": "/destination/national-museum-funeral-history-houston",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6982
+    },
+    {
+      "path": "/destination/national-museum-pacific-war",
+      "httpStatus": 200,
+      "canonical": "/destination/national-museum-pacific-war",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6983
+    },
+    {
+      "path": "/destination/panhandle-plains-historical-museum-canyon",
+      "httpStatus": 200,
+      "canonical": "/destination/panhandle-plains-historical-museum-canyon",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6984
+    },
+    {
+      "path": "/destination/perot-museum-nature-science-dallas",
+      "httpStatus": 200,
+      "canonical": "/destination/perot-museum-nature-science-dallas",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6985
+    },
+    {
+      "path": "/destination/port-isabel-historical-museum",
+      "httpStatus": 200,
+      "canonical": "/destination/port-isabel-historical-museum",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6986
+    },
+    {
+      "path": "/destination/san-antonio-museum-of-art",
+      "httpStatus": 200,
+      "canonical": "/destination/san-antonio-museum-of-art",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6987
+    },
+    {
+      "path": "/destination/spindletop-gladys-city-boomtown-museum-beaumont",
+      "httpStatus": 200,
+      "canonical": "/destination/spindletop-gladys-city-boomtown-museum-beaumont",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6988
+    },
+    {
+      "path": "/destination/texas-energy-museum-beaumont",
+      "httpStatus": 200,
+      "canonical": "/destination/texas-energy-museum-beaumont",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6989
+    },
+    {
+      "path": "/destination/texas-forestry-museum-lufkin",
+      "httpStatus": 200,
+      "canonical": "/destination/texas-forestry-museum-lufkin",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6990
+    },
+    {
+      "path": "/destination/texas-maritime-museum-rockport",
+      "httpStatus": 200,
+      "canonical": "/destination/texas-maritime-museum-rockport",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6991
+    },
+    {
+      "path": "/destination/texas-ranger-hall-of-fame-museum-waco",
+      "httpStatus": 200,
+      "canonical": "/destination/texas-ranger-hall-of-fame-museum-waco",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6992
+    },
+    {
+      "path": "/destination/texas-sports-hall-of-fame-waco",
+      "httpStatus": 200,
+      "canonical": "/destination/texas-sports-hall-of-fame-waco",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6993
+    },
+    {
+      "path": "/destination/texas-transportation-museum-san-antonio",
+      "httpStatus": 200,
+      "canonical": "/destination/texas-transportation-museum-san-antonio",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6994
+    },
+    {
+      "path": "/destination/thinkery-austin-childrens-museum",
+      "httpStatus": 200,
+      "canonical": "/destination/thinkery-austin-childrens-museum",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6995
+    },
+    {
+      "path": "/destination/witte-museum",
+      "httpStatus": 200,
+      "canonical": "/destination/witte-museum",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "heroPlaceholder": false,
+      "requestId": 6996
+    }
+  ],
+  "nextWork": "Resolve exact-site licensed images, revalidate image delivery/canonicals/sitemaps and complete independent visitor-authority comparison. Do not equate readiness with authority certification."
+}

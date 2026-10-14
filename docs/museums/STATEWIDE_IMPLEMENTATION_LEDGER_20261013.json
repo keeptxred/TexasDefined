@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-13",
+  "asOf": "2026-10-14",
   "repository": "keeptxred/TexasDefined",
   "production": "https://texasdefined.com",
   "supabaseProjectId": "ftkznprjljkhymknvhye",
@@ -9,7 +9,8 @@
   "notes": [
     "Owner inventory concatenates names and currently lacks a definitive individually verified Texas-institution count.",
     "An HTTP 200 source connection and Supabase verified status do not certify research or visitor authority.",
-    "This document records GitHub/Supabase recovery progress; it is not a false statewide completion certificate."
+    "This document records GitHub/Supabase recovery progress; it is not a false statewide completion certificate.",
+    "2026-10-14: PRs #4792 and #4817 merged; 69 of 69 museum pages returned HTTP 200 and canonical metadata. Six remain noindex because placeholder imagery; authoritative editorial certification still outstanding."
   ],
   "mainBeforeCurrentPullRequest": {
     "museumSourceManifestEntries": 54,
@@ -18,13 +19,18 @@
     "certifiedBenchmarks": 0
   },
   "liveSupabaseLastRead": {
-    "museumRegistryRecords": 66,
-    "registryStatusVerified": 65,
-    "registryStatusSourceUnreachable": 1,
-    "museumMonitoredSourceRecords": 281,
-    "sourceBaseline": 280,
-    "sourceUnreachable": 1,
-    "cityOfKatySource403": "https://www.cityofkaty.com/visitors/museums"
+    "museumRegistryRecords": 69,
+    "museumMonitoredSourceRecords": 305,
+    "cityOfKatySource403": "https://www.cityofkaty.com/visitors/museums",
+    "registryStatusBreakdown": {
+      "awaiting_editorial_verification": 3,
+      "source_unreachable": 1,
+      "verified": 65
+    },
+    "activeDeclaredSources": 282,
+    "activeManifestSourceCoverage": 282,
+    "supplementaryOrHistoricWatchedSources": 23,
+    "sourceIdentityMode": "Match on sourceUrl OR fetchUrl: 13 declared source URLs have equivalent watched fetchUrl variants; 282 of 282 are covered."
   },
   "recoveryPullRequest": {
     "url": "https://github.com/keeptxred/TexasDefined/pull/4792",
@@ -68,11 +74,9 @@
     "Resolve or document City of Katy upstream HTTP 403; browser request headers were already tested and returned HTTP 403.",
     "Ensure missing exact-site licensed photos are secured or honestly acknowledged, never replaced with unrelated images.",
     "Verify live production routes, FAQ content, responsive layout, SEO/sitemap, image licensing and current visitor status.",
-    "Sync merged manifest into existing Supabase verification jobs and confirm source checks, alerts and actual editorial evidence.",
-    "Reconcile remaining open museum PRs after verified merge; avoid duplicates.",
-    "Merge through passing protected checks and verify deployed content; no green CI means no production-complete claim.",
     "Diboll has a rights-cleared public-domain 1907 archived local photograph; obtain a licensed present-day museum or actual Engine 13 photo before completing site-photo editorial acceptance.",
-    "Live page verification found Port Isabel historical museum still showing a placeholder despite source-referenced hero in main; investigate deployment, hydration and generated hero routing before certification."
+    "Fix the six media/indexing gate failures identified by the full 69-page production census, with photos of the actual museum or named exhibit and verified reuse rights; Frisco fix in PR #4836 remains subject to deployment QA.",
+    "Independently certify authority and responsive accessibility for all 69 guides; successful HTTP, metadata and source checks alone do not meet comparative editorial standards."
   ],
   "externalSourceFailure": "The City of Katy official page returns Access Denied to current Supabase pg_net request even with standard browser User-Agent; two independent THC and Katy Heritage Society sources return 200. Do not mark failed City URL healthy.",
   "reviewedBy": "Repository and live Supabase connector observations; not independently researched all ~600 provisional owner segments",
@@ -113,5 +117,15 @@
       ],
       "limits": "No image reuse permission or full vehicle interior accessibility implied"
     }
-  ]
+  ],
+  "productionQACensus": {
+    "date": "2026-10-14",
+    "report": "docs/museums/PRODUCTION_SITE_CENSUS_20261014.json",
+    "http200": 69,
+    "canonical": 69,
+    "notIndexableDueToPlaceholder": 6,
+    "sourceWatchCoverage": "69/69 museum registry, 282/282 declared sources",
+    "friscoFix": "PR #4836 changes authored photo and detail hero; not yet verified deployed",
+    "uncertifiedComparisons": 69
+  }
 }
