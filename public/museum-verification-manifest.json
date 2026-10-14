@@ -1291,6 +1291,21 @@
           "sourceUrl": "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html",
           "fetchUrl": "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html",
           "label": "Museum research and visitor source"
+        },
+        {
+          "sourceUrl": "https://portisabel-texas.com/blog/history/",
+          "fetchUrl": "https://portisabel-texas.com/blog/history/",
+          "label": "City of Port Isabel municipal history and the Champion Building context"
+        },
+        {
+          "sourceUrl": "https://business.spichamber.com/list/member/port-isabel-historical-museum-18",
+          "fetchUrl": "https://business.spichamber.com/list/member/port-isabel-historical-museum-18",
+          "label": "South Padre Island Chamber public Port Isabel Historical Museum listing"
+        },
+        {
+          "sourceUrl": "https://www.loc.gov/item/2014630503/",
+          "fetchUrl": "https://www.loc.gov/item/2014630503/?fo=json",
+          "label": "Library of Congress exact Champion Building mural photo record and rights advisory (official item JSON API)"
         }
       ]
     },
