@@ -99,7 +99,7 @@ jobs:
               'lake-corpus-christi', 'alan-henry-reservoir', 'lake-meredith', 'lake-houston',
               'joe-pool-lake', 'lake-granbury', 'lake-waco', 'lake-brownwood',
               'proctor-lake', 'lake-arrowhead', 'lake-mineral-wells', 'lake-colorado-city',
-              'lake-stamford', 'lake-sweetwater', 'lake-georgetown', 'benbrook-lake', 'granger-lake', 'aquilla-lake', 'bardwell-lake', 'lake-arlington', 'lake-worth', 'lake-nasworthy', 'lake-tyler', 'medina-lake', 'lake-weatherford', 'lake-abilene', 'lake-cypress-springs', 'e-v-spence-reservoir',
+              'lake-stamford', 'lake-sweetwater', 'lake-georgetown', 'benbrook-lake', 'granger-lake', 'aquilla-lake', 'bardwell-lake', 'lake-arlington', 'lake-worth', 'lake-nasworthy', 'lake-tyler', 'medina-lake', 'lake-weatherford', 'lake-abilene', 'lake-cypress-springs', 'e-v-spence-reservoir', 'brady-creek-reservoir',
           ]
           with open(sys.argv[2], 'w', encoding='utf-8') as out:
               for source in ('recent', 'csv', 'html'):
@@ -159,7 +159,7 @@ jobs:
             publish_status failure texasdefined-waterdata-diagnostic "Current lake data failed one or more protected checks"
             exit 1
           fi
-          publish_status success texasdefined-waterdata-diagnostic "All 56 monitored lake page-data snapshots and server paths are current"
+          publish_status success texasdefined-waterdata-diagnostic "All 57 monitored lake page-data snapshots and server paths are current"
 
       - name: Verify every published lake exposes the live-level UI
         shell: bash
@@ -351,7 +351,7 @@ jobs:
             --header 'Accept: application/vnd.github+json' \
             --header 'X-GitHub-Api-Version: 2022-11-28' \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${STATUS_SHA}" \
-            --data '{"state":"success","context":"texasdefined-live-lakes","description":"All 56 monitored lake snapshots and live UI surfaces passed"}' >/dev/null
+            --data '{"state":"success","context":"texasdefined-live-lakes","description":"All 57 monitored lake snapshots and live UI surfaces passed"}' >/dev/null
 
       - name: Publish live-lake verification failure
         if: failure()

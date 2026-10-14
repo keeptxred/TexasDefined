@@ -16,7 +16,7 @@ const WAVE2_SET = new Set<string>(WAVE2_SHOWCASE_LAKE_SLUGS);
 const STATEWIDE_SET = new Set<string>(STATEWIDE_NETWORK_SHOWCASE_LAKE_SLUGS);
 const OCTOBER_12_NEW_LAKES = new Set<string>(["lake-stamford", "lake-sweetwater", "lake-georgetown", "benbrook-lake", "granger-lake", "aquilla-lake", "white-rock-lake"]);
 const OCTOBER_13_NEW_LAKES = new Set<string>(["bardwell-lake", "lake-bastrop", "lake-arlington", "cedar-lake-cleburne-state-park", "lake-worth", "lake-nasworthy", "lake-tyler", "fort-parker-state-park-lake", "medina-lake", "lake-weatherford"]);
-const OCTOBER_14_NEW_LAKES = new Set<string>(["lake-abilene", "lake-cypress-springs", "bachman-lake", "e-v-spence-reservoir"]);
+const OCTOBER_14_NEW_LAKES = new Set<string>(["lake-abilene", "lake-cypress-springs", "bachman-lake", "e-v-spence-reservoir", "brady-creek-reservoir"]);
 const lakeSitemapDate = (slug: string) => OCTOBER_14_NEW_LAKES.has(slug) ? "2026-10-14" : OCTOBER_13_NEW_LAKES.has(slug) ? "2026-10-13" : OCTOBER_12_NEW_LAKES.has(slug) ? "2026-10-12" : STATEWIDE_SET.has(slug) ? STATEWIDE_NETWORK_SHOWCASE_LAKE_VERIFIED_AT : WAVE2_SET.has(slug) ? WAVE2_SHOWCASE_LAKE_VERIFIED_AT : SHOWCASE_LAKE_VERIFIED_AT;
 
 // FISHING_GUIDES_DIRECTORY_PATH, FISHING_REPORTS_DIRECTORY_PATH,

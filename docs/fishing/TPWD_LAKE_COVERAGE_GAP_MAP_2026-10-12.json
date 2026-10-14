@@ -2,8 +2,8 @@
   "date": "2026-10-14",
   "officialDirectory": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
   "officialEntries": 175,
-  "completedGuideMatches": 71,
-  "gaps": 104,
+  "completedGuideMatches": 72,
+  "gaps": 103,
   "listing": [
     {
       "letter": "A",
@@ -176,8 +176,8 @@
     {
       "letter": "B",
       "tpwdListingName": "Brady Creek",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "brady-creek-reservoir",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -1265,6 +1265,7 @@
     "Lake Abilene source-researched guide added in development. State park alerts (October 20 2025 as still published October 2026) close both boat ramps and prohibit fishing/swimming. TPWD old ramp year-round listings and fishery tactics must not override park operator alert. Genuine 2011 lake photo CC BY-SA 2.0 Commons. 68 guides, 107 unmatched TPWD entries. Not live production or field-photo certified.",
     "October 14: Lake Cypress Springs added with five FCWD ramps, updated August 2026 rules, 2007 historic lake-specific CC BY-SA maps, and exact operator camping requirements. Missing original field imagery and production certification remain explicitly open.",
     "2026-10-14 Bachman Lake: 132-acre TPWD reservoir versus approximately 205-acre city metropolitan park; municipal §32-40 (July 2026) 10.5-HP operation ceiling disagrees with older TPWD 5 HP text, preserved as safety flag. Shorecrest ramp's lane counts differ across TPWD documents, with only five trailer spots. Historic 2005 actual-lake Commons image (Ansem27 CC BY-SA 3.0), no first-party photo, no real-time water gauge. Site rollout/editorial sign-off separately pending.",
-    "2026-10-14: E. V. Spence Reservoir individually researched: five TPWD named access sites (two historically identified concrete ramps, two dam-end bank-only and closed Rough Creek), dated TWDB drought measurements not frozen as current levels, TWDB history and exact public-domain photo; day-of operator check and original photography remain outstanding."
+    "2026-10-14: E. V. Spence Reservoir individually researched: five TPWD named access sites (two historically identified concrete ramps, two dam-end bank-only and closed Rough Creek), dated TWDB drought measurements not frozen as current levels, TWDB history and exact public-domain photo; day-of operator check and original photography remain outstanding.",
+    "October 14 2026: source-researched Brady Creek Reservoir/Brady Lake upgraded to 72nd complete fishing guide, with TPWD high-water-only ramp warning, City of Brady exact camping/reservation inventory, TWDB historical dam record, current water gauge reference and exact CC BY 4.0 photo; live operator availability, first-party photos and production remain uncertified."
   ]
 }

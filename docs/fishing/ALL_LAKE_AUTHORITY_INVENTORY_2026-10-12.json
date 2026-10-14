@@ -3,24 +3,24 @@
   "date": "2026-10-14",
   "baseline": "TPWD more than 150 lake profiles",
   "summary": {
-    "total": 71,
+    "total": 72,
     "standardSectionsPerGuide": 9,
-    "statewide": 56,
-    "namedAccess": 71,
+    "statewide": 57,
+    "namedAccess": 72,
     "unknownAccess": 0,
-    "namedCamping": 46,
+    "namedCamping": 47,
     "unknownCamping": 25,
-    "history": 23,
+    "history": 24,
     "noHistory": 48,
-    "photoMappings": 71,
+    "photoMappings": 72,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 71,
+    "explicitNamedAccess": 72,
     "lackingNamedAccess": 0,
-    "explicitNamedCamping": 46,
+    "explicitNamedCamping": 47,
     "lackingNamedCamping": 25,
-    "namedStatewideFacilities": 220,
-    "statewideTemplateGuidesWithNamedAccess": 56
+    "namedStatewideFacilities": 221,
+    "statewideTemplateGuidesWithNamedAccess": 57
   },
   "entries": [
     {
@@ -1141,6 +1141,22 @@
       "risk": "Low elevation makes concrete ramps unusable; Rough Creek explicitly closed; current operator confirmation, media and production acceptance pending",
       "namedAccess": true,
       "accessFacilityCount": 5,
+      "accessReviewedAt": "2026-10-14",
+      "namedCamping": true
+    },
+    {
+      "slug": "brady-creek-reservoir",
+      "name": "Brady Creek Reservoir",
+      "kind": "Statewide",
+      "ramp": "One named City Park at Dam launch; high-water-only functionality warning",
+      "camping": "Exact city advertised 23 park RV hookups, pavilion RV sites, 15 tent, three primitive, 8 cabanas, 12 cabins, reservation operator contact",
+      "history": "TWDB 1961-1963 engineered dam and 2012 golden-alga fishery context",
+      "fish": 4,
+      "photo": "Commons 3214x1808 genuine Brady Lake 2021 Larry D. Moore CC BY 4.0 exact GPS",
+      "water": "TWDB live numerical elevation at Brady Creek station",
+      "risk": "Golden-alga recovery and lake drought, one usable-only-at-high-water boat ramp; city operator closure/amenities and field shots require current check",
+      "namedAccess": true,
+      "accessFacilityCount": 1,
       "accessReviewedAt": "2026-10-14",
       "namedCamping": true
     }

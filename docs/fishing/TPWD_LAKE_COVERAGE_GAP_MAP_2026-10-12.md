@@ -5,8 +5,8 @@
 ## Counts and caveats
 
 - **175** separate alphabetical links/named entries in the TPWD public lake list (excluding its extra *Town Lake = Lady Bird Lake* alias line).
-- **71** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
-- **104** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
+- **72** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
+- **103** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
 - TPWD list entries include local ponds and some state-park-managed lakes as well as reservoirs; they cannot all be treated as equally high-demand or guaranteed distinct reservoirs.
 - This list does not include every Texas stock tank, private lake, community fishing pond, or small waterbody outside TPWD's own directory. It therefore cannot prove “every Texas lake.”
 
@@ -52,7 +52,7 @@
 | Bois d'Arc | **Not in completed-guide registry** |
 | Bonham | **Not in completed-guide registry** |
 | Bonham State Park | **Not in completed-guide registry** |
-| Brady Creek | **Not in completed-guide registry** |
+| Brady Creek | [Brady Creek Reservoir guide](/fishing/lakes/brady-creek-reservoir) |
 | Brandy Branch | **Not in completed-guide registry** |
 | Braunig | **Not in completed-guide registry** |
 | Brazos | **Not in completed-guide registry** |
@@ -276,3 +276,7 @@ Bachman Lake is an urban **132-acre TPWD fishing reservoir** inside the city's s
 ## October 14 — E. V. Spence authority addition
 
 Source-researched dossier on Colorado River Municipal Water District's Robert Lee reservoir adds five correctly distinct TPWD locations, with **Rough Creek closed**, north/south dam ends explicitly bank-only, and Wildcat/Paint Creek historic concrete ramps not certified currently usable at severely low water. The TWDB September 28, 2026 snapshot showing 9.4% capacity is dated historical context; the actual lake level is read via timestamped Water Data for Texas rather than frozen into evergreen recommendations. The January 2009 1410×940 exact-lake aerial image by Jstuby has direct Wikimedia Commons public-domain provenance, NOT first-party media. The proposed branch takes completed-guide matches to **71 of 175**, leaving **104** unmatched, subject to protected CI, operator same-day verification and production acceptance.
+
+## October 14 — Brady Creek Reservoir authority
+
+TPWD lists a single City Park at Dam ramp that operates well only at **high water**, despite the old year-round park label. The City of Brady's [Brady Lake operator page](https://www.bradytx.us/881/Brady-Lake) independently confirms 23 RV hookups in its park plus pavilion hookups, 15 tent sites, three primitive sites, eight cabanas, 12 cabins and real operator reservation contact. TWDB dates the dam from December 1961 construction to May 1963 completion and deliberate impoundment; TPWD documents 2012 golden algae and FAIR fish quality ratings. Wikimedia Commons' 3,214×1,808 Brady Lake image by Larry D. Moore was verified from original file metadata as **CC BY 4.0**, not an invented stock lake photo. The new branch proposes **72** completed guide matches, **103** unmatched TPWD directory entries. Current ramp functionality, first-party photo inventory and production editorial certification are not claimed.

@@ -105,6 +105,12 @@
       "name": "Lake Meredith"
     }
   ],
+  "brady": [
+    {
+      "slug": "brady-creek-reservoir",
+      "name": "Brady Creek Reservoir"
+    }
+  ],
   "brenham": [
     {
       "slug": "lake-somerville",
