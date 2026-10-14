@@ -13,7 +13,7 @@ const CURATED_PAIRINGS: Readonly<Record<string, readonly string[]>> = {
   "clifton-whipple-truss-bridge": ["clifton", "bosque-museum"],
   "bosque-river-bridge-meridian": ["meridian", "meridian-state-park"],
   "holland-hotel": ["alpine-downtown-historic-district", "alpine", "kokernot-field"],
-  "sycamore-creek-bridge-fort-worth": ["fort-worth", "sycamore-park"],
+  "sycamore-creek-bridge-fort-worth": ["fort-worth-stockyards"],
   "regency-suspension-bridge": ["goldthwaite", "san-saba"],
   "kokernot-field": ["alpine-downtown-historic-district", "alpine"],
   "alpine-downtown-historic-district": ["kokernot-field", "alpine", "holland-hotel"],

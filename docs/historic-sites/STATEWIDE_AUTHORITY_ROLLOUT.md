@@ -139,3 +139,12 @@ See `docs/historic-sites/AUTHORITY_STANDARD.md` and the `scripts/data/validate-h
 - **Photo provenance:** the recorded Commons file pages for Bosque River Bridge and Sycamore Creek Bridge returned HTTP 200 with the expected CC BY-SA 4.0 license text; a reachable description page is still not a substitute for reviewing the exact depicted property, credit, transformations and public-image behavior.
 - **Verification boundary:** every five-site authority registry row had `awaiting_editorial_verification` status and null `last_verified_at` before probes. Mechanical source-fetch baselines are **not** independent historical fact review, proof of current visitor access, or production deployment. Never set a verified timestamp from this batch's HTTP statuses alone.
 - **Statewide unfinished:** the previous 34,302-source / 32,745-unmatched THC GIS comparison remains an identity-reconciliation *discovery inventory*, not 32,745 missing public pages. Continue selective property-level authority research, all legacy historic-site certification, photo-rights work and real deployed-route acceptance. Do not count NRHP record mentions as certified canonical destinations.
+
+
+## October 14, 2026 — Holland Hotel duplicate-photo exclusion
+
+Live production of the merged THC batch contained all 14 canonical destination routes, with 13/14 present in `/sitemap-explore.xml`. `/destination/holland-hotel` was indexable and served HTTP 200 but **absent** from the sitemap. Its historic-district source photo was identical to the Alpine Downtown Historic District hero; the automatic distinct-image reconciliation rightly replaced the hotel image with a placeholder and excluded it from image-ready sitemap discovery. The old PR and content were not the cause.
+
+Follow-up branch `fix/thc-holland-hotel-distinct-licensed-photo-20261013` assigns the hotel's **own**, verified Commons photograph by P. Hughes (February 2025, CC BY 4.0, 5,012×3,896). See `docs/historic-sites/IMAGE_PROVENANCE.md`. It also strengthens the canonical premerge contract and adds post-deployment verification that all fourteen independently researched THC destinations remain in the Explore sitemap and the hotel displays its specific image. Do not mark the correction live until the specific protected production release passes.
+
+The prior hotel Commons source must be retired from active monitoring in favor of its actual new file, while preserving the previous HTTP probe history. Supabase source success is independent of editorial acceptance.
