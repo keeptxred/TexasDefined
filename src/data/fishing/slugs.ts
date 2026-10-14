@@ -88,6 +88,7 @@ export const STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS = [
   "bachman-lake",
   "e-v-spence-reservoir",
   "brady-creek-reservoir",
+  "b-a-steinhagen-lake",
 ] as const;
 
 export const COMPLETE_FISHING_LAKE_SLUGS = [
