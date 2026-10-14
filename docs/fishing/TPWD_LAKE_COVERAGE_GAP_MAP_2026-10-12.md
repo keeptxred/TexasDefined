@@ -5,8 +5,8 @@
 ## Counts and caveats
 
 - **175** separate alphabetical links/named entries in the TPWD public lake list (excluding its extra *Town Lake = Lady Bird Lake* alias line).
-- **63** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
-- **112** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
+- **64** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
+- **111** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
 - TPWD list entries include local ponds and some state-park-managed lakes as well as reservoirs; they cannot all be treated as equally high-demand or guaranteed distinct reservoirs.
 - This list does not include every Texas stock tank, private lake, community fishing pond, or small waterbody outside TPWD's own directory. It therefore cannot prove “every Texas lake.”
 
@@ -95,7 +95,7 @@
 | Fayette County | [fayette-county-reservoir](https://texasdefined.com/fishing/lakes/fayette-county-reservoir) |
 | Findley | **Not in completed-guide registry** |
 | Fork | [lake-fork](https://texasdefined.com/fishing/lakes/lake-fork) |
-| Fort Parker State Park | **Not in completed-guide registry** |
+| Fort Parker State Park | [fort-parker-state-park-lake](https://texasdefined.com/fishing/lakes/fort-parker-state-park-lake) |
 | Fort Phantom Hill | **Not in completed-guide registry** |
 | Fryer | **Not in completed-guide registry** |
 | Georgetown | [lake-georgetown](https://texasdefined.com/fishing/lakes/lake-georgetown) — awaiting production |
@@ -239,7 +239,7 @@ The proposed registry total is **59 source-researched lake guides** and **116 re
 
 ### Wave 4 — Arlington and Cedar Lake
 
-Two lake-specific source-researched authority definitions on wave-4 development branch: **63** researched guide definitions, **112** unmatched TPWD listing gaps. Neither is production-certified. Arlington city's permit/ramp distinctions and Cedar Lake state-park no-wake/ADA/fishing rules were researched; first-party field photography and official operator day-of-visit confirmation remain outstanding.
+Two lake-specific source-researched authority definitions on wave-4 development branch: **64** researched guide definitions, **111** unmatched TPWD listing gaps. Neither is production-certified. Arlington city's permit/ramp distinctions and Cedar Lake state-park no-wake/ADA/fishing rules were researched; first-party field photography and official operator day-of-visit confirmation remain outstanding.
 
 ## October 13 source-reviewed Lake Worth authority
 
@@ -248,3 +248,7 @@ Lake Worth adds four independently named public-access parks, one canoe/kayak-on
 ## October 13 — Lake Nasworthy 2026 construction, access and camping authority
 
 Lake Nasworthy is the 63rd substantive guide definition: 11 distinct TPWD-indexed shoreline access areas, a city-confirmed Knickerbocker Park construction closure during the 2026 staggered ramp replacement, named alternative launches, city-only designated camping with year-round permits at Middle Concho and Spring Creek, TWDB dam history and datum-safe live gauge, verified exact-place Commons photo by Jonathan Cutrer licensed CC BY 2.0, and visitor FAQs that distinguish fishable waters from closed ramps. **No first-party field media, same-day operator signoff or production verification is claimed**.
+
+## October 13 — Fort Parker State Park Lake / severe-sedimentation warning
+
+The new Fort Parker Lake authority dossier is grounded in the current TPWD angling page, the TPWD 2022–2023 reservoir-survey findings, the current state park/facilities inventory and the state park's CCC history. It explicitly warns that the upper two-thirds of the lake is generally unnavigable due to sedimentation and that the park's second boat ramp is on the Navasota River, **not a second lake boat ramp**. TPWD's fishing facts list 725 acres and 1935 impoundment while the park describes roughly 750 acres and dates CCC dam completion to 1939; the conflicting claims remain source-labeled. 24 electric sites, one additional electric tent-only site and ten water-only tent campsites are from current TPWD inventory, NOT guaranteed current vacancies. The exact-place original 2025 photograph *Lake Fort Parker State Park Texas 2025.jpg* is by Larry D. Moore (Wikimedia Commons CC BY 4.0, 3000×2000), confirmed by Commons media metadata. First-party field photographs, active-alert condition check and live-production acceptance remain separate requirements.
