@@ -3,8 +3,8 @@
   "updatedAt": "2026-10-14",
   "scope": {
     "tpwdNamedEntries": 175,
-    "completedGuides": 68,
-    "missingCompleteGuideListings": 107,
+    "completedGuides": 69,
+    "missingCompleteGuideListings": 106,
     "legacyLakeAndParkDestinations": 36
   },
   "standards": {
@@ -1236,17 +1236,17 @@
     },
     {
       "tpwdEntry": "Cypress Springs",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "lake-cypress-springs",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/cypress_springs/",
+      "namedFacilities": "Five individually named FCWD public ramps: Guthrie, Dogwood, Mary King, Overlook, Walleye; latest fees and access subject to owner flood closures",
+      "campgrounds": "FCWD specifically designated paid park camping at all five TPWD listed parks, written paid confirmation required, 60-day RV booking horizon, 14-day stay permission",
+      "primaryHistory": "TWDB official 2007 survey: July 1968 construction, July 7 1970 impoundment, February 15 1971 completion; 378-ft pool and flood closure rule",
+      "localPhoto": "No lake photograph rights confirmed. Two exact-lake licensed cartographic maps from Wikimedia Commons/maxup10 CC BY-SA 4.0: bathymetry 1500x757 and topo 2048x1223; explicitly not photos",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Franklin County and nearby Mount Vernon/Winnsboro/Pittsburg city discovery registered",
+      "destinationReciprocalLinks": "Lake Bob Sandlin cross-links back; future separate FCWD park authority destinations not yet verified",
+      "competitivePrimarySourceComparison": "FCWD rules as revised August 5 2026 supersede older TPWD $2/open year-round; full first-party/operator assessment and field visuals pending",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -1255,7 +1255,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "26-ft length/12-ft width, idle within 200ft shore, exclude 200ft dam/intakes, no grass carp harvest, swimming/camping restrictions, flood closure at 380.50ft or earlier, maps historical not navigation charts. Original licensed field photographs remain outstanding."
     },
     {
       "tpwdEntry": "Daniel",
