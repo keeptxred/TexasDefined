@@ -439,6 +439,12 @@
       "name": "Possum Kingdom Reservoir"
     }
   ],
+  "parker": [
+    {
+      "slug": "lake-weatherford",
+      "name": "Lake Weatherford"
+    }
+  ],
   "polk": [
     {
       "slug": "lake-livingston",
