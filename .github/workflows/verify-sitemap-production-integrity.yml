@@ -39,3 +39,7 @@ jobs:
         # production workflow while preserving the exact deployed-SHA checkout.
         if: ${{ hashFiles('scripts/ci/verify-thc-landmark-sitemap-production.mjs') != '' }}
         run: node scripts/ci/verify-thc-landmark-sitemap-production.mjs
+
+      - name: Verify historical photographic subjects and closed original-site indexing
+        if: ${{ hashFiles('scripts/ci/verify-historic-photo-indexability-production.mjs') != '' }}
+        run: node scripts/ci/verify-historic-photo-indexability-production.mjs

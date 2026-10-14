@@ -13,6 +13,7 @@ const nationalCemeteries = fs.readFileSync('src/data/national-cemetery-enrichmen
 const remoteHeroes = fs.readFileSync('src/data/historic-site-remote-heroes.ts', 'utf8');
 const clusters = fs.readFileSync('src/data/historic-site-clusters.ts', 'utf8');
 const corrections = fs.readFileSync('src/data/historic-site-fact-corrections.ts', 'utf8');
+const visitorPolicy = fs.readFileSync('src/data/destination-availability.ts', 'utf8');
 const authorityExpansion = fs.readFileSync('src/data/historic-site-authority-2026.ts', 'utf8');
 const runtime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8');
 const preserved = fs.readFileSync('src/data/destination-preserved-catalog.ts', 'utf8');
@@ -305,6 +306,28 @@ for (const marker of [
   'coordinates: { lat: 27.96445, lng: -97.81838 }',
 ]) if (!corrections.includes(marker)) failures.push(`Lipantitlan source-backed fact correction missing: ${marker}`);
 
+// Factual subject identity and file-level reuse rights take precedence over
+// superficial indexable-photo coverage. Both named subjects in La Grange must
+// have different exact-site photographs, and the two unresolved places must
+// not borrow generic/nearby photographs while awaiting licensing.
+for (const mark of [
+  'destination.slug === "kreische-brewery"',
+  'Kreische%20Brewery%20Ruins%20Lower%20View.jpg',
+  'destination.slug === "monument-hill"',
+  'Monument%20hill%20monument.jpg',
+  'Larry D. Moore · CC BY 4.0',
+  'destination.slug === "old-socorro-mission"',
+  'hero: missingDestinationHero(destination)',
+]) if (!corrections.includes(mark)) failures.push(`Named historic image rights/identity correction missing: ${mark}`);
+if (remoteHeroes.includes('"old-socorro-mission": {')) failures.push("Closed original Socorro archaeological site still borrows an image of the operating mission church.");
+for (const slug of ['first-capitol-of-texas', 'old-socorro-mission']) if (!visitorPolicy.includes('"'+slug+'"')) failures.push("THC-closed original site erroneously recommended in Trip Planner: "+slug);
+if (!destinationRoute.includes('"first-capitol-of-texas"].includes(destination.slug)')) failures.push("Indexed, researched First Capitol historical reference exception was lost after trip-planner closure.");
+if (!fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8').includes('"first-capitol-of-texas"].includes(destination.slug)')) failures.push("First Capitol historic reference indexable in HTML but missing from Explore sitemap exception list.");
+const exploreSitemapSource = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
+if (!exploreSitemapSource.includes(').map(applyHistoricSiteFactCorrections)') || !exploreSitemapSource.includes('import("@/data/historic-site-fact-corrections")')) failures.push("Explore sitemap does not apply resolved historic-site photo and closure corrections before indexability gating.");
+if (!destinationRoute.includes('isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><DestinationVisitPlanner')) failures.push("Destination visit planner still promotes inaccessible historic sites as ordinary visitor stops.");
+if (!fullAuthorityFile.includes('File:Kreische_Brewery_Ruins_Lower_View.jpg') || !fullAuthorityFile.includes('File:Monument_hill_monument.jpg')) failures.push("Original licensed file-level photo attribution links missing from public historic authority guide sources.");
+
 const exactHeroAliases = ['barrington-living-history-farm','fanthorp-inn','kreische-brewery','monument-hill','san-jacinto-battleground','washington-on-the-brazos'];
 for (const slug of exactHeroAliases) {
   if (!seedSlugs.includes(slug)) failures.push(`Exact historic hero alias does not match a statewide seed: ${slug}.`);
@@ -334,7 +357,6 @@ const verifiedRemoteHeroes = [
   ['mission-dolores', 'CC BY-SA 4.0'],
   ['national-museum-pacific-war', 'CC BY-SA 4.0'],
   ['official-texas-longhorn-herd', 'Public domain'],
-  ['old-socorro-mission', 'Public domain'],
   ['palmito-ranch-battlefield', 'CC BY-SA 3.0'],
   ['port-isabel-lighthouse', 'CC BY-SA 4.0'],
   ['presidio-la-bahia', 'CC BY-SA 4.0'],
