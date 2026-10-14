@@ -16,7 +16,7 @@ concurrency:
   group: football-batch005-production-${{ github.event.workflow_run.head_sha || github.sha }}
   cancel-in-progress: false
 jobs:
-  detect-football-change:
+  detect:
     runs-on: ubuntu-latest
     outputs:
       relevant: ${{ steps.detect.outputs.relevant }}
@@ -75,8 +75,8 @@ jobs:
           echo "relevant=$RELEVANT" >> "$GITHUB_OUTPUT"
           echo "Batch005 full-browser relevance: $RELEVANT"
   school-by-school-chrome:
-    needs: detect-football-change
-    if: ${{ needs.detect-football-change.outputs.relevant == 'true' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
+    needs: detect
+    if: ${{ needs.detect.outputs.relevant == 'true' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 25
     strategy:
