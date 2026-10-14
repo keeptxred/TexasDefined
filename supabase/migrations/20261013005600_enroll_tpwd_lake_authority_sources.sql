@@ -15,8 +15,10 @@ alter table td_maintenance.tpwd_lake_source_manifest enable row level security;
 revoke all on td_maintenance.tpwd_lake_source_manifest from public, anon, authenticated;
 
 insert into td_maintenance.tpwd_lake_source_manifest (path,source_url) values
+  ('/fishing/lakes/aquilla-lake', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/aquilla/'),
   ('/fishing/lakes/alan-henry-reservoir', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/alan_henry/'),
   ('/fishing/lakes/amistad-reservoir', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/amistad/'),
+  ('/fishing/lakes/bardwell-lake', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bardwell/'),
   ('/fishing/lakes/belton-lake', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/belton/'),
   ('/fishing/lakes/benbrook-lake', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/benbrook/'),
   ('/fishing/lakes/caddo-lake', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/caddo/'),
@@ -27,10 +29,12 @@ insert into td_maintenance.tpwd_lake_source_manifest (path,source_url) values
   ('/fishing/lakes/eagle-mountain-lake', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/eagle_mountain/'),
   ('/fishing/lakes/falcon-international-reservoir', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/falcon/'),
   ('/fishing/lakes/fayette-county-reservoir', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fayette/'),
+  ('/fishing/lakes/granger-lake', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/granger/'),
   ('/fishing/lakes/grapevine-lake', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/grapevine/'),
   ('/fishing/lakes/joe-pool-lake', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/joe_pool/'),
   ('/fishing/lakes/lake-arrowhead', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/arrowhead/'),
   ('/fishing/lakes/lake-austin', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/austin/'),
+  ('/fishing/lakes/lake-bastrop', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bastrop/'),
   ('/fishing/lakes/lake-bob-sandlin', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bob_sandlin/'),
   ('/fishing/lakes/lake-bridgeport', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bridgeport/'),
   ('/fishing/lakes/lake-brownwood', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/brownwood/'),
@@ -68,6 +72,7 @@ insert into td_maintenance.tpwd_lake_source_manifest (path,source_url) values
   ('/fishing/lakes/richland-chambers-reservoir', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/richland_chambers/'),
   ('/fishing/lakes/sam-rayburn-reservoir', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/sam_rayburn/'),
   ('/fishing/lakes/stillhouse-hollow-reservoir', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/stillhouse_hollow/'),
+  ('/fishing/lakes/white-rock-lake', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/white_rock/'),
   ('/fishing/lakes/toledo-bend-reservoir', 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/toledo_bend/')
 on conflict(path) do update set source_url=excluded.source_url;
 
