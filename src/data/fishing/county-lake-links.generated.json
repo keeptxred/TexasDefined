@@ -299,6 +299,10 @@
   ],
   "jasper": [
     {
+      "slug": "b-a-steinhagen-lake",
+      "name": "B. A. Steinhagen Lake"
+    },
+    {
       "slug": "sam-rayburn-reservoir",
       "name": "Sam Rayburn Reservoir"
     }
@@ -607,6 +611,12 @@
     {
       "slug": "lake-livingston",
       "name": "Lake Livingston"
+    }
+  ],
+  "tyler": [
+    {
+      "slug": "b-a-steinhagen-lake",
+      "name": "B. A. Steinhagen Lake"
     }
   ],
   "upshur": [
