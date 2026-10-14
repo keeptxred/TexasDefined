@@ -9,6 +9,7 @@ const lazyRoute = read('src/routes/texas-data.$datasetSlug.lazy.tsx');
 const registry = read('src/data/texas-data-center.server.ts');
 const catalog = read('src/data/texas-data-center.ts');
 const routeTree = read('src/routeTree.gen.ts');
+const workerSmoke = read('scripts/ci/verify-built-worker-ssr-core.mjs');
 
 const requiredImporter = [
   ['Ballinger official ID', '"200-901-02"'],
@@ -48,6 +49,8 @@ const requiredPage = [
   ['statewide registry title', "title: 'Texas School District Property Tax Rates — 2025'", registry],
   ['empty legacy sample rows', 'rows: []', registry],
   ['generated lazy route', "import('./routes/texas-data.$datasetSlug.lazy').then((d) => d.Route)", routeTree],
+  ['built Worker school-tax route', "path: '/texas-data/school-district-tax-rates'", workerSmoke],
+  ['built Worker full record marker', "requiredText: '1,013'", workerSmoke],
 ];
 
 const failures = [];
