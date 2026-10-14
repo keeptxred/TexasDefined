@@ -18,10 +18,10 @@
     "certifiedBenchmarks": 0
   },
   "liveSupabaseLastRead": {
-    "museumRegistryRecords": 69,
+    "museumRegistryRecords": 71,
     "registryStatusVerified": 63,
     "registryStatusSourceUnreachable": 1,
-    "museumMonitoredSourceRecords": 305,
+    "museumMonitoredSourceRecords": 323,
     "sourceBaseline": 280,
     "sourceUnreachable": 1,
     "cityOfKatySource403": "https://www.cityofkaty.com/visitors/museums",
@@ -34,7 +34,9 @@
     },
     "registryStatusSourceChanged": 2,
     "registryStatusAwaitingEditorialVerification": 3,
-    "pathsWithMonitoredSources": 69
+    "pathsWithMonitoredSources": 69,
+    "sourceMonitoringNewGuideEnrollment": "2026-10-14: upserted two merged museum paths and 13 declared official source URLs without altering previous source-check fingerprints or editorial verification dates. SQL confirmed 71 museum-visitor-guide records and 323 monitored source records.",
+    "note": "The earlier manifest job request 7300 processed the preceding public version (69/284) during deployment. Later public HTTP response 7321 confirmed the 71-entry manifest; registered the two new museum records directly from the merged main manifest in the existing Supabase monitoring tables."
   },
   "recoveryPullRequest": {
     "url": "https://github.com/keeptxred/TexasDefined/pull/4792",
@@ -264,12 +266,14 @@
     "proposedTotalManifestSourceRecords": 298,
     "proposedTotalComparativeBenchmarks": 71,
     "independentlyCertifiedCount": 0,
-    "goLiveState": "Branch only: awaiting protected CI, merge, deployment, live source ingestion and browser verification; no publication or certification claim.",
+    "goLiveState": "Merged, production manifest returned 71 entries and two upgraded canonical museum pages rendered HTTP 200 with index, follow. Two additional paths registered in existing Supabase monitoring. Independent editorial authority certification still pending.",
     "photoRights": {
       "sixthFloor": "Existing public-domain Carol Highsmith 2014 photograph LOC highsm.28410 confirmed; browser image verification outstanding",
       "lexington": "Existing Matthew T Rader Feb 2018 image CC BY-SA 4.0; visible credit and rendered display verification outstanding"
     },
-    "mergeReconciliation": "Preserved main productionVerification, the original 69-guide live-route audit, two upstream source manifest additions, and other concurrently merged museum photo provenance records."
+    "mergeReconciliation": "Preserved main productionVerification, the original 69-guide live-route audit, two upstream source manifest additions, and other concurrently merged museum photo provenance records.",
+    "merged": true,
+    "mergedPullRequest": "https://github.com/keeptxred/TexasDefined/pull/4844"
   },
   "newSourceChangeAlerts20261014": [
     {
@@ -286,5 +290,34 @@
       "response": 200,
       "observed": "Live 2026 operator programming advertises Tides of Freedom and Built for Victory temporary exhibitions; updated guide with dated exhibits and source calendar; retain change alert pending independent source fingerprint/editorial review."
     }
-  ]
+  ],
+  "productionVerificationAfter4844": {
+    "observedAt": "2026-10-14",
+    "method": "Fresh pg_net production HTTP responses 7321-7324,7329-7335; inspected exact HTTP, canonical, robots, FAQ and image URL/alt in returned SSR HTML, not a visual browser or decoded photo-pixel test.",
+    "liveManifestEntries": 71,
+    "manifestSourceReferences": 298,
+    "museumRecordsInSourceMonitoring": 71,
+    "monitoredSourceRecords": 323,
+    "researchedMuseumFAQCount": 585,
+    "inspectedLivePages": 10,
+    "inspectedHTTP200": 10,
+    "indexedWithApprovedPhotos": [
+      "alvin-historical-museum",
+      "museum-of-the-american-railroad-frisco",
+      "the-history-center-diboll",
+      "port-isabel-historical-museum",
+      "sixth-floor-museum-at-dealey-plaza",
+      "uss-lexington-museum-corpus-christi"
+    ],
+    "noindexPendingRightsClearedPhoto": [
+      "museum-of-the-gulf-coast-port-arthur",
+      "el-paso-holocaust-museum",
+      "texas-broadcast-museum-kilgore",
+      "johnny-nelson-katy-heritage-museum"
+    ],
+    "photoEvidence": "Port Isabel HTML shows correct Carol Highsmith 2014 fish-mural image URL/alt and no placeholder. Browser-level rendered photo and mobile layout untested.",
+    "sourceProbeOutcome": "15 queued checks processed; the five new Sixth Floor Museum sources and USS Lexington operator sources returned HTTP 200 with source_baseline. Not editorial certification.",
+    "acceptanceRule": "Never remove noindex merely to conceal missing licensed museum photography. Four guides remain intentionally blocked. Source reachability and static page audits do not certify editorial authority.",
+    "independentlyCertified": 0
+  }
 }
