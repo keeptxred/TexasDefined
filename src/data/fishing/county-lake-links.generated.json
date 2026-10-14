@@ -555,6 +555,12 @@
       "name": "Lake Worth"
     }
   ],
+  "taylor": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
+    }
+  ],
   "titus": [
     {
       "slug": "lake-bob-sandlin",
