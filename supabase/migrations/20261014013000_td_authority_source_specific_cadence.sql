@@ -5,9 +5,14 @@
 ALTER TABLE public.td_authority_verification_sources
   ADD COLUMN IF NOT EXISTS cadence_days integer;
 
-ALTER TABLE public.td_authority_verification_sources
-  ADD CONSTRAINT td_authority_source_cadence_bounds
-  CHECK (cadence_days IS NULL OR cadence_days BETWEEN 1 AND 90);
+DO $
+BEGIN
+ IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conrelid='public.td_authority_verification_sources'::regclass AND conname='td_authority_source_cadence_bounds') THEN
+  ALTER TABLE public.td_authority_verification_sources
+    ADD CONSTRAINT td_authority_source_cadence_bounds
+    CHECK (cadence_days IS NULL OR cadence_days BETWEEN 1 AND 90);
+ END IF;
+END $;
 
 COMMENT ON COLUMN public.td_authority_verification_sources.cadence_days IS
 'Nullable source-specific HTTP probe interval (1..90 days); NULL inherits the parent page cadence. HTTP reachability does NOT establish factual or editorial verification.';
