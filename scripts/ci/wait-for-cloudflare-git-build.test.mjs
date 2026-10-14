@@ -26,6 +26,14 @@ globalThis.fetch = async () => {
   };
 };
 globalThis.setTimeout = (callback) => { queueMicrotask(callback); return 0; };
+// The production module legitimately calls process.exit(0) once all Cloudflare
+// checks settle. Capture the request count before that exit terminates the
+// child process, so a successful path is fully asserted, not misread as NaN.
+const exitProcess = process.exit.bind(process);
+process.exit = (code) => {
+  console.log('MOCK_FETCH_CALLS=' + calls);
+  exitProcess(code);
+};
 try {
   await import(process.env.MOCK_WAIT_SCRIPT_URL);
 } catch (error) {
