@@ -37,11 +37,7 @@ export const TEXAS_DATASETS: TexasDataset[] = [
     sourceName: 'Texas Comptroller of Public Accounts — Property Tax Assistance Division',
     sourceUrl: 'https://comptroller.texas.gov/taxes/property-tax/rates/',
     methodology: 'The statewide explorer reads the production Texas Comptroller-backed school-district rate dataset, compares 2025 with 2024, and flags variable or unavailable rates. Rates are dollars per $100 of taxable value; verify parcel-specific taxing units and exemptions locally.',
-    rows: [
-      { label: 'Hutto ISD', value: 1.2052, note: 'Williamson County' }, { label: 'Argyle ISD', value: 1.1727, note: 'Denton County' },
-      { label: 'Mesquite ISD', value: 1.1069, note: 'Dallas County' }, { label: 'Pflugerville ISD', value: 1.1069, note: 'Travis County' },
-      { label: 'Judson ISD', value: 0.9796, note: 'Bexar County' }, { label: 'Socorro ISD', value: 0.9389, note: 'El Paso County' },
-    ],
+    rows: [],
   },
   {
     slug: 'homestead-exemption-history',
