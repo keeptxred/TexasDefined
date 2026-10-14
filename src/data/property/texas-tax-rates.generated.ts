@@ -1,5 +1,5 @@
 // Shared TypeScript contract for the TexasDefined property-tax rate platform.
-// Live data is stored in Supabase and populated from Texas Comptroller annual workbooks.
+// Live data is stored in Supabase from Texas Comptroller annual workbooks; school-district rates are reconciled to Texas Education Agency school-finance authority data.
 
 export type TexasTaxingUnitType = 'county' | 'city' | 'school-district' | 'special-district';
 export type TexasTaxRateSourceStatus = 'reported-final' | 'partial-reporting' | 'not-reported' | 'cross-source-conflict';
