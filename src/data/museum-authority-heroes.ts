@@ -3,6 +3,13 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "port-isabel-historical-museum": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Part_of_an_elaborate_%22fish_mural,%22_painted_in_1906_by_a_local_(reputedly_one-armed)_fisherman_on_the_acade_of_the_Champion_Building,_Port_Isabel,_Texas_LCCN2014630503.tif?width=1200",
+    alt: "Fish mural across the historic 1899 Charles Champion Building facade, home of the Port Isabel Historical Museum, photographed in 2014",
+    width: 1200, height: 443,
+    credit: "Carol M. Highsmith · 2014 · Library of Congress, Lyda Hill Texas Collection · LC-DIG-highsm-26303 · no known restrictions on publication",
+  },
+
   "museum-of-the-big-bend-alpine": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Museum_of_the_Big_Bend_%28Alpine%2C_Texas%29.jpg?width=1600",
     alt: "Museum of the Big Bend building and landscape on the Sul Ross State University campus in Alpine",
