@@ -44,6 +44,9 @@ jobs:
         if: ${{ hashFiles('scripts/ci/verify-historic-photo-indexability-production.mjs') != '' }}
         run: node scripts/ci/verify-historic-photo-indexability-production.mjs
 
+      - name: Test primary museum hero isolation from related placeholders
+        run: node --test scripts/ci/museum-primary-hero.test.mjs
+
       - name: Verify museum production acceptance
         # Bounded live checks; unresolved photo gaps are reported, not certified.
         if: ${{ hashFiles('scripts/ci/verify-museum-production.mjs') != '' }}
