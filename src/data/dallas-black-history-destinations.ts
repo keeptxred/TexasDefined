@@ -75,7 +75,7 @@ export const dallasBlackHistoryDestinations: Destination[] = [
     category: "historic-sites", region: "prairies-lakes", nearestTown: "Dallas", county: "Dallas",
     coordinates: { lat: 32.765, lng: -96.761944 }, hero: craftPhoto,
     bestSeason: "Indoor interpretation by current museum appointment or public visiting program; South Dallas exterior viewing is possible from lawful public sidewalks.",
-    entryNote: "A historic-house museum with operating hours and entry arrangements that can change. Confirm public access and any tour reservation with the Dallas Office of Arts and Culture before traveling.",
+    entryNote: "A historic-house museum with appointment-based tours, not unrestricted walk-in access. Confirm current scheduling, accessibility and group arrangements with the City of Dallas Office of Arts and Culture at 214-670-3687 before traveling; posted tour hours can change.",
     highlights: ["Juanita Craft's 2618 Warren Avenue home", "NAACP organizing and youth mentorship", "Dallas school and public-space desegregation", "Civil rights meetings in an ordinary home", "House restoration and museum interpretation"],
     body: [
       "Juanita Craft (1902–1985) used her Warren Avenue home to organize for civil rights, mentor young activists and build NAACP networks. Her work connected public accommodations, schools, voting, youth leadership and city government.",

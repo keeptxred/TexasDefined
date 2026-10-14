@@ -155,7 +155,7 @@ export const dallasBlackHistoryResearch: DallasHeritageProfile[] = [
       ] },
       { heading: "How to plan a visit", paragraphs: [
         "The Dallas Office of Arts and Culture reports the house reopened to the public in May 2023 and describes docent-guided tours at noon, 2 p.m. and 4 p.m. Tuesday through Saturday in its visitor materials. These are published operator hours, not an assurance that a particular tour is currently bookable. Confirm an appointment, groups, and accessibility directly before traveling.",
-        "For deeper reading, the City's landmark nomination and preservation records complement the museum operator's interpretation and the 2025 rehabilitation documentation by Preservation Texas. The site should be considered with Queen City Heights, Wheatley Place and Dallas's wider civil-rights network, without confusing their separate histories."
+        "For visits, the City of Dallas Office of Arts and Culture and the Friends of Juanita Craft House direct visitors to call 214-670-3687; tours are by appointment and posted 2023 time slots should not be assumed current. For deeper reading, the City's landmark nomination and Preservation Texas rehabilitation records complement museum interpretation. The home belongs within Dallas civil-rights history alongside, but distinct from, Queen City Heights and Wheatley Place."
       ] }
     ],
     faqs: [
@@ -167,6 +167,7 @@ export const dallasBlackHistoryResearch: DallasHeritageProfile[] = [
     ],
     sources: [
       { label: "City of Dallas Office of Arts and Culture — Craft House", url: "https://dallasculture.org/cultural-venues/juanita-craft-house/", supports: "Museum history, tours and official visitor information" },
+      { label: "Friends of Juanita Craft House — Tour arrangements", url: "https://friendsofjuanitacraft.org/house/", supports: "Appointment-only visitor arrangements and City of Dallas arts-and-culture phone contact" },
       { label: "City of Dallas — Craft Home Landmark Record", url: "https://www.dallascityhall.com/departments/sustainabledevelopment/historicpreservation/Pages/Juanita-Craft-House.aspx", supports: "Warren Avenue history and designation" },
       { label: "City of Dallas — Landmark Nomination", url: "https://www.dallascityhall.com/departments/sustainabledevelopment/historicpreservation/HP%20Documents/Landmark%20Structures/Juanita%20Craft%20House%20Landmark%20Nomination.pdf", supports: "Primary designation dossier and historic place evidence" },
       { label: "Preservation Texas — 2025 Rehabilitation Award", url: "https://www.preservationtexas.org/honor-awards/juanita-craft-house", supports: "2025 rehabilitation, accessibility improvements, museum interpretation and reported 1926 construction date" },
