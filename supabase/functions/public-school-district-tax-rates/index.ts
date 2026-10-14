@@ -8,6 +8,7 @@ const db = createClient(
 );
 const SOURCE_NAME = "Texas Comptroller of Public Accounts — Property Tax Assistance Division";
 const SOURCE_PAGE = "https://comptroller.texas.gov/taxes/property-tax/rates/";
+const PAGE_SIZE = 1000;
 const headers = {
   "access-control-allow-origin": "*",
   "cache-control": "public, max-age=3600, stale-while-revalidate=86400",
@@ -28,14 +29,22 @@ Deno.serve(async () => {
     const priorYear = Math.max(2021, year - 1);
 
     const loadYear = async (targetYear: number) => {
-      const { data, error } = await db
-        .from("texas_property_tax_rates")
-        .select("name,slug,county_slugs,total_rate,maintenance_operations_rate,debt_service_rate,source_url,source_status,variable_rate,rate_variants,imported_at")
-        .eq("year", targetYear)
-        .eq("type", "school-district")
-        .order("name", { ascending: true });
-      if (error) throw error;
-      return data ?? [];
+      const rows: any[] = [];
+      for (let from = 0; ; from += PAGE_SIZE) {
+        const { data, error } = await db
+          .from("texas_property_tax_rates")
+          .select("name,slug,county_slugs,total_rate,maintenance_operations_rate,debt_service_rate,source_url,source_status,variable_rate,rate_variants,imported_at")
+          .eq("year", targetYear)
+          .eq("type", "school-district")
+          .order("name", { ascending: true })
+          .order("slug", { ascending: true })
+          .range(from, from + PAGE_SIZE - 1);
+        if (error) throw error;
+        const page = data ?? [];
+        rows.push(...page);
+        if (page.length < PAGE_SIZE) break;
+      }
+      return rows;
     };
 
     const [current, prior] = await Promise.all([loadYear(year), loadYear(priorYear)]);
