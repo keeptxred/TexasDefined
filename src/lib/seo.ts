@@ -112,7 +112,7 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
     title: "William Chris Vineyards Hye: Tastings, Hours & Guide",
     description: "Plan William Chris Vineyards in Hye with current tasting prices, hours, Chef's Table details, Texas-grown vineyard context and U.S. 290 trip planning.",
   },
-  "/destination/lyndon-b-johnson-state-park-and-historic-site": {
+  "/destination/lyndon-b-johnson-state-park-historic-site": {
     title: "LBJ State Park & Sauer-Beckmann Farm: Hours & Guide",
     description: "Plan LBJ State Park near Stonewall with free admission, current Sauer-Beckmann Farm hours, closures, longhorns, bison, trails and LBJ Ranch connections.",
   },
@@ -245,6 +245,14 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
   "/texas-rock-rockabilly": {
     title: "Texas Rock & Rockabilly: Artists, History & Sound",
     description: "Explore Texas rock and rockabilly through the artists, scenes, venues and sounds that helped shape the state's place in American music history.",
+  },
+  "/article/uss-lexington-cv16-history-visitor-guide": {
+    title: "USS Lexington CV-16: Blue Ghost, WWII & Museum",
+    description: "Discover USS Lexington CV-16's Pacific combat, Blue Ghost story, flight-deck history and the Corpus Christi museum. Original ship photos, admissions, hours, parking and access.",
+  },
+    "/article/uss-texas-1895-original-battleship": {
+    title: "Original USS Texas (1895): Santiago, San Marcos & Photos",
+    description: "Meet the first USS Texas: a Spanish–American War battleship, veteran of Santiago de Cuba and later target ship San Marcos. Timeline, design, original archival photographs and historical sources.",
   },
   "/article/battleship-texas-bb-35-history-restoration": {
     title: "Battleship Texas (BB-35): History & Restoration",

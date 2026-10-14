@@ -15,8 +15,9 @@ const ALL_SHOWCASE_LAKE_SLUGS = [...SHOWCASE_LAKE_SLUGS, ...EXPANDED_SHOWCASE_LA
 const WAVE2_SET = new Set<string>(WAVE2_SHOWCASE_LAKE_SLUGS);
 const STATEWIDE_SET = new Set<string>(STATEWIDE_NETWORK_SHOWCASE_LAKE_SLUGS);
 const OCTOBER_12_NEW_LAKES = new Set<string>(["lake-stamford", "lake-sweetwater", "lake-georgetown", "benbrook-lake", "granger-lake", "aquilla-lake", "white-rock-lake"]);
-const OCTOBER_13_NEW_LAKES = new Set<string>(["bardwell-lake", "lake-bastrop"]);
-const lakeSitemapDate = (slug: string) => OCTOBER_13_NEW_LAKES.has(slug) ? "2026-10-13" : OCTOBER_12_NEW_LAKES.has(slug) ? "2026-10-12" : STATEWIDE_SET.has(slug) ? STATEWIDE_NETWORK_SHOWCASE_LAKE_VERIFIED_AT : WAVE2_SET.has(slug) ? WAVE2_SHOWCASE_LAKE_VERIFIED_AT : SHOWCASE_LAKE_VERIFIED_AT;
+const OCTOBER_13_NEW_LAKES = new Set<string>(["bardwell-lake", "lake-bastrop", "lake-arlington", "cedar-lake-cleburne-state-park", "lake-worth", "lake-nasworthy", "lake-tyler", "fort-parker-state-park-lake", "medina-lake", "lake-weatherford"]);
+const OCTOBER_14_NEW_LAKES = new Set<string>(["lake-abilene", "lake-cypress-springs"]);
+const lakeSitemapDate = (slug: string) => OCTOBER_14_NEW_LAKES.has(slug) ? "2026-10-14" : OCTOBER_13_NEW_LAKES.has(slug) ? "2026-10-13" : OCTOBER_12_NEW_LAKES.has(slug) ? "2026-10-12" : STATEWIDE_SET.has(slug) ? STATEWIDE_NETWORK_SHOWCASE_LAKE_VERIFIED_AT : WAVE2_SET.has(slug) ? WAVE2_SHOWCASE_LAKE_VERIFIED_AT : SHOWCASE_LAKE_VERIFIED_AT;
 
 // FISHING_GUIDES_DIRECTORY_PATH, FISHING_REPORTS_DIRECTORY_PATH,
 // FISHING_ACCESS_DIRECTORY_PATH and FISHING_SERVICES_DIRECTORY_PATH are conditional:

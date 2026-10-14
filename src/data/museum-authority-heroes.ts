@@ -3,6 +3,85 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "the-history-center-diboll": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Southern_Pine_Lumber_Company_sawmills_near_Diboll%2C_Texas_in_1907.jpg?width=660",
+    alt: "Archival 1907 photograph of Southern Pine Lumber Company sawmills and timber railroad cars in Diboll, Texas, from The History Center collection; not the present-day museum building",
+    width: 660, height: 402,
+    credit: "J. D. Cress · 1907 · US public domain · The History Center / UNT Portal / Wikimedia Commons · archival collection photo, not museum exterior",
+  },
+  "the-agricultural-museum-arts-center-boerne": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Boerne_ag_museum_2013.jpg?width=1600",
+    alt: "Antique farm equipment on display at the AgriCultural Museum in Boerne, Texas, photographed in 2013",
+    width: 1600, height: 1067,
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · File:Boerne ag museum 2013.jpg",
+  },
+  "crow-museum-asian-art-dallas": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Crow_Museum_of_Asian_Art.jpg?width=1600",
+    alt: "Entrance of the Crow Museum of Asian Art at the Dallas Arts District photographed in 2022",
+    width: 1600, height: 1200,
+    credit: "LittleT889 · CC BY-SA 4.0 · Wikimedia Commons · File:Crow Museum of Asian Art.jpg",
+  },
+  "bell-county-museum-belton": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Carnegie%20Museum%20in%20Belton%2C%20TX%20IMG%202412.JPG?width=1600",
+    alt: "Exterior of the historic Carnegie Library building housing Bell County Museum in downtown Belton",
+    width: 1600, height: 1200,
+    credit: "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons · 2009",
+  },
+  "brenham-heritage-museum": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Brenham%20Heritage%20Museum.jpg?width=1600",
+    alt: "Historic former federal post office now housing Brenham Heritage Museum in downtown Brenham",
+    width: 1600, height: 1128,
+    credit: "Jim Evans · CC BY-SA 4.0 · Wikimedia Commons · 2014",
+  },
+  "audie-murphy-american-cotton-museum-greenville": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Audie%20Murphy%20American%20Cotton%20Museum%20July%202015%2052%20(Audie%20Murphy%20Hunt%20County%20War%20Memorial).jpg?width=1600",
+    alt: "Audie Murphy and Hunt County War Memorial on the grounds of the Audie Murphy American Cotton Museum in Greenville, photographed in 2015",
+    width: 1600, height: 1067,
+    credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons · historic exterior grounds view",
+  },
+  "brazos-valley-museum-natural-history-bryan": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Brazos%20valley%20museum%20of%20natural%20history.jpg?width=1600",
+    alt: "Exterior of the Brazos Valley Museum of Natural History in Bryan, Texas",
+    width: 1600, height: 987,
+    credit: "Larry D. Moore · CC BY-SA 3.0 · Wikimedia Commons · original museum-specific image",
+  },
+  "czech-heritage-museum-genealogy-center-temple": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Czech%20dolls%2C%20including%20some%20donated%20by%20the%20Czech%20embassy%20in%20Washington%2C%20D.C.%2C%20displayed%20at%20the%20Czech%20Heritage%20Museum%20%26%20Genealogy%20Center%20in%20Temple%2C%20Texas%20LCCN2014633953.tif?width=1600",
+    alt: "Czech traditional dolls displayed at the Czech Heritage Museum and Genealogy Center in Temple, photographed in 2014; historic exhibit image",
+    width: 1600, height: 1067,
+    credit: "Carol M. Highsmith · Library of Congress Carol Highsmith Collection · no known restrictions; historic exhibit photo",
+  },
+  "buffalo-soldiers-national-museum-houston": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Buffalo%20Soldiers%20National%20Museum%20entrance.jpg?width=1600",
+    alt: "Exterior of the former Houston Light Guard Armory housing Buffalo Soldiers National Museum in 2024; museum currently closed for renovations",
+    width: 1600, height: 1067,
+    credit: "Kenneth C. Zirkel · CC BY 4.0 · Wikimedia Commons · museum entrance photographed February 2024, before renovation closure",
+  },
+  "texas-prison-museum-huntsville": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/TexasPrisonMuseum.JPG?width=1600",
+    alt: "Texas Prison Museum building in Huntsville, Texas, in a historic public-domain photo",
+    width: 1600, height: 1200,
+    credit: "WhisperToMe · public domain · Wikimedia Commons · Texas Prison Museum building photographed 2010",
+  },
+  "eisenhower-birthplace": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Denison%20July%202016%2016%20(Eisenhower%20Birthplace%20State%20Historic%20Site).jpg?width=1600",
+    alt: "Restored two-story white-frame Eisenhower birthplace house in Denison, Texas, photographed in 2016",
+    width: 1600, height: 1125,
+    credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons · actual Eisenhower birthplace in Denison, 2016",
+  },
+  "1919-san-augustine-county-jail-museum": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/San_augustine_county_tx_former_jail.jpg?width=1600",
+    alt: "Exterior of the restored 1919 San Augustine County Jail building in San Augustine, Texas, photographed in April 2015",
+    width: 1600, height: 1067,
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · File:San augustine county tx former jail.jpg",
+  },
+  "port-isabel-historical-museum": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Part_of_an_elaborate_%22fish_mural,%22_painted_in_1906_by_a_local_(reputedly_one-armed)_fisherman_on_the_acade_of_the_Champion_Building,_Port_Isabel,_Texas_LCCN2014630503.tif?width=1200",
+    alt: "Fish mural across the historic 1899 Charles Champion Building facade, home of the Port Isabel Historical Museum, photographed in 2014",
+    width: 1200, height: 443,
+    credit: "Carol M. Highsmith · 2014 · Library of Congress, Lyda Hill Texas Collection · LC-DIG-highsm-26303 · no known restrictions on publication",
+  },
+
   "museum-of-the-big-bend-alpine": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Museum_of_the_Big_Bend_%28Alpine%2C_Texas%29.jpg?width=1600",
     alt: "Museum of the Big Bend building and landscape on the Sul Ross State University campus in Alpine",
@@ -28,10 +107,10 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     credit: "JJonahJackalope · CC BY-SA 4.0 · Wikimedia Commons · File:Texas Energy Museum, front entrance.jpg",
   },
   "1940-air-terminal-museum-houston": {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/1940_Air_Terminal_Museum.jpg?width=1024",
-    alt: "Art Deco historic 1940 Air Terminal Museum building on the west side of Houston Hobby Airport",
-    width: 1024, height: 768,
-    credit: "Mlickliter · CC BY-SA 3.0 · Wikimedia Commons · File:1940 Air Terminal Museum.jpg",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/1940sAirTerminalMuseumHobby.JPG?width=1600",
+    alt: "Historic 1940 Air Terminal Museum building at Houston Hobby Airport, with the Art Deco terminal exterior",
+    width: 1600, height: 1200,
+    credit: "WhisperToMe · CC0 1.0 · Wikimedia Commons · File:1940sAirTerminalMuseumHobby.JPG",
   },
   "african-american-museum-dallas-fair-park": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/African_American_Museum_August_2016_03.jpg?width=1600",
@@ -74,10 +153,10 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
   },
 
   "modern-art-museum-fort-worth": {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Texas_Modern_Art_Museum_2003.jpg?width=938",
-    alt: "Modern Art Museum of Fort Worth exterior by Tadao Ando, photographed in 2003",
-    width: 938, height: 496,
-    credit: "Andreas Praefcke · Public domain · Wikimedia Commons · File:Fort Worth Texas Modern Art Museum 2003.jpg (historic exterior)",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Courtyard_of_the_Modern_Art_Museum_of_Fort_Worth.jpg?width=1600",
+    alt: "Courtyard and exterior architecture of the Modern Art Museum of Fort Worth",
+    width: 1600, height: 1066,
+    credit: "Andrewnward · CC BY-SA 4.0 · Wikimedia Commons · File:Courtyard of the Modern Art Museum of Fort Worth.jpg",
   },
 
   "american-quarter-horse-hall-of-fame-museum-amarillo": {

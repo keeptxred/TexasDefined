@@ -13,6 +13,7 @@ const UNAVAILABLE_DESTINATION_SLUGS = new Set([
   "battleship-texas",
   "battleship-texas-state-historic-site",
   "1940-air-terminal-museum-houston", // closed March 2026; historic reference page remains accessible
+  "buffalo-soldiers-national-museum-houston", // renovations: exclude visits until operator confirms reopening
   "elisabet-ney-museum-austin", // closed for renovations until anticipated spring 2027 reopening
 ]);
 
@@ -56,7 +57,9 @@ const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([
   "lake-somerville-nails-creek-unit",
   "lake-somerville-nails-creek-unit-state-park",
   "lake-somerville-trailway-newman-bottom-th-state-park",
-  "lyndon-b-johnson-state-park-historic-site",
+  // The long-form key is a curation source, not an indexable public route.
+  // The public LBJ State Park authority URL is the shorter -historic-site slug.
+  "lyndon-b-johnson-state-park-and-historic-site",
   "lyndon-b-johnson-state-park-state-historic-site",
   "monument-hill-kreische-brewery-state-historic-site",
   "palo-duro-canyon",

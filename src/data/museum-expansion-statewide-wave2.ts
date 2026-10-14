@@ -180,7 +180,12 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     nearestTown: "Corpus Christi",
     county: "Nueces County",
     coordinates: { lat: 27.8104, lng: -97.39555 },
-    hero: museumPlaceholder("Corpus Christi Museum of Science and History"),
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Corpus_christi_museum_of_science_history.jpg?width=1600",
+      alt: "Corpus Christi Museum of Science and History exterior building in Corpus Christi, Texas, photographed May 2014",
+      width: 2159, height: 1438,
+      credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · File:Corpus christi museum of science history.jpg (2014)",
+    },
     bestSeason: "Year-round indoor museum; especially useful during hot, windy or rainy Gulf Coast weather.",
     entryNote: "The museum is currently closed Mondays and keeps seasonal summer hours. Admission and special-program pricing vary; check the current visitor page before arrival.",
     highlights: ["Science and South Texas history", "Coastal ecology", "Archaeology", "Family learning"],

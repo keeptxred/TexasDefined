@@ -1,10 +1,10 @@
 {
   "project": "TexasDefined statewide lake authority",
-  "updatedAt": "2026-10-13",
+  "updatedAt": "2026-10-14",
   "scope": {
     "tpwdNamedEntries": 175,
-    "completedGuides": 59,
-    "missingCompleteGuideListings": 116,
+    "completedGuides": 69,
+    "missingCompleteGuideListings": 106,
     "legacyLakeAndParkDestinations": 36
   },
   "standards": {
@@ -17,17 +17,17 @@
   "rows": [
     {
       "tpwdEntry": "Abilene",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "lake-abilene",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/abilene/",
+      "namedFacilities": "TPWD Dam single-lane and Creek single-lane gated ramps, each normally about 10 spaces; BOTH CLOSED under current state-park drought alert, with lake fishing/swimming prohibited",
+      "campgrounds": "Main Abilene State Park campground is separately bookable across FM89; NOT part of closed lake ramps and lake drought closure does not imply campground closed",
+      "primaryHistory": "TWDB official Abilene reservoir owner dam history: 1918 authorization, 1919 start, May 1921 dam, Aug 1 1921 impoundment, repairs 1941/1957",
+      "localPhoto": "Exact Lake Abilene shoreline 2011 photo File:Abilene State Park 1.jpg, mr_t_77, CC BY-SA 2.0, Commons original metadata 4000x3000",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Taylor County canonical and Abilene/Tuscola/Buffalo Gap city discovery generated",
+      "destinationReciprocalLinks": "Abilene State Park destination linked in lake guide; campground/pond/pool context separated; full reciprocal park route acceptance not yet certified",
+      "competitivePrimarySourceComparison": "TPWD angling page and access matrix conflict with newer binding State Park active low-water lake fishing and launch prohibitions; closure accurately prioritized; full field benchmark not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -36,7 +36,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Most important distinction: TPWD 2025 alert (still shown Oct 2026) bars LAKE fishing, swimming and launch and cancels kayak rentals; poor current fishery ratings, regardless of older access-guide year-round info. Main park campground across FM89 separate; Kirby Lake and Buffalo Wallow Pond are distinct. Original Commons photo rights verified, current operator telephone check and field photography remain."
     },
     {
       "tpwdEntry": "Alan Henry",
@@ -155,16 +155,16 @@
     },
     {
       "tpwdEntry": "Arlington",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "lake-arlington",
+      "guideStatus": "source-reviewed-guide-in-unmerged-expansion-pr",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/arlington/",
+      "namedFacilities": "TPWD-named-not-day-of-travel-certified",
+      "campgrounds": "No-TPWD-listed-camping-at-three-municipal-ramp-parks",
+      "primaryHistory": "TWDB-primary-source-and-1964-bulletin-chronology-discrepancy-identified",
+      "localPhoto": "Supportstorm-2010-exact-Arlington-shoreline-creator-public-domain-not-first-party",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
+      "countyReciprocalLinks": "generated-and-pending-release",
+      "destinationReciprocalLinks": "pending-verified-production-relationship-testing",
       "competitivePrimarySourceComparison": "not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
@@ -174,7 +174,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Source-researched in Wave 4 PR, not live until merged/deployed. Original field photography, live permits/park alerts, layout inspection and detailed official-site benchmark still pending."
     },
     {
       "tpwdEntry": "Arrowhead",
@@ -1006,16 +1006,16 @@
     },
     {
       "tpwdEntry": "Cleburne State Park",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "cedar-lake-cleburne-state-park",
+      "guideStatus": "source-reviewed-guide-in-unmerged-expansion-pr",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/cleburnesp/",
+      "namedFacilities": "TPWD-named-not-day-of-travel-certified",
+      "campgrounds": "TPWD-reservable-state-park-campgrounds-not-live-booking-certified",
+      "primaryHistory": "TPWD-1934-park-reservoir-and-CCC-history-source-backed",
+      "localPhoto": "Larry-D-Moore-2023-Cedar-Lake-Cleburne-exact-photo-CC-BY-4-not-first-party",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
+      "countyReciprocalLinks": "generated-and-pending-release",
+      "destinationReciprocalLinks": "pending-verified-production-relationship-testing",
       "competitivePrimarySourceComparison": "not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
@@ -1025,7 +1025,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Source-researched in Wave 4 PR, not live until merged/deployed. Original field photography, live permits/park alerts, layout inspection and detailed official-site benchmark still pending."
     },
     {
       "tpwdEntry": "Clyde",
@@ -1236,17 +1236,17 @@
     },
     {
       "tpwdEntry": "Cypress Springs",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "lake-cypress-springs",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/cypress_springs/",
+      "namedFacilities": "Five individually named FCWD public ramps: Guthrie, Dogwood, Mary King, Overlook, Walleye; latest fees and access subject to owner flood closures",
+      "campgrounds": "FCWD specifically designated paid park camping at all five TPWD listed parks, written paid confirmation required, 60-day RV booking horizon, 14-day stay permission",
+      "primaryHistory": "TWDB official 2007 survey: July 1968 construction, July 7 1970 impoundment, February 15 1971 completion; 378-ft pool and flood closure rule",
+      "localPhoto": "No lake photograph rights confirmed. Two exact-lake licensed cartographic maps from Wikimedia Commons/maxup10 CC BY-SA 4.0: bathymetry 1500x757 and topo 2048x1223; explicitly not photos",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Franklin County and nearby Mount Vernon/Winnsboro/Pittsburg city discovery registered",
+      "destinationReciprocalLinks": "Lake Bob Sandlin cross-links back; future separate FCWD park authority destinations not yet verified",
+      "competitivePrimarySourceComparison": "FCWD rules as revised August 5 2026 supersede older TPWD $2/open year-round; full first-party/operator assessment and field visuals pending",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -1255,7 +1255,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "26-ft length/12-ft width, idle within 200ft shore, exclude 200ft dam/intakes, no grass carp harvest, swimming/camping restrictions, flood closure at 380.50ft or earlier, maps historical not navigation charts. Original licensed field photographs remain outstanding."
     },
     {
       "tpwdEntry": "Daniel",
@@ -1466,17 +1466,17 @@
     },
     {
       "tpwdEntry": "Fort Parker State Park",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "fort-parker-state-park-lake",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fort_parker/index.phtml",
+      "namedFacilities": "One actual Fort Parker Lake state-park ramp, separate Navasota River ramp and shore fishing. TPWD Sept 25, 2026: motorboat launch NOT recommended due to low water; both fishing piers CLOSED since Jan 7, 2025.",
+      "campgrounds": "TPWD 24 water/electric + 1 electric tent-only + 10 water-only tent sites plus shelters/cabins, subject to Oct 2026–May 2027 road construction and July 2026 burn ban",
+      "primaryHistory": "Official TPWD park history records CCC-era dam finished 1939, with fisheries profile 'impounded 1935' unresolved disagreement",
+      "localPhoto": "Original 2025 Fort Parker Lake photo by Larry D. Moore, Commons File ID 175793883, 3000x2000 CC BY 4.0 exact lake image verified",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Limestone County lake authority link plus Mexia/Groesbeck/Waco generated city links",
+      "destinationReciprocalLinks": "canonical Fort Parker State Park visitor page linked as contextual park guide; reciprocal nearby lake references pending other venue audit",
+      "competitivePrimarySourceComparison": "Official fisheries profile vs current 2022 survey sedimentation, park fees/camping/access and CCC chronology researched; full field benchmark not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -1485,7 +1485,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "HIGH-VOLATILITY OPERATOR NOTICES: TPWD park alert https://tpwd.texas.gov/state-parks/fort-parker/alert cites motorized boat ramp not recommended as of Sept 25 2026, both fishing piers closed since Jan 7 2025, July 28 2026 ash-producing fire ban and Aug 2026 park road/renovation closures through May 2027. Registered daily source monitoring on both park and lake guides. No first-party field media or current operator phone verification; remain not certified for production until deployment and live QA."
     },
     {
       "tpwdEntry": "Fort Phantom Hill",
@@ -2478,17 +2478,17 @@
     },
     {
       "tpwdEntry": "Medina",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "medina-lake",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/medina/",
+      "namedFacilities": "Red Cove Camp private two-lane ramp and Bandera County Park Road 37 ramp; low-water gravel fallback is conditional, not operator-confirmed",
+      "campgrounds": "No camping inventory established by TPWD at the two launch listings; commercial campgrounds must be independently verified",
+      "primaryHistory": "TWDB survey and Medina Dam source narrative; 1911 start, May 7 1913 first filling; Medina Diversion Lake is separate",
+      "localPhoto": "Wikimedia Commons exact Medina Lake photograph from July 11, 2010, Larry D. Moore, CC BY 4.0, 1652x964; not current water status",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Medina and Bandera county references registered",
+      "destinationReciprocalLinks": "Four relevant named city references plus Canyon Lake / Calaveras / Choke Canyon nearby guides; operator and park page reciprocity requires independent QA",
+      "competitivePrimarySourceComparison": "TPWD 5,426-acre facts box vs TWDB historical surveyed 6,066 acres reconciled by measurement vintage; TWDB Oct 13 2026 28.6% drought snapshot retained with timestamp; all-operator benchmark still not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -2497,7 +2497,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Drought-based unsafe ramp claims must not become static closure statements; phone/official operator confirmation needed. Exact license verified; original first-party park/ramp photos outstanding."
     },
     {
       "tpwdEntry": "Meredith",
@@ -2777,17 +2777,17 @@
     },
     {
       "tpwdEntry": "Nasworthy",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "lake-nasworthy",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/nasworthy/",
+      "namedFacilities": "11 independent TPWD-listed accesses; Knickerbocker ramp CLOSED per 2026 official city notice, others verify current build sequence",
+      "campgrounds": "City allows permitted designated sites ONLY at Middle Concho and Spring Creek parks",
+      "primaryHistory": "TWDB 1929 start, March 28 1930 impoundment, June 1930 dam complete, 1950 city acquisition; later datum changes reconciled",
+      "localPhoto": "Wikimedia Commons exact Lake Nasworthy at Sunset image 1177x1571 Jonathan Cutrer CC BY 2.0, verified Commons API, not first-party",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Tom Green County generated link",
+      "destinationReciprocalLinks": "San Angelo city guide and reciprocal Brownwood/Colorado City lake guides; same-day park operators not certified",
+      "competitivePrimarySourceComparison": "TPWD legacy year-round access versus city's live Knickerbocker closure/2026 project reconciled; full benchmark not certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -2796,7 +2796,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "11 named ramps / bank areas; city $10/day camping indicative only, not live fixed tariff. San Angelo city currently lists Knickerbocker Park closed during staggered 2026 reconstruction. Original on-site documentation outstanding."
     },
     {
       "tpwdEntry": "Navarro Mills",
@@ -3674,17 +3674,17 @@
     },
     {
       "tpwdEntry": "Tyler",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "lake-tyler",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/tyler/",
+      "namedFacilities": "Eight separately named TPWD access areas; ramps, bank-only concession, paid barge and park distinguishes EAST/WEST",
+      "campgrounds": "TPWD identifies primitive first-come camping in city parks only; confirm current legal sites with City of Tyler",
+      "primaryHistory": "TWDB primary-source Whitehouse West 1948-49, Mud Creek East 1966-67 and canal joining May 29 1968, 2013 acreage 4714",
+      "localPhoto": "Wikimedia Commons File:Lake Tyler East.jpg; David A. Harrison, CC BY-SA 4.0, direct Commons API imageinfo 4,991x2,804; exact East view only",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Smith County and Tyler, Whitehouse, Troup generated cross-links",
+      "destinationReciprocalLinks": "Lake Palestine, Bob Sandlin and Nacogdoches lake guides reciprocal; city parks operator check still needed",
+      "competitivePrimarySourceComparison": "TPWD 2,224 W + 2,276 E differs from 2013 TWDB 4,714-acre survey; source vintages attributed. AMWA Lake Athens treated as a different reservoir.",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -3693,7 +3693,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "TPWD access and fishery plus TWDB two-dam chronology compared and real licensed East-shore image verified. Operator current fees, official on-site camp rules, first-party photography, live smoke still outstanding."
     },
     {
       "tpwdEntry": "Waco",
@@ -3766,17 +3766,17 @@
     },
     {
       "tpwdEntry": "Weatherford",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "lake-weatherford",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/weatherford/",
+      "namedFacilities": "Weatherford Marina full-size trailer ramp; Weatherford East Lake Drive floating-boardwalk and West Lake Drive pedestrian trailheads; TPWD unnamed upper-lake ramps are shallow small craft ONLY",
+      "campgrounds": "TPWD explicitly prohibits overnight camping anywhere on Lake Weatherford",
+      "primaryHistory": "TWDB records June 1956 construction, March 1957 filling/completion, major 1993 spillway engineering and 2008 survey values",
+      "localPhoto": "Commons original Section of Lake Weatherford boardwalk.jpg; Forssa01, CC0 1.0, 4624x3468, exact GPS and date, rights verified",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Parker County index generated from guide data",
+      "destinationReciprocalLinks": "Weatherford city landing and Lake Mineral Wells/Lake Worth related-guide links generated and reciprocal; separate marina operator day-of-visit not certified",
+      "competitivePrimarySourceComparison": "TPWD 1,158-acre angling reference versus TWDB 2008 1,112-acre conservation survey reconciled; full owner-site field audit not certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -3785,7 +3785,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Guide distinguishes trailer boat ramp versus two pedestrian trailheads; no camping; low-water safe access; 4,313-foot city boardwalk hours, TWDB 1993 dam alterations and live level. Field evidence, current ramp fees and release production checks outstanding."
     },
     {
       "tpwdEntry": "Welsh",
@@ -3996,17 +3996,17 @@
     },
     {
       "tpwdEntry": "Worth",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "lake-worth",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/worth/",
+      "namedFacilities": "four TPWD-named access parks; current openings and fees not same-day-certified",
+      "campgrounds": "TPWD explicitly prohibits camping at listed access parks",
+      "primaryHistory": "TWDB source-reviewed dam chronology 1912-1914; 1979/1997 interventions and 2001 survey",
+      "localPhoto": "exact-location 3,049×1,800 Wikimedia Commons file; Larry D. Moore, CC BY 4.0, direct Commons API metadata verified; not first-party",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Tarrant County and four relevant city index links declared",
+      "destinationReciprocalLinks": "nearby Eagle Mountain and Benbrook guides now reciprocate; exact Fort Worth park visitor page operator relationship still to inspect",
+      "competitivePrimarySourceComparison": "TPWD consumption warning versus revised DSHS advisory reconciled; full owner site benchmark remains not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -4015,7 +4015,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Source research completed for boat access, local safety, DSHS consumption discrepancy, TWDB chronology and authentic photo. Check current operator ramp fees and field photos before final all-authority certification."
     },
     {
       "tpwdEntry": "Wright Patman",

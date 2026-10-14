@@ -1,15 +1,15 @@
 {
-  "date": "2026-10-13",
+  "date": "2026-10-14",
   "officialDirectory": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
   "officialEntries": 175,
-  "completedGuideMatches": 59,
-  "gaps": 116,
+  "completedGuideMatches": 69,
+  "gaps": 106,
   "listing": [
     {
       "letter": "A",
       "tpwdListingName": "Abilene",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "lake-abilene",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -50,8 +50,8 @@
     {
       "letter": "A",
       "tpwdListingName": "Arlington",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "lake-arlington",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -309,8 +309,8 @@
     {
       "letter": "C",
       "tpwdListingName": "Cleburne State Park",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "cedar-lake-cleburne-state-park",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -379,8 +379,8 @@
     {
       "letter": "C",
       "tpwdListingName": "Cypress Springs",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "lake-cypress-springs",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -449,8 +449,8 @@
     {
       "letter": "F",
       "tpwdListingName": "Fort Parker State Park",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "fort-parker-state-park-lake",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -757,8 +757,8 @@
     {
       "letter": "M",
       "tpwdListingName": "Medina",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "medina-lake",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -848,8 +848,8 @@
     {
       "letter": "N",
       "tpwdListingName": "Nasworthy",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "lake-nasworthy",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -1121,8 +1121,8 @@
     {
       "letter": "T",
       "tpwdListingName": "Tyler",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "lake-tyler",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -1149,8 +1149,8 @@
     {
       "letter": "W",
       "tpwdListingName": "Weatherford",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "lake-weatherford",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -1219,8 +1219,8 @@
     {
       "letter": "W",
       "tpwdListingName": "Worth",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "lake-worth",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -1235,17 +1235,11 @@
     "Benbrook",
     "Georgetown",
     "Athens",
-    "Tyler",
     "White Rock",
     "Lady Bird",
-    "Worth",
-    "Medina",
-    "Nasworthy",
     "O.C. Fisher",
     "Limestone",
-    "Cypress Springs",
     "Coleman",
-    "Weatherford",
     "Wright Patman",
     "Bois d'Arc",
     "Jacksonville",
@@ -1260,6 +1254,15 @@
     "Georgetown and Benbrook full TPWD/TWDB-sourced guides prepared in new expansion branch, not yet merged or production-certified",
     "Two source-reviewed Granger/Aquilla entries prepared in follow-up expansion PR; live status requires CI, merge and deployment",
     "White Rock Lake Dallas: source-backed City of Dallas boating ordinance, five TPWD-listed ramps, no camping, TWDB history, real lake photo CC0; pending release",
-    "Bardwell and Bastrop guides researched and prepared in a stacked unmerged development branch on October 13; count is for proposed registry, not verified public production."
+    "Bardwell and Bastrop guides researched and prepared in a stacked unmerged development branch on October 13; count is for proposed registry, not verified public production.",
+    "Arlington and Cleburne State Park Cedar Lake complete definitions prepared in wave-4 unmerged code; not production acceptance and original first-party photos still absent.",
+    "October 13: Lake Worth promoted from an unresearched gap to a source-backed 62nd complete-guide definition with DSHS consumption reconciliation, four named access facilities and CC BY actual-location photography; not a claim of operator same-day or original field-photo certification.",
+    "October 13 Wave 6: Nasworthy documented for active June 2026 San Angelo boat ramp replacement, current city-listed Knickerbocker closure, 11 TPWD accesses, designated Spring Creek/Middle Concho camping, TWDB historic dam and separate datums, live TWDB gauge and original Commons CC BY 2.0 photography. Operator day-of-visit and first-party field media remain uncertified.",
+    "October 13 Wave 7: Fort Parker State Park Lake identity, 2022 fisheries sediment/navigation warnings, the distinct Navasota River ramp, CCC 1935/1939 discrepancy, current operator camping inventory, original 2025 CC BY 4.0 Commons photograph and full park-source access were researched. Original field photos, same-day operator/ramp verification and production validation remain uncertified.",
+    "Oct 13: TPWD Lake Tyler East and West map to a single 65th canonical lake-tyler guide, with distinct origins/ramps, 1968 canal, verified 2022 real east-shore photo CC BY-SA 4.0, municipal no-bowfishing and city camping caveats. Not a claim of current ramp or onsite field-photo certification.",
+    "Medina Lake added after TPWD and TWDB source comparisons: two water-level-sensitive ramps, 2010 actual-site CC BY 4.0 photo, zebra mussel public safety and severe October 2026 drought condition; no assertion of same-day operator or field-photography certification.",
+    "Lake Weatherford research October 13: sole documented improved marina trailer ramp; two unimproved unnamed upper-lake small-craft ramps; separately two pedestrian city-boardwalk trailheads, 4,313 feet; no overnight camping anywhere; TWDB dam reconstruction/history and live gauge; exact Commons CC0 boardwalk photo, not first-party field media. Operator and live production verification remain separately open.",
+    "Lake Abilene source-researched guide added in development. State park alerts (October 20 2025 as still published October 2026) close both boat ramps and prohibit fishing/swimming. TPWD old ramp year-round listings and fishery tactics must not override park operator alert. Genuine 2011 lake photo CC BY-SA 2.0 Commons. 68 guides, 107 unmatched TPWD entries. Not live production or field-photo certified.",
+    "October 14: Lake Cypress Springs added with five FCWD ramps, updated August 2026 rules, 2007 historic lake-specific CC BY-SA maps, and exact operator camping requirements. Missing original field imagery and production certification remain explicitly open."
   ]
 }

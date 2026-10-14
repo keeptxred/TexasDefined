@@ -29,3 +29,6 @@ Authored 2 sourced history/season milestones, three unique program narratives an
 - Genuine team photographs remain unavailable without documented reuse rights, license, attribution and alt text
 - Not a school-endorsed page; 2026–28 UIL alignment is not a current game record
 - Keep **IMPLEMENTED** status until independent live evidence supports stronger states
+
+## 2026 football source-dated scorecard — October 13 update
+[MaxPreps 2026 reporting](https://www.maxpreps.com/tx/barksdale/nueces-canyon-panthers/football/schedule/) is used for independent scores and fixture context. NINE published games, five verified scores through October 9. No invented 10th fixture; this is a six-man school, and official late schedule changes must be checked against Nueces Canyon CISD. Source dates, unverified results and event-site uncertainties are described on the live profile. No 2025 games are misrepresented as 2026; no unauthorized school photography is used.

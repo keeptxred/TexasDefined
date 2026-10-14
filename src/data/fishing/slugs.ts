@@ -75,6 +75,16 @@ export const STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS = [
   "white-rock-lake",
   "bardwell-lake",
   "lake-bastrop",
+  "lake-arlington",
+  "cedar-lake-cleburne-state-park",
+  "lake-worth",
+  "lake-nasworthy",
+  "fort-parker-state-park-lake",
+  "lake-tyler",
+  "medina-lake",
+  "lake-weatherford",
+  "lake-abilene",
+  "lake-cypress-springs",
 ] as const;
 
 export const COMPLETE_FISHING_LAKE_SLUGS = [

@@ -1,5 +1,7 @@
 import { animalSanctuaryDestinations } from "./animal-sanctuary-destinations";
+import { coastalHeritageDiscoveryDestinations } from "./coastal-heritage-discovery";
 import { museumAuthorityDestinations } from "./museum-authority-new-destinations";
+import { dallasBlackHistoryDestinations } from "./dallas-black-history-destinations";
 import { enrichMuseumMedia } from "./museum-authority-heroes";
 import { enrichSanAntonioHeritageAuthority } from "./san-antonio-heritage-enrichment";
 import { aquariumMarineDestinations } from "./aquarium-marine-destinations";
@@ -18,6 +20,7 @@ import { thcHistoricLandmarkAuthorityBatch01Destinations } from "./thc-historic-
 import { thcHistoricLandmarkAuthorityBatch02Destinations } from "./thc-historic-landmarks-authority-batch02";
 import { thcHistoricLandmarkAuthorityBatch03Destinations } from "./thc-historic-landmarks-authority-batch03";
 import { thcHistoricLandmarkAuthorityBatch04Destinations } from "./thc-historic-landmarks-authority-batch04";
+import { thcHistoricLandmarkAuthorityBatch05Destinations } from "./thc-historic-landmarks-authority-batch05";
 import { hidalgoPumphouseAuthorityDestinations } from "./hidalgo-pumphouse-authority-destination";
 import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
@@ -103,6 +106,7 @@ import { twinSistersDanceHallDestinations } from "./twin-sisters-dance-hall-dest
 import { buggyBarnMuseumBlancoDestinations } from "./buggy-barn-museum-blanco-destination";
 import { additionalTownAuthorityDestinations } from "./small-town-authority-wave16";
 import { smallTownWave17Destinations } from "./small-town-destinations-wave17";
+import { smallTownWave18Destinations } from "./small-town-destinations-wave18";
 import { smallTownWave1Destinations } from "./small-town-destinations-wave1";
 import { smallTownWave2Destinations } from "./small-town-destinations-wave2";
 import { smallTownWave3Destinations } from "./small-town-destinations-wave3";
@@ -228,9 +232,12 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   thcHistoricLandmarkAuthorityBatch02Destinations,
   thcHistoricLandmarkAuthorityBatch03Destinations,
   thcHistoricLandmarkAuthorityBatch04Destinations,
+  thcHistoricLandmarkAuthorityBatch05Destinations,
+  coastalHeritageDiscoveryDestinations,
   animalSanctuaryDestinations,
   aquariumMarineDestinations,
   museumAuthorityDestinations,
+  dallasBlackHistoryDestinations,
   topAttractionDestinations,
   topAttractionExpansionDestinations,
   coastalDestinations,
@@ -337,6 +344,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   wildlifeManagementAreaWave9Destinations,
   additionalTownAuthorityDestinations,
   smallTownWave17Destinations,
+  smallTownWave18Destinations,
   smallTownWave1Destinations,
   smallTownWave2Destinations,
   smallTownWave3Destinations,

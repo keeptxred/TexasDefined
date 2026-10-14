@@ -1,8 +1,20 @@
 {
+  "abilene": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
+    }
+  ],
   "amarillo": [
     {
       "slug": "lake-meredith",
       "name": "Lake Meredith"
+    }
+  ],
+  "arlington": [
+    {
+      "slug": "lake-arlington",
+      "name": "Lake Arlington"
     }
   ],
   "athens": [
@@ -29,12 +41,22 @@
     {
       "slug": "eagle-mountain-lake",
       "name": "Eagle Mountain Lake"
+    },
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
     }
   ],
   "ballinger": [
     {
       "slug": "o-h-ivie-lake",
       "name": "O.H. Ivie Lake"
+    }
+  ],
+  "bandera": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
     }
   ],
   "bangs": [
@@ -119,6 +141,12 @@
       "name": "Lake Buchanan"
     }
   ],
+  "buffalo-gap": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
+    }
+  ],
   "burkeville": [
     {
       "slug": "toledo-bend-reservoir",
@@ -150,6 +178,10 @@
     }
   ],
   "cleburne": [
+    {
+      "slug": "cedar-lake-cleburne-state-park",
+      "name": "Cedar Lake at Cleburne State Park"
+    },
     {
       "slug": "lake-granbury",
       "name": "Lake Granbury"
@@ -311,8 +343,16 @@
       "name": "Eagle Mountain Lake"
     },
     {
+      "slug": "lake-arlington",
+      "name": "Lake Arlington"
+    },
+    {
       "slug": "lake-granbury",
       "name": "Lake Granbury"
+    },
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
     }
   ],
   "fritch": [
@@ -341,6 +381,12 @@
     {
       "slug": "lake-georgetown",
       "name": "Lake Georgetown"
+    }
+  ],
+  "glen-rose": [
+    {
+      "slug": "cedar-lake-cleburne-state-park",
+      "name": "Cedar Lake at Cleburne State Park"
     }
   ],
   "graford": [
@@ -393,6 +439,12 @@
     {
       "slug": "lake-tawakoni",
       "name": "Lake Tawakoni"
+    }
+  ],
+  "groesbeck": [
+    {
+      "slug": "fort-parker-state-park-lake",
+      "name": "Fort Parker State Park Lake"
     }
   ],
   "gun-barrel-city": [
@@ -457,6 +509,12 @@
       "name": "Lake O' the Pines"
     }
   ],
+  "joshua": [
+    {
+      "slug": "cedar-lake-cleburne-state-park",
+      "name": "Cedar Lake at Cleburne State Park"
+    }
+  ],
   "justiceburg": [
     {
       "slug": "alan-henry-reservoir",
@@ -467,6 +525,12 @@
     {
       "slug": "caddo-lake",
       "name": "Caddo Lake"
+    }
+  ],
+  "kennedale": [
+    {
+      "slug": "lake-arlington",
+      "name": "Lake Arlington"
     }
   ],
   "kerens": [
@@ -511,6 +575,18 @@
     {
       "slug": "lake-travis",
       "name": "Lake Travis"
+    }
+  ],
+  "lake-worth": [
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
+    }
+  ],
+  "lakehills": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
     }
   ],
   "lakeway": [
@@ -595,6 +671,18 @@
       "name": "Lake Lavon"
     }
   ],
+  "mexia": [
+    {
+      "slug": "fort-parker-state-park-lake",
+      "name": "Fort Parker State Park Lake"
+    }
+  ],
+  "mico": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
   "midlothian": [
     {
       "slug": "joe-pool-lake",
@@ -621,6 +709,12 @@
     {
       "slug": "lake-bob-sandlin",
       "name": "Lake Bob Sandlin"
+    }
+  ],
+  "mount-vernon": [
+    {
+      "slug": "lake-cypress-springs",
+      "name": "Lake Cypress Springs"
     }
   ],
   "nacogdoches": [
@@ -663,6 +757,10 @@
     {
       "slug": "lake-bob-sandlin",
       "name": "Lake Bob Sandlin"
+    },
+    {
+      "slug": "lake-cypress-springs",
+      "name": "Lake Cypress Springs"
     }
   ],
   "post": [
@@ -705,6 +803,12 @@
     {
       "slug": "lake-casa-blanca",
       "name": "Lake Casa Blanca"
+    }
+  ],
+  "river-oaks": [
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
     }
   ],
   "rockwall": [
@@ -757,6 +861,10 @@
   ],
   "san-angelo": [
     {
+      "slug": "lake-nasworthy",
+      "name": "Lake Nasworthy"
+    },
+    {
       "slug": "o-h-ivie-lake",
       "name": "O.H. Ivie Lake"
     }
@@ -765,6 +873,10 @@
     {
       "slug": "calaveras-lake",
       "name": "Calaveras Lake"
+    },
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
     }
   ],
   "sanger": [
@@ -871,16 +983,36 @@
       "name": "Choke Canyon Reservoir"
     }
   ],
+  "troup": [
+    {
+      "slug": "lake-tyler",
+      "name": "Lake Tyler (East and West)"
+    }
+  ],
+  "tuscola": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
+    }
+  ],
   "tyler": [
     {
       "slug": "lake-palestine",
       "name": "Lake Palestine"
+    },
+    {
+      "slug": "lake-tyler",
+      "name": "Lake Tyler (East and West)"
     }
   ],
   "waco": [
     {
       "slug": "aquilla-lake",
       "name": "Aquilla Lake"
+    },
+    {
+      "slug": "fort-parker-state-park-lake",
+      "name": "Fort Parker State Park Lake"
     },
     {
       "slug": "lake-waco",
@@ -901,12 +1033,22 @@
     {
       "slug": "lake-mineral-wells",
       "name": "Lake Mineral Wells"
+    },
+    {
+      "slug": "lake-weatherford",
+      "name": "Lake Weatherford"
     }
   ],
   "west-lake-hills": [
     {
       "slug": "lake-austin",
       "name": "Lake Austin"
+    }
+  ],
+  "whitehouse": [
+    {
+      "slug": "lake-tyler",
+      "name": "Lake Tyler (East and West)"
     }
   ],
   "whitney": [
@@ -935,6 +1077,12 @@
     {
       "slug": "lake-tawakoni",
       "name": "Lake Tawakoni"
+    }
+  ],
+  "winnsboro": [
+    {
+      "slug": "lake-cypress-springs",
+      "name": "Lake Cypress Springs"
     }
   ],
   "woodway": [

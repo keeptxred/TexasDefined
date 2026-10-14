@@ -21,7 +21,7 @@ const failures = [];
 for (const marker of [
   'const audit = auditDestination(destination)',
   'const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference)',
-  'const isHistoricalMuseumReference = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin"].includes(destination.slug)',
+  'const isHistoricalMuseumReference = ',
   'robots: indexable ? undefined : "noindex, follow"',
 ]) {
   if (!route.includes(marker)) failures.push(`Destination route indexing contract missing: ${marker}`);
@@ -65,6 +65,18 @@ for (const marker of [
   'entry(`/destination/${item.slug}`',
 ]) {
   if (!sitemap.includes(marker)) failures.push(`Explore sitemap resolved-catalog/indexing contract missing: ${marker}`);
+}
+// Full authority guides are loaded only within the server-side Explore sitemap.
+// If someone changes discovery card summaries without this overlay, the normal
+// 3-paragraph/450-character indexability gate correctly excludes all new pages.
+const coastalAuthoritySitemapImport = 'const { coastalHeritageAuthorityDestinations } = await import("@/data/coastal-heritage-authority")';
+if (!sitemap.includes(coastalAuthoritySitemapImport) ||
+    !sitemap.includes('for (const canonicalDestination of coastalHeritageAuthorityDestinations)') ||
+    !sitemap.includes('auditDestination(destination).readyForIndexing')) {
+  failures.push('Coastal authority sitemap must audit complete sourced guides, not thin main-client discovery summaries.');
+}
+if (sitemap.includes('import { coastalHeritageAuthorityDestinations } from "@/data/coastal-heritage-authority"')) {
+  failures.push('Do not eagerly import full coastal authority into the sitemap route; keep the server-handler dynamic import.');
 }
 const preservedCatalogDynamicImport = 'const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog")';
 if (!sitemap.includes(preservedCatalogDynamicImport)) {
@@ -134,6 +146,7 @@ if (!aliasBlock) {
     'goliad-state-park': 'goliad-state-park-and-historic-site',
     'san-jacinto-battleground': 'san-jacinto-battleground-state-historic-site',
     'washington-on-the-brazos': 'washington-on-the-brazos-state-historic-site',
+    'lyndon-b-johnson-state-park-historic-site': 'lyndon-b-johnson-state-park-and-historic-site',
   };
   const nonPrimaryBlock = availability.split('const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([')[1]?.split(']);')[0] ?? '';
   for (const [primary, curationKey] of Object.entries(primaryHistoricLookups)) {
@@ -156,7 +169,7 @@ if (!aliasBlock) {
 
 for (const marker of [
   'import { preservedExploreDestinations } from "./destination-preserved-catalog"',
-  'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))',
+  'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved.map(correctDestinationTravelRegion)))',
   'reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))',
   'reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))',
 ]) {
@@ -282,7 +295,13 @@ if (sitemap.includes('const destinations = remoteFailed ? fixtureDestinations : 
 
 // Historical and temporarily-closed museum guides may remain discoverable as
 // factual references, but these exact institutions must NOT re-enter trip planning.
-for (const slug of ['1940-air-terminal-museum-houston', 'elisabet-ney-museum-austin']) {
+const referenceSource = route.match(/const isHistoricalMuseumReference = \[([^\]]+)\]\.includes\(destination\.slug\)/);
+const historicalMuseumReferences = referenceSource ? [...referenceSource[1].matchAll(/"([a-z0-9-]+)"/g)].map((match) => match[1]) : [];
+if (!referenceSource) failures.push('Historical museum exception must be an explicit slug allowlist, never an open-ended indexability bypass.');
+for (const requiredSlug of ['1940-air-terminal-museum-houston', 'elisabet-ney-museum-austin', 'buffalo-soldiers-national-museum-houston']) {
+  if (!historicalMuseumReferences.includes(requiredSlug)) failures.push('Required historical museum exception missing: ' + requiredSlug);
+}
+for (const slug of historicalMuseumReferences) {
   if (!availability.includes('"' + slug + '"')) failures.push('Closed museum missing from unavailable trip-planner set: ' + slug);
 }
 

@@ -22,6 +22,7 @@ import { applyHistoricSiteFactCorrections } from "./historic-site-fact-correctio
 import { enrichHistoricSiteRemoteHero } from "./historic-site-remote-heroes";
 import { enrichNationalCemeteryDestination } from "./national-cemetery-enrichment";
 import { filterDestinationsByScope } from "./destination-query-scope";
+import { correctDestinationTravelRegion } from "./destination-region-consistency";
 import { applyTownAuthority } from "./town-authority-network";
 import { platform, scope } from "./index";
 import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
@@ -204,7 +205,7 @@ function applyResolvedHero(destination: Destination) {
 
 function resolveSeoReadyDestination(destination?: Destination | null) {
   if (!destination) return undefined;
-  const resolved = applyResolvedHero(destination);
+  const resolved = correctDestinationTravelRegion(applyResolvedHero(destination));
   return isSeoReadyDestination(resolved) ? resolved : undefined;
 }
 
@@ -225,12 +226,19 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(normalizeDestinationCounty)
     .map(applyTownAuthority)
     .map(enforceFredericksburgJohnsonCityHeritageAuthority);
-  return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved));
+  return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved.map(correctDestinationTravelRegion)));
 }
 
 export async function listResolvedDestinations(params: Omit<DestinationQuery, "brandId"> = {}) {
   if (params.category === WATER_COLLECTION) {
-    const destinations = filterDestinationsByScope(selectSwimmingHoleAndTubingDestinations(await listResolvedDestinations()), params);
+    // This is a VIRTUAL cross-category collection: qualifying towns, state
+    // parks and rivers retain their real categories. Reapplying the virtual
+    // slug as an exact category filter drops EVERY selected destination.
+    // Only the optional geographic region belongs in the final scope gate.
+    const destinations = filterDestinationsByScope(
+      selectSwimmingHoleAndTubingDestinations(await listResolvedDestinations()),
+      { region: params.region },
+    );
     if (params.featured) return featuredFallback(destinations, params.limit ?? 6);
     return params.limit ? destinations.slice(0, params.limit) : destinations;
   }
@@ -294,7 +302,7 @@ export async function getResolvedDestination(slug: Slug) {
 
   const { getRvParkDestination } = await import("./rv-parks");
   const rvPark = await getRvParkDestination(slug);
-  if (rvPark) return applyResolvedHero(rvPark);
+  if (rvPark) return correctDestinationTravelRegion(applyResolvedHero(rvPark));
 
   const preserved = preservedExploreDestinations.find((destination) => destination.slug === slug);
   const readyPreserved = resolveSeoReadyDestination(preserved);
@@ -327,9 +335,9 @@ export async function getResolvedDestination(slug: Slug) {
   }
 
   const fallback = preserved ?? cavernPreserved ?? cityPassPreserved;
-  if (fallback) return applyResolvedHero(fallback);
-  if (!local && weakCandidates.length) return applyResolvedHero(weakCandidates[0]);
-  return local ? applyResolvedHero(local) : local;
+  if (fallback) return correctDestinationTravelRegion(applyResolvedHero(fallback));
+  if (!local && weakCandidates.length) return correctDestinationTravelRegion(applyResolvedHero(weakCandidates[0]));
+  return local ? correctDestinationTravelRegion(applyResolvedHero(local)) : local;
 }
 
 export async function listResolvedDestinationSearchCatalog() {

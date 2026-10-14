@@ -196,7 +196,7 @@ if (base) {
   }
 }
 // A researched closed museum is historical reference content, not a bookable stop.
-const historicalMuseumReferences = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin"];
+const historicalMuseumReferences = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin", "buffalo-soldiers-national-museum-houston"];
 const museumAvailability = read("src/data/destination-availability.ts");
 const museumSeoRoute = read("src/routes/destination.$slug.tsx");
 const museumSitemapRoute = read("src/routes/sitemap-explore[.]xml.ts");
@@ -211,4 +211,5 @@ if (failures.length) {
   console.error("Museum authority gate FAILED:\n" + failures.map((x) => " - " + x).join("\n"));
   process.exit(1);
 }
+execFileSync(process.execPath, ["scripts/data/validate-dallas-black-history.mjs"], { stdio: "inherit" });
 console.log("Museum authority gate PASSED: " + allDossiers.length + " museum guides + cross-links + new-museum rule.");
