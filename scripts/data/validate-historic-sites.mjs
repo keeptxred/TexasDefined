@@ -342,8 +342,19 @@ for (const mark of [
 ]) if (!corrections.includes(mark)) failures.push(`Named historic image rights/identity correction missing: ${mark}`);
 if (remoteHeroes.includes('"old-socorro-mission": {')) failures.push("Closed original Socorro archaeological site still borrows an image of the operating mission church.");
 for (const slug of ['first-capitol-of-texas', 'old-socorro-mission']) if (!visitorPolicy.includes('"'+slug+'"')) failures.push("THC-closed original site erroneously recommended in Trip Planner: "+slug);
-if (!destinationRoute.includes('"first-capitol-of-texas"].includes(destination.slug)')) failures.push("Indexed, researched First Capitol historical reference exception was lost after trip-planner closure.");
-if (!fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8').includes('"first-capitol-of-texas"].includes(destination.slug)')) failures.push("First Capitol historic reference indexable in HTML but missing from Explore sitemap exception list.");
+// Check exact curated historical-reference allowlists, not the position of a specific
+// member: new, explicitly reviewed sites may be added after First Capitol.
+const historicalRouteList = destinationRoute.match(/const isHistoricalMuseumReference = \\[([^\\]]+)\\]\\.includes\\(destination\\.slug\\)/)?.[1] ?? "";
+const historicalSitemapSource = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
+const historicalSitemapList = historicalSitemapSource.match(/\\(isPrimaryTripPlannerDestination\\(destination\\) \\|\\| \\[([^\\]]+)\\]\\.includes\\(destination\\.slug\\)\\) && auditDestination\\(destination\\)\\.readyForIndexing/)?.[1] ?? "";
+for (const [slug, label] of [
+  ["first-capitol-of-texas", "First Capitol"],
+  ["battleship-texas", "Battleship Texas"],
+]) {
+  if (!historicalRouteList.includes('"' + slug + '"')) failures.push("Indexed, researched " + label + " historical reference exception was lost after trip-planner closure.");
+  if (!historicalSitemapList.includes('"' + slug + '"')) failures.push(label + " historical reference is indexable in HTML but missing from Explore sitemap exception list.");
+}
+
 const exploreSitemapSource = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
 if (!exploreSitemapSource.includes(').map(applyHistoricSiteFactCorrections)') || !exploreSitemapSource.includes('import("@/data/historic-site-fact-corrections")')) failures.push("Explore sitemap does not apply resolved historic-site photo and closure corrections before indexability gating.");
 if (!destinationRoute.includes('isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><DestinationVisitPlanner')) failures.push("Destination visit planner still promotes inaccessible historic sites as ordinary visitor stops.");
