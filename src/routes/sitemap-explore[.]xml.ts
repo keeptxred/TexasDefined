@@ -296,8 +296,8 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         // indexable. Resolve the very same researched destination as the detail
         // route: the lightweight sitemap catalog can omit its authority depth
         // or contain a stale remote version of this exact slug.
-        const { getResolvedDestination } = await import("@/data/destination-query-runtime");
-        const resolvedFirstCapitol = await getResolvedDestination("first-capitol-of-texas").catch((error) => {
+        const { loadFirstCapitolSitemapReference } = await import("@/data/first-capitol-sitemap.server");
+        const resolvedFirstCapitol = await loadFirstCapitolSitemapReference().catch((error) => {
           console.error("First Capitol sitemap detail lookup unavailable", error);
           return undefined;
         });
