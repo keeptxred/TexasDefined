@@ -228,10 +228,10 @@ function parseTeaDirectory(text: string): TeaSchoolDirectoryRecord[] {
 export async function loadTeaSchoolDirectory() {
   if (directoryCache && Date.now() - directoryCache.loadedAt < CACHE_TTL_MS) return directoryCache.rows;
 
-  const controller = new AbortController();
   if (directoryInFlight) return directoryInFlight;
   directoryInFlight = (async (): Promise<TeaSchoolDirectoryRecord[]> => {
-  const timeout = setTimeout(() => controller.abort(), 8_000);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8_000);
     try {
       const response = await fetch(TEA_DIRECTORY_URL, {
         headers: { accept: 'text/csv,text/plain;q=0.9,*/*;q=0.1' },
@@ -418,7 +418,7 @@ export async function loadAllFootballProgramsWithDirectory() {
   }
   if (allProgramDirectoryInFlight) return allProgramDirectoryInFlight;
   allProgramDirectoryInFlight = (async (): Promise<FootballProgramDirectoryResult[]> => {
-  const directory = await loadTeaSchoolDirectory();
+    const directory = await loadTeaSchoolDirectory();
     const directoryMatcher = buildDirectoryMatcher(directory);
     const programs = suppressDuplicateTeaAssignments(
       UIL_FOOTBALL_PROGRAMS_2026.map((program) => withDirectory(program, directoryMatcher)),
