@@ -2,8 +2,8 @@
   "date": "2026-10-13",
   "officialDirectory": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
   "officialEntries": 175,
-  "completedGuideMatches": 66,
-  "gaps": 109,
+  "completedGuideMatches": 67,
+  "gaps": 108,
   "listing": [
     {
       "letter": "A",
@@ -1149,8 +1149,8 @@
     {
       "letter": "W",
       "tpwdListingName": "Weatherford",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "lake-weatherford",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -1241,7 +1241,6 @@
     "Limestone",
     "Cypress Springs",
     "Coleman",
-    "Weatherford",
     "Wright Patman",
     "Bois d'Arc",
     "Jacksonville",
@@ -1262,6 +1261,7 @@
     "October 13 Wave 6: Nasworthy documented for active June 2026 San Angelo boat ramp replacement, current city-listed Knickerbocker closure, 11 TPWD accesses, designated Spring Creek/Middle Concho camping, TWDB historic dam and separate datums, live TWDB gauge and original Commons CC BY 2.0 photography. Operator day-of-visit and first-party field media remain uncertified.",
     "October 13 Wave 7: Fort Parker State Park Lake identity, 2022 fisheries sediment/navigation warnings, the distinct Navasota River ramp, CCC 1935/1939 discrepancy, current operator camping inventory, original 2025 CC BY 4.0 Commons photograph and full park-source access were researched. Original field photos, same-day operator/ramp verification and production validation remain uncertified.",
     "Oct 13: TPWD Lake Tyler East and West map to a single 65th canonical lake-tyler guide, with distinct origins/ramps, 1968 canal, verified 2022 real east-shore photo CC BY-SA 4.0, municipal no-bowfishing and city camping caveats. Not a claim of current ramp or onsite field-photo certification.",
-    "Medina Lake added after TPWD and TWDB source comparisons: two water-level-sensitive ramps, 2010 actual-site CC BY 4.0 photo, zebra mussel public safety and severe October 2026 drought condition; no assertion of same-day operator or field-photography certification."
+    "Medina Lake added after TPWD and TWDB source comparisons: two water-level-sensitive ramps, 2010 actual-site CC BY 4.0 photo, zebra mussel public safety and severe October 2026 drought condition; no assertion of same-day operator or field-photography certification.",
+    "Lake Weatherford research October 13: sole documented improved marina trailer ramp; two unimproved unnamed upper-lake small-craft ramps; separately two pedestrian city-boardwalk trailheads, 4,313 feet; no overnight camping anywhere; TWDB dam reconstruction/history and live gauge; exact Commons CC0 boardwalk photo, not first-party field media. Operator and live production verification remain separately open."
   ]
 }
