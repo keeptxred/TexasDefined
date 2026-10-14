@@ -3,24 +3,24 @@
   "date": "2026-10-13",
   "baseline": "TPWD more than 150 lake profiles",
   "summary": {
-    "total": 64,
+    "total": 65,
     "standardSectionsPerGuide": 9,
-    "statewide": 49,
-    "namedAccess": 64,
+    "statewide": 50,
+    "namedAccess": 65,
     "unknownAccess": 0,
-    "namedCamping": 42,
+    "namedCamping": 43,
     "unknownCamping": 22,
-    "history": 16,
+    "history": 17,
     "noHistory": 48,
-    "photoMappings": 64,
+    "photoMappings": 65,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 64,
+    "explicitNamedAccess": 65,
     "lackingNamedAccess": 0,
-    "explicitNamedCamping": 42,
+    "explicitNamedCamping": 43,
     "lackingNamedCamping": 22,
-    "namedStatewideFacilities": 193,
-    "statewideTemplateGuidesWithNamedAccess": 49
+    "namedStatewideFacilities": 201,
+    "statewideTemplateGuidesWithNamedAccess": 50
   },
   "entries": [
     {
@@ -1029,6 +1029,22 @@
       "risk": "Severe siltation leaves upper two-thirds generally unnavigable; active park alerts, day-use reservation, and source-specific acreage/chronology discrepancies need ongoing review; first-party field-photo set pending",
       "namedAccess": true,
       "accessFacilityCount": 3,
+      "accessReviewedAt": "2026-10-13",
+      "namedCamping": true
+    },
+    {
+      "slug": "lake-tyler",
+      "name": "Lake Tyler (East and West)",
+      "kind": "Statewide",
+      "ramp": "Named",
+      "camping": "Primitive city-park camping; independently verify allowed locations",
+      "history": "TWDB twin dams and 1968 canal",
+      "fish": 6,
+      "photo": "Mapped",
+      "water": "TWDB timestamped individual Tyler reservoir gauge",
+      "risk": "Private marina historic rates and barge fishing fee may be stale; Highway 64 shallow ramp, city bowfishing ordinance, campsite confirmation and first-party imagery outstanding",
+      "namedAccess": true,
+      "accessFacilityCount": 8,
       "accessReviewedAt": "2026-10-13",
       "namedCamping": true
     }

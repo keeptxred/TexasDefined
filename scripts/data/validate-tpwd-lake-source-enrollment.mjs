@@ -6,6 +6,7 @@ const docs = JSON.parse(fs.readFileSync('docs/fishing/TPWD_LAKE_COVERAGE_GAP_MAP
 const manifest = [
   'supabase/migrations/20261013005600_enroll_tpwd_lake_authority_sources.sql',
   'supabase/migrations/20261014040000_extend_tpwd_lake_authority_sources_wave5.sql',
+  'supabase/migrations/20261014040500_extend_tpwd_lake_authority_sources_tyler.sql',
 ].map(path=>fs.readFileSync(path,'utf8')).join('\n');
 const entries=[...manifest.matchAll(/\('\/fishing\/lakes\/([a-z0-9-]+)',\s*'(https:\/\/tpwd\.texas\.gov\/fishboat\/fish\/recreational\/lakes\/[a-z0-9_/.-]+)'\)/g)];
 const matched=docs.listing.filter(row=>row.coverage==='complete-fishing-guide').map(row=>row.texasDefinedGuideSlug);
