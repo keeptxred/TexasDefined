@@ -24,3 +24,6 @@ Distinct editorial overview, dated milestones and documentation, official athlet
 - Do not fabricate school championships where the official archive supports only finalist records or no title
 
 **Important:** `IMPLEMENTED` is not `VERIFIED`; original 80 completed schools are unchanged.
+
+## October 13, 2026 — Independently reported 2026 scorecard
+Added a 10-game varsity season table from [MaxPreps's published team schedule](https://www.maxpreps.com/tx/balmorhea/balmorhea-bears/football/schedule/), preserving reported scores only where the source confirms them. Six reported victories through October 2; October 9 at Fort Davis appears in source schedule with NO verified outcome despite having passed. The 6–0 standing is explicitly limited to Oct 2. Official school sources remain the authority on stadium/ticket logistics and last-minute schedule changes; do not infer unreported results from the calendar. Matchups and scores are source-derived facts; no copied editorial prose or photographs.

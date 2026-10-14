@@ -143,10 +143,10 @@ export const houstonGalvestonMuseumDestinations: Destination[] = [
       alt: "Exterior of Holocaust Museum Houston on Caroline Street",
       width: 1600,
       height: 1200,
-      credit: "WhisperToMe · Wikimedia Commons",
+      credit: "WhisperToMe · CC0 1.0 Public Domain Dedication · Wikimedia Commons · File:Holocaust Museum Houston A.jpg",
     },
     bestSeason: "Year-round indoor museum; allow enough time for a deliberate visit rather than treating it as a quick stop between other attractions.",
-    entryNote: "Hours, admission and temporary exhibitions can change. The museum is generally closed Mondays; confirm the current schedule and any tour options on the official site before visiting.",
+    entryNote: "Open Tuesday–Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m., generally closed Monday; last entry 4:30 p.m. Adult general admission currently $22, ages 0–18 and valid-ID college students free, and Thursdays 2–5 p.m. free to all. Visitor parking is paid after 30 minutes. Confirm the latest operator schedule.",
     highlights: ["Holocaust survivor testimony", "Human-rights education", "Permanent and temporary exhibitions", "Boniuk Library resources"],
     body: [
       "Holocaust Museum Houston is built around remembrance, testimony and the consequences of prejudice rather than around entertainment. Permanent exhibitions connect the history of the Holocaust to individual lives and survivor experiences, while additional galleries and programs broaden the conversation to human rights, genocide and civic responsibility.",

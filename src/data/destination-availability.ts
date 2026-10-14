@@ -12,6 +12,8 @@ const UNAVAILABLE_DESTINATION_SLUGS = new Set([
   "davis-hill-state-park",
   "battleship-texas",
   "battleship-texas-state-historic-site",
+  "1940-air-terminal-museum-houston", // closed March 2026; historic reference page remains accessible
+  "elisabet-ney-museum-austin", // closed for renovations until anticipated spring 2027 reopening
 ]);
 
 /**
@@ -40,8 +42,10 @@ const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([
   "devils-river-big-satan-unit-state-natural-area",
   "devils-river-del-norte-unit-state-natural-area",
   "enchanted-rock",
-  "goliad-state-park",
   "goliad-state-park-state-historic-site",
+  "goliad-state-park-and-historic-site",
+  "san-jacinto-battleground-state-historic-site",
+  "washington-on-the-brazos-state-historic-site",
   "hill-country-louise-merrick-unit-state-natural-area",
   "hueco-tanks-state-park",
   "hueco-tanks-state-park-state-historic-site",
@@ -63,13 +67,11 @@ const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([
   "ray-roberts-lake-johnson-branch-unit",
   "ray-roberts-lake-johnson-branch-unit-state-park",
   "ray-roberts-lake-jordon-unit-state-park",
-  "san-jacinto-battleground",
   "san-jacinto-monument-state-historic-site",
   "san-marcos-springs-spring-lake",
   "seminole-canyon-state-park",
   "seminole-canyon-state-park-state-historic-site",
   "sheldon-lake-state-park-environmental-learning-center",
-  "washington-on-the-brazos",
   "world-birding-center-bentsen-rio-grande-valley-state-park",
   "world-birding-center-estero-llano-grande-state-park",
   "world-birding-center-resaca-de-la-palma-state-park",
