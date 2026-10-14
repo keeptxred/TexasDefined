@@ -61,6 +61,8 @@ for (const [label, marker, source] of requiredPage) {
   if (!source.includes(marker)) failures.push(`missing ${label}: ${marker}`);
 }
 
+if (!publicEndpoint.includes('official_taxing_unit_ids') || !publicEndpoint.includes('officialCdn:')) failures.push('public endpoint must retain official TEA district CDN for identity-safe source reconciliation');
+if (!lazyRoute.includes("'official_cdn'")) failures.push('CSV export must retain official TEA district CDN');
 if (!publicEndpoint.includes('SUPABASE_ANON_KEY')) failures.push('public school-rate endpoint must use the anon/public RLS key');
 if (publicEndpoint.includes('SUPABASE_SERVICE_ROLE_KEY')) failures.push('public school-rate endpoint must not use the service-role key');
 if (!publicEndpoint.includes('.range(from, from + PAGE_SIZE - 1)')) failures.push('public school-rate endpoint must paginate beyond the PostgREST 1000-row cap');

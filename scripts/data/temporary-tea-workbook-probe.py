@@ -50,11 +50,11 @@ api=json.loads(get(API));production=api['rows']
 h_names={norm(x['name']):x for x in hist.values()}
 unmatched=[];differences=[]
 for x in production:
- h=h_names.get(norm(x['name']))
- if not h:unmatched.append(x['name']);continue
+ h=hist.get(x.get('officialCdn') or '')
+ if not h:unmatched.append({'cdn':x.get('officialCdn'),'name':x['name']});continue
  for label,a,b in [('2024 total',x['priorRate'],None if h['mo'] is None or h['debt'] is None else h['mo']+h['debt'])]:
   if a is None or b is None or abs(float(a)-b)>0.00015:differences.append({'cdn':h['cdn'],'name':x['name'],'field':label,'production_2024':a,'TEA_2024':b})
-print('PRODUCTION_YEAR',api.get('year'),'PRODUCTION_ROWS',len(production),'HISTORY_NAME_MATCHES',len(production)-len(unmatched),flush=True)
+print('PRODUCTION_YEAR',api.get('year'),'PRODUCTION_ROWS',len(production),'HISTORY_CDN_MATCHES',len(production)-len(unmatched),flush=True)
 show('UNMATCHED_NAMES',unmatched);show('HISTORY_2024_DIFFERENCES',differences)
 sof_name,sr=sheet(SOURCES['sof'],'inputs_lpe')
 sh=sr[0];smo=next((k for k,v in sh.items() if v.strip().lower()=='py1_mo_rate_adopt'),None)
@@ -66,9 +66,9 @@ for cdn in ['200901','099902','220907','223904']:
 if smo and si:
  differences2=[];matches2=0
  for x in production:
-  h=h_names.get(norm(x['name']))
+  h=hist.get(x.get('officialCdn') or '')
   if not h or h['cdn'] not in sd:continue
   so=sd[h['cdn']];matches2+=1
   for label,a,b in [('M&O',x['maintenanceOperationsRate'],rate(so.get(smo))),('I&S',x['debtServiceRate'],rate(so.get(si)))]:
    if a is None or b is None or abs(float(a)-b)>0.00015:differences2.append({'cdn':h['cdn'],'name':x['name'],'field':label,'production':a,'SOF':b})
- print('SOF_NAME_MATCHES',matches2,flush=True);show('SOF_DIFFERENCES',differences2)
+ print('SOF_CDN_MATCHES',matches2,flush=True);show('SOF_DIFFERENCES',differences2)

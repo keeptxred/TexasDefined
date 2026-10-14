@@ -33,7 +33,7 @@ Deno.serve(async () => {
       for (let from = 0; ; from += PAGE_SIZE) {
         const { data, error } = await db
           .from("texas_property_tax_rates")
-          .select("name,slug,county_slugs,total_rate,maintenance_operations_rate,debt_service_rate,source_url,source_status,variable_rate,rate_variants,imported_at")
+          .select("name,slug,county_slugs,total_rate,maintenance_operations_rate,debt_service_rate,source_url,source_status,variable_rate,rate_variants,imported_at,official_taxing_unit_ids")
           .eq("year", targetYear)
           .eq("type", "school-district")
           .order("name", { ascending: true })
@@ -53,6 +53,7 @@ Deno.serve(async () => {
     const priorWorkbook = `https://comptroller.texas.gov/taxes/property-tax/docs/${priorYear}-school-district-rates-levies.xlsx`;
     const numeric = (value: unknown) => value == null ? null : Number.isFinite(Number(value)) ? Number(value) : null;
     const rows = current.map((row: any) => ({
+      officialCdn: /^([0-9]{3})-([0-9]{3})-02(?:-|$)/.exec(String(row.official_taxing_unit_ids?.[0] ?? ""))?.slice(1, 3).join("") ?? null,
       name: row.name,
       slug: row.slug,
       countySlugs: row.county_slugs ?? [],

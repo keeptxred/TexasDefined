@@ -3,6 +3,7 @@ import { createServerFn } from '@tanstack/react-start';
 export type SchoolDistrictTaxRateRow = {
   name: string;
   slug: string;
+  officialCdn: string | null;
   countySlugs: string[];
   rate: number | null;
   priorRate: number | null;
