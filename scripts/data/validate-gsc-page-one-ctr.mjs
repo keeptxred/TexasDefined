@@ -11,6 +11,9 @@ const eventAuthority = fs.readFileSync('src/data/major-event-authority.ts', 'utf
 const eventRoute = fs.readFileSync('src/routes/event.$slug.tsx', 'utf8');
 const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const failures = [];
+const trimHelper = fs.readFileSync('src/lib/seo-snippet-trim.ts', 'utf8');
+for(const required of ['incomplete clause','DANGLING_ENDING','MAX_LENGTH','cleanMetaDescription']) if(!trimHelper.includes(required)) failures.push('Meta description truncation protection missing: '+required);
+
 const furtherClippedTitleRepairs = [
   {
     "path": "/article/bluebonnet-animal-preservation-athens",
