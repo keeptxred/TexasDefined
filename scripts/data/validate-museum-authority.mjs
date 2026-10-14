@@ -211,4 +211,5 @@ if (failures.length) {
   console.error("Museum authority gate FAILED:\n" + failures.map((x) => " - " + x).join("\n"));
   process.exit(1);
 }
+execFileSync(process.execPath, ["scripts/data/validate-dallas-black-history.mjs"], { stdio: "inherit" });
 console.log("Museum authority gate PASSED: " + allDossiers.length + " museum guides + cross-links + new-museum rule.");
