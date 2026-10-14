@@ -3,6 +3,12 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "the-history-center-diboll": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Southern_Pine_Lumber_Company_sawmills_near_Diboll%2C_Texas_in_1907.jpg?width=660",
+    alt: "Archival 1907 photograph of Southern Pine Lumber Company sawmills and timber railroad cars in Diboll, Texas, from The History Center collection; not the present-day museum building",
+    width: 660, height: 402,
+    credit: "J. D. Cress · 1907 · US public domain · The History Center / UNT Portal / Wikimedia Commons · archival collection photo, not museum exterior",
+  },
   "the-agricultural-museum-arts-center-boerne": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Boerne_ag_museum_2013.jpg?width=1600",
     alt: "Antique farm equipment on display at the AgriCultural Museum in Boerne, Texas, photographed in 2013",
