@@ -77,14 +77,15 @@ jobs:
           fetch_assert texas-history '/texas-history' 'Texas Military Museums'
           PRODUCTION_COMMIT_SHA="$DEPLOY_SHA" node scripts/ci/verify-naval-heritage-production.mjs
 
-      # workflow_run executes from current default-branch workflow YAML even
-      # when the successfully deployed SHA predates this newer verifier. Keep
-      # the original checkout pinned to deployed source for historical checks,
-      # but retrieve the browser acceptance tool from protected main separately.
-      - name: Check out protected browser acceptance verifier
+      # workflow_run loads default-branch workflow YAML even if its successful
+      # deployed SHA predates the browser checker. Keep the original checkout
+      # pinned to deployed source, and retrieve a fixed, previously protected
+      # merge commit containing the browser verifier (never floating main).
+      # Update the immutable verifier pin only through another protected PR.
+      - name: Check out immutable protected browser acceptance verifier
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: 1de3e297930acc56f5b11405ae5c69485af99256
           path: .naval-browser-verifier
           sparse-checkout: scripts/ci/verify-battleship-texas-browser.mjs
           sparse-checkout-cone-mode: false
