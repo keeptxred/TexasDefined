@@ -1,0 +1,15 @@
+name: Temporary TEA school-tax source investigation
+on:
+  push:
+    branches:
+      - fix/school-tax-source-integrity-20261014
+permissions:
+  contents: read
+jobs:
+  source-inspection:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect official TEA adopted-rate XLSX sheet formats
+        run: python3 scripts/data/temporary-tea-workbook-probe.py
