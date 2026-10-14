@@ -3,8 +3,8 @@
   "updatedAt": "2026-10-14",
   "scope": {
     "tpwdNamedEntries": 175,
-    "completedGuides": 72,
-    "missingCompleteGuideListings": 103,
+    "completedGuides": 73,
+    "missingCompleteGuideListings": 102,
     "legacyLakeAndParkDestinations": 36
   },
   "standards": {
@@ -270,17 +270,17 @@
     },
     {
       "tpwdEntry": "B.A. Steinhagen",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "b-a-steinhagen-lake",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/steinhagen/",
+      "namedFacilities": "Seven TPWD named lake access sites with four state park locations and three USACE sites; actual ramp status may change",
+      "campgrounds": "Hen House 100/200 campground loops closed until Feb 2027, Campers Cove USACE campground closed though ramp open; other USACE/TPWD areas operator-listed open; verify reservation",
+      "primaryHistory": "TWDB/USACE source reviewed 1945 authorization, Mar 1947 dam start, Apr 1951 impoundment, Jun 1953 completion, 1967 rename, 1989 hydropower",
+      "localPhoto": "actual 2100×1605 B.A. Steinhagen Reservoir photograph, 19 October 2013 by Plazak, CC BY-SA 3.0 directly verified Wikimedia Commons",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Jasper and Tyler county generated links to authority guide",
+      "destinationReciprocalLinks": "Martin Dies Jr State Park linked in nearbyDestinations; exact park route relationship to verify",
+      "competitivePrimarySourceComparison": "TPWD old directory reconciled with current park operator alerts and USACE Town Bluff live park statuses, and DSHS revised Neches River advisory; independent owner competitive signoff still not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -289,7 +289,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Current operator states: Hen House Ridge ramp closed; federal Campers Cove campground closed while ramp open. Women of childbearing age and children under 12 should not eat DSHS listed species; smallmouth buffalo prohibited for everyone. Do not infer same-day park status."
     },
     {
       "tpwdEntry": "Bachman",
