@@ -42,6 +42,9 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['SEO/CTR', 'Protect readable truncated meta descriptions', 'node', ['--experimental-strip-types','--test','src/lib/seo-snippet-trim.test.ts']],
+  ['SEO/CTR', 'Detect stale edition claims in finished major-event snippets', 'node', ['--test', 'scripts/ci/expired-event-snippet.test.mjs']],
+  ['SEO/CTR', 'Guard expiration of year-specific event search snippets', 'node', ['--experimental-strip-types', '--test', 'src/data/event-snippet-lifecycle.test.ts']],
   ['SEO/SITEMAP', 'Reject escaped and literal route-template tokens in crawlable paths', 'node', ['--experimental-strip-types', '--test', 'src/lib/public-route-tokens.test.ts']],
   ['CONTENT/AUTHORITY', 'Validate true historic photo subjects and closed-original visit policies', 'node', ['scripts/data/validate-historic-sites.mjs']],
   ['SEO/SITEMAP', 'Syntax-check historic photo production verifier', 'node', ['--check', 'scripts/ci/verify-historic-photo-indexability-production.mjs']],

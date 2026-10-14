@@ -3,6 +3,7 @@ import { auditAuthorityEvidence } from './authority-evidence.mjs';
 import { enrichAuthorityLinkGraph } from './authority-link-graph.mjs';
 import { decodeEntities } from './html-entities.mjs';
 import { fetchTextWithRetry } from './audit-fetch.mjs';
+import { expiredEventSnippetIssues } from './expired-event-snippet.mjs';
 
 const ORIGIN = process.env.TEXASDEFINED_ORIGIN || 'https://texasdefined.com';
 const USER_AGENT = 'TexasDefinedWholeSiteQualityAudit/2.0 (+https://texasdefined.com)';
@@ -82,6 +83,17 @@ async function auditPage(url){
     if(BAD_TITLE_RE.test(title)) issues.push({code:'fallback-title',detail:title});
     if(GENERIC_TITLE_RE.test(title)) issues.push({code:'generic-title',detail:title});
     if(title.length>TITLE_HARD_MAX_LENGTH) issues.push({code:'title-extreme-length',detail:title.length+' chars > '+TITLE_HARD_MAX_LENGTH});
+    // A title ending in a connector often indicates silent SEO budget truncation.
+    const subjectTitle = title.replace(/\s*[|–—-]\s*Texas Defined\s*$/i, '').trim();
+    const headingCompletesTitle = h1.toLowerCase().startsWith(subjectTitle.toLowerCase())
+      && h1.length >= subjectTitle.length + 5;
+    const choppedLocation = /\s+(?:San|Corpus)$/i.test(subjectTitle);
+    // Avoid false positives for complete idiomatic headings such as
+    // "Texas Water Towers Worth Pulling Over For".
+    if ((headingCompletesTitle && /(?:\s+(?:and|or|of|for|to|with|in|at|the)|\s+&)$/i.test(subjectTitle))
+      || choppedLocation) {
+      issues.push({code:'dangling-title-fragment',detail:subjectTitle});
+    }
     else if(title.length>TITLE_REVIEW_LENGTH) warnings.push({code:'title-review-length',detail:title.length+' chars > '+TITLE_REVIEW_LENGTH});
    }
    if(!description) issues.push({code:'missing-description',detail:''});
@@ -102,6 +114,9 @@ async function auditPage(url){
      }
    }
    const renderedText=stripTags(body);
+   if (new URL(url).pathname.startsWith('/event/')) {
+     issues.push(...expiredEventSnippetIssues({ url, title, description, renderedText }));
+   }
    const pageFallbackMatch=renderedText.match(PAGE_FALLBACK_RE); if(pageFallbackMatch) issues.push({code:'page-level-fallback-copy',detail:pageFallbackMatch[0]});
    const imageFallbackMatch=renderedText.match(LOCALIZED_IMAGE_FALLBACK_RE); if(imageFallbackMatch) warnings.push({code:'localized-image-fallback',detail:imageFallbackMatch[0]});
    const robots=metaContent(body,'robots').toLowerCase(); if(robots.includes('noindex')) issues.push({code:'sitemap-url-noindex',detail:robots});
@@ -122,7 +137,7 @@ const failures=results.filter(r=>r.issues.length),warningPages=results.filter(r=
 const authorityByFamily={};const authorityFlags={};
 for(const result of results){if(!result.authority)continue;const a=result.authority;const group=authorityByFamily[a.family]??={pages:0,withReviewFlags:0,missingPrimarySourceCandidates:0};group.pages++;if(a.reviewFlags.length)group.withReviewFlags++;if(a.reviewFlags.includes('no-identifiable-primary-source-host'))group.missingPrimarySourceCandidates++;for(const flag of a.reviewFlags)authorityFlags[flag]=(authorityFlags[flag]??0)+1;}
 await fs.writeFile(OUT_JSON,JSON.stringify({auditedAt:new Date().toISOString(),origin:ORIGIN,sitemaps,sitemapFailures,totals:{pages:results.length,failingPages:failures.length,passingPages:results.length-failures.length,warningPages:warningPages.length},byCode,warningsByCode,authorityByFamily,authorityFlags,linkGraph,authorityCertification:'NOT VERIFIED BY AUTOMATED AUDIT',results},null,2)+'\n');
-const rows=[['url','status','words','h1s','title','h1','canonical','issues','warnings'],...results.map(r=>[r.url,String(r.status),String(r.words),String(r.h1s),r.title,r.h1,r.canonical,r.issues.map(i=>i.code+(i.detail?':'+i.detail:'')).join(' | '),(r.warnings||[]).map(i=>i.code+(i.detail?':'+i.detail:'')).join(' | ')])];
+const rows=[['url','status','words','h1s','title','description','h1','canonical','issues','warnings'],...results.map(r=>[r.url,String(r.status),String(r.words),String(r.h1s),r.title,r.description,r.h1,r.canonical,r.issues.map(i=>i.code+(i.detail?':'+i.detail:'')).join(' | '),(r.warnings||[]).map(i=>i.code+(i.detail?':'+i.detail:'')).join(' | ')])];
 await fs.writeFile(OUT_TSV,rows.map(row=>row.map(v=>String(v??'').replace(/[\t\r\n]+/g,' ')).join('\t')).join('\n')+'\n');
 const authorityRows=[['priority','family','url','technical_issues','review_flags','link_graph_review','incoming_contextual_pages','reciprocal_contextual_pages','outgoing_sitemap_pages','main_words','source_hosts','candidate_official_source_urls','internal_destinations','date_signal','editorial_certification'],...results.filter(r=>r.authority && (r.authority.reviewFlags.length||r.issues.length)).sort((a,b)=>a.authority.priority-b.authority.priority||b.issues.length-a.issues.length||a.url.localeCompare(b.url)).map(r=>[r.authority.priority,r.authority.family,r.url,r.issues.map(i=>i.code).join(','),r.authority.reviewFlags.join(','),r.authority.linkGraphFlags.join(','),r.authority.inboundContextualPages,r.authority.reciprocalContextualPages,r.authority.outboundSitemapPageLinks,r.authority.mainWords,r.authority.identifiablePrimarySourceHosts,r.authority.officialEvidenceCandidates.join(' | '),r.authority.internalLinkDestinations,r.authority.visibleReviewDate,r.authority.editorialCertification])];
 await fs.writeFile(OUT_AUTHORITY_TSV,authorityRows.map(row=>row.map(v=>String(v??'').replace(/[\t\r\n]+/g,' ')).join('\t')).join('\n')+'\n');
