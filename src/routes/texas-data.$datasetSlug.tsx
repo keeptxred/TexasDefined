@@ -40,7 +40,11 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
             spatialCoverage: { '@type': 'State', name: 'Texas' },
             keywords: [loaderData.category, 'Texas data', 'TexasDefined'],
             isBasedOn: loaderData.sourceUrl,
-            variableMeasured: loaderData.rows.map((row) => ({
+            variableMeasured: loaderData.schoolRates ? [
+              { '@type': 'PropertyValue', name: 'Adopted total school-district property-tax rate', unitText: 'dollars per $100 taxable value' },
+              { '@type': 'PropertyValue', name: 'Maintenance and operations (M&O) rate', unitText: 'dollars per $100 taxable value' },
+              { '@type': 'PropertyValue', name: 'Interest and sinking (I&S) rate', unitText: 'dollars per $100 taxable value' },
+            ] : loaderData.rows.map((row) => ({
               '@type': 'PropertyValue',
               name: row.label,
               value: row.value,
