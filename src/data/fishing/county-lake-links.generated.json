@@ -93,6 +93,12 @@
       "name": "Lake Arrowhead"
     }
   ],
+  "coke": [
+    {
+      "slug": "e-v-spence-reservoir",
+      "name": "E. V. Spence Reservoir"
+    }
+  ],
   "coleman": [
     {
       "slug": "o-h-ivie-lake",
