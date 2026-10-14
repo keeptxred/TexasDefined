@@ -45,7 +45,15 @@ function ExploreCategoryPage() {
           filename: "texas-historic-sites-map",
           sourceNote: "Locations come from the maintained TexasDefined historic-sites catalog and its source records. The points identify places, not legal property boundaries or exact visitor entrances.",
         }
-      : null;
+      : match.slug === "swimming-holes-river-tubing"
+        ? {
+            id: "texas-swimming-floating-destination-graphic",
+            title: "Texas swimming and tubing destinations map",
+            description: "Orientation map of researched swimming destinations and municipal tubing gateways.",
+            filename: "texas-swimming-and-tubing-destinations-map",
+            sourceNote: "Pins locate the maintained park or city records, not river put-ins, take-outs or approved float routes. Verify the exact public access, parking and current water conditions with the official river or park operator.",
+          }
+        : null;
   const mapPoints = pointGraphic ? destinations.map((destination) => ({
     id: destination.id,
     name: destination.name,
