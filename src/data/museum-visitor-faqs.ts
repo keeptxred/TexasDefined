@@ -2005,6 +2005,15 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewed": "2026-10-12"
     },
     {
+      "question": "Which temporary exhibitions are scheduled at the Texas Maritime Museum in October 2026?",
+      "answer": "Two operator-listed exhibits are scheduled through December 31, 2026. Tides of Freedom: Spain & the Battle for American Independence (February 2–December 31) covers Bernardo de Gálvez and Spanish support for American independence. Built for Victory (September 30–December 31) explores Texas coastal shipbuilding in World War I, including Rockport's Heldenfels Brothers Shipyard. These dates describe 2026 exhibitions, not permanent museum galleries; check the museum's current event pages if visiting later.",
+      "verificationUrl": "https://texasmaritimemuseum.org/event/tides-of-freedom/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texasmaritimemuseum.org/event/built-for-victory/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-14"
+    },
+    {
       "question": "What will I see at the Texas Maritime Museum?",
       "answer": "Exhibit topics include shipbuilding, shipwrecks, Texas coastal industries, fishing and Indigenous maritime connections, in addition to changing special exhibitions. This is a coastal history museum rather than an aquarium.",
       "verificationUrl": "https://texasmaritimemuseum.org/",
