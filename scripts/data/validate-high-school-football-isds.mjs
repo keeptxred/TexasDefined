@@ -71,6 +71,7 @@ if (!errors.length) {
     'getFootballIsdProfile',
     'footballIsdSitemapEntries',
     'getOfficialFootballEnrollmentLink',
+    'profilePath: footballIsdProfilePath(sourceDistrictName)',
   ]) requireText(server, marker, 'Football ISD server');
 
   for (const marker of [
