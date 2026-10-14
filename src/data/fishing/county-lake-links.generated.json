@@ -317,6 +317,12 @@
       "name": "Lake Somerville"
     }
   ],
+  "limestone": [
+    {
+      "slug": "fort-parker-state-park-lake",
+      "name": "Fort Parker State Park Lake"
+    }
+  ],
   "live-oak": [
     {
       "slug": "choke-canyon-reservoir",
@@ -627,12 +633,6 @@
     {
       "slug": "falcon-international-reservoir",
       "name": "Falcon International Reservoir"
-    }
-  ],
-  "limestone": [
-    {
-      "slug": "fort-parker-state-park-lake",
-      "name": "Fort Parker State Park Lake"
     }
   ]
 }
