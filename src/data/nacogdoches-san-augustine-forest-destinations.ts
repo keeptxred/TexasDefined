@@ -323,7 +323,7 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
         },
         {
           "label": "Current Forest Service closure-order listings",
-          "url": "https://www.fs.usda.gov/r08/texas/about-area/closure-orders",
+          "url": "https://www.fs.usda.gov/r08/texas/alerts",
           "scope": "Official location for current National Forests and Grasslands in Texas prohibitions and closures; the two PDF orders linked from the research overview state 2024 expiration dates"
         },
         {
@@ -357,7 +357,7 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
       {
         "question": "How can I check current closures and restrictions?",
         "answer": "Review the Forest Service closure-order listings for the National Forests and Grasslands in Texas and contact the managing office when unclear. The forest-order PDFs linked on the USDA Experimental Forest overview list December 31, 2024 expiration dates, so do not interpret them as evidence of active 2026 orders.",
-        "sourceUrl": "https://www.fs.usda.gov/r08/texas/about-area/closure-orders"
+        "sourceUrl": "https://www.fs.usda.gov/r08/texas/alerts"
       },
       {
         "question": "Are dogs allowed?",
