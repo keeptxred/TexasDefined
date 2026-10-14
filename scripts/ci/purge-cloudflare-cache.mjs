@@ -261,22 +261,43 @@ console.log(`Cloudflare accepted targeted purge for ${urls.length} URL(s) in ${z
 for (const url of urls) console.log(`- ${url}`);
 
 // Verify actual served WebP bytes, not just metadata or purge-API success.
-// A 404 cached at the CDN makes a high-resolution og:image useless to crawlers.
+// Different Cloudflare edges can expose a transient stale 404 directly after
+// the purge API returns. Require eventually decodable WebP, bounded to five
+// probes; a persistently missing image still fails closed.
 for (const slug of ['collin-county', 'freeman-coliseum', 'dubina-saints-cyril-methodius']) {
   const url = `https://${zoneName}/images/discover/${slug}.webp`;
-  const response = await fetch(url, {
-    cache: 'no-store',
-    headers: { 'cache-control': 'no-cache', 'user-agent': 'TexasDefined-Discover-Asset-PostPurge/1.0' },
-    signal: AbortSignal.timeout(30_000),
-  });
-  const bytes = new Uint8Array(await response.arrayBuffer());
-  const realWebp = bytes.length >= 12
-    && String.fromCharCode(...bytes.slice(0, 4)) === 'RIFF'
-    && String.fromCharCode(...bytes.slice(8, 12)) === 'WEBP';
-  if (!response.ok || !realWebp || !(response.headers.get('content-type') ?? '').toLowerCase().startsWith('image/webp')) {
-    throw new Error(`Discover image failed live post-purge binary verification: ${url} HTTP ${response.status}, bytes=${bytes.length}, type=${response.headers.get('content-type')}`);
+  let verified = false;
+  let lastReason = 'not checked';
+  for (let attempt = 1; attempt <= 5; attempt += 1) {
+    try {
+      const response = await fetch(url, {
+        cache: 'no-store',
+        headers: {
+          'cache-control': 'no-cache',
+          'user-agent': 'TexasDefined-Discover-Asset-PostPurge/1.0',
+        },
+        signal: AbortSignal.timeout(30_000),
+      });
+      const bytes = new Uint8Array(await response.arrayBuffer());
+      const realWebp = bytes.length >= 12
+        && String.fromCharCode(...bytes.slice(0, 4)) === 'RIFF'
+        && String.fromCharCode(...bytes.slice(8, 12)) === 'WEBP';
+      const type = (response.headers.get('content-type') ?? '').toLowerCase();
+      if (response.ok && realWebp && type.startsWith('image/webp')) {
+        console.log(`Discover image delivered valid WebP after cache purge: ${slug} (${bytes.length} bytes; attempt ${attempt})`);
+        verified = true;
+        break;
+      }
+      lastReason = `HTTP ${response.status}, bytes=${bytes.length}, type=${type}`;
+    } catch (error) {
+      lastReason = error instanceof Error ? error.message : String(error);
+    }
+    if (attempt < 5) {
+      console.warn(`Discover post-purge edge not ready: ${slug}, attempt ${attempt}/5 (${lastReason}); retrying.`);
+      await new Promise((resolve) => setTimeout(resolve, 3_000));
+    }
   }
-  console.log(`Discover image delivered valid WebP after cache purge: ${slug} (${bytes.length} bytes)`);
+  if (!verified) throw new Error(`Discover image failed live post-purge binary verification after 5 attempts: ${url} ${lastReason}`);
 }
 
 const requiredMaybornMarkers = [
