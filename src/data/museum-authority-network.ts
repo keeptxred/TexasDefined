@@ -161,8 +161,8 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
             href: "/explore/museums",
             reason: "Find other military, maritime and science museums across the state."
         }
-    ]
-},
+    ],
+  },
   "sixth-floor-museum-at-dealey-plaza": {
     name: "The Sixth Floor Museum at Dealey Plaza",
     slug: "sixth-floor-museum-at-dealey-plaza",
@@ -277,8 +277,8 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
             href: "/explore/museums",
             reason: "Find other subject-specific museum guides in Texas."
         }
-    ]
-},
+    ],
+  },
   "the-history-center-diboll": {
     name: "The History Center (Diboll)",
     slug: "the-history-center-diboll",
