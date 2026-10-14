@@ -13,6 +13,7 @@ const UNAVAILABLE_DESTINATION_SLUGS = new Set([
   "battleship-texas",
   "battleship-texas-state-historic-site",
   "1940-air-terminal-museum-houston", // closed March 2026; historic reference page remains accessible
+  "buffalo-soldiers-national-museum-houston", // renovations: exclude visits until operator confirms reopening
   "elisabet-ney-museum-austin", // closed for renovations until anticipated spring 2027 reopening
 ]);
 

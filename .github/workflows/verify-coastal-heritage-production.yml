@@ -30,6 +30,16 @@ jobs:
           node-version: '22'
       - name: Check production probe syntax
         run: node --check scripts/ci/verify-coastal-heritage-production.mjs
+      - name: Exercise expanded image and museum FAQ acceptance against live production
+        run: node scripts/ci/verify-coastal-heritage-production.mjs
+      - name: Retain pre-merge production acceptance report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coastal-heritage-pr-acceptance
+          path: artifacts/coastal-heritage/production-acceptance.json
+          if-no-files-found: warn
+          retention-days: 14
 
   verify-live:
     if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'success') }}

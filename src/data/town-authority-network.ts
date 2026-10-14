@@ -1,5 +1,6 @@
 import { additionalTownAuthorityDestinations } from "./small-town-authority-wave16";
 import { smallTownWave17Destinations } from "./small-town-destinations-wave17";
+import { smallTownWave18Destinations } from "./small-town-destinations-wave18";
 import { smallTownWave1Destinations } from "./small-town-destinations-wave1";
 import { smallTownWave2Destinations } from "./small-town-destinations-wave2";
 import { smallTownWave3Destinations } from "./small-town-destinations-wave3";
@@ -27,6 +28,7 @@ export const TOWN_AUTHORITY_DIRECTORY: Destination[] = [
   ...smallTownWave13Destinations, ...smallTownWave14Destinations, ...smallTownWave15Destinations,
   ...additionalTownAuthorityDestinations,
   ...smallTownWave17Destinations,
+  ...smallTownWave18Destinations,
 ];
 
 const canonicalAuthority = new Map<string, Destination>();

@@ -1,10 +1,10 @@
 {
   "project": "TexasDefined statewide lake authority",
-  "updatedAt": "2026-10-13",
+  "updatedAt": "2026-10-14",
   "scope": {
     "tpwdNamedEntries": 175,
-    "completedGuides": 65,
-    "missingCompleteGuideListings": 110,
+    "completedGuides": 68,
+    "missingCompleteGuideListings": 107,
     "legacyLakeAndParkDestinations": 36
   },
   "standards": {
@@ -17,17 +17,17 @@
   "rows": [
     {
       "tpwdEntry": "Abilene",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "lake-abilene",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/abilene/",
+      "namedFacilities": "TPWD Dam single-lane and Creek single-lane gated ramps, each normally about 10 spaces; BOTH CLOSED under current state-park drought alert, with lake fishing/swimming prohibited",
+      "campgrounds": "Main Abilene State Park campground is separately bookable across FM89; NOT part of closed lake ramps and lake drought closure does not imply campground closed",
+      "primaryHistory": "TWDB official Abilene reservoir owner dam history: 1918 authorization, 1919 start, May 1921 dam, Aug 1 1921 impoundment, repairs 1941/1957",
+      "localPhoto": "Exact Lake Abilene shoreline 2011 photo File:Abilene State Park 1.jpg, mr_t_77, CC BY-SA 2.0, Commons original metadata 4000x3000",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Taylor County canonical and Abilene/Tuscola/Buffalo Gap city discovery generated",
+      "destinationReciprocalLinks": "Abilene State Park destination linked in lake guide; campground/pond/pool context separated; full reciprocal park route acceptance not yet certified",
+      "competitivePrimarySourceComparison": "TPWD angling page and access matrix conflict with newer binding State Park active low-water lake fishing and launch prohibitions; closure accurately prioritized; full field benchmark not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -36,7 +36,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Most important distinction: TPWD 2025 alert (still shown Oct 2026) bars LAKE fishing, swimming and launch and cancels kayak rentals; poor current fishery ratings, regardless of older access-guide year-round info. Main park campground across FM89 separate; Kirby Lake and Buffalo Wallow Pond are distinct. Original Commons photo rights verified, current operator telephone check and field photography remain."
     },
     {
       "tpwdEntry": "Alan Henry",
@@ -2478,17 +2478,17 @@
     },
     {
       "tpwdEntry": "Medina",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "medina-lake",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/medina/",
+      "namedFacilities": "Red Cove Camp private two-lane ramp and Bandera County Park Road 37 ramp; low-water gravel fallback is conditional, not operator-confirmed",
+      "campgrounds": "No camping inventory established by TPWD at the two launch listings; commercial campgrounds must be independently verified",
+      "primaryHistory": "TWDB survey and Medina Dam source narrative; 1911 start, May 7 1913 first filling; Medina Diversion Lake is separate",
+      "localPhoto": "Wikimedia Commons exact Medina Lake photograph from July 11, 2010, Larry D. Moore, CC BY 4.0, 1652x964; not current water status",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Medina and Bandera county references registered",
+      "destinationReciprocalLinks": "Four relevant named city references plus Canyon Lake / Calaveras / Choke Canyon nearby guides; operator and park page reciprocity requires independent QA",
+      "competitivePrimarySourceComparison": "TPWD 5,426-acre facts box vs TWDB historical surveyed 6,066 acres reconciled by measurement vintage; TWDB Oct 13 2026 28.6% drought snapshot retained with timestamp; all-operator benchmark still not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -2497,7 +2497,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Drought-based unsafe ramp claims must not become static closure statements; phone/official operator confirmation needed. Exact license verified; original first-party park/ramp photos outstanding."
     },
     {
       "tpwdEntry": "Meredith",
@@ -3766,17 +3766,17 @@
     },
     {
       "tpwdEntry": "Weatherford",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "lake-weatherford",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/weatherford/",
+      "namedFacilities": "Weatherford Marina full-size trailer ramp; Weatherford East Lake Drive floating-boardwalk and West Lake Drive pedestrian trailheads; TPWD unnamed upper-lake ramps are shallow small craft ONLY",
+      "campgrounds": "TPWD explicitly prohibits overnight camping anywhere on Lake Weatherford",
+      "primaryHistory": "TWDB records June 1956 construction, March 1957 filling/completion, major 1993 spillway engineering and 2008 survey values",
+      "localPhoto": "Commons original Section of Lake Weatherford boardwalk.jpg; Forssa01, CC0 1.0, 4624x3468, exact GPS and date, rights verified",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Parker County index generated from guide data",
+      "destinationReciprocalLinks": "Weatherford city landing and Lake Mineral Wells/Lake Worth related-guide links generated and reciprocal; separate marina operator day-of-visit not certified",
+      "competitivePrimarySourceComparison": "TPWD 1,158-acre angling reference versus TWDB 2008 1,112-acre conservation survey reconciled; full owner-site field audit not certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -3785,7 +3785,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Guide distinguishes trailer boat ramp versus two pedestrian trailheads; no camping; low-water safe access; 4,313-foot city boardwalk hours, TWDB 1993 dam alterations and live level. Field evidence, current ramp fees and release production checks outstanding."
     },
     {
       "tpwdEntry": "Welsh",

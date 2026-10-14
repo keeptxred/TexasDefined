@@ -35,4 +35,7 @@ jobs:
         run: node scripts/ci/verify-sitemap-production-integrity.mjs
 
       - name: Verify all 14 THC landmarks remain discoverable with distinct hotel image
+        # Old deployment SHAs predate this verifier: do not falsely fail their
+        # production workflow while preserving the exact deployed-SHA checkout.
+        if: ${{ hashFiles('scripts/ci/verify-thc-landmark-sitemap-production.mjs') != '' }}
         run: node scripts/ci/verify-thc-landmark-sitemap-production.mjs
