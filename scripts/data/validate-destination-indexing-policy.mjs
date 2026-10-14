@@ -27,6 +27,14 @@ for (const marker of [
   if (!route.includes(marker)) failures.push(`Destination route indexing contract missing: ${marker}`);
 }
 
+// Preserve SEO for thoroughly researched historical museum pages that are
+// temporarily closed, while keeping them out of public trip-planner results.
+for (const [source,label] of [[route,'route'],[sitemap,'Explore sitemap']]) {
+  if (!source.includes('"first-capitol-of-texas", "battleship-texas"].includes(destination.slug)')) {
+    failures.push(`Closed Battleship Texas must be indexable as a historical reference in ${label} only after destination quality audit.`);
+  }
+}
+
 if (route.includes('...(!indexable ? [{ name: "robots", content: "noindex, follow" }] : [])')) {
   failures.push('Destination route must not append a second robots meta after buildMeta; pass robots into buildMeta so index/noindex signals cannot conflict.');
 }
