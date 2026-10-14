@@ -943,7 +943,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Lake Colorado City State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Southwest shore, five miles south of I-20 on FM 2836; paved multi-lane ramp and parking.", fee: "Park entry/launch fee", availability: "Ramps listed year-round; TPWD notes no camping December–February. Check current park operations and lake level." },
       { name: "Cooper's Cove", operator: "Private operator", kind: "resort", launch: "East side of Lake Colorado City off SH 163; paved boat ramp and camping in TPWD inventory.", fee: "TPWD lists fees", availability: "Year-round ramp in TPWD listing; verify current operator (325) 728-5885." },
     ],
-    nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"lake-nasworthy",name:"Lake Nasworthy"},{slug:"lake-abilene",name:"Lake Abilene"}],
+    nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"lake-nasworthy",name:"Lake Nasworthy"},{slug:"lake-abilene",name:"Lake Abilene"},{slug:"e-v-spence-reservoir",name:"E. V. Spence Reservoir"}],
     camping: {name:"Lake Colorado City State Park",summary:"The state park provides camping and reservoir access, but anglers should check golden-alga notices, water level and current fish reports before building a trip around fishing."},
   },
 
@@ -1534,7 +1534,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       "Live TWDB Nasworthy water levels have their own source timestamp and NAVD88 datum; avoid mixing old TPWD conservation figures with modern gauge units.",
       "City Phase 2 construction concept for Fisherman's Road and kayak launches is not an existing amenity or an authorized future completion date."
     ],
-    nearbyLakes:[{slug:"o-h-ivie-lake",name:"O. H. Ivie Lake"},{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"lake-brownwood",name:"Lake Brownwood"}],
+    nearbyLakes:[{slug:"o-h-ivie-lake",name:"O. H. Ivie Lake"},{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"lake-brownwood",name:"Lake Brownwood"},{slug:"e-v-spence-reservoir",name:"E. V. Spence Reservoir"}],
   },
   {
     slug: "fort-parker-state-park-lake", name: "Fort Parker State Park Lake", tpwdSlug: "fort_parker",
@@ -1992,6 +1992,68 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       "The exact-lake photo is from 2005 and must not be used as evidence of 2026 lake depth, shoreline, construction or access conditions."
     ],
     nearbyLakes:[{slug:"white-rock-lake",name:"White Rock Lake"},{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"joe-pool-lake",name:"Joe Pool Lake"}]
+  },
+  {
+    slug: "e-v-spence-reservoir", name: "E. V. Spence Reservoir", tpwdSlug: "spence", waterDataSlug: "e-v-spence",
+    region: "panhandle-plains", verifiedAt: "2026-10-14", accessReviewedAt: "2026-10-14",
+    summary: "Historic Colorado River water-supply reservoir at Robert Lee, with unusually severe low-water access risk, five named recreation sites including closed Rough Creek, older fish-kill history, timestamped TWDB levels and a public-domain actual-reservoir photograph.",
+    surfaceAcres: 14640, maxDepthFeet: 108, impoundedYear: 1969, counties: ["Coke"], nearestCities: ["Robert Lee", "San Angelo"],
+    waterway: "Upper Colorado River near Robert Lee", riverBasin: "Colorado River Basin",
+    authority: "Colorado River Municipal Water District (CRMWD)",
+    conservationPool: "1,898 feet NGVD29 on current TWDB gauge; old TPWD reference also shows 1,898 ft msl",
+    fluctuation: "Long multiyear drought drawdowns can far exceed TPWD's older six-to-ten-foot annual reference range",
+    clarity: "Clear near dam in normal lake conditions, increasingly stained upstream; extreme low water changes shoreline",
+    identity: "E. V. Spence Reservoir lies on the Colorado River west of Robert Lee in Coke County; it is not nearby Lake Colorado City, Lake Nasworthy or O. H. Ivie. The Colorado River Municipal Water District operates Robert Lee Dam primarily for water supply. TPWD's 14,640-acre surface area represents an historical full-pool condition, NOT a live lake footprint. A historical TWDB snapshot dated September 28, 2026 recorded 9.4 percent of storage capacity filled and a roughly 3,233-acre surface, making old recreation brochures especially risky. The current water level must be read directly from TWDB with its timestamp; no historic photo or 'year-round' ramp listing proves a launch is usable. TPWD explicitly identifies Rough Creek recreation area as CLOSED, and lists access fees and other facilities which must be confirmed with CRMWD.",
+    habitat: [
+      "TPWD describes steep rocky banks and bluffs, side creeks, an irregular Colorado River channel and broad mud flats. The reservoir has no significant aquatic vegetation in the old TPWD profile.",
+      "As water declines, shoreline cover, fixed marina docks and concrete launch ramps may strand well above the water. Survey maps and old fishing spots should never be interpreted as current legal or safe trailer access.",
+      "TPWD documents severe golden-alga fish kills in the early 2000s and an altered fishery thereafter. Its fishing-quality ratings are modest, with an older narrative that may not describe present low-water populations. Treat angling advice as historically sourced until new survey and access data are confirmed."
+    ],
+    fish: [
+      fish("largemouth-bass", "Largemouth bass", "fair", "spring", "TPWD historically rated largemouth bass fair and described crankbaits, spinnerbaits, soft plastics and topwater near rocky structure and drop-offs. Present fishability and launching are not verified at the very low reservoir elevation.", ["crankbaits","spinnerbaits","soft-plastics","topwater"], "secondary"),
+      fish("catfish", "Catfish", "fair", "summer", "TPWD listed legal-size channel catfish rebuilding after golden-alga losses and rated catfish fair; historically live or cut bait was used along rocky and channel structure. Check access and current stocking/survey information before a trip.", ["cut-bait","live-bait"], "secondary"),
+      fish("white-bass", "White bass", "poor", "spring", "TPWD's posted fishery table rates white bass poor. Do not use old photographs or stocking lists to market an active white-bass run; confirm current reports and water access.", ["vertical-jigging","trolling"], "secondary"),
+      fish("striped-bass", "Striped bass", "poor", "summer", "The TPWD fishing profile includes striped bass historically but rates opportunities poor after fishery damage; current trophy expectations are unsupported. Validate fresh survey results before promising an offshore fishery.", ["trolling","vertical-jigging"], "secondary"),
+      fish("crappie", "Crappie", "poor", "spring", "TPWD describes crappie opportunities as poor. Historical structure near creek arms may be exposed during prolonged drawdown; no current site-specific catching recommendation is supported.", ["jigs-and-minnows","vertical-jigging"], "secondary")
+    ],
+    access: "TPWD lists five named recreation/access areas but they are NOT five boat ramps. Wildcat and Paint Creek each have a historic concrete ramp; Rough Creek is explicitly CLOSED; South End and North End of Dam are BANK ACCESS ONLY. TPWD also describes historically three paved ramps without a consistently named third currently usable ramp, so do not invent one. The source's $5 vehicle day pass, $60 annual permit and senior discount are old posted reference prices, not verified current charges. Extreme drought makes ramp reachability the overriding issue: call CRMWD (432) 267-6341 or the relevant on-site operator and use the timestamped TWDB level before towing a boat.",
+    accessPoints: [
+      {name:"Wildcat Recreation Area historic concrete ramp",operator:"CRMWD / Wildcat Marina",kind:"public-ramp",launch:"Approximately three miles west of Robert Lee on Texas Highway 158. TPWD historically lists a concrete ramp, camping, parking, picnic and marina services.",fee:"TPWD older inventory lists $5 vehicle day pass; verify current charges and actual marina operation",availability:"TPWD says year-round in its older inventory; very low lake water can render the ramp unusable. Confirm with CRMWD (432) 267-6341 and site (325) 453-2801 before towing."},
+      {name:"Paint Creek Recreation Area historic concrete ramp",operator:"CRMWD / Paint Creek Marina",kind:"public-ramp",launch:"Approximately five miles west of Robert Lee on Texas Highway 158. Historic concrete launch, picnic, camping and marina area.",fee:"TPWD older inventory lists $5 vehicle day pass; current price unknown",availability:"Not certified usable at present low reservoir levels; confirm current operator conditions (325) 453-2982 or CRMWD."},
+      {name:"Rough Creek Recreation Area — closed",operator:"Colorado River Municipal Water District",kind:"park",launch:"Named in TPWD's historic recreation inventory, but TPWD explicitly labels the area CLOSED AT PRESENT. Do not use as a launch or campground.",fee:"No admission or launch right implied by an inventory map",availability:"CLOSED on TPWD's currently displayed lake access page. Do not travel here for a ramp unless the operator posts a reopening."},
+      {name:"South End of Robert Lee Dam bank access",operator:"Colorado River Municipal Water District",kind:"park",launch:"Approximately one mile west of Robert Lee off Texas Highway 158; TPWD identifies BANK ACCESS ONLY, without a trailer boat ramp.",fee:"Old TPWD listing includes vehicle day-pass fee; verify operator current charge",availability:"Do not mistake shoreline fishing/picnic use for an operational ramp. Confirm park access with CRMWD (432) 267-6341."},
+      {name:"North End of Robert Lee Dam bank access",operator:"Colorado River Municipal Water District",kind:"park",launch:"Approximately one mile west of Robert Lee from FM 1904; BANK ACCESS ONLY in TPWD's inventory.",fee:"Old TPWD listing includes vehicle day-pass fee; confirm",availability:"Check operator status and safe legal shoreline access; no boat ramp documented at this entry."}
+    ],
+    camping:{name:"Historically designated Wildcat and Paint Creek CRMWD recreation campgrounds",summary:"TPWD lists camp/picnic facilities at Wildcat and Paint Creek and identifies dam-end day-use areas separately. Rough Creek is CLOSED. Historical campground icons do not guarantee functioning hookups, water, safe shoreline or 2026 reservations. Call the CRMWD or camp operator and verify usable sites, overnight permits, restrooms, burn restrictions and low-water access before booking."},
+    specialRules:true,
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/ev_spence/index.asp",
+    visitorSourceUrl:"https://www.crmwd.org/",
+    historyNotes:[
+      "The reservoir is named for E. V. Spence, the Colorado River Municipal Water District's first general manager, who advocated for the water-supply permit. Texas issued permit No. 2179 on September 1, 1965.",
+      "TWDB records December 16, 1966 for the start of Robert Lee Dam construction, December 15, 1968 for deliberate impoundment and November 21, 1969 for dam completion. A separate historical summary may simplify the project to '1969 impounded'; use the detailed chronology rather than assuming completion and first water storage occurred together.",
+      "The 21,500-foot earthfill embankment has a maximum height of about 140 feet, with a distinct emergency spillway and twelve-gate service structure. TWDB's 1999 survey gave about 14,640 acres and 512,272 acre-feet at conservation elevation 1,898 feet; the current TWDB reservoir page uses an updated capacity convention of 517,272 acre-feet. These are survey-vintage differences, not live measurements.",
+      "The lake's Colorado River water-supply role and subsequent drought are fundamental to understanding recreation limits. Low-water aerial imagery from January 2009 demonstrates the real site but does not establish today's usable ramp depth or extent."
+    ],
+    visitorFAQs:[
+      {question:"Can I launch a boat at E. V. Spence Reservoir right now?",answer:"Not confirmed. TPWD's historic inventory lists Wildcat and Paint Creek concrete ramps as open year-round, but extreme low water can strand either. Verify the current TWDB gauge and obtain a specific CRMWD or marina confirmation before towing; never infer usable ramps from the access directory alone."},
+      {question:"Is Rough Creek open?",answer:"No according to TPWD's currently displayed access inventory, which explicitly labels Rough Creek CLOSED AT PRESENT. Contact CRMWD to learn about a future change before traveling."},
+      {question:"Can I launch from the north or south end of Robert Lee Dam?",answer:"No motorboat ramp is listed at those two sites. TPWD calls them BANK ACCESS ONLY, with shoreline, picnic and historic day-use facilities, subject to operator confirmation."},
+      {question:"How much does lake access cost?",answer:"TPWD's access page historically lists a $5 vehicle day pass, $60 annual pass and special senior rate. Those are dated reference charges, not a verified current permit quote. Contact CRMWD or the current recreation operator for actual prices."},
+      {question:"How full is E. V. Spence Reservoir?",answer:"Read the timestamped Water Data for Texas E. V. Spence station directly. The agency's September 28, 2026 snapshot showed roughly 9.4% full, but that is historical evidence of severe drawdown, not today's exact level. The guide keeps live gauge measurements separate from evergreen body text."},
+      {question:"Is the lake good for striped bass?",answer:"TPWD includes striped bass historically, but its fishery table rates striped and white bass poor following golden-alga fish kills. Do not plan a trophy trip from old fisheries descriptions; check current TPWD stocking, survey and operator access."},
+      {question:"Where can I camp?",answer:"TPWD historically lists designated camping at Wildcat and Paint Creek recreation areas. Rough Creek is closed, while the north/south dam-bank entries are not automatically campgrounds. Confirm actual operating sites and overnight charges directly."},
+      {question:"Why does TPWD list 14,640 acres while the lake appears much smaller?",answer:"TPWD gives a full conservation-pool surface area, not today's water extent. TWDB's measurements at current low elevation can be dramatically less; time-specific area, volume and percent full require the live gauge's source timestamp."},
+      {question:"What is the difference between the 1968 and 1969 dates?",answer:"TWDB documents deliberate water impoundment beginning December 15, 1968, and dam completion November 21, 1969. The simplified TPWD fact panel labels the reservoir impounded 1969."},
+      {question:"Who owns E. V. Spence Reservoir?",answer:"The Colorado River Municipal Water District owns and operates the water-supply reservoir and Robert Lee Dam, serving district water needs and the City of San Angelo. CRMWD, not a Texas state park, is the source for same-day recreation access."}
+    ],
+    travelAlerts:[
+      "SEVERE LOW-WATER ACCESS RISK — the September 28, 2026 TWDB snapshot showed about 9.4% capacity and large shoreline drawdown. This dated figure must NOT be shown as current; read the live TWDB value and confirm any usable boat ramp with CRMWD before driving.",
+      "CLOSED AREA — TPWD's current public-access directory calls Rough Creek CLOSED. Do not promise camping, bank fishing or launching there based on old recreation maps.",
+      "BANK ACCESS IS NOT A BOAT RAMP — the north and south ends of Robert Lee Dam are shoreline day-use locations only in TPWD's inventory.",
+      "OUTDATED FEES AND OPEN-ALL-YEAR LANGUAGE — TPWD's historical $5 day pass and annual permits and year-round labels are not proof of current prices or low-water ramp functionality.",
+      "The exact-reservoir public-domain aerial photo was taken January 21, 2009 and is not evidence of current reservoir extent, water safety, active camping or launch conditions."
+    ],
+    nearbyLakes:[{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"o-h-ivie-lake",name:"O. H. Ivie Lake"},{slug:"lake-nasworthy",name:"Lake Nasworthy"}],
   },
 ];
 

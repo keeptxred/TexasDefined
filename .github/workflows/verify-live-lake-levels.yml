@@ -99,7 +99,7 @@ jobs:
               'lake-corpus-christi', 'alan-henry-reservoir', 'lake-meredith', 'lake-houston',
               'joe-pool-lake', 'lake-granbury', 'lake-waco', 'lake-brownwood',
               'proctor-lake', 'lake-arrowhead', 'lake-mineral-wells', 'lake-colorado-city',
-              'lake-stamford', 'lake-sweetwater', 'lake-georgetown', 'benbrook-lake', 'granger-lake', 'aquilla-lake', 'bardwell-lake', 'lake-arlington', 'lake-worth', 'lake-nasworthy', 'lake-tyler', 'medina-lake', 'lake-weatherford', 'lake-abilene', 'lake-cypress-springs',
+              'lake-stamford', 'lake-sweetwater', 'lake-georgetown', 'benbrook-lake', 'granger-lake', 'aquilla-lake', 'bardwell-lake', 'lake-arlington', 'lake-worth', 'lake-nasworthy', 'lake-tyler', 'medina-lake', 'lake-weatherford', 'lake-abilene', 'lake-cypress-springs', 'e-v-spence-reservoir',
           ]
           with open(sys.argv[2], 'w', encoding='utf-8') as out:
               for source in ('recent', 'csv', 'html'):

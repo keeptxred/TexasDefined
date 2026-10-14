@@ -3,24 +3,24 @@
   "date": "2026-10-14",
   "baseline": "TPWD more than 150 lake profiles",
   "summary": {
-    "total": 70,
+    "total": 71,
     "standardSectionsPerGuide": 9,
-    "statewide": 55,
-    "namedAccess": 70,
+    "statewide": 56,
+    "namedAccess": 71,
     "unknownAccess": 0,
-    "namedCamping": 45,
+    "namedCamping": 46,
     "unknownCamping": 25,
-    "history": 22,
+    "history": 23,
     "noHistory": 48,
-    "photoMappings": 70,
+    "photoMappings": 71,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 70,
+    "explicitNamedAccess": 71,
     "lackingNamedAccess": 0,
-    "explicitNamedCamping": 45,
+    "explicitNamedCamping": 46,
     "lackingNamedCamping": 25,
-    "namedStatewideFacilities": 215,
-    "statewideTemplateGuidesWithNamedAccess": 55
+    "namedStatewideFacilities": 220,
+    "statewideTemplateGuidesWithNamedAccess": 56
   },
   "entries": [
     {
@@ -1127,6 +1127,22 @@
       "accessFacilityCount": 2,
       "accessReviewedAt": "2026-10-14",
       "namedCamping": false
+    },
+    {
+      "slug": "e-v-spence-reservoir",
+      "name": "E. V. Spence Reservoir",
+      "kind": "Statewide",
+      "ramp": "Named with closure and drought limitations",
+      "camping": "Named historical CRMWD campsites (not independently operator-confirmed today)",
+      "history": "TWDB detailed permit, 1966–1969 engineering chronology",
+      "fish": 5,
+      "photo": "Mapped exact reservoir Jan 2009 public domain Jstuby",
+      "water": "TWDB live numerical level with separate historic extreme drought source-date note",
+      "risk": "Low elevation makes concrete ramps unusable; Rough Creek explicitly closed; current operator confirmation, media and production acceptance pending",
+      "namedAccess": true,
+      "accessFacilityCount": 5,
+      "accessReviewedAt": "2026-10-14",
+      "namedCamping": true
     }
   ],
   "legacy": [
