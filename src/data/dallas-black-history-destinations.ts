@@ -15,11 +15,19 @@ const commons = (file: string, alt: string, width: number, height: number, credi
   credit: `${credit} · Wikimedia Commons · license and file link: https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file)}`,
 });
 const schoolPhoto = commons("Booker T. Washington High School for the Performing and Visual Arts 01.jpg", "Booker T. Washington High School for the Performing and Visual Arts in the Dallas Arts District, photographed in 2008", 3264, 2448, "Joe Mabel · CC BY-SA 3.0 / GFDL (dual-licensed)");
-const cemeteryPhoto = commons("African American Museum August 2016 10 (Facing the Rising Sun Freedman's Cemetery exhibit).jpg", "2016 Facing the Rising Sun exhibition at the African American Museum about Dallas Freedman's Cemetery, not a photograph of the cemetery memorial", 6000, 4000, "Michael Barera · CC BY-SA 4.0 · 2016 exhibit photograph", true);
+const cemeteryPhoto: ImageRef = {
+  ...commons("African American Museum August 2016 10 (Facing the Rising Sun Freedman's Cemetery exhibit).jpg", "2016 Facing the Rising Sun exhibition at the African American Museum about Dallas Freedman's Cemetery, not a photograph of the cemetery memorial", 6000, 4000, "Michael Barera · CC BY-SA 4.0 · 2016 exhibit photograph", true),
+  // Direct original file resolved from the Commons file page. The encoded
+  // Special:Redirect/file original returned 404 on live Discover checks.
+  src: "https://upload.wikimedia.org/wikipedia/commons/9/91/African_American_Museum_August_2016_10_%28Facing_the_Rising_Sun_Freedman%27s_Cemetery_exhibit%29.jpg",
+};
 const craftPhoto = commons("P1520669-1.jpg", "Historic Juanita Craft Civil Rights House at 2618 Warren Avenue, Dallas, photographed in 2014", 3776, 2138, "Drewp4vp · CC BY-SA 3.0 · 2014 photograph");
 const stPaulPhoto = commons("Dallas - St. Paul United Methodist Church 01A.jpg", "The historic red-brick St. Paul United Methodist Church building in the Dallas Arts District, photographed in 2008", 2292, 1833, "Joe Mabel · CC BY-SA 3.0 · 2008 photograph");
 const queenCityPhoto = commons("MASS Building.jpg", "MASS Building within the historic Queen City Heights district of South Dallas, photographed in 2014", 3614, 2352, "Drewp4vp · CC BY-SA 3.0 · 2014 photograph");
-const tenthPhoto = commons("Tenth Street Historic District Freedmen's Town TxHM (29573143580).jpg", "Texas historical marker documenting the Tenth Street Freedmen's Town in Oak Cliff, photographed in 2016", 2160, 3840, "QuesterMark · CC BY-SA 2.0 · 2016 marker photograph", true);
+const tenthPhoto: ImageRef = {
+  ...commons("Tenth Street Historic District Freedmen's Town TxHM (29573143580).jpg", "Texas historical marker documenting the Tenth Street Freedmen's Town in Oak Cliff, photographed in 2016", 2160, 3840, "QuesterMark · CC BY-SA 2.0 · 2016 marker photograph", true),
+  src: "https://upload.wikimedia.org/wikipedia/commons/4/40/Tenth_Street_Historic_District_Freedmen%27s_Town_TxHM_%2829573143580%29.jpg",
+};
 
 export const dallasBlackHistoryDestinations: Destination[] = [
   {
