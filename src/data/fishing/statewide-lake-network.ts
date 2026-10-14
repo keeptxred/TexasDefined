@@ -194,7 +194,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Deep End Public Ramp", operator: "Public facility; operator not specified by TPWD", kind: "public-ramp", launch: "From SH 155 in Frankston take US 175 east 3.5 miles, north on FM 1892 to ramp at west end of dam. Two-lane ramp.", fee: "No fee listed by TPWD", availability: "TPWD lists year-round; verify access/closure notices." },
       { name: "Lake Palestine Campground", operator: "Private campground operator listed by TPWD", kind: "resort", launch: "From SH 155 south of Tyler across lake bridges, right on Boles Road after third crossing. Two single-lane ramps; TPWD lists 40 parking spaces.", fee: "TPWD lists a fee; VERIFY current charge/reservations", availability: "TPWD lists year-round; historic operator (903) 876-2253. Independently confirm campground still operates." },
     ],
-    nearbyLakes: [{slug:"cedar-creek-reservoir",name:"Cedar Creek Reservoir"},{slug:"lake-bob-sandlin",name:"Lake Bob Sandlin"},{slug:"lake-tyler",name:"Lake Tyler (East and West)"}],
+    nearbyLakes: [{slug:"cedar-creek-reservoir",name:"Cedar Creek Reservoir"},{slug:"lake-bob-sandlin",name:"Lake Bob Sandlin"},{slug:"lake-tyler",name:"Lake Tyler (East and West)"},{slug:"lake-athens",name:"Lake Athens"}],
   },
   {
     slug: "cedar-creek-reservoir", name: "Cedar Creek Reservoir", accessReviewedAt: "2026-10-12", tpwdSlug: "cedar_creek", waterDataSlug: "cedar-creek", region: "prairies-lakes",
@@ -1992,6 +1992,66 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       "The exact-lake photo is from 2005 and must not be used as evidence of 2026 lake depth, shoreline, construction or access conditions."
     ],
     nearbyLakes:[{slug:"white-rock-lake",name:"White Rock Lake"},{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"joe-pool-lake",name:"Joe Pool Lake"}]
+  },
+  {
+    slug: "lake-athens", name: "Lake Athens", tpwdSlug: "athens", waterDataSlug: "athens",
+    verifiedAt: "2026-10-14", accessReviewedAt: "2026-10-14", region: "piney-woods",
+    summary: "East Texas's distinctive 1,799-acre Flat Creek water-supply and bass lake: one named marina launch, managed private RV sites, trophy-bass habitat and owner-specific vessel rules, with TWDB water levels and a 1961–1963 dam history.",
+    surfaceAcres: 1799, maxDepthFeet: 50, impoundedYear: 1962, counties: ["Henderson"],
+    nearestCities: ["Athens"],
+    waterway: "Flat Creek (Flatt Creek), tributary of the Neches River", riverBasin: "Neches River Basin",
+    authority: "Athens Municipal Water Authority", conservationPool: "440 ft; compare current TWDB water-level time and vertical datum",
+    fluctuation: "TPWD reference usually about two feet, not today's measured gauge",
+    clarity: "Moderately clear",
+    identity: "Lake Athens is Athens Municipal Water Authority's dammed Flat Creek reservoir five to eight miles east of Athens, not the private Athens Fish and Game Club Lake or the stocked Lake Zebco pond at the nearby Texas Freshwater Fisheries Center. TPWD's current reservoir profile and TWDB's 1998 surveyed conservation pool list 1,799 acres, while the Water Authority's historic summary cites 1,520 acres and an older original storage allocation. Those are different surveys/source vintages, not evidence of separate Lake Athens reservoirs. TPWD rates largemouth fishing excellent. The entire reservoir is governed by AMWA's local boating and shoreline rules, most recently revised February 2025.",
+    habitat: [
+      "Shoreline coontail, pondweed, lilies and alligator weed are concentrated in the upper basin above the FM 2495 bridge; standing flooded timber persists around the middle reservoir.",
+      "The dam's riprap and shoreline structure surrounding Goat Island create distinct bass and panfish conditions. The lake's water clarity differs by shallow coves and runoff; use local seasonal reports, not generalized 'clear all year' language.",
+      "TPWD highlights trophy largemouth (historic 14.19-pound record) and good white bass, sunfish and redear opportunities. Spring bass target emerging aquatic plants; sunfish respond to warmer shoreline conditions, while crappie and white bass activity peaks around February–May."
+    ],
+    fish: [
+      fish("largemouth-bass","Largemouth bass","excellent","spring","TPWD rates largemouth excellent, citing three- to eight-pound fish and a historic 14.19-pound lake record. Fish upper-basin vegetation, submerged timber, riprap and Goat Island structure; check current special lake bass size/bag rules.",["soft-plastics","spinnerbaits","topwater","crankbaits"]),
+      fish("white-bass","White bass","good","spring","TPWD rates white bass good and describes common 16–18-inch examples. Late-winter/spring fish use forage concentrations; locate schools rather than promising one permanent hotspot.",["trolling","vertical-jigging","jigs-and-minnows"]),
+      fish("sunfish","Sunfish and redear","good","summer","TPWD rates sunfish good and highlights redear, bluegill and fly-fishing opportunities. Smaller tackle around native vegetation and protected banks can be effective.",["jigs-and-minnows"],"secondary"),
+      fish("crappie","Crappie","fair","spring","TPWD says crappie are not numerous but may be good-sized. Small jigs and live minnows around timber, bridge and dock structure are season-dependent.",["jigs-and-minnows","vertical-jigging"],"secondary"),
+      fish("catfish","Catfish","poor","summer","TPWD rates the catfish fishery poor. A visiting angler primarily interested in catfish should compare nearby public reservoirs instead of expecting a reliable Lake Athens catfish catch.",["cut-bait","live-bait"],"secondary")
+    ],
+    access:"TPWD lists just ONE public-access marina: Lake Athens Marina off FM 2495 near the bridge east of Athens. The older TPWD directory says two-lane paved ramp, 30 parking spaces, no fee and year-round access, while Lake Athens Marina is a privately managed concession with separate RV pads, a general store, rentals, restaurant and on-site services. Verify ramp/parking charges, opening hours and current RV reservations with the active concessionaire; past TPWD fee and operating notices are not day-of-visit guarantees. AMWA forbids fishing within designated swimming areas and near the water intake, and has locally imposed boat dimensions and anchor/mooring restrictions.",
+    accessPoints:[
+      {name:"Lake Athens Marina — public launch",operator:"Lake Athens Marina concession; water controlled by Athens Municipal Water Authority",kind:"marina",launch:"From Athens TX-31 turn east onto FM 2495 opposite the big-box store and travel about one mile across the lake bridge; marina ramp and bait/restaurant area are on the right near the bridge. TPWD documents a paved two-lane ramp and roughly 30 parking spaces.",fee:"TPWD historically lists no boat-ramp launch fee; confirm modern marina parking, gate or additional service charges before towing",availability:"TPWD lists year-round historically; call current Marina & RV Park general store (903) 670-1489 or AMWA (903) 804-8501 for live status."},
+      {name:"Lake Athens Marina & RV Park lodging",operator:"Private Lake Athens Marina & RV Park concession",kind:"resort",launch:"5401 Marina Drive, Athens TX 75752. The RV sites, general store, restaurant and rentals are part of the marina business, NOT a second public boat launch.",fee:"RV full-hookup sites and recreation rentals are separately charged; verify current booking terms",availability:"Operator posts RV Park contact (903) 675-7275 and store (903) 670-1489; verify capacity and any launch guest-use rules."}
+    ],
+    campingUrl:"https://www.lakeathensmarina.com/about",
+    camping:{name:"Lake Athens Marina & RV Park — privately operated full-hookup RV sites",summary:"The private marina operator advertises reservable sites with 30/50-amp full hookups, roads, shared facilities and separate storage. Book directly with the concessionaire and confirm current availability and rates. TPWD's public access listing shows camping at the marina, but no authorization exists for indiscriminate overnight camping around private shores, bridge accesses or the dam."},
+    specialRules:true,
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/athens/index.asp",
+    visitorSourceUrl:"https://www.athenstxwater.org/how-we-do-it/rules-and-regulations1",
+    historyNotes:[
+      "The Texas Legislature originally created Athens Municipal Water Authority in 1957; the owner states that the district became a municipal utility district under Chapter 54 in 1979. Its reservoir replaced the prior Flat Creek channel to serve municipal water supply, flood control and recreation.",
+      "TWDB specifies construction began September 25, 1961; deliberate impoundment started November 1, 1962; the project was officially complete by May 1963. The 3,000-foot earthfill dam was designed by Wisenbaker, Fix, and Associates and built by Elm Fork Construction Company.",
+      "TWDB's 1998 hydrographic survey reports roughly 1,799 acres and 29,475 acre-feet at a 440-foot conservation stage. An older AMWA history page lists 1,520 acres and 32,840 acre-feet using earlier reference documents and storage authorizations. Preserve each stated context rather than asserting both measurements were made simultaneously.",
+      "The 2012 exact-lake photograph used here was taken by Nicolas Henderson (TexasExplorer98) and is licensed CC BY 2.0 via Flickr. It shows the actual reservoir at a historic date, not the current AMWA ramp or lake elevation."
+    ],
+    visitorFAQs:[
+      {question:"Where is the public boat ramp for Lake Athens?",answer:"TPWD identifies Lake Athens Marina off FM 2495 as the one public-access facility: two lanes and about 30 parking spaces in the old inventory. The concessionaire manages a separate store, dining and RV operations; call for current hours and ramp charges."},
+      {question:"What fishing species should I target?",answer:"TPWD rates largemouth excellent; white bass and sunfish good; crappie fair and catfish poor. Fish shallow plants, timber and Goat Island structure according to season and current special bass regulations."},
+      {question:"Does Lake Athens have special boating rules?",answer:"Yes. Athens Municipal Water Authority's rules were revised February 1, 2025. Its visitor guidance generally limits boat length to 30 feet and pontoon boats to under 28 feet long and 14 feet wide; barge use and stopping near the dam, spillway and water intake are restricted. Review current AMWA documents before launching."},
+      {question:"Can I fish in the swimming area or by the intake?",answer:"No. The Water Authority prohibits fishing in designated swimming areas and at or near the water intake. Never infer that all privately developed shoreline or marina space is open public bank-fishing area."},
+      {question:"Can I camp or park an RV on Lake Athens?",answer:"Yes, at the privately operated Lake Athens Marina & RV Park where the operator offers reservable full-hookup RV sites. Camping is not automatically permitted at private waterfront lots, bridge crossings or boat-launch parking areas."},
+      {question:"Is a fishing license required at the nearby fishery center?",answer:"The Texas Freshwater Fisheries Center's special fishing ponds have their own program rules, which are separate from fishing in public Lake Athens. Confirm the Center's operating schedule and program details with TPWD."},
+      {question:"Why do owners quote 1,520 acres versus TPWD's 1,799?",answer:"TWDB's 1998 hydrographic survey and the TPWD fishery profile report 1,799 acres at the lake's specified conservation stage. Athens Municipal Water Authority's older history publishes 1,520 acres. These are different vintages and conventions; neither is today's measured water surface."},
+      {question:"When did Lake Athens fill and when was the dam finished?",answer:"TWDB documents a September 25, 1961 construction start, a November 1, 1962 deliberate impoundment and formal completion in May 1963. A single 'impounded 1962' date does not tell the whole sequence."},
+      {question:"Are lake water levels available live?",answer:"Yes. TWDB Water Data for Texas reports a timestamped Lake Athens measurement and conservation-storage percentage. Check its timestamp; an undated page's elevation or fishery profile is not a current lake level."},
+      {question:"What does the marina rental include?",answer:"The concessionaire advertises a separate bait store, boat/vehicle storage, kayak and paddleboard rentals and private RV sites. Each has its own operator policies and potentially separate charges. Do not equate public lake fishing with free private marina services."}
+    ],
+    travelAlerts:[
+      "AMWA lake boating and property regulations revised February 2025 govern permitted vessel size and sensitive dam/water-intake zones. Consult official current documents and any emergency SMS lake alerts before travel.",
+      "TPWD's single marina ramp lists no fee and year-round access, but the private concessionaire sets operational services and may impose different modern charges/hours. Contact the operator before towing.",
+      "TPWD reports SPECIAL largemouth-bass harvest regulations. Consult current TPWD limit tables; historic record bass sizes are not today's legal harvest rule.",
+      "Lake Athens is not the Athens Fish and Game Club Lake or the Texas Freshwater Fisheries Center's stocked teaching pond. Fishing licenses and access rules differ.",
+      "TPWD, TWDB and AMWA acreage/capacity figures use different reference stages or survey dates, and should not be presented as an instantaneous lake-level reading."
+    ],
+    nearbyLakes:[{slug:"lake-palestine",name:"Lake Palestine"},{slug:"cedar-creek-reservoir",name:"Cedar Creek Reservoir"},{slug:"lake-tyler",name:"Lake Tyler (East and West)"}]
   },
 ];
 
