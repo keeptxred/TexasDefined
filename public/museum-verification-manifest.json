@@ -1296,11 +1296,6 @@
           "sourceUrl": "https://thc.texas.gov/blog/beyond-beach",
           "fetchUrl": "https://thc.texas.gov/blog/beyond-beach",
           "label": "Texas Historical Commission — June 2026 museum heritage and exhibit context"
-        },
-        {
-          "sourceUrl": "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html",
-          "fetchUrl": "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html",
-          "label": "Independent visitor evidence — historical elevator question only"
         }
       ]
     },
