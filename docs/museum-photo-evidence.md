@@ -118,8 +118,6 @@ Both pages have explicit image placeholders pending rights-cleared exact-locatio
 - **South Padre Island:** [Spheroidite, *South Padre Island beach panorama.jpg*](https://commons.wikimedia.org/wiki/File:South_Padre_Island_beach_panorama.jpg), photographed June 2022. **CC BY-SA 4.0**, 7,328 × 3,274. Panoramic beach photograph of the correct island; do not confuse with Padre Island National Seashore.
 - **La Salle Odyssey:** [Larry D. Moore, *Texas Maritime Museum Rockport Texas 2024.jpg*](https://commons.wikimedia.org/wiki/File:Texas_Maritime_Museum_Rockport_Texas_2024.jpg), **CC BY 4.0**. This already licensed Rockport institution serves as a truthful representative museum image; no misleading reconstructed ship or stock artifact is implied.
 
-**Port Isabel Historical Museum image:** A direct historic-building photograph has not been licensed and attached yet. The Library of Congress Carol M. Highsmith photos of the Champion Building fish mural include "no known restrictions on publication" advisories; specific file and stable usable image delivery need independent confirmation before replacing the existing placeholder. Do not mislabel an unrelated lighthouse photo as the museum.
-
 ## Port Isabel Historical Museum hero photograph (October 13, 2026)
 
 - **Exact location:** Port Isabel Historical Museum at the 1899 Charles Champion Building. The selected 2014 Carol M. Highsmith photograph shows the landmark's original 1906 fish-mural facade, not a generic Port Isabel lighthouse or a different museum.
