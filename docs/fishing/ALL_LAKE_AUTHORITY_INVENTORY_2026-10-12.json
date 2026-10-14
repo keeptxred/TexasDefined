@@ -3,24 +3,24 @@
   "date": "2026-10-13",
   "baseline": "TPWD more than 150 lake profiles",
   "summary": {
-    "total": 66,
+    "total": 67,
     "standardSectionsPerGuide": 9,
-    "statewide": 51,
-    "namedAccess": 66,
+    "statewide": 52,
+    "namedAccess": 67,
     "unknownAccess": 0,
     "namedCamping": 43,
-    "unknownCamping": 23,
-    "history": 18,
+    "unknownCamping": 24,
+    "history": 19,
     "noHistory": 48,
-    "photoMappings": 66,
+    "photoMappings": 67,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 66,
+    "explicitNamedAccess": 67,
     "lackingNamedAccess": 0,
     "explicitNamedCamping": 43,
-    "lackingNamedCamping": 23,
-    "namedStatewideFacilities": 203,
-    "statewideTemplateGuidesWithNamedAccess": 51
+    "lackingNamedCamping": 24,
+    "namedStatewideFacilities": 206,
+    "statewideTemplateGuidesWithNamedAccess": 52
   },
   "entries": [
     {
@@ -1061,6 +1061,22 @@
       "risk": "Severe drought / low-water launches, Red Cove and Park Road 37 gravel-bank fallback conditional, zebra mussel restrictions, historic source area conflict, field photos and operator safety certification outstanding",
       "namedAccess": true,
       "accessFacilityCount": 2,
+      "accessReviewedAt": "2026-10-13",
+      "namedCamping": false
+    },
+    {
+      "slug": "lake-weatherford",
+      "name": "Lake Weatherford",
+      "kind": "Statewide",
+      "ramp": "Named improved marina launch plus unnamed upper-lake small-craft ramps (separate boardwalk trailheads)",
+      "camping": "No camping: TPWD expressly prohibits overnight camping anywhere on lake",
+      "history": "TWDB 1956–57 dam construction, 1993 spillway work, 2008 survey",
+      "fish": 5,
+      "photo": "Mapped",
+      "water": "TWDB live numerical reservoir level",
+      "risk": "City actual marina operator/fees and lower-level launch depth unverified; first-party field imagery and production QA remain outstanding",
+      "namedAccess": true,
+      "accessFacilityCount": 3,
       "accessReviewedAt": "2026-10-13",
       "namedCamping": false
     }
