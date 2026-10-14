@@ -58,12 +58,9 @@ if (planner.includes('const practicalTips = unique([') || planner.includes('What
 }
 
 for (const feature of [
-  'const pairedDestinations = [...new Map(',
-  'const curatedDestinations = groups.find((group) => group.id === "curated-pairings")',
-  'const distanceRankedDestinations = groups.flatMap((group) => group.destinations)',
-  '[...curatedDestinations, ...distanceRankedDestinations].map((item) => [item.slug, item])', '.flatMap((group) => group.destinations)',
-  '.slice(0, 6)', 'title="Explore related places"',
-  'Verified pairings first, followed by nearby destinations',
+  'const pairedDestinations = featuredDestinationRelationships(destination, groups)',
+  'title="Explore related places"',
+  'Editorially paired stops near ${destination.name} appear first',
   'pairedDestinations.map((item)', 'TexasExplainedContextLinks surface="destination"',
   'to="/explore/$category"', 'to="/explore/region/$region"',
   'to="/events"', 'to="/search"',
@@ -77,6 +74,10 @@ for (const feature of [
   'miles <= 75', 'COMPLEMENTARY_CATEGORIES', 'sameTown', 'nearbyComplementary',
   'similar', 'regional', 'const used = new Set<string>()',
   'item.slug !== destination.slug',
+  'export function featuredDestinationRelationships(',
+  'const curated = groups.filter((group) => group.id === "curated-pairings")',
+  'unique([...curated, ...discovered])',
+  '.slice(0, limit)',
 ]) if (!relationshipEngine.includes(feature)) errors.push(`Destination relationship engine feature missing: ${feature}`);
 
 for (const feature of [

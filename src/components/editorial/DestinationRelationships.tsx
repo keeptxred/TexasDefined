@@ -8,7 +8,7 @@ import { SamRayburnContext } from "@/components/editorial/SamRayburnContext";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
 import { Container } from "@/components/layout/Container";
-import { distanceMiles, type DestinationRelationshipGroup } from "@/data/destination-relationships";
+import { distanceMiles, featuredDestinationRelationships, type DestinationRelationshipGroup } from "@/data/destination-relationships";
 import { topTexasAttractionRank } from "@/data/top-texas-attractions";
 import type { Destination, DestinationAreaGuide, DestinationAreaItem } from "@/data/types";
 
@@ -124,16 +124,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
   const hasCampingProfile = CAMPING_DESTINATION_SLUGS.has(destination.slug);
   const hasSamRayburnHouseContext = destination.slug === "sam-rayburn-house";
   const hasSamHoustonMuseumContext = destination.slug === SAM_HOUSTON_MUSEUM_SLUG;
-  // Honor intentional, reciprocal editorial links before distance-only suggestions.
-  // Sorting the entire list by proximity had silently hidden verified links
-  // (notably Sycamore Creek Bridge <-> Fort Worth Stockyards) from real HTML.
-  const curatedDestinations = groups.find((group) => group.id === "curated-pairings")?.destinations ?? [];
-  const distanceRankedDestinations = groups.flatMap((group) => group.destinations)
-    .filter((item) => !curatedDestinations.some((curated) => curated.slug === item.slug))
-    .sort((left, right) => (distanceMiles(destination, left) ?? Number.POSITIVE_INFINITY) - (distanceMiles(destination, right) ?? Number.POSITIVE_INFINITY));
-  const pairedDestinations = [...new Map(
-    [...curatedDestinations, ...distanceRankedDestinations].map((item) => [item.slug, item]),
-  ).values()].slice(0, 6);
+  const pairedDestinations = featuredDestinationRelationships(destination, groups);
 
   return <>
     {destination.slug === "moody-gardens" ? <MoodyGardensSpotlights /> : null}
@@ -146,7 +137,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
 
     {pairedDestinations.length ? <Section tone="surface" className="py-10 sm:py-12 lg:py-14">
       <Container>
-        <SectionHeader eyebrow="Nearby" title="Explore related places" description={`Verified pairings first, followed by nearby destinations to help plan the rest of your trip around ${destination.name}.`} />
+        <SectionHeader eyebrow="Plan the route" title="Explore related places" description={`Editorially paired stops near ${destination.name} appear first, followed by nearby destinations. Distances are approximate straight-line miles.`} />
         <ul className="mt-8 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
           {pairedDestinations.map((item) => {
             const miles = distanceMiles(destination, item);

@@ -47,6 +47,10 @@ requireFeatures(engine, [
   'const used = new Set<string>()',
   'item.slug !== destination.slug',
   'new Map(items.map((item) => [item.slug, item]))',
+  'export function featuredDestinationRelationships(',
+  'const curated = groups.filter((group) => group.id === "curated-pairings")',
+  'unique([...curated, ...discovered])',
+  '.slice(0, limit)',
 ], 'Destination relationship engine');
 
 requireFeatures(serverBoundary, [
@@ -68,17 +72,10 @@ if (serverBoundary.includes('queryClient')) {
 }
 
 requireFeatures(component, [
-  'const pairedDestinations = [...new Map(',
-  'const curatedDestinations = groups.find((group) => group.id === "curated-pairings")',
-  'const distanceRankedDestinations = groups.flatMap((group) => group.destinations)',
-  '[...curatedDestinations, ...distanceRankedDestinations].map((item) => [item.slug, item])',
-  '.flatMap((group) => group.destinations)',
-  '.map((item) => [item.slug, item])',
-  '.sort((left, right)',
-  '.slice(0, 6)',
+  'const pairedDestinations = featuredDestinationRelationships(destination, groups)',
   'TexasExplainedContextLinks surface="destination"',
   'title="Explore related places"',
-  'Verified pairings first, followed by nearby destinations',
+  'Editorially paired stops near ${destination.name} appear first',
   'pairedDestinations.map((item)',
   'DestinationCard',
   'distanceMiles(destination, item)',
