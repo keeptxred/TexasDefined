@@ -11,6 +11,140 @@ const eventAuthority = fs.readFileSync('src/data/major-event-authority.ts', 'utf
 const eventRoute = fs.readFileSync('src/routes/event.$slug.tsx', 'utf8');
 const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const failures = [];
+const headingPrefixRepairs = [
+  {
+    "path": "/article/adopting-a-dog-in-texas",
+    "title": "Adopting a Dog in Texas: Shelters, Rabies & Matching Tips"
+  },
+  {
+    "path": "/article/audie-murphy-texas-war-hero-actor",
+    "title": "Audie Murphy: Texas WWII Hero, Soldier & Actor"
+  },
+  {
+    "path": "/article/hiking-texas-trails-with-your-dog",
+    "title": "Hiking Texas Trails With Your Dog: Heat & Leash Rules"
+  },
+  {
+    "path": "/article/hogg-foundation-mental-health-texas-history",
+    "title": "Hogg Foundation for Mental Health: Texas History & Mission"
+  },
+  {
+    "path": "/article/ima-hogg-texas-legacy",
+    "title": "Ima Hogg: Texas Philanthropist, Art & Public Legacy"
+  },
+  {
+    "path": "/article/juan-seguin-tejano-texas-revolution",
+    "title": "Juan Seguín: Tejano Revolutionary Leader & Texas Exile"
+  },
+  {
+    "path": "/article/mirabeau-b-lamar-president-republic-texas",
+    "title": "Mirabeau B. Lamar: President of the Republic of Texas"
+  },
+  {
+    "path": "/article/sallie-hogg-texas-legacy",
+    "title": "Sallie Hogg: Texas First Lady & Public-Service Legacy"
+  },
+  {
+    "path": "/article/san-antonio-spurs-texas-basketball-culture",
+    "title": "San Antonio Spurs: Team Culture & Basketball History"
+  },
+  {
+    "path": "/article/san-antonio-stock-show-rodeo-history-guide",
+    "title": "San Antonio Stock Show & Rodeo: History & Scholarships"
+  },
+  {
+    "path": "/article/texas-backup-power-generator-guide",
+    "title": "Texas Backup Power Guide: Generators & Transfer Switches"
+  },
+  {
+    "path": "/article/texas-borderlands-historic-sites-guide",
+    "title": "Texas Borderlands History: Missions & Tejano Heritage"
+  },
+  {
+    "path": "/article/texas-cold-war-military-history",
+    "title": "Cold War Texas: Bombers, Missile Silos & Pantex"
+  },
+  {
+    "path": "/article/texas-dog-friendly-patios-law",
+    "title": "Texas Dog-Friendly Patios: Rules & State Law Guide"
+  },
+  {
+    "path": "/article/texas-dog-lake-river-safety",
+    "title": "Texas Dog Water Safety: Lakes, Rivers & Algae"
+  },
+  {
+    "path": "/article/texas-gulf-coast-erosion-shoreline-retreat-guide",
+    "title": "Texas Gulf Coast Erosion: Shoreline Retreat & Risk"
+  },
+  {
+    "path": "/article/texas-homeowner-field-manual",
+    "title": "Texas Homeowner Field Manual: Weather, Utilities & Insurance"
+  },
+  {
+    "path": "/article/texas-household-pests-guide",
+    "title": "Texas Household Pests: Termites, Ants, Roaches & Control"
+  },
+  {
+    "path": "/article/texas-military-museums-historic-sites-guide",
+    "title": "Texas Military Museums & Historic Sites: Visitor Guide"
+  },
+  {
+    "path": "/article/texas-pecos-river-guide",
+    "title": "Pecos River Texas: Canyons, Fishing & Public Access"
+  },
+  {
+    "path": "/article/texas-pool-owner-guide",
+    "title": "Texas Pool Owner Guide: Chemistry, Pumps & Freeze Protection"
+  },
+  {
+    "path": "/article/texas-spanish-american-war-guide",
+    "title": "Texas in the Spanish-American War: Rough Riders & History"
+  },
+  {
+    "path": "/article/texas-trees-around-home-guide",
+    "title": "Texas Trees Near Homes: Storms, Roots & Oak Wilt"
+  },
+  {
+    "path": "/article/texas-us-mexican-war-palo-alto-guide",
+    "title": "Texas in the Mexican-American War: Palo Alto & Border"
+  },
+  {
+    "path": "/article/texas-world-war-i-history-guide",
+    "title": "Texas in World War I: Border, Camps & Military History"
+  },
+  {
+    "path": "/article/texas-world-war-ii-bases-pow-camps",
+    "title": "Texas WWII Bases, Training Camps & POW Camps"
+  },
+  {
+    "path": "/article/texas-world-war-ii-historic-sites-guide",
+    "title": "Texas World War II Historic Sites: Five Places to Visit"
+  },
+  {
+    "path": "/article/toledo-bend-water-system-guide",
+    "title": "Toledo Bend Reservoir: Texas Water System Guide"
+  },
+  {
+    "path": "/explore/painted-churches/guides/dubina-texas-population",
+    "title": "Dubina Texas: Population, History & Painted Church"
+  },
+  {
+    "path": "/explore/painted-churches/guides/praha-texas-czech-heritage",
+    "title": "Praha Texas: Czech Heritage & Painted Church"
+  },
+  {
+    "path": "/explore/painted-churches/guides/st-stanislaus-plantersville",
+    "title": "St. Stanislaus Church Plantersville: Location & History"
+  },
+  {
+    "path": "/news/most-popular-dog-breeds-in-texas-chihuahua-data",
+    "title": "Is the Chihuahua Texas's Most Popular Dog? Data Explained"
+  }
+];
+for (const fix of headingPrefixRepairs) {
+  if (!seo.includes('"'+fix.path+'"') || !seo.includes(fix.title)) failures.push('Title lost important H1 completion: '+fix.path);
+}
+
 const trimHelper = fs.readFileSync('src/lib/seo-snippet-trim.ts', 'utf8');
 for(const required of ['incomplete clause','DANGLING_ENDING','MAX_LENGTH','cleanMetaDescription']) if(!trimHelper.includes(required)) failures.push('Meta description truncation protection missing: '+required);
 
