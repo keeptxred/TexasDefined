@@ -42,6 +42,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['SEO/SITEMAP', 'Ensure swimming authority uses bundled server content and all canonical sitemap rules', 'node', ['scripts/data/validate-swimming-authority-ssr.mjs']],
   ['CONTENT/AUTHORITY', 'Prevent duplicate THC landmark images and lost indexable Holland Hotel page', 'node', ['scripts/data/validate-thc-landmark-authority-batch05.mjs']],
   ['SEO/SITEMAP', 'Syntax-check THC landmark production sitemap verifier', 'node', ['--check', 'scripts/ci/verify-thc-landmark-sitemap-production.mjs']],
   ['MUSEUM/AUTHORITY', 'Validate museum visitor research, references, new museum requirements and reciprocal links', 'node', ['scripts/data/validate-museum-authority.mjs']],
