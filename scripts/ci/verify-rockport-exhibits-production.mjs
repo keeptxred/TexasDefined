@@ -19,6 +19,7 @@ function attr(tag, name) {
 }
 
 let lastError = "not attempted";
+let passed = false;
 for (let attempt = 1; attempt <= 2; attempt++) {
   const url = new URL(path, origin);
   url.searchParams.set("rockport_live_verify", [
@@ -53,10 +54,11 @@ for (let attempt = 1; attempt <= 2; attempt++) {
     if (visible.includes("Spanish Revolution")) missing.push("incorrect historical label: Spanish Revolution");
     if (missing.length) throw new Error("Missing/inaccurate " + missing.join(" | "));
     console.log("Rockport museum exact-production authority PASS: two operator-confirmed 2026 exhibits, four date/URL citations, original licensed image credit, canonical and indexability");
-    process.exit(0);
+    passed = true;
+    break;
   } catch(e) {
     lastError = e instanceof Error ? e.message : String(e);
     console.error("Rockport museum production attempt " + attempt + ": " + lastError);
   }
 }
-throw new Error("Rockport museum production authority FAIL: " + lastError);
+if (!passed) throw new Error("Rockport museum production authority FAIL: " + lastError);
