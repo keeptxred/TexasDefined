@@ -7,7 +7,7 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
     "brandId": "texasdefined",
     "slug": "angelina-national-forest",
     "name": "Angelina National Forest",
-    "summary": "A 153,179-acre federal Piney Woods forest encompassing parts of four East Texas counties, Sam Rayburn shorelines, woodland wildlife habitats, hiking, history and distinct recreation areas.",
+    "summary": "A 153,334-acre federal Piney Woods forest encompassing parts of four East Texas counties, Sam Rayburn shorelines, woodland wildlife habitats, hiking, history and distinct recreation areas.",
     "category": "outdoors",
     "region": "piney-woods",
     "nearestTown": "Zavalla",
@@ -24,21 +24,21 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
       "credit": "William L. Farr · CC BY-SA 4.0 · File: Angelina National Forest, Angelina County, Texas, USA (November 2020).jpg"
     },
     "bestSeason": "Fall through spring for comfortable long hikes; spring migration and blooms and year-round forest birding depend on local conditions.",
-    "entryNote": "This map marker locates Boykin Springs Recreation Area, one of many entry points, not the geographic center of the 153,179-acre national forest. Some forest lands within proclaimed boundaries are privately owned; heed property signs. Campground amenities, fees, fire restrictions and trail closures change.",
+    "entryNote": "This map marker locates Boykin Springs Recreation Area, one of many entry points, not the geographic center of the 153,334-acre national forest. Some forest lands within proclaimed boundaries are privately owned; heed property signs. Campground amenities, fees, fire restrictions and trail closures change.",
     "highlights": [
-      "153,179 acres in four counties",
+      "153,334 acres in four counties",
       "Boykin Springs Recreation Area",
       "Sam Rayburn Reservoir shorelines",
       "Stephen F. Austin Experimental Forest",
       "Aldridge Sawmill industrial heritage"
     ],
     "body": [
-      "Angelina National Forest is not one park-like attraction with a single gate. Its 153,179 acres cover areas of Angelina, Nacogdoches, San Augustine and Jasper counties, with large tracts along Sam Rayburn Reservoir in the Neches River watershed. Public national forest land, private inholdings, developed recreation areas and scientific research sites coexist in a landscape that calls for a map before driving.",
+      "Angelina National Forest is not one park-like attraction with a single gate. The Forest Service March 2025 Fingertip Facts reports 153,334 acres in Angelina (58,684), Jasper (21,023), San Augustine (64,389) and Nacogdoches (9,238) counties. An older Forest Service visitor listing still quotes 153,179 acres; this guide uses the newer dated agency fact sheet and discloses the discrepancy. National forest land, private inholdings, developed recreation areas and scientific research sites coexist around Sam Rayburn Reservoir, so consult an official land-status map before driving.",
       "The ecological gradient is a reason to explore slowly. In the sandy uplands, open longleaf and other pine habitats support species adapted to regular fire, including distinctive woodland birds; the lower creeks, bottomlands and lake edges support hardwood stands and migratory bird habitat. TPWD documents especially noteworthy birding near Boykin Springs, including brown-headed nuthatches and red-cockaded woodpeckers. Avoid disturbing marked red-cockaded colonies or entering wildlife management closures.",
       "Choose your outing by activity instead of treating the forest as one homogeneous destination. For a short educational walk, the Stephen F. Austin Experimental Forest has interpreted Jack Creek and a forest-management loop. Boykin Springs Recreation Area offers campground and day-use facilities plus the Sawmill Hiking Trail; the Old Aldridge industrial ruins are reached by forest trail rather than a paved roadside pull-off. Lake recreation has separate boat ramps, shore-access policies and seasonal operations.",
       "Be alert to changing conditions. Forest Service orders can restrict access, camping, fires, vehicles and trails, particularly after storms or during high fire danger. National-forest boundaries on a map do not themselves authorize crossing adjacent private property. The map pin provided here represents Boykin Springs as a concrete starting point; use official USFS maps to select the actual destination."
     ],
-    "officialUrl": "https://www.fs.usda.gov/visit/destinations",
+    "officialUrl": "https://www.fs.usda.gov/r08/texas",
     "managingAuthority": "USDA Forest Service, National Forests and Grasslands in Texas",
     "directions": "For the map pin, navigate to Boykin Springs Recreation Area off Forest Road 313 in Jasper County. For other areas, use the Forest Service's location-specific instructions and maps.",
     "accessibilityNotes": "Accessibility differs substantially by developed recreation area, waterside access and unimproved trail. The distinct Stephen F. Austin Jack Creek interpretive loop was designed for universal access; verify its condition.",
@@ -95,7 +95,7 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
       ]
     },
     "authorityGuide": {
-      "whyItMatters": "A 153,179-acre federal Piney Woods forest encompassing parts of four East Texas counties, Sam Rayburn shorelines, woodland wildlife habitats, hiking, history and distinct recreation areas.",
+      "whyItMatters": "A 153,334-acre federal Piney Woods forest encompassing parts of four East Texas counties, Sam Rayburn shorelines, woodland wildlife habitats, hiking, history and distinct recreation areas.",
       "assessment": {
         "recommendedVisit": "Allow a half-day per chosen recreation area; do not try to visit an entire national forest in a single walk.",
         "physicalEffort": "Low to moderate",
@@ -135,9 +135,14 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
       ],
       "sources": [
         {
-          "label": "USFS Forest destinations",
-          "url": "https://www.fs.usda.gov/visit/destinations?field_fs_states_tid_selective=All&field_rec_activities_target_id=All&field_rec_activities_tid_selective=11937&field_rec_forest_target_id=All&page=549",
-          "scope": "Primary operator or historical source for geography, ecology, visitor rules and interpretation"
+          "label": "USFS March 2025 Fingertip Facts acreage by county",
+          "url": "https://www.fs.usda.gov/sites/nfs/files/r08/texas/publication/National%20Forests%20and%20Grasslands%20Fingertip%20Facts_03262025_0.pdf",
+          "scope": "USDA dated March 2025 land acreage for Angelina National Forest: 153,334 acres, disaggregated by four counties"
+        },
+        {
+          "label": "USFS older Angelina recreation listing",
+          "url": "https://www.fs.usda.gov/visit/destinations?field_fs_states_tid_selective=All&field_rec_activities_target_id=All&field_rec_activities_tid_selective=11937&field_rec_forest_target_id=All&field_rec_forest_tid_selective=12019&page=549",
+          "scope": "Older agency visitor listing states 153,179 acres; useful for identifying the conflicting count, not as an authoritative 2025 acreage estimate"
         },
         {
           "label": "TPWD Pineywoods birding Boykin Springs",
@@ -159,8 +164,8 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
       },
       {
         "question": "How large is it?",
-        "answer": "The Forest Service lists 153,179 acres.",
-        "sourceUrl": "https://www.fs.usda.gov/visit/destinations?field_fs_states_tid_selective=All&field_rec_activities_target_id=All&field_rec_activities_tid_selective=11937&field_rec_forest_target_id=All&page=549"
+        "answer": "The USDA Forest Service March 2025 Fingertip Facts lists 153,334 acres in four counties. An older Forest Service visitor listing instead says 153,179; these official pages disagree, so the dated 2025 fact sheet is the basis for this guide.",
+        "sourceUrl": "https://www.fs.usda.gov/sites/nfs/files/r08/texas/publication/National%20Forests%20and%20Grasslands%20Fingertip%20Facts_03262025_0.pdf"
       },
       {
         "question": "Where should first-time visitors start?",
