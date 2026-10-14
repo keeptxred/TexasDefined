@@ -59,7 +59,14 @@ async function verify() {
   const googlebot = head.match(/<meta name="googlebot" content="([^"]+)"/)?.[1] ?? '';
   assert(robots.startsWith('index, follow') && !googlebot.includes('noindex'), 'LBJ State Park must be indexable for robots and Googlebot');
   assert(html.includes('Sauer-Beckmann') && html.includes('/article/fredericksburg-johnson-city-historic-road-trip'), 'Canonical page must contain living-history guidance and reciprocal itinerary link');
-  assert(!head.includes('texasdefined-destination-placeholder.svg'), 'Canonical photo must not be a placeholder');
+  // The head also contains ItemList schema for *related* destinations; some legitimately
+  // use generic image placeholders. Validate the canonical page's primary image itself,
+  // not arbitrary images appearing anywhere in its related-place structured data.
+  const expectedHero = new URL('/images/explore/historic-sites/lyndon-b-johnson-state-park-historic-site.jpg', origin).toString();
+  const ogHero = head.match(/<meta property="og:image" content="([^"]+)"\s*\/>/)?.[1] ?? '';
+  assert(ogHero === expectedHero, 'Canonical primary og:image must use the exact credited LBJ State Park photograph; got ' + ogHero);
+  assert(head.includes('<link rel="preload" as="image" href="/images/explore/historic-sites/lyndon-b-johnson-state-park-historic-site.jpg"'), 'Canonical document must preload its exact LBJ State Park photograph');
+  assert(!ogHero.includes('texasdefined-destination-placeholder.svg'), 'Canonical primary photograph must not be a placeholder');
 
   for (const path of aliases) {
     const response = await responseFor(path, true);
