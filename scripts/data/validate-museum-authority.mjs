@@ -200,9 +200,11 @@ if (base) {
           /(museum|historical park|science center)/i.test(name)) found.add(slug);
     }
     // Triples such as ["texas-history", "law-enforcement", "museum-heritage"]
-    // are category taxonomy, not a destination tuple. Require a HUMAN museum
-    // name, with museum as an independent word (not "museum-heritage").
-    for (const match of added.matchAll(/"[^"]+",\s*"([a-z0-9-]+)",\s*"([^"]+)"/g)) {
+    // are category taxonomy, not a destination tuple. Only a complete,
+    // exactly three-field [id, slug, human name] record qualifies; an
+    // embedded topic like ["presidential-history", "dallas-history", "museum", ...]
+    // is not a new museum destination. Require museum in the human name.
+    for (const match of added.matchAll(/\[\s*"[^"\n]+"\s*,\s*"([a-z0-9-]+)"\s*,\s*"([^"\n]+)"\s*\]/g)) {
       if (/(?:^|[\s(])(?:museums?|historical park|science center)(?=$|[\s),.!])/i.test(match[2])) found.add(match[1]);
     }
     for (const slug of found) {
