@@ -13,7 +13,7 @@ const sanAntonioExistingAuthority: Record<string, Partial<Destination> & { __sou
       "height": 333,
       "credit": "TxHC · CC BY-SA 3.0 · Wikimedia Commons"
     },
-    "entryNote": "The Texas Historical Commission lists Casa Navarro's public schedule Tuesday–Sunday, 10 a.m.–4:30 p.m., closed Monday, with admission fees and occasional special programs. Confirm current opening and fees with THC before departing. This is not an unrestricted 24-hour park.",
+    "entryNote": "Texas Historical Commission hours: Tuesday–Sunday, 10 a.m.–4:30 p.m.; closed Monday. Current listed admission: adults $5, seniors/veterans/teachers/first responders $3, ages 6–17 $2, ages 5 and under free. Family offers and special programs have their own terms; check the operator before traveling.",
     "bestSeason": "Year-round, but a fall or spring downtown walking circuit is most comfortable.",
     "address": "228 S Laredo St, San Antonio, TX 78207",
     "body": [
@@ -42,7 +42,7 @@ const sanAntonioExistingAuthority: Record<string, Partial<Destination> & { __sou
       },
       {
         "question": "How much is admission?",
-        "answer": "THC posts fee categories and concessions on its official visitor page; check current prices rather than relying on old listings.",
+        "answer": "THC currently lists adults $5; seniors, veterans, teachers and first responders $3; ages 6–17 $2; ages five and under free. It also advertises a family package, so confirm current categories on the THC site.",
         "sourceUrl": "https://thc.texas.gov/historic-sites/casa-navarro"
       },
       {
@@ -100,7 +100,12 @@ const sanAntonioExistingAuthority: Record<string, Partial<Destination> & { __sou
       },
       {
         "question": "Does it charge admission?",
-        "answer": "City-managed admission and hours may change; verify on the current visitor page.",
+        "answer": "Yes. The City lists adults $6, seniors (60+) and military $4, children 7–13 $3, and children under 7 free; rates may change.",
+        "sourceUrl": "https://www.sanantonio.gov/governorspalace/"
+      },
+      {
+        "question": "What are the visitor hours?",
+        "answer": "The City lists Tuesday–Saturday 9 a.m.–5 p.m., Sunday 10 a.m.–5 p.m., and Monday closed. Verify special closures before arrival.",
         "sourceUrl": "https://www.sanantonio.gov/governorspalace/"
       }
     ],
@@ -115,7 +120,8 @@ const sanAntonioExistingAuthority: Record<string, Partial<Destination> & { __sou
         "url": "https://thc.texas.gov/blog/historic-road-trip-san-antonio",
         "scope": "Primary site history and current visitor policy"
       }
-    ]
+    ],
+    "entryNote": "The City currently lists Tuesday–Saturday, 9 a.m.–5 p.m.; Sunday, 10 a.m.–5 p.m.; closed Monday. General admission $6, seniors (60+) or military $4, children 7–13 $3 and under 7 free. Check current city hours, rates and accessible entry before visiting."
   },
   "king-william-historic-district": {
     "body": [
@@ -168,7 +174,8 @@ const sanAntonioExistingAuthority: Record<string, Partial<Destination> & { __sou
         "url": "https://villafinale.org/visit/",
         "scope": "Primary site history and current visitor policy"
       }
-    ]
+    ],
+    "entryNote": "King William is a lived-in historic residential district. Public sidewalks provide a self-guided architecture walk; houses and yards are predominantly private. Paid indoor access applies only where a separate operator, such as Villa Finale, explicitly advertises public visiting."
   },
   "villa-finale-museum-gardens-san-antonio": {
     "hero": {
@@ -182,7 +189,7 @@ const sanAntonioExistingAuthority: Record<string, Partial<Destination> & { __sou
     "visitorFaqs": [
       {
         "question": "Can I tour the rooms of Villa Finale?",
-        "answer": "Tours are offered through the operating historic house museum, but days, capacity and special events change; use the official calendar.",
+        "answer": "Yes. The museum advertises self-guided QR-code house tours Tuesday–Saturday between 10 a.m. and 4 p.m., last admission 3:30 p.m.; an additional paid guided option is listed for Thursdays at 3:30 p.m.",
         "sourceUrl": "https://villafinale.org/visit/"
       },
       {
@@ -202,7 +209,12 @@ const sanAntonioExistingAuthority: Record<string, Partial<Destination> & { __sou
       },
       {
         "question": "Are gardens always open?",
-        "answer": "The museum posts separate garden and house-tour schedules; verify the current visit rules.",
+        "answer": "No. The operator lists free public garden access Tuesday–Saturday, 10 a.m.–4 p.m.; holidays and events can change that schedule.",
+        "sourceUrl": "https://villafinale.org/visit/"
+      },
+      {
+        "question": "How much does Villa Finale admission cost?",
+        "answer": "The operator lists $12 adult/$10 senior, military or student for self-guided house visits; guided Thursday tours cost $15 adult/$12 eligible concessions. Children under five are free and gardens are free during public hours.",
         "sourceUrl": "https://villafinale.org/visit/"
       }
     ],
@@ -217,7 +229,8 @@ const sanAntonioExistingAuthority: Record<string, Partial<Destination> & { __sou
         "url": "https://savingplaces.org/places/villa-finale",
         "scope": "Primary site history and current visitor policy"
       }
-    ]
+    ],
+    "entryNote": "Current operator schedule: Tuesday–Saturday, 10 a.m.–4 p.m. (last house admission sold 3:30 p.m.). Self-guided house tickets $12 adults or $10 seniors/military/students; Thursday guided tour at 3:30 p.m. is priced separately. Gardens are free during public hours. Verify special-event/holiday closures before visiting."
   },
   "the-alamo": {
     "visitorFaqs": [
@@ -228,7 +241,7 @@ const sanAntonioExistingAuthority: Record<string, Partial<Destination> & { __sou
       },
       {
         "question": "Do I need a ticket?",
-        "answer": "Entry rules vary by church, grounds and museum exhibits; check the Alamo's current booking website.",
+        "answer": "The Alamo requires a reservation for the free Church visit. Other exhibits, guided tours and experiences may require paid tickets and separate time slots. Verify directly with the Alamo.",
         "sourceUrl": "https://www.thealamo.org/visit"
       },
       {
@@ -258,7 +271,8 @@ const sanAntonioExistingAuthority: Record<string, Partial<Destination> & { __sou
         "url": "https://www.nps.gov/saan/index.htm",
         "scope": "Primary site history and current visitor policy"
       }
-    ]
+    ],
+    "entryNote": "Alamo Church admission is free but currently requires a reservation. The Alamo Exhibit, guided tours and other experiences have separate ticket policies and possible charges. The operator advertises daily site hours 9 a.m.–5:30 p.m., with its collections center closing 5 p.m.; verify the reservation and current construction/access notices."
   },
   "san-antonio-missions-national-historical-park": {
     "accessibilityNotes": "NPS reports varying accessible paths across the mission sites; verify individual mission interior access and ranger programming. Historic paving and church access may differ from paved visitor approaches.",
@@ -305,7 +319,8 @@ const sanAntonioExistingAuthority: Record<string, Partial<Destination> & { __sou
         "url": "https://whc.unesco.org/en/list/1466/",
         "scope": "Primary site history and current visitor policy"
       }
-    ]
+    ],
+    "entryNote": "NPS currently lists interpretive park hours 9 a.m.–5 p.m. daily, outdoor mission grounds sunrise to sunset, and Thanksgiving, Christmas and New Year's Day closures. Active church services, temporary access restrictions and ranger programs operate separately. The four NPS missions have no standard admission charge."
   }
 };
 
