@@ -1,6 +1,7 @@
 import type { Region } from "@/data/types";
 import { REGION_AUTHORITY_OVERVIEWS } from "@/data/region-authority-overviews";
 import { REGION_AUTHORITY_DEPTH } from "@/data/region-authority-depth";
+import { REGIONAL_LANDSCAPE_LINKS } from "@/data/region-landscape-crosslinks";
 import { Container } from "@/components/layout/Container";
 
 export function RegionAuthorityGuide({ region }: { region: Region }) {
@@ -31,6 +32,25 @@ export function RegionAuthorityGuide({ region }: { region: Region }) {
             </section>
           ))}
         </div>
+        <section className="mt-12 border-t border-border pt-7" aria-labelledby="region-natural-landscapes">
+          <h3 id="region-natural-landscapes" className="font-display text-2xl">Understand the landscapes behind this region</h3>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
+            These scientific and geographic field guides add context to the travel region; landscape boundaries are not the same as tourism regions. Follow a topic that matters to your actual route rather than assuming every landscape covers the whole region.
+          </p>
+          <ul className="mt-5 grid gap-5 md:grid-cols-3">
+            {REGIONAL_LANDSCAPE_LINKS[region.id].map((item) => (
+              <li key={item.slug} className="border border-border bg-background p-5">
+                <h4 className="font-display text-lg">
+                  <a href={`/explore/landscapes/${item.slug}`} className="text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary">
+                    {item.label}
+                  </a>
+                </h4>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.context}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
         <h3 className="mt-10 font-display text-2xl">Season, access and safety</h3>
         <p className="mt-3 max-w-4xl text-base leading-8 text-muted-foreground">{guide.safety}</p>
         <h3 className="mt-10 font-display text-2xl">Build the next part of your trip</h3>
