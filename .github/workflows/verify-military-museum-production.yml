@@ -77,6 +77,19 @@ jobs:
           fetch_assert texas-history '/texas-history' 'Texas Military Museums'
           PRODUCTION_COMMIT_SHA="$DEPLOY_SHA" node scripts/ci/verify-naval-heritage-production.mjs
 
+      # workflow_run executes from current default-branch workflow YAML even
+      # when the successfully deployed SHA predates this newer verifier. Keep
+      # the original checkout pinned to deployed source for historical checks,
+      # but retrieve the browser acceptance tool from protected main separately.
+      - name: Check out protected browser acceptance verifier
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: .naval-browser-verifier
+          sparse-checkout: scripts/ci/verify-battleship-texas-browser.mjs
+          sparse-checkout-cone-mode: false
+          fetch-depth: 1
+
       - name: Prepare Chrome for Battleship Texas responsive acceptance
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
@@ -85,7 +98,11 @@ jobs:
           npm install --prefix /tmp/texasdefined-naval-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
 
       - name: Inspect Battleship Texas mobile and desktop, all images, and legacy HTTP 301
-        run: PRODUCTION_COMMIT_SHA="$DEPLOY_SHA" node scripts/ci/verify-battleship-texas-browser.mjs
+        run: |
+          set -euo pipefail
+          verifier_sha="$(git -C .naval-browser-verifier rev-parse HEAD)"
+          echo "Checking live deployed revision ${DEPLOY_SHA} using protected browser-verifier revision ${verifier_sha}"
+          PRODUCTION_COMMIT_SHA="$DEPLOY_SHA" VERIFIER_COMMIT_SHA="$verifier_sha" node .naval-browser-verifier/scripts/ci/verify-battleship-texas-browser.mjs
 
       - name: Retain Battleship Texas screenshots and browser acceptance
         if: always()
