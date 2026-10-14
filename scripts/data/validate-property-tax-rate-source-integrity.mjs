@@ -43,7 +43,7 @@ const requiredPage = [
   ['CSV source URL', "'source_url'", lazyRoute],
   ['visible correction source', 'Verified local correction source', lazyRoute],
   ['TEA MCR validation source', 'ty2025-final-mcrs-2.pdf', lazyRoute],
-  ['current verification date', 'October 14, 2026', lazyRoute],
+  ['current verification floor', "'2026-10-14'", lazyRoute],
   ['current sitemap date', "{ slug: 'school-district-tax-rates', updated: '2026-10-14' }", catalog],
   ['statewide registry title', "title: 'Texas School District Property Tax Rates — 2025'", registry],
   ['empty legacy sample rows', 'rows: []', registry],
