@@ -13,7 +13,7 @@ const CITY_RELOCATION_LINKS = [
   { href: '/compare-texas-cities', label: 'Compare Texas cities', copy: 'Put this city beside other Texas places using the same relocation research framework instead of comparing reputation alone.' },
   { href: '/texas-cost-of-living-calculator', label: 'Cost-of-living planner', copy: 'Replace broad averages with your household spending, housing assumptions, transportation and recurring local costs.' },
   { href: '/texas-salary-comparison-by-city', label: 'Salary planning', copy: 'Work backward from the household budget and compare income needs across the Texas places still on your shortlist.' },
-  { href: '/find-my-school-district', label: 'School-district lookup', copy: 'Verify the district and campus from an exact address; a city or mailing label does not establish school assignment.' },
+  { href: '/find-my-school-district', label: 'School-district lookup', copy: 'Research the district for an address; maps are approximate, and the school district must confirm campus attendance assignments.' },
   { href: '/find-my-utilities', label: 'Utility lookup', copy: 'Verify electric, water and sewer service for the address instead of assuming every property in the city uses the same provider.' },
   { href: '/find-my-property-tax', label: 'Property-tax research', copy: 'Identify the appraisal district, tax office and local taxing-unit stack for the property you are considering.' },
   { href: '/texas-home-insurance-calculator', label: 'Home-insurance planning', copy: 'Estimate the insurance side of the housing budget, then replace planning assumptions with property-specific quotes.' },
@@ -135,6 +135,14 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
           </> : <p className="text-base leading-7 text-muted-foreground">
             {countyName ? `${countyName} is the primary county context stored for this city page, but a city name or mailing address should not be treated as proof of county, school-district, appraisal-district or utility jurisdiction. Verify the exact address before using a local office, tax record, school boundary or service provider.` : `City, county, school-district, appraisal-district and utility boundaries are separate systems. Verify the exact address before relying on a local jurisdiction or service provider.`}
           </p>}
+          {cityProfile ? <aside className="mt-7 border-t border-border pt-6" aria-labelledby="city-address-verification-title">
+            <h3 id="city-address-verification-title" className="font-display text-2xl leading-tight">Verify the actual property address</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">A school district boundary is not the same as a campus attendance zone. The Texas Education Agency warns that its digital district maps are approximate and do not determine which school a child may attend; ask the serving district to confirm enrollment and campus assignment. Texas property-tax bills can include several separate local taxing units, so a published city tax rate is not the total rate for every address.</p>
+            <ul className="mt-4 space-y-2 text-sm font-semibold">
+              <li><a className="text-[#8c3e23] underline underline-offset-4" href="https://tea.texas.gov/families-and-students/school-district-locator/school-district-locator-faq" target="_blank" rel="noreferrer noopener">Texas Education Agency: district boundaries and attendance zones ↗</a></li>
+              <li><a className="text-[#8c3e23] underline underline-offset-4" href="https://comptroller.texas.gov/taxes/property-tax/rates/" target="_blank" rel="noreferrer noopener">Texas Comptroller: local tax rates by taxing unit ↗</a></li>
+            </ul>
+          </aside> : null}
         </div>
       </div>
     </section> : null}

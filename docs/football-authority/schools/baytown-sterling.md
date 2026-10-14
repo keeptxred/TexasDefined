@@ -35,6 +35,6 @@ Protected gate, branch merge, deployed production and real mobile/desktop Chrome
 
 ## October 13 — official campus source repair
 - Former schools.gccisd.net endpoints intermittently fail SSL connections for the Supabase source monitor. They were not falsely treated as available at this checkpoint.
-- Independently fetched current [official school information](https://rss.gccisd.net/about-us) and [official athletics section](https://rss.gccisd.net/athletics), both HTTP 200 from the new Goose Creek CISD campus domain. The GCM school history confirms opening for grades 9–11 in 2008–09 and first graduation class in 2010.
+- Independently fetched current [official school information](https://rss.gccisd.net/about-us) and [official athletics section](https://rss.gccisd.net/athletics), both HTTP 200 from the new Goose Creek CISD campus domain. The Ross S. Sterling campus pages confirm current campus identity and school athletics resources. The 2008–10 Goose Creek Memorial founding history belongs only to GCM and is not evidence about Sterling.
 - Historical UIL milestones retain their independently corroborated facts. The athletics portal is a first-party navigational source; the 2026 score table stays explicitly attributed to a dated secondary scoreboard.
 - Kickoff, admissions, accessibility and tickets must be confirmed with the district for each scheduled event.

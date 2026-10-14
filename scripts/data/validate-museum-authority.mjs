@@ -7,6 +7,19 @@ import { execFileSync } from "node:child_process";
 const read = (path) => readFileSync(path, "utf8");
 const src = read("src/data/museum-authority-network.ts");
 const failures = [];
+
+// AAM Dallas currently publishes conflicting normal/event-day hours.
+// Treat this as a disclosure requirement, not a reason to invent one schedule.
+const aamRecords = read("src/data/museum-authority-new-destinations.ts");
+const aamFaqSource = read("src/data/museum-visitor-faqs.ts");
+const aamRecord = aamRecords.split('slug: "african-american-museum-dallas-fair-park"')[1]?.split('slug: "', 1)[0] || "";
+const aamFaq = aamFaqSource.split('"african-american-museum-dallas-fair-park": [')[1]?.split('"texas-forestry-museum-lufkin": [')[0] || "";
+for (const [label, content] of [["destination", aamRecord], ["FAQ", aamFaq]]) {
+  for (const marker of ["10 a.m.", "11 a.m.", "State Fair", "214-565-9026"]) {
+    if (!content.includes(marker)) failures.push("African American Museum Dallas " + label + " lost official-hours conflict/phone detail: " + marker);
+  }
+}
+
 const required = [
   "bullock-texas-state-history-museum",
   "perot-museum-nature-science-dallas",
@@ -94,8 +107,7 @@ for (const path of ["src/data/destination-query-runtime.ts", "src/data/destinati
   if (read(path).includes('from "./museum-authority-network"')) failures.push(path + ": heavyweight dossier import regresses main client performance.");
 }
 if (!read("src/data/museum-authority-heroes.ts").includes("export const museumLicensedHeroes")) failures.push("Lightweight license-cleared museum heroes module missing.");
-// Both canonical destination lookups and the broader Explore catalog must use
-// licensed institution-specific images after all remote/curated transforms.
+// Licensed museum photos must survive final catalog reconciliation before corridor authority overlays.
 if (!/\.map\(enrichMuseumMedia\)\s*\.map\(applyTownAuthority\)\s*\.map\(enforceFredericksburgJohnsonCityHeritageAuthority\);/.test(read("src/data/destination-query-runtime.ts")))
   failures.push("Explore catalog lacks final licensed museum hero reconciliation.");
 execFileSync(process.execPath, ["scripts/data/test-museum-owner-inventory-parser.mjs"], { stdio: "inherit" });

@@ -20,15 +20,21 @@
   "liveSupabaseLastRead": {
     "museumRegistryRecords": 69,
     "registryStatusVerified": 63,
-    "registryStatusAwaitingEditorialVerification": 3,
     "registryStatusSourceUnreachable": 1,
     "museumMonitoredSourceRecords": 305,
-    "pathsWithMonitoredSources": 69,
+    "sourceBaseline": 280,
     "sourceUnreachable": 1,
     "cityOfKatySource403": "https://www.cityofkaty.com/visitors/museums",
-    "recordedSourceLastCheckUtc": "2026-10-14T05:05:43Z",
-    "note": "Read-only SQL state sampled October 14 after two operator-source fingerprints changed; do not reset editorial review timestamps based on connectivity.",
-    "registryStatusSourceChanged": 2
+    "lastManifestProcessed": {
+      "count": 69,
+      "declaredSources": 280,
+      "processed": 1,
+      "failed": 0,
+      "requestId": 6478
+    },
+    "registryStatusSourceChanged": 2,
+    "registryStatusAwaitingEditorialVerification": 3,
+    "pathsWithMonitoredSources": 69
   },
   "recoveryPullRequest": {
     "url": "https://github.com/keeptxred/TexasDefined/pull/4792",
@@ -38,7 +44,7 @@
     "newMonthlySourceRegisteredMuseums": 15,
     "proposedTotalMuseumSourceManifestEntries": 69,
     "proposedTotalMuseumFaqs": 563,
-    "proposedTotalMuseumSourceURLs": 281,
+    "proposedTotalMuseumSourceURLs": 283,
     "proposedBenchmarks": 69,
     "certifiedBenchmarks": 0,
     "slugs": [
@@ -63,7 +69,9 @@
     "mainReconciliation": "Reconciled all changed files against newest main at 79b334dd87ba7d86e0c54764abebf8bcd27c66d1; no overlapping paths at that point.",
     "coastalIndexingRegressionFixed": "Restored the preexisting full-researched coastal authority overlays and fail-closed coastal sitemap validator while adding explicit museum closure exemptions; the earlier recovery PR had inadvertently removed these protections.",
     "lbjCanonicalReconciliation": "Preserved current main LBJ State Park source/canonical slug corrections in both the destination availability set and destination indexing validator.",
-    "archivalDibollMedia": "Public-domain, 1907 Diboll sawmill collection photo; explicitly archival and not a present-day museum photo. Exact modern site photograph remains outstanding."
+    "archivalDibollMedia": "Public-domain, 1907 Diboll sawmill collection photo; explicitly archival and not a present-day museum photo. Exact modern site photograph remains outstanding.",
+    "friscoMuseumExactPhoto": "Frisco Museum of the American Railroad image 2019, Michael Barera CC BY-SA 4.0, exact site and visible source+license links; formerly a placeholder.",
+    "alvinMuseumExactPhoto": "Real 1940 former post office now Alvin Historical Museum: Larry D. Moore May 2015 CC BY 4.0, Commons verified source and visible license link; former current placeholder slated for production recheck."
   },
   "remainingIncomplete": [
     "Independently reconcile all submitted owner inventory names into valid unique Texas museum identities, excluding aliases/false positives/out-of-state places.",
@@ -72,7 +80,7 @@
     "Resolve or document City of Katy upstream HTTP 403; browser request headers were already tested and returned HTTP 403.",
     "Ensure missing exact-site licensed photos are secured or honestly acknowledged, never replaced with unrelated images.",
     "Verify live production routes, FAQ content, responsive layout, SEO/sitemap, image licensing and current visitor status.",
-    "Registry now has 69 museum records and 305 monitored sources across 69 paths; verify actual monitoring execution, source-change alerts, editorial reviews and production acceptance rather than re-enrolling the existing manifest.",
+    "Sync merged manifest into existing Supabase verification jobs and confirm source checks, alerts and actual editorial evidence.",
     "Reconcile remaining open museum PRs after verified merge; avoid duplicates.",
     "Merge through passing protected checks and verify deployed content; no green CI means no production-complete claim.",
     "Diboll has a rights-cleared public-domain 1907 archived local photograph; obtain a licensed present-day museum or actual Engine 13 photo before completing site-photo editorial acceptance.",
@@ -118,6 +126,24 @@
       "limits": "No image reuse permission or full vehicle interior accessibility implied"
     }
   ],
+  "productionVerification": {
+    "testedOn": "2026-10-14",
+    "site": "https://texasdefined.com",
+    "manifestLiveMuseumCount": 69,
+    "allKnownGuideRoutesTested": 69,
+    "http200Count": 69,
+    "noindexCountBeforePhotoRepairs": 7,
+    "noindexSlugs": [
+      "museum-of-the-american-railroad-frisco",
+      "museum-of-the-gulf-coast-port-arthur",
+      "alvin-historical-museum",
+      "el-paso-holocaust-museum",
+      "texas-broadcast-museum-kilgore",
+      "the-history-center-diboll",
+      "johnny-nelson-katy-heritage-museum"
+    ],
+    "status": "Transport and live reachability audited; missing licensed site photos gate noindex and cannot be silently waived. Recheck noindex after real-photo production deployments."
+  },
   "reconciliationObservations20261014": {
     "githubMainObservedCommit": "82fa4f86558f96e6f2b4b066474f0b1ea425b910",
     "mergedPRs": [
@@ -235,14 +261,15 @@
     "additionalOperatorCalendarSource": "https://texasmaritimemuseum.org/events/month/2026-10/",
     "proposedTotalManifestMuseums": 71,
     "proposedTotalMuseumFaqs": 585,
-    "proposedTotalManifestSourceRecords": 296,
+    "proposedTotalManifestSourceRecords": 298,
     "proposedTotalComparativeBenchmarks": 71,
     "independentlyCertifiedCount": 0,
     "goLiveState": "Branch only: awaiting protected CI, merge, deployment, live source ingestion and browser verification; no publication or certification claim.",
     "photoRights": {
       "sixthFloor": "Existing public-domain Carol Highsmith 2014 photograph LOC highsm.28410 confirmed; browser image verification outstanding",
       "lexington": "Existing Matthew T Rader Feb 2018 image CC BY-SA 4.0; visible credit and rendered display verification outstanding"
-    }
+    },
+    "mergeReconciliation": "Preserved main productionVerification, the original 69-guide live-route audit, two upstream source manifest additions, and other concurrently merged museum photo provenance records."
   },
   "newSourceChangeAlerts20261014": [
     {

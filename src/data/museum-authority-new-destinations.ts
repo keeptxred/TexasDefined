@@ -239,7 +239,7 @@ export const museumAuthorityDestinations: Destination[] = [
     coordinates: { lat: 32.778817, lng: -96.76415 },
     hero: museumLicensedHeroes["african-american-museum-dallas-fair-park"],
     bestSeason: "Indoor galleries year-round; plan around major State Fair or Fair Park event days for access and parking.",
-    entryNote: "The operator lists Tuesday–Saturday 10 a.m.–5 p.m., normally free individual admission with no advance tickets. Groups over ten require reservations and may incur a fee. The Mandela exhibition runs through November 1, 2026; double-check temporary opening changes and Fair Park events.",
+    entryNote: "The museum lists CONFLICTING regular opening times on the same official visitor page: its hours table says Tuesday–Saturday 10 a.m.–5 p.m., while the detailed FAQ says Tuesday–Friday 11 a.m.–5 p.m. and Saturday 10 a.m.–5 p.m. Its State Fair FAQ lists daily 10 a.m.–7 p.m. during fair dates. Individual admission is normally free, but groups over ten require arrangements. Call 214-565-9026 and confirm Fair Park Gate 5, hours, current exhibitions and event parking before traveling; do not rely on one timetable.",
     highlights: [
       "African American visual art and cultural heritage",
       "Nelson Mandela: The Official Exhibition (temporary, through November 1, 2026)",
@@ -254,7 +254,7 @@ export const museumAuthorityDestinations: Destination[] = [
     managingAuthority: "African American Museum, Dallas",
     officialUrl: "https://aamdallas.org/plan-your-visit/",
     address: "3536 Grand Avenue, Dallas, TX 75210",
-    sourceCheckedAt: "2026-10-12",
+    sourceCheckedAt: "2026-10-14",
     accessibilityNotes: "The institution describes wheelchair access and subtitled media for the Mandela exhibition. Confirm today's Fair Park gate and any sensory or mobility arrangements directly before visiting.",
   },
   {

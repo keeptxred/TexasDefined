@@ -86,11 +86,16 @@ try {
     'category/12033/',
     'category/12001/',
     'category/12070/',
+    'roof (?:replacement|repair|installation|installer|installers|inspection|inspector|inspectors|contractor|contractors|company|companies|cost|costs)',
+    'landscaping (?:company|companies|contractor|contractors|service|services|installation|design|cost|costs)',
     'pageServiceOverrides',
+    '["/article/texas-roofs-hail-wind-heat", "roofing"]',
     '["/article/texas-foundation-care-clay-soil-drought", "foundation"]',
     '["/article/texas-household-pests-guide", "pest-control"]',
     '["/article/texas-pool-owner-guide", "pools"]',
     '["/article/texas-home-maintenance-calendar", "handyman"]',
+    '["/article/texas-native-garden-that-survives-august", "landscaping"]',
+    '["/article/best-native-plants-texas-yard", "landscaping"]',
     '["/article/texas-homeowner-field-manual", null]',
     '["/article/true-cost-of-owning-a-home-in-texas", null]',
     '["/article/texas-wildfire-home-protection-guide", null]',
@@ -105,7 +110,10 @@ try {
     requireCondition(moduleSource.includes(needle), `Deployed Angi module is missing governed marker: ${needle}`);
   }
 
-  console.log('[angi-production] Live page, route-gated client bootstrap, exact-path home-service overrides and false-positive opt-outs, governed Angi asset, CJ attribution and SSR separation passed production verification.');
+  requireCondition(!moduleSource.includes('roof(?:ing| replacement| repair|er|ers)?'), 'Deployed Angi module restored the broad bare-roof matcher.');
+  requireCondition(!moduleSource.includes('landscap(?:e|er|ers|ing)'), 'Deployed Angi module restored the generic landscape matcher.');
+
+  console.log('[angi-production] Live page, route-gated client bootstrap, exact-path home-service overrides, service-intent roof/landscape fallbacks, false-positive opt-outs, governed Angi asset, CJ attribution and SSR separation passed production verification.');
 } catch (error) {
   const message = error instanceof Error ? error.message : String(error);
   console.error(`::error title=ANGI PRODUCTION failure::${message}`);

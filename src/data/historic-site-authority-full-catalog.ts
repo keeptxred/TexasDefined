@@ -85,7 +85,7 @@ const SITE_VISIT_PROFILES: Record<string, Pick<DestinationEditorialAssessment, "
     "physicalEffort": "Low",
     "weatherExposure": "Mostly indoors",
     "planningLevel": "Moderate",
-    "recommendedVisit": "Plan a house-centered architecture visit and confirm which floors or rooms are currently accessible."
+    "recommendedVisit": "Allow about 45 minutes for the self-guided public house tour, beginning at the Education Center. THC lists Tuesday–Saturday 10 a.m.–4 p.m. and Sunday 1–4 p.m., with the last ticket at 3:15 p.m. Individual public visits are walk-in only; group tours have separate advance booking."
   },
   "goodnight-ranch": {
     "physicalEffort": "Low to moderate",
@@ -256,6 +256,7 @@ function authoritySources(officialUrl: string, siteName: string): DestinationAut
   const primary = { label: `${siteName} — official managing authority`, url: officialUrl, scope: "Site-specific location, interpretation, entry rules, facilities, visitor alerts and official current access; confirm on the operator's page." };
   const siteTourSources: Record<string, {label:string;url:string;scope:string}[]> = {
     "goodnight-ranch": [{label:"THC — Goodnight Ranch tours and accessible rooms",url:"https://thc.texas.gov/state-historic-sites/goodnight-ranch/plan-your-visit-goodnight-ranch",scope:"Scheduled guided house tours, ticketing, first-floor access, second-floor stair barrier and group booking."}],
+    "fulton-mansion": [{label:"THC — Fulton Mansion public tours, groups and accessible floors",url:"https://thc.texas.gov/state-historic-sites/fulton-mansion/plan-your-visit-fulton-mansion",scope:"Official 45-minute public walk-in tour; Tuesday–Sunday hours, admissions, group reservations, wheelchair lift to first floor, stairs to upper floor and photo-based access alternative."}],
     "french-legation": [{label:"THC — French Legation tour and visitor information",url:"https://thc.texas.gov/state-historic-sites/french-legation/plan-your-visit-french-legation",scope:"Interior tour schedule, historic kitchen reconstruction and separate ticketing/group experiences."}],
     "fannin-battleground": [{label:"THC — Fannin Battleground self-guided visit",url:"https://thc.texas.gov/state-historic-sites/fannin-battleground/plan-your-visit-fannin-battleground",scope:"Free outdoor visits, accessibility, lack of visitor center and distinct group tour arrangements."}],
     "kreische-brewery": [
