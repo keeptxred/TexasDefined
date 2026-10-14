@@ -56,6 +56,8 @@ if (!errors.length) {
     'footballIsdProfilePath(record.districtName)',
     'loadAllFootballProgramsWithDirectory',
     'allProgramDirectoryCache',
+    'if (directoryInFlight) return directoryInFlight',
+    'if (allProgramDirectoryInFlight) return allProgramDirectoryInFlight',
   ]) requireText(directory, marker, 'Football directory ISD integration');
 
   for (const marker of [

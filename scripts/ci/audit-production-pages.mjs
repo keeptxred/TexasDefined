@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import { auditAuthorityEvidence } from './authority-evidence.mjs';
 import { enrichAuthorityLinkGraph } from './authority-link-graph.mjs';
 import { decodeEntities } from './html-entities.mjs';
+import { fetchTextWithRetry } from './audit-fetch.mjs';
 
 const ORIGIN = process.env.TEXASDEFINED_ORIGIN || 'https://texasdefined.com';
 const USER_AGENT = 'TexasDefinedWholeSiteQualityAudit/2.0 (+https://texasdefined.com)';
@@ -43,14 +44,13 @@ function severeTitleH1Conflict(title,h1) {
  return true;
 }
 
-async function fetchText(url,attempts=2) {
- let lastError;
- for(let attempt=1;attempt<=attempts;attempt++){
-  const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),TIMEOUT_MS);
-  try { const response=await fetch(url,{headers:{'user-agent':USER_AGENT,accept:'text/html,application/xml;q=0.9,*/*;q=0.8'},redirect:'follow',signal:controller.signal}); const body=await response.text(); clearTimeout(timer); if(response.status>=500&&attempt<attempts) continue; return {response,body}; }
-  catch(error){ clearTimeout(timer); lastError=error; if(attempt===attempts) throw error; }
- }
- throw lastError;
+async function fetchText(url, attempts=3) {
+ return fetchTextWithRetry(url, {
+  attempts,
+  timeoutMs: TIMEOUT_MS,
+  backoffMs: 400,
+  headers: { 'user-agent': USER_AGENT, accept: 'text/html,application/xml;q=0.9,*/*;q=0.8' },
+ });
 }
 function sitemapLocs(xml){ return [...xml.matchAll(/<loc>([\s\S]*?)<\/loc>/gi)].map(m=>decodeEntities(m[1].trim())); }
 async function discoverSitemaps(){ const urls=new Set([ORIGIN+'/sitemap.xml',ORIGIN+'/sitemap-explore.xml']); try{ const {response,body}=await fetchText(ORIGIN+'/robots.txt',1); if(response.ok) for(const m of body.matchAll(/^\s*Sitemap:\s*(\S+)/gim)) urls.add(m[1].trim()); }catch{} return [...urls]; }
