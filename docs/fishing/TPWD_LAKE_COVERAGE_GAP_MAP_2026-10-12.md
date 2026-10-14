@@ -5,8 +5,8 @@
 ## Counts and caveats
 
 - **175** separate alphabetical links/named entries in the TPWD public lake list (excluding its extra *Town Lake = Lady Bird Lake* alias line).
-- **65** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
-- **110** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
+- **66** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
+- **109** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
 - TPWD list entries include local ponds and some state-park-managed lakes as well as reservoirs; they cannot all be treated as equally high-demand or guaranteed distinct reservoirs.
 - This list does not include every Texas stock tank, private lake, community fishing pond, or small waterbody outside TPWD's own directory. It therefore cannot prove “every Texas lake.”
 
@@ -14,7 +14,6 @@
 
 - **Athens** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Lady Bird** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
-- **Medina** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **O.C. Fisher** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Limestone** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Cypress Springs** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
@@ -138,7 +137,7 @@
 | Marine Creek | **Not in completed-guide registry** |
 | Martin Creek | **Not in completed-guide registry** |
 | McClellan | **Not in completed-guide registry** |
-| Medina | **Not in completed-guide registry** |
+| Medina | [medina-lake](https://texasdefined.com/fishing/lakes/medina-lake) |
 | Meredith | [lake-meredith](https://texasdefined.com/fishing/lakes/lake-meredith) |
 | Meridian State Park | **Not in completed-guide registry** |
 | Mexia | **Not in completed-guide registry** |
@@ -255,3 +254,7 @@ The new Fort Parker Lake authority dossier is grounded in the current TPWD angli
 ## October 13 — Lake Tyler two-reservoir authority
 
 Lake Tyler is not one 1949 impoundment: TWDB distinguishes the West Whitehouse Dam (1948–49), East Mud Creek Dam (1966–67) and the connecting canal completed May 29, 1968. TPWD's 2,224-acre West + 2,276-acre East fisheries measurements differ from TWDB's 4,714 acres at the specified 2013 survey stage, not a disagreement about where two basins exist. Eight named public-access facilities are separated by basin, shore-use-only versus trailer ramps, city versus private operators and concession fees; the city bowfishing prohibition and low-water Highway 64 ramp constraint are called out. TPWD-listed primitive camping in CITY lake parks must be confirmed with Tyler Water Utilities; private fishing barge is not a ramp or campsite. Actual Lake Tyler East photo *Lake Tyler East.jpg* by David A. Harrison was confirmed through Commons original image metadata, CC BY-SA 4.0, 4,991×2,804; image represents East only. Proposed registry **65 complete lake guides, 110 TPWD listing gaps**. Original first-party photography, facility operating conditions and live-production acceptance are not certified.
+
+## October 13 — Medina Lake first-party-source authority
+
+The **66th proposed complete guide** covers Medina Lake, distinct from Medina Diversion Lake. TPWD reports only two named ramp facilities (Red Cove Camp and Bandera County Park Road 37) with conditional gravel-bank launching and separate operator fees and hours; these are historical facilities, **not verified currently accessible launches**. TWDB's timestamped October 13, 2026 snapshot measured just 28.6% conservation storage, 43.64 feet below full pool; the live gauge, NOT this dated value, controls future trip planning. TPWD warns of invasive zebra mussels and legally required draining. TWDB dates construction start to November 1911 and first filling to May 7, 1913. The independently located Medina Lake 2010 shoreline image is Larry D. Moore, **CC BY 4.0**, 1652×964, available from Wikimedia Commons; it must never imply current water status. The new proposed gap total is **109 of 175 TPWD-listed lake entries**. Live operator calls, full first-party images and production acceptance are still outstanding.
