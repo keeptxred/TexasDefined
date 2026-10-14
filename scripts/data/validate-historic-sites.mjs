@@ -305,6 +305,22 @@ for (const marker of [
   'coordinates: { lat: 27.96445, lng: -97.81838 }',
 ]) if (!corrections.includes(marker)) failures.push(`Lipantitlan source-backed fact correction missing: ${marker}`);
 
+// Factual subject identity and file-level reuse rights take precedence over
+// superficial indexable-photo coverage. Both named subjects in La Grange must
+// have different exact-site photographs, and the two unresolved places must
+// not borrow generic/nearby photographs while awaiting licensing.
+for (const mark of [
+  'destination.slug === "kreische-brewery"',
+  'Kreische%20Brewery%20Ruins%20Lower%20View.jpg',
+  'destination.slug === "monument-hill"',
+  'Monument%20hill%20monument.jpg',
+  'Larry D. Moore · CC BY 4.0',
+  'destination.slug === "old-socorro-mission"',
+  'hero: missingDestinationHero(destination)',
+]) if (!corrections.includes(mark)) failures.push(`Named historic image rights/identity correction missing: ${mark}`);
+if (remoteHeroes.includes('"old-socorro-mission": {')) failures.push("Closed original Socorro archaeological site still borrows an image of the operating mission church.");
+if (!authorityExpansion.includes('File:Kreische_Brewery_Ruins_Lower_View.jpg') || !authorityExpansion.includes('File:Monument_hill_monument.jpg')) failures.push("Original licensed file-level photo attribution links missing from public historic authority guide sources.");
+
 const exactHeroAliases = ['barrington-living-history-farm','fanthorp-inn','kreische-brewery','monument-hill','san-jacinto-battleground','washington-on-the-brazos'];
 for (const slug of exactHeroAliases) {
   if (!seedSlugs.includes(slug)) failures.push(`Exact historic hero alias does not match a statewide seed: ${slug}.`);
@@ -334,7 +350,6 @@ const verifiedRemoteHeroes = [
   ['mission-dolores', 'CC BY-SA 4.0'],
   ['national-museum-pacific-war', 'CC BY-SA 4.0'],
   ['official-texas-longhorn-herd', 'Public domain'],
-  ['old-socorro-mission', 'Public domain'],
   ['palmito-ranch-battlefield', 'CC BY-SA 3.0'],
   ['port-isabel-lighthouse', 'CC BY-SA 4.0'],
   ['presidio-la-bahia', 'CC BY-SA 4.0'],

@@ -50,3 +50,23 @@ These are **file-specific, independently checked** image rights, not a blanket l
 - **Reason for replacing the hero:** the hotel's old Adavyd 2014 Commons image was already being used by the Alpine Downtown Historic District guide. The site-wide image uniqueness rule replaced the duplicated hotel image with a placeholder and the hotel vanished from the Explore sitemap. Keep the district's old source-specific image; use P. Hughes's distinct image for the hotel.
 - Credit P. Hughes with the CC BY 4.0 license and link the exact Commons file; if edited, indicate modifications. This is an independently licensed photograph, **not** TexasDefined's original field photography. Its 2025 date is not evidence of current hotel access or active renovations.
 - Premerge photo uniqueness and post-deploy 14-landmark sitemap tests now protect against a recurrence. Do not claim this remediation is live until the corresponding production commit and sitemap have passed.
+
+## 5. La Grange's two historic sites — distinctly licensed exact-site photographs
+
+**Kreische Brewery /destination/kreische-brewery**
+- Actual masonry ruins; Commons original: https://commons.wikimedia.org/wiki/File:Kreische_Brewery_Ruins_Lower_View.jpg
+- Larry D. Moore, photographed September 18, 2015. Original 2,419 × 1,361 pixels. CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+- The photograph depicts the brewery's surviving limestone masonry and is **not** a monument photo. Its Commons special redirect returned an actual HTTP 200 image/jpeg during file-specific review.
+- Image credit links the Commons original; preserve author attribution and license, identify edited derivatives.
+
+**Monument Hill /destination/monument-hill**
+- Mier Expedition and Dawson's Men monument; Commons original https://commons.wikimedia.org/wiki/File:Monument_hill_monument.jpg
+- Original photograph by Larry D. Moore on September 9, 2006; perspective improved by Jim Evans in June 2021. Currently distributed image dimensions: 1,728 × 2,576. CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+- This is the original monument, distinct from the adjacent brewery ruins. The 1,280px Commons JPEG request responded HTTP 200, and its original file page identifies the site and reuse license.
+- Editorial requirement: preserve indication of 2021 alteration; photography cannot establish today's site access, public hours or pathways.
+
+## 6. No licensed original-site photos: Lipantitlán and Old Socorro Mission
+
+- **Lipantitlán:** The live guide incorrectly used a generic small-town photo, and the individual photographed historic-site imagery found on THC, Texas Time Travel, TripAdvisor and Flickr was not released under a demonstrated reuse license. In particular, the site-specific Flickr contributor source displayed **All rights reserved**. The generic photo is not a photograph of the marker or surviving landscape. Substitute a candid branded photo-unavailable placeholder; retain the researched accessible THC guide with noindex until proper site-specific photography is acquired. Do not present an illustration as a real reconstructed fort.
+- **Old Socorro Mission:** The previous Wikimedia Commons/public-domain photograph depicts the **currently operating Socorro Mission** on the El Paso Mission Trail. The researched original Old Socorro archaeological site is a **different location** and is closed to visitors. The image license is not the problem; the subject is wrong. Remove it from the original-site photo catalog. Substitute a photo-unavailable placeholder and noindex until exact-original-site rights and subject identity are established. The functioning mission can retain its own separately identified photography.
+- A page's route continuing to respond HTTP 200 does not mean the venue is currently visitable, its hero is correctly licensed, or that the page may stay indexable. Do not stamp the historical content as editorially certified on the strength of source HTTP checks.
