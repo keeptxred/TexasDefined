@@ -26,7 +26,8 @@ const required = [
 const errors = [], observations = [], openPhotoGaps = [];
 const decode = value => value.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;|&#x27;/g, "'");
 function attr(markup, name) {
-  return decode((new RegExp("\\b" + name + '\\s*=\\s*["\\']([^"\\']*)["\\']', "i").exec(markup) || [])[1] || "");
+  const match = name === "href" ? markup.match(/href="([^"]*)"/i) : markup.match(/content="([^"]*)"/i);
+  return decode(match?.[1] || "");
 }
 async function get(path) {
   const response = await fetch(origin + path, {
