@@ -15,6 +15,8 @@ const UNAVAILABLE_DESTINATION_SLUGS = new Set([
   "1940-air-terminal-museum-houston", // closed March 2026; historic reference page remains accessible
   "buffalo-soldiers-national-museum-houston", // renovations: exclude visits until operator confirms reopening
   "elisabet-ney-museum-austin", // closed for renovations until anticipated spring 2027 reopening
+  "first-capitol-of-texas", // THC: Not Open; historical reference, not a trip-planner destination
+  "old-socorro-mission", // THC: original archaeological location closed; distinct from active Socorro Mission
 ]);
 
 /**

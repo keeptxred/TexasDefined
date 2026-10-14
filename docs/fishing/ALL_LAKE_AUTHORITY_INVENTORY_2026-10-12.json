@@ -3,24 +3,24 @@
   "date": "2026-10-14",
   "baseline": "TPWD more than 150 lake profiles",
   "summary": {
-    "total": 69,
+    "total": 70,
     "standardSectionsPerGuide": 9,
-    "statewide": 54,
-    "namedAccess": 69,
+    "statewide": 55,
+    "namedAccess": 70,
     "unknownAccess": 0,
     "namedCamping": 45,
-    "unknownCamping": 24,
-    "history": 21,
+    "unknownCamping": 25,
+    "history": 22,
     "noHistory": 48,
-    "photoMappings": 69,
+    "photoMappings": 70,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 69,
+    "explicitNamedAccess": 70,
     "lackingNamedAccess": 0,
     "explicitNamedCamping": 45,
-    "lackingNamedCamping": 24,
-    "namedStatewideFacilities": 213,
-    "statewideTemplateGuidesWithNamedAccess": 54
+    "lackingNamedCamping": 25,
+    "namedStatewideFacilities": 215,
+    "statewideTemplateGuidesWithNamedAccess": 55
   },
   "entries": [
     {
@@ -1111,6 +1111,22 @@
       "accessFacilityCount": 5,
       "accessReviewedAt": "2026-10-14",
       "namedCamping": true
+    },
+    {
+      "slug": "bachman-lake",
+      "name": "Bachman Lake",
+      "kind": "Statewide",
+      "ramp": "Shorecrest Drive only official paved boat ramp with approximately five trailer spaces; one/two-lane discrepancy tracked",
+      "camping": "No designated lakefront overnight campsite inventoried; city park is day-use",
+      "history": "1903 water-supply reservoir, now recreation-only; TPWD dredging 2023 and city 2026 dam ceremony",
+      "fish": 4,
+      "photo": "Mapped historic true-lake Commons photo Ansem27 CC BY-SA 3.0",
+      "water": "No verified live lake-level gauge; TPWD explicitly states unavailable",
+      "risk": "TPWD 5HP versus Dallas City Code July 2026 general 10.5HP, night boating and lake swimming barred; confirm owner live closure and trailer capacity",
+      "namedAccess": true,
+      "accessFacilityCount": 2,
+      "accessReviewedAt": "2026-10-14",
+      "namedCamping": false
     }
   ],
   "legacy": [

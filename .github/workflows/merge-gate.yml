@@ -52,7 +52,12 @@ jobs:
 
       # Single source of truth: developers and CI run the same deterministic
       # pre-merge contract. Add future required checks to the runner, not here.
+      # Wrangler's first local SSR request may need extra cold-start time to load
+      # the production Worker module graph; the separate performance budgets stay unchanged.
       - name: Run canonical pre-merge validation
+        env:
+          BUILT_WORKER_SMOKE_STARTUP_TIMEOUT_MS: "120000"
+          BUILT_WORKER_SMOKE_REQUEST_TIMEOUT_MS: "90000"
         run: |
           set -o pipefail
           node scripts/ci/run-premerge-validation.mjs 2>&1 | tee canonical-premerge-output.txt
@@ -68,8 +73,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REPOSITORY: ${{ github.repository }}
           VALIDATED_SHA: ${{ github.event.pull_request.head.sha }}
-          MERGE_SHA: ${{ github.sha }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         shell: bash
         run: |
@@ -83,50 +86,11 @@ jobs:
             -f description='Canonical Required merge gate passed' \
             -f target_url="$RUN_URL" >/dev/null
           echo "Published Required merge gate status for validated PR head $VALIDATED_SHA."
-          # Branch protection may evaluate GitHub's synthetic PR merge commit rather
-          # than the head commit. The canonical validation above runs against the
-          # reconciled PR merge workspace; mark that checked-out merge SHA as well.
-          if [ "$MERGE_SHA" != "$VALIDATED_SHA" ]; then
-            gh api \
-              --method POST \
-              -H "Accept: application/vnd.github+json" \
-              "repos/$REPOSITORY/statuses/$MERGE_SHA" \
-              -f state='success' \
-              -f context='Required merge gate' \
-              -f description='Canonical Required merge gate passed on PR merge ref' \
-              -f target_url="$RUN_URL" >/dev/null
-            echo "Published Required merge gate status for validated PR merge $MERGE_SHA."
-          fi
-          # GitHub may regenerate the synthetic PR merge SHA without changing its
-          # content tree. Publish the required status for the CURRENT merge ref
-          # only when its tree exactly matches the workspace that passed validation.
-          git fetch --no-tags origin "refs/pull/$PR_NUMBER/merge"
-          CURRENT_MERGE_SHA="$(git rev-parse FETCH_HEAD)"
-          CURRENT_MERGE_TREE="$(git rev-parse "$CURRENT_MERGE_SHA^{tree}")"
-          VALIDATED_TREE="$(git write-tree)"
-          if [ "$CURRENT_MERGE_TREE" = "$VALIDATED_TREE" ]; then
-            if [ "$CURRENT_MERGE_SHA" != "$MERGE_SHA" ]; then
-              gh api \
-                --method POST \
-                -H "Accept: application/vnd.github+json" \
-                "repos/$REPOSITORY/statuses/$CURRENT_MERGE_SHA" \
-                -f state='success' \
-                -f context='Required merge gate' \
-                -f description='Validated identical current PR merge tree' \
-                -f target_url="$RUN_URL" >/dev/null
-              echo "Published status for current identical-tree PR merge $CURRENT_MERGE_SHA."
-            fi
-          else
-            echo "Current PR merge tree differs from validated workspace; refusing to publish an unvalidated status."
-          fi
-
-      # The pull-request REST read endpoint can return 404 to Actions' limited
-      # GITHUB_TOKEN. Do not fail an otherwise successful canonical gate merely
-      # because the optional merge-ref refresh API lookup is unavailable.
-      - name: Check merge-ref refresh availability
-        if: github.event_name == 'pull_request'
-        shell: bash
-        run: echo "Required merge gate already published status on validated PR head and checked-out synthetic merge ref."
+          # Keep the supplemental status on the PR head alongside the native
+          # Actions check. A status on a synthetic merge ref makes GitHub evaluate
+          # that ref instead, where the same-named Actions check is absent. GitHub
+          # also regenerates those refs independently of workflow completion.
+          # Strict branch protection still requires the head to include main.
 
       - name: Capture performance-budget failure details
         if: failure()

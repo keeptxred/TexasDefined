@@ -145,6 +145,10 @@
   ],
   "dallas": [
     {
+      "slug": "bachman-lake",
+      "name": "Bachman Lake"
+    },
+    {
       "slug": "joe-pool-lake",
       "name": "Joe Pool Lake"
     },

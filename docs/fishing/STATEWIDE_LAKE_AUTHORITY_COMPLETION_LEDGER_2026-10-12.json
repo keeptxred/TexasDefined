@@ -3,8 +3,8 @@
   "updatedAt": "2026-10-14",
   "scope": {
     "tpwdNamedEntries": 175,
-    "completedGuides": 69,
-    "missingCompleteGuideListings": 106,
+    "completedGuides": 70,
+    "missingCompleteGuideListings": 105,
     "legacyLakeAndParkDestinations": 36
   },
   "standards": {
@@ -293,17 +293,17 @@
     },
     {
       "tpwdEntry": "Bachman",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "bachman-lake",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bachman/",
+      "namedFacilities": "Shorecrest Drive municipal trailer ramp (five TPWD-listed trailer spaces, two lanes vs one in older TPWD survey); separate bank-fishing shoreline, not a second trailer ramp",
+      "campgrounds": "No designated public park campsites confirmed; city lake visitor use is day-use, do not assert overnight camping rights",
+      "primaryHistory": "City-owned 1903 water-supply reservoir now recreation-only; TPWD upper-basin dredging completed 2023; City Dallas March 31 2026 dam/spillway ribbon-cutting announcement; not a same-day operator reopening certificate",
+      "localPhoto": "Actual Lake Bachman 2005 photograph, Ansem27 via Wikimedia Commons; 2272 × 1704, CC BY-SA 3.0 from original Commons imageinfo; not TexasDefined field photography",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Dallas County and Dallas municipal lake discovery links generated from authoritative registry",
+      "destinationReciprocalLinks": "Nearby White Rock Lake guide reciprocally links to Bachman; Dallas city/county discovery generated; exact Bachman Park destination route linkage remains operator-verification task",
+      "competitivePrimarySourceComparison": "TPWD general page 5-HP, 2018 survey 10.5-HP, current Dallas City Code July 2026 §32-40 generally 10.5-HP with exceptions; historical 132-acre reservoir versus city 205-acre park; original 2022–2023 TPWD rehab survey and 2026 ribbon cutting researched; final operator check pending",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -312,7 +312,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Check live Shorecrest ramp closure and lane markings; city motor restrictions, overnight use, no-swimming and no-night-boating; verify newer sampling, first-party photos, mobile and SSR after production. HTTP source baseline does NOT represent editorial signoff."
     },
     {
       "tpwdEntry": "Balmorhea",

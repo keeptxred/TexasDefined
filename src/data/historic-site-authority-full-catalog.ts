@@ -258,7 +258,13 @@ function authoritySources(officialUrl: string, siteName: string): DestinationAut
     "goodnight-ranch": [{label:"THC — Goodnight Ranch tours and accessible rooms",url:"https://thc.texas.gov/state-historic-sites/goodnight-ranch/plan-your-visit-goodnight-ranch",scope:"Scheduled guided house tours, ticketing, first-floor access, second-floor stair barrier and group booking."}],
     "french-legation": [{label:"THC — French Legation tour and visitor information",url:"https://thc.texas.gov/state-historic-sites/french-legation/plan-your-visit-french-legation",scope:"Interior tour schedule, historic kitchen reconstruction and separate ticketing/group experiences."}],
     "fannin-battleground": [{label:"THC — Fannin Battleground self-guided visit",url:"https://thc.texas.gov/state-historic-sites/fannin-battleground/plan-your-visit-fannin-battleground",scope:"Free outdoor visits, accessibility, lack of visitor center and distinct group tour arrangements."}],
-    "kreische-brewery": [{label:"THC — Kreische Brewery and Monument Hill tour options",url:"https://thc.texas.gov/state-historic-sites/kreische-brewery/plan-your-visit-kreische-brewery",scope:"Steep 0.75-mile ruins route, separate accessible trail, onsite restrooms and seasonal guided tours."}],
+    "kreische-brewery": [
+      {label:"THC — Kreische Brewery and Monument Hill tour options",url:"https://thc.texas.gov/state-historic-sites/kreische-brewery/plan-your-visit-kreische-brewery",scope:"Steep 0.75-mile ruins route, separate accessible trail, onsite restrooms and seasonal guided tours."},
+      {label:"Historic-site photo: source, original creator and usage rights",url:"https://commons.wikimedia.org/wiki/File:Kreische_Brewery_Ruins_Lower_View.jpg",scope:"Exact Kreische Brewery ruins photographed 18 September 2015 by Larry D. Moore; CC BY 4.0 https://creativecommons.org/licenses/by/4.0/. Not a photograph of Monument Hill's memorial."},
+    ],
+    "monument-hill": [
+      {label:"Historic-site photo: source, original creator and usage rights",url:"https://commons.wikimedia.org/wiki/File:Monument_hill_monument.jpg",scope:"Exact Mier Expedition and Dawson's Men Monument, 2006 photograph by Larry D. Moore, 2021 perspective correction by Jim Evans; CC BY 4.0 https://creativecommons.org/licenses/by/4.0/."},
+    ],
     "confederate-reunion-grounds": [{label:"THC — Reunion Grounds visitor details",url:"https://thc.texas.gov/state-historic-sites/confederate-reunion-grounds/plan-your-visit-confederate-reunion-grounds",scope:"Tour lengths, pavilion access, Navasota walking trails and conflicting published opening days to reconfirm."}],
 
     "barrington-living-history-farm": [{ label: "THC — Barrington Living History Farm, public access", url: "https://thc.texas.gov/historic-sites/barrington-living-history-farm", scope: "Farm closures Monday–Tuesday, ticketed Wednesday–Sunday visit, Anson Jones household and enslaved agricultural labor." }],

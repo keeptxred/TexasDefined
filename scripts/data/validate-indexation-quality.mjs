@@ -190,6 +190,7 @@ if (!entityRoute.includes('isIndexableEntityPage')) failures.push('Generic entit
 if (!entityRoute.includes('robots: indexable ? undefined :') || !entityRoute.includes('noindex, follow')) failures.push('Generic entity pages must emit a noindex directive when the quality gate fails.');
 if (!countyRoute.includes('isCountyPropertyIndexReady')) failures.push('County indexation gate missing: isCountyPropertyIndexReady.');
 if (!countyRoute.includes('robots: indexReady ? undefined :') || !countyRoute.includes('noindex, follow')) failures.push('County pages must emit a noindex directive when the quality gate fails.');
+if (!sitemap.includes('hasCountySeriesProfileServer(entity.slug)')) failures.push('County sitemap must require the same editorial-profile gate as its canonical page.');
 for (const feature of ['graph.filter(isIndexableEntityPage)', 'COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)']) if (!sitemap.includes(feature)) failures.push(`Primary sitemap quality gate missing: ${feature}`);
 for (const feature of ['isPrimaryTripPlannerDestination(destination)', 'auditDestination(destination).readyForIndexing']) if (!exploreSitemap.includes(feature)) failures.push(`Explore sitemap destination quality gate missing: ${feature}`);
 if (!sitemap.includes('.filter((path) => !isExploreSitemapOwnedPath(path))')) failures.push('Primary sitemap must exclude Explore-owned static paths.');
