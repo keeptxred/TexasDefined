@@ -101,7 +101,7 @@ export const ussLexingtonCv16HistoryVisitorGuideArticle: Article = {
     list(
       "Address: 2914 N. Shoreline Boulevard, Corpus Christi, Texas 78402, on North Beach.",
       "2026 published general admission: adults (18+) $25; seniors (60+) $21; military $16 with ID; ages 13–17 $20; ages 4–12 $15; children 3 and under free.",
-      "Published all-day visitor parking: $5 (members free). The museum notes a 3% processing surcharge for card types other than cash/debit.",
+      "Published all-day visitor parking: $5 (members free). The museum notes a 3% processing surcharge on non-cash transactions.",
       "The flight and hangar decks are listed as wheelchair accessible, with a LEX LIFT elevator between them; much of the ship's historic machinery and passageway system includes steep ladders and restricted access.",
       "Check the operator's current hours-and-admission page for updated prices, closures, holiday events or accessibility changes before traveling."
     ),
