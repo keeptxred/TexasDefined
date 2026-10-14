@@ -10,9 +10,19 @@ const route = read("src/routes/explore.$category.tsx");
 const groups = read("src/components/editorial/DestinationRelationships.tsx");
 const relationshipEngine = read("src/data/destination-relationships.ts");
 const sitemap = read("src/routes/sitemap-explore[.]xml.ts");
+const activity = read("src/data/water-recreation.ts");
+const regional = read("src/data/destination-region-consistency.ts");
+const lazyRoute = read("src/routes/explore.$category.lazy.tsx");
 const destinationRuntime = read("src/data/destination-query-runtime.ts");
 const workflow = read(".github/workflows/verify-sitemap-production-integrity.yml");
 const errors = [];
+for (const marker of ['id="texas-float-corridors"', 'id="texas-swimming-picks"', 'id="texas-swimming-alerts"', 'id="texas-swim-planning"', '/article/texas-comal-river-guide', '/article/texas-guadalupe-river-guide', '/article/texas-frio-river-guide', '/article/texas-san-marcos-river-guide', 'https://tpwd.texas.gov/state-parks/abilene/alert/', 'https://wimberleyparksandrec.com/blue-hole-swimming/']) {
+  if (!publicAuthority.includes(marker)) errors.push("Swim authority lost trip-planning evidence: " + marker);
+}
+if (publicAuthority.split("<figure").length - 1 < 3) errors.push("Swim authority lacks destination-specific photographic evidence");
+if (!activity.includes('"abilene-state-park"') || !activity.includes('SWIM_ACTIVITY_RESTRICTIONS[destination.slug]')) errors.push("Closed swimming activity can reenter the recommendations");
+if (!regional.includes('"abilene-state-park": "panhandle"')) errors.push("Abilene State Park has no verified Panhandle Plains override");
+if (!lazyRoute.includes('id: "texas-swimming-floating-destination-graphic"')) errors.push("Swimming destinations no longer have an orientation map");
 if(publicAuthority !== bundledAuthority) errors.push("Bundled swim authority and public HTML have drifted");
 for (const marker of ['id="texas-swimming-holes-river-tubing-guide"',"Official sources","https://"]) if(!bundledAuthority.includes(marker))errors.push("Swim authority lost content/sources: "+marker);
 if(!server.includes('swimming-holes-river-tubing.html?raw'))errors.push("SSR worker is not bundling the authoritative HTML");
