@@ -264,8 +264,8 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "Follow Battleship Texas BB-35 from World War I and World War II service through preservation, dry-dock work, restoration and its Texas legacy.",
   },
   "/event/floresville-peanut-festival": {
-    title: "Floresville Peanut Festival 2026: Dates, Schedule & Tickets",
-    description: "Plan the 2026 Floresville Peanut Festival with verified dates, parade and schedule information, ticket details, official sources and Wilson County context.",
+    title: "Floresville Peanut Festival: Visitor Guide & Next Dates",
+    description: "Explore Floresville Peanut Festival traditions, parade guidance and Wilson County visitor information. Check organizers for the next confirmed dates.",
   },
   "/sports-venue/childrens-health-stadium-prosper": {
     title: "Children's Health Stadium Prosper: Parking & Events",
