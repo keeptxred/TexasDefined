@@ -7,6 +7,10 @@
 type HeritagePhotoRights = { sourceUrl: string; licenseUrl: string };
 
 const rightsByPath: Record<string, HeritagePhotoRights> = {
+  "/destination/alvin-historical-museum": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Former_alvin_tx_post_office.jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+  },
   "/destination/museum-of-the-american-railroad-frisco": {
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Frisco_June_2019_28_(Museum_of_the_American_Railroad).jpg",
     licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",

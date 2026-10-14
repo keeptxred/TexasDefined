@@ -3,6 +3,12 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "alvin-historical-museum": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Former_alvin_tx_post_office.jpg?width=1600",
+    alt: "The former 1940 U.S. Post Office building at 300 West Sealy Street in Alvin, Texas, now home of Alvin Historical Museum, photographed May 12, 2015",
+    width: 1600, height: 1067,
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · File:Former alvin tx post office.jpg · 2015 museum-building exterior",
+  },
   "museum-of-the-american-railroad-frisco": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Frisco_June_2019_28_%28Museum_of_the_American_Railroad%29.jpg?width=1600",
     alt: "Full-size historic locomotives displayed at the Museum of the American Railroad in Frisco, Texas, photographed on June 14, 2019",

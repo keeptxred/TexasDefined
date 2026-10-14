@@ -41,7 +41,7 @@
     "newMonthlySourceRegisteredMuseums": 15,
     "proposedTotalMuseumSourceManifestEntries": 69,
     "proposedTotalMuseumFaqs": 563,
-    "proposedTotalMuseumSourceURLs": 282,
+    "proposedTotalMuseumSourceURLs": 283,
     "proposedBenchmarks": 69,
     "certifiedBenchmarks": 0,
     "slugs": [
@@ -67,7 +67,8 @@
     "coastalIndexingRegressionFixed": "Restored the preexisting full-researched coastal authority overlays and fail-closed coastal sitemap validator while adding explicit museum closure exemptions; the earlier recovery PR had inadvertently removed these protections.",
     "lbjCanonicalReconciliation": "Preserved current main LBJ State Park source/canonical slug corrections in both the destination availability set and destination indexing validator.",
     "archivalDibollMedia": "Public-domain, 1907 Diboll sawmill collection photo; explicitly archival and not a present-day museum photo. Exact modern site photograph remains outstanding.",
-    "friscoMuseumExactPhoto": "Frisco Museum of the American Railroad image 2019, Michael Barera CC BY-SA 4.0, exact site and visible source+license links; formerly a placeholder."
+    "friscoMuseumExactPhoto": "Frisco Museum of the American Railroad image 2019, Michael Barera CC BY-SA 4.0, exact site and visible source+license links; formerly a placeholder.",
+    "alvinMuseumExactPhoto": "Real 1940 former post office now Alvin Historical Museum: Larry D. Moore May 2015 CC BY 4.0, Commons verified source and visible license link; former current placeholder slated for production recheck."
   },
   "remainingIncomplete": [
     "Independently reconcile all submitted owner inventory names into valid unique Texas museum identities, excluding aliases/false positives/out-of-state places.",
