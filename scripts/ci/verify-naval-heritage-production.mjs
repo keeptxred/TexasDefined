@@ -96,6 +96,22 @@ for(const c of cases){
  results.push(last);
  if(!last.errors.length)console.log("PASS "+c.path+": "+last.images+" rendered archival images");
 }
+// The closed museum is an indexable historical reference, not a visit-planner
+// recommendation. The Explore sitemap must reflect that editorial distinction.
+try {
+  const response=await fetch(origin+"/sitemap-explore.xml?naval_sitemap_check="+encodeURIComponent(sha),{
+    redirect:"follow",signal:AbortSignal.timeout(25000),
+    headers:{"User-Agent":"TexasDefined-Naval-Sitemap-Acceptance/1.0"}
+  });
+  const xml=await response.text();
+  const permalink="<loc>"+origin+"/destination/battleship-texas</loc>";
+  if(!response.ok || !xml.includes(permalink)){
+    results.push({path:"/sitemap-explore.xml",errors:["quality-gated closed Battleship Texas historical reference is missing from Explore sitemap (HTTP "+response.status+")"]});
+  } else console.log("PASS historical Battleship Texas canonical in Explore sitemap");
+} catch(error){
+  results.push({path:"/sitemap-explore.xml",errors:["Explore sitemap fetch: "+String(error)]});
+}
+
 const failures=results.filter(v=>v.errors.length);
 await mkdir(".artifacts",{recursive:true});
 await writeFile(".artifacts/naval-heritage-production.json",JSON.stringify({sha,checkedAt:new Date().toISOString(),results,scope:"live SSR, canonical, links, normalized upstream photo URLs and one real photo binary per naval page; responsive-layout inspection separate"},null,2));
