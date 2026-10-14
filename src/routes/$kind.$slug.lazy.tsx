@@ -175,7 +175,7 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   'jim-wells': [{ name: "Ben Bolt–Palito Blanco Fighting Badgers", slug: 'ben-bolt-palito-blanco', context: "Jim Wells County Fighting Badgers with a first-party 2026 game calendar" }],
   'duval': [{ name: "Benavides Eagles", slug: 'benavides', context: "Benavides Eagles: a published 2026 six-man football schedule, not eleven-man" }],
   'reagan': [{ name: "Reagan County Owls", slug: 'big-lake-reagan-co', context: "Big Lake's Reagan County Owls, 1986 Class 2A semifinals and James H. Bird Memorial Stadium" }],
-  'upshur': [{ name: "Big Sandy Wildcats", slug: 'big-sandy', context: "Big Sandy's 1973–75 dynasty, 1974 co-championship tie and Lovie Smith connection" }],
+  'upshur': [{ name: "Big Sandy Wildcats", slug: 'big-sandy', context: "Big Sandy's 1973–75 dynasty, 1974 co-championship tie and Lovie Smith connection" }, { name: 'Harmony Eagles', slug: 'big-sandy-harmony', context: 'Harmony ISD in Upshur County: the 2022 Class 3A Division II state semifinal and 2026 Eagle Stadium guide, distinct from Big Sandy Wildcats' }],
   austin: [{ name: 'Bellville Brahmas', slug: 'bellville', context: '1960, 1977 and 2023 UIL football state-final appearances in Austin County' }],
   // Batch 005 school-specific campus county links, distinct from away-game stadiums.
   'edwards': [{ name: "Nueces Canyon Panthers", slug: "barksdale-nueces-canyon", context: "six-man Panthers and Camp Wood stadium" }],
