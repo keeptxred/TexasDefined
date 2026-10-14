@@ -20,11 +20,18 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
     if (!loaderData) return {};
     const canonicalPath = `/texas-data/${loaderData.slug}`;
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
+    const liveSchoolYear = loaderData.schoolRates?.year;
+    const liveSchoolImported = loaderData.schoolRates?.generatedAt?.slice(0, 10);
+    const title = liveSchoolYear ? `Texas School District Property Tax Rates — ${liveSchoolYear}` : loaderData.title;
+    const description = liveSchoolYear
+      ? `Search statewide ${liveSchoolYear} school-district adopted property-tax rates, compare ${loaderData.schoolRates?.priorYear}, and review M&O and I&S components.`
+      : loaderData.description;
+    const dateModified = liveSchoolImported && liveSchoolImported > loaderData.updated ? liveSchoolImported : loaderData.updated;
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: loaderData.title,
-        description: loaderData.description,
+        title,
+        description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
@@ -33,11 +40,11 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
           {
             '@type': 'Dataset',
             '@id': `${pageUrl}#dataset`,
-            name: loaderData.title,
-            description: loaderData.description,
+            name: title,
+            description,
             url: pageUrl,
-            dateModified: loaderData.updated,
-            temporalCoverage: String(loaderData.year),
+            dateModified,
+            temporalCoverage: String(liveSchoolYear ?? loaderData.year),
             spatialCoverage: { '@type': 'State', name: 'Texas' },
             keywords: [loaderData.category, 'Texas data', 'TexasDefined'],
             creator: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
@@ -60,7 +67,7 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
             itemListElement: [
               { '@type': 'ListItem', position: 1, name: 'Front page', item: absoluteUrl(texasDefinedBrand, '/') },
               { '@type': 'ListItem', position: 2, name: 'Texas Facts', item: absoluteUrl(texasDefinedBrand, '/texas-data') },
-              { '@type': 'ListItem', position: 3, name: loaderData.title, item: pageUrl },
+              { '@type': 'ListItem', position: 3, name: title, item: pageUrl },
             ],
           },
         ],
