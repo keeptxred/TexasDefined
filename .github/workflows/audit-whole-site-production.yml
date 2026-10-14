@@ -117,10 +117,18 @@ jobs:
               'The complete per-URL ledger is preserved in the workflow artifact: `texasdefined-authority-review.tsv`. Remediate by template only for genuine shared defects; original source research and appropriate contextual links still require page-level verification.',
               'Do **not** close this issue on technical-only checks. A separate editorial-acceptance ledger must substantiate all applicable pages before closure.',
             ].join('\n').slice(0,59000);
-            const issues = await github.paginate(github.rest.issues.listForRepo, { owner, repo, state:'open', per_page:100 });
-            const existing = issues.find(issue => !issue.pull_request && issue.title === title);
-            if (existing) await github.rest.issues.update({owner,repo,issue_number:existing.number,body});
-            else await github.rest.issues.create({owner,repo,title,body});
+            // Issue #4704 is the single permanent authority ledger. Reuse the
+            // exact record across failed/successful crawls even if a separate
+            // process accidentally closed it; never generate a duplicate.
+            const issueNumber = 4704;
+            const { data: existing } = await github.rest.issues.get({owner,repo,issue_number:issueNumber});
+            if (existing.pull_request || existing.title !== title) {
+              throw new Error('Permanent TexasDefined authority issue #4704 was replaced or renamed; manual review required');
+            }
+            await github.rest.issues.update({
+              owner,repo,issue_number:issueNumber,body,
+              ...(existing.state === 'closed' ? {state:'open',state_reason:'reopened'} : {}),
+            });
       - name: Keep production technical audit fail-closed
         if: steps.audit.outcome == 'failure'
         run: exit 1
