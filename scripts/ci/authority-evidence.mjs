@@ -76,6 +76,7 @@ export function auditAuthorityEvidence(url, html) {
   const priority = family === 'event' ? 1 : ['fishing','school-football','data-reference'].includes(family) ? 2 : ['destination','community','venue'].includes(family) ? 3 : 4;
   return {
     family, priority, mainWords, headings: headingTags.length,
+    contextualInternalPaths: internalPaths,
     externalHosts: external.length, identifiablePrimarySourceHosts: officialHosts.length,
     officialEvidenceCandidates,
     internalLinkDestinations: internalPaths.length, meaningfulImageAlts: relevantImageAlts.length,
