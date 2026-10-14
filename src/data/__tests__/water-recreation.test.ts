@@ -82,6 +82,13 @@ describe("Swimming Holes & River Tubing qualification", () => {
     expect(items.some((item) => item.slug === "san-marcos")).toBe(true);
   });
 
+  it("keeps cross-category water destinations when a region is also requested", async () => {
+    const items = await listResolvedDestinations({ category: "swimming-holes-river-tubing", region: "hill-country" });
+    expect(items.some((item) => item.slug === "new-braunfels")).toBe(true);
+    expect(items.some((item) => item.slug === "san-marcos")).toBe(true);
+    expect(items.every((item) => item.region === "hill-country")).toBe(true);
+  });
+
   it("includes Bandera as the canonical Medina River tubing gateway", () => {
     const item = destination({ slug: "bandera", category: "small-towns", summary: "A Hill Country town with public Medina River swimming and tubing access." });
     expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([item]);
