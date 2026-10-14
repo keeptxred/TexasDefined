@@ -3,6 +3,18 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "alvin-historical-museum": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Former_alvin_tx_post_office.jpg?width=1600",
+    alt: "The former 1940 U.S. Post Office building at 300 West Sealy Street in Alvin, Texas, now home of Alvin Historical Museum, photographed May 12, 2015",
+    width: 1600, height: 1067,
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · File:Former alvin tx post office.jpg · 2015 museum-building exterior",
+  },
+  "museum-of-the-american-railroad-frisco": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Frisco_June_2019_28_%28Museum_of_the_American_Railroad%29.jpg?width=1600",
+    alt: "Full-size historic locomotives displayed at the Museum of the American Railroad in Frisco, Texas, photographed on June 14, 2019",
+    width: 1600, height: 1067,
+    credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons · File:Frisco June 2019 28 (Museum of the American Railroad).jpg · 2019 on-site view",
+  },
   "the-history-center-diboll": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Southern_Pine_Lumber_Company_sawmills_near_Diboll%2C_Texas_in_1907.jpg?width=660",
     alt: "Archival 1907 photograph of Southern Pine Lumber Company sawmills and timber railroad cars in Diboll, Texas, from The History Center collection; not the present-day museum building",

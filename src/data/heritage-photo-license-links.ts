@@ -1,11 +1,20 @@
 /**
- * Verified per-image provenance for the Fredericksburg–Johnson City corridor.
+ * Verified per-image provenance for specific TexasDefined editorial pages.
+ * Originally covering the Fredericksburg–Johnson City corridor, now also museum photos.
  * Only exact Commons files independently matched to the published hero are listed.
  * Additional images must not be assumed to share these rights or source files.
  */
 type HeritagePhotoRights = { sourceUrl: string; licenseUrl: string };
 
 const rightsByPath: Record<string, HeritagePhotoRights> = {
+  "/destination/alvin-historical-museum": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Former_alvin_tx_post_office.jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+  },
+  "/destination/museum-of-the-american-railroad-frisco": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Frisco_June_2019_28_(Museum_of_the_American_Railroad).jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+  },
   "/article/fredericksburg-johnson-city-historic-road-trip": {
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Lyndon_B._Johnson_Ranch_October_2020_28_(Texas_White_House).jpg",
     licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
