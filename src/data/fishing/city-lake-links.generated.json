@@ -1005,6 +1005,10 @@
     {
       "slug": "lake-mineral-wells",
       "name": "Lake Mineral Wells"
+    },
+    {
+      "slug": "lake-weatherford",
+      "name": "Lake Weatherford"
     }
   ],
   "west-lake-hills": [
