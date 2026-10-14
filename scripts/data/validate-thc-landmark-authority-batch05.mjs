@@ -13,6 +13,13 @@ const index=read("src/routes/texas-historic-landmarks.lazy.tsx");
 const batch=read("src/data/thc-historic-landmarks-authority-batch05.ts");
 const builder=read("src/data/thc-landmark-heritage-builder.ts");
 const errors=[];
+const holland=read("src/data/thc-holland-hotel-authority.ts");
+const alpineDistrict=read("src/data/thc-historic-landmarks-authority-batch01.ts");
+const hollandPhoto="Alpine - Holland Hotel.jpg";
+if (!holland.includes(`const image = "${hollandPhoto}";`)) errors.push("Holland Hotel must use its independently sourced exact-property photo");
+if (!holland.includes("P. Hughes") || !holland.includes("CC BY 4.0") || !holland.includes("imageWidth:5012,imageHeight:3896")) errors.push("Holland Hotel file-level creator/license/dimensions missing");
+if (alpineDistrict.includes(`commons("${hollandPhoto}"`)) errors.push("Holland Hotel and Alpine district cannot share a hero image");
+if (!alpineDistrict.includes('commons("Holland Avenue and Hotel Holland Alpine Texas DSC 5556 ad.JPG"')) errors.push("Alpine district original distinct photo provenance changed: reverify collision");
 if (!builder.includes("accessibilityNotes:site.accessibility")) errors.push("Accessibility details not rendered");
 if (!catalog.includes("thcHistoricLandmarkAuthorityBatch05Destinations")) errors.push("Authority batch not in canonical Explore");
 for (const [path,slug,minParagraphs,minFaqs,minSources] of records) {
@@ -22,7 +29,7 @@ for (const [path,slug,minParagraphs,minFaqs,minSources] of records) {
   if (!batch.includes(path.split("/").pop().replace(".ts",""))) errors.push(slug+": not in authority batch");
   if (!pairings.includes('"'+slug+'"')) errors.push(slug+": reciprocal pairing missing");
   if (!index.includes('"'+slug+'"')) errors.push(slug+": THC index link missing");
-  if (!s.includes("commonsFilePage(") || !s.includes("CC BY-SA")) errors.push(slug+": media evidence missing");
+  if (!s.includes("commonsFilePage(") || !/CC BY(?:-SA)? (?:3\.0|4\.0)/.test(s)) errors.push(slug+": file-specific image rights missing");
   if (!s.includes("entry:") || !s.includes("accessibility:") || !s.includes("firstVisitSteps:")) errors.push(slug+": site access requirements missing");
   const body=s.split("  body:[")[1]?.split("  faqs:[")[0] || "";
   if ((body.match(/^    "/gm)||[]).length<minParagraphs) errors.push(slug+": too few original history paragraphs");
