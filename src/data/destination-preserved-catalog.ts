@@ -19,6 +19,7 @@ import { thcHistoricLandmarkAuthorityBatch01Destinations } from "./thc-historic-
 import { thcHistoricLandmarkAuthorityBatch02Destinations } from "./thc-historic-landmarks-authority-batch02";
 import { thcHistoricLandmarkAuthorityBatch03Destinations } from "./thc-historic-landmarks-authority-batch03";
 import { thcHistoricLandmarkAuthorityBatch04Destinations } from "./thc-historic-landmarks-authority-batch04";
+import { thcHistoricLandmarkAuthorityBatch05Destinations } from "./thc-historic-landmarks-authority-batch05";
 import { hidalgoPumphouseAuthorityDestinations } from "./hidalgo-pumphouse-authority-destination";
 import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
@@ -229,6 +230,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   thcHistoricLandmarkAuthorityBatch02Destinations,
   thcHistoricLandmarkAuthorityBatch03Destinations,
   thcHistoricLandmarkAuthorityBatch04Destinations,
+  thcHistoricLandmarkAuthorityBatch05Destinations,
   coastalHeritageDiscoveryDestinations,
   animalSanctuaryDestinations,
   aquariumMarineDestinations,
