@@ -1,4 +1,5 @@
 import { animalSanctuaryDestinations } from "./animal-sanctuary-destinations";
+import { coastalHeritageDiscoveryDestinations } from "./coastal-heritage-discovery";
 import { museumAuthorityDestinations } from "./museum-authority-new-destinations";
 import { enrichMuseumMedia } from "./museum-authority-heroes";
 import { enrichSanAntonioHeritageAuthority } from "./san-antonio-heritage-enrichment";
@@ -228,6 +229,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   thcHistoricLandmarkAuthorityBatch02Destinations,
   thcHistoricLandmarkAuthorityBatch03Destinations,
   thcHistoricLandmarkAuthorityBatch04Destinations,
+  coastalHeritageDiscoveryDestinations,
   animalSanctuaryDestinations,
   aquariumMarineDestinations,
   museumAuthorityDestinations,

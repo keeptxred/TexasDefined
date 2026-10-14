@@ -23,6 +23,7 @@ import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { articlesQuery, categoriesQuery, destinationQuery, regionsQuery } from "@/data/queries";
 import { isTopTexasAttraction } from "@/data/top-texas-attractions";
 import { museumAuthoritySlugs } from "@/data/museum-authority-slugs";
+import { coastalHeritageAuthoritySlugs } from "@/data/coastal-heritage-discovery";
 import { hideImageFallbackLabel, recoverOrHideImage } from "@/lib/image-fallback";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from "@/platform/internal-link-policies";
@@ -143,6 +144,10 @@ export const Route = createFileRoute("/destination/$slug")({
     if (museumAuthoritySlugs.has(destination.slug)) {
       const { enrichMuseumAuthority } = await import("@/data/museum-authority-network");
       destination = enrichMuseumAuthority(destination);
+    }
+    if (coastalHeritageAuthoritySlugs.has(destination.slug)) {
+      const { resolveCoastalHeritageAuthority } = await import("@/data/coastal-heritage-authority");
+      destination = resolveCoastalHeritageAuthority(destination);
     }
     const [completeGraph, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([
       loadTexasKnowledgeGraph(),

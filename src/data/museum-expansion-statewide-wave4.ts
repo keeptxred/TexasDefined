@@ -231,7 +231,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     coordinates: { lat: 26.07633, lng: -97.20804 },
     hero: museumPlaceholder("Port Isabel Historical Museum"),
     bestSeason: "Fall through spring for comfortable Laguna Madre touring; the museum is a useful indoor stop during hotter coastal months as well.",
-    entryNote: "The museum currently opens Wednesday through Saturday from 10 a.m. to 4 p.m. Hours and traveling exhibits can change, so confirm the Museums of Port Isabel schedule before arrival.",
+    entryNote: "The museum operator currently says to telephone (956) 943-7602 to confirm opening hours; do not rely on older published weekday schedules. Its two-level historic building may require advance accessibility arrangements. Check admission and gallery access with the museum before making the trip.",
     highlights: ["1899 Champion Building", "Laguna Madre history", "1906 fish mural", "Port Isabel and border heritage"],
     body: [
       "Port Isabel's historical museum gives context to a coastal town many visitors otherwise encounter only on the way to South Padre Island. The Champion Building is itself part of the interpretation, with its commercial history and famous fish mural making the exterior a recognizable historic artifact before visitors enter the galleries.",
