@@ -444,3 +444,4 @@ await import('./verify-hurst-whirlyball-production.mjs');
 await import('./verify-viator-production.mjs');
 await import('./verify-fredericksburg-corridor-production.mjs');
 await import('./verify-seo-recovery-production.mjs');
+await import('./verify-rockport-exhibits-production.mjs');
