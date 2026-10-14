@@ -14,7 +14,7 @@ const commons = (file: string, alt: string, width: number, height: number, credi
   height,
   credit: `${credit} · Wikimedia Commons · license and file link: https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file)}`,
 });
-const schoolPhoto = commons("Dallas Booker T Washington High School.jpg", "Booker T. Washington High School for the Performing and Visual Arts in Dallas, photographed in 2009", 1000, 544, "Andreas Praefcke · CC BY 3.0 / GFDL (dual-licensed)");
+const schoolPhoto = commons("Booker T. Washington High School for the Performing and Visual Arts 01.jpg", "Booker T. Washington High School for the Performing and Visual Arts in the Dallas Arts District, photographed in 2008", 3264, 2448, "Joe Mabel · CC BY-SA 3.0 / GFDL (dual-licensed)");
 const cemeteryPhoto = commons("African American Museum August 2016 10 (Facing the Rising Sun Freedman's Cemetery exhibit).jpg", "2016 Facing the Rising Sun exhibition at the African American Museum about Dallas Freedman's Cemetery, not a photograph of the cemetery memorial", 6000, 4000, "Michael Barera · CC BY-SA 4.0 · 2016 exhibit photograph", true);
 const craftPhoto = commons("P1520669-1.jpg", "Historic Juanita Craft Civil Rights House at 2618 Warren Avenue, Dallas, photographed in 2014", 3776, 2138, "Drewp4vp · CC BY-SA 3.0 · 2014 photograph");
 const stPaulPhoto = commons("Dallas - St. Paul United Methodist Church 01A.jpg", "The historic red-brick St. Paul United Methodist Church building in the Dallas Arts District, photographed in 2008", 2292, 1833, "Joe Mabel · CC BY-SA 3.0 · 2008 photograph");
