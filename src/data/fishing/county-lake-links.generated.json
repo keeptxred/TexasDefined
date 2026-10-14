@@ -11,6 +11,12 @@
       "name": "Sam Rayburn Reservoir"
     }
   ],
+  "bandera": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
   "bastrop": [
     {
       "slug": "lake-bastrop",
@@ -365,6 +371,12 @@
       "name": "Choke Canyon Reservoir"
     }
   ],
+  "medina": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
   "mitchell": [
     {
       "slug": "lake-colorado-city",
@@ -425,6 +437,12 @@
     {
       "slug": "possum-kingdom-reservoir",
       "name": "Possum Kingdom Reservoir"
+    }
+  ],
+  "parker": [
+    {
+      "slug": "lake-weatherford",
+      "name": "Lake Weatherford"
     }
   ],
   "polk": [
