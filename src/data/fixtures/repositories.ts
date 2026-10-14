@@ -79,13 +79,6 @@ const loadEditorialArticles = async () => [
 ];
 
 const COUNTY_HERO_OVERRIDES: Partial<Record<string, Article["hero"]>> = {
-  "ward-county-monahans-sandhills-texas": {
-    src: "https://upload.wikimedia.org/wikipedia/commons/1/11/Monahans_Sandhills_at_Sunrise.jpg",
-    alt: "Sunrise over the dunes at Monahans Sandhills State Park in Ward County, Texas",
-    width: 2048,
-    height: 1360,
-    credit: "Wing-Chi Poon · CC BY-SA 3.0 · Wikimedia Commons",
-  },
   "brewster-county-big-bend-texas": {
     src: "/images/explore/national-parks/big-bend-national-park.jpg",
     alt: "Big Bend National Park in Brewster County, home of the Chisos Mountains and Rio Grande canyons",

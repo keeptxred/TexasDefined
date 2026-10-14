@@ -32,7 +32,7 @@ export function FishingPhoto({
       </div>
       {showCredit ? (
         <figcaption className="mt-2 text-[0.68rem] leading-5 text-muted-foreground">
-          {governedImage.credit}
+          <span className="font-medium">Photo credit: </span>{governedImage.credit}
           {governedImage.sourceUrl ? <> · <a href={governedImage.sourceUrl} target="_blank" rel="noreferrer noopener" className="underline decoration-border underline-offset-2 hover:text-foreground">source</a></> : null}
           {" · "}
           <a href={governedImage.licenseUrl} target="_blank" rel="noreferrer noopener" className="underline decoration-border underline-offset-2 hover:text-foreground">{governedImage.licenseName}</a>

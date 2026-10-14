@@ -56,6 +56,7 @@ const YoungCountyMuseumAuthority = lazy(() =>
   import("@/components/editorial/YoungCountyMuseumAuthority")
 );
 
+const DallasBlackHistoryAuthority = lazy(() => import("@/components/editorial/DallasBlackHistoryAuthority").then((m) => ({ default: m.DallasBlackHistoryAuthority })));
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 function hasValidCoordinates(lat: number, lng: number) {
@@ -157,17 +158,18 @@ export const Route = createFileRoute("/destination/$slug")({
       context.queryClient.ensureQueryData(articlesQuery({ category: destination.category, limit: 3 })),
     ]);
     const graph = destinationAutoLinkGraph(destination, completeGraph);
-    return { destination, graph, categories, regions, relatedArticles, relationshipGroups };
+    const dallasHeritage = destination.nearestTown === "Dallas" && destination.category === "historic-sites" ? (await import("@/data/dallas-black-history-research")).dallasBlackHistoryFor(destination.slug) : undefined;
+    return { destination, graph, categories, regions, relatedArticles, relationshipGroups, dallasHeritage };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
-    const { destination, categories, relationshipGroups } = loaderData;
+    const { destination, categories, relationshipGroups, dallasHeritage } = loaderData;
     const isZapataMuseum = destination.slug === "zapata-county-museum-history";
     const isAuthorityMuseum = museumAuthoritySlugs.has(destination.slug);
     const isYsletaMuseum = destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso";
     const isYoungCountyMuseum = destination.slug === "young-county-museum-of-history-and-culture";
     const authorityGuide = destination.authorityGuide;
-    const authorityCitations = authorityGuide?.sources.map((source) => source.url).filter(validExternalUrl) ?? [];
+    const authorityCitations = [...(authorityGuide?.sources.map((source) => source.url) ?? []), ...(dallasHeritage?.sources.map((source) => source.url) ?? [])].filter(validExternalUrl);
     const audit = auditDestination(destination);
     const isHistoricalMuseumReference = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin"].includes(destination.slug);
 // This closed museum's researched historical guide is indexable even though the
@@ -195,7 +197,7 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
         ...(hasUsableHero ? { image: destination.hero.src, imageAlt: destination.hero.alt } : {}),
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-      scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, attractionSchema, ...(relatedPlaces.length > 0 ? [relatedSchema] : []), breadcrumbSchema] }) }],
+      scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, attractionSchema, ...(relatedPlaces.length > 0 ? [relatedSchema] : []), ...(dallasHeritage ? [{ "@type": "FAQPage", "@id": `${url}#faq`, mainEntity: dallasHeritage.faqs.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) }] : []), breadcrumbSchema] }) }],
     };
   },
   notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">Destination guide</p><h1 className="mt-3 font-display text-4xl">This place isn’t in our guide yet</h1><p className="mt-4 max-w-xl text-base leading-7 text-muted-foreground">Browse the places we have mapped in <Link to="/explore" className="border-b border-primary text-primary">Explore Texas</Link>.</p></Container>,
@@ -203,7 +205,7 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
 });
 
 function DestinationPage() {
-  const { destination, graph, categories, regions, relatedArticles, relationshipGroups } = Route.useLoaderData();
+  const { destination, graph, categories, regions, relatedArticles, relationshipGroups, dallasHeritage } = Route.useLoaderData();
 
   if (destination.slug === "mayborn-museum-waco") return <Suspense fallback={null}><MaybornMuseumAuthority /></Suspense>;
   if (destination.slug === "zapata-county-museum-history") return <Suspense fallback={null}><ZapataCountyMuseumAuthority /></Suspense>;
@@ -302,6 +304,7 @@ function DestinationPage() {
           <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">{destinationExperienceTitle(destination.name, categoryName)}</h2>
           <div className="editorial-body mt-7 text-foreground/90">{destination.body.map((paragraph) => <p key={paragraph} className="mt-6 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}</div>
         </section>
+        {dallasHeritage && <Suspense fallback={null}><DallasBlackHistoryAuthority slug={destination.slug} /></Suspense>}
         <section aria-labelledby="before-you-go" className={isChokeCanyon ? "mt-10 border-t border-border pt-6" : "mt-16 border-t border-border pt-8"}>
           <p className="eyebrow text-primary">The details</p>
           <h2 id="before-you-go" className="mt-3 font-display text-3xl">Planning your visit</h2>

@@ -13,6 +13,11 @@ const checks = [
     script: 'scripts/ci/authority-link-graph.test.mjs',
   },
   {
+    id: 'region-landscape-contextual-discovery',
+    label: 'Verified reciprocal links between seven travel regions and published landscape guides',
+    script: 'scripts/data/validate-region-landscape-context.mjs',
+  },
+  {
     id: 'wildlife-ecological-discovery',
     label: 'Contextual animal profile links from authoritative wildlife, bird and hunting guides',
     script: 'scripts/data/validate-contextual-wildlife-crosslinks.mjs',
