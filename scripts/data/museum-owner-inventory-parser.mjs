@@ -24,6 +24,8 @@ export function segmentOwnerMuseumNames(raw) {
     .flatMap((line) => line
       .replace(suffixBoundary, "$1\n")
       .replace(/\)(?=[A-Z0-9])/g, ")\n")
+      // Joined compound surnames (GardensDeLeon) mark distinct entries.
+      .replace(/([a-z])((?:Mc|Mac|De|Du)[A-Z])/g, "$1\n$2")
       // Proper nouns like McNay, McFaddin-Ward, DeGolyer, DeLeon,
       // DuBois and MacArthur must not be cut into false institutions.
       .replace(/\b(?:Mc|Mac|De|Du)(?=[A-Z])[A-Za-z]+/g, (name) =>
