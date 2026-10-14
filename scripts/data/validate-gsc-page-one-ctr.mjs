@@ -151,8 +151,8 @@ const experiments = [
   },
   {
     path: '/event/floresville-peanut-festival',
-    title: 'Floresville Peanut Festival 2026: Dates, Schedule & Tickets',
-    description: 'Plan the 2026 Floresville Peanut Festival with verified dates',
+    title: 'Floresville Peanut Festival: Visitor Guide & Next Dates',
+    description: 'Explore Floresville Peanut Festival traditions, parade guidance',
   },
   {
     path: '/sports-venue/childrens-health-stadium-prosper',
