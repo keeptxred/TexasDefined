@@ -1,5 +1,12 @@
 # Football Authority — Execution Ledger
 
+## October 14, 2026 — Fail-closed production version-skew instrumentation
+While reviewing the merged #4909 recovery code, found an actual escaped-regex defect in the school document timeout matcher (`/^page\\\\.goto` and `\\\\d`), which prevented recognition of real `page.goto: Timeout 60000ms exceeded` browser errors. Corrected to true literal-period/numeric patterns, and added a deterministic test that exercises real Playwright timeout and transport strings—not merely static string inclusion.
+
+The 25-school/two-viewport production verifier now records `x-texasdefined-worker-version` on each school/county SSR response, requires exactly **one Worker version** across the full browser acceptance, captures same-origin failing .js/.css transport statuses/failed requests for diagnostics, and explicitly fails when the visitor-side stale-chunk auto-reload marker was set during the run (so a self-healed navigation cannot silently certify a release that required recovery). Existing all-school/reciprocal-link, SEO, runtime and screenshot hard gates remain. No automatic source/editorial acceptance status promotion.
+
+This detects evidence of cross-deployment skew but does **not** assert that any prior asset HTTP response was definitely 404 without captured headers. Continue [asset/root-cause incident #4913](https://github.com/keeptxred/TexasDefined/issues/4913) and preserve exact-SHA deploy and full live browser proof before marking deployed.
+
 ## October 14, 2026 — Post-deploy full Batch 005 Chrome pass; live chunk mitigation
 
 Exact-deployment [run #38639353854](https://github.com/keeptxred/TexasDefined/actions/runs/38639353854) published `992ac6be1752debc6f5d6a3975c7ef57ffc6c9bd`. [Post-deploy production Chrome #38640294787](https://github.com/keeptxred/TexasDefined/actions/runs/38640294787) passed **1,233 checks, 0 failures, all 25 schools and their 20 distinct county backlinks, desktop/mobile**, artifact `11929674415`. Cache repair [#38640297006](https://github.com/keeptxred/TexasDefined/actions/runs/38640297006) and freshness [#38640486233](https://github.com/keeptxred/TexasDefined/actions/runs/38640486233) succeeded. This closes the earlier exact-SHA browser regression only at the newly verified release; it does not promote the remaining 24 factual/editorial acceptance rows.

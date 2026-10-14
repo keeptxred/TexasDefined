@@ -66,3 +66,21 @@ test('recovery is in SSR head before hydration and enforced by canonical merge v
   assert.ok(root.indexOf(script) < root.indexOf('<HeadContent />'), 'listener must be installed before generated scripts');
   assert.ok(gate.includes("['--experimental-strip-types', '--test', 'scripts/ci/stale-chunk-recovery.test.mjs']"));
 });
+
+test('production Chrome gate detects version skew and never silently accepts a stale chunk reload', () => {
+  const qa = readFileSync('scripts/ci/verify-football-batch-005-production.mjs','utf8');
+  const timeoutLine = qa.match(/^const transientDocumentNavigation=(\/.+\/);$/m);
+  assert.ok(timeoutLine, 'school navigation recovery regex must exist');
+  const timeoutPattern = vm.runInNewContext(timeoutLine[1]);
+  assert.equal(timeoutPattern.test('page.goto: Timeout 60000ms exceeded.\\nCall log:'), true, 'actual Playwright timeout must match');
+  assert.equal(timeoutPattern.test('page.goto: net::ERR_CONNECTION_RESET'), true, 'recoverable network disconnect must match');
+  assert.equal(timeoutPattern.test('page.goto: HTTP 404'), false, 'an HTTP error is not retryable');
+  const assetLine = qa.match(/u\.pathname\.startsWith\('\/assets\/'\) && (\/.+\/).test\(u\.pathname\)/);
+  assert.ok(assetLine, 'chunk network diagnostics must match actual .js assets');
+  const assetPattern = vm.runInNewContext(assetLine[1]);
+  assert.equal(assetPattern.test('/assets/_kind._slug.lazy-CuN7ppXi.js'), true);
+  assert.equal(assetPattern.test('/article/something'), false);
+  assert.ok(qa.includes("check(workerVersions.size===1"), 'mixed Workers must be a hard acceptance failure');
+  assert.ok(qa.includes("check(false,view+': lazy-module recovery was needed during production acceptance'"), 'a self-healed lazy chunk must not silently certify the deployment');
+  assert.ok(qa.includes("report.assetTransportIssues=report.checks.flatMap"), 'record chunk HTTP/transport evidence');
+});
