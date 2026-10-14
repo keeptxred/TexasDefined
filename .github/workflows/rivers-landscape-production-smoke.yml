@@ -3,7 +3,7 @@ name: Rivers landscape production smoke
 on:
   workflow_run:
     workflows:
-      - Deploy TexasDefined production
+      - Purge authority cache after production deploy
     types:
       - completed
   workflow_dispatch:
@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   verify:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
