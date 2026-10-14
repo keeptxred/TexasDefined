@@ -39,6 +39,12 @@ export function StateParkVisitorEssentials({ destination }: { destination: Desti
     {verified && <p className="mt-4 text-xs text-muted-foreground">
       Park-specific visitor facts checked {verified.checkedAt} against{" "}
       <a href={verified.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">the TPWD source</a>.
+      {verified.facilitySourceUrl && <>{" "}Additional campsite or day-use details:{" "}
+        <a href={verified.facilitySourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">official TPWD facilities record</a>.
+      </>}
+      {verified.supplementalSourceUrl && <>{" "}Additional trailhead evidence:{" "}
+        <a href={verified.supplementalSourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">dated TPWD announcement</a>.
+      </>}
     </p>}
     <p className="mt-5 text-sm">
       <Link to="/explore/$category" params={{ category: "state-parks" }} className="font-semibold text-primary underline underline-offset-4">Explore Texas state parks</Link>
