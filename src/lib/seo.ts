@@ -919,12 +919,13 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
   const description = cleanMetaDescription(governedSnippet.description, META_DESCRIPTION_MAX_LENGTH);
   const titleTemplateOverhead = cleanMetaText(brand.seo.titleTemplate.replace("%s", "")).length;
   const maxPageTitleLength = brand.identity.id === "texasdefined" ? Math.max(24, 90 - titleTemplateOverhead) : Number.POSITIVE_INFINITY;
-  const budgetedPageTitle = (pageTitle.length > maxPageTitleLength
-    ? pageTitle.slice(0, maxPageTitleLength + 1).replace(/\s+\S*$/, "").trim()
-    : pageTitle)
-    // Never ship an automatically shortened search title ending in dangling glue.
-    .replace(/(?:\s+(?:and|or|of|for|to|with|in|at|the)|\s+&)$/i, "")
-    .trim();
+  const budgetedPageTitle = pageTitle.length > maxPageTitleLength
+    ? pageTitle.slice(0, maxPageTitleLength + 1)
+      .replace(/\s+\S*$/, "")
+      // Never ship an automatically shortened search title ending in dangling glue.
+      .replace(/(?:\s+(?:and|or|of|for|to|with|in|at|the)|\s+&)$/i, "")
+      .trim()
+    : pageTitle; // A short complete title like "Worth Pulling Over For" is preserved.
   const fullTitle = cleanMetaText(brand.seo.titleTemplate.replace("%s", budgetedPageTitle));
   const canonicalUrl = page.canonicalPath ? absoluteUrl(brand, page.canonicalPath) : undefined;
   const fallbackImage = SOCIAL_IMAGE_FALLBACKS[brand.identity.id];
