@@ -102,12 +102,18 @@ async function resolveDestinationCatalog(destinations: Destination[]) {
     { reconcileDestinationHeroes },
     { applyExploreHeroAssets },
     { applyStateParkHeroAssets },
+    { applyHistoricSiteFactCorrections },
   ] = await Promise.all([
     import("@/data/destination-quality"),
     import("@/data/explore-hero-reconciliation"),
     import("@/data/explore-heroes"),
     import("@/data/state-park-heroes"),
+    import("@/data/historic-site-fact-corrections"),
   ]);
+  // Keep the sitemap's final quality gate aligned with the *resolved public
+  // destination*, including closed-site status and exact-location image rights.
+  // Otherwise Lipantitlan and Old Socorro can be noindex on their HTML pages
+  // while still appearing in the XML feed with unrelated or misidentified art.
   return improveDestinationCatalog(
     applyAllCuratedDestinations(
       reconcileDestinationHeroes(
@@ -116,7 +122,7 @@ async function resolveDestinationCatalog(destinations: Destination[]) {
         ),
       ),
     ),
-  );
+  ).map(applyHistoricSiteFactCorrections);
 }
 
 function emergencyExploreSitemapResponse(error: unknown) {

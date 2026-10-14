@@ -323,6 +323,8 @@ if (remoteHeroes.includes('"old-socorro-mission": {')) failures.push("Closed ori
 for (const slug of ['first-capitol-of-texas', 'old-socorro-mission']) if (!visitorPolicy.includes('"'+slug+'"')) failures.push("THC-closed original site erroneously recommended in Trip Planner: "+slug);
 if (!destinationRoute.includes('"first-capitol-of-texas"].includes(destination.slug)')) failures.push("Indexed, researched First Capitol historical reference exception was lost after trip-planner closure.");
 if (!fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8').includes('"first-capitol-of-texas"].includes(destination.slug)')) failures.push("First Capitol historic reference indexable in HTML but missing from Explore sitemap exception list.");
+const exploreSitemapSource = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
+if (!exploreSitemapSource.includes(').map(applyHistoricSiteFactCorrections)') || !exploreSitemapSource.includes('import("@/data/historic-site-fact-corrections")')) failures.push("Explore sitemap does not apply resolved historic-site photo and closure corrections before indexability gating.");
 if (!destinationRoute.includes('isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><DestinationVisitPlanner')) failures.push("Destination visit planner still promotes inaccessible historic sites as ordinary visitor stops.");
 if (!authorityExpansion.includes('File:Kreische_Brewery_Ruins_Lower_View.jpg') || !authorityExpansion.includes('File:Monument_hill_monument.jpg')) failures.push("Original licensed file-level photo attribution links missing from public historic authority guide sources.");
 
