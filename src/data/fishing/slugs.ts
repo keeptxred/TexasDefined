@@ -86,6 +86,7 @@ export const STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS = [
   "lake-abilene",
   "lake-cypress-springs",
   "bachman-lake",
+  "lake-athens",
 ] as const;
 
 export const COMPLETE_FISHING_LAKE_SLUGS = [
