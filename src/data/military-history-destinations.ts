@@ -57,7 +57,7 @@ export const militaryHistoryDestinations: Destination[] = [
       sideTrips: [
         { name: "Texas and the U.S.–Mexican War", description: "Read the full TexasDefined guide to annexation, the disputed border, Palo Alto, Resaca de la Palma and the Treaty of Guadalupe Hidalgo.", href: "/article/texas-us-mexican-war-palo-alto-guide" },
         { name: "Texas military history timeline", description: "Place the 1846 fighting between the Republic of Texas and the frontier-Army era that followed.", href: "/article/texas-military-history-timeline" },
-        { name: "Cameron County guide", description: "Continue into Brownsville, Harlingen, the coast and the wider lower Rio Grande county.", href: "/article/cameron-county-brownsville-harlingen-south-padre-rio-grande" },
+        { name: "Cameron County guide", description: "Continue into Brownsville, Harlingen, the coast and the wider lower Rio Grande county.", href: "/county/cameron" },
       ],
     },
   },
