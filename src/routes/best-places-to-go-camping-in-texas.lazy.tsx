@@ -193,7 +193,7 @@ function CampingGuidePage() {
           <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Winter</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">South and West Texas can work well for cooler-weather trips, but fronts, freezes and large overnight temperature swings still require a current forecast and campsite-specific preparation.</p></div>
         </div>
         <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
-          <Link to="/texas-weather" className="text-primary underline-offset-4 hover:underline">Texas weather planning →</Link>
+          <a href="https://www.weather.gov/" target="_blank" rel="noopener noreferrer" className="text-primary underline-offset-4 hover:underline">Check the National Weather Service forecast →</a>
           <Link to="/explore/road-trips" className="text-primary underline-offset-4 hover:underline">Plan the drive →</Link>
         </div>
       </Container>
