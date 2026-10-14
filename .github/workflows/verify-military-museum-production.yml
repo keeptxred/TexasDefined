@@ -85,7 +85,7 @@ jobs:
       - name: Check out immutable protected browser acceptance verifier
         uses: actions/checkout@v4
         with:
-          ref: 1de3e297930acc56f5b11405ae5c69485af99256
+          ref: 1b3a7ccd62d169842300e89e2710e4f8e497b22a
           path: .naval-browser-verifier
           sparse-checkout: scripts/ci/verify-battleship-texas-browser.mjs
           sparse-checkout-cone-mode: false
