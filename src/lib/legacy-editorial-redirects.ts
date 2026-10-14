@@ -3,6 +3,10 @@
 const destinationAliases: Record<string, string> = {
   "lipantitlan-state-historic-site": "lipantitlan",
   "choke-canyon-south-shore-unit-state-park": "choke-canyon-state-park",
+  // Legacy North Shore naming is not a separate TPWD visitor unit.
+  "choke-canyon-north-shore-unit-state-park": "choke-canyon-state-park",
+  // Estelline Trailway access belongs to the Caprock Canyons visitor guide.
+  "caprock-canyons-trailway-estelline-terminal-state-park": "caprock-canyons-state-park",
   "san-jacinto-monument-state-historic-site": "san-jacinto-battleground",
   "seminole-canyon-state-park-and-historic-site": "seminole-canyon-state-park",
   "seminole-canyon-state-park-state-historic-site": "seminole-canyon-state-park",
