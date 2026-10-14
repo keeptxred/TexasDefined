@@ -3,24 +3,24 @@
   "date": "2026-10-13",
   "baseline": "TPWD more than 150 lake profiles",
   "summary": {
-    "total": 65,
+    "total": 66,
     "standardSectionsPerGuide": 9,
-    "statewide": 50,
-    "namedAccess": 65,
+    "statewide": 51,
+    "namedAccess": 66,
     "unknownAccess": 0,
     "namedCamping": 43,
-    "unknownCamping": 22,
-    "history": 17,
+    "unknownCamping": 23,
+    "history": 18,
     "noHistory": 48,
-    "photoMappings": 65,
+    "photoMappings": 66,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 65,
+    "explicitNamedAccess": 66,
     "lackingNamedAccess": 0,
     "explicitNamedCamping": 43,
-    "lackingNamedCamping": 22,
-    "namedStatewideFacilities": 201,
-    "statewideTemplateGuidesWithNamedAccess": 50
+    "lackingNamedCamping": 23,
+    "namedStatewideFacilities": 203,
+    "statewideTemplateGuidesWithNamedAccess": 51
   },
   "entries": [
     {
@@ -1047,6 +1047,22 @@
       "accessFacilityCount": 8,
       "accessReviewedAt": "2026-10-13",
       "namedCamping": true
+    },
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake",
+      "kind": "Statewide",
+      "ramp": "Named",
+      "camping": "No onsite camping inferred from the two TPWD ramp listings",
+      "history": "TWDB 1911-1913 Medina Dam construction and impoundment",
+      "fish": 6,
+      "photo": "Mapped",
+      "water": "TWDB live Medina Lake elevation and dated reservoir storage",
+      "risk": "Severe drought / low-water launches, Red Cove and Park Road 37 gravel-bank fallback conditional, zebra mussel restrictions, historic source area conflict, field photos and operator safety certification outstanding",
+      "namedAccess": true,
+      "accessFacilityCount": 2,
+      "accessReviewedAt": "2026-10-13",
+      "namedCamping": false
     }
   ],
   "legacy": [
