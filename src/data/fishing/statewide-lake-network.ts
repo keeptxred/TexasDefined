@@ -194,7 +194,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Deep End Public Ramp", operator: "Public facility; operator not specified by TPWD", kind: "public-ramp", launch: "From SH 155 in Frankston take US 175 east 3.5 miles, north on FM 1892 to ramp at west end of dam. Two-lane ramp.", fee: "No fee listed by TPWD", availability: "TPWD lists year-round; verify access/closure notices." },
       { name: "Lake Palestine Campground", operator: "Private campground operator listed by TPWD", kind: "resort", launch: "From SH 155 south of Tyler across lake bridges, right on Boles Road after third crossing. Two single-lane ramps; TPWD lists 40 parking spaces.", fee: "TPWD lists a fee; VERIFY current charge/reservations", availability: "TPWD lists year-round; historic operator (903) 876-2253. Independently confirm campground still operates." },
     ],
-    nearbyLakes: [{slug:"cedar-creek-reservoir",name:"Cedar Creek Reservoir"},{slug:"lake-bob-sandlin",name:"Lake Bob Sandlin"}],
+    nearbyLakes: [{slug:"cedar-creek-reservoir",name:"Cedar Creek Reservoir"},{slug:"lake-bob-sandlin",name:"Lake Bob Sandlin"},{slug:"lake-tyler",name:"Lake Tyler (East and West)"}],
   },
   {
     slug: "cedar-creek-reservoir", name: "Cedar Creek Reservoir", accessReviewedAt: "2026-10-12", tpwdSlug: "cedar_creek", waterDataSlug: "cedar-creek", region: "prairies-lakes",
@@ -599,7 +599,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Lake Bob Sandlin State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "From Pittsburg, SH 11 west to SH 21 north; across bridge to signed park; two-lane ramp, fishing pier and camping.", fee: "State park entrance fee", availability: "Year-round TPWD listing; park (903) 572-5531." },
       { name: "Barefoot Bay Marina", operator: "Private marina", kind: "marina", launch: "Southwest of dam, west from Pittsburg on SH 11 to FM 1520 north, across Barefoot Bay to marina.", fee: "TPWD lists fee", availability: "Year-round listing; confirm private operation (903) 856-3643." },
     ],
-    nearbyLakes: [{slug:"lake-o-the-pines",name:"Lake O' the Pines"},{slug:"lake-fork",name:"Lake Fork"}],
+    nearbyLakes: [{slug:"lake-o-the-pines",name:"Lake O' the Pines"},{slug:"lake-fork",name:"Lake Fork"},{slug:"lake-tyler",name:"Lake Tyler (East and West)"}],
     camping: {name:"Lake Bob Sandlin State Park",summary:"The state park provides camping and direct lake access; verify reservations, alerts and ramp conditions before travel."},
   },
   {
@@ -618,7 +618,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Eastside Park", operator: "City of Nacogdoches", kind: "park", launch: "Off CR 225 about eight miles west of Nacogdoches Loop 224, north at park signs. One-lane ramp, bank fishing, picnic/swim area.", fee: "TPWD lists no fee", availability: "Year-round; TPWD says park closes at 10 PM; city (936) 559-2960." },
       { name: "Westside Park", operator: "City of Nacogdoches", kind: "park", launch: "Off CR 225 about nine miles west of Nacogdoches Loop 224; north at park sign. Two-lane ramp and a two-thirds-mile nature trail.", fee: "TPWD lists no fee", availability: "Year-round; TPWD says closes at 10 PM; city (936) 559-2960." },
     ],
-    nearbyLakes: [{slug:"sam-rayburn-reservoir",name:"Sam Rayburn Reservoir"},{slug:"lake-palestine",name:"Lake Palestine"}],
+    nearbyLakes: [{slug:"sam-rayburn-reservoir",name:"Sam Rayburn Reservoir"},{slug:"lake-palestine",name:"Lake Palestine"},{slug:"lake-tyler",name:"Lake Tyler (East and West)"}],
   },
   {
     slug: "calaveras-lake", name: "Calaveras Lake", accessReviewedAt: "2026-10-12", tpwdSlug: "calaveras", region: "south-texas",
@@ -1605,6 +1605,89 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     nearbyDestinations:[{slug:"fort-parker-state-park",name:"Fort Parker State Park",reason:"Park map, camping inventory, CCC/Springfield history, accessible amenities and current state-park alerts complement the fishing and lake visitor guide."}],
     nearbyLakes:[{slug:"lake-waco",name:"Lake Waco"},{slug:"lake-whitney",name:"Lake Whitney"},{slug:"lake-somerville",name:"Lake Somerville"}],
+  },
+  {
+    slug: "lake-tyler", name: "Lake Tyler (East and West)",
+    tpwdSlug: "tyler", waterDataSlug: "tyler", region: "piney-woods",
+    verifiedAt: "2026-10-13", accessReviewedAt: "2026-10-13",
+    summary: "A source-researched guide to connected Lake Tyler East and West near Whitehouse: eight different public-access locations, a bridge-and-canal orientation, city park camping rules, bass/crappie fishing, historic twin-dam engineering and a monitored TWDB water gauge.",
+    surfaceAcres: 4500, maxDepthFeet: 40, impoundedYear: 1949, counties: ["Smith"],
+    nearestCities: ["Tyler", "Whitehouse", "Troup"], waterway: "Prairie and Mud creeks above the Angelina River",
+    riverBasin: "Neches River Basin", authority: "City of Tyler Water Utilities",
+    conservationPool: "375.38 feet in TWDB gauge NGVD29 datum",
+    fluctuation: "TPWD historically lists about two feet; latest gauge and ramp depth must be checked separately",
+    clarity: "Moderately clear",
+    identity: "Lake Tyler is a TWO-reservoir water system southeast of Tyler: the older West basin behind Whitehouse Dam on Prairie Creek and Lake Tyler East behind Mud Creek Dam. The two basins were joined by a canal on May 29, 1968; boat access, shoreline vegetation and ramps differ between shores. TPWD's fisheries sheet estimates 2,224 acres West plus 2,276 acres East, 4,500 acres combined. TWDB's later 2013 hydrographic survey reports 4,714 acres at a specified conservation elevation. These are different source surveys, not live lake area figures. City of Tyler Water Utility owns/operates the connected system. The City prohibits bowfishing on these waters according to TPWD. Never confuse the nearby Texas Freshwater Fisheries Center in ATHENS with Lake Tyler.",
+    habitat: [
+      "Upper arms of both lakes hold abundant emergent and submergent native vegetation; TPWD identifies hydrilla in Lake Tyler East and less of it in Lake Tyler West, with submerged timber and dock structure elsewhere.",
+      "The shallow upper creek reaches and bridge causeways create spring fishing options different from open lower-basin points. Near boat docks, avoid private shoreline and do not assume every fishing pier is a public ramp.",
+      "A connecting canal joins the east/west water bodies; their different dams and creek origins explain why routes and exact boat access must specify EAST or WEST. A low water level can particularly affect Highway 64 upper-lake ramp.",
+      "TPWD's city/park access directory describes primitive camping in municipal shoreline parks, but this is NOT a reservation for private concession sites, commercial fishing barge or marina. Confirm current Tyler Water Utility park rules and fires/overnight restrictions."
+    ],
+    fish: [
+      fish("largemouth-bass", "Largemouth bass", "excellent", "spring",
+        "TPWD rates largemouth bass excellent across the connected lakes, with bass using creek vegetation, docks, and points. Work native grass edges or hydrilla and adapt presentations to clarity, seasons and heavy summer boat traffic.",
+        ["soft-plastics","spinnerbaits","crankbaits","topwater"]),
+      fish("spotted-bass", "Spotted bass", "good", "spring",
+        "Spotted bass have a TPWD good rating. Target creek-channel edges and hard cover with smaller moving lures instead of assuming every black bass landed is a largemouth.",
+        ["crankbaits","spinnerbaits","soft-plastics"]),
+      fish("crappie", "White and black crappie", "good", "spring",
+        "TPWD rates crappie good; fish bridge areas and submerged structure with minnows and jigs. East-basin creel surveys documented white and black crappie, though abundance fluctuates.",
+        ["jigs-and-minnows","vertical-jigging"]),
+      fish("sunfish", "Bluegill, redear and redbreast sunfish", "excellent", "summer",
+        "TPWD rates sunfish excellent; vegetated shoreline areas are strong family and light-tackle destinations, provided shoreline access is legal and conditions safe.",
+        ["jigs-and-minnows","live-bait"]),
+      fish("catfish", "Catfish", "fair", "summer",
+        "TPWD's combined angling assessment is fair for catfish. Channel catfish are present, but do not market the whole reservoir as a premier catfish fishery.",
+        ["cut-bait","live-bait"],"secondary"),
+      fish("white-bass", "White bass", "fair", "spring",
+        "White bass occur in the combined lake and follow creek-inflow and seasonal bait movements. TPWD's fair rating is lower than the core bass/sunfish fisheries.",
+        ["vertical-jigging","trolling"],"secondary")
+    ],
+    access: "Eight named TPWD visitor facilities cover different sections of Lake Tyler East/West: Concession #1/Lake Tyler Marina, Hill Creek Park, Old #2/Chapman Park, Fritz & Opal's Barge, East Side Park #4, Old Omen West, Old Omen East, and Highway 64 Ramp. Marina is privately operated, its TPWD fee may be outdated, and the fishing barge is a PAID SHORE ANGLING site rather than a boat launch. Tyler Water Utility operates most city ramps, with a county-operated East ramp; the published 2026 status of each is not confirmed by a historical 'open all year' TPWD entry. Primitive camping is listed for CITY PARKS, not every concession/facility.",
+    accessPoints: [
+      {name:"Concession #1 / Lake Tyler Marina (WEST)",operator:"Private concession on Lake Tyler West",kind:"marina",launch:"From SH 110 in Whitehouse east on FM 346 about two miles; left on Tyler West Dam Road. TPWD lists two separate two-lane concrete launches, approximately 50 trailer spaces, store and bait facilities.",fee:"Historic TPWD launch fee was $3/day or $40/year; confirm operator's current rates before towing",availability:"Historically year-round. TPWD-listed (903) 839-2650; verify current concession, access and fees."},
+      {name:"Hill Creek Park (WEST)",operator:"City of Tyler Water Utilities",kind:"park",launch:"From SH 64 east of Tyler, south on FM 848, east on South Hill Creek Road about two miles; two-lane concrete ramp, loading piers, approximately 25 trailer spaces.",fee:"TPWD lists no boat-launch fee; confirm actual city rules",availability:"TPWD historically lists year-round; call Tyler Water Utility (903) 939-2724 about current gate/park rules."},
+      {name:"Old #2 / Chapman Park (WEST)",operator:"City of Tyler Water Utilities",kind:"park",launch:"From SH 64 east, south on FM 848, east on CR 2127. Broad single-lane concrete ramp and adjacent public parking.",fee:"TPWD lists no ramp fee; check city notices",availability:"Verify road, ramp water level and parking before travel."},
+      {name:"Fritz & Opal's Barge (WEST fishing ONLY)",operator:"Private angling concession",kind:"marina",launch:"At the north end of Old #2/Chapman Park via FM 848 and CR 2127. PAID fishing barge/shore access; TPWD does not list a motorboat ramp at this specific facility.",fee:"Historic TPWD barge angling charges $4 daytime and $5 overnight; operator current fees and operation not verified",availability:"Confirm the privately operated facility before planning a barge visit; it is NOT the Chapman Park launch."},
+      {name:"East Side Park #4 (WEST bank access)",operator:"City of Tyler Water Utilities",kind:"park",launch:"East shore of Lake Tyler West via FM 346 and FM 3341 (East Dam Road). TPWD marks bank angling and day-use parking; no trailer launch at this particular site.",fee:"TPWD lists free access; confirm park gate",availability:"Historically year-round in TPWD directory; bank-fishing only unless operator has made documented upgrades."},
+      {name:"Old Omen Road Ramp — WEST",operator:"City of Tyler Water Utilities",kind:"public-ramp",launch:"From SH 64 east of Tyler south on FM 848, east onto CR 285/Old Omen Road. Two multi-lane ramps (older is steep), about 20 parking spaces.",fee:"No launch fee in TPWD directory; confirm city access",availability:"Check ramp gradient, trailer suitability and gate before travel; older lane is steep."},
+      {name:"Old Omen Road Ramp — EAST",operator:"Smith County",kind:"public-ramp",launch:"From SH 64 east cross the upper lake bridge, south on FM 2607 about 1.8 miles, west on CR 285. One-lane launch with small UNPAVED parking lot.",fee:"TPWD lists no fee",availability:"County-maintained site; check current low-water and road conditions, not the same as Old Omen WEST."},
+      {name:"Highway 64 Ramp — EAST",operator:"City of Tyler Water Utilities",kind:"public-ramp",launch:"Upper end of Lake Tyler East just beyond first SH 64 lake bridge traveling from Tyler. One concrete lane, approximately 60 parking spaces.",fee:"TPWD lists no fee; confirm city use",availability:"TPWD warns this ramp is NOT useful at low lake levels. Check gauge and city closure notices before towing."}
+    ],
+    camping: {
+      name:"Primitive camping at designated City of Tyler lake parks",
+      summary:"TPWD's public-access introduction says primitive camping is permitted at city-operated Lake Tyler shoreline parks on a first-come basis. That is a historical operator summary, NOT a current reservation guarantee, guaranteed toilet/water service, or an invitation to camp on private marina, barge, roadside or dock land. Confirm designated legal spots, current restrictions, fires and overnight hours directly with City of Tyler Water Utilities (903) 939-2724. Nearby Tyler State Park is a SEPARATE state-park destination, not an on-water campground on Lake Tyler."
+    },
+    specialRules:true,
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/tyler/index.asp",
+    visitorSourceUrl:"https://tpwd.texas.gov/fishboat/fish/recreational/lakes/tyler/access.phtml",
+    localRegulationsSourceUrl:"https://tpwd.texas.gov/fishboat/fish/recreational/lakes/tyler/",
+    historyNotes: [
+      "TWDB records the west Whitehouse Dam project under a March 25, 1945 water permit and construction beginning April 30, 1948. Deliberate west impoundment began January 8, 1949; the dam was completed May 13, 1949. These are distinct engineering dates, not one interchangeable reservoir birthday.",
+      "The separate east Mud Creek Dam permit was issued October 1, 1956, and East construction began February 11, 1966. Impoundment began November 22, 1966 and the east dam was completed January 1967. A CANAL connected the two on May 29, 1968. The historic reservoir figures therefore must identify the correct part of Lake Tyler.",
+      "TWDB's 2013 volumetric survey lists the combined reservoir system at 4,714 acres and 77,284 acre-feet at elevation 375.38 feet; the TPWD angling page separately quotes 2,224 West and 2,276 East acres. Both source conventions are retained with attribution instead of treating any static area as today's exact level. Modern TWDB gauge readings have timestamps and water levels separate from these conservation-stage survey figures.",
+      "TWDB identifies the lake owner as City of Tyler. Public ramp maintenance is split among municipal facilities, Smith County and privately operated concessions, which explains differing entrance fees, access and overnight rules."
+    ],
+    visitorFAQs: [
+      {question:"Are Lake Tyler and Lake Tyler East different lakes?",answer:"They were built behind different dams on Prairie Creek and Mud Creek, but a canal linked them on May 29, 1968. TPWD maintains a joint angling profile while distinguishing ramp sites and banks. A Lake Tyler EAST photograph cannot be advertised as showing every West ramp."},
+      {question:"How many public launching locations are listed?",answer:"TPWD's eight named access FACILITIES include four bank/shore/marina categories and multiple boat ramps. Specifically, Fritz & Opal's Barge is paid fishing access, East Side #4 is bank access, and the East and West Old Omen ramps have different operators and parking. Use the detailed list rather than treating all eight as boat launches."},
+      {question:"Can I camp overnight at Lake Tyler?",answer:"TPWD lists primitive first-come camping in city lake parks. Confirm which city parks currently permit overnight stays; the private marina, paid fishing barge and separate Tyler State Park have different rules and booking requirements."},
+      {question:"Is the Highway 64 ramp safe for large trailers at low water?",answer:"The TPWD public-access page specifically warns Highway 64 ramp usability falls at low levels. Check the live TWDB Lake Tyler timestamp and ask the city for actual ramp status before towing. Water-level data alone cannot certify a ramp is open."},
+      {question:"Is bowfishing legal?",answer:"TPWD's Lake Tyler profile says a City of Tyler ordinance prohibits bowfishing on this connected water system. Check current municipal ordinances and applicable TPWD rules before using special gear; statewide rules alone are not sufficient."},
+      {question:"Which lake is best for bass, crappie or bank fishing?",answer:"TPWD rates largemouth and sunfish excellent, spotted bass and crappie good, and catfish/white bass fair. The marina, barge and city park banks have different public-access requirements; choose a legal site before selecting a species or fishing method."},
+      {question:"Why is TWDB's area higher than TPWD's?",answer:"TPWD uses 2,224 acres West plus 2,276 East. TWDB's 2013 survey calculates 4,714 combined acres at a defined 375.38-foot conservation stage. Measurement sources/dates differ; neither describes a live shoreline area."},
+      {question:"When did the East and West lakes become one reservoir?",answer:"The east dam impounded water starting November 22, 1966; the separate reservoirs were joined by canal on May 29, 1968. The original west reservoir impounded in January 1949."},
+      {question:"Is the Texas Freshwater Fisheries Center on Lake Tyler?",answer:"No. The Texas Freshwater Fisheries Center is in Athens, near Lake Athens. Tyler State Park is another separate destination. Neither should be used as an on-lake fishing dock or campsite in a Lake Tyler route."}
+    ],
+    travelAlerts:[
+      "The upper SH 64 ramp is specifically identified by TPWD as unsuitable at low levels; consult the TWDB timestamp and city lake office before trailering.",
+      "TPWD lists a CITY ordinance prohibiting bowfishing on both connected basins. Statewide bag/size rules do not cancel separate municipal prohibitions.",
+      "Some lake access facilities are paid private concessions and one is a FISHING BARGE, not a boat ramp. Do not use historic fee schedules or year-round labels as live booking confirmations.",
+      "Primitive camping reported by TPWD applies to designated city parks, not all private shorelines; verify current municipal rules and fire bans before camping.",
+      "Tyler East has documented hydrilla and invasive vegetation management. Clean, drain and dry gear; avoid spreading invasive plants to another reservoir."
+    ],
+    nearbyLakes:[{slug:"lake-palestine",name:"Lake Palestine"},{slug:"lake-bob-sandlin",name:"Lake Bob Sandlin"},{slug:"lake-nacogdoches",name:"Lake Nacogdoches"}],
   },
 ];
 
