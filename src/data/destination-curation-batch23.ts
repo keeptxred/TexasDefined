@@ -135,7 +135,7 @@ const curated: Record<string, Partial<Destination>> = {
     ],
     gallery: [
           {
-                "image": {
+                image: {
                       "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS%20Texas%20(BB-35)%201914.jpg?width=1280",
                       "alt": "USS Texas BB-35 with early cage masts in 1914",
                       "width": 1024,
@@ -146,7 +146,7 @@ const curated: Record<string, Partial<Destination>> = {
                 "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS%20Texas%20(BB-35)%201914.jpg"
           },
           {
-                "image": {
+                image: {
                       "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS%20Texas-6.jpg?width=1280",
                       "alt": "USS Texas BB-35 at sea near Hawaii in 1945",
                       "width": 740,
@@ -157,7 +157,7 @@ const curated: Record<string, Partial<Destination>> = {
                 "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS%20Texas-6.jpg"
           },
           {
-                "image": {
+                image: {
                       "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS%20Texas%20BB-35.jpg?width=1280",
                       "alt": "USS Texas at its old San Jacinto museum berth in 2006",
                       "width": 1752,
@@ -168,7 +168,7 @@ const curated: Record<string, Partial<Destination>> = {
                 "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS%20Texas%20BB-35.jpg"
           },
           {
-                "image": {
+                image: {
                       "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS%20Texas%20(BB-35)%20March%202022%2005.jpg?width=1280",
                       "alt": "USS Texas at San Jacinto in March 2022 before its transfer to Galveston",
                       "width": 6000,
@@ -179,7 +179,7 @@ const curated: Record<string, Partial<Destination>> = {
                 "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS%20Texas%20(BB-35)%20March%202022%2005.jpg"
           },
           {
-                "image": {
+                image: {
                       "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/US%20Navy%20100821-N-8390S-068%20The%20museum%20battleship%20USS%20Texas%20is%20being%20restored%20to%20her%201945%20condition.jpg?width=1280",
                       "alt": "USS Texas during a 2010 Navy community restoration project",
                       "width": 2144,
