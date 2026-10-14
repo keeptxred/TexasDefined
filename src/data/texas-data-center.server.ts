@@ -33,7 +33,7 @@ export const TEXAS_DATASETS: TexasDataset[] = [
     slug: 'school-district-tax-rates',
     title: 'Texas School District Property Tax Rates — 2025',
     description: 'Search statewide 2025 school-district adopted property-tax rates, compare 2024, and review source-backed M&O and I&S components where reported.',
-    category: 'Education', year: 2025, updated: '2026-10-04', unit: 'percent',
+    category: 'Education', year: 2025, updated: '2026-10-13', unit: 'percent',
     sourceName: 'Texas Comptroller of Public Accounts — Property Tax Assistance Division',
     sourceUrl: 'https://comptroller.texas.gov/taxes/property-tax/rates/',
     methodology: 'The statewide explorer reads the production Texas Comptroller-backed school-district rate dataset, compares 2025 with 2024, and flags variable or unavailable rates. Rates are dollars per $100 of taxable value; verify parcel-specific taxing units and exemptions locally.',
