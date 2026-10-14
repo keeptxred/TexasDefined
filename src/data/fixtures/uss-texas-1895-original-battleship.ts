@@ -22,7 +22,7 @@ export const ussTexas1895OriginalBattleshipArticle: Article = {
     alt: "Original USS Texas (1895) underway around 1900, photographed from the port bow in a U.S. National Archives view",
     width: 3000,
     height: 2332,
-    credit: "U.S. National Archives · NARA 512957 · Public domain · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Texas_(unnumbered),_renamed_the_San_Marcos._Port_bow,_underway,_ca._1900_-_NARA_-_512957.jpg",
+    credit: "U.S. National Archives · NARA 512957 · Public domain · Wikimedia Commons",
   },
   authorId: "a-marisol",
   publishedAt: "2026-10-14",
@@ -33,6 +33,7 @@ export const ussTexas1895OriginalBattleshipArticle: Article = {
   sourceName: "Naval History and Heritage Command",
   sourceUrl: "https://www.history.navy.mil/browse-by-topic/ships/ships-of-steam/uss-texas.html",
   sources: [
+    { label: "Original USS Texas circa 1900 hero photograph — NARA 512957, public-domain Commons file record", url: "https://commons.wikimedia.org/wiki/File:Texas_(unnumbered),_renamed_the_San_Marcos._Port_bow,_underway,_ca._1900_-_NARA_-_512957.jpg" },
     { label: "Naval History and Heritage Command — the first Texas, service and history", url: "https://www.history.navy.mil/browse-by-topic/ships/ships-of-steam/uss-texas.html" },
     { label: "U.S. Navy — photographs of Texas (1895–1911)", url: "https://www.history.navy.mil/our-collections/photography/us-navy-ships/battleships/texas.html" },
     { label: "Naval Sea Systems Command — Norfolk shipyard history", url: "https://www.navsea.navy.mil/Home/Shipyards/Norfolk/About-Us/History/" },
