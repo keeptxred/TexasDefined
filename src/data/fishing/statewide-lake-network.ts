@@ -636,7 +636,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "Calaveras Park provides the principal public boat ramps, shoreline access, camping and picnic facilities; entry and use fees apply.", specialRules: true, liveDataNote: "No public real-time pool-elevation feed is currently published for Calaveras Lake. TPWD lists normal water levels of 485.0 ft MSL in summer and 484.0 ft MSL in winter, with typical fluctuation of 1–2 feet. CPS Energy is the controlling authority; use its current lake notices and TPWD updates before travel.",     accessPoints: [
       { name: "Calaveras Park", operator: "CPS Energy recreation area; TPWD lists contract operator", kind: "park", launch: "Off Stuart Road, about 20 miles southeast of San Antonio via Loop 1604 east from US 181. Two four-lane ramps separated by about a quarter mile; shoreline camping and RV sites.", fee: "TPWD lists day-use, ramp and overnight fees", availability: "Gated hours and operator may change; verify current CPS Energy park access and campsites (210) 635-8359." },
     ],
-    nearbyLakes: [{slug:"choke-canyon-reservoir",name:"Choke Canyon Reservoir"},{slug:"lake-lbj",name:"Lake LBJ"}],
+    nearbyLakes: [{slug:"choke-canyon-reservoir",name:"Choke Canyon Reservoir"},{slug:"lake-lbj",name:"Lake LBJ"},{slug:"medina-lake",name:"Medina Lake"}],
     camping: {name:"Calaveras Park",summary:"The lake's public access park provides camping and shoreline facilities; verify current rules, reservations and operating hours."},
   },
   {
