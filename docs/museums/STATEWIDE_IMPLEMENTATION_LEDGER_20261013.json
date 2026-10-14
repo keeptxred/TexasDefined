@@ -28,13 +28,13 @@
   },
   "recoveryPullRequest": {
     "url": "https://github.com/keeptxred/TexasDefined/pull/4792",
-    "status": "PR open: merged=false; auto-merge configured but canonical protected checks must pass; do not claim live until production verified",
+    "status": "PR #4792 merged 2026-10-14T04:00:44Z; verify new 69-entry manifest and live museum pages independently before calling deployed.",
     "newGuideDossiers": 15,
     "newFaqs": 123,
     "newMonthlySourceRegisteredMuseums": 15,
     "proposedTotalMuseumSourceManifestEntries": 69,
     "proposedTotalMuseumFaqs": 563,
-    "proposedTotalMuseumSourceURLs": 280,
+    "proposedTotalMuseumSourceURLs": 281,
     "proposedBenchmarks": 69,
     "certifiedBenchmarks": 0,
     "slugs": [
@@ -58,7 +58,8 @@
     "ciIssueRemediation": "Changed existing broad indexing/content-integrity validators to inspect actual explicit closure allowlist rather than brittle two-item literal; all listed closed museums must remain excluded from trip planning.",
     "mainReconciliation": "Reconciled all changed files against newest main at 79b334dd87ba7d86e0c54764abebf8bcd27c66d1; no overlapping paths at that point.",
     "coastalIndexingRegressionFixed": "Restored the preexisting full-researched coastal authority overlays and fail-closed coastal sitemap validator while adding explicit museum closure exemptions; the earlier recovery PR had inadvertently removed these protections.",
-    "lbjCanonicalReconciliation": "Preserved current main LBJ State Park source/canonical slug corrections in both the destination availability set and destination indexing validator."
+    "lbjCanonicalReconciliation": "Preserved current main LBJ State Park source/canonical slug corrections in both the destination availability set and destination indexing validator.",
+    "archivalDibollMedia": "Public-domain, 1907 Diboll sawmill collection photo; explicitly archival and not a present-day museum photo. Exact modern site photograph remains outstanding."
   },
   "remainingIncomplete": [
     "Independently reconcile all submitted owner inventory names into valid unique Texas museum identities, excluding aliases/false positives/out-of-state places.",
@@ -70,7 +71,7 @@
     "Sync merged manifest into existing Supabase verification jobs and confirm source checks, alerts and actual editorial evidence.",
     "Reconcile remaining open museum PRs after verified merge; avoid duplicates.",
     "Merge through passing protected checks and verify deployed content; no green CI means no production-complete claim.",
-    "Diboll History Center museum's exact-location reusable photo has not been confirmed; publishing image remains fail-closed.",
+    "Diboll has a rights-cleared public-domain 1907 archived local photograph; obtain a licensed present-day museum or actual Engine 13 photo before completing site-photo editorial acceptance.",
     "Live page verification found Port Isabel historical museum still showing a placeholder despite source-referenced hero in main; investigate deployment, hydration and generated hero routing before certification."
   ],
   "externalSourceFailure": "The City of Katy official page returns Access Denied to current Supabase pg_net request even with standard browser User-Agent; two independent THC and Katy Heritage Society sources return 200. Do not mark failed City URL healthy.",
