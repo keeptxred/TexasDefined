@@ -149,6 +149,7 @@ const requiredLakes = [
   "cedar-lake-cleburne-state-park",
   "lake-worth",
   "lake-nasworthy",
+  "fort-parker-state-park-lake",
 ];
 const parseTuple = (source, name) => {
   const match = source.match(new RegExp(`${name}\\s*=\\s*\\[([^\\]]+)\\]`, "s"));
@@ -160,8 +161,8 @@ const completeLakeSlugs = [
   ...parseTuple(files.slugs, "STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS"),
 ];
 const allowedExactLakeImageGaps = new Set();
-if (new Set(completeLakeSlugs).size !== 63) fail(`expected 63 complete fishing lakes, found ${new Set(completeLakeSlugs).size}`);
-if (requiredLakes.length !== 63) fail(`expected 63 governed exact lake-photo mappings, found ${requiredLakes.length}`);
+if (new Set(completeLakeSlugs).size !== 64) fail(`expected 64 complete fishing lakes, found ${new Set(completeLakeSlugs).size}`);
+if (requiredLakes.length !== 64) fail(`expected 64 governed exact lake-photo mappings, found ${requiredLakes.length}`);
 for (const slug of completeLakeSlugs) {
   const hasMapping = requiredLakes.includes(slug);
   if (!hasMapping && !allowedExactLakeImageGaps.has(slug)) fail(`complete lake lacks governed image mapping or explicit exception: ${slug}`);
@@ -284,4 +285,4 @@ if (files.lakeDirectory.includes('showCredit={false}') || files.showcase.include
   fail("CC-capable lake photography must not suppress visible attribution");
 }
 
-console.log(`Fishing image library validation passed: all ${requiredFish.length} published fish species/groups and all ${requiredLakes.length}/63 complete lake guides have governed exact-location imagery with provenance, license metadata, reusable rendering and attribution rules.`);
+console.log(`Fishing image library validation passed: all ${requiredFish.length} published fish species/groups and all ${requiredLakes.length}/64 complete lake guides have governed exact-location imagery with provenance, license metadata, reusable rendering and attribution rules.`);
