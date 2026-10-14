@@ -6,7 +6,24 @@ const poteet = fs.readFileSync('src/data/major-event-expanded-authority-tranche2
 const sweetwater = fs.readFileSync('src/data/major-event-expanded-authority-tranche16.server.ts', 'utf8');
 const charro = fs.readFileSync('src/data/major-event-expanded-authority-tranche5.server.ts', 'utf8');
 const settlementStub = fs.readFileSync('src/data/fixtures/texas-explained-support-stubs.ts', 'utf8');
+const eventSnippetLifecycle = fs.readFileSync('src/data/event-snippet-lifecycle.ts', 'utf8');
+const eventAuthority = fs.readFileSync('src/data/major-event-authority.ts', 'utf8');
+const eventRoute = fs.readFileSync('src/routes/event.$slug.tsx', 'utf8');
+const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const failures = [];
+
+for (const [source, markers] of [
+  [seo, ['resolveEventSnippet({', 'eventOccurrenceEndDate: page.eventOccurrenceEndDate', 'texasEventDateKey()']],
+  [eventAuthority, ['latestEventOccurrenceDate(occurrence)', 'eventOccurrenceEndDate: occurrence ?']],
+  [eventRoute, ['eventOccurrenceEndDate: page.eventOccurrenceEndDate', 'eventName: page.name']],
+  [eventSnippetLifecycle, ['2026-10-18', 'last published dates', 'expiredYear', 'canonicalPath']],
+  [premerge, ['src/data/event-snippet-lifecycle.test.ts']],
+]) {
+  for (const marker of markers) {
+    if (!source.includes(marker)) failures.push('Event snippet lifecycle guard is not wired: ' + marker);
+  }
+}
+
 
 const governedSeoPathMatches = [...seo.matchAll(/^\s{2}"(\/[^"\n]+)":\s*\{/gm)].map((match) => match[1]);
 const duplicateGovernedSeoPaths = [...new Set(governedSeoPathMatches.filter((path, index, all) => all.indexOf(path) !== index))];
