@@ -553,6 +553,12 @@
       "name": "Lake Travis"
     }
   ],
+  "lake-worth": [
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
+    }
+  ],
   "lakeway": [
     {
       "slug": "lake-travis",
@@ -745,6 +751,12 @@
     {
       "slug": "lake-casa-blanca",
       "name": "Lake Casa Blanca"
+    }
+  ],
+  "river-oaks": [
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
     }
   ],
   "rockwall": [
@@ -993,18 +1005,6 @@
     {
       "slug": "falcon-international-reservoir",
       "name": "Falcon International Reservoir"
-    }
-  ],
-  "lake-worth": [
-    {
-      "slug": "lake-worth",
-      "name": "Lake Worth"
-    }
-  ],
-  "river-oaks": [
-    {
-      "slug": "lake-worth",
-      "name": "Lake Worth"
     }
   ]
 }
