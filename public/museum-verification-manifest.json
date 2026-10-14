@@ -1279,13 +1279,13 @@
       "sources": [
         {
           "sourceUrl": "https://portisabelhistory.com/",
-          "fetchUrl": "https://portisabelhistory.com/",
-          "label": "FAQ verification: What else should I see near the museum?"
+          "fetchUrl": "https://portisabel-texas.com/blog/history/",
+          "label": "Port Isabel Historical Museum primary site — checked using official Port Isabel visitor office history page"
         },
         {
           "sourceUrl": "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html",
-          "fetchUrl": "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html",
-          "label": "Museum research and visitor source"
+          "fetchUrl": "https://business.spichamber.com/list/member/port-isabel-historical-museum-18",
+          "label": "Port Isabel museum visitor questions — checked using South Padre Island Chamber museum listing"
         }
       ]
     },
