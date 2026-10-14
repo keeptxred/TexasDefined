@@ -5,8 +5,8 @@
 ## Counts and caveats
 
 - **175** separate alphabetical links/named entries in the TPWD public lake list (excluding its extra *Town Lake = Lady Bird Lake* alias line).
-- **68** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
-- **107** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
+- **69** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
+- **106** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
 - TPWD list entries include local ponds and some state-park-managed lakes as well as reservoirs; they cannot all be treated as equally high-demand or guaranteed distinct reservoirs.
 - This list does not include every Texas stock tank, private lake, community fishing pond, or small waterbody outside TPWD's own directory. It therefore cannot prove “every Texas lake.”
 
@@ -16,7 +16,6 @@
 - **Lady Bird** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **O.C. Fisher** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Limestone** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
-- **Cypress Springs** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Coleman** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Wright Patman** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Bois d'Arc** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
@@ -82,7 +81,7 @@
 | Conroe | [lake-conroe](https://texasdefined.com/fishing/lakes/lake-conroe) |
 | Corpus Christi | [lake-corpus-christi](https://texasdefined.com/fishing/lakes/lake-corpus-christi) |
 | Crook | **Not in completed-guide registry** |
-| Cypress Springs | **Not in completed-guide registry** |
+| Cypress Springs | [lake-cypress-springs](https://texasdefined.com/fishing/lakes/lake-cypress-springs) |
 | Daniel | **Not in completed-guide registry** |
 | Davy Crockett | **Not in completed-guide registry** |
 | Dunlap | **Not in completed-guide registry** |
@@ -265,3 +264,7 @@ The **67th complete-guide definition** separates a full-size improved trailer la
 ## October 14 — Lake Abilene: binding drought closure, park camping elsewhere
 
 The next source-researched guide brings the staged registry to **68** complete lake authority definitions and **107** unmatched TPWD entries. Lake Abilene on Elm Creek is **NOT** Kirby Lake or Buffalo Wallow Pond. The City of Abilene owns the reservoir; TPWD operates the lake and park access. TPWD's CURRENT PARK ALERT dated October 20, 2025 (still shown at source review) CLOSED both Dam and Creek one-lane ramps, prohibits Lake Abilene fishing and swimming, and suspends kayak rentals. This supersedes the older fishing-access inventory's year-round ramp label; the four historically present fish categories (bass/catfish/crappie/sunfish) are all rated POOR. Normal public entry used a separate FM 89 gate, requires park admission and code, and historically closed at sunset; no launch or lake angling is allowed while the dated alert remains in effect. Separately reservable campgrounds lie across FM 89 on the main Abilene State Park campus; the CCC swimming pool has its own renovation closure. TWDB dates dam completion May 1921, deliberate impoundment August 1 1921 and major repairs 1941/1957. One actual **Lake Abilene** shoreline photograph taken June 8, 2011 is *Abilene State Park 1.jpg* (mr_t_77, CC BY-SA 2.0, 4000×3000), verified against the original Commons metadata and correctly labeled historical. Operator-day call, original field media and public production acceptance are NOT certified.
+
+## October 14 — Lake Cypress Springs full authority addition
+
+The Franklin County Water District rules revised August 2026 control vessel sizes (generally 26-ft length and 12-ft width maximum), shoreline idle speed within 200 feet, restricted intake/spillway areas, camping/payment, and possible 380.50-ft flood closures. This guide names all five FCWD public parks—Guthrie, Dogwood, Mary King, Overlook and Walleye—and refuses to treat TPWD's archived $2 fee and year-round text as a current status certificate. Two exact-lake Wikimedia Commons **MAPS** (bathymetric, 1500×757, and topographic, 2048×1223) by maxup10 are CC BY-SA 4.0 and clearly not described as lake photographs. TWDB historical chronology: July 1968 construction, July 7 1970 deliberate impoundment, February 15 1971 final completion. First-party field photography and production acceptance remain open. Proposed complete-guide coverage becomes **69/175**, with **106 TPWD entries** still unmatched after this release.

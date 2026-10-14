@@ -3,24 +3,24 @@
   "date": "2026-10-14",
   "baseline": "TPWD more than 150 lake profiles",
   "summary": {
-    "total": 68,
+    "total": 69,
     "standardSectionsPerGuide": 9,
-    "statewide": 53,
-    "namedAccess": 68,
+    "statewide": 54,
+    "namedAccess": 69,
     "unknownAccess": 0,
-    "namedCamping": 44,
+    "namedCamping": 45,
     "unknownCamping": 24,
-    "history": 20,
+    "history": 21,
     "noHistory": 48,
-    "photoMappings": 68,
+    "photoMappings": 69,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 68,
+    "explicitNamedAccess": 69,
     "lackingNamedAccess": 0,
-    "explicitNamedCamping": 44,
+    "explicitNamedCamping": 45,
     "lackingNamedCamping": 24,
-    "namedStatewideFacilities": 208,
-    "statewideTemplateGuidesWithNamedAccess": 53
+    "namedStatewideFacilities": 213,
+    "statewideTemplateGuidesWithNamedAccess": 54
   },
   "entries": [
     {
@@ -1093,6 +1093,22 @@
       "risk": "Operator's October 2025 closure remains posted as October 2026; do not advertise currently allowed lake fishing/swimming or launching. Genuine historical 2011 photo, no first-party field media, production pending",
       "namedAccess": true,
       "accessFacilityCount": 2,
+      "accessReviewedAt": "2026-10-14",
+      "namedCamping": true
+    },
+    {
+      "slug": "lake-cypress-springs",
+      "name": "Lake Cypress Springs",
+      "kind": "Statewide",
+      "ramp": "Five named FCWD public parks with boat ramps and specific owner operating restrictions",
+      "camping": "All five parks provide TPWD-listed camping; FCWD designated paid camping with written confirmation only",
+      "history": "TWDB July 1968–February 1971 dam timeline and 2007 survey",
+      "fish": 6,
+      "photo": "Licensed lake-specific bathymetry + topographic maps; NO first-party photograph",
+      "water": "TWDB live numerical Lake Cypress Springs level",
+      "risk": "Check 2026 FCWD 26-ft boat limit, 200-ft shoreline idle/no-access zones, 380.50-ft flood closure trigger and current operator fees; field photos/production acceptance incomplete",
+      "namedAccess": true,
+      "accessFacilityCount": 5,
       "accessReviewedAt": "2026-10-14",
       "namedCamping": true
     }
