@@ -35,6 +35,7 @@ export const parkerCountyWeatherfordPeachesCrossTimbersNorthTexasArticle: Articl
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/weatherford", label: "Weatherford researched visitor guide", description: "Weatherford visitor guide: 1886 courthouse, Chandor Gardens closure notices and Doss Center." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/tarrant", label: "Explore Tarrant County", description: "Continue east toward Fort Worth and the urban core of North Texas." },
     { href: "/county/hood", label: "Explore Hood County", description: "Head south toward Granbury, Lake Granbury and the Brazos River." },
