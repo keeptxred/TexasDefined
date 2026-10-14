@@ -638,5 +638,17 @@
       "slug": "falcon-international-reservoir",
       "name": "Falcon International Reservoir"
     }
+  ],
+  "medina": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
+  "bandera": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
   ]
 }
