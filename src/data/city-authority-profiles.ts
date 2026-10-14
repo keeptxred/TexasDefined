@@ -163,6 +163,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       { name: 'Lower Greenville', summary: 'A restaurant, neighborhood and nightlife corridor northeast of downtown that feels distinct from the central business district.' },
     ],
     featured: [
+      { eyebrow: 'Heritage', title: 'Dallas Black History: Eight Landmark Places', summary: 'Research local Freedmen’s Towns, civil-rights organizing, Deep Ellum, the museum, a school, church and historic neighborhoods.', href: '/dallas-black-history' },
       { eyebrow: 'History', title: 'The Sixth Floor Museum at Dealey Plaza', summary: 'Use the dedicated destination guide to place the Kennedy assassination site within downtown Dallas history.', href: '/destination/sixth-floor-museum-at-dealey-plaza' },
       { eyebrow: 'Family', title: 'Dallas World Aquarium', summary: 'Plan the downtown aquarium-and-rainforest experience as an indoor anchor that can pair with nearby central-city stops.', href: '/destination/dallas-world-aquarium' },
       { eyebrow: 'Seasonal', title: 'State Fair of Texas', summary: 'Use the current State Fair guide for dates, planning, Fair Park context and event-specific details.', href: '/texas-state-fair' },
