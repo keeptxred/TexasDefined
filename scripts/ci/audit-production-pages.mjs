@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import { auditAuthorityEvidence } from './authority-evidence.mjs';
+import { enrichAuthorityLinkGraph } from './authority-link-graph.mjs';
 
 const ORIGIN = process.env.TEXASDEFINED_ORIGIN || 'https://texasdefined.com';
 const USER_AGENT = 'TexasDefinedWholeSiteQualityAudit/2.0 (+https://texasdefined.com)';
@@ -8,6 +9,7 @@ const TIMEOUT_MS = Number(process.env.AUDIT_TIMEOUT_MS || 30000);
 const OUT_JSON = process.env.AUDIT_JSON || '/tmp/texasdefined-page-audit.json';
 const OUT_TSV = process.env.AUDIT_TSV || '/tmp/texasdefined-page-audit.tsv';
 const OUT_AUTHORITY_TSV = process.env.AUDIT_AUTHORITY_TSV || '/tmp/texasdefined-authority-review.tsv';
+const OUT_LINK_GRAPH_TSV = process.env.AUDIT_LINK_GRAPH_TSV || '/tmp/texasdefined-contextual-link-graph.tsv';
 
 const PAGE_FALLBACK_RE = /Story unavailable|This story is no longer available|page not found|404[^0-9].*not found|County unavailable|This county guide is being expanded|We are adding verified details before expanding this page into a full guide|There is nothing in this section yet|We are still gathering and checking the details for this guide/i;
 const LOCALIZED_IMAGE_FALLBACK_RE = /Photo coming soon|destination-specific photograph not yet available/i;
@@ -115,15 +117,18 @@ const {pageUrls,sitemaps,sitemapFailures}=await collectUrls();
 console.log('Discovered '+pageUrls.length+' unique indexable URLs from '+sitemaps.length+' sitemap(s); '+sitemapFailures.length+' sitemap failure(s).');
 const results=await mapLimit(pageUrls,CONCURRENCY,auditPage);
 duplicateIssues(results,'title','duplicate-title'); duplicateIssues(results,'description','duplicate-description');
+const linkGraph = enrichAuthorityLinkGraph(results);
 const failures=results.filter(r=>r.issues.length),warningPages=results.filter(r=>r.warnings?.length),byCode={},warningsByCode={};for(const result of failures)for(const issue of result.issues)byCode[issue.code]=(byCode[issue.code]||0)+1;for(const result of warningPages)for(const warning of result.warnings)warningsByCode[warning.code]=(warningsByCode[warning.code]||0)+1;
 const authorityByFamily={};const authorityFlags={};
 for(const result of results){if(!result.authority)continue;const a=result.authority;const group=authorityByFamily[a.family]??={pages:0,withReviewFlags:0,missingPrimarySourceCandidates:0};group.pages++;if(a.reviewFlags.length)group.withReviewFlags++;if(a.reviewFlags.includes('no-identifiable-primary-source-host'))group.missingPrimarySourceCandidates++;for(const flag of a.reviewFlags)authorityFlags[flag]=(authorityFlags[flag]??0)+1;}
-await fs.writeFile(OUT_JSON,JSON.stringify({auditedAt:new Date().toISOString(),origin:ORIGIN,sitemaps,sitemapFailures,totals:{pages:results.length,failingPages:failures.length,passingPages:results.length-failures.length,warningPages:warningPages.length},byCode,warningsByCode,authorityByFamily,authorityFlags,authorityCertification:'NOT VERIFIED BY AUTOMATED AUDIT',results},null,2)+'\n');
+await fs.writeFile(OUT_JSON,JSON.stringify({auditedAt:new Date().toISOString(),origin:ORIGIN,sitemaps,sitemapFailures,totals:{pages:results.length,failingPages:failures.length,passingPages:results.length-failures.length,warningPages:warningPages.length},byCode,warningsByCode,authorityByFamily,authorityFlags,linkGraph,authorityCertification:'NOT VERIFIED BY AUTOMATED AUDIT',results},null,2)+'\n');
 const rows=[['url','status','words','h1s','title','h1','canonical','issues','warnings'],...results.map(r=>[r.url,String(r.status),String(r.words),String(r.h1s),r.title,r.h1,r.canonical,r.issues.map(i=>i.code+(i.detail?':'+i.detail:'')).join(' | '),(r.warnings||[]).map(i=>i.code+(i.detail?':'+i.detail:'')).join(' | ')])];
 await fs.writeFile(OUT_TSV,rows.map(row=>row.map(v=>String(v??'').replace(/[\t\r\n]+/g,' ')).join('\t')).join('\n')+'\n');
-const authorityRows=[['priority','family','url','technical_issues','review_flags','main_words','source_hosts','candidate_official_source_urls','internal_destinations','date_signal','editorial_certification'],...results.filter(r=>r.authority && (r.authority.reviewFlags.length||r.issues.length)).sort((a,b)=>a.authority.priority-b.authority.priority||b.issues.length-a.issues.length||a.url.localeCompare(b.url)).map(r=>[r.authority.priority,r.authority.family,r.url,r.issues.map(i=>i.code).join(','),r.authority.reviewFlags.join(','),r.authority.mainWords,r.authority.identifiablePrimarySourceHosts,r.authority.officialEvidenceCandidates.join(' | '),r.authority.internalLinkDestinations,r.authority.visibleReviewDate,r.authority.editorialCertification])];
+const authorityRows=[['priority','family','url','technical_issues','review_flags','link_graph_review','incoming_contextual_pages','reciprocal_contextual_pages','outgoing_sitemap_pages','main_words','source_hosts','candidate_official_source_urls','internal_destinations','date_signal','editorial_certification'],...results.filter(r=>r.authority && (r.authority.reviewFlags.length||r.issues.length)).sort((a,b)=>a.authority.priority-b.authority.priority||b.issues.length-a.issues.length||a.url.localeCompare(b.url)).map(r=>[r.authority.priority,r.authority.family,r.url,r.issues.map(i=>i.code).join(','),r.authority.reviewFlags.join(','),r.authority.linkGraphFlags.join(','),r.authority.inboundContextualPages,r.authority.reciprocalContextualPages,r.authority.outboundSitemapPageLinks,r.authority.mainWords,r.authority.identifiablePrimarySourceHosts,r.authority.officialEvidenceCandidates.join(' | '),r.authority.internalLinkDestinations,r.authority.visibleReviewDate,r.authority.editorialCertification])];
 await fs.writeFile(OUT_AUTHORITY_TSV,authorityRows.map(row=>row.map(v=>String(v??'').replace(/[\t\r\n]+/g,' ')).join('\t')).join('\n')+'\n');
-console.log(JSON.stringify({pages:results.length,failingPages:failures.length,warningPages:warningPages.length,byCode,warningsByCode,sitemapFailures,authorityByFamily,authorityFlags,authorityCertification:'NOT VERIFIED BY AUTOMATED AUDIT'},null,2));
+const linkRows=[['url','family','priority','contextual_inbound_pages','contextual_outbound_sitemap_pages','reciprocal_links','review_flags','outbound_not_in_sitemap_paths'],...results.filter(r=>r.authority).sort((a,b)=>a.authority.priority-b.authority.priority||a.url.localeCompare(b.url)).map(r=>[r.url,r.authority.family,r.authority.priority,r.authority.inboundContextualPages,r.authority.outboundSitemapPageLinks,r.authority.reciprocalContextualPages,r.authority.linkGraphFlags.join(','),r.authority.outgoingNotInSitemapPaths.join(' | ')])];
+await fs.writeFile(OUT_LINK_GRAPH_TSV,linkRows.map(row=>row.map(v=>String(v??'').replace(/[\t\r\n]+/g,' ')).join('\t')).join('\n')+'\n');
+console.log(JSON.stringify({pages:results.length,failingPages:failures.length,warningPages:warningPages.length,byCode,warningsByCode,sitemapFailures,authorityByFamily,authorityFlags,linkGraphSummary:linkGraph.totals,authorityCertification:'NOT VERIFIED BY AUTOMATED AUDIT'},null,2));
 for(const result of failures.slice(0,250))console.error('FAIL '+result.url+' :: '+result.issues.map(i=>i.code+(i.detail?'='+i.detail:'')).join(', '));
 if(sitemapFailures.length||failures.length)process.exit(1);
 console.log('PASS: every sitemap-listed TexasDefined page satisfied the whole-site production quality audit.');
