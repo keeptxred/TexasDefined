@@ -14,6 +14,7 @@ import type { Destination, TexasRegion } from "./types";
  * JSON-LD from the same bad upstream classification.
  */
 export const CANONICAL_DESTINATION_TRAVEL_REGIONS: Readonly<Record<string, TexasRegion>> = {
+  "abilene-state-park": "prairies-lakes",
   "big-bend-national-park": "big-bend",
   "guadalupe-mountains-national-park": "big-bend",
   "fort-davis-national-historic-site": "big-bend",
