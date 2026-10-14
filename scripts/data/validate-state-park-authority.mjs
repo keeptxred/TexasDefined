@@ -137,6 +137,28 @@ for (const entry of officialEntries.filter((item) => item.status === "public-par
   if (!section.includes("maps:")) failures.push(`No park-specific official map information: ${canonicalSlug}`);
   if (!section.includes("camping:") && !section.includes("restrooms:")) failures.push(`No verified facility, campground or correct day-use policy: ${canonicalSlug}`);
 }
+// Regression: newly researched facility claims must keep a clickable, primary
+// TPWD campsite/day-use citation rather than losing their provenance in prose.
+const sourceBackedFacilitySlugs = [
+  "abilene-state-park", "big-bend-ranch-state-park", "caprock-canyons-state-park",
+  "daingerfield-state-park", "goliad-state-park-and-historic-site",
+  "lake-arrowhead-state-park", "lyndon-b-johnson-state-park-and-historic-site",
+  "palo-duro-canyon-state-park", "san-angelo-state-park",
+  "seminole-canyon-state-park-and-historic-site",
+];
+for (const slug of sourceBackedFacilitySlugs) {
+  const start = authority.indexOf(`  "${slug}": {`);
+  const end = authority.indexOf('\n  "', start + 5);
+  const record = start >= 0 ? authority.slice(start, end >= 0 ? end : authority.indexOf('\n};', start)) : "";
+  if (!/facilitySourceUrl: "https:\/\/tpwd\.texas\.gov\/state-parks\/[a-z0-9-]+\/fees-facilities(?:\/campsites)?"/.test(record)) {
+    failures.push(`Missing clickable primary park-specific facility evidence: ${slug}`);
+  }
+}
+assertContains(authority, 'supplementalSourceUrl: "https://tpwd.texas.gov/newsmedia/releases/?req=20260807a"',
+  "Honey Creek trailhead facts must preserve the original dated TPWD press release");
+assertContains(essentials, "verified.facilitySourceUrl", "Facility evidence URLs must appear as clickable links");
+assertContains(essentials, "verified.supplementalSourceUrl", "Supplemental official source must appear as a clickable link");
+
 for (const entry of officialEntries) {
   if (!entry.officialUrl || entry.officialUrl !== `https://tpwd.texas.gov/state-parks/${entry.tpwdSlug}`) failures.push(`Wrong official park base URL for ${entry.tpwdSlug}`);
   if (entry.status === "public-park" && !entry.associatedPath?.startsWith("/destination/")) failures.push(`Missing canonical destination path for open TPWD park ${entry.tpwdSlug}`);
