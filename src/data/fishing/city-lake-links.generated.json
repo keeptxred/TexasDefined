@@ -939,10 +939,20 @@
       "name": "Choke Canyon Reservoir"
     }
   ],
+  "troup": [
+    {
+      "slug": "lake-tyler",
+      "name": "Lake Tyler (East and West)"
+    }
+  ],
   "tyler": [
     {
       "slug": "lake-palestine",
       "name": "Lake Palestine"
+    },
+    {
+      "slug": "lake-tyler",
+      "name": "Lake Tyler (East and West)"
     }
   ],
   "waco": [
@@ -979,6 +989,12 @@
     {
       "slug": "lake-austin",
       "name": "Lake Austin"
+    }
+  ],
+  "whitehouse": [
+    {
+      "slug": "lake-tyler",
+      "name": "Lake Tyler (East and West)"
     }
   ],
   "whitney": [
