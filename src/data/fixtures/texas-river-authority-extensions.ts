@@ -159,7 +159,7 @@ export const existingRiverAuthorityEnhancements = {
     ],
     "links": [
       [
-        "/destination/waco",
+        "/explore/near/waco",
         "Waco"
       ],
       [
@@ -218,11 +218,11 @@ export const existingRiverAuthorityEnhancements = {
     ],
     "links": [
       [
-        "/destination/lake-palestine",
+        "/fishing/lakes/lake-palestine",
         "Lake Palestine"
       ],
       [
-        "/destination/sam-rayburn-reservoir",
+        "/fishing/lakes/sam-rayburn-reservoir",
         "Sam Rayburn Reservoir"
       ],
       [
@@ -277,7 +277,7 @@ export const existingRiverAuthorityEnhancements = {
     ],
     "links": [
       [
-        "/destination/toledo-bend-reservoir",
+        "/fishing/lakes/toledo-bend-reservoir",
         "Toledo Bend Reservoir"
       ],
       [
