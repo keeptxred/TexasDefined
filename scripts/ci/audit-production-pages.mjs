@@ -83,6 +83,11 @@ async function auditPage(url){
     if(BAD_TITLE_RE.test(title)) issues.push({code:'fallback-title',detail:title});
     if(GENERIC_TITLE_RE.test(title)) issues.push({code:'generic-title',detail:title});
     if(title.length>TITLE_HARD_MAX_LENGTH) issues.push({code:'title-extreme-length',detail:title.length+' chars > '+TITLE_HARD_MAX_LENGTH});
+    // A title ending in a connector often indicates silent SEO budget truncation.
+    const subjectTitle = title.replace(/\s*[|–—-]\s*Texas Defined\s*$/i, '').trim();
+    if (/(?:\s+(?:and|or|of|for|to|with|in|at|the)|\s+&|\s+San|\s+Corpus)$/i.test(subjectTitle)) {
+      issues.push({code:'dangling-title-fragment',detail:subjectTitle});
+    }
     else if(title.length>TITLE_REVIEW_LENGTH) warnings.push({code:'title-review-length',detail:title.length+' chars > '+TITLE_REVIEW_LENGTH});
    }
    if(!description) issues.push({code:'missing-description',detail:''});
