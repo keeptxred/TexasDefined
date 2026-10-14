@@ -11,6 +11,12 @@
       "name": "Sam Rayburn Reservoir"
     }
   ],
+  "bandera": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
   "bastrop": [
     {
       "slug": "lake-bastrop",
@@ -365,6 +371,12 @@
       "name": "Choke Canyon Reservoir"
     }
   ],
+  "medina": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
   "mitchell": [
     {
       "slug": "lake-colorado-city",
@@ -637,18 +649,6 @@
     {
       "slug": "falcon-international-reservoir",
       "name": "Falcon International Reservoir"
-    }
-  ],
-  "medina": [
-    {
-      "slug": "medina-lake",
-      "name": "Medina Lake"
-    }
-  ],
-  "bandera": [
-    {
-      "slug": "medina-lake",
-      "name": "Medina Lake"
     }
   ]
 }
