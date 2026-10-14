@@ -1753,7 +1753,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     nearbyLakes:[{slug:"canyon-lake",name:"Canyon Lake"},{slug:"calaveras-lake",name:"Calaveras Lake"},{slug:"choke-canyon-reservoir",name:"Choke Canyon Reservoir"}],
   },
   {
-    slug:"lake-weatherford", name:"Lake Weatherford", tpwdSlug:"weatherford", waterDataSlug:"weatherford", region:"prairies-lakes", verifiedAt:"2026-10-13", accessReviewedAt:"2026-10-13",
+    slug: "lake-weatherford", name: "Lake Weatherford", tpwdSlug:"weatherford", waterDataSlug:"weatherford", region:"prairies-lakes", verifiedAt:"2026-10-13", accessReviewedAt:"2026-10-13",
     summary:"A City of Weatherford drinking-water reservoir with good largemouth bass, catfish and crappie, excellent sunfish, one documented full-size marina launch, two unimproved small-craft-only upper-lake ramps and a 4,313-foot floating boardwalk for on-foot lake access. Overnight camping is prohibited throughout the lake.",
     surfaceAcres:1158,maxDepthFeet:39,impoundedYear:1957,counties:["Parker"],nearestCities:["Weatherford"],
     waterway:"Clear Fork Trinity River",riverBasin:"Trinity River Basin",authority:"City of Weatherford",conservationPool:"896 ft above NGVD29",fluctuation:"TPWD describes annual fluctuations of 2–8 feet; launch depth and accessible shoreline depend on current elevation",clarity:"Moderately clear to stained",
