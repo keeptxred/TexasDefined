@@ -28,7 +28,7 @@ const priorityPageOneCtrRecovery = [
   { path: '/article/texas-rivers-explained', title: 'Major Rivers in Texas: Boundary Rivers, Regions & Map', description: "Find Texas's major and boundary rivers by region" },
   { path: '/texas-homecoming-mums', title: 'Texas Homecoming Mums: History, Meaning, Colors & Traditions', description: 'Texas homecoming mums explained: history, colors, senior traditions, garters, costs' },
   { path: '/event/heart-o-texas-fair-rodeo', title: "Heart O' Texas Fair & Rodeo 2026: Dates, Schedule & Tickets", description: "The 2026 Heart O' Texas Fair & Rodeo runs Oct. 8-18 in Waco" },
-  { path: '/article/texas-river-basins-guide', title: 'Texas River Basins: 15 Major, 8 Coastal & Watershed Map', description: "Texas's 15 major and eight coastal basins" },
+  { path: '/article/texas-river-basins-guide', title: 'Texas River Basins: 15 Major, 8 Coastal & Watershed Map', description: "15 major and eight coastal river basins" },
   { path: '/article/texas-lakes-reservoirs-explained', title: 'Texas Lakes & Reservoirs: Why Most Are Man-Made', description: 'most familiar inland Texas lakes are reservoirs' },
   { path: '/article/texas-trinity-river-guide', title: 'Trinity River Texas: Dallas-Fort Worth, Basin & Gulf Guide', description: 'Follow the Trinity River through North Texas toward Trinity Bay' },
   { path: '/sports-venue/jones-att-stadium', title: 'Jones AT&T Stadium (Now Galaxy Stadium): Texas Tech Guide', description: 'Looking for Jones AT&T Stadium?' },
@@ -65,7 +65,7 @@ const experiments = [
   {
     path: '/article/texas-river-basins-guide',
     title: 'Texas River Basins: 15 Major, 8 Coastal & Watershed Map',
-    description: "Learn how Texas's 15 major and eight coastal basins divide the state by watershed",
+    description: "15 major and eight coastal river basins on a watershed map",
   },
   {
     path: '/sports-venue/legacy-stadium-katy',
@@ -251,7 +251,7 @@ if (sixthWave.length !== 20) {
 
 const seventhWave = [
   { path: "/event/addison-oktoberfest", title: "Addison Oktoberfest: Dates, Hours, Tickets & Parking", description: "latest confirmed dates" },
-  { path: "/texas-state-fair", title: "State Fair of Texas 2026: Dates, Hours, Schedule & Tickets", description: "The State Fair of Texas runs Sept. 25-Oct. 18, 2026" },
+  { path: "/texas-state-fair", title: "State Fair of Texas 2026: Dates, Hours, Schedule & Tickets", description: "State Fair of Texas 2026 runs Sept. 25-Oct. 18" },
   { path: "/article/el-paso-county-missions-rio-grande-texas", title: "El Paso County Missions & Rio Grande: Borderlands History Guide", description: "Explore El Paso County through the Rio Grande, Ysleta Mission" },
   { path: "/article/texas-barbecue-styles-explained", title: "Texas Barbecue Styles: Central, East, South & West Texas BBQ", description: "Compare Texas barbecue styles by region" },
   { path: "/article/texas-business-routes-explained", title: "What Is a Business Highway? Texas Business Routes Explained", description: "Learn what a business highway or business route is" },
