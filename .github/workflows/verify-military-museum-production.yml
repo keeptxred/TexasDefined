@@ -16,7 +16,7 @@ jobs:
   verify-military-museum-production:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 14
     env:
       GH_TOKEN: ${{ github.token }}
       DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
@@ -76,6 +76,25 @@ jobs:
           fetch_assert silent-wings '/destination/silent-wings-museum-lubbock' 'Silent Wings Museum'
           fetch_assert texas-history '/texas-history' 'Texas Military Museums'
           PRODUCTION_COMMIT_SHA="$DEPLOY_SHA" node scripts/ci/verify-naval-heritage-production.mjs
+
+      - name: Prepare Chrome for Battleship Texas responsive acceptance
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-naval-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+
+      - name: Inspect Battleship Texas mobile and desktop, all images, and legacy HTTP 301
+        run: PRODUCTION_COMMIT_SHA="$DEPLOY_SHA" node scripts/ci/verify-battleship-texas-browser.mjs
+
+      - name: Retain Battleship Texas screenshots and browser acceptance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: battleship-texas-browser-${{ github.run_id }}
+          path: artifacts/battleship-texas-browser/
+          if-no-files-found: warn
+          retention-days: 45
 
       - name: Preserve naval history production acceptance report
         if: always()
