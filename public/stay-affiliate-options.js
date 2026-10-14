@@ -500,6 +500,10 @@
     // signal; defer affiliate DOM changes until their route mounts.
     const guardedRoute = /^\/(?:county|city)\/[a-z0-9-]+$/.test(path);
     if (/^\/texas-state-fair\/?$/.test(path)) return document.documentElement.dataset.tdStateFairHydrated !== "1";
+    // BB-35's lazy article must commit before booking options alter #main.
+    if (path === "/article/battleship-texas-bb-35-history-restoration") {
+      return document.documentElement.dataset.tdBattleshipArticleHydrated !== "1";
+    }
     return guardedRoute && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 
@@ -525,6 +529,7 @@
     window.addEventListener("popstate", scheduleSync);
     window.addEventListener("texasdefined:county-hydrated", scheduleSync);
     window.addEventListener("texasdefined:state-fair-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:battleship-article-hydrated", scheduleSync);
   }
 
   window.TexasDefinedStayAffiliateOptions = {

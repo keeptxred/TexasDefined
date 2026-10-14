@@ -1,5 +1,5 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { heritagePhotoRightsForPath } from "@/data/heritage-photo-license-links";
@@ -363,6 +363,16 @@ export const Route = createFileRoute("/article/$slug")({
 
 function ArticlePage() {
   const { article, graph, categories, destinations, authors, related } = Route.useLoaderData();
+  // BB-35's long lazy article hydrates after the root shell. Third-party
+  // lodging integrations must not mutate this React-owned subtree until mount.
+  useEffect(() => {
+    if (article.slug !== "battleship-texas-bb-35-history-restoration") return;
+    document.documentElement.dataset.tdBattleshipArticleHydrated = "1";
+    window.dispatchEvent(new Event("texasdefined:battleship-article-hydrated"));
+    return () => {
+      delete document.documentElement.dataset.tdBattleshipArticleHydrated;
+    };
+  }, [article.slug]);
   const primarySource = articlePrimarySource(article);
   const corridorHeroRights = heritagePhotoRightsForPath(`/article/${article.slug}`);
   const authoritySources = localArticleAuthoritySources[article.slug] ?? remoteEvergreenAuthoritySources[article.slug] ?? [];
