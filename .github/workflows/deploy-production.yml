@@ -60,7 +60,17 @@ jobs:
           if (command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1) && command -v rsvg-convert >/dev/null 2>&1; then
             exit 0
           fi
-          timeout 180s sudo apt-get update -qq
+          # Ubuntu 24.04 GitHub runner images can ship a broken third-party
+          # Microsoft apt source. This job only needs Ubuntu-packaged ImageMagick
+          # and librsvg: update from the runner's signed official Ubuntu sources,
+          # not unrelated vendor repositories that can return HTTP 404.
+          # Fail closed when the Ubuntu official source is absent; never skip
+          # image materialization, attribution or dimension checks.
+          if [[ ! -f /etc/apt/sources.list.d/ubuntu.sources ]]; then
+            echo "::error title=Official Ubuntu apt source missing::Cannot safely install governed image dependencies."
+            exit 1
+          fi
+          timeout 180s sudo apt-get update -qq -o Dir::Etc::sourcelist="sources.list.d/ubuntu.sources" -o Dir::Etc::sourceparts="-"
           timeout 180s sudo apt-get install -y --no-install-recommends imagemagick librsvg2-bin
           (command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1)
           command -v rsvg-convert >/dev/null 2>&1
