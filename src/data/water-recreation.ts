@@ -50,7 +50,7 @@ const TPWD_SWIMMING_PARK_SLUGS = new Set([
   "balmorhea-state-park",
 ]);
 
-const WATER_SIGNAL = /\b(swim(?:ming)?|spring[- ]fed pool|river tubing|tubing|tube float|float(?:ing| trips?)?|designated swim|wading)\b/i;
+const WATER_SIGNAL = /\b(swim(?:ming)?|spring[- ]fed pool|river tubing|tubing|tube float|float(?:ing| trips?)?|designated swim|(?:wade|wading) (?:allowed|area|areas|access|in|pool|river|creek|water))\b/i;
 const RESTRICTION = /\b(no swimming|do not swim|swimming (?:is )?(?:prohibited|not permitted|not allowed|closed|suspended|cancelled|unavailable)|swimming and fishing (?:are )?(?:prohibited|not allowed|not permitted)|pool (?:is )?closed|closed to swimming|no tubing|tubing (?:is )?(?:prohibited|not allowed|closed))\b/i;
 const sentences = (text: string) => text.split(/[.!?]+/).map((sentence) => sentence.trim()).filter(Boolean);
 
@@ -68,7 +68,10 @@ export function selectSwimmingHoleAndTubingDestinations(destinations: Destinatio
     if (sentences(latestNotice).some((sentence) => RESTRICTION.test(sentence))) return false;
     const text = [destination.name, destination.summary, destination.entryNote, destination.bestSeason,
       ...destination.highlights, ...destination.body].filter(Boolean).join(". ");
-    return isPriority || sentences(text).some((sentence) => WATER_SIGNAL.test(sentence) && !RESTRICTION.test(sentence));
+    const positiveSwimming = sentences(text).some((sentence) => WATER_SIGNAL.test(sentence) && !RESTRICTION.test(sentence));
+    // Priority entries still need a positive current swimming claim or to be
+    // free from explicit counterevidence. A historic mention alone is not enough.
+    return positiveSwimming || (isPriority && !sentences(text).some((sentence) => RESTRICTION.test(sentence)));
   }).sort((a, b) => {
     const aPriority = PRIORITY_SWIM_AND_FLOAT_SLUGS.has(a.slug) ? 0 : 1;
     const bPriority = PRIORITY_SWIM_AND_FLOAT_SLUGS.has(b.slug) ? 0 : 1;
