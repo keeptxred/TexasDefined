@@ -23,7 +23,7 @@ for (const feature of [
   'mergeDestinations(enriched, core, preserved, local)',
   'const preserved = preservedExploreDestinations.find((destination) => destination.slug === slug)',
   'const local = await platform.destinations.getBySlug(scope, slug)',
-  'return local ? applyResolvedHero(local) : local',
+  'return local ? correctDestinationTravelRegion(applyResolvedHero(local)) : local',
 ]) {
   if (!destinationRuntime.includes(feature)) errors.push(`Remote destination fallback feature missing: ${feature}`);
 }
