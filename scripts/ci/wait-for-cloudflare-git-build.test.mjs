@@ -29,9 +29,11 @@ globalThis.setTimeout = (callback) => { queueMicrotask(callback); return 0; };
 // The production module legitimately calls process.exit(0) once all Cloudflare
 // checks settle. Capture the request count before that exit terminates the
 // child process, so a successful path is fully asserted, not misread as NaN.
+const { writeSync } = await import('node:fs');
 const exitProcess = process.exit.bind(process);
 process.exit = (code) => {
-  console.log('MOCK_FETCH_CALLS=' + calls);
+  // process.exit can discard buffered console output on piped stdout.
+  writeSync(1, 'MOCK_FETCH_CALLS=' + calls + String.fromCharCode(10));
   exitProcess(code);
 };
 try {
