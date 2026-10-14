@@ -20,6 +20,25 @@ for (const [label, content] of [["destination", aamRecord], ["FAQ", aamFaq]]) {
   }
 }
 
+// The Rockport visitor guide must preserve primary-source dates and links,
+// and must not mistakenly refer to Spain's American Revolution role as a
+// "Spanish Revolution". This guard covers the actual rendered dossier contract,
+// not a standalone duplicate museum page.
+const rockportDossierSource = src.split('  "texas-maritime-museum-rockport": {')[1]?.split('  "national-museum-pacific-war": {')[0] || "";
+const rockportDestinationSource = read("src/data/museum-expansion-statewide-wave2.ts").split('slug: "texas-maritime-museum-rockport"')[1]?.split('slug: "museum-south-texas-history-edinburg"')[0] || "";
+const rockportFaqSource = aamFaqSource.split('"texas-maritime-museum-rockport": [')[1]?.split('"national-museum-pacific-war": [')[0] || "";
+const rockportManifest = JSON.parse(read("public/museum-verification-manifest.json"));
+const rockportManifestEntry = JSON.stringify(rockportManifest).includes('"/destination/texas-maritime-museum-rockport"') ? read("public/museum-verification-manifest.json").split('"path": "/destination/texas-maritime-museum-rockport"')[1]?.split('"path": "', 1)[0] || "" : "";
+for (const [sectionName, content, markers] of [
+  ["dossier", rockportDossierSource, ["Tides of Freedom", "Built for Victory", "February 2–December 31, 2026", "September 30–December 31, 2026", "https://texasmaritimemuseum.org/event/tides-of-freedom/", "https://texasmaritimemuseum.org/event/built-for-victory/"]],
+  ["destination", rockportDestinationSource, ["Tides of Freedom", "Built for Victory", "December 31, 2026", "2026-10-14"]],
+  ["FAQ", rockportFaqSource, ["Tides of Freedom", "Built for Victory", "2026-10-14", "https://texasmaritimemuseum.org/event/tides-of-freedom/", "https://texasmaritimemuseum.org/event/built-for-victory/"]],
+  ["source manifest", rockportManifestEntry, ['"faqCount": 8', "https://texasmaritimemuseum.org/event/tides-of-freedom/", "https://texasmaritimemuseum.org/event/built-for-victory/"]],
+]) {
+  for (const marker of markers) if (!content.includes(marker)) failures.push("Rockport museum " + sectionName + " missing " + marker);
+}
+if (rockportDestinationSource.includes("Spanish Revolution")) failures.push("Rockport museum must not misidentify Spanish support for the American Revolution");
+
 const required = [
   "bullock-texas-state-history-museum",
   "perot-museum-nature-science-dallas",
