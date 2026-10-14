@@ -79,6 +79,7 @@ const checks = [
   ['citation-downloads', 'SEO/CITATIONS', 'Validate citation downloads', 'node', ['scripts/data/validate-citation-downloads.mjs']],
   ['citypass-affiliate', 'MONETIZATION/AFFILIATE', 'Validate Texas CityPASS affiliate coverage', 'node', ['scripts/data/validate-citypass-affiliate.mjs']],
   ['seo-ci-contract', 'CI/CONTRACT', 'Validate SEO CI contract', 'node', ['scripts/data/validate-seo-ci-contract.mjs']],
+  ['property-tax-rate-source-integrity', 'DATA/SOURCE', 'Validate school property-tax source corrections and fail-closed import', 'node', ['scripts/data/validate-property-tax-rate-source-integrity.mjs']],
   ['data-validate', 'DATA/QUALITY', 'Validate production data and migrated features', 'npm', ['run', 'data:validate']],
   ['trip-planner-destinations', 'DATA/COVERAGE', 'Validate complete Trip Planner mapped coverage', 'node', ['scripts/data/audit-trip-planner-destinations.mjs', '--strict']],
   ['entity-maintenance', 'DATA/QUALITY', 'Validate Phase 3 entity maintenance', 'node', ['scripts/data/validate-entity-maintenance.mjs']],

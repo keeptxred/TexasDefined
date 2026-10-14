@@ -110,6 +110,8 @@ const smokeTargets = [
   { path: '/sports/softball/paris-junior-college', requiredText: 'Paris Junior College Lady Dragons softball', label: 'PJC softball team authority SSR' },
   { path: '/sports/softball/texas-volts', requiredText: 'Texas Volts: professional softball comes home to Round Rock', label: 'professional softball team authority SSR' },
   { path: '/texas-data/county-growth', requiredText: 'Texas county population growth, 2020–2025', label: 'Texas Data child route body' },
+  { path: '/texas-data/school-district-tax-rates', requiredText: 'Texas School District Property Tax Rates — 2025', label: 'statewide school tax explorer SSR' },
+  { path: '/texas-data/school-district-tax-rates', requiredText: '1,013', label: 'statewide school tax explorer renders all 1,013 districts' },
 ];
 
 const redirectTargets = [
