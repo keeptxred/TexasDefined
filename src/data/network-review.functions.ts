@@ -65,3 +65,24 @@ export const previewNetworkPublishedMediaCleanup=createServerFn({method:'POST'})
   const {previewNetworkOrphanPublishedMedia}=await import('@/data/network-review.server');
   return previewNetworkOrphanPublishedMedia(data.accessKey);
  });
+
+/** Sole-owner-only notification recovery; no customer-visible outbox endpoints. */
+export const getNetworkNotificationRecovery=createServerFn({method:'POST'})
+ .inputValidator(z.object({accessKey:z.string().min(32).max(200)}))
+ .handler(async({data})=>{
+  const {listNetworkNotificationRecovery}=await import('@/data/network-notification-recovery.server');
+  return listNetworkNotificationRecovery(data.accessKey);
+ });
+export const reconcileNetworkNotification=createServerFn({method:'POST'})
+ .inputValidator(z.object({
+  accessKey:z.string().min(32).max(200),id:z.string().uuid(),
+  resolution:z.enum(['sent_verified','not_delivered_retry','failed_verified','suppress_uncertain']),
+  evidenceReference:z.string().trim().min(20).max(500),
+  reviewerLabel:z.string().trim().min(3).max(100),
+  verifiedProviderId:z.string().max(300).nullable().optional(),
+  confirmedNoDelivery:z.boolean().optional(),
+ }))
+ .handler(async({data})=>{
+  const {reconcileNetworkNotificationRecovery}=await import('@/data/network-notification-recovery.server');
+  return reconcileNetworkNotificationRecovery(data.accessKey,data);
+ });
