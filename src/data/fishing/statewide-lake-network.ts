@@ -1690,7 +1690,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     nearbyLakes:[{slug:"lake-palestine",name:"Lake Palestine"},{slug:"lake-bob-sandlin",name:"Lake Bob Sandlin"},{slug:"lake-nacogdoches",name:"Lake Nacogdoches"}],
   },
   {
-    slug:"medina-lake", name:"Medina Lake", tpwdSlug:"medina", waterDataSlug:"medina",
+    slug: "medina-lake", name: "Medina Lake", tpwdSlug:"medina", waterDataSlug:"medina",
     region:"hill-country", verifiedAt:"2026-10-13", accessReviewedAt:"2026-10-13",
     summary:"A historic 1913 Medina River reservoir northwest of San Antonio with drought-sensitive ramps, invasive zebra mussels, two TPWD-listed launch facilities, striped-bass and catfish fishing, and a dramatic gap between full-pool and today's water extent.",
     surfaceAcres:5426, maxDepthFeet:152, impoundedYear:1913,
