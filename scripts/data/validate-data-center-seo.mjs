@@ -10,6 +10,9 @@ const readRouteSurface = (file) => {
 const sitemap = read('src/routes/sitemap[.]xml.ts');
 const hub = readRouteSurface('src/routes/texas-data.tsx');
 const detail = read('src/routes/texas-data.$datasetSlug.tsx');
+const detailSurface = readRouteSurface('src/routes/texas-data.$datasetSlug.tsx');
+const schoolRates = read('src/data/school-district-tax-rates.ts');
+const taxImporter = read('supabase/functions/import-texas-property-tax-rates/index.ts');
 const bridge = read('src/data/texas-data-center.ts');
 const serverRegistry = read('src/data/texas-data-center.server.ts');
 
@@ -38,6 +41,13 @@ const checks = [
   [detail, 'variableMeasured: loaderData.rows.map', 'Dataset schema must describe visible measurements'],
   [detail, 'isBasedOn: loaderData.sourceUrl', 'Dataset schema must identify its source'],
   [detail, "'@type': 'BreadcrumbList'", 'Dataset pages must declare breadcrumbs'],
+  [detailSurface, 'Texas School District Property Tax Rates — {data.year}', 'School tax dataset must render the statewide authority explorer'],
+  [detailSurface, 'Download CSV', 'School tax dataset must preserve downloadable statewide data'],
+  [schoolRates, ".eq('type', 'school-district')", 'School tax loader must select a school-district-specific latest year'],
+  [taxImporter, 'SCHOOL_RATE_OVERRIDES_2025', 'Property-tax importer must retain verified 2025 school-rate corrections'],
+  [taxImporter, '"ballinger-isd":{total:0.7705,mo:0.7705,debt:0', 'Ballinger 2025 verified correction must not regress'],
+  [taxImporter, '"chillicothe-isd":{total:1.0239,mo:0.6692,debt:0.3547', 'Chillicothe 2025 verified correction must not regress'],
+  [taxImporter, '"keller-isd":{total:1.0852,mo:0.7552,debt:0.33', 'Keller 2025 verified correction must not regress'],
 ];
 
 const failures = checks
@@ -49,6 +59,9 @@ const bridgeSlugs = extractSlugs(bridge);
 const serverSlugs = extractSlugs(serverRegistry);
 if (JSON.stringify(bridgeSlugs) !== JSON.stringify(serverSlugs)) {
   failures.push('Sitemap-safe Texas dataset metadata must stay in exact slug parity with the full server registry.');
+}
+if (/Hutto ISD|Socorro ISD/.test(serverRegistry.slice(serverRegistry.indexOf("slug: 'school-district-tax-rates'"), serverRegistry.indexOf("slug: 'homestead-exemption-history'")))) {
+  failures.push('School district tax registry must not regress to the obsolete six-row sample.');
 }
 if (bridge.includes("sourceName: '") || bridge.includes("sourceUrl: '") || bridge.includes("methodology: '") || bridge.includes('rows: [')) {
   failures.push('Texas data bridge must not duplicate source methodology and measurement rows into emitted client JavaScript.');
