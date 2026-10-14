@@ -28,6 +28,141 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "uss-lexington-museum-corpus-christi": {
+    "name": "USS Lexington Museum on the Bay",
+    "slug": "uss-lexington-museum-corpus-christi",
+    "county": "Nueces",
+    "city": "Corpus Christi",
+    "reviewed": "2026-10-14",
+    "topics": [
+        "naval-aviation",
+        "world-war-ii",
+        "military-history",
+        "maritime-heritage",
+        "family"
+    ],
+    "whyVisit": "USS Lexington (CV-16), the Essex-class carrier preserved on North Beach in Corpus Christi, is an actual aircraft carrier and not Battleship Texas. Her visitor routes reveal both large-scale naval aviation and the tight daily life of sailors across wartime and training-carrier service. The flight deck aircraft, hangar exhibits, engineering displays and shipboard spaces offer distinct experiences; a grounded visit explains how carrier airpower differs from battleship artillery, with detailed historical research maintained separately in TexasDefined's USS Lexington CV-16 historical guide.",
+    "visitorStrategy": "The museum operates daily except Thanksgiving and Christmas. Its 2026 operator listing states 9 a.m.–5 p.m. during the Labor Day-to-Memorial Day season and 9 a.m.–6 p.m. in summer. General admission is purchased at the entrance booths on the day of your visit, not via a routine online museum ticket: current listed adult admission $25, seniors $21, military with ID $16, ages 13–17 $20, ages 4–12 $15 and ages 3 or younger free. All-day parking currently costs $5; some card transactions incur a 3% fee. Budget roughly three to four hours if walking more than the accessible decks, and choose fewer self-guided routes when time or mobility is limited. The Mess Deck Café on the hangar deck lists lunch food, snacks and daily service from 10 a.m. to 4 p.m., subject to operational changes; outside food and beverages are prohibited.",
+    "accessibility": "The operator states the hangar deck and flight deck are wheelchair accessible, and the LEX LIFT elevator connects the decks for visitors who cannot use ship ladders. The café, 3D MEGA Theater, store and restrooms are on the accessible hangar deck. This does not establish step-free access to all of the carrier's eleven interpreted decks or its narrow wartime ladders and machinery rooms. Ask visitor services about access to any specific route, simulator or below-deck compartment before purchasing an experience. The outdoor flight deck is exposed to sun and strong bay winds; hearing protection or adjusted pacing may help with theater and Pearl Harbor effects.",
+    "familiesAndGroups": "Families can prioritize the accessible aircraft displays, hangar and flight deck and choose a shorter circuit for small children. Other routes include steep shipboard ladders, hard surfaces, tight corridors and wartime imagery, so age and mobility needs matter more than a generic family-friendly badge. The operator advertises a 3D theater, Pearl Harbor experience, simulator and educational programming; check current content and separate fees before promising particular access. Guided tours can have minimum-age limits, advance booking and particular start times. School or scout groups should wait for confirmation of reservations rather than treating an inquiry as a confirmed date.",
+    "researchValue": "Use Lexington's exhibition routes to compare the mechanics of a carrier: aircraft launch and recovery, hangar maintenance, control spaces, sailor quarters and engineering systems. The operator describes five independently navigable self-guided tour routes, not one compulsory tour. The National Historic Landmark ship's World War II combat and subsequent training service also make it valuable for comparing Lexington CV-16 with the earlier Lexington CV-2 lost at Coral Sea and the separate Texas battleships. For ship specifications and chronology, link to the underlying museum, Navy archival material and the site's full naval history article instead of reproducing a complete collection catalog.",
+    "exhibits": [
+        {
+            "heading": "Flight deck aircraft and recovery equipment",
+            "detail": "See naval aircraft and landing/anti-aircraft equipment atop the carrier, reached through the LEX LIFT for visitors who cannot use ladders."
+        },
+        {
+            "heading": "Hangar deck and aircraft-handling",
+            "detail": "Follow the central space where aircraft could be stored and serviced, with accessible theater, café and basic visitor amenities."
+        },
+        {
+            "heading": "Self-guided five-route ship circuit",
+            "detail": "Choose among independently marked ship routes and interactive exhibits; visitors should not promise that every below-deck passage is accessible."
+        },
+        {
+            "heading": "Pearl Harbor immersive exhibit",
+            "detail": "An operator-promoted light and sound attraction that may not suit all younger or sensory-sensitive visitors."
+        },
+        {
+            "heading": "3D MEGA Theater and flight simulator",
+            "detail": "A film experience promoted as included with general admission and a separate simulator-style attraction; verify current showtimes and any simulator fees."
+        },
+        {
+            "heading": "Carrier engineering and sailor life",
+            "detail": "Where open, below-deck mechanical and living spaces give physical scale to the work of keeping a carrier afloat and an air wing operating."
+        }
+    ],
+    "routes": [
+        {
+            "label": "Step-free highlights",
+            "steps": [
+                "Check in at the North Beach admission booths and confirm current LEX LIFT operation",
+                "Tour hangar-deck exhibits and 3D MEGA Theater as interests permit",
+                "Use the elevator to see aircraft on the flight deck and return for the café or store"
+            ]
+        },
+        {
+            "label": "Full ship adventure",
+            "steps": [
+                "Begin with the flight-deck aviation story and aircraft displays",
+                "Choose several marked self-guided circuits below deck only where personal mobility and operator access allow",
+                "Finish with engineering/crew-life context, Pearl Harbor interpretation and a meal at the Mess Deck Café if open"
+            ]
+        },
+        {
+            "label": "Corpus Christi North Beach family day",
+            "steps": [
+                "Visit USS Lexington early to avoid the hottest flight-deck hours",
+                "Use a short aircraft-and-hangar route for younger children and allow breaks",
+                "Pair with the separately ticketed Texas State Aquarium nearby, not as part of museum admission"
+            ]
+        }
+    ],
+    "sources": [
+        {
+            "label": "USS Lexington official admission and accessibility",
+            "url": "https://usslexington.com/visit/hours-admission/",
+            "use": "2026 tickets, seasonal hours, elevator, food and parking policies"
+        },
+        {
+            "label": "USS Lexington self-guided touring",
+            "url": "https://usslexington.com/tours/self-guided-tours/",
+            "use": "Five marked routes, operational touring method and staff assistance"
+        },
+        {
+            "label": "USS Lexington flight deck",
+            "url": "https://usslexington.com/attractions/the-flight-deck/",
+            "use": "Actual aircraft display, accessible flight deck and LEX LIFT"
+        },
+        {
+            "label": "USS Lexington Mess Deck Café",
+            "url": "https://usslexington.com/visit/mess-deck-cafe/",
+            "use": "Confirmed café type, hot lunch menu, general-admission condition and serving times"
+        },
+        {
+            "label": "USS Lexington attraction roster",
+            "url": "https://usslexington.com/attractions/",
+            "use": "Pearl Harbor, theater, simulator and museum displays"
+        },
+        {
+            "label": "USS Lexington educational programs",
+            "url": "https://usslexington.com/learn/education/",
+            "use": "Advance-booked youth and school arrangements"
+        },
+        {
+            "label": "USS Lexington North Beach directions",
+            "url": "https://usslexington.com/visit/directions-map-how-to-get-to-lex/",
+            "use": "Real address, coordinates and current all-day parking"
+        }
+    ],
+    "connections": [
+        {
+            "label": "Nueces County",
+            "href": "/county/nueces",
+            "reason": "Connect the ship's coastal location to Corpus Christi's history and visitor logistics."
+        },
+        {
+            "label": "Texas State Aquarium",
+            "href": "/destination/texas-state-aquarium",
+            "reason": "A separate North Beach family stop, with separate admission."
+        },
+        {
+            "label": "National Museum of the Pacific War",
+            "href": "/destination/national-museum-pacific-war",
+            "reason": "Pair carrier-based naval aviation with broader Pacific War interpretation."
+        },
+        {
+            "label": "USS Lexington CV-16 history and visitor guide",
+            "href": "/article/uss-lexington-cv16-history-visitor-guide",
+            "reason": "Read researched chronology and documented archival ship photographs."
+        },
+        {
+            "label": "Texas museum directory",
+            "href": "/explore/museums",
+            "reason": "Find other military, maritime and science museums across the state."
+        }
+    ]
+},
   "sixth-floor-museum-at-dealey-plaza": {
     "name": "The Sixth Floor Museum at Dealey Plaza",
     "slug": "sixth-floor-museum-at-dealey-plaza",
