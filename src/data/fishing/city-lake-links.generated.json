@@ -5,6 +5,12 @@
       "name": "Lake Meredith"
     }
   ],
+  "arlington": [
+    {
+      "slug": "lake-arlington",
+      "name": "Lake Arlington"
+    }
+  ],
   "athens": [
     {
       "slug": "cedar-creek-reservoir",
@@ -29,6 +35,10 @@
     {
       "slug": "eagle-mountain-lake",
       "name": "Eagle Mountain Lake"
+    },
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
     }
   ],
   "ballinger": [
@@ -150,6 +160,10 @@
     }
   ],
   "cleburne": [
+    {
+      "slug": "cedar-lake-cleburne-state-park",
+      "name": "Cedar Lake at Cleburne State Park"
+    },
     {
       "slug": "lake-granbury",
       "name": "Lake Granbury"
@@ -311,8 +325,16 @@
       "name": "Eagle Mountain Lake"
     },
     {
+      "slug": "lake-arlington",
+      "name": "Lake Arlington"
+    },
+    {
       "slug": "lake-granbury",
       "name": "Lake Granbury"
+    },
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
     }
   ],
   "fritch": [
@@ -341,6 +363,12 @@
     {
       "slug": "lake-georgetown",
       "name": "Lake Georgetown"
+    }
+  ],
+  "glen-rose": [
+    {
+      "slug": "cedar-lake-cleburne-state-park",
+      "name": "Cedar Lake at Cleburne State Park"
     }
   ],
   "graford": [
@@ -457,6 +485,12 @@
       "name": "Lake O' the Pines"
     }
   ],
+  "joshua": [
+    {
+      "slug": "cedar-lake-cleburne-state-park",
+      "name": "Cedar Lake at Cleburne State Park"
+    }
+  ],
   "justiceburg": [
     {
       "slug": "alan-henry-reservoir",
@@ -467,6 +501,12 @@
     {
       "slug": "caddo-lake",
       "name": "Caddo Lake"
+    }
+  ],
+  "kennedale": [
+    {
+      "slug": "lake-arlington",
+      "name": "Lake Arlington"
     }
   ],
   "kerens": [
@@ -511,6 +551,12 @@
     {
       "slug": "lake-travis",
       "name": "Lake Travis"
+    }
+  ],
+  "lake-worth": [
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
     }
   ],
   "lakeway": [
@@ -705,6 +751,12 @@
     {
       "slug": "lake-casa-blanca",
       "name": "Lake Casa Blanca"
+    }
+  ],
+  "river-oaks": [
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
     }
   ],
   "rockwall": [

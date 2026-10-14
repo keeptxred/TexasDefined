@@ -7,13 +7,14 @@ const rooms = "https://www.thehollandhoteltexas.com/stay";
 const details = "https://www.thehollandhoteltexas.com/details";
 const history = "https://www.thehollandhoteltexas.com/history";
 const trost = "https://www.henrytrost.org/buildings/holland-hotel/";
-const image = "Holland Avenue and Hotel Holland Alpine Texas DSC 5556 ad.JPG";
+const image = "Alpine - Holland Hotel.jpg";
 
 /** Independently researched 1928 Alpine hotel.
  * Historical sources: NPS nomination, Trost historic records, operator.
  * Operating details must be refreshed; the hotel continues to change.
- * Reuse of a separate exact-building CC BY-SA image is intentional until
- * a second file's individual reuse license can be documented.
+ * File-specific 2025 exterior photo rights: P. Hughes, CC BY 4.0,
+ * Wikimedia Commons File:Alpine_-_Holland_Hotel.jpg. It must differ from
+ * the Alpine Downtown Historic District photo to remain image-indexable.
  */
 export const hollandHotelAuthorityDestination = makeThcHeritageDestination({
   slug:"holland-hotel",
@@ -23,9 +24,9 @@ export const hollandHotelAuthorityDestination = makeThcHeritageDestination({
   coordinates:{lat:30.3575,lng:-103.6628},
   address:"209 West Holland Avenue, Alpine, TX 79830",
   imageFile:image,
-  imageAlt:"Hotel Holland's 1928 Spanish Colonial Revival facade on West Holland Avenue in Alpine, Texas",
-  imageCredit:"Adavyd · CC BY-SA 3.0 · Wikimedia Commons · photographed 31 March 2014",
-  imageWidth:3872,imageHeight:2592,
+  imageAlt:"The Holland Hotel’s historic Spanish Colonial Revival facade in Alpine, Texas, photographed in February 2025",
+  imageCredit:"P. Hughes · CC BY 4.0 · Wikimedia Commons · photographed February 3, 2025",
+  imageWidth:5012,imageHeight:3896,
   officialUrl:hotel,
   operator:"Holland Hotel, operated by current lodging management; verify directly at 432-837-2800",
   season:"Year-round indoor accommodations and downtown architecture; Alpine has seasonal temperature swings and high-desert travel conditions.",
@@ -65,7 +66,7 @@ export const hollandHotelAuthorityDestination = makeThcHeritageDestination({
     thcSource("Holland Hotel — official historic account",history,"Operator account of original 1928 design and the building's evolving uses"),
     thcSource("Holland Hotel — current reservations and room types",rooms,"Current commercial availability, rooms, fees and services"),
     thcSource("Holland Hotel — current operational details",details,"Restaurant closure, front-desk hours, pool availability and check-in policies"),
-    thcSource("Wikimedia Commons — exact-property photograph",commonsFilePage(image),"Individual image provenance, Adavyd and CC BY-SA 3.0 reuse rights"),
+    thcSource("Wikimedia Commons — distinct Holland Hotel photograph",commonsFilePage(image),"February 2025 exact-property facade photo by P. Hughes, original 5012 × 3896, CC BY 4.0; license https://creativecommons.org/licenses/by/4.0/"),
   ],
   whyVisit:"One of Alpine's key historic hotel buildings, well suited to a sidewalk architecture visit or a carefully booked stay, but not an unrestricted museum tour.",
   firstVisitSteps:[
