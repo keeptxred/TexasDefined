@@ -49,7 +49,7 @@ const getSchoolResearch = slug => {
   const mascotLine = identities.split('\n').find(l => l.includes("slug: '" + slug + "'"));
   const mascot = mascotLine?.match(/mascot: '([^']+)'/)?.[1];
   const county = profileRoute.match(new RegExp("['\"]" + slug + "['\"]:\\s*['\"]([^'\"]+)['\"]"))?.[1];
-  const season = segment.match(/"season"\s*:\s*\{[\s\S]*?"games"\s*:\s*\[([\s\S]*?)\n    \]/);
+  const season = segment.match(/"season"\s*:\s*\{[\s\S]*?"games"\s*:\s*\[([\s\S]*?)\s*\]/);
   return {
     title: title ? JSON.parse(title[1]) : null,
     development: development ? JSON.parse(development[1]) : null,
