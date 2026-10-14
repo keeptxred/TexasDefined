@@ -3,24 +3,24 @@
   "date": "2026-10-14",
   "baseline": "TPWD more than 150 lake profiles",
   "summary": {
-    "total": 70,
+    "total": 71,
     "standardSectionsPerGuide": 9,
-    "statewide": 55,
-    "namedAccess": 70,
+    "statewide": 56,
+    "namedAccess": 71,
     "unknownAccess": 0,
-    "namedCamping": 45,
+    "namedCamping": 46,
     "unknownCamping": 25,
-    "history": 22,
+    "history": 23,
     "noHistory": 48,
-    "photoMappings": 70,
+    "photoMappings": 71,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 70,
+    "explicitNamedAccess": 71,
     "lackingNamedAccess": 0,
-    "explicitNamedCamping": 45,
+    "explicitNamedCamping": 46,
     "lackingNamedCamping": 25,
-    "namedStatewideFacilities": 215,
-    "statewideTemplateGuidesWithNamedAccess": 55
+    "namedStatewideFacilities": 217,
+    "statewideTemplateGuidesWithNamedAccess": 56
   },
   "entries": [
     {
@@ -1127,6 +1127,22 @@
       "accessFacilityCount": 2,
       "accessReviewedAt": "2026-10-14",
       "namedCamping": false
+    },
+    {
+      "slug": "lake-athens",
+      "name": "Lake Athens",
+      "kind": "Statewide",
+      "ramp": "Lake Athens Marina, two TPWD-listed paved lanes, 30 trailer spaces; confirm private concession current rules",
+      "camping": "Marina & RV Park full-hookup reservable sites; verify current operations",
+      "history": "AMWA 1957 organization, TWDB 1961 construction/Nov 1962 impoundment/May 1963 completion",
+      "fish": 5,
+      "photo": "Exact historic 2012 Lake Athens Flickr photo Nicolas Henderson CC BY 2.0",
+      "water": "TWDB live lake-level source with original timestamp and conservation datum",
+      "risk": "AMWA February 2025 boating and private concessions differ from old TPWD 'no fee' marina listing; owner survey 1520 vs TWDB/TPWD 1799 acres; original field photos and live acceptance pending",
+      "namedAccess": true,
+      "accessFacilityCount": 2,
+      "accessReviewedAt": "2026-10-14",
+      "namedCamping": true
     }
   ],
   "legacy": [
