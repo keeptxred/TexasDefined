@@ -23,7 +23,7 @@ const PRIORITY_SWIM_AND_FLOAT_SLUGS = new Set([
   "new-braunfels", "san-marcos",
   "garner-state-park", "guadalupe-river-state-park", "south-llano-river-state-park",
   "blanco-state-park", "inks-lake-state-park", "mckinney-falls-state-park",
-  "balmorhea-state-park", "blue-hole-regional-park", "barton-springs-pool",
+  "balmorhea-state-park", "blue-hole-regional-park", "blue-hole-regional-park-wimberley", "blue-hole-wimberley", "barton-springs-pool",
 ]);
 
 // TPWD's swimming inventory supports state park categorization, but a park's
