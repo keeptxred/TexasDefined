@@ -11,6 +11,7 @@ const deploySha = process.env.DEPLOY_SHA || "manual";
 const cases = [
   {
     slug: "la-salle-odyssey-texas-coast",
+    heroFile: "Texas_Maritime_Museum_Rockport_Texas_2024.jpg",
     title: "La Salle Odyssey: Seven Texas Coastal Museums",
     phrases: ["City by the Sea Museum", "La Belle"],
     photo: "Larry D. Moore",
@@ -18,6 +19,7 @@ const cases = [
   },
   {
     slug: "goose-island-big-tree",
+    heroFile: "Big_Tree_Texas_2024.jpg",
     title: "The Big Tree at Goose Island State Park",
     phrases: ["exact age", "Goose Island"],
     photo: "Larry D. Moore",
@@ -25,6 +27,7 @@ const cases = [
   },
   {
     slug: "south-padre-island",
+    heroFile: "South_Padre_Island_beach_panorama.jpg",
     title: "South Padre Island",
     phrases: ["Laguna Madre", "Port Isabel"],
     photo: "Spheroidite",
@@ -32,6 +35,7 @@ const cases = [
   },
   {
     slug: "corpus-christi-museum-science-history",
+    heroFile: "Corpus_christi_museum_of_science_history.jpg",
     title: "Corpus Christi Museum of Science and History",
     phrases: ["South Texas", "archaeology"],
     photo: "Larry D. Moore",
@@ -39,6 +43,7 @@ const cases = [
   },
   {
     slug: "port-isabel-historical-museum",
+    heroFile: "Champion_Building",
     title: "Port Isabel Historical Museum",
     phrases: ["Champion Building", "fish mural"],
     photo: "Carol M. Highsmith",
@@ -46,6 +51,7 @@ const cases = [
   },
   {
     slug: "historic-brownsville-museum",
+    heroFile: "Southern_Pacific_Railroad_Passenger_Depot_Brownsville_Texas.jpg",
     title: "Historic Brownsville Museum",
     phrases: ["Southern Pacific", "Brownsville"],
     photo: "25or6to4",
@@ -76,6 +82,46 @@ function noindexFound(html) {
   );
 }
 
+function heroPreloadUrl(html) {
+  // SSR must expose the actual lead image, not merely an attribution embedded in JSON-LD.
+  const preloads = html.match(/<link\b[^>]*>/gi) || [];
+  const lead = preloads.find((tag) => /\bas=["']image["']/i.test(tag) && !/texasdefined-logo/i.test(tag));
+  const href = lead?.match(/\bhref=["']([^"']+)["']/i)?.[1];
+  return href ? new URL(href.replace(/&amp;/gi, "&"), origin).toString() : null;
+}
+
+function decodedImageReference(url) {
+  let value = url;
+  for (let i = 0; i < 2; i++) {
+    try { value = decodeURIComponent(value); } catch { break; }
+  }
+  return value;
+}
+
+async function checkHeroImage(url) {
+  const response = await fetch(url, {
+    redirect: "follow",
+    signal: AbortSignal.timeout(18000),
+    headers: {
+      "User-Agent": "TexasDefined-Coastal-Production-Authority-Check/1.0",
+      "Accept": "image/avif,image/webp,image/*",
+      "Range": "bytes=0-65535",
+    },
+  });
+  const mime = (response.headers.get("content-type") || "").split(";")[0].trim().toLowerCase();
+  const reader = response.body?.getReader();
+  const first = reader ? await reader.read() : null;
+  const bytes = first?.value?.byteLength || 0;
+  await reader?.cancel().catch(() => {});
+  return {
+    url,
+    status: response.status,
+    mime,
+    firstChunkBytes: bytes,
+    ok: [200, 206].includes(response.status) && mime.startsWith("image/") && bytes > 64,
+  };
+}
+
 async function probe(item) {
   const path = "/destination/" + item.slug;
   let result;
@@ -99,7 +145,21 @@ async function probe(item) {
       for (const slug of item.links) if (!html.includes("/destination/" + slug)) failures.push("missing internal link: " + slug);
       if (canonical !== origin + path) failures.push("incorrect canonical: " + String(canonical));
       if (noindexFound(html)) failures.push("noindex on authoritative visitor guide");
-      result = { path, status: response.status, bytes: html.length, canonical, failures };
+      const heroUrl = heroPreloadUrl(html);
+      let heroImage = null;
+      if (!heroUrl) {
+        failures.push("SSR hero image preload is missing");
+      } else if (!decodedImageReference(heroUrl).includes(item.heroFile)) {
+        failures.push("incorrect hero location/source: " + heroUrl);
+      } else {
+        try {
+          heroImage = await checkHeroImage(heroUrl);
+          if (!heroImage.ok) failures.push("hero image delivery failed: " + heroImage.status + " " + heroImage.mime + " first=" + heroImage.firstChunkBytes);
+        } catch (imageError) {
+          failures.push("hero image request failed: " + String(imageError));
+        }
+      }
+      result = { path, status: response.status, bytes: html.length, canonical, heroImage, failures };
       if (!failures.length) {
         console.log("PASS " + path + " (" + html.length + " HTML characters)");
         return result;
