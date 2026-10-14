@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { strict as assert } from "node:assert";
 import { readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { segmentOwnerMuseumNames, ownerMuseumIdentityKey, provisionalIdentityIssues } from "./museum-owner-inventory-parser.mjs";
 const split = (value) => segmentOwnerMuseumNames(value);
 assert.deepEqual(split("African American Museum of DallasAgricultural Heritage Museum"), ["African American Museum of Dallas", "Agricultural Heritage Museum"]);
@@ -15,4 +16,16 @@ assert.ok(entries.length >= 650 && entries.length < 800, "Owner inventory must n
 for (const name of ["A.C. McMillan African American Museum", "McNay Art Museum", "DeGolyer House and Gardens", "DeLeon Area Historical Museum", "DuBois-Allmon Museum", "African American Museum of Dallas", "Agricultural Heritage Museum", "Art Center of Waco", "Art Museum of Southeast Texas", "Heritage House Museum (Orange)", "Heritage Museum of Montgomery County"]) {
  assert.ok(entries.includes(name), "Preserve complete owner-submitted name: " + name);
 }
-console.log("Museum owner inventory parser: source boundaries retained; " + entries.length + " provisional names; no publication authorization.");
+// Auditing must preserve individual raw occurrences even when the same
+// institution name appears more than once (Scurry County Museum does).
+const report = JSON.parse(execFileSync(process.execPath,
+  ["scripts/data/audit-owner-museum-inventory.mjs"],
+  { encoding: "utf8", maxBuffer: 8 * 1024 * 1024 }));
+assert.equal(report.nameSegments, entries.length);
+assert.equal(report.rows.length, entries.length, "No raw submitted name occurrence may be lost");
+assert.equal(report.uniqueRows.length, report.uniqueNameSegments);
+assert.equal(report.repeatedSubmittedNameOccurrences, report.nameSegments - report.uniqueNameSegments);
+const scurry = report.rows.filter(row => row.submittedName === "Scurry County Museum");
+assert.ok(scurry.length >= 2, "Repeated Scurry County Museum entries must be preserved");
+assert.ok(scurry.some(row => row.duplicateOfOccurrence !== null), "Repeated names must point to their first occurrence");
+console.log("Museum owner inventory parser: " + entries.length + " raw name occurrences retained; " + report.uniqueNameSegments + " provisional unique names; no publication authorization.");
