@@ -19,7 +19,7 @@ const errors = [];
 for (const marker of ['id="texas-float-corridors"', 'id="texas-swimming-picks"', 'id="texas-swimming-alerts"', 'id="texas-swim-planning"', '/article/texas-comal-river-guide', '/article/texas-guadalupe-river-guide', '/article/texas-frio-river-guide', '/article/texas-san-marcos-river-guide', 'https://tpwd.texas.gov/state-parks/abilene/alert/', 'https://wimberleyparksandrec.com/blue-hole-swimming/']) {
   if (!publicAuthority.includes(marker)) errors.push("Swim authority lost trip-planning evidence: " + marker);
 }
-if ((publicAuthority.match(/<figure\\b/g) ?? []).length < 3) errors.push("Swim authority lacks destination-specific photographic evidence");
+if (publicAuthority.split("<figure").length - 1 < 3) errors.push("Swim authority lacks destination-specific photographic evidence");
 if (!activity.includes('"abilene-state-park"') || !activity.includes('SWIM_ACTIVITY_RESTRICTIONS[destination.slug]')) errors.push("Closed swimming activity can reenter the recommendations");
 if (!regional.includes('"abilene-state-park": "panhandle"')) errors.push("Abilene State Park has no verified Panhandle Plains override");
 if (!lazyRoute.includes('id: "texas-swimming-floating-destination-graphic"')) errors.push("Swimming destinations no longer have an orientation map");
