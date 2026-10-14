@@ -1,4 +1,5 @@
 import type { Article } from "@/data/types";
+import { riverAuthorityLinksForCounty } from "@/data/river-authority-relations";
 import { COUNTY_SERIES_PROFILES } from "@/data/county-series-profiles";
 import { COUNTY_SERIES_PROFILES_CENTRAL } from "@/data/county-series-profiles-central";
 import { COUNTY_SERIES_PROFILES_CONCHO } from "@/data/county-series-profiles-concho";
@@ -46,7 +47,18 @@ export function loadCountySeriesArticleServer(countySlug: string): Promise<Artic
 
   const countyProfile = countySeriesProfiles.find((item) => item.countySlug === countySlug);
   const heroOverride = COUNTY_HERO_OVERRIDES[countySlug];
-  const promise = countyProfile?.loadArticle().then((article) => article && heroOverride ? { ...article, hero: heroOverride } : article) ?? Promise.resolve(null);
+  const promise = countyProfile?.loadArticle().then((article) => {
+    if (!article) return null;
+    const riverLinks = riverAuthorityLinksForCounty(countySlug);
+    const current = article.internalLinks ?? [];
+    const seen = new Set(current.map((item) => item.href));
+    const uniqueRiverLinks = riverLinks.filter((item) => !seen.has(item.href));
+    return {
+      ...article,
+      ...(heroOverride ? { hero: heroOverride } : {}),
+      internalLinks: [...current, ...uniqueRiverLinks],
+    };
+  }) ?? Promise.resolve(null);
   articlePromiseCache.set(countySlug, promise);
   return promise;
 }

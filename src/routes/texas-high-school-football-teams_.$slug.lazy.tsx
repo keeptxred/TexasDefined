@@ -41,6 +41,26 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'baytown-goose-creek-memorial': 'harris',
+    'baytown-lee': 'harris',
+    'baytown-sterling': 'harris',
+    'beaumont-united': 'jefferson',
+    'beaumont-west-brook': 'jefferson',
+    'beckville': 'panola',
+    'beeville-jones': 'bee',
+    'bells': 'grayson',
+    'bellville': 'austin',
+    'belton': 'bell',
+    'ben-bolt-palito-blanco': 'jim-wells',
+    'benavides': 'duval',
+    'big-lake-reagan-co': 'reagan',
+    'big-sandy': 'upshur',
+    'barksdale-nueces-canyon': 'edwards',
+    'bartlett': 'bell',
+    'bastrop': 'bastrop',
+    'bastrop-cedar-creek': 'bastrop',
+    'bay-city': 'matagorda',
+    benjamin: 'knox', // Benjamin ISD campus in Knox County
     'ballinger': 'runnels',
     'balmorhea': 'reeves',
     'bandera': 'bandera',
@@ -439,7 +459,7 @@ function Page() {
 
       {editorial?.development && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
-          <p className="eyebrow text-primary">Campus development</p>
+          <p className="eyebrow text-primary">Program background</p>
           <h2 className="mt-2 font-display text-3xl">{editorial.development.title}</h2>
         </div>
         <div>
@@ -492,7 +512,7 @@ function Page() {
             <Snapshot label="All-time state finals" value={String(program.allTimeHistory.stateFinalAppearances)} />
             <Snapshot label="UIL table through" value={String(program.allTimeHistory.publishedThroughYear)} />
           </dl>
-          {program.allTimeHistory.appearanceYears && <p className="mt-5 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">State-final appearance years:</strong> {program.allTimeHistory.appearanceYears}</p>}
+          {program.allTimeHistory.appearanceYears && <p className="mt-5 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">State-final appearance years:</strong> {schoolName === 'Benjamin' ? '2022 and 2023 — both 1A Division II state championships' : program.allTimeHistory.appearanceYears}</p>}
           {program.allTimeHistory.documentedCorrection && <p className="mt-3 border-l-4 border-foreground bg-surface p-4 text-sm leading-7 text-foreground"><strong>Championship source correction:</strong> {program.allTimeHistory.documentedCorrection.note} <a href={program.allTimeHistory.documentedCorrection.sourceUrl} className="font-semibold text-primary underline underline-offset-4" target="_blank" rel="noreferrer noopener">Read the official 2003 game recap ↗</a></p>}
           {program.allTimeHistory.supplementedFinals.length > 0 && <p className="mt-3 text-xs leading-6 text-muted-foreground">TexasDefined supplements UIL’s published all-time table with {program.allTimeHistory.supplementedFinals.length} newer completed {program.allTimeHistory.supplementedFinals.length === 1 ? 'state final' : 'state finals'} from the official UIL state archive.</p>}
           <a href={program.allTimeHistory.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">UIL all-time appearances ↗</a>
@@ -567,7 +587,7 @@ function Page() {
           <h2 className="mt-2 font-display text-3xl">What families should check next</h2>
         </div>
         <div className="grid gap-px bg-border md:grid-cols-2">
-          <ResearchCard title="Freshman, JV and varsity path" body="Look beyond the varsity record. Ask how many teams the program fields, roster sizes, how younger players develop and whether position depth creates a realistic path to playing time." />
+          {program?.footballType === '6-Man' ? <ResearchCard title="Six-man player development" body="Small six-man schools may not field separate freshman or JV teams. Ask the district what programs actually operate, how younger players develop and how multirole participation works." /> : <ResearchCard title="Freshman, JV and varsity path" body="Look beyond the varsity record. Ask how many teams the program fields, roster sizes, how younger players develop and whether position depth creates a realistic path to playing time." />}
           <ResearchCard title="Coaching continuity" body="Check the current head coach and staff, how long the core staff has been in place and whether program systems remain stable across freshman, JV and varsity." />
           <ResearchCard title="Schedule and district travel" body="The current district or association grouping tells you the competitive neighborhood. Review opponents, travel distance, rivalry games and the current schedule rather than relying on an old classification." />
           <ResearchCard title="Academics and daily fit" body="Football is one piece of a four-year school experience. Compare academics, programs, commute, campus culture and student support alongside the football program." />

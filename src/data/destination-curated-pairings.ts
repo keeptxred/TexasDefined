@@ -9,6 +9,20 @@ import type { Destination } from "./types";
  * gives state parks and adjacent attractions a reverse link back to the cavern.
  */
 const CURATED_PAIRINGS: Readonly<Record<string, readonly string[]>> = {
+  "southern-pacific-passenger-depot-del-rio": ["whitehead-memorial-museum", "del-rio"],
+  "clifton-whipple-truss-bridge": ["clifton", "bosque-museum"],
+  "bosque-river-bridge-meridian": ["meridian", "meridian-state-park"],
+  "holland-hotel": ["alpine-downtown-historic-district", "alpine", "kokernot-field"],
+  "sycamore-creek-bridge-fort-worth": ["fort-worth-stockyards"],
+  "regency-suspension-bridge": ["goldthwaite", "san-saba"],
+  "kokernot-field": ["alpine-downtown-historic-district", "alpine"],
+  "alpine-downtown-historic-district": ["kokernot-field", "alpine", "holland-hotel"],
+  "castro-county-courthouse": ["dimmitt"],
+  "bailey-county-courthouse": ["muleshoe"],
+  "wimberley-downtown-square-historic-district": ["wimberley", "blue-hole-regional-park"],
+  "sour-lake-downtown-historic-district": ["sour-lake"],
+  "downtown-bryan-historic-district": ["bryan", "carnegie-history-center-bryan", "queen-theatre-bryan"],
+  "olivewood-cemetery": ["houston"],
   "natural-bridge-caverns": [
     "natural-bridge-wildlife-ranch",
     "guadalupe-river-state-park",

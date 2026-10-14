@@ -87,6 +87,7 @@ import { Route as TexasHomeEquityGrowthCalculatorRouteImport } from './routes/te
 import { Route as TexasHomeEquityCalculatorRouteImport } from './routes/texas-home-equity-calculator'
 import { Route as TexasHomeAffordabilityCalculatorRouteImport } from './routes/texas-home-affordability-calculator'
 import { Route as TexasHistoryRouteImport } from './routes/texas-history'
+import { Route as TexasHistoricLandmarksRouteImport } from './routes/texas-historic-landmarks'
 import { Route as TexasHipHopRouteImport } from './routes/texas-hip-hop'
 import { Route as TexasHighSchoolFootballTeamsRouteImport } from './routes/texas-high-school-football-teams'
 import { Route as TexasHighSchoolFootballIsdsRouteImport } from './routes/texas-high-school-football-isds'
@@ -180,6 +181,7 @@ import { Route as EventsRouteImport } from './routes/events'
 import { Route as EditorialPolicyRouteImport } from './routes/editorial-policy'
 import { Route as DrPepperTexasHistoryRouteImport } from './routes/dr-pepper-texas-history'
 import { Route as DallasFortWorthMusicHistoryRouteImport } from './routes/dallas-fort-worth-music-history'
+import { Route as DallasBlackHistoryRouteImport } from './routes/dallas-black-history'
 import { Route as CountyRouteImport } from './routes/county'
 import { Route as CorrectionsPolicyRouteImport } from './routes/corrections-policy'
 import { Route as CorpusChristiMusicHistoryRouteImport } from './routes/corpus-christi-music-history'
@@ -1068,6 +1070,13 @@ const TexasHistoryRoute = TexasHistoryRouteImport.update({
   path: '/texas-history',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/texas-history.lazy').then((d) => d.Route))
+const TexasHistoricLandmarksRoute = TexasHistoricLandmarksRouteImport.update({
+  id: '/texas-historic-landmarks',
+  path: '/texas-historic-landmarks',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/texas-historic-landmarks.lazy').then((d) => d.Route),
+)
 const TexasHipHopRoute = TexasHipHopRouteImport.update({
   id: '/texas-hip-hop',
   path: '/texas-hip-hop',
@@ -1645,6 +1654,11 @@ const DallasFortWorthMusicHistoryRoute =
       (d) => d.Route,
     ),
   )
+const DallasBlackHistoryRoute = DallasBlackHistoryRouteImport.update({
+  id: '/dallas-black-history',
+  path: '/dallas-black-history',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CountyRoute = CountyRouteImport.update({
   id: '/county',
   path: '/county',
@@ -3733,6 +3747,7 @@ export interface FileRoutesByFullPath {
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
   '/county': typeof CountyRoute
+  '/dallas-black-history': typeof DallasBlackHistoryRoute
   '/dallas-fort-worth-music-history': typeof DallasFortWorthMusicHistoryRoute
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
@@ -3826,6 +3841,7 @@ export interface FileRoutesByFullPath {
   '/texas-high-school-football-isds': typeof TexasHighSchoolFootballIsdsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
+  '/texas-historic-landmarks': typeof TexasHistoricLandmarksRoute
   '/texas-history': typeof TexasHistoryRoute
   '/texas-home-affordability-calculator': typeof TexasHomeAffordabilityCalculatorRoute
   '/texas-home-equity-calculator': typeof TexasHomeEquityCalculatorRoute
@@ -4244,6 +4260,7 @@ export interface FileRoutesByTo {
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
   '/county': typeof CountyRoute
+  '/dallas-black-history': typeof DallasBlackHistoryRoute
   '/dallas-fort-worth-music-history': typeof DallasFortWorthMusicHistoryRoute
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
@@ -4334,6 +4351,7 @@ export interface FileRoutesByTo {
   '/texas-high-school-football-isds': typeof TexasHighSchoolFootballIsdsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
+  '/texas-historic-landmarks': typeof TexasHistoricLandmarksRoute
   '/texas-history': typeof TexasHistoryRoute
   '/texas-home-affordability-calculator': typeof TexasHomeAffordabilityCalculatorRoute
   '/texas-home-equity-calculator': typeof TexasHomeEquityCalculatorRoute
@@ -4753,6 +4771,7 @@ export interface FileRoutesById {
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
   '/county': typeof CountyRoute
+  '/dallas-black-history': typeof DallasBlackHistoryRoute
   '/dallas-fort-worth-music-history': typeof DallasFortWorthMusicHistoryRoute
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
@@ -4846,6 +4865,7 @@ export interface FileRoutesById {
   '/texas-high-school-football-isds': typeof TexasHighSchoolFootballIsdsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
+  '/texas-historic-landmarks': typeof TexasHistoricLandmarksRoute
   '/texas-history': typeof TexasHistoryRoute
   '/texas-home-affordability-calculator': typeof TexasHomeAffordabilityCalculatorRoute
   '/texas-home-equity-calculator': typeof TexasHomeEquityCalculatorRoute
@@ -5266,6 +5286,7 @@ export interface FileRouteTypes {
     | '/corpus-christi-music-history'
     | '/corrections-policy'
     | '/county'
+    | '/dallas-black-history'
     | '/dallas-fort-worth-music-history'
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
@@ -5359,6 +5380,7 @@ export interface FileRouteTypes {
     | '/texas-high-school-football-isds'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
+    | '/texas-historic-landmarks'
     | '/texas-history'
     | '/texas-home-affordability-calculator'
     | '/texas-home-equity-calculator'
@@ -5777,6 +5799,7 @@ export interface FileRouteTypes {
     | '/corpus-christi-music-history'
     | '/corrections-policy'
     | '/county'
+    | '/dallas-black-history'
     | '/dallas-fort-worth-music-history'
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
@@ -5867,6 +5890,7 @@ export interface FileRouteTypes {
     | '/texas-high-school-football-isds'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
+    | '/texas-historic-landmarks'
     | '/texas-history'
     | '/texas-home-affordability-calculator'
     | '/texas-home-equity-calculator'
@@ -6285,6 +6309,7 @@ export interface FileRouteTypes {
     | '/corpus-christi-music-history'
     | '/corrections-policy'
     | '/county'
+    | '/dallas-black-history'
     | '/dallas-fort-worth-music-history'
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
@@ -6378,6 +6403,7 @@ export interface FileRouteTypes {
     | '/texas-high-school-football-isds'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
+    | '/texas-historic-landmarks'
     | '/texas-history'
     | '/texas-home-affordability-calculator'
     | '/texas-home-equity-calculator'
@@ -6797,6 +6823,7 @@ export interface RootRouteChildren {
   CorpusChristiMusicHistoryRoute: typeof CorpusChristiMusicHistoryRoute
   CorrectionsPolicyRoute: typeof CorrectionsPolicyRoute
   CountyRoute: typeof CountyRoute
+  DallasBlackHistoryRoute: typeof DallasBlackHistoryRoute
   DallasFortWorthMusicHistoryRoute: typeof DallasFortWorthMusicHistoryRoute
   DrPepperTexasHistoryRoute: typeof DrPepperTexasHistoryRoute
   EditorialPolicyRoute: typeof EditorialPolicyRoute
@@ -6890,6 +6917,7 @@ export interface RootRouteChildren {
   TexasHighSchoolFootballIsdsRoute: typeof TexasHighSchoolFootballIsdsRoute
   TexasHighSchoolFootballTeamsRoute: typeof TexasHighSchoolFootballTeamsRoute
   TexasHipHopRoute: typeof TexasHipHopRoute
+  TexasHistoricLandmarksRoute: typeof TexasHistoricLandmarksRoute
   TexasHistoryRoute: typeof TexasHistoryRoute
   TexasHomeAffordabilityCalculatorRoute: typeof TexasHomeAffordabilityCalculatorRoute
   TexasHomeEquityCalculatorRoute: typeof TexasHomeEquityCalculatorRoute
@@ -7729,6 +7757,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TexasHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/texas-historic-landmarks': {
+      id: '/texas-historic-landmarks'
+      path: '/texas-historic-landmarks'
+      fullPath: '/texas-historic-landmarks'
+      preLoaderRoute: typeof TexasHistoricLandmarksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/texas-hip-hop': {
       id: '/texas-hip-hop'
       path: '/texas-hip-hop'
@@ -8378,6 +8413,13 @@ declare module '@tanstack/react-router' {
       path: '/dallas-fort-worth-music-history'
       fullPath: '/dallas-fort-worth-music-history'
       preLoaderRoute: typeof DallasFortWorthMusicHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dallas-black-history': {
+      id: '/dallas-black-history'
+      path: '/dallas-black-history'
+      fullPath: '/dallas-black-history'
+      preLoaderRoute: typeof DallasBlackHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/county': {
@@ -11348,6 +11390,7 @@ const rootRouteChildren: RootRouteChildren = {
   CorpusChristiMusicHistoryRoute: CorpusChristiMusicHistoryRoute,
   CorrectionsPolicyRoute: CorrectionsPolicyRoute,
   CountyRoute: CountyRoute,
+  DallasBlackHistoryRoute: DallasBlackHistoryRoute,
   DallasFortWorthMusicHistoryRoute: DallasFortWorthMusicHistoryRoute,
   DrPepperTexasHistoryRoute: DrPepperTexasHistoryRoute,
   EditorialPolicyRoute: EditorialPolicyRoute,
@@ -11445,6 +11488,7 @@ const rootRouteChildren: RootRouteChildren = {
   TexasHighSchoolFootballIsdsRoute: TexasHighSchoolFootballIsdsRoute,
   TexasHighSchoolFootballTeamsRoute: TexasHighSchoolFootballTeamsRoute,
   TexasHipHopRoute: TexasHipHopRoute,
+  TexasHistoricLandmarksRoute: TexasHistoricLandmarksRoute,
   TexasHistoryRoute: TexasHistoryRoute,
   TexasHomeAffordabilityCalculatorRoute: TexasHomeAffordabilityCalculatorRoute,
   TexasHomeEquityCalculatorRoute: TexasHomeEquityCalculatorRoute,

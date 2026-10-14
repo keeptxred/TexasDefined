@@ -148,11 +148,19 @@ export const Route = createFileRoute("/explore/$category")({
       : params.category === "outdoors" && !hasWildlifeGuide
         ? [{ "@type": "ListItem", position: 1, item: { "@type": "Article", name: "Texas Wildlife Guide: Animals & Habitats", description: "A statewide guide to Texas wildlife and the habitats that shape where animals live, from East Texas forests and Gulf wetlands to Hill Country, prairie and desert country.", url: `${siteUrl}/article/texas-wildlife-guide` } }]
         : [];
+    // The researched swim-and-float category is a standalone reference guide
+    // even during a transient destination-catalog outage. Keep it indexable
+    // only when the independently authored authority document was actually
+    // loaded and its source section remains visible.
+    const swimmingAuthorityReady = params.category === SWIMMING_HOLES_RIVER_TUBING_SLUG
+      && typeof loaderData.authorityHtml === "string"
+      && loaderData.authorityHtml.includes('id="texas-swimming-holes-river-tubing-guide"')
+      && loaderData.authorityHtml.includes("Official sources");
     const indexReady = isExploreCategoryIndexReady(
       loaderData.category.slug,
       loaderData.articles.length + loaderData.destinations.length + featuredCollectionItems.length
         + (params.category === "beaches-coast" ? COASTAL_AUTHORITY_ITEM_COUNT : 0),
-    ) || loaderData.category.slug === "water-towers";
+    ) || swimmingAuthorityReady || loaderData.category.slug === "water-towers";
     const categorySeo = categorySeoOverrides[loaderData.category.slug];
     const metaTitle = categorySeo?.title ?? loaderData.category.name;
     const metaDescription = categorySeo?.description ?? loaderData.category.description;

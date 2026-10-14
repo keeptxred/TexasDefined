@@ -1,4 +1,9 @@
 import { animalSanctuaryDestinations } from "./animal-sanctuary-destinations";
+import { coastalHeritageDiscoveryDestinations } from "./coastal-heritage-discovery";
+import { museumAuthorityDestinations } from "./museum-authority-new-destinations";
+import { dallasBlackHistoryDestinations } from "./dallas-black-history-destinations";
+import { enrichMuseumMedia } from "./museum-authority-heroes";
+import { enrichSanAntonioHeritageAuthority } from "./san-antonio-heritage-enrichment";
 import { aquariumMarineDestinations } from "./aquarium-marine-destinations";
 import { coastalDestinations } from "./coastal-destinations";
 import { topAttractionDestinations } from "./destination-curation-top-attractions";
@@ -10,6 +15,12 @@ import { johnsonCityAuthorityDestinations } from "./johnson-city-authority-desti
 import { johnsonCityWildlifeDestinations } from "./johnson-city-wildlife-destinations";
 import { lbjBoyhoodHomeDestinations } from "./lbj-boyhood-home-destination";
 import { historicSiteDestinations } from "./historic-sites";
+import { olivewoodCemeteryDestinations } from "./olivewood-cemetery-authority-destination";
+import { thcHistoricLandmarkAuthorityBatch01Destinations } from "./thc-historic-landmarks-authority-batch01";
+import { thcHistoricLandmarkAuthorityBatch02Destinations } from "./thc-historic-landmarks-authority-batch02";
+import { thcHistoricLandmarkAuthorityBatch03Destinations } from "./thc-historic-landmarks-authority-batch03";
+import { thcHistoricLandmarkAuthorityBatch04Destinations } from "./thc-historic-landmarks-authority-batch04";
+import { thcHistoricLandmarkAuthorityBatch05Destinations } from "./thc-historic-landmarks-authority-batch05";
 import { hidalgoPumphouseAuthorityDestinations } from "./hidalgo-pumphouse-authority-destination";
 import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
@@ -20,9 +31,11 @@ import { garrisonBrothersHyeDestinations } from "./garrison-brothers-hye-destina
 import { williamChrisVineyardsHyeDestinations } from "./william-chris-vineyards-hye-destination";
 import { fredericksburgWineryAuthorityDestinations } from "./fredericksburg-winery-authority-destinations";
 import { hyeTexasDestinations } from "./hye-texas-destination";
+import { fredericksburgJohnsonCityHeritageDestinations } from "./fredericksburg-johnson-city-heritage-destinations";
 import { houstonGalvestonMuseumDestinations } from "./museum-expansion-houston-galveston";
 import { hoggLegacyDestinations } from "./hogg-legacy-destinations";
 import { sanAntonioMuseumDestinations } from "./museum-expansion-san-antonio";
+import { sanAntonioHeritageDestinations } from "./san-antonio-heritage-destinations";
 import { sanAntonioContemporaryMuseumDestinations } from "./museum-expansion-san-antonio-contemporary";
 import { statewideMuseumExpansionDestinations } from "./museum-expansion-statewide";
 import { statewideMuseumExpansionWave2Destinations } from "./museum-expansion-statewide-wave2";
@@ -76,6 +89,10 @@ import { statewideMuseumExpansionWave49Destinations } from "./museum-expansion-s
 import { statewideMuseumExpansionWave50Destinations } from "./museum-expansion-statewide-wave50";
 import { statewideMuseumExpansionWave51Destinations } from "./museum-expansion-statewide-wave51";
 import { youngCountyMuseumAuthorityDestinations } from "./young-county-museum-authority-destination";
+import { nacogdochesSanAugustineAuthorityDestinations } from "./nacogdoches-san-augustine-authority-destinations";
+import { nacogdochesSanAugustineForestDestinations } from "./nacogdoches-san-augustine-forest-destinations";
+import { nacogdochesDowntownHistoricDistrictDestinations } from "./nacogdoches-downtown-historic-district-destination";
+import { zionHillNacogdochesAuthorityDestinations } from "./zion-hill-nacogdoches-authority-destinations";
 import { statewideMuseumExpansionWave52Destinations } from "./museum-expansion-statewide-wave52";
 import { statewideMuseumExpansionWave53Destinations } from "./museum-expansion-statewide-wave53";
 import { statewideMuseumExpansionWave54Destinations } from "./museum-expansion-statewide-wave54";
@@ -210,8 +227,17 @@ function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
  * curation module's import-time mutation of topAttractionDestinations.
  */
 export const preservedExploreDestinations = mergePreservedDestinations(
+  olivewoodCemeteryDestinations,
+  thcHistoricLandmarkAuthorityBatch01Destinations,
+  thcHistoricLandmarkAuthorityBatch02Destinations,
+  thcHistoricLandmarkAuthorityBatch03Destinations,
+  thcHistoricLandmarkAuthorityBatch04Destinations,
+  thcHistoricLandmarkAuthorityBatch05Destinations,
+  coastalHeritageDiscoveryDestinations,
   animalSanctuaryDestinations,
   aquariumMarineDestinations,
+  museumAuthorityDestinations,
+  dallasBlackHistoryDestinations,
   topAttractionDestinations,
   topAttractionExpansionDestinations,
   coastalDestinations,
@@ -221,6 +247,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   legacyExploreDestinations,
   legacyLakeDestinations,
   johnsonCityAuthorityDestinations,
+  fredericksburgJohnsonCityHeritageDestinations,
   johnsonCityWildlifeDestinations,
   lbjBoyhoodHomeDestinations,
   pedernalesRiverNatureParkDestinations,
@@ -243,6 +270,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   hyeTexasDestinations,
   austinMuseumDestinations,
   sanAntonioMuseumDestinations,
+  sanAntonioHeritageDestinations,
   sanAntonioContemporaryMuseumDestinations,
   wacoMuseumDestinations,
   statewideMuseumExpansionDestinations,
@@ -297,6 +325,10 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   statewideMuseumExpansionWave50Destinations,
   statewideMuseumExpansionWave51Destinations,
   youngCountyMuseumAuthorityDestinations,
+  nacogdochesSanAugustineAuthorityDestinations,
+  nacogdochesSanAugustineForestDestinations,
+  nacogdochesDowntownHistoricDistrictDestinations,
+  zionHillNacogdochesAuthorityDestinations,
   statewideMuseumExpansionWave52Destinations,
   statewideMuseumExpansionWave53Destinations,
   statewideMuseumExpansionWave54Destinations,
@@ -332,4 +364,4 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   [shinerTownDestination],
   [newBraunfelsSeasonalFallback],
   [sanMarcosWaterGatewayFallback],
-);
+).map(enrichMuseumMedia).map(enrichSanAntonioHeritageAuthority);
