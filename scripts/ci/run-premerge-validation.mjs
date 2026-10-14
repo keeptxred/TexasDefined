@@ -42,6 +42,8 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['CONTENT/AUTHORITY', 'Verify Harmony Eagles research, 2026 fixtures, school/county identity and archived Batch005 evidence', 'node', ['scripts/data/validate-football-batch006-harmony.mjs']],
+  ['CI/DEPLOYMENT', 'Syntax-check Harmony desktop/mobile production verifier', 'node', ['--check', 'scripts/ci/verify-football-batch006-harmony-production.mjs']],
   ['SEO/SITEMAP', 'Reject escaped and literal route-template tokens in crawlable paths', 'node', ['--experimental-strip-types', '--test', 'src/lib/public-route-tokens.test.ts']],
   ['CONTENT/AUTHORITY', 'Validate true historic photo subjects and closed-original visit policies', 'node', ['scripts/data/validate-historic-sites.mjs']],
   ['SEO/SITEMAP', 'Syntax-check historic photo production verifier', 'node', ['--check', 'scripts/ci/verify-historic-photo-indexability-production.mjs']],
