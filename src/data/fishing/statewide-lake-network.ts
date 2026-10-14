@@ -1463,12 +1463,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       "TPWD shows no camping at the four access parks. The Nature Center is canoe/kayak-only and Sunset Park's shallow lane is intended for small craft; do not send large trailers to either.",
       "All four access listings historically state fee required. Check city rules, water level, ramp depth and possible closures before launching; TPWD's 'open all year' is not a live operator status."
     ],
-    nearbyLakes: [
-      { slug: "eagle-mountain-lake", name: "Eagle Mountain Lake" },
-      { slug: "benbrook-lake", name: "Benbrook Lake" },
-      { slug: "lake-arlington", name: "Lake Arlington" },
-      { slug: "grapevine-lake", name: "Grapevine Lake" }
-    ],
+    nearbyLakes: [{slug:"eagle-mountain-lake",name:"Eagle Mountain Lake"},{slug:"benbrook-lake",name:"Benbrook Lake"},{slug:"lake-arlington",name:"Lake Arlington"},{slug:"grapevine-lake",name:"Grapevine Lake"}],
   },
 ];
 
