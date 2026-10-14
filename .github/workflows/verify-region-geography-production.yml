@@ -27,7 +27,8 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          ref: main
+          # Always verify the immutable revision that just deployed, not moving main.
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
