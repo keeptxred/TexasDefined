@@ -5,8 +5,8 @@
 ## Counts and caveats
 
 - **175** separate alphabetical links/named entries in the TPWD public lake list (excluding its extra *Town Lake = Lady Bird Lake* alias line).
-- **69** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
-- **106** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
+- **70** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
+- **105** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
 - TPWD list entries include local ponds and some state-park-managed lakes as well as reservoirs; they cannot all be treated as equally high-demand or guaranteed distinct reservoirs.
 - This list does not include every Texas stock tank, private lake, community fishing pond, or small waterbody outside TPWD's own directory. It therefore cannot prove “every Texas lake.”
 
@@ -40,7 +40,7 @@
 | Austin | [lake-austin](https://texasdefined.com/fishing/lakes/lake-austin) |
 | Averhoff | **Not in completed-guide registry** |
 | B.A. Steinhagen | **Not in completed-guide registry** |
-| Bachman | **Not in completed-guide registry** |
+| Bachman | [bachman-lake](https://texasdefined.com/fishing/lakes/bachman-lake) |
 | Balmorhea | **Not in completed-guide registry** |
 | Bardwell | [bardwell-lake](https://texasdefined.com/fishing/lakes/bardwell-lake) — awaiting wave-3 release |
 | Bastrop | [lake-bastrop](https://texasdefined.com/fishing/lakes/lake-bastrop) — awaiting wave-3 release |
@@ -268,3 +268,7 @@ The next source-researched guide brings the staged registry to **68** complete l
 ## October 14 — Lake Cypress Springs full authority addition
 
 The Franklin County Water District rules revised August 2026 control vessel sizes (generally 26-ft length and 12-ft width maximum), shoreline idle speed within 200 feet, restricted intake/spillway areas, camping/payment, and possible 380.50-ft flood closures. This guide names all five FCWD public parks—Guthrie, Dogwood, Mary King, Overlook and Walleye—and refuses to treat TPWD's archived $2 fee and year-round text as a current status certificate. Two exact-lake Wikimedia Commons **MAPS** (bathymetric, 1500×757, and topographic, 2048×1223) by maxup10 are CC BY-SA 4.0 and clearly not described as lake photographs. TWDB historical chronology: July 1968 construction, July 7 1970 deliberate impoundment, February 15 1971 final completion. First-party field photography and production acceptance remain open. Proposed complete-guide coverage becomes **69/175**, with **106 TPWD entries** still unmatched after this release.
+
+## October 14 — Bachman Lake researched Dallas authority
+
+Bachman Lake is an urban **132-acre TPWD fishing reservoir** inside the city's separately measured approximately **205-acre metropolitan park**. The guide distinguishes the only documented Shorecrest Drive boat-launch facility (TPWD says two lanes, an older survey says one; only five trailer parking spaces) from bank fishing. It preserves the city’s March 31, 2026 dam-and-spillway ribbon-cutting milestone without claiming that every ramp or path is open today. The current July 2026 Dallas City Code §32-40 gives a general **10.5 HP** maximum motor operating rating with exceptions, differing from the old TPWD public fishing page's **5 HP**. Swimming in the reservoir and sundown-to-sunup boating are prohibited by city rules; adjacent recreational pools are separate. The exact lake photo is a 2,272×1,704 2005 image by **Ansem27** on Wikimedia Commons, **CC BY-SA 3.0**. No original field imagery is claimed. The new release would establish **70/175** complete guides, **105 unmatched** entries after source and production checks; operator rechecks and full editorial certification remain open.

@@ -247,6 +247,10 @@
   ],
   "dallas": [
     {
+      "slug": "bachman-lake",
+      "name": "Bachman Lake"
+    },
+    {
       "slug": "white-rock-lake",
       "name": "White Rock Lake"
     }

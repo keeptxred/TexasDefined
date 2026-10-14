@@ -11,6 +11,7 @@ const manifest = [
   'supabase/migrations/20261014041500_extend_tpwd_lake_authority_sources_weatherford.sql',
   'supabase/migrations/20261014042500_extend_tpwd_lake_authority_sources_abilene.sql',
   'supabase/migrations/20261014070000_extend_tpwd_lake_authority_sources_cypress_springs.sql',
+  'supabase/migrations/20261014081000_extend_tpwd_lake_authority_sources_bachman.sql',
 ].map(path=>fs.readFileSync(path,'utf8')).join('\n');
 const entries=[...manifest.matchAll(/\('\/fishing\/lakes\/([a-z0-9-]+)',\s*'(https:\/\/tpwd\.texas\.gov\/fishboat\/fish\/recreational\/lakes\/[a-z0-9_/.-]+)'\)/g)];
 const matched=docs.listing.filter(row=>row.coverage==='complete-fishing-guide').map(row=>row.texasDefinedGuideSlug);

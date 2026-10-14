@@ -1170,7 +1170,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     specialRules: true,
     campingProhibited: true,
-    nearbyLakes:[{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"joe-pool-lake",name:"Joe Pool Lake"}],
+    nearbyLakes:[{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"joe-pool-lake",name:"Joe Pool Lake"},{slug:"bachman-lake",name:"Bachman Lake"}],
     nearbyDestinations:[{slug:"dallas-arboretum-and-botanical-garden",name:"Dallas Arboretum and Botanical Garden",reason:"Lakeside garden and seasonal walking destination with views across White Rock Lake; admission and gardens are separately operated."}],
     travelAlerts:[
       "The current Dallas City Code section 32-40 generally prohibits operating a boat with a motor rated more than 10.5 horsepower on White Rock Lake, with defined exceptions. TPWD's older facts summary quotes a different 9.9-HP figure. Consult current City Code before boating; do not rely on an outdated fishing summary to determine the legal limit.",
@@ -1930,6 +1930,68 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       "Only district-designated paid campsites permit overnight stays. FCWD rules on reservation confirmation, vehicle access, pet restraint and dump station use apply.",
       "The featured image is an exact-lake historic BATHYMETRIC MAP, not a photograph. Check current TWDB level and the owner before making depth or navigation assumptions."
     ],
+  },
+  {
+    slug: "bachman-lake", name: "Bachman Lake", tpwdSlug: "bachman",
+    verifiedAt: "2026-10-14", accessReviewedAt: "2026-10-14", region: "prairies-lakes",
+    summary: "Historic 1903 urban fishing reservoir beside Dallas Love Field: one tight-parking Shorecrest ramp, abundant shore fishing, excellent TPWD-rated crappie, city boating limits, a recently rehabilitated dam and a separate 205-acre metropolitan park.",
+    surfaceAcres: 132, maxDepthFeet: 14, impoundedYear: 1903, counties: ["Dallas"], nearestCities: ["Dallas"],
+    waterway: "Bachman Branch (also called Bachman Creek), tributary to the Trinity River", riverBasin: "Trinity River Basin",
+    authority: "City of Dallas Parks and Recreation / Dallas Water Utilities",
+    conservationPool: "No verified current public lake gauge; consult Dallas Parks for lake and facility notices",
+    fluctuation: "TPWD historical overview reports approximately one foot; construction and weather can change shoreline access",
+    clarity: "Stained",
+    identity: "Bachman Lake is the shallow 132-acre reservoir inside Dallas's separately measured approximately 205-acre Bachman Lake Park. Those two acreage figures describe different footprints, not contradictory estimates of the same water surface. The reservoir was built in 1903 as municipal water storage and later became recreation-only. The City of Dallas completed a major reservoir dredging phase in 2023 and announced a March 31, 2026 ribbon cutting for dam and spillway rehabilitation; the old TPWD fish survey projected earlier completion and is not a reliable current construction-status notice. The lake is an urban bank-fishing and rowing setting, not a swimming or camping destination.",
+    habitat: [
+      "Most fish-holding natural cover is in limited emergent shoreline vegetation, rock-gabion banks, sparse brush along the dam and the south-shore riprap opposite Love Field. TPWD's 132-acre profile rates white crappie excellent and bass good, but its latest management assessment reuses older 2018–2019 fish sampling because major dredging restricted survey operations.",
+      "For crappie, work deeper water at the west end and the dam with jigs or minnows. Bass concentrate along rock and brush, while sunfish hold around sparse shoreline emergent vegetation; accessible shore positions depend on maintained walkways and safe legal access.",
+      "The upper lake historically became very shallow from accumulated sediment. A city dredging project removed silt from part of the basin in 2023. Neither an older fishery-survey map nor the lake's old 14-foot maximum depth should be used to promise today's navigation clearance."
+    ],
+    fish: [
+      fish("crappie","White crappie","excellent","spring","TPWD rates white crappie excellent in its angling table. Try small jigs or minnows at the dam, shaded brush and western deeper water; historical sampling predates the recent dam project.",["jigs-and-minnows","vertical-jigging"]),
+      fish("largemouth-bass","Largemouth bass","good","spring","TPWD rates largemouth bass good. Work riprap on the southern bank, sparse emergent weeds and brush against the dam using light tackle and compact lures.",["soft-plastics","spinnerbaits","crankbaits","topwater"]),
+      fish("catfish","Catfish","fair","summer","TPWD rates catfish fair rather than abundant. Fish legal shoreline points with cut bait; do not infer today's catch rate from pre-rehabilitation surveys.",["cut-bait","live-bait"],"secondary"),
+      fish("sunfish","Sunfish","fair","summer","Sunfish including warmouth occur along vegetation and park shorelines. Light jigs and small baits are suitable where bank access is permitted.",["jigs-and-minnows"],"secondary")
+    ],
+    access: "TPWD documents ONE public boat-launch location at Shorecrest Drive, south of the lake immediately north of Dallas Love Field. Its access directory describes a two-lane paved ramp but parking for only five trailers, while an older management report calls it one lane: confirm actual marked ramp and usable trailer clearance on site. TPWD lists no ramp fee, but 'open all year' is a historical directory description, not live closure verification. Most of the shore is available for public bank fishing from the surrounding park; fishing is NOT the same as swimming, which Dallas ordinances prohibit in Bachman Lake.",
+    accessPoints: [
+      {name:"Shorecrest Drive municipal boat ramp",operator:"City of Dallas Park and Recreation",kind:"public-ramp",launch:"South shore off Shorecrest Drive north of Dallas Love Field; TPWD provides coordinates 32.849544, -96.865733. Its public list says two paved lanes but only FIVE trailer parking spaces; an older TPWD management report describes a single lane.",fee:"TPWD historically lists no fee; verify latest Dallas Parks permit and launch rules",availability:"TPWD says year-round, but opening, trailer spaces, construction works and local boat restrictions must be verified with Dallas Parks (214) 670-8281."},
+      {name:"Bachman Lake public bank-fishing shoreline",operator:"City of Dallas Park and Recreation",kind:"park",launch:"Use legal paved trails and lake-edge openings from Bachman Lake Park at 3500 W. Northwest Highway. This is WALK-IN SHORE FISHING and not an additional trailer ramp.",fee:"No separate shoreline access fee identified in TPWD listing; recreation center and aquatics programs may charge separately",availability:"Dallas Parks displays park hours 6 a.m.–11 p.m.; boat operation is separately prohibited from sundown to sunup. Check posted area closures and ADA accessibility before travel."}
+    ],
+    campingProhibited: true,
+    camping: {name:"No designated overnight camping at Bachman Lake Park",
+      summary:"Dallas Parks lists day-use park features, recreation centers, trails, boating and fishing, but no campsite reservation or campground. Do not treat an urban boat ramp, pavilion, picnic area or parking lot as a permitted overnight site. Book lodging or a verified campground elsewhere."},
+    specialRules: true,
+    visitorSourceUrl:"https://www.dallasparks.org/754/Bachman-Lake-Park",
+    localRegulationsSourceUrl:"https://codelibrary.amlegal.com/codes/dallas/latest/dallas_tx/0-0-0-115288",
+    historySourceUrl:"https://tpwd.texas.gov/publications/pwdpubs/lake_survey/pwd_rp_t3200_1438/",
+    liveDataNote:"TPWD reports NO available lake-level gauge for this city-managed reservoir. A past average fluctuation is not a current reading. Consult City of Dallas Parks and dam-project notices for current shore access or water conditions rather than inventing a live level.",
+    historyNotes:[
+      "Dallas built Bachman Reservoir in 1903 on Bachman Branch for municipal water supply. It no longer supplies the city and is managed for recreation; Bachman Lake Park was established in the 1930s as a larger roughly 205-acre public landscape around the smaller water body.",
+      "TPWD records substantial dredging in 2003 and another city hydraulic dredging program beginning 2022, with upper-basin dredging completed in 2023. Fishery monitoring was disrupted, so the latest published TPWD fish assessment contains older sampling and should not be treated as a post-rehabilitation population survey.",
+      "Dallas's 2026 project announcement advertised a March 31 ribbon cutting at the southwest dam and spillway. The city capital-project directory can continue to list work even after a ceremony, so the guide describes documented project milestones without assuming every launch or path is unobstructed on a specific date.",
+      "A 2005 historic exact-lake photograph, now on Wikimedia Commons under CC BY-SA 3.0, establishes the real location but does not depict post-2023 dredging or post-2026 dam conditions."
+    ],
+    visitorFAQs:[
+      {question:"Is the lake or the park 205 acres?",answer:"Dallas Parks describes Bachman Lake Park as about 205 acres, including its trails and amenities. TPWD measures the fishing reservoir itself at 132 surface acres. Do not interchange parkland and lake-water acreage."},
+      {question:"Where can I launch a boat?",answer:"TPWD identifies only the Shorecrest Drive south-shore ramp; the access directory says two lanes with room for five trailers, while an older fisheries report describes one lane. Confirm live status and parking with Dallas Parks before towing."},
+      {question:"Is the motor limit 5 or 10.5 horsepower?",answer:"TPWD's general Bachman Lake page says 5 HP. However Dallas City Code §32-40 as published in July 2026 generally prohibits operating a boat with a motor rating ABOVE 10.5 HP on Bachman and White Rock, with specified exceptions. Those sources disagree. Consult current Dallas rules and on-site signs or call park operations before choosing a motor; do not assume a boat with a stronger installed engine may legally operate it."},
+      {question:"Can I swim in Bachman Lake?",answer:"No. Dallas City Code Chapter 32 prohibits swimming in Bachman Lake; nearby recreation-center pools and the separate aquatic center are not part of the reservoir."},
+      {question:"Can I fish from shore?",answer:"Yes. TPWD describes most of the shoreline as publicly available for bank fishing. The park has paved paths, but accessible fishing spots, temporary construction boundaries and shoreline grades require an on-site check."},
+      {question:"Is boat use allowed at night?",answer:"Dallas City Code §32-47 prohibits boating from sundown to sunup on Bachman Lake, a separate rule from posted park hours of 6 a.m.–11 p.m."},
+      {question:"What fish are worth targeting?",answer:"TPWD rates white crappie excellent and largemouth good, with catfish and sunfish fair. Much of the published biological sampling predates the dredging and dam work, so check any newer TPWD survey."},
+      {question:"Did dredging and dam work finish?",answer:"TPWD records completion of upper-basin hydraulic dredging in 2023. Dallas publicized a March 31, 2026 dam/spillway project ribbon cutting. Neither source certifies every launch or public trail open right now."},
+      {question:"Can I camp beside the lake?",answer:"No designated campsite or overnight campground is documented in the public park and ramp inventories. Use a separately authorized campground or hotel; do not assume a picnic pavilion allows overnight camping."},
+      {question:"Does Bachman Lake have live water levels?",answer:"TPWD states no public gauge is available for the reservoir. Older reference fluctuation and maximum-depth figures are not today's lake level."}
+    ],
+    travelAlerts:[
+      "City of Dallas §32-40 (July 2026) states a general 10.5-horsepower operational ceiling with exceptions for authorized activities, while TPWD's general fishing page still says 5 horsepower; confirm current municipal rules and signage before launching.",
+      "Dallas Chapter 32 prohibits swimming in the lake and boating from sundown to sunup. The park recreation pools are distinct facilities.",
+      "TPWD's Shorecrest launch directory has only five trailer-parking spaces; its access listing and an older fisheries report disagree on the number of usable ramp lanes.",
+      "The 2023 dredging and March 2026 dam rehabilitation ceremony do not establish same-day opening of every park area. Consult Dallas Parks for trail, ramp or construction restrictions.",
+      "The exact-lake photo is from 2005 and must not be used as evidence of 2026 lake depth, shoreline, construction or access conditions."
+    ],
+    nearbyLakes:[{slug:"white-rock-lake",name:"White Rock Lake"},{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"joe-pool-lake",name:"Joe Pool Lake"}]
   },
 ];
 
