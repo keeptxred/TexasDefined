@@ -69,7 +69,7 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
       description: "Use the southern county corridor for seasonal bat viewing, trail time and a different Hill Country landscape.",
     },
     {
-      href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
+      href: "/destination/lyndon-b-johnson-state-park-historic-site",
       label: "Lyndon B. Johnson State Park & Historic Site",
       description: "German-Texan farm history, longhorns and the Pedernales River at Stonewall.",
     },

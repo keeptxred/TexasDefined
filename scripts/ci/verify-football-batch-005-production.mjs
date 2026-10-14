@@ -13,6 +13,24 @@ const schools = [
   ['beckville','panola'],['beeville-jones','bee'],['bells','grayson'],['bellville','austin'],['belton','bell'],
   ['ben-bolt-palito-blanco','jim-wells'],['benavides','duval'],['benjamin','knox'],['big-lake-reagan-co','reagan'],['big-sandy','upshur']
 ];
+const independentlyDatedSchedules = new Set(['bay-city','baytown-goose-creek-memorial','baytown-lee','baytown-sterling','beaumont-united','beaumont-west-brook','beckville','beeville-jones','bells','bellville','belton','ben-bolt-palito-blanco','benavides','big-lake-reagan-co','big-sandy']);
+const knownFixtureEvidence = {
+  'bay-city':'Sealy',
+  'baytown-goose-creek-memorial':'Beaumont United',
+  'baytown-lee':'Nederland',
+  'baytown-sterling':'West Brook',
+  'beaumont-united':'Goose Creek Memorial',
+  'beaumont-west-brook':'Sterling',
+  'beckville':'Pewitt',
+  'beeville-jones':'Corpus Christi Moody',
+  'bells':'Valley View',
+  'bellville':'Hitchcock',
+  'belton':'Rudder',
+  'ben-bolt-palito-blanco':'Louise',
+  'benavides':'Pawnee',
+  'big-lake-reagan-co':'Ballinger',
+  'big-sandy':'Hemphill',
+};
 const report = { targetSha: process.env.ACCEPTANCE_SHA || '', checkedAt: new Date().toISOString(), checks: [], failures: [], schoolResults: [] };
 const check = (pass, label, detail = {}) => {
   const row = { label, pass: Boolean(pass), ...detail }; report.checks.push(row);
@@ -20,6 +38,37 @@ const check = (pass, label, detail = {}) => {
 };
 await mkdir(outputDir, { recursive: true });
 const registry = JSON.parse(await readFile('docs/football-authority/REGISTRY.json','utf8'));
+const editorialSource = await readFile('src/data/high-school-football/program-editorial.ts','utf8');
+function extractWrittenProgram(slug) {
+  const marker = '  "' + slug + '": {';
+  const start = editorialSource.indexOf(marker);
+  if (start < 0) return null;
+  const brace = editorialSource.indexOf('{',start);
+  let depth=0, quoted=false, escaped=false;
+  for (let i=brace;i<editorialSource.length;i++) {
+    const char=editorialSource[i];
+    if (quoted) { if (escaped) escaped=false; else if (char==='\\') escaped=true; else if (char==='"') quoted=false; }
+    else if (char==='"') quoted=true;
+    else if (char==='{') depth++;
+    else if (char==='}' && --depth===0) return JSON.parse(editorialSource.slice(brace,i+1));
+  }
+  throw new Error('Unclosed school-specific editorial object: '+slug);
+}
+for (const [slug] of schools) {
+  const profile=extractWrittenProgram(slug);
+  check(!!profile,slug+': individually authored football editorial record');
+  if (!profile) continue;
+  check((profile.overview?.length||0)>=3,slug+': at least three individual research paragraphs');
+  check((profile.faq?.length||0)>=5,slug+': at least five visitor questions');
+  check((profile.milestones?.length||0)>=2,slug+': historic/source-backed milestones');
+  check((profile.season?.games?.length||0)>=8,slug+': no generic or empty 2026 varsity season');
+  check(/^https:\/\//.test(profile.season?.sourceUrl||''),slug+': citable 2026 season source');
+  const games=profile.season?.games || [];
+  check(new Set(games.map(game=>game.date+':'+game.opponent)).size===games.length,slug+': no duplicate 2026 fixtures');
+  check(games.every(game=>game.opponent && ['Home','Away','Neutral'].includes(game.site)),slug+': individually named opponent and venue type');
+  check((profile.seo?.description||'').length>=65 && (profile.seo?.title||'').length>=20,slug+': unique researched SEO package');
+}
+
 check(schools.length === 25 && new Set(schools.map(x => x[0])).size === 25,'All 25 unique Batch005 schools');
 check(schools.every(([slug]) => registry.schoolRecords.some(r=>r.slug===slug && r.batch===5 && ['IMPLEMENTED','VERIFIED'].includes(r.status))),'Registry tracks all 25 as implemented or verified');
 const sitemapResponse = await fetch(origin+'/sitemap.xml',{signal:AbortSignal.timeout(90000)});
@@ -48,6 +97,7 @@ try {
      body:document.body?.innerText||'',
      anchors:[...document.querySelectorAll('a[href]')].map(x=>x.href),
      schema:[...document.querySelectorAll('script[type="application/ld+json"]')].map(x=>x.textContent||'').join('\n'),
+     scheduleRows:[...document.querySelectorAll('tbody tr')].map(x=>x.innerText),
      width:document.documentElement.scrollWidth,
      brokenImages:[...document.images].filter(i=>i.complete && !i.naturalWidth && i.getBoundingClientRect().width>0).map(i=>i.currentSrc)
     }));
@@ -62,6 +112,12 @@ try {
     check(details.schema.includes('SportsTeam'),view+' '+slug+': structured SportsTeam');
     check(details.width<=width+3,view+' '+slug+': no horizontal overflow',{scrollWidth:details.width});
     check(details.brokenImages.length===0,view+' '+slug+': no broken visible images');
+    if(independentlyDatedSchedules.has(slug)) {
+      check(details.scheduleRows.length >= (slug === 'benavides' ? 9 : 10),view+' '+slug+': source-evidenced 2026 varsity fixtures',{rows:details.scheduleRows.length});
+      check(details.body.includes('2026') && details.body.includes('MaxPreps'),view+' '+slug+': dated 2026 scoreboard source visible');
+      check(details.scheduleRows.some(row=>row.includes(knownFixtureEvidence[slug])),view+' '+slug+': independently reported school-specific fixture visible');
+      check(details.schema.includes('FAQPage'),view+' '+slug+': authority FAQ structured data');
+    }
     check(errors.length===0,view+' '+slug+': no JS runtime errors',{errors});
     await page.screenshot({path:outputDir+'/'+view+'-'+slug+'.png',animations:'disabled',fullPage:false,timeout:30000});
     report.schoolResults.push({view,slug,http:response?.status(),h1:details.h1,title:details.title,canonical:details.canonical,bodyLength:details.body.length});
