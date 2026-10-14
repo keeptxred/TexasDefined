@@ -189,7 +189,7 @@ try {
       await page.locator('h1').first().waitFor({state:'visible',timeout:25000});
       await page.waitForFunction(()=>document.documentElement.dataset.tdFootballCountyHydrated==='1',null,{timeout:35000});
       links=await page.locator('a[href]').evaluateAll(a=>a.filter(x=>x.getBoundingClientRect().width>0).map(x=>new URL(x.href).pathname.replace(/\/$/,'')));
-      if(errs.length===0) check(true,view+' '+county+': transient lazy-module import recovered on fresh page',{firstRuntimeErrors:firstModuleErrors});
+      if(res?.status()===200 && errs.length===0) check(true,view+' '+county+': transient lazy-module import recovered on fresh page',{firstRuntimeErrors:firstModuleErrors});
     }
     check(res?.status()===200,view+' '+county+' county: HTTP 200');
     for(const [slug,mappedCounty] of schools.filter(x=>x[1]===county)) check(links.includes('/texas-high-school-football-teams/'+slug),view+' '+county+': reciprocal '+slug);
