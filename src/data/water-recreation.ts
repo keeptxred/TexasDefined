@@ -20,7 +20,7 @@ export const SWIM_ACTIVITY_RESTRICTIONS: Readonly<Record<string, { notice: strin
 // gateways to an established tubing corridor. Adding a place here is not proof
 // that it is open on any particular day.
 const PRIORITY_SWIM_AND_FLOAT_SLUGS = new Set([
-  "new-braunfels", "san-marcos",
+  "new-braunfels", "san-marcos", "bandera",
   "garner-state-park", "guadalupe-river-state-park", "south-llano-river-state-park",
   "blanco-state-park", "inks-lake-state-park", "mckinney-falls-state-park",
   "balmorhea-state-park", "blue-hole-regional-park", "blue-hole-regional-park-wimberley", "blue-hole-wimberley", "barton-springs-pool",
@@ -51,7 +51,7 @@ const TPWD_SWIMMING_PARK_SLUGS = new Set([
 ]);
 
 const WATER_SIGNAL = /\b(swim(?:ming)?|spring[- ]fed pool|river tubing|tubing|tube float|float(?:ing| trips?)?|designated swim|wading)\b/i;
-const RESTRICTION = /\b(no swimming|do not swim|swimming (?:is )?(?:prohibited|not permitted|not allowed|closed|suspended|unavailable)|swimming and fishing (?:are )?(?:prohibited|not allowed|not permitted)|pool (?:is )?closed|closed to swimming|no tubing|tubing (?:is )?(?:prohibited|not allowed|closed))\b/i;
+const RESTRICTION = /\b(no swimming|do not swim|swimming (?:is )?(?:prohibited|not permitted|not allowed|closed|suspended|cancelled|unavailable)|swimming and fishing (?:are )?(?:prohibited|not allowed|not permitted)|pool (?:is )?closed|closed to swimming|no tubing|tubing (?:is )?(?:prohibited|not allowed|closed))\b/i;
 const sentences = (text: string) => text.split(/[.!?]+/).map((sentence) => sentence.trim()).filter(Boolean);
 
 export function selectSwimmingHoleAndTubingDestinations(destinations: Destination[]): Destination[] {
