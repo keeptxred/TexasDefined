@@ -179,7 +179,7 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
     "brandId": "texasdefined",
     "slug": "stephen-f-austin-experimental-forest",
     "name": "Stephen F. Austin Experimental Forest Interpretive Trails",
-    "summary": "A 2,560-acre USDA research forest southwest of Nacogdoches with a paved 0.8-mile Jack Creek Loop and a 1.5-mile natural-surface Management Loop on the operator's detailed map; an older descriptive page instead calls the latter 2.0 miles.",
+    "summary": "A 2,560-acre USDA research forest southwest of Nacogdoches with a paved 0.8-mile Jack Creek Loop and a 1.5-mile natural-surface Management Loop on the operator's detailed map; the agency's descriptive webpage instead calls the latter 2.0 miles.",
     "category": "outdoors",
     "region": "piney-woods",
     "nearestTown": "Nacogdoches",
@@ -207,7 +207,7 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
     "body": [
       "Unlike a recreational-only park, the Stephen F. Austin Experimental Forest was established by an act of Congress and entered the federal experimental forest system in 1945. The USDA Forest Service identifies its research themes as silviculture, wildlife habitat and forest management. Recreational interpretation became an expanded objective in 1990; the two-loop interpretive system was completed in 1997.",
       "Most of the tract is mature bottomland hardwood forest, with pine and mixed forest on higher ground. Jack Creek runs through the low-lying section, supporting moisture-loving plants and diverse wildlife. This is an outdoor classroom, not a manicured university garden; visitors can learn why differences in soil, flooding, shade and management affect habitats and species.",
-      "The shorter Jack Creek Loop is the Forest Service's paved 0.8-mile interpretive trail, designed for universal access, subject to actual surface and weather conditions. The operator's posted detailed trail map labels the natural-surface Management Loop as 1.5 miles, plus named cutoff and spur trails; it labels the 400 Loop as an additional 1.4-mile unpaved road and totals all marked paths at 4.3 miles. However, the Forest Service's descriptive webpage still calls the Management Loop 2.0 miles and the two-loop system about 2.8 miles. These operator documents conflict. For navigating, download the current detailed trail map and follow posted signs; confirm route lengths directly with the Forest Service before relying on them.",
+      "The shorter Jack Creek Loop is the Forest Service's paved 0.8-mile interpretive trail, designed for universal access, subject to actual surface and weather conditions. The operator's posted detailed trail map labels the natural-surface Management Loop as 1.5 miles, plus named cutoff and spur trails; it labels the 400 Loop as an additional 1.4-mile unpaved road and totals all marked paths at 4.3 miles. However, the Forest Service's descriptive webpage calls the Management Loop 2.0 miles and the two-loop system about 2.8 miles. These operator documents conflict. For navigating, download the current detailed trail map and follow posted signs; confirm route lengths directly with the Forest Service before relying on them.",
       "The operator lists accessible parking, restrooms at the trail entrance, picnic tables and a self-guided information kiosk. Water fountains are around the start rather than all along the trails. Dogs need leashes, and firearms are prohibited under posted forest rules. The forest is administered by the USDA, not Stephen F. Austin State University's campus gardens; keep the park and campus travel addresses distinct."
     ],
     "officialUrl": "https://research.fs.usda.gov/srs/forestsandranges/locations/austin",
@@ -267,7 +267,7 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
       ]
     },
     "authorityGuide": {
-      "whyItMatters": "A 2,560-acre USDA research forest southwest of Nacogdoches with a paved 0.8-mile Jack Creek Loop and a natural-surface Management Loop shown as 1.5 miles on the detailed federal trail map, despite an older 2.0-mile description on the agency webpage.",
+      "whyItMatters": "A 2,560-acre USDA research forest southwest of Nacogdoches with a paved 0.8-mile Jack Creek Loop and a natural-surface Management Loop shown as 1.5 miles on the detailed federal trail map, despite a differing 2.0-mile description on the agency webpage.",
       "assessment": {
         "recommendedVisit": "Allow 1–2 hours for Jack Creek Loop, trailhead orientation and interpretive stops; budget more time for the longer Management Loop, travel and changing trail conditions.",
         "physicalEffort": "Easy-to-moderate on surfaced Jack Creek; more strenuous on the unpaved Management Loop",
