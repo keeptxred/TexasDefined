@@ -196,7 +196,7 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
       "credit": "USDA Forest Service, Southern Research Station · official SFA Experimental Forest trail photograph · U.S. government work; source: research.fs.usda.gov/srs/forestsandranges/locations/austin"
     },
     "bestSeason": "Year-round, especially spring and autumn for comfortable hiking; mosquitoes and humidity can be significant in summer.",
-    "entryNote": "Day use only. The USDA Forest Service reports public trails open during daylight hours for foot and wheelchair traffic, with pets leashed. The 0.8-mile Jack Creek Loop offers a surfaced accessible route; the Management Loop is unpaved and more strenuous. The detailed official trail map calls it 1.5 miles, while the webpage describes 2.0 miles; navigate by the downloadable map and signs. Check posted forest orders, storm damage and path conditions.",
+    "entryNote": "Day use only. The USDA Forest Service reports public trails open during daylight hours for foot and wheelchair traffic, with pets leashed. The 0.8-mile Jack Creek Loop offers a surfaced accessible route; the Management Loop is unpaved and more strenuous. The detailed official trail map calls it 1.5 miles, while the webpage describes 2.0 miles; navigate by the downloadable map and signs. Check current Forest Service closure orders, storm damage and path conditions. The trail and research-area order PDFs still linked from the USDA overview say they expired December 31, 2024; they must not be treated as proof of restrictions currently in force.",
     "highlights": [
       "2,560-acre congressional research forest",
       "0.8-mile Jack Creek accessible loop",
@@ -208,11 +208,11 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
       "Unlike a recreational-only park, the Stephen F. Austin Experimental Forest was established by an act of Congress and entered the federal experimental forest system in 1945. The USDA Forest Service identifies its research themes as silviculture, wildlife habitat and forest management. Recreational interpretation became an expanded objective in 1990; the two-loop interpretive system was completed in 1997.",
       "Most of the tract is mature bottomland hardwood forest, with pine and mixed forest on higher ground. Jack Creek runs through the low-lying section, supporting moisture-loving plants and diverse wildlife. This is an outdoor classroom, not a manicured university garden; visitors can learn why differences in soil, flooding, shade and management affect habitats and species.",
       "The shorter Jack Creek Loop is the Forest Service's paved 0.8-mile interpretive trail, designed for universal access, subject to actual surface and weather conditions. The operator's posted detailed trail map labels the natural-surface Management Loop as 1.5 miles, plus named cutoff and spur trails; it labels the 400 Loop as an additional 1.4-mile unpaved road and totals all marked paths at 4.3 miles. However, the Forest Service's descriptive webpage calls the Management Loop 2.0 miles and the two-loop system about 2.8 miles. These operator documents conflict. For navigating, download the current detailed trail map and follow posted signs; confirm route lengths directly with the Forest Service before relying on them.",
-      "The operator lists accessible parking, restrooms at the trail entrance, picnic tables and a self-guided information kiosk. Water fountains are around the start rather than all along the trails. Dogs need leashes, and firearms are prohibited under posted forest rules. The forest is administered by the USDA, not Stephen F. Austin State University's campus gardens; keep the park and campus travel addresses distinct."
+      "The operator lists accessible parking, restrooms at the trail entrance, picnic tables and a self-guided information kiosk. Water fountains are around the start rather than all along the trails. The USDA visitor overview directs visitors to leash pets and states that firearms are prohibited. Its linked forest-order PDFs, however, specify December 31, 2024 expiration dates; verify enforceable restrictions on the National Forests and Grasslands in Texas closure-orders page or with the ranger district rather than assuming those PDFs are current. The forest is administered by the USDA, not Stephen F. Austin State University's campus gardens; keep the park and campus travel addresses distinct."
     ],
     "officialUrl": "https://research.fs.usda.gov/srs/forestsandranges/locations/austin",
     "managingAuthority": "USDA Forest Service Southern Research Station",
-    "directions": "From Nacogdoches, travel southwest on State Highway 7, turn onto FM 2782 and follow the Forest Service's signed entrance and trailhead directions.",
+    "directions": "From Nacogdoches Loop 224, drive about 6.5 miles west on State Highway 7; turn south onto FM 2782 and continue about 2.4 miles to the Forest Service entrance on the right, then follow signs to interpretive-trail parking. Verify roads and closures before departure.",
     "accessibilityNotes": "USFS describes 0.8 mile of Jack Creek Loop as surfaced and barrier-free; the more rugged, natural-surface Management Loop should not be characterized as universally accessible. Confirm current conditions and restroom access before relying on the designation.",
     "sourceCheckedAt": "2026-10-13",
     "areaGuide": {
@@ -322,6 +322,11 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
           "scope": "Cartographic route lengths, surface types, 400 Loop, cutoff paths, parking and restrooms; operator map differs from narrative webpage"
         },
         {
+          "label": "Current Forest Service closure-order listings",
+          "url": "https://www.fs.usda.gov/r08/texas/about-area/closure-orders",
+          "scope": "Official location for current National Forests and Grasslands in Texas prohibitions and closures; the two PDF orders linked from the research overview state 2024 expiration dates"
+        },
+        {
           "label": "TPWD Stephen F. Austin Loop",
           "url": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/ppwe/stephen-f-austin-loop",
           "scope": "Primary operator or historical source for geography, ecology, visitor rules and interpretation"
@@ -348,6 +353,11 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
         "question": "Can wheelchair users use the trail?",
         "answer": "The Jack Creek Loop was built for universal accessibility; check current surface and closures with the Forest Service.",
         "sourceUrl": "https://research.fs.usda.gov/srs/forestsandranges/locations/austin"
+      },
+      {
+        "question": "How can I check current closures and restrictions?",
+        "answer": "Review the Forest Service closure-order listings for the National Forests and Grasslands in Texas and contact the managing office when unclear. The forest-order PDFs linked on the USDA Experimental Forest overview list December 31, 2024 expiration dates, so do not interpret them as evidence of active 2026 orders.",
+        "sourceUrl": "https://www.fs.usda.gov/r08/texas/about-area/closure-orders"
       },
       {
         "question": "Are dogs allowed?",
