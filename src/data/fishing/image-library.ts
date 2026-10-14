@@ -205,6 +205,7 @@ export const fishingLakeImages: Record<string, FishingVisualAsset> = {
   "lake-tyler": commonsLake("lake-tyler", "Lake Tyler East.jpg", "Exact photograph of Lake Tyler East from the SH 64 park in Smith County, Texas; depicts the east basin only, November 2022", 4991, 2804, "David A. Harrison", "CC BY-SA 4.0", CC_BY_SA_4, "cc-by-sa", "Wikimedia Commons", "2026-10-13"),
   "medina-lake": commonsLake("medina-lake", "Medina lake 2010.jpg", "Actual Medina Lake photographed July 2010 in Medina County, Texas; historical view not a current shoreline or boat-launch status report", 1652, 964, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by", "Wikimedia Commons", "2026-10-13"),
   "fort-parker-state-park-lake": commonsLake("fort-parker-state-park-lake", "Lake Fort Parker State Park Texas 2025.jpg", "Actual Fort Parker Lake inside Fort Parker State Park in Limestone County, Texas at dawn, 27 September 2025; not a current lake-level or ramp-status image", 3000, 2000, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by", "Wikimedia Commons", "2026-10-13"),
+  "lake-weatherford": commonsLake("lake-weatherford", "Section of Lake Weatherford boardwalk.jpg", "Actual May 2024 photograph of the floating boardwalk at Lake Weatherford, Parker County, Texas; not a depiction of the marina ramp or current water-level conditions", 4624, 3468, "Forssa01", "CC0 1.0", CC0_1, "public-domain", "Wikimedia Commons", "2026-10-13"),
 };
 
 export function getFishingFishImage(slugOrId: string) {
