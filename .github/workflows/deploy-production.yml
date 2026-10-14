@@ -106,7 +106,7 @@ jobs:
 
       - name: Fingerprint governed Discover source registry
         id: discover_fingerprint
-        run: echo "sha=$(sha256sum scripts/assets/materialize-discover-overrides.mjs | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+        run: echo "sha=$(node scripts/assets/materialize-discover-overrides.mjs --fingerprint)" >> "$GITHUB_OUTPUT"
 
       - name: Restore previously materialized governed Discover derivatives
         if: success()
@@ -114,10 +114,10 @@ jobs:
         run: |
           # GitHub's repository-wide artifact response can be very large and has
           # failed with truncated JSON. Search recent production runs instead.
-          # Only reuse artifacts with the exact governed source-registry checksum.
+          # Only reuse artifacts with the exact source-URL/slug and WebP transform contract checksum.
           set -uo pipefail
           mkdir -p public/images/discover
-          source_fingerprint="$(sha256sum scripts/assets/materialize-discover-overrides.mjs | cut -d' ' -f1)"
+          source_fingerprint="$(node scripts/assets/materialize-discover-overrides.mjs --fingerprint)"
           artifact_prefix="governed-discover-derivatives-${source_fingerprint}-"
           cache_dir="$(mktemp -d)"
           trap 'rm -rf "$cache_dir"' EXIT
