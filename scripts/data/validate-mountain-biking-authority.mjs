@@ -64,7 +64,7 @@ for (const destinationPath of [
   '/destination/franklin-mountains-state-park',
   '/destination/big-bend-ranch-state-park',
   '/destination/palo-duro-canyon-state-park',
-  '/destination/hill-country-state-natural-area',
+  '/destination/hill-country-louise-merrick-unit-state-natural-area',
   '/destination/tyler-state-park',
 ]) {
   if (!lazyRoute.includes(`destinationPath: "${destinationPath}"`)) {

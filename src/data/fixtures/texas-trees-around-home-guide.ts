@@ -30,7 +30,7 @@ export const texasTreesAroundHomeGuideArticle: Article = {
     { href: "/article/texas-trees-guide", label: "Texas trees guide", description: "Identify the major native and familiar tree species that shape different Texas regions." },
     { href: "/article/best-native-plants-texas-yard", label: "Best native plants for a Texas yard", description: "Build a landscape around region-appropriate trees, shrubs, grasses and flowers." },
     { href: "/article/texas-roofs-hail-wind-heat", label: "Texas roofs, hail, wind and heat", description: "Understand how weather and nearby limbs affect one of the home's most exposed systems." },
-    { href: "/article/texas-hurricane-preparation-guide", label: "Texas hurricane preparation guide", description: "Add tree and limb risk to wind, flood, outage and insurance preparation." },
+    { href: "/article/texas-hurricane-preparation-homeowners-renters", label: "Texas hurricane preparation guide", description: "Add tree and limb risk to wind, flood, outage and insurance preparation." },
     { href: "/article/prepare-texas-house-freeze", label: "Prepare a Texas house for a freeze", description: "Plan for ice-loaded limbs, power outages and cold-weather tree damage." },
     { href: "https://tfsweb.tamu.edu/trees/tree-care/trees-and-natural-disasters/", label: "Texas A&M Forest Service storm-tree guidance", description: "Official Texas guidance for assessing and recovering trees after storms and natural disasters." },
     { href: "https://tfsweb.tamu.edu/trees/tree-care/pruning/", label: "Texas A&M Forest Service pruning guidance", description: "Official pruning guidance, oak wound-paint advice and certified-arborist recommendations." },

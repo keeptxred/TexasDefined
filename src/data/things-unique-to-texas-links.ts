@@ -75,7 +75,7 @@ const CANONICAL_ICON_LINKS: Readonly<Record<number, string>> = {
   66: "/destination/padre-island-national-seashore",
   67: "/destination/lost-maples-state-natural-area",
   68: "/destination/inner-space-cavern",
-  71: "/destination/hueco-tanks-state-park-and-historic-site",
+  71: "/destination/hueco-tanks-state-park",
   72: "/destination/monahans-sandhills-state-park",
   74: "/destination/caprock-canyons-state-park",
   77: "/destination/balmorhea-state-park",
