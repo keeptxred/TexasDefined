@@ -55,6 +55,7 @@ function Page() {
     'benavides': 'duval',
     'big-lake-reagan-co': 'reagan',
     'big-sandy': 'upshur',
+    'big-sandy-harmony': 'upshur', // NCES Harmony High is in Upshur County, distinct from Big Sandy Wildcats.
     'barksdale-nueces-canyon': 'edwards',
     'bartlett': 'bell',
     'bastrop': 'bastrop',
