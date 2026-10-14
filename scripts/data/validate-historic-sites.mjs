@@ -13,6 +13,7 @@ const nationalCemeteries = fs.readFileSync('src/data/national-cemetery-enrichmen
 const remoteHeroes = fs.readFileSync('src/data/historic-site-remote-heroes.ts', 'utf8');
 const clusters = fs.readFileSync('src/data/historic-site-clusters.ts', 'utf8');
 const corrections = fs.readFileSync('src/data/historic-site-fact-corrections.ts', 'utf8');
+const visitorPolicy = fs.readFileSync('src/data/destination-availability.ts', 'utf8');
 const authorityExpansion = fs.readFileSync('src/data/historic-site-authority-2026.ts', 'utf8');
 const runtime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8');
 const preserved = fs.readFileSync('src/data/destination-preserved-catalog.ts', 'utf8');
@@ -319,6 +320,9 @@ for (const mark of [
   'hero: missingDestinationHero(destination)',
 ]) if (!corrections.includes(mark)) failures.push(`Named historic image rights/identity correction missing: ${mark}`);
 if (remoteHeroes.includes('"old-socorro-mission": {')) failures.push("Closed original Socorro archaeological site still borrows an image of the operating mission church.");
+for (const slug of ['first-capitol-of-texas', 'old-socorro-mission']) if (!visitorPolicy.includes('"'+slug+'"')) failures.push("THC-closed original site erroneously recommended in Trip Planner: "+slug);
+if (!destinationRoute.includes('"first-capitol-of-texas"].includes(destination.slug)')) failures.push("Indexed, researched First Capitol historical reference exception was lost after trip-planner closure.");
+if (!destinationRoute.includes('isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><DestinationVisitPlanner')) failures.push("Destination visit planner still promotes inaccessible historic sites as ordinary visitor stops.");
 if (!authorityExpansion.includes('File:Kreische_Brewery_Ruins_Lower_View.jpg') || !authorityExpansion.includes('File:Monument_hill_monument.jpg')) failures.push("Original licensed file-level photo attribution links missing from public historic authority guide sources.");
 
 const exactHeroAliases = ['barrington-living-history-farm','fanthorp-inn','kreische-brewery','monument-hill','san-jacinto-battleground','washington-on-the-brazos'];
