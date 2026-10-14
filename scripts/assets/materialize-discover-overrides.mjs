@@ -203,6 +203,10 @@ const DERIVATIVE_TRANSFORM_CONTRACT = "webp-1600x900-center-crop-quality82-strip
 const governedRegistryFingerprint = createHash("sha256")
   .update(JSON.stringify({ transform: DERIVATIVE_TRANSFORM_CONTRACT, entries }))
   .digest("hex");
+if (process.argv.includes("--list-slugs")) {
+  for (const [slug] of entries) console.log(slug);
+  process.exit(0);
+}
 if (process.argv.includes("--fingerprint")) {
   console.log(governedRegistryFingerprint);
   process.exit(0);
