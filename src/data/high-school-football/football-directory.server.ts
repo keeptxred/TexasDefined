@@ -51,6 +51,9 @@ export type FootballProgramDirectoryResult = UilFootballProgram & {
 
 let directoryCache: { loadedAt: number; rows: TeaSchoolDirectoryRecord[] } | null = null;
 let allProgramDirectoryCache: { loadedAt: number; programs: FootballProgramDirectoryResult[] } | null = null;
+// Share one cold-start fetch/build among concurrent SSR page requests; never cache failures.
+let directoryInFlight: Promise<TeaSchoolDirectoryRecord[]> | null = null;
+let allProgramDirectoryInFlight: Promise<FootballProgramDirectoryResult[]> | null = null;
 
 function normalizeHeader(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -225,20 +228,28 @@ function parseTeaDirectory(text: string): TeaSchoolDirectoryRecord[] {
 export async function loadTeaSchoolDirectory() {
   if (directoryCache && Date.now() - directoryCache.loadedAt < CACHE_TTL_MS) return directoryCache.rows;
 
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 8_000);
+  if (directoryInFlight) return directoryInFlight;
+  directoryInFlight = (async (): Promise<TeaSchoolDirectoryRecord[]> => {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8_000);
+    try {
+      const response = await fetch(TEA_DIRECTORY_URL, {
+        headers: { accept: 'text/csv,text/plain;q=0.9,*/*;q=0.1' },
+        signal: controller.signal,
+      });
+      if (!response.ok) throw new Error(`AskTED returned ${response.status}`);
+      const rows = parseTeaDirectory(await response.text());
+      if (!rows.length) throw new Error('AskTED returned no school rows.');
+      directoryCache = { loadedAt: Date.now(), rows };
+      return rows;
+    } finally {
+      clearTimeout(timeout);
+    }
+  })();
   try {
-    const response = await fetch(TEA_DIRECTORY_URL, {
-      headers: { accept: 'text/csv,text/plain;q=0.9,*/*;q=0.1' },
-      signal: controller.signal,
-    });
-    if (!response.ok) throw new Error(`AskTED returned ${response.status}`);
-    const rows = parseTeaDirectory(await response.text());
-    if (!rows.length) throw new Error('AskTED returned no school rows.');
-    directoryCache = { loadedAt: Date.now(), rows };
-    return rows;
+    return await directoryInFlight;
   } finally {
-    clearTimeout(timeout);
+    directoryInFlight = null;
   }
 }
 
@@ -405,20 +416,27 @@ export async function loadAllFootballProgramsWithDirectory() {
   if (allProgramDirectoryCache && Date.now() - allProgramDirectoryCache.loadedAt < CACHE_TTL_MS) {
     return allProgramDirectoryCache.programs;
   }
-
-  const directory = await loadTeaSchoolDirectory();
-  const directoryMatcher = buildDirectoryMatcher(directory);
-  const programs = suppressDuplicateTeaAssignments(
-    UIL_FOOTBALL_PROGRAMS_2026.map((program) => withDirectory(program, directoryMatcher)),
-  ).sort((a, b) => {
-      const classDiff = Number(b.classification[0]) - Number(a.classification[0]);
-      if (classDiff) return classDiff;
-      if ((a.division ?? 0) !== (b.division ?? 0)) return (a.division ?? 0) - (b.division ?? 0);
-      return a.schoolName.localeCompare(b.schoolName);
-    });
-
-  allProgramDirectoryCache = { loadedAt: Date.now(), programs };
-  return programs;
+  if (allProgramDirectoryInFlight) return allProgramDirectoryInFlight;
+  allProgramDirectoryInFlight = (async (): Promise<FootballProgramDirectoryResult[]> => {
+    const directory = await loadTeaSchoolDirectory();
+    const directoryMatcher = buildDirectoryMatcher(directory);
+    const programs = suppressDuplicateTeaAssignments(
+      UIL_FOOTBALL_PROGRAMS_2026.map((program) => withDirectory(program, directoryMatcher)),
+    ).sort((a, b) => {
+        const classDiff = Number(b.classification[0]) - Number(a.classification[0]);
+        if (classDiff) return classDiff;
+        if ((a.division ?? 0) !== (b.division ?? 0)) return (a.division ?? 0) - (b.division ?? 0);
+        return a.schoolName.localeCompare(b.schoolName);
+      });
+  
+    allProgramDirectoryCache = { loadedAt: Date.now(), programs };
+    return programs;
+  })();
+  try {
+    return await allProgramDirectoryInFlight;
+  } finally {
+    allProgramDirectoryInFlight = null;
+  }
 }
 
 export async function searchFootballPrograms(options: {
