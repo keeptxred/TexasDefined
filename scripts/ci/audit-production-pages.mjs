@@ -85,7 +85,13 @@ async function auditPage(url){
     if(title.length>TITLE_HARD_MAX_LENGTH) issues.push({code:'title-extreme-length',detail:title.length+' chars > '+TITLE_HARD_MAX_LENGTH});
     // A title ending in a connector often indicates silent SEO budget truncation.
     const subjectTitle = title.replace(/\s*[|–—-]\s*Texas Defined\s*$/i, '').trim();
-    if (/(?:\s+(?:and|or|of|for|to|with|in|at|the)|\s+&|\s+San|\s+Corpus)$/i.test(subjectTitle)) {
+    const headingCompletesTitle = h1.toLowerCase().startsWith(subjectTitle.toLowerCase())
+      && h1.length >= subjectTitle.length + 5;
+    const choppedLocation = /\s+(?:San|Corpus)$/i.test(subjectTitle);
+    // Avoid false positives for complete idiomatic headings such as
+    // "Texas Water Towers Worth Pulling Over For".
+    if ((headingCompletesTitle && /(?:\s+(?:and|or|of|for|to|with|in|at|the)|\s+&)$/i.test(subjectTitle))
+      || choppedLocation) {
       issues.push({code:'dangling-title-fragment',detail:subjectTitle});
     }
     else if(title.length>TITLE_REVIEW_LENGTH) warnings.push({code:'title-review-length',detail:title.length+' chars > '+TITLE_REVIEW_LENGTH});
