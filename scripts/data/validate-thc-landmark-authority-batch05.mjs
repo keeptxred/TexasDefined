@@ -26,8 +26,8 @@ for (const [path,slug,minParagraphs,minFaqs,minSources] of records) {
   if (!s.includes("entry:") || !s.includes("accessibility:") || !s.includes("firstVisitSteps:")) errors.push(slug+": site access requirements missing");
   const body=s.split("  body:[")[1]?.split("  faqs:[")[0] || "";
   if ((body.match(/^    "/gm)||[]).length<minParagraphs) errors.push(slug+": too few original history paragraphs");
-  if ((s.match(/thcFaq\\(/g)||[]).length<minFaqs) errors.push(slug+": insufficient FAQs");
-  if ((s.match(/thcSource\\(/g)||[]).length<minSources) errors.push(slug+": insufficient sources");
+  if ((s.split("thcFaq(").length-1)<minFaqs) errors.push(slug+": insufficient FAQs");
+  if ((s.split("thcSource(").length-1)<minSources) errors.push(slug+": insufficient sources");
 }
 console.log(JSON.stringify({batch:"05",properties:records.length,passed:errors.length===0,errors},null,2));
 if(errors.length)process.exitCode=1;
