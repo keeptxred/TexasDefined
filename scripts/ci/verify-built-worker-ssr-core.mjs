@@ -24,6 +24,9 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/county/gillespie', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Gillespie County links to researched historic corridor itinerary' },
+  { path: '/county/blanco', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Blanco County links to researched historic corridor itinerary' },
+  { path: '/destination/lyndon-b-johnson-state-park-historic-site', requiredText: 'Sauer-Beckmann', label: 'canonical LBJ State Park and living-history farm' },
   // Exact corridor publication proofs: 200 alone is insufficient; require
   // researched on-page narrative so remote/generic fallback cannot mask a release.
   { path: '/article/fredericksburg-johnson-city-historic-road-trip', requiredText: 'Fredericksburg to Johnson City: The Complete Historic Hill Country Road Trip', label: 'Fredericksburg Johnson City historic itinerary' },
@@ -102,6 +105,9 @@ const smokeTargets = [
 ];
 
 const redirectTargets = [
+  { path: '/destination/lyndon-b-johnson-state-park-and-historic-site', expectedStatus: 301, expectedPath: '/destination/lyndon-b-johnson-state-park-historic-site', expectQueryPreserved: false, label: 'LBJ State Park broken editorial alias canonical redirect' },
+  { path: '/destination/lyndon-b-johnson-state-park-state-historic-site', expectedStatus: 301, expectedPath: '/destination/lyndon-b-johnson-state-park-historic-site', expectQueryPreserved: false, label: 'LBJ State Park secondary historical alias canonical redirect' },
+  { path: '/historic-site/lyndon-b-johnson-state-park-state-historic-site', expectedStatus: 301, expectedPath: '/destination/lyndon-b-johnson-state-park-historic-site', expectQueryPreserved: false, label: 'LBJ State Park old historic-site route canonical redirect' },
   {
     path: '/fishing/fishing/techniques/soft-plastics?source=smoke',
     expectedStatus: 301,
@@ -250,8 +256,8 @@ async function checkRedirectTarget(target, attemptToken) {
     lastStatus.set(target.path, String(response.status));
     const location = response.headers.get('location');
     const redirectedUrl = location ? new URL(location, url) : null;
-    const queryMatches = redirectedUrl?.searchParams.get(target.expectedQuery[0]) === target.expectedQuery[1]
-      && Boolean(redirectedUrl?.searchParams.get('built_worker_smoke'));
+    const queryMatches = target.expectQueryPreserved === false || (redirectedUrl?.searchParams.get(target.expectedQuery[0]) === target.expectedQuery[1]
+      && Boolean(redirectedUrl?.searchParams.get('built_worker_smoke')));
 
     if (response.status === target.expectedStatus && redirectedUrl?.pathname === target.expectedPath && queryMatches) return '';
 

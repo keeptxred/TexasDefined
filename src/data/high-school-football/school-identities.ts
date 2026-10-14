@@ -11,9 +11,9 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
-  { slug: 'baytown-goose-creek-memorial', mascot: 'Patriots', sourceUrl: 'https://schools.gccisd.net/page/gcmhs.home/', sourceLabel: 'Goose Creek CISD original school page and athletics identity', verifiedAt: '2026-10-10' },
-  { slug: 'baytown-lee', mascot: 'Ganders', sourceUrl: 'https://schools.gccisd.net/page/relhs.sl.athletics', sourceLabel: 'Goose Creek CISD original school page and athletics identity', verifiedAt: '2026-10-10' },
-  { slug: 'baytown-sterling', mascot: 'Rangers', sourceUrl: 'https://schools.gccisd.net/page/rsshs.home', sourceLabel: 'Goose Creek CISD original school page and athletics identity', verifiedAt: '2026-10-10' },
+  { slug: 'baytown-goose-creek-memorial', mascot: 'Patriots', sourceUrl: 'https://gcm.gccisd.net/about-us-mission-vision', sourceLabel: 'Goose Creek CISD current official campus source; separately source 2026 athletic results', verifiedAt: '2026-10-10' },
+  { slug: 'baytown-lee', mascot: 'Ganders', sourceUrl: 'https://rel.gccisd.net/athletics', sourceLabel: 'Goose Creek CISD current official campus source; separately source 2026 athletic results', verifiedAt: '2026-10-10' },
+  { slug: 'baytown-sterling', mascot: 'Rangers', sourceUrl: 'https://rss.gccisd.net/athletics', sourceLabel: 'Goose Creek CISD current official campus source; separately source 2026 athletic results', verifiedAt: '2026-10-10' },
   { slug: 'beaumont-united', mascot: 'Timberwolves', sourceUrl: 'https://united.bmtisd.com/about-our-school', sourceLabel: 'Beaumont ISD original school page and athletics identity', verifiedAt: '2026-10-10' },
   { slug: 'beaumont-west-brook', mascot: 'Bruins', sourceUrl: 'https://wb.bmtisd.com/about-our-school', sourceLabel: 'Beaumont ISD original school page and athletics identity', verifiedAt: '2026-10-10' },
   { slug: 'beckville', mascot: 'Bearcats', sourceUrl: 'https://www.beckvilleisd.net/students-parents', sourceLabel: 'Beckville ISD school athletic source', verifiedAt: '2026-10-10' },

@@ -21,9 +21,10 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     width: 802, height: 538, credit: "N. Saum · CC BY-SA 3.0 · Wikimedia Commons",
   },
   "casa-navarro": {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Casa_Navarro_State_Historic_Site_in_2009.jpg",
-    alt: "Casa Navarro State Historic Site in San Antonio, Texas",
-    width: 500, height: 333, credit: "TxHC · CC BY-SA 3.0 · Wikimedia Commons",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Casa_Navarro_State_Historic_Site_July_2017_01_%28main_house%29.jpg?width=1600",
+    alt: "Main historic house at Casa Navarro State Historic Site in San Antonio, photographed in July 2017",
+    width: 1600, height: 1142,
+    credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons · File:Casa Navarro State Historic Site July 2017 01 (main house).jpg",
   },
   "confederate-reunion-grounds": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Confederate_Reunion_Grounds_State_Historic_Site_in_2009.jpg",
