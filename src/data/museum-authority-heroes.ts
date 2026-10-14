@@ -3,6 +3,12 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "museum-of-the-american-railroad-frisco": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/U.S._Army_Alco_RSD-1_No._8000.jpg?width=1600",
+    alt: "U.S. Army ALCO RSD-1 locomotive No. 8000 photographed at the Museum of the American Railroad in Frisco in February 2025",
+    width: 1600, height: 1074,
+    credit: "FinnishCheeseDude · 2025 · CC BY 4.0 · Wikimedia Commons · File:U.S. Army Alco RSD-1 No. 8000.jpg",
+  },
   "the-history-center-diboll": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Southern_Pine_Lumber_Company_sawmills_near_Diboll%2C_Texas_in_1907.jpg?width=660",
     alt: "Archival 1907 photograph of Southern Pine Lumber Company sawmills and timber railroad cars in Diboll, Texas, from The History Center collection; not the present-day museum building",

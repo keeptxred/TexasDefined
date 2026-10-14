@@ -1,3 +1,4 @@
+import { museumLicensedHeroes } from "./museum-authority-heroes";
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 import type { Destination, ImageRef } from "./types";
 
@@ -205,7 +206,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     nearestTown: "Frisco",
     county: "Collin County",
     coordinates: { lat: 33.14453, lng: -96.83344 },
-    hero: museumPlaceholder("Museum of the American Railroad"),
+    hero: museumLicensedHeroes["museum-of-the-american-railroad-frisco"],
     bestSeason: "Fall through spring for the most comfortable outdoor rolling-stock tours; TrainTopia provides an indoor component throughout the year.",
     entryNote: "The museum currently combines indoor TrainTopia admission with scheduled outdoor walking tours of the rolling-stock collection. Tour days, times and weather policies differ, so check current tickets before traveling.",
     highlights: ["Historic locomotives and railcars", "TrainTopia model railroad", "Guided rolling-stock tours", "North Texas railroad history"],
