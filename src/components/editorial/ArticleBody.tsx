@@ -9,6 +9,28 @@ import { ShopTheStory } from "@/components/commerce/ShopTheStory";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from '@/platform/internal-link-policies';
 import { countyLabelHasExplicitContext } from '@/platform/internal-linking';
 
+// Resolve the Commons description page rather than linking directly to a binary thumbnail.
+// This preserves the creator's attribution and license terms alongside each archival image.
+function commonsImageDescriptionUrl(src: string): string | null {
+  try {
+    const delivered = new URL(src, "https://texasdefined.com");
+    const original = delivered.pathname === "/media/remote" ? delivered.searchParams.get("url") : delivered.href;
+    if (!original) return null;
+    const source = new URL(original);
+    if (source.hostname !== "commons.wikimedia.org") return null;
+    const file = source.pathname.match(/^\/wiki\/Special:Redirect\/file\/(.+)$/);
+    return file ? `https://commons.wikimedia.org/wiki/File:${file[1]}` : null;
+  } catch {
+    return null;
+  }
+}
+
+function CommonsImageCreditLink({ src }: { src: string }) {
+  const href = commonsImageDescriptionUrl(src);
+  if (!href) return null;
+  return <>{" · "}<a href={href} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Image source and reuse terms</a></>;
+}
+
 const articlePolicy = INTERNAL_LINK_POLICIES.article;
 const MetroRelocationAuthority = lazy(() => import("@/components/relocation/MetroRelocationAuthority").then((module) => ({ default: module.MetroRelocationAuthority })));
 const SixManFootballAuthority = lazy(() => import("@/components/content/SixManFootballAuthority").then((module) => ({ default: module.SixManFootballAuthority })));
@@ -143,7 +165,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
             </div>
             {(block.caption || block.image.credit) && (
               <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">
-                {block.caption}{block.caption && block.image.credit ? " · " : ""}{block.image.credit}
+                {block.caption}{block.caption && block.image.credit ? " · " : ""}{block.image.credit}<CommonsImageCreditLink src={block.image.src} />
               </figcaption>
             )}
             {articleSlug === "best-lighthouses-to-visit-in-texas" && block.image.src.includes("Port_Bolivar_TX_-_Point_Bolivar_Lighthouse.jpg") ? <BolivarRestorationPhotoSources /> : null}
