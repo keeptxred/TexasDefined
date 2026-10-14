@@ -26,7 +26,7 @@ Review executed using the original retained JSON/screenshot ZIP artifacts, **not
 
 The new [Supabase city enrollment ledger](SUPABASE_CITY_FACT_SOURCE_ENROLLMENT_2026-10-13.md) documents actual registration of 69 official/source URLs across all 11 cities and the first existing-worker HTTP probe results: 49 2xx, 20 403/429 access restricted. **HTTP fingerprints are not factual checks.**
 
-[Follow-up source-cadence migration PR #4802](https://github.com/keeptxred/TexasDefined/pull/4802) adds only a nullable source-specific interval and preserves 90-day page editorial review; it is **not effective** until explicitly applied and checked in the shared live Supabase project. Different cadence reflects only source monitoring, not claim-level truth freshness or editor sign-off.
+[Rebased source-cadence and official-citation PR #4805](https://github.com/keeptxred/TexasDefined/pull/4805) adds only a nullable source-specific interval and preserves 90-day page editorial review; it is **not effective** until explicitly applied and checked in the shared live Supabase project. Different cadence reflects only source monitoring, not claim-level truth freshness or editor sign-off.
 
 ## 5. Expanded official-source enrollment and full first-probe result
 
@@ -34,6 +34,14 @@ After the initial 69-reference batch recorded in the immutable original enrollme
 
 Actually submitted and collected the **25 additional** probe requests through the existing `td_maintenance.queue_source_probes(25)` and `collect_source_probes()` functions. The current combined **93/93** city source rows have at least one completed HTTP check, **63** with HTTP 2xx and **30** with HTTP 401/403/429 restrictions. None of these automated HTTP outcomes is a completed factual claim verification. No recorded city page acceptance state or `last_verified_at` was promoted. The mismatch between HTTP-denied government sources and human-browser accessibility is an explicitly open source-monitoring limitation.
 
-## 6. Still not accepted
+## 6. Jurisdiction source alignment: eight live-profile citation corrections
+
+The city-profile jurisdiction citation was not consistently evidence for city/county geography. The preexisting Austin citation pointed to a municipal IPAWS/emergency alert article; San Antonio to a 2019 UTSA neighborhood plan; Lubbock to the city charter; Arlington/Hurst to county election maps; Plano to a tax-dollar calculator; Dallas to an elections page; Corpus Christi to its general mobility plan. Those sources may be useful **elsewhere**, but they are not the strongest primary geographic evidence for a municipal limit claim.
+
+The production-ready profile update replaces those **eight `jurisdiction.sourceUrl` values only** with city-run official boundary GIS service directories or, where more suitable, their published open-data catalog. This uses exact current project GIS source URLs already recorded in `scripts/data/verify-city-municipal-gis.py` and the San Antonio city GIS portal. The map data are supplied as geographic research evidence, not legal certification of limited-purpose annexations or parcel residency. Houston and El Paso already linked to municipal GIS layers. Fort Worth retains a contextual planning PDF, with the verified newer official canonical path.
+
+**Remaining editorial requirement:** verify legal/current annexation ordinance and GIS publication vintage for each boundary. San Antonio's Bexar/Comal/Medina candidate overlays, including narrow Comal overlap, remain research-only. Houston's Waller limited-purpose versus full-purpose/ETJ distinctions remain qualified. Do not advance verification dates solely for improved source links.
+
+## 7. Still not accepted
 
 All eleven city editorial and jurisdiction acceptance decisions remain open until current exact-deployed-SHA audits, complete individual actual-image/manual interaction review, claim-by-claim school/tax/utility/visitor/restaurant checks, destination reciprocity, 37 historic link exception triages, and independent GIS municipal legal exceptions are resolved. **No final accepted city status can be inferred from automated success.**
