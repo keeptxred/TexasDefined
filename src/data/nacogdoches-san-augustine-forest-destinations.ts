@@ -33,7 +33,7 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
       "Aldridge Sawmill industrial heritage"
     ],
     "body": [
-      "Angelina National Forest is not one park-like attraction with a single gate. The Forest Service March 2025 Fingertip Facts reports 153,334 acres in Angelina (58,684), Jasper (21,023), San Augustine (64,389) and Nacogdoches (9,238) counties. An older Forest Service visitor listing still quotes 153,179 acres; this guide uses the newer dated agency fact sheet and discloses the discrepancy. National forest land, private inholdings, developed recreation areas and scientific research sites coexist around Sam Rayburn Reservoir, so consult an official land-status map before driving.",
+      "Angelina National Forest is not one park-like attraction with a single gate. The Forest Service March 2025 Fingertip Facts reports 153,334 acres in Angelina (58,684), Jasper (21,023), San Augustine (64,389) and Nacogdoches (9,238) counties. A separate federal Recreation.gov campsite description still quotes 153,179 acres; this guide uses the dated USDA factsheet and discloses the discrepancy. National forest land, private inholdings, developed recreation areas and scientific research sites coexist around Sam Rayburn Reservoir, so consult an official land-status map before driving.",
       "The ecological gradient is a reason to explore slowly. In the sandy uplands, open longleaf and other pine habitats support species adapted to regular fire, including distinctive woodland birds; the lower creeks, bottomlands and lake edges support hardwood stands and migratory bird habitat. TPWD documents especially noteworthy birding near Boykin Springs, including brown-headed nuthatches and red-cockaded woodpeckers. Avoid disturbing marked red-cockaded colonies or entering wildlife management closures.",
       "Choose your outing by activity instead of treating the forest as one homogeneous destination. For a short educational walk, the Stephen F. Austin Experimental Forest has interpreted Jack Creek and a forest-management loop. Boykin Springs Recreation Area offers campground and day-use facilities plus the Sawmill Hiking Trail; the Old Aldridge industrial ruins are reached by forest trail rather than a paved roadside pull-off. Lake recreation has separate boat ramps, shore-access policies and seasonal operations.",
       "Be alert to changing conditions. Forest Service orders can restrict access, camping, fires, vehicles and trails, particularly after storms or during high fire danger. National-forest boundaries on a map do not themselves authorize crossing adjacent private property. The map pin provided here represents Boykin Springs as a concrete starting point; use official USFS maps to select the actual destination."
@@ -140,9 +140,9 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
           "scope": "USDA dated March 2025 land acreage for Angelina National Forest: 153,334 acres, disaggregated by four counties"
         },
         {
-          "label": "USFS older Angelina recreation listing",
-          "url": "https://www.fs.usda.gov/visit/destinations?field_fs_states_tid_selective=All&field_rec_activities_target_id=All&field_rec_activities_tid_selective=11937&field_rec_forest_target_id=All&field_rec_forest_tid_selective=12019&page=549",
-          "scope": "Older agency visitor listing states 153,179 acres; useful for identifying the conflicting count, not as an authoritative 2025 acreage estimate"
+          "label": "Federal Recreation.gov Townsend campsite description",
+          "url": "https://www.recreation.gov/camping/campgrounds/10158892",
+          "scope": "This live federal campground description repeats 153,179 acres, diverging from the dated March 2025 USDA factsheet; not treated as the current acreage authority"
         },
         {
           "label": "TPWD Pineywoods birding Boykin Springs",
@@ -160,22 +160,22 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
       {
         "question": "Where is Angelina National Forest?",
         "answer": "It spans parts of Angelina, Nacogdoches, San Augustine and Jasper counties, not just one town.",
-        "sourceUrl": "https://www.fs.usda.gov/visit/destinations?field_fs_states_tid_selective=All&field_rec_activities_target_id=All&field_rec_activities_tid_selective=11937&field_rec_forest_target_id=All&page=549"
+        "sourceUrl": "https://www.fs.usda.gov/sites/nfs/files/r08/texas/publication/National%20Forests%20and%20Grasslands%20Fingertip%20Facts_03262025_0.pdf"
       },
       {
         "question": "How large is it?",
-        "answer": "The USDA Forest Service March 2025 Fingertip Facts lists 153,334 acres in four counties. An older Forest Service visitor listing instead says 153,179; these official pages disagree, so the dated 2025 fact sheet is the basis for this guide.",
+        "answer": "The USDA Forest Service March 2025 Fingertip Facts lists 153,334 acres in four counties. A separate federal Recreation.gov campsite description says 153,179 acres; these federal sources disagree, so the dated 2025 USDA fact sheet is the basis for this guide.",
         "sourceUrl": "https://www.fs.usda.gov/sites/nfs/files/r08/texas/publication/National%20Forests%20and%20Grasslands%20Fingertip%20Facts_03262025_0.pdf"
       },
       {
         "question": "Where should first-time visitors start?",
         "answer": "Choose a named recreation site or trail, such as Boykin Springs or the Stephen F. Austin Experimental Forest; do not follow the broad national forest label as a single navigation target.",
-        "sourceUrl": "https://www.fs.usda.gov/visit/destinations?field_fs_states_tid_selective=All&field_rec_activities_target_id=All&field_rec_activities_tid_selective=11937&field_rec_forest_target_id=All&page=549"
+        "sourceUrl": "https://www.fs.usda.gov/activity/texas"
       },
       {
         "question": "Can I camp anywhere?",
         "answer": "Different developed areas and dispersed areas have different rules; check USFS orders and site-specific fees and facilities before camping.",
-        "sourceUrl": "https://www.fs.usda.gov/visit/destinations?field_fs_states_tid_selective=All&field_rec_activities_target_id=All&field_rec_activities_tid_selective=11937&field_rec_forest_target_id=All&page=549"
+        "sourceUrl": "https://www.fs.usda.gov/r08/texas/alerts"
       }
     ]
   },
