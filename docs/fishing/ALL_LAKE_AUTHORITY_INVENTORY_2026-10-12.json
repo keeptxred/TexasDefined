@@ -3,24 +3,24 @@
   "date": "2026-10-13",
   "baseline": "TPWD more than 150 lake profiles",
   "summary": {
-    "total": 61,
+    "total": 62,
     "standardSectionsPerGuide": 9,
-    "statewide": 46,
-    "namedAccess": 61,
+    "statewide": 47,
+    "namedAccess": 62,
     "unknownAccess": 0,
     "namedCamping": 40,
-    "unknownCamping": 21,
-    "history": 13,
+    "unknownCamping": 22,
+    "history": 14,
     "noHistory": 48,
-    "photoMappings": 61,
+    "photoMappings": 62,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 61,
+    "explicitNamedAccess": 62,
     "lackingNamedAccess": 0,
     "explicitNamedCamping": 40,
-    "lackingNamedCamping": 21,
-    "namedStatewideFacilities": 175,
-    "statewideTemplateGuidesWithNamedAccess": 46
+    "lackingNamedCamping": 22,
+    "namedStatewideFacilities": 179,
+    "statewideTemplateGuidesWithNamedAccess": 47
   },
   "entries": [
     {
@@ -983,6 +983,22 @@
       "accessFacilityCount": 3,
       "accessReviewedAt": "2026-10-13",
       "namedCamping": true
+    },
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth",
+      "kind": "Statewide",
+      "ramp": "Named",
+      "camping": "No camping at four TPWD-listed public access parks",
+      "history": "TWDB history and survey",
+      "fish": 4,
+      "photo": "Mapped",
+      "water": "TWDB live numerical level",
+      "risk": "Current DSHS revised PCB/dioxin consumption advisory overrides legacy lake summary; check lake operator rates/conditions, get first-party field media and full production QA",
+      "namedAccess": true,
+      "accessFacilityCount": 4,
+      "accessReviewedAt": "2026-10-13",
+      "namedCamping": false
     }
   ],
   "legacy": [

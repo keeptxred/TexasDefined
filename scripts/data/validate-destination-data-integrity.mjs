@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 
 const root = process.cwd();
@@ -102,7 +103,7 @@ for (const sourceMarker of [
 }
 
 for (const feature of [
-  'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))',
+  'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved.map(correctDestinationTravelRegion)))',
   'function reconcileExploreCatalog',
 ]) {
   if (!queryImplementation.includes(feature)) errors.push(`Destination catalog quality filter missing: ${feature}.`);
@@ -193,4 +194,5 @@ if (errors.length) {
   process.exit(1);
 }
 
+execFileSync(process.execPath, ['scripts/data/validate-dallas-black-history.mjs'], { stdio: 'inherit' });
 console.log('Article and destination data, single robots policy, indexing quality gate, lazy destination query resolution, visit-planner, relationship, breadcrumb, and entity graph integrity validation passed.');

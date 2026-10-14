@@ -59,6 +59,7 @@ export const sycamoreCreekBridgeFortWorthAuthority = makeThcHeritageDestination(
     thcSource("National Register nomination — 1936 Fort Worth bridge",nomination,"Design details, civic planning, dimensions, construction and historic district context"),
     thcSource("National Park Service — February 2026 weekly list",weekly,"Federal listing February 19, 2026; reference 100012723"),
     thcSource("Fort Worth Historic and Cultural Landmarks Commission minutes (2025)","https://www.fortworthtexas.gov/files/assets/public/v/1/development-services/documents/all-preservation-and-design/historic/agenda-annotated-agendas/annotated-agendas/2025/2025-minutes-combined.pdf","Municipal support for the designation"),
+    thcSource("Fort Worth Report — April 2025 landmark commission vote","https://fortworthreport.org/2025/04/29/in-east-fort-worth-an-unsuspecting-bridge-could-earn-a-historic-designation-heres-why/","Independently reported April 14 commission support vote; alternate HTML for readers when Fort Worth city PDF blocks automated access"),
     thcSource("Wikimedia Commons — exact East Rosedale bridge photo",commonsFilePage(photo),"Actual bridge photo, CC BY-SA 4.0 reuse and author attribution"),
     thcSource("NPS — National Register preservation program","https://www.nps.gov/subjects/nationalregister/index.htm","Meaning of federal listing versus public entry rights"),
   ],
