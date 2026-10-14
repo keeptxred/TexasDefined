@@ -14,6 +14,107 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "sixth-floor-museum-at-dealey-plaza": [
+    {
+        "question": "When is The Sixth Floor Museum open and is entry timed?",
+        "answer": "The operator currently schedules entry Wednesday through Sunday from 10 a.m. to 5 p.m., with last ticket sales and entry at 4:15 p.m. It is closed on Mondays and Tuesdays. Museum admission uses timed entry, so book a specific date and time ahead rather than assuming walk-up tickets will be immediately available.",
+        "verificationUrl": "https://www.jfk.org/plan-your-visit/visitation-guidelines/",
+        "questionOrigin": "museum-faq",
+        "questionEvidenceUrl": "https://www.jfk.org/faq/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-14"
+    },
+    {
+        "question": "How much does admission cost online versus at the museum?",
+        "answer": "The museum's published rates currently list adult online tickets at $24 with a $1 convenience fee per ticket, compared with $27 purchased onsite. Senior and youth price bands differ, and ages five and younger are free. Check the operator's live ticket page immediately before payment because prices and discounts can change.",
+        "verificationUrl": "https://www.jfk.org/plan-your-visit/visitation-guidelines/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.jfk.org/plan-your-visit/visitation-guidelines/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-14"
+    },
+    {
+        "question": "Is the museum accessible by DART or the TRE train?",
+        "answer": "Yes. The museum is at 411 Elm Street, about three blocks west of DART's West End Station and five blocks north of Union Station, which connects to the Trinity Railway Express. This can be easier than parking when combining several downtown museums.",
+        "verificationUrl": "https://www.jfk.org/plan-your-visit/",
+        "questionOrigin": "museum-faq",
+        "questionEvidenceUrl": "https://www.jfk.org/faq/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-14"
+    },
+    {
+        "question": "Where can wheelchair users enter and are mobility devices available?",
+        "answer": "The museum identifies a wheelchair-accessible entrance ramp at the northwest building corner, step-free access to its public levels and complimentary loan wheelchairs at the Visitors Center on a first-come basis. Designated accessible spaces are in the adjacent paid lot. Contact the museum for needs beyond these published accommodations.",
+        "verificationUrl": "https://www.jfk.org/accessibility/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.jfk.org/accessibility/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-14"
+    },
+    {
+        "question": "Can visitors with sensory sensitivities borrow support equipment?",
+        "answer": "The operator provides KultureCity sensory bags to check out in the Visitors Center. The permanent exhibitions also address assassination violence, investigation and historical trauma through photography and media. Ask the museum about specific exhibits or suitable quieter visit periods rather than presuming every gallery's sound or lighting level.",
+        "verificationUrl": "https://www.jfk.org/accessibility/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.jfk.org/accessibility/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-14"
+    },
+    {
+        "question": "Are there food options inside the museum galleries?",
+        "answer": "No. Museum visitation guidelines prohibit food and drink inside the galleries. The operator provides a walking-distance area-dining directory but does not advertise a full-service restaurant within the historical exhibition. Arrange a meal outside the galleries in the nearby West End.",
+        "verificationUrl": "https://www.jfk.org/plan-your-visit/visitation-guidelines/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.jfk.org/plan-your-visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-14"
+    },
+    {
+        "question": "How do school groups book an educational museum visit?",
+        "answer": "The museum's current visitor page describes limited instructional tours, requiring a qualifying K–12 or college class with at least 20 students and a request at least three weeks ahead. Extracurricular groups and sports teams do not automatically qualify. Its older school-year announcement ended August 31, 2026, so organizers must obtain confirmation of current school-year availability directly from education staff.",
+        "verificationUrl": "https://www.jfk.org/plan-your-visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.jfk.org/plan-your-visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-14"
+    },
+    {
+        "question": "Can a regular tourist group arrange a traditional guided tour?",
+        "answer": "The museum's visitor information currently says it cannot accommodate traditional group visits. A separately arranged private curatorial orientation requires a substantial donation, can cover up to 50 attendees and does not include museum admission. Small parties can instead book individual timed museum admission subject to capacity.",
+        "verificationUrl": "https://www.jfk.org/plan-your-visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.jfk.org/plan-your-visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-14"
+    },
+    {
+        "question": "What exactly is exhibited in the historic sixth-floor windows?",
+        "answer": "The core exhibition includes a recreated evidentiary corner-window area based on historical crime-scene photographs and interactive interpretation overlooking Dealey Plaza. It also covers the 1960s background, Texas trip, crisis hours, investigations and Kennedy's memory. A reconstruction should not be described as an untouched historic room.",
+        "verificationUrl": "https://www.jfk.org/exhibition/john-f-kennedy-and-the-memory-of-a-nation/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.jfk.org/exhibition/john-f-kennedy-and-the-memory-of-a-nation/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-14"
+    },
+    {
+        "question": "Can I bring large bags or rolling luggage into the galleries?",
+        "answer": "The museum requires rolling luggage and items larger than 14 by 22 by 9 inches to be checked at the front desk for a $5 per-item fee, payable by credit card. All checked property must be retrieved before departure. Travel light when arriving directly from the airport or rail station.",
+        "verificationUrl": "https://www.jfk.org/plan-your-visit/visitation-guidelines/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.jfk.org/plan-your-visit/visitation-guidelines/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-14"
+    },
+    {
+        "question": "Who operates The Sixth Floor Museum at Dealey Plaza?",
+        "answer": "The museum is an independent nonprofit operated by the Dallas County Historical Foundation; it is not a National Park Service site. The building itself and its views over Dealey Plaza are essential to the historical interpretation, while the foundation curates exhibitions and collects oral history and archives.",
+        "verificationUrl": "https://www.jfk.org/faq/",
+        "questionOrigin": "museum-faq",
+        "questionEvidenceUrl": "https://www.jfk.org/faq/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-14"
+    }
+],
   "the-history-center-diboll": [
     {
       "question": "Is The History Center in Diboll free to visit?",
