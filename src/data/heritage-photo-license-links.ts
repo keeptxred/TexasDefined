@@ -30,6 +30,10 @@ const rightsByPath: Record<string, HeritagePhotoRights> = {
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Texas_longhorn.jpg",
     licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
   },
+  "/destination/lyndon-b-johnson-national-historical-park": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Views_at_Lyndon_B._Johnson_National_Historical_Park,_Texas_(5a734466-55b3-4ceb-a58d-c90a5d01536c).jpg",
+    licenseUrl: "https://www.nps.gov/lyjo/learn/photosmultimedia/index.htm",
+  },
 };
 
 export function heritagePhotoRightsForPath(path: string): HeritagePhotoRights | null {
