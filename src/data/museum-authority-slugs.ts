@@ -23,6 +23,7 @@ export const museumAuthoritySlugs: ReadonlySet<string> = new Set([
   "amarillo-museum-of-art",
   "holocaust-museum-houston",
   "san-antonio-museum-of-art",
+  "sixth-floor-museum-at-dealey-plaza",
   "kimbell-art-museum-fort-worth",
   "nasher-sculpture-center-dallas",
   "national-cowgirl-museum-hall-fame-fort-worth",
