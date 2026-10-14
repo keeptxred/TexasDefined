@@ -32,7 +32,7 @@ for (const feature of [
   'categories.find((category) => category.slug === destination.category)?.name',
   'const audit = auditDestination(destination)',
   'const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference)',
-  'const isHistoricalMuseumReference = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin"].includes(destination.slug)',
+  'const isHistoricalMuseumReference = ',
   'robots: indexable ? undefined : "noindex, follow"',
 ]) {
   if (!destinationRoute.includes(feature)) errors.push(`Destination integrity feature missing: ${feature}.`);
@@ -184,7 +184,13 @@ if (!remote.includes('/images/texasdefined-destination-placeholder.svg')) {
 
 // Historical and temporarily-closed museum guides may remain discoverable as
 // factual references, but these exact institutions must NOT re-enter trip planning.
-for (const slug of ['1940-air-terminal-museum-houston', 'elisabet-ney-museum-austin']) {
+const referenceSource = destinationRoute.match(/const isHistoricalMuseumReference = \[([^\]]+)\]\.includes\(destination\.slug\)/);
+const historicalMuseumReferences = referenceSource ? [...referenceSource[1].matchAll(/"([a-z0-9-]+)"/g)].map((match) => match[1]) : [];
+if (!referenceSource) errors.push('Historical museum exception must be an explicit slug allowlist, never an open-ended indexability bypass.');
+for (const requiredSlug of ['1940-air-terminal-museum-houston', 'elisabet-ney-museum-austin', 'buffalo-soldiers-national-museum-houston']) {
+  if (!historicalMuseumReferences.includes(requiredSlug)) errors.push('Required historical museum exception missing: ' + requiredSlug);
+}
+for (const slug of historicalMuseumReferences) {
   if (!fs.readFileSync(path.join(root, 'src/data/destination-availability.ts'), 'utf8').includes('"' + slug + '"')) errors.push('Closed museum missing from unavailable trip-planner set: ' + slug);
 }
 
