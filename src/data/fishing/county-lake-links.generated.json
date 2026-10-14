@@ -533,6 +533,12 @@
       "name": "Lake Bob Sandlin"
     }
   ],
+  "tom-green": [
+    {
+      "slug": "lake-nasworthy",
+      "name": "Lake Nasworthy"
+    }
+  ],
   "travis": [
     {
       "slug": "lake-austin",
@@ -621,12 +627,6 @@
     {
       "slug": "falcon-international-reservoir",
       "name": "Falcon International Reservoir"
-    }
-  ],
-  "tom-green": [
-    {
-      "slug": "lake-nasworthy",
-      "name": "Lake Nasworthy"
     }
   ]
 }
