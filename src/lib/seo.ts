@@ -44,6 +44,30 @@ const META_DESCRIPTION_MAX_LENGTH = 160;
 type TechnicalSeoOverride = { title: string; description?: string };
 
 const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride> = {
+  "/article/texas-high-school-football-2026-season-calendar": {
+    title: "Texas High School Football 2026: UIL Season & Playoff Calendar",
+    description: "See the UIL 2026 high school football calendar, from preseason practice and Week 1 to district certification, playoff rounds and the state finals.",
+  },
+  "/article/texas-llano-river-guide": {
+    title: "Llano River Texas: Fishing, Paddling & Camping Guide",
+    description: "Explore the Llano and South Llano rivers, with Junction, Castell, fishing, paddling, camping and source-backed visitor information.",
+  },
+  "/article/texas-red-river-war-guide": {
+    title: "Red River War in Texas: Adobe Walls & Palo Duro Canyon",
+    description: "Learn how the 1874–75 Red River War unfolded across the Texas Panhandle, from Adobe Walls to Palo Duro Canyon and the forced removal of Plains peoples.",
+  },
+  "/destination/george-washington-carver-museum-austin": {
+    title: "George Washington Carver Museum Austin: Visitor Guide",
+    description: "Visit Austin's George Washington Carver Museum, Cultural and Genealogy Center, focused on African American history, art and community life.",
+  },
+  "/event/bands-of-america-san-antonio-super-regional": {
+    title: "Bands of America San Antonio Super Regional 2026",
+    description: "Plan the 2026 Bands of America San Antonio Super Regional with event dates, venue guidance and links to official organizer information.",
+  },
+  "/fishing/lakes/cedar-lake-cleburne-state-park": {
+    title: "Cedar Lake at Cleburne State Park: Fishing Guide",
+    description: "Plan Cedar Lake fishing at Cleburne State Park with source-backed fish species, access, regulations, fishing reports and local guidance.",
+  },
   "/article/fredericksburg-johnson-city-historic-road-trip": {
     title: "Fredericksburg to Johnson City Historic Road Trip | Texas",
     description: "Plan Fredericksburg, Fort Martin Scott, LBJ Ranch, Sauer-Beckmann Farm, Hye and Johnson City with stops, costs, accessibility and 2026 closures.",
@@ -814,9 +838,12 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
   const description = cleanMetaDescription(governedSnippet.description);
   const titleTemplateOverhead = cleanMetaText(brand.seo.titleTemplate.replace("%s", "")).length;
   const maxPageTitleLength = brand.identity.id === "texasdefined" ? Math.max(24, 90 - titleTemplateOverhead) : Number.POSITIVE_INFINITY;
-  const budgetedPageTitle = pageTitle.length > maxPageTitleLength
+  const budgetedPageTitle = (pageTitle.length > maxPageTitleLength
     ? pageTitle.slice(0, maxPageTitleLength + 1).replace(/\s+\S*$/, "").trim()
-    : pageTitle;
+    : pageTitle)
+    // Never ship an automatically shortened search title ending in dangling glue.
+    .replace(/(?:\s+(?:and|or|of|for|to|with|in|at|the)|\s+&)$/i, "")
+    .trim();
   const fullTitle = cleanMetaText(brand.seo.titleTemplate.replace("%s", budgetedPageTitle));
   const canonicalUrl = page.canonicalPath ? absoluteUrl(brand, page.canonicalPath) : undefined;
   const fallbackImage = SOCIAL_IMAGE_FALLBACKS[brand.identity.id];
