@@ -146,7 +146,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Dallas County',
       counties: ['Dallas County', 'Collin County', 'Denton County', 'Kaufman County', 'Rockwall County'],
       note: 'Dallas is primarily in Dallas County, but official city information identifies portions of the municipality in Collin, Denton, Kaufman and Rockwall counties. Address-level county verification matters for elections, appraisal districts, courts, schools and records.',
-      sourceUrl: 'https://dallascityhall.com/government/citysecretary/elections/Pages/elections.aspx',
+      sourceUrl: 'https://gis.dallascityhall.com/arcgis/rest/services/Pbw_public/ROWMSReferenceLayers/MapServer/2',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Dallas_Texas_Skyline.jpg?width=1600',
@@ -325,7 +325,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Travis County',
       counties: ['Travis County', 'Williamson County', 'Hays County'],
       note: 'Austin lies primarily in Travis County, with incorporated city limits extending into Williamson and Hays counties. County, school, appraisal and utility boundaries should be verified for the exact address.',
-      sourceUrl: 'https://www.austintexas.gov/ready-central-texas/news/city-austin-become-ipaws-alerting-authority',
+      sourceUrl: 'https://data.austintexas.gov/Locations-and-Maps/Jurisdiction-Austin/3pzb-6mbr/about',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Austin%2C_TX_skyline_2026.jpg?width=1600',
@@ -410,7 +410,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Bexar County',
       counties: ['Bexar County', 'Comal County', 'Medina County'],
       note: 'San Antonio is primarily in Bexar County, with incorporated portions reaching into Comal and Medina counties. Verify the exact address before relying on county, school, appraisal, election or service boundaries.',
-      sourceUrl: 'https://www.sa.gov/files/assets/main/v/1/planning/documents/adopted-plans/utsa-area-regional-center-plan-2019.pdf',
+      sourceUrl: 'https://www.sanantonio.gov/GIS/GISData',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/San_Antonio_Skyline_2026.jpg?width=1600',
@@ -581,7 +581,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Tarrant County',
       counties: ['Tarrant County'],
       note: 'Arlington is in Tarrant County. School districts, utilities and special districts still have their own boundaries, so city residency does not replace address-level verification.',
-      sourceUrl: 'https://www.tarrantcountytx.gov/en/elections/interactive-maps.html',
+      sourceUrl: 'https://gis2.arlingtontx.gov/agsext2/rest/services/OpenData/OD_PoliticalBoundary/MapServer/1',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Arlington_Texas_Entertainment_District.jpg?width=1600',
@@ -665,7 +665,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Tarrant County',
       counties: ['Tarrant County'],
       note: 'Hurst is in Tarrant County. School-district, utility and service boundaries still need to be checked at the exact address, especially in the tightly connected Mid-Cities area.',
-      sourceUrl: 'https://www.tarrantcountytx.gov/en/elections/interactive-maps.html',
+      sourceUrl: 'https://mms.hursttx.gov/arcgis/rest/services/EnerGov_Basemap/MapServer/2',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cityhallathurst.jpg?width=1600',
@@ -753,7 +753,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Nueces County',
       counties: ['Nueces County', 'San Patricio County', 'Kleberg County', 'Aransas County'],
       note: 'Corpus Christi is centered in Nueces County, while current municipal and Census place geography includes smaller portions across San Patricio, Kleberg and Aransas counties. Coastal and barrier-island boundaries make exact-address and parcel verification especially important.',
-      sourceUrl: 'https://www.corpuschristitx.gov/media/k4rg0ztp/2025gmp_withappendices_final.pdf',
+      sourceUrl: 'https://ccpublicgis.cctexas.com/server01/rest/services/CC_GENERAL_SERVICES/CC_GENERAL_SERVICES/MapServer/2',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Corpus_Christi_skyline.jpg?width=1600',
@@ -838,7 +838,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Collin County',
       counties: ['Collin County', 'Denton County'],
       note: 'Most of Plano is in Collin County, with part of the city in Denton County. The city’s own tax tools distinguish the two county contexts, so property, school and appraisal records should be checked against the exact address.',
-      sourceUrl: 'https://ecop.plano.gov/MyTaxDollar/MyTaxDollar.aspx',
+      sourceUrl: 'https://maps.planogis.org/arcgiswad/rest/services/OpenData/MunicipalBoundary/MapServer/0',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Hdr_plano.jpg?width=1600',
@@ -921,7 +921,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Lubbock County',
       counties: ['Lubbock County'],
       note: 'Lubbock is in Lubbock County. Municipal, school, utility and special-district boundaries still differ, so use the exact address for household and property decisions.',
-      sourceUrl: 'https://www.mylubbock.us/994/City-Charter-Code-of-Ordinances',
+      sourceUrl: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/Layers/ParcelMap/MapServer/13',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Lubbock%2C_Texas_skyline.jpg?width=1600',
