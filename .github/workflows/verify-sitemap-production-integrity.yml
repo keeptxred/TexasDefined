@@ -33,3 +33,6 @@ jobs:
 
       - name: Verify production sitemap integrity
         run: node scripts/ci/verify-sitemap-production-integrity.mjs
+
+      - name: Verify all 14 THC landmarks remain discoverable with distinct hotel image
+        run: node scripts/ci/verify-thc-landmark-sitemap-production.mjs

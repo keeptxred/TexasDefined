@@ -181,6 +181,7 @@ import { Route as EventsRouteImport } from './routes/events'
 import { Route as EditorialPolicyRouteImport } from './routes/editorial-policy'
 import { Route as DrPepperTexasHistoryRouteImport } from './routes/dr-pepper-texas-history'
 import { Route as DallasFortWorthMusicHistoryRouteImport } from './routes/dallas-fort-worth-music-history'
+import { Route as DallasBlackHistoryRouteImport } from './routes/dallas-black-history'
 import { Route as CountyRouteImport } from './routes/county'
 import { Route as CorrectionsPolicyRouteImport } from './routes/corrections-policy'
 import { Route as CorpusChristiMusicHistoryRouteImport } from './routes/corpus-christi-music-history'
@@ -1653,6 +1654,11 @@ const DallasFortWorthMusicHistoryRoute =
       (d) => d.Route,
     ),
   )
+const DallasBlackHistoryRoute = DallasBlackHistoryRouteImport.update({
+  id: '/dallas-black-history',
+  path: '/dallas-black-history',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CountyRoute = CountyRouteImport.update({
   id: '/county',
   path: '/county',
@@ -3741,6 +3747,7 @@ export interface FileRoutesByFullPath {
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
   '/county': typeof CountyRoute
+  '/dallas-black-history': typeof DallasBlackHistoryRoute
   '/dallas-fort-worth-music-history': typeof DallasFortWorthMusicHistoryRoute
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
@@ -4253,6 +4260,7 @@ export interface FileRoutesByTo {
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
   '/county': typeof CountyRoute
+  '/dallas-black-history': typeof DallasBlackHistoryRoute
   '/dallas-fort-worth-music-history': typeof DallasFortWorthMusicHistoryRoute
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
@@ -4763,6 +4771,7 @@ export interface FileRoutesById {
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
   '/county': typeof CountyRoute
+  '/dallas-black-history': typeof DallasBlackHistoryRoute
   '/dallas-fort-worth-music-history': typeof DallasFortWorthMusicHistoryRoute
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
@@ -5277,6 +5286,7 @@ export interface FileRouteTypes {
     | '/corpus-christi-music-history'
     | '/corrections-policy'
     | '/county'
+    | '/dallas-black-history'
     | '/dallas-fort-worth-music-history'
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
@@ -5789,6 +5799,7 @@ export interface FileRouteTypes {
     | '/corpus-christi-music-history'
     | '/corrections-policy'
     | '/county'
+    | '/dallas-black-history'
     | '/dallas-fort-worth-music-history'
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
@@ -6298,6 +6309,7 @@ export interface FileRouteTypes {
     | '/corpus-christi-music-history'
     | '/corrections-policy'
     | '/county'
+    | '/dallas-black-history'
     | '/dallas-fort-worth-music-history'
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
@@ -6811,6 +6823,7 @@ export interface RootRouteChildren {
   CorpusChristiMusicHistoryRoute: typeof CorpusChristiMusicHistoryRoute
   CorrectionsPolicyRoute: typeof CorrectionsPolicyRoute
   CountyRoute: typeof CountyRoute
+  DallasBlackHistoryRoute: typeof DallasBlackHistoryRoute
   DallasFortWorthMusicHistoryRoute: typeof DallasFortWorthMusicHistoryRoute
   DrPepperTexasHistoryRoute: typeof DrPepperTexasHistoryRoute
   EditorialPolicyRoute: typeof EditorialPolicyRoute
@@ -8400,6 +8413,13 @@ declare module '@tanstack/react-router' {
       path: '/dallas-fort-worth-music-history'
       fullPath: '/dallas-fort-worth-music-history'
       preLoaderRoute: typeof DallasFortWorthMusicHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dallas-black-history': {
+      id: '/dallas-black-history'
+      path: '/dallas-black-history'
+      fullPath: '/dallas-black-history'
+      preLoaderRoute: typeof DallasBlackHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/county': {
@@ -11370,6 +11390,7 @@ const rootRouteChildren: RootRouteChildren = {
   CorpusChristiMusicHistoryRoute: CorpusChristiMusicHistoryRoute,
   CorrectionsPolicyRoute: CorrectionsPolicyRoute,
   CountyRoute: CountyRoute,
+  DallasBlackHistoryRoute: DallasBlackHistoryRoute,
   DallasFortWorthMusicHistoryRoute: DallasFortWorthMusicHistoryRoute,
   DrPepperTexasHistoryRoute: DrPepperTexasHistoryRoute,
   EditorialPolicyRoute: EditorialPolicyRoute,

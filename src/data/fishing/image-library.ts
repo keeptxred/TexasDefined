@@ -200,6 +200,7 @@ export const fishingLakeImages: Record<string, FishingVisualAsset> = {
   "lake-bastrop": commonsLake("lake-bastrop", "Lake bastrop north shore.jpg", "Actual photograph of Lake Bastrop North Shore Park and lakeshore in December 2014; historic view not a current access or water-level report", 2146, 1431, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by", "Wikimedia Commons", "2026-10-13"),
   "lake-arlington": commonsLake("lake-arlington", "North Lake Arlington Texas 2010.jpg", "Verified 2010 photograph overlooking Lake Arlington in Tarrant County, Texas; historical shoreline view, not live boating conditions", 3072, 2304, "Supportstorm", "Public domain — creator-dedicated work", COMMONS_PD, "public-domain", "Wikimedia Commons", "2026-10-13"),
   "cedar-lake-cleburne-state-park": commonsLake("cedar-lake-cleburne-state-park", "Cedar Lake Cleburne State Park Texas 2023.jpg", "Actual February 2023 Cedar Lake shoreline and kayaker inside Cleburne State Park, Johnson County, Texas", 3556, 2000, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by", "Wikimedia Commons", "2026-10-13"),
+  "lake-worth": commonsLake("lake-worth", "Lake Worth from Lone Point Shelter.jpg", "Actual Lake Worth in Fort Worth, Texas, photographed from Lone Point Shelter in the Nature Center; not a current water-level or ramp-status image", 3049, 1800, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by", "Wikimedia Commons", "2026-10-13"),
 };
 
 export function getFishingFishImage(slugOrId: string) {
