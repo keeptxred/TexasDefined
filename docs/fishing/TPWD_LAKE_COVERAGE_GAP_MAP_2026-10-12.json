@@ -2,8 +2,8 @@
   "date": "2026-10-14",
   "officialDirectory": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
   "officialEntries": 175,
-  "completedGuideMatches": 72,
-  "gaps": 103,
+  "completedGuideMatches": 73,
+  "gaps": 102,
   "listing": [
     {
       "letter": "A",
@@ -85,8 +85,8 @@
     {
       "letter": "B",
       "tpwdListingName": "B.A. Steinhagen",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "b-a-steinhagen-lake",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -1266,6 +1266,7 @@
     "October 14: Lake Cypress Springs added with five FCWD ramps, updated August 2026 rules, 2007 historic lake-specific CC BY-SA maps, and exact operator camping requirements. Missing original field imagery and production certification remain explicitly open.",
     "2026-10-14 Bachman Lake: 132-acre TPWD reservoir versus approximately 205-acre city metropolitan park; municipal §32-40 (July 2026) 10.5-HP operation ceiling disagrees with older TPWD 5 HP text, preserved as safety flag. Shorecrest ramp's lane counts differ across TPWD documents, with only five trailer spots. Historic 2005 actual-lake Commons image (Ansem27 CC BY-SA 3.0), no first-party photo, no real-time water gauge. Site rollout/editorial sign-off separately pending.",
     "2026-10-14: E. V. Spence Reservoir individually researched: five TPWD named access sites (two historically identified concrete ramps, two dam-end bank-only and closed Rough Creek), dated TWDB drought measurements not frozen as current levels, TWDB history and exact public-domain photo; day-of operator check and original photography remain outstanding.",
-    "October 14 2026: source-researched Brady Creek Reservoir/Brady Lake upgraded to 72nd complete fishing guide, with TPWD high-water-only ramp warning, City of Brady exact camping/reservation inventory, TWDB historical dam record, current water gauge reference and exact CC BY 4.0 photo; live operator availability, first-party photos and production remain uncertified."
+    "October 14 2026: source-researched Brady Creek Reservoir/Brady Lake upgraded to 72nd complete fishing guide, with TPWD high-water-only ramp warning, City of Brady exact camping/reservation inventory, TWDB historical dam record, current water gauge reference and exact CC BY 4.0 photo; live operator availability, first-party photos and production remain uncertified.",
+    "2026-10-14: B.A. Steinhagen added with seven exact TPWD access records and distinct TPWD Hen House/USACE Campers Cove operator closures, DSHS consumption restrictions, TWDB/USACE history and Commons Plazak true-reservoir 2013 CC BY-SA 3.0 photo. Operator confirmation and production not certified."
   ]
 }
