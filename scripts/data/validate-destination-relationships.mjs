@@ -69,13 +69,16 @@ if (serverBoundary.includes('queryClient')) {
 
 requireFeatures(component, [
   'const pairedDestinations = [...new Map(',
+  'const curatedDestinations = groups.find((group) => group.id === "curated-pairings")',
+  'const distanceRankedDestinations = groups.flatMap((group) => group.destinations)',
+  '[...curatedDestinations, ...distanceRankedDestinations].map((item) => [item.slug, item])',
   '.flatMap((group) => group.destinations)',
   '.map((item) => [item.slug, item])',
   '.sort((left, right)',
   '.slice(0, 6)',
   'TexasExplainedContextLinks surface="destination"',
-  'title="Explore nearby"',
-  'More places near ${destination.name}, ordered by distance to help plan the rest of your trip.',
+  'title="Explore related places"',
+  'Verified pairings first, followed by nearby destinations',
   'pairedDestinations.map((item)',
   'DestinationCard',
   'distanceMiles(destination, item)',

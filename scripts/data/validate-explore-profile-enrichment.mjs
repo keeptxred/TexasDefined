@@ -58,9 +58,12 @@ if (planner.includes('const practicalTips = unique([') || planner.includes('What
 }
 
 for (const feature of [
-  'const pairedDestinations = [...new Map(', '.flatMap((group) => group.destinations)',
-  '.slice(0, 6)', 'title="Explore nearby"',
-  'More places near ${destination.name}, ordered by distance to help plan the rest of your trip.',
+  'const pairedDestinations = [...new Map(',
+  'const curatedDestinations = groups.find((group) => group.id === "curated-pairings")',
+  'const distanceRankedDestinations = groups.flatMap((group) => group.destinations)',
+  '[...curatedDestinations, ...distanceRankedDestinations].map((item) => [item.slug, item])', '.flatMap((group) => group.destinations)',
+  '.slice(0, 6)', 'title="Explore related places"',
+  'Verified pairings first, followed by nearby destinations',
   'pairedDestinations.map((item)', 'TexasExplainedContextLinks surface="destination"',
   'to="/explore/$category"', 'to="/explore/region/$region"',
   'to="/events"', 'to="/search"',
