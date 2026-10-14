@@ -1908,6 +1908,11 @@
           "sourceUrl": "https://www.thehistorycenteronline.com/about",
           "fetchUrl": "https://www.thehistorycenteronline.com/about",
           "label": "History Center historical overview"
+        },
+        {
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Southern_Pine_Lumber_Company_sawmills_near_Diboll,_Texas_in_1907.jpg",
+          "fetchUrl": "https://commons.wikimedia.org/wiki/File:The_Southern_Pine_Lumber_Company_sawmills_near_Diboll,_Texas_in_1907.jpg",
+          "label": "The History Center archival 1907 Diboll sawmill photo: public-domain provenance, NOT modern visitor-site view"
         }
       ]
     },
