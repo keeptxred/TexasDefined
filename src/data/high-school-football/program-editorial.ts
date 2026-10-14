@@ -919,7 +919,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "body": "Beckville ISD publishes inconsistent campus street numbers. Its Schools page gives Beckville High School 157 N Washington and junior high 169 N Washington, while Students & Parents gives the high school 169 N Washington and junior high 203 N Washington. The precise campus street number is therefore unresolved. R.C. Beauchamp Stadium is identified separately by an independent football directory, not by either campus listing. Confirm stadium and entrance details directly with Beckville ISD at 903-678-3591 before travel. NFHS archives document 2025 playoff games, while football databases disagree on the completed season record.",
       "sourceUrl": "https://www.beckvilleisd.net/schools",
       "sourceLabel": "Beckville ISD Schools directory; compare the conflicting Students & Parents campus listing",
-      "verifiedAt": "2026-10-10"
+      "verifiedAt": "2026-10-14"
     },
     "milestones": [
       {
@@ -984,7 +984,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "phone": "903-678-3591",
       "sourceUrl": "https://www.beckvilleisd.net/schools",
       "sourceLabel": "District school address listing conflicts with Students & Parents; street number unconfirmed",
-      "verifiedAt": "2026-10-10"
+      "verifiedAt": "2026-10-14"
     },
     "season": {
       "record": "3–4 through October 9, 2026 (independent scoreboard snapshot)",
