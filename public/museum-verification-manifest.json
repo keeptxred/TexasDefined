@@ -1439,6 +1439,11 @@
           "sourceUrl": "https://texasmaritimemuseum.org/exhibits/",
           "fetchUrl": "https://texasmaritimemuseum.org/exhibits/",
           "label": "Texas Maritime Museum — exhibitions"
+        },
+        {
+          "sourceUrl": "https://texasmaritimemuseum.org/events/month/2026-10/",
+          "fetchUrl": "https://texasmaritimemuseum.org/events/month/2026-10/",
+          "label": "Temporary 2026 exhibits and museum calendar"
         }
       ]
     },
