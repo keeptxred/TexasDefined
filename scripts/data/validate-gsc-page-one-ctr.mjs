@@ -11,6 +11,82 @@ const eventAuthority = fs.readFileSync('src/data/major-event-authority.ts', 'utf
 const eventRoute = fs.readFileSync('src/routes/event.$slug.tsx', 'utf8');
 const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const failures = [];
+const furtherClippedTitleRepairs = [
+  {
+    "path": "/article/bluebonnet-animal-preservation-athens",
+    "title": "Bluebonnet Animal Preservation Athens: Pet Aftercare Guide",
+    "descriptionStart": "Explore Bluebonnet Animal Preservation in Athens"
+  },
+  {
+    "path": "/article/fort-worth-stockyards-history-cattle-culture",
+    "title": "Fort Worth Stockyards: Cattle Trade, Railroads & History",
+    "descriptionStart": "Explore the cattle trade, railroads and meatpack"
+  },
+  {
+    "path": "/article/historic-san-antonio-heritage-road-trip",
+    "title": "Historic San Antonio Road Trip: Missions, Alamo & King William",
+    "descriptionStart": "Plan a two-day San Antonio history route through"
+  },
+  {
+    "path": "/article/how-to-choose-electricity-plan-texas",
+    "title": "Choose a Texas Electricity Plan: Rates, Fees & EFL",
+    "descriptionStart": "Learn to read the Electricity Facts Label, compa"
+  },
+  {
+    "path": "/article/mexican-texas-military-history",
+    "title": "Military in Mexican Texas: Presidios, Anahuac & Revolution",
+    "descriptionStart": "Follow Mexican-era Texas military history from p"
+  },
+  {
+    "path": "/article/muds-pids-hoas-special-districts-texas",
+    "title": "Texas MUDs, PIDs & HOAs: Homebuyer Taxes & Fees",
+    "descriptionStart": "Understand Texas MUD, PID and HOA assessments an"
+  },
+  {
+    "path": "/article/republic-of-texas-government-trail",
+    "title": "Republic of Texas Government Trail: San Felipe to Austin",
+    "descriptionStart": "Trace Texas government from San Felipe and Washi"
+  },
+  {
+    "path": "/article/texas-bucket-list-by-season",
+    "title": "Texas Bucket List by Season: Spring Through Winter",
+    "descriptionStart": "Plan Texas trips by season, from spring wildflow"
+  },
+  {
+    "path": "/article/texas-civil-war-sites-guide",
+    "title": "Texas Civil War Sites: Battlefields, Emancipation & Memory",
+    "descriptionStart": "Explore Texas Civil War and Reconstruction sites"
+  },
+  {
+    "path": "/article/texas-historic-travel-transportation-guide",
+    "title": "Historic Texas Travel: Stagecoaches, Wagon Roads & Trains",
+    "descriptionStart": "Explore travel before Texas highways through Fan"
+  },
+  {
+    "path": "/article/texas-oil-boom-wichita-falls-west-texas-rigs",
+    "title": "Texas Oil Boom: Wichita Falls, Permian Basin & Legacy",
+    "descriptionStart": "How oil development in Wichita Falls and West Te"
+  },
+  {
+    "path": "/article/texas-wildfire-home-protection-guide",
+    "title": "Texas Wildfire Home Protection: Embers, Roofs & Evacuation",
+    "descriptionStart": "Learn how to assess Texas wildfire risk, harden "
+  },
+  {
+    "path": "/article/women-in-texas-military-history",
+    "title": "Women in Texas Military History: Nurses, WASP & Service",
+    "descriptionStart": "Explore women’s military service in Texas, from "
+  },
+  {
+    "path": "/texas-capital-designations",
+    "title": "Official Texas Capital Designations: Cities & Counties",
+    "descriptionStart": "Learn how Texas law recognizes special capital d"
+  }
+];
+for(const fix of furtherClippedTitleRepairs){
+ for(const marker of ['"'+fix.path+'"',fix.title,fix.descriptionStart]) if(!seo.includes(marker)) failures.push('Clipped title contract lost: '+fix.path+' '+marker);
+}
+
 const cutOffTitleCorrections = [
   {
     "path": "/article/texas-high-school-football-2026-season-calendar",
