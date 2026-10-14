@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import { auditAuthorityEvidence } from './authority-evidence.mjs';
 import { enrichAuthorityLinkGraph } from './authority-link-graph.mjs';
+import { decodeEntities } from './html-entities.mjs';
 
 const ORIGIN = process.env.TEXASDEFINED_ORIGIN || 'https://texasdefined.com';
 const USER_AGENT = 'TexasDefinedWholeSiteQualityAudit/2.0 (+https://texasdefined.com)';
@@ -23,7 +24,6 @@ const INTENT_STOP_WORDS = new Set([
 ]);
 
 function normalizeSpace(value='') { return value.replace(/\s+/g, ' ').trim(); }
-function decodeEntities(value='') { return value.replace(/&amp;/gi,'&').replace(/&lt;/gi,'<').replace(/&gt;/gi,'>').replace(/&quot;/gi,'"').replace(/&#39;|&apos;/gi,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCharCode(Number(n))); }
 function stripTags(html='') { return decodeEntities(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,' ').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi,' ').replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/gi,' ').replace(/<svg\b[^>]*>[\s\S]*?<\/svg>/gi,' ').replace(/<[^>]+>/g,' ')); }
 function wordCount(html='') { return (stripTags(html).match(/[A-Za-z0-9]+(?:[’'\-][A-Za-z0-9]+)*/g)||[]).length; }
 function attrFromTag(tag,name) { const m=tag.match(new RegExp('\\b'+name+'=["\\\']([^"\\\']*)["\\\']','i')); return m?decodeEntities(m[1]):''; }
