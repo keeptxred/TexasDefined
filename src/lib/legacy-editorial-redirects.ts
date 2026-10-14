@@ -1,6 +1,9 @@
 // Historical GSC aliases consolidate into existing, independently verified live pages.
 // Curation lookup keys are not necessarily the published destination slug.
 const destinationAliases: Record<string, string> = {
+  "lipantitlan-state-historic-site": "lipantitlan",
+  "choke-canyon-south-shore-unit-state-park": "choke-canyon-state-park",
+  "san-jacinto-monument-state-historic-site": "san-jacinto-battleground",
   "seminole-canyon-state-park-and-historic-site": "seminole-canyon-state-park",
   "seminole-canyon-state-park-state-historic-site": "seminole-canyon-state-park",
   "goliad-state-park-state-historic-site": "goliad-state-park",
