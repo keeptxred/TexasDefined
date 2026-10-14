@@ -81,6 +81,7 @@ export const STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS = [
   "lake-nasworthy",
   "fort-parker-state-park-lake",
   "lake-tyler",
+  "medina-lake",
 ] as const;
 
 export const COMPLETE_FISHING_LAKE_SLUGS = [
