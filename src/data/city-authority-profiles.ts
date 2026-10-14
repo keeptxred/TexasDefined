@@ -237,7 +237,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Tarrant County',
       counties: ['Tarrant County', 'Denton County', 'Parker County', 'Johnson County', 'Wise County'],
       note: 'Most of Fort Worth is in Tarrant County, but the incorporated city also extends into Denton, Parker, Johnson and Wise counties. Property taxes, appraisal districts, schools, records and some services therefore depend on the exact address rather than the city name alone.',
-      sourceUrl: 'https://www.fortworthtexas.gov/files/assets/public/v/1/the-fwlab/documents/planning/comprehensive-planning/adopted/25-intergovernmental-cooperation-final-2023.pdf',
+      sourceUrl: 'https://www.fortworthtexas.gov/files/assets/public/v/1/city-manager/documents/planning/comprehensive-planning/adopted/25-intergovernmental-cooperation-final-2023.pdf',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Stock_Yards_Entrance_Wiki_(1_of_1).jpg?width=1600',
@@ -393,7 +393,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       {
         title: 'Airport',
         summary: 'Austin-Bergstrom International Airport (AUS) is Austin’s primary commercial airport. The City of Austin maintains the official airport information and travel notices.',
-        links: [{ label: 'Austin-Bergstrom International', href: 'https://www.austintexas.gov/airport' }],
+        links: [{ label: 'Austin-Bergstrom International', href: 'https://www.flyaustin.com/' }],
       },
       {
         title: 'Schools',
@@ -821,7 +821,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       {
         title: 'Airport',
         summary: 'Corpus Christi International Airport (CRP) is the city’s primary commercial airport. Use the airport’s live site for airline, parking and ground-transportation details.',
-        links: [{ label: 'Corpus Christi International', href: 'https://www.corpuschristiairport.com/' }],
+        links: [{ label: 'Corpus Christi International', href: 'https://corpuschristiairport.com/' }],
       },
       {
         title: 'Schools',
