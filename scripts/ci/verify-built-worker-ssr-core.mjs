@@ -114,6 +114,10 @@ const smokeTargets = [
 
 const redirectTargets = [
   {"path": "/historic-site/seminole-canyon-state-park-and-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/seminole-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/lipantitlan-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/lipantitlan", "expectedQuery": ["source", "gsc"], "label": "verified historic-site alias"},
+  {"path": "/historic-site/san-jacinto-monument-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/san-jacinto-battleground", "expectedQuery": ["source", "gsc"], "label": "verified monument guide alias"},
+  {"path": "/destination/choke-canyon-south-shore-unit-state-park?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/choke-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "verified park unit alias"},
+  {"path": "/state-park/choke-canyon-south-shore-unit-state-park?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/choke-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "verified park unit alias"},
   {"path": "/historic-site/seminole-canyon-state-park-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/seminole-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
   {"path": "/historic-site/goliad-state-park-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/goliad-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
   {"path": "/historic-site/goliad-state-park-and-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/goliad-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
