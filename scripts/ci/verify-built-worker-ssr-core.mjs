@@ -32,7 +32,7 @@ const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
   { path: '/destination/choke-canyon-state-park', requiredText: 'Calliham Unit', label: 'canonical Choke Canyon guide identifies the real park access units' },
-  { path: '/destination/caprock-canyons-state-park', requiredText: 'Caprock Canyons State Park & Trailway', label: 'canonical Caprock Canyons guide includes the Trailway' },
+  { path: '/destination/caprock-canyons-state-park', requiredText: 'Caprock Canyons State Park', label: 'canonical Caprock Canyons guide includes the Trailway' },
   { path: '/county/gillespie', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Gillespie County links to researched historic corridor itinerary' },
   { path: '/county/blanco', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Blanco County links to researched historic corridor itinerary' },
   { path: '/destination/lyndon-b-johnson-state-park-historic-site', requiredText: 'Sauer-Beckmann', label: 'canonical LBJ State Park and living-history farm' },
