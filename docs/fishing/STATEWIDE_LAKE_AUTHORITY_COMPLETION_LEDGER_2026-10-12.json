@@ -3,8 +3,8 @@
   "updatedAt": "2026-10-14",
   "scope": {
     "tpwdNamedEntries": 175,
-    "completedGuides": 70,
-    "missingCompleteGuideListings": 105,
+    "completedGuides": 71,
+    "missingCompleteGuideListings": 104,
     "legacyLakeAndParkDestinations": 36
   },
   "standards": {
@@ -1351,17 +1351,17 @@
     },
     {
       "tpwdEntry": "E. V. Spence",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "e-v-spence-reservoir",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/spence/",
+      "namedFacilities": "Five distinct TPWD access sites: Wildcat historic ramp, Paint Creek historic ramp, Rough Creek closed, north/south dam banks no ramps; severe drought means ramps NOT certified usable",
+      "campgrounds": "TPWD archives designated camping at Wildcat and Paint Creek; Rough Creek closed; operator reservation and current facility status unverified",
+      "primaryHistory": "TWDB 1965 permit; Dec 1966 construction, Dec 1968 impoundment, Nov 1969 completion, survey-vintage capacity caveats",
+      "localPhoto": "Exact-reservoir oblique aerial photo Jan 21 2009, creator Jstuby; Commons imageinfo verified public-domain dedication, 1410x940",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Coke County + corresponding city authority links generated from lake record",
+      "destinationReciprocalLinks": "Lake Nasworthy and Lake Colorado City now reciprocate; specific operator park-to-lake recips still to inspect",
+      "competitivePrimarySourceComparison": "TPWD boating inventory / TWDB gauge / TWDB history independently cross-checked; comprehensive current site/operator benchmark not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -1370,7 +1370,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Dated TWDB September 28 2026 baseline 9.4 percent full; no real-time access or fees assumed. Rough Creek closed. Historic fishery fair/poor after golden alga. Obtain operator-day ramp/park confirmation; original field images absent; production gates pending."
     },
     {
       "tpwdEntry": "Falcon",
