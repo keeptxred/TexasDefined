@@ -216,7 +216,7 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
     "accessibilityNotes": "USFS describes 0.8 mile of Jack Creek Loop as surfaced and barrier-free; the more rugged, natural-surface Management Loop should not be characterized as universally accessible. Confirm current conditions and restroom access before relying on the designation.",
     "sourceCheckedAt": "2026-10-13",
     "areaGuide": {
-      "intro": "Choose the appropriate site-specific entry and safety conditions; do not treat all national forest land as identical.",
+      "intro": "Start at the signed Forest Service interpretive trailhead: Jack Creek is paved, while the longer Management Loop has a natural surface. Confirm current trail conditions and download the official map before leaving town.",
       "nearbyAttractions": [
         {
           "name": "Angelina National Forest",
@@ -226,26 +226,26 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
       ],
       "foodAndDrink": [
         {
-          "name": "Nearest established town",
-          "description": "Bring water and snacks and find meals in nearby towns, not at unstaffed forest trails."
+          "name": "Food and water planning",
+          "description": "Carry drinking water and food from Nacogdoches; the agency lists water fountains near the trailhead, not along the loops."
         }
       ],
       "lodging": [
         {
-          "name": "East Texas base towns",
-          "description": "Check current availability near Nacogdoches, Lufkin, Jasper or Zavalla based on the forest entry you plan to use."
+          "name": "Nacogdoches lodging",
+          "description": "Nacogdoches is the most direct overnight base for this trailhead southwest of town. Confirm the drive to the forest entrance on FM 2782."
         }
       ],
       "neighborhoods": [
         {
-          "name": "Piney Woods watershed and timberland",
-          "description": "Compare bottomland hardwood habitats, managed upland forests, wildlife and historical industrial activity."
+          "name": "Forest landscapes",
+          "description": "Compare Jack Creek's moist hardwood bottomlands with the research forest's pine and pine–hardwood uplands."
         }
       ],
       "familyStops": [
         {
-          "name": "Interpretive stop",
-          "description": "Choose an age-appropriate trail and pack water; check accessible options individually."
+          "name": "Jack Creek family walk",
+          "description": "Use the surfaced 0.8-mile interpretive loop for a shorter outing; check accessibility conditions before relying on the designation."
         }
       ],
       "sideTrips": [
@@ -267,41 +267,41 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
       ]
     },
     "authorityGuide": {
-      "whyItMatters": "A 2,560-acre USDA research forest southwest of Nacogdoches with a 0.8-mile accessible Jack Creek Loop and a more strenuous 2.0-mile forest-management loop.",
+      "whyItMatters": "A 2,560-acre USDA research forest southwest of Nacogdoches with a paved 0.8-mile Jack Creek Loop and a natural-surface Management Loop shown as 1.5 miles on the detailed federal trail map, despite an older 2.0-mile description on the agency webpage.",
       "assessment": {
-        "recommendedVisit": "Two or more hours including driving, trail access and interpretation; allow more for the industrial ruins hike.",
-        "physicalEffort": "Low to moderate",
+        "recommendedVisit": "Allow 1–2 hours for Jack Creek Loop, trailhead orientation and interpretive stops; budget more time for the longer Management Loop, travel and changing trail conditions.",
+        "physicalEffort": "Easy-to-moderate on surfaced Jack Creek; more strenuous on the unpaved Management Loop",
         "weatherExposure": "Fully outdoors",
         "planningLevel": "Moderate",
         "familyFit": "Good for families selecting suitable trails, seasons and wildlife observation.",
-        "firstTimeValue": "Adds ecological and industrial history beyond central-town museum tourism."
+        "firstTimeValue": "Provides a firsthand look at how experimental-forest research, native ecosystems and universally accessible trail design intersect."
       },
       "itineraries": [
         {
           "label": "Quick orientation",
           "duration": "1–2 hours",
           "steps": [
-            "Check the operator and map for current access",
-            "Explore the main public interpretive area",
-            "Connect the site to its forest and local history"
+            "Download the current USDA trail map and check conditions at the kiosk",
+            "Follow the surfaced Jack Creek Loop for a short interpretive walk",
+            "Use signs to identify mature pines, hardwoods and Jack Creek habitat"
           ]
         },
         {
           "label": "Focused half-day",
           "duration": "3–5 hours",
           "steps": [
-            "Select the suitable forest entrance and route",
-            "Explore one signed trail or historic site",
-            "Return to a staffed area or nearby town before dark"
+            "Study the natural-surface Management Loop and its cutoff options on the official map",
+            "Explore signed forest-management interpretation without leaving designated trails",
+            "Return to the trailhead in daylight and carry your own water"
           ]
         },
         {
           "label": "Full Piney Woods history outing",
           "duration": "1 day",
           "steps": [
-            "Begin with the site's official map and weather updates",
-            "Compare forest ecology with one nearby history destination",
-            "Continue toward Nacogdoches or San Augustine using the regional itinerary"
+            "Start with the 0.8-mile Jack Creek Loop and compare its accessible trail design",
+            "If conditions and ability permit, add the natural-surface Management Loop",
+            "Connect the research-forest story to the regional Nacogdoches–San Augustine history itinerary"
           ]
         }
       ],
