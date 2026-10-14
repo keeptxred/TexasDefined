@@ -71,3 +71,15 @@ A live Fredericksburg destination check surfaced ambiguous side-trip placement. 
 - [Texas Historical Commission — Fort Martin Scott](https://thc.texas.gov/historic-sites/fort-martin-scott)
 - [TPWD — Enchanted Rock directions](https://tpwd.texas.gov/state-parks/enchanted-rock/map)
 - [TPWD — Old Tunnel State Park](https://tpwd.texas.gov/state-parks/old-tunnel)
+
+## 2026-10-12 sitewide contextual link and official-source continuation
+
+**Permanent link evidence:** PR [#4705](https://github.com/keeptxred/TexasDefined/pull/4705) extends the existing all-sitemap production crawl to compute real main-content inbound links, reciprocal on-page crosslinks, orphan-candidate pages and internal links absent from the known sitemap. It writes `texasdefined-contextual-link-graph.tsv` for **every analyzed URL**. These are evidence-led research candidates, not permission to force low-value reciprocal links. The existing production audit remains a separate strict SEO-failure gate.
+
+**Permanent TPWD source registration:** The independently curated [54 completed-guide mappings](../fishing/TPWD_LAKE_COVERAGE_GAP_MAP_2026-10-12.json) were matched exactly to the official individual-lake TPWD URLs already recorded in TexasDefined fishing fixtures. **50 source records** were added to the shared Supabase `td_authority_verification_sources` for known canonical lake pages on 2026-10-12. All **54 mappings** are retained in the private `td_maintenance.tpwd_lake_source_manifest` and a daily protected job enrolls new records automatically once their canonical page appears in the site registry.
+
+The following four researched guide slugs were **not present in the enrolled sitemap registry** at the time of verification: `benbrook-lake`, `lake-georgetown`, `lake-stamford`, and `lake-sweetwater`. They are **not counted as enrolled live verified guides** until a production sitemap can substantiate them. Do not fabricate a sitemap record or force `verifiedAt` to conceal that deployment/discovery gap.
+
+**Meaning of source registration:** TPWD URL registration and automated HTTP checks validate provenance and source changes. They do **not** verify each claim on surface acres, current marina status, ramps, fishing regulations, campground operation, water levels, source-specific history, image rights or destination QA. Those individualized gaps must still be researched and attested separately before editorial acceptance.
+
+**Permanent guard:** `scripts/data/validate-tpwd-lake-source-enrollment.mjs` compares the completed-guide coverage manifest against the official-source monitor and rejects missing entries in the daily/PR watchdog. New lake guides must include appropriate verifiable sources as part of publication, rather than relying on a single statewide link.
