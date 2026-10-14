@@ -43,6 +43,13 @@ if (!template.includes("<DallasBlackHistoryAuthority slug={destination.slug} />"
   failures.push("Destination route must show research and FAQs.");
 if (!template.includes("dallasHeritage?.sources") || !template.includes('"FAQPage"'))
   failures.push("Page must include citations and FAQ structured data.");
+const craftLegacyHost = "https://dallas.gov/departments/sustainabledevelopment/historicpreservation/HP%20Documents/Landmark%20Structures/Juanita%20Craft%20House%20Landmark%20Nomination.pdf";
+const craftNominationStableHost = "https://www.dallascityhall.com/departments/sustainabledevelopment/historicpreservation/HP%20Documents/Landmark%20Structures/Juanita%20Craft%20House%20Landmark%20Nomination.pdf";
+if (registry.includes(craftLegacyHost) || !registry.includes(craftNominationStableHost))
+  failures.push("City of Dallas Craft landmark nomination must use the tested, TLS-reachable official www.dallascityhall.com hostname.");
+for (const year of ["1925", "1926", "1930"]) {
+  if (!registry.includes(year)) failures.push(`Juanita Craft construction-year discrepancy missing ${year}`);
+}
 if (!panel.includes("dallasBlackHistoryResearch.filter") || !panel.includes("profile.sources.map") || !panel.includes("profile.faqs.map"))
   failures.push("Visible panel must show other sites, cited sources, and FAQs.");
 if (!panel.includes('href="/dallas-black-history"'))

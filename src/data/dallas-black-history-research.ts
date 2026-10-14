@@ -136,7 +136,8 @@ export const dallasBlackHistoryResearch: DallasHeritageProfile[] = [
       { label: "Dallas Office of Historic Preservation — Freedman's Cemetery", url: "https://www.dallascityhall.com/departments/sustainabledevelopment/historicpreservation/Pages/freedman_s_cemetery.aspx", supports: "1861 date, North Dallas context, landmark" },
       { label: "Texas Historical Commission — African Americans in Texas", url: "https://www.thc.texas.gov/public/upload/African-Americans-in-Texas-2021.pdf", supports: "1869 dedication, preservation and memorial account" },
       { label: "TxDOT — ENVision Freedman's Cemetery Project", url: "https://www.dot.state.tx.us/ENV/pdf/envisionpdf/19Fall00.pdf", supports: "1,157 individuals, excavation and reburial" },
-      { label: "Dallas Parks — Freedman's Cemetery", url: "https://dallasparks.org/766/Freedmans-Cemetery", supports: "Current public remembrance and memorial setting" }
+      { label: "Dallas Parks — Freedman's Cemetery", url: "https://dallasparks.org/766/Freedmans-Cemetery", supports: "Current public remembrance and memorial setting" },
+      { label: "Dallas Parks — Freedman's Memorial Cemetery photo gallery", url: "https://dallasparks.org/Facilities/Facility/Details/Freedmans-Memorial-Cemetery-769", supports: "Official photographs showing the actual memorial entrance, artworks and plaza; these are not the Fair Park museum-exhibition photo" }
     ]
   },
   {
@@ -150,7 +151,7 @@ export const dallasBlackHistoryResearch: DallasHeritageProfile[] = [
       ] },
       { heading: "Why the house matters", paragraphs: [
         "The bungalow at 2618 Warren Avenue was a gathering place where activists, children and notable visitors discussed difficult civic questions. The City of Dallas landmark documentation notes the surrounding neighborhood's experience of racial bombings in the early 1950s, making the home's everyday domestic character all the more significant.",
-        "The house is also an architectural and neighborhood resource, connected to the Wheatley Place Historic District. Its restoration and museum use allow visitors to encounter civil-rights organizing through the lived space of a central Dallas figure rather than only through photographs of public speeches."
+        "The house is also an architectural and neighborhood resource, connected to the Wheatley Place Historic District. Its restoration and museum use allow visitors to encounter civil-rights organizing through the lived space of a central Dallas figure rather than only through photographs of public speeches. The original construction year is not settled in the public institutional record: the City of Dallas landmark summary describes a 1930 bungalow, Preservation Texas gives 1926, and a City of Dallas January 2026 report gives 1925. We present the disagreement rather than silently selecting a single date."
       ] },
       { heading: "How to plan a visit", paragraphs: [
         "The Dallas Office of Arts and Culture reports the house reopened to the public in May 2023 and describes docent-guided tours at noon, 2 p.m. and 4 p.m. Tuesday through Saturday in its visitor materials. These are published operator hours, not an assurance that a particular tour is currently bookable. Confirm an appointment, groups, and accessibility directly before traveling.",
@@ -161,13 +162,15 @@ export const dallasBlackHistoryResearch: DallasHeritageProfile[] = [
       { question: "Where is Juanita Craft's house?", answer: "2618 Warren Avenue in the Wheatley Place area of South Dallas—not the separate Juanita J. Craft Center on Spring Avenue." },
       { question: "Is the house a museum today?", answer: "Yes. The City of Dallas Office of Arts and Culture reports a May 2023 reopening as a museum and offers information about docent-guided visits." },
       { question: "Can I visit without a reservation?", answer: "Do not assume walk-in entry. Check the museum's current tour scheduling with the City of Dallas or South Dallas Cultural Center." },
-      { question: "How many NAACP chapters did Craft organize?", answer: "Official summaries differ: Dallas's venue page says 182 rural chapters, while the Texas Historical Commission reports 185. We note the discrepancy rather than assert one exact total." }
+      { question: "How many NAACP chapters did Craft organize?", answer: "Official summaries differ: Dallas's venue page says 182 rural chapters, while the Texas Historical Commission reports 185. We note the discrepancy rather than assert one exact total." },
+      { question: "When was Juanita Craft's house built?", answer: "Official accounts conflict: a City of Dallas preservation page says 1930, Preservation Texas says 1926, and the City's January 2026 report says 1925. The historical significance and address are well documented; the precise construction year is not consistent across these sources." }
     ],
     sources: [
       { label: "City of Dallas Office of Arts and Culture — Craft House", url: "https://dallasculture.org/cultural-venues/juanita-craft-house/", supports: "Museum history, tours and official visitor information" },
       { label: "City of Dallas — Craft Home Landmark Record", url: "https://www.dallascityhall.com/departments/sustainabledevelopment/historicpreservation/Pages/Juanita-Craft-House.aspx", supports: "Warren Avenue history and designation" },
-      { label: "City of Dallas — Landmark Nomination", url: "https://dallas.gov/departments/sustainabledevelopment/historicpreservation/HP%20Documents/Landmark%20Structures/Juanita%20Craft%20House%20Landmark%20Nomination.pdf", supports: "Primary designation dossier and historic place evidence" },
-      { label: "Preservation Texas — 2025 Rehabilitation Award", url: "https://www.preservationtexas.org/honor-awards/juanita-craft-house", supports: "2025 rehabilitation, accessibility improvements and museum interpretation" },
+      { label: "City of Dallas — Landmark Nomination", url: "https://www.dallascityhall.com/departments/sustainabledevelopment/historicpreservation/HP%20Documents/Landmark%20Structures/Juanita%20Craft%20House%20Landmark%20Nomination.pdf", supports: "Primary designation dossier and historic place evidence" },
+      { label: "Preservation Texas — 2025 Rehabilitation Award", url: "https://www.preservationtexas.org/honor-awards/juanita-craft-house", supports: "2025 rehabilitation, accessibility improvements, museum interpretation and reported 1926 construction date" },
+      { label: "City of Dallas — January 2026 Historic Report", url: "https://dallas.gov/departments/sustainabledevelopment/historicpreservation/HP%20Documents/FINAL%20Dallas%20Report_January%202026.pdf", supports: "Official 2026 city report listing a 1925 construction date for the Craft bungalow; source disagrees with other city and preservation summaries" },
       { label: "Texas Historical Commission — Eight Dallas sites", url: "https://thc.texas.gov/blog/discover-these-8-african-american-history-sites-dallas", supports: "Activism context and differing rural chapter figure" }
     ]
   },
