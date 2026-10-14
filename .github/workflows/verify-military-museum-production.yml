@@ -105,6 +105,14 @@ jobs:
           echo "Checking live deployed revision ${DEPLOY_SHA} using protected browser-verifier revision ${verifier_sha}"
           PRODUCTION_COMMIT_SHA="$DEPLOY_SHA" VERIFIER_COMMIT_SHA="$verifier_sha" node .naval-browser-verifier/scripts/ci/verify-battleship-texas-browser.mjs
 
+      - name: Preserve checker and deployed revision provenance
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p artifacts/battleship-texas-browser
+          verifier_sha="$(git -C .naval-browser-verifier rev-parse HEAD 2>/dev/null || echo unavailable)"
+          printf '{"deployed_sha":"%s","verifier_sha":"%s"}\\n' "$DEPLOY_SHA" "$verifier_sha" > artifacts/battleship-texas-browser/revisions.json
+
       - name: Retain Battleship Texas screenshots and browser acceptance
         if: always()
         uses: actions/upload-artifact@v4
