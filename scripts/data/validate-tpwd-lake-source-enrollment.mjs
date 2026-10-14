@@ -10,6 +10,7 @@ const manifest = [
   'supabase/migrations/20261014041000_extend_tpwd_lake_authority_sources_medina.sql',
   'supabase/migrations/20261014041500_extend_tpwd_lake_authority_sources_weatherford.sql',
   'supabase/migrations/20261014042500_extend_tpwd_lake_authority_sources_abilene.sql',
+  'supabase/migrations/20261014070000_extend_tpwd_lake_authority_sources_cypress_springs.sql',
 ].map(path=>fs.readFileSync(path,'utf8')).join('\n');
 const entries=[...manifest.matchAll(/\('\/fishing\/lakes\/([a-z0-9-]+)',\s*'(https:\/\/tpwd\.texas\.gov\/fishboat\/fish\/recreational\/lakes\/[a-z0-9_/.-]+)'\)/g)];
 const matched=docs.listing.filter(row=>row.coverage==='complete-fishing-guide').map(row=>row.texasDefinedGuideSlug);
@@ -23,8 +24,17 @@ for(const slug of paths.keys()){
   if(!matched.includes(slug))errs.push('Lake authority-source manifest includes an unconfirmed coverage item: '+slug);
 }
 const statewide=fs.readFileSync('src/data/fishing/statewide-lake-network.ts','utf8');
-for(const match of statewide.matchAll(/slug:\s*"([a-z0-9-]+)"\s*,\s*name:\s*"[^"]+"\s*,([\s\S]{0,250}?)tpwdSlug:\s*"([a-z0-9_]+)"/g)){
-  const [_,slug,tpwd]=[match[0],match[1],match[3]];
+// Only real top-level lake definition rows are lake sources. An unanchored
+// slug/name regex can mistake nearbyDestinations for an actual lake and
+// erroneously assign that related destination the NEXT lake's TPWD slug.
+const topLevel=[...statewide.matchAll(/^    slug:\s*"([a-z0-9-]+)",\s*name:\s*"[^"]+",/gm)];
+if(topLevel.length===0)errs.push('No top-level statewide lake definitions recognized');
+for(let i=0;i<topLevel.length;i++){
+  const slug=topLevel[i][1];
+  const end=i+1<topLevel.length?topLevel[i+1].index:statewide.indexOf('\n];',topLevel[i].index);
+  const block=statewide.slice(topLevel[i].index,end>topLevel[i].index?end:undefined);
+  const tpwd=block.match(/\btpwdSlug:\s*"([a-z0-9_]+)"/)?.[1];
+  if(!tpwd){errs.push('Missing lake-specific TPWD slug in '+slug);continue;}
   const expected='https://tpwd.texas.gov/fishboat/fish/recreational/lakes/'+tpwd+'/';
   if(paths.get(slug)!==expected)errs.push('Wrong TPWD source for '+slug);
 }

@@ -74,7 +74,7 @@ for (const file of exactReplacementFiles) {
 const mappingMatch = registry.match(/export const fishingLakeImages:[\s\S]*?= \{([\s\S]*?)\n\};\n\nexport function getFishingFishImage/);
 if (!mappingMatch) throw new Error("Could not locate fishingLakeImages registry");
 const lakeMappings = [...mappingMatch[1].matchAll(/^\s{2}\"([^\"]+)\":/gm)].map((m) => m[1]);
-if (lakeMappings.length !== 68) throw new Error(`Expected 68 complete-lake photo mappings, found ${lakeMappings.length}`);
+if (lakeMappings.length !== 70) throw new Error(`Expected 70 governed lake visual mappings (69 canonical lakes plus a supplementary topographic map), found ${lakeMappings.length}`);
 if (new Set(lakeMappings).size !== lakeMappings.length) throw new Error("Duplicate lake slugs in fishingLakeImages");
 
-console.log(`Fishing photo governance verified: ${lakeMappings.length}/68 lake mappings; ${requiredOverrideIds.length} legacy local mappings carry traceable governance overrides.`);
+console.log(`Fishing photo governance verified: ${lakeMappings.length} governed lake visuals (69 canonical guides and 1 supplemental map); ${requiredOverrideIds.length} legacy local mappings carry traceable governance overrides.`);

@@ -599,7 +599,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Lake Bob Sandlin State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "From Pittsburg, SH 11 west to SH 21 north; across bridge to signed park; two-lane ramp, fishing pier and camping.", fee: "State park entrance fee", availability: "Year-round TPWD listing; park (903) 572-5531." },
       { name: "Barefoot Bay Marina", operator: "Private marina", kind: "marina", launch: "Southwest of dam, west from Pittsburg on SH 11 to FM 1520 north, across Barefoot Bay to marina.", fee: "TPWD lists fee", availability: "Year-round listing; confirm private operation (903) 856-3643." },
     ],
-    nearbyLakes: [{slug:"lake-o-the-pines",name:"Lake O' the Pines"},{slug:"lake-fork",name:"Lake Fork"},{slug:"lake-tyler",name:"Lake Tyler (East and West)"}],
+    nearbyLakes: [{slug:"lake-o-the-pines",name:"Lake O' the Pines"},{slug:"lake-fork",name:"Lake Fork"},{slug:"lake-tyler",name:"Lake Tyler (East and West)"},{slug:"lake-cypress-springs",name:"Lake Cypress Springs"}],
     camping: {name:"Lake Bob Sandlin State Park",summary:"The state park provides camping and direct lake access; verify reservations, alerts and ramp conditions before travel."},
   },
   {
@@ -1869,6 +1869,67 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     nearbyLakes:[{slug:"lake-sweetwater",name:"Lake Sweetwater"},{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"lake-brownwood",name:"Lake Brownwood"}],
     nearbyDestinations:[{slug:"abilene-state-park",name:"Abilene State Park",reason:"Separate main-campus campsite and nature-trail visitor guide, distinguished from the Lake Abilene drought closure."}]
+  },
+  {
+    slug: "lake-cypress-springs", name: "Lake Cypress Springs", tpwdSlug:"cypress_springs", waterDataSlug:"cypress-springs",
+    verifiedAt:"2026-10-14", accessReviewedAt:"2026-10-14", region:"piney-woods",
+    summary:"Franklin County's Big Cypress Creek water-supply and fishing lake: five real FCWD ramps and designated campgrounds, a licensed bathymetric map, excellent crappie/white bass/spotted bass opportunities, and essential 2026 owner boating and flood-closure rules.",
+    surfaceAcres:3461,maxDepthFeet:56,impoundedYear:1970,counties:["Franklin"],nearestCities:["Mount Vernon","Winnsboro","Pittsburg"],
+    waterway:"Big Cypress Creek",riverBasin:"Cypress River Basin",authority:"Franklin County Water District",
+    conservationPool:"378.00 ft NGVD29",fluctuation:"TPWD reference 2–3 feet; FCWD can close ramps when high water or other hazards make boating unsafe",clarity:"Clear",
+    identity:"Lake Cypress Springs is Franklin County Water District's water-supply and recreation reservoir on Big Cypress Creek, not adjacent Lake Bob Sandlin. TPWD's historical reference surface area is 3,461 acres. All five TPWD-listed public ramps belong to FCWD, which can close lake access in hazardous conditions. FCWD's rules amended August 5, 2026 generally cap recreational boats at 26 feet long and 12 feet wide, require idle speed within 200 feet of shore and prohibit boating within 200 feet of spillway/intake structures. Consult the owner instead of repeating older $2-per-person and year-round labels as guaranteed current prices and openings. The lake's heritage, fish habitat and 2007 bathymetric map are separate from live TWDB water elevations.",
+    habitat:[
+      "TPWD and local partners document installed fish-attractor structures, brush and timber, dock pilings, dam riprap and shallow native vegetation; aquatic vegetation covers under 10% of the total water.",
+      "The 2007 TWDB bathymetric survey underpins a genuine licensed lake-specific depth map. This historical graphic is not an official navigation chart, current depth sounding or lake photograph; check today's gauge, posted hazards and marked no-go areas.",
+      "Crappie hold around brush and docks; spotted and largemouth bass use rocky edges, vegetated points and shoreline cover. Open water offers seasonal white bass schools while channel catfish use bottom contour and bait availability."
+    ],
+    fish:[
+      fish("spotted-bass","Spotted bass","excellent","spring","TPWD rates spotted bass excellent. Work structured rocky points, shoreline brush and drops with small soft plastics and crankbaits without violating the district's 200-foot shoreline idle zone.",["soft-plastics","crankbaits","spinnerbaits"]),
+      fish("largemouth-bass","Largemouth bass","good","spring","TPWD rates largemouth good; target shade, boathouse structure and scattered aquatic plants with spinnerbaits, plastics and topwater where publicly accessible.",["soft-plastics","spinnerbaits","topwater"]),
+      fish("crappie","White and black crappie","excellent","spring","TPWD reports excellent crappie fishing around brush, timber and dock cover. Jigs and minnows permit a different approach from open-water bass fishing.",["jigs-and-minnows","vertical-jigging"]),
+      fish("white-bass","White bass","excellent","summer","TPWD ranks white bass excellent. Locate suspended baitfish and schooling fish while keeping out of the 200-foot intake and spillway exclusion zones.",["trolling","vertical-jigging"]),
+      fish("sunfish","Bluegill and redear sunfish","excellent","summer","TPWD ranks sunfish excellent; use light tackle at legal public shore access rather than private boathouses.",["jigs-and-minnows"]),
+      fish("channel-catfish","Channel catfish","good","summer","TPWD rates channel catfish good. Baits fished along creek-channel transitions and permitted shoreline offer options beyond sport-bass tactics.",["cut-bait","live-bait"])
+    ],
+    access:"TPWD independently names Guthrie, Dogwood, Mary King, Overlook and Walleye parks, each with a public boat ramp and camping symbols. All are Franklin County Water District sites. The old TPWD description lists $2 per person and year-round access, but FCWD's current fees, launch restrictions and closure notices control. FCWD's flood rule permits a lake or ramp closure at 380.50 feet msl (2.5 ft above its 378-ft conservation pool) or earlier for safety. Boat length/width, no-wake shoreline approach and prohibited intake/spillway zones apply regardless of the old TPWD listing.",
+    accessPoints:[
+      {name:"Guthrie Park boat ramp",operator:"Franklin County Water District",kind:"park",launch:"North end of dam. From I-30 Exit 146 at Mount Vernon take SH 37 south, FM 21 east roughly six miles, FM 3007 south 1.8 miles to park signs; concrete ramp and designated camping.",fee:"TPWD formerly listed $2/person; check present FCWD day-use and campground fees",availability:"TPWD describes year-round operation, but owner high-water/safety closures override. FCWD (903) 537-4536."},
+      {name:"Dogwood Park boat ramp",operator:"Franklin County Water District",kind:"park",launch:"South end of dam via FM 21 and FM 3007, continuing about 2.8 miles across the dam to signed Dogwood Park; concrete boat ramp and camping.",fee:"Archival TPWD $2/person is not confirmed as today's owner charge",availability:"Check flood status, boat-size limits, campground booking and current park access."},
+      {name:"Mary King Park boat ramp",operator:"Franklin County Water District",kind:"park",launch:"South shoreline midway down the lake. Follow FM 3007 beyond the dam as road swings west, entering Turkey Cove at park signs.",fee:"TPWD archive lists a day-use fee; reserve any paid campsite separately",availability:"FCWD restricts vehicles on designated park greenbelts; verify accessible parking and ramp gates."},
+      {name:"Overlook Park boat ramp",operator:"Franklin County Water District",kind:"park",launch:"North-shore midlake from SH 37 south of Mount Vernon, FM 21 east 3.2 miles then FM 2723 south approximately 4.6 miles.",fee:"Check actual day-use and overnight reservation prices with district",availability:"Year-round is a historical TPWD label only; verify owner flood/maintenance alerts."},
+      {name:"Walleye Park boat ramp",operator:"Franklin County Water District",kind:"park",launch:"Near north side of dam, FM 21 to FM 2723 south, left onto FM 3122, then SE 4220 about 1.5 miles. TPWD lists fish-cleaning station.",fee:"Historical TPWD $2/person; district's current published tariff governs",availability:"Ask FCWD about fish-cleaning station, ramp status and permitted campsite inventory."}
+    ],
+    campingUrl:"https://www.fcwd.com/content/lake/parks.php",
+    camping:{name:"Franklin County Water District designated camping parks",summary:"TPWD lists camping symbols at all five public access parks, but FCWD only allows camping in designated paid sites and requires written payment confirmation. RV bookings are offered up to 60 days in advance; stays of 14 or more consecutive days require special consent. Check each specific park's current electrical/water service, restrooms, campsite conditions, accessibility and fees before booking. Launch parking and an ordinary day-use ticket do not authorize overnight camping."},
+    specialRules:true,
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/surveys/completed/files/CypressSprings/2007-07/CypressSprings2007_FinalReport.pdf",
+    visitorSourceUrl:"https://www.fcwd.com/content/lake/parks.php",
+    localRegulationsSourceUrl:"https://www.fcwd.com/content/rules.php",
+    historyNotes:[
+      "Franklin County Water District was established in 1965, with a November 10, 1966 authorization to develop the Big Cypress Creek project for water supply and recreation.",
+      "TWDB reports dam construction began July 1968, deliberate impoundment started July 7, 1970 and formal project completion was February 15, 1971. The construction-completion date and first water storage should not be confused.",
+      "Franklin County Dam has an earthfill structure and morning-glory service spillway. Its normal pool elevation is 378 ft (NGVD29). Historical TWDB measured surface/volume data and the CC BY-SA bathymetric map have their own 2007 vintage, unlike the dynamic water-level feed.",
+      "The owner can close ramps/lake at elevation 380.50 ft msl or whenever public safety requires. Do not infer that the live stage reading alone proves a given ramp is open."
+    ],
+    visitorFAQs:[
+      {question:"Which public parks have Lake Cypress Springs boat ramps?",answer:"Guthrie, Dogwood, Mary King, Overlook and Walleye, each operated by Franklin County Water District. Confirm present launch status and owner fees rather than relying on the older TPWD year-round and $2 figures."},
+      {question:"Can I bring a 30-foot motorboat?",answer:"Not ordinarily. FCWD's current recreational boat rule generally caps length at 26 feet and width at 12 feet, except authorized work barges. Check the complete owner rule before towing."},
+      {question:"How fast may I travel near shore?",answer:"FCWD requires careful idle speed within 200 feet of shoreline. Boats are also restricted within 200 feet of water intakes and spillway structures."},
+      {question:"When might Lake Cypress Springs boat ramps close?",answer:"The water district's flood-closure policy sets 380.50 feet msl as a trigger, 2.5 feet above its 378-foot pool, and permits earlier closure when conditions are unsafe. Consult current FCWD alerts."},
+      {question:"Can I camp at any of the public parks?",answer:"TPWD lists campsite facilities at all five parks, but paid designated camping with written confirmation is required. RV reservations may be made up to 60 days ahead; 14-day stays need district permission."},
+      {question:"Does the lake have a free depth map?",answer:"Yes: a 1,500-by-757-pixel bathymetric map based on public 2007 TWDB survey data, independently produced by maxup10 and licensed CC BY-SA 4.0. It is a historic depth map, not a navigation chart or a current photograph."},
+      {question:"May I keep triploid grass carp?",answer:"No. TPWD's permit and FCWD rules require harmless immediate release of triploid grass carp."},
+      {question:"Is swimming permitted near boat ramps?",answer:"FCWD prohibits swimming within 50 feet of ramps; swimmers beyond 100 feet offshore must be accompanied by a boat and wear a personal flotation device. Observe designated swimming restrictions."},
+      {question:"When was Lake Cypress Springs completed?",answer:"Construction started in July 1968, deliberate impoundment began July 7, 1970 and final construction completion occurred February 15, 1971 according to TWDB."}
+    ],
+    nearbyLakes:[{slug:"lake-bob-sandlin",name:"Lake Bob Sandlin"},{slug:"lake-o-the-pines",name:"Lake O' the Pines"},{slug:"lake-fork",name:"Lake Fork"}],
+    travelAlerts:[
+      "District recreational vessel limits: 26 feet length and 12 feet width; operate at idle speed within 200 feet of any shoreline and stay clear of intake/spillway exclusion zones.",
+      "FCWD may close the lake or ramps above 380.50 feet or at lower levels for safety. The older TPWD 'open year-round' inventory is not a live operator status.",
+      "Triploid grass carp must be released unharmed; keep to designated public fishing locations and current TPWD limits.",
+      "Only district-designated paid campsites permit overnight stays. FCWD rules on reservation confirmation, vehicle access, pet restraint and dump station use apply.",
+      "The featured image is an exact-lake historic BATHYMETRIC MAP, not a photograph. Check current TWDB level and the owner before making depth or navigation assumptions."
+    ],
   },
 ];
 
