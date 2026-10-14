@@ -115,6 +115,14 @@ const entries = [
     "/images/state-parks/lake-corpus-christi-state-park.jpg"
   ],
   [
+    "southern-pacific-passenger-depot-del-rio",
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Del_Rio_Amtrak_station_DSCN1430.JPG"
+  ],
+  [
+    "stephen-f-austin-experimental-forest",
+    "https://research.fs.usda.gov/sites/default/files/2023-02/srs-sfaef-bridge.jpg"
+  ],
+  [
     "science-mill-johnson-city",
     "https://s3.amazonaws.com/texasstandard.org/txstandard/wp-content/uploads/2015/06/m.jpg"
   ],
