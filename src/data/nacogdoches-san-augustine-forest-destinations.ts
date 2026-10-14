@@ -24,7 +24,7 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
       "credit": "William L. Farr · CC BY-SA 4.0 · File: Angelina National Forest, Angelina County, Texas, USA (November 2020).jpg"
     },
     "bestSeason": "Fall through spring for comfortable long hikes; spring migration and blooms and year-round forest birding depend on local conditions.",
-    "entryNote": "This map marker locates Boykin Springs Recreation Area, one of many entry points, not the geographic center of the 153,334-acre national forest. Some forest lands within proclaimed boundaries are privately owned; heed property signs. Campground amenities, fees, fire restrictions and trail closures change.",
+    "entryNote": "The map pin uses the federally published Recreation.gov coordinates for Boykin Springs Pavilion as a general recreation-area reference, not a surveyed campground entrance or the center of the 153,334-acre forest. Because other mapped recreation points differ, follow the official Highway 63 and Forest Road 313 entrance directions and posted signs rather than relying on the pin alone. Some forest lands are private; obey property signs and check changing fees, facilities and closures.",
     "highlights": [
       "153,334 acres in four counties",
       "Boykin Springs Recreation Area",
@@ -40,7 +40,7 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
     ],
     "officialUrl": "https://www.fs.usda.gov/r08/texas",
     "managingAuthority": "USDA Forest Service, National Forests and Grasslands in Texas",
-    "directions": "For the map pin, navigate to Boykin Springs Recreation Area off Forest Road 313 in Jasper County. For other areas, use the Forest Service's location-specific instructions and maps.",
+    "directions": "For Boykin Springs, start in Zavalla and travel approximately 10.5 miles east on Highway 63, turn right onto Forest Road 313, and continue approximately 2.5 miles to the campground, following official signs. This is one recreation area—not an entrance for the whole forest. Verify roads and access before setting out.",
     "accessibilityNotes": "Accessibility differs substantially by developed recreation area, waterside access and unimproved trail. The distinct Stephen F. Austin Jack Creek interpretive loop was designed for universal access; verify its condition.",
     "sourceCheckedAt": "2026-10-12",
     "areaGuide": {
@@ -143,6 +143,11 @@ export const nacogdochesSanAugustineForestDestinations: Destination[] = [
           "label": "Federal Recreation.gov Townsend campsite description",
           "url": "https://www.recreation.gov/camping/campgrounds/10158892",
           "scope": "This live federal campground description repeats 153,179 acres, diverging from the dated March 2025 USDA factsheet; not treated as the current acreage authority"
+        },
+        {
+          "label": "Federal Recreation.gov Boykin Springs Pavilion access and directions",
+          "url": "https://www.recreation.gov/camping/campgrounds/233239",
+          "scope": "Federal coordinates provided for the Boykin Springs Pavilion, directions from Zavalla via TX 63 and FR 313, campsite first-come-first-served and separate reservable group shelter"
         },
         {
           "label": "TPWD Pineywoods birding Boykin Springs",
