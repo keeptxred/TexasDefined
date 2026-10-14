@@ -95,6 +95,7 @@ async function capture(browser,c,mode) {
         rootHydrated:document.documentElement.dataset.tdRootHydrated==='1',
         viewportMeta:document.querySelector('meta[name="viewport"]')?.content||'',
         headerVisible:[...document.querySelectorAll('header')].some(h=>{const b=h.getBoundingClientRect();return b.width>0&&b.height>0}),
+        siteLogoVisible:[...document.querySelectorAll('header img[src*="texasdefined-logo.svg"]')].some(el=>{const b=el.getBoundingClientRect();return b.width>0&&b.height>0}),
         robots:document.querySelector('meta[name="robots"]')?.content||'',
         h1:attrs('h1').map(x=>x.textContent.trim()),viewport:innerWidth,
         cssClientWidth:document.documentElement.clientWidth,
@@ -112,7 +113,7 @@ async function capture(browser,c,mode) {
         links:attrs('a[href]').map(a=>new URL(a.href,location.href).pathname),
       };
     });
-    const evidence={path:pathname,mode,http:response.status(),canonical:data.canonical,robots:data.robots,h1:data.h1,requestedViewport:mobile?390:1366,rootHydrated:data.rootHydrated,viewportMeta:data.viewportMeta,headerVisible:data.headerVisible,viewport:data.viewport,cssClientWidth:data.cssClientWidth,visualViewportWidth:data.visualViewportWidth,physicalScreenWidth:data.physicalScreenWidth,mobileOffenders:mobile?data.mobileOffenders:[],docWidth:data.docWidth,images:data.images,mediaIssues,credits:data.creditLinks.length,pageErrors};
+    const evidence={path:pathname,mode,http:response.status(),canonical:data.canonical,robots:data.robots,h1:data.h1,requestedViewport:mobile?390:1366,rootHydrated:data.rootHydrated,viewportMeta:data.viewportMeta,headerVisible:data.headerVisible,siteLogoVisible:data.siteLogoVisible,viewport:data.viewport,cssClientWidth:data.cssClientWidth,visualViewportWidth:data.visualViewportWidth,physicalScreenWidth:data.physicalScreenWidth,mobileOffenders:mobile?data.mobileOffenders:[],docWidth:data.docWidth,images:data.images,mediaIssues,credits:data.creditLinks.length,pageErrors};
     const failures=[];
     const test=(ok,msg)=>{if(!ok) failures.push(msg);};
     test(data.pathname===pathname,'wrong route');
@@ -121,6 +122,7 @@ async function capture(browser,c,mode) {
     test(data.h1.length===1,'expected exactly one H1');
     test(data.rootHydrated,'React root hydration never completed');
     test(data.headerVisible,'site header missing after hydration');
+    test(data.siteLogoVisible,'TexasDefined responsive header/logo missing after hydration');
     test(/width=device-width/i.test(data.viewportMeta),'responsive viewport meta missing');
     test(data.viewport===(mobile?390:1366),'actual layout viewport '+data.viewport+' does not match requested '+(mobile?390:1366));
     test(data.docWidth<=data.viewport+8,'horizontal overflow '+data.docWidth+'/'+data.viewport);
