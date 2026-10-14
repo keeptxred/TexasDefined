@@ -8,7 +8,7 @@
  */
 import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
 
-const origin = (process.env.TD_PRODUCTION_ORIGIN || "https://texasdefined.com").replace(/\\/+$/, "");
+const origin = (process.env.TD_PRODUCTION_ORIGIN || "https://texasdefined.com").replace(/\/+$/, "");
 const local = JSON.parse(readFileSync("public/museum-verification-manifest.json", "utf8"));
 const expectedPaths = new Set(local.museums.map(item => item.path));
 const required = [
@@ -41,10 +41,10 @@ function analyzeRoute(c, doc) {
   const path = "/destination/" + c.slug, issues = [];
   if (doc.status !== 200) issues.push("HTTP " + doc.status);
   if (!doc.type.includes("text/html")) issues.push("not HTML");
-  const canonicalTag = (doc.body.match(/<link\\b[^>]*rel=["']canonical["'][^>]*>/i) || [])[0] || "";
+  const canonicalTag = (doc.body.match(/<link\b[^>]*rel=["']canonical["'][^>]*>/i) || [])[0] || "";
   const canonical = attr(canonicalTag, "href");
   if (canonical !== origin + path) issues.push("wrong canonical: " + canonical);
-  const robotTag = (doc.body.match(/<meta\\b[^>]*name=["']robots["'][^>]*>/i) || [])[0] || "";
+  const robotTag = (doc.body.match(/<meta\b[^>]*name=["']robots["'][^>]*>/i) || [])[0] || "";
   const robots = attr(robotTag, "content");
   const noindex = robots.includes("noindex");
   const hasMissingHero = doc.body.includes("texasdefined-destination-placeholder.svg");
