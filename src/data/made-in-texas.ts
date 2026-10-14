@@ -35,7 +35,7 @@ const entry = (
 export const MADE_IN_TEXAS_ENTRIES: TexasMadeEntry[] = [
   entry('Blue Bell Creameries', 'Brenham', 'washington', 'food-drink', 'made-or-processed', 'Brenham is the home base of one of Texas\'s most recognizable ice-cream companies.'),
   entry('Kountry Boys Sausage', 'Brenham', 'washington', 'food-drink', 'made-or-processed', 'A Brenham-area smoked-meat name tied to the county\'s food culture.'),
-  entry('Dr Pepper', 'Waco', 'mclennan', 'food-drink', 'founded', 'The soft drink was created in Waco and remains part of the city\'s commercial identity.', '/attraction/dr-pepper-museum'),
+  entry('Dr Pepper', 'Waco', 'mclennan', 'food-drink', 'founded', 'The soft drink was created in Waco and remains part of the city\'s commercial identity.', '/destination/dr-pepper-museum-waco'),
   entry('Balcones Distilling', 'Waco', 'mclennan', 'food-drink', 'made-or-processed', 'Waco distillery known for Texas-made whisky.'),
   entry('Spoetzl Brewery / Shiner', 'Shiner', 'lavaca', 'food-drink', 'made-or-processed', 'Shiner beer is brewed in the small Lavaca County city that gave the brand its name.', '/destination/spoetzl-brewery'),
   entry('Whataburger', 'San Antonio', 'bexar', 'food-drink', 'headquartered', 'The Texas-born burger chain is headquartered in San Antonio.'),

@@ -61,7 +61,7 @@ for (const [market, href] of [
 ]) requireText(cityPassData, `"${market}": "${href}"`, `${market} validated non-affiliate fallback`);
 
 const destinationCoverage = [
-  ['Dallas', 'perot-museum-of-nature-and-science', '/destination/perot-museum-of-nature-and-science'],
+  ['Dallas', 'perot-museum-of-nature-and-science', '/destination/perot-museum-nature-science-dallas'],
   ['Dallas', 'reunion-tower-dallas', '/destination/reunion-tower-dallas'],
   ['Dallas', 'dallas-zoo', '/destination/dallas-zoo'],
   ['Dallas', 'george-w-bush-presidential-museum-dallas', '/destination/george-w-bush-presidential-museum-dallas'],

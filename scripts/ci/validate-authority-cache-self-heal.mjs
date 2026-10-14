@@ -85,6 +85,12 @@ for (const marker of [
   "'Texas rivers at a glance: six quick answers'",
 ]) requireText(freshness, marker, `Texas rivers canonical freshness contract ${marker}`);
 
+for (const marker of [
+  "'six-man-field-title'",
+  "'100 yards including end zones'",
+  "'80 yards × 40 yards · midfield at the 40'",
+]) requireText(freshness, marker, `Six-man field visual freshness contract ${marker}`);
+
 if (productionWorkflow.includes("CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN ||")) {
   failures.push('Primary production deployment must not fall back to deploy/general Cloudflare tokens for cache purge.');
 }
