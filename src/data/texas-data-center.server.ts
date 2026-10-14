@@ -36,7 +36,7 @@ export const TEXAS_DATASETS: TexasDataset[] = [
     category: 'Education', year: 2025, updated: '2026-10-14', unit: 'percent',
     sourceName: 'Texas Comptroller of Public Accounts — Property Tax Assistance Division',
     sourceUrl: 'https://comptroller.texas.gov/taxes/property-tax/rates/',
-    methodology: 'The statewide explorer reads the production Texas Comptroller-backed school-district rate dataset, compares 2025 with 2024, and preserves verified local-government or district corrections where the statewide workbook is demonstrably wrong. Rates are dollars per $100 of taxable value; verify parcel-specific taxing units and exemptions locally.',
+    methodology: 'The statewide explorer reads the production school-district rate dataset, compares 2025 with 2024, and shows rates in dollars per $100 of taxable value. Three confirmed 2025 statewide-workbook source errors are corrected only from local official records with exact raw-value fingerprint guards; unresolved below-floor school-rate conflicts fail closed before production replacement.',
     rows: [],
   },
   {
