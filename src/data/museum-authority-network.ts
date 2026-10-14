@@ -28,6 +28,122 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "sixth-floor-museum-at-dealey-plaza": {
+    "name": "The Sixth Floor Museum at Dealey Plaza",
+    "slug": "sixth-floor-museum-at-dealey-plaza",
+    "county": "Dallas",
+    "city": "Dallas",
+    "reviewed": "2026-10-14",
+    "topics": [
+        "presidential-history",
+        "dallas-history",
+        "museum",
+        "civil-rights",
+        "family"
+    ],
+    "whyVisit": "The Sixth Floor Museum occupies the former Texas School Book Depository, overlooking the place where President John F. Kennedy was assassinated on November 22, 1963. Unlike a standalone memorial, the museum places the assassination within early-1960s civic life, the Kennedy presidency, investigative evidence and later public memory. The physical building and the view toward Dealey Plaza make its strongest historical material easier to understand on site, but the museum's extensive archival catalog remains the institution's own specialist resource.",
+    "visitorStrategy": "Plan around a timed museum ticket: current published hours are Wednesday–Sunday, 10 a.m.–5 p.m., with last ticket and entry at 4:15 p.m.; closed Monday and Tuesday. The museum advertises adult admission at $24 online plus a $1 booking fee or $27 onsite, with separate senior and youth prices and free admission for ages 0–5. Reconfirm pricing before booking. Allow roughly two hours for the core sixth-floor exhibition, then spend additional time walking Dealey Plaza outdoors. Paid parking is adjacent but costs vary; oversized vehicles and buses are not accepted in the museum lot. DART West End Station is three blocks east and TRE-connected Union Station is about five blocks south. Food and drinks are not permitted in the galleries; dining is nearby rather than a documented full-service museum restaurant.",
+    "accessibility": "The museum says all public floors are wheelchair accessible. Its accessible ramp is at the northwest corner, wheelchair loans are first-come at the Visitors Center, accessible parking is available in the adjacent paid lot, and KultureCity sensory bags can be checked out there. ADA service animals are welcome. The material includes photographs, assassination evidence, documentary media and serious subject matter, so families and visitors who find violence or emotionally intense history difficult should plan the visit deliberately. Call 214-747-6660 for individualized accommodations and verify any display-dependent sensory access.",
+    "familiesAndGroups": "The core exhibit uses historical images, video, documentary evidence and accounts of violent events. Teens studying twentieth-century history may engage deeply, but it is not a hands-on children's museum and adults should decide whether younger children are ready for the subject. The museum publishes special requirements for school visits, including eligible instructional groups of at least 20 students and booking at least three weeks ahead; its separate school-tour page contained an August 31, 2026 cutoff for the earlier school year, so do not promise 2026–27 capacity without a fresh operator confirmation. Ordinary group tours are currently restricted; a separately priced curatorial presentation is not a substitute for individual admission.",
+    "researchValue": "Start with 1960s social movements and Kennedy's presidency before studying his November 1963 Texas trip, the recreated evidentiary corner window, the immediate crisis and the assassination investigations. The exhibit deliberately distinguishes physical evidence, official investigations and decades of debate. After leaving the building, compare the indoor site interpretation with the accessible public plaza and its memorial setting. The operator provides a free interactive Dealey Plaza guide and maintains historical collection resources for deeper independent research.",
+    "exhibits": [
+        {
+            "heading": "The early 1960s and Kennedy presidency",
+            "detail": "Photographs, period films and artifacts establish civil rights, Cold War tensions, presidential life and the political context of the Texas trip."
+        },
+        {
+            "heading": "The November 1963 Texas visit",
+            "detail": "Follow the presidential party through its Texas itinerary to the downtown Dallas motorcade; note how local political conditions shaped public interpretation."
+        },
+        {
+            "heading": "Sixth-floor corner-window interpretation",
+            "detail": "The former crime-scene area is presented using historical photographs, recreated details and views over Dealey Plaza; do not confuse a reconstruction with untouched 1963 objects."
+        },
+        {
+            "heading": "Crisis hours and investigations",
+            "detail": "Compare the event chronology, the death of Officer J. D. Tippit, eyewitness material and investigation displays without treating unresolved public debates as proven facts."
+        },
+        {
+            "heading": "Historical memory and personal recollections",
+            "detail": "Museum memory books and later media show how residents, witnesses and later generations have understood the assassination and its aftermath."
+        }
+    ],
+    "routes": [
+        {
+            "label": "Focused two-hour museum visit",
+            "steps": [
+                "Arrive before the reserved timed entry and check in at the Visitors Center",
+                "Follow early-1960s context and Texas trip displays before the assassination galleries",
+                "Visit sixth-floor exhibits and use the plaza views to understand the location"
+            ]
+        },
+        {
+            "label": "History-focused downtown half day",
+            "steps": [
+                "Book timed admission and take roughly two hours for the core exhibition",
+                "Walk publicly accessible Dealey Plaza and consult the museum's interactive site guide",
+                "Continue to JFK Memorial Plaza or a distinct nearby West End history museum"
+            ]
+        },
+        {
+            "label": "Teen classroom history visit",
+            "steps": [
+                "Review the museum's violence-related subject matter in advance",
+                "Use the introductory presidency section and the investigations to distinguish evidence from interpretation",
+                "Discuss public memory and arrange any eligible school-tour programming with staff well in advance"
+            ]
+        }
+    ],
+    "sources": [
+        {
+            "label": "Sixth Floor Museum — Plan Your Visit",
+            "url": "https://www.jfk.org/plan-your-visit/",
+            "use": "Current schedule, price bands, parking, group eligibility, accessibility, local transit"
+        },
+        {
+            "label": "Sixth Floor Museum — visitation guidelines",
+            "url": "https://www.jfk.org/plan-your-visit/visitation-guidelines/",
+            "use": "Timed tickets, last entry, baggage, food and service animals"
+        },
+        {
+            "label": "Sixth Floor Museum — accessibility",
+            "url": "https://www.jfk.org/accessibility/",
+            "use": "Ramp, wheelchair loans, service animals and KultureCity sensory aids"
+        },
+        {
+            "label": "Sixth Floor Museum — core exhibition",
+            "url": "https://www.jfk.org/exhibition/john-f-kennedy-and-the-memory-of-a-nation/",
+            "use": "Verified exhibit sections, investigative evidence and historical interpretation"
+        },
+        {
+            "label": "Sixth Floor Museum — operator FAQ",
+            "url": "https://www.jfk.org/faq/",
+            "use": "Institutional ownership, ticket rules, transit and interpretive aims"
+        }
+    ],
+    "connections": [
+        {
+            "label": "Dallas County",
+            "href": "/county/dallas",
+            "reason": "Ground museum history in the broader county's civic and cultural landscape."
+        },
+        {
+            "label": "Perot Museum of Nature and Science",
+            "href": "/destination/perot-museum-nature-science-dallas",
+            "reason": "Offer an age-appropriate family science contrast after a serious history museum."
+        },
+        {
+            "label": "Dallas Holocaust and Human Rights Museum",
+            "href": "/destination/dallas-holocaust-human-rights-museum",
+            "reason": "Compare separate twentieth-century historical interpretation and public memory in Downtown Dallas."
+        },
+        {
+            "label": "Texas museum directory",
+            "href": "/explore/museums",
+            "reason": "Find other subject-specific museum guides in Texas."
+        }
+    ]
+},
   "the-history-center-diboll": {
     name: "The History Center (Diboll)",
     slug: "the-history-center-diboll",
