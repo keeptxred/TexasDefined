@@ -326,7 +326,7 @@ if (!fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8').includes('"f
 const exploreSitemapSource = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
 if (!exploreSitemapSource.includes(').map(applyHistoricSiteFactCorrections)') || !exploreSitemapSource.includes('import("@/data/historic-site-fact-corrections")')) failures.push("Explore sitemap does not apply resolved historic-site photo and closure corrections before indexability gating.");
 if (!destinationRoute.includes('isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><DestinationVisitPlanner')) failures.push("Destination visit planner still promotes inaccessible historic sites as ordinary visitor stops.");
-if (!authorityExpansion.includes('File:Kreische_Brewery_Ruins_Lower_View.jpg') || !authorityExpansion.includes('File:Monument_hill_monument.jpg')) failures.push("Original licensed file-level photo attribution links missing from public historic authority guide sources.");
+if (!fullAuthorityFile.includes('File:Kreische_Brewery_Ruins_Lower_View.jpg') || !fullAuthorityFile.includes('File:Monument_hill_monument.jpg')) failures.push("Original licensed file-level photo attribution links missing from public historic authority guide sources.");
 
 const exactHeroAliases = ['barrington-living-history-farm','fanthorp-inn','kreische-brewery','monument-hill','san-jacinto-battleground','washington-on-the-brazos'];
 for (const slug of exactHeroAliases) {
