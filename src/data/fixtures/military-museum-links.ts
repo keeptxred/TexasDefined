@@ -31,7 +31,7 @@ const lexingtonDestination = {
 };
 
 const additionsBySlug: Record<string, Array<{ href: string; label: string; description: string }>> = {
-  "texas-military-history-timeline": [visitorGuide, nationalCemeteryGuide],
+  "texas-military-history-timeline": [{ href: "/article/uss-texas-1895-original-battleship", label: "USS Texas (1895): Spanish–American War", description: "A detailed guide to the first ship, its naval architecture, Santiago battle, and San Marcos target-ship fate." }, visitorGuide, nationalCemeteryGuide],
   "texas-military-museums-historic-sites-guide": [nationalCemeteryGuide],
   "women-in-texas-military-history": [waspDestination, visitorGuide],
   "texas-medal-of-honor-heroes": [visitorGuide, nationalCemeteryGuide],
@@ -44,6 +44,9 @@ const additionsBySlug: Record<string, Array<{ href: string; label: string; descr
   "texas-cold-war-military-history": [visitorGuide, nationalCemeteryGuide],
   "texas-recent-wars-military-history": [visitorGuide, nationalCemeteryGuide],
   "battleship-texas-bb-35-history-restoration": [lexingtonDestination, visitorGuide],
+  "uss-texas-1895-original-battleship": [lexingtonDestination, visitorGuide],
+  "republic-of-texas-navy-history": [{ href: "/article/uss-texas-1895-original-battleship", label: "The first U.S. Navy battleship Texas", description: "Continue from the Republic’s separate navy to the Spanish–American War and USS San Marcos." }],
+  "texas-world-war-i-history-guide": [{ href: "/article/uss-texas-1895-original-battleship", label: "The first Texas, before World War I", description: "Learn why the pre-dreadnought original Texas did not serve in the First World War." }],
 };
 
 for (const [slug, additions] of Object.entries(additionsBySlug)) {

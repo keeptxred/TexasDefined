@@ -26,6 +26,7 @@ export const texasWorldWarIIHistoricSitesGuideArticle: Article = {
   sourceName: "Texas Historical Commission",
   sourceUrl: "https://thc.texas.gov/historic-sites",
   internalLinks: [
+    { href: "/article/uss-texas-1895-original-battleship", label: "Original USS Texas, 1895", description: "Distinguish the Spanish–American War-era first Texas from the later BB-35, which served in World War II." },
     { href: "/article/battleship-texas-bb-35-history-restoration", label: "Battleship Texas: the full story", description: "Follow BB-35 from 1914 commissioning through both World Wars, museum preservation and the current Galveston restoration." },
     { href: "/destination/battleship-texas", label: "Battleship Texas restoration and visitor status", description: "Check the current closure and planned Pier 15 museum reopening before making a Galveston trip." },
     { href: "/explore/historic-sites", label: "Texas historic sites", description: "Browse the statewide historic-site collection." },
