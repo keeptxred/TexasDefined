@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, Search, ShoppingBag, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useBrand } from "@/brand/context";
 import type { BrandNavItem } from "@/brand/types";
@@ -22,10 +22,15 @@ export function Header() {
   const brand = useBrand();
   const cart = useShopCart();
   const [open, setOpen] = useState(false);
+  // SSR renders the menu before click handlers are ready. Mark it interactive
+  // only after React has hydrated so browser QA cannot mistake pre-hydration
+  // clicks for a working navigation control.
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => { setHydrated(true); }, []);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/80 bg-background/96 backdrop-blur supports-[backdrop-filter]:bg-background/92">
+    <header data-hydrated={hydrated ? "true" : "false"} className="sticky top-0 z-50 border-b border-border/80 bg-background/96 backdrop-blur supports-[backdrop-filter]:bg-background/92">
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:inline-flex focus:min-h-11 focus:items-center focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground">
         {brand.copy.skipToContent}
       </a>
