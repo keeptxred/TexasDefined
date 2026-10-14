@@ -1100,7 +1100,7 @@
       ],
       "openGaps": [
         "Verify actual mobility/sensory facilities and on-site dining directly with guest services",
-        "Complete photo rendering and responsive public-page QA"
+        "Photo is licensed and six-page SSR production acceptance passed (GitHub Actions #38512266599); independent visual/mobile evaluation remains outstanding"
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},
@@ -1115,20 +1115,22 @@
     "port-isabel-historical-museum": {
       "name": "Port Isabel Historical Museum",
       "operatorStrengths": [
-        "Current operator's Champion Building, 1906 fish mural and admission categories",
-        "Explicit instruction to call for current opening hours"
+        "City of Port Isabel and South Padre Chamber agree on Wednesday–Saturday visitor schedule; Chamber lists the 3:30 p.m. ticket cutoff",
+        "Texas Historical Commission documents the 1899 Champion Building, 1906 mural, and regional exhibits"
       ],
       "openGaps": [
-        "Confirm elevator and accessible facilities with museum operator; one older visitor review is not proof",
-        "Obtain licensed exact-location museum photograph and perform production rendering QA"
+        "Confirm operating condition of elevator, accessible restroom and step-free second-floor route directly with museum",
+        "Confirm admission prices, payment methods and special holiday hours; museum standalone pricing source has intermittent TLS access for our collector",
+        "Independent reviewer sign-off and documented comparisons against official museum information still outstanding"
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},
       "independentReviewer": null,
       "certifiedAt": null,
       "operatorPagesToBenchmark": [
-        "https://portisabelhistory.com/",
-        "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html"
+        "https://portisabel-texas.com/blog/history/",
+        "https://business.spichamber.com/list/member/port-isabel-historical-museum-18",
+        "https://thc.texas.gov/blog/beyond-beach"
       ]
     },
     "historic-brownsville-museum": {
@@ -1139,7 +1141,7 @@
       ],
       "openGaps": [
         "Confirm access across separate buildings and on-site food policy",
-        "Obtain rights-cleared exact-site hero and verify gallery additions live"
+        "Exact-site CC BY-SA hero and SSR production acceptance are confirmed (GitHub Actions #38512266599); independently review visitor usability and mobile layout"
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},

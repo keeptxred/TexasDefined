@@ -556,11 +556,11 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
   "port-isabel-historical-museum": {
-    name: "Port Isabel Historical Museum", slug: "port-isabel-historical-museum", county: "Cameron", city: "Port Isabel", reviewed: "2026-10-12",
+    name: "Port Isabel Historical Museum", slug: "port-isabel-historical-museum", county: "Cameron", city: "Port Isabel", reviewed: "2026-10-13",
     topics: ["borderlands","architecture","local-history","maritime"],
     whyVisit: "The museum's 1899 Champion Building and its 1906 fish mural are as important as the objects on display. The two levels explain why the Laguna Madre coastline became a fishing, port, trade and military gateway instead of simply a route to South Padre Island.",
-    visitorStrategy: "The museum's own current site publishes admission categories but directs visitors to telephone 956-943-7602 for current hours. Do not rely on older third-party Wednesday–Saturday schedules. Plan a brief museum visit with the Port Isabel Lighthouse a few blocks away, allowing additional time to examine the 1906 fish mural and exterior.",
-    accessibility: "The museum occupies a two-level historic commercial building. Independent visitors have reported an elevator, but the museum's official page has not established its present working status or the full accessible route. Confirm elevator operation, entrances, restrooms and access arrangements by phone before a mobility-dependent visit.",
+    visitorStrategy: "The City of Port Isabel and the South Padre Island Chamber currently list the museum as open Wednesday–Saturday from 10 a.m. to 4 p.m., with last ticket sales at 3:30 p.m. according to the Chamber. Confirm the day’s hours, tickets and closures by calling (956) 943-7602. Pair the Champion Building’s 1906 fish mural with the Port Isabel Lighthouse a few blocks away.",
+    accessibility: "The museum occupies a two-level historic commercial building. An earlier independent visitor reported an elevator, but the City and Chamber descriptions do not establish its present working status or a fully accessible route. Confirm elevator operation, accessible entrances, restrooms and individual accommodation needs directly at (956) 943-7602.",
     familiesAndGroups: "The mural and Champion Building can start conversations with children about fishing and nineteenth-century Gulf commerce. More detailed historical exhibits may work best for school-age children. The operator lists group tours but directs visitors to call for arrangements. Food and dining on site are not confirmed; choose nearby Port Isabel options separately.",
     researchValue: "Use the galleries to compare local memory with artifacts concerning Laguna Madre Indigenous societies, nineteenth-century trade and the borderland conflicts. The building itself demonstrates how waterfront commerce left durable commercial architecture in Port Isabel.",
     exhibits: [
@@ -574,7 +574,9 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "Lower Rio Grande history day", steps: ["Start in the museum and at the lighthouse", "Continue to Palo Alto Battlefield for the 1846 conflict", "Return to South Padre Island only when the weather and time permit"] }
     ],
     sources: [
-      { label: "Port Isabel Historical Museum — operator", url: "https://portisabelhistory.com/", use: "Museum building, mural, exhibit levels, prices and contact-for-hours instruction" },
+      { label: "City of Port Isabel — museum and lighthouse", url: "https://portisabel-texas.com/blog/history/", use: "Official city history, museum address, Wednesday–Saturday visitor schedule and adjacent lighthouse" },
+      { label: "South Padre Island Chamber — museum listing", url: "https://business.spichamber.com/list/member/port-isabel-historical-museum-18", use: "Museum visitor hours, 3:30 p.m. last ticket, admission contact and Champion Building context" },
+      { label: "Texas Historical Commission — Beyond the Beach (2026)", url: "https://thc.texas.gov/blog/beyond-beach", use: "State historical authority on the museum’s two exhibit levels, Indigenous heritage and borderland collections" },
       { label: "Port Isabel Historical Museum — visitor account", url: "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html", use: "Independent visitor question on elevator; not confirmation of current access" }
     ],
     connections: [
