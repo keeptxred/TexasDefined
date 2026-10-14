@@ -22,6 +22,7 @@ export type SchoolDistrictTaxRateData = {
   sourcePage: string;
   sourceWorkbook: string;
   priorWorkbook: string;
+  officialCorrectionCount: number;
   rows: SchoolDistrictTaxRateRow[];
 };
 
@@ -45,14 +46,18 @@ const loadSchoolDistrictTaxRateData = createServerFn({ method: 'GET' }).handler(
   const [current, prior] = await Promise.all([loadYear(year), loadYear(priorYear)]);
   const priorBySlug = new Map(prior.records.map((record) => [record.slug, record]));
 
+  const sourceWorkbook = `https://comptroller.texas.gov/taxes/property-tax/docs/${year}-school-district-rates-levies.xlsx`;
+  const priorWorkbook = `https://comptroller.texas.gov/taxes/property-tax/docs/${priorYear}-school-district-rates-levies.xlsx`;
+
   return {
     year,
     priorYear,
     generatedAt: current.generatedAt,
     sourceName: TAX_RATE_SOURCE_NAME,
     sourcePage: TAX_RATE_SOURCE_PAGE,
-    sourceWorkbook: `https://comptroller.texas.gov/taxes/property-tax/docs/${year}-school-district-rates-levies.xlsx`,
-    priorWorkbook: `https://comptroller.texas.gov/taxes/property-tax/docs/${priorYear}-school-district-rates-levies.xlsx`,
+    sourceWorkbook,
+    priorWorkbook,
+    officialCorrectionCount: current.records.filter((record) => record.sourceUrl !== sourceWorkbook).length,
     rows: current.records.map((record) => {
       const previous = priorBySlug.get(record.slug);
       return {
