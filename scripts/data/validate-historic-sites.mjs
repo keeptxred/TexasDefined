@@ -344,9 +344,9 @@ if (remoteHeroes.includes('"old-socorro-mission": {')) failures.push("Closed ori
 for (const slug of ['first-capitol-of-texas', 'old-socorro-mission']) if (!visitorPolicy.includes('"'+slug+'"')) failures.push("THC-closed original site erroneously recommended in Trip Planner: "+slug);
 // Check exact curated historical-reference allowlists, not the position of a specific
 // member: new, explicitly reviewed sites may be added after First Capitol.
-const historicalRouteList = destinationRoute.match(/const isHistoricalMuseumReference = \\[([^\\]]+)\\]\\.includes\\(destination\\.slug\\)/)?.[1] ?? "";
+const historicalRouteList = destinationRoute.split('const isHistoricalMuseumReference = [')[1]?.split('].includes(destination.slug)')[0] ?? "";
 const historicalSitemapSource = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
-const historicalSitemapList = historicalSitemapSource.match(/\\(isPrimaryTripPlannerDestination\\(destination\\) \\|\\| \\[([^\\]]+)\\]\\.includes\\(destination\\.slug\\)\\) && auditDestination\\(destination\\)\\.readyForIndexing/)?.[1] ?? "";
+const historicalSitemapList = historicalSitemapSource.split('isPrimaryTripPlannerDestination(destination) || [')[1]?.split('].includes(destination.slug)')[0] ?? "";
 for (const [slug, label] of [
   ["first-capitol-of-texas", "First Capitol"],
   ["battleship-texas", "Battleship Texas"],
