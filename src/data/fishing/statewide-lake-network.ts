@@ -943,7 +943,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Lake Colorado City State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Southwest shore, five miles south of I-20 on FM 2836; paved multi-lane ramp and parking.", fee: "Park entry/launch fee", availability: "Ramps listed year-round; TPWD notes no camping December–February. Check current park operations and lake level." },
       { name: "Cooper's Cove", operator: "Private operator", kind: "resort", launch: "East side of Lake Colorado City off SH 163; paved boat ramp and camping in TPWD inventory.", fee: "TPWD lists fees", availability: "Year-round ramp in TPWD listing; verify current operator (325) 728-5885." },
     ],
-    nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"lake-nasworthy",name:"Lake Nasworthy"}],
+    nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"lake-nasworthy",name:"Lake Nasworthy"},{slug:"lake-abilene",name:"Lake Abilene"}],
     camping: {name:"Lake Colorado City State Park",summary:"The state park provides camping and reservoir access, but anglers should check golden-alga notices, water level and current fish reports before building a trip around fishing."},
   },
 
@@ -991,7 +991,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/sweetwater/index.asp",
     visitorSourceUrl: "https://www.sweetwatertx.gov/159/Visit-Sweetwater",
     liveDataNote: "Important: TPWD currently warns of a golden-alga bloom and describes poor angling across major sport-fish groups. TWDB shows this reservoir substantially below full pool. Check current TPWD advisories, water elevation and city access status before fishing, launching or swimming; conditions can change.",
-    nearbyLakes: [{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"lake-stamford",name:"Lake Stamford"}],
+    nearbyLakes: [{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"lake-stamford",name:"Lake Stamford"},{slug:"lake-abilene",name:"Lake Abilene"}],
     camping: {name:"Lake Sweetwater Recreation Area",summary:"The City of Sweetwater lists overnight camping and trailer facilities, picnic/pavilion space, a beach, playground, amphitheater and proximity to its municipal golf course. The city's reservation information is the authoritative source for current RV/campground booking, fees and open facilities."},
   },
   {
