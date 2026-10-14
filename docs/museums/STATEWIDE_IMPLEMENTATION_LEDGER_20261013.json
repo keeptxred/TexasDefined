@@ -18,13 +18,20 @@
     "certifiedBenchmarks": 0
   },
   "liveSupabaseLastRead": {
-    "museumRegistryRecords": 66,
+    "museumRegistryRecords": 69,
     "registryStatusVerified": 65,
     "registryStatusSourceUnreachable": 1,
-    "museumMonitoredSourceRecords": 281,
+    "museumMonitoredSourceRecords": 302,
     "sourceBaseline": 280,
     "sourceUnreachable": 1,
-    "cityOfKatySource403": "https://www.cityofkaty.com/visitors/museums"
+    "cityOfKatySource403": "https://www.cityofkaty.com/visitors/museums",
+    "lastManifestProcessed": {
+      "count": 69,
+      "declaredSources": 280,
+      "processed": 1,
+      "failed": 0,
+      "requestId": 6478
+    }
   },
   "recoveryPullRequest": {
     "url": "https://github.com/keeptxred/TexasDefined/pull/4792",
@@ -34,7 +41,7 @@
     "newMonthlySourceRegisteredMuseums": 15,
     "proposedTotalMuseumSourceManifestEntries": 69,
     "proposedTotalMuseumFaqs": 563,
-    "proposedTotalMuseumSourceURLs": 281,
+    "proposedTotalMuseumSourceURLs": 282,
     "proposedBenchmarks": 69,
     "certifiedBenchmarks": 0,
     "slugs": [
@@ -59,7 +66,8 @@
     "mainReconciliation": "Reconciled all changed files against newest main at 79b334dd87ba7d86e0c54764abebf8bcd27c66d1; no overlapping paths at that point.",
     "coastalIndexingRegressionFixed": "Restored the preexisting full-researched coastal authority overlays and fail-closed coastal sitemap validator while adding explicit museum closure exemptions; the earlier recovery PR had inadvertently removed these protections.",
     "lbjCanonicalReconciliation": "Preserved current main LBJ State Park source/canonical slug corrections in both the destination availability set and destination indexing validator.",
-    "archivalDibollMedia": "Public-domain, 1907 Diboll sawmill collection photo; explicitly archival and not a present-day museum photo. Exact modern site photograph remains outstanding."
+    "archivalDibollMedia": "Public-domain, 1907 Diboll sawmill collection photo; explicitly archival and not a present-day museum photo. Exact modern site photograph remains outstanding.",
+    "friscoMuseumExactPhoto": "Frisco Museum of the American Railroad image 2019, Michael Barera CC BY-SA 4.0, exact site and visible source+license links; formerly a placeholder."
   },
   "remainingIncomplete": [
     "Independently reconcile all submitted owner inventory names into valid unique Texas museum identities, excluding aliases/false positives/out-of-state places.",
@@ -113,5 +121,23 @@
       ],
       "limits": "No image reuse permission or full vehicle interior accessibility implied"
     }
-  ]
+  ],
+  "productionVerification": {
+    "testedOn": "2026-10-14",
+    "site": "https://texasdefined.com",
+    "manifestLiveMuseumCount": 69,
+    "allKnownGuideRoutesTested": 69,
+    "http200Count": 69,
+    "noindexCountBeforePhotoRepairs": 7,
+    "noindexSlugs": [
+      "museum-of-the-american-railroad-frisco",
+      "museum-of-the-gulf-coast-port-arthur",
+      "alvin-historical-museum",
+      "el-paso-holocaust-museum",
+      "texas-broadcast-museum-kilgore",
+      "the-history-center-diboll",
+      "johnny-nelson-katy-heritage-museum"
+    ],
+    "status": "Transport and live reachability audited; missing licensed site photos gate noindex and cannot be silently waived. Recheck noindex after real-photo production deployments."
+  }
 }

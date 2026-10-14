@@ -1852,6 +1852,11 @@
           "sourceUrl": "https://www.historictrains.org/mission",
           "fetchUrl": "https://www.historictrains.org/mission",
           "label": "Museum institutional background"
+        },
+        {
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Frisco_June_2019_28_(Museum_of_the_American_Railroad).jpg",
+          "fetchUrl": "https://commons.wikimedia.org/wiki/File:Frisco_June_2019_28_(Museum_of_the_American_Railroad).jpg",
+          "label": "Exact Frisco museum rolling-stock photograph, Michael Barera CC BY-SA 4.0, on-site June 2019; photo licensing and museum identity"
         }
       ]
     },
