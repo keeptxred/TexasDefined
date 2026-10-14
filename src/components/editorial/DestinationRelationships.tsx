@@ -8,7 +8,7 @@ import { SamRayburnContext } from "@/components/editorial/SamRayburnContext";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
 import { Container } from "@/components/layout/Container";
-import { distanceMiles, type DestinationRelationshipGroup } from "@/data/destination-relationships";
+import { distanceMiles, featuredDestinationRelationships, type DestinationRelationshipGroup } from "@/data/destination-relationships";
 import { topTexasAttractionRank } from "@/data/top-texas-attractions";
 import type { Destination, DestinationAreaGuide, DestinationAreaItem } from "@/data/types";
 
@@ -124,11 +124,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
   const hasCampingProfile = CAMPING_DESTINATION_SLUGS.has(destination.slug);
   const hasSamRayburnHouseContext = destination.slug === "sam-rayburn-house";
   const hasSamHoustonMuseumContext = destination.slug === SAM_HOUSTON_MUSEUM_SLUG;
-  const pairedDestinations = [...new Map(
-    groups.flatMap((group) => group.destinations).map((item) => [item.slug, item]),
-  ).values()]
-    .sort((left, right) => (distanceMiles(destination, left) ?? Number.POSITIVE_INFINITY) - (distanceMiles(destination, right) ?? Number.POSITIVE_INFINITY))
-    .slice(0, 6);
+  const pairedDestinations = featuredDestinationRelationships(destination, groups);
 
   return <>
     {destination.slug === "moody-gardens" ? <MoodyGardensSpotlights /> : null}
@@ -141,7 +137,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
 
     {pairedDestinations.length ? <Section tone="surface" className="py-10 sm:py-12 lg:py-14">
       <Container>
-        <SectionHeader eyebrow="Nearby" title="Explore nearby" description={`More places near ${destination.name}, ordered by distance to help plan the rest of your trip.`} />
+        <SectionHeader eyebrow="Plan the route" title="Explore related places" description={`Editorially paired stops near ${destination.name} appear first, followed by nearby destinations. Distances are approximate straight-line miles.`} />
         <ul className="mt-8 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
           {pairedDestinations.map((item) => {
             const miles = distanceMiles(destination, item);
