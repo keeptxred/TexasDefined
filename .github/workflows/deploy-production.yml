@@ -198,6 +198,22 @@ jobs:
             echo "::error title=Governed Discover assets missing from client bundle::Expected at least 42 governed Discover derivatives in dist/client/images/discover; found $discover_asset_count."
             exit 1
           fi
+          # Counting images is insufficient: a missing required slug can be hidden
+          # by an unrelated extra WebP. Verify every governed source and output.
+          while IFS= read -r slug; do
+            file="dist/client/images/discover/${slug}.webp"
+            if [[ ! -f "$file" ]]; then
+              echo "::error title=Required Discover asset absent::Missing $file from deployment bundle."
+              exit 1
+            fi
+            FILE_TO_VERIFY="$file" node --input-type=module -e '
+              import { openSync, readSync, closeSync } from "node:fs";
+              const fd = openSync(process.env.FILE_TO_VERIFY, "r");
+              const header = Buffer.alloc(12);
+              try { if (readSync(fd, header, 0, 12, 0) !== 12 || header.toString("ascii",0,4) !== "RIFF" || header.toString("ascii",8,12) !== "WEBP") process.exit(1); }
+              finally { closeSync(fd); }
+            ' || { echo "::error title=Invalid Discover image::Not a WebP binary: $file"; exit 1; }
+          done < <(node scripts/assets/materialize-discover-overrides.mjs --list-slugs)
           echo "Verified $discover_asset_count governed Discover derivatives in dist/client static assets."
           if ! git diff --exit-code -- src/routeTree.gen.ts; then
             echo '::error title=Generated route tree is stale::The production build changed src/routeTree.gen.ts. Commit the TanStack-generated route tree before deployment.'
