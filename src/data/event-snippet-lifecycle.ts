@@ -30,13 +30,13 @@ export function resolveEventSnippet(input: EventSnippetInput, texasToday: string
   const yearToken = new RegExp("\\b" + expiredYear + "\\b");
   if (!yearToken.test(input.title) && !yearToken.test(input.description)) return original;
 
-  // Change only the finished edition's year. A *projected next-year* title
-  // (e.g. 2027 after a 2026 occurrence) must never be silently stripped.
-  const title = input.title
+  // A past edition must not imply that its tickets or schedule are still live.
+  // Never strip a projected next-year title unless that next year itself has ended.
+  const eventName = (input.eventName || input.title.split(":")[0])
     .replace(new RegExp("\\s+" + expiredYear + "(?=[:\\s]|$)", "g"), "")
     .replace(/\s+/g, " ")
-    .trim();
-  const eventName = (input.eventName || title.split(":")[0]).trim() || "This Texas event";
+    .trim() || "This Texas event";
+  const title = eventName + ": Visitor Guide & Next Dates";
   const description = "The last published dates for " + eventName +
     " have passed. Explore visitor guidance and official organizer links; confirm the next schedule before traveling.";
   return { title, description };
