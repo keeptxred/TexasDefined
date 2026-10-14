@@ -196,6 +196,18 @@ const entries = [
   ]
 ];
 
+// Cache identity depends on the governed slug-to-source registry and the
+// derivative transformation contract, not this script's incidental retry logic.
+// A source URL, slug, or intentional transform change MUST invalidate the cache.
+const DERIVATIVE_TRANSFORM_CONTRACT = "webp-1600x900-center-crop-quality82-strip-v1";
+const governedRegistryFingerprint = createHash("sha256")
+  .update(JSON.stringify({ transform: DERIVATIVE_TRANSFORM_CONTRACT, entries }))
+  .digest("hex");
+if (process.argv.includes("--fingerprint")) {
+  console.log(governedRegistryFingerprint);
+  process.exit(0);
+}
+
 const outDir = path.resolve("public/images/discover");
 await fs.mkdir(outDir, { recursive: true });
 const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "td-discover-"));
@@ -350,6 +362,14 @@ function verifyDerivative(slug, output) {
   const identify = spawnSync(command === "magick" ? "magick" : "identify",
     command === "magick" ? ["identify", "-format", "%wx%h", output] : ["-format", "%wx%h", output],
     { encoding: "utf8" });
+  // Size alone does not establish that a cached derivative is really WebP.
+  const header = Buffer.alloc(12);
+  const fd = fsSync.openSync(output, "r");
+  try { fsSync.readSync(fd, header, 0, header.length, 0); }
+  finally { fsSync.closeSync(fd); }
+  if (header.toString("ascii", 0, 4) !== "RIFF" || header.toString("ascii", 8, 12) !== "WEBP") {
+    throw new Error(`Discover derivative is not real WebP for ${slug}`);
+  }
   if (identify.status !== 0 || identify.stdout.trim() !== "1600x900") {
     throw new Error(`Discover derivative dimensions invalid for ${slug}: ${identify.stdout.trim() || identify.stderr}`);
   }
