@@ -3,24 +3,24 @@
   "date": "2026-10-14",
   "baseline": "TPWD more than 150 lake profiles",
   "summary": {
-    "total": 72,
+    "total": 73,
     "standardSectionsPerGuide": 9,
-    "statewide": 57,
-    "namedAccess": 72,
+    "statewide": 58,
+    "namedAccess": 73,
     "unknownAccess": 0,
-    "namedCamping": 47,
+    "namedCamping": 48,
     "unknownCamping": 25,
-    "history": 24,
+    "history": 25,
     "noHistory": 48,
-    "photoMappings": 72,
+    "photoMappings": 73,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 72,
+    "explicitNamedAccess": 73,
     "lackingNamedAccess": 0,
-    "explicitNamedCamping": 47,
+    "explicitNamedCamping": 48,
     "lackingNamedCamping": 25,
-    "namedStatewideFacilities": 221,
-    "statewideTemplateGuidesWithNamedAccess": 57
+    "namedStatewideFacilities": 228,
+    "statewideTemplateGuidesWithNamedAccess": 58
   },
   "entries": [
     {
@@ -1157,6 +1157,22 @@
       "risk": "Golden-alga recovery and lake drought, one usable-only-at-high-water boat ramp; city operator closure/amenities and field shots require current check",
       "namedAccess": true,
       "accessFacilityCount": 1,
+      "accessReviewedAt": "2026-10-14",
+      "namedCamping": true
+    },
+    {
+      "slug": "b-a-steinhagen-lake",
+      "name": "B. A. Steinhagen Lake",
+      "kind": "Statewide",
+      "ramp": "Seven named TPWD sites; Hen House Ridge state park ramp closed, Campers Cove USACE ramp open",
+      "camping": "Hen House 100/200 TPWD camping loop construction closures; Campers Cove USACE campground closed; Magnolia Ridge/Sandy Creek and other state park options conditional on reservations",
+      "history": "1947–1953 Dam B project, 1967 Steinhagen rename, USACE 1989 hydropower",
+      "fish": 6,
+      "photo": "Commons Plazak 2013 actual reservoir 2100×1605 CC BY-SA 3.0",
+      "water": "TWDB live water-level gauge b-a-steinhagen with explicit vertical datum note",
+      "risk": "Current severe revised DSHS fish-consumption advisory; Hen House and Campers Cove separate operator ramp/camping restrictions and first-party photos pending",
+      "namedAccess": true,
+      "accessFacilityCount": 7,
       "accessReviewedAt": "2026-10-14",
       "namedCamping": true
     }
