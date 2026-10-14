@@ -28,10 +28,10 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     credit: "JJonahJackalope · CC BY-SA 4.0 · Wikimedia Commons · File:Texas Energy Museum, front entrance.jpg",
   },
   "1940-air-terminal-museum-houston": {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/1940_Air_Terminal_Museum.jpg?width=1024",
-    alt: "Art Deco historic 1940 Air Terminal Museum building on the west side of Houston Hobby Airport",
-    width: 1024, height: 768,
-    credit: "Mlickliter · CC BY-SA 3.0 · Wikimedia Commons · File:1940 Air Terminal Museum.jpg",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/1940sAirTerminalMuseumHobby.JPG?width=1600",
+    alt: "Historic 1940 Air Terminal Museum building at Houston Hobby Airport, with the Art Deco terminal exterior",
+    width: 1600, height: 1200,
+    credit: "WhisperToMe · CC0 1.0 · Wikimedia Commons · File:1940sAirTerminalMuseumHobby.JPG",
   },
   "african-american-museum-dallas-fair-park": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/African_American_Museum_August_2016_03.jpg?width=1600",
@@ -74,10 +74,10 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
   },
 
   "modern-art-museum-fort-worth": {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Texas_Modern_Art_Museum_2003.jpg?width=938",
-    alt: "Modern Art Museum of Fort Worth exterior by Tadao Ando, photographed in 2003",
-    width: 938, height: 496,
-    credit: "Andreas Praefcke · Public domain · Wikimedia Commons · File:Fort Worth Texas Modern Art Museum 2003.jpg (historic exterior)",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Courtyard_of_the_Modern_Art_Museum_of_Fort_Worth.jpg?width=1600",
+    alt: "Courtyard and exterior architecture of the Modern Art Museum of Fort Worth",
+    width: 1600, height: 1066,
+    credit: "Andrewnward · CC BY-SA 4.0 · Wikimedia Commons · File:Courtyard of the Modern Art Museum of Fort Worth.jpg",
   },
 
   "american-quarter-horse-hall-of-fame-museum-amarillo": {
