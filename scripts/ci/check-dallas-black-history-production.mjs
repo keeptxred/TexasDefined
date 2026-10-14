@@ -81,6 +81,13 @@ async function inspect(path, isHub) {
 }
 
 await Promise.all([inspect(hub, true), ...destinations.map((slug) => inspect("/destination/" + slug, false))]);
+try {
+  const { response, body } = await download("/explore/historic-sites");
+  if (response.status !== 200 || !containsHref(body, hub))
+    failures.push("/explore/historic-sites: missing directly rendered Dallas Black History hub link or non-200 status");
+} catch (error) {
+  failures.push("/explore/historic-sites: " + String(error));
+}
 for (const [path, names] of [
   ["/sitemap.xml", [hub]],
   ["/sitemap-explore.xml", destinations.map((slug) => "/destination/" + slug)]
