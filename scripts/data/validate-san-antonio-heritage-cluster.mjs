@@ -11,6 +11,11 @@ const graph = read("src/data/san-antonio-heritage-links.ts");
 const links = read("src/data/destination-editorial-links.ts");
 const bexar = read("src/data/fixtures/bexar-county-san-antonio-missions-river.ts");
 const kingWilliam = read("src/data/viator-destination-expansion-base.ts");
+const cityProfiles = read("src/data/city-authority-profiles.ts");
+const sanAntonioCity = cityProfiles.split("'san-antonio': {")[1]?.split("'el-paso': {")[0];
+assert(sanAntonioCity, "Missing San Antonio city authority profile");
+assert(sanAntonioCity.includes("href: '/article/historic-san-antonio-heritage-road-trip'"), "San Antonio city must link to heritage road trip");
+assert(sanAntonioCity.includes("href: '/destination/san-antonio-missions-national-historical-park'"), "City missions itinerary must link to the park guide");
 
 const newSlugs = [
   "mission-concepcion-san-antonio", "mission-san-jose-san-antonio",
