@@ -923,7 +923,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
         accessPoints: [
       { name: "Lake Mineral Wells State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "East of Mineral Wells off US 180. Park concession-side boat ramp, swim area, lighted fishing pier, hiking and camping.", fee: "State park entry fee", availability: "Can close for wildlife management; verify state-park closure calendar and overnight bookings." },
     ],
-    nearbyLakes: [{slug:"possum-kingdom-reservoir",name:"Possum Kingdom Reservoir"},{slug:"lake-bridgeport",name:"Lake Bridgeport"}],
+    nearbyLakes: [{slug:"possum-kingdom-reservoir",name:"Possum Kingdom Reservoir"},{slug:"lake-bridgeport",name:"Lake Bridgeport"},{slug:"lake-weatherford",name:"Lake Weatherford"}],
     camping: {name:"Lake Mineral Wells State Park",summary:"State-park camping, fishing piers and shoreline access make this one of the network's easiest lake-and-overnight combinations; verify closure dates and reservations."},
   },
   {
@@ -1463,7 +1463,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       "TPWD shows no camping at the four access parks. The Nature Center is canoe/kayak-only and Sunset Park's shallow lane is intended for small craft; do not send large trailers to either.",
       "All four access listings historically state fee required. Check city rules, water level, ramp depth and possible closures before launching; TPWD's 'open all year' is not a live operator status."
     ],
-    nearbyLakes: [{slug:"eagle-mountain-lake",name:"Eagle Mountain Lake"},{slug:"benbrook-lake",name:"Benbrook Lake"},{slug:"lake-arlington",name:"Lake Arlington"},{slug:"grapevine-lake",name:"Grapevine Lake"}],
+    nearbyLakes: [{slug:"eagle-mountain-lake",name:"Eagle Mountain Lake"},{slug:"benbrook-lake",name:"Benbrook Lake"},{slug:"lake-arlington",name:"Lake Arlington"},{slug:"grapevine-lake",name:"Grapevine Lake"},{slug:"lake-weatherford",name:"Lake Weatherford"}],
   },
   {
     slug: "lake-nasworthy", name: "Lake Nasworthy", tpwdSlug: "nasworthy", waterDataSlug: "nasworthy",
@@ -1751,6 +1751,60 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       "The Commons 2010 historical Medina Lake photograph does not depict current drought conditions or facility opening status. No original field photographs or operator day-of-visit certification have been claimed."
     ],
     nearbyLakes:[{slug:"canyon-lake",name:"Canyon Lake"},{slug:"calaveras-lake",name:"Calaveras Lake"},{slug:"choke-canyon-reservoir",name:"Choke Canyon Reservoir"}],
+  },
+  {
+    slug:"lake-weatherford", name:"Lake Weatherford", tpwdSlug:"weatherford", waterDataSlug:"weatherford", region:"prairies-lakes", verifiedAt:"2026-10-13", accessReviewedAt:"2026-10-13",
+    summary:"A City of Weatherford drinking-water reservoir with good largemouth bass, catfish and crappie, excellent sunfish, one documented full-size marina launch, two unimproved small-craft-only upper-lake ramps and a 4,313-foot floating boardwalk for on-foot lake access. Overnight camping is prohibited throughout the lake.",
+    surfaceAcres:1158,maxDepthFeet:39,impoundedYear:1957,counties:["Parker"],nearestCities:["Weatherford"],
+    waterway:"Clear Fork Trinity River",riverBasin:"Trinity River Basin",authority:"City of Weatherford",conservationPool:"896 ft above NGVD29",fluctuation:"TPWD describes annual fluctuations of 2–8 feet; launch depth and accessible shoreline depend on current elevation",clarity:"Moderately clear to stained",
+    identity:"Lake Weatherford is a municipal water-supply reservoir east of Weatherford, not Lake Mineral Wells or a state-park campground. TPWD's angling guide lists 1,158 acres while TWDB's conservation-pool 2008 survey reports 1,112 acres; these are separate source-specific reference measurements, not today's lake acreage. TPWD names Weatherford Marina as the only improved launch with a full-size boat ramp, a fee and private concession operator. Two unimproved upper-lake ramps exist but are suitable only for small aluminum boats; TPWD does not give independent named addresses for them. The City of Weatherford's 4,313-foot floating boardwalk is for walking, birdwatching, sightseeing and fishing, NOT a powered boat ramp or overnight camping destination.",
+    habitat:[
+      "TPWD identifies cattails and American lotus in the upper lake, but comparatively little aquatic vegetation in deeper lower water. Structure from piers, boathouses, the dam's riprap and submerged man-made brush piles gives bass and crappie usable cover.",
+      "The marina's enclosed fishing dock provides a distinct bank-access option, with live minnows and small jigs for crappie. Do not confuse the boardwalk's pedestrian fishing opportunities with a commercial marina launch or with access to private boathouses.",
+      "Twelve aeration diffusers are installed near the dam; when operating, bubbles can draw forage and feeding fish. Their operation is seasonal and should not be presented as a guaranteed fishing location or an instruction to enter a restricted area.",
+      "TWDB's timestamped live lake gauge is important to boat-trailer decisions. A reference conservation elevation of 896 feet is not today's depth at a particular ramp."
+    ],
+    fish:[
+      fish("largemouth-bass","Largemouth bass","good","spring","TPWD rates largemouth good. Fish vegetation transitions, riprap and shaded dock edges with spinnerbaits or soft-plastic worms in spring/fall and crankbaits in summer.",["spinnerbaits","soft-plastics","crankbaits","topwater"]),
+      fish("channel-catfish","Channel catfish","good","year-round","TPWD rates the catfish fishery good and identifies year-round opportunities. Work creek-channel edges and practical bank access with cut bait or legal prepared baits, subject to changing conditions.",["cut-bait","live-bait"]),
+      fish("crappie","Crappie","good","winter","TPWD rates crappie good, highlighting the marina's enclosed fishing dock and lower-lake brush piles during winter and spring. Minnows and small jigs are recommended.",["jigs-and-minnows","vertical-jigging"]),
+      fish("white-bass","White bass","fair","summer","TPWD rates white bass fair and notes summer surface-feeding off the dam at times; trolling shad-like crankbaits is an alternative. Do not promise a predictable schooling location.",["trolling","vertical-jigging"],"secondary"),
+      fish("sunfish","Sunfish","excellent","summer","TPWD rates sunfish excellent; light spinning or fly tackle with small hooks near shoreline cover can be productive during warmer months.",["jigs-and-minnows"])
+    ],
+    access:"TPWD lists Weatherford Marina, reached by FM 5 then West Lake Drive, as an improved fee-required launch suitable for different sizes of boats; the historic concession telephone is (817) 597-0418, but a directory phone does not guarantee today's operator or hours. TPWD also documents two UNNAMED unimproved ramps in the lake's upper reaches, suitable only for small aluminum boats; it does not publish precise individual entrance locations, so do not route a larger boat trailer to them. The City of Weatherford's public floating boardwalk has two exact trailhead addresses, 2864 East Lake Drive and 1198 West Lake Drive, plus a pavilion at 2801 East Lake Drive. Its posted hours are 6 a.m.–10 p.m., subject to current city updates. The pedestrian boardwalk is not a boat launch.",
+    accessPoints:[
+      {name:"Weatherford Marina improved trailer ramp",operator:"Private concession listed by TPWD",kind:"marina",launch:"From US 80/180 travel north on FM 5, west onto West Lake Drive. Improved marina ramp just under a mile ahead on the right, with convenience store, tackle, bait, courtesy docks and boat gas in TPWD's facility table.",fee:"TPWD lists a launch fee; confirm current concession charges, parking, fuel and operating hours",availability:"Historically year-round per TPWD. Call (817) 597-0418 or City of Weatherford for current ramp status, level and access."},
+      {name:"Floating Boardwalk — East Lake Drive trailhead",operator:"City of Weatherford Parks & Recreation",kind:"park",launch:"2864 East Lake Drive, Weatherford, TX 76087. PEDESTRIAN boardwalk access for fishing, birding and lakeside walks; NOT a boat trailer ramp.",fee:"City lists an optional pavilion rental separately; no boardwalk admission fee specified on the current page",availability:"City posts 6 a.m.–10 p.m. operating hours; check weather, trail closures and accessibility updates, parks (817) 598-4124."},
+      {name:"Floating Boardwalk — West Lake Drive trailhead",operator:"City of Weatherford Parks & Recreation",kind:"park",launch:"1198 West Lake Drive, Weatherford, TX 76087. West-side PEDESTRIAN entry to the 4,313-foot floating boardwalk; no boat launch documented at this trailhead.",fee:"Boardwalk park access; optional pavilion use is a separate rental at 2801 East Lake Drive",availability:"City posts 6 a.m.–10 p.m. hours, which can change for severe weather and maintenance; call (817) 598-4124."}
+    ],
+    campingProhibited:true,camping:{name:"No overnight camping anywhere on Lake Weatherford",summary:"TPWD expressly prohibits overnight camping ANYWHERE on Lake Weatherford. The marina, upper-lake unimproved ramps, floating boardwalk and pavilion are lake day-use locations, not RV camping or lakeside overnight sites. Book an independent established campground or lodging outside the restricted lake area."},
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/weatherford/index.asp",
+    visitorSourceUrl:"https://www.weatherfordtx.gov/3223/The-Boardwalk-at-Lake-Weatherford",
+    historyNotes:[
+      "TWDB dates construction beginning June 1956 and both deliberate impoundment and dam completion to March 1957. The City of Weatherford owns and operates the Clear Fork Trinity River dam for municipal and industrial water supply, with recreation as a compatible use.",
+      "After flood damage, engineers modified the service spillway in 1993 and increased spillway capacity. The reconstruction connected a four-fingered radial labyrinth inlet to the existing nine-foot-square discharge conduit. The dam crest was raised three feet to an elevation of approximately 917 ft above mean sea level.",
+      "TWDB's August 2008 conservation-pool survey reports 1,112 acres and about 17,812 acre-feet at elevation 896 ft, while TPWD's angling fact sheet uses 1,158 acres. Those figures describe different survey methods or reporting vintages, not the precise water surface today.",
+      "The city installed the floating boardwalk to make the shoreline accessible to visitors during periods of low water. Its official park page lists 4,313 feet of pedestrian boardwalk between public trailheads on East and West Lake drives, with benches and a separately reservable pavilion."
+    ],
+    visitorFAQs:[
+      {question:"Can I camp on Lake Weatherford?",answer:"No. TPWD states that overnight camping is prohibited anywhere on Lake Weatherford, including at marina and upper-lake ramps. Arrange separate off-lake lodging or camping."},
+      {question:"Where can I launch a larger motorboat?",answer:"TPWD lists Weatherford Marina on West Lake Drive as the lake's improved trailer launch suitable for different boat sizes. A fee is required. The two unnamed upper-lake ramps are unimproved and intended only for small aluminum boats. Verify live ramp conditions and water level."},
+      {question:"Is the 4,313-foot boardwalk also a boat ramp?",answer:"No. The city identifies the floating boardwalk as a walking, fishing, birdwatching and nature-viewing feature. Its East and West Lake Drive trailheads are pedestrian entrances, not marinas or trailer launches."},
+      {question:"Where are the boardwalk entrances and what are the hours?",answer:"The city lists 2864 East Lake Drive and 1198 West Lake Drive as boardwalk trailheads, with a pavilion at 2801 East Lake Drive. Published hours are 6 a.m.–10 p.m.; confirm current park notices for closures or changes."},
+      {question:"Which fish are Lake Weatherford best for?",answer:"TPWD rates sunfish excellent and largemouth bass, channel catfish and crappie good. White bass are rated fair. Marina docks, upper-lake reeds, the dam's riprap and underwater brush each suit different targets."},
+      {question:"How deep is Lake Weatherford?",answer:"TPWD lists a maximum depth of 39 feet, but launch depth changes with reservoir elevation. The latest TWDB gauge is a separate timestamped current measurement and may not indicate whether a particular boat ramp is passable."},
+      {question:"What happened to Lake Weatherford Dam in 1993?",answer:"TWDB records service-spillway reconstruction after flood damage, including a radial labyrinth inlet and added spillway capacity; the dam crest was raised. These engineering facts are historical, not current flood warnings."},
+      {question:"Why do TWDB and TPWD give 1,112 and 1,158 acres?",answer:"TWDB's 2008 conservation-pool survey and TPWD's fishing facts use different vintages/measurement bases. Neither describes the current exposed shoreline during low water; use the live gauge for water conditions."},
+      {question:"Does the city charge to use the boardwalk pavilion?",answer:"The city currently lists $20 per hour with a two-hour minimum to reserve the separate pavilion. This is not a launch or general boardwalk entry charge, and rates may change. Use the city's booking system or parks phone for confirmation."}
+    ],
+    travelAlerts:[
+      "TPWD PROHIBITS OVERNIGHT CAMPING ANYWHERE on Lake Weatherford; do not interpret marina facilities, the boardwalk or upper-lake ramps as RV/campground access.",
+      "The two upper-lake boat ramps are unimproved and suitable for SMALL ALUMINUM BOATS only; TPWD does not publish names/precise entrances for safe larger-boat routing.",
+      "Water level changes by several feet annually. Read timestamped TWDB lake conditions and verify the marina's actual depth and operator status before towing a large boat.",
+      "The city's floating boardwalk is a PEDESTRIAN attraction with posted hours 6 a.m.–10 p.m., not a boat ramp or state-park camping area.",
+      "The 2024 actual-location Commons photo documents the lake's boardwalk, not the current marina launch or real-time reservoir water level."
+    ],
+    nearbyLakes:[{slug:"lake-mineral-wells",name:"Lake Mineral Wells"},{slug:"lake-worth",name:"Lake Worth"},{slug:"benbrook-lake",name:"Benbrook Lake"}],
   },
 ];
 
