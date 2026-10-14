@@ -35,6 +35,10 @@
     {
       "slug": "eagle-mountain-lake",
       "name": "Eagle Mountain Lake"
+    },
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
     }
   ],
   "ballinger": [
@@ -327,6 +331,10 @@
     {
       "slug": "lake-granbury",
       "name": "Lake Granbury"
+    },
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
     }
   ],
   "fritch": [
@@ -545,6 +553,12 @@
       "name": "Lake Travis"
     }
   ],
+  "lake-worth": [
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
+    }
+  ],
   "lakeway": [
     {
       "slug": "lake-travis",
@@ -737,6 +751,12 @@
     {
       "slug": "lake-casa-blanca",
       "name": "Lake Casa Blanca"
+    }
+  ],
+  "river-oaks": [
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
     }
   ],
   "rockwall": [

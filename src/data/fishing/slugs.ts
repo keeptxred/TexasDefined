@@ -77,6 +77,7 @@ export const STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS = [
   "lake-bastrop",
   "lake-arlington",
   "cedar-lake-cleburne-state-park",
+  "lake-worth",
 ] as const;
 
 export const COMPLETE_FISHING_LAKE_SLUGS = [
