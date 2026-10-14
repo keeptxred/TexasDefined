@@ -3,8 +3,8 @@
   "updatedAt": "2026-10-13",
   "scope": {
     "tpwdNamedEntries": 175,
-    "completedGuides": 62,
-    "missingCompleteGuideListings": 113,
+    "completedGuides": 63,
+    "missingCompleteGuideListings": 112,
     "legacyLakeAndParkDestinations": 36
   },
   "standards": {
@@ -2777,17 +2777,17 @@
     },
     {
       "tpwdEntry": "Nasworthy",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "lake-nasworthy",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/nasworthy/",
+      "namedFacilities": "11 independent TPWD-listed accesses; Knickerbocker ramp CLOSED per 2026 official city notice, others verify current build sequence",
+      "campgrounds": "City allows permitted designated sites ONLY at Middle Concho and Spring Creek parks",
+      "primaryHistory": "TWDB 1929 start, March 28 1930 impoundment, June 1930 dam complete, 1950 city acquisition; later datum changes reconciled",
+      "localPhoto": "Wikimedia Commons exact Lake Nasworthy at Sunset image 1177x1571 Jonathan Cutrer CC BY 2.0, verified Commons API, not first-party",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Tom Green County generated link",
+      "destinationReciprocalLinks": "San Angelo city guide and reciprocal Brownwood/Colorado City lake guides; same-day park operators not certified",
+      "competitivePrimarySourceComparison": "TPWD legacy year-round access versus city's live Knickerbocker closure/2026 project reconciled; full benchmark not certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -2796,7 +2796,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "11 named ramps / bank areas; city $10/day camping indicative only, not live fixed tariff. San Angelo city currently lists Knickerbocker Park closed during staggered 2026 reconstruction. Original on-site documentation outstanding."
     },
     {
       "tpwdEntry": "Navarro Mills",
