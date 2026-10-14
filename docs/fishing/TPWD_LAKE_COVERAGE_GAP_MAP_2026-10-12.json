@@ -2,8 +2,8 @@
   "date": "2026-10-13",
   "officialDirectory": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
   "officialEntries": 175,
-  "completedGuideMatches": 59,
-  "gaps": 116,
+  "completedGuideMatches": 61,
+  "gaps": 114,
   "listing": [
     {
       "letter": "A",
@@ -50,8 +50,8 @@
     {
       "letter": "A",
       "tpwdListingName": "Arlington",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "lake-arlington",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -309,8 +309,8 @@
     {
       "letter": "C",
       "tpwdListingName": "Cleburne State Park",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "cedar-lake-cleburne-state-park",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -1260,6 +1260,7 @@
     "Georgetown and Benbrook full TPWD/TWDB-sourced guides prepared in new expansion branch, not yet merged or production-certified",
     "Two source-reviewed Granger/Aquilla entries prepared in follow-up expansion PR; live status requires CI, merge and deployment",
     "White Rock Lake Dallas: source-backed City of Dallas boating ordinance, five TPWD-listed ramps, no camping, TWDB history, real lake photo CC0; pending release",
-    "Bardwell and Bastrop guides researched and prepared in a stacked unmerged development branch on October 13; count is for proposed registry, not verified public production."
+    "Bardwell and Bastrop guides researched and prepared in a stacked unmerged development branch on October 13; count is for proposed registry, not verified public production.",
+    "Arlington and Cleburne State Park Cedar Lake complete definitions prepared in wave-4 unmerged code; not production acceptance and original first-party photos still absent."
   ]
 }

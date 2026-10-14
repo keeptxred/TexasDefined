@@ -289,6 +289,12 @@
       "name": "Lake Corpus Christi"
     }
   ],
+  "johnson": [
+    {
+      "slug": "cedar-lake-cleburne-state-park",
+      "name": "Cedar Lake at Cleburne State Park"
+    }
+  ],
   "kaufman": [
     {
       "slug": "cedar-creek-reservoir",
@@ -511,6 +517,10 @@
     {
       "slug": "joe-pool-lake",
       "name": "Joe Pool Lake"
+    },
+    {
+      "slug": "lake-arlington",
+      "name": "Lake Arlington"
     }
   ],
   "titus": [
