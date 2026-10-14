@@ -267,6 +267,20 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           else rawDestinations.push(canonicalDestination);
         }
 
+        // Keep a source-backed historical reference independent of the visit-planner
+        // availability rules. A thinner/stale remote Explore record may share this
+        // slug and would otherwise displace the curated record before quality audit,
+        // incorrectly removing an indexable history page from the Explore sitemap.
+        // This does not open the closed First Capitol site for visitor recommendations.
+        const firstCapitolReference = preservedExploreDestinations.find(
+          (destination) => destination.slug === "first-capitol-of-texas",
+        );
+        if (firstCapitolReference) {
+          const position = rawDestinations.findIndex((destination) => destination.slug === firstCapitolReference.slug);
+          if (position >= 0) rawDestinations[position] = firstCapitolReference;
+          else rawDestinations.push(firstCapitolReference);
+        }
+
         const destinations = await resolveDestinationCatalog(rawDestinations);
         // The Explore/search summaries for these authority destinations are deliberately
         // lightweight to stay within the tested client JS bundle budget. The sitemap

@@ -47,7 +47,7 @@ export const texasDogHeatSafetyArticle: Article = {
       description: "Build a weekend where the dog can realistically be part of the plan.",
     },
     {
-      href: "/state-parks",
+      href: "/explore/state-parks",
       label: "Texas state parks",
       description: "Explore Texas Defined's state-park coverage before choosing a trail or overnight stop.",
     },
@@ -150,7 +150,7 @@ export const texasStateParkDogArticle: Article = {
       description: "Choose a weekend where the dog can be part of more than the hotel reservation.",
     },
     {
-      href: "/state-parks",
+      href: "/explore/state-parks",
       label: "Texas state parks",
       description: "Compare parks and build the destination side of the trip.",
     },
