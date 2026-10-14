@@ -43,3 +43,17 @@ jobs:
       - name: Verify historical photographic subjects and closed original-site indexing
         if: ${{ hashFiles('scripts/ci/verify-historic-photo-indexability-production.mjs') != '' }}
         run: node scripts/ci/verify-historic-photo-indexability-production.mjs
+
+      - name: Verify museum production acceptance
+        # Bounded live checks; unresolved photo gaps are reported, not certified.
+        if: ${{ hashFiles('scripts/ci/verify-museum-production.mjs') != '' }}
+        run: node scripts/ci/verify-museum-production.mjs
+
+      - name: Preserve museum production acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: museum-production-acceptance-${{ github.run_id }}
+          path: .artifacts/museum-production-acceptance.json
+          if-no-files-found: ignore
+          retention-days: 30
