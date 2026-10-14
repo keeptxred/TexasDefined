@@ -414,7 +414,12 @@ async function reconcileSchoolRates(units: any[], year: number) {
   const authority = await loadTeaSchoolAuthority(year);
   if (!authority) {
     for (const school of schools) {
+      school.total_rate = null;
+      school.maintenance_operations_rate = null;
+      school.debt_service_rate = null;
       school.source_status = "cross-source-conflict";
+      school.variable_rate = false;
+      school.rate_variants = [];
       school.rate_unavailable = true;
     }
     return {
