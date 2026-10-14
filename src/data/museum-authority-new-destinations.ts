@@ -13,7 +13,7 @@ export const museumAuthorityDestinations: Destination[] = [
     slug: "the-history-center-diboll", name: "The History Center (Diboll)", summary: "The History Center in Diboll offers free visits to historic exhibits, a stationary 1920 steam locomotive, a 1948 caboose, and the region's lumber, railroad and community history.",
     category: "historic-sites", region: "piney-woods", nearestTown: "Diboll",
     county: "Angelina County", coordinates: { lat: 31.182801, lng: -94.781982 },
-    hero: { src: DESTINATION_PHOTO_PLACEHOLDER, alt: "Diboll History Center photograph not yet rights-cleared", width: 1600, height: 1067 },
+    hero: museumLicensedHeroes["the-history-center-diboll"], // Accurate 1907 archival collection image, not an exterior or Engine 13
     bestSeason: "Year-round indoor exhibits; avoid high heat for the outdoor railroad display.",
     entryNote: "Admission free. Regular visitor hours Monday–Friday 8 a.m.–5 p.m.; Saturdays by appointment with at least two weeks' notice. Free guided groups typically last 50–60 minutes and also require advance arrangements.", highlights: ["Outdoor 1920 Baldwin Engine 13 and a 1948 caboose", "Diboll: An Enduring Community exhibition", "Southern Pine Lumber logging history", "Rotating exhibitions and East Texas research resources"],
     body: ["The History Center in Diboll interprets East Texas railroad, sawmill and community history through public exhibits while separately preserving photographs, documents and oral histories for researchers. It is more than an archive, with indoor and outdoor displays designed for visitors.",

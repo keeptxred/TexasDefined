@@ -157,3 +157,9 @@ Credits and exact location photo URLs live in `src/data/museum-authority-heroes.
 
 ## The AgriCultural Museum & Arts Center, Boerne — October 13, 2026
 Exact-site antique farm-equipment photograph: [Boerne ag museum 2013.jpg](https://commons.wikimedia.org/wiki/File:Boerne_ag_museum_2013.jpg), **Larry D. Moore**, **CC BY 4.0**, 2013, 1,791 × 1,194 pixels. Site: 102 City Park Road, Boerne, Texas. Photograph predates the institution's 2018 name change. Attribution is embedded in `museum-authority-heroes.ts`; the file must not be represented as a current 2026 exhibit photograph.
+
+## The History Center, Diboll — archival collection photo, October 14, 2026
+
+- **Archival image, NOT the present-day museum building, entrance, or Engine 13:** [The Southern Pine Lumber Company sawmills near Diboll, Texas in 1907](https://commons.wikimedia.org/wiki/File:The_Southern_Pine_Lumber_Company_sawmills_near_Diboll,_Texas_in_1907.jpg). Published in *American Lumberman* in 1907; photographed by **J. D. Cress**, provided by **The History Center** to UNT's Portal to Texas History. Wikimedia Commons identifies the 1907 published image as **public domain in the United States** (published before 1931). Image dimensions: **660 × 402**.
+- **Specific editorial relevance:** depicts Diboll's historical lumber and railroad economy, directly documented in this institution's collections. ALT text and actual credit expressly identify an old archival photograph, not the present-day building, 1920 Engine 13, 1948 caboose, visitor accessibility, or current exhibits. The [museum's own outdoor railroad exhibit page](https://www.thehistorycenteronline.com/exhibits/outdoor-railroad-exhibit) shows the modern locomotive but its photos must not be copied without permission.
+- **Still incomplete:** obtain a licensed modern photograph of the exact site or Engine 13 before claiming that site photography is certified; do not replace this with a picture of an unrelated museum.
