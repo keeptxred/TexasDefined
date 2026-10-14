@@ -246,7 +246,11 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     title: "Texas Rock & Rockabilly: Artists, History & Sound",
     description: "Explore Texas rock and rockabilly through the artists, scenes, venues and sounds that helped shape the state's place in American music history.",
   },
-  "/article/uss-texas-1895-original-battleship": {
+  "/article/uss-lexington-cv16-history-visitor-guide": {
+    title: "USS Lexington CV-16: Blue Ghost, WWII & Museum",
+    description: "Discover USS Lexington CV-16's Pacific combat, Blue Ghost story, flight-deck history and the Corpus Christi museum. Original ship photos, admissions, hours, parking and access.",
+  },
+    "/article/uss-texas-1895-original-battleship": {
     title: "Original USS Texas (1895): Santiago, San Marcos & Photos",
     description: "Meet the first USS Texas: a Spanish–American War battleship, veteran of Santiago de Cuba and later target ship San Marcos. Timeline, design, original archival photographs and historical sources.",
   },

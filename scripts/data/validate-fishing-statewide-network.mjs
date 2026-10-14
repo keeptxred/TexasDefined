@@ -75,6 +75,7 @@ const expected = [
   ["medina-lake", "Medina Lake"],
   ["lake-weatherford", "Lake Weatherford"],
   ["lake-abilene", "Lake Abilene"],
+  ["lake-cypress-springs", "Lake Cypress Springs"],
 ];
 
 const fail = (message) => { throw new Error(`Statewide fishing network validation failed: ${message}`); };
@@ -90,19 +91,19 @@ const wave2 = parseTuple(files.slugs, "WAVE2_COMPLETE_FISHING_LAKE_SLUGS");
 const statewide = parseTuple(files.slugs, "STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS");
 if (base.length !== 10) fail(`expected 10 legacy complete lakes, found ${base.length}`);
 if (wave2.length !== 5) fail(`expected 5 wave-2 complete lakes, found ${wave2.length}`);
-if (statewide.length !== 53) fail(`expected 53 statewide-network lakes, found ${statewide.length}`);
+if (statewide.length !== 54) fail(`expected 54 statewide-network lakes, found ${statewide.length}`);
 const complete = [...base, ...wave2, ...statewide];
-if (new Set(complete).size !== 68) fail(`expected 68 unique complete lakes, found ${new Set(complete).size}`);
+if (new Set(complete).size !== 69) fail(`expected 69 unique complete lakes, found ${new Set(complete).size}`);
 
 const expectedSlugs = expected.map(([slug]) => slug);
 const lcraLiveExpectedSlugs = new Set(["fayette-county-reservoir"]);
 const officialFallbackSlugs = new Set(["calaveras-lake", "lake-casa-blanca", "white-rock-lake", "lake-bastrop", "cedar-lake-cleburne-state-park", "fort-parker-state-park-lake"]);
 const twdbLiveExpectedSlugs = expectedSlugs.filter((slug) => !lcraLiveExpectedSlugs.has(slug) && !officialFallbackSlugs.has(slug));
 const liveExpectedSlugs = expectedSlugs.filter((slug) => !officialFallbackSlugs.has(slug));
-if (JSON.stringify(statewide) !== JSON.stringify(expectedSlugs)) fail("statewide slug registry drifted from the authoritative 53-lake release order");
+if (JSON.stringify(statewide) !== JSON.stringify(expectedSlugs)) fail("statewide slug registry drifted from the authoritative 54-lake release order");
 
 const topLevel = [...files.network.matchAll(/^    slug: "([^"]+)", name: "([^"]+)"/gm)].map((match) => ({ slug: match[1], name: match[2], index: match.index }));
-if (topLevel.length !== 53) fail(`expected 53 top-level lake definitions, found ${topLevel.length}`);
+if (topLevel.length !== 54) fail(`expected 54 top-level lake definitions, found ${topLevel.length}`);
 if (new Set(topLevel.map((row) => row.slug)).size !== topLevel.length) fail("duplicate statewide lake slug");
 if (new Set(topLevel.map((row) => row.name)).size !== topLevel.length) fail("duplicate statewide lake name");
 for (const [slug, name] of expected) {
@@ -310,8 +311,8 @@ const sectionMatch = files.routing.match(/SHOWCASE_LAKE_SECTION_SLUGS\s*=\s*\[([
 const sectionCount = sectionMatch ? [...sectionMatch[1].matchAll(/"([a-z0-9-]+)"/g)].length : 0;
 if (sectionCount !== 8) fail(`expected 8 lake intent sections, found ${sectionCount}`);
 const newEntryUrls = statewide.length * (1 + sectionCount);
-if (newEntryUrls !== 477) fail(`expected 477 statewide-network overview/intent URLs across the 53 statewide lake guides, found ${newEntryUrls}`);
+if (newEntryUrls !== 486) fail(`expected 486 statewide-network overview/intent URLs across the 54 statewide lake guides, found ${newEntryUrls}`);
 
 if (files.network.includes('from "@/data/types";\\nimport')) fail("literal escaped newline remains in statewide import block");
 
-console.log(`Statewide fishing network validation passed: 15 existing + 53 statewide-network lakes = 68 complete lake guides; ${newEntryUrls} statewide-network overview/intent URLs; source-backed identity, species/technique relationships, canonical routing, sitemap discovery, related-lake/county links, report freshness language, 46 TWDB live-water mappings, one resilient LCRA Hydromet live mapping, three explicit official-agency fallbacks, current-condition honesty and duplicate-route safeguards are protected.`);
+console.log(`Statewide fishing network validation passed: 15 existing + 54 statewide-network lakes = 69 complete lake guides; ${newEntryUrls} statewide-network overview/intent URLs; source-backed identity, species/technique relationships, canonical routing, sitemap discovery, related-lake/county links, report freshness language, 47 TWDB live-water mappings, one resilient LCRA Hydromet live mapping, three explicit official-agency fallbacks, current-condition honesty and duplicate-route safeguards are protected.`);
