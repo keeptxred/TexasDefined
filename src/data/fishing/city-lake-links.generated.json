@@ -711,6 +711,12 @@
       "name": "Lake Bob Sandlin"
     }
   ],
+  "mount-vernon": [
+    {
+      "slug": "lake-cypress-springs",
+      "name": "Lake Cypress Springs"
+    }
+  ],
   "nacogdoches": [
     {
       "slug": "lake-nacogdoches",
@@ -751,6 +757,10 @@
     {
       "slug": "lake-bob-sandlin",
       "name": "Lake Bob Sandlin"
+    },
+    {
+      "slug": "lake-cypress-springs",
+      "name": "Lake Cypress Springs"
     }
   ],
   "post": [
@@ -1067,6 +1077,12 @@
     {
       "slug": "lake-tawakoni",
       "name": "Lake Tawakoni"
+    }
+  ],
+  "winnsboro": [
+    {
+      "slug": "lake-cypress-springs",
+      "name": "Lake Cypress Springs"
     }
   ],
   "woodway": [
