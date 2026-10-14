@@ -69,16 +69,16 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "description": "Goose Creek Memorial Patriots football: 2026 results and schedule, school-specific history, UIL district, visitor information, source-checked facts and county links."
     },
     "schedule": {
-      "label": "Goose Creek CISD first-party school/athletics resources",
-      "sourceUrl": "https://schools.gccisd.net/page/gcmhs.staffdirectory",
-      "sourceLabel": "School or district athletics source",
+      "label": "Goose Creek Memorial official campus athletics; consult linked varsity scoreboard for dated 2026 results",
+      "sourceUrl": "https://gcm.gccisd.net/athletics",
+      "sourceLabel": "Goose Creek CISD current official campus athletics page (not a live verified 2026 final scoreboard)",
       "verifiedAt": "2026-10-10"
     },
     "development": {
       "title": "Patriots founded in 2008 and their 2025 playoff season",
       "body": "Goose Creek Memorial's own archival school profile identifies its 2008 founding as GCCISD's third comprehensive campus. The Patriots finished 7–4 in 2025, including a 28–20 opening playoff loss to Clear Springs. The 2026–28 UIL alignment places this team in 5A Division I District 9. Its current campus staff roster identifies JayMond Cleveland as campus athletics coordinator, not automatically as the head football coach. Its 2025 results must never be presented as 2026 finals.",
-      "sourceUrl": "https://schools.gccisd.net/upload/page/0936/docs/2022-2023/GCM%20School%20Profile%2022-23_update1017.pdf",
-      "sourceLabel": "GCCISD first-party campus profile",
+      "sourceUrl": "https://gcm.gccisd.net/about-us-mission-vision",
+      "sourceLabel": "Current official Goose Creek Memorial school About Us page; confirms opening for 2008–09",
       "verifiedAt": "2026-10-10"
     },
     "milestones": [
@@ -86,8 +86,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "date": "2008",
         "title": "Goose Creek Memorial High School founded",
         "body": "The district's own school profile identifies GCM as its third comprehensive high-school campus, opened in 2008.",
-        "sourceUrl": "https://schools.gccisd.net/upload/page/0936/docs/2022-2023/GCM%20School%20Profile%2022-23_update1017.pdf",
-        "sourceLabel": "Official GCCISD school-history profile"
+        "sourceUrl": "https://gcm.gccisd.net/about-us-mission-vision",
+        "sourceLabel": "Goose Creek Memorial ISD first-party current campus history"
       },
       {
         "date": "2025",
@@ -142,7 +142,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "campus": {
       "address": "6001 E Wallisville Rd, Baytown, TX 77521",
       "phone": "281-421-4400",
-      "sourceUrl": "https://schools.gccisd.net/page/gcmhs.home/",
+      "sourceUrl": "https://gcm.gccisd.net/about-us-mission-vision",
       "sourceLabel": "Goose Creek CISD official campus",
       "verifiedAt": "2026-10-10"
     },
@@ -233,9 +233,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "description": "Baytown Lee Ganders football: 2026 results and schedule, school-specific history, UIL district, visitor information, source-checked facts and county links."
     },
     "schedule": {
-      "label": "Goose Creek CISD first-party school/athletics resources",
-      "sourceUrl": "https://schools.gccisd.net/page/relhs.studentlife",
-      "sourceLabel": "School or district athletics source",
+      "label": "Robert E. Lee official campus athletics; consult linked varsity scoreboard for dated 2026 results",
+      "sourceUrl": "https://rel.gccisd.net/athletics",
+      "sourceLabel": "Goose Creek CISD current official campus athletics page (not a live verified 2026 final scoreboard)",
       "verifiedAt": "2026-10-10"
     },
     "development": {
@@ -306,7 +306,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "campus": {
       "address": "1809 Market Street, Baytown, TX 77520",
       "phone": "281-420-4535",
-      "sourceUrl": "https://schools.gccisd.net/page/relhs.sl.athletics",
+      "sourceUrl": "https://rel.gccisd.net/athletics",
       "sourceLabel": "Goose Creek CISD official campus",
       "verifiedAt": "2026-10-10"
     },
@@ -396,9 +396,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "description": "Baytown Sterling Rangers football: 2026 results and schedule, school-specific history, UIL district, visitor information, source-checked facts and county links."
     },
     "schedule": {
-      "label": "Goose Creek CISD first-party school/athletics resources",
-      "sourceUrl": "https://schools.gccisd.net/page/rsshs.aboutus",
-      "sourceLabel": "School or district athletics source",
+      "label": "Ross S. Sterling official campus athletics; consult linked varsity scoreboard for dated 2026 results",
+      "sourceUrl": "https://rss.gccisd.net/athletics",
+      "sourceLabel": "Goose Creek CISD current official campus athletics page (not a live verified 2026 final scoreboard)",
       "verifiedAt": "2026-10-10"
     },
     "development": {
@@ -420,7 +420,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "date": "School tradition",
         "title": "The Rangers' Spirit of Sterling",
         "body": "The school publishes its own 'Spirit of Sterling' school song and silver/blue standards, providing a real source for the fan identity without using copyrighted school artwork.",
-        "sourceUrl": "https://schools.gccisd.net/page/rsshs.aboutus",
+        "sourceUrl": "https://rss.gccisd.net/about-us",
         "sourceLabel": "Official Ross S. Sterling about and school-song page"
       },
       {
@@ -469,7 +469,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "campus": {
       "address": "300 W Baker Road, Baytown, TX 77521",
       "phone": "281-420-4500",
-      "sourceUrl": "https://schools.gccisd.net/page/rsshs.home",
+      "sourceUrl": "https://rss.gccisd.net/",
       "sourceLabel": "Goose Creek CISD official campus",
       "verifiedAt": "2026-10-10"
     },

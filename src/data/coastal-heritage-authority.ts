@@ -331,3 +331,9 @@ export function enrichCoastalHeritageAuthority(destination: Destination): Destin
     ...(notes?.length ? { sourceCheckedAt: reviewed } : {})
   };
 }
+
+/** Hydrate the full independent guide or add researched reciprocal side trips only on a destination detail route. */
+export function resolveCoastalHeritageAuthority(destination: Destination): Destination {
+  const canonical = coastalHeritageAuthorityDestinations.find((entry) => entry.slug === destination.slug);
+  return enrichCoastalHeritageAuthority(canonical ?? destination);
+}

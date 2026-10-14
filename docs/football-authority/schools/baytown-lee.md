@@ -32,3 +32,9 @@ Protected gate, branch merge, deployed production and real mobile/desktop Chrome
 - **Research snapshot:** 0–6 through 2026-10-02; 10 date/opponent/home-away/district entries with only actually reported scores. Public [2026 varsity source](https://www.maxpreps.com/tx/baytown/lee-ganders/football/schedule/), independently sourced rather than represented as a first-party ISD schedule.
 - **Source discrepancy handling:** MaxPreps October 7 scoreboard stops after October 2 and shows four remaining matchups; first-party Goose Creek CISD links are intermittently blocked from Supabase monitoring by TLS failures.
 - **Acceptance boundary:** the October 13 structured game data and two new school-specific season FAQs are committed on a release branch. Protected CI, exact-SHA deployment and fresh 25-school production Chrome acceptance are still required; no unsupported current coach, game ticket, stadium or ADA guarantees are introduced.
+
+## October 13 — official campus source repair
+- Former schools.gccisd.net endpoints intermittently fail SSL connections for the Supabase source monitor. They were not falsely treated as available at this checkpoint.
+- Independently fetched current [official school information](https://rel.gccisd.net/) and [official athletics section](https://rel.gccisd.net/athletics), both HTTP 200 from the new Goose Creek CISD campus domain. The GCM school history confirms opening for grades 9–11 in 2008–09 and first graduation class in 2010.
+- Historical UIL milestones retain their independently corroborated facts. The athletics portal is a first-party navigational source; the 2026 score table stays explicitly attributed to a dated secondary scoreboard.
+- Kickoff, admissions, accessibility and tickets must be confirmed with the district for each scheduled event.
