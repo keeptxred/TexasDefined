@@ -199,7 +199,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     'officialSchoolName' | 'districtName' | 'countyName' | 'city' | 'schoolWebsite' | 'districtWebsite'>> = {
     // NCES 2025–26 verifies Big Sandy Harmony is Harmony ISD in Upshur County;
     // do not join the unrelated Big Sandy Wildcats or Dallardsville Big Sandy ISD.
-    'big-sandy-harmony': { officialSchoolName: 'Harmony High School', districtName: 'Harmony ISD', countyName: 'Upshur County', city: 'Big Sandy', schoolWebsite: 'https://www.harmonyisd.net/o/hhs', districtWebsite: 'https://www.harmonyisd.net/' },
+    'big-sandy-harmony': { officialSchoolName: 'Harmony High School', districtName: 'Harmony ISD', countyName: 'Upshur County', city: 'Big Sandy', schoolWebsite: 'https://www.harmonyisd.net/o/harmony-high-school', districtWebsite: 'https://www.harmonyisd.net/' },
     // Batch 005 first-five primary-source campus safeguards: reject ambiguous directory joins.
     'ballinger': { officialSchoolName: 'Ballinger High School', districtName: 'Ballinger ISD', countyName: 'Runnels County', city: 'Ballinger', schoolWebsite: 'https://bhs.ballingerisd.net/', districtWebsite: 'https://www.ballingerisd.net/' },
     'balmorhea': { officialSchoolName: 'Balmorhea School', districtName: 'Balmorhea ISD', countyName: 'Reeves County', city: 'Balmorhea', schoolWebsite: 'https://www.bisdbears.esc18.net/football', districtWebsite: 'https://www.bisdbears.esc18.net/' },
