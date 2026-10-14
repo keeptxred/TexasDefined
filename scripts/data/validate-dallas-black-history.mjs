@@ -14,6 +14,7 @@ const template = read("src/routes/destination.$slug.tsx");
 const panel = read("src/components/editorial/DallasBlackHistoryAuthority.tsx");
 const hub = read("src/routes/dallas-black-history.tsx");
 const hubContent = read("src/components/editorial/DallasBlackHistoryPage.tsx");
+const historicSitesGuide = read("public/content/explore-category-authority/historic-sites.html");
 const failures = [];
 
 const slugs = [
@@ -68,6 +69,8 @@ for (const section of registry.split('slug: "').slice(1)) {
   if (!section.includes("sources: [") || !section.includes("faqs: [") || !section.includes("sections: ["))
     failures.push("One heritage dossier lacks sections, FAQ, or source ledger.");
 }
+if (!historicSitesGuide.includes('href="/dallas-black-history"') || !historicSitesGuide.includes("Dallas Black History — eight heritage destinations"))
+  failures.push("Historic Sites & Museums authority directory must contextually link to the Dallas Black History collection.");
 if (failures.length) {
   console.error("Dallas Black History release contract FAILED:\n" + failures.map((e) => " - " + e).join("\n"));
   process.exit(1);
