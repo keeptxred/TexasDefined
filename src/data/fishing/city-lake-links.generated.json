@@ -211,6 +211,12 @@
       "name": "O.H. Ivie Lake"
     }
   ],
+  "colmesneil": [
+    {
+      "slug": "b-a-steinhagen-lake",
+      "name": "B. A. Steinhagen Lake"
+    }
+  ],
   "colorado-city": [
     {
       "slug": "lake-colorado-city",
@@ -500,6 +506,10 @@
     }
   ],
   "jasper": [
+    {
+      "slug": "b-a-steinhagen-lake",
+      "name": "B. A. Steinhagen Lake"
+    },
     {
       "slug": "sam-rayburn-reservoir",
       "name": "Sam Rayburn Reservoir"
@@ -1103,6 +1113,12 @@
     {
       "slug": "lake-cypress-springs",
       "name": "Lake Cypress Springs"
+    }
+  ],
+  "woodville": [
+    {
+      "slug": "b-a-steinhagen-lake",
+      "name": "B. A. Steinhagen Lake"
     }
   ],
   "woodway": [
