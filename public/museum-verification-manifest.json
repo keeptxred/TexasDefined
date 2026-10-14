@@ -1428,8 +1428,18 @@
       "path": "/destination/texas-maritime-museum-rockport",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
-      "faqCount": 6,
+      "faqCount": 8,
       "sources": [
+        {
+          "sourceUrl": "https://texasmaritimemuseum.org/event/built-for-victory/",
+          "fetchUrl": "https://texasmaritimemuseum.org/event/built-for-victory/",
+          "label": "Texas Maritime Museum — 2026 Built for Victory exhibit schedule and source"
+        },
+        {
+          "sourceUrl": "https://texasmaritimemuseum.org/event/tides-of-freedom/",
+          "fetchUrl": "https://texasmaritimemuseum.org/event/tides-of-freedom/",
+          "label": "Texas Maritime Museum — 2026 Tides of Freedom exhibit schedule and source"
+        },
         {
           "sourceUrl": "https://texasmaritimemuseum.org/",
           "fetchUrl": "https://texasmaritimemuseum.org/",
