@@ -44,7 +44,7 @@ const landmarks = [
 ];
 export const Route = createFileRoute("/dallas-black-history")({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { title, description, canonicalPath }),
+    meta: buildMeta(texasDefinedBrand, { title: title, description, canonicalPath }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [{ type: "application/ld+json", children: JSON.stringify({
       "@context": "https://schema.org",
