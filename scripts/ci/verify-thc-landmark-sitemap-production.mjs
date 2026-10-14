@@ -32,7 +32,7 @@ try {
   if(/name="robots"[^>]*noindex/i.test(html))errors.push("Holland Hotel noindex");
   if(!html.includes("Alpine%20-%20Holland%20Hotel.jpg") && !html.includes("Alpine%20-%20Holland%20Hotel.jpg".replaceAll("%20","_")) && !html.includes("Alpine - Holland Hotel.jpg")) errors.push("Hotel's exact P. Hughes photo not present in rendered HTML");
   if(/(?:og:image|twitter:image)[^>]*(?:destination-placeholder|texasdefined-placeholder)/i.test(html)) errors.push("Hotel image metadata points to placeholder");
-  const ogImage=html.match(/<meta\\s+property="og:image"\\s+content="([^"]+)"/i)?.[1];
+  const ogImage=html.match(/<meta\s+property="og:image"\s+content="([^"]+)"/i)?.[1];
   if (!ogImage) errors.push("Holland Hotel missing preferred image URL");
   else {
     const photoResponse=await fetch(ogImage,{headers:{"range":"bytes=0-1023","user-agent":"TexasDefined-THC-ProductionVerifier/1.0"},signal:AbortSignal.timeout(25000)});
