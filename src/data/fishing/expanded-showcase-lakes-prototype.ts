@@ -98,7 +98,8 @@ const canyon: ShowcaseLakePrototype = {
   nearby: [
     { label: "Comal County", description: "Canyon Lake sits entirely in Comal County northwest of New Braunfels.", href: "/county/comal", external: false },
     { label: "Guadalupe River State Park", description: "A nearby public-land complement to a Canyon Lake trip.", href: "/destination/guadalupe-river-state-park", external: false },
-    { label: "New Braunfels", description: "The lake lies northwest of New Braunfels and the Guadalupe recreation corridor.", href: "/city/new-braunfels", external: false }
+    { label: "New Braunfels", description: "The lake lies northwest of New Braunfels and the Guadalupe recreation corridor.", href: "/city/new-braunfels", external: false },
+    { label: "Medina Lake", description: "A separate Hill Country river reservoir with drought-sensitive ramps and TWDB level information; compare operator access rules before traveling.", href: "/fishing/lakes/medina-lake", external: false }
   ],
   businessCategories: commonBusinessCategories,
   reportSnapshot: { checkedAt: "2026-10-05", summary: "Schooling locations, lake level and summer conditions move too quickly for evergreen copy. Use a dated report for the current bite." },
