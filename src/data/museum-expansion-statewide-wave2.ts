@@ -238,7 +238,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     hero: museumPlaceholder("Texas Maritime Museum"),
     bestSeason: "Year-round museum; fall through spring is ideal for pairing it with Rockport's waterfront and other outdoor coastal stops.",
     entryNote: "The operator lists Tuesday–Saturday, 10 a.m.–4 p.m., with pay-what-you-can, donation-based admission. Phone 361-729-1271 for holiday and special-event changes. Two documented 2026 exhibits are scheduled through December 31; check the operator site before travel.",
-    highlights: ["Texas maritime history", "Shipbuilding and shipwrecks", "2026 wooden shipbuilding and Spanish Revolution exhibitions", "Fishing and offshore industry", "Rockport waterfront"],
+    highlights: ["Texas maritime history", "Shipbuilding and shipwrecks", "2026 wooden shipbuilding and Spain’s American Revolution role", "Fishing and offshore industry", "Rockport waterfront"],
     body: [
       "Texas Maritime Museum broadens the idea of Texas history beyond cattle trails and battlefields by focusing on the Gulf. Shipbuilding, fishing, offshore industry, navigation and maritime trade all shaped coastal communities long before modern beach tourism became the dominant visitor image.",
       "The museum's exhibits also connect human history with the water itself. Shipwrecks, Indigenous coastal lifeways and working-waterfront industries show how bays and the Gulf functioned as transportation routes, food sources, workplaces and hazards across different periods.",
