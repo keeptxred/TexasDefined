@@ -1,6 +1,7 @@
 import { animalSanctuaryDestinations } from "./animal-sanctuary-destinations";
 import { coastalHeritageDiscoveryDestinations } from "./coastal-heritage-discovery";
 import { museumAuthorityDestinations } from "./museum-authority-new-destinations";
+import { dallasBlackHistoryDestinations } from "./dallas-black-history-destinations";
 import { enrichMuseumMedia } from "./museum-authority-heroes";
 import { enrichSanAntonioHeritageAuthority } from "./san-antonio-heritage-enrichment";
 import { aquariumMarineDestinations } from "./aquarium-marine-destinations";
@@ -233,6 +234,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   animalSanctuaryDestinations,
   aquariumMarineDestinations,
   museumAuthorityDestinations,
+  dallasBlackHistoryDestinations,
   topAttractionDestinations,
   topAttractionExpansionDestinations,
   coastalDestinations,
