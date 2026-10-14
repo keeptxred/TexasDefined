@@ -146,6 +146,7 @@ if (!aliasBlock) {
     'goliad-state-park': 'goliad-state-park-and-historic-site',
     'san-jacinto-battleground': 'san-jacinto-battleground-state-historic-site',
     'washington-on-the-brazos': 'washington-on-the-brazos-state-historic-site',
+    'lyndon-b-johnson-state-park-historic-site': 'lyndon-b-johnson-state-park-and-historic-site',
   };
   const nonPrimaryBlock = availability.split('const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([')[1]?.split(']);')[0] ?? '';
   for (const [primary, curationKey] of Object.entries(primaryHistoricLookups)) {
@@ -168,7 +169,7 @@ if (!aliasBlock) {
 
 for (const marker of [
   'import { preservedExploreDestinations } from "./destination-preserved-catalog"',
-  'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))',
+  'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved.map(correctDestinationTravelRegion)))',
   'reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))',
   'reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))',
 ]) {
