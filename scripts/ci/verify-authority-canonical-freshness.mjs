@@ -50,8 +50,10 @@ const pages = [
       'How It Works',
       'Six-man at a glance',
       'How the exchange rule works',
+      'six-man-field-title',
+      '100 yards including end zones',
     ],
-    forbidden: [],
+    forbidden: ['80 yards × 40 yards · midfield at the 40'],
   },
   {
     label: 'Mountain biking',
