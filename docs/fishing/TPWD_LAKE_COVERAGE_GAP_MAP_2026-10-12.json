@@ -2,8 +2,8 @@
   "date": "2026-10-13",
   "officialDirectory": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
   "officialEntries": 175,
-  "completedGuideMatches": 61,
-  "gaps": 114,
+  "completedGuideMatches": 62,
+  "gaps": 113,
   "listing": [
     {
       "letter": "A",
@@ -1219,8 +1219,8 @@
     {
       "letter": "W",
       "tpwdListingName": "Worth",
-      "texasDefinedGuideSlug": null,
-      "coverage": "gap",
+      "texasDefinedGuideSlug": "lake-worth",
+      "coverage": "complete-fishing-guide",
       "officialListSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml"
     },
     {
@@ -1238,7 +1238,6 @@
     "Tyler",
     "White Rock",
     "Lady Bird",
-    "Worth",
     "Medina",
     "Nasworthy",
     "O.C. Fisher",
@@ -1261,6 +1260,7 @@
     "Two source-reviewed Granger/Aquilla entries prepared in follow-up expansion PR; live status requires CI, merge and deployment",
     "White Rock Lake Dallas: source-backed City of Dallas boating ordinance, five TPWD-listed ramps, no camping, TWDB history, real lake photo CC0; pending release",
     "Bardwell and Bastrop guides researched and prepared in a stacked unmerged development branch on October 13; count is for proposed registry, not verified public production.",
-    "Arlington and Cleburne State Park Cedar Lake complete definitions prepared in wave-4 unmerged code; not production acceptance and original first-party photos still absent."
+    "Arlington and Cleburne State Park Cedar Lake complete definitions prepared in wave-4 unmerged code; not production acceptance and original first-party photos still absent.",
+    "October 13: Lake Worth promoted from an unresearched gap to a source-backed 62nd complete-guide definition with DSHS consumption reconciliation, four named access facilities and CC BY-SA actual-location photography; not a claim of operator same-day or original field-photo certification."
   ]
 }
