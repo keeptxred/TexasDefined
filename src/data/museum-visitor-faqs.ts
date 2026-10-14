@@ -14,6 +14,165 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "corpus-christi-museum-science-history": [
+    {
+      "question": "How much is admission to the Corpus Christi Museum of Science and History?",
+      "answer": "The current operator page lists adults at $15, ages 3–12 at $11, ages 2 and younger free, and separate senior, teacher and military categories before tax. Reduced Museums for All admission requires eligible SNAP benefits and identification. Check the official page for current prices.",
+      "verificationUrl": "https://www.ccmuseum.com/visit/",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://www.tripadvisor.com/FAQ_Answers-g60927-d199035-t538500-How_much_is_it_for_adults_and_children.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I park at the museum?",
+      "answer": "The museum states free parking is available on North Chaparral Street directly in front of the entrance and across the street in an adjacent lot. Access and capacity should be confirmed if attending a large event.",
+      "verificationUrl": "https://www.ccmuseum.com/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ccmuseum.com/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Where can I see the La Belle ship itself?",
+      "answer": "The conserved La Belle hull is displayed at the Bullock Texas State History Museum in Austin. Corpus Christi is an original La Salle Odyssey museum with related interpretation and other shipwreck material; the hull is not here.",
+      "verificationUrl": "https://thc.texas.gov/learn/archeological-spotlight/la-salle-archeology-projects",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ccmuseum.com/museum-exhibits/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the museum good for children or school groups?",
+      "answer": "The museum provides science and history displays plus family education programs. School and larger group visits require advance arrangements; the operator requests a phone call for groups of ten or more. Select exhibits appropriate to a child's interest rather than assuming every gallery is hands-on.",
+      "verificationUrl": "https://www.ccmuseum.com/education-programs/",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://www.tripadvisor.com/Attraction_Review-g60927-d199035-Reviews-Corpus_Christi_Museum_of_Science_and_History-Corpus_Christi_Texas.html",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does the museum have wheelchair rentals or an accessible route?",
+      "answer": "The public visit page does not confirm wheelchair rentals or every accessible route. Contact the museum's visitor services at 361-826-4667 to verify current wheelchair availability, elevators, step-free routes and other accommodations before arrival.",
+      "verificationUrl": "https://www.ccmuseum.com/visit/",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://www.tripadvisor.com/FAQ_Answers-g60927-d199035-t538500-How_much_is_it_for_adults_and_children.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I eat lunch inside the museum?",
+      "answer": "A public visitor Q&A raises the question, but the current official visit page does not establish a specific on-site café or picnic policy. Ask visitor services directly and plan for nearby dining rather than promising food service.",
+      "verificationUrl": "https://www.ccmuseum.com/visit/",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://www.tripadvisor.com/Attraction_Review-g60927-d199035-Reviews-Corpus_Christi_Museum_of_Science_and_History-Corpus_Christi_Texas.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    }
+  ],
+  "port-isabel-historical-museum": [
+    {
+      "question": "Is the Port Isabel Historical Museum open every day?",
+      "answer": "The museum's own website directs visitors to telephone 956-943-7602 for current hours. Do not rely solely on older visitor-directory schedules; confirm the date and any special closures before leaving.",
+      "verificationUrl": "https://portisabelhistory.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://portisabelhistory.com/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What is special about the Champion Building?",
+      "answer": "Built in 1899, the building preserves the history of Port Isabel commerce and has a large fish mural painted in 1906. View the exterior as part of the museum visit.",
+      "verificationUrl": "https://portisabelhistory.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://portisabelhistory.com/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is there an elevator to reach the second floor?",
+      "answer": "A past independent visitor reported an elevator, but the museum's current official page does not confirm it is operational. Call ahead to confirm an accessible second-floor route and accessible restrooms before a mobility-dependent visit.",
+      "verificationUrl": "https://portisabelhistory.com/",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "How much does the Port Isabel Historical Museum cost?",
+      "answer": "The museum operator currently lists $5 adults, $4 seniors, $3 students/children, and $2.50 for military and first responders, with separate group-tour arrangements. Confirm today's charges and payment methods by telephone.",
+      "verificationUrl": "https://portisabelhistory.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://portisabelhistory.com/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What else should I see near the museum?",
+      "answer": "The nearby Port Isabel Lighthouse complements the museum's regional maritime and trade history, while South Padre Island provides a very different barrier-island nature and beach experience across the causeway.",
+      "verificationUrl": "https://portisabelhistory.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://portisabelhistory.com/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    }
+  ],
+  "historic-brownsville-museum": [
+    {
+      "question": "Does Historic Brownsville Museum admission include the locomotive gallery?",
+      "answer": "Yes. The Brownsville Historical Association states that ordinary museum admission includes the Simón Celaya Railroad Gallery and the Mary A. Yturria Education Center where exhibitions or programming are available. Verify special access arrangements before departure.",
+      "verificationUrl": "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "When is the Historic Brownsville Museum open and how much does it cost?",
+      "answer": "The operator's current page lists Tuesday through Saturday, 10 a.m. to 4 p.m., with closure Sunday and Monday. Listed admission is $6 adults, $4 seniors, $2 students and free for children under six, military personnel, eligible Brownsville school groups and members. Recheck the operator for changes.",
+      "verificationUrl": "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is Historic Brownsville Museum interesting for children?",
+      "answer": "The Simon Celaya Railroad Gallery now includes interactive activities and the 1872 locomotive, with displays introducing how steam engines work. Other local-history and art exhibits are more interpretive, so choose a shorter family visit if needed.",
+      "verificationUrl": "https://brownsvillehistory.org/simon-celaya-railroad-gallery-brownsville-historical-association.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://brownsvillehistory.org/simon-celaya-railroad-gallery-brownsville-historical-association.html",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the railroad locomotive from the depot's opening?",
+      "answer": "No. The museum occupies a Southern Pacific depot constructed in 1928, while the displayed Rio Grande Railroad locomotive dates to 1872. Comparing the two illustrates different eras of Brownsville transportation.",
+      "verificationUrl": "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://brownsvillehistory.org/simon-celaya-railroad-gallery-brownsville-historical-association.html",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I book a guided tour of the Historic Brownsville Museum?",
+      "answer": "Yes, the Brownsville Historical Association advertises prearranged museum tours, usually around an hour, with separate pricing and education/group scheduling. Do not assume a guided tour comes with walk-in admission.",
+      "verificationUrl": "https://www.brownsvillehistory.org/museum-tours-brownsville-historical-association.html",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://www.tripadvisor.com/Attraction_Review-g60928-d3404304-Reviews-Historic_Brownsville_Museum-Brownsville_Texas.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I eat at the museum or is it fully wheelchair accessible?",
+      "answer": "The museum's current published overview does not establish restaurant service or step-free routes through every historic building. Contact the operator about visitor facilities, accessible entrances and any arrangements required for mobility or sensory needs.",
+      "verificationUrl": "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    }
+  ],
   "johnny-nelson-katy-heritage-museum": [
     {
       "question": "Is admission to the Johnny Nelson Katy Heritage Museum free?",

@@ -1091,6 +1091,65 @@
         "https://atlas.thc.texas.gov/Details/4200001108",
         "https://www.katyheritagesociety.com/"
       ]
+    },
+    "corpus-christi-museum-science-history": {
+      "name": "Corpus Christi Museum of Science and History",
+      "operatorStrengths": [
+        "Detailed age-tier and Museums for All admission, parking location and seasonal hours",
+        "Multiple exhibit areas and group/school education access"
+      ],
+      "openGaps": [
+        "Verify actual mobility/sensory facilities and on-site dining directly with guest services",
+        "Complete photo rendering and responsive public-page QA"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.ccmuseum.com/visit/",
+        "https://www.ccmuseum.com/museum-exhibits/",
+        "https://www.ccmuseum.com/education-programs/"
+      ]
+    },
+    "port-isabel-historical-museum": {
+      "name": "Port Isabel Historical Museum",
+      "operatorStrengths": [
+        "Current operator's Champion Building, 1906 fish mural and admission categories",
+        "Explicit instruction to call for current opening hours"
+      ],
+      "openGaps": [
+        "Confirm elevator and accessible facilities with museum operator; one older visitor review is not proof",
+        "Obtain licensed exact-location museum photograph and perform production rendering QA"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://portisabelhistory.com/",
+        "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html"
+      ]
+    },
+    "historic-brownsville-museum": {
+      "name": "Historic Brownsville Museum",
+      "operatorStrengths": [
+        "Detailed historic depot, 1872 locomotive and interactive gallery documentation",
+        "Current museum operator admission, hours and guided group tour information"
+      ],
+      "openGaps": [
+        "Confirm access across separate buildings and on-site food policy",
+        "Obtain rights-cleared exact-site hero and verify gallery additions live"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
+        "https://brownsvillehistory.org/simon-celaya-railroad-gallery-brownsville-historical-association.html",
+        "https://www.brownsvillehistory.org/museum-tours-brownsville-historical-association.html"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
