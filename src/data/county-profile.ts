@@ -59,6 +59,15 @@ const VERIFIED_COUNTY_COMMUNITIES: Record<string, string[]> = {
   'van-zandt': ['Canton', 'Wills Point', 'Grand Saline', 'Van', 'Edgewood', 'Fruitvale', 'Ben Wheeler', 'Martins Mill', 'Edom'],
 };
 
+// Same authoritative county-seat register as fetchCountySeats(), retained so a
+// temporary State Library HTTP outage cannot strip verified civic geography
+// from a production SSR page. Add only individually source-confirmed entries.
+// Tarrant: https://www.tsl.texas.gov/ref/abouttx/countyseats.html
+// Cross-check: https://www.tarrantcountytx.gov/content/main/en/county/about-tarrant.html
+const VERIFIED_COUNTY_SEAT_FALLBACKS: Record<string, string> = {
+  tarrant: 'Fort Worth',
+};
+
 const VERIFIED_2025_CENSUS_ESTIMATES: Record<string, number> = {
   'van-zandt': 66130, // Census QuickFacts, Vintage 2025, July 1 estimate.
 };
@@ -97,7 +106,7 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
     countyCensusFactsPromise,
   ]);
 
-  const countySeatName = seatsResult.status === 'fulfilled' ? seatsResult.value.get(normalizeCountyKey(baseName)) : undefined;
+  const countySeatName = (seatsResult.status === 'fulfilled' ? seatsResult.value.get(normalizeCountyKey(baseName)) : undefined) ?? VERIFIED_COUNTY_SEAT_FALLBACKS[slug];
   const countySeatPlace = countySeatName ? toCountySeatPlace(countySeatName) : undefined;
   const countySeat = countySeatPlace?.displayName;
   const censusFacts = censusFactsResult.status === 'fulfilled' && countyCode ? censusFactsResult.value.get(countyCode) ?? {} : {};
