@@ -3,7 +3,10 @@
 // Registry enrollment is still distinct from editorial factual verification.
 import fs from 'node:fs';
 const docs = JSON.parse(fs.readFileSync('docs/fishing/TPWD_LAKE_COVERAGE_GAP_MAP_2026-10-12.json','utf8'));
-const manifest = fs.readFileSync('supabase/migrations/20261013005600_enroll_tpwd_lake_authority_sources.sql','utf8');
+const manifest = [
+  'supabase/migrations/20261013005600_enroll_tpwd_lake_authority_sources.sql',
+  'supabase/migrations/20261014040000_extend_tpwd_lake_authority_sources_wave5.sql',
+].map(path=>fs.readFileSync(path,'utf8')).join('\n');
 const entries=[...manifest.matchAll(/\('\/fishing\/lakes\/([a-z0-9-]+)',\s*'(https:\/\/tpwd\.texas\.gov\/fishboat\/fish\/recreational\/lakes\/[a-z0-9_/.-]+)'\)/g)];
 const matched=docs.listing.filter(row=>row.coverage==='complete-fishing-guide').map(row=>row.texasDefinedGuideSlug);
 const paths=new Map(entries.map((match)=>[match[1],match[2]]));
