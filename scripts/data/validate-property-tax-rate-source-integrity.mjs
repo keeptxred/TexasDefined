@@ -83,6 +83,9 @@ if (unresolvedIndex < 0 || deleteIndex < 0 || unresolvedIndex > deleteIndex) {
   failures.push('unresolved 2025 school-rate conflicts must be checked before replacing production rows');
 }
 
+if (!importer.includes("PY1_MO_RATE_ADOPT") || !importer.includes("I_S_RATE") || !importer.includes("TEA_SOF_SHEET")) failures.push('school importer must join official TEA adopted M&O and I&S records');
+if (!importer.includes("reconcileSchoolRatesWithTea(normalized,year)")) failures.push('school importer must reconcile every adopted rate before destructive write');
+if (!importer.includes('scope")==="school-district"')) failures.push('school-only production refresh must be independently scoped');
 if (!importer.includes('school-district: expected 1013 districts in finalized 2025 file')) failures.push('finalized 2025 school imports must require 1,013 rows');
 if (!importer.includes('school-district: M&O/I&S sum differs from total')) failures.push('all school rates must validate M&O plus I&S against total');
 if (preflightIndex < 0 || deleteIndex < 0 || preflightIndex > deleteIndex) failures.push('statewide structural preflight must run before destructive replacement');
