@@ -1,3 +1,4 @@
+import { LEGACY_EDITORIAL_REDIRECTS } from "@/lib/legacy-editorial-redirects";
 import { DESTINATION_LAKE_GUIDE_LINKS } from "@/data/fishing/destination-lake-crosslinks";
 import { lazy, Suspense } from "react";
 import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
@@ -133,7 +134,9 @@ const HISTORIC_DUPLICATE_SLUGS: Record<string, string> = {
 };
 
 export const Route = createFileRoute("/destination/$slug")({
-  beforeLoad: ({ params }) => {
+  beforeLoad: ({ params, location }) => {
+    const legacy = LEGACY_EDITORIAL_REDIRECTS[`/destination/${params.slug}`];
+    if (legacy) throw redirect({ href: `${legacy}${location.searchStr || ""}`, statusCode: 301 });
     const primary = HISTORIC_DUPLICATE_SLUGS[params.slug];
     if (primary) throw redirect({ to: "/destination/$slug", params: { slug: primary }, statusCode: 301 });
   },

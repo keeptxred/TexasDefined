@@ -326,6 +326,7 @@ export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
 ] as const;
 
 export const REDIRECT_ONLY_PATHS = [
+  "/museum/barrington-farm-site",
   "/advertising-billing",
   "/advertising-terms",
   "/texas-attorney-general",
