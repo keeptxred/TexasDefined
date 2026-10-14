@@ -28,6 +28,7 @@ import { isTopTexasAttraction } from "@/data/top-texas-attractions";
 import { museumAuthoritySlugs } from "@/data/museum-authority-slugs";
 import { coastalHeritageAuthoritySlugs } from "@/data/coastal-heritage-discovery";
 import { hideImageFallbackLabel, recoverOrHideImage } from "@/lib/image-fallback";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from "@/platform/internal-link-policies";
 
@@ -348,7 +349,7 @@ function DestinationPage() {
             <div className="mt-7 grid gap-6 sm:grid-cols-2">
               {destination.gallery.map((item) => (
                 <figure key={item.image.src} className="min-w-0 overflow-hidden border border-border">
-                  <img src={item.image.src} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" decoding="async" className="aspect-[4/3] w-full bg-surface object-contain" onError={(event) => recoverOrHideImage(event.currentTarget)} />
+                  <img src={editorialImageSrc(item.image.src)} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" decoding="async" className="aspect-[4/3] w-full bg-surface object-contain" onError={(event) => recoverOrHideImage(event.currentTarget)} />
                   <figcaption className="space-y-2 p-4 text-sm leading-6">
                     <p>{item.caption}</p>
                     <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-primary underline underline-offset-2">Image source and reuse terms — {item.image.credit}</a>
