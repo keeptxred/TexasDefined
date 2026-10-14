@@ -31,6 +31,8 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/destination/choke-canyon-state-park', requiredText: 'Calliham Unit', label: 'canonical Choke Canyon guide identifies the real park access units' },
+  { path: '/destination/caprock-canyons-state-park', requiredText: 'Caprock Canyons State Park & Trailway', label: 'canonical Caprock Canyons guide includes the Trailway' },
   { path: '/county/gillespie', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Gillespie County links to researched historic corridor itinerary' },
   { path: '/county/blanco', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Blanco County links to researched historic corridor itinerary' },
   { path: '/destination/lyndon-b-johnson-state-park-historic-site', requiredText: 'Sauer-Beckmann', label: 'canonical LBJ State Park and living-history farm' },
@@ -113,6 +115,8 @@ const smokeTargets = [
 ];
 
 const redirectTargets = [
+  { path: '/destination/choke-canyon-north-shore-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/choke-canyon-state-park', expectedQuery: ['source','gsc'], label: 'GSC invalid North Shore import resolves to accurate Choke Canyon unit guide' },
+  { path: '/state-park/caprock-canyons-trailway-estelline-terminal-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/caprock-canyons-state-park', expectedQuery: ['source','gsc'], label: 'GSC Estelline Trailway legacy URL resolves to complete Caprock Canyons guide' },
   {"path": "/historic-site/seminole-canyon-state-park-and-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/seminole-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
   {"path": "/historic-site/lipantitlan-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/lipantitlan", "expectedQuery": ["source", "gsc"], "label": "verified historic-site alias"},
   {"path": "/historic-site/san-jacinto-monument-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/san-jacinto-battleground", "expectedQuery": ["source", "gsc"], "label": "verified monument guide alias"},
