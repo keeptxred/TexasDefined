@@ -15,7 +15,23 @@ const regional = read("src/data/destination-region-consistency.ts");
 const lazyRoute = read("src/routes/explore.$category.lazy.tsx");
 const destinationRuntime = read("src/data/destination-query-runtime.ts");
 const workflow = read(".github/workflows/verify-sitemap-production-integrity.yml");
+const officialSourceMigration = read("supabase/migrations/20261014215400_swim_float_authority_source_enrollment.sql");
 const errors = [];
+for (const marker of [
+  "'/explore/swimming-holes-river-tubing'",
+  "'water-recreation-visitor-safety'",
+  "cadence_days = LEAST(",
+  "ON CONFLICT (path, source_url)",
+  "https://tpwd.texas.gov/state-parks/abilene/alert/",
+  "https://tpwd.texas.gov/state-parks/abilene/fees-facilities/pool/swimming-pool/",
+  "https://www.newbraunfels.gov/comalriver",
+  "https://newbraunfels.gov/3369/Guadalupe-River",
+  "https://www.sanmarcostx.gov/facilities/facility/details/riovistapark-41",
+  "https://wimberleyparksandrec.com/blue-hole-swimming/",
+  "https://www.austintexas.gov/services/visit-barton-springs-pool",
+]) {
+  if (!officialSourceMigration.includes(marker)) errors.push("Swim/float official source monitoring lost: " + marker);
+}
 for (const marker of ['id="texas-float-corridors"', 'id="texas-swimming-picks"', 'id="texas-swimming-alerts"', 'id="texas-swim-planning"', '/article/texas-comal-river-guide', '/article/texas-guadalupe-river-guide', '/article/texas-frio-river-guide', '/article/texas-san-marcos-river-guide', 'https://tpwd.texas.gov/state-parks/abilene/alert/', 'https://wimberleyparksandrec.com/blue-hole-swimming/']) {
   if (!publicAuthority.includes(marker)) errors.push("Swim authority lost trip-planning evidence: " + marker);
 }
