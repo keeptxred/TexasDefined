@@ -51,6 +51,13 @@ assert(!graph.includes('"href": "/destination/san-antonio"'), "No 404 destinatio
 assert(graph.includes('"href": "/city/san-antonio"'), "City gateway must resolve via canonical /city/san-antonio");
 assert(!article.includes('"href": "/destination/san-antonio"'), "Guide city gateway must not use broken /destination/san-antonio");
 assert(article.includes('"href": "/city/san-antonio"'), "Guide must link to canonical city page");
+const heritageGraphJson = graph.slice(graph.indexOf("= {") + 2, graph.lastIndexOf("};") + 1);
+const heritageGraphEntries = JSON.parse(heritageGraphJson);
+const heritageDescriptions = Object.values(heritageGraphEntries).flatMap((entries) => entries.map((entry) => entry.description));
+assert(heritageDescriptions.length >= 121, "Unexpected drop in San Antonio contextual cross-link coverage");
+assert.equal(new Set(heritageDescriptions).size, heritageDescriptions.length, "Cross-links must have source-and-target-specific explanations");
+assert(!heritageDescriptions.some((description) => description.includes("adding context from the city's different historical eras")), "Generic history-crosslink filler remains");
+
 assert(destination.includes("sold the property in 2022"), "Steves access correction absent");
 assert(article.includes("SOLD") && article.includes("1897") && article.includes("1896"), "Known corrections missing in main guide");
 assert(!/license to confirm|verify attribution\/license|check current Commons license/.test(destination), "Unverified media license note in destination images");
