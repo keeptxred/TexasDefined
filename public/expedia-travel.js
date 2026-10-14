@@ -572,6 +572,14 @@
     return guardedRoute && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 
+  function battleshipHistoryHydrationPending() {
+    // RootShell may hydrate before the lazy BB-35 article. Wait for the
+    // actual article component effect before inserting the lodging surface.
+    return window.location.pathname.replace(/\/+$/, "") ===
+      "/article/battleship-texas-bb-35-history-restoration" &&
+      document.documentElement.dataset.tdBattleshipArticleHydrated !== "1";
+  }
+
   function stateFairSlotPending() {
     return /^\/texas-state-fair\/?$/.test(window.location.pathname) &&
       document.documentElement.dataset.tdStateFairHydrated !== "1";
@@ -581,6 +589,7 @@
     // React's State Fair content lazy-hydrates after RootShell. Never mutate
     // the empty affiliate slot before its owning component has committed.
     if (stateFairSlotPending()) return;
+    if (battleshipHistoryHydrationPending()) return;
     if (waitingForFootballCountyHydration()) return;
     const version = ++syncVersion;
     const current = document.getElementById(SURFACE_ID);
@@ -648,6 +657,7 @@
     window.addEventListener("popstate", scheduleSync);
     window.addEventListener("texasdefined:county-hydrated", scheduleSync);
     window.addEventListener("texasdefined:state-fair-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:battleship-article-hydrated", scheduleSync);
     for (const method of ["pushState", "replaceState"]) {
       const original = history[method];
       history[method] = function (...args) {
