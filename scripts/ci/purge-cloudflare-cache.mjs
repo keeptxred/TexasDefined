@@ -26,7 +26,18 @@ const paintedChurchGuideUrls = [
   ...(await readPaintedChurchGuideSlugs()).map((slug) => `https://${zoneName}/explore/painted-churches/guides/${slug}`),
 ];
 
+// Public-region and landscape authority HTML can remain stale on Cloudflare
+// even after a successful Workers deployment. Invalidate all seven dynamic
+// regional travel hubs plus the governed landscape/scenic discovery pages,
+// not just the previously maintained museum and sports-venue URLs.
+const regionalAuthorityPurgeUrls = [
+  ...["hill-country","gulf-coast","big-bend","panhandle","piney-woods","prairies-lakes","south-texas"].map((id) => `https://${zoneName}/explore/region/${id}`),
+  ...["best-places-to-photograph-texas-landscapes","best-scenic-drives-for-every-texas-landscape","cross-timbers","forests","guadalupe-mountains","most-beautiful-landscapes-in-texas","permian-basin","post-oak-savannah","rivers-and-river-valleys","rolling-plains","texas-geography-explained","texas-landscapes-by-region","what-part-of-texas-looks-like-arizona-colorado-or-the-south","why-is-the-texas-hill-country-so-hilly"].map((slug) => `https://${zoneName}/explore/landscapes/${slug}`),
+  `https://${zoneName}/explore/swimming-holes-river-tubing`,
+];
+
 const alwaysPurgeUrls = [
+  ...regionalAuthorityPurgeUrls,
   // Image/Discover metadata repair surfaces — purge HTML so post-deploy strict audit sees the deployed revision.
   `https://${zoneName}/event/chappell-hill-bluebonnet-festival`,
   `https://${zoneName}/article/ima-hogg-texas-legacy`,
