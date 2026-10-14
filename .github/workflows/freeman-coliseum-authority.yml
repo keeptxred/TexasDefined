@@ -1,0 +1,31 @@
+name: Freeman Coliseum authority verification
+
+on:
+  pull_request:
+    paths:
+      - 'src/components/sports/FreemanColiseumAuthoritySections.tsx'
+      - 'src/components/sports/SportsVenueGuidePage.tsx'
+      - 'src/components/sports/SportsVenueGuidePilotContent.tsx'
+      - 'src/data/sports-venue-guide-wave4.ts'
+      - 'src/data/sports-venue-content-remediation-wave7.ts'
+      - 'src/data/events/texas-event-calendar.server.ts'
+      - 'src/data/parking-maps-batch6.ts'
+      - 'public/images/parking-maps/freeman-coliseum.svg'
+      - 'scripts/data/validate-freeman-coliseum-authority.mjs'
+      - '.github/workflows/freeman-coliseum-authority.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-contract:
+    name: Freeman source and UI contracts
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/data/validate-freeman-coliseum-authority.mjs
