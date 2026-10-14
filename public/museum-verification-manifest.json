@@ -1545,6 +1545,54 @@
       ]
     },
     {
+      "path": "/destination/uss-lexington-museum-corpus-christi",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 11,
+      "sources": [
+        {
+          "sourceUrl": "https://usslexington.com/visit/hours-admission/",
+          "fetchUrl": "https://usslexington.com/visit/hours-admission/",
+          "label": "USS Lexington official operator — source-backed visitor verification"
+        },
+        {
+          "sourceUrl": "https://usslexington.com/tours/self-guided-tours/",
+          "fetchUrl": "https://usslexington.com/tours/self-guided-tours/",
+          "label": "USS Lexington official operator — source-backed visitor verification"
+        },
+        {
+          "sourceUrl": "https://usslexington.com/attractions/the-flight-deck/",
+          "fetchUrl": "https://usslexington.com/attractions/the-flight-deck/",
+          "label": "USS Lexington official operator — source-backed visitor verification"
+        },
+        {
+          "sourceUrl": "https://usslexington.com/visit/mess-deck-cafe/",
+          "fetchUrl": "https://usslexington.com/visit/mess-deck-cafe/",
+          "label": "USS Lexington official operator — source-backed visitor verification"
+        },
+        {
+          "sourceUrl": "https://usslexington.com/attractions/",
+          "fetchUrl": "https://usslexington.com/attractions/",
+          "label": "USS Lexington official operator — source-backed visitor verification"
+        },
+        {
+          "sourceUrl": "https://usslexington.com/learn/education/",
+          "fetchUrl": "https://usslexington.com/learn/education/",
+          "label": "USS Lexington official operator — source-backed visitor verification"
+        },
+        {
+          "sourceUrl": "https://usslexington.com/visit/directions-map-how-to-get-to-lex/",
+          "fetchUrl": "https://usslexington.com/visit/directions-map-how-to-get-to-lex/",
+          "label": "USS Lexington official operator — source-backed visitor verification"
+        },
+        {
+          "sourceUrl": "https://usslexington.com/about-the-uss-lexington/the-ship/",
+          "fetchUrl": "https://usslexington.com/about-the-uss-lexington/the-ship/",
+          "label": "USS Lexington official operator — source-backed visitor verification"
+        }
+      ]
+    },
+    {
       "path": "/destination/witte-museum",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
