@@ -2055,6 +2055,79 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     nearbyLakes:[{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"o-h-ivie-lake",name:"O. H. Ivie Lake"},{slug:"lake-nasworthy",name:"Lake Nasworthy"}],
   },
+  {
+    slug: "brady-creek-reservoir", name: "Brady Creek Reservoir", tpwdSlug: "brady_creek", waterDataSlug: "brady-creek",
+    region: "hill-country", verifiedAt: "2026-10-14", accessReviewedAt: "2026-10-14",
+    summary: "The City of Brady's San Saba–Colorado basin water-supply reservoir with a single documented public launch, water-sensitive ramp usability, recovering bass fishery, city-park camping indicators, USGS gauging evidence and a source-verified 1961–1963 dam history.",
+    surfaceAcres: 2020, maxDepthFeet: 48, impoundedYear: 1963, counties: ["McCulloch"], nearestCities: ["Brady"],
+    waterway: "Brady Creek, tributary to the San Saba River", riverBasin: "Colorado River Basin",
+    authority: "City of Brady", conservationPool: "1,743 feet above mean sea level (TPWD reference)",
+    fluctuation: "TPWD describes 3–5 feet as typical; severe drought can make the dam-side ramp unusable even when the park is open",
+    clarity: "Moderately stained",
+    identity: "Brady Creek Reservoir, locally called Brady Lake, lies west of Brady in McCulloch County; it is not Lake Brownwood, O. H. Ivie Reservoir or an amenity of a state park. The City of Brady owns and operates the reservoir for water supply, industrial use and recreation. TPWD rates bass, catfish, crappie and white bass FAIR, explaining a slow recovery from a major 2012 golden-alga bloom and low-water years. The 2,020 acres reported in the lake fact sheet are a reference full-pool area, not a measurement of current shoreline or ramp usability. TPWD's one named public access site is the city park near the dam. It labels the park year-round while expressly warning the single ramp works best only at high water: call the city and check the timestamped TWDB reservoir level before towing.",
+    habitat: [
+      "Submerged and shoreline cover is sparse in normal conditions. TPWD identifies a rocky bluff on Brady Creek, riprap, gravel banks, boulders, dead trees and an old submerged railroad bed as the most distinctive fish-holding structure.",
+      "Drought changes how much of the old channel, shallow brush or railroad bed is under water, so archived fishing coordinates are not proof that a particular spot is safe or accessible at the lake's present elevation.",
+      "Golden-alga blooms and drought harmed the fishery in the 2010s. TPWD subsequently stocked largemouth bass fingerlings as a fishery-recovery measure; stocking does not guarantee a trophy fishery or change today's displayed FAIR quality assessments.",
+      "Seasonal runoff can temporarily color the water and alter fish positioning; use the latest official fishing report rather than treating the static tactics below as today's bite."
+    ],
+    fish: [
+      fish("largemouth-bass", "Largemouth bass", "fair", "spring",
+        "TPWD rates bass FAIR after historic fish kills and low-water periods. Search rocky bluff transitions, riprap and submerged wood with small soft plastics, spinnerbaits or crankbaits; do not market the lake as a consistently outstanding trophy-bass destination.",
+        ["soft-plastics", "spinnerbaits", "crankbaits", "topwater"]),
+      fish("channel-catfish", "Channel catfish", "fair", "summer",
+        "TPWD rates catfish FAIR. Creek-channel changes, rock edges and deeper shoreline transitions are useful exploratory structures; confirm fish-consumption advisories and fishing rules before keeping a catch.",
+        ["cut-bait", "live-bait"]),
+      fish("crappie", "White crappie", "fair", "spring",
+        "TPWD rates crappie FAIR. Cover near submerged trees and the old railroad bed offers more specific habitat than vegetation-starved open banks; check whether those structures are underwater and legally reachable.",
+        ["jigs-and-minnows", "vertical-jigging"]),
+      fish("white-bass", "White bass", "fair", "spring",
+        "TPWD's angling table also rates white bass FAIR. Look for seasonal schooling and forage along open points and former creek-channel edges; avoid treating an old report's location as a reliable live pattern.",
+        ["trolling", "vertical-jigging"])
+    ],
+    access: "TPWD documents ONE public entry, City Park at Dam, reached by FM 2028 and FM 3022 just west of Brady. Its older inventory says no ramp fee, year-round park access, picnic and camping symbols, but directly cautions the boat ramp is good only at high water levels. This is a critical distinction: an open park does not imply an operable launch. Verify gate hours, overnight camping rules, ramp depth and any required reservations directly with the City of Brady at (325) 597-2152. No second named public boat ramp is established by the official TPWD access page, so do not confuse private ranch tracks, shoreline fishing or the USGS gauge installation with a public launch.",
+    accessPoints: [
+      {
+        name: "City Park at Dam public boat ramp",
+        operator: "City of Brady",
+        kind: "park",
+        launch: "Drive west from Brady on FM 2028 to FM 3022 at the Brady Creek dam. TPWD labels the park as the single named public launch but explicitly says the RAMP WORKS WELL ONLY AT HIGH WATER; check actual usable depth with the City of Brady before bringing a trailer.",
+        fee: "TPWD older access inventory lists no boat-launch fee; current city day-use, camping or permit charges may differ",
+        availability: "TPWD historic year-round park label is not proof of a usable ramp. Call Brady city offices (325) 597-2152 and check timestamped water level immediately before a fishing or boating trip."
+      }
+    ],
+    camping: {
+      name: "City Park at Dam — verify camping with the city",
+      summary: "TPWD's icon legend includes a camping symbol for the dam-side city park, but it does not publish a current reservation inventory, official campsites, seasonal gate procedure or sanitation/hookup details. Ask the City of Brady which marked areas legally permit overnight use, which fees apply and whether camping is open. Do not present informal shoreline parking, the boat ramp, a private dock or the USGS gauge as an established campsite."
+    },
+    historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/brady_creek/index.asp",
+    visitorSourceUrl: "https://www.bradytx.us/",
+    historyNotes: [
+      "TWDB describes Brady Creek Reservoir approximately three miles west of Brady, where Brady Creek drains toward the San Saba River and ultimately the Colorado. The City of Brady received Water Right Permit 1953 on May 2, 1960, authorizing a municipal/industrial water-supply project with recreational use.",
+      "Construction began December 27, 1961. TWDB dates dam completion to May 14, 1963, followed by the start of deliberate impoundment on May 22, 1963. These are separate engineering and filling milestones; an undated 'built 1963' statement loses the distinction.",
+      "TWDB documents an earthfill dam about 8,400 feet long and 104 feet high, with 30,430 acre-feet of conservation storage at a stated 1,743-foot conservation pool. These are engineering reference figures, not the lake's current water volume. USGS documents a genuine reservoir gaging station, 08144900; its photograph shows monitoring structures and should not be confused with the public park boat ramp.",
+      "A publicly documented golden-alga fish-kill event in 2012 and prolonged low water changed the fishery. TPWD's present lake overview continues to describe slow recovery and assigns only FAIR ratings to bass, catfish, crappie and white bass. Treat older fish catches and stocking numbers as dated historical events, not fresh predictions."
+    ],
+    visitorFAQs: [
+      {question:"Where is the public boat ramp?",answer:"TPWD identifies one public launch: City Park at Dam, west of Brady via FM 2028 and FM 3022. It specifically says that the ramp works well only at HIGH WATER. Call the city before towing rather than relying on a 'year-round' park label."},
+      {question:"Can I camp overnight at Brady Creek Reservoir?",answer:"TPWD marks camping as available at the City Park at Dam, but does not document current reservable sites, hookup counts, fees or overnight regulations. Call the City of Brady to confirm designated camping areas and actual operations before planning an overnight stay."},
+      {question:"Is the Brady Creek boat ramp usable at low lake levels?",answer:"It may not be. TPWD states that the ramp is good at high water levels; shallow trailer launching may be unsafe or impossible under drought conditions. Use the current TWDB level, then verify actual ramp access with the operator."},
+      {question:"Is this a good trophy bass lake?",answer:"TPWD currently rates largemouth bass FAIR, not excellent. The fishery has been rebuilding after golden-alga impacts and prolonged drought; stocker releases and isolated catches do not override the official lake-wide quality classification."},
+      {question:"What other fish can I catch?",answer:"TPWD identifies channel catfish, white crappie and white bass among its main fish species. It rates all of those FAIR; seek submerged rocky banks, timber, creek channels and the old railroad bed according to lake elevation."},
+      {question:"Does the lake have a measured level?",answer:"Yes. TWDB's Water Data for Texas Brady Creek reservoir station publishes dated surface elevation and storage information. A live reading needs its collection timestamp; TPWD's 2,020-acre reference area does not describe today's waterline."},
+      {question:"Why did fish numbers decline?",answer:"TPWD reports a major golden-alga bloom beginning in 2012 and subsequent water shortages; recovery stocking and monitoring occurred later. Those reports explain long-term fishery conditions but do not establish the next day's fishing quality."},
+      {question:"When was Brady Creek Reservoir built?",answer:"TWDB documents construction beginning December 27, 1961, completion May 14, 1963 and the start of deliberate impoundment May 22, 1963. It was developed for the City of Brady's municipal/industrial water supply and recreation."},
+      {question:"Can visitors use the USGS water gauge as a boat launch?",answer:"No. USGS gaging station 08144900 is an engineered monitoring structure. Its official photographs document the lake's water-level infrastructure; the public launch is the separate City Park at Dam."}
+    ],
+    travelAlerts: [
+      "RAMP DEPTH ALERT: The sole TPWD-named city-park ramp is described as good only at HIGH WATER. 'Open all year' describes a historic park listing, NOT current trailer launchability.",
+      "FISHERY RECOVERY: TPWD describes a slow comeback from a 2012 golden-alga bloom and drought. All four rated fisheries remain FAIR in its public angling table; do not infer recent stocking guarantees success.",
+      "CAMPING: TPWD shows a camping icon at the city park but not a current official booking or hookup schedule; obtain operator confirmation before staying overnight.",
+      "PHOTO CONTEXT: The actual Brady Lake photograph was captured May 26, 2021 and is not a visual representation of current reservoir levels, access ramps or recent construction.",
+      "Boaters must comply with statewide drain/clean requirements to prevent the spread of invasive aquatic species, and should check live weather, TPWD rules and city notices."
+    ],
+    nearbyLakes: [{slug:"lake-brownwood",name:"Lake Brownwood"},{slug:"o-h-ivie-lake",name:"O. H. Ivie Lake"},{slug:"lake-colorado-city",name:"Lake Colorado City"}],
+  },
 ];
 
 const techniqueLabels: Record<TechniqueId, string> = {
