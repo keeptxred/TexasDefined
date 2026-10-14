@@ -20,6 +20,7 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
   },
   authorId: "a-marisol",
   publishedAt: "2026-09-19",
+  updatedAt: "2026-10-13",
   readingMinutes: 12,
   tags: [
     "texas high school football playoffs",
@@ -32,6 +33,13 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
   featured: false,
   sourceName: "University Interscholastic League",
   sourceUrl: "https://www.uiltexas.org/football/playoff-brackets",
+  sources: [
+    { label: "UIL 2026–27 qualification and live brackets", url: "https://www.uiltexas.org/football/playoff-brackets" },
+    { label: "UIL 2026 blank brackets — football pages 4–6", url: "https://realignment.uiltexas.org/alignments/2026/FB_BB_VB_Blank_Brackets.pdf" },
+    { label: "UIL 2026–27 football dates", url: "https://www.uiltexas.org/football" },
+    { label: "UIL Section 1250 — football site and competition rules", url: "https://www.uiltexas.org/policy/constitution/athletics/football" },
+    { label: "UIL postseason FAQs — handbook publication pending when checked", url: "https://www.uiltexas.org/football/page/Football-playoff-information-handbook1" },
+  ],
   internalLinks: [
     {
       href: "/article/texas-high-school-football-classifications-1a-6a",
@@ -82,7 +90,7 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
     {
       href: "https://www.uiltexas.org/football/page/Football-playoff-information-handbook1",
       label: "UIL football playoff handbook and FAQs",
-      description: "Check the current UIL postseason handbook page and first-round home-field guidance.",
+      description: "Read UIL’s postseason FAQs; the 2026 handbook was still awaiting publication when checked October 13.",
     },
   ],
   relatedCollections: [],
@@ -103,7 +111,7 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
     p("That is why district games carry more postseason weight than nondistrict games. A team can schedule difficult opponents before district play and lose several times without automatically damaging its playoff position. What matters for qualification is how the team finishes under its district's standings and tiebreak procedures."),
     h("What happens in 1A six-man"),
     p("Class 1A is already divided into Division I and Division II before the season, and both divisions play six-man football. The top two teams from each district advance within their existing division. The two 1A brackets ultimately crown separate Division I and Division II state champions."),
-    p("Because fewer teams qualify from each 1A district than in the larger classifications, the six-man bracket is not simply a scaled copy of 2A through 6A. The important thing for a fan is to follow the current UIL bracket rather than assume every classification has an identical number of teams or rounds."),
+    p("Each 1A division has a 32-slot bracket: bi-district, regional, quarterfinal, semifinal and state final. That is five rounds, with no area round. UIL’s 2026 blank brackets show district winners facing runners-up from paired districts; follow the bracket for the exact next opponent."),
     h("What happens in 2A, 3A, 4A and 5A"),
     p("Classes 2A through 5A are split into Division I and Division II during realignment, before a game is played. A school's division therefore does not change because of its record or playoff seed. Within each district, the top four teams qualify and enter the playoff bracket for that classification and division."),
     p("A 4A Division II team, for example, competes for a 4A Division II championship from the beginning of the postseason. It does not get re-sorted against the other 4A qualifiers after district play."),
@@ -129,10 +137,8 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
     p("A highly ranked team can therefore draw another strong team early if the bracket puts them together. Likewise, a team can make a deep playoff run without having started the postseason near the top of a statewide poll."),
     h("How many state champions are there?"),
     p("The modern UIL system crowns two football champions in every classification: Division I and Division II in 1A, 2A, 3A, 4A, 5A and 6A. That produces 12 state champions rather than one statewide champion."),
-    p("The championships answer a narrower and fairer question than a single all-Texas tournament would: which team won the bracket built for schools in its classification and division? A 2A Division II champion and a 6A Division I champion both finished unbeaten through their respective playoff paths, even though the schools may differ enormously in enrollment."),
     h("What the state-final path looks like"),
-    p("In the 64-team brackets, six postseason wins separate an opening-round qualifier from a state championship: bi-district, area, regional, quarterfinal, semifinal and state final. Smaller fields can have a different path, which is another reason the official bracket should be treated as the controlling map."),
-    p("The emotional scale changes with each round. Bi-district can still feel like an extension of the local season. By the regional rounds, neutral sites and longer trips become common. The semifinals leave only two finalists in each bracket, and the final determines the UIL champion."),
+    p("Classes 2A through 6A use 64-slot division brackets: bi-district, area, regional, quarterfinal, semifinal and state final. A team playing every round needs six wins. In 1A, a team playing every round needs five. A bye or vacancy is not a played victory; official brackets control the actual path."),
     h("A quick playoff glossary"),
     list(
       "District qualifier: a team that earns one of its district's postseason positions.",
@@ -147,8 +153,25 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
     h("How to follow the playoffs without getting lost"),
     p("Start with the school's classification, division and district. Then use the official UIL playoff bracket to see the district-finish matchup and the next possible opponents. For 6A, wait until the district's four qualifiers are known before assuming which Division I or Division II bracket a team will enter."),
     p("For a specific game, verify the site, kickoff time and ticket information through the participating schools or districts. Bracket pages explain the path; local school and venue information controls the practical details of attending."),
+    h("2026 playoff dates"),
+    p("UIL’s 2026–27 football calendar sets district certification for November 7 and the opening playoff window for November 12–14. Later windows are November 19–21, November 26–28, December 3–5 and December 10–12, with a December 9 exception for 2A Division II. State championships are scheduled for December 16–19. These are UIL windows, not confirmed kickoff times for an individual game."),
+    h("Frequently asked questions"),
+    h("Can a team with a losing record make the playoffs?"),
+    p("Yes. Qualification depends on district placement, not a minimum overall winning percentage. A team with losses in nondistrict games can still finish in a qualifying district position. Check the district’s certified standings rather than assuming a losing overall record eliminates a team."),
+    h("How are ties in district standings broken?"),
+    p("The district applies its adopted tiebreak policy and certifies an ordered set of representatives. There is no single points-margin formula to assume for every district. UIL’s postseason FAQs require a true first-through-fourth finish; tied teams cannot both claim the same finish for first-round home-field purposes."),
+    h("Is Division I the bracket for better teams?"),
+    p("No. Divisions separate teams by enrollment rules. In 6A, only the four qualifying schools are compared: the two larger qualifiers enter Division I and the two smaller enter Division II. UIL uses the enrollment figures from official reclassification and realignment, with an exception for enrollments affected by new high schools."),
+    h("Does the higher seed always host a playoff game?"),
+    p("No. The higher district finisher has the first-round home-field choice in 5A and 6A only, or the schools can mutually agree on a neutral site. Equal finishes use a coin toss or agreement, subject to UIL’s applicable prior-meeting provisions. Later rounds and other classifications follow the site agreement and home-and-home rules in Section 1250(i). Home-field rights do not mean a school can unilaterally choose every kickoff date and time."),
+    h("Where should I buy tickets and find a broadcast?"),
+    p("Start with the participating school or district’s official athletics announcement. Verify the opponent, date, kickoff, stadium and ticket seller together; a team’s usual home stadium may not be its playoff venue. For state finals, use UIL’s state-championship page for current tickets and broadcast announcements. Do not assume last season’s broadcaster or prices still apply."),
+    h("Does this guide cover private-school playoffs?"),
+    p("This guide explains UIL football. TAPPS and other private-school associations run separate competitions; their divisions, qualification rules and championships should not be read from a UIL bracket."),
+    h("Sources and verification"),
+    p("Rules, bracket paths and 2026 dates checked October 13, 2026 against UIL’s current bracket page, 2026 blank sample brackets, football calendar, Section 1250 and postseason FAQs. The calendar supplies the November 7 certification date; the manual’s November 8 and December 2025 references were not treated as 2026 dates. The linked handbook page had not yet posted its 2026 handbook. Illustrations on this page use hypothetical schools and show the rules, not predicted 2026 qualifiers."),
     h("The simplest takeaway"),
     p("District play earns the invitation. Classification and division determine the championship track. The bracket determines the path. Every round eliminates half the field until one team remains in each UIL football bracket."),
-    p("Once you separate those pieces, Texas playoff football is much easier to follow—and the jump from a district Friday night to a December state-final trip makes a lot more sense.")
+    p("Before leaving for a game, confirm the stadium, kickoff and ticket link with the participating schools. Winning changes the next opponent; it can also change the trip.")
   ],
 };

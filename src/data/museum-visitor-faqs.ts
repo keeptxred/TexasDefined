@@ -14,6 +14,248 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "corpus-christi-museum-science-history": [
+    {
+      "question": "How much is admission to the Corpus Christi Museum of Science and History?",
+      "answer": "The current operator page lists adults at $15, ages 3–12 at $11, ages 2 and younger free, and separate senior, teacher and military categories before tax. Reduced Museums for All admission requires eligible SNAP benefits and identification. Check the official page for current prices.",
+      "verificationUrl": "https://www.ccmuseum.com/visit/",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://www.tripadvisor.com/FAQ_Answers-g60927-d199035-t538500-How_much_is_it_for_adults_and_children.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I park at the museum?",
+      "answer": "The museum states free parking is available on North Chaparral Street directly in front of the entrance and across the street in an adjacent lot. Access and capacity should be confirmed if attending a large event.",
+      "verificationUrl": "https://www.ccmuseum.com/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ccmuseum.com/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Where can I see the La Belle ship itself?",
+      "answer": "The conserved La Belle hull is displayed at the Bullock Texas State History Museum in Austin. Corpus Christi is an original La Salle Odyssey museum with related interpretation and other shipwreck material; the hull is not here.",
+      "verificationUrl": "https://thc.texas.gov/learn/archeological-spotlight/la-salle-archeology-projects",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.ccmuseum.com/museum-exhibits/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the museum good for children or school groups?",
+      "answer": "The museum provides science and history displays plus family education programs. School and larger group visits require advance arrangements; the operator requests a phone call for groups of ten or more. Select exhibits appropriate to a child's interest rather than assuming every gallery is hands-on.",
+      "verificationUrl": "https://www.ccmuseum.com/education-programs/",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://www.tripadvisor.com/Attraction_Review-g60927-d199035-Reviews-Corpus_Christi_Museum_of_Science_and_History-Corpus_Christi_Texas.html",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does the museum have wheelchair rentals or an accessible route?",
+      "answer": "The public visit page does not confirm wheelchair rentals or every accessible route. Contact the museum's visitor services at 361-826-4667 to verify current wheelchair availability, elevators, step-free routes and other accommodations before arrival.",
+      "verificationUrl": "https://www.ccmuseum.com/visit/",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://www.tripadvisor.com/FAQ_Answers-g60927-d199035-t538500-How_much_is_it_for_adults_and_children.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I eat lunch inside the museum?",
+      "answer": "A public visitor Q&A raises the question, but the current official visit page does not establish a specific on-site café or picnic policy. Ask visitor services directly and plan for nearby dining rather than promising food service.",
+      "verificationUrl": "https://www.ccmuseum.com/visit/",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://www.tripadvisor.com/Attraction_Review-g60927-d199035-Reviews-Corpus_Christi_Museum_of_Science_and_History-Corpus_Christi_Texas.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    }
+  ],
+  "port-isabel-historical-museum": [
+    {
+      "question": "Is the Port Isabel Historical Museum open every day?",
+      "answer": "The museum's own website directs visitors to telephone 956-943-7602 for current hours. Do not rely solely on older visitor-directory schedules; confirm the date and any special closures before leaving.",
+      "verificationUrl": "https://portisabelhistory.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://portisabelhistory.com/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What is special about the Champion Building?",
+      "answer": "Built in 1899, the building preserves the history of Port Isabel commerce and has a large fish mural painted in 1906. View the exterior as part of the museum visit.",
+      "verificationUrl": "https://portisabelhistory.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://portisabelhistory.com/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is there an elevator to reach the second floor?",
+      "answer": "A past independent visitor reported an elevator, but the museum's current official page does not confirm it is operational. Call ahead to confirm an accessible second-floor route and accessible restrooms before a mobility-dependent visit.",
+      "verificationUrl": "https://portisabelhistory.com/",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "How much does the Port Isabel Historical Museum cost?",
+      "answer": "The museum operator currently lists $5 adults, $4 seniors, $3 students/children, and $2.50 for military and first responders, with separate group-tour arrangements. Confirm today's charges and payment methods by telephone.",
+      "verificationUrl": "https://portisabelhistory.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://portisabelhistory.com/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What else should I see near the museum?",
+      "answer": "The nearby Port Isabel Lighthouse complements the museum's regional maritime and trade history, while South Padre Island provides a very different barrier-island nature and beach experience across the causeway.",
+      "verificationUrl": "https://portisabelhistory.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://portisabelhistory.com/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    }
+  ],
+  "historic-brownsville-museum": [
+    {
+      "question": "Does Historic Brownsville Museum admission include the locomotive gallery?",
+      "answer": "Yes. The Brownsville Historical Association states that ordinary museum admission includes the Simón Celaya Railroad Gallery and the Mary A. Yturria Education Center where exhibitions or programming are available. Verify special access arrangements before departure.",
+      "verificationUrl": "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "When is the Historic Brownsville Museum open and how much does it cost?",
+      "answer": "The operator's current page lists Tuesday through Saturday, 10 a.m. to 4 p.m., with closure Sunday and Monday. Listed admission is $6 adults, $4 seniors, $2 students and free for children under six, military personnel, eligible Brownsville school groups and members. Recheck the operator for changes.",
+      "verificationUrl": "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is Historic Brownsville Museum interesting for children?",
+      "answer": "The Simon Celaya Railroad Gallery now includes interactive activities and the 1872 locomotive, with displays introducing how steam engines work. Other local-history and art exhibits are more interpretive, so choose a shorter family visit if needed.",
+      "verificationUrl": "https://brownsvillehistory.org/simon-celaya-railroad-gallery-brownsville-historical-association.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://brownsvillehistory.org/simon-celaya-railroad-gallery-brownsville-historical-association.html",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the railroad locomotive from the depot's opening?",
+      "answer": "No. The museum occupies a Southern Pacific depot constructed in 1928, while the displayed Rio Grande Railroad locomotive dates to 1872. Comparing the two illustrates different eras of Brownsville transportation.",
+      "verificationUrl": "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://brownsvillehistory.org/simon-celaya-railroad-gallery-brownsville-historical-association.html",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I book a guided tour of the Historic Brownsville Museum?",
+      "answer": "Yes, the Brownsville Historical Association advertises prearranged museum tours, usually around an hour, with separate pricing and education/group scheduling. Do not assume a guided tour comes with walk-in admission.",
+      "verificationUrl": "https://www.brownsvillehistory.org/museum-tours-brownsville-historical-association.html",
+      "questionOrigin": "visitor-qna",
+      "questionEvidenceUrl": "https://www.tripadvisor.com/Attraction_Review-g60928-d3404304-Reviews-Historic_Brownsville_Museum-Brownsville_Texas.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I eat at the museum or is it fully wheelchair accessible?",
+      "answer": "The museum's current published overview does not establish restaurant service or step-free routes through every historic building. Contact the operator about visitor facilities, accessible entrances and any arrangements required for mobility or sensory needs.",
+      "verificationUrl": "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    }
+  ],
+  "johnny-nelson-katy-heritage-museum": [
+    {
+      "question": "Is admission to the Johnny Nelson Katy Heritage Museum free?",
+      "answer": "Yes. The City of Katy lists free general admission to the Johnny Nelson Katy Heritage Museum at 6002 George Bush Drive. Confirm any special group-program arrangements directly rather than assuming separately scheduled tours are always staffed.",
+      "verificationUrl": "https://www.cityofkaty.com/visitors/museums",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200001108",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the Katy Heritage Museum's current opening hours?",
+      "answer": "The City currently publishes Thursday, Friday and Saturday 10 a.m.–5 p.m. and Sunday 11 a.m.–5 p.m. It does not advertise regular Monday–Wednesday admission. The Texas Historical Commission Atlas contains an older schedule; use the newer City posting and recheck before a holiday visit.",
+      "verificationUrl": "https://www.cityofkaty.com/visitors/museums",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200001108",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What can children see at the Katy Heritage Museum?",
+      "answer": "Children can examine historical tractors, rice-farming machinery, local photographs and household artifacts that explain Katy's development. This is a traditional history museum with physical objects, not a dedicated hands-on play center. Shorter routes may better suit young children.",
+      "verificationUrl": "https://www.cityofkaty.com/visitors/museums",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200001108",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Katy Heritage Museum the same as Katy Heritage Park?",
+      "answer": "No. Johnny Nelson Katy Heritage Museum is a museum building at 6002 George Bush Drive. Neighboring Katy Heritage Park preserves historic houses and a bandstand. The grounds and tours of the houses have different public hours; do not confuse the separate schedules.",
+      "verificationUrl": "https://www.katyheritagesociety.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.katyheritagesociety.com/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the MKT Railroad Depot Museum at the same address?",
+      "answer": "No. The MKT Railroad Depot Museum and Katy Railroad Park are at 5615 First Street, a separate historic downtown site with a rail depot, railroad interpretation and a red caboose. Verify its hours independently before adding it to your outing.",
+      "verificationUrl": "https://www.cityofkaty.com/visitors/museums",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.cityofkaty.com/visitors/museums",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can a school or club arrange a special museum visit?",
+      "answer": "The City of Katy explicitly invites schools, clubs and groups to arrange special tours. Ask the museum about staffing, group size, timing and accessibility before arriving; regular free public admission is not a guaranteed private guided tour.",
+      "verificationUrl": "https://www.cityofkaty.com/visitors/museums",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200001108",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Katy Heritage Museum have a café or cafeteria?",
+      "answer": "The City's official museum overview does not advertise a cafeteria, snack counter or restaurant inside Johnny Nelson Katy Heritage Museum. Do not count on on-site meals; plan a separate stop in Katy or confirm any special-event facilities directly.",
+      "verificationUrl": "https://www.cityofkaty.com/visitors/museums",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200001108",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the museum wheelchair accessible and can I park nearby?",
+      "answer": "The museum's address and visitor contact are published, but the City page does not provide enough detail to confirm every accessible entrance, parking stall, route or restroom. Call museum staff at 281-574-8618 for specific mobility or stroller arrangements before a visit.",
+      "verificationUrl": "https://www.cityofkaty.com/visitors/museums",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200001108",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How long should I allow to visit the Katy Heritage Museum?",
+      "answer": "A focused 45–90 minutes is a practical independent estimate for the agricultural machinery and historical photographs, not an official museum duration. Add separate time if you plan to visit the adjacent Heritage Park or downtown railroad museum.",
+      "verificationUrl": "https://www.cityofkaty.com/visitors/museums",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200001108",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
   "bullock-texas-state-history-museum": [
     {
       "question": "What can I see at the Bullock Texas State History Museum?",
@@ -848,6 +1090,2996 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionEvidenceUrl": "https://www.treetexas.com/visit-us",
       "reviewCycle": "monthly",
       "reviewed": "2026-10-12"
+    }
+  ],
+  "babe-didrikson-zaharias-museum-beaumont": [
+    {
+      "question": "Is admission to the Babe Didrikson Zaharias Museum free?",
+      "answer": "Yes. The museum's official visitor FAQ and the Babe Didrikson Zaharias Foundation both list free regular admission. Call the museum if planning an organized group or a special event, since ordinary admission terms do not guarantee a hosted tour.",
+      "verificationUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the Babe Zaharias Museum open on Saturdays?",
+      "answer": "Published hours conflict: the museum and Babe Zaharias Foundation say Monday–Saturday 9 a.m.–5 p.m., but Beaumont's municipal facility listing says Monday–Friday and Saturday closed. Telephone 409-833-4622 before making a Saturday or holiday trip; no one schedule can be treated as confirmed.",
+      "verificationUrl": "https://bdzfoundation.com/contact/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.beaumonttexas.gov/facilities/facility/details/Babe-Zaharias-Museum-Visitor-Center-74",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Where is the Babe Didrikson Zaharias Museum located?",
+      "answer": "The museum is at 1750 I-10 Frontage Road in Beaumont, in a distinctive circular brick building near the freeway. Do not confuse the museum with nearby Babe Zaharias Park or her namesake golf course, which are different locations.",
+      "verificationUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What sporting achievements and trophies can visitors see at the museum?",
+      "answer": "The museum interprets Babe's track-and-field and golf careers and displays awards, memorabilia and the famous Dead Head golf trophy. Exhibit availability may change, so confirm any object you especially want to see before making the trip.",
+      "verificationUrl": "https://www.babezahariasmuseum.com/babe-zaharias/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the Babe Zaharias Museum suitable for children?",
+      "answer": "School-age children interested in athletes, Olympic records and women's sports may enjoy the museum's stories and memorabilia. It is an interpretive sports-history museum, not a confirmed hands-on children's science or play museum.",
+      "verificationUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.babezahariasmuseum.com/babe-zaharias/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "How long should I plan to spend at the Babe Zaharias Museum?",
+      "answer": "About 45–90 minutes is a reasonable independent estimate for a focused visit to the museum exhibits. This is not an operator-guaranteed visit length; visitors with a special interest in sports history may wish to allow longer.",
+      "verificationUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.babezahariasmuseum.com/babe-zaharias/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is Babe Zaharias Museum wheelchair accessible?",
+      "answer": "The Babe Zaharias Foundation describes the Museum & Visitor Center as accessible and welcoming to disabled visitors, but the public pages do not fully specify step-free gallery routes, accessible parking or sensory features. Confirm your particular needs directly with museum staff.",
+      "verificationUrl": "https://bdzfoundation.com/contact/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://bdzfoundation.com/contact/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does Babe Zaharias Museum have a cafeteria or restaurant?",
+      "answer": "The museum's official visitor and foundation pages do not clearly establish an on-site café, cafeteria or full-service restaurant. Plan to eat elsewhere in Beaumont rather than assuming food service is available inside the museum.",
+      "verificationUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    }
+  ],
+  "20th-century-technology-museum-wharton": [
+    {
+      "question": "What are the real opening hours for the 20th Century Technology Museum?",
+      "answer": "The technology museum's own visitor notice, updated for 2025, states Tuesday and Thursday 11 a.m.–3 p.m., while the host Wharton County Historical Museum lists Monday–Friday 9 a.m.–4 p.m. These are different schedules; call 979-488-7773 to confirm access to the technology wing.",
+      "verificationUrl": "https://www.20thcenturytech.com/location.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.whartoncountymuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is there an admission charge to visit the Wharton technology museum?",
+      "answer": "Both the technology museum's independent visitor page and the host county museum say admission is free, with voluntary donations encouraged. That does not establish whether an organized program or separate special event has a fee.",
+      "verificationUrl": "https://www.20thcenturytech.com/location.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.20thcenturytech.com/location.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Where is the 20th Century Technology Museum today?",
+      "answer": "The current museum is housed with Wharton County Historical Museum at 3615 North Richmond Road, Wharton, Texas. Older descriptions refer to its original 2005 location in the former county jail, but the combined building opened in 2012.",
+      "verificationUrl": "https://www.20thcenturytech.com/location.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.whartoncountymuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Are the arcade games and old computers available for visitors to play?",
+      "answer": "The host operator lists vintage arcade machines and personal computers among the exhibits, but does not guarantee that every device is switched on or available for unsupervised use. Ask a museum docent which demonstrations are available that day.",
+      "verificationUrl": "https://www.whartoncountymuseum.org/tech-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.20thcenturytech.com/location.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What makes Wharton's technology museum enjoyable for children?",
+      "answer": "Younger visitors can compare toys, computers and 1970s–1980s arcade cabinets with the modern devices they know. It is a dense collection-oriented museum rather than a dedicated toddler play center, so parents should select activities based on age and interest.",
+      "verificationUrl": "https://www.whartoncountymuseum.org/tech-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.whartoncountymuseum.org/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What exhibits are inside the 20th Century Technology Museum?",
+      "answer": "The host's current exhibit page highlights old personal computers, toys, arcade machines and airplanes. Historical descriptions also discuss household electronics, radios and telephones; check today's exhibit arrangement before expecting every older object to be on display.",
+      "verificationUrl": "https://www.whartoncountymuseum.org/tech-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200001087",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I visit the technology museum and Wharton County Museum together?",
+      "answer": "Yes, the technology wing is part of the same current Wharton County Historical Museum complex at 3615 North Richmond Road, but the wing publishes more limited hours. Call before arrival if you want to see both on the same visit.",
+      "verificationUrl": "https://www.whartoncountymuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.20thcenturytech.com/location.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does Wharton's technology museum have a restaurant or cafeteria?",
+      "answer": "Neither the contemporary host's visit page nor the museum's independent visiting instructions establishes an on-site restaurant or cafeteria. Plan to dine elsewhere in Wharton and ask the museum about water and food policies for groups.",
+      "verificationUrl": "https://www.whartoncountymuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.whartoncountymuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    }
+  ],
+  "elisabet-ney-museum-austin": [
+    {
+      "question": "Is the Elisabet Ney Museum open to visitors in October 2026?",
+      "answer": "No. The City of Austin says the museum is closed for renovations that began December 30, 2024. Regular interior gallery admission and tours are not currently offered, even though the official site may list separate events and online collections.",
+      "verificationUrl": "https://www.austintexas.gov/ney",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "When will Elisabet Ney Museum reopen after renovation?",
+      "answer": "Austin currently anticipates reopening in spring 2027, but that is a projected season, not a confirmed reopening date or ticket offer. Check the city museum page and renovation updates for an actual reopening announcement before planning a visit.",
+      "verificationUrl": "https://www.austintexas.gov/parks/projects/elisabet-ney-museum-improvements",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I walk around Formosa or see Ney's sculpture while the building is closed?",
+      "answer": "The city has not established normal public museum access during construction. Some separately announced landscape programs and events may take place at 304 East 44th Street, but that does not mean sculpture galleries or studio interiors are open. Follow the specific event instructions.",
+      "verificationUrl": "https://www.austintexas.gov/ney/programs-education",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What can I see online from the Elisabet Ney Museum collections?",
+      "answer": "The City of Austin advertises the online exhibition Elisabet Ney: Art for Humanity's Sake, bringing together more than eighty items from the collection. It is a useful way to explore her portrait sculpture during the physical museum renovation.",
+      "verificationUrl": "https://www.austintexas.gov/ney/elisabet-ney-museum-exhibits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney/programs-education",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Which famous Texans did Elisabet Ney sculpt in Austin?",
+      "answer": "Ney made portraits of Sam Houston and Stephen F. Austin as part of her Texas work at Formosa. Her European work also portrayed figures such as Otto von Bismarck and Arthur Schopenhauer. Historic display information does not guarantee those objects are physically viewable while the museum is closed.",
+      "verificationUrl": "https://www.austintexas.gov/ney/about-elisabet-ney-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney/elisabet-ney-museum-exhibits",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the Elisabet Ney Museum free, and do I need a ticket now?",
+      "answer": "The City of Austin describes the museum's ordinary admission as free, but the building is presently closed for renovation, so there is no normal ticketed interior visit. Any separately scheduled event may have its own access and registration instructions.",
+      "verificationUrl": "https://www.austintexas.gov/ney",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does Elisabet Ney Museum offer accessible family or school programming during construction?",
+      "answer": "Normal on-site tours are suspended. Austin advertises the Breaking the Mold mobile art education initiative and separately announced events, but those programs differ from opening the historic house. For accessibility and school participation in any specific event, contact the museum directly.",
+      "verificationUrl": "https://www.austintexas.gov/ney/programs-education",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/ney/contact",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    }
+  ],
+  "amon-carter-museum-american-art-fort-worth": [
+    {
+      "question": "Is Amon Carter Museum admission free, including special exhibitions?",
+      "answer": "The Carter says museum admission is always free, including current regular gallery exhibitions; individual special events may carry their own fee. Confirm the event listing rather than paying a general-admission ticket reseller.",
+      "verificationUrl": "https://www.cartermuseum.org/frequently-asked-questions",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/frequently-asked-questions",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "What time does the Amon Carter Museum close on Thursdays and Sundays?",
+      "answer": "The posted schedule closes at 8 p.m. on Thursdays, 5 p.m. on Tuesday, Wednesday, Friday and Saturday, and 5 p.m. on Sundays after a noon opening. The museum is closed Mondays and selected holidays.",
+      "verificationUrl": "https://www.cartermuseum.org/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does the Carter offer a café or a full-service restaurant?",
+      "answer": "The Carter offers a locally catered FOOD CART near the Museum Shop serving sandwiches, wraps and small bites; it is not a full-service restaurant or cafeteria. Eating is not permitted in the art galleries, but the plaza and outdoor tables are available.",
+      "verificationUrl": "https://www.cartermuseum.org/museum-shop",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/frequently-asked-questions",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Where can I park for free during the 2026 Camp Bowie road construction?",
+      "answer": "The Carter's lot off Camp Bowie Boulevard remains free and is expected to stay accessible despite work along the street. The museum posts detours and alternatives such as weekend UNT Health Science Center parking and paid nearby lots. Check its roadwork page before leaving.",
+      "verificationUrl": "https://www.cartermuseum.org/camp-bowie-boulevard-construction",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Is the Amon Carter Museum good for toddlers or young children?",
+      "answer": "Yes. The Carter advertises early-childhood art programs, family workshops, ARTivity Totes and a second-floor family pop-up area, although that pop-up space is not open every day. Parents can ask staff which family activities are available on their visit.",
+      "verificationUrl": "https://www.cartermuseum.org/plan-your-visit/family-visits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can visitors borrow a wheelchair or stroller at Amon Carter?",
+      "answer": "Yes. Free wheelchairs and forward-facing strollers are available first-come, first-served at the information desk. Museum entrances and gallery floors are accessible, but wagons pulled behind a visitor are prohibited in galleries.",
+      "verificationUrl": "https://www.cartermuseum.org/plan-your-visit/accessibility",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/plan-your-visit/family-visits",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I photograph the artworks at Amon Carter?",
+      "answer": "Personal, noncommercial photographs without flash are allowed for most artworks, unless a particular gallery or artwork prohibits photography. Tripods, monopods, gimbals and selfie sticks are not allowed, and commercial image use requires permission.",
+      "verificationUrl": "https://www.cartermuseum.org/plan-your-visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/museum-policies/photo-and-video-policy",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Are the Georgia O'Keeffe and Statue of Liberty exhibitions open now?",
+      "answer": "The Carter lists Georgia O'Keeffe and the Carter through September 2027, The Statue of Liberty from Bartholdi to Warhol through January 3, 2027, and Re/Framed rotations into April 2027. Check exhibition updates before traveling because particular works or spaces can rotate.",
+      "verificationUrl": "https://www.cartermuseum.org/exhibitions",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/exhibitions",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "How long should I plan to spend at the Carter?",
+      "answer": "Roughly one to two hours is a practical independent estimate for visitors choosing highlights and a current temporary exhibition. A full collection or guided program needs more time; the museum does not promise a fixed duration for self-guided visits.",
+      "verificationUrl": "https://www.cartermuseum.org/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.cartermuseum.org/exhibitions",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    }
+  ],
+  "dallas-museum-of-art": [
+    {
+      "question": "Is the Dallas Museum of Art free and do I need a ticket?",
+      "answer": "General admission is free, but every visitor, including children, needs a general-admission ticket obtained in advance online or at Guest Services. Some temporary exhibitions require an additional paid reservation; free entry does not guarantee access to all shows.",
+      "verificationUrl": "https://dma.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "When is Dallas Museum of Art open during the week?",
+      "answer": "The museum's current public schedule is Wednesday through Sunday, 11 a.m.–5 p.m., closed Mondays and Tuesdays and on Thanksgiving, Christmas and New Year's Day. Its café and special events follow separate calendars.",
+      "verificationUrl": "https://dma.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does the DMA have a restaurant or just a snack counter?",
+      "answer": "The DMA Cafe near the north entrance is a real café with soups, salads, sandwiches and drinks, usually Wednesday through Sunday 11 a.m.–4 p.m. Separately, the plaza's Al Fresco stand offers desserts and beverages on selected event dates. Neither is a full-service formal restaurant.",
+      "verificationUrl": "https://dma.org/visit/dma-cafe",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "How much does it cost to park at the Dallas Museum of Art?",
+      "answer": "The museum uses a paid underground garage and has advertised a $25 card-only garage fee for certain 2026 museum programs; that is not a promise of a universal rate at every date or time. Check current garage pricing before your visit and consider local transit.",
+      "verificationUrl": "https://cms.dma.org/visit/DMA-Free-First-Sundays",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I bring a baby bottle, snacks or a stroller into the galleries?",
+      "answer": "Children are welcome, but no food or beverages, including baby bottles and children's snack cups, are permitted in the art galleries. Strollers are allowed subject to visitor guidelines, and visitors under age twelve require adult supervision.",
+      "verificationUrl": "https://dma.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does the DMA have wheelchair access and programs for sensory needs?",
+      "answer": "All public galleries, entrances and restrooms are wheelchair accessible; a limited number of wheelchairs is available at the north entrance. Accessible garage parking is on P1, P2 and P3, and the museum offers accommodations for sensory, hearing, vision and other needs by prior request.",
+      "verificationUrl": "https://dma.org/programs/access-programs",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Does a school group need to book ahead at the Dallas Museum of Art?",
+      "answer": "School and other organized youth groups of ten or more students must use the separate school group program, reserve at least two weeks ahead and submit any required payment. Public general-admission tickets are not a substitute for school reservations.",
+      "verificationUrl": "https://dma.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/programs/school-programs/guided-visits",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Which exhibitions at Dallas Museum of Art are currently available?",
+      "answer": "For October 2026 the museum lists X Marks the Spot through November 8, Paradise on Earth: Florals in Indian Textiles through November 15, and ongoing or longer-running Bauhaus, Sonia Boyce and contemporary galleries. Exhibition dates and additional admission rules should be reconfirmed.",
+      "verificationUrl": "https://dma.org/art/exhibitions",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-12"
+    },
+    {
+      "question": "Can I do the Dallas Museum of Art in ninety minutes?",
+      "answer": "Yes, a 90-minute highlights visit is a reasonable independent planning estimate if you choose two or three collections or exhibitions first. The DMA is much larger than one short gallery route, so a complete exploration takes longer.",
+      "verificationUrl": "https://dma.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://dma.org/art/exhibitions",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-12"
+    }
+  ],
+  "amarillo-museum-of-art": [
+    {
+      "question": "Is admission to the Amarillo Museum of Art free?",
+      "answer": "Yes. AMoA's official visitor page says that admission is always free. Educational programs or certain ticketed events may still require bookings; check the specific event rather than assuming every course and event is free.",
+      "verificationUrl": "https://www.amoa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.amoa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What days and times is Amarillo Museum of Art open?",
+      "answer": "Regular public hours are Wednesday through Saturday, 11 a.m. to 5 p.m., and Sunday, 1 p.m. to 5 p.m. The museum is closed Mondays, Tuesdays and specified holidays. Administrative-office hours are not gallery hours.",
+      "verificationUrl": "https://www.amoa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.amoa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should I park when visiting the Amarillo Museum of Art?",
+      "answer": "AMoA recommends Amarillo College lots 5 (north) and 6 (east), with designated accessible parking in lot 8 (south). Two museum-reserved spaces are east of the building across Van Buren. Campus parking does not require a permit for visitors.",
+      "verificationUrl": "https://www.amoa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.amoa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which entrance should I use at the Amarillo Museum of Art?",
+      "answer": "The main visitor entrance is at the Fine Arts Plaza on the building's west side, not the Van Buren administrative door. The official visit page gives driving directions from I-40 and I-27; school groups may use lot 5 for unloading.",
+      "verificationUrl": "https://www.amoa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.amoa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Amarillo Museum of Art wheelchair accessible?",
+      "answer": "AMoA reports accessible parking in lot 8, ramps at the plaza and lot 5, an elevator connecting its three gallery floors, and loaner wheelchairs on a first-come basis. An additional single-person elevator serves the Van Buren entrance.",
+      "verificationUrl": "https://www.amoa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.amoa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I take pictures or sketch inside the Amarillo Museum of Art?",
+      "answer": "Personal noncommercial photography is sometimes allowed, depending on the exhibition. Ask about the current rule before shooting, use no flash or tripods where prohibited, and keep a distance from works. Sketchpads with pencil are permitted under posted guidelines; wet media and pens are not.",
+      "verificationUrl": "https://www.amoa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.amoa.org/visit",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Amarillo Museum of Art have a cafeteria or full restaurant?",
+      "answer": "The museum's visitor guide does not advertise an on-site cafeteria or full-service restaurant, and food or drinks are prohibited in the galleries. Make meal plans elsewhere on or near the Amarillo College campus, rather than assuming food service inside.",
+      "verificationUrl": "https://www.amoa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.amoa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are the 2026 Route 66 photography exhibits still on display?",
+      "answer": "No, the operator lists Edward Keating's Route 66 photography exhibit as a past exhibition that ended August 16, 2026. Current highlighted shows include Jack Craft: Land Mass through January 3, 2027 and Hills Snyder: Strays through December 13, 2026; check before travelling.",
+      "verificationUrl": "https://www.amoa.org/past-exhibitions",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.amoa.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "holocaust-museum-houston": [
+    {
+      "question": "How much does a ticket to Holocaust Museum Houston cost?",
+      "answer": "The operator currently lists $22 for general adult admission, with separate senior and military rates. Visitors aged 18 and younger and college students with a valid student ID can enter free. Pricing can change, so the museum's Visit page controls.",
+      "verificationUrl": "https://hmh.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "When can I visit Holocaust Museum Houston for free?",
+      "answer": "The museum advertises free admission on Thursdays from 2 to 5 p.m., as well as free regular admission for visitors aged 18 or younger and college students with valid ID. Its special free-date listings change annually, so verify your date directly.",
+      "verificationUrl": "https://hmh.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the visiting hours and last entry time at Holocaust Museum Houston?",
+      "answer": "The regular schedule is Tuesday through Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m., with Monday closures except posted exceptions. Last entry is 4:30 p.m. A shorter late-day visit may not provide enough time for all galleries.",
+      "verificationUrl": "https://hmh.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Holocaust Museum Houston have a real café or restaurant?",
+      "answer": "Yes, the second-floor Bagel Shop @ The Museum is a café serving bagels, wraps, salads, pastries and coffee, not a formal full-service restaurant. The operator lists Tuesday through Saturday, 10 a.m. to 4 p.m., separately from museum operating hours.",
+      "verificationUrl": "https://hmh.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Holocaust Museum Houston wheelchair accessible and are there reduced admission rules?",
+      "answer": "All publicly accessible areas are described as wheelchair-accessible, with elevators and loaner manual wheelchairs. The museum admits visitors who identify as having a disability and a primary caregiver free of charge. Contact admissions@hmh.org for accommodations.",
+      "verificationUrl": "https://hmh.org/visit/accessibility/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit/accessibility/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "May I photograph exhibits at Holocaust Museum Houston?",
+      "answer": "Photography is generally prohibited in first-floor galleries unless indicated otherwise; non-flash photography is ordinarily allowed on the second floor. The institution can restrict photography at any time, so follow current signs and staff direction.",
+      "verificationUrl": "https://hmh.org/visit/tour-and-photo-guidelines/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit/tour-and-photo-guidelines/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I bring a backpack or food to Holocaust Museum Houston?",
+      "answer": "Security inspects bags and visitors pass through screening. Large bags and backpacks are restricted; necessary medical equipment receives accommodation from Visitor Services. Outside meals and sack lunches may not be brought into the museum, and gallery food/drink is prohibited.",
+      "verificationUrl": "https://hmh.org/visit/accessibility/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit/tour-and-photo-guidelines/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are guided tours available for schoolchildren and other groups?",
+      "answer": "The museum offers guided and self-guided group options. Docent tours last approximately one hour and require one adult chaperone for every fifteen visitors younger than 18. Book school and group experiences before travel and account for intense content.",
+      "verificationUrl": "https://hmh.org/visit/tour-and-photo-guidelines/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the 2026 Selling the Myth exhibit appropriate for younger children?",
+      "answer": "The museum began featuring Selling the Myth: Nazi Propaganda on October 3, 2026. The exhibition deals with antisemitism and the manipulative use of propaganda. There is no universal age cutoff in the cited listing; adults should consider their child's readiness and contact educators for recommendations.",
+      "verificationUrl": "https://hmh.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://hmh.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "san-antonio-museum-of-art": [
+    {
+      "question": "When is San Antonio Museum of Art free to Bexar County residents?",
+      "answer": "Residents who can show Bexar County residency get free general admission Tuesday from 4 to 7 p.m. and on the second Sunday of each month from 10 a.m. to noon. Special exhibition surcharges may still apply, and nonresidents pay normal rates.",
+      "verificationUrl": "https://www.samuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much is admission to the San Antonio Museum of Art?",
+      "answer": "The museum's current standard price is $24 for adults and free for children aged twelve and younger, with published senior, military, student and SNAP discounts. The SNAP Museums for All rate is $3 per person for up to four qualifying family members, purchased onsite. Recheck before traveling.",
+      "verificationUrl": "https://www.samuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How late does SAMA stay open on Tuesdays and Fridays?",
+      "answer": "SAMA's galleries are open 10 a.m. to 7 p.m. on Tuesday and Friday, and 10 a.m. to 5 p.m. Wednesday, Thursday, Saturday and Sunday. It closes Mondays and various holidays. Tre Trattoria has a separate evening dining schedule.",
+      "verificationUrl": "https://www.samuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does San Antonio Museum of Art have a proper restaurant, not just a snack bar?",
+      "answer": "Yes. Tre Trattoria is a separately operated full-service Italian restaurant in the museum's historic Hops House overlooking the river. Its kitchen serves lunch and dinner and dining can continue after galleries close; use the Sculpture Garden or West Courtyard side entrance after museum hours.",
+      "verificationUrl": "https://www.samuseum.org/visit/restaurant/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/restaurant/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How does parking work at the San Antonio Museum of Art?",
+      "answer": "The public lot opposite the museum uses Metropolis vehicle registration and is not automatically free for nonmembers. Museum members have a separate complimentary parking registration program, and accessible spaces are provided. Guests can also approach by River Walk or VIA bus.",
+      "verificationUrl": "https://www.samuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I arrive at the San Antonio Museum of Art from the River Walk?",
+      "answer": "Yes. The museum sits on the Museum Reach of the San Antonio River Walk with access for GoRio river taxis. The operator describes approximately ten minutes' walking from the Pearl and roughly thirty minutes from central downtown hotels, depending on route and walking pace.",
+      "verificationUrl": "https://www.samuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are wheelchairs and service animals permitted inside SAMA?",
+      "answer": "The museum offers first-come loaner wheelchairs and lightweight cane-stools, and service animals are permitted. Pets are not allowed on the museum campus. Visitors who need a precise step-free route through the old brewery can call 210-978-8100.",
+      "verificationUrl": "https://www.samuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can Texas school groups visit SAMA for free?",
+      "answer": "The official school tour rules state that Texas students and the required chaperones generally receive free admission on a confirmed school booking. Docent tours last about 50 minutes and need at least two weeks' advance reservation, with one adult chaperone for every ten students and separate rules for commercial travel groups.",
+      "verificationUrl": "https://www.samuseum.org/visit/tour/public-and-charter-schools/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/tour/public-and-charter-schools/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which ancient art collections are highlights at San Antonio Museum of Art?",
+      "answer": "SAMA holds significant galleries devoted to ancient Mediterranean cultures alongside Asian and Latin American art. For short visits, choose a region and compare a few objects; no particular object is guaranteed to be on view at all times. Temporary Etruscan programming is scheduled to begin October 31, 2026.",
+      "verificationUrl": "https://www.samuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samuseum.org/visit/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "kimbell-art-museum-fort-worth": [
+    {
+      "question": "Is the Kimbell Art Museum in Fort Worth free to visit?",
+      "answer": "The Kimbell's permanent collection is always free, including regular access to its Kahn Building galleries. Special exhibitions are separately ticketed; the museum currently lists $18 for general adult exhibition admission and different reduced rates for eligible visitors.",
+      "verificationUrl": "https://kimbellart.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which days is Kimbell Art Museum open late?",
+      "answer": "The operator schedules Friday hours from noon until 8 p.m. Tuesdays through Thursdays and Saturdays are 10 a.m. to 5 p.m.; Sundays noon to 5 p.m.; Mondays closed. Last entry to ticketed special exhibitions is 30 minutes before closing.",
+      "verificationUrl": "https://kimbellart.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How can I get half-price tickets to a Kimbell special exhibition?",
+      "answer": "Kimbell advertises half-price special exhibition admission Tuesday from 10 a.m. to 5 p.m. and Friday from 5 to 8 p.m. Friday discounted tickets must be purchased at the Piano Pavilion box office; verify special-exhibition dates before reserving.",
+      "verificationUrl": "https://kimbellart.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/tickets",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is parking free at Kimbell Art Museum?",
+      "answer": "Yes. The official visit page describes free parking in the underground garage and the museum's designated Kahn and Kimbell East lots, along with available free on-street parking. Follow the current parking map, since Cultural District events may complicate nearby roads.",
+      "verificationUrl": "https://kimbellart.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which Kimbell building and entrance should wheelchair users choose?",
+      "answer": "Most campus spaces are accessible, but the west entrance of the Louis Kahn Building is not wheelchair accessible. Use its east entrance on Van Cliburn Way. The Piano Pavilion is accessible through the underground garage and from designated drop-off; staff can assist with transfer between buildings.",
+      "verificationUrl": "https://kimbellart.org/visit/accessibility",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/visit/accessibility",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Kimbell Art Museum have a café or full restaurant?",
+      "answer": "The Kimbell Café in the Kahn Building serves seated lunch, take-away options and afternoon tea, including a rotating selection of soups, sandwiches and quiche. The Piano Café is currently listed as temporarily closed. It is a museum café, not a formal table-service restaurant.",
+      "verificationUrl": "https://kimbellart.org/visit/dine",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/visit/dine",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can children and visitors with sensory needs use the Kimbell?",
+      "answer": "The Kimbell offers free regular collection access, child-friendly learning material, advance-booked sensory hours, social narratives and communication tools. Limited loaner wheelchairs and mobility assistance are available, but check any family studio opening for your chosen day.",
+      "verificationUrl": "https://kimbellart.org/visit/accessibility",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/visit/accessibility",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the Kimbell's 2026 photography exhibition?",
+      "answer": "Photography's First Century: Masterworks from the Bibliothèque nationale de France is scheduled October 4, 2026 through January 17, 2027. It requires a special-exhibition ticket, unlike the museum's permanent collection; check the gallery and booking rules for the date.",
+      "verificationUrl": "https://kimbellart.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/tickets",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How far ahead must group tours be arranged at the Kimbell?",
+      "answer": "Operator tour guidance asks for at least three weeks' advance notice for arranged docent-led and self-guided group visits. Guided visits generally last about an hour, and the tour format depends on group size and museum availability.",
+      "verificationUrl": "https://kimbellart.org/content/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://kimbellart.org/content/tours",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "nasher-sculpture-center-dallas": [
+    {
+      "question": "Is the Nasher Sculpture Center open on Tuesdays?",
+      "answer": "The museum's current Plan a Visit page lists Wednesday through Sunday, 11 a.m.–5 p.m., with Monday and Tuesday closed. An older Hours and Admissions page still shows Tuesday opening; use the current Plan a Visit page and contact the museum about special events.",
+      "verificationUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nashersculpturecenter.org/visit/hours-admissions",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Nasher Sculpture Center free, and are children free?",
+      "answer": "General adult admission is currently $10, while children younger than twelve, members, and qualifying military, first responders, SNAP EBT cardholders and some other groups enter free. Public Free First Saturdays usually waive admission; ticketed events can vary.",
+      "verificationUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Nasher's ticket include the sculpture garden and special exhibitions?",
+      "answer": "Yes. The operator says ordinary admission includes interior galleries, outdoor sculpture garden and special exhibitions. Outdoor access may be affected by weather or private events, and particular exhibitions change.",
+      "verificationUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where can visitors park for the Nasher Sculpture Center?",
+      "answer": "The Nasher does not operate a general-public parking garage. Paid underground parking is available at Dallas Museum of Art and nearby private garages; metered street parking also exists. Nasher members get complimentary parking at the DMA garage when visiting, subject to availability and proof of membership.",
+      "verificationUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Nasher have an actual cafe or only a snack bar?",
+      "answer": "Nasher Cafe serves seasonal soups, salads and sandwiches Wednesday through Sunday from 11 a.m. to 2:30 p.m. A museum admission ticket is required to reach it. Cafe-purchased food and drinks may be consumed in the garden, but do not assume the cafe is accessible separately from museum admission.",
+      "verificationUrl": "https://www.nashersculpturecenter.org/visit/cafe",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nashersculpturecenter.org/visit/cafe",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Nasher's outdoor sculpture garden wheelchair accessible?",
+      "answer": "The operator confirms a curbless main entrance, access to all museum galleries and garden paths with ramps on both sides. Wheelchairs, portable seats, a quiet room and sensory kits are available on request, and service animals are welcome.",
+      "verificationUrl": "https://www.nashersculpturecenter.org/visit/accessibility",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nashersculpturecenter.org/visit/accessibility",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Nasher Sculpture Center good for young children?",
+      "answer": "It has free family guides, creative activity kits, sensory resources and rotating Free First Saturdays family programming. Children need supervision around vulnerable art; the sculpture garden is an art space, not a playground. A short focused visit is usually more suitable than trying every display.",
+      "verificationUrl": "https://www.nashersculpturecenter.org/visit/visit-resources",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I visit the Nasher and Dallas Museum of Art in the same day?",
+      "answer": "Yes. They are adjacent in the Dallas Arts District and can be paired on foot. They have different admissions and museum experiences: the Nasher specializes in sculpture and a garden, while DMA has a broader world-art collection and its own ticketing rules.",
+      "verificationUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nashersculpturecenter.org/visit/plan-a-visit",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "national-cowgirl-museum-hall-fame-fort-worth": [
+    {
+      "question": "Is the National Cowgirl Museum open in late October 2026?",
+      "answer": "No. The museum's October 2026 announcement says it will close to the general public beginning October 19 and reopen on November 7 for its expansion celebration. Do not plan a regular gallery visit between October 19 and November 6; special announcements are not general admission.",
+      "verificationUrl": "https://thecowgirl.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thecowgirl.org/event/expansion-grand-opening/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "When can the public enter the Cowgirl Museum on November 7, 2026?",
+      "answer": "The expansion opening announcement schedules a members-only preview beginning at 10 a.m. November 7 and a public opening at noon, with a parade affecting nearby roads. Verify the event details again on the day of travel.",
+      "verificationUrl": "https://thecowgirl.org/event/expansion-grand-opening/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thecowgirl.org/event/expansion-grand-opening/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the normal Cowgirl Museum admission prices and hours?",
+      "answer": "Outside the announced closure, the museum lists Tuesday–Saturday 10 a.m.–5 p.m., Sunday noon–5 p.m., closed Monday. Standard admission is $10 for adults, $7 seniors, and $4 children ages 4–12. Children three or younger are free with a full-price adult; rates and event admissions may vary.",
+      "verificationUrl": "https://thecowgirl.org/visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thecowgirl.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much does parking cost at the National Cowgirl Museum?",
+      "answer": "The current museum parking page lists city-managed parking at $6 for up to two hours, $12 for over two hours, and $15 for over three hours, with event-specific charges and member discounts subject to restrictions. Stock Show events and the November opening can change traffic and rates.",
+      "verificationUrl": "https://thecowgirl.org/visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thecowgirl.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can children try the Cowgirl Museum's bucking bronc and interactive galleries?",
+      "answer": "The Western Design and Bucking Bronc rooms were partially reopened in April 2026 and support hands-on interpretation. They will be affected by the October 19–November 6 closure. New galleries and the carousel are part of the November expansion, not guaranteed before the reopening.",
+      "verificationUrl": "https://thecowgirl.org/event/expansion-grand-opening/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thecowgirl.org/news/the-cowgirl-reopens-second-floor-immersive-experiences/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are Cowgirl Museum school field trips running in October 2026?",
+      "answer": "The museum says school field trips will resume after Thanksgiving 2026. Do not bring a class expecting walk-in docent tours or a routine October booking. The group visit page also notes reservations and self-guided options for eligible visits.",
+      "verificationUrl": "https://thecowgirl.org/field-trips/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thecowgirl.org/field-trips/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is food allowed inside the Cowgirl Museum and is there a restaurant?",
+      "answer": "Food and drink are not allowed in museum galleries. The museum recommends outside benches near its entrance and picnic tables in Alice Walton Park for visitor-brought food. Its current plan-a-visit guide does not establish a full-service on-site restaurant.",
+      "verificationUrl": "https://thecowgirl.org/visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thecowgirl.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Cowgirl Museum accessible with a wheelchair or stroller?",
+      "answer": "Wheelchairs, scooters, walkers and canes are welcome under the museum's mobility-device policy. Oversized and double strollers and wagons are restricted in galleries, as are large bags. The expanded galleries may have different routes once the November reopening is complete, so check accessibility details with visitor staff.",
+      "verificationUrl": "https://thecowgirl.org/visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thecowgirl.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the Hitting the Mark Wild West Show gallery?",
+      "answer": "It is the museum's permanent exhibition on women who performed in Wild West shows. Interpretive highlights include historic posters, an Annie Oakley presentation, letters and other artifacts. Check whether the gallery has reopened after the expansion work before traveling.",
+      "verificationUrl": "https://thecowgirl.org/exhibitions/hitting-the-mark-cowgirls-and-wild-west-shows-gallery/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thecowgirl.org/event/expansion-grand-opening/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "fort-worth-museum-science-history": [
+    {
+      "question": "Where is the public entrance for the Fort Worth Museum of Science and History in 2026?",
+      "answer": "General visitors and members must use the Omni Theater entrance on Lansford Lane. Since August 11, 2026, the former Gendy Street entrance is for school groups, chaperones and field trips only. The Western Heritage Garage accessed via Gate 19 on Gendy is nearest the new public entrance.",
+      "verificationUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Fort Worth Omni Theater included with general museum admission?",
+      "answer": "No. The Jane & John Justin Foundation Omni Theater has separately priced tickets and reserved movie times. Public Noble Planetarium shows and the Cattle Raisers Museum are included with regular museum admission, subject to the current schedule and capacity.",
+      "verificationUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is admission to the Fort Worth Museum of Science and History?",
+      "answer": "The operator lists museum general admission at $16 for adults ages 12–64, $14 seniors ages 65 and over, $12 children ages 3–11, and free for children under three. Omni Theater film tickets cost extra. Prices and discounts should be rechecked when booking.",
+      "verificationUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should families park, and is parking free?",
+      "answer": "The museum suggests the city-managed Western Heritage Garage accessed through Gate 19 on Gendy. The currently published ordinary rates are $6 up to two hours, $12 for two to three hours, and $15 for longer stays. Event dates can carry different rates, and ordinary museum admission does not include parking.",
+      "verificationUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Fort Worth Children's Gallery suitable for a toddler or school child?",
+      "answer": "The TCU Children's Gallery focuses on the museum's youngest learners. Its school field-trip rules currently limit the Children's Museum to second grade and below; independent families can choose age-appropriate exhibits such as DinoDig and design activities for older children.",
+      "verificationUrl": "https://www.fwmuseum.org/learn/field-trips/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is there a real café at the Fort Worth Museum of Science and History?",
+      "answer": "Yes. Exhibit Café serves sandwiches, salads, flatbreads and other light meals inside the museum, generally Tuesday–Friday 11 a.m.–3 p.m. and Saturday 10:30 a.m.–3 p.m. It is listed as closed Sunday. This is a museum café, not a formal full-service restaurant.",
+      "verificationUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum support wheelchair users and visitors with sensory needs?",
+      "answer": "The operator describes wheelchair-accessible public facilities, a limited number of loaner wheelchairs, a Calming Room, sensory backpacks, communication boards and sensory-friendly programs. The Calming Room is reserved for one family at a time.",
+      "verificationUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does a Fort Worth school field trip use the new Lansford Lane public entrance?",
+      "answer": "No. Under the August 2026 separation of visitor entrances, field-trip groups and chaperones use the Gendy Street school-group entrance while ordinary visitors use the Lansford Lane/Omni entrance. Book school trips through the separate group program.",
+      "verificationUrl": "https://www.fwmuseum.org/learn/field-trips/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How long should a family allow at the Fort Worth Museum of Science and History?",
+      "answer": "A focused family visit of about two to three hours is a reasonable independent estimate. Reserve additional time for a separately ticketed Omni film or limited-seat planetarium show. The museum does not guarantee every exhibition is fully accessible or that every presentation runs continuously.",
+      "verificationUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.fwmuseum.org/visit/plan-your-visit/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "dallas-holocaust-human-rights-museum": [
+    {
+      "question": "When is Dallas Holocaust and Human Rights Museum closed?",
+      "answer": "The current official visitor FAQ lists 10 a.m.–5 p.m. on regular open days with Tuesday closed, plus published holiday exceptions. The entrance to the permanent exhibition closes at 4 p.m., so do not arrive near closing time expecting the full experience.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.dhhrm.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Dallas Holocaust and Human Rights Museum suitable for a child under 12?",
+      "answer": "The museum recommends that visitors be at least 12 because the permanent Holocaust exhibition includes disturbing historical subject matter. Some temporary exhibitions may be more appropriate for younger children. Guardians should evaluate content before booking.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.dhhrm.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much time should I plan for Dallas Holocaust and Human Rights Museum?",
+      "answer": "The institution recommends roughly two to three hours to experience the permanent wings, current special exhibition and theaters. Weekday afternoons after 1 p.m. or weekends can be less busy than school-group mornings.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.dhhrm.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does a general admission ticket include Dimensions in Testimony?",
+      "answer": "Yes, the interactive recorded-survivor theater is part of general admission, along with the permanent exhibition and other museum theaters. A timed reservation from Guest Services is needed when spaces are limited. Admission alone does not guarantee an immediate session.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.dhhrm.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much are admission and parking at Dallas Holocaust Museum?",
+      "answer": "The operator lists general admission at $19 for adults, $17 for certain groups including seniors 55+, and $12 for students. Parking is available across the street at 301 N. Houston; its garage is paid except for qualifying members, and rates can change. DART West End Station is about one block away.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.dhhrm.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I bring a stroller, backpack or camera to the museum?",
+      "answer": "Security screening applies to visitors and belongings. Bags larger than 19×17×8 inches are prohibited; there is no bag or coat check, and strollers are not allowed inside the theaters. Non-flash personal still photography is allowed where permitted, but flash, video, livestreaming, tripods and selfie sticks are prohibited.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.dhhrm.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Dallas Holocaust Museum have a cafeteria, café or restaurant?",
+      "answer": "The current visitor FAQ prohibits outside food and drink but does not identify an operating in-house dining venue. The 'Piccadilly Cafeteria' mentioned in the Pivot to America Wing is a historical interpretation of a Dallas civil-rights sit-in, not a public restaurant inside the museum. Plan food in the nearby West End.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.dhhrm.org/exhibitions/pivot-to-america-wing/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the Dallas Holocaust and Human Rights Museum's permanent galleries?",
+      "answer": "The three permanent wings are Holocaust/Shoah, Human Rights, and Pivot to America. Interactive survivor testimony and a reflection room complement them. The Disney Studios and World War II exhibition ended September 10, 2026 and must not be described as current.",
+      "verificationUrl": "https://www.dhhrm.org/exhibitions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.dhhrm.org/exhibitions/pivot-to-america-wing/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Dallas Holocaust and Human Rights Museum accessible?",
+      "answer": "The museum describes accessible entrances, galleries, theaters and restrooms, permits ADA-defined service animals, and offers English and Spanish captioning. Its security and stroller restrictions still apply; request specific accommodations directly when booking.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.dhhrm.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which entrance should an individual use versus a school group?",
+      "answer": "The main visitor entrance is 300 N. Houston Street, while group tours enter on Ross Avenue. Visitors should plan for bag screening. The West End DART rail stop is about a block away.",
+      "verificationUrl": "https://www.dhhrm.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.dhhrm.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "modern-art-museum-fort-worth": [
+    {
+      "question": "Are the galleries at the Modern Art Museum of Fort Worth open in October 2026?",
+      "answer": "No. The museum officially closes its exhibition galleries September 29 through October 30, 2026 while installing the next collection presentation. The rest of the building offers FREE In the Making sculpture-making activities, cinema and performance programming, its shop and Café Modern. Verify the announced October 31 gallery reopening before making a gallery-focused trip.",
+      "verificationUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Modern free to visit in October 2026?",
+      "answer": "Yes for its special October 2026 lobby sculpture project and museum entry during gallery installation, according to the operator. Galleries are closed the entire September 29–October 30 period. Outside this temporary arrangement regular adult gallery admission is $16, with the museum's weekly free-Friday and half-price Sunday policies.",
+      "verificationUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "When are regular museum galleries normally open?",
+      "answer": "Ordinary public hours are Tuesday–Thursday 10 a.m.–5 p.m., Friday 10 a.m.–8 p.m., Saturday and Sunday 10 a.m.–5 p.m., closed Monday and major holidays. These hours do not mean the exhibition galleries are open during the October 2026 installation period.",
+      "verificationUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Café Modern serve a full meal or just snacks?",
+      "answer": "Café Modern is a full-service restaurant and bar with indoor and patio tables, lunch Tuesday–Friday 11 a.m.–2:30 p.m., brunch Saturday 11 a.m.–2:30 p.m. and Sunday 10 a.m.–3 p.m., and Friday dinner seatings starting at 5 p.m. Reservations are available; its menu and hours are distinct from gallery admission.",
+      "verificationUrl": "https://www.themodern.org/caf%C3%A9-modern",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.themodern.org/caf%C3%A9-modern",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Modern Art Museum of Fort Worth offer free Fridays or half-price Sundays?",
+      "answer": "Yes, during normal gallery operations Fridays offer free general museum admission and Sundays offer half-price tickets. The October 2026 gallery closure supersedes normal expectations; visitors may instead attend free public lobby programs.",
+      "verificationUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are there children's programs and Sunday family tours during the October installation?",
+      "answer": "The free In the Making: The Sculpture Project provides hands-on artmaking suitable for families during the October closure. The operator separately states there are no normal Public Tours or Sunday Family Tours in October 2026, with family tour dates advertised to resume after reopening.",
+      "verificationUrl": "https://www.themodern.org/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the museum wheelchair accessible, including Café Modern?",
+      "answer": "Yes. The operator describes wheelchair-accessible public entrances, elevators, galleries when open, theater, restrooms, Café Modern and its shop, plus accessible parking. Borrowed wheelchairs and portable seats are available first come, and some screenings offer assisted listening or captions.",
+      "verificationUrl": "https://www.themodern.org/accessibility",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.themodern.org/accessibility",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where is Modern Art Museum of Fort Worth and how long should I allow?",
+      "answer": "The Modern is at 3200 Darnell Street in Fort Worth's Cultural District, a short walk from the Kimbell and Amon Carter. During October 2026 an architecture, free artmaking and restaurant visit may be shorter than a conventional gallery outing. When exhibition rooms reopen, allow roughly 90 minutes to two hours for a selective art-focused visit; this is an editorial estimate.",
+      "verificationUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are visitors allowed to take photos, bring food, or sketch in galleries?",
+      "answer": "Personal non-flash photography is generally permitted outside restricted works and loan exhibitions. No food or drinks are permitted in galleries, and visitors must keep their distance from artworks. Pencil sketching is allowed within size restrictions, while large bags and bulky items must be checked. Check staff signs for current exhibition-specific rules.",
+      "verificationUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "american-quarter-horse-hall-of-fame-museum-amarillo": [
+    {
+      "question": "What are the current museum hours and is it open Mondays?",
+      "answer": "The museum-specific operator contact page lists Tuesday–Saturday 9 a.m.–5 p.m., while the 2024 Texas Historical Commission record still shows Tuesday–Friday until 4 p.m. and Saturday until 5 p.m.; much older brochures give Monday hours. These conflicting published sources are not grounds to assume Monday opening. Call 806-376-5181 to confirm.",
+      "verificationUrl": "https://aqha-museum.myshopify.com/pages/contact-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200000009",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much is admission to American Quarter Horse Hall of Fame Museum?",
+      "answer": "Visit Amarillo labels regular museum admission as paid, but the accessible operator information reviewed here does not establish a reliable current adult ticket amount. Special free family events in 2026 are not a permanent free-admission policy. Confirm normal ticket prices and discounts with the museum before traveling.",
+      "verificationUrl": "https://www.visitamarillo.com/listing/american-quarter-horse-hall-of-fame-%26-museum/650/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.newschannel10.com/2026/07/09/american-quarter-horse-hall-fame-museum-host-family-fun-day-saturday/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where is the American Quarter Horse Hall of Fame Museum?",
+      "answer": "The museum is at 2601 East Interstate Drive, Amarillo, Texas 79104, near I-40, distinct from American Quarter Horse Foundation administrative office visits. Its museum telephone number is 806-376-5181 and museum email is museum@aqha.org.",
+      "verificationUrl": "https://aqha-museum.myshopify.com/pages/contact-us",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://aqha-museum.myshopify.com/pages/contact-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the American Quarter Horse Museum undergoing renovation?",
+      "answer": "Yes. A 2026 local operator interview described five renovation phases to create classroom space, interactive galleries, a shop and live-horse demonstrations, with work expected through the end of the decade. Some exhibits may move or be unavailable while work proceeds, although the museum has maintained its general operations.",
+      "verificationUrl": "https://www.telemundoamarillo.com/2026/02/27/grandes-renovaciones-estn-en-marcha-para-el-museo-american-quarter-horse-hall-fame/?outputType=amp",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.telemundoamarillo.com/2026/02/27/grandes-renovaciones-estn-en-marcha-para-el-museo-american-quarter-horse-hall-fame/?outputType=amp",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can families meet or ride a real American Quarter Horse at the museum?",
+      "answer": "The museum introduced its Wagonhound Paddock at a July 2026 family event with a live-horse demonstration, but there is no evidence that a live horse is present for every regular visit or that horseback riding is offered. Ask for the schedule of actual animal programs before promising a child a live encounter.",
+      "verificationUrl": "https://www.newschannel10.com/2026/07/09/american-quarter-horse-hall-fame-museum-host-family-fun-day-saturday/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitamarillo.com/listing/american-quarter-horse-hall-of-fame-%26-museum/650/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the Hall of Fame exhibits about?",
+      "answer": "Visitors learn how the American Quarter Horse became known for short-distance speed, ranch work, racing and showing, and about famous horses and the people who bred, trained or rode them. Historical artifacts, western art and rotating interactive experiences support these themes; individual displays may be relocated during renovations.",
+      "verificationUrl": "https://www.visitamarillo.com/listing/american-quarter-horse-hall-of-fame-%26-museum/650/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.aqha.com/museum",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Quarter Horse Hall of Fame suitable for a young child?",
+      "answer": "Its Hall of Fame stories, horse-themed art and family educational activities can appeal to school-age children, and individual free Family Fun Days have included crafts and demonstrations. Family programming should not be mistaken for guaranteed toddler play space or continuous animal experiences. Check program dates.",
+      "verificationUrl": "https://www.newschannel10.com/2026/07/09/american-quarter-horse-hall-fame-museum-host-family-fun-day-saturday/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitamarillo.com/listing/american-quarter-horse-hall-of-fame-%26-museum/650/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have a cafeteria or full-service restaurant?",
+      "answer": "The museum advertises a shop and private-event rental spaces, but the current public visitor sources do not establish a daily cafeteria or full-service restaurant. Private events may hire outside caterers; this does not mean visitors can buy meals on a normal museum day. Plan eating elsewhere in Amarillo.",
+      "verificationUrl": "https://www.visitamarillo.com/listing/american-quarter-horse-hall-of-fame-%26-museum/650/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.aqha.com/resource-detail-view/-/asset_publisher/D6hvXWsL9zzH/content/rental-program",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the museum wheelchair accessible during the 2026 renovation?",
+      "answer": "The operator accepts accommodation requests for booked events, but the publicly available current museum information does not establish a complete step-free route or guarantee that every gallery is accessible during phased construction. Contact museum staff in advance about entrances, restrooms, surfaces and group needs.",
+      "verificationUrl": "https://aqha-museum.myshopify.com/pages/contact-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://aqha-museum.myshopify.com/pages/faqs",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "museum-of-fine-arts-houston": [
+    {
+      "question": "How much is general admission to the Museum of Fine Arts, Houston?",
+      "answer": "The museum currently lists All Access tickets at $24 for adults 19+, $20 for youth 13–18 and $20 for seniors 65+ with ID; children 12 and younger enter free. Special program or exhibition admissions may differ. Confirm prices at purchase, not from a stale screenshot.",
+      "verificationUrl": "https://www.mfah.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/admission-information",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I visit MFAH for free on Thursday?",
+      "answer": "Yes. Thursday general admission to the permanent collection is free for everyone. Special exhibitions still require a separate discounted All Access ticket, so the Thursday promotion does not mean every temporary show is free.",
+      "verificationUrl": "https://www.mfah.org/visit/admission-information",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is MFAH open late on Thursday and Friday?",
+      "answer": "The current Sarofim Campus schedule lists Thursday and Friday 11 a.m.–9 p.m. It lists Wednesday 11 a.m.–5 p.m., Saturday 11 a.m.–6 p.m., Sunday 12:30–6 p.m., and closures Monday and Tuesday. Special programs and holiday dates may differ.",
+      "verificationUrl": "https://www.mfah.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should I park for the Kinder Building or MFAH?",
+      "answer": "The MFAH official campus map directs visitors to Beck Garage at 1144 Binz Street, Glassell Garage at 5101 Montrose Boulevard and Kinder Garage at 5500 Main Street. Choose the building and entry point before driving, and use current garage rates.",
+      "verificationUrl": "https://www.mfah.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Museum of Fine Arts Houston have a cafeteria or full restaurant?",
+      "answer": "MFAH operates Cafe Leonelli on the main campus and another Leonelli at the Glassell School for casual Italian food, drinks and snacks. Le Jardinier is a separate full-service fine-dining restaurant; this is not one generic cafeteria. Confirm dining hours and reservations separately.",
+      "verificationUrl": "https://www.mfah.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Museum of Fine Arts Houston good for kids and strollers?",
+      "answer": "Yes, with a selective family visit. Children 12 or younger have free admission. Strollers and soft front-facing baby carriers are allowed, but pull wagons, rolling luggage and large bags are prohibited. Food and drinks must stay outside galleries.",
+      "verificationUrl": "https://www.mfah.org/visit/visiting-guidelines",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does MFAH offer sensory-friendly options or a quieter visit time?",
+      "answer": "Yes. The operator provides sensory-processing kits at Beck and Kinder coat checks, accessible audio formats and other assistance. It suggests Wednesday and Friday between approximately 1–4 p.m. as generally quieter periods; those are estimates, not guaranteed low-crowd appointments.",
+      "verificationUrl": "https://www.mfah.org/visit/accessibility-resources/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/accessibility-resources/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Bayou Bend or Rienzi inside the MFAH main museum?",
+      "answer": "No. Bayou Bend and Rienzi are separately located MFAH house museums near Memorial Park, with their own ticketing and visitor arrangements. They are not inside the Sarofim Campus's three main gallery buildings.",
+      "verificationUrl": "https://www.mfah.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can a group of ten visit MFAH without arranging a group reservation?",
+      "answer": "Individuals may purchase tickets normally, but groups of ten or more seeking group pricing or a private guided tour are directed to advance group booking. School program rules are separate; contact the museum in advance for school visits.",
+      "verificationUrl": "https://www.mfah.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "art-museum-south-texas-corpus-christi": [
+    {
+      "question": "Is the Art Museum of South Texas still closed because of the July 2026 air-conditioning failure?",
+      "answer": "No. The museum announced it reopened July 3, 2026 after a July 1 HVAC closure. Treat the temporary closure notice as historical, not an ongoing closure; check the latest visitor page for new developments.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/temporary-closure-update/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is admission to the Art Museum of South Texas always free?",
+      "answer": "No blanket free-admission policy can be inferred from its summer promotion. The museum specifically advertised free entry June 1–July 31, 2026. That promotion ended; check the current Admission & Hours page for today's price and any designated free days.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/free-admission-to-the-art-museum-of-south-texas-summer-2026/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the address of the Art Museum of South Texas?",
+      "answer": "The museum is at 1902 North Shoreline Boulevard, Corpus Christi, Texas 78401, on the bayfront. It has more than one building within its waterfront complex; use the museum's visitor information for accessible parking and a preferred entrance.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Art Museum of South Texas have a real restaurant?",
+      "answer": "Yes. Elizabeth's is a restaurant/café in the museum complex, not just a vending area. The museum gives 361-882-8785 for dining information and reservations. Confirm its schedule and seating directly rather than assuming it stays open for every gallery hour.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can young children use the ArtCade at the Art Museum of South Texas?",
+      "answer": "When open to the public, the first-floor Johnson Building ArtCade has drawing, animation, a reading area and other hands-on creative activities. It is closed to public drop-ins during summer camps, so confirm activity-room access before promising it to children.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What age is required for the Art Museum of South Texas Digital Studio?",
+      "answer": "The Blanche Moore Digital Studio's supervised sessions serve adults and children age ten and older accompanied by an adult. Its hours are reserved and session fees can vary; check the museum events calendar before planning a special computer-art visit.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Art Museum of South Texas wheelchair accessible?",
+      "answer": "The operator advertises ADA-compliant parking in its lots and ADA service-animal policies. Visitors needing customized accommodation should contact 361-825-3500. It also supports use of the ReBokeh iOS visual-accessibility tool. Do not assume every historic or special-event room has identical access.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much time should I allow at the Art Museum of South Texas?",
+      "answer": "One to two hours is a reasonable independent planning estimate for a focused gallery visit. Families attending an ArtCade or Digital Studio session may need longer, and availability of those activities varies.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are Elizabeth's restaurant and the ArtCade always open whenever the galleries are open?",
+      "answer": "No. Dining hours and reservations are separate, and the ArtCade is closed during some camp periods. Check restaurant staff and the museum's daily activity schedule rather than planning those facilities from gallery hours alone.",
+      "verificationUrl": "https://www.artmuseumofsouthtexas.org/plan-your-visit/at-the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.artmuseumofsouthtexas.org/temporary-closure-update/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "houston-museum-of-natural-science": [
+    {
+      "question": "Does one HMNS ticket include the planetarium, Butterfly Center and every exhibition?",
+      "answer": "No. A regular permanent-hall ticket includes most permanent exhibitions but does not automatically include the Burke Baker Planetarium, Wortham Giant Screen Theatre, Cockrell Butterfly Center or certain ticketed special exhibits. Verify individual admission and timed-entry reservations before purchasing.",
+      "verificationUrl": "https://www.hmns.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is actually free at the Houston Museum of Natural Science on Tuesday evenings?",
+      "answer": "Permanent exhibition halls at HMNS in Hermann Park are free on Tuesdays from 5 to 8 p.m. This does not include the Butterfly Center, planetarium, giant screen theater, paid special exhibits or parking. Free-Tuesday tickets are distributed in person and cannot be reserved in advance.",
+      "verificationUrl": "https://help.hmns.org/support/solutions/articles/151000051328/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://help.hmns.org/support/solutions/articles/151000051328/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much do HMNS general admission and parking cost?",
+      "answer": "The operator currently lists permanent-hall admission at $25 for adults and $16 for children ages 3–11 or seniors 62 and older. The attached garage currently charges $30 for nonmembers or $10 for members, including Free Tuesdays. Check live prices and any eligibility discounts before leaving.",
+      "verificationUrl": "https://www.hmns.org/visit/directions-parking/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which hours and address apply to the main Houston science museum?",
+      "answer": "HMNS at Hermann Park is at 5555 Hermann Park Drive, Houston, not the separately operated Sugar Land location. Its visitor FAQ lists Monday–Thursday 9 a.m.–5 p.m. and Friday–Sunday 9 a.m.–6 p.m., with seasonal changes and closures on Thanksgiving and Christmas. Confirm daily updates before visiting.",
+      "verificationUrl": "https://www.hmns.org/visit/faq/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should I park and can I reserve a space?",
+      "answer": "The attached HMNS garage is first-come, not reservable, and has a 6-foot-8-inch height limit. Accessible spaces are available on garage levels, with some alternatives near Caroline Street. Parking rates are separate from museum tickets; allow extra time during Museum District events.",
+      "verificationUrl": "https://www.hmns.org/visit/directions-parking/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/directions-parking/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are the gem hall and the insect hall currently open at HMNS?",
+      "answer": "Not currently. The museum identifies Cullen Hall of Gems & Minerals as closed for a makeover and Brown Hall of Entomology as closed for renovations. The independently ticketed Cockrell Butterfly Center remains a separate attraction. Do not plan around the closed galleries until HMNS posts reopening dates.",
+      "verificationUrl": "https://www.hmns.org/hmns-exhibits/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can families take a stroller through the Cockrell Butterfly Center?",
+      "answer": "Ordinary strollers and wagons are not permitted inside the live butterfly conservatory, because they present an escape risk to butterflies. A stroller parking area is provided. Wheelchairs and mobility devices required for accessibility can use the center's accessible routes and elevators.",
+      "verificationUrl": "https://www.hmns.org/exhibits/cockrell-butterfly-center/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.hmns.org/exhibits/cockrell-butterfly-center/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Houston Museum of Natural Science have an on-site restaurant?",
+      "answer": "It has casual food service rather than a conventional table-service restaurant. Periodic Table is a bistro-style counter near the Butterfly Center with sandwiches, salads, snacks and coffee; Elements Grill serves burgers, fries, hot dogs, chicken and some vegetarian choices. Check service hours separately from museum hours.",
+      "verificationUrl": "https://www.hmns.org/visit/dining/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the science museum accessible for wheelchairs and visitors with sensory sensitivities?",
+      "answer": "HMNS provides elevators across exhibit levels, designated accessible parking, adult-changing tables in two family restrooms, and detailed visual and sensory guidance that describes lighting, sound and other stimuli by exhibition area. Some attractions have different accommodation and stroller policies, so consult the museum's current accessibility guide.",
+      "verificationUrl": "https://www.hmns.org/visit/accessibility/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/faq/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much time should a family allow at HMNS?",
+      "answer": "Allow roughly two to three hours for a selective visit to the main permanent halls, or three to five hours when adding timed attractions and meal breaks. These are independent planning estimates, not minimum museum requirements. For toddlers, plan one or two highlight halls rather than an exhaustive circuit.",
+      "verificationUrl": "https://www.hmns.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/faq/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors leave HMNS for lunch and come back?",
+      "answer": "The museum says a permanent-exhibit admission ticket allows visitors to exit and re-enter the permanent halls throughout the day, so a meal break is possible. Some special exhibits are single-entry only. Schools have separate lunch-storage and preorder procedures, so confirm them before a field trip.",
+      "verificationUrl": "https://www.hmns.org/visit/accessibility/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.hmns.org/visit/dining/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "el-paso-museum-of-art": [
+    {
+      "question": "Is the El Paso Museum of Art free to enter?",
+      "answer": "Yes. El Paso Museum of Art says general admission is always free. Museum art-school workshops and separately organized events can require a separate registration or tuition, so free museum admission does not imply a free class.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/art-school/classes-and-registration",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which days and hours is the El Paso Museum of Art open?",
+      "answer": "The operator lists Wednesday–Saturday 10 a.m.–6 p.m. and Sunday 11 a.m.–3 p.m., with Monday, Tuesday and major-holiday closures. Exhibition openings and event hours may differ. Confirm with the museum before a holiday visit.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should I park for the El Paso Museum of Art?",
+      "answer": "There is no blanket promise of free museum parking. The museum lists nearby fee-bearing downtown garages including JPMorgan Chase, Mills and One Civic Center Plaza, plus metered street parking. Check the lot's actual price and entrances before travel.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the El Paso Museum of Art provide wheelchairs and accessible access?",
+      "answer": "The museum says it is fully accessible, welcomes trained service animals, and can lend a wheelchair at reception without charge. For special mobility, interpretation or sensory requests, contact museum visitor services at 915-212-0300.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I take photos at the El Paso Museum of Art?",
+      "answer": "Ordinary personal noncommercial photos are generally permitted without flash unless a specific work carries a no-photo sign. No tripods, monopods, selfie sticks, gimbals or commercial photo shoots without museum approval. Keep clear of doorways and stay back from exhibits.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the El Paso Museum of Art good for children?",
+      "answer": "The free galleries can support a short family outing, while the museum's separately registered art school offers programs for children ages 6–13, teens and adults. Classes are not automatically free. Choose a few objects by interest rather than expecting a dedicated toddler play center.",
+      "verificationUrl": "https://epma.art/art-school/classes-and-registration",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are the October 2026 student-art and Zoe Diaz exhibitions permanent?",
+      "answer": "No. The museum lists EPISD Creativity Through Our Eyes from August 22 through October 25, 2026, and America, The Beautiful: Selections from the Zoe Diaz Collection from July 25, 2026 through January 3, 2027. Both are dated displays; check the current exhibition page before travel.",
+      "verificationUrl": "https://epma.art/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does El Paso Museum of Art have a cafeteria or restaurant?",
+      "answer": "Its official visitor guide does not establish a full-service on-site restaurant or cafeteria, and food and drink are prohibited in galleries. Make meal plans in downtown El Paso rather than promising museum food service.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much time do visitors need for El Paso Museum of Art?",
+      "answer": "About 60–120 minutes is an independent planning estimate for a few exhibitions and collection galleries. The museum sets no fixed time requirement, and visitors with children or a special interest may adjust.",
+      "verificationUrl": "https://epma.art/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epma.art/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "arlington-museum-of-art": [
+    {
+      "question": "Where is Arlington Museum of Art now—downtown or Ballpark Way?",
+      "answer": "The museum moved into the Arlington Entertainment District at 1200 Ballpark Way and opened there in March 2024. Older downtown museum addresses and photographs are outdated. The building is part of the large complex associated with Esports Stadium Arlington.",
+      "verificationUrl": "https://arlingtonmuseum.org/visitor-info",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/visitor-info",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the Arlington Museum of Art hours in October 2026?",
+      "answer": "Its dated visitor page says that through October 17, 2026, it opens Tuesday–Friday 10 a.m.–5 p.m., with Saturday–Monday closed. Since older museum pages show different weekend hours and this schedule ends October 17, check the current live schedule for any later visit.",
+      "verificationUrl": "https://arlingtonmuseum.org/visitor-info",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/visitor-info",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are tickets to Arlington Museum of Art free?",
+      "answer": "Do not assume general admission is free. The Arlington Museum of Art sells exhibition-specific tickets, with discounts for groups of at least ten. Members receive free entry to its exhibitions under the stated membership benefits. Confirm the current show, price and ticket availability directly.",
+      "verificationUrl": "https://arlingtonmuseum.org/visitor-info",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/visitor-info",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is parking free at Arlington Museum of Art?",
+      "answer": "The closest City parking lot west of the building is listed at $10, accessible from Ballpark Way. Accessible spaces are also available near the south entrance; additional Entertainment District lots have varying prices and operators.",
+      "verificationUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can younger children visit Arlington Museum of Art?",
+      "answer": "Yes, but all children aged fifteen or younger must be accompanied by a parent or guardian and keep a safe distance from art unless an interactive object is explicitly marked. Sensory suitability depends on each ticketed or immersive exhibition.",
+      "verificationUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the new Arlington Museum of Art wheelchair accessible?",
+      "answer": "The museum says all exhibition rooms are on the main level, restrooms are wheelchair accessible, and accessible parking is close to the south-side museum entrance. Bus drop-off is also near the south entrance, and service animals are welcome.",
+      "verificationUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I bring snacks, drinks, a backpack or stroller inside Arlington Museum of Art?",
+      "answer": "Food and drinks—including water and baby bottles—cannot be consumed in gallery rooms. The operator allows strollers and soft front baby carriers, but has no staffed bag check and recommends leaving large bags elsewhere.",
+      "verificationUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Arlington Museum of Art have an on-site restaurant or cafeteria?",
+      "answer": "The institution points visitors to the many restaurants and cafés in Arlington's Entertainment District. Its visitor FAQ does not establish an in-museum full-service restaurant or cafeteria, so plan a meal outside the galleries.",
+      "verificationUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Arlington 150 exhibition currently open, and what happened to the soccer exhibition?",
+      "answer": "As reviewed October 13, 2026, Arlington 150: Stories of a Legacy is scheduled to begin October 17 and run through February 28, 2027, so it is not yet open. The World Cup-themed More Than a Match exhibition ended August 30, 2026 and is no longer a current attraction.",
+      "verificationUrl": "https://arlingtonmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.arlingtontx.gov/News-Articles/2026/May/Arlington-Museum-of-Arts-More-Than-a-Match-Extended-Through-Aug.-30",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How should a school or large group arrange a visit?",
+      "answer": "Request a guided school or youth tour at least two weeks in advance. Groups of ten or more may qualify for discounted tickets, groups over fifty should make special arrangements, and buses can use the south-side loading area without leaving vehicles unattended.",
+      "verificationUrl": "https://arlingtonmuseum.org/visitor-info",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://arlingtonmuseum.org/visitor-info",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "art-museum-southeast-texas-beaumont": [
+    {
+      "question": "Is admission to Art Museum of Southeast Texas free?",
+      "answer": "Yes. AMSET says general admission is always free for visitors. Special classes or separately priced adult workshops may require registration and payment, which is different from regular gallery admission.",
+      "verificationUrl": "https://amset.org/visit-us-visitanos/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/visit-us-visitanos/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What days and hours is Art Museum of Southeast Texas open?",
+      "answer": "The museum lists Monday–Friday 9 a.m.–5 p.m., Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m., with major-holiday closures. Temporary exhibition changes and special programming may affect access, so consult the operator calendar.",
+      "verificationUrl": "https://amset.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the address of the Art Museum of Southeast Texas in Beaumont?",
+      "answer": "AMSET is at 500 Main Street, downtown Beaumont. Texas Energy Museum is nearby at 600 Main Street, making the two a practical multi-museum outing when both institutions are open.",
+      "verificationUrl": "https://amset.org/visit-us-visitanos/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/visit-us-visitanos/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How long should visitors spend at AMSET?",
+      "answer": "Allow roughly 60–90 minutes for the main galleries and a current temporary exhibition, an independent estimate rather than an operator-required visit duration. A guided education group or adult workshop can take longer.",
+      "verificationUrl": "https://amset.org/visit-us-visitanos/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Art Museum of Southeast Texas have guided school and group tours?",
+      "answer": "Yes. AMSET offers free tours for audiences from preschool through senior citizens, with tours booked at least two weeks ahead. The minimum is ten children or seven adults, and advance requests can cover Spanish or ASL guidance.",
+      "verificationUrl": "https://amset.org/schedule-a-tour/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/schedule-a-tour/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is AMSET suitable for young children and family groups?",
+      "answer": "Yes, the museum offers age-adapted guided experiences and special family art programming. Family Arts Day is advertised for October 17, 2026, but art-making activities and concessions on an event day are not promises of permanent toddler play areas or everyday dining.",
+      "verificationUrl": "https://amset.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/schedule-a-tour/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What exhibits are on view at AMSET during October 2026?",
+      "answer": "The operator lists Delilah Montoya: Activating Chicana Resistance from October 6, 2026 through January 3, 2027, and Samantha Harrison: Land and Light through November 8, 2026. Both are time-limited. Confirm current and closing dates immediately before traveling.",
+      "verificationUrl": "https://amset.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does AMSET have an on-site restaurant or café?",
+      "answer": "AMSET's official visit and tour information does not establish a regular full-service museum restaurant or cafeteria. Some special events advertise concessions, but visitors should plan ordinary meals separately in downtown Beaumont.",
+      "verificationUrl": "https://amset.org/visit-us-visitanos/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/visit-us-visitanos/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What accessibility accommodations does AMSET offer?",
+      "answer": "The museum's public visitor and tour pages do not provide a complete accessible entrance, restroom, wheelchair-loan or sensory-support specification. For particular access needs, call 409-832-3432 before visiting. Do not rely on amenities belonging to nearby Beaumont museums.",
+      "verificationUrl": "https://amset.org/visit-us-visitanos/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://amset.org/visit-us-visitanos/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "museum-of-the-gulf-coast-port-arthur": [
+    {
+      "question": "What does admission cost at Museum of the Gulf Coast?",
+      "answer": "Official pages conflict: the homepage and permanent exhibitions page list $8 adults and $6 seniors, but its separate admissions/history page lists $10 adults and $8 seniors. The museum also lists $3 for ages 4–18 and free admission for children under four. Confirm the current price at 409-982-7000 before a trip.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/copy-of-about-the-museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where do I park and enter Museum of the Gulf Coast?",
+      "answer": "The street address is 700 Procter Street, Port Arthur, but the museum specifically directs visitor parking and the entrance to the back of the building along Lakeshore Drive. Do not rely only on the front street address to locate its public entry.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/permanent",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/permanent",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Museum of the Gulf Coast open on Sundays?",
+      "answer": "No. The current museum pages list Monday–Saturday from 9 a.m. until 5 p.m. and closures on Sundays and holidays. Check the museum's posted holiday calendar for a trip around a school break.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I see Janis Joplin's psychedelic Porsche at the museum?",
+      "answer": "The museum identifies its famous psychedelic Porsche as a reproduction, not Janis Joplin's original vehicle. The music galleries also include other objects connected with regional musicians; check current display changes before promising an exact item.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/permanent",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/halls-of-fame",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the associated Pompeiian Villa open for tours?",
+      "answer": "No. The museum's official homepage currently identifies the Pompeiian Villa as closed for renovations. Do not include an interior visit in a same-day itinerary until the operator explicitly announces reopening.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Museum of the Gulf Coast interesting for children?",
+      "answer": "School-age children often have several approachable topics to choose from: a 13½-foot mounted alligator, a sweeping Gulf Coast history mural, a maritime lighthouse lens and music/sports galleries. Its exhibits are history-focused, not a dedicated children's play area; choose topics based on interests.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/permanent",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can schools and other large groups get tours or discounts?",
+      "answer": "Groups of ten or more can arrange tours ahead of time. The museum advertises group discounts and free school tours but its pages differ on grade eligibility and booking notice. The museum recommends planning at least two weeks ahead for a preferred date and guide.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/copy-of-about-the-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is there a museum restaurant or cafeteria?",
+      "answer": "The museum's official visitor, admissions and permanent-exhibit pages do not establish an everyday on-site full-service restaurant or cafeteria. Arrange meals separately in Port Arthur, and ask about food policies for field trips.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How accessible are the two floors of Museum of the Gulf Coast?",
+      "answer": "The museum's visitor pages identify two exhibit floors but do not fully document the current elevator, wheelchair, restroom and sensory-support arrangements. Call 409-982-7000 with specific access needs before making the trip.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/permanent",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/permanent",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I bring food or drinks into the Museum of the Gulf Coast?",
+      "answer": "No. The museum's published visitor policy prohibits food and drinks in the museum. Arrange snacks and lunch elsewhere in Port Arthur, and contact its education coordinator ahead of a school group outing to confirm any approved meal arrangements.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/copy-of-about-the-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/copy-of-about-the-museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are pets allowed, and can I take flash photographs at the Museum of the Gulf Coast?",
+      "answer": "The museum lists no pets except service animals and prohibits flash photography. It also prohibits unattended minors and firearms. Contact museum staff if you need permission for a specific photography project or group accommodation.",
+      "verificationUrl": "https://www.museumofthegulfcoast.org/copy-of-about-the-museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.museumofthegulfcoast.org/copy-of-about-the-museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "fire-museum-of-texas-beaumont": [
+    {
+      "question": "Is admission to the Fire Museum of Texas free?",
+      "answer": "Yes. The official visiting page states that ordinary museum admission is free. Birthday parties, private rental, and special booked activities are separately priced and are not part of general admission.",
+      "verificationUrl": "https://www.firemuseumoftexas.com/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.firemuseumoftexas.com/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Fire Museum of Texas open on weekends?",
+      "answer": "No. The operator lists Monday through Friday, 8 a.m.–4:30 p.m., with Saturdays and Sundays closed. Museum event schedules or third-party weekend listings should not be treated as normal walk-in hours.",
+      "verificationUrl": "https://www.firemuseumoftexas.com/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.firemuseumoftexas.com/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the giant spotted fire hydrant outside the Fire Museum?",
+      "answer": "The enormous white Dalmatian-painted hydrant is a working fire hydrant installed with a Disney donation for the 1999 101 Dalmatians release. Outdoor water demonstrations are not guaranteed daily.",
+      "verificationUrl": "https://www.firemuseumoftexas.com/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.beaumontcvb.com/listing/fire-museum-of-texas/20/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Will young children enjoy the Fire Museum of Texas?",
+      "answer": "The museum offers a children's museum area, a fire-safety house, Smokey Bear fire-prevention education and fire engines. The children's learning theme is safety rather than an unrestricted indoor play center, so adult supervision is needed.",
+      "verificationUrl": "https://www.firemuseumoftexas.com/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.firemuseumoftexas.com/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors see a fire engine connected to Lyndon B. Johnson?",
+      "answer": "Yes. The museum says a 1915 LaFrance engine used at LBJ's former ranch is one of its historical display highlights. It also shows how firefighting equipment developed across generations.",
+      "verificationUrl": "https://www.firemuseumoftexas.com/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.firemuseumoftexas.com/visit",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Fire Museum accessible to wheelchair users?",
+      "answer": "The operator refers to both downstairs and upstairs museum spaces but does not publish a complete elevator or stair-free route. Contact staff at 409-880-3927 to confirm the exhibits and restroom facilities accessible to a particular visitor.",
+      "verificationUrl": "https://www.firemuseumoftexas.com/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.firemuseumoftexas.com/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Fire Museum of Texas have a cafeteria or restaurant?",
+      "answer": "The museum advertises a kitchen and optional popcorn-machine rental for privately booked events, not a normal public café or full-service restaurant. Plan meals elsewhere in Beaumont unless your booked event specifies catering.",
+      "verificationUrl": "https://www.firemuseumoftexas.com/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.firemuseumoftexas.com/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can you reserve the Fire Museum for birthday parties?",
+      "answer": "Yes. The operator advertises birthday and small-event rental packages that include access to children's exhibit areas and, in some packages, a fire engine visit. Rates and deposits are separate from its free everyday admission; confirm booking availability directly.",
+      "verificationUrl": "https://www.firemuseumoftexas.com/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.firemuseumoftexas.com/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "spindletop-gladys-city-boomtown-museum-beaumont": [
+    {
+      "question": "What does it cost to enter Spindletop Gladys City Boomtown Museum?",
+      "answer": "Lamar University lists standard admission as $5 adults, $3 seniors age 60+, $2 ages 6–12, with ages five or under free. Certain Lamar-affiliated visitors and eligible military personnel receive ID-based free admission. Check current event pricing and qualifications.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "When does Spindletop Boomtown close and what is its last admission time?",
+      "answer": "The official visiting page lists Tuesday–Saturday 10 a.m.–5 p.m. and Sunday 1–5 p.m., closed Mondays and major holidays. Last admission is 4 p.m.; arriving shortly before closing is not ideal for the open-air museum.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are the Gladys City storefronts original buildings from 1901?",
+      "answer": "The historic boomtown streets and buildings are reconstructions that interpret life during the 1901 Spindletop oil boom. They are not the original intact town, so treat period settings as museum interpretation rather than untouched nineteenth-century buildings.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/index.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Spindletop Gladys City Boomtown accessible with a wheelchair or stroller?",
+      "answer": "Lamar says much of the complex is wheelchair accessible, with benches on several porches. Outdoor surfaces and thresholds differ between reconstructed buildings; ask the museum for an actual route instead of assuming every display is step-free.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are dogs allowed at the Boomtown Museum?",
+      "answer": "Leashed pets are allowed on the premises but not inside exhibition buildings, according to Lamar University's visitor page. Service animals are allowed inside according to the museum's service-animal rule; confirm any special accommodation directly.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have guided tours and field trips?",
+      "answer": "Tours can be guided when docents are available, otherwise self-guided. Groups of 10 or more should book ahead; the operator does not give guided tours to groups over 30 people at once, although larger youth groups may be split. School-year and summer prices differ, and educators should confirm chaperone rules.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum recreate the 1901 Lucas gusher every day?",
+      "answer": "The museum interprets the 1901 Lucas gusher through replica derricks, reconstructed commercial buildings and occasional scheduled events. Do not assume a live gusher demonstration or reenactors are available on every ordinary visit.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/index.html",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/index.html",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Spindletop Boomtown have a restaurant or cafe?",
+      "answer": "The operator's current plan-your-visit page does not establish a regular full-service café or restaurant; there is a gift shop but that is not a dining facility. Plan an outdoor-appropriate outing and meals elsewhere in Beaumont.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How long should we allow for Spindletop Gladys City Boomtown?",
+      "answer": "An estimated 75–120 minutes is reasonable for a selective walk among recreated shops and derricks, accounting for heat, shade and individual mobility. It is an editorial estimate, not the museum's required tour length.",
+      "verificationUrl": "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/index.html",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "national-museum-funeral-history-houston": [
+    {
+      "question": "How much does admission to the National Museum of Funeral History cost?",
+      "answer": "The operator lists $15 for adults, $12 for seniors age 55 or older and veterans, $7 for children ages 6–11, and free entry for children ages five and younger. SCI employees with identification may qualify for a separate discount. Event tickets and group rates differ.",
+      "verificationUrl": "https://nmfh.org/the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://nmfh.org/the-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is parking free at the National Museum of Funeral History?",
+      "answer": "Yes. The museum's published visitor FAQ confirms free on-site parking at 415 Barren Springs Drive in north Houston. This is not in the central Houston Museum District; approaching from I-45 and Richey Road is more practical than planning a Museum District walk.",
+      "verificationUrl": "https://nmfh.org/faq-page/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://nmfh.org/faq-page/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How long should I allow for the National Museum of Funeral History?",
+      "answer": "The museum FAQ recommends about two to four hours for someone touring all exhibits, depending on reading and viewing time. An approximately 60–90 minute selective tour of a few themes is an independent planning estimate, not the operator's full-tour duration.",
+      "verificationUrl": "https://nmfh.org/faq-page/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://nmfh.org/faq-page/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is this funeral museum appropriate for children or is it scary?",
+      "answer": "The museum recommends visitors generally be over seven years old and describes its displays as educational rather than deliberately gruesome or spooky. Some exhibits feature coffins, grief and historical deaths; choose galleries based on a child's readiness, and ask about family scavenger-hunt activities.",
+      "verificationUrl": "https://nmfh.org/faq-page/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://nmfh.org/for-families/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I visit the National Museum of Funeral History on Sundays?",
+      "answer": "The museum's published regular schedule is noon to 5 p.m. on Sundays, 10 a.m. to 4 p.m. Monday through Friday, and 10 a.m. to 5 p.m. Saturday. Holidays and private events may change access; check current announcements before setting out.",
+      "verificationUrl": "https://nmfh.org/the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://nmfh.org/the-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are tours self-guided or do I need to book a docent?",
+      "answer": "Normal museum visits are self-guided. Groups may book a docent-led tour in advance by calling 281-876-3063 or writing to contact@nmfh.org. The museum has a limited supply of wireless listening headsets for tours; identification is required as a deposit.",
+      "verificationUrl": "https://nmfh.org/book-a-tour/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://nmfh.org/faq-page/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can wheelchair users or visitors with hearing and vision disabilities visit?",
+      "answer": "The operator says its museum is wheelchair accessible and provides benches. It asks visitors who need specific hearing or vision accommodations to contact staff in advance, and docent tours can use wireless listening headsets. Confirm the suitability of individual arrangements before traveling.",
+      "verificationUrl": "https://nmfh.org/faq-page/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://nmfh.org/faq-page/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Shroud of Turin in the Houston museum the original?",
+      "answer": "No. The exhibit uses a certified replica of the Shroud of Turin, not the original religious textile in Italy. The museum also interprets funeral customs and rites involving popes in a separate exhibit. Do not advertise the copy as the original.",
+      "verificationUrl": "https://nmfh.org/exhibitions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://nmfh.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have a restaurant or cafeteria?",
+      "answer": "The operator advertises a gift shop, but its standard visitor, tour and FAQ pages do not establish a regularly operating on-site cafeteria or full-service restaurant. Plan a meal elsewhere in north Houston and contact staff about group food arrangements if needed.",
+      "verificationUrl": "https://nmfh.org/the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://nmfh.org/the-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can a school class or large group receive a discount or guided tour?",
+      "answer": "The museum offers advance-booked guided tours and separate group rates, generally for groups of at least 25, and educational field-trip options. Arrange the itinerary with museum staff rather than assuming an unreserved class can obtain discounted admission.",
+      "verificationUrl": "https://nmfh.org/the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://nmfh.org/book-a-tour/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "texas-ranger-hall-of-fame-museum-waco": [
+    {
+      "question": "What does admission to the Texas Ranger Hall of Fame and Museum cost?",
+      "answer": "Current official prices: adults $10.50, children 6–12 $4, under 6 free, seniors age 60+ $8.50 and military with ID $8.50. The museum lists separate law enforcement and other eligible discounts; prices should be confirmed for the actual visit.",
+      "verificationUrl": "https://www.texasranger.org/Visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.texasranger.org/Visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How long do most people spend at the Texas Ranger Hall of Fame and Museum?",
+      "answer": "The museum recommends approximately two hours for a self-directed visit. An organized guided tour is usually about 45 minutes, but the operator advises allowing at least 90 minutes so the group can explore the galleries and shop.",
+      "verificationUrl": "https://www.texasranger.org/Pages/Education/FAQ",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.texasranger.org/Pages/Education/FAQ",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Texas Ranger Hall of Fame Museum open every day?",
+      "answer": "Regular public hours are seven days a week, 9 a.m.–5 p.m., with final admission at 4:30 p.m. The museum closes on Easter Sunday, Thanksgiving, Christmas Eve, Christmas Day and New Year's Day according to the operator.",
+      "verificationUrl": "https://www.texasranger.org/Visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.texasranger.org/Visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is parking at the Waco Texas Ranger museum free?",
+      "answer": "Yes, ordinary museum parking is listed as free on the operator visit page. Baylor game days and special events can affect nearby roads and spaces; check current directions for the chosen date rather than relying on an old parking map.",
+      "verificationUrl": "https://www.texasranger.org/Visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.texasranger.org/Visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can a school or large group arrive without booking?",
+      "answer": "Groups of ten or more need advance reservations. Museum tour guidance asks arriving 10–15 minutes before the start; groups of 25–50 may be split into smaller tours. If the group is late or attendance changes, telephone 254-750-8631.",
+      "verificationUrl": "https://www.texasranger.org/Pages/Education/FAQ",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.texasranger.org/Pages/Education/FAQ",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are photos allowed inside the Texas Ranger museum?",
+      "answer": "The museum's group-tour FAQ says personal photography of the exhibits is welcomed. Visitors should follow any gallery-specific notices or staff instructions on the day.",
+      "verificationUrl": "https://www.texasranger.org/Pages/Education/FAQ",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.texasranger.org/Pages/Education/FAQ",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Texas Ranger museum have a cafeteria or restaurant?",
+      "answer": "Official group rules prohibit food and drinks inside museum exhibits. The published visit guide does not establish an on-site full-service restaurant or cafeteria; plan a meal elsewhere in Waco instead of expecting one in the galleries.",
+      "verificationUrl": "https://www.texasranger.org/Pages/Education/FAQ",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.texasranger.org/Visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Texas Ranger Research Center keep the same hours as the museum?",
+      "answer": "No. The adjacent Armstrong research facility lists Monday–Friday 9 a.m.–4 p.m. and asks researchers to call ahead for an appointment; the museum galleries generally open every day. A museum ticket does not itself guarantee research assistance.",
+      "verificationUrl": "https://www.texasranger.org/Visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.texasranger.org/News-articles/Rangers-Through-Time",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is the 2026 Rangers Through Time exhibition?",
+      "answer": "The museum announced a special exhibit in May 2026 in Spindletop Tower at the Armstrong Research Center. It uses paintings, photographs, medals, firearms and sculpture to examine Ranger imagery from the 1840s to 1990s. Check availability before planning around it.",
+      "verificationUrl": "https://www.texasranger.org/News-articles/Rangers-Through-Time",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.texasranger.org/News-articles/Rangers-Through-Time",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "texas-transportation-museum-san-antonio": [
+    {
+      "question": "Are train rides included with Texas Transportation Museum admission?",
+      "answer": "Yes, regular train rides are included with general admission when the railroad is operating. The museum says rides last roughly 10–15 minutes and passengers can ride more than once, subject to safe capacity and operating conditions. Special event tickets follow their own rules.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/train-rides",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/train-rides",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Texas Transportation Museum open Fridays?",
+      "answer": "Ordinary public visiting days are selected Saturdays and Sundays, and Fridays are reserved for school or booked groups. Opening hours are date-dependent, so check the live calendar before travelling. Last regular public admission is generally 3 p.m.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/visit-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/visit-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much are tickets to the Texas Transportation Museum?",
+      "answer": "The current general admission page lists adults 13+ $12, children 4–12 $10, under age four free and seniors 65+ $9. Event days and discounts may be priced differently; the separate admissions page may show older prices, so use the current Visit Us calendar and checkout total.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/visit-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/tickets",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are train rides at Texas Transportation Museum wheelchair accessible?",
+      "answer": "The operator says the covered flatcar is accessible to people using wheelchairs but the historic caboose is not. Some preserved rolling stock is also inaccessible. Arrange any particular access accommodation before visiting.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/train-rides",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/train-rides",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the Texas Transportation Museum have paved accessible parking?",
+      "answer": "Most of the museum parking area is gravel; the operator identifies accessible spaces beside the depot ramp and a paved space near the platform and main display building. Parking is free. Confirm the route that works for your mobility needs.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are Texas Transportation Museum steam engines running now?",
+      "answer": "Do not assume so. The operator's current train-ride page says that no live-steam days are scheduled because of inspection and maintenance. Its normal public ride can use diesel equipment; confirm at the museum before setting expectations for a steam-hauled trip.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/train-rides",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/train-rides",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors ride in the locomotive driver's cab?",
+      "answer": "Current ticket information says diesel cab rides are suspended due to mechanical repairs. This is distinct from ordinary passenger rides and should not be sold or promised until the museum explicitly resumes it.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/tickets",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/train-rides",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors bring food or pets to the Texas Transportation Museum?",
+      "answer": "The museum allows well-behaved leashed pets and outside food at its picnic tables. Drinks are available in the depot, while snacks generally appear only during special events. There is no documented on-site full-service café or cafeteria.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What if rain or another problem cancels the museum train?",
+      "answer": "The museum may close early during inclement weather or change services for equipment issues. Its Visit Us page says rainchecks or refunds may be offered. Always check the event calendar and current notices before setting out.",
+      "verificationUrl": "https://www.txtransportationmuseum.org/visit-us",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.txtransportationmuseum.org/visit-us",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "dr-pepper-museum-waco": [
+    {
+      "question": "Do I need to reserve a Dr Pepper Museum ticket online?",
+      "answer": "No. The museum sells regular self-guided admission at the gate and does not sell general-admission tickets online. As of the official visitor listing, guests age 5 and up pay $12 and children age 4 and younger enter free. Make-A-Soda and other special experiences may be separately priced and reserved.",
+      "verificationUrl": "https://drpeppermuseum.com/plan-your-visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does a Dr Pepper Museum admission ticket include a soda?",
+      "answer": "Yes, each paid general-admission ticket includes a complimentary 12-ounce fountain drink or equivalent credit for an upgrade. Children admitted for free, some passes and other complimentary admissions do not automatically include a free soda voucher.",
+      "verificationUrl": "https://drpeppermuseum.com/plan-your-visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I enter the Dr Pepper Museum soda fountain without admission?",
+      "answer": "No. The operator says the soda fountain, gift shop and the World's Largest Dr Pepper Bottle are inside the ticketed museum campus. You must pay for museum admission to reach them even if you only want a drink or shop.",
+      "verificationUrl": "https://drpeppermuseum.com/frequently-asked-questions/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/frequently-asked-questions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should I park at the Dr Pepper Museum, and is parking free?",
+      "answer": "The public museum lot across South 5th Street is paid, approximately $10 plus fees for five hours, with no come-and-go privileges. There may be free on-street parking nearby. Do not park in the staff-only lot under the red neon sign; accessible parking with qualifying placard or plates has its own designated spaces.",
+      "verificationUrl": "https://drpeppermuseum.com/parking-information/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/parking-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I leave the Dr Pepper Museum and come back the same day?",
+      "answer": "The museum's current visitor FAQ says there is no reentry after exiting the museum campus. Finish the galleries, soda fountain and shop before leaving; public parking also does not provide a come-and-go privilege.",
+      "verificationUrl": "https://drpeppermuseum.com/frequently-asked-questions/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/frequently-asked-questions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How accessible is the historic Dr Pepper Museum for wheelchair or sensory-sensitive visitors?",
+      "answer": "Both buildings have accessible entrances, with elevators in the former bottling plant; wheelchairs may be borrowed subject to availability. The museum offers sensory-support resources and captioning or transcripts. Contact staff before arrival about individualized access or a specific Make-A-Soda program.",
+      "verificationUrl": "https://drpeppermuseum.com/accessibility/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/accessibility/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors bring large strollers or wagons into the Dr Pepper Museum?",
+      "answer": "The operator allows standard-sized strollers but not oversized strollers or wagons inside its buildings; those must be left in designated stroller parking areas.",
+      "verificationUrl": "https://drpeppermuseum.com/frequently-asked-questions/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/frequently-asked-questions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Dr Pepper Museum suitable for young children and school trips?",
+      "answer": "The bottling displays and fountain are popular family options, but toddlers may need short routes. School groups should book in advance and follow chaperone and group parking procedures. Paid museum admission does not include every add-on beverage experience.",
+      "verificationUrl": "https://drpeppermuseum.com/group-tour-field-trip-faqs/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/plan-your-visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are there tables where my group can eat at the Dr Pepper Museum?",
+      "answer": "The museum has public courtyard picnic tables but does not guarantee or reserve them for ordinary groups. The on-campus soda fountain is a drink and dessert counter, not a full-service restaurant. School and other groups should plan food logistics before arrival.",
+      "verificationUrl": "https://drpeppermuseum.com/group-tour-field-trip-faqs/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://drpeppermuseum.com/group-tour-field-trip-faqs/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "texas-sports-hall-of-fame-waco": [
+    {
+      "question": "How much does admission to the Texas Sports Hall of Fame cost?",
+      "answer": "Current posted prices are adults $10, seniors age 60 and up $8, students K–college $6, children under six free, and active-duty military and veterans free. Ticket sales take place at the museum; group arrangements are separate.",
+      "verificationUrl": "https://tshof.org/contact-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tshof.org/contact-us/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Texas Sports Hall of Fame open Sundays?",
+      "answer": "No. The official visitor details list Monday through Saturday 9 a.m.–5 p.m. and Sunday closed. Special programs may have different schedules, so verify holiday and event days before a dedicated trip.",
+      "verificationUrl": "https://tshof.org/contact-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tshof.org/contact-us/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where can I park at the Texas Sports Hall of Fame?",
+      "answer": "The museum is at 1108 South University Parks Drive by Baylor University and offers free on-site visitor parking. Nearby sporting events may change traffic routes, but the official visitor guide does not list a routine museum parking charge.",
+      "verificationUrl": "https://tshof.org/contact-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tshof.org/contact-us/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Do I need advance tickets or a tour reservation?",
+      "answer": "Individual visitors can usually buy a general ticket when they arrive. Organized groups and guided tours should arrange a reservation in advance, since a standard admission ticket does not guarantee a staffed tour.",
+      "verificationUrl": "https://tshof.org/contact-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tshof.org/contact-us/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What kinds of sports can I learn about at the Texas Sports Hall of Fame?",
+      "answer": "The Hall interprets athletes and coaches across football, baseball, basketball, track, golf, rodeo and other sports. Texas High School Football and the former Southwest Conference provide important subtopics rather than being separate daily admission venues.",
+      "verificationUrl": "https://tshof.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tshof.org/contact-us/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How much time should I allow for the Texas Sports Hall of Fame?",
+      "answer": "About one to two hours is an independent planning estimate, depending on whether the visitor focuses on one sport or studies many inductee displays. The operator does not promise an exact average visit duration.",
+      "verificationUrl": "https://tshof.org/contact-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tshof.org/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is there a full-service restaurant inside Texas Sports Hall of Fame?",
+      "answer": "The museum's official contact and visitor information does not establish an on-site café or full-service restaurant. Baylor-area dining is nearby but separate from the Hall. Plan food and dietary arrangements independently.",
+      "verificationUrl": "https://tshof.org/contact-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tshof.org/contact-us/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Texas Sports Hall of Fame wheelchair accessible?",
+      "answer": "The operator's basic visitor listing gives the location and free parking but does not document exact accessible parking spaces, step-free routes or sensory accommodations. Call 254-756-1633 before visiting if a particular accommodation is necessary.",
+      "verificationUrl": "https://tshof.org/contact-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://tshof.org/contact-us/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "austin-nature-and-science-center": [
+    {
+      "question": "Is there an entry fee for the Austin Nature & Science Center?",
+      "answer": "No. General individual and family admission to the exhibits and outdoor center is free. School and organized groups of fifteen or more require registration and may face charges for instructor-led sessions, which have separate booking arrangements.",
+      "verificationUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where is the Austin Nature & Science Center's entrance and where should I park?",
+      "answer": "Use the visitor address 2389 Stratford Drive, Austin. Free car parking is under MoPac across Stratford Drive, with accessible spaces connecting to the entrance sidewalk. The separate mailing address at 301 Nature Center Drive is not the recommended visitor arrival.",
+      "verificationUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Dino Pit a good activity for young children?",
+      "answer": "Yes. The outdoor Dino Pit offers hands-on fossil exploration and is among the center's signature family experiences. Younger children should be supervised and plan for sun, heat, uneven outdoor activity surfaces and appropriate clothing.",
+      "verificationUrl": "https://www.austintexas.gov/parks/austin-nature-science-center-exhibits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/parks/locations/austin-nature-and-science-center",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can children bring rocks, feathers or fossils to the Trade Counter?",
+      "answer": "The Naturalist Workshop's Trade Counter accepts eligible nature objects under strict restrictions and is staffed only at selected hours. Do not bring anything collected from public preserves, bird parts, human artifacts, endangered or purchased items, or things killed to trade. Ask staff before collecting or bringing an uncertain object.",
+      "verificationUrl": "https://www.austintexas.gov/parks/austin-nature-science-center-exhibits",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors pet the animals or bring a dog to the center?",
+      "answer": "No pets are allowed on the center or nature-preserve property under the City of Austin's rules. Animal ambassadors are injured or imprinted wildlife receiving permanent care and are educational displays, not a petting zoo. Service animal accommodations should be discussed with the operator.",
+      "verificationUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.austintexas.gov/parks/austin-nature-science-center-exhibits",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is there a cafeteria or an indoor place to eat lunch at the Austin Nature & Science Center?",
+      "answer": "No. The City's group guidance explicitly says there are no indoor or covered dining facilities. Groups may use a limited number of outdoor Meadow picnic tables when space and weather permit, and must pack out their trash. Do not plan an indoor lunch at the center.",
+      "verificationUrl": "https://www.austintexas.gov/parks/austin-nature-science-center-school-programs-and-group-reservations",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Do school field trips or large family groups need a reservation?",
+      "answer": "Yes. The City requires a Group Reservation for fifteen or more visitors, including schools, camps, homeschools and large family parties. Instructors and school programs have separate registration and fees; buses must use designated drop-off and parking, not the public car parking under MoPac.",
+      "verificationUrl": "https://www.austintexas.gov/parks/austin-nature-science-center-school-programs-and-group-reservations",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the nearby nature preserve open at the same hours as the center?",
+      "answer": "Not exactly. The City describes the adjoining preserve as open from dawn to dusk, but some access gates and parking areas lock by 5 p.m. The former gate from the Birds of Prey area into the preserve is closed; use designated external trailheads and do not go off trail.",
+      "verificationUrl": "https://www.austintexas.gov/parks/plan-your-visit-austin-nature-science-center",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.austintexas.gov/parks/locations/austin-nature-and-science-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "harry-ransom-center-austin": [
+    {
+      "question": "Is the Harry Ransom Center free to visit?",
+      "answer": "Yes. Admission to the public exhibition galleries is free. The research Reading Room is a different facility with its own identification and registration process; free entry to galleries does not automatically permit immediate access to archival manuscripts.",
+      "verificationUrl": "https://www.hrc.utexas.edu/visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.hrc.utexas.edu/frequently-asked-questions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are the Harry Ransom Center Reading Room and exhibitions open on the same days?",
+      "answer": "No. Current gallery hours are Tuesday through Friday 10 a.m.–5 p.m. and Saturday–Sunday noon–5 p.m., with galleries closed Mondays. The Reading Room generally opens Monday through Saturday 9 a.m.–5 p.m. and is closed Sundays; holiday schedules differ.",
+      "verificationUrl": "https://www.hrc.utexas.edu/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hrc.utexas.edu/frequently-asked-questions/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors see the Gutenberg Bible and the earliest surviving photograph?",
+      "answer": "The Gutenberg Bible and Niépce Heliograph are signature displayed objects in the public exhibition area. Conservation, loans or temporary display changes can interrupt availability, so consult the current official exhibition listing before making a special trip for one item.",
+      "verificationUrl": "https://www.hrc.utexas.edu/exhibitions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hrc.utexas.edu/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Which Harry Ransom Center exhibitions are open in autumn 2026?",
+      "answer": "The official schedule lists Houdini's Library through January 24, 2027 and The Worlds of Gertrude Stein through January 10, 2027. Those are time-limited exhibitions, not permanent galleries; check the museum's live exhibition directory on the day of travel.",
+      "verificationUrl": "https://www.hrc.utexas.edu/exhibitions/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hrc.utexas.edu/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should visitors park near the Harry Ransom Center?",
+      "answer": "Metered Guadalupe Street parking may be available and is free on Sundays; nearby University of Texas garages generally charge. Designated accessible parking in garages also has a fee, and some curbside ADA spaces are only available at specified evening or weekend hours.",
+      "verificationUrl": "https://www.hrc.utexas.edu/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hrc.utexas.edu/group-tours/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can a visitor photograph exhibits, bring bags or eat inside?",
+      "answer": "Personal non-flash photography is generally permitted in exhibition galleries unless gallery signage says otherwise. Large bags and backpacks must be stored in available lockers; eating and drinking are not permitted in galleries, theater or the research Reading Room.",
+      "verificationUrl": "https://www.hrc.utexas.edu/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hrc.utexas.edu/group-tours/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can a teacher or family arrange a private tour at the Ransom Center?",
+      "answer": "Docent-led group visits for ten or more people must be requested at least two weeks ahead and are normally capped at thirty visitors. Walk-up groups cannot assume a docent is available. Standard organized tours run approximately one hour.",
+      "verificationUrl": "https://www.hrc.utexas.edu/group-tours/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.hrc.utexas.edu/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Harry Ransom Center accessible for visitors using wheelchairs or ASL interpretation?",
+      "answer": "The public spaces and restrooms are ADA-compliant, and a wheelchair is available for visitors. Contact hrctours@austin.utexas.edu at least five business days before a visit to arrange ASL or specific accessibility accommodations; garage parking may have a fee.",
+      "verificationUrl": "https://www.hrc.utexas.edu/visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.hrc.utexas.edu/group-tours/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "thinkery-austin-childrens-museum": [
+    {
+      "question": "How much is Thinkery general admission for babies, children and adults?",
+      "answer": "The Mueller museum's current general-admission price is $19.95 for visitors ages one year and older; babies under one are free, while members get ordinary admission without that ticket charge. Special programs, Baby Bloomers and eligibility-based discounts have different prices and rules.",
+      "verificationUrl": "https://thinkeryaustin.org/visit-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thinkeryaustin.org/guidelines/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What days is Thinkery in Austin open and how long does a visit take?",
+      "answer": "Thinkery lists Tuesday through Sunday, 10 a.m.–5 p.m., with Mondays closed outside special programs. The operator says families typically spend 1.5–2 hours exploring and advises allowing at least 90 minutes. Separate early morning Baby Bloomers sessions use different tickets.",
+      "verificationUrl": "https://thinkeryaustin.org/visit-us/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thinkeryaustin.org/guidelines/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should we park for Thinkery and is parking free?",
+      "answer": "The museum offers up to three hours of validated parking in designated McBee Street District and Simond garages during qualifying visits. Current parking instructions require a Metropolis account; verify the exact garage and redemption requirements before arriving. Metered street parking is another option.",
+      "verificationUrl": "https://thinkeryaustin.org/visit-us/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thinkeryaustin.org/guidelines/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can children be dropped off at Thinkery without an adult?",
+      "answer": "No. A guardian aged eighteen or older must accompany and supervise children throughout the galleries. Thinkery requires at least one supervising adult for every five children on the exhibit floor; museum staff do not serve as individual babysitters.",
+      "verificationUrl": "https://thinkeryaustin.org/guidelines/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thinkeryaustin.org/visit-us/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is there a café or can families bring snacks to Thinkery?",
+      "answer": "Outside food and drinks are allowed in the designated Snack Area, not inside the interactive exhibit galleries. The official visitor FAQ does not promise a full-service on-site restaurant; plan a meal or picnic separately in Mueller if your family needs more than a snack.",
+      "verificationUrl": "https://thinkeryaustin.org/guidelines/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://thinkeryaustin.org/visit-us/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Thinkery suitable for toddlers and children sensitive to loud sounds or flashing lights?",
+      "answer": "Baby Bloomers is a separately scheduled program for the youngest visitors, and Fresh! Farmers Market is designed for early learners. Sound-reducing earmuffs and sensory aids are available in limited numbers. Light Lab includes a bright strobe effect in Frozen Shadows, so light-sensitive children may prefer other exhibits.",
+      "verificationUrl": "https://thinkeryaustin.org/museum-accessibility/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thinkeryaustin.org/exhibit/light-lab/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Thinkery offer wheelchair access and reduced or free admissions?",
+      "answer": "Thinkery's two Mueller floors are accessible by elevator, with a limited loaner wheelchair supply at Admissions. The museum also offers eligibility-based reduced admission and in-person ACM/ASTC reciprocal benefits; bring the required photo ID and membership or program documents. Some offers do not apply online.",
+      "verificationUrl": "https://thinkeryaustin.org/resources/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thinkeryaustin.org/museum-accessibility/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are Thinkery and Thinkery Del Valle the same destination?",
+      "answer": "No. The Meredith Learning Lab is at 1830 Simond Avenue in Austin's Mueller neighborhood. Thinkery also operates a separate Del Valle location with its own admission policies, audience and parking. Make sure you book tickets for the intended site rather than assuming one location's benefits apply to the other.",
+      "verificationUrl": "https://thinkeryaustin.org/visit-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thinkeryaustin.org/delvalle/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "lbj-presidential-library-austin": [
+    {
+      "question": "How much does it cost to visit the LBJ Presidential Library?",
+      "answer": "Regular admission is currently $16 for adults, $12 seniors aged 62 or older, $6 students and youth aged 13–18, and free for children under twelve. Tuesdays are half price, and the museum posts selected free-admission days. Check the current price chart before booking.",
+      "verificationUrl": "https://www.lbjlibrary.org/visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the LBJ Presidential Library free on Tuesdays or certain holidays?",
+      "answer": "The library advertises half-price admission every Tuesday and specific free-admission dates, including President Johnson's birthday and several designated holidays. Not every public holiday is free, and access can vary around university events, so verify the posted calendar.",
+      "verificationUrl": "https://www.lbjlibrary.org/visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should visitors park for the LBJ Library in Austin?",
+      "answer": "Use the visitor lot number 38 off Red River Street at 2313 Red River Street; ordinary car parking is free. On UT football days, Red River traffic and drop-off points can be disrupted, and the operator recommends checking local conditions before departure.",
+      "verificationUrl": "https://www.lbjlibrary.org/visit",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How long should a family spend at the LBJ Presidential Library?",
+      "answer": "The library recommends 90 minutes to two hours for a normal visit, adding roughly half an hour for special exhibitions. Its official quick-visit route takes about 30–45 minutes and includes the Oval Office, Lady Bird's office and animatronic LBJ.",
+      "verificationUrl": "https://lbjlibrary.org/visit/know-before-you-go",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can visitors see the actual Oval Office at the LBJ Library?",
+      "answer": "The tenth-floor Oval Office exhibition is a replica of the president's White House workspace, not the original Oval Office in Washington. It is useful alongside Lady Bird Johnson's office and recordings that interpret Johnson's public decisions.",
+      "verificationUrl": "https://lbjlibrary.org/visit/know-before-you-go",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lbjlibrary.org/exhibitions",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the LBJ Presidential Library wheelchair accessible?",
+      "answer": "The visitor lot 38 has accessible parking and a ramped route across the plaza. Public exhibits are reached by elevators, with wheelchairs available free, accessible restrooms, captioned videos and printed transcripts. Staff need advance notice for ASL or a vision-impairment escort.",
+      "verificationUrl": "https://lbjlibrary.org/visit/accessibility",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://lbjlibrary.org/visit/accessibility",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can a school or family group walk into the library with more than fourteen people?",
+      "answer": "An organized group of fifteen or more must make a reservation. Adult group reservations currently require at least three weeks' notice, and school field trips follow separate procedures. The ordinary museum ticket does not itself reserve a docent-led group program.",
+      "verificationUrl": "https://www.lbjlibrary.org/visit/group-visits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.lbjlibrary.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the LBJ Library have a cafeteria or a restaurant inside?",
+      "answer": "Current operator visitor pages describe the ticket desk, store and museum amenities but do not establish a reliable, operating full-service cafeteria. Plan dining elsewhere on or around campus instead of assuming the museum itself provides lunch.",
+      "verificationUrl": "https://www.lbjlibrary.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://lbjlibrary.org/visit/know-before-you-go",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "blanton-museum-of-art-austin": [
+    {
+      "question": "Is the Blanton Museum of Art free on Tuesdays?",
+      "answer": "Yes. Blanton offers free museum admission every Tuesday through a dedicated entry-ticket arrangement. Regular non-Tuesday prices currently include $15 adults, $12 seniors 65 and older, $8 ages 6–17, and free children five and under and UT ID holders.",
+      "verificationUrl": "https://blantonmuseum.org/visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://blantonmuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the regular Blanton Museum opening hours?",
+      "answer": "Current operator hours are Tuesday through Friday 10 a.m.–5 p.m., Saturday 10 a.m.–8 p.m., and Sunday 10 a.m.–5 p.m. The museum is closed Mondays. Holiday closures and university-campus events can change access, so check the calendar on your visit date.",
+      "verificationUrl": "https://blantonmuseum.org/visit/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://blantonmuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where should Blanton visitors park and how much does it cost?",
+      "answer": "Parking is in paid University of Texas garages, including Brazos Garage for many visitors. The published price table currently starts at $6 for one to two hours and $9 for two to three hours; member and home-football-game arrangements differ.",
+      "verificationUrl": "https://blantonmuseum.org/visit/parking/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://blantonmuseum.org/visit/accessibility/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Blanton's new museum café already open?",
+      "answer": "The official visitor FAQ still describes the new café as under construction, with an opening planned during 2026. A projected opening date is not proof of current food service, so arrange meals at nearby restaurants or an allowed outdoor picnic area unless the operator confirms reopening.",
+      "verificationUrl": "https://blantonmuseum.org/visit/faqs/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://blantonmuseum.org/visit/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can I visit Ellsworth Kelly's Austin without another admission charge?",
+      "answer": "The freestanding colored-glass artwork Austin by Ellsworth Kelly is a permanent part of the Blanton collection, and entry is included with the museum ticket, including qualifying free Tuesday admission. Visitors should treat it as a quiet, reflective artwork.",
+      "verificationUrl": "https://blantonmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://blantonmuseum.org/permanent-collection/austin/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Blanton Museum wheelchair accessible and can I request ASL?",
+      "answer": "Museum buildings, elevators, accessible restrooms and Ellsworth Kelly's Austin have accessible routes; loaner wheelchairs are available. The Brazos Street drop-off supports accessible arrival. Request ASL interpretation at least two weeks in advance for events or guided programs.",
+      "verificationUrl": "https://blantonmuseum.org/visit/accessibility/",
+      "questionOrigin": "museum-faq",
+      "questionEvidenceUrl": "https://blantonmuseum.org/visit/accessibility/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Do groups need a reservation to tour the Blanton?",
+      "answer": "Non-UT groups of eight or more must register at least two weeks ahead, including a self-guided group. Unauthorized commercial or third-party guided lecturing is not permitted, and paid guided visits follow different admission rules than general admission.",
+      "verificationUrl": "https://blantonmuseum.org/visit/group-visits/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://blantonmuseum.org/visit/faqs/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is Blanton Museum a good visit with children under twelve?",
+      "answer": "Yes. The museum offers activity boxes, family art events and public tours, but children younger than twelve must be supervised by adults throughout. Ellsworth Kelly's Austin is not a play room; pick a few works and galleries appropriate to each child's interests.",
+      "verificationUrl": "https://blantonmuseum.org/visit/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://blantonmuseum.org/visit/families/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "alvin-historical-museum": [
+    {
+      "question": "What days and times is Alvin Historical Museum open?",
+      "answer": "The museum society lists Tuesday through Saturday, 11 a.m. to 3 p.m. Since local volunteers operate the museum, verify holiday or staffing changes directly at 281-331-4469 before making a dedicated trip.",
+      "verificationUrl": "https://alvinmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://alvinmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Do I need an appointment for the Slover–Rogers Cottage?",
+      "answer": "Yes. The separately located Slover–Rogers Cottage at 113 East Dumble Street is only available by appointment. Its historic-house tours are not included automatically in a normal walk-in visit to the downtown historical museum.",
+      "verificationUrl": "https://alvinmuseum.org/slover-rogers-cottage/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://alvinmuseum.org/slover-rogers-cottage/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the Nolan Ryan exhibit part of the Alvin Historical Museum?",
+      "answer": "Yes. The museum lists personal objects covering Nolan Ryan's youth and career, including a Little League home plate and a jersey associated with his final professional appearance. Which individual objects are on display can change.",
+      "verificationUrl": "https://alvinmuseum.org/alvin-musuem/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://alvinmuseum.org/alvin-musuem/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where is Alvin Historical Museum and is it still in the old post office?",
+      "answer": "The Alvin Museum Society now lists 300 West Sealy Street as its address. The site occupies Alvin's former 1940 post office, with historic architectural elements and a restored mural. Older directory records list a different West Sealy street number, so use the museum's current instructions.",
+      "verificationUrl": "https://alvinmuseum.org/tour-01_intro-to-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://alvinmuseum.org/tour-01_intro-to-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can wheelchair users visit the former Alvin post office building?",
+      "answer": "The museum reports that an accessible door was installed on the east wall when the old post-office building was adapted. Ask staff at 281-331-4469 about gallery routes, restroom access, and any needs the published building history does not address.",
+      "verificationUrl": "https://alvinmuseum.org/tour-01_intro-to-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://alvinmuseum.org/tour-01_intro-to-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "How long does a typical visit to the Alvin museum take?",
+      "answer": "A focused visit of about 60–90 minutes is an independent planning estimate for selected galleries about railroad, baseball, school and town history; it is not a museum-issued timed ticket. A Slover–Rogers Cottage tour requires a separate appointment.",
+      "verificationUrl": "https://alvinmuseum.org/alvin-musuem/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://alvinmuseum.org/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does Alvin Museum have a café or gift shop?",
+      "answer": "The museum has a volunteer-run gift shop in the former post-office foyer, usually open during museum hours. Its official pages do not establish a cafeteria or full-service restaurant; plan meals elsewhere in Alvin.",
+      "verificationUrl": "https://alvinmuseum.org/alvin-musuem/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://alvinmuseum.org/alvin-musuem/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is there an admission fee to Alvin Historical Museum?",
+      "answer": "The museum homepage clearly gives public visiting hours but does not publish a dependable current admission price. Rather than assume entry is free, call the society at 281-331-4469 to check admission or group costs before traveling.",
+      "verificationUrl": "https://alvinmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://alvinmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "el-paso-holocaust-museum": [
+    {
+      "question": "Is admission to El Paso Holocaust Museum free?",
+      "answer": "Yes. The museum's current visit page explicitly states that general admission is free and that donations are appreciated. Guided school groups and special programs still need to follow their own reservation instructions.",
+      "verificationUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What are the museum's hours and can I visit on Sunday?",
+      "answer": "The museum lists Tuesday–Friday 9 a.m.–5 p.m., Saturday 1–5 p.m., Monday closed, and Sunday visits by appointment only. Self-guided visits must begin at least 30 minutes before closing and listed religious or public holiday closures can override regular hours.",
+      "verificationUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Where is the visitor entrance and is parking free?",
+      "answer": "The postal address is 715 North Oregon Street, but the visitor entrance is on Yandell Drive between Oregon and El Paso streets. The operator advertises free parking adjacent to the museum at the intersection of Yandell and El Paso streets.",
+      "verificationUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Are El Paso Holocaust Museum exhibits available in Spanish?",
+      "answer": "The museum says its permanent gallery materials are presented in English and Spanish. It also rotates a Spanish-language Dimensions in Testimony experience with survivor Lea Noverra; check that week's schedule before expecting that particular testimony.",
+      "verificationUrl": "https://elpasoholocaustmuseum.org/about-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://elpasoholocaustmuseum.org/dimensions-in-testimony/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What is Dimensions in Testimony and can visitors speak with a survivor?",
+      "answer": "The interactive exhibit uses digitally recorded testimony and language technology so visitors can ask questions and hear prerecorded answers from a Holocaust survivor or liberator. It is not a live conversation. The featured biography changes weekly and presentation times are separate from ordinary gallery hours.",
+      "verificationUrl": "https://elpasoholocaustmuseum.org/dimensions-in-testimony/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://elpasoholocaustmuseum.org/dimensions-in-testimony/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is El Paso Holocaust Museum suitable for young children?",
+      "answer": "The museum includes explicit historical accounts of persecution, concentration camps, death and survivor experiences. There is no blanket published minimum age on its general visitor page; caregivers and teachers should judge readiness and contact the education team for age-appropriate group guidance.",
+      "verificationUrl": "https://elpasoholocaustmuseum.org/about-us/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://elpasoholocaustmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can a teacher arrange a Holocaust education group tour?",
+      "answer": "Yes. The museum invites schools and other groups to reserve guided visits and offers curriculum trunks and outreach speakers. Booking ahead is important even though ordinary self-guided entry is free. Call 915-351-0048 for group program details.",
+      "verificationUrl": "https://elpasoholocaustmuseum.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://elpasoholocaustmuseum.org/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the museum have a cafeteria or accessible gallery entrances?",
+      "answer": "The official visitor material documents a Yandell Drive public entrance and free adjoining parking, but does not substantiate an on-site cafeteria or give comprehensive step-free gallery and restroom details. Confirm food and specific accessibility needs with the museum before arrival.",
+      "verificationUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://elpasoholocaustmuseum.org/hours-and-closures/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    }
+  ],
+  "el-paso-museum-of-archaeology": [
+    {
+      "question": "Is the El Paso Museum of Archaeology free and what days is it open?",
+      "answer": "Yes. The City of El Paso states that regular admission to the archaeological galleries is free. Its normal public schedule is Tuesday through Saturday, 9 a.m. to 5 p.m., with city-holiday closures; ticketed events or performances may have separate costs.",
+      "verificationUrl": "https://epmarch.org/about/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epmarch.org/about/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "When does the El Paso archaeology museum parking lot close?",
+      "answer": "The museum expressly locks its lot gates at 5 p.m. and recommends parking outside the gates if visitors intend to access the trails after 4 p.m. Do not plan on leaving a car inside the gated lot for an evening desert hike.",
+      "verificationUrl": "https://epmarch.org/about/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epmarch.org/about/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the El Paso Museum of Archaeology require advance booking for school tours?",
+      "answer": "Yes. Free museum-guided tours are offered to groups but must be scheduled at least two weeks in advance. Ordinary self-guided public entry does not require that group reservation; confirm any classroom programming details with museum staff.",
+      "verificationUrl": "https://epmarch.org/about/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epmarch.org/about/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is the museum wheelchair accessible and does it lend wheelchairs?",
+      "answer": "The operator lists ADA-focused indoor access, accessible restrooms and first-come wheelchairs at the front desk. The outdoor desert trails have a different terrain and exposure profile; ask staff about mobility suitability before selecting a trail.",
+      "verificationUrl": "https://epmarch.org/about/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epmarch.org/about/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "What archaeological periods and cultures are explored at this museum?",
+      "answer": "The institution describes approximately fourteen thousand years of El Paso and Southwestern prehistory, with dioramas and exhibits on Indigenous lifeways from Paleoindian communities to modern descendants. Exhibitions and the objects on display change over time.",
+      "verificationUrl": "https://epmarch.org/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epmarch.org/about/about-epmarch",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Can families hike the desert trails after visiting the archaeology galleries?",
+      "answer": "Yes, the museum grounds connect with Wilderness Park's native-plants and nature-trail areas, but trail suitability depends on heat, daylight and terrain. The parking gates lock at 5 p.m.; outdoor access does not mean a late parking pass.",
+      "verificationUrl": "https://visitelpaso.com/places/el-paso-museum-of-archaeology-wilderness-park",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epmarch.org/about/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Is visitor photography permitted inside the museum?",
+      "answer": "The official visitor page permits ordinary visitor photos with restrictions and asks visitors to respect exhibits and other people. Commercial media shoots or press interviews need advance approval through the City's public-information office.",
+      "verificationUrl": "https://epmarch.org/about/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epmarch.org/about/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
+    },
+    {
+      "question": "Does the El Paso Museum of Archaeology have a cafeteria or restaurant?",
+      "answer": "The official visitor guidance describes an on-site museum store and outdoor nature trails but does not establish a café or full-service restaurant. Bring appropriate water for outdoor conditions and make dining plans outside the museum.",
+      "verificationUrl": "https://epmarch.org/about/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://epmarch.org/about/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-13"
     }
   ]
 };

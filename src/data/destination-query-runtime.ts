@@ -5,7 +5,8 @@ import { filterCurrentlyVisitableDestinations } from "./destination-availability
 import { filterSeoReadyDestinations, isSeoReadyDestination } from "./destination-audit";
 import { applyAllCuratedDestination, applyAllCuratedDestinations } from "./destination-curation-all";
 import { preservedExploreDestinations } from "./destination-preserved-catalog";
-import { enrichMuseumAuthority } from "./museum-authority-network";
+import { enforceFredericksburgJohnsonCityHeritageAuthority } from "./fredericksburg-johnson-city-heritage-destinations";
+import { enrichMuseumMedia } from "./museum-authority-heroes";
 import { improveDestinationCatalog, improveDestinationQuality } from "./destination-quality";
 import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./explore-core-remote";
 import { applyDestinationHeroOverride, isDestinationPhotoPlaceholder, reconcileDestinationHeroes } from "./explore-hero-reconciliation";
@@ -14,6 +15,9 @@ import { fetchExploreDestination, fetchExploreDestinations } from "./explore-rem
 import { enrichRemainingHistoricSiteAreaGuide } from "./historic-site-area-guides-extra";
 import { enrichHistoricSiteCatalog, enrichHistoricSiteDestination } from "./historic-site-enrichment";
 import { enrichHistoricSiteEvergreenLinks } from "./historic-site-evergreen-links";
+import { enrichTexasHistoricSiteAuthority } from "./historic-site-authority-2026";
+import { enrichFullHistoricSiteAuthority } from "./historic-site-authority-full-catalog";
+import { enrichResearchedHistoricSiteDepth } from "./historic-site-depth-all";
 import { applyHistoricSiteFactCorrections } from "./historic-site-fact-corrections";
 import { enrichHistoricSiteRemoteHero } from "./historic-site-remote-heroes";
 import { enrichNationalCemeteryDestination } from "./national-cemetery-enrichment";
@@ -167,7 +171,7 @@ async function loadCoreCatalog(
 }
 
 function finishHistoricSiteEnrichment(destination: Destination) {
-  return enrichNationalCemeteryDestination(
+  const enriched = enrichNationalCemeteryDestination(
     applyHistoricSiteFactCorrections(
       enrichHistoricSiteEvergreenLinks(
         enrichHistoricSiteRemoteHero(
@@ -176,10 +180,11 @@ function finishHistoricSiteEnrichment(destination: Destination) {
       ),
     ),
   );
+  return enrichResearchedHistoricSiteDepth(enrichFullHistoricSiteAuthority(enrichTexasHistoricSiteAuthority(enriched)));
 }
 
 function applyResolvedHero(destination: Destination) {
-  return applyTownAuthority(enrichMuseumAuthority(normalizeDestinationCounty(
+  return enforceFredericksburgJohnsonCityHeritageAuthority(applyTownAuthority(enrichMuseumMedia(normalizeDestinationCounty(
     enrichCavernAreaGuide(
       finishHistoricSiteEnrichment(
         improveDestinationQuality(
@@ -195,7 +200,7 @@ function applyResolvedHero(destination: Destination) {
         ),
       ),
     ),
-  )));
+  ))));
 }
 
 function resolveSeoReadyDestination(destination?: Destination | null) {
@@ -214,9 +219,13 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(enrichHistoricSiteEvergreenLinks)
     .map(applyHistoricSiteFactCorrections)
     .map(enrichNationalCemeteryDestination)
+    .map(enrichTexasHistoricSiteAuthority)
+    .map(enrichFullHistoricSiteAuthority)
+    .map(enrichResearchedHistoricSiteDepth)
     .map(enrichCavernAreaGuide)
     .map(normalizeDestinationCounty)
-    .map(applyTownAuthority);
+    .map(applyTownAuthority)
+    .map(enforceFredericksburgJohnsonCityHeritageAuthority);
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved.map(correctDestinationTravelRegion)));
 }
 

@@ -57,7 +57,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     coordinates: { lat: 35.18858, lng: -101.8451 },
     hero: museumPlaceholder("Amarillo Museum of Art"),
     bestSeason: "Year-round indoor museum; a useful all-weather stop during Panhandle heat, cold, wind or thunderstorms.",
-    entryNote: "General admission is currently free. The museum is closed to the public on Mondays and Tuesdays and observes major holiday closures; confirm current hours before traveling.",
+    entryNote: "Admission is always free. Galleries open Wednesday–Saturday 11 a.m.–5 p.m. and Sunday 1–5 p.m.; closed Monday and Tuesday. Use Amarillo College's west plaza entrance, park in lots 5 or 6 (accessible lot 8), and consult the operator for holiday changes.",
     highlights: ["Free admission", "Changing art exhibitions", "Amarillo College campus", "Amarillo Cultural District"],
     body: [
       "Amarillo Museum of Art provides a visual-arts counterpoint to the Panhandle's ranching, transportation and frontier museums. Its galleries rotate through exhibitions drawn from the permanent collection and visiting artists, giving travelers a cultural stop that changes significantly from one visit to the next.",
@@ -180,7 +180,12 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     nearestTown: "Corpus Christi",
     county: "Nueces County",
     coordinates: { lat: 27.8104, lng: -97.39555 },
-    hero: museumPlaceholder("Corpus Christi Museum of Science and History"),
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Corpus_christi_museum_of_science_history.jpg?width=1600",
+      alt: "Corpus Christi Museum of Science and History exterior building in Corpus Christi, Texas, photographed May 2014",
+      width: 2159, height: 1438,
+      credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · File:Corpus christi museum of science history.jpg (2014)",
+    },
     bestSeason: "Year-round indoor museum; especially useful during hot, windy or rainy Gulf Coast weather.",
     entryNote: "The museum is currently closed Mondays and keeps seasonal summer hours. Admission and special-program pricing vary; check the current visitor page before arrival.",
     highlights: ["Science and South Texas history", "Coastal ecology", "Archaeology", "Family learning"],

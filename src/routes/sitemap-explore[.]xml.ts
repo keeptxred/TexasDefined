@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
+import { zionHillNacogdochesAuthorityDestinations } from "@/data/zion-hill-nacogdoches-authority-destinations";
 import { auditDestination } from "@/data/destination-audit";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
@@ -250,9 +251,29 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           else rawDestinations.push(canonicalDestination);
         }
 
+        // Two original-source Black heritage guides were merged to the checked-in catalog.
+        // A thinner Explore API row with the same slug must not replace the researched
+        // authority record and quietly remove its canonical URL from this sitemap.
+        // Run the ordinary auditDestination indexability gate on the resolved results.
+        for (const canonicalDestination of zionHillNacogdochesAuthorityDestinations) {
+          const existingIndex = rawDestinations.findIndex((destination) => destination.slug === canonicalDestination.slug);
+          if (existingIndex >= 0) rawDestinations[existingIndex] = canonicalDestination;
+          else rawDestinations.push(canonicalDestination);
+        }
+
         const destinations = await resolveDestinationCatalog(rawDestinations);
+        // The Explore/search summaries for these authority destinations are deliberately
+        // lightweight to stay within the tested client JS bundle budget. The sitemap
+        // must audit full researched guides, not summaries, before including URLs.
+        // Load the larger authoritative records inside this server-only handler.
+        const { coastalHeritageAuthorityDestinations } = await import("@/data/coastal-heritage-authority");
+        for (const canonicalDestination of coastalHeritageAuthorityDestinations) {
+          const position = destinations.findIndex((item) => item.slug === canonicalDestination.slug);
+          if (position >= 0) destinations[position] = canonicalDestination;
+          else destinations.push(canonicalDestination);
+        }
         const indexableDestinations = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
-          .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
+          .filter((destination) => (isPrimaryTripPlannerDestination(destination) || ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin"].includes(destination.slug)) && auditDestination(destination).readyForIndexing);
         const indexableRvParkDestinations = [...new Map(loadRvParkDestinationsServer().filter((item) => item.slug).map((item) => [item.slug, item])).values()]
           .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
         const sitemapIndexableDestinations = mergeDestinationSources(indexableDestinations, indexableRvParkDestinations);

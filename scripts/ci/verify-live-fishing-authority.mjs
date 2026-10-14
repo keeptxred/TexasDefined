@@ -50,6 +50,9 @@ const worker=async()=>{
       if(response.status!==200){failures.push({...check,status:response.status,issue:"non-200"});continue;}
       const html=await response.text();
       const missing=check.required.filter(k=>!html.includes(k));
+      if (check.path === "/county/haskell" && !html.includes("reservoir began impounding Paint Creek in 1953")) {
+        missing.push("Haskell lake-history correction (construction 1951 vs impoundment 1953)");
+      }
       if(check.type==="lake"){
         if(!html.includes(check.name))missing.push("expected lake name");
         if(!html.includes("rel=\"canonical\""))missing.push("canonical HTML tag");
