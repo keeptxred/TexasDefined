@@ -5,8 +5,8 @@
 ## Counts and caveats
 
 - **175** separate alphabetical links/named entries in the TPWD public lake list (excluding its extra *Town Lake = Lady Bird Lake* alias line).
-- **66** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
-- **109** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
+- **67** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
+- **108** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
 - TPWD list entries include local ponds and some state-park-managed lakes as well as reservoirs; they cannot all be treated as equally high-demand or guaranteed distinct reservoirs.
 - This list does not include every Texas stock tank, private lake, community fishing pond, or small waterbody outside TPWD's own directory. It therefore cannot prove “every Texas lake.”
 
@@ -18,7 +18,6 @@
 - **Limestone** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Cypress Springs** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Coleman** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
-- **Weatherford** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Wright Patman** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Bois d'Arc** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Jacksonville** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
@@ -193,7 +192,7 @@
 | Waco | [lake-waco](https://texasdefined.com/fishing/lakes/lake-waco) |
 | Walter E. Long | **Not in completed-guide registry** |
 | Waxahachie | **Not in completed-guide registry** |
-| Weatherford | **Not in completed-guide registry** |
+| Weatherford | [lake-weatherford](https://texasdefined.com/fishing/lakes/lake-weatherford) |
 | Welsh | **Not in completed-guide registry** |
 | Wheeler Branch | **Not in completed-guide registry** |
 | White River | **Not in completed-guide registry** |
@@ -258,3 +257,7 @@ Lake Tyler is not one 1949 impoundment: TWDB distinguishes the West Whitehouse D
 ## October 13 — Medina Lake first-party-source authority
 
 The **66th proposed complete guide** covers Medina Lake, distinct from Medina Diversion Lake. TPWD reports only two named ramp facilities (Red Cove Camp and Bandera County Park Road 37) with conditional gravel-bank launching and separate operator fees and hours; these are historical facilities, **not verified currently accessible launches**. TWDB's timestamped October 13, 2026 snapshot measured just 28.6% conservation storage, 43.64 feet below full pool; the live gauge, NOT this dated value, controls future trip planning. TPWD warns of invasive zebra mussels and legally required draining. TWDB dates construction start to November 1911 and first filling to May 7, 1913. The independently located Medina Lake 2010 shoreline image is Larry D. Moore, **CC BY 4.0**, 1652×964, available from Wikimedia Commons; it must never imply current water status. The new proposed gap total is **109 of 175 TPWD-listed lake entries**. Live operator calls, full first-party images and production acceptance are still outstanding.
+
+## October 13 — Lake Weatherford authority addition
+
+The **67th complete-guide definition** separates a full-size improved trailer launch at TPWD-listed Weatherford Marina from two unnamed unimproved upper-lake ramps suitable ONLY for small aluminum boats, and from the City of Weatherford's PEDESTRIAN floating boardwalk trailheads at **2864 East Lake Drive** and **1198 West Lake Drive**. The 4,313-foot boardwalk is open 6 a.m.–10 p.m. according to city information and is not a boat ramp. TPWD states **NO overnight camping anywhere on the lake**. TWDB confirms the June 1956 start / March 1957 filling of the Clear Fork dam, reconstruction after 1993 flood damage and distinct 2008 surveyed area. Exact-location May 2024 boardwalk photo *Section of Lake Weatherford boardwalk.jpg* is Forssa01's Commons **CC0 1.0** image (4624×3468), not an image of the marina and not first-party. TWDB Water Data for Texas live levels are integrated for launch planning without hard-coded current depth. Remaining unmatched directory entries are **108 of 175**. Current operator/ramp access, field photos and production acceptance are not certified.
