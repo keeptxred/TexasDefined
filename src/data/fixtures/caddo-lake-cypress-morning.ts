@@ -24,7 +24,7 @@ export const caddoLakeCypressMorningArticle: Article = {
   relatedDestinations: ["caddo-lake"],
   internalLinks: [
     {
-      href: "/lake/caddo-lake",
+      href: "/destination/caddo-lake",
       label: "Caddo Lake",
       description: "Plan a visit to the cypress maze on the Texas-Louisiana line.",
     },
