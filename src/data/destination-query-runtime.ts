@@ -231,7 +231,14 @@ function reconcileExploreCatalog(destinations: Destination[]) {
 
 export async function listResolvedDestinations(params: Omit<DestinationQuery, "brandId"> = {}) {
   if (params.category === WATER_COLLECTION) {
-    const destinations = filterDestinationsByScope(selectSwimmingHoleAndTubingDestinations(await listResolvedDestinations()), params);
+    // The swimming/tubing collection is a virtual cross-category collection: its
+    // qualifying sources are state parks, springs, rivers and gateway towns, not
+    // destinations whose category equals WATER_COLLECTION. Preserve optional
+    // geographic filtering without re-applying the impossible virtual category.
+    const destinations = filterDestinationsByScope(
+      selectSwimmingHoleAndTubingDestinations(await listResolvedDestinations()),
+      { category: undefined, region: params.region },
+    );
     if (params.featured) return featuredFallback(destinations, params.limit ?? 6);
     return params.limit ? destinations.slice(0, params.limit) : destinations;
   }
