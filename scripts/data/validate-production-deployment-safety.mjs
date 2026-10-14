@@ -12,6 +12,9 @@ const smoke = fs.readFileSync('scripts/ci/verify-built-worker-ssr.mjs', 'utf8');
 const productionSurfaces = fs.readFileSync('scripts/ci/verify-production-surfaces.mjs', 'utf8');
 const cloudflareGitBuildWait = fs.readFileSync('scripts/ci/wait-for-cloudflare-git-build.mjs', 'utf8');
 const failures = [];
+if (!premerge.includes("'scripts/ci/wait-for-cloudflare-git-build.test.mjs'")) {
+  failures.push('Canonical premerge validation no longer runs the Cloudflare check-run retry regression tests.');
+}
 
 const workflowDirectory = '.github/workflows';
 const canonicalProductionDeployWorkflow = 'deploy-production.yml';
