@@ -6,7 +6,7 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 const DallasBlackHistoryPage = lazy(() => import("@/components/editorial/DallasBlackHistoryPage"));
 const canonicalPath = "/dallas-black-history";
 const canonical = "https://texasdefined.com/dallas-black-history";
-const title = "Dallas Black History: Eight Historic Places, Civil Rights and Freedmen's Towns";
+const title = "Dallas Black History: 8 Historic Sites & Civil Rights Landmarks";
 const description = "Explore eight Dallas Black history landmarks with verified histories, visitor guidance, research sources and cross-links to other Texas heritage places.";
 const landmarks = [
   {
