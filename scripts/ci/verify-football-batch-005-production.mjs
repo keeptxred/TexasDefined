@@ -84,6 +84,28 @@ check(sitemapResponse.status===200,'Production sitemap HTTP 200');
 for(const [slug] of schools) check(sitemapXml.includes(origin+'/texas-high-school-football-teams/'+slug),slug+': sitemap listed');
 const browser=await chromium.launch({executablePath:process.env.CHROME_BIN || '/usr/bin/google-chrome',headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
 const clean=(t)=>String(t||'').replace(/\s+/g,' ').trim();
+// Do not mark a transient navigation timeout as a permanent school-page failure
+// until one fresh attempt also fails. The second attempt must still pass EVERY
+// original HTTP, hydration, SEO, content, link, image and runtime assertion.
+const schoolNavigationOptions={waitUntil:'domcontentloaded',timeout:60000};
+const transientDocumentNavigation=/^page\\.goto: (?:Timeout \\d+ms exceeded|net::ERR_(?:TIMED_OUT|CONNECTION_RESET|CONNECTION_CLOSED|CONNECTION_ABORTED|NETWORK_CHANGED))/;
+async function navigateSchoolWithOneNetworkRetry(page,url,view,slug) {
+  try {
+    return await page.goto(url,schoolNavigationOptions);
+  } catch(firstError) {
+    const firstMessage=String(firstError?.message||firstError);
+    if (!transientDocumentNavigation.test(firstMessage)) throw firstError;
+    try {
+      const response=await page.goto(url,schoolNavigationOptions);
+      check(true,view+' '+slug+': document navigation recovered after one transient retry',{
+        firstAttempt:firstMessage.slice(0,250)
+      });
+      return response;
+    } catch(secondError) {
+      throw new Error('Navigation failed twice for '+view+' '+slug+': first='+firstMessage.slice(0,250)+'; second='+String(secondError?.message||secondError).slice(0,350));
+    }
+  }
+}
 try {
  for(const [view,width,height] of [['desktop',1366,900],['mobile',390,844]]) {
   const ctx=await browser.newContext({viewport:{width,height},deviceScaleFactor:1});
@@ -92,7 +114,7 @@ try {
    page.on('pageerror',e=>errors.push(String(e.message||e)));
    let response=null,details={};
    try {
-    response=await page.goto(origin+'/texas-high-school-football-teams/'+slug,{waitUntil:'domcontentloaded',timeout:60000});
+    response=await navigateSchoolWithOneNetworkRetry(page,origin+'/texas-high-school-football-teams/'+slug,view,slug);
     await page.locator('h1').first().waitFor({state:'visible',timeout:30000});
     await page.waitForTimeout(550);
     details=await page.evaluate(() => ({
