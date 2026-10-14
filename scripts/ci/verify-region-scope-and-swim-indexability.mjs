@@ -18,6 +18,11 @@ function sourceCheck(){
  const route=fs.readFileSync('src/routes/explore.region.$region.tsx','utf8');
  const category=fs.readFileSync('src/routes/explore.$category.tsx','utf8');
  const staticAuthority=fs.readFileSync('public/content/explore-category-authority/swimming-holes-river-tubing.html','utf8');
+ const serverCopy=fs.readFileSync('src/data/swimming-authority.server.ts','utf8');
+ const expectedCopy='export const swimmingAuthorityHtml = '+JSON.stringify(staticAuthority)+';';
+ if(!serverCopy.includes(expectedCopy))failures.push('Bundled swim authority differs from public official-source HTML');
+ if(!category.includes('getSwimmingAuthorityHtml()'))failures.push('Swim category loader does not read server-bundled authority');
+
  if(!route.includes('filterDestinationsByScope(loadedDestinations, { region: region.id })'))failures.push('Region route lacks strict final regional filter');
  if(!route.includes('return { region, regions, destinations };'))failures.push('Region metadata/cards are not based on filtered loader list');
  if(!category.includes('swimmingAuthorityReady')||!category.includes('&& loaderData.authorityHtml.includes("Official sources")'))failures.push('Swim/float page lacks evidence-gated fallback index readiness');
