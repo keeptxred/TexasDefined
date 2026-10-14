@@ -96,7 +96,7 @@ async function observeWorkerVersion(response,label) {
 }
 function trackSameOriginChunkFailures(page,label,issues) {
   const match=url=>{
-    try { const u=new URL(url); return u.origin===origin && u.pathname.startsWith('/assets/') && /\\.(?:js|css)$/.test(u.pathname); }
+    try { const u=new URL(url); return u.origin===origin && u.pathname.startsWith('/assets/') && /\.(?:js|css)$/.test(u.pathname); }
     catch { return false; }
   };
   page.on('requestfailed',request=>{
@@ -122,7 +122,7 @@ async function detectUnwantedChunkReload(page,view,label) {
 // until one fresh attempt also fails. The second attempt must still pass EVERY
 // original HTTP, hydration, SEO, content, link, image and runtime assertion.
 const schoolNavigationOptions={waitUntil:'domcontentloaded',timeout:60000};
-const transientDocumentNavigation=/^page\\.goto: (?:Timeout \\d+ms exceeded|net::ERR_(?:TIMED_OUT|CONNECTION_RESET|CONNECTION_CLOSED|CONNECTION_ABORTED|NETWORK_CHANGED))/;
+const transientDocumentNavigation=/^page\.goto: (?:Timeout \d+ms exceeded|net::ERR_(?:TIMED_OUT|CONNECTION_RESET|CONNECTION_CLOSED|CONNECTION_ABORTED|NETWORK_CHANGED))/;
 async function navigateSchoolWithOneNetworkRetry(page,url,view,slug) {
   try {
     return await page.goto(url,schoolNavigationOptions);
