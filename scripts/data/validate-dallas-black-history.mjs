@@ -14,6 +14,7 @@ const template = read("src/routes/destination.$slug.tsx");
 const panel = read("src/components/editorial/DallasBlackHistoryAuthority.tsx");
 const hub = read("src/routes/dallas-black-history.tsx");
 const hubContent = read("src/components/editorial/DallasBlackHistoryPage.tsx");
+const historicSitesGuide = read("public/content/explore-category-authority/historic-sites.html");
 const failures = [];
 
 const slugs = [
@@ -43,12 +44,20 @@ if (!template.includes("<DallasBlackHistoryAuthority slug={destination.slug} />"
   failures.push("Destination route must show research and FAQs.");
 if (!template.includes("dallasHeritage?.sources") || !template.includes('"FAQPage"'))
   failures.push("Page must include citations and FAQ structured data.");
+const craftLegacyHost = "https://dallas.gov/departments/sustainabledevelopment/historicpreservation/HP%20Documents/Landmark%20Structures/Juanita%20Craft%20House%20Landmark%20Nomination.pdf";
+const craftNominationStableHost = "https://www.dallascityhall.com/departments/sustainabledevelopment/historicpreservation/HP%20Documents/Landmark%20Structures/Juanita%20Craft%20House%20Landmark%20Nomination.pdf";
+if (registry.includes(craftLegacyHost) || !registry.includes(craftNominationStableHost))
+  failures.push("City of Dallas Craft landmark nomination must use the tested, TLS-reachable official www.dallascityhall.com hostname.");
+for (const year of ["1925", "1926", "1930"]) {
+  if (!registry.includes(year)) failures.push(`Juanita Craft construction-year discrepancy missing ${year}`);
+}
 if (!panel.includes("dallasBlackHistoryResearch.filter") || !panel.includes("profile.sources.map") || !panel.includes("profile.faqs.map"))
   failures.push("Visible panel must show other sites, cited sources, and FAQs.");
 if (!panel.includes('href="/dallas-black-history"'))
   failures.push("Each place must link to the hub.");
 if (!hub.includes('createFileRoute("/dallas-black-history")') || !hub.includes("landmarks.map") || !hubContent.includes("dallasBlackHistoryResearch.find"))
   failures.push("Public authority hub and ItemList must exist.");
+if (!places.includes('const cemeteryPhoto = commons(') || !places.includes('2016 exhibit photograph", true)') || !places.includes('2016 marker photograph", true)')) failures.push('Dallas heritage Commons originals must avoid failing 1600px thumbnail redirects for cemetery and Tenth Street images.');
 if (!places.includes("Wikimedia Commons") || !places.includes("CC BY-SA"))
   failures.push("Licensed heroes and credits must be retained.");
 for (const phrase of ["1861", "1869", "1,157", "1924", "1927", "182", "185", "National Register", "accessible"]) {
@@ -60,6 +69,8 @@ for (const section of registry.split('slug: "').slice(1)) {
   if (!section.includes("sources: [") || !section.includes("faqs: [") || !section.includes("sections: ["))
     failures.push("One heritage dossier lacks sections, FAQ, or source ledger.");
 }
+if (!historicSitesGuide.includes('href="/dallas-black-history"') || !historicSitesGuide.includes("Dallas Black History — eight heritage destinations"))
+  failures.push("Historic Sites & Museums authority directory must contextually link to the Dallas Black History collection.");
 if (failures.length) {
   console.error("Dallas Black History release contract FAILED:\n" + failures.map((e) => " - " + e).join("\n"));
   process.exit(1);

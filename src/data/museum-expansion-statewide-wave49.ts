@@ -31,7 +31,7 @@ export const statewideMuseumExpansionWave49Destinations: Destination[] = [
     coordinates: { lat: 29.87316, lng: -93.93291 },
     hero: museumPlaceholder("Museum of the Gulf Coast"),
     bestSeason: "Year-round for indoor galleries; fall through spring is especially comfortable for combining the museum with Port Arthur, Sabine Pass and other upper Gulf Coast heritage stops.",
-    entryNote: "The museum currently publishes Monday-Saturday hours from 9 a.m. to 5 p.m. and is closed Sundays and major holidays. Current general admission is $8 for adults, with reduced rates for seniors, college students and children. Check the museum's current visitor information before a dedicated trip for holiday closures, special events or admission changes.",
+    entryNote: "The museum currently publishes Monday-Saturday hours from 9 a.m. to 5 p.m. and is closed Sundays and major holidays. The operator's public pages conflict on ticket prices: its homepage lists $8 for adults, while its separate admissions/history page lists $10; call 409-982-7000 to confirm actual admission before travel. Check the museum's current visitor information before a dedicated trip for holiday closures, special events or admission changes.",
     highlights: [
       "More than 35,000 collection objects",
       "Music Hall of Fame including Janis Joplin and other Gulf Coast artists",

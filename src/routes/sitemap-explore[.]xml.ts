@@ -102,12 +102,18 @@ async function resolveDestinationCatalog(destinations: Destination[]) {
     { reconcileDestinationHeroes },
     { applyExploreHeroAssets },
     { applyStateParkHeroAssets },
+    { applyHistoricSiteFactCorrections },
   ] = await Promise.all([
     import("@/data/destination-quality"),
     import("@/data/explore-hero-reconciliation"),
     import("@/data/explore-heroes"),
     import("@/data/state-park-heroes"),
+    import("@/data/historic-site-fact-corrections"),
   ]);
+  // Keep the sitemap's final quality gate aligned with the *resolved public
+  // destination*, including closed-site status and exact-location image rights.
+  // Otherwise Lipantitlan and Old Socorro can be noindex on their HTML pages
+  // while still appearing in the XML feed with unrelated or misidentified art.
   return improveDestinationCatalog(
     applyAllCuratedDestinations(
       reconcileDestinationHeroes(
@@ -116,7 +122,7 @@ async function resolveDestinationCatalog(destinations: Destination[]) {
         ),
       ),
     ),
-  );
+  ).map(applyHistoricSiteFactCorrections);
 }
 
 function emergencyExploreSitemapResponse(error: unknown) {
@@ -273,7 +279,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           else destinations.push(canonicalDestination);
         }
         const indexableDestinations = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
-          .filter((destination) => (isPrimaryTripPlannerDestination(destination) || ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin"].includes(destination.slug)) && auditDestination(destination).readyForIndexing);
+          .filter((destination) => (isPrimaryTripPlannerDestination(destination) || ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin", "buffalo-soldiers-national-museum-houston", "first-capitol-of-texas"].includes(destination.slug)) && auditDestination(destination).readyForIndexing);
         const indexableRvParkDestinations = [...new Map(loadRvParkDestinationsServer().filter((item) => item.slug).map((item) => [item.slug, item])).values()]
           .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
         const sitemapIndexableDestinations = mergeDestinationSources(indexableDestinations, indexableRvParkDestinations);

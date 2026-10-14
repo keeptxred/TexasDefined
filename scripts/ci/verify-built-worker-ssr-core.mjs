@@ -113,6 +113,27 @@ const smokeTargets = [
 ];
 
 const redirectTargets = [
+  {"path": "/historic-site/seminole-canyon-state-park-and-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/seminole-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/seminole-canyon-state-park-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/seminole-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/goliad-state-park-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/goliad-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/goliad-state-park-and-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/goliad-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/barrington-farm-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/barrington-living-history-farm", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/fanthorp-inn-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/fanthorp-inn", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/battleship-texas-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/battleship-texas", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/port-isabel-lighthouse-state-park?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/port-isabel-lighthouse", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/port-isabel-lighthouse-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/port-isabel-lighthouse", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/monument-hill-kreische-brewery-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/monument-hill", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/monument-hill-and-kreische-brewery-state-historic-sites?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/monument-hill", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/museum/barrington-farm-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/barrington-living-history-farm", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/audie-murphy-texas-war-hero-actor?source=gsc", "expectedStatus": 301, "expectedPath": "/article/audie-murphy-texas-war-hero-actor", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/fort-worth-stockyards-history-cattle-culture?source=gsc", "expectedStatus": 301, "expectedPath": "/article/fort-worth-stockyards-history-cattle-culture", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/mirabeau-b-lamar-president-republic-texas?source=gsc", "expectedStatus": 301, "expectedPath": "/article/mirabeau-b-lamar-president-republic-texas", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/blue-bell-ice-cream-brenham-texas-history?source=gsc", "expectedStatus": 301, "expectedPath": "/article/blue-bell-ice-cream-brenham-texas-history", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/bucees-texas-road-trip-history?source=gsc", "expectedStatus": 301, "expectedPath": "/article/bucees-texas-road-trip-history", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/james-bowie-texas-alamo-life-legend?source=gsc", "expectedStatus": 301, "expectedPath": "/article/james-bowie-texas-alamo-life-legend", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/william-barret-travis-alamo-commander?source=gsc", "expectedStatus": 301, "expectedPath": "/article/william-barret-travis-alamo-commander", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/chester-nimitz-texas-fleet-admiral?source=gsc", "expectedStatus": 301, "expectedPath": "/article/chester-nimitz-texas-fleet-admiral", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+
   { path: '/destination/lyndon-b-johnson-state-park-and-historic-site', expectedStatus: 301, expectedPath: '/destination/lyndon-b-johnson-state-park-historic-site', expectQueryPreserved: false, label: 'LBJ State Park broken editorial alias canonical redirect' },
   { path: '/destination/lyndon-b-johnson-state-park-state-historic-site', expectedStatus: 301, expectedPath: '/destination/lyndon-b-johnson-state-park-historic-site', expectQueryPreserved: false, label: 'LBJ State Park secondary historical alias canonical redirect' },
   { path: '/historic-site/lyndon-b-johnson-state-park-state-historic-site', expectedStatus: 301, expectedPath: '/destination/lyndon-b-johnson-state-park-historic-site', expectQueryPreserved: false, label: 'LBJ State Park old historic-site route canonical redirect' },

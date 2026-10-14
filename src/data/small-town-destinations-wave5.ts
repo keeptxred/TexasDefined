@@ -234,8 +234,8 @@ export const smallTownWave5Destinations: Destination[] = [
       ],
       sources: [
         { label: "Visit Nacogdoches", url: "https://www.visitnacogdoches.org/", scope: "Official destination planning, current events, lodging and visitor information" },
-        { label: "Visit Nacogdoches — Tours and Trails", url: "https://www.visitnacogdoches.org/things-to-do/tours-trails/", scope: "Historic walking, trails and current self-guided visitor options" },
-        { label: "Visit Nacogdoches — Arts and Culture", url: "https://www.visitnacogdoches.org/things-to-do/arts-culture/", scope: "Current museums, arts, heritage and cultural attractions" },
+        { label: "Visit Nacogdoches — Tours and Trails", url: "https://www.visitnacogdoches.org/tours-and-trails", scope: "Historic walking, trails and current self-guided visitor options" },
+        { label: "Visit Nacogdoches — Arts and Culture", url: "https://www.visitnacogdoches.org/arts-and-cultural-attractions", scope: "Current museums, arts, heritage and cultural attractions" },
       ],
     },
     featured: true,
@@ -312,7 +312,7 @@ export const smallTownWave5Destinations: Destination[] = [
       ],
       sources: [
         { label: "Visit Palestine", url: "https://www.visitpalestine.com/", scope: "Official destination planning, events, rail, dogwood and current visitor information" },
-        { label: "Visit Palestine Visitor Center", url: "https://www.visitpalestine.com/visitor-center", scope: "Current visitor-center resources, historic-site inventory and self-guided planning" },
+        { label: "Visit Palestine Visitor Center", url: "https://www.visitpalestine.com/business/palestine-visitor-center", scope: "Current visitor-center resources, historic-site inventory and self-guided planning" },
       ],
     },
     featured: true,

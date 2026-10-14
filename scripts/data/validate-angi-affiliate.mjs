@@ -31,11 +31,16 @@ for (const [needle, label] of [
   ['category/12033/', 'foundation deep link'],
   ['category/12001/', 'remodeling deep link'],
   ['category/12070/', 'pool deep link'],
+  ['roof (?:replacement|repair|installation|installer|installers|inspection|inspector|inspectors|contractor|contractors|company|companies|cost|costs)', 'roofing service-intent fallback'],
+  ['landscaping (?:company|companies|contractor|contractors|service|services|installation|design|cost|costs)', 'landscaping service-intent fallback'],
   ['pageServiceOverrides', 'exact-path service overrides'],
+  ['["/article/texas-roofs-hail-wind-heat", "roofing"]', 'roofing guide override'],
   ['["/article/texas-foundation-care-clay-soil-drought", "foundation"]', 'foundation guide override'],
   ['["/article/texas-household-pests-guide", "pest-control"]', 'household-pests override'],
   ['["/article/texas-pool-owner-guide", "pools"]', 'pool-owner override'],
   ['["/article/texas-home-maintenance-calendar", "handyman"]', 'home-maintenance override'],
+  ['["/article/texas-native-garden-that-survives-august", "landscaping"]', 'native-garden landscaping override'],
+  ['["/article/best-native-plants-texas-yard", "landscaping"]', 'native-plants landscaping override'],
   ['["/article/texas-homeowner-field-manual", null]', 'multi-system homeowner-guide opt-out'],
   ['["/article/true-cost-of-owning-a-home-in-texas", null]', 'multi-system ownership-cost opt-out'],
   ['["/article/texas-wildfire-home-protection-guide", null]', 'wildfire landscaping false-positive opt-out'],
@@ -65,6 +70,12 @@ for (const [needle, label] of [
 if (rootSource.includes('/angi-home-services.js')) {
   errors.push('Angi must remain client-bootstrapped and must not be emitted directly from the SSR root shell.');
 }
+if (moduleSource.includes('roof(?:ing| replacement| repair|er|ers)?')) {
+  errors.push('Roofing fallback must not match a bare singular roof token; use service-intent phrases plus audited exact overrides.');
+}
+if (moduleSource.includes('landscap(?:e|er|ers|ing)')) {
+  errors.push('Landscaping fallback must not match generic landscape language; use service-intent phrases plus audited exact overrides.');
+}
 
 for (const [needle, label] of [
   ['No sub-affiliates', 'sub-affiliate restriction'],
@@ -76,6 +87,9 @@ for (const [needle, label] of [
   ['Production safeguards', 'production-safeguards documentation'],
   ['route-gated', 'route-gated bootstrap documentation'],
   ['exact-path overrides', 'exact-path override documentation'],
+  ['service-intent fallbacks', 'service-intent fallback documentation'],
+  ['bare `roof`', 'bare-roof false-positive documentation'],
+  ['geographic `landscape`', 'geographic-landscape false-positive documentation'],
   ['explicit opt-outs', 'multi-system opt-out documentation'],
   ['texas-wildfire-home-protection-guide', 'wildfire false-positive documentation'],
   ['texas-home-architecture-regions', 'architecture false-positive documentation'],
@@ -94,6 +108,9 @@ for (const [needle, label] of [
   ['/angi-home-services.js', 'deployed Angi asset check'],
   ['eligibleRoute', 'production route-gate check'],
   ['pageServiceOverrides', 'production override check'],
+  ['/article/texas-roofs-hail-wind-heat', 'production roofing override check'],
+  ['/article/texas-native-garden-that-survives-august', 'production native-garden override check'],
+  ['/article/best-native-plants-texas-yard', 'production native-plants override check'],
   ['/article/texas-foundation-care-clay-soil-drought', 'production foundation override check'],
   ['/article/texas-household-pests-guide', 'production pests override check'],
   ['/article/texas-pool-owner-guide', 'production pool override check'],
@@ -106,6 +123,8 @@ for (const [needle, label] of [
   ['/article/texas-vs-florida-differences', 'production state-comparison relocation opt-out check'],
   ['/moving-to-texas/data', 'production relocation data-center opt-out check'],
   ['/moving-to-texas/tools', 'production relocation toolkit opt-out check'],
+  ['roof(?:ing| replacement| repair|er|ers)?', 'production bare-roof rejection check'],
+  ['landscap(?:e|er|ers|ing)', 'production generic-landscape rejection check'],
   ['cf-mitigated', 'Cloudflare challenge detection'],
   ['TexasDefined-CI-Angi-Smoke/1.0', 'Angi production smoke user agent'],
   ['aid=157319271', 'production CJ AID check'],

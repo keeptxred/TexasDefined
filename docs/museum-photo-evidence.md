@@ -118,8 +118,6 @@ Both pages have explicit image placeholders pending rights-cleared exact-locatio
 - **South Padre Island:** [Spheroidite, *South Padre Island beach panorama.jpg*](https://commons.wikimedia.org/wiki/File:South_Padre_Island_beach_panorama.jpg), photographed June 2022. **CC BY-SA 4.0**, 7,328 × 3,274. Panoramic beach photograph of the correct island; do not confuse with Padre Island National Seashore.
 - **La Salle Odyssey:** [Larry D. Moore, *Texas Maritime Museum Rockport Texas 2024.jpg*](https://commons.wikimedia.org/wiki/File:Texas_Maritime_Museum_Rockport_Texas_2024.jpg), **CC BY 4.0**. This already licensed Rockport institution serves as a truthful representative museum image; no misleading reconstructed ship or stock artifact is implied.
 
-**Port Isabel Historical Museum image:** A direct historic-building photograph has not been licensed and attached yet. The Library of Congress Carol M. Highsmith photos of the Champion Building fish mural include "no known restrictions on publication" advisories; specific file and stable usable image delivery need independent confirmation before replacing the existing placeholder. Do not mislabel an unrelated lighthouse photo as the museum.
-
 ## Port Isabel Historical Museum hero photograph (October 13, 2026)
 
 - **Exact location:** Port Isabel Historical Museum at the 1899 Charles Champion Building. The selected 2014 Carol M. Highsmith photograph shows the landmark's original 1906 fish-mural facade, not a generic Port Isabel lighthouse or a different museum.
@@ -127,3 +125,51 @@ Both pages have explicit image placeholders pending rights-cleared exact-locatio
 - **Rights advisory:** Library of Congress lists **“No known restrictions on publication”**. It does not grant a license on behalf of third parties. Retain Highsmith and the collection's explicit credit line as provenance; don't misrepresent the record as a Creative Commons license.
 - **Deliverable:** A Wikimedia Commons-hosted 1,200px JPEG rendition of the original 7,360 × 2,717 TIFF. The exact redirect path returned HTTP 200 with `image/jpeg` in the live source probe. The source photograph dates to March 2014, not current museum conditions.
 - **Visual description:** A portion of the Charles Champion fish-mural facade; do not imply the photo shows a current gallery or interior accessibility arrangements. Recheck redirected thumbnail delivery after production deployment.
+
+## 1919 San Augustine County Jail Museum — October 13, 2026
+Exact-site image: [San augustine county tx former jail.jpg](https://commons.wikimedia.org/wiki/File:San_augustine_county_tx_former_jail.jpg), photographed April 3, 2015 by **Larry D. Moore**, **CC BY 4.0**. Wikimedia Commons records original dimensions 1,903 × 1,269 and coordinates at the San Augustine courthouse/jail. Credit, photographer, source and license are included on the destination hero. The 2015 image is historical evidence of the building, not a claim to current exterior changes or museum occupancy.
+
+## Museum visitor-authority additions — October 13, 2026
+
+The following existing or newly created canonical museum pages use photos of the **actual institution or its own displayed objects**, not generic community stock. Their hero image captions distinguish dated displays from present access. Verify thumbnails in the live browser before declaring final photo QA complete.
+
+| Museum guide | Image source and identification | Reuse terms |
+| --- | --- | --- |
+| Bell County Museum, Belton | [Carnegie Museum in Belton, TX IMG 2412.JPG](https://commons.wikimedia.org/wiki/File:Carnegie_Museum_in_Belton,_TX_IMG_2412.JPG) — historical exterior of Bell County Museum in the Carnegie Library building | Billy Hathorn, CC BY-SA 3.0 |
+| Brenham Heritage Museum | [Brenham Heritage Museum.jpg](https://commons.wikimedia.org/wiki/File:Brenham_Heritage_Museum.jpg) — former federal post office, Brenham | Jim Evans, CC BY-SA 4.0 |
+| Brazos Valley Museum of Natural History | [Brazos valley museum of natural history.jpg](https://commons.wikimedia.org/wiki/File:Brazos_valley_museum_of_natural_history.jpg) — museum building, Bryan | Larry D. Moore, CC BY-SA 3.0 |
+| Czech Heritage Museum & Genealogy Center, Temple | [Czech dolls at the museum, Library of Congress LCCN2014633953](https://commons.wikimedia.org/wiki/Category:Czech_Heritage_Museum_%26_Genealogy_Center) — 2014 historic exhibit image | Carol M. Highsmith, Lyda Hill Texas Collection, LOC: no known publication restrictions |
+| Audie Murphy/American Cotton Museum | [Audie Murphy Hunt County War Memorial, museum grounds, 2015](https://commons.wikimedia.org/wiki/File:Audie_Murphy_American_Cotton_Museum_July_2015_52_(Audie_Murphy_Hunt_County_War_Memorial).jpg) — memorial, not main entrance | Michael Barera, CC BY-SA 4.0 |
+| Armstrong Browning Library & Museum | Existing canonical hero [Armstrong browning library baylor 2014.jpg](https://commons.wikimedia.org/wiki/File:Armstrong_browning_library_baylor_2014.jpg) retained | Larry D. Moore, CC BY 4.0 |
+
+Media use must preserve attribution and source links in the actual displayed credit; no implied current status for historic interior photos.
+
+
+## Buffalo Soldiers, Texas Prison and Eisenhower Birthplace (October 13, 2026)
+
+- **Buffalo Soldiers National Museum, Houston:** [Kenneth C. Zirkel, Buffalo Soldiers National Museum entrance.jpg](https://commons.wikimedia.org/wiki/File:Buffalo_Soldiers_National_Museum_entrance.jpg), exact-site photograph taken February 2024, **CC BY 4.0**. ALT text identifies it as a historical view, not proof of 2026 opening.
+- **Texas Prison Museum, Huntsville:** [WhisperToMe, TexasPrisonMuseum.JPG](https://commons.wikimedia.org/wiki/File:TexasPrisonMuseum.JPG), historic exterior photographed 2010, **public domain**. The building image is not a representation of current exhibit content.
+- **Eisenhower Birthplace State Historic Site, Denison:** [Michael Barera, Denison July 2016 16 (Eisenhower Birthplace State Historic Site).jpg](https://commons.wikimedia.org/wiki/File:Denison_July_2016_16_(Eisenhower_Birthplace_State_Historic_Site).jpg), the actual birthplace house, photographed July 2016, **CC BY-SA 4.0**.
+
+Credits and exact location photo URLs live in `src/data/museum-authority-heroes.ts`. Check final page rendering and license attribution after deployment.
+
+## The AgriCultural Museum & Arts Center, Boerne — October 13, 2026
+Exact-site antique farm-equipment photograph: [Boerne ag museum 2013.jpg](https://commons.wikimedia.org/wiki/File:Boerne_ag_museum_2013.jpg), **Larry D. Moore**, **CC BY 4.0**, 2013, 1,791 × 1,194 pixels. Site: 102 City Park Road, Boerne, Texas. Photograph predates the institution's 2018 name change. Attribution is embedded in `museum-authority-heroes.ts`; the file must not be represented as a current 2026 exhibit photograph.
+
+## The History Center, Diboll — archival collection photo, October 14, 2026
+
+- **Archival image, NOT the present-day museum building, entrance, or Engine 13:** [The Southern Pine Lumber Company sawmills near Diboll, Texas in 1907](https://commons.wikimedia.org/wiki/File:The_Southern_Pine_Lumber_Company_sawmills_near_Diboll,_Texas_in_1907.jpg). Published in *American Lumberman* in 1907; photographed by **J. D. Cress**, provided by **The History Center** to UNT's Portal to Texas History. Wikimedia Commons identifies the 1907 published image as **public domain in the United States** (published before 1931). Image dimensions: **660 × 402**.
+- **Specific editorial relevance:** depicts Diboll's historical lumber and railroad economy, directly documented in this institution's collections. ALT text and actual credit expressly identify an old archival photograph, not the present-day building, 1920 Engine 13, 1948 caboose, visitor accessibility, or current exhibits. The [museum's own outdoor railroad exhibit page](https://www.thehistorycenteronline.com/exhibits/outdoor-railroad-exhibit) shows the modern locomotive but its photos must not be copied without permission.
+- **Still incomplete:** obtain a licensed modern photograph of the exact site or Engine 13 before claiming that site photography is certified; do not replace this with a picture of an unrelated museum.
+
+## Museum of the American Railroad, Frisco — verified current-location exhibit photo (June 14, 2019)
+
+- **Exact Frisco museum site and real rolling-stock collection:** [Wikimedia Commons: Frisco June 2019 28 (Museum of the American Railroad).jpg](https://commons.wikimedia.org/wiki/File:Frisco_June_2019_28_(Museum_of_the_American_Railroad).jpg). Photograph by **Michael Barera**, taken **June 14, 2019**, original **6000 × 4000**, marked **CC BY-SA 4.0** by the copyright owner in Wikimedia Commons MediaWiki imageinfo.extmetadata. The image depicts the museum's full-size railroad collection at Frisco, **not its previous Fair Park location**. Commons also categorizes it with **Union Pacific 4018** and **St. Louis–San Francisco 4501**; verify current rolling-stock access separately.
+- Source rights: https://creativecommons.org/licenses/by-sa/4.0/ — online photographic credit and explicit source/license links are wired through the existing hero metadata and destination photo-provenance display.
+- **Not a current-hours photograph**: 2019 scene of historically significant locomotives; neither weather conditions, access times nor exhibit-tour availability in 2026 follow from this photograph. Any redistributed changes/adaptations must comply with attribution, indication of modifications and share-alike conditions.
+
+## Alvin Historical Museum — museum building, former U.S. Post Office, May 12, 2015
+
+- **Exact museum building:** [Former alvin tx post office.jpg](https://commons.wikimedia.org/wiki/File:Former_alvin_tx_post_office.jpg) on Wikimedia Commons. The Commons file description identifies this particular **1940 former U.S. Post Office building in Alvin as the present Alvin Historical Museum** (300 W. Sealy Street), not the separate still-active Alvin post office at 455 E. House Street.
+- **Author/rights:** **Larry D. Moore**, photographed **May 12, 2015**, original **1789 × 1193 pixels**, **CC BY 4.0**, verified directly from Commons API imageinfo.extmetadata (artist, original dimensions, descriptive museum identity, license and license URL). License link: https://creativecommons.org/licenses/by/4.0/ . Visible museum hero credit and source/license links are wired through the existing destination photo-rights display.
+- **Temporal scope:** 2015 exterior is site-specific historical imagery, not proof that 2026 hours, access features or exhibitions are unchanged. Source checks continue through original 30-day museum manifest. Do not confuse with Wikimedia Commons **Alvin TX US Post Office.jpg**, which depicts a different working post office on E. House Street.

@@ -194,7 +194,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Deep End Public Ramp", operator: "Public facility; operator not specified by TPWD", kind: "public-ramp", launch: "From SH 155 in Frankston take US 175 east 3.5 miles, north on FM 1892 to ramp at west end of dam. Two-lane ramp.", fee: "No fee listed by TPWD", availability: "TPWD lists year-round; verify access/closure notices." },
       { name: "Lake Palestine Campground", operator: "Private campground operator listed by TPWD", kind: "resort", launch: "From SH 155 south of Tyler across lake bridges, right on Boles Road after third crossing. Two single-lane ramps; TPWD lists 40 parking spaces.", fee: "TPWD lists a fee; VERIFY current charge/reservations", availability: "TPWD lists year-round; historic operator (903) 876-2253. Independently confirm campground still operates." },
     ],
-    nearbyLakes: [{slug:"cedar-creek-reservoir",name:"Cedar Creek Reservoir"},{slug:"lake-bob-sandlin",name:"Lake Bob Sandlin"}],
+    nearbyLakes: [{slug:"cedar-creek-reservoir",name:"Cedar Creek Reservoir"},{slug:"lake-bob-sandlin",name:"Lake Bob Sandlin"},{slug:"lake-tyler",name:"Lake Tyler (East and West)"}],
   },
   {
     slug: "cedar-creek-reservoir", name: "Cedar Creek Reservoir", accessReviewedAt: "2026-10-12", tpwdSlug: "cedar_creek", waterDataSlug: "cedar-creek", region: "prairies-lakes",
@@ -599,7 +599,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Lake Bob Sandlin State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "From Pittsburg, SH 11 west to SH 21 north; across bridge to signed park; two-lane ramp, fishing pier and camping.", fee: "State park entrance fee", availability: "Year-round TPWD listing; park (903) 572-5531." },
       { name: "Barefoot Bay Marina", operator: "Private marina", kind: "marina", launch: "Southwest of dam, west from Pittsburg on SH 11 to FM 1520 north, across Barefoot Bay to marina.", fee: "TPWD lists fee", availability: "Year-round listing; confirm private operation (903) 856-3643." },
     ],
-    nearbyLakes: [{slug:"lake-o-the-pines",name:"Lake O' the Pines"},{slug:"lake-fork",name:"Lake Fork"}],
+    nearbyLakes: [{slug:"lake-o-the-pines",name:"Lake O' the Pines"},{slug:"lake-fork",name:"Lake Fork"},{slug:"lake-tyler",name:"Lake Tyler (East and West)"},{slug:"lake-cypress-springs",name:"Lake Cypress Springs"}],
     camping: {name:"Lake Bob Sandlin State Park",summary:"The state park provides camping and direct lake access; verify reservations, alerts and ramp conditions before travel."},
   },
   {
@@ -618,7 +618,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Eastside Park", operator: "City of Nacogdoches", kind: "park", launch: "Off CR 225 about eight miles west of Nacogdoches Loop 224, north at park signs. One-lane ramp, bank fishing, picnic/swim area.", fee: "TPWD lists no fee", availability: "Year-round; TPWD says park closes at 10 PM; city (936) 559-2960." },
       { name: "Westside Park", operator: "City of Nacogdoches", kind: "park", launch: "Off CR 225 about nine miles west of Nacogdoches Loop 224; north at park sign. Two-lane ramp and a two-thirds-mile nature trail.", fee: "TPWD lists no fee", availability: "Year-round; TPWD says closes at 10 PM; city (936) 559-2960." },
     ],
-    nearbyLakes: [{slug:"sam-rayburn-reservoir",name:"Sam Rayburn Reservoir"},{slug:"lake-palestine",name:"Lake Palestine"}],
+    nearbyLakes: [{slug:"sam-rayburn-reservoir",name:"Sam Rayburn Reservoir"},{slug:"lake-palestine",name:"Lake Palestine"},{slug:"lake-tyler",name:"Lake Tyler (East and West)"}],
   },
   {
     slug: "calaveras-lake", name: "Calaveras Lake", accessReviewedAt: "2026-10-12", tpwdSlug: "calaveras", region: "south-texas",
@@ -636,7 +636,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "Calaveras Park provides the principal public boat ramps, shoreline access, camping and picnic facilities; entry and use fees apply.", specialRules: true, liveDataNote: "No public real-time pool-elevation feed is currently published for Calaveras Lake. TPWD lists normal water levels of 485.0 ft MSL in summer and 484.0 ft MSL in winter, with typical fluctuation of 1–2 feet. CPS Energy is the controlling authority; use its current lake notices and TPWD updates before travel.",     accessPoints: [
       { name: "Calaveras Park", operator: "CPS Energy recreation area; TPWD lists contract operator", kind: "park", launch: "Off Stuart Road, about 20 miles southeast of San Antonio via Loop 1604 east from US 181. Two four-lane ramps separated by about a quarter mile; shoreline camping and RV sites.", fee: "TPWD lists day-use, ramp and overnight fees", availability: "Gated hours and operator may change; verify current CPS Energy park access and campsites (210) 635-8359." },
     ],
-    nearbyLakes: [{slug:"choke-canyon-reservoir",name:"Choke Canyon Reservoir"},{slug:"lake-lbj",name:"Lake LBJ"}],
+    nearbyLakes: [{slug:"choke-canyon-reservoir",name:"Choke Canyon Reservoir"},{slug:"lake-lbj",name:"Lake LBJ"},{slug:"medina-lake",name:"Medina Lake"}],
     camping: {name:"Calaveras Park",summary:"The lake's public access park provides camping and shoreline facilities; verify current rules, reservations and operating hours."},
   },
   {
@@ -835,7 +835,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Flatrock Park", operator: "Brown County Water Control and Irrigation District No. 1", kind: "park", launch: "On FM 2632 just north of FM 3021 junction. Lighted two-lane ramp with parking for under 50 vehicles.", fee: "TPWD lists no fee", availability: "TPWD warns steep ramp needs caution when lake five feet low or more; check district (325) 643-2609." },
       { name: "Lake Brownwood State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Off Park Road 15 east of SH 279. Lighted multiple-lane ramp with about 20 vehicle spaces, plus fishing pier and camping.", fee: "State park entrance fee", availability: "TPWD says year-round access, though cabins/camping can be seasonal; confirm park (325) 784-5223." },
     ],
-    nearbyLakes: [{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"proctor-lake",name:"Proctor Lake"}],
+    nearbyLakes: [{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"proctor-lake",name:"Proctor Lake"},{slug:"lake-nasworthy",name:"Lake Nasworthy"}],
     camping: {name:"Lake Brownwood State Park",summary:"The state park provides established camping and lake recreation on the shoreline; check reservations, ramp conditions and current park alerts."},
     travelAlerts: ["TPWD reports zebra mussels in this reservoir. Follow current boat, livewell and equipment cleaning and draining requirements before entering other waters."],
   },
@@ -923,7 +923,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
         accessPoints: [
       { name: "Lake Mineral Wells State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "East of Mineral Wells off US 180. Park concession-side boat ramp, swim area, lighted fishing pier, hiking and camping.", fee: "State park entry fee", availability: "Can close for wildlife management; verify state-park closure calendar and overnight bookings." },
     ],
-    nearbyLakes: [{slug:"possum-kingdom-reservoir",name:"Possum Kingdom Reservoir"},{slug:"lake-bridgeport",name:"Lake Bridgeport"}],
+    nearbyLakes: [{slug:"possum-kingdom-reservoir",name:"Possum Kingdom Reservoir"},{slug:"lake-bridgeport",name:"Lake Bridgeport"},{slug:"lake-weatherford",name:"Lake Weatherford"}],
     camping: {name:"Lake Mineral Wells State Park",summary:"State-park camping, fishing piers and shoreline access make this one of the network's easiest lake-and-overnight combinations; verify closure dates and reservations."},
   },
   {
@@ -943,7 +943,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Lake Colorado City State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Southwest shore, five miles south of I-20 on FM 2836; paved multi-lane ramp and parking.", fee: "Park entry/launch fee", availability: "Ramps listed year-round; TPWD notes no camping December–February. Check current park operations and lake level." },
       { name: "Cooper's Cove", operator: "Private operator", kind: "resort", launch: "East side of Lake Colorado City off SH 163; paved boat ramp and camping in TPWD inventory.", fee: "TPWD lists fees", availability: "Year-round ramp in TPWD listing; verify current operator (325) 728-5885." },
     ],
-    nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"}],
+    nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"lake-nasworthy",name:"Lake Nasworthy"},{slug:"lake-abilene",name:"Lake Abilene"}],
     camping: {name:"Lake Colorado City State Park",summary:"The state park provides camping and reservoir access, but anglers should check golden-alga notices, water level and current fish reports before building a trip around fishing."},
   },
 
@@ -991,7 +991,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/sweetwater/index.asp",
     visitorSourceUrl: "https://www.sweetwatertx.gov/159/Visit-Sweetwater",
     liveDataNote: "Important: TPWD currently warns of a golden-alga bloom and describes poor angling across major sport-fish groups. TWDB shows this reservoir substantially below full pool. Check current TPWD advisories, water elevation and city access status before fishing, launching or swimming; conditions can change.",
-    nearbyLakes: [{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"lake-stamford",name:"Lake Stamford"}],
+    nearbyLakes: [{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"lake-stamford",name:"Lake Stamford"},{slug:"lake-abilene",name:"Lake Abilene"}],
     camping: {name:"Lake Sweetwater Recreation Area",summary:"The City of Sweetwater lists overnight camping and trailer facilities, picnic/pavilion space, a beach, playground, amphitheater and proximity to its municipal golf course. The city's reservation information is the authoritative source for current RV/campground booking, fees and open facilities."},
   },
   {
@@ -1170,7 +1170,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     ],
     specialRules: true,
     campingProhibited: true,
-    nearbyLakes:[{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"joe-pool-lake",name:"Joe Pool Lake"}],
+    nearbyLakes:[{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"joe-pool-lake",name:"Joe Pool Lake"},{slug:"bachman-lake",name:"Bachman Lake"}],
     nearbyDestinations:[{slug:"dallas-arboretum-and-botanical-garden",name:"Dallas Arboretum and Botanical Garden",reason:"Lakeside garden and seasonal walking destination with views across White Rock Lake; admission and gardens are separately operated."}],
     travelAlerts:[
       "The current Dallas City Code section 32-40 generally prohibits operating a boat with a motor rated more than 10.5 horsepower on White Rock Lake, with defined exceptions. TPWD's older facts summary quotes a different 9.9-HP figure. Consult current City Code before boating; do not rely on an outdated fishing summary to determine the legal limit.",
@@ -1463,7 +1463,535 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       "TPWD shows no camping at the four access parks. The Nature Center is canoe/kayak-only and Sunset Park's shallow lane is intended for small craft; do not send large trailers to either.",
       "All four access listings historically state fee required. Check city rules, water level, ramp depth and possible closures before launching; TPWD's 'open all year' is not a live operator status."
     ],
-    nearbyLakes: [{slug:"eagle-mountain-lake",name:"Eagle Mountain Lake"},{slug:"benbrook-lake",name:"Benbrook Lake"},{slug:"lake-arlington",name:"Lake Arlington"},{slug:"grapevine-lake",name:"Grapevine Lake"}],
+    nearbyLakes: [{slug:"eagle-mountain-lake",name:"Eagle Mountain Lake"},{slug:"benbrook-lake",name:"Benbrook Lake"},{slug:"lake-arlington",name:"Lake Arlington"},{slug:"grapevine-lake",name:"Grapevine Lake"},{slug:"lake-weatherford",name:"Lake Weatherford"}],
+  },
+  {
+    slug: "lake-nasworthy", name: "Lake Nasworthy", tpwdSlug: "nasworthy", waterDataSlug: "nasworthy",
+    region: "panhandle-plains", verifiedAt: "2026-10-13", accessReviewedAt: "2026-10-13",
+    summary: "San Angelo's historic South Concho River recreation lake: good bass, catfish, crappie and white bass fishing, 11 separately named shoreline access areas, permitted camping in just two city parks, and a 2026 boat-ramp reconstruction program with active closures.",
+    surfaceAcres: 1380, maxDepthFeet: 29, impoundedYear: 1930,
+    counties: ["Tom Green"], nearestCities: ["San Angelo"],
+    waterway: "South Concho River, tributary of the Concho and Colorado rivers", riverBasin: "Colorado River Basin",
+    authority: "City of San Angelo — Parks & Recreation", conservationPool: "TPWD reference 1,871 ft msl; consult TWDB for vertical-datum-aware live level",
+    fluctuation: "TPWD says usually near-constant, regulated by releases from upstream Twin Buttes; level and usable launches still change",
+    clarity: "Slightly stained",
+    identity: "Lake Nasworthy is a historic city-managed San Angelo reservoir, not San Angelo State Park and not neighboring O.C. Fisher Lake. TPWD's 1,380-acre angling measurement is a historical reference, not today's measured lake acreage. The fishery supports largemouth bass, crappie, catfish and white bass. A critical current-operator difference: TPWD's old access inventory generally marks individual ramps open year-round, while San Angelo's June 12, 2026 construction notice identifies the Knickerbocker Road ramp as closed beginning June 15 for reconstruction, followed by South Concho and Beaty Road in sequence. The city currently lists Knickerbocker Park as closed for construction. Confirm which ramp is actually open before towing a boat; 'open all year' is not a live notice.",
+    habitat: [
+      "Bulrushes and alligator weed line much of the shallow shoreline; TPWD also documents sago pondweed, coontail and star grass, plus isolated riprap, mud bank, bridge pilings and boat docks.",
+      "TPWD and local partners installed PVC habitat structures at selected lake sites; use TPWD's fish-attractor mapping rather than treating all submerged structures as publicly accessible fishing docks.",
+      "The shallow littoral margin rewards careful spring and summer presentation. TPWD describes long-rod 'dabbling' with jigs and trailers between bulrush stems for bass; crappie use bridge/dock pilings and catfish distribute more broadly."
+    ],
+    fish: [
+      fish("largemouth-bass", "Largemouth bass", "good", "spring", "TPWD rates largemouth good and describes dabbling a jig-and-trailer on a long rod around bulrushes. Small soft plastics and spinnerbaits can also cover shoreline gaps without trampling bank vegetation.", ["soft-plastics", "jigs-and-minnows", "spinnerbaits", "topwater"]),
+      fish("catfish", "Channel and flathead catfish", "good", "summer", "TPWD rates catfish good and notes both live and prepared baits across this shallow reservoir. Confirm fish-specific harvest rules and weather before keeping a catch.", ["cut-bait", "live-bait"]),
+      fish("crappie", "White crappie", "good", "spring", "TPWD rates crappie good; jigs and minnows alongside bridge or dock pilings offer a distinct alternative to reed-bed bass fishing.", ["jigs-and-minnows", "vertical-jigging"]),
+      fish("white-bass", "White bass", "good", "spring", "TPWD rates white bass good. Schools move with forage and river conditions; monitor fresh reports rather than relying on a fixed spot.", ["vertical-jigging", "trolling", "jigs-and-minnows"]),
+      fish("sunfish", "Sunfish", "fair", "summer", "TPWD rates sunfish fair. Small hooks and appropriately sized bait near alligator weed and riprap provide shoreline opportunities.", ["jigs-and-minnows"], "secondary")
+    ],
+    access: "TPWD inventories 11 named access areas around Lake Nasworthy, with two camping-eligible city parks and a mix of trailer ramps and bank-only access. Most city ramps are listed without a fee, while Middle Concho and Spring Creek have seasonal day-use fees and camping permit requirements. Importantly, San Angelo's official June 2026 boat-ramp replacement schedule conflicts with year-round labels in the TPWD directory: Knickerbocker Road ramp closed starting June 15; when that work completes, South Concho Drive and then Beaty Road are the planned next phases. San Angelo's Knickerbocker Park page currently says closed for construction. Do not publish old year-round labels as real-time availability.",
+    accessPoints: [
+      {name:"Middle Concho Park ramp",operator:"City of San Angelo",kind:"park",launch:"Off Red Bluff Road via Middle Concho Drive; TPWD lists two single-lane concrete ramps, parking, picnic and designated camping.",fee:"Seasonal city day-use fee and mandatory overnight camping permit; check posted payment method",availability:"Confirm seasonal gate rules; city parks line (325) 277-8766."},
+      {name:"Spring Creek Marina / park ramp",operator:"City of San Angelo / Spring Creek Marina",kind:"marina",launch:"From Knickerbocker Road to Fisherman's Road, a one-lane concrete ramp and an operator-managed marina with camping at designated park sites.",fee:"Seasonal day-use fees and separate camping permit/booking; verify current marina operation",availability:"TPWD lists (325) 944-3850; check city and marina before arrival."},
+      {name:"Red Bluff Road ramp",operator:"City of San Angelo",kind:"public-ramp",launch:"Public ramp off Red Bluff Road. A separate future reconstruction of this site is mentioned for Phase 2, not a current completed improvement.",fee:"TPWD traditionally lists no fee; verify current city conditions",availability:"City (325) 277-8766; Phase 2 redesign is not proof of an active closure."},
+      {name:"Hot Water Slough Park bank access",operator:"City of San Angelo",kind:"park",launch:"North shoreline off Red Bluff Road from Knickerbocker Road; TPWD lists BANK ACCESS ONLY, not a trailer or kayak launch.",fee:"TPWD lists no access fee; verify park rules",availability:"Verify local bank access and posted hours; no boat ramp documented."},
+      {name:"Knickerbocker Park ramp — construction closure",operator:"City of San Angelo",kind:"public-ramp",launch:"6402 Knickerbocker Road, west of the power-plant intake canal. Historically a one-lane concrete ramp; city rebuilding underway in 2026.",fee:"Historically no fee; unusable while the construction closure remains",availability:"City lists the park CLOSED FOR CONSTRUCTION and its June 2026 notice closed this ramp starting June 15. Recheck city park status before travel."},
+      {name:"Beaty Road Park ramp — planned replacement",operator:"City of San Angelo",kind:"public-ramp",launch:"Knickerbocker Road at Beaty Road; historically a one-lane concrete launch. The city plans replacement after work at South Concho Drive.",fee:"Historically no fee in TPWD inventory; verify current city policy",availability:"Closure may change as construction moves between sites; call (325) 277-8766."},
+      {name:"Fisherman's Road ramp",operator:"City of San Angelo",kind:"public-ramp",launch:"From Knickerbocker Road onto Fisherman's Road. Historically one single-lane concrete ramp; a NEW full-service ramp is only proposed for Phase 2.",fee:"TPWD historically lists no fee; verify current city schedule",availability:"Do not imply Phase 2 upgrades already exist; confirm live access."},
+      {name:"Mary Lee Park ramp",operator:"City of San Angelo",kind:"public-ramp",launch:"On Knickerbocker Road next to San Angelo Nature Center; historically one concrete lane and parking.",fee:"TPWD lists no fee; confirm recent city fee notices",availability:"Check city park access and possible seasonal events."},
+      {name:"Lake Nasworthy Marina city ramp",operator:"City of San Angelo",kind:"public-ramp",launch:"Southern lake shore near Knickerbocker Road. TPWD lists one concrete launch lane and courtesy parking.",fee:"TPWD lists no fee for its specific public launch; nearby private marina services may cost extra",availability:"Call city for current ramp/parking access."},
+      {name:"South Concho Drive ramp — construction sequence",operator:"City of San Angelo",kind:"public-ramp",launch:"Access off South Concho Drive; historically a one-lane concrete launch. Scheduled for replacement after Knickerbocker Road ramp.",fee:"TPWD historically lists no fee; verify live city notices",availability:"City's 2026 sequence means this ramp may close once preceding site reopens; check current closure status before towing."},
+      {name:"Pecan Creek Park ramp",operator:"City of San Angelo",kind:"public-ramp",launch:"Public ramp off South Concho Drive; one concrete lane documented by TPWD.",fee:"TPWD historically lists no fee; confirm day-of-visit operation",availability:"City (325) 277-8766; don't assume identical accessibility to South Concho Drive ramp."}
+    ],
+    campingUrl:"https://www.sanangelo.gov/388/Lake-Parks",
+    camping: {
+      name:"Designated Middle Concho Park and Spring Creek Park campsites ONLY",
+      summary:"The City of San Angelo expressly permits camping around Lake Nasworthy only at designated unfenced camping sites in Middle Concho and Spring Creek parks; a camping permit is required year-round. The city's posted lake-park rate at the time of research is $10/day, subject to change; consult current entrance/gate instructions and seasonal card-only day-use payment rules. TPWD also refers to camping at San Angelo State Park, but that park is on a DIFFERENT reservoir, O.C. Fisher, not Lake Nasworthy. Other named boat ramps and picnic/bank areas do not become campsites."
+    },
+    specialRules:true,
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/nasworthy/index.asp",
+    visitorSourceUrl:"https://www.sanangelo.gov/388/Lake-Parks",
+    historyNotes: [
+      "TWDB documents the project on the South Concho River, six miles southwest of central San Angelo. It was initially built by West Texas Utilities Company for industrial/municipal supply and recreation; the lake was named after John R. Nasworthy, who sold the land to the city.",
+      "TWDB dates dam construction to January 1929 through June 1930, with deliberate impoundment beginning March 28, 1930. The original concrete-and-earthfill project extended approximately 5,480 feet with a maximum dam height near 50 feet; the original water right was issued April 15, 1929.",
+      "The City of San Angelo acquired water rights from West Texas Utilities in May 1950, and TWDB's later hydrographic reports describe further authorized municipal withdrawals. Keep historic 1993 survey capacities and today's TWDB gauge elevation distinct; the TWDB gauge datum changed in August 2023, so its current NAVD88 conservation figure cannot be naively compared with older TPWD MSL values."
+    ],
+    visitorFAQs: [
+      {question:"Is Knickerbocker Park boat ramp open?",answer:"The city currently lists Knickerbocker Park CLOSED FOR CONSTRUCTION, and its June 12, 2026 announcement says boat-ramp reconstruction began June 15. TPWD's older 'open year-round' access inventory does not supersede this current city closure. Check the city park page before towing."},
+      {question:"Are South Concho Drive and Beaty Road ramps open?",answer:"The city's June 2026 project plan replaces Knickerbocker first, then South Concho, then Beaty. Only one ramp was planned to close at a time; the active closure changes as the project advances. Verify today's posted schedule with city parks rather than relying on a static construction sequence."},
+      {question:"Where is lakefront camping legal?",answer:"The city permits camping only in designated areas at Middle Concho Park and Spring Creek Park, with year-round permits and possible seasonal day-entry fees. Other listed ramps and shoreline picnic sites are not established camping facilities."},
+      {question:"How many public-access areas are around Lake Nasworthy?",answer:"TPWD lists 11 distinct named access sites. Hot Water Slough is bank-only and not a boat launch. Sites have different lanes, operators, charges and construction status."},
+      {question:"What species offer the best fishing?",answer:"TPWD rates largemouth, catfish, crappie and white bass good, while sunfish are fair. Fish bulrushes and alligator weed for bass, pilings for crappie, and appropriate open-water structure for catfish/white bass."},
+      {question:"Does Lake Nasworthy have zebra mussels?",answer:"Yes. TPWD labels the lake invaded: clean, drain and dry boats and equipment and follow mandatory draining requirements before traveling to another water body."},
+      {question:"Why do TPWD and TWDB show different lake elevations?",answer:"TPWD's reference conservation elevation is rounded and older. TWDB distinguishes gauges and vertical datums, with a documented change in August 2023. Use the current timestamped TWDB gauge's own conservation datum, not a comparison of two old nominal elevations."},
+      {question:"Is San Angelo State Park on Lake Nasworthy?",answer:"No. San Angelo State Park's shore is on O.C. Fisher Lake. Lake Nasworthy city park camping is in designated Middle Concho and Spring Creek areas."},
+      {question:"When was Lake Nasworthy built?",answer:"TWDB gives January 1929 for construction start, March 28, 1930 for deliberate impoundment and June 1930 for dam completion. The city acquired the water rights in 1950."},
+      {question:"Is the proposed new Fisherman's Road boat ramp complete?",answer:"No completion is verified. The city describes a full-service replacement ramp as part of a separately designed Phase 2 tentatively planned for 2027 and dependent on funding. Use only existing operating facilities confirmed by the city."}
+    ],
+    travelAlerts: [
+      "ACTIVE ACCESS ALERT: San Angelo's June 2026 reconstruction began with Knickerbocker ramp CLOSED; its live facility page still says closed for construction. The planned next ramps are South Concho and then Beaty, which may change without an older TPWD directory update.",
+      "CAMPING RULE: City camping is limited to designated, permitted sites at Middle Concho and Spring Creek parks. No other TPWD-listed shoreline launch implies an overnight camping right.",
+      "ZEBRA MUSSELS: TPWD confirms Lake Nasworthy is invaded. Clean, drain and dry equipment; obey mandatory drain rules.",
+      "Live TWDB Nasworthy water levels have their own source timestamp and NAVD88 datum; avoid mixing old TPWD conservation figures with modern gauge units.",
+      "City Phase 2 construction concept for Fisherman's Road and kayak launches is not an existing amenity or an authorized future completion date."
+    ],
+    nearbyLakes:[{slug:"o-h-ivie-lake",name:"O. H. Ivie Lake"},{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"lake-brownwood",name:"Lake Brownwood"}],
+  },
+  {
+    slug: "fort-parker-state-park-lake", name: "Fort Parker State Park Lake", tpwdSlug: "fort_parker",
+    region: "prairies-lakes", verifiedAt: "2026-10-13", accessReviewedAt: "2026-10-13",
+    summary: "A historic CCC-built Navasota River lake within Fort Parker State Park, where good catfish and crappie opportunities, dedicated park camping and paddling coexist with severe shallow-water sedimentation and distinctly different lake and river boat ramps.",
+    surfaceAcres: 725, maxDepthFeet: 6, impoundedYear: 1935,
+    counties: ["Limestone"], nearestCities: ["Mexia", "Groesbeck", "Waco"],
+    waterway: "Navasota River", riverBasin: "Brazos River Basin",
+    authority: "Texas Parks and Wildlife Department — Fort Parker State Park",
+    conservationPool: "Ask the state park for current level; there is no verified public lake gauge",
+    fluctuation: "TPWD fishing profile estimates 1–2 feet; recent fisheries surveys report considerable fluctuations in some years",
+    clarity: "Very turbid",
+    identity: "Fort Parker Lake is the roughly 725–750-acre impoundment inside Fort Parker State Park between Mexia and Groesbeck. It is not the three-acre spring-fed Lake Springfield in the same park, and it is not the larger municipal Lake Mexia upstream on the Navasota. TPWD's angling profile gives 725 acres and an 'impounded 1935' date, while the visitor park reports 750 acres and its CCC history describes the park's African-American CCC crews completing the Navasota dam in 1939. These figures describe different official reporting contexts, not a reason to invent a new survey or silently overwrite one of them. Extensive siltation makes the upper two-thirds of Fort Parker Lake generally unnavigable by boat. TPWD's September 25, 2026 alert advises against motorized launches because of low ramp water, both fishing piers have been closed since a January 7, 2025 alert, and a July 28 burn ban plus October 2026–May 2027 roadworks affect visitor planning. This is a managed state-park fishing, paddling, nature and camping visit, not a deep-water bass reservoir.",
+    habitat: [
+      "The reservoir's upper two-thirds are extremely shallow, with silt, dense lotus and emergent vegetation. TPWD's 2022 fisheries survey describes an average depth of about four feet and a maximum near eight feet, despite the angling facts page listing a nominal six-foot maximum and its notes documenting 1990s dredging near nine feet.",
+      "The lower, more navigable third has lotus, bulrush, cutgrass and nearshore brush, with fewer artificial offshore features than many Texas bass lakes. A 2016 TPWD-volunteer project placed fish-attracting crappie condos; fish habitat maps help locate them without assuming all spots are accessible.",
+      "TPWD describes strong channel- and blue-catfish potential near shoreline and campground approaches, crappie movement between the river and lower lake, and a small largemouth population despite occasional quality-sized fish. Fish the lower basin and public bank locations, not the shallow upper river marsh as if it were a trailer-safe boating channel.",
+      "The Navasota River and the separate Lake Springfield each have their own visitor, licensing and boat-access context; the park provides a second ramp on the river as well as its Fort Parker Lake ramp."
+    ],
+    fish: [
+      fish("catfish","Blue and channel catfish","good","year-round","TPWD rates catfish good and reports good catches along public lake banks, with occasional large blue catfish. The park falls under Community Fishing Lake rules; check current pole-and-line, size and daily-bag restrictions before keeping a catch.",["cut-bait","live-bait"]),
+      fish("crappie","White crappie","good","spring","TPWD rates crappie good but says fish move between the Navasota and reservoir. Use small jigs and live minnows around legally accessible brush, crappie-condo habitat and the lower navigable basin.",["jigs-and-minnows","vertical-jigging"]),
+      fish("largemouth-bass","Largemouth bass","fair","spring","TPWD calls largemouth fair and recent surveys found low numbers despite good body condition among some remaining fish. Concentrate on lower-lake brush and vegetation, and do not claim a trophy-bass destination.",["soft-plastics","spinnerbaits","crankbaits","topwater"],"secondary"),
+      fish("white-bass","White bass","fair","spring","TPWD rates white bass fair and reports shore fishing downstream of the dam during a suitable spring run. Do not encourage fishing or boating in restricted spillway/dam areas; check posted rules and flows.",["jigs-and-minnows","vertical-jigging"],"secondary"),
+      fish("sunfish","Sunfish","poor","summer","TPWD rates sunfish poor in the fishing profile. Small fish may be present, but this is not the primary species to plan a fishing-focused visit around.",["jigs-and-minnows"],"secondary")
+    ],
+    access: "TPWD's Fort Parker Lake public-access inventory lists ONE lake-specific state-park boat ramp with a dock, park entrance fees, parking and camping elsewhere in the park. The state park also describes a separate ramp on the NAVASOTA RIVER, which is not an alternative deep-water launch onto Fort Parker Lake. Severe sedimentation makes the upper two-thirds of the lake unnavigable most of the time. Ask park headquarters at (254) 562-5751 about current navigable depth, ramp and dock conditions, day-use reservations and active park alerts before towing a boat.",
+    accessPoints: [
+      {name:"Fort Parker State Park lake boat ramp and dock",operator:"Texas Parks and Wildlife Department",kind:"park",launch:"Enter Fort Parker State Park at 194 Park Road 28, Mexia via Texas Highway 14. Follow the park's current facility map to the ramp and dock on Fort Parker Lake, not the Navasota River ramp. The navigable lower third is not a guarantee of same-day trailer clearance.",fee:"State park daily entrance/admission and any applicable reservation requirement; check current rates",availability:"TPWD's September 25, 2026 alert says motorized launching is NOT recommended due to low water. The historic year-round label does not override it; call (254) 562-5751."},
+      {name:"Navasota River ramp — different water access",operator:"Texas Parks and Wildlife Department",kind:"park",launch:"The same state park operates a separate ramp on the Navasota River, supporting the Limestone Bluffs Paddling Trail. It is not a deep-water alternative lake ramp; consult park signage and river flow.",fee:"State park day-use admission; confirm boat and paddling restrictions",availability:"Call park staff about flow, hazards and launch conditions before a river trip."},
+      {name:"Park lake shoreline / campground bank fishing",operator:"Texas Parks and Wildlife Department",kind:"park",launch:"Public state-park shoreline and campsite-area access where posted; bank anglers often target blue or channel catfish around the accessible lower lake. Shore fishing is not a trailer launch.",fee:"State park day-use fee or a valid overnight reservation",availability:"TPWD reports BOTH fishing piers CLOSED since a January 7, 2025 alert. Check other signed shoreline fishing access and current park restrictions."}
+    ],
+    campingUrl:"https://tpwd.texas.gov/state-parks/fort-parker/fees-facilities/campsites",
+    camping: {
+      name:"Fort Parker State Park developed campsites, shelters and cabins",
+      summary:"The current TPWD campsite inventory distinguishes 24 developed water-and-electric sites, one water/electric tent-only site, ten water-only tent sites and other reserveable overnight shelter/cabin and group facilities. A park entry fee is separate from overnight reservations; check electrical hookups, pull-through locations, accessible inventory, pet restrictions and actual campsite availability directly with TPWD. Cabins are rustic and do not offer beds or bathrooms. TPWD construction alerts warn park road resurfacing October 2026–May 2027 may temporarily close campsites and trails; Nature Center renovations create noise and other impacts into spring 2027. A July 28, 2026 burn ban prohibits ash-producing fires, with appropriate containerized propane stoves permitted for cooking. Confirm these alerts before traveling. Never label a river launch or unnumbered shore as a camping facility."
+    },
+    specialRules:true,
+    visitorSourceUrl:"https://tpwd.texas.gov/state-parks/fort-parker",
+    liveDataNote:"No reliable public real-time Fort Parker Lake water-level source has been verified. Its upper basin is shallow and subject to sedimentation and fluctuating conditions. Contact Fort Parker State Park at (254) 562-5751 for current water and boat-ramp status; reference surface acres and depths are not live measurements.",
+    historyNotes: [
+      "Fort Parker State Park occupies historic Springfield settlement grounds in Limestone County. Springfield was Limestone County's original seat beginning in 1847 before the railroad bypassed the town and Groesbeck became county seat in 1873. The Springfield Cemetery and related trails are nearby cultural resources; do not confuse the former town with the park's separate Lake Springfield.",
+      "TPWD's park-history account traces the creation of Fort Parker State Park to land donations in 1935. African-American Civilian Conservation Corps workers developed the park from 1935 through 1942 and completed the dam forming Fort Parker Lake in 1939. The park opened to the public May 1, 1941. The TPWD fishing-profile 'impounded 1935' label is inconsistent with the history account and should be presented as an agency chronology discrepancy rather than uncritically repeated as dam completion.",
+      "TPWD reservoir surveys document decades of Navasota River sedimentation: the upper two-thirds have become too shallow for ordinary boating much of the time; dredging in the 1990s increased depth near the lower dam, and 2016 volunteers added artificial crappie habitat. Those management interventions explain why access and productivity vary sharply across a lake that can look inviting at full pool.",
+      "The associated Old Fort Parker historic fort reconstruction is a separate heritage site; the present state-park fishing lake and its Springfield trails are not themselves the 1830s Parker family fort. The park's CCC history documents historic building and lake works and should be cross-linked to its local attraction and county authority pages."
+    ],
+    visitorFAQs: [
+      {question:"Can you safely launch a boat across all of Fort Parker Lake?",answer:"No. TPWD's latest reservoir survey describes severe sedimentation and generally unnavigable water across the upper two-thirds. On September 25, 2026 TPWD posted that motorized launching at the lake ramp is not recommended because of low water. Check the latest park alert and call before towing; even the lower basin is not guaranteed navigable."},
+      {question:"Is the lake 725 or 750 acres?",answer:"TPWD's fishing profile gives 725 acres, while the visitor-facing state-park description gives about 750 acres. These are published reference figures with different vintages, not a current gauge-derived surface-area measurement."},
+      {question:"Was Fort Parker Lake built in 1935 or 1939?",answer:"The fisheries facts box lists 'impounded 1935' but TPWD's park history says African-American CCC workers completed the lake dam in 1939; land for the park was donated in 1935. The chronology is inconsistent across official TPWD pages, so the guide preserves each source's context instead of falsely reconciling them."},
+      {question:"Is this Lake Springfield?",answer:"No. Fort Parker Lake is the roughly 725–750-acre Navasota impoundment; Lake Springfield is a separate three-acre spring-fed park water body on the Springfield Trail."},
+      {question:"Can I fish without a fishing license?",answer:"TPWD states a fishing license is not needed to fish from shore on its park lakes and Navasota River or from a boat on the lake; a license is needed if you fish from a boat on the river. All park fishing remains subject to applicable gear, harvest and park-specific rules."},
+      {question:"Can I camp at the lake?",answer:"Yes, in booked developed campsites, shelters, cabins or authorized group areas inside Fort Parker State Park. The official inventory includes 24 water-and-electric campsites, one electric tent-only site and ten water-only tent sites; reservations, entry charges and site availability are separate from day-use admission. TPWD's October 2026–May 2027 road construction may temporarily close campsites; its July 2026 burn ban prohibits open ash-producing fires."},
+      {question:"How many boat ramps are there?",answer:"The park describes two: one on Fort Parker Lake and a separate one on the Navasota River. TPWD's lake-access directory lists the lake ramp, not two distinct ramps on the reservoir."},
+      {question:"Where are the best fishing opportunities?",answer:"TPWD rates blue/channel catfish and crappie good, bass and white bass fair, and sunfish poor. Bank fishing for catfish near the accessible lower lake and crappie structure can be more realistic than trying to traverse the silted upper basin."},
+      {question:"Is there a live lake-level gauge?",answer:"A dependable public real-time lake-level gauge has not been verified. TPWD asks visitors to contact Fort Parker State Park directly; the park's daily conditions and sedimented lake depth are more useful for towing plans than a stale reservoir area figure."},
+      {question:"Does Fort Parker State Park have swimming and paddling?",answer:"Yes. TPWD lists a designated swimming area and canoe/kayak rentals when weather permits, plus the Limestone Bluffs Paddling Trail on the river. Rentals, swimming and river flow require same-day safety and operator checks."}
+    ],
+    travelAlerts: [
+      "BOATER WARNING: TPWD's 2022 reservoir survey states the upper two-thirds of Fort Parker Lake are generally unnavigable due to sedimentation. TPWD's September 25, 2026 alert says motorized launching is NOT recommended due to low ramp water. Check park notices and confirm with park staff before towing.",
+      "BOTH FISHING PIERS CLOSED: TPWD alert dated January 7, 2025 reports both piers closed. No guide text should imply they are currently usable.",
+      "PARK BURN BAN: July 28, 2026 TPWD alert prohibits open ash-producing wood/charcoal fires; appropriate containerized propane fuel stoves are allowed for cooking.",
+      "CONSTRUCTION: road resurfacing October 2026–May 2027 may temporarily close campsites and trails, with Nature Center renovation impacts expected through spring 2027.",
+      "LICENSE DISTINCTION: TPWD's park license exemption for fishing from boats on the LAKE does not apply to fishing from a boat on the NAVASOTA RIVER. Confirm latest regulations.",
+      "TPWD fishing facts show 725 acres and 'impounded 1935'; the state park lists 750 acres and the CCC-history page dates dam completion to 1939. These are source-specific descriptions, not exact current figures.",
+      "Current TPWD alerts include low-water motorized ramp warning, both fishing piers closed, a burn ban, and extended 2026–27 park road/facility construction. Verify the active-alert page and campsite booking conditions before visiting.",
+      "Community Fishing Lake rules apply, including gear and potentially special catfish limits. Verify the current TPWD outdoor annual rather than relying on old map images or static bag limits."
+    ],
+    nearbyDestinations:[{slug:"fort-parker-state-park",name:"Fort Parker State Park",reason:"Park map, camping inventory, CCC/Springfield history, accessible amenities and current state-park alerts complement the fishing and lake visitor guide."}],
+    nearbyLakes:[{slug:"lake-waco",name:"Lake Waco"},{slug:"lake-whitney",name:"Lake Whitney"},{slug:"lake-somerville",name:"Lake Somerville"}],
+  },
+  {
+    slug: "lake-tyler", name: "Lake Tyler (East and West)",
+    tpwdSlug: "tyler", waterDataSlug: "tyler", region: "piney-woods",
+    verifiedAt: "2026-10-13", accessReviewedAt: "2026-10-13",
+    summary: "A source-researched guide to connected Lake Tyler East and West near Whitehouse: eight different public-access locations, a bridge-and-canal orientation, city park camping rules, bass/crappie fishing, historic twin-dam engineering and a monitored TWDB water gauge.",
+    surfaceAcres: 4500, maxDepthFeet: 40, impoundedYear: 1949, counties: ["Smith"],
+    nearestCities: ["Tyler", "Whitehouse", "Troup"], waterway: "Prairie and Mud creeks above the Angelina River",
+    riverBasin: "Neches River Basin", authority: "City of Tyler Water Utilities",
+    conservationPool: "375.38 feet in TWDB gauge NGVD29 datum",
+    fluctuation: "TPWD historically lists about two feet; latest gauge and ramp depth must be checked separately",
+    clarity: "Moderately clear",
+    identity: "Lake Tyler is a TWO-reservoir water system southeast of Tyler: the older West basin behind Whitehouse Dam on Prairie Creek and Lake Tyler East behind Mud Creek Dam. The two basins were joined by a canal on May 29, 1968; boat access, shoreline vegetation and ramps differ between shores. TPWD's fisheries sheet estimates 2,224 acres West plus 2,276 acres East, 4,500 acres combined. TWDB's later 2013 hydrographic survey reports 4,714 acres at a specified conservation elevation. These are different source surveys, not live lake area figures. City of Tyler Water Utility owns/operates the connected system. The City prohibits bowfishing on these waters according to TPWD. Never confuse the nearby Texas Freshwater Fisheries Center in ATHENS with Lake Tyler.",
+    habitat: [
+      "Upper arms of both lakes hold abundant emergent and submergent native vegetation; TPWD identifies hydrilla in Lake Tyler East and less of it in Lake Tyler West, with submerged timber and dock structure elsewhere.",
+      "The shallow upper creek reaches and bridge causeways create spring fishing options different from open lower-basin points. Near boat docks, avoid private shoreline and do not assume every fishing pier is a public ramp.",
+      "A connecting canal joins the east/west water bodies; their different dams and creek origins explain why routes and exact boat access must specify EAST or WEST. A low water level can particularly affect Highway 64 upper-lake ramp.",
+      "TPWD's city/park access directory describes primitive camping in municipal shoreline parks, but this is NOT a reservation for private concession sites, commercial fishing barge or marina. Confirm current Tyler Water Utility park rules and fires/overnight restrictions."
+    ],
+    fish: [
+      fish("largemouth-bass", "Largemouth bass", "excellent", "spring",
+        "TPWD rates largemouth bass excellent across the connected lakes, with bass using creek vegetation, docks, and points. Work native grass edges or hydrilla and adapt presentations to clarity, seasons and heavy summer boat traffic.",
+        ["soft-plastics","spinnerbaits","crankbaits","topwater"]),
+      fish("spotted-bass", "Spotted bass", "good", "spring",
+        "Spotted bass have a TPWD good rating. Target creek-channel edges and hard cover with smaller moving lures instead of assuming every black bass landed is a largemouth.",
+        ["crankbaits","spinnerbaits","soft-plastics"]),
+      fish("crappie", "White and black crappie", "good", "spring",
+        "TPWD rates crappie good; fish bridge areas and submerged structure with minnows and jigs. East-basin creel surveys documented white and black crappie, though abundance fluctuates.",
+        ["jigs-and-minnows","vertical-jigging"]),
+      fish("sunfish", "Bluegill, redear and redbreast sunfish", "excellent", "summer",
+        "TPWD rates sunfish excellent; vegetated shoreline areas are strong family and light-tackle destinations, provided shoreline access is legal and conditions safe.",
+        ["jigs-and-minnows","live-bait"]),
+      fish("catfish", "Catfish", "fair", "summer",
+        "TPWD's combined angling assessment is fair for catfish. Channel catfish are present, but do not market the whole reservoir as a premier catfish fishery.",
+        ["cut-bait","live-bait"],"secondary"),
+      fish("white-bass", "White bass", "fair", "spring",
+        "White bass occur in the combined lake and follow creek-inflow and seasonal bait movements. TPWD's fair rating is lower than the core bass/sunfish fisheries.",
+        ["vertical-jigging","trolling"],"secondary")
+    ],
+    access: "Eight named TPWD visitor facilities cover different sections of Lake Tyler East/West: Concession #1/Lake Tyler Marina, Hill Creek Park, Old #2/Chapman Park, Fritz & Opal's Barge, East Side Park #4, Old Omen West, Old Omen East, and Highway 64 Ramp. Marina is privately operated, its TPWD fee may be outdated, and the fishing barge is a PAID SHORE ANGLING site rather than a boat launch. Tyler Water Utility operates most city ramps, with a county-operated East ramp; the published 2026 status of each is not confirmed by a historical 'open all year' TPWD entry. Primitive camping is listed for CITY PARKS, not every concession/facility.",
+    accessPoints: [
+      {name:"Concession #1 / Lake Tyler Marina (WEST)",operator:"Private concession on Lake Tyler West",kind:"marina",launch:"From SH 110 in Whitehouse east on FM 346 about two miles; left on Tyler West Dam Road. TPWD lists two separate two-lane concrete launches, approximately 50 trailer spaces, store and bait facilities.",fee:"Historic TPWD launch fee was $3/day or $40/year; confirm operator's current rates before towing",availability:"Historically year-round. TPWD-listed (903) 839-2650; verify current concession, access and fees."},
+      {name:"Hill Creek Park (WEST)",operator:"City of Tyler Water Utilities",kind:"park",launch:"From SH 64 east of Tyler, south on FM 848, east on South Hill Creek Road about two miles; two-lane concrete ramp, loading piers, approximately 25 trailer spaces.",fee:"TPWD lists no boat-launch fee; confirm actual city rules",availability:"TPWD historically lists year-round; call Tyler Water Utility (903) 939-2724 about current gate/park rules."},
+      {name:"Old #2 / Chapman Park (WEST)",operator:"City of Tyler Water Utilities",kind:"park",launch:"From SH 64 east, south on FM 848, east on CR 2127. Broad single-lane concrete ramp and adjacent public parking.",fee:"TPWD lists no ramp fee; check city notices",availability:"Verify road, ramp water level and parking before travel."},
+      {name:"Fritz & Opal's Barge (WEST fishing ONLY)",operator:"Private angling concession",kind:"marina",launch:"At the north end of Old #2/Chapman Park via FM 848 and CR 2127. PAID fishing barge/shore access; TPWD does not list a motorboat ramp at this specific facility.",fee:"Historic TPWD barge angling charges $4 daytime and $5 overnight; operator current fees and operation not verified",availability:"Confirm the privately operated facility before planning a barge visit; it is NOT the Chapman Park launch."},
+      {name:"East Side Park #4 (WEST bank access)",operator:"City of Tyler Water Utilities",kind:"park",launch:"East shore of Lake Tyler West via FM 346 and FM 3341 (East Dam Road). TPWD marks bank angling and day-use parking; no trailer launch at this particular site.",fee:"TPWD lists free access; confirm park gate",availability:"Historically year-round in TPWD directory; bank-fishing only unless operator has made documented upgrades."},
+      {name:"Old Omen Road Ramp — WEST",operator:"City of Tyler Water Utilities",kind:"public-ramp",launch:"From SH 64 east of Tyler south on FM 848, east onto CR 285/Old Omen Road. Two multi-lane ramps (older is steep), about 20 parking spaces.",fee:"No launch fee in TPWD directory; confirm city access",availability:"Check ramp gradient, trailer suitability and gate before travel; older lane is steep."},
+      {name:"Old Omen Road Ramp — EAST",operator:"Smith County",kind:"public-ramp",launch:"From SH 64 east cross the upper lake bridge, south on FM 2607 about 1.8 miles, west on CR 285. One-lane launch with small UNPAVED parking lot.",fee:"TPWD lists no fee",availability:"County-maintained site; check current low-water and road conditions, not the same as Old Omen WEST."},
+      {name:"Highway 64 Ramp — EAST",operator:"City of Tyler Water Utilities",kind:"public-ramp",launch:"Upper end of Lake Tyler East just beyond first SH 64 lake bridge traveling from Tyler. One concrete lane, approximately 60 parking spaces.",fee:"TPWD lists no fee; confirm city use",availability:"TPWD warns this ramp is NOT useful at low lake levels. Check gauge and city closure notices before towing."}
+    ],
+    camping: {
+      name:"Primitive camping at designated City of Tyler lake parks",
+      summary:"TPWD's public-access introduction says primitive camping is permitted at city-operated Lake Tyler shoreline parks on a first-come basis. That is a historical operator summary, NOT a current reservation guarantee, guaranteed toilet/water service, or an invitation to camp on private marina, barge, roadside or dock land. Confirm designated legal spots, current restrictions, fires and overnight hours directly with City of Tyler Water Utilities (903) 939-2724. Nearby Tyler State Park is a SEPARATE state-park destination, not an on-water campground on Lake Tyler."
+    },
+    specialRules:true,
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/tyler/index.asp",
+    visitorSourceUrl:"https://tpwd.texas.gov/fishboat/fish/recreational/lakes/tyler/access.phtml",
+    localRegulationsSourceUrl:"https://tpwd.texas.gov/fishboat/fish/recreational/lakes/tyler/",
+    historyNotes: [
+      "TWDB records the west Whitehouse Dam project under a March 25, 1945 water permit and construction beginning April 30, 1948. Deliberate west impoundment began January 8, 1949; the dam was completed May 13, 1949. These are distinct engineering dates, not one interchangeable reservoir birthday.",
+      "The separate east Mud Creek Dam permit was issued October 1, 1956, and East construction began February 11, 1966. Impoundment began November 22, 1966 and the east dam was completed January 1967. A CANAL connected the two on May 29, 1968. The historic reservoir figures therefore must identify the correct part of Lake Tyler.",
+      "TWDB's 2013 volumetric survey lists the combined reservoir system at 4,714 acres and 77,284 acre-feet at elevation 375.38 feet; the TPWD angling page separately quotes 2,224 West and 2,276 East acres. Both source conventions are retained with attribution instead of treating any static area as today's exact level. Modern TWDB gauge readings have timestamps and water levels separate from these conservation-stage survey figures.",
+      "TWDB identifies the lake owner as City of Tyler. Public ramp maintenance is split among municipal facilities, Smith County and privately operated concessions, which explains differing entrance fees, access and overnight rules."
+    ],
+    visitorFAQs: [
+      {question:"Are Lake Tyler and Lake Tyler East different lakes?",answer:"They were built behind different dams on Prairie Creek and Mud Creek, but a canal linked them on May 29, 1968. TPWD maintains a joint angling profile while distinguishing ramp sites and banks. A Lake Tyler EAST photograph cannot be advertised as showing every West ramp."},
+      {question:"How many public launching locations are listed?",answer:"TPWD's eight named access FACILITIES include four bank/shore/marina categories and multiple boat ramps. Specifically, Fritz & Opal's Barge is paid fishing access, East Side #4 is bank access, and the East and West Old Omen ramps have different operators and parking. Use the detailed list rather than treating all eight as boat launches."},
+      {question:"Can I camp overnight at Lake Tyler?",answer:"TPWD lists primitive first-come camping in city lake parks. Confirm which city parks currently permit overnight stays; the private marina, paid fishing barge and separate Tyler State Park have different rules and booking requirements."},
+      {question:"Is the Highway 64 ramp safe for large trailers at low water?",answer:"The TPWD public-access page specifically warns Highway 64 ramp usability falls at low levels. Check the live TWDB Lake Tyler timestamp and ask the city for actual ramp status before towing. Water-level data alone cannot certify a ramp is open."},
+      {question:"Is bowfishing legal?",answer:"TPWD's Lake Tyler profile says a City of Tyler ordinance prohibits bowfishing on this connected water system. Check current municipal ordinances and applicable TPWD rules before using special gear; statewide rules alone are not sufficient."},
+      {question:"Which lake is best for bass, crappie or bank fishing?",answer:"TPWD rates largemouth and sunfish excellent, spotted bass and crappie good, and catfish/white bass fair. The marina, barge and city park banks have different public-access requirements; choose a legal site before selecting a species or fishing method."},
+      {question:"Why is TWDB's area higher than TPWD's?",answer:"TPWD uses 2,224 acres West plus 2,276 East. TWDB's 2013 survey calculates 4,714 combined acres at a defined 375.38-foot conservation stage. Measurement sources/dates differ; neither describes a live shoreline area."},
+      {question:"When did the East and West lakes become one reservoir?",answer:"The east dam impounded water starting November 22, 1966; the separate reservoirs were joined by canal on May 29, 1968. The original west reservoir impounded in January 1949."},
+      {question:"Is the Texas Freshwater Fisheries Center on Lake Tyler?",answer:"No. The Texas Freshwater Fisheries Center is in Athens, near Lake Athens. Tyler State Park is another separate destination. Neither should be used as an on-lake fishing dock or campsite in a Lake Tyler route."}
+    ],
+    travelAlerts:[
+      "The upper SH 64 ramp is specifically identified by TPWD as unsuitable at low levels; consult the TWDB timestamp and city lake office before trailering.",
+      "TPWD lists a CITY ordinance prohibiting bowfishing on both connected basins. Statewide bag/size rules do not cancel separate municipal prohibitions.",
+      "Some lake access facilities are paid private concessions and one is a FISHING BARGE, not a boat ramp. Do not use historic fee schedules or year-round labels as live booking confirmations.",
+      "Primitive camping reported by TPWD applies to designated city parks, not all private shorelines; verify current municipal rules and fire bans before camping.",
+      "Tyler East has documented hydrilla and invasive vegetation management. Clean, drain and dry gear; avoid spreading invasive plants to another reservoir."
+    ],
+    nearbyLakes:[{slug:"lake-palestine",name:"Lake Palestine"},{slug:"lake-bob-sandlin",name:"Lake Bob Sandlin"},{slug:"lake-nacogdoches",name:"Lake Nacogdoches"}],
+  },
+  {
+    slug: "medina-lake", name: "Medina Lake", tpwdSlug:"medina", waterDataSlug:"medina",
+    region:"hill-country", verifiedAt:"2026-10-13", accessReviewedAt:"2026-10-13",
+    summary:"A historic 1913 Medina River reservoir northwest of San Antonio with drought-sensitive ramps, invasive zebra mussels, two TPWD-listed launch facilities, striped-bass and catfish fishing, and a dramatic gap between full-pool and today's water extent.",
+    surfaceAcres:5426, maxDepthFeet:152, impoundedYear:1913,
+    counties:["Bandera","Medina"], nearestCities:["Lakehills","Mico","Bandera","San Antonio"],
+    waterway:"Medina River, tributary of the San Antonio River", riverBasin:"San Antonio River Basin",
+    authority:"Bexar-Medina-Atascosa Water Control and Improvement District No. 1 (BMA); Bandera County ramp operator",
+    conservationPool:"1,064.20 feet NGVD29 (TWDB monitored conservation level)",
+    fluctuation:"Large drought/rainfall swings; 40-plus feet below conservation is possible",
+    clarity:"Normally clear when water levels and runoff permit",
+    identity:"Medina Lake is the Medina River impoundment reaching Bandera and Medina counties, NOT nearby Medina Diversion Lake below the main dam. Two actual public access entries appear in TPWD's source inventory: the privately operated Red Cove Camp launch and Bandera County's Park Road 37 launch. Both are water-elevation-sensitive. In its October 13, 2026 snapshot, TWDB showed only 28.6% of conservation storage and an elevation 43.64 feet BELOW the full-pool reference; this is historical date-stamped context, never a static claim about today's level. Lake level and ramp operability must be checked separately before towing a boat. TPWD also designates Medina as invaded by zebra mussels, triggering clean/drain/dry obligations.",
+    habitat:[
+      "The reservoir covers coves, steep rocky outcrops, channel bends and feeder-creek beds. Native aquatic vegetation is sparse according to TPWD; old high-water shoreline photographs should not be mistaken for today's shoreline or ramp accessibility.",
+      "Largemouth and smallmouth bass occupy different cover: largemouth near channel breaks, creek arms and points, with smallmouth using harder rock and steep banks. Dropping levels may change where both species can be reached safely.",
+      "Hybrid stripers tend to concentrate near deep open-water points, humps and the dam; white bass schools move with forage. Catfish also use the deeper feeder coves and creek channels."
+    ],
+    fish:[
+      fish("largemouth-bass","Largemouth bass","fair","spring","TPWD rates largemouth fair. Try points and deeper breaks with soft plastics, crankbaits and shad-shaped lures; inspect boat accessibility and legal shoreline permissions first.",["soft-plastics","crankbaits","spinnerbaits"],"primary"),
+      fish("smallmouth-bass","Smallmouth bass","fair","spring","Smallmouth bass are a fair secondary target around rocky outcrops and ledges. Crawfish-colored crankbaits and jigs suit hard-bottom structure.",["crankbaits","soft-plastics"],"secondary"),
+      fish("catfish","Blue and channel catfish","good","summer","TPWD rates catfish good, including blue and channel fish. Its tactics emphasize bait near deep coves and tributary creek beds.",["cut-bait","live-bait"]),
+      fish("hybrid-striped-bass","Hybrid striped bass","good","summer","TPWD currently rates hybrid striped bass good. Fish deep open-water points and humps with trolling spoons or vertical presentations, adjusting to oxygen/temperature and water level.",["trolling","vertical-jigging"]),
+      fish("white-bass","White bass","fair","spring","White bass are present in smaller numbers. Watch for schooling forage and seasonal movements at open-water points, using small spoons or shad-like jigs.",["vertical-jigging","trolling"],"secondary"),
+      fish("crappie","Crappie","poor","spring","TPWD rates crappie poor; do not promise a reliable high-yield crappie trip just because the species exists in the reservoir.",["jigs-and-minnows"],"secondary")
+    ],
+    access:"TPWD documents two named launch facilities, not a universally accessible shoreline. Red Cove Camp in Mico off FM 1283 has a two-lane concrete ramp that TPWD says depends on lake level, with possible gravel-bank launching under some conditions. Park Road 37, operated by Bandera County at Plum Creek Cove, has a concrete ramp and TPWD describes a gravel-bank fallback if below ramp end. Neither fallback is a guarantee that vehicle access, launch depth, bank strength or safe navigation is available today. Both require fees; the private ramp and county park have different hours. Call the operator and check timestamped TWDB elevations before trailering.",
+    accessPoints:[
+      {name:"Red Cove Camp private launch",operator:"Private concession at Red Cove Camp",kind:"marina",launch:"Mico, reached from FM 1283. Two-lane concrete ramp. TPWD says its ramp is usable at sufficient lake level and mentions conditional gravel-bank launching in low water; do not interpret the old threshold as today's open/closed signal.",fee:"Fee required; verify directly with concession",availability:"TPWD lists year-round, but drought and gravel-bank suitability can override that historic directory label. Call (830) 612-2715."},
+      {name:"Bandera County Park Road 37 launch",operator:"Bandera County",kind:"public-ramp",launch:"At the end of Park Road 37 in Plum Creek Cove. Concrete ramp with potential gravel-bank launch when below ramp end; verify gate, water depth and tow-vehicle safety.",fee:"County launch/park fees apply; check current amount and payment method",availability:"TPWD lists launch access 24 hours but park day-use 7 a.m.–8 p.m. Confirm current county policies, lake levels and possible closures before arrival."}
+    ],
+    camping:{
+      name:"Separate campground bookings, not automatic with ramp entry",
+      summary:"Neither of the two TPWD Lake Medina public-access records establishes a public campground at its ramp. Red Cove's name does not itself prove campsite inventory or current rentals. Search individual licensed concession/campground operators and verify legal camping, reservation terms, restroom access and water-level impacts directly; boat-launch day fees do not include overnight rights."
+    },
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/medina/index.asp",
+    visitorSourceUrl:"https://tpwd.texas.gov/fishboat/fish/recreational/lakes/medina/access.phtml",
+    specialRules:true,
+    historyNotes:[
+      "TWDB dates the first construction at Medina Dam to November 1911, completion to 1913 and the deliberate start of impoundment to May 7, 1913. The project began with Medina Valley Irrigation Company water rights filed November 16, 1910, and was subsequently operated by the Bexar-Medina-Atascosa water district.",
+      "The 1,580-foot-long concrete gravity dam reaches about 164 feet high and was a major early twentieth-century Texas engineering undertaking. The separate Medina Diversion Dam, about four miles downstream, directs irrigation water to canals and should not be confused with the main Medina Lake fishing waters.",
+      "TWDB's 1995 survey describes 6,066 acres at its defined 1,064.2-foot conservation pool, whereas TPWD's fishing profile lists 5,426 acres. The agencies rely on differing survey vintages/reference conventions; these numbers are not today's water surface. The modern TWDB gauge reports live storage and surface area, with provisional timestamps.",
+      "The reservoir is chiefly an irrigation and water-supply asset, and severe multiyear droughts can put boat ramps well above the water. Exact photographic evidence matters: the attributed 2010 shore photograph documents the true Medina Lake location but CANNOT demonstrate contemporary levels, marina operations or access."
+    ],
+    visitorFAQs:[
+      {question:"Are Medina Lake boat ramps open right now?",answer:"An online lake directory cannot confirm this. TWDB publishes a recent elevation and TPWD lists two ramps, Red Cove Camp and Park Road 37. Water depth, operator access, bank stability and fee/gate rules are separate; call each operator before towing."},
+      {question:"How low was Medina Lake in October 2026?",answer:"TWDB's October 13, 2026 historical snapshot reported 28.6% conservation storage and 43.64 feet below conservation pool. This is NOT the live level for future visitors; follow the source's current timestamp instead."},
+      {question:"Does Park Road 37 stay open after the concrete ramp dries up?",answer:"TPWD describes a potential gravel-bank fallback below the ramp end and different listed hours for the launch versus the park. That does not certify today's gravel quality, access permission or usable depth; verify with Bandera County."},
+      {question:"Can I launch a large boat at Red Cove Camp during drought?",answer:"TPWD identifies a two-lane concrete ramp with water-level sensitivity, plus a conditional gravel-bank option. Do not equate a fee-paying concession or year-round label with safe present launching. Contact (830) 612-2715 with the boat and trailer details."},
+      {question:"Is Medina Lake the same as Medina Diversion Lake?",answer:"No. Medina Lake is upstream of Medina Dam. Medina Diversion Lake is a smaller downstream structure feeding the irrigation canal system, so its water measurements and access are not interchangeable."},
+      {question:"Which fish offer the best prospects?",answer:"TPWD currently rates catfish and hybrid striped bass good; largemouth, smallmouth and white bass fair; crappie poor. Conditions can change with water levels, recent stocking and fish surveys."},
+      {question:"Are zebra mussels present?",answer:"Yes. TPWD lists Medina Lake as invaded. Clean, drain and dry gear, and follow Texas mandatory water-draining rules to prevent spreading zebra mussels."},
+      {question:"Why do TPWD and TWDB list different acreage figures?",answer:"TPWD's lake facts report 5,426 acres; TWDB's historical 1995 survey reports 6,066 acres at its conservation elevation. They are source-era measurements, not competing real-time surface estimates."},
+      {question:"Can I camp at the public boat launches?",answer:"Do not assume so. TPWD's two launch entries do not affirm a public campsite at either ramp. Obtain a confirmed reservation or explicit permission from an actual camping concession before overnight stays."},
+      {question:"When was Medina Dam built?",answer:"Construction began in November 1911, first deliberate impoundment began May 7, 1913 and the dam was completed in 1913, according to TWDB's reservoir history."}
+    ],
+    travelAlerts:[
+      "LOW-WATER RAMP SAFETY: Only two TPWD-listed launch sites; both have level-dependent concrete ramps and conditional gravel-bank references. A TWDB elevation does not by itself certify that towing, launch or recovery is safe today.",
+      "ZEBRA MUSSELS: TPWD specifically identifies Medina Lake as invaded; clean, drain and dry boats and equipment and follow mandatory drain-water rules.",
+      "The TPWD 5,426-acre facts box and TWDB 6,066-acre 1995 surveyed area reflect differing vintages. Do not publish either number as today's measured surface extent.",
+      "The Commons 2010 historical Medina Lake photograph does not depict current drought conditions or facility opening status. No original field photographs or operator day-of-visit certification have been claimed."
+    ],
+    nearbyLakes:[{slug:"canyon-lake",name:"Canyon Lake"},{slug:"calaveras-lake",name:"Calaveras Lake"},{slug:"choke-canyon-reservoir",name:"Choke Canyon Reservoir"}],
+  },
+  {
+    slug: "lake-weatherford", name: "Lake Weatherford", tpwdSlug:"weatherford", waterDataSlug:"weatherford", region:"prairies-lakes", verifiedAt:"2026-10-13", accessReviewedAt:"2026-10-13",
+    summary:"A City of Weatherford drinking-water reservoir with good largemouth bass, catfish and crappie, excellent sunfish, one documented full-size marina launch, two unimproved small-craft-only upper-lake ramps and a 4,313-foot floating boardwalk for on-foot lake access. Overnight camping is prohibited throughout the lake.",
+    surfaceAcres:1158,maxDepthFeet:39,impoundedYear:1957,counties:["Parker"],nearestCities:["Weatherford"],
+    waterway:"Clear Fork Trinity River",riverBasin:"Trinity River Basin",authority:"City of Weatherford",conservationPool:"896 ft above NGVD29",fluctuation:"TPWD describes annual fluctuations of 2–8 feet; launch depth and accessible shoreline depend on current elevation",clarity:"Moderately clear to stained",
+    identity:"Lake Weatherford is a municipal water-supply reservoir east of Weatherford, not Lake Mineral Wells or a state-park campground. TPWD's angling guide lists 1,158 acres while TWDB's conservation-pool 2008 survey reports 1,112 acres; these are separate source-specific reference measurements, not today's lake acreage. TPWD names Weatherford Marina as the only improved launch with a full-size boat ramp, a fee and private concession operator. Two unimproved upper-lake ramps exist but are suitable only for small aluminum boats; TPWD does not give independent named addresses for them. The City of Weatherford's 4,313-foot floating boardwalk is for walking, birdwatching, sightseeing and fishing, NOT a powered boat ramp or overnight camping destination.",
+    habitat:[
+      "TPWD identifies cattails and American lotus in the upper lake, but comparatively little aquatic vegetation in deeper lower water. Structure from piers, boathouses, the dam's riprap and submerged man-made brush piles gives bass and crappie usable cover.",
+      "The marina's enclosed fishing dock provides a distinct bank-access option, with live minnows and small jigs for crappie. Do not confuse the boardwalk's pedestrian fishing opportunities with a commercial marina launch or with access to private boathouses.",
+      "Twelve aeration diffusers are installed near the dam; when operating, bubbles can draw forage and feeding fish. Their operation is seasonal and should not be presented as a guaranteed fishing location or an instruction to enter a restricted area.",
+      "TWDB's timestamped live lake gauge is important to boat-trailer decisions. A reference conservation elevation of 896 feet is not today's depth at a particular ramp."
+    ],
+    fish:[
+      fish("largemouth-bass","Largemouth bass","good","spring","TPWD rates largemouth good. Fish vegetation transitions, riprap and shaded dock edges with spinnerbaits or soft-plastic worms in spring/fall and crankbaits in summer.",["spinnerbaits","soft-plastics","crankbaits","topwater"]),
+      fish("channel-catfish","Channel catfish","good","year-round","TPWD rates the catfish fishery good and identifies year-round opportunities. Work creek-channel edges and practical bank access with cut bait or legal prepared baits, subject to changing conditions.",["cut-bait","live-bait"]),
+      fish("crappie","Crappie","good","winter","TPWD rates crappie good, highlighting the marina's enclosed fishing dock and lower-lake brush piles during winter and spring. Minnows and small jigs are recommended.",["jigs-and-minnows","vertical-jigging"]),
+      fish("white-bass","White bass","fair","summer","TPWD rates white bass fair and notes summer surface-feeding off the dam at times; trolling shad-like crankbaits is an alternative. Do not promise a predictable schooling location.",["trolling","vertical-jigging"],"secondary"),
+      fish("sunfish","Sunfish","excellent","summer","TPWD rates sunfish excellent; light spinning or fly tackle with small hooks near shoreline cover can be productive during warmer months.",["jigs-and-minnows"])
+    ],
+    access:"TPWD lists Weatherford Marina, reached by FM 5 then West Lake Drive, as an improved fee-required launch suitable for different sizes of boats; the historic concession telephone is (817) 597-0418, but a directory phone does not guarantee today's operator or hours. TPWD also documents two UNNAMED unimproved ramps in the lake's upper reaches, suitable only for small aluminum boats; it does not publish precise individual entrance locations, so do not route a larger boat trailer to them. The City of Weatherford's public floating boardwalk has two exact trailhead addresses, 2864 East Lake Drive and 1198 West Lake Drive, plus a pavilion at 2801 East Lake Drive. Its posted hours are 6 a.m.–10 p.m., subject to current city updates. The pedestrian boardwalk is not a boat launch.",
+    accessPoints:[
+      {name:"Weatherford Marina improved trailer ramp",operator:"Private concession listed by TPWD",kind:"marina",launch:"From US 80/180 travel north on FM 5, west onto West Lake Drive. Improved marina ramp just under a mile ahead on the right, with convenience store, tackle, bait, courtesy docks and boat gas in TPWD's facility table.",fee:"TPWD lists a launch fee; confirm current concession charges, parking, fuel and operating hours",availability:"Historically year-round per TPWD. Call (817) 597-0418 or City of Weatherford for current ramp status, level and access."},
+      {name:"Floating Boardwalk — East Lake Drive trailhead",operator:"City of Weatherford Parks & Recreation",kind:"park",launch:"2864 East Lake Drive, Weatherford, TX 76087. PEDESTRIAN boardwalk access for fishing, birding and lakeside walks; NOT a boat trailer ramp.",fee:"City lists an optional pavilion rental separately; no boardwalk admission fee specified on the current page",availability:"City posts 6 a.m.–10 p.m. operating hours; check weather, trail closures and accessibility updates, parks (817) 598-4124."},
+      {name:"Floating Boardwalk — West Lake Drive trailhead",operator:"City of Weatherford Parks & Recreation",kind:"park",launch:"1198 West Lake Drive, Weatherford, TX 76087. West-side PEDESTRIAN entry to the 4,313-foot floating boardwalk; no boat launch documented at this trailhead.",fee:"Boardwalk park access; optional pavilion use is a separate rental at 2801 East Lake Drive",availability:"City posts 6 a.m.–10 p.m. hours, which can change for severe weather and maintenance; call (817) 598-4124."}
+    ],
+    campingProhibited:true,camping:{name:"No overnight camping anywhere on Lake Weatherford",summary:"TPWD expressly prohibits overnight camping ANYWHERE on Lake Weatherford. The marina, upper-lake unimproved ramps, floating boardwalk and pavilion are lake day-use locations, not RV camping or lakeside overnight sites. Book an independent established campground or lodging outside the restricted lake area."},
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/weatherford/index.asp",
+    visitorSourceUrl:"https://www.weatherfordtx.gov/3223/The-Boardwalk-at-Lake-Weatherford",
+    historyNotes:[
+      "TWDB dates construction beginning June 1956 and both deliberate impoundment and dam completion to March 1957. The City of Weatherford owns and operates the Clear Fork Trinity River dam for municipal and industrial water supply, with recreation as a compatible use.",
+      "After flood damage, engineers modified the service spillway in 1993 and increased spillway capacity. The reconstruction connected a four-fingered radial labyrinth inlet to the existing nine-foot-square discharge conduit. The dam crest was raised three feet to an elevation of approximately 917 ft above mean sea level.",
+      "TWDB's August 2008 conservation-pool survey reports 1,112 acres and about 17,812 acre-feet at elevation 896 ft, while TPWD's angling fact sheet uses 1,158 acres. Those figures describe different survey methods or reporting vintages, not the precise water surface today.",
+      "The city installed the floating boardwalk to make the shoreline accessible to visitors during periods of low water. Its official park page lists 4,313 feet of pedestrian boardwalk between public trailheads on East and West Lake drives, with benches and a separately reservable pavilion."
+    ],
+    visitorFAQs:[
+      {question:"Can I camp on Lake Weatherford?",answer:"No. TPWD states that overnight camping is prohibited anywhere on Lake Weatherford, including at marina and upper-lake ramps. Arrange separate off-lake lodging or camping."},
+      {question:"Where can I launch a larger motorboat?",answer:"TPWD lists Weatherford Marina on West Lake Drive as the lake's improved trailer launch suitable for different boat sizes. A fee is required. The two unnamed upper-lake ramps are unimproved and intended only for small aluminum boats. Verify live ramp conditions and water level."},
+      {question:"Is the 4,313-foot boardwalk also a boat ramp?",answer:"No. The city identifies the floating boardwalk as a walking, fishing, birdwatching and nature-viewing feature. Its East and West Lake Drive trailheads are pedestrian entrances, not marinas or trailer launches."},
+      {question:"Where are the boardwalk entrances and what are the hours?",answer:"The city lists 2864 East Lake Drive and 1198 West Lake Drive as boardwalk trailheads, with a pavilion at 2801 East Lake Drive. Published hours are 6 a.m.–10 p.m.; confirm current park notices for closures or changes."},
+      {question:"Which fish are Lake Weatherford best for?",answer:"TPWD rates sunfish excellent and largemouth bass, channel catfish and crappie good. White bass are rated fair. Marina docks, upper-lake reeds, the dam's riprap and underwater brush each suit different targets."},
+      {question:"How deep is Lake Weatherford?",answer:"TPWD lists a maximum depth of 39 feet, but launch depth changes with reservoir elevation. The latest TWDB gauge is a separate timestamped current measurement and may not indicate whether a particular boat ramp is passable."},
+      {question:"What happened to Lake Weatherford Dam in 1993?",answer:"TWDB records service-spillway reconstruction after flood damage, including a radial labyrinth inlet and added spillway capacity; the dam crest was raised. These engineering facts are historical, not current flood warnings."},
+      {question:"Why do TWDB and TPWD give 1,112 and 1,158 acres?",answer:"TWDB's 2008 conservation-pool survey and TPWD's fishing facts use different vintages/measurement bases. Neither describes the current exposed shoreline during low water; use the live gauge for water conditions."},
+      {question:"Does the city charge to use the boardwalk pavilion?",answer:"The city currently lists $20 per hour with a two-hour minimum to reserve the separate pavilion. This is not a launch or general boardwalk entry charge, and rates may change. Use the city's booking system or parks phone for confirmation."}
+    ],
+    travelAlerts:[
+      "TPWD PROHIBITS OVERNIGHT CAMPING ANYWHERE on Lake Weatherford; do not interpret marina facilities, the boardwalk or upper-lake ramps as RV/campground access.",
+      "The two upper-lake boat ramps are unimproved and suitable for SMALL ALUMINUM BOATS only; TPWD does not publish names/precise entrances for safe larger-boat routing.",
+      "Water level changes by several feet annually. Read timestamped TWDB lake conditions and verify the marina's actual depth and operator status before towing a large boat.",
+      "The city's floating boardwalk is a PEDESTRIAN attraction with posted hours 6 a.m.–10 p.m., not a boat ramp or state-park camping area.",
+      "The 2024 actual-location Commons photo documents the lake's boardwalk, not the current marina launch or real-time reservoir water level."
+    ],
+    nearbyLakes:[{slug:"lake-mineral-wells",name:"Lake Mineral Wells"},{slug:"lake-worth",name:"Lake Worth"},{slug:"benbrook-lake",name:"Benbrook Lake"}],
+  },
+  {
+    slug: "lake-abilene", name: "Lake Abilene", tpwdSlug: "abilene", waterDataSlug: "abilene",
+    region: "panhandle-plains", verifiedAt: "2026-10-14", accessReviewedAt: "2026-10-14",
+    summary: "A 1921 City of Abilene reservoir reached through the separate Lake Abilene unit of Abilene State Park; the operator's active drought alert prohibits lake fishing and swimming and closes both boat ramps. Historical fishery, precise ramp locations, 1921 dam chronology, park camping distinctions and an actual-lake licensed image are documented without pretending the lake is open.",
+    surfaceAcres: 595, maxDepthFeet: 25, impoundedYear: 1921, counties: ["Taylor"],
+    nearestCities: ["Tuscola", "Buffalo Gap", "Abilene"],
+    waterway: "Elm Creek, a tributary of the Clear Fork Brazos River", riverBasin: "Brazos River Basin",
+    authority: "City of Abilene (reservoir owner); Texas Parks and Wildlife Department (park access operator)",
+    conservationPool: "2,012.3 ft msl, reference datum used in the TWDB reservoir history",
+    fluctuation: "Long drought drawdowns; TPWD says lake ramps become largely unusable about seven feet below spillway level", clarity: "Very muddy",
+    identity: "Lake Abilene is the City of Abilene-owned Elm Creek reservoir in Taylor County, NOT Kirby Lake in Abilene or the smaller Buffalo Wallow Pond on Abilene State Park's main campus. The public lake unit and its Dam and Creek ramps lie across FM 89 from the main state-park campground. TPWD's CURRENT PARK ALERT, originally dated October 20, 2025 and still posted when reviewed in October 2026, expressly says BOTH LAKE RAMPS ARE CLOSED, no kayak rentals, and NO FISHING OR SWIMMING at Lake Abilene due to low water. Historic fishing guides and year-round ramp inventory listings do not supersede this operator notice. The historic park swimming pool is a separate facility and also has a renovation closure. Review the latest park alert or call (325) 572-3204 before travel; treat all fishery tips here as historical descriptions while fishing is prohibited.",
+    habitat: [
+      "When at conservation pool, the historically muddy reservoir had black willow, buttonbush, rocky banks and flooded dead terrestrial vegetation. TPWD explicitly lists no established aquatic vegetation; this is not a grassy high-clarity bass lake.",
+      "Following major water loss and a refill in 2016, TPWD restocked gamefish and installed Fishiding artificial habitat structures. Cover remaining during low-water periods is primarily brush piles and rock; former shoreline features may be exposed.",
+      "The historical location of submerged cover does not confer a right to fish during a TPWD drought closure. Use TPWD's fish habitat viewer only as an archival reference while the lake's fishing prohibition remains posted."
+    ],
+    fish: [
+      fish("largemouth-bass", "Largemouth bass", "poor", "spring", "TPWD currently rates bass POOR. Historically anglers flipped lures around flooded willow, buttonbush and brush piles during normal lake elevations; there is no legal lake fishing while the operator's low-water closure remains in force.", ["soft-plastics", "spinnerbaits"], "secondary"),
+      fish("channel-catfish", "Channel catfish", "poor", "summer", "TPWD currently rates catfish POOR. Historically bank anglers used live or cut bait where accessible. The official state-park alert currently prohibits all Lake Abilene fishing; these are historical context rather than a recommendation to fish now.", ["cut-bait", "live-bait"], "secondary"),
+      fish("crappie", "White crappie", "poor", "spring", "TPWD currently rates crappie POOR. When open and at higher levels, crappie traditionally related to flooded terrestrial brush and artificial cover. The state park's current lake-fishing prohibition overrides all those tactics.", ["jigs-and-minnows", "vertical-jigging"], "secondary"),
+      fish("sunfish", "Sunfish", "poor", "summer", "TPWD lists sunfish as POOR. Historically small fish inhabited shallow rocky and brushy structure; there is no lake angling permitted under the posted operator closure.", ["jigs-and-minnows"], "secondary")
+    ],
+    access: "TPWD's access inventory identifies exactly TWO distinct, single-lane ramps, Dam and Creek, both on the Lake Abilene unit west of FM 89. From Abilene, take FM 89 south and turn west on the paved lake road about one mile southwest of Abilene State Park's main entrance; pay at state-park headquarters and obtain a code for the lake gate when public access is permitted. Each ramp has an approximately 10-vehicle lot and is normally closed sunset-to-sunrise. At low water, TPWD says four-wheel-drive vehicles are required for launching and the ramps become unusable about seven feet below spillway; HOWEVER, do not attempt either site now: TPWD's October 2025 park alert, still posted during this 2026 review, CLOSES BOTH RAMPS and prohibits fishing/swimming. Wildly different main-campus campground and Buffalo Wallow Pond rules should not be merged into lake-ramp rules. Call the park (325) 572-3204 and confirm the latest official alert.",
+    accessPoints: [
+      {name:"Lake Abilene Dam ramp — closed under drought alert",operator:"Texas Parks and Wildlife Department, Abilene State Park",kind:"public-ramp",launch:"FM 89 south from Abilene to the paved lake-unit road approximately one mile southwest of the state-park headquarters entrance; follow lake signs to the Dam ramp. One concrete lane with about 10 parking spaces; separate coded gate from the park office.",fee:"Park admission required before gate code; verify current admission rather than assuming historic posted rate",availability:"CLOSED under TPWD's posted October 20, 2025 low-water alert. No fishing or swimming at lake. Do not use the older TPWD 'open all year' statement."},
+      {name:"Lake Abilene Creek ramp — closed under drought alert",operator:"Texas Parks and Wildlife Department, Abilene State Park",kind:"public-ramp",launch:"Same separate Lake Abilene unit entrance from FM 89, then the signed Creek ramp. One concrete lane with roughly 10 parking spaces; not the Buffalo Wallow Pond or main camping campus.",fee:"Park admission and gate code normally required; operator-day fee and access must be reconfirmed",availability:"CLOSED under current posted low-water lake alert. Historically closed sunset-to-sunrise; the drought closure overrides that normal schedule."}
+    ],
+    campingUrl: "https://tpwd.texas.gov/state-parks/abilene/fees-facilities/campsites",
+    camping: {
+      name:"Abilene State Park main-campus designated campgrounds across FM 89",
+      summary:"TPWD's Lake Abilene access matrix lists camping across FM 89 on the main Abilene State Park campus, NOT as a campsite at the Dam or Creek ramps. The main campus offers separately bookable tent, RV, shelter and yurt sites; check reservation availability, park burn bans and the separate pool-renovation closure. Staying overnight at the main campground does not give permission to fish, swim or launch at the closed lake. The lake-unit land can also close for managed hunts while main-campus reservations remain usable."
+    },
+    specialRules: true,
+    historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/abilene/index.asp",
+    visitorSourceUrl: "https://tpwd.texas.gov/state-parks/abilene/alert/",
+    historyNotes: [
+      "TWDB locates Abilene Dam on Elm Creek about six miles northwest of Tuscola in Taylor County. The City of Abilene owns this historically municipal emergency-water-supply and recreational reservoir, while TPWD operates visitor access through its adjacent state park.",
+      "A state water permit on September 7, 1918 authorized construction; work began in 1919. TWDB's detailed dam plate gives completion in May 1921 and deliberate impoundment beginning August 1, 1921, while its overview summarizes completion in 1921. This chronology is different from the much younger Kirby Lake on Cedar Creek.",
+      "After its 1921 construction, Lake Abilene Dam underwent substantial repairs in 1941 and 1957. TWDB's historical survey records a 5,040-foot earthfill embankment, a maximum height of about 64 feet and a historic conservation-pool reference elevation of 2,012.3 feet above mean sea level.",
+      "TPWD lists 595 surface acres at the old reference pool. TWDB's storage figures are tied to the conservation-stage curve, not a claim that 595 acres of water are present today. Drought can strand launch ramps, restrict fish survival and change every aspect of a visitor trip.",
+      "The 2011 Wikimedia Commons photograph of the actual Lake Abilene shoreline predates the present drought closure. Its creator released it as CC BY-SA 2.0. It is documentary evidence of the named lake's setting, not a live water-level, fishing-permission or boat-ramp-status image."
+    ],
+    visitorFAQs: [
+      {question:"Is Lake Abilene open for fishing right now?",answer:"NO under the park's currently posted low-water alert (dated October 20, 2025): TPWD prohibits fishing and swimming at Lake Abilene and has closed both ramps. Check https://tpwd.texas.gov/state-parks/abilene/alert/ or call (325) 572-3204 for any newer operator decision before travel."},
+      {question:"Can I launch a boat at the Dam or Creek ramp?",answer:"Both are closed under the currently posted state-park drought alert. TPWD's older access directory describes two single-lane ramps as open year-round and normally closed overnight, but that is superseded by the dated park closure notice."},
+      {question:"Does Abilene State Park still offer camping?",answer:"Yes, the main state-park campus across FM 89 offers reservable campsites and other lodging separately from the Lake Abilene unit. Campground access does NOT mean lake swimming, fishing, paddling rentals or ramps are open."},
+      {question:"Is Buffalo Wallow Pond the same as Lake Abilene?",answer:"No. Buffalo Wallow is a smaller spring-fed pond on Abilene State Park's main campus. The Lake Abilene drought prohibition concerns the separate City of Abilene reservoir reached by the Lake Abilene unit entrance. Read any independent pond notices before fishing there."},
+      {question:"What is the difference between Lake Abilene and Kirby Lake?",answer:"Lake Abilene is the 1921 Elm Creek reservoir near Tuscola. Kirby Lake is another City of Abilene water body on Cedar Creek much nearer the city, with a different dam, access rules and fishing conditions."},
+      {question:"Which fish are found in Lake Abilene?",answer:"TPWD names largemouth bass, channel catfish and white crappie, and also rates sunfish. Its displayed present fishing-quality ratings are POOR for bass, catfish, crappie and sunfish. Even when fish exist, the state-park no-fishing closure remains binding."},
+      {question:"Why are the ramps unsuitable even without a closure?",answer:"TPWD warns that the two launches become largely unusable around seven feet below spillway level and can need four-wheel-drive launching at low levels. The currently posted blanket closure is stricter: do not launch or attempt shoreline fishing."},
+      {question:"Do lake and campground closures coincide?",answer:"Not necessarily. TPWD sometimes closes the entire Lake Abilene unit for managed wildlife hunts while the main campground across FM 89 remains open. Separate lake drought, burn-ban and historic swimming-pool renovation alerts may coexist."},
+      {question:"Is the historic park swimming pool available?",answer:"The pool is on the main state-park campus, not Lake Abilene. Its June 3, 2026 reservation alert says the CCC-era pool remains closed for renovations until further notice; check an updated park notice."},
+      {question:"When was Lake Abilene constructed?",answer:"TWDB records authorization in 1918, dam construction starting in 1919, dam completion May 1921 and deliberate impoundment August 1, 1921. Major dam repairs occurred in 1941 and 1957."}
+    ],
+    travelAlerts: [
+      "CURRENT OPERATOR SAFETY CLOSURE — TPWD Abilene State Park alert dated October 20, 2025 and still posted at this review says Lake Abilene's two boat ramps are CLOSED; swimming, fishing and kayak rental at the lake are PROHIBITED. Don't plan a fishing or swimming trip based on TPWD's older generic lake page.",
+      "STATE PARK HUNTS — Some posted managed-hunt dates close the lake unit to everyone other than permitted hunters; the main campground across FM 89 can operate separately. Recheck the dated closures before travel.",
+      "CAMPGROUND, POND AND POOL ARE DIFFERENT — Main-campus campground reservations, Buffalo Wallow Pond activities and CCC swimming-pool renovations are NOT a statement that the closed Lake Abilene reservoir is available for fishing or swimming.",
+      "NO PRESENT-DAY FISHING FORECAST — TPWD currently rates bass, catfish, crappie and sunfish poor; there is no valid access while the lake's operator prohibits fishing. Live lake elevation cannot override park authorization.",
+      "Historical photograph is of the exact Lake Abilene shoreline in June 2011 and carries a CC BY-SA 2.0 reuse license; it is not first-party current-water photographic evidence."
+    ],
+    nearbyLakes:[{slug:"lake-sweetwater",name:"Lake Sweetwater"},{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"lake-brownwood",name:"Lake Brownwood"}],
+    nearbyDestinations:[{slug:"abilene-state-park",name:"Abilene State Park",reason:"Separate main-campus campsite and nature-trail visitor guide, distinguished from the Lake Abilene drought closure."}]
+  },
+  {
+    slug: "lake-cypress-springs", name: "Lake Cypress Springs", tpwdSlug:"cypress_springs", waterDataSlug:"cypress-springs",
+    verifiedAt:"2026-10-14", accessReviewedAt:"2026-10-14", region:"piney-woods",
+    summary:"Franklin County's Big Cypress Creek water-supply and fishing lake: five real FCWD ramps and designated campgrounds, a licensed bathymetric map, excellent crappie/white bass/spotted bass opportunities, and essential 2026 owner boating and flood-closure rules.",
+    surfaceAcres:3461,maxDepthFeet:56,impoundedYear:1970,counties:["Franklin"],nearestCities:["Mount Vernon","Winnsboro","Pittsburg"],
+    waterway:"Big Cypress Creek",riverBasin:"Cypress River Basin",authority:"Franklin County Water District",
+    conservationPool:"378.00 ft NGVD29",fluctuation:"TPWD reference 2–3 feet; FCWD can close ramps when high water or other hazards make boating unsafe",clarity:"Clear",
+    identity:"Lake Cypress Springs is Franklin County Water District's water-supply and recreation reservoir on Big Cypress Creek, not adjacent Lake Bob Sandlin. TPWD's historical reference surface area is 3,461 acres. All five TPWD-listed public ramps belong to FCWD, which can close lake access in hazardous conditions. FCWD's rules amended August 5, 2026 generally cap recreational boats at 26 feet long and 12 feet wide, require idle speed within 200 feet of shore and prohibit boating within 200 feet of spillway/intake structures. Consult the owner instead of repeating older $2-per-person and year-round labels as guaranteed current prices and openings. The lake's heritage, fish habitat and 2007 bathymetric map are separate from live TWDB water elevations.",
+    habitat:[
+      "TPWD and local partners document installed fish-attractor structures, brush and timber, dock pilings, dam riprap and shallow native vegetation; aquatic vegetation covers under 10% of the total water.",
+      "The 2007 TWDB bathymetric survey underpins a genuine licensed lake-specific depth map. This historical graphic is not an official navigation chart, current depth sounding or lake photograph; check today's gauge, posted hazards and marked no-go areas.",
+      "Crappie hold around brush and docks; spotted and largemouth bass use rocky edges, vegetated points and shoreline cover. Open water offers seasonal white bass schools while channel catfish use bottom contour and bait availability."
+    ],
+    fish:[
+      fish("spotted-bass","Spotted bass","excellent","spring","TPWD rates spotted bass excellent. Work structured rocky points, shoreline brush and drops with small soft plastics and crankbaits without violating the district's 200-foot shoreline idle zone.",["soft-plastics","crankbaits","spinnerbaits"]),
+      fish("largemouth-bass","Largemouth bass","good","spring","TPWD rates largemouth good; target shade, boathouse structure and scattered aquatic plants with spinnerbaits, plastics and topwater where publicly accessible.",["soft-plastics","spinnerbaits","topwater"]),
+      fish("crappie","White and black crappie","excellent","spring","TPWD reports excellent crappie fishing around brush, timber and dock cover. Jigs and minnows permit a different approach from open-water bass fishing.",["jigs-and-minnows","vertical-jigging"]),
+      fish("white-bass","White bass","excellent","summer","TPWD ranks white bass excellent. Locate suspended baitfish and schooling fish while keeping out of the 200-foot intake and spillway exclusion zones.",["trolling","vertical-jigging"]),
+      fish("sunfish","Bluegill and redear sunfish","excellent","summer","TPWD ranks sunfish excellent; use light tackle at legal public shore access rather than private boathouses.",["jigs-and-minnows"]),
+      fish("channel-catfish","Channel catfish","good","summer","TPWD rates channel catfish good. Baits fished along creek-channel transitions and permitted shoreline offer options beyond sport-bass tactics.",["cut-bait","live-bait"])
+    ],
+    access:"TPWD independently names Guthrie, Dogwood, Mary King, Overlook and Walleye parks, each with a public boat ramp and camping symbols. All are Franklin County Water District sites. The old TPWD description lists $2 per person and year-round access, but FCWD's current fees, launch restrictions and closure notices control. FCWD's flood rule permits a lake or ramp closure at 380.50 feet msl (2.5 ft above its 378-ft conservation pool) or earlier for safety. Boat length/width, no-wake shoreline approach and prohibited intake/spillway zones apply regardless of the old TPWD listing.",
+    accessPoints:[
+      {name:"Guthrie Park boat ramp",operator:"Franklin County Water District",kind:"park",launch:"North end of dam. From I-30 Exit 146 at Mount Vernon take SH 37 south, FM 21 east roughly six miles, FM 3007 south 1.8 miles to park signs; concrete ramp and designated camping.",fee:"TPWD formerly listed $2/person; check present FCWD day-use and campground fees",availability:"TPWD describes year-round operation, but owner high-water/safety closures override. FCWD (903) 537-4536."},
+      {name:"Dogwood Park boat ramp",operator:"Franklin County Water District",kind:"park",launch:"South end of dam via FM 21 and FM 3007, continuing about 2.8 miles across the dam to signed Dogwood Park; concrete boat ramp and camping.",fee:"Archival TPWD $2/person is not confirmed as today's owner charge",availability:"Check flood status, boat-size limits, campground booking and current park access."},
+      {name:"Mary King Park boat ramp",operator:"Franklin County Water District",kind:"park",launch:"South shoreline midway down the lake. Follow FM 3007 beyond the dam as road swings west, entering Turkey Cove at park signs.",fee:"TPWD archive lists a day-use fee; reserve any paid campsite separately",availability:"FCWD restricts vehicles on designated park greenbelts; verify accessible parking and ramp gates."},
+      {name:"Overlook Park boat ramp",operator:"Franklin County Water District",kind:"park",launch:"North-shore midlake from SH 37 south of Mount Vernon, FM 21 east 3.2 miles then FM 2723 south approximately 4.6 miles.",fee:"Check actual day-use and overnight reservation prices with district",availability:"Year-round is a historical TPWD label only; verify owner flood/maintenance alerts."},
+      {name:"Walleye Park boat ramp",operator:"Franklin County Water District",kind:"park",launch:"Near north side of dam, FM 21 to FM 2723 south, left onto FM 3122, then SE 4220 about 1.5 miles. TPWD lists fish-cleaning station.",fee:"Historical TPWD $2/person; district's current published tariff governs",availability:"Ask FCWD about fish-cleaning station, ramp status and permitted campsite inventory."}
+    ],
+    campingUrl:"https://www.fcwd.com/content/lake/parks.php",
+    camping:{name:"Franklin County Water District designated camping parks",summary:"TPWD lists camping symbols at all five public access parks, but FCWD only allows camping in designated paid sites and requires written payment confirmation. RV bookings are offered up to 60 days in advance; stays of 14 or more consecutive days require special consent. Check each specific park's current electrical/water service, restrooms, campsite conditions, accessibility and fees before booking. Launch parking and an ordinary day-use ticket do not authorize overnight camping."},
+    specialRules:true,
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/surveys/completed/files/CypressSprings/2007-07/CypressSprings2007_FinalReport.pdf",
+    visitorSourceUrl:"https://www.fcwd.com/content/lake/parks.php",
+    localRegulationsSourceUrl:"https://www.fcwd.com/content/rules.php",
+    historyNotes:[
+      "Franklin County Water District was established in 1965, with a November 10, 1966 authorization to develop the Big Cypress Creek project for water supply and recreation.",
+      "TWDB reports dam construction began July 1968, deliberate impoundment started July 7, 1970 and formal project completion was February 15, 1971. The construction-completion date and first water storage should not be confused.",
+      "Franklin County Dam has an earthfill structure and morning-glory service spillway. Its normal pool elevation is 378 ft (NGVD29). Historical TWDB measured surface/volume data and the CC BY-SA bathymetric map have their own 2007 vintage, unlike the dynamic water-level feed.",
+      "The owner can close ramps/lake at elevation 380.50 ft msl or whenever public safety requires. Do not infer that the live stage reading alone proves a given ramp is open."
+    ],
+    visitorFAQs:[
+      {question:"Which public parks have Lake Cypress Springs boat ramps?",answer:"Guthrie, Dogwood, Mary King, Overlook and Walleye, each operated by Franklin County Water District. Confirm present launch status and owner fees rather than relying on the older TPWD year-round and $2 figures."},
+      {question:"Can I bring a 30-foot motorboat?",answer:"Not ordinarily. FCWD's current recreational boat rule generally caps length at 26 feet and width at 12 feet, except authorized work barges. Check the complete owner rule before towing."},
+      {question:"How fast may I travel near shore?",answer:"FCWD requires careful idle speed within 200 feet of shoreline. Boats are also restricted within 200 feet of water intakes and spillway structures."},
+      {question:"When might Lake Cypress Springs boat ramps close?",answer:"The water district's flood-closure policy sets 380.50 feet msl as a trigger, 2.5 feet above its 378-foot pool, and permits earlier closure when conditions are unsafe. Consult current FCWD alerts."},
+      {question:"Can I camp at any of the public parks?",answer:"TPWD lists campsite facilities at all five parks, but paid designated camping with written confirmation is required. RV reservations may be made up to 60 days ahead; 14-day stays need district permission."},
+      {question:"Does the lake have a free depth map?",answer:"Yes: a 1,500-by-757-pixel bathymetric map based on public 2007 TWDB survey data, independently produced by maxup10 and licensed CC BY-SA 4.0. It is a historic depth map, not a navigation chart or a current photograph."},
+      {question:"May I keep triploid grass carp?",answer:"No. TPWD's permit and FCWD rules require harmless immediate release of triploid grass carp."},
+      {question:"Is swimming permitted near boat ramps?",answer:"FCWD prohibits swimming within 50 feet of ramps; swimmers beyond 100 feet offshore must be accompanied by a boat and wear a personal flotation device. Observe designated swimming restrictions."},
+      {question:"When was Lake Cypress Springs completed?",answer:"Construction started in July 1968, deliberate impoundment began July 7, 1970 and final construction completion occurred February 15, 1971 according to TWDB."}
+    ],
+    nearbyLakes:[{slug:"lake-bob-sandlin",name:"Lake Bob Sandlin"},{slug:"lake-o-the-pines",name:"Lake O' the Pines"},{slug:"lake-fork",name:"Lake Fork"}],
+    travelAlerts:[
+      "District recreational vessel limits: 26 feet length and 12 feet width; operate at idle speed within 200 feet of any shoreline and stay clear of intake/spillway exclusion zones.",
+      "FCWD may close the lake or ramps above 380.50 feet or at lower levels for safety. The older TPWD 'open year-round' inventory is not a live operator status.",
+      "Triploid grass carp must be released unharmed; keep to designated public fishing locations and current TPWD limits.",
+      "Only district-designated paid campsites permit overnight stays. FCWD rules on reservation confirmation, vehicle access, pet restraint and dump station use apply.",
+      "The featured image is an exact-lake historic BATHYMETRIC MAP, not a photograph. Check current TWDB level and the owner before making depth or navigation assumptions."
+    ],
+  },
+  {
+    slug: "bachman-lake", name: "Bachman Lake", tpwdSlug: "bachman",
+    verifiedAt: "2026-10-14", accessReviewedAt: "2026-10-14", region: "prairies-lakes",
+    summary: "Historic 1903 urban fishing reservoir beside Dallas Love Field: one tight-parking Shorecrest ramp, abundant shore fishing, excellent TPWD-rated crappie, city boating limits, a recently rehabilitated dam and a separate 205-acre metropolitan park.",
+    surfaceAcres: 132, maxDepthFeet: 14, impoundedYear: 1903, counties: ["Dallas"], nearestCities: ["Dallas"],
+    waterway: "Bachman Branch (also called Bachman Creek), tributary to the Trinity River", riverBasin: "Trinity River Basin",
+    authority: "City of Dallas Parks and Recreation / Dallas Water Utilities",
+    conservationPool: "No verified current public lake gauge; consult Dallas Parks for lake and facility notices",
+    fluctuation: "TPWD historical overview reports approximately one foot; construction and weather can change shoreline access",
+    clarity: "Stained",
+    identity: "Bachman Lake is the shallow 132-acre reservoir inside Dallas's separately measured approximately 205-acre Bachman Lake Park. Those two acreage figures describe different footprints, not contradictory estimates of the same water surface. The reservoir was built in 1903 as municipal water storage and later became recreation-only. The City of Dallas completed a major reservoir dredging phase in 2023 and announced a March 31, 2026 ribbon cutting for dam and spillway rehabilitation; the old TPWD fish survey projected earlier completion and is not a reliable current construction-status notice. The lake is an urban bank-fishing and rowing setting, not a swimming or camping destination.",
+    habitat: [
+      "Most fish-holding natural cover is in limited emergent shoreline vegetation, rock-gabion banks, sparse brush along the dam and the south-shore riprap opposite Love Field. TPWD's 132-acre profile rates white crappie excellent and bass good, but its latest management assessment reuses older 2018–2019 fish sampling because major dredging restricted survey operations.",
+      "For crappie, work deeper water at the west end and the dam with jigs or minnows. Bass concentrate along rock and brush, while sunfish hold around sparse shoreline emergent vegetation; accessible shore positions depend on maintained walkways and safe legal access.",
+      "The upper lake historically became very shallow from accumulated sediment. A city dredging project removed silt from part of the basin in 2023. Neither an older fishery-survey map nor the lake's old 14-foot maximum depth should be used to promise today's navigation clearance."
+    ],
+    fish: [
+      fish("crappie","White crappie","excellent","spring","TPWD rates white crappie excellent in its angling table. Try small jigs or minnows at the dam, shaded brush and western deeper water; historical sampling predates the recent dam project.",["jigs-and-minnows","vertical-jigging"]),
+      fish("largemouth-bass","Largemouth bass","good","spring","TPWD rates largemouth bass good. Work riprap on the southern bank, sparse emergent weeds and brush against the dam using light tackle and compact lures.",["soft-plastics","spinnerbaits","crankbaits","topwater"]),
+      fish("catfish","Catfish","fair","summer","TPWD rates catfish fair rather than abundant. Fish legal shoreline points with cut bait; do not infer today's catch rate from pre-rehabilitation surveys.",["cut-bait","live-bait"],"secondary"),
+      fish("sunfish","Sunfish","fair","summer","Sunfish including warmouth occur along vegetation and park shorelines. Light jigs and small baits are suitable where bank access is permitted.",["jigs-and-minnows"],"secondary")
+    ],
+    access: "TPWD documents ONE public boat-launch location at Shorecrest Drive, south of the lake immediately north of Dallas Love Field. Its access directory describes a two-lane paved ramp but parking for only five trailers, while an older management report calls it one lane: confirm actual marked ramp and usable trailer clearance on site. TPWD lists no ramp fee, but 'open all year' is a historical directory description, not live closure verification. Most of the shore is available for public bank fishing from the surrounding park; fishing is NOT the same as swimming, which Dallas ordinances prohibit in Bachman Lake.",
+    accessPoints: [
+      {name:"Shorecrest Drive municipal boat ramp",operator:"City of Dallas Park and Recreation",kind:"public-ramp",launch:"South shore off Shorecrest Drive north of Dallas Love Field; TPWD provides coordinates 32.849544, -96.865733. Its public list says two paved lanes but only FIVE trailer parking spaces; an older TPWD management report describes a single lane.",fee:"TPWD historically lists no fee; verify latest Dallas Parks permit and launch rules",availability:"TPWD says year-round, but opening, trailer spaces, construction works and local boat restrictions must be verified with Dallas Parks (214) 670-8281."},
+      {name:"Bachman Lake public bank-fishing shoreline",operator:"City of Dallas Park and Recreation",kind:"park",launch:"Use legal paved trails and lake-edge openings from Bachman Lake Park at 3500 W. Northwest Highway. This is WALK-IN SHORE FISHING and not an additional trailer ramp.",fee:"No separate shoreline access fee identified in TPWD listing; recreation center and aquatics programs may charge separately",availability:"Dallas Parks displays park hours 6 a.m.–11 p.m.; boat operation is separately prohibited from sundown to sunup. Check posted area closures and ADA accessibility before travel."}
+    ],
+    campingProhibited: true,
+    camping: {name:"No designated overnight camping at Bachman Lake Park",
+      summary:"Dallas Parks lists day-use park features, recreation centers, trails, boating and fishing, but no campsite reservation or campground. Do not treat an urban boat ramp, pavilion, picnic area or parking lot as a permitted overnight site. Book lodging or a verified campground elsewhere."},
+    specialRules: true,
+    visitorSourceUrl:"https://www.dallasparks.org/754/Bachman-Lake-Park",
+    localRegulationsSourceUrl:"https://codelibrary.amlegal.com/codes/dallas/latest/dallas_tx/0-0-0-115288",
+    historySourceUrl:"https://tpwd.texas.gov/publications/pwdpubs/lake_survey/pwd_rp_t3200_1438/",
+    liveDataNote:"TPWD reports NO available lake-level gauge for this city-managed reservoir. A past average fluctuation is not a current reading. Consult City of Dallas Parks and dam-project notices for current shore access or water conditions rather than inventing a live level.",
+    historyNotes:[
+      "Dallas built Bachman Reservoir in 1903 on Bachman Branch for municipal water supply. It no longer supplies the city and is managed for recreation; Bachman Lake Park was established in the 1930s as a larger roughly 205-acre public landscape around the smaller water body.",
+      "TPWD records substantial dredging in 2003 and another city hydraulic dredging program beginning 2022, with upper-basin dredging completed in 2023. Fishery monitoring was disrupted, so the latest published TPWD fish assessment contains older sampling and should not be treated as a post-rehabilitation population survey.",
+      "Dallas's 2026 project announcement advertised a March 31 ribbon cutting at the southwest dam and spillway. The city capital-project directory can continue to list work even after a ceremony, so the guide describes documented project milestones without assuming every launch or path is unobstructed on a specific date.",
+      "A 2005 historic exact-lake photograph, now on Wikimedia Commons under CC BY-SA 3.0, establishes the real location but does not depict post-2023 dredging or post-2026 dam conditions."
+    ],
+    visitorFAQs:[
+      {question:"Is the lake or the park 205 acres?",answer:"Dallas Parks describes Bachman Lake Park as about 205 acres, including its trails and amenities. TPWD measures the fishing reservoir itself at 132 surface acres. Do not interchange parkland and lake-water acreage."},
+      {question:"Where can I launch a boat?",answer:"TPWD identifies only the Shorecrest Drive south-shore ramp; the access directory says two lanes with room for five trailers, while an older fisheries report describes one lane. Confirm live status and parking with Dallas Parks before towing."},
+      {question:"Is the motor limit 5 or 10.5 horsepower?",answer:"TPWD's general Bachman Lake page says 5 HP. However Dallas City Code §32-40 as published in July 2026 generally prohibits operating a boat with a motor rating ABOVE 10.5 HP on Bachman and White Rock, with specified exceptions. Those sources disagree. Consult current Dallas rules and on-site signs or call park operations before choosing a motor; do not assume a boat with a stronger installed engine may legally operate it."},
+      {question:"Can I swim in Bachman Lake?",answer:"No. Dallas City Code Chapter 32 prohibits swimming in Bachman Lake; nearby recreation-center pools and the separate aquatic center are not part of the reservoir."},
+      {question:"Can I fish from shore?",answer:"Yes. TPWD describes most of the shoreline as publicly available for bank fishing. The park has paved paths, but accessible fishing spots, temporary construction boundaries and shoreline grades require an on-site check."},
+      {question:"Is boat use allowed at night?",answer:"Dallas City Code §32-47 prohibits boating from sundown to sunup on Bachman Lake, a separate rule from posted park hours of 6 a.m.–11 p.m."},
+      {question:"What fish are worth targeting?",answer:"TPWD rates white crappie excellent and largemouth good, with catfish and sunfish fair. Much of the published biological sampling predates the dredging and dam work, so check any newer TPWD survey."},
+      {question:"Did dredging and dam work finish?",answer:"TPWD records completion of upper-basin hydraulic dredging in 2023. Dallas publicized a March 31, 2026 dam/spillway project ribbon cutting. Neither source certifies every launch or public trail open right now."},
+      {question:"Can I camp beside the lake?",answer:"No designated campsite or overnight campground is documented in the public park and ramp inventories. Use a separately authorized campground or hotel; do not assume a picnic pavilion allows overnight camping."},
+      {question:"Does Bachman Lake have live water levels?",answer:"TPWD states no public gauge is available for the reservoir. Older reference fluctuation and maximum-depth figures are not today's lake level."}
+    ],
+    travelAlerts:[
+      "City of Dallas §32-40 (July 2026) states a general 10.5-horsepower operational ceiling with exceptions for authorized activities, while TPWD's general fishing page still says 5 horsepower; confirm current municipal rules and signage before launching.",
+      "Dallas Chapter 32 prohibits swimming in the lake and boating from sundown to sunup. The park recreation pools are distinct facilities.",
+      "TPWD's Shorecrest launch directory has only five trailer-parking spaces; its access listing and an older fisheries report disagree on the number of usable ramp lanes.",
+      "The 2023 dredging and March 2026 dam rehabilitation ceremony do not establish same-day opening of every park area. Consult Dallas Parks for trail, ramp or construction restrictions.",
+      "The exact-lake photo is from 2005 and must not be used as evidence of 2026 lake depth, shoreline, construction or access conditions."
+    ],
+    nearbyLakes:[{slug:"white-rock-lake",name:"White Rock Lake"},{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"joe-pool-lake",name:"Joe Pool Lake"}]
   },
 ];
 

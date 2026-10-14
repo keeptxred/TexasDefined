@@ -29,6 +29,47 @@ const itineraryLinks = [
   '/county/blanco',
 ];
 
+// Exact, documented photo-source links are part of the seven-page editorial trust contract.
+// This is intentionally separate from the more general 16-destination backlink network.
+const photoRightsLinks = {
+  [article]: [
+    'https://commons.wikimedia.org/wiki/File:Lyndon_B._Johnson_Ranch_October_2020_28_(Texas_White_House).jpg',
+    'https://creativecommons.org/licenses/by-sa/4.0/',
+  ],
+  '/destination/fredericksburg-art-guild': [
+    'https://commons.wikimedia.org/wiki/File:Fredericksburg_July_2017_5_(Marktplatz).jpg',
+    'https://creativecommons.org/licenses/by-sa/4.0/',
+  ],
+  '/destination/luckenbach': [
+    'https://commons.wikimedia.org/wiki/File:Luckenbach_Dance_Hall_(48523152961).jpg',
+    'https://creativecommons.org/licenses/by/2.0/',
+  ],
+  '/destination/stonewall': [
+    'https://commons.wikimedia.org/wiki/File:Texas_longhorn.jpg',
+    'https://creativecommons.org/licenses/by/4.0/',
+  ],
+  '/destination/fort-martin-scott': [
+    'https://commons.wikimedia.org/wiki/File:Fort_martin_scott_2008.jpg',
+    'https://creativecommons.org/licenses/by/4.0/',
+  ],
+  [canonical]: [
+    'https://commons.wikimedia.org/wiki/File:Texas_longhorn.jpg',
+    'https://creativecommons.org/licenses/by/4.0/',
+  ],
+  '/destination/lyndon-b-johnson-national-historical-park': [
+    'https://commons.wikimedia.org/wiki/File:Views_at_Lyndon_B._Johnson_National_Historical_Park,_Texas_(5a734466-55b3-4ceb-a58d-c90a5d01536c).jpg',
+    'https://www.nps.gov/lyjo/learn/photosmultimedia/index.htm',
+  ],
+};
+
+function checkVisiblePhotoRights(path, body) {
+  const links = photoRightsLinks[path];
+  if (!links) return;
+  for (const href of links) {
+    assert(body.includes(`href="${href}"`), 'Missing exact visible photo source/license link for ' + path + ': ' + href);
+  }
+}
+
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const header = { 'cache-control': 'no-cache, no-store', pragma: 'no-cache', 'user-agent': 'TexasDefined-CI-Fredericksburg-Corridor/1.0' };
 
@@ -80,6 +121,7 @@ async function verify() {
   const articleHtml = await articleResponse.text();
   assert(articleResponse.status === 200, 'Published itinerary must return HTTP 200');
   assert(articleHtml.includes('Fredericksburg to Johnson City: The Complete Historic Hill Country Road Trip'), 'Published itinerary must include its researched title');
+  checkVisiblePhotoRights(article, articleHtml);
   const missing = itineraryLinks.filter((path) => !articleHtml.includes(`href="${path}"`));
   assert(missing.length === 0, 'Published itinerary missing link anchors: ' + missing.join(', '));
 
@@ -87,7 +129,11 @@ async function verify() {
     const response = await responseFor(path);
     assert(response.status === 200, 'Corridor link ' + path + ' returned ' + response.status);
     const body = await response.text();
+    const routeHead = body.slice(0, body.indexOf('</head>') + 7);
+    assert(routeHead.includes(`<link rel="canonical" href="${origin}${path}"`), 'Missing exact live self-canonical for corridor target ' + path);
+    assert(routeHead.includes('<meta name="robots" content="index, follow'), 'Unexpected noindex on published corridor target ' + path);
     assert(body.includes(`href="${article}"`), 'Missing live reciprocal itinerary anchor on ' + path);
+    checkVisiblePhotoRights(path, body);
   }
 
   const sitemap = await responseFor('/sitemap-explore.xml');
@@ -96,7 +142,7 @@ async function verify() {
   assert(xml.includes(`<loc>${origin}${canonical}</loc>`), 'Indexable canonical LBJ State Park is absent from live Explore sitemap');
   assert(aliases.every((path) => !xml.includes(`<loc>${origin}${path}</loc>`)), 'A retired State Park alias leaked into Explore sitemap');
 
-  console.log('[corridor] Live SEO, 3 HTTP 301 redirects, 16 outbound + reciprocal anchors, and sitemap acceptance passed.');
+  console.log('[corridor] Live SEO, 3 HTTP 301 redirects, 16 outbound + reciprocal anchors, 7 photo source/rights pairs, and sitemap acceptance passed.');
   if (process.env.GITHUB_STEP_SUMMARY) {
     appendFileSync(process.env.GITHUB_STEP_SUMMARY, '| ✅ pass | Fredericksburg corridor | canonical indexable + 3 live HTTP 301 + 16 bidirectional links + sitemap |\n');
   }

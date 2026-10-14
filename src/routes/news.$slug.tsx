@@ -1,3 +1,4 @@
+import { LEGACY_EDITORIAL_REDIRECTS } from "@/lib/legacy-editorial-redirects";
 import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
@@ -6,7 +7,9 @@ import { isArticleIndexReady } from "@/data/fixtures/texas-gateway-index-readine
 import { buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 export const Route = createFileRoute("/news/$slug")({
-  beforeLoad: async ({ params }) => {
+  beforeLoad: async ({ params, location }) => {
+    const legacy = LEGACY_EDITORIAL_REDIRECTS[`/news/${params.slug}`];
+    if (legacy) throw redirect({ href: `${legacy}${location.searchStr || ""}`, statusCode: 301 });
     const { migratedEditorialSlugs } = await import("@/data/fixtures/lazy-migrated-editorial");
     if (migratedEditorialSlugs.includes(params.slug)) throw redirect({ href: `/article/${params.slug}`, statusCode: 301 });
 

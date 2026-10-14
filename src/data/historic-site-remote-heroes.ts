@@ -116,11 +116,6 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     alt: "Part of the Official State of Texas Longhorn Herd at Fort Griffin State Historic Site",
     width: 1600, height: 1068, credit: "Carol M. Highsmith / Library of Congress · Public domain · Wikimedia Commons",
   },
-  "old-socorro-mission": {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Socorro_Mission%2C_Mission_Trail%2C_El_Paso%2C_Texas_%282b1d2a78-155d-451f-679e-7d70fee5ef0f%29.jpg",
-    alt: "Socorro Mission on the Mission Trail in Socorro, Texas",
-    width: 1600, height: 1069, credit: "National Park Service · Public domain · Wikimedia Commons",
-  },
   "palmito-ranch-battlefield": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Palmito_Ranch_Battlefield_2012-09-30_11-15-36.jpg",
     alt: "Palmito Ranch Battlefield landscape in Cameron County, Texas",

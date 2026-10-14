@@ -1,4 +1,5 @@
 import "./lib/error-capture";
+import { LEGACY_EDITORIAL_REDIRECTS } from "./lib/legacy-editorial-redirects";
 
 import { countySlugForLegacyArticle } from "./data/county-series";
 import { allowedRemoteImageUrl, REMOTE_IMAGE_PATH } from "./lib/editorial-image-delivery";
@@ -22,6 +23,7 @@ const BING_VERIFICATION_META =
 const REMOTE_IMAGE_REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308]);
 const MAX_REMOTE_IMAGE_REDIRECTS = 4;
 const ENTITY_REDIRECTS: Record<string, string> = {
+  ...LEGACY_EDITORIAL_REDIRECTS,
   "/lake/caddo-lake": "/destination/caddo-lake",
   "/state-park/palo-duro-canyon-state-park": "/destination/palo-duro-canyon-state-park",
   "/state-park/enchanted-rock-state-natural-area": "/destination/enchanted-rock-state-natural-area",

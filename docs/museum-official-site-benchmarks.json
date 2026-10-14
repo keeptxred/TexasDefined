@@ -1100,7 +1100,7 @@
       ],
       "openGaps": [
         "Verify actual mobility/sensory facilities and on-site dining directly with guest services",
-        "Complete photo rendering and responsive public-page QA"
+        "Photo is licensed and six-page SSR production acceptance passed (GitHub Actions #38512266599); independent visual/mobile evaluation remains outstanding"
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},
@@ -1115,20 +1115,22 @@
     "port-isabel-historical-museum": {
       "name": "Port Isabel Historical Museum",
       "operatorStrengths": [
-        "Current operator's Champion Building, 1906 fish mural and admission categories",
-        "Explicit instruction to call for current opening hours"
+        "City of Port Isabel and South Padre Chamber agree on Wednesday–Saturday visitor schedule; Chamber lists the 3:30 p.m. ticket cutoff",
+        "Texas Historical Commission documents the 1899 Champion Building, 1906 mural, and regional exhibits"
       ],
       "openGaps": [
-        "Confirm elevator and accessible facilities with museum operator; one older visitor review is not proof",
-        "Obtain licensed exact-location museum photograph and perform production rendering QA"
+        "Confirm operating condition of elevator, accessible restroom and step-free second-floor route directly with museum",
+        "Confirm admission prices, payment methods and special holiday hours; museum standalone pricing source has intermittent TLS access for our collector",
+        "Independent reviewer sign-off and documented comparisons against official museum information still outstanding"
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},
       "independentReviewer": null,
       "certifiedAt": null,
       "operatorPagesToBenchmark": [
-        "https://portisabelhistory.com/",
-        "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html"
+        "https://portisabel-texas.com/blog/history/",
+        "https://business.spichamber.com/list/member/port-isabel-historical-museum-18",
+        "https://thc.texas.gov/blog/beyond-beach"
       ]
     },
     "historic-brownsville-museum": {
@@ -1139,7 +1141,7 @@
       ],
       "openGaps": [
         "Confirm access across separate buildings and on-site food policy",
-        "Obtain rights-cleared exact-site hero and verify gallery additions live"
+        "Exact-site CC BY-SA hero and SSR production acceptance are confirmed (GitHub Actions #38512266599); independently review visitor usability and mobile layout"
       ],
       "decision": "not-certified",
       "dimensionEvidence": {},
@@ -1149,6 +1151,310 @@
         "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
         "https://brownsvillehistory.org/simon-celaya-railroad-gallery-brownsville-historical-association.html",
         "https://www.brownsvillehistory.org/museum-tours-brownsville-historical-association.html"
+      ]
+    },
+    "1919-san-augustine-county-jail-museum": {
+      "name": "1919 San Augustine County Jail Museum",
+      "operatorStrengths": [
+        "Local official tourism identifies museum hours, admission, restored jail themes and research records",
+        "Texas Historical Commission has authoritative architectural and jail-history chronology",
+        "Reusable exact-site 2015 exterior photograph sourced from Wikimedia Commons under CC BY 4.0 with full photographer attribution"
+      ],
+      "openGaps": [
+        "Specific step-free access and upper-floor policies require operator confirmation",
+        "Side-by-side visitor guide certification requires live review"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://visitsanaugustinetx.org/local-attractions/",
+        "https://atlas.thc.texas.gov/Details/5507018848",
+        "https://thc.texas.gov/historic-sites/mission-dolores"
+      ]
+    },
+    "armstrong-browning-library-museum-waco": {
+      "name": "Armstrong Browning Library & Museum",
+      "operatorStrengths": [
+        "Museum provides firsthand opening, access and visitor guidance",
+        "Museum maintains current exhibit and learning information"
+      ],
+      "openGaps": [
+        "Full live post-deployment browser and exact-location image load testing",
+        "Direct visitor-experience and operator-guide side-by-side gap certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
+        "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/directions-parking",
+        "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
+        "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/building-map-online-tour",
+        "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/research-instruction/use-collections",
+        "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/use-our-facility/portrait-policies"
+      ]
+    },
+    "bell-county-museum-belton": {
+      "name": "Bell County Museum",
+      "operatorStrengths": [
+        "Museum provides firsthand opening, access and visitor guidance",
+        "Museum maintains current exhibit and learning information"
+      ],
+      "openGaps": [
+        "Full live post-deployment browser and exact-location image load testing",
+        "Direct visitor-experience and operator-guide side-by-side gap certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.bellcountymuseum.org/p/visit/faqs",
+        "https://www.bellcountymuseum.org/directions.aspx",
+        "https://www.bellcountymuseum.org/p/visit",
+        "https://www.bellcountymuseum.org/location/add-location-name-here"
+      ]
+    },
+    "brenham-heritage-museum": {
+      "name": "Brenham Heritage Museum",
+      "operatorStrengths": [
+        "Museum provides firsthand opening, access and visitor guidance",
+        "Museum maintains current exhibit and learning information"
+      ],
+      "openGaps": [
+        "Full live post-deployment browser and exact-location image load testing",
+        "Direct visitor-experience and operator-guide side-by-side gap certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.bhmtexas.org/visit",
+        "https://www.bhmtexas.org/visit/exhibits",
+        "https://www.bhmtexas.org/"
+      ]
+    },
+    "audie-murphy-american-cotton-museum-greenville": {
+      "name": "Audie Murphy/American Cotton Museum",
+      "operatorStrengths": [
+        "Museum provides firsthand opening, access and visitor guidance",
+        "Museum maintains current exhibit and learning information"
+      ],
+      "openGaps": [
+        "Full live post-deployment browser and exact-location image load testing",
+        "Direct visitor-experience and operator-guide side-by-side gap certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://cottonmuseum.com/visit/",
+        "https://cottonmuseum.com/",
+        "https://cottonmuseum.com/about/"
+      ]
+    },
+    "brazos-valley-museum-natural-history-bryan": {
+      "name": "Brazos Valley Museum of Natural History",
+      "operatorStrengths": [
+        "Museum provides firsthand opening, access and visitor guidance",
+        "Museum maintains current exhibit and learning information"
+      ],
+      "openGaps": [
+        "Full live post-deployment browser and exact-location image load testing",
+        "Direct visitor-experience and operator-guide side-by-side gap certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.brazosvalleymuseum.org/visit",
+        "https://www.brazosvalleymuseum.org/about-the-museum",
+        "https://www.brazosvalleymuseum.org/accessibility"
+      ]
+    },
+    "czech-heritage-museum-genealogy-center-temple": {
+      "name": "Czech Heritage Museum & Genealogy Center",
+      "operatorStrengths": [
+        "Museum provides firsthand opening, access and visitor guidance",
+        "Museum maintains current exhibit and learning information"
+      ],
+      "openGaps": [
+        "Full live post-deployment browser and exact-location image load testing",
+        "Direct visitor-experience and operator-guide side-by-side gap certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://czechheritagemuseum.org/contact-us",
+        "https://czechheritagemuseum.org/plan-your-visit",
+        "https://czechheritagemuseum.org/"
+      ]
+    },
+    "buffalo-soldiers-national-museum-houston": {
+      "name": "Buffalo Soldiers National Museum",
+      "operatorStrengths": [
+        "Official operator primary-source visitor and heritage information",
+        "Source-checked key logistics, current closure or admission rules"
+      ],
+      "openGaps": [
+        "Post-deployment live page, image and cross-link browser QA",
+        "Independent full operator visitor resource side-by-side quality certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://buffalosoldiersmuseum.org/visit/",
+        "https://buffalosoldiersmuseum.org/visit/group-tours/",
+        "https://buffalosoldiersmuseum.org/visit/exhibits/",
+        "https://buffalosoldiersmuseum.org/",
+        "https://houmuse.org/institution/buffalo-soldiers-national-museum/"
+      ]
+    },
+    "texas-prison-museum-huntsville": {
+      "name": "Texas Prison Museum",
+      "operatorStrengths": [
+        "Official operator primary-source visitor and heritage information",
+        "Source-checked key logistics, current closure or admission rules"
+      ],
+      "openGaps": [
+        "Post-deployment live page, image and cross-link browser QA",
+        "Independent full operator visitor resource side-by-side quality certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.txprisonmuseum.org/",
+        "https://www.txprisonmuseum.org/about-us",
+        "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+        "https://www.txprisonmuseum.org/copy-of-captain-joe-byrd-cemetery"
+      ]
+    },
+    "eisenhower-birthplace": {
+      "name": "Eisenhower Birthplace State Historic Site",
+      "operatorStrengths": [
+        "Official operator primary-source visitor and heritage information",
+        "Source-checked key logistics, current closure or admission rules"
+      ],
+      "openGaps": [
+        "Post-deployment live page, image and cross-link browser QA",
+        "Independent full operator visitor resource side-by-side quality certification"
+      ],
+      "decision": "not-certified",
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+        "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/eisenhower-birthplace-history",
+        "https://thc.texas.gov/blog/homes-president-eisenhower",
+        "https://atlas.thc.texas.gov/Details/4200000469"
+      ]
+    },
+    "crow-museum-asian-art-dallas": {
+      "name": "Crow Museum of Asian Art — Dallas Arts District",
+      "operatorStrengths": [
+        "Official current visitor hours and access",
+        "Source-grounded exhibit and family planning"
+      ],
+      "openGaps": [
+        "Complete independent side-by-side certification after production browser check",
+        "Validate actual photo rendering and all internal link targets"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://crowmuseum.org/dallas-arts-district/",
+        "https://crowmuseum.org/visit/",
+        "https://crowmuseum.org/where-to-park/"
+      ]
+    },
+    "museum-of-the-american-railroad-frisco": {
+      "name": "Museum of the American Railroad",
+      "operatorStrengths": [
+        "Official current visitor hours and access",
+        "Source-grounded exhibit and family planning"
+      ],
+      "openGaps": [
+        "Complete independent side-by-side certification after production browser check",
+        "Validate actual photo rendering and all internal link targets"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.historictrains.org/visit",
+        "https://www.historictrains.org/traintopia",
+        "https://www.historictrains.org/virtual-tour"
+      ]
+    },
+    "the-agricultural-museum-arts-center-boerne": {
+      "name": "The AgriCultural Museum & Arts Center",
+      "operatorStrengths": [
+        "Operator's current Saturday admission by donation, living agricultural exhibits, blacksmith demonstrations and events",
+        "City of Boerne verifies former Agricultural Heritage Museum name and distinct spaces"
+      ],
+      "openGaps": [
+        "Confirm detailed step-free routes and sensory requirements with operator",
+        "Compare final live museum page side by side with the complete operator visitor pages"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://theagricultural.org/visit-the-agricultural/",
+        "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+        "https://theagricultural.org/",
+        "https://theagricultural.org/bluegrass-jams/"
+      ]
+    },
+    "the-history-center-diboll": {
+      "name": "The History Center (Diboll)",
+      "operatorStrengths": [
+        "Current operator visitor access and exhibit descriptions",
+        "Independently checked visiting context and regional history"
+      ],
+      "openGaps": [
+        "Live-rendered guide/mobile/accessibility/metadata and bidirectional links require post-release verification",
+        "Manual competitive visitor-information comparison pending before asserting best guide status"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.thehistorycenteronline.com/plan-your-visit",
+        "https://www.thehistorycenteronline.com/exhibits/outdoor-railroad-exhibit",
+        "https://www.thehistorycenteronline.com/exhibits",
+        "https://www.thehistorycenteronline.com/about"
+      ]
+    },
+    "texas-broadcast-museum-kilgore": {
+      "name": "Texas Broadcast Museum",
+      "operatorStrengths": [
+        "Current operator visitor access and exhibit descriptions",
+        "Independently checked visiting context and regional history"
+      ],
+      "openGaps": [
+        "Live-rendered guide/mobile/accessibility/metadata and bidirectional links require post-release verification",
+        "Manual competitive visitor-information comparison pending before asserting best guide status"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://cityofkilgore.com/293/Kilgore-Cultural-District",
+        "https://tabshow.org/texas-broadcast-museum/",
+        "https://texasbroadcastmuseum.com/museum/",
+        "https://texasbroadcastmuseum.com/",
+        "https://texasbroadcastmuseum.com/reviews/"
       ]
     }
   },

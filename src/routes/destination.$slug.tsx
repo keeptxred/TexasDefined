@@ -1,9 +1,12 @@
+import { LEGACY_EDITORIAL_REDIRECTS } from "@/lib/legacy-editorial-redirects";
 import { DESTINATION_LAKE_GUIDE_LINKS } from "@/data/fishing/destination-lake-crosslinks";
 import { lazy, Suspense } from "react";
 import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 
 import caddoLake from "@/assets/caddo-lake.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { heritagePhotoRightsForPath } from "@/data/heritage-photo-license-links";
+import { relatedDestinationHeroSrc } from "@/data/related-destination-hero";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
@@ -113,6 +116,16 @@ function destinationExperienceTitle(name: string, categoryName: string) {
   return `What to know about ${name}`;
 }
 
+// Exact topic-specific metadata for long museum/historic names that previously
+// exceeded the internal 90-character live audit limit after brand suffixing.
+// Preserve the full institutional names in H1, schema and body copy.
+const DESTINATION_EDITORIAL_SEO_TITLES: Readonly<Record<string,string>> = {
+  "babe-didrikson-zaharias-museum-beaumont": "Babe Didrikson Zaharias Museum: Hours & Exhibits",
+  "booker-t-washington-high-school-dallas": "Booker T. Washington Arts High School: Dallas History",
+  "crow-museum-asian-art-dallas": "Crow Museum of Asian Art: Dallas Exhibits & Visit",
+  "tenth-street-historic-district-oak-cliff": "Tenth Street Freedmen's Town: Dallas History & Heritage",
+};
+
 function destinationSeoTitle(name: string, categoryName: string) {
   const category = categoryName.toLowerCase();
   if (category.includes("state park") || category.includes("natural area")) return `${name} | Texas State Park Guide`;
@@ -131,7 +144,9 @@ const HISTORIC_DUPLICATE_SLUGS: Record<string, string> = {
 };
 
 export const Route = createFileRoute("/destination/$slug")({
-  beforeLoad: ({ params }) => {
+  beforeLoad: ({ params, location }) => {
+    const legacy = LEGACY_EDITORIAL_REDIRECTS[`/destination/${params.slug}`];
+    if (legacy) throw redirect({ href: `${legacy}${location.searchStr || ""}`, statusCode: 301 });
     const primary = HISTORIC_DUPLICATE_SLUGS[params.slug];
     if (primary) throw redirect({ to: "/destination/$slug", params: { slug: primary }, statusCode: 301 });
   },
@@ -171,7 +186,7 @@ export const Route = createFileRoute("/destination/$slug")({
     const authorityGuide = destination.authorityGuide;
     const authorityCitations = [...(authorityGuide?.sources.map((source) => source.url) ?? []), ...(dallasHeritage?.sources.map((source) => source.url) ?? [])].filter(validExternalUrl);
     const audit = auditDestination(destination);
-    const isHistoricalMuseumReference = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin"].includes(destination.slug);
+    const isHistoricalMuseumReference = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin", "buffalo-soldiers-national-museum-houston", "first-capitol-of-texas"].includes(destination.slug);
 // This closed museum's researched historical guide is indexable even though the
 // institution must remain excluded from visit planning and attraction recommendations.
 // The normal editorial quality gate still applies; this is NOT a trip-planner override.
@@ -186,11 +201,30 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
     const relatedPlaces = [...new Map(relationshipGroups.flatMap((group) => group.destinations).map((item) => [item.slug, item])).values()];
     const webPageSchema = { "@type": "WebPage", "@id": url, url, name: destination.name, description: destination.summary, isPartOf: { "@id": `${siteUrl}/#website` }, ...(hasUsableHero ? { primaryImageOfPage: { "@id": `${url}#primaryimage` } } : {}), mainEntity: { "@id": `${url}#attraction` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, ...(relatedPlaces.length > 0 ? { hasPart: { "@id": `${url}#related-places` } } : {}), ...(authorityCitations.length > 0 ? { citation: authorityCitations } : validExternalUrl(destination.officialUrl) ? { citation: destination.officialUrl } : {}), ...(authorityGuide ? { author: { "@type": "Organization", "@id": `${siteUrl}/authors/a-hollis#desk`, name: "Texas Defined Editorial Desk", url: `${siteUrl}/authors/a-hollis` }, ...(isTopTexasAttraction(destination.slug) ? { isBasedOn: `${siteUrl}/explore/top-attractions/methodology` } : {}) } : {}), ...(destination.sourceCheckedAt ? { dateModified: destination.sourceCheckedAt } : {}) };
     const attractionSchema = { "@type": isZapataMuseum || isYsletaMuseum || isYoungCountyMuseum || isAuthorityMuseum ? ["Museum", "TouristAttraction"] : "TouristAttraction", "@id": `${url}#attraction`, url, mainEntityOfPage: { "@id": url }, name: destination.name, description: destination.summary, ...(isZapataMuseum ? { telephone: "+1-956-765-8983", openingHoursSpecification: ["Tuesday", "Wednesday", "Thursday", "Friday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(isYoungCountyMuseum ? { telephone: "+1-940-282-2887", openingHoursSpecification: ["Wednesday", "Thursday", "Friday", "Saturday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(hasUsableHero && imageUrl ? { image: [{ "@type": "ImageObject", "@id": `${url}#primaryimage`, url: imageUrl, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height, ...(destination.hero.credit ? { creditText: destination.hero.credit } : {}) }] } : {}), ...(validGeo ? { geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } } : {}), address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US", ...(destination.address ? { streetAddress: isZapataMuseum ? "805 N U.S. Highway 83" : destination.address } : {}) }, containedInPlace: { "@type": "State", name: "Texas" }, touristType: categoryName, ...(destination.managingAuthority ? { provider: { "@type": "Organization", name: destination.managingAuthority } } : {}), ...(validExternalUrl(destination.officialUrl) ? { sameAs: destination.officialUrl } : {}) };
-    const relatedSchema = { "@type": "ItemList", "@id": `${url}#related-places`, name: `Places related to ${destination.name}`, numberOfItems: relatedPlaces.length, itemListElement: relatedPlaces.map((item, index) => ({ "@type": "ListItem", position: index + 1, item: { "@type": "TouristAttraction", name: item.name, description: item.summary, url: `${siteUrl}/destination/${item.slug}`, image: absoluteUrl(texasDefinedBrand, item.hero.src) } })) };
+    const relatedSchema = {
+      "@type": "ItemList",
+      "@id": `${url}#related-places`,
+      name: `Places related to ${destination.name}`,
+      numberOfItems: relatedPlaces.length,
+      itemListElement: relatedPlaces.map((item, index) => {
+        const sourceImage = relatedDestinationHeroSrc(item.slug, item.hero.src);
+        return {
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "TouristAttraction",
+            name: item.name,
+            description: item.summary,
+            url: `${siteUrl}/destination/${item.slug}`,
+            ...(sourceImage ? { image: absoluteUrl(texasDefinedBrand, sourceImage) } : {}),
+          },
+        };
+      }),
+    };
     const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` }, { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` }, { "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}${categoryPath}` }, { "@type": "ListItem", position: 4, name: destination.name, item: url }] };
     return {
       meta: buildMeta(texasDefinedBrand, {
-        title: destination.slug === "mayborn-museum-waco" ? "Mayborn Museum Waco: Hours, Tickets & Exhibits" : isZapataMuseum ? "Zapata County Museum of History: Exhibits, Hours & Admission" : isYsletaMuseum ? "Ysleta del Sur Pueblo Museum: Exhibits, Hours & Tigua History" : isYoungCountyMuseum ? "Young County Museum Graham: Exhibits, Hours & History" : destinationSeoTitle(destination.name, categoryName),
+        title: destination.slug === "mayborn-museum-waco" ? "Mayborn Museum Waco: Hours, Tickets & Exhibits" : isZapataMuseum ? "Zapata County Museum of History: Exhibits, Hours & Admission" : isYsletaMuseum ? "Ysleta del Sur Pueblo Museum: Exhibits, Hours & Tigua History" : isYoungCountyMuseum ? "Young County Museum Graham: Exhibits, Hours & History" : (DESTINATION_EDITORIAL_SEO_TITLES[destination.slug] ?? destinationSeoTitle(destination.name, categoryName)),
         description: destination.summary,
         canonicalPath,
         robots: indexable ? undefined : "noindex, follow",
@@ -225,6 +259,8 @@ function DestinationPage() {
     .filter((source) => validExternalUrl(source.url))
     .map((source) => [source.url, source] as const)).values()];
   const documentaryPhotoSource = authoritySourceLinks.find((source) => source.label === "Historic-site photo: source, original creator and usage rights");
+  const corridorHeroRights = heritagePhotoRightsForPath(`/destination/${destination.slug}`);
+  const primaryPhotoSourceUrl = documentaryPhotoSource?.url ?? corridorHeroRights?.sourceUrl;
   const countySlug = countyRouteSlug(destination.county);
   const countyLabel = destination.county ? countyDisplayName(destination.county) : "";
   const isChokeCanyon = destination.slug === "choke-canyon-state-park";
@@ -281,7 +317,7 @@ function DestinationPage() {
         <p className="eyebrow text-ink-foreground/80">{region?.name ?? "Texas"} · {categoryName}</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{destination.name}</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/85">{destination.summary}</p>
-        {destination.hero.credit && <p className="mt-6 text-[0.7rem] uppercase tracking-[0.12em] text-ink-foreground/60">Photography: {documentaryPhotoSource ? <a href={documentaryPhotoSource.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{destination.hero.credit}</a> : destination.hero.credit}</p>}
+        {destination.hero.credit && <p className="mt-6 text-[0.7rem] uppercase tracking-[0.12em] text-ink-foreground/60">Photography: {primaryPhotoSourceUrl ? <a href={primaryPhotoSourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{destination.hero.credit}</a> : destination.hero.credit}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">License terms</a></>}</p>}
       </Container>
     </section>
 
@@ -304,6 +340,24 @@ function DestinationPage() {
           <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">{destinationExperienceTitle(destination.name, categoryName)}</h2>
           <div className="editorial-body mt-7 text-foreground/90">{destination.body.map((paragraph) => <p key={paragraph} className="mt-6 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}</div>
         </section>
+        {destination.gallery && destination.gallery.length > 0 && (
+          <section aria-labelledby="destination-photo-archive" className="mt-12 border-t border-border pt-8">
+            <p className="eyebrow text-primary">Documentary photographs</p>
+            <h2 id="destination-photo-archive" className="mt-3 font-display text-3xl">See the ship across its history</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">Images are individually dated and licensed. Older views do not represent today's shipyard or visitor access.</p>
+            <div className="mt-7 grid gap-6 sm:grid-cols-2">
+              {destination.gallery.map((item) => (
+                <figure key={item.image.src} className="min-w-0 overflow-hidden border border-border">
+                  <img src={item.image.src} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" decoding="async" className="aspect-[4/3] w-full bg-surface object-contain" onError={(event) => recoverOrHideImage(event.currentTarget)} />
+                  <figcaption className="space-y-2 p-4 text-sm leading-6">
+                    <p>{item.caption}</p>
+                    <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-primary underline underline-offset-2">Image source and reuse terms — {item.image.credit}</a>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        )}
         {dallasHeritage && <Suspense fallback={null}><DallasBlackHistoryAuthority slug={destination.slug} /></Suspense>}
         <section aria-labelledby="before-you-go" className={isChokeCanyon ? "mt-10 border-t border-border pt-6" : "mt-16 border-t border-border pt-8"}>
           <p className="eyebrow text-primary">The details</p>
@@ -333,7 +387,7 @@ function DestinationPage() {
         {!isChokeCanyon && <Suspense fallback={null}><DestinationViatorBooking destination={destination} /></Suspense>}
         {DESTINATION_LAKE_GUIDE_LINKS[destination.slug] ? <section className="mt-10 border-t border-border pt-8" aria-label="Related lake fishing and recreation guide"><p className="eyebrow text-primary">Explore this lake</p><h2 className="mt-3 font-display text-3xl">Fishing, boat ramps and lake conditions</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">This park is part of a larger lake trip. Our separate lake guide connects species, launch facilities, boating and nearby counties; confirm park admission, accessibility, overnight reservations and closures with the operator.</p><a href={`/fishing/lakes/${DESTINATION_LAKE_GUIDE_LINKS[destination.slug].slug}`} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">{DESTINATION_LAKE_GUIDE_LINKS[destination.slug].name} visitor and fishing guide →</a></section> : null}
         {destination.slug === "dallas-arboretum-and-botanical-garden" ? <section className="mt-10 border-t border-border pt-8"><p className="eyebrow text-primary">Explore the lake next door</p><h2 className="mt-3 font-display text-3xl">White Rock Lake — fishing, paths and boating</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">The Arboretum overlooks White Rock Lake. The wider lake is a City of Dallas recreation area with fishing piers and boating restrictions; garden admission does not grant lake boat access or overnight camping. For launch locations, public park rules and lake history, use the dedicated lake guide.</p><a className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary" href="/fishing/lakes/white-rock-lake">Read the White Rock Lake visitor guide →</a></section> : null}
-        {!isChokeCanyon && <div className="mt-10"><DestinationVisitPlanner destination={destination} /></div>}
+        {!isChokeCanyon && isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><DestinationVisitPlanner destination={destination} /></div>}
         {destination.slug === "spoetzl-brewery" && <Suspense fallback={null}><ShinerBreweryAuthority /></Suspense>}
       </div>
 

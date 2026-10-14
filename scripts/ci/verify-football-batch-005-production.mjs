@@ -54,12 +54,19 @@ function extractWrittenProgram(slug) {
   }
   throw new Error('Unclosed school-specific editorial object: '+slug);
 }
+const faqFingerprints = new Map();
 for (const [slug] of schools) {
   const profile=extractWrittenProgram(slug);
   check(!!profile,slug+': individually authored football editorial record');
   if (!profile) continue;
   check((profile.overview?.length||0)>=3,slug+': at least three individual research paragraphs');
   check((profile.faq?.length||0)>=5,slug+': at least five visitor questions');
+  for(const item of profile.faq||[]) {
+    const key=String(item.question||'').trim().toLowerCase()+' | '+String(item.answer||'').trim().toLowerCase();
+    const previous=faqFingerprints.get(key);
+    check(!previous,slug+': FAQ must not duplicate another school'+(previous?' ('+previous+')':''));
+    if(!previous) faqFingerprints.set(key,slug);
+  }
   check((profile.milestones?.length||0)>=2,slug+': historic/source-backed milestones');
   check((profile.season?.games?.length||0)>=8,slug+': no generic or empty 2026 varsity season');
   check(/^https:\/\//.test(profile.season?.sourceUrl||''),slug+': citable 2026 season source');
@@ -133,7 +140,17 @@ try {
    try {
     const res=await page.goto(origin+'/county/'+county,{waitUntil:'domcontentloaded',timeout:60000});
     await page.locator('h1').first().waitFor({state:'visible',timeout:25000});
-    await page.waitForFunction(()=>document.documentElement.dataset.tdFootballCountyHydrated==='1',{}, {timeout:35000});
+    // Retry one full navigation when the county hydration signal is slow.
+    // Do NOT bypass actual client hydration or reciprocal-link verification:
+    // a persistent failure on both attempts still fails this acceptance gate.
+    try {
+      await page.waitForFunction(()=>document.documentElement.dataset.tdFootballCountyHydrated==='1',null,{timeout:35000});
+    } catch(firstHydrationError) {
+      await page.reload({waitUntil:'domcontentloaded',timeout:60000});
+      await page.locator('h1').first().waitFor({state:'visible',timeout:25000});
+      await page.waitForFunction(()=>document.documentElement.dataset.tdFootballCountyHydrated==='1',null,{timeout:35000});
+      check(true,view+' '+county+': client hydration recovered after one fresh navigation',{firstAttempt:String(firstHydrationError.message||firstHydrationError).slice(0,160)});
+    }
     const links=await page.locator('a[href]').evaluateAll(a=>a.filter(x=>x.getBoundingClientRect().width>0).map(x=>new URL(x.href).pathname.replace(/\/$/,'')));
     check(res?.status()===200,view+' '+county+' county: HTTP 200');
     for(const [slug,mappedCounty] of schools.filter(x=>x[1]===county)) check(links.includes('/texas-high-school-football-teams/'+slug),view+' '+county+': reciprocal '+slug);

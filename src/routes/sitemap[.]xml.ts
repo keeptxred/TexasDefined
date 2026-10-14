@@ -201,7 +201,12 @@ export const Route = createFileRoute("/sitemap.xml")({
         const activeCollectionSlugs = new Set(liveShopProducts.flatMap((product) => product.collectionSlugs));
         const { COUNTY_PROPERTY_RECORDS } = await import("@/data/property/county-property-data");
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
+        // The county route withholds indexing until a substantive county-series
+        // editorial profile exists. Apply the same gate to the sitemap: a
+        // source-ready graph record alone does not make its county page ready.
+        const { hasCountySeriesProfileServer } = await import("@/data/county-series.server");
         const entityPages = graph.filter(isIndexableEntityPage)
+          .filter((entity) => entity.kind !== "county" || hasCountySeriesProfileServer(entity.slug))
           .filter(isTexasDefinedOwnedEntity)
           .filter((entity) => entity.kind !== "sports-venue" || Boolean(getSportsVenuePhoto(entity.slug)));
         // Major-event authority routes are permanent guides, even between annual editions.
