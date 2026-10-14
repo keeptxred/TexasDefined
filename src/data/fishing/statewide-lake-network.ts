@@ -1871,7 +1871,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     nearbyDestinations:[{slug:"abilene-state-park",name:"Abilene State Park",reason:"Separate main-campus campsite and nature-trail visitor guide, distinguished from the Lake Abilene drought closure."}]
   },
   {
-    slug:"lake-cypress-springs", name:"Lake Cypress Springs", tpwdSlug:"cypress_springs", waterDataSlug:"cypress-springs",
+    slug: "lake-cypress-springs", name: "Lake Cypress Springs", tpwdSlug:"cypress_springs", waterDataSlug:"cypress-springs",
     verifiedAt:"2026-10-14", accessReviewedAt:"2026-10-14", region:"piney-woods",
     summary:"Franklin County's Big Cypress Creek water-supply and fishing lake: five real FCWD ramps and designated campgrounds, a licensed bathymetric map, excellent crappie/white bass/spotted bass opportunities, and essential 2026 owner boating and flood-closure rules.",
     surfaceAcres:3461,maxDepthFeet:56,impoundedYear:1970,counties:["Franklin"],nearestCities:["Mount Vernon","Winnsboro","Pittsburg"],
