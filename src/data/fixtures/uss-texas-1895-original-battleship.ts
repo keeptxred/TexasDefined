@@ -41,6 +41,7 @@ export const ussTexas1895OriginalBattleshipArticle: Article = {
     { label: "Historic photographs with individual creator and reuse records", url: "https://commons.wikimedia.org/wiki/Category:USS_Texas_(ship,_1895)" },
   ],
   internalLinks: [
+    { href: "/article/uss-lexington-cv16-history-visitor-guide", label: "USS Lexington: carrier power replaces the battleship era", description: "Compare the 1895 vessel with the preserved 1943 aircraft carrier in Corpus Christi." },
     { href: "/article/battleship-texas-bb-35-history-restoration", label: "The second Battleship Texas (BB-35)", description: "Separate the 1895 ship from the dreadnought commissioned in 1914, its two world wars, and its Galveston restoration." },
     { href: "/destination/battleship-texas", label: "Preserved Battleship Texas visitor status", description: "Learn about the surviving BB-35, which is undergoing restoration in Galveston; the original ship has no museum." },
     { href: "/article/republic-of-texas-navy-history", label: "Republic of Texas Navy", description: "Go further back to the independent Republic’s navy, a separate institution from the U.S. Navy." },
@@ -106,7 +107,9 @@ export const ussTexas1895OriginalBattleshipArticle: Article = {
     h("Further reading, sources and photo credits"),
     p("The Naval History and Heritage Command's first-Texas page provides commissioning, 1898 engagements and the 1911 rename. Its dedicated image index contains numbered photographs for publication-quality documentary use. The Norfolk Naval Shipyard history confirms construction heritage. The U.S. Naval Institute adds detailed naval-architecture and 'Old Hoodoo' context; use it with attribution and do not reproduce its prose."),
     p("Each inline photograph is credited by its originating archival collection, with the full individual license record accessible through its Wikimedia Commons file page. Historic photos may be public domain while modern scans, paintings or private reconstructions carry separate rights. The source links above are the audit trail. Facts were checked October 14, 2026; this history is comparatively stable and should be reverified at least annually and after major newly published archival scholarship."),
-    h("Continue to the surviving Battleship Texas"),
+    h("What changed after the battleship era? USS Lexington"),
+    p("The naval-design progression does not end with the dreadnought. USS Lexington (CV-16), an Essex-class aircraft carrier commissioned in 1943 and now preserved as a museum in Corpus Christi, carried aircraft rather than battleship turrets as its central offensive weapon. Compare the pre-dreadnought Texas's unusual turret layout with BB-35's centerline guns and Lexington's flight deck to see the changing relationship of technology, distance and sea power. Lexington is not a third battleship named Texas; it is an important separate preserved naval vessel in the state."),
+        h("Continue to the surviving Battleship Texas"),
     p("If your goal is a future visit, the surviving ship is USS Texas (BB-35), commissioned in 1914. Our separate Battleship Texas restoration guide follows two world wars, San Jacinto museum history, the ongoing work in Galveston and the planned Pier 15 museum. The Battleship Texas Foundation currently reports that routine tours are closed and targets 2027 for the new museum opening.")
   ],
 };
