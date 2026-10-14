@@ -3,8 +3,8 @@
   "updatedAt": "2026-10-13",
   "scope": {
     "tpwdNamedEntries": 175,
-    "completedGuides": 65,
-    "missingCompleteGuideListings": 110,
+    "completedGuides": 66,
+    "missingCompleteGuideListings": 109,
     "legacyLakeAndParkDestinations": 36
   },
   "standards": {
@@ -2478,17 +2478,17 @@
     },
     {
       "tpwdEntry": "Medina",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "medina-lake",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/medina/",
+      "namedFacilities": "Red Cove Camp private two-lane ramp and Bandera County Park Road 37 ramp; low-water gravel fallback is conditional, not operator-confirmed",
+      "campgrounds": "No camping inventory established by TPWD at the two launch listings; commercial campgrounds must be independently verified",
+      "primaryHistory": "TWDB survey and Medina Dam source narrative; 1911 start, May 7 1913 first filling; Medina Diversion Lake is separate",
+      "localPhoto": "Wikimedia Commons exact Medina Lake photograph from July 11, 2010, Larry D. Moore, CC BY 4.0, 1652x964; not current water status",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Medina and Bandera county references registered",
+      "destinationReciprocalLinks": "Four relevant named city references plus Canyon Lake / Calaveras / Choke Canyon nearby guides; operator and park page reciprocity requires independent QA",
+      "competitivePrimarySourceComparison": "TPWD 5,426-acre facts box vs TWDB historical surveyed 6,066 acres reconciled by measurement vintage; TWDB Oct 13 2026 28.6% drought snapshot retained with timestamp; all-operator benchmark still not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -2497,7 +2497,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Drought-based unsafe ramp claims must not become static closure statements; phone/official operator confirmation needed. Exact license verified; original first-party park/ramp photos outstanding."
     },
     {
       "tpwdEntry": "Meredith",
