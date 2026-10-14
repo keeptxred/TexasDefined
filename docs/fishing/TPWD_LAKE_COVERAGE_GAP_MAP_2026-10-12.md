@@ -5,8 +5,8 @@
 ## Counts and caveats
 
 - **175** separate alphabetical links/named entries in the TPWD public lake list (excluding its extra *Town Lake = Lady Bird Lake* alias line).
-- **59** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
-- **116** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
+- **61** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
+- **114** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
 - TPWD list entries include local ponds and some state-park-managed lakes as well as reservoirs; they cannot all be treated as equally high-demand or guaranteed distinct reservoirs.
 - This list does not include every Texas stock tank, private lake, community fishing pond, or small waterbody outside TPWD's own directory. It therefore cannot prove “every Texas lake.”
 
@@ -40,7 +40,7 @@
 | Amistad | [amistad-reservoir](https://texasdefined.com/fishing/lakes/amistad-reservoir) |
 | Amon G. Carter | **Not in completed-guide registry** |
 | Aquilla | [aquilla-lake](https://texasdefined.com/fishing/lakes/aquilla-lake) — pending deployment |
-| Arlington | **Not in completed-guide registry** |
+| Arlington | [lake-arlington](https://texasdefined.com/fishing/lakes/lake-arlington) — awaiting wave-4 release |
 | Arrowhead | [lake-arrowhead](https://texasdefined.com/fishing/lakes/lake-arrowhead) |
 | Athens | **Not in completed-guide registry** |
 | Austin | [lake-austin](https://texasdefined.com/fishing/lakes/lake-austin) |
@@ -77,7 +77,7 @@
 | Champion Creek | **Not in completed-guide registry** |
 | Choke Canyon | [choke-canyon-reservoir](https://texasdefined.com/fishing/lakes/choke-canyon-reservoir) |
 | Cisco | **Not in completed-guide registry** |
-| Cleburne State Park | **Not in completed-guide registry** |
+| Cleburne State Park | [cedar-lake-cleburne-state-park](https://texasdefined.com/fishing/lakes/cedar-lake-cleburne-state-park) — awaiting wave-4 release |
 | Clyde | **Not in completed-guide registry** |
 | Coffee Mill | **Not in completed-guide registry** |
 | Coleman | **Not in completed-guide registry** |
@@ -238,3 +238,7 @@ White Rock Lake in Dallas is now represented by a full source-backed guide in th
 Both lakes now have individually sourced authority definitions **in the stacked development branch**, not guaranteed production URLs. Bardwell's Corps pages have apparently conflicting ramp/park closure notices and a permanently closed marina; Lake Bastrop has two different LCRA park entry and booking systems plus a 2026 South Shore restroom advisory. Named access, history, specific fishing evidence, genuine location-correct reusable photography and county/city reciprocals have been coded and must pass release QA.
 
 The proposed registry total is **59 source-researched lake guides** and **116 remaining TPWD labeled guide gaps**. These figures must not be used as production certification until both lake PRs deploy and route checks succeed. All original field-photo gaps remain outstanding.
+
+### Wave 4 — Arlington and Cedar Lake
+
+Two lake-specific source-researched authority definitions on wave-4 development branch: **61** proposed guides, **114** unmatched TPWD listing gaps. Neither is production-certified. Arlington city's permit/ramp distinctions and Cedar Lake state-park no-wake/ADA/fishing rules were researched; first-party field photography and official operator day-of-visit confirmation remain outstanding.

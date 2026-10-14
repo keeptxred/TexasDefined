@@ -753,7 +753,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Loyd Park", operator: "City of Grand Prairie", kind: "park", launch: "From I-20 follow SH 360 south then Ragland Road east. Four-lane ramp with about 35 vehicle spaces.", fee: "Fee listed by TPWD", availability: "TPWD lists year-round; verify city access and lake conditions (817) 467-2104." },
       { name: "Lynn Creek Park", operator: "City of Grand Prairie", kind: "park", launch: "From I-20, Great Southwest Parkway south and Lake Ridge Parkway west. Eight boat lanes and about 100 spaces.", fee: "Fee listed by TPWD", availability: "Day-use only per TPWD; confirm public access (817) 633-6265." },
     ],
-    nearbyLakes: [{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"cedar-creek-reservoir",name:"Cedar Creek Reservoir"},{slug:"benbrook-lake",name:"Benbrook Lake"}],
+    nearbyLakes: [{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"cedar-creek-reservoir",name:"Cedar Creek Reservoir"},{slug:"benbrook-lake",name:"Benbrook Lake"},{slug:"lake-arlington",name:"Lake Arlington"}],
     camping: {name:"Cedar Hill State Park",summary:"The state park on the east side of Joe Pool Lake combines camping, shoreline recreation and boat access; reserve busy dates and verify current ramp conditions."},
   },
   {
@@ -778,7 +778,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Rough Creek Park", operator: "Brazos River Authority", kind: "park", launch: "Off SH 144 south of Granbury; ramp for various boat types.", fee: "TPWD lists no fee", availability: "Year-round per TPWD; BRA (817) 573-3212." },
       { name: "De Cordova Bend", operator: "Brazos River Authority", kind: "park", launch: "Near dam via US 377, FM 4 and Road 167; ramp, fishing pier and tailrace access.", fee: "TPWD lists no fee", availability: "Year-round per TPWD; BRA (817) 573-3212." },
     ],
-    nearbyLakes: [{slug:"lake-whitney",name:"Lake Whitney"},{slug:"possum-kingdom-reservoir",name:"Possum Kingdom Reservoir"}],
+    nearbyLakes: [{slug:"lake-whitney",name:"Lake Whitney"},{slug:"possum-kingdom-reservoir",name:"Possum Kingdom Reservoir"},{slug:"cedar-lake-cleburne-state-park",name:"Cedar Lake at Cleburne State Park"}],
     travelAlerts: ["TPWD warns that golden-alga blooms can occur on Lake Granbury and may harm fish and change fishing conditions; contact TPWD or check current bloom reports before planning a fishing-specific trip."],
   },
   {
@@ -1057,7 +1057,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       {question:"Camper-only ramps?",answer:"Holiday Park South and Bear Creek are restricted to registered campers."},
       {question:"Top fishery?",answer:"TPWD rates hybrid striped bass excellent."},
     ],
-    nearbyLakes:[{slug:"joe-pool-lake",name:"Joe Pool Lake"},{slug:"lake-granbury",name:"Lake Granbury"}],
+    nearbyLakes:[{slug:"joe-pool-lake",name:"Joe Pool Lake"},{slug:"lake-granbury",name:"Lake Granbury"},{slug:"lake-arlington",name:"Lake Arlington"}],
     travelAlerts:["TPWD warned of major low-water ramp closures and campers-only launch limitations in its April 21, 2026 access inventory. The warning is historical and MUST be checked against current USACE closure reports; do not use this guide to assert a ramp is open today.","No general swim or boat-launch permission is inferred from a park's name. Confirm swimming areas, accessibility and seasonal hours with the Corps.","Clean, drain and dry watercraft and equipment under Texas invasive-species requirements before entering another reservoir."],
     historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/benbrook/index.asp",
     historyNotes:["Congress authorized Benbrook Dam under the River and Harbor Act in March 1945, when growing flood exposure and water needs in the Fort Worth area led to additional Trinity Basin storage.","The U.S. Army Corps of Engineers started construction May 27, 1947 and finished the main project in December 1950; deliberate reservoir impoundment began September 29, 1952. The TWDB makes these separate phases explicit, helping readers distinguish completion of the physical dam from water storage.","Benbrook's earthfill dam spans roughly 9,130 feet including the spillway and remains a Corps flood-management and water-conservation asset, not just a fishing destination. Recreation options depend on operational water levels and park-specific rules, which explains the changing launch landscape."],
@@ -1280,6 +1280,97 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     liveDataNote:"A TWDB real-time numeric lake gauge was not independently confirmed for this reservoir. Use current LCRA park and TPWD notices; a stable historic pool elevation does not verify today's water or launch conditions.",
     nearbyLakes:[{slug:"lake-somerville",name:"Lake Somerville"},{slug:"fayette-county-reservoir",name:"Fayette County Reservoir"},{slug:"lake-austin",name:"Lake Austin"}],
     travelAlerts:["LCRA's South Shore reservation website has a restroom-construction advisory for 2026. Confirm sanitation and accessible facilities before arrival.","TPWD notes special bass regulations and the LCRA prohibition on bowfishing; ordinary statewide bag-limit assumptions are not enough.","Lake Bastrop is not the separate small lake inside Bastrop State Park, and park entry and camping permissions are not interchangeable."],
+  },
+
+
+  {
+    slug: "lake-arlington", name: "Lake Arlington", tpwdSlug:"arlington", waterDataSlug:"arlington", region:"prairies-lakes", verifiedAt:"2026-10-13", accessReviewedAt:"2026-10-13",
+    summary:"An urban Tarrant County Village Creek reservoir with outstanding largemouth and channel-catfish opportunities, three named municipal boat ramps, city-issued boating permits and a longstanding power-plant cooling-water history.",
+    surfaceAcres:1939, maxDepthFeet:51, impoundedYear:1957, counties:["Tarrant"], nearestCities:["Arlington","Fort Worth","Kennedale"],
+    waterway:"Village Creek, tributary of the West Fork Trinity River", riverBasin:"Trinity River Basin", authority:"City of Arlington", conservationPool:"550 ft msl", fluctuation:"TPWD lists approximately 12 feet", clarity:"Stained",
+    identity:"Lake Arlington is a working water-supply and former power-plant cooling reservoir, not a large park campground. Three city-managed shoreline park ramps are listed by TPWD, with a separate Arlington boat-usage permit applying even when the ramp itself is operating. TPWD rates largemouth bass and channel catfish excellent, white bass and crappie good, and hybrids poor; its fishing narrative contains older hybrid stocking language conflicting with the newer 'stocking discontinued' notice. Verify today's permit prices and local operating rules with Arlington rather than treating archival rates as guaranteed current charges.",
+    habitat:[
+      "Most of the lake has little aquatic vegetation, despite historic patches of hydrilla; TPWD instead identifies submerged timber and stump fields marked by buoys, as well as isolated water willow and buttonbush.",
+      "The historically warm discharge area near the Handley power-plant tailrace concentrated sportfish. Its historical role is useful context, not a guarantee of current plant operation or fish concentrations.",
+      "Winter largemouth use warmer areas and submerged cover; spring/summer crappie orient around structure, while open-water white bass and catfish provide different seasonal options."
+    ],
+    fish:[
+      fish("largemouth-bass","Largemouth bass","excellent","winter","TPWD rates largemouth excellent and notes winter often produces the larger fish. Target timber edges, structure and sheltered shoreline vegetation.",["soft-plastics","spinnerbaits","crankbaits","topwater"]),
+      fish("channel-catfish","Channel catfish","excellent","summer","TPWD rates channel catfish excellent; creek channels and shaded structure offer different tactics than open-water bass fishing.",["cut-bait","live-bait"]),
+      fish("white-bass","White bass","good","summer","TPWD rates white bass good, with warm-season schools using open-water bait concentrations and main-lake structure.",["vertical-jigging","trolling","topwater"]),
+      fish("crappie","Crappie","good","spring","TPWD rates white crappie good; fish submerged stump fields and brush without assuming the entire shoreline has vegetation.",["jigs-and-minnows","vertical-jigging"]),
+      fish("hybrid-striped-bass","Hybrid striped bass","poor","summer","Despite archival advice on hybrids and a former stocking program, TPWD's displayed quality is poor and stocking is described as discontinued. Do not plan a hybrid-focused trip from old reports.",["trolling","vertical-jigging"],"secondary"),
+      fish("sunfish","Sunfish","fair","summer","Sunfish are a fair secondary fishery, particularly along sheltering shoreline plants.",["jigs-and-minnows"],"secondary"),
+    ],
+    access:"TPWD lists two eight-lane public ramps at Richard Simpson Park and Bowman Springs Park and a separate two-lane Eugene McCray Park ramp. Richard Simpson and Bowman Springs are operated by Arlington; Eugene McCray by Fort Worth. TPWD's published Arlington usage permit schedule lists daily and annual options, but its charges may be stale. Verify actual permit, parking, launch and park status with the cities. None of these three municipal ramps is documented as an overnight campsite.",
+    accessPoints:[
+      {name:"Richard Simpson Park boat ramp",operator:"City of Arlington",kind:"public-ramp",launch:"From I-20 take Green Oaks Boulevard north to Arkansas Lane; continue west to park. Eight-lane launch with parking, docks and documented accessible park facilities.",fee:"Arlington lake boat permit/day use charge; confirm current city fee",availability:"TPWD lists year-round; verify gate/launch opening and city permit requirements (817) 451-6860."},
+      {name:"Bowman Springs Park boat ramp",operator:"City of Arlington",kind:"public-ramp",launch:"From I-20 north on Green Oaks Road, west on Poly Webb Road to lake park. Eight-lane launch with parking and courtesy dock.",fee:"City of Arlington lake use permit/day rate; confirm before travel",availability:"TPWD lists year-round operation; confirm the city's current rules and any water-quality/park alert."},
+      {name:"Eugene McCray Park boat ramp",operator:"City of Fort Worth",kind:"public-ramp",launch:"West shore: from Loop 820 east on Ramey Avenue, south on Quail Road to park. Two-lane concrete ramp and documented public parking.",fee:"TPWD lists Arlington boat usage permits on Lake Arlington; confirm Fort Worth park entry and lake permit requirements",availability:"TPWD lists year-round operation, but confirm actual operating status (817) 536-4775."},
+    ],
+    camping:{name:"No TPWD-listed camping at public boat-launch parks",summary:"TPWD's Arlington lake access matrix lists no camping facilities at Richard Simpson, Bowman Springs or Eugene McCray. Plan a separate established off-site campground or hotel rather than treating any launch ramp, fishing pier or paddle launch as an overnight site."},
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/arlington/index.asp",
+    visitorSourceUrl:"https://www.arlingtontx.gov/Parks-Places/Parks-Trails/Park-Finder/Richard-Simpson-Park",
+    historyNotes:[
+      "The City of Arlington developed a Village Creek municipal-industrial storage project serving local water supply and the former Handley electrical-generation cooling system. A 1954 water permit was amended in 1955 to expand storage and allow the electric company additional industrial withdrawals.",
+      "The current TWDB reservoir history dates the beginning of construction to May 15, 1956, dam completion to March 31, 1957, and deliberate impoundment to July 19, 1957. A much older 1964 TWDB historical bulletin reverses the two 1957 stage dates; treat the exact chronology as a source-vintage discrepancy rather than silently reciting both as consistent.",
+      "TWDB's updated survey description lists 1,926 surface acres at conservation pool, while TPWD's fisheries profile lists 1,939 acres. The difference reflects separate source vintages or measurement conventions; avoid presenting a historic map-based area as today's precise water extent. The earthfill dam and 550-foot conservation level remain important context for modern ramp and shoreline planning."
+    ],
+    visitorFAQs:[
+      {question:"Do I need a permit to launch on Lake Arlington?",answer:"TPWD reports a City of Arlington lake-use boat permit with daily or annual options. Confirm the current amount and rules with the city's Parks and Recreation or lake office; a free-looking park entrance does not waive boat requirements."},
+      {question:"How many public boat ramps are on Lake Arlington?",answer:"TPWD names Richard Simpson Park, Bowman Springs Park and Eugene McCray Park, with eight, eight and two lanes respectively. Check current open status and lake level."},
+      {question:"Is overnight camping offered at the lake ramps?",answer:"None of the three TPWD public-access entries lists camping. Book established off-site accommodation instead of assuming day-use piers or launch parking allow overnight stays."},
+      {question:"What fish should I target?",answer:"TPWD rates largemouth bass and channel catfish excellent, white bass and crappie good, and hybrids poor. Historic hybrid stocking narrative should not override its displayed current quality assessment."},
+      {question:"Why do TWDB and TPWD show different lake areas?",answer:"TPWD lists 1,939 acres while TWDB's surveyed conservation-pool table lists 1,926. Such figures come from different source methodologies or vintages, not an exact real-time level."},
+      {question:"Is there a public paddling trail?",answer:"TPWD maintains the Lake Arlington Paddling Trail guide; confirm suitable launch sites and conditions separately from motorboat permit and no-wake areas."},
+    ],
+    travelAlerts:["TPWD's boat-permit prices and ramp open-year-round labels are published reference information, not live city fee or gate certification.","This reservoir has a historical cooling-water discharge, but do not imply the generating station still operates on a given day.","Submerged stumps and structure pose navigation hazards outside established channels."],
+    nearbyLakes:[{slug:"benbrook-lake",name:"Benbrook Lake"},{slug:"joe-pool-lake",name:"Joe Pool Lake"},{slug:"grapevine-lake",name:"Grapevine Lake"}],
+  },
+  {
+    slug: "cedar-lake-cleburne-state-park", name: "Cedar Lake at Cleburne State Park", tpwdSlug:"cleburnesp", region:"prairies-lakes", verifiedAt:"2026-10-13", accessReviewedAt:"2026-10-13",
+    summary:"The no-wake spring-fed Cedar Lake inside Cleburne State Park, with an accessible covered fishing pier, state-park camping, swimming, a one-lane boat ramp and restored CCC-era park infrastructure.",
+    surfaceAcres:107,maxDepthFeet:29,impoundedYear:1934,counties:["Johnson"],nearestCities:["Cleburne","Glen Rose","Joshua"],
+    waterway:"Cedar Lake and the Camp Creek watershed",riverBasin:"Brazos River Basin",authority:"Texas Parks and Wildlife Department",conservationPool:"Check TPWD park lake conditions",fluctuation:"TPWD states one to three feet",clarity:"Moderately clear",
+    identity:"Cedar Lake at Cleburne State Park is the park's small accessible no-wake lake, NOT the much larger municipal Lake Pat Cleburne southwest of town. TPWD's fisheries profile uses 107 acres, whereas its current park visitor page calls Cedar Lake 116 acres; retain both source-specific measures instead of fabricating a reconciled survey. The park offers a covered accessible fishing pier, shoreline access, park camping, rental paddlecraft and swimming. Motorized boats must obey the whole-lake no-wake rule; personal watercraft are not allowed.",
+    habitat:[
+      "Shoreline cattails, bulrush, water willow, submerged logs, brush and dam-side flood-control structures create local cover at this small lake.",
+      "TPWD's fisheries team and park staff installed an artificial fish habitat reef beneath and near the covered fishing pier around 2016, improving accessible bank-fishing opportunities.",
+      "Bass use shallow vegetation and structure, while channel catfish, crappie and sunfish offer different park-visitor fishing options. Do not confuse public piers with boat launches or with campground-specific water access."
+    ],
+    fish:[
+      fish("largemouth-bass","Largemouth bass","good","spring","TPWD rates bass good; spinnerbaits, shallow crankbaits and soft plastics around cattails, water willow and fallen limbs are suggested.",["spinnerbaits","crankbaits","soft-plastics"]),
+      fish("catfish","Catfish","good","year-round","Channel catfish are rated good; drift fishing where legal or bank-fishing with cut bait can be productive.",["cut-bait","live-bait"]),
+      fish("crappie","Crappie","fair","spring","TPWD rates crappie fair. Use small jigs or live minnows around visible brush and submerged habitat structures.",["jigs-and-minnows"],"secondary"),
+      fish("sunfish","Sunfish","good","summer","TPWD rates sunfish good; the accessible fishing pier and grassy shallows provide visitor-oriented fishing locations.",["jigs-and-minnows"]),
+    ],
+    access:"TPWD lists one single-lane paved boat ramp inside Cleburne State Park, accessed via Park Road 21 from US 67 southwest of Cleburne. The park visitor site lists an accessible covered fishing pier with fishing-gear loans, a swim area, no-wake boats and kayak rentals near the Cedar Lodge day-use area. Park admission is required; Texas residents generally can fish inside the state park without a fishing license, subject to TPWD park-specific and special fish regulations.",
+    accessPoints:[
+      {name:"Cleburne State Park paved boat ramp",operator:"Texas Parks and Wildlife Department",kind:"public-ramp",launch:"Park entrance at 5800 Park Road 21, Cleburne; follow in-park signs from Cedar Lodge/day-use corridor to the single-lane ramp.",fee:"State park admission; check current vehicle and day-use reservation conditions",availability:"TPWD lists year-round, but confirm park alerts, daylight conditions and no-wake boating rules before towing."},
+      {name:"Cedar Lake ADA-accessible covered fishing pier",operator:"Texas Parks and Wildlife Department",kind:"park",launch:"Accessible covered shore-fishing pier, with TPWD-installed fish-attracting habitat structures; NOT a motorboat ramp.",fee:"Park entry fee; fishing within state park does not generally require a license",availability:"Confirm current accessibility or maintenance closure directly with Cleburne State Park."},
+      {name:"Cedar Lodge kayak and swimming day-use area",operator:"Texas Parks and Wildlife Department",kind:"park",launch:"Cedar Lodge day-use area with designated swimming and a self-service paddlecraft rental kiosk. This is separate from the trailer ramp.",fee:"Park admission and separate rentals where offered",availability:"Swimming depends on posted park safety notices; do not assume daily kiosk availability."},
+    ],
+    campingUrl:"https://tpwd.texas.gov/state-parks/cleburne/fees-facilities/campsites",
+    camping:{name:"Cleburne State Park designated campgrounds",summary:"The state park manages reserveable developed campsites and group/day-use facilities. Confirm the appropriate electricity/water hookup, accessible site, reservation and park office hours on TPWD's official booking inventory. Lake day use or pier access does not confer an overnight camping reservation."},
+    specialRules:true,
+    visitorSourceUrl:"https://tpwd.texas.gov/state-parks/cleburne",
+    historyNotes:[
+      "The Cedar Lake basin and park dam were developed during 1930s conservation-era state park construction. TPWD's fisheries inventory lists first impoundment in 1934, though the modern visitor page primarily describes the CCC-built park landscape rather than an engineering chronology.",
+      "The Civilian Conservation Corps shaped the historic park roads, bridges and stonework around Cleburne's forested north-Hill-Country-edge terrain. The historic CCC dam and related trails are park features; do not claim the larger city-owned Lake Pat Cleburne is part of this project.",
+      "The park's modern covered fishing pier and TPWD-installed underwater habitat structures date to a 2016 improvement program. They help distinguish the lake's present accessible fishing experience from its 1930s reservoir origins and support fishing without a boat."
+    ],
+    visitorFAQs:[
+      {question:"Is this the same as Lake Pat Cleburne?",answer:"No. Cedar Lake is the small state-park lake; the City of Cleburne's Lake Pat Cleburne is a separate municipal reservoir with different roads, boat ramps, regulations and visitor experience."},
+      {question:"Can I swim at Cedar Lake?",answer:"Yes, the TPWD park site lists a designated swimming beach. Follow day-of-use advisories and do not infer the entire shoreline is a supervised swimming area."},
+      {question:"Can I use a personal watercraft or high-speed motorboat?",answer:"No. TPWD describes the lake as no wake throughout and explicitly disallows jet skis. Boats must comply with the full-lake rule."},
+      {question:"Is there an accessible fishing pier?",answer:"Yes. TPWD lists an ADA-accessible covered pier and special habitat structures for bank-fishing access; check any active closure or maintenance notice."},
+      {question:"Do I need a fishing license?",answer:"TPWD says park visitors do not need one to fish from waters within this Texas state park. Rules, size/bag limits, admission and gear restrictions still apply."},
+      {question:"Why do official sources disagree on the lake's size?",answer:"The TPWD fishing profile lists 107 acres and the state park visitor page calls it 116 acres. These are separate published estimates; neither states today's exact water extent."},
+      {question:"Can I camp by the lake?",answer:"TPWD offers designated reservable campsites in Cleburne State Park, but a day-use pass does not allow overnight stays outside designated campsites."},
+    ],
+    nearbyDestinations:[{slug:"cleburne-state-park",name:"Cleburne State Park",reason:"State park trail maps, official campsite and swimming information complement the Cedar Lake fishing guide."}],
+    nearbyLakes:[{slug:"lake-whitney",name:"Lake Whitney"},{slug:"lake-granbury",name:"Lake Granbury"},{slug:"benbrook-lake",name:"Benbrook Lake"}],
+    travelAlerts:["Full-lake no-wake boating rule; no personal watercraft.","The current park page and TPWD fisheries page use different lake-acre figures. Preserve the source-specific values.","Check park alerts before travel; campground booking, swimming, paddle rentals and boat launches may have separate operating conditions."],
   },
 
 ];
