@@ -19,10 +19,10 @@ export const sanAntonioMuseumDestinations: Destination[] = [
       alt: "Historic Lone Star Brewery complex that houses the San Antonio Museum of Art",
       width: 1600,
       height: 1200,
-      credit: "Brownings · Wikimedia Commons · public domain",
+      credit: "Brownings · Public domain (author dedicated) · Wikimedia Commons · File:FirstLoneStarBrewery.JPG · 2006",
     },
     bestSeason: "Year-round indoor museum; fall through spring is especially pleasant for arriving by the River Walk's Museum Reach or combining the galleries with nearby outdoor stops.",
-    entryNote: "The museum is closed Mondays and currently opens Tuesday through Sunday, with later hours on Tuesday and Friday. Admission categories and Bexar County free hours vary, so confirm the current ticket page before visiting.",
+    entryNote: "Tuesday and Friday 10 a.m.–7 p.m., Wednesday/Thursday/Saturday/Sunday 10 a.m.–5 p.m.; closed Monday. Adults $24 and children 12 or younger free. Bexar County residents with proof get free general admission Tuesday 4–7 p.m. and second Sunday 10 a.m.–noon; special exhibitions may cost extra. Across-street visitor parking requires vehicle registration.",
     highlights: ["Global art collections", "Historic Lone Star Brewery", "Museum Reach of the River Walk", "Ancient Mediterranean and Asian art"],
     body: [
       "The San Antonio Museum of Art gives the city an encyclopedic collection inside one of its most recognizable adaptive-reuse landmarks. The former Lone Star Brewery was converted into the museum in the early 1980s, so the visit combines industrial architecture with galleries that range from ancient Egypt, Greece and Rome to Asian, Latin American, European, American and contemporary art.",

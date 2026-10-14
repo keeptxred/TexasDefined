@@ -1,5 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { museumAuthorityDirectory } from "@/data/museum-authority-network";
+import { unavailableDestinationSlugs } from "@/data/destination-availability";
+
+const currentlyClosedMuseumSlugs = new Set(unavailableDestinationSlugs());
 
 /** Automatic county/city -> museum links; museum guide -> county links are in the dossiers. */
 export function CountyCityMuseums({ kind, slug, name }: { kind: string; slug: string; name: string }) {
@@ -17,7 +20,7 @@ export function CountyCityMuseums({ kind, slug, name }: { kind: string; slug: st
     <ul className="mt-6 grid gap-5 sm:grid-cols-2">
       {museums.map((museum) => <li key={museum.slug} className="border-t border-border pt-4">
         <Link to="/destination/$slug" params={{ slug: museum.slug }} className="font-display text-xl underline decoration-primary/30 underline-offset-4 hover:text-primary">{museum.name}</Link>
-        <p className="mt-2 text-sm text-muted-foreground">{museum.city}, {museum.county} County · Exhibits and visitor planning</p>
+        <p className="mt-2 text-sm text-muted-foreground">{museum.city}, {museum.county} County · {currentlyClosedMuseumSlugs.has(museum.slug) ? "Currently closed — historical guide; no public admission" : "Exhibits and visitor planning"}</p>
       </li>)}
     </ul>
   </section>;

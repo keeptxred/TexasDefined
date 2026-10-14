@@ -13,6 +13,7 @@ const nationalCemeteries = fs.readFileSync('src/data/national-cemetery-enrichmen
 const remoteHeroes = fs.readFileSync('src/data/historic-site-remote-heroes.ts', 'utf8');
 const clusters = fs.readFileSync('src/data/historic-site-clusters.ts', 'utf8');
 const corrections = fs.readFileSync('src/data/historic-site-fact-corrections.ts', 'utf8');
+const authorityExpansion = fs.readFileSync('src/data/historic-site-authority-2026.ts', 'utf8');
 const runtime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8');
 const preserved = fs.readFileSync('src/data/destination-preserved-catalog.ts', 'utf8');
 const history = readRouteSurface('src/routes/texas-history.tsx');
@@ -23,11 +24,226 @@ const destinationRoute = fs.readFileSync('src/routes/destination.$slug.tsx', 'ut
 const cachePurge = fs.readFileSync('scripts/ci/purge-cloudflare-cache.mjs', 'utf8');
 const failures = [];
 
+const expandedHistoricSlugs = [
+  'fort-davis-national-historic-site',
+  'san-jacinto-battleground',
+  'the-alamo',
+  'goliad-state-park',
+  'fort-lancaster',
+  'fort-griffin',
+  'fort-mckavett',
+  'washington-on-the-brazos',
+  'presidio-la-bahia',
+  'palo-alto-battlefield-national-historical-park',
+];
+for (const slug of expandedHistoricSlugs) {
+  if (!authorityExpansion.includes(`"${slug}": {`)) failures.push(`Historical authority expansion missing ${slug}.`);
+  if (!destinationRoute.includes(`"${slug}"`) && !fs.readFileSync('src/components/editorial/DestinationRelationships.tsx', 'utf8').includes(`"${slug}"`)) {
+    failures.push(`Historic-site authority component not enabled for ${slug}.`);
+  }
+}
+if ((authorityExpansion.match(/"authorityGuide": \{/g) ?? []).length !== 9) {
+  failures.push('Expected nine new historic-site authority guides; Alamo reuses its existing Top-25 authority layer.');
+}
+if (!runtime.includes('enrichTexasHistoricSiteAuthority(enriched)') || !runtime.includes('.map(enrichTexasHistoricSiteAuthority)')) {
+  failures.push('Historic-site authority enrichment is not connected to both destination resolution paths.');
+}
+if (!authorityExpansion.includes('sourceCheckedAt: "2026-10-12"')) {
+  failures.push('Historic-site authority source review date missing.');
+}
+for (const marker of [
+  'export const historicAuthorityCanonicalSlugs = Object.keys(historicAuthority);',
+  'const detail = historicAuthority[sourceSlug];',
+  'if (!detail) return destination;',
+]) if (!authorityExpansion.includes(marker)) failures.push(`Live historic destination authority must not be blocked by a non-historic category: ${marker}`);
+for (const liveSlug of ["goliad-state-park", "san-jacinto-battleground", "washington-on-the-brazos"]) {
+  if (!expandedHistoricSlugs.includes(liveSlug) || !authorityExpansion.includes(`"${liveSlug}": {`)) failures.push(`Live historic route must retain its researched authority: ${liveSlug}`);
+}
+
+
+
+const historicTimeline = fs.readFileSync('src/data/historic-site-authority-timelines.ts', 'utf8');
+const crosslinksText = fs.readFileSync('src/data/destination-editorial-links.ts', 'utf8');
+const authorityLiteral = authorityExpansion.split(/const historicAuthority: Record<[^\n]+> = /)[1]?.split(/;\s*export const historicAuthoritySlugs/)[0];
+const crosslinksLiteral = crosslinksText.split('const HISTORIC_SITE_CROSS_LINKS: Record<string, DestinationEditorialLink[]> = ')[1]?.split(';\n\nexport function destinationEditorialLinks')[0];
+let authorityData = {}, crosslinksData = {};
+try { authorityData = JSON.parse(authorityLiteral); } catch { failures.push('Historic site authority data failed JSON structural validation.'); }
+try { crosslinksData = JSON.parse(crosslinksLiteral); } catch { failures.push('Historic site crosslink data failed JSON structural validation.'); }
+
+for (const slug of expandedHistoricSlugs) {
+  const content = authorityData[slug];
+  if (!content || content.extraBody?.length < 2) failures.push(`Historic authority narrative is thin or missing: ${slug}.`);
+  const guide = content?.authorityGuide;
+  if (slug !== 'the-alamo') {
+    if (!guide?.whyItMatters || guide.whyItMatters.length < 130) failures.push(`Historical significance missing depth: ${slug}.`);
+    if (guide?.itineraries?.length !== 3 || guide.itineraries.some((x) => x.steps?.length < 3)) failures.push(`Historic guide needs 3 usable itineraries: ${slug}.`);
+    if (guide?.sources?.length < 2 || guide.sources.some((x) => !/^https:\/\//.test(x.url))) failures.push(`Historic guide must cite operator source pages: ${slug}.`);
+    if (!historicTimeline.includes(`"${slug}": [`) || (historicTimeline.split(`"${slug}": [`)[1]?.split('  ],')[0]?.match(/sourceUrl: /g) ?? []).length < 2) failures.push(`Historic guide requires source-linked chronology: ${slug}.`);
+  }
+  const outward = crosslinksData[slug] ?? [];
+  if (outward.length < 2 || outward.some((x) => !x.href || !x.description || x.description.length < 35)) failures.push(`Site is missing meaningful outward editorial crosslinks: ${slug}.`);
+  const primarySlug = slug;
+  const inward = Object.entries(crosslinksData).filter(([origin, entries]) => origin !== slug && entries.some((x) => x.href === `/destination/${primarySlug}`));
+  if (inward.length < 2) failures.push(`Site needs two or more curated inbound related-destination links: ${slug}.`);
+}
+
+const allLinkItems = Object.values(crosslinksData).flat();
+for (const link of allLinkItems) {
+  if (!/^\/(?:destination|article|county)\/[a-z0-9-]+$/.test(link.href)) failures.push(`Invalid editorial historic link route: ${link.href}.`);
+}
+if (!fs.readFileSync('src/components/editorial/DestinationAuthorityGuide.tsx', 'utf8').includes('historicSiteAuthorityTimeline(destination.slug)')) {
+  failures.push('Historic authority chronological source panel is not connected.');
+}
+if (!crosslinksText.includes('combined.filter(') || !crosslinksText.includes('combined.findIndex(') || !crosslinksText.includes('href ===')) {
+  failures.push('Historic links need href-based cross-list duplicate handling.');
+}
+
+
+
+// Legacy catalog coverage is not allowed to stop at the original 10-site expansion.
+const fullAuthorityFile = fs.readFileSync('src/data/historic-site-authority-full-catalog.ts', 'utf8');
+const currentVisitNotes = fs.readFileSync('src/data/historic-site-depth-all.ts', 'utf8');
+for (const slug of ['old-socorro-mission', 'caddo-mounds-state-historic-site', 'fanthorp-inn', 'landmark-inn', 'fort-griffin', 'barrington-living-history-farm', 'fort-mckavett', 'fort-lancaster', 'mission-dolores', 'acton-state-historic-site', 'goodnight-ranch', 'french-legation', 'fannin-battleground', 'kreische-brewery', 'confederate-reunion-grounds']) {
+  if (!currentVisitNotes.includes(`"${slug}": {`)) failures.push(`Missing site-specific current visitor/access guidance: ${slug}`);
+}
+if (!fullAuthorityFile.includes('oldSocorroHistoryItineraries') || !fullAuthorityFile.includes('closedSiteItineraries')) {
+  failures.push('Closed First Capitol and Old Socorro must not receive ordinary public-access itineraries.');
+}
+for (const requiredUrl of [
+  'https://thc.texas.gov/state-historic-sites/caddo-mounds/plan-your-visit-caddo-mounds',
+  'https://thc.texas.gov/state-historic-sites/fanthorp-inn/plan-your-visit-fanthorp-inn',
+  'https://thc.texas.gov/state-historic-sites/landmark-inn/overnight-accommodations-landmark-inn',
+  'https://thc.texas.gov/state-historic-sites/fort-mckavett/plan-your-visit-fort-mckavett',
+  'https://thc.texas.gov/state-historic-sites/fort-lancaster/plan-your-visit-fort-lancaster',
+  'https://thc.texas.gov/state-historic-sites/mission-dolores/mission-dolores-history',
+  'https://thc.texas.gov/historic-sites/barrington-living-history-farm',
+  'https://thc.texas.gov/state-historic-sites/goodnight-ranch/plan-your-visit-goodnight-ranch',
+  'https://thc.texas.gov/state-historic-sites/french-legation/plan-your-visit-french-legation',
+  'https://thc.texas.gov/state-historic-sites/fannin-battleground/plan-your-visit-fannin-battleground',
+  'https://thc.texas.gov/state-historic-sites/kreische-brewery/plan-your-visit-kreische-brewery',
+  'https://thc.texas.gov/state-historic-sites/confederate-reunion-grounds/plan-your-visit-confederate-reunion-grounds',
+]) if (!fullAuthorityFile.includes(requiredUrl)) failures.push(`Operator visitor evidence source missing: ${requiredUrl}`);
+
+const fullCrosslinkFile = fs.readFileSync('src/data/historic-site-crosslinks-all.ts', 'utf8');
+const relationshipsComponent = fs.readFileSync('src/components/editorial/DestinationRelationships.tsx', 'utf8');
+const sourceRoute = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+if (!runtime.includes('enrichFullHistoricSiteAuthority(enrichTexasHistoricSiteAuthority(enriched))') ||
+    !runtime.includes('.map(enrichFullHistoricSiteAuthority)')) failures.push('Full historic authority must apply in both resolution paths.');
+if (!fullAuthorityFile.includes('historicSiteSeeds.map') || !fullAuthorityFile.includes('const seeds = new Map(historicSiteSeeds')) failures.push('All historic seeds must share the complete-catalog authority adapter.');
+if (!relationshipsComponent.includes('destination.category === "historic-sites"')) failures.push('Historic authority template must render all eligible historic destination pages.');
+if (!crosslinksText.includes('fullHistoricSiteCrosslinks(slug)') || !fullCrosslinkFile.includes('degrees.set(pair.left.slug')) failures.push('Statewide reciprocal county and thematic crosslink graph missing.');
+for (const [duplicate, primary] of Object.entries({
+  "goliad-state-park-and-historic-site": "goliad-state-park",
+  "san-jacinto-battleground-state-historic-site": "san-jacinto-battleground",
+  "washington-on-the-brazos-state-historic-site": "washington-on-the-brazos",
+})) {
+  if (!sourceRoute.includes(`"${duplicate}": "${primary}"`)) failures.push(`Missing safe 301 redirect from duplicate ${duplicate} to live destination ${primary}.`);
+  if (sourceRoute.includes(`"${primary}": "`)) failures.push(`Live historic site incorrectly redirects away from ${primary}.`);
+}
+const destinationAvailability = fs.readFileSync('src/data/destination-availability.ts', 'utf8');
+const nonPrimaryList = destinationAvailability.split('const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([')[1]?.split(']);')[0] || '';
+for (const primary of ['goliad-state-park', 'san-jacinto-battleground', 'washington-on-the-brazos']) {
+  if (nonPrimaryList.includes(`"${primary}",`)) failures.push(`Published canonical historic destination excluded from search and sitemap: ${primary}`);
+}
+
+
 const seedBlock = seeds.match(/export const historicSiteSeeds:[\s\S]*?= \[([\s\S]*?)\n\];/);
 if (!seedBlock) failures.push('Could not parse historicSiteSeeds.');
 const seedSlugs = seedBlock ? [...seedBlock[1].matchAll(/slug:\s*"([^"]+)"/g)].map((match) => match[1]) : [];
-if (seedSlugs.length !== 46) failures.push(`Expected 46 statewide historic-site seeds; found ${seedSlugs.length}.`);
+if (seedSlugs.length < 46) failures.push(`Expected at least 46 protected existing historic-site seeds; found ${seedSlugs.length}.`);
+const legacyHistoricSeeds = new Set([
+  'acton-state-historic-site',
+  'barrington-living-history-farm',
+  'bush-family-home',
+  'caddo-mounds-state-historic-site',
+  'casa-navarro',
+  'confederate-reunion-grounds',
+  'eisenhower-birthplace',
+  'fannin-battleground',
+  'fanthorp-inn',
+  'first-capitol-of-texas',
+  'fort-griffin',
+  'fort-lancaster',
+  'fort-martin-scott',
+  'fort-mckavett',
+  'french-legation',
+  'fulton-mansion',
+  'goodnight-ranch',
+  'iwo-jima-museum-monument',
+  'kreische-brewery',
+  'landmark-inn',
+  'levi-jordan-plantation',
+  'lipantitlan',
+  'magoffin-home',
+  'mission-dolores',
+  'monument-hill',
+  'national-museum-pacific-war',
+  'official-texas-longhorn-herd',
+  'old-socorro-mission',
+  'palmito-ranch-battlefield',
+  'port-isabel-lighthouse',
+  'presidio-la-bahia',
+  'sabine-pass-battleground',
+  'sam-bell-maxey-house',
+  'sam-rayburn-house',
+  'san-felipe-de-austin',
+  'san-jacinto-battleground',
+  'slaton-harvey-house',
+  'star-of-the-republic-museum',
+  'starr-family-home',
+  'stephen-f-austin-memorial',
+  'varner-hogg-plantation',
+  'washington-on-the-brazos',
+  'zaragoza-birthplace',
+  'fort-sam-houston-national-cemetery',
+  'houston-national-cemetery',
+  'dallas-fort-worth-national-cemetery',
+]);
+for (const historicSlug of seedSlugs) {
+  if (legacyHistoricSeeds.has(historicSlug)) continue;
+  const guide = authorityData[historicSlug]?.authorityGuide;
+  if (!guide || guide.sources?.length < 2 || guide.itineraries?.length !== 3) {
+    failures.push(`New historic site ${historicSlug} needs operator sources and three usable itineraries before indexation.`);
+  }
+  if (!historicTimeline.includes(`"${historicSlug}": [`)) failures.push(`New historic site ${historicSlug} needs a cited timeline.`);
+  const outward = crosslinksData[historicSlug] ?? [];
+  const inbound = Object.entries(crosslinksData).filter(([origin, links]) => origin !== historicSlug && links.some((x) => x.href === `/destination/${historicSlug}`));
+  if (outward.length < 2 || inbound.length < 2) failures.push(`New historic site ${historicSlug} needs bidirectional editorial links.`);
+}
+
 if (new Set(seedSlugs).size !== seedSlugs.length) failures.push('Historic-site seed slugs must be unique.');
+
+const allDepthText = fs.readFileSync('src/data/historic-site-depth-all.ts', 'utf8');
+const depthLiteral = allDepthText.split('const SITE_DEPTH: Record<string, string[]> = ')[1]?.split(/;\s*export const researchedHistoricSiteDepthSlugs/)[0];
+let depthData = {};
+try { depthData = JSON.parse(depthLiteral); } catch { failures.push('Statewide historic-site original research file is not valid structured data.'); }
+for (const slug of seedSlugs) {
+  const firstPass = authorityData[slug]?.extraBody;
+  const statewide = depthData[slug];
+  if (!firstPass && !statewide) failures.push(`No unique historic-site research enrichment for protected seed: ${slug}`);
+  if (firstPass && statewide) failures.push(`Duplicate historic-site editorial layering for seed: ${slug}`);
+  if (statewide && (statewide.length < 2 || statewide.some((paragraph) => paragraph.length < 120))) {
+    failures.push(`Historic-site research needs two substantive original paragraphs: ${slug}`);
+  }
+}
+const fullProfilesLiteral = fullAuthorityFile.split('const SITE_VISIT_PROFILES: Record<string, Pick<DestinationEditorialAssessment, "physicalEffort" | "weatherExposure" | "planningLevel" | "recommendedVisit">> = ')[1]?.split(/;\s*function authoritySources/)[0];
+let fullProfiles = {};
+try { fullProfiles = JSON.parse(fullProfilesLiteral); } catch { failures.push('Historic-site visitor profile map is not valid structured data.'); }
+for (const slug of Object.keys(depthData)) {
+  const visitor = fullProfiles[slug];
+  if (!visitor || !visitor.recommendedVisit || !visitor.physicalEffort || !visitor.weatherExposure || !visitor.planningLevel) failures.push(`Individual visitor assessment missing: ${slug}.`);
+}
+
+const allResearched = Object.keys(depthData);
+if (allResearched.length < 40) failures.push(`Statewide research rollout incomplete: ${allResearched.length}/40 additional researched historic sites.`);
+if (!runtime.includes('.map(enrichResearchedHistoricSiteDepth)') ||
+    !runtime.includes('enrichResearchedHistoricSiteDepth(enrichFullHistoricSiteAuthority')) {
+  failures.push('All independently researched historic-site additions must be applied to both resolution paths.');
+}
+for (const existingSlug of ['goliad-state-park', 'san-jacinto-battleground', 'washington-on-the-brazos']) {
+  if (!authorityExpansion.includes(`"${existingSlug}": {`)) failures.push(`Established public historic-site route is missing its authority content: ${existingSlug}`);
+}
+
 
 const primaryGuideBlock = primary.match(/const areaSeeds:[\s\S]*?= \{([\s\S]*?)\n\};\n\nfunction areaGuide/);
 const extraGuideBlock = extra.match(/const guides:[\s\S]*?= \{([\s\S]*?)\n\};\n\nexport function/);
@@ -64,7 +280,7 @@ if (new Set(clusterIds.map((cluster) => cluster.id)).size !== clusterIds.length)
 for (const cluster of clusterIds) {
   if (!cluster.slugs.length) failures.push(`Historic-site thematic cluster is empty: ${cluster.id}.`);
   if (new Set(cluster.slugs).size !== cluster.slugs.length) failures.push(`Historic-site thematic cluster repeats a destination: ${cluster.id}.`);
-  for (const slug of cluster.slugs) if (!seedSlugs.includes(slug)) failures.push(`Historic-site thematic cluster ${cluster.id} links a non-seed slug: ${slug}.`);
+  for (const slug of cluster.slugs) if (!seedSlugs.includes(slug) && !expandedHistoricSlugs.includes(slug) && !["goliad-state-park-and-historic-site", "san-jacinto-battleground-state-historic-site", "washington-on-the-brazos-state-historic-site"].includes(slug)) failures.push(`Historic-site thematic cluster ${cluster.id} links an unregistered authority slug: ${slug}.`);
 }
 
 for (const marker of ['historicSiteDestinations', 'export const preservedExploreDestinations = mergePreservedDestinations(']) if (!preserved.includes(marker)) failures.push(`Preserved historic-site catalog contract missing: ${marker}`);

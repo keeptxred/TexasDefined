@@ -24,3 +24,6 @@ Distinct editorial overview, dated milestones and documentation, official athlet
 - Do not fabricate school championships where the official archive supports only finalist records or no title
 
 **Important:** `IMPLEMENTED` is not `VERIFIED`; original 80 completed schools are unchanged.
+
+## October 13, 2026 — Independently reported 2026 scorecard
+Added a 10-game varsity season table from [MaxPreps's published team schedule](https://www.maxpreps.com/tx/bangs/bangs-dragons/football/schedule/), preserving reported scores only where the source confirms them. Six results through October 9 plus four future district fixtures, with home/away and district markers copied as independently reported facts. Official school sources remain the authority on stadium/ticket logistics and last-minute schedule changes; do not infer unreported results from the calendar. Matchups and scores are source-derived facts; no copied editorial prose or photographs.

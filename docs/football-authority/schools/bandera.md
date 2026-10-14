@@ -24,3 +24,6 @@ Distinct editorial overview, dated milestones and documentation, official athlet
 - Do not fabricate school championships where the official archive supports only finalist records or no title
 
 **Important:** `IMPLEMENTED` is not `VERIFIED`; original 80 completed schools are unchanged.
+
+## October 13, 2026 — Independently reported 2026 scorecard
+Added a 10-game varsity season table from [MaxPreps's published team schedule](https://www.maxpreps.com/tx/bandera/bandera-bulldogs/football/schedule/), preserving reported scores only where the source confirms them. Five results through September 25, plus five dated fixtures; source schedule is stale after September 26, so October 9 Gonzales is NOT treated as an unverified win, loss or current future game. Official school sources remain the authority on stadium/ticket logistics and last-minute schedule changes; do not infer unreported results from the calendar. Matchups and scores are source-derived facts; no copied editorial prose or photographs.

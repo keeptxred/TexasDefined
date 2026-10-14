@@ -23,6 +23,7 @@ import { formatDate, formatReadingTime } from "@/domain/utils/format";
 import { recoverOrHideImage } from "@/lib/image-fallback";
 import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "@/lib/seo";
 import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
+import { FootballPlayoffsReference } from "@/components/content/FootballPlayoffsReference";
 import { TexasCitiesComparison } from "@/components/content/TexasCitiesComparison";
 
 const TexasWaterSearchResource = lazy(() =>
@@ -94,8 +95,10 @@ const FAQ_ARTICLE_SLUGS = new Set([
   "texas-flag-etiquette-display-guide",
   "texas-loops-spurs-explained",
   "east-texas-fall-colors",
+  "texas-high-school-football-playoffs-explained",
 ]);
 const FAQ_START_HEADING_BY_SLUG: Readonly<Record<string, string>> = {
+  "texas-high-school-football-playoffs-explained": "Frequently asked questions",
   [MOVING_TO_TEXAS_PILLAR_SLUG]: "Frequently asked questions about moving to Texas",
   "texas-loops-spurs-explained": "Frequently asked questions about Texas Loops and Spurs",
   "east-texas-fall-colors": "Frequently asked questions",
@@ -473,6 +476,7 @@ function ArticlePage() {
       </section>}
       {article.slug === "texas-rivers-explained" ? <Suspense fallback={<section className="mt-10 border-y border-border py-10" style={{ minHeight: "28rem" }} aria-label="Loading Texas river atlas" />}><TexasRiversAuthorityHub /></Suspense> : null}
       {article.slug === "texas-major-cities-regional-differences" ? <TexasCitiesComparison /> : null}
+      {article.slug === "texas-high-school-football-playoffs-explained" ? <FootballPlayoffsReference /> : null}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28">
         {isTexasRiversArticle ? <>
           <ArticleBody blocks={riverBodyBeforeBasinReference} entities={graph} />

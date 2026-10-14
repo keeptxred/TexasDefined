@@ -26,14 +26,17 @@ export const goliadHistoryWeekendGuideArticle: Article = {
   sourceName: "Texas Historical Commission",
   sourceUrl: "https://thc.texas.gov/historic-sites/presidio-la-bahia",
   internalLinks: [
+    { href: "/destination/goliad-state-park", label: "Goliad State Park and Mission Espíritu Santo", description: "Add Spanish mission interpretation and the San Antonio River landscape to the 1836 battle story." },
+    { href: "/destination/goliad", label: "Goliad town guide", description: "Plan meals, the courthouse square, lodging and the historic-site route." },
     { href: "/destination/fannin-battleground", label: "Fannin Battleground", description: "Start at the Coleto battlefield before following the surrendered command back toward Goliad." },
     { href: "/destination/presidio-la-bahia", label: "Presidio La Bahía", description: "Continue the chronology inside the presidio associated with imprisonment and the Goliad Massacre." },
     { href: "/article/texas-revolution-historic-sites-road-trip", label: "Texas Revolution road trip", description: "Place Goliad between Washington-on-the-Brazos and San Jacinto in the larger 1836 campaign." },
     { href: "/explore/historic-sites", label: "Texas historic sites", description: "Browse more battlefields, missions, forts and museums statewide." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["fannin-battleground", "presidio-la-bahia"],
+  relatedDestinations: ["fannin-battleground", "presidio-la-bahia", "goliad-state-park", "goliad"],
   body: [
+    p("For the Spanish-period context, reserve a separate visit to Goliad State Park and its restored Mission Espíritu Santo. The mission and Presidio La Bahía are distinct properties with different entrance arrangements, even though they occupy the same wider river-history landscape. The mission explains colonial religion, Indigenous lives, ranching and labor before the 1836 campaign."),
     p("Goliad is one of the best places in Texas to let chronology determine the route. The story is easier to understand when you begin where James Fannin's command was surrounded at Coleto Creek, then drive toward Presidio La Bahía and follow what happened after the surrender. Reversing the order still produces a worthwhile visit, but it removes the geographic logic that makes the campaign unusually legible."),
     p("The town also rewards more than a battlefield checklist. Spanish colonial history, Mexican-era military use, the Texas Revolution and later commemoration overlap in a compact region. A weekend gives you enough time to separate those layers instead of forcing every site into one dramatic 1836 narrative."),
     h("Day 1 morning: Fannin Battleground first"),
