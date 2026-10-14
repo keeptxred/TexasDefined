@@ -52,6 +52,13 @@ try {
     }
   }
   if(html.includes("Holland%20Avenue%20and%20Hotel%20Holland%20Alpine%20Texas%20DSC%205556"))errors.push("Hotel still reuses Alpine district photo");
+  // Both historic transportation destinations must have real, helpful links;
+  // a pairing string to a nonexistent destination is not a working link.
+  const bridge=await load("/destination/sycamore-creek-bridge-fort-worth");
+  const stockyards=await load("/destination/fort-worth-stockyards");
+  if(!bridge.includes('href="/destination/fort-worth-stockyards"')) errors.push("Sycamore Creek bridge does not link to live Stockyards heritage guide");
+  if(!stockyards.includes('href="/destination/sycamore-creek-bridge-fort-worth"')) errors.push("Fort Worth Stockyards does not provide reciprocal bridge heritage navigation");
+
 }catch(e){errors.push(String(e?.message||e));}
 console.log(JSON.stringify({site:"THC-landmarks",landmarks:landmarkSlugs.length,passed:errors.length===0,errors},null,2));
 if(errors.length) process.exitCode=1;
