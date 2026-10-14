@@ -115,7 +115,7 @@ async function verifyHeroImage(html) {
       && new TextDecoder().decode(bytes.slice(8, 12)) === "WEBP";
     const isGif = new TextDecoder().decode(bytes.slice(0, 3)) === "GIF";
     const isAvif = new TextDecoder().decode(bytes.slice(4, 12)).includes("avif");
-    if (!(isJpeg || isPng || isWebp || isGif || isAvif)) return "hero image has invalid file signature";
+    if (!(isJpeg || isPng || isWebp || isGif || isAvif)) return "hero image has invalid file signature; MIME " + mime + "; bytes " + bytes.length + "; prefix " + Array.from(bytes.slice(0, 20), (b) => b.toString(16).padStart(2, "0")).join(" ");
     return null;
   } catch (error) {
     return "hero image request failed: " + String(error);
