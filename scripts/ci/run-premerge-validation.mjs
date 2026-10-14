@@ -50,6 +50,7 @@ const prebuildChecks = [
   ['CONTENT/AUTHORITY', 'Validate true historic photo subjects and closed-original visit policies', 'node', ['scripts/data/validate-historic-sites.mjs']],
   ['SEO/SITEMAP', 'Syntax-check historic photo production verifier', 'node', ['--check', 'scripts/ci/verify-historic-photo-indexability-production.mjs']],
   ['FOOTBALL/AUTHORITY', 'Syntax-check Batch 005 live browser verifier', 'node', ['--check', 'scripts/ci/verify-football-batch-005-production.mjs']],
+  ['RUNTIME/RECOVERY', 'Ensure one-shot stale lazy-module recovery before hydration', 'node', ['--experimental-strip-types', '--test', 'scripts/ci/stale-chunk-recovery.test.mjs']],
   ['SEO/SITEMAP', 'Ensure swimming authority uses bundled server content and all canonical sitemap rules', 'node', ['scripts/data/validate-swimming-authority-ssr.mjs']],
   ['CONTENT/AUTHORITY', 'Prevent duplicate THC landmark images and lost indexable Holland Hotel page', 'node', ['scripts/data/validate-thc-landmark-authority-batch05.mjs']],
   ['SEO/SITEMAP', 'Syntax-check THC landmark production sitemap verifier', 'node', ['--check', 'scripts/ci/verify-thc-landmark-sitemap-production.mjs']],
