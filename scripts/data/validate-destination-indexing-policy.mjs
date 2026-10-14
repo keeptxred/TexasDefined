@@ -21,7 +21,7 @@ const failures = [];
 for (const marker of [
   'const audit = auditDestination(destination)',
   'const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference)',
-  'const isHistoricalMuseumReference = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin"].includes(destination.slug)',
+  'const isHistoricalMuseumReference = ',
   'robots: indexable ? undefined : "noindex, follow"',
 ]) {
   if (!route.includes(marker)) failures.push(`Destination route indexing contract missing: ${marker}`);
@@ -295,7 +295,13 @@ if (sitemap.includes('const destinations = remoteFailed ? fixtureDestinations : 
 
 // Historical and temporarily-closed museum guides may remain discoverable as
 // factual references, but these exact institutions must NOT re-enter trip planning.
-for (const slug of ['1940-air-terminal-museum-houston', 'elisabet-ney-museum-austin']) {
+const referenceSource = route.match(/const isHistoricalMuseumReference = \[([^\]]+)\]\.includes\(destination\.slug\)/);
+const historicalMuseumReferences = referenceSource ? [...referenceSource[1].matchAll(/"([a-z0-9-]+)"/g)].map((match) => match[1]) : [];
+if (!referenceSource) failures.push('Historical museum exception must be an explicit slug allowlist, never an open-ended indexability bypass.');
+for (const requiredSlug of ['1940-air-terminal-museum-houston', 'elisabet-ney-museum-austin', 'buffalo-soldiers-national-museum-houston']) {
+  if (!historicalMuseumReferences.includes(requiredSlug)) failures.push('Required historical museum exception missing: ' + requiredSlug);
+}
+for (const slug of historicalMuseumReferences) {
   if (!availability.includes('"' + slug + '"')) failures.push('Closed museum missing from unavailable trip-planner set: ' + slug);
 }
 
