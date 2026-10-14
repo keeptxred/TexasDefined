@@ -321,7 +321,7 @@ export async function getResolvedDestination(slug: Slug) {
   const fallback = preserved ?? cavernPreserved ?? cityPassPreserved;
   if (fallback) return correctDestinationTravelRegion(applyResolvedHero(fallback));
   if (!local && weakCandidates.length) return correctDestinationTravelRegion(applyResolvedHero(weakCandidates[0]));
-  return local ? applyResolvedHero(local) : local;
+  return local ? correctDestinationTravelRegion(applyResolvedHero(local)) : local;
 }
 
 export async function listResolvedDestinationSearchCatalog() {
