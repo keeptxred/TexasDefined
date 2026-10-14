@@ -96,6 +96,9 @@ requireFeatures(component, [
   'className="flex flex-wrap gap-x-6 gap-y-3"',
 ], 'Destination relationship UI');
 
+for (const specialHub of ['destination.category === "guides" ? <Link to="/guides"', 'destination.category === "sports" ? <Link to="/sports"', 'destination.category === "events" ? <Link to="/events"', 'destination.region === "panhandle-plains" ? "panhandle" : destination.region']) {
+  if (!component.includes(specialHub)) errors.push('Destination relationship continuation must use public canonical hub routes: ' + specialHub);
+}
 if (component.includes('if (!groups.length) return null')) {
   errors.push('Destination relationship UI must preserve Texas Explained fallback discovery when no relationship groups are available.');
 }

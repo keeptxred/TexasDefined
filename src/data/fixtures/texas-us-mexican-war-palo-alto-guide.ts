@@ -31,7 +31,7 @@ export const texasUsMexicanWarPaloAltoGuideArticle: Article = {
     { href: "/article/texas-civil-war-sites-guide", label: "Texas in the Civil War", description: "See why the lower Rio Grande remained strategically important less than two decades later." },
     { href: "/destination/palo-alto-battlefield-national-historical-park", label: "Palo Alto Battlefield National Historical Park", description: "Plan a visit to the preserved battlefield and National Park Service visitor center near Brownsville." },
     { href: "/city/brownsville", label: "Brownsville", description: "Explore the city that grew beside Fort Brown and the lower Rio Grande military corridor." },
-    { href: "/article/cameron-county-brownsville-harlingen-south-padre-rio-grande", label: "Cameron County guide", description: "Connect the battlefield landscape with Brownsville, Harlingen, South Padre Island and the wider county." },
+    { href: "/county/cameron", label: "Cameron County guide", description: "Connect the battlefield landscape with Brownsville, Harlingen, South Padre Island and the wider county." },
   ],
   relatedCollections: [],
   relatedDestinations: ["palo-alto-battlefield-national-historical-park", "palmito-ranch-battlefield", "iwo-jima-museum-monument", "port-isabel-lighthouse"],
