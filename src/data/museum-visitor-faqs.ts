@@ -1210,48 +1210,48 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
   "port-isabel-historical-museum": [
     {
       "question": "Is the Port Isabel Historical Museum open every day?",
-      "answer": "The museum's own website directs visitors to telephone 956-943-7602 for current hours. Do not rely solely on older visitor-directory schedules; confirm the date and any special closures before leaving.",
-      "verificationUrl": "https://portisabelhistory.com/",
+      "answer": "No. The City of Port Isabel and South Padre Island Chamber list Wednesday–Saturday, 10 a.m.–4 p.m. The Chamber lists 3:30 p.m. as the last ticket sale. Call (956) 943-7602 before traveling to confirm holiday or event schedule changes.",
+      "verificationUrl": "https://business.spichamber.com/list/member/port-isabel-historical-museum-18",
       "questionOrigin": "editorial-research",
-      "questionEvidenceUrl": "https://portisabelhistory.com/",
+      "questionEvidenceUrl": "https://business.spichamber.com/list/member/port-isabel-historical-museum-18",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-12"
+      "reviewed": "2026-10-13"
     },
     {
       "question": "What is special about the Champion Building?",
-      "answer": "Built in 1899, the building preserves the history of Port Isabel commerce and has a large fish mural painted in 1906. View the exterior as part of the museum visit.",
-      "verificationUrl": "https://portisabelhistory.com/",
+      "answer": "Built in 1899 as Charles Champion’s commercial building, it retains a distinctive 1906 exterior fish mural representing the Laguna Madre fishing economy. The Texas Historical Commission confirms the building now houses two floors of museum exhibits.",
+      "verificationUrl": "https://thc.texas.gov/blog/beyond-beach",
       "questionOrigin": "editorial-research",
-      "questionEvidenceUrl": "https://portisabelhistory.com/",
+      "questionEvidenceUrl": "https://thc.texas.gov/blog/beyond-beach",
       "reviewCycle": "quarterly",
-      "reviewed": "2026-10-12"
+      "reviewed": "2026-10-13"
     },
     {
       "question": "Is there an elevator to reach the second floor?",
       "answer": "A past independent visitor reported an elevator, but the museum's current official page does not confirm it is operational. Call ahead to confirm an accessible second-floor route and accessible restrooms before a mobility-dependent visit.",
-      "verificationUrl": "https://portisabelhistory.com/",
+      "verificationUrl": "https://business.spichamber.com/list/member/port-isabel-historical-museum-18",
       "questionOrigin": "visitor-qna",
       "questionEvidenceUrl": "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-12"
+      "reviewed": "2026-10-13"
     },
     {
       "question": "How much does the Port Isabel Historical Museum cost?",
-      "answer": "The museum operator currently lists $5 adults, $4 seniors, $3 students/children, and $2.50 for military and first responders, with separate group-tour arrangements. Confirm today's charges and payment methods by telephone.",
-      "verificationUrl": "https://portisabelhistory.com/",
+      "answer": "The museum’s standalone published admission schedule lists $5 for adults, $4 for seniors, $3 for students and children, and $2.50 for military and first responders. Those posted amounts may change. Call (956) 943-7602 to confirm current admission, payment methods and group rates before traveling.",
+      "verificationUrl": "https://portisabel-texas.com/blog/history/",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://portisabelhistory.com/",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-12"
+      "reviewed": "2026-10-13"
     },
     {
       "question": "What else should I see near the museum?",
       "answer": "The nearby Port Isabel Lighthouse complements the museum's regional maritime and trade history, while South Padre Island provides a very different barrier-island nature and beach experience across the causeway.",
-      "verificationUrl": "https://portisabelhistory.com/",
+      "verificationUrl": "https://thc.texas.gov/blog/beyond-beach",
       "questionOrigin": "editorial-research",
-      "questionEvidenceUrl": "https://portisabelhistory.com/",
+      "questionEvidenceUrl": "https://thc.texas.gov/blog/beyond-beach",
       "reviewCycle": "quarterly",
-      "reviewed": "2026-10-12"
+      "reviewed": "2026-10-13"
     }
   ],
   "historic-brownsville-museum": [
