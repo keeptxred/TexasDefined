@@ -30,7 +30,14 @@ try {
   if(!html.includes("<title>Holland Hotel |")) errors.push("Holland Hotel subject/title missing");
   if(!html.includes('rel="canonical" href="'+origin+'/destination/holland-hotel"'))errors.push("Wrong Holland Hotel canonical");
   if(/name="robots"[^>]*noindex/i.test(html))errors.push("Holland Hotel noindex");
-  if(!html.includes("Alpine%20-%20Holland%20Hotel.jpg") && !html.includes("Alpine%20-%20Holland%20Hotel.jpg".replaceAll("%20","_")) && !html.includes("Alpine - Holland Hotel.jpg")) errors.push("Hotel's exact P. Hughes photo not present in rendered HTML");
+  const preferredImageTag=html.match(/<meta\s+property="og:image"\s+content="([^"]+)"/i)?.[1] || "";
+  const normalizedImageSource=(() => {
+    try {
+      const parsed=new URL(preferredImageTag.replaceAll("&amp;","&"));
+      return decodeURIComponent(parsed.searchParams.get("url") || parsed.href);
+    } catch { return preferredImageTag; }
+  })();
+  if(!normalizedImageSource.includes("/Alpine - Holland Hotel.jpg")) errors.push("Hotel's exact P. Hughes photo not present in preferred-image metadata");
   if(/(?:og:image|twitter:image)[^>]*(?:destination-placeholder|texasdefined-placeholder)/i.test(html)) errors.push("Hotel image metadata points to placeholder");
   const ogImage=html.match(/<meta\s+property="og:image"\s+content="([^"]+)"/i)?.[1];
   if (!ogImage) errors.push("Holland Hotel missing preferred image URL");
