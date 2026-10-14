@@ -1,4 +1,10 @@
 {
+  "abilene": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
+    }
+  ],
   "amarillo": [
     {
       "slug": "lake-meredith",
@@ -133,6 +139,12 @@
     {
       "slug": "lake-buchanan",
       "name": "Lake Buchanan"
+    }
+  ],
+  "buffalo-gap": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
     }
   ],
   "burkeville": [
@@ -965,6 +977,12 @@
     {
       "slug": "lake-tyler",
       "name": "Lake Tyler (East and West)"
+    }
+  ],
+  "tuscola": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
     }
   ],
   "tyler": [
