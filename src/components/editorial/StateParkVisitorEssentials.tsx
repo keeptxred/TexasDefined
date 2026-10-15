@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { stateParkVisitDecisions } from "@/data/state-park-visit-decisions";
 import type { Destination } from "@/data/types";
 import { isTexasStateParkDestination, stateParkOfficialResources, VERIFIED_PARK_FACILITIES } from "@/data/state-park-authority";
 
@@ -11,6 +12,7 @@ export function StateParkVisitorEssentials({ destination }: { destination: Desti
   const links = stateParkOfficialResources(destination);
   if (!links) return null;
   const verified = VERIFIED_PARK_FACILITIES[destination.slug];
+  const choices = stateParkVisitDecisions(destination);
   const entries = [
     { title: "Restrooms and showers", detail: verified?.restrooms },
     { title: "Parking, entrance and access", detail: verified?.parking },
@@ -46,6 +48,18 @@ export function StateParkVisitorEssentials({ destination }: { destination: Desti
         <a href={verified.supplementalSourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">dated TPWD announcement</a>.
       </>}
     </p>}
+    {choices.length > 0 && <section aria-labelledby="state-park-visit-choices" className="mt-9 border-t border-border pt-7">
+      <h3 id="state-park-visit-choices" className="font-display text-2xl">Choose the right way to visit</h3>
+      <p className="mt-2 text-sm leading-7 text-muted-foreground">These options use the park's actual units, campsites and access restrictions. Choose a plan before booking; current conditions and reservations still come from TPWD.</p>
+      <div className="mt-5 grid gap-4 md:grid-cols-2">
+        {choices.map((choice) => <article key={choice.title} className="rounded-lg border border-border p-5">
+          <h4 className="font-semibold">{choice.title}</h4>
+          <p className="mt-1 text-xs font-medium text-primary">{choice.suitedTo}</p>
+          <p className="mt-3 text-sm leading-6">{choice.plan}</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground"><span className="font-semibold">Check before going:</span> {choice.watch}</p>
+        </article>)}
+      </div>
+    </section>}
     <p className="mt-5 text-sm">
       <Link to="/explore/$category" params={{ category: "state-parks" }} className="font-semibold text-primary underline underline-offset-4">Explore Texas state parks</Link>
     </p>
