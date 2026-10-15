@@ -92,10 +92,11 @@ test('two canonical state aliases are verified by bounded manual-redirect smoke'
     assert.equal(options.redirect, 'manual');
     return new Response(null, { status: 301, headers: { location: '/article/texas-vs-' + url.pathname.split('/').pop() + '-differences' } });
   };
-  const good = await verifyChangedPages({ plan, head, fetchImpl: respond });
+  const redirectOnlyPlan = { ...plan, selectedPaths: [] };
+  const good = await verifyChangedPages({ plan: redirectOnlyPlan, head, fetchImpl: respond });
   assert.deepEqual(good.map(x => x.status), [301, 301]);
   assert.ok(good.every(x => x.passed));
-  const bad = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response('OK', { status: 200 }) });
+  const bad = await verifyChangedPages({ plan: redirectOnlyPlan, head, fetchImpl: async () => new Response('OK', { status: 200 }) });
   assert.equal(bad.length, 2);
   assert.ok(bad.every(x => !x.passed && /Expected HTTP 301/.test(x.error)));
 });
