@@ -60,9 +60,25 @@ test('slug-keyed article link changes verify actual source pages and newly added
 
 test('planner corrections retest previously missed editorial SSR links, not entire site', () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
-  assert.deepEqual(plan.selectedPaths, ['/article/texas-cultural-regions-explained', '/article/texas-regions-explained']);
+  assert.deepEqual(plan.selectedPaths, [
+    '/article/texas-cultural-regions-explained', '/article/texas-regions-explained',
+    '/fishing/species/black-crappie', '/fishing/species/bluegill',
+    '/fishing/species/freshwater-drum', '/fishing/species/white-crappie',
+  ]);
   assert.equal(plan.expectedHrefsByPage['/article/texas-regions-explained'][0], '/article/texas-gulf-coast-erosion-shoreline-retreat-guide');
   assert.equal(plan.expectedHrefsByPage['/article/texas-cultural-regions-explained'][0], '/article/texas-oil-boom-wichita-falls-west-texas-rigs');
+});
+
+test('a shared fishing species change smoke-checks only four real family links', () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/fishing/species-guide-data.server.ts'] });
+  assert.deepEqual(plan.selectedPaths, [
+    '/fishing/species/black-crappie', '/fishing/species/bluegill',
+    '/fishing/species/freshwater-drum', '/fishing/species/white-crappie',
+  ]);
+  assert.deepEqual(plan.expectedHrefsByPage['/fishing/species/bluegill'], ['/fishing/species/sunfish']);
+  assert.deepEqual(plan.expectedHrefsByPage['/fishing/species/freshwater-drum'], ['/fishing/species/alligator-gar']);
+  assert.equal(plan.candidateCount, 4);
+  assert.equal(plan.omittedCount, 0);
 });
 
 test('unchanged sibling registry keys are not independently crawled', () => {
