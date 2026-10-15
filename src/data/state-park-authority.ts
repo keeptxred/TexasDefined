@@ -15,7 +15,7 @@ export function stateParkOfficialResources(destination: Destination) {
     official,
     map: `${official}/map`,
     feesAndFacilities: `${official}/fees-facilities`,
-    reservations: destination.slug === "longhorn-cavern-state-park"
+    reservations: destination.slug === "devils-sinkhole-state-natural-area" ? "https://tpwd.texas.gov/state-parks/devils-sinkhole/fees-facilities/entrance-fees" : destination.slug === "longhorn-cavern-state-park"
       ? "https://www.visitlonghorncavern.com/"
       : destination.slug === "old-tunnel-state-park"
         ? "https://tpwd.texas.gov/state-parks/old-tunnel/bat-viewing"
@@ -41,6 +41,14 @@ export type VerifiedParkFacilityNotes = {
 
 /** Claims below have specific official source pages; absence means "not yet independently checked", not "no facility". */
 export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacilityNotes>> = {
+  "devils-sinkhole-state-natural-area": {
+    checkedAt: "2026-10-15",
+    sourceUrl: "https://tpwd.texas.gov/state-parks/devils-sinkhole",
+    parking: "All tours depart Devil's Sinkhole Visitor Center, 101 N. Sweeten St., Rocksprings, TX 78880, at 30.015773, -100.208552; do not drive to the cavern.",
+    access: "Guided access by reservation ONLY. Call 830-683-2287. Evening bat tours usually operate May 1 through October 31, Wednesday through Sunday; wildlife emergence is never guaranteed.",
+    camping: "No public independent camping or RV hookup access at this protected guided-only natural area; different overnight options exist at other state parks.",
+    maps: "TPWD's /map page locates the Rocksprings tour-departure visitor center, not an unrestricted road to the cavern.",
+  },
   "palo-duro-canyon-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/palo-duro-canyon/map",
@@ -701,7 +709,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     camping: "Warbler Ridge: 23 electric sites with 20/30/50-amp service. Painted Stick: 12 walk-in water sites. Primitive: 13 hike-in sites without water; no campfires at the primitive sites.",
     maps: "TPWD publishes park and trails maps. More than 16 miles of multiuse trails, including about 1.25 accessible miles, require separate trail and accessibility planning.",
   },
-  "goliad-state-park-and-historic-site": {
+  "goliad-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/goliad/map",
     parking: "Enter from U.S. 183/77A just south of Goliad and use the park map for parking distinct from the Mission Espíritu Santo buildings.",
@@ -718,7 +726,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     access: "Only 70 self-guided North Mountain visitor permits are available daily. Guided tours must be booked at least a week ahead; orientations are required annually. Most trails prohibit pets.",
     maps: "Use official park and trails maps; climbing and rock-art access follow protected-area-specific rules.",
   },
-  "lyndon-b-johnson-state-park-and-historic-site": {
+  "lyndon-b-johnson-state-park-historic-site": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/lyndon-b-johnson/map",
     parking: "Enter on Park Road 52 near Stonewall from U.S. 290. Use the state-park map for visitors center, Sauer-Beckmann Farm and day-use parking.",

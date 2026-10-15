@@ -10,7 +10,7 @@ type CanonicalRecovery = { from: string; to: string; override: Partial<Destinati
 const recovered: CanonicalRecovery[] = [
   {
     from: "goliad-state-park",
-    to: "goliad-state-park-and-historic-site",
+    to: "goliad-state-park",
     override: {
       name: "Goliad State Park & Historic Site",
       category: "state-parks",
@@ -61,7 +61,7 @@ const recovered: CanonicalRecovery[] = [
   },
   {
     from: "lyndon-b-johnson-state-park-historic-site",
-    to: "lyndon-b-johnson-state-park-and-historic-site",
+    to: "lyndon-b-johnson-state-park-historic-site",
     override: {
       name: "Lyndon B. Johnson State Park & Historic Site",
       category: "state-parks",
