@@ -73,6 +73,11 @@ if (!errors.length) {
   ]) requireText(directory, marker, 'Football directory ISD integration');
 
   for (const marker of [
+    'ISD_CACHE_TTL_MS = 6 * 60 * 60 * 1000',
+    'if (isdDirectoryInFlight) return isdDirectoryInFlight',
+    'isdDirectoryInFlight = assembleFootballIsdDirectory()',
+    'isdDirectoryCache = { loadedAt: Date.now(), built }',
+    'isdDirectoryInFlight = null',
     'loadAllFootballProgramsWithDirectory',
     'Football ISD slug collision',
     'Football ISD directory expected 1,268 UIL programs',
