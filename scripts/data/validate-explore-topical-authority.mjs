@@ -275,7 +275,8 @@ for (const target of ['/explore/attractions-comparison', '/browse/cities', '/eve
 
 for (const marker of [
   'applyAllCuratedDestination(\n            enrichAquariumMarineDestination(',
-  'const aquariumEnriched = reconcileDestinationHeroes',
+  'const aquariumEnriched = recoverUniqueParkHeroesAfterGlobalReconciliation(',
+  'reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))',
   'applyAllCuratedDestinations(aquariumEnriched)',
 ]) {
   if (!destinationRuntime.includes(marker)) failures.push(`Aquarium enrichment must run before final destination curation: missing ${marker}.`);
