@@ -1,0 +1,45 @@
+name: One-time 50-cent Stripe sandbox Checkout diagnostic
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-time-hosted-stripe-sandbox-20261015.yml'
+      - 'scripts/ci/one-time-hosted-stripe-sandbox-20261015.mjs'
+permissions:
+  contents: read
+concurrency:
+  group: sandbox-qa-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate script
+        run: node --check scripts/ci/one-time-hosted-stripe-sandbox-20261015.mjs
+      - name: Install Playwright
+        run: |
+          npm install --prefix /tmp/tdqa --no-audit --no-fund --no-save playwright-core@1.56.1
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "CHROME_BIN=$(command -v google-chrome)" >> "$GITHUB_ENV"
+          elif command -v chromium >/dev/null 2>&1; then
+            echo "CHROME_BIN=$(command -v chromium)" >> "$GITHUB_ENV"
+          else
+            node /tmp/tdqa/node_modules/playwright-core/cli.js install chromium
+          fi
+      - name: Test real Stripe sandbox hosted checkout for 50 cents
+        env:
+          PLAYWRIGHT_CORE_PATH: /tmp/tdqa/node_modules/playwright-core
+        run: node scripts/ci/one-time-hosted-stripe-sandbox-20261015.mjs
+      - name: Save browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hosted-stripe-sandbox-checkout-evidence
+          path: artifacts/one-time-hosted-stripe-test
+          if-no-files-found: warn
+          retention-days: 1
