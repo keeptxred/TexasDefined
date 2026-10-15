@@ -209,8 +209,9 @@ if (zapata.slice(zapata.indexOf('  museum:')).includes("github.event.workflow_ru
   failures.push('Zapata live acceptance must not execute after failed deployment');
 
 const linkGraph = workflow('audit-internal-link-graph-production');
-requireMarker(linkGraph, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Post-deploy internal-link graph audit must check out triggering SHA');
-requireMarker(linkGraph, "github.event.workflow_run.conclusion == 'success'", 'Internal-link graph audit requires successful deploy');
+requireMarker(linkGraph, 'audit-site-quality-local.yml', 'Full internal-link audit must use the local built Worker');
+requireMarker(linkGraph, 'audit: links', 'Internal-link manual entry point must preserve the complete graph audit');
+if (/^  (workflow_run|schedule|push|pull_request):/m.test(linkGraph)) failures.push('Full link-graph crawler must not run on each production deploy');
 const seasonal = workflow('verify-seasonal-production');
 requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
 requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');

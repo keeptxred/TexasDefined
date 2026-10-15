@@ -1,0 +1,76 @@
+name: Full site quality audit on local Worker
+
+on:
+  schedule:
+    - cron: '41 10 * * 2'
+  workflow_dispatch:
+    inputs:
+      audit:
+        description: Complete audit to run on the local built Worker
+        type: choice
+        options: [all, links, sitemap, images]
+        default: all
+  workflow_call:
+    inputs:
+      audit:
+        type: string
+        default: all
+
+permissions:
+  contents: read
+
+concurrency:
+  group: local-site-quality-audit
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Test local-only crawl transport and workflow cost contract
+        run: node --test scripts/ci/local-audit-fetch.test.mjs
+      - name: Install governed image build tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          if (command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1) && command -v rsvg-convert >/dev/null 2>&1; then
+            exit 0
+          fi
+          test -f /etc/apt/sources.list.d/ubuntu.sources
+          timeout 180s sudo apt-get update -qq -o Dir::Etc::sourcelist="sources.list.d/ubuntu.sources" -o Dir::Etc::sourceparts="-"
+          timeout 180s sudo apt-get install -y --no-install-recommends imagemagick librsvg2-bin
+      - name: Restore governed Discover derivatives
+        uses: actions/cache@v4
+        with:
+          path: public/images/discover
+          key: local-audit-discover-${{ runner.os }}-${{ hashFiles('scripts/assets/materialize-discover-overrides.mjs') }}
+      - name: Build the complete site once on this runner
+        run: |
+          npm run prebuild
+          node scripts/assets/materialize-discover-overrides.mjs
+          npm run build
+          git diff --exit-code -- src/routeTree.gen.ts
+      - name: Run full audits against local built Worker
+        env:
+          LOCAL_QUALITY_AUDIT: ${{ inputs.audit || 'all' }}
+        run: node scripts/ci/run-local-quality-audits.mjs "$LOCAL_QUALITY_AUDIT"
+      - name: Upload complete local audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: local-site-quality-audit-${{ inputs.audit || 'all' }}
+          path: |
+            .artifacts/local-quality-*
+            internal-link-graph-audit.json
+            internal-link-graph-audit.md
+            tmp/sitemap-page-indexability-audit.json
+            image-discover-production-report.json
+          if-no-files-found: error
+          retention-days: 14

@@ -179,6 +179,10 @@ const child = spawn(
     host,
     '--port',
     String(port),
+    // Let the runtime choose an ephemeral inspector socket. Avoid Wrangler's
+    // network-interface scan in restricted local runners; no inspector is used.
+    '--inspector-port',
+    '0',
   ],
   {
     cwd: process.cwd(),

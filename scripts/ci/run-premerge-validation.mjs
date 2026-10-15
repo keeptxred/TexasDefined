@@ -42,6 +42,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['CI/COST', 'Protect local-only full-site crawls and request budgets', 'node', ['--test', 'scripts/ci/local-audit-fetch.test.mjs']],
   ['COMMERCE/CHECKOUT', 'Verify Texas Defined shipping terms and safe handoff correlation', 'node', ['--experimental-strip-types', '--test', 'scripts/data/validate-shop-checkout-shipping.test.mjs']],
   ['DEPLOY/RECOVERY', 'Test Cloudflare Git-build API transient retries and fail-closed behavior', 'node', ['--test', 'scripts/ci/wait-for-cloudflare-git-build.test.mjs']],
   ['COMMERCE/SEO', 'Verify accurate Merchant delivery and variant photo signals', 'node', ['--experimental-strip-types', '--test', 'scripts/data/merchant-quality-signals.test.mjs']],

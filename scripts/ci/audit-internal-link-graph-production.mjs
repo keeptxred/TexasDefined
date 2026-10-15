@@ -1,3 +1,5 @@
+import { createLocalAuditFetch } from './local-audit-fetch.mjs';
+const localAuditFetch = createLocalAuditFetch({ localOrigin: process.env.LOCAL_AUDIT_ORIGIN });
 import fs from 'node:fs/promises';
 
 const ORIGIN = new URL(process.env.TEXASDEFINED_ORIGIN || 'https://texasdefined.com').origin;
@@ -67,7 +69,7 @@ async function fetchText(url) {
     const controller=new AbortController();
     const timer=setTimeout(()=>controller.abort(),TIMEOUT_MS);
     try {
-      const response=await fetch(url,{
+      const response=await localAuditFetch(url,{
         redirect:'follow',
         headers:{'user-agent':USER_AGENT,accept:'text/html,application/xml;q=0.9,*/*;q=0.8'},
         signal:controller.signal,
@@ -301,6 +303,7 @@ const md=[
   'Full page-level graph data is in '+OUT_JSON+'.',
   '',
 ].join('\n');
+localAuditFetch.assertComplete();
 await fs.writeFile(OUT_MD,md);
 console.log(JSON.stringify(summary,null,2));
 
