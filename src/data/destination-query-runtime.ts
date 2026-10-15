@@ -238,8 +238,10 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
   // A TPWD park may be editorially categorized as coastal, history, lake or outdoors.
   // Select from the already-filtered full catalog, never include RV-business aliases or closed parks.
   if (params.category === "state-parks") {
-    const parks = (await listResolvedDestinations()).filter(isTexasStateParkDestination)
-      .sort((a, b) => a.name.localeCompare(b.name));
+    const parks = filterDestinationsByScope(
+      (await listResolvedDestinations()).filter(isTexasStateParkDestination),
+      { region: params.region },
+    ).sort((a, b) => a.name.localeCompare(b.name));
     if (params.featured) return featuredFallback(parks, params.limit ?? 6);
     return params.limit ? parks.slice(0, params.limit) : parks;
   }
