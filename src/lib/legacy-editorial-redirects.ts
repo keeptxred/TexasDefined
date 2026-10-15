@@ -41,3 +41,11 @@ const historicalArticleSlugs = [
 for (const slug of historicalArticleSlugs) {
   LEGACY_EDITORIAL_REDIRECTS[`/news/${slug}`] = `/article/${slug}`;
 }
+
+/** Point editorial collection links directly at the published canonical
+ * destination, while preserving separate 301s for incoming historical URLs.
+ */
+export function canonicalDestinationSlug(slug: string): string {
+  const target = LEGACY_EDITORIAL_REDIRECTS[`/destination/${slug}`];
+  return target?.startsWith("/destination/") ? target.slice("/destination/".length) : slug;
+}
