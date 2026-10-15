@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "blackwell",
-    "nextSchool": "blackwell",
-    "implementedOnBranch": 3,
-    "remainingToImplement": 22,
+    "currentSchool": "blanco",
+    "nextSchool": "blanco",
+    "implementedOnBranch": 4,
+    "remainingToImplement": 21,
     "remainingToVerify": 25,
-    "notes": "Harmony deployed but unverified. Big Spring and Bishop implemented on dependent unmerged PRs. Keep 105 historical VERIFIED and 24 Batch005 editorial outstanding; Batch006 zero independently production-VERIFIED."
+    "notes": "Harmony DEPLOYED, Big Spring IMPLEMENTED and merged, Bishop and Blackwell IMPLEMENTED on dependent unmerged branches, none of Batch006 accepted/Chrome VERIFIED. 105 prior verified records unchanged; 24 Batch005 formal editorial acceptances pending."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6570,8 +6570,12 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/blackwell",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/blackwell.md",
+      "implementedOnBranch": "feature/football-b006-blackwell-20261015",
+      "actualProductionVerified": false,
+      "reviewScope": "Source-backed UIL 1A DII 6-man District7, 2019 semifinal, 5–2 through October 9; Sep4 score sources conflict. Authored only on dependent branch, no photo/venue/coach verification or Chrome QA."
     },
     {
       "id": "uil:blanco",

@@ -581,6 +581,176 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
+  "blackwell": {
+    "slug": "blackwell",
+    "theme": {
+      "accentHex": "#245B48",
+      "label": "Original independent green accent; official team insignia not reproduced"
+    },
+    "seo": {
+      "title": "Blackwell Hornets Six-Man Football 2026 | UIL District, 2019 Semifinal & Scores",
+      "description": "Blackwell TX Hornets six-man football, 2026 UIL 1A Division II District 7, 5–2 through October 9, 2019 state-semifinal history and verified district contacts."
+    },
+    "campus": {
+      "address": "100 Hornet Dr, Blackwell, TX 79506",
+      "phone": "325-282-2311",
+      "sourceUrl": "https://www.blackwellhornets.org/",
+      "sourceLabel": "Blackwell CISD official school footer, not a confirmed football vehicle entrance",
+      "verifiedAt": "2026-10-15"
+    },
+    "schedule": {
+      "label": "Blackwell Hornets 2026 six-man varsity schedule and independently attributed score updates",
+      "sourceUrl": "https://sixmanfootball.com/teams/blackwell-hornets.1046/schedule/",
+      "sourceLabel": "Specialist SixManFootball.com scores, crosschecked October 9 with opponent listing and MaxPreps dated report, not district official",
+      "verifiedAt": "2026-10-15"
+    },
+    "notice": {
+      "title": "Verify September 4 points and game-day entrance with Blackwell CISD",
+      "body": "The September 4 Blackwell–Santa Anna contest is consistently reported as a Blackwell win, but published team records conflict on the Blackwell point total: Six-Man Football and Blackwell's MaxPreps listing show 52–6; Santa Anna's MaxPreps recap says 50–6. The table therefore identifies the victory without certifying disputed points. The district's 100 Hornet Dr address is a school contact, NOT a verified stadium gate; independently verified parking, ADA and ticket policies are unavailable.",
+      "sourceUrl": "https://www.blackwellhornets.org/",
+      "sourceLabel": "Blackwell CISD official school contact; exact September 4 final remains independently unresolved",
+      "verifiedAt": "2026-10-15"
+    },
+    "season": {
+      "record": "5–2 through October 9, 2026 (Six-Man Football and MaxPreps as of Oct 10; season ongoing)",
+      "verifiedAt": "2026-10-15",
+      "sourceUrl": "https://sixmanfootball.com/teams/blackwell-hornets.1046/schedule/",
+      "sourceLabel": "Blackwell 2026 specialist result list; Sep 4 exact total disputed by Santa Anna MaxPreps; 10/9 Olfen 57–6 also supported by reciprocal opponent listing and Oct 10 MaxPreps report",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Aspermont",
+          "site": "Home",
+          "result": "L 36–64"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Santa Anna",
+          "site": "Away",
+          "result": "W (score disputed: 52–6 vs 50–6)"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Robert Lee",
+          "site": "Home",
+          "result": "L 62–87"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Veribest",
+          "site": "Away",
+          "result": "W 96–63"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Highland",
+          "site": "Away",
+          "result": "W 62–40"
+        },
+        {
+          "date": "2026-10-03",
+          "opponent": "Harrold",
+          "site": "Home",
+          "result": "W 83–36"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Olfen",
+          "site": "Home",
+          "district": true,
+          "result": "W 57–6"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Trent",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Valera Panther Creek",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Loraine",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "development": {
+      "title": "2019 Hornets reached the 1A Division II six-man state semifinals",
+      "body": "Dave Campbell's Texas Football previewed unbeaten Blackwell facing Motley County in the 2019 Class 1A Division II semifinal, following Blackwell's quarterfinal upset of Jayton 62–54. Historical schedule reporting shows Motley County ended Blackwell's postseason run 56–44; UIL's 2019 state-final announcement instead listed Motley County against Richland Springs. Blackwell reached the state semifinals, not the state championship game. Competing historical totals count games differently (13–1 and 15–1), so this guide does not assert an unqualified full-season record.",
+      "sourceUrl": "https://www.texasfootball.com/article/2019/12/04/class-1a-state-semifinal-preview-breaking-down-the-six-man-playoff-action",
+      "sourceLabel": "Dave Campbell's Texas Football 2019 state-semifinal preview; crosschecked against UIL state-final listing and dated historical schedules",
+      "verifiedAt": "2026-10-15"
+    },
+    "milestones": [
+      {
+        "date": "2019-11-29",
+        "title": "Quarterfinal win against Jayton",
+        "body": "Dave Campbell's 2019 semifinal preview credited Blackwell with a 62–54 quarterfinal win over Jayton, securing a berth against Motley County.",
+        "sourceUrl": "https://www.texasfootball.com/article/2019/12/04/class-1a-state-semifinal-preview-breaking-down-the-six-man-playoff-action",
+        "sourceLabel": "DCTF 2019 semifinal preview"
+      },
+      {
+        "date": "2019-12-06",
+        "title": "State-semifinal season ended against Motley County",
+        "body": "Contemporaneous matchup records show Motley County defeated Blackwell 56–44 in the 2019 Class 1A Division II semifinal; UIL's 2019 finals schedule confirms Motley County, not Blackwell, advanced to the title game.",
+        "sourceUrl": "https://www.lonestarfootball.net/team.asp?GUID=6872506738&S=2019&T=108&action=schedule",
+        "sourceLabel": "Lone Star Football Network date-specific 2019 Blackwell result; UIL 2019 championship announcement independently establishes non-finalist status"
+      },
+      {
+        "date": "2026",
+        "title": "New UIL 1A Division II District 7",
+        "body": "The official UIL 2026–28 six-man alignment places Blackwell with Loraine, Olfen, Trent and Valera Panther Creek.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 1A Division II six-man alignment"
+      },
+      {
+        "date": "2026-10-09",
+        "title": "Fifth win in first seven games: Olfen 57–6",
+        "body": "Six-Man Football's Blackwell and Olfen feeds, plus a dated October 10 MaxPreps recap, agree on Blackwell's 57–6 district win over Olfen and a 5–2 record through Oct 9.",
+        "sourceUrl": "https://sixmanfootball.com/teams/olfen-mustangs.1448/schedule/",
+        "sourceLabel": "Reciprocal Olfen 2026 schedule; corroborated by MaxPreps team recap and Blackwell result index"
+      }
+    ],
+    "overview": [
+      "Blackwell Consolidated Independent School District's Hornets represent Blackwell, Texas, in six-man football. Do not confuse them with the Oklahoma Blackwell Maroons or 11-man programs that share the name. UIL's 2026–28 alignment places the Hornets in Conference 1A Division II District 7 with Loraine, Olfen, Trent and Valera Panther Creek. The smaller six-player format is not a shortened 11-man game; the UIL explicitly publishes a separate six-man division alignment.",
+      "The Hornets have an identifiable postseason landmark. In 2019, Blackwell beat Jayton 62–54 in the state quarterfinals and then faced Motley County in the six-man Division II state semifinal. Motley County won 56–44 and later played Richland Springs for the state title. Thus Blackwell was a semifinalist, not a champion or finalist. Historical databases disagree on the total 2019 games recorded, so this guide describes the confirmed postseason path without inventing an exact final win–loss count.",
+      "The six-man scoring scale is evident in Blackwell's dated 2026 fixtures: a 96–63 road victory at Veribest and an 83–36 home win against Harrold. Six-Man Football and the October 10 MaxPreps game report agree on a 57–6 win over Olfen on October 9, giving a 5–2 snapshot through that game. The listed Trent, Panther Creek and Loraine dates remain future as of October 15.",
+      "An important source-integrity exception concerns the September 4 win at Santa Anna. Blackwell's MaxPreps and Six-Man Football records say 52–6, while the Santa Anna MaxPreps team page records 50–6. The winner and approximate margin are clear, but the exact Blackwell point total is disputed; the scoreline is explicitly qualified pending an official original scoreboard.",
+      "Blackwell CISD currently publishes 100 Hornet Drive, Blackwell, TX 79506 and 325-282-2311 as school contact details. Another sports directory lists 610 North Alamo, and a six-man directory uses the descriptive stadium title Blackwell Hornets Field. This page does not assume any of those references establishes the verified game-day gate, accessible parking or ticket office. Check the district for the current event location and entry procedures."
+    ],
+    "faq": [
+      {
+        "question": "Is Blackwell Hornets football six-man or eleven-man?",
+        "answer": "Blackwell CISD of Blackwell, Texas is in UIL six-man football. For 2026–28 the school is listed in Class 1A Division II District 7, not an eleven-man conference."
+      },
+      {
+        "question": "Which teams share Blackwell's 2026 UIL district?",
+        "answer": "The official UIL 2026–28 alignment lists Blackwell with Loraine, Olfen, Trent and Valera Panther Creek in six-man District 7."
+      },
+      {
+        "question": "Did Blackwell play for the 2019 state six-man championship?",
+        "answer": "No. Blackwell reached the 2019 Class 1A Division II state semifinals after beating Jayton 62–54, then lost 56–44 to Motley County. UIL's state final involved Motley County and Richland Springs."
+      },
+      {
+        "question": "What was Blackwell's 2026 varsity record as of October 9?",
+        "answer": "Specialist Six-Man Football and an October 10 MaxPreps result report show Blackwell 5–2 through a 57–6 district win over Olfen on October 9, 2026. The season was still under way."
+      },
+      {
+        "question": "What was the final against Santa Anna on September 4, 2026?",
+        "answer": "Blackwell won, but the exact points conflict: the Blackwell-facing records show 52–6, and Santa Anna's MaxPreps team recap says 50–6. This guide intentionally avoids certifying either exact score until district-original evidence resolves the discrepancy."
+      },
+      {
+        "question": "Where should I go for Blackwell Hornets football tickets and parking?",
+        "answer": "Blackwell CISD publishes 100 Hornet Dr, Blackwell TX 79506, phone 325-282-2311. That is the school contact address, not a verified football stadium vehicle gate. Confirm each event's location, ADA parking and ticket policies with the district before attending."
+      }
+    ]
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {

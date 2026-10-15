@@ -1,5 +1,8 @@
 # Football Authority — Execution Ledger
 
+## October 15, 2026 — Blackwell six-man school-specific entry authored (dependent branch only)
+Blackwell 2026 UIL 1A DII District 7, six-man specialist results 5–2 through Oct9; 2019 DCTF quarterfinal Jayton 62–54, state semifinal loss to Motley County 56–44, not finalist. Sep4 Santa Anna exact 52–6 vs 50–6 conflict explicitly preserved. Historical 2019 total varies between sources because of game counting. Six original FAQs, no claimed current coach/stadium license. Implemented on branch only, zero Batch006 formal Chrome/editorial VERIFIED. Requires Bishop dependent PR #4978 first; protected gate and targeted production QA.
+
 ## October 15, 2026 — Bishop Badgers Batch006 implementation (dependent PR; not live)
 School-specific Bishop guide authored with UIL District 16, seven dated results (2–5 through Oct 9), 2024 turnaround and 2025 archive, six original FAQs, and unresolved source disagreement on coach/stadium. Stadium/photo/accessibility not guessed. Big Spring PR #4970 must land first, followed by protected merge and targeted production verification; prior 105 VERIFIED untouched.
 
