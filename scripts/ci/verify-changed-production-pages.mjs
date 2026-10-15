@@ -21,6 +21,17 @@ for (const path of plan.selectedPaths) {
       if (finalPage.origin !== origin) throw new Error('Redirect left the production origin');
       const expectedCanonical = finalPage.origin + finalPage.pathname;
       if (links.length !== 1 || actual !== expectedCanonical) throw new Error(`Unexpected canonical: ${actual || 'missing'}`);
+      const expectedHrefs = plan.expectedHrefsByPage?.[path] ?? [];
+      if (!Array.isArray(expectedHrefs) || expectedHrefs.length > 40) throw new Error('Invalid expected outbound link contract');
+      if (expectedHrefs.length) {
+        const anchors = new Set([...html.matchAll(/<a\b[^>]*>/gi)]
+          .map(match => match[0].match(/\bhref=["']([^"']+)["']/i)?.[1])
+          .filter(Boolean)
+          .map(href => href.replace(/&amp;/g, '&')));
+        for (const href of expectedHrefs) {
+          if (!/^\/(?!\/)/.test(href) || !anchors.has(href)) throw new Error('Expected changed internal link is missing from SSR anchors: '+href);
+        }
+      }
       results.push({ path, passed: true, attempt }); failure = null; break;
     } catch (error) { failure = error.message; }
   }

@@ -43,6 +43,37 @@ test('one edited article selects that record, not its unchanged siblings', () =>
   assert.ok(Object.values(plan.groups).every(v => v === false));
 });
 
+test('slug-keyed article link changes verify actual source pages and newly added SSR anchors', async () => {
+  const path = 'src/data/article-internal-links.ts';
+  const before = 'export const articleInternalLinks = { "texas-regions-explained": [{ href: "/texas-explained" }], "texas-trees-guide": [] };';
+  const after = 'export const articleInternalLinks = { "texas-regions-explained": [{ href: "/texas-explained" }, { href: "/article/texas-gulf-coast-erosion-shoreline-retreat-guide" }], "texas-trees-guide": [] };';
+  const plan = buildChangePlan({ baseline, head, changedFiles: [path], sources: { [path]: { before, after } } });
+  assert.deepEqual(plan.selectedPaths, ['/article/texas-regions-explained']);
+  assert.deepEqual(plan.expectedHrefsByPage['/article/texas-regions-explained'], ['/article/texas-gulf-coast-erosion-shoreline-retreat-guide']);
+  const html = href => '<html><title>Regions</title><link rel="canonical" href="https://texasdefined.com/article/texas-regions-explained"><body>' + (href ? '<a href="/article/texas-gulf-coast-erosion-shoreline-retreat-guide">Erosion</a>' : '') + '</body></html>';
+  const good = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(true)) });
+  assert.equal(good[0].passed, true);
+  const bad = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(false)) });
+  assert.equal(bad[0].passed, false);
+  assert.match(bad[0].error, /Expected changed internal link is missing/);
+});
+
+test('planner corrections retest previously missed editorial SSR links, not entire site', () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
+  assert.deepEqual(plan.selectedPaths, ['/article/texas-cultural-regions-explained', '/article/texas-regions-explained']);
+  assert.equal(plan.expectedHrefsByPage['/article/texas-regions-explained'][0], '/article/texas-gulf-coast-erosion-shoreline-retreat-guide');
+  assert.equal(plan.expectedHrefsByPage['/article/texas-cultural-regions-explained'][0], '/article/texas-oil-boom-wichita-falls-west-texas-rigs');
+});
+
+test('unchanged sibling registry keys are not independently crawled', () => {
+  const path = 'src/data/remote-evergreen-internal-links.ts';
+  const before = 'const groups = { "history-one": [{ href: "/texas-history" }], "history-two": [{ href: "/texas-history" }] };';
+  const after = 'const groups = { "history-one": [{ href: "/texas-history" }], "history-two": [{ href: "/texas-history" }, { href: "/article/history-one" }] };';
+  const plan = buildChangePlan({ baseline, head, changedFiles: [path], sources: { [path]: { before, after } } });
+  assert.deepEqual(plan.selectedPaths, ['/article/history-two']);
+  assert.deepEqual(plan.expectedHrefsByPage['/article/history-two'], ['/article/history-one']);
+});
+
 test('static routes normalize TanStack trailing underscores and scope relevant gates', () => {
   const path = 'src/routes/fishing_.structure.tsx';
   const plan = buildChangePlan({ baseline, head, changedFiles: [path], sources: { [path]: { after: `createFileRoute('/fishing_/structure')({});` } } });
