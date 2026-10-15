@@ -15,10 +15,10 @@ The authoritative current matrix is in the companion CSV `TPWD_90_AUTHORITY_COMP
 
 ## Known review priorities
 
-1. Confirm real-time `/explore/state-parks` count and all 84 canonical routes against a fresh deployed Worker; search-engine copies still display 38 and cannot prove current live behavior.
+1. **Directory completeness confirmed October 15, 2026:** a fresh production HTTP 200 response to `/explore/state-parks` showed 84 places, `index, follow`, its exact self-canonical URL and all 84 TPWD primary/guided canonical `/destination/` links from the official inventory. Cached search-engine snapshots still showed an earlier 37-place guide; do not equate this stale snapshot with current production. Each linked destination still needs its own detailed acceptance, beyond the five targeted live HTTP 200 checks.
 2. Devil's Sinkhole's two source-monitor URLs were fetched and baselined HTTP 200 on October 15; its official tour departure, season, fees and platform access were compared with the published source-backed authority overlay. Canonical hero mapping and post-dedup recovery still need deployed-page verification.
 3. Review changed source flags for Abilene main/RV-loop and Fort Parker lake; current Abilene park-alert warnings (lake restrictions, pool closure and burn ban) were incorporated in the facility layer, but third-party reservation and lake access source fingerprints are still pending comparative editorial review. Do not unflag merely because a warning was added.
-4. Individually confirm hero correctness and licensing, park units/facilities, reciprocal links, offers, and SERP/SEO behavior before marking an authority guide accepted.
+4. Five targeted live routes (Abilene, Devil's Sinkhole, Longhorn Cavern, Franklin Mountains and Fort Parker) returned HTTP 200, self-canonicals and index/follow on October 15. Abilene's closed-pool warning and Longhorn/Franklin restroom notes were present in SSR. Devil's Sinkhole's OG image still used a remote Wikimedia proxy despite a local licensed JPEG mapping; fix and independently verify after deployment. Individually confirm hero rights, park units/facilities, links, offers, SERP/SEO and source facts for all parks before marking an authority guide accepted.
 
 ## Completed technical foundation (not the completion certificate)
 

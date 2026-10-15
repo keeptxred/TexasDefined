@@ -124,6 +124,8 @@ assertContains(heroResolver, 'isTexasStateParkDestination(destination)', "State 
 assertContains(heroResolver, '"cooper-lake-state-park": "cooper-lake-south-sulphur-unit-state-park"', "Cooper Lake exact South Sulphur park unit photograph missing");
 assertContains(heroResolver, '"devils-sinkhole-state-natural-area": "devil-s-sinkhole-state-natural-area"', "Devil\'s Sinkhole licensed image alias must match the canonical guide");
 assertContains(heroResolver, "const verified = mappedHero(destination.slug);", "Post-reconciliation state park image recovery must support verified same-place aliases");
+assertContains(heroResolver, "function isRemoteHero(src: string): boolean", "Remote JPEG URLs must not bypass exact-place licensed park photos");
+assertContains(heroResolver, "mapped && isRemoteHero(destination.hero.src)", "Both park lists and single guides must prefer local credited photos over remote JPEG");
 assertContains(authority, "https://tpwd.texas.gov/state-parks/abilene/alert", "Abilene park restrictions must be linked to the current TPWD alert");
 assertContains(authority, "swimming pool is CLOSED for renovations", "Abilene must not advertise its closed swimming pool as open");
 assertContains(authority, "composting restrooms in the Tom Mays Unit", "Franklin Mountains restroom location must remain source-specific and dated");
