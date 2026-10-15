@@ -1,4 +1,6 @@
-import { chromium } from 'playwright-core';
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
+const { chromium } = require(process.env.PLAYWRIGHT_CORE_PATH || '/tmp/tdqa/node_modules/playwright-core');
 import { mkdir, writeFile } from 'node:fs/promises';
 
 const TEST_URL = "https://checkout.stripe.com/c/pay/cs_test_a13Ok5sdy1d7lk7ZsMeDjVAh7RbXtvcSwyKd80nvBGo81fOSGZGQHHo4TU#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdicyc%2FNSknZHVsTmB8Jz8ndW5acWB2cVowNFFqZ0x%2FSXFXcHdvM0JIS0N9bm5EY0c0czRRcjRNUHB0MmRfajV2XXZ3cGc3Zm5EcEpWVV1zVlNtclNSV0pIaHEyNzZxR0NcMkFodTVHUH83X1xXX1NvYzU1RnRpUG9BT0gnKSdjd2poVmB3c2B3Jz9xd3BgKSdnZGZuYndqcGthRmppancnPycmY2NjY2NjJyknaWR8anBxUXx1YCc%2FJ3Zsa2JpYFpscWBoJyknYGtkZ2lgVWlkZmBtamlhYHd2Jz9xd3BgeCUl";
