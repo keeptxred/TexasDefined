@@ -75,6 +75,25 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       expectedHrefsByPage[page] = hrefs;
     }
   }
+  // These published profiles are owned by one dynamic view model rather than
+  // individual route records. Only inspect the four historically underlinked
+  // species whenever that owner or this planner changes.
+  if (changedFiles.some(path => [
+    'src/data/fishing/species-guide-data.server.ts',
+    'src/components/fishing/FishingSpeciesProfile.tsx',
+    'scripts/ci/production-change-scope.mjs',
+  ].includes(path))) {
+    const expectedFamilyLinks = {
+      '/fishing/species/black-crappie': ['/fishing/species/white-crappie'],
+      '/fishing/species/white-crappie': ['/fishing/species/black-crappie'],
+      '/fishing/species/bluegill': ['/fishing/species/sunfish'],
+      '/fishing/species/freshwater-drum': ['/fishing/species/alligator-gar'],
+    };
+    for (const [page, hrefs] of Object.entries(expectedFamilyLinks)) {
+      candidates.add(page);
+      expectedHrefsByPage[page] = hrefs;
+    }
+  }
   let contentFallback = false;
   for (const path of changedFiles) {
     const { before = '', after = '' } = sources[path] || {};
