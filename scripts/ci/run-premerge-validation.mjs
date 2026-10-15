@@ -49,6 +49,7 @@ const prebuildChecks = [
   ['CI/DEPLOYMENT', 'Syntax-check Harmony desktop/mobile production verifier', 'node', ['--check', 'scripts/ci/verify-football-batch006-harmony-production.mjs']],
   ['NEWS/PUBLICATION', 'Reject stale sources in disabled-by-default TexasDefined auto-news pipeline', 'node', ['--test', 'scripts/news/texasdefined-queue-freshness.test.mjs']],
   ['CI/COST', 'Verify update scan scope, retired triggers and shared page fetches', 'node', ['--test', 'scripts/ci/update-scan-policy.test.mjs']],
+  ['CI/COST', 'Scope Batch004 live GIS/Chrome audit to true Batch004 changes; fail closed', 'node', ['scripts/ci/should-run-football-b004.test.mjs']],
   ['CI/COST', 'Protect all six remaining local audit migrations and authority reporting', 'node', ['--test', 'scripts/ci/local-audit-migrations.test.mjs', 'scripts/ci/authority-master-issue.test.mjs']],
   ['CI/COST', 'Protect local-only full-site crawls and request budgets', 'node', ['--test', 'scripts/ci/local-audit-fetch.test.mjs']],
   ['SEO/LINKS', 'Distinguish HTTP errors from failed transport without relaxing strict link audit', 'node', ['--test', 'scripts/ci/internal-link-failure-diagnostics.test.mjs']],

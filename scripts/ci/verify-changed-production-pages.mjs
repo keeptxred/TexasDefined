@@ -1,7 +1,8 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 export async function verifyChangedPages({ plan, head, fetchImpl = fetch }) {
-if (plan.head !== head || !Array.isArray(plan.selectedPaths) || plan.selectedPaths.length > 40) throw new Error('Missing, stale or oversized production change plan');
+const redirectChecks = plan.redirectChecks ?? [];
+if (plan.head !== head || !Array.isArray(plan.selectedPaths) || !Array.isArray(redirectChecks) || redirectChecks.length > 2 || plan.selectedPaths.length + redirectChecks.length > 40) throw new Error('Missing, stale or oversized production change plan');
 const origin = 'https://texasdefined.com';
 const results = [];
 for (const path of plan.selectedPaths) {
@@ -36,6 +37,39 @@ for (const path of plan.selectedPaths) {
     } catch (error) { failure = error.message; }
   }
   if (failure) results.push({ path, passed: false, error: failure });
+}
+// These are explicit, governed 301 aliases, not ordinary indexable HTML pages.
+// Do not follow the redirect or a 200 landing page would mask a broken 301.
+for (const check of redirectChecks) {
+  if (!['/texas-vs/california', '/texas-vs/florida'].includes(check.path) ||
+      check.target !== '/article/texas-vs-' + check.path.split('/').pop() + '-differences') {
+    throw new Error('Unexpected canonical redirect check');
+  }
+  let failure;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const url = new URL(check.path, origin);
+      url.searchParams.set('deploy_smoke', plan.head + '-' + attempt);
+      const response = await fetchImpl(url, {
+        redirect: 'manual', cache: 'no-store',
+        headers: { 'cache-control': 'no-cache', 'user-agent': 'TexasDefined-Canonical-Redirect-Smoke' },
+        signal: AbortSignal.timeout(20000),
+      });
+      if (response.status !== 301 || response.headers.get('cf-mitigated') === 'challenge') {
+        throw new Error('Expected HTTP 301, received ' + response.status);
+      }
+      const location = response.headers.get('location');
+      if (!location) throw new Error('Missing Location on 301 response');
+      const target = new URL(location, origin);
+      if (target.origin !== origin || target.pathname !== check.target) {
+        throw new Error('Incorrect redirect target: ' + target.href);
+      }
+      results.push({ path: check.path, passed: true, attempt, redirectTo: check.target, status: 301 });
+      failure = null;
+      break;
+    } catch (error) { failure = error instanceof Error ? error.message : String(error); }
+  }
+  if (failure) results.push({ path: check.path, passed: false, error: failure });
 }
 return results;
 }

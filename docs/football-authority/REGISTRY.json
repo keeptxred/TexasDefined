@@ -53,7 +53,7 @@
     "implementedOnBranch": 4,
     "remainingToImplement": 21,
     "remainingToVerify": 25,
-    "notes": "Harmony DEPLOYED, Big Spring IMPLEMENTED and merged, Bishop and Blackwell IMPLEMENTED on dependent unmerged branches, none of Batch006 accepted/Chrome VERIFIED. 105 prior verified records unchanged; 24 Batch005 formal editorial acceptances pending."
+    "notes": "Harmony and Big Spring released; Bishop merged #4978 (deployment/Chrome acceptance separate). Blackwell IMPLEMENTED on dependent PR #4985 only, Blanco on #4990. Preserve 105 verified legacy records and 24 Batch005 editorial acceptances pending; no Batch006 formal Chrome/editorial verification."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6533,13 +6533,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/big-spring",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 6,
       "schoolNote": "docs/football-authority/schools/big-spring.md",
       "researchCompletedAt": "2026-10-15",
       "actualProductionVerified": false,
-      "reviewScope": "Individually researched and code-authored on PR #4970: verified UIL District 2, 1953 state runner-up, BSISD Memorial Stadium address, May coach hire and 1–5 through Oct 9; exact-SHA production Chrome QA, rights-cleared photo and editorial acceptance not yet completed.",
-      "implementedOnBranch": "research/football-b006-big-spring-20261015"
+      "reviewScope": "Big Spring sourced guide merged via #4970 and shipped in successful descendant deployment #38816010474; page-specific real Chrome, photo-rights and nine-dimension editorial acceptance still pending.",
+      "mergedPR": 4970,
+      "mergedCommit": "8dd25feb2130587cc263f1d1a238576ee6e7a439",
+      "deploymentRun": 38816010474,
+      "deploymentCommit": "68f9f0b99736ffa1fc2161d5624eee89111d2cf7"
     },
     {
       "id": "uil:bishop",
