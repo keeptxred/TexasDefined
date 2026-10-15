@@ -25,6 +25,7 @@ requirements, including earlier source validators that required feature-specific
   shared checks run. Removed files are included when selecting feature scopes.
 - Changed-page smoke uses static route declarations and changed article/destination
   records. Unmapped content/shared changes use representative public pages. The
+  smoke additionally checks the two existing California/Florida canonical aliases as actual HTTP 301 redirects (without following them) only when the relevant route or planner changes. All checks share the same 40-page total budget and existing deploy job. The
   smoke also selects exactly four affected fishing-species owners and verifies their governed family-link SSR anchors when that shared view model changes; other releases pay no extra page-scan cost. The
   smoke also identifies changed slug-keyed article-link registry owners and checks newly added SSR anchors, instead of testing only representative pages. This adds no full-site crawl and no new audit trigger. The smoke has a 40-page cap, records its candidate and omitted counts, and explicitly
   describes sampling; it never claims an exhaustive content audit. Full source

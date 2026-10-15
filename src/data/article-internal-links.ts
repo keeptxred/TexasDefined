@@ -272,6 +272,11 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
   "texas-barbecue-styles-explained": [
     texasExplainedLink,
     {
+      href: "/article/texas-restaurants-for-out-of-town-visitors",
+      label: "Texas restaurants to recommend to visitors",
+      description: "Take barbecue's regional food traditions into a practical guide for choosing Texas meals when friends or family visit.",
+    },
+    {
       href: "/explore/food-bbq",
       label: "Explore Texas food & barbecue",
       description: "Keep going through the food, barbecue and regional traditions that shape the Texas table.",
