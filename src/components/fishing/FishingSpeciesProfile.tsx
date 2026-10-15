@@ -127,6 +127,11 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
           <p className="eyebrow text-muted-foreground">Related fish to compare</p>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">These links are based on shared verified lake relationships, not a claim of biological similarity.</p>
           {data.relatedSpecies.length ? <div className="mt-5 divide-y divide-border border-y border-border">{data.relatedSpecies.map((row) => <a key={row.species.id} href={row.href} className="flex items-center justify-between gap-4 py-3 text-sm hover:text-primary"><span className="font-semibold">{row.species.commonName}</span><span className="text-xs text-muted-foreground">{row.sharedLakeCount} shared lake{row.sharedLakeCount === 1 ? "" : "s"}</span></a>)}</div> : <p className="mt-5 text-sm text-muted-foreground">No other published species currently shares a verified lake relationship in this dataset.</p>}
+          {data.familyPeers.length > 0 && <div className="mt-7">
+            <p className="eyebrow text-primary">More guides in this fishing collection</p>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">Explore other published guides grouped for easier browsing. Collection membership does not imply shared lakes or close biological relationships.</p>
+            <div className="mt-4 flex flex-wrap gap-3">{data.familyPeers.map((peer) => <a key={peer.species.id} href={peer.href} className="border border-border px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary">{peer.species.commonName} →</a>)}</div>
+          </div>}
         </div>
       </section>
 

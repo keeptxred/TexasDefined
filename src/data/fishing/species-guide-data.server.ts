@@ -3,6 +3,7 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 
 import { fishingPlatform, fishingScope } from "./index";
 import { getFishingFishImage } from "./image-library";
+import { fishSpeciesFamilies } from "./species-catalog";
 import {
   fishingFoundationAnchor,
   isCompleteFishingLakeSlug,
@@ -167,6 +168,16 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
     .sort((a, b) => b.sharedLakeCount - a.sharedLakeCount || a.species.commonName.localeCompare(b.species.commonName))
     .slice(0, 8);
 
+  // Editorial collection peers are independent of lake co-occurrence. This
+  // adds authentic taxonomy discovery even where a species has no verified
+  // shared-lake relationship, without implying common habitat or biology.
+  const family = fishSpeciesFamilies.find((entry) => entry.speciesSlugs.includes(species.slug));
+  const familyPeers = (family?.speciesSlugs ?? [])
+    .filter((candidateSlug) => candidateSlug !== species.slug)
+    .map((candidateSlug) => allSpecies.find((candidate) => candidate.slug === candidateSlug))
+    .filter((candidate) => candidate && isCompleteFishingSpeciesSlug(candidate.slug))
+    .map((candidate) => ({ species: candidate!, href: fishingFoundationAnchor("species", candidate!.slug) }));
+
   const sources = uniqueByUrl([
     ...species.sources,
     ...lakes.flatMap((row) => row.relation.sources),
@@ -185,6 +196,7 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
     habitats,
     methods,
     relatedSpecies,
+    familyPeers,
     sources,
     verifiedAt: FISHING_SPECIES_VERIFIED_AT,
     policy: {
