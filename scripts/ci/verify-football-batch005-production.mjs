@@ -18,7 +18,11 @@ const editorial = await readFile('src/data/high-school-football/program-editoria
 const identities = await readFile('src/data/high-school-football/school-identities.ts','utf8');
 const profileRoute = await readFile('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx','utf8');
 const countyRoute = await readFile('src/routes/$kind.$slug.lazy.tsx','utf8');
-const slugs = registry.batch.slugs.filter(slug => slug !== 'benjamin');
+const batch005 = registry.batch?.number === 5
+  ? registry.batch
+  : registry.completedBatches?.find(batch => batch.number === 5);
+assert.ok(batch005, 'Batch 005 verifier requires its original immutable roster');
+const slugs = batch005.slugs.filter(slug => slug !== 'benjamin');
 assert.equal(slugs.length, 24, 'Batch 005 must retain 24 unverified assignments');
 const subjects = slugs.filter((_, i) => i % 4 === group);
 assert.equal(subjects.length, 6, 'Each group must check six schools');

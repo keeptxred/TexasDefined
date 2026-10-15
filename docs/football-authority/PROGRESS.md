@@ -1,5 +1,8 @@
 # Football Authority — Execution Ledger
 
+## October 15, 2026 — Batch 006 Harmony Eagles recovery (pending protected merge and production QA)
+Reconciled researched original PR #4878 onto current main without overwriting 48 later main commits. Retained historical 105 verified, Batch005 separate editorial status 1/25 accepted, Harmony 2026 0–7 through Oct 9 (dated third-party scoreboard), 2022 Poth semifinal, uncertain coach, school visitor information and reciprocal Upshur County links. First Batch006 school IMPLEMENTED on branch, others not reviewed. Harmony-specific browser workflow runs manually only, not after every unrelated deploy. Supabase October 15 monitoring remediation retired 10 unreliable external network probes with historical failure details preserved and reliable backup sources still monitored; published links unchanged.
+
 ## October 14, 2026 — Fail-closed production version-skew instrumentation
 While reviewing the merged #4909 recovery code, found an actual escaped-regex defect in the school document timeout matcher (`/^page\\\\.goto` and `\\\\d`), which prevented recognition of real `page.goto: Timeout 60000ms exceeded` browser errors. Corrected to true literal-period/numeric patterns, and added a deterministic test that exercises real Playwright timeout and transport strings—not merely static string inclusion.
 
