@@ -16,12 +16,18 @@ function PrivacyPolicyPage() {
           <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">
             This policy explains the information Texas Defined handles when you use the site, submit a form, shop, use interactive tools, or encounter advertising and analytics technologies.
           </p>
-          <p className="mt-4 text-sm text-muted-foreground">Last updated October 11, 2026.</p>
+          <p className="mt-4 text-sm text-muted-foreground">Last updated October 15, 2026.</p>
         </Container>
       </section>
 
       <Container className="py-12 sm:py-16">
         <div className="mx-auto max-w-3xl space-y-10 text-base leading-8 text-muted-foreground">
+          <section className="border-t border-border pt-6">
+        <h2 className="font-display text-3xl text-foreground">Google Customer Reviews</h2>
+        <p className="mt-4">On a verified paid order confirmation page, we share your email address, order reference, delivery country, and estimated delivery date with Google to display the Google Customer Reviews survey choice. Google sends a review survey only if you agree in its opt-in prompt. Declining does not affect your order or customer support.</p>
+        <p className="mt-4">Google may place or read cookies, or use similar technologies, for this program and processes transaction information under the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>. You can manage or block cookies using your browser settings; blocking Google scripts may prevent the review prompt from appearing.</p>
+      </section>
+
           <section className="border-t border-border pt-6">
             <h2 className="font-display text-3xl text-foreground">Information Texas Defined Handles</h2>
             <p className="mt-4">

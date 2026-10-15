@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
+import { GoogleCustomerReviews } from "@/components/GoogleCustomerReviews";
+import { reviewOrderFromResponse, type ReviewOrder } from "@/lib/google-customer-reviews";
+
 import { Container } from "@/components/layout/Container";
 import { commerceApiBase } from "@/data/shop-products-remote";
 import { useShopCart } from "@/lib/shop-cart";
@@ -15,7 +18,11 @@ function CheckoutReturnPage() {
   const cart = useShopCart();
   const [state, setState] = useState<CheckoutState>(session_id ? "checking" : "unconfirmed");
 
+  const [review, setReview] = useState<ReviewOrder | null>(null);
+
   useEffect(() => {
+    setReview(null);
+    setState(session_id ? "checking" : "unconfirmed");
     trackTexasDefinedOutcome("shop_checkout_returned", {
       resourceId: "checkout-return",
       entityKind: "stripe-checkout",
@@ -34,10 +41,11 @@ function CheckoutReturnPage() {
 
     let active = true;
     void fetch(`${commerceApiBase()}/api/public/texasdefined-checkout?session_id=${encodeURIComponent(session_id)}`, {
+      cache: "no-store",
       headers: { accept: "application/json" },
     })
       .then(async (response) => {
-        const payload = await response.json() as { ok?: boolean; paid?: boolean; status?: string; paymentStatus?: string };
+        const payload = await response.json() as { ok?: boolean; paid?: boolean; status?: string; paymentStatus?: string; review?: unknown };
         if (!active) return;
         if (response.ok && payload.ok && payload.paid) {
           trackTexasDefinedOutcome("shop_purchase_confirmed", {
@@ -45,6 +53,7 @@ function CheckoutReturnPage() {
             entityKind: "stripe-checkout",
             detection: "paid",
           });
+          setReview(reviewOrderFromResponse(payload.review, 5843243953));
           cart.clear();
           setState("paid");
           return;
@@ -75,6 +84,7 @@ function CheckoutReturnPage() {
 
   return (
     <>
+      {paid && review && <GoogleCustomerReviews order={review} />}
       <Container className="pb-20 pt-14 sm:pb-28 sm:pt-20">
         <section className="mx-auto max-w-4xl border-y border-border py-14 text-center sm:py-20" aria-live="polite">
           <p className="eyebrow text-primary">Texas Defined Shop</p>
