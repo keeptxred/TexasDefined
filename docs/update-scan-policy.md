@@ -25,6 +25,7 @@ requirements, including earlier source validators that required feature-specific
   shared checks run. Removed files are included when selecting feature scopes.
 - Changed-page smoke uses static route declarations and changed article/destination
   records. Unmapped content/shared changes use representative public pages. The
+  smoke also selects exactly four affected fishing-species owners and verifies their governed family-link SSR anchors when that shared view model changes; other releases pay no extra page-scan cost. The
   smoke also identifies changed slug-keyed article-link registry owners and checks newly added SSR anchors, instead of testing only representative pages. This adds no full-site crawl and no new audit trigger. The smoke has a 40-page cap, records its candidate and omitted counts, and explicitly
   describes sampling; it never claims an exhaustive content audit. Full source
   correctness stays in the merge gate; all nine broad local audits stay weekly.
