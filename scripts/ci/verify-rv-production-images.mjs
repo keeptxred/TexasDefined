@@ -1,3 +1,5 @@
+import { createLocalAuditFetch } from './local-audit-fetch.mjs';
+const localAuditFetch = createLocalAuditFetch({ localOrigin: process.env.LOCAL_AUDIT_ORIGIN });
 import fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
@@ -5,7 +7,7 @@ import path from 'node:path';
 const ROOT = process.cwd();
 const ORIGIN = (process.env.RV_PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const IMAGE_SOURCE_PATH = path.join(ROOT, 'src/data/rv-parks/images.server.ts');
-const ARTIFACT_PATH = path.join(ROOT, '.artifacts/rv-production-images.json');
+const ARTIFACT_PATH = process.env.RV_AUDIT_REPORT || path.join(ROOT, '.artifacts/rv-production-images.json');
 const EXPECTED_SEED_COUNT = 250;
 const PAGE_CONCURRENCY = 10;
 const ASSET_CONCURRENCY = 12;
@@ -100,7 +102,7 @@ async function fetchWithRetry(url, options = {}, attempts = 3) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 20_000);
     try {
-      const response = await fetch(url, {
+      const response = await localAuditFetch(url, {
         ...options,
         redirect: 'follow',
         signal: controller.signal,
@@ -251,6 +253,7 @@ const artifact = {
   pageResults,
   assetResults,
 };
+localAuditFetch.assertComplete();
 fs.writeFileSync(ARTIFACT_PATH, `${JSON.stringify(artifact, null, 2)}\n`);
 
 console.log(`RV production image certification: ${entries.length} pages, ${localEntries.length} local assets, ${remoteEntries.length} proxied Commons assets, ${generatedCount} representative AI heroes, ${noindexRequired} NOINDEX-required records.`);

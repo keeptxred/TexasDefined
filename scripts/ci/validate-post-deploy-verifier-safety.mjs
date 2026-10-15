@@ -178,9 +178,9 @@ if (cloudflareGateIndex < 0 || cloudflareLiveIndex <= cloudflareGateIndex)
 
 // Post-deploy verifier source must not float to a newer default branch.
 const fridayNightLights = workflow('friday-night-lights-production-smoke');
-requireMarker(fridayNightLights, "github.event.workflow_run.conclusion == 'success'", 'Friday Night Lights live smoke needs successful deploy');
-requireMarker(fridayNightLights, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Friday Night Lights must check out deployed source, not default main');
-if (fridayNightLights.includes('ref: main')) failures.push('Friday Night Lights live verifier cannot use moving main');
+requireMarker(fridayNightLights, 'audit-site-quality-local.yml', 'Football acceptance must use the local Worker');
+requireMarker(fridayNightLights, 'audit: football', 'Full football acceptance contract missing');
+if (/^  (workflow_run|schedule|push|pull_request):/m.test(fridayNightLights)) failures.push('Football acceptance must not fan out after deployment');
 const waterNormalizer = workflow('normalize-waterdata-probe-status');
 requireMarker(waterNormalizer, "github.event.workflow_run.conclusion == 'success'", 'Water-data optional-probe normalization requires successful source verifier');
 requireMarker(waterNormalizer, 'STATUS_SHA: ${{ github.event.workflow_run.head_sha }}', 'Water-data status target must reference the triggering run');
@@ -243,14 +243,12 @@ requireMarker(appleLive, 'node scripts/ci/verify-football-batch-003-apple-spring
 if (appleSource.includes('node scripts/ci/verify-football-batch-003-apple-springs.mjs\n'))
   failures.push('Apple Springs PR source job must not invoke the live browser');
 
-// Keep the 254-county source inventory on PRs but crawl the actual site only
-// after an eligible deployment (or an intentional manual production audit).
+// Keep the 254-county source inventory on PRs; full rendered acceptance is local.
 const countyWorkflow = workflow('audit-all-editorial-production');
 requireMarker(countyWorkflow, '  pull_request:', 'County source-inventory PR coverage missing');
-const countyLive = countyWorkflow.slice(countyWorkflow.indexOf('  verify-county-production:'));
-requireMarker(countyLive, "if: ${{ github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}", 'County production crawl must skip undeployed PRs and failed deployments');
-if (countyLive.includes("continue-on-error: ${{ github.event_name == 'pull_request' }}"))
-  failures.push('County production must not hide a PR-triggered live crawl failure');
+requireMarker(countyWorkflow, 'audit-site-quality-local.yml', 'County rendered acceptance must use the local built Worker');
+requireMarker(countyWorkflow, 'audit: counties', 'All-county local acceptance missing');
+if (/^  workflow_run:/m.test(countyWorkflow)) failures.push('Full county audit must not fan out after deployment');
 
 // Wave 7: GSC priority source PRs and path-filtered main pushes must never
 // probe live production before this exact revision is safely deployed.

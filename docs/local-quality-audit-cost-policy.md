@@ -7,8 +7,15 @@ Worker after every deployment. This intentionally supersedes their previous
 post-deployment workflow wiring requirement. All content, graph, robots,
 canonical, image-size, provenance, and strict failure assertions remain required.
 
-`audit-site-quality-local.yml` builds the site once and runs all three complete
-audits weekly against a local workerd process on the GitHub runner. The former
+`audit-whole-site-production.yml` is the single weekly coordinator. It calls
+`audit-site-quality-local.yml` to build the site once and run all nine complete
+audits against a local workerd process on the GitHub runner. The nine cover
+internal links, sitemap indexability, Discover images, sports venue heroes, all
+254 county pages, RV images, lake reciprocal links, whole-site page quality,
+and Friday Night Lights. The six additional migrations supersede their former
+per-deployment or independent scheduled production-crawl requirements. The
+coordinator preserves the permanent authority backlog issue #4704 using the local
+report and uploads evidence even when an audit fails. Source-only PR checks remain. The former
 workflow names remain manual entry points for a single complete local audit.
 Run locally after `npm ci` and `npm run build` with:
 
