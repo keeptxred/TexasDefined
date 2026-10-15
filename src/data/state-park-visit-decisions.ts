@@ -18,6 +18,29 @@ const PARK_VISIT_CHOICES: Readonly<Record<string, readonly ParkVisitDecision[]>>
     { title: "FM 170 day trip", suitedTo: "Scenic drives and borderland stops", plan: "Use Barton Warnock or Fort Leaton to orient around the river-road portions of this immense park.", watch: "Do not route through the permanently closed old north entrance. Carry fuel and drinking water." },
     { title: "Interior Sauceda stay", suitedTo: "Well-prepared remote travelers", plan: "Plan for the approximately 27-mile rugged dirt-road approach from FM 170 to Sauceda; check in first and get current road and permit details.", watch: "RVs and trailers are not recommended on the Sauceda approach. Do not assume an ordinary passenger car is appropriate after rain." },
   ],
+  "garner-state-park": [
+    { title: "Day visit to the Frio", suitedTo: "Families prioritizing swimming and riverside time", plan: "Reserve an entry pass and use the official Garner river and picnic-area map for the designated access you want.", watch: "Summer and holiday capacity can fill; river conditions and the swimming area vary with weather." },
+    { title: "New Garner camping", suitedTo: "RVs needing electricity or sewer", plan: "Choose among Rio Frio/Live Oak, River Crossing and Shady Meadows according to electrical amperage, tent restrictions and service hookups.", watch: "The twelve Shady Meadows full-hookup sites are pull-through but prohibit tents and have no shade." },
+    { title: "Old Garner overnight", suitedTo: "Tent and smaller-rig campers", plan: "Pick the Oakmont or Pecan Grove loop; Pecan Grove water-only sites suit tents, pop-ups and RVs up to 20 feet.", watch: "Old Garner water-only sites are not sewer/electric RV pads. Loop opening varies by season." },
+  ],
+  "brazos-bend-state-park": [
+    { title: "Trails and alligator viewing", suitedTo: "Day visitors, walkers and birders", plan: "Use TPWD's park map for the named lake and woodland trails, with wildlife observed from a distance.", watch: "Alligators are wild animals. Never approach, feed, or take children/pets near the water edge." },
+    { title: "Electric campground", suitedTo: "RVs wanting shower restrooms nearby", plan: "Select Burr Oak's 50-amp or Red Buckeye's 30-amp electric sites and check the individual site size.", watch: "Burr Oak and Red Buckeye are separate loops; do not assume all sites offer the same power." },
+    { title: "Walk-in or organized youth camp", suitedTo: "Tent campers or qualified youth organizations", plan: "Six primitive sites require a 35–70-yard gear carry. Youth group areas have different eligibility rules.", watch: "Youth areas are not ordinary private family camps and the toilets may be a quarter-mile away." },
+  ],
+  "caprock-canyons-state-park": [
+    { title: "Park trails and canyon visit", suitedTo: "Canyon overlooks, hiking and wildlife", plan: "Use the Caprock Canyons park map for day-use trailheads, and allow wild bison their space.", watch: "Heavy rain can make surrounding unpaved approach roads dangerously slippery." },
+    { title: "Long Trailway outing", suitedTo: "Experienced hikers, cyclists and riders", plan: "Choose a specific Caprock Canyons Trailway access point and download its separate map rather than assuming the main park gate is the starting point.", watch: "Park trails and the extensive former-railroad Trailway are distinct systems with separate access and services." },
+  ],
+  "palo-duro-canyon-state-park": [
+    { title: "Canyon trails day visit", suitedTo: "Overlooks and iconic rock formation hikes", plan: "Enter by Park Road 5 and use the park's current trails map to select an appropriate round-trip route.", watch: "TPWD can close trails for heavy rain, unstable surfaces and excessive heat; check alerts immediately before hiking." },
+    { title: "Overnight canyon camping", suitedTo: "Campers seeking multi-day exploration", plan: "Book the exact campground or cabin category based on water, electricity, trailer limitations and distance to trail access.", watch: "The park's main gate does not mark every trailhead or campsite. Summer canyon-floor temperatures can be severe." },
+  ],
+  "colorado-bend-state-park": [
+    { title: "Short riverfront tent stay", suitedTo: "Campers who can carry equipment", plan: "Choose designated riverside walk-in sites, a roughly 50-yard carry from parking, with water available in the developed area.", watch: "Tent-only sites are not RV pads. Check river conditions and water supplies." },
+    { title: "Small self-contained RV", suitedTo: "Visitors in rigs no longer than 20 feet", plan: "Reserve one of the fifteen primitive drive-up camps with shared water nearby; there are no electrical or sewer hookups.", watch: "The park does not offer an RV sewage dump for these sites." },
+    { title: "Windmill or River backcountry", suitedTo: "Experienced self-reliant campers", plan: "Carry drinking water, use the backcountry trails map and choose a designated remote area.", watch: "The remote Windmill and River camps have neither water nor bathrooms and prohibit open fires." },
+  ],
   "lake-somerville-state-park": [
     { title: "Birch Creek campground", suitedTo: "RVs, established campsites and a lake weekend", plan: "Book the north-side Birch Creek entrance at Park Road 57; pick a Yaupon, Post Oak or Old Hickory loop site by hookup type.", watch: "Tall RVs should check the 13-foot-4-inch bridge near Deanville on FM 60." },
     { title: "Nails Creek and horse trails", suitedTo: "Equestrian campers and a quieter lake base", plan: "Use the separate Nails Creek entrance on FM 180; check Cedar Creek and Bent Tree sites for the actual reservation type.", watch: "Birch Creek and Nails Creek are separate units across the lake, not adjoining campground loops." },
