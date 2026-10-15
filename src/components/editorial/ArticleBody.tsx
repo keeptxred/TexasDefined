@@ -117,6 +117,8 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
   const showLighthouseVisitPlanner = pathname === LIGHTHOUSE_VISIT_PATH;
   const linked = new Set<string>();
   let remainingLinks = articlePolicy.pageBudget;
+  // The six-man article opens with two editorial lead paragraphs before its reference graphics.
+  const sixManLeadCount = showSixManFootballAuthority && blocks[0]?.type === "paragraph" && blocks[1]?.type === "paragraph" ? 2 : 0;
   const available = () => entities.filter((entity) => !linked.has(entity.id));
   const render = (text: string, requestedLinks: number) => {
     if (remainingLinks <= 0) return text;
@@ -137,10 +139,14 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
   };
   return <div className="editorial-body text-foreground/92">
     {articleSlug ? <UnusualBusinessAuthorityPanel slug={articleSlug} /> : null}
+    {blocks.slice(0, sixManLeadCount).map((block, index) => block.type === "paragraph"
+      ? <p key={`six-man-lead-${index}`} className={index === 0 ? "mt-0" : "mt-6"}>{render(block.text, 4)}</p>
+      : null)}
     {showSixManFootballAuthority ? <Suspense fallback={null}><SixManFootballAuthority /></Suspense> : null}
     {showLoopsSpursVisual ? <LoopsSpursVisual /> : null}
     {showBolivarHistoryPhotoSources ? <BolivarRestorationPhotoSources /> : null}
     {blocks.map((block, index) => {
+      if (index < sixManLeadCount) return null;
       switch (block.type) {
         case "heading":
           if (showLighthouseVisitPlanner && block.text === "Texas lighthouses at a glance: access, climbs and trip difficulty") {
