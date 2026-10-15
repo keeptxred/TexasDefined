@@ -53,7 +53,7 @@
     "implementedOnBranch": 1,
     "remainingToImplement": 24,
     "remainingToVerify": 25,
-    "notes": "Batch005 has 25/25 technically Chrome VERIFIED (1,233 checks), but only Benjamin editorially accepted. Harmony Batch006 PR #4878 merged at d3ba7ff9 and is included in successful Worker release 4fedab37 (run #38792778982); its separate live Chrome QA, sourcing and editorial acceptance remain pending. Zero of Batch006 25 are formally production-VERIFIED; 24 additional profiles are not yet researched. Keep Big Sandy identity distinctions; no unlicensed or fabricated photo claims."
+    "notes": "Big Spring research dossier opened October 15 (research stage, pending merge). Harmony DEPLOYED but targeted browser QA and editorial acceptance outstanding. Batch 005 25/25 technically VERIFIED, only Benjamin editorially accepted. 105 verified historic records remain unchanged. Other Batch006 schools still NOT_REVIEWED; no inferred image rights or current October scoreboard claims."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6533,8 +6533,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/big-spring",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "RESEARCHED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/big-spring.md",
+      "researchCompletedAt": "2026-10-15",
+      "actualProductionVerified": false,
+      "reviewScope": "UIL 1953 runner-up, official BSISD Memorial Stadium versus school location, 2026 MaxPreps dated five-game score snapshot only; page editorial, live QA and acceptance pending"
     },
     {
       "id": "uil:bishop",
