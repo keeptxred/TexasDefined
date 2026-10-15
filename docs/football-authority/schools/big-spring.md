@@ -16,7 +16,7 @@ The school/athletics office and stadium **do not have the same address**. Big Sp
 
 ## Distinctive verified program history
 
-The [UIL state football archive](https://www.uiltexas.org/football/archives/P648) confirms Big Spring **reached the 1953 Class 3A state championship game** and lost to **Port Neches-Groves 24–13**. This was a **state runner-up finish**, not a championship. The [UIL historical champions listing](https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html) independently carries the same final in its 1953 results. No other championship or historical coach claims should be introduced without source-level corroboration.
+The [UIL state football archive](https://www.uiltexas.org/football/archives/P648) confirms Big Spring **reached the 1953 Class 3A state championship game** and lost to **Port Neches 24–13** (the opponent's historical UIL name; today's Port Neches-Groves district designation should not be retroactively applied to that final). This was a **state runner-up finish**, not a championship. The [UIL historical champions listing](https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html) independently carries the same final in its 1953 results. No other championship or historical coach claims should be introduced without source-level corroboration.
 
 ## 2026 fixture snapshot — stale results warning
 
@@ -30,7 +30,7 @@ The [UIL state football archive](https://www.uiltexas.org/football/archives/P648
 | Sep 18 | Lubbock Estacado | Away | Loss 24–45 |
 | Sep 25 | San Angelo Lake View | Home | Win 27–20 |
 
-The same third-party snapshot lists Oct 9 **at Pecos**, Oct 16 **vs Seminole**, Oct 23 **at Monahans**, Oct 30 **vs Fort Stockton**, Nov 6 **at Snyder**, without score confirmations. As of this **October 15** dossier, the Oct 9 result is **not verified from that schedule**, and the Oct 16 contest is **future**. Do not present a 1–4 snapshot as the definitive current record. Recheck official district announcements/updated game reports before displaying new dated outcomes; any disagreement must be disclosed rather than silently resolved.
+**Updated October 15 check:** [the refreshed MaxPreps schedule](https://www.maxpreps.com/tx/big-spring/big-spring-steers/football/schedule/) (last updated October 14 at 6:30 p.m. GMT) and [the individual Pecos game result](https://www.maxpreps.com/tx/football/game/big-spring-vs-pecos/10-9-2026/?c=a3464e81-9ea4-4d66-97b8-6c046a1bd52f) now report Big Spring **lost at Pecos on October 9, 24–33**, for a **1–5 season record through October 9**. The [Midland Reporter-Telegram October 10 game roundup](https://www.mrt.com/sports/highschool/article/midland-christian-wins-district-opener-greenwood-22471096.php) independently corroborates the final, 33–24. The next listed fixtures are **October 16 vs Seminole**, **October 23 at Monahans**, **October 30 vs Fort Stockton**, **November 6 at Snyder**; as of October 15 they have no verified results. The earlier 1–4 schedule snapshot is retained above for evidence provenance, **not as current standings**. Recheck dated reporting before further results or a current standing are published.
 
 ## Proposed original reader value (NOT implemented)
 
@@ -38,7 +38,7 @@ An authored Steers guide should explain the historically significant 1953 title 
 
 ## Pending verification and acceptance
 
-- Research and crosscheck all 2026 October scores, season record and stadium home-game venue against dated district or independent reporting.
+- Recheck any newer 2026 October outcomes after the independently supported October 9 Pecos final (L 24–33; 1–5 through October 9); confirm stadium home-game venue per fixture against dated district reporting.
 - Verify exact school/venue identity and 2026 UIL assignment in source content, not only HTTP status.
 - Find original, rights-cleared stadium-specific image if available; **none certified**. Do not use official copyrighted gallery images by assumption.
 - Author unique editorial, match-specific facts and relevant FAQs in `src/data/high-school-football/program-editorial.ts`, avoiding concurrent edits to the shared file.
