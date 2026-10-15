@@ -9,10 +9,11 @@ test('HTTP 404 remains a strict broken target and is not labeled transport', () 
 });
 
 test('status-zero timeout keeps its reason, distinct from an HTTP 404', () => {
-  const result = classifyFailedInternalTarget('/slow-isd', { status: 0, error: 'AbortError: request timed out\\n after 25s' }, ['/team']);
+  const multilineError = ['AbortError: request timed out', 'after 25s'].join(String.fromCharCode(10));
+  const result = classifyFailedInternalTarget('/slow-isd', { status: 0, error: multilineError }, ['/team']);
   assert.equal(result.status, 0);
   assert.equal(result.failureKind, 'transport');
-  assert.equal(result.error, 'AbortError: request timed out\\n after 25s'.replace(/\\s+/g, ' '));
+  assert.equal(result.error, 'AbortError: request timed out after 25s');
 });
 
 test('absent response is recorded as an unresolved transport failure', () => {
