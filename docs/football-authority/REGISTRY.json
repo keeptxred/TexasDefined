@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "big-spring",
-    "nextSchool": "big-spring",
-    "implementedOnBranch": 1,
-    "remainingToImplement": 24,
+    "currentSchool": "bishop",
+    "nextSchool": "bishop",
+    "implementedOnBranch": 2,
+    "remainingToImplement": 23,
     "remainingToVerify": 25,
-    "notes": "Batch005 has 25/25 technically Chrome VERIFIED (1,233 checks), but only Benjamin editorially accepted. Harmony Batch006 PR #4878 merged at d3ba7ff9 and is included in successful Worker release 4fedab37 (run #38792778982); its separate live Chrome QA, sourcing and editorial acceptance remain pending. Zero of Batch006 25 are formally production-VERIFIED; 24 additional profiles are not yet researched. Keep Big Sandy identity distinctions; no unlicensed or fabricated photo claims."
+    "notes": "Big Spring is IMPLEMENTED on open PR #4970 (not production verified); Harmony DEPLOYED but live Chrome QA and editorial acceptance pending. 105 previous verified records untouched; Batch005 24 formal editorial acceptances still pending. Other Batch006 schools NOT_REVIEWED."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6533,8 +6533,13 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/big-spring",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/big-spring.md",
+      "researchCompletedAt": "2026-10-15",
+      "actualProductionVerified": false,
+      "reviewScope": "Individually researched and code-authored on PR #4970: verified UIL District 2, 1953 state runner-up, BSISD Memorial Stadium address, May coach hire and 1–5 through Oct 9; exact-SHA production Chrome QA, rights-cleared photo and editorial acceptance not yet completed.",
+      "implementedOnBranch": "research/football-b006-big-spring-20261015"
     },
     {
       "id": "uil:bishop",
