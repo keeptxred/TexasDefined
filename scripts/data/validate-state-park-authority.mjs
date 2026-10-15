@@ -8,6 +8,7 @@ import process from "node:process";
  */
 const read = (path) => fs.readFileSync(path, "utf8");
 const authority = read("src/data/state-park-authority.ts");
+const groundedDepth = read("src/data/state-park-source-grounded-depth.ts");
 const headquarters = read("src/data/state-park-verified-locations.ts");
 const newOpenings = read("src/data/newly-opened-state-parks-2026.ts");
 const historicCanonical = read("src/data/canonical-historic-state-parks.ts");
@@ -23,6 +24,7 @@ const preserved = read("src/data/destination-preserved-catalog.ts");
 const curation = read("src/data/destination-curation-all.ts");
 const availability = read("src/data/destination-availability.ts");
 const parkHeroes = read("src/data/state-park-hero-map.ts");
+const heroResolver = read("src/data/state-park-heroes.ts");
 const legacyExplore = read("src/data/fixtures/legacy-explore.ts");
 const legacyLakes = read("src/data/fixtures/legacy-lakes.ts");
 const sourceDirectory = JSON.parse(read("docs/state-parks/TPWD_OFFICIAL_90_SITE_INVENTORY_2026-10-12.json"));
@@ -50,7 +52,7 @@ assertContains(newOpenings, 'slug: "palo-pinto-mountains-state-park"', "March 20
 assertContains(newOpenings, 'CC BY 3.0', "New state park hero must have source-confirmed license");
 assertContains(preserved, "newlyOpenedStateParks2026,", "2026 opening must resolve even when remote Explore is unavailable");
 assertContains(curation, "applyNewlyOpenedStateParkAuthority,", "Do not overwrite 2026 research with older short imported copy");
-for (const slug of ["goliad-state-park-and-historic-site", "hueco-tanks-state-park-and-historic-site", "lyndon-b-johnson-state-park-and-historic-site"]) {
+for (const slug of ["goliad-state-park", "hueco-tanks-state-park-and-historic-site", "lyndon-b-johnson-state-park-historic-site"]) {
   assertContains(historicCanonical, `to: "${slug}"`, `Missing verified historic state park primary canonical path ${slug}`);
 }
 assertContains(preserved, "canonicalHistoricStateParkDestinations,", "Canonical historic parks missing from resilient Explore catalog");
@@ -112,6 +114,16 @@ for (const marker of ["sourceCheckedAt: \"2026-10-12\"", "CC BY", "officialUrl: 
 
 // Exact 2026-10-12 TPWD official listing includes 90 distinct sites; duplicate
 // Cooper, Lake Somerville and Ray Roberts units share parent park entries.
+assertContains(curation, "applyStateParkSourceGroundedDepth,", "TPWD-checked park-specific depth must run after specialized authority curation");
+assertContains(groundedDepth, "VERIFIED_PARK_FACILITIES[destination.slug]", "The editorial depth supplement must be keyed to the specific park");
+assertContains(groundedDepth, "extended.join(\" \").length < 450", "Never bypass the actual substantive-length threshold");
+assertContains(groundedDepth, "return destination;", "Unresearched or already authoritative parks must remain unchanged");
+assertContains(heroResolver, 'isTexasStateParkDestination(destination)', "State park hero resolver must support non-park category TPWD sites");
+assertContains(heroResolver, '"cooper-lake-state-park": "cooper-lake-south-sulphur-unit-state-park"', "Cooper Lake exact South Sulphur park unit photograph missing");
+const sinkholeGuide = read("src/data/devils-sinkhole-visitor-authority.ts");
+assertContains(sinkholeGuide, "30.015773", "Devil's Sinkhole must pin actual tour visitor center");
+assertContains(sinkholeGuide, "101 N. Sweeten", "Devil's Sinkhole must state visitor center departure address");
+assertContains(curation, "applyDevilsSinkholeVisitorAuthority,", "Guide must receive source-verified tour logistics");
 const officialEntries = sourceDirectory.entries;
 const entrySlugs = officialEntries.map((entry) => entry.tpwdSlug);
 const specialStatuses = ["developing", "closed-to-general-visits", "visitor-center", "historic-site", "lodge", "guided-only"];
@@ -123,10 +135,10 @@ if (officialEntries.filter((entry) => entry.status === "public-park").length !==
 // Intentionally count one main park per TPWD directory entry; independent
 // units remain detailed within the parent authority record.
 const trackedFacs = [...authority.matchAll(/^  "([a-z0-9-]+)": \{$/gm)].map((match) => match[1]);
-if (trackedFacs.length !== 83 || new Set(trackedFacs).size !== 83) {
-  failures.push(`Expected exactly 83 unique TPWD public park facility records, received ${trackedFacs.length} (${new Set(trackedFacs).size} unique)`);
+if (trackedFacs.length !== 84 || new Set(trackedFacs).size !== 84) {
+  failures.push(`Expected 83 public parks plus one guided-only site, each with distinct TPWD facts, received ${trackedFacs.length} (${new Set(trackedFacs).size} unique)`);
 }
-for (const entry of officialEntries.filter((item) => item.status === "public-park")) {
+for (const entry of officialEntries.filter((item) => item.status === "public-park" || item.status === "guided-only")) {
   const canonicalSlug = entry.associatedPath?.split("/destination/")[1];
   if (!canonicalSlug) continue;
   const recordMarker = `  "${canonicalSlug}": {`;
@@ -144,8 +156,8 @@ for (const entry of officialEntries.filter((item) => item.status === "public-par
 // TPWD campsite/day-use citation rather than losing their provenance in prose.
 const sourceBackedFacilitySlugs = [
   "abilene-state-park", "big-bend-ranch-state-park", "caprock-canyons-state-park",
-  "daingerfield-state-park", "goliad-state-park-and-historic-site",
-  "lake-arrowhead-state-park", "lyndon-b-johnson-state-park-and-historic-site",
+  "daingerfield-state-park", "goliad-state-park",
+  "lake-arrowhead-state-park", "lyndon-b-johnson-state-park-historic-site",
   "palo-duro-canyon-state-park", "san-angelo-state-park",
   "seminole-canyon-state-park-and-historic-site",
 ];

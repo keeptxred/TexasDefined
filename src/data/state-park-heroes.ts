@@ -1,3 +1,4 @@
+import { isTexasStateParkDestination } from "./state-park-authority";
 import { exploreHeroMap } from "./explore-hero-map";
 import { stateParkHeroMap } from "./state-park-hero-map";
 import type { Destination, ImageRef } from "./types";
@@ -18,6 +19,7 @@ const STATE_PARK_HERO_ALIASES: Record<string, string> = {
   "ray-roberts-lake-isle-du-bois-unit-state-park": "ray-roberts-lake-isle-du-bois-unit",
   "ray-roberts-lake-johnson-branch-unit-state-park": "ray-roberts-lake-johnson-branch-unit",
   "sheldon-lake-state-park-environmental-learning-center": "sheldon-lake-state-park",
+  "cooper-lake-state-park": "cooper-lake-south-sulphur-unit-state-park", // Exact Cooper Lake unit photo; caption identifies the photographed unit
 };
 
 function isPlaceholder(src: string): boolean {
@@ -48,7 +50,7 @@ export function isDedicatedStateParkJpeg(src: string): boolean {
  *  - if no dedicated image exists yet, the neutral placeholder remains.
  */
 export function applyStateParkHeroAssets(destinations: Destination[]): Destination[] {
-  const parks = destinations.filter((destination) => destination.category === "state-parks");
+  const parks = destinations.filter((destination) => isTexasStateParkDestination(destination));
   const counts = new Map<string, number>();
 
   for (const park of parks) {
@@ -57,7 +59,7 @@ export function applyStateParkHeroAssets(destinations: Destination[]): Destinati
   }
 
   return destinations.map((destination) => {
-    if (destination.category !== "state-parks") return destination;
+    if (!isTexasStateParkDestination(destination)) return destination;
 
     const existingIsUnique =
       isDedicatedStateParkJpeg(destination.hero.src) &&
@@ -81,14 +83,14 @@ export function applyStateParkHeroAssets(destinations: Destination[]): Destinati
 }
 
 export function applyStateParkHeroAsset(destination: Destination): Destination {
-  if (destination.category !== "state-parks") return destination;
+  if (!isTexasStateParkDestination(destination)) return destination;
   if (isDedicatedStateParkJpeg(destination.hero.src)) return destination;
   const mapped = mappedHero(destination.slug);
   return mapped ? { ...destination, hero: mapped } : destination;
 }
 
 export function auditStateParkHeroes(destinations: Destination[]) {
-  const parks = applyStateParkHeroAssets(destinations).filter((destination) => destination.category === "state-parks");
+  const parks = applyStateParkHeroAssets(destinations).filter((destination) => isTexasStateParkDestination(destination));
   const jpegParks = parks.filter((destination) => isDedicatedStateParkJpeg(destination.hero.src));
   const duplicateUrls = [
     ...new Set(
