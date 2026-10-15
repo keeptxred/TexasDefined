@@ -443,6 +443,7 @@ jobs:
         env:
           PRODUCTION_HEALTH_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
           PRODUCTION_HEALTH_LABEL: direct-worker
+          PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'
         run: node scripts/ci/verify-production-health.mjs
 
       - name: Capture unhealthy Worker runtime diagnostics
@@ -491,6 +492,7 @@ jobs:
         env:
           PRODUCTION_HEALTH_ORIGIN: https://texasdefined.com
           PRODUCTION_HEALTH_LABEL: canonical-domain
+          PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'
         run: node scripts/ci/verify-production-health.mjs
 
       - name: Verify sports venue editorial production
