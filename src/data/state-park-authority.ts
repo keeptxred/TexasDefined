@@ -15,7 +15,7 @@ export function stateParkOfficialResources(destination: Destination) {
     official,
     map: `${official}/map`,
     feesAndFacilities: `${official}/fees-facilities`,
-    reservations: destination.slug === "longhorn-cavern-state-park"
+    reservations: destination.slug === "devils-sinkhole-state-natural-area" ? "https://tpwd.texas.gov/state-parks/devils-sinkhole/fees-facilities/entrance-fees" : destination.slug === "longhorn-cavern-state-park"
       ? "https://www.visitlonghorncavern.com/"
       : destination.slug === "old-tunnel-state-park"
         ? "https://tpwd.texas.gov/state-parks/old-tunnel/bat-viewing"
@@ -41,6 +41,14 @@ export type VerifiedParkFacilityNotes = {
 
 /** Claims below have specific official source pages; absence means "not yet independently checked", not "no facility". */
 export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacilityNotes>> = {
+  "devils-sinkhole-state-natural-area": {
+    checkedAt: "2026-10-15",
+    sourceUrl: "https://tpwd.texas.gov/state-parks/devils-sinkhole",
+    parking: "All tours depart Devil's Sinkhole Visitor Center, 101 N. Sweeten St., Rocksprings, TX 78880, at 30.015773, -100.208552; do not drive to the cavern.",
+    access: "Guided access by reservation ONLY. Call 830-683-2287. Evening bat tours usually operate May 1 through October 31, Wednesday through Sunday; wildlife emergence is never guaranteed.",
+    camping: "No public independent camping or RV hookup access at this protected guided-only natural area; different overnight options exist at other state parks.",
+    maps: "TPWD's /map page locates the Rocksprings tour-departure visitor center, not an unrestricted road to the cavern.",
+  },
   "palo-duro-canyon-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/palo-duro-canyon/map",

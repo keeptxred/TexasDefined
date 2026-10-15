@@ -120,6 +120,10 @@ assertContains(groundedDepth, "extended.join(\" \").length < 450", "Never bypass
 assertContains(groundedDepth, "return destination;", "Unresearched or already authoritative parks must remain unchanged");
 assertContains(heroResolver, 'isTexasStateParkDestination(destination)', "State park hero resolver must support non-park category TPWD sites");
 assertContains(heroResolver, '"cooper-lake-state-park": "cooper-lake-south-sulphur-unit-state-park"', "Cooper Lake exact South Sulphur park unit photograph missing");
+const sinkholeGuide = read("src/data/devils-sinkhole-visitor-authority.ts");
+assertContains(sinkholeGuide, "30.015773", "Devil's Sinkhole must pin actual tour visitor center");
+assertContains(sinkholeGuide, "101 N. Sweeten", "Devil's Sinkhole must state visitor center departure address");
+assertContains(curation, "applyDevilsSinkholeVisitorAuthority,", "Guide must receive source-verified tour logistics");
 const officialEntries = sourceDirectory.entries;
 const entrySlugs = officialEntries.map((entry) => entry.tpwdSlug);
 const specialStatuses = ["developing", "closed-to-general-visits", "visitor-center", "historic-site", "lodge", "guided-only"];
@@ -131,10 +135,10 @@ if (officialEntries.filter((entry) => entry.status === "public-park").length !==
 // Intentionally count one main park per TPWD directory entry; independent
 // units remain detailed within the parent authority record.
 const trackedFacs = [...authority.matchAll(/^  "([a-z0-9-]+)": \{$/gm)].map((match) => match[1]);
-if (trackedFacs.length !== 83 || new Set(trackedFacs).size !== 83) {
-  failures.push(`Expected exactly 83 unique TPWD public park facility records, received ${trackedFacs.length} (${new Set(trackedFacs).size} unique)`);
+if (trackedFacs.length !== 84 || new Set(trackedFacs).size !== 84) {
+  failures.push(`Expected 83 public parks plus one guided-only site, each with distinct TPWD facts, received ${trackedFacs.length} (${new Set(trackedFacs).size} unique)`);
 }
-for (const entry of officialEntries.filter((item) => item.status === "public-park")) {
+for (const entry of officialEntries.filter((item) => item.status === "public-park" || item.status === "guided-only")) {
   const canonicalSlug = entry.associatedPath?.split("/destination/")[1];
   if (!canonicalSlug) continue;
   const recordMarker = `  "${canonicalSlug}": {`;
@@ -152,8 +156,8 @@ for (const entry of officialEntries.filter((item) => item.status === "public-par
 // TPWD campsite/day-use citation rather than losing their provenance in prose.
 const sourceBackedFacilitySlugs = [
   "abilene-state-park", "big-bend-ranch-state-park", "caprock-canyons-state-park",
-  "daingerfield-state-park", "goliad-state-park-and-historic-site",
-  "lake-arrowhead-state-park", "lyndon-b-johnson-state-park-and-historic-site",
+  "daingerfield-state-park", "goliad-state-park",
+  "lake-arrowhead-state-park", "lyndon-b-johnson-state-park-historic-site",
   "palo-duro-canyon-state-park", "san-angelo-state-park",
   "seminole-canyon-state-park-and-historic-site",
 ];

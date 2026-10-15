@@ -10,7 +10,7 @@ import { isTexasStateParkDestination } from "../../src/data/state-park-authority
 
 const official = JSON.parse(fs.readFileSync("docs/state-parks/TPWD_OFFICIAL_90_SITE_INVENTORY_2026-10-12.json", "utf8"));
 const originals = new Map(preservedExploreDestinations.map((item) => [item.slug, item]));
-const results = official.entries.filter((item: any) => item.status === "public-park").map((entry: any) => {
+const results = official.entries.filter((item: any) => item.status === "public-park" || item.status === "guided-only").map((entry: any) => {
   const slug = entry.associatedPath.replace("/destination/", "");
   const original = originals.get(slug);
   if (!original) return { slug, ready: false, blockers: ["missing-canonical-catalog-record"] };
@@ -33,7 +33,7 @@ const passed = results.filter((item) => item.ready);
 const failed = results.filter((item) => !item.ready);
 const frequencies: Record<string, number> = {};
 for (const item of failed) for (const issue of item.blockers) frequencies[issue] = (frequencies[issue] || 0) + 1;
-console.log(`TPWD primary parks: ${results.length}. Local source-checked catalog ready: ${passed.length}; blocked: ${failed.length}.`);
+console.log(`TPWD public and guided parks: ${results.length}. Local source-checked catalog ready: ${passed.length}; blocked: ${failed.length}.`);
 console.log("Remaining blockers: " + JSON.stringify(frequencies));
 for (const item of failed) console.log(`PARK_NOT_READY ${item.slug}: ${item.blockers.join(", ")} (original body ${item.originalBodyChars ?? 0}, curated body ${item.curatedBodyChars ?? 0})`);
-if (results.length !== 83 || !passed.length) throw new Error("TPWD catalog diagnostic failed to identify valid primary parks");
+if (results.length !== 84 || !passed.length) throw new Error("TPWD catalog diagnostic failed to identify valid primary parks");
