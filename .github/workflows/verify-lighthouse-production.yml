@@ -2,12 +2,6 @@ name: Verify lighthouse production
 
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows:
-      - Deploy TexasDefined production
-    types:
-      - completed
-
 permissions:
   contents: read
   statuses: write

@@ -10,10 +10,6 @@ on:
       - 'src/routes/county.tsx'
       - 'src/routes/county.lazy.tsx'
       - 'src/routes/api.find-my-county.ts'
-  workflow_run:
-    workflows: ['Deploy TexasDefined production']
-    types: [completed]
-
 permissions:
   contents: read
 

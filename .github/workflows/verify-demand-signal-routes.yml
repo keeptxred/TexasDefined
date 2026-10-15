@@ -1,9 +1,6 @@
 name: Verify demand signal routes
 
 on:
-  workflow_run:
-    workflows: ['Deploy TexasDefined production']
-    types: [completed]
   workflow_dispatch:
 
 permissions:

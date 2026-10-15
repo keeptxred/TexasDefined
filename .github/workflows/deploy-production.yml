@@ -32,6 +32,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -48,6 +50,18 @@ jobs:
       - name: Install dependencies
         id: install
         run: npm ci --no-audit --no-fund
+
+      - name: Plan change-scoped production verification
+        id: change_scope
+        run: node scripts/ci/production-change-scope.mjs
+
+      - name: Preserve production change plan
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-change-plan-${{ github.run_id }}
+          path: .artifacts/production-change-plan.json
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Install governed image build dependency
         if: success()
@@ -443,7 +457,7 @@ jobs:
         env:
           PRODUCTION_HEALTH_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
           PRODUCTION_HEALTH_LABEL: direct-worker
-          PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'
+          PRODUCTION_HEALTH_DISCOVER_ASSETS: ${{ steps.change_scope.outputs.images }}
         run: node scripts/ci/verify-production-health.mjs
 
       - name: Capture unhealthy Worker runtime diagnostics
@@ -492,19 +506,19 @@ jobs:
         env:
           PRODUCTION_HEALTH_ORIGIN: https://texasdefined.com
           PRODUCTION_HEALTH_LABEL: canonical-domain
-          PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'
+          PRODUCTION_HEALTH_DISCOVER_ASSETS: ${{ steps.change_scope.outputs.images }}
         run: node scripts/ci/verify-production-health.mjs
 
       - name: Verify sports venue editorial production
         id: live_sports_venue_editorial
-        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.sports == 'true' }}
         env:
           TEXASDEFINED_BASE_URL: https://texasdefined.com
         run: node scripts/production/verify-sports-venue-editorial-production.mjs
 
       - name: Verify East Texas foliage article freshness on direct Worker and canonical domain
         id: live_east_texas_foliage
-        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.foliage == 'true' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -539,7 +553,7 @@ jobs:
 
       - name: Verify direct Worker discovery
         id: live_direct_worker
-        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.discovery == 'true' }}
         env:
           DIRECT_WORKER_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
         shell: bash
@@ -564,7 +578,7 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p .artifacts
-          node scripts/ci/verify-production-surfaces.mjs 2>&1 | tee .artifacts/city-sitemap-live-evidence.log
+          node scripts/ci/verify-changed-production-pages.mjs 2>&1 | tee .artifacts/city-sitemap-live-evidence.log
 
       - name: Preserve live city sitemap verification evidence
         if: ${{ always() && steps.live_base.outcome != 'skipped' }}
@@ -575,9 +589,18 @@ jobs:
           if-no-files-found: error
           retention-days: 90
 
+      - name: Preserve changed-page smoke details
+        if: ${{ always() && steps.live_base.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: changed-production-pages-${{ github.run_id }}
+          path: .artifacts/changed-production-pages.json
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Verify Event structured-data production
         id: live_events
-        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.events == 'true' }}
         shell: bash
         run: |
           set -o pipefail
@@ -595,7 +618,7 @@ jobs:
 
       - name: Verify local financial production
         id: live_local_financial
-        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.financial == 'true' }}
         shell: bash
         run: |
           set -o pipefail
@@ -613,7 +636,7 @@ jobs:
 
       - name: Verify statewide financial discovery
         id: live_statewide_financial
-        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.financial == 'true' }}
         run: node scripts/ci/verify-statewide-financial-discovery.mjs
 
       - name: Upload statewide financial discovery diagnostics
@@ -630,7 +653,7 @@ jobs:
 
       - name: Verify advertiser production
         id: live_advertiser
-        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.advertiser == 'true' }}
         env:
           ORIGIN: https://texasdefined.com
           REVISION: ${{ github.sha }}
@@ -638,7 +661,7 @@ jobs:
 
       - name: Mark live production verification complete
         id: live
-        if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_east_texas_foliage.outcome == 'success' }}
+        if: ${{ success() && steps.cloudflare.outcome == 'success' }}
         run: echo 'All blocking production verifiers passed natively.'
       - name: Publish live verification result
         if: always()

@@ -20,9 +20,6 @@ on:
       - 'src/data/fixtures/lazy-relocation*.ts'
       - 'src/lib/relocation-public-routes.ts'
       - 'src/lib/public-routes.ts'
-  workflow_run:
-    workflows: ['Deploy TexasDefined production']
-    types: [completed]
   workflow_dispatch:
 
 permissions:
