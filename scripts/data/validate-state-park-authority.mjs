@@ -122,6 +122,10 @@ assertContains(groundedDepth, "extended.join(\" \").length < 450", "Never bypass
 assertContains(groundedDepth, "return destination;", "Unresearched or already authoritative parks must remain unchanged");
 assertContains(heroResolver, 'isTexasStateParkDestination(destination)', "State park hero resolver must support non-park category TPWD sites");
 assertContains(heroResolver, '"cooper-lake-state-park": "cooper-lake-south-sulphur-unit-state-park"', "Cooper Lake exact South Sulphur park unit photograph missing");
+assertContains(heroResolver, '"devils-sinkhole-state-natural-area": "devil-s-sinkhole-state-natural-area"', "Devil\'s Sinkhole licensed image alias must match the canonical guide");
+assertContains(heroResolver, "const verified = mappedHero(destination.slug);", "Post-reconciliation state park image recovery must support verified same-place aliases");
+assertContains(authority, "https://tpwd.texas.gov/state-parks/abilene/alert", "Abilene park restrictions must be linked to the current TPWD alert");
+assertContains(authority, "swimming pool is CLOSED for renovations", "Abilene must not advertise its closed swimming pool as open");
 const sinkholeGuide = read("src/data/devils-sinkhole-visitor-authority.ts");
 assertContains(sinkholeGuide, "30.015773", "Devil's Sinkhole must pin actual tour visitor center");
 assertContains(sinkholeGuide, "101 N. Sweeten", "Devil's Sinkhole must state visitor center departure address");
