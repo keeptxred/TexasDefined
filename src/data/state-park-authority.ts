@@ -346,13 +346,14 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "Use TPWD park campsite map to distinguish Elm Point shoreline sites from full-hookup and overflow camping areas.",
   },
   "fort-parker-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-15",
     sourceUrl: "https://tpwd.texas.gov/state-parks/fort-parker/fees-facilities/campsites",
     restrooms: "24 water/electric sites have nearby shower restrooms. Tent-only electric #6 is directly adjacent to restroom with showers. Ten water-only tent sites have a VAULT toilet and water spigots in the area, not on each site.",
     parking: "24 water/electric 30-amp sites (including four pull-throughs), a separate lake-view 30-amp tent-only #6, and 10 tent-only water sites. Don't drive RVs into tent-only campsites.",
     camping: "24 30-amp water/electric campsites, 1 tent-only electric lakeside campsite, 10 water-only tent campsites, and a supervised organized youth-group wilderness area for up to 50 with a primitive toilet.",
-    access: "The organized youth group area is not a regular private family reservation; an adult group supervisor must reserve it. Tent-only water camps use shared water spigots.",
+    access: "The organized youth group area is not a regular private family reservation; an adult group supervisor must reserve it. Tent-only water camps use shared water spigots. TPWD park alerts checked October 15, 2026 report resurfacing work from October 2026 through May 2027 with possible temporary campsite, trail and facility closures; nature-center construction and noise; both fishing piers closed; and an active burn ban restricting wood/charcoal fires. Verify current park alerts before choosing a campsite or planning a fishing-pier visit.",
     maps: "Official park and campground map differentiates electric lakeside, tent-only and organized group camping.",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/fort-parker/alert",
   },
   "government-canyon-state-natural-area": {
     checkedAt: "2026-10-12",
