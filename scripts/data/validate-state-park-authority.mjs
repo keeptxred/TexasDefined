@@ -40,6 +40,7 @@ for (const [content, needle, description] of [
   [essentials, "Admission, day-use and facility details", "Every TPWD park must expose official fees/facilities source"],
   [runtime, 'params.category === "state-parks"', "Explore State Parks must include parks from other topical categories"],
   [runtime, ".filter(isTexasStateParkDestination)", "The Explore park directory must apply official ownership and name classification"],
+  [runtime, "{ region: params.region }", "Virtual cross-category State Parks must retain the requested geographic region filter"],
   [preserved, "stateParkAuthorityRecoveryDestinations,", "Missing parks must remain resolvable during remote data outages"],
   [curation, "applyStateParkAuthorityRecovery,", "Reviewed canonical facts must override thin imported park records"],
   [availability, "UNAVAILABLE_DESTINATION_SLUGS", "Closed parks must not be surfaced as visitable destinations"],
