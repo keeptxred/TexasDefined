@@ -46,10 +46,19 @@ try{
   await page.waitForTimeout(3000);
   await inspect('open');
   details.emailFilled=await tryFill(['input[type=email]','input[name=email]','input[autocomplete=email]'],'texasdefined-qa@example.com');
-  await page.waitForTimeout(800);
-  details.cardFilled=await tryFill(['input[autocomplete=cc-number]','input[name=cardNumber]','input[placeholder*="1234"]','input[aria-label*="Card number"]'],'4242424242424242');
-  details.expirationFilled=await tryFill(['input[autocomplete=cc-exp]','input[name=cardExpiry]','input[placeholder*="MM"]'],'1230');
-  details.cvcFilled=await tryFill(['input[autocomplete=cc-csc]','input[name=cardCvc]','input[placeholder*="CVC"]'],'123');
+  details.cardSelected=false;
+  for (const pick of [
+    () => page.getByRole('radio',{name:/^card$/i}).first().click({timeout:3500}),
+    () => page.getByText('Card',{exact:true}).first().click({timeout:3500}),
+    () => page.locator('label:has-text("Card")').first().click({timeout:3500}),
+  ]) {
+    try { await pick(); details.cardSelected=true; break; } catch {}
+  }
+  await page.waitForTimeout(1700);
+  await inspect('card-selected');
+  details.cardFilled=await tryFill(['input[autocomplete=cc-number]','input[name=cardNumber]','input[name=number]','input[placeholder*="1234"]','input[aria-label*="Card number"]'],'4242424242424242');
+  details.expirationFilled=await tryFill(['input[autocomplete=cc-exp]','input[name=cardExpiry]','input[name=expiry]','input[name=exp-date]','input[placeholder*="MM"]'],'1230');
+  details.cvcFilled=await tryFill(['input[autocomplete=cc-csc]','input[name=cardCvc]','input[name=cvc]','input[placeholder*="CVC"]'],'123');
   details.nameFilled=await tryFill(['input[name=billingName]','input[autocomplete=cc-name]','input[placeholder*="Name on card"]'],'Texas Defined QA');
   details.zipFilled=await tryFill(['input[autocomplete=postal-code]','input[name=postalCode]','input[placeholder*="ZIP"]'],'77001');
   await inspect('before-submit');
@@ -75,6 +84,7 @@ try{
   console.log('SANDBOX CHECKOUT DIAGNOSTIC '+JSON.stringify({
     status:details.responseStatus,
     emailFilled:details.emailFilled,
+    cardSelected:details.cardSelected,
     cardFilled:details.cardFilled,
     expirationFilled:details.expirationFilled,
     cvcFilled:details.cvcFilled,
