@@ -27,7 +27,7 @@ function Step({ number, title, body }: { number: string; title: string; body: st
 
 /**
  * Six-player field proportions are taken from the UIL 2026 six-player
- * exceptions (field dimensions, p. 8): 80 yd between goal lines, two
+ * exceptions (field dimensions, p. 1): 80 yd between goal lines, two
  * 10-yd end zones, 40 yd width, with midfield at the 40.
  *
  * The viewport uses eight SVG units per yard for both axes to preserve
