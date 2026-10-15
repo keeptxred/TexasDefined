@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "big-spring",
-    "nextSchool": "big-spring",
-    "implementedOnBranch": 1,
-    "remainingToImplement": 24,
+    "currentSchool": "bishop",
+    "nextSchool": "bishop",
+    "implementedOnBranch": 2,
+    "remainingToImplement": 23,
     "remainingToVerify": 25,
-    "notes": "Big Spring research dossier opened October 15 (research stage, pending merge). Harmony DEPLOYED but targeted browser QA and editorial acceptance outstanding. Batch 005 25/25 technically VERIFIED, only Benjamin editorially accepted. 105 verified historic records remain unchanged. Other Batch006 schools still NOT_REVIEWED; no inferred image rights or current October scoreboard claims."
+    "notes": "Big Spring is IMPLEMENTED on open PR #4970 (not production verified); Harmony DEPLOYED but live Chrome QA and editorial acceptance pending. 105 previous verified records untouched; Batch005 24 formal editorial acceptances still pending. Other Batch006 schools NOT_REVIEWED."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6533,12 +6533,13 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/big-spring",
-      "status": "RESEARCHED",
+      "status": "IMPLEMENTED",
       "batch": 6,
       "schoolNote": "docs/football-authority/schools/big-spring.md",
       "researchCompletedAt": "2026-10-15",
       "actualProductionVerified": false,
-      "reviewScope": "UIL 1953 runner-up, official BSISD Memorial Stadium versus school location, 2026 MaxPreps dated five-game score snapshot only; page editorial, live QA and acceptance pending"
+      "reviewScope": "Individually researched and code-authored on PR #4970: verified UIL District 2, 1953 state runner-up, BSISD Memorial Stadium address, May coach hire and 1–5 through Oct 9; exact-SHA production Chrome QA, rights-cleared photo and editorial acceptance not yet completed.",
+      "implementedOnBranch": "research/football-b006-big-spring-20261015"
     },
     {
       "id": "uil:bishop",
