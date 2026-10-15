@@ -63,6 +63,18 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const shared = baseline === null || changedFiles.some(p => sharedPattern.test(p));
   const candidates = new Set(shared ? REPRESENTATIVE_PATHS : []);
   const expectedHrefsByPage = {};
+  // Retest the two precisely identified owners missed by the pre-fix planner
+  // whenever this planner changes. No full-site scan or recurring follower.
+  if (changedFiles.includes('scripts/ci/production-change-scope.mjs')) {
+    const regressionEdges = {
+      '/article/texas-regions-explained': ['/article/texas-gulf-coast-erosion-shoreline-retreat-guide'],
+      '/article/texas-cultural-regions-explained': ['/article/texas-oil-boom-wichita-falls-west-texas-rigs'],
+    };
+    for (const [page, hrefs] of Object.entries(regressionEdges)) {
+      candidates.add(page);
+      expectedHrefsByPage[page] = hrefs;
+    }
+  }
   let contentFallback = false;
   for (const path of changedFiles) {
     const { before = '', after = '' } = sources[path] || {};
