@@ -40,6 +40,9 @@ function SixManFieldDiagram() {
 
   return (
     <figure className="mt-6 overflow-hidden rounded-2xl border border-border bg-card">
+      <p className="p-2 text-sm text-muted-foreground md:hidden">
+        Swipe left on the field to see the other end zone →
+      </p>
       <div className="overflow-x-auto p-2 sm:p-5" role="region" aria-label="Six-man field illustration; scroll horizontally on small screens" tabIndex={0}>
         <svg
           className="h-auto w-full" style={{ minWidth: 660 }}
