@@ -40,11 +40,11 @@
       "big-lake-reagan-co",
       "big-sandy"
     ],
-    "state": "ASSIGNED_RESEARCH_IN_PROGRESS",
+    "state": "PRODUCTION_BROWSER_ACCEPTED",
     "dateAssigned": "2026-10-10",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned in existing canonical schoolRecords order after verified Batch 004; protect 80 previous VERIFIED.",
-    "individuallyVerified": 1,
-    "remainingAssigned": 24,
+    "individuallyVerified": 25,
+    "remainingAssigned": 0,
     "assignmentBranch": "football-authority-batch-005-20261010",
     "repositoryMainAtAssignment": "193f24fb06e48fd43fd821d6a6bced28d958301a",
     "maxSchoolsPerBatch": 25,
@@ -52,8 +52,8 @@
     "nextSchool": null,
     "implementedOnBranch": 25,
     "remainingToImplement": 0,
-    "remainingToVerify": 24,
-    "notes": "All 25 school-specific Batch005 profiles now implemented in repository code or staged on main-derived PR; Benjamin alone has exact-production Chrome verification (63/63). Preserve 81 prior VERIFIED. Fourteen final school pages remain UNVERIFIED until post-merge deployment and individual browser acceptance; 5 Group2 schools also still require acceptance."
+    "remainingToVerify": 0,
+    "notes": "All 25 Batch005 schools exact-release production browser verified Oct14 2026 at d1fca0f (1,233 checks, 0 failures) via run 38586361713 and screenshots artifact 11905997191. Benjamin additionally passed its prior school-specific 63/63 workflow. Automated browser acceptance does not certify independently every game-day fact, rights/permissions, human WCAG evaluation or future source changes. Earlier 80 VERIFIED preserved."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -5569,9 +5569,9 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/ballinger",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
-      "actualProductionVerified": false,
+      "actualProductionVerified": true,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-10",
@@ -5591,12 +5591,24 @@
       ],
       "outboundCountyPath": "/county/runnels",
       "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
-      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "productionVerification": "BROWSER_PASS_BATCH005_1233_CHECKS_2026_10_14",
       "blockers": [
         "Protected merge and production deployment",
         "Live responsive Chrome and full county reciprocal evidence",
         "Review current tickets/ADA/parking and media reuse rights"
-      ]
+      ],
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:balmorhea",
@@ -5609,9 +5621,9 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/balmorhea",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
-      "actualProductionVerified": false,
+      "actualProductionVerified": true,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-10",
@@ -5631,12 +5643,24 @@
       ],
       "outboundCountyPath": "/county/reeves",
       "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
-      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "productionVerification": "BROWSER_PASS_BATCH005_1233_CHECKS_2026_10_14",
       "blockers": [
         "Protected merge and production deployment",
         "Live responsive Chrome and full county reciprocal evidence",
         "Review current tickets/ADA/parking and media reuse rights"
-      ]
+      ],
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:bandera",
@@ -5649,9 +5673,9 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bandera",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
-      "actualProductionVerified": false,
+      "actualProductionVerified": true,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-10",
@@ -5671,12 +5695,24 @@
       ],
       "outboundCountyPath": "/county/bandera",
       "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
-      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "productionVerification": "BROWSER_PASS_BATCH005_1233_CHECKS_2026_10_14",
       "blockers": [
         "Protected merge and production deployment",
         "Live responsive Chrome and full county reciprocal evidence",
         "Review current tickets/ADA/parking and media reuse rights"
-      ]
+      ],
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:bangs",
@@ -5689,9 +5725,9 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bangs",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
-      "actualProductionVerified": false,
+      "actualProductionVerified": true,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-10",
@@ -5711,12 +5747,24 @@
       ],
       "outboundCountyPath": "/county/brown",
       "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
-      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "productionVerification": "BROWSER_PASS_BATCH005_1233_CHECKS_2026_10_14",
       "blockers": [
         "Protected merge and production deployment",
         "Live responsive Chrome and full county reciprocal evidence",
         "Review current tickets/ADA/parking and media reuse rights"
-      ]
+      ],
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:banquete",
@@ -5729,9 +5777,9 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/banquete",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
-      "actualProductionVerified": false,
+      "actualProductionVerified": true,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-10",
@@ -5751,12 +5799,24 @@
       ],
       "outboundCountyPath": "/county/nueces",
       "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
-      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "productionVerification": "BROWSER_PASS_BATCH005_1233_CHECKS_2026_10_14",
       "blockers": [
         "Protected merge and production deployment",
         "Live responsive Chrome and full county reciprocal evidence",
         "Review current tickets/ADA/parking and media reuse rights"
-      ]
+      ],
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:barksdale-nueces-canyon",
@@ -5769,14 +5829,26 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/barksdale-nueces-canyon",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-group2-main-recovery-20261013",
       "schoolNote": "docs/football-authority/schools/barksdale-nueces-canyon.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:bartlett",
@@ -5789,14 +5861,26 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bartlett",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-group2-main-recovery-20261013",
       "schoolNote": "docs/football-authority/schools/bartlett.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:bastrop",
@@ -5809,14 +5893,26 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bastrop",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-group2-main-recovery-20261013",
       "schoolNote": "docs/football-authority/schools/bastrop.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:bastrop-cedar-creek",
@@ -5829,14 +5925,26 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bastrop-cedar-creek",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-group2-main-recovery-20261013",
       "schoolNote": "docs/football-authority/schools/bastrop-cedar-creek.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:bay-city",
@@ -5849,14 +5957,26 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bay-city",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-group2-main-recovery-20261013",
       "schoolNote": "docs/football-authority/schools/bay-city.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:baytown-goose-creek-memorial",
@@ -5869,14 +5989,26 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baytown-goose-creek-memorial",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-remaining14-main-20261013",
       "schoolNote": "docs/football-authority/schools/baytown-goose-creek-memorial.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:baytown-lee",
@@ -5889,14 +6021,26 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baytown-lee",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-remaining14-main-20261013",
       "schoolNote": "docs/football-authority/schools/baytown-lee.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:baytown-sterling",
@@ -5909,14 +6053,26 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baytown-sterling",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-remaining14-main-20261013",
       "schoolNote": "docs/football-authority/schools/baytown-sterling.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:beaumont-united",
@@ -5929,14 +6085,26 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beaumont-united",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-remaining14-main-20261013",
       "schoolNote": "docs/football-authority/schools/beaumont-united.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:beaumont-west-brook",
@@ -5949,14 +6117,26 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beaumont-west-brook",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-remaining14-main-20261013",
       "schoolNote": "docs/football-authority/schools/beaumont-west-brook.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:beckville",
@@ -5969,14 +6149,26 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beckville",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-remaining14-main-20261013",
       "schoolNote": "docs/football-authority/schools/beckville.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:beeville-jones",
@@ -5989,14 +6181,26 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beeville-jones",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-remaining14-main-20261013",
       "schoolNote": "docs/football-authority/schools/beeville-jones.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:bells",
@@ -6009,14 +6213,26 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bells",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-remaining14-main-20261013",
       "schoolNote": "docs/football-authority/schools/bells.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:bellville",
@@ -6029,14 +6245,26 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bellville",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-remaining14-main-20261013",
       "schoolNote": "docs/football-authority/schools/bellville.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:belton",
@@ -6049,14 +6277,26 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/belton",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-remaining14-main-20261013",
       "schoolNote": "docs/football-authority/schools/belton.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:ben-bolt-palito-blanco",
@@ -6069,14 +6309,26 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/ben-bolt-palito-blanco",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-remaining14-main-20261013",
       "schoolNote": "docs/football-authority/schools/ben-bolt-palito-blanco.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:benavides",
@@ -6089,14 +6341,26 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/benavides",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-remaining14-main-20261013",
       "schoolNote": "docs/football-authority/schools/benavides.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:benjamin",
@@ -6176,14 +6440,26 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/big-lake-reagan-co",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-remaining14-main-20261013",
       "schoolNote": "docs/football-authority/schools/big-lake-reagan-co.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:big-sandy",
@@ -6196,14 +6472,26 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/big-sandy",
-      "status": "IMPLEMENTED",
+      "status": "VERIFIED",
       "batch": 5,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-13",
       "implementedOnBranch": "football-batch005-remaining14-main-20261013",
       "schoolNote": "docs/football-authority/schools/big-sandy.md",
-      "actualProductionVerified": false
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-14T15:10:21Z",
+      "mergedAt": "2026-10-14",
+      "deployment": {
+        "mergeCommit": "d1fca0f12cc5955884486ddbdb67cad9c2efa5bc",
+        "date": "2026-10-14",
+        "allChecksReportedSuccess": true,
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 38586361713,
+        "dedicatedBrowserResult": "SUCCESS production Chrome: all 25 Batch005 school profiles across desktop/mobile and campus county reciprocal links, 1233 checks, zero failures; records tested at d1fca0f",
+        "screenshotArtifactId": 11905997191
+      },
+      "acceptanceScope": "Automated exact-release browser, source-structure, SEO, county backlink and image-load checks; factual editorial provenance, field conditions, photo licensing and assistive technology not independently certified"
     },
     {
       "id": "uil:big-sandy-harmony",

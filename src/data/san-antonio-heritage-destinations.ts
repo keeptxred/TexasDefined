@@ -149,7 +149,7 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       "credit": "Steven B Yount · CC BY-SA 4.0 · Wikimedia Commons"
     },
     "bestSeason": "Fall through spring for walking the extensive compound; summer visits are most pleasant in the morning.",
-    "entryNote": "The visitor center and mission compound generally open 9 a.m.–5 p.m. outside Thanksgiving, Christmas and New Year's Day. Ranger walks depend on weather and staff. NPS admission is free.",
+    "entryNote": "NPS lists mission grounds from sunrise to sunset and interpretive facilities 9 a.m.–5 p.m., except major holiday closures. At Mission San José, free ranger-led walks currently start at 10 and 11 a.m. daily, weather permitting, from the visitor center; they last about 45 minutes and have a 50-person, first-come limit. Recheck on the day of your visit.",
     "highlights": [
       "Park visitor center",
       "Rose Window",
@@ -175,8 +175,8 @@ export const sanAntonioHeritageDestinations: Destination[] = [
       },
       {
         "question": "Are ranger walks free?",
-        "answer": "Yes, NPS standard ranger programs are free, but their schedule can change.",
-        "sourceUrl": "https://www.nps.gov/subjects/travelspanishmissions/mission-san-jose-y-san-miguel-de-aquayo.htm"
+        "answer": "Yes. NPS currently advertises free ranger walks at 10 and 11 a.m. daily, weather permitting. Tours start at the visitor center, last about 45 minutes and are limited to 50 people first-come, first-served.",
+        "sourceUrl": "https://www.nps.gov/saan/planyourvisit/guided-programs.htm"
       },
       {
         "question": "What is the Rose Window?",

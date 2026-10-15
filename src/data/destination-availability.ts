@@ -5,6 +5,7 @@ import type { Destination } from "./types";
  * recommend as ordinary visitable Trip Planner stops today.
  */
 const UNAVAILABLE_DESTINATION_SLUGS = new Set([
+  "wyler-aerial-tramway-state-park", // TPWD site is closed to regular visitation
   "albert-bessie-kronkosky-state-natural-area",
   "powderhorn-state-park",
   "chinati-mountains-state-natural-area",
@@ -12,10 +13,11 @@ const UNAVAILABLE_DESTINATION_SLUGS = new Set([
   "davis-hill-state-park",
   "battleship-texas",
   "battleship-texas-state-historic-site",
-  "wyler-aerial-tramway-state-park", // TPWD closed to ordinary park visitation
   "1940-air-terminal-museum-houston", // closed March 2026; historic reference page remains accessible
   "buffalo-soldiers-national-museum-houston", // renovations: exclude visits until operator confirms reopening
   "elisabet-ney-museum-austin", // closed for renovations until anticipated spring 2027 reopening
+  "first-capitol-of-texas", // THC: Not Open; historical reference, not a trip-planner destination
+  "old-socorro-mission", // THC: original archaeological location closed; distinct from active Socorro Mission
 ]);
 
 /**

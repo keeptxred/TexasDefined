@@ -283,6 +283,30 @@ const texasWorldWarIIHistoricSitesGuideStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["battleship-texas", "eisenhower-birthplace", "national-museum-pacific-war", "iwo-jima-museum-monument", "slaton-harvey-house"],
 };
 
+const ussLexingtonCv16HistoryVisitorGuideStub: Article = {
+  id: "evergreen-uss-lexington-cv16-history-visitor-guide", brandId: "texasdefined", slug: "uss-lexington-cv16-history-visitor-guide",
+  title: "USS Lexington (CV-16): The Blue Ghost, World War II Aircraft Carrier and Corpus Christi Museum",
+  dek: "The complete story of USS Lexington: Pacific combat, postwar aviation, service as a Navy training carrier, and the preserved Corpus Christi museum with current visitor details and archival photos.",
+  category: "texas-history", region: "gulf-coast",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS_Lexington_%28CV-16%29_underway_on_13_June_1944.jpg?width=1600", alt: "USS Lexington CV-16 in the Pacific on June 13, 1944", width: 5732, height: 4313, credit: "U.S. Navy 80-G-236932 · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-10-14", updatedAt: "2026-10-14", readingMinutes: 18,
+  tags: ["USS Lexington", "CV-16", "Blue Ghost", "Corpus Christi", "WWII aircraft carrier"], featured: true,
+  sourceName: "USS Lexington Museum on the Bay", sourceUrl: "https://usslexington.com/about-the-uss-lexington/the-ship/",
+  body: [], relatedCollections: [], relatedDestinations: ["uss-lexington-museum-corpus-christi", "texas-state-aquarium", "battleship-texas"],
+};
+
+const ussTexas1895OriginalBattleshipStub: Article = {
+  id: "evergreen-uss-texas-1895-original-battleship", brandId: "texasdefined", slug: "uss-texas-1895-original-battleship",
+  title: "The First USS Texas (1895–1911): Spanish–American War Battleship and San Marcos",
+  dek: "Before the surviving Battleship Texas BB-35, a different USS Texas fought at Santiago de Cuba in 1898. Discover its unusual design, people, service, renaming, gunnery-test wreck and archival images.",
+  category: "texas-history", region: "gulf-coast",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS_Texas_%281895-1911%29.jpg?width=1280", alt: "The first USS Texas photographed before the dreadnought era", width: 740, height: 576, credit: "U.S. Navy / NHHC NH 63506 · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-10-14", updatedAt: "2026-10-14", readingMinutes: 19,
+  tags: ["original USS Texas", "USS Texas 1895", "USS San Marcos", "Spanish-American War Texas", "Battle of Santiago de Cuba"], featured: true,
+  sourceName: "Naval History and Heritage Command", sourceUrl: "https://www.history.navy.mil/browse-by-topic/ships/ships-of-steam/uss-texas.html",
+  body: [], relatedCollections: [], relatedDestinations: ["battleship-texas", "san-jacinto-battleground"],
+};
+
 const battleshipTexasBB35HistoryRestorationStub: Article = {
   id: "evergreen-battleship-texas-bb-35-history-restoration", brandId: "texasdefined", slug: "battleship-texas-bb-35-history-restoration",
   title: "Battleship Texas (BB-35): The Last Dreadnought and Its Return to Galveston",
@@ -418,6 +442,8 @@ export const standaloneEvergreenStubs: Article[] = [
   texasBorderlandsHistoricSitesGuideStub,
   texasWorldWarIIHistoricSitesGuideStub,
   battleshipTexasBB35HistoryRestorationStub,
+  ussTexas1895OriginalBattleshipStub,
+  ussLexingtonCv16HistoryVisitorGuideStub,
   texasMilitaryHistoryTimelineStub,
   texasCivilWarSitesGuideStub,
   republicOfTexasGovernmentTrailStub,
@@ -455,6 +481,8 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === texasBorderlandsHistoricSitesGuideStub.slug) return import("./texas-borderlands-historic-sites-guide").then((module) => module.texasBorderlandsHistoricSitesGuideArticle);
   if (slug === texasWorldWarIIHistoricSitesGuideStub.slug) return import("./texas-world-war-ii-historic-sites-guide").then((module) => module.texasWorldWarIIHistoricSitesGuideArticle);
   if (slug === battleshipTexasBB35HistoryRestorationStub.slug) return import("./battleship-texas-bb-35-history-restoration").then((module) => module.battleshipTexasBB35HistoryRestorationArticle);
+  if (slug === ussTexas1895OriginalBattleshipStub.slug) return import("./uss-texas-1895-original-battleship").then((module) => module.ussTexas1895OriginalBattleshipArticle);
+  if (slug === ussLexingtonCv16HistoryVisitorGuideStub.slug) return import("./uss-lexington-cv16-history-visitor-guide").then((module) => module.ussLexingtonCv16HistoryVisitorGuideArticle);
   if (slug === texasMilitaryHistoryTimelineStub.slug) return import("./texas-military-history-timeline").then((module) => module.texasMilitaryHistoryTimelineArticle);
   if (slug === texasCivilWarSitesGuideStub.slug) return import("./texas-civil-war-sites-guide").then((module) => module.texasCivilWarSitesGuideArticle);
   if (slug === republicOfTexasGovernmentTrailStub.slug) return import("./republic-of-texas-government-trail").then((module) => module.republicOfTexasGovernmentTrailArticle);

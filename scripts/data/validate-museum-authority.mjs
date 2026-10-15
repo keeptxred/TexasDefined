@@ -7,6 +7,38 @@ import { execFileSync } from "node:child_process";
 const read = (path) => readFileSync(path, "utf8");
 const src = read("src/data/museum-authority-network.ts");
 const failures = [];
+
+// AAM Dallas currently publishes conflicting normal/event-day hours.
+// Treat this as a disclosure requirement, not a reason to invent one schedule.
+const aamRecords = read("src/data/museum-authority-new-destinations.ts");
+const aamFaqSource = read("src/data/museum-visitor-faqs.ts");
+const aamRecord = aamRecords.split('slug: "african-american-museum-dallas-fair-park"')[1]?.split('slug: "', 1)[0] || "";
+const aamFaq = aamFaqSource.split('"african-american-museum-dallas-fair-park": [')[1]?.split('"texas-forestry-museum-lufkin": [')[0] || "";
+for (const [label, content] of [["destination", aamRecord], ["FAQ", aamFaq]]) {
+  for (const marker of ["10 a.m.", "11 a.m.", "State Fair", "214-565-9026"]) {
+    if (!content.includes(marker)) failures.push("African American Museum Dallas " + label + " lost official-hours conflict/phone detail: " + marker);
+  }
+}
+
+// The Rockport visitor guide must preserve primary-source dates and links,
+// and must not mistakenly refer to Spain's American Revolution role as a
+// "Spanish Revolution". This guard covers the actual rendered dossier contract,
+// not a standalone duplicate museum page.
+const rockportDossierSource = src.split('  "texas-maritime-museum-rockport": {')[1]?.split('  "national-museum-pacific-war": {')[0] || "";
+const rockportDestinationSource = read("src/data/museum-expansion-statewide-wave2.ts").split('slug: "texas-maritime-museum-rockport"')[1]?.split('slug: "museum-south-texas-history-edinburg"')[0] || "";
+const rockportFaqSource = aamFaqSource.split('"texas-maritime-museum-rockport": [')[1]?.split('"national-museum-pacific-war": [')[0] || "";
+const rockportManifest = JSON.parse(read("public/museum-verification-manifest.json"));
+const rockportManifestEntry = JSON.stringify(rockportManifest).includes('"/destination/texas-maritime-museum-rockport"') ? read("public/museum-verification-manifest.json").split('"path": "/destination/texas-maritime-museum-rockport"')[1]?.split('"path": "', 1)[0] || "" : "";
+for (const [sectionName, content, markers] of [
+  ["dossier", rockportDossierSource, ["Tides of Freedom", "Built for Victory", "February 2–December 31, 2026", "September 30–December 31, 2026", "https://texasmaritimemuseum.org/event/tides-of-freedom/", "https://texasmaritimemuseum.org/event/built-for-victory/"]],
+  ["destination", rockportDestinationSource, ["Tides of Freedom", "Built for Victory", "December 31, 2026", "2026-10-14"]],
+  ["FAQ", rockportFaqSource, ["Tides of Freedom", "Built for Victory", "2026-10-14", "https://texasmaritimemuseum.org/event/tides-of-freedom/", "https://texasmaritimemuseum.org/event/built-for-victory/"]],
+  ["source manifest", rockportManifestEntry, ['"faqCount": 8', "https://texasmaritimemuseum.org/event/tides-of-freedom/", "https://texasmaritimemuseum.org/event/built-for-victory/"]],
+]) {
+  for (const marker of markers) if (!content.includes(marker)) failures.push("Rockport museum " + sectionName + " missing " + marker);
+}
+if (rockportDestinationSource.includes("Spanish Revolution")) failures.push("Rockport museum must not misidentify Spanish support for the American Revolution");
+
 const required = [
   "bullock-texas-state-history-museum",
   "perot-museum-nature-science-dallas",
@@ -94,6 +126,10 @@ for (const path of ["src/data/destination-query-runtime.ts", "src/data/destinati
   if (read(path).includes('from "./museum-authority-network"')) failures.push(path + ": heavyweight dossier import regresses main client performance.");
 }
 if (!read("src/data/museum-authority-heroes.ts").includes("export const museumLicensedHeroes")) failures.push("Lightweight license-cleared museum heroes module missing.");
+// Licensed museum photos must survive final catalog reconciliation before corridor authority overlays.
+if (!/\.map\(enrichMuseumMedia\)\s*\.map\(applyTownAuthority\)\s*\.map\(enforceFredericksburgJohnsonCityHeritageAuthority\);/.test(read("src/data/destination-query-runtime.ts")))
+  failures.push("Explore catalog lacks final licensed museum hero reconciliation.");
+execFileSync(process.execPath, ["scripts/data/test-museum-owner-inventory-parser.mjs"], { stdio: "inherit" });
 if (!read("src/routes/destination.$slug.tsx").includes("enrichMuseumAuthority")) failures.push("Museum body enrichment must remain in the museum destination page, not global search.");
 if (read("src/routes/destination.$slug.tsx").includes('from "@/data/museum-authority-network"')) failures.push("Museum route must lazily load full research dossiers.");
 
@@ -183,9 +219,11 @@ if (base) {
           /(museum|historical park|science center)/i.test(name)) found.add(slug);
     }
     // Triples such as ["texas-history", "law-enforcement", "museum-heritage"]
-    // are category taxonomy, not a destination tuple. Require a HUMAN museum
-    // name, with museum as an independent word (not "museum-heritage").
-    for (const match of added.matchAll(/"[^"]+",\s*"([a-z0-9-]+)",\s*"([^"]+)"/g)) {
+    // are category taxonomy, not a destination tuple. Only a complete,
+    // exactly three-field [id, slug, human name] record qualifies; an
+    // embedded topic like ["presidential-history", "dallas-history", "museum", ...]
+    // is not a new museum destination. Require museum in the human name.
+    for (const match of added.matchAll(/\[\s*"[^"\n]+"\s*,\s*"([a-z0-9-]+)"\s*,\s*"([^"\n]+)"\s*\]/g)) {
       if (/(?:^|[\s(])(?:museums?|historical park|science center)(?=$|[\s),.!])/i.test(match[2])) found.add(match[1]);
     }
     for (const slug of found) {

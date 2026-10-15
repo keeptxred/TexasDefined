@@ -12,6 +12,7 @@ on:
       - 'scripts/ci/authority-evidence*.mjs'
       - 'scripts/ci/authority-link-graph*.mjs'
       - 'scripts/ci/audit-production-pages.mjs'
+      - 'scripts/ci/check-dallas-black-history-production.mjs'
       - 'scripts/data/validate-*.mjs'
       - 'src/routes/**'
       - 'src/data/**'
@@ -29,6 +30,7 @@ on:
       - 'scripts/ci/authority-evidence*.mjs'
       - 'scripts/ci/authority-link-graph*.mjs'
       - 'scripts/ci/audit-production-pages.mjs'
+      - 'scripts/ci/check-dallas-black-history-production.mjs'
       - 'scripts/data/validate-*.mjs'
       - 'src/routes/**'
       - 'src/data/**'
@@ -149,3 +151,6 @@ jobs:
       - name: Fail workflow when quality checks fail
         if: steps.quality.outcome == 'failure'
         run: exit 1
+      - name: Audit Dallas Black History live pages and sitemap links
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: node scripts/ci/check-dallas-black-history-production.mjs

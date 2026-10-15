@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { curatedDestinationPairings } from "../destination-curated-pairings";
-import { buildDestinationRelationshipGroups } from "../destination-relationships";
+import { buildDestinationRelationshipGroups, featuredDestinationRelationships } from "../destination-relationships";
 import type { Destination } from "../types";
 
 function destination(slug: string, category: Destination["category"] = "caverns"): Destination {
@@ -60,4 +60,23 @@ describe("curated cavern destination pairings", () => {
     expect(groups[0]?.destinations.map((item) => item.slug)).toEqual(["natural-bridge-wildlife-ranch"]);
     expect(groups.slice(1).flatMap((group) => group.destinations.map((item) => item.slug))).not.toContain("natural-bridge-wildlife-ranch");
   });
+  it("keeps the Sycamore Creek Bridge and Fort Worth Stockyards linked ahead of closer unrelated places in both directions", () => {
+    const bridge = destination("sycamore-creek-bridge-fort-worth", "historic-sites");
+    const stockyards = destination("fort-worth-stockyards", "historic-sites");
+    bridge.coordinates = { lat: 32.731167, lng: -97.297333 };
+    stockyards.coordinates = { lat: 32.787, lng: -97.348 };
+    const closer = Array.from({ length: 9 }, (_, index) => {
+      const candidate = destination(`unrelated-near-bridge-${index}`, "historic-sites");
+      candidate.coordinates = { lat: 32.731167 + (index + 1) * 0.0004, lng: -97.297333 };
+      return candidate;
+    });
+    const catalog = [bridge, stockyards, ...closer];
+    const forBridge = featuredDestinationRelationships(bridge, buildDestinationRelationshipGroups(bridge, catalog));
+    const forStockyards = featuredDestinationRelationships(stockyards, buildDestinationRelationshipGroups(stockyards, catalog));
+    expect(forBridge[0]?.slug).toBe("fort-worth-stockyards");
+    expect(forStockyards[0]?.slug).toBe("sycamore-creek-bridge-fort-worth");
+    expect(forBridge).toHaveLength(6);
+    expect(new Set(forBridge.map((item) => item.slug)).size).toBe(forBridge.length);
+  });
+
 });

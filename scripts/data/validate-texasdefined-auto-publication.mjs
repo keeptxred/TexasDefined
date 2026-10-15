@@ -73,6 +73,12 @@ if (sitemap.includes('fetchPublishedTexasDefinedNewsArticles({ limit: 200 })') |
 if (!route.includes('fetchPublishedTexasDefinedNewsArticle')) errors.push('Live /news article route must resolve only feed-backed published stories.');
 if (!route.includes('isArticleIndexReady(article)')) errors.push('Live /news article route must noindex published stories that do not satisfy the shared public-readiness floor.');
 for (const token of ['article.hero.credit', 'article.sourceUrl', 'article.relatedDestinations']) if (!route.includes(token)) errors.push(`Live article route is missing ${token}`);
+for (const marker of [
+  'isCompleteFishingLakeSlug(slug)',
+  'to="/fishing/lakes/$slug"',
+  'to="/destination/$slug"',
+]) if (!route.includes(marker)) errors.push('Related published-news links must resolve completed fishing lakes to their canonical /fishing/lakes page: ' + marker);
+
 for (const token of ['jsonLd(match.context.liveNewsSchema)', 'buildPublishedNewsArticleSchema(article)', '<Byline author={editorialDeskById(article.authorId)}']) {
   if (!route.includes(token)) errors.push(`Published news route/author contract is missing ${token}`);
 }

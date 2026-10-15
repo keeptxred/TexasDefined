@@ -28,6 +28,257 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "uss-lexington-museum-corpus-christi": {
+    name: "USS Lexington Museum on the Bay",
+    slug: "uss-lexington-museum-corpus-christi",
+    county: "Nueces",
+    city: "Corpus Christi",
+    reviewed: "2026-10-14",
+    topics: [
+        "naval-aviation",
+        "world-war-ii",
+        "military-history",
+        "maritime-heritage",
+        "family"
+    ],
+    whyVisit: "USS Lexington (CV-16), the Essex-class carrier preserved on North Beach in Corpus Christi, is an actual aircraft carrier and not Battleship Texas. Her visitor routes reveal both large-scale naval aviation and the tight daily life of sailors across wartime and training-carrier service. The flight deck aircraft, hangar exhibits, engineering displays and shipboard spaces offer distinct experiences; a grounded visit explains how carrier airpower differs from battleship artillery, with detailed historical research maintained separately in TexasDefined's USS Lexington CV-16 historical guide.",
+    visitorStrategy: "The museum operates daily except Thanksgiving and Christmas. Its 2026 operator listing states 9 a.m.–5 p.m. during the Labor Day-to-Memorial Day season and 9 a.m.–6 p.m. in summer. General admission is purchased at the entrance booths on the day of your visit, not via a routine online museum ticket: current listed adult admission $25, seniors $21, military with ID $16, ages 13–17 $20, ages 4–12 $15 and ages 3 or younger free. All-day parking currently costs $5; some card transactions incur a 3% fee. Budget roughly three to four hours if walking more than the accessible decks, and choose fewer self-guided routes when time or mobility is limited. The Mess Deck Café on the hangar deck lists lunch food, snacks and daily service from 10 a.m. to 4 p.m., subject to operational changes; outside food and beverages are prohibited.",
+    accessibility: "The operator states the hangar deck and flight deck are wheelchair accessible, and the LEX LIFT elevator connects the decks for visitors who cannot use ship ladders. The café, 3D MEGA Theater, store and restrooms are on the accessible hangar deck. This does not establish step-free access to all of the carrier's eleven interpreted decks or its narrow wartime ladders and machinery rooms. Ask visitor services about access to any specific route, simulator or below-deck compartment before purchasing an experience. The outdoor flight deck is exposed to sun and strong bay winds; hearing protection or adjusted pacing may help with theater and Pearl Harbor effects.",
+    familiesAndGroups: "Families can prioritize the accessible aircraft displays, hangar and flight deck and choose a shorter circuit for small children. Other routes include steep shipboard ladders, hard surfaces, tight corridors and wartime imagery, so age and mobility needs matter more than a generic family-friendly badge. The operator advertises a 3D theater, Pearl Harbor experience, simulator and educational programming; check current content and separate fees before promising particular access. Guided tours can have minimum-age limits, advance booking and particular start times. School or scout groups should wait for confirmation of reservations rather than treating an inquiry as a confirmed date.",
+    researchValue: "Use Lexington's exhibition routes to compare the mechanics of a carrier: aircraft launch and recovery, hangar maintenance, control spaces, sailor quarters and engineering systems. The operator describes five independently navigable self-guided tour routes, not one compulsory tour. The National Historic Landmark ship's World War II combat and subsequent training service also make it valuable for comparing Lexington CV-16 with the earlier Lexington CV-2 lost at Coral Sea and the separate Texas battleships. For ship specifications and chronology, link to the underlying museum, Navy archival material and the site's full naval history article instead of reproducing a complete collection catalog.",
+    exhibits: [
+        {
+            heading: "Flight deck aircraft and recovery equipment",
+            detail: "See naval aircraft and landing/anti-aircraft equipment atop the carrier, reached through the LEX LIFT for visitors who cannot use ladders."
+        },
+        {
+            heading: "Hangar deck and aircraft-handling",
+            detail: "Follow the central space where aircraft could be stored and serviced, with accessible theater, café and basic visitor amenities."
+        },
+        {
+            heading: "Self-guided five-route ship circuit",
+            detail: "Choose among independently marked ship routes and interactive exhibits; visitors should not promise that every below-deck passage is accessible."
+        },
+        {
+            heading: "Pearl Harbor immersive exhibit",
+            detail: "An operator-promoted light and sound attraction that may not suit all younger or sensory-sensitive visitors."
+        },
+        {
+            heading: "3D MEGA Theater and flight simulator",
+            detail: "A film experience promoted as included with general admission and a separate simulator-style attraction; verify current showtimes and any simulator fees."
+        },
+        {
+            heading: "Carrier engineering and sailor life",
+            detail: "Where open, below-deck mechanical and living spaces give physical scale to the work of keeping a carrier afloat and an air wing operating."
+        }
+    ],
+    routes: [
+        {
+            label: "Step-free highlights",
+            steps: [
+                "Check in at the North Beach admission booths and confirm current LEX LIFT operation",
+                "Tour hangar-deck exhibits and 3D MEGA Theater as interests permit",
+                "Use the elevator to see aircraft on the flight deck and return for the café or store"
+            ]
+        },
+        {
+            label: "Full ship adventure",
+            steps: [
+                "Begin with the flight-deck aviation story and aircraft displays",
+                "Choose several marked self-guided circuits below deck only where personal mobility and operator access allow",
+                "Finish with engineering/crew-life context, Pearl Harbor interpretation and a meal at the Mess Deck Café if open"
+            ]
+        },
+        {
+            label: "Corpus Christi North Beach family day",
+            steps: [
+                "Visit USS Lexington early to avoid the hottest flight-deck hours",
+                "Use a short aircraft-and-hangar route for younger children and allow breaks",
+                "Pair with the separately ticketed Texas State Aquarium nearby, not as part of museum admission"
+            ]
+        }
+    ],
+    sources: [
+        {
+            label: "USS Lexington official admission and accessibility",
+            url: "https://usslexington.com/visit/hours-admission/",
+            use: "2026 tickets, seasonal hours, elevator, food and parking policies"
+        },
+        {
+            label: "USS Lexington self-guided touring",
+            url: "https://usslexington.com/tours/self-guided-tours/",
+            use: "Five marked routes, operational touring method and staff assistance"
+        },
+        {
+            label: "USS Lexington flight deck",
+            url: "https://usslexington.com/attractions/the-flight-deck/",
+            use: "Actual aircraft display, accessible flight deck and LEX LIFT"
+        },
+        {
+            label: "USS Lexington Mess Deck Café",
+            url: "https://usslexington.com/visit/mess-deck-cafe/",
+            use: "Confirmed café type, hot lunch menu, general-admission condition and serving times"
+        },
+        {
+            label: "USS Lexington attraction roster",
+            url: "https://usslexington.com/attractions/",
+            use: "Pearl Harbor, theater, simulator and museum displays"
+        },
+        {
+            label: "USS Lexington educational programs",
+            url: "https://usslexington.com/learn/education/",
+            use: "Advance-booked youth and school arrangements"
+        },
+        {
+            label: "USS Lexington North Beach directions",
+            url: "https://usslexington.com/visit/directions-map-how-to-get-to-lex/",
+            use: "Real address, coordinates and current all-day parking"
+        }
+    ],
+    connections: [
+        {
+            label: "Nueces County",
+            href: "/county/nueces",
+            reason: "Connect the ship's coastal location to Corpus Christi's history and visitor logistics."
+        },
+        {
+            label: "Texas State Aquarium",
+            href: "/destination/texas-state-aquarium",
+            reason: "A separate North Beach family stop, with separate admission."
+        },
+        {
+            label: "National Museum of the Pacific War",
+            href: "/destination/national-museum-pacific-war",
+            reason: "Pair carrier-based naval aviation with broader Pacific War interpretation."
+        },
+        {
+            label: "USS Lexington CV-16 history and visitor guide",
+            href: "/article/uss-lexington-cv16-history-visitor-guide",
+            reason: "Read researched chronology and documented archival ship photographs."
+        },
+        {
+            label: "Texas museum directory",
+            href: "/explore/museums",
+            reason: "Find other military, maritime and science museums across the state."
+        }
+    ],
+  },
+  "sixth-floor-museum-at-dealey-plaza": {
+    name: "The Sixth Floor Museum at Dealey Plaza",
+    slug: "sixth-floor-museum-at-dealey-plaza",
+    county: "Dallas",
+    city: "Dallas",
+    reviewed: "2026-10-14",
+    topics: [
+        "presidential-history",
+        "dallas-history",
+        "museum",
+        "civil-rights",
+        "family"
+    ],
+    whyVisit: "The Sixth Floor Museum occupies the former Texas School Book Depository, overlooking the place where President John F. Kennedy was assassinated on November 22, 1963. Unlike a standalone memorial, the museum places the assassination within early-1960s civic life, the Kennedy presidency, investigative evidence and later public memory. The physical building and the view toward Dealey Plaza make its strongest historical material easier to understand on site, but the museum's extensive archival catalog remains the institution's own specialist resource.",
+    visitorStrategy: "Plan around a timed museum ticket: current published hours are Wednesday–Sunday, 10 a.m.–5 p.m., with last ticket and entry at 4:15 p.m.; closed Monday and Tuesday. The museum advertises adult admission at $24 online plus a $1 booking fee or $27 onsite, with separate senior and youth prices and free admission for ages 0–5. Reconfirm pricing before booking. Allow roughly two hours for the core sixth-floor exhibition, then spend additional time walking Dealey Plaza outdoors. Paid parking is adjacent but costs vary; oversized vehicles and buses are not accepted in the museum lot. DART West End Station is three blocks east and TRE-connected Union Station is about five blocks south. Food and drinks are not permitted in the galleries; dining is nearby rather than a documented full-service museum restaurant.",
+    accessibility: "The museum says all public floors are wheelchair accessible. Its accessible ramp is at the northwest corner, wheelchair loans are first-come at the Visitors Center, accessible parking is available in the adjacent paid lot, and KultureCity sensory bags can be checked out there. ADA service animals are welcome. The material includes photographs, assassination evidence, documentary media and serious subject matter, so families and visitors who find violence or emotionally intense history difficult should plan the visit deliberately. Call 214-747-6660 for individualized accommodations and verify any display-dependent sensory access.",
+    familiesAndGroups: "The core exhibit uses historical images, video, documentary evidence and accounts of violent events. Teens studying twentieth-century history may engage deeply, but it is not a hands-on children's museum and adults should decide whether younger children are ready for the subject. The museum publishes special requirements for school visits, including eligible instructional groups of at least 20 students and booking at least three weeks ahead; its separate school-tour page contained an August 31, 2026 cutoff for the earlier school year, so do not promise 2026–27 capacity without a fresh operator confirmation. Ordinary group tours are currently restricted; a separately priced curatorial presentation is not a substitute for individual admission.",
+    researchValue: "Start with 1960s social movements and Kennedy's presidency before studying his November 1963 Texas trip, the recreated evidentiary corner window, the immediate crisis and the assassination investigations. The exhibit deliberately distinguishes physical evidence, official investigations and decades of debate. After leaving the building, compare the indoor site interpretation with the accessible public plaza and its memorial setting. The operator provides a free interactive Dealey Plaza guide and maintains historical collection resources for deeper independent research.",
+    exhibits: [
+        {
+            heading: "The early 1960s and Kennedy presidency",
+            detail: "Photographs, period films and artifacts establish civil rights, Cold War tensions, presidential life and the political context of the Texas trip."
+        },
+        {
+            heading: "The November 1963 Texas visit",
+            detail: "Follow the presidential party through its Texas itinerary to the downtown Dallas motorcade; note how local political conditions shaped public interpretation."
+        },
+        {
+            heading: "Sixth-floor corner-window interpretation",
+            detail: "The former crime-scene area is presented using historical photographs, recreated details and views over Dealey Plaza; do not confuse a reconstruction with untouched 1963 objects."
+        },
+        {
+            heading: "Crisis hours and investigations",
+            detail: "Compare the event chronology, the death of Officer J. D. Tippit, eyewitness material and investigation displays without treating unresolved public debates as proven facts."
+        },
+        {
+            heading: "Historical memory and personal recollections",
+            detail: "Museum memory books and later media show how residents, witnesses and later generations have understood the assassination and its aftermath."
+        }
+    ],
+    routes: [
+        {
+            label: "Focused two-hour museum visit",
+            steps: [
+                "Arrive before the reserved timed entry and check in at the Visitors Center",
+                "Follow early-1960s context and Texas trip displays before the assassination galleries",
+                "Visit sixth-floor exhibits and use the plaza views to understand the location"
+            ]
+        },
+        {
+            label: "History-focused downtown half day",
+            steps: [
+                "Book timed admission and take roughly two hours for the core exhibition",
+                "Walk publicly accessible Dealey Plaza and consult the museum's interactive site guide",
+                "Continue to JFK Memorial Plaza or a distinct nearby West End history museum"
+            ]
+        },
+        {
+            label: "Teen classroom history visit",
+            steps: [
+                "Review the museum's violence-related subject matter in advance",
+                "Use the introductory presidency section and the investigations to distinguish evidence from interpretation",
+                "Discuss public memory and arrange any eligible school-tour programming with staff well in advance"
+            ]
+        }
+    ],
+    sources: [
+        {
+            label: "Sixth Floor Museum — Plan Your Visit",
+            url: "https://www.jfk.org/plan-your-visit/",
+            use: "Current schedule, price bands, parking, group eligibility, accessibility, local transit"
+        },
+        {
+            label: "Sixth Floor Museum — visitation guidelines",
+            url: "https://www.jfk.org/plan-your-visit/visitation-guidelines/",
+            use: "Timed tickets, last entry, baggage, food and service animals"
+        },
+        {
+            label: "Sixth Floor Museum — accessibility",
+            url: "https://www.jfk.org/accessibility/",
+            use: "Ramp, wheelchair loans, service animals and KultureCity sensory aids"
+        },
+        {
+            label: "Sixth Floor Museum — core exhibition",
+            url: "https://www.jfk.org/exhibition/john-f-kennedy-and-the-memory-of-a-nation/",
+            use: "Verified exhibit sections, investigative evidence and historical interpretation"
+        },
+        {
+            label: "Sixth Floor Museum — operator FAQ",
+            url: "https://www.jfk.org/faq/",
+            use: "Institutional ownership, ticket rules, transit and interpretive aims"
+        }
+    ],
+    connections: [
+        {
+            label: "Dallas County",
+            href: "/county/dallas",
+            reason: "Ground museum history in the broader county's civic and cultural landscape."
+        },
+        {
+            label: "Perot Museum of Nature and Science",
+            href: "/destination/perot-museum-nature-science-dallas",
+            reason: "Offer an age-appropriate family science contrast after a serious history museum."
+        },
+        {
+            label: "Dallas Holocaust and Human Rights Museum",
+            href: "/destination/dallas-holocaust-human-rights-museum",
+            reason: "Compare separate twentieth-century historical interpretation and public memory in Downtown Dallas."
+        },
+        {
+            label: "Texas museum directory",
+            href: "/explore/museums",
+            reason: "Find other subject-specific museum guides in Texas."
+        }
+    ],
+  },
   "the-history-center-diboll": {
     name: "The History Center (Diboll)",
     slug: "the-history-center-diboll",
@@ -556,11 +807,11 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
   "port-isabel-historical-museum": {
-    name: "Port Isabel Historical Museum", slug: "port-isabel-historical-museum", county: "Cameron", city: "Port Isabel", reviewed: "2026-10-12",
+    name: "Port Isabel Historical Museum", slug: "port-isabel-historical-museum", county: "Cameron", city: "Port Isabel", reviewed: "2026-10-13",
     topics: ["borderlands","architecture","local-history","maritime"],
     whyVisit: "The museum's 1899 Champion Building and its 1906 fish mural are as important as the objects on display. The two levels explain why the Laguna Madre coastline became a fishing, port, trade and military gateway instead of simply a route to South Padre Island.",
-    visitorStrategy: "The museum's own current site publishes admission categories but directs visitors to telephone 956-943-7602 for current hours. Do not rely on older third-party Wednesday–Saturday schedules. Plan a brief museum visit with the Port Isabel Lighthouse a few blocks away, allowing additional time to examine the 1906 fish mural and exterior.",
-    accessibility: "The museum occupies a two-level historic commercial building. Independent visitors have reported an elevator, but the museum's official page has not established its present working status or the full accessible route. Confirm elevator operation, entrances, restrooms and access arrangements by phone before a mobility-dependent visit.",
+    visitorStrategy: "The City of Port Isabel and the South Padre Island Chamber currently list the museum as open Wednesday–Saturday from 10 a.m. to 4 p.m., with last ticket sales at 3:30 p.m. according to the Chamber. Confirm the day’s hours, tickets and closures by calling (956) 943-7602. Pair the Champion Building’s 1906 fish mural with the Port Isabel Lighthouse a few blocks away.",
+    accessibility: "The museum occupies a two-level historic commercial building. An earlier independent visitor reported an elevator, but the City and Chamber descriptions do not establish its present working status or a fully accessible route. Confirm elevator operation, accessible entrances, restrooms and individual accommodation needs directly at (956) 943-7602.",
     familiesAndGroups: "The mural and Champion Building can start conversations with children about fishing and nineteenth-century Gulf commerce. More detailed historical exhibits may work best for school-age children. The operator lists group tours but directs visitors to call for arrangements. Food and dining on site are not confirmed; choose nearby Port Isabel options separately.",
     researchValue: "Use the galleries to compare local memory with artifacts concerning Laguna Madre Indigenous societies, nineteenth-century trade and the borderland conflicts. The building itself demonstrates how waterfront commerce left durable commercial architecture in Port Isabel.",
     exhibits: [
@@ -574,7 +825,9 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "Lower Rio Grande history day", steps: ["Start in the museum and at the lighthouse", "Continue to Palo Alto Battlefield for the 1846 conflict", "Return to South Padre Island only when the weather and time permit"] }
     ],
     sources: [
-      { label: "Port Isabel Historical Museum — operator", url: "https://portisabelhistory.com/", use: "Museum building, mural, exhibit levels, prices and contact-for-hours instruction" },
+      { label: "City of Port Isabel — museum and lighthouse", url: "https://portisabel-texas.com/blog/history/", use: "Official city history, museum address, Wednesday–Saturday visitor schedule and adjacent lighthouse" },
+      { label: "South Padre Island Chamber — museum listing", url: "https://business.spichamber.com/list/member/port-isabel-historical-museum-18", use: "Museum visitor hours, 3:30 p.m. last ticket, admission contact and Champion Building context" },
+      { label: "Texas Historical Commission — Beyond the Beach (2026)", url: "https://thc.texas.gov/blog/beyond-beach", use: "State historical authority on the museum’s two exhibit levels, Indigenous heritage and borderland collections" },
       { label: "Port Isabel Historical Museum — visitor account", url: "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html", use: "Independent visitor question on elevator; not confirmation of current access" }
     ],
     connections: [
@@ -777,14 +1030,15 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
     connections: [
       { label: "Fort Bend County", href: "/county/fort-bend", reason: "See the county's settlement and agricultural history." },
-      { label: "Fort Bend County heritage guide", href: "/article/fort-bend-county-brazos-richmond-sugar-land-texas", reason: "Place the ranch within two centuries of Brazos history." },
+      { label: "Brazos River basin", href: "/article/texas-brazos-river-guide", reason: "Understand the Brazos watershed and water landscape that shaped Fort Bend County." },
+
     ],
   },
   "texas-maritime-museum-rockport": {
-    name: "Texas Maritime Museum", slug: "texas-maritime-museum-rockport", county: "Aransas", city: "Rockport", reviewed: "2026-10-12",
+    name: "Texas Maritime Museum", slug: "texas-maritime-museum-rockport", county: "Aransas", city: "Rockport", reviewed: "2026-10-14",
     topics: ["texas-history","maritime","industry","gulf-coast"],
     whyVisit: "Rockport's Texas Maritime Museum is a needed corrective to an inland-heavy story of Texas. It treats the Gulf and bays as corridors of travel, work, environmental change and risk, interpreting fishing, shipbuilding, maritime commerce, shipwrecks and Indigenous coastal history.",
-    visitorStrategy: "The museum currently advertises pay-what-you-can donation admission and Tuesday-to-Saturday hours, 10 a.m. to 4 p.m. Its Rockport location makes a compact cultural stop before walking the waterfront. Confirm the exhibition and program schedule because the museum's small scale makes temporary changes relevant.",
+    visitorStrategy: "The museum currently advertises pay-what-you-can donation admission and Tuesday-to-Saturday hours, 10 a.m. to 4 p.m. Its Rockport location makes a compact cultural stop before walking the waterfront. Its 2026 operator calendar lists the temporary exhibitions Tides of Freedom: Spain & the Battle for American Independence (February–December) and Built for Victory (September–December); verify they remain on view and separate these from permanent exhibitions. Check program timing and changes before travel.",
     accessibility: "Review accessibility and current entrance arrangements directly with the operator. For the rest of a Rockport day, consider heat, sun and coastal weather when moving between the indoor museum and waterfront.",
     familiesAndGroups: "Children's maritime interpretation can work well with a short indoor visit followed by looking at real boats and coastal infrastructure. Ask about educator-led programs rather than assuming all shipbuilding or fishing activities run daily.",
     researchValue: "Read the displays as part of the environmental and economic history of Aransas Bay: shipping and seafood industries transformed settlements while depending on changing water conditions, navigation technology and coastal ecosystems.",
@@ -792,6 +1046,8 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { heading: "Boatbuilding and coastal commerce", detail: "Interpret ship design and industrial materials as responses to shallow bays, Gulf weather, port needs and regional commercial networks." },
       { heading: "Shipwrecks, Indigenous coastal history and navigation", detail: "Examine how archaeology and maritime objects recover histories that written commercial records may ignore, especially along the long-inhabited Gulf Coast." },
       { heading: "Fishing and offshore industries", detail: "Commercial fishing and energy are presented as parts of a working coastline, not simply as recreational attractions; connect the galleries to the harbor you can see outside." },
+      { heading: "Tides of Freedom (February 2–December 31, 2026)", detail: "The operator dates this temporary exhibition February 2–December 31, 2026. It examines Bernardo de Gálvez, Spanish Gulf and Mississippi campaigns, and Texas cattle used to provision Spanish forces during the American Revolution. It is not a permanent display." },
+      { heading: "Built for Victory (September 30–December 31, 2026)", detail: "The museum dates this temporary exhibition September 30–December 31, 2026. It details Texas coast shipyards, wooden Ferris-class steamships, experimental Aransas Pass concrete barges, and the Heldenfels Brothers Shipyard in Rockport during the First World War." },
     ],
     routes: [
       { label: "Museum highlights", steps: ["Focus on shipbuilding and shipwrecks", "Compare fishing and offshore industry displays", "Walk a short stretch of the nearby waterfront"] },
@@ -802,6 +1058,9 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "Texas Maritime Museum — official exhibitions and visitor information", url: "https://texasmaritimemuseum.org/", use: "Admission, operating schedule and permanent themes" },
       { label: "Texas Maritime Museum — exhibitions", url: "https://texasmaritimemuseum.org/exhibits/", use: "Exhibition content and interpretation topics" },
       { label: "Texas Maritime Museum — education", url: "https://texasmaritimemuseum.org/museum-education-department/", use: "School tours, lectures and group bookings" },
+      { label: "Texas Maritime Museum — October 2026 event calendar", url: "https://texasmaritimemuseum.org/events/month/2026-10/", use: "Month-specific event calendar; recheck before travel" },
+      { label: "Texas Maritime Museum — Tides of Freedom", url: "https://texasmaritimemuseum.org/event/tides-of-freedom/", use: "Operator-confirmed Feb 2–Dec 31, 2026 exhibition dates and Spanish-Gulf Revolutionary War context" },
+      { label: "Texas Maritime Museum — Built for Victory", url: "https://texasmaritimemuseum.org/event/built-for-victory/", use: "Operator-confirmed Sep 30–Dec 31, 2026 exhibit and Rockport wartime shipbuilding interpretation" },
     ],
     connections: [
       { label: "Aransas County", href: "/county/aransas", reason: "Explore Rockport and the surrounding bays." },
@@ -925,10 +1184,10 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     slug: "african-american-museum-dallas-fair-park",
     county: "Dallas",
     city: "Dallas",
-    reviewed: "2026-10-12",
+    reviewed: "2026-10-14",
     topics: ["african-american-history", "art", "civil-rights", "family"],
     whyVisit: "The African American Museum in Dallas brings African American art and cultural history into the landmark Fair Park campus, connecting Texas stories with wider national and international struggles for representation and civil rights. Its temporary exhibitions, documentary photographs and historical interpretation reward a focused visit rather than a quick detour between rides or stadium events.",
-    visitorStrategy: "Find the museum at 3536 Grand Avenue within Dallas's Fair Park and usually enter through Gate 5. The operator lists Tuesday through Saturday, 10 a.m. to 5 p.m.; normal admission is free, but organized groups of more than ten must reserve and may pay a fee. During the 2026 State Fair or major Fair Park events, access and parking charges can differ from regular visitor conditions.",
+    visitorStrategy: "Find the museum at 3536 Grand Avenue inside Fair Park, generally using Gate 5. Normal individual admission is free; booked groups over ten may have fees and require reservations. IMPORTANT OCTOBER 2026 SCHEDULE DISCREPANCY: the operator's top visitor timetable says Tuesday–Saturday 10 a.m.–5 p.m., while a later FAQ block on the SAME page says Tuesday–Friday 11 a.m.–5 p.m. and Saturday 10 a.m.–5 p.m., plus separate State Fair hours of seven days a week 10 a.m.–7 p.m. Its top banner still refers to a May 1 reopening despite an active June–November 2026 Mandela exhibition. During the State Fair or major Fair Park events, call 214-565-9026 to confirm actual opening, Gate 5 access and parking before setting out. Do not advertise a single contradictory timetable as verified.",
     accessibility: "The museum identifies wheelchair accessibility and subtitled content for its current Mandela exhibition. Visitors with mobility or sensory needs should check the latest entrance, drop-off and exhibition-specific arrangements before travel. DART's Fair Park station is a viable transit choice, but walking routes within the grounds should be planned by the person visiting.",
     familiesAndGroups: "This is an excellent place for older children and teens ready for discussions about art, race, freedom and civil rights. The Mandela exhibition recommends ages eleven and older because some content can be emotionally intense. A museum visit is not a play-based children's museum experience; teachers should reserve organized groups ahead of time and choose the galleries appropriate to the students' ages.",
     researchValue: "The institution's long-running work in collecting African American art, preserving documentary photography and interpreting Black life in Texas helps visitors understand voices often minimized in general state-history narratives. The Nelson Mandela exhibition is on view June 13 to November 1, 2026; separate historical exhibitions listed on the site may have ended and must not be called current.",

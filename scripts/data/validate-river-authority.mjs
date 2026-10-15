@@ -36,6 +36,11 @@ const match = full.match(/export const riverRecreationGuideRecords = ([\s\S]*?) 
 if (!match) errors.push('Missing machine-readable five-river recreation records');
 let records=[];
 try {records = JSON.parse(match?.[1] || '[]');}catch(e){errors.push('Failed to parse river recreation records: '+e.message);}
+// Prevent the canonical [label, URL] evidence tuples from becoming fake article links.
+// This validator is part of the shared deterministic pre-merge river contract.
+if (!full.includes('...toOfficialLinks(river.official)') ||
+    !full.includes('pairs.map(([label, href]) => ({ href, label'))
+  errors.push('Official river references must be rendered as [label, external URL], never [href, label].');
 const slugs = new Set(records.map(x=>x.slug));
 const all = new Set(canonicalSlugs);
 for(const slug of publishedRiverSlugs) {

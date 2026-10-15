@@ -102,12 +102,18 @@ async function resolveDestinationCatalog(destinations: Destination[]) {
     { reconcileDestinationHeroes },
     { applyExploreHeroAssets },
     { applyStateParkHeroAssets },
+    { applyHistoricSiteFactCorrections },
   ] = await Promise.all([
     import("@/data/destination-quality"),
     import("@/data/explore-hero-reconciliation"),
     import("@/data/explore-heroes"),
     import("@/data/state-park-heroes"),
+    import("@/data/historic-site-fact-corrections"),
   ]);
+  // Keep the sitemap's final quality gate aligned with the *resolved public
+  // destination*, including closed-site status and exact-location image rights.
+  // Otherwise Lipantitlan and Old Socorro can be noindex on their HTML pages
+  // while still appearing in the XML feed with unrelated or misidentified art.
   return improveDestinationCatalog(
     applyAllCuratedDestinations(
       reconcileDestinationHeroes(
@@ -116,7 +122,7 @@ async function resolveDestinationCatalog(destinations: Destination[]) {
         ),
       ),
     ),
-  );
+  ).map(applyHistoricSiteFactCorrections);
 }
 
 function emergencyExploreSitemapResponse(error: unknown) {
@@ -261,6 +267,20 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           else rawDestinations.push(canonicalDestination);
         }
 
+        // Keep a source-backed historical reference independent of the visit-planner
+        // availability rules. A thinner/stale remote Explore record may share this
+        // slug and would otherwise displace the curated record before quality audit,
+        // incorrectly removing an indexable history page from the Explore sitemap.
+        // This does not open the closed First Capitol site for visitor recommendations.
+        const firstCapitolReference = preservedExploreDestinations.find(
+          (destination) => destination.slug === "first-capitol-of-texas",
+        );
+        if (firstCapitolReference) {
+          const position = rawDestinations.findIndex((destination) => destination.slug === firstCapitolReference.slug);
+          if (position >= 0) rawDestinations[position] = firstCapitolReference;
+          else rawDestinations.push(firstCapitolReference);
+        }
+
         const destinations = await resolveDestinationCatalog(rawDestinations);
         // The Explore/search summaries for these authority destinations are deliberately
         // lightweight to stay within the tested client JS bundle budget. The sitemap
@@ -272,8 +292,22 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           if (position >= 0) destinations[position] = canonicalDestination;
           else destinations.push(canonicalDestination);
         }
+        // The First Capitol is closed to visits but its historical page is
+        // indexable. Resolve the very same researched destination as the detail
+        // route: the lightweight sitemap catalog can omit its authority depth
+        // or contain a stale remote version of this exact slug.
+        const { loadFirstCapitolSitemapReference } = await import("@/data/first-capitol-sitemap.server");
+        const resolvedFirstCapitol = await loadFirstCapitolSitemapReference().catch((error) => {
+          console.error("First Capitol sitemap detail lookup unavailable", error);
+          return undefined;
+        });
+        const firstCapitolIndex = destinations.findIndex((item) => item.slug === "first-capitol-of-texas");
+        if (firstCapitolIndex >= 0) destinations.splice(firstCapitolIndex, 1);
+        // A failed detailed resolution must not silently publish a thin
+        // fallback in the sitemap. Other destinations retain existing gates.
+        if (resolvedFirstCapitol) destinations.push(resolvedFirstCapitol);
         const indexableDestinations = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
-          .filter((destination) => (isPrimaryTripPlannerDestination(destination) || ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin", "buffalo-soldiers-national-museum-houston"].includes(destination.slug)) && auditDestination(destination).readyForIndexing);
+          .filter((destination) => (isPrimaryTripPlannerDestination(destination) || ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin", "buffalo-soldiers-national-museum-houston", "first-capitol-of-texas", "battleship-texas"].includes(destination.slug)) && auditDestination(destination).readyForIndexing);
         const indexableRvParkDestinations = [...new Map(loadRvParkDestinationsServer().filter((item) => item.slug).map((item) => [item.slug, item])).values()]
           .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
         const sitemapIndexableDestinations = mergeDestinationSources(indexableDestinations, indexableRvParkDestinations);

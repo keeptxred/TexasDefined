@@ -13,7 +13,7 @@ export const museumAuthorityDestinations: Destination[] = [
     slug: "the-history-center-diboll", name: "The History Center (Diboll)", summary: "The History Center in Diboll offers free visits to historic exhibits, a stationary 1920 steam locomotive, a 1948 caboose, and the region's lumber, railroad and community history.",
     category: "historic-sites", region: "piney-woods", nearestTown: "Diboll",
     county: "Angelina County", coordinates: { lat: 31.182801, lng: -94.781982 },
-    hero: { src: DESTINATION_PHOTO_PLACEHOLDER, alt: "Diboll History Center photograph not yet rights-cleared", width: 1600, height: 1067 },
+    hero: museumLicensedHeroes["the-history-center-diboll"], // Accurate 1907 archival collection image, not an exterior or Engine 13
     bestSeason: "Year-round indoor exhibits; avoid high heat for the outdoor railroad display.",
     entryNote: "Admission free. Regular visitor hours Monday–Friday 8 a.m.–5 p.m.; Saturdays by appointment with at least two weeks' notice. Free guided groups typically last 50–60 minutes and also require advance arrangements.", highlights: ["Outdoor 1920 Baldwin Engine 13 and a 1948 caboose", "Diboll: An Enduring Community exhibition", "Southern Pine Lumber logging history", "Rotating exhibitions and East Texas research resources"],
     body: ["The History Center in Diboll interprets East Texas railroad, sawmill and community history through public exhibits while separately preserving photographs, documents and oral histories for researchers. It is more than an archive, with indoor and outdoor displays designed for visitors.",
@@ -239,7 +239,7 @@ export const museumAuthorityDestinations: Destination[] = [
     coordinates: { lat: 32.778817, lng: -96.76415 },
     hero: museumLicensedHeroes["african-american-museum-dallas-fair-park"],
     bestSeason: "Indoor galleries year-round; plan around major State Fair or Fair Park event days for access and parking.",
-    entryNote: "The operator lists Tuesday–Saturday 10 a.m.–5 p.m., normally free individual admission with no advance tickets. Groups over ten require reservations and may incur a fee. The Mandela exhibition runs through November 1, 2026; double-check temporary opening changes and Fair Park events.",
+    entryNote: "The museum lists CONFLICTING regular opening times on the same official visitor page: its hours table says Tuesday–Saturday 10 a.m.–5 p.m., while the detailed FAQ says Tuesday–Friday 11 a.m.–5 p.m. and Saturday 10 a.m.–5 p.m. Its State Fair FAQ lists daily 10 a.m.–7 p.m. during fair dates. Individual admission is normally free, but groups over ten require arrangements. Call 214-565-9026 and confirm Fair Park Gate 5, hours, current exhibitions and event parking before traveling; do not rely on one timetable.",
     highlights: [
       "African American visual art and cultural heritage",
       "Nelson Mandela: The Official Exhibition (temporary, through November 1, 2026)",
@@ -254,7 +254,7 @@ export const museumAuthorityDestinations: Destination[] = [
     managingAuthority: "African American Museum, Dallas",
     officialUrl: "https://aamdallas.org/plan-your-visit/",
     address: "3536 Grand Avenue, Dallas, TX 75210",
-    sourceCheckedAt: "2026-10-12",
+    sourceCheckedAt: "2026-10-14",
     accessibilityNotes: "The institution describes wheelchair access and subtitled media for the Mandela exhibition. Confirm today's Fair Park gate and any sensory or mobility arrangements directly before visiting.",
   },
   {

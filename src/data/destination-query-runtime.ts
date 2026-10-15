@@ -225,6 +225,10 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(enrichResearchedHistoricSiteDepth)
     .map(enrichCavernAreaGuide)
     .map(normalizeDestinationCounty)
+    // Remote Explore results can still carry missing-image placeholders. Apply
+    // subject-specific museum media before town/corridor authority overlays,
+    // preserving their existing precedence and historic-site protections.
+    .map(enrichMuseumMedia)
     .map(applyTownAuthority)
     .map(enforceFredericksburgJohnsonCityHeritageAuthority);
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved.map(correctDestinationTravelRegion)));
@@ -241,7 +245,14 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
   }
 
   if (params.category === WATER_COLLECTION) {
-    const destinations = filterDestinationsByScope(selectSwimmingHoleAndTubingDestinations(await listResolvedDestinations()), params);
+    // This is a VIRTUAL cross-category collection: qualifying towns, state
+    // parks and rivers retain their real categories. Reapplying the virtual
+    // slug as an exact category filter drops EVERY selected destination.
+    // Only the optional geographic region belongs in the final scope gate.
+    const destinations = filterDestinationsByScope(
+      selectSwimmingHoleAndTubingDestinations(await listResolvedDestinations()),
+      { region: params.region },
+    );
     if (params.featured) return featuredFallback(destinations, params.limit ?? 6);
     return params.limit ? destinations.slice(0, params.limit) : destinations;
   }

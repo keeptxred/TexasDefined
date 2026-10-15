@@ -1,4 +1,5 @@
 import { appendFileSync } from 'node:fs';
+import { verifyGovernedDiscoverDelivery } from './discover-production-asset-check.mjs';
 
 const origin = String(process.env.PRODUCTION_HEALTH_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const label = process.env.PRODUCTION_HEALTH_LABEL || 'production';
@@ -44,6 +45,16 @@ for (let attempt = 1; attempt <= attempts; attempt += 1) {
       consecutive += 1;
       console.log(`[${label}] health attempt ${attempt}/${attempts}: HTTP 200 with required marker (${consecutive}/${requiredConsecutive} consecutive).`);
       if (consecutive >= requiredConsecutive) {
+        if (process.env.PRODUCTION_HEALTH_DISCOVER_ASSETS === 'true') {
+          const assets = await verifyGovernedDiscoverDelivery({ origin });
+          if (assets.failures.length) {
+            for (const issue of assets.failures) console.error(`[${label}] Governed Discover delivery failure: ${issue.url}: ${issue.reason}`);
+            console.error(`::error title=${label} missing Discover assets::${assets.failures.length}/${assets.expected} governed WebP images were not delivered from live production.`);
+            if (summaryPath) appendFileSync(summaryPath, `| ❌ FAIL | ${label} Discover delivery | ${assets.passed}/${assets.expected} images |\n`);
+            process.exit(1);
+          }
+          console.log(`[${label}] all ${assets.passed}/${assets.expected} governed Discover WebP assets returned valid images.`);
+        }
         if (summaryPath) appendFileSync(summaryPath, `| ✅ pass | ${label} health | HTTP 200 | ${attempt} attempt(s) |\n`);
         console.log(`[${label}] production health passed after ${attempt} attempt(s).`);
         process.exit(0);

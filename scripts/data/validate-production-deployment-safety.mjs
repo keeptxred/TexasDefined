@@ -12,6 +12,9 @@ const smoke = fs.readFileSync('scripts/ci/verify-built-worker-ssr.mjs', 'utf8');
 const productionSurfaces = fs.readFileSync('scripts/ci/verify-production-surfaces.mjs', 'utf8');
 const cloudflareGitBuildWait = fs.readFileSync('scripts/ci/wait-for-cloudflare-git-build.mjs', 'utf8');
 const failures = [];
+if (!premerge.includes("'scripts/ci/wait-for-cloudflare-git-build.test.mjs'")) {
+  failures.push('Canonical premerge validation no longer runs the Cloudflare check-run retry regression tests.');
+}
 
 const workflowDirectory = '.github/workflows';
 const canonicalProductionDeployWorkflow = 'deploy-production.yml';
@@ -87,6 +90,9 @@ for (const [needle, label] of [
   ['group: texasdefined-production', 'serialized production deployment concurrency group'],
   ['cancel-in-progress: false', 'production deployment serialization must not cancel an active Worker replacement'],
   ['timeout 180s sudo apt-get update -qq', 'bounded ImageMagick apt metadata refresh'],
+  ['Dir::Etc::sourcelist="sources.list.d/ubuntu.sources"', 'governed image packages must refresh only official signed Ubuntu runner sources'],
+  ['Dir::Etc::sourceparts="-"', 'exclude unrelated broken third-party apt sources without skipping image safety gates'],
+  ['if [[ ! -f /etc/apt/sources.list.d/ubuntu.sources ]]', 'fail closed if official Ubuntu runner source unavailable'],
   ['timeout 180s sudo apt-get install -y --no-install-recommends imagemagick', 'bounded ImageMagick package install'],
   ['librsvg2-bin', 'install SVG delegate for governed Discover editorial images'],
   ['command -v rsvg-convert', 'require working SVG delegate before image materialization'],
@@ -316,6 +322,9 @@ for (const [needle, label] of [
   ["const appSlug = 'cloudflare-workers-and-pages';", 'Cloudflare GitHub app identity'],
   ["commits/${sha}/check-runs?per_page=100", 'Cloudflare Git-build GitHub check query'],
   ["check.status !== 'completed'", 'Cloudflare Git-build completion gate'],
+  ["const transientHttpStatuses = new Set([429, 500, 502, 503, 504]);", 'transient GitHub check-run API retry classifications'],
+  ["const maxQueryAttempts = 4;", 'bounded transient GitHub API retries'],
+  ["refusing to assume the external build is absent", 'GitHub API outage must fail closed'],
   ['refusing to race an external production deployment', 'Cloudflare Git-build timeout fail-closed behavior'],
 ]) requireText(cloudflareGitBuildWait, needle, label);
 

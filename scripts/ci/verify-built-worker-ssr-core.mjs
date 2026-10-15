@@ -31,6 +31,8 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/destination/choke-canyon-state-park', requiredText: 'Calliham Unit', label: 'real Choke Canyon park guide names its access units' },
+  { path: '/destination/caprock-canyons-state-park', requiredText: 'Caprock Canyons State Park', label: 'canonical Caprock Canyons visitor guide' },
   { path: '/county/gillespie', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Gillespie County links to researched historic corridor itinerary' },
   { path: '/county/blanco', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Blanco County links to researched historic corridor itinerary' },
   { path: '/destination/lyndon-b-johnson-state-park-historic-site', requiredText: 'Sauer-Beckmann', label: 'canonical LBJ State Park and living-history farm' },
@@ -113,6 +115,33 @@ const smokeTargets = [
 ];
 
 const redirectTargets = [
+  { path: '/destination/choke-canyon-north-shore-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/choke-canyon-state-park', expectedQuery: ['source','gsc'], label: 'legacy Choke Canyon North Shore import' },
+  { path: '/state-park/caprock-canyons-trailway-estelline-terminal-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/caprock-canyons-state-park', expectedQuery: ['source','gsc'], label: 'legacy Estelline Trailway import' },
+  {"path": "/historic-site/seminole-canyon-state-park-and-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/seminole-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/lipantitlan-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/lipantitlan", "expectedQuery": ["source", "gsc"], "label": "verified historic-site alias"},
+  {"path": "/historic-site/san-jacinto-monument-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/san-jacinto-battleground", "expectedQuery": ["source", "gsc"], "label": "verified monument guide alias"},
+  {"path": "/destination/choke-canyon-south-shore-unit-state-park?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/choke-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "verified park unit alias"},
+  {"path": "/state-park/choke-canyon-south-shore-unit-state-park?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/choke-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "verified park unit alias"},
+  {"path": "/historic-site/seminole-canyon-state-park-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/seminole-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/goliad-state-park-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/goliad-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/goliad-state-park-and-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/goliad-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/barrington-farm-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/barrington-living-history-farm", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/fanthorp-inn-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/fanthorp-inn", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/battleship-texas-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/battleship-texas", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/port-isabel-lighthouse-state-park?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/port-isabel-lighthouse", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/port-isabel-lighthouse-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/port-isabel-lighthouse", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/monument-hill-kreische-brewery-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/monument-hill", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/monument-hill-and-kreische-brewery-state-historic-sites?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/monument-hill", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/museum/barrington-farm-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/barrington-living-history-farm", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/audie-murphy-texas-war-hero-actor?source=gsc", "expectedStatus": 301, "expectedPath": "/article/audie-murphy-texas-war-hero-actor", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/fort-worth-stockyards-history-cattle-culture?source=gsc", "expectedStatus": 301, "expectedPath": "/article/fort-worth-stockyards-history-cattle-culture", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/mirabeau-b-lamar-president-republic-texas?source=gsc", "expectedStatus": 301, "expectedPath": "/article/mirabeau-b-lamar-president-republic-texas", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/blue-bell-ice-cream-brenham-texas-history?source=gsc", "expectedStatus": 301, "expectedPath": "/article/blue-bell-ice-cream-brenham-texas-history", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/bucees-texas-road-trip-history?source=gsc", "expectedStatus": 301, "expectedPath": "/article/bucees-texas-road-trip-history", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/james-bowie-texas-alamo-life-legend?source=gsc", "expectedStatus": 301, "expectedPath": "/article/james-bowie-texas-alamo-life-legend", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/william-barret-travis-alamo-commander?source=gsc", "expectedStatus": 301, "expectedPath": "/article/william-barret-travis-alamo-commander", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/chester-nimitz-texas-fleet-admiral?source=gsc", "expectedStatus": 301, "expectedPath": "/article/chester-nimitz-texas-fleet-admiral", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+
   { path: '/destination/lyndon-b-johnson-state-park-and-historic-site', expectedStatus: 301, expectedPath: '/destination/lyndon-b-johnson-state-park-historic-site', expectQueryPreserved: false, label: 'LBJ State Park broken editorial alias canonical redirect' },
   { path: '/destination/lyndon-b-johnson-state-park-state-historic-site', expectedStatus: 301, expectedPath: '/destination/lyndon-b-johnson-state-park-historic-site', expectQueryPreserved: false, label: 'LBJ State Park secondary historical alias canonical redirect' },
   { path: '/historic-site/lyndon-b-johnson-state-park-state-historic-site', expectedStatus: 301, expectedPath: '/destination/lyndon-b-johnson-state-park-historic-site', expectQueryPreserved: false, label: 'LBJ State Park old historic-site route canonical redirect' },

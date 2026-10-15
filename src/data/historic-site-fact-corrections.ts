@@ -1,4 +1,5 @@
 import type { Destination } from "./types";
+import { missingDestinationHero } from "./explore-hero-reconciliation";
 
 /**
  * Source-backed corrections for historic-site facts that should override
@@ -7,11 +8,51 @@ import type { Destination } from "./types";
 export function applyHistoricSiteFactCorrections(destination: Destination): Destination {
   if (destination.category !== "historic-sites") return destination;
 
+  // Exact-property artwork only: Monument Hill and the adjacent brewery are
+  // separate visitor subjects, not interchangeable photo-gallery placeholders.
+  // The file-level photographer, subject and CC BY 4.0 licenses were checked
+  // against the two Commons files on October 14, 2026.
+  if (destination.slug === "monument-hill") {
+    return {
+      ...destination,
+      hero: {
+        src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Monument%20hill%20monument.jpg?width=1280",
+        alt: "Mier Expedition and Dawson's Men monument at Monument Hill State Historic Site in La Grange, Texas",
+        width: 1728, height: 2576,
+        credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · 2006 photograph, 2021 perspective correction by Jim Evans",
+      },
+    };
+  }
+
+  if (destination.slug === "kreische-brewery") {
+    return {
+      ...destination,
+      hero: {
+        src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Kreische%20Brewery%20Ruins%20Lower%20View.jpg?width=1280",
+        alt: "Lower view of the actual nineteenth-century limestone Kreische Brewery ruins near La Grange, Texas",
+        width: 2419, height: 1361,
+        credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · photographed September 18, 2015",
+      },
+    };
+  }
+
+  if (destination.slug === "old-socorro-mission") {
+    // The Commons photo labeled Socorro Mission depicts the currently operating
+    // later mission church, NOT the restricted original archaeological site.
+    // Preserve truthful reference information but noindex the original-site page
+    // until a licensed, exact-original-site photograph is established.
+    return { ...destination, hero: missingDestinationHero(destination) };
+  }
+
   if (destination.slug === "lipantitlan") {
     return {
       ...destination,
       county: "Nueces",
       coordinates: { lat: 27.96445, lng: -97.81838 },
+      // No reuse rights have been established for an exact-location photograph.
+      // The former generic small-town image falsely implied it showed this fort
+      // landscape. Quality-gate indexing until source-specific media is cleared.
+      hero: missingDestinationHero(destination),
     };
   }
 

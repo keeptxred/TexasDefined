@@ -171,6 +171,11 @@ export const researchedHistoricSiteDepthSlugs = Object.keys(SITE_DEPTH);
 // Operator-verified access details from THC's October 2026 site and visit pages.
 // These are not generic template claims and must be refreshed on source change.
 const VERIFIED_VISIT_NOTES: Record<string, {entryNote:string;researchNote:string;accessibilityNotes?:string}> = {
+  "fulton-mansion": {
+    "entryNote": "THC lists Fulton Mansion public admission Tuesday–Saturday 10 a.m.–4 p.m. and Sunday 1–4 p.m.; last ticket 3:15 p.m. Current admission: adults $7, senior/veteran/teacher/first-responder $6, ages 6–17 $4, ages 5 and under free, family ticket $14 for 2 adults and 1 child (each additional child $1). Public self-guided visits are walk-in only, with no advance reservation; group tours require separate planning. Confirm current fees before travel.",
+    "researchNote": "Begin at Fulton Mansion's Education and History Center before its 1877 Victorian villa and gardens. The public 'Splendor on the Shore' visit takes roughly 45 minutes and explores George Fulton's engineering, gas lighting, indoor plumbing, coastal ranching wealth and the family household. Special school and adult group tours have distinct formats and fees; THC asks that group tour reservations be made at least two weeks in advance rather than confusing them with individual walk-ins.",
+    "accessibilityNotes": "THC warns of limited access in the historic mansion: a wheelchair lift or a few steps reach the first floor, a full flight of stairs is required for the second floor, and the basement has steps. Staff can provide a notebook of images and information about inaccessible rooms. Contact the site in advance to confirm lift availability and individual accessibility requirements."
+  },
   "goodnight-ranch": {
   "entryNote": "THC currently opens Goodnight Ranch Tuesday–Saturday 10 a.m.–5 p.m.; guided house tours are scheduled at 11 a.m., 1 p.m. and 3 p.m. Verify availability, especially for groups.",
   "researchNote": "Charles and Mary Ann Goodnight's restored Victorian home dates to 1887, reflecting a later ranching venture after the 1876 JA Ranch founding. The THC museum connects cattle entrepreneurship with Mary Ann's bison preservation efforts; visitors may see descendants of the original herd, but sightings are not guaranteed.",
@@ -275,7 +280,7 @@ export function enrichResearchedHistoricSiteDepth(destination: Destination): Des
       body: [...destination.body, ...additions, verified.researchNote].filter((line, index, all) => all.indexOf(line) === index),
       entryNote: verified.entryNote,
       ...(verified.accessibilityNotes ? { accessibilityNotes: verified.accessibilityNotes } : {}),
-      sourceCheckedAt: "2026-10-12",
+      sourceCheckedAt: destination.slug === "fulton-mansion" ? "2026-10-14" : "2026-10-12",
     };
   }
   return additions.length ? { ...destination, body: [...destination.body, ...additions] } : destination;

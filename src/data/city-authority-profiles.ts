@@ -146,7 +146,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Dallas County',
       counties: ['Dallas County', 'Collin County', 'Denton County', 'Kaufman County', 'Rockwall County'],
       note: 'Dallas is primarily in Dallas County, but official city information identifies portions of the municipality in Collin, Denton, Kaufman and Rockwall counties. Address-level county verification matters for elections, appraisal districts, courts, schools and records.',
-      sourceUrl: 'https://dallascityhall.com/government/citysecretary/elections/Pages/elections.aspx',
+      sourceUrl: 'https://gis.dallascityhall.com/arcgis/rest/services/Pbw_public/ROWMSReferenceLayers/MapServer/2',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Dallas_Texas_Skyline.jpg?width=1600',
@@ -237,7 +237,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Tarrant County',
       counties: ['Tarrant County', 'Denton County', 'Parker County', 'Johnson County', 'Wise County'],
       note: 'Most of Fort Worth is in Tarrant County, but the incorporated city also extends into Denton, Parker, Johnson and Wise counties. Property taxes, appraisal districts, schools, records and some services therefore depend on the exact address rather than the city name alone.',
-      sourceUrl: 'https://www.fortworthtexas.gov/files/assets/public/v/1/the-fwlab/documents/planning/comprehensive-planning/adopted/25-intergovernmental-cooperation-final-2023.pdf',
+      sourceUrl: 'https://www.fortworthtexas.gov/files/assets/public/v/1/city-manager/documents/planning/comprehensive-planning/adopted/25-intergovernmental-cooperation-final-2023.pdf',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Stock_Yards_Entrance_Wiki_(1_of_1).jpg?width=1600',
@@ -325,7 +325,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Travis County',
       counties: ['Travis County', 'Williamson County', 'Hays County'],
       note: 'Austin lies primarily in Travis County, with incorporated city limits extending into Williamson and Hays counties. County, school, appraisal and utility boundaries should be verified for the exact address.',
-      sourceUrl: 'https://www.austintexas.gov/ready-central-texas/news/city-austin-become-ipaws-alerting-authority',
+      sourceUrl: 'https://data.austintexas.gov/Locations-and-Maps/Jurisdiction-Austin/3pzb-6mbr/about',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Austin%2C_TX_skyline_2026.jpg?width=1600',
@@ -393,7 +393,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       {
         title: 'Airport',
         summary: 'Austin-Bergstrom International Airport (AUS) is Austin’s primary commercial airport. The City of Austin maintains the official airport information and travel notices.',
-        links: [{ label: 'Austin-Bergstrom International', href: 'https://www.austintexas.gov/airport' }],
+        links: [{ label: 'Austin-Bergstrom International', href: 'https://www.flyaustin.com/' }],
       },
       {
         title: 'Schools',
@@ -410,7 +410,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Bexar County',
       counties: ['Bexar County', 'Comal County', 'Medina County'],
       note: 'San Antonio is primarily in Bexar County, with incorporated portions reaching into Comal and Medina counties. Verify the exact address before relying on county, school, appraisal, election or service boundaries.',
-      sourceUrl: 'https://www.sa.gov/files/assets/main/v/1/planning/documents/adopted-plans/utsa-area-regional-center-plan-2019.pdf',
+      sourceUrl: 'https://www.sanantonio.gov/GIS/GISData',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/San_Antonio_Skyline_2026.jpg?width=1600',
@@ -428,6 +428,9 @@ const profiles: Record<string, CityAuthorityProfile> = {
     ],
     featured: [
       { eyebrow: 'Texas history', title: 'The Alamo', summary: 'Start with the former mission and battle site, then connect it to the wider Spanish colonial mission story.', href: '/destination/the-alamo' },
+      { eyebrow: 'Historic itinerary', title: 'Two-day San Antonio heritage route', summary: 'Plan the downtown Spanish plazas, José Antonio Navarro’s home, King William and all four NPS missions with verified access caveats.', href: '/article/historic-san-antonio-heritage-road-trip' },
+      { eyebrow: 'World Heritage', title: 'Four NPS missions', summary: 'Compare Concepción, San José, San Juan and Espada, including ranger programs, access conditions and the Indigenous/colonial landscape.', href: '/destination/san-antonio-missions-national-historical-park' },
+      { eyebrow: 'Tejano heritage', title: 'Casa Navarro', summary: 'Visit the preserved adobe home of José Antonio Navarro to explore Tejano history beyond the Alamo narrative.', href: '/destination/casa-navarro' },
       { eyebrow: 'City icon', title: 'San Antonio River Walk', summary: 'Use the river corridor to connect downtown, Museum Reach, Pearl and the Mission Reach landscape.', href: '/destination/san-antonio-river-walk' },
       { eyebrow: 'Nearby trips', title: 'Explore near San Antonio', summary: 'Build Hill Country, river, cavern and small-town extensions around the city.', href: '/explore/near/san-antonio' },
       { eyebrow: 'Moving', title: 'Moving to San Antonio', summary: 'Compare Bexar-area commutes, city boundaries, school districts and utility systems before choosing an address.', href: '/article/moving-to-san-antonio-guide' },
@@ -436,7 +439,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       firstTime: [
         { title: 'Alamo + downtown River Walk', summary: 'Start with the historic core and river level on the same day rather than driving between distant attractions.', href: '/destination/the-alamo' },
         { title: 'Pearl + Museum Reach', summary: 'Follow the river north for food, public space and museums without treating Pearl as a separate cross-town trip.', href: '/destination/san-antonio-river-walk' },
-        { title: 'Missions day', summary: 'Reserve a separate block for the southern mission corridor and Mission Reach so the World Heritage landscape is not reduced to a quick drive-by.' },
+        { title: 'Missions day', summary: 'Reserve a separate block for the southern mission corridor and Mission Reach so the World Heritage landscape is not reduced to a quick drive-by.', href: '/destination/san-antonio-missions-national-historical-park' },
       ],
       stayAreas: [
         { title: 'Downtown / River Walk', summary: 'Best for a first leisure visit centered on historic sites, river walks, conventions and central dining.' },
@@ -445,12 +448,12 @@ const profiles: Record<string, CityAuthorityProfile> = {
       ],
       freeThings: [
         { title: 'River Walk public paths', summary: 'Walking the public river corridor costs nothing; cruises, attractions and dining are separate purchases.', href: '/destination/san-antonio-river-walk' },
-        { title: 'San Antonio Missions landscape', summary: 'The national historical park’s mission grounds and river corridor can anchor a low-cost history day; confirm current NPS access details.' },
+        { title: 'San Antonio Missions landscape', summary: 'The national historical park’s mission grounds and river corridor can anchor a low-cost history day; confirm current NPS access details.', href: '/destination/san-antonio-missions-national-historical-park' },
         { title: 'Historic plazas & Market Square area', summary: 'Explore downtown plazas, public art and the market district without requiring a ticketed attraction.' },
       ],
       family: [
         { title: 'Alamo + River Walk', summary: 'Keep the first family history day compact by pairing the Alamo with the downtown river rather than adding a long cross-city attraction.', href: '/destination/the-alamo' },
-        { title: 'Mission corridor', summary: 'Use one or two missions plus Mission Reach as a slower history-and-outdoors day, with water, shade and heat planning for younger visitors.' },
+        { title: 'Mission corridor', summary: 'Use one or two missions plus Mission Reach as a slower history-and-outdoors day, with water, shade and heat planning for younger visitors.', href: '/destination/san-antonio-missions-national-historical-park' },
         { title: 'Pearl + Museum Reach', summary: 'Combine public space, food, river walking and nearby museums in a single north-of-downtown cluster.', href: '/destination/san-antonio-river-walk' },
       ],
       gettingAround: [
@@ -581,7 +584,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Tarrant County',
       counties: ['Tarrant County'],
       note: 'Arlington is in Tarrant County. School districts, utilities and special districts still have their own boundaries, so city residency does not replace address-level verification.',
-      sourceUrl: 'https://www.tarrantcountytx.gov/en/elections/interactive-maps.html',
+      sourceUrl: 'https://gis2.arlingtontx.gov/agsext2/rest/services/OpenData/OD_PoliticalBoundary/MapServer/1',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Arlington_Texas_Entertainment_District.jpg?width=1600',
@@ -665,7 +668,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Tarrant County',
       counties: ['Tarrant County'],
       note: 'Hurst is in Tarrant County. School-district, utility and service boundaries still need to be checked at the exact address, especially in the tightly connected Mid-Cities area.',
-      sourceUrl: 'https://www.tarrantcountytx.gov/en/elections/interactive-maps.html',
+      sourceUrl: 'https://mms.hursttx.gov/arcgis/rest/services/EnerGov_Basemap/MapServer/2',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cityhallathurst.jpg?width=1600',
@@ -753,7 +756,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Nueces County',
       counties: ['Nueces County', 'San Patricio County', 'Kleberg County', 'Aransas County'],
       note: 'Corpus Christi is centered in Nueces County, while current municipal and Census place geography includes smaller portions across San Patricio, Kleberg and Aransas counties. Coastal and barrier-island boundaries make exact-address and parcel verification especially important.',
-      sourceUrl: 'https://www.corpuschristitx.gov/media/k4rg0ztp/2025gmp_withappendices_final.pdf',
+      sourceUrl: 'https://ccpublicgis.cctexas.com/server01/rest/services/CC_GENERAL_SERVICES/CC_GENERAL_SERVICES/MapServer/2',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Corpus_Christi_skyline.jpg?width=1600',
@@ -821,7 +824,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       {
         title: 'Airport',
         summary: 'Corpus Christi International Airport (CRP) is the city’s primary commercial airport. Use the airport’s live site for airline, parking and ground-transportation details.',
-        links: [{ label: 'Corpus Christi International', href: 'https://www.corpuschristiairport.com/' }],
+        links: [{ label: 'Corpus Christi International', href: 'https://corpuschristiairport.com/' }],
       },
       {
         title: 'Schools',
@@ -838,7 +841,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Collin County',
       counties: ['Collin County', 'Denton County'],
       note: 'Most of Plano is in Collin County, with part of the city in Denton County. The city’s own tax tools distinguish the two county contexts, so property, school and appraisal records should be checked against the exact address.',
-      sourceUrl: 'https://ecop.plano.gov/MyTaxDollar/MyTaxDollar.aspx',
+      sourceUrl: 'https://maps.planogis.org/arcgiswad/rest/services/OpenData/MunicipalBoundary/MapServer/0',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Hdr_plano.jpg?width=1600',
@@ -921,7 +924,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Lubbock County',
       counties: ['Lubbock County'],
       note: 'Lubbock is in Lubbock County. Municipal, school, utility and special-district boundaries still differ, so use the exact address for household and property decisions.',
-      sourceUrl: 'https://www.mylubbock.us/994/City-Charter-Code-of-Ordinances',
+      sourceUrl: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/Layers/ParcelMap/MapServer/13',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Lubbock%2C_Texas_skyline.jpg?width=1600',

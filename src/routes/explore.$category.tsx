@@ -2,6 +2,7 @@ import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { getCavernAuthorityHtml } from "@/data/cavern-authority.functions";
+import { getSwimmingAuthorityHtml } from "@/data/swimming-authority.functions";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
@@ -20,10 +21,10 @@ const legacyExploreRedirects: Record<string, string> = {
   "big-bend": "/explore/region/big-bend",
   "gulf-coast": "/explore/region/gulf-coast",
   "hill-country": "/explore/region/hill-country",
-  "panhandle-plains": "/explore/region/panhandle-plains",
+  "panhandle-plains": "/explore/region/panhandle",
   "piney-woods": "/explore/region/piney-woods",
   "prairies-lakes": "/explore/region/prairies-lakes",
-  "south-texas-plains": "/explore/region/south-texas-plains",
+  "south-texas-plains": "/explore/region/south-texas",
 };
 const authorityCategorySlugs = new Set(["outdoors", "caverns", "lakes-rivers", "beaches-coast", "small-towns"]);
 for (const slug of ["major-springs", "swimming-holes-river-tubing", "state-parks", "national-parks", "historic-sites", "road-trips", "food-bbq"]) authorityCategorySlugs.add(slug);
@@ -127,7 +128,9 @@ export const Route = createFileRoute("/explore/$category")({
       authorityPath ? Promise.all([
         category.slug === "caverns"
           ? getCavernAuthorityHtml()
-          : fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath).then((response) => response.ok ? response.text() : null),
+          : category.slug === SWIMMING_HOLES_RIVER_TUBING_SLUG
+            ? getSwimmingAuthorityHtml()
+            : fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath).then((response) => response.ok ? response.text() : null),
         category.slug === "beaches-coast"
           ? fetch(import.meta.env.SSR ? `${siteUrl}${COASTAL_AUTHORITY_PATH}` : COASTAL_AUTHORITY_PATH).then((response) => response.ok ? response.text() : null)
           : Promise.resolve(null),

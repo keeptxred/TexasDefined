@@ -5,8 +5,8 @@
 ## Counts and caveats
 
 - **175** separate alphabetical links/named entries in the TPWD public lake list (excluding its extra *Town Lake = Lady Bird Lake* alias line).
-- **65** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
-- **110** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
+- **72** entries mapped to an existing TexasDefined complete fishing guide after normalizing names and accepted aliases.
+- **103** entries **without** a completed guide in that registry. This is a guide coverage gap, **not** a verified claim that TexasDefined has no page whatsoever about that lake.
 - TPWD list entries include local ponds and some state-park-managed lakes as well as reservoirs; they cannot all be treated as equally high-demand or guaranteed distinct reservoirs.
 - This list does not include every Texas stock tank, private lake, community fishing pond, or small waterbody outside TPWD's own directory. It therefore cannot prove “every Texas lake.”
 
@@ -14,12 +14,9 @@
 
 - **Athens** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Lady Bird** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
-- **Medina** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **O.C. Fisher** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Limestone** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
-- **Cypress Springs** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Coleman** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
-- **Weatherford** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Wright Patman** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Bois d'Arc** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
 - **Jacksonville** — official TPWD-listed lake/park waterbody, **no completed guide in the current fishing-guide registry**. Research traffic demand, correct lake identity, managing agency, photo rights, current access and distinct visitor value before commissioning.
@@ -31,7 +28,7 @@
 
 | TPWD listing | TexasDefined completed fishing guide |
 |---|---|
-| Abilene | **Not in completed-guide registry** |
+| Abilene | [lake-abilene](https://texasdefined.com/fishing/lakes/lake-abilene) |
 | Alan Henry | [alan-henry-reservoir](https://texasdefined.com/fishing/lakes/alan-henry-reservoir) |
 | Alvarado Park | **Not in completed-guide registry** |
 | Amistad | [amistad-reservoir](https://texasdefined.com/fishing/lakes/amistad-reservoir) |
@@ -43,7 +40,7 @@
 | Austin | [lake-austin](https://texasdefined.com/fishing/lakes/lake-austin) |
 | Averhoff | **Not in completed-guide registry** |
 | B.A. Steinhagen | **Not in completed-guide registry** |
-| Bachman | **Not in completed-guide registry** |
+| Bachman | [bachman-lake](https://texasdefined.com/fishing/lakes/bachman-lake) |
 | Balmorhea | **Not in completed-guide registry** |
 | Bardwell | [bardwell-lake](https://texasdefined.com/fishing/lakes/bardwell-lake) — awaiting wave-3 release |
 | Bastrop | [lake-bastrop](https://texasdefined.com/fishing/lakes/lake-bastrop) — awaiting wave-3 release |
@@ -55,7 +52,7 @@
 | Bois d'Arc | **Not in completed-guide registry** |
 | Bonham | **Not in completed-guide registry** |
 | Bonham State Park | **Not in completed-guide registry** |
-| Brady Creek | **Not in completed-guide registry** |
+| Brady Creek | [Brady Creek Reservoir guide](/fishing/lakes/brady-creek-reservoir) |
 | Brandy Branch | **Not in completed-guide registry** |
 | Braunig | **Not in completed-guide registry** |
 | Brazos | **Not in completed-guide registry** |
@@ -84,12 +81,12 @@
 | Conroe | [lake-conroe](https://texasdefined.com/fishing/lakes/lake-conroe) |
 | Corpus Christi | [lake-corpus-christi](https://texasdefined.com/fishing/lakes/lake-corpus-christi) |
 | Crook | **Not in completed-guide registry** |
-| Cypress Springs | **Not in completed-guide registry** |
+| Cypress Springs | [lake-cypress-springs](https://texasdefined.com/fishing/lakes/lake-cypress-springs) |
 | Daniel | **Not in completed-guide registry** |
 | Davy Crockett | **Not in completed-guide registry** |
 | Dunlap | **Not in completed-guide registry** |
 | Eagle Mountain | [eagle-mountain-lake](https://texasdefined.com/fishing/lakes/eagle-mountain-lake) |
-| E. V. Spence | **Not in completed-guide registry** |
+| E. V. Spence | [e-v-spence-reservoir](https://texasdefined.com/fishing/lakes/e-v-spence-reservoir) — release pending |
 | Falcon | [falcon-international-reservoir](https://texasdefined.com/fishing/lakes/falcon-international-reservoir) |
 | Fayette County | [fayette-county-reservoir](https://texasdefined.com/fishing/lakes/fayette-county-reservoir) |
 | Findley | **Not in completed-guide registry** |
@@ -138,7 +135,7 @@
 | Marine Creek | **Not in completed-guide registry** |
 | Martin Creek | **Not in completed-guide registry** |
 | McClellan | **Not in completed-guide registry** |
-| Medina | **Not in completed-guide registry** |
+| Medina | [medina-lake](https://texasdefined.com/fishing/lakes/medina-lake) |
 | Meredith | [lake-meredith](https://texasdefined.com/fishing/lakes/lake-meredith) |
 | Meridian State Park | **Not in completed-guide registry** |
 | Mexia | **Not in completed-guide registry** |
@@ -194,7 +191,7 @@
 | Waco | [lake-waco](https://texasdefined.com/fishing/lakes/lake-waco) |
 | Walter E. Long | **Not in completed-guide registry** |
 | Waxahachie | **Not in completed-guide registry** |
-| Weatherford | **Not in completed-guide registry** |
+| Weatherford | [lake-weatherford](https://texasdefined.com/fishing/lakes/lake-weatherford) |
 | Welsh | **Not in completed-guide registry** |
 | Wheeler Branch | **Not in completed-guide registry** |
 | White River | **Not in completed-guide registry** |
@@ -255,3 +252,31 @@ The new Fort Parker Lake authority dossier is grounded in the current TPWD angli
 ## October 13 — Lake Tyler two-reservoir authority
 
 Lake Tyler is not one 1949 impoundment: TWDB distinguishes the West Whitehouse Dam (1948–49), East Mud Creek Dam (1966–67) and the connecting canal completed May 29, 1968. TPWD's 2,224-acre West + 2,276-acre East fisheries measurements differ from TWDB's 4,714 acres at the specified 2013 survey stage, not a disagreement about where two basins exist. Eight named public-access facilities are separated by basin, shore-use-only versus trailer ramps, city versus private operators and concession fees; the city bowfishing prohibition and low-water Highway 64 ramp constraint are called out. TPWD-listed primitive camping in CITY lake parks must be confirmed with Tyler Water Utilities; private fishing barge is not a ramp or campsite. Actual Lake Tyler East photo *Lake Tyler East.jpg* by David A. Harrison was confirmed through Commons original image metadata, CC BY-SA 4.0, 4,991×2,804; image represents East only. Proposed registry **65 complete lake guides, 110 TPWD listing gaps**. Original first-party photography, facility operating conditions and live-production acceptance are not certified.
+
+## October 13 — Medina Lake first-party-source authority
+
+The **66th proposed complete guide** covers Medina Lake, distinct from Medina Diversion Lake. TPWD reports only two named ramp facilities (Red Cove Camp and Bandera County Park Road 37) with conditional gravel-bank launching and separate operator fees and hours; these are historical facilities, **not verified currently accessible launches**. TWDB's timestamped October 13, 2026 snapshot measured just 28.6% conservation storage, 43.64 feet below full pool; the live gauge, NOT this dated value, controls future trip planning. TPWD warns of invasive zebra mussels and legally required draining. TWDB dates construction start to November 1911 and first filling to May 7, 1913. The independently located Medina Lake 2010 shoreline image is Larry D. Moore, **CC BY 4.0**, 1652×964, available from Wikimedia Commons; it must never imply current water status. The new proposed gap total is **109 of 175 TPWD-listed lake entries**. Live operator calls, full first-party images and production acceptance are still outstanding.
+
+## October 13 — Lake Weatherford authority addition
+
+The **67th complete-guide definition** separates a full-size improved trailer launch at TPWD-listed Weatherford Marina from two unnamed unimproved upper-lake ramps suitable ONLY for small aluminum boats, and from the City of Weatherford's PEDESTRIAN floating boardwalk trailheads at **2864 East Lake Drive** and **1198 West Lake Drive**. The 4,313-foot boardwalk is open 6 a.m.–10 p.m. according to city information and is not a boat ramp. TPWD states **NO overnight camping anywhere on the lake**. TWDB confirms the June 1956 start / March 1957 filling of the Clear Fork dam, reconstruction after 1993 flood damage and distinct 2008 surveyed area. Exact-location May 2024 boardwalk photo *Section of Lake Weatherford boardwalk.jpg* is Forssa01's Commons **CC0 1.0** image (4624×3468), not an image of the marina and not first-party. TWDB Water Data for Texas live levels are integrated for launch planning without hard-coded current depth. Remaining unmatched directory entries are **108 of 175**. Current operator/ramp access, field photos and production acceptance are not certified.
+
+## October 14 — Lake Abilene: binding drought closure, park camping elsewhere
+
+The next source-researched guide brings the staged registry to **68** complete lake authority definitions and **107** unmatched TPWD entries. Lake Abilene on Elm Creek is **NOT** Kirby Lake or Buffalo Wallow Pond. The City of Abilene owns the reservoir; TPWD operates the lake and park access. TPWD's CURRENT PARK ALERT dated October 20, 2025 (still shown at source review) CLOSED both Dam and Creek one-lane ramps, prohibits Lake Abilene fishing and swimming, and suspends kayak rentals. This supersedes the older fishing-access inventory's year-round ramp label; the four historically present fish categories (bass/catfish/crappie/sunfish) are all rated POOR. Normal public entry used a separate FM 89 gate, requires park admission and code, and historically closed at sunset; no launch or lake angling is allowed while the dated alert remains in effect. Separately reservable campgrounds lie across FM 89 on the main Abilene State Park campus; the CCC swimming pool has its own renovation closure. TWDB dates dam completion May 1921, deliberate impoundment August 1 1921 and major repairs 1941/1957. One actual **Lake Abilene** shoreline photograph taken June 8, 2011 is *Abilene State Park 1.jpg* (mr_t_77, CC BY-SA 2.0, 4000×3000), verified against the original Commons metadata and correctly labeled historical. Operator-day call, original field media and public production acceptance are NOT certified.
+
+## October 14 — Lake Cypress Springs full authority addition
+
+The Franklin County Water District rules revised August 2026 control vessel sizes (generally 26-ft length and 12-ft width maximum), shoreline idle speed within 200 feet, restricted intake/spillway areas, camping/payment, and possible 380.50-ft flood closures. This guide names all five FCWD public parks—Guthrie, Dogwood, Mary King, Overlook and Walleye—and refuses to treat TPWD's archived $2 fee and year-round text as a current status certificate. Two exact-lake Wikimedia Commons **MAPS** (bathymetric, 1500×757, and topographic, 2048×1223) by maxup10 are CC BY-SA 4.0 and clearly not described as lake photographs. TWDB historical chronology: July 1968 construction, July 7 1970 deliberate impoundment, February 15 1971 final completion. First-party field photography and production acceptance remain open. Proposed complete-guide coverage becomes **69/175**, with **106 TPWD entries** still unmatched after this release.
+
+## October 14 — Bachman Lake researched Dallas authority
+
+Bachman Lake is an urban **132-acre TPWD fishing reservoir** inside the city's separately measured approximately **205-acre metropolitan park**. The guide distinguishes the only documented Shorecrest Drive boat-launch facility (TPWD says two lanes, an older survey says one; only five trailer parking spaces) from bank fishing. It preserves the city’s March 31, 2026 dam-and-spillway ribbon-cutting milestone without claiming that every ramp or path is open today. The current July 2026 Dallas City Code §32-40 gives a general **10.5 HP** maximum motor operating rating with exceptions, differing from the old TPWD public fishing page's **5 HP**. Swimming in the reservoir and sundown-to-sunup boating are prohibited by city rules; adjacent recreational pools are separate. The exact lake photo is a 2,272×1,704 2005 image by **Ansem27** on Wikimedia Commons, **CC BY-SA 3.0**. No original field imagery is claimed. The new release would establish **70/175** complete guides, **105 unmatched** entries after source and production checks; operator rechecks and full editorial certification remain open.
+
+## October 14 — E. V. Spence authority addition
+
+Source-researched dossier on Colorado River Municipal Water District's Robert Lee reservoir adds five correctly distinct TPWD locations, with **Rough Creek closed**, north/south dam ends explicitly bank-only, and Wildcat/Paint Creek historic concrete ramps not certified currently usable at severely low water. The TWDB September 28, 2026 snapshot showing 9.4% capacity is dated historical context; the actual lake level is read via timestamped Water Data for Texas rather than frozen into evergreen recommendations. The January 2009 1410×940 exact-lake aerial image by Jstuby has direct Wikimedia Commons public-domain provenance, NOT first-party media. The proposed branch takes completed-guide matches to **71 of 175**, leaving **104** unmatched, subject to protected CI, operator same-day verification and production acceptance.
+
+## October 14 — Brady Creek Reservoir authority
+
+TPWD lists a single City Park at Dam ramp that operates well only at **high water**, despite the old year-round park label. The City of Brady's [Brady Lake operator page](https://www.bradytx.us/881/Brady-Lake) independently confirms 23 RV hookups in its park plus pavilion hookups, 15 tent sites, three primitive sites, eight cabanas, 12 cabins and real operator reservation contact. TWDB dates the dam from December 1961 construction to May 1963 completion and deliberate impoundment; TPWD documents 2012 golden algae and FAIR fish quality ratings. Wikimedia Commons' 3,214×1,808 Brady Lake image by Larry D. Moore was verified from original file metadata as **CC BY 4.0**, not an invented stock lake photo. The new branch proposes **72** completed guide matches, **103** unmatched TPWD directory entries. Current ramp functionality, first-party photo inventory and production editorial certification are not claimed.

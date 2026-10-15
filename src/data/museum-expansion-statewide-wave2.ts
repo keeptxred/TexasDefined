@@ -237,17 +237,18 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     coordinates: { lat: 28.02642, lng: -97.04874 },
     hero: museumPlaceholder("Texas Maritime Museum"),
     bestSeason: "Year-round museum; fall through spring is ideal for pairing it with Rockport's waterfront and other outdoor coastal stops.",
-    entryNote: "The museum currently uses donation-based pay-what-you-can admission and opens Tuesday through Saturday. Verify hours and special programming on the official site before traveling.",
-    highlights: ["Texas maritime history", "Shipbuilding and shipwrecks", "Fishing and offshore industry", "Rockport waterfront"],
+    entryNote: "The operator lists Tuesday–Saturday, 10 a.m.–4 p.m., with pay-what-you-can, donation-based admission. Phone 361-729-1271 for holiday and special-event changes. Two documented 2026 exhibits are scheduled through December 31; check the operator site before travel.",
+    highlights: ["Texas maritime history", "Shipbuilding and shipwrecks", "2026 wooden shipbuilding and Spain’s American Revolution role", "Fishing and offshore industry", "Rockport waterfront"],
     body: [
       "Texas Maritime Museum broadens the idea of Texas history beyond cattle trails and battlefields by focusing on the Gulf. Shipbuilding, fishing, offshore industry, navigation and maritime trade all shaped coastal communities long before modern beach tourism became the dominant visitor image.",
       "The museum's exhibits also connect human history with the water itself. Shipwrecks, Indigenous coastal lifeways and working-waterfront industries show how bays and the Gulf functioned as transportation routes, food sources, workplaces and hazards across different periods.",
+      "The museum\'s dated fall 2026 exhibits add two particularly useful reasons to visit. Built for Victory (scheduled September 30–December 31, 2026) explains World War I wooden steamship production, the Emergency Fleet Corporation, the Rockport-area Heldenfels Brothers Shipyard and the remnants of vessels off the Texas coast. Tides of Freedom (scheduled February 2–December 31, 2026) traces Spanish support for American independence, Bernardo de Gálvez, Gulf campaigns and cattle supplied from Texas. These are 2026 exhibitions, not permanent displays; confirm their end dates before planning.",
       "Rockport already offers strong coastal stops, including Fulton Mansion and wildlife destinations. Adding the maritime museum creates a more complete Aransas County itinerary combining architecture, ecology, art and the working history of the coast."
     ],
     officialUrl: "https://texasmaritimemuseum.org/",
     managingAuthority: "Texas Maritime Museum",
     address: "1202 Navigation Cir, Rockport, TX 78382",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    sourceCheckedAt: "2026-10-14",
   },
   {
     id: "museum-statewide-wave2-most",

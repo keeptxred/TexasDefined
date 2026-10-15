@@ -73,7 +73,7 @@ for (const marker of [
 for (const href of [
   "/article/texas-before-united-states-how-texas-began",
   "/destination/caddo-mounds-state-historic-site",
-  "/destination/hueco-tanks-state-park-and-historic-site",
+  "https://tpwd.texas.gov/state-parks/hueco-tanks",
   "/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso",
   "/destination/lipantitlan",
   "/destination/mission-dolores",
@@ -82,7 +82,7 @@ for (const href of [
   "/county/el-paso",
   "/county/polk",
 ]) {
-  if (!article.includes(`href: "${href}"`)) failures.push(`Indigenous Texas internal authority link missing: ${href}`);
+  if (!article.includes(`href: "${href}"`)) failures.push(`Indigenous Texas researched authority link missing: ${href}`);
 }
 
 for (const destination of [

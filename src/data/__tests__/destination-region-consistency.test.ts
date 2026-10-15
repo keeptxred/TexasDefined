@@ -43,6 +43,7 @@ describe("geographic consistency across all Explore regional routes", () => {
     destination("guadalupe-mountains-national-park", "hill-country", 31.8936, -104.8227),
     destination("dinosaur-valley-state-park", "hill-country", 32.249, -97.81),
     destination("brazos-bend-state-park", "hill-country", 29.371, -95.63),
+    destination("abilene-state-park", "big-bend", 32.240731, -99.879139),
   ];
 
   it("does not allow famous non-Hill-Country locations in the Hill Country route or its JSON-LD", () => {
@@ -55,7 +56,7 @@ describe("geographic consistency across all Explore regional routes", () => {
     expect(filterDestinationsByScope(mislabeled, { region: "gulf-coast" }).map((d) => d.slug))
       .toEqual(["texas-state-aquarium", "moody-gardens", "houston-zoo", "downtown-aquarium-houston", "houston-interactive-aquarium-animal-preserve", "space-center-houston", "brazos-bend-state-park"]);
     expect(filterDestinationsByScope(mislabeled, { region: "panhandle" }).map((d) => d.slug))
-      .toEqual(["palo-duro-canyon-state-park", "caprock-canyons-state-park"]);
+      .toEqual(["palo-duro-canyon-state-park", "caprock-canyons-state-park", "abilene-state-park"]);
     expect(filterDestinationsByScope(mislabeled, { region: "big-bend" }).map((d) => d.slug))
       .toEqual(["big-bend-national-park", "guadalupe-mountains-national-park"]);
     expect(filterDestinationsByScope(mislabeled, { region: "prairies-lakes" }).map((d) => d.slug))

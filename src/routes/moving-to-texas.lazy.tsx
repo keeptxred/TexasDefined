@@ -64,10 +64,10 @@ const industryResearchLinks = [
 const metroAuthorityGuides = cityMetroAuthoritySeedEntities();
 
 const priorityOriginStates = [
-  ["California", "/texas-vs/california"],
+  ["California", "/article/texas-vs-california-differences"],
   ["New York", "/texas-vs/new-york"],
   ["Illinois", "/texas-vs/illinois"],
-  ["Florida", "/texas-vs/florida"],
+  ["Florida", "/article/texas-vs-florida-differences"],
   ["Colorado", "/texas-vs/colorado"],
 ] as const;
 const priorityRelocationGuides = [

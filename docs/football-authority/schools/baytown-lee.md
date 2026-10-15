@@ -1,5 +1,11 @@
 # Baytown Lee Ganders — Batch005 researched football source audit
 
+## October 14, 2026 — batch-level production acceptance (current)
+**Production technical status: VERIFIED. Formal editorial acceptance: IN PROGRESS.** This school was included in the successful exact-release [Batch 005 Chrome suite](https://github.com/keeptxred/TexasDefined/actions/runs/38586361713) against deployment `d1fca0f12cc5955884486ddbdb67cad9c2efa5bc` ([successful deploy](https://github.com/keeptxred/TexasDefined/actions/runs/38584969227)). The suite passed 1,233 checks across all 25 schools (desktop/mobile, SEO, schema, rendering, schedules, sitemap, and reciprocal county links); [91-file browser evidence artifact](https://github.com/keeptxred/TexasDefined/actions/runs/38586361713/artifacts/11905997191). The individual school was among the 25 passes, but **1,233 is the combined batch check count**, not an individual-school count.
+
+The current formal Supabase `td_authority_page_acceptance` record remains `in_progress`; the related factual verification status is `source_unreachable` (a monitored source timed out; other sources may be available). Final editorial acceptance must document independent claim-level source corroboration and all nine `td_maintenance.accept_authority_page` evidence dimensions, including photo-rights disposition and qualified accessibility/visitor information. Do not infer that automated success proves every 2026 score, historic detail, original image license, live parking policy, or a human accessibility review. Earlier notes below retain their original research dates and are **historical checkpoints**, not present deployment status.
+
+
 Checkpoint 2026-10-10. **IMPLEMENTED ON BRANCH ONLY — no production/browser certification.** Existing route: `/texas-high-school-football-teams/baytown-lee`.
 
 ## Defects identified on the existing page
@@ -35,6 +41,6 @@ Protected gate, branch merge, deployed production and real mobile/desktop Chrome
 
 ## October 13 — official campus source repair
 - Former schools.gccisd.net endpoints intermittently fail SSL connections for the Supabase source monitor. They were not falsely treated as available at this checkpoint.
-- Independently fetched current [official school information](https://rel.gccisd.net/) and [official athletics section](https://rel.gccisd.net/athletics), both HTTP 200 from the new Goose Creek CISD campus domain. The GCM school history confirms opening for grades 9–11 in 2008–09 and first graduation class in 2010.
+- Independently fetched current [official school information](https://rel.gccisd.net/) and [official athletics section](https://rel.gccisd.net/athletics), both HTTP 200 from the new Goose Creek CISD campus domain. The Robert E. Lee campus homepage confirms the school's current identity and contact resources. The 2008–10 Goose Creek Memorial founding history belongs only to GCM and is not evidence about Lee.
 - Historical UIL milestones retain their independently corroborated facts. The athletics portal is a first-party navigational source; the 2026 score table stays explicitly attributed to a dated secondary scoreboard.
 - Kickoff, admissions, accessibility and tickets must be confirmed with the district for each scheduled event.

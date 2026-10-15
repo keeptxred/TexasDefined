@@ -1,4 +1,10 @@
 {
+  "abilene": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
+    }
+  ],
   "amarillo": [
     {
       "slug": "lake-meredith",
@@ -47,6 +53,12 @@
       "name": "O.H. Ivie Lake"
     }
   ],
+  "bandera": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
   "bangs": [
     {
       "slug": "lake-brownwood",
@@ -93,6 +105,12 @@
       "name": "Lake Meredith"
     }
   ],
+  "brady": [
+    {
+      "slug": "brady-creek-reservoir",
+      "name": "Brady Creek Reservoir"
+    }
+  ],
   "brenham": [
     {
       "slug": "lake-somerville",
@@ -127,6 +145,12 @@
     {
       "slug": "lake-buchanan",
       "name": "Lake Buchanan"
+    }
+  ],
+  "buffalo-gap": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
     }
   ],
   "burkeville": [
@@ -228,6 +252,10 @@
     }
   ],
   "dallas": [
+    {
+      "slug": "bachman-lake",
+      "name": "Bachman Lake"
+    },
     {
       "slug": "white-rock-lake",
       "name": "White Rock Lake"
@@ -565,6 +593,12 @@
       "name": "Lake Worth"
     }
   ],
+  "lakehills": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
   "lakeway": [
     {
       "slug": "lake-travis",
@@ -653,6 +687,12 @@
       "name": "Fort Parker State Park Lake"
     }
   ],
+  "mico": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
   "midlothian": [
     {
       "slug": "joe-pool-lake",
@@ -679,6 +719,12 @@
     {
       "slug": "lake-bob-sandlin",
       "name": "Lake Bob Sandlin"
+    }
+  ],
+  "mount-vernon": [
+    {
+      "slug": "lake-cypress-springs",
+      "name": "Lake Cypress Springs"
     }
   ],
   "nacogdoches": [
@@ -721,6 +767,10 @@
     {
       "slug": "lake-bob-sandlin",
       "name": "Lake Bob Sandlin"
+    },
+    {
+      "slug": "lake-cypress-springs",
+      "name": "Lake Cypress Springs"
     }
   ],
   "post": [
@@ -769,6 +819,12 @@
     {
       "slug": "lake-worth",
       "name": "Lake Worth"
+    }
+  ],
+  "robert-lee": [
+    {
+      "slug": "e-v-spence-reservoir",
+      "name": "E. V. Spence Reservoir"
     }
   ],
   "rockwall": [
@@ -821,6 +877,10 @@
   ],
   "san-angelo": [
     {
+      "slug": "e-v-spence-reservoir",
+      "name": "E. V. Spence Reservoir"
+    },
+    {
       "slug": "lake-nasworthy",
       "name": "Lake Nasworthy"
     },
@@ -833,6 +893,10 @@
     {
       "slug": "calaveras-lake",
       "name": "Calaveras Lake"
+    },
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
     }
   ],
   "sanger": [
@@ -945,6 +1009,12 @@
       "name": "Lake Tyler (East and West)"
     }
   ],
+  "tuscola": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
+    }
+  ],
   "tyler": [
     {
       "slug": "lake-palestine",
@@ -983,6 +1053,10 @@
     {
       "slug": "lake-mineral-wells",
       "name": "Lake Mineral Wells"
+    },
+    {
+      "slug": "lake-weatherford",
+      "name": "Lake Weatherford"
     }
   ],
   "west-lake-hills": [
@@ -1023,6 +1097,12 @@
     {
       "slug": "lake-tawakoni",
       "name": "Lake Tawakoni"
+    }
+  ],
+  "winnsboro": [
+    {
+      "slug": "lake-cypress-springs",
+      "name": "Lake Cypress Springs"
     }
   ],
   "woodway": [

@@ -78,7 +78,7 @@ export const texasGatewayIndexReadyStubs: Article[] = [
     body: [],
     internalLinks: [],
     relatedCollections: [],
-    relatedDestinations: ["san-antonio-missions", "palo-duro-canyon", "galveston", "big-bend-chisos-basin"],
+    relatedDestinations: ["san-antonio-missions", "palo-duro-canyon-state-park", "galveston", "big-bend-chisos-basin"],
   },
   {
     id: "gateway-seasonal-bucket",
@@ -95,6 +95,6 @@ export const texasGatewayIndexReadyStubs: Article[] = [
     body: [],
     internalLinks: [],
     relatedCollections: [],
-    relatedDestinations: ["fredericksburg", "galveston", "palo-duro-canyon", "big-bend-chisos-basin"],
+    relatedDestinations: ["fredericksburg", "galveston", "palo-duro-canyon-state-park", "big-bend-chisos-basin"],
   },
 ];

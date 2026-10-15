@@ -7,6 +7,10 @@ export const TEXAS_VS_STATE_GROUPS = [
 
 export const TEXAS_VS_STATES = TEXAS_VS_STATE_GROUPS.flatMap((group) => group.states);
 export const texasVsStateSlug = (value: string) => value.toLowerCase().replaceAll(" ", "-");
+export const texasVsCanonicalPath = (state: string) => {
+  const slug = texasVsStateSlug(state);
+  return slug === "california" || slug === "florida" ? `/article/texas-vs-${slug}-differences` : `/texas-vs/${slug}`;
+};
 export const texasVsStateName = (slug: string) => TEXAS_VS_STATES.find((state) => texasVsStateSlug(state) === slug) ?? null;
 
 export type TexasVsStateSourceTopic = "tax" | "housing" | "jobs" | "risk" | "transport";

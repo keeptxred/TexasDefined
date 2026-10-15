@@ -118,8 +118,6 @@ Both pages have explicit image placeholders pending rights-cleared exact-locatio
 - **South Padre Island:** [Spheroidite, *South Padre Island beach panorama.jpg*](https://commons.wikimedia.org/wiki/File:South_Padre_Island_beach_panorama.jpg), photographed June 2022. **CC BY-SA 4.0**, 7,328 × 3,274. Panoramic beach photograph of the correct island; do not confuse with Padre Island National Seashore.
 - **La Salle Odyssey:** [Larry D. Moore, *Texas Maritime Museum Rockport Texas 2024.jpg*](https://commons.wikimedia.org/wiki/File:Texas_Maritime_Museum_Rockport_Texas_2024.jpg), **CC BY 4.0**. This already licensed Rockport institution serves as a truthful representative museum image; no misleading reconstructed ship or stock artifact is implied.
 
-**Port Isabel Historical Museum image:** A direct historic-building photograph has not been licensed and attached yet. The Library of Congress Carol M. Highsmith photos of the Champion Building fish mural include "no known restrictions on publication" advisories; specific file and stable usable image delivery need independent confirmation before replacing the existing placeholder. Do not mislabel an unrelated lighthouse photo as the museum.
-
 ## Port Isabel Historical Museum hero photograph (October 13, 2026)
 
 - **Exact location:** Port Isabel Historical Museum at the 1899 Charles Champion Building. The selected 2014 Carol M. Highsmith photograph shows the landmark's original 1906 fish-mural facade, not a generic Port Isabel lighthouse or a different museum.
@@ -157,3 +155,36 @@ Credits and exact location photo URLs live in `src/data/museum-authority-heroes.
 
 ## The AgriCultural Museum & Arts Center, Boerne — October 13, 2026
 Exact-site antique farm-equipment photograph: [Boerne ag museum 2013.jpg](https://commons.wikimedia.org/wiki/File:Boerne_ag_museum_2013.jpg), **Larry D. Moore**, **CC BY 4.0**, 2013, 1,791 × 1,194 pixels. Site: 102 City Park Road, Boerne, Texas. Photograph predates the institution's 2018 name change. Attribution is embedded in `museum-authority-heroes.ts`; the file must not be represented as a current 2026 exhibit photograph.
+
+## The History Center, Diboll — archival collection photo, October 14, 2026
+
+- **Archival image, NOT the present-day museum building, entrance, or Engine 13:** [The Southern Pine Lumber Company sawmills near Diboll, Texas in 1907](https://commons.wikimedia.org/wiki/File:The_Southern_Pine_Lumber_Company_sawmills_near_Diboll,_Texas_in_1907.jpg). Published in *American Lumberman* in 1907; photographed by **J. D. Cress**, provided by **The History Center** to UNT's Portal to Texas History. Wikimedia Commons identifies the 1907 published image as **public domain in the United States** (published before 1931). Image dimensions: **660 × 402**.
+- **Specific editorial relevance:** depicts Diboll's historical lumber and railroad economy, directly documented in this institution's collections. ALT text and actual credit expressly identify an old archival photograph, not the present-day building, 1920 Engine 13, 1948 caboose, visitor accessibility, or current exhibits. The [museum's own outdoor railroad exhibit page](https://www.thehistorycenteronline.com/exhibits/outdoor-railroad-exhibit) shows the modern locomotive but its photos must not be copied without permission.
+- **Still incomplete:** obtain a licensed modern photograph of the exact site or Engine 13 before claiming that site photography is certified; do not replace this with a picture of an unrelated museum.
+
+## Museum of the American Railroad, Frisco — verified current-location exhibit photo (June 14, 2019)
+
+- **Exact Frisco museum site and real rolling-stock collection:** [Wikimedia Commons: Frisco June 2019 28 (Museum of the American Railroad).jpg](https://commons.wikimedia.org/wiki/File:Frisco_June_2019_28_(Museum_of_the_American_Railroad).jpg). Photograph by **Michael Barera**, taken **June 14, 2019**, original **6000 × 4000**, marked **CC BY-SA 4.0** by the copyright owner in Wikimedia Commons MediaWiki imageinfo.extmetadata. The image depicts the museum's full-size railroad collection at Frisco, **not its previous Fair Park location**. Commons also categorizes it with **Union Pacific 4018** and **St. Louis–San Francisco 4501**; verify current rolling-stock access separately.
+- Source rights: https://creativecommons.org/licenses/by-sa/4.0/ — online photographic credit and explicit source/license links are wired through the existing hero metadata and destination photo-provenance display.
+- **Not a current-hours photograph**: 2019 scene of historically significant locomotives; neither weather conditions, access times nor exhibit-tour availability in 2026 follow from this photograph. Any redistributed changes/adaptations must comply with attribution, indication of modifications and share-alike conditions.
+
+## Alvin Historical Museum — museum building, former U.S. Post Office, May 12, 2015
+
+- **Exact museum building:** [Former alvin tx post office.jpg](https://commons.wikimedia.org/wiki/File:Former_alvin_tx_post_office.jpg) on Wikimedia Commons. The Commons file description identifies this particular **1940 former U.S. Post Office building in Alvin as the present Alvin Historical Museum** (300 W. Sealy Street), not the separate still-active Alvin post office at 455 E. House Street.
+- **Author/rights:** **Larry D. Moore**, photographed **May 12, 2015**, original **1789 × 1193 pixels**, **CC BY 4.0**, verified directly from Commons API imageinfo.extmetadata (artist, original dimensions, descriptive museum identity, license and license URL). License link: https://creativecommons.org/licenses/by/4.0/ . Visible museum hero credit and source/license links are wired through the existing destination photo-rights display.
+- **Temporal scope:** 2015 exterior is site-specific historical imagery, not proof that 2026 hours, access features or exhibitions are unchanged. Source checks continue through original 30-day museum manifest. Do not confuse with Wikimedia Commons **Alvin TX US Post Office.jpg**, which depicts a different working post office on E. House Street.
+
+## The Sixth Floor Museum at Dealey Plaza — October 14, 2026
+
+- Existing canonical hero source: `https://commons.wikimedia.org/wiki/Special:Redirect/file/View,_in_2014,_of_Dealey_Plaza_and_the_Texas_School_Book_Depository_in_Dallas,_Texas.jpg?width=1600`.
+- Identified subject: 2014 photograph of Dealey Plaza and former Texas School Book Depository in Dallas, not an interior view or original 1963 photograph.
+- Source: Carol M. Highsmith, Library of Congress Prints and Photographs, item `2014632610`, digital ID `highsm.28410`: https://www.loc.gov/item/2014632610/ .
+- Reuse status: Library of Congress records **no known restrictions on publication** and Wikimedia Commons categorizes this original Highsmith photograph as public domain: https://commons.wikimedia.org/wiki/File:View,_in_2014,_of_Dealey_Plaza_and_the_Texas_School_Book_Depository_in_Dallas,_Texas.jpg . Rights assessment applies to this exact image, not unrelated museum exhibits, logos or gallery photographs.
+- Editorial display status: existing correct subject and attribution in `src/data/destination-curation-top-attractions-batch2.ts`; new authority dossier deliberately preserves the original hero. The actual rendered photo, ALT, attribution link and mobile layout still require production acceptance. **Not automatically marked image-compliant or authority-certified.**
+
+## USS Lexington Museum — October 14, 2026
+
+- Existing canonical museum hero is the identifiable ship at North Beach, photographed February 9, 2018 by Matthew T Rader: https://commons.wikimedia.org/wiki/File:An_aerial_photo_of_the_USS_Lexington_in_Corpus_Christi.jpg .
+- Source licensing: **CC BY-SA 4.0** with creator requirement for visible credit `Matthew T Rader`, creator website `https://matthewtrader.com`, and proper license reference `https://creativecommons.org/licenses/by-sa/4.0/`. This is not public-domain U.S. Navy imagery.
+- `src/data/military-museum-destinations.ts` already credits `Matthew T Rader / MatthewTRader.com · CC BY-SA 4.0 · Wikimedia Commons` and uses the actual 2018 aerial museum-era photograph. Preserve it and distinguish historic wartime gallery photographs by dates and source.
+- Browser-rendered attribution links, image dimensions, any derivative change notation, and small-screen display remain **unverified** until production acceptance. Do not certify merely from valid source metadata.

@@ -1,3 +1,4 @@
+import { hasUnresolvedPublicRouteToken } from "./public-route-tokens";
 import publishedSoftballIndex from '@/data/softball/published-team-index.json';
 
 export const INDEXABLE_STATIC_PATHS = [
@@ -326,6 +327,7 @@ export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
 ] as const;
 
 export const REDIRECT_ONLY_PATHS = [
+  "/museum/barrington-farm-site",
   "/advertising-billing",
   "/advertising-terms",
   "/texas-attorney-general",
@@ -472,6 +474,7 @@ const NON_INDEXABLE_PREFIXES = ["/admin", "/api/"] as const;
 export function normalizePublicPath(path: string) {
   const value = path.trim();
   if (!value || !value.startsWith("/") || value.startsWith("//")) return null;
+  if (hasUnresolvedPublicRouteToken(value)) return null;
   if (value.includes("?") || value.includes("#") || /[\u0000-\u001F\u007F]/.test(value)) return null;
   if (value === "/") return value;
   return value.replace(/\/{2,}/g, "/").replace(/\/+$/, "");

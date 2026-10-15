@@ -177,7 +177,8 @@ if (!errors.length) {
 
   for (const marker of [
     "const seoName = program?.schoolName || displayName",
-    "title: editorial?.seo?.title ?? `${teamName} Football: 2026 District & Team Guide`",
+    'title: slug === "ben-bolt-palito-blanco" ? "Ben Bolt–Palito Blanco Fighting Badgers Football (2026)"',
+    '(editorial?.seo?.title ?? `${teamName} Football: 2026 District & Team Guide`)',
     "const description = editorial?.seo?.description ?? `${teamName} football:",
   ]) requireText(featuredProfileRoute, marker, 'Football profile unique SEO metadata');
 
@@ -827,9 +828,10 @@ if (!errors.length) {
   for (const marker of [
     'normalizeUilProgramName',
     'contextualMatchScore',
-    'programTokens.every((token) => contextTokens.has(token))',
-    'programTokens.length === 1 && !schoolTokens.has(programTokens[0])',
-    'ranked[0].score === ranked[1].score',
+    'matcher.bySchoolToken.get(token)',
+    'programTokens.every((token) => row.contextMatchTokens.has(token))',
+    'programTokens.length === 1 && !row.schoolMatchTokens.has(programTokens[0])',
+    'score >= 90 && score === bestScore',
     'suppressDuplicateTeaAssignments',
     'program.teaSchoolNumber',
   ]) requireText(directory, marker, 'Fail-closed TEA football school matching');

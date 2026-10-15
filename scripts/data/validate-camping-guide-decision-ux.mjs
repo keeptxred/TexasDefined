@@ -71,7 +71,9 @@ requireText(page, 'aria-label="Camping guide sections"', "camping long-page jump
 for (const anchor of ["#camping-trip-types", "#campground-finder", "#camping-seasons", "#camping-methodology", "#camping-questions", "#camping-next-steps"]) {
   requireText(page, anchor, "camping jump-navigation target");
 }
-requireText(page, 'to="/texas-weather"', "camping weather authority cross-link");
+// Weather advice must lead to an actual forecasting authority, never a fabricated /texas-weather route.
+requireText(page, 'href="https://www.weather.gov/"', "camping weather authority outbound citation");
+if (page.includes('to="/texas-weather"')) throw new Error("Camping guide must not link a nonexistent weather route");
 requireText(page, "Why are campground prices not listed here?", "camping price-freshness guidance");
 requireText(page, "Does “full hookup” apply to every site in a campground?", "camping hookup-scope FAQ");
 requireText(expedia, "best-places-to-go-camping-in-texas", "camping affiliate route coverage");

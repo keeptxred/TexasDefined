@@ -11,6 +11,12 @@
       "name": "Sam Rayburn Reservoir"
     }
   ],
+  "bandera": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
   "bastrop": [
     {
       "slug": "lake-bastrop",
@@ -87,6 +93,12 @@
       "name": "Lake Arrowhead"
     }
   ],
+  "coke": [
+    {
+      "slug": "e-v-spence-reservoir",
+      "name": "E. V. Spence Reservoir"
+    }
+  ],
   "coleman": [
     {
       "slug": "o-h-ivie-lake",
@@ -139,6 +151,10 @@
   ],
   "dallas": [
     {
+      "slug": "bachman-lake",
+      "name": "Bachman Lake"
+    },
+    {
       "slug": "joe-pool-lake",
       "name": "Joe Pool Lake"
     },
@@ -185,6 +201,10 @@
     {
       "slug": "lake-bob-sandlin",
       "name": "Lake Bob Sandlin"
+    },
+    {
+      "slug": "lake-cypress-springs",
+      "name": "Lake Cypress Springs"
     }
   ],
   "freestone": [
@@ -353,6 +373,12 @@
       "name": "Lake O' the Pines"
     }
   ],
+  "mcculloch": [
+    {
+      "slug": "brady-creek-reservoir",
+      "name": "Brady Creek Reservoir"
+    }
+  ],
   "mclennan": [
     {
       "slug": "lake-waco",
@@ -363,6 +389,12 @@
     {
       "slug": "choke-canyon-reservoir",
       "name": "Choke Canyon Reservoir"
+    }
+  ],
+  "medina": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
     }
   ],
   "mitchell": [
@@ -425,6 +457,12 @@
     {
       "slug": "possum-kingdom-reservoir",
       "name": "Possum Kingdom Reservoir"
+    }
+  ],
+  "parker": [
+    {
+      "slug": "lake-weatherford",
+      "name": "Lake Weatherford"
     }
   ],
   "polk": [
@@ -535,6 +573,12 @@
     {
       "slug": "lake-worth",
       "name": "Lake Worth"
+    }
+  ],
+  "taylor": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
     }
   ],
   "titus": [

@@ -81,6 +81,14 @@ for (const city of cities) {
           if(!row.navigationProbe.trigger.name || row.navigationProbe.trigger.width<24 ||
             row.navigationProbe.trigger.height<24 || row.navigationProbe.trigger.expanded!=='false')
             throw new Error('Menu trigger missing accessible name, minimum 24px hit box or initially closed state');
+          // SSR exposes the nav trigger before client hydration. The trigger is
+          // disabled until its React click handler exists. Never accept a button
+          // that stays disabled; the real pointer open/close test still follows.
+          await page.waitForFunction(() => {
+            const button=document.querySelector('button[aria-controls="mobile-main-menu"]');
+            return button instanceof HTMLButtonElement && !button.disabled;
+          },undefined,{timeout:18000});
+          row.navigationProbe.triggerEnabled=true;
           await trigger.click();
           await page.waitForFunction(()=>{
             const trigger=document.querySelector('button[aria-controls="mobile-main-menu"]');

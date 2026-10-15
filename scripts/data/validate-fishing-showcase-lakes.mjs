@@ -16,6 +16,15 @@ for (const file of required) if (!fs.existsSync(file)) failures.push(`Missing Ba
 if (!failures.length) {
   const routing = read("src/data/fishing/showcase-lake-routing.ts");
   const prototypes = read("src/data/fishing/showcase-lakes-prototype.ts");
+  const expandedPrototypes = read("src/data/fishing/expanded-showcase-lakes-prototype.ts");
+  for (const marker of [
+    'href: "/destination/southern-pacific-passenger-depot-del-rio", external: false',
+    'href: "https://tpwd.texas.gov/state-parks/seminole-canyon", external: true',
+  ]) if (!expandedPrototypes.includes(marker)) failures.push("Amistad nearby guide must retain live source-verified visitor links: " + marker);
+  for (const forbidden of ['href: "/city/del-rio", external: false', 'href: "/destination/seminole-canyon-state-park-historic-site", external: false']) {
+    if (expandedPrototypes.includes(forbidden)) failures.push("Amistad nearby guide uses a known 404 destination: " + forbidden);
+  }
+
   const server = read("src/data/fishing/showcase-lakes-page-data.server.ts");
   const functions = read("src/data/fishing/showcase-lakes-page-data.functions.ts");
   const ui = read("src/components/fishing/ShowcaseLakeGuide.tsx");

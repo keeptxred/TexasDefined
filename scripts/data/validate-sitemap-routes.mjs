@@ -124,6 +124,20 @@ for (const feature of [
   if (!exploreSitemap.includes(feature)) failures.push(`Explore sitemap dual-source reliability contract missing: ${feature}`);
 }
 if (exploreSitemap.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations')) failures.push('Explore sitemap must not use the obsolete single-source outage fallback.');
+const firstCapitolSitemap = fs.readFileSync('src/data/first-capitol-sitemap.server.ts', 'utf8');
+for (const marker of [
+  'loadFirstCapitolSitemapReference()',
+  'destinations.splice(firstCapitolIndex, 1)',
+  'if (resolvedFirstCapitol) destinations.push(resolvedFirstCapitol)',
+]) {
+  if (!exploreSitemap.includes(marker)) failures.push('First Capitol sitemap must use its dedicated index-ready detail resolver: ' + marker);
+}
+for (const marker of [
+  'getResolvedDestination("first-capitol-of-texas")',
+  'export async function loadFirstCapitolSitemapReference()',
+]) {
+  if (!firstCapitolSitemap.includes(marker)) failures.push('First Capitol sitemap resolver must reuse the canonical page query: ' + marker);
+}
 if (!exploreSitemap.includes('isPrimaryTripPlannerDestination(destination)') || !exploreSitemap.includes('auditDestination(destination).readyForIndexing')) {
   failures.push('Explore sitemap must publish only primary, quality-approved destinations.');
 }

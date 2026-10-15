@@ -111,6 +111,11 @@
           "sourceUrl": "https://atlas.thc.texas.gov/Details/4200000007",
           "fetchUrl": "https://atlas.thc.texas.gov/Details/4200000007",
           "label": "Texas Historical Commission — institutional record"
+        },
+        {
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Former_alvin_tx_post_office.jpg",
+          "fetchUrl": "https://commons.wikimedia.org/wiki/File:Former_alvin_tx_post_office.jpg",
+          "label": "Museum building: 1940 former Alvin US Post Office, now Alvin Historical Museum; Larry D. Moore CC BY 4.0, May 2015"
         }
       ]
     },
@@ -1283,14 +1288,19 @@
       "faqCount": 5,
       "sources": [
         {
-          "sourceUrl": "https://portisabelhistory.com/",
-          "fetchUrl": "https://portisabelhistory.com/",
-          "label": "FAQ verification: What else should I see near the museum?"
+          "sourceUrl": "https://portisabel-texas.com/blog/history/",
+          "fetchUrl": "https://portisabel-texas.com/blog/history/",
+          "label": "City of Port Isabel — current museum schedule and lighthouse pairing"
         },
         {
-          "sourceUrl": "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html",
-          "fetchUrl": "https://www.tripadvisor.com/Attraction_Review-g56479-d283951-Reviews-Port_Isabel_Historical_Museum-Port_Isabel_Texas.html",
-          "label": "Museum research and visitor source"
+          "sourceUrl": "https://business.spichamber.com/list/member/port-isabel-historical-museum-18",
+          "fetchUrl": "https://business.spichamber.com/list/member/port-isabel-historical-museum-18",
+          "label": "South Padre Island Chamber — museum hours, last ticket and contact"
+        },
+        {
+          "sourceUrl": "https://thc.texas.gov/blog/beyond-beach",
+          "fetchUrl": "https://thc.texas.gov/blog/beyond-beach",
+          "label": "Texas Historical Commission — June 2026 museum heritage and exhibit context"
         }
       ]
     },
@@ -1319,6 +1329,39 @@
           "sourceUrl": "https://www.samuseum.org/",
           "fetchUrl": "https://www.samuseum.org/",
           "label": "SAMA current exhibitions"
+        }
+      ]
+    },
+    {
+      "path": "/destination/sixth-floor-museum-at-dealey-plaza",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 11,
+      "sources": [
+        {
+          "sourceUrl": "https://www.jfk.org/plan-your-visit/",
+          "fetchUrl": "https://www.jfk.org/plan-your-visit/",
+          "label": "Museum current visit and logistics"
+        },
+        {
+          "sourceUrl": "https://www.jfk.org/plan-your-visit/visitation-guidelines/",
+          "fetchUrl": "https://www.jfk.org/plan-your-visit/visitation-guidelines/",
+          "label": "Museum timed entry and food policies"
+        },
+        {
+          "sourceUrl": "https://www.jfk.org/accessibility/",
+          "fetchUrl": "https://www.jfk.org/accessibility/",
+          "label": "Accessibility and sensory resources"
+        },
+        {
+          "sourceUrl": "https://www.jfk.org/exhibition/john-f-kennedy-and-the-memory-of-a-nation/",
+          "fetchUrl": "https://www.jfk.org/exhibition/john-f-kennedy-and-the-memory-of-a-nation/",
+          "label": "Permanent historical exhibition"
+        },
+        {
+          "sourceUrl": "https://www.jfk.org/faq/",
+          "fetchUrl": "https://www.jfk.org/faq/",
+          "label": "Museum official FAQ"
         }
       ]
     },
@@ -1385,8 +1428,18 @@
       "path": "/destination/texas-maritime-museum-rockport",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
-      "faqCount": 6,
+      "faqCount": 8,
       "sources": [
+        {
+          "sourceUrl": "https://texasmaritimemuseum.org/event/built-for-victory/",
+          "fetchUrl": "https://texasmaritimemuseum.org/event/built-for-victory/",
+          "label": "Texas Maritime Museum — 2026 Built for Victory exhibit schedule and source"
+        },
+        {
+          "sourceUrl": "https://texasmaritimemuseum.org/event/tides-of-freedom/",
+          "fetchUrl": "https://texasmaritimemuseum.org/event/tides-of-freedom/",
+          "label": "Texas Maritime Museum — 2026 Tides of Freedom exhibit schedule and source"
+        },
         {
           "sourceUrl": "https://texasmaritimemuseum.org/",
           "fetchUrl": "https://texasmaritimemuseum.org/",
@@ -1401,6 +1454,11 @@
           "sourceUrl": "https://texasmaritimemuseum.org/exhibits/",
           "fetchUrl": "https://texasmaritimemuseum.org/exhibits/",
           "label": "Texas Maritime Museum — exhibitions"
+        },
+        {
+          "sourceUrl": "https://texasmaritimemuseum.org/events/month/2026-10/",
+          "fetchUrl": "https://texasmaritimemuseum.org/events/month/2026-10/",
+          "label": "Temporary 2026 exhibits and museum calendar"
         }
       ]
     },
@@ -1503,6 +1561,54 @@
           "sourceUrl": "https://thinkeryaustin.org/exhibit/",
           "fetchUrl": "https://thinkeryaustin.org/exhibit/",
           "label": "Thinkery — interactive exhibit roster"
+        }
+      ]
+    },
+    {
+      "path": "/destination/uss-lexington-museum-corpus-christi",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 11,
+      "sources": [
+        {
+          "sourceUrl": "https://usslexington.com/visit/hours-admission/",
+          "fetchUrl": "https://usslexington.com/visit/hours-admission/",
+          "label": "USS Lexington official operator — source-backed visitor verification"
+        },
+        {
+          "sourceUrl": "https://usslexington.com/tours/self-guided-tours/",
+          "fetchUrl": "https://usslexington.com/tours/self-guided-tours/",
+          "label": "USS Lexington official operator — source-backed visitor verification"
+        },
+        {
+          "sourceUrl": "https://usslexington.com/attractions/the-flight-deck/",
+          "fetchUrl": "https://usslexington.com/attractions/the-flight-deck/",
+          "label": "USS Lexington official operator — source-backed visitor verification"
+        },
+        {
+          "sourceUrl": "https://usslexington.com/visit/mess-deck-cafe/",
+          "fetchUrl": "https://usslexington.com/visit/mess-deck-cafe/",
+          "label": "USS Lexington official operator — source-backed visitor verification"
+        },
+        {
+          "sourceUrl": "https://usslexington.com/attractions/",
+          "fetchUrl": "https://usslexington.com/attractions/",
+          "label": "USS Lexington official operator — source-backed visitor verification"
+        },
+        {
+          "sourceUrl": "https://usslexington.com/learn/education/",
+          "fetchUrl": "https://usslexington.com/learn/education/",
+          "label": "USS Lexington official operator — source-backed visitor verification"
+        },
+        {
+          "sourceUrl": "https://usslexington.com/visit/directions-map-how-to-get-to-lex/",
+          "fetchUrl": "https://usslexington.com/visit/directions-map-how-to-get-to-lex/",
+          "label": "USS Lexington official operator — source-backed visitor verification"
+        },
+        {
+          "sourceUrl": "https://usslexington.com/about-the-uss-lexington/the-ship/",
+          "fetchUrl": "https://usslexington.com/about-the-uss-lexington/the-ship/",
+          "label": "USS Lexington official operator — source-backed visitor verification"
         }
       ]
     },
@@ -1852,6 +1958,11 @@
           "sourceUrl": "https://www.historictrains.org/mission",
           "fetchUrl": "https://www.historictrains.org/mission",
           "label": "Museum institutional background"
+        },
+        {
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Frisco_June_2019_28_(Museum_of_the_American_Railroad).jpg",
+          "fetchUrl": "https://commons.wikimedia.org/wiki/File:Frisco_June_2019_28_(Museum_of_the_American_Railroad).jpg",
+          "label": "Exact Frisco museum rolling-stock photograph, Michael Barera CC BY-SA 4.0, on-site June 2019; photo licensing and museum identity"
         }
       ]
     },
@@ -1908,6 +2019,11 @@
           "sourceUrl": "https://www.thehistorycenteronline.com/about",
           "fetchUrl": "https://www.thehistorycenteronline.com/about",
           "label": "History Center historical overview"
+        },
+        {
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Southern_Pine_Lumber_Company_sawmills_near_Diboll,_Texas_in_1907.jpg",
+          "fetchUrl": "https://commons.wikimedia.org/wiki/File:The_Southern_Pine_Lumber_Company_sawmills_near_Diboll,_Texas_in_1907.jpg",
+          "label": "The History Center archival 1907 Diboll sawmill photo: public-domain provenance, NOT modern visitor-site view"
         }
       ]
     },

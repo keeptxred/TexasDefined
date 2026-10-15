@@ -304,6 +304,7 @@ import { Route as NetworkDirectoryRouteImport } from './routes/network.directory
 import { Route as NetworkCheckoutReturnRouteImport } from './routes/network.checkout-return'
 import { Route as NetworkBillingRouteImport } from './routes/network.billing'
 import { Route as NetworkApplyRouteImport } from './routes/network.apply'
+import { Route as MuseumBarringtonFarmSiteRouteImport } from './routes/museum.barrington-farm-site'
 import { Route as MovingToTexasDataRouteImport } from './routes/moving-to-texas_.data'
 import { Route as MovingToTexasToolsRouteImport } from './routes/moving-to-texas.tools'
 import { Route as LearnWildlifeManagementValuationRouteImport } from './routes/learn.wildlife-management-valuation'
@@ -1960,7 +1961,9 @@ const TexasDataDatasetSlugRoute = TexasDataDatasetSlugRouteImport.update({
   id: '/$datasetSlug',
   path: '/$datasetSlug',
   getParentRoute: () => TexasDataRoute,
-} as any)
+} as any).lazy(() =>
+  import('./routes/texas-data.$datasetSlug.lazy').then((d) => d.Route),
+)
 const TexasCostOfLivingCalculatorLocationRoute =
   TexasCostOfLivingCalculatorLocationRouteImport.update({
     id: '/texas-cost-of-living-calculator_/$location',
@@ -2433,6 +2436,12 @@ const NetworkApplyRoute = NetworkApplyRouteImport.update({
   path: '/network/apply',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/network.apply.lazy').then((d) => d.Route))
+const MuseumBarringtonFarmSiteRoute =
+  MuseumBarringtonFarmSiteRouteImport.update({
+    id: '/museum/barrington-farm-site',
+    path: '/museum/barrington-farm-site',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const MovingToTexasDataRoute = MovingToTexasDataRouteImport.update({
   id: '/moving-to-texas_/data',
   path: '/moving-to-texas/data',
@@ -4062,6 +4071,7 @@ export interface FileRoutesByFullPath {
   '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
   '/moving-to-texas/tools': typeof MovingToTexasToolsRoute
   '/moving-to-texas/data': typeof MovingToTexasDataRoute
+  '/museum/barrington-farm-site': typeof MuseumBarringtonFarmSiteRoute
   '/network/apply': typeof NetworkApplyRoute
   '/network/billing': typeof NetworkBillingRoute
   '/network/checkout-return': typeof NetworkCheckoutReturnRoute
@@ -4572,6 +4582,7 @@ export interface FileRoutesByTo {
   '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
   '/moving-to-texas/tools': typeof MovingToTexasToolsRoute
   '/moving-to-texas/data': typeof MovingToTexasDataRoute
+  '/museum/barrington-farm-site': typeof MuseumBarringtonFarmSiteRoute
   '/network/apply': typeof NetworkApplyRoute
   '/network/billing': typeof NetworkBillingRoute
   '/network/checkout-return': typeof NetworkCheckoutReturnRoute
@@ -5086,6 +5097,7 @@ export interface FileRoutesById {
   '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
   '/moving-to-texas/tools': typeof MovingToTexasToolsRoute
   '/moving-to-texas_/data': typeof MovingToTexasDataRoute
+  '/museum/barrington-farm-site': typeof MuseumBarringtonFarmSiteRoute
   '/network/apply': typeof NetworkApplyRoute
   '/network/billing': typeof NetworkBillingRoute
   '/network/checkout-return': typeof NetworkCheckoutReturnRoute
@@ -5601,6 +5613,7 @@ export interface FileRouteTypes {
     | '/learn/wildlife-management-valuation'
     | '/moving-to-texas/tools'
     | '/moving-to-texas/data'
+    | '/museum/barrington-farm-site'
     | '/network/apply'
     | '/network/billing'
     | '/network/checkout-return'
@@ -6111,6 +6124,7 @@ export interface FileRouteTypes {
     | '/learn/wildlife-management-valuation'
     | '/moving-to-texas/tools'
     | '/moving-to-texas/data'
+    | '/museum/barrington-farm-site'
     | '/network/apply'
     | '/network/billing'
     | '/network/checkout-return'
@@ -6624,6 +6638,7 @@ export interface FileRouteTypes {
     | '/learn/wildlife-management-valuation'
     | '/moving-to-texas/tools'
     | '/moving-to-texas_/data'
+    | '/museum/barrington-farm-site'
     | '/network/apply'
     | '/network/billing'
     | '/network/checkout-return'
@@ -7103,6 +7118,7 @@ export interface RootRouteChildren {
   LearnPropertyTaxesRoute: typeof LearnPropertyTaxesRoute
   LearnWildlifeManagementValuationRoute: typeof LearnWildlifeManagementValuationRoute
   MovingToTexasDataRoute: typeof MovingToTexasDataRoute
+  MuseumBarringtonFarmSiteRoute: typeof MuseumBarringtonFarmSiteRoute
   NetworkApplyRoute: typeof NetworkApplyRoute
   NetworkBillingRoute: typeof NetworkBillingRoute
   NetworkCheckoutReturnRoute: typeof NetworkCheckoutReturnRoute
@@ -9274,6 +9290,13 @@ declare module '@tanstack/react-router' {
       path: '/network/apply'
       fullPath: '/network/apply'
       preLoaderRoute: typeof NetworkApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/museum/barrington-farm-site': {
+      id: '/museum/barrington-farm-site'
+      path: '/museum/barrington-farm-site'
+      fullPath: '/museum/barrington-farm-site'
+      preLoaderRoute: typeof MuseumBarringtonFarmSiteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/moving-to-texas_/data': {
@@ -11711,6 +11734,7 @@ const rootRouteChildren: RootRouteChildren = {
   LearnPropertyTaxesRoute: LearnPropertyTaxesRoute,
   LearnWildlifeManagementValuationRoute: LearnWildlifeManagementValuationRoute,
   MovingToTexasDataRoute: MovingToTexasDataRoute,
+  MuseumBarringtonFarmSiteRoute: MuseumBarringtonFarmSiteRoute,
   NetworkApplyRoute: NetworkApplyRoute,
   NetworkBillingRoute: NetworkBillingRoute,
   NetworkCheckoutReturnRoute: NetworkCheckoutReturnRoute,

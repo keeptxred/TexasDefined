@@ -51,11 +51,25 @@ if (!errors.length) {
     '/texas-high-school-football-isds/',
   ]) requireText(slugs, marker, 'Football ISD slug helper');
 
+  // The live ISD route builds the 1,268-program directory on SSR. Prevent
+  // regression to a full AskTED campus scan for each unmatched UIL school.
+  for (const marker of [
+    'bySchoolToken: Map<string, PreparedTeaDirectoryRecord[]>',
+    'for (const token of row.schoolMatchTokens)',
+    'for (const token of programTokens)',
+    'matcher.bySchoolToken.get(token)',
+    'const score = contextualMatchScore(programTokens, row)',
+    'score >= 90 && score === bestScore',
+  ]) requireText(directory, marker, 'Indexed, tie-safe AskTED matcher');
+  if (directory.includes('const ranked = matcher.rows')) errors.push('Football ISD matching must not rescan the entire TEA directory for every program.');
+
   for (const marker of [
     'isdProfilePath?: string',
     'footballIsdProfilePath(record.districtName)',
     'loadAllFootballProgramsWithDirectory',
     'allProgramDirectoryCache',
+    'if (directoryInFlight) return directoryInFlight',
+    'if (allProgramDirectoryInFlight) return allProgramDirectoryInFlight',
   ]) requireText(directory, marker, 'Football directory ISD integration');
 
   for (const marker of [
@@ -69,6 +83,7 @@ if (!errors.length) {
     'getFootballIsdProfile',
     'footballIsdSitemapEntries',
     'getOfficialFootballEnrollmentLink',
+    'profilePath: footballIsdProfilePath(sourceDistrictName)',
   ]) requireText(server, marker, 'Football ISD server');
 
   for (const marker of [

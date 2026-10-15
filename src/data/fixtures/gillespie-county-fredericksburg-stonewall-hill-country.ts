@@ -101,7 +101,7 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
     "fort-martin-scott",
     "luckenbach",
     "old-tunnel-state-park",
-    "lyndon-b-johnson-state-park-and-historic-site",
+    "lyndon-b-johnson-state-park-historic-site",
     "lyndon-b-johnson-national-historical-park",
     "enchanted-rock-state-natural-area",
   ],

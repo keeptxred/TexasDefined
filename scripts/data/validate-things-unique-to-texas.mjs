@@ -45,7 +45,7 @@ const additionalSmokePaths = [
   '/article/caddo-lake-cypress-morning',
   '/article/texas-wildlife-guide',
   '/article/texas-trees-guide',
-  '/article/galveston-county-island-port-juneteenth-texas',
+  '/county/galveston',
   '/texas-symbols',
 ];
 
@@ -80,7 +80,7 @@ for (const [id, path] of [
   [129, '/texas-roadside-oddities'],
   [137, '/texas-roadside-oddities'],
   [173, '/texas-chili-con-carne-history'],
-  [185, '/article/galveston-county-island-port-juneteenth-texas'],
+  [185, '/county/galveston'],
   [200, '/article/texas-wildlife-guide'],
   [204, '/article/texas-trees-guide'],
   [222, '/texas-slang-explained'],

@@ -36,6 +36,19 @@ const regionalAuthorityPurgeUrls = [
   `https://${zoneName}/explore/swimming-holes-river-tubing`,
 ];
 
+// Discover pages point to build-time generated, immutable-in-source WebP files.
+// Purging only the HTML preserves cached 404s for those image URLs after deploy.
+// Derive the exact file set from the governed image materializer, not a duplicated list.
+async function discoverImagePurgeUrls() {
+  const manifest = await readFile(new URL('../assets/materialize-discover-overrides.mjs', import.meta.url), 'utf8');
+  const slugs = [...manifest.matchAll(/^\s*\[\s*\n\s*"([a-z0-9-]+)",/gm)].map((match) => match[1]);
+  if (slugs.length < 42 || new Set(slugs).size !== slugs.length) {
+    throw new Error(`Governed Discover manifest is incomplete or has duplicate slugs: ${slugs.length}`);
+  }
+  return slugs.map((slug) => `https://${zoneName}/images/discover/${slug}.webp`);
+}
+const generatedDiscoverImageUrls = await discoverImagePurgeUrls();
+
 const alwaysPurgeUrls = [
   ...regionalAuthorityPurgeUrls,
   // Image/Discover metadata repair surfaces — purge HTML so post-deploy strict audit sees the deployed revision.
@@ -155,6 +168,7 @@ const metroUrls = purgeMetroProximity
   : [];
 
 const urls = [...new Set([
+  ...generatedDiscoverImageUrls,
   ...rawUrls
     .split(/[\n,]+/)
     .map((value) => value.trim())
@@ -245,6 +259,46 @@ for (let index = 0; index < chunks.length; index += 1) {
 
 console.log(`Cloudflare accepted targeted purge for ${urls.length} URL(s) in ${zoneName} across ${chunks.length} request(s).`);
 for (const url of urls) console.log(`- ${url}`);
+
+// Verify actual served WebP bytes, not just metadata or purge-API success.
+// Different Cloudflare edges can expose a transient stale 404 directly after
+// the purge API returns. Require eventually decodable WebP, bounded to five
+// probes; a persistently missing image still fails closed.
+for (const slug of ['collin-county', 'freeman-coliseum', 'dubina-saints-cyril-methodius']) {
+  const url = `https://${zoneName}/images/discover/${slug}.webp`;
+  let verified = false;
+  let lastReason = 'not checked';
+  for (let attempt = 1; attempt <= 5; attempt += 1) {
+    try {
+      const response = await fetch(url, {
+        cache: 'no-store',
+        headers: {
+          'cache-control': 'no-cache',
+          'user-agent': 'TexasDefined-Discover-Asset-PostPurge/1.0',
+        },
+        signal: AbortSignal.timeout(30_000),
+      });
+      const bytes = new Uint8Array(await response.arrayBuffer());
+      const realWebp = bytes.length >= 12
+        && String.fromCharCode(...bytes.slice(0, 4)) === 'RIFF'
+        && String.fromCharCode(...bytes.slice(8, 12)) === 'WEBP';
+      const type = (response.headers.get('content-type') ?? '').toLowerCase();
+      if (response.ok && realWebp && type.startsWith('image/webp')) {
+        console.log(`Discover image delivered valid WebP after cache purge: ${slug} (${bytes.length} bytes; attempt ${attempt})`);
+        verified = true;
+        break;
+      }
+      lastReason = `HTTP ${response.status}, bytes=${bytes.length}, type=${type}`;
+    } catch (error) {
+      lastReason = error instanceof Error ? error.message : String(error);
+    }
+    if (attempt < 5) {
+      console.warn(`Discover post-purge edge not ready: ${slug}, attempt ${attempt}/5 (${lastReason}); retrying.`);
+      await new Promise((resolve) => setTimeout(resolve, 3_000));
+    }
+  }
+  if (!verified) throw new Error(`Discover image failed live post-purge binary verification after 5 attempts: ${url} ${lastReason}`);
+}
 
 const requiredMaybornMarkers = [
   'Mayborn Museum in Waco',

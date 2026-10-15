@@ -916,10 +916,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "development": {
       "title": "Playoff football in Panola County, and a real campus-versus-stadium distinction",
-      "body": "The official Beckville ISD parent directory lists Beckville High School at 169 N Washington, whereas a third-party team schedule uses the alternative '1 Bearcat Dr' address. These must not be substituted for the stadium; Dave Campbell's separate stadium listing calls the football venue R.C. Beauchamp Stadium, subject to game-specific verification. NFHS archives show 2025 postseason games against Paul Pewitt, Leon and San Augustine. MaxPreps and Dave Campbell disagree on the 2025 season win total, so a single 2025 W–L record is deliberately not asserted.",
-      "sourceUrl": "https://www.nfhsnetwork.com/schools/beckville-high-school-beckville-tx/football",
-      "sourceLabel": "NFHS 2025 playoff game archive",
-      "verifiedAt": "2026-10-10"
+      "body": "Beckville ISD publishes inconsistent campus street numbers. Its Schools page gives Beckville High School 157 N Washington and junior high 169 N Washington, while Students & Parents gives the high school 169 N Washington and junior high 203 N Washington. The precise campus street number is therefore unresolved. R.C. Beauchamp Stadium is identified separately by an independent football directory, not by either campus listing. Confirm stadium and entrance details directly with Beckville ISD at 903-678-3591 before travel. NFHS archives document 2025 playoff games, while football databases disagree on the completed season record.",
+      "sourceUrl": "https://www.beckvilleisd.net/schools",
+      "sourceLabel": "Beckville ISD Schools directory; compare the conflicting Students & Parents campus listing",
+      "verifiedAt": "2026-10-14"
     },
     "milestones": [
       {
@@ -939,9 +939,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "date": "Visitor guide",
         "title": "High school campus differs from published stadium identity",
-        "body": "Beckville ISD provides a high-school address of 169 N Washington; a separate Texas football program source identifies R.C. Beauchamp Stadium, but current game entry and ADA details must be checked.",
+        "body": "Beckville ISD's Schools directory lists its high school at 157 N Washington, but its Students & Parents directory lists 169 N Washington; the district also disagrees about the junior-high street number. Do not treat either number or a third-party stadium address as a confirmed game-day destination. Call the high school at 903-678-3591 and confirm the venue, entry and accessibility details before visiting.",
         "sourceUrl": "https://www.beckvilleisd.net/students-parents",
-        "sourceLabel": "District campus address"
+        "sourceLabel": "Conflicting first-party school address listings: verify before travel"
       },
       {
         "date": "2026-10-13",
@@ -953,14 +953,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     ],
     "overview": [
       "Beckville Bearcats football is part of Beckville ISD in Panola County. The program has a documented run of recent postseason appearances, with NFHS carrying distinct archived 2025 UIL games against Paul Pewitt, Leon and San Augustine; do not misrepresent those recordings as live fixtures.",
-      "School and stadium information deserves special care. Beckville ISD's own parent directory identifies its high-school campus at 169 N Washington, while third-party profiles list a Bearcat Drive address and a stadium name. For game-day driving, use the official event assignment rather than assuming that all addresses are interchangeable.",
+      "Beckville ISD's two first-party directories disagree about both the high-school and junior-high street numbers (157 versus 169 N Washington for the high school). That is not a verified navigation address. Check the individual game venue and contact the high school at 903-678-3591 before travel; neither district campus directory proves R.C. Beauchamp Stadium's precise entrance or current game-day access.",
       "The current 2026–28 UIL assignment is 2A Division I District 11. Two football results databases disagree on the 2025 final W–L count, so this independent guide links those sources rather than publishing an unsourced definitive total. A third-party staff roster lists Cody Ross as 2026 head coach, but first-party confirmation is outstanding.",
       "The 3–4 snapshot includes the October 9 reported 26–42 defeat at Pewitt. The 2025 playoff record is a separate season and does not describe the current team."
     ],
     "faq": [
       {
         "question": "Where is Beckville High School?",
-        "answer": "Beckville ISD officially lists 169 N Washington, Beckville, TX 75631. Confirm the stadium address separately for any varsity game."
+        "answer": "Beckville ISD's Schools directory gives the high school as 157 N Washington, but its Students & Parents directory gives 169 N Washington; the district's junior-high addresses also disagree. Contact Beckville High School at 903-678-3591 to confirm the campus and game venue rather than relying on either street number."
       },
       {
         "question": "How far did Beckville go in the 2025 postseason?",
@@ -980,11 +980,11 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "campus": {
-      "address": "169 N Washington Street, Beckville, TX 75631",
+      "address": "Beckville, TX 75631",
       "phone": "903-678-3591",
-      "sourceUrl": "https://www.beckvilleisd.net/students-parents",
-      "sourceLabel": "First-party campus address",
-      "verifiedAt": "2026-10-10"
+      "sourceUrl": "https://www.beckvilleisd.net/schools",
+      "sourceLabel": "District school address listing conflicts with Students & Parents; street number unconfirmed",
+      "verifiedAt": "2026-10-14"
     },
     "season": {
       "record": "3–4 through October 9, 2026 (independent scoreboard snapshot)",
@@ -2437,12 +2437,12 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "No. The official Nueces Canyon football page publishes separate 2026 HS and JH documents, so consult the high-school schedule for varsity games."
       },
       {
-        "question": "How current are the 2026 scores on this page?",
-        "answer": "The displayed win-loss record is limited to the latest named result date on the third-party source, not a continuously refreshed official season tally. Scores are shown only when verified in that cited snapshot. Confirm later games with the school."
+        "question": "What is the latest source-dated 2026 football result for the Nueces Canyon Panthers?",
+        "answer": "The Nueces Canyon Panthers's cited scoreboard describes a 1–4 through October 9, 2026 (MaxPreps) snapshot. Its last scored entry is L 8-44 against Knippa on October 9, 2026. This is a dated third-party result, not a claim that all subsequent games are final."
       },
       {
-        "question": "Where should I confirm varsity game times, venues and tickets?",
-        "answer": "Use the school or district's official athletics calendar linked above. Independent scorecards may lag or conflict with first-party event announcements, especially after a game date has passed."
+        "question": "Is the Nueces Canyon Panthers game against Bruni on October 16, 2026 already a certified final?",
+        "answer": "No final score for the Bruni matchup appears in the cited Nueces Canyon Panthers source snapshot; the entry is shown as a away fixture. Confirm any later score and current kickoff, admission and venue arrangements directly with the school or district."
       }
     ],
     "campus": {
@@ -2601,12 +2601,12 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "No. The 2026–28 UIL roster lists Bartlett in 2A Division II, District 13; 1A refers to its historical championship years."
       },
       {
-        "question": "How current are the 2026 scores on this page?",
-        "answer": "The displayed win-loss record is limited to the latest named result date on the third-party source, not a continuously refreshed official season tally. Scores are shown only when verified in that cited snapshot. Confirm later games with the school."
+        "question": "What is the latest source-dated 2026 football result for the Bartlett Bulldogs?",
+        "answer": "The Bartlett Bulldogs's cited scoreboard describes a 4–1 through October 2, 2026 (current team home; older schedule omits fifth result) snapshot. Its last scored entry is L 26-69 against Burton on October 2, 2026. This is a dated third-party result, not a claim that all subsequent games are final."
       },
       {
-        "question": "Where should I confirm varsity game times, venues and tickets?",
-        "answer": "Use the school or district's official athletics calendar linked above. Independent scorecards may lag or conflict with first-party event announcements, especially after a game date has passed."
+        "question": "Is the Bartlett Bulldogs game against Bremond on October 9, 2026 already a certified final?",
+        "answer": "No final score for the Bremond matchup appears in the cited Bartlett Bulldogs source snapshot; the entry is shown as a home fixture. Confirm any later score and current kickoff, admission and venue arrangements directly with the school or district."
       }
     ],
     "campus": {
@@ -2755,12 +2755,12 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "The district says athletic event tickets must be purchased online and enforces a clear-bag rule at its venues; check the official athletics page for any event-specific policies."
       },
       {
-        "question": "How current are the 2026 scores on this page?",
-        "answer": "The displayed win-loss record is limited to the latest named result date on the third-party source, not a continuously refreshed official season tally. Scores are shown only when verified in that cited snapshot. Confirm later games with the school."
+        "question": "What is the latest source-dated 2026 football result for the Bastrop Bears?",
+        "answer": "The Bastrop Bears's cited scoreboard describes a 1–4 through September 25, 2026 (older MaxPreps schedule snapshot) snapshot. Its last scored entry is L 3-40 against Brenham on September 25, 2026. This is a dated third-party result, not a claim that all subsequent games are final."
       },
       {
-        "question": "Where should I confirm varsity game times, venues and tickets?",
-        "answer": "Use the school or district's official athletics calendar linked above. Independent scorecards may lag or conflict with first-party event announcements, especially after a game date has passed."
+        "question": "Is the Bastrop Bears game against Crockett on October 9, 2026 already a certified final?",
+        "answer": "No final score for the Crockett matchup appears in the cited Bastrop Bears source snapshot; the entry is shown as a home fixture. Confirm any later score and current kickoff, admission and venue arrangements directly with the school or district."
       }
     ],
     "campus": {
@@ -2925,12 +2925,12 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "Memorial Stadium at 755 TX-21 W in Cedar Creek is an official shared home venue. The high-school campus is at 793 Union Chapel Road, a different location."
       },
       {
-        "question": "How current are the 2026 scores on this page?",
-        "answer": "The displayed win-loss record is limited to the latest named result date on the third-party source, not a continuously refreshed official season tally. Scores are shown only when verified in that cited snapshot. Confirm later games with the school."
+        "question": "What is the latest source-dated 2026 football result for the Cedar Creek Eagles?",
+        "answer": "The Cedar Creek Eagles's cited scoreboard describes a 2–5 through October 9, 2026 (MaxPreps) snapshot. Its last scored entry is L 14-52 against Manor on October 9, 2026. This is a dated third-party result, not a claim that all subsequent games are final."
       },
       {
-        "question": "Where should I confirm varsity game times, venues and tickets?",
-        "answer": "Use the school or district's official athletics calendar linked above. Independent scorecards may lag or conflict with first-party event announcements, especially after a game date has passed."
+        "question": "Is the Cedar Creek Eagles game against Lehman on October 23, 2026 already a certified final?",
+        "answer": "No final score for the Lehman matchup appears in the cited Cedar Creek Eagles source snapshot; the entry is shown as a home fixture. Confirm any later score and current kickoff, admission and venue arrangements directly with the school or district."
       }
     ],
     "campus": {
@@ -3456,12 +3456,12 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "No. The 1953 Class 2A final was under that era's UIL alignment; the 2026–28 roster independently lists Ballinger in Class 2A Division I, District 4."
       },
       {
-        "question": "Where can I verify the 2026 football scores and game dates?",
-        "answer": "Use the school's first-party athletics calendar for official arrangements and the date-stamped third-party scoreboard linked on this page for reported results. Entries without a confirmed score are fixtures only, not wins or losses."
+        "question": "What is the latest source-dated 2026 football result for the Ballinger Bearcats?",
+        "answer": "The Ballinger Bearcats's cited scoreboard describes a 5–1 through October 9, 2026 (MaxPreps) snapshot. Its last scored entry is W 40-37 against Forsan on October 9, 2026. This is a dated third-party result, not a claim that all subsequent games are final."
       },
       {
-        "question": "Does this team's 2026 record include every game played so far?",
-        "answer": "No claim of a live complete season record is made. The record is explicitly limited to the final dated result in the cited MaxPreps snapshot; later results should be independently rechecked."
+        "question": "Is the Ballinger Bearcats game against Colorado on October 16, 2026 already a certified final?",
+        "answer": "No final score for the Colorado matchup appears in the cited Ballinger Bearcats source snapshot; the entry is shown as a away fixture. Confirm any later score and current kickoff, admission and venue arrangements directly with the school or district."
       }
     ],
     "campus": {
@@ -3605,12 +3605,12 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "The publicly visible documents on the school's football page are labeled 2024. Use the district's newer updates or confirm with athletics for 2026 varsity fixtures."
       },
       {
-        "question": "Where can I verify the 2026 football scores and game dates?",
-        "answer": "Use the school's first-party athletics calendar for official arrangements and the date-stamped third-party scoreboard linked on this page for reported results. Entries without a confirmed score are fixtures only, not wins or losses."
+        "question": "What is the latest source-dated 2026 football result for the Balmorhea Bears?",
+        "answer": "The Balmorhea Bears's cited scoreboard describes a 6–0 through October 2, 2026 (MaxPreps) snapshot. Its last scored entry is W 52-16 against Buena Vista on October 2, 2026. This is a dated third-party result, not a claim that all subsequent games are final."
       },
       {
-        "question": "Does this team's 2026 record include every game played so far?",
-        "answer": "No claim of a live complete season record is made. The record is explicitly limited to the final dated result in the cited MaxPreps snapshot; later results should be independently rechecked."
+        "question": "Is the Balmorhea Bears game against Fort Davis on October 9, 2026 already a certified final?",
+        "answer": "No final score for the Fort Davis matchup appears in the cited Balmorhea Bears source snapshot; the entry is shown as a away fixture. Confirm any later score and current kickoff, admission and venue arrangements directly with the school or district."
       }
     ],
     "coach": {
@@ -3754,12 +3754,12 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "Bandera ISD operates a Bulldogs football athletics page with 2026 varsity and subvarsity schedules and staff information."
       },
       {
-        "question": "Where can I verify the 2026 football scores and game dates?",
-        "answer": "Use the school's first-party athletics calendar for official arrangements and the date-stamped third-party scoreboard linked on this page for reported results. Entries without a confirmed score are fixtures only, not wins or losses."
+        "question": "What is the latest source-dated 2026 football result for the Bandera Bulldogs?",
+        "answer": "The Bandera Bulldogs's cited scoreboard describes a 2–3 through September 25, 2026 (outdated MaxPreps snapshot) snapshot. Its last scored entry is L 20-34 against Llano on September 25, 2026. This is a dated third-party result, not a claim that all subsequent games are final."
       },
       {
-        "question": "Does this team's 2026 record include every game played so far?",
-        "answer": "No claim of a live complete season record is made. The record is explicitly limited to the final dated result in the cited MaxPreps snapshot; later results should be independently rechecked."
+        "question": "Is the Bandera Bulldogs game against Gonzales on October 9, 2026 already a certified final?",
+        "answer": "No final score for the Gonzales matchup appears in the cited Bandera Bulldogs source snapshot; the entry is shown as a away fixture. Confirm any later score and current kickoff, admission and venue arrangements directly with the school or district."
       }
     ],
     "campus": {
@@ -3908,12 +3908,12 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "Bangs ISD's athletics schedules directory links the 2026 Dragons varsity football schedule file. Recheck the school for later kickoff or venue changes."
       },
       {
-        "question": "Where can I verify the 2026 football scores and game dates?",
-        "answer": "Use the school's first-party athletics calendar for official arrangements and the date-stamped third-party scoreboard linked on this page for reported results. Entries without a confirmed score are fixtures only, not wins or losses."
+        "question": "What is the latest source-dated 2026 football result for the Bangs Dragons?",
+        "answer": "The Bangs Dragons's cited scoreboard describes a 3–3 through October 9, 2026 (MaxPreps) snapshot. Its last scored entry is L 0-51 against Mason on October 9, 2026. This is a dated third-party result, not a claim that all subsequent games are final."
       },
       {
-        "question": "Does this team's 2026 record include every game played so far?",
-        "answer": "No claim of a live complete season record is made. The record is explicitly limited to the final dated result in the cited MaxPreps snapshot; later results should be independently rechecked."
+        "question": "Is the Bangs Dragons game against Coleman on October 16, 2026 already a certified final?",
+        "answer": "No final score for the Coleman matchup appears in the cited Bangs Dragons source snapshot; the entry is shown as a home fixture. Confirm any later score and current kickoff, admission and venue arrangements directly with the school or district."
       }
     ],
     "campus": {
@@ -4057,12 +4057,12 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "No. Banquete ISD listed the October 23, 2026 Monte Alto homecoming game at Bulldog Stadium as a future fixture; check the district for current venue and ticket information."
       },
       {
-        "question": "How current are the 2026 scores on this page?",
-        "answer": "The displayed win-loss record is limited to the latest named result date on the third-party source, not a continuously refreshed official season tally. Scores are shown only when verified in that cited snapshot. Confirm later games with the school."
+        "question": "What is the latest source-dated 2026 football result for the Banquete Bulldogs?",
+        "answer": "The Banquete Bulldogs's cited scoreboard describes a 1–5 through October 9, 2026 (MaxPreps; six results verified) snapshot. Its last scored entry is L 20-22 against Premont on October 9, 2026. This is a dated third-party result, not a claim that all subsequent games are final."
       },
       {
-        "question": "Where should I confirm varsity game times, venues and tickets?",
-        "answer": "Use the school or district's official athletics calendar linked above. Independent scorecards may lag or conflict with first-party event announcements, especially after a game date has passed."
+        "question": "Is the Banquete Bulldogs game against Dilley on October 16, 2026 already a certified final?",
+        "answer": "No final score for the Dilley matchup appears in the cited Banquete Bulldogs source snapshot; the entry is shown as a away fixture. Confirm any later score and current kickoff, admission and venue arrangements directly with the school or district."
       }
     ],
     "campus": {

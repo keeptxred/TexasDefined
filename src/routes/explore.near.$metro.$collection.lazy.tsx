@@ -44,6 +44,11 @@ function bandLabel(band: "close-in" | "easy-day-trip" | "longer-day-trip", colle
   return "Longer day trip";
 }
 
+function countyNames(value: string) {
+  return value.replace(/\s+Count(?:y|ies)$/i, "").trim().split(/\s*(?:,|\/|&|\band\b)\s*/i)
+    .map((part) => part.replace(/\s+County$/i, "").trim()).filter(Boolean);
+}
+
 function countySlug(value: string) {
   return value.replace(/\s+County$/i, "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
@@ -454,14 +459,14 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
     .map((band) => ({ band, rows: results.filter((row) => row.distanceBand === band) }))
     .filter((group) => group.rows.length > 0);
   const mapMarkers = [
-    ...townReferences.map((row) => ({ id: `town-${row.town.slug}`, label: row.town.name, point: row.town.coordinates, href: `/county/${countySlug(row.town.county)}`, distanceMiles: row.distanceMiles })),
+    ...townReferences.map((row) => ({ id: `town-${row.town.slug}`, label: row.town.name, point: row.town.coordinates, href: countyNames(row.town.county).length === 1 ? `/county/${countySlug(row.town.county)}` : "/browse/counties", distanceMiles: row.distanceMiles })),
     ...results.map((row) => ({ id: row.destination.slug, label: row.destination.name, point: row.destination.coordinates, href: `/destination/${row.destination.slug}`, distanceMiles: row.distanceMiles })),
   ]
     .sort((left, right) => left.distanceMiles - right.distanceMiles)
     .map(({ distanceMiles: _distanceMiles, ...marker }) => marker);
   const counties = [...new Set([
-    ...townReferences.map((row) => row.town.county.replace(/\s+County$/i, "").trim()),
-    ...results.map((row) => row.destination.county?.replace(/\s+County$/i, "").trim()).filter((value): value is string => Boolean(value)),
+    ...townReferences.flatMap((row) => countyNames(row.town.county)),
+    ...results.flatMap((row) => countyNames(row.destination.county ?? "")),
   ])].slice(0, 12);
   const isAustinTwoHourGuide = metro.slug === "austin" && collection.slug === "small-towns-2-hours";
   const austinRows = isAustinTwoHourGuide
