@@ -8,6 +8,7 @@ import process from "node:process";
  */
 const read = (path) => fs.readFileSync(path, "utf8");
 const authority = read("src/data/state-park-authority.ts");
+const groundedDepth = read("src/data/state-park-source-grounded-depth.ts");
 const headquarters = read("src/data/state-park-verified-locations.ts");
 const newOpenings = read("src/data/newly-opened-state-parks-2026.ts");
 const historicCanonical = read("src/data/canonical-historic-state-parks.ts");
@@ -112,6 +113,10 @@ for (const marker of ["sourceCheckedAt: \"2026-10-12\"", "CC BY", "officialUrl: 
 
 // Exact 2026-10-12 TPWD official listing includes 90 distinct sites; duplicate
 // Cooper, Lake Somerville and Ray Roberts units share parent park entries.
+assertContains(curation, "applyStateParkSourceGroundedDepth,", "TPWD-checked park-specific depth must run after specialized authority curation");
+assertContains(groundedDepth, "VERIFIED_PARK_FACILITIES[destination.slug]", "The editorial depth supplement must be keyed to the specific park");
+assertContains(groundedDepth, "extended.join(\" \").length < 450", "Never bypass the actual substantive-length threshold");
+assertContains(groundedDepth, "return destination;", "Unresearched or already authoritative parks must remain unchanged");
 const officialEntries = sourceDirectory.entries;
 const entrySlugs = officialEntries.map((entry) => entry.tpwdSlug);
 const specialStatuses = ["developing", "closed-to-general-visits", "visitor-center", "historic-site", "lodge", "guided-only"];
