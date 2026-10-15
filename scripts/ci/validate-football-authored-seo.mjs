@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+const route = readFileSync('src/routes/texas-high-school-football-teams_.$slug.tsx','utf8');
+const editorial = readFileSync('src/data/high-school-football/program-editorial.ts','utf8');
+assert.ok(route.includes('title: editorial?.seo?.title ??'), 'Research-backed football SEO title must take precedence');
+assert.ok(!route.includes('slug === "ben-bolt-palito-blanco"'), 'Hardcoded school override hides the researched title');
+const begin=editorial.indexOf('  "ben-bolt-palito-blanco": {');
+const end=editorial.indexOf('\n  "',begin+4);
+const section=editorial.slice(begin,end<0?undefined:end);
+assert.ok(begin>=0&&section.includes('"title": "Ben Bolt–Palito Blanco Fighting Badgers Football | 2026 & Texas UIL History"'), 'Preserve the exact authored school SEO title');
+console.log('Authored high-school football SEO title precedence PASS');
