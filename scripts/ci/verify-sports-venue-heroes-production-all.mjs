@@ -1,3 +1,4 @@
+import { createLocalAuditFetch } from './local-audit-fetch.mjs';
 import fs from 'node:fs';
 
 const origin = new URL(process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com').origin;
@@ -88,6 +89,7 @@ if (contractOnly) {
   process.exit(0);
 }
 
+const localAuditFetch = createLocalAuditFetch({ localOrigin: process.env.LOCAL_AUDIT_ORIGIN });
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const decodeHtmlText = (value) => value
   .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCodePoint(Number.parseInt(hex, 16)))
@@ -103,7 +105,7 @@ function appendSummary(text) {
 }
 
 async function fetchWithTimeout(url, init = {}) {
-  return fetch(url, {
+  return localAuditFetch(url, {
     ...init,
     cache: 'no-store',
     signal: AbortSignal.timeout(30_000),
@@ -257,6 +259,9 @@ async function worker() {
 
 await Promise.all(Array.from({ length: workerCount }, () => worker()));
 
+localAuditFetch.assertComplete();
+fs.mkdirSync('.artifacts', { recursive: true });
+fs.writeFileSync(process.env.SPORTS_VENUE_AUDIT_REPORT || '.artifacts/sports-venue-heroes.json', JSON.stringify({ checkedAt: new Date().toISOString(), origin, governedVenues: governed.size, results, failures }, null, 2));
 appendSummary('\n## Exhaustive sports venue hero production audit\n\n');
 appendSummary(`Governed venues: ${governed.size}. Approved heroes: ${effective.size}. Intentional fallbacks: ${missingSlugs.length}.\n\n`);
 appendSummary('| Result | Venue | Page | Hero endpoint | State |\n|---|---|---:|---:|---|\n');

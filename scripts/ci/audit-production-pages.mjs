@@ -1,3 +1,5 @@
+import { createLocalAuditFetch } from './local-audit-fetch.mjs';
+const localAuditFetch = createLocalAuditFetch({ localOrigin: process.env.LOCAL_AUDIT_ORIGIN });
 import fs from 'node:fs/promises';
 import { auditAuthorityEvidence } from './authority-evidence.mjs';
 import { enrichAuthorityLinkGraph } from './authority-link-graph.mjs';
@@ -50,6 +52,7 @@ function severeTitleH1Conflict(title,h1) {
 async function fetchText(url, attempts=3) {
  return fetchTextWithRetry(url, {
   attempts,
+  fetchImpl: localAuditFetch,
   timeoutMs: TIMEOUT_MS,
   backoffMs: 400,
   headers: { 'user-agent': USER_AGENT, accept: 'text/html,application/xml;q=0.9,*/*;q=0.8' },
@@ -140,7 +143,8 @@ const linkGraph = enrichAuthorityLinkGraph(results);
 const failures=results.filter(r=>r.issues.length),warningPages=results.filter(r=>r.warnings?.length),byCode={},warningsByCode={};for(const result of failures)for(const issue of result.issues)byCode[issue.code]=(byCode[issue.code]||0)+1;for(const result of warningPages)for(const warning of result.warnings)warningsByCode[warning.code]=(warningsByCode[warning.code]||0)+1;
 const authorityByFamily={};const authorityFlags={};
 for(const result of results){if(!result.authority)continue;const a=result.authority;const group=authorityByFamily[a.family]??={pages:0,withReviewFlags:0,missingPrimarySourceCandidates:0};group.pages++;if(a.reviewFlags.length)group.withReviewFlags++;if(a.reviewFlags.includes('no-identifiable-primary-source-host'))group.missingPrimarySourceCandidates++;for(const flag of a.reviewFlags)authorityFlags[flag]=(authorityFlags[flag]??0)+1;}
-await fs.writeFile(OUT_JSON,JSON.stringify({auditedAt:new Date().toISOString(),origin:ORIGIN,sitemaps,sitemapFailures,totals:{pages:results.length,failingPages:failures.length,passingPages:results.length-failures.length,warningPages:warningPages.length},byCode,warningsByCode,authorityByFamily,authorityFlags,linkGraph,authorityCertification:'NOT VERIFIED BY AUTOMATED AUDIT',snippetClassifications,searchPerformanceMeasurement:'NOT AVAILABLE FROM PUBLIC HTML',results},null,2)+'\n');
+localAuditFetch.assertComplete();
+await fs.writeFile(OUT_JSON,JSON.stringify({auditRuntime:'local-built-worker',sourceSha:process.env.GITHUB_SHA || null,auditedAt:new Date().toISOString(),origin:ORIGIN,sitemaps,sitemapFailures,totals:{pages:results.length,failingPages:failures.length,passingPages:results.length-failures.length,warningPages:warningPages.length},byCode,warningsByCode,authorityByFamily,authorityFlags,linkGraph,authorityCertification:'NOT VERIFIED BY AUTOMATED AUDIT',snippetClassifications,searchPerformanceMeasurement:'NOT AVAILABLE FROM PUBLIC HTML',results},null,2)+'\n');
 const rows=[['url','status','words','h1s','title','description','h1','canonical','issues','warnings'],...results.map(r=>[r.url,String(r.status),String(r.words),String(r.h1s),r.title,r.description,r.h1,r.canonical,r.issues.map(i=>i.code+(i.detail?':'+i.detail:'')).join(' | '),(r.warnings||[]).map(i=>i.code+(i.detail?':'+i.detail:'')).join(' | ')])];
 await fs.writeFile(OUT_TSV,rows.map(row=>row.map(v=>String(v??'').replace(/[\t\r\n]+/g,' ')).join('\t')).join('\n')+'\n');
 const snippetRows=[['url','primary_classification','evidence','classification_basis','html_verified','indexable_candidate','family','title','description','h1','canonical','technical_issues','warnings','gsc_measurement'],...results.map(r=>[r.url,r.snippet.classification,r.snippet.evidence.join(','),r.snippet.basis,String(r.snippet.htmlVerified),String(r.snippet.eligibleIndexableCandidate),r.authority?.family||'',r.title,r.description,r.h1,r.canonical,r.issues.map(i=>i.code).join(','),r.warnings.map(i=>i.code).join(','),'unavailable'])];

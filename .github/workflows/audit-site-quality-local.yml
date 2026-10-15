@@ -1,14 +1,12 @@
 name: Full site quality audit on local Worker
 
 on:
-  schedule:
-    - cron: '41 10 * * 2'
   workflow_dispatch:
     inputs:
       audit:
         description: Complete audit to run on the local built Worker
         type: choice
-        options: [all, links, sitemap, images]
+        options: [all, links, sitemap, images, venues, counties, rv, lakes, whole, football]
         default: all
   workflow_call:
     inputs:
@@ -27,6 +25,8 @@ jobs:
   audit:
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    env:
+      LOCAL_AUDIT_REPORT_DIR: /tmp/local-quality-reports-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v4
@@ -66,11 +66,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: local-site-quality-audit-${{ inputs.audit || 'all' }}
-          path: |
-            .artifacts/local-quality-*
-            internal-link-graph-audit.json
-            internal-link-graph-audit.md
-            tmp/sitemap-page-indexability-audit.json
-            image-discover-production-report.json
+          path: ${{ env.LOCAL_AUDIT_REPORT_DIR }}
           if-no-files-found: error
           retention-days: 14

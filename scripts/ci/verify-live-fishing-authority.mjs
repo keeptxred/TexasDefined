@@ -1,3 +1,5 @@
+import { createLocalAuditFetch } from './local-audit-fetch.mjs';
+const localAuditFetch = createLocalAuditFetch({ localOrigin: process.env.LOCAL_AUDIT_ORIGIN });
 /**
  * Verify the published TexasDefined lake authority network after deployment.
  * Do not substitute these HTTP assertions for manual editorial, WCAG, source or
@@ -42,7 +44,7 @@ const worker=async()=>{
     const check=checks[i];
     const url=origin+check.path;
     try {
-      const response=await fetch(url,{
+      const response=await localAuditFetch(url,{
         redirect:"follow",
         headers:{"user-agent":"TexasDefined-Lake-Authority-Production-Acceptance/1.0","cache-control":"no-cache"},
         signal:AbortSignal.timeout(12000),
@@ -64,6 +66,7 @@ const worker=async()=>{
   }
 };
 await Promise.all(Array.from({length:concurrency},worker));
+localAuditFetch.assertComplete();
 const summary={
   checkedAt:new Date().toISOString(),origin,
   level:"automated published HTML/routes only — NOT full authority or original field-photo certification",
@@ -74,6 +77,6 @@ const summary={
     "Compare each page against official managing agency before claiming superior authority"],
 };
 fs.mkdirSync(".artifacts",{recursive:true});
-fs.writeFileSync(".artifacts/lake-authority-production-acceptance.json",JSON.stringify({summary,failures,successes},null,2)+"\n");
+fs.writeFileSync(process.env.LAKE_ACCEPTANCE_REPORT || ".artifacts/lake-authority-production-acceptance.json",JSON.stringify({summary,failures,successes},null,2)+"\n");
 console.log(JSON.stringify({summary,failedSamples:failures.slice(0,30)},null,2));
 if(failures.length)process.exitCode=1;

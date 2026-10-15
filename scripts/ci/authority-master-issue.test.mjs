@@ -16,5 +16,5 @@ test("a previously closed authority ledger is reopened, not duplicated", () => {
   assert.match(workflow, /existing\.state === 'closed'/);
   assert.match(workflow, /state:'open',state_reason:'reopened'/);
   assert.match(workflow, /existing\.title !== title/);
-  assert.match(workflow, /Do \\*\\*not\\*\\* close this issue/);
+  assert.ok(workflow.includes('Do **not** close this issue'));
 });

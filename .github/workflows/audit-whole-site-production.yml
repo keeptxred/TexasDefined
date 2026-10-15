@@ -10,42 +10,26 @@ permissions:
   issues: write
 
 concurrency:
-  # This is intentionally a production-only crawl. Running it on pull requests
-  # audited the already-deployed site rather than the branch and multiplied live
-  # SSR/Supabase traffic during busy merge windows.
-  group: whole-site-production-audit
+  group: weekly-local-quality-coordinator
   cancel-in-progress: true
 
 jobs:
   audit-production:
-    name: Crawl every sitemap-listed production page
+    name: Full checks on one local built Worker
+    uses: ./.github/workflows/audit-site-quality-local.yml
+    with:
+      audit: all
+
+  preserve-authority-ledger:
+    needs: audit-production
+    if: always()
     runs-on: ubuntu-latest
-    timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
+      - name: Download local audit evidence
+        uses: actions/download-artifact@v4
         with:
-          node-version: '22'
-          cache: npm
-      - run: npm ci
-      - name: Test HTML decoding and bounded live-audit fetch recovery
-        run: node --test scripts/ci/html-entities.test.mjs scripts/ci/audit-fetch.test.mjs scripts/ci/expired-event-snippet.test.mjs scripts/ci/snippet-classification.test.mjs
-      - name: Audit every production URL
-        id: audit
-        continue-on-error: true
-        run: npm run production:pages:audit
-      - name: Upload complete page-quality report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: texasdefined-whole-site-page-audit
-          path: |
-            /tmp/texasdefined-page-audit.json
-            /tmp/texasdefined-page-audit.tsv
-            /tmp/texasdefined-authority-review.tsv
-            /tmp/texasdefined-contextual-link-graph.tsv
-            /tmp/texasdefined-snippet-classification.tsv
-          if-no-files-found: warn
+          name: local-site-quality-audit-all
+          path: /tmp
       - name: Preserve the ongoing existing-page authority remediation issue
         if: always()
         uses: actions/github-script@v7
@@ -76,12 +60,13 @@ jobs:
               .sort((a,b)=>(a.authority?.priority ?? 9)-(b.authority?.priority ?? 9)||b.issues.length-a.issues.length)
               .slice(0,40).map(r => `- ${r.url}: technical [${r.issues.map(x=>x.code).join(', ')||'none'}], editorial review [${r.authority?.reviewFlags?.join(', ')||'none'}]`);
             const body = [
-              '# Live TexasDefined authority retrofit queue',
+              '# TexasDefined local-build authority retrofit queue',
               '',
               'This is a review queue, **not** a declaration that each page is wrong. Evidence signals are only prompts for individually verified research; a green crawl cannot certify historical, fishing, venue, municipal or other factual claims.',
               'No page is accepted as ultimate authority until relevant factual sources, content, cross-links, images, accessibility and live Google-search eligibility are independently evidenced.',
               '',
-              `Production audit: ${run}`,
+              `Local built-Worker audit: ${run}`,
+              `Checked-out revision: ${data?.sourceSha ?? 'not recorded'}`,
               `Audited: ${data?.auditedAt ?? 'audit did not produce a report'}`,
               `Sitemap URLs audited: ${totals.pages}`,
               `Technical fail pages: ${totals.failingPages}`,
@@ -131,5 +116,5 @@ jobs:
               ...(existing.state === 'closed' ? {state:'open',state_reason:'reopened'} : {}),
             });
       - name: Keep production technical audit fail-closed
-        if: steps.audit.outcome == 'failure'
+        if: needs.audit-production.result != 'success'
         run: exit 1
