@@ -38,7 +38,16 @@ function relevantEditorial(text) {
 export function shouldRunB004(paths,before,after) {
   const modified=new Set(paths.filter(Boolean));
   if(!modified.size)return false;
-  for(const p of modified) if(p!==REGISTRY&&p!==EDITORIAL)return true;
+  for(const p of modified){
+    if(p===REGISTRY||p===EDITORIAL||p==='docs/football-authority/PROGRESS.md')continue;
+    if(p.startsWith('docs/football-authority/schools/')&&p.endsWith('.md')){
+      const slug=p.slice('docs/football-authority/schools/'.length,-3);
+      if(/^[a-z0-9-]+$/.test(slug)&&!B004.has(slug))continue;
+    }
+    // Shared templates, evidence scripts, Batch004 dossiers, unexpected paths,
+    // and changes to the workflow itself always require the full audit.
+    return true;
+  }
   if(modified.has(REGISTRY)&&relevantRegistry(before[REGISTRY])!==relevantRegistry(after[REGISTRY]))return true;
   if(modified.has(EDITORIAL)&&relevantEditorial(before[EDITORIAL])!==relevantEditorial(after[EDITORIAL]))return true;
   return false;
