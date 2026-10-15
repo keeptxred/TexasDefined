@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import { isCurrentTexasDefinedAutoNewsSource } from './texasdefined-queue-freshness.mjs';
+
 const SUPABASE_URL = String(process.env.KEEP_TX_RED_SUPABASE_URL || '').replace(/\/$/, '');
 const SUPABASE_KEY = process.env.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY || '';
 const CF_ACCOUNT = process.env.CLOUDFLARE_ACCOUNT_ID || '';
@@ -112,6 +114,9 @@ function automationQueueKey(item) {
 }
 
 function isAutomationSafeQueueItem(item) {
+  // Do not turn dated sports scores, old event announcements, or stale RSS
+  // backlogs into newly published /news articles after the event has passed.
+  if (!isCurrentTexasDefinedAutoNewsSource(item?.pub_date)) return false;
   const signals = item?.viral_signals && typeof item.viral_signals === 'object' && !Array.isArray(item.viral_signals)
     ? item.viral_signals
     : {};
