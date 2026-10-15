@@ -25,8 +25,9 @@ const dynamicRoutes = [
 
 for (const [label, path, routeId] of dynamicRoutes) {
   const source = read(path);
-  if (!source.includes(`createFileRoute('${routeId}')`) && !source.includes(`createFileRoute(\"${routeId}\")`)) {
-    failures.push(`${label} dynamic route must retain canonical route id ${routeId}`);
+  const generatedId = source.match(/createFileRoute\(\s*['"]([^'"]+)['"]\s*\)/)?.[1];
+  if (generatedId?.replace(/_(?=\/)/g, '') !== routeId) {
+    failures.push(`${label} dynamic route must retain canonical public path ${routeId}`);
   }
   if (!source.includes('notFound()')) failures.push(`${label} dynamic route must fail closed for unknown slugs with notFound().`);
   if (!source.includes('loaderData') || !source.includes('.head')) failures.push(`${label} dynamic route must return loader-provided SEO head metadata.`);

@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
 import type { Product, ProductVariant } from "@/data/types";
+import { merchantOfferDescription } from "@/lib/merchant-offer-description";
 import { additionalMerchantImages } from "@/lib/merchant-offer-images";
 import { merchantImageUrl } from "@/lib/merchant-image-url";
 import { STANDARD_SHIPPING_PRICE_USD, FREE_SHIPPING_THRESHOLD_USD } from "@/lib/shop-shipping";
@@ -134,7 +135,7 @@ function merchantItems(product: Product): MerchantItem[] {
       mpn: id,
       itemGroupId: product.id,
       title: limitText(plainText(optionSuffix ? `${product.name} - ${optionSuffix}` : product.name), TITLE_LIMIT),
-      description,
+      description: merchantOfferDescription(description, finalColor, size),
       link,
       canonicalLink,
       imageLink,

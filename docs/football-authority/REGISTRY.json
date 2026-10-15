@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "big-sandy-harmony",
-    "nextSchool": "big-sandy-harmony",
+    "currentSchool": "big-spring",
+    "nextSchool": "big-spring",
     "implementedOnBranch": 1,
     "remainingToImplement": 24,
     "remainingToVerify": 25,
-    "notes": "Batch005 formally archived, 25/25 exact-SHA Chrome production accepted (1,233 checks). 1 of 25 Batch006 profiles individually researched on branch; zero Batch006 merged or production-verified. Big Sandy Harmony is Harmony ISD (Upshur County) and must not be confused with Big Sandy ISD at Dallardsville or Big Sandy Wildcats. Reserve remaining 24 for individual research only. Reconciled October 15; production/manual QA and separate editorial acceptance still outstanding."
+    "notes": "Batch005 has 25/25 technically Chrome VERIFIED (1,233 checks), but only Benjamin editorially accepted. Harmony Batch006 PR #4878 merged at d3ba7ff9 and is included in successful Worker release 4fedab37 (run #38792778982); its separate live Chrome QA, sourcing and editorial acceptance remain pending. Zero of Batch006 25 are formally production-VERIFIED; 24 additional profiles are not yet researched. Keep Big Sandy identity distinctions; no unlicensed or fabricated photo claims."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6504,7 +6504,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/big-sandy-harmony",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 6,
       "auditCompletedAt": "2026-10-14",
       "researchCompletedAt": "2026-10-14",
@@ -6515,7 +6515,12 @@
       "officialSchoolUrl": "https://www.harmonyisd.net/",
       "officialAthleticsUrl": "https://www.harmonyisd.net/o/ha/page/harmony-football",
       "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482256002294",
-      "county": "Upshur County"
+      "county": "Upshur County",
+      "mergePr": 4878,
+      "mergedAt": "2026-10-15T18:50:13Z",
+      "mergeCommit": "d3ba7ff9c4332757a9ad6701ac5d53707713474a",
+      "deploymentRun": "https://github.com/keeptxred/TexasDefined/actions/runs/38792778982",
+      "deployedWithSha": "4fedab37c37d9fd8f4e72caeaf300e06e6e22c1b"
     },
     {
       "id": "uil:big-spring",

@@ -2,6 +2,14 @@
 
 > Current evidence ledger. Status vocabulary: **COMPLETE**, **COMPLETE — awaiting measurement**, **BLOCKED — external dependency**, **INCOMPLETE**. A merged PR is not proof of successful production verification. Other chats advance `main` concurrently; all SHAs below are **time-stamped snapshots**, not deployment locks.
 
+## October 15, 2026 — verified release and bounded smoke coverage correction
+
+- Production deployment [38790899754](https://github.com/keeptxred/TexasDefined/actions/runs/38790899754) completed successfully for exact commit 06d83f008a142b41977f9286b2fb4cf0e85bd335. PR [#4960](https://github.com/keeptxred/TexasDefined/pull/4960) introduced two topical inbound links: Texas regions → Gulf Coast erosion, and cultural regions → Texas oil boom. The changed-page artifact showed 11 passing representative pages but neither of the two changed article owners. Therefore the successful deployment proves general runtime health, **not** yet the actual placement of those two links on live SSR pages. This PR repairs that precise gap with change-scoped link assertions.
+- [PR #4961](https://github.com/keeptxred/TexasDefined/pull/4961) merged as 4fedab37c37d9fd8f4e72caeaf300e06e6e22c1b after protected checks; it retains strict link-audit failure enforcement but separates real HTTP errors from status-zero transport errors, recording the underlying transport exception. Exact deployment is still a separate gate. The last 4,279-URL graph counted 2 real 404s and 35 status-zero football ISD transport errors before fixes; never state 37 live 404s or claim new post-fix totals without a comparable new artifact.
+- Current source-level fishing image validation covers 72 complete lake guides. Aquilla Lake has an exact-location USACE public-domain photo, and Lake Cypress Springs has a rights-governed labeled historical photograph in addition to maps. Their current live visual acceptance remains unverified.
+- Search Console remains blocked: the connected first-party property list returned no accessible TexasDefined properties on October 15. Current CTR, impressions, queries and position cannot be inferred from GA4, historic data or placeholder zeros. Four museum exact-site photo rights gaps and original larger Del Rio/experimental-forest photography remain unresolved. No rights-unknown fallback is authorized.
+- Comprehensive page-level snippet classification and the post-fix comparable strict internal-link graph still require one meaningful local audit milestone; per-deploy scans remain bounded.
+
 ## October 15 production checkpoint — latest independently verified evidence
 
 **Snapshot recorded after main** `d5af5168ea8f2fa728056fac040dcd7b66654b8e`. This checkpoint supersedes older merge/deploy/status claims below **only where explicitly stated**; it is not a complete sitewide CTR certification.
