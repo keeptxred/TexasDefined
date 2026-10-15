@@ -409,6 +409,178 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
+  "bishop": {
+    "slug": "bishop",
+    "theme": {
+      "accentHex": "#C39C3B",
+      "label": "Independently authored gold accent; no school seal or logo reproduced"
+    },
+    "seo": {
+      "title": "Bishop Badgers Football 2026 | UIL District, 2024 Comeback & Scores",
+      "description": "Bishop Badgers 2026 football in Nueces County: UIL Class 3A Division I District 16, 2–5 through October 9, 2024 comeback and visitor guidance."
+    },
+    "campus": {
+      "address": "100 Badger Lane, Bishop, TX 78343",
+      "phone": "361-584-2547",
+      "sourceUrl": "https://bhs.bishopcisd.net/bhs-calendar-events",
+      "sourceLabel": "Bishop High School official page footer, not a confirmed stadium entrance",
+      "verifiedAt": "2026-10-15"
+    },
+    "schedule": {
+      "label": "Official Bishop CISD high-school football schedules",
+      "sourceUrl": "https://www.bishopcisd.net/athletics/schedules",
+      "sourceLabel": "Bishop CISD athletics schedule index; verify kickoff and field for each game",
+      "verifiedAt": "2026-10-15"
+    },
+    "notice": {
+      "title": "Confirm venue and head coach directly with Bishop CISD",
+      "body": "Current independent records conflict: Dave Campbell's Texas Football calls Bishop's venue Ed Gorny Stadium, while KRIS 6 reported home games at George Luna Stadium in 2024; MaxPreps staff and historical pages disagree about the 2026 head coach. No specific stadium gate, parking, ADA seating, ticket price or coach is asserted here. The school lists 100 Badger Lane, while district athletics lists 719 East Sixth Street. Contact district athletics at 361-584-3591, extension 319.",
+      "sourceUrl": "https://www.bishopcisd.net/athletics/athletic-department",
+      "sourceLabel": "Bishop CISD official athletic department contact and 719 E Sixth St address",
+      "verifiedAt": "2026-10-15"
+    },
+    "season": {
+      "record": "2–5 through October 9, 2026 (MaxPreps updated October 13; season ongoing)",
+      "verifiedAt": "2026-10-15",
+      "sourceUrl": "https://www.maxpreps.com/tx/bishop/bishop-badgers/football/schedule/",
+      "sourceLabel": "Bishop 2026 varsity scores through October 9, 2026 (MaxPreps Oct 13 update)",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Robstown",
+          "site": "Home",
+          "result": "W 21–15"
+        },
+        {
+          "date": "2026-09-03",
+          "opponent": "Corpus Christi West Oso",
+          "site": "Away",
+          "result": "W 26–20"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Corpus Christi King",
+          "site": "Away",
+          "result": "L 49–60"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Kenedy",
+          "site": "Away",
+          "result": "L 27–43"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Raymondville",
+          "site": "Away",
+          "district": true,
+          "result": "L 28–61"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Lyford",
+          "site": "Home",
+          "district": true,
+          "result": "L 28–41"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Rio Hondo",
+          "site": "Away",
+          "district": true,
+          "result": "L 25–63"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Santa Gertrudis Academy",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Progreso",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "San Diego",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "development": {
+      "title": "The Badgers' 2024 district turnaround",
+      "body": "KRIS 6 News documented Bishop's 40–22 senior-night win over Falfurrias and a 6–4 overall, 6–1 district regular-season finish after a prior 2–8 season. That notable rebound occurred in 2024, not 2026; it is not proof of a state championship or a current stadium name.",
+      "sourceUrl": "https://www.kristv.com/sports/friday-night-fever/bishop-caps-turn-around-season-with-game-night-south-texas-win-over-falfurrias",
+      "sourceLabel": "KRIS 6 News first-hand game and 2024 regular-season reporting",
+      "verifiedAt": "2026-10-15"
+    },
+    "milestones": [
+      {
+        "date": "2024",
+        "title": "6–1 district finish in regular-season rebound",
+        "body": "Bishop beat Falfurrias 40–22 to finish the 2024 regular season 6–4, 6–1 in district, following an earlier 2–8 year.",
+        "sourceUrl": "https://www.kristv.com/sports/friday-night-fever/bishop-caps-turn-around-season-with-game-night-south-texas-win-over-falfurrias",
+        "sourceLabel": "KRIS 6 reporting"
+      },
+      {
+        "date": "2025",
+        "title": "Five-win season and playoff appearance",
+        "body": "The MaxPreps 2025 archive records a 5–6 Bishop campaign ending in a first-round loss to Goliad.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bishop/bishop-badgers/football/25-26/schedule/",
+        "sourceLabel": "Dated MaxPreps Bishop 2025 archive"
+      },
+      {
+        "date": "2026",
+        "title": "UIL Class 3A Division I, District 16",
+        "body": "The 2026–28 UIL football alignment includes Bishop and six Rio Grande Valley/Coastal Bend district peers.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 district 16"
+      },
+      {
+        "date": "2026-10-09",
+        "title": "Away defeat at Rio Hondo",
+        "body": "MaxPreps documents Rio Hondo 63, Bishop 25 on October 9, leaving Bishop 2–5 through seven completed games; later dates remain fixtures.",
+        "sourceUrl": "https://www.maxpreps.com/tx/football/game/bishop-vs-rio-hondo/10-9-2026/?c=8bcb15e2-2aa6-41c4-bce8-2ea706352a25",
+        "sourceLabel": "MaxPreps dated Bishop–Rio Hondo box score"
+      }
+    ],
+    "overview": [
+      "The Bishop Badgers represent Bishop Consolidated Independent School District in Bishop, Nueces County, Texas; they are not Badger High School in Wisconsin. The UIL 2026–28 alignment places Bishop in Class 3A Division I District 16 alongside Lyford, Progreso, Raymondville, Rio Hondo, San Diego and Santa Gertrudis Academy. A prior year's conference or district is not an appropriate substitute.",
+      "A documented revival distinguishes the program: KRIS 6 News reported that Bishop ended its 2024 regular season with a 40–22 defeat of Falfurrias, finishing 6–4 overall and 6–1 in district after a prior 2–8 campaign. The MaxPreps 2025 archive separately gives Bishop 5–6 with an opening playoff defeat to Goliad. These are dated historical performances, not projected current results.",
+      "The October 13 update of MaxPreps' 2026 varsity schedule shows Bishop 2–5 through October 9. The two early wins were over Robstown and Corpus Christi West Oso; subsequent opponents included Rio Hondo, which won 63–25. The October 23 Santa Gertrudis Academy, October 30 Progreso and November 6 San Diego games were scheduled and unplayed as of this October 15 checkpoint. This table is not a final season summary.",
+      "For game-day planning, the official Bishop High School footer lists 100 Badger Lane, while the district athletics office lists 719 East Sixth Street; those cannot automatically be treated as football-gate directions. Independent reporting also uses conflicting stadium labels: KRIS in 2024 wrote George Luna Stadium, and Dave Campbell's current team listing uses Ed Gorny Stadium. Exact present-day stadium name, gate, ticket policies, parking and accessible seating were not independently verified. Fans should confirm the event details through Bishop CISD athletics.",
+      "Do not infer a head-coaching appointment from inconsistent third-party indexes. The 2026 MaxPreps football staff table names Keith Talbert, while its season-history index shows David McHugh for the same year; the school lists Mike Davila as athletic director, which is not interchangeable with head coach. Without dated district corroboration, this independent guide deliberately avoids naming a current head coach."
+    ],
+    "faq": [
+      {
+        "question": "Is this the Bishop Badgers in Nueces County?",
+        "answer": "Yes. These Badgers represent Bishop Consolidated ISD in Bishop, Texas. They are not Wisconsin's Badger High School or a college team."
+      },
+      {
+        "question": "What is Bishop's official football district for 2026?",
+        "answer": "UIL's 2026–28 alignment puts Bishop in eleven-man Class 3A Division I, District 16 with Lyford, Progreso, Raymondville, Rio Hondo, San Diego and Santa Gertrudis Academy."
+      },
+      {
+        "question": "What is Bishop's 2026 record through the October 9 game?",
+        "answer": "The MaxPreps schedule last updated October 13 lists the Badgers 2–5 after a 63–25 road loss to Rio Hondo on October 9. It is a snapshot; remaining dates are scheduled games."
+      },
+      {
+        "question": "What happened in Bishop's 2024 comeback?",
+        "answer": "KRIS 6 News reported Bishop's 40–22 senior-night win over Falfurrias and a 6–4 overall, 6–1 district regular season following a 2–8 year. This did not establish a state championship."
+      },
+      {
+        "question": "Where is Bishop's football stadium?",
+        "answer": "Independent sources currently disagree on the stadium name (Ed Gorny versus George Luna), and the school and athletic office publish different contact addresses. We have not verified the current football-gate address, ADA access or parking. Confirm details through Bishop CISD athletics at 361-584-3591."
+      },
+      {
+        "question": "Who is Bishop's head football coach in 2026?",
+        "answer": "Conflicting MaxPreps staff and season-index entries prevent a reliable independent attribution. The district publicly lists Mike Davila as athletic director, not necessarily head coach. Check official Bishop CISD announcements for the current football coach."
+      }
+    ]
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {
