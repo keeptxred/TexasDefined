@@ -1,3 +1,12 @@
+test('redirect-only states retain one canonical article URL, not a duplicate comparison URL', () => {
+  for (const state of ['California', 'Florida']) {
+    assert.equal(texasVsCanonicalPath(state), '/article/texas-vs-' + state.toLowerCase() + '-differences');
+  }
+  for (const state of TEXAS_VS_STATES.filter(state => state !== 'California' && state !== 'Florida')) {
+    assert.ok(texasVsCanonicalPath(state).startsWith('/texas-vs/'), state);
+  }
+});
+
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { TEXAS_VS_STATE_GROUPS, TEXAS_VS_STATES, texasVsRelatedStates, texasVsCanonicalPath } from '../../src/data/texas-vs-states-index.ts';
