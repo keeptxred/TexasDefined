@@ -239,6 +239,11 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
   "texas-cultural-regions-explained": [
     texasExplainedLink,
     {
+      href: "/article/texas-oil-boom-wichita-falls-west-texas-rigs",
+      label: "How oil booms reshaped Texas regions",
+      description: "Explore how oil development changed the economies, settlement patterns and identities of North and West Texas.",
+    },
+    {
       href: "/article/texas-regions-explained",
       label: "Start with the physical regions of Texas",
       description: "Put settlement and migration onto the underlying map of forests, prairies, coast, limestone country, plains and desert.",
@@ -307,6 +312,11 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
   ],
   "texas-regions-explained": [
     texasExplainedLink,
+    {
+      href: "/article/texas-gulf-coast-erosion-shoreline-retreat-guide",
+      label: "Why the Texas Gulf coastline keeps changing",
+      description: "Connect the coastal region's barrier islands, bays and shifting shoreline with the forces behind Gulf Coast erosion and retreat.",
+    },
     {
       href: "/article/texas-trees-guide",
       label: "Read Texas by its trees",

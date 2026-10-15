@@ -106,6 +106,7 @@ const clusterExpectations = {
   ],
   'texas-cultural-regions-explained': [
     '/article/texas-regions-explained',
+    '/article/texas-oil-boom-wichita-falls-west-texas-rigs',
     '/article/texas-towns-german-czech-mexican-roots',
     '/article/texas-home-architecture-regions',
   ],
@@ -252,6 +253,9 @@ for (const slug of supportRing) {
   }
   if (!block.includes('texasExplainedLink')) errors.push(`Texas Explained support page must link back to the collection: ${slug}.`);
   if (!route.includes(`/article/${slug}`)) errors.push(`Texas Explained hub must link outward to support page: ${slug}.`);
+  if (slug === 'texas-regions-explained' && !block.includes('href: "/article/texas-gulf-coast-erosion-shoreline-retreat-guide"')) {
+    errors.push('Texas regions guide must retain its contextual Gulf Coast erosion authority link.');
+  }
 }
 
 for (const slug of childSupportRing) {
