@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "blanco",
-    "nextSchool": "blanco",
-    "implementedOnBranch": 4,
-    "remainingToImplement": 21,
+    "currentSchool": "blanket",
+    "nextSchool": "blanket",
+    "implementedOnBranch": 5,
+    "remainingToImplement": 20,
     "remainingToVerify": 25,
-    "notes": "Harmony DEPLOYED, Big Spring IMPLEMENTED and merged, Bishop and Blackwell IMPLEMENTED on dependent unmerged branches, none of Batch006 accepted/Chrome VERIFIED. 105 prior verified records unchanged; 24 Batch005 formal editorial acceptances pending."
+    "notes": "Harmony deployed but not Chrome/editorially verified; Big Spring merged/deployed but QA pending; Bishop, Blackwell, Blanco each implemented on dependent unmerged PRs. 105 previous VERIFIED intact; Batch005 only Benjamin formally accepted."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6588,8 +6588,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/blanco",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/blanco.md",
+      "implementedOnBranch": "feature/football-b006-blanco-20261015",
+      "actualProductionVerified": false,
+      "reviewScope": "Source-backed 2000 UIL state runner-up and 2001 UIL state championship, current Class3A DII District15, dated Oct9 4–3 and first-party Panther Stadium/tickets; not merged/deployed/Chrome-verified/accepted or independently image licensed."
     },
     {
       "id": "uil:blanket",

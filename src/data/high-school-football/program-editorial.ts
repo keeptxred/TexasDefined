@@ -751,6 +751,185 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
+  "blanco": {
+    "slug": "blanco",
+    "theme": {
+      "accentHex": "#1C6446",
+      "label": "Independent TexasDefined Panther-green-inspired accent; no official school logo or intellectual-property claim"
+    },
+    "seo": {
+      "title": "Blanco Panthers Football 2026 | 2001 State Champions, Stadium & Results",
+      "description": "Blanco Panthers football in Blanco County: 2001 UIL 2A Division I title, 2026 District 15, 4–3 through October 9 and official Panther Stadium directions."
+    },
+    "campus": {
+      "address": "814 11th Street, Blanco, TX 78606",
+      "sourceUrl": "https://www.maxpreps.com/tx/blanco/blanco-panthers/football/schedule/",
+      "sourceLabel": "MaxPreps Blanco High School directory address. This is NOT the district-confirmed Panther Stadium address.",
+      "verifiedAt": "2026-10-15"
+    },
+    "schedule": {
+      "label": "Blanco ISD official fall athletics schedules and online ticketing",
+      "sourceUrl": "https://www.blancoisd.org/athletics",
+      "sourceLabel": "Blanco ISD athletics page with official schedule and Home Town Ticketing links",
+      "verifiedAt": "2026-10-15"
+    },
+    "venue": {
+      "name": "Panther Stadium",
+      "address": "604 Terri Lane, Blanco, TX 78606",
+      "sourceUrl": "https://www.blancoisd.org/athletics",
+      "sourceLabel": "Blanco ISD Athletics explicitly identifies Panther Stadium and its street address",
+      "verifiedAt": "2026-10-15",
+      "note": "This first-party stadium address differs from Blanco High School's 814 11th Street address. Blanco ISD directs fans to online-only Home Town Ticketing. Parking, precise gate, accessible seating and prices for individual dates were not independently certified; consult district announcements."
+    },
+    "notice": {
+      "title": "Tickets are online only; check the official event listing",
+      "body": "Blanco ISD Athletics advertises Home Town Ticketing for athletic events, online only. Confirm current available event tickets, pricing, gate, weather changes, visitor seating and accessibility directly with the district. Its athletics directory names Kent Walker as athletic director; this page does not infer that the athletic director is necessarily the football head coach.",
+      "sourceUrl": "https://www.blancoisd.org/athletics",
+      "sourceLabel": "District athletics first-party stadium, online ticketing and athletics director entry",
+      "verifiedAt": "2026-10-15"
+    },
+    "season": {
+      "record": "4–3 through October 9, 2026 (dated MaxPreps Oct 9 result and Texas Prep; season in progress)",
+      "verifiedAt": "2026-10-15",
+      "sourceUrl": "https://www.maxpreps.com/tx/football/game/blanco-vs-stockdale/10-9-2026/?c=275828a1-57ab-4ea1-b665-46f19f8faaf6",
+      "sourceLabel": "MaxPreps October 9 Blanco–Stockdale game final 37–28 and updated Blanco 4–3; prior season fixture list Oct 3 is stale",
+      "games": [
+        {
+          "date": "2026-08-27",
+          "opponent": "Crockett",
+          "site": "Away",
+          "result": "W 60–15"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Salado",
+          "site": "Home",
+          "result": "L 14–34"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Llano",
+          "site": "Away",
+          "result": "W 39–34"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Burnet",
+          "site": "Home",
+          "result": "W 28–7"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Poth",
+          "site": "Away",
+          "district": true,
+          "result": "L 14–19"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Nixon-Smiley",
+          "site": "Home",
+          "district": true,
+          "result": "W 56–12"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Stockdale",
+          "site": "Away",
+          "district": true,
+          "result": "L 28–37"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Karnes City",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "San Antonio Young Men's Leadership Academy",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Comfort",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "development": {
+      "title": "Blanco won the 2001 Class 2A Division I state championship",
+      "body": "The UIL's official historical state-finals table lists Blanco defeating Van Alstyne 16–0 in the 2001 Class 2A Division I title game. The same league archive records a 27–24 loss to Sonora in the 2000 Class 2A Division I final. These are two different seasons: Blanco was state runner-up in 2000 and state champion in 2001. Do not confuse the program's current 3A Division II conference with its historical 2A classification.",
+      "sourceUrl": "https://www.uiltexas.org/football/archives/P272",
+      "sourceLabel": "UIL official historical finals archive for 2000 and 2001",
+      "verifiedAt": "2026-10-15"
+    },
+    "milestones": [
+      {
+        "date": "2000",
+        "title": "Class 2A Division I state runners-up",
+        "body": "The UIL records Sonora 27, Blanco 24 in the 2000 state final. This was a runner-up finish, not Blanco's championship year.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P272",
+        "sourceLabel": "UIL 2000 Class 2A Division I state final"
+      },
+      {
+        "date": "2001",
+        "title": "Class 2A Division I football state champions",
+        "body": "Blanco beat Van Alstyne 16–0, according to the official UIL historical state title results.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P262",
+        "sourceLabel": "UIL 2001 Class 2A Division I state championship"
+      },
+      {
+        "date": "2026",
+        "title": "UIL Class 3A Division II District 15",
+        "body": "The 2026–28 official UIL realignment puts Blanco with Comfort, Karnes City, Nixon-Smiley, Poth, San Antonio Young Men's Leadership Academy and Stockdale.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 3A Division II alignment"
+      },
+      {
+        "date": "2026-10-09",
+        "title": "Blanco falls to Stockdale 37–28",
+        "body": "MaxPreps' October 9 box score and Texas Prep's 2026 summary both show Blanco losing at Stockdale 28–37, bringing the Panthers to 4–3 through seven results. Earlier October 3 schedule index remained 4–2 and was stale.",
+        "sourceUrl": "https://www.maxpreps.com/tx/football/game/blanco-vs-stockdale/10-9-2026/?c=275828a1-57ab-4ea1-b665-46f19f8faaf6",
+        "sourceLabel": "MaxPreps dated October 9 fixture final corroborated by Texas Prep Football"
+      }
+    ],
+    "overview": [
+      "Blanco High School's Panthers represent Blanco ISD in Blanco County, Texas. The 2026–28 UIL official football realignment places Blanco in eleven-man Class 3A Division II, District 15 with Comfort, Karnes City, Nixon-Smiley, Poth, San Antonio Young Men's Leadership Academy and Stockdale. The classification is specific to the current cycle and must not be confused with the school's title-winning era.",
+      "Blanco's signature championship season was 2001. In the Class 2A Division I state championship game, the Panthers shut out Van Alstyne 16–0, per the official UIL history. The year before, Blanco had reached the 2000 2A Division I title game but lost 27–24 to Sonora. That chronology is important: one state title and one prior runner-up, not two championships and not a present-day 3A title.",
+      "In 2026, a dated seven-game review through October 9 places the Panthers 4–3, including wins over Crockett, Llano, Burnet and Nixon-Smiley. Blanco lost its October 9 district trip to Stockdale 37–28, reported both in the MaxPreps game box and the Texas Prep Football current-season summary. A separately cached MaxPreps fixture list showed 4–2 because it was updated before that October 9 match; it must not override the completed result. Remaining fixtures are schedules, not predicted outcomes.",
+      "Blanco ISD provides unusually useful official game-day routing: Panther Stadium is at 604 Terri Lane in Blanco. This differs from the published school directory address of 814 11th Street. The district also directs fans to Home Town Ticketing and specifies online-only athletic tickets. For event-specific stadium gate, ticket price, accessible parking and seating, check the current official listing before travel; those details have not been independently certified here.",
+      "The district athletics page identifies Kent Walker as athletic director, while a third-party team directory also calls him the head football coach. An athletics-director title alone cannot establish the current varsity coaching assignment. Fans seeking an up-to-the-minute coach or staffing contact should use Blanco ISD Athletics rather than an undated index."
+    ],
+    "faq": [
+      {
+        "question": "When did Blanco Panthers win the Texas state football championship?",
+        "answer": "The UIL confirms Blanco won the 2001 Class 2A Division I title with a 16–0 shutout of Van Alstyne. The Panthers were runners-up in 2000 after a 27–24 state-final loss to Sonora."
+      },
+      {
+        "question": "What UIL football classification and district is Blanco in for 2026?",
+        "answer": "Blanco is in Class 3A Division II, District 15 for 2026–28, with Comfort, Karnes City, Nixon-Smiley, Poth, San Antonio Young Men's Leadership Academy and Stockdale, per official UIL realignment."
+      },
+      {
+        "question": "Where is Blanco's Panther Stadium?",
+        "answer": "Blanco ISD Athletics gives Panther Stadium's address as 604 Terri Lane, Blanco, TX 78606. The school directory's 814 11th Street address is a separate location. Confirm game-specific entrances and parking with the district."
+      },
+      {
+        "question": "How do I buy tickets to a Blanco Panthers football game?",
+        "answer": "Blanco ISD says athletic tickets are online only through its Home Town Ticketing link. The current event's sales status, prices, accessibility and any gate changes must be confirmed through the official listing."
+      },
+      {
+        "question": "What was Blanco's varsity football record through October 9, 2026?",
+        "answer": "Blanco was 4–3 after a 37–28 away loss to Stockdale on October 9. A MaxPreps schedule cached October 3 showed 4–2 and is outdated for that result; see the dated October 9 box score."
+      },
+      {
+        "question": "Is Kent Walker Blanco's athletics director or football head coach?",
+        "answer": "The district officially names Kent Walker as athletics director. A current MaxPreps team listing also identifies him as head coach, but direct school confirmation of a current head-football-coach appointment was not independently established here. Confirm with Blanco ISD for the latest staffing."
+      }
+    ]
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {
