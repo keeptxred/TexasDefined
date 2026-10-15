@@ -17,7 +17,11 @@ export function stateParkOfficialResources(destination: Destination) {
     feesAndFacilities: `${official}/fees-facilities`,
     reservations: destination.slug === "longhorn-cavern-state-park"
       ? "https://www.visitlonghorncavern.com/"
-      : destination.reservationUrl?.startsWith("https://") ? destination.reservationUrl : "https://texasstateparks.reserveamerica.com/",
+      : destination.slug === "old-tunnel-state-park"
+        ? "https://tpwd.texas.gov/state-parks/old-tunnel/bat-viewing"
+        : destination.slug === "big-spring-state-park"
+          ? official
+          : destination.reservationUrl?.startsWith("https://") ? destination.reservationUrl : "https://texasstateparks.reserveamerica.com/",
   };
 }
 
