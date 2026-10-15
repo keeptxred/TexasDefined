@@ -1,5 +1,8 @@
 # Football Authority — Execution Ledger
 
+## October 15, 2026 — Big Spring reconciled to deployed release (not editorially accepted)
+Big Spring PR #4970 merged as `8dd25feb2130587cc263f1d1a238576ee6e7a439`; successful [GitHub production deployment #38816010474](https://github.com/keeptxred/TexasDefined/actions/runs/38816010474) shipped descendant `68f9f0b99736ffa1fc2161d5624eee89111d2cf7`. Status DEPLOYED means released application code, NOT exact-SHA real Chrome audit or nine-dimension editorial acceptance; retain `actualProductionVerified=false`. Batch005 remains 1/25 editorially accepted; historical 105 registry VERIFIED unchanged.
+
 ## October 15, 2026 — Bishop Badgers Batch006 implementation (dependent PR; not live)
 School-specific Bishop guide authored with UIL District 16, seven dated results (2–5 through Oct 9), 2024 turnaround and 2025 archive, six original FAQs, and unresolved source disagreement on coach/stadium. Stadium/photo/accessibility not guessed. Big Spring PR #4970 must land first, followed by protected merge and targeted production verification; prior 105 VERIFIED untouched.
 
