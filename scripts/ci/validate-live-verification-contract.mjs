@@ -142,6 +142,12 @@ if (!productionSurfaces.includes(`['metro-dallas-small-towns-2-hours', '/explore
   failures.push(`Dallas two-hour small-town live verifier drift: expected current canonical presentation title ${dallasTwoHourTitle}.`);
 }
 
+// The exhaustive hero contract is still enforced by the weekly local Worker audit.
+// Never chain it into the on-deploy Viator live smoke: local-audit-fetch deliberately
+// rejects edge origins and would fail an otherwise healthy production release.
+if (viatorProduction.includes("await import('./verify-sports-venue-heroes-production.mjs');")) {
+  failures.push('Do not run the full sports venue hero audit from every live production deploy.');
+}
 if (!viatorProduction.includes("await import('./verify-san-angelo-proximity-production.mjs');")) {
   failures.push('Base production verification must execute the San Angelo proximity live verifier.');
 }
