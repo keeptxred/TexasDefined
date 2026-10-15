@@ -1,6 +1,6 @@
 # Harmony Eagles (Big Sandy Harmony) — individual Batch 006 authority audit
 
-Research checkpoint **October 14, 2026**. Canonical profile: `/texas-high-school-football-teams/big-sandy-harmony`. **Status: IMPLEMENTED ON FEATURE BRANCH, NOT YET MERGED, DEPLOYED OR PRODUCTION-VERIFIED.**
+Research checkpoint **October 14, 2026**. Canonical profile: `/texas-high-school-football-teams/big-sandy-harmony`. **Status: PROTECTED-MERGED, DEPLOYED, NOT YET HARMONY-SPECIFIC CHROME-VERIFIED OR EDITORIALLY ACCEPTED.** [PR #4878](https://github.com/keeptxred/TexasDefined/pull/4878) merged October 15, 2026 as `d3ba7ff9c4332757a9ad6701ac5d53707713474a`. [Production deploy #38792778982](https://github.com/keeptxred/TexasDefined/actions/runs/38792778982) succeeded for the later descendant SHA `4fedab37c37d9fd8f4e72caeaf300e06e6e22c1b`. This is successful deployment evidence, NOT an exact-SHA Harmony live browser acceptance, image-rights review or factual/editorial certification.
 
 ## Original page deficiencies and entity identity
 
@@ -30,8 +30,8 @@ Prior team coverage was primarily a canonical UIL 2026–28 fixture/alignment re
 
 ## Exact acceptance still required
 
-1. Protected canonical premerge checks and clean merge on latest main.
-2. Cloudflare deploy for exact released merge SHA; live canonical/H1/title/meta/SportsTeam+FAQ JSON-LD and sitemap entry.
+1. **Completed:** protected PR #4878 merged. Preserve its exact merge evidence.
+2. **Deployment completed for descendant SHA; live checks still required:** verify canonical/H1/title/meta/SportsTeam+FAQ JSON-LD and sitemap entry for the exact release.
 3. Desktop 1366px and mobile 390px real Chrome page checks, 10 dated fixtures, full text, error-free hydration, images, no horizontal overflow, reciprocal Upshur link and evidence artifact.
 4. Long-term external source monitoring, verification of later Harmony ISD coaching changes and venue amenities; a new production source comparison must precede any `VERIFIED` promotion.
 5. Rights-cleared, site-specific stadium photography would improve the page but must not be invented, hotlinked without permission or represented as licensed.
