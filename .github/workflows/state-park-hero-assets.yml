@@ -1,15 +1,15 @@
 name: Sync state park hero assets
 
+# Editorial photo enrichment is manual; never spend paid inference or GitHub
+# minutes every time park guidance or the photo resolver changes.
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "scripts/data/sync-state-park-hero-assets.mjs"
-      - "scripts/bin/convert"
-      - "src/data/state-park-heroes.ts"
-      - "src/data/state-park-hero-map.ts"
-      - ".github/workflows/state-park-hero-assets.yml"
+    inputs:
+      enable_ai_fallback:
+        description: "Explicitly opt in to billed Cloudflare AI fallback"
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: write
@@ -27,6 +27,7 @@ jobs:
     env:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      TD_ALLOW_STATE_PARK_IMAGE_AI: ${{ inputs.enable_ai_fallback && 'true' || 'false' }}
     steps:
       - name: Check out current main
         uses: actions/checkout@v4

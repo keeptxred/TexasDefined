@@ -231,6 +231,184 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
+  "big-spring": {
+    "slug": "big-spring",
+    "theme": {
+      "accentHex": "#B39135",
+      "label": "Independently authored gold accent; no Big Spring ISD logo or mark reproduced"
+    },
+    "seo": {
+      "title": "Big Spring Steers Football 2026 | Memorial Stadium, Scores & 1953 History",
+      "description": "Big Spring Steers 2026 football: official UIL District 2, 1–5 through October 9, Memorial Stadium game-day location, Stacey Martin and 1953 state runner-up history."
+    },
+    "coach": {
+      "name": "Stacey Martin",
+      "title": "Athletic director and head varsity football coach, named May 4, 2026",
+      "sourceUrl": "https://www.firstalert7.com/2026/05/04/big-spring-isd-hires-stacey-martin-new-head-football-coach-athletic-director/",
+      "sourceLabel": "KOSA/First Alert 7 May 4, 2026 reporting on Big Spring ISD board-confirmed hiring; reconfirm subsequent changes with district",
+      "verifiedAt": "2026-10-15"
+    },
+    "campus": {
+      "address": "707 East 11th Place, Big Spring, TX 79720",
+      "phone": "432-264-3662",
+      "sourceUrl": "https://www.bsisd.esc18.net/athletics/athletics-homepage",
+      "sourceLabel": "Big Spring ISD athletics-office address/phone; this is NOT Memorial Stadium",
+      "verifiedAt": "2026-10-15"
+    },
+    "schedule": {
+      "label": "Big Spring ISD official athletics football schedules and any event changes",
+      "sourceUrl": "https://www.bsisd.esc18.net/athletics/athletics-homepage/football",
+      "sourceLabel": "Official BSISD football department; verify live schedules and tickets directly",
+      "verifiedAt": "2026-10-15"
+    },
+    "season": {
+      "record": "1–5 through October 9, 2026 (dated MaxPreps results; season ongoing)",
+      "verifiedAt": "2026-10-15",
+      "sourceUrl": "https://www.maxpreps.com/tx/big-spring/big-spring-steers/football/schedule/",
+      "sourceLabel": "MaxPreps schedule updated October 14, 2026; Pecos loss also reported by Midland Reporter-Telegram October 10",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "El Paso Ysleta",
+          "site": "Home",
+          "result": "L 22–30"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Andrews",
+          "site": "Away",
+          "result": "L 34–42"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Sweetwater",
+          "site": "Home",
+          "result": "L 21–42"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Lubbock Estacado",
+          "site": "Away",
+          "result": "L 24–45"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "San Angelo Lake View",
+          "site": "Home",
+          "result": "W 27–20"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Pecos",
+          "site": "Away",
+          "district": true,
+          "result": "L 24–33"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Seminole",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Monahans",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Fort Stockton",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Snyder",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Memorial Stadium (Big Spring ISD)",
+      "address": "2195 Kentucky Way, Big Spring, TX 79720",
+      "sourceUrl": "https://www.bsisd.esc18.net/athletics/athletics-homepage",
+      "sourceLabel": "BSISD official event-locations table",
+      "verifiedAt": "2026-10-15",
+      "note": "Official Big Spring ISD athletics lists Memorial Stadium at 2195 Kentucky Way; athletics office and Blankenship Field are separately at 707 East 11th Place. Confirm each game venue, accessible parking, gate and admission details with the district, because those event-specific details were not independently verified."
+    },
+    "development": {
+      "title": "Big Spring finished as the 1953 Class 3A state runner-up",
+      "body": "The official UIL championship ledger records Port Neches defeating Big Spring 24–13 in the 1953 Class 3A state final. That appearance is part of the Steers' history, but it was not a state championship. Use the historical name Port Neches as listed by UIL, rather than retroactively labelling the 1953 opponent Port Neches-Groves.",
+      "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+      "sourceLabel": "UIL historical championship results, 1953 Class 3A final",
+      "verifiedAt": "2026-10-15"
+    },
+    "milestones": [
+      {
+        "date": "1953",
+        "title": "Class 3A championship-game appearance",
+        "body": "UIL lists Port Neches 24, Big Spring 13 in the 1953 state final; Steers were runners-up.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL championship results"
+      },
+      {
+        "date": "2026-05-04",
+        "title": "Steers alumnus Stacey Martin named head football coach",
+        "body": "Big Spring ISD named former Steers player Stacey Martin to lead the football and athletics programs after Cannon McWilliams left for Crane; reports confirm the board's action.",
+        "sourceUrl": "https://www.firstalert7.com/2026/05/04/big-spring-isd-hires-stacey-martin-new-head-football-coach-athletic-director/",
+        "sourceLabel": "KOSA/First Alert 7 district-confirmed hiring"
+      },
+      {
+        "date": "2026",
+        "title": "New UIL Class 4A Division II, District 2",
+        "body": "The 2026–28 UIL alignment groups Big Spring with Fort Stockton, Monahans, Pecos, Seminole and Snyder.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 4A Division II alignment"
+      },
+      {
+        "date": "2026-10-09",
+        "title": "Pecos won District 2 opener 33–24",
+        "body": "Big Spring scored 24 at Pecos in a 33–24 away loss. The October 14 MaxPreps update and local newspaper report independently agree, leaving Big Spring 1–5 through the date of the game.",
+        "sourceUrl": "https://www.mrt.com/sports/highschool/article/midland-christian-wins-district-opener-greenwood-22471096.php",
+        "sourceLabel": "Midland Reporter-Telegram October 10 game roundup"
+      }
+    ],
+    "overview": [
+      "The Big Spring Steers represent Big Spring ISD in Howard County, not the similarly named Big Spring Bulldogs in Pennsylvania and not Houston-area Spring ISD. In the 2026–28 realignment, UIL places the Steers in 11-man football's Class 4A Division II, District 2 alongside Fort Stockton, Monahans, Pecos, Seminole and Snyder. This six-school alignment is specific to 2026–28, not a historical district list.",
+      "The Steers reached the 1953 Texas Class 3A championship game. UIL's historical results list a 24–13 loss to Port Neches, making Big Spring that year's runner-up. The historical opponent is named Port Neches in the UIL archive; readers should not mistake this result for a Big Spring state title.",
+      "The 2026 season began amid an on-field coaching transition. Big Spring graduate Stacey Martin was named athletic director and head football coach in May 2026, replacing Cannon McWilliams. That district-confirmed announcement is dated; check subsequent district notices for any staffing changes before attending an event or contacting a coach.",
+      "By October 9, a six-game, dated MaxPreps record showed Big Spring at 1–5, including a 27–20 win over San Angelo Lake View and a 33–24 district loss at Pecos. The Pecos final is also supported by an October 10 Midland Reporter-Telegram report. The upcoming Seminole, Monahans, Fort Stockton and Snyder contests in the table are fixtures, not predictions or completed results. Refresh sources before treating this snapshot as current.",
+      "For visitors, the official Big Spring ISD athletics venue table identifies Memorial Stadium at 2195 Kentucky Way. The district's athletics office and Blankenship Field are at 707 East 11th Place. These are distinct locations; use the specific game listing and contact the athletics office at 432-264-3662 for event-specific ticketing, parking or accessible entry. The stadium gate and ADA facilities are not independently certified by this guide."
+    ],
+    "faq": [
+      {
+        "question": "Where do the Big Spring Steers play home football games?",
+        "answer": "Big Spring ISD lists Memorial Stadium at 2195 Kentucky Way in Big Spring. The athletics office and Blankenship Field are separately at 707 East 11th Place; check the official schedule to confirm that a particular game uses Memorial Stadium."
+      },
+      {
+        "question": "Did Big Spring win the 1953 Class 3A state football title?",
+        "answer": "No. UIL's historical results list Big Spring as the 1953 Class 3A runner-up, following a 24–13 championship-game loss to Port Neches. Reaching the final is not winning it."
+      },
+      {
+        "question": "What UIL football district is Big Spring in for the 2026 season?",
+        "answer": "The UIL 2026–28 official alignment lists the Steers in Class 4A Division II, District 2, with Fort Stockton, Monahans, Pecos, Seminole and Snyder. Older seasons can use different divisions or opponents."
+      },
+      {
+        "question": "Who was named head football coach at Big Spring for 2026?",
+        "answer": "Big Spring ISD confirmed Stacey Martin's appointment as head football coach and athletic director on May 4, 2026. News reports identified him as a former Big Spring Steers player, replacing Cannon McWilliams. Contact the district for any later staffing changes."
+      },
+      {
+        "question": "What was Big Spring's football record through October 9, 2026?",
+        "answer": "The MaxPreps varsity schedule updated October 14 shows Big Spring 1–5 through a 33–24 October 9 road loss at Pecos, a result independently reported by Midland Reporter-Telegram. It is a dated snapshot, not a final season record."
+      },
+      {
+        "question": "Where can fans confirm Steers tickets, accessibility and schedules?",
+        "answer": "Consult Big Spring ISD's football and athletics pages. The athletics office lists 432-264-3662 for football tickets. Specific admission, accessible parking and seating, entry gates and kickoff changes must be confirmed with the school; this page does not claim to have verified them."
+      }
+    ]
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {

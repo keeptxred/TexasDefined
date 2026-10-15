@@ -445,6 +445,16 @@ for (const marker of [
 const expectedFallback = "TEXAS_VS_STATE_EVIDENCE[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE7[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE8[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE9[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE10[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE11[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE12[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE13[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE14[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE15[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE16[name]";
 if (!compactProfileServer.includes(expectedFallback)) fail("profile server evidence fallback order does not match Waves 6-16");
 if (route.includes("texas-vs-state-evidence")) fail("client route must not import the server-only Texas-vs evidence catalogs directly");
+// California and Florida are explicitly redirect-only in the governed sitemap.
+// The actual dynamic route must not serve another self-canonical 200 page.
+for (const marker of [
+  "beforeLoad: ({ params, location }) => {",
+  "const canonical = texasVsCanonicalPath(name);",
+  "canonical !== `/texas-vs/${params.state}`",
+  "throw redirect({ href:",
+  "statusCode: 301",
+]) if (!route.includes(marker)) fail(`Texas-vs redirect-only route contract missing: ${marker}`);
+
 
 for (const marker of [
   "evidence?.taxLens",
