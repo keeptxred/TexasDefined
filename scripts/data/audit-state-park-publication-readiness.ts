@@ -1,3 +1,4 @@
+import { listResolvedDestinations } from "../../src/data/destination-query-runtime";
 import fs from "node:fs";
 import { preservedExploreDestinations } from "../../src/data/destination-preserved-catalog";
 import { publicCavernDestinationFallbacks } from "../../src/data/public-cavern-destinations";
@@ -38,3 +39,13 @@ console.log(`TPWD public and guided parks: ${results.length}. Local source-check
 console.log("Remaining blockers: " + JSON.stringify(frequencies));
 for (const item of failed) console.log(`PARK_NOT_READY ${item.slug}: ${item.blockers.join(", ")} (original body ${item.originalBodyChars ?? 0}, curated body ${item.curatedBodyChars ?? 0})`);
 if (results.length !== 84 || !passed.length) throw new Error("TPWD catalog diagnostic failed to identify valid primary parks");
+
+const runtime = await listResolvedDestinations({ category: "state-parks" });
+const runtimeSlugs = new Set(runtime.map((destination) => destination.slug));
+const expected = results.filter((result) => result.ready);
+const missingRuntime = expected.filter((result) => !runtimeSlugs.has(result.slug));
+const unverifiedRuntime = runtime.filter((destination) => !results.some((result) => result.slug === destination.slug));
+console.log(`ACTUAL STATE PARK DIRECTORY: ${runtime.length} records; local-readiness ${passed.length}; missing-from-runtime ${missingRuntime.length}; extras ${unverifiedRuntime.length}`);
+for (const item of missingRuntime) console.log(`PARK_RUNTIME_MISSING ${item.slug} (body ${item.curatedBodyChars}, hero ${item.hero})`);
+for (const item of unverifiedRuntime) console.log(`PARK_RUNTIME_EXTRA ${item.slug} (${item.category})`);
+if (runtime.length < 83 || missingRuntime.length) throw new Error(`State Parks full resolved list still suppresses ${missingRuntime.length} ready official parks`);

@@ -26,7 +26,7 @@ import { filterDestinationsByScope } from "./destination-query-scope";
 import { correctDestinationTravelRegion } from "./destination-region-consistency";
 import { applyTownAuthority } from "./town-authority-network";
 import { platform, scope } from "./index";
-import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
+import { applyStateParkHeroAsset, applyStateParkHeroAssets, recoverUniqueParkHeroesAfterGlobalReconciliation } from "./state-park-heroes";
 import type { Destination, Slug } from "./types";
 import type { DestinationQuery } from "./repositories";
 import { selectSwimmingHoleAndTubingDestinations } from "./water-recreation";
@@ -211,8 +211,9 @@ function resolveSeoReadyDestination(destination?: Destination | null) {
 }
 
 function reconcileExploreCatalog(destinations: Destination[]) {
-  const aquariumEnriched = reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))
-    .map(enrichAquariumMarineDestination);
+  const aquariumEnriched = recoverUniqueParkHeroesAfterGlobalReconciliation(
+    reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations))),
+  ).map(enrichAquariumMarineDestination);
   const curated = improveDestinationCatalog(applyAllCuratedDestinations(aquariumEnriched));
   const improved = enrichHistoricSiteCatalog(curated)
     .map(enrichRemainingHistoricSiteAreaGuide)
