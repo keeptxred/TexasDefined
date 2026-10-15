@@ -5,7 +5,7 @@ import { TexasComparedHero } from "@/components/compare/TexasComparedHero";
 import { Container } from "@/components/layout/Container";
 import { loadTexasVsStateProfile } from "@/data/texas-vs-state-profile";
 import { TEXAS_VS_STATE_SNAPSHOTS } from "@/data/texas-vs-state-snapshots";
-import { TEXAS_VS_STATE_GROUPS, texasVsStateName, texasVsStateSlug, texasVsCanonicalPath } from "@/data/texas-vs-states-index";
+import { TEXAS_VS_STATE_GROUPS, texasVsStateName, texasVsStateSlug, texasVsCanonicalPath, texasVsRelatedStates } from "@/data/texas-vs-states-index";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const PRIORITY_MOVE_STATES = new Set(["California", "New York", "Illinois", "Florida", "Colorado"]);
@@ -59,7 +59,7 @@ function TexasVsStatePage() {
   const evidence = profile.evidence;
   const snapshot = TEXAS_VS_STATE_SNAPSHOTS[name];
   const relatedGroup = TEXAS_VS_STATE_GROUPS.find((group) => group.states.some((state) => state === name));
-  const relatedStates = relatedGroup?.states.filter((state) => state !== name).slice(0, 6) ?? [];
+  const relatedStates = texasVsRelatedStates(name);
   const sections = [
     { heading: `Where the Texas vs ${name} comparison starts`, body: profile.comparisonFocus },
     { heading: `Texas places vs ${name} places`, body: profile.placeLens },
