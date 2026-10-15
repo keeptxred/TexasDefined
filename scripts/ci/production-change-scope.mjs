@@ -75,6 +75,21 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       expectedHrefsByPage[page] = hrefs;
     }
   }
+  // The McAllen collection is a dynamic route, so ordinary route-name detection
+  // cannot infer its public URL. Verify this one affected page and its two
+  // editorial cross-links whenever its source/data or regional matcher changes.
+  // Never expand this to an automatic full metro or statewide crawl.
+  if (changedFiles.some(path =>
+    /^src\/routes\/explore\.near\.\$metro\.\$collection(?:\.lazy)?\.tsx$/.test(path)
+    || ['src/data/metro-county-links.ts', 'src/data/viator-market-match.ts', 'src/data/national-wildlife-refuge-destinations.ts'].includes(path)
+  )) {
+    const path = '/explore/near/mcallen/day-trips';
+    candidates.add(path);
+    expectedHrefsByPage[path] = [
+      '/destination/santa-ana-national-wildlife-refuge',
+      '/destination/museum-south-texas-history-edinburg',
+    ];
+  }
   let contentFallback = false;
   for (const path of changedFiles) {
     const { before = '', after = '' } = sources[path] || {};
