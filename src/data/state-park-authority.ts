@@ -52,6 +52,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
   "palo-duro-canyon-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/palo-duro-canyon/map",
+    restrooms: "TPWD lists nearby restroom-and-shower buildings for Juniper, Mesquite, Sagebrush and Hackberry electric sites. Fortress Cliff tent-only sites are 0.5–2 miles from restroom/shower facilities; choose the actual camping area before relying on their proximity.",
     parking: "The headquarters and gate are on Park Road 5, about 12 miles east of Canyon. Follow the park map to individual trailheads and campsites; do not treat the canyon entrance as every trailhead.",
     access: "TPWD currently lists gate hours 7:30 a.m.–10 p.m. Trails may close because of wet weather, poor conditions or excessive heat. Verify the trail-status alerts immediately before hiking.",
     camping: "Juniper, Mesquite, Sagebrush and Hackberry offer electric/water sites and nearby shower/restroom buildings. Fortress Cliff is tent-only with more distant showers; primitive hike-in camping has no drinking water in the camping zone.",
@@ -61,6 +62,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
   "caprock-canyons-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/caprock-canyons/map",
+    restrooms: "Restrooms are listed near Honey Flat electric sites and Lake Theo walk-in sites. Little Red and South Prong primitive areas have organic toilets but no showers; primitive North/South Prong hike-in sites list nearby composting toilets. The Trailway lists chemical restrooms and no potable water.",
     parking: "Enter from FM 1065 north of Quitaque; use the separate state-park and Trailway maps to choose actual parking and trail access.",
     access: "TPWD notes all roads within the park are paved, but nearby unpaved roads can become dangerously slippery following heavy rain. Bison share developed park areas; give them space.",
     camping: "Honey Flat electric sites include water hookups and nearby restrooms. Lake Theo walk-in and remote Trailway primitive camping have different facilities; the Trailway has no potable water and requires campers to carry drinking water.",
@@ -70,6 +72,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
   "big-bend-ranch-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/big-bend-ranch/map",
+    restrooms: "Primitive hike-in backcountry camps have no restrooms or drinking water. Do not assume a developed bathhouse or toilet at remote River/Interior district campsites; confirm the assigned site and check-in gateway with TPWD before traveling.",
     parking: "Check in first at Barton Warnock (east) or Fort Leaton (west) along FM 170 before driving to an interior campsite. Maps distinguish river-road access from Sauceda interior routes.",
     access: "Sauceda Ranch Road is 27 miles of rugged dirt road from FM 170; RVs and trailers are not recommended. The old north entrance is permanently closed. Route to the correct unit, not simply the park's map pin.",
     camping: "Drive-in campsites are primitive in the River and Interior districts; permitted backcountry hike-in camping has no drinking water or restrooms. Check in for required permits and match the access road to vehicle clearance before reserving.",
@@ -95,6 +98,8 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
   "sea-rim-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/sea-rim/fees-facilities/campsites",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/sea-rim/fees-facilities/sea-rim-accessibility",
+    restrooms: "TPWD confirms the park restrooms are wheelchair accessible. The Piping Plover electric campsites themselves are not designated ADA-accessible; confirm bathroom access and distance for West Beach primitive camping, particularly during closures.",
     parking: "15 developed electric sites occupy the Piping Plover loop near the dune boardwalk. Primitive beach camping is west of the developed section and may close due to tides or storm conditions.",
     camping: "TPWD lists 15 electric sites with water and 75 primitive beach sites. Primitive sites are first-come, not advance reservable, and can be closed by high tides.",
     access: "State Highway 87 is closed between Sea Rim and High Island; approach from Port Arthur/Sabine Pass. Call for camping access and coastal conditions before travel.",
@@ -119,6 +124,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
   "san-angelo-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/san-angelo/map",
+    restrooms: "Restrooms with showers are listed near Red Arroyo electric campsites on South Shore and Chaparral group-reservation electric sites. Do not assume identical facilities at North Shore/equestrian sites; use the correct unit map.",
     parking: "Use the South Shore gatehouse to check in and obtain the code for the locked North Shore gate. The park has geographically separate north and south camping, trail and recreation areas.",
     access: "TPWD's South Shore gatehouse is listed 8:30 a.m.–4:30 p.m. daily; the North Shore gate is locked. Verify vehicle access before navigating directly to a northern trailhead.",
     camping: "Red Arroyo on South Shore has electric/water campsites and nearby showers; North Concho equestrian sites have separate access. Chaparral electric sites are group-restricted and require group pavilion and multiple-site reservations.",
@@ -128,6 +134,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
   "abilene-state-park": {
     checkedAt: "2026-10-15",
     sourceUrl: "https://tpwd.texas.gov/state-parks/abilene/map",
+    restrooms: "TPWD lists restrooms and showers near Brushy Trail, Oak Grove and Pecan Grove campgrounds. Group Trailer Area sites have closer restrooms without showers, with shower buildings farther away; check the campground map.",
     parking: "Main campground access is on Park Road 32 off FM 89. Lake Abilene Dam and Creek boat ramps use a separate paved road about one mile southwest of the state park entrance on FM 89. Each ramp is single-lane with parking for approximately ten vehicles, and the lake gate requires a code from the main park entrance.",
     access: "TPWD recommends reserving campground and day passes. At Lake Abilene, ramps may be largely unusable when the lake is about seven feet below spillway elevation; 4WD may be needed under low-water conditions. Ramp gates close sunset to sunrise, and lake access may close for wildlife management. Pool hours differ from park gate hours.",
     camping: "Abilene offers full-hookup sites and electric sites in Brushy Trail, Oak Grove and Pecan Grove, with nearby restrooms and showers. The Group Trailer Area has nearer restrooms without showers; showers are farther away.",
@@ -138,6 +145,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
   "daingerfield-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/daingerfield/map",
+    restrooms: "TPWD lists nearby restrooms for both Big Pine full-hookup campsites and Cedar Ridge tent-only campsites. Amenities differ by campground; do not treat the park map as a single shared camping loop.",
     parking: "The park entrance is on Park Road 17 off Highway 49, east of Daingerfield. Use TPWD's park map for lakefront, trail and camping parking zones.",
     access: "TPWD currently lists gate hours 6 a.m.–10 p.m.; park office and park store follow shorter schedules, so check them before arriving for equipment or supplies.",
     camping: "Big Pine has full-hookup pull-through and back-in campsites with nearby restrooms; Cedar Ridge offers tent-only sites with water and nearby restrooms. Check the selected category before booking.",
@@ -235,6 +243,8 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
   "resaca-de-la-palma-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/resaca-de-la-palma",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/resaca-de-la-palma/fees-facilities/accessibility-information",
+    restrooms: "TPWD identifies wheelchair-accessible restrooms at the Visitor Center, reached from the main parking area. Private vehicles cannot proceed into the trail system; do not assume bathrooms at each remote resaca viewing deck.",
     parking: "PRIVATE VEHICLES ARE NOT ALLOWED INSIDE this Brownsville birding park. Park at the visitor center at 1000 New Carmen Avenue and access the more than eight miles of trails on foot, bicycle or official tram.",
     camping: "TPWD describes day-use trails and reservable GROUP GATHERING SITES, not ordinary overnight state-park RV and tent camping. Do not show campsites/hookups without actual TPWD evidence.",
     access: "Park 6 a.m.–10 p.m., visitor center 8 a.m.–4:30 p.m. Bikes can be rented, but must be returned by 3 p.m. Four resaca wildlife viewing decks; private cars forbidden beyond visitor center parking.",
@@ -421,6 +431,8 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
   "atlanta-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/atlanta/fees-facilities/campsites",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/atlanta/fees-facilities/accessibility-information",
+    restrooms: "TPWD identifies a restroom near the day-use group pavilion with a small ramp and grab-bar stalls; Knights Bluff campground bathrooms have some accessible features, including a shower seat and grab bars. These are not a guarantee of full ADA accessibility at every campground.",
     parking: "Knights Bluff has 8 pull-through 50-amp full-hookup sites #16–23 and 6 back-in 30-amp full-hookups #10–15. Wilkins Creek offers 6 50-amp electric sites, plus part of the 38 30-amp electric inventory. White Oak Ridge has 30-amp back-ins. Multiple back-in pads limit vehicles to two including an RV.",
     camping: "8 50-amp full hookups, 6 30-amp full hookups, 6 50-amp water/electric sites and 38 30-amp water/electric sites. Most sites allow no more than two tents; #44 is not suitable for a tent. Extra vehicles may need overflow parking far from the reserved camp.",
     maps: "Use TPWD's separate Knights Bluff, Wilkins Creek and White Oak Ridge camping map to choose RV hookup amperage and boat-access location.",
@@ -568,6 +580,8 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
   "old-tunnel-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/old-tunnel",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/old-tunnel/fees-facilities/accessibility/accessibility/",
+    restrooms: "TPWD identifies an accessible portable toilet in the overflow parking lot near the bat-viewing approach, with designated ADA parking. Do not imply that the lower viewing area has separate restrooms or that water is supplied.",
     parking: "Day-use trail and observation areas are reached from 10619 Old San Antonio Road, Fredericksburg. Because cell service is limited, save the prebooked bat-emergence ticket as a screenshot before arriving.",
     camping: "NO OVERNIGHT CAMPING is permitted. Bring drinking water: TPWD confirms none is provided anywhere in this day-use bat habitat park. No pets, alcohol or smoking.",
     access: "Trail access year-round sunrise–5 p.m. During bat season (May 1–October 31), staying after 5 p.m. requires advance-purchased bat-viewing tickets for EVERY visitor, including infants; no onsite ticket sales. The lower viewing area is open Thursday–Sunday and excludes children under four.",
@@ -713,6 +727,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
   "goliad-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/goliad/map",
+    restrooms: "TPWD lists restrooms with showers near Karankawa full-hookup and Jacales electric/walk-in camping. Vaquero and Longhorn riverbank water camps have nearby restrooms; confirm shower proximity using the camping-area map.",
     parking: "Enter from U.S. 183/77A just south of Goliad and use the park map for parking distinct from the Mission Espíritu Santo buildings.",
     access: "TPWD lists park operations 8 a.m.–10 p.m. while headquarters and historic buildings normally operate 8:30 a.m.–4:30 p.m.",
     camping: "Karankawa has full-hookup sites near Mission Espiritu Santo and shower/restroom facilities. Jacales offers electric and walk-in water sites; Vaquero and Longhorn riverbank sites provide water and nearby restrooms.",
@@ -722,6 +737,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
   "hueco-tanks-state-park-and-historic-site": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/hueco-tanks",
+    restrooms: "TPWD lists restrooms near both the 16 electric campsites and 4 water-only campsites. Campsites require telephone reservations and protected-area visit rules still apply separately.",
     parking: "Approach from U.S. Highway 62/180 via Ranch Road 2775 to Hueco Tanks Road; TPWD warns GPS may misdirect drivers. Orientation/check-in is required.",
     camping: "TPWD lists 20 campsites. Visits to North Mountain and restricted cultural sites have separate permit or tour restrictions, and charcoal or wood fires are prohibited.",
     access: "Only 70 self-guided North Mountain visitor permits are available daily. Guided tours must be booked at least a week ahead; orientations are required annually. Most trails prohibit pets.",
@@ -730,6 +746,8 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
   "lyndon-b-johnson-state-park-historic-site": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/lyndon-b-johnson/map",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/lyndon-b-johnson/fees-facilities/lbj-accessibility/",
+    restrooms: "TPWD confirms wheelchair-accessible restrooms at the Visitor Center complex and restrooms in the picnic area. There are no restrooms or water fountains at Sauer-Beckmann Living History Farm; use the visitor/picnic facilities before walking over.",
     parking: "Enter on Park Road 52 near Stonewall from U.S. 290. Use the state-park map for visitors center, Sauer-Beckmann Farm and day-use parking.",
     access: "State-park admission is free. Sauer-Beckmann Farm has seasonal operating hours and is closed on the final Tuesday each month; federal LBJ Ranch tours have separate NPS operating status.",
     camping: "TPWD lists free day entry, Sauer-Beckmann Farm, group sites, a pool and accessibility resources, but no public campground in its park Fees and Facilities directory. Treat this as a day-use historic-site visit unless TPWD confirms overnight camping separately.",
@@ -757,6 +775,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
   "seminole-canyon-state-park-and-historic-site": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/seminole-canyon/map",
+    restrooms: "TPWD lists restrooms with showers near Desert Vista electric and water-only sites and Roadrunner Flat primitive drive-up sites. Roadrunner sites do not have utility hookups even though nearby shower buildings are available.",
     parking: "The park headquarters is reached from US Highway 90 west of Comstock; use TPWD's park map for designated parking and tour meeting points.",
     access: "TPWD lists the park headquarters at 29.700094, -101.312875. Check current tour access and active park alerts before traveling.",
     camping: "Desert Vista offers electric/water and water-only drive-up camping with nearby showers; Roadrunner Flat has primitive drive-up sites without utilities. TPWD lists wheelchair-friendly primitive sites 35, 43 and 44.",
@@ -766,6 +785,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
   "lake-arrowhead-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/lake-arrowhead/map",
+    restrooms: "TPWD lists nearby restrooms with showers for the 48 electric campsites; the 19 water-only campsites and 5 primitive walk-in sites have nearby restrooms. Do not equate restrooms with electric/water hookups at primitive sites.",
     parking: "TPWD provides directions to the park entrance from FM 1954, approximately seven miles south of Wichita Falls; use the park map to select the appropriate parking area.",
     access: "The park headquarters address is 229 Park Road 63, Wichita Falls, TX 76310. Confirm current lake and park alerts.",
     camping: "TPWD lists electric sites with water hookups and nearby restrooms with showers, water-only sites with nearby restrooms, and five primitive walk-in sites. Facilities vary by category and assigned campground.",
