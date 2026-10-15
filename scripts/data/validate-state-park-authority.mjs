@@ -24,6 +24,7 @@ const preserved = read("src/data/destination-preserved-catalog.ts");
 const curation = read("src/data/destination-curation-all.ts");
 const availability = read("src/data/destination-availability.ts");
 const parkHeroes = read("src/data/state-park-hero-map.ts");
+const heroResolver = read("src/data/state-park-heroes.ts");
 const legacyExplore = read("src/data/fixtures/legacy-explore.ts");
 const legacyLakes = read("src/data/fixtures/legacy-lakes.ts");
 const sourceDirectory = JSON.parse(read("docs/state-parks/TPWD_OFFICIAL_90_SITE_INVENTORY_2026-10-12.json"));
@@ -51,7 +52,7 @@ assertContains(newOpenings, 'slug: "palo-pinto-mountains-state-park"', "March 20
 assertContains(newOpenings, 'CC BY 3.0', "New state park hero must have source-confirmed license");
 assertContains(preserved, "newlyOpenedStateParks2026,", "2026 opening must resolve even when remote Explore is unavailable");
 assertContains(curation, "applyNewlyOpenedStateParkAuthority,", "Do not overwrite 2026 research with older short imported copy");
-for (const slug of ["goliad-state-park-and-historic-site", "hueco-tanks-state-park-and-historic-site", "lyndon-b-johnson-state-park-and-historic-site"]) {
+for (const slug of ["goliad-state-park", "hueco-tanks-state-park-and-historic-site", "lyndon-b-johnson-state-park-historic-site"]) {
   assertContains(historicCanonical, `to: "${slug}"`, `Missing verified historic state park primary canonical path ${slug}`);
 }
 assertContains(preserved, "canonicalHistoricStateParkDestinations,", "Canonical historic parks missing from resilient Explore catalog");
@@ -117,6 +118,8 @@ assertContains(curation, "applyStateParkSourceGroundedDepth,", "TPWD-checked par
 assertContains(groundedDepth, "VERIFIED_PARK_FACILITIES[destination.slug]", "The editorial depth supplement must be keyed to the specific park");
 assertContains(groundedDepth, "extended.join(\" \").length < 450", "Never bypass the actual substantive-length threshold");
 assertContains(groundedDepth, "return destination;", "Unresearched or already authoritative parks must remain unchanged");
+assertContains(heroResolver, 'isTexasStateParkDestination(destination)', "State park hero resolver must support non-park category TPWD sites");
+assertContains(heroResolver, '"cooper-lake-state-park": "cooper-lake-south-sulphur-unit-state-park"', "Cooper Lake exact South Sulphur park unit photograph missing");
 const officialEntries = sourceDirectory.entries;
 const entrySlugs = officialEntries.map((entry) => entry.tpwdSlug);
 const specialStatuses = ["developing", "closed-to-general-visits", "visitor-center", "historic-site", "lodge", "guided-only"];

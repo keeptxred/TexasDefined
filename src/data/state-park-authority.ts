@@ -701,7 +701,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     camping: "Warbler Ridge: 23 electric sites with 20/30/50-amp service. Painted Stick: 12 walk-in water sites. Primitive: 13 hike-in sites without water; no campfires at the primitive sites.",
     maps: "TPWD publishes park and trails maps. More than 16 miles of multiuse trails, including about 1.25 accessible miles, require separate trail and accessibility planning.",
   },
-  "goliad-state-park-and-historic-site": {
+  "goliad-state-park": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/goliad/map",
     parking: "Enter from U.S. 183/77A just south of Goliad and use the park map for parking distinct from the Mission Espíritu Santo buildings.",
@@ -718,7 +718,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     access: "Only 70 self-guided North Mountain visitor permits are available daily. Guided tours must be booked at least a week ahead; orientations are required annually. Most trails prohibit pets.",
     maps: "Use official park and trails maps; climbing and rock-art access follow protected-area-specific rules.",
   },
-  "lyndon-b-johnson-state-park-and-historic-site": {
+  "lyndon-b-johnson-state-park-historic-site": {
     checkedAt: "2026-10-12",
     sourceUrl: "https://tpwd.texas.gov/state-parks/lyndon-b-johnson/map",
     parking: "Enter on Park Road 52 near Stonewall from U.S. 290. Use the state-park map for visitors center, Sauer-Beckmann Farm and day-use parking.",
