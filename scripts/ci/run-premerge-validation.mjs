@@ -51,6 +51,7 @@ const prebuildChecks = [
   ['CI/COST', 'Protect all six remaining local audit migrations and authority reporting', 'node', ['--test', 'scripts/ci/local-audit-migrations.test.mjs', 'scripts/ci/authority-master-issue.test.mjs']],
   ['CI/COST', 'Protect local-only full-site crawls and request budgets', 'node', ['--test', 'scripts/ci/local-audit-fetch.test.mjs']],
   ['SEO/LINKS', 'Distinguish HTTP errors from failed transport without relaxing strict link audit', 'node', ['--test', 'scripts/ci/internal-link-failure-diagnostics.test.mjs']],
+  ['SEO/LINKS', 'Ensure every Texas-vs-state comparison receives regional peer links', 'node', ['--experimental-strip-types', '--test', 'scripts/data/texas-vs-related-states.test.mjs']],
   ['COMMERCE/CHECKOUT', 'Verify Texas Defined shipping terms and safe handoff correlation', 'node', ['--experimental-strip-types', '--test', 'scripts/data/validate-shop-checkout-shipping.test.mjs']],
   ['DEPLOY/RECOVERY', 'Test Cloudflare Git-build API transient retries and fail-closed behavior', 'node', ['--test', 'scripts/ci/wait-for-cloudflare-git-build.test.mjs']],
   ['COMMERCE/SEO', 'Verify accurate Merchant delivery and variant photo signals', 'node', ['--experimental-strip-types', '--test', 'scripts/data/merchant-quality-signals.test.mjs']],
