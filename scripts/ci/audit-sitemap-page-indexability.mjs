@@ -1,3 +1,5 @@
+import { createLocalAuditFetch } from './local-audit-fetch.mjs';
+const localAuditFetch = createLocalAuditFetch({ localOrigin: process.env.LOCAL_AUDIT_ORIGIN });
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -90,13 +92,11 @@ async function fetchWithTimeout(url, options = {}) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
-    return await fetch(url, {
+    return await localAuditFetch(url, {
       ...options,
       signal: controller.signal,
       headers: {
         'user-agent': USER_AGENT,
-        'cache-control': 'no-cache',
-        pragma: 'no-cache',
         ...(options.headers ?? {}),
       },
     });
@@ -282,6 +282,7 @@ for (const item of failures) {
   codeCounts.set(item.code, (codeCounts.get(item.code) ?? 0) + 1);
 }
 
+localAuditFetch.assertComplete();
 const report = {
   generatedAt: new Date().toISOString(),
   origin: ORIGIN,
