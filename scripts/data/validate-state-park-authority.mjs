@@ -133,7 +133,7 @@ for (const entry of officialEntries.filter((item) => item.status === "public-par
   if (start < 0) { failures.push(`Official TPWD park lacks researched facility layer: ${canonicalSlug}`); continue; }
   const nextRecord = authority.indexOf('\n  "', start + recordMarker.length);
   const section = authority.slice(start, nextRecord >= 0 ? nextRecord : authority.length);
-  if (!section.includes('checkedAt: "2026-10-12"')) failures.push(`Missing dated facility source verification: ${canonicalSlug}`);
+  if (!/checkedAt: "\\d{4}-\\d{2}-\\d{2}"/.test(section)) failures.push(`Missing valid ISO dated facility source verification: ${canonicalSlug}`);
   if (!/sourceUrl: "https:\/\/tpwd\.texas\.gov\/state-parks\//.test(section)) failures.push(`Missing actual official TPWD park-level source: ${canonicalSlug}`);
   if (!section.includes("parking:") && !section.includes("access:")) failures.push(`No independently researched parking/access information: ${canonicalSlug}`);
   if (!section.includes("maps:")) failures.push(`No park-specific official map information: ${canonicalSlug}`);
