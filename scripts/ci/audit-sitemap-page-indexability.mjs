@@ -216,7 +216,47 @@ async function mapConcurrent(items, worker, concurrency) {
   return results;
 }
 
-const sitemapResults = await Promise.all(SITEMAPS.map(loadSitemap));
+// Share the same complete sitemap discovery scope as the strict link-graph
+// and whole-site snippet audits. The two original seeds alone miss the
+// robots-advertised evergreen and Texas-icons sitemap families.
+async function discoverSitemapPaths() {
+  const paths = new Set(SITEMAPS);
+  const response = await fetchRetry(`${ORIGIN}/robots.txt`, { redirect: 'manual' });
+  if (response.status !== 200) throw new Error(`robots.txt returned HTTP ${response.status}; full sitemap inventory cannot be certified`);
+  const robots = await response.text();
+  for (const match of robots.matchAll(/^\s*Sitemap:\s*(\S+)/gim)) {
+    const url = new URL(match[1].trim(), ORIGIN);
+    if (url.origin !== ORIGIN || !url.pathname.endsWith('.xml')) continue;
+    // RSS is a valid feed but not an XML <urlset>/<sitemapindex> inventory.
+    if (url.pathname === '/rss.xml') continue;
+    paths.add(url.pathname);
+  }
+  return [...paths];
+}
+
+async function collectSitemapResults() {
+  const pending = await discoverSitemapPaths(), seen = new Set(), results = [];
+  while (pending.length) {
+    const sitemapPath = pending.shift();
+    if (!sitemapPath || seen.has(sitemapPath)) continue;
+    seen.add(sitemapPath);
+    const loaded = await loadSitemap(sitemapPath);
+    const pageLocations = [];
+    for (const location of loaded.locations) {
+      const parsed = new URL(location);
+      if (parsed.origin !== ORIGIN) throw new Error(`Off-domain URL in ${sitemapPath}: ${location}`);
+      if (parsed.pathname.endsWith('.xml')) {
+        pending.push(parsed.pathname);
+      } else {
+        pageLocations.push(location);
+      }
+    }
+    results.push({ sitemapPath, locations: pageLocations });
+  }
+  return results;
+}
+
+const sitemapResults = await collectSitemapResults();
 const memberships = new Map();
 for (const { sitemapPath, locations } of sitemapResults) {
   for (const url of locations) {
