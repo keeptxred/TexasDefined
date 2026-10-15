@@ -43,4 +43,13 @@ assert.match(materializer, /if \(!type\.toLowerCase\(\)\.startsWith\("image\/"\)
 assert.match(workflow, /- name: Verify current direct Worker before deploy/);
 assert.match(workflow, /- name: Verify current canonical domain before deploy/);
 
-console.log("Discover artifact cache provenance, fresh local assets, image validation and strict deployment gates verified.");
+const health = readFileSync("scripts/ci/verify-production-health.mjs", "utf8");
+const liveImages = readFileSync("scripts/ci/discover-production-asset-check.mjs", "utf8");
+assert.match(health, /PRODUCTION_HEALTH_DISCOVER_ASSETS === 'true'/);
+assert.match(health, /verifyGovernedDiscoverDelivery\(\{ origin \}\)/);
+assert.match(health, /process\.exit\(1\)/);
+assert.match(workflow, /PRODUCTION_HEALTH_LABEL: direct-worker\n\s+PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'/);
+assert.match(workflow, /PRODUCTION_HEALTH_LABEL: canonical-domain\n\s+PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'/);
+assert.match(liveImages, /public HTTP 404|HTTP /); // Verifies HTTP status is checked, not solely source-file presence
+assert.match(liveImages, /webpBytes\(bytes\)/);
+console.log("Discover artifact cache provenance, fresh local assets, full live WebP delivery, image validation and strict deployment gates verified.");
