@@ -1,5 +1,8 @@
 # Football Authority — Execution Ledger
 
+## October 15, 2026 — Ben Bolt SEO title correction (pending protected merge)
+[Batch005 live PR baseline #38788419023](https://github.com/keeptxred/TexasDefined/actions/runs/38788419023) found the Ben Bolt–Palito Blanco football page displayed the generic 2026 SEO title on desktop and mobile, while its researched editorial record specifies a unique title. The parent route contained a hard-coded Ben Bolt slug exception that bypassed editorial SEO. Removed the exception and required a deterministic canonical premerge check for authored-title precedence, while retaining all original browser gates; a release and live page retest are still necessary.
+
 ## October 15, 2026 — Batch 006 Harmony Eagles recovery (pending protected merge and production QA)
 Reconciled researched original PR #4878 onto current main without overwriting 48 later main commits. Retained historical 105 verified, Batch005 separate editorial status 1/25 accepted, Harmony 2026 0–7 through Oct 9 (dated third-party scoreboard), 2022 Poth semifinal, uncertain coach, school visitor information and reciprocal Upshur County links. First Batch006 school IMPLEMENTED on branch, others not reviewed. Harmony-specific browser workflow runs manually only, not after every unrelated deploy. Supabase October 15 monitoring remediation retired 10 unreliable external network probes with historical failure details preserved and reliable backup sources still monitored; published links unchanged.
 

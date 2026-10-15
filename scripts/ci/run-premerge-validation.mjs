@@ -42,6 +42,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['FOOTBALL/SEO', 'Reject slug-specific football SEO title overrides of researched editorial copy', 'node', ['scripts/ci/validate-football-authored-seo.mjs']],
   ['CONTENT/AUTHORITY', 'Verify source-backed Harmony Eagles Batch006 and historic Batch005 evidence', 'node', ['scripts/data/validate-football-batch006-harmony.mjs']],
   ['CI/DEPLOYMENT', 'Syntax-check Harmony desktop/mobile production verifier', 'node', ['--check', 'scripts/ci/verify-football-batch006-harmony-production.mjs']],
   ['NEWS/PUBLICATION', 'Reject stale sources in disabled-by-default TexasDefined auto-news pipeline', 'node', ['--test', 'scripts/news/texasdefined-queue-freshness.test.mjs']],
