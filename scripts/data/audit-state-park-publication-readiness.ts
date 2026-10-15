@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import { preservedExploreDestinations } from "../../src/data/destination-preserved-catalog";
+import { publicCavernDestinationFallbacks } from "../../src/data/public-cavern-destinations";
 import { applyAllCuratedDestination } from "../../src/data/destination-curation-all";
 import { applyStateParkHeroAsset } from "../../src/data/state-park-heroes";
 import { applyExploreHeroAsset } from "../../src/data/explore-heroes";
@@ -9,7 +10,7 @@ import { isCurrentlyVisitableDestination, isPrimaryTripPlannerDestination } from
 import { isTexasStateParkDestination } from "../../src/data/state-park-authority";
 
 const official = JSON.parse(fs.readFileSync("docs/state-parks/TPWD_OFFICIAL_90_SITE_INVENTORY_2026-10-12.json", "utf8"));
-const originals = new Map(preservedExploreDestinations.map((item) => [item.slug, item]));
+const originals = new Map([...preservedExploreDestinations, ...publicCavernDestinationFallbacks].map((item) => [item.slug, item]));
 const results = official.entries.filter((item: any) => item.status === "public-park" || item.status === "guided-only").map((entry: any) => {
   const slug = entry.associatedPath.replace("/destination/", "");
   const original = originals.get(slug);
