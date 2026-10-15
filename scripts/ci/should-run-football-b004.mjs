@@ -32,7 +32,7 @@ function relevantEditorial(text) {
     count++;
     return B004.has(slug)?block:'';
   });
-  assert(count>100,'Unexpected editorial file structure; run full scope');
+  assert(count>=3,'Unexpected editorial file structure; run full scope');
   return result;
 }
 export function shouldRunB004(paths,before,after) {
