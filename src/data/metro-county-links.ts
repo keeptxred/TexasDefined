@@ -1,4 +1,4 @@
-import { TEXAS_COUNTY_SLUGS } from "./texas-county-slugs";
+import { TEXAS_COUNTY_SLUGS } from "./texas-county-slugs.ts";
 
 /** Never turn an unverified free-text county name into a /county/ route. */
 export function countySlug(value: string): string | null {
