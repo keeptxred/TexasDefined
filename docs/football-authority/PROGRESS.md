@@ -1,5 +1,8 @@
 # Football Authority — Execution Ledger
 
+## October 15, 2026 — Blooming Grove school-specific authority implemented on dependent PR only
+Official district Kevin Sherrill head-coach hire, UIL 2026 3A DII District11, 0–6 through Oct9 after Teague loss 68–0, dated PigskinPrep/MaxPreps corroboration. Distinguishes Sherrill's Vernon 2025 10–3 from Blooming Grove's own 2025 3–8. School 212 W Grady vs named Lion Stadium (unverified gate); six original FAQs. No certified photo rights/parking/ADA. Not merged/deployed/Chrome or formal editorial verified, 105 previous verified intact.
+
 ## October 15, 2026 — Blanket original six-man content authored; dependent branch only
 
 Blanket first-party Tigers/Blanket ISD at 901 Ave H, official UIL six-man District12; local firsthand Brownwood News shows 4–3 through Oct8 with late-added 65–13 over Abilene X-Dot Academy. Resolved harmful third-party score inversions (Brookesmith 66–34 Blanket win; Rochelle 68–22 Blanket loss; Sidney 50–48 actual played) via dated local reports. Original six FAQs and profile authored, no unlicensed venue image, no first-party gate/ADA claims; head coach Jalen Helms supported by Sept11 firsthand quote. Not merged/deployed/Chrome or editorially verified. 105 prior VERIFIED untouched, zero Batch006 formally accepted.
