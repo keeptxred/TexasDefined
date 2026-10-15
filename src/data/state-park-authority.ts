@@ -120,7 +120,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
   "abilene-state-park": {
     checkedAt: "2026-10-15",
     sourceUrl: "https://tpwd.texas.gov/state-parks/abilene/map",
-    parking: "Follow FM 89 through Buffalo Gap to Park Road 32; use the official park map for campground and day-use parking rather than relying solely on the park's location pin.",
+    parking: "Main campground access is on Park Road 32 off FM 89. Lake Abilene Dam and Creek boat ramps use a separate paved road about one mile southwest of the state park entrance on FM 89. Each ramp is single-lane with parking for approximately ten vehicles, and the lake gate requires a code from the main park entrance.",
     access: "TPWD recommends reserving campground and day passes. At Lake Abilene, ramps may be largely unusable when the lake is about seven feet below spillway elevation; 4WD may be needed under low-water conditions. Ramp gates close sunset to sunrise, and lake access may close for wildlife management. Pool hours differ from park gate hours.",
     camping: "Abilene offers full-hookup sites and electric sites in Brushy Trail, Oak Grove and Pecan Grove, with nearby restrooms and showers. The Group Trailer Area has nearer restrooms without showers; showers are farther away.",
     facilitySourceUrl: "https://tpwd.texas.gov/state-parks/abilene/fees-facilities/campsites",
