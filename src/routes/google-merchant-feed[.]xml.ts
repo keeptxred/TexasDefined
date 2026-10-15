@@ -4,14 +4,13 @@ import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
 import type { Product, ProductVariant } from "@/data/types";
 import { additionalMerchantImages } from "@/lib/merchant-offer-images";
 import { merchantImageUrl } from "@/lib/merchant-image-url";
+import { STANDARD_SHIPPING_PRICE_USD, FREE_SHIPPING_THRESHOLD_USD } from "@/lib/shop-shipping";
 
 const XML_HEADER = '<?xml version="1.0" encoding="UTF-8"?>';
 const BASE_URL = "https://texasdefined.com";
 const BRAND = "Texas Defined";
 const TITLE_LIMIT = 150;
 const DESCRIPTION_LIMIT = 5000;
-const STANDARD_SHIPPING_PRICE_USD = 6.99;
-const FREE_SHIPPING_THRESHOLD_USD = 35;
 
 type MerchantItem = {
   id: string;
