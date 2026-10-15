@@ -1,4 +1,5 @@
 import { createLocalAuditFetch } from './local-audit-fetch.mjs';
+import { classifyFailedInternalTarget, summarizeInternalTargetFailures } from './internal-link-failure-diagnostics.mjs';
 const localAuditFetch = createLocalAuditFetch({ localOrigin: process.env.LOCAL_AUDIT_ORIGIN });
 import fs from 'node:fs/promises';
 
@@ -196,7 +197,7 @@ const redirectedInternalLinks=[];
 for (const [target,sources] of allTargets) {
   const check=linkChecks.get(target);
   if (!check || check.status===0 || check.status>=400) {
-    brokenInternalLinks.push({target,status:check?.status||0,sources:[...sources].sort()});
+    brokenInternalLinks.push(classifyFailedInternalTarget(target,check,sources));
   } else if (check.redirected) {
     redirectedInternalLinks.push({target,finalUrl:check.finalUrl,status:check.status,sources:[...sources].sort()});
   }
@@ -222,6 +223,7 @@ const weakHubs=pageGraph
   .filter((page)=>page.outboundIndexableCount<10)
   .sort((a,b)=>a.outboundIndexableCount-b.outboundIndexableCount||a.pathname.localeCompare(b.pathname));
 
+const failureDetails=summarizeInternalTargetFailures(brokenInternalLinks);
 const summary={
   totalSitemapPages:discovery.pages.length,
   totalIndexablePages:indexable.length,
@@ -231,6 +233,7 @@ const summary={
   twoToThreeInboundPages:twoToThreeInbound.length,
   aboveThreeInboundPages:aboveThreeInbound.length,
   brokenInternalTargets:brokenInternalLinks.length,
+  ...failureDetails,
   redirectedInternalTargets:redirectedInternalLinks.length,
   sitemapOnlyCandidates:sitemapOnlyCandidates.length,
   weakMajorHubs:weakHubs.length,
@@ -274,6 +277,8 @@ const md=[
   '| 2–3 inbound links | '+summary.twoToThreeInboundPages+' |',
   '| More than 3 inbound links | '+summary.aboveThreeInboundPages+' |',
   '| Broken internal targets | '+summary.brokenInternalTargets+' |',
+  '| HTTP-error targets (actual responses) | '+summary.httpErrorTargets+' |',
+  '| Transport failures (no HTTP response) | '+summary.transportFailures+' |',
   '| Redirected internal targets | '+summary.redirectedInternalTargets+' |',
   '| Sitemap-only / filter-search-only candidates | '+summary.sitemapOnlyCandidates+' |',
   '| Weak major hubs (<10 indexable outbound links) | '+summary.weakMajorHubs+' |',
@@ -290,7 +295,7 @@ const md=[
   '',
   '## Broken internal targets',
   '',
-  markdownList(brokenInternalLinks,(item)=>item.status+' '+item.target+' ← '+item.sources.length+' source page(s)'),
+  markdownList(brokenInternalLinks,(item)=>item.status+' ['+item.failureKind+'] '+item.target+' ← '+item.sources.length+' source page(s)'+(item.error?' — '+item.error:'')),
   '',
   '## Redirected internal targets',
   '',
