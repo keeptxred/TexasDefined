@@ -1,3 +1,4 @@
+import { isTexasStateParkDestination } from "./state-park-authority";
 import { abileneAreaDestinationFallbacks } from "./abilene-area-destinations";
 import { enrichAquariumMarineDestination } from "./aquarium-marine-destinations";
 import { enrichCavernAreaGuide } from "./cavern-area-guides";
@@ -234,6 +235,15 @@ function reconcileExploreCatalog(destinations: Destination[]) {
 }
 
 export async function listResolvedDestinations(params: Omit<DestinationQuery, "brandId"> = {}) {
+  // A TPWD park may be editorially categorized as coastal, history, lake or outdoors.
+  // Select from the already-filtered full catalog, never include RV-business aliases or closed parks.
+  if (params.category === "state-parks") {
+    const parks = (await listResolvedDestinations()).filter(isTexasStateParkDestination)
+      .sort((a, b) => a.name.localeCompare(b.name));
+    if (params.featured) return featuredFallback(parks, params.limit ?? 6);
+    return params.limit ? parks.slice(0, params.limit) : parks;
+  }
+
   if (params.category === WATER_COLLECTION) {
     // This is a VIRTUAL cross-category collection: qualifying towns, state
     // parks and rivers retain their real categories. Reapplying the virtual
