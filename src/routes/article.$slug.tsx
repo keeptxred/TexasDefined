@@ -429,7 +429,7 @@ function ArticlePage() {
             <li><Link to="/texas-explained" className="py-1 hover:text-foreground">Texas Explained</Link></li>
           </> : <>
             <li><Link to={department.path} className="py-1 hover:text-foreground">{department.name}</Link></li>
-            {department.usesExploreCategory && <><li aria-hidden="true">·</li><li><Link to="/explore/$category" params={{ category: article.category }} className="py-1 hover:text-foreground">{categoryName}</Link></li></>}
+            {department.usesExploreCategory && <><li aria-hidden="true">·</li><li>{article.category === "events" ? <Link to="/events" className="py-1 hover:text-foreground">{categoryName}</Link> : <Link to="/explore/$category" params={{ category: article.category }} className="py-1 hover:text-foreground">{categoryName}</Link>}</li></>}
           </>}
           <li aria-hidden="true">·</li><li aria-current="page" className="max-w-full truncate py-1 text-foreground">{articleDisplayTitle}</li>
         </ol>

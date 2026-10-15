@@ -97,7 +97,7 @@ async function buildFootballIsdDirectory(): Promise<BuiltFootballIsdDirectory> {
 
     return {
       slug,
-      profilePath: footballIsdProfilePath(districtName),
+      profilePath: footballIsdProfilePath(sourceDistrictName),
       districtName,
       programCount: ordered.length,
       highestClassification: first.classification,
