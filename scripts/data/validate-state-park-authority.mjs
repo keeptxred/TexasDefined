@@ -37,7 +37,7 @@ for (const [content, needle, description] of [
   [planner, "<StateParkVisitorEssentials destination={destination} />", "Destination template must display park-specific essentials"],
   [essentials, "We do not infer restrooms, hookups, drinking water or accessibility", "Unknown facilities must not be represented as present"],
   [essentials, "Official park, parking and trails maps", "Every TPWD park must expose a park-map discovery route"],
-  [essentials, "Fees, campsites and facility types", "Every TPWD park must expose official fees/facilities source"],
+  [essentials, "Admission, day-use and facility details", "Every TPWD park must expose official fees/facilities source"],
   [runtime, 'params.category === "state-parks"', "Explore State Parks must include parks from other topical categories"],
   [runtime, ".filter(isTexasStateParkDestination)", "The Explore park directory must apply official ownership and name classification"],
   [preserved, "stateParkAuthorityRecoveryDestinations,", "Missing parks must remain resolvable during remote data outages"],
@@ -91,6 +91,8 @@ for (const slug of deeperFacilities) {
   assertContains(authority, `"${slug}": {`, `Independently sourced TPWD facilities for ${slug} were lost`);
 }
 assertContains(authority, 'destination.slug === "longhorn-cavern-state-park"', "Longhorn Cavern must book actual cave tours, never imply campsite reservations");
+assertContains(authority, "https://tpwd.texas.gov/state-parks/old-tunnel/bat-viewing", "Old Tunnel must link to ticket-specific TPWD bat information");
+assertContains(authority, 'destination.slug === "big-spring-state-park"', "Free day-use-only Big Spring must not imply campground bookings");
 assertContains(authority, "https://www.visitlonghorncavern.com/", "Longhorn Cavern tour operator link missing");
 assertContains(essentials, "entries.map(({ title, detail })", "Park essentials must show checked facts instead of multiple boilerplate unverified claims");
 const verifiedParkSlugs = ["palo-duro-canyon-state-park","caprock-canyons-state-park","big-bend-ranch-state-park","mustang-island-state-park","goose-island-state-park","sea-rim-state-park","fort-boggy-state-park","copper-breaks-state-park","san-angelo-state-park","abilene-state-park","daingerfield-state-park","mission-tejas-state-park"];
