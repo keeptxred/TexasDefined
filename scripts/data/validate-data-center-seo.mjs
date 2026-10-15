@@ -12,6 +12,7 @@ const hub = readRouteSurface('src/routes/texas-data.tsx');
 const detail = read('src/routes/texas-data.$datasetSlug.tsx');
 const detailSurface = readRouteSurface('src/routes/texas-data.$datasetSlug.tsx');
 const schoolRates = read('src/data/school-district-tax-rates.ts');
+const schoolRateEndpoint = read('supabase/functions/public-school-district-tax-rates/index.ts');
 const taxImporter = read('supabase/functions/import-texas-property-tax-rates/index.ts');
 const bridge = read('src/data/texas-data-center.ts');
 const serverRegistry = read('src/data/texas-data-center.server.ts');
@@ -44,7 +45,10 @@ const checks = [
   [detail, "'@type': 'BreadcrumbList'", 'Dataset pages must declare breadcrumbs'],
   [detailSurface, 'Texas School District Property Tax Rates — {data.year}', 'School tax dataset must render the statewide authority explorer'],
   [detailSurface, 'Download CSV', 'School tax dataset must preserve downloadable statewide data'],
-  [schoolRates, ".eq('type', 'school-district')", 'School tax loader must select a school-district-specific latest year'],
+  [schoolRates, "public-school-district-tax-rates", 'School tax loader must resolve through the statewide public endpoint'],
+  [schoolRateEndpoint, '.eq("type", "school-district")', 'School tax endpoint must select a school-district-specific latest year'],
+  [schoolRateEndpoint, '.order("year", { ascending: false })', 'School tax endpoint must select the latest available school-district rate year'],
+  [schoolRateEndpoint, '.range(from, from + PAGE_SIZE - 1)', 'School tax endpoint must paginate beyond 1,000 statewide school records'],
   [taxImporter, 'KNOWN_2025_SCHOOL_RATE_CORRECTIONS', 'Property-tax importer must retain verified 2025 school-rate corrections'],
   [taxImporter, '"200-901-02":{raw:{total:0.286335,mo:0.286335,debt:0},corrected:{total:0.7705,mo:0.7705,debt:0}', 'Ballinger 2025 verified correction must not regress'],
   [taxImporter, '"099-902-02":{raw:{total:0.8247,mo:0.47,debt:0.3547},corrected:{total:1.0239,mo:0.6692,debt:0.3547}', 'Chillicothe 2025 verified correction must not regress'],

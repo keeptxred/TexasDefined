@@ -1,6 +1,7 @@
-import { createFileRoute, notFound } from '@tanstack/react-router';
+import { createFileRoute, Link, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
+import { Container } from '@/components/layout/Container';
 import { getTexasDataset } from '@/data/texas-data-center';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
@@ -19,12 +20,18 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
     if (!loaderData) return {};
     const canonicalPath = `/texas-data/${loaderData.slug}`;
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
+    const liveSchoolYear = loaderData.schoolRates?.year;
+    const liveSchoolImported = loaderData.schoolRates?.generatedAt?.slice(0, 10);
+    const title = liveSchoolYear ? `Texas School District Property Tax Rates — ${liveSchoolYear}` : loaderData.title;
+    const description = liveSchoolYear
+      ? `Search statewide ${liveSchoolYear} school-district adopted property-tax rates, compare ${loaderData.schoolRates?.priorYear}, and review M&O and I&S components.`
+      : loaderData.description;
+    const dateModified = liveSchoolImported && liveSchoolImported > loaderData.updated ? liveSchoolImported : loaderData.updated;
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: loaderData.title,
-        description: loaderData.description,
-        robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+        title,
+        description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
@@ -33,13 +40,19 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
           {
             '@type': 'Dataset',
             '@id': `${pageUrl}#dataset`,
-            name: loaderData.title,
-            description: loaderData.description,
+            name: title,
+            description,
             url: pageUrl,
-            dateModified: loaderData.updated,
+            dateModified,
+            temporalCoverage: String(liveSchoolYear ?? loaderData.year),
             spatialCoverage: { '@type': 'State', name: 'Texas' },
             keywords: [loaderData.category, 'Texas data', 'TexasDefined'],
+            creator: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
+            publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
+            isIncludedIn: { '@id': `${absoluteUrl(texasDefinedBrand, '/texas-data')}#page` },
             isBasedOn: loaderData.sourceUrl,
+            citation: loaderData.sourceUrl,
+            measurementTechnique: loaderData.methodology,
             variableMeasured: loaderData.schoolRates ? [
               { '@type': 'PropertyValue', name: 'Adopted total school-district property-tax rate', unitText: 'dollars per $100 taxable value' },
               { '@type': 'PropertyValue', name: 'Maintenance and operations (M&O) rate', unitText: 'dollars per $100 taxable value' },
@@ -58,11 +71,19 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
             itemListElement: [
               { '@type': 'ListItem', position: 1, name: 'Front page', item: absoluteUrl(texasDefinedBrand, '/') },
               { '@type': 'ListItem', position: 2, name: 'Texas Facts', item: absoluteUrl(texasDefinedBrand, '/texas-data') },
-              { '@type': 'ListItem', position: 3, name: loaderData.title, item: pageUrl },
+              { '@type': 'ListItem', position: 3, name: title, item: pageUrl },
             ],
           },
         ],
       })],
     };
   },
+  notFoundComponent: () => (
+    <Container className="py-24">
+      <p className="eyebrow text-primary">Texas data</p>
+      <h1 className="mt-3 font-display text-4xl">We could not find that data brief</h1>
+      <p className="mt-4 text-sm text-muted-foreground"><Link to="/texas-data" className="font-semibold underline underline-offset-4">Return to Texas Facts and Figures.</Link></p>
+    </Container>
+  ),
 });
+
