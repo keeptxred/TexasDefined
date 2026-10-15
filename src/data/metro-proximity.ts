@@ -488,6 +488,8 @@ const MCALLEN_DAY_TRIP_PRIORITY = [
 // requiring long detours, permits or high-clearance 4WD. Exclude these from
 // ordinary day-trip discovery statewide, not just from McAllen. Their dedicated
 // destination guides and relevant specialist coastal collections remain intact.
+const MCALLEN_OVERNIGHT_COAST_EXCLUSIONS = new Set(["padre-island-national-seashore", "malaquite-beach"]);
+
 const REMOTE_DAY_TRIP_EXCLUSIONS = new Set([
   "yarborough-pass",
   "padre-island-national-seashore-backcountry",
@@ -597,6 +599,7 @@ export function selectMetroProximityDestinations(
     .filter((destination) => destination.slug && !seen.has(destination.slug) && (seen.add(destination.slug), true))
     .filter((destination) => categoryMatches(destination, collection))
     .filter((destination) => !(collection.slug === "day-trips" || (metro.slug === "mcallen" && collection.slug === "things-to-do")) || !REMOTE_DAY_TRIP_EXCLUSIONS.has(destination.slug))
+    .filter((destination) => !mcallenDayTrips || !MCALLEN_OVERNIGHT_COAST_EXCLUSIONS.has(destination.slug))
     .map((destination) => ({ destination, distanceMiles: distanceFromPointMiles(metro.center, destination) }))
     .filter((row): row is { destination: Destination; distanceMiles: number } => row.distanceMiles !== null)
     .filter((row) => (minimumMiles === 0 ? row.distanceMiles >= 0 : row.distanceMiles > minimumMiles) && row.distanceMiles <= radiusMiles);

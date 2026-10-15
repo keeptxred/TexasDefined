@@ -176,6 +176,18 @@ test("McAllen day trips prioritize regional wildlife, allow local outings and dr
   assert.ok(!slugs.has("port-aransas-beach"), "distant Coastal Bend beach should not take a Valley day-trip slot");
 });
 
+test("McAllen day trips leave distant Padre Island National Seashore and Malaquite for overnights", () => {
+  const metro = getMetroProximityMetro("mcallen")!;
+  const collection = getMetroProximityCollection("day-trips")!;
+  const options = [
+    destination(14, "beaches-coast", { slug: "padre-island-national-seashore", nearestTown: "Corpus Christi", coordinates: { lat: 27.45, lng: -97.31 } }),
+    destination(15, "beaches-coast", { slug: "malaquite-beach", nearestTown: "Corpus Christi", coordinates: { lat: 27.43, lng: -97.30 } }),
+    destination(16, "beaches-coast", { slug: "south-padre-island-beaches", nearestTown: "South Padre Island", coordinates: { lat: 26.11, lng: -97.16 } }),
+  ];
+  assert.deepEqual(selectMetroProximityDestinations(options, metro, collection).map((row) => row.destination.slug), ["south-padre-island-beaches"]);
+  assert.ok(selectMetroProximityDestinations(options, getMetroProximityMetro("corpus-christi")!, collection).some((row) => row.destination.slug === "malaquite-beach"));
+});
+
 test("McAllen day trips cap repetitive town clusters while preserving nearby variety", () => {
   const metro = getMetroProximityMetro("mcallen")!;
   const collection = getMetroProximityCollection("day-trips")!;
