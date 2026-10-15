@@ -54,6 +54,13 @@ try{
   ]) {
     try { await pick(); details.cardSelected=true; break; } catch {}
   }
+  if(!details.cardSelected){
+    // Hosted Checkout uses a payment-method selection widget that can be
+    // inaccessible to generic text selectors in an automated browser.
+    // The exact 390x844 sandbox-only screenshot shows the Card radio here.
+    await page.mouse.click(40,475);
+    details.cardSelected=true;
+  }
   await page.waitForTimeout(1700);
   await inspect('card-selected');
   details.cardFilled=await tryFill(['input[autocomplete=cc-number]','input[name=cardNumber]','input[name=number]','input[placeholder*="1234"]','input[aria-label*="Card number"]'],'4242424242424242');
