@@ -11,3 +11,10 @@ test('unusable or foreign receipt data cannot start a review prompt', () => {
     assert.equal(reviewOrderFromResponse(invalid, merchant), null);
   }
 });
+
+import { merchantOfferDescription } from '../../src/lib/merchant-offer-description.ts';
+test('Merchant descriptions state the exact catalog variant and retain supplier facts', () => {
+  assert.equal(merchantOfferDescription('100% cotton. Botanical graphic.', 'Natural', 'M'), 'Color: Natural. Size: M. 100% cotton. Botanical graphic.');
+  assert.equal(merchantOfferDescription('Graphic tee'), 'Graphic tee');
+  assert.ok(merchantOfferDescription('supplier detail '.repeat(500), 'Blue', 'XL').length <= 5000);
+});
