@@ -27,7 +27,7 @@ export async function verifyGovernedDiscoverDelivery({
   origin,
   slugs = governedDiscoverSlugs(),
   fetcher = fetch,
-  attempts = 2,
+  attempts = 4,
   concurrency = 6,
   timeoutMs = 15_000,
 } = {}) {
@@ -64,7 +64,7 @@ export async function verifyGovernedDiscoverDelivery({
       } catch (error) {
         reason = error instanceof Error ? error.message : String(error);
       }
-      if (attempt < attempts) await new Promise((resolve) => setTimeout(resolve, 800));
+      if (attempt < attempts) await new Promise((resolve) => setTimeout(resolve, 2000));
     }
     failures.push({ slug, url: url.toString(), reason });
   }
