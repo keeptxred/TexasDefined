@@ -23,7 +23,8 @@ for (const needle of ['"season": {','"record": "0–7 through October 9, 2026','
   assert.ok(section.includes(needle), 'Missing exact-school Harmony editorial evidence: '+needle);
 }
 assert.equal((section.match(/"opponent":/g)||[]).length, 10, 'School must show ten sourced 2026 fixtures, no invented finals');
-assert.ok(section.includes('Sources conflict') || section.includes('Sources disagree') || section.includes('Sources conflict:'), 'Coach discrepancy must be disclosed in public FAQ');
+assert.ok(section.includes('Brian Mauk') && section.includes('former athletic director') && section.includes('MaxPreps'), 'Require KLTV-attributed coach and official district correction of outdated roster');
+assert.ok(!section.includes('Sources conflict: the 2026 MaxPreps staff listing names Jeremy Jenkins'), 'Never imply the deceased former athletic director could currently be head coach');
 const identity = read('src/data/high-school-football/school-identities.ts');
 assert.ok(identity.includes("slug: 'big-sandy-harmony', mascot: 'Eagles'"), 'Verify source-backed Eagles identity');
 const profile = read('src/data/high-school-football/football-program-profile.server.ts');

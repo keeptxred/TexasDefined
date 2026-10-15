@@ -202,7 +202,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "The defining modern Harmony football run came in 2022. The Eagles reached the Class 3A Division II state semifinals after a postseason path through New Waverly, Hooks, West Rusk and Newton. UIL records confirm a 51–28 semifinal loss to Poth. This was a deep playoff season, not a state championship; Harmony's own 2023 ten-win season adds another chapter.",
       "For 2026, the school is in UIL 3A Division II District 8. MaxPreps reported seven losses through the October 9 Quitman game, including two narrow defeats against Chisum (34–31) and Quitman (33–28). Scores and kickoff details can change; the table preserves the as-of date and points fans back to Harmony Athletics and a separately attributed live scoreboard.",
       "Harmony ISD identifies Eagle Stadium as the athletics home ground and posts school events and ticket information. The athletics office's SH 154 W address is useful for orientation, but neither an entrance gate nor accessible parking or seating has been independently confirmed. Use the official schedule for any game-specific venue, entry or ticketing requirement.",
-      "Personnel information needs particular care: a MaxPreps 2026 listing names Jeremy Jenkins head coach, while KLTV's 2026 school preview identifies Brian Mauk as head coach. Until Harmony ISD directly confirms current appointment, this profile intentionally does not assert a single current coach. The school and mascot identity are independently verified."
+      "Coaching records require dated correction: KLTV's May 15, 2026 update names Brian Mauk head coach entering the 2026 season. A MaxPreps 2026 staff entry still names Jeremy Jenkins, but Harmony ISD's August 2026 notice describes Jenkins as a former athletic director and mourns his death. The stale MaxPreps listing must not be presented as a plausible current appointment. Confirm any later staffing changes with Harmony ISD; school and mascot identities are independently verified."
     ],
     "faq": [
       {
@@ -223,7 +223,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who coaches Harmony football in 2026?",
-        "answer": "Sources conflict: the 2026 MaxPreps staff listing names Jeremy Jenkins, while KLTV's 2026 preview lists Brian Mauk. An authoritative current Harmony ISD coaching confirmation was not found at this research checkpoint, so the position is deliberately not presented as settled."
+        "answer": "KLTV's May 2026 school preview identified Brian Mauk as head coach entering 2026. Although MaxPreps still lists Jeremy Jenkins, Harmony ISD's August 2026 statement identifies Jenkins as a former athletic director and reports his death. That third-party entry must not be treated as a current-coach listing. Confirm any later staffing changes directly with Harmony ISD."
       },
       {
         "question": "How did the Harmony Eagles finish the 2026 football season?",
