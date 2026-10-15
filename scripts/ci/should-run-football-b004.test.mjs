@@ -28,6 +28,11 @@ assert.equal(shouldRunB004([reg],{[reg]:registry()},{[reg]:registry({version:2})
 assert.equal(shouldRunB004([ed],{[ed]:editorial()},{[ed]:editorial({bigSpring:'New guide',bishop:'New Bishop'})}),false);
 assert.equal(shouldRunB004([ed],{[ed]:editorial()},{[ed]:editorial({austin:'Changed Austin'})}),true);
 assert.equal(shouldRunB004([reg,ed],{[reg]:registry(),[ed]:editorial()},{[reg]:registry({bigSpringStatus:'IMPLEMENTED'}),[ed]:editorial({bigSpring:'New'})}),false);
+assert.equal(shouldRunB004([reg,ed,'docs/football-authority/PROGRESS.md','docs/football-authority/schools/big-spring.md'],{[reg]:registry(),[ed]:editorial()},{[reg]:registry({bigSpringStatus:'IMPLEMENTED'}),[ed]:editorial({bigSpring:'Updated'})}),false,'Real Batch006 edits to registry, editorial, ledger and dossier must skip Batch004');
+assert.equal(shouldRunB004(['docs/football-authority/PROGRESS.md'],{},{}),false,'Progress-only update must skip');
+assert.equal(shouldRunB004(['docs/football-authority/schools/bishop.md'],{},{}),false,'Other batch school dossier must skip');
+assert.equal(shouldRunB004(['docs/football-authority/schools/austin.md'],{},{}),true,'Batch004 dossier change must run');
+assert.equal(shouldRunB004(['docs/football-authority/schools/austin.txt'],{},{}),true,'Unexpected extension fails closed');
 assert.equal(shouldRunB004(['src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'],{},{}),true);
 assert.equal(shouldRunB004(['.github/workflows/audit-football-b004-final-evidence.yml'],{},{}),true);
 assert.equal(shouldRunB004([],{},{ }),false);
