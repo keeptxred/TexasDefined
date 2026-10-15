@@ -77,6 +77,10 @@ for (const marker of [
   'parsed.origin === ORIGIN && sitemapUrls.has(normalized)',
   'return { failures, links: internalSitemapLinks(html, sitemapUrls) };',
   'for (const target of result.links)',
+  'async function discoverSitemapPaths()',
+  'await fetchRetry(`${ORIGIN}/robots.txt`',
+  "if (parsed.pathname.endsWith('.xml'))",
+  'const sitemapResults = await collectSitemapResults();',
 ]) {
   if (!sitemapIndexabilityAudit.includes(marker)) errors.push(`Sitemap indexability audit crawl-graph contract missing: ${marker}`);
 }

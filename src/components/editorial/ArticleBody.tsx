@@ -100,7 +100,7 @@ function BolivarRestorationPhotoSources() {
 export function Byline({ author, meta }: { author: Author | null; meta: string }) {
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-border pb-5 text-sm text-muted-foreground">
-      {author && <span className="text-foreground">By <Link to="/authors/$author" params={{ author: author.id }} className="font-semibold underline decoration-border underline-offset-4 transition-colors hover:text-primary">{author.name}</Link>{author.role ? <span className="text-muted-foreground"> · {author.role}</span> : null}</span>}
+      {author && <span className="text-foreground">By <Link to="/authors/$author" params={{ author: author.id }} className="font-semibold underline decoration-border underline-offset-4 transition-colors hover:text-primary">{author.name}</Link>{author.role && !author.name.toLocaleLowerCase().includes(author.role.toLocaleLowerCase()) ? <span className="text-muted-foreground"> · {author.role}</span> : null}</span>}
       {author && <span aria-hidden="true">•</span>}
       <span>{meta}</span>
     </div>
@@ -117,6 +117,8 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
   const showLighthouseVisitPlanner = pathname === LIGHTHOUSE_VISIT_PATH;
   const linked = new Set<string>();
   let remainingLinks = articlePolicy.pageBudget;
+  // The six-man article opens with two editorial lead paragraphs before its reference graphics.
+  const sixManLeadCount = showSixManFootballAuthority && blocks[0]?.type === "paragraph" && blocks[1]?.type === "paragraph" ? 2 : 0;
   const available = () => entities.filter((entity) => !linked.has(entity.id));
   const render = (text: string, requestedLinks: number) => {
     if (remainingLinks <= 0) return text;
@@ -137,10 +139,14 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
   };
   return <div className="editorial-body text-foreground/92">
     {articleSlug ? <UnusualBusinessAuthorityPanel slug={articleSlug} /> : null}
+    {blocks.slice(0, sixManLeadCount).map((block, index) => block.type === "paragraph"
+      ? <p key={`six-man-lead-${index}`} className={index === 0 ? "mt-0" : "mt-6"}>{render(block.text, 4)}</p>
+      : null)}
     {showSixManFootballAuthority ? <Suspense fallback={null}><SixManFootballAuthority /></Suspense> : null}
     {showLoopsSpursVisual ? <LoopsSpursVisual /> : null}
     {showBolivarHistoryPhotoSources ? <BolivarRestorationPhotoSources /> : null}
     {blocks.map((block, index) => {
+      if (index < sixManLeadCount) return null;
       switch (block.type) {
         case "heading":
           if (showLighthouseVisitPlanner && block.text === "Texas lighthouses at a glance: access, climbs and trip difficulty") {
