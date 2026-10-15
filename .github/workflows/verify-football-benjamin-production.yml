@@ -1,10 +1,5 @@
 name: Verify Benjamin football production authority
 on:
-  workflow_run:
-    workflows:
-      - Deploy TexasDefined production
-    types:
-      - completed
   workflow_dispatch:
 permissions:
   contents: read

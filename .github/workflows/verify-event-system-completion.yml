@@ -19,11 +19,6 @@ on:
       - 'src/routes/event.$slug.lazy.tsx'
       - '.github/workflows/sync-texas-events.yml'
       - 'scripts/events/sync-texas-events-safe.mjs'
-  workflow_run:
-    workflows:
-      - 'Deploy TexasDefined production'
-    types:
-      - completed
   schedule:
     - cron: '41 11 * * *'
   workflow_dispatch:

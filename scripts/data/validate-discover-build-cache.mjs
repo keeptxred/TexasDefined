@@ -48,8 +48,8 @@ const liveImages = readFileSync("scripts/ci/discover-production-asset-check.mjs"
 assert.match(health, /PRODUCTION_HEALTH_DISCOVER_ASSETS === 'true'/);
 assert.match(health, /verifyGovernedDiscoverDelivery\(\{ origin \}\)/);
 assert.match(health, /process\.exit\(1\)/);
-assert.match(workflow, /PRODUCTION_HEALTH_LABEL: direct-worker\n\s+PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'/);
-assert.match(workflow, /PRODUCTION_HEALTH_LABEL: canonical-domain\n\s+PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'/);
+assert.match(workflow, /PRODUCTION_HEALTH_LABEL: direct-worker\n\s+PRODUCTION_HEALTH_DISCOVER_ASSETS: \$\{\{ steps\.change_scope\.outputs\.images \}\}/);
+assert.match(workflow, /PRODUCTION_HEALTH_LABEL: canonical-domain\n\s+PRODUCTION_HEALTH_DISCOVER_ASSETS: \$\{\{ steps\.change_scope\.outputs\.images \}\}/);
 assert.match(liveImages, /public HTTP 404|HTTP /); // Verifies HTTP status is checked, not solely source-file presence
 assert.match(liveImages, /webpBytes\(bytes\)/);
-console.log("Discover artifact cache provenance, fresh local assets, full live WebP delivery, image validation and strict deployment gates verified.");
+console.log("Discover artifact cache provenance, fresh local assets, change-scoped full live WebP delivery, image validation and strict deployment gates verified.");

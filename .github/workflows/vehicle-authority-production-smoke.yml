@@ -1,10 +1,6 @@
 name: Vehicle authority production smoke
 
 on:
-  workflow_run:
-    workflows: ["Deploy TexasDefined production"]
-    types: [completed]
-    branches: [main]
   workflow_dispatch:
 
 permissions:

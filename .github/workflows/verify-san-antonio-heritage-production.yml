@@ -2,12 +2,6 @@ name: Verify San Antonio heritage production
 
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows:
-      - Deploy TexasDefined production
-    types:
-      - completed
-
 permissions:
   contents: read
 

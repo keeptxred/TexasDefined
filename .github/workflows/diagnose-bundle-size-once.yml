@@ -1,10 +1,7 @@
 name: Diagnose bundle size once
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/diagnose-bundle-size-once.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read

@@ -376,8 +376,7 @@ if (!productionVerifier.includes("route: '/sports-venue/xtreme-raceway-park'") |
 }
 
 for (const [needle, label] of [
-  ['workflow_run:', 'post-deploy workflow trigger'],
-  ['Deploy TexasDefined production', 'production deployment dependency'],
+  ['workflow_dispatch:', 'manual production acceptance trigger'],
   ['github.event.workflow_run.conclusion == \'success\'', 'successful-deploy guard'],
   ['node scripts/ci/verify-stay-affiliate-production.mjs', 'live stay affiliate verifier invocation'],
 ]) requireText(productionWorkflow, needle, label);

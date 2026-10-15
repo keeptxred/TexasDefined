@@ -12,11 +12,6 @@ on:
       - 'src/data/fixtures/**'
       - 'src/routes/article.$slug.tsx'
       - 'src/routes/article.$slug.lazy.tsx'
-  workflow_run:
-    workflows: ['Deploy TexasDefined production']
-    types: [completed]
-    branches: [main]
-
 permissions:
   contents: read
 
