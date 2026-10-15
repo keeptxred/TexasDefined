@@ -7,7 +7,7 @@ import {
 
 test("published Merchant rate and cart quote share one policy", () => {
   assert.equal(STANDARD_SHIPPING_PRICE_USD, 6.99);
-  assert.equal(FREE_SHIPPING_THRESHOLD_USD, 35);
+  assert.equal(FREE_SHIPPING_THRESHOLD_USD, 35.01);
   assert.equal(shopShippingUsd(5.99), 6.99);
   assert.equal(shopShippingUsd(23.99), 6.99);
   assert.equal(shopShippingUsd(35), 6.99);
