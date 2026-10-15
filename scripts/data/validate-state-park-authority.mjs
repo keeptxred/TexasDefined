@@ -25,6 +25,8 @@ const curation = read("src/data/destination-curation-all.ts");
 const availability = read("src/data/destination-availability.ts");
 const parkHeroes = read("src/data/state-park-hero-map.ts");
 const heroResolver = read("src/data/state-park-heroes.ts");
+assertContains(heroResolver, "recoverUniqueParkHeroesAfterGlobalReconciliation", "Park-specific licensed hero recovery must survive gallery collisions");
+assertContains(runtime, "recoverUniqueParkHeroesAfterGlobalReconciliation(", "Park gallery collisions must restore distinct licensed park media");
 const legacyExplore = read("src/data/fixtures/legacy-explore.ts");
 const legacyLakes = read("src/data/fixtures/legacy-lakes.ts");
 const sourceDirectory = JSON.parse(read("docs/state-parks/TPWD_OFFICIAL_90_SITE_INVENTORY_2026-10-12.json"));
