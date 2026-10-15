@@ -58,6 +58,13 @@ test('slug-keyed article link changes verify actual source pages and newly added
   assert.match(bad[0].error, /Expected changed internal link is missing/);
 });
 
+test('planner corrections retest previously missed editorial SSR links, not entire site', () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
+  assert.deepEqual(plan.selectedPaths, ['/article/texas-cultural-regions-explained', '/article/texas-regions-explained']);
+  assert.equal(plan.expectedHrefsByPage['/article/texas-regions-explained'][0], '/article/texas-gulf-coast-erosion-shoreline-retreat-guide');
+  assert.equal(plan.expectedHrefsByPage['/article/texas-cultural-regions-explained'][0], '/article/texas-oil-boom-wichita-falls-west-texas-rigs');
+});
+
 test('unchanged sibling registry keys are not independently crawled', () => {
   const path = 'src/data/remote-evergreen-internal-links.ts';
   const before = 'const groups = { "history-one": [{ href: "/texas-history" }], "history-two": [{ href: "/texas-history" }] };';
