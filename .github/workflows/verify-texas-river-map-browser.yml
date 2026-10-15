@@ -6,12 +6,6 @@ on:
       - 'scripts/ci/verify-texas-river-map-browser.mjs'
       - '.github/workflows/verify-texas-river-map-browser.yml'
   workflow_dispatch:
-  workflow_run:
-    workflows:
-      - Deploy TexasDefined production
-    types:
-      - completed
-
 permissions:
   contents: read
 

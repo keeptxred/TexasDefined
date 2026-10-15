@@ -1,10 +1,5 @@
 name: Verify Batch 005 football production authority
 on:
-  workflow_run:
-    workflows:
-      - Deploy TexasDefined production
-    types:
-      - completed
   pull_request:
     paths:
       - .github/workflows/verify-football-batch005-production.yml

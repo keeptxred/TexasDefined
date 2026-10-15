@@ -43,15 +43,15 @@ for (const [needle, label] of [
 ]) requireText(workflow, needle, label);
 
 for (const [needle, label] of [
-  ['workflow_run:', 'independent freshness workflow-run trigger'],
-  ['- Purge authority cache after production deploy', 'freshness must wait for cache self-heal'],
+  ['workflow_dispatch:', 'explicit freshness recheck trigger'],
+
   ['workflow_dispatch:', 'manual freshness trigger'],
   ["github.event.workflow_run.conclusion == 'success'", 'freshness requires successful cache self-heal'],
   ["github.event.workflow_run.head_branch == 'main'", 'freshness main-branch guard'],
   ['node scripts/ci/verify-authority-canonical-freshness.mjs', 'independent canonical freshness command'],
 ]) requireText(verifyWorkflow, needle, label);
 
-if (verifyWorkflow.includes('- Deploy TexasDefined production')) {
+if (/^  workflow_run:/m.test(verifyWorkflow)) {
   failures.push('Independent authority freshness must run after cache self-heal, not race the production deploy completion.');
 }
 
@@ -101,4 +101,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Authority cache self-heal protected: post-deploy repair requires a successful dedicated-token targeted purge and canonical freshness verification, independent verification waits for repair, broad purge is forbidden, and deploy/general Cloudflare credentials are never reused for cache invalidation.');
+console.log('Authority cache self-heal protected: post-deploy repair requires a successful dedicated-token targeted purge and canonical freshness verification, independent verification remains manual because repair already verifies freshness, broad purge is forbidden, and deploy/general Cloudflare credentials are never reused for cache invalidation.');

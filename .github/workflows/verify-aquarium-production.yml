@@ -1,11 +1,6 @@
 name: Verify aquarium production surfaces
 
 on:
-  workflow_run:
-    workflows:
-      - Deploy TexasDefined production
-    types:
-      - completed
   workflow_dispatch:
   schedule:
     - cron: '17 13 * * *'

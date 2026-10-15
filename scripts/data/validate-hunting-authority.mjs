@@ -101,7 +101,7 @@ for (const routePath of ['/hunting/public-hunting', '/hunting/annual-public-hunt
   requireRouteLiteral(destinationBooking, routePath, `WMA destination lacks reciprocal route ${routePath}`);
 }
 
-requireText(productionSmokeWorkflow, "workflows: ['Deploy TexasDefined production']", 'production smoke must follow successful production deploys');
+requireText(productionSmokeWorkflow, 'workflow_dispatch:', 'production acceptance must remain manually available');
 requireText(productionSmokeWorkflow, 'pull_request:', 'verifier-only PR changes must test against production before merge');
 requireText(productionSmokeWorkflow, "'scripts/data/verify-hunting-production.mjs'", 'production smoke script changes must self-test on main');
 requireText(productionSmokeWorkflow, 'node scripts/data/verify-hunting-production.mjs', 'production workflow must execute decoded Node verifier');

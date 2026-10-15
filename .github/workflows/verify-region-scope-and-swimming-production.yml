@@ -2,11 +2,6 @@
 name: Verify regional scope and swim indexability on production
 
 on:
-  workflow_run:
-    workflows:
-      - Deploy TexasDefined production
-    types:
-      - completed
   workflow_dispatch:
   schedule:
     - cron: '43 14 * * *'

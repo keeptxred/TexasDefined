@@ -42,6 +42,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['CI/COST', 'Verify update scan scope, retired triggers and shared page fetches', 'node', ['--test', 'scripts/ci/update-scan-policy.test.mjs']],
   ['CI/COST', 'Protect all six remaining local audit migrations and authority reporting', 'node', ['--test', 'scripts/ci/local-audit-migrations.test.mjs', 'scripts/ci/authority-master-issue.test.mjs']],
   ['CI/COST', 'Protect local-only full-site crawls and request budgets', 'node', ['--test', 'scripts/ci/local-audit-fetch.test.mjs']],
   ['COMMERCE/CHECKOUT', 'Verify Texas Defined shipping terms and safe handoff correlation', 'node', ['--experimental-strip-types', '--test', 'scripts/data/validate-shop-checkout-shipping.test.mjs']],
