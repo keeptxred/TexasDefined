@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "bishop",
-    "nextSchool": "bishop",
-    "implementedOnBranch": 2,
-    "remainingToImplement": 23,
+    "currentSchool": "blackwell",
+    "nextSchool": "blackwell",
+    "implementedOnBranch": 3,
+    "remainingToImplement": 22,
     "remainingToVerify": 25,
-    "notes": "Big Spring is IMPLEMENTED on open PR #4970 (not production verified); Harmony DEPLOYED but live Chrome QA and editorial acceptance pending. 105 previous verified records untouched; Batch005 24 formal editorial acceptances still pending. Other Batch006 schools NOT_REVIEWED."
+    "notes": "Harmony and Big Spring deployed; neither yet specifically Chrome/editorial VERIFIED. Bishop authored on pending PR #4978; 105 previous school VERIFIED records and Batch005 formal acceptance backlog preserved."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6533,13 +6533,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/big-spring",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 6,
       "schoolNote": "docs/football-authority/schools/big-spring.md",
       "researchCompletedAt": "2026-10-15",
       "actualProductionVerified": false,
-      "reviewScope": "Individually researched and code-authored on PR #4970: verified UIL District 2, 1953 state runner-up, BSISD Memorial Stadium address, May coach hire and 1–5 through Oct 9; exact-SHA production Chrome QA, rights-cleared photo and editorial acceptance not yet completed.",
-      "implementedOnBranch": "research/football-b006-big-spring-20261015"
+      "reviewScope": "Big Spring sourced guide merged via #4970 and shipped in successful descendant deployment #38816010474; page-specific real Chrome, photo-rights and nine-dimension editorial acceptance still pending.",
+      "mergedPR": 4970,
+      "mergedCommit": "8dd25feb2130587cc263f1d1a238576ee6e7a439",
+      "deploymentRun": 38816010474,
+      "deploymentCommit": "68f9f0b99736ffa1fc2161d5624eee89111d2cf7"
     },
     {
       "id": "uil:bishop",
@@ -6552,8 +6555,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bishop",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/bishop.md",
+      "implementedOnBranch": "feature/football-b006-bishop-20261015",
+      "actualProductionVerified": false,
+      "reviewScope": "School-specific authored content, UIL district and dated 2–5 results; conflicting coach/stadium identities explicitly unresolved, no licensed photo or exact-SHA production Chrome acceptance."
     },
     {
       "id": "uil:blackwell",

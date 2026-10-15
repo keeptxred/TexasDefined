@@ -1,5 +1,11 @@
 # Football Authority — Execution Ledger
 
+## October 15, 2026 — Big Spring reconciled to deployed release (not editorially accepted)
+Big Spring PR #4970 merged as `8dd25feb2130587cc263f1d1a238576ee6e7a439`; successful [GitHub production deployment #38816010474](https://github.com/keeptxred/TexasDefined/actions/runs/38816010474) shipped descendant `68f9f0b99736ffa1fc2161d5624eee89111d2cf7`. Status DEPLOYED means released application code, NOT exact-SHA real Chrome audit or nine-dimension editorial acceptance; retain `actualProductionVerified=false`. Batch005 remains 1/25 editorially accepted; historical 105 registry VERIFIED unchanged.
+
+## October 15, 2026 — Bishop Badgers Batch006 implementation (dependent PR; not live)
+School-specific Bishop guide authored with UIL District 16, seven dated results (2–5 through Oct 9), 2024 turnaround and 2025 archive, six original FAQs, and unresolved source disagreement on coach/stadium. Stadium/photo/accessibility not guessed. Big Spring PR #4970 must land first, followed by protected merge and targeted production verification; prior 105 VERIFIED untouched.
+
 ## October 15, 2026 — Big Spring individually authored (PR #4970; NOT deployed)
 Big Spring Steers researched and school-specific editorial entry authored on PR #4970 with UIL Class 4A DII District 2, 1953 UIL runner-up final against historical Port Neches (24–13), BSISD Memorial Stadium vs campus distinction, May 2026 coach appointment and 1–5 dated result through October 9 Pecos 33–24. Six sourced FAQs and ten dated schedule rows; no assumed stadium photo/license, final season result or visitor accessibility. This is IMPLEMENTED on branch, not merged, Chrome-verified, production-verified or formally editorially accepted. Do not run sitewide acceptance just for this school; protected canonical checks and targeted live Chrome QA remain required.
 
