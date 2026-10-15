@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { TexasComparedHero } from "@/components/compare/TexasComparedHero";
@@ -11,6 +11,14 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 const PRIORITY_MOVE_STATES = new Set(["California", "New York", "Illinois", "Florida", "Colorado"]);
 
 export const Route = createFileRoute("/texas-vs/$state")({
+  beforeLoad: ({ params, location }) => {
+    const name = texasVsStateName(params.state);
+    if (!name) return; // The existing loader retains native 404 handling.
+    const canonical = texasVsCanonicalPath(name);
+    if (canonical !== `/texas-vs/${params.state}`) {
+      throw redirect({ href: `${canonical}${location.searchStr || ""}`, statusCode: 301 });
+    }
+  },
   loader: async ({ params }) => {
     const name = texasVsStateName(params.state);
     if (!name) throw notFound();
