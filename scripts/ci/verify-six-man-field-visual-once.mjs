@@ -16,6 +16,10 @@ try {
     const response = await page.goto(origin + '/article/texas-six-man-football-rules-explained', { waitUntil: 'domcontentloaded', timeout: 45000 });
     const field = page.locator('svg[aria-labelledby="six-man-field-title six-man-field-description"]').first();
     await field.waitFor({ state: 'visible', timeout: 30000 });
+    // TanStack hydration can swap out the SSR subtree. Reacquire the final client nodes.
+    await page.waitForTimeout(1800);
+    await page.locator('#six-man-at-a-glance').waitFor({ state: 'visible', timeout: 30000 });
+    await field.waitFor({ state: 'visible', timeout: 30000 });
     await page.evaluate(async () => {
       await document.fonts.ready;
       window.scrollTo(0, 0);
@@ -44,7 +48,15 @@ try {
     });
     await page.locator('svg[aria-labelledby="six-man-field-title six-man-field-description"]').scrollIntoViewIfNeeded();
     const figure = page.locator('figure').filter({ has: field }).first();
-    const buffer = await figure.screenshot({ type: 'jpeg', quality: 62, animations: 'disabled', timeout: 25000 });
+    let buffer;
+    try {
+      buffer = await figure.screenshot({ type: 'jpeg', quality: 62, animations: 'disabled', timeout: 25000 });
+    } catch (error) {
+      // One retry only for a detached subtree during hydration. Real layout failures remain fatal.
+      if (!String(error).includes('not attached to the DOM')) throw error;
+      await page.waitForTimeout(400);
+      buffer = await page.locator('figure').filter({ has: page.locator('svg[aria-labelledby="six-man-field-title six-man-field-description"]') }).first().screenshot({ type: 'jpeg', quality: 62, animations: 'disabled', timeout: 25000 });
+    }
     console.log('QA_IMAGE_' + label.toUpperCase() + '=' + buffer.toString('base64'));
     console.log('QA_META_' + label.toUpperCase() + '=' + JSON.stringify({ http: response?.status(), ...data, pageErrors }));
     const failures = [];
