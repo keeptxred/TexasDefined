@@ -36,7 +36,7 @@ export const generatedTexasEvents = [
     "venue": "New Braunfels",
     "officialUrl": "https://wurstfest.com/",
     "sourceName": "Wurstfest",
-    "sourceCheckedAt": "2026-10-11T16:39:48.519Z",
+    "sourceCheckedAt": "2026-10-15T15:37:39.174Z",
     "confidenceScore": 94,
     "editorialScore": 94,
     "status": "published",

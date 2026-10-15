@@ -1,3 +1,5 @@
+import { createProductionPageFetch } from './reuse-production-page.mjs';
+const fetchPage = createProductionPageFetch();
 import { appendFileSync } from 'node:fs';
 import { matchesExpectedSurface } from './html-surface-marker.mjs';
 
@@ -259,7 +261,7 @@ async function verifyRevisionBoundSurface(label, path, needle) {
     console.log(`[${label}] attempt ${attempt}: ${url}`);
 
     try {
-      const response = await fetch(url, {
+      const response = await fetchPage(url, {
         redirect: 'follow',
         cache: 'no-store',
         signal: AbortSignal.timeout(30_000),
@@ -336,7 +338,7 @@ for (let attempt = 1; attempt <= 6; attempt += 1) {
       redirect: 'follow',
       signal: AbortSignal.timeout(30_000),
       headers: { 'user-agent': 'TexasDefined-CI-Production-Smoke/1.0' },
-    });
+    }, attempt > 1);
     canonicalHomepageStatus = String(response.status);
     canonicalHomepageChallenge = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
     canonicalHomepageBody = await response.text();
@@ -444,3 +446,4 @@ await import('./verify-hurst-whirlyball-production.mjs');
 await import('./verify-viator-production.mjs');
 await import('./verify-fredericksburg-corridor-production.mjs');
 await import('./verify-seo-recovery-production.mjs');
+await import('./verify-rockport-exhibits-production.mjs');

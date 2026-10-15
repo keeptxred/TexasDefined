@@ -1,5 +1,5 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { heritagePhotoRightsForPath } from "@/data/heritage-photo-license-links";
@@ -363,6 +363,16 @@ export const Route = createFileRoute("/article/$slug")({
 
 function ArticlePage() {
   const { article, graph, categories, destinations, authors, related } = Route.useLoaderData();
+  // BB-35's long lazy article hydrates after the root shell. Third-party
+  // lodging integrations must not mutate this React-owned subtree until mount.
+  useEffect(() => {
+    if (article.slug !== "battleship-texas-bb-35-history-restoration") return;
+    document.documentElement.dataset.tdBattleshipArticleHydrated = "1";
+    window.dispatchEvent(new Event("texasdefined:battleship-article-hydrated"));
+    return () => {
+      delete document.documentElement.dataset.tdBattleshipArticleHydrated;
+    };
+  }, [article.slug]);
   const primarySource = articlePrimarySource(article);
   const corridorHeroRights = heritagePhotoRightsForPath(`/article/${article.slug}`);
   const authoritySources = localArticleAuthoritySources[article.slug] ?? remoteEvergreenAuthoritySources[article.slug] ?? [];
@@ -419,7 +429,7 @@ function ArticlePage() {
             <li><Link to="/texas-explained" className="py-1 hover:text-foreground">Texas Explained</Link></li>
           </> : <>
             <li><Link to={department.path} className="py-1 hover:text-foreground">{department.name}</Link></li>
-            {department.usesExploreCategory && <><li aria-hidden="true">·</li><li><Link to="/explore/$category" params={{ category: article.category }} className="py-1 hover:text-foreground">{categoryName}</Link></li></>}
+            {department.usesExploreCategory && <><li aria-hidden="true">·</li><li>{article.category === "events" ? <Link to="/events" className="py-1 hover:text-foreground">{categoryName}</Link> : <Link to="/explore/$category" params={{ category: article.category }} className="py-1 hover:text-foreground">{categoryName}</Link>}</li></>}
           </>}
           <li aria-hidden="true">·</li><li aria-current="page" className="max-w-full truncate py-1 text-foreground">{articleDisplayTitle}</li>
         </ol>
@@ -494,7 +504,7 @@ function ArticlePage() {
         </Suspense>
       ) : null}
       {hasSchoolSupplyRail ? <SchoolSupplyPartners className="school-supply-bottom" /> : null}
-      {article.hero.credit && <p className="mt-10 text-xs text-muted-foreground">Image credit: {corridorHeroRights ? <a href={corridorHeroRights.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{article.hero.credit}</a> : article.hero.credit}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">License terms</a></>}</p>}
+      {article.hero.credit && <p className="mt-10 break-words text-xs text-muted-foreground">Image credit: {corridorHeroRights ? <a href={corridorHeroRights.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{article.hero.credit}</a> : article.hero.credit}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">License terms</a></>}</p>}
       {primarySource && <p className="mt-4 text-xs leading-6 text-muted-foreground">Primary source: <a href={primarySource.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{primarySource.label} ↗</a></p>}
       {isTexasRiversArticle && <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
         <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>

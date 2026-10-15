@@ -27,7 +27,7 @@ for (const token of ['Report activation state safely', 'TEXASDEFINED_AUTO_PUBLIS
   if (!workflow.includes(token)) errors.push(`Workflow observability contract is missing ${token}`);
 }
 if (/^\s*schedule:/m.test(workflow)) errors.push('Auto-publication schedule must remain disabled until activation is approved.');
-for (const token of ['workflow_run:', "workflows: ['Deploy TexasDefined production']", "github.event.workflow_run.conclusion == 'success'", 'Verify auto-publication activation remains unset', 'vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'Verify live news, published article canonicals and sitemap XML', 'verify-texasdefined-publication-production.mjs', 'actions/checkout@v5', 'actions/setup-node@v5']) {
+for (const token of ['workflow_dispatch:', "github.event.workflow_run.conclusion == 'success'", 'Verify auto-publication activation remains unset', 'vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'Verify live news, published article canonicals and sitemap XML', 'verify-texasdefined-publication-production.mjs', 'actions/checkout@v5', 'actions/setup-node@v5']) {
   if (!productionSmokeWorkflow.includes(token)) errors.push(`Publication production smoke workflow is missing ${token}`);
 }
 for (const token of ["await fetchHealthy('/news')", "await fetchHealthy('/sitemap.xml')", "firstPublishedNewsPath(news.body)", "story.body.includes(expectedCanonical)", "sitemap.body", "<(?:sitemapindex|urlset)"]) {
@@ -73,6 +73,12 @@ if (sitemap.includes('fetchPublishedTexasDefinedNewsArticles({ limit: 200 })') |
 if (!route.includes('fetchPublishedTexasDefinedNewsArticle')) errors.push('Live /news article route must resolve only feed-backed published stories.');
 if (!route.includes('isArticleIndexReady(article)')) errors.push('Live /news article route must noindex published stories that do not satisfy the shared public-readiness floor.');
 for (const token of ['article.hero.credit', 'article.sourceUrl', 'article.relatedDestinations']) if (!route.includes(token)) errors.push(`Live article route is missing ${token}`);
+for (const marker of [
+  'isCompleteFishingLakeSlug(slug)',
+  'to="/fishing/lakes/$slug"',
+  'to="/destination/$slug"',
+]) if (!route.includes(marker)) errors.push('Related published-news links must resolve completed fishing lakes to their canonical /fishing/lakes page: ' + marker);
+
 for (const token of ['jsonLd(match.context.liveNewsSchema)', 'buildPublishedNewsArticleSchema(article)', '<Byline author={editorialDeskById(article.authorId)}']) {
   if (!route.includes(token)) errors.push(`Published news route/author contract is missing ${token}`);
 }

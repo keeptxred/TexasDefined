@@ -31,6 +31,8 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/destination/choke-canyon-state-park', requiredText: 'Calliham Unit', label: 'real Choke Canyon park guide names its access units' },
+  { path: '/destination/caprock-canyons-state-park', requiredText: 'Caprock Canyons State Park', label: 'canonical Caprock Canyons visitor guide' },
   { path: '/county/gillespie', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Gillespie County links to researched historic corridor itinerary' },
   { path: '/county/blanco', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Blanco County links to researched historic corridor itinerary' },
   { path: '/destination/lyndon-b-johnson-state-park-historic-site', requiredText: 'Sauer-Beckmann', label: 'canonical LBJ State Park and living-history farm' },
@@ -113,6 +115,8 @@ const smokeTargets = [
 ];
 
 const redirectTargets = [
+  { path: '/destination/choke-canyon-north-shore-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/choke-canyon-state-park', expectedQuery: ['source','gsc'], label: 'legacy Choke Canyon North Shore import' },
+  { path: '/state-park/caprock-canyons-trailway-estelline-terminal-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/caprock-canyons-state-park', expectedQuery: ['source','gsc'], label: 'legacy Estelline Trailway import' },
   {"path": "/historic-site/seminole-canyon-state-park-and-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/seminole-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
   {"path": "/historic-site/lipantitlan-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/lipantitlan", "expectedQuery": ["source", "gsc"], "label": "verified historic-site alias"},
   {"path": "/historic-site/san-jacinto-monument-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/san-jacinto-battleground", "expectedQuery": ["source", "gsc"], "label": "verified monument guide alias"},
@@ -175,6 +179,10 @@ const child = spawn(
     host,
     '--port',
     String(port),
+    // Let the runtime choose an ephemeral inspector socket. Avoid Wrangler's
+    // network-interface scan in restricted local runners; no inspector is used.
+    '--inspector-port',
+    '0',
   ],
   {
     cwd: process.cwd(),

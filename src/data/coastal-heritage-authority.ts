@@ -158,14 +158,14 @@ export const coastalHeritageAuthorityDestinations: Destination[] = [
   }
 ];
 
-type LocalLink = { name: string; slug: string; description: string };
+type LocalLink = { name: string; slug?: string; href?: string; description: string };
 const localLinks: Record<string, LocalLink[]> = {
   "la-salle-odyssey-texas-coast": [
     {name: "Texas Maritime Museum", slug: "texas-maritime-museum-rockport", description: "Rockport's maritime interpretation"},
     {name: "Corpus Christi Museum of Science and History", slug: "corpus-christi-museum-science-history", description: "Shipwreck artifacts and science"},
-    {name: "Museum of the Coastal Bend", slug: "museum-of-the-coastal-bend", description: "Archaeology and Fort St. Louis"},
-    {name: "Matagorda County Museum", slug: "matagorda-county-museum", description: "Bay-area historical collections"},
-    {name: "Calhoun County Museum", slug: "calhoun-county-museum", description: "Port Lavaca coastal history"},
+    {name: "Museum of the Coastal Bend", href: "https://www.museumofthecoastalbend.org/", description: "Archaeology and Fort St. Louis"},
+    {name: "Matagorda County Museum", href: "https://matagordacounty-museum.org/", description: "Bay-area historical collections"},
+    {name: "Calhoun County Museum", href: "https://calhouncountymuseum.org/", description: "Port Lavaca coastal history"},
     {name: "Texana Museum and Library", slug: "texana-museum-and-library", description: "Jackson County connections"}
   ],
   "goose-island-big-tree": [
@@ -300,7 +300,7 @@ function addSideTrips(destination: Destination, links: LocalLink[]): Destination
   const sideTrips = links.map((item) => ({
     name: item.name,
     description: item.description,
-    href: "/destination/" + item.slug
+    href: item.href ?? (item.slug ? "/destination/" + item.slug : undefined)
   }));
   const fallback = [{ name: destination.nearestTown || "Coastal Texas", description: "Explore the surrounding area and its historical setting." }];
   return {

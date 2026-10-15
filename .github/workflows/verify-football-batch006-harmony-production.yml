@@ -1,10 +1,5 @@
 name: Verify Harmony football production authority
 on:
-  workflow_run:
-    workflows:
-      - Deploy TexasDefined production
-    types:
-      - completed
   workflow_dispatch:
 permissions:
   contents: read
@@ -13,13 +8,12 @@ concurrency:
   cancel-in-progress: false
 jobs:
   verify:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          ref: ${{ github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
@@ -31,7 +25,7 @@ jobs:
           npm install --prefix /tmp/texasdefined-harmony-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
       - name: Verify Harmony desktop/mobile and Upshur County reciprocal links
         env:
-          ACCEPTANCE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+          ACCEPTANCE_SHA: ${{ github.sha }}
         run: node scripts/ci/verify-football-batch006-harmony-production.mjs
       - name: Preserve acceptance report and screenshots
         if: always()

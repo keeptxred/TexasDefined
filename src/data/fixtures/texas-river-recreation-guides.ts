@@ -135,8 +135,8 @@ export const riverRecreationGuideRecords = [
         "New Braunfels"
       ],
       [
-        "/destination/gruene",
-        "Gruene"
+        "/destination/gruene-historic-district",
+        "Gruene Historic District"
       ],
       [
         "/article/texas-guadalupe-river-guide",
@@ -423,6 +423,11 @@ export const riverRecreationGuideRecords = [
 const toLinks = (pairs: readonly (readonly [string, string])[]): NonNullable<Article["internalLinks"]> =>
   pairs.map(([href, label]) => ({ href, label, description: href.startsWith("/") ? "Continue with locally relevant TexasDefined visitor planning and geography." : "Check the primary operator or public agency before you travel." }));
 
+// Official references use [human-readable label, external URL], unlike extraLinks.
+// Keep the conversions separate so labels can never become local /article/ routes.
+const toOfficialLinks = (pairs: readonly (readonly [string, string])[]): NonNullable<Article["internalLinks"]> =>
+  pairs.map(([label, href]) => ({ href, label, description: "Check the primary operator or public agency before you travel." }));
+
 const buildBody = (river: (typeof riverRecreationGuideRecords)[number]): ArticleBlock[] => [
   h("The river at a glance"),
   p(river.overview),
@@ -480,7 +485,7 @@ export const texasRiverRecreationGuideArticles: Article[] = riverRecreationGuide
   sourceName: river.official[0][0],
   sourceUrl: river.official[0][1],
   sources: river.official.map(([label, url]) => ({ label, url })),
-  internalLinks: [...sharedRiverPlanningLinks, ...toLinks(river.extraLinks), ...toLinks(river.official)],
+  internalLinks: [...sharedRiverPlanningLinks, ...toLinks(river.extraLinks), ...toOfficialLinks(river.official)],
   body: buildBody(river),
   relatedCollections: [],
   relatedDestinations: [],

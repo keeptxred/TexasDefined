@@ -93,6 +93,12 @@
       "name": "Lake Arrowhead"
     }
   ],
+  "coke": [
+    {
+      "slug": "e-v-spence-reservoir",
+      "name": "E. V. Spence Reservoir"
+    }
+  ],
   "coleman": [
     {
       "slug": "o-h-ivie-lake",
@@ -365,6 +371,12 @@
     {
       "slug": "lake-o-the-pines",
       "name": "Lake O' the Pines"
+    }
+  ],
+  "mcculloch": [
+    {
+      "slug": "brady-creek-reservoir",
+      "name": "Brady Creek Reservoir"
     }
   ],
   "mclennan": [

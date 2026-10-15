@@ -135,6 +135,7 @@ console.log('[viator-production] Explore directory, representative destination b
 await import('./verify-ask-texas-government-production.mjs');
 await import('./verify-stay-nearby-production.mjs');
 await import('./verify-critical-static-assets-production.mjs');
-await import('./verify-sports-venue-heroes-production.mjs');
+// Exhaustive sports-venue hero delivery runs on the weekly local Worker audit,
+// not through Viator's bounded live-production smoke (which runs on each deploy).
 await import('./verify-galaxy-social-production.mjs');
 await import('./verify-san-angelo-proximity-production.mjs');

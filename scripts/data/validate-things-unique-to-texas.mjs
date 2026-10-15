@@ -45,7 +45,7 @@ const additionalSmokePaths = [
   '/article/caddo-lake-cypress-morning',
   '/article/texas-wildlife-guide',
   '/article/texas-trees-guide',
-  '/article/galveston-county-island-port-juneteenth-texas',
+  '/county/galveston',
   '/texas-symbols',
 ];
 
@@ -80,7 +80,7 @@ for (const [id, path] of [
   [129, '/texas-roadside-oddities'],
   [137, '/texas-roadside-oddities'],
   [173, '/texas-chili-con-carne-history'],
-  [185, '/article/galveston-county-island-port-juneteenth-texas'],
+  [185, '/county/galveston'],
   [200, '/article/texas-wildlife-guide'],
   [204, '/article/texas-trees-guide'],
   [222, '/texas-slang-explained'],
@@ -150,7 +150,7 @@ for (const [path, routeFile, slug] of evergreenGuides) {
 }
 for (const path of additionalSmokePaths) if (!productionSmoke.includes(`check_page '${path}'`)) failures.push(`Production smoke must verify established related evergreen ${path}.`);
 
-if (!productionSmoke.includes("workflows: ['Deploy TexasDefined production']")) failures.push('Magazine production smoke must remain chained to successful production deployments.');
+if (!productionSmoke.includes('workflow_dispatch:') || /^  workflow_run:/m.test(productionSmoke)) failures.push('Magazine production acceptance must remain manual under the update cost policy.');
 const smokePaths = ['/things-unique-to-texas','/things-unique-to-texas/methodology',...categorySlugs.map((slug) => `/things-unique-to-texas/${slug}`)];
 for (const path of smokePaths) if (!productionSmoke.includes(`'${path}'`)) failures.push(`Magazine production smoke must verify ${path}.`);
 for (const token of ['.count == 250','(.items | length) == 250','wc -l','251','x-robots-tag:','/things-that-define-texas.json','/things-that-define-texas.csv','test "$json_deep_links" -ge 91','test "$csv_deep_links" -ge 91','Topical/evergreen authority routes checked: 23','at least 91 deeper-guide relationships']) if (!productionSmoke.includes(token)) failures.push(`Magazine production smoke must retain current authority/distribution token: ${token}.`);

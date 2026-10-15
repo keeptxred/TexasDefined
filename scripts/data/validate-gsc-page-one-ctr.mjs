@@ -6,7 +6,281 @@ const poteet = fs.readFileSync('src/data/major-event-expanded-authority-tranche2
 const sweetwater = fs.readFileSync('src/data/major-event-expanded-authority-tranche16.server.ts', 'utf8');
 const charro = fs.readFileSync('src/data/major-event-expanded-authority-tranche5.server.ts', 'utf8');
 const settlementStub = fs.readFileSync('src/data/fixtures/texas-explained-support-stubs.ts', 'utf8');
+const eventSnippetLifecycle = fs.readFileSync('src/data/event-snippet-lifecycle.ts', 'utf8');
+const eventAuthority = fs.readFileSync('src/data/major-event-authority.ts', 'utf8');
+const eventRoute = fs.readFileSync('src/routes/event.$slug.tsx', 'utf8');
+const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const failures = [];
+const headingPrefixRepairs = [
+  {
+    "path": "/article/adopting-a-dog-in-texas",
+    "title": "Adopting a Dog in Texas: Shelters, Rabies & Matching Tips"
+  },
+  {
+    "path": "/article/audie-murphy-texas-war-hero-actor",
+    "title": "Audie Murphy: Texas WWII Hero, Soldier & Actor"
+  },
+  {
+    "path": "/article/hiking-texas-trails-with-your-dog",
+    "title": "Hiking Texas Trails With Your Dog: Heat & Leash Rules"
+  },
+  {
+    "path": "/article/hogg-foundation-mental-health-texas-history",
+    "title": "Hogg Foundation for Mental Health: Texas History & Mission"
+  },
+  {
+    "path": "/article/ima-hogg-texas-legacy",
+    "title": "Ima Hogg: Texas Philanthropist, Art & Public Legacy"
+  },
+  {
+    "path": "/article/juan-seguin-tejano-texas-revolution",
+    "title": "Juan Seguín: Tejano Revolutionary Leader & Texas Exile"
+  },
+  {
+    "path": "/article/mirabeau-b-lamar-president-republic-texas",
+    "title": "Mirabeau B. Lamar: President of the Republic of Texas"
+  },
+  {
+    "path": "/article/sallie-hogg-texas-legacy",
+    "title": "Sallie Hogg: Texas First Lady & Public-Service Legacy"
+  },
+  {
+    "path": "/article/san-antonio-spurs-texas-basketball-culture",
+    "title": "San Antonio Spurs: Team Culture & Basketball History"
+  },
+  {
+    "path": "/article/san-antonio-stock-show-rodeo-history-guide",
+    "title": "San Antonio Stock Show & Rodeo: History & Scholarships"
+  },
+  {
+    "path": "/article/texas-backup-power-generator-guide",
+    "title": "Texas Backup Power Guide: Generators & Transfer Switches"
+  },
+  {
+    "path": "/article/texas-borderlands-historic-sites-guide",
+    "title": "Texas Borderlands History: Missions & Tejano Heritage"
+  },
+  {
+    "path": "/article/texas-cold-war-military-history",
+    "title": "Cold War Texas: Bombers, Missile Silos & Pantex"
+  },
+  {
+    "path": "/article/texas-dog-friendly-patios-law",
+    "title": "Texas Dog-Friendly Patios: Rules & State Law Guide"
+  },
+  {
+    "path": "/article/texas-dog-lake-river-safety",
+    "title": "Texas Dog Water Safety: Lakes, Rivers & Algae"
+  },
+  {
+    "path": "/article/texas-gulf-coast-erosion-shoreline-retreat-guide",
+    "title": "Texas Gulf Coast Erosion: Shoreline Retreat & Risk"
+  },
+  {
+    "path": "/article/texas-homeowner-field-manual",
+    "title": "Texas Homeowner Field Manual: Weather, Utilities & Insurance"
+  },
+  {
+    "path": "/article/texas-household-pests-guide",
+    "title": "Texas Household Pests: Termites, Ants, Roaches & Control"
+  },
+  {
+    "path": "/article/texas-military-museums-historic-sites-guide",
+    "title": "Texas Military Museums & Historic Sites: Visitor Guide"
+  },
+  {
+    "path": "/article/texas-pecos-river-guide",
+    "title": "Pecos River Texas: Canyons, Fishing & Public Access"
+  },
+  {
+    "path": "/article/texas-pool-owner-guide",
+    "title": "Texas Pool Owner Guide: Chemistry, Pumps & Freeze Protection"
+  },
+  {
+    "path": "/article/texas-spanish-american-war-guide",
+    "title": "Texas in the Spanish-American War: Rough Riders & History"
+  },
+  {
+    "path": "/article/texas-trees-around-home-guide",
+    "title": "Texas Trees Near Homes: Storms, Roots & Oak Wilt"
+  },
+  {
+    "path": "/article/texas-us-mexican-war-palo-alto-guide",
+    "title": "Texas in the Mexican-American War: Palo Alto & Border"
+  },
+  {
+    "path": "/article/texas-world-war-i-history-guide",
+    "title": "Texas in World War I: Border, Camps & Military History"
+  },
+  {
+    "path": "/article/texas-world-war-ii-bases-pow-camps",
+    "title": "Texas WWII Bases, Training Camps & POW Camps"
+  },
+  {
+    "path": "/article/texas-world-war-ii-historic-sites-guide",
+    "title": "Texas World War II Historic Sites: Five Places to Visit"
+  },
+  {
+    "path": "/article/toledo-bend-water-system-guide",
+    "title": "Toledo Bend Reservoir: Texas Water System Guide"
+  },
+  {
+    "path": "/explore/painted-churches/guides/dubina-texas-population",
+    "title": "Dubina Texas: Population, History & Painted Church"
+  },
+  {
+    "path": "/explore/painted-churches/guides/praha-texas-czech-heritage",
+    "title": "Praha Texas: Czech Heritage & Painted Church"
+  },
+  {
+    "path": "/explore/painted-churches/guides/st-stanislaus-plantersville",
+    "title": "St. Stanislaus Church Plantersville: Location & History"
+  },
+  {
+    "path": "/news/most-popular-dog-breeds-in-texas-chihuahua-data",
+    "title": "Is the Chihuahua Texas's Most Popular Dog? Data Explained"
+  }
+];
+for (const fix of headingPrefixRepairs) {
+  if (!seo.includes('"'+fix.path+'"') || !seo.includes(fix.title)) failures.push('Title lost important H1 completion: '+fix.path);
+}
+
+const trimHelper = fs.readFileSync('src/lib/seo-snippet-trim.ts', 'utf8');
+for(const required of ['incomplete clause','DANGLING_ENDING','MAX_LENGTH','cleanMetaDescription']) if(!trimHelper.includes(required)) failures.push('Meta description truncation protection missing: '+required);
+
+const furtherClippedTitleRepairs = [
+  {
+    "path": "/article/bluebonnet-animal-preservation-athens",
+    "title": "Bluebonnet Animal Preservation Athens: Pet Aftercare Guide",
+    "descriptionStart": "Explore Bluebonnet Animal Preservation in Athens"
+  },
+  {
+    "path": "/article/fort-worth-stockyards-history-cattle-culture",
+    "title": "Fort Worth Stockyards: Cattle Trade, Railroads & History",
+    "descriptionStart": "Explore the cattle trade, railroads and meatpack"
+  },
+  {
+    "path": "/article/historic-san-antonio-heritage-road-trip",
+    "title": "Historic San Antonio Road Trip: Missions, Alamo & King William",
+    "descriptionStart": "Plan a two-day San Antonio history route through"
+  },
+  {
+    "path": "/article/how-to-choose-electricity-plan-texas",
+    "title": "Choose a Texas Electricity Plan: Rates, Fees & EFL",
+    "descriptionStart": "Learn to read the Electricity Facts Label, compa"
+  },
+  {
+    "path": "/article/mexican-texas-military-history",
+    "title": "Military in Mexican Texas: Presidios, Anahuac & Revolution",
+    "descriptionStart": "Follow Mexican-era Texas military history from p"
+  },
+  {
+    "path": "/article/muds-pids-hoas-special-districts-texas",
+    "title": "Texas MUDs, PIDs & HOAs: Homebuyer Taxes & Fees",
+    "descriptionStart": "Understand Texas MUD, PID and HOA assessments an"
+  },
+  {
+    "path": "/article/republic-of-texas-government-trail",
+    "title": "Republic of Texas Government Trail: San Felipe to Austin",
+    "descriptionStart": "Trace Texas government from San Felipe and Washi"
+  },
+  {
+    "path": "/article/texas-bucket-list-by-season",
+    "title": "Texas Bucket List by Season: Spring Through Winter",
+    "descriptionStart": "Plan Texas trips by season, from spring wildflow"
+  },
+  {
+    "path": "/article/texas-civil-war-sites-guide",
+    "title": "Texas Civil War Sites: Battlefields, Emancipation & Memory",
+    "descriptionStart": "Explore Texas Civil War and Reconstruction sites"
+  },
+  {
+    "path": "/article/texas-historic-travel-transportation-guide",
+    "title": "Historic Texas Travel: Stagecoaches, Wagon Roads & Trains",
+    "descriptionStart": "Explore travel before Texas highways through Fan"
+  },
+  {
+    "path": "/article/texas-oil-boom-wichita-falls-west-texas-rigs",
+    "title": "Texas Oil Boom: Wichita Falls, Permian Basin & Legacy",
+    "descriptionStart": "How oil development in Wichita Falls and West Te"
+  },
+  {
+    "path": "/article/texas-wildfire-home-protection-guide",
+    "title": "Texas Wildfire Home Protection: Embers, Roofs & Evacuation",
+    "descriptionStart": "Learn how to assess Texas wildfire risk, harden "
+  },
+  {
+    "path": "/article/women-in-texas-military-history",
+    "title": "Women in Texas Military History: Nurses, WASP & Service",
+    "descriptionStart": "Explore women’s military service in Texas, from "
+  },
+  {
+    "path": "/texas-capital-designations",
+    "title": "Official Texas Capital Designations: Cities & Counties",
+    "descriptionStart": "Learn how Texas law recognizes special capital d"
+  }
+];
+for(const fix of furtherClippedTitleRepairs){
+ for(const marker of ['"'+fix.path+'"',fix.title,fix.descriptionStart]) if(!seo.includes(marker)) failures.push('Clipped title contract lost: '+fix.path+' '+marker);
+}
+
+const cutOffTitleCorrections = [
+  {
+    "path": "/article/texas-high-school-football-2026-season-calendar",
+    "title": "Texas High School Football 2026: UIL Season & Playoff Calendar",
+    "descriptionStart": "See the UIL 2026 high school football calendar, fr"
+  },
+  {
+    "path": "/article/texas-llano-river-guide",
+    "title": "Llano River Texas: Fishing, Paddling & Camping Guide",
+    "descriptionStart": "Explore the Llano and South Llano rivers, with Jun"
+  },
+  {
+    "path": "/article/texas-red-river-war-guide",
+    "title": "Red River War in Texas: Adobe Walls & Palo Duro Canyon",
+    "descriptionStart": "Learn how the 1874–75 Red River War unfolded acros"
+  },
+  {
+    "path": "/destination/george-washington-carver-museum-austin",
+    "title": "George Washington Carver Museum Austin: Visitor Guide",
+    "descriptionStart": "Visit Austin's George Washington Carver Museum, Cu"
+  },
+  {
+    "path": "/event/bands-of-america-san-antonio-super-regional",
+    "title": "Bands of America San Antonio Super Regional 2026",
+    "descriptionStart": "Plan the 2026 Bands of America San Antonio Super R"
+  },
+  {
+    "path": "/fishing/lakes/cedar-lake-cleburne-state-park",
+    "title": "Cedar Lake at Cleburne State Park: Fishing Guide",
+    "descriptionStart": "Plan Cedar Lake fishing at Cleburne State Park wit"
+  }
+];
+for (const fix of cutOffTitleCorrections) {
+  for (const marker of ['"' + fix.path + '"', fix.title, fix.descriptionStart]) {
+    if (!seo.includes(marker)) failures.push('A source-verified truncated-title repair was lost: ' + fix.path + ' ' + marker);
+  }
+}
+for (const marker of [
+  'Never ship an automatically shortened search title ending in dangling glue',
+  '.replace(/(?:\\s+(?:and|or|of|for|to|with|in|at|the)|\\s+&)$/i, "")',
+]) {
+  if (!seo.includes(marker)) failures.push('Budgeted title ending guard missing: ' + marker);
+}
+
+
+for (const [source, markers] of [
+  [seo, ['resolveEventSnippet({', 'eventOccurrenceEndDate: page.eventOccurrenceEndDate', 'texasEventDateKey()']],
+  [eventAuthority, ['latestEventOccurrenceDate(occurrence)', 'eventOccurrenceEndDate: occurrence ?']],
+  [eventRoute, ['eventOccurrenceEndDate: page.eventOccurrenceEndDate', 'eventName: page.name']],
+  [eventSnippetLifecycle, ['2026-10-18', 'last published dates', 'expiredYear', 'canonicalPath']],
+  [premerge, ['src/data/event-snippet-lifecycle.test.ts']],
+]) {
+  for (const marker of markers) {
+    if (!source.includes(marker)) failures.push('Event snippet lifecycle guard is not wired: ' + marker);
+  }
+}
+
 
 const governedSeoPathMatches = [...seo.matchAll(/^\s{2}"(\/[^"\n]+)":\s*\{/gm)].map((match) => match[1]);
 const duplicateGovernedSeoPaths = [...new Set(governedSeoPathMatches.filter((path, index, all) => all.indexOf(path) !== index))];
@@ -26,14 +300,14 @@ for (const required of [
 // search-intent-focused SSR snippets rather than treating them as indexing work.
 const priorityPageOneCtrRecovery = [
   { path: '/article/texas-rivers-explained', title: 'Major Rivers in Texas: Boundary Rivers, Regions & Map', description: "Find Texas's major and boundary rivers by region" },
-  { path: '/texas-homecoming-mums', title: 'Texas Homecoming Mums Explained: Meaning, History & Tradition', description: 'What are Texas homecoming mums?' },
+  { path: '/texas-homecoming-mums', title: 'Texas Homecoming Mums: History, Meaning, Colors & Traditions', description: 'Texas homecoming mums explained: history, colors, senior traditions, garters, costs' },
   { path: '/event/heart-o-texas-fair-rodeo', title: "Heart O' Texas Fair & Rodeo 2026: Dates, Schedule & Tickets", description: "The 2026 Heart O' Texas Fair & Rodeo runs Oct. 8-18 in Waco" },
-  { path: '/article/texas-river-basins-guide', title: 'Texas River Basins: 15 Major, 8 Coastal & Watershed Map', description: "Texas's 15 major and eight coastal basins" },
+  { path: '/article/texas-river-basins-guide', title: 'Texas River Basins: 15 Major, 8 Coastal & Watershed Map', description: "15 major and eight coastal river basins" },
   { path: '/article/texas-lakes-reservoirs-explained', title: 'Texas Lakes & Reservoirs: Why Most Are Man-Made', description: 'most familiar inland Texas lakes are reservoirs' },
   { path: '/article/texas-trinity-river-guide', title: 'Trinity River Texas: Dallas-Fort Worth, Basin & Gulf Guide', description: 'Follow the Trinity River through North Texas toward Trinity Bay' },
   { path: '/sports-venue/jones-att-stadium', title: 'Jones AT&T Stadium (Now Galaxy Stadium): Texas Tech Guide', description: 'Looking for Jones AT&T Stadium?' },
   { path: '/article/texas-settlement-patterns-explained', title: 'Texas Settlement Patterns: How Geography Shaped Towns', description: 'See how rivers and reliable water drew early Texas settlement' },
-  { path: '/event/addison-oktoberfest', title: 'Addison Oktoberfest 2026: Dates, Hours, Tickets & Parking', description: 'Addison Oktoberfest runs Sept. 17-20, 2026' },
+  { path: '/event/addison-oktoberfest', title: 'Addison Oktoberfest: Dates, Hours, Tickets & Parking', description: 'latest confirmed dates, festival hours, tickets, parking, hotel and official planning links' },
   { path: '/sports-venue/mesquite-memorial-stadium', title: 'Mesquite Memorial Stadium: Parking, Tickets & Events', description: 'verified parking, directions, ticket and event links' },
   { path: '/explore/painted-churches', title: 'Painted Churches of Texas: Complete Statewide Guide', description: 'verified church profiles, history, architecture, photos and visitor information' },
 ];
@@ -65,7 +339,7 @@ const experiments = [
   {
     path: '/article/texas-river-basins-guide',
     title: 'Texas River Basins: 15 Major, 8 Coastal & Watershed Map',
-    description: "Learn how Texas's 15 major and eight coastal basins divide the state by watershed",
+    description: "15 major and eight coastal river basins on a watershed map",
   },
   {
     path: '/sports-venue/legacy-stadium-katy',
@@ -134,8 +408,8 @@ const experiments = [
   },
   {
     path: '/event/floresville-peanut-festival',
-    title: 'Floresville Peanut Festival 2026: Dates, Schedule & Tickets',
-    description: 'Plan the 2026 Floresville Peanut Festival with verified dates',
+    title: 'Floresville Peanut Festival: Visitor Guide & Next Dates',
+    description: 'Explore Floresville Peanut Festival traditions, parade guidance',
   },
   {
     path: '/sports-venue/childrens-health-stadium-prosper',
@@ -179,7 +453,7 @@ const thirdWave = [
 ];
 
 const fourthWaveCorrections = [
-  { path: '/event/sweetwater-rattlesnake-roundup', title: 'Sweetwater Rattlesnake Roundup 2027: Dates & Visitor Guide', description: 'Sweetwater Rattlesnake Roundup 2027 planning window: March 12-14' },
+  { path: '/event/sweetwater-rattlesnake-roundup', title: 'Sweetwater Rattlesnake Roundup 2027: Projected Dates & Guide', description: 'Sweetwater Rattlesnake Roundup 2027 projected planning window: March 12-14' },
   { path: '/event/charro-days-fiesta', title: 'Charro Days Fiesta 2027: Dates, Parade & Brownsville Guide', description: 'Charro Days Fiesta 2027 core dates are Feb. 25-27 in Brownsville' },
 ];
 
@@ -251,7 +525,7 @@ if (sixthWave.length !== 20) {
 
 const seventhWave = [
   { path: "/event/addison-oktoberfest", title: "Addison Oktoberfest: Dates, Hours, Tickets & Parking", description: "latest confirmed dates" },
-  { path: "/texas-state-fair", title: "State Fair of Texas 2026: Dates, Hours, Schedule & Tickets", description: "The State Fair of Texas runs Sept. 25-Oct. 18, 2026" },
+  { path: "/texas-state-fair", title: "State Fair of Texas 2026: Dates, Hours, Schedule & Tickets", description: "State Fair of Texas 2026 runs Sept. 25-Oct. 18" },
   { path: "/article/el-paso-county-missions-rio-grande-texas", title: "El Paso County Missions & Rio Grande: Borderlands History Guide", description: "Explore El Paso County through the Rio Grande, Ysleta Mission" },
   { path: "/article/texas-barbecue-styles-explained", title: "Texas Barbecue Styles: Central, East, South & West Texas BBQ", description: "Compare Texas barbecue styles by region" },
   { path: "/article/texas-business-routes-explained", title: "What Is a Business Highway? Texas Business Routes Explained", description: "Learn what a business highway or business route is" },

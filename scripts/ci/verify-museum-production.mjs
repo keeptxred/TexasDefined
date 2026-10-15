@@ -7,6 +7,7 @@
  * accept unrelated stock photography to make an unverified guide indexable.
  */
 import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
+import { primaryDestinationHeroSrc, isMissingPrimaryDestinationHero } from "./museum-primary-hero.mjs";
 
 const origin = (process.env.TD_PRODUCTION_ORIGIN || "https://texasdefined.com").replace(/\/+$/, "");
 const local = JSON.parse(readFileSync("public/museum-verification-manifest.json", "utf8"));
@@ -14,7 +15,7 @@ const expectedPaths = new Set(local.museums.map(item => item.path));
 const required = [
   { slug: "alvin-historical-museum", indexed: true, image: "Former_alvin_tx_post_office.jpg" },
   { slug: "museum-of-the-american-railroad-frisco", indexed: true, image: "Frisco_June_2019_28_" },
-  { slug: "the-history-center-diboll", indexed: true, image: "The_Southern_Pine_Lumber_Company_sawmills" },
+  { slug: "the-history-center-diboll", indexed: true, image: "Texas_South-Eastern_Railroad_Engine_4.jpg" },
   { slug: "port-isabel-historical-museum", indexed: true, image: "Part_of_an_elaborate_", phrase: "Fish mural across the historic" },
   { slug: "sixth-floor-museum-at-dealey-plaza", indexed: true, phrase: "Is the museum accessible by DART or the TRE train?" },
   { slug: "uss-lexington-museum-corpus-christi", indexed: true, phrase: "Can visitors buy ordinary USS Lexington admission tickets online?" },
@@ -47,18 +48,19 @@ function analyzeRoute(c, doc) {
   const robotTag = (doc.body.match(/<meta\b[^>]*name=["']robots["'][^>]*>/i) || [])[0] || "";
   const robots = attr(robotTag, "content");
   const noindex = robots.includes("noindex");
-  const hasMissingHero = doc.body.includes("texasdefined-destination-placeholder.svg");
+  const primaryHero = primaryDestinationHeroSrc(doc.body);
+  const hasMissingHero = isMissingPrimaryDestinationHero(doc.body);
   if (!doc.body.includes(c.slug.split("-").slice(0,2).join("-")) && !doc.body.includes("<h1")) issues.push("no recognizable page heading");
   if (c.indexed && noindex) issues.push("previously recovered guide reverted to noindex");
   if (c.indexed && hasMissingHero) issues.push("indexable guide reverted to missing-photo placeholder");
-  if (c.image && !doc.body.includes(c.image)) issues.push("required subject-specific image missing: " + c.image);
+  if (c.image && !primaryHero.includes(c.image)) issues.push("required subject-specific primary hero missing: " + c.image);
   if (c.phrase && !decode(doc.body).includes(c.phrase)) issues.push("researched visible visitor information absent: " + c.phrase);
   if (c.indexWhenPhotoCleared) {
     if (hasMissingHero && !noindex) issues.push("missing-photo page improperly indexable");
     if (hasMissingHero && noindex) openPhotoGaps.push(path);
     if (!hasMissingHero && noindex) issues.push("photo available but page still noindex");
   }
-  return { path, status: doc.status, canonical, robots, missingPhoto: hasMissingHero, issues };
+  return { path, status: doc.status, canonical, robots, primaryHero, missingPhoto: hasMissingHero, issues };
 }
 try {
   const doc = await get("/museum-verification-manifest.json");

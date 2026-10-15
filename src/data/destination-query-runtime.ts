@@ -1,3 +1,4 @@
+import { isTexasStateParkDestination } from "./state-park-authority";
 import { abileneAreaDestinationFallbacks } from "./abilene-area-destinations";
 import { enrichAquariumMarineDestination } from "./aquarium-marine-destinations";
 import { enrichCavernAreaGuide } from "./cavern-area-guides";
@@ -25,7 +26,7 @@ import { filterDestinationsByScope } from "./destination-query-scope";
 import { correctDestinationTravelRegion } from "./destination-region-consistency";
 import { applyTownAuthority } from "./town-authority-network";
 import { platform, scope } from "./index";
-import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
+import { applyStateParkHeroAsset, applyStateParkHeroAssets, recoverUniqueParkHeroesAfterGlobalReconciliation } from "./state-park-heroes";
 import type { Destination, Slug } from "./types";
 import type { DestinationQuery } from "./repositories";
 import { selectSwimmingHoleAndTubingDestinations } from "./water-recreation";
@@ -210,8 +211,9 @@ function resolveSeoReadyDestination(destination?: Destination | null) {
 }
 
 function reconcileExploreCatalog(destinations: Destination[]) {
-  const aquariumEnriched = reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))
-    .map(enrichAquariumMarineDestination);
+  const aquariumEnriched = recoverUniqueParkHeroesAfterGlobalReconciliation(
+    reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations))),
+  ).map(enrichAquariumMarineDestination);
   const curated = improveDestinationCatalog(applyAllCuratedDestinations(aquariumEnriched));
   const improved = enrichHistoricSiteCatalog(curated)
     .map(enrichRemainingHistoricSiteAreaGuide)
@@ -234,6 +236,17 @@ function reconcileExploreCatalog(destinations: Destination[]) {
 }
 
 export async function listResolvedDestinations(params: Omit<DestinationQuery, "brandId"> = {}) {
+  // A TPWD park may be editorially categorized as coastal, history, lake or outdoors.
+  // Select from the already-filtered full catalog, never include RV-business aliases or closed parks.
+  if (params.category === "state-parks") {
+    const parks = filterDestinationsByScope(
+      (await listResolvedDestinations()).filter(isTexasStateParkDestination),
+      { region: params.region },
+    ).sort((a, b) => a.name.localeCompare(b.name));
+    if (params.featured) return featuredFallback(parks, params.limit ?? 6);
+    return params.limit ? parks.slice(0, params.limit) : parks;
+  }
+
   if (params.category === WATER_COLLECTION) {
     // This is a VIRTUAL cross-category collection: qualifying towns, state
     // parks and rivers retain their real categories. Reapplying the virtual

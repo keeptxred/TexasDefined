@@ -1,11 +1,6 @@
 name: Verify production sitemap integrity
 
 on:
-  workflow_run:
-    workflows:
-      - Deploy TexasDefined production
-    types:
-      - completed
   workflow_dispatch:
 
 permissions:
@@ -43,6 +38,9 @@ jobs:
       - name: Verify historical photographic subjects and closed original-site indexing
         if: ${{ hashFiles('scripts/ci/verify-historic-photo-indexability-production.mjs') != '' }}
         run: node scripts/ci/verify-historic-photo-indexability-production.mjs
+
+      - name: Test primary museum hero isolation from related placeholders
+        run: node --test scripts/ci/museum-primary-hero.test.mjs
 
       - name: Verify museum production acceptance
         # Bounded live checks; unresolved photo gaps are reported, not certified.

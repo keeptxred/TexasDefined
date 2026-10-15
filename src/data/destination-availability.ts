@@ -5,6 +5,7 @@ import type { Destination } from "./types";
  * recommend as ordinary visitable Trip Planner stops today.
  */
 const UNAVAILABLE_DESTINATION_SLUGS = new Set([
+  "wyler-aerial-tramway-state-park", // TPWD site is closed to regular visitation
   "albert-bessie-kronkosky-state-natural-area",
   "powderhorn-state-park",
   "chinati-mountains-state-natural-area",

@@ -1089,10 +1089,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "development": {
       "title": "Playoff football in Panola County, and a real campus-versus-stadium distinction",
-      "body": "The official Beckville ISD parent directory lists Beckville High School at 169 N Washington, whereas a third-party team schedule uses the alternative '1 Bearcat Dr' address. These must not be substituted for the stadium; Dave Campbell's separate stadium listing calls the football venue R.C. Beauchamp Stadium, subject to game-specific verification. NFHS archives show 2025 postseason games against Paul Pewitt, Leon and San Augustine. MaxPreps and Dave Campbell disagree on the 2025 season win total, so a single 2025 W–L record is deliberately not asserted.",
-      "sourceUrl": "https://www.nfhsnetwork.com/schools/beckville-high-school-beckville-tx/football",
-      "sourceLabel": "NFHS 2025 playoff game archive",
-      "verifiedAt": "2026-10-10"
+      "body": "Beckville ISD publishes inconsistent campus street numbers. Its Schools page gives Beckville High School 157 N Washington and junior high 169 N Washington, while Students & Parents gives the high school 169 N Washington and junior high 203 N Washington. The precise campus street number is therefore unresolved. R.C. Beauchamp Stadium is identified separately by an independent football directory, not by either campus listing. Confirm stadium and entrance details directly with Beckville ISD at 903-678-3591 before travel. NFHS archives document 2025 playoff games, while football databases disagree on the completed season record.",
+      "sourceUrl": "https://www.beckvilleisd.net/schools",
+      "sourceLabel": "Beckville ISD Schools directory; compare the conflicting Students & Parents campus listing",
+      "verifiedAt": "2026-10-14"
     },
     "milestones": [
       {
@@ -1112,9 +1112,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "date": "Visitor guide",
         "title": "High school campus differs from published stadium identity",
-        "body": "Beckville ISD provides a high-school address of 169 N Washington; a separate Texas football program source identifies R.C. Beauchamp Stadium, but current game entry and ADA details must be checked.",
+        "body": "Beckville ISD's Schools directory lists its high school at 157 N Washington, but its Students & Parents directory lists 169 N Washington; the district also disagrees about the junior-high street number. Do not treat either number or a third-party stadium address as a confirmed game-day destination. Call the high school at 903-678-3591 and confirm the venue, entry and accessibility details before visiting.",
         "sourceUrl": "https://www.beckvilleisd.net/students-parents",
-        "sourceLabel": "District campus address"
+        "sourceLabel": "Conflicting first-party school address listings: verify before travel"
       },
       {
         "date": "2026-10-13",
@@ -1126,14 +1126,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     ],
     "overview": [
       "Beckville Bearcats football is part of Beckville ISD in Panola County. The program has a documented run of recent postseason appearances, with NFHS carrying distinct archived 2025 UIL games against Paul Pewitt, Leon and San Augustine; do not misrepresent those recordings as live fixtures.",
-      "School and stadium information deserves special care. Beckville ISD's own parent directory identifies its high-school campus at 169 N Washington, while third-party profiles list a Bearcat Drive address and a stadium name. For game-day driving, use the official event assignment rather than assuming that all addresses are interchangeable.",
+      "Beckville ISD's two first-party directories disagree about both the high-school and junior-high street numbers (157 versus 169 N Washington for the high school). That is not a verified navigation address. Check the individual game venue and contact the high school at 903-678-3591 before travel; neither district campus directory proves R.C. Beauchamp Stadium's precise entrance or current game-day access.",
       "The current 2026–28 UIL assignment is 2A Division I District 11. Two football results databases disagree on the 2025 final W–L count, so this independent guide links those sources rather than publishing an unsourced definitive total. A third-party staff roster lists Cody Ross as 2026 head coach, but first-party confirmation is outstanding.",
       "The 3–4 snapshot includes the October 9 reported 26–42 defeat at Pewitt. The 2025 playoff record is a separate season and does not describe the current team."
     ],
     "faq": [
       {
         "question": "Where is Beckville High School?",
-        "answer": "Beckville ISD officially lists 169 N Washington, Beckville, TX 75631. Confirm the stadium address separately for any varsity game."
+        "answer": "Beckville ISD's Schools directory gives the high school as 157 N Washington, but its Students & Parents directory gives 169 N Washington; the district's junior-high addresses also disagree. Contact Beckville High School at 903-678-3591 to confirm the campus and game venue rather than relying on either street number."
       },
       {
         "question": "How far did Beckville go in the 2025 postseason?",
@@ -1153,11 +1153,11 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "campus": {
-      "address": "169 N Washington Street, Beckville, TX 75631",
+      "address": "Beckville, TX 75631",
       "phone": "903-678-3591",
-      "sourceUrl": "https://www.beckvilleisd.net/students-parents",
-      "sourceLabel": "First-party campus address",
-      "verifiedAt": "2026-10-10"
+      "sourceUrl": "https://www.beckvilleisd.net/schools",
+      "sourceLabel": "District school address listing conflicts with Students & Parents; street number unconfirmed",
+      "verifiedAt": "2026-10-14"
     },
     "season": {
       "record": "3–4 through October 9, 2026 (independent scoreboard snapshot)",

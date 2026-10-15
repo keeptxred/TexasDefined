@@ -71,7 +71,7 @@ export const militaryMuseumDestinations: Destination[] = [
         { name: "Battleship Texas: a different preserved warship", description: "Understand the contrast between a dreadnought gun platform and an aircraft carrier. Battleship Texas is closed for regular tours in Galveston.", href: "/article/battleship-texas-bb-35-history-restoration" },
         { name: "Texas military museums and historic sites", description: "Use the statewide guide to connect Lexington with Battleship Texas, the National Museum of the Pacific War, Camp Mabry, WASP history and preserved battlefields.", href: "/article/texas-military-museums-historic-sites-guide" },
         { name: "Texas in World War II", description: "Connect the carrier to the state's wartime bases, training system, POW camps and home-front transformation.", href: "/article/texas-world-war-ii-bases-pow-camps" },
-        { name: "Nueces County guide", description: "Continue into Corpus Christi, Padre Island and the wider Coastal Bend.", href: "/article/nueces-county-corpus-christi-padre-island-texas" },
+        { name: "Nueces County guide", description: "Continue into Corpus Christi, Padre Island and the wider Coastal Bend.", href: "/county/nueces" },
       ],
     },
   },

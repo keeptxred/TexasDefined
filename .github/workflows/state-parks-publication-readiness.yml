@@ -1,0 +1,30 @@
+name: Park publication readiness (park changes only)
+
+on:
+  pull_request:
+    paths:
+      - "src/data/state-park-source-grounded-depth.ts"
+      - "src/data/state-park-authority.ts"
+      - "src/data/state-park-hero-map.ts"
+      - "src/data/state-park-authority-recovery.ts"
+      - "scripts/data/audit-state-park-publication-readiness.ts"
+      - "scripts/data/run-state-park-publication-readiness.mjs"
+      - ".github/workflows/state-parks-publication-readiness.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Diagnose the 83 local park guides only (no Cloudflare crawl)
+        run: npm run state-parks:readiness

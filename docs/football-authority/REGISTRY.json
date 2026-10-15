@@ -46,14 +46,14 @@
     "individuallyVerified": 0,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
-    "repositoryMainAtAssignment": "0696c5cdf50a169e15d8b1ac276edca55e5c6680",
+    "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
     "currentSchool": "big-sandy-harmony",
     "nextSchool": "big-sandy-harmony",
     "implementedOnBranch": 1,
     "remainingToImplement": 24,
     "remainingToVerify": 25,
-    "notes": "Batch005 formally archived, 25/25 exact-SHA Chrome production accepted (1,233 checks). 1 of 25 Batch006 profiles individually researched on branch; zero Batch006 merged or production-verified. Big Sandy Harmony is Harmony ISD (Upshur County) and must not be confused with Big Sandy ISD at Dallardsville or Big Sandy Wildcats. Reserve remaining 24 for individual research only."
+    "notes": "Batch005 formally archived, 25/25 exact-SHA Chrome production accepted (1,233 checks). 1 of 25 Batch006 profiles individually researched on branch; zero Batch006 merged or production-verified. Big Sandy Harmony is Harmony ISD (Upshur County) and must not be confused with Big Sandy ISD at Dallardsville or Big Sandy Wildcats. Reserve remaining 24 for individual research only. Reconciled October 15; production/manual QA and separate editorial acceptance still outstanding."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -5591,7 +5591,7 @@
       ],
       "outboundCountyPath": "/county/runnels",
       "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
-      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "productionVerification": "BROWSER_PASS_BATCH005_1233_CHECKS_2026_10_14",
       "blockers": [
         "Protected merge and production deployment",
         "Live responsive Chrome and full county reciprocal evidence",
@@ -5643,7 +5643,7 @@
       ],
       "outboundCountyPath": "/county/reeves",
       "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
-      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "productionVerification": "BROWSER_PASS_BATCH005_1233_CHECKS_2026_10_14",
       "blockers": [
         "Protected merge and production deployment",
         "Live responsive Chrome and full county reciprocal evidence",
@@ -5695,7 +5695,7 @@
       ],
       "outboundCountyPath": "/county/bandera",
       "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
-      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "productionVerification": "BROWSER_PASS_BATCH005_1233_CHECKS_2026_10_14",
       "blockers": [
         "Protected merge and production deployment",
         "Live responsive Chrome and full county reciprocal evidence",
@@ -5747,7 +5747,7 @@
       ],
       "outboundCountyPath": "/county/brown",
       "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
-      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "productionVerification": "BROWSER_PASS_BATCH005_1233_CHECKS_2026_10_14",
       "blockers": [
         "Protected merge and production deployment",
         "Live responsive Chrome and full county reciprocal evidence",
@@ -5799,7 +5799,7 @@
       ],
       "outboundCountyPath": "/county/nueces",
       "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
-      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "productionVerification": "BROWSER_PASS_BATCH005_1233_CHECKS_2026_10_14",
       "blockers": [
         "Protected merge and production deployment",
         "Live responsive Chrome and full county reciprocal evidence",

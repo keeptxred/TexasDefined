@@ -36,7 +36,7 @@ const musicGuideSlugs = new Set([
 
 const guideDestinationLinks: Partial<Record<string, { href: string; label: string; description: string }>> = {
   "dr-pepper-texas-history": {
-    href: "/destination/dr-pepper-museum",
+    href: "/destination/dr-pepper-museum-waco",
     label: "Explore the Dr Pepper Museum",
     description: "Turn the Waco origin story into a visit with TexasDefined's destination guide to the Dr Pepper Museum.",
   },

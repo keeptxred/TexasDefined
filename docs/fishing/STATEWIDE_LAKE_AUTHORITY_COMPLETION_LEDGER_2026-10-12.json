@@ -3,8 +3,8 @@
   "updatedAt": "2026-10-14",
   "scope": {
     "tpwdNamedEntries": 175,
-    "completedGuides": 70,
-    "missingCompleteGuideListings": 105,
+    "completedGuides": 72,
+    "missingCompleteGuideListings": 103,
     "legacyLakeAndParkDestinations": 36
   },
   "standards": {
@@ -569,17 +569,17 @@
     },
     {
       "tpwdEntry": "Brady Creek",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "brady-creek-reservoir",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/brady_creek/",
+      "namedFacilities": "TPWD lists City Park at Dam as sole named ramp; explicitly operable only at high water; operator status and ramp depth not confirmed same-day",
+      "campgrounds": "City of Brady official page reports 23 park RV hookups plus pavilion RV sites, 15 tent sites, three primitive sites, eight cabanas, 12 cabins and city-run CampSpot reservations; real vacancy not checked",
+      "primaryHistory": "TWDB city water rights 1960, construction Dec 1961, May 1963 completion and deliberate impoundment; golden-alga TPWD fisheries history",
+      "localPhoto": "Commons verified 3214x1808 genuine Brady Lake May 2021, Larry D. Moore, CC BY 4.0, GPS verified",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "McCulloch County linked from/to lake data",
+      "destinationReciprocalLinks": "Brady city linked from/to source-generated lake records; nearby authority guides remain separately reviewed",
+      "competitivePrimarySourceComparison": "TPWD vs official City Brady recreational amenities reconciled; full operator and peer benchmark not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -588,7 +588,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Do not claim ramp launches in drought merely because TPWD labels park year-round; call city to confirm. Exact fishing, history, marina and campground planning is researched, but original photography and full production validation remain undone."
     },
     {
       "tpwdEntry": "Brandy Branch",
@@ -1351,17 +1351,17 @@
     },
     {
       "tpwdEntry": "E. V. Spence",
-      "guideSlug": null,
-      "guideStatus": "missing-guide",
-      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
-      "namedFacilities": "needs-research",
-      "campgrounds": "needs-operator-review",
-      "primaryHistory": "needs-full-TWDB-or-owner-research",
-      "localPhoto": "not-yet-proven",
+      "guideSlug": "e-v-spence-reservoir",
+      "guideStatus": "complete-existing-guide",
+      "primaryLakeSource": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/spence/",
+      "namedFacilities": "Five distinct TPWD access sites: Wildcat historic ramp, Paint Creek historic ramp, Rough Creek closed, north/south dam banks no ramps; severe drought means ramps NOT certified usable",
+      "campgrounds": "TPWD archives designated camping at Wildcat and Paint Creek; Rough Creek closed; operator reservation and current facility status unverified",
+      "primaryHistory": "TWDB 1965 permit; Dec 1966 construction, Dec 1968 impoundment, Nov 1969 completion, survey-vintage capacity caveats",
+      "localPhoto": "Exact-reservoir oblique aerial photo Jan 21 2009, creator Jstuby; Commons imageinfo verified public-domain dedication, 1410x940",
       "originalFieldPhoto": "not-collected",
-      "countyReciprocalLinks": "pending-guide-publication",
-      "destinationReciprocalLinks": "inspect-exact-park-operator-relationship",
-      "competitivePrimarySourceComparison": "not-certified",
+      "countyReciprocalLinks": "Coke County + corresponding city authority links generated from lake record",
+      "destinationReciprocalLinks": "Lake Nasworthy and Lake Colorado City now reciprocate; specific operator park-to-lake recips still to inspect",
+      "competitivePrimarySourceComparison": "TPWD boating inventory / TWDB gauge / TWDB history independently cross-checked; comprehensive current site/operator benchmark not-certified",
       "publicProductionAcceptance": "not-certified",
       "requiredFieldPhotoSet": [
         "true-lake shore or dam context",
@@ -1370,7 +1370,7 @@
         "ADA route or facility only where applicable",
         "camping facilities only where camping is allowed"
       ],
-      "reviewNotes": "Do not publish a new guide or declare one complete based only on a generic template or photo search."
+      "reviewNotes": "Dated TWDB September 28 2026 baseline 9.4 percent full; no real-time access or fees assumed. Rough Creek closed. Historic fishery fair/poor after golden alga. Obtain operator-day ramp/park confirmation; original field images absent; production gates pending."
     },
     {
       "tpwdEntry": "Falcon",

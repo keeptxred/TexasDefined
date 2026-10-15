@@ -943,7 +943,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { name: "Lake Colorado City State Park", operator: "Texas Parks & Wildlife Department", kind: "park", launch: "Southwest shore, five miles south of I-20 on FM 2836; paved multi-lane ramp and parking.", fee: "Park entry/launch fee", availability: "Ramps listed year-round; TPWD notes no camping December–February. Check current park operations and lake level." },
       { name: "Cooper's Cove", operator: "Private operator", kind: "resort", launch: "East side of Lake Colorado City off SH 163; paved boat ramp and camping in TPWD inventory.", fee: "TPWD lists fees", availability: "Year-round ramp in TPWD listing; verify current operator (325) 728-5885." },
     ],
-    nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"lake-nasworthy",name:"Lake Nasworthy"},{slug:"lake-abilene",name:"Lake Abilene"}],
+    nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"lake-nasworthy",name:"Lake Nasworthy"},{slug:"lake-abilene",name:"Lake Abilene"},{slug:"e-v-spence-reservoir",name:"E. V. Spence Reservoir"}],
     camping: {name:"Lake Colorado City State Park",summary:"The state park provides camping and reservoir access, but anglers should check golden-alga notices, water level and current fish reports before building a trip around fishing."},
   },
 
@@ -1404,12 +1404,12 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
         "TPWD rates white bass fair; seasonal spawning movement up the West Fork can offer opportunities but fluctuates with flow. Current DSHS consumption limits also include white bass.",
         ["vertical-jigging", "trolling", "jigs-and-minnows"], "secondary")
     ],
-    access: "TPWD names four distinct Lake Worth access parks; one is paddlecraft-only, one is shallow small-craft-only, and the others offer concrete trailer ramps. Arrow 'S' Park (two lanes, about 50 parking spaces), Casino Beach Park (one lane, about 20 spaces), Fort Worth Nature Center (kayak/canoe only), and Sunset Park (shallow one lane, small craft only, about 20 spaces) are not interchangeable. TPWD lists a fee at each and NO overnight camping. Confirm current ramp depth, hours and fees with Fort Worth Lake Worth Management (817) 392-7148 or the Nature Center before driving with a trailer.",
+    access: "TPWD names four distinct Lake Worth access parks; one is paddlecraft-only, one is shallow small-craft-only, and the others offer concrete trailer ramps. Arrow 'S' Park (two lanes, about 50 parking spaces), Casino Beach Park (one lane, about 20 spaces), Fort Worth Nature Center (kayak/canoe only), and Sunset Park (shallow one lane, small craft only, about 20 spaces) are not interchangeable. TPWD lists a fee at each and NO overnight camping. Fort Worth's current Lake Worth Lease Management page says boat-ramp passes for Arrow Park and Casino Beach are purchased digitally through posted QR signs or city-linked online checkout, with daily, weekly and annual options; physical stickers at Navajo Burgers are discontinued. Confirm current rates, the exact fee for each facility, water level and ramp availability with the city before towing.",
     accessPoints: [
       {
         name: "Arrow 'S' Park launch", operator: "City of Fort Worth", kind: "public-ramp",
         launch: "From Loop 820 use the Cahoba exit and follow the west frontage road. TPWD lists a two-lane concrete boat ramp with roughly 50 parking spaces and accessible facilities.",
-        fee: "TPWD lists a fee; confirm latest city park/boat-launch price",
+        fee: "Fort Worth now offers Arrow Park ramp passes through a posted QR code or its official online permit system (day, week or year); check the live rate",
         availability: "Listed year-round by TPWD, NOT independently certified open today. City Lake Worth Management (817) 392-7148."
       },
       {
@@ -1421,7 +1421,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       {
         name: "Casino Beach Park boat ramp", operator: "City of Fort Worth", kind: "public-ramp",
         launch: "From Highway 199 use Surfside west toward the park. TPWD describes one concrete launch lane and parking for roughly 20 vehicles.",
-        fee: "Fee required in TPWD access directory; current price unconfirmed",
+        fee: "Fort Worth now sells Casino Beach boat-ramp passes by on-site QR code or city-linked online checkout; daily, weekly and annual options, check current rate",
         availability: "Historically listed year-round. Call city lake staff (817) 392-7148 about current use and trailer access."
       },
       {
@@ -1438,7 +1438,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     },
     specialRules: true,
     historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/worth/index.asp",
-    visitorSourceUrl: "https://www.fortworthtexas.gov/departments/parks",
+    visitorSourceUrl: "https://www.fortworthtexas.gov/departments/property-management/real-estate-division/lake-worth-lease-management-section",
     consumptionSourceUrl: "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories",
     historyNotes: [
       "TWDB dates the start of dam construction to 1912, deliberate water impoundment to June 1914 and dam completion to October 1914. Fort Worth built this West Fork project primarily for municipal water supply. John B. Hawley engineered it, while construction passed from Underground Construction Company to the city during 1913.",
@@ -1450,7 +1450,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       { question: "Can I eat fish caught in Lake Worth?", answer: "Check the current Texas DSHS fish-consumption advisory. It prohibits eating smallmouth buffalo from Lake Worth/affected West Fork waters. It lists limited monthly meals for blue and flathead catfish, striped/white bass, common carp and freshwater drum, with stricter rules for women of childbearing age and children under 12. The older TPWD lake fact sheet conflicts on blue-catfish advice; follow the current advisory before eating any catch." },
       { question: "Is camping allowed at Lake Worth?", answer: "No at its four TPWD-listed lake access parks. Camping is not included with day-use boat ramps or Fort Worth Nature Center entry. Stay at an independently operated off-site campground or hotel." },
       { question: "Which ramp is suitable for a motorboat trailer?", answer: "Arrow 'S' Park has two concrete lanes and approximately 50 parking spaces; Casino Beach has one lane and approximately 20 spaces. Sunset Park is shallow and marked small-craft-only. The Fort Worth Nature Center launch is for canoes/kayaks only." },
-      { question: "Is boating at Lake Worth free?", answer: "TPWD lists a fee at each of the four named access facilities. It does not establish today's fee or guarantee same-day openings. Call the City of Fort Worth Lake Worth Management Office or the Nature Center for current details." },
+      { question: "Is boating at Lake Worth free?", answer: "TPWD lists fees at the four access facilities. The City of Fort Worth now sells Arrow Park and Casino Beach boat-ramp passes through on-site QR codes and its official online system with daily, weekly or annual options; it says Navajo Burgers no longer sells stickers. Check the city Lake Worth Lease Management page for current costs and verify other facility admission separately." },
       { question: "What fish are Lake Worth known for?", answer: "TPWD rates crappie and catfish excellent, while largemouth and white bass are fair. Consumption advisories apply to eating some fish regardless of their angling quality." },
       { question: "Does Lake Worth have a real-time level gauge?", answer: "Yes. Water Data for Texas provides measured reservoir level and percent full at the Lake Worth station. The current value belongs in the live-level strip, not as an undated number in an evergreen paragraph. Check the timestamp and ramp-depth status separately." },
       { question: "Are there accessible fishing facilities?", answer: "TPWD's access symbols mark ADA facilities at Arrow 'S' Park; its management survey also identified two accessible fishing piers. Verify current access routes, pier conditions and facilities with the city before relying on a specific accommodation." },
@@ -1461,7 +1461,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       "PUBLIC-HEALTH WARNING: Current DSHS restrictions on consuming fish from Lake Worth include a complete smallmouth-buffalo no-eat advisory and species/age-specific meal limits; compare today's official consumption page before keeping fish for food. The older TPWD Lake Worth overview has a different blue-catfish warning.",
       "INVASIVE SPECIES: TPWD reports zebra mussels at Lake Worth. Clean, drain and dry boat, trailer, livewells and equipment; draining water is required under Texas law.",
       "TPWD shows no camping at the four access parks. The Nature Center is canoe/kayak-only and Sunset Park's shallow lane is intended for small craft; do not send large trailers to either.",
-      "All four access listings historically state fee required. Check city rules, water level, ramp depth and possible closures before launching; TPWD's 'open all year' is not a live operator status."
+      "Fort Worth offers current QR-code/online boat ramp permits at Arrow Park and Casino Beach (day/week/year) and no longer sells physical stickers at Navajo Burgers. Confirm city fee, water level, ramp depth and live opening before launching; TPWD's 'open all year' is not a current operator status."
     ],
     nearbyLakes: [{slug:"eagle-mountain-lake",name:"Eagle Mountain Lake"},{slug:"benbrook-lake",name:"Benbrook Lake"},{slug:"lake-arlington",name:"Lake Arlington"},{slug:"grapevine-lake",name:"Grapevine Lake"},{slug:"lake-weatherford",name:"Lake Weatherford"}],
   },
@@ -1534,7 +1534,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       "Live TWDB Nasworthy water levels have their own source timestamp and NAVD88 datum; avoid mixing old TPWD conservation figures with modern gauge units.",
       "City Phase 2 construction concept for Fisherman's Road and kayak launches is not an existing amenity or an authorized future completion date."
     ],
-    nearbyLakes:[{slug:"o-h-ivie-lake",name:"O. H. Ivie Lake"},{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"lake-brownwood",name:"Lake Brownwood"}],
+    nearbyLakes:[{slug:"o-h-ivie-lake",name:"O. H. Ivie Lake"},{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"lake-brownwood",name:"Lake Brownwood"},{slug:"e-v-spence-reservoir",name:"E. V. Spence Reservoir"}],
   },
   {
     slug: "fort-parker-state-park-lake", name: "Fort Parker State Park Lake", tpwdSlug: "fort_parker",
@@ -1992,6 +1992,142 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       "The exact-lake photo is from 2005 and must not be used as evidence of 2026 lake depth, shoreline, construction or access conditions."
     ],
     nearbyLakes:[{slug:"white-rock-lake",name:"White Rock Lake"},{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"joe-pool-lake",name:"Joe Pool Lake"}]
+  },
+  {
+    slug: "e-v-spence-reservoir", name: "E. V. Spence Reservoir", tpwdSlug: "spence", waterDataSlug: "e-v-spence",
+    region: "panhandle-plains", verifiedAt: "2026-10-14", accessReviewedAt: "2026-10-14",
+    summary: "Historic Colorado River water-supply reservoir at Robert Lee, with unusually severe low-water access risk, five named recreation sites including closed Rough Creek, older fish-kill history, timestamped TWDB levels and a public-domain actual-reservoir photograph.",
+    surfaceAcres: 14640, maxDepthFeet: 108, impoundedYear: 1969, counties: ["Coke"], nearestCities: ["Robert Lee", "San Angelo"],
+    waterway: "Upper Colorado River near Robert Lee", riverBasin: "Colorado River Basin",
+    authority: "Colorado River Municipal Water District (CRMWD)",
+    conservationPool: "1,898 feet NGVD29 on current TWDB gauge; old TPWD reference also shows 1,898 ft msl",
+    fluctuation: "Long multiyear drought drawdowns can far exceed TPWD's older six-to-ten-foot annual reference range",
+    clarity: "Clear near dam in normal lake conditions, increasingly stained upstream; extreme low water changes shoreline",
+    identity: "E. V. Spence Reservoir lies on the Colorado River west of Robert Lee in Coke County; it is not nearby Lake Colorado City, Lake Nasworthy or O. H. Ivie. The Colorado River Municipal Water District operates Robert Lee Dam primarily for water supply. TPWD's 14,640-acre surface area represents an historical full-pool condition, NOT a live lake footprint. A historical TWDB snapshot dated September 28, 2026 recorded 9.4 percent of storage capacity filled and a roughly 3,233-acre surface, making old recreation brochures especially risky. The current water level must be read directly from TWDB with its timestamp; no historic photo or 'year-round' ramp listing proves a launch is usable. TPWD explicitly identifies Rough Creek recreation area as CLOSED, and lists access fees and other facilities which must be confirmed with CRMWD.",
+    habitat: [
+      "TPWD describes steep rocky banks and bluffs, side creeks, an irregular Colorado River channel and broad mud flats. The reservoir has no significant aquatic vegetation in the old TPWD profile.",
+      "As water declines, shoreline cover, fixed marina docks and concrete launch ramps may strand well above the water. Survey maps and old fishing spots should never be interpreted as current legal or safe trailer access.",
+      "TPWD documents severe golden-alga fish kills in the early 2000s and an altered fishery thereafter. Its fishing-quality ratings are modest, with an older narrative that may not describe present low-water populations. Treat angling advice as historically sourced until new survey and access data are confirmed."
+    ],
+    fish: [
+      fish("largemouth-bass", "Largemouth bass", "fair", "spring", "TPWD historically rated largemouth bass fair and described crankbaits, spinnerbaits, soft plastics and topwater near rocky structure and drop-offs. Present fishability and launching are not verified at the very low reservoir elevation.", ["crankbaits","spinnerbaits","soft-plastics","topwater"], "secondary"),
+      fish("catfish", "Catfish", "fair", "summer", "TPWD listed legal-size channel catfish rebuilding after golden-alga losses and rated catfish fair; historically live or cut bait was used along rocky and channel structure. Check access and current stocking/survey information before a trip.", ["cut-bait","live-bait"], "secondary"),
+      fish("white-bass", "White bass", "poor", "spring", "TPWD's posted fishery table rates white bass poor. Do not use old photographs or stocking lists to market an active white-bass run; confirm current reports and water access.", ["vertical-jigging","trolling"], "secondary"),
+      fish("striped-bass", "Striped bass", "poor", "summer", "The TPWD fishing profile includes striped bass historically but rates opportunities poor after fishery damage; current trophy expectations are unsupported. Validate fresh survey results before promising an offshore fishery.", ["trolling","vertical-jigging"], "secondary"),
+      fish("crappie", "Crappie", "poor", "spring", "TPWD describes crappie opportunities as poor. Historical structure near creek arms may be exposed during prolonged drawdown; no current site-specific catching recommendation is supported.", ["jigs-and-minnows","vertical-jigging"], "secondary")
+    ],
+    access: "TPWD lists five named recreation/access areas but they are NOT five boat ramps. Wildcat and Paint Creek each have a historic concrete ramp; Rough Creek is explicitly CLOSED; South End and North End of Dam are BANK ACCESS ONLY. TPWD also describes historically three paved ramps without a consistently named third currently usable ramp, so do not invent one. The source's $5 vehicle day pass, $60 annual permit and senior discount are old posted reference prices, not verified current charges. Extreme drought makes ramp reachability the overriding issue: call CRMWD (432) 267-6341 or the relevant on-site operator and use the timestamped TWDB level before towing a boat.",
+    accessPoints: [
+      {name:"Wildcat Recreation Area historic concrete ramp",operator:"CRMWD / Wildcat Marina",kind:"public-ramp",launch:"Approximately three miles west of Robert Lee on Texas Highway 158. TPWD historically lists a concrete ramp, camping, parking, picnic and marina services.",fee:"TPWD older inventory lists $5 vehicle day pass; verify current charges and actual marina operation",availability:"TPWD says year-round in its older inventory; very low lake water can render the ramp unusable. Confirm with CRMWD (432) 267-6341 and site (325) 453-2801 before towing."},
+      {name:"Paint Creek Recreation Area historic concrete ramp",operator:"CRMWD / Paint Creek Marina",kind:"public-ramp",launch:"Approximately five miles west of Robert Lee on Texas Highway 158. Historic concrete launch, picnic, camping and marina area.",fee:"TPWD older inventory lists $5 vehicle day pass; current price unknown",availability:"Not certified usable at present low reservoir levels; confirm current operator conditions (325) 453-2982 or CRMWD."},
+      {name:"Rough Creek Recreation Area — closed",operator:"Colorado River Municipal Water District",kind:"park",launch:"Named in TPWD's historic recreation inventory, but TPWD explicitly labels the area CLOSED AT PRESENT. Do not use as a launch or campground.",fee:"No admission or launch right implied by an inventory map",availability:"CLOSED on TPWD's currently displayed lake access page. Do not travel here for a ramp unless the operator posts a reopening."},
+      {name:"South End of Robert Lee Dam bank access",operator:"Colorado River Municipal Water District",kind:"park",launch:"Approximately one mile west of Robert Lee off Texas Highway 158; TPWD identifies BANK ACCESS ONLY, without a trailer boat ramp.",fee:"Old TPWD listing includes vehicle day-pass fee; verify operator current charge",availability:"Do not mistake shoreline fishing/picnic use for an operational ramp. Confirm park access with CRMWD (432) 267-6341."},
+      {name:"North End of Robert Lee Dam bank access",operator:"Colorado River Municipal Water District",kind:"park",launch:"Approximately one mile west of Robert Lee from FM 1904; BANK ACCESS ONLY in TPWD's inventory.",fee:"Old TPWD listing includes vehicle day-pass fee; confirm",availability:"Check operator status and safe legal shoreline access; no boat ramp documented at this entry."}
+    ],
+    camping:{name:"Historically designated Wildcat and Paint Creek CRMWD recreation campgrounds",summary:"TPWD lists camp/picnic facilities at Wildcat and Paint Creek and identifies dam-end day-use areas separately. Rough Creek is CLOSED. Historical campground icons do not guarantee functioning hookups, water, safe shoreline or 2026 reservations. Call the CRMWD or camp operator and verify usable sites, overnight permits, restrooms, burn restrictions and low-water access before booking."},
+    specialRules:true,
+    historySourceUrl:"https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/ev_spence/index.asp",
+    visitorSourceUrl:"https://www.crmwd.org/",
+    historyNotes:[
+      "The reservoir is named for E. V. Spence, the Colorado River Municipal Water District's first general manager, who advocated for the water-supply permit. Texas issued permit No. 2179 on September 1, 1965.",
+      "TWDB records December 16, 1966 for the start of Robert Lee Dam construction, December 15, 1968 for deliberate impoundment and November 21, 1969 for dam completion. A separate historical summary may simplify the project to '1969 impounded'; use the detailed chronology rather than assuming completion and first water storage occurred together.",
+      "The 21,500-foot earthfill embankment has a maximum height of about 140 feet, with a distinct emergency spillway and twelve-gate service structure. TWDB's 1999 survey gave about 14,640 acres and 512,272 acre-feet at conservation elevation 1,898 feet; the current TWDB reservoir page uses an updated capacity convention of 517,272 acre-feet. These are survey-vintage differences, not live measurements.",
+      "The lake's Colorado River water-supply role and subsequent drought are fundamental to understanding recreation limits. Low-water aerial imagery from January 2009 demonstrates the real site but does not establish today's usable ramp depth or extent."
+    ],
+    visitorFAQs:[
+      {question:"Can I launch a boat at E. V. Spence Reservoir right now?",answer:"Not confirmed. TPWD's historic inventory lists Wildcat and Paint Creek concrete ramps as open year-round, but extreme low water can strand either. Verify the current TWDB gauge and obtain a specific CRMWD or marina confirmation before towing; never infer usable ramps from the access directory alone."},
+      {question:"Is Rough Creek open?",answer:"No according to TPWD's currently displayed access inventory, which explicitly labels Rough Creek CLOSED AT PRESENT. Contact CRMWD to learn about a future change before traveling."},
+      {question:"Can I launch from the north or south end of Robert Lee Dam?",answer:"No motorboat ramp is listed at those two sites. TPWD calls them BANK ACCESS ONLY, with shoreline, picnic and historic day-use facilities, subject to operator confirmation."},
+      {question:"How much does lake access cost?",answer:"TPWD's access page historically lists a $5 vehicle day pass, $60 annual pass and special senior rate. Those are dated reference charges, not a verified current permit quote. Contact CRMWD or the current recreation operator for actual prices."},
+      {question:"How full is E. V. Spence Reservoir?",answer:"Read the timestamped Water Data for Texas E. V. Spence station directly. The agency's September 28, 2026 snapshot showed roughly 9.4% full, but that is historical evidence of severe drawdown, not today's exact level. The guide keeps live gauge measurements separate from evergreen body text."},
+      {question:"Is the lake good for striped bass?",answer:"TPWD includes striped bass historically, but its fishery table rates striped and white bass poor following golden-alga fish kills. Do not plan a trophy trip from old fisheries descriptions; check current TPWD stocking, survey and operator access."},
+      {question:"Where can I camp?",answer:"TPWD historically lists designated camping at Wildcat and Paint Creek recreation areas. Rough Creek is closed, while the north/south dam-bank entries are not automatically campgrounds. Confirm actual operating sites and overnight charges directly."},
+      {question:"Why does TPWD list 14,640 acres while the lake appears much smaller?",answer:"TPWD gives a full conservation-pool surface area, not today's water extent. TWDB's measurements at current low elevation can be dramatically less; time-specific area, volume and percent full require the live gauge's source timestamp."},
+      {question:"What is the difference between the 1968 and 1969 dates?",answer:"TWDB documents deliberate water impoundment beginning December 15, 1968, and dam completion November 21, 1969. The simplified TPWD fact panel labels the reservoir impounded 1969."},
+      {question:"Who owns E. V. Spence Reservoir?",answer:"The Colorado River Municipal Water District owns and operates the water-supply reservoir and Robert Lee Dam, serving district water needs and the City of San Angelo. CRMWD, not a Texas state park, is the source for same-day recreation access."}
+    ],
+    travelAlerts:[
+      "SEVERE LOW-WATER ACCESS RISK — the September 28, 2026 TWDB snapshot showed about 9.4% capacity and large shoreline drawdown. This dated figure must NOT be shown as current; read the live TWDB value and confirm any usable boat ramp with CRMWD before driving.",
+      "CLOSED AREA — TPWD's current public-access directory calls Rough Creek CLOSED. Do not promise camping, bank fishing or launching there based on old recreation maps.",
+      "BANK ACCESS IS NOT A BOAT RAMP — the north and south ends of Robert Lee Dam are shoreline day-use locations only in TPWD's inventory.",
+      "OUTDATED FEES AND OPEN-ALL-YEAR LANGUAGE — TPWD's historical $5 day pass and annual permits and year-round labels are not proof of current prices or low-water ramp functionality.",
+      "The exact-reservoir public-domain aerial photo was taken January 21, 2009 and is not evidence of current reservoir extent, water safety, active camping or launch conditions."
+    ],
+    nearbyLakes:[{slug:"lake-colorado-city",name:"Lake Colorado City"},{slug:"o-h-ivie-lake",name:"O. H. Ivie Lake"},{slug:"lake-nasworthy",name:"Lake Nasworthy"}],
+  },
+  {
+    slug: "brady-creek-reservoir", name: "Brady Creek Reservoir", tpwdSlug: "brady_creek", waterDataSlug: "brady-creek",
+    region: "hill-country", verifiedAt: "2026-10-14", accessReviewedAt: "2026-10-14",
+    summary: "The City of Brady's San Saba–Colorado basin water-supply reservoir with a single documented public launch, water-sensitive ramp usability, recovering bass fishery, official cabins, RV hookups and tent camping, USGS gauging evidence and a source-verified 1961–1963 dam history.",
+    surfaceAcres: 2020, maxDepthFeet: 48, impoundedYear: 1963, counties: ["McCulloch"], nearestCities: ["Brady"],
+    waterway: "Brady Creek, tributary to the San Saba River", riverBasin: "Colorado River Basin",
+    authority: "City of Brady", conservationPool: "1,743 feet above mean sea level (TPWD reference)",
+    fluctuation: "TPWD describes 3–5 feet as typical; severe drought can make the dam-side ramp unusable even when the park is open",
+    clarity: "Moderately stained",
+    identity: "Brady Creek Reservoir, locally called Brady Lake, lies west of Brady in McCulloch County; it is not Lake Brownwood, O. H. Ivie Reservoir or an amenity of a state park. The City of Brady owns and operates the reservoir for water supply, industrial use and recreation. TPWD rates bass, catfish, crappie and white bass FAIR, explaining a slow recovery from a major 2012 golden-alga bloom and low-water years. The 2,020 acres reported in the lake fact sheet are a reference full-pool area, not a measurement of current shoreline or ramp usability. TPWD's one named public access site is the city park near the dam. It labels the park year-round while expressly warning the single ramp works best only at high water: call the city and check the timestamped TWDB reservoir level before towing.",
+    habitat: [
+      "Submerged and shoreline cover is sparse in normal conditions. TPWD identifies a rocky bluff on Brady Creek, riprap, gravel banks, boulders, dead trees and an old submerged railroad bed as the most distinctive fish-holding structure.",
+      "Drought changes how much of the old channel, shallow brush or railroad bed is under water, so archived fishing coordinates are not proof that a particular spot is safe or accessible at the lake's present elevation.",
+      "Golden-alga blooms and drought harmed the fishery in the 2010s. TPWD subsequently stocked largemouth bass fingerlings as a fishery-recovery measure; stocking does not guarantee a trophy fishery or change today's displayed FAIR quality assessments.",
+      "Seasonal runoff can temporarily color the water and alter fish positioning; use the latest official fishing report rather than treating the static tactics below as today's bite."
+    ],
+    fish: [
+      fish("largemouth-bass", "Largemouth bass", "fair", "spring",
+        "TPWD rates bass FAIR after historic fish kills and low-water periods. Search rocky bluff transitions, riprap and submerged wood with small soft plastics, spinnerbaits or crankbaits; do not market the lake as a consistently outstanding trophy-bass destination.",
+        ["soft-plastics", "spinnerbaits", "crankbaits", "topwater"]),
+      fish("channel-catfish", "Channel catfish", "fair", "summer",
+        "TPWD rates catfish FAIR. Creek-channel changes, rock edges and deeper shoreline transitions are useful exploratory structures; confirm fish-consumption advisories and fishing rules before keeping a catch.",
+        ["cut-bait", "live-bait"]),
+      fish("crappie", "White crappie", "fair", "spring",
+        "TPWD rates crappie FAIR. Cover near submerged trees and the old railroad bed offers more specific habitat than vegetation-starved open banks; check whether those structures are underwater and legally reachable.",
+        ["jigs-and-minnows", "vertical-jigging"]),
+      fish("white-bass", "White bass", "fair", "spring",
+        "TPWD's angling table also rates white bass FAIR. Look for seasonal schooling and forage along open points and former creek-channel edges; avoid treating an old report's location as a reliable live pattern.",
+        ["trolling", "vertical-jigging"])
+    ],
+    access: "TPWD documents ONE public entry, City Park at Dam, reached by FM 2028 and FM 3022 just west of Brady. Its older inventory says no ramp fee, year-round park access, picnic and camping symbols, but directly cautions the boat ramp is good only at high water levels. This is a critical distinction: an open park does not imply an operable launch. Verify gate hours, overnight camping rules, ramp depth and any required reservations directly with the City of Brady at (325) 597-2152. No second named public boat ramp is established by the official TPWD access page, so do not confuse private ranch tracks, shoreline fishing or the USGS gauge installation with a public launch.",
+    accessPoints: [
+      {
+        name: "City Park at Dam public boat ramp",
+        operator: "City of Brady",
+        kind: "park",
+        launch: "Drive west from Brady on FM 2028 to FM 3022 at the Brady Creek dam. TPWD labels the park as the single named public launch but explicitly says the RAMP WORKS WELL ONLY AT HIGH WATER; check actual usable depth with the City of Brady before bringing a trailer.",
+        fee: "TPWD older access inventory lists no boat-launch fee; current city day-use, camping or permit charges may differ",
+        availability: "TPWD historic year-round park label is not proof of a usable ramp. Call Brady city offices (325) 597-2152 and check timestamped water level immediately before a fishing or boating trip."
+      }
+    ],
+    campingUrl: "https://www.bradytx.us/881/Brady-Lake",
+    camping: {
+      name: "Brady Lake City Park and Marina — cabins, RV hookups and tent sites",
+      summary: "Unlike TPWD's sparse lake-ramp inventory, Brady's official municipal Brady Lake page details a developed overnight facility: eight cabanas and 12 rental cabins at Brady Lake Marina, 23 RV hookups in the park area plus additional pavilion-area RV hookups, 15 tent sites and three primitive campsites. The city also advertises showers/restrooms and publishes seasonal marina hours. These are operator-advertised counts rather than same-day vacant inventory: book or verify by phone at (325) 597-1823 or through the city's linked CampSpot reservation system. Do not confuse Brady Lake marina with separate Richards Park RV sites in downtown Brady."
+    },
+    historySourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/brady_creek/index.asp",
+    visitorSourceUrl: "https://www.bradytx.us/881/Brady-Lake",
+    historyNotes: [
+      "TWDB describes Brady Creek Reservoir approximately three miles west of Brady, where Brady Creek drains toward the San Saba River and ultimately the Colorado. The City of Brady received Water Right Permit 1953 on May 2, 1960, authorizing a municipal/industrial water-supply project with recreational use.",
+      "Construction began December 27, 1961. TWDB dates dam completion to May 14, 1963, followed by the start of deliberate impoundment on May 22, 1963. These are separate engineering and filling milestones; an undated 'built 1963' statement loses the distinction.",
+      "TWDB documents an earthfill dam about 8,400 feet long and 104 feet high, with 30,430 acre-feet of conservation storage at a stated 1,743-foot conservation pool. These are engineering reference figures, not the lake's current water volume. USGS documents a genuine reservoir gaging station, 08144900; its photograph shows monitoring structures and should not be confused with the public park boat ramp.",
+      "A publicly documented golden-alga fish-kill event in 2012 and prolonged low water changed the fishery. TPWD's present lake overview continues to describe slow recovery and assigns only FAIR ratings to bass, catfish, crappie and white bass. Treat older fish catches and stocking numbers as dated historical events, not fresh predictions."
+    ],
+    visitorFAQs: [
+      {question:"Where is the public boat ramp?",answer:"TPWD identifies one public launch: City Park at Dam, west of Brady via FM 2028 and FM 3022. It specifically says that the ramp works well only at HIGH WATER. Call the city before towing rather than relying on a 'year-round' park label."},
+      {question:"Can I camp overnight at Brady Creek Reservoir?",answer:"Yes. The City of Brady explicitly lists RV hookups, 15 tent sites, three primitive campsites and marina cabin/cabana rentals at Brady Lake. Call (325) 597-1823 or follow the municipal Brady Lake Campspot reservation link to confirm live availability, site type and price; separate downtown Richards Park RV sites are not at this lake."},
+      {question:"Is the Brady Creek boat ramp usable at low lake levels?",answer:"It may not be. TPWD states that the ramp is good at high water levels; shallow trailer launching may be unsafe or impossible under drought conditions. Use the current TWDB level, then verify actual ramp access with the operator."},
+      {question:"Is this a good trophy bass lake?",answer:"TPWD currently rates largemouth bass FAIR, not excellent. The fishery has been rebuilding after golden-alga impacts and prolonged drought; stocker releases and isolated catches do not override the official lake-wide quality classification."},
+      {question:"What other fish can I catch?",answer:"TPWD identifies channel catfish, white crappie and white bass among its main fish species. It rates all of those FAIR; seek submerged rocky banks, timber, creek channels and the old railroad bed according to lake elevation."},
+      {question:"Does the lake have a measured level?",answer:"Yes. TWDB's Water Data for Texas Brady Creek reservoir station publishes dated surface elevation and storage information. A live reading needs its collection timestamp; TPWD's 2,020-acre reference area does not describe today's waterline."},
+      {question:"Why did fish numbers decline?",answer:"TPWD reports a major golden-alga bloom beginning in 2012 and subsequent water shortages; recovery stocking and monitoring occurred later. Those reports explain long-term fishery conditions but do not establish the next day's fishing quality."},
+      {question:"When was Brady Creek Reservoir built?",answer:"TWDB documents construction beginning December 27, 1961, completion May 14, 1963 and the start of deliberate impoundment May 22, 1963. It was developed for the City of Brady's municipal/industrial water supply and recreation."},
+      {question:"Can visitors use the USGS water gauge as a boat launch?",answer:"No. USGS gaging station 08144900 is an engineered monitoring structure. Its official photographs document the lake's water-level infrastructure; the public launch is the separate City Park at Dam."}
+    ],
+    travelAlerts: [
+      "RAMP DEPTH ALERT: The sole TPWD-named city-park ramp is described as good only at HIGH WATER. 'Open all year' describes a historic park listing, NOT current trailer launchability.",
+      "FISHERY RECOVERY: TPWD describes a slow comeback from a 2012 golden-alga bloom and drought. All four rated fisheries remain FAIR in its public angling table; do not infer recent stocking guarantees success.",
+      "CAMPING: The City of Brady posts 23 park-area RV hookups, additional pavilion RV sites, 15 tent sites, three primitive campsites, eight cabanas and 12 cabins; reserve through the official municipal CampSpot handoff or (325) 597-1823. Advertised capacity is not vacancy confirmation.",
+      "PHOTO CONTEXT: The actual Brady Lake photograph was captured May 26, 2021 and is not a visual representation of current reservoir levels, access ramps or recent construction.",
+      "Boaters must comply with statewide drain/clean requirements to prevent the spread of invasive aquatic species, and should check live weather, TPWD rules and city notices."
+    ],
+    nearbyLakes: [{slug:"lake-brownwood",name:"Lake Brownwood"},{slug:"o-h-ivie-lake",name:"O. H. Ivie Lake"},{slug:"lake-colorado-city",name:"Lake Colorado City"}],
   },
 ];
 

@@ -86,6 +86,8 @@ export const STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS = [
   "lake-abilene",
   "lake-cypress-springs",
   "bachman-lake",
+  "e-v-spence-reservoir",
+  "brady-creek-reservoir",
 ] as const;
 
 export const COMPLETE_FISHING_LAKE_SLUGS = [

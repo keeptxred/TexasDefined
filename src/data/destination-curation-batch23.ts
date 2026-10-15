@@ -169,6 +169,17 @@ const curated: Record<string, Partial<Destination>> = {
           },
           {
                 image: {
+                      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/US%20Navy%20100821-N-8390S-068%20The%20museum%20battleship%20USS%20Texas%20is%20being%20restored%20to%20her%201945%20condition.jpg?width=1280",
+                      "alt": "USS Texas during a 2010 Navy community restoration project",
+                      "width": 2144,
+                      "height": 1424,
+                      "credit": "U.S. Navy · Public domain · Wikimedia Commons"
+                },
+                "caption": "August 2010 — Earlier restoration work, not a photograph of the 2022–26 shipyard overhaul.",
+                "sourceUrl": "https://commons.wikimedia.org/wiki/File:US%20Navy%20100821-N-8390S-068%20The%20museum%20battleship%20USS%20Texas%20is%20being%20restored%20to%20her%201945%20condition.jpg"
+          },
+          {
+                image: {
                       "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS%20Texas%20(BB-35)%20March%202022%2005.jpg?width=1280",
                       "alt": "USS Texas at San Jacinto in March 2022 before its transfer to Galveston",
                       "width": 6000,
@@ -180,17 +191,16 @@ const curated: Record<string, Partial<Destination>> = {
           },
           {
                 image: {
-                      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/US%20Navy%20100821-N-8390S-068%20The%20museum%20battleship%20USS%20Texas%20is%20being%20restored%20to%20her%201945%20condition.jpg?width=1280",
-                      "alt": "USS Texas during a 2010 Navy community restoration project",
-                      "width": 2144,
-                      "height": 1424,
-                      "credit": "U.S. Navy · Public domain · Wikimedia Commons"
+                      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS%20Texas%20%28BB-35%29%20in%20Galveston%202025-12-27.jpg?width=1280",
+                      "alt": "USS Texas BB-35 docked near Gulf Copper in Galveston on December 27 2025",
+                      "width": 4896,
+                      "height": 3672,
+                      "credit": "Spheroidite · CC BY 4.0 · Wikimedia Commons"
                 },
-                "caption": "August 2010 — Earlier restoration work, not a photograph of the 2022–26 shipyard overhaul.",
-                "sourceUrl": "https://commons.wikimedia.org/wiki/File:US%20Navy%20100821-N-8390S-068%20The%20museum%20battleship%20USS%20Texas%20is%20being%20restored%20to%20her%201945%20condition.jpg"
+                "caption": "December 2025 — Texas at its Galveston shipyard berth. This dated view does not establish current public access.",
+                "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS_Texas_%28BB-35%29_in_Galveston_2025-12-27.jpg"
           }
-    ],
-    managingAuthority: "Battleship Texas Foundation",
+    ],    managingAuthority: "Battleship Texas Foundation",
     officialUrl: "https://battleshiptexas.org/",
     sourceCheckedAt: "2026-10-14",
     county: "Galveston",

@@ -9,11 +9,6 @@ on:
       - .github/workflows/verify-homeowners-research-cross-browser.yml
       - src/components/editorial/DepartmentHero.tsx
       - src/routes/texas-data.research.texas-homeowners-premiums-vs-coverage.lazy.tsx
-  workflow_run:
-    workflows:
-      - Deploy TexasDefined production
-    types:
-      - completed
   workflow_dispatch:
 
 permissions:

@@ -9,11 +9,6 @@ on:
       - 'src/data/texas-this-weekend.server.ts'
       - 'src/data/event-collection-page.server.ts'
       - 'src/routes/events.$collection.tsx'
-  workflow_run:
-    workflows:
-      - 'Deploy TexasDefined production'
-    types:
-      - completed
   schedule:
     - cron: '23 11 * * *'
   workflow_dispatch:

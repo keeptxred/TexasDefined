@@ -40,9 +40,9 @@ export const texasFarmToMarketRoadsExplainedArticle: Article = {
       description: "Build a trip around the slower roads, small towns and landscapes between the big cities.",
     },
     {
-      href: "/article/texas-road-trip-rules",
-      label: "The Texas road trip is about the space between",
-      description: "Use the road itself as part of the trip instead of treating every mile as time to erase.",
+      href: "/explore/top-attractions/road-trips",
+      label: "Texas road-trip attractions and scenic stops",
+      description: "Choose meaningful stops and regional scenery instead of treating rural roads only as a way to reach the next city.",
     },
     {
       href: "/article/texas-hill-country-what-makes-it",

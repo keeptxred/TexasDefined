@@ -3,24 +3,24 @@
   "date": "2026-10-14",
   "baseline": "TPWD more than 150 lake profiles",
   "summary": {
-    "total": 70,
+    "total": 72,
     "standardSectionsPerGuide": 9,
-    "statewide": 55,
-    "namedAccess": 70,
+    "statewide": 57,
+    "namedAccess": 72,
     "unknownAccess": 0,
-    "namedCamping": 45,
+    "namedCamping": 47,
     "unknownCamping": 25,
-    "history": 22,
+    "history": 24,
     "noHistory": 48,
-    "photoMappings": 70,
+    "photoMappings": 72,
     "legacy": 36,
     "legacyParks": 34,
-    "explicitNamedAccess": 70,
+    "explicitNamedAccess": 72,
     "lackingNamedAccess": 0,
-    "explicitNamedCamping": 45,
+    "explicitNamedCamping": 47,
     "lackingNamedCamping": 25,
-    "namedStatewideFacilities": 215,
-    "statewideTemplateGuidesWithNamedAccess": 55
+    "namedStatewideFacilities": 221,
+    "statewideTemplateGuidesWithNamedAccess": 57
   },
   "entries": [
     {
@@ -1127,6 +1127,38 @@
       "accessFacilityCount": 2,
       "accessReviewedAt": "2026-10-14",
       "namedCamping": false
+    },
+    {
+      "slug": "e-v-spence-reservoir",
+      "name": "E. V. Spence Reservoir",
+      "kind": "Statewide",
+      "ramp": "Named with closure and drought limitations",
+      "camping": "Named historical CRMWD campsites (not independently operator-confirmed today)",
+      "history": "TWDB detailed permit, 1966–1969 engineering chronology",
+      "fish": 5,
+      "photo": "Mapped exact reservoir Jan 2009 public domain Jstuby",
+      "water": "TWDB live numerical level with separate historic extreme drought source-date note",
+      "risk": "Low elevation makes concrete ramps unusable; Rough Creek explicitly closed; current operator confirmation, media and production acceptance pending",
+      "namedAccess": true,
+      "accessFacilityCount": 5,
+      "accessReviewedAt": "2026-10-14",
+      "namedCamping": true
+    },
+    {
+      "slug": "brady-creek-reservoir",
+      "name": "Brady Creek Reservoir",
+      "kind": "Statewide",
+      "ramp": "One named City Park at Dam launch; high-water-only functionality warning",
+      "camping": "Exact city advertised 23 park RV hookups, pavilion RV sites, 15 tent, three primitive, 8 cabanas, 12 cabins, reservation operator contact",
+      "history": "TWDB 1961-1963 engineered dam and 2012 golden-alga fishery context",
+      "fish": 4,
+      "photo": "Commons 3214x1808 genuine Brady Lake 2021 Larry D. Moore CC BY 4.0 exact GPS",
+      "water": "TWDB live numerical elevation at Brady Creek station",
+      "risk": "Golden-alga recovery and lake drought, one usable-only-at-high-water boat ramp; city operator closure/amenities and field shots require current check",
+      "namedAccess": true,
+      "accessFacilityCount": 1,
+      "accessReviewedAt": "2026-10-14",
+      "namedCamping": true
     }
   ],
   "legacy": [

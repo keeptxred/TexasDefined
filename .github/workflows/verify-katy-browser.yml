@@ -1,10 +1,5 @@
 name: Verify Katy football production browser
 on:
-  workflow_run:
-    workflows:
-      - Deploy TexasDefined production
-    types:
-      - completed
   workflow_dispatch:
 
 permissions:

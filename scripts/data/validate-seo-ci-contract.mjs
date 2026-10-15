@@ -77,21 +77,18 @@ for (const marker of [
   'parsed.origin === ORIGIN && sitemapUrls.has(normalized)',
   'return { failures, links: internalSitemapLinks(html, sitemapUrls) };',
   'for (const target of result.links)',
+  'async function discoverSitemapPaths()',
+  'await fetchRetry(`${ORIGIN}/robots.txt`',
+  "if (parsed.pathname.endsWith('.xml'))",
+  'const sitemapResults = await collectSitemapResults();',
 ]) {
   if (!sitemapIndexabilityAudit.includes(marker)) errors.push(`Sitemap indexability audit crawl-graph contract missing: ${marker}`);
 }
-for (const marker of [
-  'workflow_run:',
-  'Deploy TexasDefined production',
-  "github.event.workflow_run.conclusion == 'success'",
-  'github.event.workflow_run.head_sha',
-  'node scripts/ci/audit-sitemap-page-indexability.mjs',
-  'AUDIT_OUTPUT: tmp/sitemap-page-indexability-audit.json',
-]) {
-  if (!sitemapIndexabilityWorkflow.includes(marker)) errors.push(`Scheduled sitemap indexability workflow contract missing: ${marker}`);
+if (!sitemapIndexabilityWorkflow.includes('audit-site-quality-local.yml') || !sitemapIndexabilityWorkflow.includes('audit: sitemap')) {
+  errors.push('Sitemap indexability must delegate to the local full-site audit runner.');
 }
-if (sitemapIndexabilityWorkflow.includes('push:\n    branches:\n      - main')) {
-  errors.push('Sitemap indexability audit must not race production from a direct main-push trigger.');
+if (/^  (workflow_run|schedule|push|pull_request):/m.test(sitemapIndexabilityWorkflow)) {
+  errors.push('Standalone sitemap crawl must be manual-only; recurring full audits belong to the consolidated local workflow.');
 }
 
 for (const validator of protectedValidators) {

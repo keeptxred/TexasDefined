@@ -115,6 +115,14 @@ const entries = [
     "/images/state-parks/lake-corpus-christi-state-park.jpg"
   ],
   [
+    "southern-pacific-passenger-depot-del-rio",
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Del_Rio_Amtrak_station_DSCN1430.JPG"
+  ],
+  [
+    "stephen-f-austin-experimental-forest",
+    "https://research.fs.usda.gov/sites/default/files/2023-02/srs-sfaef-bridge.jpg"
+  ],
+  [
     "science-mill-johnson-city",
     "https://s3.amazonaws.com/texasstandard.org/txstandard/wp-content/uploads/2015/06/m.jpg"
   ],
@@ -187,6 +195,22 @@ const entries = [
     "https://commons.wikimedia.org/wiki/Special:Redirect/file/St.%20Mary%27s%20Catholic%20Church%20(Fredericksburg%2C%20Texas).jpg"
   ]
 ];
+
+// Cache identity depends on the governed slug-to-source registry and the
+// derivative transformation contract, not this script's incidental retry logic.
+// A source URL, slug, or intentional transform change MUST invalidate the cache.
+const DERIVATIVE_TRANSFORM_CONTRACT = "webp-1600x900-center-crop-quality82-strip-v1";
+const governedRegistryFingerprint = createHash("sha256")
+  .update(JSON.stringify({ transform: DERIVATIVE_TRANSFORM_CONTRACT, entries }))
+  .digest("hex");
+if (process.argv.includes("--list-slugs")) {
+  for (const [slug] of entries) console.log(slug);
+  process.exit(0);
+}
+if (process.argv.includes("--fingerprint")) {
+  console.log(governedRegistryFingerprint);
+  process.exit(0);
+}
 
 const outDir = path.resolve("public/images/discover");
 await fs.mkdir(outDir, { recursive: true });
@@ -342,6 +366,14 @@ function verifyDerivative(slug, output) {
   const identify = spawnSync(command === "magick" ? "magick" : "identify",
     command === "magick" ? ["identify", "-format", "%wx%h", output] : ["-format", "%wx%h", output],
     { encoding: "utf8" });
+  // Size alone does not establish that a cached derivative is really WebP.
+  const header = Buffer.alloc(12);
+  const fd = fsSync.openSync(output, "r");
+  try { fsSync.readSync(fd, header, 0, header.length, 0); }
+  finally { fsSync.closeSync(fd); }
+  if (header.toString("ascii", 0, 4) !== "RIFF" || header.toString("ascii", 8, 12) !== "WEBP") {
+    throw new Error(`Discover derivative is not real WebP for ${slug}`);
+  }
   if (identify.status !== 0 || identify.stdout.trim() !== "1600x900") {
     throw new Error(`Discover derivative dimensions invalid for ${slug}: ${identify.stdout.trim() || identify.stderr}`);
   }

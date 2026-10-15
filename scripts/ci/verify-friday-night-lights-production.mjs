@@ -1,3 +1,5 @@
+import { createLocalAuditFetch } from './local-audit-fetch.mjs';
+const localAuditFetch = createLocalAuditFetch({ localOrigin: process.env.LOCAL_AUDIT_ORIGIN });
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 const hubPath = '/sports/friday-night-lights';
 const finderPath = '/texas-high-school-football-teams';
@@ -109,7 +111,7 @@ async function fetchVerified(path, label, verify) {
     const url = `${origin}${path}${separator}verify=fnl-${Date.now()}-${attempt}`;
     console.log(`[${label}] attempt ${attempt}: ${url}`);
     try {
-      const response = await fetch(url, {
+      const response = await localAuditFetch(url, {
         redirect: 'follow', cache: 'no-store', signal: AbortSignal.timeout(30_000),
         headers: { 'user-agent': 'TexasDefined-FNL-Production-Smoke/1.0' },
       });
@@ -707,4 +709,5 @@ await fetchVerified('/robots.txt', 'robots', (body) => {
   if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
 });
 
+localAuditFetch.assertComplete();
 console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, exact official UIL enrollments plus exception-safe final football placement, Shamrock’s verified 2026 authority profile, 192 canonical UIL district hubs, statewide championship-history hub, shared 6A through 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, current-season scores/schedules guidance, the 2026 UIL season calendar, sitemap and robots are live.');

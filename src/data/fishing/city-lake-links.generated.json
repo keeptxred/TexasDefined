@@ -105,6 +105,12 @@
       "name": "Lake Meredith"
     }
   ],
+  "brady": [
+    {
+      "slug": "brady-creek-reservoir",
+      "name": "Brady Creek Reservoir"
+    }
+  ],
   "brenham": [
     {
       "slug": "lake-somerville",
@@ -815,6 +821,12 @@
       "name": "Lake Worth"
     }
   ],
+  "robert-lee": [
+    {
+      "slug": "e-v-spence-reservoir",
+      "name": "E. V. Spence Reservoir"
+    }
+  ],
   "rockwall": [
     {
       "slug": "lake-ray-hubbard",
@@ -864,6 +876,10 @@
     }
   ],
   "san-angelo": [
+    {
+      "slug": "e-v-spence-reservoir",
+      "name": "E. V. Spence Reservoir"
+    },
     {
       "slug": "lake-nasworthy",
       "name": "Lake Nasworthy"

@@ -135,8 +135,7 @@ for (const [needle, label] of [
 }
 
 for (const [needle, label] of [
-  ['workflow_run:', 'post-deploy workflow trigger'],
-  ['Deploy TexasDefined production', 'production deployment dependency'],
+  ['workflow_dispatch:', 'manual production acceptance trigger'],
   ["github.event.workflow_run.conclusion == 'success'", 'successful-deploy guard'],
   ['node scripts/ci/verify-angi-production.mjs', 'Angi production verifier execution'],
 ]) {
