@@ -259,6 +259,8 @@ type PreparedTeaDirectoryRecord = {
   districtSchool: string;
   citySchool: string;
   schoolTokens: string[];
+  schoolMatchTokens: ReadonlySet<string>;
+  contextMatchTokens: ReadonlySet<string>;
 };
 
 type TeaDirectoryMatcher = {
@@ -266,6 +268,7 @@ type TeaDirectoryMatcher = {
   byDistrictSchool: Map<string, PreparedTeaDirectoryRecord[]>;
   byCitySchool: Map<string, PreparedTeaDirectoryRecord[]>;
   bySchool: Map<string, PreparedTeaDirectoryRecord[]>;
+  bySchoolToken: Map<string, PreparedTeaDirectoryRecord[]>;
 };
 
 function addDirectoryIndex(
@@ -284,47 +287,45 @@ function buildDirectoryMatcher(rows: TeaSchoolDirectoryRecord[]): TeaDirectoryMa
     const schoolKey = cleanName(record.schoolName);
     const districtKey = cleanName(record.districtName);
     const cityKey = cleanName(record.city);
+    const schoolMatchTokens = new Set(meaningfulTokens(record.schoolName));
+    const contextMatchTokens = new Set([
+      ...schoolMatchTokens, ...meaningfulTokens(record.city), ...meaningfulTokens(record.districtName),
+    ]);
     return {
       record,
       schoolKey,
       districtSchool: cleanName(`${districtKey} ${schoolKey}`),
       citySchool: cleanName(`${cityKey} ${schoolKey}`),
       schoolTokens: schoolKey.split(' ').filter(Boolean),
+      schoolMatchTokens,
+      contextMatchTokens,
     } satisfies PreparedTeaDirectoryRecord;
   });
 
   const byDistrictSchool = new Map<string, PreparedTeaDirectoryRecord[]>();
   const byCitySchool = new Map<string, PreparedTeaDirectoryRecord[]>();
   const bySchool = new Map<string, PreparedTeaDirectoryRecord[]>();
+  const bySchoolToken = new Map<string, PreparedTeaDirectoryRecord[]>();
 
   for (const row of prepared) {
     addDirectoryIndex(byDistrictSchool, row.districtSchool, row);
     addDirectoryIndex(byCitySchool, row.citySchool, row);
     addDirectoryIndex(bySchool, row.schoolKey, row);
+    for (const token of row.schoolMatchTokens) addDirectoryIndex(bySchoolToken, token, row);
   }
 
-  return { rows: prepared, byDistrictSchool, byCitySchool, bySchool };
+  return { rows: prepared, byDistrictSchool, byCitySchool, bySchool, bySchoolToken };
 }
 
-function contextualMatchScore(program: UilFootballProgram, row: PreparedTeaDirectoryRecord) {
-  const programKey = normalizeUilProgramName(program.schoolName);
-  const programTokens = programKey.split(' ').filter(Boolean);
+function contextualMatchScore(programTokens: readonly string[], row: PreparedTeaDirectoryRecord) {
   if (!programTokens.length) return 0;
-
-  const schoolTokens = new Set(meaningfulTokens(row.record.schoolName));
-  const cityTokens = new Set(meaningfulTokens(row.record.city));
-  const districtTokens = new Set(meaningfulTokens(row.record.districtName));
-  const contextTokens = new Set([...schoolTokens, ...cityTokens, ...districtTokens]);
-
-  const schoolOverlap = programTokens.filter((token) => schoolTokens.has(token));
+  const schoolOverlap = programTokens.filter((token) => row.schoolMatchTokens.has(token));
   if (!schoolOverlap.length) return 0;
-  if (!programTokens.every((token) => contextTokens.has(token))) return 0;
+  if (!programTokens.every((token) => row.contextMatchTokens.has(token))) return 0;
 
-  // A single-token UIL name must be present in the actual campus name, not merely
-  // the city or ISD name. This prevents matches such as Bryan -> O'Bryant Primary.
-  if (programTokens.length === 1 && !schoolTokens.has(programTokens[0])) return 0;
+  // A single-token UIL name must be on the actual campus, not just its city or ISD.
+  if (programTokens.length === 1 && !row.schoolMatchTokens.has(programTokens[0])) return 0;
 
-  // Prefer rows where more of the UIL name is carried by the campus itself.
   return 90 + Math.min(schoolOverlap.length, 6);
 }
 
@@ -342,14 +343,29 @@ function bestDirectoryMatch(program: UilFootballProgram, matcher: TeaDirectoryMa
   if (schoolExact?.length === 1) return schoolExact[0].record;
   if ((schoolExact?.length ?? 0) > 1) return null;
 
-  const ranked = matcher.rows
-    .map((row) => ({ row, score: contextualMatchScore(program, row) }))
-    .filter((candidate) => candidate.score >= 90)
-    .sort((left, right) => right.score - left.score);
+  // Any contextual match must share at least one UIL name token with
+  // the TEA campus name. The inverted index is therefore a lossless
+  // candidate set versus rescoring *every* AskTED campus for 1,268 programs.
+  const programTokens = programKey.split(' ').filter(Boolean);
+  const candidates = new Set<PreparedTeaDirectoryRecord>();
+  for (const token of programTokens) {
+    for (const row of matcher.bySchoolToken.get(token) ?? []) candidates.add(row);
+  }
 
-  if (!ranked.length) return null;
-  if (ranked.length > 1 && ranked[0].score === ranked[1].score) return null;
-  return ranked[0].row.record;
+  let best: PreparedTeaDirectoryRecord | null = null;
+  let bestScore = 89;
+  let tied = false;
+  for (const row of candidates) {
+    const score = contextualMatchScore(programTokens, row);
+    if (score > bestScore) {
+      best = row;
+      bestScore = score;
+      tied = false;
+    } else if (score >= 90 && score === bestScore) {
+      tied = true;
+    }
+  }
+  return best && !tied ? best.record : null;
 }
 
 function withDirectory(program: UilFootballProgram, matcher: TeaDirectoryMatcher): FootballProgramDirectoryResult {
