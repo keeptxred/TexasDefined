@@ -148,7 +148,7 @@ const MCALLEN_EDITORIAL_TRIPS = [
   },
 ] as const;
 
-function McAllenDayTripsAuthority({ pageData }: { pageData: CollectionPageData }) {
+function McAllenDayTripsAuthority() {
   return <section className="border-b border-border bg-surface" aria-labelledby="mcallen-day-trip-guide">
     <Container className="py-14 sm:py-18">
       <p className="eyebrow text-primary">The Lower Rio Grande Valley, properly explored</p>
@@ -496,7 +496,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       </div>
     </Container>
 
-    {isMcAllenDayTrips && <McAllenDayTripsAuthority pageData={pageData} />}
+    {isMcAllenDayTrips && <McAllenDayTripsAuthority />}
 
     {isAustinTwoHourGuide && austinRows.length > 0 && <section className="border-b border-border">
       <Container className="py-14 sm:py-18">
@@ -544,7 +544,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
     </section>}
 
     {mapMarkers.length > 0 && <Container className="py-14 sm:py-18">
-      <MapPreview markers={mapMarkers} zoom={7} directionsLabel={`${presentation.label} near ${metro.name}`} origin={metro.center} originLabel={metro.name} />
+      <MapPreview markers={mapMarkers} zoom={7} directionsLabel={`${presentation.label} near ${metro.name}`} origin={metro.center} originLabel={metro.name} variant={isMcAllenDayTrips ? "cards" : "list"} />
     </Container>}
 
     {groups.map((group, groupIndex) => <section key={group.band} className={groupIndex % 2 ? "border-y border-border bg-surface" : ""}>
