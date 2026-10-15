@@ -38,9 +38,31 @@ function records(source) {
   return result;
 }
 
+function articleLinkRegistry(source) {
+  const file = ts.createSourceFile('link-registry.ts', source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+  const records = new Map();
+  function visit(node) {
+    if (ts.isPropertyAssignment(node) && ts.isStringLiteralLike(node.name)
+      && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(node.name.text)
+      && ts.isArrayLiteralExpression(node.initializer)) {
+      const hrefs = [];
+      for (const item of node.initializer.elements) {
+        if (!ts.isObjectLiteralExpression(item)) continue;
+        const href = item.properties.find(p => ts.isPropertyAssignment(p) && p.name.getText(file).replace(/^['"]|['"]$/g, '') === 'href');
+        if (href && ts.isStringLiteralLike(href.initializer) && publicPath(href.initializer.text)) hrefs.push(href.initializer.text);
+      }
+      records.set(node.name.text, { text: node.initializer.getText(file), hrefs });
+    }
+    ts.forEachChild(node, visit);
+  }
+  visit(file);
+  return records;
+}
+
 export function buildChangePlan({ changedFiles, sources = {}, baseline = null, head = null }) {
   const shared = baseline === null || changedFiles.some(p => sharedPattern.test(p));
   const candidates = new Set(shared ? REPRESENTATIVE_PATHS : []);
+  const expectedHrefsByPage = {};
   let contentFallback = false;
   for (const path of changedFiles) {
     const { before = '', after = '' } = sources[path] || {};
@@ -51,6 +73,18 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       }
     }
     if (!/^src\/(?:data|components|routes|lib)\//.test(path)) continue;
+    if (/^src\/data\/(?:article-internal-links|remote-evergreen-internal-links)\.ts$/.test(path)) {
+      const previous = articleLinkRegistry(before);
+      const current = articleLinkRegistry(after);
+      for (const slug of new Set([...previous.keys(), ...current.keys()])) {
+        const oldBlock = previous.get(slug), newBlock = current.get(slug);
+        if (oldBlock?.text === newBlock?.text) continue;
+        const page = '/article/' + slug;
+        candidates.add(page);
+        const added = newBlock?.hrefs.filter(href => !oldBlock?.hrefs.includes(href)) ?? [];
+        if (added.length) expectedHrefsByPage[page] = [...new Set(added)];
+      }
+    }
     const oldRecords = records(before);
     for (const [id, record] of records(after)) {
       if (oldRecords.get(id)?.text === record.text) continue;
@@ -66,7 +100,8 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
   const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...allPaths])].slice(0, PAGE_BUDGET);
-  return { baseline, head, changedFiles, shared, selectedPaths, candidateCount: allPaths.length,
+  const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
+  return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs, candidateCount: allPaths.length,
     omittedCount: Math.max(0, allPaths.length - selectedPaths.length), pageBudget: PAGE_BUDGET,
     coverage: allPaths.length > PAGE_BUDGET ? 'representative sample; full coverage belongs to weekly local audits' : 'identified changed pages and representative dependencies',
     groups: Object.fromEntries(Object.entries(groups).map(([name, pattern]) => [name, shared || changedFiles.some(p => pattern.test(p))])),
