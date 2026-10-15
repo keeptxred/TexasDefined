@@ -89,6 +89,25 @@ export function applyStateParkHeroAsset(destination: Destination): Destination {
   return mapped ? { ...destination, hero: mapped } : destination;
 }
 
+/**
+ * Recover a park's independently licensed exact-place hero when the shared
+ * cross-category image reconciler has assigned a duplicate regional image
+ * to an earlier unrelated listing. Never restore a URL already claimed by
+ * another page, or claim image provenance for a different park.
+ */
+export function recoverUniqueParkHeroesAfterGlobalReconciliation(destinations: Destination[]): Destination[] {
+  const claimed = new Set(destinations.map((destination) => destination.hero?.src).filter(
+    (src): src is string => Boolean(src && !isPlaceholder(src)),
+  ));
+  return destinations.map((destination) => {
+    if (!isTexasStateParkDestination(destination) || !isPlaceholder(destination.hero?.src ?? "")) return destination;
+    const verified = stateParkHeroMap[destination.slug];
+    if (!verified || !isDedicatedStateParkJpeg(verified.src) || claimed.has(verified.src)) return destination;
+    claimed.add(verified.src);
+    return { ...destination, hero: verified };
+  });
+}
+
 export function auditStateParkHeroes(destinations: Destination[]) {
   const parks = applyStateParkHeroAssets(destinations).filter((destination) => isTexasStateParkDestination(destination));
   const jpegParks = parks.filter((destination) => isDedicatedStateParkJpeg(destination.hero.src));
