@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "blanket",
-    "nextSchool": "blanket",
-    "implementedOnBranch": 5,
-    "remainingToImplement": 20,
+    "currentSchool": "blooming-grove",
+    "nextSchool": "blooming-grove",
+    "implementedOnBranch": 6,
+    "remainingToImplement": 19,
     "remainingToVerify": 25,
-    "notes": "Harmony, Big Spring DEPLOYED; Bishop and Blackwell merged, pending release acceptance. Blanco implementation on PR #4990; Blanket on dependent PR #4993. Prior 105 verified unchanged; formal 9-dimension acceptance remains pending."
+    "notes": "Harmony and Big Spring DEPLOYED, Bishop/Blackwell/Blanco already in latest main; Blanket authored on PR #4993, production Chrome/editorial acceptance not established. Preserve 105 VERIFIED schools and Batch005 editorial backlog."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6609,8 +6609,12 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/blanket",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/blanket.md",
+      "implementedOnBranch": "feature/football-b006-blanket-20261015",
+      "actualProductionVerified": false,
+      "reviewScope": "Individually authored six-man UIL District12, local 2026 results 4–3 through Oct8 and source conflicts, Sept11 firsthand coach quote; branch only pending merges/Chrome/editorial acceptance. No stadium gate or photo rights claimed."
     },
     {
       "id": "uil:blooming-grove",

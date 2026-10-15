@@ -1,5 +1,8 @@
 # Football Authority — Execution Ledger
 
+## October 15, 2026 — Blanket source-backed profile reconciled for protected merge (not released)
+Blanket ISD six-man UIL 1A DII District12, independently sourced 4–3 through Oct8 and correction of Brookesmith/Sidney/Rochelle source defects via Brownwood News, with head-coach Jalen Helms Sept11 local interview. New original FAQs, school visitor guide and no unverified stadium gate or photo rights. PR #4993 remains unmerged until protected validation, subsequent production desktop/mobile Chrome and separate editorial acceptance.
+
 ## October 15, 2026 — Blanco Panthers individualized authored guide (dependency only)
 Blanco 2001 UIL Class2A D1 state champion vs Van Alstyne 16–0, 2000 runners-up vs Sonora 27–24; present 2026 UIL 3A D2 District15. First-party Panther Stadium 604 Terri Ln distinct from school 814 11th, online-only district ticket policy. Current as-of Oct9 4–3 after Stockdale 37–28; old Oct3 schedule cached 4–2. Six school-specific FAQs; no current-coach/stadium photo licensing claim. New dependent branch not merged/deployed/live Chrome accepted. Preserve 105 previously VERIFIED, Batch005 editorial 24 unaccepted; Batch006 independent acceptance zero.
 
