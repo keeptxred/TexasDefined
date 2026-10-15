@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     env:
-      LOCAL_AUDIT_REPORT_DIR: ${{ runner.temp }}/local-quality-reports-${{ github.run_id }}-${{ github.run_attempt }}
+      LOCAL_AUDIT_REPORT_DIR: /tmp/local-quality-reports-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v4

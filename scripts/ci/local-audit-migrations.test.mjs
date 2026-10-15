@@ -29,6 +29,9 @@ test('one weekly coordinator runs all nine full contracts on the reusable local 
   assert.match(coordinator, /Local built-Worker audit/);
   assert.doesNotMatch(reusable, /^  (schedule|workflow_run|push|pull_request):/m);
   assert.match(reusable, /path: \$\{\{ env.LOCAL_AUDIT_REPORT_DIR \}\}/);
+  // Job-level env cannot reference the step-only runner context.
+  assert.doesNotMatch(reusable, /LOCAL_AUDIT_REPORT_DIR:\s*\$\{\{\s*runner\./);
+  assert.match(reusable, /LOCAL_AUDIT_REPORT_DIR: \/tmp\/local-quality-reports-/);
   const runner = read('scripts/ci/run-local-quality-audits.mjs');
   assert.match(runner, /LOCAL_QUALITY_AUDITS as audits/);
   assert.match(runner, /results.push\(\{ name, passed: status === 0 \}\)/);
