@@ -1,5 +1,8 @@
 # Football Authority — Execution Ledger
 
+## October 15, 2026 — Bloomington Bobcats authored on dependent research branch (NOT released)
+Bloomington ISD's official campus 2781 FM616 (not MaxPreps 2785), first-party Vanco Bobcat Stadium Oct16 Danbury 7PM cashless gate, UIL Class2A Division I District15 and dated Oct9 2–5. The Shiner 43–3 final supported by independent Shiner sports/PigskinPrep and current MaxPreps box, while syndicated 43–0 discrepancy remains disclosed. School-only original profile/six FAQs on PR dependency, no falsely certified coach/ADA gate/photo or browser/editorial acceptance. All 105 prior VERIFIED untouched.
+
 ## October 15, 2026 — Blooming Grove school-specific authority implemented on dependent PR only
 Official district Kevin Sherrill head-coach hire, UIL 2026 3A DII District11, 0–6 through Oct9 after Teague loss 68–0, dated PigskinPrep/MaxPreps corroboration. Distinguishes Sherrill's Vernon 2025 10–3 from Blooming Grove's own 2025 3–8. School 212 W Grady vs named Lion Stadium (unverified gate); six original FAQs. No certified photo rights/parking/ADA. Not merged/deployed/Chrome or formal editorial verified, 105 previous verified intact.
 
