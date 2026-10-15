@@ -20,6 +20,7 @@ const STATE_PARK_HERO_ALIASES: Record<string, string> = {
   "ray-roberts-lake-johnson-branch-unit-state-park": "ray-roberts-lake-johnson-branch-unit",
   "sheldon-lake-state-park-environmental-learning-center": "sheldon-lake-state-park",
   "cooper-lake-state-park": "cooper-lake-south-sulphur-unit-state-park", // Exact Cooper Lake unit photo; caption identifies the photographed unit
+  "devils-sinkhole-state-natural-area": "devil-s-sinkhole-state-natural-area", // Exact natural area; licensed photo uses a historical apostrophe-normalization slug
 };
 
 function isPlaceholder(src: string): boolean {
@@ -101,7 +102,7 @@ export function recoverUniqueParkHeroesAfterGlobalReconciliation(destinations: D
   ));
   return destinations.map((destination) => {
     if (!isTexasStateParkDestination(destination) || !isPlaceholder(destination.hero?.src ?? "")) return destination;
-    const verified = stateParkHeroMap[destination.slug];
+    const verified = mappedHero(destination.slug);
     if (!verified || !isDedicatedStateParkJpeg(verified.src) || claimed.has(verified.src)) return destination;
     claimed.add(verified.src);
     return { ...destination, hero: verified };
