@@ -930,6 +930,182 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
+  "blanket": {
+    "slug": "blanket",
+    "theme": {
+      "accentHex": "#B99735",
+      "label": "Independent gold editorial accent (school colors black and gold); no official mascot or logo reproduced"
+    },
+    "seo": {
+      "title": "Blanket Tigers Six-Man Football 2026 | District 12, 4–3 Results & Game Guide",
+      "description": "Blanket Tigers six-man football in Brown County: UIL 2026 District 12, locally reported 4–3 through October 8, head coach Jalen Helms and school contacts."
+    },
+    "coach": {
+      "name": "Jalen Helms",
+      "title": "Blanket Tigers head football coach (identified in September 11, 2026 local game reporting; later changes unverified)",
+      "sourceUrl": "https://www.brownwoodnews.com/wpb_gallery/blanket-rebounds-from-first-loss-hands-brookesmith-initial-defeat-66-34/",
+      "sourceLabel": "Brownwood News Sept 11 firsthand Blanket–Brookesmith game report quoting coach Jalen Helms",
+      "verifiedAt": "2026-10-15"
+    },
+    "campus": {
+      "address": "901 Avenue H, Blanket, TX 76432",
+      "phone": "325-748-5311",
+      "sourceUrl": "https://www.blanketisd.org/about-us",
+      "sourceLabel": "Blanket ISD official office location and phone, not a verified stadium gate",
+      "verifiedAt": "2026-10-15"
+    },
+    "schedule": {
+      "label": "Blanket CISD schedule and current six-man varsity games",
+      "sourceUrl": "https://www.blanketisd.org/",
+      "sourceLabel": "Blanket ISD official district events; game final scores independently reported by Brownwood News",
+      "verifiedAt": "2026-10-15"
+    },
+    "notice": {
+      "title": "Do not use a stale or reversed Blanket score feed for directions or standings",
+      "body": "The independently reported 2026 Blanket–Brookesmith final is Blanket W66–34, though an older MaxPreps feed wrongly records Blanket L34–66. Rochelle beat Blanket 68–22, not the 28–0 shown in another old snapshot. Brownwood News reported a late added Abilene X-Dot Academy match, and Blanket won 65–13 on October 8 after older calendars had displayed a bye. First-party football gate, parking and ADA access have not been independently certified; contact Blanket ISD for specific events.",
+      "sourceUrl": "https://www.brownwoodnews.com/2026/10/10/local-high-school-football-standings-after-week-7/",
+      "sourceLabel": "Contemporaneous Brownwood News complete District 12 standings and Abilene X-Dot outcome",
+      "verifiedAt": "2026-10-15"
+    },
+    "season": {
+      "record": "4–3 through October 8, 2026 (Brownwood News contemporaneous game reports; season ongoing)",
+      "verifiedAt": "2026-10-15",
+      "sourceUrl": "https://www.brownwoodnews.com/2026/10/10/local-high-school-football-standings-after-week-7/",
+      "sourceLabel": "Brownwood News Oct10 District 12 official-style local sports table and corresponding individual game reports, not an official UIL season certification",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Valera Panther Creek",
+          "site": "Away",
+          "result": "W 72–26"
+        },
+        {
+          "date": "2026-09-03",
+          "opponent": "Rocksprings",
+          "site": "Neutral",
+          "result": "L 0–63"
+        },
+        {
+          "date": "2026-09-10",
+          "opponent": "Brookesmith",
+          "site": "Home",
+          "result": "W 66–34"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Sidney",
+          "site": "Home",
+          "result": "W 50–48"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Rochelle",
+          "site": "Away",
+          "result": "L 22–68"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Iredell",
+          "site": "Home",
+          "result": "L 20–65"
+        },
+        {
+          "date": "2026-10-08",
+          "opponent": "Abilene X-Dot Academy",
+          "site": "Home",
+          "result": "W 65–13"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Mullin",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Zephyr",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Gustine",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "development": {
+      "title": "The Tigers' 2026 rebound, rebuilt after a difficult week",
+      "body": "After a 63–0 loss against Rocksprings, Blanket rebounded with a 66–34 win against the previously unbeaten Brookesmith Mustangs on September 10. Brownwood News reported seven rushing scores by Leo Valdes and directly quoted coach Jalen Helms. The Tigers followed with a 50–48 win over Sidney, weathered losses to Rochelle and Iredell, and beat the late-added Abilene X-Dot Academy opponent 65–13. These seven locally reported results produce a 4–3 through-October-8 snapshot rather than the outdated 2–3/2–2 shown in third-party directories.",
+      "sourceUrl": "https://www.brownwoodnews.com/wpb_gallery/blanket-rebounds-from-first-loss-hands-brookesmith-initial-defeat-66-34/",
+      "sourceLabel": "Brownwood News independent September 11 game report, cross-checked against Sep 19/26, Oct3/10 local recaps",
+      "verifiedAt": "2026-10-15"
+    },
+    "milestones": [
+      {
+        "date": "2018",
+        "title": "Eleven-win 2018 campaign",
+        "body": "The Six-Man Football historical season record lists Blanket 11–1 in 2018, a figure repeated by Dave Campbell's Texas Football season index. This does not establish a state-title appearance.",
+        "sourceUrl": "https://sixmanfootball.com/teams/blanket-tigers.1051/schedule/",
+        "sourceLabel": "Six-Man Football historical season list corroborated by DCTF"
+      },
+      {
+        "date": "2026",
+        "title": "UIL six-man Class 1A Division II District 12",
+        "body": "The 2026–28 official UIL assignment groups Blanket with Gustine, Mullin, Priddy and Zephyr. A team appearing in the official alignment does not by itself guarantee every team fields an active varsity side during the fall.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
+        "sourceLabel": "Official UIL 2026–28 Conference 1A Division II six-man alignment"
+      },
+      {
+        "date": "2026-09-10",
+        "title": "Blanket 66, Brookesmith 34",
+        "body": "Brownwood News witnessed the Tigers hand Brookesmith its first defeat of the year; an older MaxPreps results feed reversed the winner and should not override local contemporaneous reporting.",
+        "sourceUrl": "https://www.brownwoodnews.com/wpb_gallery/blanket-rebounds-from-first-loss-hands-brookesmith-initial-defeat-66-34/",
+        "sourceLabel": "Sept 11 contemporaneous Blanket home game report"
+      },
+      {
+        "date": "2026-10-08",
+        "title": "Late-added Abilene X-Dot Academy win",
+        "body": "Brownwood News Oct8 preview documented the short-notice game, and its Oct10 district standings listed Blanket 65, X-Dot Academy 13 for the 4–3 Tigers. An October 10 game report spells the opponent X-Plus Academy; the contemporaneous preview and two standings tables use X-Dot.",
+        "sourceUrl": "https://www.brownwoodnews.com/2026/10/10/local-high-school-football-standings-after-week-7/",
+        "sourceLabel": "Brownwood News Oct10 District12 scores corroborated by PigskinPrep; opponent naming caveat"
+      }
+    ],
+    "overview": [
+      "Blanket High School's Tigers represent Blanket Independent School District in Blanket, Brown County, Texas. This is a six-player program: the official UIL 2026–28 football alignment places Blanket in Class 1A Division II, District 12 with Gustine, Mullin, Priddy and Zephyr. Do not substitute a third-party directory's longer pooled standings for the official five-school UIL assignment. Participation changes and cancellations need direct school/UIL announcements; a preseason forum claimed Priddy might not field a varsity team.",
+      "The 2026 Tigers are not well described by the stale MaxPreps and DCTF season tiles. Firsthand regional reporting establishes seven outcomes through October 8: victories at Panther Creek, against Brookesmith and Sidney, and over late-added Abilene X-Dot Academy, plus defeats against Rocksprings, Rochelle and Iredell. The Brownwood News District 12 table confirms a 4–3 record entering the October 16 week. Scheduled district games later in October and November are not final scores.",
+      "One distinctive chapter came on September 10, when Blanket bounced back from a shutout against Rocksprings to beat an unbeaten Brookesmith team 66–34. Brownwood News recorded seven Leo Valdes rushing touchdowns in that win and quoted Blanket head coach Jalen Helms. The September 18 50–48 escape against Sidney was another competitive highlight, with Brownwood News reporting 396 Blanket yards. These are event-specific contemporary reports rather than generic season phrases.",
+      "Transparency matters because competing score indexes get Blanket badly wrong. A MaxPreps Sept29 snapshot inverted the Brookesmith final, listing a Blanket 34–66 loss where local eyewitness reporting and Six-Man Football record a 66–34 Blanket win; it also showed a 28–0 Rochelle result instead of the locally verified 68–22 Rochelle victory. An early October schedule listed a bye, but an added October 8 home game against Abilene X-Dot Academy ended Blanket 65–13. Some local game copy called the opponent X-Plus Academy; the region's October standings and the match preview use X-Dot, and the discrepancy is acknowledged.",
+      "For visitors, Blanket ISD lists its school at 901 Avenue H in Blanket and publishes 325-748-5311 as the main phone. A separate football directory calls the home venue Switzer Field, but the district-owned stadium entrance, wheelchair/ADA access, current ticket terms and photo rights have not been independently verified here. Use the district events calendar and office for actual game-day arrival instructions, particularly because late schedule changes occurred in October."
+    ],
+    "faq": [
+      {
+        "question": "Is Blanket Tigers football six-man and what is its 2026 UIL district?",
+        "answer": "Yes. The UIL's 2026–28 alignment puts Blanket in six-man Class 1A Division II District 12 with Gustine, Mullin, Priddy and Zephyr. An official alignment list does not confirm that every school actually fields a team in each scheduled week."
+      },
+      {
+        "question": "What is Blanket's football record as of October 8, 2026?",
+        "answer": "Brownwood News reported Blanket 4–3 through a 65–13 October 8 win over Abilene X-Dot Academy. Older MaxPreps and DCTF season tiles lagged and misrecorded some results, so the October 10 regional standings are used for the dated tally."
+      },
+      {
+        "question": "Did Blanket lose 34–66 to Brookesmith on September 10, 2026?",
+        "answer": "No. Brownwood News' September 11 firsthand home-game report has Blanket beating Brookesmith 66–34. The older MaxPreps result reversed the score's winner; Leo Valdes was reported with seven rushing touchdowns in Blanket's victory."
+      },
+      {
+        "question": "Where is Blanket's stadium and is accessible parking available?",
+        "answer": "Blanket ISD's official contact address is 901 Avenue H, Blanket, TX 76432, phone 325-748-5311. A third-party sports directory identifies the football venue as Switzer Field, but the current gate location and accessible parking or seating have not been independently certified. Check with the district before traveling."
+      },
+      {
+        "question": "Why did Blanket play Abilene X-Dot Academy on October 8 after a listed bye?",
+        "answer": "Brownwood News reported the matchup as a late addition on October 8 and documented a 65–13 Blanket victory. Some copy spells the opponent X-Plus, while the regional standings and pregame report call it X-Dot Academy; the district should confirm any official naming difference."
+      },
+      {
+        "question": "Who was coaching Blanket football in September 2026?",
+        "answer": "A September 11, 2026 Brownwood News firsthand game report directly quotes Jalen Helms as Blanket's head football coach following the Brookesmith victory. Any subsequent appointment change should be checked with Blanket ISD."
+      }
+    ]
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {
