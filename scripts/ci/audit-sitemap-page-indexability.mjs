@@ -224,7 +224,7 @@ async function discoverSitemapPaths() {
   const response = await fetchRetry(`${ORIGIN}/robots.txt`, { redirect: 'manual' });
   if (response.status !== 200) throw new Error(`robots.txt returned HTTP ${response.status}; full sitemap inventory cannot be certified`);
   const robots = await response.text();
-  for (const match of robots.matchAll(/^\\s*Sitemap:\\s*(\\S+)/gim)) {
+  for (const match of robots.matchAll(/^\s*Sitemap:\s*(\S+)/gim)) {
     const url = new URL(match[1].trim(), ORIGIN);
     if (url.origin !== ORIGIN || !url.pathname.endsWith('.xml')) continue;
     // RSS is a valid feed but not an XML <urlset>/<sitemapindex> inventory.
