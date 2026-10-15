@@ -174,8 +174,14 @@ for (const slug of ["albert-bessie-kronkosky-state-natural-area","powderhorn-sta
 }
 const hillCountryPhoto = read("src/data/hill-country-state-natural-area-authority.ts");
 assertContains(hillCountryPhoto, "Larry D. Moore · CC BY 4.0", "Wikimedia user name must not be substituted for real photographer attribution");
+const officialCountyNetwork = read("src/data/state-park-official-counties.ts");
+const categoryFixture = read("src/data/fixtures/texas.ts");
 const countyLinks = read("src/data/state-park-county-index.ts");
-for (const county of ["stephens", "lee", "cooke"]) assertContains(countyLinks, `normalized === "${county}"`, `Missing secondary state-park county cross-link: ${county}`);
+assertContains(countyLinks, "stateParkMatchesCounty(park, normalized)", "County pages must use full official multi-county park relationships");
+for (const slug of ["big-bend-ranch-state-park", "caprock-canyons-state-park", "choke-canyon-state-park", "colorado-bend-state-park", "cooper-lake-state-park", "guadalupe-river-state-park", "hill-country-state-natural-area", "kickapoo-cavern-state-park", "lake-mineral-wells-state-park", "lost-maples-state-natural-area", "martin-dies-jr-state-park", "monahans-sandhills-state-park", "palo-duro-canyon-state-park", "purtis-creek-state-park", "ray-roberts-lake-state-park", "palo-pinto-mountains-state-park"]) {
+  assertContains(officialCountyNetwork, `"${slug}": [`, `Official cross-county park relation missing for ${slug}`);
+}
+if (categoryFixture.includes("Eighty-nine parks")) failures.push("Obsolete hard-coded 89 count in State Parks Explore headline");
 const candidate = new Set();
 for (const src of [legacyExplore, legacyLakes]) {
   for (const line of src.split("\n")) {
