@@ -762,9 +762,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "description": "Blanco Panthers football in Blanco County: 2001 UIL 2A Division I title, 2026 District 15, 4–3 through October 9 and official Panther Stadium directions."
     },
     "campus": {
-      "address": "814 11th Street, Blanco, TX 78606",
-      "sourceUrl": "https://www.maxpreps.com/tx/blanco/blanco-panthers/football/schedule/",
-      "sourceLabel": "MaxPreps Blanco High School directory address. This is NOT the district-confirmed Panther Stadium address.",
+      "address": "1215 4th Street, Blanco, TX 78606",
+      "sourceUrl": "https://blancoisd.org/campuses",
+      "sourceLabel": "Blanco ISD's first-party campus directory confirms Blanco High School at 1215 Fourth Street; 814 11th is the ISD/elementary location, not high school.",
       "verifiedAt": "2026-10-15"
     },
     "schedule": {
@@ -779,7 +779,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.blancoisd.org/athletics",
       "sourceLabel": "Blanco ISD Athletics explicitly identifies Panther Stadium and its street address",
       "verifiedAt": "2026-10-15",
-      "note": "This first-party stadium address differs from Blanco High School's 814 11th Street address. Blanco ISD directs fans to online-only Home Town Ticketing. Parking, precise gate, accessible seating and prices for individual dates were not independently certified; consult district announcements."
+      "note": "Panther Stadium (604 Terri Lane) differs from the official Blanco High School campus (1215 Fourth Street) and the district/elementary address (814 11th Street). Blanco ISD directs fans to online-only Home Town Ticketing. Parking, precise gate, accessible seating and prices for individual dates were not independently certified; consult district announcements."
     },
     "notice": {
       "title": "Tickets are online only; check the official event listing",
@@ -900,7 +900,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "Blanco High School's Panthers represent Blanco ISD in Blanco County, Texas. The 2026–28 UIL official football realignment places Blanco in eleven-man Class 3A Division II, District 15 with Comfort, Karnes City, Nixon-Smiley, Poth, San Antonio Young Men's Leadership Academy and Stockdale. The classification is specific to the current cycle and must not be confused with the school's title-winning era.",
       "Blanco's signature championship season was 2001. In the Class 2A Division I state championship game, the Panthers shut out Van Alstyne 16–0, per the official UIL history. The year before, Blanco had reached the 2000 2A Division I title game but lost 27–24 to Sonora. That chronology is important: one state title and one prior runner-up, not two championships and not a present-day 3A title.",
       "In 2026, a dated seven-game review through October 9 places the Panthers 4–3, including wins over Crockett, Llano, Burnet and Nixon-Smiley. Blanco lost its October 9 district trip to Stockdale 37–28, reported both in the MaxPreps game box and the Texas Prep Football current-season summary. A separately cached MaxPreps fixture list showed 4–2 because it was updated before that October 9 match; it must not override the completed result. Remaining fixtures are schedules, not predicted outcomes.",
-      "Blanco ISD provides unusually useful official game-day routing: Panther Stadium is at 604 Terri Lane in Blanco. This differs from the published school directory address of 814 11th Street. The district also directs fans to Home Town Ticketing and specifies online-only athletic tickets. For event-specific stadium gate, ticket price, accessible parking and seating, check the current official listing before travel; those details have not been independently certified here.",
+      "Blanco ISD provides unusually useful official game-day routing: Panther Stadium is at 604 Terri Lane in Blanco. Blanco ISD's high-school campus is at 1215 Fourth Street; 814 11th Street belongs to the district and elementary campus. Neither is the stadium. The district also directs fans to Home Town Ticketing and specifies online-only athletic tickets. For event-specific stadium gate, ticket price, accessible parking and seating, check the current official listing before travel; those details have not been independently certified here.",
       "The district athletics page identifies Kent Walker as athletic director, while a third-party team directory also calls him the head football coach. An athletics-director title alone cannot establish the current varsity coaching assignment. Fans seeking an up-to-the-minute coach or staffing contact should use Blanco ISD Athletics rather than an undated index."
     ],
     "faq": [
@@ -914,7 +914,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Where is Blanco's Panther Stadium?",
-        "answer": "Blanco ISD Athletics gives Panther Stadium's address as 604 Terri Lane, Blanco, TX 78606. The school directory's 814 11th Street address is a separate location. Confirm game-specific entrances and parking with the district."
+        "answer": "Blanco ISD Athletics gives Panther Stadium's address as 604 Terri Lane, Blanco, TX 78606. The district's own campus directory lists Blanco High School at 1215 Fourth Street, while 814 11th is the district/elementary address. All three are separate locations. Confirm game-specific entrances and parking with the district."
       },
       {
         "question": "How do I buy tickets to a Blanco Panthers football game?",
