@@ -81,6 +81,31 @@ test('a shared fishing species change smoke-checks only four real family links',
   assert.equal(plan.omittedCount, 0);
 });
 
+test('two canonical state aliases are verified by bounded manual-redirect smoke', async () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/routes/texas-vs.$state.tsx'] });
+  assert.deepEqual(plan.redirectChecks, [
+    { path: '/texas-vs/california', target: '/article/texas-vs-california-differences' },
+    { path: '/texas-vs/florida', target: '/article/texas-vs-florida-differences' },
+  ]);
+  assert.equal(plan.selectedPaths.length + plan.redirectChecks.length <= PAGE_BUDGET, true);
+  const respond = async (url, options) => {
+    assert.equal(options.redirect, 'manual');
+    return new Response(null, { status: 301, headers: { location: '/article/texas-vs-' + url.pathname.split('/').pop() + '-differences' } });
+  };
+  const good = await verifyChangedPages({ plan, head, fetchImpl: respond });
+  assert.deepEqual(good.map(x => x.status), [301, 301]);
+  assert.ok(good.every(x => x.passed));
+  const bad = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response('OK', { status: 200 }) });
+  assert.equal(bad.length, 2);
+  assert.ok(bad.every(x => !x.passed && /Expected HTTP 301/.test(x.error)));
+});
+
+test('a legitimate final HTML 200 never substitutes for a canonical 301', async () => {
+  const plan = { head, selectedPaths: [], redirectChecks: [{ path: '/texas-vs/california', target: '/article/texas-vs-california-differences' }] };
+  const bad = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response('<html>canonical article</html>', { status: 200 }) });
+  assert.equal(bad[0].passed, false);
+});
+
 test('unchanged sibling registry keys are not independently crawled', () => {
   const path = 'src/data/remote-evergreen-internal-links.ts';
   const before = 'const groups = { "history-one": [{ href: "/texas-history" }], "history-two": [{ href: "/texas-history" }] };';
