@@ -185,7 +185,7 @@ function finishHistoricSiteEnrichment(destination: Destination) {
 }
 
 function applyResolvedHero(destination: Destination) {
-  return enforceFredericksburgJohnsonCityHeritageAuthority(applyTownAuthority(enrichMuseumMedia(normalizeDestinationCounty(
+  const curated = enforceFredericksburgJohnsonCityHeritageAuthority(applyTownAuthority(enrichMuseumMedia(normalizeDestinationCounty(
     enrichCavernAreaGuide(
       finishHistoricSiteEnrichment(
         improveDestinationQuality(
@@ -202,6 +202,9 @@ function applyResolvedHero(destination: Destination) {
       ),
     ),
   ))));
+  // Specialized editorial curators may reintroduce older remote JPEG heroes.
+  // Resolve the approved exact-place local park photograph after all curators.
+  return applyStateParkHeroAsset(curated);
 }
 
 function resolveSeoReadyDestination(destination?: Destination | null) {
@@ -232,7 +235,11 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(enrichMuseumMedia)
     .map(applyTownAuthority)
     .map(enforceFredericksburgJohnsonCityHeritageAuthority);
-  return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved.map(correctDestinationTravelRegion)));
+  // The collection renderer must apply the same post-curation exact-place rule
+  // as the single destination page, not merely the preliminary photo map.
+  return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(
+    improved.map((destination) => applyStateParkHeroAsset(correctDestinationTravelRegion(destination))),
+  ));
 }
 
 export async function listResolvedDestinations(params: Omit<DestinationQuery, "brandId"> = {}) {
