@@ -14,7 +14,7 @@ test('regional related reading reaches every Texas-vs-state page without increas
       assert.ok(peers.every(peer => group.states.some(member => member === peer)), state);
       for (const peer of peers) {
         incoming.set(peer, incoming.get(peer) + 1);
-        assert.match(texasVsCanonicalPath(peer), /^\\/(?:texas-vs|article)\\//);
+        assert.ok(texasVsCanonicalPath(peer).startsWith('/texas-vs/') || texasVsCanonicalPath(peer).startsWith('/article/'), peer);
       }
     }
   }
