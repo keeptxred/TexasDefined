@@ -1,9 +1,6 @@
 name: Things That Define Texas production smoke
 
 on:
-  workflow_run:
-    workflows: ['Deploy TexasDefined production']
-    types: [completed]
   workflow_dispatch:
 
 permissions:

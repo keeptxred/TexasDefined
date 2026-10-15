@@ -1,7 +1,17 @@
 import fs from 'node:fs';
 const failures = [];
 const workflow = (name) => fs.readFileSync(`.github/workflows/${name}.yml`, 'utf8');
-const requireMarker = (source, marker, label) => { if (!source.includes(marker)) failures.push(label); };
+// This user-authorized cost policy retires blanket feature triggers. Preserve
+// every acceptance body and source-only PR gate; manual features need no deploy fan-out.
+const scanPolicy = JSON.parse(fs.readFileSync('scripts/ci/update-scan-policy.json', 'utf8'));
+const manualSources = new Set(scanPolicy.manualFeatureWorkflows.map(workflow));
+const requireMarker = (source, marker, label) => {
+  if (manualSources.has(source) && ['workflow_run:', 'Deploy TexasDefined production'].includes(marker)) {
+    if (!source.includes('workflow_dispatch:') || /^  workflow_run:/m.test(source)) failures.push(label + ' (manual feature trigger policy)');
+    return;
+  }
+  if (!source.includes(marker)) failures.push(label);
+};
 const noDirectPush = (source, label) => { if (/^  push:/m.test(source)) failures.push(`${label} cannot assert live production before a protected deployment`); };
 // An independent production verifier may outlive newer main merges. Never
 // checkout a moving branch or the workflow_run receiver's github.ref.
@@ -338,4 +348,4 @@ if (batch3BrowserSource.includes('assert.deepEqual(registry.batch.slugs'))
   failures.push('Batch 003 production Chrome cannot assert against the mutable active batch roster');
 
 if (failures.length) { for (const failure of failures) console.error('FAIL: '+failure); process.exit(1); }
-console.log('Scoped post-deploy verifier safety passed: deploy-success gating, immutable checkout, cache bypass, and blocking native sports smoke.');
+console.log('Scoped post-deploy verifier safety passed: deploy-success gating, immutable checkout, cache bypass, manual feature acceptance and change-scoped native sports smoke.');

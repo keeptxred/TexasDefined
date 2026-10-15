@@ -14,6 +14,14 @@ For every code, data, content-system, routing, SEO, image-governance, build, or 
 - Auxiliary PR workflows may provide faster feature-specific feedback, but they must be path-scoped and their deterministic requirements must also exist in the canonical pre-merge contract. Do not create a second unscoped PR validation contract.
 - Validators that enforce CI wiring must validate the canonical contract itself, not depend on a particular command remaining textually embedded in a workflow YAML file.
 
+## Update verification cost policy
+
+- The canonical pre-merge contract is required once for each candidate revision; GitHub's protected merge gate remains mandatory. Reuse valid local evidence when the source tree and base have not changed. Re-run after material changes or reconciliation.
+- Do not add a second automatic post-merge run of the full contract or its watchdog. `validate.yml` remains an explicit manual entry point for automation branch prevalidation.
+- Feature production/browser acceptance workflows are manual unless a documented change scope requires them. Never attach a content project's acceptance crawl to every deployment.
+- Each deployment proves health, deployed Worker identity, a bounded sample of changed pages/dependencies, and relevant native feature gates. This smoke is not a full-content certification. Preserve failures for every selected check.
+- Complete broad audits run weekly against the local built Worker. See docs/update-scan-policy.md and scripts/ci/update-scan-policy.json.
+
 ## Editorial article rule
 
 For every new Texas Defined editorial article:

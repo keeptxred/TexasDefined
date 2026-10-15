@@ -2,11 +2,6 @@ name: Texas flag history production smoke
 
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ["Deploy TexasDefined production"]
-    types: [completed]
-    branches: [main]
-
 permissions:
   contents: read
   statuses: write
