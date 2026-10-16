@@ -60,14 +60,14 @@ export const Route = createFileRoute("/explore/casinos/")({
 function CasinoHub() {
   return <main>
     <section className="border-b border-border bg-ink text-ink-foreground">
-      <Container className="py-14 sm:py-14">
-        <nav aria-label="Breadcrumb" className="text-xs uppercase text-ink-foreground">
+      <Container className="py-14 sm:py-16">
+        <nav aria-label="Breadcrumb" className="text-xs text-ink-foreground">
           <Link to="/" className="hover:underline">Home</Link><span aria-hidden="true"> / </span>
           <Link to="/explore" className="hover:underline">Explore</Link><span aria-hidden="true"> / </span>
           <span>Gaming getaways</span>
         </nav>
         <p className="eyebrow mt-10 text-ink-foreground">Worth the drive · Travel & entertainment</p>
-        <h1 className="mt-4 max-w-4xl font-display text-5xl leading-normal sm:text-6xl">Casinos &amp; gaming getaways</h1>
+        <h1 className="mt-4 max-w-4xl font-display text-5xl  sm:text-5xl">Casinos &amp; gaming getaways</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground">
           Four operating Texas tribal gaming locations, a future East Texas resort and the cross-border casino trips Texans actually take. Choose by location, lodging and entertainment—not hype.
         </p>
@@ -75,7 +75,7 @@ function CasinoHub() {
       </Container>
     </section>
 
-    <Container className="py-12 sm:py-14">
+    <Container className="py-12 sm:py-16">
       <nav aria-label="Jump to a guide" className="border-b border-border pb-10">
         <h2 className="font-display text-2xl">Go straight to a guide</h2>
         <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-primary">
@@ -109,13 +109,13 @@ function CasinoHub() {
 
       {grouped.map((group) => {
         const guides = CASINO_GUIDES.filter((guide) => guide.group === group);
-        return <section className="mt-14" key={group} aria-label={group}>
+        return <section className="mt-12" key={group} aria-label={group}>
           <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-4">
             <h2 className="font-display text-3xl sm:text-4xl">{group}</h2>
             <p className="text-sm text-muted-foreground">{guides.length} {guides.length === 1 ? "guide" : "guides"}</p>
           </div>
           <ul className="mt-5 grid gap-6 md:grid-cols-2">
-            {guides.map((guide) => <li key={guide.slug} className="border-l border-primary bg-surface p-6">
+            {guides.map((guide) => <li key={guide.slug} className="border-t border-primary bg-surface p-6">
               <p className="eyebrow text-primary">{guide.location}</p>
               <h3 className="mt-3 font-display text-2xl"><Link to="/explore/casinos/$slug" params={{ slug: guide.slug }} className="hover:text-primary">{guide.shortTitle}</Link></h3>
               <p className="mt-2 text-xs font-semibold uppercase text-muted-foreground">{guide.status}</p>
@@ -126,10 +126,10 @@ function CasinoHub() {
         </section>;
       })}
 
-      <section className="mt-16 border-t border-border pt-9">
+      <section className="mt-12 border-t border-border pt-9">
         <h2 className="font-display text-3xl">Build a trip around the destination</h2>
         <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Casino properties are not all alike: a short bingo-focused outing is a different trip from a hotel-and-concert weekend. Keep the surrounding cities and other attractions in your plans too.</p>
-        <div className="mt-5 flex flex-wrap gap-x-7 gap-y-3 text-sm font-semibold">
+        <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
           <Link to="/road-trips" className="border-b border-primary pb-1 text-primary">Texas road trips</Link>
           <Link to="/explore/trip-planner" className="border-b border-primary pb-1 text-primary">Plan a route</Link>
           <Link to="/browse/cities" className="border-b border-primary pb-1 text-primary">Browse Texas cities</Link>

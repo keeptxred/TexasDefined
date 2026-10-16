@@ -52,30 +52,30 @@ function CasinoGuidePage() {
   });
   return <main>
     <section className="border-b border-border bg-ink text-ink-foreground">
-      <Container className="py-12 sm:py-14">
-        <nav aria-label="Breadcrumb" className="text-xs uppercase text-ink-foreground">
+      <Container className="py-12 sm:py-16">
+        <nav aria-label="Breadcrumb" className="text-xs text-ink-foreground">
           <Link to="/explore" className="hover:underline">Explore</Link><span aria-hidden> / </span>
           <Link to="/explore/casinos" className="hover:underline">Gaming getaways</Link>
         </nav>
         <p className="eyebrow mt-10 text-ink-foreground">{guide.group} · {guide.location}</p>
-        <h1 className="mt-4 max-w-5xl font-display text-4xl leading-normal sm:text-6xl">{guide.title}</h1>
+        <h1 className="mt-4 max-w-4xl font-display text-4xl  sm:text-5xl">{guide.title}</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground">{guide.dek}</p>
         <p className="mt-6 text-sm uppercase text-ink-foreground">{guide.status} · Sources reviewed Oct. 15, 2026</p>
       </Container>
     </section>
-    <Container className="grid gap-12 py-12 sm:py-14 lg:grid-cols-3">
-      <article className="min-w-0 lg:col-span-2">
+    <Container className="grid gap-12 py-12 sm:py-16 lg:grid-cols-2">
+      <article className="">
         <section aria-labelledby="at-a-glance">
           <h2 id="at-a-glance" className="font-display text-3xl">At a glance</h2>
           <ul className="mt-5 grid gap-3 sm:grid-cols-2">
-            {guide.facts.map((fact) => <li key={fact} className="border-l border-primary bg-surface px-4 py-3 text-sm leading-6">{fact}</li>)}
+            {guide.facts.map((fact) => <li key={fact} className="border-t border-primary bg-surface px-4 py-3 text-sm leading-6">{fact}</li>)}
           </ul>
         </section>
         {guide.sections.map((section) => <section key={section.heading} className="mt-12 border-t border-border pt-8">
           <h2 className="font-display text-3xl">{section.heading}</h2>
           {section.paragraphs.map((paragraph) => <p key={paragraph} className="mt-4 text-base leading-8 text-muted-foreground">{paragraph}</p>)}
         </section>)}
-        <section className="mt-14 border-t border-border pt-8">
+        <section className="mt-12 border-t border-border pt-8">
           <h2 className="font-display text-2xl">Research and official sources</h2>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">Source links lead to the operator or public legal authority. Check their current policies and availability before travel.</p>
           <ul className="mt-5 space-y-3 text-sm">
@@ -88,7 +88,7 @@ function CasinoGuidePage() {
       <aside className="">
         <div className="border border-border bg-surface p-6">
           <p className="eyebrow text-primary">Keep exploring</p>
-          <ul className="mt-5 space-y-5">
+          <ul className="mt-5 space-y-3">
             {related.map((item) => <li key={item.slug}>
               <Link to="/explore/casinos/$slug" params={{ slug: item.slug }} className="font-display text-xl hover:text-primary">{item.shortTitle} →</Link>
               <p className="mt-1 text-sm leading-6 text-muted-foreground">{item.location}</p>
@@ -106,6 +106,6 @@ function CasinoGuidePage() {
         </div>
       </aside>
     </Container>
-    <Container className="pb-14"><p className="border-t border-border pt-6 text-xs leading-6 text-muted-foreground">Independent travel information, not legal advice or a gambling offer. Casino games can result in financial loss. No betting services, affiliate casino offers or gambling transactions are provided by Texas Defined.</p></Container>
+    <Container className="pb-10"><p className="border-t border-border pt-6 text-xs leading-6 text-muted-foreground">Independent travel information, not legal advice or a gambling offer. Casino games can result in financial loss. No betting services, affiliate casino offers or gambling transactions are provided by Texas Defined.</p></Container>
   </main>;
 }
