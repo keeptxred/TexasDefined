@@ -136,6 +136,17 @@ assertContains(fortParkerFacts, "https://tpwd.texas.gov/state-parks/fort-parker/
 assertContains(essentials, "Additional official TPWD reference:", "Park supplements must not all be mislabeled as trailhead announcements");
 assertContains(essentials, "verified.supportingSources?.map", "Multiple distinct official facility sources must appear on the public guide");
 assertContains(authority, "swimming pool is CLOSED for renovations", "Abilene must not advertise its closed swimming pool as open");
+for (const [slug, requiredText, alertUrl] of [
+  ["caprock-canyons-state-park", "boiling does NOT remove nitrates", "https://tpwd.texas.gov/state-parks/caprock-canyons/alert"],
+  ["enchanted-rock-state-natural-area", "October 12–16, 2026", "https://tpwd.texas.gov/state-parks/enchanted-rock/alert"],
+  ["abilene-state-park", "scheduled whole-lake closures", "https://tpwd.texas.gov/state-parks/abilene/alert"],
+]) {
+  const park = authority.match(new RegExp(`"${slug}": \\{([\\s\\S]*?)\\n  \\},`))?.[1] ?? "";
+  assertContains(park, requiredText, `${slug} must preserve its current visitor safety restriction`);
+  assertContains(park, alertUrl, `${slug} restriction must carry its specific TPWD park-alert source`);
+}
+assertContains(authority, "Lake Theo boat ramp, fishing pier and designated swimming area are closed", "Caprock Lake Theo facility closures must not be represented as open");
+assertContains(authority, "permitted hunters only during closures", "Enchanted Rock hunting closure must bar ordinary visitor recommendations");
 assertContains(authority, "composting restrooms in the Tom Mays Unit", "Franklin Mountains restroom location must remain source-specific and dated");
 assertContains(authority, "NO restrooms inside the cavern", "Longhorn Cavern tour restroom limitations must remain explicit");
 const sinkholeGuide = read("src/data/devils-sinkhole-visitor-authority.ts");
