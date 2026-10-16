@@ -135,12 +135,12 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   // Do not expand unrelated deploys into gaming crawls.
   const casinoOwnerChanged = changedFiles.some(path =>
     path === 'src/data/texas-casino-guides.ts'
-    || /^src\\/routes\\/explore\\.casinos(?:\\.index|\\.\\$slug)?\\.tsx$/.test(path)
+    || /^src\/routes\/explore\.casinos(?:\.index|\.\$slug)?\.tsx$/.test(path)
   );
   if (casinoOwnerChanged) {
     const path = 'src/data/texas-casino-guides.ts';
     const source = sources[path]?.after ?? readFileSync(path, 'utf8');
-    const slugs = [...new Set([...source.matchAll(/["']slug["']\\s*:\\s*["']([a-z0-9-]+)["']/g)]
+    const slugs = [...new Set([...source.matchAll(/["']slug["']\s*:\s*["']([a-z0-9-]+)["']/g)]
       .map(match => match[1]))].sort();
     if (slugs.length < 1 || slugs.length > 20) throw new Error('Unverified casino guide roster');
     const guidePaths = slugs.map(slug => `/explore/casinos/${slug}`);
