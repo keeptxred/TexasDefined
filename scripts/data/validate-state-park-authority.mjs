@@ -154,7 +154,7 @@ assertContains(authority, "Lake Theo boat ramp, fishing pier and designated swim
 assertContains(authority, "permitted hunters only during closures", "Enchanted Rock hunting closure must bar ordinary visitor recommendations");
 for (const [slug, alertUrl, criticalDetail] of [
   ["palo-duro-canyon-state-park", "https://tpwd.texas.gov/state-parks/palo-duro-canyon/alert-1", "via Alternate Park Road 5"],
-  ["garner-state-park", "https://tpwd.texas.gov/state-parks/garner/alert", "Blinn River and White Rock Cave trails"],
+  ["garner-state-park", "https://tpwd.texas.gov/state-parks/garner/alert", "Blinn River Trail closed"],
   ["galveston-island-state-park", "https://tpwd.texas.gov/state-parks/galveston-island/alert", "fountains near campsites 71–95"],
   ["big-bend-ranch-state-park", "https://tpwd.texas.gov/state-parks/big-bend-ranch/copy_of_alert", "November 21–25 and December 6–10 and 13–17"],
 ]) {
