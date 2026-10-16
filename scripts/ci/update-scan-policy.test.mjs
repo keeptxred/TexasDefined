@@ -127,6 +127,25 @@ test('McAllen edits verify only its canonical page and both visitor destinations
   assert.match(missing[0].error, /Expected changed internal link is missing/);
 });
 
+test('existing Texas Data brief CSV changes select one representative dynamic page only', async () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/texas-data-download.ts'] });
+  assert.deepEqual(plan.selectedPaths, ['/texas-data/texas-population-and-migration-2025']);
+  assert.deepEqual(plan.downloadButtonPages, ['/texas-data/texas-population-and-migration-2025']);
+  const html = button => '<html><title>Population figures</title><link rel="canonical" href="https://texasdefined.com/texas-data/texas-population-and-migration-2025"><body>'
+    + (button ? '<button type="button">Download CSV</button>' : '') + '</body></html>';
+  const good = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(true)) });
+  assert.equal(good[0].passed, true);
+  const bad = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(false)) });
+  assert.equal(bad[0].passed, false);
+  assert.match(bad[0].error, /missing the server-rendered CSV download button/);
+});
+
+test('planner change preserves bounded prior regression surfaces including data CSV', () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
+  assert.ok(plan.selectedPaths.includes('/texas-data/texas-population-and-migration-2025'));
+  assert.ok(plan.selectedPaths.length + plan.redirectChecks.length <= PAGE_BUDGET);
+});
+
 test('unchanged sibling registry keys are not independently crawled', () => {
   const path = 'src/data/remote-evergreen-internal-links.ts';
   const before = 'const groups = { "history-one": [{ href: "/texas-history" }], "history-two": [{ href: "/texas-history" }] };';
