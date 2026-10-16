@@ -347,7 +347,6 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/museums",
           "/explore/aquariums",
           ...CASINO_GUIDE_PATHS,
-    ...CASINO_GUIDE_PATHS,
           "/explore/rv-parks",
           "/explore/wildlife",
           "/explore/water-towers",
