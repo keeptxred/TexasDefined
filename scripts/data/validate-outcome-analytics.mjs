@@ -63,7 +63,7 @@ for (const [needle, label] of [
   ['JSON.stringify([window.location.pathname, resourceId, entityKind, anchor.href])', 'path/partner/placement/destination impression identity'],
   ['if (shownCommercial.has(identity)) return', 'impressions deduplicate across DOM replacements'],
   ["recordCommercialImpression(anchor);", 'shared click and visibility impression path'],
-  ["entityKind: anchor.dataset.commercialPlacement || 'unspecified'", 'commercial placement attribution'],
+  ["const entityKind = anchor.dataset.commercialPlacement || 'unspecified'", 'shared commercial placement attribution'],
 ]) requireText(client, needle, label);
 
 for (const [needle, label] of [
