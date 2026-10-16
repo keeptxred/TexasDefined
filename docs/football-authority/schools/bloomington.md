@@ -1,3 +1,5 @@
+**Current proposal checkpoint (2026-10-15):** Original research preserved from initial dependent branch. Reconciled against latest main after Blooming Grove merge. School remains **IMPLEMENTED** until protected merge, deployed exact SHA and individual production/editorial proof. Earlier dependent-branch paragraphs below are historical source provenance, not production claims.
+
 # Bloomington Bobcats — individual Batch006 Victoria County authority dossier
 
 **Authored October 15, 2026, dependent branch feature/football-b006-bloomington-20261015.** School: Bloomington ISD **Bobcats, Victoria County, Texas**. Not Bloomington, Illinois/Indiana/California programs. **IMPLEMENTED ONLY on branch**; not merged, deployed, exact-SHA live Chrome, licensed-photo or nine-dimension editorially accepted. Depends on Blooming Grove PR #4997, Blanket #4993. Research issue [#4998](https://github.com/keeptxred/TexasDefined/issues/4998).

@@ -6,6 +6,8 @@ on:
       - 'scripts/ci/verify-football-b004-austin-gis.mjs'
       - 'scripts/ci/audit-football-b004-sources.mjs'
       - 'scripts/ci/review-football-b004-mobile-contrast.mjs'
+      - 'scripts/ci/should-run-football-b004.mjs'
+      - 'scripts/ci/should-run-football-b004.test.mjs'
       - 'src/routes/$kind.$slug.lazy.tsx'
       - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
       - 'docs/football-authority/REGISTRY.json'
@@ -17,6 +19,8 @@ on:
       - 'scripts/ci/verify-football-b004-austin-gis.mjs'
       - 'scripts/ci/audit-football-b004-sources.mjs'
       - 'scripts/ci/review-football-b004-mobile-contrast.mjs'
+      - 'scripts/ci/should-run-football-b004.mjs'
+      - 'scripts/ci/should-run-football-b004.test.mjs'
       - 'src/routes/$kind.$slug.lazy.tsx'
       - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
       - 'docs/football-authority/REGISTRY.json'
@@ -26,8 +30,29 @@ on:
 permissions:
   contents: read
 jobs:
+  scope:
+    name: Determine whether Batch 004 evidence needs rerunning
+    runs-on: ubuntu-latest
+    outputs:
+      relevant: ${{ steps.assess.outputs.relevant }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify fail-closed Batch 004 change classifier
+        run: node scripts/ci/should-run-football-b004.test.mjs
+      - name: Classify changed program entries and Batch 004 registry
+        id: assess
+        env:
+          B004_BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+        run: node scripts/ci/should-run-football-b004.mjs
   gis:
     name: Verify 14 Austin city campuses and two exclusions against official GIS
+    needs: scope
+    if: needs.scope.outputs.relevant == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -49,6 +74,8 @@ jobs:
           retention-days: 30
   contrast:
     name: Individually scroll and re-audit inconclusive mobile contrast cells
+    needs: scope
+    if: needs.scope.outputs.relevant == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 55
     steps:
@@ -77,6 +104,8 @@ jobs:
 
   source-links:
     name: Review 25 football sources
+    needs: scope
+    if: needs.scope.outputs.relevant == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:

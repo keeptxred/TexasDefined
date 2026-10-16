@@ -15,6 +15,7 @@ const articleRoute = read('src/routes/article.$slug.tsx');
 const publicRoutes = read('src/lib/public-routes.ts');
 const resources = read('src/routes/texas-resources.tsx');
 const internalLinks = read('src/data/article-internal-links.ts');
+const remoteInternalLinks = read('src/data/remote-evergreen-internal-links.ts');
 const newestEvergreenEntry = read('src/data/fixtures/newest-evergreen.ts');
 const newestEvergreenBasePath = path.join(root, 'src/data/fixtures/newest-evergreen-base.ts');
 const newestEvergreenBase = fs.existsSync(newestEvergreenBasePath)
@@ -243,6 +244,18 @@ for (const slug of pillars) {
   for (const href of childSupportExpectations[slug] ?? []) {
     if (!newestEvergreen.includes(`href: "${href}"`)) errors.push(`Texas Explained child support link is missing ${href} from ${slug}.`);
   }
+}
+
+const barbecueRelatedLinks = internalLinkBlock('texas-barbecue-styles-explained');
+if (!barbecueRelatedLinks.includes('href: "/article/texas-restaurants-for-out-of-town-visitors"')) {
+  errors.push('Texas barbecue styles guide must connect to the practical restaurant visitor guide.');
+}
+const restaurantEntry = remoteInternalLinks.indexOf('  "texas-restaurants-for-out-of-town-visitors": [');
+const restaurantEnd = remoteInternalLinks.indexOf('\n  ],', restaurantEntry);
+if (restaurantEntry < 0 || restaurantEnd < restaurantEntry) {
+  errors.push('Restaurant visitor related-reading block missing.');
+} else if (remoteInternalLinks.slice(restaurantEntry, restaurantEnd).includes('/article/texas-gulf-coast-erosion-shoreline-retreat-guide')) {
+  errors.push('Restaurant visitor guide must not use unrelated coastal-erosion links for discovery.');
 }
 
 for (const slug of supportRing) {

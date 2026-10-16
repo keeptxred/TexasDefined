@@ -31,7 +31,7 @@ function sourceCheck(){
  if(!consistency.includes('isGeographicallyPlausibleForTravelRegion'))failures.push('Geographically impossible remote region memberships are not rejected');
  if(!destinationScope.includes('destinations.map(correctDestinationTravelRegion)'))failures.push('Scoped regional lists missing canonical geography normalization');
  if(!destinationScope.includes('isGeographicallyPlausibleForTravelRegion(destination, query.region)'))failures.push('Scoped regional lists missing geographic contradiction check');
- if(!destinationRuntime.includes('improved.map(correctDestinationTravelRegion)'))failures.push('Merged destination catalog missing geographic corrections');
+ if(!destinationRuntime.replace(/\s+/g, '').replace(/,\)/g, ')').includes('improved.map((destination)=>applyStateParkHeroAsset(correctDestinationTravelRegion(destination)))'))failures.push('Merged destination catalog must correct geography before applying the exact-place hero resolver');
  if(!destinationRuntime.includes('correctDestinationTravelRegion(applyResolvedHero(destination))'))failures.push('Destination detail resolver missing geographic corrections');
 
  // Check the actual curated source fields, not just a downstream override that

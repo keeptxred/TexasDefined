@@ -32,6 +32,8 @@ export type VerifiedParkFacilityNotes = {
   facilitySourceUrl?: string;
   /** A second authoritative source where the dated trailhead announcement carries extra details. */
   supplementalSourceUrl?: string;
+  /** Extra official sources with an accurate reader-facing description. */
+  supportingSources?: ReadonlyArray<{ url: string; label: string }>;
   restrooms?: string;
   parking?: string;
   camping?: string;
@@ -50,31 +52,34 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "TPWD's /map page locates the Rocksprings tour-departure visitor center, not an unrestricted road to the cavern.",
   },
   "palo-duro-canyon-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-15",
     sourceUrl: "https://tpwd.texas.gov/state-parks/palo-duro-canyon/map",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/palo-duro-canyon/alert-1",
     restrooms: "TPWD lists nearby restroom-and-shower buildings for Juniper, Mesquite, Sagebrush and Hackberry electric sites. Fortress Cliff tent-only sites are 0.5–2 miles from restroom/shower facilities; choose the actual camping area before relying on their proximity.",
     parking: "The headquarters and gate are on Park Road 5, about 12 miles east of Canyon. Follow the park map to individual trailheads and campsites; do not treat the canyon entrance as every trailhead.",
-    access: "TPWD currently lists gate hours 7:30 a.m.–10 p.m. Trails may close because of wet weather, poor conditions or excessive heat. Verify the trail-status alerts immediately before hiking.",
+    access: "TPWD lists gate hours 7:30 a.m.–10 p.m. A September 28, 2026 weather alert reports some trails closed after heavy rain, with campsite access via Alternate Park Road 5; verify which trails have reopened. Equestrian campsites and the equestrian trail have a maintenance closure. Wood and charcoal fires are prohibited under the active burn ban. The backcountry/equestrian and southern road zones also have partial December closures for permitted hunting; ordinary visitors must check exact dates and access boundaries. On National Weather Service heat-advisory days, TPWD closes the Lighthouse, Comanche, GSL and Rock Garden trails 11 a.m.–5 p.m. Call ahead for current trail and road conditions.",
     camping: "Juniper, Mesquite, Sagebrush and Hackberry offer electric/water sites and nearby shower/restroom buildings. Fortress Cliff is tent-only with more distant showers; primitive hike-in camping has no drinking water in the camping zone.",
     facilitySourceUrl: "https://tpwd.texas.gov/state-parks/palo-duro-canyon/fees-facilities/campsites",
     maps: "TPWD provides the park map, trails map and interactive trails map.",
   },
   "caprock-canyons-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-15",
     sourceUrl: "https://tpwd.texas.gov/state-parks/caprock-canyons/map",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/caprock-canyons/alert",
     restrooms: "Restrooms are listed near Honey Flat electric sites and Lake Theo walk-in sites. Little Red and South Prong primitive areas have organic toilets but no showers; primitive North/South Prong hike-in sites list nearby composting toilets. The Trailway lists chemical restrooms and no potable water.",
     parking: "Enter from FM 1065 north of Quitaque; use the separate state-park and Trailway maps to choose actual parking and trail access.",
-    access: "TPWD notes all roads within the park are paved, but nearby unpaved roads can become dangerously slippery following heavy rain. Bison share developed park areas; give them space.",
+    access: "TPWD notes all roads within the park are paved, but nearby unpaved roads can become dangerously slippery following heavy rain. Bison share developed park areas; give them at least 50 yards of space. TPWD currently reports a nitrate advisory in the park water system: visitors with infants under six months, pregnant visitors and people with relevant health concerns should bring drinking water; boiling does NOT remove nitrates. Lake Theo boat ramp, fishing pier and designated swimming area are closed due to low water (TPWD separately states swimming in the lake is still allowed). The park also lists several December hunting-period closures for general visitors; check exact dates and access before traveling.",
     camping: "Honey Flat electric sites include water hookups and nearby restrooms. Lake Theo walk-in and remote Trailway primitive camping have different facilities; the Trailway has no potable water and requires campers to carry drinking water.",
     facilitySourceUrl: "https://tpwd.texas.gov/state-parks/caprock-canyons/fees-facilities/campsites",
     maps: "Separate park, park trails and Trailway maps are available; the Trailway is not the same as the park's main hiking trail system.",
   },
   "big-bend-ranch-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-15",
     sourceUrl: "https://tpwd.texas.gov/state-parks/big-bend-ranch/map",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/big-bend-ranch/copy_of_alert",
     restrooms: "Primitive hike-in backcountry camps have no restrooms or drinking water. Do not assume a developed bathhouse or toilet at remote River/Interior district campsites; confirm the assigned site and check-in gateway with TPWD before traveling.",
     parking: "Check in first at Barton Warnock (east) or Fort Leaton (west) along FM 170 before driving to an interior campsite. Maps distinguish river-road access from Sauceda interior routes.",
-    access: "Sauceda Ranch Road is 27 miles of rugged dirt road from FM 170; RVs and trailers are not recommended. The old north entrance is permanently closed. Route to the correct unit, not simply the park's map pin.",
+    access: "The park interior is closed to ordinary visitors during several TPWD-announced hunting periods in October, November and December 2026, including November 21–25 and December 6–10 and 13–17; only permitted hunters may enter the interior during those posted windows. Check exact closure hours before reserving remote sites. Sauceda Ranch Road is 27 miles of rugged dirt road from FM 170; RVs and trailers are not recommended. The old north entrance is permanently closed. Sauceda Ranger Station has limited and varying staff services, though TPWD lists restrooms and showers there as available 24/7; camping and day-use check-in is at Fort Leaton or Barton Warnock. Route to the correct district and unit, not simply the park's map pin.",
     camping: "Drive-in campsites are primitive in the River and Interior districts; permitted backcountry hike-in camping has no drinking water or restrooms. Check in for required permits and match the access road to vehicle clearance before reserving.",
     facilitySourceUrl: "https://tpwd.texas.gov/state-parks/big-bend-ranch/fees-facilities/campsites",
     maps: "TPWD supplies a complex overview plus several regional topographic, Closed Canyon and Contrabando Trail System maps.",
@@ -136,12 +141,12 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     sourceUrl: "https://tpwd.texas.gov/state-parks/abilene/map",
     restrooms: "TPWD lists restrooms and showers near Brushy Trail, Oak Grove and Pecan Grove campgrounds. Group Trailer Area sites have closer restrooms without showers, with shower buildings farther away; check the campground map.",
     parking: "Main campground access is on Park Road 32 off FM 89. Lake Abilene Dam and Creek boat ramps use a separate paved road about one mile southwest of the state park entrance on FM 89. Each ramp is single-lane with parking for approximately ten vehicles, and the lake gate requires a code from the main park entrance.",
-    access: "TPWD park alerts checked October 15, 2026 prohibit swimming and fishing at Lake Abilene, close its boat ramps and suspend kayak rentals due to low water; the park is also under a wood/charcoal/pellet fire ban. TPWD separately reports that the Abilene State Park swimming pool is CLOSED for renovations: do not plan a pool day or assume published seasonal ticket information indicates reopening. The lake gate and campground are separate access areas; call the park and check alerts before traveling.",
+    access: "TPWD park alerts checked October 15, 2026 prohibit swimming and fishing at Lake Abilene, close its boat ramps and suspend kayak rentals due to low water; the park is also under a wood/charcoal/pellet fire ban. TPWD separately reports that the Abilene State Park swimming pool is CLOSED for renovations: do not plan a pool day or assume published seasonal ticket information indicates reopening. Lake Abilene also has scheduled whole-lake closures for permitted hunting during parts of late November, December, January and February; use the official alert for exact dates. The lake gate and campground are separate access areas; call the park and check alerts before traveling.",
     supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/abilene/alert",
     camping: "Abilene offers full-hookup sites and electric sites in Brushy Trail, Oak Grove and Pecan Grove, with nearby restrooms and showers. The Group Trailer Area has nearer restrooms without showers; showers are farther away.",
     facilitySourceUrl: "https://tpwd.texas.gov/state-parks/abilene/fees-facilities/campsites",
     maps: "TPWD publishes park, trails and interactive trails maps. Its separate Lake Abilene public access map identifies the Dam and Creek boat ramps; these are not campground entry points.",
-    supplementalSourceUrl: "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/abilene/access.phtml",
+    supportingSources: [{ url: "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/abilene/access.phtml", label: "Lake Abilene boat-ramp access and directions" }],
   },
   "daingerfield-state-park": {
     checkedAt: "2026-10-12",
@@ -362,7 +367,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     restrooms: "24 water/electric sites have nearby shower restrooms. Tent-only electric #6 is directly adjacent to restroom with showers. Ten water-only tent sites have a VAULT toilet and water spigots in the area, not on each site.",
     parking: "24 water/electric 30-amp sites (including four pull-throughs), a separate lake-view 30-amp tent-only #6, and 10 tent-only water sites. Don't drive RVs into tent-only campsites.",
     camping: "24 30-amp water/electric campsites, 1 tent-only electric lakeside campsite, 10 water-only tent campsites, and a supervised organized youth-group wilderness area for up to 50 with a primitive toilet.",
-    access: "The organized youth group area is not a regular private family reservation; an adult group supervisor must reserve it. Tent-only water camps use shared water spigots. TPWD park alerts checked October 15, 2026 report resurfacing work from October 2026 through May 2027 with possible temporary campsite, trail and facility closures; nature-center construction and noise; both fishing piers closed; and an active burn ban restricting wood/charcoal fires. Verify current park alerts before choosing a campsite or planning a fishing-pier visit.",
+    access: "The organized youth group area is not a regular private family reservation; an adult group supervisor must reserve it. Tent-only water camps use shared water spigots. TPWD park alerts checked October 15, 2026 report resurfacing work from October 2026 through May 2027 with possible temporary campsite, trail and facility closures; nature-center construction and noise; both fishing piers closed; and an active burn ban restricting wood/charcoal fires. Due to low water levels at the boat ramp, TPWD also does not recommend launching motorized boats. Verify current park alerts before choosing a campsite, boat launch or fishing-pier visit.",
     maps: "Official park and campground map differentiates electric lakeside, tent-only and organized group camping.",
     supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/fort-parker/alert",
   },
@@ -517,12 +522,13 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "Use the state park camp loop map to identify Horseshoe, White-Tail, Blue Bird, Road Runner, Star View, Lake View and Sunset Ridge.",
   },
   "galveston-island-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-15",
     sourceUrl: "https://tpwd.texas.gov/state-parks/galveston-island/fees-facilities/campsites",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/galveston-island/alert",
     restrooms: "TPWD lists shower restrooms near both the developed beachside electric camps and bay-side electric/water camps. Beachside primitive hike-in tents have showers nearby. Dry primitive camping has no site utilities.",
     parking: "Beachside: 8 larger-capacity electric sites, 50 regular electric, 7 electricity-equipped tent platforms where vehicles cannot park at the platform, and 15 hike-in primitive tent sites. Bay side is 1.5 miles from the beach, with 20 electric sites, 10 water-only sites (no vehicles over 18 feet), and 10 dry-camping primitive sites.",
     camping: "Beachside: 8 large electric campsites, 50 ordinary electric, 7 tent-only electric pads, 15 primitive hike-in tents. Bayside: 20 electric, 10 water-only and 10 dry primitive sites. Both sides require selecting the correct campground and vehicle type; do not imply bayside sites are on the swimming beach.",
-    access: "Vehicles cannot park at tent-platform sites. Bay-side water-only sites prohibit vehicles longer than 18 feet; bay-side sites have a two-vehicle limit. Storm/tide and beach access can change. Check official alerts before arriving.",
+    access: "TPWD reports a drinking-water outage at the fountains near campsites 71–95 caused by a water-line break; check with staff for the nearest working water source and bring water as needed. Some boardwalks remain closed due to flood damage: obey posted closures. Vehicles cannot park at tent-platform sites. Bay-side water-only sites prohibit vehicles longer than 18 feet; bay-side sites have a two-vehicle limit. Storm and tide conditions can also change beach access.",
     maps: "Use TPWD's bay-side versus beachside campground and trails maps for parking, beach access and the 1.5-mile cross-park separation.",
   },
   "inks-lake-state-park": {
@@ -645,21 +651,23 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "TPWD offers a separate official park map, interpretive CCC guide and bird checklist; the cavern tour has its own operator schedule.",
   },
   "garner-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-15",
     sourceUrl: "https://tpwd.texas.gov/state-parks/garner/fees-facilities/campsites",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/garner/alert",
     restrooms: "TPWD lists shower restrooms near Rio Frio/Live Oak 50-amp sites and near River Crossing/Shady Meadows 30-amp sites. Oakmont electric sites list ordinary restrooms nearby; choose the right loop before assuming a shower distance.",
     parking: "Old Garner Oakmont and Pecan Grove campsites are not waterfront. Pecan Grove water-only sites allow small pop-ups and RVs 20 feet or less. Excess vehicles require park approval and can incur a fee.",
     camping: "New Garner: 12 full-hookup Shady Meadows pull-through sites (no tents or shade); 137 50-amp Rio Frio/Live Oak sites; 35 30-amp River Crossing/Shady Meadows sites; 75 water-only sites. Old Garner: 39 Oakmont electric and 49 Pecan Grove water-only sites.",
-    access: "Live Oak and Persimmon Hill camping areas have winter closures in January and February. The full-hookup Shady Meadows loop prohibits tents; arrival at any 'Garner' map pin does not guarantee the correct campground entrance.",
+    access: "TPWD currently reports Blinn River Trail closed, with portions of Madrone Trail and the lower CCC Entrance Road Trail closed during construction. The scenic-overlook sidewalk is closed to pedestrians and bicycles even though two-way vehicle traffic has reopened; follow signs and do not enter the work area. Frio River swimming is at your own risk with no lifeguards. Live Oak and Persimmon Hill camping areas also have winter closures in January and February. The full-hookup Shady Meadows loop prohibits tents; use the correct campground entrance.",
     maps: "Use the official campground and park maps to distinguish New Garner from Old Garner, Rio Frio, Pecan Grove, River Crossing and Oakmont camping areas.",
   },
   "enchanted-rock-state-natural-area": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-15",
     sourceUrl: "https://tpwd.texas.gov/state-parks/enchanted-rock/fees-facilities/campsites",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/enchanted-rock/alert",
     restrooms: "The 35 walk-in water campsites list shower restrooms nearby. Remote Moss Lake and Walnut Springs sites offer composting toilets but no drinking water; Buzzards Roost group camp also uses a composting toilet.",
     parking: "Walk-in campsites are tent-only. Primitive camps require carrying gear 1–3 miles over rugged trail. Buzzards Roost group camp has 25 dedicated parking spaces but requires an additional 0.25-mile walk to the site.",
     camping: "35 walk-in water sites; 20 remote primitive sites (8 Moss Lake, 12 Walnut Springs) without water or ground fires; Buzzards Roost group camp sleeps up to 50, is not a car-camping loop and also forbids fires.",
-    access: "Primitive areas prohibit charcoal or other ash-producing ground fires. Fuel stoves that can be fully switched off are allowed. Hammocks are prohibited in primitive zones, and shelter/tree restrictions apply to frontcountry sites.",
+    access: "TPWD has announced whole-park hunting closures for ordinary visitors from October 12–16, 2026, plus periods in November, December and January; permitted hunters only during closures. Check the official alert for exact opening hours before making the drive. TPWD requires advance day-use and overnight reservations on weekends, school breaks and holidays, and the park often fills on weekdays; bring drinking water and check trail status. Primitive areas prohibit charcoal or other ash-producing ground fires. Fuel stoves that can be fully switched off are allowed. Hammocks are prohibited in primitive zones, and shelter/tree restrictions apply to frontcountry sites.",
     maps: "Consult TPWD park/trail maps and designated campsite locations; these overnight sites are not all near the Summit Trail parking area.",
   },
   "brazos-bend-state-park": {

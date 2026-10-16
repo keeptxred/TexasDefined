@@ -27,6 +27,14 @@ function isPlaceholder(src: string): boolean {
   return !src || PLACEHOLDER_MARKERS.some((marker) => src.includes(marker));
 }
 
+/** A remote JPEG URL can have the right filename but still bypass our exact-place,
+ * locally hosted and attributed park photo. Prefer an approved local map entry
+ * when one exists; do not discard remote originals for parks without a match.
+ */
+function isRemoteHero(src: string): boolean {
+  return /^https?:\/\//i.test(src) || src.startsWith("/media/remote?");
+}
+
 function mappedHero(slug: string): ImageRef | undefined {
   const direct = stateParkHeroMap[slug] ?? exploreHeroMap[slug];
   if (direct) return direct;
@@ -62,13 +70,16 @@ export function applyStateParkHeroAssets(destinations: Destination[]): Destinati
   return destinations.map((destination) => {
     if (!isTexasStateParkDestination(destination)) return destination;
 
+    const mapped = mappedHero(destination.slug);
+    if (mapped && isRemoteHero(destination.hero.src) && isDedicatedStateParkJpeg(mapped.src)) {
+      return { ...destination, hero: mapped };
+    }
     const existingIsUnique =
       isDedicatedStateParkJpeg(destination.hero.src) &&
       (counts.get(destination.hero.src) ?? 0) === 1;
 
     if (existingIsUnique) return destination;
 
-    const mapped = mappedHero(destination.slug);
     if (mapped) return { ...destination, hero: mapped };
 
     return {
@@ -85,8 +96,11 @@ export function applyStateParkHeroAssets(destinations: Destination[]): Destinati
 
 export function applyStateParkHeroAsset(destination: Destination): Destination {
   if (!isTexasStateParkDestination(destination)) return destination;
-  if (isDedicatedStateParkJpeg(destination.hero.src)) return destination;
   const mapped = mappedHero(destination.slug);
+  if (mapped && isRemoteHero(destination.hero.src) && isDedicatedStateParkJpeg(mapped.src)) {
+    return { ...destination, hero: mapped };
+  }
+  if (isDedicatedStateParkJpeg(destination.hero.src)) return destination;
   return mapped ? { ...destination, hero: mapped } : destination;
 }
 

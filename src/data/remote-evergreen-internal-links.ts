@@ -187,7 +187,6 @@ const redditBatchLinks: Record<string, ArticleInternalLink[]> = {
   "texas-restaurants-for-out-of-town-visitors": [
     { href: "/article/mistakes-first-time-visitors-make-in-texas", label: "Avoid twenty common Texas visitor mistakes", description: "Plan restaurant timing, weather backups, travel distance and state-park entry with a more resilient first-trip itinerary." },
     { href: "/article/texas-traditions-you-should-experience", label: "Texas traditions worth experiencing", description: "Put barbecue, breakfast tacos and other local meals in their cultural and regional travel context." },
-    { href: "/article/texas-gulf-coast-erosion-shoreline-retreat-guide", label: "How the Texas Gulf Coast shoreline is changing", description: "Understand erosion and shoreline retreat before planning time along Texas beaches and barrier islands." },
     { href: "/article/state-fair-texas-2026-new-foods-guide", label: "See what's new to eat at the 2026 State Fair", description: "Pair the statewide restaurant guide with the seasonal fair-food guide for a Dallas visit." },
     { href: "/article/tex-mex-history-texas-cuisine-guide", label: "Understand the Tex-Mex tradition", description: "Give visitors context for one of the cuisines they are most likely to encounter in Texas." },
     { href: "/article/texas-chili-beans-history", label: "Texas chili: beans, history and the argument", description: "Add context to one of the state's longest-running food debates." },

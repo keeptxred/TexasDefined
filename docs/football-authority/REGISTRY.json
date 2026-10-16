@@ -53,7 +53,7 @@
     "implementedOnBranch": 8,
     "remainingToImplement": 17,
     "remainingToVerify": 25,
-    "notes": "Harmony DEPLOYED; Big Spring, Bishop, Blackwell, Blanco merged; Blanket, Blooming Grove, Bloomington on unmerged dependent PRs pending protected production and editorial QA. Preserve all previous VERIFIED and Batch005 acceptance backlog."
+    "notes": "Batch006: first six sourced school profiles now on main; Bloomington sourced/profile/dossier proposed on reconciled PR, pending protected merge, real production Chrome and editorial acceptance. Prior 105 technically VERIFIED preserved."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6533,13 +6533,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/big-spring",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 6,
       "schoolNote": "docs/football-authority/schools/big-spring.md",
       "researchCompletedAt": "2026-10-15",
       "actualProductionVerified": false,
-      "reviewScope": "Individually researched and code-authored on PR #4970: verified UIL District 2, 1953 state runner-up, BSISD Memorial Stadium address, May coach hire and 1–5 through Oct 9; exact-SHA production Chrome QA, rights-cleared photo and editorial acceptance not yet completed.",
-      "implementedOnBranch": "research/football-b006-big-spring-20261015"
+      "reviewScope": "Big Spring sourced guide merged via #4970 and shipped in successful descendant deployment #38816010474; page-specific real Chrome, photo-rights and nine-dimension editorial acceptance still pending.",
+      "mergedPR": 4970,
+      "mergedCommit": "8dd25feb2130587cc263f1d1a238576ee6e7a439",
+      "deploymentRun": 38816010474,
+      "deploymentCommit": "68f9f0b99736ffa1fc2161d5624eee89111d2cf7"
     },
     {
       "id": "uil:bishop",
