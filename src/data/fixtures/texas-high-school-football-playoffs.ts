@@ -2,7 +2,6 @@ import type { Article, ArticleBlock } from "../types";
 
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
 const h = (text: string): ArticleBlock => ({ type: "heading", text });
-const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
 
 export const texasHighSchoolFootballPlayoffsArticle: Article = {
   id: "evergreen-texas-high-school-football-playoffs",
@@ -70,11 +69,14 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
   relatedCollections: [],
   relatedDestinations: [],
   body: [
-    h("How district finish determines the first matchup"),
+    h("Who qualifies from a district?"),
+    p("The top two teams from each 1A six-man district qualify; the top four teams from each district advance in 2A through 6A. Classes 1A–5A already have their divisions before the season. In 6A, the two schools with the larger enrollments go to the Division I bracket after the four qualifiers are known; the other two enter Division II."),
+    h("What 'bi-district' means"),
+    p("Bi-district is the opening playoff round: qualifiers from paired districts meet in the first elimination games."),
     p("District finish feeds a fixed bracket, with no weekly reseeding. In 2A through 5A, paired districts match first against fourth and second against third within the same classification and division. In 1A and each 6A division, the paired-district representatives meet winner against runner-up."),
     p("Non-district losses do not automatically eliminate a team. Qualification comes from district placement under that district’s standings and tiebreak rules. Media rankings do not award seeds or change the bracket."),
     h("Who gets home field?"),
-    p("In the first round of 5A and 6A, the higher district finisher chooses its actual home field or the schools mutually agree on a neutral site. Equal district finishes use a coin toss or agreement under UIL rules."),
+    p("For the first round in 5A and 6A, the higher district finisher chooses its actual home field or the schools mutually agree on a neutral site. Equal district finishes use a coin toss or agreement under UIL rules."),
     p("Other classifications and later rounds follow Section 1250(i): schools can agree on a site; otherwise, prior playoff home-and-home history from the past two football seasons and coin-toss procedures determine the site. A school cannot be required to flip for a venue too small for both schools’ fans. Home-field rights do not give one school unrestricted control of kickoff date and time."),
     h("Before you travel"),
     p("Check the participating school or district’s athletics announcement for the opponent, stadium, kickoff, parking and ticket seller. A playoff game may use a neutral stadium rather than either school’s usual home field. Confirm each round separately; winning can change both the opponent and the trip."),

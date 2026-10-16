@@ -1642,6 +1642,371 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
+  "bluff-dale": {
+    "slug": "bluff-dale",
+    "theme": {
+      "accentHex": "#32644C",
+      "label": "Independent forest-green editorial accent; no school marks, copyrighted photographs or official logos reused"
+    },
+    "seo": {
+      "title": "Bluff Dale Bobcats Six-Man Football 2026 | UIL District 11, Scores & School Guide",
+      "description": "Bluff Dale Bobcats football in Erath County: official 2026 six-man Division I District 11, source-checked results through October 15, coach and school contacts."
+    },
+    "coach": {
+      "name": "Gaeron Cooley",
+      "title": "Bluff Dale head football coach, identified on district-published staff bio; confirm current staffing with district",
+      "sourceUrl": "https://www.bdisd.net/259637_2",
+      "sourceLabel": "Bluff Dale ISD coach Gaeron Cooley staff biography; current-season appointment not independently dated",
+      "verifiedAt": "2026-10-16"
+    },
+    "campus": {
+      "address": "430 FM 2481, Bluff Dale, TX 76433",
+      "phone": "254-728-3277",
+      "sourceUrl": "https://www.bdisd.net/",
+      "sourceLabel": "Official Bluff Dale ISD school and office address and district phone; not a verified stadium entrance",
+      "verifiedAt": "2026-10-16"
+    },
+    "schedule": {
+      "label": "Bluff Dale ISD official athletics schedules and game-day information",
+      "sourceUrl": "https://www.bdisd.net/223835_2",
+      "sourceLabel": "Bluff Dale ISD athletics directory: Sport Schedules, athletics broadcast and coaches",
+      "verifiedAt": "2026-10-16"
+    },
+    "season": {
+      "record": "4–3 through October 15, 2026 (independent published results; verify subsequent finals)",
+      "verifiedAt": "2026-10-16",
+      "sourceUrl": "https://www.maxpreps.com/tx/bluff-dale/bluff-dale-bobcats/football/schedule/",
+      "sourceLabel": "MaxPreps completed first six games and NBC DFW October 15 Bluff Dale 54–6 Covington result; third-party game indexes can differ",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Texas Wind",
+          "site": "Neutral",
+          "result": "L 7–66"
+        },
+        {
+          "date": "2026-09-03",
+          "opponent": "Stephenville FAITH",
+          "site": "Home",
+          "result": "W 67–22"
+        },
+        {
+          "date": "2026-09-10",
+          "opponent": "Zephyr",
+          "site": "Home",
+          "result": "L 20–59"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Gordon",
+          "site": "Away",
+          "result": "L 44–64"
+        },
+        {
+          "date": "2026-09-24",
+          "opponent": "Bryson",
+          "site": "Home",
+          "result": "W 88–66"
+        },
+        {
+          "date": "2026-10-08",
+          "opponent": "Blum",
+          "site": "Away",
+          "district": true,
+          "result": "W 69–20"
+        },
+        {
+          "date": "2026-10-15",
+          "opponent": "Covington",
+          "site": "Home",
+          "district": true,
+          "result": "W 54–6"
+        },
+        {
+          "date": "2026-11-05",
+          "opponent": "Avalon",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "notice": {
+      "title": "Check the UIL division, actual campus and live game details before traveling",
+      "body": "The governing UIL 2026–28 six-man alignment puts Bluff Dale in Class 1A Division I, District 11, not Division II as an older team directory suggests. Bluff Dale ISD publishes 430 FM 2481 as the school and office address, whereas a third-party football profile lists 710 Church Street; neither listing independently establishes the football entrance, parking or accessible seating. MaxPreps and Six-Man Football also differ on the date of the upcoming Milford away fixture. The October 15 Bluff Dale–Covington final is reported as 54–6 by NBC DFW, while an early third-party live feed reported a different score. Confirm the fixture and stadium gate with Bluff Dale ISD before leaving.",
+      "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
+      "sourceLabel": "Official UIL 2026–28 1A Division I six-man alignment, checked against Bluff Dale ISD and independent game reporting",
+      "verifiedAt": "2026-10-16"
+    },
+    "development": {
+      "title": "A six-man program navigating a stronger 2026 Division I assignment",
+      "body": "Bluff Dale's recent varsity football history belongs in six-man context. Third-party season archives show 11–2 in 2022 and 10–2 in 2025, but a winning season is not proof of a UIL state championship. For 2026 the official state classification places the Bobcats in Division I District 11 with Avalon, Blum, Covington and Milford. The Bobcats entered the first two district games at 2–3 after an 88–66 win over Bryson; they beat Blum 69–20 on October 8 and, according to NBC DFW's completed Oct 15 scoreboard, Covington 54–6. This dated 4–3 snapshot should not be presented as a final 2026 season record.",
+      "sourceUrl": "https://sixmanfootball.com/teams/bluff-dale-bobcats.1054/schedule/",
+      "sourceLabel": "Six-Man Football 2022–26 team archive and current schedule, corroborated for 2026 finals by MaxPreps and NBC DFW",
+      "verifiedAt": "2026-10-16"
+    },
+    "milestones": [
+      {
+        "date": "2022",
+        "title": "Eleven-win 2022 campaign",
+        "body": "Both the Six-Man Football archive and MaxPreps season history show an 11–2 varsity campaign for Bluff Dale. This does not establish a state title or championship-game berth.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bluff-dale/bluff-dale-bobcats/football/history/",
+        "sourceLabel": "MaxPreps Bluff Dale program season history, 2022–23"
+      },
+      {
+        "date": "2025",
+        "title": "Ten-win 2025 season",
+        "body": "MaxPreps records Bluff Dale at 10–2 for 2025, including four district wins. A separate Dave Campbell's tile shows only partial results, so do not use it alone to assert a conflicting final record.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bluff-dale/bluff-dale-bobcats/football/25-26/schedule/",
+        "sourceLabel": "Completed MaxPreps 2025 varsity schedule, 10–2"
+      },
+      {
+        "date": "2026",
+        "title": "Official UIL six-man Division I District 11",
+        "body": "The state alignment places Bluff Dale alongside Avalon, Blum, Covington and Milford. Historical references to Division II are not the official 2026 assignment.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 Class 1A Division I six-man District 11"
+      },
+      {
+        "date": "2026-10-08",
+        "title": "Bluff Dale 69, Blum 20",
+        "body": "The published six-man schedule and completed MaxPreps box score agree on the 69–20 away district win; the completed result shows a third 2026 victory through October 8.",
+        "sourceUrl": "https://www.maxpreps.com/tx/football/game/bluff-dale-vs-blum/10-9-2026/?c=3071698d-8a60-49d7-a347-77e44695ebef",
+        "sourceLabel": "Completed MaxPreps Bluff Dale–Blum box score, Oct 8"
+      },
+      {
+        "date": "2026-10-15",
+        "title": "Bluff Dale 54, Covington 6",
+        "body": "NBC 5 Dallas–Fort Worth's Week 8 Texas scores report Bluff Dale 54, Covington 6. An earlier live-feed score differs; this milestone uses the published completed local sports score and should be revised only with stronger final evidence.",
+        "sourceUrl": "https://www.nbcdfw.com/news/sports/hs-sports/big-game-friday-texas-high-school-football-scores-for-oct-15-17/4091560/",
+        "sourceLabel": "NBC 5 DFW Thursday October 15 Week 8 final-score roundup"
+      }
+    ],
+    "overview": [
+      "Bluff Dale's Bobcats are a small-school six-man football program representing Bluff Dale Independent School District in Erath County. The official 2026–28 UIL alignment puts the Bobcats in Conference 1A Division I, District 11 with Avalon, Blum, Covington and Milford. That distinction matters: some otherwise useful football directories still label the program Division II, apparently retaining earlier classifications. The authoritative season alignment is the UIL PDF, not a directory's inherited team badge.",
+      "Bluff Dale ISD provides the most appropriate starting point for current campus contacts and game arrangements. The district lists Bluff Dale School at 430 FM 2481, Bluff Dale, Texas 76433, telephone 254-728-3277. A third-party team profile instead lists 710 Church Street; those addresses should not be treated as interchangeable stadium entrances. Athletic broadcast, schedules, concussion resources and coach directory are linked from the district's athletics page. Neither an exact football parking gate nor a current ADA seating map was independently published in the sources reviewed.",
+      "Bluff Dale's published 2026 completed ledger begins with a 7–66 loss to Texas Wind, a 67–22 victory over Stephenville FAITH, and defeats against Zephyr and Gordon. The Bobcats then beat Bryson 88–66 and Blum 69–20, the latter on October 8 in their district schedule. NBC 5 Dallas–Fort Worth subsequently published a 54–6 win over Covington on October 15. The seven recorded finals make a 4–3 snapshot as of October 16, not a prediction about late October or November fixtures.",
+      "The program has distinct recent achievements without any reason to fabricate a state title: school history pages record 11–2 in 2022 and 10–2 in 2025. Bluff Dale's move in the 2026 alignment to six-man Division I provides real competitive context. A historical football index that omits postseason games or groups the Bobcats in their earlier Division II district should not replace dated verified season results or the current UIL classification.",
+      "Fans should use the official Bluff Dale ISD athletic schedule to confirm any specific Friday or Thursday game, tickets, venue, parking and accessible access. The independent schedules disagree whether the next Milford road fixture is on October 22 or 23, so this guide deliberately does not declare an exact kickoff for it. Erath County visitors can also consult TexasDefined's Erath County guide through the reciprocal school and county links; the county page is geographic context, not a substitute for district-issued directions."
+    ],
+    "faq": [
+      {
+        "question": "Is Bluff Dale six-man or eleven-man football in 2026?",
+        "answer": "Six-man. The official UIL 2026–28 Class 1A Division I football alignment lists Bluff Dale in District 11 with Avalon, Blum, Covington and Milford. Older directories that show Division II are not the controlling 2026 classification."
+      },
+      {
+        "question": "Where is Bluff Dale School, and is that also the football gate?",
+        "answer": "The district lists Bluff Dale School at 430 FM 2481, Bluff Dale, Texas 76433, phone 254-728-3277. A third-party football profile lists 710 Church Street. The exact stadium entry, parking and ADA access have not been independently verified, so ask Bluff Dale ISD before driving."
+      },
+      {
+        "question": "Who is the Bluff Dale Bobcats head football coach?",
+        "answer": "Bluff Dale ISD's own Gaeron Cooley biography says he is head football coach, and current team directories likewise identify him. The district bio does not give an independently confirmed October 2026 appointment date, so confirm later staffing changes with the athletics department."
+      },
+      {
+        "question": "What was Bluff Dale's record after the October 15, 2026 Covington game?",
+        "answer": "Four wins and three losses based on six completed MaxPreps/Six-Man results through October 8 plus NBC 5 DFW's published October 15 Bluff Dale 54–6 Covington final. Early live score feeds differ, so this is a dated, sourced snapshot."
+      },
+      {
+        "question": "Did Bluff Dale win a state football title in 2022 or 2025?",
+        "answer": "A 2022 11–2 record and 2025 10–2 season are reported in season archives, but those records do not establish a UIL state championship. No state football title is claimed here without official UIL bracket evidence."
+      },
+      {
+        "question": "When is Bluff Dale's upcoming Milford district road game?",
+        "answer": "Independent football schedules differ between October 22 and October 23, 2026. Rather than invent a certain date or kickoff, check the Bluff Dale ISD sport schedule or district athletics contact for the latest official fixture and ticket instructions."
+      },
+      {
+        "question": "Where can I find game-day streams, medical forms and current schedule changes?",
+        "answer": "Bluff Dale ISD's official Athletics section links its broadcasts, sports schedules, coaches, concussion protocol and athletic paperwork. That first-party page is the best starting point for game-specific arrangements; no unlicensed team photo is reproduced here."
+      }
+    ]
+  },
+  "blum": {
+    "slug": "blum",
+    "theme": {
+      "accentHex": "#368362",
+      "label": "Independent green accent; no copied Blum Bobcats official logo or licensed photography"
+    },
+    "seo": {
+      "title": "Blum Bobcats Six-Man Football: 2019 UIL Champions, 2026 District 11 & Game Guide",
+      "description": "Blum Bobcats six-man football in Hill County: 2019 UIL Division I state title over McLean, official 2026 District 11, 2026 game ledger, school coach and visitors."
+    },
+    "coach": {
+      "name": "Cooper Thornhill",
+      "title": "Blum ISD-listed Head Football Coach (district athletics football page; confirm date of any staffing changes)",
+      "sourceUrl": "https://www.blumisd.net/cms/One.aspx?pageId=1794722&portalId=772814",
+      "sourceLabel": "Blum ISD official High School Football page names Cooper Thornhill and assistants",
+      "verifiedAt": "2026-10-16"
+    },
+    "campus": {
+      "address": "310 S. Avenue F, Blum, TX 76627",
+      "phone": "254-874-5231",
+      "sourceUrl": "https://www.blumisd.net/contact_us",
+      "sourceLabel": "Blum ISD Contact Us official street address, distinct from unverified stadium parking entrance",
+      "verifiedAt": "2026-10-16"
+    },
+    "schedule": {
+      "label": "Blum ISD athletics schedules and official team resources",
+      "sourceUrl": "https://www.blumisd.net/athletics",
+      "sourceLabel": "Blum ISD Athletics page with coaches, schedules, rules and forms",
+      "verifiedAt": "2026-10-16"
+    },
+    "season": {
+      "record": "1–6 through October 8, 2026 in completed six-man team ledger; October 15 Avalon result unconfirmed",
+      "verifiedAt": "2026-10-16",
+      "sourceUrl": "https://sixmanfootball.com/teams/blum-bobcats.1056/schedule/",
+      "sourceLabel": "SixManFootball 2026 Blum schedule: seven scored games through Oct 8; Avalon box not independently finalized",
+      "games": [
+        {
+          "date": "2026-08-27",
+          "opponent": "Mount Calm",
+          "site": "Away",
+          "result": "L 0–45"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Penelope",
+          "site": "Home",
+          "result": "L 12–59"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Abbott",
+          "site": "Away",
+          "result": "L 0–62"
+        },
+        {
+          "date": "2026-09-17",
+          "opponent": "Johnson County Sports Association",
+          "site": "Home",
+          "result": "L 30–41"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Bynum",
+          "site": "Away",
+          "result": "W 58–43"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Gorman",
+          "site": "Home",
+          "result": "L 36–62"
+        },
+        {
+          "date": "2026-10-08",
+          "opponent": "Bluff Dale",
+          "site": "Home",
+          "district": true,
+          "result": "L 20–69"
+        },
+        {
+          "date": "2026-10-15",
+          "opponent": "Avalon",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Covington",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Milford",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "notice": {
+      "title": "Avoid incorrect state-title counts and conflicting 2026 score dates",
+      "body": "Blum won the 2019 UIL Six-Man Division I state title 58–52 over McLean, as confirmed by the Texas Football championship report and UIL 2019 team file. An older Dave Campbell's team index incorrectly displays zero championships despite its own championship report. Independent 2026 game schedules may differ by a day on dates, and the October 15 Avalon score was not independently confirmed at this editorial checkpoint: do not treat the absence of a posted final as a cancellation or predicted win. The school office address does not prove the stadium gate, accessible parking or current ticket procedure.",
+      "sourceUrl": "https://www.texasfootball.com/article/2019/12/23/blum-58-mclean-52-2019-1a-di-texas-high-school-football-championship-recap",
+      "sourceLabel": "Contemporaneous Dave Campbell's 2019 state-title game recap, crosschecked with UIL school-team archive",
+      "verifiedAt": "2026-10-16"
+    },
+    "development": {
+      "title": "Blum's 2019 title and the 2026 Division I rebuild",
+      "body": "The Bobcats are more than a generic small-school six-man entry. In the 2019 Class 1A Division I championship, Blum overcame reigning champion McLean 58–52 after a tying McLean score late in the fourth quarter; Coltin Gonzales scored the decisive late rushing touchdown. UIL's archived 2019 roster identifies then coach Cooper Thornhill, while Blum ISD's football department currently publishes his name as head coach. Six-Man Football's historical ledger shows 13–2 in 2019 but UIL's historical team page identifies 12–2 at its own archival checkpoint: do not collapse unlike snapshot definitions. In 2026 the official UIL District 11 places Blum with Avalon, Bluff Dale, Covington and Milford. A seven-game completed ledger through October 8 shows a 1–6 start; it is not the final season tally.",
+      "sourceUrl": "https://www.texasfootball.com/article/2019/12/23/blum-58-mclean-52-2019-1a-di-texas-high-school-football-championship-recap",
+      "sourceLabel": "2019 championship eyewitness game report, UIL team archive and 2026 six-man game ledger",
+      "verifiedAt": "2026-10-16"
+    },
+    "milestones": [
+      {
+        "date": "2019",
+        "title": "Blum 58, McLean 52: UIL Class 1A Division I champion",
+        "body": "Texas Football's championship-game account details Blum's late Gonzales touchdown and final defensive stand, with the official UIL 2019 Blum state-team roster identifying coach Cooper Thornhill. This is a documented title, notwithstanding a zero-title third-party index.",
+        "sourceUrl": "https://www.texasfootball.com/article/2019/12/23/blum-58-mclean-52-2019-1a-di-texas-high-school-football-championship-recap",
+        "sourceLabel": "Contemporaneous 2019 UIL Division I championship recap"
+      },
+      {
+        "date": "2019",
+        "title": "Official UIL roster and the 2019 season's historical classification",
+        "body": "The state's 2019–20 team file labels Blum 1A Six-Man Division 1, with a program-specific roster and playoff path. Do not apply a modern division label as a substitute for the historical tournament record.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team/blum-2019-2020-football",
+        "sourceLabel": "UIL Blum 2019–20 official state-team record"
+      },
+      {
+        "date": "2025",
+        "title": "2025 completed 3–7 football season",
+        "body": "The finished 2025 MaxPreps varsity schedule records 3 wins and 7 losses, including a 52–6 district victory at Covington. A Dave Campbell's snapshot contains a partial 2–5 tally and should not be read as the full season.",
+        "sourceUrl": "https://www.maxpreps.com/tx/blum/blum-bobcats/football/25-26/schedule/",
+        "sourceLabel": "Full MaxPreps 2025 varsity schedule and final record"
+      },
+      {
+        "date": "2026",
+        "title": "District 11 six-man Division I realignment",
+        "body": "The official UIL 2026–28 placement joins Blum with Avalon, Bluff Dale, Covington and Milford in 1A Division I District 11.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 1A Division I District 11 six-man alignment"
+      },
+      {
+        "date": "2026-10-08",
+        "title": "Bluff Dale 69, Blum 20",
+        "body": "Blum's October 8 district game was a loss by 20–69, confirmed by the paired teams' completed Six-Man Football ledgers and MaxPreps box score.",
+        "sourceUrl": "https://sixmanfootball.com/teams/blum-bobcats.1056/schedule/",
+        "sourceLabel": "Blum Six-Man Football 2026 completed game ledger"
+      }
+    ],
+    "overview": [
+      "Blum High School's Bobcats represent Blum Independent School District in Hill County, Texas. This is UIL six-man football: the state-issued 2026–28 Class 1A Division I alignment lists Blum in District 11 with Avalon, Bluff Dale, Covington and Milford. Fans should consult that governing document over cached third-party listings with different district numbering or incomplete standings.",
+      "The Bobcats have a documented state football championship. Blum defeated reigning champion McLean 58–52 in the 2019 1A Six-Man Division I final, with an extraordinary late score by Coltin Gonzales and a defensive stop described by Dave Campbell's Texas Football. UIL independently lists the historical team, its division, coach Cooper Thornhill and playoff record. One old team-directory tile states Blum has zero titles, contradicted by the same publisher's detailed 2019 championship account.",
+      "Blum ISD officially lists the campus and district contact at 310 South Avenue F, Blum, Texas 76627, telephone 254-874-5231. The district's High School Football page names Cooper Thornhill as head football coach and lists staff. These are sourced administrative contacts, not a published guaranteed football gate or parking instruction. Do not confuse the older J. M. White Field directory reference with independently verified exact stadium access or accessible seating.",
+      "The 2026 Bobcats have a separate, dated on-field story. The completed seven-game six-man ledger through October 8 shows a win against Bynum 58–43 and losses against Mount Calm, Penelope, Abbott, Johnson County Sports Association, Gorman and Bluff Dale. That is 1–6 through October 8. Avalon was scheduled for October 15, but publicly retrieved fixture and live-status services do not consistently provide a verified final; we will not invent one or imply the season is canceled.",
+      "Visitors can read TexasDefined's Hill County profile through the school-to-county link and return to the Blum team page from the county's football guide cards. Those are verified TexasDefined routes, not extra ticketing outlets. Check Blum ISD's actual athletics page for dates, school announcements, coaches and entry arrangements before attending a late October or November six-man game."
+    ],
+    "faq": [
+      {
+        "question": "Has Blum ever won a UIL state football championship?",
+        "answer": "Yes. Blum won the 2019 Class 1A Six-Man Division I championship 58–52 against McLean, documented by the detailed Texas Football game recap and official UIL team page. Some outdated program directory cards say zero titles; those are contradicted by the first-hand championship report."
+      },
+      {
+        "question": "Who is Blum's football coach?",
+        "answer": "Blum ISD's own High School Football page lists Cooper Thornhill as head football coach; it also names assistant coaches. His 2019 coaching role is separately recorded in the UIL state-team archive. Confirm any later personnel changes with the district."
+      },
+      {
+        "question": "Which football division and district is Blum in for 2026?",
+        "answer": "The governing 2026–28 UIL alignment assigns Blum to Conference 1A Division I six-man District 11, alongside Avalon, Bluff Dale, Covington and Milford."
+      },
+      {
+        "question": "Where is Blum ISD located, and where do football visitors park?",
+        "answer": "The district contact page lists 310 S. Avenue F, Blum, TX 76627, phone 254-874-5231. This is the school or district contact address, not independently verified stadium gate or accessible parking; the district athletics office can confirm game-specific access."
+      },
+      {
+        "question": "What was Blum's record through October 8, 2026?",
+        "answer": "The Seven completed games in the Six-Man Football schedule produce a 1–6 record through October 8: a win at Bynum and losses to Mount Calm, Penelope, Abbott, JCSA, Gorman and Bluff Dale. This is not a final 2026 season record."
+      },
+      {
+        "question": "Did Blum beat Avalon on October 15, 2026?",
+        "answer": "A 2026 schedule lists the Avalon road game for October 15, while some game services show a different calendar date or lack a finalized result. The outcome was not independently certified for this page; check Blum ISD athletics and updated scores rather than assuming a result."
+      },
+      {
+        "question": "Why do different sources give different Blum 2019 or 2025 season records?",
+        "answer": "The UIL's 2019 team archive records a particular season snapshot, while completed 2019 game indexes include the final championship and show additional contests. For 2025 MaxPreps's finished schedule is 3–7, whereas an older DCTF team card lists partial 2–5. Date and completion status matter more than unsourced rolled-up summaries."
+      }
+    ]
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {
