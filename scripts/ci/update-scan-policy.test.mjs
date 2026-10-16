@@ -64,7 +64,10 @@ test('planner corrections retest previously missed editorial SSR links, not enti
     '/article/texas-cultural-regions-explained', '/article/texas-regions-explained',
     '/fishing/species/black-crappie', '/fishing/species/bluegill',
     '/fishing/species/freshwater-drum', '/fishing/species/white-crappie',
+    '/texas-data/texas-population-and-migration-2025',
   ]);
+  assert.deepEqual(plan.downloadButtonPages, ['/texas-data/texas-population-and-migration-2025']);
+  assert.deepEqual(plan.regionGuidePages, ['/article/texas-regions-explained']);
   assert.equal(plan.expectedHrefsByPage['/article/texas-regions-explained'][0], '/article/texas-gulf-coast-erosion-shoreline-retreat-guide');
   assert.equal(plan.expectedHrefsByPage['/article/texas-cultural-regions-explained'][0], '/article/texas-oil-boom-wichita-falls-west-texas-rigs');
 });
@@ -125,6 +128,41 @@ test('McAllen edits verify only its canonical page and both visitor destinations
   const missing = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(false)) });
   assert.equal(missing[0].passed, false);
   assert.match(missing[0].error, /Expected changed internal link is missing/);
+});
+
+test('existing Texas Data brief CSV changes select one representative dynamic page only', async () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/texas-data-download.ts'] });
+  assert.deepEqual(plan.selectedPaths, ['/texas-data/texas-population-and-migration-2025']);
+  assert.deepEqual(plan.downloadButtonPages, ['/texas-data/texas-population-and-migration-2025']);
+  const html = button => '<html><title>Population figures</title><link rel="canonical" href="https://texasdefined.com/texas-data/texas-population-and-migration-2025"><body>'
+    + (button ? '<button type="button">Download CSV</button>' : '') + '</body></html>';
+  const good = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(true)) });
+  assert.equal(good[0].passed, true);
+  const bad = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(false)) });
+  assert.equal(bad[0].passed, false);
+  assert.match(bad[0].error, /missing the server-rendered CSV download button/);
+});
+
+test('planner change preserves bounded prior regression surfaces including data CSV', () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
+  assert.ok(plan.selectedPaths.includes('/texas-data/texas-population-and-migration-2025'));
+  assert.ok(plan.selectedPaths.length + plan.redirectChecks.length <= PAGE_BUDGET);
+});
+
+test('standalone article fixture edits select the owner, not generic homepage samples', async () => {
+  const path = 'src/data/fixtures/texas-regions-explained.ts';
+  const before = 'export const texasRegionsExplainedArticle: Article = { slug: "texas-regions-explained", body: [] };';
+  const after = before.replace('body: []', 'body: [newParagraph]');
+  const plan = buildChangePlan({ baseline, head, changedFiles: [path], sources: { [path]: { before, after } } });
+  assert.deepEqual(plan.selectedPaths, ['/article/texas-regions-explained']);
+  assert.deepEqual(plan.regionGuidePages, ['/article/texas-regions-explained']);
+  const html = heading => '<html><title>Texas regions</title><link rel="canonical" href="https://texasdefined.com/article/texas-regions-explained"><body>'
+    + (heading ? '<h2>How to use the seven regions when planning a trip</h2>' : '') + '</body></html>';
+  const good = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(true)) });
+  assert.equal(good[0].passed, true);
+  const bad = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(false)) });
+  assert.equal(bad[0].passed, false);
+  assert.match(bad[0].error, /missing its reader-facing SSR heading/);
 });
 
 test('unchanged sibling registry keys are not independently crawled', () => {
