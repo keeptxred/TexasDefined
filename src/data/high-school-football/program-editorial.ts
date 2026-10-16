@@ -1106,6 +1106,183 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
+  "blooming-grove": {
+    "slug": "blooming-grove",
+    "theme": {
+      "accentHex": "#A78B39",
+      "label": "Independent gold editorial accent; no licensed team artwork or crest reproduced"
+    },
+    "seo": {
+      "title": "Blooming Grove Lions Football 2026 | Coach Sherrill, District & Lion Stadium",
+      "description": "Blooming Grove Lions 2026 football: new head coach Kevin Sherrill, UIL 3A Division II District 11, 0–6 through October 9 and official campus visitor contact."
+    },
+    "coach": {
+      "name": "Kevin Sherrill",
+      "title": "Athletic director and head football coach (district-announced 2026 hire)",
+      "sourceUrl": "https://www.bgisd.org/apps/news/article/2157034?categoryId=6258",
+      "sourceLabel": "Blooming Grove ISD official 2026 new athletic director/head football coach hiring announcement",
+      "verifiedAt": "2026-10-15"
+    },
+    "campus": {
+      "address": "212 West Grady Street, Blooming Grove, TX 76626",
+      "phone": "903-695-2541 ext. 1013",
+      "sourceUrl": "https://www.bgisd.org/apps/pages/index.jsp?pREC_ID=940793&type=d&uREC_ID=432201",
+      "sourceLabel": "Blooming Grove ISD official high school campus listing, distinct from district elementary and junior high addresses",
+      "verifiedAt": "2026-10-15"
+    },
+    "schedule": {
+      "label": "Blooming Grove ISD athletics original football and school event calendar",
+      "sourceUrl": "https://www.bgisd.org/apps/events/2026/10/?id=0&id=2",
+      "sourceLabel": "Official district October 2026 calendar and individual fixture details; historical results sourced independently",
+      "verifiedAt": "2026-10-15"
+    },
+    "season": {
+      "record": "0–6 through October 9, 2026 (Pigskin Prep team ledger, independently confirmed Teague result; season ongoing)",
+      "verifiedAt": "2026-10-15",
+      "sourceUrl": "https://www.texashighschoolfootballhistory.com/showfreeschedules.asp?distID=353&yr=2026",
+      "sourceLabel": "Pigskin Prep 2026 Class3A DII District11 dated opponent ledger; October9 score confirmed by MaxPreps final game box",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Frost",
+          "site": "Home",
+          "result": "L 0–31"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Eustace",
+          "site": "Away",
+          "result": "L 30–44"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Wortham",
+          "site": "Home",
+          "result": "L 30–39"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Valley Mills",
+          "site": "Away",
+          "result": "L 6–48"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Hillsboro",
+          "site": "Home",
+          "result": "L 12–53"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Teague",
+          "site": "Away",
+          "district": true,
+          "result": "L 0–68"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Elkhart",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Rice",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Corsicana Mildred",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Buffalo",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "notice": {
+      "title": "Lion Stadium is listed for homecoming; its vehicle entrance is not verified",
+      "body": "Blooming Grove ISD's October 12, 2026 calendar names Lion Stadium as the homecoming parade/pep rally destination. The high school's official address is 212 West Grady Street, which is a contact address and does not establish the stadium parking gate, ADA entrance, tickets or exact accessible seating. Confirm any event-specific venue with Blooming Grove ISD.",
+      "sourceUrl": "https://www.bgisd.org/apps/events/2026/10/?id=0&id=2",
+      "sourceLabel": "Blooming Grove ISD first-party 2026 school and athletics events, including October12 homecoming at Lion Stadium",
+      "verifiedAt": "2026-10-15"
+    },
+    "development": {
+      "title": "A 2026 coaching rebuild after a 2025 playoff appearance",
+      "body": "Blooming Grove ISD directly announced Kevin Sherrill as athletic director/head football coach in early 2026, moving from Vernon where his teams had gone 10–3 in 2025 and 9–4 in 2024. Those records belong to Vernon, not the Lions. Blooming Grove's own 2025 program went 3–8, including a 59–6 first-round playoff loss to Blue Ridge in the Lone Star Football Network ledger. Through October 9 of Sherrill's first listed Blooming Grove season, six reported results showed 0–6, capped by a 68–0 road loss to Teague. Describing an active rebuilding challenge must not confuse the former district's wins with the current school's record.",
+      "sourceUrl": "https://www.bgisd.org/apps/news/article/2157034?categoryId=6258",
+      "sourceLabel": "District's first-party hire notice; Blooming Grove own results separately checked against Lone Star 2025 and Pigskin Prep/MaxPreps 2026",
+      "verifiedAt": "2026-10-15"
+    },
+    "milestones": [
+      {
+        "date": "2025",
+        "title": "Lions reached a 2025 postseason first-round game",
+        "body": "Lone Star Football Network's game-by-game archive lists a 3–8 2025 season with a postseason defeat 59–6 to Blue Ridge. Those results belong to Blooming Grove, not incoming coach Sherrill's Vernon tenure.",
+        "sourceUrl": "https://www.lonestarfootball.net/team.asp?GUID=4138128162&S=2025&T=869&action=schedule",
+        "sourceLabel": "Lone Star Football Network Blooming Grove 2025 completed schedule"
+      },
+      {
+        "date": "2026",
+        "title": "Kevin Sherrill hired as head football coach/athletic director",
+        "body": "Blooming Grove ISD announced its hire from Vernon, explicitly citing previous Vernon 10–3 and 9–4 campaigns. The Lions' past-season win-loss totals are distinct.",
+        "sourceUrl": "https://www.bgisd.org/apps/news/article/2157034?categoryId=6258",
+        "sourceLabel": "District-confirmed 2026 head coach hire"
+      },
+      {
+        "date": "2026",
+        "title": "UIL 3A Division II District 11",
+        "body": "The official realignment includes Blooming Grove, Buffalo, Elkhart, Mildred, Rice and Teague as eleven-man football district peers.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 3A Division II alignment"
+      },
+      {
+        "date": "2026-10-09",
+        "title": "First reported 2026 District 11 game at Teague",
+        "body": "The school calendar placed the Lions at Teague October 9, and both the game box and regional district ledger record Teague 68, Blooming Grove 0, with Blooming Grove 0–6 through that date.",
+        "sourceUrl": "https://www.maxpreps.com/tx/football/game/blooming-grove-vs-teague/10-9-2026/?c=d1242195-6367-4fae-933a-04df9f472e74",
+        "sourceLabel": "MaxPreps October 9 completed conference box corroborated by Pigskin Prep District11 2026 ledger"
+      }
+    ],
+    "overview": [
+      "Blooming Grove High School's Lions represent Blooming Grove ISD in Navarro County, Texas. For the 2026–28 UIL realignment, the team is in eleven-man Class 3A Division II, District 11 with Buffalo, Elkhart, Mildred, Rice and Teague. Although Teague also calls its team the Lions, the two school districts and game-day destinations are different. The UIL alignment governs this season rather than prior-cycle districts.",
+      "A major recent change was Blooming Grove ISD's announcement that Kevin Sherrill would become its athletic director and head football coach for 2026. The district highlighted rebuilding accomplishments at his previous employer, Vernon ISD, including 10–3 in 2025 and 9–4 in 2024. Those numbers are **Vernon's** results and should not be misrepresented as Blooming Grove achievements. The Lions' 2025 season was 3–8 and included a first-round playoff appearance against Blue Ridge, per the completed game ledger.",
+      "The 2026 Lions have experienced a challenging start in their own program. Pigskin Prep's District 11 game ledger lists losses to Frost, Eustace, Wortham, Valley Mills, Hillsboro and Teague through October 9, putting the team 0–6. Teague beat Blooming Grove 68–0 in the October 9 conference opener, independently documented by a completed MaxPreps match and each district's official event schedule. A MaxPreps season index last updated September 1 still showed 0–1 and should not override later games.",
+      "For visitors, the district identifies Blooming Grove High School at 212 West Grady Street with a high-school office phone of 903-695-2541, extension 1013. This is not the elementary school or junior-high address. An October 12 official homecoming-parade calendar names Lion Stadium, but the location of the actual vehicle entrance, accessible spectator access, stadium photo rights and current admission terms were not independently confirmed; call the school for match-specific arrangements.",
+      "October 16 against Elkhart, October 23 at Rice, October 30 against Mildred and November 6 at Buffalo were still future fixtures as of the October 15 research date. Consult Blooming Grove ISD's event calendar for kickoff, changes and ticket arrangements; a missing result in old third-party calendar pages should not be mistaken for a cancellation or a win."
+    ],
+    "faq": [
+      {
+        "question": "Who is Blooming Grove's head football coach for 2026?",
+        "answer": "Blooming Grove ISD itself announced Kevin Sherrill as its new athletic director and head football coach in 2026. His cited 2024 and 2025 winning records came at previous employer Vernon ISD, not Blooming Grove."
+      },
+      {
+        "question": "What UIL district is Blooming Grove in for 2026 football?",
+        "answer": "The official 2026–28 UIL alignment places Blooming Grove in Class 3A Division II, District 11 with Buffalo, Elkhart, Mildred, Rice and Teague; the school plays eleven-man football."
+      },
+      {
+        "question": "What was Blooming Grove's varsity record through October 9, 2026?",
+        "answer": "The completed six-game district ledger lists Blooming Grove 0–6 through an October 9 away loss to Teague 68–0. MaxPreps' October 9 result independently confirms the game, while an older September 1 schedule was stale."
+      },
+      {
+        "question": "Did Blooming Grove have a 10–3 football season in 2025?",
+        "answer": "No. The district's 2026 coaching announcement says Kevin Sherrill's prior Vernon team went 10–3 in 2025; Blooming Grove itself went 3–8 in 2025 according to a game-by-game archive, including a first-round playoff loss to Blue Ridge."
+      },
+      {
+        "question": "Where is Blooming Grove High School versus Lion Stadium?",
+        "answer": "Blooming Grove ISD lists the high school at 212 West Grady Street, Blooming Grove, TX 76626, phone 903-695-2541 extension 1013. The district calendar calls the homecoming venue Lion Stadium, but the exact current football stadium gate, parking and accessible seating are not independently verified here."
+      },
+      {
+        "question": "Where can I find Blooming Grove football kickoff and ticket updates?",
+        "answer": "Check Blooming Grove ISD's official athletics and school events calendar for the specific game. Upcoming fixtures after October 9 included Elkhart at home and trips to Rice and Buffalo; event hours, ticketing and access can change."
+      }
+    ]
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {

@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "blooming-grove",
-    "nextSchool": "blooming-grove",
-    "implementedOnBranch": 6,
-    "remainingToImplement": 19,
+    "currentSchool": "bloomington",
+    "nextSchool": "bloomington",
+    "implementedOnBranch": 7,
+    "remainingToImplement": 18,
     "remainingToVerify": 25,
-    "notes": "Harmony and Big Spring DEPLOYED, Bishop/Blackwell/Blanco already in latest main; Blanket authored on PR #4993, production Chrome/editorial acceptance not established. Preserve 105 VERIFIED schools and Batch005 editorial backlog."
+    "notes": "Batch006: Harmony and Big Spring DEPLOYED; Bishop, Blackwell, Blanco and Blanket IMPLEMENTED on main; Blooming Grove individually source-researched and authored, pending protected merge, release and targeted browser/editorial acceptance. Preserve all 105 prior VERIFIED and Batch005 formal editorial backlog."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6627,8 +6627,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/blooming-grove",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/blooming-grove.md",
+      "implementedOnBranch": "feature/football-b006-blooming-grove-20261015",
+      "actualProductionVerified": false,
+      "reviewScope": "Official school-coach hire and 3A DII District11, dated 2026 0–6 through Oct9 corroborated by game result; 2025 3–8 not Vernon 10–3; no stadium photo/gate licensing or production Chrome acceptance."
     },
     {
       "id": "uil:bloomington",

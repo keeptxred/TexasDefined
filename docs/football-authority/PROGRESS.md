@@ -1,5 +1,9 @@
 # Football Authority — Execution Ledger
 
+## October 15, 2026 — Blooming Grove reconciled for protected release (NOT verified)
+Blooming Grove original authority dossier and editorial sourced to the school district's January 23 2026 hiring notice for AD/head coach Kevin Sherrill, UIL 2026–28 3A Division II District 11, official campus address and dated third-party 2026 0–6 through Oct 9 including Teague L0–68. Do not misattribute Sherrill's Vernon 10–3 season to Blooming Grove. Six original FAQs, school calendar and school-specific research; stadium entrance/ADA/photo rights deliberately unclaimed. Existing PR #4997 safely reconciled onto latest main instead of replaying Bishop, Blackwell, Blanco or Blanket. Blooming Grove IMPLEMENTED, not merged/deployed, tested or independently production/editorially VERIFIED. Batch006 authored count seven of 25, existing 105 VERIFIED protected. Targeted per-school Chrome and canonical protected validation required before factual promotion.
+
+
 ## October 15, 2026 — Blanket source-backed profile reconciled for protected merge (not released)
 Blanket ISD six-man UIL 1A DII District12, independently sourced 4–3 through Oct8 and correction of Brookesmith/Sidney/Rochelle source defects via Brownwood News, with head-coach Jalen Helms Sept11 local interview. New original FAQs, school visitor guide and no unverified stadium gate or photo rights. PR #4993 remains unmerged until protected validation, subsequent production desktop/mobile Chrome and separate editorial acceptance.
 
