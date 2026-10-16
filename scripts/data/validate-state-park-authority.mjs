@@ -127,6 +127,14 @@ assertContains(heroResolver, "const verified = mappedHero(destination.slug);", "
 assertContains(heroResolver, "function isRemoteHero(src: string): boolean", "Remote JPEG URLs must not bypass exact-place licensed park photos");
 assertContains(heroResolver, "mapped && isRemoteHero(destination.hero.src)", "Both park lists and single guides must prefer local credited photos over remote JPEG");
 assertContains(authority, "https://tpwd.texas.gov/state-parks/abilene/alert", "Abilene park restrictions must be linked to the current TPWD alert");
+const abileneFacts = authority.match(/"abilene-state-park": \{([\s\S]*?)\n  \},/)?.[1] ?? "";
+if ([...abileneFacts.matchAll(/\bsupplementalSourceUrl:/g)].length !== 1) failures.push("Abilene must cite park alerts only once, without losing their source to a duplicate key");
+assertContains(abileneFacts, "supportingSources: [{ url: \"https://tpwd.texas.gov/fishboat/fish/recreational/lakes/abilene/access.phtml\"", "Abilene lake access map must be preserved as a distinct source");
+const fortParkerFacts = authority.match(/"fort-parker-state-park": \{([\s\S]*?)\n  \},/)?.[1] ?? "";
+assertContains(fortParkerFacts, "does not recommend launching motorized boats", "Fort Parker October 2026 low-water boat launch warning must not be omitted");
+assertContains(fortParkerFacts, "https://tpwd.texas.gov/state-parks/fort-parker/alert", "Fort Parker construction, burn ban and boat access restrictions must cite its live alert page");
+assertContains(essentials, "Additional official TPWD reference:", "Park supplements must not all be mislabeled as trailhead announcements");
+assertContains(essentials, "verified.supportingSources?.map", "Multiple distinct official facility sources must appear on the public guide");
 assertContains(authority, "swimming pool is CLOSED for renovations", "Abilene must not advertise its closed swimming pool as open");
 assertContains(authority, "composting restrooms in the Tom Mays Unit", "Franklin Mountains restroom location must remain source-specific and dated");
 assertContains(authority, "NO restrooms inside the cavern", "Longhorn Cavern tour restroom limitations must remain explicit");
