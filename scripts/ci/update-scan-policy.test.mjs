@@ -62,6 +62,7 @@ test('planner corrections retest previously missed editorial SSR links, not enti
   const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
   assert.deepEqual(plan.selectedPaths, [
     '/article/texas-cultural-regions-explained', '/article/texas-regions-explained',
+    '/explore/road-trips',
     '/fishing/species/black-crappie', '/fishing/species/bluegill',
     '/fishing/species/freshwater-drum', '/fishing/species/white-crappie',
     '/texas-data/texas-population-and-migration-2025',
