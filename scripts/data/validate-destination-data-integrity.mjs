@@ -103,10 +103,13 @@ for (const sourceMarker of [
 }
 
 for (const feature of [
-  'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved.map(correctDestinationTravelRegion)))',
   'function reconcileExploreCatalog',
 ]) {
   if (!queryImplementation.includes(feature)) errors.push(`Destination catalog quality filter missing: ${feature}.`);
+}
+const exactPlaceParkPublicationGuard = "filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved.map((destination)=>applyStateParkHeroAsset(correctDestinationTravelRegion(destination)))))";
+if (!queryImplementation.replace(/\s+/g, "").includes(exactPlaceParkPublicationGuard)) {
+  errors.push("Destination publication must retain final exact-place park photo selection within both SEO-readiness and visitor-availability filters.");
 }
 if (!queries.includes('await import("./destination-query-runtime")')) errors.push('Destination query resolution must remain behind the dynamic runtime boundary.');
 
