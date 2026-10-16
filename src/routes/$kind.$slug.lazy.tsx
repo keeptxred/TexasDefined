@@ -168,6 +168,7 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
 // Independently researched Batch 002 and Batch 003 county links. Lists retain
 // multiple teams in the same county rather than replacing an existing card.
 const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  erath: [{ name: 'Bluff Dale Bobcats', slug: 'bluff-dale', context: '2026 UIL Division I six-man District 11, Erath County school contacts and dated football results' }],
   // Batch 005 remaining 14 researched team links, retaining prior schools per county.
   jefferson: [{ name: "Beaumont United Timberwolves", slug: 'beaumont-united', context: "2025 first winning varsity season under Drenard Williams and Beaumont Bowl" }, { name: "Beaumont West Brook Bruins", slug: 'beaumont-west-brook', context: "1982 UIL champion, 2018 6A Division II runner-up and Beaumont Bowl rivalry" }],
   'panola': [{ name: "Beckville Bearcats", slug: 'beckville', context: "Playoff football in Panola County, and a real campus-versus-stadium distinction" }],
@@ -254,7 +255,7 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   'el-paso': [{ name: 'Anthony Wildcats', slug: 'anthony', context: 'Anthony Texas varsity history and 2026 UIL football context' }],
   hockley: [{ name: 'Anton Bulldogs', slug: 'anton', context: 'Anton School football history and modern UIL six-man alignment' }],
   trinity: [{ name: 'Apple Springs Eagles', slug: 'apple-springs', context: 'Six-man Eagles history and UIL classification-source clarification' }],
-  hill: [{ name: 'Aquilla Cougars', slug: 'aquilla', context: 'Hill County Aquilla program history and modern six-man football' }],
+  hill: [{ name: 'Aquilla Cougars', slug: 'aquilla', context: 'Hill County Aquilla program history and modern six-man football' }, { name: 'Blum Bobcats', slug: 'blum', context: '2019 UIL six-man Division I champion over McLean; 2026 District11 team with verified Blum ISD sources' }],
   'san-patricio': [{ name: 'Aransas Pass Panthers', slug: 'aransas-pass', context: 'Aransas Pass program history and contemporary varsity schedule context' }],
   archer: [{ name: 'Archer City Wildcats', slug: 'archer-city', context: '1964 state championship and reconciled UIL historical indexing discrepancy' }],
   wise: [{ name: 'Alvord Bulldogs', slug: 'alvord', context: '2025 undefeated district run and 2026 home ticket details' }],

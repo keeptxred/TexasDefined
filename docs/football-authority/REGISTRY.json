@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "bluff-dale",
-    "nextSchool": "bluff-dale",
-    "implementedOnBranch": 9,
-    "remainingToImplement": 16,
+    "currentSchool": "boerne",
+    "nextSchool": "boerne",
+    "implementedOnBranch": 11,
+    "remainingToImplement": 14,
     "remainingToVerify": 25,
-    "notes": "105 prior VERIFIED preserved; Harmony/Big Spring deployed; Bishop, Blackwell, Blanco, Blanket, Blooming Grove on main; Bloomington and Blue Ridge source-researched on dependent protected proposals, not Chrome or editorially verified."
+    "notes": "Batch006 11/25 individually authored after Blue Ridge, Bluff Dale and Blum integration, with 105 historical VERIFIED preserved. Statuses reflect released/deployed vs authored stages only; none of Batch006 has exact-SHA independent Chrome or nine-dimension editorial acceptance. Continue Boerne and Champion research; 14 schools remain NOT_REVIEWED."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6681,8 +6681,20 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bluff-dale",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/bluff-dale.md",
+      "auditCompletedAt": "2026-10-16",
+      "researchCompletedAt": "2026-10-16",
+      "implementedAt": "2026-10-16",
+      "implementedOnBranch": "feature/football-b006-bluff-dale-source-20261016",
+      "inboundLinks": [
+        "/county/erath"
+      ],
+      "outboundCountyPath": "/county/erath",
+      "linkVerificationStatus": "BRANCH_CODE_PENDING_REAL_PRODUCTION_CHROME",
+      "actualProductionVerified": false,
+      "productionVerification": "NOT_DEPLOYED_NO_BROWSER_ACCEPTANCE"
     },
     {
       "id": "uil:blum",
@@ -6695,8 +6707,20 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/blum",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/blum.md",
+      "auditCompletedAt": "2026-10-16",
+      "researchCompletedAt": "2026-10-16",
+      "implementedAt": "2026-10-16",
+      "implementedOnBranch": "feature/football-b006-bluff-dale-source-20261016",
+      "inboundLinks": [
+        "/county/hill"
+      ],
+      "outboundCountyPath": "/county/hill",
+      "linkVerificationStatus": "BRANCH_CODE_PENDING_REAL_PRODUCTION_CHROME",
+      "actualProductionVerified": false,
+      "productionVerification": "NOT_DEPLOYED_NO_BROWSER_ACCEPTANCE"
     },
     {
       "id": "uil:boerne",
