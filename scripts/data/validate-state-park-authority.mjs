@@ -124,8 +124,44 @@ assertContains(heroResolver, 'isTexasStateParkDestination(destination)', "State 
 assertContains(heroResolver, '"cooper-lake-state-park": "cooper-lake-south-sulphur-unit-state-park"', "Cooper Lake exact South Sulphur park unit photograph missing");
 assertContains(heroResolver, '"devils-sinkhole-state-natural-area": "devil-s-sinkhole-state-natural-area"', "Devil\'s Sinkhole licensed image alias must match the canonical guide");
 assertContains(heroResolver, "const verified = mappedHero(destination.slug);", "Post-reconciliation state park image recovery must support verified same-place aliases");
+assertContains(heroResolver, "function isRemoteHero(src: string): boolean", "Remote JPEG URLs must not bypass exact-place licensed park photos");
+assertContains(heroResolver, "mapped && isRemoteHero(destination.hero.src)", "Both park lists and single guides must prefer local credited photos over remote JPEG");
+assertContains(read("src/components/editorial/DestinationCollectionGrid.tsx"), "canonicalDestinationSlug(destination.slug)", "Directory links must use canonical destination slugs, not SEO 301 aliases");
+assertContains(read("src/components/editorial/DestinationCard.tsx"), "canonicalDestinationSlug(destination.slug)", "Park-card links must canonicalize historical slugs");
+assertContains(runtime, "return applyStateParkHeroAsset(curated);", "Single park guides must resolve approved exact-place photos after curation");
+assertContains(runtime, "improved.map((destination) => applyStateParkHeroAsset(correctDestinationTravelRegion(destination)))", "Park directory must apply exact-place photo recovery after curation");
+assertContains(read("src/lib/legacy-editorial-redirects.ts"), "export function canonicalDestinationSlug", "Central canonical route resolution must be shared by park lists and cards");
 assertContains(authority, "https://tpwd.texas.gov/state-parks/abilene/alert", "Abilene park restrictions must be linked to the current TPWD alert");
+const abileneFacts = authority.match(/"abilene-state-park": \{([\s\S]*?)\n  \},/)?.[1] ?? "";
+if ([...abileneFacts.matchAll(/\bsupplementalSourceUrl:/g)].length !== 1) failures.push("Abilene must cite park alerts only once, without losing their source to a duplicate key");
+assertContains(abileneFacts, "supportingSources: [{ url: \"https://tpwd.texas.gov/fishboat/fish/recreational/lakes/abilene/access.phtml\"", "Abilene lake access map must be preserved as a distinct source");
+const fortParkerFacts = authority.match(/"fort-parker-state-park": \{([\s\S]*?)\n  \},/)?.[1] ?? "";
+assertContains(fortParkerFacts, "does not recommend launching motorized boats", "Fort Parker October 2026 low-water boat launch warning must not be omitted");
+assertContains(fortParkerFacts, "https://tpwd.texas.gov/state-parks/fort-parker/alert", "Fort Parker construction, burn ban and boat access restrictions must cite its live alert page");
+assertContains(essentials, "Additional official TPWD reference:", "Park supplements must not all be mislabeled as trailhead announcements");
+assertContains(essentials, "verified.supportingSources?.map", "Multiple distinct official facility sources must appear on the public guide");
 assertContains(authority, "swimming pool is CLOSED for renovations", "Abilene must not advertise its closed swimming pool as open");
+for (const [slug, requiredText, alertUrl] of [
+  ["caprock-canyons-state-park", "boiling does NOT remove nitrates", "https://tpwd.texas.gov/state-parks/caprock-canyons/alert"],
+  ["enchanted-rock-state-natural-area", "October 12–16, 2026", "https://tpwd.texas.gov/state-parks/enchanted-rock/alert"],
+  ["abilene-state-park", "scheduled whole-lake closures", "https://tpwd.texas.gov/state-parks/abilene/alert"],
+]) {
+  const park = authority.match(new RegExp(`"${slug}": \\{([\\s\\S]*?)\\n  \\},`))?.[1] ?? "";
+  assertContains(park, requiredText, `${slug} must preserve its current visitor safety restriction`);
+  assertContains(park, alertUrl, `${slug} restriction must carry its specific TPWD park-alert source`);
+}
+assertContains(authority, "Lake Theo boat ramp, fishing pier and designated swimming area are closed", "Caprock Lake Theo facility closures must not be represented as open");
+assertContains(authority, "permitted hunters only during closures", "Enchanted Rock hunting closure must bar ordinary visitor recommendations");
+for (const [slug, alertUrl, criticalDetail] of [
+  ["palo-duro-canyon-state-park", "https://tpwd.texas.gov/state-parks/palo-duro-canyon/alert-1", "via Alternate Park Road 5"],
+  ["garner-state-park", "https://tpwd.texas.gov/state-parks/garner/alert", "Blinn River Trail closed"],
+  ["galveston-island-state-park", "https://tpwd.texas.gov/state-parks/galveston-island/alert", "fountains near campsites 71–95"],
+  ["big-bend-ranch-state-park", "https://tpwd.texas.gov/state-parks/big-bend-ranch/copy_of_alert", "November 21–25 and December 6–10 and 13–17"],
+]) {
+  const record = authority.match(new RegExp(`"${slug}": \\{([\\s\\S]*?)\\n  \\},`))?.[1] ?? "";
+  assertContains(record, alertUrl, `${slug} needs the exact TPWD current-alert source`);
+  assertContains(record, criticalDetail, `${slug} must preserve its park-specific visitor safety restriction`);
+}
 assertContains(authority, "composting restrooms in the Tom Mays Unit", "Franklin Mountains restroom location must remain source-specific and dated");
 assertContains(authority, "NO restrooms inside the cavern", "Longhorn Cavern tour restroom limitations must remain explicit");
 const sinkholeGuide = read("src/data/devils-sinkhole-visitor-authority.ts");

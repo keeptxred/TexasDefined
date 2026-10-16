@@ -94,6 +94,20 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       expectedHrefsByPage[page] = hrefs;
     }
   }
+  // McAllen day trips share one dynamic route with other metros; ordinary
+  // static route matching cannot infer the affected canonical owner.
+  // Keep this targeted to McAllen, never launch a statewide proximity crawl.
+  if (changedFiles.some(path =>
+    /^src\/routes\/explore\.near\.\$metro\.\$collection(?:\.lazy)?\.tsx$/.test(path)
+    || ['src/data/metro-county-links.ts', 'src/data/viator-market-match.ts', 'src/data/national-wildlife-refuge-destinations.ts'].includes(path)
+  )) {
+    const path = '/explore/near/mcallen/day-trips';
+    candidates.add(path);
+    expectedHrefsByPage[path] = [
+      '/destination/santa-ana-national-wildlife-refuge',
+      '/destination/museum-south-texas-history-edinburg',
+    ];
+  }
   let contentFallback = false;
   for (const path of changedFiles) {
     const { before = '', after = '' } = sources[path] || {};
@@ -128,13 +142,23 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     contentFallback = true;
   }
   if (!candidates.size && contentFallback) for (const p of REPRESENTATIVE_PATHS) candidates.add(p);
+  // The two redirect-only state aliases are intentional canonical exceptions.
+  // Verify their actual 301 response whenever their route or this planner
+  // changes, using the existing deploy smoke instead of a new full crawl.
+  const redirectChecks = changedFiles.some(path => path === 'src/routes/texas-vs.$state.tsx' || path === 'scripts/ci/production-change-scope.mjs')
+    ? [
+      { path: '/texas-vs/california', target: '/article/texas-vs-california-differences' },
+      { path: '/texas-vs/florida', target: '/article/texas-vs-florida-differences' },
+    ]
+    : [];
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
-  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...allPaths])].slice(0, PAGE_BUDGET);
+  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
-  return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs, candidateCount: allPaths.length,
+  const candidateCount = allPaths.length + redirectChecks.length;
+  return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs, redirectChecks, candidateCount,
     omittedCount: Math.max(0, allPaths.length - selectedPaths.length), pageBudget: PAGE_BUDGET,
-    coverage: allPaths.length > PAGE_BUDGET ? 'representative sample; full coverage belongs to weekly local audits' : 'identified changed pages and representative dependencies',
+    coverage: candidateCount > PAGE_BUDGET ? 'representative sample; full coverage belongs to weekly local audits' : 'identified changed pages and representative dependencies',
     groups: Object.fromEntries(Object.entries(groups).map(([name, pattern]) => [name, shared || changedFiles.some(p => pattern.test(p))])),
   };
 }

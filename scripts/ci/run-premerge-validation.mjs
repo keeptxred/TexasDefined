@@ -42,6 +42,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['FOOTBALL/BROWSER', 'Syntax-check playoff mobile production acceptance', 'node', ['--check', 'scripts/ci/verify-football-playoffs-browser.mjs']],
   ['CONTENT/IMAGES', 'Syntax-check official state-park photo resolver', 'node', ['--check', 'scripts/data/sync-state-park-hero-assets.mjs']],
   ['COMMERCE/PRIVACY', 'Verify receipt Google Customer Reviews payload boundaries', 'node', ['--experimental-strip-types', '--test', 'scripts/data/google-customer-reviews.test.mjs']],
   ['FOOTBALL/SEO', 'Reject slug-specific football SEO title overrides of researched editorial copy', 'node', ['scripts/ci/validate-football-authored-seo.mjs']],
@@ -49,6 +50,7 @@ const prebuildChecks = [
   ['CI/DEPLOYMENT', 'Syntax-check Harmony desktop/mobile production verifier', 'node', ['--check', 'scripts/ci/verify-football-batch006-harmony-production.mjs']],
   ['NEWS/PUBLICATION', 'Reject stale sources in disabled-by-default TexasDefined auto-news pipeline', 'node', ['--test', 'scripts/news/texasdefined-queue-freshness.test.mjs']],
   ['CI/COST', 'Verify update scan scope, retired triggers and shared page fetches', 'node', ['--test', 'scripts/ci/update-scan-policy.test.mjs']],
+  ['CI/COST', 'Scope Batch004 live GIS/Chrome audit to true Batch004 changes; fail closed', 'node', ['scripts/ci/should-run-football-b004.test.mjs']],
   ['CI/COST', 'Protect all six remaining local audit migrations and authority reporting', 'node', ['--test', 'scripts/ci/local-audit-migrations.test.mjs', 'scripts/ci/authority-master-issue.test.mjs']],
   ['CI/COST', 'Protect local-only full-site crawls and request budgets', 'node', ['--test', 'scripts/ci/local-audit-fetch.test.mjs']],
   ['SEO/LINKS', 'Distinguish HTTP errors from failed transport without relaxing strict link audit', 'node', ['--test', 'scripts/ci/internal-link-failure-diagnostics.test.mjs']],
@@ -132,6 +134,8 @@ const prebuildChecks = [
   ['PROPERTY/DATA', 'Validate priority county property overlays', 'node', ['scripts/data/validate-priority-county-property-overlays.mjs']],
   ['SEO/INDEXING', 'Validate Phase 10 housing index-suppression contract', 'node', ['scripts/data/validate-phase10-housing-indexing.mjs']],
   ['SEO/CTR', 'Test evidence-based production snippet classification', 'node', ['--test', 'scripts/ci/snippet-classification.test.mjs']],
+  ['DATA/CITATION', 'Validate downloadable source-backed generic Texas Data briefs', 'node', ['--experimental-strip-types', '--test', 'src/data/texas-data-download.test.ts']],
+  ['EDITORIAL/REGIONS', 'Keep Texas regions guide practical without internal publishing terminology', 'node', ['--test', 'scripts/data/texas-regions-reader-copy.test.mjs']],
   ['RELOCATION/GOVERNANCE', 'Validate Texas relocation operating system', 'node', ['scripts/data/validate-relocation-tools.mjs']],
   ['CONTENT/AUTHORITY', 'Validate Texas industries authority', 'node', ['scripts/data/validate-texas-industries-authority.mjs']],
   ['CONTENT/AUTHORITY', 'Validate Texas beaches and coast authority', 'node', ['scripts/data/validate-coastal-authority.mjs']],

@@ -275,7 +275,8 @@ for (const token of [
 const pkg = JSON.parse(files.package);
 const expectedAuditScript = "node scripts/data/run-metro-proximity-audit.mjs";
 if (pkg.scripts?.["metro-proximity:audit"] !== expectedAuditScript) fail("package script metro-proximity:audit is missing or changed");
-const expectedScript = "node --experimental-strip-types --test src/data/__tests__/metro-proximity.test.ts && node scripts/data/validate-metro-proximity.mjs && npm run metro-proximity:audit";
+// Keep the newly required county-link and Alamo market regression tests in the canonical metro validation contract.
+const expectedScript = "node --experimental-strip-types --test src/data/__tests__/metro-proximity.test.ts src/data/__tests__/metro-county-links.test.ts && node scripts/data/validate-metro-proximity.mjs && npm run metro-proximity:audit";
 if (pkg.scripts?.["metro-proximity:validate"] !== expectedScript) fail("package script metro-proximity:validate is missing or changed");
 if (!pkg.scripts?.["data:validate"]?.includes("npm run metro-proximity:validate")) fail("metro proximity validation is not wired into data:validate");
 
