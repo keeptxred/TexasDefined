@@ -25,3 +25,8 @@ Replacement draft PR: #5016. Legacy draft PR #4624 remains unmerged and must not
 
 ## Operational safeguards
 Do not merge PR #4624; do not mark #5016 ready for review or deploy until the gates above pass. Do not increase the client bundle budget to conceal a regression. Avoid full-site production crawls; use changed-route checks and existing required CI.
+
+## CI and branch update — October 16, 2026
+- Initial replacement-head Merge Gate run `38898154768` concluded **cancelled**, not passed. The orphan-link audit run `38898154795` concluded **success**.
+- Fresh comparison against main: **4 ahead, 1 behind**. Reconcile the new main commit before release acceptance; do not force a merge.
+- This document is an acceptance record, not evidence that source accuracy, full build or production verification passed.
