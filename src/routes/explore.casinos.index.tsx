@@ -76,6 +76,20 @@ function CasinoHub() {
     </section>
 
     <Container className="py-12 sm:py-16">
+      <nav aria-label="Jump to a guide" className="border-b border-border pb-10">
+        <h2 className="font-display text-2xl">Go straight to a guide</h2>
+        <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-primary">
+          <Link to="/explore/casinos/kickapoo-lucky-eagle" className="underline underline-offset-4">Kickapoo Lucky Eagle</Link>
+          <Link to="/explore/casinos/naskila-livingston" className="underline underline-offset-4">Naskila Livingston</Link>
+          <Link to="/explore/casinos/naskila-leggett" className="underline underline-offset-4">Naskila Leggett</Link>
+          <Link to="/explore/casinos/speaking-rock-el-paso" className="underline underline-offset-4">Speaking Rock</Link>
+          <Link to="/explore/casinos/near-houston" className="underline underline-offset-4">Near Houston</Link>
+          <Link to="/explore/casinos/near-dallas-fort-worth" className="underline underline-offset-4">Near Dallas–Fort Worth</Link>
+          <Link to="/explore/casinos/texas-gaming-laws" className="underline underline-offset-4">Texas casino laws</Link>
+          <Link to="/explore/casinos/naskila-resort-leggett" className="underline underline-offset-4">Future Naskila Resort</Link>
+        </div>
+      </nav>
+
       <section aria-labelledby="what-is-legal" className="grid gap-6 border-b border-border pb-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(260px,.75fr)]">
         <div>
           <h2 id="what-is-legal" className="font-display text-3xl sm:text-4xl">First, what counts as a Texas casino?</h2>
