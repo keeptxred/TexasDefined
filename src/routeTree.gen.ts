@@ -365,6 +365,7 @@ import { Route as ExploreMuseumsRouteImport } from './routes/explore.museums'
 import { Route as ExploreLighthousesRouteImport } from './routes/explore.lighthouses'
 import { Route as ExploreLandscapesRouteImport } from './routes/explore.landscapes'
 import { Route as ExploreHillCountrySpringsRouteImport } from './routes/explore.hill-country-springs'
+import { Route as ExploreCasinosRouteImport } from './routes/explore.casinos'
 import { Route as ExploreAttractionsComparisonRouteImport } from './routes/explore.attractions-comparison'
 import { Route as ExploreAquariumsRouteImport } from './routes/explore.aquariums'
 import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
@@ -447,6 +448,7 @@ import { Route as AdminEntityImportReviewRouteImport } from './routes/admin.enti
 import { Route as AdminEditorialOutreachRouteImport } from './routes/admin.editorial-outreach'
 import { Route as AdminBillingRouteImport } from './routes/admin.billing'
 import { Route as KindSlugRouteImport } from './routes/$kind.$slug'
+import { Route as ExploreCasinosIndexRouteImport } from './routes/explore.casinos.index'
 import { Route as TexasDataResearchTexasHomeownersPremiumsVsCoverageRouteImport } from './routes/texas-data.research.texas-homeowners-premiums-vs-coverage'
 import { Route as SportsSoftballChar123TeamChar125RouteImport } from './routes/sports.softball.{-$team}'
 import { Route as ShopProductProductIdRouteImport } from './routes/shop.product.$productId'
@@ -500,6 +502,7 @@ import { Route as ExploreLandscapesSlugRouteImport } from './routes/explore.land
 import { Route as ExploreLakeSlugRouteImport } from './routes/explore.lake.$slug'
 import { Route as ExploreCountyCountyRouteImport } from './routes/explore.county.$county'
 import { Route as ExploreCavernSlugRouteImport } from './routes/explore.cavern.$slug'
+import { Route as ExploreCasinosSlugRouteImport } from './routes/explore.casinos.$slug'
 import { Route as ApiPublicStoreProductsRouteImport } from './routes/api/public/store-products'
 import { Route as ApiPublicNetworkStripeWebhookRouteImport } from './routes/api.public.network-stripe-webhook'
 import { Route as ApiPublicNetworkCheckoutRouteImport } from './routes/api.public.network-checkout'
@@ -2785,6 +2788,11 @@ const ExploreHillCountrySpringsRoute =
     path: '/explore/hill-country-springs',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ExploreCasinosRoute = ExploreCasinosRouteImport.update({
+  id: '/explore/casinos',
+  path: '/explore/casinos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExploreAttractionsComparisonRoute =
   ExploreAttractionsComparisonRouteImport.update({
     id: '/explore/attractions-comparison',
@@ -3271,6 +3279,11 @@ const KindSlugRoute = KindSlugRouteImport.update({
   path: '/$kind/$slug',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/$kind.$slug.lazy').then((d) => d.Route))
+const ExploreCasinosIndexRoute = ExploreCasinosIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ExploreCasinosRoute,
+} as any)
 const TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute =
   TexasDataResearchTexasHomeownersPremiumsVsCoverageRouteImport.update({
     id: '/texas-homeowners-premiums-vs-coverage',
@@ -3601,6 +3614,11 @@ const ExploreCavernSlugRoute = ExploreCavernSlugRouteImport.update({
   id: '/explore/cavern/$slug',
   path: '/explore/cavern/$slug',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreCasinosSlugRoute = ExploreCasinosSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ExploreCasinosRoute,
 } as any)
 const ApiPublicStoreProductsRoute = ApiPublicStoreProductsRouteImport.update({
   id: '/api/public/store-products',
@@ -4011,6 +4029,7 @@ export interface FileRoutesByFullPath {
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
+  '/explore/casinos': typeof ExploreCasinosRouteWithChildren
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
   '/explore/landscapes': typeof ExploreLandscapesRouteWithChildren
   '/explore/lighthouses': typeof ExploreLighthousesRoute
@@ -4187,6 +4206,7 @@ export interface FileRoutesByFullPath {
   '/api/public/network-checkout': typeof ApiPublicNetworkCheckoutRoute
   '/api/public/network-stripe-webhook': typeof ApiPublicNetworkStripeWebhookRoute
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
+  '/explore/casinos/$slug': typeof ExploreCasinosSlugRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
@@ -4240,6 +4260,7 @@ export interface FileRoutesByFullPath {
   '/shop/product/$productId': typeof ShopProductProductIdRoute
   '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
+  '/explore/casinos/': typeof ExploreCasinosIndexRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
@@ -4698,6 +4719,7 @@ export interface FileRoutesByTo {
   '/api/public/network-checkout': typeof ApiPublicNetworkCheckoutRoute
   '/api/public/network-stripe-webhook': typeof ApiPublicNetworkStripeWebhookRoute
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
+  '/explore/casinos/$slug': typeof ExploreCasinosSlugRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
@@ -4751,6 +4773,7 @@ export interface FileRoutesByTo {
   '/shop/product/$productId': typeof ShopProductProductIdRoute
   '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
+  '/explore/casinos': typeof ExploreCasinosIndexRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
@@ -5037,6 +5060,7 @@ export interface FileRoutesById {
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
+  '/explore/casinos': typeof ExploreCasinosRouteWithChildren
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
   '/explore/landscapes': typeof ExploreLandscapesRouteWithChildren
   '/explore/lighthouses': typeof ExploreLighthousesRoute
@@ -5213,6 +5237,7 @@ export interface FileRoutesById {
   '/api/public/network-checkout': typeof ApiPublicNetworkCheckoutRoute
   '/api/public/network-stripe-webhook': typeof ApiPublicNetworkStripeWebhookRoute
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
+  '/explore/casinos/$slug': typeof ExploreCasinosSlugRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
@@ -5266,6 +5291,7 @@ export interface FileRoutesById {
   '/shop/product/$productId': typeof ShopProductProductIdRoute
   '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
+  '/explore/casinos/': typeof ExploreCasinosIndexRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
@@ -5553,6 +5579,7 @@ export interface FileRouteTypes {
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
+    | '/explore/casinos'
     | '/explore/hill-country-springs'
     | '/explore/landscapes'
     | '/explore/lighthouses'
@@ -5729,6 +5756,7 @@ export interface FileRouteTypes {
     | '/api/public/network-checkout'
     | '/api/public/network-stripe-webhook'
     | '/api/public/store-products'
+    | '/explore/casinos/$slug'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
     | '/explore/lake/$slug'
@@ -5782,6 +5810,7 @@ export interface FileRouteTypes {
     | '/shop/product/$productId'
     | '/sports/softball/{-$team}'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
+    | '/explore/casinos/'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
@@ -6240,6 +6269,7 @@ export interface FileRouteTypes {
     | '/api/public/network-checkout'
     | '/api/public/network-stripe-webhook'
     | '/api/public/store-products'
+    | '/explore/casinos/$slug'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
     | '/explore/lake/$slug'
@@ -6293,6 +6323,7 @@ export interface FileRouteTypes {
     | '/shop/product/$productId'
     | '/sports/softball/{-$team}'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
+    | '/explore/casinos'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
@@ -6578,6 +6609,7 @@ export interface FileRouteTypes {
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
+    | '/explore/casinos'
     | '/explore/hill-country-springs'
     | '/explore/landscapes'
     | '/explore/lighthouses'
@@ -6754,6 +6786,7 @@ export interface FileRouteTypes {
     | '/api/public/network-checkout'
     | '/api/public/network-stripe-webhook'
     | '/api/public/store-products'
+    | '/explore/casinos/$slug'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
     | '/explore/lake/$slug'
@@ -6807,6 +6840,7 @@ export interface FileRouteTypes {
     | '/shop/product/$productId'
     | '/sports/softball/{-$team}'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
+    | '/explore/casinos/'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
@@ -7074,6 +7108,7 @@ export interface RootRouteChildren {
   ExploreCategoryRoute: typeof ExploreCategoryRoute
   ExploreAquariumsRoute: typeof ExploreAquariumsRoute
   ExploreAttractionsComparisonRoute: typeof ExploreAttractionsComparisonRoute
+  ExploreCasinosRoute: typeof ExploreCasinosRouteWithChildren
   ExploreHillCountrySpringsRoute: typeof ExploreHillCountrySpringsRoute
   ExploreLandscapesRoute: typeof ExploreLandscapesRouteWithChildren
   ExploreLighthousesRoute: typeof ExploreLighthousesRoute
@@ -9719,6 +9754,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreHillCountrySpringsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/casinos': {
+      id: '/explore/casinos'
+      path: '/explore/casinos'
+      fullPath: '/explore/casinos'
+      preLoaderRoute: typeof ExploreCasinosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore/attractions-comparison': {
       id: '/explore/attractions-comparison'
       path: '/explore/attractions-comparison'
@@ -10293,6 +10335,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KindSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/casinos/': {
+      id: '/explore/casinos/'
+      path: '/'
+      fullPath: '/explore/casinos/'
+      preLoaderRoute: typeof ExploreCasinosIndexRouteImport
+      parentRoute: typeof ExploreCasinosRoute
+    }
     '/texas-data/research/texas-homeowners-premiums-vs-coverage': {
       id: '/texas-data/research/texas-homeowners-premiums-vs-coverage'
       path: '/texas-homeowners-premiums-vs-coverage'
@@ -10663,6 +10712,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/explore/cavern/$slug'
       preLoaderRoute: typeof ExploreCavernSlugRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/explore/casinos/$slug': {
+      id: '/explore/casinos/$slug'
+      path: '/$slug'
+      fullPath: '/explore/casinos/$slug'
+      preLoaderRoute: typeof ExploreCasinosSlugRouteImport
+      parentRoute: typeof ExploreCasinosRoute
     }
     '/api/public/store-products': {
       id: '/api/public/store-products'
@@ -11186,6 +11242,20 @@ const TexasSymbolsRouteWithChildren = TexasSymbolsRoute._addFileChildren(
   TexasSymbolsRouteChildren,
 )
 
+interface ExploreCasinosRouteChildren {
+  ExploreCasinosSlugRoute: typeof ExploreCasinosSlugRoute
+  ExploreCasinosIndexRoute: typeof ExploreCasinosIndexRoute
+}
+
+const ExploreCasinosRouteChildren: ExploreCasinosRouteChildren = {
+  ExploreCasinosSlugRoute: ExploreCasinosSlugRoute,
+  ExploreCasinosIndexRoute: ExploreCasinosIndexRoute,
+}
+
+const ExploreCasinosRouteWithChildren = ExploreCasinosRoute._addFileChildren(
+  ExploreCasinosRouteChildren,
+)
+
 interface ExploreLandscapesRouteChildren {
   ExploreLandscapesSlugRoute: typeof ExploreLandscapesSlugRoute
 }
@@ -11677,6 +11747,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreCategoryRoute: ExploreCategoryRoute,
   ExploreAquariumsRoute: ExploreAquariumsRoute,
   ExploreAttractionsComparisonRoute: ExploreAttractionsComparisonRoute,
+  ExploreCasinosRoute: ExploreCasinosRouteWithChildren,
   ExploreHillCountrySpringsRoute: ExploreHillCountrySpringsRoute,
   ExploreLandscapesRoute: ExploreLandscapesRouteWithChildren,
   ExploreLighthousesRoute: ExploreLighthousesRoute,
