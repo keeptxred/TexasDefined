@@ -5,6 +5,7 @@ const propertyHub = read('src/routes/property.tsx');
 const fredericksburgGuide = read('src/data/fixtures/fredericksburg-history-weekend-guide.ts');
 const campingGuide = read('src/routes/best-places-to-go-camping-in-texas.lazy.tsx');
 const serverEntry = read('src/server-entry.ts');
+const exploreSitemap = read('src/routes/sitemap-explore[.]xml.ts');
 const localHousingHubServer = read('src/data/homeownership-cost-hub-page.server.ts');
 const localHousingHub = read('src/routes/texas-homeownership-cost-calculator.lazy.tsx');
 const failures = [];
@@ -86,6 +87,16 @@ if (!fredericksburgGuide.includes('href: "/destination/fredericksburg"')) {
 }
 if (!fredericksburgGuide.includes('relatedDestinations: ["fredericksburg"')) {
   failures.push('Fredericksburg history guide must preserve the destination relationship signal.');
+}
+
+for (const marker of [
+  'const fredericksburgAuthority = preservedExploreDestinations.find(',
+  'destination.slug === "fredericksburg"',
+  'rawDestinations[position] = fredericksburgAuthority',
+]) {
+  if (!exploreSitemap.includes(marker)) {
+    failures.push(`Explore sitemap lost Fredericksburg authority precedence marker: ${marker}`);
+  }
 }
 
 if (!campingGuide.includes('to: "/destination/garner-state-park"')) {
