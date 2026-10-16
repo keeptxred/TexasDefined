@@ -63,6 +63,18 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const shared = baseline === null || changedFiles.some(p => sharedPattern.test(p));
   const candidates = new Set(shared ? REPRESENTATIVE_PATHS : []);
   const expectedHrefsByPage = {};
+  // The Road Trips category is rendered by a shared dynamic lazy route,
+  // so no concrete URL is discoverable from its createFileRoute declaration.
+  // Verify only the changed category page and its three editorial links.
+  if (changedFiles.some(path => path === 'src/routes/explore.$category.lazy.tsx'
+    || path === 'scripts/ci/production-change-scope.mjs')) {
+    candidates.add('/explore/road-trips');
+    expectedHrefsByPage['/explore/road-trips'] = [
+      '/explore/casinos',
+      '/explore/casinos/near-houston',
+      '/explore/casinos/near-dallas-fort-worth',
+    ];
+  }
   const downloadButtonPages = new Set();
   const regionGuidePages = new Set();
   // Make the previously missed standalone regions guide a bounded acceptance
