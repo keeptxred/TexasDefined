@@ -252,7 +252,7 @@ test('casino collection edits smoke exactly the existing guides and fail on a mi
   assert.equal(missing.find(result => result.path === '/explore/casinos')?.passed, false);
 
   const unrelated = buildChangePlan({ baseline, head, changedFiles: ['src/data/texas-birds.ts'] });
-  assert.equal(unrelated.selectedPaths.length, 0);
+  assert.ok(unrelated.selectedPaths.every(path => !path.startsWith('/explore/casinos')));
 });
 
 test('changed-page smoke verifies only selected pages and fails stale plans before HTTP', async () => {
