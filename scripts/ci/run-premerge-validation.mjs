@@ -9,7 +9,7 @@ function appendSummary(text) {
   if (summaryPath) appendFileSync(summaryPath, text);
 }
 
-function runCheck({ classification, label, command, args = [], dependsOnBuild = false }, buildPassed) {
+function runCheck({ classification, label, command, args = [], dependsOnBuild = false, extraEnv = {} }, buildPassed) {
   if (dependsOnBuild && !buildPassed) {
     results.push({ status: 'SKIP', classification, label, durationSeconds: '0.0' });
     console.warn(`::warning title=${classification} skipped::${label} skipped because the production build failed.`);
@@ -21,7 +21,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
   console.log(`$ ${command} ${args.join(' ')}`);
   const result = spawnSync(command, args, {
     cwd: process.cwd(),
-    env: process.env,
+    env: { ...process.env, ...extraEnv },
     stdio: 'inherit',
     shell: false,
   });
@@ -179,6 +179,9 @@ const buildPassed = runCheck({
   label: 'Build production application',
   command: 'npm',
   args: ['run', 'build'],
+  // Only this local Merge Gate SSR build can skip generated public WebP files;
+  // any independently deployable build must still fail closed on missing assets.
+  extraEnv: { TD_NON_DEPLOY_SSR_BUILD: '1' },
 }, true);
 
 runCheck({
