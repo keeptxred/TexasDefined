@@ -107,6 +107,26 @@ test('a legitimate final HTML 200 never substitutes for a canonical 301', async 
   assert.equal(bad[0].passed, false);
 });
 
+test('McAllen edits verify only its canonical page and both visitor destinations', async () => {
+  const path = 'src/routes/explore.near.$metro.$collection.lazy.tsx';
+  const plan = buildChangePlan({ baseline, head, changedFiles: [path] });
+  assert.deepEqual(plan.selectedPaths, ['/explore/near/mcallen/day-trips']);
+  const expected = [
+    '/destination/santa-ana-national-wildlife-refuge',
+    '/destination/museum-south-texas-history-edinburg',
+  ];
+  assert.deepEqual(plan.expectedHrefsByPage['/explore/near/mcallen/day-trips'], expected);
+  const html = includeMuseum => '<html><title>Best Day Trips From McAllen, Texas</title>'
+    + '<link rel="canonical" href="https://texasdefined.com/explore/near/mcallen/day-trips">'
+    + '<a href="' + expected[0] + '">Santa Ana</a>'
+    + (includeMuseum ? '<a href="' + expected[1] + '">Museum</a>' : '') + '</html>';
+  const success = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(true)) });
+  assert.equal(success[0].passed, true);
+  const missing = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(false)) });
+  assert.equal(missing[0].passed, false);
+  assert.match(missing[0].error, /Expected changed internal link is missing/);
+});
+
 test('unchanged sibling registry keys are not independently crawled', () => {
   const path = 'src/data/remote-evergreen-internal-links.ts';
   const before = 'const groups = { "history-one": [{ href: "/texas-history" }], "history-two": [{ href: "/texas-history" }] };';
