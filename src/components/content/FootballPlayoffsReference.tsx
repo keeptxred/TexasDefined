@@ -49,6 +49,12 @@ export function FootballPlayoffsReference() {
       <p className="mt-3 leading-7">B and D are the two larger qualifiers. A remains district champion while entering Division II. These are illustrative realignment enrollments, not actual 2026 teams.</p>
       <p className="mt-3 leading-7">Within each division, the better district finisher is its district’s W representative and the other is R. Here B is Division I W and D is R; A is Division II W and C is R. A nonqualifying school’s enrollment does not change the split. Source: <a target="_blank" rel="noopener noreferrer" className="underline" href="https://www.uiltexas.org/football/manual/football-manual-post-season-information">UIL’s qualifier and enrollment rules</a>.</p>
     </div>
+    <section aria-labelledby="playoff-rounds-heading">
+      <h2 id="playoff-rounds-heading" className="font-display text-2xl font-semibold">The rounds on the road to a title</h2>
+      <p className="mt-3 leading-7"><strong>2A–6A:</strong> Bi-district → area → regional → quarterfinal → semifinal → state final.</p>
+      <p className="mt-3 leading-7"><strong>1A six-man:</strong> Bi-district → regional → quarterfinal → semifinal → state final. There is no area round.</p>
+      <p className="mt-3 text-sm leading-6">Each win moves a team to the next fixed bracket slot. A team playing every round needs six wins in 2A–6A or five in 1A.</p>
+    </section>
     <figure className="rounded border border-border p-5">
       <figcaption className="font-display text-xl font-semibold">Read one small branch of the bracket</figcaption>
       <p className="mt-3 text-sm leading-6">Hypothetical 2A–5A example, within one class and division. Follow the two opening games into their shared area game; the official bracket fixes each branch.</p>
@@ -60,7 +66,7 @@ export function FootballPlayoffsReference() {
       <p className="mt-4 text-sm leading-6">The other first-round pairings include first vs. fourth and second vs. third across paired districts. In 1A and each 6A division, the paired-district slots are W vs. R. There is no weekly reseeding. <a target="_blank" rel="noopener noreferrer" className="underline" href={bracketUrl}>Check the complete UIL bracket</a> for the next branch.</p>
     </figure>
     <aside className="border-l-2 border-primary pl-5 text-sm leading-7" aria-label="Official playoff sources">
-      <p><a target="_blank" rel="noopener noreferrer" className="underline" href="https://www.uiltexas.org/policy/constitution/athletics/football">Section 1250(i)</a> governs playoff sites; <a target="_blank" rel="noopener noreferrer" className="underline" href="https://www.uiltexas.org/football">UIL’s 2026–27 calendar</a> supplies this season’s dates. The <a target="_blank" rel="noopener noreferrer" className="underline" href="https://www.uiltexas.org/football/page/Football-playoff-information-handbook1">handbook and FAQs page</a> still says the 2026 handbook is forthcoming and contains older examples.</p>
+      <p><a target="_blank" rel="noopener noreferrer" className="underline" href="https://www.uiltexas.org/policy/constitution/athletics/football">Section 1250(i)</a> governs playoff sites; <a target="_blank" rel="noopener noreferrer" className="underline" href="https://www.uiltexas.org/football">UIL’s 2026–27 calendar</a> supplies this season’s dates. The <a target="_blank" rel="noopener noreferrer" className="underline" href="https://www.uiltexas.org/football/page/Football-playoff-information-handbook1">handbook and FAQs page</a> was awaiting its 2026 handbook when checked October 13; do not use its older dates as the 2026 calendar.</p>
       <p className="mt-3">For championship tickets and current broadcast announcements, use the <a target="_blank" rel="noopener noreferrer" className="underline" href="https://www.uiltexas.org/football/state">official UIL state-finals page</a>. For a specific matchup, check the schools’ announcements and our <a className="underline" href="/sports-venues/high-school-football">stadium guides</a>.</p>
     </aside>
   </section>;
