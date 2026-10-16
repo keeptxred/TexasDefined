@@ -126,6 +126,11 @@ assertContains(heroResolver, '"devils-sinkhole-state-natural-area": "devil-s-sin
 assertContains(heroResolver, "const verified = mappedHero(destination.slug);", "Post-reconciliation state park image recovery must support verified same-place aliases");
 assertContains(heroResolver, "function isRemoteHero(src: string): boolean", "Remote JPEG URLs must not bypass exact-place licensed park photos");
 assertContains(heroResolver, "mapped && isRemoteHero(destination.hero.src)", "Both park lists and single guides must prefer local credited photos over remote JPEG");
+assertContains(read("src/components/editorial/DestinationCollectionGrid.tsx"), "canonicalDestinationSlug(destination.slug)", "Directory links must use canonical destination slugs, not SEO 301 aliases");
+assertContains(read("src/components/editorial/DestinationCard.tsx"), "canonicalDestinationSlug(destination.slug)", "Park-card links must canonicalize historical slugs");
+assertContains(runtime, "return applyStateParkHeroAsset(curated);", "Single park guides must resolve approved exact-place photos after curation");
+assertContains(runtime, "improved.map((destination) => applyStateParkHeroAsset(correctDestinationTravelRegion(destination)))", "Park directory must apply exact-place photo recovery after curation");
+assertContains(read("src/lib/legacy-editorial-redirects.ts"), "export function canonicalDestinationSlug", "Central canonical route resolution must be shared by park lists and cards");
 assertContains(authority, "https://tpwd.texas.gov/state-parks/abilene/alert", "Abilene park restrictions must be linked to the current TPWD alert");
 const abileneFacts = authority.match(/"abilene-state-park": \{([\s\S]*?)\n  \},/)?.[1] ?? "";
 if ([...abileneFacts.matchAll(/\bsupplementalSourceUrl:/g)].length !== 1) failures.push("Abilene must cite park alerts only once, without losing their source to a duplicate key");

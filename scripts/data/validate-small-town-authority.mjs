@@ -135,10 +135,11 @@ const countyTemplate = read("src/routes/$kind.$slug.lazy.tsx");
 for (const value of ["smallTownWave15Destinations,", "additionalTownAuthorityDestinations,"]) check(catalog.includes(value), "Explore catalog missing " + value);
 // Both direct and catalog paths must keep town enrichment first, then apply
 // narrower evidence-preservation overlays without losing town authority.
-check(/return\s+(?:enforceFredericksburgJohnsonCityHeritageAuthority\()?applyTownAuthority\(\s*(?:(?:enrich[A-Za-z]+Authority|enrichMuseumMedia)\(\s*)?normalizeDestinationCounty\(/.test(runtime), "Detail resolver must enrich every town (including optional museum enrichment)");
+check(/(?:return|const curated\s*=)\s*enforceFredericksburgJohnsonCityHeritageAuthority\(applyTownAuthority\(\s*(?:(?:enrich[A-Za-z]+Authority|enrichMuseumMedia)\(\s*)?normalizeDestinationCounty\(/.test(runtime), "Detail resolver must preserve town and corridor enrichment before any park-specific final photo step");
 check(/\.map\(applyTownAuthority\)\s*\.map\(enforceFredericksburgJohnsonCityHeritageAuthority\);/.test(runtime) || runtime.includes(".map(applyTownAuthority);"), "Search/sitemap/catalog resolver must enrich every town");
 check(runtime.includes("import { enforceFredericksburgJohnsonCityHeritageAuthority }") &&
-      runtime.includes("return enforceFredericksburgJohnsonCityHeritageAuthority(applyTownAuthority(") &&
+      runtime.includes("const curated = enforceFredericksburgJohnsonCityHeritageAuthority(applyTownAuthority(") &&
+      runtime.includes("return applyStateParkHeroAsset(curated);") &&
       /\.map\(applyTownAuthority\)\s*\.map\(enforceFredericksburgJohnsonCityHeritageAuthority\);/.test(runtime),
       "Corridor authority must follow all generic town, museum and historic enrichments in both resolvers");
 
