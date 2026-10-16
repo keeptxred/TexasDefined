@@ -64,7 +64,10 @@ test('planner corrections retest previously missed editorial SSR links, not enti
     '/article/texas-cultural-regions-explained', '/article/texas-regions-explained',
     '/fishing/species/black-crappie', '/fishing/species/bluegill',
     '/fishing/species/freshwater-drum', '/fishing/species/white-crappie',
+    '/texas-data/texas-population-and-migration-2025',
   ]);
+  assert.deepEqual(plan.downloadButtonPages, ['/texas-data/texas-population-and-migration-2025']);
+  assert.deepEqual(plan.regionGuidePages, ['/article/texas-regions-explained']);
   assert.equal(plan.expectedHrefsByPage['/article/texas-regions-explained'][0], '/article/texas-gulf-coast-erosion-shoreline-retreat-guide');
   assert.equal(plan.expectedHrefsByPage['/article/texas-cultural-regions-explained'][0], '/article/texas-oil-boom-wichita-falls-west-texas-rigs');
 });
