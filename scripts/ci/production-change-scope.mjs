@@ -94,6 +94,20 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       expectedHrefsByPage[page] = hrefs;
     }
   }
+  // McAllen day trips share one dynamic route with other metros; ordinary
+  // static route matching cannot infer the affected canonical owner.
+  // Keep this targeted to McAllen, never launch a statewide proximity crawl.
+  if (changedFiles.some(path =>
+    /^src\/routes\/explore\.near\.\$metro\.\$collection(?:\.lazy)?\.tsx$/.test(path)
+    || ['src/data/metro-county-links.ts', 'src/data/viator-market-match.ts', 'src/data/national-wildlife-refuge-destinations.ts'].includes(path)
+  )) {
+    const path = '/explore/near/mcallen/day-trips';
+    candidates.add(path);
+    expectedHrefsByPage[path] = [
+      '/destination/santa-ana-national-wildlife-refuge',
+      '/destination/museum-south-texas-history-edinburg',
+    ];
+  }
   let contentFallback = false;
   for (const path of changedFiles) {
     const { before = '', after = '' } = sources[path] || {};
