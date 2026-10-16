@@ -4,6 +4,8 @@ import { spawnSync } from "node:child_process";
 
 const workflow = readFileSync(".github/workflows/deploy-production.yml", "utf8");
 const materializer = readFileSync("scripts/assets/materialize-discover-overrides.mjs", "utf8");
+const vite = readFileSync("vite.config.ts", "utf8");
+const guard = readFileSync("scripts/assets/governed-discover-build-guard.mjs", "utf8");
 
 assert.match(workflow, /- name: Fingerprint governed Discover source registry/);
 const fingerprintCommand = "node scripts/assets/materialize-discover-overrides.mjs --fingerprint";
@@ -52,4 +54,9 @@ assert.match(workflow, /PRODUCTION_HEALTH_LABEL: direct-worker\n\s+PRODUCTION_HE
 assert.match(workflow, /PRODUCTION_HEALTH_LABEL: canonical-domain\n\s+PRODUCTION_HEALTH_DISCOVER_ASSETS: \$\{\{ steps\.change_scope\.outputs\.images \}\}/);
 assert.match(liveImages, /public HTTP 404|HTTP /); // Verifies HTTP status is checked, not solely source-file presence
 assert.match(liveImages, /webpBytes\(bytes\)/);
-console.log("Discover artifact cache provenance, fresh local assets, change-scoped full live WebP delivery, image validation and strict deployment gates verified.");
+assert.match(vite, /requireGovernedDiscoverBuildAssets\(\{ directory: discoverDir \}\)/, "Vite must refuse to deploy when generated governed Discover WebPs are missing");
+assert.doesNotMatch(vite, /if \(!fs\.existsSync\(discoverDir\)\) return;/, "An empty generated image directory must fail closed");
+assert.match(guard, /governedDiscoverSlugs\(\)/, "Asset build guard must load exact source registry");
+assert.match(guard, /bytes\.toString\("ascii", 0, 4\) !== "RIFF"/, "Asset build guard must verify actual RIFF signature");
+assert.match(guard, /bytes\.toString\("ascii", 8, 12\) !== "WEBP"/, "Asset build guard must verify actual WebP signature");
+console.log("Discover artifact cache provenance, exact build asset presence, fresh local assets, change-scoped full live WebP delivery and strict deployment gates verified.");

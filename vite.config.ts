@@ -7,6 +7,7 @@ import viteReact from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 import "./scripts/assets/materialize-generated-images.mjs";
+import { requireGovernedDiscoverBuildAssets } from "./scripts/assets/governed-discover-build-guard.mjs";
 
 // Diagnostic only: surfaces which source modules are actually retained in the main client chunk.
 // Does not alter code splitting, bundle budgets, emitted assets or mandatory gates.
@@ -38,7 +39,8 @@ function governedDiscoverAssetsPlugin(): Plugin {
     apply: "build",
     buildStart() {
       const discoverDir = path.resolve("public/images/discover");
-      if (!fs.existsSync(discoverDir)) return;
+      // Never silently publish an asset-incomplete Worker from a competing build service.
+      requireGovernedDiscoverBuildAssets({ directory: discoverDir });
 
       for (const name of fs.readdirSync(discoverDir).filter((entry) => entry.endsWith(".webp")).sort()) {
         this.emitFile({

@@ -105,6 +105,7 @@ const prebuildChecks = [
   ['CI/GOVERNANCE', 'Validate automation main-write policy', 'node', ['scripts/ci/validate-automation-main-write-policy.mjs']],
   ['CI/GOVERNANCE', 'Validate retired one-time certifications', 'node', ['scripts/ci/validate-retired-one-time-certifications.mjs']],
   ['CI/DEPLOYMENT', 'Validate provenance-scoped Discover build cache', 'node', ['scripts/data/validate-discover-build-cache.mjs']],
+  ['CI/DEPLOYMENT', 'Test governed Discover build fail-closed behavior', 'node', ['--test', 'scripts/assets/governed-discover-build-guard.test.mjs']],
   ['CI/DEPLOYMENT', 'Validate production rollback safety', 'node', ['scripts/data/validate-production-deployment-safety.mjs']],
   ['CI/DEPLOYMENT', 'Validate live verification contract', 'node', ['scripts/ci/validate-live-verification-contract.mjs']],
   ['CI/DEPLOYMENT', 'Validate post-deploy verifier safety', 'node', ['scripts/ci/validate-post-deploy-verifier-safety.mjs']],
