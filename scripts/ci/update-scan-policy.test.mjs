@@ -222,6 +222,39 @@ test('failed responses and edge challenges cannot poison the response cache', as
   assert.equal(calls, 3);
 });
 
+test('casino collection edits smoke exactly the existing guides and fail on a missing SSR guide link', async () => {
+  const path = 'src/data/texas-casino-guides.ts';
+  const currentGuides = text(path);
+  const plan = buildChangePlan({ baseline, head, changedFiles: [path], sources: { [path]: { after: currentGuides } } });
+  const guides = plan.expectedHrefsByPage['/explore/casinos'];
+  assert.equal(guides.length, 9);
+  assert.equal(new Set(guides).size, guides.length);
+  assert.ok(guides.includes('/explore/casinos/ischoopa-travel-center'));
+  assert.ok(guides.includes('/explore/casinos/texas-gaming-laws'));
+  assert.deepEqual(plan.expectedHrefsByPage['/explore'], ['/explore/casinos']);
+  assert.equal(plan.selectedPaths.length, 11);
+  assert.equal(plan.omittedCount, 0);
+  assert.ok(plan.selectedPaths.every(p => p === '/explore' || p === '/explore/casinos' || guides.includes(p)));
+
+  const htmlFor = (url, dropLastGuide = false) => {
+    const hrefs = url.pathname === '/explore'
+      ? ['/explore/casinos']
+      : url.pathname === '/explore/casinos'
+        ? guides.slice(0, dropLastGuide ? -1 : undefined)
+        : [];
+    return '<html><title>Texas Defined guide</title><link rel="canonical" href="https://texasdefined.com'
+      + url.pathname + '"><body><h1>Visitor guide</h1>'
+      + hrefs.map(href => '<a href="' + href + '">Read</a>').join('') + '</body></html>';
+  };
+  const good = await verifyChangedPages({ plan, head, fetchImpl: async url => new Response(htmlFor(url)) });
+  assert.ok(good.every(result => result.passed));
+  const missing = await verifyChangedPages({ plan, head, fetchImpl: async url => new Response(htmlFor(url, true)) });
+  assert.equal(missing.find(result => result.path === '/explore/casinos')?.passed, false);
+
+  const unrelated = buildChangePlan({ baseline, head, changedFiles: ['src/data/texas-birds.ts'] });
+  assert.ok(unrelated.selectedPaths.every(path => !path.startsWith('/explore/casinos')));
+});
+
 test('changed-page smoke verifies only selected pages and fails stale plans before HTTP', async () => {
   let calls = 0;
   const fetchImpl = async url => { calls++; return new Response(`<html><title>Page</title><link rel="canonical" href="https://texasdefined.com${url.pathname}"></html>`); };
