@@ -222,6 +222,32 @@ test('failed responses and edge challenges cannot poison the response cache', as
   assert.equal(calls, 3);
 });
 
+test('dynamic Road Trips owner verifies the three casino discovery links without a sitewide crawl', async () => {
+  const changedFiles = ['src/routes/explore.$category.lazy.tsx'];
+  const plan = buildChangePlan({ baseline, head, changedFiles });
+  const required = [
+    '/explore/casinos',
+    '/explore/casinos/near-houston',
+    '/explore/casinos/near-dallas-fort-worth',
+  ];
+  assert.deepEqual(plan.selectedPaths, ['/explore/road-trips']);
+  assert.deepEqual(plan.expectedHrefsByPage['/explore/road-trips'], required);
+  assert.equal(plan.omittedCount, 0);
+
+  const html = (hrefs) => '<html><title>Texas Road Trips</title>'
+    + '<link rel="canonical" href="https://texasdefined.com/explore/road-trips">'
+    + '<body><h1>Texas Road Trips</h1>'
+    + hrefs.map(href => `<a href="${href}">Read guide</a>`).join('')
+    + '</body></html>';
+  const valid = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(required)) });
+  assert.equal(valid[0].passed, true);
+  const missing = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(required.slice(0, -1))) });
+  assert.equal(missing[0].passed, false);
+
+  const unrelated = buildChangePlan({ baseline, head, changedFiles: ['src/data/texas-birds.ts'] });
+  assert.ok(!unrelated.selectedPaths.includes('/explore/road-trips'));
+});
+
 test('casino collection edits smoke exactly the existing guides and fail on a missing SSR guide link', async () => {
   const path = 'src/data/texas-casino-guides.ts';
   const currentGuides = text(path);
