@@ -77,6 +77,16 @@ function MetroProximityCollectionPage() {
         </div>
       </section>
 
+      {isMcAllenDayTrips && <section className="border-b border-border bg-background" aria-label="McAllen history day-trip starting point" data-mcallen-heritage-link>
+        <div className="mx-auto w-full max-w-7xl px-5 py-8 sm:px-8">
+          <h2 className="font-display text-2xl">A history stop close to McAllen</h2>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
+            For a shorter outing or a break from afternoon heat, visit the <Link to="/destination/$slug" params={{ slug: "museum-south-texas-history-edinburg" }} className="font-semibold text-primary underline underline-offset-4">Museum of South Texas History in Edinburg</Link>.
+            The museum interprets the Valley’s borderland past in galleries and the historic 1910 Hidalgo County Jail. Check its opening days before making the trip.
+          </p>
+        </div>
+      </section>}
+
       {townReferences.length > 0 && <section className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8 sm:py-18" data-proximity-town-references={metro.slug} data-town-reference-count={townReferences.length}>
         {metro.slug === "san-angelo" && <span hidden>San Angelo town-reference proof: Christoval, Mertzon, Robert Lee, Bronte, Paint Rock, Ballinger</span>}
         <p className="eyebrow text-primary">Closest towns first</p>
