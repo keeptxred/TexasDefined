@@ -116,9 +116,15 @@ test('McAllen edits verify only its canonical page and both visitor destinations
   assert.deepEqual(plan.selectedPaths, ['/explore/near/mcallen/day-trips']);
   const expected = [
     '/destination/santa-ana-national-wildlife-refuge',
-    '/destination/museum-south-texas-history-edinburg',
+    '/destination/museum-of-south-texas-history-edinburg',
   ];
   assert.deepEqual(plan.expectedHrefsByPage['/explore/near/mcallen/day-trips'], expected);
+  // The live guide owns this exact source slug; do not let the smoke plan
+  // silently substitute a similarly named but different destination route.
+  const routeSource = text('src/routes/explore.near.$metro.$collection.lazy.tsx');
+  assert.match(routeSource, /slug:\s*"museum-of-south-texas-history-edinburg"/);
+  assert.match(routeSource, /<Link to="\/destination\/\$slug" params=\{\{ slug: trip\.slug \}\}/);
+  assert.doesNotMatch(routeSource, /slug:\s*"museum-south-texas-history-edinburg"/);
   const html = includeMuseum => '<html><title>Best Day Trips From McAllen, Texas</title>'
     + '<link rel="canonical" href="https://texasdefined.com/explore/near/mcallen/day-trips">'
     + '<a href="' + expected[0] + '">Santa Ana</a>'
