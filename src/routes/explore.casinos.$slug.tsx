@@ -106,6 +106,17 @@ function CasinoGuidePage() {
         </div>
       </aside>
     </Container>
-    <Container className="pb-10"><p className="border-t border-border pt-6 text-xs leading-6 text-muted-foreground">Independent travel information, not legal advice or a gambling offer. Casino games can result in financial loss. No betting services, affiliate casino offers or gambling transactions are provided by Texas Defined.</p></Container>
+    {guide.slug !== "texas-gaming-laws" && guide.slug !== "naskila-resort-leggett" && (
+      <Container className="pb-10">
+        <section aria-label="Plan your hotel stay" className="border-t border-border pt-8">
+          <h2 className="font-display text-3xl">Planning to stay overnight?</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+            Compare rooms for the actual city and dates of your trip. Not every tribal gaming stop has a hotel on site; for Louisiana and Oklahoma resorts, remember that the stay is outside Texas.
+          </p>
+          <div data-stay-nearby-slot className="mt-5" />
+        </section>
+      </Container>
+    )}
+    <Container className="pb-10"><p className="border-t border-border pt-6 text-xs leading-6 text-muted-foreground">Independent travel information, not legal advice or a gambling offer. Casino games can result in financial loss. TexasDefined may earn a commission on qualifying hotel bookings, at no additional cost to you; it provides no betting services or gambling transactions.</p></Container>
   </main>;
 }
