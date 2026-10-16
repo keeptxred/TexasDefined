@@ -1283,6 +1283,193 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
+  "bloomington": {
+    "slug": "bloomington",
+    "theme": {
+      "accentHex": "#8E2737",
+      "label": "Independent Bobcats burgundy editorial accent; district-owned logos/photographs not reproduced"
+    },
+    "seo": {
+      "title": "Bloomington Bobcats Football 2026 | District 15, Shiner Result & Stadium Tickets",
+      "description": "Bloomington TX Bobcats in Victoria County: UIL 2A Division I District 15, 2–5 through October 9, official Bobcat Stadium ticketing and verified school contacts."
+    },
+    "campus": {
+      "address": "2781 FM 616, Victoria, TX 77905 (Bloomington High School and ISD campus contact; confirm spectator gate)",
+      "phone": "361-333-8011",
+      "sourceUrl": "https://www.bisd-tx.org/",
+      "sourceLabel": "Bloomington ISD official 2781 FM 616 district campus and school handbook; high-school office 361-333-8011",
+      "verifiedAt": "2026-10-15"
+    },
+    "schedule": {
+      "label": "Bloomington ISD original football game tickets and event calendar",
+      "sourceUrl": "https://www.vancoevents.com/us/eventlist/bisdevents",
+      "sourceLabel": "Bloomington ISD original Vanco Events online football and athletic ticket portal",
+      "verifiedAt": "2026-10-15"
+    },
+    "venue": {
+      "name": "Bobcat Stadium",
+      "address": "Bloomington ISD, Victoria County, Texas (stadium vehicle-gate address not independently confirmed)",
+      "sourceUrl": "https://www.vancoevents.com/us/eventlist/bisdevents",
+      "sourceLabel": "District-originated Vanco event listing identifies Bobcat Stadium, not an independently verified stadium street gate",
+      "verifiedAt": "2026-10-15",
+      "note": "Official Vanco listing places October 16, 2026 Bloomington versus Danbury varsity football at Bobcat Stadium at 7 PM and says no cash accepted at the gate. District high-school office address 2781 FM 616 may be a contact landmark, but exact stadium vehicle entrance, wheelchair access, parking and live ticket inventory have not been independently certified."
+    },
+    "notice": {
+      "title": "Online tickets: no cash at the gate",
+      "body": "Bloomington ISD's own Vanco ticket listing for the October 16, 2026 home matchup against Danbury gives varsity kickoff 7:00 PM at Bobcat Stadium and explicitly states NO CASH IS ACCEPTED AT THE GATE. Confirm current tickets, game postponements, gate and accessible parking with the district. District personnel directory names Lane Shands athletics director, not by itself proof of the head-coach appointment.",
+      "sourceUrl": "https://www.vancoevents.com/us/eventlist/bisdevents",
+      "sourceLabel": "First-party Bloomington ISD Vanco ticket event October 16, 2026",
+      "verifiedAt": "2026-10-15"
+    },
+    "season": {
+      "record": "2–5 through October 9, 2026 (Pigskin Prep and Shiner independent sports, school season ongoing)",
+      "verifiedAt": "2026-10-15",
+      "sourceUrl": "https://www.pigskinprep.com/showfreeschedules.asp?distID=112&yr=2026",
+      "sourceLabel": "Pigskin Prep 2026 2A Division I District15 opponents; October9 Shiner 43–3 corroborated by Shiner Comanche Sports and MaxPreps box, despite other feeds' 43–0 inconsistency",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Woodsboro",
+          "site": "Home",
+          "result": "W 33–0"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Shiner St. Paul",
+          "site": "Away",
+          "result": "L 7–26"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Yorktown",
+          "site": "Away",
+          "result": "L 7–36"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Karnes City",
+          "site": "Home",
+          "result": "W 34–0"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Flatonia",
+          "site": "Away",
+          "district": true,
+          "result": "L 14–41"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Kenedy",
+          "site": "Home",
+          "district": true,
+          "result": "L 35–36"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Shiner",
+          "site": "Away",
+          "district": true,
+          "result": "L 3–43 (some stale feeds 0–43)"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Danbury",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Weimar",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Ganado",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "development": {
+      "title": "A 2026 rebound with two shutout wins and a close Kenedy district game",
+      "body": "Bloomington defeated Woodsboro 33–0 on August 28 and Karnes City 34–0 on September 18, its two wins through October 9. The Bobcats lost by one point to Kenedy, 36–35, in the October 2 district opener at home. They then lost at Shiner on October 9 by 43–3 according to Shiner's locally maintained Comanche sports calendar, a completed MaxPreps result and Pigskin Prep. A syndicated team archive still lists Bloomington 0–43, so this one game's exact point total carries an explicit discrepancy note.",
+      "sourceUrl": "https://www.pigskinprep.com/showfreeschedules.asp?distID=112&yr=2026",
+      "sourceLabel": "Pigskin Prep complete 2026 District15 game list, crosschecked on Shiner independent sports and MaxPreps 10/9 score",
+      "verifiedAt": "2026-10-15"
+    },
+    "milestones": [
+      {
+        "date": "2025",
+        "title": "Four-win 2025 campaign",
+        "body": "Shiner's August 2026 independent scouting preview calls Bloomington 4–6 overall and 1–5 in district in 2025. The preview also says the prior playoff appearance was 1998 and prior winning season 1999; treat these deeper historical dates as independent published research requiring UIL archival corroboration, not confirmed championship facts.",
+        "sourceUrl": "https://www.shinercomanchesports.com/sg260827p.htm",
+        "sourceLabel": "Shiner Comanche Sports independent 2026 season scouting preview"
+      },
+      {
+        "date": "2026",
+        "title": "Official UIL 2A Division I District 15 assignment",
+        "body": "Bloomington is aligned with Danbury, Flatonia, Ganado, Kenedy, Shiner and Weimar in UIL eleven-man football. Kenedy is the canonical school even when a printed schedule misspells its name.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 Conference2A Division I district alignment"
+      },
+      {
+        "date": "2026-10-02",
+        "title": "Bloomington loses to Kenedy by one point",
+        "body": "Bloomington's district opener ended Kenedy 36, Bloomington 35, according to the 2026 District15 team ledger. No overtime or play-by-play sequence is claimed.",
+        "sourceUrl": "https://www.pigskinprep.com/showfreeschedules.asp?distID=112&yr=2026",
+        "sourceLabel": "Pigskin Prep Oct2 game ledger"
+      },
+      {
+        "date": "2026-10-09",
+        "title": "Shiner result shows 43–3 in several independent game records",
+        "body": "Shiner Comanche Sports, Pigskin Prep and the current MaxPreps completed match box show Shiner 43, Bloomington 3. Some cached/automated reports and Texas Prep entries show 43–0. The Bobcats were 2–5 after the defeat; exact-score discrepancy remains visible.",
+        "sourceUrl": "https://www.shinercomanchesports.com/",
+        "sourceLabel": "Shiner Comanche Sports locally maintained 2026 matchup recap, crosschecked with dated independent game box"
+      },
+      {
+        "date": "2026-10-16",
+        "title": "First-party Bobcat Stadium cashless home-game policy",
+        "body": "Bloomington ISD's Vanco Events portal advertises Bloomington vs Danbury at 7 PM at Bobcat Stadium, and no cash accepted at gate. Prices, accessibility and parking not independently validated.",
+        "sourceUrl": "https://www.vancoevents.com/us/eventlist/bisdevents",
+        "sourceLabel": "Bloomington ISD official October16 ticket event"
+      }
+    ],
+    "overview": [
+      "Bloomington High School's Bobcats represent Bloomington Independent School District in Victoria County, Texas. This is not Bloomington High School of Illinois, California or Indiana, and the team's athletics is not a college program. UIL's official 2026–28 eleven-man football alignment places the Bobcats in Class 2A Division I, District 15 with Danbury, Flatonia, Ganado, Kenedy, Shiner and Weimar. District membership reflects the current cycle; older sources may still show another alignment.",
+      "Bloomington's 2026 season through October 9 is dated at 2–5 by the Pigskin Prep District15 game ledger, featuring shutout victories against Woodsboro (33–0) and Karnes City (34–0) but losses to several teams including a narrow 36–35 defeat against Kenedy. The October 9 away result at Shiner was a defeat, 43–3 in Shiner's locally maintained sports site, Pigskin Prep and MaxPreps' completed game box. The Shiner result has a 43–0 variation in some syndicated recaps, so the as-of-date evidence and discrepancy are transparent.",
+      "An August 2026 independent Shiner preview describes Bloomington as 4–6 in 2025 after a rebuilding phase; its claim that the Bobcats last made the playoffs in 1998 is context attributed to that local preview, not separately certified by a UIL archive. The visitor page does not invent state football championships or a dated head-coach appointment. Bloomington ISD's own staff directory currently calls Lane Shands athletic director; a third-party season index calls Shands head football coach, but the distinct football appointment has not been confirmed with a district hiring announcement.",
+      "Bloomington ISD publishes 2781 FM 616, Victoria TX 77905 as its campus/district contact, while the official handbook gives Bloomington High School's phone as 361-333-8011 and the postal community Bloomington TX 77951. The third-party MaxPreps listing's 2785 FM616 should not supersede the original district details. The high-school address is not automatically a validated Bobcat Stadium vehicle entrance; check with the district for spectator parking, ADA access and seating.",
+      "For the October 16, 2026 home game against Danbury, Bloomington ISD's own Vanco ticket page says varsity starts at 7 PM at Bobcat Stadium and accepts no cash at the gate. The online listing is useful game-day guidance but neither an independent stadium map nor a guarantee that tickets remain available. The forthcoming Weimar away game and Ganado home finale were future fixtures as of October 15; no predicted outcomes or kickoff changes are implied."
+    ],
+    "faq": [
+      {
+        "question": "Which Bloomington Bobcats football team is this?",
+        "answer": "This is Bloomington Independent School District's high-school Bobcats in Victoria County, Texas, not similarly named schools in Illinois, California or Indiana. The school competes in Texas UIL eleven-man football."
+      },
+      {
+        "question": "Which teams share Bloomington's official 2026 UIL football district?",
+        "answer": "The official 2026–28 UIL alignment places Bloomington in Class 2A Division I District 15 with Danbury, Flatonia, Ganado, Kenedy, Shiner and Weimar. Kenedy is the Texas school name, notwithstanding occasional 'Kennedy' spelling in older printed references."
+      },
+      {
+        "question": "Where is Bobcat Stadium and how can I buy Bloomington football tickets?",
+        "answer": "Bloomington ISD's own Vanco listing calls the venue Bobcat Stadium and identifies the October 16 Danbury match at 7 PM. Its event portal says no cash is accepted at the gate. The district contact is 2781 FM 616 in Victoria County; the exact stadium vehicle gate, parking and accessible seating need confirmation from the district."
+      },
+      {
+        "question": "What was Bloomington's 2026 varsity football record through October 9?",
+        "answer": "Pigskin Prep's 2026 District15 results list Bloomington at 2–5 through the October 9 away defeat at Shiner. The October 16 Danbury, October 23 Weimar and November 6 Ganado matches were still future as of this checkpoint."
+      },
+      {
+        "question": "Was Bloomington's October 9 game against Shiner 43–3 or 43–0?",
+        "answer": "Shiner's locally maintained Comanche sports site, Pigskin Prep's game list and the current completed MaxPreps box record Shiner 43, Bloomington 3. Some Texas Prep summaries and syndicated older recap text say 43–0. This guide uses 43–3 as the better cross-corroborated score and explicitly identifies the discrepancy."
+      },
+      {
+        "question": "Is Lane Shands Bloomington's athletic director or head football coach?",
+        "answer": "Bloomington ISD's official staff directory lists Lane Shands as athletic director at 361-333-8011. MaxPreps' season history also lists Shands as 2026 head coach, but the present football-specific appointment was not independently certified in a current district original hiring announcement. Contact Bloomington Athletics for current staffing."
+      }
+    ]
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {
