@@ -152,6 +152,16 @@ for (const [slug, requiredText, alertUrl] of [
 }
 assertContains(authority, "Lake Theo boat ramp, fishing pier and designated swimming area are closed", "Caprock Lake Theo facility closures must not be represented as open");
 assertContains(authority, "permitted hunters only during closures", "Enchanted Rock hunting closure must bar ordinary visitor recommendations");
+for (const [slug, alertUrl, criticalDetail] of [
+  ["palo-duro-canyon-state-park", "https://tpwd.texas.gov/state-parks/palo-duro-canyon/alert-1", "via Alternate Park Road 5"],
+  ["garner-state-park", "https://tpwd.texas.gov/state-parks/garner/alert", "Blinn River Trail closed"],
+  ["galveston-island-state-park", "https://tpwd.texas.gov/state-parks/galveston-island/alert", "fountains near campsites 71–95"],
+  ["big-bend-ranch-state-park", "https://tpwd.texas.gov/state-parks/big-bend-ranch/copy_of_alert", "November 21–25 and December 6–10 and 13–17"],
+]) {
+  const record = authority.match(new RegExp(`"${slug}": \\{([\\s\\S]*?)\\n  \\},`))?.[1] ?? "";
+  assertContains(record, alertUrl, `${slug} needs the exact TPWD current-alert source`);
+  assertContains(record, criticalDetail, `${slug} must preserve its park-specific visitor safety restriction`);
+}
 assertContains(authority, "composting restrooms in the Tom Mays Unit", "Franklin Mountains restroom location must remain source-specific and dated");
 assertContains(authority, "NO restrooms inside the cavern", "Longhorn Cavern tour restroom limitations must remain explicit");
 const sinkholeGuide = read("src/data/devils-sinkhole-visitor-authority.ts");
