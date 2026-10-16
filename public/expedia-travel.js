@@ -71,6 +71,8 @@
   }
 
   function isTravelBookingSurface(pathname = window.location.pathname) {
+    // A law explainer and an unbuilt resort cannot provide current lodging inventory.
+    if (/^\/explore\/casinos\/(?:texas-gaming-laws|naskila-resort-leggett)\/?$/.test(pathname)) return false;
     if (pathname === window.location.pathname && TRAVEL_PATH.test(window.location.pathname)) return true;
     return TRAVEL_PATH.test(pathname) || hasTravelBookingMetadata();
   }
