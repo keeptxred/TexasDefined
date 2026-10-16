@@ -32,6 +32,8 @@ export type VerifiedParkFacilityNotes = {
   facilitySourceUrl?: string;
   /** A second authoritative source where the dated trailhead announcement carries extra details. */
   supplementalSourceUrl?: string;
+  /** Extra official sources with an accurate reader-facing description. */
+  supportingSources?: ReadonlyArray<{ url: string; label: string }>;
   restrooms?: string;
   parking?: string;
   camping?: string;
@@ -141,7 +143,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     camping: "Abilene offers full-hookup sites and electric sites in Brushy Trail, Oak Grove and Pecan Grove, with nearby restrooms and showers. The Group Trailer Area has nearer restrooms without showers; showers are farther away.",
     facilitySourceUrl: "https://tpwd.texas.gov/state-parks/abilene/fees-facilities/campsites",
     maps: "TPWD publishes park, trails and interactive trails maps. Its separate Lake Abilene public access map identifies the Dam and Creek boat ramps; these are not campground entry points.",
-    supplementalSourceUrl: "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/abilene/access.phtml",
+    supportingSources: [{ url: "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/abilene/access.phtml", label: "Lake Abilene boat-ramp access and directions" }],
   },
   "daingerfield-state-park": {
     checkedAt: "2026-10-12",
@@ -362,7 +364,7 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     restrooms: "24 water/electric sites have nearby shower restrooms. Tent-only electric #6 is directly adjacent to restroom with showers. Ten water-only tent sites have a VAULT toilet and water spigots in the area, not on each site.",
     parking: "24 water/electric 30-amp sites (including four pull-throughs), a separate lake-view 30-amp tent-only #6, and 10 tent-only water sites. Don't drive RVs into tent-only campsites.",
     camping: "24 30-amp water/electric campsites, 1 tent-only electric lakeside campsite, 10 water-only tent campsites, and a supervised organized youth-group wilderness area for up to 50 with a primitive toilet.",
-    access: "The organized youth group area is not a regular private family reservation; an adult group supervisor must reserve it. Tent-only water camps use shared water spigots. TPWD park alerts checked October 15, 2026 report resurfacing work from October 2026 through May 2027 with possible temporary campsite, trail and facility closures; nature-center construction and noise; both fishing piers closed; and an active burn ban restricting wood/charcoal fires. Verify current park alerts before choosing a campsite or planning a fishing-pier visit.",
+    access: "The organized youth group area is not a regular private family reservation; an adult group supervisor must reserve it. Tent-only water camps use shared water spigots. TPWD park alerts checked October 15, 2026 report resurfacing work from October 2026 through May 2027 with possible temporary campsite, trail and facility closures; nature-center construction and noise; both fishing piers closed; and an active burn ban restricting wood/charcoal fires. Due to low water levels at the boat ramp, TPWD also does not recommend launching motorized boats. Verify current park alerts before choosing a campsite, boat launch or fishing-pier visit.",
     maps: "Official park and campground map differentiates electric lakeside, tent-only and organized group camping.",
     supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/fort-parker/alert",
   },
