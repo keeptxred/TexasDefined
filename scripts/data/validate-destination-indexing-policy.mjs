@@ -182,7 +182,7 @@ for (const marker of [
   if (!destinationRuntime.includes(marker)) failures.push(`Destination runtime publication/resolution contract missing: ${marker}`);
 }
 const exactPlaceParkPublicationGuard = "filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved.map((destination)=>applyStateParkHeroAsset(correctDestinationTravelRegion(destination)))))";
-if (!destinationRuntime.replace(/\s+/g, "").includes(exactPlaceParkPublicationGuard)) {
+if (!destinationRuntime.replace(/\s+/g, "").replace(/,\)/g, ")").includes(exactPlaceParkPublicationGuard)) {
   failures.push("Destination publication must retain final exact-place park photo selection within both SEO-readiness and visitor-availability filters.");
 }
 if (!queries.includes('await import("./destination-query-runtime")')) {
