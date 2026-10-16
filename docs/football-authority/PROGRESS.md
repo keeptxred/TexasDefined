@@ -1,5 +1,8 @@
 # Football Authority — Execution Ledger
 
+## October 16, 2026 — Boerne Greyhounds school-specific 2022 runner-up and 2026 profile authored (pending protected merge)
+UIL 2026 5A Division II District13, separate from Champion 5A Division I. Original Boerne guide includes 2022 4A Division I state runner-up 15–1 after China Spring 24–21 late comeback, six wins to Oct8 including Long Creek 63–35, first-party Boerne ISD stadium and coordinator contact, ten fixtures and six FAQs. No unverified 2026 coach, ticket/gate/ADA detail or image license. IMPLEMENTED on branch, no Chrome/editorial acceptance. Previous 105 VERIFIED unaffected.
+
 ## October 16, 2026 — Blum 2019 UIL football champion source-authored (NOT VERIFIED)
 
 Blum ISD Bobcats source-specific Batch006 school entry now drafted alongside Bluff Dale on one review branch: **official 2019 1A Division I state championship Blum 58–52 McLean** (UIL historical team file + contemporary detailed Texas Football account, overriding stale zero-title directory summary), official district football head coach Cooper Thornhill, 2026 1A Division I District11 with 1–6 completed scoreboard through Oct8 and unresolved Oct15 Avalon final, district school contact and Hill County reciprocal links. Both school entries are **IMPLEMENTED ON BRANCH ONLY**; canonical CI, protected merge, live desktop/mobile production and individual factual/rights acceptance still withheld. Prior 105 VERIFIED unaffected.

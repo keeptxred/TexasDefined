@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "boerne",
-    "nextSchool": "boerne",
-    "implementedOnBranch": 11,
-    "remainingToImplement": 14,
+    "currentSchool": "boerne-champion",
+    "nextSchool": "boerne-champion",
+    "implementedOnBranch": 12,
+    "remainingToImplement": 13,
     "remainingToVerify": 25,
-    "notes": "Batch006 11/25 individually authored after Blue Ridge, Bluff Dale and Blum integration, with 105 historical VERIFIED preserved. Statuses reflect released/deployed vs authored stages only; none of Batch006 has exact-SHA independent Chrome or nine-dimension editorial acceptance. Continue Boerne and Champion research; 14 schools remain NOT_REVIEWED."
+    "notes": "Boerne source-authored on open PR, not deployed/individually Chrome verified or formally accepted. 12 Batch006 authored, 13 NOT_REVIEWED, 105 legacy VERIFIED preserved. Distinct Boerne Champion remains next."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6733,8 +6733,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/boerne",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/boerne.md",
+      "implementedOnBranch": "feature/football-b006-boerne-20261016",
+      "actualProductionVerified": false,
+      "reviewScope": "Source-backed 2026 UIL 5A DII District13 and six-game 6–0 snapshot through October8, 2022 4A DI runner-up, BHS stadium/contact with distinct Champion identity; Chrome/editorial/image rights not certified."
     },
     {
       "id": "uil:boerne-champion",
