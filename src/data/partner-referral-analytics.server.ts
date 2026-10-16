@@ -18,10 +18,12 @@ const EXPEDIA_SEARCH_PARTNER = 'expedia-search';
 const CASINO_HUB_PATH = '/explore/casinos';
 const CASINO_EXACT_HOTEL_PREFIX = 'casino-stay-';
 const IMPRESSION_TRACKING_STARTED_AT = '2026-09-18';
-// Raw 30-day history remains visible, but decision-grade CTR/routing windows restart after
-// the 2026-09-26 UTC automation-like impression spike and automated-client filter deployment.
-const CTR_MEASUREMENT_STARTED_AT = '2026-09-27';
-const TRAVEL_ROUTING_MEASUREMENT_STARTED_AT = '2026-09-27';
+// Preserve raw history for auditing; the Sep 27 baseline also contained
+// low-volume page groups inflated by partner-indexed Analytics Engine sampling
+// (Oct 6 Motorplex and Oct 8 MSR Houston). Use only complete UTC days after
+// the page-index and SPA-remount deduplication release for CTR/routing decisions.
+const CTR_MEASUREMENT_STARTED_AT = '2026-10-17';
+const TRAVEL_ROUTING_MEASUREMENT_STARTED_AT = '2026-10-17';
 const TRAVEL_ROUTING_MIN_IMPRESSIONS_PER_PARTNER = 100;
 const TRAVEL_ROUTING_PARTNERS = ['orbitz', 'travelocity'] as const;
 
