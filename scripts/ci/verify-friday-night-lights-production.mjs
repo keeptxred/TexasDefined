@@ -685,6 +685,8 @@ for (const profile of universalProfileCases) {
 }
 
 await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
+  const playoffEntries = (body.match(/<url>[\s\S]*?<\/url>/g) ?? []).filter((entry) => entry.includes(`<loc>${origin}${playoffsPath}</loc>`));
+  if (playoffEntries.length !== 1 || !playoffEntries[0].includes("<lastmod>2026-10-13</lastmod>")) throw new Error("playoffs sitemap entry must be unique and match the verified October 13 update");
   requireNeedle(body, '<loc>https://texasdefined.com/sports/friday-night-lights</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-isds</loc>', 'sitemap');
