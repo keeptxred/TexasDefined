@@ -39,8 +39,14 @@ function governedDiscoverAssetsPlugin(): Plugin {
     apply: "build",
     buildStart() {
       const discoverDir = path.resolve("public/images/discover");
-      // Never silently publish an asset-incomplete Worker from a competing build service.
-      requireGovernedDiscoverBuildAssets({ directory: discoverDir });
+      // Merge Gate builds only exercise local SSR and never deploy a Worker.
+      // EVERY deployable build (GitHub release and Cloudflare Git Builds) must
+      // have all real governed image bytes before publishing a Worker.
+      if (process.env.TD_NON_DEPLOY_SSR_BUILD === "1") {
+        if (!fs.existsSync(discoverDir)) return;
+      } else {
+        requireGovernedDiscoverBuildAssets({ directory: discoverDir });
+      }
 
       for (const name of fs.readdirSync(discoverDir).filter((entry) => entry.endsWith(".webp")).sort()) {
         this.emitFile({
