@@ -55,7 +55,11 @@ assert.match(workflow, /PRODUCTION_HEALTH_LABEL: canonical-domain\n\s+PRODUCTION
 assert.match(liveImages, /public HTTP 404|HTTP /); // Verifies HTTP status is checked, not solely source-file presence
 assert.match(liveImages, /webpBytes\(bytes\)/);
 assert.match(vite, /requireGovernedDiscoverBuildAssets\(\{ directory: discoverDir \}\)/, "Vite must refuse to deploy when generated governed Discover WebPs are missing");
-assert.doesNotMatch(vite, /if \(!fs\.existsSync\(discoverDir\)\) return;/, "An empty generated image directory must fail closed");
+assert.match(vite, /process\.env\.TD_NON_DEPLOY_SSR_BUILD === "1"/, "Only intentional no-deploy SSR may omit generated static WebPs");
+const canonicalMerge = readFileSync("scripts/ci/run-premerge-validation.mjs", "utf8");
+assert.match(canonicalMerge, /extraEnv: \{ TD_NON_DEPLOY_SSR_BUILD: '1' \}/, "The explicit no-deploy exception must be local to the canonical SSR smoke build");
+assert.doesNotMatch(workflow, /TD_NON_DEPLOY_SSR_BUILD/, "Production deploy must never opt out of real image verification");
+assert.match(vite, /if \(process\.env\.TD_NON_DEPLOY_SSR_BUILD === "1"\) \{\s*if \(!fs\.existsSync\(discoverDir\)\) return;\s*\} else \{\s*requireGovernedDiscoverBuildAssets/, "Only explicitly non-deploy SSR can omit generated images");
 assert.match(guard, /governedDiscoverSlugs\(\)/, "Asset build guard must load exact source registry");
 assert.match(guard, /bytes\.toString\("ascii", 0, 4\) !== "RIFF"/, "Asset build guard must verify actual RIFF signature");
 assert.match(guard, /bytes\.toString\("ascii", 8, 12\) !== "WEBP"/, "Asset build guard must verify actual WebP signature");
