@@ -317,7 +317,7 @@ export const CASINO_GUIDES: CasinoGuide[] = [
         "heading": "How to build the weekend",
         "paragraphs": [
           "A practical two-night plan might put the first evening at a Lake Charles hotel and reserve daylight for the Louisiana coastline, food or lakefront. For an East Texas outing, build the daytime itinerary around the Piney Woods and Polk County rather than promising a resort pool.",
-          "This independent guide does not take betting deposits, provide odds or sell casino credits. Hotel links here are official destination information, not paid booking partnerships."
+          "This independent guide does not take betting deposits, provide odds or sell casino credits. The resort links below are official information sources; hotel-booking links on this guide may earn TexasDefined a commission at no extra cost to you."
         ]
       }
     ],
