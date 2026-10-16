@@ -70,8 +70,6 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
   relatedCollections: [],
   relatedDestinations: [],
   body: [
-    p("UIL football playoffs are single elimination: win and advance, lose and the season ends. District standings determine who qualifies; enrollment determines the championship division. Across 1A through 6A, the system crowns 12 state champions."),
-    p("This guide covers UIL football in 2026. TAPPS and other private-school associations run separate playoffs. Use the comparison and examples above to find your school’s path, then check the official bracket for its next opponent."),
     h("How district finish determines the first matchup"),
     p("District finish feeds a fixed bracket, with no weekly reseeding. In 2A through 5A, paired districts match first against fourth and second against third within the same classification and division. In 1A and each 6A division, the paired-district representatives meet winner against runner-up."),
     p("Non-district losses do not automatically eliminate a team. Qualification comes from district placement under that district’s standings and tiebreak rules. Media rankings do not award seeds or change the bracket."),
