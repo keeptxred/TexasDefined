@@ -185,6 +185,26 @@ export function trackAIReferralVisit() {
 export function installTexasDefinedAnalytics() {
   if (!productionAnalyticsEnabled()) return () => undefined;
   const shown = new Set<string>();
+  // A dynamic travel CTA can be replaced by hydration or MutationObserver
+  // reconciliation. Element-level dataset flags alone overcount those remounts.
+  // Track at most one impression per distinct page/partner/placement/destination
+  // while this visitor stays in the SPA; clicks are ALWAYS recorded separately.
+  const shownCommercial = new Set<string>();
+  const recordCommercialImpression = (anchor: HTMLAnchorElement) => {
+    if (anchor.dataset.commercialImpressionRecorded === '1') return;
+    anchor.dataset.commercialImpressionRecorded = '1';
+    const resourceId = anchor.dataset.commercialPartner;
+    if (!resourceId) return;
+    const entityKind = anchor.dataset.commercialPlacement || 'unspecified';
+    const identity = JSON.stringify([window.location.pathname, resourceId, entityKind, anchor.href]);
+    if (shownCommercial.has(identity)) return;
+    shownCommercial.add(identity);
+    trackTexasDefinedOutcome('partner_referral_shown', {
+      resourceId,
+      entityKind,
+      destination: anchor.href,
+    });
+  };
   let lastShopViewPath = '';
   let lastUnusualBusinessViewPath = '';
 
@@ -273,12 +293,7 @@ export function installTexasDefinedAnalytics() {
     if (commercialPartner) {
       const entityKind = anchor.dataset.commercialPlacement || 'unspecified';
       if (anchor.dataset.commercialImpressionRecorded !== '1') {
-        anchor.dataset.commercialImpressionRecorded = '1';
-        trackTexasDefinedOutcome('partner_referral_shown', {
-          resourceId: commercialPartner,
-          entityKind,
-          destination: anchor.href,
-        });
+        recordCommercialImpression(anchor);
         observer?.unobserve(anchor);
       }
       trackTexasDefinedOutcome('partner_referral_clicked', {
@@ -322,16 +337,7 @@ export function installTexasDefinedAnalytics() {
           const anchor = entry.target as HTMLAnchorElement;
           const commercialPartner = anchor.dataset.commercialPartner;
           if (commercialPartner) {
-            if (anchor.dataset.commercialImpressionRecorded === '1') {
-              observer?.unobserve(anchor);
-              continue;
-            }
-            anchor.dataset.commercialImpressionRecorded = '1';
-            trackTexasDefinedOutcome('partner_referral_shown', {
-              resourceId: commercialPartner,
-              entityKind: anchor.dataset.commercialPlacement || 'unspecified',
-              destination: anchor.href,
-            });
+            recordCommercialImpression(anchor);
             observer?.unobserve(anchor);
             continue;
           }
