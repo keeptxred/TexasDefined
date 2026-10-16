@@ -64,6 +64,14 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const candidates = new Set(shared ? REPRESENTATIVE_PATHS : []);
   const expectedHrefsByPage = {};
   const downloadButtonPages = new Set();
+  const regionGuidePages = new Set();
+  // Make the previously missed standalone regions guide a bounded acceptance
+  // target when correcting the planner; never start an unrelated site crawl.
+  if (changedFiles.includes('scripts/ci/production-change-scope.mjs')) {
+    const page = '/article/texas-regions-explained';
+    candidates.add(page);
+    regionGuidePages.add(page);
+  }
   // Verify the existing representative data-brief detail (no dataset-wide crawl).
   // The generic view owns every brief's browser CSV action.
   if (changedFiles.some(path => [
@@ -130,6 +138,19 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       }
     }
     if (!/^src\/(?:data|components|routes|lib)\//.test(path)) continue;
+    // An article in a standalone fixture file may be keyed by the filename,
+    // unlike bulk registries. Verify that one owner when its article changes.
+    const fixtureMatch = path.match(/^src\/data\/fixtures\/([a-z0-9-]+)\.ts$/);
+    if (fixtureMatch && /:\s*Article\s*=/.test(after)) {
+      const slug = fixtureMatch[1];
+      const declared = [...after.matchAll(/\bslug:\s*["']([a-z0-9-]+)["']/g)]
+        .some(match => match[1] === slug);
+      if (declared) {
+        const page = '/article/' + slug;
+        candidates.add(page);
+        if (slug === 'texas-regions-explained') regionGuidePages.add(page);
+      }
+    }
     if (/^src\/data\/(?:article-internal-links|remote-evergreen-internal-links)\.ts$/.test(path)) {
       const previous = articleLinkRegistry(before);
       const current = articleLinkRegistry(after);
@@ -169,7 +190,8 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
-    downloadButtonPages: selectedPaths.filter(p => downloadButtonPages.has(p)), redirectChecks, candidateCount,
+    downloadButtonPages: selectedPaths.filter(p => downloadButtonPages.has(p)),
+    regionGuidePages: selectedPaths.filter(p => regionGuidePages.has(p)), redirectChecks, candidateCount,
     omittedCount: Math.max(0, allPaths.length - selectedPaths.length), pageBudget: PAGE_BUDGET,
     coverage: candidateCount > PAGE_BUDGET ? 'representative sample; full coverage belongs to weekly local audits' : 'identified changed pages and representative dependencies',
     groups: Object.fromEntries(Object.entries(groups).map(([name, pattern]) => [name, shared || changedFiles.some(p => pattern.test(p))])),
