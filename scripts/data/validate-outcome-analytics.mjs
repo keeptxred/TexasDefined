@@ -30,8 +30,11 @@ for (const [needle, label] of [
   ['sanitizePath(Reflect.get(value, "path"))', 'path query stripping'],
   ['TEXAS_DEFINED_OUTCOME_ANALYTICS', 'Analytics Engine binding reader'],
   ['dataset.writeDataPoint({', 'Analytics Engine data-point write'],
-  ['indexes: [analyticsIndex(event.event, resourceId, entityKind)]', 'bounded analytics index'],
+  ['indexes: [analyticsIndex(event.event, resourceId, entityKind, event.path || "")]', 'page-cohort commercial analytics index'],
   ['Browser session IDs are intentionally never persisted in Analytics Engine.', 'session-minimization contract'],
+  ['event === "partner_referral_shown" || event === "partner_referral_clicked"', 'only referral events get page-specific sampling indexes'],
+  ['pageHash = Math.imul(pageHash ^ path.charCodeAt(i), 16777619) >>> 0', 'stable bounded page identifier without user IDs'],
+  ['base.slice(0, 90 - discriminator.length)', 'Analytics Engine index size guard'],
   ['return jsonResponse({ accepted: events.length }, 202)', 'accepted-event response'],
 ]) requireText(collector, needle, label);
 
@@ -56,7 +59,11 @@ for (const [needle, label] of [
   ["observer?.unobserve(anchor);", 'click-path observer de-duplication'],
   ["a[data-entity-id], a[data-commercial-partner]", 'commercial impression observation'],
   ["anchor.dataset.commercialImpressionRecorded = '1'", 'single commercial impression per CTA element'],
-  ["entityKind: anchor.dataset.commercialPlacement || 'unspecified'", 'commercial placement attribution'],
+  ['const shownCommercial = new Set<string>()', 'SPA-lifetime impression deduplication'],
+  ['JSON.stringify([window.location.pathname, resourceId, entityKind, anchor.href])', 'path/partner/placement/destination impression identity'],
+  ['if (shownCommercial.has(identity)) return', 'impressions deduplicate across DOM replacements'],
+  ["recordCommercialImpression(anchor);", 'shared click and visibility impression path'],
+  ["const entityKind = anchor.dataset.commercialPlacement || 'unspecified'", 'shared commercial placement attribution'],
 ]) requireText(client, needle, label);
 
 for (const [needle, label] of [

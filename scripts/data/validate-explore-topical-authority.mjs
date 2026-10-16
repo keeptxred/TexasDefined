@@ -12,6 +12,8 @@ const intentPaths = read('src/components/editorial/ExploreIntentPaths.tsx');
 const categoryPage = read('src/components/editorial/CategoryPage.tsx');
 const exploreHub = readRouteSurface('src/routes/explore.index.tsx');
 const regionalHub = read('src/components/editorial/RegionalHubSections.tsx');
+const roadTripCategory = read('src/routes/explore.$category.lazy.tsx');
+const casinoGuideRoster = read('src/data/texas-casino-guides.ts');
 const publicRoutes = read('src/lib/public-routes.ts');
 const oldWestHub = readRouteSurface('src/routes/texas-old-west.tsx');
 const sacredPlacesHub = readRouteSurface('src/routes/texas-sacred-places.tsx');
@@ -305,6 +307,16 @@ if (!categoryPage.includes('belongsToExplore && (')) failures.push('Explore-only
 if (!categoryPage.includes('<ExploreTopicPaths category={category} />')) failures.push('ExploreTopicPaths must receive the active Explore category.');
 if (!exploreHub.includes('ExploreIntentPaths')) failures.push('The main Explore hub must render ExploreIntentPaths.');
 if (!regionalHub.includes('to="/explore/trip-planner"')) failures.push('Regional hubs must link directly to the Texas Trip Planner.');
+for (const [slug, linkId] of [
+  ['near-houston', 'casino-weekends-near-houston'],
+  ['near-dallas-fort-worth', 'casino-weekends-near-dfw'],
+]) {
+  if (!casinoGuideRoster.includes(`"slug": "${slug}"`)) failures.push(`Casino road-trip target ${slug} is not in the maintained guide roster.`);
+  if (!roadTripCategory.includes(`data-entity-id="${linkId}"`)) failures.push(`Road-trip category must expose measured casino discovery bridge ${linkId}.`);
+}
+if (!roadTripCategory.includes('data-entity-id="casino-getaway-collection"')) failures.push('Road-trip category must expose the casino getaway collection link.');
+if (!roadTripCategory.includes('showRoadTripRentalCar ? <Container')) failures.push('Casino editorial bridge must be scoped to road trips, not all explore categories.');
+
 if (!regionalHub.includes('actionTo={`/explore/${group.slug}`}')) failures.push('Regional subject groups must preserve statewide category links.');
 
 if (failures.length) {

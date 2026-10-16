@@ -63,6 +63,38 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const shared = baseline === null || changedFiles.some(p => sharedPattern.test(p));
   const candidates = new Set(shared ? REPRESENTATIVE_PATHS : []);
   const expectedHrefsByPage = {};
+  // The Road Trips category is rendered by a shared dynamic lazy route,
+  // so no concrete URL is discoverable from its createFileRoute declaration.
+  // Verify only the changed category page and its three editorial links.
+  if (changedFiles.some(path => path === 'src/routes/explore.$category.lazy.tsx'
+    || path === 'scripts/ci/production-change-scope.mjs')) {
+    candidates.add('/explore/road-trips');
+    expectedHrefsByPage['/explore/road-trips'] = [
+      '/explore/casinos',
+      '/explore/casinos/near-houston',
+      '/explore/casinos/near-dallas-fort-worth',
+    ];
+  }
+  const downloadButtonPages = new Set();
+  const regionGuidePages = new Set();
+  // Make the previously missed standalone regions guide a bounded acceptance
+  // target when correcting the planner; never start an unrelated site crawl.
+  if (changedFiles.includes('scripts/ci/production-change-scope.mjs')) {
+    const page = '/article/texas-regions-explained';
+    candidates.add(page);
+    regionGuidePages.add(page);
+  }
+  // Verify the existing representative data-brief detail (no dataset-wide crawl).
+  // The generic view owns every brief's browser CSV action.
+  if (changedFiles.some(path => [
+    'src/routes/texas-data.$datasetSlug.lazy.tsx',
+    'src/data/texas-data-download.ts',
+    'scripts/ci/production-change-scope.mjs',
+  ].includes(path))) {
+    const page = '/texas-data/texas-population-and-migration-2025';
+    candidates.add(page);
+    downloadButtonPages.add(page);
+  }
   // Retest the two precisely identified owners missed by the pre-fix planner
   // whenever this planner changes. No full-site scan or recurring follower.
   if (changedFiles.includes('scripts/ci/production-change-scope.mjs')) {
@@ -97,6 +129,8 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   // McAllen day trips share one dynamic route with other metros; ordinary
   // static route matching cannot infer the affected canonical owner.
   // Keep this targeted to McAllen, never launch a statewide proximity crawl.
+  // Assert the slug actually authored in MCALLEN_EDITORIAL_TRIPS, not the
+  // separate legacy museum-south-texas-history-edinburg destination URL.
   if (changedFiles.some(path =>
     /^src\/routes\/explore\.near\.\$metro\.\$collection(?:\.lazy)?\.tsx$/.test(path)
     || ['src/data/metro-county-links.ts', 'src/data/viator-market-match.ts', 'src/data/national-wildlife-refuge-destinations.ts'].includes(path)
@@ -105,8 +139,28 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     candidates.add(path);
     expectedHrefsByPage[path] = [
       '/destination/santa-ana-national-wildlife-refuge',
-      '/destination/museum-south-texas-history-edinburg',
+      '/destination/museum-of-south-texas-history-edinburg',
     ];
+  }
+  // A casino destination is owned by a dynamic route. Inspect the current
+  // editorial roster and test only that small collection when it changes.
+  // Do not expand unrelated deploys into gaming crawls.
+  const casinoOwnerChanged = changedFiles.some(path =>
+    path === 'src/data/texas-casino-guides.ts'
+    || /^src\/routes\/explore\.casinos(?:\.index|\.\$slug)?\.tsx$/.test(path)
+  );
+  if (casinoOwnerChanged) {
+    const path = 'src/data/texas-casino-guides.ts';
+    const source = sources[path]?.after ?? readFileSync(path, 'utf8');
+    const slugs = [...new Set([...source.matchAll(/["']slug["']\s*:\s*["']([a-z0-9-]+)["']/g)]
+      .map(match => match[1]))].sort();
+    if (slugs.length < 1 || slugs.length > 20) throw new Error('Unverified casino guide roster');
+    const guidePaths = slugs.map(slug => `/explore/casinos/${slug}`);
+    candidates.add('/explore');
+    candidates.add('/explore/casinos');
+    for (const guidePath of guidePaths) candidates.add(guidePath);
+    expectedHrefsByPage['/explore'] = ['/explore/casinos'];
+    expectedHrefsByPage['/explore/casinos'] = guidePaths;
   }
   let contentFallback = false;
   for (const path of changedFiles) {
@@ -118,6 +172,19 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       }
     }
     if (!/^src\/(?:data|components|routes|lib)\//.test(path)) continue;
+    // An article in a standalone fixture file may be keyed by the filename,
+    // unlike bulk registries. Verify that one owner when its article changes.
+    const fixtureMatch = path.match(/^src\/data\/fixtures\/([a-z0-9-]+)\.ts$/);
+    if (fixtureMatch && /:\s*Article\s*=/.test(after)) {
+      const slug = fixtureMatch[1];
+      const declared = [...after.matchAll(/\bslug:\s*["']([a-z0-9-]+)["']/g)]
+        .some(match => match[1] === slug);
+      if (declared) {
+        const page = '/article/' + slug;
+        candidates.add(page);
+        if (slug === 'texas-regions-explained') regionGuidePages.add(page);
+      }
+    }
     if (/^src\/data\/(?:article-internal-links|remote-evergreen-internal-links)\.ts$/.test(path)) {
       const previous = articleLinkRegistry(before);
       const current = articleLinkRegistry(after);
@@ -156,7 +223,9 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
-  return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs, redirectChecks, candidateCount,
+  return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
+    downloadButtonPages: selectedPaths.filter(p => downloadButtonPages.has(p)),
+    regionGuidePages: selectedPaths.filter(p => regionGuidePages.has(p)), redirectChecks, candidateCount,
     omittedCount: Math.max(0, allPaths.length - selectedPaths.length), pageBudget: PAGE_BUDGET,
     coverage: candidateCount > PAGE_BUDGET ? 'representative sample; full coverage belongs to weekly local audits' : 'identified changed pages and representative dependencies',
     groups: Object.fromEntries(Object.entries(groups).map(([name, pattern]) => [name, shared || changedFiles.some(p => pattern.test(p))])),

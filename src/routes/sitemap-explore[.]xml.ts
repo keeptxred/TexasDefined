@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { CASINO_GUIDE_PATHS } from "@/data/texas-casino-guides";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { zionHillNacogdochesAuthorityDestinations } from "@/data/zion-hill-nacogdoches-authority-destinations";
 import { auditDestination } from "@/data/destination-audit";
@@ -135,6 +136,7 @@ function emergencyExploreSitemapResponse(error: unknown) {
     "/explore/attractions-comparison",
     "/explore/museums",
     "/explore/aquariums",
+    ...CASINO_GUIDE_PATHS,
     "/explore/rv-parks",
     "/explore/wildlife",
     "/explore/water-towers",
@@ -344,6 +346,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/attractions-comparison",
           "/explore/museums",
           "/explore/aquariums",
+          ...CASINO_GUIDE_PATHS,
           "/explore/rv-parks",
           "/explore/wildlife",
           "/explore/water-towers",

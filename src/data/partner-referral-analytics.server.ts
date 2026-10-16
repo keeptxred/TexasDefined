@@ -2,6 +2,7 @@ import { supabaseAdmin } from '@/integrations/supabase/client.server';
 import { assertSportsPartnerAccess } from '@/data/sports-partner-leads.server';
 import type {
   PartnerReferralAnalyticsDashboard,
+  CasinoReferralPageRow,
   PartnerReferralBreakdown,
   PartnerReferralDestinationBreakdown,
   PartnerReferralPageBreakdown,
@@ -14,11 +15,15 @@ const TOP_LIMIT = 25;
 const HEARTBEAT_PARTNER = '__pipeline__';
 const HEARTBEAT_PLACEMENT = 'sync-heartbeat';
 const EXPEDIA_SEARCH_PARTNER = 'expedia-search';
+const CASINO_HUB_PATH = '/explore/casinos';
+const CASINO_EXACT_HOTEL_PREFIX = 'casino-stay-';
 const IMPRESSION_TRACKING_STARTED_AT = '2026-09-18';
-// Raw 30-day history remains visible, but decision-grade CTR/routing windows restart after
-// the 2026-09-26 UTC automation-like impression spike and automated-client filter deployment.
-const CTR_MEASUREMENT_STARTED_AT = '2026-09-27';
-const TRAVEL_ROUTING_MEASUREMENT_STARTED_AT = '2026-09-27';
+// Preserve raw history for auditing; the Sep 27 baseline also contained
+// low-volume page groups inflated by partner-indexed Analytics Engine sampling
+// (Oct 6 Motorplex and Oct 8 MSR Houston). Use only complete UTC days after
+// the page-index and SPA-remount deduplication release for CTR/routing decisions.
+const CTR_MEASUREMENT_STARTED_AT = '2026-10-17';
+const TRAVEL_ROUTING_MEASUREMENT_STARTED_AT = '2026-10-17';
 const TRAVEL_ROUTING_MIN_IMPRESSIONS_PER_PARTNER = 100;
 const TRAVEL_ROUTING_PARTNERS = ['orbitz', 'travelocity'] as const;
 
@@ -131,6 +136,15 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
   const dailyClicksMap = new Map<string, number>();
   const dailyImpressionsMap = new Map<string, number>();
   const travelRoutingMap = new Map<string, { clicks: number; impressions: number }>();
+  // Derive a category-specific funnel from existing private aggregate rows.
+  // No extra database query or Cloudflare data collection is needed.
+  const casinoPageMap = new Map<string, CasinoReferralPageRow>();
+  const casinoExactHotelMap = new Map<string, { clicks: number; impressions: number }>();
+  let casinoClicks30d = 0;
+  let casinoImpressions30d = 0;
+  let casinoSearchStarts30d = 0;
+  let casinoExactHotelClicks30d = 0;
+  let casinoExactHotelImpressions30d = 0;
   let totalClicks30d = 0;
   let totalClicks7d = 0;
   let totalImpressions30d = 0;
@@ -159,6 +173,35 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
 
     if (lastSyncedAt === null || String(row.synced_at) > lastSyncedAt) lastSyncedAt = String(row.synced_at);
     if (!in30d) continue;
+
+    if (row.page_path === CASINO_HUB_PATH || row.page_path.startsWith(`${CASINO_HUB_PATH}/`)) {
+      const casinoPage = casinoPageMap.get(row.page_path) ?? {
+        pagePath: row.page_path,
+        clicks30d: 0,
+        impressions30d: 0,
+        searchStarts30d: 0,
+        ctr: null,
+      };
+      if (row.partner === EXPEDIA_SEARCH_PARTNER) {
+        casinoSearchStarts30d += clicks;
+        casinoPage.searchStarts30d += clicks;
+      } else {
+        casinoClicks30d += clicks;
+        casinoImpressions30d += impressions;
+        casinoPage.clicks30d += clicks;
+        casinoPage.impressions30d += impressions;
+        casinoPage.ctr = clickThroughRate(casinoPage.clicks30d, casinoPage.impressions30d);
+        if (row.partner === 'hotels.com' && row.placement.startsWith(CASINO_EXACT_HOTEL_PREFIX)) {
+          casinoExactHotelClicks30d += clicks;
+          casinoExactHotelImpressions30d += impressions;
+          const offer = casinoExactHotelMap.get(row.placement) ?? { clicks: 0, impressions: 0 };
+          offer.clicks += clicks;
+          offer.impressions += impressions;
+          casinoExactHotelMap.set(row.placement, offer);
+        }
+      }
+      casinoPageMap.set(row.page_path, casinoPage);
+    }
 
     if (row.partner === EXPEDIA_SEARCH_PARTNER) {
       totalSearchStarts30d += clicks;
@@ -272,6 +315,24 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
     travelRoutingMinimumImpressionsPerPartner: TRAVEL_ROUTING_MIN_IMPRESSIONS_PER_PARTNER,
     travelRoutingComparisonReady,
     travelRoutingPartners,
+    casino: {
+      clicks30d: casinoClicks30d,
+      impressions30d: casinoImpressions30d,
+      searchStarts30d: casinoSearchStarts30d,
+      ctr: clickThroughRate(casinoClicks30d, casinoImpressions30d),
+      exactHotelClicks30d: casinoExactHotelClicks30d,
+      exactHotelImpressions30d: casinoExactHotelImpressions30d,
+      exactHotelCtr: clickThroughRate(casinoExactHotelClicks30d, casinoExactHotelImpressions30d),
+      pages: [...casinoPageMap.values()].sort((a, b) =>
+        b.clicks30d - a.clicks30d || b.impressions30d - a.impressions30d || a.pagePath.localeCompare(b.pagePath)
+      ),
+      exactHotelPlacements: [...casinoExactHotelMap.entries()].map(([placement, counts]) => ({
+        placement,
+        clicks30d: counts.clicks,
+        impressions30d: counts.impressions,
+        ctr: clickThroughRate(counts.clicks, counts.impressions),
+      })).sort((a, b) => b.clicks30d - a.clicks30d || b.impressions30d - a.impressions30d || a.placement.localeCompare(b.placement)),
+    },
     windowDays: WINDOW_DAYS,
     totalClicks30d,
     totalClicks7d,

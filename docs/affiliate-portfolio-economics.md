@@ -63,6 +63,15 @@ These counts are a point-in-time operating snapshot, not permanent performance c
 
 A 2026-09-26 UTC automation-like impression spike inflated raw Stay Nearby exposure on the Lady Bird Johnson Wildflower Center destination without clicks. TexasDefined retains those raw aggregates for audit continuity, excludes automated/headless/crawler clients going forward, and keeps the decision-grade CTR plus Orbitz/Travelocity comparison window anchored to 2026-09-27 UTC.
 
+## October 16 sampling correction — active measurement policy
+
+Decision-grade routing and CTR measurement now restart on **2026-10-17 UTC**.
+This supersedes the September 27 clean-baseline claim above; the September figures are historical snapshots, **not current decision-grade conversion evidence**. On October 6, the Texas Motorplex produced 234 weighted affiliate impressions on a date with one GA4 page view; on October 8, MSR Houston produced 788 weighted impressions on a date with one GA4 page view. The sample-weighted counts are not proof of 1,022 human CTA exposures.
+
+Cloudflare Analytics Engine applies `_sample_interval` sampling weights. TexasDefined previously indexed referral data by partner and then reported weighted events by much smaller page-path subgroups. The updated collector indexes commercial exposure and click events by *partner and a bounded hash of the sanitized page path*; it retains no browser session identifier and adds no analytics writes or recurring jobs. The browser also deduplicates a CTA's page/partner/placement/destination impression across DOM remounts. Raw legacy aggregates remain untouched for audit continuity and cannot be used to declare a hotel placement winner.
+
+The new Orbitz-versus-Travelocity comparison window beginning **2026-10-17 UTC** holds the existing **100-impression-per-provider HOLD gate** until after the complete-day clean boundary. Advertiser-confirmed completed bookings and realized commission remain separate from referral clicks. Reconfirm the source window before decisions; older totals can be misleading. This index refinement changes the cohorts that Analytics Engine samples; it does not add page crawls or additional Workers invocations.
+
 ## Replacement rules
 
 1. Replace a lower-paying link only when the higher-paying program satisfies the same visitor job.
