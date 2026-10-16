@@ -74,7 +74,7 @@ export function FootballPlayoffsReference() {
       <div className="mt-5 grid gap-x-5 gap-y-3 sm:grid-cols-2">
         <div className="rounded border border-border p-4"><strong>Bi-district game 1</strong><p className="mt-2">District 1 champion vs. District 2 fourth-place team</p><p className="mt-3 text-sm font-semibold text-primary">Winner advances to the area game ↓</p></div>
         <div className="rounded border border-border p-4"><strong>Bi-district game 2</strong><p className="mt-2">District 4 runner-up vs. District 3 third-place team</p><p className="mt-3 text-sm font-semibold text-primary">Winner advances to the area game ↓</p></div>
-        <svg className="hidden h-10 w-full text-primary sm:col-span-2 sm:block" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <svg className="hidden h-10 w-full text-primary sm:col-span-2 sm:flex" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true" focusable="false">
           <path d="M24 0 V8 H50 V20 M76 0 V8 H50" fill="none" stroke="currentColor" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
         </svg>
         <div className="rounded border border-primary p-4 sm:col-span-2"><strong>Area game</strong><p className="mt-2">Winner of game 1 vs. winner of game 2. The winner advances to the regional round.</p></div>

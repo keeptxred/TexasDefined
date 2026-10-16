@@ -153,7 +153,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
             return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2><Suspense fallback={null}><LighthouseVisitPlanner /></Suspense></div>;
           }
           if (articleSlug === "texas-high-school-football-playoffs-explained" && block.text.endsWith("?") && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions")) {
-            return <h3 key={index} id={articleHeadingId(block.text)} className="mb-3 mt-8 scroll-mt-28 font-display text-xl font-semibold sm:text-2xl">{render(block.text, 2)}</h3>;
+            return <h3 key={index} id={articleHeadingId(block.text)} className="mb-3 mt-8 scroll-mt-28 font-display text-xl font-semibold">{render(block.text, 2)}</h3>;
           }
           return <h2 key={index} id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
         case "quote": return <PullQuote key={index} text={block.text} entities={available()} {...(block.attribution ? { attribution: block.attribution } : {})} />;
