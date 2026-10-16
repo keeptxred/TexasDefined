@@ -1470,6 +1470,178 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
+  "blue-ridge": {
+    "slug": "blue-ridge",
+    "theme": {
+      "accentHex": "#547587",
+      "label": "Original school-inspired editorial accent only; no reproduced crest, official artwork or team photograph"
+    },
+    "seo": {
+      "title": "Blue Ridge Tigers Football 2026 | Coach Russell, District 7 & Tiger Stadium",
+      "description": "Blue Ridge Texas Tigers football: UIL 2026 3A Division II District 7, officially identified coach Jason Russell, 2–5 through October 9, Tiger Stadium and schedules."
+    },
+    "coach": {
+      "name": "Jason Russell",
+      "title": "Blue Ridge ISD athletic director and head football coach",
+      "sourceUrl": "https://www.brisd.net/o/brisd/page/athletics",
+      "sourceLabel": "Blue Ridge ISD Athletics directly identifies Jason Russell AD and head football coach; high school staff and district coaching staff corroborate",
+      "verifiedAt": "2026-10-15"
+    },
+    "campus": {
+      "address": "11020 County Road 504, Blue Ridge, TX 75424 (high school, not certified spectator gate)",
+      "phone": "972-752-5554",
+      "sourceUrl": "https://www.brisd.net/o/brhs/staff",
+      "sourceLabel": "Official Blue Ridge High School address and phone on campus staff directory; district office separately at 318 W School St",
+      "verifiedAt": "2026-10-15"
+    },
+    "schedule": {
+      "label": "Blue Ridge ISD official athletics and published 2026 football schedule documents",
+      "sourceUrl": "https://www.brisd.net/documents/athletics/athletic-schedules/489809",
+      "sourceLabel": "District documents explicitly list a 2026 BRISD Football Schedule; confirm live game-day venue and updates with school",
+      "verifiedAt": "2026-10-15"
+    },
+    "season": {
+      "record": "2–5 through October 9, 2026 (current completed game panel; 2026 season ongoing)",
+      "verifiedAt": "2026-10-15",
+      "sourceUrl": "https://www.maxpreps.com/tx/blue-ridge/blue-ridge-tigers/football/",
+      "sourceLabel": "MaxPreps completed 2026 varsity game results, including Howe 41–21 Oct9; prior Oct4 schedule PDF snapshot only 2–4",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Farmersville",
+          "site": "Away",
+          "result": "L 27–33 (overtime)"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Dallas HSAA",
+          "site": "Home",
+          "result": "W 47–14"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Mount Vernon",
+          "site": "Away",
+          "result": "L 21–22"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Commerce",
+          "site": "Home",
+          "result": "L 27–59"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Valley View",
+          "site": "Home",
+          "district": true,
+          "result": "W 42–21"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Bells",
+          "site": "Away",
+          "district": true,
+          "result": "L 21–42"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Howe",
+          "site": "Home",
+          "district": true,
+          "result": "L 21–41"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Leonard",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Callisburg",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Sadler S&S Consolidated",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "notice": {
+      "title": "Tiger Stadium: use the official game schedule before traveling",
+      "body": "Blue Ridge ISD's athletics page references Tiger Stadium and publishes 2026 football schedule documents, but does not establish a particular ticket-price schedule, parking lot, public entrance, cashless gate rule or ADA seating plan in the evidence reviewed. The high school address is not automatically the stadium vehicle entrance; confirm your actual game's site and arrangements directly with BRISD.",
+      "sourceUrl": "https://www.brisd.net/o/brisd/page/athletics",
+      "sourceLabel": "Blue Ridge ISD Athletics first-party Tiger Stadium and schedule navigation",
+      "verifiedAt": "2026-10-15"
+    },
+    "development": {
+      "title": "Recent playoff-capable seasons and a 2026 district test",
+      "body": "Blue Ridge's recent program record is more specific than the generic claim of a football tradition: the Dave Campbell's Texas Football archive lists 9–3 in 2024 and 7–5 in 2025, with no state championship and 15 playoff appearances in its historical program summary. Those are dated earlier seasons and must not be conflated with 2026, when the current completed results showed 2–5 after a 41–21 loss to Howe on October 9. The Tigers had already beaten Dallas HSAA and their district opponent Valley View, but lost an overtime 33–27 opener to Farmersville and a 22–21 game at Mount Vernon. Blue Ridge ISD itself identifies Jason Russell as athletic director/head football coach, while an independent game directory corroborates his team role. Future district fixtures cannot be portrayed as finished or awarded results.",
+      "sourceUrl": "https://dev.texasfootball.com/team/blue-ridge-tigers",
+      "sourceLabel": "Dave Campbell's program history: 2024 9–3, 2025 7–5, no titles, 15 appearances; current scores sourced separately",
+      "verifiedAt": "2026-10-15"
+    },
+    "milestones": [
+      {
+        "date": "2024",
+        "title": "9–3 varsity campaign",
+        "body": "Dave Campbell's Blue Ridge season history lists a 9–3 football campaign in 2024. That is a program year snapshot, not an unverified title-game or championship claim.",
+        "sourceUrl": "https://dev.texasfootball.com/team/blue-ridge-tigers",
+        "sourceLabel": "Dave Campbell's prior-season record list"
+      },
+      {
+        "date": "2025",
+        "title": "7–5 football season and playoff context",
+        "body": "DCTF's completed 2025 archive lists 7–5, and current MaxPreps historical team records concur. Blue Ridge's program-history entry reports 15 playoff appearances overall and no state football championships.",
+        "sourceUrl": "https://dev.texasfootball.com/team/blue-ridge-tigers",
+        "sourceLabel": "DCTF Blue Ridge program history"
+      },
+      {
+        "date": "2026-10-09",
+        "title": "2–5 through Howe district game",
+        "body": "MaxPreps' current completed game panel shows a 41–21 home loss to Howe on October 9. Its older Oct4 six-game schedule omitted the result, so its 2–4 snapshot is stale.",
+        "sourceUrl": "https://www.maxpreps.com/tx/football/game/blue-ridge-vs-howe/10-9-2026/?c=8aab49cb-1d24-4e09-b964-05218d74defa",
+        "sourceLabel": "Completed Howe–Blue Ridge varsity game box"
+      }
+    ],
+    "overview": [
+      "Blue Ridge High School's Tigers are a Collin County, Texas eleven-man football team in Blue Ridge ISD—not the unrelated Blue Ridge programs in South Carolina or other states. UIL's official 2026–28 alignment places them in Class 3A Division II, District 7 with Bells, Callisburg, Howe, Leonard, Sadler S&S Consolidated and Valley View. Historical conferences must not be relabeled as the present UIL alignment.",
+      "Blue Ridge ISD currently identifies Jason Russell as both its athletics director and head football coach, and the high-school campus directory places the school at 11020 County Road 504. The district headquarters separately lists 318 West School Street. The school campus mailing address is a source-backed contact, not independently verified spectator parking or stadium gate instructions.",
+      "By October 9 the 2026 Blue Ridge varsity record was 2–5, with wins over Dallas HSAA and Valley View, close losses to Farmersville and Mount Vernon, plus a 41–21 home district loss against Howe. The October 4 MaxPreps schedule still shows 2–4 because it predates the completed Howe game; use the dated October 9 completed score rather than the older preview. Leonard, Callisburg and S&S Consolidated remain future fixtures as of this record.",
+      "Dave Campbell's football archive describes 2024 and 2025 campaigns of 9–3 and 7–5 respectively, and lists no Texas UIL state football titles for Blue Ridge. Those records are historical context, not a promise of the 2026 season's final standings or a fabricated championship. Avoid overclaiming schools' rivalries and annual attendance when first-party reporting is absent.",
+      "The Blue Ridge ISD athletics page and official football-schedule document index are the useful visitor starting points for Tiger Stadium, school contacts and last-minute updates. The sources reviewed do not establish the stadium's precise visitor entrance, cash gate policy, ticket prices, current parking rules, accessible seating, licensed photos or exact ADA route. Fans should consult the official district rather than rely on a school address as a guaranteed game-day gate."
+    ],
+    "faq": [
+      {
+        "question": "What UIL class and district does Blue Ridge football compete in during 2026?",
+        "answer": "The official 2026–28 UIL eleven-man alignment assigns the Blue Ridge Tigers to Class 3A Division II, District 7 alongside Bells, Callisburg, Howe, Leonard, Sadler S&S Consolidated and Valley View."
+      },
+      {
+        "question": "Who is Blue Ridge's current head football coach?",
+        "answer": "Blue Ridge ISD's own athletics and coaching-staff pages identify Jason Russell as the athletic director and head football coach; this is not a guess from an older third-party roster."
+      },
+      {
+        "question": "What was the 2026 Blue Ridge record through October 9?",
+        "answer": "The current completed game feed shows 2–5 after a home 41–21 defeat to Howe on October 9. An older schedule cached on October 4 still shows 2–4 and had not yet recorded the Howe final."
+      },
+      {
+        "question": "Where is the school, and is that address Tiger Stadium's entrance?",
+        "answer": "Blue Ridge High School's official campus directory lists 11020 County Road 504, Blue Ridge, TX 75424, phone 972-752-5554. Blue Ridge ISD separately refers to Tiger Stadium, but the campus postal address is not proof of a public vehicle gate or accessible stadium entrance."
+      },
+      {
+        "question": "Has Blue Ridge won a Texas football state title?",
+        "answer": "Dave Campbell's program-history summary currently lists no state football titles or title-game appearances and reports 15 playoff appearances. The source should not be stretched into a claim about a specific title year."
+      },
+      {
+        "question": "Where can visiting families check current football schedules, tickets and accessibility?",
+        "answer": "Start with Blue Ridge ISD's official athletics page and its 2026 BRISD football schedule document index. Exact gate, parking, ticketing and accessible seating arrangements were not independently established and should be confirmed with the district before attending."
+      }
+    ]
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {
