@@ -62,6 +62,7 @@ test('planner corrections retest previously missed editorial SSR links, not enti
   const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
   assert.deepEqual(plan.selectedPaths, [
     '/article/texas-cultural-regions-explained', '/article/texas-regions-explained',
+    '/explore/road-trips',
     '/fishing/species/black-crappie', '/fishing/species/bluegill',
     '/fishing/species/freshwater-drum', '/fishing/species/white-crappie',
     '/texas-data/texas-population-and-migration-2025',
@@ -220,6 +221,32 @@ test('failed responses and edge challenges cannot poison the response cache', as
   const fetchPage = createProductionPageFetch(async () => { calls++; return new Response('blocked', { status: calls === 1 ? 500 : 200, headers: calls === 2 ? { 'cf-mitigated': 'challenge' } : {} }); });
   for (let i = 0; i < 4; i++) await fetchPage('https://texasdefined.com/page');
   assert.equal(calls, 3);
+});
+
+test('dynamic Road Trips owner verifies the three casino discovery links without a sitewide crawl', async () => {
+  const changedFiles = ['src/routes/explore.$category.lazy.tsx'];
+  const plan = buildChangePlan({ baseline, head, changedFiles });
+  const required = [
+    '/explore/casinos',
+    '/explore/casinos/near-houston',
+    '/explore/casinos/near-dallas-fort-worth',
+  ];
+  assert.deepEqual(plan.selectedPaths, ['/explore/road-trips']);
+  assert.deepEqual(plan.expectedHrefsByPage['/explore/road-trips'], required);
+  assert.equal(plan.omittedCount, 0);
+
+  const html = (hrefs) => '<html><title>Texas Road Trips</title>'
+    + '<link rel="canonical" href="https://texasdefined.com/explore/road-trips">'
+    + '<body><h1>Texas Road Trips</h1>'
+    + hrefs.map(href => `<a href="${href}">Read guide</a>`).join('')
+    + '</body></html>';
+  const valid = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(required)) });
+  assert.equal(valid[0].passed, true);
+  const missing = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(required.slice(0, -1))) });
+  assert.equal(missing[0].passed, false);
+
+  const unrelated = buildChangePlan({ baseline, head, changedFiles: ['src/data/texas-birds.ts'] });
+  assert.ok(!unrelated.selectedPaths.includes('/explore/road-trips'));
 });
 
 test('casino collection edits smoke exactly the existing guides and fail on a missing SSR guide link', async () => {

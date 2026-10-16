@@ -1106,6 +1106,719 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
+  "blooming-grove": {
+    "slug": "blooming-grove",
+    "theme": {
+      "accentHex": "#A78B39",
+      "label": "Independent gold editorial accent; no licensed team artwork or crest reproduced"
+    },
+    "seo": {
+      "title": "Blooming Grove Lions Football 2026 | Coach Sherrill, District & Lion Stadium",
+      "description": "Blooming Grove Lions 2026 football: new head coach Kevin Sherrill, UIL 3A Division II District 11, 0–6 through October 9 and official campus visitor contact."
+    },
+    "coach": {
+      "name": "Kevin Sherrill",
+      "title": "Athletic director and head football coach (district-announced 2026 hire)",
+      "sourceUrl": "https://www.bgisd.org/apps/news/article/2157034?categoryId=6258",
+      "sourceLabel": "Blooming Grove ISD official 2026 new athletic director/head football coach hiring announcement",
+      "verifiedAt": "2026-10-15"
+    },
+    "campus": {
+      "address": "212 West Grady Street, Blooming Grove, TX 76626",
+      "phone": "903-695-2541 ext. 1013",
+      "sourceUrl": "https://www.bgisd.org/apps/pages/index.jsp?pREC_ID=940793&type=d&uREC_ID=432201",
+      "sourceLabel": "Blooming Grove ISD official high school campus listing, distinct from district elementary and junior high addresses",
+      "verifiedAt": "2026-10-15"
+    },
+    "schedule": {
+      "label": "Blooming Grove ISD athletics original football and school event calendar",
+      "sourceUrl": "https://www.bgisd.org/apps/events/2026/10/?id=0&id=2",
+      "sourceLabel": "Official district October 2026 calendar and individual fixture details; historical results sourced independently",
+      "verifiedAt": "2026-10-15"
+    },
+    "season": {
+      "record": "0–6 through October 9, 2026 (Pigskin Prep team ledger, independently confirmed Teague result; season ongoing)",
+      "verifiedAt": "2026-10-15",
+      "sourceUrl": "https://www.texashighschoolfootballhistory.com/showfreeschedules.asp?distID=353&yr=2026",
+      "sourceLabel": "Pigskin Prep 2026 Class3A DII District11 dated opponent ledger; October9 score confirmed by MaxPreps final game box",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Frost",
+          "site": "Home",
+          "result": "L 0–31"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Eustace",
+          "site": "Away",
+          "result": "L 30–44"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Wortham",
+          "site": "Home",
+          "result": "L 30–39"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Valley Mills",
+          "site": "Away",
+          "result": "L 6–48"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Hillsboro",
+          "site": "Home",
+          "result": "L 12–53"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Teague",
+          "site": "Away",
+          "district": true,
+          "result": "L 0–68"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Elkhart",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Rice",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Corsicana Mildred",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Buffalo",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "notice": {
+      "title": "Lion Stadium is listed for homecoming; its vehicle entrance is not verified",
+      "body": "Blooming Grove ISD's October 12, 2026 calendar names Lion Stadium as the homecoming parade/pep rally destination. The high school's official address is 212 West Grady Street, which is a contact address and does not establish the stadium parking gate, ADA entrance, tickets or exact accessible seating. Confirm any event-specific venue with Blooming Grove ISD.",
+      "sourceUrl": "https://www.bgisd.org/apps/events/2026/10/?id=0&id=2",
+      "sourceLabel": "Blooming Grove ISD first-party 2026 school and athletics events, including October12 homecoming at Lion Stadium",
+      "verifiedAt": "2026-10-15"
+    },
+    "development": {
+      "title": "A 2026 coaching rebuild after a 2025 playoff appearance",
+      "body": "Blooming Grove ISD directly announced Kevin Sherrill as athletic director/head football coach in early 2026, moving from Vernon where his teams had gone 10–3 in 2025 and 9–4 in 2024. Those records belong to Vernon, not the Lions. Blooming Grove's own 2025 program went 3–8, including a 59–6 first-round playoff loss to Blue Ridge in the Lone Star Football Network ledger. Through October 9 of Sherrill's first listed Blooming Grove season, six reported results showed 0–6, capped by a 68–0 road loss to Teague. Describing an active rebuilding challenge must not confuse the former district's wins with the current school's record.",
+      "sourceUrl": "https://www.bgisd.org/apps/news/article/2157034?categoryId=6258",
+      "sourceLabel": "District's first-party hire notice; Blooming Grove own results separately checked against Lone Star 2025 and Pigskin Prep/MaxPreps 2026",
+      "verifiedAt": "2026-10-15"
+    },
+    "milestones": [
+      {
+        "date": "2025",
+        "title": "Lions reached a 2025 postseason first-round game",
+        "body": "Lone Star Football Network's game-by-game archive lists a 3–8 2025 season with a postseason defeat 59–6 to Blue Ridge. Those results belong to Blooming Grove, not incoming coach Sherrill's Vernon tenure.",
+        "sourceUrl": "https://www.lonestarfootball.net/team.asp?GUID=4138128162&S=2025&T=869&action=schedule",
+        "sourceLabel": "Lone Star Football Network Blooming Grove 2025 completed schedule"
+      },
+      {
+        "date": "2026",
+        "title": "Kevin Sherrill hired as head football coach/athletic director",
+        "body": "Blooming Grove ISD announced its hire from Vernon, explicitly citing previous Vernon 10–3 and 9–4 campaigns. The Lions' past-season win-loss totals are distinct.",
+        "sourceUrl": "https://www.bgisd.org/apps/news/article/2157034?categoryId=6258",
+        "sourceLabel": "District-confirmed 2026 head coach hire"
+      },
+      {
+        "date": "2026",
+        "title": "UIL 3A Division II District 11",
+        "body": "The official realignment includes Blooming Grove, Buffalo, Elkhart, Mildred, Rice and Teague as eleven-man football district peers.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 3A Division II alignment"
+      },
+      {
+        "date": "2026-10-09",
+        "title": "First reported 2026 District 11 game at Teague",
+        "body": "The school calendar placed the Lions at Teague October 9, and both the game box and regional district ledger record Teague 68, Blooming Grove 0, with Blooming Grove 0–6 through that date.",
+        "sourceUrl": "https://www.maxpreps.com/tx/football/game/blooming-grove-vs-teague/10-9-2026/?c=d1242195-6367-4fae-933a-04df9f472e74",
+        "sourceLabel": "MaxPreps October 9 completed conference box corroborated by Pigskin Prep District11 2026 ledger"
+      }
+    ],
+    "overview": [
+      "Blooming Grove High School's Lions represent Blooming Grove ISD in Navarro County, Texas. For the 2026–28 UIL realignment, the team is in eleven-man Class 3A Division II, District 11 with Buffalo, Elkhart, Mildred, Rice and Teague. Although Teague also calls its team the Lions, the two school districts and game-day destinations are different. The UIL alignment governs this season rather than prior-cycle districts.",
+      "A major recent change was Blooming Grove ISD's announcement that Kevin Sherrill would become its athletic director and head football coach for 2026. The district highlighted rebuilding accomplishments at his previous employer, Vernon ISD, including 10–3 in 2025 and 9–4 in 2024. Those numbers are **Vernon's** results and should not be misrepresented as Blooming Grove achievements. The Lions' 2025 season was 3–8 and included a first-round playoff appearance against Blue Ridge, per the completed game ledger.",
+      "The 2026 Lions have experienced a challenging start in their own program. Pigskin Prep's District 11 game ledger lists losses to Frost, Eustace, Wortham, Valley Mills, Hillsboro and Teague through October 9, putting the team 0–6. Teague beat Blooming Grove 68–0 in the October 9 conference opener, independently documented by a completed MaxPreps match and each district's official event schedule. A MaxPreps season index last updated September 1 still showed 0–1 and should not override later games.",
+      "For visitors, the district identifies Blooming Grove High School at 212 West Grady Street with a high-school office phone of 903-695-2541, extension 1013. This is not the elementary school or junior-high address. An October 12 official homecoming-parade calendar names Lion Stadium, but the location of the actual vehicle entrance, accessible spectator access, stadium photo rights and current admission terms were not independently confirmed; call the school for match-specific arrangements.",
+      "October 16 against Elkhart, October 23 at Rice, October 30 against Mildred and November 6 at Buffalo were still future fixtures as of the October 15 research date. Consult Blooming Grove ISD's event calendar for kickoff, changes and ticket arrangements; a missing result in old third-party calendar pages should not be mistaken for a cancellation or a win."
+    ],
+    "faq": [
+      {
+        "question": "Who is Blooming Grove's head football coach for 2026?",
+        "answer": "Blooming Grove ISD itself announced Kevin Sherrill as its new athletic director and head football coach in 2026. His cited 2024 and 2025 winning records came at previous employer Vernon ISD, not Blooming Grove."
+      },
+      {
+        "question": "What UIL district is Blooming Grove in for 2026 football?",
+        "answer": "The official 2026–28 UIL alignment places Blooming Grove in Class 3A Division II, District 11 with Buffalo, Elkhart, Mildred, Rice and Teague; the school plays eleven-man football."
+      },
+      {
+        "question": "What was Blooming Grove's varsity record through October 9, 2026?",
+        "answer": "The completed six-game district ledger lists Blooming Grove 0–6 through an October 9 away loss to Teague 68–0. MaxPreps' October 9 result independently confirms the game, while an older September 1 schedule was stale."
+      },
+      {
+        "question": "Did Blooming Grove have a 10–3 football season in 2025?",
+        "answer": "No. The district's 2026 coaching announcement says Kevin Sherrill's prior Vernon team went 10–3 in 2025; Blooming Grove itself went 3–8 in 2025 according to a game-by-game archive, including a first-round playoff loss to Blue Ridge."
+      },
+      {
+        "question": "Where is Blooming Grove High School versus Lion Stadium?",
+        "answer": "Blooming Grove ISD lists the high school at 212 West Grady Street, Blooming Grove, TX 76626, phone 903-695-2541 extension 1013. The district calendar calls the homecoming venue Lion Stadium, but the exact current football stadium gate, parking and accessible seating are not independently verified here."
+      },
+      {
+        "question": "Where can I find Blooming Grove football kickoff and ticket updates?",
+        "answer": "Check Blooming Grove ISD's official athletics and school events calendar for the specific game. Upcoming fixtures after October 9 included Elkhart at home and trips to Rice and Buffalo; event hours, ticketing and access can change."
+      }
+    ]
+  },
+  "bloomington": {
+    "slug": "bloomington",
+    "theme": {
+      "accentHex": "#8E2737",
+      "label": "Independent Bobcats burgundy editorial accent; district-owned logos/photographs not reproduced"
+    },
+    "seo": {
+      "title": "Bloomington Bobcats Football 2026 | District 15, Shiner Result & Stadium Tickets",
+      "description": "Bloomington TX Bobcats in Victoria County: UIL 2A Division I District 15, 2–5 through October 9, official Bobcat Stadium ticketing and verified school contacts."
+    },
+    "campus": {
+      "address": "2781 FM 616, Victoria, TX 77905 (Bloomington High School and ISD campus contact; confirm spectator gate)",
+      "phone": "361-333-8011",
+      "sourceUrl": "https://www.bisd-tx.org/",
+      "sourceLabel": "Bloomington ISD official 2781 FM 616 district campus and school handbook; high-school office 361-333-8011",
+      "verifiedAt": "2026-10-15"
+    },
+    "schedule": {
+      "label": "Bloomington ISD original football game tickets and event calendar",
+      "sourceUrl": "https://www.vancoevents.com/us/eventlist/bisdevents",
+      "sourceLabel": "Bloomington ISD original Vanco Events online football and athletic ticket portal",
+      "verifiedAt": "2026-10-15"
+    },
+    "venue": {
+      "name": "Bobcat Stadium",
+      "address": "Bloomington ISD, Victoria County, Texas (stadium vehicle-gate address not independently confirmed)",
+      "sourceUrl": "https://www.vancoevents.com/us/eventlist/bisdevents",
+      "sourceLabel": "District-originated Vanco event listing identifies Bobcat Stadium, not an independently verified stadium street gate",
+      "verifiedAt": "2026-10-15",
+      "note": "Official Vanco listing places October 16, 2026 Bloomington versus Danbury varsity football at Bobcat Stadium at 7 PM and says no cash accepted at the gate. District high-school office address 2781 FM 616 may be a contact landmark, but exact stadium vehicle entrance, wheelchair access, parking and live ticket inventory have not been independently certified."
+    },
+    "notice": {
+      "title": "Online tickets: no cash at the gate",
+      "body": "Bloomington ISD's own Vanco ticket listing for the October 16, 2026 home matchup against Danbury gives varsity kickoff 7:00 PM at Bobcat Stadium and explicitly states NO CASH IS ACCEPTED AT THE GATE. Confirm current tickets, game postponements, gate and accessible parking with the district. District personnel directory names Lane Shands athletics director, not by itself proof of the head-coach appointment.",
+      "sourceUrl": "https://www.vancoevents.com/us/eventlist/bisdevents",
+      "sourceLabel": "First-party Bloomington ISD Vanco ticket event October 16, 2026",
+      "verifiedAt": "2026-10-15"
+    },
+    "season": {
+      "record": "2–5 through October 9, 2026 (Pigskin Prep and Shiner independent sports, school season ongoing)",
+      "verifiedAt": "2026-10-15",
+      "sourceUrl": "https://www.pigskinprep.com/showfreeschedules.asp?distID=112&yr=2026",
+      "sourceLabel": "Pigskin Prep 2026 2A Division I District15 opponents; October9 Shiner 43–3 corroborated by Shiner Comanche Sports and MaxPreps box, despite other feeds' 43–0 inconsistency",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Woodsboro",
+          "site": "Home",
+          "result": "W 33–0"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Shiner St. Paul",
+          "site": "Away",
+          "result": "L 7–26"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Yorktown",
+          "site": "Away",
+          "result": "L 7–36"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Karnes City",
+          "site": "Home",
+          "result": "W 34–0"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Flatonia",
+          "site": "Away",
+          "district": true,
+          "result": "L 14–41"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Kenedy",
+          "site": "Home",
+          "district": true,
+          "result": "L 35–36"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Shiner",
+          "site": "Away",
+          "district": true,
+          "result": "L 3–43 (some stale feeds 0–43)"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Danbury",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Weimar",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Ganado",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "development": {
+      "title": "A 2026 rebound with two shutout wins and a close Kenedy district game",
+      "body": "Bloomington defeated Woodsboro 33–0 on August 28 and Karnes City 34–0 on September 18, its two wins through October 9. The Bobcats lost by one point to Kenedy, 36–35, in the October 2 district opener at home. They then lost at Shiner on October 9 by 43–3 according to Shiner's locally maintained Comanche sports calendar, a completed MaxPreps result and Pigskin Prep. A syndicated team archive still lists Bloomington 0–43, so this one game's exact point total carries an explicit discrepancy note.",
+      "sourceUrl": "https://www.pigskinprep.com/showfreeschedules.asp?distID=112&yr=2026",
+      "sourceLabel": "Pigskin Prep complete 2026 District15 game list, crosschecked on Shiner independent sports and MaxPreps 10/9 score",
+      "verifiedAt": "2026-10-15"
+    },
+    "milestones": [
+      {
+        "date": "2025",
+        "title": "Four-win 2025 campaign",
+        "body": "Shiner's August 2026 independent scouting preview calls Bloomington 4–6 overall and 1–5 in district in 2025. The preview also says the prior playoff appearance was 1998 and prior winning season 1999; treat these deeper historical dates as independent published research requiring UIL archival corroboration, not confirmed championship facts.",
+        "sourceUrl": "https://www.shinercomanchesports.com/sg260827p.htm",
+        "sourceLabel": "Shiner Comanche Sports independent 2026 season scouting preview"
+      },
+      {
+        "date": "2026",
+        "title": "Official UIL 2A Division I District 15 assignment",
+        "body": "Bloomington is aligned with Danbury, Flatonia, Ganado, Kenedy, Shiner and Weimar in UIL eleven-man football. Kenedy is the canonical school even when a printed schedule misspells its name.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 Conference2A Division I district alignment"
+      },
+      {
+        "date": "2026-10-02",
+        "title": "Bloomington loses to Kenedy by one point",
+        "body": "Bloomington's district opener ended Kenedy 36, Bloomington 35, according to the 2026 District15 team ledger. No overtime or play-by-play sequence is claimed.",
+        "sourceUrl": "https://www.pigskinprep.com/showfreeschedules.asp?distID=112&yr=2026",
+        "sourceLabel": "Pigskin Prep Oct2 game ledger"
+      },
+      {
+        "date": "2026-10-09",
+        "title": "Shiner result shows 43–3 in several independent game records",
+        "body": "Shiner Comanche Sports, Pigskin Prep and the current MaxPreps completed match box show Shiner 43, Bloomington 3. Some cached/automated reports and Texas Prep entries show 43–0. The Bobcats were 2–5 after the defeat; exact-score discrepancy remains visible.",
+        "sourceUrl": "https://www.shinercomanchesports.com/",
+        "sourceLabel": "Shiner Comanche Sports locally maintained 2026 matchup recap, crosschecked with dated independent game box"
+      },
+      {
+        "date": "2026-10-16",
+        "title": "First-party Bobcat Stadium cashless home-game policy",
+        "body": "Bloomington ISD's Vanco Events portal advertises Bloomington vs Danbury at 7 PM at Bobcat Stadium, and no cash accepted at gate. Prices, accessibility and parking not independently validated.",
+        "sourceUrl": "https://www.vancoevents.com/us/eventlist/bisdevents",
+        "sourceLabel": "Bloomington ISD official October16 ticket event"
+      }
+    ],
+    "overview": [
+      "Bloomington High School's Bobcats represent Bloomington Independent School District in Victoria County, Texas. This is not Bloomington High School of Illinois, California or Indiana, and the team's athletics is not a college program. UIL's official 2026–28 eleven-man football alignment places the Bobcats in Class 2A Division I, District 15 with Danbury, Flatonia, Ganado, Kenedy, Shiner and Weimar. District membership reflects the current cycle; older sources may still show another alignment.",
+      "Bloomington's 2026 season through October 9 is dated at 2–5 by the Pigskin Prep District15 game ledger, featuring shutout victories against Woodsboro (33–0) and Karnes City (34–0) but losses to several teams including a narrow 36–35 defeat against Kenedy. The October 9 away result at Shiner was a defeat, 43–3 in Shiner's locally maintained sports site, Pigskin Prep and MaxPreps' completed game box. The Shiner result has a 43–0 variation in some syndicated recaps, so the as-of-date evidence and discrepancy are transparent.",
+      "An August 2026 independent Shiner preview describes Bloomington as 4–6 in 2025 after a rebuilding phase; its claim that the Bobcats last made the playoffs in 1998 is context attributed to that local preview, not separately certified by a UIL archive. The visitor page does not invent state football championships or a dated head-coach appointment. Bloomington ISD's own staff directory currently calls Lane Shands athletic director; a third-party season index calls Shands head football coach, but the distinct football appointment has not been confirmed with a district hiring announcement.",
+      "Bloomington ISD publishes 2781 FM 616, Victoria TX 77905 as its campus/district contact, while the official handbook gives Bloomington High School's phone as 361-333-8011 and the postal community Bloomington TX 77951. The third-party MaxPreps listing's 2785 FM616 should not supersede the original district details. The high-school address is not automatically a validated Bobcat Stadium vehicle entrance; check with the district for spectator parking, ADA access and seating.",
+      "For the October 16, 2026 home game against Danbury, Bloomington ISD's own Vanco ticket page says varsity starts at 7 PM at Bobcat Stadium and accepts no cash at the gate. The online listing is useful game-day guidance but neither an independent stadium map nor a guarantee that tickets remain available. The forthcoming Weimar away game and Ganado home finale were future fixtures as of October 15; no predicted outcomes or kickoff changes are implied."
+    ],
+    "faq": [
+      {
+        "question": "Which Bloomington Bobcats football team is this?",
+        "answer": "This is Bloomington Independent School District's high-school Bobcats in Victoria County, Texas, not similarly named schools in Illinois, California or Indiana. The school competes in Texas UIL eleven-man football."
+      },
+      {
+        "question": "Which teams share Bloomington's official 2026 UIL football district?",
+        "answer": "The official 2026–28 UIL alignment places Bloomington in Class 2A Division I District 15 with Danbury, Flatonia, Ganado, Kenedy, Shiner and Weimar. Kenedy is the Texas school name, notwithstanding occasional 'Kennedy' spelling in older printed references."
+      },
+      {
+        "question": "Where is Bobcat Stadium and how can I buy Bloomington football tickets?",
+        "answer": "Bloomington ISD's own Vanco listing calls the venue Bobcat Stadium and identifies the October 16 Danbury match at 7 PM. Its event portal says no cash is accepted at the gate. The district contact is 2781 FM 616 in Victoria County; the exact stadium vehicle gate, parking and accessible seating need confirmation from the district."
+      },
+      {
+        "question": "What was Bloomington's 2026 varsity football record through October 9?",
+        "answer": "Pigskin Prep's 2026 District15 results list Bloomington at 2–5 through the October 9 away defeat at Shiner. The October 16 Danbury, October 23 Weimar and November 6 Ganado matches were still future as of this checkpoint."
+      },
+      {
+        "question": "Was Bloomington's October 9 game against Shiner 43–3 or 43–0?",
+        "answer": "Shiner's locally maintained Comanche sports site, Pigskin Prep's game list and the current completed MaxPreps box record Shiner 43, Bloomington 3. Some Texas Prep summaries and syndicated older recap text say 43–0. This guide uses 43–3 as the better cross-corroborated score and explicitly identifies the discrepancy."
+      },
+      {
+        "question": "Is Lane Shands Bloomington's athletic director or head football coach?",
+        "answer": "Bloomington ISD's official staff directory lists Lane Shands as athletic director at 361-333-8011. MaxPreps' season history also lists Shands as 2026 head coach, but the present football-specific appointment was not independently certified in a current district original hiring announcement. Contact Bloomington Athletics for current staffing."
+      }
+    ]
+  },
+  "blue-ridge": {
+    "slug": "blue-ridge",
+    "theme": {
+      "accentHex": "#547587",
+      "label": "Original school-inspired editorial accent only; no reproduced crest, official artwork or team photograph"
+    },
+    "seo": {
+      "title": "Blue Ridge Tigers Football 2026 | Coach Russell, District 7 & Tiger Stadium",
+      "description": "Blue Ridge Texas Tigers football: UIL 2026 3A Division II District 7, officially identified coach Jason Russell, 2–5 through October 9, Tiger Stadium and schedules."
+    },
+    "coach": {
+      "name": "Jason Russell",
+      "title": "Blue Ridge ISD athletic director and head football coach",
+      "sourceUrl": "https://www.brisd.net/o/brisd/page/athletics",
+      "sourceLabel": "Blue Ridge ISD Athletics directly identifies Jason Russell AD and head football coach; high school staff and district coaching staff corroborate",
+      "verifiedAt": "2026-10-15"
+    },
+    "campus": {
+      "address": "11020 County Road 504, Blue Ridge, TX 75424 (high school, not certified spectator gate)",
+      "phone": "972-752-5554",
+      "sourceUrl": "https://www.brisd.net/o/brhs/staff",
+      "sourceLabel": "Official Blue Ridge High School address and phone on campus staff directory; district office separately at 318 W School St",
+      "verifiedAt": "2026-10-15"
+    },
+    "schedule": {
+      "label": "Blue Ridge ISD official athletics and published 2026 football schedule documents",
+      "sourceUrl": "https://www.brisd.net/documents/athletics/athletic-schedules/489809",
+      "sourceLabel": "District documents explicitly list a 2026 BRISD Football Schedule; confirm live game-day venue and updates with school",
+      "verifiedAt": "2026-10-15"
+    },
+    "season": {
+      "record": "2–5 through October 9, 2026 (current completed game panel; 2026 season ongoing)",
+      "verifiedAt": "2026-10-15",
+      "sourceUrl": "https://www.maxpreps.com/tx/blue-ridge/blue-ridge-tigers/football/",
+      "sourceLabel": "MaxPreps completed 2026 varsity game results, including Howe 41–21 Oct9; prior Oct4 schedule PDF snapshot only 2–4",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Farmersville",
+          "site": "Away",
+          "result": "L 27–33 (overtime)"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Dallas HSAA",
+          "site": "Home",
+          "result": "W 47–14"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Mount Vernon",
+          "site": "Away",
+          "result": "L 21–22"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Commerce",
+          "site": "Home",
+          "result": "L 27–59"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Valley View",
+          "site": "Home",
+          "district": true,
+          "result": "W 42–21"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Bells",
+          "site": "Away",
+          "district": true,
+          "result": "L 21–42"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Howe",
+          "site": "Home",
+          "district": true,
+          "result": "L 21–41"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Leonard",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Callisburg",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Sadler S&S Consolidated",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "notice": {
+      "title": "Tiger Stadium: use the official game schedule before traveling",
+      "body": "Blue Ridge ISD's athletics page references Tiger Stadium and publishes 2026 football schedule documents, but does not establish a particular ticket-price schedule, parking lot, public entrance, cashless gate rule or ADA seating plan in the evidence reviewed. The high school address is not automatically the stadium vehicle entrance; confirm your actual game's site and arrangements directly with BRISD.",
+      "sourceUrl": "https://www.brisd.net/o/brisd/page/athletics",
+      "sourceLabel": "Blue Ridge ISD Athletics first-party Tiger Stadium and schedule navigation",
+      "verifiedAt": "2026-10-15"
+    },
+    "development": {
+      "title": "Recent playoff-capable seasons and a 2026 district test",
+      "body": "Blue Ridge's recent program record is more specific than the generic claim of a football tradition: the Dave Campbell's Texas Football archive lists 9–3 in 2024 and 7–5 in 2025, with no state championship and 15 playoff appearances in its historical program summary. Those are dated earlier seasons and must not be conflated with 2026, when the current completed results showed 2–5 after a 41–21 loss to Howe on October 9. The Tigers had already beaten Dallas HSAA and their district opponent Valley View, but lost an overtime 33–27 opener to Farmersville and a 22–21 game at Mount Vernon. Blue Ridge ISD itself identifies Jason Russell as athletic director/head football coach, while an independent game directory corroborates his team role. Future district fixtures cannot be portrayed as finished or awarded results.",
+      "sourceUrl": "https://dev.texasfootball.com/team/blue-ridge-tigers",
+      "sourceLabel": "Dave Campbell's program history: 2024 9–3, 2025 7–5, no titles, 15 appearances; current scores sourced separately",
+      "verifiedAt": "2026-10-15"
+    },
+    "milestones": [
+      {
+        "date": "2024",
+        "title": "9–3 varsity campaign",
+        "body": "Dave Campbell's Blue Ridge season history lists a 9–3 football campaign in 2024. That is a program year snapshot, not an unverified title-game or championship claim.",
+        "sourceUrl": "https://dev.texasfootball.com/team/blue-ridge-tigers",
+        "sourceLabel": "Dave Campbell's prior-season record list"
+      },
+      {
+        "date": "2025",
+        "title": "7–5 football season and playoff context",
+        "body": "DCTF's completed 2025 archive lists 7–5, and current MaxPreps historical team records concur. Blue Ridge's program-history entry reports 15 playoff appearances overall and no state football championships.",
+        "sourceUrl": "https://dev.texasfootball.com/team/blue-ridge-tigers",
+        "sourceLabel": "DCTF Blue Ridge program history"
+      },
+      {
+        "date": "2026-10-09",
+        "title": "2–5 through Howe district game",
+        "body": "MaxPreps' current completed game panel shows a 41–21 home loss to Howe on October 9. Its older Oct4 six-game schedule omitted the result, so its 2–4 snapshot is stale.",
+        "sourceUrl": "https://www.maxpreps.com/tx/football/game/blue-ridge-vs-howe/10-9-2026/?c=8aab49cb-1d24-4e09-b964-05218d74defa",
+        "sourceLabel": "Completed Howe–Blue Ridge varsity game box"
+      }
+    ],
+    "overview": [
+      "Blue Ridge High School's Tigers are a Collin County, Texas eleven-man football team in Blue Ridge ISD—not the unrelated Blue Ridge programs in South Carolina or other states. UIL's official 2026–28 alignment places them in Class 3A Division II, District 7 with Bells, Callisburg, Howe, Leonard, Sadler S&S Consolidated and Valley View. Historical conferences must not be relabeled as the present UIL alignment.",
+      "Blue Ridge ISD currently identifies Jason Russell as both its athletics director and head football coach, and the high-school campus directory places the school at 11020 County Road 504. The district headquarters separately lists 318 West School Street. The school campus mailing address is a source-backed contact, not independently verified spectator parking or stadium gate instructions.",
+      "By October 9 the 2026 Blue Ridge varsity record was 2–5, with wins over Dallas HSAA and Valley View, close losses to Farmersville and Mount Vernon, plus a 41–21 home district loss against Howe. The October 4 MaxPreps schedule still shows 2–4 because it predates the completed Howe game; use the dated October 9 completed score rather than the older preview. Leonard, Callisburg and S&S Consolidated remain future fixtures as of this record.",
+      "Dave Campbell's football archive describes 2024 and 2025 campaigns of 9–3 and 7–5 respectively, and lists no Texas UIL state football titles for Blue Ridge. Those records are historical context, not a promise of the 2026 season's final standings or a fabricated championship. Avoid overclaiming schools' rivalries and annual attendance when first-party reporting is absent.",
+      "The Blue Ridge ISD athletics page and official football-schedule document index are the useful visitor starting points for Tiger Stadium, school contacts and last-minute updates. The sources reviewed do not establish the stadium's precise visitor entrance, cash gate policy, ticket prices, current parking rules, accessible seating, licensed photos or exact ADA route. Fans should consult the official district rather than rely on a school address as a guaranteed game-day gate."
+    ],
+    "faq": [
+      {
+        "question": "What UIL class and district does Blue Ridge football compete in during 2026?",
+        "answer": "The official 2026–28 UIL eleven-man alignment assigns the Blue Ridge Tigers to Class 3A Division II, District 7 alongside Bells, Callisburg, Howe, Leonard, Sadler S&S Consolidated and Valley View."
+      },
+      {
+        "question": "Who is Blue Ridge's current head football coach?",
+        "answer": "Blue Ridge ISD's own athletics and coaching-staff pages identify Jason Russell as the athletic director and head football coach; this is not a guess from an older third-party roster."
+      },
+      {
+        "question": "What was the 2026 Blue Ridge record through October 9?",
+        "answer": "The current completed game feed shows 2–5 after a home 41–21 defeat to Howe on October 9. An older schedule cached on October 4 still shows 2–4 and had not yet recorded the Howe final."
+      },
+      {
+        "question": "Where is the school, and is that address Tiger Stadium's entrance?",
+        "answer": "Blue Ridge High School's official campus directory lists 11020 County Road 504, Blue Ridge, TX 75424, phone 972-752-5554. Blue Ridge ISD separately refers to Tiger Stadium, but the campus postal address is not proof of a public vehicle gate or accessible stadium entrance."
+      },
+      {
+        "question": "Has Blue Ridge won a Texas football state title?",
+        "answer": "Dave Campbell's program-history summary currently lists no state football titles or title-game appearances and reports 15 playoff appearances. The source should not be stretched into a claim about a specific title year."
+      },
+      {
+        "question": "Where can visiting families check current football schedules, tickets and accessibility?",
+        "answer": "Start with Blue Ridge ISD's official athletics page and its 2026 BRISD football schedule document index. Exact gate, parking, ticketing and accessible seating arrangements were not independently established and should be confirmed with the district before attending."
+      }
+    ]
+  },
+  "bluff-dale": {
+    "slug": "bluff-dale",
+    "theme": {
+      "accentHex": "#32644C",
+      "label": "Independent forest-green editorial accent; no school marks, copyrighted photographs or official logos reused"
+    },
+    "seo": {
+      "title": "Bluff Dale Bobcats Six-Man Football 2026 | UIL District 11, Scores & School Guide",
+      "description": "Bluff Dale Bobcats football in Erath County: official 2026 six-man Division I District 11, source-checked results through October 15, coach and school contacts."
+    },
+    "coach": {
+      "name": "Gaeron Cooley",
+      "title": "Bluff Dale head football coach, identified on district-published staff bio; confirm current staffing with district",
+      "sourceUrl": "https://www.bdisd.net/259637_2",
+      "sourceLabel": "Bluff Dale ISD coach Gaeron Cooley staff biography; current-season appointment not independently dated",
+      "verifiedAt": "2026-10-16"
+    },
+    "campus": {
+      "address": "430 FM 2481, Bluff Dale, TX 76433",
+      "phone": "254-728-3277",
+      "sourceUrl": "https://www.bdisd.net/",
+      "sourceLabel": "Official Bluff Dale ISD school and office address and district phone; not a verified stadium entrance",
+      "verifiedAt": "2026-10-16"
+    },
+    "schedule": {
+      "label": "Bluff Dale ISD official athletics schedules and game-day information",
+      "sourceUrl": "https://www.bdisd.net/223835_2",
+      "sourceLabel": "Bluff Dale ISD athletics directory: Sport Schedules, athletics broadcast and coaches",
+      "verifiedAt": "2026-10-16"
+    },
+    "season": {
+      "record": "4–3 through October 15, 2026 (independent published results; verify subsequent finals)",
+      "verifiedAt": "2026-10-16",
+      "sourceUrl": "https://www.maxpreps.com/tx/bluff-dale/bluff-dale-bobcats/football/schedule/",
+      "sourceLabel": "MaxPreps completed first six games and NBC DFW October 15 Bluff Dale 54–6 Covington result; third-party game indexes can differ",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Texas Wind",
+          "site": "Neutral",
+          "result": "L 7–66"
+        },
+        {
+          "date": "2026-09-03",
+          "opponent": "Stephenville FAITH",
+          "site": "Home",
+          "result": "W 67–22"
+        },
+        {
+          "date": "2026-09-10",
+          "opponent": "Zephyr",
+          "site": "Home",
+          "result": "L 20–59"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Gordon",
+          "site": "Away",
+          "result": "L 44–64"
+        },
+        {
+          "date": "2026-09-24",
+          "opponent": "Bryson",
+          "site": "Home",
+          "result": "W 88–66"
+        },
+        {
+          "date": "2026-10-08",
+          "opponent": "Blum",
+          "site": "Away",
+          "district": true,
+          "result": "W 69–20"
+        },
+        {
+          "date": "2026-10-15",
+          "opponent": "Covington",
+          "site": "Home",
+          "district": true,
+          "result": "W 54–6"
+        },
+        {
+          "date": "2026-11-05",
+          "opponent": "Avalon",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "notice": {
+      "title": "Check the UIL division, actual campus and live game details before traveling",
+      "body": "The governing UIL 2026–28 six-man alignment puts Bluff Dale in Class 1A Division I, District 11, not Division II as an older team directory suggests. Bluff Dale ISD publishes 430 FM 2481 as the school and office address, whereas a third-party football profile lists 710 Church Street; neither listing independently establishes the football entrance, parking or accessible seating. MaxPreps and Six-Man Football also differ on the date of the upcoming Milford away fixture. The October 15 Bluff Dale–Covington final is reported as 54–6 by NBC DFW, while an early third-party live feed reported a different score. Confirm the fixture and stadium gate with Bluff Dale ISD before leaving.",
+      "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
+      "sourceLabel": "Official UIL 2026–28 1A Division I six-man alignment, checked against Bluff Dale ISD and independent game reporting",
+      "verifiedAt": "2026-10-16"
+    },
+    "development": {
+      "title": "A six-man program navigating a stronger 2026 Division I assignment",
+      "body": "Bluff Dale's recent varsity football history belongs in six-man context. Third-party season archives show 11–2 in 2022 and 10–2 in 2025, but a winning season is not proof of a UIL state championship. For 2026 the official state classification places the Bobcats in Division I District 11 with Avalon, Blum, Covington and Milford. The Bobcats entered the first two district games at 2–3 after an 88–66 win over Bryson; they beat Blum 69–20 on October 8 and, according to NBC DFW's completed Oct 15 scoreboard, Covington 54–6. This dated 4–3 snapshot should not be presented as a final 2026 season record.",
+      "sourceUrl": "https://sixmanfootball.com/teams/bluff-dale-bobcats.1054/schedule/",
+      "sourceLabel": "Six-Man Football 2022–26 team archive and current schedule, corroborated for 2026 finals by MaxPreps and NBC DFW",
+      "verifiedAt": "2026-10-16"
+    },
+    "milestones": [
+      {
+        "date": "2022",
+        "title": "Eleven-win 2022 campaign",
+        "body": "Both the Six-Man Football archive and MaxPreps season history show an 11–2 varsity campaign for Bluff Dale. This does not establish a state title or championship-game berth.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bluff-dale/bluff-dale-bobcats/football/history/",
+        "sourceLabel": "MaxPreps Bluff Dale program season history, 2022–23"
+      },
+      {
+        "date": "2025",
+        "title": "Ten-win 2025 season",
+        "body": "MaxPreps records Bluff Dale at 10–2 for 2025, including four district wins. A separate Dave Campbell's tile shows only partial results, so do not use it alone to assert a conflicting final record.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bluff-dale/bluff-dale-bobcats/football/25-26/schedule/",
+        "sourceLabel": "Completed MaxPreps 2025 varsity schedule, 10–2"
+      },
+      {
+        "date": "2026",
+        "title": "Official UIL six-man Division I District 11",
+        "body": "The state alignment places Bluff Dale alongside Avalon, Blum, Covington and Milford. Historical references to Division II are not the official 2026 assignment.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 Class 1A Division I six-man District 11"
+      },
+      {
+        "date": "2026-10-08",
+        "title": "Bluff Dale 69, Blum 20",
+        "body": "The published six-man schedule and completed MaxPreps box score agree on the 69–20 away district win; the completed result shows a third 2026 victory through October 8.",
+        "sourceUrl": "https://www.maxpreps.com/tx/football/game/bluff-dale-vs-blum/10-9-2026/?c=3071698d-8a60-49d7-a347-77e44695ebef",
+        "sourceLabel": "Completed MaxPreps Bluff Dale–Blum box score, Oct 8"
+      },
+      {
+        "date": "2026-10-15",
+        "title": "Bluff Dale 54, Covington 6",
+        "body": "NBC 5 Dallas–Fort Worth's Week 8 Texas scores report Bluff Dale 54, Covington 6. An earlier live-feed score differs; this milestone uses the published completed local sports score and should be revised only with stronger final evidence.",
+        "sourceUrl": "https://www.nbcdfw.com/news/sports/hs-sports/big-game-friday-texas-high-school-football-scores-for-oct-15-17/4091560/",
+        "sourceLabel": "NBC 5 DFW Thursday October 15 Week 8 final-score roundup"
+      }
+    ],
+    "overview": [
+      "Bluff Dale's Bobcats are a small-school six-man football program representing Bluff Dale Independent School District in Erath County. The official 2026–28 UIL alignment puts the Bobcats in Conference 1A Division I, District 11 with Avalon, Blum, Covington and Milford. That distinction matters: some otherwise useful football directories still label the program Division II, apparently retaining earlier classifications. The authoritative season alignment is the UIL PDF, not a directory's inherited team badge.",
+      "Bluff Dale ISD provides the most appropriate starting point for current campus contacts and game arrangements. The district lists Bluff Dale School at 430 FM 2481, Bluff Dale, Texas 76433, telephone 254-728-3277. A third-party team profile instead lists 710 Church Street; those addresses should not be treated as interchangeable stadium entrances. Athletic broadcast, schedules, concussion resources and coach directory are linked from the district's athletics page. Neither an exact football parking gate nor a current ADA seating map was independently published in the sources reviewed.",
+      "Bluff Dale's published 2026 completed ledger begins with a 7–66 loss to Texas Wind, a 67–22 victory over Stephenville FAITH, and defeats against Zephyr and Gordon. The Bobcats then beat Bryson 88–66 and Blum 69–20, the latter on October 8 in their district schedule. NBC 5 Dallas–Fort Worth subsequently published a 54–6 win over Covington on October 15. The seven recorded finals make a 4–3 snapshot as of October 16, not a prediction about late October or November fixtures.",
+      "The program has distinct recent achievements without any reason to fabricate a state title: school history pages record 11–2 in 2022 and 10–2 in 2025. Bluff Dale's move in the 2026 alignment to six-man Division I provides real competitive context. A historical football index that omits postseason games or groups the Bobcats in their earlier Division II district should not replace dated verified season results or the current UIL classification.",
+      "Fans should use the official Bluff Dale ISD athletic schedule to confirm any specific Friday or Thursday game, tickets, venue, parking and accessible access. The independent schedules disagree whether the next Milford road fixture is on October 22 or 23, so this guide deliberately does not declare an exact kickoff for it. Erath County visitors can also consult TexasDefined's Erath County guide through the reciprocal school and county links; the county page is geographic context, not a substitute for district-issued directions."
+    ],
+    "faq": [
+      {
+        "question": "Is Bluff Dale six-man or eleven-man football in 2026?",
+        "answer": "Six-man. The official UIL 2026–28 Class 1A Division I football alignment lists Bluff Dale in District 11 with Avalon, Blum, Covington and Milford. Older directories that show Division II are not the controlling 2026 classification."
+      },
+      {
+        "question": "Where is Bluff Dale School, and is that also the football gate?",
+        "answer": "The district lists Bluff Dale School at 430 FM 2481, Bluff Dale, Texas 76433, phone 254-728-3277. A third-party football profile lists 710 Church Street. The exact stadium entry, parking and ADA access have not been independently verified, so ask Bluff Dale ISD before driving."
+      },
+      {
+        "question": "Who is the Bluff Dale Bobcats head football coach?",
+        "answer": "Bluff Dale ISD's own Gaeron Cooley biography says he is head football coach, and current team directories likewise identify him. The district bio does not give an independently confirmed October 2026 appointment date, so confirm later staffing changes with the athletics department."
+      },
+      {
+        "question": "What was Bluff Dale's record after the October 15, 2026 Covington game?",
+        "answer": "Four wins and three losses based on six completed MaxPreps/Six-Man results through October 8 plus NBC 5 DFW's published October 15 Bluff Dale 54–6 Covington final. Early live score feeds differ, so this is a dated, sourced snapshot."
+      },
+      {
+        "question": "Did Bluff Dale win a state football title in 2022 or 2025?",
+        "answer": "A 2022 11–2 record and 2025 10–2 season are reported in season archives, but those records do not establish a UIL state championship. No state football title is claimed here without official UIL bracket evidence."
+      },
+      {
+        "question": "When is Bluff Dale's upcoming Milford district road game?",
+        "answer": "Independent football schedules differ between October 22 and October 23, 2026. Rather than invent a certain date or kickoff, check the Bluff Dale ISD sport schedule or district athletics contact for the latest official fixture and ticket instructions."
+      },
+      {
+        "question": "Where can I find game-day streams, medical forms and current schedule changes?",
+        "answer": "Bluff Dale ISD's official Athletics section links its broadcasts, sports schedules, coaches, concussion protocol and athletic paperwork. That first-party page is the best starting point for game-specific arrangements; no unlicensed team photo is reproduced here."
+      }
+    ]
+  },
   "blum": {
     "slug": "blum",
     "theme": {
@@ -1291,360 +2004,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Why do different sources give different Blum 2019 or 2025 season records?",
         "answer": "The UIL's 2019 team archive records a particular season snapshot, while completed 2019 game indexes include the final championship and show additional contests. For 2025 MaxPreps's finished schedule is 3–7, whereas an older DCTF team card lists partial 2–5. Date and completion status matter more than unsourced rolled-up summaries."
-      }
-    ]
-  },
-  "bluff-dale": {
-    "slug": "bluff-dale",
-    "theme": {
-      "accentHex": "#32644C",
-      "label": "Independent forest-green editorial accent; no school marks, copyrighted photographs or official logos reused"
-    },
-    "seo": {
-      "title": "Bluff Dale Bobcats Six-Man Football 2026 | UIL District 11, Scores & School Guide",
-      "description": "Bluff Dale Bobcats football in Erath County: official 2026 six-man Division I District 11, source-checked results through October 15, coach and school contacts."
-    },
-    "coach": {
-      "name": "Gaeron Cooley",
-      "title": "Bluff Dale head football coach, identified on district-published staff bio; confirm current staffing with district",
-      "sourceUrl": "https://www.bdisd.net/259637_2",
-      "sourceLabel": "Bluff Dale ISD coach Gaeron Cooley staff biography; current-season appointment not independently dated",
-      "verifiedAt": "2026-10-16"
-    },
-    "campus": {
-      "address": "430 FM 2481, Bluff Dale, TX 76433",
-      "phone": "254-728-3277",
-      "sourceUrl": "https://www.bdisd.net/",
-      "sourceLabel": "Official Bluff Dale ISD school and office address and district phone; not a verified stadium entrance",
-      "verifiedAt": "2026-10-16"
-    },
-    "schedule": {
-      "label": "Bluff Dale ISD official athletics schedules and game-day information",
-      "sourceUrl": "https://www.bdisd.net/223835_2",
-      "sourceLabel": "Bluff Dale ISD athletics directory: Sport Schedules, athletics broadcast and coaches",
-      "verifiedAt": "2026-10-16"
-    },
-    "season": {
-      "record": "4–3 through October 15, 2026 (independent published results; verify subsequent finals)",
-      "verifiedAt": "2026-10-16",
-      "sourceUrl": "https://www.maxpreps.com/tx/bluff-dale/bluff-dale-bobcats/football/schedule/",
-      "sourceLabel": "MaxPreps completed first six games and NBC DFW October 15 Bluff Dale 54–6 Covington result; third-party game indexes can differ",
-      "games": [
-        {
-          "date": "2026-08-28",
-          "opponent": "Texas Wind",
-          "site": "Neutral",
-          "result": "L 7–66"
-        },
-        {
-          "date": "2026-09-03",
-          "opponent": "Stephenville FAITH",
-          "site": "Home",
-          "result": "W 67–22"
-        },
-        {
-          "date": "2026-09-10",
-          "opponent": "Zephyr",
-          "site": "Home",
-          "result": "L 20–59"
-        },
-        {
-          "date": "2026-09-18",
-          "opponent": "Gordon",
-          "site": "Away",
-          "result": "L 44–64"
-        },
-        {
-          "date": "2026-09-24",
-          "opponent": "Bryson",
-          "site": "Home",
-          "result": "W 88–66"
-        },
-        {
-          "date": "2026-10-08",
-          "opponent": "Blum",
-          "site": "Away",
-          "district": true,
-          "result": "W 69–20"
-        },
-        {
-          "date": "2026-10-15",
-          "opponent": "Covington",
-          "site": "Home",
-          "district": true,
-          "result": "W 54–6"
-        },
-        {
-          "date": "2026-11-05",
-          "opponent": "Avalon",
-          "site": "Home",
-          "district": true
-        }
-      ]
-    },
-    "notice": {
-      "title": "Check the UIL division, actual campus and live game details before traveling",
-      "body": "The governing UIL 2026–28 six-man alignment puts Bluff Dale in Class 1A Division I, District 11, not Division II as an older team directory suggests. Bluff Dale ISD publishes 430 FM 2481 as the school and office address, whereas a third-party football profile lists 710 Church Street; neither listing independently establishes the football entrance, parking or accessible seating. MaxPreps and Six-Man Football also differ on the date of the upcoming Milford away fixture. The October 15 Bluff Dale–Covington final is reported as 54–6 by NBC DFW, while an early third-party live feed reported a different score. Confirm the fixture and stadium gate with Bluff Dale ISD before leaving.",
-      "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
-      "sourceLabel": "Official UIL 2026–28 1A Division I six-man alignment, checked against Bluff Dale ISD and independent game reporting",
-      "verifiedAt": "2026-10-16"
-    },
-    "development": {
-      "title": "A six-man program navigating a stronger 2026 Division I assignment",
-      "body": "Bluff Dale's recent varsity football history belongs in six-man context. Third-party season archives show 11–2 in 2022 and 10–2 in 2025, but a winning season is not proof of a UIL state championship. For 2026 the official state classification places the Bobcats in Division I District 11 with Avalon, Blum, Covington and Milford. The Bobcats entered the first two district games at 2–3 after an 88–66 win over Bryson; they beat Blum 69–20 on October 8 and, according to NBC DFW's completed Oct 15 scoreboard, Covington 54–6. This dated 4–3 snapshot should not be presented as a final 2026 season record.",
-      "sourceUrl": "https://sixmanfootball.com/teams/bluff-dale-bobcats.1054/schedule/",
-      "sourceLabel": "Six-Man Football 2022–26 team archive and current schedule, corroborated for 2026 finals by MaxPreps and NBC DFW",
-      "verifiedAt": "2026-10-16"
-    },
-    "milestones": [
-      {
-        "date": "2022",
-        "title": "Eleven-win 2022 campaign",
-        "body": "Both the Six-Man Football archive and MaxPreps season history show an 11–2 varsity campaign for Bluff Dale. This does not establish a state title or championship-game berth.",
-        "sourceUrl": "https://www.maxpreps.com/tx/bluff-dale/bluff-dale-bobcats/football/history/",
-        "sourceLabel": "MaxPreps Bluff Dale program season history, 2022–23"
-      },
-      {
-        "date": "2025",
-        "title": "Ten-win 2025 season",
-        "body": "MaxPreps records Bluff Dale at 10–2 for 2025, including four district wins. A separate Dave Campbell's tile shows only partial results, so do not use it alone to assert a conflicting final record.",
-        "sourceUrl": "https://www.maxpreps.com/tx/bluff-dale/bluff-dale-bobcats/football/25-26/schedule/",
-        "sourceLabel": "Completed MaxPreps 2025 varsity schedule, 10–2"
-      },
-      {
-        "date": "2026",
-        "title": "Official UIL six-man Division I District 11",
-        "body": "The state alignment places Bluff Dale alongside Avalon, Blum, Covington and Milford. Historical references to Division II are not the official 2026 assignment.",
-        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
-        "sourceLabel": "UIL 2026–28 Class 1A Division I six-man District 11"
-      },
-      {
-        "date": "2026-10-08",
-        "title": "Bluff Dale 69, Blum 20",
-        "body": "The published six-man schedule and completed MaxPreps box score agree on the 69–20 away district win; the completed result shows a third 2026 victory through October 8.",
-        "sourceUrl": "https://www.maxpreps.com/tx/football/game/bluff-dale-vs-blum/10-9-2026/?c=3071698d-8a60-49d7-a347-77e44695ebef",
-        "sourceLabel": "Completed MaxPreps Bluff Dale–Blum box score, Oct 8"
-      },
-      {
-        "date": "2026-10-15",
-        "title": "Bluff Dale 54, Covington 6",
-        "body": "NBC 5 Dallas–Fort Worth's Week 8 Texas scores report Bluff Dale 54, Covington 6. An earlier live-feed score differs; this milestone uses the published completed local sports score and should be revised only with stronger final evidence.",
-        "sourceUrl": "https://www.nbcdfw.com/news/sports/hs-sports/big-game-friday-texas-high-school-football-scores-for-oct-15-17/4091560/",
-        "sourceLabel": "NBC 5 DFW Thursday October 15 Week 8 final-score roundup"
-      }
-    ],
-    "overview": [
-      "Bluff Dale's Bobcats are a small-school six-man football program representing Bluff Dale Independent School District in Erath County. The official 2026–28 UIL alignment puts the Bobcats in Conference 1A Division I, District 11 with Avalon, Blum, Covington and Milford. That distinction matters: some otherwise useful football directories still label the program Division II, apparently retaining earlier classifications. The authoritative season alignment is the UIL PDF, not a directory's inherited team badge.",
-      "Bluff Dale ISD provides the most appropriate starting point for current campus contacts and game arrangements. The district lists Bluff Dale School at 430 FM 2481, Bluff Dale, Texas 76433, telephone 254-728-3277. A third-party team profile instead lists 710 Church Street; those addresses should not be treated as interchangeable stadium entrances. Athletic broadcast, schedules, concussion resources and coach directory are linked from the district's athletics page. Neither an exact football parking gate nor a current ADA seating map was independently published in the sources reviewed.",
-      "Bluff Dale's published 2026 completed ledger begins with a 7–66 loss to Texas Wind, a 67–22 victory over Stephenville FAITH, and defeats against Zephyr and Gordon. The Bobcats then beat Bryson 88–66 and Blum 69–20, the latter on October 8 in their district schedule. NBC 5 Dallas–Fort Worth subsequently published a 54–6 win over Covington on October 15. The seven recorded finals make a 4–3 snapshot as of October 16, not a prediction about late October or November fixtures.",
-      "The program has distinct recent achievements without any reason to fabricate a state title: school history pages record 11–2 in 2022 and 10–2 in 2025. Bluff Dale's move in the 2026 alignment to six-man Division I provides real competitive context. A historical football index that omits postseason games or groups the Bobcats in their earlier Division II district should not replace dated verified season results or the current UIL classification.",
-      "Fans should use the official Bluff Dale ISD athletic schedule to confirm any specific Friday or Thursday game, tickets, venue, parking and accessible access. The independent schedules disagree whether the next Milford road fixture is on October 22 or 23, so this guide deliberately does not declare an exact kickoff for it. Erath County visitors can also consult TexasDefined's Erath County guide through the reciprocal school and county links; the county page is geographic context, not a substitute for district-issued directions."
-    ],
-    "faq": [
-      {
-        "question": "Is Bluff Dale six-man or eleven-man football in 2026?",
-        "answer": "Six-man. The official UIL 2026–28 Class 1A Division I football alignment lists Bluff Dale in District 11 with Avalon, Blum, Covington and Milford. Older directories that show Division II are not the controlling 2026 classification."
-      },
-      {
-        "question": "Where is Bluff Dale School, and is that also the football gate?",
-        "answer": "The district lists Bluff Dale School at 430 FM 2481, Bluff Dale, Texas 76433, phone 254-728-3277. A third-party football profile lists 710 Church Street. The exact stadium entry, parking and ADA access have not been independently verified, so ask Bluff Dale ISD before driving."
-      },
-      {
-        "question": "Who is the Bluff Dale Bobcats head football coach?",
-        "answer": "Bluff Dale ISD's own Gaeron Cooley biography says he is head football coach, and current team directories likewise identify him. The district bio does not give an independently confirmed October 2026 appointment date, so confirm later staffing changes with the athletics department."
-      },
-      {
-        "question": "What was Bluff Dale's record after the October 15, 2026 Covington game?",
-        "answer": "Four wins and three losses based on six completed MaxPreps/Six-Man results through October 8 plus NBC 5 DFW's published October 15 Bluff Dale 54–6 Covington final. Early live score feeds differ, so this is a dated, sourced snapshot."
-      },
-      {
-        "question": "Did Bluff Dale win a state football title in 2022 or 2025?",
-        "answer": "A 2022 11–2 record and 2025 10–2 season are reported in season archives, but those records do not establish a UIL state championship. No state football title is claimed here without official UIL bracket evidence."
-      },
-      {
-        "question": "When is Bluff Dale's upcoming Milford district road game?",
-        "answer": "Independent football schedules differ between October 22 and October 23, 2026. Rather than invent a certain date or kickoff, check the Bluff Dale ISD sport schedule or district athletics contact for the latest official fixture and ticket instructions."
-      },
-      {
-        "question": "Where can I find game-day streams, medical forms and current schedule changes?",
-        "answer": "Bluff Dale ISD's official Athletics section links its broadcasts, sports schedules, coaches, concussion protocol and athletic paperwork. That first-party page is the best starting point for game-specific arrangements; no unlicensed team photo is reproduced here."
-      }
-    ]
-  },
-  "blooming-grove": {
-    "slug": "blooming-grove",
-    "theme": {
-      "accentHex": "#A78B39",
-      "label": "Independent gold editorial accent; no licensed team artwork or crest reproduced"
-    },
-    "seo": {
-      "title": "Blooming Grove Lions Football 2026 | Coach Sherrill, District & Lion Stadium",
-      "description": "Blooming Grove Lions 2026 football: new head coach Kevin Sherrill, UIL 3A Division II District 11, 0–6 through October 9 and official campus visitor contact."
-    },
-    "coach": {
-      "name": "Kevin Sherrill",
-      "title": "Athletic director and head football coach (district-announced 2026 hire)",
-      "sourceUrl": "https://www.bgisd.org/apps/news/article/2157034?categoryId=6258",
-      "sourceLabel": "Blooming Grove ISD official 2026 new athletic director/head football coach hiring announcement",
-      "verifiedAt": "2026-10-15"
-    },
-    "campus": {
-      "address": "212 West Grady Street, Blooming Grove, TX 76626",
-      "phone": "903-695-2541 ext. 1013",
-      "sourceUrl": "https://www.bgisd.org/apps/pages/index.jsp?pREC_ID=940793&type=d&uREC_ID=432201",
-      "sourceLabel": "Blooming Grove ISD official high school campus listing, distinct from district elementary and junior high addresses",
-      "verifiedAt": "2026-10-15"
-    },
-    "schedule": {
-      "label": "Blooming Grove ISD athletics original football and school event calendar",
-      "sourceUrl": "https://www.bgisd.org/apps/events/2026/10/?id=0&id=2",
-      "sourceLabel": "Official district October 2026 calendar and individual fixture details; historical results sourced independently",
-      "verifiedAt": "2026-10-15"
-    },
-    "season": {
-      "record": "0–6 through October 9, 2026 (Pigskin Prep team ledger, independently confirmed Teague result; season ongoing)",
-      "verifiedAt": "2026-10-15",
-      "sourceUrl": "https://www.texashighschoolfootballhistory.com/showfreeschedules.asp?distID=353&yr=2026",
-      "sourceLabel": "Pigskin Prep 2026 Class3A DII District11 dated opponent ledger; October9 score confirmed by MaxPreps final game box",
-      "games": [
-        {
-          "date": "2026-08-28",
-          "opponent": "Frost",
-          "site": "Home",
-          "result": "L 0–31"
-        },
-        {
-          "date": "2026-09-04",
-          "opponent": "Eustace",
-          "site": "Away",
-          "result": "L 30–44"
-        },
-        {
-          "date": "2026-09-11",
-          "opponent": "Wortham",
-          "site": "Home",
-          "result": "L 30–39"
-        },
-        {
-          "date": "2026-09-18",
-          "opponent": "Valley Mills",
-          "site": "Away",
-          "result": "L 6–48"
-        },
-        {
-          "date": "2026-09-25",
-          "opponent": "Hillsboro",
-          "site": "Home",
-          "result": "L 12–53"
-        },
-        {
-          "date": "2026-10-09",
-          "opponent": "Teague",
-          "site": "Away",
-          "district": true,
-          "result": "L 0–68"
-        },
-        {
-          "date": "2026-10-16",
-          "opponent": "Elkhart",
-          "site": "Home",
-          "district": true
-        },
-        {
-          "date": "2026-10-23",
-          "opponent": "Rice",
-          "site": "Away",
-          "district": true
-        },
-        {
-          "date": "2026-10-30",
-          "opponent": "Corsicana Mildred",
-          "site": "Home",
-          "district": true
-        },
-        {
-          "date": "2026-11-06",
-          "opponent": "Buffalo",
-          "site": "Away",
-          "district": true
-        }
-      ]
-    },
-    "notice": {
-      "title": "Lion Stadium is listed for homecoming; its vehicle entrance is not verified",
-      "body": "Blooming Grove ISD's October 12, 2026 calendar names Lion Stadium as the homecoming parade/pep rally destination. The high school's official address is 212 West Grady Street, which is a contact address and does not establish the stadium parking gate, ADA entrance, tickets or exact accessible seating. Confirm any event-specific venue with Blooming Grove ISD.",
-      "sourceUrl": "https://www.bgisd.org/apps/events/2026/10/?id=0&id=2",
-      "sourceLabel": "Blooming Grove ISD first-party 2026 school and athletics events, including October12 homecoming at Lion Stadium",
-      "verifiedAt": "2026-10-15"
-    },
-    "development": {
-      "title": "A 2026 coaching rebuild after a 2025 playoff appearance",
-      "body": "Blooming Grove ISD directly announced Kevin Sherrill as athletic director/head football coach in early 2026, moving from Vernon where his teams had gone 10–3 in 2025 and 9–4 in 2024. Those records belong to Vernon, not the Lions. Blooming Grove's own 2025 program went 3–8, including a 59–6 first-round playoff loss to Blue Ridge in the Lone Star Football Network ledger. Through October 9 of Sherrill's first listed Blooming Grove season, six reported results showed 0–6, capped by a 68–0 road loss to Teague. Describing an active rebuilding challenge must not confuse the former district's wins with the current school's record.",
-      "sourceUrl": "https://www.bgisd.org/apps/news/article/2157034?categoryId=6258",
-      "sourceLabel": "District's first-party hire notice; Blooming Grove own results separately checked against Lone Star 2025 and Pigskin Prep/MaxPreps 2026",
-      "verifiedAt": "2026-10-15"
-    },
-    "milestones": [
-      {
-        "date": "2025",
-        "title": "Lions reached a 2025 postseason first-round game",
-        "body": "Lone Star Football Network's game-by-game archive lists a 3–8 2025 season with a postseason defeat 59–6 to Blue Ridge. Those results belong to Blooming Grove, not incoming coach Sherrill's Vernon tenure.",
-        "sourceUrl": "https://www.lonestarfootball.net/team.asp?GUID=4138128162&S=2025&T=869&action=schedule",
-        "sourceLabel": "Lone Star Football Network Blooming Grove 2025 completed schedule"
-      },
-      {
-        "date": "2026",
-        "title": "Kevin Sherrill hired as head football coach/athletic director",
-        "body": "Blooming Grove ISD announced its hire from Vernon, explicitly citing previous Vernon 10–3 and 9–4 campaigns. The Lions' past-season win-loss totals are distinct.",
-        "sourceUrl": "https://www.bgisd.org/apps/news/article/2157034?categoryId=6258",
-        "sourceLabel": "District-confirmed 2026 head coach hire"
-      },
-      {
-        "date": "2026",
-        "title": "UIL 3A Division II District 11",
-        "body": "The official realignment includes Blooming Grove, Buffalo, Elkhart, Mildred, Rice and Teague as eleven-man football district peers.",
-        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
-        "sourceLabel": "UIL official 2026–28 3A Division II alignment"
-      },
-      {
-        "date": "2026-10-09",
-        "title": "First reported 2026 District 11 game at Teague",
-        "body": "The school calendar placed the Lions at Teague October 9, and both the game box and regional district ledger record Teague 68, Blooming Grove 0, with Blooming Grove 0–6 through that date.",
-        "sourceUrl": "https://www.maxpreps.com/tx/football/game/blooming-grove-vs-teague/10-9-2026/?c=d1242195-6367-4fae-933a-04df9f472e74",
-        "sourceLabel": "MaxPreps October 9 completed conference box corroborated by Pigskin Prep District11 2026 ledger"
-      }
-    ],
-    "overview": [
-      "Blooming Grove High School's Lions represent Blooming Grove ISD in Navarro County, Texas. For the 2026–28 UIL realignment, the team is in eleven-man Class 3A Division II, District 11 with Buffalo, Elkhart, Mildred, Rice and Teague. Although Teague also calls its team the Lions, the two school districts and game-day destinations are different. The UIL alignment governs this season rather than prior-cycle districts.",
-      "A major recent change was Blooming Grove ISD's announcement that Kevin Sherrill would become its athletic director and head football coach for 2026. The district highlighted rebuilding accomplishments at his previous employer, Vernon ISD, including 10–3 in 2025 and 9–4 in 2024. Those numbers are **Vernon's** results and should not be misrepresented as Blooming Grove achievements. The Lions' 2025 season was 3–8 and included a first-round playoff appearance against Blue Ridge, per the completed game ledger.",
-      "The 2026 Lions have experienced a challenging start in their own program. Pigskin Prep's District 11 game ledger lists losses to Frost, Eustace, Wortham, Valley Mills, Hillsboro and Teague through October 9, putting the team 0–6. Teague beat Blooming Grove 68–0 in the October 9 conference opener, independently documented by a completed MaxPreps match and each district's official event schedule. A MaxPreps season index last updated September 1 still showed 0–1 and should not override later games.",
-      "For visitors, the district identifies Blooming Grove High School at 212 West Grady Street with a high-school office phone of 903-695-2541, extension 1013. This is not the elementary school or junior-high address. An October 12 official homecoming-parade calendar names Lion Stadium, but the location of the actual vehicle entrance, accessible spectator access, stadium photo rights and current admission terms were not independently confirmed; call the school for match-specific arrangements.",
-      "October 16 against Elkhart, October 23 at Rice, October 30 against Mildred and November 6 at Buffalo were still future fixtures as of the October 15 research date. Consult Blooming Grove ISD's event calendar for kickoff, changes and ticket arrangements; a missing result in old third-party calendar pages should not be mistaken for a cancellation or a win."
-    ],
-    "faq": [
-      {
-        "question": "Who is Blooming Grove's head football coach for 2026?",
-        "answer": "Blooming Grove ISD itself announced Kevin Sherrill as its new athletic director and head football coach in 2026. His cited 2024 and 2025 winning records came at previous employer Vernon ISD, not Blooming Grove."
-      },
-      {
-        "question": "What UIL district is Blooming Grove in for 2026 football?",
-        "answer": "The official 2026–28 UIL alignment places Blooming Grove in Class 3A Division II, District 11 with Buffalo, Elkhart, Mildred, Rice and Teague; the school plays eleven-man football."
-      },
-      {
-        "question": "What was Blooming Grove's varsity record through October 9, 2026?",
-        "answer": "The completed six-game district ledger lists Blooming Grove 0–6 through an October 9 away loss to Teague 68–0. MaxPreps' October 9 result independently confirms the game, while an older September 1 schedule was stale."
-      },
-      {
-        "question": "Did Blooming Grove have a 10–3 football season in 2025?",
-        "answer": "No. The district's 2026 coaching announcement says Kevin Sherrill's prior Vernon team went 10–3 in 2025; Blooming Grove itself went 3–8 in 2025 according to a game-by-game archive, including a first-round playoff loss to Blue Ridge."
-      },
-      {
-        "question": "Where is Blooming Grove High School versus Lion Stadium?",
-        "answer": "Blooming Grove ISD lists the high school at 212 West Grady Street, Blooming Grove, TX 76626, phone 903-695-2541 extension 1013. The district calendar calls the homecoming venue Lion Stadium, but the exact current football stadium gate, parking and accessible seating are not independently verified here."
-      },
-      {
-        "question": "Where can I find Blooming Grove football kickoff and ticket updates?",
-        "answer": "Check Blooming Grove ISD's official athletics and school events calendar for the specific game. Upcoming fixtures after October 9 included Elkhart at home and trips to Rice and Buffalo; event hours, ticketing and access can change."
       }
     ]
   },

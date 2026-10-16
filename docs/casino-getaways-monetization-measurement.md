@@ -31,3 +31,10 @@ The protected `/admin/partner-referrals` dashboard now includes a **Casino getaw
 ## Cost guardrails
 
 No new paid browser rendering, scheduled Cloudflare Worker analytics jobs, GA4 query loops, automatically repeated full-site crawl or extra sitewide deployment gate is required. Use the repository's existing deployment change-plan and the first-party outcome aggregate already collected for travel CTAs.
+
+
+## October 16 data-quality correction
+
+The affiliate aggregates historically used a partner-only Analytics Engine sampling index and SUM(_sample_interval) while grouping reports by page. Cloudflare sampling weights can misstate the number of visits to a rare page when an index spans many pages. On October 6, Texas Motorplex showed 234 weighted hotel impressions on a GA4 day with one view; on October 8, MSR Houston showed 788 weighted impressions on a GA4 day with one view. These are **not validated customer exposures**. Attribution sources and GA4 coverage can also differ, so these two metrics are not interchangeable.
+
+The first-party collector now groups only commercial impression/click indexes by sanitized page-path hash, and the browser suppresses repeat exposures caused by replacing an equivalent CTA element. This is a quality correction within the existing collection flow, not a new paid audit. Raw historical data remains. Use **2026-10-17 UTC or later** for comparative booking-link CTR and Orbitz/Travelocity routing decisions, after the deployed patch; still require the standing 100-clean-impression-per-provider minimum and actual advertiser conversion evidence.

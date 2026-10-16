@@ -87,7 +87,7 @@ test("writes sanitized partner-referral telemetry without persisting session IDs
   assert.match(points[0]?.blobs?.[4] || "", /\[phone\]/);
   assert.match(points[0]?.blobs?.[4] || "", /\[address\]/);
   assert.ok(!JSON.stringify(points[0]).includes("raw-session-id-must-not-persist"));
-  assert.match(points[0]?.indexes?.[0] || "", /^partner_referral_clicked:hotels\.com$/);
+  assert.match(points[0]?.indexes?.[0] || "", /^partner_referral_clicked:hotels\.com:[a-f0-9]{8}$/);
 });
 
 test("writes privacy-safe partner referral impressions with the same partner and placement dimensions", async () => {
@@ -113,7 +113,27 @@ test("writes privacy-safe partner referral impressions with the same partner and
   assert.equal(points[0]?.blobs?.[6], "citypass-houston-destination");
   assert.equal(points[0]?.blobs?.[10], "/destination/houston");
   assert.ok(!JSON.stringify(points[0]).includes("raw-session-id-must-not-persist"));
-  assert.match(points[0]?.indexes?.[0] || "", /^partner_referral_shown:citypass$/);
+  assert.match(points[0]?.indexes?.[0] || "", /^partner_referral_shown:citypass:[a-f0-9]{8}$/);
+});
+
+test("commercial sampling indexes differ by sanitized page but preserve partner and no session ID", async () => {
+  const points: DataPoint[] = [];
+  const response = await texasDefinedOutcomeAnalyticsResponse(
+    request({ events: [
+      { event: "partner_referral_shown", resourceId: "hotels.com", entityKind: "stay-nearby-choice", path: "/sports-venue/msr-houston", destination: "https://www.hotels.com/", sessionId: "never-store-me" },
+      { event: "partner_referral_shown", resourceId: "hotels.com", entityKind: "stay-nearby-choice", path: "/sports-venue/texas-motorplex", destination: "https://www.hotels.com/", sessionId: "never-store-me" },
+      { event: "partner_referral_clicked", resourceId: "hotels.com", entityKind: "stay-nearby-choice", path: "/sports-venue/msr-houston", destination: "https://www.hotels.com/", sessionId: "never-store-me" },
+      { event: "resource_found", resourceId: "hotel-reference", path: "/sports-venue/msr-houston", sessionId: "never-store-me" },
+    ] }),
+    env(points),
+  );
+  assert.equal(response?.status, 202);
+  assert.equal(points.length, 4);
+  assert.match(points[0]?.indexes?.[0] || "", /^partner_referral_shown:hotels\.com:[a-f0-9]{8}$/);
+  assert.notEqual(points[0]?.indexes?.[0], points[1]?.indexes?.[0]);
+  assert.equal(points[0]?.indexes?.[0]?.split(":").pop(), points[2]?.indexes?.[0]?.split(":").pop());
+  assert.equal(points[3]?.indexes?.[0], "resource_found:hotel-reference");
+  assert.ok(!JSON.stringify(points).includes("never-store-me"));
 });
 
 test("rejects batches larger than the collector cap", async () => {

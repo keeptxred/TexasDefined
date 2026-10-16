@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "blum",
+    "currentSchool": "boerne",
     "nextSchool": "boerne",
-    "implementedOnBranch": 9,
-    "remainingToImplement": 16,
+    "implementedOnBranch": 11,
+    "remainingToImplement": 14,
     "remainingToVerify": 25,
-    "notes": "Batch006: Harmony and Big Spring DEPLOYED; Bishop, Blackwell, Blanco and Blanket IMPLEMENTED on main; Blooming Grove individually source-researched and authored, pending protected merge, release and targeted browser/editorial acceptance. Preserve all 105 prior VERIFIED and Batch005 formal editorial backlog. Bluff Dale original district/coach/results dossier drafted with Erath reciprocity on proposed branch; DOES NOT imply protected merge or production verification. Blum 2019 UIL D1 state title and Hill County 2026 school-specific content authored on review branch only; unmerged and uncertified."
+    "notes": "Batch006 11/25 individually authored after Blue Ridge, Bluff Dale and Blum integration, with 105 historical VERIFIED preserved. Statuses reflect released/deployed vs authored stages only; none of Batch006 has exact-SHA independent Chrome or nine-dimension editorial acceptance. Continue Boerne and Champion research; 14 schools remain NOT_REVIEWED."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6645,8 +6645,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bloomington",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/bloomington.md",
+      "implementedOnBranch": "feature/football-b006-bloomington-20261015",
+      "actualProductionVerified": false,
+      "reviewScope": "Official UIL 2A Division I District15, first-party Bloomington ISD campus and Vanco cashless football tickets, 2–5 through Oct9 Shiner 43–3 with syndicated 43–0 discrepancy. Not merged/deployed/browser/editorial accepted or photo licensed."
     },
     {
       "id": "uil:blue-ridge",
@@ -6659,8 +6663,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/blue-ridge",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "actualProductionVerified": false,
+      "schoolNote": "docs/football-authority/schools/blue-ridge.md",
+      "implementedOnBranch": "feature/football-b006-blue-ridge-20261015",
+      "reviewScope": "Official ISD Jason Russell AD/head coach, UIL 2026 3A DII D7, dated 2–5 through Oct9 and 2025 7–5/2024 9–3 archival context; no stadium gate/ticket/ADA/photo rights or post-deploy individual acceptance."
     },
     {
       "id": "uil:bluff-dale",
