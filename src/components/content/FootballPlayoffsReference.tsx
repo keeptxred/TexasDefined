@@ -7,10 +7,23 @@ const rows = [
 
 export function FootballPlayoffsReference() {
   return <section className="my-10 space-y-8" aria-labelledby="playoffs-reference-heading" data-playoffs-reference="2026">
+    <div className="border-l-2 border-primary pl-5" aria-label="Quick answer">
+      <p className="font-semibold">How the UIL playoffs work</p>
+      <p className="mt-3 leading-7">Teams qualify through district standings, then play a fixed, single-elimination bracket: win and advance, lose and the season ends. Enrollment determines Division I or II. The six classifications crown 12 state champions.</p>
+      <p className="mt-3 text-sm leading-6">This guide covers UIL football in 2026. TAPPS and other private-school associations run separate playoffs.</p>
+    </div>
+    <nav aria-label="On this page" className="flex flex-wrap gap-x-5 gap-y-3 border-y border-border py-4 text-sm font-semibold">
+      <a href="#playoffs-reference-heading" className="text-primary underline underline-offset-4">Who qualifies</a>
+      <a href="#playoff-dates-heading" className="text-primary underline underline-offset-4">2026 dates</a>
+      <a href="#six-a-example" className="text-primary underline underline-offset-4">6A example</a>
+      <a href="#playoff-rounds-heading" className="text-primary underline underline-offset-4">Bracket and rounds</a>
+      <a href="#who-gets-home-field" className="text-primary underline underline-offset-4">Home field</a>
+      <a href="#frequently-asked-questions" className="text-primary underline underline-offset-4">FAQs</a>
+    </nav>
     <div>
       <p className="text-sm text-muted-foreground">Last verified October 16, 2026 · UIL rules and 2026–27 calendar</p>
-      <h2 id="playoffs-reference-heading" className="mt-3 font-display text-2xl font-semibold">Find your school’s playoff path</h2>
-      <p className="mt-3 leading-7">This is a guide to UIL football; private-school associations have separate playoffs. Start with the <a className="underline underline-offset-4" href="/texas-high-school-football-teams">school’s UIL classification and district</a>. Use our <a className="underline underline-offset-4" href="/article/texas-high-school-football-classifications-1a-6a">classification explainer</a> for enrollment rules and our <a className="underline underline-offset-4" href="/article/texas-high-school-football-2026-season-calendar">2026 calendar</a> for playing windows.</p>
+      <h2 id="playoffs-reference-heading" className="scroll-mt-28 mt-3 font-display text-2xl font-semibold">Find your school’s playoff path</h2>
+      <p className="mt-3 leading-7">Start with the <a className="underline underline-offset-4" href="/texas-high-school-football-teams">school’s UIL classification and district</a>. Use our <a className="underline underline-offset-4" href="/article/texas-high-school-football-classifications-1a-6a">classification explainer</a> for enrollment rules and our <a className="underline underline-offset-4" href="/article/texas-high-school-football-2026-season-calendar">2026 calendar</a> for playing windows.</p>
       <div className="mt-5 overflow-x-auto rounded border border-border" tabIndex={0} role="region" aria-label="Playoff comparison table, scroll horizontally on small screens">
         <table className="w-full text-left text-sm" style={{ minWidth: "34rem" }}>
           <caption className="p-3 text-left font-semibold">UIL qualification and championship path, by division</caption>
@@ -21,7 +34,7 @@ export function FootballPlayoffsReference() {
       <p className="mt-3 text-sm leading-6">Sources: <a target="_blank" rel="noopener noreferrer" className="underline" href="https://www.uiltexas.org/football/playoff-brackets">UIL qualification rules</a> and <a target="_blank" rel="noopener noreferrer" className="underline" href={bracketUrl}>2026 blank brackets, pages 4–6 (PDF)</a>. Slots describe a full bracket; a vacancy or bye changes the number of games actually played.</p>
     </div>
     <section aria-labelledby="playoff-dates-heading">
-      <h2 id="playoff-dates-heading" className="font-display text-2xl font-semibold">2026 playoff dates</h2>
+      <h2 id="playoff-dates-heading" className="scroll-mt-28 font-display text-2xl font-semibold">2026 playoff dates</h2>
       <dl className="mt-4 divide-y divide-border">
         {[
           ["District certification", "November 7"],
@@ -36,7 +49,7 @@ export function FootballPlayoffsReference() {
       <p className="mt-3 text-sm leading-6">These are UIL playing windows, not individual kickoff times. 2A Division II may play December 9 in playoff week 5. In 1A, five rounds lead to a title; 2A–6A have six. A bye or vacancy can reduce the games played. <a href="https://www.uiltexas.org/football" target="_blank" rel="noopener noreferrer" className="underline">Official UIL calendar</a>.</p>
     </section>
     <div>
-      <h3 className="font-display text-xl font-semibold">A 6A district example: finish and enrollment are different</h3>
+      <h2 id="six-a-example" className="scroll-mt-28 font-display text-2xl font-semibold">A 6A district example: finish and enrollment are different</h2>
       <p className="mt-3 leading-7">Only the four qualifying schools are compared. This hypothetical district shows why first place does not automatically mean Division I:</p>
       <ol className="mt-4 space-y-3">
         {[
@@ -50,7 +63,7 @@ export function FootballPlayoffsReference() {
       <p className="mt-3 leading-7">Within each division, the better district finisher is its district’s W representative and the other is R. Here B is Division I W and D is R; A is Division II W and C is R. A nonqualifying school’s enrollment does not change the split. Source: <a target="_blank" rel="noopener noreferrer" className="underline" href="https://www.uiltexas.org/football/manual/football-manual-post-season-information">UIL’s qualifier and enrollment rules</a>.</p>
     </div>
     <section aria-labelledby="playoff-rounds-heading">
-      <h2 id="playoff-rounds-heading" className="font-display text-2xl font-semibold">The rounds on the road to a title</h2>
+      <h2 id="playoff-rounds-heading" className="scroll-mt-28 font-display text-2xl font-semibold">The rounds on the road to a title</h2>
       <p className="mt-3 leading-7"><strong>2A–6A:</strong> Bi-district → area → regional → quarterfinal → semifinal → state final.</p>
       <p className="mt-3 leading-7"><strong>1A six-man:</strong> Bi-district → regional → quarterfinal → semifinal → state final. There is no area round.</p>
       <p className="mt-3 text-sm leading-6">Each win moves a team to the next fixed bracket slot. A team playing every round needs six wins in 2A–6A or five in 1A.</p>
@@ -58,9 +71,12 @@ export function FootballPlayoffsReference() {
     <figure className="rounded border border-border p-5">
       <figcaption className="font-display text-xl font-semibold">Read one small branch of the bracket</figcaption>
       <p className="mt-3 text-sm leading-6">Hypothetical 2A–5A example, within one class and division. Follow the two opening games into their shared area game; the official bracket fixes each branch.</p>
-      <div className="mt-5 grid gap-3 sm:grid-cols-2">
-        <div className="rounded border border-border p-4"><strong>Bi-district game 1</strong><p className="mt-2">District 1 champion vs. District 2 fourth-place team</p></div>
-        <div className="rounded border border-border p-4"><strong>Bi-district game 2</strong><p className="mt-2">District 4 runner-up vs. District 3 third-place team</p></div>
+      <div className="mt-5 grid gap-x-5 gap-y-3 sm:grid-cols-2">
+        <div className="rounded border border-border p-4"><strong>Bi-district game 1</strong><p className="mt-2">District 1 champion vs. District 2 fourth-place team</p><p className="mt-3 text-sm font-semibold text-primary">Winner advances to the area game ↓</p></div>
+        <div className="rounded border border-border p-4"><strong>Bi-district game 2</strong><p className="mt-2">District 4 runner-up vs. District 3 third-place team</p><p className="mt-3 text-sm font-semibold text-primary">Winner advances to the area game ↓</p></div>
+        <svg className="hidden h-10 w-full text-primary sm:col-span-2 sm:block" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path d="M24 0 V8 H50 V20 M76 0 V8 H50" fill="none" stroke="currentColor" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+        </svg>
         <div className="rounded border border-primary p-4 sm:col-span-2"><strong>Area game</strong><p className="mt-2">Winner of game 1 vs. winner of game 2. The winner advances to the regional round.</p></div>
       </div>
       <p className="mt-4 text-sm leading-6">The other first-round pairings include first vs. fourth and second vs. third across paired districts. In 1A and each 6A division, the paired-district slots are W vs. R. There is no weekly reseeding. <a target="_blank" rel="noopener noreferrer" className="underline" href={bracketUrl}>Check the complete UIL bracket</a> for the next branch.</p>
