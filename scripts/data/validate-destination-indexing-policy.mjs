@@ -176,11 +176,14 @@ if (!aliasBlock) {
 
 for (const marker of [
   'import { preservedExploreDestinations } from "./destination-preserved-catalog"',
-  'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved.map(correctDestinationTravelRegion)))',
   'reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))',
   'reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))',
 ]) {
   if (!destinationRuntime.includes(marker)) failures.push(`Destination runtime publication/resolution contract missing: ${marker}`);
+}
+const exactPlaceParkPublicationGuard = "filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved.map((destination)=>applyStateParkHeroAsset(correctDestinationTravelRegion(destination)))))";
+if (!destinationRuntime.replace(/\s+/g, "").includes(exactPlaceParkPublicationGuard)) {
+  failures.push("Destination publication must retain final exact-place park photo selection within both SEO-readiness and visitor-availability filters.");
 }
 if (!queries.includes('await import("./destination-query-runtime")')) {
   failures.push('Destination queries must keep heavy resolution behind the dynamic runtime boundary.');
