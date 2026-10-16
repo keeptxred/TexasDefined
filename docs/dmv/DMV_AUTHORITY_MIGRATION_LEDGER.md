@@ -98,3 +98,17 @@ Inspected GitHub Actions **Merge Gate** run `38114873584` for commit `dc13722d76
 Compared `src/routes/texas-dmv.tsx` with current `main`: the original already had three FAQ entries and the same `buildPrioritySearchHead` call signature; the migration modified and expanded them. The helper supports `data.faq` and emits FAQPage schema, so the route is not obviously broken by an unsupported SEO helper parameter. The FAQ entries must nevertheless remain consistent with visible on-page content.
 
 **Release state: BLOCKED — performance gate failed; branch drift and editorial/browser acceptance remain.**
+
+## October 15, 2026 — current-main reconciliation gate
+
+Fresh GitHub comparison: migration branch **15 ahead / 476 behind main**. The branch is stale enough that direct merge is unsafe without a rebase or new branch from current main.
+
+Current-main route comparison:
+- `texas-dmv.lazy.tsx`: main 322 bytes, migration 4,207 bytes.
+- `texas-drivers-license.lazy.tsx`: main 356 bytes, migration 10,458 bytes.
+- `texas-vehicle-registration.lazy.tsx`: main 3,637 bytes, migration 20,771 bytes. Main retains `license-plates` and `title-transfer` anchors; migration adds other sections.
+- `texas-dmv.tsx`: main 1,614 bytes, migration 2,070 bytes; existing FAQ metadata and helper pattern remain on main.
+
+At branch commit `587f457716dbeee85ca4e0f065c76f82602d9512`, GitHub Actions **Merge Gate failed**, while site quality watchdog and orphan-link audit passed. No release approval.
+
+**Required next implementation:** create a fresh branch from current main; port changes as small isolated patches rather than replacing route files; preserve current route behavior; fix the measured client-bundle budget regression; rerun canonical validation; perform current official-source review and visible content/schema parity; only then mark PR #4624 superseded and consider merging the replacement. Do not merge the stale PR.
