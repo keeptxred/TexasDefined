@@ -130,6 +130,26 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       '/destination/museum-of-south-texas-history-edinburg',
     ];
   }
+  // A casino destination is owned by a dynamic route. Inspect the current
+  // editorial roster and test only that small collection when it changes.
+  // Do not expand unrelated deploys into gaming crawls.
+  const casinoOwnerChanged = changedFiles.some(path =>
+    path === 'src/data/texas-casino-guides.ts'
+    || /^src\\/routes\\/explore\\.casinos(?:\\.index|\\.\\$slug)?\\.tsx$/.test(path)
+  );
+  if (casinoOwnerChanged) {
+    const path = 'src/data/texas-casino-guides.ts';
+    const source = sources[path]?.after ?? readFileSync(path, 'utf8');
+    const slugs = [...new Set([...source.matchAll(/["']slug["']\\s*:\\s*["']([a-z0-9-]+)["']/g)]
+      .map(match => match[1]))].sort();
+    if (slugs.length < 1 || slugs.length > 20) throw new Error('Unverified casino guide roster');
+    const guidePaths = slugs.map(slug => `/explore/casinos/${slug}`);
+    candidates.add('/explore');
+    candidates.add('/explore/casinos');
+    for (const guidePath of guidePaths) candidates.add(guidePath);
+    expectedHrefsByPage['/explore'] = ['/explore/casinos'];
+    expectedHrefsByPage['/explore/casinos'] = guidePaths;
+  }
   let contentFallback = false;
   for (const path of changedFiles) {
     const { before = '', after = '' } = sources[path] || {};

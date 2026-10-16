@@ -96,6 +96,7 @@ function CasinoHub() {
           <h2 id="what-is-legal" className="font-display text-3xl sm:text-4xl">First, what counts as a Texas casino?</h2>
           <p className="mt-4 max-w-3xl leading-8 text-muted-foreground">Texas does not generally license commercial casino resorts. Tribal gaming operates under a separate federal legal framework, with bingo-based electronic games at several locations. Louisiana and Oklahoma resorts operate under the laws of those states or tribal jurisdictions. A casino across the border is not a casino in Texas.</p>
           <Link to="/explore/casinos/$slug" params={{ slug: "texas-gaming-laws" }} className="mt-5 inline-block border-b border-primary pb-1 font-semibold text-primary">Read Texas gaming laws →</Link>
+          <p className="mt-4 text-sm"><a href="https://guides.sll.texas.gov/gambling/general-information" target="_blank" rel="noopener noreferrer" className="text-primary underline">Verify current gambling laws with the Texas State Law Library ↗</a></p>
         </div>
         <div className="border border-border bg-surface p-6">
           <p className="eyebrow text-primary">Planning checklist</p>
