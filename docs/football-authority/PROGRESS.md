@@ -1,5 +1,10 @@
 # Football Authority — Execution Ledger
 
+## October 16, 2026 — Bluff Dale Bobcats six-man authority draft (NOT VERIFIED)
+
+The next unstarted Batch006 school, `bluff-dale`, has an individual primary-source research dossier and authored editorial: UIL 2026–28 Class 1A Division I District11 (vs stale Division II listings), official ISD campus and coach biography, 2026 4–3 through NBC's completed Oct15 54–6 Covington result, 2022/2025 records without a fabricated state championship, future Milford fixture date inconsistency, and Erath County two-way links. Marked only **IMPLEMENTED on review branch**; protect the existing **105 VERIFIED**. Requires canonical premerge, protected merge, exact-SHA production browser, source/rights and editorial acceptance before promotion. No extra site-wide post-deploy audit.
+
+
 ## October 15, 2026 — Blooming Grove reconciled for protected release (NOT verified)
 Blooming Grove original authority dossier and editorial sourced to the school district's January 23 2026 hiring notice for AD/head coach Kevin Sherrill, UIL 2026–28 3A Division II District 11, official campus address and dated third-party 2026 0–6 through Oct 9 including Teague L0–68. Do not misattribute Sherrill's Vernon 10–3 season to Blooming Grove. Six original FAQs, school calendar and school-specific research; stadium entrance/ADA/photo rights deliberately unclaimed. Existing PR #4997 safely reconciled onto latest main instead of replaying Bishop, Blackwell, Blanco or Blanket. Blooming Grove IMPLEMENTED, not merged/deployed, tested or independently production/editorially VERIFIED. Batch006 authored count seven of 25, existing 105 VERIFIED protected. Targeted per-school Chrome and canonical protected validation required before factual promotion.
 
