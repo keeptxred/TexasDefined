@@ -117,6 +117,6 @@ function CasinoGuidePage() {
         </section>
       </Container>
     )}
-    <Container className="pb-10"><p className="border-t border-border pt-6 text-xs leading-6 text-muted-foreground">Independent travel information, not legal advice or a gambling offer. Casino games can result in financial loss. No betting services, affiliate casino offers or gambling transactions are provided by Texas Defined.</p></Container>
+    <Container className="pb-10"><p className="border-t border-border pt-6 text-xs leading-6 text-muted-foreground">Independent travel information, not legal advice or a gambling offer. Casino games can result in financial loss. TexasDefined may earn a commission on qualifying hotel bookings, at no additional cost to you; it provides no betting services or gambling transactions.</p></Container>
   </main>;
 }
