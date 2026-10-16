@@ -49,7 +49,7 @@
     "production:pages:audit": "node scripts/ci/audit-production-pages.mjs",
     "gaming:validate": "node scripts/data/validate-gaming-authority.mjs",
     "calculators:validate": "node --experimental-strip-types scripts/data/validate-calculator-platform.ts",
-    "metro-proximity:validate": "node --experimental-strip-types --test src/data/__tests__/metro-proximity.test.ts && node scripts/data/validate-metro-proximity.mjs && npm run metro-proximity:audit",
+    "metro-proximity:validate": "node --experimental-strip-types --test src/data/__tests__/metro-proximity.test.ts src/data/__tests__/metro-county-links.test.ts && node scripts/data/validate-metro-proximity.mjs && npm run metro-proximity:audit",
     "relocation-search:validate": "node scripts/data/validate-relocation-search-spokes.mjs",
     "editorial-outreach:validate": "node scripts/data/validate-editorial-outreach.mjs",
     "backlinks:validate": "node scripts/data/validate-backlink-command-center.mjs",
