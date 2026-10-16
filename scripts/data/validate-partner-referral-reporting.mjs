@@ -223,6 +223,23 @@ if (portfolio.includes('clean Orbitz-versus-Travelocity routing window beginning
   errors.push('Affiliate portfolio economics must not use the superseded 2026-09-23 routing baseline; clean routing begins 2026-09-27.');
 }
 
+for (const [needle, label] of [
+  ["const CASINO_HUB_PATH = '/explore/casinos'", 'casino-path exact prefix guard'],
+  ["row.page_path === CASINO_HUB_PATH || row.page_path.startsWith", 'casino-only referral aggregation'],
+  ["row.partner === EXPEDIA_SEARCH_PARTNER", 'separate search starts from referral clicks'],
+  ["row.partner === 'hotels.com' && row.placement.startsWith(CASINO_EXACT_HOTEL_PREFIX)", 'exact hotel offer filter'],
+  ["casino: {", 'casino summary object'],
+  ["exactHotelPlacements:", 'per-property booking placement reporting'],
+]) expect(server, needle, label);
+expect(types, 'export type CasinoReferralSummary', 'casino referral analytics summary type');
+expect(types, 'casino: CasinoReferralSummary;', 'dashboard casino analytics contract');
+for (const [needle, label] of [
+  ['Casino getaway hotel funnel', 'casino analytics dashboard section'],
+  ['dashboard.casino.pages.map', 'casino-specific page table not capped by sitewide top pages'],
+  ['dashboard.casino.exactHotelPlacements.map', 'casino exact-property placement table'],
+  ['not hotel reservations or earned commissions', 'clicks versus realized revenue disclosure'],
+]) expect(lazyRoute, needle, label);
+
 expect(types, 'lastPipelineSyncAt: string | null', 'pipeline heartbeat dashboard type');
 expect(types, 'ctrMeasurementStartedAt: string', 'clean CTR boundary dashboard type');
 expect(types, 'travelRoutingMeasurementStartedAt: string', 'travel routing baseline dashboard type');

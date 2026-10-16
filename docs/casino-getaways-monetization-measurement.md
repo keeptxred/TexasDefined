@@ -16,6 +16,10 @@ The connected GA4 property named **TexasDefined**, in the America/Chicago timezo
 
 The separately connected HYPD Search Console list-sites result returned zero accessible GSC properties at that time. Therefore **Google search impressions, search positions and query counts are not yet available through that connection**. Never infer them from GA4 traffic. Connect the existing TexasDefined GSC domain property to HYPD before making organic ranking or indexing claims.
 
+## Existing private analytics dashboard
+
+The protected `/admin/partner-referrals` dashboard now includes a **Casino getaway hotel funnel** section computed from the same 60-day private referral aggregate query. It shows 30-day on-site referral clicks, CTA impressions, Expedia search activations, guide-by-guide performance, and only the exact-property Hotels.com offer placements. Blank states explicitly distinguish no referral events from no visitor traffic. It does not claim commissions or bookings and does not add new collector traffic or Cloudflare usage.
+
 ## Review queries (read-only; do not schedule a crawl)
 
 1. **GA4 traffic:** Select page paths that start with `/explore/casinos`. Report sessions, engaged sessions, organic-search sessions, views and engaged-user rate over the last 7 and 28 *complete* days (exclude today's partial data).
