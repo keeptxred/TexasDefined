@@ -140,7 +140,7 @@ function CasinoHub() {
           <p className="text-sm leading-7 text-muted-foreground">Going overnight? Compare real hotel availability below. Always choose the city where you intend to stay; Texas, Louisiana and Oklahoma are different lodging markets.</p>
           <div data-stay-nearby-slot className="mt-5" />
         </div>
-        <p className="mt-8 text-xs leading-6 text-muted-foreground">Editorial travel information only. No casino booking affiliation or gambling services are offered here. Gaming can involve financial loss; set limits and consult official venue policies.</p>
+        <p className="mt-8 text-xs leading-6 text-muted-foreground">Independent travel information only. TexasDefined may earn commissions from qualifying hotel and vacation-rental bookings shown here, at no extra cost to you. No betting services or casino gaming transactions are offered. Gaming can involve financial loss; set limits and consult official venue policies.</p>
       </section>
     </Container>
   </main>;
