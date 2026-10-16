@@ -60,37 +60,37 @@ export const Route = createFileRoute("/explore/casinos/")({
 function CasinoHub() {
   return <main>
     <section className="border-b border-border bg-ink text-ink-foreground">
-      <Container className="py-14 sm:py-20">
-        <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-wider text-ink-foreground/65">
+      <Container className="py-14 sm:py-14">
+        <nav aria-label="Breadcrumb" className="text-xs uppercase text-ink-foreground">
           <Link to="/" className="hover:underline">Home</Link><span aria-hidden="true"> / </span>
           <Link to="/explore" className="hover:underline">Explore</Link><span aria-hidden="true"> / </span>
           <span>Gaming getaways</span>
         </nav>
-        <p className="eyebrow mt-10 text-ink-foreground/65">Worth the drive · Travel & entertainment</p>
-        <h1 className="mt-4 max-w-4xl font-display text-5xl leading-tight sm:text-7xl">Casinos &amp; gaming getaways</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">
+        <p className="eyebrow mt-10 text-ink-foreground">Worth the drive · Travel & entertainment</p>
+        <h1 className="mt-4 max-w-4xl font-display text-5xl leading-normal sm:text-6xl">Casinos &amp; gaming getaways</h1>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground">
           Four operating Texas tribal gaming locations, a future East Texas resort and the cross-border casino trips Texans actually take. Choose by location, lodging and entertainment—not hype.
         </p>
-        <p className="mt-6 text-sm text-ink-foreground/60">Independently researched · Official sources reviewed October 15, 2026</p>
+        <p className="mt-6 text-sm text-ink-foreground">Independently researched · Official sources reviewed October 15, 2026</p>
       </Container>
     </section>
 
-    <Container className="py-12 sm:py-16">
+    <Container className="py-12 sm:py-14">
       <nav aria-label="Jump to a guide" className="border-b border-border pb-10">
         <h2 className="font-display text-2xl">Go straight to a guide</h2>
         <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-primary">
-          <Link to="/explore/casinos/kickapoo-lucky-eagle" className="underline underline-offset-4">Kickapoo Lucky Eagle</Link>
-          <Link to="/explore/casinos/naskila-livingston" className="underline underline-offset-4">Naskila Livingston</Link>
-          <Link to="/explore/casinos/naskila-leggett" className="underline underline-offset-4">Naskila Leggett</Link>
-          <Link to="/explore/casinos/speaking-rock-el-paso" className="underline underline-offset-4">Speaking Rock</Link>
-          <Link to="/explore/casinos/near-houston" className="underline underline-offset-4">Near Houston</Link>
-          <Link to="/explore/casinos/near-dallas-fort-worth" className="underline underline-offset-4">Near Dallas–Fort Worth</Link>
-          <Link to="/explore/casinos/texas-gaming-laws" className="underline underline-offset-4">Texas casino laws</Link>
-          <Link to="/explore/casinos/naskila-resort-leggett" className="underline underline-offset-4">Future Naskila Resort</Link>
+          <Link to="/explore/casinos/kickapoo-lucky-eagle" className="underline">Kickapoo Lucky Eagle</Link>
+          <Link to="/explore/casinos/naskila-livingston" className="underline">Naskila Livingston</Link>
+          <Link to="/explore/casinos/naskila-leggett" className="underline">Naskila Leggett</Link>
+          <Link to="/explore/casinos/speaking-rock-el-paso" className="underline">Speaking Rock</Link>
+          <Link to="/explore/casinos/near-houston" className="underline">Near Houston</Link>
+          <Link to="/explore/casinos/near-dallas-fort-worth" className="underline">Near Dallas–Fort Worth</Link>
+          <Link to="/explore/casinos/texas-gaming-laws" className="underline">Texas casino laws</Link>
+          <Link to="/explore/casinos/naskila-resort-leggett" className="underline">Future Naskila Resort</Link>
         </div>
       </nav>
 
-      <section aria-labelledby="what-is-legal" className="grid gap-6 border-b border-border pb-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(260px,.75fr)]">
+      <section aria-labelledby="what-is-legal" className="grid gap-6 border-b border-border pb-10 lg:grid-cols-2">
         <div>
           <h2 id="what-is-legal" className="font-display text-3xl sm:text-4xl">First, what counts as a Texas casino?</h2>
           <p className="mt-4 max-w-3xl leading-8 text-muted-foreground">Texas does not generally license commercial casino resorts. Tribal gaming operates under a separate federal legal framework, with bingo-based electronic games at several locations. Louisiana and Oklahoma resorts operate under the laws of those states or tribal jurisdictions. A casino across the border is not a casino in Texas.</p>
@@ -115,10 +115,10 @@ function CasinoHub() {
             <p className="text-sm text-muted-foreground">{guides.length} {guides.length === 1 ? "guide" : "guides"}</p>
           </div>
           <ul className="mt-5 grid gap-6 md:grid-cols-2">
-            {guides.map((guide) => <li key={guide.slug} className="border-l-2 border-primary/45 bg-surface p-6">
+            {guides.map((guide) => <li key={guide.slug} className="border-l border-primary bg-surface p-6">
               <p className="eyebrow text-primary">{guide.location}</p>
               <h3 className="mt-3 font-display text-2xl"><Link to="/explore/casinos/$slug" params={{ slug: guide.slug }} className="hover:text-primary">{guide.shortTitle}</Link></h3>
-              <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{guide.status}</p>
+              <p className="mt-2 text-xs font-semibold uppercase text-muted-foreground">{guide.status}</p>
               <p className="mt-4 text-sm leading-7 text-muted-foreground">{guide.dek}</p>
               <Link to="/explore/casinos/$slug" params={{ slug: guide.slug }} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Read the guide →</Link>
             </li>)}

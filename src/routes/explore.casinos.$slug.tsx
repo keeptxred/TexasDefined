@@ -52,23 +52,23 @@ function CasinoGuidePage() {
   });
   return <main>
     <section className="border-b border-border bg-ink text-ink-foreground">
-      <Container className="py-12 sm:py-16">
-        <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-wider text-ink-foreground/65">
+      <Container className="py-12 sm:py-14">
+        <nav aria-label="Breadcrumb" className="text-xs uppercase text-ink-foreground">
           <Link to="/explore" className="hover:underline">Explore</Link><span aria-hidden> / </span>
           <Link to="/explore/casinos" className="hover:underline">Gaming getaways</Link>
         </nav>
-        <p className="eyebrow mt-10 text-ink-foreground/65">{guide.group} · {guide.location}</p>
-        <h1 className="mt-4 max-w-5xl font-display text-4xl leading-tight sm:text-6xl">{guide.title}</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">{guide.dek}</p>
-        <p className="mt-6 text-xs uppercase tracking-wider text-ink-foreground/60">{guide.status} · Sources reviewed Oct. 15, 2026</p>
+        <p className="eyebrow mt-10 text-ink-foreground">{guide.group} · {guide.location}</p>
+        <h1 className="mt-4 max-w-5xl font-display text-4xl leading-normal sm:text-6xl">{guide.title}</h1>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground">{guide.dek}</p>
+        <p className="mt-6 text-sm uppercase text-ink-foreground">{guide.status} · Sources reviewed Oct. 15, 2026</p>
       </Container>
     </section>
-    <Container className="grid gap-12 py-12 sm:py-16 lg:grid-cols-[minmax(0,1.5fr)_minmax(265px,.65fr)]">
-      <article className="min-w-0">
+    <Container className="grid gap-12 py-12 sm:py-14 lg:grid-cols-3">
+      <article className="min-w-0 lg:col-span-2">
         <section aria-labelledby="at-a-glance">
           <h2 id="at-a-glance" className="font-display text-3xl">At a glance</h2>
           <ul className="mt-5 grid gap-3 sm:grid-cols-2">
-            {guide.facts.map((fact) => <li key={fact} className="border-l-2 border-primary bg-surface px-4 py-3 text-sm leading-6">{fact}</li>)}
+            {guide.facts.map((fact) => <li key={fact} className="border-l border-primary bg-surface px-4 py-3 text-sm leading-6">{fact}</li>)}
           </ul>
         </section>
         {guide.sections.map((section) => <section key={section.heading} className="mt-12 border-t border-border pt-8">
@@ -80,12 +80,12 @@ function CasinoGuidePage() {
           <p className="mt-3 text-sm leading-7 text-muted-foreground">Source links lead to the operator or public legal authority. Check their current policies and availability before travel.</p>
           <ul className="mt-5 space-y-3 text-sm">
             {guide.sources.map((source) => <li key={source.url}>
-              <a href={source.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">{source.label} ↗</a>
+              <a href={source.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">{source.label} ↗</a>
             </li>)}
           </ul>
         </section>
       </article>
-      <aside className="lg:pt-2">
+      <aside className="">
         <div className="border border-border bg-surface p-6">
           <p className="eyebrow text-primary">Keep exploring</p>
           <ul className="mt-5 space-y-5">
