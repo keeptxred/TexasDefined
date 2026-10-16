@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "blue-ridge",
-    "nextSchool": "blue-ridge",
-    "implementedOnBranch": 8,
-    "remainingToImplement": 17,
+    "currentSchool": "bluff-dale",
+    "nextSchool": "bluff-dale",
+    "implementedOnBranch": 9,
+    "remainingToImplement": 16,
     "remainingToVerify": 25,
-    "notes": "Batch006: first six sourced school profiles now on main; Bloomington sourced/profile/dossier proposed on reconciled PR, pending protected merge, real production Chrome and editorial acceptance. Prior 105 technically VERIFIED preserved."
+    "notes": "105 prior VERIFIED preserved; Harmony/Big Spring deployed; Bishop, Blackwell, Blanco, Blanket, Blooming Grove on main; Bloomington and Blue Ridge source-researched on dependent protected proposals, not Chrome or editorially verified."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6663,8 +6663,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/blue-ridge",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "actualProductionVerified": false,
+      "schoolNote": "docs/football-authority/schools/blue-ridge.md",
+      "implementedOnBranch": "feature/football-b006-blue-ridge-20261015",
+      "reviewScope": "Official ISD Jason Russell AD/head coach, UIL 2026 3A DII D7, dated 2–5 through Oct9 and 2025 7–5/2024 9–3 archival context; no stadium gate/ticket/ADA/photo rights or post-deploy individual acceptance."
     },
     {
       "id": "uil:bluff-dale",
