@@ -50,7 +50,7 @@ function ExplorePage() {
           <div>
             <p className="eyebrow text-primary">Texas travel · entertainment</p>
             <h2 className="mt-2 font-display text-3xl leading-tight group-hover:text-primary">Casinos &amp; gaming getaways</h2>
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Compare four operating Texas tribal gaming locations, Louisiana and Oklahoma resort trips, the Leggett expansion and Texas gambling rules—without confusing future plans with open venues.</p>
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Compare five operating Texas tribal gaming locations, Louisiana and Oklahoma resort trips, the Leggett expansion and Texas gambling rules—without confusing future plans with open venues.</p>
           </div>
           <span className="font-semibold text-primary">Explore guides →</span>
         </Link>

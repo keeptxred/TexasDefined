@@ -14,6 +14,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/explore/casinos/kickapoo-lucky-eagle",
   "/explore/casinos/naskila-livingston",
   "/explore/casinos/naskila-leggett",
+  "/explore/casinos/ischoopa-travel-center",
   "/explore/casinos/speaking-rock-el-paso",
   "/explore/casinos/near-houston",
   "/explore/casinos/near-dallas-fort-worth",

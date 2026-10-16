@@ -14,6 +14,59 @@ export interface CasinoGuide {
   relatedSlugs: string[];
 }
 export const CASINO_GUIDES: CasinoGuide[] = [
+{
+  "slug": "ischoopa-travel-center",
+  "title": "Ischoopa Travel Center & Casino: US 190 East Texas Gaming Stop",
+  "shortTitle": "Ischoopa Travel Center",
+  "group": "Texas gaming destinations",
+  "location": "Livingston, Texas",
+  "status": "Open · tribal travel center with electronic gaming",
+  "dek": "A smaller, 24-hour fuel, food and gaming stop on US 190, operated by the Alabama-Coushatta Tribe. It is not the full-size Naskila Livingston casino or the new Leggett site.",
+  "facts": [
+    "14071 US 190, Livingston, TX 77351",
+    "Travel center with fuel, convenience shopping and 24-hour food service",
+    "Operator advertises more than 80 electronic games",
+    "Open 24/7 according to the official Naskila website"
+  ],
+  "sections": [
+    {
+      "heading": "A gaming stop, not a destination resort",
+      "paragraphs": [
+        "Ischoopa Travel Center & Casino offers electronic gaming as part of a multi-purpose roadside property. Naskila's official site advertises over 80 games, smoking and nonsmoking areas, a convenience store, fuel, and the Ischoopa Toospa Grill. The operator presents this as a smaller gaming stop rather than a full-service hotel resort.",
+        "The Alabama-Coushatta Tribe of Texas identifies Ischoopa as a separate property from its larger Naskila Casino Livingston and newly opened Naskila Casino Leggett. Readers should not expect the same floor size, facilities or events at all three addresses."
+      ]
+    },
+    {
+      "heading": "Who should consider it?",
+      "paragraphs": [
+        "Ischoopa fits travelers already using US 190 near Livingston or driving in the East Texas Piney Woods. It can be a stop for fuel and a meal, but is not comparable to a full Lake Charles or Oklahoma resort weekend.",
+        "The operator's listed location is 14071 US 190, Livingston, TX 77351. Do not navigate to Naskila Livingston's State Park Road 56 address or the Leggett site's US 59 address by mistake."
+      ]
+    },
+    {
+      "heading": "Confirm the visitor details",
+      "paragraphs": [
+        "Check the official Ischoopa page for opening hours, dining, gaming availability and access requirements. Its 24-hour status is operator-published and can change; this guide does not invent rates, room availability or special events.",
+        "For a larger East Texas gaming visit, compare Naskila Livingston and Leggett. For overnight accommodation and table-game options beyond Texas, use the Houston casino-getaways comparison."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Naskila: official Ischoopa Travel Center visitor page",
+      "url": "https://www.naskila.com/ischoopa-travel-center/"
+    },
+    {
+      "label": "Alabama-Coushatta Tribe: 2026 casino development announcement",
+      "url": "https://www.alabama-coushatta.com/blog/post/the-alabama-coushatta-tribe-of-texas-is-scheduled-to-open-its-new-temporary-casino-facility-in-the-summer-of-2026-in-leggett-tx"
+    }
+  ],
+  "relatedSlugs": [
+    "naskila-livingston",
+    "naskila-leggett",
+    "near-houston"
+  ]
+},
   {
     "slug": "kickapoo-lucky-eagle",
     "title": "Kickapoo Lucky Eagle Casino Hotel: Eagle Pass Visitor Guide",
@@ -241,6 +294,7 @@ export const CASINO_GUIDES: CasinoGuide[] = [
     "facts": [
       "Texas option: Naskila Livingston (Polk County)",
       "Texas option: Naskila Leggett (near US 59)",
+      "Texas travel-center stop: Ischoopa on US 190 (80+ electronic games)",
       "Louisiana option: Golden Nugget Lake Charles",
       "Louisiana option: L'Auberge Casino Resort Lake Charles"
     ],
@@ -248,7 +302,7 @@ export const CASINO_GUIDES: CasinoGuide[] = [
       {
         "heading": "First choose which experience you want",
         "paragraphs": [
-          "For a Texas-based electronic-bingo visit, consider Naskila Livingston or Naskila Leggett. Both are operated by the Alabama-Coushatta Tribe, but they are separate properties. Livingston is the established facility; Leggett opened a new temporary venue in August 2026.",
+          "For a Texas-based electronic-bingo visit, consider Naskila Livingston or Naskila Leggett. Both are operated by the Alabama-Coushatta Tribe, but they are separate properties. Livingston is the established facility; Leggett opened a new temporary venue in August 2026. Ischoopa Travel Center, also operated by the Tribe, is a third, smaller gaming stop on US 190 with fuel and food service.",
           "For an overnight resort experience with hotel, pools, dining and conventional table games, many Houston travelers instead look east to Lake Charles, Louisiana. Golden Nugget and L'Auberge are full-service Louisiana properties, not Texas casinos."
         ]
       },

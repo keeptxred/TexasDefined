@@ -69,7 +69,7 @@ function CasinoHub() {
         <p className="eyebrow mt-10 text-ink-foreground">Worth the drive · Travel & entertainment</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl  sm:text-5xl">Casinos &amp; gaming getaways</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground">
-          Four operating Texas tribal gaming locations, a future East Texas resort and the cross-border casino trips Texans actually take. Choose by location, lodging and entertainment—not hype.
+          Five operating Texas tribal gaming locations (including the smaller Ischoopa travel center), a future East Texas resort and the cross-border casino trips Texans actually take. Choose by location, lodging and entertainment—not hype.
         </p>
         <p className="mt-6 text-sm text-ink-foreground">Independently researched · Official sources reviewed October 15, 2026</p>
       </Container>
@@ -82,6 +82,7 @@ function CasinoHub() {
           <Link to="/explore/casinos/kickapoo-lucky-eagle" className="underline">Kickapoo Lucky Eagle</Link>
           <Link to="/explore/casinos/naskila-livingston" className="underline">Naskila Livingston</Link>
           <Link to="/explore/casinos/naskila-leggett" className="underline">Naskila Leggett</Link>
+          <Link to="/explore/casinos/ischoopa-travel-center" className="underline">Ischoopa Travel Center</Link>
           <Link to="/explore/casinos/speaking-rock-el-paso" className="underline">Speaking Rock</Link>
           <Link to="/explore/casinos/near-houston" className="underline">Near Houston</Link>
           <Link to="/explore/casinos/near-dallas-fort-worth" className="underline">Near Dallas–Fort Worth</Link>
