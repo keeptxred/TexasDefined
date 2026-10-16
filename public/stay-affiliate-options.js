@@ -513,7 +513,8 @@
     upgradeExactPropertyCards(expediaSurface);
     const exactPropertyFirst = hasExactPropertyAffiliate(expediaSurface);
     const intent = bookingIntent();
-    const choiceMode = exactPropertyFirst ? "after-exact" : "broad";
+    const casinoPath = window.location.pathname.replace(/\/+$/, "") || "/";
+    const choiceMode = exactPropertyFirst ? "after-exact" : (casinoHotelChoices().length ? `casino:${casinoPath}` : "broad");
     let choice = existing;
     if (!(choice?.dataset.intent === intent && choice?.dataset.mode === choiceMode && choice.parentElement === expediaSurface)) {
       choice?.remove();
