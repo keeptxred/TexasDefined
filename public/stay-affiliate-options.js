@@ -523,7 +523,8 @@
       choice?.remove();
       choice = createBookingChoice(intent, exactPropertyFirst);
       choice.dataset.intent = intent;
-      choice.dataset.mode = resolvedChoiceMode;
+      choice.dataset.mode = choiceMode;
+      if (resolvedChoiceMode !== choiceMode) choice.dataset.mode = resolvedChoiceMode;
     }
     placeBookingChoice(expediaSurface, choice, exactPropertyFirst);
 
