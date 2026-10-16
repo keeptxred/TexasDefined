@@ -117,6 +117,8 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   // McAllen day trips share one dynamic route with other metros; ordinary
   // static route matching cannot infer the affected canonical owner.
   // Keep this targeted to McAllen, never launch a statewide proximity crawl.
+  // Assert the slug actually authored in MCALLEN_EDITORIAL_TRIPS, not the
+  // separate legacy museum-south-texas-history-edinburg destination URL.
   if (changedFiles.some(path =>
     /^src\/routes\/explore\.near\.\$metro\.\$collection(?:\.lazy)?\.tsx$/.test(path)
     || ['src/data/metro-county-links.ts', 'src/data/viator-market-match.ts', 'src/data/national-wildlife-refuge-destinations.ts'].includes(path)
@@ -125,7 +127,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     candidates.add(path);
     expectedHrefsByPage[path] = [
       '/destination/santa-ana-national-wildlife-refuge',
-      '/destination/museum-south-texas-history-edinburg',
+      '/destination/museum-of-south-texas-history-edinburg',
     ];
   }
   let contentFallback = false;
