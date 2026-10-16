@@ -1106,6 +1106,194 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
+  "blum": {
+    "slug": "blum",
+    "theme": {
+      "accentHex": "#368362",
+      "label": "Independent green accent; no copied Blum Bobcats official logo or licensed photography"
+    },
+    "seo": {
+      "title": "Blum Bobcats Six-Man Football: 2019 UIL Champions, 2026 District 11 & Game Guide",
+      "description": "Blum Bobcats six-man football in Hill County: 2019 UIL Division I state title over McLean, official 2026 District 11, 2026 game ledger, school coach and visitors."
+    },
+    "coach": {
+      "name": "Cooper Thornhill",
+      "title": "Blum ISD-listed Head Football Coach (district athletics football page; confirm date of any staffing changes)",
+      "sourceUrl": "https://www.blumisd.net/cms/One.aspx?pageId=1794722&portalId=772814",
+      "sourceLabel": "Blum ISD official High School Football page names Cooper Thornhill and assistants",
+      "verifiedAt": "2026-10-16"
+    },
+    "campus": {
+      "address": "310 S. Avenue F, Blum, TX 76627",
+      "phone": "254-874-5231",
+      "sourceUrl": "https://www.blumisd.net/contact_us",
+      "sourceLabel": "Blum ISD Contact Us official street address, distinct from unverified stadium parking entrance",
+      "verifiedAt": "2026-10-16"
+    },
+    "schedule": {
+      "label": "Blum ISD athletics schedules and official team resources",
+      "sourceUrl": "https://www.blumisd.net/athletics",
+      "sourceLabel": "Blum ISD Athletics page with coaches, schedules, rules and forms",
+      "verifiedAt": "2026-10-16"
+    },
+    "season": {
+      "record": "1–6 through October 8, 2026 in completed six-man team ledger; October 15 Avalon result unconfirmed",
+      "verifiedAt": "2026-10-16",
+      "sourceUrl": "https://sixmanfootball.com/teams/blum-bobcats.1056/schedule/",
+      "sourceLabel": "SixManFootball 2026 Blum schedule: seven scored games through Oct 8; Avalon box not independently finalized",
+      "games": [
+        {
+          "date": "2026-08-27",
+          "opponent": "Mount Calm",
+          "site": "Away",
+          "result": "L 0–45"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Penelope",
+          "site": "Home",
+          "result": "L 12–59"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Abbott",
+          "site": "Away",
+          "result": "L 0–62"
+        },
+        {
+          "date": "2026-09-17",
+          "opponent": "Johnson County Sports Association",
+          "site": "Home",
+          "result": "L 30–41"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Bynum",
+          "site": "Away",
+          "result": "W 58–43"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Gorman",
+          "site": "Home",
+          "result": "L 36–62"
+        },
+        {
+          "date": "2026-10-08",
+          "opponent": "Bluff Dale",
+          "site": "Home",
+          "district": true,
+          "result": "L 20–69"
+        },
+        {
+          "date": "2026-10-15",
+          "opponent": "Avalon",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Covington",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Milford",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "notice": {
+      "title": "Avoid incorrect state-title counts and conflicting 2026 score dates",
+      "body": "Blum won the 2019 UIL Six-Man Division I state title 58–52 over McLean, as confirmed by the Texas Football championship report and UIL 2019 team file. An older Dave Campbell's team index incorrectly displays zero championships despite its own championship report. Independent 2026 game schedules may differ by a day on dates, and the October 15 Avalon score was not independently confirmed at this editorial checkpoint: do not treat the absence of a posted final as a cancellation or predicted win. The school office address does not prove the stadium gate, accessible parking or current ticket procedure.",
+      "sourceUrl": "https://www.texasfootball.com/article/2019/12/23/blum-58-mclean-52-2019-1a-di-texas-high-school-football-championship-recap",
+      "sourceLabel": "Contemporaneous Dave Campbell's 2019 state-title game recap, crosschecked with UIL school-team archive",
+      "verifiedAt": "2026-10-16"
+    },
+    "development": {
+      "title": "Blum's 2019 title and the 2026 Division I rebuild",
+      "body": "The Bobcats are more than a generic small-school six-man entry. In the 2019 Class 1A Division I championship, Blum overcame reigning champion McLean 58–52 after a tying McLean score late in the fourth quarter; Coltin Gonzales scored the decisive late rushing touchdown. UIL's archived 2019 roster identifies then coach Cooper Thornhill, while Blum ISD's football department currently publishes his name as head coach. Six-Man Football's historical ledger shows 13–2 in 2019 but UIL's historical team page identifies 12–2 at its own archival checkpoint: do not collapse unlike snapshot definitions. In 2026 the official UIL District 11 places Blum with Avalon, Bluff Dale, Covington and Milford. A seven-game completed ledger through October 8 shows a 1–6 start; it is not the final season tally.",
+      "sourceUrl": "https://www.texasfootball.com/article/2019/12/23/blum-58-mclean-52-2019-1a-di-texas-high-school-football-championship-recap",
+      "sourceLabel": "2019 championship eyewitness game report, UIL team archive and 2026 six-man game ledger",
+      "verifiedAt": "2026-10-16"
+    },
+    "milestones": [
+      {
+        "date": "2019",
+        "title": "Blum 58, McLean 52: UIL Class 1A Division I champion",
+        "body": "Texas Football's championship-game account details Blum's late Gonzales touchdown and final defensive stand, with the official UIL 2019 Blum state-team roster identifying coach Cooper Thornhill. This is a documented title, notwithstanding a zero-title third-party index.",
+        "sourceUrl": "https://www.texasfootball.com/article/2019/12/23/blum-58-mclean-52-2019-1a-di-texas-high-school-football-championship-recap",
+        "sourceLabel": "Contemporaneous 2019 UIL Division I championship recap"
+      },
+      {
+        "date": "2019",
+        "title": "Official UIL roster and the 2019 season's historical classification",
+        "body": "The state's 2019–20 team file labels Blum 1A Six-Man Division 1, with a program-specific roster and playoff path. Do not apply a modern division label as a substitute for the historical tournament record.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team/blum-2019-2020-football",
+        "sourceLabel": "UIL Blum 2019–20 official state-team record"
+      },
+      {
+        "date": "2025",
+        "title": "2025 completed 3–7 football season",
+        "body": "The finished 2025 MaxPreps varsity schedule records 3 wins and 7 losses, including a 52–6 district victory at Covington. A Dave Campbell's snapshot contains a partial 2–5 tally and should not be read as the full season.",
+        "sourceUrl": "https://www.maxpreps.com/tx/blum/blum-bobcats/football/25-26/schedule/",
+        "sourceLabel": "Full MaxPreps 2025 varsity schedule and final record"
+      },
+      {
+        "date": "2026",
+        "title": "District 11 six-man Division I realignment",
+        "body": "The official UIL 2026–28 placement joins Blum with Avalon, Bluff Dale, Covington and Milford in 1A Division I District 11.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 1A Division I District 11 six-man alignment"
+      },
+      {
+        "date": "2026-10-08",
+        "title": "Bluff Dale 69, Blum 20",
+        "body": "Blum's October 8 district game was a loss by 20–69, confirmed by the paired teams' completed Six-Man Football ledgers and MaxPreps box score.",
+        "sourceUrl": "https://sixmanfootball.com/teams/blum-bobcats.1056/schedule/",
+        "sourceLabel": "Blum Six-Man Football 2026 completed game ledger"
+      }
+    ],
+    "overview": [
+      "Blum High School's Bobcats represent Blum Independent School District in Hill County, Texas. This is UIL six-man football: the state-issued 2026–28 Class 1A Division I alignment lists Blum in District 11 with Avalon, Bluff Dale, Covington and Milford. Fans should consult that governing document over cached third-party listings with different district numbering or incomplete standings.",
+      "The Bobcats have a documented state football championship. Blum defeated reigning champion McLean 58–52 in the 2019 1A Six-Man Division I final, with an extraordinary late score by Coltin Gonzales and a defensive stop described by Dave Campbell's Texas Football. UIL independently lists the historical team, its division, coach Cooper Thornhill and playoff record. One old team-directory tile states Blum has zero titles, contradicted by the same publisher's detailed 2019 championship account.",
+      "Blum ISD officially lists the campus and district contact at 310 South Avenue F, Blum, Texas 76627, telephone 254-874-5231. The district's High School Football page names Cooper Thornhill as head football coach and lists staff. These are sourced administrative contacts, not a published guaranteed football gate or parking instruction. Do not confuse the older J. M. White Field directory reference with independently verified exact stadium access or accessible seating.",
+      "The 2026 Bobcats have a separate, dated on-field story. The completed seven-game six-man ledger through October 8 shows a win against Bynum 58–43 and losses against Mount Calm, Penelope, Abbott, Johnson County Sports Association, Gorman and Bluff Dale. That is 1–6 through October 8. Avalon was scheduled for October 15, but publicly retrieved fixture and live-status services do not consistently provide a verified final; we will not invent one or imply the season is canceled.",
+      "Visitors can read TexasDefined's Hill County profile through the school-to-county link and return to the Blum team page from the county's football guide cards. Those are verified TexasDefined routes, not extra ticketing outlets. Check Blum ISD's actual athletics page for dates, school announcements, coaches and entry arrangements before attending a late October or November six-man game."
+    ],
+    "faq": [
+      {
+        "question": "Has Blum ever won a UIL state football championship?",
+        "answer": "Yes. Blum won the 2019 Class 1A Six-Man Division I championship 58–52 against McLean, documented by the detailed Texas Football game recap and official UIL team page. Some outdated program directory cards say zero titles; those are contradicted by the first-hand championship report."
+      },
+      {
+        "question": "Who is Blum's football coach?",
+        "answer": "Blum ISD's own High School Football page lists Cooper Thornhill as head football coach; it also names assistant coaches. His 2019 coaching role is separately recorded in the UIL state-team archive. Confirm any later personnel changes with the district."
+      },
+      {
+        "question": "Which football division and district is Blum in for 2026?",
+        "answer": "The governing 2026–28 UIL alignment assigns Blum to Conference 1A Division I six-man District 11, alongside Avalon, Bluff Dale, Covington and Milford."
+      },
+      {
+        "question": "Where is Blum ISD located, and where do football visitors park?",
+        "answer": "The district contact page lists 310 S. Avenue F, Blum, TX 76627, phone 254-874-5231. This is the school or district contact address, not independently verified stadium gate or accessible parking; the district athletics office can confirm game-specific access."
+      },
+      {
+        "question": "What was Blum's record through October 8, 2026?",
+        "answer": "The Seven completed games in the Six-Man Football schedule produce a 1–6 record through October 8: a win at Bynum and losses to Mount Calm, Penelope, Abbott, JCSA, Gorman and Bluff Dale. This is not a final 2026 season record."
+      },
+      {
+        "question": "Did Blum beat Avalon on October 15, 2026?",
+        "answer": "A 2026 schedule lists the Avalon road game for October 15, while some game services show a different calendar date or lack a finalized result. The outcome was not independently certified for this page; check Blum ISD athletics and updated scores rather than assuming a result."
+      },
+      {
+        "question": "Why do different sources give different Blum 2019 or 2025 season records?",
+        "answer": "The UIL's 2019 team archive records a particular season snapshot, while completed 2019 game indexes include the final championship and show additional contests. For 2025 MaxPreps's finished schedule is 3–7, whereas an older DCTF team card lists partial 2–5. Date and completion status matter more than unsourced rolled-up summaries."
+      }
+    ]
+  },
   "bluff-dale": {
     "slug": "bluff-dale",
     "theme": {

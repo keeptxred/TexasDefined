@@ -255,7 +255,7 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   'el-paso': [{ name: 'Anthony Wildcats', slug: 'anthony', context: 'Anthony Texas varsity history and 2026 UIL football context' }],
   hockley: [{ name: 'Anton Bulldogs', slug: 'anton', context: 'Anton School football history and modern UIL six-man alignment' }],
   trinity: [{ name: 'Apple Springs Eagles', slug: 'apple-springs', context: 'Six-man Eagles history and UIL classification-source clarification' }],
-  hill: [{ name: 'Aquilla Cougars', slug: 'aquilla', context: 'Hill County Aquilla program history and modern six-man football' }],
+  hill: [{ name: 'Aquilla Cougars', slug: 'aquilla', context: 'Hill County Aquilla program history and modern six-man football' }, { name: 'Blum Bobcats', slug: 'blum', context: '2019 UIL six-man Division I champion over McLean; 2026 District11 team with verified Blum ISD sources' }],
   'san-patricio': [{ name: 'Aransas Pass Panthers', slug: 'aransas-pass', context: 'Aransas Pass program history and contemporary varsity schedule context' }],
   archer: [{ name: 'Archer City Wildcats', slug: 'archer-city', context: '1964 state championship and reconciled UIL historical indexing discrepancy' }],
   wise: [{ name: 'Alvord Bulldogs', slug: 'alvord', context: '2025 undefeated district run and 2026 home ticket details' }],

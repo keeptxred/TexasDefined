@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "bluff-dale",
-    "nextSchool": "blum",
-    "implementedOnBranch": 8,
-    "remainingToImplement": 17,
+    "currentSchool": "blum",
+    "nextSchool": "boerne",
+    "implementedOnBranch": 9,
+    "remainingToImplement": 16,
     "remainingToVerify": 25,
-    "notes": "Batch006: Harmony and Big Spring DEPLOYED; Bishop, Blackwell, Blanco and Blanket IMPLEMENTED on main; Blooming Grove individually source-researched and authored, pending protected merge, release and targeted browser/editorial acceptance. Preserve all 105 prior VERIFIED and Batch005 formal editorial backlog. Bluff Dale original district/coach/results dossier drafted with Erath reciprocity on proposed branch; DOES NOT imply protected merge or production verification."
+    "notes": "Batch006: Harmony and Big Spring DEPLOYED; Bishop, Blackwell, Blanco and Blanket IMPLEMENTED on main; Blooming Grove individually source-researched and authored, pending protected merge, release and targeted browser/editorial acceptance. Preserve all 105 prior VERIFIED and Batch005 formal editorial backlog. Bluff Dale original district/coach/results dossier drafted with Erath reciprocity on proposed branch; DOES NOT imply protected merge or production verification. Blum 2019 UIL D1 state title and Hill County 2026 school-specific content authored on review branch only; unmerged and uncertified."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6699,8 +6699,20 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/blum",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/blum.md",
+      "auditCompletedAt": "2026-10-16",
+      "researchCompletedAt": "2026-10-16",
+      "implementedAt": "2026-10-16",
+      "implementedOnBranch": "feature/football-b006-bluff-dale-source-20261016",
+      "inboundLinks": [
+        "/county/hill"
+      ],
+      "outboundCountyPath": "/county/hill",
+      "linkVerificationStatus": "BRANCH_CODE_PENDING_REAL_PRODUCTION_CHROME",
+      "actualProductionVerified": false,
+      "productionVerification": "NOT_DEPLOYED_NO_BROWSER_ACCEPTANCE"
     },
     {
       "id": "uil:boerne",
