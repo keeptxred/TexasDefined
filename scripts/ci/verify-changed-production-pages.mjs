@@ -2,6 +2,10 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 export async function verifyChangedPages({ plan, head, fetchImpl = fetch }) {
 const redirectChecks = plan.redirectChecks ?? [];
+const downloadButtonPages = plan.downloadButtonPages ?? [];
+const regionGuidePages = plan.regionGuidePages ?? [];
+if (!Array.isArray(regionGuidePages) || regionGuidePages.length > 1 || regionGuidePages.some(p => p !== '/article/texas-regions-explained' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Texas regions guide smoke contract');
+if (!Array.isArray(downloadButtonPages) || downloadButtonPages.length > 1 || downloadButtonPages.some(p => p !== '/texas-data/texas-population-and-migration-2025' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid data-brief smoke contract');
 if (plan.head !== head || !Array.isArray(plan.selectedPaths) || !Array.isArray(redirectChecks) || redirectChecks.length > 2 || plan.selectedPaths.length + redirectChecks.length > 40) throw new Error('Missing, stale or oversized production change plan');
 const origin = 'https://texasdefined.com';
 const results = [];
@@ -32,6 +36,12 @@ for (const path of plan.selectedPaths) {
         for (const href of expectedHrefs) {
           if (!/^\/(?!\/)/.test(href) || !anchors.has(href)) throw new Error('Expected changed internal link is missing from SSR anchors: '+href);
         }
+      }
+      if (regionGuidePages.includes(path) && !/<h[2-4]\b[^>]*>\s*How to use the seven regions when planning a trip\s*<\/h[2-4]>/i.test(html)) {
+        throw new Error('Texas regions guide is missing its reader-facing SSR heading');
+      }
+      if (downloadButtonPages.includes(path) && !/<button\b[^>]*>\s*Download CSV\s*<\/button>/i.test(html)) {
+        throw new Error('Generic Texas Data brief is missing the server-rendered CSV download button');
       }
       results.push({ path, passed: true, attempt }); failure = null; break;
     } catch (error) { failure = error.message; }

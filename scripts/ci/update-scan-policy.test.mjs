@@ -62,9 +62,13 @@ test('planner corrections retest previously missed editorial SSR links, not enti
   const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
   assert.deepEqual(plan.selectedPaths, [
     '/article/texas-cultural-regions-explained', '/article/texas-regions-explained',
+    '/explore/road-trips',
     '/fishing/species/black-crappie', '/fishing/species/bluegill',
     '/fishing/species/freshwater-drum', '/fishing/species/white-crappie',
+    '/texas-data/texas-population-and-migration-2025',
   ]);
+  assert.deepEqual(plan.downloadButtonPages, ['/texas-data/texas-population-and-migration-2025']);
+  assert.deepEqual(plan.regionGuidePages, ['/article/texas-regions-explained']);
   assert.equal(plan.expectedHrefsByPage['/article/texas-regions-explained'][0], '/article/texas-gulf-coast-erosion-shoreline-retreat-guide');
   assert.equal(plan.expectedHrefsByPage['/article/texas-cultural-regions-explained'][0], '/article/texas-oil-boom-wichita-falls-west-texas-rigs');
 });
@@ -113,9 +117,15 @@ test('McAllen edits verify only its canonical page and both visitor destinations
   assert.deepEqual(plan.selectedPaths, ['/explore/near/mcallen/day-trips']);
   const expected = [
     '/destination/santa-ana-national-wildlife-refuge',
-    '/destination/museum-south-texas-history-edinburg',
+    '/destination/museum-of-south-texas-history-edinburg',
   ];
   assert.deepEqual(plan.expectedHrefsByPage['/explore/near/mcallen/day-trips'], expected);
+  // The live guide owns this exact source slug; do not let the smoke plan
+  // silently substitute a similarly named but different destination route.
+  const routeSource = text('src/routes/explore.near.$metro.$collection.lazy.tsx');
+  assert.match(routeSource, /slug:\s*"museum-of-south-texas-history-edinburg"/);
+  assert.match(routeSource, /<Link to="\/destination\/\$slug" params=\{\{ slug: trip\.slug \}\}/);
+  assert.doesNotMatch(routeSource, /slug:\s*"museum-south-texas-history-edinburg"/);
   const html = includeMuseum => '<html><title>Best Day Trips From McAllen, Texas</title>'
     + '<link rel="canonical" href="https://texasdefined.com/explore/near/mcallen/day-trips">'
     + '<a href="' + expected[0] + '">Santa Ana</a>'
@@ -125,6 +135,41 @@ test('McAllen edits verify only its canonical page and both visitor destinations
   const missing = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(false)) });
   assert.equal(missing[0].passed, false);
   assert.match(missing[0].error, /Expected changed internal link is missing/);
+});
+
+test('existing Texas Data brief CSV changes select one representative dynamic page only', async () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/texas-data-download.ts'] });
+  assert.deepEqual(plan.selectedPaths, ['/texas-data/texas-population-and-migration-2025']);
+  assert.deepEqual(plan.downloadButtonPages, ['/texas-data/texas-population-and-migration-2025']);
+  const html = button => '<html><title>Population figures</title><link rel="canonical" href="https://texasdefined.com/texas-data/texas-population-and-migration-2025"><body>'
+    + (button ? '<button type="button">Download CSV</button>' : '') + '</body></html>';
+  const good = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(true)) });
+  assert.equal(good[0].passed, true);
+  const bad = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(false)) });
+  assert.equal(bad[0].passed, false);
+  assert.match(bad[0].error, /missing the server-rendered CSV download button/);
+});
+
+test('planner change preserves bounded prior regression surfaces including data CSV', () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
+  assert.ok(plan.selectedPaths.includes('/texas-data/texas-population-and-migration-2025'));
+  assert.ok(plan.selectedPaths.length + plan.redirectChecks.length <= PAGE_BUDGET);
+});
+
+test('standalone article fixture edits select the owner, not generic homepage samples', async () => {
+  const path = 'src/data/fixtures/texas-regions-explained.ts';
+  const before = 'export const texasRegionsExplainedArticle: Article = { slug: "texas-regions-explained", body: [] };';
+  const after = before.replace('body: []', 'body: [newParagraph]');
+  const plan = buildChangePlan({ baseline, head, changedFiles: [path], sources: { [path]: { before, after } } });
+  assert.deepEqual(plan.selectedPaths, ['/article/texas-regions-explained']);
+  assert.deepEqual(plan.regionGuidePages, ['/article/texas-regions-explained']);
+  const html = heading => '<html><title>Texas regions</title><link rel="canonical" href="https://texasdefined.com/article/texas-regions-explained"><body>'
+    + (heading ? '<h2>How to use the seven regions when planning a trip</h2>' : '') + '</body></html>';
+  const good = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(true)) });
+  assert.equal(good[0].passed, true);
+  const bad = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(false)) });
+  assert.equal(bad[0].passed, false);
+  assert.match(bad[0].error, /missing its reader-facing SSR heading/);
 });
 
 test('unchanged sibling registry keys are not independently crawled', () => {
@@ -176,6 +221,65 @@ test('failed responses and edge challenges cannot poison the response cache', as
   const fetchPage = createProductionPageFetch(async () => { calls++; return new Response('blocked', { status: calls === 1 ? 500 : 200, headers: calls === 2 ? { 'cf-mitigated': 'challenge' } : {} }); });
   for (let i = 0; i < 4; i++) await fetchPage('https://texasdefined.com/page');
   assert.equal(calls, 3);
+});
+
+test('dynamic Road Trips owner verifies the three casino discovery links without a sitewide crawl', async () => {
+  const changedFiles = ['src/routes/explore.$category.lazy.tsx'];
+  const plan = buildChangePlan({ baseline, head, changedFiles });
+  const required = [
+    '/explore/casinos',
+    '/explore/casinos/near-houston',
+    '/explore/casinos/near-dallas-fort-worth',
+  ];
+  assert.deepEqual(plan.selectedPaths, ['/explore/road-trips']);
+  assert.deepEqual(plan.expectedHrefsByPage['/explore/road-trips'], required);
+  assert.equal(plan.omittedCount, 0);
+
+  const html = (hrefs) => '<html><title>Texas Road Trips</title>'
+    + '<link rel="canonical" href="https://texasdefined.com/explore/road-trips">'
+    + '<body><h1>Texas Road Trips</h1>'
+    + hrefs.map(href => `<a href="${href}">Read guide</a>`).join('')
+    + '</body></html>';
+  const valid = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(required)) });
+  assert.equal(valid[0].passed, true);
+  const missing = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(required.slice(0, -1))) });
+  assert.equal(missing[0].passed, false);
+
+  const unrelated = buildChangePlan({ baseline, head, changedFiles: ['src/data/texas-birds.ts'] });
+  assert.ok(!unrelated.selectedPaths.includes('/explore/road-trips'));
+});
+
+test('casino collection edits smoke exactly the existing guides and fail on a missing SSR guide link', async () => {
+  const path = 'src/data/texas-casino-guides.ts';
+  const currentGuides = text(path);
+  const plan = buildChangePlan({ baseline, head, changedFiles: [path], sources: { [path]: { after: currentGuides } } });
+  const guides = plan.expectedHrefsByPage['/explore/casinos'];
+  assert.equal(guides.length, 9);
+  assert.equal(new Set(guides).size, guides.length);
+  assert.ok(guides.includes('/explore/casinos/ischoopa-travel-center'));
+  assert.ok(guides.includes('/explore/casinos/texas-gaming-laws'));
+  assert.deepEqual(plan.expectedHrefsByPage['/explore'], ['/explore/casinos']);
+  assert.equal(plan.selectedPaths.length, 11);
+  assert.equal(plan.omittedCount, 0);
+  assert.ok(plan.selectedPaths.every(p => p === '/explore' || p === '/explore/casinos' || guides.includes(p)));
+
+  const htmlFor = (url, dropLastGuide = false) => {
+    const hrefs = url.pathname === '/explore'
+      ? ['/explore/casinos']
+      : url.pathname === '/explore/casinos'
+        ? guides.slice(0, dropLastGuide ? -1 : undefined)
+        : [];
+    return '<html><title>Texas Defined guide</title><link rel="canonical" href="https://texasdefined.com'
+      + url.pathname + '"><body><h1>Visitor guide</h1>'
+      + hrefs.map(href => '<a href="' + href + '">Read</a>').join('') + '</body></html>';
+  };
+  const good = await verifyChangedPages({ plan, head, fetchImpl: async url => new Response(htmlFor(url)) });
+  assert.ok(good.every(result => result.passed));
+  const missing = await verifyChangedPages({ plan, head, fetchImpl: async url => new Response(htmlFor(url, true)) });
+  assert.equal(missing.find(result => result.path === '/explore/casinos')?.passed, false);
+
+  const unrelated = buildChangePlan({ baseline, head, changedFiles: ['src/data/texas-birds.ts'] });
+  assert.ok(unrelated.selectedPaths.every(path => !path.startsWith('/explore/casinos')));
 });
 
 test('changed-page smoke verifies only selected pages and fails stale plans before HTTP', async () => {
