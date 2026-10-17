@@ -321,7 +321,7 @@ export const texasWaterParks: WaterParkGuide[] = [
     "kind": "Indoor public park",
     "admission": "Public day admission and group options",
     "summary": "A stand-alone indoor water park in Grand Prairie rather than a hotel-only pool complex.",
-    "distinctiveNote": "Check temporary closures and maintenance windows; indoor does not guarantee open every calendar day.",
+    "distinctiveNote": "Epic Waters is temporarily closed October 13–29, 2026, with reopening scheduled for Friday, October 30 at 10 a.m.; always confirm the live calendar before visiting.",
     "officialUrl": "https://epicwatersgp.com/",
     "reviewedAt": "2026-10-17"
   },
