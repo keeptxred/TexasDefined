@@ -164,6 +164,24 @@ for (const slug of ['big-thicket-national-preserve','blackwell-school-national-h
 }
 if (!nationalHub.includes('href="/article/rio-grande-wild-and-scenic-river"')) errors.push('NPS hub must link Rio Grande river guide.');
 
+// Full public NPS inventory lives in a sourced editorial index even when
+// some destinations are withheld from mapped cards by individual page gates.
+const npsIndexStart = nationalHub.indexOf('id="complete-texas-nps-inventory"');
+const npsIndexEnd = nationalHub.indexOf('</section>', npsIndexStart);
+const npsIndexBody = npsIndexStart >= 0 && npsIndexEnd > npsIndexStart
+  ? nationalHub.slice(npsIndexStart, npsIndexEnd) : "";
+if (!npsIndexBody.includes("18 designations")) errors.push("NPS official Texas index title or count missing");
+const npsInventoryCodes = [...npsIndexBody.matchAll(/href="https:\/\/www\.nps\.gov\/([a-z]{4})\/"/g)].map(m => m[1]);
+if (npsInventoryCodes.length !== 18 || new Set(npsInventoryCodes).size !== 18) {
+  errors.push(`The public NPS authority hub must list exactly 18 distinct federal park/heritage designations; found ${npsInventoryCodes.length}`);
+}
+for (const code of ["blsc", "bith", "buov", "elte", "elca", "rigr", "pais", "paal"]) {
+  if (!npsInventoryCodes.includes(code)) errors.push(`Missing NPS site in complete federal directory: ${code}`);
+}
+if (!npsDirectory.includes('u.pathname.startsWith(`/${code}/`)') || !npsDirectory.includes('u.hostname === "www.nps.gov"')) {
+  errors.push("NPS unit classifier must allow exact-code official park subpages, while restricting host to the real NPS");
+}
+
 if (errors.length) {
   console.error('Explore category authority wave 2 validation failed:');
   for (const error of errors) console.error(`- ${error}`);
