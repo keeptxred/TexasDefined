@@ -293,8 +293,8 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "county": "cass",
     "name": "Music City Texas Theater in Linden",
     "category": "Arts & culture",
-    "description": "Renovated performance hall in Linden associated with East Texas music history; confirm live-show dates before visiting.",
-    "sourceUrl": "https://texastimetravel.com/cities/linden/"
+    "description": "Independent nonprofit live-music venue in Linden presenting scheduled country, blues and regional performances; confirm the calendar and ticket availability.",
+    "sourceUrl": "https://www.musiccitytexas.org/"
   },
   {
     "county": "castro",
@@ -937,8 +937,8 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "county": "hunt",
     "name": "Greenville Municipal Auditorium",
     "category": "Arts & culture",
-    "description": "Art Deco-era performing-arts venue that has hosted nationally known musicians; check current event-calendar access.",
-    "sourceUrl": "https://texastimetravel.com/cities/greenville/"
+    "description": "Art Deco performance venue in Greenville with a current calendar of concerts and stage shows; verify dates and seating with the promoter.",
+    "sourceUrl": "https://showtimedtgreenville.com/venue/greenville-municipal-auditorium/"
   },
   {
     "county": "hutchinson",
@@ -951,8 +951,8 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "county": "jasper",
     "name": "Sandy Creek Park in Jasper",
     "category": "Parks & recreation",
-    "description": "Creekside municipal recreation area in Jasper with walking and picnic opportunities; check park rules and conditions.",
-    "sourceUrl": "https://texastimetravel.com/cities/jasper/"
+    "description": "Jasper municipal creekside park with a paved exercise track, fishing lake, picnic facilities, trails and play areas; larger park-use reservations are managed by the city.",
+    "sourceUrl": "https://www.jaspertx.org/page/residents_parks"
   },
   {
     "county": "jeff-davis",
@@ -986,15 +986,8 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "county": "kerr",
     "name": "Kerrville-Schreiner Park",
     "category": "Parks & recreation",
-    "description": "City park on the Guadalupe River east of Kerrville with hiking, camping and wildlife viewing; confirm day-use availability.",
-    "sourceUrl": "https://texastimetravel.com/regions/hill-country-trail/heritage-sites-and-attractions/?page=3"
-  },
-  {
-    "county": "kerr",
-    "name": "Kerrville-Schreiner Park Nature Trails",
-    "category": "Parks & recreation",
-    "description": "City-managed recreational park on the Guadalupe River, with overnight facilities and day-use trails; see current campground and event notices.",
-    "sourceUrl": "https://texastimetravel.com/regions/hill-country-trail/heritage-sites-and-attractions/?page=3"
+    "description": "City-operated park with open designated day-use trails and camping areas; the riverfront, beachfront and certain damaged paths remain closed during flood recovery. Check the city notice before traveling.",
+    "sourceUrl": "https://www.kerrvilletx.gov/camp"
   },
   {
     "county": "kimble",
