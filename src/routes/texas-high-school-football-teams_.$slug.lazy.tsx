@@ -38,8 +38,12 @@ function Page() {
     faq,
   } = Route.useLoaderData();
   const schoolName = displayName;
+  // Authored football-page titles contain the verified school-specific mascot.
+  // Fall back to the reference directory for schools without an editorial title;
+  // the optional TEA identity join may be unavailable in deployed SSR.
+  const authoredFootballH1 = editorial?.seo?.title?.match(/^(.+?Football)/i)?.[1];
   const footballName = slug === 'aubrey' ? 'Aubrey Chaparrals Football'
-    : identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`;
+    : authoredFootballH1 || (identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`);
   // Summarize the verified editorial ledger before the deeper school reference sections.
   const latestResult = editorial?.season?.games.filter((game) => game.result).at(-1);
   const nextListedFixture = editorial?.season?.games.find((game) => !game.result);
@@ -79,6 +83,14 @@ function Page() {
     'benavides': 'duval',
     'big-lake-reagan-co': 'reagan',
     'big-sandy': 'upshur',
+    'big-spring': 'howard', // Individual school dossier/NCES campus county; not stadium gate
+    'bishop': 'nueces', // Individual school dossier/NCES campus county; not stadium gate
+    'blackwell': 'nolan', // Individual school dossier/NCES campus county; not stadium gate
+    'blanco': 'blanco', // Individual school dossier/NCES campus county; not stadium gate
+    'blanket': 'brown', // Individual school dossier/NCES campus county; not stadium gate
+    'blooming-grove': 'navarro', // Individual school dossier/NCES campus county; not stadium gate
+    'bloomington': 'victoria', // Individual school dossier/NCES campus county; not stadium gate
+    'blue-ridge': 'collin', // Individual school dossier/NCES campus county; not stadium gate
     'big-sandy-harmony': 'upshur', // NCES Harmony High is in Upshur County, distinct from Big Sandy Wildcats.
     'barksdale-nueces-canyon': 'edwards',
     'bartlett': 'bell',
@@ -294,7 +306,7 @@ function Page() {
         </div>
       </aside>}
 
-      {editorial?.season && !editorial.notice && (
+      {editorial?.season && (
         <section aria-label={`${footballName} season at a glance`} className="grid gap-4 border-b border-border py-5 sm:grid-cols-3 sm:py-10">
           <div className="border-l-4 border-primary bg-surface p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">2026 record from reported finals</p>
@@ -348,7 +360,7 @@ function Page() {
         </div>
       ) : null}
 
-      {program && !editorial?.notice && <section id="football-current-season" className="scroll-mt-24 grid gap-8 border-b border-border py-8 sm:py-10 lg:grid-cols-[15rem_1fr]">
+      {program && (editorial?.season || !editorial?.notice) && <section id="football-current-season" className="scroll-mt-24 grid gap-8 border-b border-border py-8 sm:py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Current season</p>
           <h2 className="mt-2 font-display text-3xl">{editorial?.season ? '2026 results & schedule' : '2026 schedule & results sources'}</h2>

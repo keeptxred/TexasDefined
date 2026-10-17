@@ -171,6 +171,11 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
 // Independently researched Batch 002 and Batch 003 county links. Lists retain
 // multiple teams in the same county rather than replacing an existing card.
 const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'victoria': [{ name: 'Bloomington Bobcats', slug: 'bloomington', context: 'Victoria County Bloomington ISD; first-party Bobcat Stadium home event details' }],
+  'navarro': [{ name: 'Blooming Grove Lions', slug: 'blooming-grove', context: 'Navarro County Blooming Grove ISD; official 2026 district assignment' }],
+  'blanco': [{ name: 'Blanco Panthers', slug: 'blanco', context: 'Blanco ISD campus in Blanco County; 2001 UIL state championship' }],
+  'nolan': [{ name: 'Blackwell Hornets', slug: 'blackwell', context: 'NCES Blackwell campus in Nolan County; six-man 2019 semifinal and disputed September 4 score' }],
+  'howard': [{ name: 'Big Spring Steers', slug: 'big-spring', context: 'Howard County Big Spring ISD; documented 1953 state finalist and 2026 Seminole result' }],
   kendall: [{ name: 'Boerne Greyhounds', slug: 'boerne', context: '2022 4A Division I state runner-up and 2026 Boerne ISD Stadium guide, distinct from Champion Chargers' }, { name: 'Boerne Champion Chargers', slug: 'boerne-champion', context: '2026 Class 5A Division I District 13 Chargers, Blane Ellis, shared stadium ticket rules and 2025 playoff history' }],
   'red-river': [{ name: 'Bogata Rivercrest Rebels', slug: 'bogata-rivercrest', context: 'Rivercrest ISD Red River County guide: UIL 2A Division I District 9 and 2026 triple-overtime Wolfe City win' }],
   fannin: [{ name: 'Bonham Purple Warriors', slug: 'bonham', context: '2026 UIL 4A DII District 7, Aaron Ford, and online-only home ticket guidance for Bonham' }],
@@ -216,7 +221,7 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   collin: [
     { name: 'Allen Eagles', slug: 'allen', context: 'Five UIL state titles, historic Kyler Murray era and 2026 Eagle Stadium visitor guidance' },
     { name: 'Anna Coyotes', slug: 'anna', context: '2023 Class 4A Division I state champion and current Coyotes program' },
-  ],
+  , { name: 'Blue Ridge Tigers', slug: 'blue-ridge', context: 'Blue Ridge ISD Collin County campus and 2026 UIL alignment' }],
   brewster: [{ name: 'Alpine Bucks', slug: 'alpine', context: 'Big Bend-area Bucks football, current alignment and Buck Stadium research' }],
   colorado: [{ name: 'Rice Consolidated Raiders', slug: 'altair-rice', context: 'Altair Raiders playoff tradition and 2026 District 14 games' }],
   cherokee: [{ name: 'Alto Yellowjackets', slug: 'alto', context: '2006 and 2007 consecutive UIL football state champions' }],
@@ -231,8 +236,8 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   'runnels': [{ name: 'Ballinger Bearcats', slug: 'ballinger', context: '1953 UIL state runner-up and official 2026 reserved-ticket notice' }],
   'reeves': [{ name: 'Balmorhea Bears', slug: 'balmorhea', context: '2020-season six-man state champion, final played Jan. 2021' }],
   'bandera': [{ name: 'Bandera Bulldogs', slug: 'bandera', context: '2002 two-overtime 3A Division II state champion' }],
-  'brown': [{ name: 'Bangs Dragons', slug: 'bangs', context: '2002 and 2003 successive UIL state football runner-up seasons' }],
-  'nueces': [{ name: 'Banquete Bulldogs', slug: 'banquete', context: '2026 Banquete varsity schedule and Bulldog Stadium calendar' }],
+  'brown': [{ name: 'Bangs Dragons', slug: 'bangs', context: '2002 and 2003 successive UIL state football runner-up seasons' }, { name: 'Blanket Tigers', slug: 'blanket', context: 'Blanket ISD Brown County six-man team with dated 2026 results' }],
+  'nueces': [{ name: 'Banquete Bulldogs', slug: 'banquete', context: '2026 Banquete varsity schedule and Bulldog Stadium calendar' }, { name: 'Bishop Badgers', slug: 'bishop', context: 'Bishop CISD Nueces County program; 2026 3A Division I District 16' }],
   // Batch 004 independently matched campus counties; school game sites can differ.
   smith: [{ name: 'Arp Tigers', slug: 'arp', context: '2016 semifinal and Bill Herrington Stadium history' }],
   stonewall: [{ name: 'Aspermont Hornets', slug: 'aspermont', context: '1999 11-man state final and modern six-man program' }],
