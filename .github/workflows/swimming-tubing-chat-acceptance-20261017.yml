@@ -1,0 +1,73 @@
+name: Swimming Tubing One-Time Acceptance
+on:
+  push:
+    branches: [agent/swimming-tubing-live-acceptance-20261017]
+permissions:
+  contents: read
+jobs:
+  smoke-and-visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check actual live HTML
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence
+          origin='https://texasdefined.com'
+          curl --fail-with-body --silent --show-error --location --max-time 80 --http1.1 --user-agent 'Mozilla/5.0 Chrome/132' "$origin/explore/swimming-holes-river-tubing?qa=$GITHUB_RUN_ID" -o evidence/live.html
+          grep -qi '</html>' evidence/live.html
+          grep -Fq 'id="texas-swimming-holes-river-tubing-guide"' evidence/live.html
+          grep -Fq 'Known restrictions checked October 17, 2026' evidence/live.html
+          grep -Fq 'Official sources' evidence/live.html
+          grep -Fq 'href="/texas-paddling-guide"' evidence/live.html
+          grep -Fq 'href="/explore/small-towns"' evidence/live.html
+          grep -Fq 'rel="canonical" href="https://texasdefined.com/explore/swimming-holes-river-tubing"' evidence/live.html
+          ! grep -Eiq 'name="robots" content="noindex' evidence/live.html
+          echo 'PASS complete server-rendered guide, safety review, canonical, navigation'
+      - name: Verify redirects, sitemap and reciprocal links
+        shell: bash
+        if: always()
+        run: |
+          set -euo pipefail
+          mkdir -p evidence
+          origin='https://texasdefined.com'
+          check_redirect() {
+            code="$(curl -sS -o /dev/null -D evidence/headers.tmp -w '%{http_code}' --max-time 25 "$origin$1")"
+            location="$(grep -i '^location:' evidence/headers.tmp | head -1 | tr -d '\r' | sed -E 's/^[Ll]ocation:[[:space:]]*//')"
+            [[ "$code" == 301 ]] && { [[ "$location" == "$2" ]] || [[ "$location" == "$origin$2" ]]; }
+            echo "PASS redirect $1 $code $location"
+          }
+          check_redirect /explore/river-tubing /explore/swimming-holes-river-tubing
+          check_redirect /explore/swimming-holes /explore/swimming-holes-river-tubing
+          check_redirect /explore/spring-fed-swimming /explore/lakes-rivers
+          curl --fail-with-body -sSL --max-time 45 "$origin/sitemap-explore.xml" -o evidence/sitemap.xml
+          grep -Fq '<loc>https://texasdefined.com/explore/swimming-holes-river-tubing</loc>' evidence/sitemap.xml
+          for path in /destination/bandera /destination/garner-state-park /destination/san-marcos /article/best-texas-swimming-holes-for-a-summer-trip; do
+            curl --fail-with-body -sSL --max-time 45 "$origin$path" -o evidence/page.tmp
+            grep -Fq 'href="/explore/swimming-holes-river-tubing"' evidence/page.tmp
+            echo "PASS reciprocal $path"
+          done
+      - name: Render desktop and mobile using Chrome
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence
+          chrome="$(command -v google-chrome || command -v chromium)"
+          url='https://texasdefined.com/explore/swimming-holes-river-tubing'
+          timeout 95 "$chrome" --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --virtual-time-budget=12000 --window-size=1440,6500 --screenshot="$PWD/evidence/desktop.png" "$url" >/dev/null 2>evidence/desktop.log
+          timeout 95 "$chrome" --headless --no-sandbox --disable-dev-shm-usage --hide-scrollbars --virtual-time-budget=12000 --window-size=400,6500 --screenshot="$PWD/evidence/mobile.png" "$url" >/dev/null 2>evidence/mobile.log
+          timeout 95 "$chrome" --headless --no-sandbox --disable-dev-shm-usage --virtual-time-budget=12000 --window-size=1440,1400 --dump-dom "$url" >evidence/dom.html 2>evidence/dom.log
+          grep -Fq 'texas-swimming-holes-river-tubing-guide' evidence/dom.html
+          grep -Fq 'Known restrictions checked October 17, 2026' evidence/dom.html
+          test "$(stat -c%s evidence/desktop.png)" -gt 25000
+          test "$(stat -c%s evidence/mobile.png)" -gt 25000
+          echo 'PASS headless Chrome desktop/mobile screenshot and guide DOM'
+      - name: Preserve acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: swimming-tubing-acceptance
+          path: evidence/
+          retention-days: 7
