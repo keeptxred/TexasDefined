@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "bonham",
-    "nextSchool": "bonham",
-    "implementedOnBranch": 15,
-    "remainingToImplement": 10,
+    "currentSchool": "booker",
+    "nextSchool": "booker",
+    "implementedOnBranch": 16,
+    "remainingToImplement": 9,
     "remainingToVerify": 25,
-    "notes": "15/25 Batch006 individually authored on dependent branches through Boling; 105 prior verified and two deployed status preserved. Zero Batch006 exact-SHA Chrome/editorial nine-dimensional acceptances. Continue Bonham (10 NOT_REVIEWED remaining)."
+    "notes": "16 of 25 Batch006 authored through Bonham on dependent branches, with 105 previous VERIFIED untouched; none of Batch006 independently Chrome or formally editorial accepted. Nine Batch006 remain not reviewed."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6805,8 +6805,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bonham",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/bonham.md",
+      "implementedOnBranch": "feature/football-b006-bonham-20261016-chat",
+      "actualProductionVerified": false,
+      "reviewScope": "Bonham ISD official contacts, April 2026 Aaron Ford appointment, UIL 2026 4A DII District7, 0–10 2025 and 2–4 to Oct9 2026. Gate/photo/accessibility and exact production Chrome QA/editorial acceptance not verified."
     },
     {
       "id": "uil:booker",

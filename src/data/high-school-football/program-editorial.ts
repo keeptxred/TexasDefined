@@ -2736,6 +2736,187 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
+  "bonham": {
+    "slug": "bonham",
+    "seo": {
+      "title": "Bonham Purple Warriors Football 2026 | Coach Aaron Ford, UIL District & Scores",
+      "description": "Bonham Warriors football in Fannin County: 2026 head-coach appointment, UIL 4A Division II District 7, 2–4 through October 9 and guide to official tickets."
+    },
+    "theme": {
+      "accentHex": "#5D3480",
+      "label": "Independent editorial purple; not the school-owned Warriors crest"
+    },
+    "coach": {
+      "name": "Aaron Ford",
+      "title": "Head football coach hired April 2026; assistant athletic director",
+      "sourceUrl": "https://www.on3.com/high-school/news/texas-high-school-football-bonham-hires-celina-defensive-coordinator-as-head-coach/",
+      "sourceLabel": "April 22 district press-release based report quoting Superintendent Lance Hamlin; Bonham ISD roster independently lists Ford assistant AD",
+      "verifiedAt": "2026-10-16"
+    },
+    "campus": {
+      "address": "1002 Warpath Drive, Bonham, TX 75418",
+      "phone": "903-583-5567",
+      "sourceUrl": "https://bhs.bonhamisd.org/",
+      "sourceLabel": "Official Bonham High School grades 9–12 address and main office; this is not a verified stadium gate",
+      "verifiedAt": "2026-10-16"
+    },
+    "schedule": {
+      "label": "Bonham ISD Athletics schedule and Rank One information",
+      "sourceUrl": "https://bonhamisd.org/104427_2fhygrh",
+      "sourceLabel": "Bonham ISD current athletics page and 2026–27 eligibility/calendar resources",
+      "verifiedAt": "2026-10-16"
+    },
+    "season": {
+      "record": "2–4 through October 9, 2026 (MaxPreps schedule updated October 13)",
+      "verifiedAt": "2026-10-16",
+      "sourceUrl": "https://www.maxpreps.com/tx/bonham/bonham-warriors/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 schedule with dated game score October 9; late results require independent updates",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Dallas Inspired Vision",
+          "site": "Home",
+          "result": "W 60–0"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Howe",
+          "site": "Away",
+          "result": "L 13–55"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Dallas Life Oak Cliff",
+          "site": "Home",
+          "result": "L 14–105"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Venus",
+          "site": "Away",
+          "result": "W 28–16"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Pottsboro",
+          "site": "Home",
+          "result": "L 14–72"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Paris North Lamar",
+          "site": "Away",
+          "district": true,
+          "result": "L 13–31"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Quinlan Ford",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Wills Point",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Sunnyvale",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Farmersville",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "notice": {
+      "title": "Bonham changed football coaches and districts after a winless 2025",
+      "body": "An April 22 2026 article quotes Bonham ISD's superintendent announcing Aaron Ford as the new head football coach after serving as Celina defensive coordinator. Bonham ISD's official athletics page lists Ford assistant athletic director and John Ramsey district athletic director; those are distinct roles. A stale MaxPreps season-history entry naming Kyle Dezern as 2026 coach and the older 2025 UIL District 5 must not override current evidence. Exact Warrior Stadium gate/ADA parking and photo reuse rights are not independently certified.",
+      "sourceUrl": "https://bonhamisd.org/104427_2fhygrh",
+      "sourceLabel": "Official Bonham ISD athletics leadership, combined with 2026 quoted district hiring announcement",
+      "verifiedAt": "2026-10-16"
+    },
+    "development": {
+      "title": "From a winless 2025 to a documented 2026 coaching change",
+      "body": "MaxPreps' completed 2025 schedule shows Bonham 0–10 overall, 0–6 in its old 4A Division II District 5, with 91 points scored and 542 conceded. In April 2026, the district hired Celina defensive coordinator Aaron Ford as head football coach, according to an On3 report quoting superintendent Lance Hamlin. Two of Bonham's first six 2026 games were wins, but that is a dated snapshot, not a prediction of a completed turnaround. Dave Campbell's historical program inventory lists 26 playoff appearances but zero state championship-game appearances; attribute these figures to the publisher rather than treating them as independently UIL certified.",
+      "sourceUrl": "https://www.maxpreps.com/tx/bonham/bonham-warriors/football/25-26/schedule/",
+      "sourceLabel": "Dated MaxPreps completed 2025 archive, alongside April 2026 On3 school hiring report and DCTF team historical inventory",
+      "verifiedAt": "2026-10-16"
+    },
+    "milestones": [
+      {
+        "date": "2025",
+        "title": "Finished prior UIL cycle 0–10",
+        "body": "Ten completed games, 91 points scored, 542 allowed and 0–6 in old District 5 per MaxPreps archive.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bonham/bonham-warriors/football/25-26/schedule/",
+        "sourceLabel": "MaxPreps 2025 completed varsity schedule"
+      },
+      {
+        "date": "2026-04-22",
+        "title": "Celina coordinator Aaron Ford hired to lead Bonham football",
+        "body": "Contemporary article quotes BISD Superintendent Dr. Lance Hamlin announcing Aaron Ford as new coach.",
+        "sourceUrl": "https://www.on3.com/high-school/news/texas-high-school-football-bonham-hires-celina-defensive-coordinator-as-head-coach/",
+        "sourceLabel": "On3 2026 district statement"
+      },
+      {
+        "date": "2026",
+        "title": "New UIL Class 4A Division II District 7",
+        "body": "Bonham joins Farmersville, Paris North Lamar, Quinlan Ford, Sunnyvale and Wills Point for 2026–28.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
+        "sourceLabel": "Official UIL 2026–28 alignment"
+      },
+      {
+        "date": "2026-10-09",
+        "title": "North Lamar won Bonham's district opener",
+        "body": "Bonham lost 31–13 at Paris North Lamar, leaving 2–4 overall and 0–1 district through Oct 9.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bonham/bonham-warriors/football/schedule/",
+        "sourceLabel": "MaxPreps Oct 13 date-stamped varsity results"
+      }
+    ],
+    "overview": [
+      "Bonham ISD's Purple Warriors play eleven-man football in Bonham, Fannin County. The UIL's 2026–28 alignment assigns Bonham to Class 4A Division II, Region II District 7 with Farmersville, Paris North Lamar, Quinlan Ford, Sunnyvale and Wills Point. The 2025 Class 4A Division II District 5 schedule has different rivals and is not the current alignment.",
+      "Bonham entered 2026 after a completed 0–10 2025 campaign with 91 points scored and 542 yielded according to MaxPreps. On April 22, a contemporary report quoting the Bonham ISD superintendent announced former Celina defensive coordinator Aaron Ford as new head football coach. The district's current roster names Ford assistant athletic director and John Ramsey athletic director, not the same job. A historical football index naming Kyle Dezern in 2026 is inconsistent with that district-backed appointment.",
+      "Through October 9, the 2026 varsity results showed 2–4, with a 60–0 victory over Inspired Vision, 28–16 win at Venus and four losses including North Lamar 31–13 in the district opener. Remaining games against Quinlan Ford, Wills Point, Sunnyvale and Farmersville were upcoming at this October 16 checkpoint. These scheduled games should not be misrepresented as final outcomes.",
+      "Dave Campbell's Texas Football attributes 26 historical playoff appearances and zero state title-game appearances to Bonham. These are historical editorial directory figures, not a school-owned title certification or a claim that Bonham has qualified in 2026. The archived 2021 Bonham season was 5–6, a separate prior-year context.",
+      "The official Bonham High School campus contact is 1002 Warpath Drive, Bonham TX 75418, phone 903-583-5567. Dave Campbell's labels the football venue Warrior Stadium but does not independently confirm a precise game-day vehicle gate, parking inventory or accessible seating. Use Bonham ISD's athletics/Rank One materials to check the current fixture, ticket requirements and visitor arrangements."
+    ],
+    "faq": [
+      {
+        "question": "Which UIL football district is Bonham in for 2026?",
+        "answer": "UIL places Bonham in 4A Division II Region II District 7 with Farmersville, Paris North Lamar, Quinlan Ford, Sunnyvale and Wills Point. Its 2025 schedule belonged to a different realignment cycle."
+      },
+      {
+        "question": "Who coaches Bonham football in 2026?",
+        "answer": "An April 22, 2026 report quotes Bonham ISD appointing Aaron Ford as head football coach. The district's athletics staff list also identifies Ford as assistant athletic director, with John Ramsey district athletic director. A stale MaxPreps history index listing Kyle Dezern should not override that dated school-backed hire."
+      },
+      {
+        "question": "Did Bonham finish the 2025 season without a win?",
+        "answer": "Yes. The completed MaxPreps 2025 varsity schedule shows 0–10, with 91 points scored and 542 allowed. This was in the earlier District 5 UIL alignment."
+      },
+      {
+        "question": "What was Bonham's 2026 varsity record through October 9?",
+        "answer": "The MaxPreps schedule updated October 13 lists Bonham 2–4 overall and 0–1 in District 7 after a 31–13 defeat at Paris North Lamar on October 9. Its next listed game is Quinlan Ford on October 16."
+      },
+      {
+        "question": "Did Bonham win a Texas football state championship?",
+        "answer": "Dave Campbell's historical Bonham program inventory lists zero state titles and zero title-game appearances. These publisher-maintained historical summaries should not be expanded into unsupported claims of a title."
+      },
+      {
+        "question": "Where is Bonham High and where should football visitors park?",
+        "answer": "Bonham High is officially at 1002 Warpath Drive, Bonham TX 75418, phone 903-583-5567. Warrior Stadium is listed in a football directory, but the school address is not an independently confirmed game gate, ADA parking location or event-specific ticket entrance."
+      },
+      {
+        "question": "Where do I verify a Bonham football schedule or ticket change?",
+        "answer": "Check Bonham ISD Athletics and its Rank One event links. Confirm game site, admission, accessible seating and current kickoff with the district; this guide does not invent cash acceptance or current ADA facilities."
+      }
+    ]
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {
