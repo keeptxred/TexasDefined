@@ -3,6 +3,7 @@ import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { sportsVenueLandingLinksForVenue, type SportsVenueLanding } from '@/data/sports-venue-landings';
 import type { Destination } from '@/data/types';
+import { TEXAS_HORSE_RACING_INSTITUTIONS } from '@/data/horse-racing-authority';
 
 const siteUrl = 'https://texasdefined.com';
 type CountyMajorEvent = { slug: string; name: string; detail: string; startDate: string; endDate?: string };
@@ -54,6 +55,7 @@ export function CountySportsDestinations({ county, venues }: { county: CountyWit
   const aquariumDestinations = aquariumMarineLinksForCounty(county.slug);
   const rvParks = county.rvParks ?? [];
   const majorEvents = county.majorEvents ?? [];
+  const horseRacingInstitutions = TEXAS_HORSE_RACING_INSTITUTIONS.filter((item) => item.countySlug === county.slug);
 
   const displayedVenues = venues.slice(0, 12);
   const collectionLinks = uniqueCollectionLinks(venues).slice(0, 6);
@@ -148,6 +150,27 @@ export function CountySportsDestinations({ county, venues }: { county: CountyWit
         </div>
       </div>
     </section>
+
+    {horseRacingInstitutions.length ? <section className="border-b border-border py-12" aria-labelledby="county-horse-racing-heading">
+      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Texas horse racing</p>
+          <h2 id="county-horse-racing-heading" className="mt-2 font-display text-4xl">Horse racing in {county.name}</h2>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">Licensed horse-racing venues and historical track records connected to this county, with live and inactive status kept separate.</p>
+        </div>
+        <div>
+          <div className="grid gap-x-7 sm:grid-cols-2">
+            {horseRacingInstitutions.map((track) => <a href={track.canonicalPath} key={track.slug} className="group border-t border-border py-5">
+              <span className="eyebrow text-primary">{track.category === 'live' ? 'Seasonal live horse racing' : 'Inactive historic racing license'}</span>
+              <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{track.name}</strong>
+              <span className="mt-2 block text-sm leading-6 text-muted-foreground">{track.city}, Texas · {track.category === 'live' ? 'Check race-day calendar' : 'Not a current visitor racetrack'}</span>
+              <span className="mt-3 block text-sm font-semibold text-primary">Open {track.category === 'live' ? 'racing guide' : 'historical profile'} →</span>
+            </a>)}
+          </div>
+          <a href="/horse-racing" className="mt-6 inline-block text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">Compare every licensed Texas horse-racing institution →</a>
+        </div>
+      </div>
+    </section> : null}
 
     {venues.length ? <section className="border-b border-border py-12" aria-labelledby="county-sports-heading">
       {jsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} /> : null}
