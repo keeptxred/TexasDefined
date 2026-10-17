@@ -1,7 +1,7 @@
 /** Operator-backed Texas water-park census, reviewed 2026-10-17. One park per physical facility, not per brand. */
 export type WaterParkSetting = "Indoor" | "Outdoor" | "Both";
-export type WaterParkKind = "Destination park" | "Indoor resort park" | "Indoor public park" | "Municipal water park" | "Campground water park" | "Resort beach water park" | "Resort water park" | "Inflatable lake water park";
-export type WaterParkGuide = { slug: string; name: string; city: string; county?: string; region: string; setting: WaterParkSetting; kind: WaterParkKind; admission: string; summary: string; distinctiveNote: string; officialUrl: string; reviewedAt: string };
+export type WaterParkKind = "Destination park" | "Indoor resort park" | "Community water park" | "Indoor public park" | "Municipal water park" | "Campground water park" | "Resort beach water park" | "Resort water park" | "Inflatable lake water park";
+export type WaterParkGuide = { slug: string; name: string; city: string; county?: string; region: string; authorityReady?: boolean; setting: WaterParkSetting; kind: WaterParkKind; admission: string; summary: string; distinctiveNote: string; officialUrl: string; reviewedAt: string };
 export const texasWaterParks: WaterParkGuide[] = [
   {
     "slug": "schlitterbahn-new-braunfels",
@@ -335,7 +335,7 @@ export const texasWaterParks: WaterParkGuide[] = [
     "kind": "Indoor public park",
     "admission": "Day passes and memberships",
     "summary": "An indoor Little Elm water park with slides, lazy river and surf simulation.",
-    "distinctiveNote": "School-year opening hours differ from summer hours, and some weekdays are closed.",
+    "distinctiveNote": "The Cove will close October 26–30, 2026, for annual maintenance and plans to reopen October 31. The park also uses school-year hours with some weekdays closed.",
     "officialUrl": "https://www.thecoveatthelakefront.com/hours",
     "reviewedAt": "2026-10-17"
   },
@@ -1171,7 +1171,7 @@ export const texasWaterParks: WaterParkGuide[] = [
     "county": "Harris",
     "region": "Houston area",
     "setting": "Outdoor",
-    "kind": "Municipal water park",
+    "kind": "Community water park",
     "admission": "Quillian Center seasonal public swim admission or private pool rental",
     "summary": "Quillian Center's Noah's Ark water-play pool combines a ship-shaped play structure with three small slides, spray features and a separate pool with a large slide.",
     "distinctiveNote": "The Quillian Center operator says its 2026 public-swim season is over, although private pool events may still be booked into October; check which pool the reservation includes.",
