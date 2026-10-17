@@ -94,6 +94,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.experiencebeecounty.org/about-bee-county/"
   },
   {
+    "county": "bexar",
+    "name": "San Antonio Missions National Historical Park",
+    "category": "History & heritage",
+    "description": "National Park Service cultural landscape around Missions Concepción, San José, San Juan and Espada; begin at the Mission San José visitor center.",
+    "sourceUrl": "https://www.nps.gov/saan/planyourvisit/visitorcenters.htm"
+  },
+  {
+    "county": "blanco",
+    "name": "LBJ National Historical Park — Johnson City",
+    "category": "History & heritage",
+    "description": "National Park Service visitor center, boyhood home and Johnson Settlement in Johnson City; a distinct public visitor unit from the ranch near Stonewall.",
+    "sourceUrl": "https://www.nps.gov/lyjo/planyourvisit/index.htm"
+  },
+  {
     "county": "borden",
     "name": "Old Borden County Jail",
     "category": "History & heritage",
@@ -171,6 +185,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/directory/sea-center-texas/"
   },
   {
+    "county": "brewster",
+    "name": "Big Bend National Park",
+    "category": "Parks & recreation",
+    "description": "Major Chihuahuan Desert national park with public trailheads, scenic drives and Panther Junction visitor services; check park alerts, camping reservations and heat conditions.",
+    "sourceUrl": "https://www.nps.gov/bibe/planyourvisit/hours.htm"
+  },
+  {
     "county": "brooks",
     "name": "Don Pedro Jaramillo Shrine",
     "category": "History & heritage",
@@ -214,6 +235,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "caldwell",
+    "name": "Dr. Eugene Clark Library in Lockhart",
+    "category": "History & heritage",
+    "description": "Historic 1899 public library in downtown Lockhart, recognized by Texas Historical Commission architectural documentation; normal library hours apply.",
+    "sourceUrl": "https://atlas.thc.texas.gov/Details/5055009763"
+  },
+  {
+    "county": "caldwell",
     "name": "Lockhart Historic Courthouse Square",
     "category": "History & heritage",
     "description": "Explore the public courthouse-square streetscape and surrounding historic center.",
@@ -225,6 +253,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "A South Padre Island birding boardwalk; located in Cameron County, not Willacy.",
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/ltc/south-padre-island-loop"
+  },
+  {
+    "county": "cameron",
+    "name": "Palo Alto Battlefield National Historical Park",
+    "category": "History & heritage",
+    "description": "Brownsville-area 1846 battlefield preserved by the National Park Service with public grounds, walking trails and a separate staffed visitor-center schedule.",
+    "sourceUrl": "https://www.nps.gov/paal/planyourvisit/basicinfo.htm"
   },
   {
     "county": "camp",
@@ -281,6 +316,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Coastal-marsh refuge near Anahuac with Shoveler Pond wildlife drive, butterfly garden, boardwalks and public birdwatching areas; formerly Anahuac NWR.",
     "sourceUrl": "https://www.fws.gov/refuge/jocelyn-nungaray/visit-us"
+  },
+  {
+    "county": "cherokee",
+    "name": "Jim Hogg Park in Rusk",
+    "category": "Parks & recreation",
+    "description": "Public recreation and heritage park in Rusk associated with Texas Governor James Stephen Hogg; check local park amenities.",
+    "sourceUrl": "https://redc.rusktx.org/recreation-and-entertainment/"
   },
   {
     "county": "cherokee",
@@ -402,6 +444,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://visitcrosbycounty.com/stories/silver-falls-guide/"
   },
   {
+    "county": "culberson",
+    "name": "Guadalupe Mountains National Park — Pine Springs",
+    "category": "Parks & recreation",
+    "description": "National park mountain hiking and camping based at the Pine Springs visitor hub in Culberson County; trail difficulty, fees and day-use rules vary.",
+    "sourceUrl": "https://www.nps.gov/gumo/planyourvisit/basicinfo.htm"
+  },
+  {
     "county": "dallam",
     "name": "Dallam and Hartley Counties Veterans Memorial Park",
     "category": "History & heritage",
@@ -470,6 +519,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Arts & culture",
     "description": "Restored live music and performance venue in downtown Odessa; check the current official calendar.",
     "sourceUrl": "https://theector.com/"
+  },
+  {
+    "county": "el-paso",
+    "name": "Chamizal National Memorial",
+    "category": "History & heritage",
+    "description": "National Park Service memorial and cultural center in El Paso interpreting the U.S.–Mexico boundary settlement, with public exhibits and gated park grounds.",
+    "sourceUrl": "https://www.nps.gov/cham/planyourvisit/hours.htm"
   },
   {
     "county": "ellis",
@@ -571,9 +627,23 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "gaines",
+    "name": "Gaines County Park",
+    "category": "Parks & recreation",
+    "description": "Seminole-area county recreation grounds with outdoor facilities; check city and county event schedules before visiting.",
+    "sourceUrl": "https://seminoletxchamber.org/visit/"
+  },
+  {
+    "county": "gaines",
     "name": "Seminole City Park",
     "category": "Parks & recreation",
     "description": "Municipal recreation and picnic stop in Seminole visitor information.",
+    "sourceUrl": "https://seminoletxchamber.org/visit/"
+  },
+  {
+    "county": "gaines",
+    "name": "Seminole Splash Pad",
+    "category": "Parks & recreation",
+    "description": "Municipal family splash-play facility available seasonally; confirm warm-weather operating dates.",
     "sourceUrl": "https://seminoletxchamber.org/visit/"
   },
   {
@@ -582,6 +652,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Arts & culture",
     "description": "Post-area theatrical performance venue; check the operator's show schedule.",
     "sourceUrl": "https://ragtown.com/"
+  },
+  {
+    "county": "gillespie",
+    "name": "LBJ Ranch at Stonewall",
+    "category": "History & heritage",
+    "description": "Lyndon B. Johnson National Historical Park ranch visitor area near Stonewall; obtain the required free driving permit and check current building access.",
+    "sourceUrl": "https://www.nps.gov/lyjo/planyourvisit/index.htm"
   },
   {
     "county": "gonzales",
@@ -703,6 +780,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/quanah/"
   },
   {
+    "county": "hardin",
+    "name": "Big Thicket National Preserve Visitor Center",
+    "category": "Parks & recreation",
+    "description": "National Park Service visitor center and Longleaf Pine Trail on FM 420 near Kountze; the preserve's other units extend across multiple counties.",
+    "sourceUrl": "https://www.nps.gov/bith/planyourvisit/visitor-center.htm"
+  },
+  {
     "county": "harrison",
     "name": "Caddo Lake National Wildlife Refuge",
     "category": "Parks & recreation",
@@ -715,6 +799,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Preserved early Haskell residence displaying period-room history in the city park; check whether interior access is available.",
     "sourceUrl": "https://texastimetravel.com/cities/haskell/"
+  },
+  {
+    "county": "hays",
+    "name": "Wonder World Cave",
+    "category": "Parks & recreation",
+    "description": "Guided San Marcos cave tour inside the Balcones Fault zone; tours run through a commercial visitor attraction.",
+    "sourceUrl": "https://www.wonderworldpark.com/"
   },
   {
     "county": "hemphill",
@@ -850,11 +941,39 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/greenville/"
   },
   {
+    "county": "hutchinson",
+    "name": "Lake Meredith National Recreation Area",
+    "category": "Parks & recreation",
+    "description": "National Park Service lake and Canadian River recreation area with public boating and camping access; choose a designated visitor site and check water and road conditions.",
+    "sourceUrl": "https://www.nps.gov/lamr/planyourvisit/index.htm"
+  },
+  {
     "county": "jasper",
     "name": "Sandy Creek Park in Jasper",
     "category": "Parks & recreation",
     "description": "Creekside municipal recreation area in Jasper with walking and picnic opportunities; check park rules and conditions.",
     "sourceUrl": "https://texastimetravel.com/cities/jasper/"
+  },
+  {
+    "county": "jeff-davis",
+    "name": "Fort Davis National Historic Site",
+    "category": "History & heritage",
+    "description": "Preserved frontier military post with restored buildings, interpretive exhibits and trails near Fort Davis; check NPS operations and alerts before arriving.",
+    "sourceUrl": "https://www.nps.gov/foda/planyourvisit/index.htm"
+  },
+  {
+    "county": "kendall",
+    "name": "Cascade Caverns Guided Cave Tours",
+    "category": "Parks & recreation",
+    "description": "Boerne-area guided limestone cavern experience; cave access depends on scheduled tours and operator safety rules.",
+    "sourceUrl": "https://www.cascadecaverns.com/"
+  },
+  {
+    "county": "kendall",
+    "name": "Cave Without a Name Guided Tours",
+    "category": "Parks & recreation",
+    "description": "Commercial show cave near Boerne with public guided tours and underground formations; confirm tour tickets and conditions.",
+    "sourceUrl": "https://www.cavewithoutaname.com/"
   },
   {
     "county": "kerr",
@@ -868,6 +987,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "name": "Kerrville-Schreiner Park",
     "category": "Parks & recreation",
     "description": "City park on the Guadalupe River east of Kerrville with hiking, camping and wildlife viewing; confirm day-use availability.",
+    "sourceUrl": "https://texastimetravel.com/regions/hill-country-trail/heritage-sites-and-attractions/?page=3"
+  },
+  {
+    "county": "kerr",
+    "name": "Kerrville-Schreiner Park Nature Trails",
+    "category": "Parks & recreation",
+    "description": "City-managed recreational park on the Guadalupe River, with overnight facilities and day-use trails; see current campground and event notices.",
     "sourceUrl": "https://texastimetravel.com/regions/hill-country-trail/heritage-sites-and-attractions/?page=3"
   },
   {
@@ -918,6 +1044,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Art & architecture",
     "description": "The city's distinctive Eiffel Tower sculpture with a red cowboy hat, a public photo stop.",
     "sourceUrl": "https://texastimetravel.com/cities/paris/"
+  },
+  {
+    "county": "lamb",
+    "name": "Waylon Jennings Memorial and RV Park",
+    "category": "History & heritage",
+    "description": "Littlefield public memorial dedicated to hometown musician Waylon Jennings, paired with a small local recreation stop.",
+    "sourceUrl": "https://littlefieldtexas.net/200/Littlefield-Arts-Heritage-Group"
   },
   {
     "county": "lipscomb",
@@ -995,6 +1128,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Colorado River park near Bay City with riverside recreation, trails and camping; confirm site fees and access.",
     "sourceUrl": "https://www.tourtexas.com/attractions/Riverside-Park"
+  },
+  {
+    "county": "mclennan",
+    "name": "Waco Mammoth National Monument",
+    "category": "History & heritage",
+    "description": "Protected in-situ Columbian mammoth fossil site with ranger-led access through a covered dig shelter; shelter admission is ticketed.",
+    "sourceUrl": "https://www.nps.gov/waco/planyourvisit/index.htm"
   },
   {
     "county": "menard",
@@ -1159,6 +1299,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "potter",
+    "name": "Alibates Flint Quarries National Monument",
+    "category": "History & heritage",
+    "description": "Archaeological and geology destination north of Amarillo with visitor-center exhibits and a strenuous reservation-only ranger-led quarry tour.",
+    "sourceUrl": "https://www.nps.gov/alfl/planyourvisit/basicinfo.htm"
+  },
+  {
+    "county": "potter",
     "name": "Amarillo Little Theatre",
     "category": "Arts & culture",
     "description": "Local performing-arts company staging theatrical productions; attend scheduled public performances.",
@@ -1257,6 +1404,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "scurry",
+    "name": "Scurry County Pool and Splash Pad",
+    "category": "Parks & recreation",
+    "description": "Seasonal public aquatic-play facilities in Snyder; check operating calendar and admission rules.",
+    "sourceUrl": "https://snydertx.gov/498/Arts-Leisure"
+  },
+  {
+    "county": "scurry",
     "name": "Towle Memorial Park",
     "category": "Parks & recreation",
     "description": "Snyder public park with walking paths and picnic areas.",
@@ -1326,6 +1480,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/ltc/rio-bravo-loop"
   },
   {
+    "county": "starr",
+    "name": "Roma Historic District",
+    "category": "History & heritage",
+    "description": "Rio Grande town historic-district walking area with 19th-century border architecture and views of the international river corridor.",
+    "sourceUrl": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/ltc/rio-bravo-loop"
+  },
+  {
     "county": "taylor",
     "name": "Abilene Storybook Gardens",
     "category": "Art & architecture",
@@ -1347,6 +1508,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/directory/terry-county-quilt-trail/"
   },
   {
+    "county": "travis",
+    "name": "Westcave Outdoor Discovery Center",
+    "category": "Parks & recreation",
+    "description": "Guided nature-preserve canyon and grotto experience near Austin; access is regulated and advance tour reservation is typically needed.",
+    "sourceUrl": "https://www.westcave.org/the-grotto"
+  },
+  {
     "county": "uvalde",
     "name": "Cook's Slough Sanctuary",
     "category": "Parks & recreation",
@@ -1359,6 +1527,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Arts & culture",
     "description": "Restored 1891 opera house in Uvalde with historic architecture and scheduled cultural performances.",
     "sourceUrl": "https://texastimetravel.com/directory/uvalde-grand-opera-house/"
+  },
+  {
+    "county": "val-verde",
+    "name": "Amistad National Recreation Area",
+    "category": "Parks & recreation",
+    "description": "Lake recreation landscape near Del Rio with designated boating, shoreline areas and National Park Service visitor information; permits and conditions vary by activity.",
+    "sourceUrl": "https://www.nps.gov/amis/planyourvisit/basicinfo.htm"
   },
   {
     "county": "val-verde",
