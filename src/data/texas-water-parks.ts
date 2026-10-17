@@ -421,7 +421,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "The former Schlitterbahn South Padre attraction now operates as Beach Waterpark.",
     "distinctiveNote": "Do not confuse Beach Waterpark admission with the nearby resort or general beach access.",
     "officialUrl": "https://beachwaterparktx.com/waterpark-information",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "33261 State Park Rd. 100, South Padre Island, TX 78597",
+    "visitorHighlights": [
+      "Beach Waterpark at Isla Blanca is the former Schlitterbahn South Padre location, operated as a separate brand from the Galveston and New Braunfels parks.",
+      "The operator offers high-thrill slides, family water-play attractions and gentler lazy-river activities.",
+      "Tickets and season passes are specific to the waterpark and should not be confused with admission to the nearby public beach or resort lodging.",
+      "Cabanas and palapa shade areas are bookable separately from the standard waterpark ticket.",
+      "The operator publishes an individual seasonal operating calendar and special events rather than promising year-round park admission.",
+      "On-site dining and restaurants are available; actual current food policy and ride restrictions should be checked on the venue's current park information page."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Beach Waterpark the same as Schlitterbahn Galveston?",
+        "answer": "No. This is the former Schlitterbahn South Padre Island park, now known as Beach Waterpark at Isla Blanca, with its own entrance, ticket options and operating calendar.",
+        "sourceUrl": "https://beachwaterparktx.com/waterpark-information"
+      },
+      {
+        "question": "Does an Isla Blanca beach pass include waterpark slides?",
+        "answer": "No. Beach Waterpark operates a separate admission system; its waterpark tickets should not be assumed to be included in general public beach or resort access.",
+        "sourceUrl": "https://beachwaterparktx.com/waterpark-information"
+      },
+      {
+        "question": "Are private cabanas available?",
+        "answer": "Yes. The operator lists cabanas and palapas as separate premium shade and gathering choices, alongside standard waterpark attractions.",
+        "sourceUrl": "https://beachwaterparktx.com/waterpark-information"
+      },
+      {
+        "question": "Can travelers count on the waterpark being open every day?",
+        "answer": "No. The operator publishes a season calendar with specific opening days and special events. Check the exact date before traveling to South Padre Island.",
+        "sourceUrl": "https://beachwaterparktx.com/waterpark-information"
+      }
+    ]
   },
   {
     "slug": "wet-n-wild-waterworld-anthony",
@@ -1329,7 +1360,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A family water park in White Settlement west of downtown Fort Worth.",
     "distinctiveNote": "Confirm the correct park entrance and current season through the operator rather than relying on older addresses.",
     "officialUrl": "https://www.splashdayz.com/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "405 N. Las Vegas Trail, White Settlement, TX 76108",
+    "visitorHighlights": [
+      "Splash Dayz White Settlement includes tube slides, wave pool, lazy river, mat-racing slide and a torpedo-style drop slide.",
+      "A younger-child pool with water features and dedicated spray/splashpad areas complements the large slides.",
+      "The park also offers sand-based playground areas, a café, vending outlets and rental cabanas.",
+      "Splash Dayz operates an alcohol-free family waterpark according to its official venue description.",
+      "The operator's website lists a separate event and party reservation program for schools, churches and other groups.",
+      "Two official operator pages conflict on the street number, listing both 401 and 405 North Las Vegas Trail; phone or confirm directions before a trip."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is White Settlement's Splash Dayz?",
+        "answer": "The park's current contact page lists 405 North Las Vegas Trail, but its About page lists 401 on the same street. Confirm the exact entrance with the operator before traveling.",
+        "sourceUrl": "https://www.splashdayz.com/contact"
+      },
+      {
+        "question": "Which attractions are there for older kids?",
+        "answer": "The operator lists a wave pool, tube slides, a mat-racing slide, a torpedo-drop slide and a lazy river, alongside a children's pool and play spaces.",
+        "sourceUrl": "https://www.splashdayz.com/about-us"
+      },
+      {
+        "question": "Does the park sell food and offer cabanas?",
+        "answer": "Yes. Splash Dayz lists a café, vending service, free general table and chair seating, and premium cabana or Splash Spot rentals.",
+        "sourceUrl": "https://www.splashdayz.com/about-us"
+      },
+      {
+        "question": "Can families bring alcoholic beverages?",
+        "answer": "No. The official About page identifies Splash Dayz as an alcohol-free family waterpark, so visitors should not assume adult-only alcohol rules from other parks apply.",
+        "sourceUrl": "https://www.splashdayz.com/about-us"
+      }
+    ]
   },
   {
     "slug": "pirates-bay-baytown",
@@ -1392,7 +1454,31 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Rowlett's municipal water park caters to neighborhood family outings.",
     "distinctiveNote": "Check whether public sessions or special events are scheduled, particularly outside peak summer.",
     "officialUrl": "https://www.rowletttx.gov/179/Map-and-Directions",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "5304 Main St., Rowlett, TX 75088",
+    "visitorHighlights": [
+      "Wet Zone Waterpark is a city-operated aquatics facility in Rowlett, directly behind the high school off Main Street.",
+      "The operator provides a park layout map that identifies distinct family water-play and swimming areas rather than an ordinary neighborhood lap pool.",
+      "Rowlett publishes detailed driving directions for visitors arriving from Garland, Dallas, Mesquite, Lewisville and Rockwall.",
+      "Waterpark operating sessions and special-event dates need to be checked against the city calendar instead of assumed from older daily summer-hour displays."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is Wet Zone Waterpark in Rowlett?",
+        "answer": "The City of Rowlett lists Wet Zone at 5304 Main Street, Rowlett, Texas 75088, with the waterpark entrance behind the nearby high school.",
+        "sourceUrl": "https://www.rowletttx.gov/179/Map-and-Directions"
+      },
+      {
+        "question": "How can drivers reach the park from Rockwall or Garland?",
+        "answer": "Rowlett publishes separate turn-by-turn approaches: from Garland via Highway 66 and Rowlett Road, or from Rockwall via I-30, Dalrock and Miller roads.",
+        "sourceUrl": "https://www.rowletttx.gov/179/Map-and-Directions"
+      },
+      {
+        "question": "Does Wet Zone offer the same hours all year?",
+        "answer": "No. The city operates Wet Zone as a municipal outdoor waterpark; visitors should check actual scheduled pool sessions and special events before traveling, especially after summer.",
+        "sourceUrl": "https://www.rowletttx.gov/179/Map-and-Directions"
+      }
+    ]
   },
   {
     "slug": "frisco-water-park",
@@ -1583,7 +1669,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A stand-alone family water park in Wichita Falls, with a separately published 2026 schedule.",
     "distinctiveNote": "Use the official operational calendar to confirm the day and current ticket type.",
     "officialUrl": "https://www.castawaycovewaterpark.com/plan-your-visit/hours-calendar/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1000 Central Fwy. E., Wichita Falls, TX 76301",
+    "visitorHighlights": [
+      "Castaway Cove has distinct attractions including Buccaneer Bay, Hideaway Harbor, Nellie's Rolling River, Pirate's Plunge and Shipwreck Beach.",
+      "The operator also lists Storm Watch Tower, Annie's Quest, Cliffhanger and Tommie's Torrent as separate high-adventure attractions.",
+      "Outside food, picnic coolers and beverages are prohibited inside the waterpark, though a picnic area is provided outside the gate.",
+      "Guests age 14 and younger must have a responsible guardian at least age 18 on park grounds.",
+      "Infants, toddlers and children age three or younger must use a designated swim diaper.",
+      "The 2026 operator calendar is seasonal, with specific opening days and one-off special events rather than year-round waterpark hours."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can families bring their own food or drink cooler?",
+        "answer": "No. The operator prohibits picnics, coolers and outside food or beverages beyond the gate, but provides a separate guest picnic area outside the waterpark.",
+        "sourceUrl": "https://www.castawaycovewaterpark.com/plan-your-visit/park-policies/"
+      },
+      {
+        "question": "Are 14-year-old guests permitted to enter alone?",
+        "answer": "No. Castaway Cove requires visitors age 14 and younger to have a guardian at least 18 years old present on park property throughout the visit.",
+        "sourceUrl": "https://www.castawaycovewaterpark.com/plan-your-visit/park-policies/"
+      },
+      {
+        "question": "What are some named attractions at Castaway Cove?",
+        "answer": "The operator lists Shipwreck Beach, Nellie's Rolling River, Buccaneer Bay, Pirate's Plunge and several slides including Cliffhanger and Tommie's Torrent.",
+        "sourceUrl": "https://www.castawaycovewaterpark.com/attractions/"
+      },
+      {
+        "question": "Where is Castaway Cove located?",
+        "answer": "The operator gives 1000 Central Freeway East, Wichita Falls, Texas 76301 as its official waterpark location. Its admission calendar changes by date and season.",
+        "sourceUrl": "https://www.castawaycovewaterpark.com/plan-your-visit/directions/"
+      }
+    ]
   },
   {
     "slug": "nrh2o-north-richland-hills",
@@ -1926,7 +2043,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A five-acre resort water park with Ramblin' River, surf machine and slides.",
     "distinctiveNote": "The resort describes year-round outdoor water-park operations, weather permitting.",
     "officialUrl": "https://www.hyatt.com/hyatt-regency/en-US/sanhc-hyatt-regency-hill-country-resort-and-villas",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "9800 Hyatt Resort Dr., San Antonio, TX 78251",
+    "visitorHighlights": [
+      "Hyatt Regency Hill Country's five-acre resort waterpark is a separate amenity from the nearby SeaWorld and Aquatica destinations.",
+      "Water attractions include Ramblin' River floating, a surf-style water simulator, water slides and separate resort swimming pools.",
+      "The resort describes waterpark operation as year-round, subject to maintenance and weather conditions.",
+      "The operator additionally advertises a new Crystal Lagoon attraction at the property, but it should not be confused with the existing five-acre waterpark.",
+      "The hotel has its own on-site waterpark concessions at Vince's Watering Hole, with seasonal and holiday hours distinct from the pool itself."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is Hyatt Regency Hill Country's waterpark?",
+        "answer": "The hotel lists 9800 Hyatt Resort Drive, San Antonio, Texas 78251. It is a different resort and waterpark from Hyatt Regency Lost Pines near Bastrop.",
+        "sourceUrl": "https://www.hyatt.com/hyatt-regency/en-US/sanhc-hyatt-regency-hill-country-resort-and-villas"
+      },
+      {
+        "question": "Is the waterpark a separate theme park ticket?",
+        "answer": "The five-acre waterpark is listed among Hyatt Regency Hill Country's on-site resort amenities. Visitors should confirm overnight-guest and any day-access eligibility with the hotel before arriving.",
+        "sourceUrl": "https://www.hyatt.com/hyatt-regency/en-US/sanhc-hyatt-regency-hill-country-resort-and-villas"
+      },
+      {
+        "question": "Is the outdoor waterpark open all year?",
+        "answer": "Hyatt describes its waterpark as open year-round, but any slides, surf attractions and individual pools may be restricted by temperature, weather or maintenance.",
+        "sourceUrl": "https://www.hyatt.com/hyatt-regency/en-US/sanhc-hyatt-regency-hill-country-resort-and-villas"
+      },
+      {
+        "question": "Can guests find food next to the waterpark?",
+        "answer": "Yes. Hyatt lists Vince's Watering Hole as an on-site waterpark food and bar outlet, with its own published hours that may not match the water-play schedule.",
+        "sourceUrl": "https://www.hyatt.com/hyatt-regency/en-US/sanhc-hyatt-regency-hill-country-resort-and-villas/dining"
+      }
+    ]
   },
   {
     "slug": "crooked-river-lost-pines",
@@ -1940,7 +2087,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A resort water park near Bastrop with a lazy river, waterslide and family pools.",
     "distinctiveNote": "This is the Hyatt Lost Pines facility, not Hyatt Regency Hill Country in San Antonio.",
     "officialUrl": "https://www.hyatt.com/hyatt-regency/en-US/auslp-hyatt-regency-lost-pines-resort-and-spa",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "575 Hyatt Lost Pines Rd., Lost Pines, TX 78612",
+    "visitorHighlights": [
+      "Crooked River Water Park belongs to Hyatt Regency Lost Pines resort near Bastrop, rather than the Hyatt Regency Hill Country property in San Antonio.",
+      "The waterpark has a lazy river, two-story waterslide and separate younger-child splash areas.",
+      "The resort has an adults-only pool distinct from the activity pool, water slides and family water play.",
+      "The hotel's resort fee includes Crooked River access for registered guests alongside many other recreation amenities.",
+      "The property also offers horseback riding, nature recreation and golf, but those resort activities may have separate booking or safety rules."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is Crooked River Water Park?",
+        "answer": "The resort lists 575 Hyatt Lost Pines Road, Lost Pines, Texas 78612, near Bastrop. Do not confuse it with Hyatt Regency Hill Country's waterpark in San Antonio.",
+        "sourceUrl": "https://www.hyatt.com/hyatt-regency/en-US/auslp-hyatt-regency-lost-pines-resort-and-spa"
+      },
+      {
+        "question": "What is included in the resort fee?",
+        "answer": "Hyatt's hotel policies list use of Crooked River's lazy river, waterslide, activity pool, adults-only pool and children's splash areas among the resort-fee amenities.",
+        "sourceUrl": "https://www.hyatt.com/hyatt-regency/en-US/auslp-hyatt-regency-lost-pines-resort-and-spa/policies"
+      },
+      {
+        "question": "Does it have something for guests who avoid big slides?",
+        "answer": "Yes. The property lists lazy-river floating, an activity pool and adults-only pool plus separate children's splash areas alongside the two-story waterslide.",
+        "sourceUrl": "https://www.hyatt.com/hyatt-regency/en-US/auslp-hyatt-regency-lost-pines-resort-and-spa"
+      },
+      {
+        "question": "Is Crooked River a municipal day-ticket pool?",
+        "answer": "No. It is an on-site Hyatt resort amenity linked to the property's lodging and resort-fee policies; ask the operator before assuming public non-guest entry is available.",
+        "sourceUrl": "https://www.hyatt.com/hyatt-regency/en-US/auslp-hyatt-regency-lost-pines-resort-and-spa/policies"
+      }
+    ]
   },
   {
     "slug": "jadewaters-hilton-anatole",
@@ -1954,7 +2131,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A Dallas hotel water-play complex with waterslides and a lazy river.",
     "distinctiveNote": "Unlike Bahama Beach's municipal day park, access here is tied to a hotel resort setting.",
     "officialUrl": "https://www.hilton.com/en/hotels/dfwanhh-hilton-anatole/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "2201 N. Stemmons Fwy., Dallas, TX 75207",
+    "visitorHighlights": [
+      "JadeWaters is Hilton Anatole's three-acre resort aquatic complex inside its sculpture park, not a municipal Dallas waterpark.",
+      "The waterpark contains a 630-foot lazy river, 7,000-square-foot beach-entry family pool and two 180-foot waterslides.",
+      "A separate 4,000-square-foot Leisure Cove pool has a swim-up bar and can follow different operating hours from slides and river.",
+      "JadeWaters normally runs a summer season but its fall 2026 calendar offers Fridays through Sundays until November 1, not daily weekday use.",
+      "The Hilton operator requires hotel guests to wear wristbands for entry and reentry and lists seasonal JadeWaters access as part of the property amenity charge.",
+      "Guests may reserve premium cabanas or daybeds separately, which are not part of basic hotel waterpark access."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Are the waterslides open on weekdays in October 2026?",
+        "answer": "Not under the published fall schedule. Hilton Anatole shows its JadeWaters waterpark operating Friday through Sunday through November 1, while the separate Leisure Cove pool has daily hours.",
+        "sourceUrl": "https://www.hilton.com/en/hotels/dfwanhh-hilton-anatole/jadewaters/"
+      },
+      {
+        "question": "Is JadeWaters the same as Bahama Beach Dallas?",
+        "answer": "No. JadeWaters is a hotel resort complex at 2201 North Stemmons Freeway, while Bahama Beach is a separately ticketed city-operated park at another address.",
+        "sourceUrl": "https://www.hilton.com/en/hotels/dfwanhh-hilton-anatole/jadewaters/"
+      },
+      {
+        "question": "Does the resort have a lazy river and big slides?",
+        "answer": "Yes. Hilton Anatole lists a 630-foot lazy river, two 180-foot waterslides and a 7,000-square-foot beach-entry family pool, plus a separate Leisure Cove area.",
+        "sourceUrl": "https://www.hilton.com/en/hotels/dfwanhh-hilton-anatole/jadewaters/"
+      },
+      {
+        "question": "Who can enter JadeWaters?",
+        "answer": "The hotel's terms describe JadeWaters as an amenity for registered guests and require entry wristbands. Hotel packages may include enhanced or guaranteed access, but public walk-in entitlement should not be assumed.",
+        "sourceUrl": "https://www.hilton.com/en/hotels/dfwanhh-hilton-anatole/jadewaters/"
+      }
+    ]
   },
   {
     "slug": "morgans-inspiration-island",
@@ -3007,7 +3215,32 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Laredo's Sisters of Mercy Water Park is a municipal facility with a lazy river, two water slides, a main pool and a children's pool.",
     "distinctiveNote": "Visit Laredo identifies this park at 2201 Zacatecas Street; the city listed it in its 2026 summer pool season with closed Mondays and separate session schedules.",
     "officialUrl": "https://visitlaredo.com/directory/sisters-of-mercy-water-park/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "2201 Zacatecas St., Laredo, TX 78046",
+    "visitorHighlights": [
+      "Visit Laredo lists Sisters of Mercy Water Park at 2201 Zacatecas Street on Laredo's south side.",
+      "The municipal facility has two substantial waterslides and a lazy river, alongside an ordinary swimming pool.",
+      "A separate smaller children's pool serves families who do not need the slides or lazy-river attractions.",
+      "Visit Laredo publishes a city destination listing and operator telephone contact; current municipal session times must be checked directly before traveling.",
+      "The 2026 swim season was scheduled separately from other Laredo outdoor pools, with Mondays normally closed."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is Sisters of Mercy Water Park?",
+        "answer": "Visit Laredo lists this named park at 2201 Zacatecas Street, Laredo, Texas 78046. It is a municipal family attraction on the south side of the city.",
+        "sourceUrl": "https://visitlaredo.com/directory/sisters-of-mercy-water-park/"
+      },
+      {
+        "question": "What aquatic attractions does it have?",
+        "answer": "The official city tourism directory identifies a main pool, separate smaller children's pool, lazy river and two substantial waterslides.",
+        "sourceUrl": "https://visitlaredo.com/directory/sisters-of-mercy-water-park/"
+      },
+      {
+        "question": "Does it have the same schedule as all city pools?",
+        "answer": "No. Laredo's parks and aquatics sessions can vary by venue and season. Check current city aquatics schedules and the tourism directory's operator phone before visiting.",
+        "sourceUrl": "https://visitlaredo.com/directory/sisters-of-mercy-water-park/"
+      }
+    ]
   },
   {
     "slug": "plano-carpenter-park-indoor",
