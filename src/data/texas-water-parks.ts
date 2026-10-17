@@ -1037,6 +1037,48 @@ export const texasWaterParks: WaterParkGuide[] = [
     "distinctiveNote": "The operator lists 13501 Jason Crandall Drive as the address; compare summer opening hours with the nearby natatorium separately.",
     "officialUrl": "https://epwaterparks.com/oasis",
     "reviewedAt": "2026-10-17"
+  },
+  {
+    "slug": "hurricane-harbor-san-antonio",
+    "name": "Six Flags Hurricane Harbor San Antonio",
+    "city": "San Antonio",
+    "county": "Bexar",
+    "region": "Hill Country",
+    "setting": "Outdoor",
+    "kind": "Destination park",
+    "admission": "Separate water-park add-on or eligible Six Flags pass; confirm current ticket terms",
+    "summary": "Hurricane Harbor at Six Flags Fiesta Texas is a large water park with a Texas-shaped wave pool, multi-slide complexes and a lazy river.",
+    "distinctiveNote": "This water-park section was formerly called White Water Bay; it is distinct from Aquatica San Antonio. Fiesta Texas theme-park tickets do not all include water-park access.",
+    "officialUrl": "https://www.sixflags.com/fiestatexas/water-park-information",
+    "reviewedAt": "2026-10-17"
+  },
+  {
+    "slug": "thrive-indoor-lewisville",
+    "name": "Thrive Indoor Aquatics Water Park",
+    "city": "Lewisville",
+    "county": "Denton",
+    "region": "Dallas–Fort Worth",
+    "setting": "Indoor",
+    "kind": "Indoor public park",
+    "admission": "Thrive recreation-center membership or qualifying public day pass",
+    "summary": "Lewisville's Thrive recreation center features an indoor zero-entry leisure pool, indoor lazy river and two three-story enclosed water slides.",
+    "distinctiveNote": "Slides require riders at least 48 inches tall and operate on a separate daily schedule that can be adjusted for lifeguard staffing or classes; Thrive is not the Sun Valley outdoor park.",
+    "officialUrl": "https://www.lewisvillethrive.com/aquatics",
+    "reviewedAt": "2026-10-17"
+  },
+  {
+    "slug": "sisters-mercy-laredo",
+    "name": "Sisters of Mercy Water Park",
+    "city": "Laredo",
+    "county": "Webb",
+    "region": "South Texas",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Laredo municipal aquatic admission with limited seasonal public sessions",
+    "summary": "Laredo's Sisters of Mercy Water Park is a municipal facility with a lazy river, two water slides, a main pool and a children's pool.",
+    "distinctiveNote": "Visit Laredo identifies this park at 2201 Zacatecas Street; the city listed it in its 2026 summer pool season with closed Mondays and separate session schedules.",
+    "officialUrl": "https://visitlaredo.com/directory/sisters-of-mercy-water-park/",
+    "reviewedAt": "2026-10-17"
   }
 ];
 export const texasWaterParksBySlug = new Map(texasWaterParks.map((park) => [park.slug, park]));
