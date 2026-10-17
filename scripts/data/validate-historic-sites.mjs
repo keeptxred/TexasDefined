@@ -465,5 +465,21 @@ for (const marker of [
   'Mayborn authority verification passed after targeted purge',
 ]) if (!cachePurge.includes(marker)) failures.push(`Mayborn production cache-verification contract missing: ${marker}`);
 
+// Fort McKavett must keep individually verified visitor access, history and
+// file-level hero provenance after generic historic-site catalog updates.
+const fortDepth = visitDepth.split('  "fort-mckavett": {')[1]?.split('  "fort-lancaster": {')[0] || '';
+const fortAuthority = authorityExpansion.split('  "fort-mckavett": {')[1]?.split('  "washington-on-the-brazos": {')[0] || '';
+const fortTimeline = fs.readFileSync('src/data/historic-site-authority-timelines.ts', 'utf8');
+const fortImageProvenance = fs.readFileSync('docs/historic-sites/IMAGE_PROVENANCE.md', 'utf8');
+for (const [area, input, markers] of [
+  ['visitor depth', fortDepth, ['8 a.m.–5 p.m.', '8 a.m.–4 p.m.', 'family admission $8', '$5 golf-cart']],
+  ['resolved destination details', visitDepth, ['7066 FM 864', 'sourceCheckedAt: destination.slug === "fort-mckavett" ? "2026-10-17"']],
+  ['historical interpretation', fortAuthority, ['Sgt. Emanuel Stance', 'laundresses', '1973', 'fort-mckavett-history']],
+  ['historical timeline', fortTimeline, ['1859–April 1862', '1968–1973', 'fort-mckavett-history']],
+  ['image provenance', fortImageProvenance, ['## 7. Fort McKavett', 'SimpleeRandom', 'CC0 1.0', 'File:Fort_McKavett,_Texas.jpg']],
+]) {
+  for (const marker of markers) if (!input.includes(marker)) failures.push(`Fort McKavett ${area} missing ${marker}`);
+}
+
 if (failures.length) { console.error('Historic-sites validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
 console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings plus ${protectedNationalCemeteries.length} dedicated national-cemetery heroes, every protected hero matches a real seed, Lipantitlan geography is source-corrected, shared preserved-catalog publication, runtime enrichment, Texas History discovery and county cross-links are protected across eager and lazy route surfaces, and the Mayborn Museum dedicated authority route/data/current visitor guidance/post-purge regression contract is protected.`);
