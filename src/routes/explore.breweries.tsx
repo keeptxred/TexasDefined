@@ -4,7 +4,7 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/explore/breweries';
-const description = 'Find active Texas brewer-licensed locations by city and county using Texas Alcoholic Beverage Commission records, plus independently researched guides to selected Texas breweries.';
+const description = 'Find active Texas brewer and brewpub licensed locations by city and county using Texas Alcoholic Beverage Commission records, plus independently researched guides to selected Texas breweries.';
 
 export const Route = createFileRoute(canonicalPath)({
   head: () => ({
