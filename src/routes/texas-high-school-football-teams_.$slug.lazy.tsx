@@ -239,19 +239,19 @@ function Page() {
         <span aria-current="page">{displayName}</span>
       </nav>
 
-      <header className="border-b border-border py-6 sm:py-10">
-        <div className={slug === 'aubrey' ? 'grid gap-5 lg:grid-cols-2 lg:items-center lg:gap-8' : undefined}>
+      <header className="border-b border-border py-7 sm:py-10">
+        <div className={slug === 'aubrey' ? 'grid gap-8 lg:grid-cols-2' : undefined}>
           <div>
             <p className="eyebrow text-primary">2026 Texas high school football</p>
             <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{footballName}</h1>
-            <p className="mt-4 max-w-4xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
+            <p className="mt-5 max-w-4xl text-muted-foreground" style={{ fontSize: '1rem', lineHeight: 1.6 }}>
               {slug === 'aubrey'
                 ? 'Verified 2026 scores, remaining games, home tickets and Chaparral Stadium information.'
                 : editorial?.intro ?? profileSummary}
             </p>
           </div>
           {slug === 'aubrey' && (
-            <figure className="min-w-0">
+            <figure style={{ minWidth: 0 }}>
               <div className="relative overflow-hidden border border-border" style={{ height: 'clamp(210px, 34vw, 330px)', backgroundColor: '#10243d' }}>
                 <img
                   src="https://images.unsplash.com/photo-1508209495879-445d5febf597?auto=format&fit=crop&w=1400&q=78"
@@ -261,13 +261,12 @@ function Page() {
                   loading="eager"
                   decoding="async"
                   fetchPriority="high"
-                  className="h-full w-full object-cover"
-                  style={{ objectPosition: 'center 53%' }}
-                />
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 53%' }}
+                  />
               </div>
-              <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">
+              <figcaption className="mt-2 text-xs text-muted-foreground" style={{ lineHeight: 1.5 }}>
                 Representative high-school football photo, not an Aubrey team or stadium image.{' '}
-                <a href="https://unsplash.com/photos/man-holding-football-field-post-on-side-of-field-Fbq47uCtXHI" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Tim Mossholder / Unsplash</a>.
+                <a href="https://unsplash.com/photos/man-holding-football-field-post-on-side-of-field-Fbq47uCtXHI" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Tim Mossholder / Unsplash</a>.
               </figcaption>
             </figure>
           )}
