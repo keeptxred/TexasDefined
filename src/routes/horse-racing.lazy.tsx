@@ -48,7 +48,7 @@ function TexasHorseRacingIndex() {
         </header>
 
         <figure className="border-b border-border py-7">
-          <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Lone_Star_Park.jpg?width=1600" alt="Lone Star Park horse racing venue in Grand Prairie, Texas" className="max-h-96 w-full object-cover" loading="lazy" decoding="async" width="1600" height="1200" />
+          <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Lone_Star_Park.jpg?width=1600" alt="Lone Star Park horse racing venue in Grand Prairie, Texas" className="w-full object-cover" style={{ maxHeight: 490 }} loading="lazy" decoding="async" width="1600" height="1200" />
           <figcaption className="mt-3 text-xs leading-6 text-muted-foreground">Lone Star Park in Grand Prairie (not the Gillespie County Fairgrounds). Photo by <a className="underline" href="https://commons.wikimedia.org/wiki/File:Lone_Star_Park.jpg" target="_blank" rel="noopener noreferrer">Jax 0677 / Wikimedia Commons</a>, <a className="underline" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.</figcaption>
         </figure>
 
@@ -100,7 +100,7 @@ function TexasHorseRacingIndex() {
           <p className="eyebrow text-primary">Owners, breeders and racing professionals</p>
           <h2 id="associations" className="mt-2 font-display text-3xl">Texas horse-racing institutions and official resources</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The track directory covers destinations and license histories. These statewide organizations handle the regulations, Texas-bred programs, associations, race conditions and professional resources that make up the wider horse-racing industry.</p>
-          <div className="mt-6 grid gap-x-9 md:grid-cols-2">
+          <div className="mt-6 grid gap-x-8 md:grid-cols-2">
             {TEXAS_RACING_ORGANIZATIONS.map((institution) => <article key={institution.name} className="border-t border-border py-5">
               <h3 className="font-display text-2xl">{institution.name}</h3>
               <p className="mt-2 text-sm leading-7 text-muted-foreground">{institution.role}</p>
