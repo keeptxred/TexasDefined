@@ -60,6 +60,10 @@ Each park must be researched and independently verified beyond this launch-scale
 - Expand the initial collection only with first-party sources and documented visit eligibility. Never present the current 94 as an exhaustive statewide census.
 - After canonical validation and required checks, use only a bounded smoke of the directory and representative indoor/outdoor/resort/municipal pages, not another sitewide crawl.
 
+## Startup bundle protection
+
+The existing casino-guide source dataset was also moved from eager imports to asynchronous route loaders, while preserving casino page content, hotel slots and existing SEO schemas. This recovers startup bundle headroom without increasing the performance budget; protected CI must confirm the improvement.
+
 ## Initial-client performance guard
 
 The water-park index and venue files define metadata through asynchronous loader imports from `src/data/texas-water-parks-seo.ts`, avoiding eager SEO and large collection data on the initial client bundle. The primary and fallback sitemap also use async park registry loading. Preserve structured data, canonical and noindex gates without increasing bundle limits.
