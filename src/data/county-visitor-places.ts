@@ -573,13 +573,6 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/comanche/"
   },
   {
-    "county": "concho",
-    "name": "Eden Ranching Heritage and Downtown Walk",
-    "category": "History & heritage",
-    "description": "Public main-street streetscape that interprets Eden's historic wool, mohair and livestock economy; nearby cultural programming is event-dependent.",
-    "sourceUrl": "https://texastimetravel.com/cities/eden/"
-  },
-  {
     "county": "cooke",
     "name": "Frank Buck Zoo",
     "category": "Parks & recreation",
@@ -1453,7 +1446,7 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "name": "Llano Historic Courthouse Square",
     "category": "History & heritage",
     "description": "Llano's public courthouse-square streetscape highlights the surviving nineteenth-century stone courthouse and Hill Country commercial buildings.",
-    "sourceUrl": "https://texastimetravel.com/blog/courthouses/"
+    "sourceUrl": "https://texastimetravel.com/directory/llano-county-courthouse/"
   },
   {
     "county": "lubbock",
@@ -1692,13 +1685,6 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Public state-forest trails near Conroe for hiking, birding and observing East Texas pine habitats.",
     "sourceUrl": "https://www.visitconroe.com/things-to-do/outdoors-and-recreation/hiking/"
-  },
-  {
-    "county": "morris",
-    "name": "Daingerfield Historic Courthouse Square",
-    "category": "History & heritage",
-    "description": "Small Northeast Texas civic-square walking stop around the county-seat public streets and downtown businesses; courthouse entry is subject to normal hours.",
-    "sourceUrl": "https://texastimetravel.com/blog/courthouses/"
   },
   {
     "county": "motley",
