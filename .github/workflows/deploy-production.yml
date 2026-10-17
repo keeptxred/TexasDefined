@@ -520,6 +520,33 @@ jobs:
           mkdir -p .artifacts
           node scripts/production/verify-horse-racing-production.mjs 2>&1 | tee .artifacts/horse-racing-production.log
 
+      - name: Prepare bounded horse-racing browser acceptance
+        if: ${{ always() && steps.live_horse_racing.outcome == 'success' && steps.change_scope.outputs.horse_racing == 'true' }}
+        id: horse_racing_browser_deps
+        shell: bash
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+
+      - name: Verify horse-racing hotel cards and visual layouts in deployed production
+        id: live_horse_racing_browser
+        if: ${{ always() && steps.horse_racing_browser_deps.outcome == 'success' && steps.live_horse_racing.outcome == 'success' }}
+        env:
+          EXPECT_CURATED_HOTELS: '1'
+        shell: bash
+        run: node scripts/ci/verify-horse-racing-browser.mjs
+
+      - name: Preserve horse-racing desktop/mobile visual evidence
+        if: ${{ always() && steps.live_horse_racing_browser.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: horse-racing-visual-affiliate-${{ github.run_id }}
+          path: artifacts/horse-racing-browser/
+          if-no-files-found: warn
+          retention-days: 7
+
       - name: Preserve failed horse-racing production evidence
         if: ${{ always() && steps.live_horse_racing.outcome == 'failure' }}
         uses: actions/upload-artifact@v4

@@ -8,7 +8,7 @@
   const TRAVEL_ARTICLE_SECTION = /\b(?:travel|lodging|road trips?|weekend getaways?|events?)\b/i;
   const CONTEXT_PATHS = [
     { kind: "destination", key: "painted-churches", pattern: /^\/explore\/painted-churches(?:\/|$)/ },
-    { kind: "city", key: "fredericksburg", pattern: /^\/horse-racing\/gillespie-county-fairgrounds\/?$/ },
+    { kind: "destination", key: "fredericksburg", pattern: /^\/horse-racing\/gillespie-county-fairgrounds\/?$/ },
     { kind: "venue", pattern: /^\/sports-venue\/([^/?#]+)\/?$/ },
     { kind: "event", pattern: /^\/event\/([^/?#]+)\/?$/ },
     { kind: "destination", pattern: /^\/destination\/([^/?#]+)\/?$/ },
