@@ -65,7 +65,7 @@ function WaterParkGuidePage() {
         <p className="eyebrow mt-9 text-primary">{park.region} · {park.setting} water park</p>
         <h1 className="mt-4 max-w-5xl font-display text-4xl leading-tight sm:text-6xl">{park.name}</h1>
         <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">{park.summary}</p>
-        <p className="mt-4 text-sm text-muted-foreground">Independent visitor guide · Official operator information reviewed October 17, 2026</p>
+        <p className="mt-4 text-sm text-muted-foreground">Independent visitor guide · Operator source links assembled October 17, 2026</p>
         <a className="mt-7 inline-flex bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href={park.officialUrl} target="_blank" rel="noopener noreferrer">Check official tickets, hours and rules ↗</a>
       </Container>
     </header>
@@ -81,7 +81,7 @@ function WaterParkGuidePage() {
               ["Setting", park.setting === "Both" ? "Indoor and outdoor" : park.setting],
               ["Type", park.kind],
               ["Getting in", park.admission],
-              ["Source reviewed", park.reviewedAt],
+              ["Research registry updated", park.reviewedAt],
             ].map(([label, value]) => <div key={label} className="border-t border-border pt-4"><dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</dt><dd className="mt-2 leading-6">{value}</dd></div>)}
           </dl>
         </section>
@@ -119,7 +119,7 @@ function WaterParkGuidePage() {
           <h2 className="font-display text-3xl">Official sources and editorial accuracy</h2>
           <p className="mt-4 leading-8 text-muted-foreground">The source below belongs to the park operator or the public agency responsible for it. Ticket rates and operating hours are intentionally not copied here as evergreen facts. This guide does not claim an in-person visit, endorse any park, or guarantee today's ride availability.</p>
           <a href={park.officialUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block break-all text-sm font-semibold text-primary underline">{park.officialUrl} ↗</a>
-          <p className="mt-3 text-xs text-muted-foreground">Operator material checked {park.reviewedAt}; check the live official calendar before traveling.</p>
+          <p className="mt-3 text-xs text-muted-foreground">Operator reference recorded {park.reviewedAt}; verify access and the live official calendar before traveling.</p>
         </section>
       </article>
       <aside>
