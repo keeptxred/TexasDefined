@@ -1,5 +1,6 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
+import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
 import { majorEventIndexRecords } from "@/data/major-event-index";
 
 const publishedAirshowSlugs = [
@@ -75,11 +76,30 @@ const formatDate = (value: string) =>
 
 export const Route = createLazyFileRoute("/events/air-shows")({ component: TexasAirShowsPage });
 
+const airShowCollectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Texas Air Shows: Dates, Tickets & Visitor Guides",
+  url: "https://texasdefined.com/events/air-shows",
+  description: "Texas air-show visitor planning with verified upcoming dates, organizer tickets, military-base access, parking and hotels.",
+  mainEntity: {
+    "@type": "ItemList",
+    numberOfItems: confirmed.length,
+    itemListElement: confirmed.map((event, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: event.name,
+      url: "https://texasdefined.com/event/" + event.slug,
+    })),
+  },
+};
+
 function TexasAirShowsPage() {
   const today = new Date().toISOString().slice(0, 10);
   const upcoming = confirmed.filter((event) => (event.endDate || event.startDate) >= today);
   const completed = confirmed.filter((event) => (event.endDate || event.startDate) < today);
   return <main>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(airShowCollectionSchema) }} />
     <section className="border-b border-border bg-surface py-10 sm:py-16">
       <Container>
         <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground"><a href="/">Texas Defined</a> / <a href="/events">Events</a> / Air shows</nav>
@@ -135,6 +155,8 @@ function TexasAirShowsPage() {
         <p className="mt-2 text-xs text-muted-foreground">Affiliate disclosure: Texas Defined may earn a commission on qualifying hotel bookings at no additional cost to you. Ticket links above go directly to event organizers and are not presented as Ticketmaster affiliate offers.</p>
       </section>
 
+      <BookingCarRentalCard className="mt-9" placement="air-shows-statewide-hub" title="Arriving by plane or driving to another Texas air show?" />
+      
       <section id="past-calendar" className="mt-14 border-t border-border pt-10">
         <h2 className="font-display text-3xl">Other Texas aviation events to watch</h2>
         <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">These were identified in the 2026 Texas air-show season inventory. They are a research checklist, not a live 2027 calendar. Each needs a fresh organizer confirmation before Texas Defined publishes new dates, ticket availability or a standalone authority guide.</p>
