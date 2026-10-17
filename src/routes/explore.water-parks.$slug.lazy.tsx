@@ -26,8 +26,8 @@ function WaterParkGuidePage() {
         <a className="mt-7 inline-flex bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href={park.officialUrl} target="_blank" rel="noopener noreferrer">Check official tickets, hours and rules ↗</a>
       </Container>
     </header>
-    <Container className="grid gap-12 py-12 sm:py-16 lg:grid-cols-3">
-      <article className="lg:col-span-2">
+    <Container className="grid gap-12 py-12 sm:py-16 lg:grid-cols-2">
+      <article>
         <section aria-labelledby="water-park-glance">
           <h2 id="water-park-glance" className="font-display text-3xl">At a glance</h2>
           <dl className="mt-6 grid gap-4 sm:grid-cols-2">
