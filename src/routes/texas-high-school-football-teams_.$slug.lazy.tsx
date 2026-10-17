@@ -41,7 +41,7 @@ function Page() {
   // Authored football-page titles contain the verified school-specific mascot.
   // Fall back to the reference directory for schools without an editorial title;
   // the optional TEA identity join may be unavailable in deployed SSR.
-  const authoredFootballH1 = editorial?.seo?.title?.match(/^(.+?\\bFootball)\\b/i)?.[1];
+  const authoredFootballH1 = editorial?.seo?.title?.match(/^(.+?Football)/i)?.[1];
   const footballName = slug === 'aubrey' ? 'Aubrey Chaparrals Football'
     : authoredFootballH1 || (identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`);
   // Summarize the verified editorial ledger before the deeper school reference sections.
