@@ -1,6 +1,6 @@
 /** Operator-backed Texas water-park census, reviewed 2026-10-17. One park per physical facility, not per brand. */
 export type WaterParkSetting = "Indoor" | "Outdoor" | "Both";
-export type WaterParkKind = "Destination park" | "Indoor resort park" | "Indoor public park" | "Municipal water park" | "Campground water park" | "Resort beach water park" | "Resort water park";
+export type WaterParkKind = "Destination park" | "Indoor resort park" | "Indoor public park" | "Municipal water park" | "Campground water park" | "Resort beach water park" | "Resort water park" | "Inflatable lake water park";
 export type WaterParkGuide = { slug: string; name: string; city: string; region: string; setting: WaterParkSetting; kind: WaterParkKind; admission: string; summary: string; distinctiveNote: string; officialUrl: string; reviewedAt: string };
 export const texasWaterParks: WaterParkGuide[] = [
   {
@@ -626,7 +626,111 @@ export const texasWaterParks: WaterParkGuide[] = [
     "distinctiveNote": "Unlike Bahama Beach's municipal day park, access here is tied to a hotel resort setting.",
     "officialUrl": "https://www.hilton.com/en/hotels/dfwanhh-hilton-anatole/",
     "reviewedAt": "2026-10-17"
-  }
+  },
+{
+  "slug": "morgans-inspiration-island",
+  "name": "Morgan's Inspiration Island",
+  "city": "San Antonio",
+  "region": "Hill Country",
+  "setting": "Outdoor",
+  "kind": "Destination park",
+  "admission": "Separate dual-park ticket; guests with disabilities may qualify for free admission",
+  "summary": "Morgan's Wonderland's ultra-accessible water park emphasizes inclusive play, with multiple splash environments and waterproof wheelchairs.",
+  "distinctiveNote": "The water park requires different admission from the theme park; waterproof wheelchairs are offered first-come, first-served.",
+  "officialUrl": "https://morganswonderland.org/water-park-attractions/",
+  "reviewedAt": "2026-10-17"
+},
+{
+  "slug": "canyon-aqua-park",
+  "name": "Canyon Aqua Park",
+  "city": "Canyon",
+  "region": "Panhandle",
+  "setting": "Outdoor",
+  "kind": "Municipal water park",
+  "admission": "Session-based tickets and resident season passes",
+  "summary": "Canyon's city-operated Aqua Park is a family water-play destination near Palo Duro Canyon.",
+  "distinctiveNote": "The operator uses swimming sessions, and its 2026 season ran from May 23 through August 15.",
+  "officialUrl": "https://www.canyontx.gov/511/About-Us",
+  "reviewedAt": "2026-10-17"
+},
+{
+  "slug": "nessler-family-aquatics",
+  "name": "Nessler Family Aquatics Center",
+  "city": "Texas City",
+  "region": "Gulf Coast",
+  "setting": "Outdoor",
+  "kind": "Municipal water park",
+  "admission": "Public admission with resident pricing",
+  "summary": "A Texas City water-park-like municipal complex with lazy river, flume slides and children's play.",
+  "distinctiveNote": "The published 2026 season ended September 7; city residency documentation affects admission rates.",
+  "officialUrl": "https://texascitytx.gov/896/Nessler-Family-Aquatics-Center",
+  "reviewedAt": "2026-10-17"
+},
+{
+  "slug": "veterans-memorial-pool-cedar-park",
+  "name": "Veterans Memorial Pool Water Playscape",
+  "city": "Cedar Park",
+  "region": "Central Texas",
+  "setting": "Outdoor",
+  "kind": "Municipal water park",
+  "admission": "City pool day pass and summer pool passes",
+  "summary": "Cedar Park's large interactive outdoor pool has a dump bucket, beach-entry playscape and a drop slide.",
+  "distinctiveNote": "This is a compact city water-play facility, not a full-size slide park; the city says it reopens May 2027.",
+  "officialUrl": "https://www.cedarparktexas.gov/facilities/facility/details/veteransmemorialpool-6",
+  "reviewedAt": "2026-10-17"
+},
+{
+  "slug": "apex-centre-mckinney",
+  "name": "Apex Centre Leisure Water Park",
+  "city": "McKinney",
+  "region": "Dallas–Fort Worth",
+  "setting": "Both",
+  "kind": "Municipal water park",
+  "admission": "Recreation-center membership or daily access under center rules",
+  "summary": "McKinney's Apex Centre pairs a seasonal outdoor slide-and-river complex with indoor water-play facilities.",
+  "distinctiveNote": "The outdoor slides and river are seasonal, while indoor leisure swimming has a separate schedule.",
+  "officialUrl": "https://www.mckinneytexas.org/1744/Aquatics",
+  "reviewedAt": "2026-10-17"
+},
+{
+  "slug": "strawberry-water-park-pasadena",
+  "name": "Strawberry Water Park",
+  "city": "Pasadena",
+  "region": "Houston area",
+  "setting": "Outdoor",
+  "kind": "Municipal water park",
+  "admission": "Public day admissions with Pasadena resident discounts",
+  "summary": "Pasadena's municipal Strawberry Water Park offers a lazy river, several slide options and obstacle features.",
+  "distinctiveNote": "Pasadena confirms it is closed for the 2026 season; the water slides have minimum height rules.",
+  "officialUrl": "https://www.pasadenatx.gov/941/Strawberry-Water-Park",
+  "reviewedAt": "2026-10-17"
+},
+{
+  "slug": "lake-conroe-splash-zone",
+  "name": "Lake Conroe Splash Zone",
+  "city": "Montgomery",
+  "region": "Houston area",
+  "setting": "Outdoor",
+  "kind": "Inflatable lake water park",
+  "admission": "Timed obstacle-course admission plus separate beach-park entry",
+  "summary": "A floating inflatable course with slides and a water trampoline inside Lake Conroe Beach Park.",
+  "distinctiveNote": "Participants must be at least six years old and wear provided life jackets; beach-park entry is separate.",
+  "officialUrl": "https://www.lakeconroesplashzone.com/faqs",
+  "reviewedAt": "2026-10-17"
+},
+{
+  "slug": "conroe-water-park",
+  "name": "Conroe Water Park",
+  "city": "Conroe",
+  "region": "Houston area",
+  "setting": "Outdoor",
+  "kind": "Municipal water park",
+  "admission": "Municipal seasonal admission; verify 2027 reopening",
+  "summary": "A Conroe city facility built around recreational water slides and shallow family play.",
+  "distinctiveNote": "The city operates the water park separately from its year-round aquatic center; the 2026 seasonal calendar ended in September.",
+  "officialUrl": "https://www.cityofconroe.org/",
+  "reviewedAt": "2026-10-17"
+}
 ];
 export const texasWaterParksBySlug = new Map(texasWaterParks.map((park) => [park.slug, park]));
 export const texasWaterParkRegions = [...new Set(texasWaterParks.map((park) => park.region))].sort();
