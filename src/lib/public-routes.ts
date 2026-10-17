@@ -96,7 +96,6 @@ export const INDEXABLE_STATIC_PATHS = [
   "/horse-racing/gillespie-county-fairgrounds",
   "/horse-racing/manor-downs",
   "/horse-racing/laredo-downs",
-  "/horse-racing/gulf-coast-racing",
   "/horse-racing/valle-de-los-tesoros",
   "/sports-venues",
   "/sports-venues/compare",
