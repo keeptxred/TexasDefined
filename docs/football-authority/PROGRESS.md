@@ -1,5 +1,15 @@
 # Football Authority — Execution Ledger
 
+## October 17, 2026 — final seven Batch006 researched and authored on protected PR branch (not yet accepted)
+- **Borger Bulldogs**: 4A Division II District 3, 2–6 through October 16, 2026; individual research dossier `docs/football-authority/schools/borger.md`.
+- **Bosqueville Bulldogs**: 2A Division I District 8, 4–3 through October 16, 2026; individual research dossier `docs/football-authority/schools/bosqueville.md`.
+- **Bovina Mustangs**: 2A Division II District 1, 3–3 through October 9, 2026; individual research dossier `docs/football-authority/schools/bovina.md`.
+- **Bowie Jackrabbits**: 3A Division I District 4, 4–3 through October 9, 2026; individual research dossier `docs/football-authority/schools/bowie.md`.
+- **Gold-Burg Bears**: 1A Division II District 10, 2–5 through October 9, 2026; individual research dossier `docs/football-authority/schools/bowie-gold-burg.md`.
+- **Boyd Yellowjackets**: 3A Division I District 4, 2–4 through October 2, 2026; individual research dossier `docs/football-authority/schools/boyd.md`.
+- **Boys Ranch Roughriders**: 1A Division I District 1, 6–0 through October 8, 2026; individual research dossier `docs/football-authority/schools/boys-ranch.md`.
+Score uncertainty (Gold-Burg Woodson), incomplete coaching appointments and photo rights remain conspicuous. Do not call these new profiles VERIFIED before targeted production Chrome + nine-dimension Supabase review. Preserve 105 prior VERIFIED and mandatory protected Merge Gate; avoid broad scans.
+
 ## October 16, 2026 — Gail Borden County five UIL six-man championships individually authored (dependent branch)
 Genuine 1997 title 48–16 Panther Creek, 2008 Division II 54–8 Woodson, 2009 Division II 28–14 Highland, 2016 Division I 60–12 Jonesboro, 2017 Division I 60–22 Jonesboro — all UIL final sources. Six completed 2026 games show 6–0 to Oct9 O'Donnell W72–16, six-man District5. 2017 coach Trey Richey historically UIL verified but current MaxPreps and Six-Man Football disagree (Craig Steele), so no current staffing field. Seven original FAQs, Gail official campus contact, two-way Borden County link. No stadium-gate/license/ADA fabrication. IMPLEMENTED on dependent branch; prior 105 VERIFIED remain. No Batch006 school independently exact Chrome/editorial accepted.
 
