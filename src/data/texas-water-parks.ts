@@ -3439,7 +3439,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Carpenter Park Recreation Center has an indoor current channel, a toddler play area with spray features, and a large water slide.",
     "distinctiveNote": "Plano's fall 2026 schedule separates current-channel access from the slide and play-area hours; the indoor pool is an alternative to the city's summer-only Jack Carter Pool.",
     "officialUrl": "https://www.plano.gov/recreation-centers-pools",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "6701 Coit Rd., Plano, TX 75024",
+    "visitorHighlights": [
+      "Carpenter Park Recreation Center has an indoor current channel, recreation pool, waterslide and a younger-child water-play area.",
+      "Plano's fall 2026 calendar distinguishes current-channel operation from its separately scheduled play-area and slide sessions.",
+      "On Saturdays and Sundays the city posts combined open-swim periods with river, water-play features and slides instead of uninterrupted weekday availability.",
+      "Indoor pool lap-swim sessions may be closed for scheduled programs even when the recreation center building itself is open.",
+      "The City of Plano operates Carpenter as a membership/daily admission recreation center; it is not an overnight resort."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Does Carpenter Park's lazy river operate throughout all business hours?",
+        "answer": "No. Plano's fall 2026 calendar gives the current channel specific hours, and different times for the play area and slide; weekdays can include programming closures.",
+        "sourceUrl": "https://www.plano.gov/recreation-centers-pools?contentId=99bed988-7d28-4fac-bb66-78a9e7284b1f"
+      },
+      {
+        "question": "When can families expect the full indoor water-play features?",
+        "answer": "The City of Plano posts combined open swim with the river, play features and slides on weekend afternoons, subject to special events or maintenance.",
+        "sourceUrl": "https://www.plano.gov/recreation-centers-pools?contentId=99bed988-7d28-4fac-bb66-78a9e7284b1f"
+      },
+      {
+        "question": "Where is Carpenter Park Recreation Center?",
+        "answer": "The city lists Carpenter Park Recreation Center at 6701 Coit Road, Plano, Texas 75024, a distinct facility from Oak Point and Tom Muehlenbeck recreation centers.",
+        "sourceUrl": "https://www.plano.gov/recreation-centers-pools"
+      },
+      {
+        "question": "Does the recreation center being open mean all slides are operating?",
+        "answer": "No. The city publishes independent pool and slide hours, and pool lanes may be unavailable for classes. Confirm the specific waterplay session before traveling.",
+        "sourceUrl": "https://www.plano.gov/recreation-centers-pools?contentId=99bed988-7d28-4fac-bb66-78a9e7284b1f"
+      }
+    ]
   },
   {
     "slug": "plano-oak-point-aquatic",
@@ -3453,7 +3483,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Oak Point has an indoor family-leisure pool with a slide and a separate seasonal outdoor aquatic area with a wave pool and play tower.",
     "distinctiveNote": "The City of Plano posted pool maintenance October 15–18, 2026; confirm indoor pool reopening and outdoor seasonal hours before visiting.",
     "officialUrl": "https://www.plano.gov/oak-point-recreation-center",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "6000 Jupiter Rd., Plano, TX 75074",
+    "visitorHighlights": [
+      "Oak Point Recreation Center provides an indoor leisure/swimming pool and a separate seasonal outdoor aquatic area.",
+      "The outdoor aquatics section, including its summertime play features, is listed closed for the 2026 season.",
+      "The City of Plano announced the indoor pool closed October 15–18, 2026 for maintenance, so the center's general building hours do not guarantee pool access.",
+      "Special sensory-friendly swim sessions are separately scheduled at the indoor pool, not a normal outdoor-waterpark ticket.",
+      "Plano maintains different resident and nonresident daily admission rates, with memberships available for recreation centers."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can we swim at Oak Point during October 15–18, 2026?",
+        "answer": "The City's current Oak Point notice says the pool is closed October 15 through October 18 for maintenance; confirm reopening before making the trip.",
+        "sourceUrl": "https://www.plano.gov/oak-point-recreation-center"
+      },
+      {
+        "question": "Is the outdoor wave and water-play area open this October?",
+        "answer": "No. Plano lists Oak Point's outdoor pool closed for the 2026 season; it has different dates from the indoor pool and its fall leisure-swim schedule.",
+        "sourceUrl": "https://www.plano.gov/recreation-centers-pools?contentId=99bed988-7d28-4fac-bb66-78a9e7284b1f"
+      },
+      {
+        "question": "What is the Oak Point entrance address?",
+        "answer": "The City of Plano lists Oak Point Recreation Center at 6000 Jupiter Road, Plano, Texas 75074. It is a separate venue from Carpenter Park and Tom Muehlenbeck.",
+        "sourceUrl": "https://www.plano.gov/oak-point-recreation-center"
+      },
+      {
+        "question": "Are there separate activities for sensory-sensitive swimmers?",
+        "answer": "Yes. The city's aquatics calendar schedules selected sensory swim sessions at Oak Point's indoor pool, with regular admission rules; these are not daily general waterpark sessions.",
+        "sourceUrl": "https://www.plano.gov/recreation-centers-pools?contentId=99bed988-7d28-4fac-bb66-78a9e7284b1f"
+      }
+    ]
   },
   {
     "slug": "plano-tom-muehlenbeck",
@@ -3467,7 +3527,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Tom Muehlenbeck Recreation Center has an indoor leisure pool with slide, vortex and current channel plus an outdoor seasonal aquatic complex with three slides.",
     "distinctiveNote": "The outdoor section has a separate summer operating season; indoor drop-slide and flume-slide hours also differ from regular lap and leisure swims.",
     "officialUrl": "https://www.plano.gov/recreation-centers-pools",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "5801 W. Parker Rd., Plano, TX 75093",
+    "visitorHighlights": [
+      "Tom Muehlenbeck Recreation Center has an indoor leisure pool with a current channel, vortex and slide, plus seasonal outdoor water-play facilities.",
+      "The outdoor waterpark area's three slides have a distinct summer schedule, while indoor play and slide sessions continue at selected school-year hours.",
+      "Plano's October 2026 schedule identifies the outdoor pool as closed for the season despite regular indoor recreation center opening hours.",
+      "Weekday indoor leisure sessions are divided between adults-only swim and family open swim, so not every posted pool hour is child-slide time.",
+      "Toddler-oriented summer splash sessions on the outdoor features are separate from regular public recreation swim."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can kids use the outdoor slides in October?",
+        "answer": "No. The city identifies Tom Muehlenbeck's outdoor pool closed for 2026, although the indoor leisure pool still has selected fall opening sessions.",
+        "sourceUrl": "https://www.plano.gov/recreation-centers-pools?contentId=99bed988-7d28-4fac-bb66-78a9e7284b1f"
+      },
+      {
+        "question": "Are the indoor slides open when the center opens at 5 AM?",
+        "answer": "Not automatically. Plano posts a separate indoor leisure-pool schedule and maintains adult-only periods distinct from family play and slide times.",
+        "sourceUrl": "https://www.plano.gov/recreation-centers-pools?contentId=99bed988-7d28-4fac-bb66-78a9e7284b1f"
+      },
+      {
+        "question": "What is the street address of this center?",
+        "answer": "The City of Plano lists Tom Muehlenbeck Recreation Center at 5801 West Parker Road, Plano, Texas 75093, distinct from the Carpenter and Oak Point facilities.",
+        "sourceUrl": "https://www.plano.gov/recreation-centers-pools"
+      },
+      {
+        "question": "Are toddler sessions the same as public family open swim?",
+        "answer": "No. The operator advertised specially scheduled outdoor Tot Splash Time for young children during summer, with ordinary daily admission rules but separate visit hours.",
+        "sourceUrl": "https://www.plano.gov/recreation-centers-pools?contentId=99bed988-7d28-4fac-bb66-78a9e7284b1f"
+      }
+    ]
   },
   {
     "slug": "plano-jack-carter",
@@ -3481,7 +3571,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Jack Carter's large outdoor water recreation complex features a dual-rider tube slide, body slide, lazy river, surfing simulator and deep-water pool.",
     "distinctiveNote": "The City of Plano lists the outdoor facility as closed for the 2026 season; check its dedicated recreation schedule before planning for summer 2027.",
     "officialUrl": "https://www.plano.gov/parks-facilities-rentals",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "2601 Pleasant Valley Dr., Plano, TX 75023",
+    "visitorHighlights": [
+      "Jack Carter Pool is a distinct outdoor Plano waterpark with a lazy river, a separate surf simulator and a tot play pool.",
+      "The venue's outdoor attractions include body and double-rider tube slides, rather than just a competition lap pool.",
+      "The pool has on-site concessions and other family recreation amenities under city management.",
+      "Plano lists Jack Carter Pool closed for the 2026 season as of October, unlike its year-round indoor recreation centers.",
+      "The city uses separate summer pool pricing and resident/nonresident admission categories; it is not covered by assuming a recreation center is currently open."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can someone visit Jack Carter's lazy river during October?",
+        "answer": "No. Plano's current fall pool bulletin lists Jack Carter Outdoor Pool closed for the season, even though other city indoor recreation pools operate during fall.",
+        "sourceUrl": "https://www.plano.gov/recreation-centers-pools?contentId=99bed988-7d28-4fac-bb66-78a9e7284b1f"
+      },
+      {
+        "question": "What activities make Jack Carter more than a lap pool?",
+        "answer": "The city lists a lazy river, surf simulator, tot pool and large slides, alongside ordinary swimming and concessions at this distinct outdoor attraction.",
+        "sourceUrl": "https://www.plano.gov/recreation-centers-pools"
+      },
+      {
+        "question": "Where is Jack Carter Pool?",
+        "answer": "The City of Plano locates Jack Carter Pool at 2601 Pleasant Valley Drive in Plano, Texas, a separate location from the Oak Point, Carpenter and Tom Muehlenbeck recreation centers.",
+        "sourceUrl": "https://www.plano.gov/recreation-centers-pools"
+      },
+      {
+        "question": "Are Jack Carter tickets valid at every Plano indoor pool?",
+        "answer": "Do not assume so. Plano operates Jack Carter as an outdoor seasonal pool and sells admission under city aquatics programs, with different schedules and facility rules by site.",
+        "sourceUrl": "https://www.plano.gov/recreation-centers-pools?contentId=99bed988-7d28-4fac-bb66-78a9e7284b1f"
+      }
+    ]
   },
   {
     "slug": "jellystone-wichita-falls",
@@ -3776,7 +3896,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Alice's natatorium complex includes a year-round indoor swimming pool plus a separate outdoor leisure area with water slides, interactive water play and family splash zones.",
     "distinctiveNote": "The YMCA's operator page distinguishes indoor pool hours from outdoor waterpark amenities and warns that outdoor access is seasonal; verify 2026 public sessions, rates and slide access before driving.",
     "officialUrl": "https://ymca-cc.org/alice-natatorium/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "723 FM 1554, Alice, TX 78332",
+    "visitorHighlights": [
+      "Alice Natatorium combines a year-round indoor pool with a distinct seasonal outdoor waterpark section under YMCA of the Coastal Bend management.",
+      "The YMCA posts separate indoor and outdoor admission classes; its published outdoor attraction hours do not cover every school-year weekday.",
+      "YMCA lifeguards supervise the aquatic zones, while programs such as swim lessons and swim-team sessions sometimes close the indoor pool to general public swim.",
+      "The operator's posted outside-waterpark cooler fee is separate from admission; alcoholic beverages are prohibited and re-entry after leaving is not allowed.",
+      "The facility runs lessons and group exercise classes that use the indoor pool year-round, so those hours are not evidence of outdoor slides operating."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Alice's outdoor waterpark open on October 17?",
+        "answer": "The YMCA's operating schedule describes seasonal outdoor amenities through October 1, so visitors should not assume the outdoor waterpark is open later in October; confirm the latest reopening date with the operator.",
+        "sourceUrl": "https://ymca-cc.org/alice-natatorium/"
+      },
+      {
+        "question": "Can families use the indoor pool when the waterpark is closed?",
+        "answer": "The YMCA provides separate indoor public swimming and lessons. Outdoor waterpark dates are not equivalent to year-round indoor pool access or aquatic class schedules.",
+        "sourceUrl": "https://ymca-cc.org/alice-natatorium/"
+      },
+      {
+        "question": "What are the food and re-entry restrictions?",
+        "answer": "The operator lists a separate paid cooler permit, prohibits alcohol and states that guests who leave cannot re-enter the outdoor waterpark on the same admission.",
+        "sourceUrl": "https://ymca-cc.org/alice-natatorium/"
+      },
+      {
+        "question": "Where is the Alice Natatorium?",
+        "answer": "The operator lists its campus at 723 Farm to Market Road 1554, Alice, Texas 78332. It is a different location from Corpus Christi's YMCA facilities.",
+        "sourceUrl": "https://ymca-cc.org/alice-natatorium/"
+      }
+    ]
   },
   {
     "slug": "el-campo-aquatic-center",
@@ -3790,7 +3940,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "El Campo's city-run indoor aquatic center contains three heated pools, including a family leisure pool with an 85-foot waterslide, spray features, floating lily pads and a water mushroom.",
     "distinctiveNote": "The center opened in 2005 and is designed for year-round recreation; swim teams, lessons and therapy also use the site, so check public leisure-pool availability and child supervision rules before visiting.",
     "officialUrl": "https://cityofelcampo.recdesk.com/Community/Facility/Detail?facilityId=9",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "2613 Blossom Meyer, El Campo, TX 77437",
+    "visitorHighlights": [
+      "The El Campo Aquatic Center has three heated pools, including an eight-lane 25-yard competition pool, a leisure pool and a large hot tub.",
+      "The family leisure pool has an 85-linear-foot water slide, interactive water mushroom and floating lily-pad crossings.",
+      "The city operates the facility year-round on an indoor recreation timetable, unlike many summer-only outdoor waterparks.",
+      "Visitors under 13 must be accompanied by someone older than 16, while children five and under need an adult older than 16 in the water.",
+      "Outside food and drinks and inflatable float toys are prohibited, with separate rules for children accessing the hot tub.",
+      "The complex opened in January 2005 after a local Rotary Club and community-funding initiative."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can young children swim without adults?",
+        "answer": "No. The city requires a person older than 16 to accompany all visitors under 13, and children aged five and under must have the accompanying person in the water with them.",
+        "sourceUrl": "https://cityofelcampo.recdesk.com/Community/Facility/Detail?facilityId=9"
+      },
+      {
+        "question": "Does this park have a regular lap pool as well as water slides?",
+        "answer": "Yes. Its three heated pool sections include an eight-lane competition pool and a separate leisure area with an 85-foot water slide, lily pads and mushroom spray feature.",
+        "sourceUrl": "https://cityofelcampo.recdesk.com/Community/Facility/Detail?facilityId=9"
+      },
+      {
+        "question": "Can we bring outside food or inflatables?",
+        "answer": "No. El Campo's facility rules prohibit outside food or beverages and inflatable equipment, along with other posted restrictions for use of the hot tub.",
+        "sourceUrl": "https://cityofelcampo.recdesk.com/Community/Facility/Detail?facilityId=9"
+      },
+      {
+        "question": "Where is El Campo Aquatic Center?",
+        "answer": "The city's booking portal lists 2613 Blossom Meyer, El Campo, Texas 77437. Its posted public recreation hours vary by weekday and it also hosts swim teams and lessons.",
+        "sourceUrl": "https://cityofelcampo.recdesk.com/Community/Facility/Detail?facilityId=9"
+      }
+    ]
   },
   {
     "slug": "mesquite-city-lake-aquatic",
@@ -3804,7 +3985,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Mesquite's City Lake Aquatic Center is a sizeable municipal family-swim complex that combines seasonal recreation, water-slide attractions and shaded areas for group outings.",
     "distinctiveNote": "The City of Mesquite lists 2026 summer service and separate reservation hours for the 500-person complex; the Texas ride-sticker register corroborates the city's open-body flume slides, but verify slide operations directly.",
     "officialUrl": "https://cityofmesquite.com/3491/Brunhilde-Nystrom-City-Lake-Aquatic-Cent",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "200 Parkview St., Mesquite, TX 75149",
+    "visitorHighlights": [
+      "Brunhilde Nystrom City Lake Aquatic Center is a named City of Mesquite public family aquatic venue and distinct from its natatorium or the Town East and Vanston pools.",
+      "City records describe summer public swim sessions and a separate weekday twilight-discount category.",
+      "The facility offers rentable shaded structures and whole-waterpark private events, with a published capacity of up to 500 guests.",
+      "Mesquite lists different daily swimming admission categories for residents, nonresidents, senior visitors and children age two and under.",
+      "2026 whole-facility rental availability ran May 29 to September 6 on selected Thursdays through Sundays, not year-round autumn evenings.",
+      "The site has water-slide infrastructure listed in city and ride-registration records; individual slide operation is subject to confirmation."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is Brunhilde Nystrom City Lake Aquatic Center?",
+        "answer": "The City of Mesquite lists 200 Parkview Street, Mesquite, Texas 75149. It is separate from the city's natatorium and other neighborhood pools.",
+        "sourceUrl": "https://cityofmesquite.com/3491/Brunhilde-Nystrom-City-Lake-Aquatic-Cent"
+      },
+      {
+        "question": "Are private whole-facility pool parties available?",
+        "answer": "The city offered private rental sessions for groups of up to 500 on selected summer evenings, separate from general swimming admission. Check next season's calendar before booking.",
+        "sourceUrl": "https://cityofmesquite.com/1419/Swimming-Pools"
+      },
+      {
+        "question": "Is this an ordinary free city swimming pool?",
+        "answer": "No. The operator publishes paid resident and nonresident day admission plus separately priced shade structures, swimming passes and private facility rentals.",
+        "sourceUrl": "https://cityofmesquite.com/3491/Brunhilde-Nystrom-City-Lake-Aquatic-Cent"
+      },
+      {
+        "question": "Are evening and weekend hours always the same?",
+        "answer": "No. The official 2026 city schedule distinguishes regular public sessions, select weekend hours and discounted weekday twilight admission. Fall reopening is not implied.",
+        "sourceUrl": "https://cityofmesquite.com/3491/Brunhilde-Nystrom-City-Lake-Aquatic-Cent"
+      }
+    ]
   },
   {
     "slug": "desoto-moseley-pool",
