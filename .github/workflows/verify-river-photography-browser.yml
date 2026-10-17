@@ -1,0 +1,42 @@
+name: Verify three river photos in Chrome
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-river-photography-browser.mjs'
+      - '.github/workflows/verify-river-photography-browser.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: river-photo-qa-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare Chrome, no application dependency changes
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/td-river-images-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Test exact river photographs and licensing on five pages, two viewports
+        run: node scripts/ci/verify-river-photography-browser.mjs
+      - name: Save browser screenshots and image request evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: river-photo-qa-evidence
+          path: artifacts/river-photo-acceptance/
+          if-no-files-found: warn
+          retention-days: 14
