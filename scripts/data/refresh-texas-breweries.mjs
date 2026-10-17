@@ -17,10 +17,14 @@ export function normalizeTabcRows(rows, previous = []) {
   const oldSlugs = new Map(previous.map((entry) => [String(entry.licenseId), entry.slug]));
   const deduped = new Map();
   for (const row of rows) {
-    const licenseType = tidy(row.license_type).toUpperCase();
+    const primaryLicenseType = tidy(row.license_type).toUpperCase();
+    const subordinateCodes = tidy(row.subordinates).toUpperCase().split(',').map((value) => value.trim());
+    const licenseType = primaryLicenseType === 'BW'
+      ? 'BW'
+      : (['BG', 'MB', 'BE'].includes(primaryLicenseType) && subordinateCodes.includes('BP') ? 'BP' : null);
     const status = tidy(row.primary_status || row.license_status);
     const state = tidy(row.state).toUpperCase();
-    if (licenseType !== 'BW' || !/^Active(?:\b|$)/i.test(status) || state !== 'TX') continue;
+    if (!licenseType || !/^Active(?:\b|$)/i.test(status) || state !== 'TX') continue;
     const licenseId = tidy(row.license_id).replace(/^(\d+)\.0$/, '$1');
     const name = tidy(row.trade_name || row.owner);
     const city = tidy(row.city);
@@ -33,7 +37,7 @@ export function normalizeTabcRows(rows, previous = []) {
       zip: tidy(row.zip).slice(0, 5),
       phone: tidy(row.phone),
       licenseStatus: status,
-      licenseType: 'BW',
+      licenseType,
       expirationDate: tidy(row.expiration_date).slice(0, 10),
     });
   }
@@ -51,24 +55,18 @@ export async function main() {
   const rows = await response.json();
   if (!Array.isArray(rows)) throw new Error('TABC returned a non-array response');
   if (rows.length >= 5000) throw new Error('TABC result reached row cap; pagination required, refusing incomplete snapshot');
-  // Diagnostic before integrating BP subordinate licenses: TABC BP is held under BG/MB/BE,
-  // unlike BW which is a primary license. Verify the public subordinate representation.
-  const bpUrl = new URL(API);
-  bpUrl.searchParams.set('$where', "subordinates like '%BP%'");
-  bpUrl.searchParams.set('$limit', '3');
-  const bpResponse = await fetch(bpUrl, { signal: AbortSignal.timeout(20000) });
-  if (bpResponse.ok) {
-    const bpRows = await bpResponse.json();
-    console.log('TABC BP subordinate diagnostic:', JSON.stringify({
-      rowsSampled: bpRows.length,
-      examples: bpRows.map((entry) => ({
-        licenseType: entry.license_type,
-        primaryStatus: entry.primary_status,
-        subordinate: String(entry.subordinates || '').slice(0, 220),
-      })),
-    }));
-  } else console.warn('TABC BP subordinate diagnostic unavailable: HTTP ' + bpResponse.status);
-  const breweries = normalizeTabcRows(rows, previous.breweries ?? []);
+  const secondaryUrl = new URL(API);
+  secondaryUrl.searchParams.set('$where', "subordinates like '%BP%' AND state='TX'");
+  secondaryUrl.searchParams.set('$limit', '5000');
+  secondaryUrl.searchParams.set('$order', 'license_id ASC');
+  const secondaryResponse = await fetch(secondaryUrl, { headers: { Accept: 'application/json', 'User-Agent': 'TexasDefined-BreweryDirectory/1.0' }, signal: AbortSignal.timeout(30000) });
+  if (!secondaryResponse.ok) throw new Error('TABC BP subordinate request failed: HTTP ' + secondaryResponse.status);
+  const secondaryRows = await secondaryResponse.json();
+  if (!Array.isArray(secondaryRows) || secondaryRows.length >= 5000) throw new Error('Incomplete TABC BP subordinate result; preserving previous snapshot');
+  const breweries = normalizeTabcRows([...rows, ...secondaryRows], previous.breweries ?? []);
+  const bwCount = breweries.filter((place) => place.licenseType === 'BW').length;
+  const bpCount = breweries.filter((place) => place.licenseType === 'BP').length;
+  if (bwCount < 100 || bpCount < 20) throw new Error('Unexpectedly small BW/BP coverage (' + bwCount + '/' + bpCount + '); preserving previous snapshot');
   if (breweries.length < 100) {
     const sample = rows.slice(0, 3).map((row) => ({
       license_type: row.license_type, primary_status: row.primary_status,
@@ -82,7 +80,7 @@ export async function main() {
   if (previous.breweries?.length > 100 && breweries.length < previous.breweries.length * .75)
     throw new Error('More than 25% drop in active BW licenses; preserving last-good snapshot pending review');
   if (JSON.stringify(breweries) === JSON.stringify(previous.breweries)) {
-    console.log('TABC licensed brewery roster unchanged: ' + breweries.length + ' active BW locations');
+    console.log('TABC licensed brewery roster unchanged: ' + breweries.length + ' active BW/BP locations');
     return;
   }
   const snapshot = {
@@ -92,7 +90,7 @@ export async function main() {
     breweries,
   };
   await writeFile(target, JSON.stringify(snapshot, null, 2) + '\n');
-  console.log('Updated Texas brewery license snapshot: ' + breweries.length + ' active BW locations');
+  console.log('Updated Texas brewery license snapshot: ' + breweries.length + ' active BW/BP locations');
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === fileURLToPath(new URL('file://' + process.argv[1]).href)) {
