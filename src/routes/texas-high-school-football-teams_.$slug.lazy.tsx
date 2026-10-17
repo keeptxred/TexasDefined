@@ -302,6 +302,7 @@ function Page() {
           venueLink={venueLinks[0]}
           schoolWebsite={program?.schoolWebsite}
           hasSeasonSection={!!program}
+          summaryAlreadyShown={!!editorial?.season}
         />
       )}
 
