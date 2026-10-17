@@ -16,6 +16,45 @@ const person = (name: string, url?: string): EventSchemaEntity => ({ type: "Pers
 export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
 
   {
+    slug: "rose-city-airfest",
+    organizer: organization("Rose City Airfest / CampV", "https://www.rosecityairfest.com/"),
+    sources: [
+      { label: "Official Rose City Airfest 2026 event dates and performers", url: "https://www.rosecityairfest.com/" },
+      { label: "Official 2026 tickets, age categories and final-sale terms", url: "https://www.rosecityairfest.com/tickets/airshow" },
+      { label: "Official 2026 parking and shuttles", url: "https://www.rosecityairfest.com/info/map/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "corsicana-airsho",
+    organizer: organization("Commemorative Air Force Coyote Squadron", "https://commemorativeairforce.org/units/26"),
+    sources: [
+      { label: "Official 2026 Corsicana Airsho listing", url: "https://commemorativeairforce.org/events/865" },
+      { label: "CAF Coyote Squadron Corsicana heritage", url: "https://commemorativeairforce.org/units/26" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "addison-kaboom-town-airshow",
+    organizer: organization("Town of Addison", "https://visitaddison.com/kaboom-town/"),
+    sources: [
+      { label: "Official Addison Kaboom Town 2026 air show timing", url: "https://visitaddison.com/kaboom-town/activities/" },
+      { label: "Official viewing, tickets, travel, and hotel policy", url: "https://visitaddison.com/kaboom-town/event-info/" },
+      { label: "Official organizer hotel packages", url: "https://visitaddison.com/kaboom-town/addison-kaboom-town-hotel-packages/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "laredo-stars-stripes-airshow",
+    organizer: organization("Washington's Birthday Celebration Association", "https://wbcalaredo.org/"),
+    sources: [
+      { label: "Official WBCA 2026 Stars and Stripes schedule and vendor location", url: "https://wbcalaredo.org/wp-content/uploads/2025/10/2025_2026-Vendor-Application-2.pdf" },
+      { label: "Official WBCA 2026 festival program", url: "https://wbcalaredo.org/wp-content/uploads/2026/02/By-George-2026_Final.pdf" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+
+  {
     slug: "great-texas-airshow",
     organizer: organization("Joint Base San Antonio, 502d Air Base Wing", "https://www.jbsa.mil/GreatTexasAirshow/"),
     image: {
