@@ -32,6 +32,14 @@ for (const anchor of ['"/explore/water-parks"', 'texasWaterParks.filter((park) =
 }
 if ((sitemap.match(/texasWaterParks\.filter/g) ?? []).length < 2) throw new Error("Both primary and fallback explore sitemaps must include waterpark guides.");
 if (!hub.includes('"@type": "ItemList"') || !hub.includes("useState") || !hub.includes("actively researched collection")) throw new Error("Directory must preserve schema, filtering and census completeness disclosure.");
+if (!detail.includes('robots: park.authorityReady ? undefined : "noindex, follow"')) throw new Error("Uncertified water-park guides must remain noindex.");
+const authorityReady = parks.filter((park) => park.authorityReady);
+for (const park of authorityReady) {
+  const evidence = park.authorityEvidence;
+  if (!evidence?.exactAddress || !evidence?.licensedImageSrc || !evidence?.imageCredit || !evidence?.accessVerifiedAt || !Array.isArray(evidence.rideHighlights) || evidence.rideHighlights.length < 3 || !Array.isArray(evidence.sourceUrls) || evidence.sourceUrls.length < 2) {
+    throw new Error(`Attempted indexation without primary-source + photography + features authority proof: ${park.slug}`);
+  }
+}
 if (!detail.includes('"@type": "TouristAttraction"') || !detail.includes('park.officialUrl') || !detail.includes('park.distinctiveNote')) throw new Error("Per-park pages require operator facts and tourist attraction schema.");
 if (!explore.includes('to="/explore/water-parks"')) throw new Error("Explore landing must link to the new water-park hub.");
 console.log(`Texas water-park guide contract passed: ${parks.length} unique official-source facilities, primary/fallback sitemaps, venue pages and truthful census scope.`);
