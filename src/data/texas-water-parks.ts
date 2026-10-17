@@ -15,7 +15,36 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Multiple park areas and spring-fed river attractions shape an all-day Hill Country visit.",
     "distinctiveNote": "Plan around the official map and check whether the attraction area and season you want are operating.",
     "officialUrl": "https://www.sixflags.com/schlitterbahnnewbraunfels",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "400 N. Liberty Ave., New Braunfels, TX 78130",
+    "visitorHighlights": [
+      "The operator lists Master Blaster, Boogie Bahn Inland Surf Ride and Dragon's Revenge among its signature attractions; confirm individual ride operation on your visit date.",
+      "The waterpark's main visitor entrance is 400 N. Liberty Avenue, whereas the resort check-in office uses a separate address at 305 W. Austin Street.",
+      "The operator publishes a park-and-parking map and identifies free general parking, with optional separately priced preferred parking.",
+      "Schlitterbahn spans separate park sections; the operator describes free trams linking original and east sections, so choose a starting area deliberately."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where should day visitors park versus resort guests?",
+        "answer": "Use the waterpark's 400 N. Liberty Avenue main entrance for the day park. The separately listed resort office and check-in are at 305 W. Austin Street; the operator says general parking is free.",
+        "sourceUrl": "https://www.sixflags.com/schlitterbahnnewbraunfels/park-map-directions"
+      },
+      {
+        "question": "Can we bring a cooler to Schlitterbahn?",
+        "answer": "The operator explicitly welcomes coolers but sets size, content and entry-screening guidelines. Review its current cooler rules rather than assuming every container or item is allowed.",
+        "sourceUrl": "https://www.sixflags.com/schlitterbahnnewbraunfels/waterpark-information"
+      },
+      {
+        "question": "Will every water ride run on our visit date?",
+        "answer": "No ride lineup is guaranteed. The operator warns that availability can be limited, and directs visitors to the dated operating schedule and current park map before choosing an arrival plan.",
+        "sourceUrl": "https://www.sixflags.com/schlitterbahnnewbraunfels/park-map-directions"
+      },
+      {
+        "question": "Is it useful to plan for more than one park section?",
+        "answer": "Yes. The venue spans distinct sections rather than a single compact ride cluster, and the operator describes free connecting trams. Start with the rides your group cares about most and check the parking map.",
+        "sourceUrl": "https://www.sixflags.com/blog/articles/5-tips-for-making-the-most-of-your-trip-to-schlitterbahn-new-braunfels"
+      }
+    ]
   },
   {
     "slug": "schlitterbahn-galveston",
@@ -43,7 +72,42 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A west-Houston-area water park with slides, wave attractions and family play areas.",
     "distinctiveNote": "Search for the Katy/Houston location specifically; Typhoon Texas also operates near Austin.",
     "officialUrl": "https://typhoontexas.com/houston/hours-and-location/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "555 Katy Fort Bend Rd., Katy, TX 77494",
+    "visitorHighlights": [
+      "Lazy T River has three beach-entry points and is distinct from high-thrill attractions such as The Duelin' Daltons.",
+      "Typhoon Jr. is a dedicated younger-child slide and splash area, while Tidal Wave Bay and The Snake Pit serve different play and thrill preferences.",
+      "The Duelin' Daltons slide group has a posted 48-inch minimum rider height and ride-specific weight limits.",
+      "The Houston operator lists free on-site tubes and parking with its advertised day ticket and pass packages; always verify the specific current offer.",
+      "Free life jackets are provided at designated stations, while outside tubes and unapproved arm flotation devices are prohibited."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is the Houston/Katy water park?",
+        "answer": "Use 555 Katy Fort Bend Road in Katy, rather than the operator's separate Austin/Pflugerville location. The location page provides the Houston park telephone number and current operating-calendar link.",
+        "sourceUrl": "https://typhoontexas.com/houston/hours-and-location/"
+      },
+      {
+        "question": "May families pack lunch or a cooler?",
+        "answer": "Ordinary outside food is not admitted. The operator permits one factory-sealed water bottle per guest, empty refillable bottles, and small personal coolers holding ice and sealed water; medical and allergy accommodations have separate review procedures.",
+        "sourceUrl": "https://typhoontexas.com/houston/faq/"
+      },
+      {
+        "question": "Are there attractions specifically for little kids?",
+        "answer": "Yes. The park lists Typhoon Jr., Buckaroo Bayou and Howdy Hollow in its Houston attraction collection. Individual junior slides have their own minimum and maximum heights, so compare those rules before promising a child a ride.",
+        "sourceUrl": "https://typhoontexas.com/houston/attractions/"
+      },
+      {
+        "question": "What is the policy for children at signature event days?",
+        "answer": "The operator states that on designated signature event days, guests age 16 and younger must be accompanied by a responsible adult age 21 or older with valid identification. Confirm whether your chosen day is one of those special events.",
+        "sourceUrl": "https://typhoontexas.com/houston/faq/"
+      },
+      {
+        "question": "Can guests bring their own float rings?",
+        "answer": "No outside tubes are allowed. The park supplies free life jackets and accepts approved personal life jackets under its published policy; ordinary arm floats do not qualify.",
+        "sourceUrl": "https://typhoontexas.com/houston/faq/"
+      }
+    ]
   },
   {
     "slug": "typhoon-texas-austin",
@@ -99,7 +163,41 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "The SeaWorld-adjacent water park combines slides, family attractions and its own ticketing.",
     "distinctiveNote": "Check Aquatica access separately from SeaWorld San Antonio admission.",
     "officialUrl": "https://aquatica.com/san-antonio/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "10500 SeaWorld Drive, San Antonio, TX 78251",
+    "visitorHighlights": [
+      "Aquatica is a separately ticketed water park inside SeaWorld San Antonio's gates, with access via SeaWorld's main parking facilities.",
+      "The operator lists Tikitapu Splash, water slides, river and pool areas, and optional paid animal experiences such as stingray encounters.",
+      "A formal Ride Accessibility Program is offered through Guest Services; the operator publishes an extensive accessibility guide and ride-specific restrictions.",
+      "Outside food and coolers are ordinarily prohibited, with bottled water and certain medical or infant-feeding exceptions; confirm accommodations in advance."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Does a SeaWorld San Antonio ticket get us into Aquatica?",
+        "answer": "Not automatically. The operator says regular SeaWorld admission excludes Aquatica; guests need qualifying Aquatica-specific admission, a combined two-park ticket or a pass with the appropriate benefits.",
+        "sourceUrl": "https://aquatica.com/san-antonio/faq/"
+      },
+      {
+        "question": "Where do Aquatica visitors park?",
+        "answer": "Guests use the main SeaWorld parking lot because Aquatica is located inside SeaWorld's gates. Parking may require a separate purchase unless a qualifying pass includes it.",
+        "sourceUrl": "https://aquatica.com/san-antonio/faq/"
+      },
+      {
+        "question": "What is covered by a basic Aquatica ticket?",
+        "answer": "The operator says general water attractions, pools and beach areas are included, while cabanas, lockers, meals and merchandise are additional purchases. Check ticket eligibility and capacity for the planned date.",
+        "sourceUrl": "https://aquatica.com/san-antonio/faq/"
+      },
+      {
+        "question": "How can someone with access needs plan the park?",
+        "answer": "Guest Services administers the Ride Accessibility Program and publishes individualized ride-access criteria, accessible parking information and companion-restroom locations. Review the guide before buying if particular rides matter.",
+        "sourceUrl": "https://aquatica.com/san-antonio/guests-with-disabilities/"
+      },
+      {
+        "question": "Can families bring their own meals?",
+        "answer": "The park generally disallows outside food, drinks and coolers except water and approved dietary or infant-feeding accommodations. Review the park's official policy and contact the operator about specific health-related needs.",
+        "sourceUrl": "https://aquatica.com/san-antonio/faq/"
+      }
+    ]
   },
   {
     "slug": "big-rivers-new-caney",
@@ -113,7 +211,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A northeast-Houston family complex combining a water park with other adventures.",
     "distinctiveNote": "Read the ticket inclusions: water-park access and land attractions can be packaged differently.",
     "officialUrl": "https://bigriverswaterpark.com/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "23101 State Highway 242, New Caney, TX 77357",
+    "visitorHighlights": [
+      "Boca Chica Bay wave pool and the Rio GRAND lazy river are separate major attractions, not interchangeable with the dry-park features.",
+      "Storm Surge is a group water attraction with a posted 48-inch minimum height and combined-rider weight limit.",
+      "Frio Falls is a high-tower waterslide with a published 48-inch minimum rider height.",
+      "Gator Splash is an interactive water-play structure with multiple slides and supervised-younger-child rules; specific slide minimums vary.",
+      "The park lists Hatchling Hill's small-child slides and says life jackets and lazy-river tubes are provided without an additional rental charge."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "What is the address of Big Rivers Waterpark?",
+        "answer": "The operator lists Big Rivers Water Park at 23101 State Highway 242 in New Caney, Texas. Confirm navigation to the waterpark entrance rather than another nearby Grand Texas attraction.",
+        "sourceUrl": "https://bigriverswaterpark.com/attractions/waterpark/"
+      },
+      {
+        "question": "Are there attractions for very young children?",
+        "answer": "Yes. Hatchling Hill includes smaller slides and Gator Splash is an interactive play complex, but the operator publishes distinct height thresholds and requires younger children to be supervised by a responsible person.",
+        "sourceUrl": "https://bigriverswaterpark.com/attractions/waterpark/"
+      },
+      {
+        "question": "What are the height requirements for the bigger slides?",
+        "answer": "The operator lists a 48-inch minimum height for both Storm Surge and Frio Falls, along with rider or group weight restrictions. Requirements vary across other attractions; review the specific ride rules before visiting.",
+        "sourceUrl": "https://bigriverswaterpark.com/attractions/waterpark/"
+      },
+      {
+        "question": "Are tubes and life jackets extra?",
+        "answer": "The operator's waterpark attraction guide says lazy-river tubes are free and complimentary life jackets are available for guests. Verify what other rentals or activities cost separately.",
+        "sourceUrl": "https://bigriverswaterpark.com/attractions/waterpark/"
+      }
+    ]
   },
   {
     "slug": "splashway-sheridan",
@@ -323,7 +451,36 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A stand-alone indoor water park in Grand Prairie rather than a hotel-only pool complex.",
     "distinctiveNote": "Epic Waters is temporarily closed October 13–29, 2026, with reopening scheduled for Friday, October 30 at 10 a.m.; always confirm the live calendar before visiting.",
     "officialUrl": "https://epicwatersgp.com/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "2970 Epic Place, Grand Prairie, TX 75052",
+    "visitorHighlights": [
+      "The operator describes an 80,000-square-foot indoor park under a retractable roof; it is not a hotel-only pool.",
+      "Lasso Loop, Yellowjacket Drop and a FlowRider surf attraction are part of the operator's featured lineup.",
+      "The facility advertises a children's splash area, indoor lazy river and separate on-site arcade.",
+      "The park explicitly posts a temporary closure October 13–29, 2026, with a planned reopening October 30 at 10 a.m.; reconfirm before traveling."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can we visit Epic Waters during October 17–29, 2026?",
+        "answer": "No. Epic Waters' current operator notice says the entire waterpark is temporarily closed October 13 through October 29, with a planned Friday, October 30 reopening at 10 a.m. Treat that as planned, not a guarantee.",
+        "sourceUrl": "https://epicwatersgp.com/"
+      },
+      {
+        "question": "Should tickets be bought before arriving?",
+        "answer": "Yes. The operator's visitor guide recommends purchasing tickets online in advance; admission at the door is not guaranteed and may be subject to higher pricing or capacity limitations.",
+        "sourceUrl": "https://epicwatersgp.com/plan/today-at-epic-waters/"
+      },
+      {
+        "question": "Is this a year-round indoor water park?",
+        "answer": "The primary facility is indoors under a retractable roof, and its operator markets it as a year-round destination. Temporary maintenance closures and special operating calendars still apply, as the October 2026 closure demonstrates.",
+        "sourceUrl": "https://epicwatersgp.com/"
+      },
+      {
+        "question": "What kinds of activities are available beyond slides?",
+        "answer": "Epic Waters identifies a FlowRider surf attraction, family splash area, indoor lazy river and an arcade in addition to thrill slides. Confirm activity-specific hours and any extra fees before the trip.",
+        "sourceUrl": "https://epicwatersgp.com/"
+      }
+    ]
   },
   {
     "slug": "cove-lakefront-little-elm",
@@ -449,7 +606,42 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Baytown's pirate-themed municipal water park includes slides and family play.",
     "distinctiveNote": "Use the Baytown location calendar, not similarly named Pirates' Cove near Fort Worth.",
     "officialUrl": "https://baytownpiratesbay.com/park-hours/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "5300 E. Road, Baytown, TX 77521",
+    "visitorHighlights": [
+      "The operator lists a lazy river, wave pool, younger-child play structures, FlowRider surf simulation, body slides, Boomerango and four-lane mat racing.",
+      "FlowRider and Body Slides list a 42-inch minimum rider height, while Space Bowl and Snap Dragon list 48-inch minimums.",
+      "The park's attraction page explicitly marks its Drop Slides temporarily closed because of mechanical issues; do not count them as available rides.",
+      "This is the Pirates Bay location at Wayne Gray Sports Complex, distinct from Calypso Cove, another Baytown water-play park with its own admission and policies.",
+      "The operator's 2026 season began May 23; the live calendar controls available dates, and its October 2026 listing does not advertise regular operating sessions."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is Pirates Bay, and is it the same as Calypso Cove?",
+        "answer": "Pirates Bay is at 5300 East Road within Baytown's Wayne Gray Sports Complex. Calypso Cove is a separate Baytown park, so check the exact attraction and admission page before purchasing.",
+        "sourceUrl": "https://baytownpiratesbay.com/plan-visit/"
+      },
+      {
+        "question": "Are all of the big slides currently available?",
+        "answer": "No. The park's own attraction list marks its Drop Slides as temporarily closed due to mechanical problems. Other slides have posted minimum heights and weight restrictions, and current ride conditions should be checked before arrival.",
+        "sourceUrl": "https://baytownpiratesbay.com/attractions/"
+      },
+      {
+        "question": "Can we bring our own food cooler?",
+        "answer": "A paid Cooler Ticket or qualifying cooler pass is required for food coolers. The operator's policy caps cooler size at 48 quarts, requires all food and drinks to fit with the lid closed and subjects containers to inspection.",
+        "sourceUrl": "https://baytownpiratesbay.com/cooler-pass-policy/"
+      },
+      {
+        "question": "Are life jackets and lockers available?",
+        "answer": "The operator says US Coast Guard-approved life jackets are supplied free on a first-come basis. Lockers are offered in more than one park area for a separate daily fee.",
+        "sourceUrl": "https://baytownpiratesbay.com/faq/"
+      },
+      {
+        "question": "Can I count on the park being open in October?",
+        "answer": "No. Pirates Bay is a seasonal park; its operator's October 2026 calendar currently shows no scheduled public hours. Verify the live calendar and weather notices rather than extrapolating from summer tickets or passes.",
+        "sourceUrl": "https://baytownpiratesbay.com/park-hours/"
+      }
+    ]
   },
   {
     "slug": "wet-zone-rowlett",
