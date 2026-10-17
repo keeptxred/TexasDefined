@@ -239,12 +239,25 @@ function Page() {
       </nav>
 
       <header className="border-b border-border py-7 sm:py-10">
-        <div>
-          <p className="eyebrow text-primary">2026 Texas high school football</p>
-          <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{footballName}</h1>
-          <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">{profileSummary}</p>
+        <div className={slug === 'aubrey' ? 'grid gap-8 lg:grid-cols-2' : undefined}>
+          <div>
+            <p className="eyebrow text-primary">2026 Texas high school football</p>
+            <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{footballName}</h1>
+            <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">{editorial?.intro ?? profileSummary}</p>
+          </div>
+          {slug === 'aubrey' && (
+            <div role="img" aria-label="Original TexasDefined football illustration with a football and yard lines; not an official school crest" className="flex overflow-hidden border p-5" style={{ position: "relative", flexDirection: "column", justifyContent: "space-between", minHeight: 176, borderColor: "#41516b", backgroundColor: "#10243d", color: "#fff" }}>
+              <div aria-hidden="true" style={{ position: "absolute", inset: 0, opacity: 0.2, backgroundImage: 'repeating-linear-gradient(90deg, transparent 0, transparent 38px, #ffffff 39px, #ffffff 40px)' }} />
+              <p className="text-xs uppercase" style={{ position: "relative", fontWeight: 700, letterSpacing: "0.2em", color: "#cbd5e1" }}>Chaparrals / 2026</p>
+              <svg className="mx-auto" style={{ position: "relative", height: 96, width: 160 }} viewBox="0 0 180 110" aria-hidden="true" fill="none">
+                <path d="M25 82 C40 41 112 14 154 25 C145 67 75 99 25 82Z" fill="#b52e41" stroke="#f8fafc" strokeWidth="4" />
+                <path d="M57 71 L129 38" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" />
+                <path d="M72 57 L79 72 M85 51 L92 66 M98 45 L105 60 M111 39 L118 54" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" />
+              </svg>
+              <p className="text-xs uppercase" style={{ position: "relative", textAlign: "right", fontWeight: 700, letterSpacing: "0.14em", color: "#cbd5e1" }}>4A Division I · District 4</p>
+            </div>
+          )}
         </div>
-
       </header>
 
       {editorial?.notice && <aside aria-label="Current school football season status" className="border-b border-border py-7">
@@ -334,13 +347,14 @@ function Page() {
                     <td className="px-3 py-3 text-muted-foreground">{game.site}</td>
                     <td className="px-3 py-3">{game.matchupPath
                       ? <Link to={game.matchupPath} className="font-semibold text-primary underline underline-offset-4">{game.result} · matchup →</Link>
-                      : game.result || 'Scheduled'}</td>
+                      : game.result || (game.kickoff ? `Scheduled · ${game.kickoff}` : 'Scheduled')}</td>
                   </tr>)}
                 </tbody>
               </table>
             </div>
             <p className="mt-3 text-xs leading-6 text-muted-foreground">* District game. This table is a dated editorial snapshot, not a live scoreboard.</p>
             <a href={editorial.season.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.season.sourceLabel} ↗</a>
+            {editorial.season.latestResultSourceUrl && <a href={editorial.season.latestResultSourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Verify latest recorded final ↗</a>}
           </> : <p className="max-w-4xl text-sm leading-7 text-muted-foreground">TexasDefined does not publish a team-specific schedule here unless the current season has been separately verified. Use UIL’s Texas Scoreboard and the school’s own athletics information for the latest game dates and results. The UIL scoreboard is powered by information submitted through MaxPreps; completeness depends on school and coach submissions, and it is not an official district-standings table.</p>}
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
             <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard gateway ↗</a>
@@ -413,7 +427,7 @@ function Page() {
           <p className="eyebrow text-primary">The program story</p>
           <h2 className="mt-2 font-display text-3xl">Milestones that shaped {displayName} football</h2>
           <p className="mt-4 text-sm leading-7 text-muted-foreground">Every moment is linked to its supporting source. Historical classifications, championship years and coaching records are separate from the current UIL alignment.</p>
-          {editorial.theme && <p className="mt-4 text-xs text-muted-foreground">{editorial.theme.label}. This is an original editorial graphic—not official team artwork.</p>}
+          {editorial.theme && editorial.photo && <p className="mt-4 text-xs text-muted-foreground">{editorial.theme.label}</p>}
         </div>
         <div className="grid gap-4 md:grid-cols-2">
           {editorial.milestones.map((milestone) => <article key={`${milestone.date}:${milestone.title}`} className="border-l-4 bg-surface p-5 sm:p-6" style={{ borderLeftColor: editorial.theme?.accentHex }}>
@@ -565,7 +579,7 @@ function Page() {
         <div>
           <p className="max-w-4xl text-sm leading-7 text-muted-foreground">{editorial.development.body}</p>
           <a href={editorial.development.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.development.sourceLabel} ↗</a>
-          <p className="mt-3 text-xs text-muted-foreground">Project context reviewed {editorial.development.verifiedAt}.</p>
+          <p className="mt-3 text-xs text-muted-foreground">Source reviewed {editorial.development.verifiedAt}.</p>
         </div>
       </section>}
 
@@ -704,9 +718,7 @@ function Page() {
           <Related href="/sports-venues/high-school-football" title="Texas football stadiums" body="Browse venue guides and game-day planning information." />
           <Related href="/sports/friday-night-lights" title="Friday Night Lights, Defined" body="Explore the wider culture, traditions and season around Texas high school football." />
         </div>
-        <p className="mt-8 max-w-4xl text-xs leading-6 text-muted-foreground">
-          All current UIL football programs use the same profile system. Historical alias metadata may help resolve alternate school names behind the scenes, but it does not control whether a school receives a page, its directory position or its research priority.
-        </p>
+
       </section>
     </article>
   </Container>;
