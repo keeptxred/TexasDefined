@@ -52,7 +52,7 @@ assert.ok(page.includes('createFileRoute("/explore/inland-beaches")'));
 assert.ok(page.includes("useRouterState") && page.includes("return <Outlet />"), "Parent route must render children rather than swallowing individual beach pages");
 assert.ok(page.includes("matches[matches.length - 1]?.routeId !== match.routeId"), "Parent sitemap/canonical metadata must not replace the individual beach head");
 assert.ok(page.includes("mainEntity") && page.includes("ItemList"));
-assert.ok(page.includes('numberOfItems: inlandSwimmingBeaches.length'));
+assert.ok(page.includes('numberOfItems: beaches.length'));
 assert.ok(individual.includes("beach.officialUrl") && individual.includes("beach.checkedAt"));
 assert.ok(individual.includes('createFileRoute("/explore/inland-beaches/$slug")'), "Every beach needs an individual route, not just an anchor");
 assert.ok(page.includes('await import("@/data/inland-beach-authority")'), "Directory must lazy-load full profiles instead of expanding global client JS");
