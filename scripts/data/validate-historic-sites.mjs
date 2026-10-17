@@ -472,7 +472,8 @@ const fortAuthority = authorityExpansion.split('  "fort-mckavett": {')[1]?.split
 const fortTimeline = fs.readFileSync('src/data/historic-site-authority-timelines.ts', 'utf8');
 const fortImageProvenance = fs.readFileSync('docs/historic-sites/IMAGE_PROVENANCE.md', 'utf8');
 for (const [area, input, markers] of [
-  ['visitor depth', fortDepth, ['8 a.m.–5 p.m.', '8 a.m.–4 p.m.', '7066 FM 864', 'family admission $8', '$5 golf-cart', '2026-10-17']],
+  ['visitor depth', fortDepth, ['8 a.m.–5 p.m.', '8 a.m.–4 p.m.', 'family admission $8', '$5 golf-cart']],
+  ['resolved destination details', visitDepth, ['7066 FM 864', 'sourceCheckedAt: destination.slug === "fort-mckavett" ? "2026-10-17"']],
   ['historical interpretation', fortAuthority, ['Sgt. Emanuel Stance', 'laundresses', '1973', 'fort-mckavett-history']],
   ['historical timeline', fortTimeline, ['1859–April 1862', '1968–1973', 'fort-mckavett-history']],
   ['image provenance', fortImageProvenance, ['## 7. Fort McKavett', 'SimpleeRandom', 'CC0 1.0', 'File:Fort_McKavett,_Texas.jpg']],
