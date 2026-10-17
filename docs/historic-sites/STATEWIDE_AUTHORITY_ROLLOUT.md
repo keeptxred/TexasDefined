@@ -25,7 +25,7 @@ Reviewed October 12, 2026. This is a persistent implementation and editorial QA 
 - [ ] `/destination/fort-griffin` — authority baseline / editorial research present; final individual live, source and image certification still required
 - [ ] `/destination/fort-lancaster` — authority baseline / editorial research present; final individual live, source and image certification still required
 - [ ] `/destination/fort-martin-scott` — authority baseline / editorial research present; final individual live, source and image certification still required
-- [ ] `/destination/fort-mckavett` — authority baseline / editorial research present; final individual live, source and image certification still required
+- [ ] `/destination/fort-mckavett` — site-specific historical/visitor facts rechecked with THC October 17, 2026; barracks hero file-level CC0 confirmed. Individual production rendering, mobile/accessibility checks and deployed-image confirmation still required before final certification.
 - [ ] `/destination/french-legation` — authority baseline / editorial research present; final individual live, source and image certification still required
 - [ ] `/destination/fulton-mansion` — authority baseline / editorial research present; final individual live, source and image certification still required
 - [ ] `/destination/goodnight-ranch` — authority baseline / editorial research present; final individual live, source and image certification still required
