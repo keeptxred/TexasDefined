@@ -117,7 +117,7 @@ const PARK_UPDATES: Readonly<Record<string, ParkUpdate>> = {
     {
       "question": "Are Doctors Creek and South Sulphur the same entrance?",
       "answer": "No. TPWD treats them as separate Cooper State Park units on opposite shores of Jim Chapman Lake, with different campgrounds and access.",
-      "sourceUrl": "https://tpwd.texas.gov/state-parks/cooper-lake/alert"
+      "sourceUrl": "https://tpwd.texas.gov/state-parks/cooper-lake"
     },
     {
       "question": "Can I use a charcoal grill during the South Sulphur burn ban?",
@@ -154,12 +154,12 @@ const PARK_UPDATES: Readonly<Record<string, ParkUpdate>> = {
     {
       "question": "Are primitive campsites beside the lake?",
       "answer": "Not necessarily. The 16 primitive hike-in sites lie in a different wooded area, and some require a one-mile walk from parking.",
-      "sourceUrl": "https://tpwd.texas.gov/state-parks/lake-bob-sandlin/alert"
+      "sourceUrl": "https://tpwd.texas.gov/state-parks/lake-bob-sandlin/fees-facilities/campsites"
     },
     {
       "question": "Does every fishing activity qualify for a license exemption?",
       "answer": "No. TPWD specifically distinguishes state-park shoreline/pier fishing from fishing out of a boat; confirm the current rules for your method.",
-      "sourceUrl": "https://tpwd.texas.gov/state-parks/lake-bob-sandlin/alert"
+      "sourceUrl": "https://tpwd.texas.gov/state-parks/lake-bob-sandlin"
     }
   ]
 },
@@ -186,7 +186,7 @@ const PARK_UPDATES: Readonly<Record<string, ParkUpdate>> = {
     {
       "question": "Can I cycle every hiking trail at Lake Brownwood?",
       "answer": "No. TPWD states that the 2.9-mile Nopales Ridge Trail is the only hiking trail open to bicycles.",
-      "sourceUrl": "https://tpwd.texas.gov/state-parks/lake-brownwood/alert"
+      "sourceUrl": "https://tpwd.texas.gov/state-parks/lake-brownwood"
     },
     {
       "question": "Are charcoal fires banned at Lake Brownwood?",
