@@ -23,7 +23,7 @@ export const texasNpsHistoricTrailGuides: Article[] = [
     },
     "authorId": "a-dell",
     "publishedAt": "2026-10-17",
-    "readingMinutes": 7,
+    "readingMinutes": 4,
     "tags": [
       "Texas history",
       "National Park Service",
@@ -153,7 +153,7 @@ export const texasNpsHistoricTrailGuides: Article[] = [
     },
     "authorId": "a-dell",
     "publishedAt": "2026-10-17",
-    "readingMinutes": 7,
+    "readingMinutes": 4,
     "tags": [
       "Texas history",
       "National Park Service",
@@ -287,7 +287,7 @@ export const texasNpsHistoricTrailGuides: Article[] = [
     "category": "texas-history",
     "region": "big-bend",
     "hero": {
-      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/YsletaMission.JPG?width=1280",
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/YsletaMission.JPG/1280px-YsletaMission.JPG",
       "alt": "Ysleta Mission church in El Paso, a historic Rio Grande community associated with the Camino Real de Tierra Adentro",
       "width": 1280,
       "height": 960,
@@ -295,7 +295,7 @@ export const texasNpsHistoricTrailGuides: Article[] = [
     },
     "authorId": "a-dell",
     "publishedAt": "2026-10-17",
-    "readingMinutes": 7,
+    "readingMinutes": 4,
     "tags": [
       "Texas history",
       "National Park Service",
