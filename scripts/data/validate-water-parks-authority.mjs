@@ -8,10 +8,13 @@ const headBuilders = readFileSync("src/data/texas-water-parks-seo.ts", "utf8");
 const hubUi = readFileSync("src/routes/explore.water-parks.index.lazy.tsx", "utf8");
 const sitemap = readFileSync("src/routes/sitemap-explore[.]xml.ts", "utf8");
 const explore = readFileSync("src/routes/explore.index.lazy.tsx", "utf8");
+const countyRoute = readFileSync("src/routes/$kind.$slug.tsx", "utf8");
+const countyUi = readFileSync("src/routes/$kind.$slug.lazy.tsx", "utf8");
+const countyWidget = readFileSync("src/components/content/CountyWaterParks.tsx", "utf8");
 const match = source.match(/export const texasWaterParks: WaterParkGuide\[\] = (\[[\s\S]*?\]);\nexport const texasWaterParksBySlug/);
 if (!match) throw new Error("Canonical Texas water-park source registry is missing.");
 const parks = JSON.parse(match[1]);
-if (parks.length < 117) throw new Error(`Water-park census unexpectedly dropped from 117 to ${parks.length} sources.`);
+if (parks.length < 120) throw new Error(`Water-park census unexpectedly dropped from 120 to ${parks.length} sources.`);
 const slugs = new Set();
 const names = new Set();
 for (const park of parks) {
@@ -63,5 +66,6 @@ if (!detailUi.includes('href={`/county/${park.county.toLowerCase().replace(/\\s+
 if (!detailUi.includes("park.visitorFaqs.map") || !detailUi.includes("Official source")) throw new Error("Operator-sourced visitor answers must render with each park-specific source.");
 if (!detailUi.includes("Open map and directions for this venue") || !detailUi.includes("encodeURIComponent(park.visitorAddress)")) throw new Error("Exact-address waterpark visitor guides need map directions.");
 if (detailUi.includes("Check official tickets, hours and rules")) throw new Error("Not every official waterpark source is a booking page.");
+if (!countyRoute.includes("countyWaterParksPromise") || !countyRoute.includes("countyWaterParks") || !countyUi.includes("<CountyWaterParks") || !countyWidget.includes("data-county-water-parks") || !countyWidget.includes("/explore/water-parks/")) throw new Error("County waterpark reverse links must remain source-backed and SSR-visible.");
 if (!explore.includes('to="/explore/water-parks"')) throw new Error("Explore landing must link to the new water-park hub.");
 console.log(`Texas water-park guide contract passed: ${parks.length} unique official-source facilities, primary/fallback sitemaps, venue pages and truthful census scope.`);
