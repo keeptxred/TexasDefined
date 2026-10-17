@@ -164,5 +164,34 @@
     "Use Search Console URL Inspection request-indexing UI for the eight outstanding URLs if manual quota is available; the public URL Inspection API does not expose a request-indexing mutation.",
     "Re-inspect this cohort after Google has had time to recrawl; do not repeatedly resubmit already indexed URLs.",
     "Escalate a page to content/duplication remediation only if URL Inspection, search performance or page-level review identifies a specific defect."
-  ]
+  ],
+  "sitewideSearchPerformance": {
+    "comparison": {
+      "current": {
+        "startDate": "2026-09-17",
+        "endDate": "2026-10-14",
+        "clicks": 377,
+        "impressions": 49949,
+        "ctr": 0.007547698652625679,
+        "averagePosition": 13.248133095757673
+      },
+      "previous": {
+        "startDate": "2026-08-20",
+        "endDate": "2026-09-16",
+        "clicks": 133,
+        "impressions": 33404,
+        "ctr": 0.003981559094719195,
+        "averagePosition": 28.87636211232188
+      },
+      "deltas": {
+        "clicks": 244,
+        "clicksPercent": 183.45864661654133,
+        "impressions": 16545,
+        "impressionsPercent": 49.529996407615855,
+        "ctrPercentagePoints": 0.35661395579064836,
+        "averagePositionImprovement": 15.628229016564205
+      }
+    },
+    "interpretation": "Finalized Search Analytics shows strong sitewide organic growth despite the unresolved URL-level indexing cohort. Do not interpret the remaining eight URL Inspection holdouts as evidence of a sitewide ranking or traffic collapse."
+  }
 }
