@@ -353,6 +353,7 @@ import { Route as FishingCompareRouteImport } from './routes/fishing.compare'
 import { Route as FishingAccessRouteImport } from './routes/fishing.access'
 import { Route as ExploreWildlifeManagementAreasRouteImport } from './routes/explore.wildlife-management-areas'
 import { Route as ExploreWildlifeRouteImport } from './routes/explore.wildlife'
+import { Route as ExploreWaterParksRouteImport } from './routes/explore.water-parks'
 import { Route as ExploreTripPlannerRouteImport } from './routes/explore.trip-planner'
 import { Route as ExploreTopAttractionsRouteImport } from './routes/explore.top-attractions'
 import { Route as ExploreTexasWildflowerSeasonsRouteImport } from './routes/explore.texas-wildflower-seasons'
@@ -453,6 +454,7 @@ import { Route as AdminEntityImportReviewRouteImport } from './routes/admin.enti
 import { Route as AdminEditorialOutreachRouteImport } from './routes/admin.editorial-outreach'
 import { Route as AdminBillingRouteImport } from './routes/admin.billing'
 import { Route as KindSlugRouteImport } from './routes/$kind.$slug'
+import { Route as ExploreWaterParksIndexRouteImport } from './routes/explore.water-parks.index'
 import { Route as ExploreCasinosIndexRouteImport } from './routes/explore.casinos.index'
 import { Route as TexasDataResearchTexasHomeownersPremiumsVsCoverageRouteImport } from './routes/texas-data.research.texas-homeowners-premiums-vs-coverage'
 import { Route as SportsSoftballChar123TeamChar125RouteImport } from './routes/sports.softball.{-$team}'
@@ -473,6 +475,7 @@ import { Route as FishingLakeLakeConroeRouteImport } from './routes/fishing.lake
 import { Route as FishingGuidesSubmitRouteImport } from './routes/fishing.guides.submit'
 import { Route as FishingGuidesSlugRouteImport } from './routes/fishing.guides.$slug'
 import { Route as FishingAccessSlugRouteImport } from './routes/fishing.access.$slug'
+import { Route as ExploreWaterParksSlugRouteImport } from './routes/explore.water-parks.$slug'
 import { Route as ExploreTripTokenRouteImport } from './routes/explore.trip.$token'
 import { Route as ExploreTopAttractionsRoadTripsRouteImport } from './routes/explore.top-attractions.road-trips'
 import { Route as ExploreTopAttractionsMethodologyRouteImport } from './routes/explore.top-attractions.methodology'
@@ -2725,6 +2728,11 @@ const ExploreWildlifeRoute = ExploreWildlifeRouteImport.update({
 } as any).lazy(() =>
   import('./routes/explore.wildlife.lazy').then((d) => d.Route),
 )
+const ExploreWaterParksRoute = ExploreWaterParksRouteImport.update({
+  id: '/explore/water-parks',
+  path: '/explore/water-parks',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExploreTripPlannerRoute = ExploreTripPlannerRouteImport.update({
   id: '/explore/trip-planner',
   path: '/explore/trip-planner',
@@ -3314,6 +3322,13 @@ const KindSlugRoute = KindSlugRouteImport.update({
   path: '/$kind/$slug',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/$kind.$slug.lazy').then((d) => d.Route))
+const ExploreWaterParksIndexRoute = ExploreWaterParksIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ExploreWaterParksRoute,
+} as any).lazy(() =>
+  import('./routes/explore.water-parks.index.lazy').then((d) => d.Route),
+)
 const ExploreCasinosIndexRoute = ExploreCasinosIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -3444,6 +3459,13 @@ const FishingAccessSlugRoute = FishingAccessSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => FishingAccessRoute,
 } as any)
+const ExploreWaterParksSlugRoute = ExploreWaterParksSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ExploreWaterParksRoute,
+} as any).lazy(() =>
+  import('./routes/explore.water-parks.$slug.lazy').then((d) => d.Route),
+)
 const ExploreTripTokenRoute = ExploreTripTokenRouteImport.update({
   id: '/explore/trip/$token',
   path: '/explore/trip/$token',
@@ -4085,6 +4107,7 @@ export interface FileRoutesByFullPath {
   '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
   '/explore/top-attractions': typeof ExploreTopAttractionsRouteWithChildren
   '/explore/trip-planner': typeof ExploreTripPlannerRoute
+  '/explore/water-parks': typeof ExploreWaterParksRouteWithChildren
   '/explore/wildlife': typeof ExploreWildlifeRoute
   '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
   '/fishing/access': typeof FishingAccessRouteWithChildren
@@ -4281,6 +4304,7 @@ export interface FileRoutesByFullPath {
   '/explore/top-attractions/methodology': typeof ExploreTopAttractionsMethodologyRoute
   '/explore/top-attractions/road-trips': typeof ExploreTopAttractionsRoadTripsRoute
   '/explore/trip/$token': typeof ExploreTripTokenRoute
+  '/explore/water-parks/$slug': typeof ExploreWaterParksSlugRoute
   '/fishing/access/$slug': typeof FishingAccessSlugRoute
   '/fishing/guides/$slug': typeof FishingGuidesSlugRoute
   '/fishing/guides/submit': typeof FishingGuidesSubmitRoute
@@ -4301,6 +4325,7 @@ export interface FileRoutesByFullPath {
   '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/casinos/': typeof ExploreCasinosIndexRoute
+  '/explore/water-parks/': typeof ExploreWaterParksIndexRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
@@ -4799,6 +4824,7 @@ export interface FileRoutesByTo {
   '/explore/top-attractions/methodology': typeof ExploreTopAttractionsMethodologyRoute
   '/explore/top-attractions/road-trips': typeof ExploreTopAttractionsRoadTripsRoute
   '/explore/trip/$token': typeof ExploreTripTokenRoute
+  '/explore/water-parks/$slug': typeof ExploreWaterParksSlugRoute
   '/fishing/access/$slug': typeof FishingAccessSlugRoute
   '/fishing/guides/$slug': typeof FishingGuidesSlugRoute
   '/fishing/guides/submit': typeof FishingGuidesSubmitRoute
@@ -4819,6 +4845,7 @@ export interface FileRoutesByTo {
   '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/casinos': typeof ExploreCasinosIndexRoute
+  '/explore/water-parks': typeof ExploreWaterParksIndexRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
@@ -5126,6 +5153,7 @@ export interface FileRoutesById {
   '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
   '/explore/top-attractions': typeof ExploreTopAttractionsRouteWithChildren
   '/explore/trip-planner': typeof ExploreTripPlannerRoute
+  '/explore/water-parks': typeof ExploreWaterParksRouteWithChildren
   '/explore/wildlife': typeof ExploreWildlifeRoute
   '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
   '/fishing/access': typeof FishingAccessRouteWithChildren
@@ -5322,6 +5350,7 @@ export interface FileRoutesById {
   '/explore/top-attractions/methodology': typeof ExploreTopAttractionsMethodologyRoute
   '/explore/top-attractions/road-trips': typeof ExploreTopAttractionsRoadTripsRoute
   '/explore/trip/$token': typeof ExploreTripTokenRoute
+  '/explore/water-parks/$slug': typeof ExploreWaterParksSlugRoute
   '/fishing/access/$slug': typeof FishingAccessSlugRoute
   '/fishing/guides/$slug': typeof FishingGuidesSlugRoute
   '/fishing/guides/submit': typeof FishingGuidesSubmitRoute
@@ -5342,6 +5371,7 @@ export interface FileRoutesById {
   '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/casinos/': typeof ExploreCasinosIndexRoute
+  '/explore/water-parks/': typeof ExploreWaterParksIndexRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
@@ -5650,6 +5680,7 @@ export interface FileRouteTypes {
     | '/explore/texas-wildflower-seasons'
     | '/explore/top-attractions'
     | '/explore/trip-planner'
+    | '/explore/water-parks'
     | '/explore/wildlife'
     | '/explore/wildlife-management-areas'
     | '/fishing/access'
@@ -5846,6 +5877,7 @@ export interface FileRouteTypes {
     | '/explore/top-attractions/methodology'
     | '/explore/top-attractions/road-trips'
     | '/explore/trip/$token'
+    | '/explore/water-parks/$slug'
     | '/fishing/access/$slug'
     | '/fishing/guides/$slug'
     | '/fishing/guides/submit'
@@ -5866,6 +5898,7 @@ export interface FileRouteTypes {
     | '/sports/softball/{-$team}'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/casinos/'
+    | '/explore/water-parks/'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
@@ -6364,6 +6397,7 @@ export interface FileRouteTypes {
     | '/explore/top-attractions/methodology'
     | '/explore/top-attractions/road-trips'
     | '/explore/trip/$token'
+    | '/explore/water-parks/$slug'
     | '/fishing/access/$slug'
     | '/fishing/guides/$slug'
     | '/fishing/guides/submit'
@@ -6384,6 +6418,7 @@ export interface FileRouteTypes {
     | '/sports/softball/{-$team}'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/casinos'
+    | '/explore/water-parks'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
@@ -6690,6 +6725,7 @@ export interface FileRouteTypes {
     | '/explore/texas-wildflower-seasons'
     | '/explore/top-attractions'
     | '/explore/trip-planner'
+    | '/explore/water-parks'
     | '/explore/wildlife'
     | '/explore/wildlife-management-areas'
     | '/fishing/access'
@@ -6886,6 +6922,7 @@ export interface FileRouteTypes {
     | '/explore/top-attractions/methodology'
     | '/explore/top-attractions/road-trips'
     | '/explore/trip/$token'
+    | '/explore/water-parks/$slug'
     | '/fishing/access/$slug'
     | '/fishing/guides/$slug'
     | '/fishing/guides/submit'
@@ -6906,6 +6943,7 @@ export interface FileRouteTypes {
     | '/sports/softball/{-$team}'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/casinos/'
+    | '/explore/water-parks/'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
@@ -7194,6 +7232,7 @@ export interface RootRouteChildren {
   ExploreTexasWildflowerSeasonsRoute: typeof ExploreTexasWildflowerSeasonsRoute
   ExploreTopAttractionsRoute: typeof ExploreTopAttractionsRouteWithChildren
   ExploreTripPlannerRoute: typeof ExploreTripPlannerRoute
+  ExploreWaterParksRoute: typeof ExploreWaterParksRouteWithChildren
   ExploreWildlifeRoute: typeof ExploreWildlifeRoute
   ExploreWildlifeManagementAreasRoute: typeof ExploreWildlifeManagementAreasRoute
   FoodSlugRoute: typeof FoodSlugRoute
@@ -9740,6 +9779,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreWildlifeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/water-parks': {
+      id: '/explore/water-parks'
+      path: '/explore/water-parks'
+      fullPath: '/explore/water-parks'
+      preLoaderRoute: typeof ExploreWaterParksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore/trip-planner': {
       id: '/explore/trip-planner'
       path: '/explore/trip-planner'
@@ -10440,6 +10486,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KindSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/water-parks/': {
+      id: '/explore/water-parks/'
+      path: '/'
+      fullPath: '/explore/water-parks/'
+      preLoaderRoute: typeof ExploreWaterParksIndexRouteImport
+      parentRoute: typeof ExploreWaterParksRoute
+    }
     '/explore/casinos/': {
       id: '/explore/casinos/'
       path: '/'
@@ -10579,6 +10632,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/fishing/access/$slug'
       preLoaderRoute: typeof FishingAccessSlugRouteImport
       parentRoute: typeof FishingAccessRoute
+    }
+    '/explore/water-parks/$slug': {
+      id: '/explore/water-parks/$slug'
+      path: '/$slug'
+      fullPath: '/explore/water-parks/$slug'
+      preLoaderRoute: typeof ExploreWaterParksSlugRouteImport
+      parentRoute: typeof ExploreWaterParksRoute
     }
     '/explore/trip/$token': {
       id: '/explore/trip/$token'
@@ -11558,6 +11618,19 @@ const ExploreTopAttractionsRouteWithChildren =
     ExploreTopAttractionsRouteChildren,
   )
 
+interface ExploreWaterParksRouteChildren {
+  ExploreWaterParksSlugRoute: typeof ExploreWaterParksSlugRoute
+  ExploreWaterParksIndexRoute: typeof ExploreWaterParksIndexRoute
+}
+
+const ExploreWaterParksRouteChildren: ExploreWaterParksRouteChildren = {
+  ExploreWaterParksSlugRoute: ExploreWaterParksSlugRoute,
+  ExploreWaterParksIndexRoute: ExploreWaterParksIndexRoute,
+}
+
+const ExploreWaterParksRouteWithChildren =
+  ExploreWaterParksRoute._addFileChildren(ExploreWaterParksRouteChildren)
+
 interface ExploreNearMetroRouteChildren {
   ExploreNearMetroCollectionRoute: typeof ExploreNearMetroCollectionRoute
 }
@@ -11875,6 +11948,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreTexasWildflowerSeasonsRoute: ExploreTexasWildflowerSeasonsRoute,
   ExploreTopAttractionsRoute: ExploreTopAttractionsRouteWithChildren,
   ExploreTripPlannerRoute: ExploreTripPlannerRoute,
+  ExploreWaterParksRoute: ExploreWaterParksRouteWithChildren,
   ExploreWildlifeRoute: ExploreWildlifeRoute,
   ExploreWildlifeManagementAreasRoute: ExploreWildlifeManagementAreasRoute,
   FoodSlugRoute: FoodSlugRoute,

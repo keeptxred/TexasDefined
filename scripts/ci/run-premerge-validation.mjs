@@ -42,6 +42,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['WATERPARK/AUTHORITY', 'Validate source-linked Texas water parks and statewide routing coverage', 'node', ['scripts/data/validate-water-parks-authority.mjs']],
   ['FOOTBALL/BROWSER', 'Syntax-check playoff mobile production acceptance', 'node', ['--check', 'scripts/ci/verify-football-playoffs-browser.mjs']],
   ['CONTENT/IMAGES', 'Syntax-check official state-park photo resolver', 'node', ['--check', 'scripts/data/sync-state-park-hero-assets.mjs']],
   ['COMMERCE/PRIVACY', 'Verify receipt Google Customer Reviews payload boundaries', 'node', ['--experimental-strip-types', '--test', 'scripts/data/google-customer-reviews.test.mjs']],

@@ -2,14 +2,17 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { casinoGuideBySlug } from "@/data/texas-casino-guides";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 export const Route = createFileRoute("/explore/casinos/$slug")({
   loader: async ({ params }) => {
+    const { casinoGuideBySlug } = await import("@/data/texas-casino-guides");
     const guide = casinoGuideBySlug.get(params.slug);
     if (!guide) throw notFound();
-    return guide;
+    return { ...guide, relatedGuides: guide.relatedSlugs.flatMap((slug) => {
+      const match = casinoGuideBySlug.get(slug);
+      return match ? [match] : [];
+    }) };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ name: "robots", content: "noindex, nofollow" }] };
@@ -46,10 +49,7 @@ export const Route = createFileRoute("/explore/casinos/$slug")({
 
 function CasinoGuidePage() {
   const guide = Route.useLoaderData();
-  const related = guide.relatedSlugs.flatMap((slug) => {
-    const match = casinoGuideBySlug.get(slug);
-    return match ? [match] : [];
-  });
+  const related = guide.relatedGuides;
   return <main>
     <section className="border-b border-border bg-ink text-ink-foreground">
       <Container className="py-12 sm:py-16">

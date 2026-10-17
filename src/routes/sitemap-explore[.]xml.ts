@@ -126,7 +126,21 @@ async function resolveDestinationCatalog(destinations: Destination[]) {
   ).map(applyHistoricSiteFactCorrections);
 }
 
-function emergencyExploreSitemapResponse(error: unknown) {
+// Keep the 91-row research registry out of the eagerly evaluated route module
+// and off the initial browser bundle. Uncertified leaves never enter the sitemap.
+async function indexReadyWaterParkPaths(): Promise<string[]> {
+  try {
+    const { texasWaterParks } = await import("@/data/texas-water-parks");
+    return texasWaterParks
+      .filter((park) => park.authorityReady)
+      .map((park) => `/explore/water-parks/${park.slug}`);
+  } catch (error) {
+    console.error("Explore water-park sitemap source unavailable; omitting unverified leaves", error);
+    return [];
+  }
+}
+
+async function emergencyExploreSitemapResponse(error: unknown) {
   console.error("Explore sitemap generation failed; serving governed static fallback", error);
   const fallbackPaths = [
     "/explore",
@@ -136,6 +150,8 @@ function emergencyExploreSitemapResponse(error: unknown) {
     "/explore/attractions-comparison",
     "/explore/museums",
     "/explore/aquariums",
+    "/explore/water-parks",
+    ...(await indexReadyWaterParkPaths()),
     ...CASINO_GUIDE_PATHS,
     "/explore/rv-parks",
     "/explore/wildlife",
@@ -346,6 +362,8 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/attractions-comparison",
           "/explore/museums",
           "/explore/aquariums",
+          "/explore/water-parks",
+          ...(await indexReadyWaterParkPaths()),
           ...CASINO_GUIDE_PATHS,
           "/explore/rv-parks",
           "/explore/wildlife",

@@ -10,6 +10,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/explore/attractions-comparison",
   "/explore/museums",
   "/explore/aquariums",
+  "/explore/water-parks",
   "/explore/casinos",
   "/explore/casinos/kickapoo-lucky-eagle",
   "/explore/casinos/naskila-livingston",
