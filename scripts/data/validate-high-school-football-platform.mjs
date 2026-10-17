@@ -1043,7 +1043,7 @@ if (!errors.length) {
     'Private-school football uses its association’s own alignment system.',
     "privateAlignment.sourceKind === 'official-association'",
     'privateAlignmentLabel',
-    'All current UIL football programs use the same profile system.',
+    'Related href="/texas-high-school-football-teams"',
     'Open full district guide →',
     'districtPath',
     '/article/texas-high-school-football-scores-schedules',
