@@ -23,13 +23,17 @@ const expectedSlugs = [
   "atlanta-state-park-swim-beach",
   "cedron-creek-park-swimming-beach",
   "lake-brownwood-state-park-swim-beach",
+  "fort-richardson-north-park-swimming-beach",
+  "cooper-state-park-south-sulphur-swimming-beach",
+  "lake-colorado-city-state-park-swimming-beach",
+  "ratcliff-lake-recreation-area-swimming-beach",
 ];
 const recordsFound = [...records.matchAll(/^\s+slug: "([^"]+)",$/gm)].map((match) => match[1]);
 assert.deepEqual(recordsFound, expectedSlugs, "The eight agency-verified beach records should stay stable and unique.");
 assert.equal(new Set(recordsFound).size, expectedSlugs.length);
 const sourceLinks = [...records.matchAll(/^\s+officialUrl: "(https:\/\/[^"]+)",$/gm)].map((match) => match[1]);
 assert.equal(sourceLinks.length, expectedSlugs.length, "Every beach needs a first-party agency source");
-assert.ok(sourceLinks.every((link) => link.startsWith("https://tpwd.texas.gov/")), "Sources should be official managing-agency evidence");
+assert.ok(sourceLinks.every((link) => link.startsWith("https://tpwd.texas.gov/") || link.startsWith("https://www.fs.usda.gov/")), "All URLs must be from official managing agencies");
 for (const key of ["name", "county", "lake", "nearestTown", "managingAgency", "evidence", "experience", "arrival", "safety", "nearby"]) {
   assert.equal([...records.matchAll(new RegExp('^\\s+' + key + ': "', 'gm'))].length, expectedSlugs.length, `Missing beach property: ${key}`);
 }
