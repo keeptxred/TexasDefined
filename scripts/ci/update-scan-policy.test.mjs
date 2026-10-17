@@ -28,6 +28,27 @@ test('blanket deployment subscriptions and duplicate validation cannot return', 
   for (const guard of ['verify-production-health.mjs','capture-active-worker-version.mjs','verified-worker-ledger.mjs record','verify-changed-production-pages.mjs']) assert.ok(deploy.includes(guard));
 });
 
+test('new water park registry rows receive four bounded route-specific production checks', () => {
+  const file = 'src/data/texas-water-parks.ts';
+  const wrap = records => 'export const texasWaterParks: WaterParkGuide[] = ' + JSON.stringify(records)
+    + ';\\nexport const texasWaterParksBySlug';
+  const old = [{ slug: 'existing-park', name: 'Existing', setting: 'Outdoor', kind: 'Destination park' }];
+  const added = [
+    { slug: 'new-indoor', setting: 'Indoor', kind: 'Community water park' },
+    { slug: 'new-resort', setting: 'Outdoor', kind: 'Resort water park' },
+    { slug: 'new-lagoon', setting: 'Outdoor', kind: 'Inflatable lake water park' },
+    { slug: 'new-aqua', setting: 'Outdoor', kind: 'Inflatable lake water park' },
+  ];
+  const plan = buildChangePlan({ baseline, head, changedFiles: [file],
+    sources: { [file]: { before: wrap(old), after: wrap([...old, ...added]) } },
+  });
+  const paths = added.map(park => '/explore/water-parks/' + park.slug);
+  assert.deepEqual(plan.expectedHrefsByPage['/explore/water-parks'], paths);
+  for (const path of ['/explore/water-parks', ...paths]) assert.ok(plan.selectedPaths.includes(path));
+  assert.equal(plan.omittedCount, 0);
+  assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
+});
+
 test('workflow-only changes select no public pages or feature crawls', () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['.github/workflows/validate.yml'] });
   assert.deepEqual(plan.selectedPaths, []);
