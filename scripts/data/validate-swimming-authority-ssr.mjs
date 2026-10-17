@@ -19,6 +19,18 @@ const officialSourceMigration = read("supabase/migrations/20261014215400_swim_fl
 const currentAlertSources = read("supabase/migrations/20261017145000_swim_float_current_alert_sources.sql");
 const errors = [];
 
+const queueFixMigration = read("supabase/migrations/20261017231000_td_authority_queue_unreviewed_source_alerts.sql");
+if (!queueFixMigration.includes("s.last_checked_at > r.last_verified_at")) errors.push("Authority review queue lost the after-editorial-verification alert gate.");
+for (const marker of [
+  "https://upload.wikimedia.org/wikipedia/commons/7/7b/Garner_state_park.jpg",
+  "https://commons.wikimedia.org/wiki/File:Garner_state_park.jpg",
+  "Larry D. Moore",
+  "https://creativecommons.org/licenses/by/4.0/",
+]) {
+  if (!publicAuthority.includes(marker)) errors.push("Swim guide Garner photo lost source or credit: " + marker);
+}
+
+
 const mobileComparisonClass = 'class="mt-6 grid gap-5 md:hidden"';
 const desktopComparisonClass = 'class="mt-6 hidden overflow-x-auto md:block"';
 if (!publicAuthority.includes(mobileComparisonClass) || !publicAuthority.includes(desktopComparisonClass)) {
