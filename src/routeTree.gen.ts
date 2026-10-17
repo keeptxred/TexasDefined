@@ -370,6 +370,7 @@ import { Route as ExploreNationalWildlifeRefugesRouteImport } from './routes/exp
 import { Route as ExploreMuseumsRouteImport } from './routes/explore.museums'
 import { Route as ExploreLighthousesRouteImport } from './routes/explore.lighthouses'
 import { Route as ExploreLandscapesRouteImport } from './routes/explore.landscapes'
+import { Route as ExploreInlandBeachesRouteImport } from './routes/explore.inland-beaches'
 import { Route as ExploreHillCountrySpringsRouteImport } from './routes/explore.hill-country-springs'
 import { Route as ExploreCasinosRouteImport } from './routes/explore.casinos'
 import { Route as ExploreAttractionsComparisonRouteImport } from './routes/explore.attractions-comparison'
@@ -508,6 +509,7 @@ import { Route as ExplorePaintedChurchesSlugRouteImport } from './routes/explore
 import { Route as ExploreNearMetroRouteImport } from './routes/explore.near.$metro'
 import { Route as ExploreLandscapesSlugRouteImport } from './routes/explore.landscapes.$slug'
 import { Route as ExploreLakeSlugRouteImport } from './routes/explore.lake.$slug'
+import { Route as ExploreInlandBeachesSlugRouteImport } from './routes/explore.inland-beaches.$slug'
 import { Route as ExploreCountyCountyRouteImport } from './routes/explore.county.$county'
 import { Route as ExploreCavernSlugRouteImport } from './routes/explore.cavern.$slug'
 import { Route as ExploreCasinosSlugRouteImport } from './routes/explore.casinos.$slug'
@@ -2825,6 +2827,11 @@ const ExploreLandscapesRoute = ExploreLandscapesRouteImport.update({
 } as any).lazy(() =>
   import('./routes/explore.landscapes.lazy').then((d) => d.Route),
 )
+const ExploreInlandBeachesRoute = ExploreInlandBeachesRouteImport.update({
+  id: '/explore/inland-beaches',
+  path: '/explore/inland-beaches',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExploreHillCountrySpringsRoute =
   ExploreHillCountrySpringsRouteImport.update({
     id: '/explore/hill-country-springs',
@@ -3662,6 +3669,12 @@ const ExploreLakeSlugRoute = ExploreLakeSlugRouteImport.update({
   path: '/explore/lake/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExploreInlandBeachesSlugRoute =
+  ExploreInlandBeachesSlugRouteImport.update({
+    id: '/$slug',
+    path: '/$slug',
+    getParentRoute: () => ExploreInlandBeachesRoute,
+  } as any)
 const ExploreCountyCountyRoute = ExploreCountyCountyRouteImport.update({
   id: '/explore/county/$county',
   path: '/explore/county/$county',
@@ -4091,6 +4104,7 @@ export interface FileRoutesByFullPath {
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
   '/explore/casinos': typeof ExploreCasinosRouteWithChildren
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/inland-beaches': typeof ExploreInlandBeachesRouteWithChildren
   '/explore/landscapes': typeof ExploreLandscapesRouteWithChildren
   '/explore/lighthouses': typeof ExploreLighthousesRoute
   '/explore/museums': typeof ExploreMuseumsRoute
@@ -4272,6 +4286,7 @@ export interface FileRoutesByFullPath {
   '/explore/casinos/$slug': typeof ExploreCasinosSlugRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/inland-beaches/$slug': typeof ExploreInlandBeachesSlugRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
   '/explore/landscapes/$slug': typeof ExploreLandscapesSlugRoute
   '/explore/near/$metro': typeof ExploreNearMetroRouteWithChildren
@@ -4612,6 +4627,7 @@ export interface FileRoutesByTo {
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/inland-beaches': typeof ExploreInlandBeachesRouteWithChildren
   '/explore/landscapes': typeof ExploreLandscapesRouteWithChildren
   '/explore/lighthouses': typeof ExploreLighthousesRoute
   '/explore/museums': typeof ExploreMuseumsRoute
@@ -4792,6 +4808,7 @@ export interface FileRoutesByTo {
   '/explore/casinos/$slug': typeof ExploreCasinosSlugRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/inland-beaches/$slug': typeof ExploreInlandBeachesSlugRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
   '/explore/landscapes/$slug': typeof ExploreLandscapesSlugRoute
   '/explore/near/$metro': typeof ExploreNearMetroRouteWithChildren
@@ -5137,6 +5154,7 @@ export interface FileRoutesById {
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
   '/explore/casinos': typeof ExploreCasinosRouteWithChildren
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/inland-beaches': typeof ExploreInlandBeachesRouteWithChildren
   '/explore/landscapes': typeof ExploreLandscapesRouteWithChildren
   '/explore/lighthouses': typeof ExploreLighthousesRoute
   '/explore/museums': typeof ExploreMuseumsRoute
@@ -5318,6 +5336,7 @@ export interface FileRoutesById {
   '/explore/casinos/$slug': typeof ExploreCasinosSlugRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/inland-beaches/$slug': typeof ExploreInlandBeachesSlugRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
   '/explore/landscapes/$slug': typeof ExploreLandscapesSlugRoute
   '/explore/near/$metro': typeof ExploreNearMetroRouteWithChildren
@@ -5664,6 +5683,7 @@ export interface FileRouteTypes {
     | '/explore/attractions-comparison'
     | '/explore/casinos'
     | '/explore/hill-country-springs'
+    | '/explore/inland-beaches'
     | '/explore/landscapes'
     | '/explore/lighthouses'
     | '/explore/museums'
@@ -5845,6 +5865,7 @@ export interface FileRouteTypes {
     | '/explore/casinos/$slug'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
+    | '/explore/inland-beaches/$slug'
     | '/explore/lake/$slug'
     | '/explore/landscapes/$slug'
     | '/explore/near/$metro'
@@ -6185,6 +6206,7 @@ export interface FileRouteTypes {
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
     | '/explore/hill-country-springs'
+    | '/explore/inland-beaches'
     | '/explore/landscapes'
     | '/explore/lighthouses'
     | '/explore/museums'
@@ -6365,6 +6387,7 @@ export interface FileRouteTypes {
     | '/explore/casinos/$slug'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
+    | '/explore/inland-beaches/$slug'
     | '/explore/lake/$slug'
     | '/explore/landscapes/$slug'
     | '/explore/near/$metro'
@@ -6709,6 +6732,7 @@ export interface FileRouteTypes {
     | '/explore/attractions-comparison'
     | '/explore/casinos'
     | '/explore/hill-country-springs'
+    | '/explore/inland-beaches'
     | '/explore/landscapes'
     | '/explore/lighthouses'
     | '/explore/museums'
@@ -6890,6 +6914,7 @@ export interface FileRouteTypes {
     | '/explore/casinos/$slug'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
+    | '/explore/inland-beaches/$slug'
     | '/explore/lake/$slug'
     | '/explore/landscapes/$slug'
     | '/explore/near/$metro'
@@ -7216,6 +7241,7 @@ export interface RootRouteChildren {
   ExploreAttractionsComparisonRoute: typeof ExploreAttractionsComparisonRoute
   ExploreCasinosRoute: typeof ExploreCasinosRouteWithChildren
   ExploreHillCountrySpringsRoute: typeof ExploreHillCountrySpringsRoute
+  ExploreInlandBeachesRoute: typeof ExploreInlandBeachesRouteWithChildren
   ExploreLandscapesRoute: typeof ExploreLandscapesRouteWithChildren
   ExploreLighthousesRoute: typeof ExploreLighthousesRoute
   ExploreMuseumsRoute: typeof ExploreMuseumsRoute
@@ -9898,6 +9924,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreLandscapesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/inland-beaches': {
+      id: '/explore/inland-beaches'
+      path: '/explore/inland-beaches'
+      fullPath: '/explore/inland-beaches'
+      preLoaderRoute: typeof ExploreInlandBeachesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore/hill-country-springs': {
       id: '/explore/hill-country-springs'
       path: '/explore/hill-country-springs'
@@ -10864,6 +10897,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreLakeSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/inland-beaches/$slug': {
+      id: '/explore/inland-beaches/$slug'
+      path: '/$slug'
+      fullPath: '/explore/inland-beaches/$slug'
+      preLoaderRoute: typeof ExploreInlandBeachesSlugRouteImport
+      parentRoute: typeof ExploreInlandBeachesRoute
+    }
     '/explore/county/$county': {
       id: '/explore/county/$county'
       path: '/explore/county/$county'
@@ -11421,6 +11461,17 @@ const ExploreCasinosRouteWithChildren = ExploreCasinosRoute._addFileChildren(
   ExploreCasinosRouteChildren,
 )
 
+interface ExploreInlandBeachesRouteChildren {
+  ExploreInlandBeachesSlugRoute: typeof ExploreInlandBeachesSlugRoute
+}
+
+const ExploreInlandBeachesRouteChildren: ExploreInlandBeachesRouteChildren = {
+  ExploreInlandBeachesSlugRoute: ExploreInlandBeachesSlugRoute,
+}
+
+const ExploreInlandBeachesRouteWithChildren =
+  ExploreInlandBeachesRoute._addFileChildren(ExploreInlandBeachesRouteChildren)
+
 interface ExploreLandscapesRouteChildren {
   ExploreLandscapesSlugRoute: typeof ExploreLandscapesSlugRoute
 }
@@ -11931,6 +11982,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreAttractionsComparisonRoute: ExploreAttractionsComparisonRoute,
   ExploreCasinosRoute: ExploreCasinosRouteWithChildren,
   ExploreHillCountrySpringsRoute: ExploreHillCountrySpringsRoute,
+  ExploreInlandBeachesRoute: ExploreInlandBeachesRouteWithChildren,
   ExploreLandscapesRoute: ExploreLandscapesRouteWithChildren,
   ExploreLighthousesRoute: ExploreLighthousesRoute,
   ExploreMuseumsRoute: ExploreMuseumsRoute,
