@@ -54,6 +54,7 @@ function Page() {
     'bogata-rivercrest': 'red-river', // TEA campus 194903001 / NCES identify Rivercrest High in Red River County.
     bonham: 'fannin', // Bonham High School official Warpath Drive campus, Fannin County.
     boling: 'wharton', // NCES school 481078000541 identifies Boling High's Wharton County campus.
+    booker: 'lipscomb', // NCES 481083000550 confirms Booker Junior High/High School 6–12 campus in Lipscomb County.
     blum: 'hill', // Blum ISD campus in Hill County.
     'bluff-dale': 'erath', // Bluff Dale ISD in Erath County.
     'baytown-goose-creek-memorial': 'harris',

@@ -2945,6 +2945,187 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-17"
     }
   },
+  "booker": {
+    "slug": "booker",
+    "theme": {
+      "accentHex": "#7C3446",
+      "label": "Independent editorial maroon; no district athletic marks reproduced"
+    },
+    "seo": {
+      "title": "Booker Kiowas Six-Man Football 2026 | UIL District, Scores & Coach",
+      "description": "Booker Kiowas 2026 six-man football in Lipscomb County: coach David Biddler, UIL 1A Division I District 1, 4–3 to October 9 and 2025 district title."
+    },
+    "coach": {
+      "name": "David Biddler",
+      "title": "Booker ISD football head coach",
+      "sourceUrl": "https://bookerisd.net/athletics",
+      "sourceLabel": "Current Booker ISD coaching assignments: David Biddler head football, Shane Woods assistant (not a third-party guess)",
+      "verifiedAt": "2026-10-16"
+    },
+    "campus": {
+      "address": "600 South Main Street, Booker, TX 79005",
+      "phone": "806-658-4521",
+      "sourceUrl": "https://nces.ed.gov/ccd/schooLSearch/school_detail.asp?ID=481083000550&SchoolPageNum=55&state=48",
+      "sourceLabel": "2025–26 NCES Booker Junior High/High School physical address and school phone; Booker ISD central office phone 806-658-4501, not same office number",
+      "verifiedAt": "2026-10-16"
+    },
+    "schedule": {
+      "label": "Booker ISD official high-school and junior-high football calendars",
+      "sourceUrl": "https://bookerisd.net/athletics",
+      "sourceLabel": "District school-maintained HS–JH athletics schedules; verify live event field and kickoff",
+      "verifiedAt": "2026-10-16"
+    },
+    "notice": {
+      "title": "Booker Kiowas are a six-man football program in Lipscomb County",
+      "body": "The 2026 UIL 1A Division I six-man District 1 includes Booker, Boys Ranch, Claude, White Deer and Wildorado. Do not substitute Booker T. Washington Houston, Florida's Booker Tornadoes or a stale eleven-man team. Booker ISD head football coach David Biddler is named in the district's current athletics assignments. NCES identifies the 600 South Main physical Booker Junior High/High School campus, but precise home-game stadium vehicle gate, parking, accessible seating, online/cash ticket policies and reuse license for team images were not independently certified.",
+      "sourceUrl": "https://bookerisd.net/athletics",
+      "sourceLabel": "Booker ISD official current coaching assignment and school football resource",
+      "verifiedAt": "2026-10-16"
+    },
+    "season": {
+      "record": "4–3 through October 9, 2026 (MaxPreps schedule updated October 11; 0–1 district)",
+      "verifiedAt": "2026-10-16",
+      "sourceUrl": "https://www.maxpreps.com/tx/booker/booker-kiowas/football/schedule/",
+      "sourceLabel": "MaxPreps dedicated 2026 Booker Kiowas varsity six-man results; Oct9 Claude 0–48 matches separate Oct10 recap",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Miami",
+          "site": "Home",
+          "result": "W 64–0"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "McLean",
+          "site": "Away",
+          "result": "L 34–63"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Groom",
+          "site": "Home",
+          "result": "W 62–14"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Follett",
+          "site": "Home",
+          "result": "W 61–14"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Motley County",
+          "site": "Away",
+          "result": "L 20–72"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Chillicothe",
+          "site": "Away",
+          "result": "W 77–32"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Claude",
+          "site": "Home",
+          "district": true,
+          "result": "L 0–48"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "White Deer",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Wildorado",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-05",
+          "opponent": "Boys Ranch",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "development": {
+      "title": "2025 district unbeaten campaign and 2026 six-man reset",
+      "body": "Booker won all four 2025 conference contests, ended 9–3 overall and reached the six-man postseason according to its archived MaxPreps varsity schedule: wins over Springlake-Earth 75–58 in the first playoff round followed by a 98–48 defeat to Whiteface. This is a two-round postseason, not a state title; the six-man District 1 competitors for 2026–28 are officially Boys Ranch, Booker, Claude, White Deer and Wildorado. The 2026 Kiowas were 4–3 through an October 9 district loss to Claude, 48–0. This game was the first 2026 home defeat and a dated snapshot, not a forecast of the season.",
+      "sourceUrl": "https://www.maxpreps.com/tx/booker/booker-kiowas/football/25-26/schedule/",
+      "sourceLabel": "Complete 2025 Booker varsity archive paired with Oct 11 2026 updated varsity results; district officially sourced to UIL",
+      "verifiedAt": "2026-10-16"
+    },
+    "milestones": [
+      {
+        "date": "2025",
+        "title": "Undefeated 4–0 district 2025 campaign",
+        "body": "Booker finished 9–3, won its 2025 district 4–0 and defeated Springlake-Earth 75–58 in a six-man playoff before Whiteface ended the season 98–48.",
+        "sourceUrl": "https://www.maxpreps.com/tx/booker/booker-kiowas/football/25-26/schedule/",
+        "sourceLabel": "MaxPreps completed 2025 six-man schedule"
+      },
+      {
+        "date": "2026",
+        "title": "Class 1A Division I, District 1",
+        "body": "UIL lists Boys Ranch, Booker, Claude, White Deer and Wildorado in the official 2026–28 six-man District 1.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 official six-man alignment"
+      },
+      {
+        "date": "2026-10-02",
+        "title": "Kiowas score 77 at Chillicothe",
+        "body": "Booker won 77–32 on October 2 to move to 4–2 before the next district game.",
+        "sourceUrl": "https://www.maxpreps.com/tx/booker/booker-kiowas/football/schedule/",
+        "sourceLabel": "Dated six-man scoreboard"
+      },
+      {
+        "date": "2026-10-09",
+        "title": "Claude ends Booker's unbeaten home start",
+        "body": "Claude beat Booker 48–0 on Oct9, moving Booker to 4–3 overall and 0–1 in its new district.",
+        "sourceUrl": "https://www.maxpreps.com/tx/booker/booker-kiowas/football/",
+        "sourceLabel": "Oct9 Booker result and Oct10 MaxPreps game recap"
+      }
+    ],
+    "overview": [
+      "Booker ISD's Kiowas represent Booker Junior High/High School in Lipscomb County, Texas, not the Houston Booker T. Washington Eagles or Florida Booker Tornadoes. Booker competes in six-man football. The governing 2026–28 UIL Class 1A Division I District 1 includes Boys Ranch, Claude, White Deer and Wildorado alongside Booker; these are different classifications and scheduling rules than eleven-man programs.",
+      "Booker football under head coach David Biddler has a meaningful recent six-man result to evaluate: its 2025 Kiowas completed a 9–3 season with a perfect 4–0 district mark. They beat Springlake-Earth 75–58 in the postseason, then lost 98–48 to Whiteface. That is a playoff appearance, not a championship; neither a generic score archive nor a mascot likeness licenses a title claim.",
+      "In 2026, Booker opened with a 64–0 Miami shutout, lost at McLean, defeated Groom and Follett, fell at Motley County, then won 77–32 at Chillicothe. Claude handed the Kiowas a 48–0 home loss October 9 in the District 1 opener, leaving them 4–3 through that date. White Deer, Wildorado and Boys Ranch are subsequent fixtures in this school-specific as-of-date schedule, not certified results for games still underway or future.",
+      "Booker ISD directly identifies David Biddler as football head coach and Shane Woods as assistant coach. The National Center for Education Statistics records Booker Junior High/High School at 600 South Main Street, Booker TX 79005, school phone 806-658-4521, and identifies the campus as grades 6–12 in Lipscomb County. The district's separate general office uses 806-658-4501. Do not substitute the general office number or claim the campus address is an independently confirmed stadium gate.",
+      "Booker's 2026 scoring swings—77–32 at Chillicothe, 0–48 against Claude—show why six-man matchups need dated, game-level reporting. The school maintains an official HS–JH football schedule and coaching page, but exact entry lane, ticket acceptance, accessible seating and photo rights have not been verified for each game; fans should confirm through Booker ISD Athletics rather than interpreting a scraped map coordinate as certified event access."
+    ],
+    "faq": [
+      {
+        "question": "Is Booker Kiowas football six-man or eleven-man?",
+        "answer": "Booker ISD is assigned to Class 1A Division I six-man District 1 for 2026–28, with Boys Ranch, Claude, White Deer and Wildorado. It is not eleven-man football."
+      },
+      {
+        "question": "Who coaches Booker Kiowas football?",
+        "answer": "Booker ISD's official current Athletics coaching assignments name David Biddler head football coach and Shane Woods assistant coach. These first-party roles take precedence over a missing third-party historical coach field."
+      },
+      {
+        "question": "What was Booker's 2025 six-man football finish?",
+        "answer": "The completed 2025 MaxPreps archive lists Booker 9–3 overall and 4–0 in district, with a postseason win over Springlake-Earth followed by a loss to Whiteface. This was not a UIL state championship."
+      },
+      {
+        "question": "What was Booker's record through the October 9 Claude game?",
+        "answer": "Booker was 4–3 following a 48–0 home loss to Claude on October 9, 2026. MaxPreps' separately dated Oct10 recap supports the score. Upcoming White Deer, Wildorado and Boys Ranch games are not verified final outcomes."
+      },
+      {
+        "question": "Where is Booker Junior High/High School?",
+        "answer": "NCES records the 6–12 campus at 600 South Main Street, Booker TX 79005, phone 806-658-4521, in Lipscomb County. The district office at the same street address uses 806-658-4501."
+      },
+      {
+        "question": "Does the Booker campus address identify the football stadium gate?",
+        "answer": "No precise stadium vehicle entrance, accessible parking layout or ticket policy has been independently verified. The 600 South Main campus address is a first-party/NCES school contact, not certified game-day parking or gate guidance."
+      },
+      {
+        "question": "Where can I check the Booker football schedule and tickets?",
+        "answer": "Booker ISD posts a current high-school and junior-high football schedule on its official Athletics page. Check the school for venue changes, parking, seating and event-specific ticket rules before attending."
+      }
+    ]
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {
