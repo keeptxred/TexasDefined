@@ -10,7 +10,8 @@ export const Route = createFileRoute("/explore/inland-beaches/$slug")({
     const beach = inlandBeachBySlug(params.slug);
     if (!beach) throw notFound();
     const otherBeaches = inlandSwimmingBeaches.filter((item) => item.slug !== beach.slug && (item.lake === beach.lake || item.county === beach.county)).slice(0, 4);
-    return { beach, otherBeaches };
+    const { inlandBeachPhotos } = await import("@/data/inland-beach-photos");
+    return { beach, otherBeaches, photo: inlandBeachPhotos[beach.slug] ?? null };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
@@ -51,7 +52,7 @@ export const Route = createFileRoute("/explore/inland-beaches/$slug")({
 });
 
 function InlandBeachAuthorityPage() {
-  const { beach, otherBeaches } = Route.useLoaderData();
+  const { beach, otherBeaches, photo } = Route.useLoaderData();
   const countyPaths = beach.county.split(" /").map((county) => ({
     name: county.trim(),
     slug: county.trim().toLowerCase().replace(/\s+/g,"-"),
@@ -72,6 +73,17 @@ function InlandBeachAuthorityPage() {
           <Link to="/explore/inland-beaches" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Compare other lake beaches →</Link>
         </div>
       </header>
+      {beach.statusNotice && <section className="mt-7 border-l-2 border-foreground bg-surface px-5 py-5" aria-label="Important current beach access warning">
+        <h2 className="font-semibold">Swimming access alert — verify before traveling</h2>
+        <p className="mt-2 text-sm leading-7">{beach.statusNotice}</p>
+        {beach.statusUrl && <a href={beach.statusUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold underline underline-offset-4">See the official current lake-status report →</a>}
+      </section>}
+      {photo && <figure className="mt-8 border border-border">
+        <img src={photo.src} alt={photo.alt} width={1280} height={820} loading="lazy" decoding="async" className="aspect-video w-full object-cover" />
+        <figcaption className="p-4 text-xs leading-6 text-muted-foreground">
+          {photo.caption} Photo: {photo.photographer} · <a href={photo.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Original image</a> · <a href={photo.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">CC BY 4.0 license</a>. No alterations claimed.
+        </figcaption>
+      </figure>}
       <div className="mt-10 grid gap-10 lg:grid-cols-2">
         <div className="min-w-0">
           <section aria-labelledby="beach-quick-answer">
