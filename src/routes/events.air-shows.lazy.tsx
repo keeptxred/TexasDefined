@@ -45,6 +45,12 @@ const showDetails: Record<string, { kind: string; planning: string; tickets?: st
 
 // These are discoveries from the 2026 season, NOT announcements of 2027 occurrences.
 // They are intentionally not given fabricated new dates or thin event-guide URLs.
+const historicalGuidePaths: Record<string, string> = {
+  "WASP Homecoming & Fly-In": "/event/wasp-homecoming-fly-in",
+  "Wings Over South Texas": "/event/wings-over-south-texas",
+  "The Great Texas Air Show": "/event/great-texas-airshow",
+};
+
 const historical2026 = [
   ["Stars and Stripes Air Show Spectacular", "Laredo"],
   ["Stephanie Nichols Annual Car & Plane Show", "Georgetown"],
@@ -161,7 +167,7 @@ function TexasAirShowsPage() {
         <h2 className="font-display text-3xl">Other Texas aviation events to watch</h2>
         <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">These were identified in the 2026 Texas air-show season inventory. They are a research checklist, not a live 2027 calendar. Each needs a fresh organizer confirmation before Texas Defined publishes new dates, ticket availability or a standalone authority guide.</p>
         <ul className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {historical2026.map(([name, city]) => <li key={name} className="border border-border px-4 py-4"><strong className="block">{name}</strong><span className="mt-1 block text-sm text-muted-foreground">{city} · next date not verified</span></li>)}
+          {historical2026.map(([name, city]) => <li key={name} className="border border-border px-4 py-4">{historicalGuidePaths[name] ? <a href={historicalGuidePaths[name]} className="block font-semibold text-primary underline">{name} — full planning guide →</a> : <strong className="block">{name}</strong>}<span className="mt-1 block text-sm text-muted-foreground">{city} · next date not verified</span></li>)}
         </ul>
         <p className="mt-5 text-sm text-muted-foreground">Historical discovery source: <a className="underline" href="https://www.airshowcenter.com/airshows/1-43/texas/all" target="_blank" rel="noopener noreferrer">Air Show Center's 2026 Texas listings</a>. That independent calendar is not a substitute for official confirmation.</p>
       </section>
