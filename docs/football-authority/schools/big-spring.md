@@ -1,5 +1,10 @@
 # Big Spring Steers — individual Batch 006 research dossier
 
+## October 17, 2026 — dated October 16 result replaces previous unverified status
+
+Seminole beat Big Spring 43–16 on October 16; the Steers' previous Lake View win remains in the 2026 record. **1–6** through October 16, 2026 based on reported final scores. [Contemporary source: KCBD/FOX34 October 17 South Plains football finals, corroborated by the Houston Chronicle statewide score listing](https://www.fox34.com/2026/10/17/end-zone-final-scores-friday-oct-16/). Earlier dossier notes treating this individual fixture as upcoming or unresolved are historical and superseded by this score evidence only. Full UIL score certification, photo rights, staffing questions, specific stadium entrance and 320/390 desktop/mobile Chrome editorial acceptance remain separate pending work.
+
+
 **Research checkpoint:** October 15, 2026. **Canonical profile:** `/texas-high-school-football-teams/big-spring`. **Status: IMPLEMENTED ON PR #4970 ONLY** (school-specific authored entry in `program-editorial.ts`); not merged/deployed/Chrome-verified or editorially accepted. Preserve the 105 previously verified programs and Harmony's separately deployed, not verified status.
 
 ## Identity and UIL classification

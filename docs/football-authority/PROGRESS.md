@@ -1,5 +1,19 @@
 # Football Authority — Execution Ledger
 
+## October 17, 2026 — October 16 varsity results independently reconciled (source-backed)
+- `bovina`: Gruver **L 0–55**, 3–4 through Oct 16; [published October 16/17 report](https://www.fox34.com/2026/10/17/end-zone-final-scores-friday-oct-16/).
+- `bowie-gold-burg`: Woodson **L 53–58**, 2–6 through Oct 16; [published October 16/17 report](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php).
+- `booker`: White Deer **L 22–38**, 4–4 through Oct 16; [published October 16/17 report](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php).
+- `borden-county`: Westbrook **W 54–28**, 7–0 through Oct 16; [published October 16/17 report](https://www.fox34.com/2026/10/17/end-zone-final-scores-friday-oct-16/).
+- `blackwell`: Trent **W 67–6**, 6–2 through Oct 16; [published October 16/17 report](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php).
+- `blanco`: Karnes City **W 54–6**, 5–3 through Oct 16; [published October 16/17 report](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php).
+- `bloomington`: Danbury **W 42–0**, 3–5 through Oct 16; [published October 16/17 report](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php).
+- `boerne`: Liberty Hill **W 49–7**, 7–0 through Oct 16; [published October 16/17 report](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php).
+- `big-sandy-harmony`: Edgewood **L 0–48**, 0–8 through Oct 16; [published October 16/17 report](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php).
+- `big-spring`: Seminole **L 16–43**, 1–6 through Oct 16; [published October 16/17 report](https://www.fox34.com/2026/10/17/end-zone-final-scores-friday-oct-16/).
+
+The 10 finals have explicit newspaper attribution; current season dates and historic records remain distinct. The October 16 Woodson–Gold-Burg score is now corroborated; Blackwell's separate disputed September 4 Santa Anna score remains unresolved. No coach, photo license, stadium gate or editorial acceptance is inferred. Do not auto-promote the registry from IMPLEMENTED/DEPLOYED to VERIFIED.
+
 ## October 17, 2026 — final seven Batch006 researched and authored on protected PR branch (not yet accepted)
 - **Borger Bulldogs**: 4A Division II District 3, 2–6 through October 16, 2026; individual research dossier `docs/football-authority/schools/borger.md`.
 - **Bosqueville Bulldogs**: 2A Division I District 8, 4–3 through October 16, 2026; individual research dossier `docs/football-authority/schools/bosqueville.md`.

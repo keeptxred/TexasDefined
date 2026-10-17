@@ -1,5 +1,10 @@
 # Blanco Panthers — individualized 2026 football authority dossier
 
+## October 17, 2026 — dated October 16 result replaces previous unverified status
+
+Blanco defeated Karnes City 54–6 on October 16. **5–3** through October 16, 2026 based on reported final scores. [Contemporary source: Houston Chronicle October 16 statewide football finals](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php). Earlier dossier notes treating this individual fixture as upcoming or unresolved are historical and superseded by this score evidence only. Full UIL score certification, photo rights, staffing questions, specific stadium entrance and 320/390 desktop/mobile Chrome editorial acceptance remain separate pending work.
+
+
 **Research and branch-authoring checkpoint:** October 15, 2026. **Blanco ISD, Blanco County Texas.** Implemented in program-editorial.ts on dependent `feature/football-b006-blanco-20261015`; not merged, deployed, independently browser-VERIFIED, photo-rights-cleared or formally editorially accepted.
 
 ## Unique authoritative history
