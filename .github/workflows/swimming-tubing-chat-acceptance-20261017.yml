@@ -20,6 +20,28 @@ jobs:
           grep -Fq 'id="texas-swimming-holes-river-tubing-guide"' evidence/live.html
           grep -Fq 'Known restrictions checked October 17, 2026' evidence/live.html
           grep -Fq 'Official sources' evidence/live.html
+          grep -Fq 'Hamilton Pool Preserve is not an open swimming hole.' evidence/live.html
+          grep -Fq 'Caprock Canyons: do not use Lake Theo' evidence/live.html
+          grep -Fq 'Pedernales Falls has a no-swimming zone' evidence/live.html
+          python3 - <<'PY'
+          import json,re
+          from pathlib import Path
+          doc=Path('evidence/live.html').read_text()
+          names=[]
+          for raw in re.findall(r'<script type="application/ld\\+json">([^<]+)</script>',doc):
+              try: value=json.loads(raw)
+              except ValueError: continue
+              for obj in value.get('@graph',[]):
+                  if obj.get('@type')=='CollectionPage' and obj.get('url')=='https://texasdefined.com/explore/swimming-holes-river-tubing':
+                      for row in obj.get('mainEntity',{}).get('itemListElement',[]):
+                          item=row.get('item',{})
+                          if item.get('@type')=='TouristAttraction': names.append(item.get('name'))
+          assert len(names)==42, f'Expected 42 safe candidate destinations; got {len(names)}'
+          assert 'Hamilton Pool Preserve' not in names, 'Hamilton Pool still wrongly offered as swimming'
+          assert 'Caprock Canyons State Park & Trailway' in names, 'Caprock wrongly removed'
+          assert 'Pedernales Falls State Park' in names, 'Pedernales wrongly removed'
+          print('PASS: 42 destination schema, Hamilton excluded, park-specific warnings preserved')
+          PY
           grep -Fq 'class="mt-6 grid gap-5 md:hidden"' evidence/live.html
           grep -Fq 'href="/texas-paddling-guide"' evidence/live.html
           grep -Fq 'href="/explore/small-towns"' evidence/live.html
