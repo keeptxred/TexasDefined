@@ -16,7 +16,7 @@ function BreweryLicenseProfile() {
         </nav>
         <p className="eyebrow mt-9 text-primary">Texas licensed brewery reference · {brewery.county} County</p>
         <h1 className="mt-4 max-w-4xl font-display text-4xl sm:text-6xl">{brewery.name}</h1>
-        <p className="mt-5 max-w-3xl text-lg text-muted-foreground">{brewery.city}, Texas · Brewer’s License (BW) · {brewery.licenseStatus}</p>
+        <p className="mt-5 max-w-3xl text-lg text-muted-foreground">{brewery.city}, Texas · {brewery.licenseType === 'BW' ? 'Brewer’s License (BW)' : 'Brewpub subordinate (BP)'} · {brewery.licenseStatus}</p>
         <p className="mt-5 max-w-3xl leading-7 text-muted-foreground">This is a TABC licensing record, not a confirmed public taproom or tour listing. We have not independently verified visitor access or opening hours for this facility.</p>
       </Container>
     </section>
@@ -30,8 +30,8 @@ function BreweryLicenseProfile() {
               ['City', brewery.city],
               ['County', brewery.county + ' County'],
               ['Licensed address', address || 'Not provided in source'],
-              ['License category', 'BW — Brewer’s License'],
-              ['TABC license ID', brewery.licenseId],
+              ['Brewing authorization', brewery.licenseType === 'BW' ? 'BW — Brewer’s License' : 'BP — Brewpub License (subordinate to primary retail license)'],
+              ['TABC primary license ID', brewery.licenseId],
               ['Primary license status', brewery.licenseStatus],
               ['License expiration', brewery.expirationDate || 'Check current TABC record'],
             ].map(([label, value]) => <div key={label} className="grid gap-1 py-4 sm:grid-cols-[12rem_1fr]"><dt className="text-sm font-semibold">{label}</dt><dd className="text-sm text-muted-foreground">{value}</dd></div>)}
