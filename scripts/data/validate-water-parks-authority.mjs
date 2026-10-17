@@ -39,9 +39,12 @@ for (const park of parks) {
   }
 }
 for (const park of parks) {
-  if (park.visitorAddress && !/^.{10,140}$/.test(park.visitorAddress)) throw new Error(`Bad venue-address evidence: ${park.slug}`);
-  if (park.visitorHighlights && (!Array.isArray(park.visitorHighlights) || park.visitorHighlights.length < 3 || park.visitorHighlights.some((entry) => entry.length < 20))) throw new Error(`Insufficient source-linked venue highlights: ${park.slug}`);
-  for (const faq of park.visitorFaqs ?? []) if (!faq.question || faq.answer.length < 35 || !faq.sourceUrl.startsWith("https://")) throw new Error(`Incomplete official-source FAQ: ${park.slug}`);
+  // Every individual child route needs substantive venue detail; optional typed fields
+  // must not allow a future directory-only update to regress published guides.
+  if (!park.visitorAddress || !/^.{10,140}$/.test(park.visitorAddress)) throw new Error(`Missing or invalid individual venue address: ${park.slug}`);
+  if (!Array.isArray(park.visitorHighlights) || park.visitorHighlights.length < 3 || park.visitorHighlights.some((entry) => typeof entry !== "string" || entry.length < 20)) throw new Error(`Insufficient individual waterpark highlights: ${park.slug}`);
+  if (!Array.isArray(park.visitorFaqs) || park.visitorFaqs.length < 2) throw new Error(`Missing park-specific linked questions: ${park.slug}`);
+  for (const faq of park.visitorFaqs) if (!faq.question || faq.answer.length < 55 || !faq.sourceUrl.startsWith("https://")) throw new Error(`Incomplete first-party-linked waterpark answer: ${park.slug}`);
 }
 if (!detailUi.includes("park.visitorHighlights.map") || !detailUi.includes("park.visitorAddress")) throw new Error("Source-reviewed address and amenities must render on individual guides.");
 for (const closed of ["hurricane-alley-corpus-christi", "splashtown-san-antonio", "water-park-at-the-villages-flint"]) {
