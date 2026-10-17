@@ -203,7 +203,8 @@ function DistrictGameCard({ game, schools }: { game: DistrictFootballGame; schoo
     </div>
     <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
       {game.venue && <span>{game.venue}</span>}
-      <a className="font-semibold text-primary underline underline-offset-4" href={sourceUrl} target="_blank" rel="noopener noreferrer">{isFinal ? 'Reported score source ↗' : 'Published schedule source ↗'}</a>
+      <a className="font-semibold text-primary underline underline-offset-4" href={sourceUrl} target="_blank" rel="noopener noreferrer">{game.sourceLabel} ↗</a>
+      <span>Checked {game.verifiedAt}</span>
       {game.matchupPath && <a className="font-semibold text-primary underline underline-offset-4" href={game.matchupPath}>Matchup details →</a>}
     </div>
   </div>;
