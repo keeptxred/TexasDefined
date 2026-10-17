@@ -4,7 +4,7 @@
 
 This list is the exact editorial ranking requested for Texas Defined. Rankings are editorial, not reported attendance. Keep the old Top 25 collection and its validated exports unchanged. Do not create duplicate canonicals. A path in the table is a known source/code route candidate, not proof of current 200, full content, photo rights or editorial certification. A blank path means the canonical route must be inspected rather than guessed.
 
-The `wave1` flag means individualized significance, planning assessment, three itineraries and official visitor-source pointers were added in this branch and wired into existing destination pages. **It does not mean source claims were all independently reverified, visitor FAQs independently researched, reciprocal internal links complete, photography rights reaudited, CI passed or production deployed.** The `top25` flag refers to the existing site system, not a blanket pass against all authority release gates. `event`, `sports-venue` and `museum-review` records must reuse their own topic-specific systems.
+The `newly-authored-theme-park` flag denotes four new checked-in complete destination records with distinct photo provenance, three itineraries, FAQs, visitor references and city/county fields. Such records are not automatically released or legally/image-rights certified; source acceptance checks and production verification are still required. The `wave1` flag means individualized significance, planning assessment, three itineraries and official visitor-source pointers were added in this branch and wired into existing destination pages. **It does not mean source claims were all independently reverified, visitor FAQs independently researched, reciprocal internal links complete, photography rights reaudited, CI passed or production deployed.** The `top25` flag refers to the existing site system, not a blanket pass against all authority release gates. `event`, `sports-venue` and `museum-review` records must reuse their own topic-specific systems.
 
 | Rank | Attraction | Existing/source locator | Workstream |
 | ---: | --- | --- | --- |
@@ -23,15 +23,15 @@ The `wave1` flag means individualized significance, planning assessment, three i
 | 13 | Houston Livestock Show and Rodeo | Locate canonical | event |
 | 14 | Natural Bridge Caverns | `/destination/natural-bridge-caverns` | top25 |
 | 15 | Moody Gardens | `/destination/moody-gardens` | top25 |
-| 16 | Schlitterbahn New Braunfels | Locate canonical | needs-canonical-review |
+| 16 | Schlitterbahn New Braunfels | `/destination/schlitterbahn-new-braunfels` | newly-authored-theme-park |
 | 17 | Guadalupe Mountains National Park | `/destination/guadalupe-mountains-national-park` | top25 |
 | 18 | Enchanted Rock State Natural Area | Locate canonical | destination-special-route |
 | 19 | USS Lexington Museum | `/destination/uss-lexington-museum-corpus-christi` | museum-review |
 | 20 | Houston Museum of Natural Science | `/destination/houston-museum-of-natural-science` | top25 |
 | 21 | Dallas Arboretum and Botanical Garden | `/destination/dallas-arboretum-and-botanical-garden` | top25 |
-| 22 | Six Flags Over Texas | Locate canonical | needs-canonical-review |
-| 23 | SeaWorld San Antonio | Locate canonical | needs-canonical-review |
-| 24 | Six Flags Fiesta Texas | Locate canonical | needs-canonical-review |
+| 22 | Six Flags Over Texas | `/destination/six-flags-over-texas` | newly-authored-theme-park |
+| 23 | SeaWorld San Antonio | `/destination/seaworld-san-antonio` | newly-authored-theme-park |
+| 24 | Six Flags Fiesta Texas | `/destination/six-flags-fiesta-texas` | newly-authored-theme-park |
 | 25 | AT&T Stadium | Locate canonical | sports-venue |
 | 26 | Galveston Island Historic Pleasure Pier | `/destination/galveston-island-historic-pleasure-pier` | top25 |
 | 27 | San Jacinto Monument and Battleground | `/destination/san-jacinto-battleground` | historic-review |
