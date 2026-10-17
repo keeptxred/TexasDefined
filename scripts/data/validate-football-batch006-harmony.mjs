@@ -19,10 +19,34 @@ const index = editor.indexOf('  "big-sandy-harmony": {');
 assert.ok(index >= 0, 'Harmony school-specific editorial missing');
 const next = editor.indexOf('\n  "', index + 4);
 const section = next > index ? editor.slice(index,next) : editor.slice(index);
-for (const needle of ['"season": {','"record": "0–7 through October 9, 2026','"milestones": [','"faq": [','2022','Poth','Quitman','Harmony Eagle Stadium','www.harmonyisd.net/o/ha/page/harmony-football','www.maxpreps.com/tx/big-sandy/harmony-eagles/football/']) {
+for (const needle of ['"season": {','"milestones": [','"faq": [','2022','Poth','Quitman','Harmony Eagle Stadium','www.harmonyisd.net/o/ha/page/harmony-football','www.maxpreps.com/tx/big-sandy/harmony-eagles/football/']) {
   assert.ok(section.includes(needle), 'Missing exact-school Harmony editorial evidence: '+needle);
 }
 assert.equal((section.match(/"opponent":/g)||[]).length, 10, 'School must show ten sourced 2026 fixtures, no invented finals');
+
+// Permanent score-integrity contract: avoid freezing the Oct 9 scorecard in
+// code. Future verified finals can progress without weakening source checks.
+const harmony = JSON.parse(section.slice(section.indexOf('{')).trim().replace(/,\s*$/, ''));
+const harmonyGames = harmony.season.games;
+assert.equal(harmonyGames.length, 10, 'Preserve the researched 2026 ten-fixture roster');
+const firstSeven = harmonyGames.filter(game => game.date <= '2026-10-09');
+assert.equal(firstSeven.length, 7, 'Preserve October 9 historical checkpoint');
+assert.ok(firstSeven.every(game => /^L\s+\d+[–-]\d+$/.test(game.result || '')), 'Retain each of the first seven reported losses');
+const edgewood = harmonyGames.find(game => game.date === '2026-10-16' && game.opponent === 'Edgewood');
+assert.ok(edgewood && edgewood.site === 'Away', 'Protect Harmony–Edgewood fixture identity');
+assert.equal(edgewood.result, 'L 0–48', 'Protect newly sourced October 16 Edgewood final');
+assert.equal(harmony.season.latestResultSourceUrl, 'https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php', 'Retain current source attribution for the October 16 final');
+assert.ok(harmonyGames.every((game, i) => i === 0 || harmonyGames[i-1].date < game.date), 'Fixture dates must stay chronologically ordered');
+const played = harmonyGames.filter(game => game.result);
+assert.ok(played.every(game => /^([WL])\s+\d+[–-]\d+$/.test(game.result) && /^2026-\d\d-\d\d$/.test(game.date) && game.date <= harmony.season.verifiedAt), 'No malformed or future-dated scores presented as finals');
+const wins = played.filter(game => game.result.startsWith('W ')).length;
+const losses = played.filter(game => game.result.startsWith('L ')).length;
+assert.ok(harmony.season.record.startsWith(wins + '–' + losses + ' through '), 'Record must equal scored 2026 fixtures');
+const mostRecentDate = played.map(game => game.date).sort().at(-1);
+const mostRecentLabel = new Date(mostRecentDate + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+assert.ok(harmony.season.record.includes('through ' + mostRecentLabel), 'Record must carry the actual latest completed match date');
+assert.ok(harmony.season.sourceLabel.includes('October 16'), 'New October 16 final must have dated news attribution');
+
 assert.ok(section.includes('Brian Mauk') && section.includes('former athletic director') && section.includes('MaxPreps'), 'Require KLTV-attributed coach and official district correction of outdated roster');
 assert.ok(!section.includes('Sources conflict: the 2026 MaxPreps staff listing names Jeremy Jenkins'), 'Never imply the deceased former athletic director could currently be head coach');
 const identity = read('src/data/high-school-football/school-identities.ts');

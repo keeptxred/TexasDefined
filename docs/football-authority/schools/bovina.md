@@ -1,5 +1,10 @@
 # Bovina Mustangs — independent Batch 006 football dossier
 
+## October 17, 2026 — dated October 16 result replaces previous unverified status
+
+Gruver shut out Bovina 55–0 in the October 16 district game. **3–4** through October 16, 2026 based on reported final scores. [Contemporary source: KCBD/FOX34 October 17 South Plains football finals, corroborated by the Houston Chronicle statewide score listing](https://www.fox34.com/2026/10/17/end-zone-final-scores-friday-oct-16/). Earlier dossier notes treating this individual fixture as upcoming or unresolved are historical and superseded by this score evidence only. Full UIL score certification, photo rights, staffing questions, specific stadium entrance and 320/390 desktop/mobile Chrome editorial acceptance remain separate pending work.
+
+
 **October 17, 2026**. Not browser-VERIFIED or editorially accepted. This is Bovina ISD in Parmer County, 11-man, UIL **2026–28 2A Division II District 1**. The official first-party classification is [UIL 2AD2FB2026.pdf](https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf); not an estimate or previous alignment.
 
 ## Source-verified campus, school identity and history

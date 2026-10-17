@@ -1,5 +1,22 @@
 # Football Authority — Execution Ledger
 
+## October 17, 2026 — Borger specific deep-history and forfeit provenance correction
+Official UIL 1962 Class 4A runner-up (Brackenridge 30, Borger 26), Gene Mayfield's 1962 leadership and school-distinct 1965 Odessa Permian title are now in Borger's independent history. The 2025 MaxPreps 1–9 (Levelland administrative forfeit) vs DCTF 0–10 difference is preserved rather than falsely resolved. Dossier `docs/football-authority/schools/borger.md` records primary and attributed sources; 2026 Oct16 2–6 unchanged. Editorial/photo license and exact-deployed Chrome acceptance remain pending.
+
+## October 17, 2026 — October 16 varsity results independently reconciled (source-backed)
+- `bovina`: Gruver **L 0–55**, 3–4 through Oct 16; [published October 16/17 report](https://www.fox34.com/2026/10/17/end-zone-final-scores-friday-oct-16/).
+- `bowie-gold-burg`: Woodson **L 53–58**, 2–6 through Oct 16; [published October 16/17 report](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php).
+- `booker`: White Deer **L 22–38**, 4–4 through Oct 16; [published October 16/17 report](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php).
+- `borden-county`: Westbrook **W 54–28**, 7–0 through Oct 16; [published October 16/17 report](https://www.fox34.com/2026/10/17/end-zone-final-scores-friday-oct-16/).
+- `blackwell`: Trent **W 67–6**, 6–2 through Oct 16; [published October 16/17 report](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php).
+- `blanco`: Karnes City **W 54–6**, 5–3 through Oct 16; [published October 16/17 report](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php).
+- `bloomington`: Danbury **W 42–0**, 3–5 through Oct 16; [published October 16/17 report](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php).
+- `boerne`: Liberty Hill **W 49–7**, 7–0 through Oct 16; [published October 16/17 report](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php).
+- `big-sandy-harmony`: Edgewood **L 0–48**, 0–8 through Oct 16; [published October 16/17 report](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php).
+- `big-spring`: Seminole **L 16–43**, 1–6 through Oct 16; [published October 16/17 report](https://www.fox34.com/2026/10/17/end-zone-final-scores-friday-oct-16/).
+
+The 10 finals have explicit newspaper attribution; current season dates and historic records remain distinct. The October 16 Woodson–Gold-Burg score is now corroborated; Blackwell's separate disputed September 4 Santa Anna score remains unresolved. No coach, photo license, stadium gate or editorial acceptance is inferred. Do not auto-promote the registry from IMPLEMENTED/DEPLOYED to VERIFIED.
+
 ## October 17, 2026 — Reconciled Batch 004 320px reflow test; production acceptance remains independent
 The previously open [PR #4713](https://github.com/keeptxred/TexasDefined/pull/4713) contained a targeted real-Chrome 320 CSS-pixel reflow audit but never merged its script/workflow into `main`. Historic [workflow run #38336369507](https://github.com/keeptxred/TexasDefined/actions/runs/38336369507) completed SUCCESS on the **old PR head** and cannot certify the current deployed source revision. This reconciliation ports only its explicitly scoped 25 Batch 004 football schools, 10 counties and Austin city Chrome verifier and path-scoped/dispatch workflow to current main. It preserves Batch 004's prior sourced 72/72 Chrome acceptance, targeted 255 offscreen contrast rechecks, GIS and source evidence, without asserting real 400% native zoom, assistive-technology, ticket/ADA or media license certification. A new PR-head canonical protected Merge Gate and separate targeted browser run must pass; live release identity needs a postdeploy check before declaring the revised code accepted. No sitewide or every-release crawl is enabled.
 

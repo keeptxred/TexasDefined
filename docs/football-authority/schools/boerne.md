@@ -1,5 +1,10 @@
 # Boerne High Greyhounds — individual Batch 006 football authority dossier
 
+## October 17, 2026 — dated October 16 result replaces previous unverified status
+
+Boerne's Greyhounds beat Liberty Hill 49–7 on October 16; Champion High is a separate Boerne ISD football team. **7–0** through October 16, 2026 based on reported final scores. [Contemporary source: Houston Chronicle October 16 statewide football finals](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php). Earlier dossier notes treating this individual fixture as upcoming or unresolved are historical and superseded by this score evidence only. Full UIL score certification, photo rights, staffing questions, specific stadium entrance and 320/390 desktop/mobile Chrome editorial acceptance remain separate pending work.
+
+
 Researched October 16, 2026; authored on branch feature/football-b006-boerne-20261016. IMPLEMENTED only, NOT yet merged, deployed, exact-SHA Chrome VERIFIED, image-licensed, or editorially accepted.
 
 ## Official school and classification

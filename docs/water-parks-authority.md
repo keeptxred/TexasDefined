@@ -5,7 +5,7 @@ Updated 2026-10-17. Work is **not** considered production verified until the rep
 ## Current implementation
 
 - Canonical public hub: `/explore/water-parks`; one park page at `/explore/water-parks/$slug` per physical venue.
-- Initial operator-backed registry: 101 separate facilities in `src/data/texas-water-parks.ts`.
+- Initial operator-backed registry: 120 separate facilities in `src/data/texas-water-parks.ts`.
 - Settings: indoor, outdoor, mixed indoor/outdoor. Access: day park, city-run, hotel/resort, campground and inflatable lake park.
 - Every record has a named venue, town, region, setting, admission policy description, a venue-specific editorial note, source URL, review date, and county where the physical county was verified.
 - Directory links to internal Explore/trip planner/city and county guides. Primary and emergency Explore sitemaps enumerate only specifically certified authority-ready park pages; the statewide hub includes the full research registry.
@@ -69,7 +69,7 @@ Each park must be researched and independently verified beyond this launch-scale
 - Research public floating obstacle-course parks and temporary seasonal operators separately, with weather, water conditions, capacity and safety.
 - Confirm individual water-park site addresses and county assignments in ambiguous multijurisdiction cities before adding county canonical links.
 - Run a check against TDI amusement ride registration where relevant, tourism bureau listings, city park calendars and operator directories. TDI listing alone does not confirm present operation.
-- Expand the initial collection only with first-party sources and documented visit eligibility. Never present the current 101 as an exhaustive statewide census.
+- Expand the initial collection only with first-party sources and documented visit eligibility. Never present the current 120 as an exhaustive statewide census.
 - After canonical validation and required checks, use only a bounded smoke of the directory and representative indoor/outdoor/resort/municipal pages, not another sitewide crawl.
 
 ## Startup bundle protection
@@ -86,4 +86,36 @@ All newly researched park rows default to **not authority-ready**. The page rout
 
 ## Known implementation limits
 
-The 101 generated guides are the *initial source-backed editorial layer*, not finished deep first-hand reviews. Specific ride inventories, exact live ticket rates, accessible routes, rights-cleared venue imagery, corroborated family FAQs, all-county reciprocal links, and a truly exhaustive statewide census are **not yet certified**. This distinction must not be lost in publication or product messaging.
+The 120 generated guides are the *initial source-backed editorial layer*, not finished deep first-hand reviews. Specific ride inventories, exact live ticket rates, accessible routes, rights-cleared venue imagery, corroborated family FAQs, all-county reciprocal links, and a truly exhaustive statewide census are **not yet certified**. This distinction must not be lost in publication or product messaging.
+
+## Dallas municipality verification tranche — October 17, 2026
+
+Dallas Aquatics' current municipal 2026 schedule confirms nine distinct outdoor multi-feature aquatic centers **in addition to Bahama Beach**: The Cove at Crawford (375 S. Prairie Creek), The Cove at Fretz (14778 Hillcrest), The Cove at Samuell Grand (3201 Samuell Blvd.), Bachman Aquatic Center (2750 Bachman Dr.), Kidd Springs (807 W. Canty), Lake Highlands North (9400 Church Rd.), Exline (2530 Eugene), Harry Stone (2403 Millmar) and Tietze (6115 Llano).
+
+Each added record has an official single-venue page, venue address, precise 2026 closed weekday, season end, three verified feature highlights and visitor questions linked to that official venue. Exline and Harry Stone are **neighborhood-scale aquatic centers**, not destination resorts, and their optional ride features must not be represented as guaranteed daily operation. These nine remain noindex until the venue-specific photographic and editorial gate is met.
+
+Operator collection and pass sources:
+- https://www.dallasaquatics.org/178/The-Cove-Aquatic-Centers
+- https://www.dallasaquatics.org/195/2601/Community-Aquatic-Centers
+- https://www.dallasaquatics.org/196/Neighborhood-Aquatic-Centers
+- https://dallasaquatics.org/222/Season-Passes
+
+**Do not add Waterloo Adventures as currently operating:** the available trip-planning listing documents obstacle-course closure for 2024 due to Lake Travis water levels, while recent visitor information suggests continued closure. Its operator's undated legacy booking page alone does not substantiate 2026 public access. Keep status in research queue pending direct confirmation. A sprayground without slides or a substantial water-play complex is not a separate water park.
+
+## Seven-venue operator verification batch — October 17, 2026
+
+Recorded after the 110-venue Dallas work in a separate follow-up branch, without restarting its protected checks. New records: Burger's Lake (Fort Worth), Thompson Park Pool (Amarillo), Adamson Lagoon (College Station), Calypso Cove (Baytown), Champions Club (Southlake, indoor), William M. McDonald YMCA (Fort Worth) and Lions Junction Family Water Park (Temple).
+
+Each lists a directly responsible operator or municipal source, a verified venue address, specific access/season caveats and first-party-linked visitor questions. The Temple source verifies actual 2026 operation but not individual ride inventory; no ride claims are made. The McDonald YMCA operator does not guarantee public nonmember walk-in entry. Burger's Lake sells Great White slide access separately; annual park admission must not be represented as including those rides. The operator confirms Southlake indoor slides have different hours from regular fitness/pool hours. The City of College Station's 2026 venue listing confirms only *two existing* Adamson Lagoon waterslides, not proposed future replacements. All seven stay noindex until the separate authoritative photo/depth gate passes.
+
+Primary sources are stored per record; legal image rights are **not** implied by first-party website photos. Do not copy operators' photos without their license.
+
+
+## October 17 Irving municipal water-park census
+
+Source-audited three distinct City of Irving outdoor family aquatic centers, all established and seasonally closed as of October 2026: Cimarron Family Aquatic Center (199 Red River Trail), West Irving Aquatic Center (3701 Conflans Road), and Lee Aquatic Park (3000 Pamela Drive). All have City of Irving facility pages with water slides and water playgrounds, city-specified ride height rules and site-specific visitor FAQs. Lee extended operations into September 2026, but that promotion has expired. Sources: https://irvingtx.gov/cimarron-family-aquatic-center , https://irvingtx.gov/west-irving-aquatic-center , https://irvingtx.gov/lee-aquatic-park . Do **not** list Senter Park's redeveloped indoor aquatic center as currently operating merely because construction is scheduled to finish in fall 2026; wait for the city's public opening statement. Nor count ordinary lap-only facilities or splash-only parks as full water parks. The new three remain `noindex` until location-correct image rights and editorial acceptance pass.
+
+
+## Canonical county page water-park discovery
+
+All county entity pages automatically list qualifying water parks whose assigned `county` matches the canonical county slug, using the same central reviewed registry and stable `/explore/water-parks/{slug}` URLs. The county data loader asynchronously imports the registry only for actual county routes and serializes a reduced summary; it does not ship the 120-record dataset to every county browser page. The county section is suppressed when a county has no source-linked facilities. It intentionally labels resort/day-entry constraints and seasonal status conservatively, with links to operator-sourced visitor guides and the statewide comparison hub. These reciprocal links do not promote unfinished per-venue research guides to indexable authority pages.

@@ -4,6 +4,16 @@ on:
   pull_request:
     paths:
       - 'src/data/coastal-places.ts'
+      - 'src/data/coastal-beach-editorial.ts'
+      - 'src/components/content/CoastalBeachFieldGuide.tsx'
+      - 'src/components/content/CountyInlandSwimmingBeaches.tsx'
+      - 'src/routes/destination.$slug.tsx'
+      - 'src/data/inland-beach-authority.ts'
+      - 'src/data/inland-beach-photos.ts'
+      - 'src/routes/explore.inland-beaches.$slug.tsx'
+      - 'src/routes/explore.inland-beaches.tsx'
+      - 'scripts/data/validate-inland-beach-authority.mjs'
+      - 'scripts/data/audit-texas-beach-access.mjs'
       - 'src/components/content/CountyCoastalPlaces.tsx'
       - 'src/routes/$kind.$slug.lazy.tsx'
       - 'src/routes/explore.$category.tsx'
@@ -17,6 +27,16 @@ on:
     branches: [main]
     paths:
       - 'src/data/coastal-places.ts'
+      - 'src/data/coastal-beach-editorial.ts'
+      - 'src/components/content/CoastalBeachFieldGuide.tsx'
+      - 'src/components/content/CountyInlandSwimmingBeaches.tsx'
+      - 'src/routes/destination.$slug.tsx'
+      - 'src/data/inland-beach-authority.ts'
+      - 'src/data/inland-beach-photos.ts'
+      - 'src/routes/explore.inland-beaches.$slug.tsx'
+      - 'src/routes/explore.inland-beaches.tsx'
+      - 'scripts/data/validate-inland-beach-authority.mjs'
+      - 'scripts/data/audit-texas-beach-access.mjs'
       - 'src/components/content/CountyCoastalPlaces.tsx'
       - 'src/routes/$kind.$slug.lazy.tsx'
       - 'src/routes/explore.$category.tsx'
@@ -42,3 +62,5 @@ jobs:
         run: npm ci --no-audit --no-fund
       - name: Validate 52-place Texas coast authority
         run: node scripts/data/validate-coastal-authority.mjs
+      - name: Validate source-backed inland swimming beaches
+        run: node scripts/data/validate-inland-beach-authority.mjs

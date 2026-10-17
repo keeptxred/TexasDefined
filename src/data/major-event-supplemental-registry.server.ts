@@ -167,6 +167,19 @@ export const supplementalMajorEventSlugs = [
   "flying-island-music-festival",
   "sfa-homecoming",
   "los-muertos-bailan",
+  "great-texas-airshow",
+  "wings-over-south-texas",
+  "wasp-homecoming-fly-in",
+  "rose-city-airfest",
+  "corsicana-airsho",
+  "addison-kaboom-town-airshow",
+  "laredo-stars-stripes-airshow",
+  "ranger-old-school-fly-in-airshow",
+  "fall-festival-of-flight-gainesville",
+  "fiesta-of-flight-laughlin",
+  "thunder-over-east-texas-athens",
+  "caf-high-sky-wing-airsho",
+  "dallas-warbird-weekend",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {

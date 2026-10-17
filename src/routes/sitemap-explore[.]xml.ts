@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CASINO_GUIDE_PATHS } from "@/data/texas-casino-guides";
+import { inlandSwimmingBeaches } from "@/data/inland-beach-authority";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { zionHillNacogdochesAuthorityDestinations } from "@/data/zion-hill-nacogdoches-authority-destinations";
 import { auditDestination } from "@/data/destination-audit";
@@ -151,6 +152,8 @@ async function emergencyExploreSitemapResponse(error: unknown) {
     "/explore/museums",
     "/explore/aquariums",
     "/explore/water-parks",
+    "/explore/inland-beaches",
+    ...inlandSwimmingBeaches.map((beach) => `/explore/inland-beaches/${beach.slug}`),
     ...(await indexReadyWaterParkPaths()),
     ...CASINO_GUIDE_PATHS,
     "/explore/rv-parks",
@@ -363,6 +366,8 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/museums",
           "/explore/aquariums",
           "/explore/water-parks",
+          "/explore/inland-beaches",
+          ...inlandSwimmingBeaches.map((beach) => `/explore/inland-beaches/${beach.slug}`),
           ...(await indexReadyWaterParkPaths()),
           ...CASINO_GUIDE_PATHS,
           "/explore/rv-parks",

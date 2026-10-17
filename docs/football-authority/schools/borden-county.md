@@ -1,5 +1,10 @@
 # Borden County Coyotes — individual Batch 006 research dossier
 
+## October 17, 2026 — dated October 16 result replaces previous unverified status
+
+Borden County defeated Westbrook 54–28 away on October 16 and remained undefeated. **7–0** through October 16, 2026 based on reported final scores. [Contemporary source: KCBD/FOX34 October 17 South Plains football finals, corroborated by the Houston Chronicle statewide score listing](https://www.fox34.com/2026/10/17/end-zone-final-scores-friday-oct-16/). Earlier dossier notes treating this individual fixture as upcoming or unresolved are historical and superseded by this score evidence only. Full UIL score certification, photo rights, staffing questions, specific stadium entrance and 320/390 desktop/mobile Chrome editorial acceptance remain separate pending work.
+
+
 **Checkpoint October16, 2026**, Borden County ISD school in Gail, Borden County, Texas, 240 West Kincaid Ave / 806-756-4313 [official school](https://www.bccoyotes.net/); district also serves part of Howard County, but the campus is in Borden. Authored on dependent branch, not merged, exact production Chrome tested, photo licensed or nine-dimension editorial accepted. Preserve 105 prior VERIFIED.
 
 ## Five real state titles (UIL primary source)

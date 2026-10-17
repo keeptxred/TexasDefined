@@ -23,7 +23,7 @@ function WaterParkGuidePage() {
         <h1 className="mt-4 max-w-5xl font-display text-4xl leading-tight sm:text-6xl">{park.name}</h1>
         <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">{park.summary}</p>
         <p className="mt-4 text-sm text-muted-foreground">Research-in-progress visitor guide · Operator source links assembled October 17, 2026</p>
-        <a className="mt-7 inline-flex bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href={park.officialUrl} target="_blank" rel="noopener noreferrer">Check official tickets, hours and rules ↗</a>
+        <a className="mt-7 inline-flex bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href={park.officialUrl} target="_blank" rel="noopener noreferrer">Read the official park or public-agency source ↗</a>
       </Container>
     </header>
     <Container className="grid gap-12 py-12 sm:py-16 lg:grid-cols-2">
@@ -33,6 +33,7 @@ function WaterParkGuidePage() {
           <dl className="mt-6 grid gap-4 sm:grid-cols-2">
             {[
               ["Location", `${park.city}, Texas`],
+              ...(park.visitorAddress ? [["Verified venue address", park.visitorAddress]] : []),
               ["Region", park.region],
               ...(park.county ? [["County", `${park.county} County`]] : []),
               ["Setting", park.setting === "Both" ? "Indoor and outdoor" : park.setting],
@@ -41,6 +42,12 @@ function WaterParkGuidePage() {
               ["Research registry updated", park.reviewedAt],
             ].map(([label, value]) => <div key={label} className="border-t border-border pt-4"><dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</dt><dd className="mt-2 leading-6">{value}</dd></div>)}
           </dl>
+          {park.visitorAddress ? <a
+            className="mt-5 inline-block text-sm font-semibold text-primary underline"
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(park.visitorAddress)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >Open map and directions for this venue ↗</a> : null}
         </section>
         <section className="mt-12 border-t border-border pt-8">
           <h2 className="font-display text-3xl">What makes this park worth considering</h2>
@@ -51,20 +58,27 @@ function WaterParkGuidePage() {
               ? "This location has both indoor and outdoor water-play elements. Check which specific pools and rides are included with your ticket and scheduled to run on the date you choose."
               : "This is primarily an outdoor water-park outing. Rain, lightning, cooler weather, staffing and the end of the summer season can all change what is available on a particular date."}</p>
         </section>
+        {park.visitorHighlights?.length ? <section className="mt-12 border-t border-border pt-8">
+          <h2 className="font-display text-3xl">Confirmed facilities and water activities</h2>
+          <ul className="mt-5 space-y-3">
+            {park.visitorHighlights.map((highlight) => <li key={highlight} className="leading-8 text-muted-foreground">{highlight}</li>)}
+          </ul>
+          <p className="mt-4 text-sm text-muted-foreground">Features listed by the responsible operator can be temporarily closed; confirm availability for your visit.</p>
+        </section> : null}
         <section className="mt-12 border-t border-border pt-8">
           <h2 className="font-display text-3xl">Tickets, day passes and who can visit</h2>
           <p className="mt-4 leading-8 text-muted-foreground"><strong>Published access approach:</strong> {park.admission}. {isResort
             ? "This is part of a resort or campground setting. Do not assume the general public can walk in for a day of swimming; the operator may require an overnight reservation or limit visitor passes."
             : "The operator sells or administers water-park admission, but eligibility, promotions and what each pass includes can change throughout the season."}</p>
-          <p className="mt-4 leading-8 text-muted-foreground">We have not posted a fixed ticket price because dates, resident discounts, child height rules, cabanas and online promotions can change. The official site below is the controlling source for the actual amount you'll pay.</p>
-          <a href={park.officialUrl} target="_blank" rel="noopener noreferrer" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">See {park.name}'s official visitor information ↗</a>
+          <p className="mt-4 leading-8 text-muted-foreground">Ticket rates can vary by season, day, residence and attractions. Some sources here are municipal announcements rather than ticket pages, so confirm the current operator schedule and full admission total before purchasing.</p>
+          <a href={park.officialUrl} target="_blank" rel="noopener noreferrer" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open {park.name}'s operator or agency source ↗</a>
         </section>
         {park.visitorFaqs?.length ? <section className="mt-12 border-t border-border pt-8" aria-labelledby="water-park-visitor-questions">
           <h2 id="water-park-visitor-questions" className="font-display text-3xl">Questions that matter for this park</h2>
           <dl className="mt-6 space-y-6">
             {park.visitorFaqs.map((faq) => <div key={faq.question}>
               <dt className="font-semibold">{faq.question}</dt>
-              <dd className="mt-2 leading-7 text-muted-foreground">{faq.answer} <a href={faq.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline">Official policy ↗</a></dd>
+              <dd className="mt-2 leading-7 text-muted-foreground">{faq.answer} <a href={faq.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline">Official source ↗</a></dd>
             </div>)}
           </dl>
         </section> : null}
@@ -85,7 +99,7 @@ function WaterParkGuidePage() {
           <h2 className="font-display text-3xl">Official sources and editorial accuracy</h2>
           <p className="mt-4 leading-8 text-muted-foreground">The source below is maintained by the operator, responsible public agency or official local economic development body; it may not be a dedicated ticket-selling page. Ticket rates and operating hours are intentionally not copied here as evergreen facts. This guide is part of a source-backed research collection, not yet a fully verified authority profile. It does not claim an in-person visit, endorse any park, or guarantee today's ride availability.</p>
           <a href={park.officialUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block break-all text-sm font-semibold text-primary underline">{park.officialUrl} ↗</a>
-          <p className="mt-3 text-xs text-muted-foreground">Operator reference recorded {park.reviewedAt}; verify access and the live official calendar before traveling.</p>
+          <p className="mt-3 text-xs text-muted-foreground">Official reference recorded {park.reviewedAt}; verify access and the current calendar before traveling.</p>
         </section>
       </article>
       <aside>
