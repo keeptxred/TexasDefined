@@ -937,7 +937,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "The outdoor water-park component of the Frisco Athletic Center includes active-play attractions.",
     "distinctiveNote": "Differentiate the seasonal outdoor park from the center's indoor pool hours.",
     "officialUrl": "https://www.friscotexas.gov/1254/Frisco-Water-Park",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "5828 Nancy Jane Lane, Frisco, TX 75035",
+    "visitorHighlights": [
+      "Frisco Water Park is part of the Frisco Athletic Center; eligible center members receive waterpark access as a membership benefit.",
+      "Walnut's Treehouse combines three small slides and more than 85 water-spray features, with adult supervision for children younger than six.",
+      "Preston Plunge is a 45-foot-high four-lane headfirst mat racer with a posted 42-inch minimum rider height.",
+      "Pipeline and Green Gusher are separate enclosed/open waterslides with 48-inch minimum rider height.",
+      "The city says the outdoor waterpark's 2026 season has ended; its recurring operating period runs from Memorial Day weekend through Labor Day."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is the Frisco Water Park?",
+        "answer": "It is part of the Frisco Athletic Center, which lists its address as 5828 Nancy Jane Lane, Frisco, TX 75035. The outdoor waterpark uses the center's operator and visitor services.",
+        "sourceUrl": "https://www.friscotexas.gov/1254/Frisco-Water-Park"
+      },
+      {
+        "question": "How tall do riders need to be for Preston Plunge?",
+        "answer": "Frisco lists a 42-inch minimum for the four-lane Preston Plunge mat racer; Pipeline and Green Gusher each require riders to be 48 inches or taller.",
+        "sourceUrl": "https://www.friscotexas.gov/1254/Frisco-Water-Park"
+      },
+      {
+        "question": "Is Frisco Water Park open in October 2026?",
+        "answer": "No. The city labels the outdoor waterpark closed for the 2026 season, with a normal operating period from Memorial Day weekend to Labor Day and published summer 2027 hours.",
+        "sourceUrl": "https://www.friscotexas.gov/1254/Frisco-Water-Park"
+      },
+      {
+        "question": "Do Frisco Athletic Center members pay separate admission?",
+        "answer": "The city says Frisco Athletic Center members receive free access to the outdoor waterpark as part of their membership. Nonmember admissions should be checked on the current city visitor page.",
+        "sourceUrl": "https://www.friscotexas.gov/1254/Frisco-Water-Park"
+      }
+    ]
   },
   {
     "slug": "bedford-waterpark",
@@ -951,7 +981,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "An outdoor water-park facility operated through The Bedford Center YMCA.",
     "distinctiveNote": "Resident, member and non-member admission rules can differ; check before travel.",
     "officialUrl": "https://www.bedfordtx.gov/waterpark",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "2801 Forest Ridge Dr., Bedford, TX",
+    "visitorHighlights": [
+      "Bedford's outdoor waterpark is within The Bedford Center YMCA and offers two waterslides plus a lazy river.",
+      "The city lists a separate splash pad/play feature, concessions, reclining chairs and optional cabanas.",
+      "The park permits clear lazy-river innertubes provided on site but does not allow guests to bring outside pool floats.",
+      "Children 13 or younger need a parent or guardian present; children younger than eight need a life jacket or to remain within an adult's arm's reach.",
+      "The City of Bedford directs visitors to YMCA staff for current-season opening dates and details rather than guaranteeing operation solely from the city page."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is Bedford's outdoor waterpark?",
+        "answer": "It operates within The Bedford Center YMCA at 2801 Forest Ridge Drive, Bedford. The city encourages visitors to contact the YMCA for the current season and actual open dates.",
+        "sourceUrl": "https://www.bedfordtx.gov/waterpark"
+      },
+      {
+        "question": "Can visitors attend without being YMCA members?",
+        "answer": "Yes. The city's current waterpark page describes separate Bedford-resident and nonresident day passes; memberships at The Bedford Center include admission. Check prices before travel.",
+        "sourceUrl": "https://www.bedfordtx.gov/waterpark"
+      },
+      {
+        "question": "Are outside food coolers and float rings allowed?",
+        "answer": "The City of Bedford prohibits ordinary outside food, large coolers and outside floats. It allows a small drinks cooler subject to its posted limits and provides clear innertubes for the lazy river.",
+        "sourceUrl": "https://www.bedfordtx.gov/waterpark"
+      },
+      {
+        "question": "What supervision and life-jacket rules apply?",
+        "answer": "Visitors 13 and younger must have a parent or guardian present, while children under eight must wear a life jacket or stay within an adult's arm's reach. Free first-come life jackets are listed.",
+        "sourceUrl": "https://www.bedfordtx.gov/waterpark"
+      }
+    ]
   },
   {
     "slug": "rock-n-river-round-rock",
@@ -1485,7 +1545,36 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "The city's Camp Cohen location is one of four themed El Paso Water Parks, not a second name for Wet 'N' Wild Waterworld.",
     "distinctiveNote": "Find it at 9700 Gateway North Boulevard and select the correct city-park admission product and season.",
     "officialUrl": "https://epwaterparks.com/camp-cohen.php",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "9700 Gateway N Blvd., El Paso, TX",
+    "visitorHighlights": [
+      "The Falls offers three distinctly named flumes: Lightning Bolt, Monsoon Plunge and Thunder Run.",
+      "Rain Roamer current channel and Poppy Island interactive playground connect to the Shallow Waters pool.",
+      "Rapid Waters recreation pool includes the Warrior Wall climbing challenge and an adjacent deep-water drop.",
+      "Wild Lagoon offers a zero-entry children's water-play area separate from the big slides."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "What slides are at Camp Cohen?",
+        "answer": "The Falls tower lists three slides: enclosed Lightning Bolt and Monsoon Plunge plus open-air Thunder Run. Consult the operator for exact rider restrictions and any temporary closures.",
+        "sourceUrl": "https://epwaterparks.com/camp-cohen.php"
+      },
+      {
+        "question": "Where do visitors enter Camp Cohen Water Park?",
+        "answer": "The official operator lists the Camp Cohen Water Park facility at 9700 Gateway N Blvd., El Paso, TX. El Paso operates four separate themed waterpark locations with different attractions and entrances, so select this exact park when navigating.",
+        "sourceUrl": "https://epwaterparks.com/camp-cohen.php"
+      },
+      {
+        "question": "Can children six or younger swim without an accompanying adult?",
+        "answer": "No. El Paso Water Parks requires an adult to stay within arm's reach of children age six or younger, and those children must wear a properly fitted Coast Guard-approved Type II or III life jacket.",
+        "sourceUrl": "https://epwaterparks.com/camp-cohen.php"
+      },
+      {
+        "question": "Can we rent shade and bring a cooler?",
+        "answer": "The operator advertises separate paid cabana and cooler-pass products rather than including them in ordinary admission. Confirm the park's current day-specific availability and the policy before arrival.",
+        "sourceUrl": "https://epwaterparks.com/camp-cohen.php"
+      }
+    ]
   },
   {
     "slug": "el-paso-chapoteo",
@@ -1499,7 +1588,36 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Chapoteo is its own El Paso city water park with slides, family play and an attraction calendar separate from the other municipal branches.",
     "distinctiveNote": "The city's published entrance is 1225 Giles Road and special events may require tickets that do not transfer between parks.",
     "officialUrl": "https://epwaterparks.com/chapoteo.php",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1225 Giles Rd., El Paso, TX",
+    "visitorHighlights": [
+      "Calavera Plunge offers enclosed racing flumes distinct from the other three municipal water parks.",
+      "Chalupa Springs leisure pool is linked to the Rio Sereno current channel and Sirenita Reef play structure.",
+      "Lago Azul pool includes a climbing challenge named El Valiente above a 12.5-foot deep-water area.",
+      "Lagarto Lagoon provides zero-depth entry and kid-focused splash features, separate from the larger rides."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "What makes Chapoteo different from Camp Cohen?",
+        "answer": "Chapoteo has its own Calavera Plunge slide set, Chalupa Springs leisure pool, Rio Sereno channel and Lagarto Lagoon, rather than Camp Cohen's separate Falls and Wild Lagoon attractions.",
+        "sourceUrl": "https://epwaterparks.com/chapoteo.php"
+      },
+      {
+        "question": "Where do visitors enter Chapoteo Water Park?",
+        "answer": "The official operator lists the Chapoteo Water Park facility at 1225 Giles Rd., El Paso, TX. El Paso operates four separate themed waterpark locations with different attractions and entrances, so select this exact park when navigating.",
+        "sourceUrl": "https://epwaterparks.com/chapoteo.php"
+      },
+      {
+        "question": "Can children six or younger swim without an accompanying adult?",
+        "answer": "No. El Paso Water Parks requires an adult to stay within arm's reach of children age six or younger, and those children must wear a properly fitted Coast Guard-approved Type II or III life jacket.",
+        "sourceUrl": "https://epwaterparks.com/chapoteo.php"
+      },
+      {
+        "question": "Can we rent shade and bring a cooler?",
+        "answer": "The operator advertises separate paid cabana and cooler-pass products rather than including them in ordinary admission. Confirm the park's current day-specific availability and the policy before arrival.",
+        "sourceUrl": "https://epwaterparks.com/chapoteo.php"
+      }
+    ]
   },
   {
     "slug": "el-paso-lost-kingdom",
@@ -1513,7 +1631,36 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Lost Kingdom is a separate El Paso city-operated water park with its own adventure theme, ticketing and accessible facilities.",
     "distinctiveNote": "Use the operator's entrance at 6001 Hughey Drive; the city runs four distinct locations with different calendars.",
     "officialUrl": "https://epwaterparks.com/lost-kingdom.php",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "6001 Hughey Dr., El Paso, TX",
+    "visitorHighlights": [
+      "Temple Drop has two flumes, one enclosed and one open, with access from a standalone water-slide tower.",
+      "The Forgotten Cenote leisure pool has its own family slide and access to the Turtle Tides current channel.",
+      "Mayan Lanes recreation pool has The Ruins climbing-wall challenge over its deep-water play area.",
+      "Macaw Lagoon is a separate zero-depth interactive splash pool for young visitors."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "What are Lost Kingdom's main attractions?",
+        "answer": "Lost Kingdom's operator names Temple Drop, the Forgotten Cenote family slide, Turtle Tides, The Ruins wall and Macaw Lagoon. These are location-specific, not a shared chain-wide ride list.",
+        "sourceUrl": "https://epwaterparks.com/lost-kingdom.php"
+      },
+      {
+        "question": "Where do visitors enter Lost Kingdom Water Park?",
+        "answer": "The official operator lists the Lost Kingdom Water Park facility at 6001 Hughey Dr., El Paso, TX. El Paso operates four separate themed waterpark locations with different attractions and entrances, so select this exact park when navigating.",
+        "sourceUrl": "https://epwaterparks.com/lost-kingdom.php"
+      },
+      {
+        "question": "Can children six or younger swim without an accompanying adult?",
+        "answer": "No. El Paso Water Parks requires an adult to stay within arm's reach of children age six or younger, and those children must wear a properly fitted Coast Guard-approved Type II or III life jacket.",
+        "sourceUrl": "https://epwaterparks.com/lost-kingdom.php"
+      },
+      {
+        "question": "Can we rent shade and bring a cooler?",
+        "answer": "The operator advertises separate paid cabana and cooler-pass products rather than including them in ordinary admission. Confirm the park's current day-specific availability and the policy before arrival.",
+        "sourceUrl": "https://epwaterparks.com/lost-kingdom.php"
+      }
+    ]
   },
   {
     "slug": "el-paso-oasis",
@@ -1527,7 +1674,36 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Oasis is the far-east El Paso city water-park location, offering a themed water-slide outing in the Beast-area complex.",
     "distinctiveNote": "The operator lists 13501 Jason Crandall Drive as the address; compare summer opening hours with the nearby natatorium separately.",
     "officialUrl": "https://epwaterparks.com/oasis",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "13501 Jason Crandall Dr., El Paso, TX",
+    "visitorHighlights": [
+      "Flash Flood Rush is an on-site wave-surfing simulator with bodyboarding as well as surf-style riding.",
+      "Hueco Plunge is the park's dual slide tower with two winding water flumes.",
+      "Gravity Challenge is the park's named water-climbing wall; the adjacent Sunset Lagoon connects to Driftwood Channel.",
+      "Rain Puddle Kiddie Pool offers zero-depth children's play, while Adventure Point serves a different younger-child group."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Does Oasis have a surfing attraction?",
+        "answer": "Yes. Oasis lists Flash Flood Rush, a powered artificial wave ride where guests can practice bodyboarding or surfing subject to the venue's specific ride requirements.",
+        "sourceUrl": "https://epwaterparks.com/oasis"
+      },
+      {
+        "question": "Where do visitors enter Oasis Water Park?",
+        "answer": "The official operator lists the Oasis Water Park facility at 13501 Jason Crandall Dr., El Paso, TX. El Paso operates four separate themed waterpark locations with different attractions and entrances, so select this exact park when navigating.",
+        "sourceUrl": "https://epwaterparks.com/oasis"
+      },
+      {
+        "question": "Can children six or younger swim without an accompanying adult?",
+        "answer": "No. El Paso Water Parks requires an adult to stay within arm's reach of children age six or younger, and those children must wear a properly fitted Coast Guard-approved Type II or III life jacket.",
+        "sourceUrl": "https://epwaterparks.com/oasis"
+      },
+      {
+        "question": "Can we rent shade and bring a cooler?",
+        "answer": "The operator advertises separate paid cabana and cooler-pass products rather than including them in ordinary admission. Confirm the park's current day-specific availability and the policy before arrival.",
+        "sourceUrl": "https://epwaterparks.com/oasis"
+      }
+    ]
   },
   {
     "slug": "hurricane-harbor-san-antonio",
