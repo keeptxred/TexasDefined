@@ -416,7 +416,7 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/directory/la-rita-performing-arts-theatre/"
   },
   {
-    "county": "de-witt",
+    "county": "dewitt",
     "name": "Cuero Historic Main Street Architecture Walk",
     "category": "History & heritage",
     "description": "Cuero's public Main Street and heritage streetscape include restored Victorian-era commercial buildings and the county's historic courthouse.",
