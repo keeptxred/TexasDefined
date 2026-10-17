@@ -110,8 +110,13 @@ jobs:
                 stayAfterGuide:!!(guide && stay && (stay.compareDocumentPosition(guide)&Node.DOCUMENT_POSITION_PRECEDING)),
                 brokenImages:[...document.images].filter(i=>i.complete&&i.naturalWidth===0).map(i=>i.src).slice(0,10)};
             });
-            for(let y=0,k=0;y<total;y+=4500,k++){
-              await page.screenshot({path:'evidence/full-page/'+name+'-'+String(k).padStart(2,'0')+'.png',clip:{x:0,y,width,height:Math.min(4500,total-y)},timeout:60000,animations:'disabled'});
+            // Cover the full document with overlapping viewport captures.
+            // Playwright/Chrome cannot reliably capture an arbitrary off-viewport
+            // clip after its layout viewport has been restored.
+            for(let y=0,k=0;y<total;y+=Math.max(height-100,400),k++){
+              await page.evaluate(y=>window.scrollTo(0,y),y);
+              await page.waitForTimeout(80);
+              await page.screenshot({path:'evidence/full-page/'+name+'-'+String(k).padStart(2,'0')+'.png',fullPage:false,timeout:60000,animations:'disabled'});
             }
             const problems=[];
             if(res?.status()!==200) problems.push('bad HTTP');
