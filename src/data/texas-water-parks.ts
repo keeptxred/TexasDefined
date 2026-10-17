@@ -2620,6 +2620,80 @@ export const texasWaterParks: WaterParkGuide[] = [
         "sourceUrl": "https://content.civicplus.com/api/assets/tx-farmersbranch/5a20944b-b794-43b2-b4fc-2bff49ca76bc"
       }
     ]
+  },
+  {
+    "slug": "euless-family-life-aquatic-park",
+    "name": "Euless Family Life Aquatic Park and Natatorium",
+    "city": "Euless",
+    "county": "Tarrant",
+    "region": "Dallas–Fort Worth",
+    "setting": "Both",
+    "kind": "Municipal water park",
+    "admission": "City of Euless Family Life Center daily access or qualifying season pass; the outdoor aquatic park and indoor natatorium have distinct swim hours and eligibility",
+    "summary": "At Euless Family Life Center, the seasonal outdoor aquatic park offers a 545-foot lazy river, two large flume slides, a 28-foot run-out slide and a water-play area, while a separate indoor natatorium has a resistance river and water slide.",
+    "distinctiveNote": "The city operates the outdoor park on a seasonal summer calendar, while the natatorium hosts year-round swimming and instruction. Outdoor slide riders must meet a published 48-inch minimum, and the indoor slide is also 48 inches; confirm open-swim hours because adult fitness and lessons use different schedules.",
+    "officialUrl": "https://www.eulesstx.gov/departments/parks-and-community-services/euless-family-life-center",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "300 W. Midway Drive, Euless, TX 76039",
+    "visitorHighlights": [
+      "Seasonal outdoor 545-foot lazy river with supplied tubes, two flume slides and a separate 28-foot run-out slide",
+      "Outdoor zero-depth aquatic playground with fountains, raindrop tipping bucket, shaded seating and children’s slides",
+      "Indoor Natatorium has a resistance river, three lap lanes, splash play area and separate slide with a 48-inch rider threshold"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Are the outdoor Euless Aquatic Park and indoor Natatorium the same public pool?",
+        "answer": "They are separate aquatic areas within the Euless Family Life Center at one address. The outdoor water park operates on summer dates, while the Natatorium has a separate year-round open-swim and instruction calendar.",
+        "sourceUrl": "https://www.eulesstx.gov/departments/parks-and-community-services/euless-family-life-center"
+      },
+      {
+        "question": "What height does Euless require for its major water slides?",
+        "answer": "The city lists a 48-inch minimum for outdoor flume and run-out slides and for the indoor natatorium slide. Lifeguards can apply additional ride-safety rules, so check posted signage before planning the day.",
+        "sourceUrl": "https://www.eulesstx.gov/Home/Components/FacilityDirectory/FacilityDirectory/72/453"
+      },
+      {
+        "question": "Can I use the Euless indoor slide whenever the recreation center is open?",
+        "answer": "Not necessarily. The city runs dedicated Natatorium open-swim hours alongside lap swimming, classes and lessons. Visitors should check the aquatic calendar for slide availability, not rely on the recreation center's building hours.",
+        "sourceUrl": "https://www.eulesstx.gov/departments/parks-and-community-services/aquatics/natatorium"
+      }
+    ]
+  },
+  {
+    "slug": "coppell-core-water-park",
+    "name": "The CORE Indoor and Outdoor Aquatics",
+    "city": "Coppell",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Both",
+    "kind": "Municipal water park",
+    "admission": "The CORE recreation center day pass or membership, with resident versus nonresident prices; summer outdoor pools and year-round indoor pool have separate schedules",
+    "summary": "Coppell's CORE community recreation facility combines a seasonal outdoor water-play area with two large water slides, zero-depth children's splash pool and lily-pad crossing, plus an indoor pool with a separate play slide.",
+    "distinctiveNote": "The City of Coppell confirms outdoor pools are closed for the 2026 summer season, with a Memorial Day weekend 2027 target. The indoor play slide is generally available during open-swim sessions on weekends, not every hour the year-round indoor pool is open; annual maintenance and weather can interrupt sessions.",
+    "officialUrl": "https://www.coppelltx.gov/779/Aquatics",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "234 E. Parkway Boulevard, Coppell, TX 75019",
+    "visitorHighlights": [
+      "Summer outdoor aquatic area with two water slides, lily-pad crossing and a separate slide catch pool",
+      "Zero-depth outdoor children's splash pool alongside a dedicated lap pool and diving board",
+      "Year-round indoor pool has a zero-depth children's splash pool and a slide operated during designated open-swim sessions"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is The CORE's outdoor water park open in October 2026?",
+        "answer": "No. Coppell's current official aquatics page says the outdoor pool is closed for the 2026 season and targets Memorial Day weekend 2027 for reopening. The indoor pool runs separately throughout the year.",
+        "sourceUrl": "https://www.coppelltx.gov/779/Aquatics"
+      },
+      {
+        "question": "Can children ride the indoor and outdoor slides at the same height?",
+        "answer": "No. The January 2026 CORE pass-holder handbook requires at least 42 inches for the indoor slide and at least 48 inches for the outdoor slides, with a 300-pound ride limit. Follow staff safety instructions onsite.",
+        "sourceUrl": "https://coppelltx.gov/DocumentCenter/View/4034/The-CORE---Pass-Holder-Handbook---January-2026?bidId="
+      },
+      {
+        "question": "Does a Coppell aquatic day pass cost the same for visitors and city residents?",
+        "answer": "No. The official CORE membership schedule publishes separate Coppell resident and nonresident admission rates. Proof of residency may be required for resident pricing and a current building schedule does not guarantee outdoor slide operation.",
+        "sourceUrl": "https://coppelltx.gov/440/The-CORE"
+      }
+    ]
   }
 ];
 export const texasWaterParksBySlug = new Map(texasWaterParks.map((park) => [park.slug, park]));
