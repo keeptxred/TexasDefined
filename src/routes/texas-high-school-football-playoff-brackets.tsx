@@ -62,7 +62,7 @@ function Page() {
           </div>
           <a className="text-sm font-semibold text-primary underline" href={officialUrl} target="_blank" rel="noopener noreferrer">UIL official {classification} D{division} bracket ↗</a>
         </div>
-        <div className="mt-7 border border-border bg-surface p-5 sm:p-7" data-official-playoff-bracket={classification + 'D' + division}>
+        <div className="mt-7 border border-border bg-surface p-5 sm:p-6" data-official-playoff-bracket={classification + 'D' + division}>
           <h3 className="font-display text-2xl">Official UIL / MaxPreps tournament bracket</h3>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
             UIL publishes and MaxPreps maintains this tournament bracket. The official source is the most current view of matchups, results and advancement.
@@ -74,7 +74,8 @@ function Page() {
               title={`Official 2026 UIL ${classification} Division ${division === 1 ? 'I' : 'II'} football playoff bracket, via MaxPreps`}
               loading="lazy"
               referrerPolicy="strict-origin-when-cross-origin"
-              className="h-[800px] w-full border border-border bg-background"
+              height={800}
+              className="w-full border border-border bg-background"
             />
             <p className="mt-3 text-xs text-muted-foreground">Embedded bracket provided by MaxPreps. If it does not load, open the source directly.</p>
           </div> : <div className="mt-5">
