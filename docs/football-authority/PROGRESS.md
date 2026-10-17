@@ -1,5 +1,8 @@
 # Football Authority — Execution Ledger
 
+## October 16, 2026 — Booker Kiowas independent six-man school authority authored
+Booker ISD, Lipscomb County (NCES), official six-man UIL 1A Division I District1 with Boys Ranch, Claude, White Deer, Wildorado. First-party coach David Biddler and official HS–JH athletics schedule, 2025 9–3 with 4–0 district and one playoff win, 2026 4–3 through Oct9 Claude L0–48. Seven original FAQs, 600 S Main campus contact distinct from unverified stadium gate, two-way Lipscomb County links; no unauthorized logos/photos, speculative ADA or ticket claims. Authored on dependent branch only, not merged/Chrome or nine-dimensional editorial VERIFIED. Preserve 105 historical VERIFIED. Next Borden County.
+
 ## October 16, 2026 — Bonham 2026 district / Aaron Ford appointment researched (dependent branch)
 Bonham Purple Warriors 2026 4A DII District7 distinct from 2025 District5; school-backed April 22 head coach Aaron Ford hire versus historical MaxPreps Kyle Dezern entry, 2025 0–10 and 2026 2–4 through Oct9 with seven original FAQs, original school visitor contacts and Fannin County reciprocal links. No verified stadium gate, photo rights, exact Chrome QA or nine-dimension editorial acceptance. IMPLEMENTED only on dependent branch; 105 existing VERIFIED unchanged.
 

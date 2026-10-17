@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "booker",
-    "nextSchool": "booker",
-    "implementedOnBranch": 16,
-    "remainingToImplement": 9,
+    "currentSchool": "borden-county",
+    "nextSchool": "borden-county",
+    "implementedOnBranch": 17,
+    "remainingToImplement": 8,
     "remainingToVerify": 25,
-    "notes": "16 of 25 Batch006 authored through Bonham on dependent branches, with 105 previous VERIFIED untouched; none of Batch006 independently Chrome or formally editorial accepted. Nine Batch006 remain not reviewed."
+    "notes": "17/25 Batch006 individually authored across released and dependent branches; Booker is six-man 1A DI District1, not Houston Booker T. Washington. Previous 105 VERIFIED protected. None of Batch006 separately production Chrome/editorially accepted. Eight assigned not reviewed."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6823,8 +6823,12 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/booker",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/booker.md",
+      "implementedOnBranch": "feature/football-b006-booker-20261016-chat",
+      "actualProductionVerified": false,
+      "reviewScope": "Official six-man 1A Division I District1, Booker ISD coach David Biddler and 600 South Main School, 2025 9–3 district champions, 2026 4–3 to Oct9 Claude L0–48; no stadium gate/photo rights/Chrome editorial certification."
     },
     {
       "id": "uil:borden-county",
