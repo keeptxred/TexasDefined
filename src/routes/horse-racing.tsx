@@ -56,6 +56,11 @@ function TexasHorseRacingIndex() {
           <p className="mt-5 text-xs leading-6 text-muted-foreground">Last researched October 16, 2026. Statewide counts reflect the Texas Racing Commission's published strategic-plan inventory and current venue calendars; confirm any future license or schedule change with the commission.</p>
         </header>
 
+        <figure className="border-b border-border py-7">
+          <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Lone_Star_Park.jpg?width=1600" alt="Lone Star Park horse racing venue in Grand Prairie, Texas" className="max-h-[490px] w-full object-cover" loading="lazy" decoding="async" width="1600" height="1200" />
+          <figcaption className="mt-3 text-xs leading-6 text-muted-foreground">Lone Star Park in Grand Prairie (not the Gillespie County Fairgrounds). Photo by <a className="underline" href="https://commons.wikimedia.org/wiki/File:Lone_Star_Park.jpg" target="_blank" rel="noopener noreferrer">Jax 0677 / Wikimedia Commons</a>, <a className="underline" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.</figcaption>
+        </figure>
+
         <section className="border-b border-border py-12" aria-labelledby="live-tracks">
           <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
             <div><p className="eyebrow text-primary">Go to the races</p><h2 id="live-tracks" className="mt-2 font-display text-3xl">Texas's four live racing venues</h2>
