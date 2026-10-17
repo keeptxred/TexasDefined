@@ -455,12 +455,13 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "Use TPWD's separate Knights Bluff, Wilkins Creek and White Oak Ridge camping map to choose RV hookup amperage and boat-access location.",
   },
   "balmorhea-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-17",
     sourceUrl: "https://tpwd.texas.gov/state-parks/balmorhea/fees-facilities/campsites",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/parks-map",
     restrooms: "Restrooms with showers are near the 18 back-in 20/30-amp sites and 15 pull-through 20/30/50-amp sites. The spring-fed pool, bathhouse and CCC motel are separate visitor facilities.",
     parking: "18 back-in campsites have 20/30-amp service only; sites #12–17 are tent-only within that group. Fifteen 20/30/50-amp pull-throughs PROHIBIT tents. No early campsite check-in before 2 p.m.; use the gate code on booking confirmation for after-hours re-entry.",
     camping: "33 ordinary electric campsites (18 back-in and 15 pull-through) plus a distinct reserved group camp. TPWD separately lists CCC San Solomon Springs Courts motel rooms. Pool entrance requires day admission but swimming itself needs no separate paid tour; no lifeguard on duty.",
-    access: "Day entrance often reaches capacity; reserve in advance. Pool is up to 25 feet deep and has NO lifeguard; adults must supervise swimmers younger than 15. Park hours 8 a.m.–7:30 p.m. or sunset, whichever first. Pets prohibited inside fenced pool.",
+    access: "Day entrance often reaches capacity; reserve in advance. Pool is up to 25 feet deep and has NO lifeguard; adults must supervise swimmers younger than 15. Park hours 8 a.m.–7:30 p.m. or sunset, whichever first. Pets prohibited inside fenced pool. TPWD's official park-directory alert checked October 17, 2026 warns about New World screwworm (June 13) and recommends advance day passes during summer, weekends, school breaks and holidays (January 1). The direct Balmorhea alert page could not be independently retrieved October 17; this is NOT confirmation there are no other restrictions. Separate park pool, campground and San Solomon Springs Courts motel, with no lifeguard at the deep spring-fed pool; always verify posted swimming and rental conditions before visiting.",
     maps: "Download TPWD official park/pool map to distinguish camping, the CCC motel and the spring-fed swimming pool.",
   },
   "big-spring-state-park": {
@@ -504,12 +505,13 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "TPWD's park and campground map separates Piney Hill, Copperas Creek, Deer Run and Creekside; Bastrop–Buescher scenic Park Road 1C is another route, not a campground loop.",
   },
   "buescher-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-17",
     sourceUrl: "https://tpwd.texas.gov/state-parks/buescher/fees-facilities/campsites",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/buescher/alert",
     restrooms: "TPWD lists shower restrooms near the 32 electric Cozy Circle/Oak Haven sites and 20 Lakeview water-only tent sites. Five walk-in primitive camps have restrooms nearby.",
     parking: "32 back-in electric campsites occupy Cozy Circle (#1–14) and Oak Haven (#15–32). Lakeview has 20 water sites, with #41–55 drive-up and #56–60 carrying gear 10–60 yards; all Lakeview sites are TENTS ONLY. The 5 first-arrival-only primitive sites #61–65 also require 10–60-yard carries.",
     camping: "32 water-and-electric 20/30-amp campsites, 20 Lakeview water-only tent sites, plus 5 primitive walk-ins that TPWD says CANNOT be reserved online. Lakeview weekend reservations require Friday and Saturday together, with 3-night minimum on specified holiday weekends.",
-    access: "Water-only Lakeview and primitive walk-in sites are not RV sites. Friday/Saturday Lakeview minimum-stay conditions differ from the electric loop. Confirm scenic Bastrop–Buescher connector road conditions.",
+    access: "Water-only Lakeview and primitive walk-in sites are not RV sites. Friday/Saturday Lakeview minimum-stay conditions differ from the electric loop. Confirm scenic Bastrop–Buescher connector road conditions. TPWD October 17 source check: August 24, 2026 WOOD-AND-CHARCOAL burn ban (containerized propane cooking stoves allowed); June 22 low lake level means there is NO lake view or lake access from cabins, Oak Haven, or Lakeview campgrounds. Fishing is still available at the day-use picnic and canoe-launch areas. Never describe a cabin or those camping loops as waterfront lake-view lodging while this alert remains active.",
     maps: "Use separate Cozy Circle, Oak Haven, Lakeview and primitive-site positions on the state park map.",
   },
   "mother-neff-state-park": {
@@ -646,12 +648,13 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "Official park, primitive camp and trails maps are essential to identify the reserved backcountry site and route.",
   },
   "colorado-bend-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-17",
     sourceUrl: "https://tpwd.texas.gov/state-parks/colorado-bend/fees-facilities/campsites",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/colorado-bend/alert",
     restrooms: "28 walk-in riverside tent sites have restrooms nearby; backcountry River and Windmill hike-in camps explicitly have NO toilets and NO water. Grey Fox/Canyon group camps have composting toilets; River Group composting toilet within 0.25 mile.",
     parking: "15 drive-up primitive sites #35–47 allow only self-contained RVs up to 20 feet and have no hookups or sewage dump. 28 riverside walk-in sites require a 50-yard carry. Windmill backcountry is a 1-mile hike from its trailhead, five miles from main river campground.",
     camping: "15 drive-up primitive camps with nearby shared potable water, no hookups or sewer dump; 28 tent-only walk-in sites with water in area; wilderness River/Windmill hike-in sites with NO water/restrooms or open fires. Separate 16-person Grey Fox and Canyon and 48-person River Group camps have different facilities.",
-    access: "Backcountry camping permits are location-specific, with at most four campers together at each River/Windmill backcountry area. No open fires in wilderness camps. Bring all drinking water and carry out trash.",
+    access: "Backcountry camping permits are location-specific, with at most four campers together at each River/Windmill backcountry area. No open fires in wilderness camps. Bring all drinking water and carry out trash. As of October 17, 2026 TPWD lists a July 21 NO-WOOD-OR-CHARCOAL burn ban, allowing containerized fuel stoves for cooking; Gorman Springs Trail and part of Old Gorman Road Trail have been closed for tree maintenance since September 3. The ENTIRE park closes to regular visitors for hunts from 5 p.m. Oct. 19 to 2 p.m. Oct. 22; Nov. 5–8; Nov. 16–19; Dec. 3–6; and Dec. 14–17, 2026, with 5 p.m. first-day starts and 2 p.m. last-day reopenings. Only permitted hunters may enter during these closures; do not imply Gorman Springs is the same trail as the separate guided Gorman Falls visits.",
     maps: "Use TPWD's park and trail maps to distinguish drive-up 20-foot RV sites, tent-only riverwalk sites and remote Windmill or River backcountry access.",
   },
   "franklin-mountains-state-park": {
