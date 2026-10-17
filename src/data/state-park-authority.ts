@@ -532,12 +532,13 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "Use TPWD's bay-side versus beachside campground and trails maps for parking, beach access and the 1.5-mile cross-park separation.",
   },
   "inks-lake-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-15",
     sourceUrl: "https://tpwd.texas.gov/state-parks/inks-lake/fees-facilities/campsites",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/inks-lake/alert",
     restrooms: "Shower restrooms near 114 regular 30/50-amp electric sites, 4 tent-only 20-amp electric sites and 42 water-only sites. Backcountry hike-in sites have only a primitive toilet along the trail, no water at campsites.",
     parking: "114 electric sites include numbered wheelchair-accessible campsites; four tent-only sites #219–222 require a 100-foot walk from parking, with #219/#220 accessible. 42 water-only sites accept only one RV under 26 feet; generators prohibited. Primitive campsites require 1.58-mile hike.",
     camping: "114 electric 30/50-amp sites with water, 4 20-amp electric tent-only sites (no RV), 42 water-only sites and 9 hike-in primitive sites. All 9 hike-in primitive sites have NO drinking water, prohibit pets and ground fires; bring water and respect the designated camping area.",
-    access: "Primitive backcountry forbids pets and ground fires; 42 water-only sites do not permit generators. Choose the exact campsite category before treating all 169 sites as equivalent.",
+    access: "TPWD issued a park burn ban on October 14, 2026: no wood, charcoal or other ash-producing fires; containerized fuel stoves such as propane are allowed for cooking. Parts of the west camping loop, primitive campsites and some trails have hunting-period closures December 3–6 and 14–17, 2026, and January 4–7, 11–14 and 18–21, 2027, with only permitted hunters allowed in the closed areas. Verify exact closure hours and booked sites against TPWD before travel. Day passes and camps often sell out on weekends and holidays. Primitive backcountry forbids pets and ground fires; 42 water-only sites do not permit generators.",
     maps: "Use TPWD park and trails maps to distinguish the Devils Waterhole activity area, standard campground loops and remote no-water primitive sites.",
   },
   "pedernales-falls-state-park": {
@@ -559,12 +560,14 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "TPWD's campground park map separates Raven Hill, Coloneh and Prairie Branch areas; match your reservation to the named loop.",
   },
   "caddo-lake-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-15",
     sourceUrl: "https://tpwd.texas.gov/state-parks/caddo-lake/fees-facilities/campsites",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/caddo-lake/alert",
     restrooms: "Restrooms are listed near Woodpecker Hollow full hookups, Armadillo Run/Squirrel Haven electricity loops and Mill Pond water-only tents. Not every named loop lists showers; verify bathing facilities on park map.",
     parking: "Eight Woodpecker Hollow full-hookup RV sites #18–25 prohibit tents; wheelchair-friendly #18/#21. Eighteen electric camps in Armadillo Run/Squirrel Haven require tent pads; wheelchair-friendly #34/#38. Twenty water-only Mill Pond sites prohibit motorhomes and trailers; accessible #49/#54.",
     camping: "8 50-amp full-hookup sites in Woodpecker Hollow (NO tents), 18 30-amp water/electric in Armadillo Run and Squirrel Haven, 20 water-only Mill Pond camps (NO motorhomes/trailers). A tent or RV reservation cannot be switched casually between those categories.",
     access: "Do not drive an RV or trailer into Mill Pond camping area; it is tent-only. The park's lake paddling access and camping loops serve different trip plans; ask about canoe launches separately.",
+    access: "TPWD reports the park boat ramp closed due to low lake levels as of August 28, 2026. Do not plan to launch a trailered boat at that ramp, and confirm any separate canoe-launch or rental access before visiting. An active burn ban prohibits wood or charcoal fires; containerized fuel stoves such as propane are permitted for cooking. Check current alerts and boat access when reserving a campsite.",
     maps: "Use the campground/park map to differentiate Woodpecker Hollow, Armadillo Run, Squirrel Haven, Mill Pond and boat/canoe access to bayous.",
   },
   "falcon-state-park": {
@@ -604,12 +607,13 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "TPWD offers park and trail maps, a Spanish trails map and bird checklist for its World Birding Center main headquarters location.",
   },
   "dinosaur-valley-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-15",
     sourceUrl: "https://tpwd.texas.gov/state-parks/dinosaur-valley/fees-facilities/campsites",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/dinosaur-valley/alert",
     restrooms: "TPWD lists no restrooms or showers at the South Primitive walk-in sites or the remote hike-in camps. Sauropod and Theropod group campers must walk about 400 yards to shower restrooms; drinking water is at group parking.",
     parking: "Thirty-six electric campsite pads accommodate trailers no longer than 35 feet because of winding roads and trees. Eight primitive walk-in sites require hiking 1/3–1/2 mile; seven remote hike-in sites are 1–2.5 miles away and REQUIRE WADING THE RIVER.",
     camping: "36 electric campsites with 30-amp hookup and water; 8 primitive walk-ins with no water or bathrooms at the campsite; 7 hike-in primitive camps with no water/restrooms/ground fires and mandatory river crossing. Two group sites accommodate 40 and 20, respectively.",
-    access: "River-crossing camps may be inaccessible at high water. Check current river conditions with TPWD at (254) 897-4588 and arrive before dark. Primitive hike-in sites have no ground fires; horses are prohibited in the listed campsite areas.",
+    access: "TPWD has announced full-park closures to ordinary visitors from 10 p.m. December 6 to noon December 10, 2026, and from 10 p.m. January 10 to noon January 14, 2027; only permitted hunters may enter during these periods. Camping and day-use passes often sell out, so reserve ahead. River-crossing camps may be inaccessible at high water; check current Paluxy River track and trail conditions before departure. Contact TPWD at (254) 897-4588, arrive before dark and do not cross flooded water. Primitive hike-in sites have no ground fires; horses are prohibited in the listed campsite areas.",
     maps: "Use official park and trails maps for Paluxy River crossings and each separate group/electric/primitive area.",
   },
   "lost-maples-state-natural-area": {
@@ -671,11 +675,13 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "Consult TPWD park/trail maps and designated campsite locations; these overnight sites are not all near the Summit Trail parking area.",
   },
   "brazos-bend-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-15",
     sourceUrl: "https://tpwd.texas.gov/state-parks/brazos-bend/fees-facilities/campsites",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/brazos-bend/alert",
     restrooms: "TPWD lists restrooms with showers near the Burr Oak 50-amp and Red Buckeye 30-amp camping loops, and showers near the six primitive walk-in sites. Youth group restrooms are much farther away, about one-quarter mile.",
     parking: "Six walk-in primitive sites require carrying gear 35–70 yards; their parking lot is between sites 232 and 234. Youth group sites require a separate 25–50-yard walk and can be used only by qualified nonprofit youth groups.",
     camping: "40 premium 50-amp sites at Burr Oak, 33 regular 30-amp sites at Red Buckeye, six walk-in primitive sites with nearby water, plus restricted group areas for nonprofit youth groups only.",
+    access: "TPWD will close the entire park to ordinary visitors November 17–19 and December 15–17, 2026, for permitted hunting; group camp and pavilion access is separately closed October 24–25. Check reservation dates and current official alerts before planning a stay. The park is under a wood-fire burn ban: TPWD still permits charcoal and containerized propane cooking stoves, so do not mistakenly represent this as a charcoal ban.",
     maps: "Use TPWD's park map for the separate Burr Oak, Red Buckeye, primitive walk-in and youth-group locations rather than assuming all camping loops are contiguous.",
   },
   "guadalupe-river-state-park": {

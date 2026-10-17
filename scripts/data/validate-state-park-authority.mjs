@@ -162,6 +162,17 @@ for (const [slug, alertUrl, criticalDetail] of [
   assertContains(record, alertUrl, `${slug} needs the exact TPWD current-alert source`);
   assertContains(record, criticalDetail, `${slug} must preserve its park-specific visitor safety restriction`);
 }
+// Official 2026–27 hunting, water, fire and campsite restrictions must remain source-linked.
+for (const [slug, officialAlert, requiredFact] of [
+  ["dinosaur-valley-state-park", "https://tpwd.texas.gov/state-parks/dinosaur-valley/alert", "December 6 to noon December 10, 2026"],
+  ["inks-lake-state-park", "https://tpwd.texas.gov/state-parks/inks-lake/alert", "burn ban on October 14, 2026"],
+  ["caddo-lake-state-park", "https://tpwd.texas.gov/state-parks/caddo-lake/alert", "park boat ramp closed due to low lake levels"],
+  ["brazos-bend-state-park", "https://tpwd.texas.gov/state-parks/brazos-bend/alert", "November 17–19 and December 15–17, 2026"],
+]) {
+  const entry = authority.match(new RegExp(`"${slug}": \\{([\\s\\S]*?)\\n  \\},`))?.[1] ?? "";
+  assertContains(entry, officialAlert, `${slug} visitor restrictions must carry the specific TPWD alert URL`);
+  assertContains(entry, requiredFact, `${slug} current visitors must see the verified 2026 safety/closure note`);
+}
 assertContains(authority, "composting restrooms in the Tom Mays Unit", "Franklin Mountains restroom location must remain source-specific and dated");
 assertContains(authority, "NO restrooms inside the cavern", "Longhorn Cavern tour restroom limitations must remain explicit");
 const sinkholeGuide = read("src/data/devils-sinkhole-visitor-authority.ts");
