@@ -28,7 +28,7 @@ export const TEXAS_NPS_DIRECTORY = [
 ] as const;
 
 const officialSlugs = new Set<string>(TEXAS_NPS_DIRECTORY.map((item) => item.slug));
-const npsCodeBySlug = new Map<string,string>(TEXAS_NPS_DIRECTORY.map((item) => [item.slug,item.npsCode]));
+const npsCodeBySlug = new Map<string,string>(TEXAS_NPS_DIRECTORY.map((item): [string, string] => [item.slug, item.npsCode]));
 
 /** Cross-category selection: NPS sites may be classified as history, lakes, outdoors or coast. */
 export function isOfficialTexasNpsDestination(destination: Destination): boolean {
