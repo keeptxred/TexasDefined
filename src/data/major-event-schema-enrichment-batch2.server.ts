@@ -17,6 +17,15 @@ export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
   {
     slug: "amigo-airsho",
     organizer: organization("Amigo Airsho", "https://www.amigoairsho.com/home"),
+    image: {
+      url: "https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/2410/8695491/1000w_q95.jpg",
+      alt: "Vanguard Squadron aerobatic aircraft performing at Amigo Airsho on Fort Bliss, October 12, 2024; archival photo, not a 2026 performer announcement",
+      sourceUrl: "https://www.dvidshub.net/image/8695491/amigo-airsho-returns-fort-bliss",
+      sourceType: "government-open",
+      rightsNote: "U.S. Army photo by Sgt. Charlie Duke at Amigo Airsho, Oct. 12, 2024; DVIDS identifies the photograph as public domain; historical, not current-year lineup.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     sources: [
       { label: "Amigo Airsho 2026 official schedule", url: "https://www.amigoairsho.com/home" },
       { label: "Amigo Airsho 2026 tickets", url: "https://www.amigoairsho.com/tickets" },
