@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-14",
+  "asOf": "2026-10-17",
   "repository": "keeptxred/TexasDefined",
   "production": "https://texasdefined.com",
   "supabaseProjectId": "ftkznprjljkhymknvhye",
@@ -319,5 +319,52 @@
     "sourceProbeOutcome": "15 queued checks processed; the five new Sixth Floor Museum sources and USS Lexington operator sources returned HTTP 200 with source_baseline. Not editorial certification.",
     "acceptanceRule": "Never remove noindex merely to conceal missing licensed museum photography. Four guides remain intentionally blocked. Source reachability and static page audits do not certify editorial authority.",
     "independentlyCertified": 0
+  },
+  "pendingEastTexasOilMuseumUpgrade20261017": {
+    "canonical": "/destination/east-texas-oil-museum-kilgore",
+    "scope": "Existing Kilgore College museum destination; authority extension, not a duplicate page.",
+    "sourceOwner": "Kilgore College East Texas Oil Museum",
+    "sourceReviewDate": "2026-10-17",
+    "addedDossiers": 1,
+    "addedFaqs": 9,
+    "addedMonitoredOperatorSources": 5,
+    "verifiedSourceUrls": [
+      "https://easttexasoilmuseum.kilgore.edu/visit/",
+      "https://easttexasoilmuseum.kilgore.edu/welcome/",
+      "https://easttexasoilmuseum.kilgore.edu/events/",
+      "https://easttexasoilmuseum.kilgore.edu/contact/",
+      "https://easttexasoilmuseum.kilgore.edu/memberships/"
+    ],
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/File:East_Texas_Oil_Museum_building,_Kilgore,_TX_IMG_5900.JPG",
+      "photographer": "Billy Hathorn",
+      "recorded": "2012-10-24",
+      "preciseSubject": "Original exterior of East Texas Oil Museum, Kilgore, Texas",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "browserProductionAcceptance": "not tested",
+      "sourceHtmlAndRenderedPixelVerified": false,
+      "note": "Author self-licensed exact photo on Commons; operator's commercial ON-SITE photography permission rule is separate."
+    },
+    "proposedPostMergeCounts": {
+      "museumDossiers": 72,
+      "museumManifest": 72,
+      "faqRecords": 596,
+      "manifestSourceDefinitions": 305,
+      "benchmarks": 72
+    },
+    "certifier": "none",
+    "status": "Branch submitted, not merged or verified in production. Existing 71-guide production baseline unchanged until deployment and new manifest ingestion."
+  },
+  "photoPermissionQueue20261017": {
+    "issue": "https://github.com/keeptxred/TexasDefined/issues/5057",
+    "missingPhotoRightsGrants": 4,
+    "scope": [
+      "museum-of-the-gulf-coast-port-arthur",
+      "el-paso-holocaust-museum",
+      "texas-broadcast-museum-kilgore",
+      "johnny-nelson-katy-heritage-museum"
+    ],
+    "status": "Official owner contacts sourced; zero permission grants and zero outbound emails. Preserve noindex and site-photo placeholder gates until rights and real image verified."
   }
 }

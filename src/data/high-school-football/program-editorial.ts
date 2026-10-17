@@ -1,5 +1,8 @@
+import { footballMatchups, footballMatchupPath } from './football-matchups';
+
 export type FootballProgramEditorial = {
   slug: string;
+  intro?: string;
   coach?: {
     name: string;
     title: string;
@@ -20,18 +23,23 @@ export type FootballProgramEditorial = {
     sourceUrl: string;
     sourceLabel: string;
     verifiedAt: string;
+    officialScheduleUrl?: string;
+    ticketUrl?: string;
   };
   season?: {
     record: string;
     verifiedAt: string;
     sourceUrl: string;
     sourceLabel: string;
+    latestResultSourceUrl?: string;
     games: Array<{
       date: string;
       opponent: string;
       site: 'Home' | 'Away' | 'Neutral';
       district?: boolean;
       result?: string;
+      kickoff?: string;
+      matchupPath?: string;
     }>;
   };
   venue?: {
@@ -41,6 +49,7 @@ export type FootballProgramEditorial = {
     sourceLabel: string;
     verifiedAt: string;
     note: string;
+    policyUrl?: string;
   };
   development?: {
     title: string;
@@ -2738,39 +2747,41 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "bonham": {
     "slug": "bonham",
-    "seo": {
-      "title": "Bonham Purple Warriors Football 2026 | Coach Aaron Ford, UIL District & Scores",
-      "description": "Bonham Warriors football in Fannin County: 2026 head-coach appointment, UIL 4A Division II District 7, 2–4 through October 9 and guide to official tickets."
-    },
     "theme": {
-      "accentHex": "#5D3480",
-      "label": "Independent editorial purple; not the school-owned Warriors crest"
+      "accentHex": "#63418E",
+      "label": "Independent purple editorial color, not an official Bonham ISD trademark or logo"
+    },
+    "seo": {
+      "title": "Bonham Purple Warriors Football 2026 | Ford, Warrior Stadium & UIL District",
+      "description": "Bonham Warriors football in Fannin County: coach Aaron Ford, UIL 4A Division II District 7, 2026 scores through October 16, school contacts and Warrior Stadium guidance."
     },
     "coach": {
       "name": "Aaron Ford",
-      "title": "Head football coach hired April 2026; assistant athletic director",
-      "sourceUrl": "https://www.on3.com/high-school/news/texas-high-school-football-bonham-hires-celina-defensive-coordinator-as-head-coach/",
-      "sourceLabel": "April 22 district press-release based report quoting Superintendent Lance Hamlin; Bonham ISD roster independently lists Ford assistant AD",
-      "verifiedAt": "2026-10-16"
+      "title": "Head football coach and assistant athletic director, hired April 2026",
+      "sourceUrl": "https://www.kxii.com/2026/04/21/bonham-names-new-high-school-football-coach/",
+      "sourceLabel": "KXII Apr 20 district-confirmed appointment; Bonham ISD official Athletics page lists Aaron Ford assistant AD (unlike stale MaxPreps coach names)",
+      "verifiedAt": "2026-10-17"
     },
     "campus": {
       "address": "1002 Warpath Drive, Bonham, TX 75418",
       "phone": "903-583-5567",
       "sourceUrl": "https://bhs.bonhamisd.org/",
-      "sourceLabel": "Official Bonham High School grades 9–12 address and main office; this is not a verified stadium gate",
-      "verifiedAt": "2026-10-16"
+      "sourceLabel": "Official Bonham High School contact address and telephone; not independent proof of stadium gate",
+      "verifiedAt": "2026-10-17"
     },
     "schedule": {
-      "label": "Bonham ISD Athletics schedule and Rank One information",
-      "sourceUrl": "https://bonhamisd.org/104427_2fhygrh",
-      "sourceLabel": "Bonham ISD current athletics page and 2026–27 eligibility/calendar resources",
-      "verifiedAt": "2026-10-16"
+      "label": "Bonham ISD Athletics event updates and 2026 varsity game information",
+      "sourceUrl": "https://www.bonhamisd.org/104427_2",
+      "sourceLabel": "Official Bonham ISD Athletics; check latest game schedule, media credentials and visitor changes directly; individual scores independently sourced below",
+      "verifiedAt": "2026-10-17",
+      "officialScheduleUrl": "https://www.bonhamisd.org/104427_2",
+      "ticketUrl": "https://www.bonhamisd.org/37878_1"
     },
     "season": {
-      "record": "2–4 through October 9, 2026 (MaxPreps schedule updated October 13)",
-      "verifiedAt": "2026-10-16",
-      "sourceUrl": "https://www.maxpreps.com/tx/bonham/bonham-warriors/football/schedule/",
-      "sourceLabel": "MaxPreps 2026 schedule with dated game score October 9; late results require independent updates",
+      "record": "2–5 (0–2 district) through October 16, 2026; season ongoing",
+      "verifiedAt": "2026-10-17",
+      "sourceUrl": "https://www.maxpreps.com/tx/bonham/bonham-warriors/football/",
+      "sourceLabel": "MaxPreps Bonham varsity results, last updated Oct 17, 2026 02:37 GMT; older schedule index still shows 2–4, latest Oct16 Ford 58–12 result on team page",
       "games": [
         {
           "date": "2026-08-28",
@@ -2813,7 +2824,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "date": "2026-10-16",
           "opponent": "Quinlan Ford",
           "site": "Home",
-          "district": true
+          "district": true,
+          "result": "L 12–58"
         },
         {
           "date": "2026-10-23",
@@ -2835,87 +2847,103 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         }
       ]
     },
-    "notice": {
-      "title": "Bonham changed football coaches and districts after a winless 2025",
-      "body": "An April 22 2026 article quotes Bonham ISD's superintendent announcing Aaron Ford as the new head football coach after serving as Celina defensive coordinator. Bonham ISD's official athletics page lists Ford assistant athletic director and John Ramsey district athletic director; those are distinct roles. A stale MaxPreps season-history entry naming Kyle Dezern as 2026 coach and the older 2025 UIL District 5 must not override current evidence. Exact Warrior Stadium gate/ADA parking and photo reuse rights are not independently certified.",
-      "sourceUrl": "https://bonhamisd.org/104427_2fhygrh",
-      "sourceLabel": "Official Bonham ISD athletics leadership, combined with 2026 quoted district hiring announcement",
-      "verifiedAt": "2026-10-16"
+    "venue": {
+      "name": "Warrior Stadium (Bonham ISD)",
+      "address": "Bonham ISD, Bonham, TX (venue confirmed; exact entrance address not independently verified)",
+      "sourceUrl": "https://www.bonhamisd.org/104427_2",
+      "sourceLabel": "Bonham ISD Athletics official Warrior Stadium media-credential and sideline policy",
+      "verifiedAt": "2026-10-17",
+      "note": "Bonham ISD calls its football venue Warrior Stadium. For 2026–27 the district says tickets for all junior-high and high-school home athletics are ONLINE ONLY; follow the official Bonham ISD Athletic Tickets page. Sideline media must have advance district credentials, requested at least one week ahead. The campus address 1002 Warpath Dr and district address 1005 Chestnut St are NOT independently verified stadium entrance/parking/ADA directions.",
+      "policyUrl": "https://www.bonhamisd.org/104427_2"
     },
     "development": {
-      "title": "From a winless 2025 to a documented 2026 coaching change",
-      "body": "MaxPreps' completed 2025 schedule shows Bonham 0–10 overall, 0–6 in its old 4A Division II District 5, with 91 points scored and 542 conceded. In April 2026, the district hired Celina defensive coordinator Aaron Ford as head football coach, according to an On3 report quoting superintendent Lance Hamlin. Two of Bonham's first six 2026 games were wins, but that is a dated snapshot, not a prediction of a completed turnaround. Dave Campbell's historical program inventory lists 26 playoff appearances but zero state championship-game appearances; attribute these figures to the publisher rather than treating them as independently UIL certified.",
-      "sourceUrl": "https://www.maxpreps.com/tx/bonham/bonham-warriors/football/25-26/schedule/",
-      "sourceLabel": "Dated MaxPreps completed 2025 archive, alongside April 2026 On3 school hiring report and DCTF team historical inventory",
-      "verifiedAt": "2026-10-16"
+      "title": "From a winless 2025 to a new 2026 coaching era",
+      "body": "The 2025 varsity MaxPreps archive records an 0–10 Bonham season. Bonham ISD announced Aaron Ford as head football coach and assistant athletic director in April 2026, and the 2026 team recorded wins over Inspired Vision (60–0) and Venus (28–16) before district losses to North Lamar and Quinlan Ford brought the dated record to 2–5 through October 16. The progress is two wins relative to the prior season, not a claimed district title or playoff qualification.",
+      "sourceUrl": "https://myparistexas.com/bonham-isd-names-aaron-ford-as-new-head-football-coach-and-assistant-athletic-director/",
+      "sourceLabel": "Apr 21 district appointment report paired with archived 2025 and dated 2026 MaxPreps scores",
+      "verifiedAt": "2026-10-17"
     },
     "milestones": [
       {
-        "date": "2025",
-        "title": "Finished prior UIL cycle 0–10",
-        "body": "Ten completed games, 91 points scored, 542 allowed and 0–6 in old District 5 per MaxPreps archive.",
-        "sourceUrl": "https://www.maxpreps.com/tx/bonham/bonham-warriors/football/25-26/schedule/",
-        "sourceLabel": "MaxPreps 2025 completed varsity schedule"
+        "date": "2021",
+        "title": "A playoff qualification in the earlier 3A Division I era",
+        "body": "Bonham finished 5–6 in 2021, qualifying for postseason play before a 49–10 bi-district loss to Gladewater. The program's district/class were different from the 2026 4A DII alignment.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bonham/bonham-warriors/football/21-22/schedule/",
+        "sourceLabel": "MaxPreps 2021 varsity season archive"
       },
       {
-        "date": "2026-04-22",
-        "title": "Celina coordinator Aaron Ford hired to lead Bonham football",
-        "body": "Contemporary article quotes BISD Superintendent Dr. Lance Hamlin announcing Aaron Ford as new coach.",
-        "sourceUrl": "https://www.on3.com/high-school/news/texas-high-school-football-bonham-hires-celina-defensive-coordinator-as-head-coach/",
-        "sourceLabel": "On3 2026 district statement"
+        "date": "2025",
+        "title": "Ten-loss season before the coaching change",
+        "body": "The 2025 MaxPreps varsity archive records Bonham 0–10 overall and 0–6 in the previous district, not 2026 District 7.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bonham/bonham-warriors/football/25-26/schedule/",
+        "sourceLabel": "MaxPreps 2025 varsity season archive"
+      },
+      {
+        "date": "2026-04-20",
+        "title": "Aaron Ford appointed head football coach",
+        "body": "Bonham ISD announced former Celina interim coach Aaron Ford as new head coach and assistant AD; John Ramsey remained listed as athletics director. Older MaxPreps rosters still list previous coaches and must not override the district announcement.",
+        "sourceUrl": "https://www.kxii.com/2026/04/21/bonham-names-new-high-school-football-coach/",
+        "sourceLabel": "KXII dated Apr 20 district hiring report; Bonham official Athletics leadership listing"
       },
       {
         "date": "2026",
-        "title": "New UIL Class 4A Division II District 7",
-        "body": "Bonham joins Farmersville, Paris North Lamar, Quinlan Ford, Sunnyvale and Wills Point for 2026–28.",
+        "title": "UIL 4A Division II District 7 begins",
+        "body": "Bonham joins Farmersville, Paris North Lamar, Quinlan Ford, Sunnyvale and Wills Point for 2026–28. The 2024–25 alignment listed Bonham in District 5; do not re-use the obsolete district.",
         "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
-        "sourceLabel": "Official UIL 2026–28 alignment"
+        "sourceLabel": "Official UIL 2026–28 Class 4A DII; corroborated by Farmersville Times Feb 2 realignment reporting"
       },
       {
-        "date": "2026-10-09",
-        "title": "North Lamar won Bonham's district opener",
-        "body": "Bonham lost 31–13 at Paris North Lamar, leaving 2–4 overall and 0–1 district through Oct 9.",
-        "sourceUrl": "https://www.maxpreps.com/tx/bonham/bonham-warriors/football/schedule/",
-        "sourceLabel": "MaxPreps Oct 13 date-stamped varsity results"
+        "date": "2026-10-16",
+        "title": "Second district game ends 58–12 against Bonham",
+        "body": "MaxPreps' Bonham team page reports Quinlan Ford defeated Bonham 58–12 on October 16, moving Bonham to 2–5 and 0–2 in district. Earlier Oct 13 schedule is stale and still shows 2–4 without this result.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bonham/bonham-warriors/football/",
+        "sourceLabel": "MaxPreps Bonham game-result feed updated early Oct 17; verify later revisions"
       }
     ],
     "overview": [
-      "Bonham ISD's Purple Warriors play eleven-man football in Bonham, Fannin County. The UIL's 2026–28 alignment assigns Bonham to Class 4A Division II, Region II District 7 with Farmersville, Paris North Lamar, Quinlan Ford, Sunnyvale and Wills Point. The 2025 Class 4A Division II District 5 schedule has different rivals and is not the current alignment.",
-      "Bonham entered 2026 after a completed 0–10 2025 campaign with 91 points scored and 542 yielded according to MaxPreps. On April 22, a contemporary report quoting the Bonham ISD superintendent announced former Celina defensive coordinator Aaron Ford as new head football coach. The district's current roster names Ford assistant athletic director and John Ramsey athletic director, not the same job. A historical football index naming Kyle Dezern in 2026 is inconsistent with that district-backed appointment.",
-      "Through October 9, the 2026 varsity results showed 2–4, with a 60–0 victory over Inspired Vision, 28–16 win at Venus and four losses including North Lamar 31–13 in the district opener. Remaining games against Quinlan Ford, Wills Point, Sunnyvale and Farmersville were upcoming at this October 16 checkpoint. These scheduled games should not be misrepresented as final outcomes.",
-      "Dave Campbell's Texas Football attributes 26 historical playoff appearances and zero state title-game appearances to Bonham. These are historical editorial directory figures, not a school-owned title certification or a claim that Bonham has qualified in 2026. The archived 2021 Bonham season was 5–6, a separate prior-year context.",
-      "The official Bonham High School campus contact is 1002 Warpath Drive, Bonham TX 75418, phone 903-583-5567. Dave Campbell's labels the football venue Warrior Stadium but does not independently confirm a precise game-day vehicle gate, parking inventory or accessible seating. Use Bonham ISD's athletics/Rank One materials to check the current fixture, ticket requirements and visitor arrangements."
+      "Bonham High School's Purple Warriors represent Bonham Independent School District in Bonham, Fannin County, Texas. Their purple-and-white identity is local to Bonham, not the separate Paris North Lamar Panthers or Quinlan Ford Panthers. The official 2026–28 UIL alignment assigns Bonham to Class 4A Division II District 7 with Farmersville, Paris North Lamar, Quinlan Ford, Sunnyvale and Wills Point. Old websites still displaying District 5 refer to the 2024–25 cycle.",
+      "Bonham's football leadership changed before the 2026 season. After the Warriors' winless 2025 campaign, Bonham ISD named Aaron Ford its new varsity head coach and assistant athletic director in April 2026. The school still lists John Ramsey as athletic director. Although some MaxPreps staff entries name Kyle Dezern or John Ramsey as head coach, those old or conflicting labels do not supersede the dated district hiring announcement.",
+      "On the field, Bonham opened 2026 with a 60–0 win over Dallas Inspired Vision and added a 28–16 win on the road at Venus. Its losses before district play included Howe, Life Oak Cliff and Pottsboro. The Oct 9 district opener at Paris North Lamar ended 31–13 to North Lamar. MaxPreps' Oct 17 update separately reports the Oct 16 home loss to Quinlan Ford by 58–12, producing a 2–5, 0–2 district snapshot. An older Oct 13 fixtures page still lists 2–4 and lacks that Ford result; the newer result must be distinguished from a stale schedule.",
+      "Unlike the recent 2025 rebuilding year, Bonham also has a documented 2021 playoff season. The Warriors went 5–6 and faced Gladewater in a bi-district game, losing 49–10. That team played in a different classification/realignment era. Dave Campbell's program archive lists no state football title or title-game appearance; don't confuse appearances in early playoff rounds with a state championship.",
+      "Bonham ISD officially names its venue Warrior Stadium and has a specific football sideline media credential policy: journalists and photographers requesting sideline access must apply to the district at least one week ahead. For 2026–27 the district says all junior-high and high-school HOME athletic event tickets are sold online only through its Bonham ISD Athletic Tickets page; this is actual first-party policy, not an estimated price. Bonham High School lists 1002 Warpath Drive and 903-583-5567 for school contact, distinct from Bonham ISD's 1005 Chestnut St district office. Neither address has been independently certified as the stadium vehicle entrance, and parking, accessible seating, specific gate and ticket price must still be checked."
     ],
     "faq": [
       {
-        "question": "Which UIL football district is Bonham in for 2026?",
-        "answer": "UIL places Bonham in 4A Division II Region II District 7 with Farmersville, Paris North Lamar, Quinlan Ford, Sunnyvale and Wills Point. Its 2025 schedule belonged to a different realignment cycle."
+        "question": "What UIL district do Bonham Warriors play in during 2026?",
+        "answer": "Bonham is in Class 4A Division II District 7 for 2026–28 with Farmersville, Paris North Lamar, Quinlan Ford, Sunnyvale and Wills Point. Bonham's District 5 listing belongs to an earlier UIL alignment."
       },
       {
-        "question": "Who coaches Bonham football in 2026?",
-        "answer": "An April 22, 2026 report quotes Bonham ISD appointing Aaron Ford as head football coach. The district's athletics staff list also identifies Ford as assistant athletic director, with John Ramsey district athletic director. A stale MaxPreps history index listing Kyle Dezern should not override that dated school-backed hire."
+        "question": "Who became Bonham's head football coach for 2026?",
+        "answer": "Bonham ISD appointed Aaron Ford as head varsity coach and assistant athletic director in April 2026. The district's Athletics page continues to list John Ramsey as athletic director. Older MaxPreps coaching labels are not reliable proof of the current appointment."
       },
       {
-        "question": "Did Bonham finish the 2025 season without a win?",
-        "answer": "Yes. The completed MaxPreps 2025 varsity schedule shows 0–10, with 91 points scored and 542 allowed. This was in the earlier District 5 UIL alignment."
+        "question": "How did Bonham finish its October 16, 2026 football game?",
+        "answer": "MaxPreps' Oct 17 Bonham result update reports a 58–12 loss to Quinlan Ford at home on Oct 16, leaving the Warriors 2–5 overall and 0–2 in district as of that date. An older Oct 13 schedule is stale."
       },
       {
-        "question": "What was Bonham's 2026 varsity record through October 9?",
-        "answer": "The MaxPreps schedule updated October 13 lists Bonham 2–4 overall and 0–1 in District 7 after a 31–13 defeat at Paris North Lamar on October 9. Its next listed game is Quinlan Ford on October 16."
+        "question": "Did Bonham reach the football playoffs recently?",
+        "answer": "Yes. The 2021 Warriors qualified for a bi-district playoff against Gladewater and lost 49–10, finishing 5–6. That was a postseason appearance, not a state-final appearance."
       },
       {
-        "question": "Did Bonham win a Texas football state championship?",
-        "answer": "Dave Campbell's historical Bonham program inventory lists zero state titles and zero title-game appearances. These publisher-maintained historical summaries should not be expanded into unsupported claims of a title."
+        "question": "Where is Warrior Stadium and what are its admission or parking rules?",
+        "answer": "Bonham ISD names Warrior Stadium and says all 2026–27 junior-high and high-school HOME athletic-event tickets are ONLINE ONLY through the district's official Athletic Tickets page (https://www.bonhamisd.org/37878_1). Exact stadium vehicle gate/ADA parking and accessible seating remain unverified; verify with Bonham ISD before traveling."
       },
       {
-        "question": "Where is Bonham High and where should football visitors park?",
-        "answer": "Bonham High is officially at 1002 Warpath Drive, Bonham TX 75418, phone 903-583-5567. Warrior Stadium is listed in a football directory, but the school address is not an independently confirmed game gate, ADA parking location or event-specific ticket entrance."
+        "question": "Do photographers need credentials to work Bonham football sidelines?",
+        "answer": "Yes. Bonham ISD requires approved media passes for people with cameras on the football sideline at Warrior Stadium and requests submissions at least one week in advance. This does not mean every spectator needs a media pass."
       },
       {
-        "question": "Where do I verify a Bonham football schedule or ticket change?",
-        "answer": "Check Bonham ISD Athletics and its Rank One event links. Confirm game site, admission, accessible seating and current kickoff with the district; this guide does not invent cash acceptance or current ADA facilities."
+        "question": "How do I contact Bonham High School versus Bonham ISD Athletics?",
+        "answer": "Bonham High School lists 1002 Warpath Drive, Bonham TX 75418 and 903-583-5567; district athletics information is published through Bonham ISD at 1005 Chestnut St, 903-583-5526. Neither address should be assumed to be the stadium vehicle gate."
       }
-    ]
+    ],
+    "notice": {
+      "title": "2026–27 home football tickets are online only",
+      "body": "Bonham ISD Athletics states that all junior high and high school HOME athletic-event tickets are online only for 2026–27, and links to the district's official Athletic Tickets page. No cash acceptance or on-site ticket option is asserted. Football sideline photographers and other media need advance district approval, ideally submitted a week before the game. The exact vehicle gate, parking and accessibility remain unverified.",
+      "sourceUrl": "https://www.bonhamisd.org/104427_2",
+      "sourceLabel": "Bonham ISD Athletics first-party 2026–27 online-only ticket notice and official sideline media rules",
+      "verifiedAt": "2026-10-17"
+    }
   },
   "booker": {
     "slug": "booker",
@@ -8998,13 +9026,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "aubrey": {
     "slug": "aubrey",
+    "intro": "Aubrey is 4–3 overall and 4–0 in UIL District 4 through October 16 after a 66–14 home win over Carrollton Ranchview. The next listed game is October 23 at Lake Dallas. Find all 2026 scores, the remaining schedule, home tickets and Chaparral Stadium policies below.",
     "theme": {
       "accentHex": "#AE1C2A",
-      "label": "Aubrey Chaparrals school-inspired editorial accent (not an official seal)"
+      "label": "Independent editorial colors; no official school logo reproduced"
     },
     "seo": {
-      "title": "Aubrey Chaparrals Football: Chaparral Stadium Rules & 2026 Guide",
-      "description": "Aubrey Chaparrals football: Chaparral Stadium ticket and fan policies, 2024 playoff season, coach Keith Ivy and official 2026 game-day resources."
+      "title": "Aubrey Chaparrals Football (2026): Schedule, Scores & Tickets",
+      "description": "Aubrey Chaparrals 2026 football: 4–3 overall, 4–0 district through October 16, schedule, 66–14 win over Ranchview, Chaparral Stadium policies and official tickets."
     },
     "coach": {
       "name": "Keith Ivy",
@@ -9014,61 +9043,158 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-10"
     },
     "schedule": {
-      "label": "2026 football schedule and official visitor resources",
-      "sourceUrl": "https://www.aubreyisd.net/o/ahs/live-feed?page_no=1",
-      "sourceLabel": "Published 2026 schedule/resources",
-      "verifiedAt": "2026-10-10"
+      "label": "2026 Aubrey varsity football schedule and results",
+      "sourceUrl": "https://www.maxpreps.com/tx/aubrey/aubrey-chaparrals/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity schedule (UIL partner)",
+      "verifiedAt": "2026-10-16",
+      "officialScheduleUrl": "https://www.aubreyisd.net/live_feeds/12931971",
+      "ticketUrl": "https://gofan.co/app/school/TX90134"
     },
     "development": {
-      "title": "What distinguishes the Aubrey Chaparrals program",
-      "body": "Aubrey ISD's June 4, 2026 Chaparral Stadium guidance says tickets must be purchased online via GoFan and cash is not accepted at the gate. Bags may be inspected, high school student-section visitors need school IDs and middle-school spectators must stay seated. These concrete procedures distinguish Aubrey's fan guide from generic stadium copy.",
-      "sourceUrl": "https://www.aubreyisd.net/live_feeds/12506149",
-      "sourceLabel": "School district or football reference",
-      "verifiedAt": "2026-10-10"
+      "title": "Chaparral Stadium: tickets and entry rules",
+      "body": "Aubrey ISD says Chaparral Stadium requires online GoFan tickets, with no cash accepted at the gate. Bags may be inspected, field access is restricted, high-school students need ID for the student section, and middle-school spectators must remain seated. Younger children must be accompanied by an adult. Check the latest official rules before travel.",
+      "sourceUrl": "https://www.aubreyisd.net/page/aubrey-isd-stadium-policies",
+      "sourceLabel": "Official Aubrey ISD stadium policy",
+      "verifiedAt": "2026-10-16"
     },
     "milestones": [
       {
         "date": "2021",
-        "title": "Twelve-win season",
-        "body": "Historical season records list Aubrey finishing 12–2, among the program's strongest recent years.",
+        "title": "Twelve-win campaign",
+        "body": "Aubrey finished 12–2 in 2021.",
         "sourceUrl": "https://www.texasfootball.com/team/aubrey-chaparrals",
-        "sourceLabel": "Named source for school-specific milestone"
+        "sourceLabel": "Dave Campbell’s historical season record"
       },
       {
         "date": "2024",
-        "title": "Playoff progress",
-        "body": "Aubrey recorded an 8–5 season in 2024, following an 8–4 2023 season.",
+        "title": "Another playoff run",
+        "body": "Aubrey finished 8–5 in 2024 after an 8–4 season in 2023.",
         "sourceUrl": "https://www.texasfootball.com/team/aubrey-chaparrals",
-        "sourceLabel": "Named source for school-specific milestone"
+        "sourceLabel": "Dave Campbell’s historical season record"
       },
       {
         "date": "2026",
-        "title": "Cashless stadium policy",
-        "body": "District policy specifies GoFan digital tickets, bag inspection and student supervision rules.",
-        "sourceUrl": "https://www.aubreyisd.net/live_feeds/12506149",
-        "sourceLabel": "Named source for school-specific milestone"
+        "title": "Three straight district wins",
+        "body": "Through October 9, Aubrey defeated Castleberry 60–0, Springtown 21–14 and Decatur 28–21.",
+        "sourceUrl": "https://www.maxpreps.com/tx/aubrey/aubrey-chaparrals/football/schedule/",
+        "sourceLabel": "2026 MaxPreps schedule and results"
       }
     ],
     "overview": [
-      "Aubrey is a Class 4A Division I program; DCTF credits the Chaparrals with 17 playoff appearances but no state championship or state title-game appearance. Avoid inventing a trophy to make the history look stronger.",
-      "Coach Keith Ivy is identified on the 2026 MaxPreps staff roster. The 2024 playoff campaign finished 8–5, and the 2025 season finished 3–7; these belong to separate historical seasons.",
-      "Aubrey ISD's stadium notice requires GoFan online tickets and no gate cash, allows inspected bags and restricts field access. These details are important for families and visiting supporters.",
-      "Chaparral Stadium is at the Aubrey High School campus, 510 Spring Hill Road, as corroborated by football game listings; school drop-off traffic rules should not be confused with football parking directions."
+      "The Aubrey Chaparrals are 4–3 overall and 4–0 in UIL District 4 through October 16, 2026. A 66–14 victory over Carrollton Ranchview followed district wins against Castleberry, Springtown and Decatur. Aubrey's next listed games are at Lake Dallas (October 23), at Alvarado (October 30) and home against Godley (November 6). These results are a dated snapshot, not a live feed.",
+      "The Chaparrals compete in 4A Division I, District 4. Keith Ivy is the published 2026 head coach. Aubrey finished 8–5 in 2024 and 3–7 in 2025; those records describe previous seasons.",
+      "Dave Campbell’s Texas Football credits Aubrey with 17 historic playoff appearances and no state-title-game appearances. Chaparral Stadium is at the school campus on Spring Hill Road. For home games, Aubrey ISD directs ticket purchases to GoFan and publishes separate entry rules."
     ],
     "faq": [
       {
-        "question": "Can spectators pay cash at Aubrey's Chaparral Stadium?",
-        "answer": "No. Aubrey ISD's June 2026 stadium notice directs ticket buyers to GoFan and says cash is not accepted at the gate."
+        "question": "What is Aubrey’s 2026 football record?",
+        "answer": "Through October 16, Aubrey was 4–3 overall and 4–0 in district play after beating Carrollton Ranchview 66–14. Verify any later results using the scoreboard and dated schedule above."
       },
       {
-        "question": "Who is Aubrey's listed 2026 head coach?",
-        "answer": "The 2026 MaxPreps football staff roster identifies Keith Ivy."
+        "question": "What games are on Aubrey’s late-2026 regular-season schedule?",
+        "answer": "The October 16 schedule snapshot has the Ranchview game as a completed 66–14 Aubrey win. The remaining games are Lake Dallas away October 23, Alvarado away October 30 and Godley at home November 6. Confirm kickoff times and later results using the current team schedule."
       },
       {
-        "question": "Has Aubrey won a Texas state football title?",
-        "answer": "Dave Campbell's historical summary lists no state titles or state-title-game appearances, while crediting 17 playoff appearances."
+        "question": "Where do fans buy Aubrey home football tickets?",
+        "answer": "Aubrey ISD directs home-game tickets to the official GoFan school page and says cash is not accepted at Chaparral Stadium's gate."
+      },
+      {
+        "question": "Where is Chaparral Stadium?",
+        "answer": "The stadium is at Aubrey High School, 510 Spring Hill Road, Aubrey. Confirm each game’s host stadium and parking with the district."
+      },
+      {
+        "question": "Has Aubrey won a state football title?",
+        "answer": "Dave Campbell’s historical listing records no state football titles or state-title-game appearances and credits Aubrey with 17 playoff appearances."
       }
-    ]
+    ],
+    "season": {
+      "record": "4–3 overall · 4–0 district (through Oct. 16)",
+      "verifiedAt": "2026-10-16",
+      "sourceUrl": "https://www.maxpreps.com/tx/aubrey/aubrey-chaparrals/football/schedule/",
+      "sourceLabel": "MaxPreps Aubrey varsity schedule; snapshot reviewed October 16, not a live scoreboard",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Prosper Richland",
+          "site": "Home",
+          "district": false,
+          "result": "L 49–56 (OT)"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Van Alstyne",
+          "site": "Home",
+          "district": false,
+          "result": "L 36–40"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Sanger",
+          "site": "Away",
+          "district": false,
+          "result": "L 21–37"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "River Oaks Castleberry",
+          "site": "Away",
+          "district": true,
+          "result": "W 60–0"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Springtown",
+          "site": "Home",
+          "district": true,
+          "result": "W 21–14"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Decatur",
+          "site": "Away",
+          "district": true,
+          "result": "W 28–21"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Carrollton Ranchview",
+          "site": "Home",
+          "district": true,
+          "result": "W 66–14"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Lake Dallas",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 p.m. CDT"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Alvarado",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 p.m. CDT"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Godley",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 p.m. CST"
+        }
+      ],
+      "latestResultSourceUrl": "https://www.maxpreps.com/tx/football/game/aubrey-vs-ranchview-irving/10-16-2026/?c=54b47abc-615f-4da6-91f5-3c864b3b37d1"
+    },
+    "venue": {
+      "name": "Chaparral Stadium at Aubrey High School",
+      "address": "510 Spring Hill Road, Aubrey, TX 76227",
+      "sourceUrl": "https://www.texasfootball.com/team/aubrey-chaparrals",
+      "sourceLabel": "Dave Campbell’s football stadium listing; school campus address independently confirmed by Aubrey ISD",
+      "verifiedAt": "2026-10-16",
+      "note": "Aubrey home venue. Verify the actual host and stadium entrance for each game; campus drop-off rules are not football parking instructions.",
+      "policyUrl": "https://www.aubreyisd.net/page/aubrey-isd-stadium-policies"
+    }
   },
   "atlanta": {
     "slug": "atlanta",
@@ -15165,182 +15291,177 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   "alief-taylor": {
     "slug": "alief-taylor",
     "theme": {
-      "accentHex": "#315F4D",
-      "label": "Original deep-green Lions editorial accent; not an official athletics logo or independently confirmed uniform palette"
+      "accentHex": "#C6283E",
+      "label": "Independent red-accented Lions editorial styling, informed by documented red, navy and white school colors; not an official logo"
     },
     "seo": {
-      "title": "Alief Taylor Lions Football: 2026 Scores, District 20 & Program Guide",
-      "description": "Alief Taylor Lions football: UIL 6A District 20, verified 2026 season results, Alief opponents, coaching-source details and Houston game-day resources."
+      "title": "Alief Taylor Lions Football 2026: Scores, Record & District 20",
+      "description": "Follow Alief Taylor Lions football in 2026: verified results, updated record, upcoming District 20 games, Crump Stadium details and official school resources."
     },
     "coach": {
       "name": "Shawn Gray",
-      "title": "Head coach attributed by the 2026 MaxPreps team/staff listings; official district confirmation pending",
+      "title": "2026 varsity head coach per MaxPreps staff listing (district appointment not independently confirmed)",
       "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-taylor-lions/football/staff/",
-      "sourceLabel": "MaxPreps Alief Taylor varsity staff directory",
+      "sourceLabel": "MaxPreps Alief Taylor 2026 varsity coaching staff",
       "verifiedAt": "2026-10-09"
     },
     "campus": {
       "address": "7555 Howell Sugar Land Road, Houston, TX 77083",
       "phone": "281-988-3500",
-      "sourceUrl": "https://taylor.aliefisd.net/events",
-      "sourceLabel": "Alief Taylor High School official events/contact",
-      "verifiedAt": "2026-10-09"
+      "sourceUrl": "https://taylor.aliefisd.net/",
+      "sourceLabel": "Alief Taylor High School official campus",
+      "verifiedAt": "2026-10-16"
     },
     "schedule": {
-      "label": "Alief Taylor varsity 2026 games and current results (verify new finals before attending)",
+      "label": "2026 Alief Taylor football schedule, scores and team ledger",
       "sourceUrl": "https://www.si.com/high-school/stats/texas/football/teams/250856-alief-taylor-lions/games",
-      "sourceLabel": "High School On SI / Scorebook Live, October 9 dated check",
-      "verifiedAt": "2026-10-09"
+      "sourceLabel": "High School On SI game ledger; final matchup sources linked individually below",
+      "verifiedAt": "2026-10-16"
     },
     "season": {
-      "record": "5–1 overall / 3–1 district, through Oct. 2, 2026",
-      "verifiedAt": "2026-10-09",
+      "record": "6–1 overall / 4–1 district, through Oct. 10, 2026",
+      "verifiedAt": "2026-10-16",
       "sourceUrl": "https://www.si.com/high-school/stats/texas/football/teams/250856-alief-taylor-lions/games",
-      "sourceLabel": "Scorebook Live dated 2026 game ledger",
+      "sourceLabel": "High School On SI season ledger, supplemented by separately sourced matchup finals",
       "games": [
         {
-          "date": "Aug. 28",
+          "date": "2026-08-28",
           "opponent": "Westbury",
           "site": "Home",
           "result": "W 39–0"
         },
         {
-          "date": "Sept. 4",
+          "date": "2026-09-04",
           "opponent": "Dobie",
           "site": "Home",
           "result": "W 47–30"
         },
         {
-          "date": "Sept. 11",
+          "date": "2026-09-11",
           "opponent": "Houston Heights",
           "site": "Away",
           "district": true,
           "result": "W 38–24"
         },
         {
-          "date": "Sept. 18",
+          "date": "2026-09-18",
           "opponent": "Alief Elsik",
           "site": "Home",
           "district": true,
           "result": "W 49–0"
         },
         {
-          "date": "Sept. 24",
+          "date": "2026-09-24",
           "opponent": "Bellaire",
           "site": "Away",
           "district": true,
           "result": "W 48–8"
         },
         {
-          "date": "Oct. 2",
+          "date": "2026-10-02",
           "opponent": "Alief Hastings",
           "site": "Home",
           "district": true,
           "result": "L 23–27"
         },
         {
-          "date": "Oct. 10",
+          "date": "2026-10-10",
           "opponent": "Stratford",
           "site": "Away",
-          "district": true
+          "district": true,
+          "result": "W 29–28"
         },
         {
-          "date": "Oct. 16",
-          "opponent": "Memorial",
+          "date": "2026-10-16",
+          "opponent": "Houston Memorial",
           "site": "Home",
           "district": true
         },
         {
-          "date": "Oct. 22",
+          "date": "2026-10-22",
           "opponent": "Westside",
           "site": "Away",
           "district": true
         },
         {
-          "date": "Nov. 6",
-          "opponent": "Lamar",
+          "date": "2026-11-06",
+          "opponent": "Houston Lamar",
           "site": "Home",
           "district": true
         }
       ]
     },
     "venue": {
-      "name": "Alief ISD game facilities — Crump Stadium for documented Sept. 18 Elsik contest",
-      "address": "Houston, Texas — game-specific stadium entrance not independently verified",
-      "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-taylor-lions/football/",
-      "sourceLabel": "MaxPreps Alief Taylor Sept. 18 venue listing",
-      "verifiedAt": "2026-10-09",
-      "note": "The September 18 Taylor–Elsik score explicitly records a Crump Stadium game, but that does not establish that every Taylor home fixture uses the same entrance or that the Howell Sugar Land Road school campus is the stadium gate. Check the district and event ticket for the venue, parking, accessible entry and bag rules. A separate Alief ISD event gives a Crump address at 12321 Alief Clodine Road; a state press-box construction registration uses High Star Drive. Neither document verifies the entrance for every Lions game."
+      "name": "Crump Stadium — documented venue for Taylor–Memorial on Oct. 16, 2026",
+      "address": "Alief, Houston, Texas — verify your assigned entrance for each game",
+      "sourceUrl": "https://www.houstonmemorialfootball.com/schedule",
+      "sourceLabel": "Memorial varsity 2026 venue schedule (Taylor away game at Crump)",
+      "verifiedAt": "2026-10-16",
+      "note": "Crump Stadium is the documented venue for the Oct. 16 Memorial game and Sept. 18 Elsik game. The campus address, stadium address and spectator gate are not interchangeable. Confirm next-game venue, parking, accessibility, bag rules and ticketing with Alief ISD or the host school."
     },
     "overview": [
-      "The Alief Taylor Lions are Alief ISD's own Houston football program, distinct from the neighboring Alief Elsik Rams and Alief Hastings Fighting Bears. UIL's 2026–28 alignment places Taylor in Conference 6A District 20. The official alphabetical alignment reports 2,783 for Taylor's realignment enrollment; it is an alignment figure rather than a claim about a specific 2026 game-night attendance.",
-      "Taylor opened 2026 with five straight varsity wins, shutting out Westbury 39–0 and Alief Elsik 49–0. The first district stretch also included a 38–24 road win over Heights and a 48–8 victory at Bellaire. That sequence gives the Lions a distinctive current-season story without making an unverified claim about program records or district championships.",
-      "Hastings ended Taylor's unbeaten start with a 27–23 district win on October 2. As of the October 9 research checkpoint, independently cross-checked secondary score ledgers stood at 5–1 overall and 3–1 in District 20. Upcoming Stratford, Memorial, Westside and Lamar fixtures should not be presented as completed games. The standalone MaxPreps schedule snapshot lags behind the October 2 result, so the dated season ledger and official team updates take precedence.",
-      "The 2026 MaxPreps personnel listing identifies Shawn Gray as Taylor's head coach, with Wale Okunnu and Chris Maple among assistant staff. An independent current Alief ISD announcement has not been located for all those appointments; the attribution is deliberate and visitors should follow the district athletics office for personnel changes.",
-      "Alief's district grouping makes the Elsik and Hastings games particularly useful context for Lions supporters. The two 2026 results are documented football matchups, not proof of an annual named rivalry trophy. The Taylor school address is verified by the school itself, while a football ticket's assigned stadium gate and parking remain game-specific.",
-      "This editorial record focuses on independently verifiable 2026 achievements and primary UIL classification rather than inventing older state finals, notable alumni or school traditions. Additional historical claims require year-specific UIL archives and school records before publication."
+      "Alief Taylor's Lions are one of three separate Alief ISD varsity programs alongside the Elsik Rams and Hastings Fighting Bears. UIL's 2026–28 alignment places Taylor in Conference 6A, District 20, and lists enrollment at 2,783 for realignment purposes.",
+      "The Lions began 2026 with five straight wins, including a 49–0 district shutout of Elsik. Hastings edged Taylor 27–23 on October 2, but the Lions rebounded with a 29–28 road win over Stratford on October 10.",
+      "Houston Memorial won the October 16 meeting at Crump Stadium, 42–18, according to the separately sourced TexasDefined matchup result. The result is reflected in the season ledger above, which draws from verified matchup finals rather than requiring a second manual entry.",
+      "Alief Taylor's school website marks its 25th anniversary in 2026. The Lions also appear in UIL's 2003–04 state playoff bracket and have a history extending beyond this year's scores. Supporters should consult the next-game listing and host-school instructions for current travel and ticket details."
     ],
     "milestones": [
       {
-        "date": "2026–28",
-        "title": "Conference 6A, District 20 alignment",
-        "body": "UIL's published realignment places Alief Taylor in Class 6A District 20, with a reported realignment enrollment of 2,783.",
-        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf",
-        "sourceLabel": "Official UIL 2026–28 alphabetical alignment"
+        "date": "2003",
+        "title": "Early UIL playoff appearance",
+        "body": "The 2003–04 Class 5A Division I bracket lists Alief Taylor as a District 19 postseason qualifier, part of the program's earlier football history.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_brackets/03_04/5Afb.pdf",
+        "sourceLabel": "UIL 2003–04 football playoff bracket"
       },
       {
-        "date": "Aug. 28, 2026",
-        "title": "Opening-night shutout",
-        "body": "Taylor opened the varsity schedule with a 39–0 win against Westbury in the 2026 results ledger.",
-        "sourceUrl": "https://www.si.com/high-school/stats/texas/football/teams/250856-alief-taylor-lions/games",
-        "sourceLabel": "Scorebook Live 2026 results"
+        "date": "2026",
+        "title": "Taylor celebrates 25 years",
+        "body": "The school's official home page marks its 25th anniversary with an alumni homecoming celebration.",
+        "sourceUrl": "https://taylor.aliefisd.net/",
+        "sourceLabel": "Alief Taylor school announcement"
       },
       {
         "date": "Sept. 18, 2026",
-        "title": "49–0 meeting with Elsik",
-        "body": "The Lions defeated fellow Alief ISD program Elsik 49–0; the MaxPreps match record identifies Crump Stadium for this specific contest.",
-        "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-taylor-lions/football/",
-        "sourceLabel": "MaxPreps Alief Taylor 2026 game recap"
-      },
-      {
-        "date": "Sept. 24, 2026",
-        "title": "Five-win opening streak",
-        "body": "A 48–8 victory at Bellaire extended Taylor's season start to five consecutive wins.",
+        "title": "District shutout over Elsik",
+        "body": "Taylor defeated fellow Alief ISD program Elsik 49–0 during its five-win start.",
         "sourceUrl": "https://www.si.com/high-school/stats/texas/football/teams/250856-alief-taylor-lions/games",
-        "sourceLabel": "Scorebook Live season record"
+        "sourceLabel": "High School On SI 2026 game results"
       },
       {
-        "date": "Oct. 2, 2026",
-        "title": "Hastings wins close Alief matchup",
-        "body": "Taylor's five-win streak ended in a 27–23 District 20 loss to Alief Hastings, leaving the Lions 5–1 through six games.",
-        "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-taylor-lions/football/",
-        "sourceLabel": "MaxPreps Oct. 2 game score"
+        "date": "Oct. 10, 2026",
+        "title": "One-point road win at Stratford",
+        "body": "Taylor beat Stratford 29–28 in a District 20 matchup.",
+        "sourceUrl": "https://www.maxpreps.com/tx/football/game/alief-taylor-houston-vs-stratford-houston/10-10-2026/",
+        "sourceLabel": "MaxPreps Oct. 10 game recap"
+      },
+      {
+        "date": "Oct. 16, 2026",
+        "title": "Memorial visits Crump Stadium",
+        "body": "Houston Memorial beat Taylor 42–18 in the October 16 district matchup. Follow the linked matchup and external result source for details.",
+        "sourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php",
+        "sourceLabel": "Houston Chronicle Week 8 Texas scores"
       }
     ],
     "faq": [
       {
-        "question": "What is Alief Taylor's football classification in 2026?",
-        "answer": "UIL lists Alief Taylor in Conference 6A District 20 for the 2026–28 cycle; the published realignment enrollment is 2,783."
+        "question": "What classification and district is Alief Taylor football in?",
+        "answer": "For the 2026–28 UIL cycle, Alief Taylor is in Conference 6A, District 20, with 2,783 students reported for realignment."
       },
       {
-        "question": "What was the Lions' record through October 2, 2026?",
-        "answer": "Taylor stood 5–1 overall and 3–1 in district games, with a five-win opening streak followed by a 27–23 loss to Alief Hastings. This is a dated snapshot, not a live standings feed."
+        "question": "Where are the Lions' current scores and upcoming fixtures?",
+        "answer": "The dated 2026 results and schedule are shown above. Confirm last-minute score or kickoff changes against the linked game records, UIL Texas Scoreboard, and Alief ISD before traveling."
       },
       {
-        "question": "Who is the 2026 Alief Taylor football coach?",
-        "answer": "MaxPreps' 2026 football staff listing identifies Shawn Gray as head coach. District appointment confirmation and subsequent staff changes should be checked with Alief ISD."
+        "question": "What colors does Alief Taylor use?",
+        "answer": "Taylor's school colors are red, navy and white, as listed in a published school-athletics program. The red accents here are independent TexasDefined editorial styling, not licensed school marks."
       },
       {
-        "question": "Are Taylor, Elsik and Hastings the same football program?",
-        "answer": "No. They are separate Alief ISD high-school teams. In 2026 Taylor defeated Elsik 49–0 and lost to Hastings 27–23; these are documented league meetings rather than evidence of an officially named rivalry trophy."
+        "question": "Who coaches Alief Taylor football?",
+        "answer": "MaxPreps' 2026 football staff listing identifies Shawn Gray as head coach. Consult Alief ISD for current personnel announcements."
       },
       {
-        "question": "Where does Alief Taylor play football games?",
-        "answer": "A September 18, 2026 game record specifically names Crump Stadium for the Lions' contest with Elsik. Venue, game-specific entrance, parking, accessible seating and ticketing should be confirmed with Alief ISD before travel; the school campus address is not automatically the stadium gate."
-      },
-      {
-        "question": "Did Alief Taylor win a state championship?",
-        "answer": "This page does not claim a UIL state title. No championship result has been independently established in the research cited here; use official UIL championship archives for historical title verification."
+        "question": "Where do Alief Taylor Lions play home games?",
+        "answer": "Crump Stadium is documented for the 2026 Elsik and Memorial games. Verify the assigned stadium, spectator gate, accessibility and ticket requirements for every fixture; the school's campus address is not a game-night gate."
       }
     ]
   },
@@ -17517,6 +17638,48 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
 };
 
+// The curated, source-backed matchups feed is authoritative for games it actually
+// contains. Do not assume a past scheduled date is a final or fabricate missing games.
+// This shared overlay keeps both team profiles and matchup pages aligned as verified
+// results are ingested, without running a crawl on each page request.
 export function getFootballProgramEditorial(slug: string) {
-  return PROGRAM_EDITORIAL[slug] ?? null;
+  const editorial = PROGRAM_EDITORIAL[slug];
+  if (!editorial?.season) return editorial ?? null;
+  const finals = footballMatchups.filter((game) =>
+    game.status === 'final' &&
+    Number.isInteger(game.homeScore) &&
+    Number.isInteger(game.awayScore) &&
+    (game.home.slug === slug || game.away.slug === slug)
+  );
+  if (!finals.length) return editorial;
+  let refreshed = false;
+  const games = editorial.season.games.map((game) => {
+    const match = finals.find((candidate) => candidate.date === game.date);
+    if (!match) return game;
+    const isHome = match.home.slug === slug;
+    const forScore = isHome ? match.homeScore! : match.awayScore!;
+    const againstScore = isHome ? match.awayScore! : match.homeScore!;
+    const result = (forScore > againstScore ? 'W ' : forScore < againstScore ? 'L ' : 'T ')
+      + forScore + '–' + againstScore;
+    refreshed = true;
+    return { ...game, result, matchupPath: footballMatchupPath(match) };
+  });
+  if (!refreshed) return editorial;
+  const completed = games.filter((game) => /^[WLT] /.test(game.result ?? ''));
+  const wins = completed.filter((game) => game.result?.startsWith('W ')).length;
+  const losses = completed.filter((game) => game.result?.startsWith('L ')).length;
+  const districtGames = completed.filter((game) => game.district);
+  const districtWins = districtGames.filter((game) => game.result?.startsWith('W ')).length;
+  const districtLosses = districtGames.filter((game) => game.result?.startsWith('L ')).length;
+  const lastVerified = finals.reduce((latest, game) =>
+    game.verifiedAt > latest ? game.verifiedAt : latest, editorial.season.verifiedAt);
+  return {
+    ...editorial,
+    season: {
+      ...editorial.season,
+      games,
+      record: `${wins}–${losses} overall / ${districtWins}–${districtLosses} district (from listed finals)`,
+      verifiedAt: lastVerified,
+    },
+  };
 }

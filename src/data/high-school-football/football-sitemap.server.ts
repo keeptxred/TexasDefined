@@ -70,3 +70,13 @@ export function footballDistrictSitemapEntries() {
 
   return entries;
 }
+
+export function footballGameSitemapEntries() {
+  // Lightweight curated paths; do not load live directory or scan the site.
+  return [
+    { path: '/texas-high-school-football-matchups', lastmod: '2026-10-16' },
+    { path: '/texas-high-school-football-playoff-brackets', lastmod: '2026-10-16' },
+    { path: '/texas-high-school-football-matchups/2026-10-16-houston-memorial-at-alief-taylor', lastmod: '2026-10-16' },
+    { path: '/texas-high-school-football-matchups/2026-10-23-houston-lamar-at-houston-memorial', lastmod: '2026-10-16' },
+  ];
+}

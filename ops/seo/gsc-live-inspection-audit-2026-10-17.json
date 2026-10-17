@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "auditDate": "2026-10-17",
+  "source": {
+    "system": "Google Search Console",
+    "property": "sc-domain:texasdefined.com",
+    "permissionLevel": "siteOwner",
+    "APIs": [
+      "URL Inspection",
+      "Search Analytics",
+      "Sitemaps"
+    ]
+  },
+  "scope": {
+    "purpose": "Recheck the September 13 manual-submission control cohort and next-priority cohort against live GSC without treating the sample as a new full coverage export.",
+    "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-13.json",
+    "productionRevisionReviewed": "e6678ba93a2f4d36593957d2cf1d0392ebf78bef",
+    "searchAnalyticsWindow": {
+      "startDate": "2026-09-17",
+      "endDate": "2026-10-14",
+      "dataState": "final",
+      "searchType": "web"
+    }
+  },
+  "sitemaps": [
+    {
+      "path": "https://texasdefined.com/sitemap.xml",
+      "lastSubmitted": "2026-09-08T21:36:36.628Z",
+      "lastDownloaded": "2026-10-16T00:57:02.562Z",
+      "pending": false,
+      "warnings": 0,
+      "errors": 0,
+      "submittedUrlsReported": 3189
+    },
+    {
+      "path": "https://texasdefined.com/sitemap-explore.xml",
+      "lastSubmitted": "2026-09-08T21:36:57.237Z",
+      "lastDownloaded": "2026-10-17T05:35:58.653Z",
+      "pending": false,
+      "warnings": 0,
+      "errors": 0,
+      "submittedUrlsReported": 910
+    }
+  ],
+  "september13ManualSubmittedControl": {
+    "total": 10,
+    "submittedAndIndexed": 10,
+    "indexedRate": 1,
+    "urls": [
+      "/property-tax-calculators",
+      "/property-tax-calculator/harris-county",
+      "/property-tax-calculator/dallas-county",
+      "/property-tax-calculator/travis-county",
+      "/property-tax-calculator/tarrant-county",
+      "/property-tax-calculator/collin-county",
+      "/texas-over-65-property-tax-calculator",
+      "/texas-rent-vs-buy-calculator",
+      "/texas-salary-comparison-by-city",
+      "/explore/lakes-rivers"
+    ],
+    "interpretation": "All ten URLs recorded as manually submitted on 2026-09-13 now return PASS / Submitted and indexed in live URL Inspection. This is a small, non-random control cohort and should not be treated as causal proof that manual submission alone produced indexing."
+  },
+  "september13NextBatch": {
+    "total": 10,
+    "summary": {
+      "submittedAndIndexed": 2,
+      "discoveredCurrentlyNotIndexed": 5,
+      "unknownToGoogle": 3
+    },
+    "urls": [
+      {
+        "path": "/property-tax-calculator/bexar-county",
+        "verdict": "PASS",
+        "coverageState": "Submitted and indexed",
+        "lastCrawlTime": "2026-10-13T19:31:03Z",
+        "selfCanonical": true,
+        "impressions": 0,
+        "clicks": 0
+      },
+      {
+        "path": "/property-tax-calculator/fort-bend-county",
+        "verdict": "NEUTRAL",
+        "coverageState": "Discovered - currently not indexed",
+        "sitemapReportedByInspection": true,
+        "referringUrlReported": "https://texasdefined.com/property-tax/counties",
+        "impressions": 0,
+        "clicks": 0
+      },
+      {
+        "path": "/property-tax-calculator/montgomery-county",
+        "verdict": "NEUTRAL",
+        "coverageState": "Discovered - currently not indexed",
+        "sitemapReportedByInspection": true,
+        "referringUrlReported": "https://texasdefined.com/property-tax/counties",
+        "impressions": 0,
+        "clicks": 0
+      },
+      {
+        "path": "/property-tax-calculator/williamson-county",
+        "verdict": "NEUTRAL",
+        "coverageState": "URL is unknown to Google",
+        "impressions": 0,
+        "clicks": 0
+      },
+      {
+        "path": "/property-tax-calculator/hidalgo-county",
+        "verdict": "NEUTRAL",
+        "coverageState": "Discovered - currently not indexed",
+        "sitemapReportedByInspection": true,
+        "impressions": 0,
+        "clicks": 0
+      },
+      {
+        "path": "/texas-mortgage-calculator/houston",
+        "verdict": "NEUTRAL",
+        "coverageState": "Discovered - currently not indexed",
+        "sitemapReportedByInspection": true,
+        "impressions": 0,
+        "clicks": 0
+      },
+      {
+        "path": "/texas-home-affordability-calculator/houston",
+        "verdict": "NEUTRAL",
+        "coverageState": "URL is unknown to Google",
+        "impressions": 0,
+        "clicks": 0
+      },
+      {
+        "path": "/texas-home-insurance-calculator/houston",
+        "verdict": "NEUTRAL",
+        "coverageState": "Discovered - currently not indexed",
+        "sitemapReportedByInspection": true,
+        "referringUrlReported": "https://texasdefined.com/texas-home-insurance-calculator",
+        "impressions": 0,
+        "clicks": 0
+      },
+      {
+        "path": "/destination/fredericksburg",
+        "verdict": "NEUTRAL",
+        "coverageState": "URL is unknown to Google",
+        "impressions": 0,
+        "clicks": 0
+      },
+      {
+        "path": "/destination/garner-state-park",
+        "verdict": "PASS",
+        "coverageState": "Submitted and indexed",
+        "lastCrawlTime": "2026-10-12T04:43:54Z",
+        "selfCanonical": true,
+        "impressions": 6,
+        "clicks": 0,
+        "averagePosition": 45.666666666666664
+      }
+    ]
+  },
+  "currentTechnicalEvidence": {
+    "crawlDemandValidator": "scripts/seo/validate-gsc-crawl-demand-links.mjs",
+    "housingIndexWorkflow": ".github/workflows/verify-housing-index-surfaces.yml",
+    "destinationIndexWorkflow": ".github/workflows/destination-indexing-smoke.yml",
+    "note": "Current repository contracts protect internal discovery, sitemap/indexability rules and production canonical/robots behavior. The October 17 audit should not trigger content rewrites solely because GSC has not indexed a technically valid page."
+  },
+  "nextActions": [
+    "Keep the eight outstanding URLs technically indexable and internally discoverable while current production index-surface checks remain green.",
+    "Use Search Console URL Inspection request-indexing UI for the eight outstanding URLs if manual quota is available; the public URL Inspection API does not expose a request-indexing mutation.",
+    "Re-inspect this cohort after Google has had time to recrawl; do not repeatedly resubmit already indexed URLs.",
+    "Escalate a page to content/duplication remediation only if URL Inspection, search performance or page-level review identifies a specific defect."
+  ],
+  "sitewideSearchPerformance": {
+    "comparison": {
+      "current": {
+        "startDate": "2026-09-17",
+        "endDate": "2026-10-14",
+        "clicks": 377,
+        "impressions": 49949,
+        "ctr": 0.007547698652625679,
+        "averagePosition": 13.248133095757673
+      },
+      "previous": {
+        "startDate": "2026-08-20",
+        "endDate": "2026-09-16",
+        "clicks": 133,
+        "impressions": 33404,
+        "ctr": 0.003981559094719195,
+        "averagePosition": 28.87636211232188
+      },
+      "deltas": {
+        "clicks": 244,
+        "clicksPercent": 183.45864661654133,
+        "impressions": 16545,
+        "impressionsPercent": 49.529996407615855,
+        "ctrPercentagePoints": 0.35661395579064836,
+        "averagePositionImprovement": 15.628229016564205
+      }
+    },
+    "interpretation": "Finalized Search Analytics shows strong sitewide organic growth despite the unresolved URL-level indexing cohort. Do not interpret the remaining eight URL Inspection holdouts as evidence of a sitewide ranking or traffic collapse."
+  }
+}

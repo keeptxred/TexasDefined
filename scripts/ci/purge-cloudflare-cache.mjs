@@ -56,6 +56,8 @@ const alwaysPurgeUrls = [
   `https://${zoneName}/article/ima-hogg-texas-legacy`,
   `https://${zoneName}/article/camping-in-texas-with-your-dog`,
   `https://${zoneName}/article/texas-high-school-football-scores-schedules`,
+  // District 22 uses a published game-week snapshot; stale HTML must not keep the old directory-only layout.
+  `https://${zoneName}/texas-high-school-football-districts/6a-district-22`,
   `https://${zoneName}/article/best-lighthouses-to-visit-in-texas`,
   `https://${zoneName}/article/texas-medal-of-honor-heroes`,
   `https://${zoneName}/article/texas-red-river-war-guide`,

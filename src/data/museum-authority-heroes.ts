@@ -3,6 +3,12 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "east-texas-oil-museum-kilgore": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/East_Texas_Oil_Museum_building,_Kilgore,_TX_IMG_5900.JPG?width=1600",
+    alt: "East Texas Oil Museum exterior and oil-derrick structure on the Kilgore College campus, photographed in 2012",
+    width: 1600, height: 1200,
+    credit: "Billy Hathorn · 24 October 2012 · CC BY-SA 3.0 · Wikimedia Commons · East Texas Oil Museum building, Kilgore, TX IMG 5900.JPG",
+  },
   "alvin-historical-museum": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Former_alvin_tx_post_office.jpg?width=1600",
     alt: "The former 1940 U.S. Post Office building at 300 West Sealy Street in Alvin, Texas, now home of Alvin Historical Museum, photographed May 12, 2015",
