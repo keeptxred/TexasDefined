@@ -2508,7 +2508,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Killeen's Zenner aquatic facility features a slide tower, children's slides, water playground and beach-style zero-depth entry.",
     "distinctiveNote": "The posted 2026 season concluded on Labor Day; future slide use and admission require the city calendar.",
     "officialUrl": "https://killeentexas.gov/Facilities/Facility/Details/Zenner-Family-Aquatic-Center-10",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1800 E. Stan Schlueter Loop, Killeen, TX 76542",
+    "visitorHighlights": [
+      "Zenner Family Aquatic Center operates a 25-meter family pool with a diving board and a separate zero-depth entrance.",
+      "Its named slide types include a bowl slide, plunge slide, open-flume racing slide and enclosed racing slide.",
+      "Interactive water attractions include a spray playground, two smaller children's slides and a separate splash pad.",
+      "The City of Killeen operated the park from May 23 through Labor Day in 2026, with Mondays generally closed.",
+      "The facility supports private rental pavilions, shaded deck seating, family restrooms and organized adaptive swim activities.",
+      "Outside food and drink are prohibited, and separate youth identification/supervision rules apply to unaccompanied teenagers."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Which slides are at Zenner Aquatic Center?",
+        "answer": "Killeen officially lists a bowl slide, plunge slide, open and closed racing flumes, plus two children's playground slides and a splash pad.",
+        "sourceUrl": "https://www.killeentexas.gov/Facilities/Facility/Details/Family-Aquatic-Center-10"
+      },
+      {
+        "question": "Is Zenner open during the school year?",
+        "answer": "The posted city aquatic calendar operated from May 23 through September 7, 2026. That season is complete; dates for any future public waterpark session must be checked.",
+        "sourceUrl": "https://www.killeentexas.gov/Facilities/Facility/Details/Family-Aquatic-Center-10"
+      },
+      {
+        "question": "Can a 14-year-old enter without a guardian?",
+        "answer": "No. Killeen requires visitors ages 13 or 14 to be accompanied by an adult at least 18. Older teens may need a completed parent or guardian youth-ID form.",
+        "sourceUrl": "https://www.killeentexas.gov/Facilities/Facility/Details/Family-Aquatic-Center-10"
+      },
+      {
+        "question": "Does Killeen let families bring picnic coolers?",
+        "answer": "No. The municipal facility's official rules prohibit outside food and drinks; the park advertises separate party pavilion rentals and visitor facilities.",
+        "sourceUrl": "https://www.killeentexas.gov/Facilities/Facility/Details/Family-Aquatic-Center-10"
+      }
+    ]
   },
   {
     "slug": "marine-park-fort-worth",
@@ -2522,7 +2553,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A compact Fort Worth summer aquatic center with a large water slide, interactive water features and family swimming.",
     "distinctiveNote": "This is smaller than an all-day destination water park; its city-operated slide and splash-play sessions are seasonal.",
     "officialUrl": "https://www.fortworthtexas.gov/departments/parks/services/pools-and-aquatics/marine-park-pool-aquatic-center",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "303 NW 20th St., Fort Worth, TX 76106",
+    "visitorHighlights": [
+      "Marine Park Aquatic Center is a compact municipal family swim venue rather than a large destination waterpark.",
+      "Its family pool features a substantial slide plus separate interactive water spray/play fixtures.",
+      "The city lists daily public swim sessions only during summer, with Mondays closed during the main season.",
+      "Fort Worth's posted 2026 pre-season was weekends in late May/early June, regular season June 9–August 9, and post-season weekends through Labor Day.",
+      "Proper swimming attire is required and the city publishes daily public admission categories for children, adults and eligible discounted groups."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is Marine Park's aquatic center?",
+        "answer": "The City of Fort Worth lists it inside Marine Park at 303 Northwest 20th Street, Fort Worth, TX 76106. It is smaller than a regional all-day thrill waterpark.",
+        "sourceUrl": "https://www.fortworthtexas.gov/departments/parks/services/pools-and-aquatics/marine-park-pool-aquatic-center"
+      },
+      {
+        "question": "Does Marine Park have a large water slide?",
+        "answer": "Yes. Fort Worth identifies a recreational slide and interactive water features alongside general family swimming. It is not represented as a large multi-tower thrill complex.",
+        "sourceUrl": "https://www.fortworthtexas.gov/departments/parks/services/pools-and-aquatics/marine-park-pool-aquatic-center"
+      },
+      {
+        "question": "Can families visit in October 2026?",
+        "answer": "No regular October waterpark hours appear in the city's published season. Its 2026 seasonal operation ends after Labor Day, including the final post-season weekend.",
+        "sourceUrl": "https://www.fortworthtexas.gov/departments/parks/services/pools-and-aquatics/marine-park-pool-aquatic-center"
+      },
+      {
+        "question": "Are Mondays ordinary open-swim days?",
+        "answer": "No. The published regular municipal 2026 season is closed on Mondays, with scheduled public swims on other dates; preseason and postseason are primarily weekend operation.",
+        "sourceUrl": "https://www.fortworthtexas.gov/departments/parks/services/pools-and-aquatics/marine-park-pool-aquatic-center"
+      }
+    ]
   },
   {
     "slug": "adventure-cove-abilene",
@@ -2536,7 +2597,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Abilene's Adventure Cove has major body slides, a lazy river, beach entry and themed family water play.",
     "distinctiveNote": "The city's current operator page says Adventure Cove is closed for the remainder of 2026 and plans to welcome guests in 2027.",
     "officialUrl": "https://abilenetx.gov/384/Adventure-Cove",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "2742 S. 9th St., Abilene, TX 79605",
+    "visitorHighlights": [
+      "Abilene's Adventure Cove combines zero-depth beach-entry play, a lazy river and taller body slides.",
+      "The park sells different admission rates by rider height, distinguishing children below 48 inches from taller visitors.",
+      "Guests need to measure at least 48 inches to use its main water slides.",
+      "Everyone entering the facility pays admission, including non-swimming spectators; children under 15 require an accompanying adult.",
+      "Only Coast Guard-approved flotation devices are allowed and outside food and drink are prohibited.",
+      "The city website says the facility is closed for the remainder of the 2026 season and will return in 2027."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can children shorter than 48 inches ride the slides?",
+        "answer": "No. The official Abilene park rules prohibit guests below 48 inches from riding the larger slides; separate lower-height admission exists for other permitted play zones.",
+        "sourceUrl": "https://abilenetx.gov/384/Adventure-Cove"
+      },
+      {
+        "question": "Are children allowed to enter without an adult?",
+        "answer": "Children below age 15 must be accompanied by an adult throughout the waterpark. The city says everyone entering needs a paid ticket, even if they do not intend to swim.",
+        "sourceUrl": "https://abilenetx.gov/384/Adventure-Cove"
+      },
+      {
+        "question": "Can we bring a picnic into Adventure Cove?",
+        "answer": "No. The park prohibits outside food and beverages and only permits U.S. Coast Guard-approved flotation devices. It does provide on-site food service.",
+        "sourceUrl": "https://abilenetx.gov/384/Adventure-Cove"
+      },
+      {
+        "question": "Is Adventure Cove available in October 2026?",
+        "answer": "No. The city has marked the park closed for the 2026 season and notes it expects to reopen in 2027. Check the city's next official dates for any future visit.",
+        "sourceUrl": "https://abilenetx.gov/384/Adventure-Cove"
+      }
+    ]
   },
   {
     "slug": "stamper-aquatic-longview",
@@ -2550,7 +2642,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "The newly built Longview park includes a flume slide, interactive play structure, children's slides and zero-entry swimming.",
     "distinctiveNote": "Stamper Park's aquatic facility debuted in 2026; the official schedule varies by day and can extend into September.",
     "officialUrl": "https://longviewtexas.gov/4447/Stamper-Park-Family-Aquatic-Center",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "501 Fair St., Longview, TX 75601",
+    "visitorHighlights": [
+      "Stamper Park Family Aquatic Center opened in summer 2026 after replacement of the previous city pool.",
+      "The municipal pool has a zero-depth beach entrance, with a maximum depth of four feet and an approximate capacity of 76,155 gallons.",
+      "Attractions include one main water slide plus a family play structure with spray jets, climbing decks and a smaller slide.",
+      "The shallow interactive zone includes bubblers, alongside basketball and volleyball areas in the main recreational pool.",
+      "Support amenities include family changing rooms, cantilevered shade structures and seating areas.",
+      "The city advertised weekend aquatic sessions through September 27, 2026, making October visits outside the listed season."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Stamper Park an older traditional lap pool?",
+        "answer": "No. Longview rebuilt the aquatic center and opened it in summer 2026, adding a zero-entry leisure zone, water slide, play structure and spray features.",
+        "sourceUrl": "https://longviewtexas.gov/4447/Stamper-Park-Family-Aquatic-Center"
+      },
+      {
+        "question": "What is the depth range?",
+        "answer": "The city lists a zero-depth shallow beach entry and a maximum pool depth of four feet; there are separate water play and recreational swimming portions.",
+        "sourceUrl": "https://longviewtexas.gov/4447/Stamper-Park-Family-Aquatic-Center"
+      },
+      {
+        "question": "Can guests play basketball or volleyball in the water?",
+        "answer": "Yes. The pool plan includes water basketball and volleyball areas in its recreational-swim section, with a separate water slide and toddler-friendly spray zone.",
+        "sourceUrl": "https://longviewtexas.gov/4447/Stamper-Park-Family-Aquatic-Center"
+      },
+      {
+        "question": "Does Stamper Park operate water rides in October 2026?",
+        "answer": "The city's 2026 calendar advertises weekend aquatic sessions only through September 27. Check for any special event rather than assuming regular October swimming.",
+        "sourceUrl": "https://longviewtexas.gov/4447/Stamper-Park-Family-Aquatic-Center"
+      }
+    ]
   },
   {
     "slug": "sun-valley-lewisville",
@@ -2564,7 +2687,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Lewisville's Sun Valley aquatic park contains two looping slides, a lazy river, activity pool and tot area.",
     "distinctiveNote": "Sun Valley officially closed for the 2026 season and expects to return in 2027; its schedule differs from Lewisville's indoor recreation centers.",
     "officialUrl": "https://www.playlewisville.com/facilities/aquatics/sun-valley-aquatic-center",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "801 S. Valley Pkwy., Lewisville, TX 75067",
+    "visitorHighlights": [
+      "Sun Valley is a seasonal outdoor Lewisville family aquatic center behind Lewisville High School, distinct from the indoor Thrive recreation complex.",
+      "The park features two double-loop waterslides, lazy river, lily-pad crossing play area and a separate toddler pool.",
+      "A 25-yard competition pool is also offered, with a lap lane available on selected open-swim days.",
+      "The site offers reserved Partybrella shaded gathering areas, along with a water-play leisure pool and vending facilities.",
+      "Official 2026 operation ended by August 30 for regular public swimming, while special dog events may use separate dates.",
+      "The operator requires proof of residency to access the Lewisville local rate, and twilight entry is separately priced."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Sun Valley the same facility as indoor Thrive?",
+        "answer": "No. Sun Valley is the seasonal outdoor waterpark at 801 South Valley Parkway, whereas the Thrive indoor pools and slides are at a separate Lewisville recreation center.",
+        "sourceUrl": "https://www.playlewisville.com/facilities/aquatics/sun-valley-aquatic-center"
+      },
+      {
+        "question": "What are the waterpark attractions?",
+        "answer": "The city lists two looping slides, a lazy river, a lily-pad activity zone, a toddler pool and a separate competition pool with lap swimming.",
+        "sourceUrl": "https://www.playlewisville.com/facilities/aquatics/sun-valley-aquatic-center"
+      },
+      {
+        "question": "Can families use the park in October?",
+        "answer": "The operator says Sun Valley is closed for the 2026 season and looks ahead to 2027. The site's old summer schedule is not a current operating calendar.",
+        "sourceUrl": "https://www.playlewisville.com/facilities/aquatics/sun-valley-aquatic-center"
+      },
+      {
+        "question": "Is Lewisville resident admission cheaper?",
+        "answer": "Yes. The park lists separate resident and nonresident categories and states that local residency must be proved to obtain the resident rate.",
+        "sourceUrl": "https://www.playlewisville.com/facilities/aquatics/sun-valley-aquatic-center"
+      }
+    ]
   },
   {
     "slug": "lakeway-swim-center",
@@ -2808,7 +2962,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Lewisville's Thrive recreation center features an indoor zero-entry leisure pool, indoor lazy river and two three-story enclosed water slides.",
     "distinctiveNote": "Slides require riders at least 48 inches tall and operate on a separate daily schedule that can be adjusted for lifeguard staffing or classes; Thrive is not the Sun Valley outdoor park.",
     "officialUrl": "https://www.lewisvillethrive.com/aquatics",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1950 S. Valley Pkwy., Lewisville, TX 75067",
+    "visitorHighlights": [
+      "Thrive Aquatics is Lewisville's indoor recreation water-play center, distinct from the separate Sun Valley outdoor aquatic complex.",
+      "The indoor leisure pool has zero-depth water entry, a current channel and active toddler spray/play features.",
+      "Two enclosed waterslides descend from a three-story slide tower; riders must be at least 48 inches tall.",
+      "Thrive's school-year operating hours divide lap pools, leisure/play structure and the major slides into different time blocks.",
+      "Weekday afternoon slide sessions depend on qualified lifeguard coverage and may close without advance notice for safety or staffing.",
+      "The operator's 2026–27 school-year program schedule runs from August 10 through May 21, 2027."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Are Thrive's two large slides open whenever the pool is open?",
+        "answer": "No. Thrive publishes a separate slide operating schedule and explicitly says slides depend on lifeguard availability, guest numbers and other safety factors.",
+        "sourceUrl": "https://www.lewisvillethrive.com/aquatics"
+      },
+      {
+        "question": "What is the height requirement for the slide tower?",
+        "answer": "The operator lists two enclosed slides roughly three stories high, with a minimum rider height of 48 inches for both attractions.",
+        "sourceUrl": "https://www.lewisvillethrive.com/aquatics"
+      },
+      {
+        "question": "Is this the same as Lewisville Sun Valley waterpark?",
+        "answer": "No. Thrive is an indoor recreation center at 1950 South Valley Parkway, distinct from the city's outdoor Sun Valley Aquatic Center and its separate summer calendar.",
+        "sourceUrl": "https://www.lewisvillethrive.com/aquatics"
+      },
+      {
+        "question": "Does the indoor leisure pool have a lazy river?",
+        "answer": "Yes. The recreation center lists an indoor current channel, a zero-entry pool and separate water play structures; exact availability depends on its scheduled pool and class hours.",
+        "sourceUrl": "https://www.lewisvillethrive.com/aquatics"
+      }
+    ]
   },
   {
     "slug": "sisters-mercy-laredo",
@@ -2920,7 +3105,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Quillian Center's Noah's Ark water-play pool combines a ship-shaped play structure with three small slides, spray features and a separate pool with a large slide.",
     "distinctiveNote": "The Quillian Center operator says its 2026 public-swim season is over, although private pool events may still be booked into October; check which pool the reservation includes.",
     "officialUrl": "https://www.quilliancenter.org/swimming-pools",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "10570 Westpark Dr., Houston, TX 77042",
+    "visitorHighlights": [
+      "The Quillian Center includes a large traditional pool with diving boards and a major slide alongside a separate young-child Noah's Ark play pool.",
+      "The shallow Noah's Ark area has a ship-shaped climbing/play structure with three small slides and a crawl-through passage.",
+      "The small-child play area adds a mushroom water feature, a rainbow slide and spray fixtures inspired by Noah's animals.",
+      "Separate on-site concessions sell food, while outside food and drink are prohibited within the fenced pool gates.",
+      "Quillian advertises ordinary public pool access during summer but separate private-party bookings on certain other days or beyond the public season.",
+      "The operator's 2026 listed summer pool season has ended; do not assume an October private event means regular admission is available."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Noah's Ark a pool for small children or a large water-slide park?",
+        "answer": "It is a shallow themed play pool especially designed for preschool and early elementary ages, with a ship structure, small slides and interactive water features.",
+        "sourceUrl": "https://www.quilliancenter.org/swimming-pools"
+      },
+      {
+        "question": "Does Quillian Center have a bigger pool as well?",
+        "answer": "Yes. It operates a larger swimming pool with a significant slide and two diving boards, separate from Noah's Ark shallow children's play area.",
+        "sourceUrl": "https://www.quilliancenter.org/swimming-pools"
+      },
+      {
+        "question": "Can families bring outside picnic food into the pool area?",
+        "answer": "No. The center prohibits food and drink inside the fenced pools and directs guests to concessions or designated tables outside the pool gates.",
+        "sourceUrl": "https://www.quilliancenter.org/swimming-pools"
+      },
+      {
+        "question": "Are private parties available after the normal summer season?",
+        "answer": "The operator offers private pool-party bookings on selected dates separate from standard daily admission. A private reservation is not evidence that a walk-in public swim session is scheduled.",
+        "sourceUrl": "https://www.quilliancenter.org/swimming-pools"
+      }
+    ]
   },
   {
     "slug": "heights-family-richardson",
@@ -2934,7 +3150,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "The renovated Heights Family Aquatic Center includes a lazy river, vortex pool, zero-entry pool, family water slides and a children's splash play area.",
     "distinctiveNote": "The City of Richardson reports the aquatic center reopened after improvements in May 2026; the regular summer season ended September 7 and slide riders must meet posted height rules.",
     "officialUrl": "https://www.cor.net/departments/parks-recreation/aquatics/heights-aquatic-center",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "709 W. Arapaho Rd., Richardson, TX 75080",
+    "visitorHighlights": [
+      "Heights Family Aquatic Center is Richardson's large municipal summer waterpark, separate from its smaller Canyon Creek, Cottonwood, Glenville and Terrace pools.",
+      "Water features include a lazy river, a zero-entry pool, water slides and an interactive children's splash area.",
+      "The municipal complex offers shaded family seating and leisure swimming alongside designated lap-swim facilities.",
+      "Richardson's 2026 public swim season ran through September 7, with weekends-only operation late in the summer.",
+      "Admission applies to all visiting guests age four and up, including people who choose not to swim.",
+      "The city's youth-safety guidance requires close adult supervision for children under nine and arm's-reach supervision under seven."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Richardson Heights Aquatic Center open now in October 2026?",
+        "answer": "No. The city says its public swimming pools are closed for the 2026 season, with anticipated reopening in summer 2027.",
+        "sourceUrl": "https://www.cor.net/departments/parks-recreation/aquatics"
+      },
+      {
+        "question": "Are spectators free at Heights?",
+        "answer": "No. Richardson requires daily or season admission for every entrant age four or older, even those who will not be swimming.",
+        "sourceUrl": "https://www.cor.net/departments/parks-recreation/aquatics/heights-aquatic-center"
+      },
+      {
+        "question": "Does the facility provide activities for different swim abilities?",
+        "answer": "Yes. Heights offers a zero-entry leisure area, a lazy river, children’s splash features and slides in addition to lap swimming and reserved shaded space.",
+        "sourceUrl": "https://www.cor.net/departments/parks-recreation/aquatics/heights-aquatic-center"
+      },
+      {
+        "question": "Can young children swim without a nearby adult?",
+        "answer": "No. Richardson requires adults to supervise guests under nine, with an adult remaining within arm’s reach of every child younger than seven.",
+        "sourceUrl": "https://www.cor.net/departments/parks-recreation/aquatics"
+      }
+    ]
   },
   {
     "slug": "bellaire-family-aquatic",
@@ -2962,7 +3209,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Taylor's rebuilt Doris Roznovak Aquatic Center reopened in May 2026 with a new family pool, play structure and water slide.",
     "distinctiveNote": "The City of Taylor confirms the facility is closed for the 2026 season; the nearby public splash pads are separate, free attractions and are not duplicate water-park listings.",
     "officialUrl": "https://taylortx.gov/746/Swimming-Pool-Splash-Pads",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1600 Veterans Dr., Taylor, TX",
+    "visitorHighlights": [
+      "Doris Roznovak Aquatic Center is Taylor's rebuilt family pool with a named water-slide and interactive recreation area.",
+      "The city sells separate daily admission for toddlers, children, adults and older visitors, with optional multisession punch passes.",
+      "Children under age 14 may not visit the main city pool unless accompanied by an adult.",
+      "The municipal site states Roznovak Aquatic Center is closed for the season as of October 2026.",
+      "Taylor's free Robinson Park and Heritage Square splash pads operate at separate addresses and should not be confused with Roznovak's admission-based pool."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is the Roznovak Aquatic Center?",
+        "answer": "Taylor lists its municipal family aquatic center at 1600 Veterans Drive. It is not the same location as Robinson Park or Heritage Square splash pads.",
+        "sourceUrl": "https://www.taylortx.gov/746/Swimming-Pool-Splash-Pads"
+      },
+      {
+        "question": "Can children enter the pool without an adult?",
+        "answer": "No. Taylor states that children younger than 14 cannot be in the pool without an accompanying adult responsible for supervision.",
+        "sourceUrl": "https://www.taylortx.gov/746/Swimming-Pool-Splash-Pads"
+      },
+      {
+        "question": "Is the aquatic center open for fall weekends?",
+        "answer": "No. The City of Taylor's current aquatic facility listing labels the Roznovak center closed for the 2026 season. Its two public splash pads also use separate seasonal dates.",
+        "sourceUrl": "https://www.taylortx.gov/746/Swimming-Pool-Splash-Pads"
+      },
+      {
+        "question": "Are free splash pads included at the aquatic center?",
+        "answer": "The city operates separate free community splash pads at Robinson Park and Heritage Square, with different addresses and rules. Do not treat those as identical to the paid Roznovak center.",
+        "sourceUrl": "https://www.taylortx.gov/746/Swimming-Pool-Splash-Pads"
+      }
+    ]
   },
   {
     "slug": "pampa-h2o-aquatic-center",
