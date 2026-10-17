@@ -104,7 +104,7 @@ function TexasHorseRacingIndex() {
             {TEXAS_RACING_ORGANIZATIONS.map((institution) => <article key={institution.name} className="border-t border-border py-5">
               <h3 className="font-display text-2xl">{institution.name}</h3>
               <p className="mt-2 text-sm leading-7 text-muted-foreground">{institution.role}</p>
-              <a href={institution.url} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary">Official organization ↗</a>
+              <a href={institution.canonicalPath} className="mt-3 inline-block text-sm font-semibold text-primary underline">Complete institution profile →</a><span className="mx-3 text-muted-foreground">·</span><a href={institution.url} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary">Official website ↗</a>
             </article>)}
           </div>
         </section>
