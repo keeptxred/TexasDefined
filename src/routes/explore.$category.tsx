@@ -10,7 +10,7 @@ import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const SWIMMING_HOLES_RIVER_TUBING_SLUG = "swimming-holes-river-tubing";
-const COASTAL_AUTHORITY_ITEM_COUNT = 52;
+const COASTAL_AUTHORITY_ITEM_COUNT = 55;
 const COASTAL_AUTHORITY_PATH = "/content/explore-category-authority/beaches-coast-directory.html";
 const FOOD_AUTHORITY_WAVE_PATH = "/content/explore-category-authority/food-bbq-destinations-wave-20260918.html";
 const legacyExploreRedirects: Record<string, string> = {
