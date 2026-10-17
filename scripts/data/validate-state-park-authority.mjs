@@ -414,6 +414,26 @@ for (const [slug, markers] of [
  for(const marker of markers) if(!(sourceBlock+" "+sixOctoberGuides).toLowerCase().includes(marker.toLowerCase())) failures.push(`Missing park source detail ${slug}: ${marker}`);
 }
 
+// Do not turn explicitly partial closures into whole-park shutdowns.
+const sixLater = read("src/data/tpwd-six-later-park-authorities.ts");
+assertContains(curation,"applySixLaterTPWDAuthorities,","New 6-site TPWD destination authority must be connected");
+for(const [slug,clues] of [
+ ["kickapoo-cavern-state-park",["Monday","trash","Friday"]],
+ ["possum-kingdom-state-park",["December","kayak","cabins"]],
+ ["lake-casa-blanca-international-state-park",["courtesy dock","concrete boat ramps","shoreline"]],
+ ["lake-colorado-city-state-park",["Tuesday","Wednesday","self-pay"]],
+ ["purtis-creek-state-park",["Beaver Slide Trail","October 23","primitive"]],
+ ["martin-dies-jr-state-park",["Hen House","February 2027","wood and charcoal"]],
+]){
+ const begin=authority.indexOf(`  "${slug}": {`);
+ const end=authority.indexOf('\n  "',begin+8);
+ const unit=begin>=0?authority.slice(begin,end>0?end:undefined):"";
+ if(!unit.includes('checkedAt: "2026-10-17"')) failures.push(`Current TPWD authority date missing: ${slug}`);
+ if(!unit.includes('supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/')) failures.push(`TPWD primary alert source missing: ${slug}`);
+ if(!sixLater.includes(`"${slug}"`)) failures.push(`Park-specific narrative not registered: ${slug}`);
+ for(const clue of clues) if(!(unit+" "+sixLater).toLowerCase().includes(clue.toLowerCase())) failures.push(`Lost verified park-specific restriction ${slug}: ${clue}`);
+}
+
 if (failures.length) {
   for (const problem of failures) process.stderr.write(`FAIL ${problem}\n`);
   process.exitCode = 1;
