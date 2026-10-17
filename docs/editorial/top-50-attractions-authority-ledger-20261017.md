@@ -26,7 +26,7 @@ The `wave1` flag means individualized significance, planning assessment, three i
 | 16 | Schlitterbahn New Braunfels | Locate canonical | needs-canonical-review |
 | 17 | Guadalupe Mountains National Park | `/destination/guadalupe-mountains-national-park` | top25 |
 | 18 | Enchanted Rock State Natural Area | Locate canonical | destination-special-route |
-| 19 | USS Lexington Museum | Locate canonical | museum-review |
+| 19 | USS Lexington Museum | `/destination/uss-lexington-museum-corpus-christi` | museum-review |
 | 20 | Houston Museum of Natural Science | `/destination/houston-museum-of-natural-science` | top25 |
 | 21 | Dallas Arboretum and Botanical Garden | `/destination/dallas-arboretum-and-botanical-garden` | top25 |
 | 22 | Six Flags Over Texas | Locate canonical | needs-canonical-review |
@@ -34,24 +34,24 @@ The `wave1` flag means individualized significance, planning assessment, three i
 | 24 | Six Flags Fiesta Texas | Locate canonical | needs-canonical-review |
 | 25 | AT&T Stadium | Locate canonical | sports-venue |
 | 26 | Galveston Island Historic Pleasure Pier | `/destination/galveston-island-historic-pleasure-pier` | top25 |
-| 27 | San Jacinto Monument and Battleground | Locate canonical | historic-review |
+| 27 | San Jacinto Monument and Battleground | `/destination/san-jacinto-battleground` | historic-review |
 | 28 | Fort Worth Zoo | `/destination/fort-worth-zoo` | wave1 |
 | 29 | Houston Zoo | `/destination/houston-zoo` | top25 |
 | 30 | San Antonio Zoo | `/destination/san-antonio-zoo` | wave1 |
 | 31 | Texas State Aquarium | `/destination/texas-state-aquarium` | wave1 |
 | 32 | Magnolia Market at the Silos | `/destination/magnolia-market-at-the-silos` | wave1 |
-| 33 | Barton Springs Pool | Locate canonical | destination-review |
+| 33 | Barton Springs Pool | `/destination/barton-springs-pool` | destination-review |
 | 34 | Congress Avenue Bridge Bat Colony | Locate canonical | destination-review |
 | 35 | Hamilton Pool Preserve | `/destination/hamilton-pool-preserve` | top25 |
 | 36 | Cadillac Ranch | `/destination/cadillac-ranch` | top25 |
 | 37 | Circuit of the Americas | Locate canonical | sports-venue |
 | 38 | Texas Renaissance Festival | Locate canonical | event |
-| 39 | Waco Mammoth National Monument | Locate canonical | museum-review |
-| 40 | National Museum of the Pacific War | Locate canonical | museum-review |
-| 41 | Museum of Fine Arts, Houston | Locate canonical | museum-review |
-| 42 | Kimbell Art Museum | Locate canonical | museum-review |
+| 39 | Waco Mammoth National Monument | `/destination/waco-mammoth-national-monument` | museum-review |
+| 40 | National Museum of the Pacific War | `/destination/national-museum-pacific-war` | museum-review |
+| 41 | Museum of Fine Arts, Houston | `/destination/museum-of-fine-arts-houston` | museum-review |
+| 42 | Kimbell Art Museum | `/destination/kimbell-art-museum-fort-worth` | museum-review |
 | 43 | Gruene Historic District and Gruene Hall | `/destination/gruene-historic-district` | top25 |
-| 44 | The Strand Historic District | Locate canonical | historic-review |
+| 44 | The Strand Historic District | `/destination/strand-historic-district` | historic-review |
 | 45 | Port Aransas Beach | `/destination/port-aransas-beach` | wave1 |
 | 46 | McDonald Observatory | `/destination/mcdonald-observatory` | wave1 |
 | 47 | Garner State Park | `/destination/garner-state-park` | wave1 |
