@@ -12,6 +12,7 @@ export const museumAuthoritySlugs: ReadonlySet<string> = new Set([
   "national-museum-pacific-war",
   "frontier-texas",
   "texas-energy-museum-beaumont",
+  "east-texas-oil-museum-kilgore",
   "1940-air-terminal-museum-houston",
   "african-american-museum-dallas-fair-park",
   "texas-forestry-museum-lufkin",

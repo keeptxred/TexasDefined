@@ -14,6 +14,89 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "east-texas-oil-museum-kilgore": [
+    {
+        "question": "What are the East Texas Oil Museum's opening hours and final admission?",
+        "answer": "The Kilgore College museum's official visitor page lists Monday–Saturday, 9 a.m.–5 p.m., with last admissions at 4 p.m. It ordinarily closes on Sunday. The operator posts individual 2026 holiday exceptions, so check its visit calendar before setting out.",
+        "verificationUrl": "https://easttexasoilmuseum.kilgore.edu/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://easttexasoilmuseum.kilgore.edu/visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-17"
+    },
+    {
+        "question": "How much are adult and child tickets, and can they be bought online?",
+        "answer": "As published by the museum, adult admission is $10 and children ages 3–11 pay $7; ages two and younger enter free. Seniors and military visitors receive a ten percent discount, while Kilgore College students and employees are free. Regular admission is sold at the museum, not through an online ticket shop.",
+        "verificationUrl": "https://easttexasoilmuseum.kilgore.edu/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://easttexasoilmuseum.kilgore.edu/visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-17"
+    },
+    {
+        "question": "Where can I park when visiting the East Texas Oil Museum?",
+        "answer": "The museum is on the Kilgore College campus at 1301 South Henderson Boulevard in Kilgore. The operator directs visitor parking to Ross Avenue behind the museum. Check the operator's directions if navigating the campus during a busy event.",
+        "verificationUrl": "https://easttexasoilmuseum.kilgore.edu/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://easttexasoilmuseum.kilgore.edu/visit/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-17"
+    },
+    {
+        "question": "Is the East Texas Oil Museum wheelchair accessible?",
+        "answer": "The museum says its facility is ADA accessible, with a limited number of loan wheelchairs available free from the gift shop in exchange for a photo ID. Service animals on a harness or leash are permitted. Confirm access to any specific sound-effect or simulated exhibit with staff before visiting.",
+        "verificationUrl": "https://easttexasoilmuseum.kilgore.edu/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://easttexasoilmuseum.kilgore.edu/visit/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-17"
+    },
+    {
+        "question": "What is Boomtown USA at the East Texas Oil Museum?",
+        "answer": "Boomtown USA is a full-scale indoor reconstruction of a 1930s oil-boom town. The museum describes a general store, drugstore, vintage car exhibits, period streets and the Boomtown Theater. These are historically interpreted reconstructions, not original preserved businesses from 1930.",
+        "verificationUrl": "https://easttexasoilmuseum.kilgore.edu/welcome/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://easttexasoilmuseum.kilgore.edu/welcome/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-17"
+    },
+    {
+        "question": "Does the East Texas Oil Museum have an actual underground elevator ride?",
+        "answer": "The museum advertises an Elevator Ride to the Center of the Earth with Professor Rockbottom that simulates a descent beneath East Texas to interpret geology and oil deposits. It is an exhibit, not a physical 3,800-foot mine trip. Ask staff about current operations or motion and sound sensitivities.",
+        "verificationUrl": "https://easttexasoilmuseum.kilgore.edu/welcome/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://easttexasoilmuseum.kilgore.edu/welcome/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-17"
+    },
+    {
+        "question": "Can visitors take photographs for a commercial website or news publication?",
+        "answer": "Personal photographs are allowed except photographs on display and inside the Boomtown Theater. The museum requires media, public-relations and commercial photography requests to be submitted and scheduled through the museum director. This is separate from reusing a specifically licensed Wikimedia Commons photograph of the building exterior.",
+        "verificationUrl": "https://easttexasoilmuseum.kilgore.edu/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://easttexasoilmuseum.kilgore.edu/visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-17"
+    },
+    {
+        "question": "How much time should families allow for this museum?",
+        "answer": "The museum itself suggests allowing at least one and a half hours. Families exploring Boomtown's shops, simulated blowout, historical vehicles and audiovisual displays may prefer a longer visit. Last entry is at 4 p.m., so arriving late risks missing the full experience.",
+        "verificationUrl": "https://easttexasoilmuseum.kilgore.edu/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://easttexasoilmuseum.kilgore.edu/visit/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-17"
+    },
+    {
+        "question": "Can a teacher or group organize an educational museum visit?",
+        "answer": "Yes. The East Texas Oil Museum promotes group tours by advance request. A regular museum ticket is not the same as a confirmed docent-led educational visit; use its official group-tour form or call its listed museum contact number before transporting a class or large group.",
+        "verificationUrl": "https://easttexasoilmuseum.kilgore.edu/contact/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://easttexasoilmuseum.kilgore.edu/contact/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-17"
+    }
+],
   "uss-lexington-museum-corpus-christi": [
     {
         "question": "Can visitors buy ordinary USS Lexington admission tickets online?",

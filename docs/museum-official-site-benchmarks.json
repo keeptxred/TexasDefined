@@ -1513,6 +1513,31 @@
         "https://usslexington.com/learn/education/",
         "https://usslexington.com/visit/directions-map-how-to-get-to-lex/"
       ]
+    },
+    "east-texas-oil-museum-kilgore": {
+      "name": "East Texas Oil Museum",
+      "operatorStrengths": [
+        "Original Boomtown USA interpretation with shop and theater detail",
+        "2026 ticket prices, last entry and parking directions",
+        "Service animal, loan wheelchair and photo-use policies",
+        "Current holiday schedule and museum contact"
+      ],
+      "openGaps": [
+        "Browser-rendered photo, licensing attribution and mobile display acceptance",
+        "Independent evidence-based comparison with operator's complete interpretive material",
+        "Exact museum accessibility, holiday changes, current exhibition and group arrangements"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://easttexasoilmuseum.kilgore.edu/visit/",
+        "https://easttexasoilmuseum.kilgore.edu/welcome/",
+        "https://easttexasoilmuseum.kilgore.edu/events/",
+        "https://easttexasoilmuseum.kilgore.edu/contact/",
+        "https://easttexasoilmuseum.kilgore.edu/memberships/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",

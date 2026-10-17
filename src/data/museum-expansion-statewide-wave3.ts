@@ -32,7 +32,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     coordinates: { lat: 32.37704, lng: -94.86968 },
     hero: museumPlaceholder("East Texas Oil Museum"),
     bestSeason: "Year-round indoor museum; spring and fall are especially comfortable for combining it with downtown Kilgore and other East Texas oil-history stops.",
-    entryNote: "The museum operates on the Kilgore College campus and currently opens Monday through Saturday. Verify current admission, last-entry time, college-calendar changes and holiday closures before traveling.",
+    entryNote: "Kilgore College lists Monday–Saturday 9 a.m.–5 p.m. with final entry at 4 p.m.; closed Sundays. Regular adult admission is $10, children 3–11 $7, and children two and under free; senior and military discounts apply. Admission is purchased at the museum, not online. Check posted holiday closures before travel.",
     highlights: ["East Texas Oil Field", "1930s boomtown recreation", "Petroleum and drilling history", "Kilgore College campus"],
     body: [
       "The East Texas Oil Museum turns one of the state's biggest economic transformations into a walk-through experience. Rather than explaining the 1930 oil discovery only through text panels, the museum reconstructs the atmosphere of an early boomtown and surrounds visitors with the equipment, businesses, sounds and everyday details that followed the East Texas Oil Field's rapid development.",
@@ -42,7 +42,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     officialUrl: "https://easttexasoilmuseum.kilgore.edu/visit/",
     managingAuthority: "Kilgore College",
     address: "1301 S Henderson Blvd, Kilgore, TX 75662",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    sourceCheckedAt: "2026-10-17",
   },
   {
     id: "museum-statewide-wave3-prison",

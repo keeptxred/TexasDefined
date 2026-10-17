@@ -547,6 +547,39 @@
       ]
     },
     {
+      "path": "/destination/east-texas-oil-museum-kilgore",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://easttexasoilmuseum.kilgore.edu/visit/",
+          "fetchUrl": "https://easttexasoilmuseum.kilgore.edu/visit/",
+          "label": "Kilgore College visitor logistics"
+        },
+        {
+          "sourceUrl": "https://easttexasoilmuseum.kilgore.edu/welcome/",
+          "fetchUrl": "https://easttexasoilmuseum.kilgore.edu/welcome/",
+          "label": "Kilgore College Boomtown exhibits"
+        },
+        {
+          "sourceUrl": "https://easttexasoilmuseum.kilgore.edu/events/",
+          "fetchUrl": "https://easttexasoilmuseum.kilgore.edu/events/",
+          "label": "Current museum exhibit calendar"
+        },
+        {
+          "sourceUrl": "https://easttexasoilmuseum.kilgore.edu/contact/",
+          "fetchUrl": "https://easttexasoilmuseum.kilgore.edu/contact/",
+          "label": "Museum operator contact and tours"
+        },
+        {
+          "sourceUrl": "https://easttexasoilmuseum.kilgore.edu/memberships/",
+          "fetchUrl": "https://easttexasoilmuseum.kilgore.edu/memberships/",
+          "label": "Museum annual membership details"
+        }
+      ]
+    },
+    {
       "path": "/destination/el-paso-holocaust-museum",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
