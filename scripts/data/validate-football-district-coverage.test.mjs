@@ -7,15 +7,18 @@ const template = readFileSync(new URL('../../src/routes/texas-high-school-footba
 const head = readFileSync(new URL('../../src/routes/texas-high-school-football-districts_.$slug.tsx', import.meta.url), 'utf8');
 
 const dates = [...source.matchAll(/(?:final|scheduled)\('(2026-\d{2}-\d{2})'/g)].map((match) => match[1]);
-const results = [...source.matchAll(/final\('(2026-\d{2}-\d{2})', '([^']+)', '([^']+)', (\d+), (\d+), ([A-Z0-9_]+), '([^']+)'\)/g)];
-const fixtures = [...source.matchAll(/scheduled\('(2026-\d{2}-\d{2})', '([^']+)', '([^']+)', '([^']+)', '([^']+)'\)/g)];
+const results = [...source.matchAll(/final\('(2026-\d{2}-\d{2})', '([^']+)', '([^']+)', (\d+), (\d+), (?:[A-Z0-9_]+|'https:\/\/[^']+'), '([^']+)'\)/g)]
+  .map((match) => ({ date: match[1], away: match[2], home: match[3] }));
+const fixtures = [...source.matchAll(/scheduled\('(2026-\d{2}-\d{2})', '([^']+)', '([^']+)', '([^']+)', '([^']+)'\)/g)]
+  .map((match) => ({ date: match[1], away: match[3], home: match[4] }));
+const games = [...results, ...fixtures];
 
 test('district 22 has independent source-backed reported results and a complete dated run-in', () => {
   assert.equal(results.length, 8);
   assert.equal(fixtures.length, 12);
   assert.equal(dates.length, 20);
   for (const date of dates) assert.ok(Number.isFinite(Date.parse(date + 'T00:00:00Z')), date);
-  assert.equal(new Set([...results, ...fixtures].map((entry) => [entry[1], ...[entry[2], entry[3]].sort()].join('|'))).size, 20);
+  assert.equal(new Set(games.map((game) => [game.date, ...[game.away, game.home].sort()].join('|'))).size, 20);
   assert.ok(source.includes('2026 Katy ISD varsity schedule (March 27 publication)'));
   assert.ok(source.includes('CHRONICLE_OCT_15'));
   assert.ok(source.includes("final('2026-10-16', 'Katy Cinco Ranch', 'Katy Tompkins', 12, 49"));
@@ -28,10 +31,10 @@ test('district 22 has independent source-backed reported results and a complete 
 
 test('Katy roster names cover every scheduled game with no fictitious teams', () => {
   const schools = new Set(['Katy', 'Katy Cinco Ranch', 'Katy Jordan', 'Katy Mayde Creek', 'Katy Morton Ranch', 'Katy Paetow', 'Katy Seven Lakes', 'Katy Taylor', 'Katy Tompkins']);
-  for (const entry of [...results, ...fixtures]) {
-    assert.ok(schools.has(entry[2]), entry[2]);
-    assert.ok(schools.has(entry[3]), entry[3]);
-    assert.notEqual(entry[2], entry[3]);
+  for (const game of games) {
+    assert.ok(schools.has(game.away), game.away);
+    assert.ok(schools.has(game.home), game.home);
+    assert.notEqual(game.away, game.home);
   }
 });
 
