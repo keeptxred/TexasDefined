@@ -1,0 +1,28 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import test from 'node:test';
+
+const offers = readFileSync('src/components/sports/FootballFanOffers.tsx', 'utf8');
+const gameNight = readFileSync('src/components/sports/FootballGameNightGuide.tsx', 'utf8');
+
+test('team guide uses fan offers with verified dated away/neutral games only', () => {
+  assert.match(gameNight, /FootballFanOffers slug=\{slug\} hasUpcomingAwayTravel=\{hasUpcomingAwayTravel\}/);
+  assert.match(gameNight, /game\.date >= today && !game\.result/);
+  assert.match(gameNight, /game\.site === 'Away' \|\| game\.site === 'Neutral'/);
+});
+test('verified Hotels.com link is separate from unapproved merchandise programs', () => {
+  assert.match(offers, /HOTEL_CJ_PUBLISHER_ID = '101876465'/);
+  assert.match(offers, /www\.anrdoezrs\.net\/links/);
+  assert.match(offers, /VERIFIED_FOOTBALL_GEAR_OFFERS: readonly Offer\[\] = \[\]/);
+  assert.match(offers, /isVerifiedProductUrl\(offer\.trackedUrl\)/);
+  assert.doesNotMatch(offers, /walmart\.com\/ip\//);
+  assert.match(offers, /TexasDefined is not affiliated with the schools/);
+});
+test('commercial links disclose relationships and preserve click attribution', () => {
+  assert.match(offers, /rel="sponsored nofollow noopener noreferrer"/);
+  assert.match(offers, /data-commercial-partner="hotels\.com"/);
+  assert.match(offers, /trackAffiliateClick/);
+  assert.match(offers, /football-away-travel/);
+  assert.match(offers, /Affiliate disclosure:/);
+  assert.match(offers, /actual venue and date/);
+});
