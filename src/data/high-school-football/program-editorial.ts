@@ -1,3 +1,5 @@
+import { footballMatchups, footballMatchupPath } from './football-matchups';
+
 export type FootballProgramEditorial = {
   slug: string;
   coach?: {
@@ -32,6 +34,7 @@ export type FootballProgramEditorial = {
       site: 'Home' | 'Away' | 'Neutral';
       district?: boolean;
       result?: string;
+      matchupPath?: string;
     }>;
   };
   venue?: {
@@ -14606,185 +14609,180 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
-  "alief-taylor": {
+  {
     "slug": "alief-taylor",
     "theme": {
-      "accentHex": "#315F4D",
-      "label": "Original deep-green Lions editorial accent; not an official athletics logo or independently confirmed uniform palette"
+      "accentHex": "#C6283E",
+      "label": "Independent red-accented Lions editorial styling, informed by documented red, navy and white school colors; not an official logo"
     },
     "seo": {
-      "title": "Alief Taylor Lions Football: 2026 Scores, District 20 & Program Guide",
-      "description": "Alief Taylor Lions football: UIL 6A District 20, verified 2026 season results, Alief opponents, coaching-source details and Houston game-day resources."
+      "title": "Alief Taylor Lions Football 2026: Scores, Record & District 20",
+      "description": "Follow Alief Taylor Lions football in 2026: verified results, updated record, upcoming District 20 games, Crump Stadium details and official school resources."
     },
     "coach": {
       "name": "Shawn Gray",
-      "title": "Head coach attributed by the 2026 MaxPreps team/staff listings; official district confirmation pending",
+      "title": "2026 varsity head coach per MaxPreps staff listing (district appointment not independently confirmed)",
       "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-taylor-lions/football/staff/",
-      "sourceLabel": "MaxPreps Alief Taylor varsity staff directory",
+      "sourceLabel": "MaxPreps Alief Taylor 2026 varsity coaching staff",
       "verifiedAt": "2026-10-09"
     },
     "campus": {
       "address": "7555 Howell Sugar Land Road, Houston, TX 77083",
       "phone": "281-988-3500",
-      "sourceUrl": "https://taylor.aliefisd.net/events",
-      "sourceLabel": "Alief Taylor High School official events/contact",
-      "verifiedAt": "2026-10-09"
+      "sourceUrl": "https://taylor.aliefisd.net/",
+      "sourceLabel": "Alief Taylor High School official campus",
+      "verifiedAt": "2026-10-16"
     },
     "schedule": {
-      "label": "Alief Taylor varsity 2026 games and current results (verify new finals before attending)",
+      "label": "2026 Alief Taylor football schedule, scores and team ledger",
       "sourceUrl": "https://www.si.com/high-school/stats/texas/football/teams/250856-alief-taylor-lions/games",
-      "sourceLabel": "High School On SI / Scorebook Live, October 9 dated check",
-      "verifiedAt": "2026-10-09"
+      "sourceLabel": "High School On SI game ledger; final matchup sources linked individually below",
+      "verifiedAt": "2026-10-16"
     },
     "season": {
-      "record": "5–1 overall / 3–1 district, through Oct. 2, 2026",
-      "verifiedAt": "2026-10-09",
+      "record": "6–1 overall / 4–1 district, through Oct. 10, 2026",
+      "verifiedAt": "2026-10-16",
       "sourceUrl": "https://www.si.com/high-school/stats/texas/football/teams/250856-alief-taylor-lions/games",
-      "sourceLabel": "Scorebook Live dated 2026 game ledger",
+      "sourceLabel": "High School On SI season ledger, supplemented by separately sourced matchup finals",
       "games": [
         {
-          "date": "Aug. 28",
+          "date": "2026-08-28",
           "opponent": "Westbury",
           "site": "Home",
           "result": "W 39–0"
         },
         {
-          "date": "Sept. 4",
+          "date": "2026-09-04",
           "opponent": "Dobie",
           "site": "Home",
           "result": "W 47–30"
         },
         {
-          "date": "Sept. 11",
+          "date": "2026-09-11",
           "opponent": "Houston Heights",
           "site": "Away",
           "district": true,
           "result": "W 38–24"
         },
         {
-          "date": "Sept. 18",
+          "date": "2026-09-18",
           "opponent": "Alief Elsik",
           "site": "Home",
           "district": true,
           "result": "W 49–0"
         },
         {
-          "date": "Sept. 24",
+          "date": "2026-09-24",
           "opponent": "Bellaire",
           "site": "Away",
           "district": true,
           "result": "W 48–8"
         },
         {
-          "date": "Oct. 2",
+          "date": "2026-10-02",
           "opponent": "Alief Hastings",
           "site": "Home",
           "district": true,
           "result": "L 23–27"
         },
         {
-          "date": "Oct. 10",
+          "date": "2026-10-10",
           "opponent": "Stratford",
           "site": "Away",
-          "district": true
+          "district": true,
+          "result": "W 29–28"
         },
         {
-          "date": "Oct. 16",
-          "opponent": "Memorial",
+          "date": "2026-10-16",
+          "opponent": "Houston Memorial",
           "site": "Home",
           "district": true
         },
         {
-          "date": "Oct. 22",
+          "date": "2026-10-22",
           "opponent": "Westside",
           "site": "Away",
           "district": true
         },
         {
-          "date": "Nov. 6",
-          "opponent": "Lamar",
+          "date": "2026-11-06",
+          "opponent": "Houston Lamar",
           "site": "Home",
           "district": true
         }
       ]
     },
     "venue": {
-      "name": "Alief ISD game facilities — Crump Stadium for documented Sept. 18 Elsik contest",
-      "address": "Houston, Texas — game-specific stadium entrance not independently verified",
-      "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-taylor-lions/football/",
-      "sourceLabel": "MaxPreps Alief Taylor Sept. 18 venue listing",
-      "verifiedAt": "2026-10-09",
-      "note": "The September 18 Taylor–Elsik score explicitly records a Crump Stadium game, but that does not establish that every Taylor home fixture uses the same entrance or that the Howell Sugar Land Road school campus is the stadium gate. Check the district and event ticket for the venue, parking, accessible entry and bag rules. A separate Alief ISD event gives a Crump address at 12321 Alief Clodine Road; a state press-box construction registration uses High Star Drive. Neither document verifies the entrance for every Lions game."
+      "name": "Crump Stadium — documented venue for Taylor–Memorial on Oct. 16, 2026",
+      "address": "Alief, Houston, Texas — verify your assigned entrance for each game",
+      "sourceUrl": "https://www.houstonmemorialfootball.com/schedule",
+      "sourceLabel": "Memorial varsity 2026 venue schedule (Taylor away game at Crump)",
+      "verifiedAt": "2026-10-16",
+      "note": "Crump Stadium is the documented venue for the Oct. 16 Memorial game and Sept. 18 Elsik game. The campus address, stadium address and spectator gate are not interchangeable. Confirm next-game venue, parking, accessibility, bag rules and ticketing with Alief ISD or the host school."
     },
     "overview": [
-      "The Alief Taylor Lions are Alief ISD's own Houston football program, distinct from the neighboring Alief Elsik Rams and Alief Hastings Fighting Bears. UIL's 2026–28 alignment places Taylor in Conference 6A District 20. The official alphabetical alignment reports 2,783 for Taylor's realignment enrollment; it is an alignment figure rather than a claim about a specific 2026 game-night attendance.",
-      "Taylor opened 2026 with five straight varsity wins, shutting out Westbury 39–0 and Alief Elsik 49–0. The first district stretch also included a 38–24 road win over Heights and a 48–8 victory at Bellaire. That sequence gives the Lions a distinctive current-season story without making an unverified claim about program records or district championships.",
-      "Hastings ended Taylor's unbeaten start with a 27–23 district win on October 2. As of the October 9 research checkpoint, independently cross-checked secondary score ledgers stood at 5–1 overall and 3–1 in District 20. Upcoming Stratford, Memorial, Westside and Lamar fixtures should not be presented as completed games. The standalone MaxPreps schedule snapshot lags behind the October 2 result, so the dated season ledger and official team updates take precedence.",
-      "The 2026 MaxPreps personnel listing identifies Shawn Gray as Taylor's head coach, with Wale Okunnu and Chris Maple among assistant staff. An independent current Alief ISD announcement has not been located for all those appointments; the attribution is deliberate and visitors should follow the district athletics office for personnel changes.",
-      "Alief's district grouping makes the Elsik and Hastings games particularly useful context for Lions supporters. The two 2026 results are documented football matchups, not proof of an annual named rivalry trophy. The Taylor school address is verified by the school itself, while a football ticket's assigned stadium gate and parking remain game-specific.",
-      "This editorial record focuses on independently verifiable 2026 achievements and primary UIL classification rather than inventing older state finals, notable alumni or school traditions. Additional historical claims require year-specific UIL archives and school records before publication."
+      "Alief Taylor's Lions are one of three separate Alief ISD varsity programs alongside the Elsik Rams and Hastings Fighting Bears. UIL's 2026–28 alignment places Taylor in Conference 6A, District 20, and lists enrollment at 2,783 for realignment purposes.",
+      "The Lions began 2026 with five straight wins, including a 49–0 district shutout of Elsik. Hastings edged Taylor 27–23 on October 2, but the Lions rebounded with a 29–28 road win over Stratford on October 10.",
+      "Houston Memorial won the October 16 meeting at Crump Stadium, 42–18, according to the separately sourced TexasDefined matchup result. The result is reflected in the season ledger above, which draws from verified matchup finals rather than requiring a second manual entry.",
+      "Alief Taylor's school website marks its 25th anniversary in 2026. The Lions also appear in UIL's 2003–04 state playoff bracket and have a history extending beyond this year's scores. Supporters should consult the next-game listing and host-school instructions for current travel and ticket details."
     ],
     "milestones": [
       {
-        "date": "2026–28",
-        "title": "Conference 6A, District 20 alignment",
-        "body": "UIL's published realignment places Alief Taylor in Class 6A District 20, with a reported realignment enrollment of 2,783.",
-        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf",
-        "sourceLabel": "Official UIL 2026–28 alphabetical alignment"
+        "date": "2003",
+        "title": "Early UIL playoff appearance",
+        "body": "The 2003–04 Class 5A Division I bracket lists Alief Taylor as a District 19 postseason qualifier, part of the program's earlier football history.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_brackets/03_04/5Afb.pdf",
+        "sourceLabel": "UIL 2003–04 football playoff bracket"
       },
       {
-        "date": "Aug. 28, 2026",
-        "title": "Opening-night shutout",
-        "body": "Taylor opened the varsity schedule with a 39–0 win against Westbury in the 2026 results ledger.",
-        "sourceUrl": "https://www.si.com/high-school/stats/texas/football/teams/250856-alief-taylor-lions/games",
-        "sourceLabel": "Scorebook Live 2026 results"
+        "date": "2026",
+        "title": "Taylor celebrates 25 years",
+        "body": "The school's official home page marks its 25th anniversary with an alumni homecoming celebration.",
+        "sourceUrl": "https://taylor.aliefisd.net/",
+        "sourceLabel": "Alief Taylor school announcement"
       },
       {
         "date": "Sept. 18, 2026",
-        "title": "49–0 meeting with Elsik",
-        "body": "The Lions defeated fellow Alief ISD program Elsik 49–0; the MaxPreps match record identifies Crump Stadium for this specific contest.",
-        "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-taylor-lions/football/",
-        "sourceLabel": "MaxPreps Alief Taylor 2026 game recap"
-      },
-      {
-        "date": "Sept. 24, 2026",
-        "title": "Five-win opening streak",
-        "body": "A 48–8 victory at Bellaire extended Taylor's season start to five consecutive wins.",
+        "title": "District shutout over Elsik",
+        "body": "Taylor defeated fellow Alief ISD program Elsik 49–0 during its five-win start.",
         "sourceUrl": "https://www.si.com/high-school/stats/texas/football/teams/250856-alief-taylor-lions/games",
-        "sourceLabel": "Scorebook Live season record"
+        "sourceLabel": "High School On SI 2026 game results"
       },
       {
-        "date": "Oct. 2, 2026",
-        "title": "Hastings wins close Alief matchup",
-        "body": "Taylor's five-win streak ended in a 27–23 District 20 loss to Alief Hastings, leaving the Lions 5–1 through six games.",
-        "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-taylor-lions/football/",
-        "sourceLabel": "MaxPreps Oct. 2 game score"
+        "date": "Oct. 10, 2026",
+        "title": "One-point road win at Stratford",
+        "body": "Taylor beat Stratford 29–28 in a District 20 matchup.",
+        "sourceUrl": "https://www.maxpreps.com/tx/football/game/alief-taylor-houston-vs-stratford-houston/10-10-2026/",
+        "sourceLabel": "MaxPreps Oct. 10 game recap"
+      },
+      {
+        "date": "Oct. 16, 2026",
+        "title": "Memorial visits Crump Stadium",
+        "body": "Houston Memorial beat Taylor 42–18 in the October 16 district matchup. Follow the linked matchup and external result source for details.",
+        "sourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php",
+        "sourceLabel": "Houston Chronicle Week 8 Texas scores"
       }
     ],
     "faq": [
       {
-        "question": "What is Alief Taylor's football classification in 2026?",
-        "answer": "UIL lists Alief Taylor in Conference 6A District 20 for the 2026–28 cycle; the published realignment enrollment is 2,783."
+        "question": "What classification and district is Alief Taylor football in?",
+        "answer": "For the 2026–28 UIL cycle, Alief Taylor is in Conference 6A, District 20, with 2,783 students reported for realignment."
       },
       {
-        "question": "What was the Lions' record through October 2, 2026?",
-        "answer": "Taylor stood 5–1 overall and 3–1 in district games, with a five-win opening streak followed by a 27–23 loss to Alief Hastings. This is a dated snapshot, not a live standings feed."
+        "question": "Where are the Lions' current scores and upcoming fixtures?",
+        "answer": "The dated 2026 results and schedule are shown above. Confirm last-minute score or kickoff changes against the linked game records, UIL Texas Scoreboard, and Alief ISD before traveling."
       },
       {
-        "question": "Who is the 2026 Alief Taylor football coach?",
-        "answer": "MaxPreps' 2026 football staff listing identifies Shawn Gray as head coach. District appointment confirmation and subsequent staff changes should be checked with Alief ISD."
+        "question": "What colors does Alief Taylor use?",
+        "answer": "Taylor's school colors are red, navy and white, as listed in a published school-athletics program. The red accents here are independent TexasDefined editorial styling, not licensed school marks."
       },
       {
-        "question": "Are Taylor, Elsik and Hastings the same football program?",
-        "answer": "No. They are separate Alief ISD high-school teams. In 2026 Taylor defeated Elsik 49–0 and lost to Hastings 27–23; these are documented league meetings rather than evidence of an officially named rivalry trophy."
+        "question": "Who coaches Alief Taylor football?",
+        "answer": "MaxPreps' 2026 football staff listing identifies Shawn Gray as head coach. Consult Alief ISD for current personnel announcements."
       },
       {
-        "question": "Where does Alief Taylor play football games?",
-        "answer": "A September 18, 2026 game record specifically names Crump Stadium for the Lions' contest with Elsik. Venue, game-specific entrance, parking, accessible seating and ticketing should be confirmed with Alief ISD before travel; the school campus address is not automatically the stadium gate."
-      },
-      {
-        "question": "Did Alief Taylor win a state championship?",
-        "answer": "This page does not claim a UIL state title. No championship result has been independently established in the research cited here; use official UIL championship archives for historical title verification."
+        "question": "Where do Alief Taylor Lions play home games?",
+        "answer": "Crump Stadium is documented for the 2026 Elsik and Memorial games. Verify the assigned stadium, spectator gate, accessibility and ticket requirements for every fixture; the school's campus address is not a game-night gate."
       }
     ]
   },
@@ -16961,6 +16959,48 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
 };
 
+// The curated, source-backed matchups feed is authoritative for games it actually
+// contains. Do not assume a past scheduled date is a final or fabricate missing games.
+// This shared overlay keeps both team profiles and matchup pages aligned as verified
+// results are ingested, without running a crawl on each page request.
 export function getFootballProgramEditorial(slug: string) {
-  return PROGRAM_EDITORIAL[slug] ?? null;
+  const editorial = PROGRAM_EDITORIAL[slug];
+  if (!editorial?.season) return editorial ?? null;
+  const finals = footballMatchups.filter((game) =>
+    game.status === 'final' &&
+    Number.isInteger(game.homeScore) &&
+    Number.isInteger(game.awayScore) &&
+    (game.home.slug === slug || game.away.slug === slug)
+  );
+  if (!finals.length) return editorial;
+  let refreshed = false;
+  const games = editorial.season.games.map((game) => {
+    const match = finals.find((candidate) => candidate.date === game.date);
+    if (!match) return game;
+    const isHome = match.home.slug === slug;
+    const forScore = isHome ? match.homeScore! : match.awayScore!;
+    const againstScore = isHome ? match.awayScore! : match.homeScore!;
+    const result = (forScore > againstScore ? 'W ' : forScore < againstScore ? 'L ' : 'T ')
+      + forScore + '–' + againstScore;
+    refreshed = true;
+    return { ...game, result, matchupPath: footballMatchupPath(match) };
+  });
+  if (!refreshed) return editorial;
+  const completed = games.filter((game) => /^[WLT] /.test(game.result ?? ''));
+  const wins = completed.filter((game) => game.result?.startsWith('W ')).length;
+  const losses = completed.filter((game) => game.result?.startsWith('L ')).length;
+  const districtGames = completed.filter((game) => game.district);
+  const districtWins = districtGames.filter((game) => game.result?.startsWith('W ')).length;
+  const districtLosses = districtGames.filter((game) => game.result?.startsWith('L ')).length;
+  const lastVerified = finals.reduce((latest, game) =>
+    game.verifiedAt > latest ? game.verifiedAt : latest, editorial.season.verifiedAt);
+  return {
+    ...editorial,
+    season: {
+      ...editorial.season,
+      games,
+      record: `${wins}–${losses} overall / ${districtWins}–${districtLosses} district (from listed finals)`,
+      verifiedAt: lastVerified,
+    },
+  };
 }
