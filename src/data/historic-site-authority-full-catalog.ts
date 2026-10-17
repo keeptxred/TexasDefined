@@ -125,9 +125,9 @@ const SITE_VISIT_PROFILES: Record<string, Pick<DestinationEditorialAssessment, "
   },
   "magoffin-home": {
     "physicalEffort": "Low",
-    "weatherExposure": "Mostly indoors",
+    "weatherExposure": "Mixed indoor/outdoor",
     "planningLevel": "Moderate",
-    "recommendedVisit": "Focus on the adobe rooms, family histories and borderlands setting; confirm tour arrangements and accessible rooms."
+    "recommendedVisit": "The historic house is closed for restoration through 2027; the visitor center is open. Plan around current visitor-center programs and publicly accessible grounds only; confirm actual access with the Texas Historical Commission."
   },
   "mission-dolores": {
     "physicalEffort": "Low to moderate",
