@@ -25,6 +25,7 @@ import { getDestinationRelationshipGroups } from "@/data/destination-relationshi
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { articlesQuery, categoriesQuery, destinationQuery, regionsQuery } from "@/data/queries";
 import { isTopTexasAttraction } from "@/data/top-texas-attractions";
+import { isTop50AuthorityWave1 } from "@/data/top50-authority-wave1-slugs";
 import { museumAuthoritySlugs } from "@/data/museum-authority-slugs";
 import { coastalHeritageAuthoritySlugs } from "@/data/coastal-heritage-discovery";
 import { hideImageFallbackLabel, recoverOrHideImage } from "@/lib/image-fallback";
@@ -158,6 +159,10 @@ export const Route = createFileRoute("/destination/$slug")({
     if (isTopTexasAttraction(destination.slug)) {
       const { resolveTopAttractionAuthority } = await import("@/data/top-attraction-authority-resolver");
       destination = resolveTopAttractionAuthority(destination);
+    }
+    if (isTop50AuthorityWave1(destination.slug)) {
+      const { applyTop50AuthorityWave1 } = await import("@/data/destination-authority-top50-wave1");
+      destination = applyTop50AuthorityWave1(destination);
     }
     if (museumAuthoritySlugs.has(destination.slug)) {
       const { enrichMuseumAuthority } = await import("@/data/museum-authority-network");
