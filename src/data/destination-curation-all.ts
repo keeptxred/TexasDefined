@@ -1,3 +1,4 @@
+import { applyTPWDSixNewVisitorGuides } from "./state-park-six-new-visitor-guides";
 import { applyFiveParkAuthorityAlerts } from "./state-park-five-alert-authority";
 import { applyFourParkAlertAuthority } from "./state-park-four-alert-authority";
 import { applyInksLakeVisitorAuthority } from "./inks-lake-visitor-authority";
@@ -179,6 +180,7 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyStateParkSixAuthorityWave,
   applyFourParkAlertAuthority,
   applyFiveParkAuthorityAlerts,
+  applyTPWDSixNewVisitorGuides,
   applyInksLakeVisitorAuthority,
   applyDevilsSinkholeVisitorAuthority,
 ];

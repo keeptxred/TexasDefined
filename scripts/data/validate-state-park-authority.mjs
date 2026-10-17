@@ -355,6 +355,28 @@ for (const [slug, markers] of [
   for (const marker of markers) if (!(parkFacts+" "+fiveParkGuide).includes(marker)) failures.push(`Park ${slug} lost source-grounded detail: ${marker}`);
 }
 
+// TPWD October 17, 2026 source reconciliation for six independently
+// researched park guides. Do not treat stale trail status as current access.
+const sixNewGuides = read("src/data/state-park-six-new-visitor-guides.ts");
+assertContains(curation, "applyTPWDSixNewVisitorGuides,", "New six-park factual visitor layer must be registered");
+for (const [slug, evidence] of [
+  ["tyler-state-park", ["Whispering Pines", "boat rentals", "October 17"]],
+  ["huntsville-state-park", ["December 4", "January 11", "Lake Raven"]],
+  ["pedernales-falls-state-park", ["January 1, 2027", "charcoal", "Twin Falls"]],
+  ["mckinney-falls-state-park", ["August 11", "Onion Creek", "charcoal"]],
+  ["guadalupe-river-state-park", ["November 20", "January 11", "water"]],
+  ["lost-maples-state-natural-area", ["October 14", "sycamores", "still green"]],
+]) {
+  const parkStart = authority.indexOf(`  "${slug}": {`);
+  const parkEnd = authority.indexOf('\n  "', parkStart + 6);
+  const sourceFacts = parkStart >= 0 ? authority.slice(parkStart, parkEnd > 0 ? parkEnd : undefined) : "";
+  if (!sourceFacts.includes('checkedAt: "2026-10-17"')) failures.push(`Outdated park source check: ${slug}`);
+  if (!sourceFacts.includes('supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/')) failures.push(`Park lacks official original source URL: ${slug}`);
+  if (!sixNewGuides.includes(`"${slug}"`)) failures.push(`Missing individually researched park narrative: ${slug}`);
+  for (const token of evidence) if (!(sourceFacts + sixNewGuides).includes(token)) failures.push(`Park visitor evidence missing ${token}: ${slug}`);
+}
+if ((sixNewGuides.match(/"question":/g) ?? []).length < 18) failures.push("Six individual visitor guides require 18 source-linked FAQ entries");
+
 if (failures.length) {
   for (const problem of failures) process.stderr.write(`FAIL ${problem}\n`);
   process.exitCode = 1;
