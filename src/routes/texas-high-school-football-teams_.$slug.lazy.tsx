@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
 import { FootballGameNightGuide } from '@/components/sports/FootballGameNightGuide';
+import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
 import {
   UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE,
   uilEnrollmentFallsWithinBand,
@@ -25,6 +26,7 @@ function Page() {
     districtPeers,
     districtPath,
     venueLinks,
+    sponsorPlacement,
     privateAlignment,
     privateAdmissions,
     governingBodyHint,
@@ -276,6 +278,12 @@ function Page() {
           <Fact label="Format" value={program?.footballType || privateAlignment?.footballType} />
           {editorial?.coach && <Fact label="Head coach" value={editorial.coach.name} />}
         </dl>
+
+      {sponsorPlacement ? (
+        <div className="border-b border-border py-6">
+          <SponsoredSportsPlacement placement={sponsorPlacement} />
+        </div>
+      ) : null}
 
       {program && !editorial?.notice && <section id="football-current-season" className="scroll-mt-24 grid gap-8 border-b border-border py-8 sm:py-10 lg:grid-cols-[15rem_1fr]">
         <div>
