@@ -235,6 +235,15 @@ export function SportsVenueGuidePage({
             </EditorialSection>
           ) : null}
 
+          {entity.tags?.includes('horse-racing') ? (
+            <section className="border-y border-border py-7">
+              <p className="eyebrow text-primary">Explore Texas horse racing</p>
+              <h2 className="mt-2 font-display text-2xl">Compare every licensed Texas horse-racing track</h2>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Browse the four live-racing destinations, including the Gillespie County Fairgrounds in Fredericksburg, plus the history of inactive racing licenses. Live race dates vary by track.</p>
+              <a href="/horse-racing" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Texas horse-racing authority directory →</a>
+            </section>
+          ) : null}
+
           <div data-stay-nearby-slot />
 
           {guide.canonicalPath === "/sports-venue/msr-houston" ? <MSRHoustonAuthoritySections /> : null}
