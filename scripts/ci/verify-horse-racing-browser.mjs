@@ -80,6 +80,8 @@ try {
       assertPage(facts.headings === 1 && /Gillespie/i.test(facts.heading), 'Incorrect Gillespie heading', facts);
       assertPage(facts.canonical === origin + '/horse-racing/gillespie-county-fairgrounds', 'Gillespie canonical mismatch', facts);
       assertPage(facts.affiliateSlot && facts.surface?.visible, 'Hotel module must visibly render in Gillespie slot', facts);
+      assertPage(facts.surface?.type === 'curated' && facts.surface?.context === 'destination:fredericksburg', 'Gillespie requires curated Fredericksburg hotel cards, not generic fallback', facts.surface);
+      assertPage((facts.surface?.outgoing || []).some(link => /hotels\.com\/|anrdoezrs\.net\//i.test(link.href)), 'Verified hotel affiliate links missing from curated Fredericksburg stays', facts.surface);
       assertPage(/affiliate disclosure/i.test(facts.surface?.text || ''), 'Hotel affiliate disclosure missing', facts.surface);
       assertPage(facts.documentWidth <= facts.viewport + 8, 'Horizontal overflow on Gillespie', facts);
       await page.screenshot({ path: artifactDir + '/' + test.label + '-gillespie.png', fullPage: true, animations: 'disabled', timeout: 30000 });
