@@ -11,7 +11,7 @@ const explore = readFileSync("src/routes/explore.index.lazy.tsx", "utf8");
 const match = source.match(/export const texasWaterParks: WaterParkGuide\[\] = (\[[\s\S]*?\]);\nexport const texasWaterParksBySlug/);
 if (!match) throw new Error("Canonical Texas water-park source registry is missing.");
 const parks = JSON.parse(match[1]);
-if (parks.length < 97) throw new Error(`Water-park census unexpectedly dropped from 97 to ${parks.length} sources.`);
+if (parks.length < 101) throw new Error(`Water-park census unexpectedly dropped from 101 to ${parks.length} sources.`);
 const slugs = new Set();
 const names = new Set();
 for (const park of parks) {
@@ -26,6 +26,14 @@ for (const park of parks) {
   }
   if (!/^https:\/\/[a-z0-9.-]+\//i.test(park.officialUrl)) throw new Error(`Park lacks HTTPS official source: ${park.slug}`);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(park.reviewedAt)) throw new Error(`Source review date invalid: ${park.slug}`);
+  if (park.visitorFaqs) {
+    if (park.visitorFaqs.length < 2) throw new Error(`Insufficient visitor questions for ${park.slug}`);
+    const questions = new Set();
+    for (const faq of park.visitorFaqs) {
+      if (!faq.question || faq.answer?.length < 55 || !/^https:\/\//.test(faq.sourceUrl) || questions.has(faq.question)) throw new Error(`Invalid or duplicate sourced visitor answer for ${park.slug}`);
+      questions.add(faq.question);
+    }
+  }
 }
 for (const closed of ["hurricane-alley-corpus-christi", "splashtown-san-antonio", "water-park-at-the-villages-flint"]) {
   if (slugs.has(closed)) throw new Error(`Closed or unverified park published as open: ${closed}`);
@@ -46,5 +54,6 @@ for (const park of authorityReady) {
 if (!headBuilders.includes('"@type": "TouristAttraction"') || !headBuilders.includes('park.officialUrl') || !detailUi.includes('park.distinctiveNote')) throw new Error("Per-park pages require operator facts and tourist attraction schema.");
 if (!hub.includes('import("@/data/texas-water-parks")') || !detail.includes('import("@/data/texas-water-parks")') || !hub.includes('import("@/data/texas-water-parks-seo")') || !detail.includes('import("@/data/texas-water-parks-seo")')) throw new Error("Both water-park routes must lazy-load source records to protect client bundles.");
 if (!detailUi.includes('href={`/county/${park.county.toLowerCase().replace(/\\s+/g, "-")}`}')) throw new Error("Visitor guides must link to canonical county pages rather than directory fragments.");
+if (!detailUi.includes("park.visitorFaqs.map") || !detailUi.includes("Official policy")) throw new Error("Operator-sourced visitor answers must render with each park-specific source.");
 if (!explore.includes('to="/explore/water-parks"')) throw new Error("Explore landing must link to the new water-park hub.");
 console.log(`Texas water-park guide contract passed: ${parks.length} unique official-source facilities, primary/fallback sitemaps, venue pages and truthful census scope.`);

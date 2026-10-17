@@ -59,6 +59,15 @@ function WaterParkGuidePage() {
           <p className="mt-4 leading-8 text-muted-foreground">We have not posted a fixed ticket price because dates, resident discounts, child height rules, cabanas and online promotions can change. The official site below is the controlling source for the actual amount you'll pay.</p>
           <a href={park.officialUrl} target="_blank" rel="noopener noreferrer" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">See {park.name}'s official visitor information ↗</a>
         </section>
+        {park.visitorFaqs?.length ? <section className="mt-12 border-t border-border pt-8" aria-labelledby="water-park-visitor-questions">
+          <h2 id="water-park-visitor-questions" className="font-display text-3xl">Questions that matter for this park</h2>
+          <dl className="mt-6 space-y-6">
+            {park.visitorFaqs.map((faq) => <div key={faq.question}>
+              <dt className="font-semibold">{faq.question}</dt>
+              <dd className="mt-2 leading-7 text-muted-foreground">{faq.answer} <a href={faq.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline">Official policy ↗</a></dd>
+            </div>)}
+          </dl>
+        </section> : null}
         <section className="mt-12 border-t border-border pt-8">
           <h2 className="font-display text-3xl">Best time to visit and what to check</h2>
           <p className="mt-4 leading-8 text-muted-foreground">{park.distinctiveNote}</p>
