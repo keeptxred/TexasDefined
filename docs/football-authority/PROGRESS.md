@@ -1,5 +1,8 @@
 # Football Authority — Execution Ledger
 
+## October 17, 2026 — Borger specific deep-history and forfeit provenance correction
+Official UIL 1962 Class 4A runner-up (Brackenridge 30, Borger 26), Gene Mayfield's 1962 leadership and school-distinct 1965 Odessa Permian title are now in Borger's independent history. The 2025 MaxPreps 1–9 (Levelland administrative forfeit) vs DCTF 0–10 difference is preserved rather than falsely resolved. Dossier `docs/football-authority/schools/borger.md` records primary and attributed sources; 2026 Oct16 2–6 unchanged. Editorial/photo license and exact-deployed Chrome acceptance remain pending.
+
 ## October 17, 2026 — October 16 varsity results independently reconciled (source-backed)
 - `bovina`: Gruver **L 0–55**, 3–4 through Oct 16; [published October 16/17 report](https://www.fox34.com/2026/10/17/end-zone-final-scores-friday-oct-16/).
 - `bowie-gold-burg`: Woodson **L 53–58**, 2–6 through Oct 16; [published October 16/17 report](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php).

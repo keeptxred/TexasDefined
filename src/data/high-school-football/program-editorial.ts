@@ -3439,8 +3439,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent editorial accent; no district crest, school logo or photo copied"
     },
     "seo": {
-      "title": "Borger Bulldogs Football 2026 | UIL 4A Division II District 3 Scores, History & Guide",
-      "description": "Borger Bulldogs Texas football: 2026 4A Division II District 3, dated season results, Hutchinson County campus, school-specific program history and contact guidance."
+      "title": "Borger Bulldogs Football 2026 | 1962 UIL Final, Scores & District 3",
+      "description": "Borger Bulldogs 2026 football: 1962 UIL 4A runner-up under Gene Mayfield, 2025 forfeit record caveat, District 3 alignment, October scores and campus guide."
     },
     "campus": {
       "address": "600 W First Street, Borger, TX 79007",
@@ -3533,19 +3533,26 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       ]
     },
     "development": {
-      "title": "Borger Bulldogs: a specific program across distinct football seasons",
-      "body": "Borger went 1–9 in 2025, then beat Pampa 30–20 and River Road 49–7 in 2026 before falling 6–64 to Liberty and 0–66 to Lubbock Estacado. The schedule clearly separates 2026 non-district games from current Division II District 3 play.",
-      "sourceUrl": "https://www.maxpreps.com/tx/borger/borger-bulldogs/football/25-26/schedule/",
-      "sourceLabel": "Historical primary UIL or dated previous-season football records",
+      "title": "1962 Class 4A state runner-up under Gene Mayfield; 2025 forfeit-record caveat",
+      "body": "In the 1962 Class 4A state championship, Borger finished runner-up after San Antonio Brackenridge won 30–26, as recorded by the UIL. Hall of Fame coach Gene Mayfield had guided an undefeated Bulldogs team into that final; Mayfield later coached Odessa Permian to its 1965 title, which is not a Borger championship. Borger's 2025 record is disputed by bookkeeping: MaxPreps lists 1–9 because it records the October 31 Levelland game as a forfeit win (W 46–12 FF), while Dave Campbell's Texas Football lists 0–10. The reported on-field score is Levelland 46, Borger 12; do not mistake the administrative forfeiture outcome for an on-field 46–12 win. In 2026, Borger defeated Pampa and River Road before entering the District 3 stretch.",
+      "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+      "sourceLabel": "UIL primary 1962 title-game record; DCTF Gene Mayfield biography and conflicting MaxPreps/DCTF 2025 tallies documented separately",
       "verifiedAt": "2026-10-17"
     },
     "milestones": [
       {
+        "date": "1962",
+        "title": "UIL Class 4A state runner-up under Gene Mayfield",
+        "body": "Borger finished unbeaten until the Class 4A final, falling 30–26 to San Antonio Brackenridge. The UIL lists Brackenridge champion and Borger runner-up; Mayfield's later Odessa Permian championship is a different school's history.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL official 1962 state champions ledger; contemporary coach profile at texasfootball.com/hof-gene-mayfield"
+      },
+      {
         "date": "2025",
-        "title": "One-win completed season",
-        "body": "MaxPreps' completed 2025 schedule shows 1–9.",
+        "title": "Forfeit-related record mismatch, not a clean one-win season",
+        "body": "MaxPreps records 1–9 and a Levelland October 31 forfeit win W 46–12 (FF), but its box also reports Levelland led 46–12 on the field; Dave Campbell's Texas Football lists Borger 0–10. Administrative classification versus on-field record remains source-dependent.",
         "sourceUrl": "https://www.maxpreps.com/tx/borger/borger-bulldogs/football/25-26/schedule/",
-        "sourceLabel": "Dated school / football historical source"
+        "sourceLabel": "MaxPreps 2025 schedule compared with Dave Campbell's Texas Football 2025 year record"
       },
       {
         "date": "2026",
@@ -3557,7 +3564,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     ],
     "overview": [
       "Borger Bulldogs is Borger ISD's 11-man football team in Hutchinson County. Its authoritative 2026–28 alignment is UIL 4A Division II District 3; that is different from older season divisions and similarly named programs.",
-      "Borger went 1–9 in 2025, then beat Pampa 30–20 and River Road 49–7 in 2026 before falling 6–64 to Liberty and 0–66 to Lubbock Estacado. The schedule clearly separates 2026 non-district games from current Division II District 3 play.",
+      "In the 1962 Class 4A state championship, Borger finished runner-up after San Antonio Brackenridge won 30–26, as recorded by the UIL. Hall of Fame coach Gene Mayfield had guided an undefeated Bulldogs team into that final; Mayfield later coached Odessa Permian to its 1965 title, which is not a Borger championship. Borger's 2025 record is disputed by bookkeeping: MaxPreps lists 1–9 because it records the October 31 Levelland game as a forfeit win (W 46–12 FF), while Dave Campbell's Texas Football lists 0–10. The reported on-field score is Levelland 46, Borger 12; do not mistake the administrative forfeiture outcome for an on-field 46–12 win. In 2026, Borger defeated Pampa and River Road before entering the District 3 stretch.",
       "Borger ISD officially lists Jesus A. Villaseñor as athletic director and football coach (athletics office 806-273-1033). The school street address is not proven to be the Bulldog Stadium entrance. A 2013–15 facility project does not certify today's ADA arrangements."
     ],
     "faq": [
@@ -3587,7 +3594,15 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Is the 2025 record part of the current season?",
-        "answer": "No. The 1–9 historical result is 2025; the current 2026 record is separately dated."
+        "answer": "No. Borger's 2025 1–9 MaxPreps tally counts the Levelland forfeiture as a win, while Dave Campbell's Texas Football shows 0–10. The reported on-field score was Levelland 46, Borger 12. The 2026 schedule and record are a separate season."
+      },
+      {
+        "question": "Was Borger the Texas Class 4A football champion in 1962?",
+        "answer": "No. Borger reached the 1962 Class 4A title game under Gene Mayfield but lost 30–26 to San Antonio Brackenridge and finished state runner-up, per UIL's official championship ledger."
+      },
+      {
+        "question": "Why do the 2025 Borger football records differ?",
+        "answer": "MaxPreps counts a forfeiture victory over Levelland and reports 1–9, but the on-field 46–12 result favored Levelland; Dave Campbell's lists 0–10. The difference is recorded rather than silently reconciled."
       }
     ],
     "coach": {
