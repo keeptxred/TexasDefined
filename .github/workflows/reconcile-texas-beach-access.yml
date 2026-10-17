@@ -1,0 +1,52 @@
+name: Reconcile Texas Beach and Bay Access
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/reconcile-texas-beach-access.yml'
+      - 'scripts/data/audit-texas-beach-access.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Query current official GLO layer once and map access candidates
+        run: |
+          mkdir -p .artifacts
+          node scripts/data/audit-texas-beach-access.mjs --live --out=.artifacts/glo-texas-beach-access-review.json
+      - name: Verify source coverage and print only aggregate review counts
+        run: |
+          node --input-type=module -e '
+            import fs from "node:fs";
+            const p = JSON.parse(fs.readFileSync(".artifacts/glo-texas-beach-access-review.json", "utf8"));
+            if (p.sourcePointCount < 1 || p.namedSiteClusters < 1 || p.namedSiteClusters > p.sourcePointCount) {
+              throw new Error("GLO extract is empty or inconsistent; do not treat as complete.");
+            }
+            if (typeof p.unmatchedBeachSwimmingCandidates !== "number") {
+              throw new Error("Beach-candidate filter missing from official source export.");
+            }
+            console.log(JSON.stringify({
+              officialSourceAccessPoints:p.sourcePointCount,
+              namedClusters:p.namedSiteClusters,
+              exactNameClusters:p.exactMatchClusters,
+              needsReviewClusters:p.needsReviewClusters,
+              beachSwimmingCandidateClusters:p.unmatchedBeachSwimmingCandidates,
+              sourceLayerEditDate:p.sourceLayerEditDate
+            }));
+          '
+      - name: Preserve source evidence for human site-by-site editorial review
+        uses: actions/upload-artifact@v4
+        with:
+          name: texas-glo-beach-access-source-review
+          path: .artifacts/glo-texas-beach-access-review.json
+          if-no-files-found: error
+          retention-days: 7
