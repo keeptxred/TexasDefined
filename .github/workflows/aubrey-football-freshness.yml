@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - 'src/data/high-school-football/program-editorial.ts'
+      - 'src/data/high-school-football/football-profile-content.ts'
+      - 'scripts/ci/validate-football-head-coach-faq.mjs'
       - 'src/components/sports/FootballGameNightGuide.tsx'
       - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
       - 'scripts/ci/validate-aubrey-football-page.mjs'
@@ -26,6 +28,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate Aubrey editorial data and public page copy
         run: node scripts/ci/validate-aubrey-football-page.mjs
+      - name: Test duplicate head-coach FAQ variants
+        run: node --experimental-strip-types scripts/ci/validate-football-head-coach-faq.mjs
 
   check-overdue-scores:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
