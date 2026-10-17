@@ -1,11 +1,17 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
-import { HORSE_RACING_REVIEW_DATE, TEXAS_HORSE_RACING_INSTITUTIONS } from '@/data/horse-racing-authority';
+import { HORSE_RACING_REVIEW_DATE, TEXAS_HORSE_RACING_INSTITUTIONS, TEXAS_RACING_ORGANIZATIONS, TEXAS_HORSE_RACING_CALENDAR, type TexasRacingOrganization } from '@/data/horse-racing-authority';
 const base = 'https://texasdefined.com';
 export const Route = createLazyFileRoute('/horse-racing/$slug')({ component: TexasHorseRacingInstitutionPage });
 
 function TexasHorseRacingInstitutionPage() {
   const { record } = Route.useLoaderData();
+  if (record.category === 'organization') return <TexasRacingOrganizationProfile record={record} />;
+  if (record.category === 'calendar') return <TexasHorseRacingCalendarPage />;
+  return <TrackProfile record={record} />;
+}
+
+function TrackProfile({ record }: { record: (typeof TEXAS_HORSE_RACING_INSTITUTIONS)[number] }) {
   const live = record.category === 'live';
   const peers = TEXAS_HORSE_RACING_INSTITUTIONS.filter((r) => r.slug !== record.slug && r.category === 'live');
   const answers = live ? [
@@ -124,6 +130,186 @@ function TexasHorseRacingInstitutionPage() {
           <ul className="mt-5 space-y-3">
             {record.sources.map((s) => <li key={s.url}><a className="text-sm font-semibold text-primary underline" href={s.url} target="_blank" rel="noopener noreferrer">{s.label} ↗</a></li>)}
           </ul>
+        </section>
+      </main>
+    </Container>
+  </>;
+}
+
+function TexasRacingOrganizationProfile({ record }: { record: TexasRacingOrganization }) {
+  const officialLinks = record.sources.filter((source) => source.url !== record.url);
+  const faq = [
+    { question: `What does ${record.name} do?`, answer: record.role + '. Its official website supplies current programs, requirements and updates.' },
+    { question: `Is ${record.name} a place to watch live horse racing?`, answer: 'No. It is an administrative or industry organization. Live racing happens at Lone Star Park, Sam Houston Race Park, Retama Park and Gillespie County Fairgrounds on approved dates.' },
+    { question: `Where is ${record.name} based?`, answer: `${record.address}. Verify office hours and any appointment requirements before visiting.` },
+  ];
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      { '@type': 'WebPage', '@id': `${base}${record.canonicalPath}#page`, name: `${record.name} — Texas racing organization guide`, description: record.introduction, url: `${base}${record.canonicalPath}`, dateModified: record.sourceDate, citation: record.sources.map((source) => source.url) },
+      { '@type': record.slug === 'texas-racing-commission' ? 'GovernmentOrganization' : 'Organization', '@id': `${base}${record.canonicalPath}#organization`, name: record.name, description: record.role, url: record.url,
+        address: { '@type': 'PostalAddress', streetAddress: record.address.split(',')[0], addressLocality: record.city, addressRegion: 'TX', addressCountry: 'US' } },
+      { '@type': 'BreadcrumbList', itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: base },
+        { '@type': 'ListItem', position: 2, name: 'Texas horse racing', item: `${base}/horse-racing` },
+        { '@type': 'ListItem', position: 3, name: record.name, item: `${base}${record.canonicalPath}` },
+      ] },
+      { '@type': 'FAQPage', mainEntity: faq.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) },
+    ],
+  };
+  return <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+    <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
+      <main className="mx-auto max-w-5xl">
+        <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-wide text-muted-foreground">
+          <a href="/" className="hover:text-foreground">Texas Defined</a><span className="mx-2">/</span>
+          <a href="/horse-racing" className="hover:text-foreground">Horse racing</a><span className="mx-2">/</span>
+          <span aria-current="page">{record.name}</span>
+        </nav>
+        <header className="border-b border-border py-10">
+          <p className="eyebrow text-primary">Statewide horse racing institution · {record.county}</p>
+          <h1 className="mt-3 font-display text-5xl leading-tight sm:text-7xl">{record.name}</h1>
+          <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">{record.introduction}</p>
+          <p className="mt-5 text-xs text-muted-foreground">Editorial research reviewed {record.sourceDate}. This is an institution profile, not a spectator racetrack or a hotel affiliate promotion.</p>
+        </header>
+        <section className="grid gap-8 border-b border-border py-10 md:grid-cols-2">
+          <div>
+            <p className="eyebrow text-primary">What it does</p><h2 className="mt-2 font-display text-3xl">Role in Texas racing</h2>
+            <p className="mt-4 text-base leading-8 text-muted-foreground">{record.role}.</p>
+            <a href={record.url} target="_blank" rel="noopener noreferrer" className="mt-6 inline-block border border-primary px-5 py-3 text-sm font-semibold text-primary hover:underline">Official organization website ↗</a>
+          </div>
+          <div className="border-t border-border pt-5 md:border-t-0">
+            <p className="eyebrow text-primary">Official office · not a racetrack</p>
+            <h2 className="mt-2 font-display text-2xl">{record.city}, {record.county}</h2>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{record.address}</p>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Confirm visiting rules and hours with the organization. Some applications, especially racing licenses, are handled elsewhere.</p>
+            <a href={`/county/${record.countySlug}`} className="mt-4 inline-block text-sm font-semibold text-primary underline">Explore {record.county} →</a>
+          </div>
+        </section>
+        <section className="border-b border-border py-10">
+          <p className="eyebrow text-primary">Programs and responsibilities</p>
+          <h2 className="mt-2 font-display text-3xl">How the organization works</h2>
+          <div className="mt-5 space-y-5">{record.context.map((text) => <p key={text} className="text-base leading-8 text-muted-foreground">{text}</p>)}</div>
+        </section>
+        <section className="border-b border-border py-10">
+          <p className="eyebrow text-primary">Useful resources</p><h2 className="mt-2 font-display text-3xl">What to do next</h2>
+          <ul className="mt-5 space-y-4">{record.visitorNotes.map((note) => <li key={note} className="border-t border-border pt-4 text-sm leading-7 text-muted-foreground">{note}</li>)}</ul>
+          <a href="/horse-racing" className="mt-6 inline-block font-semibold text-primary underline">Compare all four Texas live horse racetracks →</a>
+        </section>
+        <section className="border-b border-border py-10">
+          <p className="eyebrow text-primary">Other statewide institutions</p><h2 className="mt-2 font-display text-3xl">Related Texas horse-racing organizations</h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">{TEXAS_RACING_ORGANIZATIONS.filter((item) => item.slug !== record.slug).map((item) => (
+            <a key={item.slug} href={item.canonicalPath} className="border-t border-border py-4 hover:text-primary">
+              <strong className="block font-display text-xl">{item.name} →</strong>
+              <span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.role}</span>
+            </a>
+          ))}</div>
+        </section>
+        <section className="border-b border-border py-10">
+          <p className="eyebrow text-primary">Frequently asked questions</p><h2 className="mt-2 font-display text-3xl">About {record.name}</h2>
+          <dl className="mt-6 grid gap-5 sm:grid-cols-2">{faq.map((item) => <div key={item.question} className="border-t border-border pt-5"><dt className="font-display text-xl">{item.question}</dt><dd className="mt-3 text-sm leading-7 text-muted-foreground">{item.answer}</dd></div>)}</dl>
+        </section>
+        <section className="py-10">
+          <p className="eyebrow text-primary">Verification</p><h2 className="mt-2 font-display text-3xl">Official sources</h2>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">Original organization sources, not paid placements. This page is an independent Texas Defined guide and does not represent the organization.</p>
+          <ul className="mt-5 space-y-3">{officialLinks.map((source) => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-primary underline">{source.label} ↗</a></li>)}</ul>
+        </section>
+      </main>
+    </Container>
+  </>;
+}
+
+function TexasHorseRacingCalendarPage() {
+  const calendar = TEXAS_HORSE_RACING_CALENDAR;
+  const data = calendar.comparison.map((item) => ({
+    ...item,
+    track: TEXAS_HORSE_RACING_INSTITUTIONS.find((venue) => venue.slug === item.slug),
+  }));
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage', '@id': `${base}${calendar.canonicalPath}#page`,
+        name: calendar.name, description: calendar.introduction, url: `${base}${calendar.canonicalPath}`,
+        dateModified: calendar.sourceDate, citation: calendar.sources.map((source) => source.url),
+        mainEntity: { '@id': `${base}${calendar.canonicalPath}#tracks` },
+      },
+      {
+        '@type': 'ItemList', '@id': `${base}${calendar.canonicalPath}#tracks`,
+        name: 'Four live Texas horse racetracks by calendar', numberOfItems: data.length,
+        itemListElement: data.map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.track?.name, url: `${base}${item.track?.canonicalPath}` })),
+      },
+      {
+        '@type': 'BreadcrumbList', itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Texas Defined', item: base },
+          { '@type': 'ListItem', position: 2, name: 'Horse racing in Texas', item: `${base}/horse-racing` },
+          { '@type': 'ListItem', position: 3, name: 'Race calendar and comparison', item: `${base}${calendar.canonicalPath}` },
+        ],
+      },
+    ],
+  };
+  return <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+    <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
+      <main className="mx-auto max-w-6xl">
+        <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-wide text-muted-foreground">
+          <a href="/" className="hover:text-foreground">Texas Defined</a><span className="mx-2">/</span><a href="/horse-racing" className="hover:text-foreground">Horse racing</a><span className="mx-2">/</span><span aria-current="page">Live racing calendar</span>
+        </nav>
+        <header className="border-b border-border py-11">
+          <p className="eyebrow text-primary">Live racing · Thoroughbreds · Quarter Horses · Texas</p>
+          <h1 className="mt-3 font-display text-5xl leading-tight sm:text-7xl">Texas horse-racing calendar and track comparison</h1>
+          <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">{calendar.introduction}</p>
+          <p className="mt-5 text-sm leading-7 text-muted-foreground">Research checked October 17, 2026. This is a sourced season-window reference, not a real-time race-card feed or a ticket inventory. Scheduled dates can change. Never confuse simulcast opening hours with live horse racing.</p>
+        </header>
+        <section className="border-b border-border py-12" aria-labelledby="next-meets">
+          <p className="eyebrow text-primary">Confirmed future meet windows</p>
+          <h2 id="next-meets" className="mt-2 font-display text-3xl">Published 2026–27 racing seasons</h2>
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
+            {calendar.upcoming.map((meet) => <article key={meet.title} className="border-t border-border pt-5">
+              <h3 className="font-display text-2xl">{meet.title}</h3>
+              <p className="mt-3 text-lg font-semibold">{meet.starts} — {meet.ends}</p>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">{meet.note}</p>
+              <a className="mt-4 inline-block text-sm font-semibold text-primary underline" href={meet.sourceUrl} target="_blank" rel="noopener noreferrer">Check the official race calendar ↗</a>
+            </article>)}
+          </div>
+          <p className="mt-6 text-sm leading-7 text-muted-foreground">Lone Star Park also publishes individual autumn Quarter Horse live race cards. For the next exact race day and post time, check its live schedule directly rather than relying on an old seasonal start date.</p>
+        </section>
+        <section className="border-b border-border py-12" aria-labelledby="tracks-compared">
+          <p className="eyebrow text-primary">Choose the right track</p>
+          <h2 id="tracks-compared" className="mt-2 font-display text-3xl">Compare every active Texas horse racetrack</h2>
+          <div className="mt-7 overflow-x-auto">
+            <table className="w-full border-collapse text-left text-sm">
+              <caption className="pb-4 text-left text-sm leading-6 text-muted-foreground">Live horse-racing venues only; historical licenses and simulcast-only sites excluded.</caption>
+              <thead><tr className="border-b border-border">
+                <th scope="col" className="px-3 py-4 font-semibold">Track and county</th><th scope="col" className="px-3 py-4 font-semibold">Live racing</th>
+                <th scope="col" className="px-3 py-4 font-semibold">Published / recently completed meet</th><th scope="col" className="px-3 py-4 font-semibold">Next season status</th>
+              </tr></thead>
+              <tbody>{data.map((item) => <tr key={item.slug} className="border-b border-border">
+                <td className="px-3 py-5 align-top">
+                  <a href={item.track?.canonicalPath} className="font-semibold text-primary underline">{item.track?.name} →</a>
+                  <span className="mt-2 block text-muted-foreground">{item.track?.city}, {item.track?.county}</span>
+                </td>
+                <td className="px-3 py-5 align-top">{item.breed}</td>
+                <td className="px-3 py-5 align-top">{item.latestSeason}</td>
+                <td className="px-3 py-5 align-top">{item.nextSeason}<a href={item.link} target="_blank" rel="noopener noreferrer" className="mt-2 block font-semibold text-primary underline">Official calendar ↗</a></td>
+              </tr>)}</tbody>
+            </table>
+          </div>
+        </section>
+        <section className="border-b border-border py-12">
+          <p className="eyebrow text-primary">Practical planning</p>
+          <h2 className="mt-2 font-display text-3xl">Before you drive to a Texas racetrack</h2>
+          <div className="mt-6 grid gap-7 md:grid-cols-3">
+            <div className="border-t border-border pt-5"><h3 className="font-display text-2xl">Live vs. simulcast</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">An open betting or simulcast facility may not be hosting live races. Confirm the exact date, breed and first-post time.</p></div>
+            <div className="border-t border-border pt-5"><h3 className="font-display text-2xl">Admission and parking</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Official ticket pages set current admission and gate hours. Family and holiday offers may vary; verify before travel.</p></div>
+            <div className="border-t border-border pt-5"><h3 className="font-display text-2xl">Stay nearby</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Track pages link to the correct county guides for hotels, restaurants and sightseeing. Hotel links may carry affiliate disclosures.</p></div>
+          </div>
+          <a className="mt-6 inline-block text-sm font-semibold text-primary underline" href="/horse-racing">Return to Texas horse racing authority directory →</a>
+        </section>
+        <section className="py-12">
+          <p className="eyebrow text-primary">Original sources</p><h2 className="mt-2 font-display text-3xl">Official racing schedules and corrections</h2>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">Texas Defined does not sell wagering products or claim that these season windows are guaranteed race dates. Confirm new announcements with the Texas Racing Commission and each track. Current operator pages supersede this October 17, 2026 editorial snapshot.</p>
+          <ul className="mt-6 space-y-3">{calendar.sources.map((source) => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-primary underline">{source.label} ↗</a></li>)}</ul>
         </section>
       </main>
     </Container>

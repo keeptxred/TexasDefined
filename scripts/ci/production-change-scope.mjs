@@ -9,6 +9,7 @@ const sharedPattern = /^(?:package(?:-lock)?\.json|vite\.config\.|wrangler\.|src
 const groups = {
   images: /discover|hero|public\/images|materialize/,
   sports: /sports|venue|football/,
+  horse_racing: /horse-racing|horseRacing|HorseRacing|verify-horse-racing-production/,
   foliage: /east-texas-fall-colors|fall-foliage/,
   discovery: /public-routes|sitemap|routeTree|discovery|indexing/,
   events: /events?|ticketmaster/,
@@ -243,7 +244,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     footballGameNightPages: selectedPaths.filter(p => footballGameNightPages.has(p)), redirectChecks, candidateCount,
     omittedCount: Math.max(0, allPaths.length - selectedPaths.length), pageBudget: PAGE_BUDGET,
     coverage: candidateCount > PAGE_BUDGET ? 'representative sample; full coverage belongs to weekly local audits' : 'identified changed pages and representative dependencies',
-    groups: Object.fromEntries(Object.entries(groups).map(([name, pattern]) => [name, shared || changedFiles.some(p => pattern.test(p))])),
+    groups: Object.fromEntries(Object.entries(groups).map(([name, pattern]) => [name, (name === 'horse_racing' ? false : shared) || changedFiles.some(p => pattern.test(p))])),
   };
 }
 

@@ -213,8 +213,21 @@ test('shared runtime changes and missing baseline select representative coverage
   for (const args of [{ baseline, changedFiles: ['src/routes/__root.tsx'] }, { baseline: null, changedFiles: [] }]) {
     const plan = buildChangePlan({ ...args, head });
     assert.deepEqual(new Set(plan.selectedPaths), new Set(REPRESENTATIVE_PATHS));
-    assert.ok(Object.values(plan.groups).every(Boolean));
+    // The horse-racing acceptance is deliberately change-scoped, not a generic
+    // shared-release/sitewide crawl. Other representative groups retain prior behavior.
+    const { horse_racing, ...regularGroups } = plan.groups;
+    assert.equal(horse_racing, false);
+    assert.ok(Object.values(regularGroups).every(Boolean));
   }
+});
+
+test('horse racing authority is verified only for a racing change, not an unrelated deployment', () => {
+  const change = buildChangePlan({ baseline, head, changedFiles: ['src/data/horse-racing-authority.ts'] });
+  assert.equal(change.groups.horse_racing, true);
+  const unrelated = buildChangePlan({ baseline, head, changedFiles: ['src/routes/__root.tsx'] });
+  assert.equal(unrelated.groups.horse_racing, false);
+  const workflowOnly = buildChangePlan({ baseline, head, changedFiles: ['.github/workflows/verify-aubrey-football.yml'] });
+  assert.equal(workflowOnly.groups.horse_racing, false);
 });
 
 test('deleted feature files still select their native gate and large updates disclose sampling', () => {
