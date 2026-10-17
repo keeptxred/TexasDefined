@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "borden-county",
-    "nextSchool": "borden-county",
-    "implementedOnBranch": 17,
-    "remainingToImplement": 8,
+    "currentSchool": "borger",
+    "nextSchool": "borger",
+    "implementedOnBranch": 18,
+    "remainingToImplement": 7,
     "remainingToVerify": 25,
-    "notes": "17/25 Batch006 individually authored across released and dependent branches; Booker is six-man 1A DI District1, not Houston Booker T. Washington. Previous 105 VERIFIED protected. None of Batch006 separately production Chrome/editorially accepted. Eight assigned not reviewed."
+    "notes": "18/25 individually authored through Borden County on dependent staged school branches. Five actual UIL championship finals researched; 105 prior VERIFIED protected. Batch006 still no separately exact Chrome/editorial nine-dimension accepts. Seven remaining to research."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6841,8 +6841,12 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/borden-county",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/borden-county.md",
+      "implementedOnBranch": "feature/football-b006-borden-county-20261016-chat",
+      "actualProductionVerified": false,
+      "reviewScope": "Five historical UIL verified six-man titles 1997/08/09/16/17, 2026 DI District5, 6–0 through Oct9, coach-source conflict; no current coach/stadium gate/photo rights/exact Chrome acceptance claimed."
     },
     {
       "id": "uil:borger",
