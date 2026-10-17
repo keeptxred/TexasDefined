@@ -453,6 +453,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.cityofchildress.com/culture-recreation"
   },
   {
+    "county": "collin",
+    "name": "Historic Downtown McKinney",
+    "category": "History & heritage",
+    "description": "Walkable historic square with late nineteenth-century architecture, shopping, art and local food; museum interiors have separate visiting rules.",
+    "sourceUrl": "https://www.visitmckinney.com/things-to-do/attractions"
+  },
+  {
+    "county": "collin",
+    "name": "McKinney Tiny Doors and Public Art Walk",
+    "category": "Art & architecture",
+    "description": "Self-guided downtown exploration of miniature doors and public-art murals promoted in the official McKinney visitor directory.",
+    "sourceUrl": "https://www.visitmckinney.com/things-to-do/attractions"
+  },
+  {
     "county": "collingsworth",
     "name": "Collingsworth Pioneer Park",
     "category": "Parks & recreation",
@@ -644,18 +658,18 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "el-paso",
+    "name": "Chamizal National Memorial",
+    "category": "History & heritage",
+    "description": "National Park Service memorial and cultural center in El Paso interpreting the U.S.–Mexico boundary settlement, with public exhibits and gated park grounds.",
+    "sourceUrl": "https://www.nps.gov/cham/planyourvisit/hours.htm"
+  },
+  {
+    "county": "el-paso",
     "name": "Hotel Paso del Norte",
     "category": "Art & architecture",
     "description": "A historic 1912 Trost-designed hotel in downtown El Paso, notable for its stained-glass dome and 2020 preservation rehabilitation. An operating hotel, not an unrestricted museum.",
     "sourceUrl": "https://atlas.thc.texas.gov/Details?atlasnumber=2079002933",
     "relatedGuideHref": "/destination/hotel-paso-del-norte"
-  },
-  {
-    "county": "el-paso",
-    "name": "Chamizal National Memorial",
-    "category": "History & heritage",
-    "description": "National Park Service memorial and cultural center in El Paso interpreting the U.S.–Mexico boundary settlement, with public exhibits and gated park grounds.",
-    "sourceUrl": "https://www.nps.gov/cham/planyourvisit/hours.htm"
   },
   {
     "county": "ellis",
@@ -1127,6 +1141,27 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.nps.gov/foda/planyourvisit/index.htm"
   },
   {
+    "county": "jefferson",
+    "name": "Beaumont Botanical Gardens and Warren Loose Conservatory",
+    "category": "Parks & recreation",
+    "description": "Public botanical-garden and conservatory grounds at Tyrrell Park, with themed plantings, paved walks and seasonal horticultural displays.",
+    "sourceUrl": "https://www.beaumonttexas.gov/529/Community-in-Beaumont"
+  },
+  {
+    "county": "jefferson",
+    "name": "Cattail Marsh Wetlands Education Center",
+    "category": "Parks & recreation",
+    "description": "Public wetlands and birdwatching area at Tyrrell Park in Beaumont, with a boardwalk, observation areas and trails; conditions vary after rain.",
+    "sourceUrl": "https://www.beaumonttexas.gov/436/Free-Programs-Services"
+  },
+  {
+    "county": "jefferson",
+    "name": "Julie Rogers Theatre",
+    "category": "Arts & culture",
+    "description": "Historic Beaumont performance theater used for staged productions, symphony performances and cultural events; check the event schedule.",
+    "sourceUrl": "https://www.beaumonttexas.gov/529/Community-in-Beaumont"
+  },
+  {
     "county": "kendall",
     "name": "Cascade Caverns Guided Cave Tours",
     "category": "Parks & recreation",
@@ -1160,6 +1195,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "A public Junction river-area stop with historic bridge context.",
     "sourceUrl": "https://texastimetravel.com/cities/junction/"
+  },
+  {
+    "county": "kleberg",
+    "name": "King Ranch Visitor Center Tours",
+    "category": "History & heritage",
+    "description": "Operator-led ranch history, nature and agricultural tours depart from the official Kingsville visitor center; the private ranch is not open for unescorted entry.",
+    "sourceUrl": "https://king-ranch.com/visit-us/our-tours/"
   },
   {
     "county": "knox",
@@ -1216,6 +1258,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Small rural county-seat heritage walk around the 1916 Classical Revival courthouse; public roads and square only.",
     "sourceUrl": "https://texastimetravel.com/cities/lipscomb/"
+  },
+  {
+    "county": "lubbock",
+    "name": "Lubbock Lake Landmark",
+    "category": "History & heritage",
+    "description": "Texas Tech-operated archaeological and natural-history preserve with a visitor interpretive center and marked public trails; the Wildflower Trail is closed for repairs.",
+    "sourceUrl": "https://www.depts.ttu.edu/museumttu/LLL/index.html"
+  },
+  {
+    "county": "lubbock",
+    "name": "Prairie Dog Town at Mackenzie Park",
+    "category": "Parks & recreation",
+    "description": "Public viewing area for prairie dogs in Lubbock's Mackenzie Park; enjoy the animals from the designated space without feeding or disturbing wildlife.",
+    "sourceUrl": "https://www.visitlubbock.org/blog/iconic-lubbock-picks"
   },
   {
     "county": "marion",
@@ -1302,6 +1358,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.nps.gov/waco/planyourvisit/index.htm"
   },
   {
+    "county": "medina",
+    "name": "Castroville Regional Park",
+    "category": "Parks & recreation",
+    "description": "Public Castroville park with mapped hiking trails and reservable recreational facilities; follow city pool and trail rules.",
+    "sourceUrl": "https://castrovilletx.gov/2346/Castroville-Regional-Park"
+  },
+  {
     "county": "menard",
     "name": "Menard County Art Deco Courthouse",
     "category": "History & heritage",
@@ -1314,6 +1377,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Walk the interpreted irrigation-ditch heritage corridor developed in the town's frontier and Spanish-colonial landscape.",
     "sourceUrl": "https://texastimetravel.com/cities/menard/"
+  },
+  {
+    "county": "midland",
+    "name": "Watersong Wild Space at I-20",
+    "category": "Parks & recreation",
+    "description": "Midland's municipal nature preserve, formerly the I-20 Wildlife Preserve, with wetland boardwalks, bird blinds and accessible trails; use the current Watersong Wild Space name.",
+    "sourceUrl": "https://midlandtexas.gov/facilities/facility/details/I20-Wildlife-Preserve-28"
   },
   {
     "county": "mills",
@@ -1400,6 +1470,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.preservationtexas.org/mep/bobs-oil-well"
   },
   {
+    "county": "nacogdoches",
+    "name": "Ruby M. Mize Azalea Garden",
+    "category": "Parks & recreation",
+    "description": "Eleven-acre SFA public garden with azaleas, Japanese maples, camellias and walking paths; visit the whole garden, not each bed as a separate attraction.",
+    "sourceUrl": "https://www.sfasu.edu/gardens/explore/azalea-garden"
+  },
+  {
     "county": "navarro",
     "name": "Corsicana Bronze Statue Walking and Audio Tour",
     "category": "Art & architecture",
@@ -1449,11 +1526,32 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.sweetwatertx.gov/159/Visit-Sweetwater"
   },
   {
+    "county": "nueces",
+    "name": "South Texas Botanical Gardens and Nature Center",
+    "category": "Parks & recreation",
+    "description": "Corpus Christi botanical and nature attraction combining orchid displays, butterfly gardens, birding trails and wetlands habitat; paid admission.",
+    "sourceUrl": "https://stxbot.org/explore/"
+  },
+  {
     "county": "orange",
     "name": "Shangri La Botanical Gardens and Nature Center",
     "category": "Parks & recreation",
     "description": "Orange garden and nature preserve open to public visitors with paths, education displays and seasonal pontoon tours; verify event and weather closures.",
     "sourceUrl": "https://shangrilagardens.org/visit/"
+  },
+  {
+    "county": "palo-pinto",
+    "name": "Clark Gardens Botanical Park",
+    "category": "Parks & recreation",
+    "description": "Landscaped botanical park near Mineral Wells with garden walks, water features and a labyrinth; check seasonal operating calendar.",
+    "sourceUrl": "https://visitmineralwells.org/things-to-do/labyrinths_and_gardens"
+  },
+  {
+    "county": "palo-pinto",
+    "name": "Mineral Wells Fossil Park",
+    "category": "Parks & recreation",
+    "description": "Municipal fossil-collecting park where visitors can search surface exposures for Pennsylvanian fossils; follow posted collection and safety rules.",
+    "sourceUrl": "https://www.mineralwellstx.gov/209/Mineral-Wells-Fossil-Park"
   },
   {
     "county": "parker",
@@ -1505,6 +1603,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/amarillo/"
   },
   {
+    "county": "presidio",
+    "name": "Marfa Mystery Lights Viewing Area",
+    "category": "Parks & recreation",
+    "description": "Public roadside viewing area nine miles east of Marfa on US 90; unusual lights are not guaranteed, and visitors should stay in designated parking and viewing space.",
+    "sourceUrl": "https://visitmarfa.com/mystery"
+  },
+  {
     "county": "reagan",
     "name": "Santa Rita No. 1 Discovery Well Roadside Marker",
     "category": "History & heritage",
@@ -1531,6 +1636,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Coastal refuge with public wildlife drive and trails near Austwell, best known for wintering whooping cranes; bird sightings vary by season.",
     "sourceUrl": "https://www.fws.gov/refuge/aransas/visit-us"
+  },
+  {
+    "county": "rockwall",
+    "name": "Historic Downtown Rockwall",
+    "category": "History & heritage",
+    "description": "Walkable Rockwall courthouse-square district with historic buildings, restaurants and shops; a public street-level visit rather than a building tour.",
+    "sourceUrl": "https://texastimetravel.com/cities/rockwall/"
+  },
+  {
+    "county": "rockwall",
+    "name": "The Harbor at Rockwall",
+    "category": "Arts & culture",
+    "description": "Lake Ray Hubbard waterfront district with restaurants, public plazas, sunset views and seasonal outdoor concerts.",
+    "sourceUrl": "https://topics.rockwall.com/visitrockwall_plan.asp"
   },
   {
     "county": "runnels",
@@ -1566,6 +1685,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Public street-level tour of early East Texas churches, houses and civic structures; many individual buildings remain private or have limited access.",
     "sourceUrl": "https://texastimetravel.com/cities/san-augustine/"
+  },
+  {
+    "county": "san-patricio",
+    "name": "Sunset Lake Park in Portland",
+    "category": "Parks & recreation",
+    "description": "City-managed bayfront wetlands park in Portland with coastal birding, a hike-and-bike trail, interpretive boardwalks and waterside recreation.",
+    "sourceUrl": "https://www.portlandtx.gov/Facilities/Facility/Details/Municipal-Park-11"
   },
   {
     "county": "scurry",
@@ -1666,6 +1792,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://fwbg.org/plan-a-visit/admission-and-hours/"
   },
   {
+    "county": "tarrant",
+    "name": "Fort Worth Water Gardens",
+    "category": "Art & architecture",
+    "description": "Downtown architectural water garden with multiple pools and plaza walkways; no swimming or wading is permitted, and construction notices may affect access.",
+    "sourceUrl": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/water-gardens"
+  },
+  {
     "county": "taylor",
     "name": "Abilene Storybook Gardens",
     "category": "Art & architecture",
@@ -1685,6 +1818,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Art & architecture",
     "description": "A countywide driving route of large quilt-panel artworks reflecting Brownfield and Terry County's cotton-growing heritage.",
     "sourceUrl": "https://texastimetravel.com/directory/terry-county-quilt-trail/"
+  },
+  {
+    "county": "tom-green",
+    "name": "International Water Lily Collection",
+    "category": "Parks & recreation",
+    "description": "Free public water-lily collection at Civic League Park in San Angelo, with flowering displays concentrated in the warmer months.",
+    "sourceUrl": "https://www.sanangelo.gov/387/International-Water-Lily-Collection"
   },
   {
     "county": "travis",
@@ -1762,6 +1902,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Arts & culture",
     "description": "Restored 1925 theater in downtown Brenham offering public concerts and performances.",
     "sourceUrl": "https://thebarnhillcenter.com/"
+  },
+  {
+    "county": "webb",
+    "name": "San Agustín Plaza and Historic District",
+    "category": "History & heritage",
+    "description": "Public plaza and historic streets at the center of Laredo's 1755 Spanish-colonial town plan, near San Agustín Cathedral.",
+    "sourceUrl": "https://visitlaredo.com/arts-culture/"
   },
   {
     "county": "wheeler",
