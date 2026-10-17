@@ -5,7 +5,7 @@ Updated 2026-10-17. Work is **not** considered production verified until the rep
 ## Current implementation
 
 - Canonical public hub: `/explore/water-parks`; one park page at `/explore/water-parks/$slug` per physical venue.
-- Initial operator-backed registry: 101 separate facilities in `src/data/texas-water-parks.ts`.
+- Initial operator-backed registry: 110 separate facilities in `src/data/texas-water-parks.ts`.
 - Settings: indoor, outdoor, mixed indoor/outdoor. Access: day park, city-run, hotel/resort, campground and inflatable lake park.
 - Every record has a named venue, town, region, setting, admission policy description, a venue-specific editorial note, source URL, review date, and county where the physical county was verified.
 - Directory links to internal Explore/trip planner/city and county guides. Primary and emergency Explore sitemaps enumerate only specifically certified authority-ready park pages; the statewide hub includes the full research registry.
@@ -69,7 +69,7 @@ Each park must be researched and independently verified beyond this launch-scale
 - Research public floating obstacle-course parks and temporary seasonal operators separately, with weather, water conditions, capacity and safety.
 - Confirm individual water-park site addresses and county assignments in ambiguous multijurisdiction cities before adding county canonical links.
 - Run a check against TDI amusement ride registration where relevant, tourism bureau listings, city park calendars and operator directories. TDI listing alone does not confirm present operation.
-- Expand the initial collection only with first-party sources and documented visit eligibility. Never present the current 101 as an exhaustive statewide census.
+- Expand the initial collection only with first-party sources and documented visit eligibility. Never present the current 110 as an exhaustive statewide census.
 - After canonical validation and required checks, use only a bounded smoke of the directory and representative indoor/outdoor/resort/municipal pages, not another sitewide crawl.
 
 ## Startup bundle protection
@@ -86,4 +86,18 @@ All newly researched park rows default to **not authority-ready**. The page rout
 
 ## Known implementation limits
 
-The 101 generated guides are the *initial source-backed editorial layer*, not finished deep first-hand reviews. Specific ride inventories, exact live ticket rates, accessible routes, rights-cleared venue imagery, corroborated family FAQs, all-county reciprocal links, and a truly exhaustive statewide census are **not yet certified**. This distinction must not be lost in publication or product messaging.
+The 110 generated guides are the *initial source-backed editorial layer*, not finished deep first-hand reviews. Specific ride inventories, exact live ticket rates, accessible routes, rights-cleared venue imagery, corroborated family FAQs, all-county reciprocal links, and a truly exhaustive statewide census are **not yet certified**. This distinction must not be lost in publication or product messaging.
+
+## Dallas municipality verification tranche — October 17, 2026
+
+Dallas Aquatics' current municipal 2026 schedule confirms nine distinct outdoor multi-feature aquatic centers **in addition to Bahama Beach**: The Cove at Crawford (375 S. Prairie Creek), The Cove at Fretz (14778 Hillcrest), The Cove at Samuell Grand (3201 Samuell Blvd.), Bachman Aquatic Center (2750 Bachman Dr.), Kidd Springs (807 W. Canty), Lake Highlands North (9400 Church Rd.), Exline (2530 Eugene), Harry Stone (2403 Millmar) and Tietze (6115 Llano).
+
+Each added record has an official single-venue page, venue address, precise 2026 closed weekday, season end, three verified feature highlights and visitor questions linked to that official venue. Exline and Harry Stone are **neighborhood-scale aquatic centers**, not destination resorts, and their optional ride features must not be represented as guaranteed daily operation. These nine remain noindex until the venue-specific photographic and editorial gate is met.
+
+Operator collection and pass sources:
+- https://www.dallasaquatics.org/178/The-Cove-Aquatic-Centers
+- https://www.dallasaquatics.org/195/2601/Community-Aquatic-Centers
+- https://www.dallasaquatics.org/196/Neighborhood-Aquatic-Centers
+- https://dallasaquatics.org/222/Season-Passes
+
+**Do not add Waterloo Adventures as currently operating:** the available trip-planning listing documents obstacle-course closure for 2024 due to Lake Travis water levels, while recent visitor information suggests continued closure. Its operator's undated legacy booking page alone does not substantiate 2026 public access. Keep status in research queue pending direct confirmation. A sprayground without slides or a substantial water-play complex is not a separate water park.

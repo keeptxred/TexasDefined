@@ -33,6 +33,7 @@ function WaterParkGuidePage() {
           <dl className="mt-6 grid gap-4 sm:grid-cols-2">
             {[
               ["Location", `${park.city}, Texas`],
+              ...(park.visitorAddress ? [["Verified venue address", park.visitorAddress]] : []),
               ["Region", park.region],
               ...(park.county ? [["County", `${park.county} County`]] : []),
               ["Setting", park.setting === "Both" ? "Indoor and outdoor" : park.setting],
@@ -51,6 +52,13 @@ function WaterParkGuidePage() {
               ? "This location has both indoor and outdoor water-play elements. Check which specific pools and rides are included with your ticket and scheduled to run on the date you choose."
               : "This is primarily an outdoor water-park outing. Rain, lightning, cooler weather, staffing and the end of the summer season can all change what is available on a particular date."}</p>
         </section>
+        {park.visitorHighlights?.length ? <section className="mt-12 border-t border-border pt-8">
+          <h2 className="font-display text-3xl">Confirmed facilities and water activities</h2>
+          <ul className="mt-5 space-y-3">
+            {park.visitorHighlights.map((highlight) => <li key={highlight} className="leading-8 text-muted-foreground">{highlight}</li>)}
+          </ul>
+          <p className="mt-4 text-sm text-muted-foreground">Features listed by the responsible operator can be temporarily closed; confirm availability for your visit.</p>
+        </section> : null}
         <section className="mt-12 border-t border-border pt-8">
           <h2 className="font-display text-3xl">Tickets, day passes and who can visit</h2>
           <p className="mt-4 leading-8 text-muted-foreground"><strong>Published access approach:</strong> {park.admission}. {isResort
