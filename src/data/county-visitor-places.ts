@@ -1330,6 +1330,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://littlefieldtexas.net/200/Littlefield-Arts-Heritage-Group"
   },
   {
+    "county": "lampasas",
+    "name": "Hancock Springs Park",
+    "category": "Parks & recreation",
+    "description": "City-run Lampasas mineral-spring park with picnic areas, a historic Hostess House and seasonal spring-fed pool; the pool can close temporarily for water-clarity or safety conditions.",
+    "sourceUrl": "https://www.lampasas.org/367/Hancock-Springs-Park"
+  },
+  {
     "county": "lavaca",
     "name": "Hallettsville Historic Courthouse Square Walk",
     "category": "History & heritage",
@@ -1657,6 +1664,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Municipal fossil-collecting park where visitors can search surface exposures for Pennsylvanian fossils; follow posted collection and safety rules.",
     "sourceUrl": "https://www.mineralwellstx.gov/209/Mineral-Wells-Fossil-Park"
+  },
+  {
+    "county": "panola",
+    "name": "Jim Reeves Memorial Park",
+    "category": "History & heritage",
+    "description": "Public roadside music-history memorial and final resting place of country singer Jim Reeves near Carthage; use signed access and treat the setting respectfully.",
+    "sourceUrl": "https://texastimetravel.com/cities/carthage/"
   },
   {
     "county": "parker",
@@ -2126,6 +2140,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Public 2,911-acre conservation and recreation landscape with birding, hiking, mountain biking and equestrian trails.",
     "sourceUrl": "https://www.mineola.com/o/naturepreserve"
+  },
+  {
+    "county": "zavala",
+    "name": "Crystal City WWII Family Internment Camp Interpretive Panels",
+    "category": "History & heritage",
+    "description": "Interpretive signs recounting the detention of families at the former World War II internment site; follow the public routes and do not enter school property without permission.",
+    "sourceUrl": "https://www.nps.gov/articles/000/preserving-wwii-internment-history-in-texas.htm"
+  },
+  {
+    "county": "zavala",
+    "name": "Popeye Statue in Crystal City",
+    "category": "Art & architecture",
+    "description": "Public downtown cartoon-character landmark honoring Crystal City's historic spinach industry; it is an outdoor photo stop, not a themed amusement park.",
+    "sourceUrl": "https://texastimetravel.com/cities/crystal-city/"
   }
 ];
 
