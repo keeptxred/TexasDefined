@@ -39,11 +39,33 @@ for (const park of parks) {
   }
 }
 for (const park of parks) {
-  if (park.visitorAddress && !/^.{10,140}$/.test(park.visitorAddress)) throw new Error(`Bad venue-address evidence: ${park.slug}`);
-  if (park.visitorHighlights && (!Array.isArray(park.visitorHighlights) || park.visitorHighlights.length < 3 || park.visitorHighlights.some((entry) => entry.length < 20))) throw new Error(`Insufficient source-linked venue highlights: ${park.slug}`);
-  for (const faq of park.visitorFaqs ?? []) if (!faq.question || faq.answer.length < 35 || !faq.sourceUrl.startsWith("https://")) throw new Error(`Incomplete official-source FAQ: ${park.slug}`);
+  // A statewide directory row cannot substitute for a researched individual guide.
+  if (!park.visitorAddress || !/^.{10,140}$/.test(park.visitorAddress)) throw new Error(`Missing individual park address: ${park.slug}`);
+  if (!Array.isArray(park.visitorHighlights) || park.visitorHighlights.length < 3 || park.visitorHighlights.some((entry) => typeof entry !== "string" || entry.length < 20)) throw new Error(`Insufficient individual waterpark highlights: ${park.slug}`);
+  if (!Array.isArray(park.visitorFaqs) || park.visitorFaqs.length < 2) throw new Error(`Missing sourced park-specific questions: ${park.slug}`);
+  for (const faq of park.visitorFaqs) if (!faq.question || faq.answer.length < 55 || !faq.sourceUrl.startsWith("https://")) throw new Error(`Incomplete source-linked park answer: ${park.slug}`);
+  if (park.areaAttractions) {
+    if (!Array.isArray(park.areaAttractions) || park.areaAttractions.length < 2) throw new Error(`Too few county attractions for ${park.slug}`);
+    const hrefs = new Set();
+    for (const item of park.areaAttractions) {
+      if (!item.label || !/^\/(destination|article)\/[a-z0-9-]+$/.test(item.href) || hrefs.has(item.href)) throw new Error(`Invalid or duplicate county attraction link: ${park.slug}`);
+      hrefs.add(item.href);
+    }
+  }
+  if (park.licensedMedia) {
+    const media = park.licensedMedia;
+    if (!/^https:\/\/commons\.wikimedia\.org\/wiki\/Special:Redirect\/file\//.test(media.src)
+        || !/^https:\/\/commons\.wikimedia\.org\/wiki\/File:/.test(media.sourceUrl)
+        || !/^https:\/\/creativecommons\.org\//.test(media.licenseUrl)
+        || !media.photographer || !media.licenseLabel || !media.alt || !Number.isInteger(media.year)
+        || media.year > new Date().getFullYear() || media.year < 1990) {
+      throw new Error(`Unlicensed or insufficiently attributed park media: ${park.slug}`);
+    }
+  }
 }
 if (!detailUi.includes("park.visitorHighlights.map") || !detailUi.includes("park.visitorAddress")) throw new Error("Source-reviewed address and amenities must render on individual guides.");
+if (!detailUi.includes("park.areaAttractions.map")) throw new Error("Curated area attractions must render in venue guides.");
+if (!detailUi.includes("park.licensedMedia.src") || !detailUi.includes("park.licensedMedia.sourceUrl") || !detailUi.includes("park.licensedMedia.licenseUrl")) throw new Error("Licensed venue photographs require in-page attribution and source/license links.");
 for (const closed of ["hurricane-alley-corpus-christi", "splashtown-san-antonio", "water-park-at-the-villages-flint"]) {
   if (slugs.has(closed)) throw new Error(`Closed or unverified park published as open: ${closed}`);
 }

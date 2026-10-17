@@ -2,6 +2,22 @@
 
 Updated 2026-10-17. Work is **not** considered production verified until the repo's canonical validator, merge gate and bounded production smoke pass.
 
+## October 17 reconciliation — 124 individual facility pages
+
+The earlier 117-record branch was superseded after the required Merge Gate demonstrated a real concurrency conflict: main had independently expanded to 124 venues. The follow-up branch is based on main and preserves all seven recently added records (three Irving facilities, San Angelo Municipal Pool, Bill Witt Corpus Christi, Bartholomew Austin and Flower Mound CAC), as well as the full per-venue research from the 117-record branch. The source validator now requires every known venue to carry an actual visitor address, three individual highlights, two source-linked questions, and rejects uncredited optional media.
+
+**Venue photographs:** A first group of ten exact-location historical pictures has been matched to Commons file descriptions with documented reusable licenses (or public-domain dedication). Each appears with its original capture year, photographer, source, license link, and a warning that the past photo is not evidence of present attraction operations. Other records remain intentionally without an image; an unrelated generic photo does not satisfy photo standards. These ten are visual improvements, **not** sufficient evidence of current photo coverage or authority-certified indexability.
+
+**Still incomplete:** full editorial fact review, current-source HTTP verification, independent visitor perspective, complete nearby-attraction linking, 114 unphotographed facilities, bounded live QA, and confirmation that 124 is exhaustive statewide coverage. All individual routes remain noindex until their full per-site media/accuracy/editorial gate is satisfied. Keep issue #5065 open.
+
+### Additional park-specific authority improvements
+
+- Ten individually licensed Wikimedia Commons historical venue photographs now render with photographer credit, source, license, and year; an old picture is explicitly not evidence of today's slides or operating status.
+- Galveston County and Bexar County waterparks have curated links to existing independent attraction authority pages (24 links for eight waterparks), alongside the existing verified county-page reverse links.
+- Schema.org TouristAttraction structured data can use each reviewed street address, city, and ZIP where supplied, and photo-bearing records have a credited ImageObject. Do not infer ZIP where source conflict is unresolved (Angel Lagoon, Dayton).
+- The canonical built-Worker smoke includes a researched Schlitterbahn page and a recently added Irving city waterpark, verifying that real individual route content and photo attribution render.
+- No park has been editorially marked authorityReady or added to certified sitemaps merely for meeting these technical contracts.
+
 ## Current implementation
 
 - Canonical public hub: `/explore/water-parks`; one park page at `/explore/water-parks/$slug` per physical venue.
@@ -148,7 +164,6 @@ Separate from the Bryan/Odessa/Victoria batch, the following verified major muni
 - https://www.arlingtontx.gov/Parks-Places/Facilities/Aquatics/Pools/Bad-Konigshofen-Family-Aquatic-Center
 
 Arlington's cooler policy is a citywide current aquatics rule and must be cited separately from individual facility features. Carrollton has accessible water-entry chairs and an explicit policy permitting inspected coolers. All three retain the current noindex authority gate pending exact-location image licensing and full editorial review. Do not count Carrollton's two separate splash-only parks as additional water parks.
-
 
 ## October 17, 2026 — Sherman, Cedar Hill and Farmers Branch family waterparks
 
