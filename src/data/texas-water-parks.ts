@@ -1,7 +1,7 @@
 /** Operator-backed Texas water-park census, reviewed 2026-10-17. One park per physical facility, not per brand. */
 export type WaterParkSetting = "Indoor" | "Outdoor" | "Both";
 export type WaterParkKind = "Destination park" | "Indoor resort park" | "Community water park" | "Indoor public park" | "Municipal water park" | "Campground water park" | "Resort beach water park" | "Resort water park" | "Inflatable lake water park";
-export type WaterParkGuide = { slug: string; name: string; city: string; county?: string; region: string; authorityReady?: boolean; setting: WaterParkSetting; kind: WaterParkKind; admission: string; summary: string; distinctiveNote: string; officialUrl: string; reviewedAt: string };
+export type WaterParkGuide = { slug: string; name: string; city: string; county?: string; region: string; authorityReady?: boolean; authorityEvidence?: { exactAddress: string; licensedImageSrc: string; imageCredit: string; accessVerifiedAt: string; rideHighlights: string[]; sourceUrls: string[] }; setting: WaterParkSetting; kind: WaterParkKind; admission: string; summary: string; distinctiveNote: string; officialUrl: string; reviewedAt: string };
 export const texasWaterParks: WaterParkGuide[] = [
   {
     "slug": "schlitterbahn-new-braunfels",
@@ -42,7 +42,7 @@ export const texasWaterParks: WaterParkGuide[] = [
     "admission": "Day tickets and season passes",
     "summary": "A west-Houston-area water park with slides, wave attractions and family play areas.",
     "distinctiveNote": "Search for the Katy/Houston location specifically; Typhoon Texas also operates near Austin.",
-    "officialUrl": "https://www.typhoontexas.com/",
+    "officialUrl": "https://typhoontexas.com/houston/hours-and-location/",
     "reviewedAt": "2026-10-17"
   },
   {
@@ -896,7 +896,8 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "The Woodlands township describes Rob Fleming as a resort-style water park with a 500-foot lazy river and a two-story flume slide.",
     "distinctiveNote": "The facility's 2026 aquatic season is over; check the township for 2027 opening dates rather than assuming sprayground hours apply.",
     "officialUrl": "https://www.thewoodlandsparks.com/Aquatics/Pools/Pool-Locations/Rob-Fleming-Aquatic-Center",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "county": "Harris"
   },
   {
     "slug": "zenner-killeen",
