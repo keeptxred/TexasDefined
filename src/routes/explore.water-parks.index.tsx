@@ -15,7 +15,7 @@ export const Route = createFileRoute("/explore/water-parks/")({
   },
   head: ({ loaderData }) =>
     loaderData?.seo ?? {
-      meta: [{ title }, { name: "description", content: description }, { name: "robots", content: "noindex, nofollow" }],
+      meta: [{ title: title }, { name: "description", content: description }, { name: "robots", content: "noindex, nofollow" }],
       links: [{ rel: "canonical", href: `https://texasdefined.com${canonicalPath}` }],
     },
 });
