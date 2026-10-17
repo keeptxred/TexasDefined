@@ -246,15 +246,15 @@ function Page() {
             <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">{editorial?.intro ?? profileSummary}</p>
           </div>
           {slug === 'aubrey' && (
-            <div role="img" aria-label="Original TexasDefined football illustration with a football and yard lines; not an official school crest" className="relative flex flex-col justify-between overflow-hidden border p-5" style={{ minHeight: 176, borderColor: "#41516b", backgroundColor: "#10243d", color: "#fff" }}>
-              <div className="absolute inset-0 opacity-20" aria-hidden="true" style={{ backgroundImage: 'repeating-linear-gradient(90deg, transparent 0, transparent 38px, #ffffff 39px, #ffffff 40px)' }} />
-              <p className="relative text-xs font-bold uppercase" style={{ letterSpacing: "0.2em", color: "#cbd5e1" }}>Chaparrals / 2026</p>
-              <svg className="relative mx-auto" style={{ height: 96, width: 160 }} viewBox="0 0 180 110" aria-hidden="true" fill="none">
+            <div role="img" aria-label="Original TexasDefined football illustration with a football and yard lines; not an official school crest" className="flex overflow-hidden border p-5" style={{ position: "relative", flexDirection: "column", justifyContent: "space-between", minHeight: 176, borderColor: "#41516b", backgroundColor: "#10243d", color: "#fff" }}>
+              <div aria-hidden="true" style={{ position: "absolute", inset: 0, opacity: 0.2, backgroundImage: 'repeating-linear-gradient(90deg, transparent 0, transparent 38px, #ffffff 39px, #ffffff 40px)' }} />
+              <p className="text-xs uppercase" style={{ position: "relative", fontWeight: 700, letterSpacing: "0.2em", color: "#cbd5e1" }}>Chaparrals / 2026</p>
+              <svg className="mx-auto" style={{ position: "relative", height: 96, width: 160 }} viewBox="0 0 180 110" aria-hidden="true" fill="none">
                 <path d="M25 82 C40 41 112 14 154 25 C145 67 75 99 25 82Z" fill="#b52e41" stroke="#f8fafc" strokeWidth="4" />
                 <path d="M57 71 L129 38" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" />
                 <path d="M72 57 L79 72 M85 51 L92 66 M98 45 L105 60 M111 39 L118 54" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" />
               </svg>
-              <p className="relative text-right text-xs font-bold uppercase" style={{ letterSpacing: "0.14em", color: "#cbd5e1" }}>4A Division I · District 4</p>
+              <p className="text-xs uppercase" style={{ position: "relative", textAlign: "right", fontWeight: 700, letterSpacing: "0.14em", color: "#cbd5e1" }}>4A Division I · District 4</p>
             </div>
           )}
         </div>
@@ -354,7 +354,7 @@ function Page() {
             </div>
             <p className="mt-3 text-xs leading-6 text-muted-foreground">* District game. This table is a dated editorial snapshot, not a live scoreboard.</p>
             <a href={editorial.season.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.season.sourceLabel} ↗</a>
-            {editorial.season.latestResultSourceUrl && <a href={editorial.season.latestResultSourceUrl} target="_blank" rel="noreferrer noopener" className="ml-0 mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4 sm:ml-5">Verify latest recorded final ↗</a>}
+            {editorial.season.latestResultSourceUrl && <a href={editorial.season.latestResultSourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Verify latest recorded final ↗</a>}
           </> : <p className="max-w-4xl text-sm leading-7 text-muted-foreground">TexasDefined does not publish a team-specific schedule here unless the current season has been separately verified. Use UIL’s Texas Scoreboard and the school’s own athletics information for the latest game dates and results. The UIL scoreboard is powered by information submitted through MaxPreps; completeness depends on school and coach submissions, and it is not an official district-standings table.</p>}
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
             <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard gateway ↗</a>
