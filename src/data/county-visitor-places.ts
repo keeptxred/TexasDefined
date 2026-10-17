@@ -151,6 +151,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "brazoria",
+    "name": "Brazoria National Wildlife Refuge",
+    "category": "Parks & recreation",
+    "description": "Federal coastal wetland birding area with the Big Slough wildlife drive and a visitor discovery area; prepare for sun, insects and wetland conditions.",
+    "sourceUrl": "https://www.fws.gov/refuge/brazoria/visit-us"
+  },
+  {
+    "county": "brazoria",
+    "name": "San Bernard National Wildlife Refuge",
+    "category": "Parks & recreation",
+    "description": "Public refuge trails and boardwalks near Brazoria, including Bobcat Woods and wetlands observation areas; check seasonal road and trail notices.",
+    "sourceUrl": "https://www.fws.gov/refuge/san-bernard/visit-us"
+  },
+  {
+    "county": "brazoria",
     "name": "Sea Center Texas",
     "category": "Parks & recreation",
     "description": "Texas Parks and Wildlife marine aquarium and fish-hatchery visitor center in Lake Jackson.",
@@ -190,6 +204,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Restored railroad depot and Harvey House visitor stop interpreting Brownwood's rail history.",
     "sourceUrl": "https://texastimetravel.com/cities/brownwood/"
+  },
+  {
+    "county": "burnet",
+    "name": "Balcones Canyonlands National Wildlife Refuge",
+    "category": "Parks & recreation",
+    "description": "Hill Country refuge with public visitor areas at Doeskin Ranch and Warbler Vista; choose a designated trailhead rather than the refuge's geographic center.",
+    "sourceUrl": "https://www.fws.gov/refuge/balcones-canyonlands/visit-us"
   },
   {
     "county": "caldwell",
@@ -288,6 +309,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Arts & culture",
     "description": "Restored 1929 theater for movies and live music; check the schedule.",
     "sourceUrl": "https://texastimetravel.com/cities/wellington/"
+  },
+  {
+    "county": "colorado",
+    "name": "Attwater Prairie Chicken National Wildlife Refuge",
+    "category": "Parks & recreation",
+    "description": "Native prairie refuge near Eagle Lake with an auto-tour loop and walking trails; prairie-chicken sightings are not guaranteed.",
+    "sourceUrl": "https://www.fws.gov/refuge/attwater-prairie-chicken/visit-us"
   },
   {
     "county": "colorado",
@@ -528,6 +556,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://ragtown.com/"
   },
   {
+    "county": "grayson",
+    "name": "Hagerman National Wildlife Refuge",
+    "category": "Parks & recreation",
+    "description": "Lake Texoma-area birding refuge with wildlife drive, accessible paths and longer nature trails; follow refuge road and seasonal closures.",
+    "sourceUrl": "https://www.fws.gov/refuge/hagerman/visit-us"
+  },
+  {
     "county": "hale",
     "name": "Plainview Aquatics Center",
     "category": "Parks & recreation",
@@ -591,6 +626,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/spearman/"
   },
   {
+    "county": "harrison",
+    "name": "Caddo Lake National Wildlife Refuge",
+    "category": "Parks & recreation",
+    "description": "Public visitor station and walking trails northeast of Marshall, with wildlife observation on former federal facility grounds near Karnack.",
+    "sourceUrl": "https://www.fws.gov/refuge/caddo-lake/visit-us"
+  },
+  {
     "county": "hemphill",
     "name": "Canadian Cultural District Walking Tour",
     "category": "History & heritage",
@@ -645,6 +687,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Texas Parks and Wildlife visitor center in Athens offering fish exhibits, a hatchery, casting ponds and a wetlands trail.",
     "sourceUrl": "https://tpwd.texas.gov/fishing/tffc/"
+  },
+  {
+    "county": "hidalgo",
+    "name": "Santa Ana National Wildlife Refuge",
+    "category": "Parks & recreation",
+    "description": "Rio Grande Valley subtropical wildlife refuge with observation tower, canopy bridge and public birding trails; the Levee Road is currently closed to pedestrians and bicycles.",
+    "sourceUrl": "https://www.fws.gov/refuge/santa-ana/visit-us"
   },
   {
     "county": "hockley",
@@ -953,6 +1002,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "THC interpretive roadside marker on US 67 west of Big Lake for the 1923 Permian Basin discovery well; the original rig is no longer at this site.",
     "sourceUrl": "https://atlas.thc.texas.gov/Details/5383004587"
+  },
+  {
+    "county": "refugio",
+    "name": "Aransas National Wildlife Refuge",
+    "category": "Parks & recreation",
+    "description": "Coastal refuge with public wildlife drive and trails near Austwell, best known for wintering whooping cranes; bird sightings vary by season.",
+    "sourceUrl": "https://www.fws.gov/refuge/aransas/visit-us"
   },
   {
     "county": "scurry",
