@@ -49,6 +49,8 @@ for (const key of ["name", "county", "lake", "nearestTown", "managingAgency", "e
 }
 assert.ok(records.includes("NOT a claim to cover every inland"));
 assert.ok(page.includes('createFileRoute("/explore/inland-beaches")'));
+assert.ok(page.includes("useRouterState") && page.includes("return <Outlet />"), "Parent route must render children rather than swallowing individual beach pages");
+assert.ok(page.includes("matches[matches.length - 1]?.routeId !== match.routeId"), "Parent sitemap/canonical metadata must not replace the individual beach head");
 assert.ok(page.includes("mainEntity") && page.includes("ItemList"));
 assert.ok(page.includes('numberOfItems: inlandSwimmingBeaches.length'));
 assert.ok(individual.includes("beach.officialUrl") && individual.includes("beach.checkedAt"));
