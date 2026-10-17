@@ -5,7 +5,7 @@ Updated 2026-10-17. Work is **not** considered production verified until the rep
 ## Current implementation
 
 - Canonical public hub: `/explore/water-parks`; one park page at `/explore/water-parks/$slug` per physical venue.
-- Initial operator-backed registry: 74 separate facilities in `src/data/texas-water-parks.ts`.
+- Initial operator-backed registry: 77 separate facilities in `src/data/texas-water-parks.ts`.
 - Settings: indoor, outdoor, mixed indoor/outdoor. Access: day park, city-run, hotel/resort, campground and inflatable lake park.
 - Every record has a named venue, town, region, setting, admission policy description, a venue-specific editorial note, source URL, review date, and county where the physical county was verified.
 - Directory links to internal Explore/trip planner/city and county guides. Primary and emergency Explore sitemaps include all registry pages.
@@ -23,6 +23,13 @@ Each park must be researched and independently verified beyond this launch-scale
 7. Validate FAQ answers against primary sources and real visitor questions. Do not mass-produce identical boilerplate FAQ markup.
 8. Confirm structured data, canonical links, accessibility, machine discovery, responsive layout, and no duplicate topic pages. No search indexing for placeholders.
 
+## New source checks
+
+- **El Paso:** Destination El Paso confirms four distinct city parks (Camp Cohen, Chapoteo, Lost Kingdom and Oasis), each included as an individual facility.
+- **Schlitterbahn Galveston:** In 2026, the operator moved to Enchanted Parks. The official park page and 2027 Six Flags pass warnings use the current owner, not the outdated Six Flags route.
+- **San Antonio:** Hurricane Harbor at Six Flags Fiesta Texas is distinct from Aquatica, and the obsolete White Water Bay label is only a former name.
+- **Lewisville:** The Thrive indoor aquatics facility and Sun Valley outdoor water park are two different physical locations.
+
 ## Research queue — no false operating claims
 
 - **Hurricane Alley, Corpus Christi:** Permanently closed in February 2026 per the park operator and local reporting. Exclude from active visitor directory; optional historical article should be clearly labeled closed.
@@ -38,9 +45,9 @@ Each park must be researched and independently verified beyond this launch-scale
 - Research public floating obstacle-course parks and temporary seasonal operators separately, with weather, water conditions, capacity and safety.
 - Confirm individual water-park site addresses and county assignments in ambiguous multijurisdiction cities before adding county canonical links.
 - Run a check against TDI amusement ride registration where relevant, tourism bureau listings, city park calendars and operator directories. TDI listing alone does not confirm present operation.
-- Expand the initial collection only with first-party sources and documented visit eligibility. Never present the current 74 as an exhaustive statewide census.
+- Expand the initial collection only with first-party sources and documented visit eligibility. Never present the current 77 as an exhaustive statewide census.
 - After canonical validation and required checks, use only a bounded smoke of the directory and representative indoor/outdoor/resort/municipal pages, not another sitewide crawl.
 
 ## Known implementation limits
 
-The 74 generated guides are the *initial source-backed editorial layer*, not finished deep first-hand reviews. Specific ride inventories, exact live ticket rates, accessible routes, rights-cleared venue imagery, corroborated family FAQs, all-county reciprocal links, and a truly exhaustive statewide census are **not yet certified**. This distinction must not be lost in publication or product messaging.
+The 77 generated guides are the *initial source-backed editorial layer*, not finished deep first-hand reviews. Specific ride inventories, exact live ticket rates, accessible routes, rights-cleared venue imagery, corroborated family FAQs, all-county reciprocal links, and a truly exhaustive statewide census are **not yet certified**. This distinction must not be lost in publication or product messaging.
