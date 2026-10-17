@@ -2,6 +2,11 @@ name: Refresh Texas breweries (TABC)
 
 on:
   workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - '.github/workflows/refresh-texas-breweries.yml'
+      - 'scripts/data/refresh-texas-breweries.mjs'
   schedule:
     - cron: '41 10 * * *'
   push:
@@ -21,12 +26,13 @@ concurrency:
 
 jobs:
   refresh:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ github.head_ref || github.ref_name }}
           persist-credentials: true
       - uses: actions/setup-node@v4
         with:
@@ -45,4 +51,4 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add src/data/breweries/texas-breweries.generated.json
           git commit -m "data: refresh active Texas brewer license locations"
-          git push origin HEAD:${{ github.ref_name }}
+          git push origin HEAD:${{ github.head_ref || github.ref_name }}
