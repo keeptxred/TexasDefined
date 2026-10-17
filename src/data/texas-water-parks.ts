@@ -621,7 +621,8 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "The park's own website announces its waterpark season has ended and points guests toward reopening next May. Future season-pass availability should not be mistaken for open slides today.",
         "sourceUrl": "https://hfalls.com/waco/"
       }
-    ]
+    ],
+    "visitorAddress": "900 Lake Shore Drive, Waco, TX 76708"
   },
   {
     "slug": "hawaiian-waters-garland",
@@ -3914,11 +3915,11 @@ export const texasWaterParks: WaterParkGuide[] = [
     "officialUrl": "https://www.pampaedc.com/community",
     "reviewedAt": "2026-10-17",
     "visitorHighlights": [
-      "Pampa H2O is an outdoor municipal aquatic park, not a standard indoor YMCA or basic single-lane swimming pool.",
-      "The Pampa Economic Development Corporation explicitly lists a lazy river and a full funnel slide as signature attractions.",
-      "The park's family swimming features include a regular lap pool alongside the leisure attractions.",
-      "Public information from the city describes seasonal operation rather than year-round outdoor swimming.",
-      "Shaded public seating is available around the family aquatic park, with current admission and slide schedules requiring confirmation from the responsible city."
+      "The city's annual budget records three large waterslides, not simply the lazy river described on some visitor directories.",
+      "Pampa H2O contains a family leisure channel and a children's water-play structure with a dumping bucket.",
+      "A certified 25-meter competition pool with two diving boards serves more experienced swimmers alongside the family park.",
+      "The facility spans approximately 7,600 square feet of water surface and provides a 2,700-square-foot bathhouse.",
+      "The City of Pampa describes a seasonal opening window from Memorial Day through Labor Day rather than year-round outdoor operation."
     ],
     "visitorFaqs": [
       {
@@ -3941,7 +3942,8 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "No. A description of the park's slide equipment is not proof that each attraction operates on a given day. Confirm the live operating season and availability with the city.",
         "sourceUrl": "https://www.pampaedc.com/community"
       }
-    ]
+    ],
+    "visitorAddress": "1400 N. Sumner St., Pampa, TX 79065"
   },
   {
     "slug": "alice-natatorium-waterpark",
@@ -4375,6 +4377,14 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "No. The operator states that each admission is for a single entry and re-entry is not permitted.",
         "sourceUrl": "https://splashshacktx.com/faq/"
       }
+    ],
+    "visitorAddress": "1801 Clover Lane, Cedar Park, TX 78613",
+    "visitorHighlights": [
+      "Splash Shack is a weather-independent indoor micro waterpark designed for children, not a conventional open-air seasonal thrill park.",
+      "One paid child ticket includes admission for one accompanying adult; additional adults must be with a child and may incur an extra charge.",
+      "The operator prohibits adult-only admission; every adult entrant must accompany a child.",
+      "Tickets offer one-time entry, with no re-entry, and buying online does not guarantee immediate entry if maximum capacity causes a waiting queue.",
+      "Regular public play is scheduled Wednesday through Sunday, with private group or family events possible by advance booking on other days."
     ]
   },
   {
@@ -4406,6 +4416,14 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "No. The resort states that its pools are heated seasonally, but the 1,005-foot lazy river is not heated.",
         "sourceUrl": "https://woodlandsresort.com/experiences/waterpark/"
       }
+    ],
+    "visitorAddress": "2301 N. Millbend Dr., The Woodlands, TX 77380",
+    "visitorHighlights": [
+      "Forest Oasis at The Woodlands Resort has a 1,005-foot lazy river, separate double-helix waterslides and family water-play pools.",
+      "The operator specifies that the lazy river is not heated, even when other pools are heated seasonally.",
+      "The double-helix slides close from September through March; another lazy-river slide has limited October service before its November-to-March closure.",
+      "Resort overnight guests have waterpark access, while limited non-stay day passes may be available through a separate inventory service.",
+      "Visitor dining and optional cabana/lounge rentals are offered on site, but they may have different calendar and pricing rules than park admission."
     ]
   },
   {
@@ -4437,6 +4455,15 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "Yes. The operator requires participants to be at least 6 years old and at least 42 inches tall.",
         "sourceUrl": "https://lagoonfesttexas.com/"
       }
+    ],
+    "visitorAddress": "12600 Crystal View Blvd., Texas City, TX 77568",
+    "visitorHighlights": [
+      "Lagoonfest's large swimming lagoon and floating Aqua Course are distinct from traditional tower-style waterslides.",
+      "Its advertised 2026 Adventure Aqua Pass includes bumper boats and the Aqua Course plus standard admission, but kayaks and paddleboards require additional rental payments.",
+      "The operator sets Aqua Course eligibility at age six and a minimum height of 42 inches; bumper boats have different driver and passenger restrictions.",
+      "The operator describes a limited 500-guest daily capacity and a restricted lagoon footprint during 2026 enhancements.",
+      "The Lagoonfest homepage contains conflicting generic gate-sale wording, but its 2026 Adventure Pass section says advance online purchase is required; visitors should book in advance.",
+      "A dedicated deeper-water recreation area is separated from shallow permitted swimming sections for safety."
     ]
   },
   {
@@ -4468,6 +4495,14 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "The listed minimums are age 6 and 42 inches in height. A life jacket is required and provided.",
         "sourceUrl": "https://angellagoon.com/attractions/"
       }
+    ],
+    "visitorAddress": "15 River Ranch Blvd., Dayton, TX 77635",
+    "visitorHighlights": [
+      "Angel Lagoon offers lagoon swimming and sandy beach relaxation alongside a separately ticketed floating Aqua Course.",
+      "The operator requires Aqua Course participants to be at least six years old and 42 inches tall, and provides mandatory life jackets.",
+      "The advertised Aqua Course sessions run for 30 minutes, with their cost separate from ordinary lagoon admission.",
+      "A waterslide appearing on the operator's attractions page is specifically labeled Coming Soon and must not be presented as operating.",
+      "Daily swimming/beach admission includes parking, while Shoreline Grill can be accessed without buying a lagoon day ticket."
     ]
   },
   {
@@ -4975,6 +5010,13 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "No. The City of Temple said its September 12 end-of-season event was reserved for dogs and that human swimmers were not allowed in the water attractions.",
         "sourceUrl": "https://city-of-temple.prowly.com/468828-city-of-temple-parks-recreation-closes-out-summer-with-dunkin-doggies"
       }
+    ],
+    "visitorHighlights": [
+      "Lions Junction is a City of Temple seasonal family waterpark at 5000 South 5th Street, not an indoor year-round leisure pool.",
+      "Temple Parks and Recreation officially confirmed the facility operated during summer 2026.",
+      "The city used Lions Junction for a special end-of-season Dunkin' Doggies event on September 12, 2026.",
+      "At that September event the pool and water-play features were reserved for dogs, and city instructions expressly disallowed people in the water.",
+      "Specific slide types, height restrictions and waterpark feature inventories remain unverified by the city release; do not list imagined attractions."
     ]
   }
 ];
