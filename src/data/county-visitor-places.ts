@@ -60,6 +60,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "bailey",
+    "name": "Muleshoe National Wildlife Refuge",
+    "category": "Parks & recreation",
+    "description": "Federally managed refuge with sandhill crane viewing, a nature trail, overlooks and primitive camping; the headquarters building itself is closed to public entry.",
+    "sourceUrl": "https://www.fws.gov/refuge/muleshoe/visit-us"
+  },
+  {
+    "county": "bailey",
     "name": "Ol’ Pete Mule Memorial Statue",
     "category": "Art & architecture",
     "description": "Muleshoe's public tribute to the working mule and its military role; a brief roadside photo stop.",
@@ -234,6 +241,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/dimmitt/"
   },
   {
+    "county": "chambers",
+    "name": "Jocelyn Nungaray National Wildlife Refuge",
+    "category": "Parks & recreation",
+    "description": "Coastal-marsh refuge near Anahuac with Shoveler Pond wildlife drive, butterfly garden, boardwalks and public birdwatching areas; formerly Anahuac NWR.",
+    "sourceUrl": "https://www.fws.gov/refuge/jocelyn-nungaray/visit-us"
+  },
+  {
     "county": "cherokee",
     "name": "Rusk Footbridge Park",
     "category": "Parks & recreation",
@@ -311,6 +325,27 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.gainesville.tx.us/1093/About-Us"
   },
   {
+    "county": "crane",
+    "name": "Hogan-BP Park",
+    "category": "Parks & recreation",
+    "description": "Crane municipal park identified in the city’s own photo inventory; check city information for park amenities and current access.",
+    "sourceUrl": "https://crane.texas.gov/about-crane-tx/media/"
+  },
+  {
+    "county": "crane",
+    "name": "Sixth Street Park Pond",
+    "category": "Parks & recreation",
+    "description": "Small Crane city-park pond and waterfall public landscape; a short local outdoor stop, not a destination requiring a separate guide.",
+    "sourceUrl": "https://crane.texas.gov/about-crane-tx/media/"
+  },
+  {
+    "county": "crosby",
+    "name": "Ralls Historic Santa Fe Depot",
+    "category": "History & heritage",
+    "description": "Historic railway depot exterior in Ralls, a stop on Crosby County heritage and cotton-country drives; interior access is not promised.",
+    "sourceUrl": "https://visitcrosbycounty.com/explore/"
+  },
+  {
     "county": "crosby",
     "name": "Silver Falls Park",
     "category": "Parks & recreation",
@@ -337,6 +372,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Arts & culture",
     "description": "Historic Clarendon theater; verify current film and live-performance listings.",
     "sourceUrl": "https://texastimetravel.com/directory/mulkey-theatre/"
+  },
+  {
+    "county": "donley",
+    "name": "Restored Donley County Courthouse",
+    "category": "History & heritage",
+    "description": "Clarendon's striking restored 1891 Romanesque Revival courthouse; the exterior and public courthouse square are the reliable visitor experience.",
+    "sourceUrl": "https://thc.texas.gov/preserve/preservation-programs/courthouse-preservation/restored-historic-courthouses/donley-county"
   },
   {
     "county": "eastland",
@@ -396,6 +438,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "fannin",
+    "name": "Bonham Trade Days",
+    "category": "Arts & culture",
+    "description": "Recurring outdoor antiques and vendor market next to Fort Inglish; the city publishes the monthly market schedule.",
+    "sourceUrl": "https://www.cityofbonham.org/256/Bonham-Trade-Days"
+  },
+  {
+    "county": "fannin",
     "name": "Bonham Walkabout Tour on the Square",
     "category": "History & heritage",
     "description": "Self-guided history and architecture stop around Bonham's public downtown square.",
@@ -410,10 +459,31 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "fannin",
+    "name": "Fort Inglish Village",
+    "category": "History & heritage",
+    "description": "Bonham reconstructed frontier stockade and village with original pioneer cabins; public seasonal hours are listed by the city.",
+    "sourceUrl": "https://www.cityofbonham.org/260/Fort-Inglish-Village"
+  },
+  {
+    "county": "fannin",
     "name": "Powder Creek Park",
     "category": "Parks & recreation",
     "description": "Public walking, nature and local recreation destination in Bonham; confirm park conditions.",
     "sourceUrl": "https://www.cityofbonham.org/101/Visit"
+  },
+  {
+    "county": "floyd",
+    "name": "Historic Floydada Courthouse Square",
+    "category": "History & heritage",
+    "description": "Downtown Floydada's public courthouse-square streetscape and county heritage landmarks for a short heritage walking stop.",
+    "sourceUrl": "https://texastimetravel.com/cities/floydada/"
+  },
+  {
+    "county": "foard",
+    "name": "Foard County Courthouse World War I Memorial Sculptures",
+    "category": "Art & architecture",
+    "description": "Unusual Army and Navy memorial statues on the Crowell courthouse grounds, including a rare carved-stone Navy figure.",
+    "sourceUrl": "https://texastimetravel.com/directory/foard-county-courthouse-tour/"
   },
   {
     "county": "fort-bend",
@@ -501,6 +571,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "hamilton",
+    "name": "Historic Bullman Bridge",
+    "category": "History & heritage",
+    "description": "Rare relocated bowstring-iron pedestrian bridge reached from Pecan Creek Park; part of Hamilton’s existing public trail, not a separate paid venue.",
+    "sourceUrl": "https://texastimetravel.com/cities/hamilton/"
+  },
+  {
+    "county": "hamilton",
     "name": "Pecan Creek Park",
     "category": "Parks & recreation",
     "description": "Municipal park identified in Hamilton's city visitor-attraction directory.",
@@ -512,6 +589,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Spearman's open-air collection of restored windmills, with a public walking trail.",
     "sourceUrl": "https://texastimetravel.com/cities/spearman/"
+  },
+  {
+    "county": "hemphill",
+    "name": "Canadian Cultural District Walking Tour",
+    "category": "History & heritage",
+    "description": "Self-guided walk through Canadian's historic Main Street, architectural sites and outdoor art; pick up a chamber visitor map.",
+    "sourceUrl": "https://www.canadiantx.com/outdoors"
   },
   {
     "county": "hemphill",
@@ -533,6 +617,27 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Restored historic Canadian River bridge on a walk and bike route with river views.",
     "sourceUrl": "https://www.canadiantx.com/outdoors"
+  },
+  {
+    "county": "hemphill",
+    "name": "Historic Palace Theatre in Canadian",
+    "category": "Arts & culture",
+    "description": "Restored 1909 Main Street movie theater screening first-run films and hosting community events; confirm the program before visiting.",
+    "sourceUrl": "https://www.canadiantx.com/host-an-event/jonespavillion-sw9cg"
+  },
+  {
+    "county": "hemphill",
+    "name": "Lake Marvin Recreation Area",
+    "category": "Parks & recreation",
+    "description": "Lake and picnic-and-trail landscape in Black Kettle National Grasslands near Canadian; follow current camping and visitor-area conditions.",
+    "sourceUrl": "https://www.canadiantx.com/outdoors"
+  },
+  {
+    "county": "hemphill",
+    "name": "Sunset Park Sculpture Walk",
+    "category": "Art & architecture",
+    "description": "Canadian's city park with lit walking paths, public sculptures, gardens and benches.",
+    "sourceUrl": "https://www.canadiantx.com/arts"
   },
   {
     "county": "henderson",
@@ -610,6 +715,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Public granite veterans monument at the SH 6 and US 82 intersection in Benjamin.",
     "sourceUrl": "https://www.knoxcountytexas.org/page/knox.veterans"
+  },
+  {
+    "county": "la-salle",
+    "name": "Cotulla Front Street Historic Commercial District",
+    "category": "History & heritage",
+    "description": "National Register district of railroad-era commercial buildings along Front Street, with public sidewalks and rehabilitated storefronts.",
+    "sourceUrl": "https://texastimetravel.com/directory/front-street-commercial-buildings-tour/"
+  },
+  {
+    "county": "la-salle",
+    "name": "Cotulla Tin Man Water Tower",
+    "category": "Art & architecture",
+    "description": "Distinctive downtown water-tower landmark along Texas Time Travel's public Cotulla town-square walk.",
+    "sourceUrl": "https://texastimetravel.com/mobile-tours/mobile-tours-by-topic/town-square-walk-around/browse-walking-tours/town-square-cotulla/"
   },
   {
     "county": "lamar",
@@ -752,6 +871,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.visitconroe.com/things-to-do/outdoors-and-recreation/hiking/"
   },
   {
+    "county": "motley",
+    "name": "Bob's Oil Well Roadside Landmark",
+    "category": "History & heritage",
+    "description": "Former 1930s Matador roadside attraction with an oversized derrick and historic filling-station buildings; view from public rights-of-way, not as an open museum.",
+    "sourceUrl": "https://www.preservationtexas.org/mep/bobs-oil-well"
+  },
+  {
     "county": "nolan",
     "name": "Lake Sweetwater",
     "category": "Parks & recreation",
@@ -820,6 +946,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Amarillo's Route 66 heritage district with walkable historic storefronts and roadside architecture.",
     "sourceUrl": "https://texastimetravel.com/cities/amarillo/"
+  },
+  {
+    "county": "reagan",
+    "name": "Santa Rita No. 1 Discovery Well Roadside Marker",
+    "category": "History & heritage",
+    "description": "THC interpretive roadside marker on US 67 west of Big Lake for the 1923 Permian Basin discovery well; the original rig is no longer at this site.",
+    "sourceUrl": "https://atlas.thc.texas.gov/Details/5383004587"
   },
   {
     "county": "scurry",
@@ -899,6 +1032,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://sandersontexas.com/explore-sanderson"
   },
   {
+    "county": "terry",
+    "name": "Terry County Quilt Trail",
+    "category": "Art & architecture",
+    "description": "A countywide driving route of large quilt-panel artworks reflecting Brownfield and Terry County's cotton-growing heritage.",
+    "sourceUrl": "https://texastimetravel.com/directory/terry-county-quilt-trail/"
+  },
+  {
     "county": "uvalde",
     "name": "Cook's Slough Sanctuary",
     "category": "Parks & recreation",
@@ -953,6 +1093,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Arts & culture",
     "description": "Restored 1925 theater in downtown Brenham offering public concerts and performances.",
     "sourceUrl": "https://thebarnhillcenter.com/"
+  },
+  {
+    "county": "wheeler",
+    "name": "Old Mobeetie Cemetery",
+    "category": "History & heritage",
+    "description": "Old West cemetery associated with frontier Mobeetie; the local museum identifies historical burials and cemetery context.",
+    "sourceUrl": "https://www.mobeetiemuseum.org/"
   },
   {
     "county": "wichita",
