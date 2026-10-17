@@ -11,6 +11,9 @@ const pairings = read("src/data/destination-curated-pairings.ts");
 const rights = read("src/data/heritage-photo-license-links.ts");
 const route = read("src/routes/destination.$slug.tsx");
 const html = read("public/stay-affiliate-options.js");
+const nearbyHistoricSites = read("src/data/historic-sites.ts");
+const historicAssessment = read("src/data/historic-site-authority-full-catalog.ts");
+const historicEnrichment = read("src/data/historic-site-enrichment.ts");
 
 const contains = (source, value, context) => assert.ok(source.includes(value), context + ": missing " + value);
 const path = "/destination/hotel-paso-del-norte";
@@ -46,4 +49,14 @@ contains(route, 'isHotelPasoDelNorte ? "10 Henry Trost Ct"', "schema physical ad
 contains(route, 'postalCode: "79901"', "schema postal code");
 contains(route, "Historical photographs of {destination.name}", "no recycled Battleship gallery heading");
 contains(html, "Hotels.com", "existing hotel comparison opportunities");
+contains(guide, "The historic home is closed through 2027 for restoration", "Magoffin nearby closure advisory");
+contains(guide, "https://thc.texas.gov/historic-sites/magoffin-home", "Magoffin authoritative closure source");
+contains(nearbyHistoricSites, 'site.slug === "magoffin-home" ? {', "specific Magoffin photograph");
+contains(nearbyHistoricSites, "Magoffin%20home%202009.jpg", "exact Magoffin photographic file");
+contains(nearbyHistoricSites, "CC BY 4.0", "image attribution");
+contains(nearbyHistoricSites, "historic home is closed through 2027", "Magoffin destination visitor alert");
+contains(historicAssessment, "The historic house is closed for restoration through 2027", "Magoffin realistic visit estimate");
+contains(historicEnrichment, "The historic house is closed through 2027 for restoration", "Magoffin nearby trip closure notice");
+contains(rights, '"/destination/magoffin-home": {', "Magoffin photographer and license source");
+
 console.log("Hotel Paso del Norte authority acceptance: source, copy, rights, schema, county/city links, affiliate gates validated.");

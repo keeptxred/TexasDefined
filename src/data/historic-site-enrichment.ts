@@ -172,7 +172,7 @@ const areaSeeds: Record<string, AreaSeed> = {
   "magoffin-home": {
     intro: "Start an El Paso borderlands history day at Magoffin Home, then connect family life, trade and adobe architecture to the mission corridor and later U.S.–Mexico boundary history.",
     nearby: [link("Chamizal National Memorial", "chamizal-national-memorial", "A later border-history chapter centered on diplomacy and boundary change."), link("Old Socorro Mission", "old-socorro-mission", "Extend the route into the Lower Valley's earlier mission history.")],
-    base: "Downtown El Paso", neighborhood: "The Magoffin Historic District helps place the home within early El Paso growth.", family: "Balance an indoor historic-home visit with the open grounds at Chamizal.", sideTrip: link("Old Socorro Mission", "old-socorro-mission", "Continue east for an earlier layer of borderlands history."),
+    base: "Downtown El Paso", neighborhood: "The Magoffin Historic District helps place the home within early El Paso growth.", family: "The historic house is closed through 2027 for restoration; use the open visitor center if available, then pair it with Chamizal for outdoor time.", sideTrip: link("Old Socorro Mission", "old-socorro-mission", "Continue east for an earlier layer of borderlands history."),
   },
   "caddo-mounds-state-historic-site": {
     intro: "Treat Caddo Mounds as a foundational Texas-history stop in its own right, placing ancestral Caddo history before the later Spanish, Mexican and Anglo chapters.",

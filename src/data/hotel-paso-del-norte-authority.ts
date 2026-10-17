@@ -83,6 +83,7 @@ const base = makeThcHeritageDestination({
     thcSource("Marriott Autograph Collection — exact property", marriott, "Current brand affiliation, guest facilities, contact and booking details"),
     thcSource("Marriott — restaurants and bars", dining, "The Dome Bar, 1700° and El Mirador; verify present operational schedules"),
     thcSource("Visit El Paso — hotel visitor listing", tourism, "Current 10 Henry Trost Court visitor address, telephone and downtown orientation"),
+    thcSource("Texas Historical Commission — Magoffin Home access alert", "https://thc.texas.gov/historic-sites/magoffin-home", "Nearby historic home closed through 2027 for restoration; visitor center currently open"),
     thcSource("Wikimedia Commons — original 2015 dome photograph", commonsFilePage(domePhoto), "Wmpearl; CC0 1.0; 3448 × 2900; taken 2015, not a current amenity photograph"),
     thcSource("Wikimedia Commons — 2012 federal survey exterior", commonsFilePage(exteriorPhoto), "Federal Historic American Buildings Survey/NPS public-domain image; 646 × 804"),
     thcSource("Wikimedia Commons — 1913 hotel postcard", commonsFilePage(postcard), "Curt Teich & Co.; University of Houston Libraries public-domain dedication; credit University of Houston Special Collections"),
@@ -139,7 +140,7 @@ export const hotelPasoDelNorteAuthorityDestination: Destination = {
     intro: "Hotel Paso del Norte is a downtown lodging and architecture anchor rather than a stand-alone public museum. Build nearby walks around verified visitor institutions and keep farther borderlands sites in separate trip blocks.",
     nearbyAttractions: [
       { name: "El Paso Museum of Art", description: "Downtown visual arts within a compact central-city itinerary.", href: "/destination/el-paso-museum-of-art" },
-      { name: "Magoffin Home State Historic Site", description: "Distinctive adobe and borderlands family history; check official tour arrangements.", href: "/destination/magoffin-home" },
+      { name: "Magoffin Home State Historic Site", description: "The historic home is closed through 2027 for restoration; its visitor center is open. Check the Texas Historical Commission before planning this separately from a hotel visit.", href: "/destination/magoffin-home" },
       { name: "Ysleta del Sur Pueblo Cultural Center Museum", description: "Indigenous Tigua history on a separate Mission Valley visit.", href: "/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso" },
     ],
     foodAndDrink: [

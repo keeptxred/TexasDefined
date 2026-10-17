@@ -7,6 +7,10 @@
 type HeritagePhotoRights = { sourceUrl: string; licenseUrl: string };
 
 const rightsByPath: Record<string, HeritagePhotoRights> = {
+  "/destination/magoffin-home": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Magoffin_home_2009.jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+  },
   "/destination/hotel-paso-del-norte": {
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Tiffany_glass_dome,_Camino_Real_Hotel_(formerly_Hotel_Paso_del_Norte),_1912_.JPG",
     licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
