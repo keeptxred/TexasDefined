@@ -124,6 +124,7 @@ function TexasHorseRacingInstitutionPage() {
             <a href={`/county/${record.countySlug}`} className="block border border-border p-5 hover:border-primary"><strong className="font-display text-2xl">{record.county} →</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Nearby attractions, county context and lodging trip planning.</span></a>
             <a href="/horse-racing" className="block border border-border p-5 hover:border-primary"><strong className="font-display text-2xl">Every Texas horse racetrack →</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Compare all four live tracks with historic licensed institutions.</span></a>
           </div>
+          {live ? <div data-stay-nearby-slot aria-label="Hotels near Gillespie County Fairgrounds" className="mt-7" /> : null}
           {live ? <p className="mt-5 text-xs leading-6 text-muted-foreground">Texas Defined may earn commissions from clearly disclosed hotel referrals on linked travel guides. We do not receive commissions from race betting links, and no booking price or availability is guaranteed.</p> : null}
         </section>
 
