@@ -1,10 +1,11 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
-import { findTexasHorseRacingInstitution } from '@/data/horse-racing-authority';
+
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 export const Route = createFileRoute('/horse-racing/$slug')({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
+    const { findTexasHorseRacingInstitution } = await import('@/data/horse-racing-authority');
     const record = findTexasHorseRacingInstitution(params.slug);
     if (!record || record.canonicalPath !== `/horse-racing/${params.slug}`) throw notFound();
     return { record };
