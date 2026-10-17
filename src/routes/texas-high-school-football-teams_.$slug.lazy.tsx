@@ -239,22 +239,22 @@ function Page() {
       </nav>
 
       <header className="border-b border-border py-7 sm:py-10">
-        <div className={slug === 'aubrey' ? 'grid gap-7 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-center' : undefined}>
+        <div className={slug === 'aubrey' ? 'grid gap-8 lg:grid-cols-2' : undefined}>
           <div>
             <p className="eyebrow text-primary">2026 Texas high school football</p>
             <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{footballName}</h1>
             <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">{editorial?.intro ?? profileSummary}</p>
           </div>
           {slug === 'aubrey' && (
-            <div role="img" aria-label="Original TexasDefined football illustration with a football and yard lines; not an official school crest" className="relative flex min-h-44 flex-col justify-between overflow-hidden border border-[#41516b] bg-[#10243d] p-5 text-white">
+            <div role="img" aria-label="Original TexasDefined football illustration with a football and yard lines; not an official school crest" className="relative flex flex-col justify-between overflow-hidden border p-5" style={{ minHeight: 176, borderColor: "#41516b", backgroundColor: "#10243d", color: "#fff" }}>
               <div className="absolute inset-0 opacity-20" aria-hidden="true" style={{ backgroundImage: 'repeating-linear-gradient(90deg, transparent 0, transparent 38px, #ffffff 39px, #ffffff 40px)' }} />
-              <p className="relative text-[0.65rem] font-bold uppercase tracking-[0.2em] text-white/80">Chaparrals / 2026</p>
-              <svg className="relative mx-auto h-24 w-40" viewBox="0 0 180 110" aria-hidden="true" fill="none">
+              <p className="relative text-xs font-bold uppercase" style={{ letterSpacing: "0.2em", color: "#cbd5e1" }}>Chaparrals / 2026</p>
+              <svg className="relative mx-auto" style={{ height: 96, width: 160 }} viewBox="0 0 180 110" aria-hidden="true" fill="none">
                 <path d="M25 82 C40 41 112 14 154 25 C145 67 75 99 25 82Z" fill="#b52e41" stroke="#f8fafc" strokeWidth="4" />
                 <path d="M57 71 L129 38" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" />
                 <path d="M72 57 L79 72 M85 51 L92 66 M98 45 L105 60 M111 39 L118 54" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" />
               </svg>
-              <p className="relative text-right text-[0.65rem] font-bold uppercase tracking-[0.14em] text-white/80">4A Division I · District 4</p>
+              <p className="relative text-right text-xs font-bold uppercase" style={{ letterSpacing: "0.14em", color: "#cbd5e1" }}>4A Division I · District 4</p>
             </div>
           )}
         </div>
