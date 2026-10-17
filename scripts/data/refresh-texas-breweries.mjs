@@ -21,12 +21,12 @@ export function normalizeTabcRows(rows, previous = []) {
     const status = tidy(row.primary_status || row.license_status);
     const state = tidy(row.state).toUpperCase();
     if (licenseType !== 'BW' || !/^Active(?:\b|$)/i.test(status) || state !== 'TX') continue;
-    const licenseId = tidy(row.license_id);
+    const licenseId = tidy(row.license_id).replace(/^(\d+)\.0$/, '$1');
     const name = tidy(row.trade_name || row.owner);
     const city = tidy(row.city);
     const county = tidy(row.county).replace(/\s+County$/i, '');
     if (!licenseId || !name || !city || !county) continue;
-    const slug = oldSlugs.get(licenseId) || (slugify(name) + '-' + slugify(city) + '-' + licenseId);
+    const slug = oldSlugs.get(licenseId) || (slugify(name) + '-' + slugify(city) + '-' + slugify(licenseId));
     deduped.set(licenseId, {
       licenseId, slug, name, city, county,
       address: tidy([row.address, row.address_2].filter(Boolean).join(', ')),
