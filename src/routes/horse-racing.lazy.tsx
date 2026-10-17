@@ -42,7 +42,7 @@ function TexasHorseRacingIndex() {
           <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground sm:text-xl">Four venues still stage live racing in Texas. Explore the seasonal race calendars, plan a genuine track visit, and understand why the state's other historic racing licenses are not places to buy tickets today.</p>
           <div className="mt-7 flex flex-wrap gap-x-8 gap-y-3 border-t border-border pt-5 text-sm">
             <span><strong className="font-display text-3xl">4</strong> <span className="ml-1 text-muted-foreground">venues with live racing</span></span>
-            <span><strong className="font-display text-3xl">4</strong> <span className="ml-1 text-muted-foreground">inactive-license histories</span></span>
+            <span><strong className="font-display text-3xl">3</strong> <span className="ml-1 text-muted-foreground">inactive-license histories</span></span>
           </div>
           <p className="mt-5 text-xs leading-6 text-muted-foreground">Last researched October 16, 2026. Statewide counts reflect the Texas Racing Commission's published strategic-plan inventory and current venue calendars; confirm any future license or schedule change with the commission.</p>
         </header>
