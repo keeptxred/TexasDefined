@@ -2250,6 +2250,129 @@ export const texasWaterParks: WaterParkGuide[] = [
         "sourceUrl": "https://www.flower-mound.com/birthdayparty"
       }
     ]
+  },
+  {
+    "slug": "rosemeade-rainforest-carrollton",
+    "name": "Rosemeade Rainforest Aquatic Complex",
+    "city": "Carrollton",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Seasonal municipal waterpark tickets and resident/nonresident passes; event and private rentals have separate charges",
+    "summary": "Carrollton's Rosemeade Rainforest family aquatic complex has a zero-depth water-play zone, a 200-foot lazy river, a 600-gallon tipping bucket, two 22-foot waterslides and a separate main swimming pool.",
+    "distinctiveNote": "The entrance is 1334 East Rosemeade Parkway, next to the recreation center at 1330. The summer 2026 waterpark ended its season around Labor Day; an organized September dog-only pool event was not general human swim access.",
+    "officialUrl": "https://www.cityofcarrollton.com/departments/departments-g-p/parks-recreation/aquatics/rosemeade-rainforest",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1334 E Rosemeade Parkway, Carrollton, TX 75007",
+    "visitorHighlights": [
+      "The Rainforest zone has interactive sprays, a bridge, water cannons and a 600-gallon dump bucket over a zero-depth splash area.",
+      "A 200-foot lazy river serves families alongside children's spray features and water slides.",
+      "The separate remodeled main-pool section includes two 22-foot-tall slides, a toddler splash area and 25-meter lap lanes.",
+      "The city sells daily and seasonal entry, and separately offers party rentals; table reservations do not include swimming admission."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where exactly is Rosemeade Rainforest Aquatic Complex?",
+        "answer": "Rosemeade Rainforest is at 1334 East Rosemeade Parkway in Carrollton, next to the Rosemeade Recreation Center at 1330. Enter the aquatic complex address, not the general recreation center address, for directions.",
+        "sourceUrl": "https://www.cityofcarrollton.com/departments/departments-g-p/parks-recreation/aquatics/rosemeade-rainforest"
+      },
+      {
+        "question": "Does Rosemeade Rainforest have a lazy river and big water slides?",
+        "answer": "Yes. The city confirms a 200-foot-long lazy river and large dump bucket in the Rainforest section, plus two 22-foot-tall waterslides in the adjacent main-pool section. It is more than a splash-pad-only facility.",
+        "sourceUrl": "https://www.cityofcarrollton.com/departments/departments-g-p/parks-recreation/aquatics"
+      },
+      {
+        "question": "Do Rosemeade Rainforest table rentals include admission?",
+        "answer": "No. Carrollton's aquatic-complex party policy charges table rental separately and explicitly requires all guests to purchase pool admission. Private after-hours rental fees and lifeguard arrangements have different terms.",
+        "sourceUrl": "https://www.cityofcarrollton.com/departments/departments-g-p/parks-recreation/aquatics/rosemeade-rainforest/parties-rentals"
+      },
+      {
+        "question": "Is Rosemeade Rainforest open year-round?",
+        "answer": "No. The outdoor aquatic complex runs seasonally from the late-May summer opening to around Labor Day. A September special dog-swim event is not an extension of normal public human swimming hours.",
+        "sourceUrl": "https://www.cityofcarrollton.com/departments/departments-g-p/parks-recreation/aquatics/rosemeade-rainforest"
+      }
+    ]
+  },
+  {
+    "slug": "odessa-sherwood-family-aquatic",
+    "name": "Sherwood Family Aquatic Center",
+    "city": "Odessa",
+    "county": "Ector",
+    "region": "West Texas",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "City of Odessa seasonal day admission; youth, adult and senior rates differ, plus designated family swim nights",
+    "summary": "Sherwood Family Aquatic Center is Odessa's summer aquatic complex with waterslides, a lazy river, a large recreational swimming pool and a children's splash play area.",
+    "distinctiveNote": "The City of Odessa confirmed its 2026 season ended August 2. A special city event closed Sherwood to general visitors June 27; seasonal pool calendars and weather-related closures can differ from regular city recreation hours.",
+    "officialUrl": "https://odessa-tx.gov/pools",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "4520 N Dixie Boulevard, Odessa, TX 79762",
+    "visitorHighlights": [
+      "Odessa tourism identifies waterslides and a lazy river at Sherwood, which is separate from the city's basic Floyd Gwin swimming pool.",
+      "An interactive children's splash play area accompanies the general family leisure pool and lifeguarded swimming areas.",
+      "The city sells affordable resident and visitor summer admission; designated family nights are priced separately and vary by year.",
+      "The operating city and management authority report that 2026 regular swimming ended August 2; the pool is not a year-round indoor destination."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Does Sherwood Family Aquatic Center have waterslides and a lazy river?",
+        "answer": "Yes. Discover Odessa's visitor guide describes waterslides, a lazy river and a splash pad, in addition to the large family swimming area. These are specific attractions at Sherwood, not generic features of all city pools.",
+        "sourceUrl": "https://discoverodessa.org/10-spots-to-cool-off-this-summer/"
+      },
+      {
+        "question": "Can visitors buy individual day admission for Sherwood?",
+        "answer": "Yes. Odessa publishes separate day rates for children and adults, with free admission for some infants and seniors. Prices and special family-night terms apply to the summer season and should be checked for the specific year.",
+        "sourceUrl": "https://odessa-tx.gov/pools"
+      },
+      {
+        "question": "Was Sherwood Family Aquatic Center still open after early August 2026?",
+        "answer": "No. The City of Odessa's 2026 aquatic calendar identifies August 2 as Sherwood's final regular operating date. Woodson has a different, later seasonal extension, so the two centers should not be assigned identical hours.",
+        "sourceUrl": "https://odessa-tx.gov/pools"
+      }
+    ]
+  },
+  {
+    "slug": "odessa-woodson-family-aquatic",
+    "name": "Woodson Family Aquatic Center",
+    "city": "Odessa",
+    "county": "Ector",
+    "region": "West Texas",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Seasonal City of Odessa family aquatics admission with children's and adult day rates and designated family nights",
+    "summary": "Woodson Family Aquatic Center in Odessa has a large swimming pool, waterslides, diving board and a separate children's pool, making it a water-play venue beyond a conventional lap-only facility.",
+    "distinctiveNote": "City sources disagree about whether the facility's preferred street address is 1020 Martin Luther King Jr. Street or 1020 East Murphy Street; consult current City of Odessa parks directions before travel. Unlike Sherwood, Woodson ran weekend sessions until Labor Day, September 7, 2026.",
+    "officialUrl": "https://odessa-tx.gov/pools",
+    "reviewedAt": "2026-10-17",
+    "visitorHighlights": [
+      "Woodson operates multiple waterslides alongside a regular swimming pool, diving amenities and a separate child-focused pool.",
+      "The city's published 2026 summer schedule gives Woodson a different weekly closing day and different final season date from Sherwood.",
+      "Woodson extended its public pool operation into August weekends and Labor Day in 2026, after Sherwood's August 2 closing date.",
+      "Odessa publishes discounted day admission for children and a separate family-night promotion, both subject to seasonal changes."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Does Woodson Family Aquatic Center have attractions beyond an ordinary pool?",
+        "answer": "Yes. Odessa's visitor organization describes waterslides, a diving board and a separate kiddie pool at Woodson. It is distinct from Sherwood Family Aquatic Center and from the conventional Floyd Gwin Pool.",
+        "sourceUrl": "https://discoverodessa.org/10-spots-to-cool-off-this-summer/"
+      },
+      {
+        "question": "Why is the Woodson Aquatic Center address missing from this guide?",
+        "answer": "Two Odessa municipal sources use different street references for Woodson: the city's 2026 pool listing says 1020 Martin Luther King Jr. Street, while a prior city police announcement says 1020 East Murphy Street. Confirm the current park entrance directly with the city before navigating.",
+        "sourceUrl": "https://odessa-tx.gov/pools"
+      },
+      {
+        "question": "Did Woodson remain open later than Odessa's Sherwood pool in 2026?",
+        "answer": "Yes. The city scheduled Woodson for a limited weekend extension through Labor Day, September 7, 2026, while Sherwood's regular season ended August 2. Neither site should be represented as operating during October.",
+        "sourceUrl": "https://odessa-tx.gov/pools"
+      },
+      {
+        "question": "Can families buy day tickets at Woodson rather than joining a club?",
+        "answer": "Yes. Odessa lists public day admissions with separate children, adult and senior pricing and a family night. The City of Odessa says the YMCA manages seasonal pools and party reservations, but a regular annual YMCA membership is not required.",
+        "sourceUrl": "https://odessa-tx.gov/pools"
+      }
+    ]
   }
 ];
 export const texasWaterParksBySlug = new Map(texasWaterParks.map((park) => [park.slug, park]));
