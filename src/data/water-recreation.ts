@@ -14,6 +14,11 @@ export const SWIM_ACTIVITY_RESTRICTIONS: Readonly<Record<string, { notice: strin
     source: "https://tpwd.texas.gov/state-parks/abilene/alert/",
     checkedAt: "2026-10-14",
   },
+  "hamilton-pool-preserve": {
+    notice: "Swimming is not currently permitted at Hamilton Pool Preserve due to falling-rock hazards. Preserve reservations are for hiking and viewing, not permission to swim.",
+    source: "https://drippingspringstx.gov/facilities/facility/details/Hamilton-Pool-Preserve-3",
+    checkedAt: "2026-10-17",
+  },
 };
 
 // These locations have a documented swimming focus, or are specific municipal
