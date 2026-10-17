@@ -1772,6 +1772,225 @@ export const texasWaterParks: WaterParkGuide[] = [
         "sourceUrl": "https://dallasaquatics.org/Facilities/Facility/Details/Tietze-Aquatic-Center-43"
       }
     ]
+  },
+  {
+    "slug": "burgers-lake-fort-worth",
+    "name": "Burger's Lake",
+    "city": "Fort Worth",
+    "county": "Tarrant",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Destination park",
+    "admission": "Ticketed spring-fed swimming park; Great White Slides require a separate paid slide pass",
+    "reviewedAt": "2026-10-17",
+    "summary": "Fort Worth's historic spring-fed swimming and recreation park has a sandy shore, multiple diving boards, traditional slides and a separate launch-slide attraction called the Great White Slides.",
+    "distinctiveNote": "The operator lists 2026 weekend operation until Labor Day. The Great White Slides need an add-on pass, a signed waiver, a rider at least 48 inches tall and a life jacket even for strong swimmers; ordinary entry does not include those launch slides.",
+    "officialUrl": "https://burgerslake.com/",
+    "visitorAddress": "1200 Meandering Road, Fort Worth, TX 76114",
+    "visitorHighlights": [
+      "Spring-fed swim lake, sandy beachfront and six separate diving boards",
+      "Three traditional slides, kids splash pad and group picnic/grilling areas",
+      "Great White launch slides separately ticketed with height and flotation rules"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Are Burger's Lake's Great White Slides included with general admission?",
+        "answer": "No. The operator lists an additional all-day slide pass on top of general admission; its season pass also excludes the Great White Slides.",
+        "sourceUrl": "https://burgerslake.com/"
+      },
+      {
+        "question": "What are the requirements to ride the Great White Slides?",
+        "answer": "Riders must be at least 48 inches tall, wear a provided life jacket, ride feet first and sign a waiver; a guardian must be present to sign for minors.",
+        "sourceUrl": "https://burgerslake.com/the-great-white-slides"
+      }
+    ]
+  },
+  {
+    "slug": "thompson-park-amarillo",
+    "name": "Thompson Park Pool Family Water Park",
+    "city": "Amarillo",
+    "county": "Potter",
+    "region": "Panhandle",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Amarillo Parks & Recreation seasonal pool admission and season pass; city child supervision and clear-bag policies apply",
+    "reviewedAt": "2026-10-17",
+    "summary": "Amarillo's Thompson Park Pool is a substantial public water-play complex with a lazy river, two runout slides, zero-depth entry, toddler splash area, shade shelters and concessions.",
+    "distinctiveNote": "The City of Amarillo's 2026 schedule runs daily May 23 through August 16, then weekends through September 7. The separate Southeast and Southwest municipal pools were closed in 2026 for structural assessment; do not treat them as substitutes.",
+    "officialUrl": "https://www.amarilloparks.org/programs-events/aquatics/pools/thompson-pool",
+    "visitorAddress": "3500 E. Chaparral, Amarillo, TX 79107",
+    "visitorHighlights": [
+      "Lazy river and two runout waterslides in a seasonal outdoor city pool",
+      "Zero-depth family entry with toddler splash area and sun shelf deck",
+      "Shade shelters, lifejackets, lockers, concessions and an ADA pool lift"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "When did Thompson Park Pool's 2026 season end?",
+        "answer": "Amarillo posted everyday public operation May 23 to August 16 and weekend-only operation August 17 to Labor Day, September 7; confirm next year's dates with the city.",
+        "sourceUrl": "https://www.amarilloparks.org/programs-events/aquatics/pools/thompson-pool"
+      },
+      {
+        "question": "Can families bring outside food or ordinary bags?",
+        "answer": "The City of Amarillo posts a clear-bag rule and prohibits outside food or beverages; consult the facility's current rules before packing.",
+        "sourceUrl": "https://www.amarilloparks.org/home/showpublisheddocument/37435/638527696660830000"
+      }
+    ]
+  },
+  {
+    "slug": "adamson-lagoon-college-station",
+    "name": "Adamson Lagoon Pool",
+    "city": "College Station",
+    "county": "Brazos",
+    "region": "Central Texas",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Seasonal City of College Station day admission and optional multi-swim passes; current 2026 schedule has ended",
+    "reviewedAt": "2026-10-17",
+    "summary": "The City of College Station describes Adamson Lagoon as a tropical-themed miniature water park, with an Olympic-size pool, two large waterslides, a separate baby pool, bathhouse and concessions.",
+    "distinctiveNote": "The City listed weekend operations August 15–September 7, 2026 for late summer. A proposed October 2026 capital project involving new replacement slides is a future improvement; only the two existing water slides are verified for the 2026 visitor guide.",
+    "officialUrl": "https://www.cstx.gov/parks-recreation-culture/swimming-and-aquatics/",
+    "visitorAddress": "1900 Anderson Street, College Station, TX",
+    "visitorHighlights": [
+      "Two large outdoor water slides and an Olympic-size swimming pool",
+      "Separate baby pool and tropical-themed miniature-waterpark setting",
+      "Lifeguarded seasonal public admission with bathhouse and concessions"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "How many Adamson Lagoon waterslides are confirmed in 2026?",
+        "answer": "The City of College Station's 2026 visitor directory describes two large existing waterslides. New slides mentioned in a later municipal capital proposal should not be presented as already open.",
+        "sourceUrl": "https://www.cstx.gov/parks-recreation-culture/swimming-and-aquatics/"
+      },
+      {
+        "question": "Does the City of College Station require an adult to accompany children?",
+        "answer": "Its posted pool rules require guests younger than 14 to be accompanied by a guardian older than 18, with close adult supervision for children who cannot swim independently.",
+        "sourceUrl": "https://www.cstx.gov/parks-recreation-culture/swimming-and-aquatics/"
+      }
+    ]
+  },
+  {
+    "slug": "calypso-cove-baytown",
+    "name": "Calypso Cove",
+    "city": "Baytown",
+    "county": "Harris",
+    "region": "Houston area",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Seasonal City of Baytown pay-at-gate admission; separate from Pirates Bay Waterpark",
+    "reviewedAt": "2026-10-17",
+    "summary": "Calypso Cove is Baytown's family-oriented water-play venue inside N. C. Foote Park, offering waterslides, play zones, pool recreation and private rentals distinct from the larger Pirates Bay attraction.",
+    "distinctiveNote": "The Baytown operator states the 2026 season is now closed. The venue lists discounted weekday admission, separate higher weekend entry, and paid cooler permits; even guests who are not swimming need a ticket.",
+    "officialUrl": "https://baytownpiratesbay.com/calypso-cove/",
+    "visitorAddress": "2428 W. Main Street, Baytown, TX 77520",
+    "visitorHighlights": [
+      "Family waterslides and shallow play areas at N. C. Foote Park",
+      "Separate affordable City of Baytown pool admission from Pirates Bay",
+      "Private evening rentals and operator-provided first-come lifejackets"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Calypso Cove part of Pirates Bay's same physical water park?",
+        "answer": "No. Calypso Cove is at N. C. Foote Park on W. Main Street and has its own venue page and gate admission; Pirates Bay is a different Baytown facility.",
+        "sourceUrl": "https://baytownpiratesbay.com/calypso-cove/"
+      },
+      {
+        "question": "Is parking free and can visitors bring a cooler?",
+        "answer": "The operator lists free parking and a separate cooler-ticket charge for qualifying personal coolers; glass, alcohol and certain outside food are restricted.",
+        "sourceUrl": "https://baytownpiratesbay.com/calypso-cove/"
+      }
+    ]
+  },
+  {
+    "slug": "champions-club-southlake",
+    "name": "Champions Club Indoor Aquatics Center",
+    "city": "Southlake",
+    "county": "Tarrant",
+    "region": "Dallas–Fort Worth",
+    "setting": "Indoor",
+    "kind": "Indoor public park",
+    "admission": "City of Southlake Champions Club membership, visitor or eligible day pass; confirm slide access and visitor eligibility with operator",
+    "reviewedAt": "2026-10-17",
+    "summary": "Southlake's climate-controlled Champions Club Aquatics Center pairs two timed racing waterslides with a resistance river, zero-depth toddler pool, lap lanes, spa and family activity area.",
+    "distinctiveNote": "Current Southlake schedules distinguish open swim from slide hours; published fall slide sessions are substantially shorter than the building's fitness hours. Confirm nonmember admission before visiting; the operator posts child-supervision requirements.",
+    "officialUrl": "https://www.experiencesouthlaketexas.com/359/Aquatics",
+    "visitorAddress": "285 Shady Oaks Drive, Southlake, TX 76092",
+    "visitorHighlights": [
+      "Two timed racing waterslides in an indoor leisure pool facility",
+      "Resistance river and shallow toddler play pool separate from the lap lanes",
+      "Distinct fall open-swim and slide time windows with posted child-supervision rules"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Do Champions Club's waterslides operate the entire time its pool is open?",
+        "answer": "No. The City of Southlake maintains a separate water-slide calendar. Its current fall schedule lists shorter slide sessions than the open-swim hours and early-morning fitness access.",
+        "sourceUrl": "https://www.experiencesouthlaketexas.com/500/Aquatic-Center-Hours"
+      },
+      {
+        "question": "Does Champions Club have both a toddler play area and an indoor river?",
+        "answer": "Yes. The city's Aquatics Center amenity listing confirms a shallow toddler pool, a resistance river, dedicated lap lanes and dual racing slides.",
+        "sourceUrl": "https://www.experiencesouthlaketexas.com/359/Aquatics"
+      }
+    ]
+  },
+  {
+    "slug": "mcdonald-ymca-fort-worth",
+    "name": "William M. McDonald YMCA Outdoor Water Park",
+    "city": "Fort Worth",
+    "county": "Tarrant",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Community water park",
+    "admission": "Seasonal YMCA outdoor water-park access; membership, rentals and guest/day-pass eligibility must be checked directly",
+    "reviewedAt": "2026-10-17",
+    "summary": "The YMCA of Fort Worth's William M. McDonald center operates a seasonal outdoor water-park pool, with slides and family play areas distinct from its gym, walking track and indoor community programs.",
+    "distinctiveNote": "The current YMCA facility page confirms a seasonal outdoor water park but does not guarantee public walk-in entry for nonmembers. Its own rental documentation shows a slide tower and summer pool parties, subject to seasonal reservations and availability.",
+    "officialUrl": "https://ymcafw.org/locations/mcdonald/",
+    "visitorAddress": "2701 Moresby Street, Fort Worth, TX 76105",
+    "visitorHighlights": [
+      "Seasonal YMCA outdoor water-park section separate from gym and playhouse",
+      "Outdoor twisting slide structure shown in the YMCA operator's rental packet",
+      "Reservation-based summer pool parties and group water-play programming"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can nonmembers buy a walk-in day ticket at William M. McDonald YMCA?",
+        "answer": "The facility page confirms the seasonal outdoor water park but does not publish unconditional general-public walk-in terms. Check the YMCA directly for current guest passes or authorized rentals.",
+        "sourceUrl": "https://ymcafw.org/locations/mcdonald/"
+      },
+      {
+        "question": "Are year-round YMCA building hours the same as the outdoor waterpark's?",
+        "answer": "No. The operator describes the water park as seasonal; its regular weekday and weekend building-hours listing is not a guarantee of open summer pools or slides.",
+        "sourceUrl": "https://ymcafw.org/locations/mcdonald/"
+      }
+    ]
+  },
+  {
+    "slug": "lions-junction-temple",
+    "name": "Lions Junction Family Water Park",
+    "city": "Temple",
+    "county": "Bell",
+    "region": "Central Texas",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Seasonal Temple Parks & Recreation water park admission; verify tickets and next season calendar on the city's aquatics portal",
+    "reviewedAt": "2026-10-17",
+    "summary": "Lions Junction is the City of Temple's named outdoor family water park at the South Fifth Street recreational complex, with public seasonal aquatics and end-of-season community programming.",
+    "distinctiveNote": "The City of Temple's August 2026 release confirms that its September 12 Dunkin' Doggies event marked the close of the season; during that dog-only event humans were not permitted in the water. Individual rides and 2027 admission were not separately verified.",
+    "officialUrl": "https://city-of-temple.prowly.com/468828-city-of-temple-parks-recreation-closes-out-summer-with-dunkin-doggies",
+    "visitorAddress": "5000 S. 5th Street, Temple, TX",
+    "visitorFaqs": [
+      {
+        "question": "Was Lions Junction Family Water Park operating for Temple's 2026 season?",
+        "answer": "Yes. Temple Parks & Recreation's August 2026 release specifically identifies Lions Junction as its family water park and explains the end-of-season event at that venue.",
+        "sourceUrl": "https://city-of-temple.prowly.com/468828-city-of-temple-parks-recreation-closes-out-summer-with-dunkin-doggies"
+      },
+      {
+        "question": "Could people swim during the September 12, 2026 Dunkin' Doggies event?",
+        "answer": "No. The City of Temple said its September 12 end-of-season event was reserved for dogs and that human swimmers were not allowed in the water attractions.",
+        "sourceUrl": "https://city-of-temple.prowly.com/468828-city-of-temple-parks-recreation-closes-out-summer-with-dunkin-doggies"
+      }
+    ]
   }
 ];
 export const texasWaterParksBySlug = new Map(texasWaterParks.map((park) => [park.slug, park]));
