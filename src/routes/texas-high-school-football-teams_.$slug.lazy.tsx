@@ -277,7 +277,7 @@ function Page() {
           {editorial?.coach && <Fact label="Head coach" value={editorial.coach.name} />}
         </dl>
 
-      {program && !editorial?.notice && <section id="football-current-season" className="scroll-mt-36 grid gap-8 border-b border-border py-8 sm:py-10 lg:grid-cols-[15rem_1fr]">
+      {program && !editorial?.notice && <section id="football-current-season" className="scroll-mt-24 grid gap-8 border-b border-border py-8 sm:py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Current season</p>
           <h2 className="mt-2 font-display text-3xl">{editorial?.season ? '2026 results & schedule' : '2026 schedule & results sources'}</h2>
