@@ -35,6 +35,7 @@ export default function CoastalBeachFieldGuide({ destinationSlug }: { destinatio
   const rawSlug = canonicalCoastSlugs[destinationSlug] ?? destinationSlug;
   const place = coastalPlaces.find((item) => item.slug === rawSlug);
   if (!place) return null;
+  const editorial = COASTAL_BEACH_EDITORIAL[rawSlug];
   const neighbors = coastalPlaces
     .filter((item) => item.slug !== place.slug && item.zone === place.zone)
     .slice(0, 4);
@@ -42,6 +43,19 @@ export default function CoastalBeachFieldGuide({ destinationSlug }: { destinatio
     <p className="eyebrow text-primary">Location-specific coastal research</p>
     <h2 id="coastal-field-guide" className="mt-3 font-display text-3xl">Access, swimming and local rules at {place.name}</h2>
     <p className="mt-4 text-base leading-8 text-foreground/90">{place.summary}</p>
+    {editorial && <section aria-labelledby="coastal-beach-local-research" className="mt-8 border-y border-border py-7">
+      <p className="eyebrow text-primary">Official operator details · researched October 17, 2026</p>
+      <h3 id="coastal-beach-local-research" className="mt-3 font-display text-2xl">{editorial.headline}</h3>
+      <div className="mt-5 grid gap-6 md:grid-cols-2">
+        <div><h4 className="font-semibold">Finding the right entrance and facilities</h4><p className="mt-2 text-sm leading-7 text-muted-foreground">{editorial.arrival}</p></div>
+        <div><h4 className="font-semibold">Parking, permits and beach rules</h4><p className="mt-2 text-sm leading-7 text-muted-foreground">{editorial.rules}</p></div>
+      </div>
+      <div className="mt-5"><h4 className="font-semibold">Is this the right beach for your trip?</h4><p className="mt-2 text-sm leading-7 text-muted-foreground">{editorial.visitorDecision}</p></div>
+      <div className="mt-5 flex flex-wrap gap-5 text-sm font-semibold">
+        <a href={editorial.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Official beach operator →</a>
+        <a href={editorial.extraUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Additional official visitor policy →</a>
+      </div>
+    </section>}
     <dl className="mt-7 grid gap-x-8 gap-y-4 md:grid-cols-2">
       <div className="border-t border-border pt-4">
         <dt className="font-semibold">What kind of beach is this?</dt>
