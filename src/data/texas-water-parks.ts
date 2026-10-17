@@ -58,7 +58,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Galveston's indoor and outdoor water-park complex is a separate attraction from the beach.",
     "distinctiveNote": "Schlitterbahn Galveston joined the Enchanted Parks family in 2026. The operator says Six Flags passes and memberships will no longer be honored here in 2027; check the Enchanted Parks ticket calendar and any operating indoor areas.",
     "officialUrl": "https://galvestonislandwaterpark.enchantedparks.com/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "2109 Gene Lucas Blvd., Galveston, TX 77554",
+    "visitorHighlights": [
+      "Schlitterbahn Galveston became part of Enchanted Parks in 2026; its 2027 season pass is not the same as the former Six Flags membership.",
+      "The current owner warns that Shipwreck Harbor, MASSIV, Whitewater River, Treasure Island Kids Pool, Infinity Swim-up Bar and Bahnzai Pipeline are unavailable.",
+      "The operator lists free regular parking in Lot C and separately paid preferred parking in Lot B.",
+      "Schlitterbahn Galveston has distinct river and slide areas, but the current temporarily unavailable attractions should not be promised as operating.",
+      "The park's owner explains how qualifying older 2026 Six Flags passes are treated differently from renewed 2027 Six Flags passes."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Does a Six Flags membership work at Schlitterbahn Galveston in 2027?",
+        "answer": "No. Enchanted Parks says renewed 2027 Six Flags passes are not valid for its Galveston waterpark; eligible 2026 multi-park passes purchased before the ownership cutoff have specific transitional benefits.",
+        "sourceUrl": "https://galvestonislandwaterpark.enchantedparks.com/park-info/guest-faq/"
+      },
+      {
+        "question": "Are MASSIV and Bahnzai Pipeline available?",
+        "answer": "The park's official site currently lists MASSIV, Bahnzai Pipeline, Shipwreck Harbor and several other named attractions as unavailable. Check the operator's live attraction report instead of assuming they operate.",
+        "sourceUrl": "https://galvestonislandwaterpark.enchantedparks.com/passes-and-tickets/upgrades/parking/"
+      },
+      {
+        "question": "Is standard parking free at Schlitterbahn Galveston?",
+        "answer": "Yes. The new operator identifies complimentary general parking in Lot C. Preferred parking in Lot B is a separately paid upgrade.",
+        "sourceUrl": "https://galvestonislandwaterpark.enchantedparks.com/passes-and-tickets/upgrades/parking/"
+      },
+      {
+        "question": "Where is the Galveston waterpark entrance?",
+        "answer": "The Enchanted Parks operator lists 2109 Gene Lucas Boulevard, Galveston, Texas 77554, near Moody Gardens; this is not the New Braunfels Schlitterbahn location.",
+        "sourceUrl": "https://galvestonislandwaterpark.enchantedparks.com/park-info/guest-faq/"
+      }
+    ]
   },
   {
     "slug": "typhoon-texas-katy",
@@ -121,7 +151,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "The Pflugerville water-park destination is an Austin-area alternative to Hill Country river swimming.",
     "distinctiveNote": "Verify the Austin/Pflugerville calendar rather than the operator's Katy calendar.",
     "officialUrl": "https://www.typhoontexas.com/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "18500 TX-130 N. Service Rd., Pflugerville, TX 78660",
+    "visitorHighlights": [
+      "Typhoon Texas Austin is located in Pflugerville and has its own daily event and operating calendar, separate from the Houston/Katy location.",
+      "The Austin ride roster includes Derby Dash, The Duelin' Daltons, The Gully Washer and The Snake Pit.",
+      "Less intense offerings include Buckaroo Bayou, Howdy Hollow, Lazy T River and Tidal Wave Bay.",
+      "The October, November and December 2026 waterpark calendars currently show every day closed, so season-pass promotions do not mean fall slides are available.",
+      "The Austin site offers location-specific Guest Relations support for visitors with accessibility questions and park-specific rides."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is the Austin Typhoon Texas park open in October 2026?",
+        "answer": "No. Its official Pflugerville calendar marks every day in October 2026 closed, along with November and December dates. Check the future summer calendar before traveling.",
+        "sourceUrl": "https://typhoontexas.com/austin/hours-and-location/"
+      },
+      {
+        "question": "How does the Austin location differ from Katy?",
+        "answer": "The Pflugerville location has its own operating schedule and attractions such as Derby Dash, The Gully Washer, The Snake Pit, Buckaroo Bayou and Lazy T River. Do not use the Katy ticket calendar.",
+        "sourceUrl": "https://typhoontexas.com/austin/attractions/"
+      },
+      {
+        "question": "What is the correct Pflugerville street address?",
+        "answer": "Typhoon Texas Austin lists 18500 TX-130 North Service Road, Pflugerville, Texas 78660, with its own guest services contact rather than the Houston phone and address.",
+        "sourceUrl": "https://typhoontexas.com/austin/hours-and-location/"
+      },
+      {
+        "question": "How can someone with accessibility needs plan rides?",
+        "answer": "The park directs guests with disabilities to Guest Relations on arrival for information about available rides, accessibility and individual accommodations.",
+        "sourceUrl": "https://typhoontexas.com/austin/faq/"
+      }
+    ]
   },
   {
     "slug": "hurricane-harbor-arlington",
@@ -1581,7 +1641,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Lubbock's seasonal water park is a South Plains summer outing.",
     "distinctiveNote": "The 2026 water-park season has ended; confirm 2027 dates before planning.",
     "officialUrl": "https://waterrampage.com/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "6602 Marsha Sharp Fwy., Lubbock, TX 79407",
+    "visitorHighlights": [
+      "Water Rampage is a seasonal Lubbock waterpark with an official notice that its 2026 operating season has ended.",
+      "Pirate's Cove is a young-child water playground with a pirate ship, smaller slides and dumping bucket.",
+      "Caribbean Adventure offers a wave pool, baby pool and lazy river as separate areas.",
+      "The operator lists a separate 21-and-over lounge pool in addition to the family attractions.",
+      "Guests may reserve party pavilions during the public day or reserve a distinct after-hours private event time slot.",
+      "The park's booking policy does not promise refunds, and its stated rescheduling process requires advance notice."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Water Rampage open during October?",
+        "answer": "No. The park's homepage explicitly says its 2026 season is closed and advertises a 2027 return; old dated event calendars do not establish current open hours.",
+        "sourceUrl": "https://waterrampage.com/"
+      },
+      {
+        "question": "What attractions are designed for young children?",
+        "answer": "The operator's Pirate's Cove includes a pirate-ship-themed play structure, smaller water slides and a dumping bucket; adults can choose the separate lazy river and wave pool.",
+        "sourceUrl": "https://waterrampage.com/attractions/"
+      },
+      {
+        "question": "Can families book a pavilion or private evening?",
+        "answer": "Yes. Water Rampage lists rentable day-party pavilions and separate after-hours event reservations, subject to capacity, date and its published nonrefund policy.",
+        "sourceUrl": "https://waterrampage.com/"
+      },
+      {
+        "question": "Where is Water Rampage?",
+        "answer": "The official operator lists 6602 Marsha Sharp Freeway, Lubbock, Texas 79407. Confirm the live seasonal calendar before traveling to this outdoor park.",
+        "sourceUrl": "https://waterrampage.com/"
+      }
+    ]
   },
   {
     "slug": "pirates-cove-burleson",
@@ -1740,7 +1831,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A 10-acre seasonal water park at the Gaylord Texan resort near Lake Grapevine.",
     "distinctiveNote": "The resort lists a select-days season; a hotel reservation is the dependable access route.",
     "officialUrl": "https://www.marriott.com/gaylord-hotels/gaylord-texan-dallas-resort-vacations.mi",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1501 Gaylord Trail, Grapevine, TX 76051",
+    "visitorHighlights": [
+      "Paradise Springs is Gaylord Texan's distinct ten-acre seasonal waterpark overlooking the Lake Grapevine resort grounds.",
+      "The resort describes a roughly 600-foot lazy river, a 27-foot waterslide and a separate zip line.",
+      "Cabanas and premium poolside seating can be reserved separately; access is a benefit of eligible overnight resort stays.",
+      "Gaylord Texan's 2026 operating calendar ran on specific weekends in May, daily for much of summer and weekends through September 20.",
+      "The resort distinguishes its year-round indoor and outdoor hotel pools from the separately seasonal Paradise Springs waterpark."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can non-hotel visitors buy a standalone Paradise Springs day ticket?",
+        "answer": "Gaylord Texan's official 2026 package states Paradise Springs is exclusive to overnight resort guests. Do not assume a public day ticket can be bought without a hotel reservation.",
+        "sourceUrl": "https://www.marriott.com/offers/summerfest-package-off-168275/dalgt-gaylord-texan-resort-and-convention-center"
+      },
+      {
+        "question": "Is Paradise Springs open during October?",
+        "answer": "Not under the published 2026 waterpark calendar. Gaylord Texan lists its seasonal operation through September 20, while other hotel swimming pools can remain open on separate dates.",
+        "sourceUrl": "https://www.marriott.com/offers/summerfest-package-off-168275/dalgt-gaylord-texan-resort-and-convention-center"
+      },
+      {
+        "question": "Which aquatic attractions does the resort have?",
+        "answer": "The ten-acre Paradise Springs complex features a 600-foot lazy river, 27-foot waterslide and a zip line alongside reserved cabanas and resort seating.",
+        "sourceUrl": "https://www.marriott.com/en-us/hotels/dalgt-gaylord-texan-resort-and-convention-center/experiences/"
+      },
+      {
+        "question": "Does staying at the hotel guarantee every waterslide is running?",
+        "answer": "No. The resort maintains a dated seasonal waterpark calendar and may close or limit specific attractions for operations or weather. Check the exact resort stay and waterpark dates.",
+        "sourceUrl": "https://www.marriott.com/en-us/hotels/dalgt-gaylord-texan-resort-and-convention-center/experiences/"
+      }
+    ]
   },
   {
     "slug": "river-bluff-san-antonio",
@@ -1754,7 +1875,44 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "The JW Marriott San Antonio Hill Country has a large outdoor water park with slides and lazy river.",
     "distinctiveNote": "The resort explicitly restricts water-park access to registered hotel guests.",
     "officialUrl": "https://www.marriott.com/en-us/hotels/satjw-jw-marriott-san-antonio-hill-country-resort-and-spa/experiences/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "23808 Resort Pkwy., San Antonio, TX 78261",
+    "visitorHighlights": [
+      "River Bluff Water Experience is a nine-acre JW Marriott San Antonio Hill Country waterpark exclusively for overnight resort guests.",
+      "The site has a 1,100-foot lazy river and a distinct 650-foot Pedernales River water ride with stronger current.",
+      "The Canyon Oak Twister and Hill Country Plunge body slides both require at least 48 inches of height.",
+      "The resort posts 42-inch minimum for Cibolo Falls tube slide with an adult (48 inches unaccompanied), and 36-inch minimum for Pedernales Falls with an adult (48 inches unaccompanied).",
+      "River Bluff also has a children's zero-depth pool, separate sandy-beach and activity pools, and an adults-only infinity pool.",
+      "The property says guest wristbands are capped at five per room and prohibits outside food or coolers in its waterpark.",
+      "Pools can operate year-round, weather permitting, but outdoor slides and lazy river require a minimum ambient temperature over 55 degrees."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can someone buy River Bluff admission without a hotel reservation?",
+        "answer": "No. The JW Marriott operator says pool and waterpark access is reserved exclusively for its overnight resort guests and provides no public day-pass entitlement.",
+        "sourceUrl": "https://www.marriott.com/en-us/hotels/satjw-jw-marriott-san-antonio-hill-country-resort-and-spa/overview/"
+      },
+      {
+        "question": "Are water rides open year-round regardless of weather?",
+        "answer": "Not necessarily. Pools and some amenities may run year-round, but the resort says slides, lazy river and children's pool open only when the weather permits and temperature is above 55 degrees.",
+        "sourceUrl": "https://www.marriott.com/en-us/hotels/satjw-jw-marriott-san-antonio-hill-country-resort-and-spa/overview/"
+      },
+      {
+        "question": "What are the different height restrictions?",
+        "answer": "Canyon Oak Twister and Hill Country Plunge require at least 48 inches. The resort lists lower thresholds for two tube slides when children ride with an adult, with 48 inches unaccompanied.",
+        "sourceUrl": "https://www.marriott.com/en-us/hotels/satjw-jw-marriott-san-antonio-hill-country-resort-and-spa/overview/"
+      },
+      {
+        "question": "Can resort guests use the waterpark after check-out?",
+        "answer": "The JW Marriott says its guests can enjoy waterpark facilities through both check-in and checkout days, and guests can ask the bell desk to store luggage when needed.",
+        "sourceUrl": "https://www.marriott.com/en-us/hotels/satjw-jw-marriott-san-antonio-hill-country-resort-and-spa/overview/"
+      },
+      {
+        "question": "Are outside picnic coolers allowed?",
+        "answer": "No. The hotel explicitly prohibits outside food and beverages in River Bluff Water Experience, although it provides free towels and attraction-specific tubes for eligible guests.",
+        "sourceUrl": "https://www.marriott.com/en-us/hotels/satjw-jw-marriott-san-antonio-hill-country-resort-and-spa/overview/"
+      }
+    ]
   },
   {
     "slug": "hill-country-hyatt-waterpark",
