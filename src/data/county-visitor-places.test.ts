@@ -14,6 +14,12 @@ describe('unranked county visitor places', () => {
       expect(() => new URL(place.sourceUrl), place.name).not.toThrow();
       expect(new URL(place.sourceUrl).protocol, place.name).toBe('https:');
       expect(new URL(place.sourceUrl).hostname, place.name).not.toBe('texasdefined.com');
+      // The former Groom cross organization's domain now serves unrelated gambling content.
+      expect(new URL(place.sourceUrl).hostname.replace(/^www\./, ''), place.name).not.toBe('crossministries.net');
+      if (place.relatedGuideHref) {
+        expect(place.relatedGuideHref, place.name).toMatch(/^\/(?!\/)[a-z0-9\-/]+$/);
+        expect(place.relatedGuideHref, place.name).not.toBe('/destination/');
+      }
     }
   });
 
