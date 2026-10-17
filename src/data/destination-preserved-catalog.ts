@@ -1,3 +1,4 @@
+import { blackwellSchoolNationalHistoricSite } from "./blackwell-school-national-historic-site";
 import { esteroLlanoGrandeStateParkAuthority } from "./estero-llano-grande-state-park-authority";
 import { rayRobertsLakeStateParkAuthority } from "./ray-roberts-lake-state-park-authority";
 import { lakeSomervilleStateParkAuthority } from "./lake-somerville-state-park-authority";
@@ -234,6 +235,7 @@ function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
  * curation module's import-time mutation of topAttractionDestinations.
  */
 export const preservedExploreDestinations = mergePreservedDestinations(
+  [blackwellSchoolNationalHistoricSite],
   olivewoodCemeteryDestinations,
   thcHistoricLandmarkAuthorityBatch01Destinations,
   thcHistoricLandmarkAuthorityBatch02Destinations,
