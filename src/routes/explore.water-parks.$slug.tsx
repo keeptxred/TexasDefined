@@ -32,7 +32,7 @@ export const Route = createFileRoute("/explore/water-parks/$slug")({
         "@graph": [
           { "@type": "WebPage", "@id": url + "#page", url, name: park.name + " visitor guide", description, dateModified: park.reviewedAt, citation: [park.officialUrl], mainEntity: { "@id": url + "#place" } },
           { "@type": "TouristAttraction", "@id": url + "#place", name: park.name, url, description: park.summary,
-            isAccessibleForFree: false, sameAs: park.officialUrl,
+            sameAs: park.officialUrl,
             address: { "@type": "PostalAddress", addressLocality: park.city, addressRegion: "TX", addressCountry: "US" },
             touristType: [park.setting, park.kind] },
           { "@type": "BreadcrumbList", itemListElement: [
@@ -86,7 +86,7 @@ function WaterParkGuidePage() {
         </section>
         <section className="mt-12 border-t border-border pt-8">
           <h2 className="font-display text-3xl">What makes this park worth considering</h2>
-          <p className="mt-4 leading-8 text-muted-foreground">{park.summary} {park.distinctiveNote}</p>
+          <p className="mt-4 leading-8 text-muted-foreground">{park.summary}</p>
           <p className="mt-4 leading-8 text-muted-foreground">{isIndoor
             ? "An indoor setting reduces dependence on summer weather, but each operator still sets its own open-swim schedule, ride hours and temporary maintenance closures."
             : isBoth
