@@ -47,12 +47,16 @@ export const Route = createFileRoute('/$kind/$slug')({
           ? import('@/data/state-park-county-index').then(({ getCityStateParkLinks }) => getCityStateParkLinks(entity.slug))
           : Promise.resolve([]),
       ]);
-      return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues, foodDestinations, countyStateParks };
+      return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues, foodDestinations, countyStateParks, countyWaterParks: [] };
     }
     const countyStateParksPromise = import('@/data/state-park-county-index').then(({ getCountyStateParkLinks }) => getCountyStateParkLinks(entity.slug));
     const countyRvParksPromise = import('@/data/rv-parks/county-index').then(({ loadCountyRvParksSnapshot }) => loadCountyRvParksSnapshot(entity.slug));
     const countyMajorEventsPromise = import('@/data/county-major-events').then(({ getCountyMajorEvents }) => getCountyMajorEvents(entity.slug));
-    const [countyProfile, localGovernment, countySeriesArticle, countyRvParks, countyMajorEvents, foodDestinations, countyStateParks] = await Promise.all([
+    const countyWaterParksPromise = import('@/data/texas-water-parks').then(({ texasWaterParks }) => texasWaterParks
+      .filter((park) => park.county?.toLowerCase().replace(/\s+/g, '-') === entity.slug)
+      .map(({ slug, name, city, setting, kind, admission }) => ({ slug, name, city, setting, kind, admission })));
+
+    const [countyProfile, localGovernment, countySeriesArticle, countyRvParks, countyMajorEvents, foodDestinations, countyStateParks, countyWaterParks] = await Promise.all([
       loadCountyProfile(entity.slug, entity.name),
       loadLocalGovernmentProfile(entity.slug, entity.name),
       loadCountySeriesArticle(entity.slug),
@@ -60,9 +64,10 @@ export const Route = createFileRoute('/$kind/$slug')({
       countyMajorEventsPromise,
       foodDestinationsPromise,
       countyStateParksPromise,
+      countyWaterParksPromise,
     ]);
     const countyEntity = { ...entity, rvParks: countyRvParks, majorEvents: countyMajorEvents };
-    return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations, countyStateParks };
+    return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations, countyStateParks, countyWaterParks };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
