@@ -11,11 +11,46 @@ export const texasWaterParks: WaterParkGuide[] = [
     "region": "Hill Country",
     "setting": "Outdoor",
     "kind": "Destination park",
-    "admission": "Day tickets and resort packages vary",
-    "summary": "Multiple park areas and spring-fed river attractions shape an all-day Hill Country visit.",
-    "distinctiveNote": "Plan around the official map and check whether the attraction area and season you want are operating.",
+    "admission": "Seasonal waterpark day tickets and passes, with separate resort lodging; verify 2027 reopening dates and any required reservations before travel.",
+    "summary": "Schlitterbahn New Braunfels spreads river tube chutes, surf rides, family areas and water coasters across two separate park sections beside the Comal River, connected by a guest tram.",
+    "distinctiveNote": "The park's main waterpark entrance is at 400 N. Liberty Avenue; resort check-in is at 305 W. Austin Street. General parking is free. Guests may bring permitted picnic coolers, subject to current size checks and exclusions for alcohol and glass.",
     "officialUrl": "https://www.sixflags.com/schlitterbahnnewbraunfels",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "400 N. Liberty Ave., New Braunfels, TX 78130",
+    "visitorHighlights": [
+      "Schlitterbahn has two waterpark sections separated by several city blocks, and the park operates trams between them during its operating day.",
+      "Attractions include the Master Blaster uphill water coaster, Boogie Bahn surf ride, river tube chutes and family play areas; ride operations vary.",
+      "General parking is free, and the main waterpark entrance differs from the resort lodging office and the separate East entrance.",
+      "Park guests may bring qualifying picnic coolers; the operator limits cooler size and prohibits glass containers and alcohol.",
+      "Complimentary life jackets and some children's tubes are available in limited numbers; personal life jackets must be Coast Guard-approved."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can visitors bring their own picnic or cooler to Schlitterbahn New Braunfels?",
+        "answer": "Yes. Unlike many Texas waterparks, Schlitterbahn allows picnics and coolers below its posted 26-by-16-by-16-inch limit, subject to inspection. Alcohol and glass containers are prohibited.",
+        "sourceUrl": "https://www.schlitterbahn.com/new-braunfels/waterpark-information"
+      },
+      {
+        "question": "Are Schlitterbahn New Braunfels' separate park sections connected?",
+        "answer": "The park is divided into two areas separated by several city blocks. Its operator runs guest trams between the sections throughout the operating day, so check the park map before organizing where to start.",
+        "sourceUrl": "https://www.schlitterbahn.com/new-braunfels/frequently-asked-questions"
+      },
+      {
+        "question": "Is parking free at Schlitterbahn New Braunfels, and where is the waterpark entrance?",
+        "answer": "Yes, general parking is free. The main waterpark entrance is at 400 North Liberty Avenue, New Braunfels. The resort office and check-in use 305 West Austin Street, so enter the correct address for your visit.",
+        "sourceUrl": "https://www.sixflags.com/schlitterbahnnewbraunfels/park-map-directions"
+      },
+      {
+        "question": "Can guests use their own life jackets or recreational floating toys?",
+        "answer": "Guests may wear their own U.S. Coast Guard-approved life jackets. The park also offers limited complimentary life jackets and tube options, but personal recreational flotation devices are not allowed in waterpark attractions.",
+        "sourceUrl": "https://www.schlitterbahn.com/new-braunfels/frequently-asked-questions"
+      },
+      {
+        "question": "Does Schlitterbahn close whenever it rains?",
+        "answer": "Not necessarily. Schlitterbahn normally operates through light rain, but thunderstorms, lightning, high winds and other severe conditions may close attractions temporarily. The operator generally does not issue rain checks for ordinary rainy days.",
+        "sourceUrl": "https://www.schlitterbahn.com/new-braunfels/frequently-asked-questions"
+      }
+    ]
   },
   {
     "slug": "schlitterbahn-galveston",
@@ -39,11 +74,46 @@ export const texasWaterParks: WaterParkGuide[] = [
     "region": "Houston area",
     "setting": "Outdoor",
     "kind": "Destination park",
-    "admission": "Day tickets and season passes",
-    "summary": "A west-Houston-area water park with slides, wave attractions and family play areas.",
-    "distinctiveNote": "Search for the Katy/Houston location specifically; Typhoon Texas also operates near Austin.",
+    "admission": "Separate day tickets and individual season passes; free on-site parking and permitted hand-stamp re-entry during the operating day.",
+    "summary": "Typhoon Texas Houston in Katy combines the Lazy-T River, Tidal Wave Bay, Typhoon Jr. children's water play, mat-racing and tube slides in a seasonal outdoor waterpark west of Houston.",
+    "distinctiveNote": "The Katy property is at 555 Katy Fort Bend Road, not at the company's Pflugerville location. Free parking is provided; children age 12 and younger cannot enter without a supervising adult. Special event days may impose a stricter adult-over-21 chaperone policy.",
     "officialUrl": "https://typhoontexas.com/houston/hours-and-location/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "555 Katy Fort Bend Rd., Katy, TX 77494",
+    "visitorHighlights": [
+      "Typhoon Jr. is a dedicated children's activity area while the Lazy-T River offers a slower family float.",
+      "Tidal Wave Bay and multiple larger mat, body and tube slides accommodate visitors looking for more active water attractions.",
+      "Onsite vehicle parking is free, and guests who receive a hand stamp at exit may return to the park on the same visit.",
+      "Visitors may bring one factory-sealed water bottle per person and permitted small coolers for ice and sealed water only; other outside meals stay outside.",
+      "Children 12 and under need supervising adults, and signature events may require adult chaperones older than 21 for guests aged 16 and under."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Does Typhoon Texas in Katy charge for general parking?",
+        "answer": "No. Typhoon Texas Houston's published guest FAQ identifies general parking as free. The waterpark entrance is at 555 Katy Fort Bend Road in Katy, Texas, not at the separate Typhoon Texas Austin-area location.",
+        "sourceUrl": "https://typhoontexas.com/houston/faq/"
+      },
+      {
+        "question": "Can I bring a cooler and my own food into Typhoon Texas Houston?",
+        "answer": "Outside meals are not allowed inside the park. Guests may bring one sealed water bottle per person and a small handheld cooler for ice or sealed water; medical dietary accommodations go through Guest Relations. Visitors can eat outside and re-enter with a hand stamp.",
+        "sourceUrl": "https://typhoontexas.com/houston/faq/"
+      },
+      {
+        "question": "Can children attend Typhoon Texas Katy without an adult?",
+        "answer": "The regular rule prohibits children 12 and younger from attending without adult supervision. On certain signature-event days, the park requires guests 16 and younger to enter with a responsible adult over age 21 with photo ID; management may apply this rule on other days.",
+        "sourceUrl": "https://typhoontexas.com/houston/faq/"
+      },
+      {
+        "question": "Can I leave Typhoon Texas to eat in the car and return?",
+        "answer": "Yes. Before leaving, request a hand stamp at the exit gate, then show it at the main entrance for re-entry. This makes it possible to eat food brought from home outside the waterpark rather than carrying it inside.",
+        "sourceUrl": "https://typhoontexas.com/houston/faq/"
+      },
+      {
+        "question": "Do Typhoon Texas Houston tickets have a rain refund?",
+        "answer": "Tickets are generally non-refundable. During severe weather the attractions may close; guests with a receipt may qualify for a limited rainy-day return ticket under the operator's conditions and must arrange it before leaving.",
+        "sourceUrl": "https://typhoontexas.com/houston/faq/"
+      }
+    ]
   },
   {
     "slug": "typhoon-texas-austin",
@@ -277,11 +347,45 @@ export const texasWaterParks: WaterParkGuide[] = [
     "region": "Central Texas",
     "setting": "Both",
     "kind": "Indoor resort park",
-    "admission": "Resort stay or available day passes",
-    "summary": "Kalahari's Round Rock resort contains a large year-round indoor water park plus seasonal outdoor water attractions.",
-    "distinctiveNote": "The indoor water park operates separately from some outdoor features; pass dates and hours need checking.",
+    "admission": "Resort overnight stays include waterpark access; non-overnight visitors can reserve capacity-limited indoor/outdoor day passes online. Prices vary by date.",
+    "summary": "A year-round indoor waterpark at Kalahari's Round Rock resort, with slides, wave pool, FlowRider and children's play, is paired with the seasonal Summer Savannah outdoor pools and cabanas.",
+    "distinctiveNote": "Day-pass admission is capacity limited; guests should book online because on-site sales are not guaranteed. Day-pass guests must bring their own towels. The outdoor attractions have a separate seasonal schedule. Children under 48 inches must use Coast Guard-approved life jackets.",
     "officialUrl": "https://www.kalahariresorts.com/texas-round-rock/parks-and-passes/indoor-waterpark/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "3001 Kalahari Boulevard, Round Rock, TX 78665",
+    "visitorHighlights": [
+      "Year-round indoor attractions include a wave pool, surf-simulator area, multiple slides and family play zones; individual ride availability can vary.",
+      "Summer Savannah is a separate outdoor waterpark area with pools, cabanas and a designated swim-up bar zone for guests aged 21 and older.",
+      "Online day passes allow visitors without a resort room to use available indoor and outdoor waterpark facilities, subject to capacity.",
+      "Children shorter than 48 inches are required to wear U.S. Coast Guard-approved life jackets, with complimentary options subject to availability."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can I visit Kalahari's Round Rock waterpark without booking a hotel room?",
+        "answer": "Yes. Kalahari sells a limited quantity of waterpark day passes to non-overnight visitors, covering its indoor and outdoor areas where operating. Reserve online because walk-up sales can close when capacity is reached.",
+        "sourceUrl": "https://www.kalahariresorts.com/texas-round-rock/parks-and-passes/day-passes/waterpark-day-passes/"
+      },
+      {
+        "question": "Are towels provided to Kalahari day-pass guests?",
+        "answer": "No. Kalahari specifically asks day-pass visitors to bring their own towels. Towels can be bought at the resort if needed; they are not supplied with the ordinary day-pass admission.",
+        "sourceUrl": "https://www.kalahariresorts.com/texas-round-rock/parks-and-passes/day-passes/waterpark-day-passes/"
+      },
+      {
+        "question": "Can children enter Kalahari Round Rock on their own?",
+        "answer": "Children younger than 14 must be accompanied by a parent or guardian. Kalahari also recommends supervision for all guests younger than 16, and individual slides can have separate height and weight rules.",
+        "sourceUrl": "https://www.kalahariresorts.com/texas-round-rock/parks-and-passes/day-passes/waterpark-day-passes/"
+      },
+      {
+        "question": "Can I bring a cooler or outside meals into Kalahari's waterpark?",
+        "answer": "No. The operator prohibits outside food, drinks and coolers in the waterpark, although baby food and medically necessary or allergy-related items may be handled as exceptions during entry checks.",
+        "sourceUrl": "https://www.kalahariresorts.com/texas-round-rock/parks-and-passes/outdoor-waterpark/"
+      },
+      {
+        "question": "Does Kalahari Round Rock's indoor park stay open when the outdoor park is closed?",
+        "answer": "Kalahari operates the large indoor waterpark year-round, while its Summer Savannah outdoor attractions and pools have separate seasonal hours. Confirm both calendars and individual ride closures before choosing admission.",
+        "sourceUrl": "https://www.kalahariresorts.com/texas-round-rock/parks-and-passes/indoor-waterpark/"
+      }
+    ]
   },
   {
     "slug": "great-wolf-grapevine",
@@ -303,13 +407,48 @@ export const texasWaterParks: WaterParkGuide[] = [
     "city": "Webster",
     "county": "Harris",
     "region": "Houston area",
-    "setting": "Indoor",
+    "setting": "Both",
     "kind": "Indoor resort park",
-    "admission": "Water-park access with resort stay or available day pass",
-    "summary": "A large indoor water park near NASA and the Clear Lake area.",
-    "distinctiveNote": "Webster is a separate resort from the Grapevine location; look for its indoor-park day passes.",
+    "admission": "Overnight guests have waterpark access; capacity-limited full-day and half-day waterpark passes are also sold to visitors without a hotel room.",
+    "summary": "Great Wolf Lodge Houston in Webster has a large 84-degree indoor waterpark with family slides, wave play and age-specific areas, plus a separately operated outdoor Great Lagoon water-play section.",
+    "distinctiveNote": "Webster is the actual venue city despite Houston-branded marketing. Full-day waterpark passes and half-day passes starting in the evening are sold subject to availability; outside food and coolers are prohibited, but towels and life jackets are included with day passes.",
     "officialUrl": "https://www.greatwolf.com/webster/waterpark-attractions/indoor-water-park",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1000 Great Wolf Way, Webster, TX 77598",
+    "visitorHighlights": [
+      "An indoor 84-degree family waterpark features large waterslides, shallow children's areas, a wave pool and lazy river.",
+      "The separate Great Lagoon outdoor water-play attraction is weather- and season-dependent; confirm its operating schedule rather than assuming indoor hours apply.",
+      "Capacity-controlled full-day and half-day passes are sold to guests without an overnight room reservation, with towels and life jackets included.",
+      "Passes are not required for children age two and younger, while many dry-land lodge attractions or bundles cost extra.",
+      "The Texas Twirler indoor raft attraction has a stated 42-inch minimum height and its own ride safety requirements."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can I visit Great Wolf Lodge Webster's waterpark without staying overnight?",
+        "answer": "Yes. Great Wolf Lodge Houston/Webster offers a limited supply of public day passes. Full-day access covers the selected operating day and half-day admission begins at the posted evening time; date inventory may sell out.",
+        "sourceUrl": "https://www.greatwolf.com/webster/daypass"
+      },
+      {
+        "question": "Are towels and life jackets included with a Webster waterpark day pass?",
+        "answer": "Yes. The operator's day-pass package includes use of towels and available Coast Guard-approved life jackets in the waterpark. Lockers may cost extra, and guests must return issued towels to avoid fees.",
+        "sourceUrl": "https://www.greatwolf.com/webster/daypass"
+      },
+      {
+        "question": "Does Great Wolf Lodge Webster have any outdoor swimming area?",
+        "answer": "Yes. Along with its year-round indoor waterpark, the Webster lodge advertises Great Lagoon as an outdoor water-play area with its own schedule and weather restrictions. Check that section separately before buying admission.",
+        "sourceUrl": "https://www.greatwolf.com/webster/waterpark-attractions/indoor-water-park/great-lagoon"
+      },
+      {
+        "question": "Can day-pass visitors bring outside snacks and coolers?",
+        "answer": "No. Great Wolf Lodge Webster prohibits outside food, drinks and coolers in the resort waterpark. Visitors may buy refreshments onsite, while other dry-land attractions and dining packages can cost extra.",
+        "sourceUrl": "https://www.greatwolf.com/webster/daypass"
+      },
+      {
+        "question": "What is the minimum height for Great Wolf Lodge Webster's Texas Twirler?",
+        "answer": "The operator lists a 42-inch minimum height for Texas Twirler. Other water slides have their own posted ride rules, so families should check the particular attractions before relying on a single park-wide height standard.",
+        "sourceUrl": "https://www.greatwolf.com/webster/waterpark-attractions/indoor-water-park/texas-twirler"
+      }
+    ]
   },
   {
     "slug": "epic-waters-grand-prairie",
@@ -319,11 +458,46 @@ export const texasWaterParks: WaterParkGuide[] = [
     "region": "Dallas–Fort Worth",
     "setting": "Indoor",
     "kind": "Indoor public park",
-    "admission": "Public day admission and group options",
-    "summary": "A stand-alone indoor water park in Grand Prairie rather than a hotel-only pool complex.",
-    "distinctiveNote": "Epic Waters is temporarily closed October 13–29, 2026, with reopening scheduled for Friday, October 30 at 10 a.m.; always confirm the live calendar before visiting.",
+    "admission": "Indoor waterpark public day admission, advance tickets and group options; a hotel reservation is not required.",
+    "summary": "Grand Prairie's city-owned, stand-alone Epic Waters indoor waterpark has a retractable-roof facility, a lazy/action river, tall waterslides, FlowRider surfing, kid-focused splash zones and an arcade.",
+    "distinctiveNote": "Epic Waters is temporarily closed October 13–29, 2026, with reopening advertised for Friday, October 30 at 10 a.m. Its written policy requires visitors 16 and younger to have a responsible accompanying adult older than 21; outside food, drinks and coolers are not allowed.",
     "officialUrl": "https://epicwatersgp.com/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "2970 Epic Place, Grand Prairie, TX 75052",
+    "visitorHighlights": [
+      "The 80,000-square-foot indoor facility uses a retractable roof and offers year-round aquatic attractions outside its scheduled maintenance shutdowns.",
+      "The action/lazy river, Lasso Loop, Yellowjacket Drop and family splash features offer different thrill levels and posted ride restrictions.",
+      "The FlowRider surf attraction requires at least 42 inches for boogie boarding and at least 48 inches for stand-up surfing, plus a signed stand-up waiver.",
+      "Epic Waters is city-owned and operated as a destination waterpark; visitors do not need an overnight hotel reservation for admission.",
+      "Park policies prohibit outside food, drinks and coolers, and require visitors age 16 or younger to have a responsible adult over age 21 present."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Epic Waters only available to hotel guests?",
+        "answer": "No. Epic Waters is a publicly accessible indoor waterpark owned by the City of Grand Prairie and operated independently from a hotel. Visitors can buy waterpark admission without reserving a room.",
+        "sourceUrl": "https://epicwatersgp.com/content/uploads/2025/02/Epic-Waters-Indoor-Waterpark-Fast-Facts.pdf"
+      },
+      {
+        "question": "Can teenagers visit Epic Waters without a parent or adult?",
+        "answer": "Not if they are 16 or younger. Epic Waters requires visitors age 16 and under to be accompanied by a responsible adult older than 21, who must remain onsite with identification; that adult may accompany up to six guests.",
+        "sourceUrl": "https://epicwatersgp.com/plan/general-park-policies/"
+      },
+      {
+        "question": "Can families take their own snacks, drinks or coolers into Epic Waters?",
+        "answer": "No. The park's published general policies prohibit outside food, drinks and coolers. Guests should plan around its onsite food options and check directly for any accommodation needed for medical reasons.",
+        "sourceUrl": "https://epicwatersgp.com/plan/general-park-policies/"
+      },
+      {
+        "question": "How tall must children be for Epic Waters FlowRider surfing?",
+        "answer": "FlowRider requires riders to be at least 42 inches tall for boogie boarding and at least 48 inches for standing surfing. Stand-up surfers must sign a waiver at Admissions before using that mode.",
+        "sourceUrl": "https://epicwatersgp.com/slides/flowrider/"
+      },
+      {
+        "question": "When is Epic Waters reopening after its October 2026 maintenance closure?",
+        "answer": "The operator announced a temporary closure from October 13 through October 29, 2026, with reopening scheduled Friday, October 30 at 10 a.m. Verify any updated announcement before making the drive.",
+        "sourceUrl": "https://epicwatersgp.com/"
+      }
+    ]
   },
   {
     "slug": "cove-lakefront-little-elm",
