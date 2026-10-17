@@ -259,6 +259,44 @@ for (const set of ["NON_PRIMARY_TRIP_PLANNER_SLUGS", "UNAVAILABLE_DESTINATION_SL
 }
 const unresolvedCandidates = [...candidate].filter((slug) => !knownAlias.has(slug) && !required.includes(slug));
 process.stdout.write(`State-park authority: 83 distinct park-specific source records monitored; ${unresolvedCandidates.length} older park/image fixture aliases still need exact photo/route review; non-facility authority certification requires separate browser and SEO checks.\n`);
+// October 17, 2026: park-by-park alerts and trip facts must remain individually
+// source-backed. An inability to load an alert must NEVER be converted into
+// an "all clear" statement for that park.
+const parkOct17 = [
+  ["atlanta-state-park", ["August 18", "November 30", "January 15", "wood and charcoal fires"]],
+  ["bonham-state-park", ["8.75 miles", "65-acre", "alert detail was not independently fetched"]],
+  ["daingerfield-state-park", ["74-acre Little Pine Lake", "Rustling Leaves", "alert details could not be independently read"]],
+  ["cooper-lake-state-park", ["Honey Creek launch", "Lone Pine", "charcoal cooking", "January 8"]],
+  ["lake-bob-sandlin-state-park", ["October 15, 2026", "both wood and charcoal"]],
+  ["lake-brownwood-state-park", ["Lakeside Trail", "WOOD-fire ban", "charcoal cooking", "January 3"]],
+];
+for (const [slug, facts] of parkOct17) {
+  const start = authority.indexOf(`  "${slug}": {`);
+  const end = authority.indexOf('\n  "', start + 6);
+  const block = start >= 0 ? authority.slice(start, end < 0 ? undefined : end) : "";
+  if (!block.includes('checkedAt: "2026-10-17"')) failures.push(`Park visitor source date not refreshed: ${slug}`);
+  if (!block.includes(`https://tpwd.texas.gov/state-parks/${slug.replace("-state-park", "")}/`)) failures.push(`Park lacks TPWD source URL: ${slug}`);
+  for (const fact of facts) if (!block.includes(fact)) failures.push(`Park ${slug} lost independently sourced detail: ${fact}`);
+}
+if (!authority.includes('url: "https://tpwd.texas.gov/state-parks/atlanta/alert"')) failures.push("Atlanta primary alert must remain linked as a supporting TPWD source.");
+
+// Substantive, park-specific editorial depth is not a generic SEO filler pass.
+const sixAuthority = read("src/data/state-park-six-authority-wave.ts");
+assertContains(curation, "applyStateParkSixAuthorityWave,", "Six TPWD place guides must be in the runtime curator pipeline");
+assertContains(sixAuthority, 'sourceCheckedAt: "2026-10-17"', "Six individual guides must retain the research date");
+assertContains(sixAuthority, "existing.join(\" \").length > 1800", "Researched older narratives must not be blindly discarded");
+for (const [slug, marker] of [
+  ["atlanta-state-park", "4.8 miles of trails"],
+  ["bonham-state-park", "2.7-mile Bois d'Arc Trail"],
+  ["daingerfield-state-park", "2.4-mile Rustling Leaves"],
+  ["cooper-lake-state-park", "10.5-mile Buggy Whip Trail"],
+  ["lake-bob-sandlin-state-park", "3.3 miles of wooded trails"],
+  ["lake-brownwood-state-park", "Nopales Ridge Trail"],
+]) {
+  assertContains(sixAuthority, `"${slug}"`, `Park authority narrative missing: ${slug}`);
+  assertContains(sixAuthority, marker, `Specific verified landmark/activity missing for ${slug}`);
+}
+
 if (failures.length) {
   for (const problem of failures) process.stderr.write(`FAIL ${problem}\n`);
   process.exitCode = 1;
