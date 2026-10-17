@@ -17,6 +17,13 @@ export type CountyVisitorPlace = {
 
 export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   {
+    "county": "bailey",
+    "name": "Ol’ Pete Mule Memorial Statue",
+    "category": "Art & architecture",
+    "description": "Muleshoe's public tribute to the working mule and its military role; a brief roadside photo stop.",
+    "sourceUrl": "https://texastimetravel.com/cities/muleshoe/"
+  },
+  {
     "county": "bee",
     "name": "Bees of Bee County Public Art Trail",
     "category": "Art & architecture",
@@ -29,6 +36,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Historic streets and locally significant downtown architecture.",
     "sourceUrl": "https://www.experiencebeecounty.org/about-bee-county/"
+  },
+  {
+    "county": "borden",
+    "name": "Old Borden County Jail",
+    "category": "History & heritage",
+    "description": "The surviving county jail on Gail's courthouse square. View the historic exterior; do not assume interior tours.",
+    "sourceUrl": "https://texastimetravel.com/regions/plains-trail/heritage-sites-and-attractions/"
   },
   {
     "county": "bosque",
@@ -73,6 +87,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.falfurrias.us/170/Attractions"
   },
   {
+    "county": "brown",
+    "name": "36th Division Memorial Park",
+    "category": "History & heritage",
+    "description": "Brownwood military-history park commemorating Camp Bowie with military equipment displays and historic interpretation.",
+    "sourceUrl": "https://texastimetravel.com/cities/brownwood/"
+  },
+  {
+    "county": "brown",
+    "name": "Santa Fe Depot and Harvey House",
+    "category": "History & heritage",
+    "description": "Restored railroad depot and Harvey House visitor stop interpreting Brownwood's rail history.",
+    "sourceUrl": "https://texastimetravel.com/cities/brownwood/"
+  },
+  {
     "county": "caldwell",
     "name": "Lockhart Historic Courthouse Square",
     "category": "History & heritage",
@@ -80,17 +108,31 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://visitlockharttx.org/"
   },
   {
-    "county": "camp",
-    "name": "Witness Park and Prayer Tower",
+    "county": "cameron",
+    "name": "Laguna Madre Nature Trail",
     "category": "Parks & recreation",
-    "description": "A distinctive Pittsburg landmark included in the city's visitor itinerary.",
-    "sourceUrl": "https://visit.pittsburgtx.gov/guides/one-day-in-pittsburg"
+    "description": "A South Padre Island birding boardwalk; located in Cameron County, not Willacy.",
+    "sourceUrl": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/ltc/south-padre-island-loop"
   },
   {
     "county": "camp",
     "name": "Carroll Shelby Statue in Pittsburg",
     "category": "Art & architecture",
     "description": "Public memorial to the automotive designer and racer from Pittsburg.",
+    "sourceUrl": "https://visit.pittsburgtx.gov/guides/one-day-in-pittsburg"
+  },
+  {
+    "county": "camp",
+    "name": "Efurd Orchards",
+    "category": "Parks & recreation",
+    "description": "Pittsburg-area orchard with seasonal fruit picking and farm produce; verify harvest dates and seasonal opening.",
+    "sourceUrl": "https://visit.pittsburgtx.gov/guides/one-day-in-pittsburg"
+  },
+  {
+    "county": "camp",
+    "name": "Witness Park and Prayer Tower",
+    "category": "Parks & recreation",
+    "description": "A distinctive Pittsburg landmark included in the city's visitor itinerary.",
     "sourceUrl": "https://visit.pittsburgtx.gov/guides/one-day-in-pittsburg"
   },
   {
@@ -108,10 +150,66 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/dimmitt/"
   },
   {
+    "county": "comanche",
+    "name": "Fleming Oak",
+    "category": "History & heritage",
+    "description": "Well-known historic oak in central Comanche associated with local frontier history and legend.",
+    "sourceUrl": "https://texastimetravel.com/cities/comanche/"
+  },
+  {
+    "county": "comanche",
+    "name": "Old Cora Log Courthouse",
+    "category": "History & heritage",
+    "description": "Texas' historic log courthouse from the former county seat of Cora, moved to Comanche; view the public grounds.",
+    "sourceUrl": "https://texastimetravel.com/cities/comanche/"
+  },
+  {
+    "county": "fort-bend",
+    "name": "Fort Bend County Epicenter",
+    "category": "Arts & culture",
+    "description": "Rosenberg arena and events complex hosting performances and community events; consult the event calendar.",
+    "sourceUrl": "https://www.fortbendcountytx.gov/your-county/tourism"
+  },
+  {
+    "county": "fort-bend",
+    "name": "Smart Financial Centre",
+    "category": "Arts & culture",
+    "description": "Sugar Land performance venue for touring concerts, comedy and live entertainment; ticketed events.",
+    "sourceUrl": "https://www.fortbendcountytx.gov/your-county/tourism"
+  },
+  {
+    "county": "fort-bend",
+    "name": "Stafford Centre",
+    "category": "Arts & culture",
+    "description": "Stafford performance and events venue featuring live shows, conferences and community programming.",
+    "sourceUrl": "https://www.fortbendcountytx.gov/your-county/tourism"
+  },
+  {
+    "county": "fort-bend",
+    "name": "Sugar Land Space Cowboys Baseball",
+    "category": "Arts & culture",
+    "description": "Minor-league baseball experience in Sugar Land; consult the current schedule before visiting.",
+    "sourceUrl": "https://www.fortbendcountytx.gov/your-county/tourism"
+  },
+  {
+    "county": "hale",
+    "name": "Plainview Aquatics Center",
+    "category": "Parks & recreation",
+    "description": "Seasonal municipal pool and aquatic recreation.",
+    "sourceUrl": "https://www.plainviewtx.org/576/Things-to-Do"
+  },
+  {
     "county": "hale",
     "name": "Plainview Downtown Mural Tour",
     "category": "Art & architecture",
     "description": "Public artwork and murals highlighted by the City of Plainview.",
+    "sourceUrl": "https://www.plainviewtx.org/576/Things-to-Do"
+  },
+  {
+    "county": "hale",
+    "name": "Plainview Point Monument",
+    "category": "History & heritage",
+    "description": "An interpretive monument linked to Plainview's archaeological history.",
     "sourceUrl": "https://www.plainviewtx.org/576/Things-to-Do"
   },
   {
@@ -123,24 +221,17 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "hale",
-    "name": "Plainview Point Monument",
-    "category": "History & heritage",
-    "description": "An interpretive monument linked to Plainview's archaeological history.",
-    "sourceUrl": "https://www.plainviewtx.org/576/Things-to-Do"
-  },
-  {
-    "county": "hale",
     "name": "Runningwater Draw Park Disc Golf Course",
     "category": "Parks & recreation",
     "description": "Municipal disc-golf activity; check conditions and park rules.",
     "sourceUrl": "https://www.plainviewtx.org/576/Things-to-Do"
   },
   {
-    "county": "hale",
-    "name": "Plainview Aquatics Center",
-    "category": "Parks & recreation",
-    "description": "Seasonal municipal pool and aquatic recreation.",
-    "sourceUrl": "https://www.plainviewtx.org/576/Things-to-Do"
+    "county": "houston",
+    "name": "Lightnin’ Hopkins Statue",
+    "category": "Art & architecture",
+    "description": "Public sculpture honoring the blues musician near Crockett's historic Camp Street.",
+    "sourceUrl": "https://texastimetravel.com/cities/crockett/"
   },
   {
     "county": "kimble",
@@ -148,6 +239,48 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "A public Junction river-area stop with historic bridge context.",
     "sourceUrl": "https://texastimetravel.com/cities/junction/"
+  },
+  {
+    "county": "matagorda",
+    "name": "Downtown Bay City Courthouse Square",
+    "category": "History & heritage",
+    "description": "Walkable historic square with shops and architecture around the Matagorda County Courthouse.",
+    "sourceUrl": "https://www.tourtexas.com/destinations/bay-city-matagorda-county-attractions"
+  },
+  {
+    "county": "matagorda",
+    "name": "LeTulle Park",
+    "category": "Parks & recreation",
+    "description": "Bay City public park with disc golf, picnic spaces and opportunities for bird and wildlife watching.",
+    "sourceUrl": "https://www.tourtexas.com/destinations/bay-city-matagorda-county-attractions"
+  },
+  {
+    "county": "matagorda",
+    "name": "Matagorda County Birding Nature Center",
+    "category": "Parks & recreation",
+    "description": "Trails and gardens along the Colorado River near Bay City, with coastal and migratory birdwatching.",
+    "sourceUrl": "https://www.tourtexas.com/destinations/bay-city-matagorda-county-attractions"
+  },
+  {
+    "county": "matagorda",
+    "name": "Palacios Golf Course",
+    "category": "Parks & recreation",
+    "description": "Nine-hole public golf course in Palacios; confirm current operating hours and tee times.",
+    "sourceUrl": "https://www.tourtexas.com/destinations/bay-city-matagorda-county-attractions"
+  },
+  {
+    "county": "matagorda",
+    "name": "Rio Colorado Golf Course",
+    "category": "Parks & recreation",
+    "description": "Golf course near Bay City beside the Colorado River; arrange tee times with the course.",
+    "sourceUrl": "https://www.tourtexas.com/destinations/bay-city-matagorda-county-attractions"
+  },
+  {
+    "county": "matagorda",
+    "name": "Riverside Park at Bay City",
+    "category": "Parks & recreation",
+    "description": "Colorado River park near Bay City with riverside recreation, trails and camping; confirm site fees and access.",
+    "sourceUrl": "https://www.tourtexas.com/attractions/Riverside-Park"
   },
   {
     "county": "mills",
@@ -164,11 +297,60 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://visitgoldthwaite.com/attractions"
   },
   {
-    "county": "nolan",
-    "name": "Newman Park",
+    "county": "montgomery",
+    "name": "Crighton Theatre",
+    "category": "Arts & culture",
+    "description": "Historic live-performance theater in downtown Conroe with plays, music and community productions.",
+    "sourceUrl": "https://www.visitconroe.com/things-to-do/arts-and-entertainment/"
+  },
+  {
+    "county": "montgomery",
+    "name": "Downtown Conroe Art Bench Walk",
+    "category": "Art & architecture",
+    "description": "Self-guided downtown look at artist-designed benches and the city's cultural district.",
+    "sourceUrl": "https://www.visitconroe.com/things-to-do/top-attractions/"
+  },
+  {
+    "county": "montgomery",
+    "name": "Fernland Historical Park",
+    "category": "History & heritage",
+    "description": "Montgomery heritage park with restored early Texas log homes and period structures.",
+    "sourceUrl": "https://www.visitconroe.com/things-to-do/top-attractions/"
+  },
+  {
+    "county": "montgomery",
+    "name": "Lone Star Monument and Historical Flag Park",
+    "category": "History & heritage",
+    "description": "Conroe monument with a Texian soldier sculpture and flags representing Texas history.",
+    "sourceUrl": "https://www.visitconroe.com/things-to-do/top-attractions/"
+  },
+  {
+    "county": "montgomery",
+    "name": "Madeley Fine Art Gallery",
+    "category": "Arts & culture",
+    "description": "Conroe Art League gallery hosting local exhibitions, art classes and artist events.",
+    "sourceUrl": "https://www.visitconroe.com/listing/madeley-fine-art-gallery/416/"
+  },
+  {
+    "county": "montgomery",
+    "name": "Montgomery County Veterans Memorial Park",
+    "category": "History & heritage",
+    "description": "Public veterans and first-responders memorial complex in Conroe.",
+    "sourceUrl": "https://www.visitconroe.com/listing/montgomery-county-veterans-memorial/658/"
+  },
+  {
+    "county": "montgomery",
+    "name": "Owen Theatre",
+    "category": "Arts & culture",
+    "description": "Intimate performing-arts venue in downtown Conroe; check Players Theatre productions and events.",
+    "sourceUrl": "https://www.visitconroe.com/things-to-do/arts-and-entertainment/"
+  },
+  {
+    "county": "montgomery",
+    "name": "W. Goodrich Jones State Forest",
     "category": "Parks & recreation",
-    "description": "A Sweetwater municipal park listed in local visitor resources.",
-    "sourceUrl": "https://www.sweetwatertx.gov/159/Visit-Sweetwater"
+    "description": "Public state-forest trails near Conroe for hiking, birding and observing East Texas pine habitats.",
+    "sourceUrl": "https://www.visitconroe.com/things-to-do/outdoors-and-recreation/hiking/"
   },
   {
     "county": "nolan",
@@ -186,10 +368,31 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "nolan",
+    "name": "Newman Park",
+    "category": "Parks & recreation",
+    "description": "A Sweetwater municipal park listed in local visitor resources.",
+    "sourceUrl": "https://www.sweetwatertx.gov/159/Visit-Sweetwater"
+  },
+  {
+    "county": "nolan",
     "name": "Sweetwater Municipal Auditorium and Gallery",
     "category": "Arts & culture",
     "description": "Civic performance and exhibition venue; check the event schedule.",
     "sourceUrl": "https://www.sweetwatertx.gov/159/Visit-Sweetwater"
+  },
+  {
+    "county": "shelby",
+    "name": "Historic Shelby County Courthouse",
+    "category": "History & heritage",
+    "description": "Restored 1885 courthouse in Center with unusual castle-inspired architecture; public tours are described by Texas Time Travel.",
+    "sourceUrl": "https://texastimetravel.com/directory/shelby-county-courthouse/"
+  },
+  {
+    "county": "shelby",
+    "name": "Historic Shelby County Jail",
+    "category": "History & heritage",
+    "description": "Historic former jail building near the Center courthouse square, now used by the chamber of commerce.",
+    "sourceUrl": "https://texastimetravel.com/cities/center/"
   },
   {
     "county": "starr",
@@ -200,24 +403,17 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "willacy",
-    "name": "Port Mansfield Nature Trail",
-    "category": "Parks & recreation",
-    "description": "Coastal birding and native-habitat trail referenced in TPWD's birding trail network.",
-    "sourceUrl": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/ltc/sacahuistale-loop/"
-  },
-  {
-    "county": "willacy",
     "name": "Fred Stone County Park",
     "category": "Parks & recreation",
     "description": "Public waterfront park at Port Mansfield with birding and bay views.",
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/ltc/sacahuistale-loop/"
   },
   {
-    "county": "cameron",
-    "name": "Laguna Madre Nature Trail",
+    "county": "willacy",
+    "name": "Port Mansfield Nature Trail",
     "category": "Parks & recreation",
-    "description": "A South Padre Island birding boardwalk; located in Cameron County, not Willacy.",
-    "sourceUrl": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/ltc/south-padre-island-loop"
+    "description": "Coastal birding and native-habitat trail referenced in TPWD's birding trail network.",
+    "sourceUrl": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/ltc/sacahuistale-loop/"
   }
 ];
 
