@@ -31,7 +31,7 @@ jobs:
             if (p.sourcePointCount < 1 || p.namedSiteClusters < 1 || p.namedSiteClusters > p.sourcePointCount) {
               throw new Error("GLO extract is empty or inconsistent; do not treat as complete.");
             }
-            if (typeof p.unmatchedBeachSwimmingCandidates !== "number") {
+            if (typeof p.unmatchedBeachSwimmingCandidates !== "number" || p.unmatchedBeachSwimmingCandidates < 1) {
               throw new Error("Beach-candidate filter missing from official source export.");
             }
             console.log(JSON.stringify({
@@ -40,6 +40,7 @@ jobs:
               exactNameClusters:p.exactMatchClusters,
               needsReviewClusters:p.needsReviewClusters,
               beachSwimmingCandidateClusters:p.unmatchedBeachSwimmingCandidates,
+              potentialNamedDestinationCandidates:p.potentialNamedBeachDestinationCandidates,
               sourceLayerEditDate:p.sourceLayerEditDate
             }));
           '
