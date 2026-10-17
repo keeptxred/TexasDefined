@@ -2007,6 +2007,185 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
+  "boerne": {
+    "slug": "boerne",
+    "seo": {
+      "title": "Boerne Greyhounds Football 2026 | State Final, UIL District & Stadium",
+      "description": "Boerne Greyhounds football: 2022 Class 4A DI state runner-up, 2026 5A DII District 13, 6–0 through Oct 8, Boerne ISD Stadium and original game-day FAQs."
+    },
+    "theme": {
+      "accentHex": "#65428C",
+      "label": "Independent editorial purple accent; no copied Boerne ISD crest or logo"
+    },
+    "campus": {
+      "address": "1 Greyhound Lane, Boerne, TX 78006",
+      "phone": "830-357-2200",
+      "sourceUrl": "https://bhs.boerneisd.net/424398_2",
+      "sourceLabel": "Boerne High School Athletics official high school contact, not certified game-day gate",
+      "verifiedAt": "2026-10-16"
+    },
+    "schedule": {
+      "label": "Boerne High School official varsity football calendar and notices",
+      "sourceUrl": "https://bhs.boerneisd.net/football",
+      "sourceLabel": "First-party BHS football and athletics coordinator contact",
+      "verifiedAt": "2026-10-16"
+    },
+    "venue": {
+      "name": "Boerne ISD Stadium",
+      "address": "1 Greyhound Lane, Boerne, TX 78006",
+      "sourceUrl": "https://www.boerneisd.net/graduation",
+      "sourceLabel": "Boerne ISD first-party stadium location, supplemented by BHS football event calendar naming the stadium",
+      "verifiedAt": "2026-10-16",
+      "note": "District event calendars name Boerne ISD Stadium for home football, and the district gives its street address as 1 Greyhound Lane. Confirm exact event venue, parking, entry gate and accessible seats with Boerne High athletics; these details were not independently verified."
+    },
+    "notice": {
+      "title": "Keep Boerne Greyhounds distinct from Champion Chargers",
+      "body": "UIL 2026–28 places Boerne High Greyhounds in 5A Division II District 13 and Boerne Champion Chargers in 5A Division I District 13. The official BHS football page names Brett Sawyer its athletic coordinator (830-357-2200), not independently a confirmed head varsity football coach under that exact title; Stan Leech is district Director of Athletics. Do not infer a coach appointment or use Champion campus directions for Greyhounds home games.",
+      "sourceUrl": "https://bhs.boerneisd.net/football",
+      "sourceLabel": "BHS Athletics staff-role distinctions and official school calendar",
+      "verifiedAt": "2026-10-16"
+    },
+    "season": {
+      "record": "6–0 through October 8, 2026 (dated MaxPreps; season continuing)",
+      "verifiedAt": "2026-10-16",
+      "sourceUrl": "https://www.maxpreps.com/tx/boerne/boerne-greyhounds/football/",
+      "sourceLabel": "MaxPreps 2026 six completed varsity games, crosschecked October 8 Long Creek with Texas Prep score index",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Round Rock Westwood",
+          "site": "Away",
+          "result": "W 34–14"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Laredo United",
+          "site": "Home",
+          "result": "W 41–34"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Davenport",
+          "site": "Away",
+          "result": "W 30–21"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Somerset",
+          "site": "Home",
+          "result": "W 42–21"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Alamo Heights",
+          "site": "Away",
+          "district": true,
+          "result": "W 38–31"
+        },
+        {
+          "date": "2026-10-08",
+          "opponent": "New Braunfels Long Creek",
+          "site": "Home",
+          "district": true,
+          "result": "W 63–35"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Liberty Hill",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "San Antonio Veterans Memorial",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "New Braunfels",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Liberty Hill Legacy Ranch",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "development": {
+      "title": "2022 Greyhounds reached the Class 4A Division I championship",
+      "body": "Boerne entered the 2022 final undefeated at 15–0 after a 35–0 state-semifinal win over Tyler Chapel Hill. China Spring rallied from a 21–0 deficit to win the Class 4A Division I final 24–21 on a late field goal, leaving Boerne 15–1 as state runner-up. UIL lists Che Hendrix as coach of that 2022 team; that historical title should not be assigned to an unsourced 2026 appointment. The school is now in 5A Division II, a different alignment cycle.",
+      "sourceUrl": "https://www.uiltexas.org/football/state-team/boerne-2022-2023-football",
+      "sourceLabel": "Official UIL 2022 Boerne pre-final record, with December final crosschecked against contemporary DCTF/KSAT reporting",
+      "verifiedAt": "2026-10-16"
+    },
+    "milestones": [
+      {
+        "date": "2022-12-09",
+        "title": "Greyhounds reach UIL championship game undefeated",
+        "body": "The 2022 Boerne state-team UIL roster lists 15–0 and head coach Che Hendrix before the China Spring final; semifinal win 35–0 over Tyler Chapel Hill.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team/boerne-2022-2023-football",
+        "sourceLabel": "UIL state-team archive"
+      },
+      {
+        "date": "2022-12-16",
+        "title": "State runner-up after 24–21 loss to China Spring",
+        "body": "China Spring came back from down 21–0 and won 24–21 on a late field goal; Boerne finished 15–1 and did not win the 4A Division I state title.",
+        "sourceUrl": "https://www.texasfootball.com/article/2022/12/16/china-springs-scores-24-unanswered-kicks-walkoff-fg-to-stun-boerne",
+        "sourceLabel": "Dave Campbell's contemporaneous state-final account"
+      },
+      {
+        "date": "2026",
+        "title": "Boerne and Champion enter separate UIL 5A divisions",
+        "body": "Boerne High is 5A Division II District 13; Boerne Champion is 5A Division I District 13. Do not confuse their 2026 scorecards.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf",
+        "sourceLabel": "UIL 2026–28 alphabetical official alignment"
+      },
+      {
+        "date": "2026-10-08",
+        "title": "63–35 home win over Long Creek for 6–0",
+        "body": "The Thursday October 8 Boerne final against New Braunfels Long Creek was 63–35, leaving the Greyhounds 6–0. A shorter schedule teaser sometimes mislabels it October 9.",
+        "sourceUrl": "https://www.maxpreps.com/tx/football/game/boerne-vs-long-creek-new-braunfels/10-8-2026/?c=57f7c4fd-ae02-4dab-b002-38ed323b62c8&tab=Recap",
+        "sourceLabel": "Exact 2026-10-08 MaxPreps final and Texas Prep corroboration"
+      }
+    ],
+    "overview": [
+      "Boerne High School's Greyhounds represent Boerne Independent School District in Kendall County, Texas. UIL's 2026–28 eleven-man realignment places Boerne in Class 5A Division II District 13 with Alamo Heights, Liberty Hill, Liberty Hill Legacy Ranch, New Braunfels, New Braunfels Long Creek and San Antonio Veterans Memorial. Samuel V. Champion High School's Chargers are a separate Boerne ISD team in 5A Division I District 13; their schedules and records are not interchangeable.",
+      "The 2022 Greyhounds made a memorable state-final run. The UIL's team archive listed Boerne 15–0 under coach Che Hendrix after a 35–0 semifinal win over Tyler Chapel Hill. In the Class 4A Division I final against China Spring, Boerne led 21–0 before losing 24–21 on a late field goal. The final record became 15–1: a state runner-up finish, not a championship. Do not apply the current 2026 5A division to that historical result.",
+      "Through Thursday, October 8, the 2026 Greyhounds had won all six reported varsity games. A 63–35 home win against New Braunfels Long Creek followed a 38–31 district win at Alamo Heights. Both MaxPreps' exact game result and another dated scores index support the Long Creek score. Some shorter schedule previews show October 9 for that Thursday contest, but the result page gives October 8. Upcoming Liberty Hill, Veterans Memorial, New Braunfels and Legacy Ranch games are fixtures, not forecasts or completed results.",
+      "Boerne High School lists its athletics campus at 1 Greyhound Lane and maintains a football calendar. District event information names Boerne ISD Stadium at the same street address as a football home venue. The school's football page names Brett Sawyer its athletic coordinator at 830-357-2200; district director of athletics Stan Leech is separately reached at 830-357-2133. Those job titles should not be mistaken for a formally verified current head-coach appointment.",
+      "Spectators should verify the specific game's venue, current tickets, accessible parking and stadium gate using the Boerne High School varsity schedule before traveling. Neither those detailed visitor arrangements nor rights for a school-owned stadium photograph were independently certified here. The separate Champion High School campus at 201 Charger Boulevard is not the Greyhounds' stadium address."
+    ],
+    "faq": [
+      {
+        "question": "Are the Boerne Greyhounds and Boerne Champion Chargers the same team?",
+        "answer": "No. Boerne High's Greyhounds play UIL 5A Division II District 13 in 2026; Samuel V. Champion High's Chargers play 5A Division I District 13. Both are Boerne ISD but their game records, stadium arrangements and histories must be checked separately."
+      },
+      {
+        "question": "Did Boerne win the 2022 Class 4A Division I state football championship?",
+        "answer": "No. Boerne entered the 2022 title game 15–0 but lost 24–21 to China Spring after leading 21–0. The Greyhounds finished 15–1 as state runners-up."
+      },
+      {
+        "question": "What was the Boerne Greyhounds' record through October 8, 2026?",
+        "answer": "Boerne was 6–0 after its October 8 Thursday home victory over New Braunfels Long Creek, 63–35. Games scheduled for October 16 and later were still upcoming as of this dated review."
+      },
+      {
+        "question": "Which UIL football district does Boerne High play in for 2026?",
+        "answer": "UIL lists Boerne High in Class 5A Division II District 13 with Alamo Heights, Liberty Hill and Legacy Ranch, New Braunfels and Long Creek, and San Antonio Veterans Memorial."
+      },
+      {
+        "question": "Where is Boerne ISD Stadium for Greyhounds football?",
+        "answer": "Boerne ISD locates the stadium at 1 Greyhound Lane in Boerne; school football event calendars also identify Boerne ISD Stadium for home games. Confirm the particular game venue, entry gate and accessible parking with BHS before driving."
+      },
+      {
+        "question": "Who can verify Greyhounds tickets, staff and accessibility?",
+        "answer": "Boerne High's football page identifies athletic coordinator Brett Sawyer at 830-357-2200 and district athletic director Stan Leech at 830-357-2133. Check the official calendar for current ticket, accessible-entry and staffing information rather than assuming an unverified coach or stadium gate."
+      }
+    ]
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {

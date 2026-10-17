@@ -41,6 +41,7 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    boerne: 'kendall', // First-party Boerne High School located in Boerne, Kendall County.
     blum: 'hill', // Blum ISD campus in Hill County.
     'bluff-dale': 'erath', // Bluff Dale ISD in Erath County.
     'baytown-goose-creek-memorial': 'harris',
