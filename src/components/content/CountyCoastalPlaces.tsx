@@ -15,7 +15,7 @@ const COUNTY_COASTAL_LINKS: Record<string, readonly CoastalLink[]> = {
     ['east-beach-galveston', 'East Beach'],
     ['stewart-beach', 'Stewart Beach'],
     ['galveston-seawall-beaches', 'Galveston Seawall Beaches'],
-    ['porretto-beach', 'Porretto Beach'],
+    // Porretto Beach is privately owned with unverified 2026 public access; do not recommend as an ordinary beach stop.
     ['babes-beach', "Babe's Beach"],
     ['galveston-pocket-park-1', 'Galveston Pocket Park 1'],
     ['galveston-pocket-park-2', 'Galveston Pocket Park 2'],
