@@ -16,6 +16,24 @@ test('football game-night guide is part of existing profile with notice guard', 
   assert.match(profile, /schoolWebsite=\{program\?\.schoolWebsite\}/);
 });
 
+test('mobile readers reach game-night actions and season before historical research', () => {
+  const guideIndex = profile.indexOf('<FootballGameNightGuide');
+  const factsIndex = profile.indexOf('aria-label={`${displayName} verified football facts`}');
+  const seasonIndex = profile.indexOf('id="football-current-season"');
+  const overviewIndex = profile.indexOf('Program overview');
+  const milestonesIndex = profile.indexOf('The program story');
+  const historyIndex = profile.indexOf('All-time UIL state-final record');
+  assert.ok(guideIndex > 0 && guideIndex < factsIndex, 'game-night actions must precede the facts table');
+  assert.ok(factsIndex < seasonIndex, 'facts must precede the current schedule');
+  assert.ok(seasonIndex < overviewIndex && seasonIndex < milestonesIndex && seasonIndex < historyIndex,
+    'the current season must be above background and history');
+  assert.match(profile, /grid-cols-2 gap-x-5 border-b border-border py-3 text-sm sm:grid-cols-3 lg:grid-cols-6/);
+  assert.match(profile, /hasSeasonSection=\{!!program\}/);
+  assert.match(panel, /href="#football-current-season"/);
+  assert.match(panel, /\{hasSeasonSection && \(/);
+  assert.match(panel, /scroll-mt-36|football-current-season/);
+});
+
 test('game-night panel uses sourced schedules and cannot invent times or ticket availability', () => {
   assert.match(panel, /!game\.result/);
   assert.match(panel, /America\/Chicago/);
