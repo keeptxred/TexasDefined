@@ -239,16 +239,7 @@ function Page() {
           <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{footballName}</h1>
           <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">{profileSummary}</p>
         </div>
-        <dl className="border-y border-border py-3 text-sm lg:border-y-0 lg:border-l lg:pl-6">
-          <Fact label="Governing body" value={associationLabel} />
-          {program && <Fact label="Current alignment" value={alignmentLabel(program)} />}
-          {!program && privateAlignment && <Fact label="Current alignment" value={privateAlignmentLabel(privateAlignment)} />}
-          {program && <Fact label="Football district" value={String(program.district)} />}
-          {program?.uilEnrollment && <Fact label="UIL enrollment" value={program.uilEnrollment.toLocaleString('en-US')} />}
-          {!program && privateAlignment?.districtLabel && <Fact label="Football district" value={privateAlignment.districtLabel} />}
-          <Fact label="Format" value={program?.footballType || privateAlignment?.footballType} />
-          {editorial?.coach && <Fact label="Head coach" value={editorial.coach.name} />}
-        </dl>
+
       </header>
 
       {editorial?.notice && <aside aria-label="Current school football season status" className="border-b border-border py-7">
@@ -272,6 +263,58 @@ function Page() {
           schoolWebsite={program?.schoolWebsite}
         />
       )}
+
+      {/* Put verified visitor actions and the actual season ahead of history and enrollment. */}
+        <dl aria-label={`${displayName} verified football facts`} className="grid grid-cols-2 gap-x-5 border-b border-border py-3 text-sm sm:grid-cols-3 lg:grid-cols-6">
+          <Fact label="Governing body" value={associationLabel} />
+          {program && <Fact label="Current alignment" value={alignmentLabel(program)} />}
+          {!program && privateAlignment && <Fact label="Current alignment" value={privateAlignmentLabel(privateAlignment)} />}
+          {program && <Fact label="Football district" value={String(program.district)} />}
+          {program?.uilEnrollment && <Fact label="UIL enrollment" value={program.uilEnrollment.toLocaleString('en-US')} />}
+          {!program && privateAlignment?.districtLabel && <Fact label="Football district" value={privateAlignment.districtLabel} />}
+          <Fact label="Format" value={program?.footballType || privateAlignment?.footballType} />
+          {editorial?.coach && <Fact label="Head coach" value={editorial.coach.name} />}
+        </dl>
+
+      {program && !editorial?.notice && <section id="football-current-season" className="scroll-mt-36 grid gap-8 border-b border-border py-8 sm:py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Current season</p>
+          <h2 className="mt-2 font-display text-3xl">{editorial?.season ? '2026 results & schedule' : '2026 schedule & results sources'}</h2>
+          {editorial?.season && <p className="mt-4 text-sm leading-7 text-muted-foreground">Season data checked {editorial.season.verifiedAt}. Recheck the school source before travel because kickoff times and venues can change.</p>}
+        </div>
+        <div className="min-w-0">
+          {editorial?.season ? <>
+            <dl className="grid gap-px border border-border bg-border sm:grid-cols-2">
+              <Snapshot label="Record when checked" value={editorial.season.record} />
+              <Snapshot label="Season data verified" value={editorial.season.verifiedAt} />
+            </dl>
+            <div role="region" aria-label="Scrollable 2026 football results and schedule table" tabIndex={0} className="mt-5 w-full max-w-full overflow-x-auto border-y border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+              <table className="w-full min-w-[38rem] text-left text-sm">
+                <thead className="border-b border-border text-xs uppercase tracking-[0.1em] text-muted-foreground">
+                  <tr><th className="px-3 py-3">Date</th><th className="px-3 py-3">Opponent</th><th className="px-3 py-3">Site</th><th className="px-3 py-3">Result / status</th></tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {editorial.season.games.map((game) => <tr key={`${game.date}:${game.opponent}`}>
+                    <td className="px-3 py-3 font-semibold">{game.date}</td>
+                    <td className="px-3 py-3">{game.opponent}{game.district ? ' *' : ''}</td>
+                    <td className="px-3 py-3 text-muted-foreground">{game.site}</td>
+                    <td className="px-3 py-3">{game.result || 'Scheduled'}</td>
+                  </tr>)}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-3 text-xs leading-6 text-muted-foreground">* District game. This table is a dated editorial snapshot, not a live scoreboard.</p>
+            <a href={editorial.season.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.season.sourceLabel} ↗</a>
+          </> : <p className="max-w-4xl text-sm leading-7 text-muted-foreground">TexasDefined does not publish a team-specific schedule here unless the current season has been separately verified. Use UIL’s Texas Scoreboard and the school’s own athletics information for the latest game dates and results. The UIL scoreboard is powered by information submitted through MaxPreps; completeness depends on school and coach submissions, and it is not an official district-standings table.</p>}
+          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+            <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard gateway ↗</a>
+            {editorial?.schedule && <a href={editorial.schedule.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.schedule.label} ↗</a>}
+            {program.schoolWebsite && <a href={program.schoolWebsite} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official school athletics / website ↗</a>}
+            <a href="/article/texas-high-school-football-scores-schedules" className="text-primary underline underline-offset-4">How to verify scores, schedules & standings →</a>
+            <a href="/article/texas-high-school-football-2026-season-calendar" className="text-primary underline underline-offset-4">2026 UIL season calendar →</a>
+          </div>
+        </div>
+      </section>}
 
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
@@ -562,45 +605,7 @@ function Page() {
         </div>
       </section>}
 
-      {program && !editorial?.notice && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
-        <div>
-          <p className="eyebrow text-primary">Current season</p>
-          <h2 className="mt-2 font-display text-3xl">{editorial?.season ? '2026 results & schedule' : '2026 schedule & results sources'}</h2>
-          {editorial?.season && <p className="mt-4 text-sm leading-7 text-muted-foreground">Season data checked {editorial.season.verifiedAt}. Recheck the school source before travel because kickoff times and venues can change.</p>}
-        </div>
-        <div className="min-w-0">
-          {editorial?.season ? <>
-            <dl className="grid gap-px border border-border bg-border sm:grid-cols-2">
-              <Snapshot label="Record when checked" value={editorial.season.record} />
-              <Snapshot label="Season data verified" value={editorial.season.verifiedAt} />
-            </dl>
-            <div role="region" aria-label="Scrollable 2026 football results and schedule table" tabIndex={0} className="mt-5 w-full max-w-full overflow-x-auto border-y border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
-              <table className="w-full min-w-[38rem] text-left text-sm">
-                <thead className="border-b border-border text-xs uppercase tracking-[0.1em] text-muted-foreground">
-                  <tr><th className="px-3 py-3">Date</th><th className="px-3 py-3">Opponent</th><th className="px-3 py-3">Site</th><th className="px-3 py-3">Result / status</th></tr>
-                </thead>
-                <tbody className="divide-y divide-border">
-                  {editorial.season.games.map((game) => <tr key={`${game.date}:${game.opponent}`}>
-                    <td className="px-3 py-3 font-semibold">{game.date}</td>
-                    <td className="px-3 py-3">{game.opponent}{game.district ? ' *' : ''}</td>
-                    <td className="px-3 py-3 text-muted-foreground">{game.site}</td>
-                    <td className="px-3 py-3">{game.result || 'Scheduled'}</td>
-                  </tr>)}
-                </tbody>
-              </table>
-            </div>
-            <p className="mt-3 text-xs leading-6 text-muted-foreground">* District game. This table is a dated editorial snapshot, not a live scoreboard.</p>
-            <a href={editorial.season.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.season.sourceLabel} ↗</a>
-          </> : <p className="max-w-4xl text-sm leading-7 text-muted-foreground">TexasDefined does not publish a team-specific schedule here unless the current season has been separately verified. Use UIL’s Texas Scoreboard and the school’s own athletics information for the latest game dates and results. The UIL scoreboard is powered by information submitted through MaxPreps; completeness depends on school and coach submissions, and it is not an official district-standings table.</p>}
-          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
-            <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard gateway ↗</a>
-            {editorial?.schedule && <a href={editorial.schedule.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.schedule.label} ↗</a>}
-            {program.schoolWebsite && <a href={program.schoolWebsite} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official school athletics / website ↗</a>}
-            <a href="/article/texas-high-school-football-scores-schedules" className="text-primary underline underline-offset-4">How to verify scores, schedules & standings →</a>
-            <a href="/article/texas-high-school-football-2026-season-calendar" className="text-primary underline underline-offset-4">2026 UIL season calendar →</a>
-          </div>
-        </div>
-      </section>}
+
 
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
