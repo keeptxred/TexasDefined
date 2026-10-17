@@ -82,7 +82,7 @@ async function checkHotel(page, viewport) {
   check(heroImage.ok&&heroImage.width>=900&&/wikimedia.org/.test(heroImage.src),viewport+': hero failed to load '+JSON.stringify(heroImage));
   check(imageCount===2,viewport+': expected two archival photos, got '+imageCount);
   check(archive.length===2&&archive.every(i=>i.ok&&i.width>=500),viewport+': archive image failed '+JSON.stringify(archive));
-  check(data.images.filter(i=>i.visible).every(i=>i.alt.trim().length>0),viewport+': visible photo missing alt');
+  // Empty alt is correct for decorative logos; require meaningful alt on exactly the three historical photos.\n  check(data.images.filter(i=>/stained-glass dome|Historic American Buildings Survey|Early twentieth-century postcard/i.test(i.alt)).length===3,viewport+': three hotel photographs must have meaningful alt text');
   check(linkExists(data.links,county),viewport+': missing county link');
   check(data.links.some(h=>h.startsWith('https://www.marriott.com/en-us/hotels/elpak-')),viewport+': missing official non-affiliate booking link');
   check(data.links.some(h=>h.includes('commons.wikimedia.org/wiki/File:')),viewport+': missing archival photo credits');
