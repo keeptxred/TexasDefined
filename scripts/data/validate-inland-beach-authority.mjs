@@ -71,4 +71,24 @@ assert.ok(page.includes("lifeguards"));
 assert.ok(coastAndLakes.includes('match.slug === "beaches-coast" || match.slug === "lakes-rivers"'));
 assert.ok(coastAndLakes.includes('<Link to="/explore/inland-beaches"'));
 assert.equal(sitemap.split('"/explore/inland-beaches"').length - 1, 2, "Both primary and fallback explore sitemaps must list the guide");
+
+const coastalEditorialText = read("src/data/coastal-beach-editorial.ts");
+const sourceBlock = coastalEditorialText.match(/= (\\{[\\s\\S]*\\});\\s*$/);
+assert.ok(sourceBlock, "Official coastal beach editorial data must be complete JSON-compatible source records");
+const editorial = JSON.parse(sourceBlock[1]);
+const researchedSlugs = Object.keys(editorial);
+assert.equal(researchedSlugs.length, 9, "All nine separately researched high-traffic coastal pages must remain present");
+const coastCatalogSlugs = [...read("src/data/coastal-places.ts").matchAll(/^    slug: "([^"]+)",/gm)].map((m) => m[1]);
+for (const slug of researchedSlugs) {
+  const entry = editorial[slug];
+  assert.ok(coastCatalogSlugs.includes(slug), `Coastal editorial page has no canonical source record: ${slug}`);
+  for (const field of ["headline", "arrival", "rules", "visitorDecision"]) {
+    assert.ok(entry[field]?.length >= 55, `Coastal editorial entry ${slug} missing original research: ${field}`);
+  }
+  assert.match(entry.sourceUrl, /^https:\\/\\//, slug);
+  assert.match(entry.extraUrl, /^https:\\/\\//, slug);
+}
+assert.ok(coastalGuide.includes("COASTAL_BEACH_EDITORIAL[rawSlug]"), "Individual coastal destination must render its own source-backed details");
+assert.ok(coastalGuide.includes("editorial.sourceUrl") && coastalGuide.includes("editorial.extraUrl"), "Operator sources must remain visible on each enriched page");
+
 console.log(`Beach authority contract validated: ${expectedSlugs.length} individual inland guides, 52 coastal guide hooks, county backlinks and XML sitemaps.`);
