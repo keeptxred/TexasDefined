@@ -170,8 +170,8 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
 const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
   kendall: [{ name: 'Boerne Greyhounds', slug: 'boerne', context: '2022 4A Division I state runner-up and 2026 Boerne ISD Stadium guide, distinct from Champion Chargers' }, { name: 'Boerne Champion Chargers', slug: 'boerne-champion', context: '2026 Class 5A Division I District 13 Chargers, Blane Ellis, shared stadium ticket rules and 2025 playoff history' }],
   'red-river': [{ name: 'Bogata Rivercrest Rebels', slug: 'bogata-rivercrest', context: 'Rivercrest ISD Red River County guide: UIL 2A Division I District 9 and 2026 triple-overtime Wolfe City win' }],
+  fannin: [{ name: 'Bonham Purple Warriors', slug: 'bonham', context: '2026 UIL 4A DII District 7, Aaron Ford, and online-only home ticket guidance for Bonham' }],
   wharton: [{ name: 'Boling Bulldogs', slug: 'boling', context: 'UIL 1972 Class 2A champions, 2016 state finalists and current Wharton County varsity program' }],
-  fannin: [{ name: 'Bonham Purple Warriors', slug: 'bonham', context: 'April 2026 Aaron Ford hire, current UIL District 7 and Warriors football in Fannin County' }],
   lipscomb: [{ name: 'Booker Kiowas', slug: 'booker', context: 'Booker ISD Kiowas six-man UIL District 1, 2025 undefeated district and 2026 schedule' }],
   erath: [{ name: 'Bluff Dale Bobcats', slug: 'bluff-dale', context: '2026 UIL Division I six-man District 11, Erath County school contacts and dated football results' }],
   // Batch 005 remaining 14 researched team links, retaining prior schools per county.

@@ -108,6 +108,16 @@ export function buildFootballProfileFaq(input: FootballProfileContentInput): Foo
   const { displayName, program, identity, privateAlignment, venueLinks = [], editorial } = input;
   const items: FootballProfileFaq[] = [];
 
+  // Keep the verified coach answer ahead of generic classification/district FAQs.
+  // With five authored Aubrey questions, adding coach last would exceed the
+  // eight-question presentation limit and silently remove the coach answer.
+  if (editorial?.coach) {
+    items.push({
+      question: `Who is the ${displayName} football head coach?`,
+      answer: `The current school-source entry used by TexasDefined lists ${editorial.coach.name} as the head football coach.`,
+    });
+  }
+
   if (program) {
     items.push({
       question: `What classification is ${displayName} football in for 2026–28?`,
@@ -151,13 +161,6 @@ export function buildFootballProfileFaq(input: FootballProfileContentInput): Foo
     });
   }
 
-  if (editorial?.coach) {
-    items.push({
-      question: `Who is the ${displayName} football head coach?`,
-      answer: `The current school-source entry used by TexasDefined lists ${editorial.coach.name} as the head football coach.`,
-    });
-  }
-
   if (!editorial?.notice) {
     items.push({
       question: `Where can I verify the current ${displayName} football schedule and scores?`,
@@ -170,7 +173,12 @@ export function buildFootballProfileFaq(input: FootballProfileContentInput): Foo
   const merged = [...(editorial?.faq ?? []), ...items];
   const seen = new Set<string>();
   return merged.filter((item) => {
-    const key = item.question.trim().toLowerCase();
+    // Editorial and generated questions can ask the same coaching question in
+    // different words. Preserve the editorial answer, which comes first.
+    const question = item.question.trim().toLowerCase().replace(/\s+/g, ' ');
+    const key = /\b(?:head (?:football )?coach|football head coach|varsity football coach|who coaches)\b/.test(question)
+      ? 'head-football-coach'
+      : question;
     if (seen.has(key)) return false;
     seen.add(key);
     return true;

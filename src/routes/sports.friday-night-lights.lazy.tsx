@@ -6,6 +6,18 @@ export const Route = createLazyFileRoute("/sports/friday-night-lights")({ compon
 
 const startHere = [
   {
+    title: "Friday night football matchups & verified scores",
+    description: "Explore source-backed individual games, schedules, results and both school pages. Each result shows when its source was checked.",
+    href: "/texas-high-school-football-matchups",
+    label: "Browse matchups",
+  },
+  {
+    title: "2026 football brackets — all 12 divisions",
+    description: "Select a UIL class and division, check verified games as available, and open the official MaxPreps-powered UIL bracket.",
+    href: "/texas-high-school-football-playoff-brackets",
+    label: "Follow playoff brackets",
+  },
+  {
     title: "New to Texas high school football?",
     description: "Start with the practical primer: what happens before kickoff, what to expect in the stands, how school communities organize game night and what first-timers usually miss.",
     href: "/article/texas-high-school-football-newcomers",

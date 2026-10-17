@@ -253,6 +253,8 @@
       "HIGH",
       "MEDIUM",
       "LOW"
-    ]
+    ],
+    "latestLiveInspectionAudit": "ops/seo/gsc-live-inspection-audit-2026-10-17.json",
+    "latestLiveInspectionAuditDate": "2026-10-17"
   }
 }

@@ -73,6 +73,27 @@ test('planner corrections retest previously missed editorial SSR links, not enti
   assert.equal(plan.expectedHrefsByPage['/article/texas-cultural-regions-explained'][0], '/article/texas-oil-boom-wichita-falls-west-texas-rigs');
 });
 
+test('football template changes verify only two real team pages and their live game-night paths', async () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'] });
+  assert.deepEqual(plan.selectedPaths, [
+    '/texas-high-school-football-teams/aledo',
+    '/texas-high-school-football-teams/southlake-carroll',
+  ]);
+  assert.deepEqual(plan.footballGameNightPages, plan.selectedPaths);
+  const html = (url, valid) => '<html><title>Team guide</title>'
+    + '<link rel="canonical" href="https://texasdefined.com' + url.pathname + '">'
+    + '<h2>Game-night essentials</h2>'
+    + '<a href="#football-current-season">2026 results and schedule</a>'
+    + (valid ? 'Browse the TexasDefined shop' : '')
+    + '<section id="football-current-season">Current season</section>'
+    + '<section>Program overview</section></html>';
+  const success = await verifyChangedPages({ plan, head, fetchImpl: async url => new Response(html(url, true)) });
+  assert.equal(success.length, 2);
+  assert.ok(success.every(record => record.passed));
+  const fail = await verifyChangedPages({ plan, head, fetchImpl: async url => new Response(html(url, false)) });
+  assert.ok(fail.every(record => !record.passed && /commerce link absent/.test(record.error)));
+});
+
 test('a shared fishing species change smoke-checks only four real family links', () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/fishing/species-guide-data.server.ts'] });
   assert.deepEqual(plan.selectedPaths, [
@@ -192,8 +213,21 @@ test('shared runtime changes and missing baseline select representative coverage
   for (const args of [{ baseline, changedFiles: ['src/routes/__root.tsx'] }, { baseline: null, changedFiles: [] }]) {
     const plan = buildChangePlan({ ...args, head });
     assert.deepEqual(new Set(plan.selectedPaths), new Set(REPRESENTATIVE_PATHS));
-    assert.ok(Object.values(plan.groups).every(Boolean));
+    // The horse-racing acceptance is deliberately change-scoped, not a generic
+    // shared-release/sitewide crawl. Other representative groups retain prior behavior.
+    const { horse_racing, ...regularGroups } = plan.groups;
+    assert.equal(horse_racing, false);
+    assert.ok(Object.values(regularGroups).every(Boolean));
   }
+});
+
+test('horse racing authority is verified only for a racing change, not an unrelated deployment', () => {
+  const change = buildChangePlan({ baseline, head, changedFiles: ['src/data/horse-racing-authority.ts'] });
+  assert.equal(change.groups.horse_racing, true);
+  const unrelated = buildChangePlan({ baseline, head, changedFiles: ['src/routes/__root.tsx'] });
+  assert.equal(unrelated.groups.horse_racing, false);
+  const workflowOnly = buildChangePlan({ baseline, head, changedFiles: ['.github/workflows/verify-aubrey-football.yml'] });
+  assert.equal(workflowOnly.groups.horse_racing, false);
 });
 
 test('deleted feature files still select their native gate and large updates disclose sampling', () => {

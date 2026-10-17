@@ -425,9 +425,10 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
   {
     slug: 'alief-taylor',
     mascot: 'Lions',
-    sourceUrl: 'https://taylor.aliefisd.net/',
-    sourceLabel: 'Alief Taylor High School',
-    verifiedAt: '2026-09-20',
+    colors: 'Red, Navy and White',
+    sourceUrl: 'https://cdnc.heyzine.com/files/uploaded/302a4df582ac27612cf212727258969dcbe268cc.pdf',
+    sourceLabel: 'Published Alief Taylor 2025–26 athletics program lists school colors as red, navy and white',
+    verifiedAt: '2026-10-16',
   },
   {
     slug: 'alvin',
