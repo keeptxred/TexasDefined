@@ -1,3 +1,4 @@
+import { nonPrimaryTripPlannerSlugs } from '@/data/destination-availability';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 
 type CoastalLink = readonly [slug: string, name: string, destinationSlug?: string];
@@ -15,7 +16,7 @@ const COUNTY_COASTAL_LINKS: Record<string, readonly CoastalLink[]> = {
     ['east-beach-galveston', 'East Beach'],
     ['stewart-beach', 'Stewart Beach'],
     ['galveston-seawall-beaches', 'Galveston Seawall Beaches'],
-    ['porretto-beach', 'Porretto Beach'],
+    ['porretto-beach', 'Porretto Beach'], // Preserve county identity; public recommendations use the shared trip-planner eligibility gate.
     ['babes-beach', "Babe's Beach"],
     ['galveston-pocket-park-1', 'Galveston Pocket Park 1'],
     ['galveston-pocket-park-2', 'Galveston Pocket Park 2'],
@@ -83,7 +84,8 @@ const COUNTY_COASTAL_LINKS: Record<string, readonly CoastalLink[]> = {
 };
 
 export function CountyCoastalPlaces({ county }: { county: TexasEntityRecord }) {
-  const places = COUNTY_COASTAL_LINKS[county.slug] ?? [];
+  const ineligible = new Set(nonPrimaryTripPlannerSlugs());
+  const places = (COUNTY_COASTAL_LINKS[county.slug] ?? []).filter(([slug, , destinationSlug]) => !ineligible.has(slug) && (!destinationSlug || !ineligible.has(destinationSlug)));
   if (!places.length) return null;
 
   return <section className="border-b border-border py-12" aria-labelledby="county-coastal-places-heading">
