@@ -1,8 +1,8 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { texasDefinedBrand } from "@/brand/texasdefined";
-import { Container } from "@/components/layout/Container";
-import { inlandBeachBySlug, inlandSwimmingBeaches } from "@/data/inland-beach-authority";
-import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
+import { createFileRoute, Link, notFound } from"@tanstack/react-router";
+import { texasDefinedBrand } from"@/brand/texasdefined";
+import { Container } from"@/components/layout/Container";
+import { inlandBeachBySlug, inlandSwimmingBeaches } from"@/data/inland-beach-authority";
+import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from"@/lib/seo";
 
 export const Route = createFileRoute("/explore/inland-beaches/$slug")({
   loader: ({ params }) => {
@@ -21,24 +21,24 @@ export const Route = createFileRoute("/explore/inland-beaches/$slug")({
       meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
-        "@context": "https://schema.org",
-        "@graph": [
+"@context":"https://schema.org",
+"@graph": [
           {
-            "@type": "TouristAttraction",
-            "@id": `${url}#beach`,
+"@type":"TouristAttraction",
+"@id": `${url}#beach`,
             url,
             name: beach.name,
             description: beach.experience,
-            containedInPlace: { "@type": "Place", name: beach.lake },
-            address: { "@type": "PostalAddress", addressLocality: beach.nearestTown, addressRegion: "TX", addressCountry: "US" },
-            subjectOf: { "@type": "CreativeWork", url: beach.officialUrl },
+            containedInPlace: {"@type":"Place", name: beach.lake },
+            address: {"@type":"PostalAddress", addressLocality: beach.nearestTown, addressRegion:"TX", addressCountry:"US" },
+            subjectOf: {"@type":"CreativeWork", url: beach.officialUrl },
           },
           {
-            "@type": "BreadcrumbList",
+"@type":"BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Explore Texas", item: absoluteUrl(texasDefinedBrand, "/explore") },
-              { "@type": "ListItem", position: 2, name: "Texas Inland Beaches", item: absoluteUrl(texasDefinedBrand, "/explore/inland-beaches") },
-              { "@type": "ListItem", position: 3, name: beach.name, item: url },
+              {"@type":"ListItem", position: 1, name:"Explore Texas", item: absoluteUrl(texasDefinedBrand,"/explore") },
+              {"@type":"ListItem", position: 2, name:"Texas Inland Beaches", item: absoluteUrl(texasDefinedBrand,"/explore/inland-beaches") },
+              {"@type":"ListItem", position: 3, name: beach.name, item: url },
             ],
           },
         ],
@@ -50,28 +50,28 @@ export const Route = createFileRoute("/explore/inland-beaches/$slug")({
 
 function InlandBeachAuthorityPage() {
   const beach = Route.useLoaderData();
-  const countyPaths = beach.county.split(" / ").map((county) => ({
+  const countyPaths = beach.county.split(" /").map((county) => ({
     name: county.trim(),
-    slug: county.trim().toLowerCase().replace(/\s+/g, "-"),
+    slug: county.trim().toLowerCase().replace(/\s+/g,"-"),
   }));
   const otherBeaches = inlandSwimmingBeaches.filter((item) => item.slug !== beach.slug && (item.lake === beach.lake || item.county === beach.county)).slice(0, 4);
   return <main>
     <Container className="py-12 sm:py-16">
-      <nav aria-label="Breadcrumbs" className="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+      <nav aria-label="Breadcrumbs" className="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
         <Link to="/explore" className="hover:text-primary">Explore</Link><span aria-hidden>›</span>
         <Link to="/explore/inland-beaches" className="hover:text-primary">Inland beaches</Link><span aria-hidden>›</span>
         <span>{beach.name}</span>
       </nav>
-      <header className="mt-9 max-w-5xl border-b border-border pb-10">
+      <header className="mt-8 max-w-5xl border-b border-border pb-10">
         <p className="eyebrow text-primary">{beach.lake} · {beach.county} County · Source reviewed {beach.checkedAt}</p>
-        <h1 className="mt-4 font-display text-5xl leading-[1.05] sm:text-7xl">{beach.name}</h1>
+        <h1 className="mt-4 font-display text-5xl leading-tight sm:text-7xl">{beach.name}</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{beach.experience}</p>
         <div className="mt-6 flex flex-wrap gap-5 text-sm font-semibold">
           <a href={beach.officialUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Official visitor source →</a>
           <Link to="/explore/inland-beaches" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Compare other lake beaches →</Link>
         </div>
       </header>
-      <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1.6fr)_minmax(240px,.65fr)]">
+      <div className="mt-10 grid gap-10 lg:grid-cols-2">
         <div className="min-w-0">
           <section aria-labelledby="beach-quick-answer">
             <p className="eyebrow text-primary">At a glance</p>
@@ -109,7 +109,7 @@ function InlandBeachAuthorityPage() {
             </dl>
           </section>
         </div>
-        <aside className="space-y-7">
+        <aside className="space-y-6">
           <div className="border-t-2 border-foreground pt-5">
             <h2 className="font-display text-2xl">Verified visitor source</h2>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{beach.evidence}</p>
