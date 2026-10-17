@@ -336,6 +336,25 @@ for (const [slug, markers] of [
   }
 }
 
+// Five park-specific October 2026 alerts with distinct restrictions.
+const fiveParkGuide = read("src/data/state-park-five-alert-authority.ts");
+assertContains(curation, "applyFiveParkAuthorityAlerts,", "Five TPWD park authority articles are missing from destination curation");
+for (const [slug, markers] of [
+  ["bastrop-state-park", ["Lake Mina", "wood and charcoal"]],
+  ["cedar-hill-state-park", ["Argentine ants", "trail-status"]],
+  ["lake-livingston-state-park", ["stumps", "December 2026"]],
+  ["lake-mineral-wells-state-park", ["containerized fuel stoves", "ALL fires"]],
+  ["lake-somerville-state-park", ["Birch Creek", "Flag Pond", "charcoal"]],
+]) {
+  const start = authority.indexOf(`  "${slug}": {`);
+  const end = authority.indexOf('\n  "', start + 7);
+  const parkFacts = start >= 0 ? authority.slice(start, end >= 0 ? end : undefined) : "";
+  if (!parkFacts.includes('checkedAt: "2026-10-17"')) failures.push(`Missing October 17 source review: ${slug}`);
+  if (!parkFacts.includes('supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/')) failures.push(`Missing official park source link: ${slug}`);
+  if (!fiveParkGuide.includes(`"${slug}"`)) failures.push(`Missing individual visit narrative: ${slug}`);
+  for (const marker of markers) if (!(parkFacts+" "+fiveParkGuide).includes(marker)) failures.push(`Park ${slug} lost source-grounded detail: ${marker}`);
+}
+
 if (failures.length) {
   for (const problem of failures) process.stderr.write(`FAIL ${problem}\n`);
   process.exitCode = 1;
