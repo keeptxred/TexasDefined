@@ -18,7 +18,7 @@ function Page() {
     : `District ${district.district}-${district.classification} Football`;
   const katyPilot = district.slug === '6a-district-22';
   const games = getDistrictFootballGames(district.slug, district.classification, district.district);
-  const recentFinals = games.filter((game) => game.status === 'final').reverse().slice(0, 6);
+  const recentFinals = games.filter((game) => game.status === 'final').reverse().slice(0, 8);
   const pendingGames = games.filter((game) => game.status === 'scheduled').slice(0, 16);
   const shortLabel = `${district.classification}${divisionRoman ? ` Division ${divisionRoman}` : ''} District ${district.district}`;
   const enrollmentBand = uilFootballEnrollmentBand(district.classification, district.division);
@@ -191,11 +191,15 @@ function DistrictGameCard({ game, schools }: { game: DistrictFootballGame; schoo
       <span>{dateLabel}, 2026{game.kickoff ? ' · ' + game.kickoff : ''}</span>
       <span className={isFinal ? 'font-semibold text-foreground' : ''}>{isFinal ? 'Reported final' : 'Result not verified'}</span>
     </div>
-    <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 gap-y-1 text-base font-medium">
-      <div>{away ? <a className="hover:text-primary hover:underline" href={away.profilePath}>{game.away}</a> : game.away}</div>
-      <div className="tabular-nums">{isFinal ? game.awayScore : '—'}</div>
-      <div>{home ? <a className="hover:text-primary hover:underline" href={home.profilePath}>{game.home}</a> : game.home}</div>
-      <div className="tabular-nums">{isFinal ? game.homeScore : '—'}</div>
+    <div className="space-y-1 text-base font-medium">
+      <div className="flex items-center justify-between gap-3">
+        <span>{away ? <a className="hover:text-primary hover:underline" href={away.profilePath}>{game.away}</a> : game.away}</span>
+        <span className="tabular-nums">{isFinal ? game.awayScore : '—'}</span>
+      </div>
+      <div className="flex items-center justify-between gap-3">
+        <span>{home ? <a className="hover:text-primary hover:underline" href={home.profilePath}>{game.home}</a> : game.home}</span>
+        <span className="tabular-nums">{isFinal ? game.homeScore : '—'}</span>
+      </div>
     </div>
     <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
       {game.venue && <span>{game.venue}</span>}
