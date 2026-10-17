@@ -334,7 +334,7 @@ export const top50ThemeParkDestinations: Destination[] = [
       "alt": "Archival photograph of the SeaWorld San Antonio main entrance in 2007",
       "width": 2779,
       "height": 2084,
-      "credit": "TheConduqtor · Wikimedia Commons · Creative Commons share-alike photo · taken 2007"
+      "credit": "TheConduqtor · CC BY-SA 3.0 · Wikimedia Commons · archival photograph dated June 4, 2007"
     },
     "bestSeason": "Check SeaWorld's date-specific calendar; outdoor rides, shows and the separately ticketed Aquatica waterpark have different schedules",
     "entryNote": "Confirm the exact SeaWorld park ticket and operating date. The operator says Aquatica admission requires a SeaWorld-plus-Aquatica ticket or an eligible pass, rather than ordinary SeaWorld admission.",
