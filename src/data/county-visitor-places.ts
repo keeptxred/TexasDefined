@@ -13,6 +13,8 @@ export type CountyVisitorPlace = {
   category: 'Art & architecture' | 'Arts & culture' | 'History & heritage' | 'Parks & recreation';
   description: string;
   sourceUrl: string;
+  /** Exact existing Texas Defined guide, when checked and related; never invent a path. */
+  relatedGuideHref?: string;
 };
 
 export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
@@ -490,7 +492,8 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "name": "Gruene Hall",
     "category": "Arts & culture",
     "description": "Operating 1878 dance hall in Gruene, hosting live Texas music; some performances are ticketed and age policies can vary by event.",
-    "sourceUrl": "https://gruenehall.com/"
+    "sourceUrl": "https://gruenehall.com/",
+    "relatedGuideHref": "/gruene-hall-history"
   },
   {
     "county": "comanche",
