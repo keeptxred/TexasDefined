@@ -16,7 +16,7 @@ export const Route = createFileRoute('/explore/breweries/$slug')({
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
         title: item ? item.name + ' | ' + item.city + ', Texas Brewery License' : 'Texas brewery directory',
-        description: item ? item.name + ' in ' + item.city + ', ' + item.county + ' County: TABC brewer license location, licensing information and county travel links.' : 'Texas brewery license directory.',
+        description: item ? item.name + ' in ' + item.city + ', ' + item.county + ' County: TABC brewing authorization location, licensing information and county travel links.' : 'Texas brewery license directory.',
         robots: 'noindex,follow',
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
