@@ -11,7 +11,7 @@ const explore = readFileSync("src/routes/explore.index.lazy.tsx", "utf8");
 const match = source.match(/export const texasWaterParks: WaterParkGuide\[\] = (\[[\s\S]*?\]);\nexport const texasWaterParksBySlug/);
 if (!match) throw new Error("Canonical Texas water-park source registry is missing.");
 const parks = JSON.parse(match[1]);
-if (parks.length < 94) throw new Error(`Water-park census unexpectedly dropped from 94 to ${parks.length} sources.`);
+if (parks.length < 97) throw new Error(`Water-park census unexpectedly dropped from 97 to ${parks.length} sources.`);
 const slugs = new Set();
 const names = new Set();
 for (const park of parks) {

@@ -1318,6 +1318,48 @@ export const texasWaterParks: WaterParkGuide[] = [
     "distinctiveNote": "Midland's official 2026 swimming calendar lists Doug Russell's last opening date as September 7. Its municipal renovation materials include slide painting, tower repairs and feature replacement; confirm which rides will be operational for the 2027 season.",
     "officialUrl": "https://www.midlandtexas.gov/facilities/facility/details/doug-russell-pool-4",
     "reviewedAt": "2026-10-17"
+  },
+  {
+    "slug": "pharr-aquatic-center",
+    "name": "Pharr Aquatic Center Water Park",
+    "city": "Pharr",
+    "county": "Hidalgo",
+    "region": "South Texas",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "City of Pharr summer waterpark admission; separate from year-round Natatorium programming",
+    "summary": "Pharr's Aquatic Center at 1000 South Fir Street has a seasonal aquatic park with a lazy river, waterslides, children's play structure, kiddie pool, leisure pool, shaded seating and snack bar.",
+    "distinctiveNote": "The City of Pharr distinguishes the summer-only aquatic park from its separate natatorium at 3001 North Cage Boulevard. The outdoor season is listed for June and July; verify updated pool hours before traveling.",
+    "officialUrl": "https://pharr-tx.gov/government/departments/parks-recreation/find-a-park/",
+    "reviewedAt": "2026-10-17"
+  },
+  {
+    "slug": "garland-holford-aquatic",
+    "name": "Holford Aquatic Center",
+    "city": "Garland",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Summer municipal pool admission; resident and nonresident day rates and cabana reservations",
+    "summary": "Garland's Holford Aquatic Center at 2322 Homestead Place features two waterslides, a current channel, lap lanes, a family activity pool, tot pool, cabanas and a concessions area.",
+    "distinctiveNote": "The City of Garland confirms its 2026 outdoor aquatics season at Holford ended August 9. This recently rebuilt venue is separate from Surf & Swim, which has its own slides and seasonal calendar.",
+    "officialUrl": "https://www.garlandtx.gov/3513/Holford-Pool",
+    "reviewedAt": "2026-10-17"
+  },
+  {
+    "slug": "big-spring-russ-mcewen",
+    "name": "Russ McEwen Family Aquatic Center",
+    "city": "Big Spring",
+    "county": "Howard",
+    "region": "West Texas",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Seasonal City of Big Spring aquatic-center public admission and rental options",
+    "summary": "Inside Big Spring's Comanche Trail Park, the Russ McEwen Family Aquatic Center has a lazy river, two water slides, a zero-entry leisure pool, crossing activities, and interactive children's water play.",
+    "distinctiveNote": "The City of Big Spring provides a 2026 ticket and concessions page with a Splash Cash card system and lists the entrance at 911 Golf Course Road. Seasonal public admission dates should be verified for the next summer before visiting.",
+    "officialUrl": "https://www.bigspringtx.gov/342/Russ-McEwen-Family-Aquatic-Center",
+    "reviewedAt": "2026-10-17"
   }
 ];
 export const texasWaterParksBySlug = new Map(texasWaterParks.map((park) => [park.slug, park]));
