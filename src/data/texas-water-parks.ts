@@ -2102,6 +2102,154 @@ export const texasWaterParks: WaterParkGuide[] = [
         "sourceUrl": "https://irvingtx.gov/lee-aquatic-park"
       }
     ]
+  },
+  {
+    "slug": "san-angelo-municipal-pool",
+    "name": "San Angelo Municipal Pool Water Slides",
+    "city": "San Angelo",
+    "county": "Tom Green",
+    "region": "West Texas",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Public City of San Angelo pool admission; 2026 published rates $6 ages 3–64, $4 seniors 65+, free ages two and younger",
+    "summary": "San Angelo Municipal Pool is an outdoor public recreation pool with two substantial waterslides, family swimming, seasonal day admission and rentable shaded table and umbrella spaces.",
+    "distinctiveNote": "The city's June 22, 2026 announcement confirms the facility reopened after a delayed start caused by repairs. Its posted season ended in August; the webpage's summer operating hours do not mean rides are operating in October.",
+    "officialUrl": "https://www.sanangelo.gov/facilities/facility/details/Municipal-Pool-4",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "18 E Avenue A, San Angelo, TX 76903",
+    "visitorHighlights": [
+      "Two separate municipal water slides, each subject to a 48-inch minimum rider height",
+      "Outdoor seasonal family swimming with public day admission and posted occupancy limit",
+      "Party rental availability and shaded umbrella-and-table rentals under city supervision"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can children shorter than 48 inches ride the San Angelo pool slides?",
+        "answer": "No. The City of San Angelo lists a minimum height of 48 inches for either of the pool's two water slides. Confirm updated rules with lifeguards before arriving.",
+        "sourceUrl": "https://www.sanangelo.gov/facilities/facility/details/Municipal-Pool-4"
+      },
+      {
+        "question": "Is the Municipal Pool water park open in October?",
+        "answer": "The 2026 city season ended in August. The June 22, 2026 city announcement documented delayed seasonal reopening after repairs, but it does not establish slide operating hours in October or a 2027 opening date.",
+        "sourceUrl": "https://www.sanangelo.gov/m/NewsFlash/Home/Detail/210"
+      },
+      {
+        "question": "Does the City of San Angelo Municipal Pool accept cash?",
+        "answer": "No. The city explicitly lists credit and debit cards as its only accepted on-site payment methods in the 2026 visitor guidance. It also disallows outside food and drinks.",
+        "sourceUrl": "https://www.sanangelo.gov/facilities/facility/details/Municipal-Pool-4"
+      }
+    ]
+  },
+  {
+    "slug": "bill-witt-aquatic-center-corpus-christi",
+    "name": "Bill Witt Aquatic Center",
+    "city": "Corpus Christi",
+    "county": "Nueces",
+    "region": "Gulf Coast",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "City of Corpus Christi public swim admission; city publishes free admission at all municipal pools, check any reservation fees separately",
+    "summary": "Bill Witt Aquatic Center is a city-operated summer aquatics complex with two large water slides, a beach-entry family leisure pool with interactive play features, and a separate ten-lane competition pool.",
+    "distinctiveNote": "The City of Corpus Christi places Bill Witt in its summer-only pool list, separate from year-round Collier Pool and the Natatorium. Free standard city pool admission does not guarantee slides are available outside the summer operating season.",
+    "officialUrl": "https://www.corpuschristitx.gov/department-directory/parks-and-recreation/parks-and-facilities/pools/",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "6809 Yorktown Boulevard, Corpus Christi, TX 78414",
+    "visitorHighlights": [
+      "Two large outdoor water slides connected with seasonal municipal family aquatics",
+      "Separate beach-entry leisure pool with interactive play features and shaded areas",
+      "Ten-lane 25-meter pool for lap swimming and hosted meets with locker facilities"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Bill Witt open for water-slide swimming during fall and winter?",
+        "answer": "Not under the normal city pool schedule: Bill Witt is explicitly listed as a summer pool. The current fall-to-spring municipal calendar is for year-round facilities. Verify any exceptions before visiting.",
+        "sourceUrl": "https://www.corpuschristitx.gov/department-directory/parks-and-recreation/parks-and-facilities/pools/"
+      },
+      {
+        "question": "Does Bill Witt Aquatic Center charge the usual city swim admission?",
+        "answer": "The City of Corpus Christi's aquatics page advertises free pool admission at city pools. That describes ordinary public swim; call the aquatics department about rentals, reservations or special events.",
+        "sourceUrl": "https://www.corpuschristitx.gov/department-directory/parks-and-recreation/parks-and-facilities/pools/"
+      },
+      {
+        "question": "Is Bill Witt just a lap-swimming pool?",
+        "answer": "No. The city's facility overview identifies a separate leisure pool with beach-inspired entry and interactive water features, as well as two large slides and the competition pool.",
+        "sourceUrl": "https://www.corpuschristitx.gov/department-directory/parks-and-recreation/parks-and-facilities/pools/"
+      }
+    ]
+  },
+  {
+    "slug": "bartholomew-pool-austin",
+    "name": "Bartholomew Pool Water Slides",
+    "city": "Austin",
+    "county": "Travis",
+    "region": "Central Texas",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Fee-charging City of Austin aquatic facility; posted seasonal admission applies, confirm current slide/play-water session access",
+    "summary": "Bartholomew Pool in Austin combines recreational and activity pools, a shallow zero-entry wading area, water slides and lily-pad play activities alongside year-round lap swimming.",
+    "distinctiveNote": "Austin Parks and Recreation states that slides, wading pool and activity/recreation pools are closed October 1, 2026 through March 12, 2027. The lap pool remains open: this does NOT mean the water-park attractions are available during winter.",
+    "officialUrl": "https://www.austintexas.gov/parks/locations/bartholomew-pool",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1800 E. 51st St., Austin, TX 78723",
+    "visitorHighlights": [
+      "Water slides and an activity/recreational swimming area during eligible staffed seasons",
+      "Zero-depth family wading pool and seasonal lily-pad water-play features",
+      "Accessible aquatic entry options including chair lift and ADA stairs"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can visitors use Bartholomew Pool slides in October 2026?",
+        "answer": "No. The City of Austin lists both slides and recreation/activity pools as closed from October 1, 2026 through March 12, 2027. Only lap swimming is listed as available during that interval.",
+        "sourceUrl": "https://www.austintexas.gov/parks/locations/bartholomew-pool"
+      },
+      {
+        "question": "Are slides and lily pads always open whenever the pool is open?",
+        "answer": "No. Austin's official facility page warns that water slides, lily pads and wading amenities depend on sufficient lifeguard staffing and may close independently of lap-pool hours.",
+        "sourceUrl": "https://www.austintexas.gov/parks/locations/bartholomew-pool"
+      },
+      {
+        "question": "What accessible water entry does Bartholomew Pool provide?",
+        "answer": "Austin Parks and Recreation lists a chair lift and ADA stairs at this facility. Contact the city about current equipment availability and additional mobility needs before visiting.",
+        "sourceUrl": "https://www.austintexas.gov/parks/locations/bartholomew-pool"
+      }
+    ]
+  },
+  {
+    "slug": "flower-mound-cac-water-park",
+    "name": "Flower Mound Community Activity Center Water Park",
+    "city": "Flower Mound",
+    "county": "Denton",
+    "region": "Dallas–Fort Worth",
+    "setting": "Both",
+    "kind": "Municipal water park",
+    "admission": "Community Activity Center swim day pass or applicable membership; special parties and cooler entry have separate policies",
+    "summary": "Flower Mound Community Activity Center combines a seasonal outdoor municipal water park with indoor recreational swimming that includes a slide, diving board and aqua-climbing walls on scheduled play-swim sessions.",
+    "distinctiveNote": "Flower Mound's town schedule separates indoor play-swim hours from the outdoor water park season, which usually runs Memorial Day to Labor Day. A special September 26, 2026 dog-swim event at the outdoor water park is not proof of general October guest access.",
+    "officialUrl": "https://www.flower-mound.com/cachours",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1200 Gerault Road, Flower Mound, TX 75028",
+    "visitorHighlights": [
+      "Outdoor seasonal water park with designated shade pavilions and party access",
+      "Indoor recreational swimming with a slide, diving board and aqua-climbing walls",
+      "Distinct posted hours for lap lanes, indoor play swimming and the outdoor summer water park"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Does Flower Mound's outdoor water park stay open year-round?",
+        "answer": "No. The Town of Flower Mound says the outdoor water park follows the school summer calendar, generally Memorial Day through Labor Day. The indoor pool has separate, more extensive operating hours.",
+        "sourceUrl": "https://www.flower-mound.com/cachours"
+      },
+      {
+        "question": "Can visitors use the indoor slide whenever the indoor pool is open?",
+        "answer": "Not necessarily. The published CAC indoor pool calendar separates lap-lane hours from play-swim hours when the slide and climbing walls are available. Confirm the specific session before travelling.",
+        "sourceUrl": "https://www.flower-mound.com/cachours"
+      },
+      {
+        "question": "Is the outdoor water park at the same site as the Community Activity Center?",
+        "answer": "Yes. Flower Mound lists the outdoor park and shaded party pavilions at the Community Activity Center at 1200 Gerault Road, distinct from free spray-only neighborhood splash pads.",
+        "sourceUrl": "https://www.flower-mound.com/birthdayparty"
+      }
+    ]
   }
 ];
 export const texasWaterParksBySlug = new Map(texasWaterParks.map((park) => [park.slug, park]));
