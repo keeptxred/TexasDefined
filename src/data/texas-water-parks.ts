@@ -2373,6 +2373,55 @@ export const texasWaterParks: WaterParkGuide[] = [
         "sourceUrl": "https://odessa-tx.gov/pools"
       }
     ]
+  },
+  {
+    "slug": "big-als-barefoot-bay-floating-zone",
+    "name": "Big Al's Barefoot Bay Floating Activity Zone",
+    "city": "Pittsburg",
+    "county": "Camp",
+    "region": "East Texas",
+    "setting": "Outdoor",
+    "kind": "Inflatable lake water park",
+    "admission": "Seasonal paid floating waterpark sessions or optional all-day FAZ pass; a cheaper swim-only ticket does not include the obstacle course",
+    "summary": "Big Al's Barefoot Bay runs an Aquaglide inflatable obstacle-course waterpark on Lake Bob Sandlin, with a 20-foot tower and slide, balance obstacles, blast bag and lifeguarded sessions from the resort's marina.",
+    "distinctiveNote": "Its inaugural 2026 operating season is over; the operator explicitly schedules the Floating Activity Zone to reopen spring 2027. Admission is separate from marina or RV lodging, and a swim-only pass cannot be used to enter the floating obstacles. Sessions require an online/onsite waiver.",
+    "officialUrl": "https://bigalsbarefootbay.com/faz/",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "5244 FM 1520, Pittsburg, TX 75686",
+    "visitorHighlights": [
+      "The Aquaglide floating obstacle course on Lake Bob Sandlin includes a 20-foot climbing tower and slide, blast bag, balance logs and platform climbs.",
+      "Seasonal two-hour sessions operate under lifeguard supervision and require correctly fitted Coast Guard-approved life jackets, which the operator supplies free.",
+      "The course requires participants to be at least five years old and at least 45 inches tall; a parent must be in the water with children ages five through seven.",
+      "Separate swim-only passes permit lake swimming but not access to the inflatable obstacles, while all-day obstacle-course reentry is subject to current session capacity.",
+      "The onsite marina, RV sites and restaurant are separate resort facilities; entry to the floating course does not require reserving an overnight cabin."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Big Al's Floating Activity Zone open during fall or winter 2026?",
+        "answer": "No. The operator says its inaugural season is over and it intends to reopen the inflatable waterpark in spring 2027. The marina, restaurant and RV resort may have different year-round hours, so do not confuse them with obstacle-course operation.",
+        "sourceUrl": "https://bigalsbarefootbay.com/faz/"
+      },
+      {
+        "question": "Are life jackets provided for the floating waterpark?",
+        "answer": "Yes. The operator provides U.S. Coast Guard-approved life jackets at no additional charge and requires every floating-course participant to wear one on the water, with lifeguards monitoring each scheduled session.",
+        "sourceUrl": "https://bigalsbarefootbay.com/faz/"
+      },
+      {
+        "question": "How old and tall must a child be to try the Lake Bob Sandlin floating course?",
+        "answer": "All participants must be at least five years old and at least 45 inches tall. Children five through seven need a parent or guardian in the water with a purchased pass, and minors must follow the operator's waiver rules.",
+        "sourceUrl": "https://bigalsbarefootbay.com/faz/"
+      },
+      {
+        "question": "Does a swim-only lake ticket include the inflatable obstacle course?",
+        "answer": "No. The operator sells a distinct swim-only pass with access to its designated lake swimming zone and seating, but that ticket explicitly excludes the Floating Activity Zone. Buy a separate session or FAZ all-day pass for the obstacles.",
+        "sourceUrl": "https://bigalsbarefootbay.com/faz/"
+      },
+      {
+        "question": "Can I leave the Floating Activity Zone and re-enter with an all-day pass?",
+        "answer": "Only if space is available when you return. Big Al's releases a participant's slot when they exit the activity zone, so reentry with an all-day wristband is subject to the current session's capacity of 40 guests.",
+        "sourceUrl": "https://bigalsbarefootbay.com/faz/"
+      }
+    ]
   }
 ];
 export const texasWaterParksBySlug = new Map(texasWaterParks.map((park) => [park.slug, park]));
