@@ -31,7 +31,7 @@ test('blanket deployment subscriptions and duplicate validation cannot return', 
 test('new water park registry rows receive four bounded route-specific production checks', () => {
   const file = 'src/data/texas-water-parks.ts';
   const wrap = records => 'export const texasWaterParks: WaterParkGuide[] = ' + JSON.stringify(records)
-    + ';\\nexport const texasWaterParksBySlug';
+    + ';\nexport const texasWaterParksBySlug';
   const old = [{ slug: 'existing-park', name: 'Existing', setting: 'Outdoor', kind: 'Destination park' }];
   const added = [
     { slug: 'new-indoor', setting: 'Indoor', kind: 'Community water park' },
