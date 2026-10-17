@@ -5,7 +5,7 @@ Updated 2026-10-17. Work is **not** considered production verified until the rep
 ## Current implementation
 
 - Canonical public hub: `/explore/water-parks`; one park page at `/explore/water-parks/$slug` per physical venue.
-- Initial operator-backed registry: 56 separate facilities in `src/data/texas-water-parks.ts`.
+- Initial operator-backed registry: 74 separate facilities in `src/data/texas-water-parks.ts`.
 - Settings: indoor, outdoor, mixed indoor/outdoor. Access: day park, city-run, hotel/resort, campground and inflatable lake park.
 - Every record has a named venue, town, region, setting, admission policy description, a venue-specific editorial note, source URL, review date, and county where the physical county was verified.
 - Directory links to internal Explore/trip planner/city and county guides. Primary and emergency Explore sitemaps include all registry pages.
@@ -26,7 +26,7 @@ Each park must be researched and independently verified beyond this launch-scale
 ## Research queue — no false operating claims
 
 - **Hurricane Alley, Corpus Christi:** Permanently closed in February 2026 per the park operator and local reporting. Exclude from active visitor directory; optional historical article should be clearly labeled closed.
-- **The WaterPark at the Villages, Flint:** Conflicting 2026 closure and resort-site information. Obtain recent direct operator confirmation before listing as open.
+- **Epic Waters, Grand Prairie:** Operator reports temporary closure October 13–29, 2026, with planned reopening October 30 at 10 a.m. The visitor guide reflects the interruption. Not a permanent closure.\n- **The WaterPark at the Villages, Flint:** Conflicting 2026 closure and resort-site information. Obtain recent direct operator confirmation before listing as open.
 - **Splash Kingdom Wild West, Hudson Oaks:** Appears in one operator FAQ list of operating hours, but the operator's 2026 season and contact lists omit it. Recheck its actual operating status rather than assuming a fourth active branch.
 - **Rodeo Rapids, Pecos:** Announced/developing; do not publish as open before actual operating confirmation.
 - **Spoonbill Bay / Spoonbill Lagoon, Mustang Island:** Proposed development, not established public admission. Do not publish as open.
@@ -38,9 +38,9 @@ Each park must be researched and independently verified beyond this launch-scale
 - Research public floating obstacle-course parks and temporary seasonal operators separately, with weather, water conditions, capacity and safety.
 - Confirm individual water-park site addresses and county assignments in ambiguous multijurisdiction cities before adding county canonical links.
 - Run a check against TDI amusement ride registration where relevant, tourism bureau listings, city park calendars and operator directories. TDI listing alone does not confirm present operation.
-- Expand the initial collection only with first-party sources and documented visit eligibility. Never present the current 56 as an exhaustive statewide census.
+- Expand the initial collection only with first-party sources and documented visit eligibility. Never present the current 74 as an exhaustive statewide census.
 - After canonical validation and required checks, use only a bounded smoke of the directory and representative indoor/outdoor/resort/municipal pages, not another sitewide crawl.
 
 ## Known implementation limits
 
-The 56 generated guides are the *initial source-backed editorial layer*, not finished deep first-hand reviews. Specific ride inventories, exact live ticket rates, accessible routes, rights-cleared venue imagery, corroborated family FAQs, all-county reciprocal links, and a truly exhaustive statewide census are **not yet certified**. This distinction must not be lost in publication or product messaging.
+The 74 generated guides are the *initial source-backed editorial layer*, not finished deep first-hand reviews. Specific ride inventories, exact live ticket rates, accessible routes, rights-cleared venue imagery, corroborated family FAQs, all-county reciprocal links, and a truly exhaustive statewide census are **not yet certified**. This distinction must not be lost in publication or product messaging.
