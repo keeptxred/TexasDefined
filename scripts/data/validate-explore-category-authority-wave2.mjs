@@ -143,6 +143,27 @@ if (!fixtureRepositories.includes('...texasNpsHistoricTrailGuides,')) errors.pus
 for (const marker of ['commons.wikimedia.org', 'cc by', 'National Park Service', 'private', '2026-10-17']) {
   if (!trailGuideFile.toLowerCase().includes(marker.toLowerCase())) errors.push(`NPS trail provenance or access warning missing: ${marker}`);
 }
+// Big Thicket is a seven-county preserve: route to its NPS visitor center,
+ // not a fabricated geographic center. Rio Grande is a designated waterway,
+ // therefore represented by a river authority article instead of an invented
+ // single entrance pin.
+const bigThicketAuthority = fs.readFileSync(path.join(root, 'src/data/big-thicket-national-preserve-authority.ts'), 'utf8');
+const rioGrandeAuthority = fs.readFileSync(path.join(root, 'src/data/fixtures/rio-grande-wild-scenic-river-authority.ts'), 'utf8');
+for (const marker of [
+  '"big-thicket-national-preserve"', '30.458251', '-94.387285',
+  '6102 FM 420', '2026-10-17', 'public-domain', 'permits', 'conditions.htm',
+]) if (!bigThicketAuthority.toLowerCase().includes(marker.toLowerCase())) errors.push(`Big Thicket park authority missing: ${marker}`);
+if (!npsPreserved.includes('[bigThicketNationalPreserveAuthority]')) errors.push('Big Thicket NPS visitor center authority must survive remote Explore outages.');
+for (const marker of [
+  'rio-grande-wild-and-scenic-river', '196-mile', 'border',
+  'backcountry', 'river-camping.htm', 'Public domain',
+]) if (!rioGrandeAuthority.toLowerCase().includes(marker.toLowerCase())) errors.push(`Rio Grande authority missing: ${marker}`);
+if (!fixtureRepositories.includes('rioGrandeWildScenicRiverAuthorityArticle,')) errors.push('Rio Grande NPS river authority must be included in article repository.');
+for (const slug of ['big-thicket-national-preserve','blackwell-school-national-historic-site']) {
+  if (!nationalHub.includes(`href="/destination/${slug}"`)) errors.push(`NPS hub missing ${slug}`);
+}
+if (!nationalHub.includes('href="/article/rio-grande-wild-and-scenic-river"')) errors.push('NPS hub must link Rio Grande river guide.');
+
 if (errors.length) {
   console.error('Explore category authority wave 2 validation failed:');
   for (const error of errors) console.error(`- ${error}`);
