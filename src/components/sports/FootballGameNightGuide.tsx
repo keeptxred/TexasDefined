@@ -97,7 +97,7 @@ export function FootballGameNightGuide({
       <p className="eyebrow text-primary">Plan your Friday night</p>
       <h2 className="mt-2 font-display text-2xl leading-tight sm:text-4xl">Game-night essentials</h2>
       <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-        {footballName}: verify the schedule, actual game venue and admission directly before you travel.
+        {footballName}: confirm the current schedule, actual game venue and admission directly before you travel.
         TexasDefined is an independent guide, not a school or ticket seller.
       </p>
 
