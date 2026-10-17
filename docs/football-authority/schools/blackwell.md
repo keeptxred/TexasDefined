@@ -1,5 +1,10 @@
 # Blackwell Hornets — original Batch 006 six-man football research
 
+## October 17, 2026 — dated October 16 result replaces previous unverified status
+
+Blackwell beat Trent 67–6 on October 16; the unrelated September 4 Santa Anna score discrepancy remains unresolved. **6–2** through October 16, 2026 based on reported final scores. [Contemporary source: Houston Chronicle October 16 statewide football finals](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php). Earlier dossier notes treating this individual fixture as upcoming or unresolved are historical and superseded by this score evidence only. Full UIL score certification, photo rights, staffing questions, specific stadium entrance and 320/390 desktop/mobile Chrome editorial acceptance remain separate pending work.
+
+
 Research checkpoint: October 15, 2026. **Blackwell CISD, Blackwell TX, not Oklahoma Maroons**. School editorial implementation on dependent branch feature/football-b006-blackwell-20261015 only. **NOT merged, deployed, individually Chrome verified, image rights certified, or editorially accepted**. Big Spring PR #4970 is merged; Bishop PR #4978 must merge first.
 
 ## Authoritative school/classification

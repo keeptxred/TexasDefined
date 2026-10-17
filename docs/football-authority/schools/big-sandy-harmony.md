@@ -1,5 +1,10 @@
 # Harmony Eagles (Big Sandy Harmony) — individual Batch 006 authority audit
 
+## October 17, 2026 — dated October 16 result replaces previous unverified status
+
+Edgewood shut out Big Sandy Harmony 48–0 on October 16, leaving the Eagles at eight reported losses. **0–8** through October 16, 2026 based on reported final scores. [Contemporary source: Houston Chronicle October 16 statewide football finals](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php). Earlier dossier notes treating this individual fixture as upcoming or unresolved are historical and superseded by this score evidence only. Full UIL score certification, photo rights, staffing questions, specific stadium entrance and 320/390 desktop/mobile Chrome editorial acceptance remain separate pending work.
+
+
 Research checkpoint **October 14, 2026**. Canonical profile: `/texas-high-school-football-teams/big-sandy-harmony`. **Status: PROTECTED-MERGED, DEPLOYED, NOT YET HARMONY-SPECIFIC CHROME-VERIFIED OR EDITORIALLY ACCEPTED.** [PR #4878](https://github.com/keeptxred/TexasDefined/pull/4878) merged October 15, 2026 as `d3ba7ff9c4332757a9ad6701ac5d53707713474a`. [Production deploy #38792778982](https://github.com/keeptxred/TexasDefined/actions/runs/38792778982) succeeded for the later descendant SHA `4fedab37c37d9fd8f4e72caeaf300e06e6e22c1b`. This is successful deployment evidence, NOT an exact-SHA Harmony live browser acceptance, image-rights review or factual/editorial certification.
 
 ## Original page deficiencies and entity identity

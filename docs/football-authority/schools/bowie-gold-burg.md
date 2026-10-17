@@ -1,5 +1,10 @@
 # Gold-Burg Bears — independent Batch 006 football dossier
 
+## October 17, 2026 — dated October 16 result replaces previous unverified status
+
+Woodson defeated Gold-Burg 58–53 on October 16; the earlier conflicting/empty snapshots are superseded by a current newspaper report and matching October 17 MaxPreps reports. **2–6** through October 16, 2026 based on reported final scores. [Contemporary source: Houston Chronicle October 16 statewide football finals](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php). Earlier dossier notes treating this individual fixture as upcoming or unresolved are historical and superseded by this score evidence only. Full UIL score certification, photo rights, staffing questions, specific stadium entrance and 320/390 desktop/mobile Chrome editorial acceptance remain separate pending work.
+
+
 **October 17, 2026**. Not browser-VERIFIED or editorially accepted. This is Gold-Burg ISD in Montague County, six-man, UIL **2026–28 1A Division II District 10**. The official first-party classification is [UIL 1AD2FB2026.pdf](https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf); not an estimate or previous alignment.
 
 ## Source-verified campus, school identity and history

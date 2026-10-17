@@ -1,5 +1,10 @@
 # Booker Kiowas — independent Batch 006 six-man football dossier
 
+## October 17, 2026 — dated October 16 result replaces previous unverified status
+
+White Deer beat the Booker Kiowas 38–22 on October 16 in Class 1A six-man District 1. **4–4** through October 16, 2026 based on reported final scores. [Contemporary source: Houston Chronicle October 16 statewide football finals](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php). Earlier dossier notes treating this individual fixture as upcoming or unresolved are historical and superseded by this score evidence only. Full UIL score certification, photo rights, staffing questions, specific stadium entrance and 320/390 desktop/mobile Chrome editorial acceptance remain separate pending work.
+
+
 **October 16, 2026.** Booker ISD Kiowas, Lipscomb County, TX. Implemented only on dependent branch, not merged/deployed/real Chrome independently VERIFIED or nine-dimension editorially accepted; 105 historically VERIFIED untouched.
 
 ## Official identity, venue and head coach
