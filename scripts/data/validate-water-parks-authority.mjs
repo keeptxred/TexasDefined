@@ -29,7 +29,7 @@ for (const park of parks) {
 for (const closed of ["hurricane-alley-corpus-christi", "splashtown-san-antonio", "water-park-at-the-villages-flint"]) {
   if (slugs.has(closed)) throw new Error(`Closed or unverified park published as open: ${closed}`);
 }
-for (const anchor of ['"/explore/water-parks"', '...await indexReadyWaterParkPaths()']) {
+for (const anchor of ['"/explore/water-parks"', '...(await indexReadyWaterParkPaths())']) {
   if (!sitemap.includes(anchor)) throw new Error(`Sitemap missing park route coverage: ${anchor}`);
 }
 if ((sitemap.match(/await indexReadyWaterParkPaths\(\)/g) ?? []).length < 2) throw new Error("Both primary and fallback explore sitemaps must include waterpark guides.");
