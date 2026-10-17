@@ -1,18 +1,20 @@
 import { createFileRoute, Link, notFound } from"@tanstack/react-router";
 import { texasDefinedBrand } from"@/brand/texasdefined";
 import { Container } from"@/components/layout/Container";
-import { inlandBeachBySlug, inlandSwimmingBeaches } from"@/data/inland-beach-authority";
+
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from"@/lib/seo";
 
 export const Route = createFileRoute("/explore/inland-beaches/$slug")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
+    const { inlandBeachBySlug, inlandSwimmingBeaches } = await import("@/data/inland-beach-authority");
     const beach = inlandBeachBySlug(params.slug);
     if (!beach) throw notFound();
-    return beach;
+    const otherBeaches = inlandSwimmingBeaches.filter((item) => item.slug !== beach.slug && (item.lake === beach.lake || item.county === beach.county)).slice(0, 4);
+    return { beach, otherBeaches };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
-    const beach = loaderData;
+    const beach = loaderData.beach;
     const canonicalPath = `/explore/inland-beaches/${beach.slug}`;
     const url = absoluteUrl(texasDefinedBrand, canonicalPath);
     const title = `${beach.name}: Visitor Guide`;
@@ -49,12 +51,11 @@ export const Route = createFileRoute("/explore/inland-beaches/$slug")({
 });
 
 function InlandBeachAuthorityPage() {
-  const beach = Route.useLoaderData();
+  const { beach, otherBeaches } = Route.useLoaderData();
   const countyPaths = beach.county.split(" /").map((county) => ({
     name: county.trim(),
     slug: county.trim().toLowerCase().replace(/\s+/g,"-"),
   }));
-  const otherBeaches = inlandSwimmingBeaches.filter((item) => item.slug !== beach.slug && (item.lake === beach.lake || item.county === beach.county)).slice(0, 4);
   return <main>
     <Container className="py-12 sm:py-16">
       <nav aria-label="Breadcrumbs" className="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
