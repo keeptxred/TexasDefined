@@ -9,7 +9,9 @@ const canonicalPath ="/explore/inland-beaches";
 const description ="Find researched swimming beaches at Texas lakes, from Ray Roberts and Lake Texoma to Cedar Hill, Tyler and Lake Whitney. Official access sources, safety and county connections.";
 
 export const Route = createFileRoute("/explore/inland-beaches")({
-  head: () => {
+  head: ({ matches, match }) => {
+    // A child beach is its own canonical authority page, not the directory.
+    if (matches[matches.length - 1]?.routeId !== match.routeId) return {};
     const url = absoluteUrl(texasDefinedBrand, canonicalPath);
     return {
       meta: buildMeta(texasDefinedBrand, {
@@ -43,6 +45,8 @@ export const Route = createFileRoute("/explore/inland-beaches")({
 });
 
 function TexasInlandBeaches() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  if (pathname !== canonicalPath && pathname !== `${canonicalPath}/`) return <Outlet />;
   return <main>
     <Container className="py-12 sm:py-16">
       <p className="eyebrow text-primary">Freshwater · designated swimming areas · source checked October 17, 2026</p>
