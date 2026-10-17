@@ -2562,7 +2562,9 @@ const HorseRacingSlugRoute = HorseRacingSlugRouteImport.update({
   id: '/horse-racing_/$slug',
   path: '/horse-racing/$slug',
   getParentRoute: () => rootRouteImport,
-} as any).lazy(() => import('./routes/horse-racing_.$slug.lazy').then((d) => d.Route))
+} as any).lazy(() =>
+  import('./routes/horse-racing_.$slug.lazy').then((d) => d.Route),
+)
 const HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute =
   HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRouteImport.update({
     id: '/historic-site/washington-on-the-brazos-state-historic-site',
