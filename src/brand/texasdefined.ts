@@ -81,6 +81,7 @@ export const texasDefinedBrand: BrandConfig = {
         { label: "Trip Planner", to: "/explore/trip-planner", description: "Build a Texas itinerary around your interests and driving time", image: { src: roadTrip, alt: "A two-lane Texas road leading toward the horizon" } },
         { label: "Lakes & Rivers", to: "/explore/lakes-rivers", description: "Swimming holes, quiet rivers and cypress-lined water", image: { src: caddoLake, alt: "Cypress trees on Caddo Lake at dawn" } },
         { label: "Springs & Swimming", to: "/explore/major-springs", description: "Clear springs, spring-fed pools and swimming water", image: { src: blueHole, alt: "Clear spring-fed water in the Texas Hill Country" } },
+        { label: "Water Parks", to: "/explore/water-parks", description: "Indoor, outdoor, municipal and resort water parks statewide" },
         { label: "State Parks", to: "/explore/state-parks", description: "Canyons, coastlines, trails and campsites", image: { src: enchantedRock, alt: "Granite dome and Hill Country landscape at Enchanted Rock" } },
         { label: "Best Camping in Texas", to: "/best-places-to-go-camping-in-texas", description: "Choose campsites by region, season and camping style", image: { src: paloDuro, alt: "Palo Duro Canyon landscape near Texas campsites" } },
         { label: "National Parks", to: "/explore/national-parks", description: "Big Bend, Guadalupe Mountains and federal lands", image: { src: bigBend, alt: "Desert mountains in Big Bend country" } },
