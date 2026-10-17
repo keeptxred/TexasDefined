@@ -101,18 +101,24 @@ export const historicSiteDestinations: Destination[] = historicSiteSeeds.map((si
   nearestTown: site.nearestTown,
   county: site.county,
   coordinates: site.coordinates,
-  hero: {
+  hero: site.slug === "magoffin-home" ? {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Magoffin%20home%202009.jpg?width=1600",
+    alt: "The actual 1875 Magoffin Home adobe residence in El Paso, photographed December 2009",
+    width: 2099,
+    height: 1266,
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · photographed December 9, 2009",
+  } : {
     src: historicFallback,
     alt: `Historic Texas architecture and landscape representing ${site.name}`,
     width: 1600,
     height: 1067,
   },
   bestSeason: "Year-round; spring and fall are usually the most comfortable for outdoor portions of a visit.",
-  entryNote: site.slug === "fort-martin-scott" ? "THC currently lists staffed hours Tue–Sat 9 a.m.–5 p.m., grounds daily 8 a.m.–8 p.m., and adult admission $10 (reduced rates for seniors and ages 5–17). THC pages conflict about guided tours (main listing: requested tours; Plan Your Visit: self-guided only). Confirm directly before relying on a guided visit." : "Check the official visitor page before departure for current hours, tours, fees, closures and accessibility details.",
+  entryNote: site.slug === "magoffin-home" ? "Texas Historical Commission currently reports that the historic home is closed through 2027 for restoration, while the visitor center remains open. No house tour should be assumed. Check current visitor-center hours and program details before traveling." : site.slug === "fort-martin-scott" ? "THC currently lists staffed hours Tue–Sat 9 a.m.–5 p.m., grounds daily 8 a.m.–8 p.m., and adult admission $10 (reduced rates for seniors and ages 5–17). THC pages conflict about guided tours (main listing: requested tours; Plan Your Visit: self-guided only). Confirm directly before relying on a guided visit." : "Check the official visitor page before departure for current hours, tours, fees, closures and accessibility details.",
   highlights: [...site.themes],
   body: site.slug === "fort-martin-scott" ? fortMartinScottVerifiedBody : historicBody(site),
   ...(site.slug === "fort-martin-scott" ? { visitorFaqs: fortMartinScottVisitorFaqs, accessibilityNotes: "THC lists the visitor center and most grounds as wheelchair accessible with restrooms at the visitor center. Historic buildings, replicas and the nature trail are not ADA accessible; much walking is on gravel/dirt. Contact 830-304-1848 for accommodations.", address: "1606 E Main St, Fredericksburg, TX 78624" } : {}),
   managingAuthority: site.officialUrl.includes("thc.texas.gov") ? "Texas Historical Commission" : site.officialUrl.includes("cem.va.gov") ? "U.S. Department of Veterans Affairs — National Cemetery Administration" : undefined,
   officialUrl: site.officialUrl,
-  sourceCheckedAt: SOURCE_CHECKED_AT,
+  sourceCheckedAt: site.slug === "magoffin-home" ? "2026-10-17" : SOURCE_CHECKED_AT,
 }));
