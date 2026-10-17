@@ -1030,7 +1030,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "The indoor waterpark has its own calendar, but the resort labels Raccoon Lagoon an outdoor seasonal pool. Confirm the planned date rather than treating all outdoor attractions as year-round.",
         "sourceUrl": "https://www.greatwolf.com/grapevine/water-park"
       }
-    ]
+    ],
+    "licensedMedia": {
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Great%20Wolf%20Lodge%20Grapevine.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Great_Wolf_Lodge_Grapevine.jpg",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "licenseLabel": "CC BY-SA 2.0",
+      "photographer": "Robert Thigpen",
+      "year": 2013,
+      "alt": "Exterior of the Great Wolf Lodge resort in Grapevine photographed in 2013; this does not depict its indoor water rides."
+    }
   },
   {
     "slug": "great-wolf-webster",
