@@ -95,6 +95,11 @@ function TexasHorseRacingInstitutionPage() {
           <p className="mt-6 text-xs leading-6 text-muted-foreground">Sources reviewed {record.sourceDate}. Historical status is based on published commission records; no current racing dates or public venue access are implied for inactive facilities.</p>
         </header>
 
+        {live ? <figure className="border-b border-border py-8">
+          <img src="/images/horse-racing/gillespie-2026-race-weekends.svg" alt="Gillespie County Fairgrounds 2026 horse racing date recap, showing four completed summer race weekends; 2027 dates not yet confirmed" className="w-full" width="1200" height="580" loading="eager" decoding="async" />
+          <figcaption className="mt-3 text-xs leading-6 text-muted-foreground">Original Texas Defined graphic based on the Gillespie County Fair &amp; Festivals Association's official 2026 calendar. This is an editorial race-season infographic, not a photograph or an accurate map of the track.</figcaption>
+        </figure> : null}
+
         {record.schedule ? <section className="border-b border-border py-10" aria-labelledby="racing-schedule">
           <p className="eyebrow text-primary">Race calendar</p>
           <h2 id="racing-schedule" className="mt-2 font-display text-3xl">When the horses race</h2>
