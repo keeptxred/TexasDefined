@@ -1,0 +1,37 @@
+name: Batch 004 reflow accessibility and Austin reciprocal links
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-football-b004-reflow-320.mjs'
+      - '.github/workflows/verify-football-b004-reflow-320.yml'
+      - 'docs/football-authority/BATCH004_FINAL_ACCEPTANCE.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  reflow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax
+        run: node --check scripts/ci/verify-football-b004-reflow-320.mjs
+      - name: Install browser harness
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-football-b004-a11y --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1 axe-core@4.10.3
+      - name: Test 320px reflow and 14 Austin school links
+        run: node scripts/ci/verify-football-b004-reflow-320.mjs
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-b004-320px-reflow-evidence
+          path: artifacts/football-b004-reflow-320/
+          if-no-files-found: warn
+          retention-days: 30
