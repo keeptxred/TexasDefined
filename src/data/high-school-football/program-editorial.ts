@@ -2186,6 +2186,198 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
+  "boerne-champion": {
+    "slug": "boerne-champion",
+    "theme": {
+      "accentHex": "#345D88",
+      "label": "Independent editorial Charger-blue accent; Champion ISD official branding not reproduced"
+    },
+    "seo": {
+      "title": "Boerne Champion Chargers Football 2026 | Coach, UIL District & Game-Day Guide",
+      "description": "Boerne Champion Chargers football: 2026 UIL 5A Division I District 13, 6–0 through October 2, Blane Ellis, official Boerne ISD Stadium tickets and 2025 postseason."
+    },
+    "coach": {
+      "name": "Blane Ellis",
+      "title": "Head football coach, Samuel V. Champion High School",
+      "sourceUrl": "https://chs.boerneisd.net/437503_2",
+      "sourceLabel": "Champion High School official current football coaching staff roster; not Boerne High School",
+      "verifiedAt": "2026-10-16"
+    },
+    "campus": {
+      "address": "201 Charger Blvd, Boerne, TX 78006",
+      "phone": "830-357-2600",
+      "sourceUrl": "https://chs.boerneisd.net/",
+      "sourceLabel": "Official Samuel V. Champion High School address and main phone; not the stadium",
+      "verifiedAt": "2026-10-16"
+    },
+    "schedule": {
+      "label": "Champion High School Athletics schedules and results, game tickets and updates",
+      "sourceUrl": "https://chs.boerneisd.net/tickets",
+      "sourceLabel": "Official Champion Athletics event tickets, stadium rules and game-specific purchase information",
+      "verifiedAt": "2026-10-16"
+    },
+    "venue": {
+      "name": "Boerne ISD Stadium",
+      "address": "1 Greyhound Lane, Boerne, TX 78006",
+      "sourceUrl": "https://www.boerneisd.net/graduation",
+      "sourceLabel": "Boerne ISD first-party shared stadium location; Champion October 2026 event calendar independently names this stadium for home varsity",
+      "verifiedAt": "2026-10-16",
+      "note": "Champion High School's campus is at 201 Charger Blvd, but its official October 16 varsity event identifies Boerne ISD Stadium; the district publishes stadium address 1 Greyhound Lane. For the October 16 Seguin game, the school's dated newsletter advertises shuttles from Champion High School to the stadium. Do not assume shuttles operate at other games. Stadium vehicle gate, parking inventory and accessibility details need game-specific confirmation."
+    },
+    "notice": {
+      "title": "Champion varsity tickets and stadium rules are event-specific",
+      "body": "Champion's official tickets page says Boerne ISD event tickets are sold online only through Hometown Ticketing with no cash accepted at the gate. Its posted 2026 CHS varsity football admission table lists adult pre-sale and gate tickets at $8, student pre-sale at $5, student gate at $4; check the live ticket portal before purchase because availability and prices can change. Stadium rules prohibit outside food and drinks, bags exceeding 8.5 by 5.5 inches, and certain other items. A school newsletter announced an October 16 shuttle from CHS to BISD Stadium; that one-night arrangement is not guaranteed for future games.",
+      "sourceUrl": "https://chs.boerneisd.net/tickets",
+      "sourceLabel": "Champion High first-party varsity football ticket matrix, posted stadium rules and Hometown Ticketing instructions",
+      "verifiedAt": "2026-10-16"
+    },
+    "season": {
+      "record": "6–0 through October 2, 2026 (MaxPreps updated October 5; subsequent result not certified)",
+      "verifiedAt": "2026-10-16",
+      "sourceUrl": "https://www.maxpreps.com/tx/boerne/boerne-champion-chargers/football/schedule/",
+      "sourceLabel": "MaxPreps dated October 5 six completed results; October 2 Lockhart 56–0 independently reported by San Antonio Express-News October 11",
+      "games": [
+        {
+          "date": "2026-08-27",
+          "opponent": "Laredo United South",
+          "site": "Away",
+          "result": "W 60–7"
+        },
+        {
+          "date": "2026-09-03",
+          "opponent": "New Braunfels Long Creek",
+          "site": "Home",
+          "result": "W 62–14"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Bastrop Cedar Creek",
+          "site": "Home",
+          "district": true,
+          "result": "W 55–0"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Kyle Lehman",
+          "site": "Away",
+          "district": true,
+          "result": "W 59–3"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Austin Anderson",
+          "site": "Home",
+          "district": true,
+          "result": "W 61–32"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Lockhart",
+          "site": "Away",
+          "district": true,
+          "result": "W 56–0"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Seguin",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Smithson Valley",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Austin McCallum",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Manor",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "development": {
+      "title": "2025 Chargers won two playoff games; 2026 began 6–0",
+      "body": "MaxPreps' complete 2025 schedule records Champion 9–4 after postseason wins over Southwest (41–14) and PSJA North (24–21), followed by a 41–31 loss to New Braunfels on November 28. This is a distinct Champion playoff run—not Boerne High Greyhounds' 2022 Class 4A Division I state runner-up season. Champion then opened 2026 with six wins through October 2, capped by a 56–0 road win at Lockhart. San Antonio Express-News credited Caleb Farias with 235 rushing yards and five touchdowns against Lockhart; the report is dated October 11, 2026.",
+      "sourceUrl": "https://www.maxpreps.com/tx/boerne/boerne-champion-chargers/football/25-26/schedule/",
+      "sourceLabel": "MaxPreps archived 2025 results; supported by Express-News October 11, 2026 player and Lockhart report",
+      "verifiedAt": "2026-10-16"
+    },
+    "milestones": [
+      {
+        "date": "2025-11-28",
+        "title": "2025 postseason finished in regional round",
+        "body": "Champion's completed 2025 9–4 season ended 41–31 to New Braunfels, following wins over Southwest and PSJA North; a playoff run but not a title or 2022 Boerne Greyhounds final.",
+        "sourceUrl": "https://www.maxpreps.com/tx/boerne/boerne-champion-chargers/football/25-26/schedule/",
+        "sourceLabel": "MaxPreps completed 2025 postseason"
+      },
+      {
+        "date": "2026",
+        "title": "UIL Class 5A Division I District 13",
+        "body": "Official UIL 2026–28 alignment gives Champion District 13 with Anderson, McCallum, Cedar Creek, Smithson Valley, Lehman, Lockhart, Manor and Seguin. Boerne High Greyhounds are in 5A Division II, not this division.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "sourceLabel": "Official UIL 2026–28 5A Division I football districts"
+      },
+      {
+        "date": "2026-10-02",
+        "title": "Shutout of Lockhart preserved the unbeaten start",
+        "body": "Champion won 56–0 at Lockhart, advancing to 6–0. Local reporting credited Caleb Farias with five rushing touchdowns and 235 yards.",
+        "sourceUrl": "https://www.expressnews.com/sports/high-school/article/football-boerne-champion-caleb-farias-athlete-week-22471442.php",
+        "sourceLabel": "San Antonio Express-News October 11 reporting"
+      },
+      {
+        "date": "2026-10-16",
+        "title": "Champion versus Seguin uses Boerne ISD Stadium",
+        "body": "The school's October 13 newsletter lists varsity versus Seguin at 7 p.m. October 16 and a one-night shuttle from Champion High School to the Boerne ISD Stadium; the match's final result has not been verified for this snapshot.",
+        "sourceUrl": "https://chs.boerneisd.net/index.php?articleID=91403051&pageID=smartSiteFeed&psqFeed=true",
+        "sourceLabel": "Champion High principal's October 13 campus newsletter, not a certified recurring shuttle schedule"
+      }
+    ],
+    "overview": [
+      "Samuel V. Champion High School's Chargers compete for Boerne ISD in Kendall County, but are a different varsity program from the Boerne High Greyhounds. The official UIL 2026–28 alignment lists Champion in 11-man Class 5A Division I, District 13 with Austin Anderson, Austin McCallum, Bastrop Cedar Creek, Smithson Valley, Kyle Lehman, Lockhart, Manor and Seguin. Boerne High is in Class 5A Division II District 13; the division matters despite the coincidentally matching district number.",
+      "Champion's 2025 Chargers went 9–4, with playoff wins over Southwest and PSJA North before a 41–31 November 28 defeat to New Braunfels. That is Champion's own completed season, not Boerne High's 2022 4A Division I state runner-up story. In the 2026 season, coach Blane Ellis is explicitly identified on the school's current athletics staff page, rather than inferred from district director Stan Leech.",
+      "The MaxPreps 2026 varsity schedule last updated October 5 lists the Chargers 6–0 after six completed games, including a 56–0 October 2 district road win over Lockhart. An independently dated San Antonio Express-News report attributes 235 rushing yards and five touchdowns in that game to Caleb Farias. The October 16 Seguin game is listed with no certified final as of this checkpoint; remaining Smithson Valley, McCallum and Manor games are fixtures, not projected results.",
+      "Champion's own campus is at 201 Charger Boulevard, but official campus announcements place its varsity home football at the shared Boerne ISD Stadium at 1 Greyhound Lane. The district confirms the stadium street address. Its October 13 campus newsletter specifically tells families that an October 16 game-day shuttle runs from Champion High School to the district stadium; that notice should not be treated as a promise of shuttle service at every match.",
+      "Champion's official Athletics Tickets page gives unusually useful game-day guidance: BISD tickets are online-only, no cash at the gate, with separate CHS varsity ticket amounts and stadium bag/food policies. The displayed adult varsity rate is $8; pre-sale and gate student categories have different amounts and can change, so check the actual ticket event. The school and stadium entrance and accessible parking arrangements must be confirmed for each event; no stadium photo-license or ADA compliance was independently certified here."
+    ],
+    "faq": [
+      {
+        "question": "Are the Boerne Champion Chargers the same football team as the Boerne Greyhounds?",
+        "answer": "No. Champion is Samuel V. Champion High School at 201 Charger Blvd; Boerne Greyhounds represent Boerne High School. UIL places Champion in 5A Division I District 13 and Greyhounds in 5A Division II District 13 for 2026–28. Their 2025/2022 playoff stories must not be combined."
+      },
+      {
+        "question": "Who is the Champion Chargers head football coach?",
+        "answer": "Champion High School's official current football coaching staff page identifies Blane Ellis as head coach. The school also lists Alan Ford defensive coordinator and Tyler Mangold offensive coordinator. This is not an assumption based on district athletics director Stan Leech."
+      },
+      {
+        "question": "Where is Champion's varsity football stadium?",
+        "answer": "Champion's campus is at 201 Charger Blvd, but the district lists Boerne ISD Stadium at 1 Greyhound Lane. A 2026 Champion school newsletter says the October 16 varsity game against Seguin uses that stadium and a one-night shuttle from the campus; verify parking, gate and game-day updates before traveling."
+      },
+      {
+        "question": "Can I buy Champion varsity football tickets with cash at the gate?",
+        "answer": "The official Champion Athletics Tickets page states Boerne ISD events are online-only through Hometown Ticketing; cash is not accepted at the gate. As displayed October 16, its CHS varsity matrix lists adult admission $8 and differing pre-sale/student categories. Check the event link for current inventory and pricing."
+      },
+      {
+        "question": "How did Champion finish the 2025 football season?",
+        "answer": "The dated 2025 MaxPreps archive gives Champion 9–4, with postseason victories over Southwest and PSJA North before a 41–31 defeat by New Braunfels. It was not a state championship or Boerne High's 2022 title-game appearance."
+      },
+      {
+        "question": "What was Champion's 2026 record through the October 2 Lockhart game?",
+        "answer": "The MaxPreps October 5 scoreboard lists Champion 6–0 following a 56–0 win at Lockhart on October 2. San Antonio Express-News separately confirms the victory and reports Caleb Farias rushed for 235 yards and five touchdowns. Games after October 2 need updated results."
+      },
+      {
+        "question": "What bags and seating arrangements should Champion fans expect?",
+        "answer": "The Champion tickets page says bags may not exceed 8.5 by 5.5 inches and lists restrictions on food, drink and prohibited items at Boerne ISD Stadium. The actual accessible seating, reserved entrance and parking conditions for a particular football game have not been independently vetted; contact the district or the event operator."
+      }
+    ]
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {
