@@ -45,7 +45,7 @@ export const COASTAL_BEACH_EDITORIAL: Readonly<Record<string, CoastalEditorialDe
     "extraUrl": "https://www.galvestonparkboard.org/353/Park-Rules-and-Regulations"
   },
   "surfside-beach": {
-    "headline": "Driving rules split Surfside's Gulf shoreline",
+    "headline": "Surfside Beach separates drive-on sand from pedestrian Gulf access",
     "arrival": "The Village of Surfside Beach says drive-on beach areas lie east of Highway 332, and vehicle traffic on the sand moves one-way eastbound. The village also maintains separate pedestrian-oriented shoreline rules.",
     "rules": "The May 2026 city rules specify street-legal vehicles only, 15 mph on sand, a valid beach permit when driving or parking on the drive-on beach, dune-side parking only where authorized, leashed pets, no glass or fireworks and limits on holes and campfires.",
     "visitorDecision": "Choose Surfside only after deciding whether you want an authorized vehicle-on-sand experience or a walk-on beach trip. Do not cross protected dunes or rely on an older permit price or operating rule.",
