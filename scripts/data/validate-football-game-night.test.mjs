@@ -4,6 +4,7 @@ import test from 'node:test';
 
 const read = (path) => readFileSync(path, 'utf8');
 const profile = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+const pageLoader = read('src/routes/texas-high-school-football-teams_.$slug.tsx');
 const panel = read('src/components/sports/FootballGameNightGuide.tsx');
 const functions = read('src/data/sports-sponsorship.functions.ts');
 const sponsorServer = read('src/data/sports-sponsorship.server.ts');
@@ -14,6 +15,35 @@ test('football game-night guide is part of existing profile with notice guard', 
   assert.match(profile, /!editorial\?\.notice && \(editorial\?\.schedule/);
   assert.match(profile, /<FootballGameNightGuide/);
   assert.match(profile, /schoolWebsite=\{program\?\.schoolWebsite\}/);
+});
+
+test('governed sports placements are looked up only for valid active football profiles', () => {
+  assert.match(pageLoader, /getActiveSportsSponsorPlacement/);
+  assert.match(pageLoader, /if \(!profile\) throw notFound\(\)/);
+  assert.match(pageLoader, /profile\.editorial\?\.notice[\s\S]*?\? null\s*:\s*await getActiveSportsSponsorPlacement/);
+  assert.match(pageLoader, /surfacePath: \`\/texas-high-school-football-teams\/\$\{profile\.slug\}\`/);
+  assert.match(pageLoader, /return \{ \.\.\.profile, sponsorPlacement \}/);
+  assert.match(profile, /SponsoredSportsPlacement key=\{sponsorPlacement\.id\} placement=\{sponsorPlacement\}/);
+  assert.match(profile, /\{sponsorPlacement \? \(/);
+  assert.match(sponsorServer, /export const SPORTS_SPONSOR_OUTREACH_HOLD = true/);
+});
+
+test('mobile readers reach game-night actions and season before historical research', () => {
+  const guideIndex = profile.indexOf('<FootballGameNightGuide');
+  const factsIndex = profile.indexOf('aria-label={`${displayName} verified football facts`}');
+  const seasonIndex = profile.indexOf('id="football-current-season"');
+  const overviewIndex = profile.indexOf('Program overview');
+  const milestonesIndex = profile.indexOf('The program story');
+  const historyIndex = profile.indexOf('All-time UIL state-final record');
+  assert.ok(guideIndex > 0 && guideIndex < factsIndex, 'game-night actions must precede the facts table');
+  assert.ok(factsIndex < seasonIndex, 'facts must precede the current schedule');
+  assert.ok(seasonIndex < overviewIndex && seasonIndex < milestonesIndex && seasonIndex < historyIndex,
+    'the current season must be above background and history');
+  assert.match(profile, /grid-cols-2 gap-x-5 border-b border-border py-3 text-sm sm:grid-cols-3 lg:grid-cols-6/);
+  assert.match(profile, /hasSeasonSection=\{!!program\}/);
+  assert.match(panel, /href="#football-current-season"/);
+  assert.match(panel, /\{hasSeasonSection && \(/);
+  assert.match(panel, /scroll-mt-36|football-current-season/);
 });
 
 test('game-night panel uses sourced schedules and cannot invent times or ticket availability', () => {
@@ -29,7 +59,11 @@ test('game-night panel uses sourced schedules and cannot invent times or ticket 
 test('first-party action tracking respects existing automation and shop analytics', () => {
   assert.match(panel, /trackTexasDefinedOutcome/);
   assert.match(panel, /next_step_selected/);
-  assert.match(panel, /shop_navigation_clicked/);
+  assert.doesNotMatch(panel, /shop_navigation_clicked/);
+  // The platform's delegated click handler already records shop_navigation_clicked.
+  // The page-specific handler only records the fan's football context once.
+  assert.match(read('src/platform/analytics.ts'), /shop_navigation_clicked/);
+  assert.match(panel, /recordAction\(slug, 'texas-gear', '\/shop'\)/);
   assert.match(panel, /high-school-football-game-night/);
   assert.doesNotMatch(panel, /localStorage|sessionStorage|sendBeacon/);
 });

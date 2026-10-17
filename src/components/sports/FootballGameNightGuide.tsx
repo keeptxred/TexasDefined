@@ -44,6 +44,7 @@ export type FootballGameNightGuideProps = {
   season?: FootballSeason | null;
   venue?: FootballVenue | null;
   venueLink?: FootballVenueLink | null;
+  hasSeasonSection?: boolean;
 };
 
 /** Use the Texas calendar day; game dates are date-only editorial snapshots, not kickoff times. */
@@ -62,8 +63,8 @@ function nextListedGame(games: FootballGame[], today: string): FootballGame | nu
   return games.find((game) => /^\d{4}-\d{2}-\d{2}$/.test(game.date) && game.date >= today && !game.result) ?? null;
 }
 
-function recordAction(slug: string, step: string, destination: string, shop = false) {
-  trackTexasDefinedOutcome(shop ? 'shop_navigation_clicked' : 'next_step_selected', {
+function recordAction(slug: string, step: string, destination: string) {
+  trackTexasDefinedOutcome('next_step_selected', {
     resourceId: `football:${slug}:${step}`,
     entityKind: 'high-school-football-game-night',
     destination,
@@ -78,6 +79,7 @@ export function FootballGameNightGuide({
   season,
   venue,
   venueLink,
+  hasSeasonSection = false,
 }: FootballGameNightGuideProps) {
   // Keep server and initial client markup identical; the date-sensitive card appears after hydration.
   const [today, setToday] = useState<string | null>(null);
@@ -91,11 +93,11 @@ export function FootballGameNightGuide({
   const venueUrl = venueLink?.venuePath?.startsWith('/sports-venue/') ? venueLink.venuePath : null;
 
   return (
-    <aside aria-label={`${footballName} game-night planning`} className="border-b border-border bg-surface px-5 py-7 sm:px-8 sm:py-9">
+    <aside aria-label={`${footballName} game-night planning`} className="border-b border-border bg-surface px-4 py-6 sm:px-8 sm:py-9">
       <p className="eyebrow text-primary">Plan your Friday night</p>
-      <h2 className="mt-2 font-display text-3xl leading-tight sm:text-4xl">{footballName}: game-night essentials</h2>
+      <h2 className="mt-2 font-display text-2xl leading-tight sm:text-4xl">Game-night essentials</h2>
       <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-        Find a verified schedule source, check the actual game venue and confirm admission directly before you travel.
+        {footballName}: confirm the current schedule, actual game venue and admission directly before you travel.
         TexasDefined is an independent guide, not a school or ticket seller.
       </p>
 
@@ -125,6 +127,13 @@ export function FootballGameNightGuide({
             School information ↗
           </a>
         )}
+        {hasSeasonSection && (
+          <a href="#football-current-season"
+            onClick={() => recordAction(slug, 'season-section', '#football-current-season')}
+            className="inline-flex min-h-11 items-center justify-center border border-border bg-background px-4 py-3 text-sm font-semibold hover:border-primary hover:text-primary">
+            2026 results &amp; schedule ↓
+          </a>
+        )}
         {venueUrl && (
           <a href={venueUrl} onClick={() => recordAction(slug, 'venue-guide', venueUrl)}
             className="inline-flex min-h-11 items-center justify-center border border-border bg-background px-4 py-3 text-sm font-semibold hover:border-primary hover:text-primary">
@@ -151,7 +160,7 @@ export function FootballGameNightGuide({
 
       <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-border pt-5 text-sm">
         <span className="text-muted-foreground">Looking for Texas gear?</span>
-        <a href="/shop" onClick={() => recordAction(slug, 'texas-gear', '/shop', true)}
+        <a href="/shop" onClick={() => recordAction(slug, 'texas-gear', '/shop')}
           className="font-semibold text-primary underline underline-offset-4">
           Browse the TexasDefined shop →
         </a>
