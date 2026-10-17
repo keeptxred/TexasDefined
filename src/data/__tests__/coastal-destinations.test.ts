@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { after, describe, it } from "node:test";
 import { createServer } from "vite";
 
-const EXPECTED_COUNT = 52;
+const EXPECTED_COUNT = 55;
 const vite = await createServer({
   appType: "custom",
   configFile: false,
