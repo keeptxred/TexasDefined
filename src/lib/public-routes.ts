@@ -267,6 +267,8 @@ export const INDEXABLE_STATIC_PATHS = [
   "/find-my-dmv",
   "/find-my-school-district",
   "/texas-high-school-football-teams",
+  "/texas-high-school-football-matchups",
+  "/texas-high-school-football-playoff-brackets",
   "/texas-high-school-football-isds",
   "/texas-high-school-football-districts",
   "/texas-high-school-football-championship-history",
