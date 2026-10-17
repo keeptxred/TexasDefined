@@ -95,7 +95,7 @@ function TexasInlandBeaches() {
             </div>
           </div>
           <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
-            {beach.county.split(" / ").map((county) => <a key={county} href={`/county/${county.trim().toLowerCase().replace(/\\s+/g, "-")}`} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{county} County guide →</a>)}
+            {beach.county.split(" / ").map((county) => <a key={county} href={`/county/${county.trim().toLowerCase().replace(/\s+/g, "-")}`} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{county} County guide →</a>)}
           </div>
           <p className="mt-5 text-sm font-semibold">
             <a href={beach.officialUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Confirm status with {beach.managingAgency} →</a>
