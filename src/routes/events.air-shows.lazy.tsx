@@ -53,6 +53,10 @@ const historicalGuidePaths: Record<string, string> = {
   "Kaboom Town Airport Air Show": "/event/addison-kaboom-town-airshow",
   "Stars and Stripes Air Show Spectacular": "/event/laredo-stars-stripes-airshow",
   "Corsicana Airsho": "/event/corsicana-airsho",
+  "Warbird Weekend": "/event/dallas-warbird-weekend",
+  "Fiesta of Flight Open House": "/event/fiesta-of-flight-laughlin",
+  "Thunder Over East Texas": "/event/thunder-over-east-texas-athens",
+  "CAF High Sky Wing AIRSHO": "/event/caf-high-sky-wing-airsho",
 };
 
 const historical2026 = [
@@ -69,11 +73,36 @@ const historical2026 = [
   ["Thunder Over East Texas", "Athens"],
   ["Magnificent Warbird Expo", "Tyler"],
   ["Thunder Over Cedar Creek Lake", "Mabank"],
-  ["Fall Festival of Flight", "Gainesville"],
   ["CAF High Sky Wing AIRSHO", "Midland"],
-  ["Ranger Old School Fly-In & Airshow", "Ranger"],
   ["Rose City Airfest", "Tyler"],
   ["Corsicana Airsho", "Corsicana"],
+] as const;
+
+// Confirmed 2027 organizer dates; keep heavy source-backed authority copy server-only.
+// No addition to the shared main-client event index (protected bundle budget).
+const confirmedHeritageFlyIns = [
+  {
+    slug: "fall-festival-of-flight-gainesville",
+    name: "Fall Festival of Flight — Gainesville",
+    city: "Gainesville",
+    venue: "Gainesville Municipal Airport",
+    startDate: "2027-09-18",
+    endDate: "2027-09-18",
+    label: "Antique and classic aircraft",
+    planning: "The Texas Antique Airplane Association confirms September 18, 2027. The precise flying program, opening hours and admission fees are not yet announced.",
+    officialUrl: "https://texasantiqueairplane.com/flyin.html",
+  },
+  {
+    slug: "ranger-old-school-fly-in-airshow",
+    name: "Ranger Old School Fly-In & Airshow",
+    city: "Ranger",
+    venue: "Ranger Airfield (F23)",
+    startDate: "2027-10-01",
+    endDate: "2027-10-03",
+    label: "Historic-airfield fly-in",
+    planning: "Confirmed for October 1–3, 2027. Fly-in and drive-in entry have different rules; the organizer currently lists Saturday adult drive-in admission at $15 and 17-and-under free.",
+    officialUrl: "https://www.rangerairfield.org/airshow",
+  },
 ] as const;
 
 const confirmed = majorEventIndexRecords
@@ -95,13 +124,21 @@ const airShowCollectionSchema = {
   description: "Texas air-show visitor planning with verified upcoming dates, organizer tickets, military-base access, parking and hotels.",
   mainEntity: {
     "@type": "ItemList",
-    numberOfItems: confirmed.length,
-    itemListElement: confirmed.map((event, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: event.name,
-      url: "https://texasdefined.com/event/" + event.slug,
-    })),
+    numberOfItems: confirmed.length + confirmedHeritageFlyIns.length,
+    itemListElement: [
+      ...confirmed.map((event, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: event.name,
+        url: "https://texasdefined.com/event/" + event.slug,
+      })),
+      ...confirmedHeritageFlyIns.map((event, index) => ({
+        "@type": "ListItem",
+        position: confirmed.length + index + 1,
+        name: event.name,
+        url: "https://texasdefined.com/event/" + event.slug,
+      })),
+    ],
   },
 };
 
@@ -146,7 +183,22 @@ function TexasAirShowsPage() {
             </article>;
           })}
         </div>
-        {upcoming.length === 0 ? <p className="mt-6 border border-border p-5">No future show in this verified group currently has an announced date. Use organizer links below rather than assuming the same weekend next year.</p> : null}
+        <h3 className="mt-10 font-display text-3xl">Confirmed 2027 fly-ins and historic-aircraft festivals</h3>
+        <p className="mt-3 leading-7 text-muted-foreground">The organizers have confirmed these 2027 dates. These are classic-aircraft and aviation-heritage experiences, not guaranteed military jet-team shows.</p>
+        <div className="mt-6 grid gap-5 md:grid-cols-2">
+          {confirmedHeritageFlyIns.map((event) => <article key={event.slug} className="flex flex-col border border-border p-6">
+            <p className="eyebrow text-primary">{event.label} · {event.city}</p>
+            <h4 className="mt-3 font-display text-2xl"><a className="hover:text-primary" href={"/event/" + event.slug}>{event.name}</a></h4>
+            <p className="mt-3 font-semibold">{formatDate(event.startDate)}{event.endDate !== event.startDate ? " – " + formatDate(event.endDate) : ""}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{event.venue}</p>
+            <p className="mt-5 flex-1 leading-7 text-muted-foreground">{event.planning}</p>
+            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+              <a className="text-primary underline" href={"/event/" + event.slug}>Full visitor guide →</a>
+              <a className="underline" href={event.officialUrl} target="_blank" rel="noopener noreferrer">Official organizer updates ↗</a>
+            </div>
+          </article>)}
+        </div>
+        {upcoming.length === 0 && confirmedHeritageFlyIns.length === 0 ? <p className="mt-6 border border-border p-5">No upcoming verified dates in the current inventory. Consult organizers before booking.</p> : null}
         {completed.length ? <div className="mt-9"><h3 className="font-display text-2xl">Recently completed shows</h3><ul className="mt-3 space-y-2">{completed.map((event) => <li key={event.slug}><a className="font-semibold text-primary underline" href={"/event/" + event.slug}>{event.name}</a> · {event.city} · {formatDate(event.startDate)}</li>)}</ul></div> : null}
       </section>
 

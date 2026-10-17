@@ -16,6 +16,56 @@ const person = (name: string, url?: string): EventSchemaEntity => ({ type: "Pers
 export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
 
   {
+    slug: "ranger-old-school-fly-in-airshow",
+    organizer: organization("Ranger Airfield Foundation", "https://www.rangerairfield.org/"),
+    sources: [
+      { label: "Ranger Airfield Foundation — 2027 verified dates, tickets, flying windows", url: "https://www.rangerairfield.org/airshow" },
+      { label: "Ranger Airfield preservation mission", url: "https://www.rangerairfield.org/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "fall-festival-of-flight-gainesville",
+    organizer: organization("Texas Chapter, Antique Airplane Association", "https://texasantiqueairplane.com/"),
+    sources: [{ label: "Texas Antique Airplane Association — 65th Fall Festival of Flight, September 18, 2027", url: "https://texasantiqueairplane.com/flyin.html" }],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "fiesta-of-flight-laughlin",
+    organizer: organization("47th Flying Training Wing, Laughlin Air Force Base", "https://www.laughlin.af.mil/"),
+    sources: [
+      { label: "Laughlin AFB public affairs — 2026 program", url: "https://www.laughlin.af.mil/News/News/Display/Article/4404606/laughlin-afb-releases-initial-performer-list-for-2026-fiesta-of-flight/" },
+      { label: "Laughlin AFB official 2026 portal", url: "https://www.laughlin.af.mil/Fiesta-of-Flight-2026/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "thunder-over-east-texas-athens",
+    organizer: organization("Cedar Creek Veterans Foundation", "https://athenstx.gov/"),
+    sources: [{ label: "City of Athens — July 3, 2026 schedule, admission, parking", url: "https://athenstx.gov/Calendar.aspx?EID=1370" }],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "caf-high-sky-wing-airsho",
+    organizer: organization("Commemorative Air Force High Sky Wing", "https://www.airsho.org/"),
+    sources: [
+      { label: "City of Midland — September 12–13, 2026 AIRSHO", url: "https://www.midlandtexas.gov/Calendar.aspx?EID=3935&calType=0&day=29&month=9&year=2026" },
+      { label: "CAF 35-year AIRSHO post-event aircraft recap", url: "https://www.commemorativeairforce.org/news/airsho-celebrates-35-years" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "dallas-warbird-weekend",
+    organizer: organization("Commemorative Air Force National Aviation Education Center", "https://flynaec.org/"),
+    sources: [
+      { label: "CAF — Dallas Warbird Weekend April 11, 2026", url: "https://commemorativeairforce.org/events/663" },
+      { label: "CAF AirPower History Tour — flight options in 2026", url: "https://commemorativeairforce.org/events/662" },
+      { label: "NAEC Warbird Weekend organizer", url: "https://flynaec.org/warbird-weekend/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+
+  {
     slug: "rose-city-airfest",
     organizer: organization("Rose City Airfest / CampV", "https://www.rosecityairfest.com/"),
     sources: [

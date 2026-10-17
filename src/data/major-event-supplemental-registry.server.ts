@@ -174,6 +174,12 @@ export const supplementalMajorEventSlugs = [
   "corsicana-airsho",
   "addison-kaboom-town-airshow",
   "laredo-stars-stripes-airshow",
+  "ranger-old-school-fly-in-airshow",
+  "fall-festival-of-flight-gainesville",
+  "fiesta-of-flight-laughlin",
+  "thunder-over-east-texas-athens",
+  "caf-high-sky-wing-airsho",
+  "dallas-warbird-weekend",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
