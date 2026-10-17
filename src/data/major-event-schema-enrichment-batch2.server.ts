@@ -18,6 +18,15 @@ export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
   {
     slug: "great-texas-airshow",
     organizer: organization("Joint Base San Antonio, 502d Air Base Wing", "https://www.jbsa.mil/GreatTexasAirshow/"),
+    image: {
+      url: "https://media.defense.gov/2022/Apr/26/2002984190/-1/-1/0/220423-F-FD742-0173.JPG",
+      alt: "U.S. Air Force Thunderbirds flying at the Great Texas Airshow at JBSA-Randolph in 2022; historical image, not an announced future lineup",
+      sourceUrl: "https://www.jbsa.mil/News/News/Article/3010427/great-texas-airshow-thrills-more-than-half-million-attendees/",
+      sourceType: "government-open",
+      rightsNote: "Official U.S. Air Force photo, Great Texas Airshow at JBSA-Randolph, April 2022. Archival government photograph, not the 2026 or any future program.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     sources: [
       { label: "Official JBSA 2026 event release", url: "https://www.jbsa.mil/News/News/Article/4376885/press-release-the-great-texas-airshow-returns-to-jbsa-randolph-may-2-3/" },
       { label: "Official JBSA 2026 event traffic guidance", url: "https://www.jbsa.mil/News/News/Article/4463066/the-great-texas-airshow-kicks-off-at-jbsa-randolph-may-2-3/" },
@@ -27,6 +36,15 @@ export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
   {
     slug: "wings-over-south-texas",
     organizer: organization("Naval Air Station Kingsville", "https://www.wingsoversouthtexas.com/"),
+    image: {
+      url: "https://d2cto119c3bgok.cloudfront.net/thumbs/photos/2605/9666893/1000w_q95.jpg",
+      alt: "Blue Angels over Naval Air Station Kingsville at the 2026 Wings Over South Texas Air Show, April 18, 2026; archival photograph",
+      sourceUrl: "https://www.dvidshub.net/image/9666893/us-navy-blue-angels-headline-2026-wings-over-south-texas-air-show-naval-air-station-kingsville-texas",
+      sourceType: "government-open",
+      rightsNote: "U.S. Marine Corps public-domain photo by Cpl. Christian Salazar, taken April 18, 2026 at Naval Air Station Kingsville; DVIDS photo ID 9666893.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     sources: [
       { label: "Official NAS Kingsville Wings Over South Texas site", url: "https://www.wingsoversouthtexas.com/" },
       { label: "Official 2026 public dates and military access", url: "https://www.wingsoversouthtexas.com/modules/media/?do=inline&id=ca201fc1-61f4-4420-a095-bfd5e9747542" },
