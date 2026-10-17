@@ -50,6 +50,9 @@ export type FootballGameNightGuideProps = {
   venue?: FootballVenue | null;
   venueLink?: FootballVenueLink | null;
   hasSeasonSection?: boolean;
+  // The profile header already shows record, latest result and next listed fixture.
+  // Avoid repeating those large panels in the game-night planning box.
+  summaryAlreadyShown?: boolean;
 };
 
 /** Use the Texas calendar day; game dates are date-only editorial snapshots, not kickoff times. */
@@ -85,6 +88,7 @@ export function FootballGameNightGuide({
   venue,
   venueLink,
   hasSeasonSection = false,
+  summaryAlreadyShown = false,
 }: FootballGameNightGuideProps) {
   // Keep server and initial client markup identical; the date-sensitive card appears after hydration.
   const [today, setToday] = useState<string | null>(null);
@@ -109,7 +113,7 @@ export function FootballGameNightGuide({
         TexasDefined is an independent guide, not a school or ticket seller.
       </p>
 
-      {season?.record && (
+      {!summaryAlreadyShown && season?.record && (
         <div className="mt-5 flex flex-wrap items-center border-b border-border" style={{ columnGap: 24, rowGap: 8, paddingBlock: 16 }}>
           <div>
             <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Verified season snapshot</p>
@@ -118,7 +122,7 @@ export function FootballGameNightGuide({
           <p className="text-xs leading-6 text-muted-foreground">Checked {season.verifiedAt}. Results and standings are not live.</p>
         </div>
       )}
-      {upcoming && season && (
+      {!summaryAlreadyShown && upcoming && season && (
         <div className="mt-5 border-l-4 border-primary bg-background p-4 sm:p-5">
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Next game listed in our dated schedule</p>
           <p className="mt-2 font-display text-2xl">{upcoming.date} · {upcoming.opponent}</p>
