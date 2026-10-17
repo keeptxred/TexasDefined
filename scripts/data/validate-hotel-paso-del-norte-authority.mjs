@@ -47,7 +47,7 @@ contains(route, 'isHotelPasoDelNorte ? "10 Henry Trost Ct"', "schema physical ad
 contains(route, 'postalCode: "79901"', "schema postal code");
 contains(route, "Historical photographs of {destination.name}", "no recycled Battleship gallery heading");
 contains(html, "Hotels.com", "existing hotel comparison opportunities");
-contains(guide, "the historic home is closed through 2027 for restoration", "Magoffin nearby closure advisory");
+contains(guide, "The historic home is closed through 2027 for restoration", "Magoffin nearby closure advisory");
 contains(guide, "https://thc.texas.gov/historic-sites/magoffin-home", "Magoffin authoritative closure source");
 contains(nearbyHistoricSites, 'site.slug === "magoffin-home" ? {', "specific Magoffin photograph");
 contains(nearbyHistoricSites, "Magoffin%20home%202009.jpg", "exact Magoffin photographic file");
