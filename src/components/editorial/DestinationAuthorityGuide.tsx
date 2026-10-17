@@ -34,12 +34,13 @@ export function DestinationAuthorityGuide({
   const primarySource = authority.sources[0];
   const nearby = destination.areaGuide?.nearbyAttractions[0];
   const sideTrip = destination.areaGuide?.sideTrips[0];
-  const questions = [
+  const questions: Array<{ q: string; a: string; sourceUrl?: string }> = [
     { q: `How long should I allow for ${destination.name}?`, a: authority.assessment.recommendedVisit },
+    ...(destination.visitorFaqs ?? []).map((faq) => ({ q: faq.question, a: faq.answer, sourceUrl: faq.sourceUrl })),
     ...(destination.accessibilityNotes ? [{ q: `What should I know about accessibility?`, a: destination.accessibilityNotes }] : []),
     ...(nearby ? [{ q: `What should I pair with ${destination.name}?`, a: `${nearby.name}${nearby.proximity ? ` (${nearby.proximity})` : ""}: ${nearby.description}` }] : []),
     ...(sideTrip ? [{ q: `What is a worthwhile side trip?`, a: `${sideTrip.name}${sideTrip.proximity ? ` (${sideTrip.proximity})` : ""}: ${sideTrip.description}` }] : []),
-  ].slice(0, 6);
+  ].slice(0, 8);
 
   return <>
     <Section tone="surface">
@@ -107,7 +108,7 @@ export function DestinationAuthorityGuide({
             <p className="eyebrow text-primary">Before you go</p>
             <h2 id={`${destination.slug}-traveler-questions`} className="mt-2 font-display text-4xl">Common visitor questions</h2>
             <dl className="mt-7 divide-y divide-border border-y border-border">
-              {questions.map((item) => <div key={item.q} className="py-5"><dt className="font-display text-2xl">{item.q}</dt><dd className="mt-2 text-sm leading-7 text-muted-foreground">{item.a}{primarySource && item.q.includes("How long") && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>)}
+              {questions.map((item) => <div key={item.q} className="py-5"><dt className="font-display text-2xl">{item.q}</dt><dd className="mt-2 text-sm leading-7 text-muted-foreground">{item.a}{primarySource && item.q.includes("How long") && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}{item.sourceUrl && /^https:\/\//.test(item.sourceUrl) && <a href={item.sourceUrl} target="_blank" rel="noreferrer noopener" className="ml-2 inline-block border-b border-primary text-primary">Official verification ↗</a>}</dd></div>)}
             </dl>
           </section>
 
