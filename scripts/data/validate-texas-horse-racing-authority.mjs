@@ -14,7 +14,7 @@ const expedia = read('public/expedia-travel.js');
 const cj = read('public/stay-affiliate-options.js');
 
 const live = ['lone-star-park', 'sam-houston-race-park', 'retama-park', 'gillespie-county-fairgrounds'];
-const inactive = ['manor-downs', 'laredo-downs', 'gulf-coast-racing', 'valle-de-los-tesoros'];
+const inactive = ['manor-downs', 'laredo-downs', 'valle-de-los-tesoros'];
 const bespoke = [...inactive, 'gillespie-county-fairgrounds'];
 
 for (const id of live) assert.ok(data.includes(`slug: '${id}'`), `Missing licensed live racetrack ${id}`);
@@ -41,4 +41,4 @@ assert.ok(detail.includes('data-stay-nearby-slot'), 'Gillespie hotel slot absent
 assert.ok(!/betting[ -]affiliate|sportsbook[ -]affiliate/.test(data), 'Gambling referral copy is not allowed');
 assert.ok(fs.existsSync('public/images/horse-racing/gillespie-2026-race-weekends.svg'), 'Gillespie illustration missing');
 assert.ok(detail.includes('2027 dates'), 'Future race dates must be explicitly unconfirmed');
-console.log('Horse racing authority verified: 4 active, 4 historical licenses, 6 indexable pages, county links, SEO, licensed imagery and governed lodging.');
+console.log('Horse racing authority verified: 4 active, 3 historical licenses, 5 indexable pages, county links, SEO, licensed imagery and governed lodging.');
