@@ -61,8 +61,8 @@ assert.ok(page.includes("mainEntity") && page.includes("ItemList"));
 assert.ok(page.includes('numberOfItems: beaches.length'));
 assert.ok(individual.includes("beach.officialUrl") && individual.includes("beach.checkedAt"));
 assert.ok(individual.includes("beach.statusNotice") && individual.includes("beach.statusUrl"), "Special-closure swim beaches must display active caution and direct status links");
-assert.equal([...records.matchAll(/^\\s+statusNotice: "/gm)].length, 2, "The two Benbrook swimming beaches must retain dated low-water closure notices");
-assert.equal([...records.matchAll(/^\\s+statusUrl: "/gm)].length, 2, "The two Benbrook closure notices must link to official live status");
+assert.equal([...records.matchAll(/^\s+statusNotice: "/gm)].length, 2, "The two Benbrook swimming beaches must retain dated low-water closure notices");
+assert.equal([...records.matchAll(/^\s+statusUrl: "/gm)].length, 2, "The two Benbrook closure notices must link to official live status");
 for (const slug of ["cedar-hill-state-park-swimming-beach", "lake-mineral-wells-state-park-swim-beach"]) {
   assert.ok(beachPhotos.includes('"' + slug + '": {'), `Missing exact-beach photo for ${slug}`);
 }
