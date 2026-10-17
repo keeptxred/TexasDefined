@@ -17,7 +17,7 @@ export const blackwellSchoolNationalHistoricSite: Destination = {
   coordinates: { lat: 30.3059, lng: -104.0221 },
   address: "501 South Abbott Street, Marfa, TX 79843",
   hero: {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/NPS_photo_of_Blackwell_School.jpg?width=1600",
+    src: "https://upload.wikimedia.org/wikipedia/commons/d/d0/NPS_photo_of_Blackwell_School.jpg",
     alt: "The original Blackwell School building in Marfa, preserved as a National Historic Site",
     width: 1600, height: 900,
     credit: "David Larson / U.S. National Park Service · U.S. government public domain · Wikimedia Commons",
