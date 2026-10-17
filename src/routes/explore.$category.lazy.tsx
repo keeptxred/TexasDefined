@@ -81,6 +81,14 @@ function ExploreCategoryPage() {
 
   return <>
     <CategoryPage category={match.slug as CategorySlug} eyebrow={match.eyebrow} title={match.name} intro={match.description} image={match.image} authorityHtml={authorityHtml} />
+    {(match.slug === "beaches-coast" || match.slug === "lakes-rivers") ? <Container className="pb-10 sm:pb-14">
+      <section className="border-y border-border py-8" aria-labelledby="inland-beaches-bridge">
+        <p className="eyebrow text-primary">Freshwater swimming and the Texas coast are different trips</p>
+        <h2 id="inland-beaches-bridge" className="mt-2 font-display text-3xl">Looking for a Texas lake beach?</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Explore a separately sourced guide to designated inland swimming beaches. We distinguish actual park swim beaches from lakes where swimming happens to be allowed, and link to managing agencies for current access and safety.</p>
+        <Link to="/explore/inland-beaches" className="mt-4 inline-block text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">See verified Texas inland swimming beaches →</Link>
+      </section>
+    </Container> : null}
 
     {match.slug === "lakes-rivers" ? <Container className="pb-10 sm:pb-14">
       <section aria-labelledby="lakes-fishing-depth-heading" className="border-y border-border py-8">
