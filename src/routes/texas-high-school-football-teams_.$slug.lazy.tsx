@@ -233,7 +233,7 @@ function Page() {
         <span aria-current="page">{displayName}</span>
       </nav>
 
-      <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
+      <header className="border-b border-border py-7 sm:py-10">
         <div>
           <p className="eyebrow text-primary">2026 Texas high school football</p>
           <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{footballName}</h1>
