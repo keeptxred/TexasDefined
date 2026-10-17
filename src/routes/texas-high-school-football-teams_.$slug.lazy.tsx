@@ -258,10 +258,10 @@ function Page() {
       </aside>}
 
       {editorial?.season && !editorial.notice && (
-        <section aria-label={`${footballName} season at a glance`} className="grid gap-4 border-b border-border py-5 sm:grid-cols-3 sm:py-7">
+        <section aria-label={`${footballName} season at a glance`} className="grid gap-4 border-b border-border py-5 sm:grid-cols-3 sm:py-10">
           <div className="border-l-4 border-primary bg-surface p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">2026 record from reported finals</p>
-            <p className="mt-2 text-lg font-bold leading-snug">{editorial.season.record}</p>
+            <p className="mt-2 text-lg font-semibold leading-tight">{editorial.season.record}</p>
           </div>
           {latestResult && <div className="border-l-4 border-border bg-surface p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Most recent reported result</p>
@@ -275,7 +275,7 @@ function Page() {
             <p className="mt-1 text-xs text-muted-foreground">{nextListedFixture.date} · {nextListedFixture.site}; verify kickoff</p>
             <a href="#football-current-season" className="mt-2 inline-block text-sm font-semibold text-primary underline underline-offset-4">Full schedule ↓</a>
           </div>}
-          <p className="text-xs leading-5 text-muted-foreground sm:col-span-3">Checked {editorial.season.verifiedAt}. Source-linked results are verified snapshots, not live game scores or certified district standings.</p>
+          <p className="text-xs leading-6 text-muted-foreground">Checked {editorial.season.verifiedAt}. Source-linked results are verified snapshots, not live game scores or certified district standings.</p>
         </section>
       )}
 
