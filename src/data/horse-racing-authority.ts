@@ -108,12 +108,126 @@ export const TEXAS_HORSE_RACING_INSTITUTIONS: readonly HorseRacingInstitution[] 
   },
 ];
 
-export const TEXAS_RACING_ORGANIZATIONS = [
-  { name: 'Texas Racing Commission', role: 'State licensing, regulation, official live race dates and professional licensing', url: 'https://www.txrc.texas.gov/', countySlug: 'travis' },
-  { name: 'Texas Thoroughbred Association', role: 'Accredited Texas-Bred Thoroughbred program, ownership, breeding, sales and industry news', url: 'https://texasthoroughbred.com/', countySlug: 'hays' },
-  { name: 'Texas Quarter Horse Association', role: 'Quarter Horse racing programs, breeding incentives, accredited Texas-bred awards and sales', url: 'https://www.tqha.com/', countySlug: 'bastrop' },
-  { name: "Texas Horsemen's Partnership", role: 'Owner, trainer and racing-professional support, race calendars and condition books', url: 'https://www.texashorsemen.org/', countySlug: 'bastrop' },
-] as const;
+export type TexasRacingOrganization = {
+  category: 'organization';
+  slug: string;
+  name: string;
+  city: string;
+  county: string;
+  countySlug: string;
+  canonicalPath: string;
+  role: string;
+  url: string;
+  address: string;
+  introduction: string;
+  context: readonly string[];
+  visitorNotes: readonly string[];
+  sourceDate: string;
+  sources: readonly { label: string; url: string }[];
+};
+
+/**
+ * Regulator and primary statewide horse-racing organizations. Their offices
+ * are NOT racetracks, race-day attractions or ticket-selling destinations.
+ * Office locations verified from the organizations' current contact pages.
+ */
+export const TEXAS_RACING_ORGANIZATIONS: readonly TexasRacingOrganization[] = [
+  {
+    category: 'organization', slug: 'texas-racing-commission', name: 'Texas Racing Commission', city: 'Austin',
+    county: 'Travis County', countySlug: 'travis', canonicalPath: '/horse-racing/texas-racing-commission',
+    role: 'State regulator for pari-mutuel horse racing, racetrack and occupational licensing, approved race dates, rules and integrity',
+    url: 'https://www.txrc.texas.gov/', address: '1801 Congress Avenue, Suite 7.600, Austin, TX 78701',
+    introduction: 'The Texas Racing Commission (TXRC) administers and enforces the Texas Racing Act, regulates licensed Texas horse racing, and publishes official racetrack dates and occupational licensing information.',
+    context: [
+      'The commission is the authoritative state source for approved live-race dates, active and inactive racetrack licenses, racing rules, disciplinary and licensing information.',
+      'The Austin headquarters is an administrative office, not a racetrack or a place to buy race tickets.',
+      'The commission explicitly says its Austin headquarters does not process occupational racing licenses. Licensing opportunities are available at listed track offices with seasonal hours.',
+    ],
+    visitorNotes: [
+      'For official race schedules and regulatory updates, open the commission’s track and racing dates page.',
+      'For licensing, check the official registration locations and seasonal hours. Do not travel to headquarters to obtain a license.',
+      'For spectator travel, choose one of the four live Texas racetrack guides rather than this office profile.',
+    ],
+    sourceDate: '2026-10-17',
+    sources: [
+      { label: 'TXRC official home and headquarters', url: 'https://www.txrc.texas.gov/' },
+      { label: 'TXRC licensing and registration locations', url: 'https://www.txrc.texas.gov/licensing' },
+      { label: 'TXRC race tracks and dates', url: TXRC_RACETRACKS },
+    ],
+  },
+  {
+    category: 'organization', slug: 'texas-thoroughbred-association', name: 'Texas Thoroughbred Association', city: 'Buda',
+    county: 'Hays County', countySlug: 'hays', canonicalPath: '/horse-racing/texas-thoroughbred-association',
+    role: 'Thoroughbred breeding and racing representation, Accredited Texas-Bred registration, racing incentives and sales',
+    url: 'https://texasthoroughbred.com/', address: '192 Cimarron Park Loop, Suite A, Buda, TX 78610',
+    introduction: 'The Texas Thoroughbred Association (TTA) supports Thoroughbred owners and breeders and administers the Accredited Texas-Bred program that helps eligible horses earn incentives at Texas races.',
+    context: [
+      'The TTA traces its establishment to 1955 and describes itself as the steward of Texas Thoroughbred racing and breeding.',
+      'Its Accredited Texas-Bred program covers qualifying horses and breeding stock; requirements, forms, deadlines and fees are maintained by the association, not Texas Defined.',
+      'The association also supports stakes and Thoroughbred sales and publishes industry updates. Its Buda office is not a visitor horse-racing track.',
+    ],
+    visitorNotes: [
+      'Use the official association site for breeding accreditation, forms and current program requirements.',
+      'Confirm deadlines, forms, rates and whether an in-person office appointment is needed directly with TTA.',
+      'For live Thoroughbred racing, review official Lone Star Park, Sam Houston Race Park and Gillespie County calendars.',
+    ],
+    sourceDate: '2026-10-17',
+    sources: [
+      { label: 'TTA about and mission', url: 'https://texasthoroughbred.com/about-us/' },
+      { label: 'TTA Accredited Texas-Bred forms and current mailing address', url: 'https://texasthoroughbred.com/texas-bred/forms/' },
+    ],
+  },
+  {
+    category: 'organization', slug: 'texas-quarter-horse-association', name: 'Texas Quarter Horse Association', city: 'Elgin',
+    county: 'Bastrop County', countySlug: 'bastrop', canonicalPath: '/horse-racing/texas-quarter-horse-association',
+    role: 'Quarter Horse racing, Accredited Texas-Bred awards, performance, sales, membership and youth programs',
+    url: 'https://www.tqha.com/', address: '14 N. Main Street, Suite B, Elgin, TX 78621',
+    introduction: 'Founded in 1978, the Texas Quarter Horse Association (TQHA) is the state’s American Quarter Horse affiliate and supports Texas Quarter Horse racing, ownership, breeding, competition and youth programs.',
+    context: [
+      'TQHA manages the Accredited Texas-Bred Quarter Horse awards program and serves racing owners, breeders and stallion interests.',
+      'Its programming extends beyond pari-mutuel racing to performance, halter, youth participation and membership.',
+      'The official contact page lists a Main Street office in Elgin; it is an administrative association office, not a racetrack.',
+    ],
+    visitorNotes: [
+      'For race programs, eligibility, membership, sales and awards, use TQHA’s current official information.',
+      'Check opening hours and contact information before planning an office visit.',
+      'For Quarter Horse spectators, use the statewide live racetrack directory and operator-posted dates.',
+    ],
+    sourceDate: '2026-10-17',
+    sources: [
+      { label: 'TQHA association and mission', url: 'https://www.tqha.com/association/' },
+      { label: 'TQHA membership and accredited Texas-bred programs', url: 'https://www.tqha.com/association/membership/' },
+      { label: 'TQHA current contact details', url: 'https://www.tqha.com/contact/' },
+    ],
+  },
+  {
+    category: 'organization', slug: 'texas-horsemens-partnership', name: "Texas Horsemen's Partnership", city: 'Elgin',
+    county: 'Bastrop County', countySlug: 'bastrop', canonicalPath: '/horse-racing/texas-horsemens-partnership',
+    role: 'Owner and trainer representation, race condition books, licensing links and racehorse professional resources',
+    url: 'https://www.texashorsemen.org/', address: '119 N. Main Street, Elgin, TX 78621',
+    introduction: "Texas Horsemen's Partnership (THP) represents and supports racehorse owners and trainers at Texas pari-mutuel tracks with condition books, calendars, licensing references and industry services.",
+    context: [
+      'THP describes itself as the recognized voice of participating Texas racing owners and trainers and acts as a bridge between horsemen, racetracks and regulators.',
+      'Its website brings together condition books, race calendars and horsemen account resources for licensed professionals.',
+      'The Elgin office is not an active racetrack or a tourist racing attraction.',
+    ],
+    visitorNotes: [
+      'Use the official site for current condition books, horsemen accounts, contacts, resources and racing calendars.',
+      'Check the Texas Racing Commission for regulatory licensing requirements rather than relying on old race-season posts.',
+      'Use the four live-racing venue guides for public spectator schedules and visitor information.',
+    ],
+    sourceDate: '2026-10-17',
+    sources: [
+      { label: 'THP mission and official office', url: 'https://www.texashorsemen.org/copy-of-thp-staff-directors' },
+      { label: 'THP resources and calendar home', url: 'https://www.texashorsemen.org/' },
+      { label: 'THP membership and representation', url: 'https://www.texashorsemen.org/copy-of-benevolence' },
+    ],
+  },
+];
+
+export function findTexasRacingOrganization(slug: string) {
+  return TEXAS_RACING_ORGANIZATIONS.find((item) => item.slug === slug);
+}
 
 export function findTexasHorseRacingInstitution(slug: string) {
   return TEXAS_HORSE_RACING_INSTITUTIONS.find((item) => item.slug === slug);
