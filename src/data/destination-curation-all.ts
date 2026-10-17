@@ -1,3 +1,4 @@
+import { applyStateParkSixAuthorityWave } from "./state-park-six-authority-wave";
 import { applyDevilsSinkholeVisitorAuthority } from "./devils-sinkhole-visitor-authority";
 import { applyStateParkSourceGroundedDepth } from "./state-park-source-grounded-depth";
 import { applyEsteroLlanoGrandeStateParkAuthority } from "./estero-llano-grande-state-park-authority";
@@ -172,6 +173,7 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyRayRobertsLakeStateParkAuthority,
   applyEsteroLlanoGrandeStateParkAuthority,
   applyStateParkSourceGroundedDepth,
+  applyStateParkSixAuthorityWave,
   applyDevilsSinkholeVisitorAuthority,
 ];
 
