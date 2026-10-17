@@ -1,7 +1,7 @@
 /** Operator-backed Texas water-park census, reviewed 2026-10-17. One park per physical facility, not per brand. */
 export type WaterParkSetting = "Indoor" | "Outdoor" | "Both";
 export type WaterParkKind = "Destination park" | "Indoor resort park" | "Community water park" | "Indoor public park" | "Municipal water park" | "Campground water park" | "Resort beach water park" | "Resort water park" | "Inflatable lake water park";
-export type WaterParkGuide = { slug: string; name: string; city: string; county?: string; region: string; authorityReady?: boolean; authorityEvidence?: { exactAddress: string; licensedImageSrc: string; imageCredit: string; accessVerifiedAt: string; rideHighlights: string[]; sourceUrls: string[] }; setting: WaterParkSetting; kind: WaterParkKind; admission: string; summary: string; distinctiveNote: string; officialUrl: string; reviewedAt: string; visitorFaqs?: {question: string; answer: string; sourceUrl: string}[]; visitorAddress?: string; visitorHighlights?: string[]; licensedMedia?: { src: string; sourceUrl: string; licenseUrl: string; licenseLabel: string; photographer: string; year: number; alt: string } };
+export type WaterParkGuide = { slug: string; name: string; city: string; county?: string; region: string; authorityReady?: boolean; authorityEvidence?: { exactAddress: string; licensedImageSrc: string; imageCredit: string; accessVerifiedAt: string; rideHighlights: string[]; sourceUrls: string[] }; setting: WaterParkSetting; kind: WaterParkKind; admission: string; summary: string; distinctiveNote: string; officialUrl: string; reviewedAt: string; visitorFaqs?: {question: string; answer: string; sourceUrl: string}[]; visitorAddress?: string; visitorHighlights?: string[]; licensedMedia?: { src: string; sourceUrl: string; licenseUrl: string; licenseLabel: string; photographer: string; year: number; alt: string }; areaAttractions?: { label: string; href: string }[] };
 export const texasWaterParks: WaterParkGuide[] = [
   {
     "slug": "schlitterbahn-new-braunfels",
@@ -106,7 +106,21 @@ export const texasWaterParks: WaterParkGuide[] = [
       "licenseLabel": "CC BY-SA 2.0",
       "year": 2009,
       "alt": "Schlitterbahn Galveston waterpark photographed in 2009."
-    }
+    },
+    "areaAttractions": [
+      {
+        "label": "Moody Gardens",
+        "href": "/destination/moody-gardens"
+      },
+      {
+        "label": "Galveston Island Historic Pleasure Pier",
+        "href": "/destination/galveston-island-historic-pleasure-pier"
+      },
+      {
+        "label": "Galveston Island State Park",
+        "href": "/destination/galveston-island-state-park"
+      }
+    ]
   },
   {
     "slug": "typhoon-texas-katy",
@@ -364,7 +378,21 @@ export const texasWaterParks: WaterParkGuide[] = [
       "licenseLabel": "CC BY 2.0",
       "year": 2012,
       "alt": "A slide landing pool at Aquatica San Antonio photographed in 2012."
-    }
+    },
+    "areaAttractions": [
+      {
+        "label": "The Alamo",
+        "href": "/destination/the-alamo"
+      },
+      {
+        "label": "San Antonio River Walk",
+        "href": "/destination/san-antonio-river-walk"
+      },
+      {
+        "label": "San Antonio Missions National Historical Park",
+        "href": "/destination/san-antonio-missions-national-historical-park"
+      }
+    ]
   },
   {
     "slug": "big-rivers-new-caney",
@@ -1948,6 +1976,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "Not automatically. Palm Beach is listed as a separate seasonal attraction. Some upgraded annual memberships include multiple pyramids and other experiences, so check the exact ticket inclusions.",
         "sourceUrl": "https://www.moodygardens.com/attractions/palmbeach"
       }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Moody Gardens",
+        "href": "/destination/moody-gardens"
+      },
+      {
+        "label": "Galveston Island Historic Pleasure Pier",
+        "href": "/destination/galveston-island-historic-pleasure-pier"
+      },
+      {
+        "label": "Galveston Island State Park",
+        "href": "/destination/galveston-island-state-park"
+      }
     ]
   },
   {
@@ -2093,6 +2135,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "No. The hotel explicitly prohibits outside food and beverages in River Bluff Water Experience, although it provides free towels and attraction-specific tubes for eligible guests.",
         "sourceUrl": "https://www.marriott.com/en-us/hotels/satjw-jw-marriott-san-antonio-hill-country-resort-and-spa/overview/"
       }
+    ],
+    "areaAttractions": [
+      {
+        "label": "The Alamo",
+        "href": "/destination/the-alamo"
+      },
+      {
+        "label": "San Antonio River Walk",
+        "href": "/destination/san-antonio-river-walk"
+      },
+      {
+        "label": "San Antonio Missions National Historical Park",
+        "href": "/destination/san-antonio-missions-national-historical-park"
+      }
     ]
   },
   {
@@ -2136,6 +2192,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "Can guests find food next to the waterpark?",
         "answer": "Yes. Hyatt lists Vince's Watering Hole as an on-site waterpark food and bar outlet, with its own published hours that may not match the water-play schedule.",
         "sourceUrl": "https://www.hyatt.com/hyatt-regency/en-US/sanhc-hyatt-regency-hill-country-resort-and-villas/dining"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "The Alamo",
+        "href": "/destination/the-alamo"
+      },
+      {
+        "label": "San Antonio River Walk",
+        "href": "/destination/san-antonio-river-walk"
+      },
+      {
+        "label": "San Antonio Missions National Historical Park",
+        "href": "/destination/san-antonio-missions-national-historical-park"
       }
     ]
   },
@@ -2275,6 +2345,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "Is the waterpark open on the dry park's October operating dates?",
         "answer": "Do not assume so. The operator advertises Inspiration Island during its separate summer-season calendar, while Morgan's Wonderland dry-park operation can continue on different dates.",
         "sourceUrl": "https://morganswonderland.org/tickets-passes/"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "The Alamo",
+        "href": "/destination/the-alamo"
+      },
+      {
+        "label": "San Antonio River Walk",
+        "href": "/destination/san-antonio-river-walk"
+      },
+      {
+        "label": "San Antonio Missions National Historical Park",
+        "href": "/destination/san-antonio-missions-national-historical-park"
       }
     ]
   },
@@ -3453,7 +3537,21 @@ export const texasWaterParks: WaterParkGuide[] = [
       "photographer": "Jpp858",
       "year": 2017,
       "alt": "The waterpark at Six Flags Fiesta Texas photographed in 2017 under its former White Water Bay name."
-    }
+    },
+    "areaAttractions": [
+      {
+        "label": "The Alamo",
+        "href": "/destination/the-alamo"
+      },
+      {
+        "label": "San Antonio River Walk",
+        "href": "/destination/san-antonio-river-walk"
+      },
+      {
+        "label": "San Antonio Missions National Historical Park",
+        "href": "/destination/san-antonio-missions-national-historical-park"
+      }
+    ]
   },
   {
     "slug": "thrive-indoor-lewisville",
@@ -4545,6 +4643,20 @@ export const texasWaterParks: WaterParkGuide[] = [
       "The operator describes a limited 500-guest daily capacity and a restricted lagoon footprint during 2026 enhancements.",
       "The Lagoonfest homepage contains conflicting generic gate-sale wording, but its 2026 Adventure Pass section says advance online purchase is required; visitors should book in advance.",
       "A dedicated deeper-water recreation area is separated from shallow permitted swimming sections for safety."
+    ],
+    "areaAttractions": [
+      {
+        "label": "Moody Gardens",
+        "href": "/destination/moody-gardens"
+      },
+      {
+        "label": "Galveston Island Historic Pleasure Pier",
+        "href": "/destination/galveston-island-historic-pleasure-pier"
+      },
+      {
+        "label": "Galveston Island State Park",
+        "href": "/destination/galveston-island-state-park"
+      }
     ]
   },
   {
