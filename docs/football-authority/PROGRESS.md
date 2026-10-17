@@ -14,6 +14,9 @@
 
 The 10 finals have explicit newspaper attribution; current season dates and historic records remain distinct. The October 16 Woodson–Gold-Burg score is now corroborated; Blackwell's separate disputed September 4 Santa Anna score remains unresolved. No coach, photo license, stadium gate or editorial acceptance is inferred. Do not auto-promote the registry from IMPLEMENTED/DEPLOYED to VERIFIED.
 
+## October 17, 2026 — Reconciled Batch 004 320px reflow test; production acceptance remains independent
+The previously open [PR #4713](https://github.com/keeptxred/TexasDefined/pull/4713) contained a targeted real-Chrome 320 CSS-pixel reflow audit but never merged its script/workflow into `main`. Historic [workflow run #38336369507](https://github.com/keeptxred/TexasDefined/actions/runs/38336369507) completed SUCCESS on the **old PR head** and cannot certify the current deployed source revision. This reconciliation ports only its explicitly scoped 25 Batch 004 football schools, 10 counties and Austin city Chrome verifier and path-scoped/dispatch workflow to current main. It preserves Batch 004's prior sourced 72/72 Chrome acceptance, targeted 255 offscreen contrast rechecks, GIS and source evidence, without asserting real 400% native zoom, assistive-technology, ticket/ADA or media license certification. A new PR-head canonical protected Merge Gate and separate targeted browser run must pass; live release identity needs a postdeploy check before declaring the revised code accepted. No sitewide or every-release crawl is enabled.
+
 ## October 17, 2026 — final seven Batch006 researched and authored on protected PR branch (not yet accepted)
 - **Borger Bulldogs**: 4A Division II District 3, 2–6 through October 16, 2026; individual research dossier `docs/football-authority/schools/borger.md`.
 - **Bosqueville Bulldogs**: 2A Division I District 8, 4–3 through October 16, 2026; individual research dossier `docs/football-authority/schools/bosqueville.md`.
