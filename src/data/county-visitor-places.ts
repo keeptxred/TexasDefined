@@ -535,11 +535,32 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.canadiantx.com/outdoors"
   },
   {
+    "county": "henderson",
+    "name": "Texas Freshwater Fisheries Center",
+    "category": "Parks & recreation",
+    "description": "Texas Parks and Wildlife visitor center in Athens offering fish exhibits, a hatchery, casting ponds and a wetlands trail.",
+    "sourceUrl": "https://tpwd.texas.gov/fishing/tffc/"
+  },
+  {
     "county": "hockley",
     "name": "Levelland City of Mosaics Self-Guided Walk",
     "category": "Art & architecture",
     "description": "City-produced walking route of downtown public mosaics and murals with visitor tour brochure.",
     "sourceUrl": "https://www.levellandtexas.org/1768/Levelland-City-of-Mosaics-Virtual-Tours-"
+  },
+  {
+    "county": "hood",
+    "name": "Granbury City Beach Park",
+    "category": "Parks & recreation",
+    "description": "Public sandy swimming area on Lake Granbury with picnic pavilions and seasonal recreation rentals.",
+    "sourceUrl": "https://www.granbury.org/744/City-Beach-Park"
+  },
+  {
+    "county": "hood",
+    "name": "Granbury Opera House",
+    "category": "Arts & culture",
+    "description": "Restored downtown historic theater presenting musicals, stage plays and concerts in its public performance season.",
+    "sourceUrl": "https://granburytheatrecompany.org/2026-season/"
   },
   {
     "county": "houston",
@@ -864,6 +885,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/ltc/rio-bravo-loop"
   },
   {
+    "county": "taylor",
+    "name": "Abilene Storybook Gardens",
+    "category": "Art & architecture",
+    "description": "Downtown Abilene collection of public storybook character sculptures and family-friendly garden walks.",
+    "sourceUrl": "https://www.abilenevisitors.com/directory/storybook-gardens/"
+  },
+  {
     "county": "terrell",
     "name": "Cactus Capital of Texas Trail",
     "category": "Parks & recreation",
@@ -927,6 +955,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://thebarnhillcenter.com/"
   },
   {
+    "county": "wichita",
+    "name": "Lucy Park in Wichita Falls",
+    "category": "Parks & recreation",
+    "description": "Public riverfront park with trails, woodland, playgrounds and picnic sites along the Wichita River.",
+    "sourceUrl": "https://www.wichitafallstx.gov/69/Lucy-Park"
+  },
+  {
+    "county": "wichita",
+    "name": "River Bend Nature Center",
+    "category": "Parks & recreation",
+    "description": "Nature center in Wichita Falls with regional habitat exhibits and environmental education programs.",
+    "sourceUrl": "https://riverbendnaturecenter.org/visit-us/"
+  },
+  {
     "county": "wilbarger",
     "name": "Santa Rosa Rodeo Grounds",
     "category": "Arts & culture",
@@ -948,6 +990,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/ltc/sacahuistale-loop/"
   },
   {
+    "county": "williamson",
+    "name": "Round Rock Play for All Abilities Park",
+    "category": "Parks & recreation",
+    "description": "Large inclusive city park designed for children of all abilities, with imaginative and accessible play areas.",
+    "sourceUrl": "https://www.roundrocktexas.gov/park/rabb-park/"
+  },
+  {
     "county": "wise",
     "name": "Wise County Veterans Memorial Park",
     "category": "History & heritage",
@@ -960,6 +1009,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Quitman public park with heritage interpretation and family recreation.",
     "sourceUrl": "https://www.quitmantx.org/parks"
+  },
+  {
+    "county": "wood",
+    "name": "Mineola Nature Preserve on the Sabine River",
+    "category": "Parks & recreation",
+    "description": "Public 2,911-acre conservation and recreation landscape with birding, hiking, mountain biking and equestrian trails.",
+    "sourceUrl": "https://www.mineola.com/o/naturepreserve"
   }
 ];
 
