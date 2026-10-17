@@ -174,6 +174,10 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   wharton: [{ name: 'Boling Bulldogs', slug: 'boling', context: 'UIL 1972 Class 2A champions, 2016 state finalists and current Wharton County varsity program' }],
   lipscomb: [{ name: 'Booker Kiowas', slug: 'booker', context: 'Booker ISD Kiowas six-man UIL District 1, 2025 undefeated district and 2026 schedule' }],
   borden: [{ name: 'Borden County Coyotes', slug: 'borden-county', context: 'Five genuine six-man UIL state titles and 2026 Division I District 5 Gail football' }],
+  'hutchinson': [{ name: 'Borger Bulldogs', slug: 'borger', context: '4A Division II District 3 program and dated Hutchinson County football results' }],
+  'parmer': [{ name: 'Bovina Mustangs', slug: 'bovina', context: '2A Division II District 1 program and dated Parmer County football results' }],
+  'montague': [{ name: 'Bowie Jackrabbits', slug: 'bowie', context: '3A Division I District 4 program and dated Montague County football results' }, { name: 'Gold-Burg Bears', slug: 'bowie-gold-burg', context: '1A Division II District 10 program and dated Montague County football results' }],
+  'oldham': [{ name: 'Boys Ranch Roughriders', slug: 'boys-ranch', context: '1A Division I District 1 program and dated Oldham County football results' }],
   erath: [{ name: 'Bluff Dale Bobcats', slug: 'bluff-dale', context: '2026 UIL Division I six-man District 11, Erath County school contacts and dated football results' }],
   // Batch 005 remaining 14 researched team links, retaining prior schools per county.
   jefferson: [{ name: "Beaumont United Timberwolves", slug: 'beaumont-united', context: "2025 first winning varsity season under Drenard Williams and Beaumont Bowl" }, { name: "Beaumont West Brook Bruins", slug: 'beaumont-west-brook', context: "1982 UIL champion, 2018 6A Division II runner-up and Beaumont Bowl rivalry" }],
@@ -232,7 +236,7 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   henderson: [{ name: 'Athens Hornets', slug: 'athens', context: '2025 postseason success and the 2026 team calendar' }],
   cass: [{ name: 'Atlanta Rabbits', slug: 'atlanta', context: '2003 UIL state football title and Rabbit Stadium traditions' }],
   ellis: [{ name: 'Avalon Eagles', slug: 'avalon', context: 'Six-man football and 2024 ten-win season' }],
-  mclennan: [{ name: 'Axtell Longhorns', slug: 'axtell', context: 'Three consecutive ten-win football seasons' }],
+  mclennan: [{ name: 'Axtell Longhorns', slug: 'axtell', context: 'Three consecutive ten-win football seasons' }, { name: 'Bosqueville Bulldogs', slug: 'bosqueville', context: '2A Division I District 8 McLennan County 2026 varsity football' }],
   callahan: [{ name: 'Baird Bears', slug: 'baird', context: '2019 six-man transition and 2026 UIL district' }],
   travis: [
     { name: 'Vandegrift Vipers', slug: 'austin-vandegrift', context: '2024 6A Division II state title at Leander ISD campus' },
@@ -264,7 +268,7 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   hill: [{ name: 'Aquilla Cougars', slug: 'aquilla', context: 'Hill County Aquilla program history and modern six-man football' }, { name: 'Blum Bobcats', slug: 'blum', context: '2019 UIL six-man Division I champion over McLean; 2026 District11 team with verified Blum ISD sources' }],
   'san-patricio': [{ name: 'Aransas Pass Panthers', slug: 'aransas-pass', context: 'Aransas Pass program history and contemporary varsity schedule context' }],
   archer: [{ name: 'Archer City Wildcats', slug: 'archer-city', context: '1964 state championship and reconciled UIL historical indexing discrepancy' }],
-  wise: [{ name: 'Alvord Bulldogs', slug: 'alvord', context: '2025 undefeated district run and 2026 home ticket details' }],
+  wise: [{ name: 'Alvord Bulldogs', slug: 'alvord', context: '2025 undefeated district run and 2026 home ticket details' }, { name: 'Boyd Yellowjackets', slug: 'boyd', context: '3A Division I District 4 Wise County 2026 varsity football' }],
   randall: [
     { name: 'Amarillo High Sandies', slug: 'amarillo', context: 'Four UIL state titles and the documented Sandies–Tascosa football series' },
     { name: 'Caprock Longhorns', slug: 'amarillo-caprock', context: 'Verified Randall County campus, 2026 Longhorns history and current UIL alignment' },

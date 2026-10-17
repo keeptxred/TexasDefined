@@ -56,6 +56,13 @@ function Page() {
     boling: 'wharton', // NCES school 481078000541 identifies Boling High's Wharton County campus.
     booker: 'lipscomb', // NCES 481083000550 confirms Booker Junior High/High School 6–12 campus in Lipscomb County.
     'borden-county': 'borden', // Borden County ISD high school campus in Gail, not district land across Howard County.
+    'borger': 'hutchinson', // Borger ISD Hutchinson County school campus, not stadium gate
+    'bosqueville': 'mclennan', // Bosqueville ISD McLennan County school campus, not stadium gate
+    'bovina': 'parmer', // Bovina ISD Parmer County school campus, not stadium gate
+    'bowie': 'montague', // Bowie ISD Montague County school campus, not stadium gate
+    'bowie-gold-burg': 'montague', // Gold-Burg ISD Montague County school campus, not stadium gate
+    'boyd': 'wise', // Boyd ISD Wise County school campus, not stadium gate
+    'boys-ranch': 'oldham', // Boys Ranch ISD Oldham County school campus, not stadium gate
     blum: 'hill', // Blum ISD campus in Hill County.
     'bluff-dale': 'erath', // Bluff Dale ISD in Erath County.
     'baytown-goose-creek-memorial': 'harris',
