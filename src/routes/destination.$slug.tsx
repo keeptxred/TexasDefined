@@ -32,6 +32,8 @@ import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from "@/platform/internal-link-policies";
 
+const CoastalBeachFieldGuide = lazy(() => import("@/components/content/CoastalBeachFieldGuide"));
+
 const DestinationViatorBooking = lazy(() =>
   import("@/components/editorial/DestinationViatorBooking").then((module) => ({
     default: module.DestinationViatorBooking,
@@ -361,6 +363,7 @@ function DestinationPage() {
           </section>
         )}
         {dallasHeritage && <Suspense fallback={null}><DallasBlackHistoryAuthority slug={destination.slug} /></Suspense>}
+        {(destination.category === "beaches-coast" || destination.slug === "galveston-island-state-park" || destination.slug === "goose-island-state-park") && <Suspense fallback={null}><CoastalBeachFieldGuide destinationSlug={destination.slug} /></Suspense>}
         <section aria-labelledby="before-you-go" className={isChokeCanyon ? "mt-10 border-t border-border pt-6" : "mt-16 border-t border-border pt-8"}>
           <p className="eyebrow text-primary">The details</p>
           <h2 id="before-you-go" className="mt-3 font-display text-3xl">Planning your visit</h2>
