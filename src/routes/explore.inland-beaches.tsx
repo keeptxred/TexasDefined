@@ -1,12 +1,12 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from"@tanstack/react-router";
 
-import { texasDefinedBrand } from "@/brand/texasdefined";
-import { Container } from "@/components/layout/Container";
-import { inlandSwimmingBeaches } from "@/data/inland-beach-authority";
-import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
+import { texasDefinedBrand } from"@/brand/texasdefined";
+import { Container } from"@/components/layout/Container";
+import { inlandSwimmingBeaches } from"@/data/inland-beach-authority";
+import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from"@/lib/seo";
 
-const canonicalPath = "/explore/inland-beaches";
-const description = "Find researched swimming beaches at Texas lakes, from Ray Roberts and Lake Texoma to Cedar Hill, Tyler and Lake Whitney. Official access sources, safety and county connections.";
+const canonicalPath ="/explore/inland-beaches";
+const description ="Find researched swimming beaches at Texas lakes, from Ray Roberts and Lake Texoma to Cedar Hill, Tyler and Lake Whitney. Official access sources, safety and county connections.";
 
 export const Route = createFileRoute("/explore/inland-beaches")({
   head: () => {
@@ -14,23 +14,23 @@ export const Route = createFileRoute("/explore/inland-beaches")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: "Texas Lake Beaches: Verified Inland Swimming Beaches | Texas Defined",
+        title:"Texas Lake Beaches: Verified Inland Swimming Beaches | Texas Defined",
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        "@id": `${url}#collection`,
-        name: "Texas Inland Swimming Beaches",
+"@context":"https://schema.org",
+"@type":"CollectionPage",
+"@id": `${url}#collection`,
+        name:"Texas Inland Swimming Beaches",
         description,
         url,
-        dateModified: "2026-10-17",
+        dateModified:"2026-10-17",
         mainEntity: {
-          "@type": "ItemList",
+"@type":"ItemList",
           numberOfItems: inlandSwimmingBeaches.length,
           itemListElement: inlandSwimmingBeaches.map((beach, index) => ({
-            "@type": "ListItem",
+"@type":"ListItem",
             position: index + 1,
             name: beach.name,
             url: absoluteUrl(texasDefinedBrand, `/explore/inland-beaches/${beach.slug}`),
@@ -44,9 +44,9 @@ export const Route = createFileRoute("/explore/inland-beaches")({
 
 function TexasInlandBeaches() {
   return <main>
-    <Container className="py-14 sm:py-20">
+    <Container className="py-12 sm:py-16">
       <p className="eyebrow text-primary">Freshwater · designated swimming areas · source checked October 17, 2026</p>
-      <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[1.02] sm:text-7xl">Texas lake beaches &amp; inland swimming beaches</h1>
+      <h1 className="mt-4 max-w-5xl font-display text-5xl leading-tight sm:text-7xl">Texas lake beaches &amp; inland swimming beaches</h1>
       <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">
         Texas has real inland beaches, from sandy state-park coves to gravel swimming areas and seasonal U.S. Army Corps of Engineers parks. These are not the same as an entire lake being open for swimming. Each entry below has an agency source explicitly documenting a beach, swim cove or swim-beach parking access.
       </p>
@@ -71,13 +71,13 @@ function TexasInlandBeaches() {
           {inlandSwimmingBeaches.map((beach) => <li key={beach.slug}><a href={`/explore/inland-beaches/${beach.slug}`} className="text-sm font-semibold underline decoration-border underline-offset-4 hover:text-primary">{beach.name} · {beach.county} County</a></li>)}
         </ul>
       </nav>
-      <div className="mt-12 space-y-12">
-        {inlandSwimmingBeaches.map((beach) => <article key={beach.slug} id={beach.slug} className="scroll-mt-24 border-t border-border pt-7">
+      <div className="mt-12 space-y-10">
+        {inlandSwimmingBeaches.map((beach) => <article key={beach.slug} id={beach.slug} className="border-t border-border pt-7">
           <p className="eyebrow text-primary">{beach.lake} · {beach.county} County · {beach.nearestTown}</p>
           <h2 className="mt-2 font-display text-3xl sm:text-4xl">{beach.name}</h2>
           <p className="mt-4 max-w-4xl text-base leading-8">{beach.experience}</p>
           <Link to="/explore/inland-beaches/$slug" params={{ slug: beach.slug }} className="mt-4 inline-block font-semibold text-primary underline decoration-primary/40 underline-offset-4">Read the full {beach.name} guide →</Link>
-          <div className="mt-6 grid gap-7 md:grid-cols-2">
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
             <div>
               <h3 className="font-semibold">Getting to the correct beach</h3>
               <p className="mt-2 text-sm leading-7 text-muted-foreground">{beach.arrival}</p>
@@ -96,7 +96,7 @@ function TexasInlandBeaches() {
             </div>
           </div>
           <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
-            {beach.county.split(" / ").map((county) => <a key={county} href={`/county/${county.trim().toLowerCase().replace(/\s+/g, "-")}`} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{county} County guide →</a>)}
+            {beach.county.split(" /").map((county) => <a key={county} href={`/county/${county.trim().toLowerCase().replace(/\s+/g,"-")}`} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{county} County guide →</a>)}
           </div>
           <p className="mt-5 text-sm font-semibold">
             <a href={beach.officialUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Confirm status with {beach.managingAgency} →</a>
