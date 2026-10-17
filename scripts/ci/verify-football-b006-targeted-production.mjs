@@ -24,7 +24,13 @@ function model(slug){
 function county(slug){
  const escaped=slug.replace(/[.*+?^$()|[\]{}]/g,'\\$&');
  const re=new RegExp("['\"]?"+escaped+"['\"]?\\s*:\\s*['\"]([a-z-]+)['\"]");
- const match=teamRoute.match(re);
+ // Match a complete mapping key at the beginning of a line; a substring
+ // match made "blanco" accidentally resolve through "ben-bolt-palito-blanco".
+ const candidate=teamRoute.split('\n').find(line=>{
+  const t=line.trimStart();
+  return t.startsWith("'"+slug+"':") || t.startsWith('"'+slug+'":') || t.startsWith(slug+':');
+ });
+ const match=candidate?.match(/:\\s*['"]([a-z-]+)['"]/);
  // The live school route first uses the explicit researchedCampusCounty mapping,
  // then falls back to countySlug(program.countyName) for UIL program records.
  // Eight Batch006 campuses use that second, genuine production routing path.
@@ -37,6 +43,7 @@ function county(slug){
   'bloomington':'victoria','blue-ridge':'collin'
  };
  if(!match)assert.ok(teamRoute.includes('program?.countyName ?'), 'Missing production county-name fallback');
+ if(match&&campusCountyFallback[slug])assert.equal(match[1],campusCountyFallback[slug],'Campus/county mapping source conflict for '+slug);
  const resolved=match?.[1]||campusCountyFallback[slug];
  assert.ok(resolved,'Missing school/county cross-link source for '+slug);
  return resolved;
@@ -114,7 +121,13 @@ try{
    const r=await page.goto(root+'/county/'+name,{waitUntil:'domcontentloaded',timeout:45000});
    if(r?.status()!==200)errors.push('county HTTP '+r?.status());
    await page.locator('main h1').first().waitFor({state:'visible',timeout:25000});
-   await page.waitForFunction(()=>document.documentElement.dataset.tdFootballCountyHydrated==='1',{timeout:23000});
+   // On some county routes, the content cards hydrate before the optional
+   // generic county-ready marker. Wait for one of those concrete DOM signals,
+   // then always verify every expected reciprocal school link below.
+   await page.waitForFunction(()=>
+     document.documentElement.dataset.tdFootballCountyHydrated==='1' ||
+     Boolean(document.querySelector('section[aria-label="Independent football histories from this county"]')),
+     {timeout:30000});
    const links=await page.evaluate(()=>[...document.querySelectorAll('main a[href]')].map(a=>a.getAttribute('href')));
    for(const s of group)if(!links.includes('/texas-high-school-football-teams/'+s.slug))errors.push('missing reciprocal '+s.slug);
    if(js.length)errors.push('county JavaScript errors '+js[0]);

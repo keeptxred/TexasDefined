@@ -5,6 +5,8 @@ on:
     paths:
       - 'src/data/coastal-places.ts'
       - 'src/data/coastal-beach-editorial.ts'
+      - 'src/data/coastal-beach-editorial-south.ts'
+      - 'scripts/data/validate-coastal-beach-editorial-extra.mjs'
       - 'src/components/content/CoastalBeachFieldGuide.tsx'
       - 'src/components/content/CountyInlandSwimmingBeaches.tsx'
       - 'src/routes/destination.$slug.tsx'
@@ -28,6 +30,8 @@ on:
     paths:
       - 'src/data/coastal-places.ts'
       - 'src/data/coastal-beach-editorial.ts'
+      - 'src/data/coastal-beach-editorial-south.ts'
+      - 'scripts/data/validate-coastal-beach-editorial-extra.mjs'
       - 'src/components/content/CoastalBeachFieldGuide.tsx'
       - 'src/components/content/CountyInlandSwimmingBeaches.tsx'
       - 'src/routes/destination.$slug.tsx'

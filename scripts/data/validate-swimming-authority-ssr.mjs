@@ -18,6 +18,24 @@ const workflow = read(".github/workflows/verify-sitemap-production-integrity.yml
 const officialSourceMigration = read("supabase/migrations/20261014215400_swim_float_authority_source_enrollment.sql");
 const currentAlertSources = read("supabase/migrations/20261017145000_swim_float_current_alert_sources.sql");
 const errors = [];
+
+const mobileComparisonClass = 'class="mt-6 grid gap-5 md:hidden"';
+const desktopComparisonClass = 'class="mt-6 hidden overflow-x-auto md:block"';
+if (!publicAuthority.includes(mobileComparisonClass) || !publicAuthority.includes(desktopComparisonClass)) {
+  errors.push("River comparison must have readable mobile cards and a tablet/desktop table.");
+}
+for (const riverSlug of [
+  "texas-comal-river-guide",
+  "texas-guadalupe-river-guide",
+  "texas-san-marcos-river-guide",
+  "texas-frio-river-guide",
+]) {
+  const riverLink = 'href="/article/' + riverSlug + '"';
+  if (publicAuthority.split(riverLink).length - 1 < 2) {
+    errors.push("Mobile cards must preserve the official river route link: " + riverSlug);
+  }
+}
+
 for (const marker of [
   "https://tpwd.texas.gov/state-parks/blanco/alert",
   "https://wimberleyparksandrec.com/swimming-faqs/",

@@ -5,7 +5,7 @@ Updated 2026-10-17. Work is **not** considered production verified until the rep
 ## Current implementation
 
 - Canonical public hub: `/explore/water-parks`; one park page at `/explore/water-parks/$slug` per physical venue.
-- Initial operator-backed registry: 120 separate facilities in `src/data/texas-water-parks.ts`.
+- Initial operator-backed registry: 124 separate facilities in `src/data/texas-water-parks.ts`.
 - Settings: indoor, outdoor, mixed indoor/outdoor. Access: day park, city-run, hotel/resort, campground and inflatable lake park.
 - Every record has a named venue, town, region, setting, admission policy description, a venue-specific editorial note, source URL, review date, and county where the physical county was verified.
 - Directory links to internal Explore/trip planner/city and county guides. Primary and emergency Explore sitemaps enumerate only specifically certified authority-ready park pages; the statewide hub includes the full research registry.
@@ -69,7 +69,7 @@ Each park must be researched and independently verified beyond this launch-scale
 - Research public floating obstacle-course parks and temporary seasonal operators separately, with weather, water conditions, capacity and safety.
 - Confirm individual water-park site addresses and county assignments in ambiguous multijurisdiction cities before adding county canonical links.
 - Run a check against TDI amusement ride registration where relevant, tourism bureau listings, city park calendars and operator directories. TDI listing alone does not confirm present operation.
-- Expand the initial collection only with first-party sources and documented visit eligibility. Never present the current 120 as an exhaustive statewide census.
+- Expand the initial collection only with first-party sources and documented visit eligibility. Never present the current 124 as an exhaustive statewide census.
 - After canonical validation and required checks, use only a bounded smoke of the directory and representative indoor/outdoor/resort/municipal pages, not another sitewide crawl.
 
 ## Startup bundle protection
@@ -86,7 +86,7 @@ All newly researched park rows default to **not authority-ready**. The page rout
 
 ## Known implementation limits
 
-The 120 generated guides are the *initial source-backed editorial layer*, not finished deep first-hand reviews. Specific ride inventories, exact live ticket rates, accessible routes, rights-cleared venue imagery, corroborated family FAQs, all-county reciprocal links, and a truly exhaustive statewide census are **not yet certified**. This distinction must not be lost in publication or product messaging.
+The 124 generated guides are the *initial source-backed editorial layer*, not finished deep first-hand reviews. Specific ride inventories, exact live ticket rates, accessible routes, rights-cleared venue imagery, corroborated family FAQs, all-county reciprocal links, and a truly exhaustive statewide census are **not yet certified**. This distinction must not be lost in publication or product messaging.
 
 ## Dallas municipality verification tranche — October 17, 2026
 
@@ -119,3 +119,8 @@ Source-audited three distinct City of Irving outdoor family aquatic centers, all
 ## Canonical county page water-park discovery
 
 All county entity pages automatically list qualifying water parks whose assigned `county` matches the canonical county slug, using the same central reviewed registry and stable `/explore/water-parks/{slug}` URLs. The county data loader asynchronously imports the registry only for actual county routes and serializes a reduced summary; it does not ship the 120-record dataset to every county browser page. The county section is suppressed when a county has no source-linked facilities. It intentionally labels resort/day-entry constraints and seasonal status conservatively, with links to operator-sourced visitor guides and the statewide comparison hub. These reciprocal links do not promote unfinished per-venue research guides to indexable authority pages.
+
+
+## October 17 municipal aquatics expansion — four source-reviewed parks
+
+Four additional operating (but mostly seasonal) municipal family water-play sites are documented: San Angelo Municipal Pool (two water slides; June 22, 2026 reopening; season ended August), Bill Witt Aquatic Center in Corpus Christi (two large slides, interactive beach-entry leisure pool; the city advertises free public swim and a summer-only schedule), Bartholomew Pool in Austin (activity pool, lily pads, wading pool, slides; slides and recreation pools CLOSED Oct 1 2026–Mar 12 2027 despite year-round lap swimming), and Flower Mound Community Activity Center (outdoor water park roughly Memorial Day–Labor Day, separately scheduled indoor play-slide sessions). Each has exact municipal venue address, first-party source, distinct content, >=3 activity highlights and three operator-linked answers. All remain `authorityReady=false` by default: they do NOT enter the water-park sitemap or receive search index approval until licensed exact-location imagery and full editorial acceptance. Venue sources: https://www.sanangelo.gov/facilities/facility/details/Municipal-Pool-4 ; https://www.corpuschristitx.gov/department-directory/parks-and-recreation/parks-and-facilities/pools/ ; https://www.austintexas.gov/parks/locations/bartholomew-pool ; https://www.flower-mound.com/cachours .

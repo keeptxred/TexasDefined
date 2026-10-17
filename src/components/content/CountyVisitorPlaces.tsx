@@ -21,9 +21,16 @@ export function CountyVisitorPlaces({ countySlug, countyName }: { countySlug: st
                 <span className="text-xs font-semibold uppercase tracking-[0.1em] text-primary">{place.category}</span>
                 <h3 className="mt-2 font-display text-xl">{place.name}</h3>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">{place.description}</p>
-                <a href={place.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4 hover:text-primary">
-                  Visitor information and source ↗
-                </a>
+                <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+                  {place.relatedGuideHref ? (
+                    <a href={place.relatedGuideHref} className="text-primary underline decoration-primary/40 underline-offset-4 hover:text-primary">
+                      Texas Defined guide →
+                    </a>
+                  ) : null}
+                  <a href={place.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline decoration-primary/40 underline-offset-4 hover:text-primary">
+                    Official information and research source ↗
+                  </a>
+                </div>
               </li>
             ))}
           </ul>

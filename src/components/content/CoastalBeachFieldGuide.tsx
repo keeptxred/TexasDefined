@@ -1,6 +1,7 @@
 import { coastalPlaces, COASTAL_ZONE_LABELS, type CoastalAccess, type CoastalPlaceKind } from "@/data/coastal-places";
 import { COASTAL_BEACH_EDITORIAL } from "@/data/coastal-beach-editorial";
 import { COASTAL_BEACH_EDITORIAL_EXTRA } from "@/data/coastal-beach-editorial-extra";
+import { COASTAL_BEACH_EDITORIAL_SOUTH } from "@/data/coastal-beach-editorial-south";
 
 const canonicalCoastSlugs: Record<string, string> = {
 "galveston-island-state-park":"galveston-island-state-park-coast",
@@ -37,7 +38,7 @@ export default function CoastalBeachFieldGuide({ destinationSlug }: { destinatio
   const rawSlug = canonicalCoastSlugs[destinationSlug] ?? destinationSlug;
   const place = coastalPlaces.find((item) => item.slug === rawSlug);
   if (!place) return null;
-  const editorial = COASTAL_BEACH_EDITORIAL[rawSlug] ?? COASTAL_BEACH_EDITORIAL_EXTRA[rawSlug];
+  const editorial = COASTAL_BEACH_EDITORIAL[rawSlug] ?? COASTAL_BEACH_EDITORIAL_EXTRA[rawSlug] ?? COASTAL_BEACH_EDITORIAL_SOUTH[rawSlug];
   const neighbors = coastalPlaces
     .filter((item) => item.slug !== place.slug && item.zone === place.zone)
     .slice(0, 4);
