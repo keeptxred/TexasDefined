@@ -60,6 +60,8 @@ for (const park of authorityReady) {
 if (!headBuilders.includes('"@type": "TouristAttraction"') || !headBuilders.includes('park.officialUrl') || !detailUi.includes('park.distinctiveNote')) throw new Error("Per-park pages require operator facts and tourist attraction schema.");
 if (!hub.includes('import("@/data/texas-water-parks")') || !detail.includes('import("@/data/texas-water-parks")') || !hub.includes('import("@/data/texas-water-parks-seo")') || !detail.includes('import("@/data/texas-water-parks-seo")')) throw new Error("Both water-park routes must lazy-load source records to protect client bundles.");
 if (!detailUi.includes('href={`/county/${park.county.toLowerCase().replace(/\\s+/g, "-")}`}')) throw new Error("Visitor guides must link to canonical county pages rather than directory fragments.");
-if (!detailUi.includes("park.visitorFaqs.map") || !detailUi.includes("Official policy")) throw new Error("Operator-sourced visitor answers must render with each park-specific source.");
+if (!detailUi.includes("park.visitorFaqs.map") || !detailUi.includes("Official source")) throw new Error("Operator-sourced visitor answers must render with each park-specific source.");
+if (!detailUi.includes("Open map and directions for this venue") || !detailUi.includes("encodeURIComponent(park.visitorAddress)")) throw new Error("Exact-address waterpark visitor guides need map directions.");
+if (detailUi.includes("Check official tickets, hours and rules")) throw new Error("Not every official waterpark source is a booking page.");
 if (!explore.includes('to="/explore/water-parks"')) throw new Error("Explore landing must link to the new water-park hub.");
 console.log(`Texas water-park guide contract passed: ${parks.length} unique official-source facilities, primary/fallback sitemaps, venue pages and truthful census scope.`);
