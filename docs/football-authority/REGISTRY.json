@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "bonham",
-    "nextSchool": "bonham",
-    "implementedOnBranch": 15,
-    "remainingToImplement": 10,
+    "currentSchool": "booker",
+    "nextSchool": "booker",
+    "implementedOnBranch": 16,
+    "remainingToImplement": 9,
     "remainingToVerify": 25,
-    "notes": "15/25 Batch006 individually authored on dependent branches through Boling; 105 prior verified and two deployed status preserved. Zero Batch006 exact-SHA Chrome/editorial nine-dimensional acceptances. Continue Bonham (10 NOT_REVIEWED remaining)."
+    "notes": "16/25 Batch006 authored through Bonham; Booker has separate open PR #5035 and must be reconciled, not duplicated. Prior 105 VERIFIED and 2 DEPLOYED preserved; zero Batch006 nine-dimension Chrome/editorial VERIFIED. Nine additional entries NOT_REVIEWED; source evidence and photo/accessibility acceptance pending."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6805,8 +6805,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bonham",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/bonham.md",
+      "implementedOnBranch": "feature/football-b006-bonham-20261017",
+      "actualProductionVerified": false,
+      "reviewScope": "Individually authored Bonham 4A DII District7, district-confirmed Aaron Ford, 2–5 through Oct16, 2021 playoff history, stadium media policy. Protected CI, exact production Chrome, county crosslinks and editorial/photo-rights acceptance pending."
     },
     {
       "id": "uil:booker",
