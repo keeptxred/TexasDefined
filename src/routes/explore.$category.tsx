@@ -1,3 +1,4 @@
+import { ensureTexasNpsDirectoryHtml } from "@/data/texas-nps-directory-ssr-fallback";
 import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
@@ -130,7 +131,11 @@ export const Route = createFileRoute("/explore/$category")({
           ? getCavernAuthorityHtml()
           : category.slug === SWIMMING_HOLES_RIVER_TUBING_SLUG
             ? getSwimmingAuthorityHtml()
-            : fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath).then((response) => response.ok ? response.text() : null),
+            : category.slug === "national-parks"
+              ? import.meta.env.SSR
+                ? Promise.resolve(ensureTexasNpsDirectoryHtml(null))
+                : fetch(authorityPath).then((response) => response.ok ? response.text() : null).catch(() => null).then(ensureTexasNpsDirectoryHtml)
+              : fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath).then((response) => response.ok ? response.text() : null),
         category.slug === "beaches-coast"
           ? fetch(import.meta.env.SSR ? `${siteUrl}${COASTAL_AUTHORITY_PATH}` : COASTAL_AUTHORITY_PATH).then((response) => response.ok ? response.text() : null)
           : Promise.resolve(null),
