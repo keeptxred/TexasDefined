@@ -1220,6 +1220,62 @@ export const texasWaterParks: WaterParkGuide[] = [
     "distinctiveNote": "The City of Taylor confirms the facility is closed for the 2026 season; the nearby public splash pads are separate, free attractions and are not duplicate water-park listings.",
     "officialUrl": "https://taylortx.gov/746/Swimming-Pool-Splash-Pads",
     "reviewedAt": "2026-10-17"
+  },
+  {
+    "slug": "pampa-h2o-aquatic-center",
+    "name": "Pampa H2O Aquatic Center",
+    "city": "Pampa",
+    "county": "Gray",
+    "region": "Panhandle",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Seasonal city aquatic center admission; check local and visitor rates",
+    "summary": "Pampa's outdoor family aquatic park features a lazy river, three large waterslides, a pool for lap swimming and children's water play with a dumping bucket.",
+    "distinctiveNote": "The City of Pampa's facility planning materials describe seasonal Memorial Day through Labor Day operations; a 2027 state ride-sticker register lists its flume slides and slide bowl, but the city must confirm each summer's actual schedule.",
+    "officialUrl": "https://www.pampaedc.com/community",
+    "reviewedAt": "2026-10-17"
+  },
+  {
+    "slug": "alice-natatorium-waterpark",
+    "name": "Alice Natatorium Outdoor Waterpark",
+    "city": "Alice",
+    "county": "Jim Wells",
+    "region": "South Texas",
+    "setting": "Both",
+    "kind": "Municipal water park",
+    "admission": "Indoor pool and outdoor waterpark may have separate public admission and swim schedules",
+    "summary": "Alice's natatorium complex includes a year-round indoor swimming pool plus a separate outdoor leisure area with water slides, interactive water play and family splash zones.",
+    "distinctiveNote": "The YMCA's operator page distinguishes indoor pool hours from outdoor waterpark amenities and warns that outdoor access is seasonal; verify 2026 public sessions, rates and slide access before driving.",
+    "officialUrl": "https://ymca-cc.org/alice-natatorium/",
+    "reviewedAt": "2026-10-17"
+  },
+  {
+    "slug": "el-campo-aquatic-center",
+    "name": "El Campo Aquatic Center",
+    "city": "El Campo",
+    "county": "Wharton",
+    "region": "Gulf Coast",
+    "setting": "Indoor",
+    "kind": "Indoor public park",
+    "admission": "City aquatic-center daily admission or membership; open-swim schedules differ from lessons and teams",
+    "summary": "El Campo's city-run indoor aquatic center contains three heated pools, including a family leisure pool with an 85-foot waterslide, spray features, floating lily pads and a water mushroom.",
+    "distinctiveNote": "The center opened in 2005 and is designed for year-round recreation; swim teams, lessons and therapy also use the site, so check public leisure-pool availability and child supervision rules before visiting.",
+    "officialUrl": "https://cityofelcampo.recdesk.com/Community/Facility/Detail?facilityId=9",
+    "reviewedAt": "2026-10-17"
+  },
+  {
+    "slug": "mesquite-city-lake-aquatic",
+    "name": "Brunhilde Nystrom City Lake Aquatic Center",
+    "city": "Mesquite",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Seasonal city day admission with published resident and nonresident rates",
+    "summary": "Mesquite's City Lake Aquatic Center is a sizeable municipal family-swim complex that combines seasonal recreation, water-slide attractions and shaded areas for group outings.",
+    "distinctiveNote": "The City of Mesquite lists 2026 summer service and separate reservation hours for the 500-person complex; the Texas ride-sticker register corroborates the city's open-body flume slides, but verify slide operations directly.",
+    "officialUrl": "https://cityofmesquite.com/3491/Brunhilde-Nystrom-City-Lake-Aquatic-Cent",
+    "reviewedAt": "2026-10-17"
   }
 ];
 export const texasWaterParksBySlug = new Map(texasWaterParks.map((park) => [park.slug, park]));
