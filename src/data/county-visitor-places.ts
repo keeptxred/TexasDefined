@@ -220,6 +220,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/comanche/"
   },
   {
+    "county": "cooke",
+    "name": "Frank Buck Zoo",
+    "category": "Parks & recreation",
+    "description": "Public zoo in Gainesville with giraffe exhibits and family wildlife experiences; the City of Gainesville provides current visitor information.",
+    "sourceUrl": "https://www.gainesville.tx.us/1093/About-Us"
+  },
+  {
     "county": "crosby",
     "name": "Silver Falls Park",
     "category": "Parks & recreation",
@@ -227,11 +234,67 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://visitcrosbycounty.com/stories/silver-falls-guide/"
   },
   {
+    "county": "dallam",
+    "name": "Dallam and Hartley Counties Veterans Memorial Park",
+    "category": "History & heritage",
+    "description": "Dalhart public memorial park honoring veterans from the surrounding counties; the chamber lists visitor details.",
+    "sourceUrl": "https://dalhart.org/lifeisbetterindalharttexas/things-to-do/"
+  },
+  {
+    "county": "dallam",
+    "name": "La Rita Performing Arts Theatre",
+    "category": "Arts & culture",
+    "description": "Historic Art Deco theater in Dalhart hosting scheduled performances and concerts.",
+    "sourceUrl": "https://texastimetravel.com/directory/la-rita-performing-arts-theatre/"
+  },
+  {
     "county": "donley",
     "name": "Mulkey Theatre",
     "category": "Arts & culture",
     "description": "Historic Clarendon theater; verify current film and live-performance listings.",
     "sourceUrl": "https://texastimetravel.com/directory/mulkey-theatre/"
+  },
+  {
+    "county": "eastland",
+    "name": "Majestic Theatre of Eastland",
+    "category": "Arts & culture",
+    "description": "Restored theater screening films and hosting occasional stage performances; verify the current showtime calendar.",
+    "sourceUrl": "https://www.majesticeastland.com/movie-schedule/"
+  },
+  {
+    "county": "eastland",
+    "name": "Old Rip Park",
+    "category": "History & heritage",
+    "description": "Public pocket park near the courthouse commemorating the horned-toad legend of Eastland.",
+    "sourceUrl": "https://texastimetravel.com/cities/eastland/"
+  },
+  {
+    "county": "erath",
+    "name": "Cowboy Capital Walk of Fame",
+    "category": "History & heritage",
+    "description": "Downtown Stephenville walking landmark celebrating local rodeo and cowboy heritage.",
+    "sourceUrl": "https://texastimetravel.com/cities/stephenville/"
+  },
+  {
+    "county": "fannin",
+    "name": "Bonham Walkabout Tour on the Square",
+    "category": "History & heritage",
+    "description": "Self-guided history and architecture stop around Bonham's public downtown square.",
+    "sourceUrl": "https://texastimetravel.com/cities/bonham/"
+  },
+  {
+    "county": "fannin",
+    "name": "Fannin County Barn Quilt Trail",
+    "category": "Art & architecture",
+    "description": "Countywide driving tour of painted barn-quilt squares; Bonham's visitor center offers maps and locations.",
+    "sourceUrl": "https://www.cityofbonham.org/265/Texas-Largest-Barn-Quilt-Trail"
+  },
+  {
+    "county": "fannin",
+    "name": "Powder Creek Park",
+    "category": "Parks & recreation",
+    "description": "Public walking, nature and local recreation destination in Bonham; confirm park conditions.",
+    "sourceUrl": "https://www.cityofbonham.org/101/Visit"
   },
   {
     "county": "fort-bend",
@@ -388,6 +451,41 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/junction/"
   },
   {
+    "county": "knox",
+    "name": "Knox City Downtown Mural Walk",
+    "category": "Art & architecture",
+    "description": "Painted ranch-brand, cowboy and agricultural murals in Knox City; a short self-guided downtown stop.",
+    "sourceUrl": "https://texastimetravel.com/cities/knox-city/"
+  },
+  {
+    "county": "knox",
+    "name": "Knox County Veterans Memorial in Benjamin",
+    "category": "History & heritage",
+    "description": "Public granite veterans monument at the SH 6 and US 82 intersection in Benjamin.",
+    "sourceUrl": "https://www.knoxcountytexas.org/page/knox.veterans"
+  },
+  {
+    "county": "lamar",
+    "name": "Culbertson Fountain Plaza",
+    "category": "Art & architecture",
+    "description": "Decorative fountain and gathering space in historic downtown Paris.",
+    "sourceUrl": "https://texastimetravel.com/cities/paris/"
+  },
+  {
+    "county": "lamar",
+    "name": "Paris Texas Eiffel Tower",
+    "category": "Art & architecture",
+    "description": "The city's distinctive Eiffel Tower sculpture with a red cowboy hat, a public photo stop.",
+    "sourceUrl": "https://texastimetravel.com/cities/paris/"
+  },
+  {
+    "county": "mason",
+    "name": "Odeon Theater",
+    "category": "Arts & culture",
+    "description": "Nonprofit-operated Mason movie house and concert theater; see the operator's live performance calendar.",
+    "sourceUrl": "https://www.theodeontheater.com/performances"
+  },
+  {
     "county": "matagorda",
     "name": "Downtown Bay City Courthouse Square",
     "category": "History & heritage",
@@ -535,6 +633,48 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.sweetwatertx.gov/159/Visit-Sweetwater"
   },
   {
+    "county": "parker",
+    "name": "Chandor Gardens",
+    "category": "Parks & recreation",
+    "description": "Weatherford gardens mixing formal English landscaping and Chinese architectural elements.",
+    "sourceUrl": "https://texastimetravel.com/directory/chandor-gardens/"
+  },
+  {
+    "county": "parker",
+    "name": "The Boardwalk at Lake Weatherford",
+    "category": "Parks & recreation",
+    "description": "Floating boardwalk and birdwatching route along Lake Weatherford with public trailheads.",
+    "sourceUrl": "https://www.weatherfordtx.gov/3223/The-Boardwalk-at-Lake-Weatherford"
+  },
+  {
+    "county": "potter",
+    "name": "Amarillo Little Theatre",
+    "category": "Arts & culture",
+    "description": "Local performing-arts company staging theatrical productions; attend scheduled public performances.",
+    "sourceUrl": "https://texastimetravel.com/cities/amarillo/"
+  },
+  {
+    "county": "potter",
+    "name": "Amarillo Zoo",
+    "category": "Parks & recreation",
+    "description": "City zoo at Thompson Park featuring regional and global wildlife exhibits.",
+    "sourceUrl": "https://texastimetravel.com/cities/amarillo/"
+  },
+  {
+    "county": "potter",
+    "name": "Globe-News Center for the Performing Arts",
+    "category": "Arts & culture",
+    "description": "Downtown Amarillo performing-arts center for touring concerts and staged events.",
+    "sourceUrl": "https://texastimetravel.com/cities/amarillo/"
+  },
+  {
+    "county": "potter",
+    "name": "Historic Route 66 Sixth Street District",
+    "category": "History & heritage",
+    "description": "Amarillo's Route 66 heritage district with walkable historic storefronts and roadside architecture.",
+    "sourceUrl": "https://texastimetravel.com/cities/amarillo/"
+  },
+  {
     "county": "scurry",
     "name": "Ritz Community Theatre",
     "category": "Arts & culture",
@@ -563,6 +703,27 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/center/"
   },
   {
+    "county": "smith",
+    "name": "Caldwell Zoo",
+    "category": "Parks & recreation",
+    "description": "Tyler zoo with animal exhibits and family visitor amenities; confirm current hours and tickets.",
+    "sourceUrl": "https://texastimetravel.com/cities/tyler/"
+  },
+  {
+    "county": "smith",
+    "name": "Camp Ford Historical Park",
+    "category": "History & heritage",
+    "description": "Interpretive walking park documenting the Civil War prisoner-of-war camp near Tyler.",
+    "sourceUrl": "https://texastimetravel.com/cities/tyler/"
+  },
+  {
+    "county": "smith",
+    "name": "Tyler Municipal Rose Garden",
+    "category": "Parks & recreation",
+    "description": "Public rose gardens with seasonal blooms and heritage rose plantings; check festival restrictions.",
+    "sourceUrl": "https://texastimetravel.com/directory/tyler-municipal-rose-garden-and-museum/"
+  },
+  {
     "county": "starr",
     "name": "Roma Bluffs World Birding Center",
     "category": "Parks & recreation",
@@ -575,6 +736,62 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Sanderson-area walking route associated with its cactus and desert heritage.",
     "sourceUrl": "https://sandersontexas.com/explore-sanderson"
+  },
+  {
+    "county": "uvalde",
+    "name": "Cook's Slough Sanctuary",
+    "category": "Parks & recreation",
+    "description": "Uvalde birdwatching and wetland conservation area; follow the local visitor guidance.",
+    "sourceUrl": "https://texastimetravel.com/cities/uvalde/"
+  },
+  {
+    "county": "uvalde",
+    "name": "Uvalde Grand Opera House",
+    "category": "Arts & culture",
+    "description": "Restored 1891 opera house in Uvalde with historic architecture and scheduled cultural performances.",
+    "sourceUrl": "https://texastimetravel.com/directory/uvalde-grand-opera-house/"
+  },
+  {
+    "county": "val-verde",
+    "name": "Brown Plaza and Casa de la Cultura",
+    "category": "Art & architecture",
+    "description": "Historic public plaza and cultural landmark in Del Rio, named in the Texas heritage travel registry.",
+    "sourceUrl": "https://texastimetravel.com/blog/city-county-parks/"
+  },
+  {
+    "county": "washington",
+    "name": "Antique Rose Emporium",
+    "category": "Parks & recreation",
+    "description": "Brenham-area destination for rose gardens and nursery visits; check operator days and seasonal plants.",
+    "sourceUrl": "https://texastimetravel.com/cities/brenham/"
+  },
+  {
+    "county": "washington",
+    "name": "Flying Horses Antique Carousel",
+    "category": "Arts & culture",
+    "description": "Historic working carousel in Brenham's Fireman's Park; rides are seasonal and hours are city-published.",
+    "sourceUrl": "https://docs.cityofbrenham.org/city_government/departments/parks_and_recreation/flying_horses_carousel.php"
+  },
+  {
+    "county": "washington",
+    "name": "Historic Cisterns at Toubin Park",
+    "category": "History & heritage",
+    "description": "Interpreted rainwater cisterns and local fire-history site in downtown Brenham.",
+    "sourceUrl": "https://texastimetravel.com/cities/brenham/"
+  },
+  {
+    "county": "washington",
+    "name": "Old Baylor Park at Windmill Hill",
+    "category": "History & heritage",
+    "description": "Independence-area park preserving columns from early Baylor University buildings; public grounds and heritage context.",
+    "sourceUrl": "https://texastimetravel.com/cities/independence/"
+  },
+  {
+    "county": "washington",
+    "name": "The Barnhill Center at Historic Simon Theatre",
+    "category": "Arts & culture",
+    "description": "Restored 1925 theater in downtown Brenham offering public concerts and performances.",
+    "sourceUrl": "https://thebarnhillcenter.com/"
   },
   {
     "county": "wilbarger",
@@ -596,6 +813,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Coastal birding and native-habitat trail referenced in TPWD's birding trail network.",
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/ltc/sacahuistale-loop/"
+  },
+  {
+    "county": "wise",
+    "name": "Wise County Veterans Memorial Park",
+    "category": "History & heritage",
+    "description": "Memorial landscape in Decatur honoring military service, identified in the Texas heritage-tourism directory.",
+    "sourceUrl": "https://texastimetravel.com/blog/public-art/"
   },
   {
     "county": "wood",
