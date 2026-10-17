@@ -93,6 +93,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/gaming/data-centers-internet-infrastructure",
   "/texas-tailgating-guide",
   "/horse-racing",
+  "/horse-racing/calendar",
   "/horse-racing/gillespie-county-fairgrounds",
   "/horse-racing/manor-downs",
   "/horse-racing/laredo-downs",
