@@ -29,10 +29,10 @@ for (const park of parks) {
 for (const closed of ["hurricane-alley-corpus-christi", "splashtown-san-antonio", "water-park-at-the-villages-flint"]) {
   if (slugs.has(closed)) throw new Error(`Closed or unverified park published as open: ${closed}`);
 }
-for (const anchor of ['"/explore/water-parks"', 'texasWaterParks.filter((park) => park.authorityReady).map((park) => `/explore/water-parks/']) {
+for (const anchor of ['"/explore/water-parks"', '...await indexReadyWaterParkPaths()']) {
   if (!sitemap.includes(anchor)) throw new Error(`Sitemap missing park route coverage: ${anchor}`);
 }
-if ((sitemap.match(/texasWaterParks\.filter/g) ?? []).length < 2) throw new Error("Both primary and fallback explore sitemaps must include waterpark guides.");
+if ((sitemap.match(/await indexReadyWaterParkPaths\(\)/g) ?? []).length < 2) throw new Error("Both primary and fallback explore sitemaps must include waterpark guides.");
 if (!hub.includes('"@type": "ItemList"') || !hubUi.includes("useState") || !hubUi.includes("actively researched collection")) throw new Error("Directory must preserve schema, filtering and census completeness disclosure.");
 if (!detail.includes('robots: park.authorityReady ? undefined : "noindex, follow"')) throw new Error("Uncertified water-park guides must remain noindex.");
 const authorityReady = parks.filter((park) => park.authorityReady);
