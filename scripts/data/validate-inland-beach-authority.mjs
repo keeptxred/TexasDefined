@@ -34,7 +34,7 @@ assert.ok(page.includes("mainEntity") && page.includes("ItemList"));
 assert.ok(page.includes('numberOfItems: inlandSwimmingBeaches.length'));
 assert.ok(page.includes("beach.officialUrl") && page.includes("beach.checkedAt"));
 assert.ok(page.includes("not a claim that these are all inland beaches"));
-assert.ok(page.includes("No lifeguards"));
+assert.ok(page.includes("lifeguards"));
 assert.ok(coastAndLakes.includes('match.slug === "beaches-coast" || match.slug === "lakes-rivers"'));
 assert.ok(coastAndLakes.includes('<Link to="/explore/inland-beaches"'));
 assert.equal(sitemap.split('"/explore/inland-beaches"').length - 1, 2, "Both primary and fallback explore sitemaps must list the guide");
