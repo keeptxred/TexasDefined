@@ -16,6 +16,49 @@ const person = (name: string, url?: string): EventSchemaEntity => ({ type: "Pers
 export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
 
   {
+    slug: "greenville-armed-forces-day-fly-in",
+    organizer: organization("Greenville Municipal Airport / City of Greenville", "https://www.greenvilleflyin.org/"),
+    sources: [
+      { label: "Organizer-confirmed May 8, 2027 free fly-in and aircraft rides", url: "https://www.greenvilleflyin.org/" },
+      { label: "Greenville Majors Field official aviation history", url: "https://www.greenvilletx.gov/193/About-Majors-Field-Airport" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "tyler-magnificent-warbird-expo",
+    organizer: organization("Cedar Creek Veterans Foundation", "https://ccveteransfoundation.org/"),
+    sources: [
+      { label: "Official 2026 Tyler Warbird Expo", url: "https://ccveteransfoundation.org/the-warbird-expo/" },
+      { label: "Official 2026 participating aircraft", url: "https://ccveteransfoundation.org/lineup-warbird-expo/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "thunder-over-cedar-creek-lake-airshow",
+    organizer: organization("Cedar Creek Veterans Foundation", "https://ccveteransfoundation.org/"),
+    sources: [{ label: "CCVF — July 4, 2026 at 6 p.m. over Cedar Creek Lake", url: "https://ccveteransfoundation.org/thunder-over-cedar-creek-lake-airshow/" }],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "stephanie-nichols-georgetown-car-plane-show",
+    organizer: organization("Stephanie Nichols", "https://www.eventbrite.com/e/stephanie-nichols-15th-annual-car-plane-show-at-georgetown-airport-tickets-1966964740488"),
+    sources: [
+      { label: "Organizer's 2026 Georgetown Car & Plane Show event page", url: "https://www.eventbrite.com/e/stephanie-nichols-15th-annual-car-plane-show-at-georgetown-airport-tickets-1966964740488" },
+      { label: "Devil Dog Squadron archived 2026 bomber ride details", url: "https://www.devildogsquadron.com/lhfe_flights/177" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "biplanes-breakfast-rockport",
+    organizer: organization("Wings Over Rockport", "https://www.facebook.com/events/s/biplanes-and-breakfast-a-wings/830516746248487/"),
+    sources: [
+      { label: "Organizer 2026 Biplanes & Breakfast post", url: "https://www.facebook.com/events/s/biplanes-and-breakfast-a-wings/830516746248487/" },
+      { label: "Aviation event archive — May 23, 2026 date and ride registration details", url: "https://av8maps.com/event/biplanes-and-breakfast-a-wings-over-rockport-fundraiser-2/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+
+  {
     slug: "ranger-old-school-fly-in-airshow",
     organizer: organization("Ranger Airfield Foundation", "https://www.rangerairfield.org/"),
     sources: [
