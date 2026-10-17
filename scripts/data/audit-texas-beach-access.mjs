@@ -87,6 +87,9 @@ for (const feature of payload.features) {
     groups.set(key, group);
   }
   group.accessPointCount += 1;
+  if (a.AccessType === "Beach" && (a.Swimming === "Yes" || a.Swimming === "Observed")) {
+    group.possibleBeachSwimSite = true;
+  }
   group.sites.push({
     id: a.TCAPID || null,
     type: a.SiteType || null,
@@ -103,6 +106,10 @@ for (const feature of payload.features) {
   });
 }
 const catalog = [...groups.values()].sort((a,b) => a.county.localeCompare(b.county) || a.name.localeCompare(b.name));
+const likelyNamedLocation = (group) =>
+  group.possibleBeachSwimSite &&
+  /\\b(beach|park|seawall)\\b/i.test(group.name) &&
+  !/\\b(road|street|avenue|circle|highway|access point|access #|ramp)\\b/i.test(group.name);
 const report = {
   source: SERVICE,
   fetchedAt: new Date().toISOString(),
@@ -111,6 +118,7 @@ const report = {
   exactMatchClusters: catalog.filter((g) => g.existingExactNameSlugs.length > 0).length,
   needsReviewClusters: catalog.filter((g) => g.existingExactNameSlugs.length === 0).length,
   unmatchedBeachSwimmingCandidates: catalog.filter((g) => g.reviewStatus === "needs-editorial-reconciliation" && g.possibleBeachSwimSite).length,
+  potentialNamedBeachDestinationCandidates: catalog.filter((g) => g.reviewStatus === "needs-editorial-reconciliation" && likelyNamedLocation(g)).length,
   sourceLayerEditDate: countyDomain?.editedAt ?? null,
   warning: "Exact-name matches only; a candidate is not a confirmed missing beach. Access points, bay sites, boat ramps and already known shoreline aliases are not unique beaches. Do not auto-publish; compare official county/beach plans first.",
   sites: catalog,
