@@ -8,7 +8,7 @@ const explore = readFileSync("src/routes/explore.index.lazy.tsx", "utf8");
 const match = source.match(/export const texasWaterParks: WaterParkGuide\[\] = (\[[\s\S]*?\]);\nexport const texasWaterParksBySlug/);
 if (!match) throw new Error("Canonical Texas water-park source registry is missing.");
 const parks = JSON.parse(match[1]);
-if (parks.length < 77) throw new Error(`Water-park census unexpectedly dropped from 77 to ${parks.length} sources.`);
+if (parks.length < 87) throw new Error(`Water-park census unexpectedly dropped from 87 to ${parks.length} sources.`);
 const slugs = new Set();
 const names = new Set();
 for (const park of parks) {
@@ -27,10 +27,10 @@ for (const park of parks) {
 for (const closed of ["hurricane-alley-corpus-christi", "splashtown-san-antonio", "water-park-at-the-villages-flint"]) {
   if (slugs.has(closed)) throw new Error(`Closed or unverified park published as open: ${closed}`);
 }
-for (const anchor of ['"/explore/water-parks"', 'texasWaterParks.map((park) => `/explore/water-parks/']) {
+for (const anchor of ['"/explore/water-parks"', 'texasWaterParks.filter((park) => park.authorityReady).map((park) => `/explore/water-parks/']) {
   if (!sitemap.includes(anchor)) throw new Error(`Sitemap missing park route coverage: ${anchor}`);
 }
-if ((sitemap.match(/texasWaterParks\.map/g) ?? []).length < 2) throw new Error("Both primary and fallback explore sitemaps must include waterpark guides.");
+if ((sitemap.match(/texasWaterParks\.filter/g) ?? []).length < 2) throw new Error("Both primary and fallback explore sitemaps must include waterpark guides.");
 if (!hub.includes('"@type": "ItemList"') || !hub.includes("useState") || !hub.includes("actively researched collection")) throw new Error("Directory must preserve schema, filtering and census completeness disclosure.");
 if (!detail.includes('"@type": "TouristAttraction"') || !detail.includes('park.officialUrl') || !detail.includes('park.distinctiveNote')) throw new Error("Per-park pages require operator facts and tourist attraction schema.");
 if (!explore.includes('to="/explore/water-parks"')) throw new Error("Explore landing must link to the new water-park hub.");
