@@ -14,7 +14,35 @@ const person = (name: string, url?: string): EventSchemaEntity => ({ type: "Pers
 // Research pass completed against official event, organizer, municipal, venue, and ticket sources.
 // Optional properties are intentionally omitted when the current event year has no stable public value.
 export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
+
   {
+    slug: "great-texas-airshow",
+    organizer: organization("Joint Base San Antonio, 502d Air Base Wing", "https://www.jbsa.mil/GreatTexasAirshow/"),
+    sources: [
+      { label: "Official JBSA 2026 event release", url: "https://www.jbsa.mil/News/News/Article/4376885/press-release-the-great-texas-airshow-returns-to-jbsa-randolph-may-2-3/" },
+      { label: "Official JBSA 2026 event traffic guidance", url: "https://www.jbsa.mil/News/News/Article/4463066/the-great-texas-airshow-kicks-off-at-jbsa-randolph-may-2-3/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "wings-over-south-texas",
+    organizer: organization("Naval Air Station Kingsville", "https://www.wingsoversouthtexas.com/"),
+    sources: [
+      { label: "Official NAS Kingsville Wings Over South Texas site", url: "https://www.wingsoversouthtexas.com/" },
+      { label: "Official 2026 public dates and military access", url: "https://www.wingsoversouthtexas.com/modules/media/?do=inline&id=ca201fc1-61f4-4420-a095-bfd5e9747542" },
+      { label: "Organizer visitor questions", url: "https://www.wingsoversouthtexas.com/information/faqs" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "wasp-homecoming-fly-in",
+    organizer: organization("National WASP WWII Museum", "https://waspmuseum.org/"),
+    sources: [
+      { label: "Official 2026 Homecoming", url: "https://waspmuseum.org/events/2026-wasp-homecoming/" },
+      { label: "Homecoming heritage and itinerary", url: "https://waspmuseum.org/wasp-heritage-events/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },  {
     slug: "amigo-airsho",
     organizer: organization("Amigo Airsho", "https://www.amigoairsho.com/home"),
     image: {
