@@ -1991,6 +1991,117 @@ export const texasWaterParks: WaterParkGuide[] = [
         "sourceUrl": "https://city-of-temple.prowly.com/468828-city-of-temple-parks-recreation-closes-out-summer-with-dunkin-doggies"
       }
     ]
+  },
+  {
+    "slug": "irving-cimarron-family-aquatic",
+    "name": "Cimarron Family Aquatic Center",
+    "city": "Irving",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Seasonal City of Irving public swim admission; verify resident and nonresident prices with Irving Aquatics",
+    "summary": "Cimarron Family Aquatic Center near Cimarron Park combines a zero-depth family swimming area, aquatic playground, water slides and waterfall with a separate five-lane lap pool.",
+    "distinctiveNote": "The Irving operator page says its 2026 outdoor season has ended and the facility is scheduled for summer 2027. A temporary mechanical closure earlier in summer 2026 was followed by an announced July reopening; do not treat that old alert as a permanent closure.",
+    "officialUrl": "https://irvingtx.gov/cimarron-family-aquatic-center",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "199 Red River Trail, Irving, TX 75063",
+    "visitorHighlights": [
+      "Family splash pool and aquatic play area with zero-depth entry",
+      "Water slides and waterfall alongside a separate five-lane lap pool",
+      "Water wheelchairs, locker rooms with showers and on-site concessions"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Cimarron Family Aquatic Center open in October 2026?",
+        "answer": "No. The City of Irving lists this outdoor family aquatic center as closed for the 2026 season and expects it to reopen for summer 2027; confirm next season's opening announcement.",
+        "sourceUrl": "https://irvingtx.gov/cimarron-family-aquatic-center"
+      },
+      {
+        "question": "Can younger children use the water slides at Cimarron?",
+        "answer": "The city lists a slide minimum of 48 inches tall or passing the swim test, along with a 300-pound rider weight limit and no flotation devices on the slide. Check the lifeguard's instructions when you arrive.",
+        "sourceUrl": "https://irvingtx.gov/cimarron-family-aquatic-center"
+      },
+      {
+        "question": "Does Cimarron offer accessible aquatic facilities?",
+        "answer": "The City of Irving lists accessible facility features and water wheelchairs at Cimarron. Contact Irving Aquatics in advance to confirm the specific entry and assistance arrangements needed by your group.",
+        "sourceUrl": "https://irvingtx.gov/cimarron-family-aquatic-center"
+      }
+    ]
+  },
+  {
+    "slug": "irving-west-aquatic-center",
+    "name": "West Irving Aquatic Center",
+    "city": "Irving",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Outdoor seasonal public aquatic admission, with current day fees maintained by City of Irving Aquatics",
+    "summary": "West Irving Aquatic Center is a city-operated summer water-play complex combining a zero-depth entry splash pool, children's water playground and slides with a separate five-lane swimming pool.",
+    "distinctiveNote": "The city's visitor page confirms West Irving has closed for the 2026 outdoor season and is expected to reopen for summer 2027. Weather and lightning can close the pool temporarily, with no rain checks on the posted policy.",
+    "officialUrl": "https://irvingtx.gov/west-irving-aquatic-center",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "3701 Conflans Road, Irving, TX 75061",
+    "visitorHighlights": [
+      "Public family-water-play area with zero-depth entry and spray features",
+      "Water slides and a separate five-lane lap pool for swimming",
+      "Accessible facilities and water wheelchairs, plus changing rooms and concessions"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "When will West Irving Aquatic Center reopen?",
+        "answer": "The city labels the facility closed for the 2026 season and indicates a planned summer 2027 reopening. No specific opening day is guaranteed; consult Irving Aquatics before planning the trip.",
+        "sourceUrl": "https://irvingtx.gov/west-irving-aquatic-center"
+      },
+      {
+        "question": "Can visitors take food and coolers into the park?",
+        "answer": "According to Irving's facility rules, food and coolers are allowed at outdoor family aquatic parks, but glass and alcohol are prohibited. The city also notes cooler inspections and a possible fee for oversized coolers.",
+        "sourceUrl": "https://irvingtx.gov/west-irving-aquatic-center"
+      },
+      {
+        "question": "Are the water slides suitable for small children?",
+        "answer": "Slide riders must generally be at least 48 inches tall or pass a swim test. The city also prohibits flotation devices on slides and requires one feet-first rider at a time, so check the rules before arrival.",
+        "sourceUrl": "https://irvingtx.gov/west-irving-aquatic-center"
+      }
+    ]
+  },
+  {
+    "slug": "irving-lee-aquatic-park",
+    "name": "Lee Aquatic Park",
+    "city": "Irving",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "City of Irving public seasonal pool admission; verify fees and seasonal sessions directly",
+    "summary": "Lee Aquatic Park offers family water play with a zero-depth entry splash pool, interactive aquatic playground and water slides, alongside separate lap lanes in northwest Irving.",
+    "distinctiveNote": "Lee Aquatic Park extended its 2026 public season to selected September weekends, unlike some Irving pools. That promotion is over; do not treat an old September schedule as proof of October operation.",
+    "officialUrl": "https://irvingtx.gov/lee-aquatic-park",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "3000 Pamela Drive, Irving, TX 75062",
+    "visitorHighlights": [
+      "Children's water playground and splash-pool zone with zero-depth entry",
+      "Water slides plus separate swimming lanes and on-site changing facilities",
+      "Accessible aquatics amenities; operator lists complementary life jackets"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Was Lee Aquatic Park open later than the other Irving summer pools?",
+        "answer": "Yes. The City of Irving announced weekend swimming sessions through September 2026 at Lee Aquatic Park. Those were temporary seasonal hours, not a year-round reopening.",
+        "sourceUrl": "https://irvingtx.gov/lee-aquatic-park"
+      },
+      {
+        "question": "What rules apply to children and slides?",
+        "answer": "The city requires adult supervision for children under 12 and close, within-arm's-reach supervision of younger swimmers. Slides generally require a height of at least 48 inches or a passed swim test.",
+        "sourceUrl": "https://irvingtx.gov/lee-aquatic-park"
+      },
+      {
+        "question": "Does Lee Aquatic Park provide life jackets and accessibility help?",
+        "answer": "The City of Irving says life jackets are available free of charge and that accessible entry options exist. Contact staff ahead of time to confirm accommodations and equipment availability for a particular visit.",
+        "sourceUrl": "https://irvingtx.gov/lee-aquatic-park"
+      }
+    ]
   }
 ];
 export const texasWaterParksBySlug = new Map(texasWaterParks.map((park) => [park.slug, park]));
