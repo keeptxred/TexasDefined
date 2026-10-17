@@ -28,7 +28,7 @@ jobs:
           from pathlib import Path
           doc=Path('evidence/live.html').read_text()
           names=[]
-          for raw in re.findall(r'<script type="application/ld\\+json">([^<]+)</script>',doc):
+          for raw in re.findall(r'<script type="application/ld[+]json">([^<]+)</script>',doc):
               try: value=json.loads(raw)
               except ValueError: continue
               for obj in value.get('@graph',[]):
