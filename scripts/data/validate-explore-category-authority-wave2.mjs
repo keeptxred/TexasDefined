@@ -117,7 +117,8 @@ for (const marker of [
   'el-camino-real-de-tierra-adentro-national-historic-trail',
   'rio-grande-wild-and-scenic-river',
 ]) if (!npsDirectory.includes(marker)) errors.push(`NPS directory missing: ${marker}`);
-for (const marker of ['nps.gov', 'isOfficialTexasNpsDestination', 'national-parks']) if (!npsRuntime.includes(marker)) errors.push(`NPS cross-category discovery missing ${marker}`);
+if (!npsDirectory.includes('nps.gov')) errors.push('Official NPS directory must check the managing agency domain.');
+for (const marker of ['isOfficialTexasNpsDestination', 'national-parks']) if (!npsRuntime.includes(marker)) errors.push(`NPS cross-category discovery missing ${marker}`);
 if (!npsPreserved.includes('[blackwellSchoolNationalHistoricSite]')) errors.push('Blackwell School must survive remote Explore failure.');
 for (const marker of [
   '501 South Abbott Street', '2026-10-17', 'accessibilityNotes:',
