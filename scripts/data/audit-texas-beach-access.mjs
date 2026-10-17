@@ -13,7 +13,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const SERVICE = "https://services1.arcgis.com/YWG34dhJxrbxQWdF/ArcGIS/rest/services/Texas_Beach_and_Bay_Access_%28Public%29/FeatureServer/0/query";
-const FIELDS = ["TCAPID", "SiteName", "AlternateSiteName", "County", "SiteType", "AccessType", "Swimming", "ParkingAvailable", "Restrooms", "DisabledFriendly", "LastUpdateDate"];
+const FIELDS = ["TCAPID", "SiteName", "AlternateSiteName", "County", "SiteType", "AccessType", "Swimming", "ParkingAvailable", "Restrooms", "DisabledFriendly", "LastUpdateDate", "Latitude", "Longitude", "VehicularAccess", "ParkingPermit"];
 const args = process.argv.slice(2);
 const live = args.includes("--live");
 const input = args.find((arg) => arg.startsWith("--input="))?.slice(8);
@@ -29,6 +29,22 @@ const readCoastalNames = () => {
   if (names.length < 52) throw new Error("Existing coastal catalog count dropped; stop and investigate instead of silently treating matches as absent.");
   return names;
 };
+async function loadCountyDomain() {
+  if (input) return null;
+  const layer = SERVICE.replace(/\/query$/, "");
+  const r = await fetch(`${layer}?f=json`, { signal: AbortSignal.timeout(20000) });
+  if (!r.ok) throw new Error(`GLO official layer metadata HTTP ${r.status}`);
+  const metadata = await r.json();
+  if (metadata.error) throw new Error(`GLO layer metadata error: ${JSON.stringify(metadata.error)}`);
+  const countyValues = metadata.fields?.find((field) => field.name === "County")?.domain?.codedValues;
+  if (!Array.isArray(countyValues) || countyValues.length < 10) {
+    throw new Error("GLO county codes could not be validated against current official layer metadata.");
+  }
+  return {
+    codeToName: new Map(countyValues.map((entry) => [String(entry.code), String(entry.name)])),
+    editedAt: metadata.editingInfo?.lastEditDate ?? null,
+  };
+}
 async function load() {
   if (input) return JSON.parse(fs.readFileSync(path.resolve(input), "utf8"));
   const query = new URLSearchParams({
@@ -42,6 +58,7 @@ async function load() {
   if (!response.ok) throw new Error(`GLO ArcGIS HTTP ${response.status}`);
   return response.json();
 }
+const countyDomain = await loadCountyDomain();
 const payload = await load();
 if (payload.error) throw new Error(`GLO ArcGIS returned error: ${JSON.stringify(payload.error).slice(0,500)}`);
 if (payload.exceededTransferLimit === true) throw new Error("GLO ArcGIS result exceeded single-page limit. Do not treat a partial extract as complete.");
@@ -52,7 +69,8 @@ for (const feature of payload.features) {
   const a = feature?.attributes ?? {};
   const name = String(a.SiteName || a.AlternateSiteName || "").trim();
   if (!name) continue;
-  const county = String(a.County ?? "unknown");
+  const countyCode = String(a.County ?? "unknown");
+  const county = countyDomain?.codeToName.get(countyCode) ?? (input ? countyCode : `Unresolved GLO county code ${countyCode}`);
   // Same site + county can have multiple legitimate entrances. Do not
   // collapse different access points into a published destination.
   const key = `${clean(name)}|${clean(county)}`;
@@ -78,6 +96,10 @@ for (const feature of payload.features) {
     restrooms: a.Restrooms || null,
     accessibility: a.DisabledFriendly || null,
     lastUpdate: a.LastUpdateDate || null,
+    latitude: a.Latitude || null,
+    longitude: a.Longitude || null,
+    vehicleAccess: a.VehicularAccess || null,
+    parkingPermit: a.ParkingPermit || null,
   });
 }
 const catalog = [...groups.values()].sort((a,b) => a.county.localeCompare(b.county) || a.name.localeCompare(b.name));
@@ -88,7 +110,9 @@ const report = {
   namedSiteClusters: catalog.length,
   exactMatchClusters: catalog.filter((g) => g.existingExactNameSlugs.length > 0).length,
   needsReviewClusters: catalog.filter((g) => g.existingExactNameSlugs.length === 0).length,
-  warning: "Access points and beach/bay sites are not unique beaches; never auto-publish unmatched clusters. Source type and access rules must be checked with the managing entity.",
+  unmatchedBeachSwimmingCandidates: catalog.filter((g) => g.reviewStatus === "needs-editorial-reconciliation" && g.possibleBeachSwimSite).length,
+  sourceLayerEditDate: countyDomain?.editedAt ?? null,
+  warning: "Exact-name matches only; a candidate is not a confirmed missing beach. Access points, bay sites, boat ramps and already known shoreline aliases are not unique beaches. Do not auto-publish; compare official county/beach plans first.",
   sites: catalog,
 };
 const json = JSON.stringify(report, null, 2);
