@@ -281,7 +281,7 @@ function Page() {
 
       {sponsorPlacement ? (
         <div className="border-b border-border py-6">
-          <SponsoredSportsPlacement placement={sponsorPlacement} />
+          <SponsoredSportsPlacement key={sponsorPlacement.id} placement={sponsorPlacement} />
         </div>
       ) : null}
 
