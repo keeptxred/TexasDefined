@@ -58,7 +58,15 @@ export function makeWaterParkDetailHead(park: WaterParkGuide, slug: string) {
         { "@type": "TouristAttraction", "@id": url + "#place", name: park.name, url, description: park.summary,
           sameAs: park.officialUrl,
           ...(park.licensedMedia ? { image: { "@id": url + "#historic-photo" } } : {}),
-          address: { "@type": "PostalAddress", addressLocality: park.city, addressRegion: "TX", addressCountry: "US" },
+          address: {
+            "@type": "PostalAddress",
+            ...(park.visitorAddress ? { streetAddress: park.visitorAddress.split(",")[0].trim() } : {}),
+            addressLocality: park.city,
+            ...(park.visitorAddress?.match(/\\bTX\\s+(\\d{5})\\b/)?.[1] ? {
+              postalCode: park.visitorAddress.match(/\\bTX\\s+(\\d{5})\\b/)?.[1],
+            } : {}),
+            addressRegion: "TX", addressCountry: "US",
+          },
           touristType: [park.setting, park.kind] },
         ...(park.licensedMedia ? [{
           "@type": "ImageObject", "@id": url + "#historic-photo",
