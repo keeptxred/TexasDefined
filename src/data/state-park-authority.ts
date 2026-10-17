@@ -111,11 +111,13 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "TPWD provides park and trails maps, plus an interactive trails map.",
   },
   "fort-boggy-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-17",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/fort-boggy/alert",
     sourceUrl: "https://tpwd.texas.gov/state-parks/fort-boggy/fees-facilities/accessibility-information",
     restrooms: "TPWD confirms restrooms and an outdoor shower near the lake. Camping-area bathrooms include accessible features, including grab bars, roll-in considerations and a fold-down shower seat.",
     parking: "Wheelchair-friendly day-use picnic sites and pavilion have adjacent ADA parking and paved access. Five cabins are reached by a walk from the main parking area; cabin 5 has wheelchair access.",
     camping: "Five cabins are available, including accessible cabin 5, as well as hike-in primitive campsites. Cabin pets are prohibited. Verify cabin linens, check-in requirements and shower distances before booking.",
+    access: "TPWD June 28, 2026 alert says a large PART of Lake Trail is closed for maintenance and wet conditions, but all other trails remain open under that notice. The entire park closes to ordinary visitors during permitted hunts from noon Nov. 15–2 p.m. Nov. 20, 2026; noon Nov. 29–2 p.m. Dec. 4, 2026; and noon Jan. 17–2 p.m. Jan. 22, 2027. Only permitted hunters can enter during full-park windows. Cabin walk-in access and accessible cabin #5 are separate from any claim of an open Lake Trail.",
     maps: "TPWD publishes a park map showing the small lake, day-use, cabin and trail areas.",
   },
   "copper-breaks-state-park": {
@@ -358,11 +360,13 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "Separate TPWD Del Norte and Dan A. Hughes park/trails maps are essential; never treat the two distant entrances as one river put-in.",
   },
   "eisenhower-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-17",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/eisenhower/alert",
     sourceUrl: "https://tpwd.texas.gov/state-parks/eisenhower/fees-facilities/campsites",
     restrooms: "TPWD lists restrooms near 50 full-hookup sites, 45 electric-only sites, 13 Elm Point premium water sites, 34 Armadillo Hill/Fossil Ridge water sites, and 12 overflow sites (not reservable). Do not assume all bathhouses have showers.",
     parking: "Elm Point's 13 premium water-only sites share spigots BETWEEN campsites. The 34 regular water sites are at Armadillo Hill and Fossil Ridge and also use shared water spigots. Overflow parking/campsites are not bookable ahead.",
     camping: "50 full-hookup sites with water/sewer/electric, 45 water/electric sites, 13 Elm Point premium water-only, 34 Armadillo Hill/Fossil Ridge water-only and 12 NON-RESERVABLE overflow sites. Confirm actual hookup amperage and vehicle size per site.",
+    access: "TPWD April 28, 2026 traffic notice directs visitors to take Highway 75 Exit 72 because of construction. The Fossil Ridge fishing pier is closed since May 7, 2026. Trails close after wet weather, with current trail status updated separately; do not assume an old all-trails-open notice remains current. Do not mistake the single pier closure for full Lake Texoma fishing closure.",
     maps: "Use TPWD park campsite map to distinguish Elm Point shoreline sites from full-hookup and overflow camping areas.",
   },
   "fort-parker-state-park": {
@@ -542,13 +546,13 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "Use the state park camp loop map to identify Horseshoe, White-Tail, Blue Bird, Road Runner, Star View, Lake View and Sunset Ridge.",
   },
   "galveston-island-state-park": {
-    checkedAt: "2026-10-15",
+    checkedAt: "2026-10-17",
     sourceUrl: "https://tpwd.texas.gov/state-parks/galveston-island/fees-facilities/campsites",
     supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/galveston-island/alert",
     restrooms: "TPWD lists shower restrooms near both the developed beachside electric camps and bay-side electric/water camps. Beachside primitive hike-in tents have showers nearby. Dry primitive camping has no site utilities.",
     parking: "Beachside: 8 larger-capacity electric sites, 50 regular electric, 7 electricity-equipped tent platforms where vehicles cannot park at the platform, and 15 hike-in primitive tent sites. Bay side is 1.5 miles from the beach, with 20 electric sites, 10 water-only sites (no vehicles over 18 feet), and 10 dry-camping primitive sites.",
     camping: "Beachside: 8 large electric campsites, 50 ordinary electric, 7 tent-only electric pads, 15 primitive hike-in tents. Bayside: 20 electric, 10 water-only and 10 dry primitive sites. Both sides require selecting the correct campground and vehicle type; do not imply bayside sites are on the swimming beach.",
-    access: "TPWD reports a drinking-water outage at the fountains near campsites 71–95 caused by a water-line break; check with staff for the nearest working water source and bring water as needed. Some boardwalks remain closed due to flood damage: obey posted closures. Vehicles cannot park at tent-platform sites. Bay-side water-only sites prohibit vehicles longer than 18 feet; bay-side sites have a two-vehicle limit. Storm and tide conditions can also change beach access.",
+    access: "TPWD reports a drinking-water outage at the fountains near campsites 71–95 caused by a water-line break; check with staff for the nearest working water source and bring water as needed. Some boardwalks remain closed due to flood damage: obey posted closures. Vehicles cannot park at tent-platform sites. Bay-side water-only sites prohibit vehicles longer than 18 feet; bay-side sites have a two-vehicle limit. Storm and tide conditions can also change beach access. TPWD's September 28 high-tide alert forecasts elevated water over the FOLLOWING WEEK only; it is outdated as a current tide forecast by October 17, 2026. Confirm new tide and road conditions instead of repeating it as today's forecast. Drinking fountains near campsites 71–95 remain listed out of service in a July 2 water-line notice, and some flood-damaged boardwalks remain closed under the January 19 trail alert. This does not establish that ALL beach or bayside trails are closed. Beachside and bayside camping areas have different addresses, vehicle rules and storm exposure.",
     maps: "Use TPWD's bay-side versus beachside campground and trails maps for parking, beach access and the 1.5-mile cross-park separation.",
   },
   "inks-lake-state-park": {
