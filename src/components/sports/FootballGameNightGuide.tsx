@@ -59,7 +59,7 @@ function texasToday() {
 }
 
 function nextListedGame(games: FootballGame[], today: string): FootballGame | null {
-  return games.find((game) => /^2026-\d{2}-\d{2}$/.test(game.date) && game.date >= today && !game.result) ?? null;
+  return games.find((game) => /^\d{4}-\d{2}-\d{2}$/.test(game.date) && game.date >= today && !game.result) ?? null;
 }
 
 function recordAction(slug: string, step: string, destination: string, shop = false) {
