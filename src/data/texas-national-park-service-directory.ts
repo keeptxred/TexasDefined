@@ -37,7 +37,7 @@ export function isOfficialTexasNpsDestination(destination: Destination): boolean
   try {
     const u = new URL(destination.officialUrl ?? "");
     return u.protocol === "https:" && (u.hostname === "www.nps.gov" || u.hostname === "nps.gov")
-      && (u.pathname === `/${code}/` || u.pathname === `/${code}/index.htm`);
+      && (u.pathname === `/${code}` || u.pathname.startsWith(`/${code}/`));
   } catch {
     return false;
   }
