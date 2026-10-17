@@ -1,7 +1,7 @@
 /** Operator-backed Texas water-park census, reviewed 2026-10-17. One park per physical facility, not per brand. */
 export type WaterParkSetting = "Indoor" | "Outdoor" | "Both";
 export type WaterParkKind = "Destination park" | "Indoor resort park" | "Community water park" | "Indoor public park" | "Municipal water park" | "Campground water park" | "Resort beach water park" | "Resort water park" | "Inflatable lake water park";
-export type WaterParkGuide = { slug: string; name: string; city: string; county?: string; region: string; authorityReady?: boolean; authorityEvidence?: { exactAddress: string; licensedImageSrc: string; imageCredit: string; accessVerifiedAt: string; rideHighlights: string[]; sourceUrls: string[] }; setting: WaterParkSetting; kind: WaterParkKind; admission: string; summary: string; distinctiveNote: string; officialUrl: string; reviewedAt: string; visitorFaqs?: {question: string; answer: string; sourceUrl: string}[] };
+export type WaterParkGuide = { slug: string; name: string; city: string; county?: string; region: string; authorityReady?: boolean; authorityEvidence?: { exactAddress: string; licensedImageSrc: string; imageCredit: string; accessVerifiedAt: string; rideHighlights: string[]; sourceUrls: string[] }; setting: WaterParkSetting; kind: WaterParkKind; admission: string; summary: string; distinctiveNote: string; officialUrl: string; reviewedAt: string; visitorFaqs?: {question: string; answer: string; sourceUrl: string}[]; visitorAddress?: string; visitorHighlights?: string[] };
 export const texasWaterParks: WaterParkGuide[] = [
   {
     "slug": "schlitterbahn-new-braunfels",
@@ -1482,6 +1482,294 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "What age and height are required for the Aqua Course?",
         "answer": "The listed minimums are age 6 and 42 inches in height. A life jacket is required and provided.",
         "sourceUrl": "https://angellagoon.com/attractions/"
+      }
+    ]
+  },
+  {
+    "city": "Dallas",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "reviewedAt": "2026-10-17",
+    "slug": "dallas-cove-crawford",
+    "name": "The Cove at Crawford",
+    "visitorAddress": "375 S. Prairie Creek Rd., Dallas, TX 75217",
+    "visitorHighlights": [
+      "Lazy river and current-channel family recreation",
+      "Waterslide, water basketball and climbing wall",
+      "Toddler play pool, crossing activity and family changing rooms"
+    ],
+    "admission": "City of Dallas seasonal daily admission; resident rates require proof of Dallas city residence",
+    "summary": "Crawford's large City of Dallas regional aquatic center combines a lazy river, slides, toddler water play, a climbing wall and lap swimming at a separate South Dallas park site.",
+    "distinctiveNote": "The 2026 regular public season ended August 9. The operator lists Crawford as closed Tuesdays during summer, so do not rely on an old daily-hours widget for current access.",
+    "officialUrl": "https://dallasaquatics.org/Facilities/Facility/Details/The-Cove-at-Crawford-33",
+    "visitorFaqs": [
+      {
+        "question": "Does The Cove at Crawford operate year-round?",
+        "answer": "No. The official City of Dallas facility page lists its regular 2026 outdoor season as May 30–August 9; verify the next season's calendar rather than assuming rides run in October.",
+        "sourceUrl": "https://dallasaquatics.org/Facilities/Facility/Details/The-Cove-at-Crawford-33"
+      },
+      {
+        "question": "Which day is The Cove at Crawford regularly closed during the summer?",
+        "answer": "Its published 2026 summer schedule shows Tuesdays closed. Check special programs, private rentals and seasonal changes before visiting.",
+        "sourceUrl": "https://dallasaquatics.org/Facilities/Facility/Details/The-Cove-at-Crawford-33"
+      }
+    ]
+  },
+  {
+    "city": "Dallas",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "reviewedAt": "2026-10-17",
+    "slug": "dallas-cove-fretz",
+    "name": "The Cove at Fretz Park",
+    "visitorAddress": "14778 Hillcrest Rd., Dallas, TX 75254",
+    "visitorHighlights": [
+      "Lazy river and water crossing activity",
+      "Waterslide, diving board and climbing wall",
+      "Toddler pool, concessions and shaded gathering areas"
+    ],
+    "admission": "City of Dallas seasonal daily admission; resident rates require proof of Dallas city residence",
+    "summary": "North Dallas's Cove at Fretz Park features a lazy river, slide and climbing wall, plus an interactive toddler pool and fitness or lap-swim programming on separate schedules.",
+    "distinctiveNote": "The City of Dallas says the regular 2026 season ended August 9 and Fretz is closed Wednesdays in that schedule; pool lessons and private rentals are not proof that slides are open.",
+    "officialUrl": "https://dallasaquatics.org/Facilities/Facility/Details/Fretz-Aquatic-Center-31",
+    "visitorFaqs": [
+      {
+        "question": "Does The Cove at Fretz Park operate year-round?",
+        "answer": "No. The official City of Dallas facility page lists its regular 2026 outdoor season as May 30–August 9; verify the next season's calendar rather than assuming rides run in October.",
+        "sourceUrl": "https://dallasaquatics.org/Facilities/Facility/Details/Fretz-Aquatic-Center-31"
+      },
+      {
+        "question": "Which day is The Cove at Fretz Park regularly closed during the summer?",
+        "answer": "Its published 2026 summer schedule shows Wednesdays closed. Check special programs, private rentals and seasonal changes before visiting.",
+        "sourceUrl": "https://dallasaquatics.org/Facilities/Facility/Details/Fretz-Aquatic-Center-31"
+      }
+    ]
+  },
+  {
+    "city": "Dallas",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "reviewedAt": "2026-10-17",
+    "slug": "dallas-cove-samuell-grand",
+    "name": "The Cove at Samuell Grand",
+    "visitorAddress": "3201 Samuell Blvd., Dallas, TX 75223",
+    "visitorHighlights": [
+      "Lazy river and open family water play",
+      "Waterslide, water basketball and crossing feature",
+      "Toddlers' play pool and accessible family changing rooms"
+    ],
+    "admission": "City of Dallas seasonal daily admission; resident rates require proof of Dallas city residence",
+    "summary": "The Cove at Samuell Grand is the regional water-recreation complex in East Dallas with a lazy river, multiple water-play features, slides and dedicated toddler facilities.",
+    "distinctiveNote": "The official 2026 site lists Thursdays as the regular closed day and August 9 as the end of the regular season. Samuell Grand Recreation Center hours are not aquatic park ride hours.",
+    "officialUrl": "https://www.dallasaquatics.org/facilities/facility/details/The-Cove-at-Samuell-Grand-32",
+    "visitorFaqs": [
+      {
+        "question": "Does The Cove at Samuell Grand operate year-round?",
+        "answer": "No. The official City of Dallas facility page lists its regular 2026 outdoor season as May 30–August 9; verify the next season's calendar rather than assuming rides run in October.",
+        "sourceUrl": "https://www.dallasaquatics.org/facilities/facility/details/The-Cove-at-Samuell-Grand-32"
+      },
+      {
+        "question": "Which day is The Cove at Samuell Grand regularly closed during the summer?",
+        "answer": "Its published 2026 summer schedule shows Thursdays closed. Check special programs, private rentals and seasonal changes before visiting.",
+        "sourceUrl": "https://www.dallasaquatics.org/facilities/facility/details/The-Cove-at-Samuell-Grand-32"
+      }
+    ]
+  },
+  {
+    "city": "Dallas",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "reviewedAt": "2026-10-17",
+    "slug": "dallas-bachman-aquatic",
+    "name": "Bachman Aquatic Center",
+    "visitorAddress": "2750 Bachman Dr., Dallas, TX 75220",
+    "visitorHighlights": [
+      "Lazy river, slide and crossing activity",
+      "Climbing wall, diving board and water basketball",
+      "Toddler pool, accessible features and family changing rooms"
+    ],
+    "admission": "City of Dallas seasonal daily admission; resident rates require proof of Dallas city residence",
+    "summary": "Bachman Aquatic Center has a current-channel family play area, slides, climbing wall and toddler pool near Bachman Lake, separate from the adjacent indoor swimming pool.",
+    "distinctiveNote": "Bachman's municipal 2026 outdoor season started a week ahead of the smaller Dallas centers and ended August 9; its outdoor center closes Mondays. The indoor pool is a different facility.",
+    "officialUrl": "https://www.dallasaquatics.org/Facilities/Facility/Details/Bachman-Aquatic-Center-47",
+    "visitorFaqs": [
+      {
+        "question": "Does Bachman Aquatic Center operate year-round?",
+        "answer": "No. The official City of Dallas facility page lists its regular 2026 outdoor season as May 23–August 9; verify the next season's calendar rather than assuming rides run in October.",
+        "sourceUrl": "https://www.dallasaquatics.org/Facilities/Facility/Details/Bachman-Aquatic-Center-47"
+      },
+      {
+        "question": "Which day is Bachman Aquatic Center regularly closed during the summer?",
+        "answer": "Its published 2026 summer schedule shows Mondays closed. Check special programs, private rentals and seasonal changes before visiting.",
+        "sourceUrl": "https://www.dallasaquatics.org/Facilities/Facility/Details/Bachman-Aquatic-Center-47"
+      }
+    ]
+  },
+  {
+    "city": "Dallas",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "reviewedAt": "2026-10-17",
+    "slug": "dallas-kidd-springs-aquatic",
+    "name": "Kidd Springs Aquatic Center",
+    "visitorAddress": "807 W. Canty St., Dallas, TX 75203",
+    "visitorHighlights": [
+      "Outdoor waterslide and interactive toddler pool",
+      "Climbing wall, diving board and water basketball",
+      "Family changing room and shaded picnic space"
+    ],
+    "admission": "City of Dallas seasonal daily admission; resident rates require proof of Dallas city residence",
+    "summary": "In Dallas's Oak Cliff area, Kidd Springs offers public summer slides, climbing-wall recreation, a toddler water-play area and separate lap or learn-to-swim programming.",
+    "distinctiveNote": "The City's 2026 listing places Kidd Springs in the community aquatic tier, with Mondays closed and the regular public season ending August 9. Do not confuse swim-team practice with open-slide hours.",
+    "officialUrl": "https://dallasaquatics.org/facilities/facility/details/Kidd-Springs-Aquatic-Center-41",
+    "visitorFaqs": [
+      {
+        "question": "Does Kidd Springs Aquatic Center operate year-round?",
+        "answer": "No. The official City of Dallas facility page lists its regular 2026 outdoor season as May 30–August 9; verify the next season's calendar rather than assuming rides run in October.",
+        "sourceUrl": "https://dallasaquatics.org/facilities/facility/details/Kidd-Springs-Aquatic-Center-41"
+      },
+      {
+        "question": "Which day is Kidd Springs Aquatic Center regularly closed during the summer?",
+        "answer": "Its published 2026 summer schedule shows Mondays closed. Check special programs, private rentals and seasonal changes before visiting.",
+        "sourceUrl": "https://dallasaquatics.org/facilities/facility/details/Kidd-Springs-Aquatic-Center-41"
+      }
+    ]
+  },
+  {
+    "city": "Dallas",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "reviewedAt": "2026-10-17",
+    "slug": "dallas-lake-highlands-north-aquatic",
+    "name": "Lake Highlands North Aquatic Center",
+    "visitorAddress": "9400 Church Rd., Dallas, TX 75238",
+    "visitorHighlights": [
+      "Outdoor flume-style waterslide and toddler pool",
+      "Climbing wall and diving board",
+      "Water basketball, concessions and family changing rooms"
+    ],
+    "admission": "City of Dallas seasonal daily admission; resident rates require proof of Dallas city residence",
+    "summary": "Lake Highlands North's municipal aquatic center has an outdoor slide, children's interactive area, climbing wall and lap pool with separate program time blocks.",
+    "distinctiveNote": "The operator lists Thursdays closed and August 9 as the 2026 regular season's last date. A separate free Lake Highlands North sprayground is a different facility and is not duplicated in this guide.",
+    "officialUrl": "https://dallasaquatics.org/facilities/facility/details/Lake-Highlands-North-Aquatic-Center-42",
+    "visitorFaqs": [
+      {
+        "question": "Does Lake Highlands North Aquatic Center operate year-round?",
+        "answer": "No. The official City of Dallas facility page lists its regular 2026 outdoor season as May 30–August 9; verify the next season's calendar rather than assuming rides run in October.",
+        "sourceUrl": "https://dallasaquatics.org/facilities/facility/details/Lake-Highlands-North-Aquatic-Center-42"
+      },
+      {
+        "question": "Which day is Lake Highlands North Aquatic Center regularly closed during the summer?",
+        "answer": "Its published 2026 summer schedule shows Thursdays closed. Check special programs, private rentals and seasonal changes before visiting.",
+        "sourceUrl": "https://dallasaquatics.org/facilities/facility/details/Lake-Highlands-North-Aquatic-Center-42"
+      }
+    ]
+  },
+  {
+    "city": "Dallas",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "reviewedAt": "2026-10-17",
+    "slug": "dallas-exline-aquatic",
+    "name": "Exline Neighborhood Aquatic Center",
+    "visitorAddress": "2530 Eugene St., Dallas, TX 75215",
+    "visitorHighlights": [
+      "Neighborhood-scale outdoor pool and slide",
+      "Toddler pool with interactive water-play area",
+      "Water basketball, optional climbing wall and picnic spaces"
+    ],
+    "admission": "City of Dallas seasonal daily admission; resident rates require proof of Dallas city residence",
+    "summary": "Exline is a smaller South Dallas neighborhood aquatic center, with a family slide, children's pool, summer recreation and swim classes rather than a large destination lazy river.",
+    "distinctiveNote": "The city's 2026 listing marks Tuesdays closed during its May 30–August 9 summer season. The municipal feature list labels some amenities optional, so ask staff about slide operation.",
+    "officialUrl": "https://www.dallasaquatics.org/Facilities/Facility/Details/Exline-Aquatic-Center-44",
+    "visitorFaqs": [
+      {
+        "question": "Does Exline Neighborhood Aquatic Center operate year-round?",
+        "answer": "No. The official City of Dallas facility page lists its regular 2026 outdoor season as May 30–August 9; verify the next season's calendar rather than assuming rides run in October.",
+        "sourceUrl": "https://www.dallasaquatics.org/Facilities/Facility/Details/Exline-Aquatic-Center-44"
+      },
+      {
+        "question": "Which day is Exline Neighborhood Aquatic Center regularly closed during the summer?",
+        "answer": "Its published 2026 summer schedule shows Tuesdays closed. Check special programs, private rentals and seasonal changes before visiting.",
+        "sourceUrl": "https://www.dallasaquatics.org/Facilities/Facility/Details/Exline-Aquatic-Center-44"
+      }
+    ]
+  },
+  {
+    "city": "Dallas",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "reviewedAt": "2026-10-17",
+    "slug": "dallas-harry-stone-aquatic",
+    "name": "Harry Stone Neighborhood Aquatic Center",
+    "visitorAddress": "2403 Millmar Dr., Dallas, TX 75228",
+    "visitorHighlights": [
+      "Neighborhood-scale slide and swimming pool",
+      "Toddler water-play area and water basketball",
+      "Picnic shelters and seasonal family aquatics"
+    ],
+    "admission": "City of Dallas seasonal daily admission; resident rates require proof of Dallas city residence",
+    "summary": "Harry Stone offers East Dallas neighborhood-scale family water recreation with an outdoor slide, toddler area and summer swim programming; it is not a standalone major theme park.",
+    "distinctiveNote": "The city's seasonal listing shows Mondays closed and the regular 2026 season ending August 9. Some items in the official feature list are optional; check specific ride availability.",
+    "officialUrl": "https://dallasaquatics.org/Facilities/Facility/Details/Harry-Stone-Aquatic-Center-46",
+    "visitorFaqs": [
+      {
+        "question": "Does Harry Stone Neighborhood Aquatic Center operate year-round?",
+        "answer": "No. The official City of Dallas facility page lists its regular 2026 outdoor season as May 30–August 9; verify the next season's calendar rather than assuming rides run in October.",
+        "sourceUrl": "https://dallasaquatics.org/Facilities/Facility/Details/Harry-Stone-Aquatic-Center-46"
+      },
+      {
+        "question": "Which day is Harry Stone Neighborhood Aquatic Center regularly closed during the summer?",
+        "answer": "Its published 2026 summer schedule shows Mondays closed. Check special programs, private rentals and seasonal changes before visiting.",
+        "sourceUrl": "https://dallasaquatics.org/Facilities/Facility/Details/Harry-Stone-Aquatic-Center-46"
+      }
+    ]
+  },
+  {
+    "city": "Dallas",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "reviewedAt": "2026-10-17",
+    "slug": "dallas-tietze-aquatic",
+    "name": "Tietze Neighborhood Aquatic Center",
+    "visitorAddress": "6115 Llano Ave., Dallas, TX 75206",
+    "visitorHighlights": [
+      "Seasonal outdoor pool with flume-style slide",
+      "Toddler pool, climbing wall and water basketball",
+      "Concessions, family changing rooms and shade structures"
+    ],
+    "admission": "City of Dallas seasonal daily admission; resident rates require proof of Dallas city residence",
+    "summary": "Tietze Aquatic Center combines a compact family waterslide, toddler water play, climbing wall and a separate swimming area in a smaller Dallas city aquatic setting.",
+    "distinctiveNote": "The Dallas operator lists Tuesdays closed during its May 30–August 9 regular 2026 summer season; do not confuse this rebuilt aquatic center with the separate Tietze lap pool.",
+    "officialUrl": "https://dallasaquatics.org/Facilities/Facility/Details/Tietze-Aquatic-Center-43",
+    "visitorFaqs": [
+      {
+        "question": "Does Tietze Neighborhood Aquatic Center operate year-round?",
+        "answer": "No. The official City of Dallas facility page lists its regular 2026 outdoor season as May 30–August 9; verify the next season's calendar rather than assuming rides run in October.",
+        "sourceUrl": "https://dallasaquatics.org/Facilities/Facility/Details/Tietze-Aquatic-Center-43"
+      },
+      {
+        "question": "Which day is Tietze Neighborhood Aquatic Center regularly closed during the summer?",
+        "answer": "Its published 2026 summer schedule shows Tuesdays closed. Check special programs, private rentals and seasonal changes before visiting.",
+        "sourceUrl": "https://dallasaquatics.org/Facilities/Facility/Details/Tietze-Aquatic-Center-43"
       }
     ]
   }
