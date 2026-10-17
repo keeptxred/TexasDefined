@@ -28,6 +28,39 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "east-texas-oil-museum-kilgore": {
+    name: "East Texas Oil Museum", slug: "east-texas-oil-museum-kilgore", county: "Gregg", city: "Kilgore", reviewed: "2026-10-17",
+    topics: ["oil-history", "industrial-heritage", "texas-history", "family"],
+    whyVisit: "The East Texas Oil Museum at Kilgore College interprets the 1930 discovery and the transformation of Northeast Texas into a major oil-producing region. Its recreated 1930s Boomtown allows visitors to encounter businesses, machinery, transportation and social life, making the era more tangible than a textbook timeline or a static set of drilling equipment alone.",
+    visitorStrategy: "The Kilgore College operator lists Monday through Saturday from 9 a.m. until 5 p.m., with last museum admission at 4 p.m. and Sunday closed under the standard schedule. Purchase admission only at the museum, not through an invented online booking page: current adult admission is $10, ages 3–11 are $7, ages two and younger are free, and senior/military visitors receive a 10 percent discount. Kilgore College students and employees are admitted free. The museum itself recommends at least 90 minutes. Find it at 1301 S. Henderson Boulevard with visitor parking on Ross Avenue behind the museum. Verify listed holiday closures before travel.",
+    accessibility: "The official visitor and facility-rental information identifies the museum as ADA accessible and provides easy access for vans and buses. A limited number of loan wheelchairs may be checked out at the gift shop without a rental fee, but the operator asks for an ID until the chair is returned. Leashed or harnessed service animals are permitted. Exact accessibility of each Boomtown sound effect, simulation and exhibit should be checked with the museum rather than inferred from a general building statement.",
+    familiesAndGroups: "Boomtown USA has recreated storefronts, an old-fashioned gas station, a drugstore, drilling equipment and other lifelike period scenes that can give school-age children a narrative for how an oil town worked. The simulated blowout and movie sound effects may be intense for some visitors. Formal student group tours require advance arrangements; general admission does not automatically reserve a guide. Food service is not documented as a regular visitor amenity, so plan meals separately in Kilgore.",
+    researchValue: "Use the museum's recreated town and original period artifacts to examine the difference between the giant field's 1930 oil discovery and its social consequences: migration, retail business, machinery, roads and everyday life. The college identifies oral histories and primary-source documents as central to its collecting mission. Compare its physical reconstructions with historic images and operator interpretation; avoid presenting lifelike recreated rooms as untouched 1930s buildings.",
+    exhibits: [
+      { heading: "Boomtown USA", detail: "Full-scale 1930s streetscape with shopfronts, vehicles and people illustrates the everyday economic changes that followed the East Texas oil discovery." },
+      { heading: "Overton Drugstore and Arp General Store", detail: "Recreated business interiors make the human and retail side of drilling-boom migration visible." },
+      { heading: "Boomtown Theater and oil-well blowout effects", detail: "Film and effects interpret drilling hazards; visitors with noise or sensory concerns should ask staff about the presentation." },
+      { heading: "Elevator Ride to the Center of the Earth", detail: "An interpretive simulated underground journey explains subsurface oil formations; it is an exhibit, not travel below the campus." },
+      { heading: "Historic vehicles, equipment and archival collections", detail: "Authentic objects, period displays and documentary material reveal transportation, production technology and memories of East Texas residents." },
+    ],
+    routes: [
+      { label: "Ninety-minute museum essentials", steps: ["Start with the official 1930 discovery context and displays", "Walk the Boomtown USA shops and vehicle exhibits", "Add the film or underground simulation if available and comfortable"] },
+      { label: "Family morning in Kilgore", steps: ["Arrive before 4 p.m. final admission, ideally early for unhurried galleries", "Compare the recreated shopfronts and oilfield work with family life in 1930", "Finish at another separately scheduled Kilgore stop rather than treating this admission as a combined ticket"] },
+      { label: "Petroleum and technology comparison", steps: ["Study drilling methods and the early oilfield's equipment", "Compare exhibits about public communication and technology at the separate Texas Broadcast Museum", "Read archival images and interpret how oil-field wages and infrastructure reshaped Gregg County"] }
+    ],
+    sources: [
+      { label: "Kilgore College — East Texas Oil Museum visitor information", url: "https://easttexasoilmuseum.kilgore.edu/visit/", use: "Current hours, last entry, tickets, parking, wheelchairs and photography restrictions" },
+      { label: "East Texas Oil Museum — permanent experience", url: "https://easttexasoilmuseum.kilgore.edu/welcome/", use: "Official Boomtown, exhibits and archive interpretation" },
+      { label: "East Texas Oil Museum — calendar and temporary programming", url: "https://easttexasoilmuseum.kilgore.edu/events/", use: "Time-bound exhibitions and operator event alerts" },
+      { label: "East Texas Oil Museum — general contact", url: "https://easttexasoilmuseum.kilgore.edu/contact/", use: "Direct telephone, contact and group scheduling" },
+      { label: "East Texas Oil Museum — memberships", url: "https://easttexasoilmuseum.kilgore.edu/memberships/", use: "Official annual admission benefits and visitor discounts" }
+    ],
+    connections: [
+      { label: "Gregg County", href: "/county/gregg", reason: "Connect the East Texas Oil Field to Kilgore and the county's economy." },
+      { label: "Texas Broadcast Museum", href: "/destination/texas-broadcast-museum-kilgore", reason: "Compare separate technological histories in Kilgore; admission and schedules are independent." },
+      { label: "Texas museum directory", href: "/explore/museums", reason: "Compare industrial, history and technology museum options across Texas." }
+    ],
+  },
   "uss-lexington-museum-corpus-christi": {
     name: "USS Lexington Museum on the Bay",
     slug: "uss-lexington-museum-corpus-christi",

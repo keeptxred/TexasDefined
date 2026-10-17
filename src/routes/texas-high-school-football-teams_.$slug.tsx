@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { getFootballProgramProfilePage } from '@/data/high-school-football/football-program-profile.functions';
+import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.functions';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -10,7 +11,12 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
   loader: async ({ params }) => {
     const profile = await getFootballProgramProfilePage(params.slug);
     if (!profile) throw notFound();
-    return profile;
+    // Existing governed loader fails closed and returns null while the launch hold is active.
+    // Do not promote school partnerships or cancelled programs into paid game-night inventory.
+    const sponsorPlacement = profile.editorial?.notice
+      ? null
+      : await getActiveSportsSponsorPlacement({ data: { surfacePath: `/texas-high-school-football-teams/${profile.slug}` } });
+    return { ...profile, sponsorPlacement };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: 'Football school profile not found' }, { name: 'robots', content: 'noindex' }] };

@@ -1,0 +1,38 @@
+name: Verify Alief Taylor production page
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-alief-taylor-production.mjs'
+      - '.github/workflows/verify-alief-taylor-production.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out targeted production verifier
+        uses: actions/checkout@v4
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare existing Chrome and isolated Playwright dependency
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Check only the Alief Taylor live profile on desktop and mobile
+        run: node scripts/ci/verify-alief-taylor-production.mjs
+      - name: Save two screenshots and exact route report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: alief-taylor-production-evidence
+          path: artifacts/alief-taylor-production/
+          if-no-files-found: warn
+          retention-days: 7

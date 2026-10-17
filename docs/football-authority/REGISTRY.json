@@ -53,7 +53,7 @@
     "implementedOnBranch": 16,
     "remainingToImplement": 9,
     "remainingToVerify": 25,
-    "notes": "16 of 25 Batch006 authored through Bonham on dependent branches, with 105 previous VERIFIED untouched; none of Batch006 independently Chrome or formally editorial accepted. Nine Batch006 remain not reviewed."
+    "notes": "16/25 Batch006 individually authored through Bonham in canonical PR #5034; Booker PR #5035 separate, Borden County #5036 dependent. Historical 105 VERIFIED and 2 DEPLOYED preserved; zero formal Batch006 Chrome/nine-dimension editorial VERIFICATIONS. Remaining 9 NOT_REVIEWED."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6810,7 +6810,7 @@
       "schoolNote": "docs/football-authority/schools/bonham.md",
       "implementedOnBranch": "feature/football-b006-bonham-20261016-chat",
       "actualProductionVerified": false,
-      "reviewScope": "Bonham ISD official contacts, April 2026 Aaron Ford appointment, UIL 2026 4A DII District7, 0–10 2025 and 2–4 to Oct9 2026. Gate/photo/accessibility and exact production Chrome QA/editorial acceptance not verified."
+      "reviewScope": "Bonham 2026 4A DII District7, new coach Aaron Ford first-party corroboration, 2–5 through Oct16, online-only home tickets and Warrior Stadium media rules; source-dated scores. Exact live Chrome and editorial/photo/accessibility acceptance pending."
     },
     {
       "id": "uil:booker",

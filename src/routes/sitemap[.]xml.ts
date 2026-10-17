@@ -112,10 +112,11 @@ export const Route = createFileRoute("/sitemap.xml")({
         const { loadTexasKnowledgeGraph } = await import("@/data/knowledge-graph");
         const { relocationCityPairSitemapEntries } = await import("@/data/relocation-city-pairs");
         const { getSportsVenuePhoto } = await import("@/data/sports-venue-images-all");
-        const { footballProgramSitemapEntries, privateFootballProgramSitemapEntries, footballDistrictSitemapEntries } = await import("@/data/high-school-football/football-sitemap.server");
+        const { footballProgramSitemapEntries, privateFootballProgramSitemapEntries, footballDistrictSitemapEntries, footballGameSitemapEntries } = await import("@/data/high-school-football/football-sitemap.server");
         const footballProfileEntries = footballProgramSitemapEntries();
         const privateFootballProfileEntries = privateFootballProgramSitemapEntries();
         const footballDistrictEntries = footballDistrictSitemapEntries();
+        const footballGameEntries = footballGameSitemapEntries();
         // Do not hydrate the live TEA-backed football ISD directory on the public
         // sitemap request path. A cold Worker would otherwise fetch and parse the
         // statewide AskTED CSV and fuzzy-match all 1,268 UIL programs before it
@@ -279,6 +280,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...footballProfileEntries,
           ...privateFootballProfileEntries,
           ...footballDistrictEntries,
+          ...footballGameEntries,
         ];
 
         const uniqueEntries = [...new Map(entries.map((entry) => {

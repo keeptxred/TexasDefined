@@ -9,6 +9,7 @@ const sharedPattern = /^(?:package(?:-lock)?\.json|vite\.config\.|wrangler\.|src
 const groups = {
   images: /discover|hero|public\/images|materialize/,
   sports: /sports|venue|football/,
+  horse_racing: /horse-racing|horseRacing|HorseRacing|verify-horse-racing-production/,
   foliage: /east-texas-fall-colors|fall-foliage/,
   discovery: /public-routes|sitemap|routeTree|discovery|indexing/,
   events: /events?|ticketmaster/,
@@ -74,6 +75,20 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       '/explore/casinos/near-houston',
       '/explore/casinos/near-dallas-fort-worth',
     ];
+  }
+  // A shared football template affects every profile, but two representative
+  // verified teams provide a bounded production canary without a 1,268-page crawl.
+  const footballGameNightPages = new Set();
+  if (changedFiles.some(path => [
+    'src/routes/texas-high-school-football-teams_.$slug.tsx',
+    'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx',
+    'src/components/sports/FootballGameNightGuide.tsx',
+  ].includes(path))) {
+    for (const slug of ['aledo', 'southlake-carroll']) {
+      const page = `/texas-high-school-football-teams/${slug}`;
+      candidates.add(page);
+      footballGameNightPages.add(page);
+    }
   }
   const downloadButtonPages = new Set();
   const regionGuidePages = new Set();
@@ -225,10 +240,11 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
     downloadButtonPages: selectedPaths.filter(p => downloadButtonPages.has(p)),
-    regionGuidePages: selectedPaths.filter(p => regionGuidePages.has(p)), redirectChecks, candidateCount,
+    regionGuidePages: selectedPaths.filter(p => regionGuidePages.has(p)),
+    footballGameNightPages: selectedPaths.filter(p => footballGameNightPages.has(p)), redirectChecks, candidateCount,
     omittedCount: Math.max(0, allPaths.length - selectedPaths.length), pageBudget: PAGE_BUDGET,
     coverage: candidateCount > PAGE_BUDGET ? 'representative sample; full coverage belongs to weekly local audits' : 'identified changed pages and representative dependencies',
-    groups: Object.fromEntries(Object.entries(groups).map(([name, pattern]) => [name, shared || changedFiles.some(p => pattern.test(p))])),
+    groups: Object.fromEntries(Object.entries(groups).map(([name, pattern]) => [name, (name === 'horse_racing' ? false : shared) || changedFiles.some(p => pattern.test(p))])),
   };
 }
 
