@@ -17,11 +17,39 @@ export type CountyVisitorPlace = {
 
 export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   {
+    "county": "anderson",
+    "name": "Davey Dogwood Park",
+    "category": "Parks & recreation",
+    "description": "Woodland trails and seasonal dogwood blooms around Palestine; check spring road and trail conditions.",
+    "sourceUrl": "https://texastimetravel.com/cities/palestine/"
+  },
+  {
+    "county": "anderson",
+    "name": "Palestine Historic District Walking Tour",
+    "category": "History & heritage",
+    "description": "Self-guided streets and historic architectural districts in Palestine; maps are available from local visitor information.",
+    "sourceUrl": "https://texastimetravel.com/cities/palestine/"
+  },
+  {
+    "county": "anderson",
+    "name": "The Texas Theatre in Palestine",
+    "category": "Arts & culture",
+    "description": "Restored 1930 movie palace now used by Palestine Community Theatre for local live stage performances.",
+    "sourceUrl": "https://texastheatrepalestine.com/"
+  },
+  {
     "county": "andrews",
     "name": "Andrews County Veterans Memorial",
     "category": "History & heritage",
     "description": "Public memorial recognizing military service; a short cultural-history stop.",
     "sourceUrl": "https://texastimetravel.com/regions/pecos-trail/heritage-sites-and-attractions/"
+  },
+  {
+    "county": "angelina",
+    "name": "Ellen Trout Zoo",
+    "category": "Parks & recreation",
+    "description": "Lufkin family zoo with wildlife exhibits and walking paths.",
+    "sourceUrl": "https://texastimetravel.com/cities/lufkin/"
   },
   {
     "county": "armstrong",
@@ -36,6 +64,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Art & architecture",
     "description": "Muleshoe's public tribute to the working mule and its military role; a brief roadside photo stop.",
     "sourceUrl": "https://texastimetravel.com/cities/muleshoe/"
+  },
+  {
+    "county": "bastrop",
+    "name": "Bastrop Opera House",
+    "category": "Arts & culture",
+    "description": "Historic live theater producing plays and musicals in downtown Bastrop; consult upcoming shows.",
+    "sourceUrl": "https://www.bastropoperahouse.org/shows/"
   },
   {
     "county": "bee",
@@ -85,6 +120,34 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "A heritage landscape associated with Norwegian settlement; respect private properties and church access.",
     "sourceUrl": "https://visitclifton.org/things-to-do/attractions/norse-historic-district/"
+  },
+  {
+    "county": "bowie",
+    "name": "Perot Theatre in Texarkana",
+    "category": "Arts & culture",
+    "description": "Restored 1924 theater in downtown Texarkana with live music and theatrical productions.",
+    "sourceUrl": "https://texastimetravel.com/directory/perot-theatre/"
+  },
+  {
+    "county": "bowie",
+    "name": "Photographer's Island at State Line Post Office",
+    "category": "Art & architecture",
+    "description": "Public photo point at the Texas–Arkansas state line near the shared downtown post office and courthouse.",
+    "sourceUrl": "https://texastimetravel.com/cities/texarkana/"
+  },
+  {
+    "county": "bowie",
+    "name": "Regional Arts Center of Texarkana",
+    "category": "Arts & culture",
+    "description": "Restored downtown historic federal building hosting art exhibitions and cultural programs.",
+    "sourceUrl": "https://texastimetravel.com/cities/texarkana/"
+  },
+  {
+    "county": "brazoria",
+    "name": "Sea Center Texas",
+    "category": "Parks & recreation",
+    "description": "Texas Parks and Wildlife marine aquarium and fish-hatchery visitor center in Lake Jackson.",
+    "sourceUrl": "https://texastimetravel.com/directory/sea-center-texas/"
   },
   {
     "county": "brooks",
@@ -171,6 +234,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/dimmitt/"
   },
   {
+    "county": "cherokee",
+    "name": "Rusk Footbridge Park",
+    "category": "Parks & recreation",
+    "description": "Rusk public park featuring a historic elevated footbridge spanning One Eye Creek.",
+    "sourceUrl": "https://texastimetravel.com/cities/rusk/"
+  },
+  {
     "county": "childress",
     "name": "Childress ATV Park",
     "category": "Parks & recreation",
@@ -204,6 +274,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Arts & culture",
     "description": "Restored 1929 theater for movies and live music; check the schedule.",
     "sourceUrl": "https://texastimetravel.com/cities/wellington/"
+  },
+  {
+    "county": "colorado",
+    "name": "Columbus Historic District Walking Tour",
+    "category": "History & heritage",
+    "description": "Public streets with restored nineteenth-century commercial architecture and courthouse-square history.",
+    "sourceUrl": "https://texastimetravel.com/cities/columbus/"
+  },
+  {
+    "county": "colorado",
+    "name": "Stafford Opera House",
+    "category": "Arts & culture",
+    "description": "Columbus historic opera house and dinner-theater venue with scheduled performances.",
+    "sourceUrl": "https://texastimetravel.com/directory/stafford-opera-house/"
   },
   {
     "county": "comanche",
@@ -267,6 +351,41 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Public pocket park near the courthouse commemorating the horned-toad legend of Eastland.",
     "sourceUrl": "https://texastimetravel.com/cities/eastland/"
+  },
+  {
+    "county": "ector",
+    "name": "Globe Theater in Odessa",
+    "category": "Arts & culture",
+    "description": "Odessa's replica Elizabethan theater featuring staged productions and cultural events; verify current schedule.",
+    "sourceUrl": "https://texastimetravel.com/cities/odessa/"
+  },
+  {
+    "county": "ector",
+    "name": "Odessa Jackrabbit Statue",
+    "category": "Art & architecture",
+    "description": "Public oversized jackrabbit sculpture commemorating Odessa's historic Jackrabbit Rodeo.",
+    "sourceUrl": "https://texastimetravel.com/cities/odessa/"
+  },
+  {
+    "county": "ector",
+    "name": "The Ector Theatre",
+    "category": "Arts & culture",
+    "description": "Restored live music and performance venue in downtown Odessa; check the current official calendar.",
+    "sourceUrl": "https://theector.com/"
+  },
+  {
+    "county": "ellis",
+    "name": "Chautauqua Auditorium in Waxahachie",
+    "category": "History & heritage",
+    "description": "Distinctive octagonal open-air auditorium in Getzendaner Park, a preserved Chautauqua-era venue.",
+    "sourceUrl": "https://texastimetravel.com/cities/waxahachie/"
+  },
+  {
+    "county": "ellis",
+    "name": "Waxahachie Victorian Architecture Walking Tour",
+    "category": "History & heritage",
+    "description": "Self-guided exploration of downtown and the ornate Victorian residential streets known as Gingerbread City.",
+    "sourceUrl": "https://texastimetravel.com/cities/waxahachie/"
   },
   {
     "county": "erath",
@@ -414,6 +533,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Restored historic Canadian River bridge on a walk and bike route with river views.",
     "sourceUrl": "https://www.canadiantx.com/outdoors"
+  },
+  {
+    "county": "hockley",
+    "name": "Levelland City of Mosaics Self-Guided Walk",
+    "category": "Art & architecture",
+    "description": "City-produced walking route of downtown public mosaics and murals with visitor tour brochure.",
+    "sourceUrl": "https://www.levellandtexas.org/1768/Levelland-City-of-Mosaics-Virtual-Tours-"
   },
   {
     "county": "houston",
@@ -715,6 +841,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Interpretive walking park documenting the Civil War prisoner-of-war camp near Tyler.",
     "sourceUrl": "https://texastimetravel.com/cities/tyler/"
+  },
+  {
+    "county": "smith",
+    "name": "Tyler Civic Theater",
+    "category": "Arts & culture",
+    "description": "Community theater productions in Tyler's Rose Park cultural area; check performance schedule.",
+    "sourceUrl": "https://texastimetravel.com/travel-by-theme/?page=38"
   },
   {
     "county": "smith",
