@@ -35,6 +35,7 @@ export const texasWaterParks: WaterParkGuide[] = [
     "slug": "typhoon-texas-katy",
     "name": "Typhoon Texas Houston (Katy)",
     "city": "Katy",
+  "county": "Harris",
     "region": "Houston area",
     "setting": "Outdoor",
     "kind": "Destination park",
