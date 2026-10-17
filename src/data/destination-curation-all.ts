@@ -1,3 +1,4 @@
+import { applySixLaterTPWDAuthorities } from "./tpwd-six-later-park-authorities";
 import { applySixParkOctoberVisitorAuthority } from "./six-tpwd-visitor-authority-oct17";
 import { applySixParkVisitorAuthorityGuide } from "./six-park-visitor-authority-20261017";
 import { applyTwoNationalParkAuthorities } from "./two-national-parks-2026-authority";
@@ -189,6 +190,7 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyFourFederalParkAuthorities,
   applyRemainingSixNpsAuthorities,
   applySixParkOctoberVisitorAuthority,
+  applySixLaterTPWDAuthorities,
   applyTwoNationalParkAuthorities,
   applySixParkVisitorAuthorityGuide,
   applyInksLakeVisitorAuthority,
