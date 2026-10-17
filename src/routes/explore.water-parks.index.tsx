@@ -109,7 +109,7 @@ function WaterParkDirectory() {
           <div><h3 className="font-semibold">Outdoor destination parks</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Slides, rivers and wave attractions suit a full summer day. Operating seasons, ride availability, weather closures and ticket inclusions vary widely.</p></div>
           <div><h3 className="font-semibold">Municipal and resort parks</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">City parks can be convenient for shorter outings. Resorts and campgrounds sometimes require an overnight stay or limited-quantity day passes.</p></div>
         </div>
-        <p className="mt-7 text-sm leading-7 text-muted-foreground">A playground spray pad or ordinary swimming pool is not counted as a stand-alone water park. Closed parks are excluded from this visitor list. Small city facilities with substantial slides or water-play complexes are included where operator materials support that classification.</p>
+        <p className="mt-7 text-sm leading-7 text-muted-foreground">A playground spray pad or ordinary swimming pool is not counted as a stand-alone water park. Known permanently closed parks are excluded from this visitor list. Seasonal parks may be closed right now without being permanently shut down. Small city facilities with substantial slides or water-play complexes are included where operator materials support that classification.</p>
       </section>
       <section className="mt-12 border-t border-border pt-8">
         <h2 className="font-display text-3xl">Make a weekend of it</h2>
