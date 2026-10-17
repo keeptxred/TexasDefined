@@ -124,7 +124,7 @@ export function getSourcedDistrictRecords(
   games: DistrictFootballGame[],
   schools: Array<{ schoolName: string; profilePath: string }>,
 ): SourcedDistrictRecord[] {
-  const bySchool = new Map(schools.map(({ schoolName, profilePath }) => [
+  const bySchool = new Map<string, SourcedDistrictRecord>(schools.map(({ schoolName, profilePath }) => [
     schoolName,
     { schoolName, profilePath, won: 0, lost: 0, tied: 0 },
   ]));
