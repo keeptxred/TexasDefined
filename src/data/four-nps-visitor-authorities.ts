@@ -44,8 +44,8 @@ const SITE_PATCHES: Readonly<Record<string, NpsPatch>> = {
     "whyItMatters": "Alibates Flint Quarries National Monument preserves a distinctive source of colorful flint in the Canadian River region of the Texas Panhandle. Native peoples used Alibates stone for tools and trade a",
     "assessment": {
       "recommendedVisit": "Confirm official access, hours and any guided visit before departing",
-      "physicalEffort": "Moderate to strenuous",
-      "weatherExposure": "Mixed",
+      "physicalEffort": "High",
+      "weatherExposure": "Mixed indoor/outdoor",
       "planningLevel": "Moderate",
       "familyFit": "Plan age, mobility and trip length around the specific NPS visitor requirements",
       "firstTimeValue": "Official interpretation and the exact park visitor entrance are more reliable than a broad location pin"
@@ -69,6 +69,16 @@ const SITE_PATCHES: Readonly<Record<string, NpsPatch>> = {
           "Start with the primary interpretation or ranger-led visit",
           "Choose one separately managed local history or nature stop",
           "Check return travel, heat and sunset rather than rushing distant stops"
+        ]
+      },
+      {
+        "label": "Quarry tour unavailable alternative",
+        "duration": "About 1 hour",
+        "steps": [
+          "Check if quarry tours are running before making the drive",
+          "Visit the NPS visitor center during staffed hours",
+          "Use only the signed self-guided options allowed that day",
+          "Do not attempt independent quarry entry"
         ]
       }
     ],
@@ -129,7 +139,7 @@ const SITE_PATCHES: Readonly<Record<string, NpsPatch>> = {
     "assessment": {
       "recommendedVisit": "Confirm official access, hours and any guided visit before departing",
       "physicalEffort": "Low to moderate",
-      "weatherExposure": "Mixed",
+      "weatherExposure": "Mixed indoor/outdoor",
       "planningLevel": "Moderate",
       "familyFit": "Plan age, mobility and trip length around the specific NPS visitor requirements",
       "firstTimeValue": "Official interpretation and the exact park visitor entrance are more reliable than a broad location pin"
@@ -153,6 +163,16 @@ const SITE_PATCHES: Readonly<Record<string, NpsPatch>> = {
           "Start with the primary interpretation or ranger-led visit",
           "Choose one separately managed local history or nature stop",
           "Check return travel, heat and sunset rather than rushing distant stops"
+        ]
+      },
+      {
+        "label": "Grounds-only history visit",
+        "duration": "About 45–90 minutes",
+        "steps": [
+          "Confirm the 7 a.m. to 7 p.m. memorial gate schedule",
+          "Walk only open grounds in safe weather",
+          "Use NPS history resources to understand the river-border settlement",
+          "Exit and move vehicles before the gates close"
         ]
       }
     ],
@@ -238,6 +258,16 @@ const SITE_PATCHES: Readonly<Record<string, NpsPatch>> = {
           "Choose one separately managed local history or nature stop",
           "Check return travel, heat and sunset rather than rushing distant stops"
         ]
+      },
+      {
+        "label": "Family science half-day",
+        "duration": "About 2–3 hours",
+        "steps": [
+          "Begin at the 6220 Steinbeck Bend Drive Welcome Center",
+          "Use the accessible trail to reach the paid Dig Shelter with a guide",
+          "Follow the no-food and no-drink shelter rule",
+          "Continue to another independently operated Waco science or history stop"
+        ]
       }
     ],
     "sources": [
@@ -297,7 +327,7 @@ const SITE_PATCHES: Readonly<Record<string, NpsPatch>> = {
     "assessment": {
       "recommendedVisit": "Choose the actual usable boat ramp and NPS lake-use permit before hauling equipment",
       "physicalEffort": "Low to moderate",
-      "weatherExposure": "Mixed",
+      "weatherExposure": "Mixed indoor/outdoor",
       "planningLevel": "Moderate",
       "familyFit": "Plan age, mobility and trip length around the specific NPS visitor requirements",
       "firstTimeValue": "Official interpretation and the exact park visitor entrance are more reliable than a broad location pin"
@@ -321,6 +351,16 @@ const SITE_PATCHES: Readonly<Record<string, NpsPatch>> = {
           "Start with the primary interpretation or ranger-led visit",
           "Choose one separately managed local history or nature stop",
           "Check return travel, heat and sunset rather than rushing distant stops"
+        ]
+      },
+      {
+        "label": "Low-water conditions alternative",
+        "duration": "Half-day",
+        "steps": [
+          "Read the live NPS ramp-by-ramp conditions table",
+          "If the chosen boat ramp is unsafe, do not launch a trailered boat",
+          "Choose only an NPS-permitted shore activity from a confirmed access point",
+          "Make alternate lodging or park plans without assuming other ramps are open"
         ]
       }
     ],
@@ -352,12 +392,13 @@ const SITE_PATCHES: Readonly<Record<string, NpsPatch>> = {
 export function applyFourFederalParkAuthorities(destination: Destination): Destination {
   const patch = SITE_PATCHES[destination.slug];
   if (!patch) return destination;
-  const code = {
-    "alibates-flint-quarries-national-monument":"alfl",
-    "chamizal-national-memorial":"cham",
-    "waco-mammoth-national-monument":"waco",
-    "amistad-national-recreation-area":"amis"
-  }[destination.slug];
+  const codeBySlug: Record<string, string> = {
+    "alibates-flint-quarries-national-monument": "alfl",
+    "chamizal-national-memorial": "cham",
+    "waco-mammoth-national-monument": "waco",
+    "amistad-national-recreation-area": "amis"
+  };
+  const code = codeBySlug[destination.slug];
   if (!code) return destination;
   try {
     const u = new URL(destination.officialUrl ?? "");
