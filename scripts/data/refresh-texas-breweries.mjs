@@ -52,7 +52,16 @@ export async function main() {
   if (!Array.isArray(rows)) throw new Error('TABC returned a non-array response');
   if (rows.length >= 5000) throw new Error('TABC result reached row cap; pagination required, refusing incomplete snapshot');
   const breweries = normalizeTabcRows(rows, previous.breweries ?? []);
-  if (breweries.length < 100) throw new Error('Suspiciously small active BW roster (' + breweries.length + '); preserving last-good snapshot');
+  if (breweries.length < 100) {
+    const sample = rows.slice(0, 3).map((row) => ({
+      license_type: row.license_type, primary_status: row.primary_status,
+      license_status: row.license_status, state: row.state,
+      city_present: Boolean(row.city), county_present: Boolean(row.county),
+      license_id_present: Boolean(row.license_id),
+    }));
+    console.error('TABC diagnostic:', JSON.stringify({ sourceRows: rows.length, keys: Object.keys(rows[0] ?? {}).sort(), sample }));
+    throw new Error('Suspiciously small active BW roster (' + breweries.length + '); preserving last-good snapshot');
+  }
   if (previous.breweries?.length > 100 && breweries.length < previous.breweries.length * .75)
     throw new Error('More than 25% drop in active BW licenses; preserving last-good snapshot pending review');
   if (JSON.stringify(breweries) === JSON.stringify(previous.breweries)) {
