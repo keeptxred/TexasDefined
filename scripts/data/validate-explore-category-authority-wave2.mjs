@@ -125,6 +125,24 @@ for (const marker of [
   'sourceUrl:', 'weekday', 'Public domain', 'National Park Service',
 ]) if (!blackwell.toLowerCase().includes(marker.toLowerCase())) errors.push(`Blackwell authority evidence missing ${marker}`);
 
+// Trail authorities are articles rather than fictional single-location
+// destination pins. Preserve full content, canonical route discovery and
+// credited photographs whenever the national collection is modified.
+const trailGuideFile = fs.readFileSync(path.join(root, 'src/data/fixtures/texas-nps-historic-trail-guides.ts'), 'utf8');
+const fixtureRepositories = fs.readFileSync(path.join(root, 'src/data/fixtures/repositories.ts'), 'utf8');
+const nationalHub = fs.readFileSync(path.join(root, 'public/content/explore-category-authority/national-parks.html'), 'utf8');
+for (const slug of [
+  'butterfield-overland-national-historic-trail',
+  'el-camino-real-de-los-tejas-national-historic-trail',
+  'el-camino-real-de-tierra-adentro-national-historic-trail',
+]) {
+  if (!trailGuideFile.includes(`"slug": "${slug}"`)) errors.push(`NPS trail full article missing: ${slug}`);
+  if (!nationalHub.includes(`href="/article/${slug}"`)) errors.push(`NPS hub missing article link to ${slug}`);
+}
+if (!fixtureRepositories.includes('...texasNpsHistoricTrailGuides,')) errors.push('NPS historic-trail articles must be in the canonical fixture article graph.');
+for (const marker of ['commons.wikimedia.org', 'cc by', 'National Park Service', 'private', '2026-10-17']) {
+  if (!trailGuideFile.toLowerCase().includes(marker.toLowerCase())) errors.push(`NPS trail provenance or access warning missing: ${marker}`);
+}
 if (errors.length) {
   console.error('Explore category authority wave 2 validation failed:');
   for (const error of errors) console.error(`- ${error}`);
