@@ -2554,6 +2554,188 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
+  "boling": {
+    "slug": "boling",
+    "theme": {
+      "accentHex": "#236B4D",
+      "label": "Independent editorial green accent, no copied Boling ISD seal or Bulldog logo"
+    },
+    "seo": {
+      "title": "Boling Bulldogs Football 2026 | 1972 State Champs, 2016 Final & Scores",
+      "description": "Boling Bulldogs in Wharton County: UIL 1972 Class 2A state champions and 2016 3A Division II runners-up, 2026 district 14, coach Kevin Urbanek and current results."
+    },
+    "coach": {
+      "name": "Kevin Urbanek",
+      "title": "Boling High School athletic director and head football coach",
+      "sourceUrl": "https://bhs.bolingisd.net/apps/pages/index.jsp?pREC_ID=1422879&type=d&uREC_ID=1174834",
+      "sourceLabel": "Boling High School official athletics staff list and 2026 football schedule index; takes precedence over stale third-party listing for Steve Urban",
+      "verifiedAt": "2026-10-16"
+    },
+    "campus": {
+      "address": "407 Atlantic Avenue, Boling, TX 77420",
+      "phone": "979-657-2816",
+      "sourceUrl": "https://bhs.bolingisd.net/apps/pages/index.jsp?pREC_ID=1422879&type=d&uREC_ID=1174834",
+      "sourceLabel": "Official Boling High athletics page and NCES 2025–26 campus school, Wharton County; not confirmed stadium vehicle entrance",
+      "verifiedAt": "2026-10-16"
+    },
+    "schedule": {
+      "label": "Boling High Athletics 2026 Junior High, JV and Varsity Football Schedule",
+      "sourceUrl": "https://bhs.bolingisd.net/apps/pages/index.jsp?pREC_ID=1422879&type=d&uREC_ID=1174834",
+      "sourceLabel": "Boling High first-party athletics schedule PDF entry point; confirm varsity kickoff and field with school",
+      "verifiedAt": "2026-10-16"
+    },
+    "notice": {
+      "title": "School, football staff and game-day directions must not be confused",
+      "body": "The school's 407 Atlantic Avenue address is confirmed by Boling High and NCES, but a precise football stadium vehicle entrance, ADA parking, spectator gate and photo rights were not independently established. The district administrative office is separately at 301 Texas Avenue, and a football listing by Texas Prep shows 'Steve Urban' as coach; Boling High's official current athletics roster instead explicitly identifies Kevin Urbanek as athletic director and head football coach. Follow the first-party school source for current staff and schedules.",
+      "sourceUrl": "https://bhs.bolingisd.net/apps/pages/index.jsp?pREC_ID=1422879&type=d&uREC_ID=1174834",
+      "sourceLabel": "Official Boling High School athletics roster and team/schedule information",
+      "verifiedAt": "2026-10-16"
+    },
+    "season": {
+      "record": "2–4 through October 2, 2026 (October 9 bye; October 16 game result not certified)",
+      "verifiedAt": "2026-10-16",
+      "sourceUrl": "https://www.pigskinprep.com/showfreeschedules.asp?distID=356&yr=2026",
+      "sourceLabel": "PigskinPrep official-district-grouped 2026 results crosschecked with MaxPreps 2026 varsity schedule dated October 3",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Weimar",
+          "site": "Home",
+          "result": "W 14–6"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Ganado",
+          "site": "Away",
+          "result": "L 12–27"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Hallettsville",
+          "site": "Home",
+          "result": "L 7–38"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Shiner",
+          "site": "Away",
+          "result": "L 14–28"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Van Vleck",
+          "site": "Home",
+          "district": true,
+          "result": "W 28–13"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Altair Rice Consolidated",
+          "site": "Away",
+          "district": true,
+          "result": "L 27–28"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Vanderbilt Industrial",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Wallis Brazos",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "East Bernard",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "El Maton Tidehaven",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "development": {
+      "title": "Boling won the 1972 Class 2A football championship; returned to the final in 2016",
+      "body": "UIL's official historical champions ledger names Boling as the 1972 Class 2A Texas champion after a 20–0 victory over Rockwall. In a different era and classification, the 2016 Class 3A Division II Bulldogs reached the championship game but lost 43–7 to Gunter. The UIL's 2016 Boling team file identifies Stephen Dorr as head coach for that historical season (current head coach Kevin Urbanek served as an assistant on that roster). These are different roles and years; don't misdescribe the 2016 runners-up as repeat champions.",
+      "sourceUrl": "https://www.uiltexas.org/football/archives/P480",
+      "sourceLabel": "UIL historical 1972–73 Class 2A final; 2016–17 final and historical Boling coaching documented in separate official UIL archives",
+      "verifiedAt": "2026-10-16"
+    },
+    "milestones": [
+      {
+        "date": "1972",
+        "title": "Boling won the Class 2A state championship",
+        "body": "UIL lists Boling defeating Rockwall 20–0 in the 1972–73 school-year championship season, a genuine state title.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P480",
+        "sourceLabel": "UIL official 1972 championship archive"
+      },
+      {
+        "date": "2016",
+        "title": "Second championship-game appearance ended in runner-up finish",
+        "body": "Gunter beat Boling 43–7 in the 2016–17 Class 3A Division II final, according to UIL; Boling coach Stephen Dorr and assistant Kevin Urbanek are separately listed on the official Boling state-team page.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team/boling-2016-2017-football",
+        "sourceLabel": "UIL team archive, read with UIL 2016–17 championship final results"
+      },
+      {
+        "date": "2026",
+        "title": "UIL Class 3A Division II District 14",
+        "body": "UIL's 2026–28 football alignment groups Boling with Altair Rice, East Bernard, Tidehaven, Van Vleck, Vanderbilt Industrial and Wallis Brazos.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "sourceLabel": "Official UIL 2026–28 3A Division II alignment"
+      },
+      {
+        "date": "2026-10-02",
+        "title": "One-point district loss at Altair Rice",
+        "body": "Boling fell 28–27 on the road against Rice Consolidated October 2, moving to 2–4 through six games before an October 9 bye week.",
+        "sourceUrl": "https://www.pigskinprep.com/showfreeschedules.asp?distID=356&yr=2026",
+        "sourceLabel": "PigskinPrep District 14 2026 result, crosschecked with MaxPreps completed varsity schedule"
+      }
+    ],
+    "overview": [
+      "The Boling High School Bulldogs represent Boling Independent School District in Wharton County, Texas. Their official 2026–28 football alignment is UIL eleven-man Class 3A Division II, District 14 with Altair Rice Consolidated, East Bernard, El Maton Tidehaven, Van Vleck, Vanderbilt Industrial and Wallis Brazos. That current classification is not interchangeable with the Class 2A label of the program's historical championship.",
+      "Boling's history includes an actual state title, unlike many programs with only deep playoff runs. The UIL championship archives record a 20–0 victory over Rockwall in the 1972 Class 2A championship game. Four decades later, the Bulldogs returned to the state final in 2016 Class 3A Division II, where Gunter won 43–7. The 1972 team was champion, and the 2016 team was runner-up—these achievements should not be reversed or combined.",
+      "Staff history also needs correct dates. UIL's 2016 Boling state-team file names Stephen Dorr head coach then and lists Kevin Urbanek among the assistants. Today Boling High's own athletics page names Kevin Urbanek athletic director and head football coach, and posts a football schedule covering JV and varsity. A competing third-party directory that calls the coach Steve Urban should not override the current district listing.",
+      "In 2026, Boling opened with a 14–6 win over Weimar, then lost to Ganado, Hallettsville and Shiner before a 28–13 district victory over Van Vleck. Rice Consolidated edged Boling 28–27 on October 2. PigskinPrep and MaxPreps both record 2–4 through that game; October 9 was a scheduled bye. As of this October 16 research the Industrial, Brazos, East Bernard and Tidehaven results have not been independently established; these entries remain fixtures rather than invented outcomes.",
+      "The official Boling High campus is listed at 407 Atlantic Avenue, Boling, TX 77420, phone 979-657-2816. Boling ISD's district administrative office is separately at 301 Texas Avenue; the school address is not independently confirmed as the exact stadium parking or visitor entrance. District event rules, ADA facilities and photo licensing have not been independently certified, so fans should consult the posted Boling High athletics schedule and contact the school for a particular game."
+    ],
+    "faq": [
+      {
+        "question": "Did Boling win a Texas high school football championship?",
+        "answer": "Yes. UIL records Boling beating Rockwall 20–0 in the 1972 Class 2A state title game. That is a championship, not merely a finalist season."
+      },
+      {
+        "question": "What happened to Boling in the 2016 state football final?",
+        "answer": "Boling returned to the Class 3A Division II state final in 2016 but finished runner-up after a 43–7 loss to Gunter. UIL lists Stephen Dorr as that team's head coach and Kevin Urbanek among the assistant coaches."
+      },
+      {
+        "question": "Who is Boling's head varsity football coach in 2026?",
+        "answer": "Boling High School's current athletics page identifies Kevin Urbanek as athletic director and head football coach. Other third-party team directories display a conflicting coach name, but the first-party school listing is the source used here."
+      },
+      {
+        "question": "What UIL football district is Boling in for 2026?",
+        "answer": "UIL's official 2026–28 football alignment assigns Boling to Class 3A Division II, District 14, with Altair Rice, East Bernard, Tidehaven, Van Vleck, Vanderbilt Industrial and Wallis Brazos."
+      },
+      {
+        "question": "What was Boling's 2026 record through October 2?",
+        "answer": "Boling was 2–4 through six completed 2026 games, including a 28–13 home district win over Van Vleck and a 28–27 away loss to Rice Consolidated. October 9 was a bye week, so the October 16 Industrial result must be checked independently."
+      },
+      {
+        "question": "What is the official high school address and football stadium entrance?",
+        "answer": "Boling High's current official campus is 407 Atlantic Avenue, Boling TX 77420, phone 979-657-2816. That is a verified campus contact address, not an independently verified stadium vehicle gate or accessible parking entrance; ask Boling Athletics for game-specific directions."
+      },
+      {
+        "question": "Are Boling High and the Boling ISD district office at the same address?",
+        "answer": "No. The Boling High campus is listed at 407 Atlantic Avenue; Boling ISD's administrative site is separately at 301 Texas Avenue. Neither should be assumed to identify a football gate, parking location or ticket booth."
+      }
+    ]
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {

@@ -44,6 +44,7 @@ function Page() {
     boerne: 'kendall', // First-party Boerne High School located in Boerne, Kendall County.
     'boerne-champion': 'kendall', // Samuel V. Champion High School's official 201 Charger Blvd campus is in Kendall County.
     'bogata-rivercrest': 'red-river', // TEA campus 194903001 / NCES identify Rivercrest High in Red River County.
+    boling: 'wharton', // NCES school 481078000541 identifies Boling High's Wharton County campus.
     blum: 'hill', // Blum ISD campus in Hill County.
     'bluff-dale': 'erath', // Bluff Dale ISD in Erath County.
     'baytown-goose-creek-memorial': 'harris',
