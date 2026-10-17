@@ -29,3 +29,8 @@ const TOP50_THEME_PARK_SLUGS = new Set<string>([
 export function isTop50ThemeParkDestination(slug: string): boolean {
   return TOP50_THEME_PARK_SLUGS.has(slug);
 }
+
+/** Route a single new wildlife guide without loading its substantial prose in indexes. */
+export function isTop50BatColonyDestination(slug: string): boolean {
+  return slug === "congress-avenue-bridge-bat-colony";
+}
