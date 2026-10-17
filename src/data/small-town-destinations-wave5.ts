@@ -208,6 +208,11 @@ export const smallTownWave5Destinations: Destination[] = [
         { name: "SFA gardens", description: "Flexible outdoor time for families interested in plants, seasonal color and a less structured attraction." },
       ],
       sideTrips: [
+        { name: "Zion Hill Black heritage district and church", description: "Explore the city-restored historic church and its independently significant Black neighborhood history.", href: "/destination/zion-hill-baptist-church-nacogdoches" },
+        { name: "Downtown Nacogdoches historic district", description: "Follow the nationally listed district on a sourced self-guided walking route.", href: "/destination/nacogdoches-downtown-historic-district" },
+        { name: "Historic road trip: Nacogdoches and San Augustine", description: "Travel from the city's historic districts toward Mission Dolores and Caddo country, with current tour-closure notes.", href: "/article/nacogdoches-san-augustine-historic-road-trip" },
+        { name: "Sterne-Hoya House Museum", description: "Texas Revolution-era household interpretation; check the current maintenance closure.", href: "/destination/sterne-hoya-house-museum" },
+        { name: "Ruby M. Mize Azalea Garden", description: "Free SFA public garden with azaleas, camellias and seasonal color.", href: "/destination/ruby-m-mize-azalea-garden" },
         { name: "Piney Woods region", description: "Connect Nacogdoches with East Texas forests, lakes, historic towns and wildlife destinations.", href: "/explore/region/piney-woods" },
         { name: "Texas Trip Planner", description: "Build an East Texas route around Nacogdoches and nearby Piney Woods destinations.", href: "/explore/trip-planner?destination=nacogdoches" },
       ],
@@ -229,8 +234,8 @@ export const smallTownWave5Destinations: Destination[] = [
       ],
       sources: [
         { label: "Visit Nacogdoches", url: "https://www.visitnacogdoches.org/", scope: "Official destination planning, current events, lodging and visitor information" },
-        { label: "Visit Nacogdoches — Tours and Trails", url: "https://www.visitnacogdoches.org/things-to-do/tours-trails/", scope: "Historic walking, trails and current self-guided visitor options" },
-        { label: "Visit Nacogdoches — Arts and Culture", url: "https://www.visitnacogdoches.org/things-to-do/arts-culture/", scope: "Current museums, arts, heritage and cultural attractions" },
+        { label: "Visit Nacogdoches — Tours and Trails", url: "https://www.visitnacogdoches.org/tours-and-trails", scope: "Historic walking, trails and current self-guided visitor options" },
+        { label: "Visit Nacogdoches — Arts and Culture", url: "https://www.visitnacogdoches.org/arts-and-cultural-attractions", scope: "Current museums, arts, heritage and cultural attractions" },
       ],
     },
     featured: true,
@@ -307,7 +312,7 @@ export const smallTownWave5Destinations: Destination[] = [
       ],
       sources: [
         { label: "Visit Palestine", url: "https://www.visitpalestine.com/", scope: "Official destination planning, events, rail, dogwood and current visitor information" },
-        { label: "Visit Palestine Visitor Center", url: "https://www.visitpalestine.com/visitor-center", scope: "Current visitor-center resources, historic-site inventory and self-guided planning" },
+        { label: "Visit Palestine Visitor Center", url: "https://www.visitpalestine.com/business/palestine-visitor-center", scope: "Current visitor-center resources, historic-site inventory and self-guided planning" },
       ],
     },
     featured: true,

@@ -43,6 +43,26 @@
     ["La Quinta Inn & Suites by Wyndham Sweetwater East", "https://www.hotels.com/ho636049152/la-quinta-inn-suites-by-wyndham-sweetwater-east-sweetwater-united-states-of-america/"],
     ["Microtel Inn & Suites by Wyndham Sweetwater", "https://www.hotels.com/ho532248/microtel-inn-and-suites-by-wyndham-sweetwater-sweetwater-united-states-of-america/"],
   ]);
+  // Exact property listings are verified on Hotels.com and tied to official venue sources.
+  // Use the existing CJ deep-link gate and click telemetry; do not store prices or dates.
+  // No offering is published for the unfinished Leggett resort or legal explainer.
+  const CASINO_HOTEL_CHOICES = new Map([
+    ["/explore/casinos/kickapoo-lucky-eagle", Object.freeze([
+      { name: "Kickapoo Lucky Eagle Casino Hotel", destination: "https://www.hotels.com/ho440446/kickapoo-lucky-eagle-casino-hotel-eagle-pass-united-states-of-america/", sourceUrl: "https://luckyeagletexas.com/", context: "Hotel at the Eagle Pass gaming property" },
+    ])],
+    ["/explore/casinos/near-houston", Object.freeze([
+      { name: "Golden Nugget Lake Charles", destination: "https://www.hotels.com/ho483104/golden-nugget-lake-charles-lake-charles-united-states-of-america/", sourceUrl: "https://www.goldennugget.com/lake-charles/hotel/", context: "Louisiana resort hotel across the state line" },
+      { name: "L'Auberge Casino Resort Lake Charles", destination: "https://www.hotels.com/ho268798/l-auberge-casino-resort-lake-charles-lake-charles-united-states-of-america/", sourceUrl: "https://www.llakecharles.com/visit", context: "Lake Charles resort stay in Louisiana" },
+    ])],
+    ["/explore/casinos/near-dallas-fort-worth", Object.freeze([
+      { name: "Choctaw Casino & Resort Durant", destination: "https://www.hotels.com/ho576680/choctaw-casino-resort-durant-durant-united-states-of-america/", sourceUrl: "https://www.choctawcasinos.com/durant/", context: "Resort hotel in Durant, Oklahoma" },
+    ])],
+  ]);
+  function casinoHotelChoices(pathname = window.location.pathname) {
+    const normalized = String(pathname || "/").replace(/\/+$/, "") || "/";
+    return CASINO_HOTEL_CHOICES.get(normalized) || [];
+  }
+
   const FEATURED_GOLF_STAYS = new Map([
     ["/sports-venue/pga-frisco-fields-ranch", Object.freeze({
       name: "Omni PGA Frisco Resort & Spa",
@@ -66,7 +86,7 @@
       context: "IHG lists Memorial Park golf and tennis about two miles from this hotel, making it a practical lodging option for a Memorial Park Golf Course visit.",
     })],
   ]);
-  const HOTEL_FIRST_PATH = /^\/(?:event\/|events(?:\/|$)|sports-venue\/|sports-venues(?:\/|$)|texas-state-fair(?:\/|$))/;
+  const HOTEL_FIRST_PATH = /^\/(?:event\/|events(?:\/|$)|sports-venue\/|horse-racing\/gillespie-county-fairgrounds(?:\/|$)|sports-venues(?:\/|$)|texas-state-fair(?:\/|$))/;
   const BOTH_PATH = /^\/(?:destination\/|explore(?:\/|$)|city\/|county\/|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const RVSHARE_PATH = /^\/(?:best-places-to-go-camping-in-texas(?:\/|$)|explore\/(?:rv-parks|state-parks|road-trips|outdoors)(?:\/|$))/;
   const OWNER_PATH = /^\/real-estate\/?$/;
@@ -193,6 +213,7 @@
 
   function createBookingChoice(intent, exactPropertyFirst = false) {
     const featuredStay = exactPropertyFirst ? null : featuredGolfStay();
+    const casinoStays = exactPropertyFirst ? [] : casinoHotelChoices();
     const showRvshare = rvshareEligible();
     const wrapper = document.createElement("aside");
     wrapper.id = CHOICE_ID;
@@ -208,7 +229,7 @@
 
     const heading = document.createElement("h2");
     heading.className = "td-stay-affiliate-title";
-    heading.textContent = featuredStay ? "A venue-linked stay to consider" : (exactPropertyFirst ? "More places to stay nearby" : (intent === "hotel-first" ? "Find places to stay near this event or venue" : "Find places to stay nearby"));
+    heading.textContent = casinoStays.length ? "Compare hotels for this trip" : featuredStay ? "A venue-linked stay to consider" : (exactPropertyFirst ? "More places to stay nearby" : (intent === "hotel-first" ? "Find places to stay near this event or venue" : "Find places to stay nearby"));
 
     const copy = document.createElement("p");
     copy.className = "td-stay-affiliate-copy";
@@ -221,6 +242,7 @@
         : (intent === "hotel-first"
           ? "Compare hotel availability close to the event or venue on Hotels.com or Orbitz. Broader leisure and destination guides also include vacation-rental options when they fit the trip."
           : "Compare hotel options on Hotels.com or Travelocity, or choose a vacation rental when extra space, a kitchen, or a group-friendly setup fits the trip better."));
+    if (casinoStays.length) copy.textContent = "These specific properties have verified hotel listings. Compare dates, cancellation terms, fees and current availability directly with the booking provider. Other lodging options are available below.";
     if (showRvshare) copy.textContent += " For camping and road-trip planning, RVshare is the primary rental option when taking your lodging with you fits the trip.";
 
     const actions = document.createElement("div");
@@ -235,6 +257,16 @@
         placement: "stay-nearby-featured-golf",
       }));
     }
+    casinoStays.forEach((stay, index) => {
+      const slug = window.location.pathname.split("/").filter(Boolean).pop() || "casinos";
+      actions.appendChild(createTrackedLink({
+        destination: stay.destination,
+        label: `Check rooms: ${stay.name} on Hotels.com`,
+        variant: index === 0 ? "primary" : "secondary",
+        ariaLabel: `Check current rooms at ${stay.name} on Hotels.com in a new tab`,
+        placement: `casino-stay-${slug}-${index + 1}`,
+      }));
+    });
     actions.appendChild(createTrackedLink({
       destination: HOTELS_DESTINATION,
       label: exactPropertyFirst ? "Compare more hotels on Hotels.com" : "Find hotels on Hotels.com",
@@ -294,6 +326,21 @@
       sourceLink.textContent = "the hotel’s official site ↗";
       sourceNote.append(sourceLink, ` · reviewed ${featuredStay.verifiedAt}`);
       panel.appendChild(sourceNote);
+    }
+    if (casinoStays.length) {
+      const reference = document.createElement("p");
+      reference.className = "td-stay-affiliate-source";
+      reference.append("Property identities checked against ");
+      casinoStays.forEach((stay, index) => {
+        if (index) reference.append(" · ");
+        const link = document.createElement("a");
+        link.href = stay.sourceUrl;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = stay.name + " official site ↗";
+        reference.appendChild(link);
+      });
+      panel.appendChild(reference);
     }
     wrapper.appendChild(panel);
     return wrapper;
@@ -467,12 +514,17 @@
     const exactPropertyFirst = hasExactPropertyAffiliate(expediaSurface);
     const intent = bookingIntent();
     const choiceMode = exactPropertyFirst ? "after-exact" : "broad";
+    const casinoPath = window.location.pathname.replace(/\/+$/, "") || "/";
+    const resolvedChoiceMode = !exactPropertyFirst && casinoHotelChoices().length
+      ? `casino:${casinoPath}`
+      : choiceMode;
     let choice = existing;
-    if (!(choice?.dataset.intent === intent && choice?.dataset.mode === choiceMode && choice.parentElement === expediaSurface)) {
+    if (!(choice?.dataset.intent === intent && choice?.dataset.mode === resolvedChoiceMode && choice.parentElement === expediaSurface)) {
       choice?.remove();
       choice = createBookingChoice(intent, exactPropertyFirst);
       choice.dataset.intent = intent;
       choice.dataset.mode = choiceMode;
+      if (resolvedChoiceMode !== choiceMode) choice.dataset.mode = resolvedChoiceMode;
     }
     placeBookingChoice(expediaSurface, choice, exactPropertyFirst);
 
@@ -500,6 +552,10 @@
     // signal; defer affiliate DOM changes until their route mounts.
     const guardedRoute = /^\/(?:county|city)\/[a-z0-9-]+$/.test(path);
     if (/^\/texas-state-fair\/?$/.test(path)) return document.documentElement.dataset.tdStateFairHydrated !== "1";
+    // BB-35's lazy article must commit before booking options alter #main.
+    if (path === "/article/battleship-texas-bb-35-history-restoration") {
+      return document.documentElement.dataset.tdBattleshipArticleHydrated !== "1";
+    }
     return guardedRoute && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 
@@ -525,6 +581,7 @@
     window.addEventListener("popstate", scheduleSync);
     window.addEventListener("texasdefined:county-hydrated", scheduleSync);
     window.addEventListener("texasdefined:state-fair-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:battleship-article-hydrated", scheduleSync);
   }
 
   window.TexasDefinedStayAffiliateOptions = {
@@ -533,6 +590,7 @@
     comparisonHotelDestination,
     exactPropertyDestination,
     featuredGolfStay,
+    casinoHotelChoices,
     ownerEligible,
     rvshareEligible,
     promoteStaySurface,

@@ -177,9 +177,10 @@ if (!errors.length) {
 
   for (const marker of [
     "const seoName = program?.schoolName || displayName",
-    "title: editorial?.seo?.title ?? `${teamName} Football: 2026 District & Team Guide`",
+    'title: editorial?.seo?.title ?? `${teamName} Football: 2026 District & Team Guide`',
     "const description = editorial?.seo?.description ?? `${teamName} football:",
   ]) requireText(featuredProfileRoute, marker, 'Football profile unique SEO metadata');
+  if (featuredProfileRoute.includes('slug === "ben-bolt-palito-blanco"')) errors.push("Football profile SEO must not override individually authored Ben Bolt title");
 
   for (const marker of [
     "name: 'Lubbock Cooper', classification: '5A', enrollment: '1,663'",
@@ -827,9 +828,10 @@ if (!errors.length) {
   for (const marker of [
     'normalizeUilProgramName',
     'contextualMatchScore',
-    'programTokens.every((token) => contextTokens.has(token))',
-    'programTokens.length === 1 && !schoolTokens.has(programTokens[0])',
-    'ranked[0].score === ranked[1].score',
+    'matcher.bySchoolToken.get(token)',
+    'programTokens.every((token) => row.contextMatchTokens.has(token))',
+    'programTokens.length === 1 && !row.schoolMatchTokens.has(programTokens[0])',
+    'score >= 90 && score === bestScore',
     'suppressDuplicateTeaAssignments',
     'program.teaSchoolNumber',
   ]) requireText(directory, marker, 'Fail-closed TEA football school matching');
@@ -1041,7 +1043,7 @@ if (!errors.length) {
     'Private-school football uses its association’s own alignment system.',
     "privateAlignment.sourceKind === 'official-association'",
     'privateAlignmentLabel',
-    'All current UIL football programs use the same profile system.',
+    'Related href="/texas-high-school-football-teams"',
     'Open full district guide →',
     'districtPath',
     '/article/texas-high-school-football-scores-schedules',

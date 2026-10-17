@@ -1,3 +1,5 @@
+import { createLocalAuditFetch } from './local-audit-fetch.mjs';
+const localAuditFetch = createLocalAuditFetch({ localOrigin: process.env.LOCAL_AUDIT_ORIGIN });
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 const hubPath = '/sports/friday-night-lights';
 const finderPath = '/texas-high-school-football-teams';
@@ -109,7 +111,7 @@ async function fetchVerified(path, label, verify) {
     const url = `${origin}${path}${separator}verify=fnl-${Date.now()}-${attempt}`;
     console.log(`[${label}] attempt ${attempt}: ${url}`);
     try {
-      const response = await fetch(url, {
+      const response = await localAuditFetch(url, {
         redirect: 'follow', cache: 'no-store', signal: AbortSignal.timeout(30_000),
         headers: { 'user-agent': 'TexasDefined-FNL-Production-Smoke/1.0' },
       });
@@ -323,6 +325,12 @@ await fetchVerified(playoffsPath, 'football playoffs', (body) => {
   for (const needle of [
     'How Do the Texas High School Football Playoffs Work?',
     'The short version',
+    'data-playoffs-reference="2026"',
+    'Last verified October 13, 2026',
+    '32-slot bracket',
+    'Frequently asked questions',
+    'Can a team with a losing record make the playoffs?',
+    '2026 playoff dates',
     'bi-district',
     'Home field, neutral sites',
     '/texas-high-school-football-teams',
@@ -330,6 +338,14 @@ await fetchVerified(playoffsPath, 'football playoffs', (body) => {
     scoresSchedulesPath,
     calendarPath,
   ]) requireNeedle(body, needle, 'football playoffs');
+  const canonicals = (body.match(/<link\b[^>]*>/gi) ?? []).map(parseAttributes).filter((tag) => tag.rel === 'canonical');
+  if (canonicals.length !== 1 || canonicals[0].href !== `${origin}${playoffsPath}`) throw new Error('playoffs canonical must be unique and self-referencing');
+  const schemas = [...body.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)].flatMap((match) => {
+    const value = JSON.parse(match[1]);
+    return value['@graph'] ?? [value];
+  });
+  const faq = schemas.find((schema) => schema['@type'] === 'FAQPage');
+  if (faq?.mainEntity?.length !== 6) throw new Error('playoffs must expose its six visible FAQ answers in structured data');
   if (/\bnoindex\b/i.test(body)) throw new Error('football playoffs unexpectedly contains noindex');
 });
 
@@ -669,6 +685,8 @@ for (const profile of universalProfileCases) {
 }
 
 await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
+  const playoffEntries = (body.match(/<url>[\s\S]*?<\/url>/g) ?? []).filter((entry) => entry.includes(`<loc>${origin}${playoffsPath}</loc>`));
+  if (playoffEntries.length !== 1 || !playoffEntries[0].includes("<lastmod>2026-10-13</lastmod>")) throw new Error("playoffs sitemap entry must be unique and match the verified October 13 update");
   requireNeedle(body, '<loc>https://texasdefined.com/sports/friday-night-lights</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-isds</loc>', 'sitemap');
@@ -693,4 +711,5 @@ await fetchVerified('/robots.txt', 'robots', (body) => {
   if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
 });
 
+localAuditFetch.assertComplete();
 console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, exact official UIL enrollments plus exception-safe final football placement, Shamrock’s verified 2026 authority profile, 192 canonical UIL district hubs, statewide championship-history hub, shared 6A through 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, current-season scores/schedules guidance, the 2026 UIL season calendar, sitemap and robots are live.');

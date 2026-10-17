@@ -1,3 +1,13 @@
+import { applyDevilsSinkholeVisitorAuthority } from "./devils-sinkhole-visitor-authority";
+import { applyStateParkSourceGroundedDepth } from "./state-park-source-grounded-depth";
+import { applyEsteroLlanoGrandeStateParkAuthority } from "./estero-llano-grande-state-park-authority";
+import { applyRayRobertsLakeStateParkAuthority } from "./ray-roberts-lake-state-park-authority";
+import { applyLakeSomervilleStateParkAuthority } from "./lake-somerville-state-park-authority";
+import { applyHillCountryStateNaturalAreaAuthority } from "./hill-country-state-natural-area-authority";
+import { applyCanonicalHistoricStatePark } from "./canonical-historic-state-parks";
+import { applyNewlyOpenedStateParkAuthority } from "./newly-opened-state-parks-2026";
+import { applyVerifiedStateParkHeadquarters } from "./state-park-verified-locations";
+import { applyStateParkAuthorityRecovery } from "./state-park-authority-recovery";
 import { applyCuratedDestination } from "./destination-curation";
 import { applyCuratedDestinationBatch2 } from "./destination-curation-batch2";
 import { applyCuratedDestinationBatch4 } from "./destination-curation-batch4";
@@ -153,6 +163,16 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyCuratedTopAttractionsBatch4,
   applyCuratedTopAttractionsBatch5,
   applyMoodyGardensCurrentCuration,
+  applyStateParkAuthorityRecovery,
+  applyVerifiedStateParkHeadquarters,
+  applyNewlyOpenedStateParkAuthority,
+  applyCanonicalHistoricStatePark,
+  applyHillCountryStateNaturalAreaAuthority,
+  applyLakeSomervilleStateParkAuthority,
+  applyRayRobertsLakeStateParkAuthority,
+  applyEsteroLlanoGrandeStateParkAuthority,
+  applyStateParkSourceGroundedDepth,
+  applyDevilsSinkholeVisitorAuthority,
 ];
 
 function runCurators(destination: Destination): Destination {

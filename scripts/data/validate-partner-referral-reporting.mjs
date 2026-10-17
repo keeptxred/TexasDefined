@@ -92,9 +92,7 @@ for (const [needle, label] of [
   ["schedule:", 'scheduled sync'],
   ["cron: '17 * * * *'", 'primary hourly sync cadence'],
   ["cron: '47 * * * *'", 'fallback hourly sync opportunity'],
-  ["workflow_run:", 'production-deploy recovery trigger'],
-  ["- 'Deploy TexasDefined production'", 'production-deploy recovery source'],
-  ["github.event_name == 'workflow_run' && '70'", 'deploy-recovery freshness guard'],
+  ["workflow_dispatch:", 'explicit sync recovery trigger'],
   ["github.event_name == 'schedule' && github.event.schedule == '47 * * * *' && '70'", 'scheduled-fallback freshness guard'],
   ['authorize:', 'protected authorization job'],
   ['environment: texasdefined-publication', 'protected GitHub environment'],
@@ -131,8 +129,8 @@ for (const [needle, label] of [
   ["from('texasdefined_partner_referral_daily')", 'private aggregate read'],
   ['impression_count', 'private impression aggregate read'],
   ["const IMPRESSION_TRACKING_STARTED_AT = '2026-09-18'", 'impression rollout start boundary'],
-  ["const CTR_MEASUREMENT_STARTED_AT = '2026-09-27'", 'clean CTR measurement boundary'],
-  ["const TRAVEL_ROUTING_MEASUREMENT_STARTED_AT = '2026-09-27'", 'clean Orbitz/Travelocity routing baseline'],
+  ["const CTR_MEASUREMENT_STARTED_AT = '2026-10-17'", 'clean CTR measurement boundary'],
+  ["const TRAVEL_ROUTING_MEASUREMENT_STARTED_AT = '2026-10-17'", 'clean Orbitz/Travelocity routing baseline'],
   ['const TRAVEL_ROUTING_MIN_IMPRESSIONS_PER_PARTNER = 100', 'routing comparison minimum exposure threshold'],
   ["const TRAVEL_ROUTING_PARTNERS = ['orbitz', 'travelocity'] as const", 'routing comparison partner allowlist'],
   ['totalImpressions30d', '30-day impression reporting'],
@@ -216,14 +214,31 @@ for (const [needle, label] of [
 if (lazyRoute.includes('Current approved hotel commission economics are treated as parity')) errors.push('Partner referral dashboard must not assume Orbitz and Travelocity commission parity when advertiser schedules differ and the active CJ term controls payout.');
 
 for (const [needle, label] of [
-  ['Decision-grade routing and CTR measurement restart on **2026-09-27 UTC**', 'portfolio clean-measurement boundary'],
-  ['clean Orbitz-versus-Travelocity comparison window beginning **2026-09-27 UTC**', 'portfolio routing baseline'],
+  ['Decision-grade routing and CTR measurement now restart on **2026-10-17 UTC**', 'portfolio clean-measurement boundary'],
+  ['new Orbitz-versus-Travelocity comparison window beginning **2026-10-17 UTC**', 'portfolio routing baseline'],
   ['100-impression-per-provider HOLD gate', 'portfolio routing hold threshold'],
   ['measurement below was refreshed on 2026-09-29', 'portfolio measurement refresh date'],
 ]) expect(portfolio, needle, label);
 if (portfolio.includes('clean Orbitz-versus-Travelocity routing window beginning 2026-09-23')) {
   errors.push('Affiliate portfolio economics must not use the superseded 2026-09-23 routing baseline; clean routing begins 2026-09-27.');
 }
+
+for (const [needle, label] of [
+  ["const CASINO_HUB_PATH = '/explore/casinos'", 'casino-path exact prefix guard'],
+  ["row.page_path === CASINO_HUB_PATH || row.page_path.startsWith", 'casino-only referral aggregation'],
+  ["row.partner === EXPEDIA_SEARCH_PARTNER", 'separate search starts from referral clicks'],
+  ["row.partner === 'hotels.com' && row.placement.startsWith(CASINO_EXACT_HOTEL_PREFIX)", 'exact hotel offer filter'],
+  ["casino: {", 'casino summary object'],
+  ["exactHotelPlacements:", 'per-property booking placement reporting'],
+]) expect(server, needle, label);
+expect(types, 'export type CasinoReferralSummary', 'casino referral analytics summary type');
+expect(types, 'casino: CasinoReferralSummary;', 'dashboard casino analytics contract');
+for (const [needle, label] of [
+  ['Casino getaway hotel funnel', 'casino analytics dashboard section'],
+  ['dashboard.casino.pages.map', 'casino-specific page table not capped by sitewide top pages'],
+  ['dashboard.casino.exactHotelPlacements.map', 'casino exact-property placement table'],
+  ['not hotel reservations or earned commissions', 'clicks versus realized revenue disclosure'],
+]) expect(lazyRoute, needle, label);
 
 expect(types, 'lastPipelineSyncAt: string | null', 'pipeline heartbeat dashboard type');
 expect(types, 'ctrMeasurementStartedAt: string', 'clean CTR boundary dashboard type');
@@ -254,4 +269,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner referral reporting validation passed: referral clicks, CTA impressions and separately classified Expedia search starts are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, pre-rollout daily impression history remains explicitly unmeasured while the September 18 rollout day stays visible, CTR uses only the clean September 27+ post-filter measurement window, Orbitz-versus-Travelocity routing uses the same clean September 27+ post-filter window with a 100-impression-per-provider hold gate, exposure volume breaks click ties so zero-click surfaces remain visible, the private dashboard promotes clean-window placements and pages with at least three measured impressions and zero clicks into a conversion watchlist, private aggregates are pruned to a 90-day retention window that exceeds the 60-day dashboard query horizon, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has staggered schedule and production-deploy recovery opportunities that skip Cloudflare while the heartbeat is fresh, the sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
+console.log('Partner referral reporting validation passed: referral clicks, CTA impressions and separately classified Expedia search starts are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, pre-rollout daily impression history remains explicitly unmeasured while the September 18 rollout day stays visible, CTR uses only the clean October 17+ post-filter measurement window, Orbitz-versus-Travelocity routing uses the same clean October 17+ post-filter window with a 100-impression-per-provider hold gate, exposure volume breaks click ties so zero-click surfaces remain visible, the private dashboard promotes clean-window placements and pages with at least three measured impressions and zero clicks into a conversion watchlist, private aggregates are pruned to a 90-day retention window that exceeds the 60-day dashboard query horizon, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has staggered primary and fallback schedule opportunities that skip Cloudflare while the heartbeat is fresh, the sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');

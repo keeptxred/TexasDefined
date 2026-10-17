@@ -1,7 +1,17 @@
 import fs from 'node:fs';
 const failures = [];
 const workflow = (name) => fs.readFileSync(`.github/workflows/${name}.yml`, 'utf8');
-const requireMarker = (source, marker, label) => { if (!source.includes(marker)) failures.push(label); };
+// This user-authorized cost policy retires blanket feature triggers. Preserve
+// every acceptance body and source-only PR gate; manual features need no deploy fan-out.
+const scanPolicy = JSON.parse(fs.readFileSync('scripts/ci/update-scan-policy.json', 'utf8'));
+const manualSources = new Set(scanPolicy.manualFeatureWorkflows.map(workflow));
+const requireMarker = (source, marker, label) => {
+  if (manualSources.has(source) && ['workflow_run:', 'Deploy TexasDefined production'].includes(marker)) {
+    if (!source.includes('workflow_dispatch:') || /^  workflow_run:/m.test(source)) failures.push(label + ' (manual feature trigger policy)');
+    return;
+  }
+  if (!source.includes(marker)) failures.push(label);
+};
 const noDirectPush = (source, label) => { if (/^  push:/m.test(source)) failures.push(`${label} cannot assert live production before a protected deployment`); };
 // An independent production verifier may outlive newer main merges. Never
 // checkout a moving branch or the workflow_run receiver's github.ref.
@@ -178,9 +188,9 @@ if (cloudflareGateIndex < 0 || cloudflareLiveIndex <= cloudflareGateIndex)
 
 // Post-deploy verifier source must not float to a newer default branch.
 const fridayNightLights = workflow('friday-night-lights-production-smoke');
-requireMarker(fridayNightLights, "github.event.workflow_run.conclusion == 'success'", 'Friday Night Lights live smoke needs successful deploy');
-requireMarker(fridayNightLights, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Friday Night Lights must check out deployed source, not default main');
-if (fridayNightLights.includes('ref: main')) failures.push('Friday Night Lights live verifier cannot use moving main');
+requireMarker(fridayNightLights, 'audit-site-quality-local.yml', 'Football acceptance must use the local Worker');
+requireMarker(fridayNightLights, 'audit: football', 'Full football acceptance contract missing');
+if (/^  (workflow_run|schedule|push|pull_request):/m.test(fridayNightLights)) failures.push('Football acceptance must not fan out after deployment');
 const waterNormalizer = workflow('normalize-waterdata-probe-status');
 requireMarker(waterNormalizer, "github.event.workflow_run.conclusion == 'success'", 'Water-data optional-probe normalization requires successful source verifier');
 requireMarker(waterNormalizer, 'STATUS_SHA: ${{ github.event.workflow_run.head_sha }}', 'Water-data status target must reference the triggering run');
@@ -209,8 +219,9 @@ if (zapata.slice(zapata.indexOf('  museum:')).includes("github.event.workflow_ru
   failures.push('Zapata live acceptance must not execute after failed deployment');
 
 const linkGraph = workflow('audit-internal-link-graph-production');
-requireMarker(linkGraph, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Post-deploy internal-link graph audit must check out triggering SHA');
-requireMarker(linkGraph, "github.event.workflow_run.conclusion == 'success'", 'Internal-link graph audit requires successful deploy');
+requireMarker(linkGraph, 'audit-site-quality-local.yml', 'Full internal-link audit must use the local built Worker');
+requireMarker(linkGraph, 'audit: links', 'Internal-link manual entry point must preserve the complete graph audit');
+if (/^  (workflow_run|schedule|push|pull_request):/m.test(linkGraph)) failures.push('Full link-graph crawler must not run on each production deploy');
 const seasonal = workflow('verify-seasonal-production');
 requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
 requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');
@@ -242,14 +253,12 @@ requireMarker(appleLive, 'node scripts/ci/verify-football-batch-003-apple-spring
 if (appleSource.includes('node scripts/ci/verify-football-batch-003-apple-springs.mjs\n'))
   failures.push('Apple Springs PR source job must not invoke the live browser');
 
-// Keep the 254-county source inventory on PRs but crawl the actual site only
-// after an eligible deployment (or an intentional manual production audit).
+// Keep the 254-county source inventory on PRs; full rendered acceptance is local.
 const countyWorkflow = workflow('audit-all-editorial-production');
 requireMarker(countyWorkflow, '  pull_request:', 'County source-inventory PR coverage missing');
-const countyLive = countyWorkflow.slice(countyWorkflow.indexOf('  verify-county-production:'));
-requireMarker(countyLive, "if: ${{ github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}", 'County production crawl must skip undeployed PRs and failed deployments');
-if (countyLive.includes("continue-on-error: ${{ github.event_name == 'pull_request' }}"))
-  failures.push('County production must not hide a PR-triggered live crawl failure');
+requireMarker(countyWorkflow, 'audit-site-quality-local.yml', 'County rendered acceptance must use the local built Worker');
+requireMarker(countyWorkflow, 'audit: counties', 'All-county local acceptance missing');
+if (/^  workflow_run:/m.test(countyWorkflow)) failures.push('Full county audit must not fan out after deployment');
 
 // Wave 7: GSC priority source PRs and path-filtered main pushes must never
 // probe live production before this exact revision is safely deployed.
@@ -339,4 +348,4 @@ if (batch3BrowserSource.includes('assert.deepEqual(registry.batch.slugs'))
   failures.push('Batch 003 production Chrome cannot assert against the mutable active batch roster');
 
 if (failures.length) { for (const failure of failures) console.error('FAIL: '+failure); process.exit(1); }
-console.log('Scoped post-deploy verifier safety passed: deploy-success gating, immutable checkout, cache bypass, and blocking native sports smoke.');
+console.log('Scoped post-deploy verifier safety passed: deploy-success gating, immutable checkout, cache bypass, manual feature acceptance and change-scoped native sports smoke.');

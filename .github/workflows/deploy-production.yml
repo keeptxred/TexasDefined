@@ -32,6 +32,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -49,6 +51,18 @@ jobs:
         id: install
         run: npm ci --no-audit --no-fund
 
+      - name: Plan change-scoped production verification
+        id: change_scope
+        run: node scripts/ci/production-change-scope.mjs
+
+      - name: Preserve production change plan
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-change-plan-${{ github.run_id }}
+          path: .artifacts/production-change-plan.json
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Install governed image build dependency
         if: success()
         shell: bash
@@ -60,7 +74,17 @@ jobs:
           if (command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1) && command -v rsvg-convert >/dev/null 2>&1; then
             exit 0
           fi
-          timeout 180s sudo apt-get update -qq
+          # Ubuntu 24.04 GitHub runner images can ship a broken third-party
+          # Microsoft apt source. This job only needs Ubuntu-packaged ImageMagick
+          # and librsvg: update from the runner's signed official Ubuntu sources,
+          # not unrelated vendor repositories that can return HTTP 404.
+          # Fail closed when the Ubuntu official source is absent; never skip
+          # image materialization, attribution or dimension checks.
+          if [[ ! -f /etc/apt/sources.list.d/ubuntu.sources ]]; then
+            echo "::error title=Official Ubuntu apt source missing::Cannot safely install governed image dependencies."
+            exit 1
+          fi
+          timeout 180s sudo apt-get update -qq -o Dir::Etc::sourcelist="sources.list.d/ubuntu.sources" -o Dir::Etc::sourceparts="-"
           timeout 180s sudo apt-get install -y --no-install-recommends imagemagick librsvg2-bin
           (command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1)
           command -v rsvg-convert >/dev/null 2>&1
@@ -96,7 +120,7 @@ jobs:
 
       - name: Fingerprint governed Discover source registry
         id: discover_fingerprint
-        run: echo "sha=$(sha256sum scripts/assets/materialize-discover-overrides.mjs | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+        run: echo "sha=$(node scripts/assets/materialize-discover-overrides.mjs --fingerprint)" >> "$GITHUB_OUTPUT"
 
       - name: Restore previously materialized governed Discover derivatives
         if: success()
@@ -104,10 +128,10 @@ jobs:
         run: |
           # GitHub's repository-wide artifact response can be very large and has
           # failed with truncated JSON. Search recent production runs instead.
-          # Only reuse artifacts with the exact governed source-registry checksum.
+          # Only reuse artifacts with the exact source-URL/slug and WebP transform contract checksum.
           set -uo pipefail
           mkdir -p public/images/discover
-          source_fingerprint="$(sha256sum scripts/assets/materialize-discover-overrides.mjs | cut -d' ' -f1)"
+          source_fingerprint="$(node scripts/assets/materialize-discover-overrides.mjs --fingerprint)"
           artifact_prefix="governed-discover-derivatives-${source_fingerprint}-"
           cache_dir="$(mktemp -d)"
           trap 'rm -rf "$cache_dir"' EXIT
@@ -188,6 +212,22 @@ jobs:
             echo "::error title=Governed Discover assets missing from client bundle::Expected at least 42 governed Discover derivatives in dist/client/images/discover; found $discover_asset_count."
             exit 1
           fi
+          # Counting images is insufficient: a missing required slug can be hidden
+          # by an unrelated extra WebP. Verify every governed source and output.
+          while IFS= read -r slug; do
+            file="dist/client/images/discover/${slug}.webp"
+            if [[ ! -f "$file" ]]; then
+              echo "::error title=Required Discover asset absent::Missing $file from deployment bundle."
+              exit 1
+            fi
+            FILE_TO_VERIFY="$file" node --input-type=module -e '
+              import { openSync, readSync, closeSync } from "node:fs";
+              const fd = openSync(process.env.FILE_TO_VERIFY, "r");
+              const header = Buffer.alloc(12);
+              try { if (readSync(fd, header, 0, 12, 0) !== 12 || header.toString("ascii",0,4) !== "RIFF" || header.toString("ascii",8,12) !== "WEBP") process.exit(1); }
+              finally { closeSync(fd); }
+            ' || { echo "::error title=Invalid Discover image::Not a WebP binary: $file"; exit 1; }
+          done < <(node scripts/assets/materialize-discover-overrides.mjs --list-slugs)
           echo "Verified $discover_asset_count governed Discover derivatives in dist/client static assets."
           if ! git diff --exit-code -- src/routeTree.gen.ts; then
             echo '::error title=Generated route tree is stale::The production build changed src/routeTree.gen.ts. Commit the TanStack-generated route tree before deployment.'
@@ -417,6 +457,7 @@ jobs:
         env:
           PRODUCTION_HEALTH_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
           PRODUCTION_HEALTH_LABEL: direct-worker
+          PRODUCTION_HEALTH_DISCOVER_ASSETS: ${{ steps.change_scope.outputs.images }}
         run: node scripts/ci/verify-production-health.mjs
 
       - name: Capture unhealthy Worker runtime diagnostics
@@ -465,18 +506,66 @@ jobs:
         env:
           PRODUCTION_HEALTH_ORIGIN: https://texasdefined.com
           PRODUCTION_HEALTH_LABEL: canonical-domain
+          PRODUCTION_HEALTH_DISCOVER_ASSETS: ${{ steps.change_scope.outputs.images }}
         run: node scripts/ci/verify-production-health.mjs
+
+      - name: Verify changed Texas horse-racing authority pages
+        id: live_horse_racing
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.horse_racing == 'true' }}
+        env:
+          TEXASDEFINED_BASE_URL: https://texasdefined.com
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p .artifacts
+          node scripts/production/verify-horse-racing-production.mjs 2>&1 | tee .artifacts/horse-racing-production.log
+
+      - name: Prepare bounded horse-racing browser acceptance
+        if: ${{ always() && steps.live_horse_racing.outcome == 'success' && steps.change_scope.outputs.horse_racing == 'true' }}
+        id: horse_racing_browser_deps
+        shell: bash
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+
+      - name: Verify horse-racing hotel cards and visual layouts in deployed production
+        id: live_horse_racing_browser
+        if: ${{ always() && steps.horse_racing_browser_deps.outcome == 'success' && steps.live_horse_racing.outcome == 'success' }}
+        env:
+          EXPECT_CURATED_HOTELS: '1'
+        shell: bash
+        run: node scripts/ci/verify-horse-racing-browser.mjs
+
+      - name: Preserve horse-racing desktop/mobile visual evidence
+        if: ${{ always() && steps.live_horse_racing_browser.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: horse-racing-visual-affiliate-${{ github.run_id }}
+          path: artifacts/horse-racing-browser/
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Preserve failed horse-racing production evidence
+        if: ${{ always() && steps.live_horse_racing.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: horse-racing-production-${{ github.run_id }}
+          path: .artifacts/horse-racing-production.log
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Verify sports venue editorial production
         id: live_sports_venue_editorial
-        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.sports == 'true' }}
         env:
           TEXASDEFINED_BASE_URL: https://texasdefined.com
         run: node scripts/production/verify-sports-venue-editorial-production.mjs
 
       - name: Verify East Texas foliage article freshness on direct Worker and canonical domain
         id: live_east_texas_foliage
-        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.foliage == 'true' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -511,7 +600,7 @@ jobs:
 
       - name: Verify direct Worker discovery
         id: live_direct_worker
-        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.discovery == 'true' }}
         env:
           DIRECT_WORKER_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
         shell: bash
@@ -536,7 +625,7 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p .artifacts
-          node scripts/ci/verify-production-surfaces.mjs 2>&1 | tee .artifacts/city-sitemap-live-evidence.log
+          node scripts/ci/verify-changed-production-pages.mjs 2>&1 | tee .artifacts/city-sitemap-live-evidence.log
 
       - name: Preserve live city sitemap verification evidence
         if: ${{ always() && steps.live_base.outcome != 'skipped' }}
@@ -547,9 +636,18 @@ jobs:
           if-no-files-found: error
           retention-days: 90
 
+      - name: Preserve changed-page smoke details
+        if: ${{ always() && steps.live_base.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: changed-production-pages-${{ github.run_id }}
+          path: .artifacts/changed-production-pages.json
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Verify Event structured-data production
         id: live_events
-        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.events == 'true' }}
         shell: bash
         run: |
           set -o pipefail
@@ -567,7 +665,7 @@ jobs:
 
       - name: Verify local financial production
         id: live_local_financial
-        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.financial == 'true' }}
         shell: bash
         run: |
           set -o pipefail
@@ -585,7 +683,7 @@ jobs:
 
       - name: Verify statewide financial discovery
         id: live_statewide_financial
-        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.financial == 'true' }}
         run: node scripts/ci/verify-statewide-financial-discovery.mjs
 
       - name: Upload statewide financial discovery diagnostics
@@ -602,7 +700,7 @@ jobs:
 
       - name: Verify advertiser production
         id: live_advertiser
-        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.advertiser == 'true' }}
         env:
           ORIGIN: https://texasdefined.com
           REVISION: ${{ github.sha }}
@@ -610,7 +708,7 @@ jobs:
 
       - name: Mark live production verification complete
         id: live
-        if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_east_texas_foliage.outcome == 'success' }}
+        if: ${{ success() && steps.cloudflare.outcome == 'success' }}
         run: echo 'All blocking production verifiers passed natively.'
       - name: Publish live verification result
         if: always()

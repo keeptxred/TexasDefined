@@ -1,3 +1,5 @@
+import { createLocalAuditFetch } from './local-audit-fetch.mjs';
+const localAuditFetch = createLocalAuditFetch({ localOrigin: process.env.LOCAL_AUDIT_ORIGIN });
 /**
  * Verify the published TexasDefined lake authority network after deployment.
  * Do not substitute these HTTP assertions for manual editorial, WCAG, source or
@@ -42,7 +44,7 @@ const worker=async()=>{
     const check=checks[i];
     const url=origin+check.path;
     try {
-      const response=await fetch(url,{
+      const response=await localAuditFetch(url,{
         redirect:"follow",
         headers:{"user-agent":"TexasDefined-Lake-Authority-Production-Acceptance/1.0","cache-control":"no-cache"},
         signal:AbortSignal.timeout(12000),
@@ -50,10 +52,13 @@ const worker=async()=>{
       if(response.status!==200){failures.push({...check,status:response.status,issue:"non-200"});continue;}
       const html=await response.text();
       const missing=check.required.filter(k=>!html.includes(k));
+      if (check.path === "/county/haskell" && !html.includes("reservoir began impounding Paint Creek in 1953")) {
+        missing.push("Haskell lake-history correction (construction 1951 vs impoundment 1953)");
+      }
       if(check.type==="lake"){
         if(!html.includes(check.name))missing.push("expected lake name");
         if(!html.includes("rel=\"canonical\""))missing.push("canonical HTML tag");
-        if(!html.includes("Commons")&&!html.includes("photo")&&!html.includes("Photo"))missing.push("photo attribution indicator");
+        if(!html.includes("<figcaption") || !html.includes("Photo credit:"))missing.push("visible governed image with labeled photographer/license attribution");
       }
       if(missing.length)failures.push({...check,status:response.status,issue:"missing content",missing});
       else successes.push({type:check.type,path:check.path,status:200});
@@ -61,6 +66,7 @@ const worker=async()=>{
   }
 };
 await Promise.all(Array.from({length:concurrency},worker));
+localAuditFetch.assertComplete();
 const summary={
   checkedAt:new Date().toISOString(),origin,
   level:"automated published HTML/routes only — NOT full authority or original field-photo certification",
@@ -71,6 +77,6 @@ const summary={
     "Compare each page against official managing agency before claiming superior authority"],
 };
 fs.mkdirSync(".artifacts",{recursive:true});
-fs.writeFileSync(".artifacts/lake-authority-production-acceptance.json",JSON.stringify({summary,failures,successes},null,2)+"\n");
+fs.writeFileSync(process.env.LAKE_ACCEPTANCE_REPORT || ".artifacts/lake-authority-production-acceptance.json",JSON.stringify({summary,failures,successes},null,2)+"\n");
 console.log(JSON.stringify({summary,failedSamples:failures.slice(0,30)},null,2));
 if(failures.length)process.exitCode=1;

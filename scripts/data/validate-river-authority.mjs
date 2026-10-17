@@ -36,6 +36,11 @@ const match = full.match(/export const riverRecreationGuideRecords = ([\s\S]*?) 
 if (!match) errors.push('Missing machine-readable five-river recreation records');
 let records=[];
 try {records = JSON.parse(match?.[1] || '[]');}catch(e){errors.push('Failed to parse river recreation records: '+e.message);}
+// Prevent the canonical [label, URL] evidence tuples from becoming fake article links.
+// This validator is part of the shared deterministic pre-merge river contract.
+if (!full.includes('...toOfficialLinks(river.official)') ||
+    !full.includes('pairs.map(([label, href]) => ({ href, label'))
+  errors.push('Official river references must be rendered as [label, external URL], never [href, label].');
 const slugs = new Set(records.map(x=>x.slug));
 const all = new Set(canonicalSlugs);
 for(const slug of publishedRiverSlugs) {
@@ -108,6 +113,37 @@ if(!photoCatalog.includes('licenseUrl') || !photoCatalog.includes('photographer'
  errors.push('River gallery photos must include reusable linked attribution and license metadata');
 if(!hub.includes('RIVER_AUTHORITY_CARD_PHOTOS') || !landscape.includes('RIVER_AUTHORITY_CARD_PHOTOS'))
  errors.push('Both statewide river navigation surfaces must share the rights-cleared photo catalog');
+// Three formerly representative-image basin entries must stay identified, credited
+// and consistent across their real guide and lazy stub. Live Chrome QA separately
+// verifies that the Wikimedia originals actually decode on public pages.
+const basinGuidePhotos = read('src/data/fixtures/texas-explained-river-profiles-remaining.ts');
+const basinGuidePhotoStubs = read('src/data/fixtures/texas-explained-river-profiles-remaining-stubs.ts');
+const requiredExactRiverPhotos = [
+  ['texas-lavaca-river-guide', 'Swing_Bridge_Over_Lavaca_River.jpg', 'Patrick Feller', 'CC BY 2.0'],
+  ['texas-sabine-river-guide', 'Sabine_River_near_Big_Sandy%2C_TX_IMG_5294.JPG', 'Billy Hathorn', 'CC BY 3.0'],
+  ['texas-san-jacinto-river-guide', 'West_Fork_San_Jacinto_River.jpg', 'Stedil', 'CC BY-SA 4.0'],
+];
+for (const [slug, filename, author, license] of requiredExactRiverPhotos) {
+  const href = '/article/' + slug;
+  const guideIndex = basinGuidePhotos.indexOf('slug: "' + slug + '"');
+  const stubIndex = basinGuidePhotoStubs.indexOf('slug: "' + slug + '"');
+  if (guideIndex < 0 || stubIndex < 0) {
+    errors.push('River hero or stub missing for authenticated photo: ' + slug);
+    continue;
+  }
+  const guide = basinGuidePhotos.slice(guideIndex, basinGuidePhotos.indexOf('body: [', guideIndex));
+  const stub = basinGuidePhotoStubs.slice(stubIndex, basinGuidePhotoStubs.indexOf('body: []', stubIndex));
+  const cardIndex = photoCatalog.indexOf('"' + href + '":');
+  const nextCard = cardIndex < 0 ? -1 : photoCatalog.indexOf('\n  "/article/', cardIndex + 1);
+  const card = cardIndex < 0 ? '' : photoCatalog.slice(cardIndex, nextCard > 0 ? nextCard : undefined);
+  for (const [surface, content] of [['guide hero', guide], ['lazy stub hero', stub], ['directory photo', card]]) {
+    if (!content.includes(filename) || !content.includes(author) || !content.includes(license))
+      errors.push(surface + ' missing correct river-specific credited photo: ' + slug);
+  }
+  if (!card.includes('commons.wikimedia.org/wiki/File:') || !card.includes('creativecommons.org/licenses/'))
+    errors.push('River catalog photo missing original file or license permalink: ' + slug);
+}
+
 const countyServer = read('src/data/county-series.server.ts');
 if(!countyServer.includes('riverAuthorityLinksForCounty(countySlug)')) errors.push('County river backlinks must be automatically maintained');
 const existingMatch = addon.match(/export const existingRiverAuthorityEnhancements = ([\s\S]*?) as const;/);

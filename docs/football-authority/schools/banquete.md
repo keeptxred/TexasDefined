@@ -1,5 +1,11 @@
 # Banquete Bulldogs — football authority Batch 005 source audit
 
+## October 14, 2026 — batch-level production acceptance (current)
+**Production technical status: VERIFIED. Formal editorial acceptance: IN PROGRESS.** This school was included in the successful exact-release [Batch 005 Chrome suite](https://github.com/keeptxred/TexasDefined/actions/runs/38586361713) against deployment `d1fca0f12cc5955884486ddbdb67cad9c2efa5bc` ([successful deploy](https://github.com/keeptxred/TexasDefined/actions/runs/38584969227)). The suite passed 1,233 checks across all 25 schools (desktop/mobile, SEO, schema, rendering, schedules, sitemap, and reciprocal county links); [91-file browser evidence artifact](https://github.com/keeptxred/TexasDefined/actions/runs/38586361713/artifacts/11905997191). The individual school was among the 25 passes, but **1,233 is the combined batch check count**, not an individual-school count.
+
+The current formal Supabase `td_authority_page_acceptance` record remains `in_progress`; the related factual verification status is `awaiting_editorial_verification`. Final editorial acceptance must document independent claim-level source corroboration and all nine `td_maintenance.accept_authority_page` evidence dimensions, including photo-rights disposition and qualified accessibility/visitor information. Do not infer that automated success proves every 2026 score, historic detail, original image license, live parking policy, or a human accessibility review. Earlier notes below retain their original research dates and are **historical checkpoints**, not present deployment status.
+
+
 Research checkpoint: October 10, 2026. **Status: IMPLEMENTED on unmerged Batch 005 PR; NOT merged, deployed or production VERIFIED.** Canonical route: `/texas-high-school-football-teams/banquete`.
 
 ## Individually observed gaps and corrective scope
@@ -24,3 +30,6 @@ Distinct editorial overview, dated milestones and documentation, official athlet
 - Do not fabricate school championships where the official archive supports only finalist records or no title
 
 **Important:** `IMPLEMENTED` is not `VERIFIED`; original 80 completed schools are unchanged.
+
+## 2026 football source-dated scorecard — October 13 update
+[MaxPreps 2026 reporting](https://www.maxpreps.com/tx/banquete/banquete-bulldogs/football/) is used for independent scores and fixture context. Six results verified through October 9; the generic MaxPreps /football/schedule/ is the *2025* calendar, so the six 2026 results and the explicitly forecast Dilley/Monte Alto fixtures are taken only from 2026 team reporting. No invented other matchups. Source dates, unverified results and event-site uncertainties are described on the live profile. No 2025 games are misrepresented as 2026; no unauthorized school photography is used.

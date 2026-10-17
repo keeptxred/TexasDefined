@@ -24,6 +24,10 @@ export const wardCountyMonahansSandhillsArticle: Article = {
   readingMinutes: 10,
   tags: ["Ward County", "Monahans", "Monahans Sandhills State Park", "Pyote", "Barstow", "Permian Basin", "Texas counties", "West Texas", "Texas history"],
   featured: false,
+  sources: [
+    { label: "Handbook of Texas — Ward County (county history)", url: "https://www.tshaonline.org/handbook/entries/ward-county" },
+    { label: "Texas Parks and Wildlife — Monahans Sandhills State Park (park facts)", url: "https://tpwd.texas.gov/state-parks/monahans-sandhills" },
+  ],
   internalLinks: [
     { href: "/county/reeves", label: "Explore neighboring Reeves County", description: "Follow the Pecos River south toward Pecos, Balmorhea and San Solomon Springs." },
     { href: "/county/pecos", label: "Continue into Pecos County", description: "Explore Fort Stockton, Comanche Springs and another West Texas crossroads." },
@@ -37,8 +41,10 @@ export const wardCountyMonahansSandhillsArticle: Article = {
     p("Ward County can look simple from Interstate 20: a West Texas horizon, oilfield traffic, low mesquite and a city built around the road. Leave the highway for a few minutes, though, and the county becomes stranger and more layered. North of Monahans, dunes move with the wind. Along the Pecos River, old irrigation dreams once produced orchards and vineyards. At Pyote, a World War II bomber base briefly connected a tiny desert town to the global war. Under nearly all of it lies the modern Permian Basin economy."),
     p("The county covers about 836 square miles on the southwestern edge of the High Plains. It is mostly level country, but the landscape changes quickly: active sand in the north, alluvial ground near the Pecos River in the south and west, and a web of roads, rail lines, pipelines and well sites that show how transportation and energy have repeatedly reorganized life here."),
 
+    p("Primary references for this county feature: Texas State Historical Association, Handbook of Texas (Ward County): https://www.tshaonline.org/handbook/entries/ward-county; Texas Parks and Wildlife Department (Monahans Sandhills State Park): https://tpwd.texas.gov/state-parks/monahans-sandhills. Historical details should be checked against these original records before relying on them for research."),
+
     h("The dunes are the first thing that makes Ward County different"),
-    p("Monahans Sandhills State Park protects one of the most recognizable landscapes in the Permian Basin. Texas Parks and Wildlife describes 4,717 acres of dunes spread across Ward and Winkler counties, part of a much larger dune field that continues north toward New Mexico. The park opened in 1957, but the sand itself has been shaping travel and settlement for far longer."),
+    p("Monahans Sandhills State Park protects one of the most recognizable landscapes in the Permian Basin. Texas Parks and Wildlife describes 3,840 acres of dunes spread across Ward and Winkler counties, part of a much larger dune field that continues north toward New Mexico. The park opened in 1957, but the sand itself has been shaping travel and settlement for far longer."),
     p("These are not fixed desert hills. Wind moves the surface constantly, rebuilding ridges and hollows and sometimes changing the look of the ground overnight. TPWD deliberately leaves the dune area without marked hiking trails; visitors are free to walk across the sand, rent discs to slide the slopes, ride horses in a designated equestrian area or simply watch the wind redraw the landscape."),
     p("The sand also hides one of the county's most important historical facts: water can be surprisingly shallow beneath it. That made the sandhills useful to people crossing an otherwise dry region. Texas Parks and Wildlife notes that Native people used the area for thousands of years, finding game, plant foods and dependable water beneath the dunes. Apache and Comanche groups later used the sandhills as temporary camp and meeting country."),
 
@@ -90,7 +96,7 @@ export const wardCountyMonahansSandhillsArticle: Article = {
       "Monahans grew around a Texas and Pacific Railway water stop established in 1881 at the edge of the sandhills.",
       "The Hendrick oilfield boom beginning in 1926 accelerated Monahans' growth and helped shift the county's economic center northeast.",
       "Voters approved moving the county seat from Barstow to Monahans in 1938; the move took effect after litigation in 1939.",
-      "Monahans Sandhills State Park opened in 1957 and now protects 4,717 acres across Ward and Winkler counties.",
+      "Monahans Sandhills State Park opened in 1957 and now protects 3,840 acres across Ward and Winkler counties.",
       "Pyote Army Air Field opened in 1942 as a heavy-bomber training installation during World War II.",
       "The Pecos River corridor supported early irrigated farming around Barstow and Grandfalls before petroleum became dominant.",
       "Interstate 20 and State Highway 18 keep Monahans connected to the wider Permian Basin economy today.",
@@ -100,5 +106,11 @@ export const wardCountyMonahansSandhillsArticle: Article = {
     p("Ward County is useful because it compresses several major West Texas stories into a relatively small area. Indigenous travel and shallow groundwater explain the importance of the sandhills. Railroads explain Monahans' beginning. Irrigation explains Barstow's early prominence. Oil explains the county-seat shift and the modern economy. World War II explains Pyote's extraordinary boom. A state park explains why the same county is also a recreation destination."),
     p("The landscape is the thread connecting all of those stories. Water beneath sand made travel possible. River water encouraged farming. Railroad water stops created towns. Oil beneath the ground reordered the county. Wind continues to rebuild the dunes regardless of what people construct nearby."),
     p("That is what makes Ward County worth stopping for instead of simply crossing on Interstate 20. The county is not a blank space between Odessa and Pecos. It is a place where West Texas keeps showing its layers: sand, water, rail, war, oil and small towns adapting every time the ground beneath the economy changes."),
+
+    h("Sources and further reading"),
+    list(
+      "Texas State Historical Association, Handbook of Texas: Ward County — https://www.tshaonline.org/handbook/entries/ward-county",
+      "Texas Parks and Wildlife Department, Monahans Sandhills State Park — https://tpwd.texas.gov/state-parks/monahans-sandhills",
+    ),
   ],
 };

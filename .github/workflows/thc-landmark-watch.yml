@@ -1,0 +1,88 @@
+name: THC landmark discovery and source verification
+
+on:
+  schedule:
+    # Weekly source changes; separate from quarterly historical-fact refreshes.
+    - cron: "23 12 * * 1"
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "src/data/thc-recent-landmarks.ts"
+      - "src/data/thc-historic-landmarks-authority-batch*.ts"
+      - "src/data/destination-curated-pairings.ts"
+      - "src/data/destination-preserved-catalog.ts"
+      - "scripts/data/validate-thc-landmark-authority-batch.mjs"
+      - "scripts/data/validate-thc-landmark-authority-batch02.mjs"
+      - "scripts/data/validate-thc-landmark-authority-batch03.mjs"
+      - "scripts/data/validate-thc-landmark-authority-batch04.mjs"
+      - "scripts/data/validate-thc-landmark-authority-batch05.mjs"
+      - "src/data/thc-bosque-river-bridge.ts"
+      - "src/data/thc-holland-hotel-authority.ts"
+      - "src/data/thc-sycamore-creek-bridge-fort-worth.ts"
+      - "src/data/thc-landmark-heritage-builder.ts"
+      - "src/routes/texas-historic-landmarks*"
+      - "scripts/data/validate-thc-landmark-watch.mjs"
+      - ".github/workflows/thc-landmark-watch.yml"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  inventory-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate listing and nomination separation
+        run: node scripts/data/validate-thc-landmark-watch.mjs
+      - name: Validate each landmark authority publication
+        run: node scripts/data/validate-thc-landmark-authority-batch.mjs
+      - name: Validate separately researched batch02 authority pages
+        run: node scripts/data/validate-thc-landmark-authority-batch02.mjs
+      - name: Validate Del Rio station authority including licensed photography
+        run: node scripts/data/validate-thc-landmark-authority-batch03.mjs
+      - name: Check Regency suspension bridge chronology and rights
+        run: node scripts/data/validate-thc-landmark-authority-batch04.mjs
+      - name: Validate Bosque bridge, Holland Hotel and Fort Worth Sycamore bridge authorities
+        run: node scripts/data/validate-thc-landmark-authority-batch05.mjs
+
+  live-source-watch:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check official THC listing
+        id: source
+        continue-on-error: true
+        run: node scripts/data/validate-thc-landmark-watch.mjs --live
+      - name: Preserve official-source comparison
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: thc-landmark-watch-report
+          path: thc-landmark-watch-report.json
+          if-no-files-found: warn
+      - name: Surface new listings and source failures
+        if: steps.source.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          title="THC landmark source drift or verification failure"
+          { echo "Automated official-source comparison requires attention. No landmark page has been auto-published.";
+            echo;
+            echo "Source: https://thc.texas.gov/preserve/designate-historic-properties/national-register-historic-places";
+            echo "Run: https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}";
+            echo;
+            if [ -f thc-landmark-watch-report.json ]; then
+              echo '~~~json'
+              cat thc-landmark-watch-report.json
+              echo '~~~'
+            fi
+          } > thc-landmark-watch-issue.md
+          existing="$(gh issue list --repo "${GITHUB_REPOSITORY}" --state open --search "${title} in:title" --json number --jq '.[0].number // empty')"
+          if [ -n "${existing}" ]; then
+            gh issue comment "${existing}" --repo "${GITHUB_REPOSITORY}" --body-file thc-landmark-watch-issue.md
+          else
+            gh issue create --repo "${GITHUB_REPOSITORY}" --title "${title}" --body-file thc-landmark-watch-issue.md
+          fi

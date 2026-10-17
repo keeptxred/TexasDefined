@@ -416,7 +416,7 @@ const curated: Record<string, TopAttractionExpansion> = {
       ),
       sideTrips: items(
         ["Carlsbad Caverns National Park", "About 35 miles north", "Build a two-park itinerary around the fossilized reef above ground and the cave system developed within the same regional geology."],
-        ["Hueco Tanks State Park & Historic Site", "About 90 miles west", "Rock basins, pictographs and desert climbing history make a culturally rich Texas extension toward El Paso.", "/destination/hueco-tanks-state-park-and-historic-site"],
+        ["Hueco Tanks State Park & Historic Site", "About 90 miles west", "Rock basins, pictographs and desert climbing history make a culturally rich Texas extension toward El Paso.", "https://tpwd.texas.gov/state-parks/hueco-tanks"],
         ["El Paso", "About 110 miles west", "Museums, food and borderland culture provide a city reset after several days in remote park country."],
         ["Van Horn", "About 65 miles south", "Use the town as a bridge toward Big Bend, Marfa or other West Texas road-trip destinations."]
       ),

@@ -16,6 +16,28 @@ const guideSources = [
   { filename: "src/data/small-town-authority-wave16.ts", text: read("src/data/small-town-authority-wave16.ts") },
 ];
 
+// Enforce resolved, subject-specific primary tourism links that were previously
+// HTTP 404 in Supabase source monitoring. This checks the individual canonical
+// guide record, not the presence of the URL somewhere else in a large module.
+const knownTownSourceRoutes = {
+  lockhart: {
+    required: ["https://www.cityoflockhart.gov/", "https://visitlockharttx.org/", "https://visitlockharttx.org/lockhart-bbq/"],
+    retired: ["https://www.lockhart-tx.org/"],
+  },
+  nacogdoches: {
+    required: ["https://www.visitnacogdoches.org/tours-and-trails", "https://www.visitnacogdoches.org/arts-and-cultural-attractions"],
+    retired: ["https://www.visitnacogdoches.org/things-to-do/tours-trails/", "https://www.visitnacogdoches.org/things-to-do/arts-culture/"],
+  },
+  palestine: {
+    required: ["https://www.visitpalestine.com/business/palestine-visitor-center"],
+    retired: ["https://www.visitpalestine.com/visitor-center"],
+  },
+  terlingua: {
+    required: ["https://visitbigbend.com/terlingua-activities/", "https://visitbigbend.com/terlingua-lodging/"],
+    retired: ["https://visitbigbend.com/places/category/terlingua-activities/", "https://visitbigbend.com/places/category/terlingua-lodging/"],
+  },
+};
+
 const guideSlugs = new Map();
 const researchedMetadata = new Map();
 let recordCount = 0;
@@ -35,6 +57,11 @@ for (const { filename, text } of guideSources) {
       return;
     }
     guideSlugs.set(slug, filename);
+    const knownRoute = knownTownSourceRoutes[slug];
+    if (knownRoute) {
+      for (const url of knownRoute.required) check(section.includes(url), slug + ": official source missing " + url);
+      for (const url of knownRoute.retired) check(!section.includes(url), slug + ": retired or broken source reintroduced " + url);
+    }
     const name = section.match(/\bname:\s*["']([^"']+)["']/)?.[1];
     const county = section.match(/\bcounty:\s*["']([^"']+)["']/)?.[1];
     const region = section.match(/\bregion:\s*["']([^"']+)["']/)?.[1];
@@ -42,7 +69,7 @@ for (const { filename, text } of guideSources) {
     if (name && county && region && coords) {
       researchedMetadata.set(slug, { name, county, region, lat: Number(coords[1]), lng: Number(coords[2]) });
     } else check(false, slug + ": missing place identity or coordinates for the compact link index");
-    if (filename.endsWith("wave17.ts")) {
+    if (/small-town-destinations-wave(?:1[7-9]|[2-9]\d)\.ts$/.test(filename)) {
       check(section.includes("visitorFaqs:"), slug + ": visitor FAQs must cite researched visitor questions");
     }
     for (const field of ["authorityGuide:", "areaGuide:", "sources:", "hero:", "sourceCheckedAt", "coordinates:", "county:", "officialUrl:"]) {
@@ -106,8 +133,16 @@ const authority = read("src/components/editorial/DestinationAuthoritySections.ts
 const related = read("src/components/editorial/DestinationRelationships.tsx");
 const countyTemplate = read("src/routes/$kind.$slug.lazy.tsx");
 for (const value of ["smallTownWave15Destinations,", "additionalTownAuthorityDestinations,"]) check(catalog.includes(value), "Explore catalog missing " + value);
-check(/return\s+applyTownAuthority\(\s*(?:enrich[A-Za-z]+Authority\(\s*)?normalizeDestinationCounty\(/.test(runtime), "Detail resolver must enrich every town (including optional museum enrichment)");
-check(runtime.includes(".map(applyTownAuthority);"), "Search/sitemap/catalog resolver must enrich every town");
+// Both direct and catalog paths must keep town enrichment first, then apply
+// narrower evidence-preservation overlays without losing town authority.
+check(/(?:return|const curated\s*=)\s*enforceFredericksburgJohnsonCityHeritageAuthority\(applyTownAuthority\(\s*(?:(?:enrich[A-Za-z]+Authority|enrichMuseumMedia)\(\s*)?normalizeDestinationCounty\(/.test(runtime), "Detail resolver must preserve town and corridor enrichment before any park-specific final photo step");
+check(/\.map\(applyTownAuthority\)\s*\.map\(enforceFredericksburgJohnsonCityHeritageAuthority\);/.test(runtime) || runtime.includes(".map(applyTownAuthority);"), "Search/sitemap/catalog resolver must enrich every town");
+check(runtime.includes("import { enforceFredericksburgJohnsonCityHeritageAuthority }") &&
+      runtime.includes("const curated = enforceFredericksburgJohnsonCityHeritageAuthority(applyTownAuthority(") &&
+      runtime.includes("return applyStateParkHeroAsset(curated);") &&
+      /\.map\(applyTownAuthority\)\s*\.map\(enforceFredericksburgJohnsonCityHeritageAuthority\);/.test(runtime),
+      "Corridor authority must follow all generic town, museum and historic enrichments in both resolvers");
+
 check(planner.includes("<DestinationAuthoritySections destination={destination} />"), "Visible guide and research sections absent");
 check(planner.includes("townAuthorityContextualLinks(destination)"), "Town/attraction contextual backlinks absent");
 check(planner.includes('from "@/data/town-authority-links"'), "Destination client must import lightweight links only");

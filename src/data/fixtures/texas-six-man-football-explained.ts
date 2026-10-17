@@ -27,7 +27,7 @@ export const texasSixManFootballExplainedArticle: Article = {
   },
   authorId: "a-marisol",
   publishedAt: "2026-09-19",
-  updatedAt: "2026-10-02",
+  updatedAt: "2026-10-15",
   readingMinutes: 11,
   tags: ["texas six-man football", "six player football rules", "1A football Texas", "45 point rule", "UIL football", "small town Texas football"],
   featured: false,
@@ -47,7 +47,7 @@ export const texasSixManFootballExplainedArticle: Article = {
   relatedDestinations: [],
   body: [
     p("Six-man football can look familiar for about three seconds. There is a snap, blocking, backfield action, receivers and a goal line. Then the field opens up, nearly every player becomes a receiving threat and one missed tackle can turn into a sprint to the end zone."),
-    p("Texas six-man football starts with the NCAA football rule framework used by UIL and then applies six-player exceptions that change the field, first-down distance, scoring values, player eligibility and how the offense may advance the ball. The visual guide above gives you the differences first; the sections below explain why they matter."),
+    p("Texas six-man football starts with the NCAA football rule framework used by UIL and then applies six-player exceptions that change the field, first-down distance, scoring values, player eligibility and how the offense may advance the ball. The illustrated field and comparison below show the biggest differences; the sections that follow explain how to recognize those rules during a game."),
 
     h("Who plays six-man football in Texas?"),
     p("UIL six-man football is the football format associated with Conference 1A. For the 2026–28 alignment, 1A includes schools with 104.9 students or fewer in grades 9–12 for classification purposes. UIL lists 159 football schools in 1A for the current alignment."),
@@ -63,6 +63,10 @@ export const texasSixManFootballExplainedArticle: Article = {
     h("The exchange rule changes what happens after the snap"),
     p("Unless the play is a kick or forward pass, the ball generally may not be advanced beyond the neutral zone until an exchange has occurred between the receiver of the snap and another player. A handoff or backward pass can complete that exchange."),
     p("The original snap receiver is not removed from the play. The ball can come back after the exchange, which is why six-man offenses can use motion, handoffs, backward passes and misdirection in combinations that initially look strange to an eleven-man fan."),
+
+    h("How to recognize an illegal exchange"),
+    p("If the snap receiver takes possession and runs across the neutral zone without a qualifying exchange, the offense commits illegal procedure: a five-yard penalty plus loss of down from the previous spot. In a straightforward legal example, the snap receiver hands the ball to a teammate who gains possession behind the line, and the teammate runs forward. The original snap receiver can receive the ball again after the exchange. A backward pass that is merely muffed does not automatically satisfy every exchange situation, so the official approved rulings control unusual plays."),
+    p("UIL-approved rulings explain the difference: when the snap receiver's backward pass is muffed by a teammate who later recovers and advances, the advance may be legal; when the original receiver throws a backward pass that a teammate only muffs and the original receiver then picks up and advances, the advance is illegal. The key is who actually obtains possession and whether the exchange requirements or defensive-touching exception have been met."),
 
     h("Everyone can become a receiving threat"),
     p("UIL six-player rules make all players eligible to catch a forward pass, subject to the six-man exceptions. Even the snapper can receive a forward pass, although a pass thrown to the snapper must travel at least one yard in flight. Defenders therefore cannot make the same pre-snap assumptions about eligible receivers that they make in standard formations."),
@@ -80,11 +84,23 @@ export const texasSixManFootballExplainedArticle: Article = {
     p("A touchdown is still worth 6 points, but the kicking values are different. A field goal is worth 4 points. After a touchdown, a successful place kick or drop kick is worth 2 points, while a successful run or pass try is worth 1."),
     p("That reverses the familiar extra-point incentive. A team with a dependable kicker can change late-game strategy because the kick is the higher-value conversion."),
 
+    h("What different point totals look like"),
+    p("A touchdown plus a successful run or pass try totals seven points (6 + 1); a touchdown plus a successful place kick or drop kick totals eight (6 + 2). A successful field goal is four points without a touchdown. The defense cannot return a turnover for points during a conversion try, except that a safety on the try awards the defense one point under the UIL exception."),
+
     h("The 45-point rule is an ending rule, not a running clock"),
     p("This is the 45-point ending rule: if one team leads by 45 or more points at the end of the first half, the game ends. If a team reaches a 45-point lead during the second half, the contest ends at that point. The rule does not merely speed up the clock and it does not require a coach to concede."),
 
     h("Quarters are 10 minutes"),
     p("UIL six-player games use 10-minute quarters. The standard intermission between the first and second quarters and between the third and fourth quarters is two minutes, while halftime is 15 minutes. State championship halftime can be extended to a maximum of 20 minutes with the coaches' concurrence."),
+
+    h("How overtime works in Texas six-man football"),
+    p("A tied game after four quarters uses the UIL six-player tiebreaker. In the first overtime, each team gets an offensive opportunity from the opponent's 25-yard line, and a touchdown can be followed by a one-point run/pass try or a two-point kick. The second overtime also starts each possession from the opponent's 25, but a team that scores a touchdown may attempt only a two-point place kick or drop kick. From the third overtime onward, teams alternate one-point run/pass attempts from the 7-yard line. A change of possession that results in a score can end an offensive opportunity. These are the 2026 UIL exceptions, not a generic NCAA overtime description."),
+
+    h("Where kickoffs start and what a touchback means"),
+    p("On a standard six-man field the kickoff is from the kicking team's 30-yard line, unless a penalty moves it. After a safety, the free kick is from the 20-yard line. The receiving team's free-kick restraining line is 15 yards beyond the kicking team's line. A receiving-team touchback normally puts the next snap at its own 20-yard line; UIL also specifies how certain fair catches and out-of-bounds free kicks are handled."),
+
+    h("One more formation rule to watch"),
+    p("No more than three offensive players may be in the backfield when the ball is snapped. A team cannot have more than six players on the field when the ball is snapped, and the offense is also restricted from breaking the huddle with more than six. These are useful cues when a six-man formation looks unlike an eleven-man lineup."),
 
     h("A team can continue with fewer than six players"),
     p("Six is the maximum number of players each team may have on the field, but a team needs only four players to start and may continue with five or four. Fewer than four available players results in suspension of the contest. The rule reflects the reality of the very small schools the format is designed to serve."),

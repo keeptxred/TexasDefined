@@ -41,21 +41,28 @@ export const Route = createFileRoute('/$kind/$slug')({
       ? import('@/data/food-destination-entity-index').then(({ loadEntityFoodDestinations }) => loadEntityFoodDestinations(entity.kind, entity.slug))
       : Promise.resolve([]);
     if (entity.kind !== 'county') {
-      const foodDestinations = await foodDestinationsPromise;
-      return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues, foodDestinations };
+      const [foodDestinations, countyStateParks] = await Promise.all([
+        foodDestinationsPromise,
+        entity.kind === 'city'
+          ? import('@/data/state-park-county-index').then(({ getCityStateParkLinks }) => getCityStateParkLinks(entity.slug))
+          : Promise.resolve([]),
+      ]);
+      return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues, foodDestinations, countyStateParks };
     }
+    const countyStateParksPromise = import('@/data/state-park-county-index').then(({ getCountyStateParkLinks }) => getCountyStateParkLinks(entity.slug));
     const countyRvParksPromise = import('@/data/rv-parks/county-index').then(({ loadCountyRvParksSnapshot }) => loadCountyRvParksSnapshot(entity.slug));
     const countyMajorEventsPromise = import('@/data/county-major-events').then(({ getCountyMajorEvents }) => getCountyMajorEvents(entity.slug));
-    const [countyProfile, localGovernment, countySeriesArticle, countyRvParks, countyMajorEvents, foodDestinations] = await Promise.all([
+    const [countyProfile, localGovernment, countySeriesArticle, countyRvParks, countyMajorEvents, foodDestinations, countyStateParks] = await Promise.all([
       loadCountyProfile(entity.slug, entity.name),
       loadLocalGovernmentProfile(entity.slug, entity.name),
       loadCountySeriesArticle(entity.slug),
       countyRvParksPromise,
       countyMajorEventsPromise,
       foodDestinationsPromise,
+      countyStateParksPromise,
     ]);
     const countyEntity = { ...entity, rvParks: countyRvParks, majorEvents: countyMajorEvents };
-    return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations };
+    return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations, countyStateParks };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};

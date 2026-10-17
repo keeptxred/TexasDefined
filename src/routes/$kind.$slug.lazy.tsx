@@ -1,6 +1,8 @@
+import lakeGuidesNearCity from "@/data/fishing/city-lake-links.generated.json";
 import { lazy, Suspense, useEffect } from 'react';
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
+import { CountyStateParks } from '@/components/content/CountyStateParks';
 import { CountyCoastalPlaces } from '@/components/content/CountyCoastalPlaces';
 import { CountyTownAuthorityLinks } from '@/components/content/CountyTownAuthorityLinks';
 import { CountyCityMuseums } from '@/components/content/CountyCityMuseums';
@@ -71,6 +73,12 @@ const batch002FootballCityLinks: Record<string, { name: string; slug: string; co
 
 // Exactly five independently researched football authority entries; campus county, not postal city or school-district footprint.
 const batch001FootballCountyLinks: Record<string, { name: string; href: string; description: string; campusCountySource: string }> = {
+  knox: {
+    name: 'Benjamin Mustangs',
+    href: '/texas-high-school-football-teams/benjamin',
+    description: 'Explore Benjamin ISD\'s 2022 and 2023 six-man titles, 2026 game reports and stadium visit information.',
+    campusCountySource: 'https://www.benjaminisd.net/',
+  },
   'van-zandt': {
     name: 'Wills Point Tigers',
     href: '/texas-high-school-football-teams/wills-point',
@@ -160,7 +168,33 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
 // Independently researched Batch 002 and Batch 003 county links. Lists retain
 // multiple teams in the same county rather than replacing an existing card.
 const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
-  harris: [{ name: 'Alief Taylor Lions', slug: 'alief-taylor', context: '2026 District 20 opening streak and documented Elsik and Hastings games' }],
+  kendall: [{ name: 'Boerne Greyhounds', slug: 'boerne', context: '2022 4A Division I state runner-up and 2026 Boerne ISD Stadium guide, distinct from Champion Chargers' }, { name: 'Boerne Champion Chargers', slug: 'boerne-champion', context: '2026 Class 5A Division I District 13 Chargers, Blane Ellis, shared stadium ticket rules and 2025 playoff history' }],
+  'red-river': [{ name: 'Bogata Rivercrest Rebels', slug: 'bogata-rivercrest', context: 'Rivercrest ISD Red River County guide: UIL 2A Division I District 9 and 2026 triple-overtime Wolfe City win' }],
+  fannin: [{ name: 'Bonham Purple Warriors', slug: 'bonham', context: '2026 UIL 4A DII District 7, Aaron Ford, and online-only home ticket guidance for Bonham' }],
+  wharton: [{ name: 'Boling Bulldogs', slug: 'boling', context: 'UIL 1972 Class 2A champions, 2016 state finalists and current Wharton County varsity program' }],
+  lipscomb: [{ name: 'Booker Kiowas', slug: 'booker', context: 'Booker ISD Kiowas six-man UIL District 1, 2025 undefeated district and 2026 schedule' }],
+  borden: [{ name: 'Borden County Coyotes', slug: 'borden-county', context: 'Five genuine six-man UIL state titles and 2026 Division I District 5 Gail football' }],
+  'hutchinson': [{ name: 'Borger Bulldogs', slug: 'borger', context: '4A Division II District 3 program and dated Hutchinson County football results' }],
+  'parmer': [{ name: 'Bovina Mustangs', slug: 'bovina', context: '2A Division II District 1 program and dated Parmer County football results' }],
+  'montague': [{ name: 'Bowie Jackrabbits', slug: 'bowie', context: '3A Division I District 4 program and dated Montague County football results' }, { name: 'Gold-Burg Bears', slug: 'bowie-gold-burg', context: '1A Division II District 10 program and dated Montague County football results' }],
+  'oldham': [{ name: 'Boys Ranch Roughriders', slug: 'boys-ranch', context: '1A Division I District 1 program and dated Oldham County football results' }],
+  erath: [{ name: 'Bluff Dale Bobcats', slug: 'bluff-dale', context: '2026 UIL Division I six-man District 11, Erath County school contacts and dated football results' }],
+  // Batch 005 remaining 14 researched team links, retaining prior schools per county.
+  jefferson: [{ name: "Beaumont United Timberwolves", slug: 'beaumont-united', context: "2025 first winning varsity season under Drenard Williams and Beaumont Bowl" }, { name: "Beaumont West Brook Bruins", slug: 'beaumont-west-brook', context: "1982 UIL champion, 2018 6A Division II runner-up and Beaumont Bowl rivalry" }],
+  'panola': [{ name: "Beckville Bearcats", slug: 'beckville', context: "Playoff football in Panola County, and a real campus-versus-stadium distinction" }],
+  'bee': [{ name: "Beeville A. C. Jones Trojans", slug: 'beeville-jones', context: "Beeville's Trojans: the current 2026 district schedule versus stale school football pages" }],
+  'grayson': [{ name: "Bells Panthers", slug: 'bells', context: "The Panther Way and real Friday-night games at Panther Stadium" }],
+  'jim-wells': [{ name: "Ben Bolt–Palito Blanco Fighting Badgers", slug: 'ben-bolt-palito-blanco', context: "Jim Wells County Fighting Badgers with a first-party 2026 game calendar" }],
+  'duval': [{ name: "Benavides Eagles", slug: 'benavides', context: "Benavides Eagles: a published 2026 six-man football schedule, not eleven-man" }],
+  'reagan': [{ name: "Reagan County Owls", slug: 'big-lake-reagan-co', context: "Big Lake's Reagan County Owls, 1986 Class 2A semifinals and James H. Bird Memorial Stadium" }],
+  'upshur': [{ name: "Big Sandy Wildcats", slug: 'big-sandy', context: "Big Sandy's 1973–75 dynasty, 1974 co-championship tie and Lovie Smith connection" }, { name: 'Harmony Eagles', slug: 'big-sandy-harmony', context: 'Harmony ISD in Upshur County: the 2022 Class 3A Division II state semifinal and 2026 Eagle Stadium guide, distinct from Big Sandy Wildcats' }],
+  austin: [{ name: 'Bellville Brahmas', slug: 'bellville', context: '1960, 1977 and 2023 UIL football state-final appearances in Austin County' }],
+  // Batch 005 school-specific campus county links, distinct from away-game stadiums.
+  'edwards': [{ name: "Nueces Canyon Panthers", slug: "barksdale-nueces-canyon", context: "six-man Panthers and Camp Wood stadium" }],
+  'bell': [{ name: "Bartlett Bulldogs", slug: "bartlett", context: "1990, 1992 and 1999 UIL titles" }, { name: "Belton Tigers", slug: 'belton', context: "2026 Tiger Stadium guide: distinguish varsity games from JV and Lake Belton" }],
+  'bastrop': [{ name: "Bastrop Bears", slug: "bastrop", context: "Bears football and shared Memorial Stadium" }, { name: "Cedar Creek Eagles", slug: "bastrop-cedar-creek", context: "Eagles football and shared Memorial Stadium" }],
+  'matagorda': [{ name: "Bay City Blackcats", slug: "bay-city", context: "1983 and 2000 UIL championships" }],
+  harris: [{ name: 'Alief Taylor Lions', slug: 'alief-taylor', context: '2026 District 20 opening streak and documented Elsik and Hastings games' }, { name: "Goose Creek Memorial Patriots", slug: 'baytown-goose-creek-memorial', context: "Patriots founded in 2008 and their 2025 playoff season" }, { name: "Baytown Lee Ganders", slug: 'baytown-lee', context: "Back-to-back 1951 and 1952 Class 4A state finalists, never champions" }, { name: "Baytown Sterling Rangers", slug: 'baytown-sterling', context: "1972 Class 4A state-final season and the school's Spirit of Sterling traditions" }],
   tarrant: [
     { name: 'Azle Hornets', slug: 'azle', context: 'Hornet Field visitor guide and 2026 5A Division I fixtures' },
     { name: "Fort Worth All Saints' Episcopal Saints", slug: 'all-saints-fort-worth', context: 'Back-to-back 2024–25 undefeated TAPPS Division II champions at McNair Stadium' },
@@ -202,7 +236,7 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   henderson: [{ name: 'Athens Hornets', slug: 'athens', context: '2025 postseason success and the 2026 team calendar' }],
   cass: [{ name: 'Atlanta Rabbits', slug: 'atlanta', context: '2003 UIL state football title and Rabbit Stadium traditions' }],
   ellis: [{ name: 'Avalon Eagles', slug: 'avalon', context: 'Six-man football and 2024 ten-win season' }],
-  mclennan: [{ name: 'Axtell Longhorns', slug: 'axtell', context: 'Three consecutive ten-win football seasons' }],
+  mclennan: [{ name: 'Axtell Longhorns', slug: 'axtell', context: 'Three consecutive ten-win football seasons' }, { name: 'Bosqueville Bulldogs', slug: 'bosqueville', context: '2A Division I District 8 McLennan County 2026 varsity football' }],
   callahan: [{ name: 'Baird Bears', slug: 'baird', context: '2019 six-man transition and 2026 UIL district' }],
   travis: [
     { name: 'Vandegrift Vipers', slug: 'austin-vandegrift', context: '2024 6A Division II state title at Leander ISD campus' },
@@ -231,10 +265,10 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   'el-paso': [{ name: 'Anthony Wildcats', slug: 'anthony', context: 'Anthony Texas varsity history and 2026 UIL football context' }],
   hockley: [{ name: 'Anton Bulldogs', slug: 'anton', context: 'Anton School football history and modern UIL six-man alignment' }],
   trinity: [{ name: 'Apple Springs Eagles', slug: 'apple-springs', context: 'Six-man Eagles history and UIL classification-source clarification' }],
-  hill: [{ name: 'Aquilla Cougars', slug: 'aquilla', context: 'Hill County Aquilla program history and modern six-man football' }],
+  hill: [{ name: 'Aquilla Cougars', slug: 'aquilla', context: 'Hill County Aquilla program history and modern six-man football' }, { name: 'Blum Bobcats', slug: 'blum', context: '2019 UIL six-man Division I champion over McLean; 2026 District11 team with verified Blum ISD sources' }],
   'san-patricio': [{ name: 'Aransas Pass Panthers', slug: 'aransas-pass', context: 'Aransas Pass program history and contemporary varsity schedule context' }],
   archer: [{ name: 'Archer City Wildcats', slug: 'archer-city', context: '1964 state championship and reconciled UIL historical indexing discrepancy' }],
-  wise: [{ name: 'Alvord Bulldogs', slug: 'alvord', context: '2025 undefeated district run and 2026 home ticket details' }],
+  wise: [{ name: 'Alvord Bulldogs', slug: 'alvord', context: '2025 undefeated district run and 2026 home ticket details' }, { name: 'Boyd Yellowjackets', slug: 'boyd', context: '3A Division I District 4 Wise County 2026 varsity football' }],
   randall: [
     { name: 'Amarillo High Sandies', slug: 'amarillo', context: 'Four UIL state titles and the documented Sandies–Tascosa football series' },
     { name: 'Caprock Longhorns', slug: 'amarillo-caprock', context: 'Verified Randall County campus, 2026 Longhorns history and current UIL alignment' },
@@ -254,7 +288,7 @@ const referenceKinds = new Set([...localGovernmentKinds, 'agency']);
 export const Route = createLazyFileRoute('/$kind/$slug')({ component: EntityPage });
 
 function EntityPage() {
-  const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations } = Route.useLoaderData();
+  const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations, countyStateParks } = Route.useLoaderData();
   // All canonical city and county routes wait for React hydration before
   // first-party affiliate scripts modify the route's DOM. Preserve the
   // established readiness signal for backward compatibility with county QA.
@@ -350,11 +384,13 @@ function EntityPage() {
           {entity.coordinates && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={`https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`} target="_blank" rel="noreferrer">Open in maps ↗</a>}
         </div>
 
+        {entity.kind === 'city' && (lakeGuidesNearCity as Record<string, {slug: string; name: string}[]>)[entity.slug]?.length ? <section className="border-b border-border py-9" aria-label="Nearby lake recreation and fishing guides"><p className="eyebrow text-primary">Lakes and outdoor recreation</p><h2 className="mt-2 font-display text-3xl">Lakes to explore near {entity.name}</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Explore source-backed TexasDefined guides connected with this city and surrounding communities. Location associations are for trip planning, not measured drive times or permission to enter privately owned shoreline. Verify public launch and camping status before travel.</p><div className="mt-5 grid gap-4 sm:grid-cols-2">{((lakeGuidesNearCity as Record<string, {slug: string; name: string}[]>)[entity.slug] ?? []).map((lake) => <a key={lake.slug} href={`/fishing/lakes/${lake.slug}`} className="border-t border-border py-4"><strong className="block font-display text-2xl hover:text-primary">{lake.name}</strong><span className="mt-2 block text-sm text-muted-foreground">Fishing, ramps, water levels and nearby public parks →</span></a>)}</div><a href="/fishing/lakes" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Compare all Texas fishing lakes →</a></section> : null}
         {entity.kind === 'city' ? <Suspense fallback={null}><CityPassContextualCallout surface="city" slug={entity.slug} /></Suspense> : null}
         {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} countySeriesArticle={countySeriesArticle} /> : null}
         {(entity.kind === 'city' || entity.kind === 'county') && foodDestinations.length ? <Suspense fallback={null}><EntityFoodDestinations entity={entity} destinations={foodDestinations} /></Suspense> : null}
         {(entity.kind === 'county' || entity.kind === 'city') ? <CountyTownAuthorityLinks kind={entity.kind} slug={entity.slug} name={entity.name} /> : null}
         <CountyCityMuseums kind={entity.kind} slug={entity.slug} name={entity.name} />
+        {(entity.kind === 'county' || entity.kind === 'city') ? <CountyStateParks countyName={entity.name} parks={countyStateParks} scope={entity.kind} /> : null}
         {entity.kind === 'county' ? <CountyCoastalPlaces county={entity} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
         {entity.kind === 'county' ? <Suspense fallback={null}><CountyHighSchoolFootball county={entity} /></Suspense> : null}

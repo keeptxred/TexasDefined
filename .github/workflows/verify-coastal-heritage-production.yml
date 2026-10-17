@@ -1,0 +1,62 @@
+name: Verify coastal heritage production authority
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-coastal-heritage-production.mjs'
+      - '.github/workflows/verify-coastal-heritage-production.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: coastal-heritage-production-${{ github.event.workflow_run.head_sha || github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  validate-script:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check production probe syntax
+        run: node --check scripts/ci/verify-coastal-heritage-production.mjs
+      - name: Exercise expanded image and museum FAQ acceptance against live production
+        run: node scripts/ci/verify-coastal-heritage-production.mjs
+      - name: Retain pre-merge production acceptance report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coastal-heritage-pr-acceptance
+          path: artifacts/coastal-heritage/production-acceptance.json
+          if-no-files-found: warn
+          retention-days: 14
+
+  verify-live:
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'success') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out exact deployed revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify live destination authority, source photographs, reciprocal links and indexability
+        env:
+          DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: node scripts/ci/verify-coastal-heritage-production.mjs
+      - name: Retain source-by-source acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coastal-heritage-production-acceptance
+          path: artifacts/coastal-heritage/production-acceptance.json
+          if-no-files-found: warn
+          retention-days: 30

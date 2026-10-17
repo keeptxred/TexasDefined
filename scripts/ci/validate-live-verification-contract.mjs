@@ -41,7 +41,7 @@ for (const marker of ['process.env.GITHUB_RUN_ID', 'target_url: targetUrl', '/ac
   if (!githubStatusPublisher.includes(marker)) failures.push('Production status must expose its GitHub Actions run for evidence retrieval: ' + marker);
 }
 
-for (const needle of ['set -o pipefail', 'node scripts/ci/verify-production-surfaces.mjs 2>&1 | tee .artifacts/city-sitemap-live-evidence.log']) {
+for (const needle of ['set -o pipefail', 'node scripts/ci/verify-changed-production-pages.mjs 2>&1 | tee .artifacts/city-sitemap-live-evidence.log']) {
   if (!liveBaseEvidenceStep.includes(needle)) failures.push('Production city sitemap evidence capture must remain fail-closed: ' + needle);
 }
 for (const needle of ["if: ${{ always() && steps.live_base.outcome != 'skipped' }}", 'actions/upload-artifact@v4', 'city-sitemap-live-evidence-${{ github.run_id }}', 'path: .artifacts/city-sitemap-live-evidence.log', 'if-no-files-found: error']) {
@@ -142,6 +142,12 @@ if (!productionSurfaces.includes(`['metro-dallas-small-towns-2-hours', '/explore
   failures.push(`Dallas two-hour small-town live verifier drift: expected current canonical presentation title ${dallasTwoHourTitle}.`);
 }
 
+// The exhaustive hero contract is still enforced by the weekly local Worker audit.
+// Never chain it into the on-deploy Viator live smoke: local-audit-fetch deliberately
+// rejects edge origins and would fail an otherwise healthy production release.
+if (viatorProduction.includes("await import('./verify-sports-venue-heroes-production.mjs');")) {
+  failures.push('Do not run the full sports venue hero audit from every live production deploy.');
+}
 if (!viatorProduction.includes("await import('./verify-san-angelo-proximity-production.mjs');")) {
   failures.push('Base production verification must execute the San Angelo proximity live verifier.');
 }

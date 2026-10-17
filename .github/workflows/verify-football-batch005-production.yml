@@ -1,0 +1,73 @@
+name: Verify Batch 005 football production authority
+on:
+  pull_request:
+    paths:
+      - .github/workflows/verify-football-batch005-production.yml
+      - scripts/ci/verify-football-batch005-production.mjs
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: football-batch005-production-${{ github.event.workflow_run.head_sha || github.sha }}
+  cancel-in-progress: false
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    outputs:
+      relevant: ${{ steps.detect.outputs.relevant }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 2
+      - name: Check whether deployed release changed football authority
+        id: detect
+        shell: bash
+        run: |
+          RELEVANT=false
+          if [ "$GITHUB_EVENT_NAME" != "workflow_run" ]; then
+            RELEVANT=true
+          elif ! git rev-parse 'HEAD^' >/dev/null 2>&1; then
+            RELEVANT=true
+          elif git diff --name-only HEAD^ HEAD | grep -Eq '(^src/data/high-school-football/(program-editorial|school-identities)\.ts$)|(^src/routes/texas-high-school-football-teams_.*\.tsx$)|(^scripts/ci/verify-football-batch005-production\.mjs$)|(^\.github/workflows/verify-football-batch005-production\.yml$)'; then
+            RELEVANT=true
+          fi
+          echo "relevant=$RELEVANT" >> "$GITHUB_OUTPUT"
+          echo "Full Batch005 Chrome relevant: $RELEVANT"
+  school-by-school-chrome:
+    needs: detect
+    if: ${{ needs.detect.outputs.relevant == 'true' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [0, 1, 2, 3]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated system Chrome driver
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-batch005-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify six individually researched schools, responsive pages and county backlinks
+        env:
+          BATCH005_GROUP: ${{ matrix.group }}
+          ACCEPTANCE_SHA: ${{ github.event.workflow_run.head_sha || github.event.pull_request.head.sha || github.sha }}
+          VERIFICATION_MODE: ${{ github.event_name == 'workflow_run' && 'exact-production-release' || 'live-baseline-not-release-certification' }}
+        run: node scripts/ci/verify-football-batch005-production.mjs
+      - name: Keep individual JSON reports and desktop/mobile screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-batch005-live-group-${{ matrix.group }}
+          path: artifacts/football-batch005/group-${{ matrix.group }}/
+          retention-days: 14
+          if-no-files-found: warn
+

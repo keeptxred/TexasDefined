@@ -159,6 +159,7 @@ const redditBatchLinks: Record<string, ArticleInternalLink[]> = {
     { href: "/explore/food-bbq", label: "Explore Texas food and barbecue", description: "Keep going through TexasDefined's statewide food, barbecue and dining guides." },
   ],
   "why-austin-i35-traffic-keeps-getting-worse": [
+    { href: "/article/mistakes-first-time-visitors-make-in-texas", label: "Avoid scheduling mistakes on a Texas road trip", description: "Combine Austin construction realities with practical statewide advice for driving time, detours and lodging." },
     { href: "/article/texas-road-closures-drivetexas-guide", label: "Check Texas road closures before you leave", description: "Use DriveTexas and local sources to verify construction, incidents and closures before a trip." },
     { href: "/article/texas-toll-roads-tags-fees-guide", label: "Understand Texas toll roads and tags", description: "Compare toll tags, pay-by-mail rules and common fee surprises across Texas systems." },
     { href: "/explore/road-trips", label: "Explore Texas road trips", description: "Plan routes and stops around the state's long-distance driving realities." },
@@ -184,7 +185,8 @@ const redditBatchLinks: Record<string, ArticleInternalLink[]> = {
     { href: "/explore/road-trips", label: "Plan a Texas road trip", description: "Build a spring drive around safe stops instead of roadside improvisation." },
   ],
   "texas-restaurants-for-out-of-town-visitors": [
-    { href: "/article/texas-gulf-coast-erosion-shoreline-retreat-guide", label: "How the Texas Gulf Coast shoreline is changing", description: "Understand erosion and shoreline retreat before planning time along Texas beaches and barrier islands." },
+    { href: "/article/mistakes-first-time-visitors-make-in-texas", label: "Avoid twenty common Texas visitor mistakes", description: "Plan restaurant timing, weather backups, travel distance and state-park entry with a more resilient first-trip itinerary." },
+    { href: "/article/texas-traditions-you-should-experience", label: "Texas traditions worth experiencing", description: "Put barbecue, breakfast tacos and other local meals in their cultural and regional travel context." },
     { href: "/article/state-fair-texas-2026-new-foods-guide", label: "See what's new to eat at the 2026 State Fair", description: "Pair the statewide restaurant guide with the seasonal fair-food guide for a Dallas visit." },
     { href: "/article/tex-mex-history-texas-cuisine-guide", label: "Understand the Tex-Mex tradition", description: "Give visitors context for one of the cuisines they are most likely to encounter in Texas." },
     { href: "/article/texas-chili-beans-history", label: "Texas chili: beans, history and the argument", description: "Add context to one of the state's longest-running food debates." },

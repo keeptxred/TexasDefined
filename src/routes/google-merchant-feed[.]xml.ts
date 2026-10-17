@@ -2,15 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
 import type { Product, ProductVariant } from "@/data/types";
+import { merchantOfferDescription } from "@/lib/merchant-offer-description";
+import { additionalMerchantImages } from "@/lib/merchant-offer-images";
 import { merchantImageUrl } from "@/lib/merchant-image-url";
+import { STANDARD_SHIPPING_PRICE_USD, FREE_SHIPPING_THRESHOLD_USD } from "@/lib/shop-shipping";
 
 const XML_HEADER = '<?xml version="1.0" encoding="UTF-8"?>';
 const BASE_URL = "https://texasdefined.com";
 const BRAND = "Texas Defined";
 const TITLE_LIMIT = 150;
 const DESCRIPTION_LIMIT = 5000;
-const STANDARD_SHIPPING_PRICE_USD = 6.99;
-const FREE_SHIPPING_THRESHOLD_USD = 35;
 
 type MerchantItem = {
   id: string;
@@ -21,6 +22,7 @@ type MerchantItem = {
   link: string;
   canonicalLink: string;
   imageLink: string;
+  additionalImageLinks?: string[];
   price: number;
   currency: string;
   color?: string;
@@ -119,6 +121,7 @@ function merchantItems(product: Product): MerchantItem[] {
 
   return enabledVariants.flatMap((variant) => {
     const imageLink = merchantImageUrl(variant.image || variant.images?.[0] || product.image.src);
+    const additionalImageLinks = additionalMerchantImages(imageLink, variant.images ?? [], merchantImageUrl);
     const price = Number(variant.price || product.priceCents / 100);
     const { color, size } = variantAttributes(product, variant, apparel);
     const finalColor = color || (product.colors?.length === 1 ? product.colors[0]?.trim() : undefined);
@@ -132,10 +135,11 @@ function merchantItems(product: Product): MerchantItem[] {
       mpn: id,
       itemGroupId: product.id,
       title: limitText(plainText(optionSuffix ? `${product.name} - ${optionSuffix}` : product.name), TITLE_LIMIT),
-      description,
+      description: merchantOfferDescription(description, finalColor, size),
       link,
       canonicalLink,
       imageLink,
+      additionalImageLinks,
       price,
       currency: product.currency || "USD",
       color: finalColor,
@@ -148,6 +152,7 @@ function merchantItems(product: Product): MerchantItem[] {
 
 function renderItem(item: MerchantItem): string {
   const optional = [
+    ...(item.additionalImageLinks ?? []).map((image) => `      <g:additional_image_link>${escapeXml(image)}</g:additional_image_link>`),
     item.itemGroupId ? `      <g:item_group_id>${escapeXml(item.itemGroupId)}</g:item_group_id>` : "",
     item.color ? `      <g:color>${escapeXml(item.color)}</g:color>` : "",
     item.size ? `      <g:size>${escapeXml(item.size)}</g:size>` : "",
@@ -155,8 +160,10 @@ function renderItem(item: MerchantItem): string {
     item.apparel ? "      <g:gender>unisex</g:gender>" : "",
     item.apparel && item.size ? "      <g:size_system>US</g:size_system>" : "",
     item.category ? `      <g:google_product_category>${escapeXml(item.category)}</g:google_product_category>` : "",
-    item.currency.toUpperCase() === "USD" ? `      <g:shipping>\n        <g:country>US</g:country>\n        <g:service>Standard</g:service>\n        <g:price>${STANDARD_SHIPPING_PRICE_USD.toFixed(2)} USD</g:price>\n      </g:shipping>` : "",
+    item.currency.toUpperCase() === "USD" ? `      <g:shipping>\n        <g:country>US</g:country>\n        <g:service>Standard</g:service>\n        <g:price>${STANDARD_SHIPPING_PRICE_USD.toFixed(2)} USD</g:price>\n        <g:min_handling_time>3</g:min_handling_time>\n        <g:max_handling_time>7</g:max_handling_time>\n        <g:min_transit_time>2</g:min_transit_time>\n        <g:max_transit_time>5</g:max_transit_time>\n      </g:shipping>` : "",
     item.currency.toUpperCase() === "USD" ? `      <g:free_shipping_threshold>\n        <g:country>US</g:country>\n        <g:price_threshold>${FREE_SHIPPING_THRESHOLD_USD.toFixed(2)} USD</g:price_threshold>\n      </g:free_shipping_threshold>` : "",
+    item.currency.toUpperCase() === "USD" ? "      <g:shipping_handling_business_days>Mon,Tue,Wed,Thu,Fri</g:shipping_handling_business_days>" : "",
+    item.currency.toUpperCase() === "USD" ? "      <g:shipping_transit_business_days>Mon,Tue,Wed,Thu,Fri</g:shipping_transit_business_days>" : "",
   ].filter(Boolean).join("\n");
 
   return `    <item>\n      <g:id>${escapeXml(item.id)}</g:id>\n      <title>${escapeXml(item.title)}</title>\n      <description>${escapeXml(item.description)}</description>\n      <link>${escapeXml(item.link)}</link>\n      <g:canonical_link>${escapeXml(item.canonicalLink)}</g:canonical_link>\n      <g:image_link>${escapeXml(item.imageLink)}</g:image_link>\n      <g:availability>in_stock</g:availability>\n      <g:condition>new</g:condition>\n      <g:price>${escapeXml(item.price.toFixed(2))} ${escapeXml(item.currency)}</g:price>\n      <g:brand>${escapeXml(BRAND)}</g:brand>\n      <g:mpn>${escapeXml(item.mpn)}</g:mpn>\n${optional}\n    </item>`;

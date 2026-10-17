@@ -3,6 +3,7 @@
 // their initial identity/facts/sources cannot drift or be confused with
 // neighboring schools while publication remains blocked until complete.
 import assert from 'node:assert/strict';
+import './validate-second-wave-champions.mjs';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { SOFTBALL_RESEARCH_TOPICS } from './complete-first-release-audit.mjs';

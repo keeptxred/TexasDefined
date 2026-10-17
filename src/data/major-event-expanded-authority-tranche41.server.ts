@@ -203,7 +203,7 @@ const records: MajorEventAuthorityRecordWithWindows[] = [
       { title: "Questions to verify before you leave", body: "Is admission free? Yes, the City of Waxahachie lists the festival itself as free. Does it run all weekend? No: the confirmed 2026 event is Saturday only, 9 a.m.–7 p.m. Where is the main festival? Around the historic courthouse square in downtown Waxahachie. When exactly does your preferred singer appear, and which streets will close? Check the organizer's latest schedule and alerts; Texas Defined does not invent individual set times, reserved parking, or accessibility details that have not been published." },
     ],
     relatedLinks: [
-      { href: "/article/ellis-county-waxahachie-ennis-blackland-prairie-texas", label: "Waxahachie, Ennis and Ellis County", description: "Read the area's courthouse, town and Blackland Prairie history before the festival." },
+      { href: "/county/ellis", label: "Waxahachie, Ennis and Ellis County", description: "Read the area's courthouse, town and Blackland Prairie history before the festival." },
       { href: "/destination/ellis-county-museum-waxahachie", label: "Ellis County Museum", description: "Explore a local-history stop close to the historic courthouse square; verify festival-day hours." },
       { href: "/texas-music", label: "Texas music", description: "Continue exploring the state's country-music heritage and live-music destinations." },
       { href: "/events", label: "Texas events calendar", description: "Compare other Texas arts, food and music festivals." },

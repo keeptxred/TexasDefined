@@ -81,7 +81,7 @@ const trailSystems = [
   {
     name: "Hill Country State Natural Area",
     region: "Hill Country · Bandera",
-    destinationPath: "/destination/hill-country-state-natural-area",
+    destinationPath: "/explore/region/hill-country",
     officialUrl: "https://tpwd.texas.gov/state-parks/hill-country/",
     trailUrl: "https://tpwd.texas.gov/state-parks/hill-country/trails-map",
     image: { src: heroHillCountry, alt: "Rolling limestone hills and oak-covered terrain in the Texas Hill Country" },
@@ -225,7 +225,7 @@ function TexasMountainBikingGuidePage() {
                     </div>
 
                     <div className="mt-7 flex flex-wrap gap-3">
-                      <Link to={area.destinationPath} className="inline-flex items-center border border-primary bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90">TexasDefined park guide</Link>
+                      <Link to={area.destinationPath} className="inline-flex items-center border border-primary bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90">{area.destinationPath === "/explore/region/hill-country" ? "Hill Country trip planning" : "TexasDefined park guide"}</Link>
                       <a href={area.trailUrl} target="_blank" rel="noreferrer noopener" className="inline-flex items-center border border-border px-4 py-2.5 text-sm font-semibold text-foreground hover:border-primary hover:text-primary">Official trail map &amp; details ↗</a>
                       <a href={area.officialUrl} target="_blank" rel="noreferrer noopener" className="inline-flex items-center px-2 py-2.5 text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Current park alerts ↗</a>
                     </div>

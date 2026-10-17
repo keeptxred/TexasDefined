@@ -81,6 +81,59 @@ function PartnerReferralAnalyticsAdmin() {
       {dashboard.totalClicks30d === 0 ? <p className="mt-5 max-w-3xl border-l-2 border-border pl-4 text-sm leading-6 text-muted-foreground">{dashboard.totalImpressions30d > 0 ? `Affiliate CTAs recorded ${dashboard.totalImpressions30d.toLocaleString()} qualifying impressions in the 30-day window but no qualifying referral clicks. Use the partner and placement tables below to see where offers are being viewed before changing copy or placement.` : 'No qualifying affiliate CTA impressions or referral clicks are currently present in the 30-day aggregate. “Hourly sync” shows the most recent successful Cloudflare-to-Supabase pipeline run even when there are no referral rows.'}</p> : null}
       <p className="mt-5 max-w-3xl border-l-2 border-border pl-4 text-sm leading-6 text-muted-foreground">Raw 30-day counts remain visible for audit continuity. Decision-grade CTR and travel-routing comparison windows restart on {ctrStartLabel} UTC after automated/headless browser traffic was excluded from first-party measurement.</p>
 
+      <section className="mt-12 border-t border-border pt-6" aria-labelledby="casino-getaways-performance">
+        <p className="eyebrow text-primary">New travel category</p>
+        <h2 id="casino-getaways-performance" className="mt-2 font-display text-4xl">Casino getaway hotel funnel</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
+          Last 30 days across the casino hub and its individual guides. These are on-site hotel referral exposures,
+          outbound booking-link clicks, and Expedia search starts—not hotel reservations or earned commissions.
+          Automated test and crawler impressions are excluded by the existing first-party collector.
+        </p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Metric label="Hotel CTA impressions" value={dashboard.casino.impressions30d} />
+          <Metric label="Hotel referral clicks" value={dashboard.casino.clicks30d} />
+          <Metric label="Hotel referral CTR" value={formatCtr(dashboard.casino.ctr)} />
+          <Metric label="Expedia search starts" value={dashboard.casino.searchStarts30d} />
+          <Metric label="Exact-property CTA impressions" value={dashboard.casino.exactHotelImpressions30d} />
+          <Metric label="Exact-property clicks" value={dashboard.casino.exactHotelClicks30d} />
+        </div>
+        {dashboard.casino.impressions30d === 0 && dashboard.casino.clicks30d === 0 && dashboard.casino.searchStarts30d === 0
+          ? <p className="mt-5 max-w-3xl border-l-2 border-border pl-4 text-sm leading-6 text-muted-foreground">
+              No qualifying casino hotel referral events have reached the private daily aggregate. This does not establish whether visitors saw the pages;
+              check GA4 page views separately. The hourly sync heartbeat above shows when the aggregate pipeline last ran.
+            </p>
+          : null}
+        <h3 className="mt-9 font-display text-2xl">By casino guide</h3>
+        <div className="mt-4 overflow-x-auto">
+          <table className="w-full min-w-[760px] text-sm">
+            <thead><tr className="border-b border-border text-left"><th className="py-3 pr-4">Page</th><th className="py-3 pr-4 text-right">Impressions</th><th className="py-3 pr-4 text-right">Clicks</th><th className="py-3 pr-4 text-right">CTR</th><th className="py-3 text-right">Expedia starts</th></tr></thead>
+            <tbody>{dashboard.casino.pages.map((row) => <tr key={row.pagePath} className="border-b border-border/60">
+              <td className="py-3 pr-4 font-mono text-xs"><a href={row.pagePath} className="hover:text-primary">{row.pagePath}</a></td>
+              <td className="py-3 pr-4 text-right">{row.impressions30d}</td>
+              <td className="py-3 pr-4 text-right font-semibold">{row.clicks30d}</td>
+              <td className="py-3 pr-4 text-right">{formatCtr(row.ctr)}</td>
+              <td className="py-3 text-right">{row.searchStarts30d}</td>
+            </tr>)}</tbody>
+          </table>
+          {!dashboard.casino.pages.length ? <p className="py-5 text-sm text-muted-foreground">No casino referral events yet. Page traffic is tracked separately in GA4.</p> : null}
+        </div>
+        <h3 className="mt-9 font-display text-2xl">Exact-property hotel links</h3>
+        <p className="mt-2 max-w-3xl text-sm text-muted-foreground">Each placement identifies a specific verified Hotels.com property link on its casino guide. Broad Hotels.com, Travelocity and Vrbo links are included in the overall totals above, but not these property-specific rows.</p>
+        <div className="mt-4 overflow-x-auto">
+          <table className="w-full min-w-[760px] text-sm">
+            <thead><tr className="border-b border-border text-left"><th className="py-3 pr-4">Placement</th><th className="py-3 pr-4 text-right">Impressions</th><th className="py-3 pr-4 text-right">Clicks</th><th className="py-3 text-right">CTR</th></tr></thead>
+            <tbody>{dashboard.casino.exactHotelPlacements.map((row) => <tr key={row.placement} className="border-b border-border/60">
+              <td className="py-3 pr-4 font-mono text-xs">{row.placement}</td>
+              <td className="py-3 pr-4 text-right">{row.impressions30d}</td>
+              <td className="py-3 pr-4 text-right font-semibold">{row.clicks30d}</td>
+              <td className="py-3 text-right">{formatCtr(row.ctr)}</td>
+            </tr>)}</tbody>
+          </table>
+          {!dashboard.casino.exactHotelPlacements.length ? <p className="py-5 text-sm text-muted-foreground">No exact-property referrals recorded yet.</p> : null}
+        </div>
+        <p className="mt-5 text-xs leading-6 text-muted-foreground">Actual confirmed hotel bookings, cancellations, reversals and commissions are reported by the affiliate partners. This dashboard does not estimate them from clicks.</p>
+      </section>
+
       <section className="mt-12 border-t border-border pt-6">
         <p className="eyebrow text-primary">Hotel comparison routing</p>
         <h2 className="mt-2 font-display text-4xl">Clean Orbitz vs Travelocity baseline</h2>

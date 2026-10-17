@@ -66,18 +66,14 @@ export function SportsVenueGuidePage({
   // A city in the same county is not necessarily a nearby attraction.
   const attractions = nearbyAttractions.filter((item) => item.kind !== "city").slice(0, 4);
   const schemaType = sportsVenueSchemaType(entity);
+  // Venue guides list events; individual occurrence pages own Event rich results.
   const eventSchemaNodes = upcomingEvents.slice(0, 6).map((event) => ({
-    "@type": "Event",
+    "@type": "WebPage",
     "@id": `${canonicalUrl}#event-${encodeURIComponent(event.id)}`,
     name: event.title,
     description: event.summary || undefined,
-    startDate: event.startDate,
-    endDate: event.endDate,
-    eventStatus: schemaEventStatus(event.status),
-    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     url: event.officialEventUrl,
     image: event.image?.displayAllowed ? event.image.url : undefined,
-    location: { "@id": `${canonicalUrl}#venue` },
   }));
   const jsonLd = {
     "@context": "https://schema.org",
@@ -237,6 +233,15 @@ export function SportsVenueGuidePage({
                 ))}
               </div>
             </EditorialSection>
+          ) : null}
+
+          {entity.tags?.includes('horse-racing') ? (
+            <section className="border-y border-border py-7">
+              <p className="eyebrow text-primary">Explore Texas horse racing</p>
+              <h2 className="mt-2 font-display text-2xl">Compare every licensed Texas horse-racing track</h2>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Browse the four live-racing destinations, including the Gillespie County Fairgrounds in Fredericksburg, plus the history of inactive racing licenses. Live race dates vary by track.</p>
+              <a href="/horse-racing" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Texas horse-racing authority directory →</a>
+            </section>
           ) : null}
 
           <div data-stay-nearby-slot />
@@ -536,13 +541,6 @@ function latestIsoDate(values: readonly (string | undefined)[]) {
     .filter((value): value is string => Boolean(value && /^\d{4}-\d{2}-\d{2}$/.test(value)))
     .sort()
     .at(-1);
-}
-
-function schemaEventStatus(status: TexasEventCarouselItem["status"]) {
-  if (status === "cancelled") return "https://schema.org/EventCancelled";
-  if (status === "postponed") return "https://schema.org/EventPostponed";
-  if (status === "rescheduled") return "https://schema.org/EventRescheduled";
-  return "https://schema.org/EventScheduled";
 }
 
 function sportsVenueSchemaType(entity: TexasEntityRecord) {

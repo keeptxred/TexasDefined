@@ -1,3 +1,4 @@
+import { StateParkVisitorEssentials } from "./StateParkVisitorEssentials";
 import { Link } from "@tanstack/react-router";
 import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
 import { DestinationAuthoritySections } from "@/components/editorial/DestinationAuthoritySections";
@@ -40,6 +41,7 @@ export function DestinationVisitPlanner({ destination }: Props) {
         data-stay-nearby-slot
         aria-label={`Places to stay near ${destination.name}`}
       />
+      <StateParkVisitorEssentials destination={destination} />
       {showRentalCarOption ? (
         <BookingCarRentalCard
           className="my-10"

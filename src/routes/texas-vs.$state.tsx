@@ -1,16 +1,24 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { TexasComparedHero } from "@/components/compare/TexasComparedHero";
 import { Container } from "@/components/layout/Container";
 import { loadTexasVsStateProfile } from "@/data/texas-vs-state-profile";
 import { TEXAS_VS_STATE_SNAPSHOTS } from "@/data/texas-vs-state-snapshots";
-import { TEXAS_VS_STATE_GROUPS, texasVsStateName, texasVsStateSlug } from "@/data/texas-vs-states-index";
+import { TEXAS_VS_STATE_GROUPS, texasVsStateName, texasVsStateSlug, texasVsCanonicalPath, texasVsRelatedStates } from "@/data/texas-vs-states-index";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const PRIORITY_MOVE_STATES = new Set(["California", "New York", "Illinois", "Florida", "Colorado"]);
 
 export const Route = createFileRoute("/texas-vs/$state")({
+  beforeLoad: ({ params, location }) => {
+    const name = texasVsStateName(params.state);
+    if (!name) return; // The existing loader retains native 404 handling.
+    const canonical = texasVsCanonicalPath(name);
+    if (canonical !== `/texas-vs/${params.state}`) {
+      throw redirect({ href: `${canonical}${location.searchStr || ""}`, statusCode: 301 });
+    }
+  },
   loader: async ({ params }) => {
     const name = texasVsStateName(params.state);
     if (!name) throw notFound();
@@ -59,7 +67,7 @@ function TexasVsStatePage() {
   const evidence = profile.evidence;
   const snapshot = TEXAS_VS_STATE_SNAPSHOTS[name];
   const relatedGroup = TEXAS_VS_STATE_GROUPS.find((group) => group.states.some((state) => state === name));
-  const relatedStates = relatedGroup?.states.filter((state) => state !== name).slice(0, 6) ?? [];
+  const relatedStates = texasVsRelatedStates(name);
   const sections = [
     { heading: `Where the Texas vs ${name} comparison starts`, body: profile.comparisonFocus },
     { heading: `Texas places vs ${name} places`, body: profile.placeLens },
@@ -177,7 +185,7 @@ function TexasVsStatePage() {
         <p className="eyebrow text-primary">Keep comparing</p>
         <h2 className="mt-2 font-display text-3xl md:text-4xl">More Texas vs {relatedGroup?.region} comparisons</h2>
         <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Compare Texas with nearby or regionally similar states using the same framework, then return to the full 49-state index when you want to widen the search.</p>
-        <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{relatedStates.map((state) => <Link key={state} to="/texas-vs/$state" params={{ state: texasVsStateSlug(state) }} className="border border-border p-4 font-display text-xl hover:border-primary hover:text-primary">Texas vs {state} →</Link>)}</div>
+        <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{relatedStates.map((state) => <a key={state} href={texasVsCanonicalPath(state)} className="border border-border p-4 font-display text-xl hover:border-primary hover:text-primary">Texas vs {state} →</a>)}</div>
         <Link to="/texas-vs-every-state" className="mt-6 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Browse all 49 Texas state comparisons</Link>
       </Container>
     </section>}

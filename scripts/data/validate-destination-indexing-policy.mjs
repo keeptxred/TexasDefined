@@ -18,9 +18,17 @@ const batch52Curation = read('src/data/destination-curation-batch52.ts');
 const coreFallbacks = read('src/data/destination-curation-batch53.ts');
 const failures = [];
 
+// A historic closed-site duplicate must never create an independently indexable
+// copy that competes with the published Battleship Texas museum history.
+if (!route.includes('"battleship-texas-state-historic-site": "battleship-texas"')) {
+  failures.push("Legacy Battleship Texas destination must 301 to the canonical historical visitor guide.");
+}
+
+
 for (const marker of [
   'const audit = auditDestination(destination)',
-  'const indexable = audit.readyForIndexing && isPrimaryTripPlannerDestination(destination)',
+  'const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(destination) || isHistoricalMuseumReference)',
+  'const isHistoricalMuseumReference = ',
   'robots: indexable ? undefined : "noindex, follow"',
 ]) {
   if (!route.includes(marker)) failures.push(`Destination route indexing contract missing: ${marker}`);
@@ -64,6 +72,18 @@ for (const marker of [
   'entry(`/destination/${item.slug}`',
 ]) {
   if (!sitemap.includes(marker)) failures.push(`Explore sitemap resolved-catalog/indexing contract missing: ${marker}`);
+}
+// Full authority guides are loaded only within the server-side Explore sitemap.
+// If someone changes discovery card summaries without this overlay, the normal
+// 3-paragraph/450-character indexability gate correctly excludes all new pages.
+const coastalAuthoritySitemapImport = 'const { coastalHeritageAuthorityDestinations } = await import("@/data/coastal-heritage-authority")';
+if (!sitemap.includes(coastalAuthoritySitemapImport) ||
+    !sitemap.includes('for (const canonicalDestination of coastalHeritageAuthorityDestinations)') ||
+    !sitemap.includes('auditDestination(destination).readyForIndexing')) {
+  failures.push('Coastal authority sitemap must audit complete sourced guides, not thin main-client discovery summaries.');
+}
+if (sitemap.includes('import { coastalHeritageAuthorityDestinations } from "@/data/coastal-heritage-authority"')) {
+  failures.push('Do not eagerly import full coastal authority into the sitemap route; keep the server-handler dynamic import.');
 }
 const preservedCatalogDynamicImport = 'const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog")';
 if (!sitemap.includes(preservedCatalogDynamicImport)) {
@@ -126,8 +146,28 @@ if (!aliasBlock) {
 } else {
   const aliasKeys = [...aliasBlock[1].matchAll(/"([^"]+)"\s*:/g)].map((match) => match[1]);
   const curationOnlyExceptions = new Set(['possum-kingdom-lake']);
+  // These three *live primary URLs* intentionally resolve to richer curation
+  // entries under older long-form keys. A curation lookup key does NOT imply
+  // that the public URL is a duplicate. Guard both sides of the relationship.
+  const primaryHistoricLookups = {
+    'goliad-state-park': 'goliad-state-park-and-historic-site',
+    'san-jacinto-battleground': 'san-jacinto-battleground-state-historic-site',
+    'washington-on-the-brazos': 'washington-on-the-brazos-state-historic-site',
+    'lyndon-b-johnson-state-park-historic-site': 'lyndon-b-johnson-state-park-and-historic-site',
+  };
+  const nonPrimaryBlock = availability.split('const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([')[1]?.split(']);')[0] ?? '';
+  for (const [primary, curationKey] of Object.entries(primaryHistoricLookups)) {
+    if (!aliasBlock[1].includes(`"${primary}": "${curationKey}"`))
+      failures.push(`Historic primary ${primary} must reuse its original, source-backed curation record.`);
+    if (nonPrimaryBlock.includes(`"${primary}",`))
+      failures.push(`Live historic primary must be eligible for publication: ${primary}`);
+    if (!nonPrimaryBlock.includes(`"${curationKey}",`))
+      failures.push(`Historic long-form duplicate must be suppressed from discovery: ${curationKey}`);
+    if (!route.includes(`"${curationKey}": "${primary}"`) || !route.includes('statusCode: 301'))
+      failures.push(`Historic long-form duplicate must permanently redirect to live primary: ${curationKey}`);
+  }
   for (const slug of aliasKeys) {
-    if (curationOnlyExceptions.has(slug)) continue;
+    if (curationOnlyExceptions.has(slug) || Object.hasOwn(primaryHistoricLookups, slug)) continue;
     if (!availability.includes(`"${slug}"`)) {
       failures.push(`Known legacy/duplicate curation alias is still eligible as a primary destination: ${slug}`);
     }
@@ -136,11 +176,14 @@ if (!aliasBlock) {
 
 for (const marker of [
   'import { preservedExploreDestinations } from "./destination-preserved-catalog"',
-  'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))',
   'reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))',
   'reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))',
 ]) {
   if (!destinationRuntime.includes(marker)) failures.push(`Destination runtime publication/resolution contract missing: ${marker}`);
+}
+const exactPlaceParkPublicationGuard = "filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved.map((destination)=>applyStateParkHeroAsset(correctDestinationTravelRegion(destination)))))";
+if (!destinationRuntime.replace(/\s+/g, "").replace(/,\)/g, ")").includes(exactPlaceParkPublicationGuard)) {
+  failures.push("Destination publication must retain final exact-place park photo selection within both SEO-readiness and visitor-availability filters.");
 }
 if (!queries.includes('await import("./destination-query-runtime")')) {
   failures.push('Destination queries must keep heavy resolution behind the dynamic runtime boundary.');
@@ -258,6 +301,18 @@ if (sitemap.includes('.filter(isPrimaryTripPlannerDestination)')) {
 }
 if (sitemap.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations;')) {
   failures.push('Explore sitemap must not audit raw remote destination records before source merging, curation, hero reconciliation and quality improvement.');
+}
+
+// Historical and temporarily-closed museum guides may remain discoverable as
+// factual references, but these exact institutions must NOT re-enter trip planning.
+const referenceSource = route.match(/const isHistoricalMuseumReference = \[([^\]]+)\]\.includes\(destination\.slug\)/);
+const historicalMuseumReferences = referenceSource ? [...referenceSource[1].matchAll(/"([a-z0-9-]+)"/g)].map((match) => match[1]) : [];
+if (!referenceSource) failures.push('Historical museum exception must be an explicit slug allowlist, never an open-ended indexability bypass.');
+for (const requiredSlug of ['1940-air-terminal-museum-houston', 'elisabet-ney-museum-austin', 'buffalo-soldiers-national-museum-houston', 'battleship-texas']) {
+  if (!historicalMuseumReferences.includes(requiredSlug)) failures.push('Required historical museum exception missing: ' + requiredSlug);
+}
+for (const slug of historicalMuseumReferences) {
+  if (!availability.includes('"' + slug + '"')) failures.push('Closed museum missing from unavailable trip-planner set: ' + slug);
 }
 
 if (failures.length) {

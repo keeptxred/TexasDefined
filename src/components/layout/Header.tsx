@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, Search, ShoppingBag, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useBrand } from "@/brand/context";
 import type { BrandNavItem } from "@/brand/types";
@@ -23,6 +23,12 @@ export function Header() {
   const cart = useShopCart();
   const [open, setOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
+
+  // An SSR-rendered button is visible before React hydration attaches onClick.
+  // Keep it genuinely disabled during that window rather than silently dropping
+  // a tap. The city accessibility test must still prove it becomes usable.
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => { setHydrated(true); }, []);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/80 bg-background/96 backdrop-blur supports-[backdrop-filter]:bg-background/92">
@@ -59,7 +65,7 @@ export function Header() {
           <div className="flex items-center gap-0.5">
             <Link to="/shop/cart" aria-label={cart.count > 0 ? `View your bag with ${cart.count} item${cart.count === 1 ? "" : "s"}` : "View your bag"} className="relative inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 p-2 text-foreground/65 transition-colors hover:text-primary"><ShoppingBag className="size-[18px]" aria-hidden />{cart.count > 0 ? <span className="absolute -right-0.5 -top-0.5 inline-flex min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[9px] leading-4 text-primary-foreground">{cart.count}</span> : null}</Link>
             {brand.features.search && <Link to="/search" aria-label="Search Texas Defined" className="inline-flex min-h-11 min-w-11 items-center justify-center p-2 text-foreground/65 transition-colors hover:text-primary"><Search className="size-[18px]" aria-hidden /></Link>}
-            <button type="button" className="inline-flex min-h-11 min-w-11 items-center justify-center p-2 text-foreground/65 transition-colors hover:text-primary" aria-label={open ? brand.copy.close : brand.copy.menu} aria-expanded={open} aria-controls="mobile-main-menu" onClick={() => setOpen((value) => !value)}>{open ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}</button>
+            <button type="button" className="inline-flex min-h-11 min-w-11 items-center justify-center p-2 text-foreground/65 transition-colors hover:text-primary" aria-label={open ? brand.copy.close : brand.copy.menu} aria-expanded={open} aria-controls="mobile-main-menu" disabled={!hydrated} onClick={() => setOpen((value) => !value)}>{open ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}</button>
           </div>
         </Container>
 

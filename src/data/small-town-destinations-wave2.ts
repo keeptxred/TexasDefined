@@ -110,7 +110,7 @@ export const smallTownWave2Destinations: Destination[] = [
     areaGuide: {
       intro: "Use Bandera as a base for a three-part trip: Western and settlement history in town, the Medina River, and one ranch or public-land experience in the surrounding hills.",
       nearbyAttractions: [
-        { name: "Hill Country State Natural Area", description: "Large, rugged public landscape known for hiking, horseback riding, camping and primitive Hill Country scenery.", proximity: "Southwest of Bandera", href: "/destination/hill-country-state-natural-area" },
+        { name: "Hill Country State Natural Area", description: "Large, rugged public landscape known for hiking, horseback riding, camping and primitive Hill Country scenery.", proximity: "Southwest of Bandera", href: "https://tpwd.texas.gov/state-parks/hill-country" },
         { name: "Bandera City Park", description: "A riverside city park used for picnicking, fishing and swimming when current Medina River conditions permit." },
       ],
       foodAndDrink: [{ name: "Main Street and river corridor", description: "Local restaurants, bars, live-music venues and Western-oriented businesses are concentrated around central Bandera." }],
@@ -251,7 +251,7 @@ export const smallTownWave2Destinations: Destination[] = [
       "Food still provides the most obvious organizing thread. Long-running barbecue businesses helped make Lockhart a destination well before Central Texas barbecue became a national travel category, and newer restaurants and businesses now share the historic core with them. The better itinerary is not to rush from one meat counter to another, but to treat barbecue as one part of a town visit that includes architecture, local history, shopping or a show at the Gaslight-Baker Theatre.",
       "Lockhart State Park gives the town an outdoor extension only a few miles from downtown, with wooded trails, CCC-era structures and the state's only golf course inside a Texas State Park. That makes Lockhart unusually easy to combine with a morning hike and a later barbecue meal. Austin, San Marcos and Bastrop are close enough for day trips, but an overnight stay can make sense during the Chisholm Trail Roundup or other major events when the town's cultural identity is most visible.",
     ],
-    officialUrl: "https://www.lockhart-tx.org/",
+    officialUrl: "https://www.cityoflockhart.gov/",
     sourceCheckedAt,
     directions: "Lockhart is the Caldwell County seat southeast of Austin, reached via US 183 and State Highway 130. The courthouse square is the primary visitor orientation point, with Lockhart State Park a short drive south of downtown.",
     accessibilityNotes: "Downtown sidewalks and newer public facilities vary from individual historic buildings. Check restaurant queue and access arrangements, theater seating and state-park accessibility directly when those are essential to the visit.",
@@ -292,9 +292,9 @@ export const smallTownWave2Destinations: Destination[] = [
         { label: "Weekend", duration: "1-2 nights", steps: ["Give downtown Lockhart and its food culture a dedicated day", "Use the second day for Lockhart State Park and a nearby Central Texas destination", "If visiting during a festival, build the event schedule into parking and meal plans"] },
       ],
       sources: [
-        { label: "City of Lockhart", url: "https://www.lockhart-tx.org/", scope: "Official municipal visitor, history, downtown and public-facility information" },
-        { label: "City of Lockhart visitor sitemap", url: "https://www.lockhart-tx.org/page/sitemap", scope: "Official visitor topics including barbecue, downtown history, museums and community information" },
-        { label: "City of Lockhart destination context", url: "https://www.lockhart-tx.org/page/article/546", scope: "Official city statement on county-seat location and Barbecue Capital of Texas designation" },
+        { label: "City of Lockhart", url: "https://www.cityoflockhart.gov/", scope: "Official municipal visitor, history, downtown and public-facility information" },
+        { label: "Visit Lockhart — official tourism", url: "https://visitlockharttx.org/", scope: "Current official visitor information for downtown, history, barbecue and trip planning" },
+        { label: "Visit Lockhart — barbecue heritage", url: "https://visitlockharttx.org/lockhart-bbq/", scope: "Official tourism overview of Lockhart barbecue history and Barbecue Capital identity" },
       ],
     },
     featured: true,

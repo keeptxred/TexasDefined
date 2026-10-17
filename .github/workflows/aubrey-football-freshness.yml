@@ -1,0 +1,55 @@
+name: Aubrey football focused checks
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/high-school-football/program-editorial.ts'
+      - 'src/data/high-school-football/football-profile-content.ts'
+      - 'scripts/ci/validate-football-head-coach-faq.mjs'
+      - 'src/components/sports/FootballGameNightGuide.tsx'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'scripts/ci/validate-aubrey-football-page.mjs'
+      - 'scripts/ci/check-aubrey-score-freshness.mjs'
+      - '.github/workflows/aubrey-football-freshness.yml'
+  schedule:
+    - cron: '15 15 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  validate-page:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Aubrey editorial data and public page copy
+        run: node scripts/ci/validate-aubrey-football-page.mjs
+      - name: Test duplicate head-coach FAQ variants
+        run: node --experimental-strip-types scripts/ci/validate-football-head-coach-faq.mjs
+
+  check-overdue-scores:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Detect passed game dates without a verified final
+        id: freshness
+        run: node scripts/ci/check-aubrey-score-freshness.mjs
+      - name: Create one editorial issue for unverified results
+        if: steps.freshness.outputs.needs_review == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          title='Aubrey football: verify overdue 2026 scores'
+          existing=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body "An Aubrey game date has passed without a verified final in src/data/high-school-football/program-editorial.ts. Cross-check the [Aubrey MaxPreps varsity schedule](https://www.maxpreps.com/tx/aubrey/aubrey-chaparrals/football/schedule/) and [Aubrey ISD's published schedule](https://www.aubreyisd.net/live_feeds/12931971), resolve any disagreement, and update the score and record through a reviewed PR. Do not invent scores or run full-site scans. This is a team-only freshness warning, not an automated live-score feed."
+          else
+            echo "Existing review issue #$existing; no duplicate issue."
+          fi

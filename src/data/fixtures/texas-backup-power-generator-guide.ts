@@ -28,7 +28,7 @@ export const texasBackupPowerGeneratorGuideArticle: Article = {
   internalLinks: [
     { href: "/article/texas-homeowner-field-manual", label: "Texas Homeowner Field Manual", description: "Put backup power into the larger system of freezes, hurricanes, utilities, insurance and emergency records." },
     { href: "/article/prepare-texas-house-freeze", label: "Prepare a Texas house for a freeze", description: "Coordinate generator planning with plumbing, heating, pools and other freeze-sensitive systems." },
-    { href: "/article/texas-hurricane-preparation-guide", label: "Texas hurricane preparation guide", description: "Build outage planning into storm preparation, evacuation and post-storm recovery." },
+    { href: "/article/texas-hurricane-preparation-homeowners-renters", label: "Texas hurricane preparation guide", description: "Build outage planning into storm preparation, evacuation and post-storm recovery." },
     { href: "/article/texas-pool-owner-guide", label: "Texas pool owner guide", description: "Decide whether pool circulation belongs on the essential-load list during freezes and outages." },
     { href: "/article/how-to-choose-electricity-plan-texas", label: "Choose a Texas electricity plan", description: "Understand the normal grid-supplied side of the household energy system." },
     { href: "https://www.cpsc.gov/Safety-Education/Safety-Education-Centers/Carbon-Monoxide-Information-Center", label: "CPSC carbon monoxide and generator safety", description: "Current federal guidance for generator placement, CO alarms and poisoning prevention." },

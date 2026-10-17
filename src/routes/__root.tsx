@@ -14,6 +14,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { absoluteUrl } from "@/lib/seo";
 import { TEXASDEFINED_ANALYTICS_HOSTS } from "@/platform/analytics-host";
 import { ShopCartProvider } from "@/lib/shop-cart";
+import { staleChunkRecoveryScript } from "@/lib/stale-chunk-recovery";
 
 const Header = lazy(() => import("@/components/layout/Header").then((module) => ({ default: module.Header })));
 const Footer = lazy(() => import("@/components/layout/Footer").then((module) => ({ default: module.Footer })));
@@ -149,7 +150,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootShell({ children }: { children: ReactNode }) {
   // Server and client must hydrate the same script nodes after <Scripts />.
   // Omitting these only on the client makes React reconcile different body trees.
-  return <html lang={texasDefinedBrand.identity.locale}><head><GoogleTagManagerHead /><HeadContent /></head><body>{children}<Scripts /><script src="/expedia-travel.js" defer /><script src="/stay-affiliate-options.js" defer /><script src="/stay-nearby-context-images.js" defer /><script src="/city-experience-affiliate.js" defer /><script src="/texas-brand-locator.js" defer /></body></html>;
+  return <html lang={texasDefinedBrand.identity.locale}><head><script dangerouslySetInnerHTML={{ __html: staleChunkRecoveryScript }} /><GoogleTagManagerHead /><HeadContent /></head><body>{children}<Scripts /><script src="/expedia-travel.js" defer /><script src="/stay-affiliate-options.js" defer /><script src="/stay-nearby-context-images.js" defer /><script src="/city-experience-affiliate.js" defer /><script src="/texas-brand-locator.js" defer /></body></html>;
 }
 
 function RootComponent() {

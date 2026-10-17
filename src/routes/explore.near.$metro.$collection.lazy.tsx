@@ -11,6 +11,7 @@ import {
 } from "@/data/metro-proximity";
 import { metroProximityCollectionPresentation } from "@/data/metro-proximity-presentation";
 import type { MetroProximityTownResult } from "@/data/metro-proximity-town-references";
+import { countyNames, countySlug } from "@/data/metro-county-links";
 import { maps } from "@/services/maps";
 
 export const Route = createLazyFileRoute("/explore/near/$metro/$collection")({});
@@ -44,9 +45,7 @@ function bandLabel(band: "close-in" | "easy-day-trip" | "longer-day-trip", colle
   return "Longer day trip";
 }
 
-function countySlug(value: string) {
-  return value.replace(/\s+County$/i, "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-}
+
 
 
 type AustinTownEditorial = {
@@ -149,8 +148,7 @@ const MCALLEN_EDITORIAL_TRIPS = [
   },
 ] as const;
 
-function McAllenDayTripsAuthority({ pageData }: { pageData: CollectionPageData }) {
-  const availableSlugs = new Set(pageData.results.map((row) => row.destination.slug));
+function McAllenDayTripsAuthority() {
   return <section className="border-b border-border bg-surface" aria-labelledby="mcallen-day-trip-guide">
     <Container className="py-14 sm:py-18">
       <p className="eyebrow text-primary">The Lower Rio Grande Valley, properly explored</p>
@@ -158,7 +156,6 @@ function McAllenDayTripsAuthority({ pageData }: { pageData: CollectionPageData }
       <p className="mt-5 max-w-4xl text-base leading-8 text-muted-foreground">McAllen is a gateway to remarkable wildlife and borderland history—not just a starting point for distant Gulf beaches. A short local excursion can be as memorable as a full coastal day. These are editorial trip anchors, not a ranking by straight-line mileage.</p>
       <div className="mt-10 grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
         {MCALLEN_EDITORIAL_TRIPS.map((trip) => {
-          const linked = availableSlugs.has(trip.slug);
           return <article key={trip.slug} className="border-t border-border pt-5">
             <p className="eyebrow text-primary">{trip.label}</p>
             <h3 className="mt-3 font-display text-2xl">{trip.title}</h3>
@@ -166,7 +163,7 @@ function McAllenDayTripsAuthority({ pageData }: { pageData: CollectionPageData }
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{trip.why}</p>
             <p className="mt-3 border-l-2 border-border pl-4 text-sm leading-6"><strong>Before you go:</strong> {trip.caution}</p>
             <div className="mt-5 flex flex-wrap gap-5 text-sm font-semibold">
-              {linked && <Link to="/destination/$slug" params={{ slug: trip.slug }} className="border-b border-primary pb-1 text-primary">TexasDefined guide →</Link>}
+              <Link to="/destination/$slug" params={{ slug: trip.slug }} className="border-b border-primary pb-1 text-primary">Read the TexasDefined guide →</Link>
               <a href={trip.official} target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">Official visitor information ↗</a>
             </div>
           </article>;
@@ -176,14 +173,14 @@ function McAllenDayTripsAuthority({ pageData }: { pageData: CollectionPageData }
         <p className="eyebrow text-primary">Build a day, not a checklist</p>
         <h3 className="mt-3 font-display text-3xl">Three practical ways to explore from McAllen</h3>
         <div className="mt-7 grid gap-7 lg:grid-cols-3">
-          <div><h4 className="font-display text-2xl">Wildlife before the heat</h4><p className="mt-3 text-sm leading-7 text-muted-foreground">Choose Bentsen or Santa Ana for an early birding start. Keep midday flexible for lunch and rest instead of racing between far-apart refuges.</p></div>
-          <div><h4 className="font-display text-2xl">Wetlands + Valley heritage</h4><p className="mt-3 text-sm leading-7 text-muted-foreground">Spend the morning on Estero Llano Grande's wetland trails, then explore Weslaco; alternatively pair Santa Ana with the Museum of South Texas History in Edinburg if the museum is open.</p></div>
-          <div><h4 className="font-display text-2xl">Port Isabel + South Padre</h4><p className="mt-3 text-sm leading-7 text-muted-foreground">Give the drive its due. Visit the lighthouse and Port Isabel first, then devote the afternoon to one South Padre beach area. Leave flexibility for bridge traffic and weather.</p></div>
+          <div><h4 className="font-display text-2xl">Wildlife before the heat · Half day</h4><p className="mt-3 text-sm leading-7 text-muted-foreground">Start early at Bentsen or Santa Ana and allow two to three hours for trails and overlooks. Bring water and sun protection, then return to McAllen for lunch. Choose one refuge rather than racing through both.</p></div>
+          <div><h4 className="font-display text-2xl">Wetlands + Valley heritage · Most of a day</h4><p className="mt-3 text-sm leading-7 text-muted-foreground">Visit Estero Llano Grande early, take a lunch break in Weslaco, then consider the Museum of South Texas History in Edinburg for an indoor history afternoon. Check the museum's opening days and allow for driving between towns.</p></div>
+          <div><h4 className="font-display text-2xl">Port Isabel + South Padre · Full coastal day</h4><p className="mt-3 text-sm leading-7 text-muted-foreground">Leave early for Port Isabel and visit the lighthouse in the morning if climbs are available. After lunch, cross to one South Padre beach access for the afternoon. Confirm bridge traffic, beach flags, parking rules and weather; consider an overnight for a slower pace.</p></div>
         </div>
       </div>
       <div className="mt-10 border-t border-border pt-7">
         <h3 className="font-display text-2xl">How the recommendations work</h3>
-        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">The curated trips above are based on official state, federal and museum visitor information, checked October 2026. The geographic catalog below is screened within approximately 108 straight-line miles of McAllen and limited to two attractions per named town; it does not calculate road miles, account for every detour or guarantee opening hours. A smaller trip is not automatically less worthwhile. Open each destination's live driving route and official site before departure. Remote four-wheel-drive beach routes are not ordinary day-trip recommendations.</p>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Visitor information was reviewed against state, federal and museum websites in October 2026. The additional places below are screened by geography, not promised road mileage or driving times. The Lower Rio Grande Valley National Wildlife Refuge map pin is its public visitor headquarters near Alamo, not every refuge unit. Choose a specific public-use unit before departing. Padre Island National Seashore near Corpus Christi is better planned as a separate, longer coastal or overnight trip. Confirm current access, operating hours, weather and road conditions before leaving.</p>
         <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
           <Link to="/explore/near/$metro" params={{ metro: "mcallen" }} className="eyebrow border-b border-primary pb-1 text-primary">Explore all trips near McAllen →</Link>
           <Link to="/county/$slug" params={{ slug: "hidalgo" }} className="eyebrow border-b border-primary pb-1 text-primary">Hidalgo County guide →</Link>
@@ -450,18 +447,20 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
   if (metro.slug === "texarkana" && collection.slug === "road-trips") {
     return <TexarkanaRoadTripsAuthority pageData={pageData} />;
   }
+  const isMcAllenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
+  const curatedSlugs = isMcAllenDayTrips ? new Set<string>(MCALLEN_EDITORIAL_TRIPS.map((trip) => trip.slug)) : new Set<string>();
   const groups = (["close-in", "easy-day-trip", "longer-day-trip"] as const)
-    .map((band) => ({ band, rows: results.filter((row) => row.distanceBand === band) }))
+    .map((band) => ({ band, rows: results.filter((row) => row.distanceBand === band && !curatedSlugs.has(row.destination.slug)) }))
     .filter((group) => group.rows.length > 0);
   const mapMarkers = [
-    ...townReferences.map((row) => ({ id: `town-${row.town.slug}`, label: row.town.name, point: row.town.coordinates, href: `/county/${countySlug(row.town.county)}`, distanceMiles: row.distanceMiles })),
-    ...results.map((row) => ({ id: row.destination.slug, label: row.destination.name, point: row.destination.coordinates, href: `/destination/${row.destination.slug}`, distanceMiles: row.distanceMiles })),
+    ...townReferences.map((row) => ({ id: `town-${row.town.slug}`, label: row.town.name, point: row.town.coordinates, href: countyNames(row.town.county).length === 1 ? `/county/${countySlug(row.town.county)}` : "/browse/counties", distanceMiles: row.distanceMiles })),
+    ...results.map((row) => ({ id: row.destination.slug, label: row.destination.slug === "lower-rio-grande-valley-national-wildlife-refuge" ? "Lower Rio Grande Valley refuge visitor headquarters" : row.destination.name, point: row.destination.coordinates, href: `/destination/${row.destination.slug}`, distanceMiles: row.distanceMiles })),
   ]
     .sort((left, right) => left.distanceMiles - right.distanceMiles)
     .map(({ distanceMiles: _distanceMiles, ...marker }) => marker);
   const counties = [...new Set([
-    ...townReferences.map((row) => row.town.county.replace(/\s+County$/i, "").trim()),
-    ...results.map((row) => row.destination.county?.replace(/\s+County$/i, "").trim()).filter((value): value is string => Boolean(value)),
+    ...townReferences.flatMap((row) => countyNames(row.town.county)),
+    ...results.flatMap((row) => countyNames(row.destination.county ?? "")),
   ])].slice(0, 12);
   const isAustinTwoHourGuide = metro.slug === "austin" && collection.slug === "small-towns-2-hours";
   const austinRows = isAustinTwoHourGuide
@@ -497,7 +496,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       </div>
     </Container>
 
-    {metro.slug === "mcallen" && collection.slug === "day-trips" && <McAllenDayTripsAuthority pageData={pageData} />}
+    {isMcAllenDayTrips && <McAllenDayTripsAuthority />}
 
     {isAustinTwoHourGuide && austinRows.length > 0 && <section className="border-b border-border">
       <Container className="py-14 sm:py-18">
@@ -545,19 +544,19 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
     </section>}
 
     {mapMarkers.length > 0 && <Container className="py-14 sm:py-18">
-      <MapPreview markers={mapMarkers} zoom={7} directionsLabel={`${presentation.label} near ${metro.name}`} origin={metro.center} originLabel={metro.name} />
+      <MapPreview markers={mapMarkers} zoom={7} directionsLabel={`${presentation.label} near ${metro.name}`} origin={metro.center} originLabel={metro.name} variant={isMcAllenDayTrips ? "cards" : "list"} />
     </Container>}
 
     {groups.map((group, groupIndex) => <section key={group.band} className={groupIndex % 2 ? "border-y border-border bg-surface" : ""}>
       <Container className="py-14 sm:py-18">
         <div className="max-w-3xl">
-          <p className="eyebrow text-primary">{isAustinTwoHourGuide ? "Town guides" : bandLabel(group.band, collection)}</p>
-          <h2 className="mt-3 font-display text-4xl">{isAustinTwoHourGuide ? `${group.rows.length} places worth building a day around` : `${group.rows.length} full TexasDefined guide${group.rows.length === 1 ? "" : "s"} in this geographic band`}</h2>
+          <p className="eyebrow text-primary">{isMcAllenDayTrips ? "More places to consider" : isAustinTwoHourGuide ? "Town guides" : bandLabel(group.band, collection)}</p>
+          <h2 className="mt-3 font-display text-4xl">{isMcAllenDayTrips ? `${group.rows.length} additional place${group.rows.length === 1 ? "" : "s"} beyond the curated itineraries` : isAustinTwoHourGuide ? `${group.rows.length} places worth building a day around` : `${group.rows.length} full TexasDefined guide${group.rows.length === 1 ? "" : "s"} in this geographic band`}</h2>
         </div>
         <div className="mt-9 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {group.rows.map((row, index) => <div key={row.destination.slug}>
             <div className="mb-3 flex items-baseline justify-between gap-4">
-              <p className="eyebrow text-primary">{isAustinTwoHourGuide && austinEditorial(row.destination.slug) ? austinEditorial(row.destination.slug)!.drive : `About ${Math.round(row.distanceMiles)} geographic miles`}</p>
+              <p className="eyebrow text-primary">{isAustinTwoHourGuide && austinEditorial(row.destination.slug) ? austinEditorial(row.destination.slug)!.drive : isMcAllenDayTrips ? "Check the actual driving route" : `About ${Math.round(row.distanceMiles)} geographic miles`}</p>
               <span className="text-xs text-muted-foreground">{row.destination.nearestTown}</span>
             </div>
             <DestinationCard destination={row.destination} eager={groupIndex === 0 && index < 2} />
@@ -598,7 +597,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
           <h2 className="mt-3 font-display text-3xl">{isAustinTwoHourGuide ? "Pick the town first. Then let the live route decide the departure time." : "Use geography as a shortlist, then check the real route."}</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{isAustinTwoHourGuide ? "Austin-area traffic can add meaningful time, especially on I-35 and on Friday or Sunday travel periods. After choosing the experience you want, open the current route and verify attraction hours, reservations, weather and any park or river conditions before you leave." : "TexasDefined uses location data to make the statewide catalog easier to search. Open the current driving route for the places you are considering, then verify opening hours, reservations, park alerts, water conditions and weather with the current official source."}</p>
           {counties.length > 0 && <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
-            {counties.map((county) => <Link key={county} to="/county/$slug" params={{ slug: countySlug(county) }} className="eyebrow border-b border-border pb-1 hover:border-primary hover:text-primary">{county} County</Link>)}
+            {counties.map((county) => <Link key={county} to="/county/$slug" params={{ slug: countySlug(county)! }} className="eyebrow border-b border-border pb-1 hover:border-primary hover:text-primary">{county} County</Link>)}
           </div>}
         </div>
         <div className="flex flex-col items-start gap-4">

@@ -19,25 +19,48 @@ if (!token || !repository || !sha) {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+// GitHub's check-run endpoint can return a temporary 5xx while otherwise
+// healthy Cloudflare and Worker builds are progressing. Retry boundedly, but
+// NEVER interpret an API failure as "no Cloudflare build" or bypass the gate.
+const transientHttpStatuses = new Set([429, 500, 502, 503, 504]);
+const maxQueryAttempts = 4;
+
 async function listChecks() {
-  const response = await fetch(
-    `${apiBase}/repos/${repository}/commits/${sha}/check-runs?per_page=100`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/vnd.github+json',
-        'X-GitHub-Api-Version': '2022-11-28',
-      },
-      signal: AbortSignal.timeout(15000),
-    },
-  );
-  if (!response.ok) {
-    throw new Error(`GitHub check-run query failed: HTTP ${response.status} ${response.statusText}`);
+  for (let attempt = 1; attempt <= maxQueryAttempts; attempt++) {
+    let response;
+    try {
+      response = await fetch(
+        `${apiBase}/repos/${repository}/commits/${sha}/check-runs?per_page=100`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/vnd.github+json',
+            'X-GitHub-Api-Version': '2022-11-28',
+          },
+          signal: AbortSignal.timeout(15000),
+        },
+      );
+    } catch (error) {
+      if (attempt === maxQueryAttempts) {
+        throw new Error(`GitHub check-run query failed after ${maxQueryAttempts} attempts; refusing to assume the external build is absent.`, { cause: error });
+      }
+      console.warn(`Temporary GitHub check-run network error (attempt ${attempt}/${maxQueryAttempts}); retrying.`);
+      await sleep(attempt * 1000);
+      continue;
+    }
+    if (response.ok) {
+      const payload = await response.json();
+      return (payload.check_runs || []).filter(
+        (check) => check.name === checkName && check.app?.slug === appSlug,
+      );
+    }
+    if (!transientHttpStatuses.has(response.status) || attempt === maxQueryAttempts) {
+      throw new Error(`GitHub check-run query failed: HTTP ${response.status} ${response.statusText} (attempt ${attempt}/${maxQueryAttempts})`);
+    }
+    console.warn(`Temporary GitHub check-run API error HTTP ${response.status} (attempt ${attempt}/${maxQueryAttempts}); retrying.`);
+    await sleep(attempt * 1000);
   }
-  const payload = await response.json();
-  return (payload.check_runs || []).filter(
-    (check) => check.name === checkName && check.app?.slug === appSlug,
-  );
+  throw new Error('GitHub check-run query unexpectedly exhausted its retries; refusing to proceed.');
 }
 
 const discoveryDeadline = Date.now() + discoveryMs;

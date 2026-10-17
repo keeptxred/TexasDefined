@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+import { isCurrentTexasDefinedAutoNewsSource } from './texasdefined-queue-freshness.mjs';
+import { isTexasDefinedDirectEditorialSource } from './texasdefined-editorial-source-eligibility.mjs';
+
 const SUPABASE_URL = String(process.env.KEEP_TX_RED_SUPABASE_URL || '').replace(/\/$/, '');
 const SUPABASE_KEY = process.env.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY || '';
 const CF_ACCOUNT = process.env.CLOUDFLARE_ACCOUNT_ID || '';
@@ -9,6 +12,12 @@ const NEWSROOM_HYDRATION_URL = String(process.env.NEWSROOM_HYDRATION_URL || 'htt
 const TEXT_MODEL = '@cf/meta/llama-3.1-8b-instruct-fast';
 const IMAGE_MODEL = '@cf/black-forest-labs/flux-1-schnell';
 const publishRequested = process.argv.includes('--publish');
+const hydrateTopArg = process.argv.find((arg) => arg.startsWith('--hydrate-top='));
+const hydrateTop = hydrateTopArg ? Number(hydrateTopArg.split('=')[1]) : null;
+if (hydrateTopArg && (!Number.isSafeInteger(hydrateTop) || hydrateTop < 1 || hydrateTop > 10)) {
+  throw new Error('--hydrate-top must be an integer from 1 to 10; manual, bounded and zero-AI.');
+}
+if (publishRequested && hydrateTopArg) throw new Error('Hydration and publication cannot run in the same invocation.');
 const limitArg = process.argv.find((arg) => arg.startsWith('--limit='));
 const limit = Math.max(1, Math.min(Number(limitArg?.split('=')[1] || 1), 3));
 const feedIdArg = process.argv.find((arg) => arg.startsWith('--feed-id='));
@@ -112,6 +121,10 @@ function automationQueueKey(item) {
 }
 
 function isAutomationSafeQueueItem(item) {
+  // Do not turn dated sports scores, old event announcements, or stale RSS
+  // backlogs into newly published /news articles after the event has passed.
+  if (!isCurrentTexasDefinedAutoNewsSource(item?.pub_date)) return false;
+  if (!isTexasDefinedDirectEditorialSource(item)) return false;
   const signals = item?.viral_signals && typeof item.viral_signals === 'object' && !Array.isArray(item.viral_signals)
     ? item.viral_signals
     : {};
@@ -140,6 +153,59 @@ function dedupeAutomationQueue(items) {
     deduped.push(item);
   }
   return deduped;
+}
+
+/**
+ * Explicit, read-only-from-the-publication-perspective source-page hydration.
+ * A narrow recent/categorized candidate query prevents a site-wide scan.
+ * The shared endpoint already enforces a 40-ID cap; we restrict to 10 here.
+ * Never call AI, generate images, or alter approval flags in this mode.
+ */
+async function hydrateTopCurrentCandidates() {
+  const since = new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString();
+  const params = new URLSearchParams({
+    select: 'id,title,source,link,pub_date,extracted_body,viral_signals,pillar_slug,ready_for_rewrite,classification_confidence,texas_relevance_score,source_reputation_score,texasdefined_slug',
+    order: 'pub_date.desc',
+    limit: '150',
+  });
+  params.set('pub_date', `gte.${since}`);
+  params.set('ready_for_rewrite', 'eq.true');
+  params.set('classification_confidence', 'gte.0.8');
+  params.set('texas_relevance_score', 'gte.70');
+  params.set('source_reputation_score', 'gte.60');
+  params.set('texasdefined_slug', 'is.null');
+  const response = await supabase(`/rest/v1/texasdefined_story_queue?${params}`);
+  const candidates = await response.json();
+  if (!Array.isArray(candidates) || candidates.length >= 150) {
+    throw new Error('Bounded source-candidate read was incomplete; no automatic scanning or hydration.');
+  }
+  const targets = dedupeAutomationQueue(candidates.filter((item) =>
+    isAutomationSafeQueueItem(item)
+    && item.ready_for_rewrite === true
+    && String(item.extracted_body ?? '').trim().length < 1200
+  )).slice(0, hydrateTop);
+  if (!targets.length) {
+    console.log(JSON.stringify({ mode: 'hydrate', scanned: candidates.length, requested: 0, updated: 0, charsWritten: 0, aiCalls: 0 }));
+    return;
+  }
+  const hydrationResponse = await fetch(NEWSROOM_HYDRATION_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'User-Agent': 'TexasDefined-Automation/1.0' },
+    body: JSON.stringify({ feedIds: targets.map((item) => item.id) }),
+    signal: AbortSignal.timeout(45_000),
+  });
+  if (!hydrationResponse.ok) throw new Error(`Source-only hydration failed (HTTP ${hydrationResponse.status}).`);
+  const payload = await hydrationResponse.json();
+  if (payload?.ok !== true || payload?.aiCalls !== 0 || payload?.requested !== targets.length
+    || !Array.isArray(payload?.results)) {
+    throw new Error('Source-only hydration returned an incomplete result or a nonzero AI-call count.');
+  }
+  console.log(JSON.stringify({
+    mode: 'hydrate', scanned: candidates.length, requested: targets.length,
+    updated: payload.updated, charsWritten: payload.charsWritten, aiCalls: 0,
+    ids: targets.map((item) => item.id),
+    noReadableSource: payload.results.filter((result) => result.reason === 'no_readable_body').length,
+  }));
 }
 
 async function readyQueueCount() {
@@ -277,6 +343,10 @@ if (publishRequested) {
   requireEnv('CLOUDFLARE_API_TOKEN', CF_TOKEN);
 }
 
+if (hydrateTop) {
+  if (exactFeedId) throw new Error('--hydrate-top cannot be combined with --feed-id.');
+  await hydrateTopCurrentCandidates();
+} else {
 if (exactFeedId) await hydrateExactFeed();
 const rawEligible = await readyQueueCount();
 const rawQueue = await readyQueueAll(rawEligible);
@@ -309,4 +379,6 @@ if (publishRequested && queue.length > 0) {
     const liveUrl = await publish(item, draft, heroUrl);
     console.log(JSON.stringify({ published: true, feedId: item.id, slug: draft.slug, liveUrl }));
   }
+}
+
 }

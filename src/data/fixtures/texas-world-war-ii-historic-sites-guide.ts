@@ -26,6 +26,9 @@ export const texasWorldWarIIHistoricSitesGuideArticle: Article = {
   sourceName: "Texas Historical Commission",
   sourceUrl: "https://thc.texas.gov/historic-sites",
   internalLinks: [
+    { href: "/article/uss-lexington-cv16-history-visitor-guide", label: "USS Lexington aircraft carrier", description: "Learn how the Essex-class carrier fought across the Pacific and became a Corpus Christi museum." },
+    { href: "/destination/uss-lexington-museum-corpus-christi", label: "Visit USS Lexington on North Beach", description: "Practical operating hours and visitor access, distinct from the closed Battleship Texas." },
+    { href: "/article/uss-texas-1895-original-battleship", label: "Original USS Texas, 1895", description: "Distinguish the Spanish–American War-era first Texas from the later BB-35, which served in World War II." },
     { href: "/article/battleship-texas-bb-35-history-restoration", label: "Battleship Texas: the full story", description: "Follow BB-35 from 1914 commissioning through both World Wars, museum preservation and the current Galveston restoration." },
     { href: "/destination/battleship-texas", label: "Battleship Texas restoration and visitor status", description: "Check the current closure and planned Pier 15 museum reopening before making a Galveston trip." },
     { href: "/explore/historic-sites", label: "Texas historic sites", description: "Browse the statewide historic-site collection." },
@@ -39,7 +42,8 @@ export const texasWorldWarIIHistoricSitesGuideArticle: Article = {
   body: [
     p("World War II transformed Texas on a scale that is easy to miss if the state's wartime story is reduced to military bases. More than a million military personnel trained in Texas, Texans served across the globe, and leaders with deep Texas connections helped shape military strategy, politics and the memory of the war."),
     p("No single Texas road trip can contain that history. A better approach is to use five very different places and artifacts as entry points: Battleship Texas in Galveston, Eisenhower Birthplace in Denison, the National Museum of the Pacific War in Fredericksburg, the Iwo Jima Museum and Monument in Harlingen, and the Slaton Harvey House on the South Plains. Together they move from combat and command to memorialization, transportation and preservation."),
-    h("How to use this guide"),
+    p("Another essential comparison sits on the Texas coast: USS Lexington (CV-16), the World War II aircraft carrier preserved as an operating museum at Corpus Christi's North Beach. Unlike battleship BB-35, which used heavy guns in support of troops ashore, Lexington used aircraft for long-range fleet strikes in the Pacific. Its aviation decks are open to visitors under the museum's normal schedule. Use our linked carrier authority article to connect the ships' complementary war roles."),
+        h("How to use this guide"),
     p("These sites are spread across the state, so treat them as a thematic collection rather than a weekend loop. Galveston works as a Gulf Coast military-and-maritime history stop, although Battleship Texas remains closed for regular visitation during restoration. Denison fits a North Texas history trip. Fredericksburg can anchor a Hill Country military-history day. Harlingen belongs inside a Rio Grande Valley itinerary. Slaton fits naturally into a Lubbock and South Plains route."),
     list("Gulf Coast: Battleship Texas in Galveston — restoration underway, regular tours closed.", "North Texas: Eisenhower Birthplace in Denison.", "Hill Country: National Museum of the Pacific War in Fredericksburg.", "Rio Grande Valley: Iwo Jima Museum and Monument in Harlingen.", "South Plains: Slaton Harvey House and the Santa Fe railroad landscape."),
     h("Battleship Texas — a surviving combat artifact from both World Wars"),

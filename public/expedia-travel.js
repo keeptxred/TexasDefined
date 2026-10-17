@@ -4,10 +4,11 @@
   const STAY_DATA_URL = "/stay-nearby-hotels.json";
   const DESTINATION_STAY_DATA_URL = "/stay-nearby-destination-hotels.json";
   const PAINTED_CHURCHES_STAY_DATA_URL = "/stay-nearby-painted-churches-hotels.json";
-  const TRAVEL_PATH = /^\/(?:explore(?:\/|$)|destination\/|city\/|county\/|sports-venue\/|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|sports-venues$|event\/|events(?:\/|$)|texas-state-fair(?:\/|$)|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
+  const TRAVEL_PATH = /^\/(?:explore(?:\/|$)|destination\/|city\/|county\/|sports-venue\/|horse-racing\/gillespie-county-fairgrounds(?:\/|$)|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|sports-venues$|event\/|events(?:\/|$)|texas-state-fair(?:\/|$)|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const TRAVEL_ARTICLE_SECTION = /\b(?:travel|lodging|road trips?|weekend getaways?|events?)\b/i;
   const CONTEXT_PATHS = [
     { kind: "destination", key: "painted-churches", pattern: /^\/explore\/painted-churches(?:\/|$)/ },
+    { kind: "destination", key: "fredericksburg", pattern: /^\/horse-racing\/gillespie-county-fairgrounds\/?$/ },
     { kind: "venue", pattern: /^\/sports-venue\/([^/?#]+)\/?$/ },
     { kind: "event", pattern: /^\/event\/([^/?#]+)\/?$/ },
     { kind: "destination", pattern: /^\/destination\/([^/?#]+)\/?$/ },
@@ -71,6 +72,8 @@
   }
 
   function isTravelBookingSurface(pathname = window.location.pathname) {
+    // A law explainer and an unbuilt resort cannot provide current lodging inventory.
+    if (/^\/explore\/casinos\/(?:texas-gaming-laws|naskila-resort-leggett)\/?$/.test(pathname)) return false;
     if (pathname === window.location.pathname && TRAVEL_PATH.test(window.location.pathname)) return true;
     return TRAVEL_PATH.test(pathname) || hasTravelBookingMetadata();
   }
@@ -572,6 +575,14 @@
     return guardedRoute && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 
+  function battleshipHistoryHydrationPending() {
+    // RootShell may hydrate before the lazy BB-35 article. Wait for the
+    // actual article component effect before inserting the lodging surface.
+    return window.location.pathname.replace(/\/+$/, "") ===
+      "/article/battleship-texas-bb-35-history-restoration" &&
+      document.documentElement.dataset.tdBattleshipArticleHydrated !== "1";
+  }
+
   function stateFairSlotPending() {
     return /^\/texas-state-fair\/?$/.test(window.location.pathname) &&
       document.documentElement.dataset.tdStateFairHydrated !== "1";
@@ -581,6 +592,7 @@
     // React's State Fair content lazy-hydrates after RootShell. Never mutate
     // the empty affiliate slot before its owning component has committed.
     if (stateFairSlotPending()) return;
+    if (battleshipHistoryHydrationPending()) return;
     if (waitingForFootballCountyHydration()) return;
     const version = ++syncVersion;
     const current = document.getElementById(SURFACE_ID);
@@ -648,6 +660,7 @@
     window.addEventListener("popstate", scheduleSync);
     window.addEventListener("texasdefined:county-hydrated", scheduleSync);
     window.addEventListener("texasdefined:state-fair-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:battleship-article-hydrated", scheduleSync);
     for (const method of ["pushState", "replaceState"]) {
       const original = history[method];
       history[method] = function (...args) {

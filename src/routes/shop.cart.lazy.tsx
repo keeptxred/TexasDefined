@@ -5,6 +5,7 @@ import { Container } from "@/components/layout/Container";
 import { commerceApiBase } from "@/data/shop-products-remote";
 import { recoverOrHideImage } from "@/lib/image-fallback";
 import { useShopCart } from "@/lib/shop-cart";
+import { shopShippingUsd } from "@/lib/shop-shipping";
 import { trackTexasDefinedOutcome } from "@/platform/analytics";
 
 export const Route = createLazyFileRoute("/shop/cart")({ component: CartPage });
@@ -23,35 +24,43 @@ function CartPage() {
   const cart = useShopCart();
   const [working, setWorking] = useState(false);
   const [error, setError] = useState("");
+  const shipping = shopShippingUsd(cart.subtotal);
 
   async function checkout() {
     setWorking(true);
     setError("");
     let failureDetection = "request-error";
+    const attemptId = crypto.randomUUID();
     trackTexasDefinedOutcome("shop_checkout_started", {
       resourceId: "cart",
       entityKind: "checkout",
+      stepId: attemptId,
       score: cart.count,
     });
     try {
       const response = await fetch(`${commerceApiBase()}/api/public/texasdefined-checkout`, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ items: cart.items.map((item) => ({ productId: item.productId, variantId: item.variantId, quantity: item.quantity })) }),
+        body: JSON.stringify({ attemptId, items: cart.items.map((item) => ({ productId: item.productId, variantId: item.variantId, quantity: item.quantity })) }),
       });
       failureDetection = response.ok ? "invalid-response" : `http-${response.status}`;
-      const payload = await response.json() as { ok?: boolean; url?: string; error?: string };
-      if (!response.ok || !payload.ok || !payload.url) throw new Error(payload.error || "Unable to start checkout");
+      const payload = await response.json() as { ok?: boolean; url?: string; sessionId?: string; error?: string };
+      if (!response.ok || !payload.ok || !payload.url || !payload.sessionId) throw new Error(payload.error || "Unable to start checkout");
+      const checkoutUrl = new URL(payload.url);
+      if (checkoutUrl.protocol !== "https:" || checkoutUrl.hostname !== "checkout.stripe.com") throw new Error("Unexpected checkout destination");
       trackTexasDefinedOutcome("shop_checkout_created", {
         resourceId: "cart",
         entityKind: "stripe-checkout",
+        stepId: attemptId,
+        destination: checkoutUrl.origin,
         score: cart.count,
       });
-      window.location.assign(payload.url);
+      window.location.assign(checkoutUrl.href);
     } catch (cause) {
       trackTexasDefinedOutcome("shop_checkout_failed", {
         resourceId: "cart",
         entityKind: "checkout",
+        stepId: attemptId,
         detection: failureDetection,
         score: cart.count,
       });
@@ -96,8 +105,10 @@ function CartPage() {
 
           <aside className="h-fit border-t-2 border-foreground pt-6 lg:sticky lg:top-28">
             <p className="eyebrow text-primary">Order summary</p>
-            <div className="mt-5 flex justify-between border-y border-border py-5 text-lg font-semibold"><span>Subtotal</span><span>{money(cart.subtotal)}</span></div>
-            <p className="mt-3 text-xs leading-6 text-muted-foreground">Shipping and taxes are calculated at checkout.</p>
+            <div className="mt-5 flex justify-between border-t border-border py-4 text-lg font-semibold"><span>Subtotal</span><span>{money(cart.subtotal)}</span></div>
+            <div className="flex justify-between border-t border-border py-4 text-sm"><span>Standard U.S. shipping</span><span>{shipping === 0 ? "Free" : money(shipping)}</span></div>
+            <div className="flex justify-between border-y border-border py-4 text-lg font-semibold"><span>Estimated total</span><span>{money(cart.subtotal + shipping)}</span></div>
+            <p className="mt-3 text-xs leading-6 text-muted-foreground">Free standard shipping on merchandise over $35. Confirm the final charge in secure checkout before paying.</p>
             {error ? <p className="mt-4 text-sm text-destructive" role="alert">{error}</p> : null}
             <button type="button" onClick={checkout} disabled={working} className="mt-6 w-full bg-foreground px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-background disabled:opacity-60">{working ? "Opening checkout…" : "Secure checkout"}</button>
             <p className="mt-4 text-xs leading-6 text-muted-foreground">Orders are printed and shipped by our U.S. production partner. Secure payment at checkout.</p>

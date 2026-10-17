@@ -12,7 +12,19 @@ const destinationPlanner = fs.readFileSync('src/components/editorial/Destination
 const productionVerifier = fs.readFileSync('scripts/ci/verify-stay-affiliate-production.mjs', 'utf8');
 const productionWorkflow = fs.readFileSync('.github/workflows/verify-stay-affiliate-production.yml', 'utf8');
 const integrationDocs = fs.readFileSync('docs/expedia-affiliate-integration.md', 'utf8');
+const casinoHub = fs.readFileSync('src/routes/explore.casinos.index.tsx', 'utf8');
+const casinoGuide = fs.readFileSync('src/routes/explore.casinos.$slug.tsx', 'utf8');
+const expediaBootstrap = fs.readFileSync('public/expedia-travel.js', 'utf8');
 const errors = [];
+if (!casinoHub.includes('data-stay-nearby-slot') || !casinoGuide.includes('data-stay-nearby-slot')) {
+  errors.push('Casino travel routes must reuse the first-party Stay Nearby placement slot.');
+}
+for (const suppressed of ['texas-gaming-laws', 'naskila-resort-leggett']) {
+  if (!casinoGuide.includes(`guide.slug !== "${suppressed}"`) || !expediaBootstrap.includes(suppressed)) {
+    errors.push(`Non-bookable casino page ${suppressed} must suppress lodging affiliates.`);
+  }
+}
+
 
 const requireText = (text, needle, label) => {
   if (!text.includes(needle)) errors.push(`${label}: missing ${needle}`);
@@ -74,6 +86,29 @@ try {
       ['/texas-music-venues', 'both'],
       ['/texas-roadside-oddities', 'both'],
     ];
+    if (typeof api.casinoHotelChoices !== 'function') {
+      errors.push('Casino pages must expose verified exact-property Hotels.com choices.');
+    } else {
+      const expected = {
+        '/explore/casinos/kickapoo-lucky-eagle': 1,
+        '/explore/casinos/near-houston': 2,
+        '/explore/casinos/near-dallas-fort-worth': 1,
+        '/explore/casinos/naskila-leggett': 0,
+        '/explore/casinos/texas-gaming-laws': 0,
+        '/explore/casinos/naskila-resort-leggett': 0,
+      };
+      for (const [route, count] of Object.entries(expected)) {
+        const choices = api.casinoHotelChoices(route);
+        if (choices.length !== count) errors.push(`Casino route ${route} expected ${count} verified property choices, got ${choices.length}.`);
+        for (const choice of choices) {
+          if (!choice.destination.startsWith('https://www.hotels.com/ho')
+            || !choice.sourceUrl.startsWith('https://')
+            || !api.buildCjDeepLink(choice.destination).startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/')) {
+            errors.push(`Casino route ${route} must use verified Hotels.com exact property and CJ deep link.`);
+          }
+        }
+      }
+    }
     for (const [pathname, expected] of bookingCases) {
       const actual = api.bookingIntent(pathname);
       if (actual !== expected) errors.push(`booking intent regression for ${pathname}: expected ${expected}, received ${actual}.`);
@@ -376,8 +411,7 @@ if (!productionVerifier.includes("route: '/sports-venue/xtreme-raceway-park'") |
 }
 
 for (const [needle, label] of [
-  ['workflow_run:', 'post-deploy workflow trigger'],
-  ['Deploy TexasDefined production', 'production deployment dependency'],
+  ['workflow_dispatch:', 'manual production acceptance trigger'],
   ['github.event.workflow_run.conclusion == \'success\'', 'successful-deploy guard'],
   ['node scripts/ci/verify-stay-affiliate-production.mjs', 'live stay affiliate verifier invocation'],
 ]) requireText(productionWorkflow, needle, label);

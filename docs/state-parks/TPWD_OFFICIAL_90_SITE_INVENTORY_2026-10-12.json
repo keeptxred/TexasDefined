@@ -1,0 +1,554 @@
+{
+  "snapshotDate": "2026-10-12",
+  "officialDirectory": "https://tpwd.texas.gov/state-parks/nearby/all-parks",
+  "note": "TPWD lists 90 distinct primary properties/centers; separate units for Cooper, Lake Somerville and Ray Roberts are counted once each. Registration status does not certify editorial facts or live publication.",
+  "entries": [
+    {
+      "tpwdSlug": "abilene",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/abilene",
+      "status": "public-park",
+      "associatedPath": "/destination/abilene-state-park"
+    },
+    {
+      "tpwdSlug": "albert-bessie-kronkosky",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/albert-bessie-kronkosky",
+      "status": "developing",
+      "associatedPath": null,
+      "note": "Under construction; no announced opening date"
+    },
+    {
+      "tpwdSlug": "atlanta",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/atlanta",
+      "status": "public-park",
+      "associatedPath": "/destination/atlanta-state-park"
+    },
+    {
+      "tpwdSlug": "balmorhea",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/balmorhea",
+      "status": "public-park",
+      "associatedPath": "/destination/balmorhea-state-park"
+    },
+    {
+      "tpwdSlug": "barton-warnock",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/barton-warnock",
+      "status": "visitor-center",
+      "associatedPath": "/destination/big-bend-ranch-state-park",
+      "note": "Eastern Big Bend Ranch visitor center, not a separate park"
+    },
+    {
+      "tpwdSlug": "bastrop",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/bastrop",
+      "status": "public-park",
+      "associatedPath": "/destination/bastrop-state-park"
+    },
+    {
+      "tpwdSlug": "bentsen-rio-grande-valley",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/bentsen-rio-grande-valley",
+      "status": "public-park",
+      "associatedPath": "/destination/bentsen-rio-grande-valley-state-park"
+    },
+    {
+      "tpwdSlug": "big-bend-ranch",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/big-bend-ranch",
+      "status": "public-park",
+      "associatedPath": "/destination/big-bend-ranch-state-park"
+    },
+    {
+      "tpwdSlug": "big-spring",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/big-spring",
+      "status": "public-park",
+      "associatedPath": "/destination/big-spring-state-park"
+    },
+    {
+      "tpwdSlug": "blanco",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/blanco",
+      "status": "public-park",
+      "associatedPath": "/destination/blanco-state-park"
+    },
+    {
+      "tpwdSlug": "bonham",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/bonham",
+      "status": "public-park",
+      "associatedPath": "/destination/bonham-state-park"
+    },
+    {
+      "tpwdSlug": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/brazos-bend",
+      "status": "public-park",
+      "associatedPath": "/destination/brazos-bend-state-park"
+    },
+    {
+      "tpwdSlug": "buescher",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/buescher",
+      "status": "public-park",
+      "associatedPath": "/destination/buescher-state-park"
+    },
+    {
+      "tpwdSlug": "caddo-lake",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/caddo-lake",
+      "status": "public-park",
+      "associatedPath": "/destination/caddo-lake-state-park"
+    },
+    {
+      "tpwdSlug": "caprock-canyons",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/caprock-canyons",
+      "status": "public-park",
+      "associatedPath": "/destination/caprock-canyons-state-park"
+    },
+    {
+      "tpwdSlug": "cedar-hill",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/cedar-hill",
+      "status": "public-park",
+      "associatedPath": "/destination/cedar-hill-state-park"
+    },
+    {
+      "tpwdSlug": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/choke-canyon",
+      "status": "public-park",
+      "associatedPath": "/destination/choke-canyon-state-park"
+    },
+    {
+      "tpwdSlug": "cleburne",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/cleburne",
+      "status": "public-park",
+      "associatedPath": "/destination/cleburne-state-park"
+    },
+    {
+      "tpwdSlug": "colorado-bend",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/colorado-bend",
+      "status": "public-park",
+      "associatedPath": "/destination/colorado-bend-state-park"
+    },
+    {
+      "tpwdSlug": "cooper-lake",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/cooper-lake",
+      "status": "public-park",
+      "associatedPath": "/destination/cooper-lake-state-park"
+    },
+    {
+      "tpwdSlug": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/copper-breaks",
+      "status": "public-park",
+      "associatedPath": "/destination/copper-breaks-state-park"
+    },
+    {
+      "tpwdSlug": "daingerfield",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/daingerfield",
+      "status": "public-park",
+      "associatedPath": "/destination/daingerfield-state-park"
+    },
+    {
+      "tpwdSlug": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/davis-mountains",
+      "status": "public-park",
+      "associatedPath": "/destination/davis-mountains-state-park"
+    },
+    {
+      "tpwdSlug": "devils-river",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/devils-river",
+      "status": "public-park",
+      "associatedPath": "/destination/devils-river-state-natural-area"
+    },
+    {
+      "tpwdSlug": "devils-sinkhole",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/devils-sinkhole",
+      "status": "guided-only",
+      "associatedPath": "/destination/devils-sinkhole-state-natural-area",
+      "note": "Natural area accessible only by reserved guided tour"
+    },
+    {
+      "tpwdSlug": "dinosaur-valley",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/dinosaur-valley",
+      "status": "public-park",
+      "associatedPath": "/destination/dinosaur-valley-state-park"
+    },
+    {
+      "tpwdSlug": "eisenhower",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/eisenhower",
+      "status": "public-park",
+      "associatedPath": "/destination/eisenhower-state-park"
+    },
+    {
+      "tpwdSlug": "enchanted-rock",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/enchanted-rock",
+      "status": "public-park",
+      "associatedPath": "/destination/enchanted-rock-state-natural-area"
+    },
+    {
+      "tpwdSlug": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/estero-llano-grande",
+      "status": "public-park",
+      "associatedPath": "/destination/estero-llano-grande-state-park"
+    },
+    {
+      "tpwdSlug": "falcon",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/falcon",
+      "status": "public-park",
+      "associatedPath": "/destination/falcon-state-park"
+    },
+    {
+      "tpwdSlug": "fort-boggy",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/fort-boggy",
+      "status": "public-park",
+      "associatedPath": "/destination/fort-boggy-state-park"
+    },
+    {
+      "tpwdSlug": "fort-leaton",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/fort-leaton",
+      "status": "historic-site",
+      "associatedPath": "/destination/big-bend-ranch-state-park",
+      "note": "Historic site and western Big Bend Ranch entrance"
+    },
+    {
+      "tpwdSlug": "fort-parker",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/fort-parker",
+      "status": "public-park",
+      "associatedPath": "/destination/fort-parker-state-park"
+    },
+    {
+      "tpwdSlug": "fort-richardson",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/fort-richardson",
+      "status": "public-park",
+      "associatedPath": "/destination/fort-richardson-state-park-state-historic-site"
+    },
+    {
+      "tpwdSlug": "franklin-mountains",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/franklin-mountains",
+      "status": "public-park",
+      "associatedPath": "/destination/franklin-mountains-state-park"
+    },
+    {
+      "tpwdSlug": "galveston-island",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/galveston-island",
+      "status": "public-park",
+      "associatedPath": "/destination/galveston-island-state-park"
+    },
+    {
+      "tpwdSlug": "garner",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/garner",
+      "status": "public-park",
+      "associatedPath": "/destination/garner-state-park"
+    },
+    {
+      "tpwdSlug": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/goliad",
+      "status": "public-park",
+      "associatedPath": "/destination/goliad-state-park"
+    },
+    {
+      "tpwdSlug": "goose-island",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/goose-island",
+      "status": "public-park",
+      "associatedPath": "/destination/goose-island-state-park"
+    },
+    {
+      "tpwdSlug": "government-canyon",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/government-canyon",
+      "status": "public-park",
+      "associatedPath": "/destination/government-canyon-state-natural-area"
+    },
+    {
+      "tpwdSlug": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/guadalupe-river",
+      "status": "public-park",
+      "associatedPath": "/destination/guadalupe-river-state-park"
+    },
+    {
+      "tpwdSlug": "hill-country",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/hill-country",
+      "status": "public-park",
+      "associatedPath": "/destination/hill-country-state-natural-area"
+    },
+    {
+      "tpwdSlug": "honey-creek",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/honey-creek",
+      "status": "public-park",
+      "associatedPath": "/destination/honey-creek-state-natural-area"
+    },
+    {
+      "tpwdSlug": "hueco-tanks",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/hueco-tanks",
+      "status": "public-park",
+      "associatedPath": "/destination/hueco-tanks-state-park-and-historic-site"
+    },
+    {
+      "tpwdSlug": "huntsville",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/huntsville",
+      "status": "public-park",
+      "associatedPath": "/destination/huntsville-state-park"
+    },
+    {
+      "tpwdSlug": "indian-lodge",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/indian-lodge",
+      "status": "lodge",
+      "associatedPath": "/destination/davis-mountains-state-park",
+      "note": "State lodge within Davis Mountains State Park"
+    },
+    {
+      "tpwdSlug": "inks-lake",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/inks-lake",
+      "status": "public-park",
+      "associatedPath": "/destination/inks-lake-state-park"
+    },
+    {
+      "tpwdSlug": "kickapoo-cavern",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/kickapoo-cavern",
+      "status": "public-park",
+      "associatedPath": "/destination/kickapoo-cavern-state-park"
+    },
+    {
+      "tpwdSlug": "lake-arrowhead",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/lake-arrowhead",
+      "status": "public-park",
+      "associatedPath": "/destination/lake-arrowhead-state-park"
+    },
+    {
+      "tpwdSlug": "lake-bob-sandlin",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/lake-bob-sandlin",
+      "status": "public-park",
+      "associatedPath": "/destination/lake-bob-sandlin-state-park"
+    },
+    {
+      "tpwdSlug": "lake-brownwood",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/lake-brownwood",
+      "status": "public-park",
+      "associatedPath": "/destination/lake-brownwood-state-park"
+    },
+    {
+      "tpwdSlug": "lake-casa-blanca",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/lake-casa-blanca",
+      "status": "public-park",
+      "associatedPath": "/destination/lake-casa-blanca-international-state-park"
+    },
+    {
+      "tpwdSlug": "lake-colorado-city",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/lake-colorado-city",
+      "status": "public-park",
+      "associatedPath": "/destination/lake-colorado-city-state-park"
+    },
+    {
+      "tpwdSlug": "lake-corpus-christi",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/lake-corpus-christi",
+      "status": "public-park",
+      "associatedPath": "/destination/lake-corpus-christi-state-park"
+    },
+    {
+      "tpwdSlug": "lake-livingston",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/lake-livingston",
+      "status": "public-park",
+      "associatedPath": "/destination/lake-livingston-state-park"
+    },
+    {
+      "tpwdSlug": "lake-mineral-wells",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/lake-mineral-wells",
+      "status": "public-park",
+      "associatedPath": "/destination/lake-mineral-wells-state-park"
+    },
+    {
+      "tpwdSlug": "lake-somerville",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/lake-somerville",
+      "status": "public-park",
+      "associatedPath": "/destination/lake-somerville-state-park"
+    },
+    {
+      "tpwdSlug": "lake-tawakoni",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/lake-tawakoni",
+      "status": "public-park",
+      "associatedPath": "/destination/lake-tawakoni-state-park"
+    },
+    {
+      "tpwdSlug": "lake-whitney",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/lake-whitney",
+      "status": "public-park",
+      "associatedPath": "/destination/lake-whitney-state-park"
+    },
+    {
+      "tpwdSlug": "lockhart",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/lockhart",
+      "status": "public-park",
+      "associatedPath": "/destination/lockhart-state-park"
+    },
+    {
+      "tpwdSlug": "longhorn-cavern",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/longhorn-cavern",
+      "status": "public-park",
+      "associatedPath": "/destination/longhorn-cavern-state-park"
+    },
+    {
+      "tpwdSlug": "lost-maples",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/lost-maples",
+      "status": "public-park",
+      "associatedPath": "/destination/lost-maples-state-natural-area"
+    },
+    {
+      "tpwdSlug": "lyndon-b-johnson",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/lyndon-b-johnson",
+      "status": "public-park",
+      "associatedPath": "/destination/lyndon-b-johnson-state-park-historic-site"
+    },
+    {
+      "tpwdSlug": "martin-creek-lake",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/martin-creek-lake",
+      "status": "public-park",
+      "associatedPath": "/destination/martin-creek-lake-state-park"
+    },
+    {
+      "tpwdSlug": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/martin-dies-jr",
+      "status": "public-park",
+      "associatedPath": "/destination/martin-dies-jr-state-park"
+    },
+    {
+      "tpwdSlug": "mckinney-falls",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/mckinney-falls",
+      "status": "public-park",
+      "associatedPath": "/destination/mckinney-falls-state-park"
+    },
+    {
+      "tpwdSlug": "meridian",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/meridian",
+      "status": "public-park",
+      "associatedPath": "/destination/meridian-state-park"
+    },
+    {
+      "tpwdSlug": "mission-tejas",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/mission-tejas",
+      "status": "public-park",
+      "associatedPath": "/destination/mission-tejas-state-park"
+    },
+    {
+      "tpwdSlug": "monahans-sandhills",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/monahans-sandhills",
+      "status": "public-park",
+      "associatedPath": "/destination/monahans-sandhills-state-park"
+    },
+    {
+      "tpwdSlug": "mother-neff",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/mother-neff",
+      "status": "public-park",
+      "associatedPath": "/destination/mother-neff-state-park"
+    },
+    {
+      "tpwdSlug": "mustang-island",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/mustang-island",
+      "status": "public-park",
+      "associatedPath": "/destination/mustang-island-state-park"
+    },
+    {
+      "tpwdSlug": "old-tunnel",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/old-tunnel",
+      "status": "public-park",
+      "associatedPath": "/destination/old-tunnel-state-park"
+    },
+    {
+      "tpwdSlug": "palmetto",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/palmetto",
+      "status": "public-park",
+      "associatedPath": "/destination/palmetto-state-park"
+    },
+    {
+      "tpwdSlug": "palo-duro-canyon",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/palo-duro-canyon",
+      "status": "public-park",
+      "associatedPath": "/destination/palo-duro-canyon-state-park"
+    },
+    {
+      "tpwdSlug": "palo-pinto-mountains",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/palo-pinto-mountains",
+      "status": "public-park",
+      "associatedPath": "/destination/palo-pinto-mountains-state-park"
+    },
+    {
+      "tpwdSlug": "pedernales-falls",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/pedernales-falls",
+      "status": "public-park",
+      "associatedPath": "/destination/pedernales-falls-state-park"
+    },
+    {
+      "tpwdSlug": "possum-kingdom",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/possum-kingdom",
+      "status": "public-park",
+      "associatedPath": "/destination/possum-kingdom-state-park"
+    },
+    {
+      "tpwdSlug": "powderhorn",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/powderhorn",
+      "status": "developing",
+      "associatedPath": null,
+      "note": "State park is in planning; separate public paddling trails exist"
+    },
+    {
+      "tpwdSlug": "purtis-creek",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/purtis-creek",
+      "status": "public-park",
+      "associatedPath": "/destination/purtis-creek-state-park"
+    },
+    {
+      "tpwdSlug": "ray-roberts-lake",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/ray-roberts-lake",
+      "status": "public-park",
+      "associatedPath": "/destination/ray-roberts-lake-state-park"
+    },
+    {
+      "tpwdSlug": "resaca-de-la-palma",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/resaca-de-la-palma",
+      "status": "public-park",
+      "associatedPath": "/destination/resaca-de-la-palma-state-park"
+    },
+    {
+      "tpwdSlug": "san-angelo",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/san-angelo",
+      "status": "public-park",
+      "associatedPath": "/destination/san-angelo-state-park"
+    },
+    {
+      "tpwdSlug": "sea-rim",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/sea-rim",
+      "status": "public-park",
+      "associatedPath": "/destination/sea-rim-state-park"
+    },
+    {
+      "tpwdSlug": "seminole-canyon",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/seminole-canyon",
+      "status": "public-park",
+      "associatedPath": "/destination/seminole-canyon-state-park-and-historic-site"
+    },
+    {
+      "tpwdSlug": "sheldon-lake",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/sheldon-lake",
+      "status": "public-park",
+      "associatedPath": "/destination/sheldon-lake-state-park"
+    },
+    {
+      "tpwdSlug": "south-llano-river",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/south-llano-river",
+      "status": "public-park",
+      "associatedPath": "/destination/south-llano-river-state-park"
+    },
+    {
+      "tpwdSlug": "stephen-f-austin",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/stephen-f-austin",
+      "status": "public-park",
+      "associatedPath": "/destination/stephen-f-austin-state-park"
+    },
+    {
+      "tpwdSlug": "tyler",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/tyler",
+      "status": "public-park",
+      "associatedPath": "/destination/tyler-state-park"
+    },
+    {
+      "tpwdSlug": "village-creek",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/village-creek",
+      "status": "public-park",
+      "associatedPath": "/destination/village-creek-state-park"
+    },
+    {
+      "tpwdSlug": "wyler-aerial-tramway",
+      "officialUrl": "https://tpwd.texas.gov/state-parks/wyler-aerial-tramway",
+      "status": "closed-to-general-visits",
+      "associatedPath": null,
+      "note": "Tram and grounds closed; guided programs only"
+    }
+  ]
+}

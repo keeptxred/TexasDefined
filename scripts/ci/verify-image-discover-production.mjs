@@ -1,3 +1,5 @@
+import { createLocalAuditFetch } from './local-audit-fetch.mjs';
+const localAuditFetch = createLocalAuditFetch({ localOrigin: process.env.LOCAL_AUDIT_ORIGIN });
 import fs from 'node:fs';
 
 const BASE_URL = process.env.TEXASDEFINED_BASE_URL || 'https://texasdefined.com';
@@ -60,7 +62,7 @@ async function fetchWithTimeout(url, options = {}) {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
   try {
-    return await fetch(url, {
+    return await localAuditFetch(url, {
       redirect: 'follow',
       ...options,
       headers: { 'user-agent': 'TexasDefinedImageDiscoverAudit/1.4 (+https://texasdefined.com)', ...(options.headers || {}) },
@@ -257,6 +259,7 @@ for (const reuse of suspiciousReuse) for (const url of reuse.pages) pages.find((
 const failing = pages.filter((page) => page.issues.length > 0);
 const warningPages = pages.filter((page) => page.warnings.length > 0);
 const noindex = pages.filter((page) => !page.indexable);
+localAuditFetch.assertComplete();
 const report = {
   generatedAt: new Date().toISOString(), baseUrl: BASE_URL,
   sitemapDiscovery: { configured: SITEMAP_PATHS, successful: discovery.successfulSitemaps, failures: discovery.sitemapFailures },

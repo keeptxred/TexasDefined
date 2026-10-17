@@ -1,7 +1,14 @@
 import type { Destination, DestinationAreaGuide, DestinationAreaItem } from "./types";
 
 const local = (name: string, description: string): DestinationAreaItem => ({ name, description });
-const link = (name: string, slug: string, description: string): DestinationAreaItem => ({ name, description, href: `/destination/${slug}` });
+const HISTORIC_CANONICAL_ALIASES: Record<string, string> = {
+  "goliad-state-park": "goliad-state-park",
+  "san-jacinto-battleground": "san-jacinto-battleground",
+  "washington-on-the-brazos": "washington-on-the-brazos",
+};
+const link = (name: string, slug: string, description: string): DestinationAreaItem => ({
+  name, description, href: `/destination/${HISTORIC_CANONICAL_ALIASES[slug] ?? slug}`,
+});
 
 const guides: Record<string, DestinationAreaGuide> = {
   "barrington-living-history-farm": {
@@ -18,7 +25,7 @@ const guides: Record<string, DestinationAreaGuide> = {
   },
   "mission-dolores": {
     intro: "Use Mission Dolores as the Spanish-colonial and Indigenous-history anchor of a San Augustine-area day. The site is most useful when placed inside the wider story of Caddo homelands, missions and the El Camino Real corridor.",
-    nearbyAttractions: [local("San Augustine historic core", "Add courthouse, settlement and East Texas community history to the mission visit.")],
+    nearbyAttractions: [link("San Augustine County Courthouse", "san-augustine-county-courthouse", "Walk the restored 1927 county courthouse square after the mission archaeology."), local("San Augustine historic core", "Add courthouse, settlement and East Texas community history to the mission visit.")],
     foodAndDrink: [local("San Augustine", "Use the town as the practical meal stop before or after the mission site.")],
     lodging: [local("San Augustine and Nacogdoches corridor", "Choose the larger regional base that best fits a multi-stop East Texas history route.")],
     neighborhoods: [local("El Camino Real corridor", "The road network and Caddo landscape are essential context for understanding why Spanish missions appeared here.")],

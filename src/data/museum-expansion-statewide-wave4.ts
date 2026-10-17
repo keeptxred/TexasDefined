@@ -231,17 +231,17 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     coordinates: { lat: 26.07633, lng: -97.20804 },
     hero: museumPlaceholder("Port Isabel Historical Museum"),
     bestSeason: "Fall through spring for comfortable Laguna Madre touring; the museum is a useful indoor stop during hotter coastal months as well.",
-    entryNote: "The museum currently opens Wednesday through Saturday from 10 a.m. to 4 p.m. Hours and traveling exhibits can change, so confirm the Museums of Port Isabel schedule before arrival.",
+    entryNote: "The City of Port Isabel and South Padre Island Chamber list Wednesday–Saturday, 10 a.m.–4 p.m.; the Chamber lists last ticket sales at 3:30 p.m. Confirm current hours, admission, holiday changes and elevator access at (956) 943-7602 before visiting the two-level Champion Building.",
     highlights: ["1899 Champion Building", "Laguna Madre history", "1906 fish mural", "Port Isabel and border heritage"],
     body: [
       "Port Isabel's historical museum gives context to a coastal town many visitors otherwise encounter only on the way to South Padre Island. The Champion Building is itself part of the interpretation, with its commercial history and famous fish mural making the exterior a recognizable historic artifact before visitors enter the galleries.",
       "Inside, exhibits connect the Laguna Madre, fishing, commerce, border history and community development. Those subjects help explain why Port Isabel became a durable settlement and port rather than simply a modern tourism gateway.",
       "The museum pairs naturally with the Port Isabel Lighthouse, Laguna Madre nature destinations and South Padre-area travel stops, creating a fuller Cameron County coastal itinerary than beaches alone can provide."
     ],
-    officialUrl: "https://portisabelhistory.com/",
+    officialUrl: "https://portisabel-texas.com/blog/history/",
     managingAuthority: "Museums of Port Isabel / City of Port Isabel",
     address: "317 E Railroad Ave, Port Isabel, TX 78578",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    sourceCheckedAt: "2026-10-13",
   },
   {
     id: "museum-statewide-wave4-rockport-arts",

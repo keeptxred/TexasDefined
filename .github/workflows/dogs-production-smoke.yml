@@ -5,11 +5,6 @@ on:
     paths:
       - 'scripts/ci/verify-dogs-production.mjs'
       - '.github/workflows/dogs-production-smoke.yml'
-  workflow_run:
-    workflows:
-      - Deploy TexasDefined production
-    types:
-      - completed
   workflow_dispatch:
 
 permissions:

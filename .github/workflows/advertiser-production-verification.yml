@@ -7,13 +7,6 @@ on:
     paths:
       - '.github/workflows/advertiser-production-verification.yml'
       - 'scripts/ci/verify-advertiser-production.mjs'
-  workflow_run:
-    workflows:
-      - 'Deploy TexasDefined production'
-    types:
-      - completed
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:

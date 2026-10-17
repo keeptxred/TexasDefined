@@ -89,16 +89,34 @@ async function inspect(page, width) {
   ensure(state.documentWidth <= state.viewportWidth + 12, width + ': horizontal overflow ' + state.documentWidth + '/' + state.viewportWidth);
   await page.screenshot({ path: artifacts + '/' + width + '-article.png', fullPage: true, animations: 'disabled', timeout: 45000 });
   await inspectAccessibility(page, width, 'article');
-  const hubResponse = await page.goto(withNonce(hub), { waitUntil: 'domcontentloaded', timeout: 60000 });
-  ensure(hubResponse?.status() === 200, width + ': hub HTTP ' + hubResponse?.status());
-  await page.locator('h1').first().waitFor({ state: 'visible', timeout: 30000 });
-  await page.waitForFunction(() => document.documentElement.dataset.tdRootHydrated === '1', null, { timeout: 30000 });
-  const hubHasResearchLink = await page.evaluate((researchPath) => [...document.querySelectorAll('a[href]')].some((a) => new URL(a.href).pathname === researchPath), article);
-  ensure(hubHasResearchLink, width + ': Texas Data hub missing inbound research link');
-  await page.screenshot({ path: artifacts + '/' + width + '-hub.png', fullPage: true, animations: 'disabled', timeout: 45000 });
-  await inspectAccessibility(page, width, 'hub');
-  ensure(errors.length === 0, width + ': uncaught JavaScript or hydration errors: ' + JSON.stringify(errors));
-  report.viewports.push({ width, articleHTTP: response.status(), hubHTTP: hubResponse.status(), ...state, text: undefined, paths: undefined, inboundHubLink: hubHasResearchLink, errors });
+  // The research page and data hub are separate user journeys. Reusing one
+  // WebKit Page for both can cancel a still-in-flight module import during
+  // navigation and report a spurious unhandled rejection from the old page.
+  // Fail on all real article errors *before* navigation, then independently
+  // audit the hub in a new Page with its own error collectors.
+  ensure(errors.length === 0, width + ': article uncaught JavaScript or hydration errors: ' + JSON.stringify(errors));
+  const hubPage = await page.context().newPage();
+  const hubErrors = [];
+  hubPage.on('pageerror', (e) => hubErrors.push({ kind: 'pageerror', message: e.message, stack: e.stack }));
+  hubPage.on('console', (msg) => {
+    if (msg.type() === 'error' && /hydrat|react error|#418|#423/i.test(msg.text())) {
+      hubErrors.push({ kind: 'console', message: msg.text() });
+    }
+  });
+  try {
+    const hubResponse = await hubPage.goto(withNonce(hub), { waitUntil: 'domcontentloaded', timeout: 60000 });
+    ensure(hubResponse?.status() === 200, width + ': hub HTTP ' + hubResponse?.status());
+    await hubPage.locator('h1').first().waitFor({ state: 'visible', timeout: 30000 });
+    await hubPage.waitForFunction(() => document.documentElement.dataset.tdRootHydrated === '1', null, { timeout: 30000 });
+    const hubHasResearchLink = await hubPage.evaluate((researchPath) => [...document.querySelectorAll('a[href]')].some((a) => new URL(a.href).pathname === researchPath), article);
+    ensure(hubHasResearchLink, width + ': Texas Data hub missing inbound research link');
+    await hubPage.screenshot({ path: artifacts + '/' + width + '-hub.png', fullPage: true, animations: 'disabled', timeout: 45000 });
+    await inspectAccessibility(hubPage, width, 'hub');
+    ensure(hubErrors.length === 0, width + ': hub uncaught JavaScript or hydration errors: ' + JSON.stringify(hubErrors));
+    report.viewports.push({ width, articleHTTP: response.status(), hubHTTP: hubResponse.status(), ...state, text: undefined, paths: undefined, inboundHubLink: hubHasResearchLink, errors: [...errors, ...hubErrors] });
+  } finally {
+    await hubPage.close();
+  }
 }
 async function inspectCsv() {
   const response = await fetch(withNonce(csv), { cache: 'no-store', signal: AbortSignal.timeout(30000) });

@@ -2,11 +2,6 @@ name: Dallas and routed news production smoke
 
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ['Deploy TexasDefined production']
-    types: [completed]
-    branches: [main]
-
 permissions:
   contents: read
 

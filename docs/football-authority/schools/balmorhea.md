@@ -1,5 +1,11 @@
 # Balmorhea Bears — football authority Batch 005 source audit
 
+## October 14, 2026 — batch-level production acceptance (current)
+**Production technical status: VERIFIED. Formal editorial acceptance: IN PROGRESS.** This school was included in the successful exact-release [Batch 005 Chrome suite](https://github.com/keeptxred/TexasDefined/actions/runs/38586361713) against deployment `d1fca0f12cc5955884486ddbdb67cad9c2efa5bc` ([successful deploy](https://github.com/keeptxred/TexasDefined/actions/runs/38584969227)). The suite passed 1,233 checks across all 25 schools (desktop/mobile, SEO, schema, rendering, schedules, sitemap, and reciprocal county links); [91-file browser evidence artifact](https://github.com/keeptxred/TexasDefined/actions/runs/38586361713/artifacts/11905997191). The individual school was among the 25 passes, but **1,233 is the combined batch check count**, not an individual-school count.
+
+The current formal Supabase `td_authority_page_acceptance` record remains `in_progress`; the related factual verification status is `source_unreachable` (a monitored source timed out; other sources may be available). Final editorial acceptance must document independent claim-level source corroboration and all nine `td_maintenance.accept_authority_page` evidence dimensions, including photo-rights disposition and qualified accessibility/visitor information. Do not infer that automated success proves every 2026 score, historic detail, original image license, live parking policy, or a human accessibility review. Earlier notes below retain their original research dates and are **historical checkpoints**, not present deployment status.
+
+
 Research checkpoint: October 10, 2026. **Status: IMPLEMENTED on unmerged Batch 005 PR; NOT merged, deployed or production VERIFIED.** Canonical route: `/texas-high-school-football-teams/balmorhea`.
 
 ## Individually observed gaps and corrective scope
@@ -24,3 +30,6 @@ Distinct editorial overview, dated milestones and documentation, official athlet
 - Do not fabricate school championships where the official archive supports only finalist records or no title
 
 **Important:** `IMPLEMENTED` is not `VERIFIED`; original 80 completed schools are unchanged.
+
+## October 13, 2026 — Independently reported 2026 scorecard
+Added a 10-game varsity season table from [MaxPreps's published team schedule](https://www.maxpreps.com/tx/balmorhea/balmorhea-bears/football/schedule/), preserving reported scores only where the source confirms them. Six reported victories through October 2; October 9 at Fort Davis appears in source schedule with NO verified outcome despite having passed. The 6–0 standing is explicitly limited to Oct 2. Official school sources remain the authority on stadium/ticket logistics and last-minute schedule changes; do not infer unreported results from the calendar. Matchups and scores are source-derived facts; no copied editorial prose or photographs.

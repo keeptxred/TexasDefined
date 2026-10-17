@@ -11,6 +11,18 @@
       "name": "Sam Rayburn Reservoir"
     }
   ],
+  "bandera": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
+  "bastrop": [
+    {
+      "slug": "lake-bastrop",
+      "name": "Lake Bastrop"
+    }
+  ],
   "bell": [
     {
       "slug": "belton-lake",
@@ -81,6 +93,12 @@
       "name": "Lake Arrowhead"
     }
   ],
+  "coke": [
+    {
+      "slug": "e-v-spence-reservoir",
+      "name": "E. V. Spence Reservoir"
+    }
+  ],
   "coleman": [
     {
       "slug": "o-h-ivie-lake",
@@ -133,12 +151,20 @@
   ],
   "dallas": [
     {
+      "slug": "bachman-lake",
+      "name": "Bachman Lake"
+    },
+    {
       "slug": "joe-pool-lake",
       "name": "Joe Pool Lake"
     },
     {
       "slug": "lake-ray-hubbard",
       "name": "Lake Ray Hubbard"
+    },
+    {
+      "slug": "white-rock-lake",
+      "name": "White Rock Lake"
     }
   ],
   "denton": [
@@ -157,6 +183,10 @@
   ],
   "ellis": [
     {
+      "slug": "bardwell-lake",
+      "name": "Bardwell Lake"
+    },
+    {
       "slug": "joe-pool-lake",
       "name": "Joe Pool Lake"
     }
@@ -171,6 +201,10 @@
     {
       "slug": "lake-bob-sandlin",
       "name": "Lake Bob Sandlin"
+    },
+    {
+      "slug": "lake-cypress-springs",
+      "name": "Lake Cypress Springs"
     }
   ],
   "freestone": [
@@ -225,6 +259,10 @@
   ],
   "hill": [
     {
+      "slug": "aquilla-lake",
+      "name": "Aquilla Lake"
+    },
+    {
       "slug": "lake-whitney",
       "name": "Lake Whitney"
     }
@@ -271,6 +309,12 @@
       "name": "Lake Corpus Christi"
     }
   ],
+  "johnson": [
+    {
+      "slug": "cedar-lake-cleburne-state-park",
+      "name": "Cedar Lake at Cleburne State Park"
+    }
+  ],
   "kaufman": [
     {
       "slug": "cedar-creek-reservoir",
@@ -291,6 +335,12 @@
     {
       "slug": "lake-somerville",
       "name": "Lake Somerville"
+    }
+  ],
+  "limestone": [
+    {
+      "slug": "fort-parker-state-park-lake",
+      "name": "Fort Parker State Park Lake"
     }
   ],
   "live-oak": [
@@ -323,6 +373,12 @@
       "name": "Lake O' the Pines"
     }
   ],
+  "mcculloch": [
+    {
+      "slug": "brady-creek-reservoir",
+      "name": "Brady Creek Reservoir"
+    }
+  ],
   "mclennan": [
     {
       "slug": "lake-waco",
@@ -333,6 +389,12 @@
     {
       "slug": "choke-canyon-reservoir",
       "name": "Choke Canyon Reservoir"
+    }
+  ],
+  "medina": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
     }
   ],
   "mitchell": [
@@ -395,6 +457,12 @@
     {
       "slug": "possum-kingdom-reservoir",
       "name": "Possum Kingdom Reservoir"
+    }
+  ],
+  "parker": [
+    {
+      "slug": "lake-weatherford",
+      "name": "Lake Weatherford"
     }
   ],
   "polk": [
@@ -469,6 +537,10 @@
     {
       "slug": "lake-palestine",
       "name": "Lake Palestine"
+    },
+    {
+      "slug": "lake-tyler",
+      "name": "Lake Tyler (East and West)"
     }
   ],
   "starr": [
@@ -493,12 +565,32 @@
     {
       "slug": "joe-pool-lake",
       "name": "Joe Pool Lake"
+    },
+    {
+      "slug": "lake-arlington",
+      "name": "Lake Arlington"
+    },
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
+    }
+  ],
+  "taylor": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
     }
   ],
   "titus": [
     {
       "slug": "lake-bob-sandlin",
       "name": "Lake Bob Sandlin"
+    }
+  ],
+  "tom-green": [
+    {
+      "slug": "lake-nasworthy",
+      "name": "Lake Nasworthy"
     }
   ],
   "travis": [
@@ -558,6 +650,10 @@
     }
   ],
   "williamson": [
+    {
+      "slug": "granger-lake",
+      "name": "Granger Lake"
+    },
     {
       "slug": "lake-georgetown",
       "name": "Lake Georgetown"

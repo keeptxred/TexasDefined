@@ -20,14 +20,14 @@ const route = readRouteSurface('src/routes/news.$slug.tsx');
 const newsSchema = read('src/data/news-article-schema.ts');
 const errors = [];
 
-for (const token of ['workflow_dispatch:', 'mode:', 'dry-run', 'publish', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'PUBLISH_TEXASDEFINED']) {
+for (const token of ['workflow_dispatch:', 'mode:', 'dry-run', 'hydrate', 'publish', '--hydrate-top=8', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'PUBLISH_TEXASDEFINED']) {
   if (!workflow.includes(token)) errors.push(`Workflow is missing ${token}`);
 }
 for (const token of ['Report activation state safely', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_TRUE=false', "mode: 'dry-run-summary'", 'rawEligible: queue.rawEligible', 'eligible: queue.eligible', 'held: queue.held', 'selected: queue.selected', 'deferred: queue.deferred', 'published: queue.published', 'skipped: queue.skipped', 'failed: queue.failed', 'actions/checkout@v5', 'actions/setup-node@v5']) {
   if (!workflow.includes(token)) errors.push(`Workflow observability contract is missing ${token}`);
 }
 if (/^\s*schedule:/m.test(workflow)) errors.push('Auto-publication schedule must remain disabled until activation is approved.');
-for (const token of ['workflow_run:', "workflows: ['Deploy TexasDefined production']", "github.event.workflow_run.conclusion == 'success'", 'Verify auto-publication activation remains unset', 'vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'Verify live news, published article canonicals and sitemap XML', 'verify-texasdefined-publication-production.mjs', 'actions/checkout@v5', 'actions/setup-node@v5']) {
+for (const token of ['workflow_dispatch:', "github.event.workflow_run.conclusion == 'success'", 'Verify auto-publication activation remains unset', 'vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'Verify live news, published article canonicals and sitemap XML', 'verify-texasdefined-publication-production.mjs', 'actions/checkout@v5', 'actions/setup-node@v5']) {
   if (!productionSmokeWorkflow.includes(token)) errors.push(`Publication production smoke workflow is missing ${token}`);
 }
 for (const token of ["await fetchHealthy('/news')", "await fetchHealthy('/sitemap.xml')", "firstPublishedNewsPath(news.body)", "story.body.includes(expectedCanonical)", "sitemap.body", "<(?:sitemapindex|urlset)"]) {
@@ -36,7 +36,7 @@ for (const token of ["await fetchHealthy('/news')", "await fetchHealthy('/sitema
 for (const token of ['ready_for_rewrite IS TRUE', 'classification_confidence', 'texas_relevance_score', 'source_reputation_score', 'security_invoker', 'publish_texasdefined_queue_item_v2', 'FROM anon, authenticated', "TO service_role"]) {
   if (!migration.includes(token)) errors.push(`Migration is missing ${token}`);
 }
-for (const token of ['--publish', '--feed-id=', 'exactFeedId', "params.set('id', `eq.${exactFeedId}`)", 'NEWSROOM_HYDRATION_URL', 'hydrate-newsroom-source-pages', 'async function hydrateExactFeed()', 'async function readyQueueCount()', 'async function readyQueueAll(total)', "Prefer: 'count=exact'", "Range: '0-0'", 'DISALLOWED_AUTOMATION_PILLARS', 'signals.auto_publish_eligible !== true', "editorial_lane || '').toUpperCase() !== 'AUTO_PUBLISH'", 'texas-border-immigration', 'texas-elections', 'border wall', 'assassination attempt', 'dedupeAutomationQueue', 'rawEligible', 'held: Math.max(rawEligible - automationEligibleQueue.length, 0)', 'selected: queue.length', 'deferred: Math.max(automationEligibleQueue.length - queue.length, 0)', 'published: 0', 'skipped: 0', 'failed: 0', "method: 'POST'", 'feedIds: [exactFeedId]', 'if (exactFeedId) await hydrateExactFeed()', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_PUBLISH_CONFIRMATION', 'validateDraft', 'generateAndStoreImage', 'publish_texasdefined_queue_item_v2']) {
+for (const token of ['--hydrate-top=', 'hydrateTopCurrentCandidates', 'isTexasDefinedDirectEditorialSource(item)', "payload?.aiCalls !== 0", '--publish', '--feed-id=', 'exactFeedId', "params.set('id', `eq.${exactFeedId}`)", 'NEWSROOM_HYDRATION_URL', 'hydrate-newsroom-source-pages', 'async function hydrateExactFeed()', 'async function readyQueueCount()', 'async function readyQueueAll(total)', "Prefer: 'count=exact'", "Range: '0-0'", 'DISALLOWED_AUTOMATION_PILLARS', 'signals.auto_publish_eligible !== true', "editorial_lane || '').toUpperCase() !== 'AUTO_PUBLISH'", 'texas-border-immigration', 'texas-elections', 'border wall', 'assassination attempt', 'dedupeAutomationQueue', 'rawEligible', 'held: Math.max(rawEligible - automationEligibleQueue.length, 0)', 'selected: queue.length', 'deferred: Math.max(automationEligibleQueue.length - queue.length, 0)', 'published: 0', 'skipped: 0', 'failed: 0', "method: 'POST'", 'feedIds: [exactFeedId]', 'if (exactFeedId) await hydrateExactFeed()', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_PUBLISH_CONFIRMATION', 'validateDraft', 'generateAndStoreImage', 'publish_texasdefined_queue_item_v2']) {
   if (!publisher.includes(token)) errors.push(`Publisher is missing ${token}`);
 }
 for (const token of ['flyover_publish_request_v2', 'site=texasdefined', 'feed_id=', 'FEED_ID=', '--feed-id="$FEED_ID"', 'Exact Flyover feed', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}', 'actions/checkout@v5', 'actions/setup-node@v5']) {
@@ -73,6 +73,12 @@ if (sitemap.includes('fetchPublishedTexasDefinedNewsArticles({ limit: 200 })') |
 if (!route.includes('fetchPublishedTexasDefinedNewsArticle')) errors.push('Live /news article route must resolve only feed-backed published stories.');
 if (!route.includes('isArticleIndexReady(article)')) errors.push('Live /news article route must noindex published stories that do not satisfy the shared public-readiness floor.');
 for (const token of ['article.hero.credit', 'article.sourceUrl', 'article.relatedDestinations']) if (!route.includes(token)) errors.push(`Live article route is missing ${token}`);
+for (const marker of [
+  'isCompleteFishingLakeSlug(slug)',
+  'to="/fishing/lakes/$slug"',
+  'to="/destination/$slug"',
+]) if (!route.includes(marker)) errors.push('Related published-news links must resolve completed fishing lakes to their canonical /fishing/lakes page: ' + marker);
+
 for (const token of ['jsonLd(match.context.liveNewsSchema)', 'buildPublishedNewsArticleSchema(article)', '<Byline author={editorialDeskById(article.authorId)}']) {
   if (!route.includes(token)) errors.push(`Published news route/author contract is missing ${token}`);
 }

@@ -1,3 +1,4 @@
+import { isTexasStateParkDestination } from "./state-park-authority";
 import { abileneAreaDestinationFallbacks } from "./abilene-area-destinations";
 import { enrichAquariumMarineDestination } from "./aquarium-marine-destinations";
 import { enrichCavernAreaGuide } from "./cavern-area-guides";
@@ -5,7 +6,8 @@ import { filterCurrentlyVisitableDestinations } from "./destination-availability
 import { filterSeoReadyDestinations, isSeoReadyDestination } from "./destination-audit";
 import { applyAllCuratedDestination, applyAllCuratedDestinations } from "./destination-curation-all";
 import { preservedExploreDestinations } from "./destination-preserved-catalog";
-import { enrichMuseumAuthority } from "./museum-authority-network";
+import { enforceFredericksburgJohnsonCityHeritageAuthority } from "./fredericksburg-johnson-city-heritage-destinations";
+import { enrichMuseumMedia } from "./museum-authority-heroes";
 import { improveDestinationCatalog, improveDestinationQuality } from "./destination-quality";
 import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./explore-core-remote";
 import { applyDestinationHeroOverride, isDestinationPhotoPlaceholder, reconcileDestinationHeroes } from "./explore-hero-reconciliation";
@@ -14,13 +16,17 @@ import { fetchExploreDestination, fetchExploreDestinations } from "./explore-rem
 import { enrichRemainingHistoricSiteAreaGuide } from "./historic-site-area-guides-extra";
 import { enrichHistoricSiteCatalog, enrichHistoricSiteDestination } from "./historic-site-enrichment";
 import { enrichHistoricSiteEvergreenLinks } from "./historic-site-evergreen-links";
+import { enrichTexasHistoricSiteAuthority } from "./historic-site-authority-2026";
+import { enrichFullHistoricSiteAuthority } from "./historic-site-authority-full-catalog";
+import { enrichResearchedHistoricSiteDepth } from "./historic-site-depth-all";
 import { applyHistoricSiteFactCorrections } from "./historic-site-fact-corrections";
 import { enrichHistoricSiteRemoteHero } from "./historic-site-remote-heroes";
 import { enrichNationalCemeteryDestination } from "./national-cemetery-enrichment";
 import { filterDestinationsByScope } from "./destination-query-scope";
+import { correctDestinationTravelRegion } from "./destination-region-consistency";
 import { applyTownAuthority } from "./town-authority-network";
 import { platform, scope } from "./index";
-import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
+import { applyStateParkHeroAsset, applyStateParkHeroAssets, recoverUniqueParkHeroesAfterGlobalReconciliation } from "./state-park-heroes";
 import type { Destination, Slug } from "./types";
 import type { DestinationQuery } from "./repositories";
 import { selectSwimmingHoleAndTubingDestinations } from "./water-recreation";
@@ -166,7 +172,7 @@ async function loadCoreCatalog(
 }
 
 function finishHistoricSiteEnrichment(destination: Destination) {
-  return enrichNationalCemeteryDestination(
+  const enriched = enrichNationalCemeteryDestination(
     applyHistoricSiteFactCorrections(
       enrichHistoricSiteEvergreenLinks(
         enrichHistoricSiteRemoteHero(
@@ -175,10 +181,11 @@ function finishHistoricSiteEnrichment(destination: Destination) {
       ),
     ),
   );
+  return enrichResearchedHistoricSiteDepth(enrichFullHistoricSiteAuthority(enrichTexasHistoricSiteAuthority(enriched)));
 }
 
 function applyResolvedHero(destination: Destination) {
-  return applyTownAuthority(enrichMuseumAuthority(normalizeDestinationCounty(
+  const curated = enforceFredericksburgJohnsonCityHeritageAuthority(applyTownAuthority(enrichMuseumMedia(normalizeDestinationCounty(
     enrichCavernAreaGuide(
       finishHistoricSiteEnrichment(
         improveDestinationQuality(
@@ -194,18 +201,22 @@ function applyResolvedHero(destination: Destination) {
         ),
       ),
     ),
-  )));
+  ))));
+  // Specialized editorial curators may reintroduce older remote JPEG heroes.
+  // Resolve the approved exact-place local park photograph after all curators.
+  return applyStateParkHeroAsset(curated);
 }
 
 function resolveSeoReadyDestination(destination?: Destination | null) {
   if (!destination) return undefined;
-  const resolved = applyResolvedHero(destination);
+  const resolved = correctDestinationTravelRegion(applyResolvedHero(destination));
   return isSeoReadyDestination(resolved) ? resolved : undefined;
 }
 
 function reconcileExploreCatalog(destinations: Destination[]) {
-  const aquariumEnriched = reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))
-    .map(enrichAquariumMarineDestination);
+  const aquariumEnriched = recoverUniqueParkHeroesAfterGlobalReconciliation(
+    reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations))),
+  ).map(enrichAquariumMarineDestination);
   const curated = improveDestinationCatalog(applyAllCuratedDestinations(aquariumEnriched));
   const improved = enrichHistoricSiteCatalog(curated)
     .map(enrichRemainingHistoricSiteAreaGuide)
@@ -213,15 +224,45 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(enrichHistoricSiteEvergreenLinks)
     .map(applyHistoricSiteFactCorrections)
     .map(enrichNationalCemeteryDestination)
+    .map(enrichTexasHistoricSiteAuthority)
+    .map(enrichFullHistoricSiteAuthority)
+    .map(enrichResearchedHistoricSiteDepth)
     .map(enrichCavernAreaGuide)
     .map(normalizeDestinationCounty)
-    .map(applyTownAuthority);
-  return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved));
+    // Remote Explore results can still carry missing-image placeholders. Apply
+    // subject-specific museum media before town/corridor authority overlays,
+    // preserving their existing precedence and historic-site protections.
+    .map(enrichMuseumMedia)
+    .map(applyTownAuthority)
+    .map(enforceFredericksburgJohnsonCityHeritageAuthority);
+  // The collection renderer must apply the same post-curation exact-place rule
+  // as the single destination page, not merely the preliminary photo map.
+  return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(
+    improved.map((destination) => applyStateParkHeroAsset(correctDestinationTravelRegion(destination))),
+  ));
 }
 
 export async function listResolvedDestinations(params: Omit<DestinationQuery, "brandId"> = {}) {
+  // A TPWD park may be editorially categorized as coastal, history, lake or outdoors.
+  // Select from the already-filtered full catalog, never include RV-business aliases or closed parks.
+  if (params.category === "state-parks") {
+    const parks = filterDestinationsByScope(
+      (await listResolvedDestinations()).filter(isTexasStateParkDestination),
+      { region: params.region },
+    ).sort((a, b) => a.name.localeCompare(b.name));
+    if (params.featured) return featuredFallback(parks, params.limit ?? 6);
+    return params.limit ? parks.slice(0, params.limit) : parks;
+  }
+
   if (params.category === WATER_COLLECTION) {
-    const destinations = filterDestinationsByScope(selectSwimmingHoleAndTubingDestinations(await listResolvedDestinations()), params);
+    // This is a VIRTUAL cross-category collection: qualifying towns, state
+    // parks and rivers retain their real categories. Reapplying the virtual
+    // slug as an exact category filter drops EVERY selected destination.
+    // Only the optional geographic region belongs in the final scope gate.
+    const destinations = filterDestinationsByScope(
+      selectSwimmingHoleAndTubingDestinations(await listResolvedDestinations()),
+      { region: params.region },
+    );
     if (params.featured) return featuredFallback(destinations, params.limit ?? 6);
     return params.limit ? destinations.slice(0, params.limit) : destinations;
   }
@@ -285,7 +326,7 @@ export async function getResolvedDestination(slug: Slug) {
 
   const { getRvParkDestination } = await import("./rv-parks");
   const rvPark = await getRvParkDestination(slug);
-  if (rvPark) return applyResolvedHero(rvPark);
+  if (rvPark) return correctDestinationTravelRegion(applyResolvedHero(rvPark));
 
   const preserved = preservedExploreDestinations.find((destination) => destination.slug === slug);
   const readyPreserved = resolveSeoReadyDestination(preserved);
@@ -318,9 +359,9 @@ export async function getResolvedDestination(slug: Slug) {
   }
 
   const fallback = preserved ?? cavernPreserved ?? cityPassPreserved;
-  if (fallback) return applyResolvedHero(fallback);
-  if (!local && weakCandidates.length) return applyResolvedHero(weakCandidates[0]);
-  return local ? applyResolvedHero(local) : local;
+  if (fallback) return correctDestinationTravelRegion(applyResolvedHero(fallback));
+  if (!local && weakCandidates.length) return correctDestinationTravelRegion(applyResolvedHero(weakCandidates[0]));
+  return local ? correctDestinationTravelRegion(applyResolvedHero(local)) : local;
 }
 
 export async function listResolvedDestinationSearchCatalog() {

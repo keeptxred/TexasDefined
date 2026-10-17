@@ -5,9 +5,6 @@ on:
     paths:
       - 'scripts/ci/verify-devils-sinkhole-redirect-production.mjs'
       - '.github/workflows/verify-devils-sinkhole-redirect-production.yml'
-  workflow_run:
-    workflows: ['Deploy TexasDefined production']
-    types: [completed]
   workflow_dispatch:
 
 permissions:

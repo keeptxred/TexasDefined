@@ -21,6 +21,7 @@ export const Route = createFileRoute("/explore/")({
     const articles = loaderData?.articles ?? [];
     const items = [
       ...categories.map((category) => ({ "@type": "WebPage" as const, name: category.name, description: category.description, url: `${siteUrl}/explore/${category.slug}`, image: category.image?.src ? absoluteUrl(texasDefinedBrand, category.image.src) : undefined })),
+      { "@type": "CollectionPage" as const, name: "Texas Casinos & Gaming Getaways", description: "Texas tribal casinos, laws and nearby resort trips.", url: `${siteUrl}/explore/casinos` },
       { "@type": "CollectionPage" as const, name: "Texas Aquariums & Marine Life", description: "Texas aquariums and marine-life guides.", url: `${siteUrl}/explore/aquariums` },
       { "@type": "CollectionPage" as const, name: "Texas Tours & Bookable Experiences", description: "Texas tours, tickets and activities.", url: `${siteUrl}/explore#tours-experiences` },
       { "@type": "CollectionPage" as const, name: "Painted Churches of Texas", description: "Texas Painted Churches guides and routes.", url: `${siteUrl}/explore/painted-churches` },

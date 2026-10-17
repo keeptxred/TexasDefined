@@ -91,3 +91,43 @@ revoke all on function td_maintenance.queue_museum_source_manifest(text) from pu
 revoke all on function td_maintenance.collect_museum_source_manifest() from public,anon,authenticated;
 select cron.schedule('td-authority-import-museum-sources','49 4 * * *','select td_maintenance.queue_museum_source_manifest();');
 select cron.schedule('td-authority-collect-museum-sources','13,43 * * * *','select td_maintenance.collect_museum_source_manifest();');
+
+
+-- 2026-10-13: Targeted Museum of Fine Arts Houston upstream-bot compatibility.
+-- The official MFAH site returns HTTP 403 to Supabase pg_net's default
+-- user agent; the same canonical URLs give valid HTML/200 with normal browser
+-- request headers. Preserve the *same* canonical source URLs and use browser
+-- headers only for these official MFAH URLs. Source identity and editorial
+-- verification are separate from fetch success.
+create or replace function td_maintenance.queue_source_probes(p_limit integer default 50)
+returns integer language plpgsql set search_path to ''
+as $fn$
+declare v record; v_req bigint; v_n int:=0; v_headers jsonb;
+begin
+ for v in
+   select s.path,s.source_url,r.cadence_days
+   from public.td_authority_verification_sources s
+   join public.td_authority_verification_registry r on r.path=s.path
+   where s.pending_request_id is null and s.next_check_at <= now()
+   order by s.next_check_at,s.path limit least(greatest(p_limit,0),100)
+ loop
+   v_headers:=case when v.source_url like 'https://www.mfah.org/%'
+    then '{"User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120.0 Safari/537.36","Accept":"text/html","Accept-Encoding":"identity"}'::jsonb
+    else '{}'::jsonb end;
+   -- PDF nominations can exceed 30 MB; for HTTP availability request only
+   -- a bounded 64-KiB range. The existing collector treats HTTP 206
+   -- application/pdf as binary HTTP reachability, never as a content hash
+   -- or approval that the historical facts have been editorially verified.
+   if lower(v.source_url) ~ '\.pdf($|\?)' then
+     v_headers:=v_headers || jsonb_build_object('Range','bytes=0-65535');
+   end if;
+   v_req:=net.http_get(url:=v.source_url,headers:=v_headers,timeout_milliseconds:=20000);
+   update public.td_authority_verification_sources
+   set pending_request_id=v_req,requested_at=now()
+   where path=v.path and source_url=v.source_url;
+   v_n:=v_n+1;
+ end loop;
+ return v_n;
+end $fn$;
+-- Applied to live Supabase project ftkznprjljkhymknvhye and smoke-tested:
+-- MFAH 4/4 readable HTML baselines, AMST 4/4 readable official source baselines.

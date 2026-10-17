@@ -12,6 +12,13 @@ const homepageTimeoutMs = Math.max(
   requestTimeoutMs,
   Number.parseInt(process.env.BUILT_WORKER_SMOKE_HOMEPAGE_TIMEOUT_MS || '20000', 10) || 20000,
 );
+// County SSR can cold-load the statewide graph in Wrangler's emulated runtime.
+// Do not abort and multiply heavyweight in-flight requests every 30 seconds.
+// Still require a real HTTP 200 and the exact itinerary backlink within this bound.
+const countyTimeoutMs = Math.max(
+  requestTimeoutMs,
+  Number.parseInt(process.env.BUILT_WORKER_SMOKE_COUNTY_TIMEOUT_MS || '180000', 10) || 180000,
+);
 const warmupTimeoutMs = Math.max(
   requestTimeoutMs,
   Number.parseInt(process.env.BUILT_WORKER_SMOKE_WARMUP_TIMEOUT_MS || '30000', 10) || 30000,
@@ -24,6 +31,20 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/destination/choke-canyon-state-park', requiredText: 'Calliham Unit', label: 'real Choke Canyon park guide names its access units' },
+  { path: '/destination/caprock-canyons-state-park', requiredText: 'Caprock Canyons State Park', label: 'canonical Caprock Canyons visitor guide' },
+  { path: '/county/gillespie', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Gillespie County links to researched historic corridor itinerary' },
+  { path: '/county/blanco', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Blanco County links to researched historic corridor itinerary' },
+  { path: '/destination/lyndon-b-johnson-state-park-historic-site', requiredText: 'Sauer-Beckmann', label: 'canonical LBJ State Park and living-history farm' },
+  { path: '/destination/lyndon-b-johnson-state-park-historic-site', requiredText: '<meta name="robots" content="index, follow', label: 'canonical LBJ State Park is indexable after ordinary content and photo-quality gates' },
+  // Exact corridor publication proofs: 200 alone is insufficient; require
+  // researched on-page narrative so remote/generic fallback cannot mask a release.
+  { path: '/article/fredericksburg-johnson-city-historic-road-trip', requiredText: 'Fredericksburg to Johnson City: The Complete Historic Hill Country Road Trip', label: 'Fredericksburg Johnson City historic itinerary' },
+  { path: '/destination/stonewall', requiredText: 'Stonewall is a practical geographic key', label: 'Stonewall LBJ Ranch source-reviewed guide' },
+  { path: '/destination/luckenbach', requiredText: 'Luckenbach is often described as a tiny Texas town', label: 'Luckenbach Dance Hall authority narrative' },
+  { path: '/destination/fredericksburg-art-guild', requiredText: 'The Fredericksburg Art Guild is not a historic-house museum', label: 'Fredericksburg Art Guild primary-source narrative' },
+  { path: '/destination/fort-martin-scott', requiredText: 'Fort Martin Scott began as a U.S. Army post in 1848', label: 'Fort Martin Scott research supersedes old generic prose' },
+  { path: '/destination/fort-martin-scott', requiredText: 'THC pages conflict', label: 'Fort Martin Scott competing official tour notices disclosed' },
   { path: '/', requiredText: rootRequiredText, label: 'homepage' },
   {
     path: '/best-places-to-go-camping-in-texas',
@@ -94,6 +115,36 @@ const smokeTargets = [
 ];
 
 const redirectTargets = [
+  { path: '/destination/choke-canyon-north-shore-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/choke-canyon-state-park', expectedQuery: ['source','gsc'], label: 'legacy Choke Canyon North Shore import' },
+  { path: '/state-park/caprock-canyons-trailway-estelline-terminal-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/caprock-canyons-state-park', expectedQuery: ['source','gsc'], label: 'legacy Estelline Trailway import' },
+  {"path": "/historic-site/seminole-canyon-state-park-and-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/seminole-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/lipantitlan-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/lipantitlan", "expectedQuery": ["source", "gsc"], "label": "verified historic-site alias"},
+  {"path": "/historic-site/san-jacinto-monument-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/san-jacinto-battleground", "expectedQuery": ["source", "gsc"], "label": "verified monument guide alias"},
+  {"path": "/destination/choke-canyon-south-shore-unit-state-park?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/choke-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "verified park unit alias"},
+  {"path": "/state-park/choke-canyon-south-shore-unit-state-park?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/choke-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "verified park unit alias"},
+  {"path": "/historic-site/seminole-canyon-state-park-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/seminole-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/goliad-state-park-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/goliad-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/goliad-state-park-and-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/goliad-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/barrington-farm-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/barrington-living-history-farm", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/fanthorp-inn-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/fanthorp-inn", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/battleship-texas-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/battleship-texas", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/port-isabel-lighthouse-state-park?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/port-isabel-lighthouse", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/port-isabel-lighthouse-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/port-isabel-lighthouse", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/monument-hill-kreische-brewery-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/monument-hill", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/monument-hill-and-kreische-brewery-state-historic-sites?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/monument-hill", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/museum/barrington-farm-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/barrington-living-history-farm", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/audie-murphy-texas-war-hero-actor?source=gsc", "expectedStatus": 301, "expectedPath": "/article/audie-murphy-texas-war-hero-actor", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/fort-worth-stockyards-history-cattle-culture?source=gsc", "expectedStatus": 301, "expectedPath": "/article/fort-worth-stockyards-history-cattle-culture", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/mirabeau-b-lamar-president-republic-texas?source=gsc", "expectedStatus": 301, "expectedPath": "/article/mirabeau-b-lamar-president-republic-texas", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/blue-bell-ice-cream-brenham-texas-history?source=gsc", "expectedStatus": 301, "expectedPath": "/article/blue-bell-ice-cream-brenham-texas-history", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/bucees-texas-road-trip-history?source=gsc", "expectedStatus": 301, "expectedPath": "/article/bucees-texas-road-trip-history", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/james-bowie-texas-alamo-life-legend?source=gsc", "expectedStatus": 301, "expectedPath": "/article/james-bowie-texas-alamo-life-legend", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/william-barret-travis-alamo-commander?source=gsc", "expectedStatus": 301, "expectedPath": "/article/william-barret-travis-alamo-commander", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/chester-nimitz-texas-fleet-admiral?source=gsc", "expectedStatus": 301, "expectedPath": "/article/chester-nimitz-texas-fleet-admiral", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+
+  { path: '/destination/lyndon-b-johnson-state-park-and-historic-site', expectedStatus: 301, expectedPath: '/destination/lyndon-b-johnson-state-park-historic-site', expectQueryPreserved: false, label: 'LBJ State Park broken editorial alias canonical redirect' },
+  { path: '/destination/lyndon-b-johnson-state-park-state-historic-site', expectedStatus: 301, expectedPath: '/destination/lyndon-b-johnson-state-park-historic-site', expectQueryPreserved: false, label: 'LBJ State Park secondary historical alias canonical redirect' },
+  { path: '/historic-site/lyndon-b-johnson-state-park-state-historic-site', expectedStatus: 301, expectedPath: '/destination/lyndon-b-johnson-state-park-historic-site', expectQueryPreserved: false, label: 'LBJ State Park old historic-site route canonical redirect' },
   {
     path: '/fishing/fishing/techniques/soft-plastics?source=smoke',
     expectedStatus: 301,
@@ -128,6 +179,10 @@ const child = spawn(
     host,
     '--port',
     String(port),
+    // Let the runtime choose an ephemeral inspector socket. Avoid Wrangler's
+    // network-interface scan in restricted local runners; no inspector is used.
+    '--inspector-port',
+    '0',
   ],
   {
     cwd: process.cwd(),
@@ -242,8 +297,8 @@ async function checkRedirectTarget(target, attemptToken) {
     lastStatus.set(target.path, String(response.status));
     const location = response.headers.get('location');
     const redirectedUrl = location ? new URL(location, url) : null;
-    const queryMatches = redirectedUrl?.searchParams.get(target.expectedQuery[0]) === target.expectedQuery[1]
-      && Boolean(redirectedUrl?.searchParams.get('built_worker_smoke'));
+    const queryMatches = target.expectQueryPreserved === false || (redirectedUrl?.searchParams.get(target.expectedQuery[0]) === target.expectedQuery[1]
+      && Boolean(redirectedUrl?.searchParams.get('built_worker_smoke')));
 
     if (response.status === target.expectedStatus && redirectedUrl?.pathname === target.expectedPath && queryMatches) return '';
 
@@ -273,20 +328,20 @@ async function checkForbiddenSoftballRoute(target, attemptToken) {
   }
 }
 
-async function verifyWithRetries(target, checker, label) {
+async function verifyWithRetries(target, checker, label, maxAttempts = targetAttempts) {
   let failure = '';
 
-  for (let attempt = 1; attempt <= targetAttempts; attempt += 1) {
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
     if (child.exitCode !== null) return `Wrangler dev exited during ${label} verification (exit ${child.exitCode}).`;
 
     failure = await checker(target, `${label.replaceAll(' ', '-')}-${attempt}`);
     if (!failure) {
-      if (attempt > 1) console.log(`${label} passed on retry ${attempt}/${targetAttempts}.`);
+      if (attempt > 1) console.log(`${label} passed on retry ${attempt}/${maxAttempts}.`);
       return '';
     }
 
-    if (attempt < targetAttempts) {
-      console.log(`${label} attempt ${attempt}/${targetAttempts} failed: ${failure}. Retrying.`);
+    if (attempt < maxAttempts) {
+      console.log(`${label} attempt ${attempt}/${maxAttempts} failed: ${failure}. Retrying.`);
       await sleep(retryDelayMs);
     }
   }
@@ -339,11 +394,13 @@ try {
 
     for (const group of renderRouteGroups) {
       const label = `render route ${group.path}`;
-      const timeoutMs = group.path === '/' ? homepageTimeoutMs : requestTimeoutMs;
+      const isCounty = group.path === '/county/gillespie' || group.path === '/county/blanco';
+      const timeoutMs = isCounty ? countyTimeoutMs : group.path === '/' ? homepageTimeoutMs : requestTimeoutMs;
       const failure = await verifyWithRetries(
         group,
         (target, attemptToken) => checkRenderRoute(target, attemptToken, timeoutMs),
         label,
+        isCounty ? 1 : targetAttempts,
       );
       if (failure) failures.push(failure);
       else console.log(`[route] verified (200): ${group.path} (${group.checks.length} marker check${group.checks.length === 1 ? '' : 's'})`);

@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import type { Destination } from "@/data/types";
+import { canonicalDestinationSlug } from "@/lib/legacy-editorial-redirects";
 
 const PAGE_SIZE = 24;
 const normalized = (value: string) => value.trim().toLowerCase();
@@ -66,7 +67,7 @@ export function DestinationCollectionGrid({ destinations, regionLabel }: { desti
       <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">A complete A–Z directory of the destinations covered in this section.</p>
       <ul className="mt-6 columns-1 gap-x-8 sm:columns-2 lg:columns-3">
         {allDestinations.map((destination) => <li key={`directory-${destination.id}`} className="mb-2 break-inside-avoid text-sm leading-6">
-          <Link to="/destination/$slug" params={{ slug: destination.slug }} className="font-medium text-foreground transition-colors hover:text-primary">{destination.name}</Link>
+          <Link to="/destination/$slug" params={{ slug: canonicalDestinationSlug(destination.slug) }} className="font-medium text-foreground transition-colors hover:text-primary">{destination.name}</Link>
           {destination.nearestTown ? <span className="text-muted-foreground"> · {destination.nearestTown}</span> : null}
         </li>)}
       </ul>

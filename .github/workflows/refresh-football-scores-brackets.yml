@@ -1,0 +1,63 @@
+name: Refresh Texas football scores and brackets
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Approximately 6 a.m. CDT daily during football season; no Cloudflare CPU.
+    - cron: '13 11 * 8-12 *'
+  pull_request:
+    paths:
+      - 'scripts/data/refresh-football-matchups.mjs'
+      - 'src/data/high-school-football/football-matchups*'
+      - '.github/workflows/refresh-football-scores-brackets.yml'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: football-scores-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    # Skip scheduled jobs completely until an authorized feed URL is available.
+    if: ${{ github.event_name == 'pull_request' || vars.FOOTBALL_RESULTS_FEED_URL != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Syntax-check limited score adapter
+        run: node --check scripts/data/refresh-football-matchups.mjs
+      - name: Fetch only authorized verified score feed
+        if: ${{ github.event_name != 'pull_request' && vars.FOOTBALL_RESULTS_FEED_URL != '' }}
+        env:
+          FOOTBALL_RESULTS_FEED_URL: ${{ vars.FOOTBALL_RESULTS_FEED_URL }}
+          FOOTBALL_RESULTS_FEED_TOKEN: ${{ secrets.FOOTBALL_RESULTS_FEED_TOKEN }}
+        run: node scripts/data/refresh-football-matchups.mjs
+      - name: Propose updated scores and brackets for checks
+        if: ${{ github.event_name != 'pull_request' && vars.FOOTBALL_RESULTS_FEED_URL != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- src/data/high-school-football/football-matchups.snapshot.json; then
+            echo 'No source-backed score changes.'
+            exit 0
+          fi
+          if gh pr list --base main --state open --json title --jq '.[].title' | grep -Fxq 'Update verified 2026 Texas football scores and brackets'; then
+            echo 'An earlier score update PR awaits review; no duplicate.'
+            exit 0
+          fi
+          branch="data/football-scores-${GITHUB_RUN_ID}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$branch"
+          git add src/data/high-school-football/football-matchups.snapshot.json
+          git commit -m 'Refresh sourced 2026 football scores and brackets'
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" --title 'Update verified 2026 Texas football scores and brackets' --body 'Bounded, source-attributed football snapshot change. Review fixtures and required CI before merging. No full-site scanning or direct production changes.'

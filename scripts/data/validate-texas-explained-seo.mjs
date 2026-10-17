@@ -15,6 +15,7 @@ const articleRoute = read('src/routes/article.$slug.tsx');
 const publicRoutes = read('src/lib/public-routes.ts');
 const resources = read('src/routes/texas-resources.tsx');
 const internalLinks = read('src/data/article-internal-links.ts');
+const remoteInternalLinks = read('src/data/remote-evergreen-internal-links.ts');
 const newestEvergreenEntry = read('src/data/fixtures/newest-evergreen.ts');
 const newestEvergreenBasePath = path.join(root, 'src/data/fixtures/newest-evergreen-base.ts');
 const newestEvergreenBase = fs.existsSync(newestEvergreenBasePath)
@@ -106,6 +107,7 @@ const clusterExpectations = {
   ],
   'texas-cultural-regions-explained': [
     '/article/texas-regions-explained',
+    '/article/texas-oil-boom-wichita-falls-west-texas-rigs',
     '/article/texas-towns-german-czech-mexican-roots',
     '/article/texas-home-architecture-regions',
   ],
@@ -244,6 +246,18 @@ for (const slug of pillars) {
   }
 }
 
+const barbecueRelatedLinks = internalLinkBlock('texas-barbecue-styles-explained');
+if (!barbecueRelatedLinks.includes('href: "/article/texas-restaurants-for-out-of-town-visitors"')) {
+  errors.push('Texas barbecue styles guide must connect to the practical restaurant visitor guide.');
+}
+const restaurantEntry = remoteInternalLinks.indexOf('  "texas-restaurants-for-out-of-town-visitors": [');
+const restaurantEnd = remoteInternalLinks.indexOf('\n  ],', restaurantEntry);
+if (restaurantEntry < 0 || restaurantEnd < restaurantEntry) {
+  errors.push('Restaurant visitor related-reading block missing.');
+} else if (remoteInternalLinks.slice(restaurantEntry, restaurantEnd).includes('/article/texas-gulf-coast-erosion-shoreline-retreat-guide')) {
+  errors.push('Restaurant visitor guide must not use unrelated coastal-erosion links for discovery.');
+}
+
 for (const slug of supportRing) {
   const block = internalLinkBlock(slug);
   if (!block) {
@@ -252,6 +266,9 @@ for (const slug of supportRing) {
   }
   if (!block.includes('texasExplainedLink')) errors.push(`Texas Explained support page must link back to the collection: ${slug}.`);
   if (!route.includes(`/article/${slug}`)) errors.push(`Texas Explained hub must link outward to support page: ${slug}.`);
+  if (slug === 'texas-regions-explained' && !block.includes('href: "/article/texas-gulf-coast-erosion-shoreline-retreat-guide"')) {
+    errors.push('Texas regions guide must retain its contextual Gulf Coast erosion authority link.');
+  }
 }
 
 for (const slug of childSupportRing) {
