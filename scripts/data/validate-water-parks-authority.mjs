@@ -44,5 +44,6 @@ for (const park of authorityReady) {
 }
 if (!detail.includes('"@type": "TouristAttraction"') || !detail.includes('park.officialUrl') || !detailUi.includes('park.distinctiveNote')) throw new Error("Per-park pages require operator facts and tourist attraction schema.");
 if (!hub.includes('loader: async () => (await import("@/data/texas-water-parks"))') || !detail.includes('await import("@/data/texas-water-parks")')) throw new Error("Both water-park routes must lazy-load source records to protect client bundles.");
+if (!detailUi.includes('href={`/county/${park.county.toLowerCase().replace(/\\s+/g, "-")}`}')) throw new Error("Visitor guides must link to canonical county pages rather than directory fragments.");
 if (!explore.includes('to="/explore/water-parks"')) throw new Error("Explore landing must link to the new water-park hub.");
 console.log(`Texas water-park guide contract passed: ${parks.length} unique official-source facilities, primary/fallback sitemaps, venue pages and truthful census scope.`);
