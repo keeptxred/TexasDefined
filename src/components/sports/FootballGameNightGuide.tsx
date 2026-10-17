@@ -110,12 +110,12 @@ export function FootballGameNightGuide({
       </p>
 
       {season?.record && (
-        <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 border-y border-border py-4">
+        <div className="mt-5 flex flex-wrap items-center border-b border-border" style={{ columnGap: 24, rowGap: 8, paddingBlock: 16 }}>
           <div>
             <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Verified season snapshot</p>
-            <p className="mt-1 font-display text-xl font-semibold sm:text-2xl">{season.record}</p>
+            <p className="mt-2 font-display text-2xl font-semibold">{season.record}</p>
           </div>
-          <p className="text-xs leading-5 text-muted-foreground">Checked {season.verifiedAt}. Results and standings are not live.</p>
+          <p className="text-xs leading-6 text-muted-foreground">Checked {season.verifiedAt}. Results and standings are not live.</p>
         </div>
       )}
       {upcoming && season && (
