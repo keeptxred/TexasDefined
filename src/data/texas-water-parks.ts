@@ -2637,7 +2637,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "Children two and under can use the main swimming pool and lazy river with a swim diaper, an approved Coast Guard life jacket, and direct guardian supervision.",
         "sourceUrl": "https://www.summerfunwaterpark.com/"
       }
-    ]
+    ],
+    "licensedMedia": {
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Summer%20Fun%20Water%20Park%20in%20Belton%2C%20TX.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Summer_Fun_Water_Park_in_Belton%2C_TX.jpg",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "licenseLabel": "CC BY-SA 4.0",
+      "photographer": "NativeTexan55",
+      "year": 2017,
+      "alt": "Summer Fun Water Park in Belton photographed in 2017."
+    }
   },
   {
     "slug": "surf-and-swim-garland",
@@ -3435,7 +3444,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "Six Flags publishes 17000 Interstate Highway 10 West, San Antonio, Texas 78257 for its Fiesta Texas entrance; Hurricane Harbor is within that park.",
         "sourceUrl": "https://www.sixflags.com/fiestatexas/directions"
       }
-    ]
+    ],
+    "licensedMedia": {
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/White%20Water%20Bay.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:White_Water_Bay.jpg",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "licenseLabel": "CC BY-SA 4.0",
+      "photographer": "Jpp858",
+      "year": 2017,
+      "alt": "The waterpark at Six Flags Fiesta Texas photographed in 2017 under its former White Water Bay name."
+    }
   },
   {
     "slug": "thrive-indoor-lewisville",
