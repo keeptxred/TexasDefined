@@ -4,6 +4,7 @@ import { createLazyFileRoute } from '@tanstack/react-router';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
 import { CountyStateParks } from '@/components/content/CountyStateParks';
 import { CountyCoastalPlaces } from '@/components/content/CountyCoastalPlaces';
+import { CountyVisitorPlaces } from '@/components/content/CountyVisitorPlaces';
 import { CountyTownAuthorityLinks } from '@/components/content/CountyTownAuthorityLinks';
 import { CountyCityMuseums } from '@/components/content/CountyCityMuseums';
 import { CountyGuideSections } from '@/components/content/CountyGuideSections';
@@ -392,6 +393,7 @@ function EntityPage() {
         <CountyCityMuseums kind={entity.kind} slug={entity.slug} name={entity.name} />
         {(entity.kind === 'county' || entity.kind === 'city') ? <CountyStateParks countyName={entity.name} parks={countyStateParks} scope={entity.kind} /> : null}
         {entity.kind === 'county' ? <CountyCoastalPlaces county={entity} /> : null}
+        {entity.kind === 'county' ? <CountyVisitorPlaces countySlug={entity.slug} countyName={entity.name} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
         {entity.kind === 'county' ? <Suspense fallback={null}><CountyHighSchoolFootball county={entity} /></Suspense> : null}
         {entity.kind === 'county' && batch002FootballCountyLinks[entity.slug] ? <section aria-label="Independent football histories from this county" className="border-b border-border py-9">
