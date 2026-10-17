@@ -2,23 +2,12 @@ name: Refresh Texas brewery & brewpub permits (TABC)
 
 on:
   workflow_dispatch:
-  pull_request:
-    types: [opened, synchronize]
-    paths:
-      - '.github/workflows/refresh-texas-breweries.yml'
-      - 'scripts/data/refresh-texas-breweries.mjs'
   schedule:
     - cron: '41 10 * * *'
-  push:
-    branches:
-      - main
-      - feat/texas-breweries-directory-20261017
-    paths:
-      - '.github/workflows/refresh-texas-breweries.yml'
-      - 'scripts/data/refresh-texas-breweries.mjs'
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: texas-breweries-data
@@ -26,13 +15,12 @@ concurrency:
 
 jobs:
   refresh:
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref || github.ref_name }}
+          ref: main
           persist-credentials: true
       - uses: actions/setup-node@v4
         with:
@@ -41,19 +29,24 @@ jobs:
         run: node scripts/data/refresh-texas-breweries.mjs
       - name: Validate roster
         run: node scripts/data/validate-texas-breweries.mjs
-      - name: Generate brewery routes for this PR only
-        if: github.event_name == 'pull_request'
+      - name: Commit changed snapshot (no change means no deployment)
+        id: publish
+        shell: bash
         run: |
-          npm ci --ignore-scripts --no-audit --no-fund
-          node --input-type=module -e "import { Generator, getConfig } from '@tanstack/router-generator'; const generator = new Generator({ config: getConfig(), root: process.cwd() }); await generator.run();"
-      - name: Commit changed snapshot (no commit on unchanged data)
-        run: |
-          git add src/data/breweries/texas-breweries.generated.json src/routeTree.gen.ts
+          set -euo pipefail
+          git add src/data/breweries/texas-breweries.generated.json
           if git diff --cached --quiet; then
-            echo "Roster and generated routes unchanged; no redeploy."
+            echo "Roster unchanged; no redeploy."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "data: refresh active Texas brewer license locations"
-          git push origin HEAD:${{ github.head_ref || github.ref_name }}
+          git commit -m "data: refresh active Texas brewing license locations"
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Run protected production deployment only for changed data
+        if: steps.publish.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-production.yml --ref main
