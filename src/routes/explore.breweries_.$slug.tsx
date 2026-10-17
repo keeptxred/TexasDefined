@@ -15,16 +15,14 @@ export const Route = createFileRoute('/explore/breweries/$slug')({
     const item = loaderData;
     const canonicalPath = '/explore/breweries/' + (item?.slug || '');
     return {
-      meta: [
-        ...buildMeta(texasDefinedBrand, {
-          canonicalPath,
-          title: item ? item.name + ' | ' + item.city + ', Texas Brewery License' : 'Texas brewery directory',
-          description: item ? item.name + ' in ' + item.city + ', ' + item.county + ' County: TABC brewer license location, licensing information and county travel links.' : 'Texas brewery license directory.',
-        }),
-        // License-only pages should not become hundreds of thin indexable SEO pages.
-        // Curated, individually researched destination guides remain separately indexable.
-        { name: 'robots', content: 'noindex,follow' },
-      ],
+      // License-only pages are intentionally noindex until editorial verification.
+      // Curated destination guides remain separately indexable.
+      meta: buildMeta(texasDefinedBrand, {
+        canonicalPath,
+        title: item ? item.name + ' | ' + item.city + ', Texas Brewery License' : 'Texas brewery directory',
+        description: item ? item.name + ' in ' + item.city + ', ' + item.county + ' County: TABC brewer license location, licensing information and county travel links.' : 'Texas brewery license directory.',
+        robots: 'noindex,follow',
+      }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     };
   },
