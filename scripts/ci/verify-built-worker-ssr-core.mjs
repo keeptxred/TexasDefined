@@ -31,6 +31,12 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  // Bounded individual-waterpark contract: the guide must SSR with researched
+  // operator facts, real media attribution where licensed, and new municipal venues.
+  { path: '/explore/water-parks/schlitterbahn-new-braunfels', requiredText: 'Where should day visitors park versus resort guests?', label: 'New Braunfels researched individual guide' },
+  { path: '/explore/water-parks/schlitterbahn-new-braunfels', requiredText: 'Wikimedia Commons source', label: 'New Braunfels license attribution renders on the individual guide' },
+  { path: '/explore/water-parks/irving-cimarron-family-aquatic', requiredText: 'Cimarron Family Aquatic Center', label: 'one newly added Irving municipal guide survives reconciliation' },
+  { path: '/explore/water-parks/irving-cimarron-family-aquatic', requiredText: 'Can younger children use the water slides at Cimarron?', label: 'Irving guide renders site-specific sourced FAQ rather than a directory row' },
   { path: '/destination/choke-canyon-state-park', requiredText: 'Calliham Unit', label: 'real Choke Canyon park guide names its access units' },
   { path: '/destination/caprock-canyons-state-park', requiredText: 'Caprock Canyons State Park', label: 'canonical Caprock Canyons visitor guide' },
   { path: '/county/gillespie', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Gillespie County links to researched historic corridor itinerary' },
