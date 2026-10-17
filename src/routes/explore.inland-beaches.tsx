@@ -1,15 +1,17 @@
-import { createFileRoute, Link } from"@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from"@/brand/texasdefined";
 import { Container } from"@/components/layout/Container";
-import { inlandSwimmingBeaches } from"@/data/inland-beach-authority";
+
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from"@/lib/seo";
 
 const canonicalPath ="/explore/inland-beaches";
 const description ="Find researched swimming beaches at Texas lakes, from Ray Roberts and Lake Texoma to Cedar Hill, Tyler and Lake Whitney. Official access sources, safety and county connections.";
 
 export const Route = createFileRoute("/explore/inland-beaches")({
-  head: ({ matches, match }) => {
+  loader: async () => (await import("@/data/inland-beach-authority")).inlandSwimmingBeaches,
+  head: ({ loaderData, matches, match }) => {
+    const beaches = loaderData ?? [];
     // A child beach is its own canonical authority page, not the directory.
     if (matches[matches.length - 1]?.routeId !== match.routeId) return {};
     const url = absoluteUrl(texasDefinedBrand, canonicalPath);
@@ -30,8 +32,8 @@ export const Route = createFileRoute("/explore/inland-beaches")({
         dateModified:"2026-10-17",
         mainEntity: {
 "@type":"ItemList",
-          numberOfItems: inlandSwimmingBeaches.length,
-          itemListElement: inlandSwimmingBeaches.map((beach, index) => ({
+          numberOfItems: beaches.length,
+          itemListElement: beaches.map((beach, index) => ({
 "@type":"ListItem",
             position: index + 1,
             name: beach.name,
@@ -45,6 +47,7 @@ export const Route = createFileRoute("/explore/inland-beaches")({
 });
 
 function TexasInlandBeaches() {
+  const beaches = Route.useLoaderData();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   if (pathname !== canonicalPath && pathname !== `${canonicalPath}/`) return <Outlet />;
   return <main>
@@ -70,13 +73,13 @@ function TexasInlandBeaches() {
         </p>
       </section>
       <nav aria-label="Jump to inland swimming beach" className="mt-10">
-        <h2 className="font-display text-3xl">Browse {inlandSwimmingBeaches.length} documented inland beaches</h2>
+        <h2 className="font-display text-3xl">Browse {beaches.length} documented inland beaches</h2>
         <ul className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
-          {inlandSwimmingBeaches.map((beach) => <li key={beach.slug}><a href={`/explore/inland-beaches/${beach.slug}`} className="text-sm font-semibold underline decoration-border underline-offset-4 hover:text-primary">{beach.name} · {beach.county} County</a></li>)}
+          {beaches.map((beach) => <li key={beach.slug}><a href={`/explore/inland-beaches/${beach.slug}`} className="text-sm font-semibold underline decoration-border underline-offset-4 hover:text-primary">{beach.name} · {beach.county} County</a></li>)}
         </ul>
       </nav>
       <div className="mt-12 grid gap-x-8 sm:grid-cols-2">
-        {inlandSwimmingBeaches.map((beach) => <article key={beach.slug} id={beach.slug} className="border-t border-border py-6">
+        {beaches.map((beach) => <article key={beach.slug} id={beach.slug} className="border-t border-border py-6">
           <p className="eyebrow text-primary">{beach.lake} · {beach.county} County</p>
           <h2 className="mt-3 font-display text-2xl"><Link to="/explore/inland-beaches/$slug" params={{ slug: beach.slug }} className="underline decoration-border underline-offset-4 hover:text-primary">{beach.name}</Link></h2>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">Officially documented swim-beach access near {beach.nearestTown}. Read the individual page for the correct park unit, current-operator links, parking arrangements, safety considerations and nearby activities.</p>
