@@ -54,10 +54,34 @@ try {
         missingAlt: [...document.images]
           .filter((el) => el.getBoundingClientRect().width && !el.hasAttribute('alt'))
           .map((el) => el.currentSrc),
+        heroContrast: (() => {
+          const hero = document.querySelector('[role="img"][aria-label*="Original TexasDefined football"]');
+          if (!hero) return null;
+          const rgb = (value) => (value.match(/[\d.]+/g) || []).slice(0, 3).map(Number);
+          const luminance = (value) => {
+            const components = rgb(value).map((n) => {
+              const c = n / 255;
+              return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+            });
+            return components[0] * 0.2126 + components[1] * 0.7152 + components[2] * 0.0722;
+          };
+          const background = getComputedStyle(hero).backgroundColor;
+          const labels = [...hero.querySelectorAll('p')].map((label) => {
+            const foreground = getComputedStyle(label).color;
+            const a = luminance(foreground), b = luminance(background);
+            const ratio = (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+            return { text: label.innerText, foreground, background, contrastRatio: Number(ratio.toFixed(2)) };
+          });
+          return {
+            labels,
+            overlappingDecorativeDivs: [...hero.children].filter((el) =>
+              el.tagName === 'DIV' && getComputedStyle(el).position === 'absolute').length,
+          };
+        })(),
       }));
       const check = (condition, why) => { if (!condition) errors.push(why); };
       check(response?.status() === 200, 'HTTP was not 200');
-      check(data.h1.length === 1 && /Aubrey/.test(data.h1[0]), 'Missing single Aubrey H1');
+      check(data.h1.length === 1 && data.h1[0] === 'Aubrey Chaparrals Football', 'Missing full team nickname in Aubrey H1');
       check(data.title.includes('Aubrey Chaparrals Football (2026)'), 'Old/stale page title');
       check(data.canonical === url, 'Incorrect canonical URL');
       check(data.description.includes('66–14'), 'SEO description missing 66–14 final');
@@ -81,6 +105,11 @@ try {
         'Unpublished editorial notes still visible');
       check(!/Looking for Texas gear\?/.test(data.body),
         'Generic Aubrey shop promotion still visible');
+      check(data.heroContrast?.overlappingDecorativeDivs === 0,
+        'An overlapping decorative element still obscures Aubrey hero text');
+      check(data.heroContrast?.labels.length === 2 &&
+        data.heroContrast.labels.every((x) => x.contrastRatio >= 7),
+        'Aubrey hero labels do not reach AAA contrast (7:1)');
       check(data.overflow <= 4, 'Horizontal overflow: ' + data.overflow + 'px');
       check(data.brokenImages.length === 0, 'Visible broken images: ' + data.brokenImages.join(', '));
       check(data.missingAlt.length === 0, 'Visible images without alt text');
@@ -95,7 +124,7 @@ try {
         viewport: viewport.name, http: response?.status(), errors, passed: errors.length === 0,
         h1: data.h1, title: data.title, faqCoach: data.faqCoach,
         gameRows: data.gameRows, sourceLinks: data.links.filter((x) => /GoFan|tickets|stadium|recorded final/i.test(x.text)),
-        overflow: data.overflow, brokenImages: data.brokenImages, runtimeErrors: runtime,
+        overflow: data.overflow, heroContrast: data.heroContrast, brokenImages: data.brokenImages, runtimeErrors: runtime,
         cfCacheStatus: response?.headers()['cf-cache-status'] || null,
         cfRay: response?.headers()['cf-ray'] || null,
       });
