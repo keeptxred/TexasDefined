@@ -2,6 +2,7 @@ import { footballMatchups, footballMatchupPath } from './football-matchups';
 
 export type FootballProgramEditorial = {
   slug: string;
+  intro?: string;
   coach?: {
     name: string;
     title: string;
@@ -22,18 +23,22 @@ export type FootballProgramEditorial = {
     sourceUrl: string;
     sourceLabel: string;
     verifiedAt: string;
+    officialScheduleUrl?: string;
+    ticketUrl?: string;
   };
   season?: {
     record: string;
     verifiedAt: string;
     sourceUrl: string;
     sourceLabel: string;
+    latestResultSourceUrl?: string;
     games: Array<{
       date: string;
       opponent: string;
       site: 'Home' | 'Away' | 'Neutral';
       district?: boolean;
       result?: string;
+      kickoff?: string;
       matchupPath?: string;
     }>;
   };
@@ -44,6 +49,7 @@ export type FootballProgramEditorial = {
     sourceLabel: string;
     verifiedAt: string;
     note: string;
+    policyUrl?: string;
   };
   development?: {
     title: string;
@@ -8445,13 +8451,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "aubrey": {
     "slug": "aubrey",
+    "intro": "Aubrey is 4–3 overall and 4–0 in UIL District 4 through October 16 after a 66–14 home win over Carrollton Ranchview. The next listed game is October 23 at Lake Dallas. Find all 2026 scores, the remaining schedule, home tickets and Chaparral Stadium policies below.",
     "theme": {
       "accentHex": "#AE1C2A",
-      "label": "Aubrey Chaparrals school-inspired editorial accent (not an official seal)"
+      "label": "Independent editorial colors; no official school logo reproduced"
     },
     "seo": {
-      "title": "Aubrey Chaparrals Football: Chaparral Stadium Rules & 2026 Guide",
-      "description": "Aubrey Chaparrals football: Chaparral Stadium ticket and fan policies, 2024 playoff season, coach Keith Ivy and official 2026 game-day resources."
+      "title": "Aubrey Chaparrals Football (2026): Schedule, Scores & Tickets",
+      "description": "Aubrey Chaparrals 2026 football: 4–3 overall, 4–0 district through October 16, schedule, 66–14 win over Ranchview, Chaparral Stadium policies and official tickets."
     },
     "coach": {
       "name": "Keith Ivy",
@@ -8461,61 +8468,158 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-10"
     },
     "schedule": {
-      "label": "2026 football schedule and official visitor resources",
-      "sourceUrl": "https://www.aubreyisd.net/o/ahs/live-feed?page_no=1",
-      "sourceLabel": "Published 2026 schedule/resources",
-      "verifiedAt": "2026-10-10"
+      "label": "2026 Aubrey varsity football schedule and results",
+      "sourceUrl": "https://www.maxpreps.com/tx/aubrey/aubrey-chaparrals/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity schedule (UIL partner)",
+      "verifiedAt": "2026-10-16",
+      "officialScheduleUrl": "https://www.aubreyisd.net/live_feeds/12931971",
+      "ticketUrl": "https://gofan.co/app/school/TX90134"
     },
     "development": {
-      "title": "What distinguishes the Aubrey Chaparrals program",
-      "body": "Aubrey ISD's June 4, 2026 Chaparral Stadium guidance says tickets must be purchased online via GoFan and cash is not accepted at the gate. Bags may be inspected, high school student-section visitors need school IDs and middle-school spectators must stay seated. These concrete procedures distinguish Aubrey's fan guide from generic stadium copy.",
-      "sourceUrl": "https://www.aubreyisd.net/live_feeds/12506149",
-      "sourceLabel": "School district or football reference",
-      "verifiedAt": "2026-10-10"
+      "title": "Chaparral Stadium: tickets and entry rules",
+      "body": "Aubrey ISD says Chaparral Stadium requires online GoFan tickets, with no cash accepted at the gate. Bags may be inspected, field access is restricted, high-school students need ID for the student section, and middle-school spectators must remain seated. Younger children must be accompanied by an adult. Check the latest official rules before travel.",
+      "sourceUrl": "https://www.aubreyisd.net/page/aubrey-isd-stadium-policies",
+      "sourceLabel": "Official Aubrey ISD stadium policy",
+      "verifiedAt": "2026-10-16"
     },
     "milestones": [
       {
         "date": "2021",
-        "title": "Twelve-win season",
-        "body": "Historical season records list Aubrey finishing 12–2, among the program's strongest recent years.",
+        "title": "Twelve-win campaign",
+        "body": "Aubrey finished 12–2 in 2021.",
         "sourceUrl": "https://www.texasfootball.com/team/aubrey-chaparrals",
-        "sourceLabel": "Named source for school-specific milestone"
+        "sourceLabel": "Dave Campbell’s historical season record"
       },
       {
         "date": "2024",
-        "title": "Playoff progress",
-        "body": "Aubrey recorded an 8–5 season in 2024, following an 8–4 2023 season.",
+        "title": "Another playoff run",
+        "body": "Aubrey finished 8–5 in 2024 after an 8–4 season in 2023.",
         "sourceUrl": "https://www.texasfootball.com/team/aubrey-chaparrals",
-        "sourceLabel": "Named source for school-specific milestone"
+        "sourceLabel": "Dave Campbell’s historical season record"
       },
       {
         "date": "2026",
-        "title": "Cashless stadium policy",
-        "body": "District policy specifies GoFan digital tickets, bag inspection and student supervision rules.",
-        "sourceUrl": "https://www.aubreyisd.net/live_feeds/12506149",
-        "sourceLabel": "Named source for school-specific milestone"
+        "title": "Three straight district wins",
+        "body": "Through October 9, Aubrey defeated Castleberry 60–0, Springtown 21–14 and Decatur 28–21.",
+        "sourceUrl": "https://www.maxpreps.com/tx/aubrey/aubrey-chaparrals/football/schedule/",
+        "sourceLabel": "2026 MaxPreps schedule and results"
       }
     ],
     "overview": [
-      "Aubrey is a Class 4A Division I program; DCTF credits the Chaparrals with 17 playoff appearances but no state championship or state title-game appearance. Avoid inventing a trophy to make the history look stronger.",
-      "Coach Keith Ivy is identified on the 2026 MaxPreps staff roster. The 2024 playoff campaign finished 8–5, and the 2025 season finished 3–7; these belong to separate historical seasons.",
-      "Aubrey ISD's stadium notice requires GoFan online tickets and no gate cash, allows inspected bags and restricts field access. These details are important for families and visiting supporters.",
-      "Chaparral Stadium is at the Aubrey High School campus, 510 Spring Hill Road, as corroborated by football game listings; school drop-off traffic rules should not be confused with football parking directions."
+      "The Aubrey Chaparrals are 4–3 overall and 4–0 in UIL District 4 through October 16, 2026. A 66–14 victory over Carrollton Ranchview followed district wins against Castleberry, Springtown and Decatur. Aubrey's next listed games are at Lake Dallas (October 23), at Alvarado (October 30) and home against Godley (November 6). These results are a dated snapshot, not a live feed.",
+      "The Chaparrals compete in 4A Division I, District 4. Keith Ivy is the published 2026 head coach. Aubrey finished 8–5 in 2024 and 3–7 in 2025; those records describe previous seasons.",
+      "Dave Campbell’s Texas Football credits Aubrey with 17 historic playoff appearances and no state-title-game appearances. Chaparral Stadium is at the school campus on Spring Hill Road. For home games, Aubrey ISD directs ticket purchases to GoFan and publishes separate entry rules."
     ],
     "faq": [
       {
-        "question": "Can spectators pay cash at Aubrey's Chaparral Stadium?",
-        "answer": "No. Aubrey ISD's June 2026 stadium notice directs ticket buyers to GoFan and says cash is not accepted at the gate."
+        "question": "What is Aubrey’s 2026 football record?",
+        "answer": "Through October 16, Aubrey was 4–3 overall and 4–0 in district play after beating Carrollton Ranchview 66–14. Verify any later results using the scoreboard and dated schedule above."
       },
       {
-        "question": "Who is Aubrey's listed 2026 head coach?",
-        "answer": "The 2026 MaxPreps football staff roster identifies Keith Ivy."
+        "question": "What games are on Aubrey’s late-2026 regular-season schedule?",
+        "answer": "The October 16 schedule snapshot has the Ranchview game as a completed 66–14 Aubrey win. The remaining games are Lake Dallas away October 23, Alvarado away October 30 and Godley at home November 6. Confirm kickoff times and later results using the current team schedule."
       },
       {
-        "question": "Has Aubrey won a Texas state football title?",
-        "answer": "Dave Campbell's historical summary lists no state titles or state-title-game appearances, while crediting 17 playoff appearances."
+        "question": "Where do fans buy Aubrey home football tickets?",
+        "answer": "Aubrey ISD directs home-game tickets to the official GoFan school page and says cash is not accepted at Chaparral Stadium's gate."
+      },
+      {
+        "question": "Where is Chaparral Stadium?",
+        "answer": "The stadium is at Aubrey High School, 510 Spring Hill Road, Aubrey. Confirm each game’s host stadium and parking with the district."
+      },
+      {
+        "question": "Has Aubrey won a state football title?",
+        "answer": "Dave Campbell’s historical listing records no state football titles or state-title-game appearances and credits Aubrey with 17 playoff appearances."
       }
-    ]
+    ],
+    "season": {
+      "record": "4–3 overall · 4–0 district (through Oct. 16)",
+      "verifiedAt": "2026-10-16",
+      "sourceUrl": "https://www.maxpreps.com/tx/aubrey/aubrey-chaparrals/football/schedule/",
+      "sourceLabel": "MaxPreps Aubrey varsity schedule; snapshot reviewed October 16, not a live scoreboard",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Prosper Richland",
+          "site": "Home",
+          "district": false,
+          "result": "L 49–56 (OT)"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Van Alstyne",
+          "site": "Home",
+          "district": false,
+          "result": "L 36–40"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Sanger",
+          "site": "Away",
+          "district": false,
+          "result": "L 21–37"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "River Oaks Castleberry",
+          "site": "Away",
+          "district": true,
+          "result": "W 60–0"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Springtown",
+          "site": "Home",
+          "district": true,
+          "result": "W 21–14"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Decatur",
+          "site": "Away",
+          "district": true,
+          "result": "W 28–21"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Carrollton Ranchview",
+          "site": "Home",
+          "district": true,
+          "result": "W 66–14"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Lake Dallas",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 p.m. CDT"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Alvarado",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 p.m. CDT"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Godley",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 p.m. CST"
+        }
+      ],
+      "latestResultSourceUrl": "https://www.maxpreps.com/tx/football/game/aubrey-vs-ranchview-irving/10-16-2026/?c=54b47abc-615f-4da6-91f5-3c864b3b37d1"
+    },
+    "venue": {
+      "name": "Chaparral Stadium at Aubrey High School",
+      "address": "510 Spring Hill Road, Aubrey, TX 76227",
+      "sourceUrl": "https://www.texasfootball.com/team/aubrey-chaparrals",
+      "sourceLabel": "Dave Campbell’s football stadium listing; school campus address independently confirmed by Aubrey ISD",
+      "verifiedAt": "2026-10-16",
+      "note": "Aubrey home venue. Verify the actual host and stadium entrance for each game; campus drop-off rules are not football parking instructions.",
+      "policyUrl": "https://www.aubreyisd.net/page/aubrey-isd-stadium-policies"
+    }
   },
   "atlanta": {
     "slug": "atlanta",
