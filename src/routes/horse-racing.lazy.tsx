@@ -52,6 +52,15 @@ function TexasHorseRacingIndex() {
           <figcaption className="mt-3 text-xs leading-6 text-muted-foreground">Lone Star Park in Grand Prairie (not the Gillespie County Fairgrounds). Photo by <a className="underline" href="https://commons.wikimedia.org/wiki/File:Lone_Star_Park.jpg" target="_blank" rel="noopener noreferrer">Jax 0677 / Wikimedia Commons</a>, <a className="underline" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.</figcaption>
         </figure>
 
+        <section className="border-b border-border py-7">
+          <p className="eyebrow text-primary">When the next races happen</p>
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-5">
+            <div><h2 className="font-display text-3xl">2026–27 live race calendar and track comparison</h2>
+              <p className="mt-2 text-sm leading-7 text-muted-foreground">Meet windows, Thoroughbreds versus Quarter Horses, official schedules and the difference between live and simulcast racing.</p></div>
+            <a className="border border-primary px-5 py-3 text-sm font-semibold text-primary hover:underline" href="/horse-racing/calendar">Compare all four tracks and see the calendar →</a>
+          </div>
+        </section>
+
         <section className="border-b border-border py-12" aria-labelledby="live-tracks">
           <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
             <div><p className="eyebrow text-primary">Go to the races</p><h2 id="live-tracks" className="mt-2 font-display text-3xl">Texas's four live racing venues</h2>
@@ -99,7 +108,7 @@ function TexasHorseRacingIndex() {
         <section className="border-b border-border py-12" aria-labelledby="associations">
           <p className="eyebrow text-primary">Owners, breeders and racing professionals</p>
           <h2 id="associations" className="mt-2 font-display text-3xl">Texas horse-racing institutions and official resources</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The track directory covers destinations and license histories. These statewide organizations handle the regulations, Texas-bred programs, associations, race conditions and professional resources that make up the wider horse-racing industry.</p>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These four organizations regulate or support Texas racing, breeding, ownership and horsemen. Each has an independently researched institution guide, with official program links and county-level context. Administrative offices are not racetracks.</p>
           <div className="mt-6 grid gap-x-8 md:grid-cols-2">
             {TEXAS_RACING_ORGANIZATIONS.map((institution) => <article key={institution.name} className="border-t border-border py-5">
               <h3 className="font-display text-2xl">{institution.name}</h3>
