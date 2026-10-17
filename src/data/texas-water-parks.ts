@@ -297,7 +297,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "The Mansfield branch of the Hawaiian Falls water-park network.",
     "distinctiveNote": "Choose Mansfield in the operator's location selector; Waco and Roanoke have separate hours.",
     "officialUrl": "https://hfalls.com/mansfield/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "490 Heritage Parkway South, Mansfield, TX 76063",
+    "visitorHighlights": [
+      "The Mansfield park lists Lava Launch, Cliffhanger, Hawaiian Halfpipe, Lalana Peak and TikiTower among its individual water-slide attractions.",
+      "Gentler visitor options at the Mansfield location include Kona Kooler lazy river and Methodist Mansfield Keiki Cove, with age and supervision rules distinct from major slides.",
+      "Lava Launch requires 48 inches; Keiki Cove begins at 36 inches. Use the specific operator ride chart rather than a chain-wide height rule.",
+      "The Mansfield operator's current site announces the 2026 waterpark season is over and points to reopening in May; 2027 season-pass sales do not imply the park is open today.",
+      "Hawaiian Falls Mansfield confirms complimentary life jackets and floating tubes, with free standard parking; outside coolers may require a paid permit."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "What are the main slides at Hawaiian Falls Mansfield?",
+        "answer": "The Mansfield operator's own attraction list names Lava Launch, Cliffhanger, Hawaiian Halfpipe, Lalana Peak and TikiTower. Each ride has its own height, weight and supervision restrictions; the operator warns that availability may change for weather or maintenance.",
+        "sourceUrl": "https://hfalls.com/mansfield/rides-attractions/"
+      },
+      {
+        "question": "Is there something for younger children at Mansfield?",
+        "answer": "Yes. Kona Kooler lazy river and Methodist Mansfield Keiki Cove are among the gentler choices in the Mansfield park's attractions list. Some children's slides have both minimum and maximum height requirements.",
+        "sourceUrl": "https://hfalls.com/mansfield/rides-attractions/"
+      },
+      {
+        "question": "Is Hawaiian Falls Mansfield open in October 2026?",
+        "answer": "The park's own website announces its waterpark season has ended and points guests toward reopening next May. Future season-pass availability should not be mistaken for open slides today.",
+        "sourceUrl": "https://hfalls.com/mansfield/"
+      },
+      {
+        "question": "Where is Hawaiian Falls Mansfield?",
+        "answer": "Use 490 Heritage Parkway South, Mansfield, TX 76063 for this physical park. The operator publishes its own parking and visitor information for Mansfield, separate from the Mansfield, Roanoke and Waco branches.",
+        "sourceUrl": "https://hfalls.com/mansfield/directions/"
+      }
+    ]
   },
   {
     "slug": "hawaiian-falls-roanoke",
@@ -311,7 +341,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A northwest-DFW Hawaiian Falls location for families around Roanoke and Trophy Club.",
     "distinctiveNote": "Confirm the Roanoke schedule and age/height rules for its specific attractions.",
     "officialUrl": "https://hfalls.com/roanoke/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "290 W. Byron Nelson Blvd., Roanoke, TX 76262",
+    "visitorHighlights": [
+      "The Roanoke park lists Pipeline Plunge, Beach Blasters, The Rush and Hawaiian Halfpipe among its individual water-slide attractions.",
+      "Gentler visitor options at the Roanoke location include Rainforest River Adventure, Coconut Cove and Mega WaterWorld, with age and supervision rules distinct from major slides.",
+      "Pipeline Plunge requires 48 inches; several other slides require 40 or 42 inches. Use the specific operator ride chart rather than a chain-wide height rule.",
+      "The Roanoke operator's current site announces the 2026 waterpark season is over and points to reopening in May; 2027 season-pass sales do not imply the park is open today.",
+      "Hawaiian Falls Roanoke confirms complimentary life jackets and floating tubes, with free standard parking; outside coolers may require a paid permit."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "What are the main slides at Hawaiian Falls Roanoke?",
+        "answer": "The Roanoke operator's own attraction list names Pipeline Plunge, Beach Blasters, The Rush and Hawaiian Halfpipe. Each ride has its own height, weight and supervision restrictions; the operator warns that availability may change for weather or maintenance.",
+        "sourceUrl": "https://hfalls.com/roanoke/rides-attractions/"
+      },
+      {
+        "question": "Is there something for younger children at Roanoke?",
+        "answer": "Yes. Rainforest River Adventure, Coconut Cove and Mega WaterWorld are among the gentler choices in the Roanoke park's attractions list. Some children's slides have both minimum and maximum height requirements.",
+        "sourceUrl": "https://hfalls.com/roanoke/rides-attractions/"
+      },
+      {
+        "question": "Is Hawaiian Falls Roanoke open in October 2026?",
+        "answer": "The park's own website announces its waterpark season has ended and points guests toward reopening next May. Future season-pass availability should not be mistaken for open slides today.",
+        "sourceUrl": "https://hfalls.com/roanoke/"
+      },
+      {
+        "question": "Where is Hawaiian Falls Roanoke?",
+        "answer": "Use 290 W. Byron Nelson Blvd., Roanoke, TX 76262 for this physical park. The operator publishes its own parking and visitor information for Roanoke, separate from the Mansfield, Roanoke and Waco branches.",
+        "sourceUrl": "https://hfalls.com/roanoke/directions/"
+      }
+    ]
   },
   {
     "slug": "hawaiian-falls-waco",
@@ -325,7 +385,30 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A Waco-area family water park separate from the surfing lagoon at Waco Surf.",
     "distinctiveNote": "Check the operator's Waco ticket page; do not use the Mansfield or Roanoke calendar.",
     "officialUrl": "https://hfalls.com/waco/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorHighlights": [
+      "The Waco park lists Tiki Tower Slides, Tempest Tower, The Rush and Tsunami among its individual water-slide attractions.",
+      "Gentler visitor options at the Waco location include Breaker Bay pool, Kona Kooler and Keiki Cove, with age and supervision rules distinct from major slides.",
+      "Tiki Tower Slides require 48 inches; some other rides require 42 inches. Use the specific operator ride chart rather than a chain-wide height rule.",
+      "The Waco operator's current site announces the 2026 waterpark season is over and points to reopening in May; 2027 season-pass sales do not imply the park is open today."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "What are the main slides at Hawaiian Falls Waco?",
+        "answer": "The Waco operator's own attraction list names Tiki Tower Slides, Tempest Tower, The Rush and Tsunami. Each ride has its own height, weight and supervision restrictions; the operator warns that availability may change for weather or maintenance.",
+        "sourceUrl": "https://hfalls.com/waco/rides-attractions/"
+      },
+      {
+        "question": "Is there something for younger children at Waco?",
+        "answer": "Yes. Breaker Bay pool, Kona Kooler and Keiki Cove are among the gentler choices in the Waco park's attractions list. Some children's slides have both minimum and maximum height requirements.",
+        "sourceUrl": "https://hfalls.com/waco/rides-attractions/"
+      },
+      {
+        "question": "Is Hawaiian Falls Waco open in October 2026?",
+        "answer": "The park's own website announces its waterpark season has ended and points guests toward reopening next May. Future season-pass availability should not be mistaken for open slides today.",
+        "sourceUrl": "https://hfalls.com/waco/"
+      }
+    ]
   },
   {
     "slug": "hawaiian-waters-garland",
@@ -409,7 +492,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Kalahari's Round Rock resort contains a large year-round indoor water park plus seasonal outdoor water attractions.",
     "distinctiveNote": "The indoor water park operates separately from some outdoor features; pass dates and hours need checking.",
     "officialUrl": "https://www.kalahariresorts.com/texas-round-rock/parks-and-passes/indoor-waterpark/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "3001 Kalahari Blvd., Round Rock, TX 78665",
+    "visitorHighlights": [
+      "Kalahari Round Rock combines separately scheduled indoor and seasonal outdoor waterpark attractions, with its own admission calendar.",
+      "Indoor attractions include Barreling Baboon, Kenya Korkscrew, Rippling Rhino and Screaming Hyena, which can have temporary ride closures.",
+      "Limited day passes are offered to non-overnight visitors, but the park states that online purchase is the only way to guarantee admission.",
+      "Children under 48 inches must wear an approved life jacket; loaners are limited, and guests under 14 must be accompanied by a parent or guardian.",
+      "Day-pass guests should bring towels, because complimentary towel service is not included with their admission."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can non-resort guests use the waterpark?",
+        "answer": "Yes. The resort sells a limited number of day passes for indoor and outdoor waterparks, but recommends buying them online; ticket-desk walk-up sales may stop without warning.",
+        "sourceUrl": "https://www.kalahariresorts.com/texas-round-rock/parks-and-passes/day-passes/waterpark-day-passes/"
+      },
+      {
+        "question": "Does a day ticket include towels?",
+        "answer": "No complimentary towel program is promised for day visitors. Kalahari asks day-pass guests to bring towels; towels can be purchased if necessary, while overnight guests have separate benefits.",
+        "sourceUrl": "https://www.kalahariresorts.com/texas-round-rock/parks-and-passes/day-passes/waterpark-day-passes/"
+      },
+      {
+        "question": "What do day-pass guests bring to check in?",
+        "answer": "All party members must arrive together with the confirmation, the purchaser's payment card and government-issued photo identification. The operator warns that missing documentation can prevent entry.",
+        "sourceUrl": "https://www.kalahariresorts.com/texas-round-rock/parks-and-passes/day-passes/waterpark-day-passes/"
+      },
+      {
+        "question": "Are toddlers and young children subject to different restrictions?",
+        "answer": "Ages two and under do not need a waterpark pass; children younger than 14 must be with a parent or guardian, and children under 48 inches must wear approved life jackets.",
+        "sourceUrl": "https://www.kalahariresorts.com/texas-round-rock/parks-and-passes/day-passes/waterpark-day-passes/"
+      }
+    ]
   },
   {
     "slug": "great-wolf-grapevine",
@@ -423,7 +536,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A family lodge organized around an indoor water park in Grapevine.",
     "distinctiveNote": "Check current day-pass inventory if visiting without reserving an overnight room.",
     "officialUrl": "https://www.greatwolf.com/grapevine",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "100 Great Wolf Drive, Grapevine, TX 76051",
+    "visitorHighlights": [
+      "Grapevine's indoor waterpark is available to overnight guests as well as a limited number of separately ticketed day visitors.",
+      "The resort sells full-day and half-day admission options; the half-day product begins in the late afternoon on the operator's booking calendar.",
+      "The Raccoon Lagoon outdoor pool is seasonal, while the indoor heated waterpark uses a separate operating schedule.",
+      "Day passes provide towels and Coast Guard-approved life jackets, but rented lockers and many dry-land entertainment options cost extra.",
+      "The Grapevine attractions list includes outdoor tube slides Thunder Run and Lightning Falls, both requiring riders at least 42 inches tall."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can non-hotel visitors buy waterpark admission?",
+        "answer": "Yes. Great Wolf Lodge Grapevine offers dated full-day and half-day day passes with limited inventory. Check the calendar before going because sold-out dates may have no walk-up admission.",
+        "sourceUrl": "https://www.greatwolf.com/grapevine/daypass"
+      },
+      {
+        "question": "Are towels and life jackets free with day admission?",
+        "answer": "The operator states that towels and life jackets are included with Grapevine waterpark passes; locker rentals and many dry-land attractions are separate purchases.",
+        "sourceUrl": "https://www.greatwolf.com/grapevine/daypass"
+      },
+      {
+        "question": "Can day guests bring their own food or coolers?",
+        "answer": "No. The Grapevine day-pass terms prohibit outside food and coolers in the resort, so visitors should plan for available on-site dining and consult staff about any necessary exceptions.",
+        "sourceUrl": "https://www.greatwolf.com/grapevine/daypass"
+      },
+      {
+        "question": "Can we swim outdoors during the winter?",
+        "answer": "The indoor waterpark has its own calendar, but the resort labels Raccoon Lagoon an outdoor seasonal pool. Confirm the planned date rather than treating all outdoor attractions as year-round.",
+        "sourceUrl": "https://www.greatwolf.com/grapevine/water-park"
+      }
+    ]
   },
   {
     "slug": "great-wolf-webster",
@@ -437,7 +580,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A large indoor water park near NASA and the Clear Lake area.",
     "distinctiveNote": "Webster is a separate resort from the Grapevine location; look for its indoor-park day passes.",
     "officialUrl": "https://www.greatwolf.com/webster/waterpark-attractions/indoor-water-park",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1000 Great Wolf Way, Webster, TX 77598",
+    "visitorHighlights": [
+      "Webster's indoor waterpark spans approximately 92,000 square feet, with Slap Tail Pond wave pool and Crooked Creek lazy river.",
+      "Texas Twirler is a Webster-specific funnel-style family raft ride with a posted 42-inch minimum height and 700-pound maximum raft weight.",
+      "The twisting Forest Flume body slide requires at least 48 inches of height with a maximum individual rider weight of 280 pounds.",
+      "The Otter Cave Waterworks four-level structure and Otter Springs younger-child area offer alternatives to the high-thrill slides.",
+      "Day passes are available without an overnight reservation; MagiQuest and other dry-land attractions may require separate admission."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is the Houston-area Great Wolf Lodge?",
+        "answer": "The Houston-area resort and its indoor waterpark are located at 1000 Great Wolf Way in Webster, Texas. This is a separate property from Great Wolf Lodge Grapevine.",
+        "sourceUrl": "https://www.greatwolf.com/webster"
+      },
+      {
+        "question": "Can visitors use the indoor park without booking a room?",
+        "answer": "Yes. Webster offers day-pass access in addition to waterpark admission for overnight guests. Full-day and half-day admission prices and availability depend on the selected date.",
+        "sourceUrl": "https://www.greatwolf.com/webster/daypass"
+      },
+      {
+        "question": "What are the height limits for Texas Twirler and Forest Flume?",
+        "answer": "The operator lists a minimum rider height of 42 inches for Texas Twirler and 48 inches for Forest Flume, along with separate published maximum raft or rider weights.",
+        "sourceUrl": "https://www.greatwolf.com/webster/waterpark-attractions/indoor-water-park"
+      },
+      {
+        "question": "Does the park have younger-child attractions?",
+        "answer": "Yes. Otter Springs, Otter Cave Waterworks and other low-thrill pools and play areas are described separately from the tall thrill slides. Check each attraction's specific supervision rules.",
+        "sourceUrl": "https://www.greatwolf.com/webster/waterpark-attractions/indoor-water-park"
+      }
+    ]
   },
   {
     "slug": "epic-waters-grand-prairie",
@@ -494,7 +667,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "An indoor Little Elm water park with slides, lazy river and surf simulation.",
     "distinctiveNote": "The Cove will close October 26–30, 2026, for annual maintenance and plans to reopen October 31. The park also uses school-year hours with some weekdays closed.",
     "officialUrl": "https://www.thecoveatthelakefront.com/hours",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "417 Lakefront Drive, Little Elm, TX 75068",
+    "visitorHighlights": [
+      "The Cove publishes school-year operation from August 10, 2026 to May 20, 2027, with Tuesdays and Wednesdays closed during regular hours.",
+      "Guests must be at least 48 inches tall for the larger red, green and blue waterslides.",
+      "FlowRider Double requires at least 42 inches for bodyboarding and 48 inches for standing surfing.",
+      "This facility has no free spectator entry: both swimmers and non-swimmers must have admission or membership and complete waivers.",
+      "Toddler Time is offered during special Monday and Thursday morning sessions on the published school-year schedule."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "When is The Cove open during the school year?",
+        "answer": "The Cove lists afternoon/evening hours on Monday and Thursday–Friday, daytime weekend hours, and Tuesday/Wednesday closures. Toddler Time has a separate schedule from regular admission.",
+        "sourceUrl": "https://www.thecoveatthelakefront.com/hours"
+      },
+      {
+        "question": "Can adults watch from the deck without paying?",
+        "answer": "No. The facility explicitly describes itself as no-spectator admission; every person entering needs a valid membership or day pass, and legal guardians must complete minor waivers.",
+        "sourceUrl": "https://www.thecoveatthelakefront.com/faq/"
+      },
+      {
+        "question": "What are its waterslide and FlowRider height limits?",
+        "answer": "The major red, green and blue slides require 48 inches. FlowRider allows bodyboarding at 42 inches and surfing at 48 inches; wristbands help lifeguards enforce the limits.",
+        "sourceUrl": "https://www.thecoveatthelakefront.com/faq/"
+      },
+      {
+        "question": "Are picnic coolers allowed?",
+        "answer": "Yes, inspected coolers within the operator's stated maximum dimensions may enter for an additional fee. Glass containers, outside alcohol and food deliveries are prohibited.",
+        "sourceUrl": "https://www.thecoveatthelakefront.com/faq/"
+      }
+    ]
   },
   {
     "slug": "waco-surf-waterpark",
@@ -508,7 +711,42 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A resort complex where the water park and surf lagoon are distinct experiences.",
     "distinctiveNote": "Book the correct water-park product instead of assuming a wave-surfing session includes slides.",
     "officialUrl": "https://wacosurf.com/water-park/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "5347 Old Mexia Road, Waco, TX 76705",
+    "visitorHighlights": [
+      "Waco Surf states its dedicated Wedge slide and lazy-river waterpark is closed for the rest of the 2026 season, despite other property experiences operating.",
+      "The Wedge is a 70-foot slide with four launch levels and a posted 44-inch minimum rider height; all Wedge riders must wear life jackets.",
+      "An approximately one-mile lazy river provides tubes, with optional rented floating cooler tubes.",
+      "Outside food and coolers are allowed on the waterpark side without glass, but the surf/beach side follows different admission and food rules.",
+      "The standard waterpark pass does not include separate beach access; visitors may need to buy a combined ticket."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Are the Wedge slides operating in October 2026?",
+        "answer": "No. The operator states that the waterpark portion is closed for the 2026 season and is expected back in 2027, even though surfing, lodging and other portions may have separate hours.",
+        "sourceUrl": "https://wacosurf.com/water-park/"
+      },
+      {
+        "question": "What are the Wedge height and flotation rules?",
+        "answer": "Waco Surf lists at least 44 inches in height to ride the Wedge and requires every Wedge rider, including adults, to wear a life jacket.",
+        "sourceUrl": "https://wacosurf.com/water-park/"
+      },
+      {
+        "question": "Can we bring our own food or cooler?",
+        "answer": "The operator explicitly allows coolers and food on the waterpark side without glass, but sets different food and carry-in restrictions for the surf and beach areas.",
+        "sourceUrl": "https://wacosurf.com/water-park/"
+      },
+      {
+        "question": "Does a waterpark pass include the separate beach?",
+        "answer": "No. Waco Surf says standard waterpark admission does not include beach access, which can be added separately or purchased as part of a combined pass.",
+        "sourceUrl": "https://wacosurf.com/water-park/"
+      },
+      {
+        "question": "Are floating tubes provided?",
+        "answer": "Yes. The operator provides regular lazy-river tubes at no charge; separate cooler tubes can be rented. Guests are required to stay on a tube during the float.",
+        "sourceUrl": "https://wacosurf.com/water-park/"
+      }
+    ]
   },
   {
     "slug": "volente-beach",
@@ -564,7 +802,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A south-Dallas city water park built around slides, family swimming and lazy-river attractions.",
     "distinctiveNote": "Use Dallas Parks' official calendar for seasonal opening, closures and resident policies.",
     "officialUrl": "https://bahamabeachdallas.com/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1895 Campfire Circle, Dallas, TX 75232",
+    "visitorHighlights": [
+      "City-operated Bahama Beach includes two zero-depth beaches, a lazy river, and large thrill waterslides.",
+      "The family splash playground includes a 1,000-gallon dumping bucket, a distinct lower-thrill option from major slides.",
+      "Free life jackets and tubes for slides and the lazy river are offered, but guests cannot bring ordinary external rafts or water wings.",
+      "The park inspects coolers and charges a separate cooler fee; glass containers, knives and alcohol are prohibited.",
+      "Private shaded cabanas and reserved seating require separate bookings instead of being included automatically with admission."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is Bahama Beach Waterpark?",
+        "answer": "The City of Dallas lists Bahama Beach at 1895 Campfire Circle, Dallas, TX 75232, a different site from its municipal Cove and neighborhood aquatic centers.",
+        "sourceUrl": "https://bahamabeachdallas.com/"
+      },
+      {
+        "question": "Are life jackets and lazy-river tubes included?",
+        "answer": "Yes. The operator says Coast Guard-approved life jackets are provided first come, first served and tubes for the slides and lazy river are free. Outside rafts and water wings are not allowed.",
+        "sourceUrl": "https://bahamabeachdallas.com/m/faq?cat=15"
+      },
+      {
+        "question": "Can visitors bring a food cooler?",
+        "answer": "Bahama Beach's operator permits inspected coolers for a separately charged fee but prohibits outside catered meals, glass containers, knives and alcoholic beverages.",
+        "sourceUrl": "https://bahamabeachdallas.com/m/faq?cat=15"
+      },
+      {
+        "question": "Can we reserve a cabana?",
+        "answer": "Yes. The official FAQ says guests may separately reserve cabanas and shaded seating for an additional charge; the standard admission price does not guarantee private reserved space.",
+        "sourceUrl": "https://bahamabeachdallas.com/m/faq?cat=15"
+      }
+    ]
   },
   {
     "slug": "water-works-denton",
@@ -697,7 +965,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A Round Rock city water park with slides, an action river and family play areas.",
     "distinctiveNote": "This is a different attraction from Kalahari's resort water park in the same city.",
     "officialUrl": "https://www.roundrocktexas.gov/city-departments/parks-and-recreation/facilities/pools/rock-n-river-water-park/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "800 Harrell Parkway, Round Rock, TX",
+    "visitorHighlights": [
+      "Rock'N River is inside Old Settlers Park near Dell Diamond; its entrance guide lists 800 Harrell Parkway, distinct from the department's Palm Valley Boulevard contact address.",
+      "Splashville's Yellow Sidewinder, Orange Outlaw and Blue Blaze slides require riders at least 40 inches tall.",
+      "The Lookout waterslides require 48 inches, and The Quarry rock wall, diving platform and drop slide require both 48 inches and a swim test for guests younger than 16.",
+      "Riders under 48 inches must wear a Coast Guard-approved life jacket in the Action River; life jackets are available on site without charge.",
+      "The City of Round Rock announced a substantial 2026 expansion; check the dated operator guide rather than assuming every planned feature is available."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Which address reaches Rock'N River's waterpark entrance?",
+        "answer": "The City of Round Rock's location FAQ gives 800 Harrell Parkway within Old Settlers Park, near Dell Diamond. The site also lists a separate 3300 East Palm Valley Boulevard department address.",
+        "sourceUrl": "https://www.roundrocktexas.gov/city-departments/parks-and-recreation/facilities/pools/rock-n-river-water-park/rockn-river-faqs/"
+      },
+      {
+        "question": "How tall do children need to be for the big slides?",
+        "answer": "Splashville's three specified slides require a minimum of 40 inches and The Lookout slides require 48 inches. Each attraction has its own sign and requirements.",
+        "sourceUrl": "https://www.roundrocktexas.gov/city-departments/parks-and-recreation/facilities/pools/rock-n-river-water-park/"
+      },
+      {
+        "question": "Is a swim test needed for The Quarry?",
+        "answer": "Yes. The city requires a minimum of 48 inches, and visitors younger than 16 must pass a free on-site swim test for The Quarry's rock wall, diving platform and drop-slide activities.",
+        "sourceUrl": "https://www.roundrocktexas.gov/city-departments/parks-and-recreation/facilities/pools/rock-n-river-water-park/"
+      },
+      {
+        "question": "Do children need life jackets in the Action River?",
+        "answer": "Any guest below 48 inches must wear an approved Coast Guard life jacket in the Action River. The city states that loaner jackets are available on site at no cost.",
+        "sourceUrl": "https://www.roundrocktexas.gov/city-departments/parks-and-recreation/facilities/pools/rock-n-river-water-park/"
+      }
+    ]
   },
   {
     "slug": "boomtown-bay-burkburnett",
