@@ -11,7 +11,7 @@ if (snapshot.fetchedAt) assert.ok(!Number.isNaN(Date.parse(snapshot.fetchedAt)))
 const ids = new Set(), slugs = new Set();
 for (const row of snapshot.breweries) {
   for (const field of ['licenseId', 'slug', 'name', 'county', 'city', 'licenseStatus']) assert.ok(row[field], 'Missing ' + field);
-  assert.equal(row.licenseType, 'BW');
+  assert.ok(['BW', 'BP'].includes(row.licenseType), 'Unexpected brewing license type');
   assert.match(row.licenseStatus, /^Active\b/i);
   assert.match(row.slug, /^[a-z0-9-]+$/);
   assert.ok(!ids.has(row.licenseId), 'Duplicate license ID');
@@ -23,4 +23,10 @@ assert.equal(normalizeTabcRows([example, { ...example }, { ...example, license_i
 assert.equal(normalizeTabcRows([{ ...example, license_status: 'Active - Renewal Pending', primary_status: undefined }]).length, 1);
 assert.equal(normalizeTabcRows([{ ...example, city: '' }]).length, 0);
 assert.equal(normalizeTabcRows([example], [{licenseId:'12345',slug:'preserved-old-slug'}])[0].slug, 'preserved-old-slug');
-console.log('Brewery snapshot validated: ' + snapshot.breweries.length + ' active BW locations.');
+const brewpub = { license_type:'BG', subordinates:'BP,FB', primary_status:'Active', state:'TX', trade_name:'Example Brewpub', city:'Dallas', county:'Dallas', license_id:'67890.0' };
+const parsedBrewpub = normalizeTabcRows([brewpub]);
+assert.equal(parsedBrewpub.length, 1);
+assert.equal(parsedBrewpub[0].licenseType, 'BP');
+assert.equal(parsedBrewpub[0].licenseId, '67890');
+assert.equal(normalizeTabcRows([{...brewpub, subordinates:'BPP'}]).length, 0);
+console.log('Brewery snapshot validated: ' + snapshot.breweries.length + ' active BW/BP locations.');
