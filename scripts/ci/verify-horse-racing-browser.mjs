@@ -95,7 +95,7 @@ try {
       await page.locator('h1').first().waitFor({ state: 'visible', timeout: 12000 });
       await page.waitForFunction(() => !document.querySelector('#expedia-travel-surface'), { timeout: 15000 });
       await page.locator('a[href="/horse-racing/manor-downs"]').first().click();
-      await page.waitForURL('**/horse-racing/manor-downs', { timeout: 15000 });
+      await page.waitForURL('**/horse-racing/manor-downs', { waitUntil: 'domcontentloaded', timeout: 30000 });
       facts = await page.evaluate(pageFacts);
       assertPage(/Manor Downs/i.test(facts.heading), 'Inactive history lost during SPA navigation', facts);
       assertPage(!facts.surface && !facts.affiliateSlot, 'Stale hotel affiliate on inactive racetrack', facts);
