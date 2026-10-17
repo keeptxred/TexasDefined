@@ -3,6 +3,8 @@ import { readFileSync } from "node:fs";
 const source = readFileSync("src/data/texas-water-parks.ts", "utf8");
 const hub = readFileSync("src/routes/explore.water-parks.index.tsx", "utf8");
 const detail = readFileSync("src/routes/explore.water-parks.$slug.tsx", "utf8");
+const detailUi = readFileSync("src/routes/explore.water-parks.$slug.lazy.tsx", "utf8");
+const hubUi = readFileSync("src/routes/explore.water-parks.index.lazy.tsx", "utf8");
 const sitemap = readFileSync("src/routes/sitemap-explore[.]xml.ts", "utf8");
 const explore = readFileSync("src/routes/explore.index.lazy.tsx", "utf8");
 const match = source.match(/export const texasWaterParks: WaterParkGuide\[\] = (\[[\s\S]*?\]);\nexport const texasWaterParksBySlug/);
@@ -31,7 +33,7 @@ for (const anchor of ['"/explore/water-parks"', 'texasWaterParks.filter((park) =
   if (!sitemap.includes(anchor)) throw new Error(`Sitemap missing park route coverage: ${anchor}`);
 }
 if ((sitemap.match(/texasWaterParks\.filter/g) ?? []).length < 2) throw new Error("Both primary and fallback explore sitemaps must include waterpark guides.");
-if (!hub.includes('"@type": "ItemList"') || !hub.includes("useState") || !hub.includes("actively researched collection")) throw new Error("Directory must preserve schema, filtering and census completeness disclosure.");
+if (!hub.includes('"@type": "ItemList"') || !hubUi.includes("useState") || !hubUi.includes("actively researched collection")) throw new Error("Directory must preserve schema, filtering and census completeness disclosure.");
 if (!detail.includes('robots: park.authorityReady ? undefined : "noindex, follow"')) throw new Error("Uncertified water-park guides must remain noindex.");
 const authorityReady = parks.filter((park) => park.authorityReady);
 for (const park of authorityReady) {
@@ -40,6 +42,7 @@ for (const park of authorityReady) {
     throw new Error(`Attempted indexation without primary-source + photography + features authority proof: ${park.slug}`);
   }
 }
-if (!detail.includes('"@type": "TouristAttraction"') || !detail.includes('park.officialUrl') || !detail.includes('park.distinctiveNote')) throw new Error("Per-park pages require operator facts and tourist attraction schema.");
+if (!detail.includes('"@type": "TouristAttraction"') || !detail.includes('park.officialUrl') || !detailUi.includes('park.distinctiveNote')) throw new Error("Per-park pages require operator facts and tourist attraction schema.");
+if (!hub.includes('loader: async () => (await import("@/data/texas-water-parks"))') || !detail.includes('await import("@/data/texas-water-parks")')) throw new Error("Both water-park routes must lazy-load source records to protect client bundles.");
 if (!explore.includes('to="/explore/water-parks"')) throw new Error("Explore landing must link to the new water-park hub.");
 console.log(`Texas water-park guide contract passed: ${parks.length} unique official-source facilities, primary/fallback sitemaps, venue pages and truthful census scope.`);
