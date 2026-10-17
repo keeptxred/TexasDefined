@@ -1,0 +1,25 @@
+name: Hotel Paso del Norte authority guard
+on:
+  pull_request:
+    paths:
+      - "src/data/hotel-paso-del-norte-authority.ts"
+      - "src/data/destination-preserved-catalog.ts"
+      - "src/data/destination-curated-pairings.ts"
+      - "src/data/city-authority-profiles.ts"
+      - "src/data/county-visitor-places.ts"
+      - "src/data/heritage-photo-license-links.ts"
+      - "src/routes/destination.$slug.tsx"
+      - "scripts/data/validate-hotel-paso-del-norte-authority.mjs"
+      - ".github/workflows/hotel-paso-del-norte-authority.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hotel-authority:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify sourced hotel article, rights, contextual discovery and SEO
+        run: node scripts/data/validate-hotel-paso-del-norte-authority.mjs
