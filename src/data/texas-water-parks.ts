@@ -54,10 +54,28 @@ export const texasWaterParks: WaterParkGuide[] = [
     "setting": "Outdoor",
     "kind": "Destination park",
     "admission": "Day tickets and season passes",
-    "summary": "The Pflugerville water-park destination is an Austin-area alternative to Hill Country river swimming.",
-    "distinctiveNote": "Verify the Austin/Pflugerville calendar rather than the operator's Katy calendar.",
-    "officialUrl": "https://www.typhoontexas.com/",
-    "reviewedAt": "2026-10-17"
+    "summary": "Typhoon Texas Austin is the Pflugerville outdoor water park with water slides, a winding Lazy-T River and Buckaroo Bayou play zones designed for younger children.",
+    "distinctiveNote": "The official Austin calendar is separate from the Houston/Katy park; its 2026 promotional calendar advertised weekend operation ending September 20, so check the specific Austin date and any special events before traveling.",
+    "officialUrl": "https://typhoontexas.com/austin/hours-and-location/",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "18500 TX-130 North Service Road, Pflugerville, TX 78660",
+    "visitorHighlights": [
+      "Austin-area water slides and high-energy family rides at a separate Pflugerville venue",
+      "Lazy-T River float attraction for families who prefer a slower visit",
+      "Buckaroo Bayou children’s play area and operator-specific height restrictions"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Typhoon Texas Austin the same park as the Katy location?",
+        "answer": "No. The Austin park is in Pflugerville at 18500 TX-130 North Service Road; the separate Houston/Katy park has its own calendar, directions and admission.",
+        "sourceUrl": "https://typhoontexas.com/austin/hours-and-location/"
+      },
+      {
+        "question": "What if the Typhoon Texas Austin homepage lists a seasonal offer but not today's hours?",
+        "answer": "The operator maintains a separate Austin Hours & Location calendar. Use that page for the specific visit date instead of assuming a summer promotion guarantees current slide operation.",
+        "sourceUrl": "https://typhoontexas.com/austin/hours-and-location/"
+      }
+    ]
   },
   {
     "slug": "hurricane-harbor-arlington",
@@ -236,10 +254,28 @@ export const texasWaterParks: WaterParkGuide[] = [
     "setting": "Outdoor",
     "kind": "Destination park",
     "admission": "Day tickets; some add-ons cost extra",
-    "summary": "The Canton location of Splash Kingdom serves an East Texas road-trip market.",
-    "distinctiveNote": "Operator policies distinguish admission, parking and cooler privileges; check the Canton booking page.",
-    "officialUrl": "https://www.splashkingdomwaterpark.com/faqs/",
-    "reviewedAt": "2026-10-17"
+    "summary": "Splash Kingdom Paradise Island is Canton’s distinct outdoor water park, combining family slide areas, a lazy river, wave-pool-style recreation and the park's Express thrill ride.",
+    "distinctiveNote": "Canton's official operator page explicitly says its 2026 season is closed and promotes 2027 passes. It has its own admission, ride rules and park calendar; the chain's generic FAQs should not substitute for its specific visitor page.",
+    "officialUrl": "https://www.splashkingdomwaterpark.com/canton-paradise-island/",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "18814 Interstate 20, Canton, TX 75103",
+    "visitorHighlights": [
+      "Canton-specific Paradise Island rides including the Express and seasonal slide programs",
+      "Lazy-river floats and wave-pool-style family water recreation",
+      "Park-specific admission, cabana and group-rental options separate from other Splash Kingdom branches"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Splash Kingdom Paradise Island in Canton open for regular October 2026 admission?",
+        "answer": "No. Its own operator page currently states that the 2026 season is over and invites visitors to plan for 2027; a season-pass sale does not mean slides are operating now.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/canton-paradise-island/"
+      },
+      {
+        "question": "Where is Paradise Island and should visitors use another Splash Kingdom branch's calendar?",
+        "answer": "The Canton entrance is at 18814 Interstate 20, Canton, Texas. Use the Canton-specific park calendar and ticket rules, not Greenville or Nacogdoches details.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/canton-paradise-island/"
+      }
+    ]
   },
   {
     "slug": "splash-kingdom-greenville",
@@ -250,10 +286,28 @@ export const texasWaterParks: WaterParkGuide[] = [
     "setting": "Outdoor",
     "kind": "Destination park",
     "admission": "Day tickets and passes",
-    "summary": "Splash Kingdom's aviation-themed Greenville branch is a separate park from Canton.",
-    "distinctiveNote": "Use Air Patrol's calendar and ticket options instead of another Splash Kingdom branch.",
-    "officialUrl": "https://www.splashkingdomwaterpark.com/faqs/",
-    "reviewedAt": "2026-10-17"
+    "summary": "Splash Kingdom Air Patrol is Greenville’s aviation-themed outdoor water park, with family waterslides, lazy-river-style floating and a Splash Landing play attraction.",
+    "distinctiveNote": "The Greenville operator page announces its 2026 season has ended and the next regular season is 2027. Its admission, slide and group-event calendars differ from the Canton and Nacogdoches branches.",
+    "officialUrl": "https://www.splashkingdomwaterpark.com/greenville-air-patrol/",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "6501 Interstate 30, Greenville, TX 75402",
+    "visitorHighlights": [
+      "Greenville's distinct aviation-themed family water-park setting",
+      "Lazy-river-style float attraction and Splash Landing water play",
+      "Seasonal slide attractions, private group outings and cabana options"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Greenville Air Patrol operating normal public sessions in October 2026?",
+        "answer": "No. Its current operator page says the park is closed for the season and directs visitors to 2027 passes and Greenville-specific operations-calendar information.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/greenville-air-patrol/"
+      },
+      {
+        "question": "Is Air Patrol the same location as Splash Kingdom's Canton or Nacogdoches parks?",
+        "answer": "No. Air Patrol is at 6501 Interstate 30 in Greenville and publishes separate seasonal operating information, ticket options and attractions.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/greenville-air-patrol/"
+      }
+    ]
   },
   {
     "slug": "splash-kingdom-nacogdoches",
@@ -264,10 +318,28 @@ export const texasWaterParks: WaterParkGuide[] = [
     "setting": "Outdoor",
     "kind": "Destination park",
     "admission": "Day tickets and passes",
-    "summary": "The Nacogdoches Splash Kingdom location brings a family water-park option to Deep East Texas.",
-    "distinctiveNote": "Consult Timber Falls ride-height rules and calendar rather than assuming other chain rules match.",
-    "officialUrl": "https://www.splashkingdomwaterpark.com/faqs/",
-    "reviewedAt": "2026-10-17"
+    "summary": "Splash Kingdom Timber Falls is the separate Nacogdoches branch with family lazy-river activity, Timber Falls-style slides, the Treetop Drop attraction and children’s shallow splash-and-dump-bucket area.",
+    "distinctiveNote": "The Nacogdoches operator page says the 2026 regular season is finished. The park has its own slide-height restrictions: its Treetop Drop requires riders to be at least 42 inches and does not permit life jackets on that ride.",
+    "officialUrl": "https://www.splashkingdomwaterpark.com/nacogdoches-timber-falls/",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "401 N. University Drive, Nacogdoches, TX 75961",
+    "visitorHighlights": [
+      "Nacogdoches-specific Treetop Drop waterslide requiring a 42-inch minimum rider height",
+      "Lazy river and Lumberjack thrill-slide areas at the Timber Falls branch",
+      "Shallow children's splash area with five mini-slides, dump bucket and spray trees"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can riders use a life jacket on Timber Falls' Treetop Drop waterslide?",
+        "answer": "No. The operator's Treetop Drop description states that riders must be at least 42 inches tall and that life jackets are not permitted on that specific ride.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/nacogdoches-timber-falls/nac-rides-attractions/"
+      },
+      {
+        "question": "Are Timber Falls' 2026 public slide sessions still running in October?",
+        "answer": "No. The park's current official location page states the seasonal facility is closed and welcomes families back in 2027; verify its 2027 calendar before booking.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/nacogdoches-timber-falls/"
+      }
+    ]
   },
   {
     "slug": "kalahari-round-rock",

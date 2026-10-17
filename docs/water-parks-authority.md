@@ -109,3 +109,14 @@ Recorded after the 110-venue Dallas work in a separate follow-up branch, without
 Each lists a directly responsible operator or municipal source, a verified venue address, specific access/season caveats and first-party-linked visitor questions. The Temple source verifies actual 2026 operation but not individual ride inventory; no ride claims are made. The McDonald YMCA operator does not guarantee public nonmember walk-in entry. Burger's Lake sells Great White slide access separately; annual park admission must not be represented as including those rides. The operator confirms Southlake indoor slides have different hours from regular fitness/pool hours. The City of College Station's 2026 venue listing confirms only *two existing* Adamson Lagoon waterslides, not proposed future replacements. All seven stay noindex until the separate authoritative photo/depth gate passes.
 
 Primary sources are stored per record; legal image rights are **not** implied by first-party website photos. Do not copy operators' photos without their license.
+
+## Park-specific first-party source correction — October 17, 2026
+
+Before this batch, three operating Splash Kingdom Texas parks linked to one generic FAQ URL despite each having its own venue, admission page, physical address and 2026/2027 seasonal message. Typhoon Texas Austin also linked to the operator's generic homepage rather than the actual Pflugerville visit page. This branch corrects all four to direct venue-owned source URLs, adds verified exact entrances and individual first-party FAQs. All three Splash Kingdom branches explicitly say their 2026 season ended and the next regular season is 2027. Typhoon Austin has its own park hours and location separate from Katy.
+
+- Canton Paradise Island: https://www.splashkingdomwaterpark.com/canton-paradise-island/
+- Greenville Air Patrol: https://www.splashkingdomwaterpark.com/greenville-air-patrol/
+- Nacogdoches Timber Falls: https://www.splashkingdomwaterpark.com/nacogdoches-timber-falls/
+- Typhoon Texas Austin: https://typhoontexas.com/austin/hours-and-location/
+
+All four still remain noindex pending licensed on-site imagery, deeper visitor reporting and independent release review. Do not treat a 2027 season-pass purchase offer as evidence the park is open in October 2026.
