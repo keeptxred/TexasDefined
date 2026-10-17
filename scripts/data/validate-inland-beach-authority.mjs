@@ -7,6 +7,11 @@ const read = (pathName) => fs.readFileSync(path.join(root, pathName), "utf8");
 const records = read("src/data/inland-beach-authority.ts");
 const page = read("src/routes/explore.inland-beaches.tsx");
 const coastAndLakes = read("src/routes/explore.$category.lazy.tsx");
+const individual = read("src/routes/explore.inland-beaches.$slug.tsx");
+const coastDestination = read("src/routes/destination.$slug.tsx");
+const coastalGuide = read("src/components/content/CoastalBeachFieldGuide.tsx");
+const countyRoute = read("src/routes/$kind.$slug.lazy.tsx");
+const countyInland = read("src/components/content/CountyInlandSwimmingBeaches.tsx");
 const sitemap = read("src/routes/sitemap-explore[.]xml.ts");
 
 const expectedSlugs = [
@@ -33,10 +38,23 @@ assert.ok(page.includes('createFileRoute("/explore/inland-beaches")'));
 assert.ok(page.includes("mainEntity") && page.includes("ItemList"));
 assert.ok(page.includes('numberOfItems: inlandSwimmingBeaches.length'));
 assert.ok(page.includes("beach.officialUrl") && page.includes("beach.checkedAt"));
+assert.ok(individual.includes('createFileRoute("/explore/inland-beaches/$slug")'), "Every beach needs an individual route, not just an anchor");
+assert.ok(individual.includes("inlandBeachBySlug(params.slug)"));
+assert.ok(individual.includes("canonicalLink(texasDefinedBrand, canonicalPath)"));
+assert.ok(individual.includes("beach.evidence") && individual.includes("beach.arrival") && individual.includes("beach.safety") && individual.includes("beach.nearby"));
+assert.ok(individual.includes("beach.officialUrl") && individual.includes("beach.checkedAt"));
+assert.ok(page.includes('to="/explore/inland-beaches/$slug"'), "Index must link to individual beach pages");
+assert.ok(coastalGuide.includes("coastalPlaces.find"), "All existing coast records must connect to a page-specific field guide");
+for (const kind of ['gulf-beach','bay-beach','coastal-park','barrier-island','national-seashore','shoreline','beach-access']) assert.ok(coastalGuide.includes('"'+kind+'"'), kind);
+assert.ok(coastDestination.includes('<CoastalBeachFieldGuide destinationSlug={destination.slug}'), "Destination page must render coastal-specific visitor detail");
+assert.ok(countyRoute.includes("<CountyInlandSwimmingBeaches"), "Matching county guides need reverse links");
+assert.ok(countyInland.includes("inlandSwimmingBeaches.filter"), "County reverse link source must be actual inland beach inventory");
+assert.equal(sitemap.split("...inlandSwimmingBeaches.map").length - 1, 2, "Both sitemaps must include all 8 individual guides");
+
 assert.ok(page.includes('beach.county.split(" / ")') && page.includes('/county/'), "Every inland beach must link to its county guide");
 assert.ok(page.includes("not a claim that these are all inland beaches"));
 assert.ok(page.includes("lifeguards"));
 assert.ok(coastAndLakes.includes('match.slug === "beaches-coast" || match.slug === "lakes-rivers"'));
 assert.ok(coastAndLakes.includes('<Link to="/explore/inland-beaches"'));
 assert.equal(sitemap.split('"/explore/inland-beaches"').length - 1, 2, "Both primary and fallback explore sitemaps must list the guide");
-console.log(`Inland beach authority validated: ${expectedSlugs.length} grounded entries; coast/lake links; structured data; sitemap.`);
+console.log(`Beach authority contract validated: ${expectedSlugs.length} individual inland guides, 52 coastal guide hooks, county backlinks and XML sitemaps.`);
