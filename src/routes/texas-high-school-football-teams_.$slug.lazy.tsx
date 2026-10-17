@@ -1,6 +1,7 @@
 import { createLazyFileRoute, Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
+import { FootballGameNightGuide } from '@/components/sports/FootballGameNightGuide';
 import {
   UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE,
   uilEnrollmentFallsWithinBand,
@@ -258,6 +259,18 @@ function Page() {
           <p className="mt-2 text-xs text-muted-foreground">Reporting checked {editorial.notice.verifiedAt}; consult the district for later changes.</p>
         </div>
       </aside>}
+
+      {!editorial?.notice && (editorial?.schedule || editorial?.season || editorial?.venue || venueLinks.length > 0 || program?.schoolWebsite) && (
+        <FootballGameNightGuide
+          slug={Route.useParams().slug}
+          footballName={footballName}
+          schedule={editorial?.schedule}
+          season={editorial?.season}
+          venue={editorial?.venue}
+          venueLink={venueLinks[0]}
+          schoolWebsite={program?.schoolWebsite}
+        />
+      )}
 
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
