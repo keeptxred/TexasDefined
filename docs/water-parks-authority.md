@@ -148,3 +148,14 @@ Separate from the Bryan/Odessa/Victoria batch, the following verified major muni
 - https://www.arlingtontx.gov/Parks-Places/Facilities/Aquatics/Pools/Bad-Konigshofen-Family-Aquatic-Center
 
 Arlington's cooler policy is a citywide current aquatics rule and must be cited separately from individual facility features. Carrollton has accessible water-entry chairs and an explicit policy permitting inspected coolers. All three retain the current noindex authority gate pending exact-location image licensing and full editorial review. Do not count Carrollton's two separate splash-only parks as additional water parks.
+
+
+## October 17, 2026 — Sherman, Cedar Hill and Farmers Branch family waterparks
+
+The following three distinct city-operated outdoor aquatic venues were added as a source-checked research batch to the existing 131-venue census (now 134). Each has an address, three venue-specific amenities and three first-party-sourced FAQs. None is classified authority-ready or added to the individual-guide indexable sitemap while venue-specific photo rights and long-form editorial acceptance remain incomplete.
+
+- **Sherman — The Splash Family Aquatic Center**, 1121 W. Taylor St.: two two-story slides, drop slide, 1,200-foot current channel and younger-child splash area. Official summer 2026 closing day August 9. [Sherman operator](https://shermanparks.com/the-splash-pool/), [admission](https://shermanparks.com/the-splash-pool/admission-and-passes/) and [private rental rules](https://shermanparks.com/the-splash-pool/private-rental-party-cabana/).
+- **Cedar Hill — The Lagoon Aquatic Center**, 631 Somerset Drive: nearly 10,000 sq ft, lazy river, three-turn slide, separate lap pool; 2026 summer season May 30–August 9 with later pop-up days. Outside food and coolers generally prohibited; all attending guests need a ticket. [City facility](https://www.cedarhilltx.com/3029/AquaticsThe-Lagoon), [calendar](https://www.cedarhilltx.com/3033/Season-Calendar), [rules](https://www.cedarhilltx.com/3039/Pool-Rules).
+- **Farmers Branch — Frog Pond Water Park**, 14032 Heartside Place: seasonal outdoor lazy river, activity and lagoon pools, water slides and concession/rental areas; independent from the city year-round natatorium. The publicly accessible city park landing page has navigation but some details are client-side; backstop sources are [city aquatics](https://www.farmersbranchtx.gov/aquatics), [Frog Pond operator](https://www.farmersbranchtx.gov/frog-pond-water-park), [Texas Highways 2026](https://texashighways.com/wp-content/uploads/2026/01/Travel-Guide-2026.pdf), and [official rental rules](https://content.civicplus.com/api/assets/tx-farmersbranch/5a20944b-b794-43b2-b4fc-2bff49ca76bc).
+
+Exclude ordinary splash pads without significant waterpark features. Do not call any of these public outdoor slides open in October 2026, do not borrow unlicensed operator photos, and do not lower the existing readiness gate.

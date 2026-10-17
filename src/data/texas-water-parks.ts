@@ -2509,6 +2509,117 @@ export const texasWaterParks: WaterParkGuide[] = [
         "sourceUrl": "https://www.arlingtontx.gov/Parks-Places/Facilities/Aquatics"
       }
     ]
+  },
+  {
+    "slug": "sherman-the-splash",
+    "name": "The Splash Family Aquatic Center",
+    "city": "Sherman",
+    "county": "Grayson",
+    "region": "North Texas",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Seasonal public aquatic-center admission; daily admission and city-resident/nonresident passes are listed by Sherman Parks and Recreation",
+    "summary": "Sherman's Splash Family Aquatic Center combines two two-story water slides, a separate drop slide, a diving board and an unusually long 1,200-foot current channel with a tot splash zone.",
+    "distinctiveNote": "The Sherman operator says the 2026 summer season ended August 9 and anticipates a May 2027 return. The facility permits coolers but prohibits glass and alcohol; a rented party cabana does not include pool admission for attendees.",
+    "officialUrl": "https://shermanparks.com/the-splash-pool/",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1121 W. Taylor St., Sherman, Texas",
+    "visitorHighlights": [
+      "Two two-story waterslides and separate drop slide operated during the 2026 season",
+      "1,200-foot current channel, diving board and multi-age swimming areas",
+      "Small-child tot zone with its own slide, tumble buckets and spray play fixtures"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is The Splash in Sherman open during October 2026?",
+        "answer": "No. Sherman Parks and Recreation says The Splash closed for the 2026 season on August 9, with a planned reopening in May 2027. Specific 2027 opening dates are not yet guaranteed.",
+        "sourceUrl": "https://shermanparks.com/the-splash-pool/"
+      },
+      {
+        "question": "Can I bring a cooler to The Splash?",
+        "answer": "Yes. The operator invites visitors to bring coolers, but says glass containers and alcohol are prohibited. Confirm any revised bag and food rules before the next summer season.",
+        "sourceUrl": "https://shermanparks.com/the-splash-pool/"
+      },
+      {
+        "question": "Does renting a cabana cover everyone's swim admission?",
+        "answer": "No. The Parks and Recreation reservation rules expressly say a two-hour party cabana rental does not include general park admission for the renter or guests; those fees are separate.",
+        "sourceUrl": "https://shermanparks.com/the-splash-pool/private-rental-party-cabana/"
+      }
+    ]
+  },
+  {
+    "slug": "cedar-hill-the-lagoon",
+    "name": "The Lagoon Aquatic Center",
+    "city": "Cedar Hill",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Seasonal City of Cedar Hill day admission or season pass; every guest aged 3 or older requires admission even if not swimming",
+    "summary": "Cedar Hill's Lagoon Aquatic Center is a nearly 10,000-square-foot public aquatic complex with zero-depth family entry, a winding lazy river, a three-turn tube slide, play features and a separate lap pool.",
+    "distinctiveNote": "The regular 2026 outdoor season ran May 30–August 9, followed by special late-August pop-up swim days. Lap swim, 55+ sessions and family open swim are different time windows, and the city prohibits outside food and coolers except approved party-room arrangements.",
+    "officialUrl": "https://www.cedarhilltx.com/3029/AquaticsThe-Lagoon",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "631 Somerset Drive, Cedar Hill, TX 75104",
+    "visitorHighlights": [
+      "Almost 10,000 square feet of aquatic surfaces, including a winding lazy river",
+      "Three-turn family tube slide and children's interactive water-play features",
+      "Zero-depth entry for younger swimmers, plus a separate lap-swimming pool"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Cedar Hill's Lagoon available for family swimming in October?",
+        "answer": "The regular 2026 summer season ran May 30 through August 9, with additional pop-up swim sessions announced for late August. The city has not published regular October family-waterpark operations, so do not assume the slides are open.",
+        "sourceUrl": "https://www.cedarhilltx.com/3033/Season-Calendar"
+      },
+      {
+        "question": "Can I bring outside food and a cooler into The Lagoon?",
+        "answer": "No. Cedar Hill's published pool rules prohibit outside food, drink and coolers, with a limited exception for refreshments consumed inside a reserved party room. Concessions are available onsite.",
+        "sourceUrl": "https://www.cedarhilltx.com/3039/Pool-Rules"
+      },
+      {
+        "question": "Does an adult who stays dry still need a ticket to The Lagoon?",
+        "answer": "Yes. Cedar Hill says all visitors need either admission or a valid season pass to enter the facility, even when they do not use the water attractions. Its 2026 group-registration policy separately confirms all guests ages three and older need tickets.",
+        "sourceUrl": "https://www.cedarhilltx.com/FormCenter/Parks-and-Recreation-13/The-Lagoon-Group-Request-Form-260"
+      }
+    ]
+  },
+  {
+    "slug": "farmers-branch-frog-pond",
+    "name": "Frog Pond Water Park",
+    "city": "Farmers Branch",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "City of Farmers Branch seasonal outdoor water-park daily admission, spectator fees, season passes and pavilion rentals; residency rates differ",
+    "summary": "Frog Pond is Farmers Branch's seasonal outdoor water park, featuring a lazy river, aquatic activity pool, lagoon-style pool, large waterslides, children's play areas and onsite concessions.",
+    "distinctiveNote": "The city separates seasonal outdoor Frog Pond access from its year-round Margaret Young Natatorium. Its official Aquatics pages publish different admission types, including spectator fees; do not assume a natatorium swim pass provides Frog Pond admission.",
+    "officialUrl": "https://www.farmersbranchtx.gov/frog-pond-water-park",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "14032 Heartside Place, Farmers Branch, TX 75234",
+    "visitorHighlights": [
+      "Outdoor lazy river and lagoon-style leisure pool, distinct from city indoor natatorium swimming",
+      "Multiple waterslides with a separate family activity pool and children's splash play",
+      "City-operated concessions and rentable group-party areas with separate reservation terms"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Frog Pond Water Park open year-round?",
+        "answer": "No. The City of Farmers Branch describes Frog Pond as a seasonal outdoor water park. The separately operated Margaret Young Natatorium is the year-round aquatic facility; consult city calendar updates for Frog Pond reopening.",
+        "sourceUrl": "https://www.farmersbranchtx.gov/aquatics"
+      },
+      {
+        "question": "Does Frog Pond offer separate spectator and swimmer admission?",
+        "answer": "Yes. The Farmers Branch municipal aquatic facility fee schedule distinguishes spectator entry, daily resident and nonresident entry, and separate rentals. Check the current city prices rather than assuming everybody pays the same rate.",
+        "sourceUrl": "https://library.municode.com/tx/farmers_branch/codes/code_of_ordinances?nodeId=PTIICOOR_APXAFESC"
+      },
+      {
+        "question": "Can families rent space for a pool party at Frog Pond?",
+        "answer": "Yes. Official city rental documentation describes a party room, covered pavilions and specific named deck areas; rates depend on the space and residency. Reservations and pool admission may be separate expenses.",
+        "sourceUrl": "https://content.civicplus.com/api/assets/tx-farmersbranch/5a20944b-b794-43b2-b4fc-2bff49ca76bc"
+      }
+    ]
   }
 ];
 export const texasWaterParksBySlug = new Map(texasWaterParks.map((park) => [park.slug, park]));
