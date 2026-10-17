@@ -27,8 +27,8 @@ export const texasWaterParks: WaterParkGuide[] = [
     "kind": "Destination park",
     "admission": "Park admission; separate from nearby hotels",
     "summary": "Galveston's indoor and outdoor water-park complex is a separate attraction from the beach.",
-    "distinctiveNote": "Check the operator's seasonal indoor and outdoor attraction schedule; not every section runs all year.",
-    "officialUrl": "https://www.sixflags.com/schlitterbahngalveston",
+    "distinctiveNote": "Schlitterbahn Galveston joined the Enchanted Parks family in 2026. The operator says Six Flags passes and memberships will no longer be honored here in 2027; check the Enchanted Parks ticket calendar and any operating indoor areas.",
+    "officialUrl": "https://galvestonislandwaterpark.enchantedparks.com/",
     "reviewedAt": "2026-10-17"
   },
   {
