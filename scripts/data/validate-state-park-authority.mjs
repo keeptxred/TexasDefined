@@ -263,7 +263,7 @@ process.stdout.write(`State-park authority: 83 distinct park-specific source rec
 // source-backed. An inability to load an alert must NEVER be converted into
 // an "all clear" statement for that park.
 const parkOct17 = [
-  ["atlanta-state-park", ["Aug. 18", "Nov. 30", "Jan. 15", "No wood or charcoal"]],
+  ["atlanta-state-park", ["August 18", "November 30", "January 15", "wood and charcoal fires"]],
   ["bonham-state-park", ["8.75 miles", "65-acre", "alert detail was not independently fetched"]],
   ["daingerfield-state-park", ["74-acre Little Pine Lake", "Rustling Leaves", "alert details could not be independently read"]],
   ["cooper-lake-state-park", ["Honey Creek launch", "Lone Pine", "charcoal cooking", "January 8"]],
