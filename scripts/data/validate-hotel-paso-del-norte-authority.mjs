@@ -11,6 +11,7 @@ const pairings = read("src/data/destination-curated-pairings.ts");
 const rights = read("src/data/heritage-photo-license-links.ts");
 const route = read("src/routes/destination.$slug.tsx");
 const html = read("public/stay-affiliate-options.js");
+const nearbyHistoricSites = read("src/data/historic-sites.ts");
 
 const contains = (source, value, context) => assert.ok(source.includes(value), context + ": missing " + value);
 const path = "/destination/hotel-paso-del-norte";
@@ -46,4 +47,12 @@ contains(route, 'isHotelPasoDelNorte ? "10 Henry Trost Ct"', "schema physical ad
 contains(route, 'postalCode: "79901"', "schema postal code");
 contains(route, "Historical photographs of {destination.name}", "no recycled Battleship gallery heading");
 contains(html, "Hotels.com", "existing hotel comparison opportunities");
+contains(guide, "the historic home is closed through 2027 for restoration", "Magoffin nearby closure advisory");
+contains(guide, "https://thc.texas.gov/historic-sites/magoffin-home", "Magoffin authoritative closure source");
+contains(nearbyHistoricSites, 'site.slug === "magoffin-home" ? {', "specific Magoffin photograph");
+contains(nearbyHistoricSites, "Magoffin%20home%202009.jpg", "exact Magoffin photographic file");
+contains(nearbyHistoricSites, "CC BY 4.0", "image attribution");
+contains(nearbyHistoricSites, "historic home is closed through 2027", "Magoffin destination visitor alert");
+contains(rights, '"/destination/magoffin-home": {', "Magoffin photographer and license source");
+
 console.log("Hotel Paso del Norte authority acceptance: source, copy, rights, schema, county/city links, affiliate gates validated.");
