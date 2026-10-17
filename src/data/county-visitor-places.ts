@@ -285,6 +285,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.nps.gov/bibe/planyourvisit/hours.htm"
   },
   {
+    "county": "briscoe",
+    "name": "Resthaven Cemetery WPA Stonework in Quitaque",
+    "category": "History & heritage",
+    "description": "Public cemetery east of Quitaque where 1938 Works Progress Administration stonework is part of the local heritage landscape; visit respectfully during permitted hours.",
+    "sourceUrl": "https://texastimetravel.com/cities/quitaque/"
+  },
+  {
     "county": "brooks",
     "name": "Don Pedro Jaramillo Shrine",
     "category": "History & heritage",
@@ -474,6 +481,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.cityofchildress.com/culture-recreation"
   },
   {
+    "county": "clay",
+    "name": "Historic Clay County Courthouse in Henrietta",
+    "category": "History & heritage",
+    "description": "Domed 1884 county courthouse with redbrick and stone details; explore the public courthouse grounds and exterior rather than assuming interior tours.",
+    "sourceUrl": "https://texastimetravel.com/directory/clay-county-courthouse/"
+  },
+  {
+    "county": "coke",
+    "name": "Fort Chadbourne Visitor Center and Historic Post",
+    "category": "History & heritage",
+    "description": "Restored frontier military post north of Bronte with original structures, visitor exhibits and interpreted grounds; follow the site's current tour and holiday schedule.",
+    "sourceUrl": "https://fortchadbourne.org/plan-your-visit.html"
+  },
+  {
     "county": "coleman",
     "name": "Coleman City Park",
     "category": "Parks & recreation",
@@ -552,11 +573,25 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/comanche/"
   },
   {
+    "county": "concho",
+    "name": "Eden Ranching Heritage and Downtown Walk",
+    "category": "History & heritage",
+    "description": "Public main-street streetscape that interprets Eden's historic wool, mohair and livestock economy; nearby cultural programming is event-dependent.",
+    "sourceUrl": "https://texastimetravel.com/cities/eden/"
+  },
+  {
     "county": "cooke",
     "name": "Frank Buck Zoo",
     "category": "Parks & recreation",
     "description": "Public zoo in Gainesville with giraffe exhibits and family wildlife experiences; the City of Gainesville provides current visitor information.",
     "sourceUrl": "https://www.gainesville.tx.us/1093/About-Us"
+  },
+  {
+    "county": "coryell",
+    "name": "Coryell County Courthouse Exterior in Gatesville",
+    "category": "History & heritage",
+    "description": "Ornate 1897 county courthouse in the Gatesville square built of limestone and sandstone, with a landmark tower and historic architecture visible from public grounds.",
+    "sourceUrl": "https://texastimetravel.com/directory/coryell-county-courthouse/"
   },
   {
     "county": "cottle",
@@ -636,6 +671,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.klydewarrenpark.org/klyde-warren-faqs"
   },
   {
+    "county": "dawson",
+    "name": "Dawson County Courthouse Square in Lamesa",
+    "category": "History & heritage",
+    "description": "Public downtown-square walk centered on Lamesa's 1916 brick courthouse, tracing the railroad-era county-seat layout; not an interior building tour.",
+    "sourceUrl": "https://texastimetravel.com/cities/lamesa/"
+  },
+  {
+    "county": "deaf-smith",
+    "name": "Italian POW Chapel at Camp Hereford",
+    "category": "History & heritage",
+    "description": "Small memorial chapel built by Italian prisoners of war south of Hereford during World War II; check road conditions and permitted access before visiting.",
+    "sourceUrl": "https://texastimetravel.com/cities/hereford/"
+  },
+  {
     "county": "denton",
     "name": "Clear Creek Natural Heritage Center",
     "category": "Parks & recreation",
@@ -648,6 +697,27 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Cuero's public Main Street and heritage streetscape include restored Victorian-era commercial buildings and the county's historic courthouse.",
     "sourceUrl": "https://texastimetravel.com/cities/cuero/"
+  },
+  {
+    "county": "dickens",
+    "name": "Dickens County Springs Park",
+    "category": "Parks & recreation",
+    "description": "Historic roadside county park near Dickens along US 82, noted by the state heritage-tourism program as a local outdoor stop.",
+    "sourceUrl": "https://texastimetravel.com/cities/dickens/"
+  },
+  {
+    "county": "dickens",
+    "name": "Giant Spur Monument at Dyess Park",
+    "category": "Art & architecture",
+    "description": "Outdoor oversized metal spur sculpture celebrating Spur's centennial and cattle-ranch heritage; a short public park photo stop.",
+    "sourceUrl": "https://texastimetravel.com/cities/spur/"
+  },
+  {
+    "county": "dimmit",
+    "name": "Historic Dimmit County Courthouse in Carrizo Springs",
+    "category": "History & heritage",
+    "description": "Public exterior of the Carrizo Springs courthouse, originally built in 1884 and remodeled in the Classical Revival manner; check county-office hours separately.",
+    "sourceUrl": "https://texastimetravel.com/cities/carrizo-springs/"
   },
   {
     "county": "donley",
@@ -733,6 +803,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Downtown Stephenville walking landmark celebrating local rodeo and cowboy heritage.",
     "sourceUrl": "https://texastimetravel.com/cities/stephenville/"
+  },
+  {
+    "county": "falls",
+    "name": "Marlin Hot Water Pavilion",
+    "category": "History & heritage",
+    "description": "Downtown geothermal spring-water fountain recalling Marlin's late nineteenth-century spa era; check present water access and temperature warnings before visiting.",
+    "sourceUrl": "https://texastimetravel.com/cities/marlin/"
   },
   {
     "county": "fannin",
@@ -887,6 +964,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Walk the distinctive sequence of downtown public squares around Gonzales' restored courthouse and historic streets.",
     "sourceUrl": "https://texastimetravel.com/cities/gonzales/"
+  },
+  {
+    "county": "gray",
+    "name": "Historic Downtown Pampa Brick-Street Walk",
+    "category": "History & heritage",
+    "description": "Walk Pampa's original brick-paved downtown streets among preserved early commercial architecture; the chamber provides a heritage walking guide.",
+    "sourceUrl": "https://texastimetravel.com/cities/pampa/"
   },
   {
     "county": "grayson",
@@ -1274,6 +1358,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/junction/"
   },
   {
+    "county": "kinney",
+    "name": "Seminole Indian Scouts Cemetery",
+    "category": "History & heritage",
+    "description": "Historic cemetery south of Brackettville commemorating Black Seminole scouts and families associated with Fort Clark; visit respectfully and follow access rules.",
+    "sourceUrl": "https://texastimetravel.com/cities/brackettville/"
+  },
+  {
     "county": "kleberg",
     "name": "King Ranch Visitor Center Tours",
     "category": "History & heritage",
@@ -1344,11 +1435,25 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/hallettsville/"
   },
   {
+    "county": "lee",
+    "name": "Firemen's Park in Giddings",
+    "category": "Parks & recreation",
+    "description": "Local park along US 290 in Giddings identified by the Texas Historical Commission's regional visitor directory; check municipal event schedules and park-use rules.",
+    "sourceUrl": "https://texastimetravel.com/cities/giddings/"
+  },
+  {
     "county": "lipscomb",
     "name": "Lipscomb Historic Courthouse Square",
     "category": "History & heritage",
     "description": "Small rural county-seat heritage walk around the 1916 Classical Revival courthouse; public roads and square only.",
     "sourceUrl": "https://texastimetravel.com/cities/lipscomb/"
+  },
+  {
+    "county": "llano",
+    "name": "Llano Historic Courthouse Square",
+    "category": "History & heritage",
+    "description": "Llano's public courthouse-square streetscape highlights the surviving nineteenth-century stone courthouse and Hill Country commercial buildings.",
+    "sourceUrl": "https://texastimetravel.com/blog/courthouses/"
   },
   {
     "county": "lubbock",
@@ -1435,6 +1540,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.tourtexas.com/attractions/Riverside-Park"
   },
   {
+    "county": "maverick",
+    "name": "Restored Maverick County Courthouse in Eagle Pass",
+    "category": "History & heritage",
+    "description": "Decorative historic county courthouse anchoring Eagle Pass's public downtown streets, restored under the Texas Historic Courthouse Preservation Program.",
+    "sourceUrl": "https://texastimetravel.com/cities/eagle-pass/"
+  },
+  {
     "county": "mcculloch",
     "name": "Earnest O. Martin Memorial Park Aquatic Complex",
     "category": "Parks & recreation",
@@ -1491,6 +1603,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://midlandtexas.gov/facilities/facility/details/I20-Wildlife-Preserve-28"
   },
   {
+    "county": "milam",
+    "name": "Restored Milam County Courthouse in Cameron",
+    "category": "History & heritage",
+    "description": "Elaborate nineteenth-century Cameron courthouse with restored clock tower and Goddess of Justice sculpture; the exterior is a public heritage stop.",
+    "sourceUrl": "https://texastimetravel.com/directory/milam-county-courthouse/"
+  },
+  {
     "county": "mills",
     "name": "Goldthwaite Municipal Golf Course",
     "category": "Parks & recreation",
@@ -1510,6 +1629,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "A botanical-garden destination named in Goldthwaite visitor resources.",
     "sourceUrl": "https://visitgoldthwaite.com/attractions"
+  },
+  {
+    "county": "mitchell",
+    "name": "Colorado City Opera House",
+    "category": "Arts & culture",
+    "description": "Historic 1899 performance venue associated with Colorado City's downtown arts scene; confirm the current program and booking arrangements before visiting.",
+    "sourceUrl": "https://texastimetravel.com/directory/colorado-city-tour/"
   },
   {
     "county": "montgomery",
@@ -1566,6 +1692,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Public state-forest trails near Conroe for hiking, birding and observing East Texas pine habitats.",
     "sourceUrl": "https://www.visitconroe.com/things-to-do/outdoors-and-recreation/hiking/"
+  },
+  {
+    "county": "morris",
+    "name": "Daingerfield Historic Courthouse Square",
+    "category": "History & heritage",
+    "description": "Small Northeast Texas civic-square walking stop around the county-seat public streets and downtown businesses; courthouse entry is subject to normal hours.",
+    "sourceUrl": "https://texastimetravel.com/blog/courthouses/"
   },
   {
     "county": "motley",
@@ -1636,6 +1769,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Corpus Christi botanical and nature attraction combining orchid displays, butterfly gardens, birding trails and wetlands habitat; paid admission.",
     "sourceUrl": "https://stxbot.org/explore/"
+  },
+  {
+    "county": "ochiltree",
+    "name": "Perryton Historic Courthouse Main Street Walk",
+    "category": "History & heritage",
+    "description": "Downtown Perryton walk around the 1928 Classical Revival-style courthouse and old railway-town commercial blocks, using public sidewalks.",
+    "sourceUrl": "https://texastimetravel.com/cities/perryton/"
   },
   {
     "county": "ochiltree",
@@ -1769,6 +1909,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Coastal refuge with public wildlife drive and trails near Austwell, best known for wintering whooping cranes; bird sightings vary by season.",
     "sourceUrl": "https://www.fws.gov/refuge/aransas/visit-us"
+  },
+  {
+    "county": "roberts",
+    "name": "Restored Roberts County Courthouse in Miami",
+    "category": "History & heritage",
+    "description": "Distinctive 1913 Classical Revival courthouse with limestone columns and restored historic rooms; exterior viewing is open from public courthouse grounds.",
+    "sourceUrl": "https://texastimetravel.com/directory/roberts-county-courthouse/"
   },
   {
     "county": "rockwall",
