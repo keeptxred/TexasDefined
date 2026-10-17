@@ -255,7 +255,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A destination water park with on-site camping options in rural Colorado County.",
     "distinctiveNote": "Decide whether this is a day trip or an overnight camping visit before comparing costs.",
     "officialUrl": "https://www.splashway.com/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "5211 Main St., Sheridan, TX 77475",
+    "visitorHighlights": [
+      "The Sheridan park has two distinct wave-pool experiences, including the operator's larger Wavepool and smaller We Are Family wave beach connecting to the lazy river.",
+      "Dueling Splash Blasters is a pair of water-coaster lanes with a published 42-inch minimum height and combined rider weight limits.",
+      "The lazy river can be enjoyed with or without a tube; Minnow Pond is a children-focused low-thrill splash area with a posted 36-inch maximum height.",
+      "Splashway has a separate campground with RV sites, cabins and other overnight stays; campground event scheduling does not establish whether the waterpark rides are operating.",
+      "The waterpark and campground use separate ticket, lodging and seasonal booking functions, so the correct product matters when arranging a visit."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is Splashway in Sheridan?",
+        "answer": "The operator publishes 5211 Main Street, Sheridan, Texas 77475 for Splashway Waterpark and its campground. Lodging check-in and waterpark admission are different products.",
+        "sourceUrl": "https://splashway.com/"
+      },
+      {
+        "question": "How tall does a rider need to be for Dueling Splash Blasters?",
+        "answer": "The operator lists at least 42 inches for Dueling Splash Blasters, with a combined rider weight of at least 175 pounds and no more than 450 pounds. Ride attendants enforce its posted limits.",
+        "sourceUrl": "https://splashway.com/waterpark/attractions/"
+      },
+      {
+        "question": "Are all attractions suitable for toddlers?",
+        "answer": "No. Large water-coaster attractions have minimum rider heights, while Minnow Pond is specifically categorized for children 36 inches or shorter. Review rules for each planned attraction.",
+        "sourceUrl": "https://splashway.com/waterpark/attractions/"
+      },
+      {
+        "question": "Does camping admission mean the waterpark slides are operating in October?",
+        "answer": "Not necessarily. Splashway promotes October campground Halloweekends separately from its seasonal waterpark schedule. Check the dated waterpark hours before assuming slides and wave pools are open.",
+        "sourceUrl": "https://splashway.com/about/hours-directions/"
+      }
+    ]
   },
   {
     "slug": "beach-waterpark-south-padre",
@@ -283,7 +313,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "El Paso-area water-park destination near the Texas–New Mexico line.",
     "distinctiveNote": "Check the attraction calendar and the Anthony, Texas address before driving from El Paso.",
     "officialUrl": "https://wetnwildwaterworld.com/plan-your-visit",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "8804 S. Desert Blvd., Anthony, TX 79821",
+    "visitorHighlights": [
+      "Wet N' Wild Waterworld allows guests to bring their own picnic food and drinks without charging a general cooler fee, unlike most destination waterparks.",
+      "Families can bring their own tables and chairs for free, or rent reserved picnic areas, including island-side options near the lazy river.",
+      "The operator identifies a wavepool, lazy river, Kid's Adventure area and Volcano Lake zone as separate areas.",
+      "Picnic cooking uses different rules for propane versus charcoal: guests may bring their own propane grill, but charcoal grilling is restricted to the park's approved rental equipment.",
+      "Free tubes are offered at attractions in limited quantities; a personal tube rental and life-vest deposit are separate transactions."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is the Anthony waterpark?",
+        "answer": "Wet N' Wild Waterworld lists 8804 South Desert Boulevard, Anthony, Texas, close to Interstate 10 Exit Zero. Actual operating days should be confirmed against its park calendar.",
+        "sourceUrl": "https://wetnwildwaterworld.com/plan-your-visit"
+      },
+      {
+        "question": "Can families bring their own food and coolers?",
+        "answer": "Yes. This operator states outside food and beverages are welcome without a cooler fee; it prohibits glass containers and restricts some other items under its published safety policy.",
+        "sourceUrl": "https://wetnwildwaterworld.com/plan-your-visit"
+      },
+      {
+        "question": "Must we rent a picnic table?",
+        "answer": "No. The park allows visitors to bring chairs and tables from home without charge, though it also sells reservable shaded picnic tables and premium seating subject to capacity.",
+        "sourceUrl": "https://wetnwildwaterworld.com/plan-your-visit"
+      },
+      {
+        "question": "Are there life jackets and tubes available?",
+        "answer": "The park lists limited complimentary tubes at rides, optional paid personal tube rentals, and loaner life jackets available with a refundable deposit and valid identification.",
+        "sourceUrl": "https://wetnwildwaterworld.com/plan-your-visit"
+      }
+    ]
   },
   {
     "slug": "hawaiian-falls-mansfield",
@@ -450,7 +510,36 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "The Canton location of Splash Kingdom serves an East Texas road-trip market.",
     "distinctiveNote": "Operator policies distinguish admission, parking and cooler privileges; check the Canton booking page.",
     "officialUrl": "https://www.splashkingdomwaterpark.com/faqs/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "18814 Interstate 20, Canton, TX 75103",
+    "visitorHighlights": [
+      "Splash Kingdom Paradise Island has its own themed ride collection, including Pink Panic enclosed body slide, The Express steep straight-drop slide, and Bubble Bay play area.",
+      "A key visitor restriction for this location: Pink Panic and The Express each specify a 42-inch minimum rider height and do not permit life jackets.",
+      "The operator lists a separate daily-entry and season-pass schedule, plus location-dependent Twilight and Toddler Tuesday opportunities; confirm the dated location calendar.",
+      "Splash Kingdom says all entering visitors need a ticket, including non-swimmers. Cooler admission is a separate paid product with size and content restrictions."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "What attractions distinguish this Splash Kingdom location?",
+        "answer": "The operator's specific Canton ride list names Pink Panic enclosed body slide, The Express steep straight-drop slide and Bubble Bay play area; it does not use a single identical ride inventory across the Canton, Greenville and Nacogdoches locations.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/canton-paradise-island/can-rides-attractions/"
+      },
+      {
+        "question": "What rider restrictions should families check?",
+        "answer": "Pink Panic and The Express each specify a 42-inch minimum rider height and do not permit life jackets. The individual attraction's posted guidance governs each visit, and closures or staffing restrictions can change ride availability.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/canton-paradise-island/can-rides-attractions/"
+      },
+      {
+        "question": "Can non-swimming family members enter free?",
+        "answer": "No. Splash Kingdom says it is a participation facility and everyone entering must hold a valid admission ticket, regardless of whether that person gets in the water.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/faqs/"
+      },
+      {
+        "question": "Can we bring a picnic cooler?",
+        "answer": "The operator sells a one-time Cooler Pass for personal coolers up to 48 quarts. Glass and alcohol are prohibited, and outside grilled/restaurant food is excluded under the chain's current policy.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/faqs/"
+      }
+    ]
   },
   {
     "slug": "splash-kingdom-greenville",
@@ -464,7 +553,36 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Splash Kingdom's aviation-themed Greenville branch is a separate park from Canton.",
     "distinctiveNote": "Use Air Patrol's calendar and ticket options instead of another Splash Kingdom branch.",
     "officialUrl": "https://www.splashkingdomwaterpark.com/faqs/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "6501 Interstate 30, Greenville, TX 75402",
+    "visitorHighlights": [
+      "Splash Kingdom Air Patrol has its own themed ride collection, including Dogfight group of four racing body slides, Goose and Maverick tube slides, and The Jet Stream lazy river.",
+      "A key visitor restriction for this location: Dogfight requires 42 inches; Goose and Maverick allow a 36-inch rider with an eligible 42-inch-or-taller companion.",
+      "The operator lists a separate daily-entry and season-pass schedule, plus location-dependent Twilight and Toddler Tuesday opportunities; confirm the dated location calendar.",
+      "Splash Kingdom says all entering visitors need a ticket, including non-swimmers. Cooler admission is a separate paid product with size and content restrictions."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "What attractions distinguish this Splash Kingdom location?",
+        "answer": "The operator's specific Greenville ride list names Dogfight group of four racing body slides, Goose and Maverick tube slides and The Jet Stream lazy river; it does not use a single identical ride inventory across the Canton, Greenville and Nacogdoches locations.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/greenville-air-patrol/gvl-rides-attractions/"
+      },
+      {
+        "question": "What rider restrictions should families check?",
+        "answer": "Dogfight requires 42 inches; Goose and Maverick allow a 36-inch rider with an eligible 42-inch-or-taller companion. The individual attraction's posted guidance governs each visit, and closures or staffing restrictions can change ride availability.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/greenville-air-patrol/gvl-rides-attractions/"
+      },
+      {
+        "question": "Can non-swimming family members enter free?",
+        "answer": "No. Splash Kingdom says it is a participation facility and everyone entering must hold a valid admission ticket, regardless of whether that person gets in the water.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/faqs/"
+      },
+      {
+        "question": "Can we bring a picnic cooler?",
+        "answer": "The operator sells a one-time Cooler Pass for personal coolers up to 48 quarts. Glass and alcohol are prohibited, and outside grilled/restaurant food is excluded under the chain's current policy.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/faqs/"
+      }
+    ]
   },
   {
     "slug": "splash-kingdom-nacogdoches",
@@ -478,7 +596,36 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "The Nacogdoches Splash Kingdom location brings a family water-park option to Deep East Texas.",
     "distinctiveNote": "Consult Timber Falls ride-height rules and calendar rather than assuming other chain rules match.",
     "officialUrl": "https://www.splashkingdomwaterpark.com/faqs/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "401 N. University Drive, Nacogdoches, TX 75961",
+    "visitorHighlights": [
+      "Splash Kingdom Timber Falls has its own themed ride collection, including Treetop Drop high-speed slide, Timber Falls family/child splash structure, and Children's five-slide play area.",
+      "A key visitor restriction for this location: Treetop Drop requires 42 inches and does not permit life jackets; the younger-child play area has a maximum 52-inch height except when accompanying children.",
+      "The operator lists a separate daily-entry and season-pass schedule, plus location-dependent Twilight and Toddler Tuesday opportunities; confirm the dated location calendar.",
+      "Splash Kingdom says all entering visitors need a ticket, including non-swimmers. Cooler admission is a separate paid product with size and content restrictions."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "What attractions distinguish this Splash Kingdom location?",
+        "answer": "The operator's specific Nacogdoches ride list names Treetop Drop high-speed slide, Timber Falls family/child splash structure and Children's five-slide play area; it does not use a single identical ride inventory across the Canton, Greenville and Nacogdoches locations.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/nacogdoches-timber-falls/nac-rides-attractions/"
+      },
+      {
+        "question": "What rider restrictions should families check?",
+        "answer": "Treetop Drop requires 42 inches and does not permit life jackets; the younger-child play area has a maximum 52-inch height except when accompanying children. The individual attraction's posted guidance governs each visit, and closures or staffing restrictions can change ride availability.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/nacogdoches-timber-falls/nac-rides-attractions/"
+      },
+      {
+        "question": "Can non-swimming family members enter free?",
+        "answer": "No. Splash Kingdom says it is a participation facility and everyone entering must hold a valid admission ticket, regardless of whether that person gets in the water.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/faqs/"
+      },
+      {
+        "question": "Can we bring a picnic cooler?",
+        "answer": "The operator sells a one-time Cooler Pass for personal coolers up to 48 quarts. Glass and alcohol are prohibited, and outside grilled/restaurant food is excluded under the chain's current policy.",
+        "sourceUrl": "https://www.splashkingdomwaterpark.com/faqs/"
+      }
+    ]
   },
   {
     "slug": "kalahari-round-rock",
@@ -846,7 +993,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "The Denton municipal water park is separate from ordinary lap-swim services.",
     "distinctiveNote": "Check city renovation or maintenance notices before assuming slides are available.",
     "officialUrl": "https://www.dentonwaterworks.com/hours-info-rules",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "2400 Long Rd., Denton, TX 76209",
+    "visitorHighlights": [
+      "The Denton waterpark's published October 2026 calendar marks it closed for the season; the operating season ended after Labor Day in September.",
+      "Water Works Park has a wave pool and separate children's splash area; summer 2026 event programming also included wave-pool movie nights.",
+      "Non-swimming adults have a separate admission category rather than free entry, and the park charges a daily cooler fee.",
+      "Park rules require an adult in the water with children six and younger and anyone wearing a life jacket; children seven through fourteen need an accompanying adult at least sixteen.",
+      "Free parking is offered by the Water Works Park/Denton Natatorium complex near the C. H. Collins Athletic Complex."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can we go to Denton's Water Works Park in October?",
+        "answer": "No. The park's current October 2026 calendar explicitly identifies its outdoor attractions as closed for the season. The posted regular 2026 opening season ended after Labor Day.",
+        "sourceUrl": "https://www.dentonwaterworks.com/"
+      },
+      {
+        "question": "Where should we park for Water Works?",
+        "answer": "The visitor page lists 2400 Long Road, Denton, next to the natatorium and skate park by the C. H. Collins Athletic Complex. The operator says regular parking is free.",
+        "sourceUrl": "https://www.dentonwaterworks.com/hours-info-rules"
+      },
+      {
+        "question": "Do non-swimmers need tickets?",
+        "answer": "Yes. Water Works publishes a separate non-swimmer admission category rather than treating spectators as automatically free. Group discounts and cooler fees have separate terms.",
+        "sourceUrl": "https://www.dentonwaterworks.com/hours-info-rules"
+      },
+      {
+        "question": "Can children swim alone?",
+        "answer": "No. The park's rules require a supervising adult in the water for children six and under; visitors seven through fourteen must have an accompanying adult at least sixteen.",
+        "sourceUrl": "https://www.dentonwaterworks.com/hours-info-rules"
+      }
+    ]
   },
   {
     "slug": "splash-dayz-white-settlement",
@@ -1097,7 +1274,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A long-running municipally owned water park with numerous slides and family attractions.",
     "distinctiveNote": "The operator offers resident-specific tickets requiring proof of city residency.",
     "officialUrl": "https://www.nrh2o.com/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "9001 Boulevard 26, North Richland Hills, TX 76180",
+    "visitorHighlights": [
+      "NRH2O identifies itself as the first municipal waterpark in Texas, opened in 1995, and advertises roughly 23 attractions across 17 acres.",
+      "Attractions include named rides Riggamaroll, Accelerator, Blue Sky, Thunder, Double Dipper and Purplepalooza.",
+      "The family attraction roster separately lists NRH2Ocean, Endless River, Frogstein's Splashatory and the Tadpole Swimming Hole.",
+      "The operator sells different resident and general admission passes, as well as separately reserved cabanas and premium loungers.",
+      "The venue currently advertises 2027 season passes; current-day access and special events should always be checked against its hours/calendar rather than inferred from pass availability."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is the NRH2O entrance?",
+        "answer": "NRH2O lists its North Richland Hills office and waterpark address as 9001 Boulevard 26, Texas 76180. Check the operator's directions and parking information for the exact entrance.",
+        "sourceUrl": "https://www.nrh2o.com/"
+      },
+      {
+        "question": "Is NRH2O a city-operated waterpark?",
+        "answer": "Yes. The park says it opened in 1995 as Texas' first municipal waterpark and now includes numerous large slides, small-child areas, a river and wave-style attractions.",
+        "sourceUrl": "https://www.nrh2o.com/"
+      },
+      {
+        "question": "Are resident passes and private seating offered?",
+        "answer": "The operator separately advertises North Richland Hills resident season passes and general ticket options, with additional paid cabanas, beachside bungalows and reserved seating.",
+        "sourceUrl": "https://www.nrh2o.com/"
+      },
+      {
+        "question": "Does a 2027 season-pass sale mean the park is open now?",
+        "answer": "No. Season-pass presales describe future eligibility, not today's waterpark hours. Use the current park hours and events page before traveling, especially in fall or winter.",
+        "sourceUrl": "https://www.nrh2o.com/"
+      }
+    ]
   },
   {
     "slug": "water-rampage-lubbock",
