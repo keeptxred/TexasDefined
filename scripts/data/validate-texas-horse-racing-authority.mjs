@@ -3,8 +3,10 @@ import assert from 'node:assert/strict';
 
 const read = (path) => fs.readFileSync(path, 'utf8');
 const data = read('src/data/horse-racing-authority.ts');
-const hub = read('src/routes/horse-racing.tsx');
-const detail = read('src/routes/horse-racing_.$slug.tsx');
+const hub = read('src/routes/horse-racing.lazy.tsx');
+const hubMeta = read('src/routes/horse-racing.tsx');
+const detail = read('src/routes/horse-racing_.$slug.lazy.tsx');
+const detailMeta = read('src/routes/horse-racing_.$slug.tsx');
 const county = read('src/components/sports/CountySportsDestinations.tsx');
 const venue = read('src/components/sports/SportsVenueGuidePage.tsx');
 const publicRoutes = read('src/lib/public-routes.ts');
@@ -22,9 +24,15 @@ assert.ok(publicRoutes.includes('"/horse-racing"'), 'Horse racing hub not regist
 for (const marker of ['CollectionPage', 'ItemList', 'FAQPage', 'BreadcrumbList', 'TEXAS_RACING_ORGANIZATIONS', 'TEXAS_HORSE_RACING_INSTITUTIONS']) {
   assert.ok(hub.includes(marker), `Horse racing hub missing ${marker}`);
 }
-for (const marker of ['createFileRoute', 'buildMeta', 'canonicalLink', 'BreadcrumbList', 'Article', 'FAQPage', 'record.category', 'record.sources', 'record.countySlug']) {
+for (const marker of ['createLazyFileRoute', 'BreadcrumbList', 'Article', 'FAQPage', 'record.category', 'record.sources', 'record.countySlug']) {
   assert.ok(detail.includes(marker), `Track detail missing ${marker}`);
 }
+for (const marker of ['createFileRoute', 'buildMeta', 'canonicalLink', 'title:', 'canonicalPath']) {
+  assert.ok(detailMeta.includes(marker), `Track metadata missing ${marker}`);
+  assert.ok(hubMeta.includes(marker), `Hub metadata missing ${marker}`);
+}
+assert.ok(detailMeta.includes("await import('@/data/horse-racing-authority')"), 'Track data must load only in the route loader');
+assert.ok(!county.includes("import { TEXAS_HORSE_RACING_INSTITUTIONS }"), 'County must not eagerly import full racing corpus');
 assert.ok(county.includes('horseRacingInstitutions.map'), 'Counties lack reciprocal track discovery');
 assert.ok(venue.includes('href="/horse-racing"'), 'Existing tracks lack link to hub');
 assert.ok(expedia.includes('horse-racing\\/gillespie-county-fairgrounds'), 'Expedia surface is not route-scoped to live Gillespie racing');
