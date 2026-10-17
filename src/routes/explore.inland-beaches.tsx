@@ -33,7 +33,7 @@ export const Route = createFileRoute("/explore/inland-beaches")({
             "@type": "ListItem",
             position: index + 1,
             name: beach.name,
-            url: `${url}#${beach.slug}`,
+            url: absoluteUrl(texasDefinedBrand, `/explore/inland-beaches/${beach.slug}`),
           })),
         },
       })],
@@ -68,7 +68,7 @@ function TexasInlandBeaches() {
       <nav aria-label="Jump to inland swimming beach" className="mt-10">
         <h2 className="font-display text-3xl">Browse {inlandSwimmingBeaches.length} documented inland beaches</h2>
         <ul className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
-          {inlandSwimmingBeaches.map((beach) => <li key={beach.slug}><a href={`#${beach.slug}`} className="text-sm font-semibold underline decoration-border underline-offset-4 hover:text-primary">{beach.name} · {beach.county} County</a></li>)}
+          {inlandSwimmingBeaches.map((beach) => <li key={beach.slug}><a href={`/explore/inland-beaches/${beach.slug}`} className="text-sm font-semibold underline decoration-border underline-offset-4 hover:text-primary">{beach.name} · {beach.county} County</a></li>)}
         </ul>
       </nav>
       <div className="mt-12 space-y-12">
@@ -76,6 +76,7 @@ function TexasInlandBeaches() {
           <p className="eyebrow text-primary">{beach.lake} · {beach.county} County · {beach.nearestTown}</p>
           <h2 className="mt-2 font-display text-3xl sm:text-4xl">{beach.name}</h2>
           <p className="mt-4 max-w-4xl text-base leading-8">{beach.experience}</p>
+          <Link to="/explore/inland-beaches/$slug" params={{ slug: beach.slug }} className="mt-4 inline-block font-semibold text-primary underline decoration-primary/40 underline-offset-4">Read the full {beach.name} guide →</Link>
           <div className="mt-6 grid gap-7 md:grid-cols-2">
             <div>
               <h3 className="font-semibold">Getting to the correct beach</h3>
