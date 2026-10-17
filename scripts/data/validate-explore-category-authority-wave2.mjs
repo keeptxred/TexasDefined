@@ -103,6 +103,27 @@ for (const [slug, markers] of Object.entries(protectedMarkers)) {
   for (const marker of markers) if (!html.includes(marker)) errors.push(`${slug} authority asset missing protected marker: ${marker}.`);
 }
 
+// National Park Service units appear in several editorial categories. Protect
+// exact NPS identity filtering and the source-backed Blackwell School entry.
+const npsDirectory = fs.readFileSync(path.join(root, 'src/data/texas-national-park-service-directory.ts'), 'utf8');
+const npsRuntime = fs.readFileSync(path.join(root, 'src/data/destination-query-runtime.ts'), 'utf8');
+const npsPreserved = fs.readFileSync(path.join(root, 'src/data/destination-preserved-catalog.ts'), 'utf8');
+const blackwell = fs.readFileSync(path.join(root, 'src/data/blackwell-school-national-historic-site.ts'), 'utf8');
+if ((npsDirectory.match(/npsCode: "/g) ?? []).length !== 18) errors.push('Official NPS Texas directory must contain 18 distinct NPS designations.');
+for (const marker of [
+  'blackwell-school-national-historic-site',
+  'butterfield-overland-national-historic-trail',
+  'el-camino-real-de-los-tejas-national-historic-trail',
+  'el-camino-real-de-tierra-adentro-national-historic-trail',
+  'rio-grande-wild-and-scenic-river',
+]) if (!npsDirectory.includes(marker)) errors.push(`NPS directory missing: ${marker}`);
+for (const marker of ['nps.gov', 'isOfficialTexasNpsDestination', 'national-parks']) if (!npsRuntime.includes(marker)) errors.push(`NPS cross-category discovery missing ${marker}`);
+if (!npsPreserved.includes('[blackwellSchoolNationalHistoricSite]')) errors.push('Blackwell School must survive remote Explore failure.');
+for (const marker of [
+  '501 South Abbott Street', '2026-10-17', 'accessibilityNotes:',
+  'sourceUrl:', 'weekday', 'Public domain', 'National Park Service',
+]) if (!blackwell.toLowerCase().includes(marker.toLowerCase())) errors.push(`Blackwell authority evidence missing ${marker}`);
+
 if (errors.length) {
   console.error('Explore category authority wave 2 validation failed:');
   for (const error of errors) console.error(`- ${error}`);
