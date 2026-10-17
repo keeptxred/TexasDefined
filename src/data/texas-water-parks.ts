@@ -2499,7 +2499,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A Conroe city facility built around recreational water slides and shallow family play.",
     "distinctiveNote": "The city operates the water park separately from its year-round aquatic center; the 2026 seasonal calendar ended in September.",
     "officialUrl": "https://www.cityofconroe.org/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1207 Candy Cane Ln., Conroe, TX 77301",
+    "visitorHighlights": [
+      "Conroe Water Park is the seasonal slide and family water-play site at 1207 Candy Cane Lane, next door to the separate year-round Conroe Aquatic Center.",
+      "Conroe Aquatic Center's official tourism listing gives 1205 Candy Cane Lane for its indoor/main aquatics facility, not the seasonal waterpark entrance.",
+      "The outdoor waterpark has children's slides and family water recreation, rather than being a standard lap-only pool.",
+      "Community visitor materials describe split morning and afternoon summer admission sessions with an intermediate closure; travelers should check the current year’s operator calendar.",
+      "Fall opening should not be inferred from the adjacent indoor aquatics building, which runs a separate year-round schedule."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Conroe Water Park the same as the city's indoor aquatic center?",
+        "answer": "No. The outdoor seasonal waterpark uses the 1207 Candy Cane Lane address, while the City of Conroe Aquatic Center is at 1205 Candy Cane Lane and has separate indoor aquatic programming.",
+        "sourceUrl": "https://www.visitconroe.com/listing/conroe-aquatic-center/590/"
+      },
+      {
+        "question": "Can families visit the outdoor slides in October?",
+        "answer": "The published Conroe waterpark visitor listings describe a summer-only period, unlike the year-round indoor aquatic center. The city must confirm any future special October swim session.",
+        "sourceUrl": "https://www.visitconroe.com/listing/conroe-aquatic-center/590/"
+      },
+      {
+        "question": "Does the waterpark use a single continuous daytime ticket?",
+        "answer": "Visitor materials describe separate morning and afternoon waterpark session blocks; current access and re-entry terms should be confirmed with the municipal operator before purchasing.",
+        "sourceUrl": "https://www.visitconroe.com/listing/conroe-aquatic-center/590/"
+      },
+      {
+        "question": "Where is Conroe's seasonal family waterpark?",
+        "answer": "The outdoor waterpark is listed at 1207 Candy Cane Lane, Conroe, TX 77301, next to but distinct from the Conroe Aquatic Center at 1205 Candy Cane Lane.",
+        "sourceUrl": "https://www.visitconroe.com/listing/conroe-aquatic-center/590/"
+      }
+    ]
   },
   {
     "slug": "summer-fun-belton",
@@ -3882,7 +3912,36 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Pampa's outdoor family aquatic park features a lazy river, three large waterslides, a pool for lap swimming and children's water play with a dumping bucket.",
     "distinctiveNote": "The City of Pampa's facility planning materials describe seasonal Memorial Day through Labor Day operations; a 2027 state ride-sticker register lists its flume slides and slide bowl, but the city must confirm each summer's actual schedule.",
     "officialUrl": "https://www.pampaedc.com/community",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorHighlights": [
+      "Pampa H2O is an outdoor municipal aquatic park, not a standard indoor YMCA or basic single-lane swimming pool.",
+      "The Pampa Economic Development Corporation explicitly lists a lazy river and a full funnel slide as signature attractions.",
+      "The park's family swimming features include a regular lap pool alongside the leisure attractions.",
+      "Public information from the city describes seasonal operation rather than year-round outdoor swimming.",
+      "Shaded public seating is available around the family aquatic park, with current admission and slide schedules requiring confirmation from the responsible city."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Does Pampa H2O have a lazy river?",
+        "answer": "Yes. The local economic development corporation confirms a lazy river and full funnel-style water slide, alongside a lap pool and family seating areas.",
+        "sourceUrl": "https://www.pampaedc.com/community"
+      },
+      {
+        "question": "Can families visit Pampa H2O in October?",
+        "answer": "The city describes this as a seasonal outdoor facility and has not established a regular October waterpark calendar; check directly with Parks and Recreation before visiting.",
+        "sourceUrl": "https://www.pampaedc.com/community"
+      },
+      {
+        "question": "Does Pampa H2O operate as a public municipal park?",
+        "answer": "Pampa's official local economic-development listing identifies H2O as a family-oriented aquatic park with substantial water-play features, separate from ordinary neighborhood splash pads.",
+        "sourceUrl": "https://www.pampaedc.com/community"
+      },
+      {
+        "question": "Are current slide hours guaranteed on published visitor listings?",
+        "answer": "No. A description of the park's slide equipment is not proof that each attraction operates on a given day. Confirm the live operating season and availability with the city.",
+        "sourceUrl": "https://www.pampaedc.com/community"
+      }
+    ]
   },
   {
     "slug": "alice-natatorium-waterpark",
@@ -4030,7 +4089,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "DeSoto's waterpark-style Moseley Pool provides a beach-style zero-depth entry, two large waterslides, spray stations, water play fixtures and a separate lap-swim area.",
     "distinctiveNote": "The city's 2026 public schedule has ended and its official page is preparing for summer 2027. Check resident pricing, no-cash admission policy, slide rules and reopen dates with DeSoto Parks and Recreation.",
     "officialUrl": "https://www.desototexas.gov/661/Moseley-Pool",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1300 Honor Dr., DeSoto, TX 75115",
+    "visitorHighlights": [
+      "Moseley Pool offers beach-style zero-depth entry, two large water slides, family spray stations and a separate lap-swimming area.",
+      "The 2026 public swimming season closed on Labor Day September 7; the city is preparing a separate 2027 summer calendar.",
+      "DeSoto lists standard pool concessions, lockers, restrooms and shaded family seating.",
+      "The city's admission policy is cashless: credit cards are accepted and outside food and beverages are prohibited.",
+      "Group reservations for camps and schools require an approved swimming agreement in advance; groups arriving unbooked cannot enter under group rules.",
+      "Resident and nonresident prices differ, and the city lists specific reduced-price categories for children and seniors."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can families visit Moseley Pool during October 2026?",
+        "answer": "No. The city says the 2026 season has ended and plans to reopen in summer 2027. Its old seasonal weekday and weekend hours are not current opening hours.",
+        "sourceUrl": "https://www.desototexas.gov/661/Moseley-Pool"
+      },
+      {
+        "question": "Does Moseley Pool accept cash admission?",
+        "answer": "No. DeSoto's current pool policies require credit card payment and prohibit outside food and drinks. Guests can use on-site concession services.",
+        "sourceUrl": "https://www.desototexas.gov/661/Moseley-Pool"
+      },
+      {
+        "question": "How can a school or camp organize a group visit?",
+        "answer": "The city requires organized groups to schedule admission in advance under an approved Swim Agreement. An unreserved group arriving without that agreement cannot enter as a group.",
+        "sourceUrl": "https://www.desototexas.gov/661/Moseley-Pool"
+      },
+      {
+        "question": "Where is DeSoto's Moseley Pool?",
+        "answer": "The City of DeSoto lists the aquatic center at 1300 Honor Drive, DeSoto, Texas 75115, with two major slides and a zero-depth beach-style entrance.",
+        "sourceUrl": "https://www.desototexas.gov/661/Moseley-Pool"
+      }
+    ]
   },
   {
     "slug": "edinburg-municipal-waterpark",
@@ -4044,7 +4134,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Edinburg's multi-pool municipal waterpark features a 125-foot figure-eight waterslide, family leisure swimming, water basketball, shaded tables and an accessible Pirates Cove water-play section.",
     "distinctiveNote": "The City of Edinburg lists its outdoor aquatic season as April through September and describes Pirates Cove as a separate new water-play area within its aquatic offerings; check posted session times and slide access before arrival.",
     "officialUrl": "https://www.cityofedinburg.com/community/parks_recreation/aquatics_division.php",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "125 Mark S. Peña Dr., Edinburg, TX 78539",
+    "visitorHighlights": [
+      "Edinburg Municipal Waterpark is a three-pool city-operated outdoor waterpark, not the city office at 315 Mark S. Peña Drive.",
+      "The venue features a 125-foot figure-eight waterslide, water basketball and a large family leisure-swim area.",
+      "Pirates Cove is an additional interactive play area within Edinburg's municipal aquatics offering, not a separate standalone ticketed waterpark.",
+      "BBQ grills and picnic tables with shade canopies support family outings during the active swim season.",
+      "The city explicitly lists water wheelchairs as available, a meaningful accessibility feature for waterpark visitors.",
+      "The Aquatics Division's outdoor pool facilities operate April through September, so the general waterpark is not advertised for October."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Edinburg's waterpark operating in October?",
+        "answer": "The official city Aquatics Division says outdoor pool facilities run April through September. October admission should not be assumed without a special schedule.",
+        "sourceUrl": "https://www.cityofedinburg.com/community/parks_recreation/aquatics_division.php"
+      },
+      {
+        "question": "Where is the Edinburg Municipal Waterpark?",
+        "answer": "The city lists the waterpark at 125 Mark S. Peña Drive, Edinburg, Texas 78539, distinct from the Parks and Recreation office at 315 Mark S. Peña Drive.",
+        "sourceUrl": "https://www.cityofedinburg.com/community/parks_recreation/aquatics_division.php"
+      },
+      {
+        "question": "What does the waterpark have beyond its main pool?",
+        "answer": "The city identifies three pools, a 125-foot figure-eight slide, water basketball and its newer Pirates Cove family-play section, along with shaded barbecue and picnic facilities.",
+        "sourceUrl": "https://www.cityofedinburg.com/community/parks_recreation/aquatics_division.php"
+      },
+      {
+        "question": "Are accessible water wheelchairs available?",
+        "answer": "Yes. The City's current aquatics page explicitly lists water wheelchairs for the waterpark. Visitors should contact staff to confirm availability for their visit date.",
+        "sourceUrl": "https://www.cityofedinburg.com/community/parks_recreation/aquatics_division.php"
+      }
+    ]
   },
   {
     "slug": "midland-doug-russell",
@@ -4058,7 +4179,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Midland's Doug Russell outdoor aquatics complex offers public swim sessions alongside a multi-slide tower, larger body slides and water-play features recorded in the city's renovation program.",
     "distinctiveNote": "Midland's official 2026 swimming calendar lists Doug Russell's last opening date as September 7. Its municipal renovation materials include slide painting, tower repairs and feature replacement; confirm which rides will be operational for the 2027 season.",
     "officialUrl": "https://www.midlandtexas.gov/facilities/facility/details/doug-russell-pool-4",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "900 N. Midland Dr., Midland, TX 79703",
+    "visitorHighlights": [
+      "Doug Russell Aquatic Center is one of Midland's outdoor municipal aquatic venues, separate from Washington Aquatic Center.",
+      "The 2026 city schedule lists its last public swimming session on September 7, and the late-season August pool rotation operated only one of the two sites on given days.",
+      "Thursday Family Night permits additional evening swimming time compared with regular public swim dates.",
+      "Unlike Washington Aquatic Center, Doug Russell is listed closed on Tuesdays during its regular summer season.",
+      "The venue includes shaded seating, picnic tables, restrooms, concessions and a municipal swimming pool, with slides subject to city maintenance and reopening checks.",
+      "Children 14 and younger must have a supervising adult over age 18 under the city's aquatics policies."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Doug Russell Aquatics open in October?",
+        "answer": "No. Midland's 2026 schedule says the final Doug Russell public swim was September 7, Labor Day. Future dates need confirmation on the official city swim calendar.",
+        "sourceUrl": "https://midlandtexas.gov/swim"
+      },
+      {
+        "question": "What address should visitors use for Doug Russell?",
+        "answer": "The city lists 900 North Midland Drive, Midland, Texas 79703; Washington Aquatic Center is a separate location at 1601 East Indiana Avenue.",
+        "sourceUrl": "https://midlandtexas.gov/facilities/facility/details/doug-russell-pool-4"
+      },
+      {
+        "question": "Are Tuesdays generally available for open swimming?",
+        "answer": "No. During the 2026 regular summer schedule the city lists Tuesday as closed at Doug Russell, with additional evening hours on Thursday Family Nights.",
+        "sourceUrl": "https://midlandtexas.gov/swim"
+      },
+      {
+        "question": "Can children attend without adults?",
+        "answer": "The city requires swimmers age 14 and younger to attend with a supervising adult over 18 years old. Pool visitors must also follow the city's posted safety regulations.",
+        "sourceUrl": "https://midlandtexas.gov/swim"
+      }
+    ]
   },
   {
     "slug": "pharr-aquatic-center",
@@ -4072,7 +4224,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Pharr's Aquatic Center at 1000 South Fir Street has a seasonal aquatic park with a lazy river, waterslides, children's play structure, kiddie pool, leisure pool, shaded seating and snack bar.",
     "distinctiveNote": "The City of Pharr distinguishes the summer-only aquatic park from its separate natatorium at 3001 North Cage Boulevard. The outdoor season is listed for June and July; verify updated pool hours before traveling.",
     "officialUrl": "https://pharr-tx.gov/government/departments/parks-recreation/find-a-park/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1000 S. Fir St., Pharr, TX 78577",
+    "visitorHighlights": [
+      "Pharr's seasonal outdoor Aquatic Center offers a separate family waterpark with lazy river and waterslides, not simply its year-round natatorium pool.",
+      "Additional municipal amenities include a young-child play structure, kiddie pool and ordinary leisure-swimming sections.",
+      "The City of Pharr's park directory lists a summer-only outdoor waterpark at 1000 South Fir Street.",
+      "The Pharr Natatorium is a different indoor swimming complex at 3001 North Cage Boulevard; indoor swim hours there should not be misreported as outdoor waterpark availability.",
+      "Families can find shaded seating and an on-site snack bar at the seasonal family aquatic center, subject to current-day operations."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is the 1000 South Fir outdoor waterpark year-round?",
+        "answer": "No. The city publishes an outdoor summer swim season, distinct from the separate natatorium. Check current posted seasonal waterpark opening dates before visiting.",
+        "sourceUrl": "https://pharr-tx.gov/government/departments/parks-recreation/find-a-park/"
+      },
+      {
+        "question": "Where is Pharr's Aquatic Center waterpark?",
+        "answer": "The official city parks directory places the outdoor Aquatic Center at 1000 South Fir Street, Pharr, Texas 78577, not at the natatorium's North Cage Boulevard address.",
+        "sourceUrl": "https://pharr-tx.gov/government/departments/parks-recreation/find-a-park/"
+      },
+      {
+        "question": "Does this park have water slides and a lazy river?",
+        "answer": "Yes. Pharr identifies a lazy river, slides, children's interactive play structure and additional leisure pool areas as the outdoor waterpark's major recreation attractions.",
+        "sourceUrl": "https://pharr-tx.gov/government/departments/parks-recreation/find-a-park/"
+      },
+      {
+        "question": "Is the natatorium in the same building?",
+        "answer": "No. Pharr's City facilities listings distinguish the seasonal outdoor Aquatic Center on South Fir from the municipal Natatorium at 3001 North Cage Boulevard.",
+        "sourceUrl": "https://pharr-tx.gov/government/departments/parks-recreation/find-a-park/"
+      }
+    ]
   },
   {
     "slug": "garland-holford-aquatic",
