@@ -3098,6 +3098,200 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
+  "borden-county": {
+    "slug": "borden-county",
+    "theme": {
+      "accentHex": "#C34E43",
+      "label": "Independent Coyote-red editorial accent; no school-owned crest or historic image reproduced"
+    },
+    "seo": {
+      "title": "Borden County Coyotes Football 2026 | Five UIL Titles & Six-Man District 5",
+      "description": "Gail Borden County Coyotes: five verified UIL six-man state championships, 2026 1A Division I District 5, 6–0 through October 9 and official school visitor contacts."
+    },
+    "campus": {
+      "address": "240 West Kincaid Avenue, Gail, TX 79738",
+      "phone": "806-756-4313",
+      "sourceUrl": "https://www.bccoyotes.net/",
+      "sourceLabel": "Borden County ISD official school district campus/contact in Gail, not certified Coyote Stadium parking/gate",
+      "verifiedAt": "2026-10-16"
+    },
+    "schedule": {
+      "label": "Official Borden County ISD Athletics schedules",
+      "sourceUrl": "https://www.bccoyotes.net/",
+      "sourceLabel": "School district homepage links its athletic schedules; verify varsity date, facility, attendance and tickets with school",
+      "verifiedAt": "2026-10-16"
+    },
+    "notice": {
+      "title": "The school has five genuine UIL championships; current coach and stadium entrance need independent confirmation",
+      "body": "Official UIL archives document state championship-game wins in 1997, 2008, 2009, 2016 and 2017. The 2016 and 2017 titles were *1A Six-Man Division I*; 2008 and 2009 were *Division II*. Some third-party title feeds mislabel 2017 Division II. Current third-party coaching directories disagree: MaxPreps lists Trey Richey, while the specialist Six-Man Football team card names Craig Steele; UIL confirms Trey Richey coached the 2017 title team, not automatically the 2026 assignment. Do not assert a present-day head coach without a first-party roster. Exact stadium vehicle entrance, ADA parking, ticket requirements and image rights are unverified.",
+      "sourceUrl": "https://www.uiltexas.org/football/state-team/gail-borden-county-2017-2018-football",
+      "sourceLabel": "Official UIL 2017 roster and championship classification; current district website does not certify 2026 coach appointment",
+      "verifiedAt": "2026-10-16"
+    },
+    "season": {
+      "record": "6–0 through October 9, 2026 (MaxPreps Oct10 six completed games, 1–0 district)",
+      "verifiedAt": "2026-10-16",
+      "sourceUrl": "https://www.maxpreps.com/tx/gail/borden-county-coyotes/football/schedule/",
+      "sourceLabel": "Dated MaxPreps 2026 Borden County varsity games; earlier 5–0 homepage snapshot missed Oct9 O'Donnell final",
+      "games": [
+        {
+          "date": "2026-08-27",
+          "opponent": "Newcastle",
+          "site": "Home",
+          "result": "W 50–16"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Nazareth",
+          "site": "Home",
+          "result": "W 50–0"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Benjamin",
+          "site": "Away",
+          "result": "W 66–16"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Rankin",
+          "site": "Away",
+          "result": "W 82–36"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Whiteface",
+          "site": "Home",
+          "result": "W 75–69"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "O'Donnell",
+          "site": "Home",
+          "district": true,
+          "result": "W 72–16"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Westbrook",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Lamesa Klondike",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Ira",
+          "site": "Home"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Ackerly Sands",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "development": {
+      "title": "Five state crowns spanning two decades and two six-man divisions",
+      "body": "The UIL championship records establish five Gail Borden County six-man titles: 1997 over Valera Panther Creek 48–16; 2008 1A six-man Division II over Woodson 54–8; 2009 1A six-man Division II over Roscoe Highland 28–14; 2016 Division I over Jonesboro 60–12; 2017 Division I over Jonesboro 60–22. These five should not be collapsed into a single era or renamed as 2017 Division II. UIL's 2017 team archive lists title-year coach Trey Richey; no 2026 coaching attribution from that 2017 roster. A 2026 6–0 start through October 9 reflects recent games, not a sixth championship.",
+      "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+      "sourceLabel": "UIL football all-time title appearances plus official per-year final archive and 2017 team roster",
+      "verifiedAt": "2026-10-16"
+    },
+    "milestones": [
+      {
+        "date": "1997",
+        "title": "First UIL six-man crown, 48–16 over Panther Creek",
+        "body": "UIL champions ledger identifies Gail Borden County's 48–16 state final over Valera Panther Creek.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL all historical six-man final scores"
+      },
+      {
+        "date": "2008",
+        "title": "Six-man Division II state title versus Woodson",
+        "body": "Borden County defeated Woodson 54–8 in 2008–09 Class 1A six-man Division II final.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P200",
+        "sourceLabel": "UIL 2008–09 state final records"
+      },
+      {
+        "date": "2009",
+        "title": "Back-to-back Division II crowns",
+        "body": "Borden County beat Roscoe Highland 28–14 in 2009–10 1A six-man Division II championship.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P192",
+        "sourceLabel": "UIL 2009–10 final"
+      },
+      {
+        "date": "2016",
+        "title": "Returned to title stage in Division I",
+        "body": "Borden County won the 2016–17 1A six-man Division I final 60–12 over Jonesboro.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P98",
+        "sourceLabel": "UIL 2016–17 championship"
+      },
+      {
+        "date": "2017",
+        "title": "Fifth title, Division I again",
+        "body": "The 2017–18 Division I Coyotes defeated Jonesboro 60–22. Official UIL team archive lists coach Trey Richey for that season.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team/gail-borden-county-2017-2018-football",
+        "sourceLabel": "UIL 2017 champion team roster and 2017–18 official final"
+      },
+      {
+        "date": "2026",
+        "title": "New six-man Division I District 5",
+        "body": "UIL 2026–28 groups Borden County, Ackerly Sands, Ira, Lamesa Klondike, O'Donnell and Westbrook in District 5.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
+        "sourceLabel": "Official 2026–28 UIL six-man realignment"
+      },
+      {
+        "date": "2026-10-09",
+        "title": "Sixth consecutive victory over O'Donnell",
+        "body": "Borden County won 72–16 versus O'Donnell on October 9 to move to 6–0 overall and 1–0 in district on MaxPreps' dated Oct10 schedule.",
+        "sourceUrl": "https://www.maxpreps.com/tx/gail/borden-county-coyotes/football/schedule/",
+        "sourceLabel": "MaxPreps dated October10 six-game result ledger"
+      }
+    ],
+    "overview": [
+      "Borden County ISD's Coyotes are a six-man football program in Gail, Texas, with a genuine Texas UIL championship pedigree. Their district serves much of Borden County and parts of Howard County, but the school campus is in Gail, Borden County. The UIL's 2026–28 alignment assigns Borden County to Class 1A Division I six-man District 5 with Ackerly Sands, Ira, Lamesa Klondike, O'Donnell and Westbrook. This is not the same as an eleven-man 1A tournament.",
+      "The Coyotes won five state championships documented by the UIL, not just five appearances: 1997 against Valera Panther Creek 48–16, 2008 against Woodson 54–8, 2009 against Roscoe Highland 28–14, 2016 against Jonesboro 60–12 and 2017 against Jonesboro 60–22. The 2008 and 2009 crowns belonged to six-man Division II; the 2016 and 2017 titles to Division I. A third-party index mislabels the latter division, so official UIL archives control this classification.",
+      "UIL's 2017–18 Borden County state-team file names Trey Richey as the *2017 championship coach*. Present-day external coaching directories are inconsistent: a MaxPreps 2026 team card says Trey Richey while a specialist listing names Craig Steele. Without a current first-party football staff assignment, neither entry is declared the current confirmed head coach. This protects readers from a misleading historical title-year appointment becoming a present-day claim.",
+      "The 2026 Coyotes opened with six wins through October 9, including 75–69 against Whiteface, 66–16 at Benjamin and a 72–16 October 9 win over O'Donnell in the District 5 opener. The Oct10 varsity schedule says 6–0; an earlier cached MaxPreps homepage still said 5–0 before O'Donnell. At the October16 checkpoint Westbrook, Klondike, Ira and Sands are fixtures with no independently certified scores, not a completed championship path.",
+      "The official Borden County ISD site identifies its Gail campus and administrative contact at 240 West Kincaid Avenue, phone 806-756-4313, and links its athletic schedules. Third-party stadium listings use the name Coyote Stadium, but the school address is not independently confirmed as the precise football gate or accessible parking. School photographs/logos and stadium images must not be reused without verified licensing; confirm visitor ticket/entry rules directly with the district."
+    ],
+    "faq": [
+      {
+        "question": "How many UIL state football championships has Borden County won?",
+        "answer": "Five six-man championships in 1997, 2008, 2009, 2016 and 2017, independently listed in UIL title-game archives. These are actual wins, not just final appearances."
+      },
+      {
+        "question": "Was Borden County the six-man Division I champion in 2017?",
+        "answer": "Yes. The 2017–18 UIL archive lists Gail Borden County defeating Jonesboro 60–22 in Class 1A six-man Division I. Its 2016–17 win over Jonesboro was also Division I, while the 2008–09 and 2009–10 titles were Division II."
+      },
+      {
+        "question": "Which schools compete with Borden County in 2026 UIL District 5?",
+        "answer": "The official 2026–28 Class 1A Division I six-man District 5 lists Borden County, Ackerly Sands, Ira, Lamesa Klondike, O'Donnell and Westbrook."
+      },
+      {
+        "question": "What was Borden County's record after October 9, 2026?",
+        "answer": "MaxPreps' October10 results list the Coyotes 6–0 after a 72–16 home win over O'Donnell. Their Westbrook and later district games were not independently final as of this checkpoint."
+      },
+      {
+        "question": "Who is Borden County's football coach today?",
+        "answer": "UIL identifies Trey Richey as the 2017 state-title team's head coach, but current MaxPreps and Six-Man Football directories disagree over 2026 leadership. An official current district staffing source has not resolved the disagreement, so this guide does not certify a current coach."
+      },
+      {
+        "question": "Where is the Borden County high school campus?",
+        "answer": "Borden County ISD lists 240 West Kincaid Avenue in Gail, TX 79738, phone 806-756-4313. Its general district serves some areas beyond Borden County, but the high school campus is located in Gail."
+      },
+      {
+        "question": "Is the campus address the exact Coyote Stadium parking entrance?",
+        "answer": "Not necessarily. A third-party team directory names Coyote Stadium, but official game-specific stadium vehicle entrance, ADA parking, ticket and spectator rules are not independently confirmed. Consult Borden County ISD Athletics for the scheduled game."
+      }
+    ]
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {
