@@ -32,6 +32,14 @@ describe('unranked county visitor places', () => {
     }
   });
 
+  it('does not duplicate dedicated county spotlights or existing museum-guide identities', () => {
+    const names = new Set(COUNTY_VISITOR_PLACES.map((p) => p.county + ':' + p.name));
+    // First Monday is published in the Van Zandt County spotlight and
+    // the Heard wildlife sanctuary is already represented by a museum record.
+    expect(names.has('van-zandt:First Monday Trade Days in Canton')).toBe(false);
+    expect(names.has('collin:Heard Wildlife Sanctuary Nature Trails')).toBe(false);
+  });
+
   it('shows only county-specific, alphabetically sorted attractions', () => {
     for (const county of TEXAS_COUNTIES) {
       const places = countyVisitorPlaces(county.slug);
