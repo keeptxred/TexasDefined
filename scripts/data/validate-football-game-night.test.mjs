@@ -59,7 +59,11 @@ test('game-night panel uses sourced schedules and cannot invent times or ticket 
 test('first-party action tracking respects existing automation and shop analytics', () => {
   assert.match(panel, /trackTexasDefinedOutcome/);
   assert.match(panel, /next_step_selected/);
-  assert.match(panel, /shop_navigation_clicked/);
+  assert.doesNotMatch(panel, /shop_navigation_clicked/);
+  // The platform's delegated click handler already records shop_navigation_clicked.
+  // The page-specific handler only records the fan's football context once.
+  assert.match(read('src/platform/analytics.ts'), /shop_navigation_clicked/);
+  assert.match(panel, /recordAction\(slug, 'texas-gear', '\/shop'\)/);
   assert.match(panel, /high-school-football-game-night/);
   assert.doesNotMatch(panel, /localStorage|sessionStorage|sendBeacon/);
 });
