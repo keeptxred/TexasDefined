@@ -261,6 +261,7 @@ function Page() {
           venue={editorial?.venue}
           venueLink={venueLinks[0]}
           schoolWebsite={program?.schoolWebsite}
+          hasSeasonSection={!!program}
         />
       )}
 
