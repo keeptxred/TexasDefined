@@ -43,6 +43,17 @@ const expectedSlugs = [
   "benbrook-lake-mustang-point-swimming-beach",
   "benbrook-lake-north-holiday-swimming-beach",
   "lake-arrowhead-state-park-swimming-beach",
+  "russell-park-lake-georgetown-swimming-beach",
+  "temples-lake-park-swimming-beach",
+  "cedar-ridge-park-belton-lake-swimming-beach",
+  "oak-park-navarro-mills-swimming-beach",
+  "liberty-hill-park-navarro-mills-swimming-beach",
+  "wright-patman-north-shore-park-swimming-beach",
+  "wright-patman-clear-springs-swimming-beach",
+  "sam-rayburn-mill-creek-park-swimming-beach",
+  "sam-rayburn-san-augustine-park-swimming-beach",
+  "sam-rayburn-ebenezer-park-swimming-beach",
+  "possum-kingdom-state-park-swimming-beach",
 ];
 const recordsFound = [...records.matchAll(/^\s+slug: "([^"]+)",$/gm)].map((match) => match[1]);
 assert.deepEqual(recordsFound, expectedSlugs, "The eight agency-verified beach records should stay stable and unique.");
@@ -61,8 +72,8 @@ assert.ok(page.includes("mainEntity") && page.includes("ItemList"));
 assert.ok(page.includes('numberOfItems: beaches.length'));
 assert.ok(individual.includes("beach.officialUrl") && individual.includes("beach.checkedAt"));
 assert.ok(individual.includes("beach.statusNotice") && individual.includes("beach.statusUrl"), "Special-closure swim beaches must display active caution and direct status links");
-assert.equal([...records.matchAll(/^\s+statusNotice: "/gm)].length, 2, "The two Benbrook swimming beaches must retain dated low-water closure notices");
-assert.equal([...records.matchAll(/^\s+statusUrl: "/gm)].length, 2, "The two Benbrook closure notices must link to official live status");
+assert.equal([...records.matchAll(/^\s+statusNotice: "/gm)].length, 5, "Benbrook and Sam Rayburn swimming beaches must retain dated low-water closure notices");
+assert.equal([...records.matchAll(/^\s+statusUrl: "/gm)].length, 5, "Benbrook and Sam Rayburn closure notices must link to official live status");
 for (const slug of ["cedar-hill-state-park-swimming-beach", "lake-mineral-wells-state-park-swim-beach"]) {
   assert.ok(beachPhotos.includes('"' + slug + '": {'), `Missing exact-beach photo for ${slug}`);
 }
