@@ -233,7 +233,7 @@ const SITE_PATCHES: Readonly<Record<string, NpsPatch>> = {
     "assessment": {
       "recommendedVisit": "Confirm official access, hours and any guided visit before departing",
       "physicalEffort": "Low to moderate",
-      "weatherExposure": "Mixed indoors/outdoors",
+      "weatherExposure": "Mixed indoor/outdoor",
       "planningLevel": "Moderate",
       "familyFit": "Plan age, mobility and trip length around the specific NPS visitor requirements",
       "firstTimeValue": "Official interpretation and the exact park visitor entrance are more reliable than a broad location pin"
