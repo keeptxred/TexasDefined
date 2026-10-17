@@ -163,6 +163,7 @@ import { Route as LubbockMusicHistoryRouteImport } from './routes/lubbock-music-
 import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
 import { Route as HuntingRouteImport } from './routes/hunting'
 import { Route as HoustonMusicHistoryRouteImport } from './routes/houston-music-history'
+import { Route as HorseRacingRouteImport } from './routes/horse-racing'
 import { Route as HomeGardenRouteImport } from './routes/home-garden'
 import { Route as GuidesRouteImport } from './routes/guides'
 import { Route as GrueneHallHistoryRouteImport } from './routes/gruene-hall-history'
@@ -323,6 +324,7 @@ import { Route as LearnAppraisalDistrictsRouteImport } from './routes/learn.appr
 import { Route as LearnAgriculturalValuationRouteImport } from './routes/learn.agricultural-valuation'
 import { Route as LakesLakeConroeDothtmlRouteImport } from './routes/lakes.lake-conroe[.]html'
 import { Route as HuntingSlugRouteImport } from './routes/hunting.$slug'
+import { Route as HorseRacingSlugRouteImport } from './routes/horse-racing_.$slug'
 import { Route as HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRouteImport } from './routes/historic-site.washington-on-the-brazos-state-historic-site'
 import { Route as HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRouteImport } from './routes/historic-site.seminole-canyon-state-park-state-historic-site'
 import { Route as HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRouteImport } from './routes/historic-site.monument-hill-kreische-brewery-state-historic-site'
@@ -1556,6 +1558,11 @@ const HoustonMusicHistoryRoute = HoustonMusicHistoryRouteImport.update({
 } as any).lazy(() =>
   import('./routes/houston-music-history.lazy').then((d) => d.Route),
 )
+const HorseRacingRoute = HorseRacingRouteImport.update({
+  id: '/horse-racing',
+  path: '/horse-racing',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/horse-racing.lazy').then((d) => d.Route))
 const HomeGardenRoute = HomeGardenRouteImport.update({
   id: '/home-garden',
   path: '/home-garden',
@@ -2551,6 +2558,11 @@ const HuntingSlugRoute = HuntingSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => HuntingRoute,
 } as any).lazy(() => import('./routes/hunting.$slug.lazy').then((d) => d.Route))
+const HorseRacingSlugRoute = HorseRacingSlugRouteImport.update({
+  id: '/horse-racing_/$slug',
+  path: '/horse-racing/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/horse-racing_.$slug.lazy').then((d) => d.Route))
 const HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute =
   HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRouteImport.update({
     id: '/historic-site/washington-on-the-brazos-state-historic-site',
@@ -3816,6 +3828,7 @@ export interface FileRoutesByFullPath {
   '/gruene-hall-history': typeof GrueneHallHistoryRoute
   '/guides': typeof GuidesRouteWithChildren
   '/home-garden': typeof HomeGardenRoute
+  '/horse-racing': typeof HorseRacingRoute
   '/houston-music-history': typeof HoustonMusicHistoryRoute
   '/hunting': typeof HuntingRouteWithChildren
   '/llms.txt': typeof LlmsDottxtRoute
@@ -4098,6 +4111,7 @@ export interface FileRoutesByFullPath {
   '/historic-site/monument-hill-kreische-brewery-state-historic-site': typeof HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute
   '/historic-site/seminole-canyon-state-park-state-historic-site': typeof HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute
   '/historic-site/washington-on-the-brazos-state-historic-site': typeof HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute
+  '/horse-racing/$slug': typeof HorseRacingSlugRoute
   '/hunting/$slug': typeof HuntingSlugRoute
   '/lakes/lake-conroe.html': typeof LakesLakeConroeDothtmlRoute
   '/learn/agricultural-valuation': typeof LearnAgriculturalValuationRoute
@@ -4335,6 +4349,7 @@ export interface FileRoutesByTo {
   '/gruene-hall-history': typeof GrueneHallHistoryRoute
   '/guides': typeof GuidesRouteWithChildren
   '/home-garden': typeof HomeGardenRoute
+  '/horse-racing': typeof HorseRacingRoute
   '/houston-music-history': typeof HoustonMusicHistoryRoute
   '/hunting': typeof HuntingRouteWithChildren
   '/llms.txt': typeof LlmsDottxtRoute
@@ -4614,6 +4629,7 @@ export interface FileRoutesByTo {
   '/historic-site/monument-hill-kreische-brewery-state-historic-site': typeof HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute
   '/historic-site/seminole-canyon-state-park-state-historic-site': typeof HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute
   '/historic-site/washington-on-the-brazos-state-historic-site': typeof HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute
+  '/horse-racing/$slug': typeof HorseRacingSlugRoute
   '/hunting/$slug': typeof HuntingSlugRoute
   '/lakes/lake-conroe.html': typeof LakesLakeConroeDothtmlRoute
   '/learn/agricultural-valuation': typeof LearnAgriculturalValuationRoute
@@ -4853,6 +4869,7 @@ export interface FileRoutesById {
   '/gruene-hall-history': typeof GrueneHallHistoryRoute
   '/guides': typeof GuidesRouteWithChildren
   '/home-garden': typeof HomeGardenRoute
+  '/horse-racing': typeof HorseRacingRoute
   '/houston-music-history': typeof HoustonMusicHistoryRoute
   '/hunting': typeof HuntingRouteWithChildren
   '/llms.txt': typeof LlmsDottxtRoute
@@ -5135,6 +5152,7 @@ export interface FileRoutesById {
   '/historic-site/monument-hill-kreische-brewery-state-historic-site': typeof HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute
   '/historic-site/seminole-canyon-state-park-state-historic-site': typeof HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute
   '/historic-site/washington-on-the-brazos-state-historic-site': typeof HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute
+  '/horse-racing_/$slug': typeof HorseRacingSlugRoute
   '/hunting/$slug': typeof HuntingSlugRoute
   '/lakes/lake-conroe.html': typeof LakesLakeConroeDothtmlRoute
   '/learn/agricultural-valuation': typeof LearnAgriculturalValuationRoute
@@ -5375,6 +5393,7 @@ export interface FileRouteTypes {
     | '/gruene-hall-history'
     | '/guides'
     | '/home-garden'
+    | '/horse-racing'
     | '/houston-music-history'
     | '/hunting'
     | '/llms.txt'
@@ -5657,6 +5676,7 @@ export interface FileRouteTypes {
     | '/historic-site/monument-hill-kreische-brewery-state-historic-site'
     | '/historic-site/seminole-canyon-state-park-state-historic-site'
     | '/historic-site/washington-on-the-brazos-state-historic-site'
+    | '/horse-racing/$slug'
     | '/hunting/$slug'
     | '/lakes/lake-conroe.html'
     | '/learn/agricultural-valuation'
@@ -5894,6 +5914,7 @@ export interface FileRouteTypes {
     | '/gruene-hall-history'
     | '/guides'
     | '/home-garden'
+    | '/horse-racing'
     | '/houston-music-history'
     | '/hunting'
     | '/llms.txt'
@@ -6173,6 +6194,7 @@ export interface FileRouteTypes {
     | '/historic-site/monument-hill-kreische-brewery-state-historic-site'
     | '/historic-site/seminole-canyon-state-park-state-historic-site'
     | '/historic-site/washington-on-the-brazos-state-historic-site'
+    | '/horse-racing/$slug'
     | '/hunting/$slug'
     | '/lakes/lake-conroe.html'
     | '/learn/agricultural-valuation'
@@ -6411,6 +6433,7 @@ export interface FileRouteTypes {
     | '/gruene-hall-history'
     | '/guides'
     | '/home-garden'
+    | '/horse-racing'
     | '/houston-music-history'
     | '/hunting'
     | '/llms.txt'
@@ -6693,6 +6716,7 @@ export interface FileRouteTypes {
     | '/historic-site/monument-hill-kreische-brewery-state-historic-site'
     | '/historic-site/seminole-canyon-state-park-state-historic-site'
     | '/historic-site/washington-on-the-brazos-state-historic-site'
+    | '/horse-racing_/$slug'
     | '/hunting/$slug'
     | '/lakes/lake-conroe.html'
     | '/learn/agricultural-valuation'
@@ -6932,6 +6956,7 @@ export interface RootRouteChildren {
   GrueneHallHistoryRoute: typeof GrueneHallHistoryRoute
   GuidesRoute: typeof GuidesRouteWithChildren
   HomeGardenRoute: typeof HomeGardenRoute
+  HorseRacingRoute: typeof HorseRacingRoute
   HoustonMusicHistoryRoute: typeof HoustonMusicHistoryRoute
   HuntingRoute: typeof HuntingRouteWithChildren
   LlmsDottxtRoute: typeof LlmsDottxtRoute
@@ -7181,6 +7206,7 @@ export interface RootRouteChildren {
   HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute: typeof HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute
   HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute: typeof HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute
   HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute: typeof HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute
+  HorseRacingSlugRoute: typeof HorseRacingSlugRoute
   LakesLakeConroeDothtmlRoute: typeof LakesLakeConroeDothtmlRoute
   LearnAgriculturalValuationRoute: typeof LearnAgriculturalValuationRoute
   LearnAppraisalDistrictsRoute: typeof LearnAppraisalDistrictsRoute
@@ -8382,6 +8408,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HoustonMusicHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/horse-racing': {
+      id: '/horse-racing'
+      path: '/horse-racing'
+      fullPath: '/horse-racing'
+      preLoaderRoute: typeof HorseRacingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/home-garden': {
       id: '/home-garden'
       path: '/home-garden'
@@ -9501,6 +9534,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/hunting/$slug'
       preLoaderRoute: typeof HuntingSlugRouteImport
       parentRoute: typeof HuntingRoute
+    }
+    '/horse-racing_/$slug': {
+      id: '/horse-racing_/$slug'
+      path: '/horse-racing/$slug'
+      fullPath: '/horse-racing/$slug'
+      preLoaderRoute: typeof HorseRacingSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/historic-site/washington-on-the-brazos-state-historic-site': {
       id: '/historic-site/washington-on-the-brazos-state-historic-site'
@@ -11567,6 +11607,7 @@ const rootRouteChildren: RootRouteChildren = {
   GrueneHallHistoryRoute: GrueneHallHistoryRoute,
   GuidesRoute: GuidesRouteWithChildren,
   HomeGardenRoute: HomeGardenRoute,
+  HorseRacingRoute: HorseRacingRoute,
   HoustonMusicHistoryRoute: HoustonMusicHistoryRoute,
   HuntingRoute: HuntingRouteWithChildren,
   LlmsDottxtRoute: LlmsDottxtRoute,
@@ -11855,6 +11896,7 @@ const rootRouteChildren: RootRouteChildren = {
     HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute,
   HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute:
     HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute,
+  HorseRacingSlugRoute: HorseRacingSlugRoute,
   LakesLakeConroeDothtmlRoute: LakesLakeConroeDothtmlRoute,
   LearnAgriculturalValuationRoute: LearnAgriculturalValuationRoute,
   LearnAppraisalDistrictsRoute: LearnAppraisalDistrictsRoute,
