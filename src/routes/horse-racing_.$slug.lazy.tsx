@@ -55,7 +55,7 @@ function TexasHorseRacingInstitutionPage() {
         </nav>
         <header className="border-b border-border py-11">
           <p className="eyebrow text-primary">{live ? 'Live seasonal horse racing · Hill Country' : 'Texas racing history · Inactive track/license'}</p>
-          <h1 className="mt-3 font-display text-5xl leading-[1.02] sm:text-7xl">{record.name}</h1>
+          <h1 className="mt-3 font-display text-5xl leading-tight sm:text-7xl">{record.name}</h1>
           <p className="mt-6 text-lg leading-8 text-muted-foreground sm:text-xl">{record.introduction}</p>
           <dl className="mt-8 grid gap-5 border-t border-border pt-5 sm:grid-cols-2">
             <div><dt className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Place</dt><dd className="mt-2 text-sm font-semibold">{record.city}, {record.county}</dd></div>
