@@ -74,11 +74,46 @@ export const texasWaterParks: WaterParkGuide[] = [
     "region": "Houston area",
     "setting": "Outdoor",
     "kind": "Destination park",
-    "admission": "Day tickets and season passes",
-    "summary": "A west-Houston-area water park with slides, wave attractions and family play areas.",
-    "distinctiveNote": "Search for the Katy/Houston location specifically; Typhoon Texas also operates near Austin.",
+    "admission": "Separate day tickets and individual season passes; free on-site parking and permitted hand-stamp re-entry during the operating day.",
+    "summary": "Typhoon Texas Houston in Katy combines the Lazy-T River, Tidal Wave Bay, Typhoon Jr. children's water play, mat-racing and tube slides in a seasonal outdoor waterpark west of Houston.",
+    "distinctiveNote": "The Katy property is at 555 Katy Fort Bend Road, not at the company's Pflugerville location. Free parking is provided; children age 12 and younger cannot enter without a supervising adult. Special event days may impose a stricter adult-over-21 chaperone policy.",
     "officialUrl": "https://typhoontexas.com/houston/hours-and-location/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "555 Katy Fort Bend Rd., Katy, TX 77494",
+    "visitorHighlights": [
+      "Typhoon Jr. is a dedicated children's activity area while the Lazy-T River offers a slower family float.",
+      "Tidal Wave Bay and multiple larger mat, body and tube slides accommodate visitors looking for more active water attractions.",
+      "Onsite vehicle parking is free, and guests who receive a hand stamp at exit may return to the park on the same visit.",
+      "Visitors may bring one factory-sealed water bottle per person and permitted small coolers for ice and sealed water only; other outside meals stay outside.",
+      "Children 12 and under need supervising adults, and signature events may require adult chaperones older than 21 for guests aged 16 and under."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Does Typhoon Texas in Katy charge for general parking?",
+        "answer": "No. Typhoon Texas Houston's published guest FAQ identifies general parking as free. The waterpark entrance is at 555 Katy Fort Bend Road in Katy, Texas, not at the separate Typhoon Texas Austin-area location.",
+        "sourceUrl": "https://typhoontexas.com/houston/faq/"
+      },
+      {
+        "question": "Can I bring a cooler and my own food into Typhoon Texas Houston?",
+        "answer": "Outside meals are not allowed inside the park. Guests may bring one sealed water bottle per person and a small handheld cooler for ice or sealed water; medical dietary accommodations go through Guest Relations. Visitors can eat outside and re-enter with a hand stamp.",
+        "sourceUrl": "https://typhoontexas.com/houston/faq/"
+      },
+      {
+        "question": "Can children attend Typhoon Texas Katy without an adult?",
+        "answer": "The regular rule prohibits children 12 and younger from attending without adult supervision. On certain signature-event days, the park requires guests 16 and younger to enter with a responsible adult over age 21 with photo ID; management may apply this rule on other days.",
+        "sourceUrl": "https://typhoontexas.com/houston/faq/"
+      },
+      {
+        "question": "Can I leave Typhoon Texas to eat in the car and return?",
+        "answer": "Yes. Before leaving, request a hand stamp at the exit gate, then show it at the main entrance for re-entry. This makes it possible to eat food brought from home outside the waterpark rather than carrying it inside.",
+        "sourceUrl": "https://typhoontexas.com/houston/faq/"
+      },
+      {
+        "question": "Do Typhoon Texas Houston tickets have a rain refund?",
+        "answer": "Tickets are generally non-refundable. During severe weather the attractions may close; guests with a receipt may qualify for a limited rainy-day return ticket under the operator's conditions and must arrange it before leaving.",
+        "sourceUrl": "https://typhoontexas.com/houston/faq/"
+      }
+    ]
   },
   {
     "slug": "typhoon-texas-austin",
@@ -372,13 +407,48 @@ export const texasWaterParks: WaterParkGuide[] = [
     "city": "Webster",
     "county": "Harris",
     "region": "Houston area",
-    "setting": "Indoor",
+    "setting": "Both",
     "kind": "Indoor resort park",
-    "admission": "Water-park access with resort stay or available day pass",
-    "summary": "A large indoor water park near NASA and the Clear Lake area.",
-    "distinctiveNote": "Webster is a separate resort from the Grapevine location; look for its indoor-park day passes.",
+    "admission": "Overnight guests have waterpark access; capacity-limited full-day and half-day waterpark passes are also sold to visitors without a hotel room.",
+    "summary": "Great Wolf Lodge Houston in Webster has a large 84-degree indoor waterpark with family slides, wave play and age-specific areas, plus a separately operated outdoor Great Lagoon water-play section.",
+    "distinctiveNote": "Webster is the actual venue city despite Houston-branded marketing. Full-day waterpark passes and half-day passes starting in the evening are sold subject to availability; outside food and coolers are prohibited, but towels and life jackets are included with day passes.",
     "officialUrl": "https://www.greatwolf.com/webster/waterpark-attractions/indoor-water-park",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1000 Great Wolf Way, Webster, TX 77598",
+    "visitorHighlights": [
+      "An indoor 84-degree family waterpark features large waterslides, shallow children's areas, a wave pool and lazy river.",
+      "The separate Great Lagoon outdoor water-play attraction is weather- and season-dependent; confirm its operating schedule rather than assuming indoor hours apply.",
+      "Capacity-controlled full-day and half-day passes are sold to guests without an overnight room reservation, with towels and life jackets included.",
+      "Passes are not required for children age two and younger, while many dry-land lodge attractions or bundles cost extra.",
+      "The Texas Twirler indoor raft attraction has a stated 42-inch minimum height and its own ride safety requirements."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can I visit Great Wolf Lodge Webster's waterpark without staying overnight?",
+        "answer": "Yes. Great Wolf Lodge Houston/Webster offers a limited supply of public day passes. Full-day access covers the selected operating day and half-day admission begins at the posted evening time; date inventory may sell out.",
+        "sourceUrl": "https://www.greatwolf.com/webster/daypass"
+      },
+      {
+        "question": "Are towels and life jackets included with a Webster waterpark day pass?",
+        "answer": "Yes. The operator's day-pass package includes use of towels and available Coast Guard-approved life jackets in the waterpark. Lockers may cost extra, and guests must return issued towels to avoid fees.",
+        "sourceUrl": "https://www.greatwolf.com/webster/daypass"
+      },
+      {
+        "question": "Does Great Wolf Lodge Webster have any outdoor swimming area?",
+        "answer": "Yes. Along with its year-round indoor waterpark, the Webster lodge advertises Great Lagoon as an outdoor water-play area with its own schedule and weather restrictions. Check that section separately before buying admission.",
+        "sourceUrl": "https://www.greatwolf.com/webster/waterpark-attractions/indoor-water-park/great-lagoon"
+      },
+      {
+        "question": "Can day-pass visitors bring outside snacks and coolers?",
+        "answer": "No. Great Wolf Lodge Webster prohibits outside food, drinks and coolers in the resort waterpark. Visitors may buy refreshments onsite, while other dry-land attractions and dining packages can cost extra.",
+        "sourceUrl": "https://www.greatwolf.com/webster/daypass"
+      },
+      {
+        "question": "What is the minimum height for Great Wolf Lodge Webster's Texas Twirler?",
+        "answer": "The operator lists a 42-inch minimum height for Texas Twirler. Other water slides have their own posted ride rules, so families should check the particular attractions before relying on a single park-wide height standard.",
+        "sourceUrl": "https://www.greatwolf.com/webster/waterpark-attractions/indoor-water-park/texas-twirler"
+      }
+    ]
   },
   {
     "slug": "epic-waters-grand-prairie",
