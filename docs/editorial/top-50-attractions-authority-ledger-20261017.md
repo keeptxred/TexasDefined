@@ -4,7 +4,7 @@
 
 This list is the exact editorial ranking requested for Texas Defined. Rankings are editorial, not reported attendance. Keep the old Top 25 collection and its validated exports unchanged. Do not create duplicate canonicals. A path in the table is a known source/code route candidate, not proof of current 200, full content, photo rights or editorial certification. A blank path means the canonical route must be inspected rather than guessed.
 
-The `newly-authored-theme-park` flag denotes four new checked-in complete destination records with distinct photo provenance, three itineraries, FAQs, visitor references and city/county fields. Such records are not automatically released or legally/image-rights certified; source acceptance checks and production verification are still required. The `wave1` flag means individualized significance, planning assessment, three itineraries and official visitor-source pointers were added in this branch and wired into existing destination pages. **It does not mean source claims were all independently reverified, visitor FAQs independently researched, reciprocal internal links complete, photography rights reaudited, CI passed or production deployed.** The `top25` flag refers to the existing site system, not a blanket pass against all authority release gates. `event`, `sports-venue` and `museum-review` records must reuse their own topic-specific systems.
+The `newly-authored-wildlife` flag denotes an original bat-colony guide with direct wildlife conservation and state-agency sources, three FAQs, site-accurate licensed-photo provenance, three itineraries and visitor advice. Subject to the same independent editorial and production gate. The `newly-authored-theme-park` flag denotes four new checked-in complete destination records with distinct photo provenance, three itineraries, FAQs, visitor references and city/county fields. Such records are not automatically released or legally/image-rights certified; source acceptance checks and production verification are still required. The `wave1` flag means individualized significance, planning assessment, three itineraries and official visitor-source pointers were added in this branch and wired into existing destination pages. **It does not mean source claims were all independently reverified, visitor FAQs independently researched, reciprocal internal links complete, photography rights reaudited, CI passed or production deployed.** The `top25` flag refers to the existing site system, not a blanket pass against all authority release gates. `event`, `sports-venue` and `museum-review` records must reuse their own topic-specific systems.
 
 | Rank | Attraction | Existing/source locator | Workstream |
 | ---: | --- | --- | --- |
@@ -20,19 +20,19 @@ The `newly-authored-theme-park` flag denotes four new checked-in complete destin
 | 10 | San Antonio Missions National Historical Park | `/destination/san-antonio-missions-national-historical-park` | top25 |
 | 11 | South Padre Island Beaches | `/destination/south-padre-island-beaches` | wave1 |
 | 12 | Padre Island National Seashore | `/destination/padre-island-national-seashore` | top25 |
-| 13 | Houston Livestock Show and Rodeo | Locate canonical | event |
+| 13 | Houston Livestock Show and Rodeo | `/event/houston-livestock-show-rodeo` | event |
 | 14 | Natural Bridge Caverns | `/destination/natural-bridge-caverns` | top25 |
 | 15 | Moody Gardens | `/destination/moody-gardens` | top25 |
 | 16 | Schlitterbahn New Braunfels | `/destination/schlitterbahn-new-braunfels` | newly-authored-theme-park |
 | 17 | Guadalupe Mountains National Park | `/destination/guadalupe-mountains-national-park` | top25 |
-| 18 | Enchanted Rock State Natural Area | Locate canonical | destination-special-route |
+| 18 | Enchanted Rock State Natural Area | `/destination/enchanted-rock-state-natural-area` | destination-special-route |
 | 19 | USS Lexington Museum | `/destination/uss-lexington-museum-corpus-christi` | museum-review |
 | 20 | Houston Museum of Natural Science | `/destination/houston-museum-of-natural-science` | top25 |
 | 21 | Dallas Arboretum and Botanical Garden | `/destination/dallas-arboretum-and-botanical-garden` | top25 |
 | 22 | Six Flags Over Texas | `/destination/six-flags-over-texas` | newly-authored-theme-park |
 | 23 | SeaWorld San Antonio | `/destination/seaworld-san-antonio` | newly-authored-theme-park |
 | 24 | Six Flags Fiesta Texas | `/destination/six-flags-fiesta-texas` | newly-authored-theme-park |
-| 25 | AT&T Stadium | Locate canonical | sports-venue |
+| 25 | AT&T Stadium | `/sports-venue/att-stadium` | sports-venue |
 | 26 | Galveston Island Historic Pleasure Pier | `/destination/galveston-island-historic-pleasure-pier` | top25 |
 | 27 | San Jacinto Monument and Battleground | `/destination/san-jacinto-battleground` | historic-review |
 | 28 | Fort Worth Zoo | `/destination/fort-worth-zoo` | wave1 |
@@ -41,11 +41,11 @@ The `newly-authored-theme-park` flag denotes four new checked-in complete destin
 | 31 | Texas State Aquarium | `/destination/texas-state-aquarium` | wave1 |
 | 32 | Magnolia Market at the Silos | `/destination/magnolia-market-at-the-silos` | wave1 |
 | 33 | Barton Springs Pool | `/destination/barton-springs-pool` | destination-review |
-| 34 | Congress Avenue Bridge Bat Colony | Locate canonical | destination-review |
+| 34 | Congress Avenue Bridge Bat Colony | `/destination/congress-avenue-bridge-bat-colony` | newly-authored-wildlife |
 | 35 | Hamilton Pool Preserve | `/destination/hamilton-pool-preserve` | top25 |
 | 36 | Cadillac Ranch | `/destination/cadillac-ranch` | top25 |
-| 37 | Circuit of the Americas | Locate canonical | sports-venue |
-| 38 | Texas Renaissance Festival | Locate canonical | event |
+| 37 | Circuit of the Americas | `/sports-venue/circuit-of-the-americas` | sports-venue |
+| 38 | Texas Renaissance Festival | `/event/texas-renaissance-festival` | event |
 | 39 | Waco Mammoth National Monument | `/destination/waco-mammoth-national-monument` | museum-review |
 | 40 | National Museum of the Pacific War | `/destination/national-museum-pacific-war` | museum-review |
 | 41 | Museum of Fine Arts, Houston | `/destination/museum-of-fine-arts-houston` | museum-review |
