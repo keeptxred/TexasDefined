@@ -434,12 +434,13 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "Use TPWD's Doctors Creek and South Sulphur unit maps rather than routing every camper to a single lake map pin.",
   },
   "davis-mountains-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-17",
     sourceUrl: "https://tpwd.texas.gov/state-parks/davis-mountains/fees-facilities/campsites",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/indian-lodge/alert",
     restrooms: "TPWD lists restroom and shower facilities near the developed 26 full-hookup, 34 electric and 33 water-only campsites; confirm exact shared water spigots and bathhouse distance by campsite number.",
     parking: "Developed camp loops include 26 full-hookup 30/50-amp RV sites, 34 20/30-amp water/electric sites and 33 water-only sites, some with shared water spigots. Primitive backcountry access requires hiking at least four miles and climbing roughly 800 feet, not drive-up RV parking.",
     camping: "26 water/electric/sewer full hookups, 34 electric sites and 33 water-only camping sites. Remote primitive hike-in camping requires at least a four-mile approach with 800 feet of gain, no ground fires and self-carried water; not suitable for an ordinary first-time family drive-up plan.",
-    access: "Indian Lodge is a separately booked state lodging facility connected to the Davis Mountains area; do not describe it as an electric campsite or claim camping includes a room. Primitive hikes demand water and daylight planning.",
+    access: "Indian Lodge is the separate 39-room state hotel inside Davis Mountains State Park, not a sixth or additional state park. TPWD's live Indian Lodge alert explicitly closes the lodge for the entire month of JANUARY 2027; never promote or sell rooms for that month. The broad TPWD lodging directory and individual historic room descriptions have conflicting generic renovation/booking text, so require the official current Indian Lodge alert and actual reservation availability to establish other dates. Campground reservations do not include hotel rooms. Primitive hikes demand water and daylight planning.",
     maps: "TPWD campground and trail maps distinguish developed sites, the Indian Lodge location and remote mountain backpacking approaches.",
   },
   "atlanta-state-park": {

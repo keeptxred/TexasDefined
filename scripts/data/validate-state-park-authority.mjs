@@ -377,6 +377,23 @@ for (const [slug, evidence] of [
 }
 if ((sixNewGuides.match(/"question":/g) ?? []).length < 18) failures.push("Six individual visitor guides require 18 source-linked FAQ entries");
 
+// Six TPWD "special status" directory entries must not be inflated into 90
+// ordinary open parks. In particular, Indian Lodge's Jan 2027 closure is
+// explicit and must be visible in its canonical parent park visitor facts.
+const specialSiteReview = read("docs/state-parks/TPWD_SPECIAL_STATUS_SIX_SOURCE_REVIEW_2026-10-17.md");
+for (const site of ["Albert & Bessie Kronkosky", "Powderhorn", "Wyler Aerial Tramway", "Barton Warnock", "Fort Leaton", "Indian Lodge"]) {
+  assertContains(specialSiteReview, site, `Special TPWD site review missing: ${site}`);
+}
+for (const marker of ["https://tpwd.texas.gov/state-parks/indian-lodge/alert", "January 2027", "https://tpwd.texas.gov/state-parks/wyler-aerial-tramway", "not open"]) {
+  assertContains(specialSiteReview, marker, `Special TPWD status evidence missing: ${marker}`);
+}
+const davisStart = authority.indexOf('  "davis-mountains-state-park": {');
+const davisEnd = authority.indexOf('\n  "', davisStart + 8);
+const davisFacts = davisStart >= 0 ? authority.slice(davisStart, davisEnd < 0 ? undefined : davisEnd) : "";
+for (const marker of ['checkedAt: "2026-10-17"', 'supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/indian-lodge/alert"', 'JANUARY 2027', '39-room']) {
+  assertContains(davisFacts, marker, `Davis Mountains Indian Lodge visitor safeguard missing: ${marker}`);
+}
+
 if (failures.length) {
   for (const problem of failures) process.stderr.write(`FAIL ${problem}\n`);
   process.exitCode = 1;
