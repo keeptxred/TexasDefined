@@ -23,10 +23,10 @@ const expectedSlugs = [
   'surfside-beach','quintana-beach-county-park','bryan-beach','sargent-beach','matagorda-beach','matagorda-bay-nature-park',
   'palacios-bay-beach','magnolia-beach','lighthouse-beach-port-lavaca','king-fisher-beach','sunday-beach','rockport-beach','fulton-beach-park','goose-island-state-park-coast','san-jose-island',
   'ib-magee-beach-park','port-aransas-beach','tony-amos-city-beach','mustang-island-state-park','north-beach-corpus-christi','mcgee-beach','cole-park-beach','oso-bay-coast',
-  'whitecap-beach','malaquite-beach','padre-island-national-seashore-backcountry','yarborough-pass','south-padre-island-beaches','isla-blanca-park','andy-bowie-county-park','ek-atwood-park','boca-chica-beach',
+  'north-packery-jp-luby-beach','michael-j-ellis-beach-seawall','padre-balli-beach-park','whitecap-beach','malaquite-beach','padre-island-national-seashore-backcountry','yarborough-pass','south-padre-island-beaches','isla-blanca-park','andy-bowie-county-park','ek-atwood-park','boca-chica-beach',
 ];
 
-if (expectedSlugs.length !== 52) errors.push(`Validator inventory drift: expected-slug list has ${expectedSlugs.length} entries instead of 52.`);
+if (expectedSlugs.length !== 55) errors.push(`Validator inventory drift: expected-slug list has ${expectedSlugs.length} entries instead of 55.`);
 for (const slug of expectedSlugs) {
   if (!data.includes(`slug: "${slug}"`)) errors.push(`Research inventory missing protected coastal slug: ${slug}.`);
   if (!directory.includes(`id="${slug}"`)) errors.push(`Visible coast directory missing anchored entry: ${slug}.`);
@@ -40,10 +40,10 @@ const visibleEntryCount = (directory.match(/<article id="/g) ?? []).length;
 const coordinateCount = (destinations.match(/^\s{2}"[^"]+": \{ lat: /gm) ?? []).length;
 const coordinateSourceSection = destinations.split('export const COASTAL_COORDINATE_SOURCES')[1]?.split('const CANONICAL_SLUG_OVERRIDES')[0] ?? '';
 const coordinateSourceCount = (coordinateSourceSection.match(/^\s{2}"[^"]+": "https:\/\//gm) ?? []).length;
-if (recordCount !== 52) errors.push(`Coastal research inventory must contain exactly 52 records; found ${recordCount}.`);
-if (visibleEntryCount !== 52) errors.push(`Visible coastal directory must contain exactly 52 article entries; found ${visibleEntryCount}.`);
-if (coordinateCount !== 52) errors.push(`Coastal destination coordinate map must contain exactly 52 entries; found ${coordinateCount}.`);
-if (coordinateSourceCount !== 52) errors.push(`Coastal coordinate-evidence map must contain exactly 52 HTTPS sources; found ${coordinateSourceCount}.`);
+if (recordCount !== 55) errors.push(`Coastal research inventory must contain exactly 55 records; found ${recordCount}.`);
+if (visibleEntryCount !== 55) errors.push(`Visible coastal directory must contain exactly 55 article entries; found ${visibleEntryCount}.`);
+if (coordinateCount !== 55) errors.push(`Coastal destination coordinate map must contain exactly 55 entries; found ${coordinateCount}.`);
+if (coordinateSourceCount !== 55) errors.push(`Coastal coordinate-evidence map must contain exactly 55 HTTPS sources; found ${coordinateSourceCount}.`);
 
 for (const marker of [
   'aliases: ["Retillon Beach", "Retillion Beach"]',
@@ -94,8 +94,8 @@ for (const marker of [
 ]) if (!destinationTest.includes(marker)) errors.push(`Coastal destination regression test missing: ${marker}.`);
 
 for (const marker of [
-  '52 researched coastal places',
-  'Reviewed September 6, 2026',
+  '55 researched coastal places',
+  'Coastal inventory expanded October 17, 2026',
   'San José Island is privately owned',
   'does not recommend swimming',
   'Yarborough Pass is remote Laguna Madre access',
@@ -112,7 +112,7 @@ if (!blankTargets || blankTargets !== safeRels) errors.push(`Coastal directory e
 if (/<script\b/i.test(directory) || /\son\w+\s*=/i.test(directory) || /javascript:/i.test(directory)) errors.push('Coastal authority HTML contains executable markup.');
 
 for (const marker of [
-  'const COASTAL_AUTHORITY_ITEM_COUNT = 52;',
+  'const COASTAL_AUTHORITY_ITEM_COUNT = 55;',
   'const COASTAL_AUTHORITY_PATH = "/content/explore-category-authority/beaches-coast-directory.html";',
   'category.slug === "beaches-coast"',
   'fetch(import.meta.env.SSR ? `${siteUrl}${COASTAL_AUTHORITY_PATH}` : COASTAL_AUTHORITY_PATH)',
@@ -158,4 +158,4 @@ if (runtimeAudit.status !== 0) {
   process.exit(runtimeAudit.status || 1);
 }
 
-console.log('Coastal authority validation passed: 52 researched places have coordinate evidence, substantive destination profiles, unique rights-cleared location imagery, county-to-destination links, runtime destination-audit enforcement, safe static directory delivery and sitemap coverage without entering the main client bundle.');
+console.log('Coastal authority validation passed: 55 researched places have coordinate evidence, substantive destination profiles, unique rights-cleared location imagery, county-to-destination links, runtime destination-audit enforcement, safe static directory delivery and sitemap coverage without entering the main client bundle.');
