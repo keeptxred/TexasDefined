@@ -33,6 +33,7 @@ assert.ok(page.includes('createFileRoute("/explore/inland-beaches")'));
 assert.ok(page.includes("mainEntity") && page.includes("ItemList"));
 assert.ok(page.includes('numberOfItems: inlandSwimmingBeaches.length'));
 assert.ok(page.includes("beach.officialUrl") && page.includes("beach.checkedAt"));
+assert.ok(page.includes('beach.county.split(" / ")') && page.includes('/county/'), "Every inland beach must link to its county guide");
 assert.ok(page.includes("not a claim that these are all inland beaches"));
 assert.ok(page.includes("lifeguards"));
 assert.ok(coastAndLakes.includes('match.slug === "beaches-coast" || match.slug === "lakes-rivers"'));
