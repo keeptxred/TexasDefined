@@ -1,3 +1,4 @@
+import { isOfficialTexasNpsDestination } from "./texas-national-park-service-directory";
 import { isTexasStateParkDestination } from "./state-park-authority";
 import { abileneAreaDestinationFallbacks } from "./abilene-area-destinations";
 import { enrichAquariumMarineDestination } from "./aquarium-marine-destinations";
@@ -252,6 +253,18 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
     ).sort((a, b) => a.name.localeCompare(b.name));
     if (params.featured) return featuredFallback(parks, params.limit ?? 6);
     return params.limit ? parks.slice(0, params.limit) : parks;
+  }
+
+  // NPS administers historic sites, seashores, monuments, rivers and trails in
+  // multiple editorial categories. Keep this directory strictly NPS-owned.
+  // Do not re-run the virtual category scope filter on those original records.
+  if (params.category === "national-parks") {
+    const destinations = filterDestinationsByScope(
+      (await listResolvedDestinations()).filter(isOfficialTexasNpsDestination),
+      { region: params.region },
+    ).sort((a, b) => a.name.localeCompare(b.name));
+    if (params.featured) return featuredFallback(destinations, params.limit ?? 6);
+    return params.limit ? destinations.slice(0, params.limit) : destinations;
   }
 
   if (params.category === WATER_COLLECTION) {
