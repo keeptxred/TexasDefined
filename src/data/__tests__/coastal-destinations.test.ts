@@ -45,7 +45,7 @@ describe("Texas beaches and coast destination authority", () => {
     }
   });
 
-  it("meets the existing destination indexing audit for all 52 researched profiles", () => {
+  it("meets the existing destination indexing audit for all 55 researched profiles", () => {
     for (const destination of coastalDestinations) {
       const audit = auditDestination(destination);
       assert.equal(
@@ -57,7 +57,21 @@ describe("Texas beaches and coast destination authority", () => {
       assert.ok(destination.body.join(" ").length >= 450, `${destination.slug} body depth`);
       assert.ok(destination.hero.credit, `${destination.slug} image credit`);
       assert.match(destination.officialUrl ?? "", /^https:\/\//, `${destination.slug} official source`);
-      assert.equal(destination.sourceCheckedAt, "2026-09-06");
+      assert.match(destination.sourceCheckedAt, /^2026-(09-06|10-17)$/, `${destination.slug}: research source check date`);
+    }
+  });
+
+  it("preserves independent naming and current official research dates for new Corpus Christi beaches", () => {
+    const expectedSlugs = [
+      "north-packery-jp-luby-beach", "michael-j-ellis-beach-seawall",
+      "padre-balli-beach-park",
+    ];
+    for (const slug of expectedSlugs) {
+      const dest = coastalDestinations.find((row: { slug: string }) => row.slug === slug);
+      assert.ok(dest, slug);
+      assert.equal(dest.sourceCheckedAt, "2026-10-17");
+      assert.equal(dest.county, "Nueces");
+      assert.match(dest.officialUrl, /^https:\/\/www\.corpuschristitx\.gov\//);
     }
   });
 
