@@ -42,7 +42,7 @@ function ExplorePage() {
           <div>
             <p className="eyebrow text-primary">Food &amp; drink · Licensed places</p>
             <h2 className="mt-2 font-display text-3xl leading-tight group-hover:text-primary">Discover Texas breweries</h2>
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Browse the TABC-backed statewide brewer license directory by city and county, then read independently researched brewery visit guides.</p>
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Browse the TABC-backed statewide brewery and brewpub license directory by city and county, then read independently researched brewery visit guides.</p>
           </div>
           <span className="font-semibold text-primary">Find breweries →</span>
         </Link>
