@@ -12,6 +12,8 @@ const rights = read("src/data/heritage-photo-license-links.ts");
 const route = read("src/routes/destination.$slug.tsx");
 const html = read("public/stay-affiliate-options.js");
 const nearbyHistoricSites = read("src/data/historic-sites.ts");
+const historicAssessment = read("src/data/historic-site-authority-full-catalog.ts");
+const historicEnrichment = read("src/data/historic-site-enrichment.ts");
 
 const contains = (source, value, context) => assert.ok(source.includes(value), context + ": missing " + value);
 const path = "/destination/hotel-paso-del-norte";
@@ -53,6 +55,8 @@ contains(nearbyHistoricSites, 'site.slug === "magoffin-home" ? {', "specific Mag
 contains(nearbyHistoricSites, "Magoffin%20home%202009.jpg", "exact Magoffin photographic file");
 contains(nearbyHistoricSites, "CC BY 4.0", "image attribution");
 contains(nearbyHistoricSites, "historic home is closed through 2027", "Magoffin destination visitor alert");
+contains(historicAssessment, "The historic house is closed for restoration through 2027", "Magoffin realistic visit estimate");
+contains(historicEnrichment, "The historic house is closed through 2027 for restoration", "Magoffin nearby trip closure notice");
 contains(rights, '"/destination/magoffin-home": {', "Magoffin photographer and license source");
 
 console.log("Hotel Paso del Norte authority acceptance: source, copy, rights, schema, county/city links, affiliate gates validated.");
