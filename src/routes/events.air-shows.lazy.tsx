@@ -57,6 +57,10 @@ const historicalGuidePaths: Record<string, string> = {
   "Fiesta of Flight Open House": "/event/fiesta-of-flight-laughlin",
   "Thunder Over East Texas": "/event/thunder-over-east-texas-athens",
   "CAF High Sky Wing AIRSHO": "/event/caf-high-sky-wing-airsho",
+  "Stephanie Nichols Annual Car & Plane Show": "/event/stephanie-nichols-georgetown-car-plane-show",
+  "Biplanes and Breakfast": "/event/biplanes-breakfast-rockport",
+  "Magnificent Warbird Expo": "/event/tyler-magnificent-warbird-expo",
+  "Thunder Over Cedar Creek Lake": "/event/thunder-over-cedar-creek-lake-airshow",
 };
 
 const historical2026 = [
@@ -67,7 +71,6 @@ const historical2026 = [
   ["WASP Homecoming & Fly-In", "Sweetwater"],
   ["Wings Over South Texas", "Kingsville"],
   ["The Great Texas Air Show", "San Antonio"],
-  ["Armed Forces Day Fly-In & Historic Aircraft Show", "Greenville"],
   ["Biplanes and Breakfast", "Rockport"],
   ["Kaboom Town Airport Air Show", "Addison"],
   ["Thunder Over East Texas", "Athens"],
@@ -81,6 +84,17 @@ const historical2026 = [
 // Confirmed 2027 organizer dates; keep heavy source-backed authority copy server-only.
 // No addition to the shared main-client event index (protected bundle budget).
 const confirmedHeritageFlyIns = [
+  {
+    slug: "greenville-armed-forces-day-fly-in",
+    name: "Armed Forces Day Historic Aircraft Fly-In — Greenville",
+    city: "Greenville",
+    venue: "Greenville Municipal Airport, Majors Field",
+    startDate: "2027-05-08",
+    endDate: "2027-05-08",
+    label: "Historic warbirds and flight education",
+    planning: "Confirmed for May 8, 2027, with free general admission from 9 a.m. to 4 p.m. Aircraft rides are separately booked with their own operators.",
+    officialUrl: "https://www.greenvilleflyin.org/",
+  },
   {
     slug: "fall-festival-of-flight-gainesville",
     name: "Fall Festival of Flight — Gainesville",
