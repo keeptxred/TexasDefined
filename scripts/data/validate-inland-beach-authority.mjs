@@ -13,6 +13,7 @@ const coastalGuide = read("src/components/content/CoastalBeachFieldGuide.tsx");
 const countyRoute = read("src/routes/$kind.$slug.lazy.tsx");
 const countyInland = read("src/components/content/CountyInlandSwimmingBeaches.tsx");
 const sitemap = read("src/routes/sitemap-explore[.]xml.ts");
+const beachPhotos = read("src/data/inland-beach-photos.ts");
 
 const expectedSlugs = [
   "cedar-hill-state-park-swimming-beach",
@@ -37,6 +38,11 @@ const expectedSlugs = [
   "east-fork-campground-lavon-swimming-beach",
   "avalon-park-lavon-swimming-beach",
   "cooper-doctors-creek-pelican-point-swimming-beach",
+  "ray-roberts-isle-du-bois-swimming-beach",
+  "ray-roberts-johnson-branch-swimming-beach",
+  "benbrook-lake-mustang-point-swimming-beach",
+  "benbrook-lake-north-holiday-swimming-beach",
+  "lake-arrowhead-state-park-swimming-beach",
 ];
 const recordsFound = [...records.matchAll(/^\s+slug: "([^"]+)",$/gm)].map((match) => match[1]);
 assert.deepEqual(recordsFound, expectedSlugs, "The eight agency-verified beach records should stay stable and unique.");
@@ -54,6 +60,15 @@ assert.ok(page.includes("matches[matches.length - 1]?.routeId !== match.routeId"
 assert.ok(page.includes("mainEntity") && page.includes("ItemList"));
 assert.ok(page.includes('numberOfItems: beaches.length'));
 assert.ok(individual.includes("beach.officialUrl") && individual.includes("beach.checkedAt"));
+assert.ok(individual.includes("beach.statusNotice") && individual.includes("beach.statusUrl"), "Special-closure swim beaches must display active caution and direct status links");
+assert.equal([...records.matchAll(/^\\s+statusNotice: "/gm)].length, 2, "The two Benbrook swimming beaches must retain dated low-water closure notices");
+assert.equal([...records.matchAll(/^\\s+statusUrl: "/gm)].length, 2, "The two Benbrook closure notices must link to official live status");
+for (const slug of ["cedar-hill-state-park-swimming-beach", "lake-mineral-wells-state-park-swim-beach"]) {
+  assert.ok(beachPhotos.includes('"' + slug + '": {'), `Missing exact-beach photo for ${slug}`);
+}
+assert.ok(beachPhotos.includes('Larry D. Moore') && beachPhotos.includes('creativecommons.org/licenses/by/4.0'), "Photographer and CC BY attribution required");
+assert.ok(individual.includes("photo.licenseUrl") && individual.includes("photo.sourceUrl"), "Source and image license must render visibly");
+
 assert.ok(individual.includes('createFileRoute("/explore/inland-beaches/$slug")'), "Every beach needs an individual route, not just an anchor");
 assert.ok(page.includes('await import("@/data/inland-beach-authority")'), "Directory must lazy-load full profiles instead of expanding global client JS");
 assert.ok(individual.includes('await import("@/data/inland-beach-authority")'), "Individual beach route must lazy-load full profiles");
