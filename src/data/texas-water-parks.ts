@@ -135,7 +135,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A major Arlington water park distinct from Six Flags Over Texas.",
     "distinctiveNote": "Do not assume admission to the neighboring theme park includes Hurricane Harbor.",
     "officialUrl": "https://www.sixflags.com/hurricaneharborarlington",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1800 E. Lamar Blvd., Arlington, TX 76006",
+    "visitorHighlights": [
+      "Hurricane Harbor Arlington introduced a 58,000-square-foot Splash Island family zone with a three-story climbing/water play structure.",
+      "Splash Island includes 110 interactive water features, 17 family slides and a 1,000-gallon tipping water bucket.",
+      "The park lists high-thrill attractions such as Der Stuka, Dive Bomber and Geronimo plus a separate lazy river.",
+      "Six Flags reported ride upgrades to Sea Wolf, Raging Rapids and the Wave Pool in its 2026 season.",
+      "Fast Lane is a separately purchased ride line-access upgrade and applies only to participating attractions.",
+      "Arlington waterpark admission and qualifying combination passes should not be confused with a standard Six Flags Over Texas theme-park ticket."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "What changed at Hurricane Harbor Arlington in 2026?",
+        "answer": "The operator identifies Splash Island's 58,000-square-foot family water-play space, 110 interactive features, 17 slides and a 1,000-gallon dumping bucket as key additions.",
+        "sourceUrl": "https://www.sixflags.com/blog/Hurricane-harbor-arlington-2026-opening"
+      },
+      {
+        "question": "Are there gentler activities beyond thrill slides?",
+        "answer": "Yes. Splash Island offers family water play, the park has a lazy river, and premium reserved shade areas and double-decker cabanas are available separately.",
+        "sourceUrl": "https://www.sixflags.com/blog/Hurricane-harbor-arlington-2026-opening"
+      },
+      {
+        "question": "Is Fast Lane included in standard admission?",
+        "answer": "No. Six Flags describes Fast Lane as an optional paid upgrade with a separate wristband valid at participating waterpark rides, not a blanket way to skip every attraction.",
+        "sourceUrl": "https://www.sixflags.com/blog/Hurricane-harbor-arlington-2026-opening"
+      },
+      {
+        "question": "Can we assume admission to Six Flags Over Texas includes Hurricane Harbor?",
+        "answer": "Not necessarily. These are distinct parks with different ticket and pass eligibility. Check the precise product and date before purchasing a waterpark visit.",
+        "sourceUrl": "https://www.sixflags.com/hurricaneharbortexas"
+      }
+    ]
   },
   {
     "slug": "hurricane-harbor-splashtown",
@@ -149,7 +180,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "North Houston's established Splashtown water park operates under the Hurricane Harbor name.",
     "distinctiveNote": "Look for Spring/Splashtown rather than Hurricane Harbor Arlington when selecting tickets.",
     "officialUrl": "https://www.sixflags.com/hurricaneharborsplashtown",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "21300 Interstate 45 N., Spring, TX 77373",
+    "visitorHighlights": [
+      "Hurricane Harbor Splashtown is located north of Houston in Spring and operates as a separately named Six Flags waterpark.",
+      "The park's attractions include high-thrill Big Spin water slides, a Hurricane Bay wave pool and a distinct lazy river.",
+      "Family slide attractions and children's play are listed separately from the park's tallest waterslides.",
+      "On-site food venues and optional dining bundles are advertised by the operator, with a separate current food-and-beverage policy.",
+      "The park has its own special-event and chaperone policies, which may not match other Six Flags waterparks.",
+      "Season passes and memberships have park-specific eligibility; check that the particular pass includes this Houston-area venue."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Hurricane Harbor Splashtown the Arlington waterpark?",
+        "answer": "No. Splashtown is the Spring-area Hurricane Harbor facility near Houston with its own schedule and attraction inventory. Arlington is a separate physical waterpark.",
+        "sourceUrl": "https://www.sixflags.com/splashtown"
+      },
+      {
+        "question": "Does Splashtown have rides for people who avoid big slides?",
+        "answer": "Yes. The operator identifies Hurricane Bay wave-pool attractions, lazy-river floating and several family pools in addition to larger water slides and Big Spin.",
+        "sourceUrl": "https://www.sixflags.com/splashtown"
+      },
+      {
+        "question": "Are all Six Flags season passes valid at Splashtown?",
+        "answer": "Not automatically. The operator sells memberships and passes with differing park-access rules. Verify the specific product's Houston-area eligibility before purchasing.",
+        "sourceUrl": "https://www.sixflags.com/splashtown"
+      },
+      {
+        "question": "Do visitors need to check a separate park event calendar?",
+        "answer": "Yes. Splashtown publishes its own dates, special events and chaperone policies; the nearby theme park or Arlington's Hurricane Harbor hours do not replace its calendar.",
+        "sourceUrl": "https://www.sixflags.com/splashtown/frequently-asked-questions"
+      }
+    ]
   },
   {
     "slug": "aquatica-san-antonio",
@@ -482,7 +544,43 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "The Garland Hawaiian Waters park is located by Cecil Winters Park.",
     "distinctiveNote": "The operator's Garland and The Colony parks have distinct operating calendars and park maps.",
     "officialUrl": "https://hawaiianwaters.com/hours-directions/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "4550 N. Garland Ave., Garland, TX 75040",
+    "visitorHighlights": [
+      "Hawaiian Waters Garland has its own park entrance and distinct daily attraction operating calendar, separate from the operator's other Texas location.",
+      "The Garland waterpark publishes complimentary flotation tubes at the ride areas, with tubes restricted to the particular attraction.",
+      "A complimentary first-come Coast Guard-approved life jacket program is available, while personal water wings, pool noodles and unapproved flotation devices are prohibited.",
+      "General parking is free at Garland, though optional cabanas and keyless lockers cost extra.",
+      "Bringing any outside food or drink other than sealed plain water requires a paid cooler ticket; bags and coolers are inspected and oversize containers may not be admitted.",
+      "The operator's current website says the 2026 waterpark season has ended and advertises a future 2027 season rather than current regular waterpark hours."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is Hawaiian Waters Garland?",
+        "answer": "The correct Garland waterpark address is 4550 N. Garland Ave., Garland, TX 75040, separate from Hawaiian Waters' other park. Both facilities have location-specific calendars and park maps.",
+        "sourceUrl": "https://hawaiianwaters.com/park-info/"
+      },
+      {
+        "question": "Is parking free at the Garland location?",
+        "answer": "The operator publishes free general parking at Hawaiian Waters Garland and provides a map for its own physical entrance; private cabanas and lockers have separate fees.",
+        "sourceUrl": "https://hawaiianwaters.com/park-info/"
+      },
+      {
+        "question": "Are floating tubes and safety vests included?",
+        "answer": "Tubes are free for use at their assigned ride and approved life jackets are provided first come, first served. Guests cannot bring pool noodles, water wings or most inflatable floats.",
+        "sourceUrl": "https://hawaiianwaters.com/park-info/"
+      },
+      {
+        "question": "Can we bring our own drinks or meals?",
+        "answer": "The park requires a paid Cooler Pass for bags or containers carrying food or beverages other than factory-sealed plain water. Glass, alcohol and prepared restaurant meals are prohibited.",
+        "sourceUrl": "https://hawaiianwaters.com/coolers/"
+      },
+      {
+        "question": "Does the Garland park run regular waterpark hours in October?",
+        "answer": "The official park website thanks guests for the 2026 season and promotes the 2027 season, not regular October waterpark hours. Check its next published season calendar before visiting.",
+        "sourceUrl": "https://hawaiianwaters.com/park-info/"
+      }
+    ]
   },
   {
     "slug": "hawaiian-waters-the-colony",
@@ -496,7 +594,43 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A separate Hawaiian Waters water park near Lewisville Lake and State Highway 121.",
     "distinctiveNote": "Check the The Colony calendar; special-ticket nights and seasonal closures are location specific.",
     "officialUrl": "https://hawaiianwaters.com/the-colony/hours-directions/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "4400 Paige Rd., The Colony, TX 75056",
+    "visitorHighlights": [
+      "Hawaiian Waters The Colony has its own park entrance and distinct daily attraction operating calendar, separate from the operator's other Texas location.",
+      "The The Colony waterpark publishes complimentary flotation tubes at the ride areas, with tubes restricted to the particular attraction.",
+      "A complimentary first-come Coast Guard-approved life jacket program is available, while personal water wings, pool noodles and unapproved flotation devices are prohibited.",
+      "General parking is free at The Colony, though optional cabanas and keyless lockers cost extra.",
+      "Bringing any outside food or drink other than sealed plain water requires a paid cooler ticket; bags and coolers are inspected and oversize containers may not be admitted.",
+      "The operator's current website says the 2026 waterpark season has ended and advertises a future 2027 season rather than current regular waterpark hours."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is Hawaiian Waters The Colony?",
+        "answer": "The correct The Colony waterpark address is 4400 Paige Rd., The Colony, TX 75056, separate from Hawaiian Waters' other park. Both facilities have location-specific calendars and park maps.",
+        "sourceUrl": "https://hawaiianwaters.com/park-info/"
+      },
+      {
+        "question": "Is parking free at the The Colony location?",
+        "answer": "The operator publishes free general parking at Hawaiian Waters The Colony and provides a map for its own physical entrance; private cabanas and lockers have separate fees.",
+        "sourceUrl": "https://hawaiianwaters.com/park-info/"
+      },
+      {
+        "question": "Are floating tubes and safety vests included?",
+        "answer": "Tubes are free for use at their assigned ride and approved life jackets are provided first come, first served. Guests cannot bring pool noodles, water wings or most inflatable floats.",
+        "sourceUrl": "https://hawaiianwaters.com/park-info/"
+      },
+      {
+        "question": "Can we bring our own drinks or meals?",
+        "answer": "The park requires a paid Cooler Pass for bags or containers carrying food or beverages other than factory-sealed plain water. Glass, alcohol and prepared restaurant meals are prohibited.",
+        "sourceUrl": "https://hawaiianwaters.com/coolers/"
+      },
+      {
+        "question": "Does the The Colony park run regular waterpark hours in October?",
+        "answer": "The official park website thanks guests for the 2026 season and promotes the 2027 season, not regular October waterpark hours. Check its next published season calendar before visiting.",
+        "sourceUrl": "https://hawaiianwaters.com/park-info/"
+      }
+    ]
   },
   {
     "slug": "splash-kingdom-canton",
@@ -907,7 +1041,44 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A Lake Travis shoreline park mixing beach amenities with water slides and family attractions.",
     "distinctiveNote": "During shoulder dates the water slides may follow a shorter calendar than beach access.",
     "officialUrl": "https://www.volentebeach.com/waterpark",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "16107 FM 2769, Leander, TX 78641",
+    "visitorHighlights": [
+      "Volente Beach has four separately named major slides including Texas Twister, Roadrunner, Sidewinder and Flash Flood.",
+      "A Pirate Ship splash area, a designated beach/lake-swimming area and a main pool offer alternatives to thrill slides.",
+      "All slides require a minimum height of 42 inches; the Texas Twister requires 48 inches plus sufficient swimming ability.",
+      "Full waterpark admission is a weekend offering in its published 2026 season, while weekday access is limited to beach and kiddie pool.",
+      "Every person using the beach, pool or slides requires a qualifying wristband, and admission tickets are bought at the gate.",
+      "The operator prohibits outside food, drinks and coolers; the site lists paid parking and locker options.",
+      "The park's 2026 season ended by September 20, so do not promote slides as open this October."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can families buy tickets online before arriving?",
+        "answer": "The operator explicitly says its waterpark tickets are purchased at the entrance gate and a qualifying wristband is required for every person using its beach, pools or slides.",
+        "sourceUrl": "https://www.volentebeach.com/waterpark"
+      },
+      {
+        "question": "Are all slides available on weekdays?",
+        "answer": "No. The 2026 operating notice describes full-slide waterpark access on Saturdays, Sundays and holidays, with limited beach/kiddie-pool-only access on other listed weekdays.",
+        "sourceUrl": "https://www.volentebeach.com/waterpark"
+      },
+      {
+        "question": "What height is needed for Texas Twister?",
+        "answer": "All water slides have a minimum rider height of 42 inches; the Texas Twister specifically requires a minimum of 48 inches and adequate swimmer ability.",
+        "sourceUrl": "https://www.volentebeach.com/waterpark"
+      },
+      {
+        "question": "Can visitors bring a picnic cooler?",
+        "answer": "No. Volente Beach explicitly bans outside food, beverages and coolers from its waterpark. On-site food and beverage service is provided by Beachside Billy's.",
+        "sourceUrl": "https://www.volentebeach.com/waterpark"
+      },
+      {
+        "question": "Are slides open in October 2026?",
+        "answer": "The operator listed waterpark operation only through September 20 for the 2026 season. Reconfirm the next-season schedule instead of assuming autumn access.",
+        "sourceUrl": "https://www.volentebeach.com/waterpark"
+      }
+    ]
   },
   {
     "slug": "camp-fimfo-hill-country",
@@ -921,7 +1092,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "An outdoor water-play complex inside Camp Fimfo's New Braunfels campground.",
     "distinctiveNote": "Park passes are capacity-limited and not equivalent to unrestricted public water-park entry.",
     "officialUrl": "https://campfimfo.com/texas-hill-country/park-passes",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "520 Whitewater Way, New Braunfels, TX 78132",
+    "visitorHighlights": [
+      "The Hill Country campground's interactive water playground includes two standard and two kiddie slides, water cannons and a hydrostorm dumping bucket.",
+      "Additional water slides include 242-foot and 334-foot tube slides with 42-inch minimum rider height.",
+      "The larger 196-foot speed slides require a taller minimum of 48 inches.",
+      "Day Camp Passes are sold only on limited spring and summer-to-October dates and require a confirmed reservation; day passes do not include all hilltop resort amenities.",
+      "Some slides and water-play areas operate on weekends only in shoulder season, while the resort pools have separately published calendars.",
+      "Food and nonalcoholic drinks are allowed with inspected coolers, while alcohol and glass are prohibited in the waterpark area."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can visitors use Camp Fimfo without staying overnight?",
+        "answer": "Yes. Camp Fimfo Texas Hill Country offers a limited number of Day Camp Passes on select dates, requiring a confirmed advance booking and excluding some hilltop resort amenities.",
+        "sourceUrl": "https://campfimfo.com/texas-hill-country/park-passes"
+      },
+      {
+        "question": "What is the minimum height for the large water slides?",
+        "answer": "The operator lists 42 inches minimum for the two tube slides and 48 inches minimum for its speed slides. The interactive children's playground has its own age-appropriate structures.",
+        "sourceUrl": "https://campfimfo.com/texas-hill-country/amenities"
+      },
+      {
+        "question": "Are slides open every day in October?",
+        "answer": "Not necessarily. The facility's dated 2026 amenity list says slides and water-play structures operated on weekends in the fall shoulder season; the separate pool and lodging calendars can differ.",
+        "sourceUrl": "https://campfimfo.com/texas-hill-country/amenities"
+      },
+      {
+        "question": "Can families pack snacks and a cooler?",
+        "answer": "Yes. Camp Fimfo allows food and nonalcoholic drinks subject to cooler checks, but does not permit glass or outside alcohol and forbids food inside swimming pools.",
+        "sourceUrl": "https://campfimfo.com/texas-hill-country/amenities/water-playground"
+      }
+    ]
   },
   {
     "slug": "camp-fimfo-waco",
@@ -935,7 +1137,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A campground-focused splash and water-slide area on the Brazos near Waco.",
     "distinctiveNote": "Check park-pass inventory and separate camping terms before planning a one-day visit.",
     "officialUrl": "https://campfimfo.com/waco/water-playground",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1000 Chickadee Ln., Waco, TX 76708",
+    "visitorHighlights": [
+      "The Waco Camp Fimfo water playground offers two standard waterslides, two smaller kiddie slides and interactive spray cannons.",
+      "A hydrostorm dumping bucket anchors the children's water-play structure, separate from the resort's other camping attractions.",
+      "Water playground admission is included for eligible overnight campers, while some dates offer a limited day-camping pass.",
+      "The operator permits inspected food and drink coolers except for alcohol and glass containers in the pool/play zone.",
+      "The campground describes early-access and post-checkout extended amenity use as a separate paid entitlement, subject to availability."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is Camp Fimfo Waco's water playground?",
+        "answer": "The operator lists its resort location at 1000 Chickadee Lane, Waco, Texas 76708. This is not the same facility as Camp Fimfo Texas Hill Country near New Braunfels.",
+        "sourceUrl": "https://campfimfo.com/waco/water-playground"
+      },
+      {
+        "question": "Do visitors have to rent a campsite?",
+        "answer": "Not always. The operator sells limited Day Camp Passes on select dates as an alternative to an overnight reservation, with admission tied to a particular visit day.",
+        "sourceUrl": "https://campfimfo.com/waco/water-playground"
+      },
+      {
+        "question": "Can visitors bring their own food?",
+        "answer": "Yes. Inspected coolers containing food and nonalcoholic beverages are permitted in the park area, provided they contain no glass or alcohol; food is forbidden within pools and spas.",
+        "sourceUrl": "https://campfimfo.com/waco/water-playground"
+      },
+      {
+        "question": "Can guests stay longer in the pools after check-out?",
+        "answer": "The operator says early or extended resort access can be purchased for an additional fee if availability permits, but it does not include early lodging check-in or late room checkout.",
+        "sourceUrl": "https://campfimfo.com/waco/water-playground"
+      }
+    ]
   },
   {
     "slug": "bahama-beach-dallas",
