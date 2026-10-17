@@ -7,7 +7,12 @@ export const Route = createLazyFileRoute("/explore/water-parks/$slug")({ compone
 
 function WaterParkGuidePage() {
   const park = routeApi.useLoaderData();
-  const nearby = texasWaterParks.filter((item) => item.slug !== park.slug && item.region === park.region).slice(0, 5);
+  // Prefer truly local same-county alternatives over an arbitrary regional slice.
+  const nearby = texasWaterParks
+    .filter((item) => item.slug !== park.slug && (item.county === park.county || item.region === park.region))
+    .sort((a, b) => Number(b.county === park.county) - Number(a.county === park.county)
+      || a.city.localeCompare(b.city) || a.name.localeCompare(b.name))
+    .slice(0, 5);
   const isResort = /Resort|Campground/.test(park.kind);
   const isIndoor = park.setting === "Indoor";
   const isBoth = park.setting === "Both";
@@ -28,6 +33,25 @@ function WaterParkGuidePage() {
     </header>
     <Container className="grid gap-12 py-12 sm:py-16 lg:grid-cols-2">
       <article>
+        {park.licensedMedia ? <figure className="mb-10 border-b border-border pb-8">
+          <img
+            src={park.licensedMedia.src}
+            alt={park.licensedMedia.alt}
+            width={1280}
+            height={800}
+            loading="lazy"
+            decoding="async"
+            className="block max-h-[32rem] w-full bg-surface object-contain"
+          />
+          <figcaption className="mt-3 text-xs leading-6 text-muted-foreground">
+            Historical photograph ({park.licensedMedia.year}), not a representation of the current ride lineup.
+            Photo by {park.licensedMedia.photographer}.{' '}
+            <a className="underline" href={park.licensedMedia.sourceUrl} target="_blank" rel="noopener noreferrer">Wikimedia Commons source</a>
+            {' '}·{' '}
+            <a className="underline" href={park.licensedMedia.licenseUrl} target="_blank" rel="noopener noreferrer">{park.licensedMedia.licenseLabel} license</a>.
+            Image shown unmodified; rights and venue are individually documented.
+          </figcaption>
+        </figure> : null}
         <section aria-labelledby="water-park-glance">
           <h2 id="water-park-glance" className="font-display text-3xl">At a glance</h2>
           <dl className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -105,7 +129,8 @@ function WaterParkGuidePage() {
       <aside>
         <div className="border border-border bg-surface p-6">
           <p className="eyebrow text-primary">Water parks in {park.region}</p>
-          <h2 className="mt-3 font-display text-2xl">Compare nearby possibilities</h2>
+          <h2 className="mt-3 font-display text-2xl">Other parks in this county and region</h2>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">Same-county options appear first; regional options may be farther away.</p>
           {nearby.length ? <ul className="mt-5 space-y-5">{nearby.map((item) => <li key={item.slug} className="border-t border-border pt-4">
             <Link to="/explore/water-parks/$slug" params={{slug:item.slug}} className="font-semibold text-primary hover:underline">{item.name} →</Link>
             <p className="mt-1 text-sm text-muted-foreground">{item.city} · {item.setting} · {item.kind}</p>
