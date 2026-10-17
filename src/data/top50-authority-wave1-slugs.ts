@@ -18,3 +18,14 @@ const TOP50_WAVE1_SET = new Set<string>(TOP50_AUTHORITY_WAVE1_SLUGS);
 export function isTop50AuthorityWave1(slug: string): slug is Top50AuthorityWave1Slug {
   return TOP50_WAVE1_SET.has(slug);
 }
+
+/** Four separate newly registered canonical park destinations from Top 50. */
+const TOP50_THEME_PARK_SLUGS = new Set<string>([
+  "schlitterbahn-new-braunfels",
+  "six-flags-over-texas",
+  "seaworld-san-antonio",
+  "six-flags-fiesta-texas",
+]);
+export function isTop50ThemeParkDestination(slug: string): boolean {
+  return TOP50_THEME_PARK_SLUGS.has(slug);
+}
