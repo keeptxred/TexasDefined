@@ -43,8 +43,8 @@ const showDetails: Record<string, { kind: string; planning: string; tickets?: st
   },
 };
 
-// These are discoveries from the 2026 season, NOT announcements of 2027 occurrences.
-// They are intentionally not given fabricated new dates or thin event-guide URLs.
+// These events have permanent sourced 2026 guides, NOT unverified 2027 occurrences.
+// New dates are added only after organizer confirmation.
 const historicalGuidePaths: Record<string, string> = {
   "WASP Homecoming & Fly-In": "/event/wasp-homecoming-fly-in",
   "Wings Over South Texas": "/event/wings-over-south-texas",
@@ -138,7 +138,7 @@ const airShowCollectionSchema = {
   description: "Texas air-show visitor planning with verified upcoming dates, organizer tickets, military-base access, parking and hotels.",
   mainEntity: {
     "@type": "ItemList",
-    numberOfItems: confirmed.length + confirmedHeritageFlyIns.length,
+    numberOfItems: confirmed.length + confirmedHeritageFlyIns.length + historical2026.length,
     itemListElement: [
       ...confirmed.map((event, index) => ({
         "@type": "ListItem",
@@ -152,6 +152,13 @@ const airShowCollectionSchema = {
         name: event.name,
         url: "https://texasdefined.com/event/" + event.slug,
       })),
+      ...historical2026.flatMap(([name], index) => historicalGuidePaths[name]
+        ? [{
+          "@type": "ListItem",
+          position: confirmed.length + confirmedHeritageFlyIns.length + index + 1,
+          name,
+          url: "https://texasdefined.com" + historicalGuidePaths[name],
+        }] : []),
     ],
   },
 };
@@ -235,8 +242,8 @@ function TexasAirShowsPage() {
       <BookingCarRentalCard className="mt-9" placement="air-shows-statewide-hub" title="Arriving by plane or driving to another Texas air show?" />
       
       <section id="past-calendar" className="mt-14 border-t border-border pt-10">
-        <h2 className="font-display text-3xl">Other Texas aviation events to watch</h2>
-        <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">These were identified in the 2026 Texas air-show season inventory. They are a research checklist, not a live 2027 calendar. Each needs a fresh organizer confirmation before Texas Defined publishes new dates, ticket availability or a standalone authority guide.</p>
+        <h2 className="font-display text-3xl">Previous air-show editions: detailed visitor guides</h2>
+        <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">These events have permanent, source-backed visitor guides documenting their most recently verified editions. Most 2026 performances have ended; these are not tickets or announcements for 2027. Check each organizer for new dates, entry rules and aircraft before making a trip.</p>
         <ul className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {historical2026.map(([name, city]) => <li key={name} className="border border-border px-4 py-4">{historicalGuidePaths[name] ? <a href={historicalGuidePaths[name]} className="block font-semibold text-primary underline">{name} — full planning guide →</a> : <strong className="block">{name}</strong>}<span className="mt-1 block text-sm text-muted-foreground">{city} · next date not verified</span></li>)}
         </ul>
