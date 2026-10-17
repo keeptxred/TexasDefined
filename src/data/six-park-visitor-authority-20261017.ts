@@ -103,11 +103,11 @@ const PARK_GUIDES: Readonly<Record<string,ParkGuide>> = {
   ]
 },
   "caprock-canyons-state-park": {
-  "entryNote": "Observe bison from at least 50 yards and let them have the right of way. Caprock Canyons park trails and the much longer Trailway require separate maps; primitive Trailway camps involve at least a seven-mile hike/bike with no potable water or campfires. Active park alerts require a direct TPWD check.",
+  "entryNote": "TPWD\u0027s April 10, 2026 notice says the marked Lake Theo swimming area, boat ramp and fishing pier are closed because of low water, but lake swimming is still permitted. Ask TPWD where lawful swimming access remains before entering the water. Observe bison from at least 50 yards. The park trails and separate long-distance Trailway need different maps; primitive Trailway camps have no potable water or campfires.",
   "body": [
     "Caprock Canyons State Park and Trailway near Quitaque combine redrock escarpment landscapes, a protected Texas bison herd and a long rail-trail corridor. The signed routes inside the state park are not the same as every mile of the Trailway, and choosing a long-distance segment requires a separate map and access plan. TPWD describes more than twenty-five miles of park trails and an approximately ninety-mile combined trail network when the Trailway is counted.",
     "Bison are large, fast wild animals that routinely travel road and recreation areas. TPWD requires visitors to give the herd at least fifty yards of space and never surround, honk at or pressure animals out of a road. If a bison lowers its head, paws at the ground, raises its tail or changes behavior because of a nearby visitor, retreat. Do not recommend close photographs, touching calves or driving through a herd as a safe family activity.",
-    "Lake Theo is a small no-wake recreation lake with fishing and swimming opportunities, but its facilities can be affected by water levels and agency closures. Current access must be checked, not inferred from a photo of visitors swimming in another year. The main park campgrounds, Lake Theo walk-ins and remote primitive areas have distinct electrical hookup, restroom and water arrangements.",
+    "Lake Theo is a small no-wake recreation lake with fishing and swimming opportunities. TPWD\u0027s April 10, 2026 alert closes the marked swim area, boat ramp and fishing pier because of low lake levels but explicitly says swimming in the lake is still permitted. Do not interpret an overall permission to swim as permission to enter a closed area; confirm exactly where the park allows access. The main park campgrounds, Lake Theo walk-ins and remote primitive areas have distinct electrical hookup, restroom and water arrangements.",
     "The Trailway's primitive sites are not short car-camping options: TPWD lists a minimum seven-mile hike or bike approach, no potable water, pack-out trash rules and no campfires, though containerized stoves may be permitted. Download the separate park and Trailway maps, reserve entry during busy seasons and fill the vehicle before entering remote roads. The separate active-alert detail was not independently retrievable on October 17, so any trail, water or local-water-system advisory should be confirmed directly with TPWD before travel."
   ],
   "highlights": [
@@ -129,8 +129,8 @@ const PARK_GUIDES: Readonly<Record<string,ParkGuide>> = {
     },
     {
       "question": "Can I swim in Lake Theo without checking current conditions?",
-      "answer": "No. Lake access and facilities vary with water levels and alerts; contact TPWD for current authorized swimming locations.",
-      "sourceUrl": "https://tpwd.texas.gov/state-parks/caprock-canyons/bison"
+      "answer": "No. TPWD\u0027s April 10, 2026 alert says the marked Lake Theo swimming area is closed due to low lake levels but swimming in the lake is still allowed. Ask park staff about approved shoreline access and conditions.",
+      "sourceUrl": "https://tpwd.texas.gov/state-parks/caprock-canyons/alert"
     }
   ]
 },
