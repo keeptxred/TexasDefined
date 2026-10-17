@@ -278,7 +278,7 @@ function TexasHorseRacingCalendarPage() {
           <p className="eyebrow text-primary">Choose the right track</p>
           <h2 id="tracks-compared" className="mt-2 font-display text-3xl">Compare every active Texas horse racetrack</h2>
           <div className="mt-7 overflow-x-auto">
-            <table className="w-full min-w-[700px] border-collapse text-left text-sm">
+            <table className="w-full border-collapse text-left text-sm">
               <caption className="pb-4 text-left text-sm leading-6 text-muted-foreground">Live horse-racing venues only; historical licenses and simulcast-only sites excluded.</caption>
               <thead><tr className="border-b border-border">
                 <th scope="col" className="px-3 py-4 font-semibold">Track and county</th><th scope="col" className="px-3 py-4 font-semibold">Live racing</th>
