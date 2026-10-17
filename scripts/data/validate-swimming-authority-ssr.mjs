@@ -16,7 +16,26 @@ const lazyRoute = read("src/routes/explore.$category.lazy.tsx");
 const destinationRuntime = read("src/data/destination-query-runtime.ts");
 const workflow = read(".github/workflows/verify-sitemap-production-integrity.yml");
 const officialSourceMigration = read("supabase/migrations/20261014215400_swim_float_authority_source_enrollment.sql");
+const currentAlertSources = read("supabase/migrations/20261017145000_swim_float_current_alert_sources.sql");
 const errors = [];
+for (const marker of [
+  "https://tpwd.texas.gov/state-parks/blanco/alert",
+  "https://wimberleyparksandrec.com/swimming-faqs/",
+  "https://wimberleyparksandrec.com/blue-hole-water-quality-test/",
+  "ON CONFLICT (path, source_url)",
+]) {
+  if (!currentAlertSources.includes(marker)) errors.push("Current swim access monitoring lost official source: " + marker);
+}
+for (const marker of [
+  "Known restrictions checked October 17, 2026",
+  "park-wide burn ban on October 16, 2026",
+  "The 2026 published swim season is over by October",
+  "https://tpwd.texas.gov/state-parks/blanco/alert",
+  "https://wimberleyparksandrec.com/swimming-faqs/",
+  "https://wimberleyparksandrec.com/blue-hole-water-quality-test/",
+]) {
+  if (!publicAuthority.includes(marker)) errors.push("Swim guide lost October 2026 current-notice evidence: " + marker);
+}
 for (const marker of [
   "'/explore/swimming-holes-river-tubing'",
   "'water-recreation-visitor-safety'",
