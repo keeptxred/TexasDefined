@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-17T15:36:03.281Z",
+  "windowDays": 14,
+  "privacy": "Aggregated generalized topics only. Raw or sanitized user questions are never written to this report.",
+  "publicationBoundary": "Demand intelligence may prepare research and content changes, but it may not publish or auto-merge them.",
+  "totals": {
+    "events": 4,
+    "strong": 4,
+    "partial": 0,
+    "gap": 0,
+    "actionableOpportunities": 1
+  },
+  "opportunities": [
+    {
+      "topic": "General Texas information",
+      "category": "general-texas",
+      "askCount": 4,
+      "distinctQuestionPatterns": 3,
+      "current7d": 2,
+      "prior7d": 2,
+      "trendDelta": 0,
+      "coverage": {
+        "gap": 0,
+        "partial": 0,
+        "strong": 4
+      },
+      "demandScore": 8,
+      "commercialIntent": false,
+      "recommendedAssetType": "existing-page-improvement-or-guide",
+      "topExistingSurface": {
+        "title": "Jigs and Minnows fishing in Texas",
+        "href": "/fishing/techniques/jigs-and-minnows"
+      },
+      "authoritativeSources": [
+        {
+          "name": "Texas.gov",
+          "url": "https://www.texas.gov/"
+        },
+        {
+          "name": "Relevant state, county, city, agency, institution, or official business website",
+          "url": null
+        }
+      ],
+      "publicationStatus": "research-and-review-required"
+    }
+  ]
+}
