@@ -244,7 +244,7 @@ function Page() {
           <div>
             <p className="eyebrow text-primary">2026 Texas high school football</p>
             <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{footballName}</h1>
-            <p className="mt-5 max-w-4xl text-muted-foreground" style={{ fontSize: '1rem', lineHeight: 1.6 }}>
+            <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground" style={slug === 'aubrey' ? { fontSize: '1rem', lineHeight: 1.6 } : undefined}>
               {slug === 'aubrey'
                 ? 'Verified 2026 scores, remaining games, home tickets and Chaparral Stadium information.'
                 : editorial?.intro ?? profileSummary}
