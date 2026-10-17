@@ -41,14 +41,19 @@ jobs:
         run: node scripts/data/refresh-texas-breweries.mjs
       - name: Validate roster
         run: node scripts/data/validate-texas-breweries.mjs
+      - name: Generate brewery routes for this PR only
+        if: github.event_name == 'pull_request'
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          node --input-type=module -e "import { Generator, getConfig } from '@tanstack/router-generator'; const generator = new Generator({ config: getConfig(), root: process.cwd() }); await generator.run();"
       - name: Commit changed snapshot (no commit on unchanged data)
         run: |
-          if git diff --quiet -- src/data/breweries/texas-breweries.generated.json; then
-            echo "Roster unchanged; no redeploy."
+          git add src/data/breweries/texas-breweries.generated.json src/routeTree.gen.ts
+          if git diff --cached --quiet; then
+            echo "Roster and generated routes unchanged; no redeploy."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/data/breweries/texas-breweries.generated.json
           git commit -m "data: refresh active Texas brewer license locations"
           git push origin HEAD:${{ github.head_ref || github.ref_name }}
