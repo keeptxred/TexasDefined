@@ -229,6 +229,55 @@ export function findTexasRacingOrganization(slug: string) {
   return TEXAS_RACING_ORGANIZATIONS.find((item) => item.slug === slug);
 }
 
+/**
+ * Standalone track-comparison and official live-meet calendar surface.
+ * Do not treat completed 2026 seasons or simulcast-only dates as live race days.
+ * Live program data last checked 2026-10-17; changes require source re-review.
+ */
+export const TEXAS_HORSE_RACING_CALENDAR = {
+  category: 'calendar' as const,
+  slug: 'calendar',
+  canonicalPath: '/horse-racing/calendar',
+  name: 'Texas Horse Racing Calendar and Racetrack Comparison',
+  sourceDate: '2026-10-17',
+  introduction: 'Compare all four currently operating Texas live-racing tracks, with verified upcoming meet windows, 2026 season history and direct official calendars.',
+  upcoming: [
+    {
+      venueSlug: 'sam-houston-race-park',
+      title: 'Sam Houston Race Park — 2026–27 Thoroughbred meet',
+      starts: '2026-12-18',
+      ends: '2027-04-03',
+      note: 'Officially posted season window. Individual race cards and post times require the operator calendar.',
+      sourceUrl: 'https://www.shrp.com/',
+    },
+    {
+      venueSlug: 'sam-houston-race-park',
+      title: 'Sam Houston Race Park — 2027 Quarter Horse meet',
+      starts: '2027-04-15',
+      ends: '2027-06-12',
+      note: 'Officially posted season window; subject to the operator and regulator updating individual race days.',
+      sourceUrl: 'https://www.shrp.com/',
+    },
+  ],
+  comparison: [
+    { slug: 'lone-star-park', breed: 'Thoroughbred and Quarter Horse', latestSeason: '2026 Thoroughbreds April 16–July 12; autumn 2026 live Quarter Horse cards remain on the operator calendar', nextSeason: 'Verify individual current race dates on the official calendar', link: 'https://www.lonestarpark.com/live-racing/' },
+    { slug: 'sam-houston-race-park', breed: 'Thoroughbred and Quarter Horse', latestSeason: '2026–27 Thoroughbreds December 18–April 3; 2027 Quarter Horses April 15–June 12', nextSeason: 'Both 2026–27 meet windows published', link: 'https://www.shrp.com/' },
+    { slug: 'retama-park', breed: 'Quarter Horse, Paint and Appaloosa', latestSeason: '2026 summer live meet concluded August 22', nextSeason: '2027 schedule labeled “coming soon” by the operator', link: 'https://www.retamapark.com/horseracing/live-racing' },
+    { slug: 'gillespie-county-fairgrounds', breed: 'Quarter Horse and Thoroughbred', latestSeason: 'Four summer race weekends ended August 30, 2026', nextSeason: '2027 summer weekend dates not yet verified in this guide', link: 'https://gillespiefair.com/pari-mutuel-horse-racing' },
+  ],
+  sources: [
+    { label: 'Texas Racing Commission — race tracks and dates', url: TXRC_RACETRACKS },
+    { label: 'Lone Star Park official live racing schedule', url: 'https://www.lonestarpark.com/live-racing/' },
+    { label: 'Sam Houston Race Park official 2026–27 meet dates', url: 'https://www.shrp.com/' },
+    { label: 'Retama Park 2027 season calendar notice', url: 'https://www.retamapark.com/horseracing/live-racing' },
+    { label: 'Gillespie County Fairgrounds racing calendar', url: 'https://gillespiefair.com/pari-mutuel-horse-racing' },
+  ],
+};
+
+export function findTexasHorseRacingCalendar(slug: string) {
+  return slug === 'calendar' ? TEXAS_HORSE_RACING_CALENDAR : undefined;
+}
+
 export function findTexasHorseRacingInstitution(slug: string) {
   return TEXAS_HORSE_RACING_INSTITUTIONS.find((item) => item.slug === slug);
 }
