@@ -49,6 +49,10 @@ const historicalGuidePaths: Record<string, string> = {
   "WASP Homecoming & Fly-In": "/event/wasp-homecoming-fly-in",
   "Wings Over South Texas": "/event/wings-over-south-texas",
   "The Great Texas Air Show": "/event/great-texas-airshow",
+  "Rose City Airfest": "/event/rose-city-airfest",
+  "Kaboom Town Airport Air Show": "/event/addison-kaboom-town-airshow",
+  "Stars and Stripes Air Show Spectacular": "/event/laredo-stars-stripes-airshow",
+  "Corsicana Airsho": "/event/corsicana-airsho",
 };
 
 const historical2026 = [
@@ -69,6 +73,7 @@ const historical2026 = [
   ["CAF High Sky Wing AIRSHO", "Midland"],
   ["Ranger Old School Fly-In & Airshow", "Ranger"],
   ["Rose City Airfest", "Tyler"],
+  ["Corsicana Airsho", "Corsicana"],
 ] as const;
 
 const confirmed = majorEventIndexRecords
