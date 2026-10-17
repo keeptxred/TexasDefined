@@ -39,6 +39,9 @@ function Page() {
   } = Route.useLoaderData();
   const schoolName = displayName;
   const footballName = identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`;
+  // Summarize the verified editorial ledger before the deeper school reference sections.
+  const latestResult = editorial?.season?.games.filter((game) => game.result).at(-1);
+  const nextListedFixture = editorial?.season?.games.find((game) => !game.result);
   // UIL team names are stable while optional TEA directory joins can fail in production.
   // Abbott's Hill County association is independently documented by the school
   // and the Batch 001 registry, so retain its reciprocal link on degraded lookups.
@@ -254,6 +257,28 @@ function Page() {
         </div>
       </aside>}
 
+      {editorial?.season && !editorial.notice && (
+        <section aria-label={`${footballName} season at a glance`} className="grid gap-4 border-b border-border py-5 sm:grid-cols-3 sm:py-7">
+          <div className="border-l-4 border-primary bg-surface p-4">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">2026 record from reported finals</p>
+            <p className="mt-2 text-lg font-bold leading-snug">{editorial.season.record}</p>
+          </div>
+          {latestResult && <div className="border-l-4 border-border bg-surface p-4">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Most recent reported result</p>
+            <p className="mt-2 font-semibold">{latestResult.result} · {latestResult.opponent}</p>
+            <p className="mt-1 text-xs text-muted-foreground">{latestResult.date}</p>
+            {latestResult.matchupPath && <Link to={latestResult.matchupPath} className="mt-2 inline-block text-sm font-semibold text-primary underline underline-offset-4">Game details →</Link>}
+          </div>}
+          {nextListedFixture && <div className="border-l-4 border-border bg-surface p-4">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Next listed 2026 fixture</p>
+            <p className="mt-2 font-semibold">{nextListedFixture.opponent}</p>
+            <p className="mt-1 text-xs text-muted-foreground">{nextListedFixture.date} · {nextListedFixture.site}; verify kickoff</p>
+            <a href="#football-current-season" className="mt-2 inline-block text-sm font-semibold text-primary underline underline-offset-4">Full schedule ↓</a>
+          </div>}
+          <p className="text-xs leading-5 text-muted-foreground sm:col-span-3">Checked {editorial.season.verifiedAt}. Source-linked results are verified snapshots, not live game scores or certified district standings.</p>
+        </section>
+      )}
+
       {!editorial?.notice && (editorial?.schedule || editorial?.season || editorial?.venue || venueLinks.length > 0 || program?.schoolWebsite) && (
         <FootballGameNightGuide
           slug={slug}
@@ -307,7 +332,9 @@ function Page() {
                     <td className="px-3 py-3 font-semibold">{game.date}</td>
                     <td className="px-3 py-3">{game.opponent}{game.district ? ' *' : ''}</td>
                     <td className="px-3 py-3 text-muted-foreground">{game.site}</td>
-                    <td className="px-3 py-3">{game.result || 'Scheduled'}</td>
+                    <td className="px-3 py-3">{game.matchupPath
+                      ? <Link to={game.matchupPath} className="font-semibold text-primary underline underline-offset-4">{game.result} · matchup →</Link>
+                      : game.result || 'Scheduled'}</td>
                   </tr>)}
                 </tbody>
               </table>
