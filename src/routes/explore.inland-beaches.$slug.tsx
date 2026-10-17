@@ -15,7 +15,7 @@ export const Route = createFileRoute("/explore/inland-beaches/$slug")({
     const beach = loaderData;
     const canonicalPath = `/explore/inland-beaches/${beach.slug}`;
     const url = absoluteUrl(texasDefinedBrand, canonicalPath);
-    const title = `${beach.name}: Access, Swimming & Visitor Guide`;
+    const title = `${beach.name}: Visitor Guide`;
     const description = `${beach.name} on ${beach.lake}: verified swim-beach access, ${beach.county} County trip planning, managing-agency source and lake safety.`;
     return {
       meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description }),
