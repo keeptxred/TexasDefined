@@ -5,19 +5,10 @@ import type { Destination, DestinationAuthorityGuide, DestinationAuthoritySource
  * current admission and responsive live review have separate acceptance gates.
  * Preserve the earlier source-checked date unless the operator was actually reverified.
  */
-export const TOP50_AUTHORITY_WAVE1_SLUGS = [
-  "dinosaur-valley-state-park",
-  "garner-state-park",
-  "south-padre-island-beaches",
-  "port-aransas-beach",
-  "texas-state-aquarium",
-  "fort-worth-zoo",
-  "san-antonio-zoo",
-  "reunion-tower-dallas",
-  "magnolia-market-at-the-silos",
-  "mcdonald-observatory"
-] as const;
-export type Top50AuthorityWave1Slug = typeof TOP50_AUTHORITY_WAVE1_SLUGS[number];
+export { TOP50_AUTHORITY_WAVE1_SLUGS, isTop50AuthorityWave1 } from "./top50-authority-wave1-slugs";
+import { isTop50AuthorityWave1 } from "./top50-authority-wave1-slugs";
+import type { Top50AuthorityWave1Slug } from "./top50-authority-wave1-slugs";
+
 const GUIDES: Record<Top50AuthorityWave1Slug, DestinationAuthorityGuide> = {
   "dinosaur-valley-state-park": {
     "whyItMatters": "Dinosaur Valley is an unusually direct encounter with deep Texas history: ancient tracks remain in the Paluxy River bed rather than behind glass. The interpretive challenge is part of the visitor experience—tracks become visible or inaccessible as water levels, erosion and weather change. A rewarding visit balances track-site conditions against the wooded and limestone-ridge trails above the river.",
@@ -505,10 +496,6 @@ const GUIDES: Record<Top50AuthorityWave1Slug, DestinationAuthorityGuide> = {
     ]
   }
 };
-
-export function isTop50AuthorityWave1(slug: string): slug is Top50AuthorityWave1Slug {
-  return (TOP50_AUTHORITY_WAVE1_SLUGS as readonly string[]).includes(slug);
-}
 
 export function applyTop50AuthorityWave1(destination: Destination): Destination {
   if (!isTop50AuthorityWave1(destination.slug)) return destination;
