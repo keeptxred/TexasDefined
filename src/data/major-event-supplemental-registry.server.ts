@@ -170,6 +170,10 @@ export const supplementalMajorEventSlugs = [
   "great-texas-airshow",
   "wings-over-south-texas",
   "wasp-homecoming-fly-in",
+  "rose-city-airfest",
+  "corsicana-airsho",
+  "addison-kaboom-town-airshow",
+  "laredo-stars-stripes-airshow",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
