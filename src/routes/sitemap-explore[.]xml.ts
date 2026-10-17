@@ -142,6 +142,7 @@ function emergencyExploreSitemapResponse(error: unknown) {
     "/explore/water-towers",
     "/destination/whirlyball-hurst",
     ...PAINTED_CHURCH_STATIC_PATHS,
+    "/explore/top-50-attractions",
     "/explore/top-attractions",
     "/explore/top-attractions/methodology",
     "/explore/top-attractions/road-trips",
