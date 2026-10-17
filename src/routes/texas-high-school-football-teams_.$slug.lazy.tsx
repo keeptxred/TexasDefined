@@ -267,7 +267,8 @@ function Page() {
               </div>
               <figcaption className="mt-2 text-xs text-muted-foreground" style={{ lineHeight: 1.5 }}>
                 Representative high-school football photo, not an Aubrey team or stadium image.{' '}
-                <a href="https://unsplash.com/photos/man-holding-football-field-post-on-side-of-field-Fbq47uCtXHI" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Tim Mossholder / Unsplash</a>.
+                <a href="https://unsplash.com/photos/man-holding-football-field-post-on-side-of-field-Fbq47uCtXHI" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Tim Mossholder / Unsplash</a>.{' '}
+                <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Unsplash License</a>.
               </figcaption>
             </figure>
           )}
