@@ -2398,6 +2398,117 @@ export const texasWaterParks: WaterParkGuide[] = [
         "sourceUrl": "https://ymcagoldencrescent.org/barbara-bauer-briggs-family/programs/aquatics/"
       }
     ]
+  },
+  {
+    "slug": "carrollton-rosemeade-rainforest",
+    "name": "Rosemeade Rainforest Aquatic Complex",
+    "city": "Carrollton",
+    "county": "Denton",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "City of Carrollton public seasonal day admission; separate resident and nonresident rates; reservations apply to group and private-party visits",
+    "summary": "Rosemeade Rainforest is a large Carrollton family water park with a 200-foot lazy river, 600-gallon dump bucket, water cannons and slides, plus a separate remodeled main pool with twin 22-foot waterslides.",
+    "distinctiveNote": "The city's 2026 seasonal notice reduces public operation to weekends starting August 10 and closes ordinary family waterpark service after Labor Day. The adjacent Rosemeade Recreation Center is a separate indoor recreation facility, not proof the water park operates year-round.",
+    "officialUrl": "https://www.cityofcarrollton.com/departments/departments-g-p/parks-recreation/aquatics/rosemeade-rainforest",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1334 East Rosemeade Parkway, Carrollton, TX 75007",
+    "visitorHighlights": [
+      "Rainforest activity area with 200-foot lazy river, multiple spray features and a 600-gallon tipping bucket",
+      "Rebuilt main-pool zone with two 22-foot waterslides, eight lap lanes and zero-depth family play",
+      "ADA pool and lazy-river accessibility lifts, shaded deck space, concessions and lockers"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Does Rosemeade Rainforest operate throughout the fall and winter?",
+        "answer": "No. Carrollton's 2026 public schedule ends the family waterpark's regular season after Labor Day; the nearby Rosemeade Recreation Center has different indoor operating hours and is not the waterpark.",
+        "sourceUrl": "https://www.cityofcarrollton.com/departments/departments-g-p/parks-recreation/aquatics/rosemeade-rainforest"
+      },
+      {
+        "question": "Can visitors bring food and coolers to Rosemeade Rainforest?",
+        "answer": "Yes, the city permits coolers, subject to inspection, but forbids glass containers, alcohol and knives. Guests may also purchase refreshments at the on-site concession stand during posted operating hours.",
+        "sourceUrl": "https://www.cityofcarrollton.com/departments/departments-g-p/parks-recreation/aquatics/rosemeade-rainforest"
+      },
+      {
+        "question": "What assistance is offered to disabled swimmers and nonswimmers?",
+        "answer": "Carrollton lists an assistance program and accessible aquatic chairs at the training pool, main pool and lazy river. Guests should speak with a manager or phone the aquatic complex to arrange the help they need.",
+        "sourceUrl": "https://www.cityofcarrollton.com/departments/departments-g-p/parks-recreation/aquatics/rosemeade-rainforest"
+      }
+    ]
+  },
+  {
+    "slug": "arlington-randol-mill-family-aquatic",
+    "name": "Randol Mill Family Aquatic Center",
+    "city": "Arlington",
+    "county": "Tarrant",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Seasonal Arlington municipal family-aquatic admission with age/height-based rates, city swim passes and optional rentals",
+    "summary": "Randol Mill Family Aquatic Center offers a shallow aquatic playground, vortex pools, current-channel recreation and a water slide, together with tot and leisure pools at Randol Mill Park.",
+    "distinctiveNote": "Arlington's 2026 swim calendar operated through Labor Day, September 7, including late-August weekend sessions; those dates have passed. The city may inspect coolers and assess a fee for large ones, while glass and alcohol are prohibited.",
+    "officialUrl": "https://www.arlingtontx.gov/Parks-Places/Facilities/Aquatics/Pools/Randol-Mill-Family-Aquatic-Center",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1924 West Randol Mill Park Road, Arlington, TX 76012",
+    "visitorHighlights": [
+      "Shallow-water family play structure and a dedicated water slide",
+      "Vortex pools and a moving current-channel attraction for family recreation",
+      "Tot/leisure pool zones with shaded pavilions, showers and concession service"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Was Randol Mill Family Aquatic Center open beyond August 2026?",
+        "answer": "Yes. Arlington's 2026 schedule added selected late-August weekends and Labor Day, September 7, after its regular summer calendar. Those special dates are past, so do not assume the pool is open in October.",
+        "sourceUrl": "https://www.arlingtontx.gov/Parks-Places/Facilities/Aquatics/Pools/Randol-Mill-Family-Aquatic-Center"
+      },
+      {
+        "question": "Does this center have a lazy river or current channel?",
+        "answer": "The City of Arlington describes a moving current channel, vortex pools, water slide and shallow recreation structure. Attractions may be limited by staffing, weather and the seasonal swimming schedule.",
+        "sourceUrl": "https://www.arlingtontx.gov/Parks-Places/Facilities/Aquatics/Pools/Randol-Mill-Family-Aquatic-Center"
+      },
+      {
+        "question": "Are outside coolers and delivered food permitted?",
+        "answer": "The city allows food brought from home but not catered or restaurant deliveries, inspects coolers, and charges a fee for large coolers at family aquatic centers. Glass containers and alcohol are not allowed.",
+        "sourceUrl": "https://www.arlingtontx.gov/Parks-Places/Facilities/Aquatics"
+      }
+    ]
+  },
+  {
+    "slug": "arlington-bad-konigshofen-family-aquatic",
+    "name": "Bad Königshofen Family Aquatic Center",
+    "city": "Arlington",
+    "county": "Tarrant",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Arlington public seasonal aquatic admission, with day-pass and swim-pass options and optional family/event rentals",
+    "summary": "This German-themed Arlington family aquatic park at S.J. Stovall Park combines two waterslides, an interactive spray pad, shallow water play pool, 25-meter lap lanes and a separate diving area.",
+    "distinctiveNote": "The city operated this municipal park through Labor Day weekend in 2026, with Tuesday as its regular mid-summer closure day. The facility commemorates Arlington's sister-city relationship with Bad Königshofen in Germany and is not an indoor year-round water park.",
+    "officialUrl": "https://www.arlingtontx.gov/Parks-Places/Facilities/Aquatics/Pools/Bad-Konigshofen-Family-Aquatic-Center",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "2800 West Sublett Road, Arlington, TX 76017",
+    "visitorHighlights": [
+      "Two waterslides with a separate shallow-water family-play pool",
+      "Interactive spray pad, 25-meter four-lane pool and one-meter diving board",
+      "German-inspired park architecture with shade pavilion, concession stand and showers"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Bad Königshofen Family Aquatic Center open in October 2026?",
+        "answer": "No. Arlington's 2026 swimming schedule finished with the September 7 Labor Day session. The city describes it as a seasonal outdoor family aquatic center, not an indoor pool offering year-round water slides.",
+        "sourceUrl": "https://www.arlingtontx.gov/Parks-Places/Facilities/Aquatics/Pools/Bad-Konigshofen-Family-Aquatic-Center"
+      },
+      {
+        "question": "Does the pool have attractions for both younger children and stronger swimmers?",
+        "answer": "Yes. The city lists a shallow family-play pool and interactive spray pad alongside two waterslides, a 25-meter swimming pool and a separate one-meter diving board, subject to staff and safety rules.",
+        "sourceUrl": "https://www.arlingtontx.gov/Parks-Places/Facilities/Aquatics/Pools/Bad-Konigshofen-Family-Aquatic-Center"
+      },
+      {
+        "question": "Can visitors rent Bad Königshofen for parties or bring a cooler?",
+        "answer": "Arlington allows special-event pool rentals and inspects coolers; the city assesses a fee for large coolers at family aquatic centers. Glass, alcohol and outside catered food deliveries are restricted.",
+        "sourceUrl": "https://www.arlingtontx.gov/Parks-Places/Facilities/Aquatics"
+      }
+    ]
   }
 ];
 export const texasWaterParksBySlug = new Map(texasWaterParks.map((park) => [park.slug, park]));
