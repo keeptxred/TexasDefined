@@ -644,6 +644,14 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "el-paso",
+    "name": "Hotel Paso del Norte",
+    "category": "Art & architecture",
+    "description": "A historic 1912 Trost-designed hotel in downtown El Paso, notable for its stained-glass dome and 2020 preservation rehabilitation. An operating hotel, not an unrestricted museum.",
+    "sourceUrl": "https://atlas.thc.texas.gov/Details?atlasnumber=2079002933",
+    "relatedGuideHref": "/destination/hotel-paso-del-norte"
+  },
+  {
+    "county": "el-paso",
     "name": "Chamizal National Memorial",
     "category": "History & heritage",
     "description": "National Park Service memorial and cultural center in El Paso interpreting the U.S.–Mexico boundary settlement, with public exhibits and gated park grounds.",
