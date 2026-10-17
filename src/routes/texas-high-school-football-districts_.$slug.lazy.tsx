@@ -75,6 +75,8 @@ function Page() {
           <h2 className="mt-2 font-display text-3xl">Scores, schedules & playoff path</h2>
         </div>
         <div className="grid gap-5 sm:grid-cols-2">
+          <Related href="/texas-high-school-football-matchups" title="Documented matchups" body="See dated games, reported final scores and verified source links." />
+          <Related href="/texas-high-school-football-playoff-brackets" title="2026 postseason brackets" body="Choose from twelve UIL class/division brackets and view independently verified playoff results." />
           <Related href="https://www.uiltexas.org/maxpreps/" title="Current scores & schedules" body="Open the UIL Texas Scoreboard for the latest school-submitted scores and weekly schedules. It is not an official district-standings table." external />
           <Related href="/article/texas-high-school-football-2026-season-calendar" title="2026 season calendar" body="Track district play, playoff rounds and the December state championship dates." />
           <Related href="/article/texas-high-school-football-playoffs-explained" title="How the playoffs work" body="See how district qualification advances into bi-district, regional rounds and the state championships." />
