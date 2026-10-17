@@ -51,6 +51,23 @@ export async function main() {
   const rows = await response.json();
   if (!Array.isArray(rows)) throw new Error('TABC returned a non-array response');
   if (rows.length >= 5000) throw new Error('TABC result reached row cap; pagination required, refusing incomplete snapshot');
+  // Diagnostic before integrating BP subordinate licenses: TABC BP is held under BG/MB/BE,
+  // unlike BW which is a primary license. Verify the public subordinate representation.
+  const bpUrl = new URL(API);
+  bpUrl.searchParams.set('$where', "subordinates like '%BP%'");
+  bpUrl.searchParams.set('$limit', '3');
+  const bpResponse = await fetch(bpUrl, { signal: AbortSignal.timeout(20000) });
+  if (bpResponse.ok) {
+    const bpRows = await bpResponse.json();
+    console.log('TABC BP subordinate diagnostic:', JSON.stringify({
+      rowsSampled: bpRows.length,
+      examples: bpRows.map((entry) => ({
+        licenseType: entry.license_type,
+        primaryStatus: entry.primary_status,
+        subordinate: String(entry.subordinates || '').slice(0, 220),
+      })),
+    }));
+  } else console.warn('TABC BP subordinate diagnostic unavailable: HTTP ' + bpResponse.status);
   const breweries = normalizeTabcRows(rows, previous.breweries ?? []);
   if (breweries.length < 100) {
     const sample = rows.slice(0, 3).map((row) => ({
