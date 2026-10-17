@@ -608,7 +608,19 @@
     const context = contextFromPath();
     const expectedContext = context ? `${context.kind}:${context.key}` : "";
     if (current?.dataset.surfaceType === "curated" && current.dataset.stayContext === expectedContext) return;
-    if (!context && current?.dataset.surfaceType === "generic") return;
+    if (!context && current?.dataset.surfaceType === "generic") {
+      // The swimming guide can stream/hydrate after the lodging surface mounts.
+      // A fallback attached to an initially empty #main must move behind the
+      // now-present guide. Reuse the same node to preserve disclosures and tracking.
+      if (
+        normalizePath() === "/explore/swimming-holes-river-tubing"
+        && main.querySelector("#texas-swimming-holes-river-tubing-guide")
+        && main.lastElementChild !== current
+      ) {
+        main.appendChild(current);
+      }
+      return;
+    }
 
     current?.remove();
 
