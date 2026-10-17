@@ -2646,7 +2646,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Jellystone Waller combines a lazy river, large slide, water playground and swimming pool as resort-style camping amenities.",
     "distinctiveNote": "Day camp passes are offered during peak dates, not as an unconditional year-round walk-in attraction.",
     "officialUrl": "https://wallerjellystonepark.com/things-to-do",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "34843 Betka Rd., Waller, TX 77484",
+    "visitorHighlights": [
+      "Waller's campground water attractions comprise a named JellyRoll waterslide, a lazy river and a separate interactive Water Playground.",
+      "The campground also operates an activity pool with three basketball hoops, not simply a collection of one-slide hotel pools.",
+      "For 2026, JellyRoll, lazy river and splash attractions open daily March 6–22 and May 22–August 9, then on weekends March 23–May 21 and August 10–November 1.",
+      "Guests can book a separate Day Camp Pass on eligible peak-season dates and selected Friday–Sunday off-peak periods; overnight cabins and RV sites are different products.",
+      "The adjacent Pic-A-Nic Basket Cafe offers on-site food, while nearby activities include mini golf and jumping pillows.",
+      "Jellystone Waller is a camp-resort with seasonal water attractions; longer-term campground availability does not establish the slides are open."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is the Waller Jellystone waterpark?",
+        "answer": "The operator lists its camp-resort at 34843 Betka Road, Waller, Texas 77484. The JellyRoll slide, water playground and lazy river are on-site resort amenities.",
+        "sourceUrl": "https://wallerjellystonepark.com/things-to-do"
+      },
+      {
+        "question": "Can guests visit the waterpark without renting a campsite?",
+        "answer": "Yes. The operator advertises Day Camp Passes with use of the activity pool, Water Playground, lazy river and water-slide attractions on designated dates. Advance reservations are recommended.",
+        "sourceUrl": "https://wallerjellystonepark.com/blog/access-the-best-texas-water-park-with-a-day-pass"
+      },
+      {
+        "question": "Is the Waller lazy river open every day in October?",
+        "answer": "No. The 2026 attraction schedule lists weekend-only operation from August 10 through November 1 rather than daily fall hours. Confirm the specific weekend and activity schedule.",
+        "sourceUrl": "https://wallerjellystonepark.com/things-to-do"
+      },
+      {
+        "question": "Are waterpark and campground reservations identical?",
+        "answer": "No. An overnight cabin or RV stay and a limited day-access ticket are different products; the operator publishes waterpark activity calendars independent of year-round campsite availability.",
+        "sourceUrl": "https://wallerjellystonepark.com/blog/access-the-best-texas-water-park-with-a-day-pass"
+      }
+    ]
   },
   {
     "slug": "jellystone-guadalupe-river-waterpark",
@@ -2660,7 +2691,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "The Kerrville campground's water facilities include large slides, an interactive playground and three outdoor swimming pools.",
     "distinctiveNote": "An indoor heated swimming pool is a separate amenity, not the indoor water park; outdoor rides have their own seasonal schedule.",
     "officialUrl": "https://jellystoneguadalupe.com/things-to-do/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "2605 Junction Hwy., Kerrville, TX 78028",
+    "visitorHighlights": [
+      "The Guadalupe River Jellystone resort has three separate signature slides named Guadaloop-de-loop, River Racers and Kerrville Korkscrew.",
+      "An interactive Water Playground adds two lower slides, a hydrostorm tipping bucket, water cannons and spray features.",
+      "The camp-resort offers three substantial outdoor pools in addition to its children's water-play area.",
+      "Guests may also find an indoor heated swimming pool, but it is a separate conventional pool and not a full indoor waterpark.",
+      "Spring non-peak water features were scheduled on weekends beginning March 23, 2026, while the major slide group operated daily during the summer peak season.",
+      "Day Camp Passes are available during peak season; cabin and RV reservations are separately sold."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Does this Jellystone location have three named thrill slides?",
+        "answer": "Yes. Its official 2026 summer activity listing names Guadaloop-de-loop, River Racers and Kerrville Korkscrew, separate from the toddler-friendly water playground.",
+        "sourceUrl": "https://jellystoneguadalupe.com/blog/seasonal-bliss-experience-jellystone-park-guadalupe-river-through-every-season"
+      },
+      {
+        "question": "Can families use the playground rather than big slides?",
+        "answer": "Yes. The operator describes two smaller playground slides, a tipping hydrostorm bucket, spray features and water cannons, plus three outdoor swimming pools.",
+        "sourceUrl": "https://jellystoneguadalupe.com/things-to-do/"
+      },
+      {
+        "question": "Is it an indoor waterpark during winter?",
+        "answer": "No. The campground's indoor heated pool is a separate ordinary pool; the larger outdoor slides and interactive Water Playground use a seasonal and weather-dependent calendar.",
+        "sourceUrl": "https://jellystoneguadalupe.com/things-to-do/"
+      },
+      {
+        "question": "Can families visit without booking a cabin or RV site?",
+        "answer": "The operator sells Day Camp Passes in peak season, subject to availability and applicable park access rules. The campground also offers overnight lodging and RV reservations.",
+        "sourceUrl": "https://jellystoneguadalupe.com/things-to-do/"
+      }
+    ]
   },
   {
     "slug": "jellystone-hill-country-water-zone",
@@ -2674,7 +2736,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "The Canyon Lake campground has a water-play zone with slides, blasters and interactive features for younger guests.",
     "distinctiveNote": "The heated indoor swimming pool is not a full indoor water park; day passes and outdoor water playground follow separate access rules.",
     "officialUrl": "https://jellystonehillcountry.com/things-to-do",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "12915 FM 306, Canyon Lake, TX 78133",
+    "visitorHighlights": [
+      "The Hill Country Jellystone campground has a dinosaur-themed interactive Water Playground with spray cannons, slides, blasters and a hydrostorm water bucket.",
+      "Two separate outdoor family pools operate on a seasonal schedule, while the resort's heated indoor pool is a distinct ordinary swimming pool.",
+      "Outdoor Water Playground and Splash Pad are scheduled weekends only August 10–November 1, 2026, after daily summer operation.",
+      "The heated indoor pool is advertised for all-season use and must not be treated as a year-round multi-slide waterpark.",
+      "The waterpark complements nearby river-tubing shuttles, mini-golf and other campground activities that have their own admissions or reservation eligibility.",
+      "Day Camp Passes are sometimes available for non-overnight visitors; the operator does not promise unrestricted daily access."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is the dinosaur-themed water playground open on an October weekday?",
+        "answer": "The 2026 operator schedule lists the interactive Water Playground for weekends only August 10–November 1, so ordinary weekday slides should not be promised in October.",
+        "sourceUrl": "https://jellystonehillcountry.com/things-to-do"
+      },
+      {
+        "question": "Does the campground have a year-round indoor waterpark?",
+        "answer": "No. Its heated indoor swimming pool is advertised year-round, but the dinosaur water playground and two outdoor pools have their own separate seasonal schedules.",
+        "sourceUrl": "https://jellystonehillcountry.com/things-to-do"
+      },
+      {
+        "question": "Are Day Camp Passes offered to non-overnight guests?",
+        "answer": "The resort says it sells Day Camp Passes, but availability and eligible attractions change by season. Visitors must check the chosen date before traveling.",
+        "sourceUrl": "https://jellystonehillcountry.com/things-to-do"
+      },
+      {
+        "question": "Where is the Hill Country Jellystone facility?",
+        "answer": "The operator lists its camp-resort at 12915 Farm to Market 306 in Canyon Lake, Texas 78133. It is distinct from the Guadalupe River Jellystone location in Kerrville.",
+        "sourceUrl": "https://jellystonehillcountry.com/things-to-do"
+      }
+    ]
   },
   {
     "slug": "jellystone-tyler-water-zone",
@@ -2688,7 +2781,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Tyler's Jellystone camp-resort offers a heated interactive water playground and family pool rather than large thrill-slide towers.",
     "distinctiveNote": "This is a smaller campground water-play complex; verify access to the seasonal water playground separately from cabin availability.",
     "officialUrl": "https://jellystonetyler.com/things-to-do",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "5583 FM 16 East, Tyler, TX 75706",
+    "visitorHighlights": [
+      "The Tyler Jellystone campground has a smaller interactive Water Playground with water blasters, cannons and child-friendly slides, not destination-sized thrill towers.",
+      "The campground's spacious swimming pool is a separate family attraction from the themed interactive playground.",
+      "Additional camping amenities include a jumping pillow, mini-golf and laser tag with activity times distinct from water play.",
+      "Cabin, RV and tent stays can be booked separately, and the campground publishes amenity access and seasonal limitations.",
+      "An on-site Campfire Canteen provides food service; its dining hours should not be treated as water-slide operating hours."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Tyler Jellystone a big high-thrill waterpark?",
+        "answer": "No. Its published visitor features center on a heated interactive children's Water Playground with small slides and water sprayers alongside a separate pool.",
+        "sourceUrl": "https://jellystonetyler.com/things-to-do"
+      },
+      {
+        "question": "Can families camp at this site instead of visiting for the day?",
+        "answer": "Yes. The campground offers cabins, RV sites and tent accommodation. Access to the seasonal water-play equipment depends on the dates and selected stay or day-visit arrangements.",
+        "sourceUrl": "https://jellystonetyler.com/things-to-do"
+      },
+      {
+        "question": "Are other family activities included on site?",
+        "answer": "The resort lists mini-golf, a jumping pillow and laser tag alongside the swimming pool and Water Playground. Each activity can have separate operating hours or age limits.",
+        "sourceUrl": "https://jellystonetyler.com/things-to-do"
+      },
+      {
+        "question": "Where is Tyler Jellystone Park?",
+        "answer": "The operator lists 5583 Farm to Market 16 East, Tyler, Texas 75706, a different water-play facility from the Waller and Guadalupe River Jellystone resorts.",
+        "sourceUrl": "https://jellystonetyler.com/things-to-do"
+      }
+    ]
   },
   {
     "slug": "rob-fleming-aquatic-center",
@@ -3372,7 +3495,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Jellystone Park Wichita Falls offers a water playground with two larger slides, two kiddie slides and a tipping water bucket, alongside three outdoor pools.",
     "distinctiveNote": "The operator's 2026 seasonal calendar distinguishes peak water-play hours from campground operations that remain open throughout the year.",
     "officialUrl": "https://wichitafallsjellystonepark.com/things-to-do",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "14145 U.S. 287 North, Wichita Falls, TX 76310",
+    "visitorHighlights": [
+      "The Wichita Falls Jellystone campground's Water Playground features two larger slides, two smaller child slides and an interactive tipping water bucket.",
+      "Three outdoor pools provide a distinct swimming option from the Water Playground's spray cannons and slides.",
+      "Non-aquatic activities include fishing at a pond, mini golf and a jumping pillow as separate campground recreation options.",
+      "The operator offers more than one lodging format, including RV campsites and cabins, with seasonal availability for water amenities.",
+      "Day-camp activity access and attraction hours must be checked for the intended visit, as campground operations continue outside the summer water-play season."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Are there waterslides for different ages?",
+        "answer": "The resort describes two larger waterslides and two kiddie slides in its interactive Water Playground, which also has spray blasters, cannons and a tipping bucket.",
+        "sourceUrl": "https://wichitafallsjellystonepark.com/things-to-do"
+      },
+      {
+        "question": "Are there swimming pools separate from the water playground?",
+        "answer": "Yes. The official Wichita Falls Jellystone listing describes three outdoor swimming pools in addition to the themed Water Playground and water slides.",
+        "sourceUrl": "https://wichitafallsjellystonepark.com/things-to-do"
+      },
+      {
+        "question": "Can campers do things besides swim?",
+        "answer": "The park lists mini-golf, a fishing pond, jumping pillows and themed family activities. Dates for particular activities may differ from the water-play timetable.",
+        "sourceUrl": "https://wichitafallsjellystonepark.com/things-to-do"
+      },
+      {
+        "question": "Where is the Wichita Falls campground waterpark?",
+        "answer": "The operator lists 14145 U.S. Highway 287 North, Wichita Falls, Texas 76310. It is a campground water-play zone, not a separately situated municipal waterpark.",
+        "sourceUrl": "https://wichitafallsjellystonepark.com/things-to-do"
+      }
+    ]
   },
   {
     "slug": "brenham-blue-bell-leisure",
