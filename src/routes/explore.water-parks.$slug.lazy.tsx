@@ -41,7 +41,7 @@ function WaterParkGuidePage() {
             height={800}
             loading="lazy"
             decoding="async"
-            className="block max-h-[32rem] w-full bg-surface object-contain"
+            className="block h-auto w-full"
           />
           <figcaption className="mt-3 text-xs leading-6 text-muted-foreground">
             Historical photograph ({park.licensedMedia.year}), not a representation of the current ride lineup.
