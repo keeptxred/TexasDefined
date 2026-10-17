@@ -33,7 +33,7 @@ function TexasBreweriesPage() {
         <h1 className="mt-5 max-w-5xl font-display text-5xl leading-tight sm:text-7xl">Texas breweries, from the Panhandle to the Gulf.</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground">{description}</p>
         <div className="mt-9 grid max-w-4xl gap-6 border-t border-ink-foreground/25 pt-7 sm:grid-cols-3">
-          <div><p className="font-display text-4xl">{texasBrewerySnapshot.fetchedAt ? texasBreweries.length.toLocaleString() : '—'}</p><p className="mt-1 text-sm">Active BW-licensed locations</p></div>
+          <div><p className="font-display text-4xl">{texasBrewerySnapshot.fetchedAt ? texasBreweries.length.toLocaleString() : '—'}</p><p className="mt-1 text-sm">Active BW/BP locations</p></div>
           <div><p className="font-display text-4xl">{texasBrewerySnapshot.fetchedAt ? counties.length : '—'}</p><p className="mt-1 text-sm">Texas counties represented</p></div>
           <div><p className="font-display text-4xl">{texasBrewerySnapshot.fetchedAt ? cities.size : '—'}</p><p className="mt-1 text-sm">Cities with licenses</p></div>
         </div>
@@ -58,7 +58,7 @@ function TexasBreweriesPage() {
       <section className="mt-16 border-t border-border pt-10" aria-labelledby="directory-heading">
         <p className="eyebrow text-primary">License-backed research · Texas statewide</p>
         <h2 id="directory-heading" className="mt-3 font-display text-4xl">Find a licensed Texas brewery</h2>
-        <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">A Brewer’s License (BW) identifies a business licensed to manufacture malt beverages in Texas. It does <strong>not</strong> confirm the site has a public taproom, offers tours, is open today, or operates a restaurant. Check directly before visiting.</p>
+        <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">A Brewer’s License (BW) or Brewpub License (BP) identifies a Texas business licensed for qualifying malt beverage brewing activities. It does <strong>not</strong> confirm the site has a public taproom, offers tours, is open today, or operates a restaurant. Check directly before visiting.</p>
         <div className="mt-7 grid gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(14rem,18rem)]">
           <div>
             <label htmlFor="brewery-search" className="mb-2 block text-sm font-semibold">Search by brewery, city, county or license ID</label>
@@ -86,7 +86,7 @@ function TexasBreweriesPage() {
               <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{place.city} · {place.county} County</p>
               <h3 className="mt-2 font-display text-2xl leading-tight">{place.name}</h3>
               <p className="mt-3 text-sm text-muted-foreground">{place.address || 'Address not available'}{place.zip ? ', TX ' + place.zip : ''}</p>
-              <p className="mt-3 text-xs text-muted-foreground">TABC BW · {place.licenseStatus} · Visitor access unverified</p>
+              <p className="mt-3 text-xs text-muted-foreground">TABC {place.licenseType === 'BP' ? 'BP subordinate (brewpub)' : 'BW brewer'} · {place.licenseStatus} · Visitor access unverified</p>
               <div className="mt-auto flex flex-wrap gap-4 pt-5 text-sm font-semibold">
                 {href ? <a href={href} className="text-primary underline">Full visitor guide →</a> :
                   <Link to="/explore/breweries/$slug" params={{slug:place.slug}} className="text-primary underline">License & location →</Link>}
@@ -105,8 +105,8 @@ function TexasBreweriesPage() {
         <div className="mt-5 grid gap-8 text-sm leading-7 text-muted-foreground lg:grid-cols-2">
           <div>
             <h3 className="font-semibold text-foreground">What is included?</h3>
-            <p className="mt-2">Texas businesses with an active Brewer’s License (BW) in the Texas Alcoholic Beverage Commission’s public primary-license dataset. A license is not proof of public access or a confirmed opening. Breweries in planning are not counted as operating facilities.</p>
-            <p className="mt-3">We count licenses/locations, not brewery brands: multiple licensed premises operated by one company may appear separately. Retail-only bars and out-of-state nonresident brewer licenses are excluded.</p>
+            <p className="mt-2">Texas businesses with an active Brewer’s License (BW), or an active primary BG/MB/BE license showing subordinate Brewpub License (BP), in the Texas Alcoholic Beverage Commission’s public licensing dataset. A license is not proof of public access or a confirmed opening. Breweries in planning are not counted as operating facilities.</p>
+            <p className="mt-3">We count licenses/locations, not brewery brands: multiple licensed premises operated by one company may appear separately. Retail-only bars without an identified BP subordinate license and out-of-state nonresident brewer licenses are excluded.</p>
           </div>
           <div>
             <h3 className="font-semibold text-foreground">How is it maintained?</h3>
