@@ -5,7 +5,7 @@ Updated 2026-10-17. Work is **not** considered production verified until the rep
 ## Current implementation
 
 - Canonical public hub: `/explore/water-parks`; one park page at `/explore/water-parks/$slug` per physical venue.
-- Initial operator-backed registry: 124 separate facilities in `src/data/texas-water-parks.ts`.
+- Initial operator-backed registry: 131 separate facilities in `src/data/texas-water-parks.ts`.
 - Settings: indoor, outdoor, mixed indoor/outdoor. Access: day park, city-run, hotel/resort, campground and inflatable lake park.
 - Every record has a named venue, town, region, setting, admission policy description, a venue-specific editorial note, source URL, review date, and county where the physical county was verified.
 - Directory links to internal Explore/trip planner/city and county guides. Primary and emergency Explore sitemaps enumerate only specifically certified authority-ready park pages; the statewide hub includes the full research registry.
@@ -124,3 +124,27 @@ All county entity pages automatically list qualifying water parks whose assigned
 ## October 17 municipal aquatics expansion — four source-reviewed parks
 
 Four additional operating (but mostly seasonal) municipal family water-play sites are documented: San Angelo Municipal Pool (two water slides; June 22, 2026 reopening; season ended August), Bill Witt Aquatic Center in Corpus Christi (two large slides, interactive beach-entry leisure pool; the city advertises free public swim and a summer-only schedule), Bartholomew Pool in Austin (activity pool, lily pads, wading pool, slides; slides and recreation pools CLOSED Oct 1 2026–Mar 12 2027 despite year-round lap swimming), and Flower Mound Community Activity Center (outdoor water park roughly Memorial Day–Labor Day, separately scheduled indoor play-slide sessions). Each has exact municipal venue address, first-party source, distinct content, >=3 activity highlights and three operator-linked answers. All remain `authorityReady=false` by default: they do NOT enter the water-park sitemap or receive search index approval until licensed exact-location imagery and full editorial acceptance. Venue sources: https://www.sanangelo.gov/facilities/facility/details/Municipal-Pool-4 ; https://www.corpuschristitx.gov/department-directory/parks-and-recreation/parks-and-facilities/pools/ ; https://www.austintexas.gov/parks/locations/bartholomew-pool ; https://www.flower-mound.com/cachours .
+
+
+## October 17 research expansion — Bryan, Odessa, Victoria (four venues)
+
+The Bryan Aquatic Center has a city-confirmed double-flume waterslide and zero-entry recreational area, but year-round heated-pool lap swimming must not be confused with seasonal water-slide access. Two separate Odessa sites, Sherwood and Woodson, have official 2026 admission/season records; the Odessa tourism bureau confirms Sherwood's slides, lazy river and shallow splash attractions, while Woodson's public-slide and diving descriptions are supported by city planning and local destination references. These two centers have different end-of-summer dates and different normal closure days. Victoria's Barbara Bauer Briggs Family YMCA city-partnered outdoor pool has slides, spray play and member/community session restrictions; the YMCA identifies the main pool as closed after the summer even though it may offer separately scheduled off-season activities or rentals.
+
+New official/source references:
+- https://www.bryantx.gov/parks-and-recreation/pools-aquatic-programs/
+- https://odessa-tx.gov/pools
+- https://discoverodessa.org/10-spots-to-cool-off-this-summer/
+- https://ymcagoldencrescent.org/barbara-bauer-briggs-family/programs/aquatics/
+- https://www.victoriatx.gov/794/YMCA-Open-Swim-Times
+
+Each record has a location, specific features, three cited visitor questions, honest seasonal status and a link to its responsible operator. Venue hero photos and full editorial depth are not yet licensed or approved; these four must remain `noindex` under the unchanged `authorityReady` gate. Ordinary standalone splash pads and lap-only pools were not added.
+
+
+## October 17 municipal authority census — Carrollton and Arlington (three venues)
+
+Separate from the Bryan/Odessa/Victoria batch, the following verified major municipal family waterparks were added to the same 131-park registry: Carrollton's Rosemeade Rainforest (200-foot lazy river, 600-gallon tipping bucket and two tall main-pool slides), Arlington's Randol Mill Family Aquatic Center (vortex pools, current channel and slides), and Arlington's Bad Königshofen Family Aquatic Center (German sister-city design, two water slides, spray pad and lap/diving pools). Public operating seasons ended by September 7, 2026; no October 2026 public admission is asserted. Each facility includes an exact address, 3 distinctive visitor facilities and 3 official-source linked visitor answers. Governing municipal pages:
+- https://www.cityofcarrollton.com/departments/departments-g-p/parks-recreation/aquatics/rosemeade-rainforest
+- https://www.arlingtontx.gov/Parks-Places/Facilities/Aquatics/Pools/Randol-Mill-Family-Aquatic-Center
+- https://www.arlingtontx.gov/Parks-Places/Facilities/Aquatics/Pools/Bad-Konigshofen-Family-Aquatic-Center
+
+Arlington's cooler policy is a citywide current aquatics rule and must be cited separately from individual facility features. Carrollton has accessible water-entry chairs and an explicit policy permitting inspected coolers. All three retain the current noindex authority gate pending exact-location image licensing and full editorial review. Do not count Carrollton's two separate splash-only parks as additional water parks.
