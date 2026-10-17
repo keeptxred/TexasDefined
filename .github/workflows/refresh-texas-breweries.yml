@@ -1,4 +1,4 @@
-name: Refresh Texas breweries (TABC)
+name: Refresh Texas brewery & brewpub permits (TABC)
 
 on:
   workflow_dispatch:
@@ -37,7 +37,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Read TABC active BW licenses (single bounded request)
+      - name: Read TABC active BW and subordinate BP licenses (two bounded requests)
         run: node scripts/data/refresh-texas-breweries.mjs
       - name: Validate roster
         run: node scripts/data/validate-texas-breweries.mjs
