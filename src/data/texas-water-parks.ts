@@ -2250,6 +2250,154 @@ export const texasWaterParks: WaterParkGuide[] = [
         "sourceUrl": "https://www.flower-mound.com/birthdayparty"
       }
     ]
+  },
+  {
+    "slug": "bryan-aquatic-center",
+    "name": "Bryan Aquatic Center",
+    "city": "Bryan",
+    "county": "Brazos",
+    "region": "Central Texas",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "City of Bryan public pool admission for seasonal recreation swim; year-round lap swim does not include off-season slide access",
+    "summary": "Bryan Aquatic Center is a city-operated family aquatic complex with an Olympic-size heated pool, double-flume water slide, public diving board and beach-style zero-depth entry.",
+    "distinctiveNote": "The city's current fall 2026 schedule is for year-round lap swimming; recreational swim, water slides and diving-board play are limited to the summer season, so visitors cannot assume slides run simply because lap lanes are open.",
+    "officialUrl": "https://www.bryantx.gov/parks-and-recreation/pools-aquatic-programs/",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "3100 Oak Ridge Drive, Bryan, TX 77802",
+    "visitorHighlights": [
+      "Double-flume family waterslide (available during seasonal recreation-swim hours)",
+      "Beach-style zero-depth entry for families and Olympic-size heated swimming pool",
+      "Public diving board and separate lap-swim sessions under the city schedule"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Are the waterslides open when Bryan Aquatic Center offers lap swimming?",
+        "answer": "No. The City of Bryan states that its slides, diving board and recreational swim activities are limited to the summer season even though the heated pool supports lap swimming during other months.",
+        "sourceUrl": "https://www.bryantx.gov/parks-and-recreation/pools-aquatic-programs/"
+      },
+      {
+        "question": "What are the water-slide restrictions at Bryan Aquatic Center?",
+        "answer": "The city's published water-slide rules require riders to be at least four feet tall, ride individually and feet-first, and avoid flotation devices. Lifeguards may require a swim test before slide access.",
+        "sourceUrl": "https://www.bryantx.gov/parks-and-recreation/pools-aquatic-programs/"
+      },
+      {
+        "question": "How does the City of Bryan classify children's swimming ability?",
+        "answer": "Children age 12 and younger use Bryan's Note & Float swim assessment; the city explains the red, yellow and green wristbands and the supervision or life-jacket limits each category carries.",
+        "sourceUrl": "https://www.bryantx.gov/parks-and-recreation/pools-aquatic-programs/"
+      }
+    ]
+  },
+  {
+    "slug": "odessa-sherwood-family-aquatic",
+    "name": "Sherwood Family Aquatic Center",
+    "city": "Odessa",
+    "county": "Ector",
+    "region": "West Texas",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "City of Odessa seasonal public-pool admission, with family-night promotions and rentals managed through the Odessa YMCA",
+    "summary": "Sherwood Family Aquatic Center is a public family water-play destination in Odessa with large waterslides, a lazy river, shallow splash area and seasonal swimming under lifeguard supervision.",
+    "distinctiveNote": "Odessa's posted 2026 pool calendar says Sherwood's summer ended August 2, with Tuesday as its routine maintenance closure day. The city also lists a clear-bag requirement and generally prohibits outside food, coolers and glass.",
+    "officialUrl": "https://odessa-tx.gov/pools",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "4520 North Dixie Boulevard, Odessa, TX 79762",
+    "visitorHighlights": [
+      "Water-slide recreation separate from the nearby city sprayground facilities",
+      "Family lazy-river and shallow splash-play spaces featured in the city's destination marketing information",
+      "Public day admission, family-night promotion and municipal/YMCA-supported event rentals"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Sherwood Family Aquatic Center open in October 2026?",
+        "answer": "No. The City of Odessa reports Sherwood's final regular pool day for the 2026 season was August 2. Visitors should check the city pool schedule for the following summer rather than assume it is open year-round.",
+        "sourceUrl": "https://odessa-tx.gov/pools"
+      },
+      {
+        "question": "Can visitors bring their own coolers to Sherwood?",
+        "answer": "No. Odessa's posted 2026 aquatic-center rules prohibit outside food and drinks, coolers, picnic baskets and alcohol. They also require proper swimwear and a clear-bag policy at public pools.",
+        "sourceUrl": "https://odessa-tx.gov/pools"
+      },
+      {
+        "question": "Does Sherwood have attractions beyond a standard swimming pool?",
+        "answer": "Yes. The Odessa Convention and Visitors Bureau describes waterslides, lazy-river recreation and a children's splash area at Sherwood. This does not guarantee every attraction will operate on any particular date.",
+        "sourceUrl": "https://discoverodessa.org/10-spots-to-cool-off-this-summer/"
+      }
+    ]
+  },
+  {
+    "slug": "odessa-woodson-family-aquatic",
+    "name": "Woodson Family Aquatic Center",
+    "city": "Odessa",
+    "county": "Ector",
+    "region": "West Texas",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Seasonal public aquatic-center day admission with Odessa city family-night options; YMCA administers rentals",
+    "summary": "Woodson Family Aquatic Center is a separate Odessa family aquatic facility offering a large waterslide, recreational water channel, child-friendly swimming area and diving opportunities.",
+    "distinctiveNote": "Woodson had a longer summer 2026 season than Sherwood; the City of Odessa posted extra weekends and a final Labor Day opening on September 7. Thursday is typically the regular maintenance closure day.",
+    "officialUrl": "https://odessa-tx.gov/pools",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1020 Martin Luther King Jr. Street, Odessa, TX 79761",
+    "visitorHighlights": [
+      "Large public water-slide feature, distinguished from Odessa's Sherwood center",
+      "Child-friendly swimming area and diving activities, with lifeguard-controlled access",
+      "Longer 2026 seasonal calendar through Labor Day and separate Tuesday family night"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Was Woodson Family Aquatic Center open longer than Sherwood in 2026?",
+        "answer": "Yes. Odessa's official 2026 public-pool notice lists Woodson's extended weekend schedule through Labor Day, September 7, while Sherwood's season ended August 2. Both are now seasonally closed.",
+        "sourceUrl": "https://odessa-tx.gov/pools"
+      },
+      {
+        "question": "Are outside food and flotation devices permitted at Woodson?",
+        "answer": "The city prohibits outside food, coolers and most personal flotation devices at its aquatic centers, although it allows life jackets supplied by the Sherwood or Woodson facilities. Check posted rules and staff guidance.",
+        "sourceUrl": "https://odessa-tx.gov/pools"
+      },
+      {
+        "question": "How do I arrange an after-hours family pool rental?",
+        "answer": "Odessa says the YMCA manages after-hours reservations for Woodson and Sherwood. Contact the YMCA using the number published on the city's swimming-pools page to confirm available dates, pricing and conditions.",
+        "sourceUrl": "https://odessa-tx.gov/pools"
+      }
+    ]
+  },
+  {
+    "slug": "victoria-barbara-bauer-briggs-ymca",
+    "name": "Barbara Bauer Briggs Family YMCA Aquatics",
+    "city": "Victoria",
+    "county": "Victoria",
+    "region": "Gulf Coast",
+    "setting": "Outdoor",
+    "kind": "Community water park",
+    "admission": "YMCA-managed seasonal city pool, with community open-swim sessions when scheduled; memberships, rentals and summer/day admissions vary",
+    "summary": "Victoria's Barbara Bauer Briggs Family YMCA operates a municipal-partnered outdoor leisure pool with waterslides, a family splash pad, supervised recreation swimming and aquatics lessons.",
+    "distinctiveNote": "The YMCA operator labels the main pool closed after its 2026 summer season, while off-season aquatic classes, limited community sessions and pool rentals use their own schedules. Verify public water-slide availability separately from fitness classes or rental-only times.",
+    "officialUrl": "https://ymcagoldencrescent.org/barbara-bauer-briggs-family/programs/aquatics/",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1806 North Nimitz Street, Victoria, TX 77901",
+    "visitorHighlights": [
+      "Two large family waterslide flumes and a shallow leisure-swimming area",
+      "Children's splash-play facilities, shaded picnic area and on-site concessions",
+      "YMCA-managed city open-swim, sensory-swim and lessons with different eligibility and season schedules"
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can nonmembers swim at the Barbara Bauer Briggs pool?",
+        "answer": "The YMCA and City of Victoria publish certain community open-swim periods, while other sessions are restricted to members or private rentals. Confirm the exact public session and admission with the YMCA before visiting.",
+        "sourceUrl": "https://www.victoriatx.gov/794/YMCA-Open-Swim-Times"
+      },
+      {
+        "question": "Does the year-round YMCA building mean the outdoor slides are always open?",
+        "answer": "No. The YMCA's own aquatics page labels the pool closed after summer and publishes separate lesson, fitness and off-season rental schedules. Building operating hours do not prove the slides are operating.",
+        "sourceUrl": "https://ymcagoldencrescent.org/barbara-bauer-briggs-family/programs/aquatics/"
+      },
+      {
+        "question": "Does the facility have a splash pad as well as waterslides?",
+        "answer": "Yes. The YMCA lists both a splash pad and slide among its pool amenities. Water attractions operate according to pool-specific supervision and seasonal availability rather than all YMCA building hours.",
+        "sourceUrl": "https://ymcagoldencrescent.org/barbara-bauer-briggs-family/programs/aquatics/"
+      }
+    ]
   }
 ];
 export const texasWaterParksBySlug = new Map(texasWaterParks.map((park) => [park.slug, park]));
