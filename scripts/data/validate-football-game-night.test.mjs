@@ -4,6 +4,7 @@ import test from 'node:test';
 
 const read = (path) => readFileSync(path, 'utf8');
 const profile = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+const pageLoader = read('src/routes/texas-high-school-football-teams_.$slug.tsx');
 const panel = read('src/components/sports/FootballGameNightGuide.tsx');
 const functions = read('src/data/sports-sponsorship.functions.ts');
 const sponsorServer = read('src/data/sports-sponsorship.server.ts');
@@ -14,6 +15,17 @@ test('football game-night guide is part of existing profile with notice guard', 
   assert.match(profile, /!editorial\?\.notice && \(editorial\?\.schedule/);
   assert.match(profile, /<FootballGameNightGuide/);
   assert.match(profile, /schoolWebsite=\{program\?\.schoolWebsite\}/);
+});
+
+test('governed sports placements are looked up only for valid active football profiles', () => {
+  assert.match(pageLoader, /getActiveSportsSponsorPlacement/);
+  assert.match(pageLoader, /if \(!profile\) throw notFound\(\)/);
+  assert.match(pageLoader, /profile\.editorial\?\.notice[\s\S]*?\? null\s*:\s*await getActiveSportsSponsorPlacement/);
+  assert.match(pageLoader, /surfacePath: \`\/texas-high-school-football-teams\/\$\{profile\.slug\}\`/);
+  assert.match(pageLoader, /return \{ \.\.\.profile, sponsorPlacement \}/);
+  assert.match(profile, /SponsoredSportsPlacement key=\{sponsorPlacement\.id\} placement=\{sponsorPlacement\}/);
+  assert.match(profile, /\{sponsorPlacement \? \(/);
+  assert.match(sponsorServer, /export const SPORTS_SPONSOR_OUTREACH_HOLD = true/);
 });
 
 test('mobile readers reach game-night actions and season before historical research', () => {
