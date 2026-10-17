@@ -1246,7 +1246,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Burkburnett's family aquatic park serves the northern Wichita Falls area.",
     "distinctiveNote": "Check the municipal calendar, since water-park operations concentrate in summer.",
     "officialUrl": "https://www.boomtownbay.com/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "104 Tommy Thornton Way, Burkburnett, TX 76354",
+    "visitorHighlights": [
+      "Boomtown Bay is a Burkburnett municipal waterpark with a winding 365-foot lazy river.",
+      "The attraction roster describes high-thrill drop and twisting slides between roughly 20 and 60 feet in height.",
+      "Family play includes a zero-depth children’s zone and a vortex pool attraction separate from conventional slide rides.",
+      "Free on-site parking is provided, and the operator lists an overflow parking area on Davy Drive.",
+      "The park sells separately reserved shaded cabanas, group pavilions and after-hours private park rentals.",
+      "The 2026 posted schedule ran daily through August 9, then weekends until early September, with a Labor Day session."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is Boomtown Bay?",
+        "answer": "The Burkburnett operator lists 104 Tommy Thornton Way, Burkburnett, Texas 76354. It provides free on-site parking and a Davy Drive overflow lot.",
+        "sourceUrl": "https://www.boomtownbay.com/"
+      },
+      {
+        "question": "Can we use the lazy river without riding thrill slides?",
+        "answer": "Yes. Boomtown Bay lists a winding 365-foot lazy river, a separate zero-depth children's area and a vortex pool alongside taller thrill slides.",
+        "sourceUrl": "https://www.boomtownbay.com/"
+      },
+      {
+        "question": "Are private parties or shade rentals available?",
+        "answer": "Yes. The operator advertises separately bookable cabanas, pavilions and an evening whole-waterpark rental with limited after-hours availability.",
+        "sourceUrl": "https://www.boomtownbay.com/"
+      },
+      {
+        "question": "Is the waterpark normally open in mid-October?",
+        "answer": "No regular October operation is posted in the 2026 season schedule. It ran daily through early August and on selected weekends until Labor Day; consult future dated schedules before visiting.",
+        "sourceUrl": "https://www.boomtownbay.com/"
+      }
+    ]
   },
   {
     "slug": "castaway-cove-wichita-falls",
@@ -1332,7 +1363,43 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A Burleson-area water park associated with the North Texas Jellystone campground.",
     "distinctiveNote": "Choose Pirates' Cove Burleson; it is not Baytown's municipal Pirates Bay.",
     "officialUrl": "https://piratescovefunzone.com/park-info/directions-parking/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "2461 S. Burleson Blvd., Burleson, TX 76028",
+    "visitorHighlights": [
+      "Pirates' Cove offers Big Pirate Family Slides including the open Caribbean Cork Screw and enclosed Texas Swirl tube rides.",
+      "Both Big Pirate Family Slides require a minimum of 48 inches and permit a combined tube weight of at most 395 pounds.",
+      "Other attractions include the six-lane Big Pirate Blue Racer, the Big Pirate Kamikaze steep drop and Lazy Alligator River.",
+      "Little Pirate Slide Structure provides smaller slides and adjacent shallow water; these beginner slides require a minimum height of 36 inches.",
+      "Free visitor parking is available; the operator offers a separate overflow lot with a shuttle when its main lot fills.",
+      "The operator identifies the waterpark as closed for its 2026 season, while the adjacent Pirates Cove arcade and grill remain open year-round."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can we use the waterpark in October 2026?",
+        "answer": "No. The operator says the Pirates' Cove waterpark is closed for the season; its arcade and grill follow a separate year-round operating schedule.",
+        "sourceUrl": "https://piratescovefunzone.com/"
+      },
+      {
+        "question": "How tall do riders need to be for the family tube slides?",
+        "answer": "The Caribbean Cork Screw and Texas Swirl tube slides require at least 48 inches in height, and the operator lists a combined maximum of 395 pounds per two-person tube.",
+        "sourceUrl": "https://piratescovefunzone.com/attraction/big-pirate-family-slides/"
+      },
+      {
+        "question": "What slides are suitable for young children?",
+        "answer": "The dedicated Little Pirate Slide Structure lists a 36-inch minimum height, with smaller slides next to a shallow activity pool. Parents may not ride those small slides together with children.",
+        "sourceUrl": "https://piratescovefunzone.com/attraction/little-pirate-slide-structure/"
+      },
+      {
+        "question": "Is parking free at Pirates' Cove?",
+        "answer": "Yes. The operator lists free main-lot parking at 2461 South Burleson Boulevard and an overflow lot with a free shuttle when needed.",
+        "sourceUrl": "https://piratescovefunzone.com/park-info/directions-parking/"
+      },
+      {
+        "question": "Is Pirates' Cove the same as North Texas Jellystone Park?",
+        "answer": "No. The waterpark is adjacent to North Texas Jellystone Park and promotes nearby overnight accommodation, but the campsite and the waterpark have separate booking and admission products.",
+        "sourceUrl": "https://piratescovefunzone.com/"
+      }
+    ]
   },
   {
     "slug": "palm-beach-moody-gardens",
@@ -1346,7 +1413,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A seasonal white-sand pool and water-play attraction at Moody Gardens.",
     "distinctiveNote": "Palm Beach uses a separate attraction calendar and should not be confused with Gulf beach access.",
     "officialUrl": "https://www.moodygardens.com/attractions/palm-beach",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1 Hope Blvd., Galveston, TX 77554",
+    "visitorHighlights": [
+      "Moody Gardens Palm Beach is a seasonal private white-sand beach attraction next to the complex's pyramid museums.",
+      "Waterpark attractions include a 650-foot lazy river, a wave pool and two slides from an 18-foot-tall tower.",
+      "An interactive splashpad has dumping buckets, spray arches and fountain features for younger visitors.",
+      "Guests can separately reserve cabanas, loungers and covered party tents, while free beach seating and shade are available in limited quantities.",
+      "The operator offers limited complimentary US Coast Guard-approved child life jackets and describes its own concessions including Shoreline Grill.",
+      "Palm Beach admission is distinct from tickets to the Rainforest, Discovery and Aquarium Pyramids; seasonal pass options may combine attractions."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Does Palm Beach have both a wave pool and a lazy river?",
+        "answer": "Yes. The operator lists both a 650-foot lazy river and separate wave pool, plus two 18-foot-tower slides and an interactive children’s splashpad.",
+        "sourceUrl": "https://www.moodygardens.com/attractions/palmbeach"
+      },
+      {
+        "question": "Can guests use the regular free shade chairs?",
+        "answer": "The operator advertises some complimentary beach chairs and umbrellas in limited supply, as well as separately rented cabanas and loungers that may need advance booking.",
+        "sourceUrl": "https://www.moodygardens.com/attractions/palmbeach"
+      },
+      {
+        "question": "Are life jackets offered for children?",
+        "answer": "Yes. Moody Gardens says a limited quantity of Coast Guard-approved children's life jackets is available free, or families may bring approved devices subject to operator rules.",
+        "sourceUrl": "https://www.moodygardens.com/attractions/palmbeach"
+      },
+      {
+        "question": "Does a Palm Beach ticket include the museum pyramids?",
+        "answer": "Not automatically. Palm Beach is listed as a separate seasonal attraction. Some upgraded annual memberships include multiple pyramids and other experiences, so check the exact ticket inclusions.",
+        "sourceUrl": "https://www.moodygardens.com/attractions/palmbeach"
+      }
+    ]
   },
   {
     "slug": "jolly-mon-lake-conroe",
@@ -1360,7 +1458,43 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Margaritaville Lake Resort's water park has a lazy river, slides and splash zone.",
     "distinctiveNote": "A named resort water park with advertised day passes; check resort access terms.",
     "officialUrl": "https://www.margaritavilleresorts.com/margaritaville-lake-resort-lake-conroe/experiences/jolly-mon-water-park",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "600 Margaritaville Pkwy., Montgomery, TX 77356",
+    "visitorHighlights": [
+      "Jolly Mon Water Park is inside Margaritaville Lake Resort, with a themed Lay-Z River and giant-bucket Splash Zone.",
+      "The Turn About waterslide complex has two slides dropping into a heated pool; the resort posts a minimum rider height of 48 inches.",
+      "The resort also lists an infinity pool, a 5 o'Clock Somewhere swim-up pool and separately rentable private cabanas.",
+      "Public day passes are offered with access to Jolly Mon and selected other resort amenities, separate from staying overnight.",
+      "The resort's current day-pass guide lists the waterslides as operating on Fridays through Sundays, subject to the actual attraction calendar.",
+      "The operator warns there is no lifeguard on duty in pool and slide zones, so adult supervision is particularly important."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Do guests need to reserve a hotel room to visit Jolly Mon?",
+        "answer": "No. Margaritaville Lake Resort offers standalone day passes with access to the waterpark and selected additional amenities, subject to capacity and the selected date.",
+        "sourceUrl": "https://www.margaritavilleresorts.com/margaritaville-lake-resort-lake-conroe/experiences/jolly-mon-water-park"
+      },
+      {
+        "question": "How tall must riders be for the Turn About slides?",
+        "answer": "The resort states a minimum height of 48 inches for both Turn About slides and requires adult supervision for children using the waterpark areas.",
+        "sourceUrl": "https://www.margaritavilleresorts.com/margaritaville-lake-resort-lake-conroe/experiences/jolly-mon-water-park"
+      },
+      {
+        "question": "Are the waterslides running daily?",
+        "answer": "Not necessarily. The resort's current day-pass information describes waterslide operation Friday through Sunday, and calendar or maintenance changes may affect availability.",
+        "sourceUrl": "https://www.margaritavilleresorts.com/margaritaville-lake-resort-lake-conroe/experiences/day-passes-and-cabana-rentals"
+      },
+      {
+        "question": "Are lifeguards stationed at the resort pools?",
+        "answer": "The resort's posted general pool and slide safety policies warn that a lifeguard is not on duty and direct guests to supervise children rather than relying on staff surveillance.",
+        "sourceUrl": "https://www.margaritavilleresorts.com/margaritaville-lake-resort-lake-conroe/experiences/jolly-mon-water-park"
+      },
+      {
+        "question": "Does renting a cabana replace buying admission?",
+        "answer": "The resort promotes optional standard and family cabanas, plus separate day-pass products. Review the terms for the chosen cabana and date to determine whether waterpark admission is included.",
+        "sourceUrl": "https://www.margaritavilleresorts.com/margaritaville-lake-resort-lake-conroe/experiences/jolly-mon-water-park"
+      }
+    ]
   },
   {
     "slug": "paradise-springs-grapevine",
@@ -1444,7 +1578,43 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Morgan's Wonderland's ultra-accessible water park emphasizes inclusive play, with multiple splash environments and waterproof wheelchairs.",
     "distinctiveNote": "The water park requires different admission from the theme park; waterproof wheelchairs are offered first-come, first-served.",
     "officialUrl": "https://morganswonderland.org/water-park-attractions/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "5223 David Edwards Dr., San Antonio, TX 78233",
+    "visitorHighlights": [
+      "Morgan's Inspiration Island is designed as an ultra-accessible waterpark with five distinct themed water-play areas, rather than large conventional thrill-slide towers.",
+      "Calypso Cove combines music and water play; Rainbow Reef supplies warmer splash-pad water; Will's Hang Ten Harbor features accessible surf-themed sprayers.",
+      "Harvey's Hideaway Bay includes a treehouse and wheelchair-ramp access, while Shipwreck Island includes a pirate ship with a bucket and wheelchair-accessible water cannons.",
+      "Guests may use a free waterproof wheelchair from the park's Wheelchair Valet subject to first-come availability; dedicated coverings support ventilators and tracheostomy equipment.",
+      "Accessibility provisions include adult-sized changing tables and transfer lifts in two of the accessible changing rooms.",
+      "Morgan's Wonderland general dry-park ticket does not by itself grant admission to the separate Inspiration Island waterpark; the operator requires an eligible dual-park ticket."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Does a regular Morgan's Wonderland ticket include the waterpark?",
+        "answer": "No. The operator specifies separate dual-park admission for Morgan's Inspiration Island and says regular dry-park tickets are insufficient. A spectator also needs the appropriate waterpark ticket.",
+        "sourceUrl": "https://morganswonderland.org/water-park-attractions/"
+      },
+      {
+        "question": "Are waterproof wheelchairs provided?",
+        "answer": "Yes. The operator provides waterproof manual and specialized transfer-support chairs without an additional fee, but availability is first come, first served rather than guaranteed by reservation.",
+        "sourceUrl": "https://morganswonderland.org/water-park-attractions/"
+      },
+      {
+        "question": "What if a visitor uses a ventilator or needs a transfer lift?",
+        "answer": "The operator provides free waterproof ventilator bags and tracheostomy protection covers, and lists several accessible changing rooms with adult-sized tables; two have transfer lifts.",
+        "sourceUrl": "https://morganswonderland.org/water-park-attractions/"
+      },
+      {
+        "question": "Are children and adults able to share accessible splash areas?",
+        "answer": "Yes. The five themed splash pads feature accessible features, including ramps, interactive water sprayers and wheelchair-accessible water cannons designed for inclusive play.",
+        "sourceUrl": "https://morganswonderland.org/water-park-attractions/"
+      },
+      {
+        "question": "Is the waterpark open on the dry park's October operating dates?",
+        "answer": "Do not assume so. The operator advertises Inspiration Island during its separate summer-season calendar, while Morgan's Wonderland dry-park operation can continue on different dates.",
+        "sourceUrl": "https://morganswonderland.org/tickets-passes/"
+      }
+    ]
   },
   {
     "slug": "canyon-aqua-park",
@@ -1681,7 +1851,43 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A floating inflatable course with slides and a water trampoline inside Lake Conroe Beach Park.",
     "distinctiveNote": "Participants must be at least six years old and wear provided life jackets; beach-park entry is separate.",
     "officialUrl": "https://www.lakeconroesplashzone.com/faqs",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "14968 TX-105, Montgomery, TX 77356",
+    "visitorHighlights": [
+      "Lake Conroe Splash Zone is a floating inflatable obstacle course inside Lake Conroe Beach Park, not a concrete slide park or hotel pool.",
+      "Obstacles include floating climbs, slides and other interactive challenges; all participant sessions are supervised by staff.",
+      "The operator sets a minimum participant age of six and requires every participant to wear a supplied life jacket.",
+      "Each waterpark obstacle session lasts 45 minutes, with an advance reservation recommended because sessions can sell out.",
+      "Admission to Lake Conroe Beach Park, including parking, is charged separately from the floating aqua-park session.",
+      "Lake and weather conditions can cancel or reschedule sessions, so calendar availability is not a guarantee of safe water conditions."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Do children under six get access to the course?",
+        "answer": "No. Lake Conroe Splash Zone's operator specifies that the floating water obstacle course is limited to participants age six and older.",
+        "sourceUrl": "https://www.lakeconroesplashzone.com/faqs"
+      },
+      {
+        "question": "How long is a waterpark session?",
+        "answer": "Each booked session lasts 45 minutes. The operator recommends reservations ahead of time because session capacity is limited, but may accept walk-ins where space remains.",
+        "sourceUrl": "https://www.lakeconroesplashzone.com/faqs"
+      },
+      {
+        "question": "Are life jackets included and mandatory?",
+        "answer": "Yes. Staff provide a life jacket to every participant, and wearing one is required regardless of age or swimming skill; an on-site briefing covers additional safety rules.",
+        "sourceUrl": "https://www.lakeconroesplashzone.com/faqs"
+      },
+      {
+        "question": "Is parking included with the obstacle-course ticket?",
+        "answer": "Not automatically. Lake Conroe Splash Zone operates inside Lake Conroe Beach Park, where guests must buy a separate beach-park entry pass that covers parking and park amenities.",
+        "sourceUrl": "https://www.lakeconroesplashzone.com/faqs"
+      },
+      {
+        "question": "Where is the floating waterpark located?",
+        "answer": "The operator gives the entrance as Lake Conroe Beach Park at 14968 Texas Highway 105 in Montgomery, Texas 77356; weather or lake conditions can cancel a reserved session.",
+        "sourceUrl": "https://www.lakeconroesplashzone.com/faqs"
+      }
+    ]
   },
   {
     "slug": "conroe-water-park",
@@ -1709,7 +1915,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Belton's family-run summer park offers pools, slides and a lazy river rather than a hotel-restricted water-play facility.",
     "distinctiveNote": "Parking is free, outside food is permitted subject to cooler rules, and seasonal operations stop in colder months.",
     "officialUrl": "https://www.summerfunwaterpark.com/",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1410 Waco Rd., Belton, TX 76513",
+    "visitorHighlights": [
+      "Summer Fun Water Park is a family-owned seasonal Belton waterpark whose official site announces it is closed for winter.",
+      "The operator lists free visitor parking and permits families to bring picnic food or drinks subject to a cooler fee.",
+      "Water areas include a main swimming pool and lazy river, with separate swim-diaper and flotation rules for toddlers age two and younger.",
+      "Day-visit tickets are sold at the gate rather than through an official advance online checkout.",
+      "The operator also advertises separate adults-only evening events with different age, food and admission restrictions."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Summer Fun open in October 2026?",
+        "answer": "The operator’s public homepage says the waterpark is closed for winter, so its old summer operating-hours text should not be treated as today's hours.",
+        "sourceUrl": "https://www.summerfunwaterpark.com/"
+      },
+      {
+        "question": "Can visitors bring food and a picnic cooler?",
+        "answer": "Yes. The family-owned park allows outside food and beverages, subject to a cooler fee, but specifically prohibits glass containers.",
+        "sourceUrl": "https://www.summerfunwaterpark.com/"
+      },
+      {
+        "question": "Are parking and online advance tickets available?",
+        "answer": "Regular visitor parking is free. The park says its normal day-visit tickets are purchased at the entrance gate rather than requiring advance online ticket purchases.",
+        "sourceUrl": "https://www.summerfunwaterpark.com/"
+      },
+      {
+        "question": "Can infants or toddlers use the pools?",
+        "answer": "Children two and under can use the main swimming pool and lazy river with a swim diaper, an approved Coast Guard life jacket, and direct guardian supervision.",
+        "sourceUrl": "https://www.summerfunwaterpark.com/"
+      }
+    ]
   },
   {
     "slug": "surf-and-swim-garland",
