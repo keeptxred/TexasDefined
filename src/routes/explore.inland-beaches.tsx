@@ -71,37 +71,15 @@ function TexasInlandBeaches() {
           {inlandSwimmingBeaches.map((beach) => <li key={beach.slug}><a href={`/explore/inland-beaches/${beach.slug}`} className="text-sm font-semibold underline decoration-border underline-offset-4 hover:text-primary">{beach.name} · {beach.county} County</a></li>)}
         </ul>
       </nav>
-      <div className="mt-12 space-y-10">
-        {inlandSwimmingBeaches.map((beach) => <article key={beach.slug} id={beach.slug} className="border-t border-border pt-7">
-          <p className="eyebrow text-primary">{beach.lake} · {beach.county} County · {beach.nearestTown}</p>
-          <h2 className="mt-2 font-display text-3xl sm:text-4xl">{beach.name}</h2>
-          <p className="mt-4 max-w-4xl text-base leading-8">{beach.experience}</p>
-          <Link to="/explore/inland-beaches/$slug" params={{ slug: beach.slug }} className="mt-4 inline-block font-semibold text-primary underline decoration-primary/40 underline-offset-4">Read the full {beach.name} guide →</Link>
-          <div className="mt-6 grid gap-6 md:grid-cols-2">
-            <div>
-              <h3 className="font-semibold">Getting to the correct beach</h3>
-              <p className="mt-2 text-sm leading-7 text-muted-foreground">{beach.arrival}</p>
-            </div>
-            <div>
-              <h3 className="font-semibold">Swimming and safety</h3>
-              <p className="mt-2 text-sm leading-7 text-muted-foreground">{beach.safety}</p>
-            </div>
-            <div>
-              <h3 className="font-semibold">What the managing source actually confirms</h3>
-              <p className="mt-2 text-sm leading-7 text-muted-foreground">{beach.evidence}</p>
-            </div>
-            <div>
-              <h3 className="font-semibold">Build a better trip</h3>
-              <p className="mt-2 text-sm leading-7 text-muted-foreground">{beach.nearby}</p>
-            </div>
+      <div className="mt-12 grid gap-x-8 sm:grid-cols-2">
+        {inlandSwimmingBeaches.map((beach) => <article key={beach.slug} id={beach.slug} className="border-t border-border py-6">
+          <p className="eyebrow text-primary">{beach.lake} · {beach.county} County</p>
+          <h2 className="mt-3 font-display text-2xl"><Link to="/explore/inland-beaches/$slug" params={{ slug: beach.slug }} className="underline decoration-border underline-offset-4 hover:text-primary">{beach.name}</Link></h2>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">Officially documented swim-beach access near {beach.nearestTown}. Read the individual page for the correct park unit, current-operator links, parking arrangements, safety considerations and nearby activities.</p>
+          <div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold">
+            <Link to="/explore/inland-beaches/$slug" params={{ slug: beach.slug }} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Individual beach guide →</Link>
+            {beach.county.split(" / ").map((county) => <a key={county} href={`/county/${county.trim().toLowerCase().replace(/\s+/g, "-")}`} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{county.trim()} County →</a>)}
           </div>
-          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
-            {beach.county.split(" /").map((county) => <a key={county} href={`/county/${county.trim().toLowerCase().replace(/\s+/g,"-")}`} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{county} County guide →</a>)}
-          </div>
-          <p className="mt-5 text-sm font-semibold">
-            <a href={beach.officialUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Confirm status with {beach.managingAgency} →</a>
-            <span className="ml-3 text-muted-foreground">Source reviewed {beach.checkedAt}</span>
-          </p>
         </article>)}
       </div>
       <section className="mt-14 border-t border-border pt-8" aria-labelledby="freshwater-safety">
