@@ -46,11 +46,11 @@ for (const path of plan.selectedPaths) {
         throw new Error('Generic Texas Data brief is missing the server-rendered CSV download button');
       }
       if (footballGameNightPages.includes(path)) {
-        const guide = html.search(/<h2\\b[^>]*>\\s*Game-night essentials\\s*<\\/h2>/i);
-        const season = html.search(/<section\\b[^>]*\\bid=["']football-current-season["']/i);
+        const guide = html.indexOf('Game-night essentials');
+        const season = html.indexOf('id="football-current-season"');
         const overview = html.indexOf('Program overview');
         if (guide < 0 || season <= guide || overview <= season) throw new Error('Football game-night or current-season SSR hierarchy missing');
-        if (!/<a\\b[^>]*\\bhref=["']#football-current-season["']/.test(html)) throw new Error('Football schedule jump link missing from SSR');
+        if (!html.includes('href="#football-current-season"')) throw new Error('Football schedule jump link missing from SSR');
         if (!html.includes('Browse the TexasDefined shop')) throw new Error('Football commerce link absent from SSR');
       }
       results.push({ path, passed: true, attempt }); failure = null; break;
