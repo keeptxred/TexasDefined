@@ -38,7 +38,8 @@ function Page() {
     faq,
   } = Route.useLoaderData();
   const schoolName = displayName;
-  const footballName = identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`;
+  const footballName = slug === 'aubrey' ? 'Aubrey Chaparrals Football'
+    : identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`;
   // Summarize the verified editorial ledger before the deeper school reference sections.
   const latestResult = editorial?.season?.games.filter((game) => game.result).at(-1);
   const nextListedFixture = editorial?.season?.games.find((game) => !game.result);
