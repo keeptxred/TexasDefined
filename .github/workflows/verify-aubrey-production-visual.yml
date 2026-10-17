@@ -9,6 +9,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  statuses: write
 concurrency:
   group: aubrey-one-page-production-certification
   cancel-in-progress: true
@@ -28,7 +29,14 @@ jobs:
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
       - name: Verify Aubrey live desktop and mobile page
+        id: browser
         run: node scripts/ci/verify-aubrey-production-visual.mjs
+      - name: Publish targeted browser certification result
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BROWSER_OUTCOME: ${{ steps.browser.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-aubrey-production-browser "$BROWSER_OUTCOME" "Aubrey desktop/mobile production page verified" "Aubrey desktop/mobile browser check failed — open run artifact"
       - name: Save Aubrey browser screenshots and assertion report
         if: always()
         uses: actions/upload-artifact@v4
