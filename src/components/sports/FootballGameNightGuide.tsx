@@ -165,6 +165,8 @@ export function FootballGameNightGuide({
           Browse the TexasDefined shop →
         </a>
         <span className="text-xs text-muted-foreground">Independent designs, not official school merchandise.</span>
+        <a href="/texas-high-school-football-matchups" className="font-semibold text-primary underline underline-offset-4">Scores &amp; matchups →</a>
+        <a href="/texas-high-school-football-playoff-brackets" className="font-semibold text-primary underline underline-offset-4">Playoff brackets →</a>
       </div>
     </aside>
   );
