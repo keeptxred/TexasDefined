@@ -4,6 +4,10 @@ on:
   pull_request:
     paths:
       - 'src/data/coastal-places.ts'
+      - 'src/data/coastal-beach-editorial.ts'
+      - 'src/components/content/CoastalBeachFieldGuide.tsx'
+      - 'src/components/content/CountyInlandSwimmingBeaches.tsx'
+      - 'src/routes/destination.$slug.tsx'
       - 'src/data/inland-beach-authority.ts'
       - 'src/routes/explore.inland-beaches.tsx'
       - 'scripts/data/validate-inland-beach-authority.mjs'
@@ -21,6 +25,10 @@ on:
     branches: [main]
     paths:
       - 'src/data/coastal-places.ts'
+      - 'src/data/coastal-beach-editorial.ts'
+      - 'src/components/content/CoastalBeachFieldGuide.tsx'
+      - 'src/components/content/CountyInlandSwimmingBeaches.tsx'
+      - 'src/routes/destination.$slug.tsx'
       - 'src/data/inland-beach-authority.ts'
       - 'src/routes/explore.inland-beaches.tsx'
       - 'scripts/data/validate-inland-beach-authority.mjs'
