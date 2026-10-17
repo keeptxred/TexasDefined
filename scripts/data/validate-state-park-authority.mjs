@@ -315,6 +315,27 @@ for (const marker of [
   '2026-10-17', 'containerized', 'visitorFaqs:', 'sourceUrl:',
 ]) assertContains(inksVisitor, marker, `Inks Lake visitor FAQ or original guide missing: ${marker}`);
 
+// Current TPWD visitor alerts for four specific parks: protect actual
+// fire, ramp, full-park and partial facility closure distinctions.
+const fourParkAlertGuide = read("src/data/state-park-four-alert-authority.ts");
+assertContains(curation, "applyFourParkAlertAuthority,", "Four source-backed TPWD park alert narratives missing from visitor guide pipeline");
+for (const [slug, markers] of [
+  ["dinosaur-valley-state-park", ["WOOD", "charcoal", "January 10", "river crossing"]],
+  ["caddo-lake-state-park", ["August 28", "both wood and charcoal", "boat ramp"]],
+  ["brazos-bend-state-park", ["November 17", "charcoal", "group camp"]],
+  ["government-canyon-state-natural-area", ["October 22", "December 7", "containerized"]],
+]) {
+  const start = authority.indexOf(`  "${slug}": {`);
+  const end = authority.indexOf('\n  "', start + 8);
+  const record = start >= 0 ? authority.slice(start, end >= 0 ? end : undefined) : "";
+  if (!record.includes('checkedAt: "2026-10-17"')) failures.push(`Official October TPWD evidence review date missing for ${slug}`);
+  if (!record.includes('/alert')) failures.push(`Official TPWD alert source URL missing for ${slug}`);
+  if (!fourParkAlertGuide.includes(`"${slug}"`)) failures.push(`Visitor authority narrative missing for ${slug}`);
+  for (const marker of markers) {
+    if (!(record + fourParkAlertGuide).toLowerCase().includes(marker.toLowerCase())) failures.push(`Park ${slug} lacks closure/site fact ${marker}`);
+  }
+}
+
 if (failures.length) {
   for (const problem of failures) process.stderr.write(`FAIL ${problem}\n`);
   process.exitCode = 1;
