@@ -1,11 +1,16 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
-import { HORSE_RACING_REVIEW_DATE, TEXAS_HORSE_RACING_INSTITUTIONS } from '@/data/horse-racing-authority';
+import { HORSE_RACING_REVIEW_DATE, TEXAS_HORSE_RACING_INSTITUTIONS, TEXAS_RACING_ORGANIZATIONS, type TexasRacingOrganization } from '@/data/horse-racing-authority';
 const base = 'https://texasdefined.com';
 export const Route = createLazyFileRoute('/horse-racing/$slug')({ component: TexasHorseRacingInstitutionPage });
 
 function TexasHorseRacingInstitutionPage() {
   const { record } = Route.useLoaderData();
+  if (record.category === 'organization') return <TexasRacingOrganizationProfile record={record} />;
+  return <TrackProfile record={record} />;
+}
+
+function TrackProfile({ record }: { record: (typeof TEXAS_HORSE_RACING_INSTITUTIONS)[number] }) {
   const live = record.category === 'live';
   const peers = TEXAS_HORSE_RACING_INSTITUTIONS.filter((r) => r.slug !== record.slug && r.category === 'live');
   const answers = live ? [
@@ -124,6 +129,89 @@ function TexasHorseRacingInstitutionPage() {
           <ul className="mt-5 space-y-3">
             {record.sources.map((s) => <li key={s.url}><a className="text-sm font-semibold text-primary underline" href={s.url} target="_blank" rel="noopener noreferrer">{s.label} ↗</a></li>)}
           </ul>
+        </section>
+      </main>
+    </Container>
+  </>;
+}
+
+function TexasRacingOrganizationProfile({ record }: { record: TexasRacingOrganization }) {
+  const officialLinks = record.sources.filter((source) => source.url !== record.url);
+  const faq = [
+    { question: `What does ${record.name} do?`, answer: record.role + '. Its official website supplies current programs, requirements and updates.' },
+    { question: `Is ${record.name} a place to watch live horse racing?`, answer: 'No. It is an administrative or industry organization. Live racing happens at Lone Star Park, Sam Houston Race Park, Retama Park and Gillespie County Fairgrounds on approved dates.' },
+    { question: `Where is ${record.name} based?`, answer: `${record.address}. Verify office hours and any appointment requirements before visiting.` },
+  ];
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      { '@type': 'WebPage', '@id': `${base}${record.canonicalPath}#page`, name: `${record.name} — Texas racing organization guide`, description: record.introduction, url: `${base}${record.canonicalPath}`, dateModified: record.sourceDate, citation: record.sources.map((source) => source.url) },
+      { '@type': record.slug === 'texas-racing-commission' ? 'GovernmentOrganization' : 'Organization', '@id': `${base}${record.canonicalPath}#organization`, name: record.name, description: record.role, url: record.url,
+        address: { '@type': 'PostalAddress', streetAddress: record.address.split(',')[0], addressLocality: record.city, addressRegion: 'TX', addressCountry: 'US' } },
+      { '@type': 'BreadcrumbList', itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: base },
+        { '@type': 'ListItem', position: 2, name: 'Texas horse racing', item: `${base}/horse-racing` },
+        { '@type': 'ListItem', position: 3, name: record.name, item: `${base}${record.canonicalPath}` },
+      ] },
+      { '@type': 'FAQPage', mainEntity: faq.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) },
+    ],
+  };
+  return <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+    <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
+      <main className="mx-auto max-w-5xl">
+        <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-wide text-muted-foreground">
+          <a href="/" className="hover:text-foreground">Texas Defined</a><span className="mx-2">/</span>
+          <a href="/horse-racing" className="hover:text-foreground">Horse racing</a><span className="mx-2">/</span>
+          <span aria-current="page">{record.name}</span>
+        </nav>
+        <header className="border-b border-border py-10">
+          <p className="eyebrow text-primary">Statewide horse racing institution · {record.county}</p>
+          <h1 className="mt-3 font-display text-5xl leading-tight sm:text-7xl">{record.name}</h1>
+          <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">{record.introduction}</p>
+          <p className="mt-5 text-xs text-muted-foreground">Editorial research reviewed {record.sourceDate}. This is an institution profile, not a spectator racetrack or a hotel affiliate promotion.</p>
+        </header>
+        <section className="grid gap-8 border-b border-border py-10 md:grid-cols-2">
+          <div>
+            <p className="eyebrow text-primary">What it does</p><h2 className="mt-2 font-display text-3xl">Role in Texas racing</h2>
+            <p className="mt-4 text-base leading-8 text-muted-foreground">{record.role}.</p>
+            <a href={record.url} target="_blank" rel="noopener noreferrer" className="mt-6 inline-block border border-primary px-5 py-3 text-sm font-semibold text-primary hover:underline">Official organization website ↗</a>
+          </div>
+          <div className="border-t border-border pt-5 md:border-t-0">
+            <p className="eyebrow text-primary">Official office · not a racetrack</p>
+            <h2 className="mt-2 font-display text-2xl">{record.city}, {record.county}</h2>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{record.address}</p>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Confirm visiting rules and hours with the organization. Some applications, especially racing licenses, are handled elsewhere.</p>
+            <a href={`/county/${record.countySlug}`} className="mt-4 inline-block text-sm font-semibold text-primary underline">Explore {record.county} →</a>
+          </div>
+        </section>
+        <section className="border-b border-border py-10">
+          <p className="eyebrow text-primary">Programs and responsibilities</p>
+          <h2 className="mt-2 font-display text-3xl">How the organization works</h2>
+          <div className="mt-5 space-y-5">{record.context.map((text) => <p key={text} className="text-base leading-8 text-muted-foreground">{text}</p>)}</div>
+        </section>
+        <section className="border-b border-border py-10">
+          <p className="eyebrow text-primary">Useful resources</p><h2 className="mt-2 font-display text-3xl">What to do next</h2>
+          <ul className="mt-5 space-y-4">{record.visitorNotes.map((note) => <li key={note} className="border-t border-border pt-4 text-sm leading-7 text-muted-foreground">{note}</li>)}</ul>
+          <a href="/horse-racing" className="mt-6 inline-block font-semibold text-primary underline">Compare all four Texas live horse racetracks →</a>
+        </section>
+        <section className="border-b border-border py-10">
+          <p className="eyebrow text-primary">Other statewide institutions</p><h2 className="mt-2 font-display text-3xl">Related Texas horse-racing organizations</h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">{TEXAS_RACING_ORGANIZATIONS.filter((item) => item.slug !== record.slug).map((item) => (
+            <a key={item.slug} href={item.canonicalPath} className="border-t border-border py-4 hover:text-primary">
+              <strong className="block font-display text-xl">{item.name} →</strong>
+              <span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.role}</span>
+            </a>
+          ))}</div>
+        </section>
+        <section className="border-b border-border py-10">
+          <p className="eyebrow text-primary">Frequently asked questions</p><h2 className="mt-2 font-display text-3xl">About {record.name}</h2>
+          <dl className="mt-6 grid gap-5 sm:grid-cols-2">{faq.map((item) => <div key={item.question} className="border-t border-border pt-5"><dt className="font-display text-xl">{item.question}</dt><dd className="mt-3 text-sm leading-7 text-muted-foreground">{item.answer}</dd></div>)}</dl>
+        </section>
+        <section className="py-10">
+          <p className="eyebrow text-primary">Verification</p><h2 className="mt-2 font-display text-3xl">Official sources</h2>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">Original organization sources, not paid placements. This page is an independent Texas Defined guide and does not represent the organization.</p>
+          <ul className="mt-5 space-y-3">{officialLinks.map((source) => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-primary underline">{source.label} ↗</a></li>)}</ul>
         </section>
       </main>
     </Container>
