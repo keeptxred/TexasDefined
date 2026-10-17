@@ -1,3 +1,4 @@
+import { texasWaterParks } from "@/data/texas-water-parks";
 import { hasUnresolvedPublicRouteToken } from "./public-route-tokens";
 import publishedSoftballIndex from '@/data/softball/published-team-index.json';
 
@@ -10,6 +11,8 @@ export const INDEXABLE_STATIC_PATHS = [
   "/explore/attractions-comparison",
   "/explore/museums",
   "/explore/aquariums",
+  "/explore/water-parks",
+  ...texasWaterParks.map((park) => `/explore/water-parks/${park.slug}`),
   "/explore/casinos",
   "/explore/casinos/kickapoo-lucky-eagle",
   "/explore/casinos/naskila-livingston",
