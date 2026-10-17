@@ -1,0 +1,47 @@
+name: Aubrey photographic hero one-page browser QA
+on:
+  push:
+    branches:
+      - qa/aubrey-photographic-hero-20261017
+    paths:
+      - scripts/ci/verify-aubrey-photo-production.mjs
+      - .github/workflows/qa-aubrey-photographic-hero.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  statuses: write
+concurrency:
+  group: aubrey-photo-one-page-acceptance
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated Chrome driver
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify only live Aubrey photo hero, layout and team details on desktop/mobile
+        id: browser
+        run: node scripts/ci/verify-aubrey-photo-production.mjs
+      - name: Publish Aubrey hero browser verdict
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BROWSER_OUTCOME: ${{ steps.browser.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-aubrey-photo-browser "$BROWSER_OUTCOME" "Aubrey photograph desktop/mobile checks passed" "Aubrey photo/browser check failed; review screenshots"
+      - name: Preserve Aubrey desktop/mobile screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aubrey-photo-browser-acceptance
+          path: artifacts/aubrey-photo-visual/
+          if-no-files-found: warn
+          retention-days: 14
