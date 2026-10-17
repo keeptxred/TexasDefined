@@ -280,6 +280,23 @@ for (const [slug, facts] of parkOct17) {
 }
 if (!authority.includes('url: "https://tpwd.texas.gov/state-parks/atlanta/alert"')) failures.push("Atlanta primary alert must remain linked as a supporting TPWD source.");
 
+// Substantive, park-specific editorial depth is not a generic SEO filler pass.
+const sixAuthority = read("src/data/state-park-six-authority-wave.ts");
+assertContains(curation, "applyStateParkSixAuthorityWave,", "Six TPWD place guides must be in the runtime curator pipeline");
+assertContains(sixAuthority, 'sourceCheckedAt: "2026-10-17"', "Six individual guides must retain the research date");
+assertContains(sixAuthority, "existing.join(\" \").length > 1800", "Researched older narratives must not be blindly discarded");
+for (const [slug, marker] of [
+  ["atlanta-state-park", "4.8 miles of trails"],
+  ["bonham-state-park", "2.7-mile Bois d'Arc Trail"],
+  ["daingerfield-state-park", "2.4-mile Rustling Leaves"],
+  ["cooper-lake-state-park", "10.5-mile Buggy Whip Trail"],
+  ["lake-bob-sandlin-state-park", "3.3 miles of wooded trails"],
+  ["lake-brownwood-state-park", "Nopales Ridge Trail"],
+]) {
+  assertContains(sixAuthority, `"${slug}"`, `Park authority narrative missing: ${slug}`);
+  assertContains(sixAuthority, marker, `Specific verified landmark/activity missing for ${slug}`);
+}
+
 if (failures.length) {
   for (const problem of failures) process.stderr.write(`FAIL ${problem}\n`);
   process.exitCode = 1;
