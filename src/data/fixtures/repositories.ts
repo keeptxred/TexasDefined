@@ -1,3 +1,4 @@
+import { texasNpsHistoricTrailGuides } from "./texas-nps-historic-trail-guides";
 import type {
   ArticleRepository,
   CollectionRepository,
@@ -39,6 +40,7 @@ import {
  */
 
 const editorialArticles = [
+  ...texasNpsHistoricTrailGuides,
   ...exploreFeatureArticleStubs,
   ...coreEvergreenArticleStubs,
   ...lazyEvergreenArticleStubs,
