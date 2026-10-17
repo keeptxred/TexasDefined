@@ -3326,7 +3326,9 @@ const ExploreWaterParksIndexRoute = ExploreWaterParksIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => ExploreWaterParksRoute,
-} as any).lazy(() => import('./routes/explore.water-parks.index.lazy').then((d) => d.Route))
+} as any).lazy(() =>
+  import('./routes/explore.water-parks.index.lazy').then((d) => d.Route),
+)
 const ExploreCasinosIndexRoute = ExploreCasinosIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -3461,7 +3463,9 @@ const ExploreWaterParksSlugRoute = ExploreWaterParksSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => ExploreWaterParksRoute,
-} as any).lazy(() => import('./routes/explore.water-parks.$slug.lazy').then((d) => d.Route))
+} as any).lazy(() =>
+  import('./routes/explore.water-parks.$slug.lazy').then((d) => d.Route),
+)
 const ExploreTripTokenRoute = ExploreTripTokenRouteImport.update({
   id: '/explore/trip/$token',
   path: '/explore/trip/$token',

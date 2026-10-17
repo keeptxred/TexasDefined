@@ -1276,6 +1276,48 @@ export const texasWaterParks: WaterParkGuide[] = [
     "distinctiveNote": "The City of Mesquite lists 2026 summer service and separate reservation hours for the 500-person complex; the Texas ride-sticker register corroborates the city's open-body flume slides, but verify slide operations directly.",
     "officialUrl": "https://cityofmesquite.com/3491/Brunhilde-Nystrom-City-Lake-Aquatic-Cent",
     "reviewedAt": "2026-10-17"
+  },
+  {
+    "slug": "desoto-moseley-pool",
+    "name": "Moseley Pool Water Park",
+    "city": "DeSoto",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Seasonal City of DeSoto admission with separate resident and nonresident rates",
+    "summary": "DeSoto's waterpark-style Moseley Pool provides a beach-style zero-depth entry, two large waterslides, spray stations, water play fixtures and a separate lap-swim area.",
+    "distinctiveNote": "The city's 2026 public schedule has ended and its official page is preparing for summer 2027. Check resident pricing, no-cash admission policy, slide rules and reopen dates with DeSoto Parks and Recreation.",
+    "officialUrl": "https://www.desototexas.gov/661/Moseley-Pool",
+    "reviewedAt": "2026-10-17"
+  },
+  {
+    "slug": "edinburg-municipal-waterpark",
+    "name": "Edinburg Municipal Waterpark",
+    "city": "Edinburg",
+    "county": "Hidalgo",
+    "region": "South Texas",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Public city seasonal swim sessions and family admission rates",
+    "summary": "Edinburg's multi-pool municipal waterpark features a 125-foot figure-eight waterslide, family leisure swimming, water basketball, shaded tables and an accessible Pirates Cove water-play section.",
+    "distinctiveNote": "The City of Edinburg lists its outdoor aquatic season as April through September and describes Pirates Cove as a separate new water-play area within its aquatic offerings; check posted session times and slide access before arrival.",
+    "officialUrl": "https://www.cityofedinburg.com/community/parks_recreation/aquatics_division.php",
+    "reviewedAt": "2026-10-17"
+  },
+  {
+    "slug": "midland-doug-russell",
+    "name": "Doug Russell Aquatic Center",
+    "city": "Midland",
+    "county": "Midland",
+    "region": "West Texas",
+    "setting": "Outdoor",
+    "kind": "Municipal water park",
+    "admission": "Seasonal Midland public aquatic-center admission with day passes and swim punch cards",
+    "summary": "Midland's Doug Russell outdoor aquatics complex offers public swim sessions alongside a multi-slide tower, larger body slides and water-play features recorded in the city's renovation program.",
+    "distinctiveNote": "Midland's official 2026 swimming calendar lists Doug Russell's last opening date as September 7. Its municipal renovation materials include slide painting, tower repairs and feature replacement; confirm which rides will be operational for the 2027 season.",
+    "officialUrl": "https://www.midlandtexas.gov/facilities/facility/details/doug-russell-pool-4",
+    "reviewedAt": "2026-10-17"
   }
 ];
 export const texasWaterParksBySlug = new Map(texasWaterParks.map((park) => [park.slug, park]));
