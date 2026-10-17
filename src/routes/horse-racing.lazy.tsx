@@ -52,6 +52,15 @@ function TexasHorseRacingIndex() {
           <figcaption className="mt-3 text-xs leading-6 text-muted-foreground">Lone Star Park in Grand Prairie (not the Gillespie County Fairgrounds). Photo by <a className="underline" href="https://commons.wikimedia.org/wiki/File:Lone_Star_Park.jpg" target="_blank" rel="noopener noreferrer">Jax 0677 / Wikimedia Commons</a>, <a className="underline" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.</figcaption>
         </figure>
 
+        <section className="border-b border-border py-7">
+          <p className="eyebrow text-primary">When the next races happen</p>
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-5">
+            <div><h2 className="font-display text-3xl">2026–27 live race calendar and track comparison</h2>
+              <p className="mt-2 text-sm leading-7 text-muted-foreground">Meet windows, Thoroughbreds versus Quarter Horses, official schedules and the difference between live and simulcast racing.</p></div>
+            <a className="border border-primary px-5 py-3 text-sm font-semibold text-primary hover:underline" href="/horse-racing/calendar">Compare all four tracks and see the calendar →</a>
+          </div>
+        </section>
+
         <section className="border-b border-border py-12" aria-labelledby="live-tracks">
           <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
             <div><p className="eyebrow text-primary">Go to the races</p><h2 id="live-tracks" className="mt-2 font-display text-3xl">Texas's four live racing venues</h2>
@@ -99,12 +108,12 @@ function TexasHorseRacingIndex() {
         <section className="border-b border-border py-12" aria-labelledby="associations">
           <p className="eyebrow text-primary">Owners, breeders and racing professionals</p>
           <h2 id="associations" className="mt-2 font-display text-3xl">Texas horse-racing institutions and official resources</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The track directory covers destinations and license histories. These statewide organizations handle the regulations, Texas-bred programs, associations, race conditions and professional resources that make up the wider horse-racing industry.</p>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These four organizations regulate or support Texas racing, breeding, ownership and horsemen. Each has an independently researched institution guide, with official program links and county-level context. Administrative offices are not racetracks.</p>
           <div className="mt-6 grid gap-x-8 md:grid-cols-2">
             {TEXAS_RACING_ORGANIZATIONS.map((institution) => <article key={institution.name} className="border-t border-border py-5">
               <h3 className="font-display text-2xl">{institution.name}</h3>
               <p className="mt-2 text-sm leading-7 text-muted-foreground">{institution.role}</p>
-              <a href={institution.url} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary">Official organization ↗</a>
+              <a href={institution.canonicalPath} className="mt-3 inline-block text-sm font-semibold text-primary underline">Complete institution profile →</a><span className="mx-3 text-muted-foreground">·</span><a href={institution.url} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary">Official website ↗</a>
             </article>)}
           </div>
         </section>
@@ -119,7 +128,7 @@ function TexasHorseRacingIndex() {
         <section className="py-12">
           <p className="eyebrow text-primary">Editorial standards</p><h2 className="mt-2 font-display text-3xl">What this directory includes—and excludes</h2>
           <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The count is limited to the Texas Racing Commission's licensed horse-racing track institutions, including historical inactive licenses. It does not imply that every horse show, barrel-racing arena, training barn, private ranch or unlicensed bush track is a public pari-mutuel racetrack. The commission's reports include greyhound licenses separately; this is strictly a horse-racing directory. Historical license records were last cross-checked against the commission's available strategic plans; operating status should always be reconfirmed before travel.</p>
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">Primary source: <a href={TXRC_STRATEGIC_PLAN} className="font-semibold underline" target="_blank" rel="noopener noreferrer">Texas Racing Commission strategic plan</a>. Cross-reference: <a href="/sports-venues/horse-racing" className="font-semibold underline">live horse-racing venues</a>, <a href="/sports-venues/rodeo-western" className="font-semibold underline">rodeo and equestrian venues</a> and <a href="/sports-venues" className="font-semibold underline">all Texas sports venues</a>. We do not promote wagering services or claim any betting partner affiliation.</p>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">Primary source: <a href={TXRC_STRATEGIC_PLAN} className="font-semibold underline" target="_blank" rel="noopener noreferrer">Texas Racing Commission strategic plan</a>. Cross-reference: <a href="/horse-racing" className="font-semibold underline">live horse-racing venues</a>, <a href="/sports-venues/rodeo-western" className="font-semibold underline">rodeo and equestrian venues</a> and <a href="/sports-venues" className="font-semibold underline">all Texas sports venues</a>. We do not promote wagering services or claim any betting partner affiliation.</p>
           <a className="mt-5 inline-block border border-primary px-5 py-3 text-sm font-semibold text-primary hover:bg-primary hover:text-primary-foreground" href="/partner-with-us?type=sports-travel&source=%2Fhorse-racing#partnership-form-heading">Explore clearly disclosed sports-travel sponsorships →</a>
         </section>
       </main>
