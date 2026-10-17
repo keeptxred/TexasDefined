@@ -25,7 +25,7 @@ export function normalizeTabcRows(rows, previous = []) {
     const name = tidy(row.trade_name || row.owner);
     const city = tidy(row.city);
     const county = tidy(row.county).replace(/\s+County$/i, '');
-    if (!/^\d+$/.test(licenseId) || !name || !city || !county) continue;
+    if (!licenseId || !name || !city || !county) continue;
     const slug = oldSlugs.get(licenseId) || (slugify(name) + '-' + slugify(city) + '-' + licenseId);
     deduped.set(licenseId, {
       licenseId, slug, name, city, county,
