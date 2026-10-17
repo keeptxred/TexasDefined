@@ -15,6 +15,74 @@ const person = (name: string, url?: string): EventSchemaEntity => ({ type: "Pers
 // Optional properties are intentionally omitted when the current event year has no stable public value.
 export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
   {
+    slug: "amigo-airsho",
+    organizer: organization("Amigo Airsho", "https://www.amigoairsho.com/home"),
+    image: {
+      url: "https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/2410/8695491/1000w_q95.jpg",
+      alt: "Vanguard Squadron aerobatic aircraft performing at Amigo Airsho on Fort Bliss, October 12, 2024; archival photo, not a 2026 performer announcement",
+      sourceUrl: "https://www.dvidshub.net/image/8695491/amigo-airsho-returns-fort-bliss",
+      sourceType: "government-open",
+      rightsNote: "U.S. Army photo by Sgt. Charlie Duke at Amigo Airsho, Oct. 12, 2024; DVIDS identifies the photograph as public domain; historical, not current-year lineup.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [
+      { label: "Amigo Airsho 2026 official schedule", url: "https://www.amigoairsho.com/home" },
+      { label: "Amigo Airsho 2026 tickets", url: "https://www.amigoairsho.com/tickets" },
+      { label: "Amigo Airsho visitor and base access FAQ", url: "https://www.amigoairsho.com/faqs" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "texas-capital-air-show",
+    organizer: organization("Texas Capital Air Show", "https://texascapitalairshow.com/"),
+    sources: [
+      { label: "Texas Capital Air Show 2026 schedule", url: "https://texascapitalairshow.com/guest-information/schedule/" },
+      { label: "Texas Capital Air Show admission and parking", url: "https://texascapitalairshow.com/tickets/" },
+      { label: "Texas Capital Air Show accessibility information", url: "https://texascapitalairshow.com/guest-information/accessibility/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "bluebonnet-airshow",
+    organizer: organization("Commemorative Air Force Highland Lakes Squadron", "https://www.bluebonnetairshow.com/"),
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/4/49/C-47B_Skytrain_-serial_43-49942_Bluebonnet_Belle-26Oct2008.jpg",
+      alt: "The Commemorative Air Force Highland Lakes Squadron's Bluebonnet Belle C-47 at Burnet Airport in 2008; archival photo, not a 2027 show image",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:C-47B_Skytrain_-serial_43-49942_Bluebonnet_Belle-26Oct2008.jpg",
+      sourceType: "wikimedia",
+      licenseName: "Creative Commons Attribution-ShareAlike 2.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0/",
+      rightsNote: "Photo: Jim Thompson (2008); unmodified archival aircraft photo at Burnet Airport, not a 2027 performer confirmation.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [
+      { label: "Bluebonnet Airshow 2027 schedule", url: "https://www.bluebonnetairshow.com/" },
+      { label: "Archive photo attribution, context and CC BY-SA 2.0 license", url: "https://commons.wikimedia.org/wiki/File:C-47B_Skytrain_-serial_43-49942_Bluebonnet_Belle-26Oct2008.jpg" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "wings-over-cowtown-airshow",
+    organizer: organization("Wings Over Cowtown Air Show", "https://www.wingsovercowtown.com/"),
+    image: {
+      url: "https://media.defense.gov/2024/Apr/17/2003441602/-1/-1/0/240411-N-DN159-2536.JPG",
+      alt: "U.S. Navy Blue Angels flying at Wings Over Cowtown at Naval Air Station Joint Reserve Base Fort Worth on April 13, 2024; archival image, not 2027",
+      sourceUrl: "https://www.navy.mil/Resources/Photo-Gallery/igphoto/2003441602/",
+      sourceType: "government-open",
+      rightsNote: "U.S. Navy photo by Mass Communication Specialist 2nd Class Crayton Agnew (April 2024); U.S. federal government official image. This documents the 2024 event, not the 2027 program.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [
+      { label: "Wings Over Cowtown organizer website", url: "https://www.wingsovercowtown.com/" },
+      { label: "Official U.S. Navy Blue Angels 2027 air-show schedule", url: "https://www.blueangels.navsea.cloud.navy.mil/show/" },
+      { label: "U.S. Navy archival photo and credit", url: "https://www.navy.mil/Resources/Photo-Gallery/igphoto/2003441602/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
     slug: "texas-sandfest",
     organizer: organization("Texas SandFest", "https://www.texassandfest.org/"),
     offers: [

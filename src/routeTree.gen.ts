@@ -375,6 +375,7 @@ import { Route as ExploreCasinosRouteImport } from './routes/explore.casinos'
 import { Route as ExploreAttractionsComparisonRouteImport } from './routes/explore.attractions-comparison'
 import { Route as ExploreAquariumsRouteImport } from './routes/explore.aquariums'
 import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
+import { Route as EventsAirShowsRouteImport } from './routes/events.air-shows'
 import { Route as EventsCollectionRouteImport } from './routes/events.$collection'
 import { Route as EventSlugRouteImport } from './routes/event.$slug'
 import { Route as DpsOfficeSlugRouteImport } from './routes/dps-office.$slug'
@@ -2854,6 +2855,13 @@ const ExploreCategoryRoute = ExploreCategoryRouteImport.update({
 } as any).lazy(() =>
   import('./routes/explore.$category.lazy').then((d) => d.Route),
 )
+const EventsAirShowsRoute = EventsAirShowsRouteImport.update({
+  id: '/air-shows',
+  path: '/air-shows',
+  getParentRoute: () => EventsRoute,
+} as any).lazy(() =>
+  import('./routes/events.air-shows.lazy').then((d) => d.Route),
+)
 const EventsCollectionRoute = EventsCollectionRouteImport.update({
   id: '/$collection',
   path: '/$collection',
@@ -4086,6 +4094,7 @@ export interface FileRoutesByFullPath {
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
+  '/events/air-shows': typeof EventsAirShowsRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
@@ -4608,6 +4617,7 @@ export interface FileRoutesByTo {
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
+  '/events/air-shows': typeof EventsAirShowsRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
@@ -5132,6 +5142,7 @@ export interface FileRoutesById {
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
+  '/events/air-shows': typeof EventsAirShowsRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
@@ -5659,6 +5670,7 @@ export interface FileRouteTypes {
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
+    | '/events/air-shows'
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
@@ -6181,6 +6193,7 @@ export interface FileRouteTypes {
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
+    | '/events/air-shows'
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
@@ -6704,6 +6717,7 @@ export interface FileRouteTypes {
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
+    | '/events/air-shows'
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
@@ -9933,6 +9947,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/events/air-shows': {
+      id: '/events/air-shows'
+      path: '/air-shows'
+      fullPath: '/events/air-shows'
+      preLoaderRoute: typeof EventsAirShowsRouteImport
+      parentRoute: typeof EventsRoute
+    }
     '/events/$collection': {
       id: '/events/$collection'
       path: '/$collection'
@@ -11096,11 +11117,13 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface EventsRouteChildren {
   EventsCollectionRoute: typeof EventsCollectionRoute
+  EventsAirShowsRoute: typeof EventsAirShowsRoute
   EventsIndexRoute: typeof EventsIndexRoute
 }
 
 const EventsRouteChildren: EventsRouteChildren = {
   EventsCollectionRoute: EventsCollectionRoute,
+  EventsAirShowsRoute: EventsAirShowsRoute,
   EventsIndexRoute: EventsIndexRoute,
 }
 

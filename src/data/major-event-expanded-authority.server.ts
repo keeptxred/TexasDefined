@@ -5,6 +5,7 @@ interface ExpandedDetails {
   slug: string;
   whyItMatters: string;
   planningSections: MajorEventPlanningSection[];
+  quickFacts?: Array<{ label: string; value: string }>;
   relatedLinks: MajorEventRelatedLink[];
   sources: MajorEventSource[];
 }
@@ -80,12 +81,114 @@ const expandedDetails: ExpandedDetails[] = [
     slug: "wings-over-houston-airshow",
     whyItMatters: "Wings Over Houston is a large aviation event at Ellington Airport where transportation, arrival time and outdoor conditions can shape the day as much as the flying schedule.",
     planningSections: [
-      { title: "Arrive with transportation settled", body: "Use the current official parking and shuttle plan before leaving home because event traffic and airport access can be constrained." },
-      { title: "Plan for a long outdoor day", body: "Sun protection, hearing protection, water and comfortable footwear are practical considerations for spending hours on the airfield." },
+      { title: "Arrive with transportation settled", body: "For the October 31–November 1, 2026 show, parking at Ellington is constrained by construction. Free ticket-included shuttles run from 7:30 a.m. to 6 p.m.; the last inbound shuttle departs at 2:30 p.m. Review the official park-and-ride locations and maps, and arrive before the 2:30 p.m. outbound-only traffic conversion." },
+      { title: "Plan for a long outdoor day", body: "Gates open at 8 a.m.; the official ticket page lists flying roughly 10:30 a.m.–4 p.m. Sun protection, hearing protection, comfortable footwear and restrictions on what you can carry all matter for this long airfield day." },
       { title: "Check the performer schedule", body: "Flying demonstrations and performers can change; confirm the official schedule close to the event rather than relying on an older lineup." },
     ],
-    relatedLinks: [{ href: "/browse/counties#county-harris", label: "Explore Harris County", description: "Build more Houston stops around the airshow." }, { href: "/events", label: "Texas events calendar", description: "Compare other major fall events." }],
+    relatedLinks: [{ href: "/browse/counties#county-harris", label: "Explore Harris County", description: "Build more Houston stops around the airshow." }, { href: "/events/air-shows", label: "Texas air shows", description: "Compare other confirmed air-show weekends." }, { href: "/events", label: "Texas events calendar", description: "Compare other major fall events." }],
     sources: [{ label: "Wings Over Houston official site", url: "https://wingsoverhouston.com/" }, { label: "Wings Over Houston travel and parking", url: "https://wingsoverhouston.com/travel/" }],
+  },
+  {
+    slug: "amigo-airsho",
+    whyItMatters: "El Paso's Amigo Airsho brings military aviation and high-performance flying to Biggs Army Airfield at Fort Bliss. Because it takes place on a military installation, the base-access rules, ticket type, traffic plan and arrival time are all central to the visit—not minor details.",
+    quickFacts: [
+      { label: "2026 dates", value: "October 24–25" },
+      { label: "Airfield", value: "Biggs Army Airfield, Fort Bliss" },
+      { label: "Admission / access", value: "Ticket required; review ID requirements for entry to Fort Bliss" },
+      { label: "Daily program", value: "Gates at 9 a.m.; aerial show approximately 11:30 a.m.–4:30 p.m., subject to change" },
+    ],
+    planningSections: [
+      { title: "Check military-base access before purchasing or driving", body: "This show is on Fort Bliss. The organizer's current visitor FAQ requires guests to bring a valid government-issued ID for entry on October 24–25, 2026. Review all current entry, vehicle and prohibited-item rules and allow for security checks; admission alone is not the same thing as permission to ignore base-entry procedures." },
+      { title: "Choose the exact day and ticket type", body: "The organizer sells its own tickets. Check the 2026 ticket page for current availability, age rules, permitted purchases and any premium admission. Do not assume that Ticketmaster tickets or a third-party reseller are accepted." },
+      { title: "Time your arrival around the aerial program", body: "The official visitor FAQ lists gates opening at 9 a.m., aerial performances beginning approximately 11:30 a.m. and ending at 4:30 p.m., with the site closing at 5 p.m. All timings and demonstration aircraft can change for weather and operations." },
+      { title: "Make an El Paso weekend of it", body: "Add nearby El Paso attractions only after allowing adequate time for installation entry and post-show traffic. Consider an overnight stay rather than attempting a long late-night return after the flying program." },
+    ],
+    relatedLinks: [
+      { href: "/events/air-shows", label: "Texas air shows", description: "Compare verified Texas air-show dates and travel requirements." },
+      { href: "/county/el-paso", label: "Explore El Paso County", description: "Plan museums, history and other stops around the show." },
+      { href: "/event/texas-capital-air-show", label: "Texas Capital Air Show", description: "Compare another fall Texas air show." },
+    ],
+    sources: [
+      { label: "Amigo Airsho 2026 official dates", url: "https://www.amigoairsho.com/home" },
+      { label: "Amigo Airsho 2026 tickets", url: "https://www.amigoairsho.com/tickets" },
+      { label: "Amigo Airsho entry rules and FAQ", url: "https://www.amigoairsho.com/faqs" },
+    ],
+  },
+  {
+    slug: "texas-capital-air-show",
+    whyItMatters: "The Texas Capital Air Show makes San Marcos a practical Central Texas aviation weekend with aerial performances and static displays. Its parking-pass rules are materially different from air shows that include parking in admission, so choosing tickets and transportation together is essential.",
+    quickFacts: [
+      { label: "2026 dates", value: "November 7–8" },
+      { label: "Airport", value: "San Marcos Regional Airport" },
+      { label: "Flying", value: "Approximately noon–4 p.m." },
+      { label: "Gates", value: "9:30 a.m.–4:30 p.m. (parking opens 9 a.m.)" },
+      { label: "Parking", value: "A separate advance parking pass is required for vehicles parked at the show" },
+    ],
+    planningSections: [
+      { title: "Buy admission and parking separately", body: "The organizer states that a parking pass is required for vehicles parking at the event and must be purchased in advance; tickets alone do not include general parking. One pass is per vehicle, and general parking inventory is limited. Premium ticket packages may have different arrangements; confirm them before checkout." },
+      { title: "Choose seats or general admission based on shade and comfort", body: "General admission is outdoors with limited shade; the organizer also offers reserved seating and premium hospitality. As of the official 2026 ticket page, children age 15 and under receive free general admission when accompanying a ticketed adult, but not necessarily free premium seating. Recheck the current offer before booking." },
+      { title: "Use the official flying window", body: "The organizer currently lists parking opening at 9 a.m., gates at 9:30 a.m., flying approximately noon–4 p.m., and gates closing at 4:30 p.m. Performers and sequence can change. Check the official schedule and grounds map the week of the show." },
+      { title: "Verify mobility and entry arrangements", body: "Accessible parking requires a general parking pass plus the appropriate placard or license plate; designated spaces are limited and first come, first served. Review the organizer's entry restrictions, venue map and accessibility guidance before arrival." },
+      { title: "Extend the visit around San Marcos", body: "San Marcos makes a convenient base for Central Texas food, river and Hill Country attractions. Reserve nearby lodging if coming from outside the region, but prioritize confirmed show-day traffic and parking instructions over speculative travel-time estimates." },
+    ],
+    relatedLinks: [
+      { href: "/events/air-shows", label: "Texas air shows", description: "Compare upcoming and recurring aviation events." },
+      { href: "/county/hays", label: "Explore Hays County", description: "Build a longer San Marcos itinerary." },
+      { href: "/event/amigo-airsho", label: "Amigo Airsho", description: "Compare another late-2026 aviation weekend." },
+    ],
+    sources: [
+      { label: "Texas Capital Air Show 2026 homepage", url: "https://texascapitalairshow.com/" },
+      { label: "Official ticket types and parking-pass rules", url: "https://texascapitalairshow.com/tickets/" },
+      { label: "Official flying schedule", url: "https://texascapitalairshow.com/guest-information/schedule/" },
+      { label: "Official accessibility rules", url: "https://texascapitalairshow.com/guest-information/accessibility/" },
+    ],
+  },
+  {
+    slug: "bluebonnet-airshow",
+    whyItMatters: "Burnet's Bluebonnet Airshow combines Commemorative Air Force heritage with a concentrated Hill Country flying day. The show works well as a day trip or overnight visit, but public parking is not at the airfield, which makes transportation planning especially important.",
+    quickFacts: [
+      { label: "Confirmed next show", value: "Saturday, March 20, 2027" },
+      { label: "Airfield", value: "Burnet Municipal Airport" },
+      { label: "Gates / flying", value: "Gates 9 a.m.; flying from noon" },
+      { label: "Parking", value: "No general-public airport parking; consult official offsite parking instructions" },
+    ],
+    planningSections: [
+      { title: "Do not drive directly to airport parking", body: "The Commemorative Air Force Highland Lakes Squadron states that general-public parking is not available at the airport. Read its current parking/shuttle guidance and plan the drop-off or departure arrangement before starting your trip to Burnet." },
+      { title: "Check advance tickets and age categories", body: "The official 2027 site is already offering advance tickets with adult, youth, senior, military and young-child categories. Prices and availability can change. Use the show's official sales links rather than assuming there is an approved Ticketmaster listing." },
+      { title: "Keep the flying lineup current", body: "The official website prominently recaps the 2026 aircraft and performers. Those are historical highlights, not a verified 2027 lineup. Check for a current-year flying roster as the March event approaches." },
+      { title: "Plan the rest of Burnet County", body: "Tie the show to Burnet, local museums and Highland Lakes drives. If booking a hotel, compare Burnet-area availability first without claiming that any unverified property is within walking distance." },
+    ],
+    relatedLinks: [
+      { href: "/events/air-shows", label: "Texas air shows", description: "Browse verified upcoming Texas aviation events." },
+      { href: "/county/burnet", label: "Explore Burnet County", description: "Make a weekend of the Highland Lakes visit." },
+      { href: "/event/wings-over-cowtown-airshow", label: "Wings Over Cowtown", description: "Compare a spring 2027 North Texas aviation weekend." },
+    ],
+    sources: [{ label: "Official CAF Highland Lakes Squadron Bluebonnet Airshow 2027 information", url: "https://www.bluebonnetairshow.com/" }],
+  },
+  {
+    slug: "wings-over-cowtown-airshow",
+    whyItMatters: "Wings Over Cowtown brings military aviation to Naval Air Station Joint Reserve Base Fort Worth. The U.S. Navy's published 2027 Blue Angels schedule lists April 24–25, but host-site visitor information is still being developed, so the guide separates confirmed dates from details visitors must wait to verify.",
+    quickFacts: [
+      { label: "Confirmed 2027 dates", value: "April 24–25" },
+      { label: "Location", value: "NAS Joint Reserve Base Fort Worth" },
+      { label: "2027 performer", value: "U.S. Navy Blue Angels (on the Navy's published 2027 schedule)" },
+      { label: "Tickets / gates / parking", value: "Not yet published on the host's current official event site" },
+    ],
+    planningSections: [
+      { title: "Dates are confirmed; visitor logistics are not", body: "The U.S. Navy's 2027 demonstration-team schedule confirms the two Fort Worth show dates. The organizer's official website currently says it is being updated, so do not treat any old show hours, access gates or prices as 2027 facts." },
+      { title: "Plan for a military installation", body: "Admission, ID screening, installation access, transportation and prohibited items may differ from civilian-airport shows. Check the host's official visitor information when published, especially if arriving with children or visitors without standard U.S. identification." },
+      { title: "Avoid speculative tickets and resale listings", body: "We have not verified a current official admission checkout for 2027. Texas Defined should link to the host rather than presenting a fabricated ticket offer or unrelated Ticketmaster event." },
+      { title: "Explore Fort Worth beyond the show", body: "Fort Worth's museum district, Stockyards and other attractions can make the weekend worthwhile even if aviation scheduling changes. Book nearby lodging only after selecting a realistic travel base and checking current base access." },
+    ],
+    relatedLinks: [
+      { href: "/events/air-shows", label: "Texas air shows", description: "See the statewide verified aviation calendar." },
+      { href: "/county/tarrant", label: "Explore Tarrant County", description: "Build a Fort Worth travel itinerary." },
+      { href: "/event/bluebonnet-airshow", label: "Bluebonnet Airshow", description: "Compare another upcoming 2027 Texas show." },
+    ],
+    sources: [
+      { label: "Official Wings Over Cowtown host website", url: "https://www.wingsovercowtown.com/" },
+      { label: "Official U.S. Navy Blue Angels show schedule", url: "https://www.blueangels.navsea.cloud.navy.mil/show/" },
+    ],
   },
 ];
 
