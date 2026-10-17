@@ -38,7 +38,7 @@ function TexasHorseRacingIndex() {
         </nav>
         <header className="border-b border-border py-11">
           <p className="eyebrow text-primary">The complete Texas racing directory</p>
-          <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[1.02] sm:text-7xl">Texas horse racing: tracks, schedules and the stories behind them</h1>
+          <h1 className="mt-3 max-w-5xl font-display text-5xl leading-tight sm:text-7xl">Texas horse racing: tracks, schedules and the stories behind them</h1>
           <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground sm:text-xl">Four venues still stage live racing in Texas. Explore the seasonal race calendars, plan a genuine track visit, and understand why the state's other historic racing licenses are not places to buy tickets today.</p>
           <div className="mt-7 flex flex-wrap gap-x-8 gap-y-3 border-t border-border pt-5 text-sm">
             <span><strong className="font-display text-3xl">4</strong> <span className="ml-1 text-muted-foreground">venues with live racing</span></span>
@@ -48,7 +48,7 @@ function TexasHorseRacingIndex() {
         </header>
 
         <figure className="border-b border-border py-7">
-          <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Lone_Star_Park.jpg?width=1600" alt="Lone Star Park horse racing venue in Grand Prairie, Texas" className="max-h-[490px] w-full object-cover" loading="lazy" decoding="async" width="1600" height="1200" />
+          <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Lone_Star_Park.jpg?width=1600" alt="Lone Star Park horse racing venue in Grand Prairie, Texas" className="max-h-96 w-full object-cover" loading="lazy" decoding="async" width="1600" height="1200" />
           <figcaption className="mt-3 text-xs leading-6 text-muted-foreground">Lone Star Park in Grand Prairie (not the Gillespie County Fairgrounds). Photo by <a className="underline" href="https://commons.wikimedia.org/wiki/File:Lone_Star_Park.jpg" target="_blank" rel="noopener noreferrer">Jax 0677 / Wikimedia Commons</a>, <a className="underline" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.</figcaption>
         </figure>
 
@@ -58,7 +58,7 @@ function TexasHorseRacingIndex() {
               <p className="mt-4 text-sm leading-7 text-muted-foreground">Tap a venue for the guide, county context, local planning and official dates. A simulcast session alone does not mean horses are racing on site.</p></div>
             <div className="grid gap-5 md:grid-cols-2">
               {active.map((venue) => <article key={venue.slug} className="border-t border-border pt-5">
-                <p className="text-xs font-semibold uppercase tracking-[0.13em] text-primary">{venue.city} · {venue.county}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-primary">{venue.city} · {venue.county}</p>
                 <h3 className="mt-2 font-display text-3xl leading-tight"><a href={venue.canonicalPath} className="hover:text-primary">{venue.name} →</a></h3>
                 <p className="mt-3 text-sm leading-7 text-muted-foreground">{venue.introduction}</p>
                 <p className="mt-3 text-sm leading-7">{venue.schedule}</p>
@@ -87,7 +87,7 @@ function TexasHorseRacingIndex() {
               <p className="mt-3 text-sm leading-7 text-muted-foreground">These institutional records matter to Texas racing history. They are explicitly separated from working tracks, and none is advertised here as currently selling live-racing tickets.</p></div>
             <div className="grid gap-5 md:grid-cols-2">
               {inactive.map((venue) => <article key={venue.slug} className="border-t border-border pt-5">
-                <p className="text-xs font-semibold uppercase tracking-[0.13em] text-muted-foreground">{venue.city} · {venue.county} · Inactive record</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{venue.city} · {venue.county} · Inactive record</p>
                 <h3 className="mt-2 font-display text-2xl"><a href={venue.canonicalPath} className="hover:text-primary">{venue.name} →</a></h3>
                 <p className="mt-2 text-sm leading-7 text-muted-foreground">{venue.introduction}</p>
                 <a href={venue.canonicalPath} className="mt-3 inline-block text-sm font-semibold text-primary">Read historical profile →</a>
