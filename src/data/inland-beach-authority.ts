@@ -21,6 +21,7 @@ export type InlandBeachRecord = {
   nearby: string;
   checkedAt: string;
   statusNotice?: string;
+  statusUrl?: string;
 };
 
 const checkedAt = "2026-10-17";
@@ -402,6 +403,7 @@ export const inlandSwimmingBeaches: readonly InlandBeachRecord[] = [
     nearby: "Mustang Point has shaded picnicking, group facilities and access for viewing the lake. Visitors can plan a shoreline picnic when permitted, but must not use the adjacent boat ramps as substitute swimming beaches.",
     checkedAt: checkedAt,
     statusNotice: "Reported CLOSED for swimming due to low lake elevation on October 17, 2026. Recheck the Corps' Benbrook Lake status before travel: https://www.swf-wc.usace.army.mil/benbrook/",
+    statusUrl: "https://www.swf-wc.usace.army.mil/benbrook/",
   },
   {
     slug: "benbrook-lake-north-holiday-swimming-beach",
@@ -418,6 +420,7 @@ export const inlandSwimmingBeaches: readonly InlandBeachRecord[] = [
     nearby: "The park's lake overlook and picnicking may remain available independently of swimming. Compare the current operator's park-status matrix before planning a beach day at either North Holiday or Mustang Point.",
     checkedAt: checkedAt,
     statusNotice: "Reported CLOSED for swimming due to low lake elevation on October 17, 2026. The day-use park's separate operating status does not mean the swimming beach is open. Official status: https://www.swf-wc.usace.army.mil/benbrook/",
+    statusUrl: "https://www.swf-wc.usace.army.mil/benbrook/",
   },
   {
     slug: "lake-arrowhead-state-park-swimming-beach",
