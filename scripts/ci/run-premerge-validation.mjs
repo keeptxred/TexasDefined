@@ -47,7 +47,7 @@ const prebuildChecks = [
   ['CONTENT/IMAGES', 'Syntax-check official state-park photo resolver', 'node', ['--check', 'scripts/data/sync-state-park-hero-assets.mjs']],
   ['COMMERCE/PRIVACY', 'Verify receipt Google Customer Reviews payload boundaries', 'node', ['--experimental-strip-types', '--test', 'scripts/data/google-customer-reviews.test.mjs']],
   ['FOOTBALL/SEO', 'Reject slug-specific football SEO title overrides of researched editorial copy', 'node', ['scripts/ci/validate-football-authored-seo.mjs']],
-  ['FOOTBALL/REVENUE', 'Verify sourced game-night action layer and sponsor hold', 'node', ['--test', 'scripts/data/validate-football-game-night.test.mjs']],
+  ['FOOTBALL/REVENUE', 'Verify sourced game-night action layer, sponsor hold and approved fan affiliate', 'node', ['--test', 'scripts/data/validate-football-game-night.test.mjs', 'scripts/data/validate-football-fan-affiliate.test.mjs']],
   ['CONTENT/AUTHORITY', 'Verify source-backed Harmony Eagles Batch006 and historic Batch005 evidence', 'node', ['scripts/data/validate-football-batch006-harmony.mjs']],
   ['CI/DEPLOYMENT', 'Syntax-check Harmony desktop/mobile production verifier', 'node', ['--check', 'scripts/ci/verify-football-batch006-harmony-production.mjs']],
   ['NEWS/PUBLICATION', 'Reject stale sources in disabled-by-default TexasDefined auto-news pipeline', 'node', ['--test', 'scripts/news/texasdefined-queue-freshness.test.mjs']],
