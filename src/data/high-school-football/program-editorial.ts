@@ -2378,6 +2378,182 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
+  "bogata-rivercrest": {
+    "slug": "bogata-rivercrest",
+    "theme": {
+      "accentHex": "#6B2E41",
+      "label": "Independent Rebels maroon editorial accent; district marks and photos not reproduced"
+    },
+    "seo": {
+      "title": "Bogata Rivercrest Rebels Football 2026 | District, Scores & Visitor Guide",
+      "description": "Bogata Rivercrest Rebels football in Red River County: 2026 Class 2A Division I District 9, 4–3 through October 9, overtime Wolfe City finish, official school contacts and prior playoff history."
+    },
+    "campus": {
+      "address": "4100 US Highway 271 South, Bogata, TX 75417",
+      "phone": "903-632-5204",
+      "sourceUrl": "https://www.rivercrestisd.net/o/rhs/",
+      "sourceLabel": "Official Rivercrest High School contact and Red River County school campus; distinct from third-party 4126 US 271 address and unverified game-day gate",
+      "verifiedAt": "2026-10-16"
+    },
+    "schedule": {
+      "label": "Rivercrest High School official football and athletic schedule information",
+      "sourceUrl": "https://www.rivercrestisd.net/o/rhs/page/football",
+      "sourceLabel": "Rivercrest ISD official football landing page; verify current result and ticket details with district",
+      "verifiedAt": "2026-10-16"
+    },
+    "notice": {
+      "title": "Beware outdated Rivercrest results and identical Arkansas school name",
+      "body": "An older MaxPreps Rivercrest team-page snapshot still shows 3–0 before league play, while its October 3 schedule snapshot shows 3–3 and leaves October 9 unresolved. The separate October 9 game report, PigskinPrep District 9 results and Texas Prep all record Rivercrest's 30–28 triple-overtime victory over Wolfe City, making the result 4–3 through that day. The older schedule also gives the September 11 Chisum win as 49–42; the game's box score and PigskinPrep show 56–42. Avoid mixing this Texas school with the Rivercrest Colts in Wilson, Arkansas. The actual Oct16 Trenton outcome, coach appointment, stadium entry and photo rights remain unverified.",
+      "sourceUrl": "https://www.maxpreps.com/tx/football/game/rivercrest-bogata-vs-wolfe-city/10-9-2026/?c=e3bfc40e-df03-46d0-8b1d-620287e758c6",
+      "sourceLabel": "Dated 2026 Rivercrest versus Wolfe City game final, crosschecked with current PigskinPrep 2A District 9; stale profile warnings individually qualified",
+      "verifiedAt": "2026-10-16"
+    },
+    "season": {
+      "record": "4–3 through October 9, 2026 (MaxPreps Oct10 game report and PigskinPrep; season ongoing)",
+      "verifiedAt": "2026-10-16",
+      "sourceUrl": "https://www.pigskinprep.com/showfreeschedules.asp?distID=106&yr=2026",
+      "sourceLabel": "PigskinPrep 2026 official-district-grouped score schedule, corroborated via MaxPreps individual game reports; prior MaxPreps schedule index is stale",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Maud",
+          "site": "Away",
+          "result": "W 49–14"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Simms James Bowie",
+          "site": "Away",
+          "result": "W 42–22"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Paris Chisum",
+          "site": "Away",
+          "result": "W 56–42"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Prairiland",
+          "site": "Home",
+          "result": "L 14–22"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Tom Bean",
+          "site": "Home",
+          "district": true,
+          "result": "L 20–56"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Whitewright",
+          "site": "Away",
+          "district": true,
+          "result": "L 7–41"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Wolfe City",
+          "site": "Home",
+          "district": true,
+          "result": "W 30–28 (3 OT)"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Trenton",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Honey Grove",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Cooper",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "development": {
+      "title": "Rivercrest's 2019 11-win season and 2026 triple-overtime rebound",
+      "body": "Dave Campbell's Texas Football season archive lists an 11–2 campaign in 2019 and an 8–3 campaign in 2024; these figures are third-party historical summaries, not official UIL title-game claims. DCTF lists Rivercrest with zero state titles and zero title-game appearances. After opening 2026 with three road wins and losing three straight, Rivercrest ended its skid October 9, beating Wolfe City 30–28 on a triple-overtime conversion. Contemporary MaxPreps individual final and a district schedule concur; the opponent's 2026 team is distinct from Wilson, Arkansas's Rivercrest Colts.",
+      "sourceUrl": "https://www.texasfootball.com/team/bogota-rivercrest-rebels",
+      "sourceLabel": "Dave Campbell's Texas Football school-specific retrospective 2019 and 2024 records, supplemented by October 9 MaxPreps score record",
+      "verifiedAt": "2026-10-16"
+    },
+    "milestones": [
+      {
+        "date": "2019",
+        "title": "Eleven-win historical season",
+        "body": "Dave Campbell's team archive lists an 11–2 2019 Rivercrest campaign. Neither that figure nor the site's playoff appearance inventory establishes a state championship.",
+        "sourceUrl": "https://www.texasfootball.com/team/bogota-rivercrest-rebels",
+        "sourceLabel": "DCTF Rivercrest school-specific history as of 2026"
+      },
+      {
+        "date": "2024",
+        "title": "Eight-win historical season",
+        "body": "DCTF's archive lists 8–3 in 2024; older incomplete aggregate sites are not used to rewrite that season.",
+        "sourceUrl": "https://www.texasfootball.com/team/bogota-rivercrest-rebels",
+        "sourceLabel": "DCTF season-by-season results, qualified historical source"
+      },
+      {
+        "date": "2026",
+        "title": "2A Division I District 9",
+        "body": "UIL 2026–28 officially groups Bogata Rivercrest with Cooper, Honey Grove, Tom Bean, Trenton, Whitewright and Wolfe City in Region III District 9.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "Official UIL 2026–28 Class 2A Division I alignment"
+      },
+      {
+        "date": "2026-10-09",
+        "title": "Triple-overtime victory against Wolfe City",
+        "body": "Rivercrest beat Wolfe City 30–28 after three overtime periods, moving to 4–3 after three straight defeats; game-specific MaxPreps and PigskinPrep sources agree.",
+        "sourceUrl": "https://www.maxpreps.com/tx/football/game/rivercrest-bogata-vs-wolfe-city/10-9-2026/?c=e3bfc40e-df03-46d0-8b1d-620287e758c6",
+        "sourceLabel": "MaxPreps Oct 9 opponent-specific box score with third overtime"
+      }
+    ],
+    "overview": [
+      "The Rivercrest Rebels are the varsity football program of Rivercrest ISD in Bogata, Red River County, Texas. They are not the Rivercrest Colts in Wilson, Arkansas, and should not be conflated with an unrelated Rivercrest football roster. Texas Education Agency's campus record identifies Rivercrest High in Red River County. UIL places Bogata Rivercrest in eleven-man Class 2A Division I District 9 in the 2026–28 alignment, alongside Cooper, Honey Grove, Tom Bean, Trenton, Whitewright and Wolfe City.",
+      "Rivercrest's recent football identity includes an 11–2 season in 2019 and 8–3 in 2024 according to Dave Campbell's Texas Football. Those third-party seasons are properly labeled historical and are not evidence of a state title; DCTF lists no state championship or title-game appearance for Rivercrest. The 2025 score indexes themselves disagree on overall totals, so this guide does not mistake partial archive statistics for a completed certified record.",
+      "For 2026, the Rebels opened with three straight road wins over Maud, Simms James Bowie and Paris Chisum, then dropped games to Prairiland, Tom Bean and Whitewright. Their October 9 home game versus Wolfe City ended 30–28 after three overtimes, lifting Rivercrest to 4–3 through that date. The district result is corroborated by the MaxPreps individual game report, PigskinPrep District 9 schedule and the specialist Texas Prep index. This is a dated snapshot, not a final season result.",
+      "Readers should watch two stale-data traps. MaxPreps' separate team-page summaries may show an older 3–0 or 3–3 standing and no Wolfe City final, whereas its current October 9 single-game record confirms 4–3. An older schedule gives the September 11 Chisum final as 49–42, while that game's dedicated box score and PigskinPrep say 56–42. This guide uses the corroborated game-specific 56–42 but discloses why older index totals differ rather than hiding the conflict.",
+      "Rivercrest High School's own website lists the campus at 4100 US Highway 271 South, Bogata, TX 75417, phone 903-632-5204. Other sports directories use 4126 US 271 South; the district's official location takes precedence for school contact but is not asserted as the stadium's ticket gate or accessible parking entrance. Game-specific venue, admission, ADA seating, the head coach's current district-confirmed appointment and rights-cleared stadium photos were not independently established. Consult the official school football page."
+    ],
+    "faq": [
+      {
+        "question": "Is Bogata Rivercrest in Texas or Arkansas?",
+        "answer": "These are the Bogata, Texas Rivercrest Rebels of Rivercrest ISD in Red River County. The Rivercrest Colts in Wilson, Arkansas are a completely different high school team and should never supply Texas scores or personnel."
+      },
+      {
+        "question": "What is Rivercrest's UIL football classification in 2026?",
+        "answer": "The 2026–28 UIL official district alignment puts Bogata Rivercrest in 11-man Class 2A Division I, Region III District 9, alongside Cooper, Honey Grove, Tom Bean, Trenton, Whitewright and Wolfe City."
+      },
+      {
+        "question": "Did Rivercrest win the October 9, 2026 game against Wolfe City?",
+        "answer": "Yes. The dated Wolfe City–Rivercrest MaxPreps game record and PigskinPrep list Rivercrest winning 30–28 in triple overtime, its fourth victory in seven completed games through October 9."
+      },
+      {
+        "question": "Why do Rivercrest websites disagree about the 2026 record and Chisum final?",
+        "answer": "Some older Rivercrest schedule and homepage snapshots stopped at 3–0 or 3–3 and never recorded the October 9 Wolfe City game. A stale schedule also says Chisum 49–42 while dedicated game results and PigskinPrep give Rivercrest 56–42. This guide favors corroborated game-specific final records and dates the snapshot."
+      },
+      {
+        "question": "Did Rivercrest win a state title during its 2019 11-win season?",
+        "answer": "Dave Campbell's Texas Football lists Rivercrest 11–2 in 2019, but records no state championship or title-game appearance for the program. An 11-win season should not be called a state title without UIL final evidence."
+      },
+      {
+        "question": "What is the official Rivercrest High School address?",
+        "answer": "The school's official site lists Rivercrest High School at 4100 US Highway 271 South, Bogata TX 75417, phone 903-632-5204. The 4126 address on third-party sports sites is not the school's preferred contact address; neither should be assumed to identify the exact football game entrance."
+      },
+      {
+        "question": "Who coaches the Rebels and where can visitors confirm stadium access?",
+        "answer": "Some MaxPreps history lists Travis McClain for 2026, but an older public team summary lists a different coach. The current first-party district appointment, football stadium gate, accessible parking and ticket details have not been independently certified, so check the official Rivercrest High School football page before traveling."
+      }
+    ]
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {
