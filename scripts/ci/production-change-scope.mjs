@@ -177,6 +177,38 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     expectedHrefsByPage['/explore'] = ['/explore/casinos'];
     expectedHrefsByPage['/explore/casinos'] = guidePaths;
   }
+  // A shared water-park registry owns many dynamic guides. Verify only newly
+  // added facility URLs (up to four) plus the statewide directory, not 101
+  // unrelated pages. Template-only changes use four type-diverse canaries.
+  // This stays inside the existing 40-page deployment smoke budget.
+  const waterParkOwnerChanged = changedFiles.some(path =>
+    path === 'src/data/texas-water-parks.ts'
+    || /^src\/routes\/explore\.water-parks(?:\.(?:index|\$slug)(?:\.lazy)?)?\.tsx$/.test(path)
+  );
+  if (waterParkOwnerChanged) {
+    const file = 'src/data/texas-water-parks.ts';
+    const current = sources[file]?.after ?? readFileSync(file, 'utf8');
+    const registryPattern = /export const texasWaterParks: WaterParkGuide\[\] = (\[[\s\S]*?\]);\nexport const texasWaterParksBySlug/;
+    const match = current.match(registryPattern);
+    if (!match) throw new Error('Water-park production smoke could not parse the canonical operator registry');
+    const parks = JSON.parse(match[1]);
+    if (parks.length < 1 || parks.length > 1000) throw new Error('Water-park production smoke found an implausible registry');
+    const previous = sources[file]?.before?.match(registryPattern);
+    const priorSlugs = previous ? new Set(JSON.parse(previous[1]).map(park => park.slug)) : new Set();
+    const newParks = previous ? parks.filter(park => !priorSlugs.has(park.slug)) : [];
+    const fallback = [
+      parks.find(park => park.setting === 'Indoor' && !/Resort/.test(park.kind)),
+      parks.find(park => /Resort/.test(park.kind)),
+      parks.find(park => park.kind === 'Inflatable lake water park'),
+      parks.find(park => park.setting === 'Outdoor' && park.kind === 'Destination park'),
+    ].filter(Boolean);
+    const chosen = [...new Map((newParks.length ? newParks : fallback)
+      .slice(0, 4).map(park => [park.slug, park])).values()];
+    const hrefs = chosen.map(park => `/explore/water-parks/${park.slug}`);
+    candidates.add('/explore/water-parks');
+    for (const href of hrefs) candidates.add(href);
+    expectedHrefsByPage['/explore/water-parks'] = hrefs;
+  }
   let contentFallback = false;
   for (const path of changedFiles) {
     const { before = '', after = '' } = sources[path] || {};

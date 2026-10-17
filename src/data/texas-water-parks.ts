@@ -1,7 +1,7 @@
 /** Operator-backed Texas water-park census, reviewed 2026-10-17. One park per physical facility, not per brand. */
 export type WaterParkSetting = "Indoor" | "Outdoor" | "Both";
 export type WaterParkKind = "Destination park" | "Indoor resort park" | "Community water park" | "Indoor public park" | "Municipal water park" | "Campground water park" | "Resort beach water park" | "Resort water park" | "Inflatable lake water park";
-export type WaterParkGuide = { slug: string; name: string; city: string; county?: string; region: string; authorityReady?: boolean; authorityEvidence?: { exactAddress: string; licensedImageSrc: string; imageCredit: string; accessVerifiedAt: string; rideHighlights: string[]; sourceUrls: string[] }; setting: WaterParkSetting; kind: WaterParkKind; admission: string; summary: string; distinctiveNote: string; officialUrl: string; reviewedAt: string };
+export type WaterParkGuide = { slug: string; name: string; city: string; county?: string; region: string; authorityReady?: boolean; authorityEvidence?: { exactAddress: string; licensedImageSrc: string; imageCredit: string; accessVerifiedAt: string; rideHighlights: string[]; sourceUrls: string[] }; setting: WaterParkSetting; kind: WaterParkKind; admission: string; summary: string; distinctiveNote: string; officialUrl: string; reviewedAt: string; visitorFaqs?: {question: string; answer: string; sourceUrl: string}[] };
 export const texasWaterParks: WaterParkGuide[] = [
   {
     "slug": "schlitterbahn-new-braunfels",
@@ -1360,6 +1360,130 @@ export const texasWaterParks: WaterParkGuide[] = [
     "distinctiveNote": "The City of Big Spring provides a 2026 ticket and concessions page with a Splash Cash card system and lists the entrance at 911 Golf Course Road. Seasonal public admission dates should be verified for the next summer before visiting.",
     "officialUrl": "https://www.bigspringtx.gov/342/Russ-McEwen-Family-Aquatic-Center",
     "reviewedAt": "2026-10-17"
+  },
+  {
+    "slug": "splash-shack-cedar-park",
+    "name": "Splash Shack Kids Indoor Water Park",
+    "city": "Cedar Park",
+    "county": "Williamson",
+    "region": "Central Texas",
+    "setting": "Indoor",
+    "kind": "Community water park",
+    "admission": "Ticketed indoor children's water-play park; each child ticket includes one accompanying adult; extra adult tickets require a child",
+    "summary": "Splash Shack is a 10,000-square-foot indoor micro water park for children, centered on a 30-foot interactive splash structure with several slides and a large tipping-water bucket.",
+    "distinctiveNote": "This is designed mainly for children around ages 1–10, not an adult thrill-ride water park. The operator prohibits adult-only admission and unattended minors; paid admission is required even for non-swimming adults, with a one-entry policy.",
+    "officialUrl": "https://splashshacktx.com/",
+    "reviewedAt": "2026-10-17",
+    "visitorFaqs": [
+      {
+        "question": "Can adults visit Splash Shack without a child?",
+        "answer": "No. Every adult must accompany a child, and the park does not sell standalone adult admission. Each child admission includes one accompanying adult.",
+        "sourceUrl": "https://splashshacktx.com/rules/"
+      },
+      {
+        "question": "Is Splash Shack an outdoor summer-only water park?",
+        "answer": "No. It is a ticketed indoor micro water park. Its currently advertised 2026 public sessions are Wednesday through Sunday, with private events on other days.",
+        "sourceUrl": "https://splashshacktx.com/"
+      },
+      {
+        "question": "Can I leave and return on the same admission?",
+        "answer": "No. The operator states that each admission is for a single entry and re-entry is not permitted.",
+        "sourceUrl": "https://splashshacktx.com/faq/"
+      }
+    ]
+  },
+  {
+    "slug": "forest-oasis-woodlands-resort",
+    "name": "Forest Oasis Waterpark & Lazy River",
+    "city": "The Woodlands",
+    "county": "Montgomery",
+    "region": "Houston area",
+    "setting": "Outdoor",
+    "kind": "Resort water park",
+    "admission": "Included for registered Woodlands Resort hotel guests; limited non-hotel day passes may be purchased subject to availability",
+    "summary": "The Woodlands Resort's Forest Oasis Waterpark features a 1,005-foot lazy river, a 30-foot slide tower with double-helix slides, cascading waterfalls, family pools and a children's sprayground.",
+    "distinctiveNote": "The waterpark is open year-round but major slides are seasonal: double-helix slides are closed September–March, and the lazy-river slide is limited in October and closed November–March. The resort says the river is not heated.",
+    "officialUrl": "https://woodlandsresort.com/experiences/waterpark/",
+    "reviewedAt": "2026-10-17",
+    "visitorFaqs": [
+      {
+        "question": "Can visitors without a hotel reservation use Forest Oasis?",
+        "answer": "Yes, when capacity allows. The Woodlands Resort sells non-hotel day passes through ResortPass, with availability and prices set for the visit date.",
+        "sourceUrl": "https://woodlandsresort.com/experiences/waterpark/"
+      },
+      {
+        "question": "Are the Forest Oasis water slides open all year?",
+        "answer": "No. The resort says the double-helix slides close September through March, while the lazy-river slide has limited October operation and closes November through March.",
+        "sourceUrl": "https://woodlandsresort.com/experiences/waterpark/"
+      },
+      {
+        "question": "Is the lazy river heated?",
+        "answer": "No. The resort states that its pools are heated seasonally, but the 1,005-foot lazy river is not heated.",
+        "sourceUrl": "https://woodlandsresort.com/experiences/waterpark/"
+      }
+    ]
+  },
+  {
+    "slug": "lagoonfest-texas-city",
+    "name": "Lagoonfest Texas Aqua Adventure Park",
+    "city": "Texas City",
+    "county": "Galveston",
+    "region": "Gulf Coast",
+    "setting": "Outdoor",
+    "kind": "Inflatable lake water park",
+    "admission": "Seasonal advance online-only Adventure Aqua Pass; capped daily admission; some kayaks, boards and private rentals are extra",
+    "summary": "Lagoonfest Texas is a beach-club-style crystal lagoon in Texas City with a large floating Aqua Course, bumper boats, designated swimming and optional on-water rentals.",
+    "distinctiveNote": "The 2026 operator plan limits daily attendance to 500 people and restricts access to part of the lagoon during enhancements. The Aqua Course requires guests to be at least 6 years old and 42 inches tall; 2026 gate ticket sales are unavailable.",
+    "officialUrl": "https://lagoonfesttexas.com/",
+    "reviewedAt": "2026-10-17",
+    "visitorFaqs": [
+      {
+        "question": "Can I buy 2026 Lagoonfest tickets at the entrance?",
+        "answer": "No. The operator's 2026 Summerfest program requires tickets purchased online in advance and says gate sales are unavailable.",
+        "sourceUrl": "https://lagoonfesttexas.com/"
+      },
+      {
+        "question": "Does admission include the floating Aqua Course?",
+        "answer": "For the advertised 2026 Adventure Aqua Pass, yes. Bumper boats and the Aqua Course are included, while kayaks, paddleboards and other rentals cost extra.",
+        "sourceUrl": "https://lagoonfesttexas.com/"
+      },
+      {
+        "question": "Are there age and height rules for the Aqua Course?",
+        "answer": "Yes. The operator requires participants to be at least 6 years old and at least 42 inches tall.",
+        "sourceUrl": "https://lagoonfesttexas.com/"
+      }
+    ]
+  },
+  {
+    "slug": "angel-lagoon-dayton",
+    "name": "Angel Lagoon Aqua Adventure Park",
+    "city": "Dayton",
+    "county": "Liberty",
+    "region": "Houston area",
+    "setting": "Outdoor",
+    "kind": "Inflatable lake water park",
+    "admission": "Ticketed lagoon beach admission; floating Aqua Course and watercraft sessions sold separately",
+    "summary": "Angel Lagoon is a public-access crystal lagoon near Dayton with sandy beach recreation, kayaking, stand-up paddling and a ticketed floating Aqua Course obstacle attraction.",
+    "distinctiveNote": "The operator lists the Aqua Course as a paid 30-minute activity for visitors age 6+ and at least 42 inches tall. Its new water slide is explicitly listed as 'coming soon' and must not be portrayed as already open.",
+    "officialUrl": "https://angellagoon.com/attractions/",
+    "reviewedAt": "2026-10-17",
+    "visitorFaqs": [
+      {
+        "question": "Is the Angel Lagoon water slide operating?",
+        "answer": "The operator's attraction page currently lists the water slide as 'Coming Soon.' Do not rely on it being open for your visit.",
+        "sourceUrl": "https://angellagoon.com/attractions/"
+      },
+      {
+        "question": "Is the Aqua Course included with normal admission?",
+        "answer": "No. The current operator ticket menu lists Aqua Course sessions separately from general admission, and each session lasts 30 minutes.",
+        "sourceUrl": "https://angellagoon.com/tickets/"
+      },
+      {
+        "question": "What age and height are required for the Aqua Course?",
+        "answer": "The listed minimums are age 6 and 42 inches in height. A life jacket is required and provided.",
+        "sourceUrl": "https://angellagoon.com/attractions/"
+      }
+    ]
   }
 ];
 export const texasWaterParksBySlug = new Map(texasWaterParks.map((park) => [park.slug, park]));

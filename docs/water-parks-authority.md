@@ -5,7 +5,7 @@ Updated 2026-10-17. Work is **not** considered production verified until the rep
 ## Current implementation
 
 - Canonical public hub: `/explore/water-parks`; one park page at `/explore/water-parks/$slug` per physical venue.
-- Initial operator-backed registry: 97 separate facilities in `src/data/texas-water-parks.ts`.
+- Initial operator-backed registry: 101 separate facilities in `src/data/texas-water-parks.ts`.
 - Settings: indoor, outdoor, mixed indoor/outdoor. Access: day park, city-run, hotel/resort, campground and inflatable lake park.
 - Every record has a named venue, town, region, setting, admission policy description, a venue-specific editorial note, source URL, review date, and county where the physical county was verified.
 - Directory links to internal Explore/trip planner/city and county guides. Primary and emergency Explore sitemaps enumerate only specifically certified authority-ready park pages; the statewide hub includes the full research registry.
@@ -54,6 +54,14 @@ Each park must be researched and independently verified beyond this launch-scale
 - **Garland Holford Aquatic Center:** current City of Garland venue page confirms two waterslides and current channel, and its dated August 2026 update confirms the summer season ended August 9. Distinct from Surf & Swim and the closed Bradfield facility.
 - **Big Spring Russ McEwen:** city facility and 2026 ticket pages confirm two water slides, lazy river, family leisure pool and seasonal admission at 911 Golf Course Road.
 
+## October 17 supplemental operating park census
+
+- Splash Shack, Cedar Park: independent ticketed indoor children’s waterpark (adult-only admission barred); 2026 operating schedule and rules on the operator website.
+- Forest Oasis, The Woodlands Resort: non-overnight day passes subject to availability, with year-round pools but seasonally closed slides and unheated lazy river.
+- Lagoonfest Texas, Texas City: 2026 Aqua Course and bumper boats inside limited-capacity advance admission; not a traditional slide park.
+- Angel Lagoon, Dayton: paid floating course; water slide is operator-labelled **coming soon**, not open. Confirm entrance ZIP before any more specific address publishing.
+- This batch adds **three operator-linked, answer-first FAQs per park**, shown with direct source links. It does not promote any page to index-ready or assert photo rights.
+
 ## Remaining statewide completeness work
 
 - Systematically check **every municipality/county aquatic department**; scope includes multi-slide city pools, wave pools, action rivers, and branded family water parks but excludes standalone single-feature splash pads and ordinary lap pools.
@@ -61,7 +69,7 @@ Each park must be researched and independently verified beyond this launch-scale
 - Research public floating obstacle-course parks and temporary seasonal operators separately, with weather, water conditions, capacity and safety.
 - Confirm individual water-park site addresses and county assignments in ambiguous multijurisdiction cities before adding county canonical links.
 - Run a check against TDI amusement ride registration where relevant, tourism bureau listings, city park calendars and operator directories. TDI listing alone does not confirm present operation.
-- Expand the initial collection only with first-party sources and documented visit eligibility. Never present the current 97 as an exhaustive statewide census.
+- Expand the initial collection only with first-party sources and documented visit eligibility. Never present the current 101 as an exhaustive statewide census.
 - After canonical validation and required checks, use only a bounded smoke of the directory and representative indoor/outdoor/resort/municipal pages, not another sitewide crawl.
 
 ## Startup bundle protection
@@ -78,4 +86,4 @@ All newly researched park rows default to **not authority-ready**. The page rout
 
 ## Known implementation limits
 
-The 97 generated guides are the *initial source-backed editorial layer*, not finished deep first-hand reviews. Specific ride inventories, exact live ticket rates, accessible routes, rights-cleared venue imagery, corroborated family FAQs, all-county reciprocal links, and a truly exhaustive statewide census are **not yet certified**. This distinction must not be lost in publication or product messaging.
+The 101 generated guides are the *initial source-backed editorial layer*, not finished deep first-hand reviews. Specific ride inventories, exact live ticket rates, accessible routes, rights-cleared venue imagery, corroborated family FAQs, all-county reciprocal links, and a truly exhaustive statewide census are **not yet certified**. This distinction must not be lost in publication or product messaging.
