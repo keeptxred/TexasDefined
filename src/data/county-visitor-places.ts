@@ -454,13 +454,6 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "collin",
-    "name": "Heard Wildlife Sanctuary Nature Trails",
-    "category": "Parks & recreation",
-    "description": "Managed native-habitat trails and birdwatching spaces within the Heard Natural Science Museum and Wildlife Sanctuary; normal venue admission applies.",
-    "sourceUrl": "https://www.visitmckinney.com/things-to-do/sports-and-recreation"
-  },
-  {
-    "county": "collin",
     "name": "Historic Downtown McKinney",
     "category": "History & heritage",
     "description": "Walkable historic square with late nineteenth-century architecture, shopping, art and local food; museum interiors have separate visiting rules.",
@@ -1867,13 +1860,6 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Art & architecture",
     "description": "Historic public plaza and cultural landmark in Del Rio, named in the Texas heritage travel registry.",
     "sourceUrl": "https://texastimetravel.com/blog/city-county-parks/"
-  },
-  {
-    "county": "van-zandt",
-    "name": "First Monday Trade Days in Canton",
-    "category": "Arts & culture",
-    "description": "Large monthly antique and vendor market held Thursday through Sunday immediately before the first Monday; it is not open as a regular market on Monday.",
-    "sourceUrl": "https://www.firstmondaycanton.com/about"
   },
   {
     "county": "victoria",
