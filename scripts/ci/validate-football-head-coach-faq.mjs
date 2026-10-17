@@ -36,6 +36,28 @@ const withoutAuthoredCoach = buildFootballProfileFaq({
   ...base, editorial: { coach: { name: 'Keith Ivy' }, faq: [] },
 });
 assert.equal(headCoachQuestions(withoutAuthoredCoach).length, 1, 'Generate a coach FAQ when no authored one exists');
+// Aubrey has five authored game-night questions without a head-coach question.
+// The old generator appended the coach after six generic questions and the
+// eight-question cap silently excluded it; guard the rendered FAQ priority.
+const aubreyFiveAuthored = buildFootballProfileFaq({
+  ...base,
+  editorial: {
+    coach: { name: 'Keith Ivy' },
+    faq: [
+      { question: 'What is Aubrey’s 2026 football record?', answer: '4–3 overall.' },
+      { question: 'What games remain?', answer: 'Lake Dallas, Alvarado, Godley.' },
+      { question: 'Where do fans buy tickets?', answer: 'GoFan.' },
+      { question: 'Where is the stadium?', answer: '510 Spring Hill Road.' },
+      { question: 'Has Aubrey won a state title?', answer: 'Check the historical record.' },
+    ],
+  },
+});
+assert.equal(aubreyFiveAuthored.length, 8, 'Eight-question display limit retained');
+assert.equal(headCoachQuestions(aubreyFiveAuthored).length, 1,
+  'The one sourced coach FAQ must survive Aubrey’s five authored questions');
+assert.ok(aubreyFiveAuthored.slice(0, 5).every((faq) => !headCoachQuestions([faq]).length),
+  'Keep all authored editorial questions first');
+
 const noCoach = buildFootballProfileFaq({ ...base, editorial: { faq: [] } });
 assert.equal(headCoachQuestions(noCoach).length, 0, 'Do not manufacture a coach answer without a verified coach');
 console.log('Football head-coach FAQ semantic deduplication passed (authored and fallback cases).');

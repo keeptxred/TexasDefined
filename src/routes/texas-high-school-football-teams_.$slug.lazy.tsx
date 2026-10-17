@@ -38,7 +38,8 @@ function Page() {
     faq,
   } = Route.useLoaderData();
   const schoolName = displayName;
-  const footballName = identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`;
+  const footballName = slug === 'aubrey' ? 'Aubrey Chaparrals Football'
+    : identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`;
   // Summarize the verified editorial ledger before the deeper school reference sections.
   const latestResult = editorial?.season?.games.filter((game) => game.result).at(-1);
   const nextListedFixture = editorial?.season?.games.find((game) => !game.result);
@@ -247,9 +248,9 @@ function Page() {
           </div>
           {slug === 'aubrey' && (
             <div role="img" aria-label="Original TexasDefined football illustration with a football and yard lines; not an official school crest" className="flex overflow-hidden border p-5" style={{ position: "relative", flexDirection: "column", justifyContent: "space-between", minHeight: 176, borderColor: "#41516b", backgroundColor: "#10243d", color: "#fff" }}>
-              <div aria-hidden="true" style={{ position: "absolute", inset: 0, opacity: 0.2, backgroundImage: 'repeating-linear-gradient(90deg, transparent 0, transparent 38px, #ffffff 39px, #ffffff 40px)' }} />
               <p className="text-xs uppercase" style={{ position: "relative", fontWeight: 700, letterSpacing: "0.2em", color: "#cbd5e1" }}>Chaparrals / 2026</p>
               <svg className="mx-auto" style={{ position: "relative", height: 96, width: 160 }} viewBox="0 0 180 110" aria-hidden="true" fill="none">
+                <path d="M30 0 V110 M60 0 V110 M90 0 V110 M120 0 V110 M150 0 V110" stroke="#cbd5e1" strokeWidth="1" opacity="0.18" />
                 <path d="M25 82 C40 41 112 14 154 25 C145 67 75 99 25 82Z" fill="#b52e41" stroke="#f8fafc" strokeWidth="4" />
                 <path d="M57 71 L129 38" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" />
                 <path d="M72 57 L79 72 M85 51 L92 66 M98 45 L105 60 M111 39 L118 54" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" />

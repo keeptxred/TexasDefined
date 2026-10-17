@@ -25,6 +25,8 @@ assert.equal(aubrey.schedule.ticketUrl, 'https://gofan.co/app/school/TX90134');
 assert.equal(aubrey.venue.policyUrl, 'https://www.aubreyisd.net/page/aubrey-isd-stadium-policies');
 assert.equal(aubrey.venue.address, '510 Spring Hill Road, Aubrey, TX 76227');
 assert.ok(aubrey.seo.title.includes('Schedule, Scores & Tickets'));
+assert.ok(route.includes("slug === 'aubrey' ? 'Aubrey Chaparrals Football'"), 'Aubrey team nickname must appear in the page heading');
+assert.ok(!route.includes("repeating-linear-gradient(90deg"), 'Decorative yard-line overlay must not cover hero text or obstruct automated contrast inspection');
 assert.ok(aubrey.overview.every((line) => !/Avoid inventing|Project context|behind the scenes/i.test(line)));
 assert.ok(guide.includes('Official home tickets ↗') && guide.includes('Stadium entry rules ↗'));
 assert.ok(route.includes('Scheduled · ' + '$' + '{game.kickoff}'));
