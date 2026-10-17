@@ -48,8 +48,8 @@ async function testViewport(name, viewport) {
     expect(/4[–-]2 district/.test(details.text), 'District record is not 4–2');
     expect(/W 29[–-]28/.test(details.text), 'Stratford final is missing');
     expect(/L 18[–-]42/.test(details.text), 'Memorial final is missing');
-    expect(details.text.includes('Most recent reported result'), 'Recent result summary is absent');
-    expect(details.text.includes('Next listed 2026 fixture'), 'Next fixture card is absent');
+    expect(/most recent reported result/i.test(details.text), 'Recent result summary is absent');
+    expect(/next listed 2026 fixture/i.test(details.text), 'Next fixture card is absent');
     expect(details.text.includes('Westside'), 'Westside next fixture absent');
     expect(details.text.includes('Red, Navy and White'), 'Verified school colors absent');
     expect(details.links.some(h => (h || '').includes(matchup)), 'Source-linked Memorial matchup URL missing');
