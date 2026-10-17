@@ -99,6 +99,16 @@ const base = makeThcHeritageDestination({
 export const hotelPasoDelNorteAuthorityDestination: Destination = {
   ...base,
   sourceCheckedAt: "2026-10-17",
+  authorityGuide: {
+    ...base.authorityGuide!,
+    whyItMatters: "A nationally recognized 1912 Trost-designed hotel that preserves an unusually rich example of El Paso's railroad-era hospitality architecture and stained-glass lobby. The 2020 restoration kept important historic spaces in use while adapting the landmark for modern guests.",
+    assessment: {
+      ...base.authorityGuide!.assessment,
+      recommendedVisit: "30–60 minutes for exterior architecture and permitted public rooms; overnight accommodation is a separate reservation.",
+      weatherExposure: "Mixed indoor/outdoor",
+      familyFit: "Families can enjoy a short exterior architecture walk and, when entry is permitted, see the lobby dome. Guest-only facilities are not public attractions.",
+    },
+  },
   // Official direct booking is NOT an affiliate link; existing travel widgets can
   // separately supply tracked comparison/search offers only within their gates.
   reservationUrl: marriott,
