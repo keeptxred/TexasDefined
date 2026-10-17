@@ -2403,7 +2403,7 @@ export const texasWaterParks: WaterParkGuide[] = [
     "slug": "carrollton-rosemeade-rainforest",
     "name": "Rosemeade Rainforest Aquatic Complex",
     "city": "Carrollton",
-    "county": "Denton",
+    "county": "Dallas",
     "region": "Dallas–Fort Worth",
     "setting": "Outdoor",
     "kind": "Municipal water park",
