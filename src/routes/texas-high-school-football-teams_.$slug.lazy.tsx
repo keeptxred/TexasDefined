@@ -18,6 +18,7 @@ export const Route = createLazyFileRoute('/texas-high-school-football-teams/$slu
 function Page() {
   const {
     displayName,
+    slug,
     program,
     identity,
     enrollmentLink,
@@ -262,7 +263,7 @@ function Page() {
 
       {!editorial?.notice && (editorial?.schedule || editorial?.season || editorial?.venue || venueLinks.length > 0 || program?.schoolWebsite) && (
         <FootballGameNightGuide
-          slug={Route.useParams().slug}
+          slug={slug}
           footballName={footballName}
           schedule={editorial?.schedule}
           season={editorial?.season}
