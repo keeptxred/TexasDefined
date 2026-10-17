@@ -5,6 +5,7 @@ interface ExpandedDetails {
   slug: string;
   whyItMatters: string;
   planningSections: MajorEventPlanningSection[];
+  quickFacts?: Array<{ label: string; value: string }>;
   relatedLinks: MajorEventRelatedLink[];
   sources: MajorEventSource[];
 }
