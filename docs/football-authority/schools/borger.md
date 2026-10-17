@@ -1,5 +1,13 @@
 # Borger Bulldogs — independent Batch 006 football dossier
 
+## October 17, 2026 — corrected 1962 UIL title appearance and 2025 forfeit record conflict
+
+- [UIL official 1962 Class 4A champions table](https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html): San Antonio Brackenridge **30**, Borger **26**. **Borger runner-up; never a Borger state title.**
+- [Dave Campbell's Gene Mayfield Hall of Fame biography](https://www.texasfootball.com/hof-gene-mayfield): Mayfield led previously unbeaten Borger into the 1962 final, but his 1965 championship was at **Odessa Permian**, a separate school.
+- [MaxPreps 2025 Borger schedule](https://www.maxpreps.com/tx/borger/borger-bulldogs/football/25-26/schedule/): 1–9 including an Oct 31 "W 46–12 (FF)" over Levelland. Its game record identifies **Levelland 46, Borger 12 on the field**, with Levelland forfeiting due to ineligible player use. [Dave Campbell's Borger program history](https://www.texasfootball.com/team/borger-bulldogs) reports **0–10** for 2025; the two different tallies are explicitly attributed rather than reconciled as an unquestioned season record.
+- Current 2026 record remains 2–6 through Oct 16; future Oct 23/30 games stay unscored. First-party school and stadium entrance, media rights, accessibility and formal production Chrome/editorial acceptance remain separate.
+
+
 **October 17, 2026**. Not browser-VERIFIED or editorially accepted. This is Borger ISD in Hutchinson County, 11-man, UIL **2026–28 4A Division II District 3**. The official first-party classification is [UIL 4AD2FB2026.pdf](https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf); not an estimate or previous alignment.
 
 ## Source-verified campus, school identity and history
