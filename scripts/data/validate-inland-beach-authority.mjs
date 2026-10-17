@@ -55,6 +55,10 @@ assert.ok(page.includes("mainEntity") && page.includes("ItemList"));
 assert.ok(page.includes('numberOfItems: inlandSwimmingBeaches.length'));
 assert.ok(individual.includes("beach.officialUrl") && individual.includes("beach.checkedAt"));
 assert.ok(individual.includes('createFileRoute("/explore/inland-beaches/$slug")'), "Every beach needs an individual route, not just an anchor");
+assert.ok(page.includes('await import("@/data/inland-beach-authority")'), "Directory must lazy-load full profiles instead of expanding global client JS");
+assert.ok(individual.includes('await import("@/data/inland-beach-authority")'), "Individual beach route must lazy-load full profiles");
+assert.ok(!page.includes('import { inlandSwimmingBeaches }') && !individual.includes('import { inlandBeachBySlug, inlandSwimmingBeaches }'), "No eager inland inventory in statically registered routes");
+
 assert.ok(individual.includes("inlandBeachBySlug(params.slug)"));
 assert.ok(individual.includes("canonicalLink(texasDefinedBrand, canonicalPath)"));
 assert.ok(individual.includes("beach.evidence") && individual.includes("beach.arrival") && individual.includes("beach.safety") && individual.includes("beach.nearby"));
