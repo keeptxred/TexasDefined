@@ -231,7 +231,9 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
     return {
       meta: buildMeta(texasDefinedBrand, {
         title: destination.slug === "mayborn-museum-waco" ? "Mayborn Museum Waco: Hours, Tickets & Exhibits" : isZapataMuseum ? "Zapata County Museum of History: Exhibits, Hours & Admission" : isYsletaMuseum ? "Ysleta del Sur Pueblo Museum: Exhibits, Hours & Tigua History" : isYoungCountyMuseum ? "Young County Museum Graham: Exhibits, Hours & History" : (DESTINATION_EDITORIAL_SEO_TITLES[destination.slug] ?? destinationSeoTitle(destination.name, categoryName)),
-        description: destination.summary,
+        description: destination.slug === "fort-mckavett"
+          ? "Explore Fort McKavett State Historic Site in Menard County: Buffalo Soldier history, restored barracks, admission, accessibility and tour tips."
+          : destination.summary,
         canonicalPath,
         robots: indexable ? undefined : "noindex, follow",
         ...(hasUsableHero ? { image: destination.hero.src, imageAlt: destination.hero.alt } : {}),
