@@ -2250,6 +2250,135 @@ export const texasWaterParks: WaterParkGuide[] = [
         "sourceUrl": "https://www.flower-mound.com/birthdayparty"
       }
     ]
+  },
+  {
+    "slug": "canyon-springs-hudson-oaks",
+    "name": "Canyon Springs Waterpark (formerly Splash Kingdom Wild West)",
+    "city": "Hudson Oaks",
+    "county": "Parker",
+    "region": "Dallas–Fort Worth",
+    "setting": "Outdoor",
+    "kind": "Destination park",
+    "admission": "Seasonal waterpark admission with individual passes and group options; check the Canyon Springs operator's current 2027 calendar",
+    "summary": "Canyon Springs is the operating Hudson Oaks family waterpark at the former Splash Kingdom Wild West site, with a wave pool, lazy river, multi-slide Snake Pit, Canyon Racer and child-focused Little Springs attractions.",
+    "distinctiveNote": "This is the rebranded 2026 park, not a second venue. Although the physical site is in Hudson Oaks, the current operator lists the mailing address as Weatherford, Texas. Its 2026 season opened May 23; confirm 2027 operating dates and admission directly.",
+    "officialUrl": "https://www.canyonspringswaterpark.com/",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1001 Cinema Drive, Weatherford, TX 76087 (Hudson Oaks venue)",
+    "visitorHighlights": [
+      "The 2026 Canyon Springs attraction roster includes Texas Tornado, Canyon Racer, Blue Mesa and Snake Pit waterslides.",
+      "Families can spend time in the wave pool, lazy river and Little Springs children's area rather than only high-thrill rides.",
+      "The park now operates as Canyon Springs after its former Splash Kingdom Wild West identity; it is one physical waterpark, not two.",
+      "The operator sells seasonal admissions and cabana/group packages, but a 2027 season pass does not guarantee that rides are operating today."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Canyon Springs the same place as Splash Kingdom Wild West?",
+        "answer": "Yes. Canyon Springs is the 2026 rebrand of the physical waterpark previously known as Splash Kingdom Wild West in Hudson Oaks. Do not expect two separate parks or buy tickets from outdated listings.",
+        "sourceUrl": "https://www.canyonspringswaterpark.com/"
+      },
+      {
+        "question": "Where is the entrance to Canyon Springs Waterpark?",
+        "answer": "The operator lists 1001 Cinema Drive, Weatherford, Texas 76087 as its address and identifies the park location as Hudson Oaks. Use the current Canyon Springs map or operator directions rather than another Splash Kingdom destination.",
+        "sourceUrl": "https://www.canyonspringswaterpark.com/plan-visit/"
+      },
+      {
+        "question": "Does Canyon Springs have attractions for young children and adults?",
+        "answer": "The current ride list includes Little Springs for children, a wave pool and lazy river for lower-thrill fun, and larger slide attractions such as Snake Pit and Canyon Racer. Individual age and height restrictions should be checked directly.",
+        "sourceUrl": "https://www.canyonspringswaterpark.com/rides-attractions/"
+      },
+      {
+        "question": "Does Canyon Springs Waterpark operate throughout the year?",
+        "answer": "No. Canyon Springs is a seasonal outdoor park. The operator documented May 23 as the 2026 opening date and advertises 2027 season passes, but visitors should confirm the new summer calendar and each operating day.",
+        "sourceUrl": "https://www.canyonspringswaterpark.com/"
+      }
+    ]
+  },
+  {
+    "slug": "coppell-the-core-aquatics",
+    "name": "The CORE Indoor & Outdoor Aquatics",
+    "city": "Coppell",
+    "county": "Dallas",
+    "region": "Dallas–Fort Worth",
+    "setting": "Both",
+    "kind": "Indoor public park",
+    "admission": "City of Coppell daily recreation admission or eligible facility pass, with resident and nonresident pricing",
+    "summary": "Coppell's The CORE recreation center combines year-round indoor family water play with a children's splash pool and water slide, plus seasonal outdoor zero-entry water play, slides and a lily-pad crossing.",
+    "distinctiveNote": "The outdoor pool is closed for the rest of 2026 and is scheduled to return Memorial Day weekend 2027. Indoor slide time is limited to scheduled open-swim weekends rather than all facility business hours; indoor and outdoor rides have different height restrictions.",
+    "officialUrl": "https://www.coppelltx.gov/779/Aquatics",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "234 E Parkway Boulevard, Coppell, TX 75019",
+    "visitorHighlights": [
+      "The indoor leisure area includes a children's zero-depth splash pool and an indoor water slide; indoor slide access follows special weekend open-swim hours.",
+      "The summer outdoor pool combines a zero-entry splash pool, a slide catch pool and floating lily-pad crossing beside separate lap facilities.",
+      "The June 2026 city handbook states a minimum slide height of 42 inches indoors and 48 inches outdoors.",
+      "An ordinary day pass allows the facility's available amenities, but programmed aquatic lessons and maintenance can interrupt open-swim availability."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Does The CORE Coppell have year-round waterpark-style facilities?",
+        "answer": "Yes, the indoor aquatics area is maintained year-round, including leisure/splash water play. The outdoor leisure and slide pools are seasonal and the City of Coppell says their 2026 summer season has ended.",
+        "sourceUrl": "https://www.coppelltx.gov/779/Aquatics"
+      },
+      {
+        "question": "What are the slide height minimums at Coppell's The CORE?",
+        "answer": "The city's June 2026 pass-holder handbook specifies at least 42 inches tall for the indoor slide and 48 inches for the outdoor slides. Slide weight limits and other posted ride rules also apply.",
+        "sourceUrl": "https://coppelltx.gov/DocumentCenter/View/4034/The-CORE---Pass-Holder-Handbook---January-2026"
+      },
+      {
+        "question": "Are the water slides open whenever The CORE building is open?",
+        "answer": "No. The indoor slide is scheduled during Saturday and Sunday open-swim windows, which can change with lessons and programming. The outdoor slides operate only with the seasonal outdoor pool, so check the Aquatics schedule.",
+        "sourceUrl": "https://www.coppelltx.gov/779/Aquatics"
+      },
+      {
+        "question": "Can someone without a Coppell annual membership purchase a day pass?",
+        "answer": "Yes. Coppell's recreation center offers public day passes, with separate resident and nonresident rates. Visitor hours, available facilities and pool schedules may differ from the building's posted general hours.",
+        "sourceUrl": "https://coppelltx.gov/440/The-CORE"
+      }
+    ]
+  },
+  {
+    "slug": "allen-don-rodenbaugh-aquatics",
+    "name": "Don Rodenbaugh Aquatics Center Leisure Waterpark",
+    "city": "Allen",
+    "county": "Collin",
+    "region": "Dallas–Fort Worth",
+    "setting": "Indoor",
+    "kind": "Indoor public park",
+    "admission": "City of Allen public day passes or eligible recreation membership, with different resident and nonresident rates",
+    "summary": "Allen's Don Rodenbaugh Aquatics Center pairs a year-round indoor leisure pool, water slide, lazy river and interactive children's aquatic play with a separate competitive lap pool and fitness facilities.",
+    "distinctiveNote": "This is a community aquatics center, not a hotel or all-day thrill-ride park. The water-play features and lap pool follow their own public swim schedule, which can change around lessons, rentals and maintenance; the facility was formerly known as Don Rodenbaugh Natatorium.",
+    "officialUrl": "https://www.lifeinallen.org/recreation_facilities/don_rodenbaugh_aquatics_center.php",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "110 E. Rivercrest Boulevard, Allen, TX 75002",
+    "visitorHighlights": [
+      "The indoor leisure pool offers a lazy river, a waterslide and an interactive play structure geared to family recreation.",
+      "A separate competition swimming pool serves lap swimming, dive boards and lessons; its schedule does not define slide availability.",
+      "Allen sells facility day passes to the public and also offers recreation-center membership options with resident and nonresident rates.",
+      "The operator city renamed the former Don Rodenbaugh Natatorium to Don Rodenbaugh Aquatics Center, with the same Allen venue address."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Does Don Rodenbaugh Aquatics Center have a lazy river and slides?",
+        "answer": "Yes. Allen's tourism office describes the indoor leisure pool's lazy river, flume slide and interactive water-play elements, alongside a separate competitive pool. Confirm slide opening times before travelling.",
+        "sourceUrl": "https://visitallentexas.com/directory/don-rodenbaugh-aquatics-center/"
+      },
+      {
+        "question": "Can Allen visitors use Don Rodenbaugh without a monthly recreation membership?",
+        "answer": "Yes. The City of Allen sells day passes, with resident and nonresident categories. Each visiting patron must have a current recreation waiver on file, and facility hours are not necessarily the leisure-pool's open-swim schedule.",
+        "sourceUrl": "https://www.lifeinallen.org/recreation_facilities/don_rodenbaugh_aquatics_center.php"
+      },
+      {
+        "question": "Is Don Rodenbaugh a seasonal outdoor waterpark?",
+        "answer": "No. It is an indoor family aquatics and fitness center open throughout the year, subject to public-swim windows, school lessons and maintenance. The city's separate Ford Pool is a summer-only outdoor pool.",
+        "sourceUrl": "https://www.lifeinallen.org/recreation_facilities/don_rodenbaugh_aquatics_center.php"
+      },
+      {
+        "question": "Is the Don Rodenbaugh Natatorium a different park?",
+        "answer": "No. The city renamed Don Rodenbaugh Natatorium to Don Rodenbaugh Aquatics Center in 2023. They refer to the same indoor family recreation facility at 110 East Rivercrest Boulevard in Allen.",
+        "sourceUrl": "https://www.lifeinallen.org/recreation_facilities/don_rodenbaugh_aquatics_center.php"
+      }
+    ]
   }
 ];
 export const texasWaterParksBySlug = new Map(texasWaterParks.map((park) => [park.slug, park]));
