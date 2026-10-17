@@ -2702,7 +2702,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "distinctiveNote": "The facility's 2026 aquatic season is over; check the township for 2027 opening dates rather than assuming sprayground hours apply.",
     "officialUrl": "https://www.thewoodlandsparks.com/Aquatics/Pools/Pool-Locations/Rob-Fleming-Aquatic-Center",
     "reviewedAt": "2026-10-17",
-    "county": "Harris"
+    "county": "Harris",
+    "visitorAddress": "6055 Creekside Forest Dr., The Woodlands, TX 77389",
+    "visitorHighlights": [
+      "Rob Fleming Aquatic Center is the township-operated resort-style waterpark within Rob Fleming Park in The Woodlands.",
+      "Its key attractions are a 500-foot lazy river, a two-story flume waterslide and a separate zero-depth-entry pool.",
+      "The interactive family play structure includes a 150-gallon dumping bucket, while separate lap lanes support conventional swimming.",
+      "The township advertises shaded seating and on-site concessions for summertime visitors rather than overnight resort stays.",
+      "The township explicitly states all pools are closed for the remainder of the 2026 season; its unrelated splashgrounds remain open through October 31.",
+      "The adjacent Rob Fleming Recreation Center at 6464 Creekside Forest Drive is a separate building from Rob Fleming Park's 6055 Creekside Forest Drive location."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can we use Rob Fleming's lazy river this October?",
+        "answer": "No. The Woodlands Township says all pools, including Rob Fleming Aquatic Center, are closed for the remainder of 2026. Its separate community spraygrounds remain available through October 31.",
+        "sourceUrl": "https://www.thewoodlandsparks.com/Aquatics/Pools/Pool-Locations/Rob-Fleming-Aquatic-Center"
+      },
+      {
+        "question": "What makes this park different from a basic pool?",
+        "answer": "The township's official list includes a 500-foot lazy river, two-story flume slide, zero-depth family pool and play area with a 150-gallon dumping bucket.",
+        "sourceUrl": "https://www.thewoodlandsparks.com/Aquatics/Pools/Pool-Locations/Rob-Fleming-Aquatic-Center"
+      },
+      {
+        "question": "Where should families navigate to reach Rob Fleming Park?",
+        "answer": "The township lists Rob Fleming Park at 6055 Creekside Forest Drive; the neighboring Rob Fleming Recreation Center has a different address at 6464 Creekside Forest Drive.",
+        "sourceUrl": "https://www.thewoodlandsparks.com/Aquatics/Pools/Pool-Locations/Rob-Fleming-Aquatic-Center"
+      },
+      {
+        "question": "Is this an overnight resort waterpark?",
+        "answer": "No. Despite its resort-style layout, Rob Fleming is a municipal/township aquatics venue, with typical seasonal visitor admission and separate city recreation services.",
+        "sourceUrl": "https://www.thewoodlandsparks.com/Aquatics/Pools/Pool-Locations/Rob-Fleming-Aquatic-Center"
+      }
+    ]
   },
   {
     "slug": "zenner-killeen",
@@ -3156,7 +3187,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Hurricane Harbor at Six Flags Fiesta Texas is a large water park with a Texas-shaped wave pool, multi-slide complexes and a lazy river.",
     "distinctiveNote": "This water-park section was formerly called White Water Bay; it is distinct from Aquatica San Antonio. Fiesta Texas theme-park tickets do not all include water-park access.",
     "officialUrl": "https://www.sixflags.com/fiestatexas/water-park-information",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "17000 IH-10 West, San Antonio, TX 78257",
+    "visitorHighlights": [
+      "Hurricane Harbor San Antonio is a waterpark section of Six Flags Fiesta Texas, previously known as White Water Bay, and not the separately ticketed Aquatica park.",
+      "The park features a Texas-shaped wave pool, slide towers, activity pools and a separate lazy-river attraction.",
+      "The Fiesta Texas amusement park operates outside the waterpark's seasonal dates; theme-park opening does not establish that Hurricane Harbor's pools are open.",
+      "Waterpark admission and eligible season-pass access vary by ticket level, so visitors must check the exact Fiesta Texas pass entitlement.",
+      "Official waterpark access information describes optional cabanas, life jackets and locker rentals, with individual water slides operating under distinct rider restrictions.",
+      "The official waterpark-information page contains historical operating-date references; visitors should instead check the live current calendar for future seasonal openings."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Hurricane Harbor the same place as Aquatica San Antonio?",
+        "answer": "No. Hurricane Harbor is inside Six Flags Fiesta Texas at 17000 IH-10 West, whereas Aquatica is a separate SeaWorld waterpark in San Antonio with its own ticket products.",
+        "sourceUrl": "https://www.sixflags.com/fiestatexas/water-park-information"
+      },
+      {
+        "question": "Can guests use the waterpark whenever Fiesta Texas is open?",
+        "answer": "No. The amusement park can be open when the seasonal Hurricane Harbor waterpark is not operating. Verify the exact date on the current waterpark calendar.",
+        "sourceUrl": "https://www.sixflags.com/fiestatexas/water-park-information"
+      },
+      {
+        "question": "Does an ordinary Fiesta Texas ticket include all waterpark features?",
+        "answer": "Not necessarily. Six Flags sells several admission/pass tiers and waterpark access may require a qualifying pass or added admission. Check your specific ticket benefits before travel.",
+        "sourceUrl": "https://www.sixflags.com/fiestatexas/water-park-information"
+      },
+      {
+        "question": "Which physical address should visitors enter?",
+        "answer": "Six Flags publishes 17000 Interstate Highway 10 West, San Antonio, Texas 78257 for its Fiesta Texas entrance; Hurricane Harbor is within that park.",
+        "sourceUrl": "https://www.sixflags.com/fiestatexas/directions"
+      }
+    ]
   },
   {
     "slug": "thrive-indoor-lewisville",
@@ -3324,7 +3386,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Brenham's Blue Bell Aquatic Center has an ice-cream-themed outdoor leisure pool, Big Yellow Slide, Sundae Slide and interactive children's water play.",
     "distinctiveNote": "The two indoor pools are for competition and therapy, not an indoor water park; the outdoor leisure pool runs seasonally from Memorial Day to Labor Day.",
     "officialUrl": "https://docs.cityofbrenham.org/city_government/departments/parks_and_recreation/blue_bell_aquatic_center.php",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1800 E. Tom Green St., Brenham, TX 77833",
+    "visitorHighlights": [
+      "Brenham's Blue Bell Aquatic Center has three distinct pools: year-round indoor competition and therapy pools, and a separate seasonal outdoor leisure waterpark.",
+      "The outdoor ice-cream-themed family leisure pool includes Big Yellow Slide, Sundae Slide and a Popsicle Walk water-crossing feature.",
+      "The Big Yellow Slide normally requires a 48-inch minimum rider height; shorter qualified riders may be screened with an on-site lifeguard swim test under city rules.",
+      "The outdoor family leisure pool follows a summer Memorial Day-through-Labor Day schedule rather than sharing the indoor pool's year-round operation.",
+      "Food and beverages are subject to the center's poolside rules; the city directs guests to its visitor policies and permit requirements for private parties."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can visitors ride the outdoor slides in October?",
+        "answer": "No. Brenham's indoor competition and therapy pools operate through the year, but the waterpark's separate outdoor leisure pool normally closes after Labor Day.",
+        "sourceUrl": "https://docs.cityofbrenham.org/city_government/departments/parks_and_recreation/blue_bell_aquatic_center.php"
+      },
+      {
+        "question": "Does the Big Yellow Slide have a height limit?",
+        "answer": "The official city venue details specify a 48-inch minimum for Big Yellow Slide, with a supervised swimming-ability qualification route for some shorter children under current staff rules.",
+        "sourceUrl": "https://docs.cityofbrenham.org/city_government/departments/parks_and_recreation/blue_bell_aquatic_center.php"
+      },
+      {
+        "question": "Are the competition pool and the waterpark the same?",
+        "answer": "No. Blue Bell Aquatic Center operates an indoor competition pool, an indoor therapy pool and a distinct outdoor ice-cream-themed leisure area with slides and water play.",
+        "sourceUrl": "https://docs.cityofbrenham.org/city_government/departments/parks_and_recreation/blue_bell_aquatic_center.php"
+      },
+      {
+        "question": "What is the exact visitor address?",
+        "answer": "The City of Brenham lists Blue Bell Aquatic Center at 1800 East Tom Green Street, Brenham, Texas 77833. Check the outdoor leisure area's separate dates before arriving.",
+        "sourceUrl": "https://docs.cityofbrenham.org/city_government/departments/parks_and_recreation/blue_bell_aquatic_center.php"
+      }
+    ]
   },
   {
     "slug": "quillian-noahs-ark-houston",
@@ -3428,7 +3520,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Bellaire Town Square's seasonal leisure pool combines water-play facilities with a waterslide and family-focused aquatic recreation.",
     "distinctiveNote": "The city's off-season hours apply to the separate competition pool for lap swimming only; do not mistake fall lap hours for water-slide operating hours.",
     "officialUrl": "https://www.bellairetx.gov/720/Aquatics",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "7001 Fifth St., Bellaire, TX 77401",
+    "visitorHighlights": [
+      "Bellaire Town Square Family Aquatic Center includes the city’s seasonal leisure waterpark as well as a separate competition/lap-swimming pool.",
+      "Off-season access at this Fifth Street facility is limited to lap swimming in the competition pool, not the seasonal slides or leisure-pool attractions.",
+      "The City of Bellaire also operates Evergreen Pool and Elaine Wood Therapy Pool at 4500 Evergreen Street, a separate location not to be confused with the Town Square waterpark.",
+      "The 2026 family leisure pool opened weekends in May and extended to a full daily summer schedule beginning June 6; it closed for the season in September.",
+      "Resident and nonresident day-admission costs differ, with separate off-season lap-swim pricing; proof of residency is needed for resident memberships.",
+      "Private pool rentals are not available in the off-season, and booking table space does not automatically include guest swimming admission."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is the Bellaire waterpark open in October?",
+        "answer": "No. The City of Bellaire states that only competition-pool lap swimming is offered at the Fifth Street center during the off-season; the leisure waterpark follows a separate summer calendar.",
+        "sourceUrl": "https://www.bellairetx.gov/720/Aquatics"
+      },
+      {
+        "question": "Can a non-Bellaire resident visit the aquatic center?",
+        "answer": "Yes. The city has separate admission tiers for residents and nonresidents and sells some membership options, but leisure-pool entry is limited to its posted seasonal hours.",
+        "sourceUrl": "https://www.bellairetx.gov/865/Aquatics-Pricing-and-Membership"
+      },
+      {
+        "question": "Where is the town square facility rather than Evergreen Pool?",
+        "answer": "Bellaire Town Square Family Aquatic Center is at 7001 Fifth Street. Evergreen Pool and the Elaine Wood Therapy Pool are separate at 4500 Evergreen Street.",
+        "sourceUrl": "https://www.bellairetx.gov/720/Aquatics"
+      },
+      {
+        "question": "Are private waterpark parties available in autumn?",
+        "answer": "No. The City of Bellaire's rentals page states no private pool rentals are available during the September-to-May off-season; future reservations and table rentals use separate terms.",
+        "sourceUrl": "https://bellairetx.gov/723/Pool-Rentals"
+      }
+    ]
   },
   {
     "slug": "taylor-roznovak-aquatic",
