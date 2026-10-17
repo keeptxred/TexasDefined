@@ -1458,7 +1458,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Canyon's city-operated Aqua Park is a family water-play destination near Palo Duro Canyon.",
     "distinctiveNote": "The operator uses swimming sessions, and its 2026 season ran from May 23 through August 15.",
     "officialUrl": "https://www.canyontx.gov/511/About-Us",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1900 12th Ave., Canyon, TX 79015",
+    "visitorHighlights": [
+      "Canyon Aqua Park is located within Conner Park rather than being a standalone indoor pool.",
+      "The city's current visitor page lists two separate general-admission swim sessions on weekdays and Saturdays, divided by a one-hour closure.",
+      "Sunday general sessions use a separate afternoon/evening schedule from the Monday–Saturday sessions.",
+      "The facility opened in 2017 and the City of Canyon describes summer demand of roughly 50,000 visitors.",
+      "Tuesday and Thursday evening lap-swim offerings are separate from the general waterpark sessions and require their own admission."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is Canyon Aqua Park located?",
+        "answer": "The city lists Canyon Aqua Park inside Conner Park at 1900 12th Avenue, Canyon, Texas 79015. This is a named municipal family waterpark with separately scheduled sessions.",
+        "sourceUrl": "https://www.canyontx.gov/511/About-Us"
+      },
+      {
+        "question": "Can a ticket be used for the entire day?",
+        "answer": "Do not assume so. The city's published waterpark hours divide general admission into two separate daytime/evening sessions, with a break in between. Confirm current re-entry rules with staff.",
+        "sourceUrl": "https://www.canyontx.gov/511/About-Us"
+      },
+      {
+        "question": "Are Sunday hours the same as other days?",
+        "answer": "No. Canyon lists separate Sunday waterpark sessions in the afternoon and evening; Monday through Saturday use a different two-session schedule during the summer season.",
+        "sourceUrl": "https://www.canyontx.gov/511/About-Us"
+      },
+      {
+        "question": "Is lap swimming included in the normal waterpark session?",
+        "answer": "The city separately advertises Tuesday and Thursday evening lap swimming with its own small admission charge. Check current seasonal waterpark dates before deciding which session to attend.",
+        "sourceUrl": "https://www.canyontx.gov/511/About-Us"
+      }
+    ]
   },
   {
     "slug": "nessler-family-aquatics",
@@ -1472,7 +1502,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "A Texas City water-park-like municipal complex with lazy river, flume slides and children's play.",
     "distinctiveNote": "The published 2026 season ended September 7; city residency documentation affects admission rates.",
     "officialUrl": "https://texascitytx.gov/896/Nessler-Family-Aquatics-Center",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1700 5th Avenue North, Texas City, TX 77590",
+    "visitorHighlights": [
+      "The Texas City park has an aquatic area with flume waterslides and a separate lazy river alongside children's water play.",
+      "The city's waterslide regulations require riders to be at least 48 inches tall and enter the slide feet-first under lifeguard direction.",
+      "Nessler Family Aquatics Center offers on-site restrooms and concessions; verify rules before bringing outside food or drinks.",
+      "Texas City lists a Tuesday–Sunday summer schedule followed by weekend-only sessions late in the season.",
+      "The operator confirms Labor Day, September 7, was the last day of the 2026 public swimming season, rather than year-round operation.",
+      "Texas City uses a lottery-style process for private swim party reservations, with residency eligibility for some parties."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can families swim here in October 2026?",
+        "answer": "No. The official Texas City schedule identifies Labor Day, September 7, as the last day of the 2026 public season. Check next-season schedules before traveling.",
+        "sourceUrl": "https://texascitytx.gov/896/Nessler-Family-Aquatics-Center"
+      },
+      {
+        "question": "How tall must someone be to ride the waterslide?",
+        "answer": "The Texas City waterslide rules require a minimum height of 48 inches. Riders must follow lifeguard instructions, slide feet first, and remove prohibited metal or sharp items.",
+        "sourceUrl": "https://texascitytx.gov/896/Nessler-Family-Aquatics-Center"
+      },
+      {
+        "question": "Where is the Nessler Aquatics Center?",
+        "answer": "The operator lists the entrance at 1700 5th Avenue North, Texas City, Texas 77590. It is a municipal family facility with seasonal dates and separately administered private events.",
+        "sourceUrl": "https://texascitytx.gov/896/Nessler-Family-Aquatics-Center"
+      },
+      {
+        "question": "Can nonresidents reserve a private party?",
+        "answer": "The city describes a resident-only reservation drawing for some high-demand private party dates. Confirm the current eligibility and reservation method rather than assuming normal ticket sales reserve the site.",
+        "sourceUrl": "https://texascitytx.gov/896/Nessler-Family-Aquatics-Center"
+      }
+    ]
   },
   {
     "slug": "veterans-memorial-pool-cedar-park",
@@ -1486,7 +1547,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Cedar Park's large interactive outdoor pool has a dump bucket, beach-entry playscape and a drop slide.",
     "distinctiveNote": "This is a compact city water-play facility, not a full-size slide park; the city says it reopens May 2027.",
     "officialUrl": "https://www.cedarparktexas.gov/facilities/facility/details/veteransmemorialpool-6",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "2525 W. New Hope Drive, Cedar Park, TX 78613",
+    "visitorHighlights": [
+      "The municipal pool covers roughly 8,300 square feet of water, with a listed maximum facility occupancy of 450.",
+      "The zero-depth beach-entry water-play area includes a giant dumping bucket and substantial interactive playscape.",
+      "Older children have a separate mid-depth zone, a high diving platform and a drop slide.",
+      "Shade and private pool reservations are separate products from ordinary day admission.",
+      "The official city listing says Veterans Memorial Pool is closed for the season and plans to reopen in May 2027."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can we visit Veterans Memorial Pool this fall?",
+        "answer": "No. The City of Cedar Park identifies the waterpark-style pool as closed for the 2026 season, with a planned reopening in May 2027. The park should not be marketed as currently swimmable.",
+        "sourceUrl": "https://www.cedarparktexas.gov/facilities/facility/details/veteransmemorialpool-6"
+      },
+      {
+        "question": "Does the pool have activities for older children?",
+        "answer": "Yes. The city lists a mid-depth play area, a large dive platform and a drop slide in addition to the zero-depth beach and younger-child giant-bucket playscape.",
+        "sourceUrl": "https://www.cedarparktexas.gov/facilities/facility/details/veteransmemorialpool-6"
+      },
+      {
+        "question": "Can families book shade seating or a private party?",
+        "answer": "The operator offers separate poolside shade reservations, with different capacity tiers, and time-restricted evening private pool rentals. Admission alone does not guarantee a reserved shade zone.",
+        "sourceUrl": "https://www.cedarparktexas.gov/facilities/facility/details/veteransmemorialpool-6"
+      },
+      {
+        "question": "Where is Cedar Park's Veterans Memorial Pool?",
+        "answer": "The city's published facility address is 2525 West New Hope Drive, Cedar Park, Texas 78613. Consult the facility calendar for future operating dates and special closures.",
+        "sourceUrl": "https://www.cedarparktexas.gov/facilities/facility/details/veteransmemorialpool-6"
+      }
+    ]
   },
   {
     "slug": "apex-centre-mckinney",
@@ -1500,7 +1591,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "McKinney's Apex Centre pairs a seasonal outdoor slide-and-river complex with indoor water-play facilities.",
     "distinctiveNote": "The outdoor slides and river are seasonal, while indoor leisure swimming has a separate schedule.",
     "officialUrl": "https://www.mckinneytexas.org/1744/Aquatics",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "3003 Alma Rd., McKinney, TX 75070",
+    "visitorHighlights": [
+      "The Apex Centre's seasonal outdoor leisure pool has a river channel, a separate family slide and a younger-child play structure.",
+      "Four substantial outdoor body slides are listed: three enclosed flumes and one open-flume attraction.",
+      "The outdoor leisure pool includes a water basketball hoop, while a separate shallow kiddie pool has zero-depth entry and its own small slide.",
+      "Year-round indoor amenities include a separate leisure pool with river channel, water-play structure and an open-flume slide.",
+      "The Apex Centre is a membership/day-pass recreation facility rather than a standalone waterpark ticket-only business.",
+      "The city explicitly permits guests to bring food and coolers to its outdoor pools but prohibits glass items and alcohol."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can nonmembers use McKinney's Apex Centre pools?",
+        "answer": "The city publishes Apex Centre membership and day-pass rates and allows visitors to inquire at the front desk about access. Confirm that outdoor seasonal waterpark features are included on your selected date.",
+        "sourceUrl": "https://www.mckinneytexas.org/1744/Aquatics"
+      },
+      {
+        "question": "Are all water slides available year-round?",
+        "answer": "No. The Apex Centre's outdoor leisure pool and kiddie pool operate seasonally, but the city describes its indoor leisure pool as open year-round. Individual slides may be temporarily unavailable.",
+        "sourceUrl": "https://www.mckinneytexas.org/1744/Aquatics"
+      },
+      {
+        "question": "May families bring their own picnic food?",
+        "answer": "Yes. McKinney explicitly allows outside food and coolers at its outdoor leisure and kiddie pools, but glass containers and alcoholic beverages are prohibited.",
+        "sourceUrl": "https://www.mckinneytexas.org/1744/Aquatics"
+      },
+      {
+        "question": "What rides are in the outdoor versus indoor pools?",
+        "answer": "The outdoor pool lists a river channel, family slide and four body slides. The separate indoor leisure pool has a play area and an open-flume slide, so these are not identical experiences.",
+        "sourceUrl": "https://www.mckinneytexas.org/1744/Aquatics"
+      }
+    ]
   },
   {
     "slug": "strawberry-water-park-pasadena",
@@ -1514,7 +1636,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Pasadena's municipal Strawberry Water Park offers a lazy river, several slide options and obstacle features.",
     "distinctiveNote": "Pasadena confirms it is closed for the 2026 season; the water slides have minimum height rules.",
     "officialUrl": "https://www.pasadenatx.gov/941/Strawberry-Water-Park",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1114 Parkside, Pasadena, TX",
+    "visitorHighlights": [
+      "Strawberry Water Park includes a 330,000-gallon pool and lazy river, with three different slide options.",
+      "The Pasadena facility offers an aquatics play unit, an inflatable obstacle course and a separate rope obstacle course.",
+      "Water basketball and volleyball are listed alongside concession food and a rentable private party room.",
+      "Guests shorter than 48 inches may not ride the water slides or use the inflatable obstacle course.",
+      "The city reports a maximum guest capacity of 500, which can be lowered according to the required lifeguard-to-swimmer ratio.",
+      "The facility's official visitor page identifies Strawberry Water Park as closed for the season as of October 2026."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is Pasadena's Strawberry Water Park?",
+        "answer": "Pasadena lists this location at 1114 Parkside. The municipal page describes this separately from ordinary neighborhood pools, with three slides, a river and obstacle areas.",
+        "sourceUrl": "https://pasadenatx.gov/941/Strawberry-Water-Park"
+      },
+      {
+        "question": "Can children shorter than 48 inches use the water slides?",
+        "answer": "No. Pasadena specifically disallows guests below 48 inches from using the waterslides or inflatable obstacle course. Other play areas have their own age and supervision requirements.",
+        "sourceUrl": "https://pasadenatx.gov/941/Strawberry-Water-Park"
+      },
+      {
+        "question": "Does the park offer food or a private party space?",
+        "answer": "Yes. Pasadena lists a public concession stand and a separate rentable party room. Check availability, capacity and applicable fees with the operator before planning a celebration.",
+        "sourceUrl": "https://pasadenatx.gov/941/Strawberry-Water-Park"
+      },
+      {
+        "question": "Is Strawberry Water Park open in October 2026?",
+        "answer": "No. The city’s current official Strawberry Water Park page says the facility is closed for the season. The next operating calendar must be confirmed before travel.",
+        "sourceUrl": "https://pasadenatx.gov/941/Strawberry-Water-Park"
+      }
+    ]
   },
   {
     "slug": "lake-conroe-splash-zone",
@@ -1570,7 +1723,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Garland's Surf & Swim is a municipal outdoor wave-pool complex rather than a multi-tower slide destination.",
     "distinctiveNote": "The 2026 summer season has ended; check the city's aquatic page for the next seasonal schedule and weather policies.",
     "officialUrl": "https://garlandtx.gov/3454/Surf-Swim",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "440 W. Oates Rd., Garland, TX 75043",
+    "visitorHighlights": [
+      "Garland's Surf & Swim advertises three water slides and the distinctive Murphy Wave wave machine.",
+      "The full complex includes a lazy river, vortex spinning water feature and separate activity pool.",
+      "Family amenities include a climbing wall, toddler pool, on-site concessions and rentable cabanas or a separate party area.",
+      "Residents and nonresidents pay different admission categories, and the city charges an additional cooler fee.",
+      "Children younger than 14 must be accompanied by an adult; glass, alcohol and commercial outside food are not permitted.",
+      "The city identifies Surf & Swim as closed for the 2026 summer season, despite displaying summer hours for reference."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Garland's Surf & Swim open this October?",
+        "answer": "No. Garland's official aquatic website says Surf & Swim is closed for the 2026 summer season. Its summer hours do not establish current operating access.",
+        "sourceUrl": "https://www.garlandtx.gov/3454/Surf-Swim"
+      },
+      {
+        "question": "Does Surf & Swim offer a traditional wave pool?",
+        "answer": "The facility lists a Murphy Wave water-wave feature, three slides, a vortex, a lazy river and a distinct activity pool. It is not interchangeable with Garland's Holford Aquatic Center.",
+        "sourceUrl": "https://www.garlandtx.gov/3454/Surf-Swim"
+      },
+      {
+        "question": "What are the cooler and food policies?",
+        "answer": "The city permits coolers for a separate admission fee, while banning outside commercial food, glass and alcohol. Review the current park policy before packing a family meal.",
+        "sourceUrl": "https://www.garlandtx.gov/3454/Surf-Swim"
+      },
+      {
+        "question": "Can a 12-year-old visit the park without an adult?",
+        "answer": "No. Garland specifically requires children younger than 14 to be accompanied by an adult. Daycare and camp groups have additional required adult-to-child ratios.",
+        "sourceUrl": "https://www.garlandtx.gov/3454/Surf-Swim"
+      }
+    ]
   },
   {
     "slug": "seguin-wave-pool",
@@ -1584,7 +1768,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Seguin's Max Starcke Park wave pool features a beach-entry wave basin and an adjacent kiddie splash pool.",
     "distinctiveNote": "The city explicitly marks the 2026 wave-pool season as finished and expects reopening in May 2027.",
     "officialUrl": "https://www.seguintexas.gov/785/Aquatics",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "1 Wave Pool Drive, Seguin, TX 78155",
+    "visitorHighlights": [
+      "The Seguin Wave Pool is a municipal 15,000-square-foot wave pool inside Max Starcke Park East.",
+      "The facility includes a zero-depth beach-style entry, separate splash pool and raindrop-mushroom play feature.",
+      "The operator advertises reduced-price no-wave swim sessions and standard wave-operation admission as different experiences.",
+      "The City of Seguin's 2026 swimming season ended on August 2, earlier than many Texas municipal waterparks.",
+      "The city prominently says the Seguin Wave Pool is now closed for 2026 and is expected to reopen in May 2027."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Is Seguin Wave Pool still operating in 2026?",
+        "answer": "No. Seguin's official aquatic page states the wave pool is closed for the 2026 season and expects to welcome swimmers again in May 2027; the past summer's tickets do not imply fall access.",
+        "sourceUrl": "https://www.seguintexas.gov/785/Aquatics"
+      },
+      {
+        "question": "Where is the Seguin Wave Pool?",
+        "answer": "The city lists the wave pool at 1 Wave Pool Drive in Max Starcke Park East, Seguin, Texas 78155, rather than at the other recreation facilities elsewhere in town.",
+        "sourceUrl": "https://www.seguintexas.gov/785/Aquatics"
+      },
+      {
+        "question": "Is there a place for visitors who do not want waves?",
+        "answer": "The 15,000-square-foot pool has zero-depth beach entry and a separate splash pool. The city also describes special discounted no-wave sessions when its wave feature is not operating.",
+        "sourceUrl": "https://www.seguintexas.gov/785/Aquatics"
+      },
+      {
+        "question": "Does everyone entering need a ticket?",
+        "answer": "The city states all entering visitors must pay the appropriate admission rate, with a free-entry age category for children three and younger and other possible seasonal discounts.",
+        "sourceUrl": "https://www.seguintexas.gov/785/Aquatics"
+      }
+    ]
   },
   {
     "slug": "jellystone-waller-waterpark",
@@ -1738,7 +1952,37 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Lakeway's recreation pool includes two large body slides, a children's frog slide, lily pads and zero-depth play area.",
     "distinctiveNote": "As of October 2026, the family leisure pool and water slides are seasonally closed even though lap swimming continues.",
     "officialUrl": "https://www.lakeway-tx.gov/84/Swim-Center",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "3103 Lakeway Blvd., Lakeway, TX 78738",
+    "visitorHighlights": [
+      "The Lakeway Swim Center combines a year-round heated six-lane lap pool with a distinct seasonal family leisure pool.",
+      "The seasonal family pool has a zero-depth entrance, a frog-themed slide, lily-pad crossing features and two larger body slides.",
+      "Outdoor amenities include tiered sunning space, shade umbrellas, picnic tables, locker areas and showers.",
+      "The City of Lakeway's October 2026 advisory says ONLY lap swimming is available; the leisure pool and Frog Slide area are closed for the season.",
+      "The city separately lists swim lessons and water aerobics; those programs should not be mistaken for an open waterpark ticket."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can visitors use the Frog Slide in October 2026?",
+        "answer": "No. The City of Lakeway's current notice says only lap swimming is allowed and the leisure pool, including the Frog Slide area, is closed for the season.",
+        "sourceUrl": "https://www.lakeway-tx.gov/84/Swim-Center"
+      },
+      {
+        "question": "Which portions of the facility operate year-round?",
+        "answer": "Lakeway identifies a heated six-lane 25-yard lap pool that operates year-round. Its separate zero-depth family pool, lily pads and waterslides have a seasonal calendar.",
+        "sourceUrl": "https://www.lakeway-tx.gov/84/Swim-Center"
+      },
+      {
+        "question": "Where is the swim center?",
+        "answer": "The city lists Lakeway Swim Center at 3103 Lakeway Boulevard, Lakeway, Texas 78738. Check the current aquatics calendar rather than navigating to a separate sports center.",
+        "sourceUrl": "https://www.lakeway-tx.gov/84/Swim-Center"
+      },
+      {
+        "question": "Can families plan a full waterpark day in winter?",
+        "answer": "No. The city's fall notice limits use to lap swimming, which is not equivalent to its seasonal waterslide and leisure-pool experience. Verify the summer reopening date with the operator.",
+        "sourceUrl": "https://www.lakeway-tx.gov/84/Swim-Center"
+      }
+    ]
   },
   {
     "slug": "el-paso-camp-cohen",
@@ -2218,7 +2462,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Garland's Holford Aquatic Center at 2322 Homestead Place features two waterslides, a current channel, lap lanes, a family activity pool, tot pool, cabanas and a concessions area.",
     "distinctiveNote": "The City of Garland confirms its 2026 outdoor aquatics season at Holford ended August 9. This recently rebuilt venue is separate from Surf & Swim, which has its own slides and seasonal calendar.",
     "officialUrl": "https://www.garlandtx.gov/3513/Holford-Pool",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "2322 Homestead Place, Garland, TX 75044",
+    "visitorHighlights": [
+      "Holford Aquatic Center is a separate Garland municipal aquatic park off Shiloh Road next to a recreation center.",
+      "The park offers two waterslides, a current channel, lap lanes, a young-child tot pool and a separate activity pool.",
+      "Visitors may rent cabanas, private party decks or a party room in addition to general admission.",
+      "Residents have distinct weekday and full-season pass choices, while general day admission has resident versus nonresident tiers.",
+      "The operator imposes a separate cooler fee, prohibits commercial outside food and requires children under age 14 to be accompanied by an adult.",
+      "The city's current page reports Holford closed for the 2026 summer season, while lap walking/swimming programs have their own dated schedules."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Where is the Holford Aquatic Center?",
+        "answer": "Holford is located at 2322 Homestead Place, Garland, Texas 75044. It is separate from Surf & Swim and from the city's other aquatic facilities.",
+        "sourceUrl": "https://www.garlandtx.gov/3513/Holford-Pool"
+      },
+      {
+        "question": "Are there waterslides and an area for small children?",
+        "answer": "Yes. Garland lists two water slides, a current channel, a tot pool and an activity pool, with a separate lap-lane space for athletic swimming.",
+        "sourceUrl": "https://www.garlandtx.gov/3513/Holford-Pool"
+      },
+      {
+        "question": "Are Holford's weekday passes available to everyone?",
+        "answer": "The city describes resident-specific weekday and full-season passes for its 2026 summer season. Nonresidents have separate daily admission pricing, and future pass rules may change.",
+        "sourceUrl": "https://www.garlandtx.gov/3513/Holford-Pool"
+      },
+      {
+        "question": "Is Holford operating regular waterpark hours now?",
+        "answer": "No. Garland's visitor page says the aquatic center is closed for the 2026 summer season. Any adult fitness sessions use their own dated schedule.",
+        "sourceUrl": "https://www.garlandtx.gov/3513/Holford-Pool"
+      }
+    ]
   },
   {
     "slug": "big-spring-russ-mcewen",
@@ -2232,7 +2507,38 @@ export const texasWaterParks: WaterParkGuide[] = [
     "summary": "Inside Big Spring's Comanche Trail Park, the Russ McEwen Family Aquatic Center has a lazy river, two water slides, a zero-entry leisure pool, crossing activities, and interactive children's water play.",
     "distinctiveNote": "The City of Big Spring provides a 2026 ticket and concessions page with a Splash Cash card system and lists the entrance at 911 Golf Course Road. Seasonal public admission dates should be verified for the next summer before visiting.",
     "officialUrl": "https://www.bigspringtx.gov/342/Russ-McEwen-Family-Aquatic-Center",
-    "reviewedAt": "2026-10-17"
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "911 Golf Course Rd., Big Spring, TX 79720",
+    "visitorHighlights": [
+      "Big Spring's municipal aquatic center was built as a 9,376-square-foot leisure pool and supporting bathhouse inside Comanche Trail Park.",
+      "The water attractions include two full-size water slides, lazy river, zero-depth pool entry and a climbable play structure.",
+      "Family attractions include a water-crossing feature and adjacent sand-play zones, rather than only traditional lap lanes.",
+      "The bathhouse provides changing and shower facilities and public concessions along with shaded seating areas.",
+      "In 2026 the city introduced a Splash Cash card exclusively for concession spending, while normal admission is purchased at the entrance.",
+      "The municipal schedule identifies Mondays as closed days during the posted regular summer operation."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "What features are at the Big Spring aquatic center?",
+        "answer": "The city's facility history lists two waterslides, a lazy river, zero-depth entry, climbing play structure, water-crossing activity and shaded sand-play amenities at the municipal leisure pool.",
+        "sourceUrl": "https://www.bigspringtx.gov/Facilities/Facility/Details/Russ-McEwen-Family-Aquatic-Center-7"
+      },
+      {
+        "question": "Can visitors buy snacks with cash directly at the stand?",
+        "answer": "The 2026 visitor information says concessions only accept a prepaid/reloadable Splash Cash card. Cash can be used at the front admission booth to load a card, but not for purchases inside.",
+        "sourceUrl": "https://www.bigspringtx.gov/342/Russ-McEwen-Family-Aquatic-Center"
+      },
+      {
+        "question": "Where is the waterpark entrance?",
+        "answer": "The City of Big Spring lists the aquatic center at 911 Golf Course Road inside Comanche Trail Park, Big Spring, Texas 79720, and publishes a seasonal opening schedule.",
+        "sourceUrl": "https://www.bigspringtx.gov/342/Russ-McEwen-Family-Aquatic-Center"
+      },
+      {
+        "question": "Are Mondays a good time for a visit?",
+        "answer": "No. The posted municipal waterpark operating schedule closes the center on Mondays. Tuesday through Sunday use distinct hours, subject to current seasonal status.",
+        "sourceUrl": "https://www.bigspringtx.gov/342/Russ-McEwen-Family-Aquatic-Center"
+      }
+    ]
   },
   {
     "slug": "splash-shack-cedar-park",
