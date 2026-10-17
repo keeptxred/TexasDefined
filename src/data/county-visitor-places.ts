@@ -1435,6 +1435,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/giddings/"
   },
   {
+    "county": "liberty",
+    "name": "Trinity River National Wildlife Refuge Public Trails",
+    "category": "Parks & recreation",
+    "description": "U.S. Fish & Wildlife Service refuge in Liberty County with designated nature trails, cypress swamps, birding, and Champion Lake day-use access; flooding and hunting seasons can close trails.",
+    "sourceUrl": "https://www.fws.gov/refuge/trinity-river/visit-us"
+  },
+  {
     "county": "lipscomb",
     "name": "Lipscomb Historic Courthouse Square",
     "category": "History & heritage",
@@ -1960,6 +1967,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.portlandtx.gov/Facilities/Facility/Details/Municipal-Park-11"
   },
   {
+    "county": "san-saba",
+    "name": "Mill Pond Park in San Saba",
+    "category": "Parks & recreation",
+    "description": "Spring-fed public park with waterfalls, walking trails, picnic areas and seasonal community activities; consult official local visitor advice about swimming and events.",
+    "sourceUrl": "https://visitsansabatexas.com/attractions/"
+  },
+  {
     "county": "scurry",
     "name": "Ritz Community Theatre",
     "category": "Arts & culture",
@@ -2254,6 +2268,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.roundrocktexas.gov/park/rabb-park/"
   },
   {
+    "county": "wilson",
+    "name": "Giant Peanut Sculpture in Floresville",
+    "category": "Art & architecture",
+    "description": "Public roadside-style agricultural landmark on the Wilson County Courthouse lawn celebrating the region's peanut-growing heritage; view from the public square.",
+    "sourceUrl": "https://www.floresvilletx.gov/i-want-to/visit-floresville-texas/"
+  },
+  {
     "county": "wise",
     "name": "Wise County Veterans Memorial Park",
     "category": "History & heritage",
@@ -2273,6 +2294,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Public 2,911-acre conservation and recreation landscape with birding, hiking, mountain biking and equestrian trails.",
     "sourceUrl": "https://www.mineola.com/o/naturepreserve"
+  },
+  {
+    "county": "young",
+    "name": "Historic Downtown Graham Walking and Driving Tour",
+    "category": "History & heritage",
+    "description": "Self-guided county-seat architecture and downtown heritage route with visitor-center maps, including a preserved nineteenth-century courthouse arch and public memorial plaza.",
+    "sourceUrl": "https://grahamtexas.net/play/things-to-do/"
   },
   {
     "county": "zavala",
