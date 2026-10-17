@@ -90,6 +90,8 @@ import { Route as TexasHistoryRouteImport } from './routes/texas-history'
 import { Route as TexasHistoricLandmarksRouteImport } from './routes/texas-historic-landmarks'
 import { Route as TexasHipHopRouteImport } from './routes/texas-hip-hop'
 import { Route as TexasHighSchoolFootballTeamsRouteImport } from './routes/texas-high-school-football-teams'
+import { Route as TexasHighSchoolFootballPlayoffBracketsRouteImport } from './routes/texas-high-school-football-playoff-brackets'
+import { Route as TexasHighSchoolFootballMatchupsRouteImport } from './routes/texas-high-school-football-matchups'
 import { Route as TexasHighSchoolFootballIsdsRouteImport } from './routes/texas-high-school-football-isds'
 import { Route as TexasHighSchoolFootballDistrictsRouteImport } from './routes/texas-high-school-football-districts'
 import { Route as TexasHighSchoolFootballChampionshipHistoryRouteImport } from './routes/texas-high-school-football-championship-history'
@@ -216,6 +218,7 @@ import { Route as TexasHomeownershipCostCalculatorLocationRouteImport } from './
 import { Route as TexasHomeInsuranceCalculatorLocationRouteImport } from './routes/texas-home-insurance-calculator_.$location'
 import { Route as TexasHomeAffordabilityCalculatorLocationRouteImport } from './routes/texas-home-affordability-calculator_.$location'
 import { Route as TexasHighSchoolFootballTeamsSlugRouteImport } from './routes/texas-high-school-football-teams_.$slug'
+import { Route as TexasHighSchoolFootballMatchupsSlugRouteImport } from './routes/texas-high-school-football-matchups_.$slug'
 import { Route as TexasHighSchoolFootballIsdsSlugRouteImport } from './routes/texas-high-school-football-isds_.$slug'
 import { Route as TexasHighSchoolFootballDistrictsSlugRouteImport } from './routes/texas-high-school-football-districts_.$slug'
 import { Route as TexasDataResearchRouteImport } from './routes/texas-data.research'
@@ -1096,6 +1099,18 @@ const TexasHighSchoolFootballTeamsRoute =
       (d) => d.Route,
     ),
   )
+const TexasHighSchoolFootballPlayoffBracketsRoute =
+  TexasHighSchoolFootballPlayoffBracketsRouteImport.update({
+    id: '/texas-high-school-football-playoff-brackets',
+    path: '/texas-high-school-football-playoff-brackets',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasHighSchoolFootballMatchupsRoute =
+  TexasHighSchoolFootballMatchupsRouteImport.update({
+    id: '/texas-high-school-football-matchups',
+    path: '/texas-high-school-football-matchups',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const TexasHighSchoolFootballIsdsRoute =
   TexasHighSchoolFootballIsdsRouteImport.update({
     id: '/texas-high-school-football-isds',
@@ -1900,6 +1915,12 @@ const TexasHighSchoolFootballTeamsSlugRoute =
       (d) => d.Route,
     ),
   )
+const TexasHighSchoolFootballMatchupsSlugRoute =
+  TexasHighSchoolFootballMatchupsSlugRouteImport.update({
+    id: '/texas-high-school-football-matchups_/$slug',
+    path: '/texas-high-school-football-matchups/$slug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const TexasHighSchoolFootballIsdsSlugRoute =
   TexasHighSchoolFootballIsdsSlugRouteImport.update({
     id: '/texas-high-school-football-isds_/$slug',
@@ -3866,6 +3887,8 @@ export interface FileRoutesByFullPath {
   '/texas-high-school-football-championship-history': typeof TexasHighSchoolFootballChampionshipHistoryRoute
   '/texas-high-school-football-districts': typeof TexasHighSchoolFootballDistrictsRoute
   '/texas-high-school-football-isds': typeof TexasHighSchoolFootballIsdsRoute
+  '/texas-high-school-football-matchups': typeof TexasHighSchoolFootballMatchupsRoute
+  '/texas-high-school-football-playoff-brackets': typeof TexasHighSchoolFootballPlayoffBracketsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-historic-landmarks': typeof TexasHistoricLandmarksRoute
@@ -4179,6 +4202,7 @@ export interface FileRoutesByFullPath {
   '/texas-data/research': typeof TexasDataResearchRouteWithChildren
   '/texas-high-school-football-districts/$slug': typeof TexasHighSchoolFootballDistrictsSlugRoute
   '/texas-high-school-football-isds/$slug': typeof TexasHighSchoolFootballIsdsSlugRoute
+  '/texas-high-school-football-matchups/$slug': typeof TexasHighSchoolFootballMatchupsSlugRoute
   '/texas-high-school-football-teams/$slug': typeof TexasHighSchoolFootballTeamsSlugRoute
   '/texas-home-affordability-calculator/$location': typeof TexasHomeAffordabilityCalculatorLocationRoute
   '/texas-home-insurance-calculator/$location': typeof TexasHomeInsuranceCalculatorLocationRoute
@@ -4380,6 +4404,8 @@ export interface FileRoutesByTo {
   '/texas-high-school-football-championship-history': typeof TexasHighSchoolFootballChampionshipHistoryRoute
   '/texas-high-school-football-districts': typeof TexasHighSchoolFootballDistrictsRoute
   '/texas-high-school-football-isds': typeof TexasHighSchoolFootballIsdsRoute
+  '/texas-high-school-football-matchups': typeof TexasHighSchoolFootballMatchupsRoute
+  '/texas-high-school-football-playoff-brackets': typeof TexasHighSchoolFootballPlayoffBracketsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-historic-landmarks': typeof TexasHistoricLandmarksRoute
@@ -4692,6 +4718,7 @@ export interface FileRoutesByTo {
   '/texas-data/research': typeof TexasDataResearchRouteWithChildren
   '/texas-high-school-football-districts/$slug': typeof TexasHighSchoolFootballDistrictsSlugRoute
   '/texas-high-school-football-isds/$slug': typeof TexasHighSchoolFootballIsdsSlugRoute
+  '/texas-high-school-football-matchups/$slug': typeof TexasHighSchoolFootballMatchupsSlugRoute
   '/texas-high-school-football-teams/$slug': typeof TexasHighSchoolFootballTeamsSlugRoute
   '/texas-home-affordability-calculator/$location': typeof TexasHomeAffordabilityCalculatorLocationRoute
   '/texas-home-insurance-calculator/$location': typeof TexasHomeInsuranceCalculatorLocationRoute
@@ -4897,6 +4924,8 @@ export interface FileRoutesById {
   '/texas-high-school-football-championship-history': typeof TexasHighSchoolFootballChampionshipHistoryRoute
   '/texas-high-school-football-districts': typeof TexasHighSchoolFootballDistrictsRoute
   '/texas-high-school-football-isds': typeof TexasHighSchoolFootballIsdsRoute
+  '/texas-high-school-football-matchups': typeof TexasHighSchoolFootballMatchupsRoute
+  '/texas-high-school-football-playoff-brackets': typeof TexasHighSchoolFootballPlayoffBracketsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-historic-landmarks': typeof TexasHistoricLandmarksRoute
@@ -5210,6 +5239,7 @@ export interface FileRoutesById {
   '/texas-data/research': typeof TexasDataResearchRouteWithChildren
   '/texas-high-school-football-districts_/$slug': typeof TexasHighSchoolFootballDistrictsSlugRoute
   '/texas-high-school-football-isds_/$slug': typeof TexasHighSchoolFootballIsdsSlugRoute
+  '/texas-high-school-football-matchups_/$slug': typeof TexasHighSchoolFootballMatchupsSlugRoute
   '/texas-high-school-football-teams_/$slug': typeof TexasHighSchoolFootballTeamsSlugRoute
   '/texas-home-affordability-calculator_/$location': typeof TexasHomeAffordabilityCalculatorLocationRoute
   '/texas-home-insurance-calculator_/$location': typeof TexasHomeInsuranceCalculatorLocationRoute
@@ -5416,6 +5446,8 @@ export interface FileRouteTypes {
     | '/texas-high-school-football-championship-history'
     | '/texas-high-school-football-districts'
     | '/texas-high-school-football-isds'
+    | '/texas-high-school-football-matchups'
+    | '/texas-high-school-football-playoff-brackets'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
     | '/texas-historic-landmarks'
@@ -5729,6 +5761,7 @@ export interface FileRouteTypes {
     | '/texas-data/research'
     | '/texas-high-school-football-districts/$slug'
     | '/texas-high-school-football-isds/$slug'
+    | '/texas-high-school-football-matchups/$slug'
     | '/texas-high-school-football-teams/$slug'
     | '/texas-home-affordability-calculator/$location'
     | '/texas-home-insurance-calculator/$location'
@@ -5930,6 +5963,8 @@ export interface FileRouteTypes {
     | '/texas-high-school-football-championship-history'
     | '/texas-high-school-football-districts'
     | '/texas-high-school-football-isds'
+    | '/texas-high-school-football-matchups'
+    | '/texas-high-school-football-playoff-brackets'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
     | '/texas-historic-landmarks'
@@ -6242,6 +6277,7 @@ export interface FileRouteTypes {
     | '/texas-data/research'
     | '/texas-high-school-football-districts/$slug'
     | '/texas-high-school-football-isds/$slug'
+    | '/texas-high-school-football-matchups/$slug'
     | '/texas-high-school-football-teams/$slug'
     | '/texas-home-affordability-calculator/$location'
     | '/texas-home-insurance-calculator/$location'
@@ -6446,6 +6482,8 @@ export interface FileRouteTypes {
     | '/texas-high-school-football-championship-history'
     | '/texas-high-school-football-districts'
     | '/texas-high-school-football-isds'
+    | '/texas-high-school-football-matchups'
+    | '/texas-high-school-football-playoff-brackets'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
     | '/texas-historic-landmarks'
@@ -6759,6 +6797,7 @@ export interface FileRouteTypes {
     | '/texas-data/research'
     | '/texas-high-school-football-districts_/$slug'
     | '/texas-high-school-football-isds_/$slug'
+    | '/texas-high-school-football-matchups_/$slug'
     | '/texas-high-school-football-teams_/$slug'
     | '/texas-home-affordability-calculator_/$location'
     | '/texas-home-insurance-calculator_/$location'
@@ -6964,6 +7003,8 @@ export interface RootRouteChildren {
   TexasHighSchoolFootballChampionshipHistoryRoute: typeof TexasHighSchoolFootballChampionshipHistoryRoute
   TexasHighSchoolFootballDistrictsRoute: typeof TexasHighSchoolFootballDistrictsRoute
   TexasHighSchoolFootballIsdsRoute: typeof TexasHighSchoolFootballIsdsRoute
+  TexasHighSchoolFootballMatchupsRoute: typeof TexasHighSchoolFootballMatchupsRoute
+  TexasHighSchoolFootballPlayoffBracketsRoute: typeof TexasHighSchoolFootballPlayoffBracketsRoute
   TexasHighSchoolFootballTeamsRoute: typeof TexasHighSchoolFootballTeamsRoute
   TexasHipHopRoute: typeof TexasHipHopRoute
   TexasHistoricLandmarksRoute: typeof TexasHistoricLandmarksRoute
@@ -7222,6 +7263,7 @@ export interface RootRouteChildren {
   TexasCostOfLivingCalculatorLocationRoute: typeof TexasCostOfLivingCalculatorLocationRoute
   TexasHighSchoolFootballDistrictsSlugRoute: typeof TexasHighSchoolFootballDistrictsSlugRoute
   TexasHighSchoolFootballIsdsSlugRoute: typeof TexasHighSchoolFootballIsdsSlugRoute
+  TexasHighSchoolFootballMatchupsSlugRoute: typeof TexasHighSchoolFootballMatchupsSlugRoute
   TexasHighSchoolFootballTeamsSlugRoute: typeof TexasHighSchoolFootballTeamsSlugRoute
   TexasHomeAffordabilityCalculatorLocationRoute: typeof TexasHomeAffordabilityCalculatorLocationRoute
   TexasHomeInsuranceCalculatorLocationRoute: typeof TexasHomeInsuranceCalculatorLocationRoute
@@ -7827,6 +7869,20 @@ declare module '@tanstack/react-router' {
       path: '/texas-high-school-football-teams'
       fullPath: '/texas-high-school-football-teams'
       preLoaderRoute: typeof TexasHighSchoolFootballTeamsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-high-school-football-playoff-brackets': {
+      id: '/texas-high-school-football-playoff-brackets'
+      path: '/texas-high-school-football-playoff-brackets'
+      fullPath: '/texas-high-school-football-playoff-brackets'
+      preLoaderRoute: typeof TexasHighSchoolFootballPlayoffBracketsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-high-school-football-matchups': {
+      id: '/texas-high-school-football-matchups'
+      path: '/texas-high-school-football-matchups'
+      fullPath: '/texas-high-school-football-matchups'
+      preLoaderRoute: typeof TexasHighSchoolFootballMatchupsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-high-school-football-isds': {
@@ -8709,6 +8765,13 @@ declare module '@tanstack/react-router' {
       path: '/texas-high-school-football-teams/$slug'
       fullPath: '/texas-high-school-football-teams/$slug'
       preLoaderRoute: typeof TexasHighSchoolFootballTeamsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-high-school-football-matchups_/$slug': {
+      id: '/texas-high-school-football-matchups_/$slug'
+      path: '/texas-high-school-football-matchups/$slug'
+      fullPath: '/texas-high-school-football-matchups/$slug'
+      preLoaderRoute: typeof TexasHighSchoolFootballMatchupsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-high-school-football-isds_/$slug': {
@@ -11579,6 +11642,9 @@ const rootRouteChildren: RootRouteChildren = {
     TexasHighSchoolFootballChampionshipHistoryRoute,
   TexasHighSchoolFootballDistrictsRoute: TexasHighSchoolFootballDistrictsRoute,
   TexasHighSchoolFootballIsdsRoute: TexasHighSchoolFootballIsdsRoute,
+  TexasHighSchoolFootballMatchupsRoute: TexasHighSchoolFootballMatchupsRoute,
+  TexasHighSchoolFootballPlayoffBracketsRoute:
+    TexasHighSchoolFootballPlayoffBracketsRoute,
   TexasHighSchoolFootballTeamsRoute: TexasHighSchoolFootballTeamsRoute,
   TexasHipHopRoute: TexasHipHopRoute,
   TexasHistoricLandmarksRoute: TexasHistoricLandmarksRoute,
@@ -11899,6 +11965,8 @@ const rootRouteChildren: RootRouteChildren = {
   TexasHighSchoolFootballDistrictsSlugRoute:
     TexasHighSchoolFootballDistrictsSlugRoute,
   TexasHighSchoolFootballIsdsSlugRoute: TexasHighSchoolFootballIsdsSlugRoute,
+  TexasHighSchoolFootballMatchupsSlugRoute:
+    TexasHighSchoolFootballMatchupsSlugRoute,
   TexasHighSchoolFootballTeamsSlugRoute: TexasHighSchoolFootballTeamsSlugRoute,
   TexasHomeAffordabilityCalculatorLocationRoute:
     TexasHomeAffordabilityCalculatorLocationRoute,
