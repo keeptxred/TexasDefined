@@ -151,7 +151,7 @@ const bigThicketAuthority = fs.readFileSync(path.join(root, 'src/data/big-thicke
 const rioGrandeAuthority = fs.readFileSync(path.join(root, 'src/data/fixtures/rio-grande-wild-scenic-river-authority.ts'), 'utf8');
 for (const marker of [
   '"big-thicket-national-preserve"', '30.458251', '-94.387285',
-  '6102 FM 420', '2026-10-17', 'public-domain', 'permits', 'conditions.htm',
+  '6102 FM 420', '2026-10-17', 'Public domain', 'permits', 'conditions.htm',
 ]) if (!bigThicketAuthority.toLowerCase().includes(marker.toLowerCase())) errors.push(`Big Thicket park authority missing: ${marker}`);
 if (!npsPreserved.includes('[bigThicketNationalPreserveAuthority]')) errors.push('Big Thicket NPS visitor center authority must survive remote Explore outages.');
 for (const marker of [
