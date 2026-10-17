@@ -76,6 +76,15 @@ export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
   {
     slug: "fiesta-of-flight-laughlin",
     organizer: organization("47th Flying Training Wing, Laughlin Air Force Base", "https://www.laughlin.af.mil/"),
+    image: {
+      url: "https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/2604/9651994/1000w_q95.jpg",
+      alt: "U.S. Air Force F-35A Lightning II and P-51 Mustang heritage flight at Fiesta of Flight, Laughlin Air Force Base, March 28, 2026 (archival)",
+      sourceUrl: "https://www.dvidshub.net/image/9651994/f-35a-demonstration-team-laughlin-afb",
+      sourceType: "government-open",
+      rightsNote: "Official public-domain U.S. Air Force photograph by Staff Sgt. Zachary Rufus, March 28, 2026, at Fiesta of Flight; archival 2026 event scene, not evidence of a future announced lineup.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     sources: [
       { label: "Laughlin AFB public affairs — 2026 program", url: "https://www.laughlin.af.mil/News/News/Display/Article/4404606/laughlin-afb-releases-initial-performer-list-for-2026-fiesta-of-flight/" },
       { label: "Laughlin AFB official 2026 portal", url: "https://www.laughlin.af.mil/Fiesta-of-Flight-2026/" },
