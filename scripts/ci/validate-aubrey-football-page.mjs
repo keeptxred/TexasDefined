@@ -1,0 +1,33 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+
+const editorial = readFileSync('src/data/high-school-football/program-editorial.ts', 'utf8');
+const route = readFileSync('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx', 'utf8');
+const guide = readFileSync('src/components/sports/FootballGameNightGuide.tsx', 'utf8');
+const start = editorial.indexOf('  "aubrey": {');
+const end = editorial.indexOf('\n  "', start + 14);
+assert.ok(start > -1 && end > start, 'Aubrey editorial entry must exist');
+const aubrey = JSON.parse('{' + editorial.slice(start, end).trim().replace(/,\s*$/, '') + '}').aubrey;
+const games = aubrey.season?.games ?? [];
+assert.equal(games.length, 10, 'All 10 regular-season games must be listed');
+assert.equal(new Set(games.map((game) => game.date)).size, 10, 'No duplicate game dates');
+assert.deepEqual(games.map((game) => game.date), [...games.map((game) => game.date)].sort(), 'Schedule must be chronological');
+assert.ok(games.filter((game) => game.result).length >= 7, 'Seven verified finals through October 16 must be preserved');
+assert.equal(games.find((game) => game.date === '2026-10-09')?.result, 'W 28–21');
+assert.equal(games.find((game) => game.date === '2026-10-16')?.result, 'W 66–14');
+assert.equal(games.find((game) => game.date === '2026-10-16')?.opponent, 'Carrollton Ranchview');
+// Later confirmed results may be added by a reviewed editorial update; do not freeze the October 16 snapshot.
+assert.match(aubrey.season.record, /\d+–\d+ overall.*\d+–\d+ district/, 'Season record must remain explicit and dated');
+assert.equal(aubrey.schedule.sourceUrl, aubrey.season.sourceUrl);
+assert.ok(aubrey.season.latestResultSourceUrl.includes('/football/game/aubrey-vs-ranchview-irving/10-16-2026/'));
+assert.ok(route.includes('Verify latest recorded final ↗'));
+assert.equal(aubrey.schedule.ticketUrl, 'https://gofan.co/app/school/TX90134');
+assert.equal(aubrey.venue.policyUrl, 'https://www.aubreyisd.net/page/aubrey-isd-stadium-policies');
+assert.equal(aubrey.venue.address, '510 Spring Hill Road, Aubrey, TX 76227');
+assert.ok(aubrey.seo.title.includes('Schedule, Scores & Tickets'));
+assert.ok(aubrey.overview.every((line) => !/Avoid inventing|Project context|behind the scenes/i.test(line)));
+assert.ok(guide.includes('Official home tickets ↗') && guide.includes('Stadium entry rules ↗'));
+assert.ok(route.includes('Scheduled · ' + '$' + '{game.kickoff}'));
+assert.ok(!route.includes('Historical alias metadata may help resolve'));
+assert.ok(!route.includes('Project context reviewed'));
+console.log('Aubrey editorial, scoreboard snapshot, visitor links and public-copy guards passed.');
