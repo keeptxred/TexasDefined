@@ -29,7 +29,6 @@ export const Route = createFileRoute("/explore/inland-beaches/$slug")({
             url,
             name: beach.name,
             description: beach.experience,
-            isAccessibleForFree: false,
             containedInPlace: { "@type": "Place", name: beach.lake },
             address: { "@type": "PostalAddress", addressLocality: beach.nearestTown, addressRegion: "TX", addressCountry: "US" },
             subjectOf: { "@type": "CreativeWork", url: beach.officialUrl },
