@@ -15,7 +15,7 @@ export const SOURCES = [
 export function stripPage(html) {
   return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
     .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<[^>]+>/g, ' ').replace(/&nbsp;|&#160;/gi, ' ')
+    .replace(/<\/(?:p|div|li|h[1-6])>/gi, '. ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;|&#160;/gi, ' ')
     .replace(/&amp;/gi, '&').replace(/\s+/g, ' ').trim();
 }
 
@@ -29,7 +29,9 @@ export function newRaceDateContexts(html, source, nowYear = new Date().getUTCFul
     const date = match[0].toLowerCase().replace(/(\d)(st|nd|rd|th)\b/g, '$1').replace(/,?\s*20/, ', 20');
     const year = Number(date.match(/20\d{2}/)?.[0]);
     if (!year || year < nowYear || source.known.some(k => date.includes(k))) continue;
-    const context = body.slice(Math.max(0, match.index - 90), Math.min(body.length, match.index + match[0].length + 125));
+    const sentenceStart = Math.max(body.lastIndexOf('.', match.index - 1) + 1, match.index - 130, 0);
+    const sentenceEnd = body.indexOf('.', match.index);
+    const context = body.slice(sentenceStart, Math.min(body.length, sentenceEnd < 0 ? match.index + 140 : sentenceEnd));
     if (!RACING.test(context)) continue;
     found.push({ date: match[0], context: context.slice(0, 280) });
   }
