@@ -297,6 +297,24 @@ for (const [slug, marker] of [
   assertContains(sixAuthority, marker, `Specific verified landmark/activity missing for ${slug}`);
 }
 
+// Inks Lake restricted-area closures must never become a false full-park shutdown.
+const inksVisitor = read("src/data/inks-lake-visitor-authority.ts");
+assertContains(curation, "applyInksLakeVisitorAuthority,", "Inks Lake source-checked visitor authority missing from destination curators");
+const inksStart = authority.indexOf('  "inks-lake-state-park": {');
+const inksEnd = authority.indexOf('\n  "', inksStart + 5);
+const inksSource = inksStart >= 0 ? authority.slice(inksStart, inksEnd >= 0 ? inksEnd : undefined) : "";
+for (const marker of [
+  'checkedAt: "2026-10-17"',
+  'https://tpwd.texas.gov/state-parks/inks-lake/alert',
+  'WOOD AND CHARCOAL',
+  'PARTIAL HUNTING CLOSURES',
+  'Jan. 18 at 5 p.m. to Jan. 21 at 2 p.m.',
+]) assertContains(inksSource, marker, `Inks Lake official alert fact missing: ${marker}`);
+for (const marker of [
+  'Devils Waterhole', 'west-loop sites', 'five December 2026',
+  '2026-10-17', 'containerized', 'visitorFaqs:', 'sourceUrl:',
+]) assertContains(inksVisitor, marker, `Inks Lake visitor FAQ or original guide missing: ${marker}`);
+
 if (failures.length) {
   for (const problem of failures) process.stderr.write(`FAIL ${problem}\n`);
   process.exitCode = 1;

@@ -543,12 +543,13 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "Use TPWD's bay-side versus beachside campground and trails maps for parking, beach access and the 1.5-mile cross-park separation.",
   },
   "inks-lake-state-park": {
-    checkedAt: "2026-10-12",
+    checkedAt: "2026-10-17",
     sourceUrl: "https://tpwd.texas.gov/state-parks/inks-lake/fees-facilities/campsites",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/inks-lake/alert",
     restrooms: "Shower restrooms near 114 regular 30/50-amp electric sites, 4 tent-only 20-amp electric sites and 42 water-only sites. Backcountry hike-in sites have only a primitive toilet along the trail, no water at campsites.",
     parking: "114 electric sites include numbered wheelchair-accessible campsites; four tent-only sites #219–222 require a 100-foot walk from parking, with #219/#220 accessible. 42 water-only sites accept only one RV under 26 feet; generators prohibited. Primitive campsites require 1.58-mile hike.",
     camping: "114 electric 30/50-amp sites with water, 4 20-amp electric tent-only sites (no RV), 42 water-only sites and 9 hike-in primitive sites. All 9 hike-in primitive sites have NO drinking water, prohibit pets and ground fires; bring water and respect the designated camping area.",
-    access: "Primitive backcountry forbids pets and ground fires; 42 water-only sites do not permit generators. Choose the exact campsite category before treating all 169 sites as equivalent.",
+    access: "Primitive backcountry forbids pets and ground fires; 42 water-only sites do not permit generators. Choose the exact campsite category before treating all 169 sites as equivalent. TPWD alert dated October 14, 2026 prohibits all ash-producing WOOD AND CHARCOAL fires; containerized fuel stoves, such as propane, may be used for cooking. These are PARTIAL HUNTING CLOSURES affecting some trails, some west-loop campsites and primitive campsites, NOT a blanket closure of Inks Lake. Dates: Dec. 3 at 5 p.m. to Dec. 6 at 2 p.m.; Dec. 14 at 5 p.m. to Dec. 17 at 2 p.m. in 2026; Jan. 4 at 5 p.m. to Jan. 7 at 2 p.m., Jan. 11 at 5 p.m. to Jan. 14 at 2 p.m., and Jan. 18 at 5 p.m. to Jan. 21 at 2 p.m. in 2027. Only permitted hunters may enter those closed areas during posted periods; ask TPWD which campsites and trails are affected. Reserve weekends and holidays in advance as the park often sells out.",
     maps: "Use TPWD park and trails maps to distinguish the Devils Waterhole activity area, standard campground loops and remote no-water primitive sites.",
   },
   "pedernales-falls-state-park": {
