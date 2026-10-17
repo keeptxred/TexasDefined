@@ -1,5 +1,24 @@
 # Football Authority — Execution Ledger
 
+## October 17, 2026 — final seven Batch006 researched and authored on protected PR branch (not yet accepted)
+- **Borger Bulldogs**: 4A Division II District 3, 2–6 through October 16, 2026; individual research dossier `docs/football-authority/schools/borger.md`.
+- **Bosqueville Bulldogs**: 2A Division I District 8, 4–3 through October 16, 2026; individual research dossier `docs/football-authority/schools/bosqueville.md`.
+- **Bovina Mustangs**: 2A Division II District 1, 3–3 through October 9, 2026; individual research dossier `docs/football-authority/schools/bovina.md`.
+- **Bowie Jackrabbits**: 3A Division I District 4, 4–3 through October 9, 2026; individual research dossier `docs/football-authority/schools/bowie.md`.
+- **Gold-Burg Bears**: 1A Division II District 10, 2–5 through October 9, 2026; individual research dossier `docs/football-authority/schools/bowie-gold-burg.md`.
+- **Boyd Yellowjackets**: 3A Division I District 4, 2–4 through October 2, 2026; individual research dossier `docs/football-authority/schools/boyd.md`.
+- **Boys Ranch Roughriders**: 1A Division I District 1, 6–0 through October 8, 2026; individual research dossier `docs/football-authority/schools/boys-ranch.md`.
+Score uncertainty (Gold-Burg Woodson), incomplete coaching appointments and photo rights remain conspicuous. Do not call these new profiles VERIFIED before targeted production Chrome + nine-dimension Supabase review. Preserve 105 prior VERIFIED and mandatory protected Merge Gate; avoid broad scans.
+
+## October 16, 2026 — Gail Borden County five UIL six-man championships individually authored (dependent branch)
+Genuine 1997 title 48–16 Panther Creek, 2008 Division II 54–8 Woodson, 2009 Division II 28–14 Highland, 2016 Division I 60–12 Jonesboro, 2017 Division I 60–22 Jonesboro — all UIL final sources. Six completed 2026 games show 6–0 to Oct9 O'Donnell W72–16, six-man District5. 2017 coach Trey Richey historically UIL verified but current MaxPreps and Six-Man Football disagree (Craig Steele), so no current staffing field. Seven original FAQs, Gail official campus contact, two-way Borden County link. No stadium-gate/license/ADA fabrication. IMPLEMENTED on dependent branch; prior 105 VERIFIED remain. No Batch006 school independently exact Chrome/editorial accepted.
+
+## October 16, 2026 — Booker Kiowas independent six-man school authority authored
+Booker ISD, Lipscomb County (NCES), official six-man UIL 1A Division I District1 with Boys Ranch, Claude, White Deer, Wildorado. First-party coach David Biddler and official HS–JH athletics schedule, 2025 9–3 with 4–0 district and one playoff win, 2026 4–3 through Oct9 Claude L0–48. Seven original FAQs, 600 S Main campus contact distinct from unverified stadium gate, two-way Lipscomb County links; no unauthorized logos/photos, speculative ADA or ticket claims. Authored on dependent branch only, not merged/Chrome or nine-dimensional editorial VERIFIED. Preserve 105 historical VERIFIED. Next Borden County.
+
+## October 17, 2026 — Bonham Purple Warriors source-backed individual authority (unmerged branch)
+Canonical PR #5034 consolidates independently researched Bonham 2026 4A Division II District 7, district-appointed **Aaron Ford** as varsity head coach (MaxPreps stale coach labels corrected with district/KXII sources), 2–5 through 2026-10-16 after Ford L12–58 based on updated Oct17 team results, 2025 0–10 vs 2021 bi-district history, Warrior Stadium official sideline-media rules, seven original FAQs and verified 2026–27 online-only HOME event tickets from Bonham ISD Athletics, stadium media accreditation, but no unverified entry/ADA/photo rights. Implemented on branch but NOT deployed or browser/editorially accepted; previous 105 VERIFIED preserved. Next Booker has existing PR #5035; do not duplicate. One targeted protected Gate only, no full site scans.
+
 ## October 16, 2026 — Boling Bulldogs state-champion history and 2026 source record authored (dependent branch)
 Boling UIL official 1972 Class2A **champion 20–0 Rockwall**, 2016 Class3A DII **runner-up 43–7 Gunter** (distinct eras and results), current official school head coach/AD **Kevin Urbanek** (first-party vs stale third-party Steve Urban), 2026 Class3A DII District14 **2–4 through October2**, October9 bye and October16 Industrial result unverified, NCES Wharton campus address, seven original FAQs and two-way Wharton County links. No independent stadium gate/ADA or photo rights asserted. Marked IMPLEMENTED on dependent branch only, NOT merged/deployed/exact-SHA Chrome VERIFIED or formally accepted; older 105 VERIFIED untouched. Required canonical CI and protected Merge Gate before release; no unscoped scans.
 

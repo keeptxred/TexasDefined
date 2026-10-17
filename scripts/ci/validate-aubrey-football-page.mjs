@@ -30,6 +30,8 @@ assert.ok(!route.includes("repeating-linear-gradient(90deg"), 'Decorative yard-l
 assert.ok(route.includes('photo-1508209495879-445d5febf597'), 'Aubrey hero must show a sourced Friday-night football photograph');
 assert.ok(route.includes('Representative high-school football photo, not an Aubrey team or stadium image'), 'Representative non-Aubrey photo requires an explicit disclosure');
 assert.ok(route.includes('Tim Mossholder / Unsplash'), 'Keep the football image photographer credit');
+assert.ok(route.includes('href="https://unsplash.com/license"'), 'Aubrey photo must link its specific confirmed Unsplash License separately from photographer credit');
+assert.ok(route.includes('>Unsplash License</a>'), 'Aubrey photo license must be visible to readers, not just metadata');
 assert.ok(route.includes('Verified 2026 scores, remaining games, home tickets and Chaparral Stadium information.'), 'Mobile introduction should remain concise without repeating all score cards');
 assert.ok(!route.includes('Original TexasDefined football illustration'), 'Never restore the Aubrey clip-art football panel');
 assert.ok(!route.includes('viewBox="0 0 180 110"'), 'Aubrey football clip-art SVG must be removed');

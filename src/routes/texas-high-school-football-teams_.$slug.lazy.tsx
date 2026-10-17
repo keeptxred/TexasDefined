@@ -52,7 +52,17 @@ function Page() {
     boerne: 'kendall', // First-party Boerne High School located in Boerne, Kendall County.
     'boerne-champion': 'kendall', // Samuel V. Champion High School's official 201 Charger Blvd campus is in Kendall County.
     'bogata-rivercrest': 'red-river', // TEA campus 194903001 / NCES identify Rivercrest High in Red River County.
+    bonham: 'fannin', // Bonham High School official Warpath Drive campus, Fannin County.
     boling: 'wharton', // NCES school 481078000541 identifies Boling High's Wharton County campus.
+    booker: 'lipscomb', // NCES 481083000550 confirms Booker Junior High/High School 6–12 campus in Lipscomb County.
+    'borden-county': 'borden', // Borden County ISD high school campus in Gail, not district land across Howard County.
+    'borger': 'hutchinson', // Borger ISD Hutchinson County school campus, not stadium gate
+    'bosqueville': 'mclennan', // Bosqueville ISD McLennan County school campus, not stadium gate
+    'bovina': 'parmer', // Bovina ISD Parmer County school campus, not stadium gate
+    'bowie': 'montague', // Bowie ISD Montague County school campus, not stadium gate
+    'bowie-gold-burg': 'montague', // Gold-Burg ISD Montague County school campus, not stadium gate
+    'boyd': 'wise', // Boyd ISD Wise County school campus, not stadium gate
+    'boys-ranch': 'oldham', // Boys Ranch ISD Oldham County school campus, not stadium gate
     blum: 'hill', // Blum ISD campus in Hill County.
     'bluff-dale': 'erath', // Bluff Dale ISD in Erath County.
     'baytown-goose-creek-memorial': 'harris',
@@ -266,7 +276,8 @@ function Page() {
               </div>
               <figcaption className="mt-2 text-xs text-muted-foreground" style={{ lineHeight: 1.5 }}>
                 Representative high-school football photo, not an Aubrey team or stadium image.{' '}
-                <a href="https://unsplash.com/photos/man-holding-football-field-post-on-side-of-field-Fbq47uCtXHI" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Tim Mossholder / Unsplash</a>.
+                <a href="https://unsplash.com/photos/man-holding-football-field-post-on-side-of-field-Fbq47uCtXHI" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Tim Mossholder / Unsplash</a>.{' '}
+                <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Unsplash License</a>.
               </figcaption>
             </figure>
           )}
