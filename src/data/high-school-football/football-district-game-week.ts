@@ -39,6 +39,22 @@ const final = (
 
 // School names match the UIL district's display names; no records or rankings are inferred.
 const KATY_2026_DISTRICT_GAMES: DistrictFootballGame[] = [
+  final('2026-09-10', 'Katy', 'Katy Tompkins', 45, 21, TNG_2026_RESULTS, 'Texas TNG reported final'),
+  final('2026-09-10', 'Katy Taylor', 'Katy Mayde Creek', 35, 13, TNG_2026_RESULTS, 'Texas TNG reported final'),
+  final('2026-09-11', 'Katy Paetow', 'Katy Jordan', 7, 34, TNG_2026_RESULTS, 'Texas TNG reported final'),
+  final('2026-09-11', 'Katy Morton Ranch', 'Katy Cinco Ranch', 7, 49, TNG_2026_RESULTS, 'Texas TNG reported final'),
+  final('2026-09-17', 'Katy Seven Lakes', 'Katy Morton Ranch', 28, 43, TNG_2026_RESULTS, 'Texas TNG reported final'),
+  final('2026-09-18', 'Katy Jordan', 'Katy', 10, 56, TNG_2026_RESULTS, 'Texas TNG reported final'),
+  final('2026-09-18', 'Katy Tompkins', 'Katy Taylor', 29, 12, TNG_2026_RESULTS, 'Texas TNG reported final'),
+  final('2026-09-19', 'Katy Cinco Ranch', 'Katy Paetow', 28, 20, TNG_2026_RESULTS, 'Texas TNG reported final'),
+  final('2026-09-24', 'Katy Taylor', 'Katy Jordan', 6, 45, TNG_2026_RESULTS, 'Texas TNG reported final'),
+  final('2026-09-24', 'Katy Mayde Creek', 'Katy Tompkins', 20, 44, TNG_2026_RESULTS, 'Texas TNG reported final'),
+  final('2026-09-25', 'Katy', 'Katy Cinco Ranch', 30, 3, TNG_2026_RESULTS, 'Texas TNG reported final'),
+  final('2026-09-25', 'Katy Paetow', 'Katy Seven Lakes', 41, 10, TNG_2026_RESULTS, 'Texas TNG reported final'),
+  final('2026-10-01', 'Katy Morton Ranch', 'Katy Paetow', 16, 28, TNG_2026_RESULTS, 'Texas TNG reported final'),
+  final('2026-10-01', 'Katy Cinco Ranch', 'Katy Taylor', 13, 36, TNG_2026_RESULTS, 'Texas TNG reported final'),
+  final('2026-10-02', 'Katy Jordan', 'Katy Mayde Creek', 44, 8, TNG_2026_RESULTS, 'Texas TNG reported final'),
+  final('2026-10-02', 'Katy Seven Lakes', 'Katy', 0, 55, TNG_2026_RESULTS, 'Texas TNG reported final'),
   final('2026-10-08', 'Katy', 'Katy Morton Ranch', 69, 6, TNG_2026_RESULTS, 'Texas TNG reported final'),
   final('2026-10-09', 'Katy Mayde Creek', 'Katy Cinco Ranch', 34, 41, TNG_2026_RESULTS, 'Texas TNG reported final'),
   final('2026-10-09', 'Katy Taylor', 'Katy Seven Lakes', 31, 17, TNG_2026_RESULTS, 'Texas TNG reported final'),
@@ -92,4 +108,41 @@ export function getDistrictFootballGames(slug: string, classification: string, d
     }
   }
   return [...known.values()].sort((a, b) => a.date.localeCompare(b.date) || a.away.localeCompare(b.away));
+}
+
+export type SourcedDistrictRecord = {
+  schoolName: string;
+  profilePath: string;
+  won: number;
+  lost: number;
+  tied: number;
+};
+
+// Factual scores support a derived record; standings/tiebreaks/official seeds do not follow from it.
+// Skip unknown teams, scheduled games and unverified scores.
+export function getSourcedDistrictRecords(
+  games: DistrictFootballGame[],
+  schools: Array<{ schoolName: string; profilePath: string }>,
+): SourcedDistrictRecord[] {
+  const bySchool = new Map<string, SourcedDistrictRecord>(schools.map(({ schoolName, profilePath }) => [
+    schoolName,
+    { schoolName, profilePath, won: 0, lost: 0, tied: 0 },
+  ]));
+  for (const game of games) {
+    if (game.status !== 'final' || !Number.isInteger(game.awayScore) || !Number.isInteger(game.homeScore)) continue;
+    const away = bySchool.get(game.away);
+    const home = bySchool.get(game.home);
+    if (!away || !home || game.away === game.home) continue;
+    if (game.awayScore! > game.homeScore!) {
+      away.won += 1;
+      home.lost += 1;
+    } else if (game.homeScore! > game.awayScore!) {
+      home.won += 1;
+      away.lost += 1;
+    } else {
+      away.tied += 1;
+      home.tied += 1;
+    }
+  }
+  return [...bySchool.values()];
 }

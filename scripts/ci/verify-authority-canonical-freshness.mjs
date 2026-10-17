@@ -48,6 +48,8 @@ const pages = [
     required: [
       'Katy ISD District 22-6A Football',
       'Katy ISD district game week',
+      'District records from reported games',
+      'not UIL-certified standings',
       'Reported final scores',
       'Scheduled / result awaiting verification',
       'MaxPreps reported final',

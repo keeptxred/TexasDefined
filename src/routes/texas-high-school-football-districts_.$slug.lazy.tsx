@@ -1,7 +1,7 @@
 import { createLazyFileRoute, Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
-import { getDistrictFootballGames, KATY_2026_SCHEDULE_SOURCE, type DistrictFootballGame } from '@/data/high-school-football/football-district-game-week';
+import { getDistrictFootballGames, getSourcedDistrictRecords, KATY_2026_SCHEDULE_SOURCE, type DistrictFootballGame } from '@/data/high-school-football/football-district-game-week';
 import {
   UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE,
   uilFootballConferenceBand,
@@ -20,6 +20,8 @@ function Page() {
   const games = getDistrictFootballGames(district.slug, district.classification, district.district);
   const recentFinals = games.filter((game) => game.status === 'final').reverse().slice(0, 8);
   const pendingGames = games.filter((game) => game.status === 'scheduled').slice(0, 16);
+  const reportedDistrictRecords = katyPilot ? getSourcedDistrictRecords(games, district.programs) : [];
+  const lastReportedFinal = games.filter((game) => game.status === 'final').at(-1)?.date;
   const shortLabel = `${district.classification}${divisionRoman ? ` Division ${divisionRoman}` : ''} District ${district.district}`;
   const enrollmentBand = uilFootballEnrollmentBand(district.classification, district.division);
   const conferenceBand = uilFootballConferenceBand(district.classification);
@@ -43,7 +45,7 @@ function Page() {
           <p className="eyebrow text-primary">2026–28 UIL football alignment</p>
           <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{katyPilot ? `Katy ISD ${districtTitle}` : districtTitle}</h1>
           <p className="mt-6 max-w-4xl text-lg leading-8 text-foreground">{teamLine}</p>
-          <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">2026–28 UIL member schools, sourced 2026 game coverage where available, score-verification guidance and playoff context. No unofficial standings or invented results.</p>
+          <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">2026–28 UIL member schools, sourced 2026 game coverage where available, score-verification guidance and playoff context. No certified standings, fabricated scores or projected playoff seeds.</p>
         </div>
         <dl className="border-y border-border py-3 text-sm lg:border-y-0 lg:border-l lg:pl-6" aria-label="District summary">
           <Fact label="Teams" value={String(district.programCount)} />
@@ -67,6 +69,34 @@ function Page() {
           </div>
           {katyPilot && <a className="text-sm font-semibold text-primary underline underline-offset-4" href={KATY_2026_SCHEDULE_SOURCE} target="_blank" rel="noopener noreferrer">Katy ISD 2026 schedule (PDF mirror) ↗</a>}
         </div>
+        {katyPilot && <div className="mb-8 border border-border p-5" data-football-district-records="source-derived">
+          <h3 className="font-display text-2xl">District records from reported games</h3>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            Source-derived district W–L counts only; not UIL-certified standings, tie-break rankings or playoff qualification.
+            {lastReportedFinal && <> Latest reported result: {new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(lastReportedFinal + 'T12:00:00Z'))}.</>}
+            {' '}Results reported after this date may not be included.
+          </p>
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full text-left text-sm">
+              <thead className="border-b border-border text-xs text-muted-foreground">
+                <tr><th scope="col" className="py-2">Team (alphabetical)</th><th scope="col" className="px-3 py-2 text-right">District W</th><th scope="col" className="px-3 py-2 text-right">District L</th><th scope="col" className="py-2 text-right">Played</th></tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {reportedDistrictRecords.map((record) => <tr key={record.profilePath}>
+                  <th scope="row" className="py-2 font-medium"><a href={record.profilePath} className="hover:text-primary hover:underline">{record.schoolName}</a></th>
+                  <td className="px-3 py-2 text-right tabular-nums">{record.won}</td>
+                  <td className="px-3 py-2 text-right tabular-nums">{record.lost}</td>
+                  <td className="py-2 text-right tabular-nums">{record.won + record.lost + record.tied}</td>
+                </tr>)}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-3 text-xs leading-6 text-muted-foreground">
+            Calculated solely from completed matchups documented below and earlier published results from
+            {' '}<a href="https://www.texastng.com/districts/d22-6a" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Tradition Never Graduates</a>.
+            Do not use these partial data for official UIL seeds or district tie-breakers.
+          </p>
+        </div>}
         <div className="grid gap-8 lg:grid-cols-2">
           <div>
             <div className="flex items-baseline justify-between gap-3 border-b border-border pb-3">
