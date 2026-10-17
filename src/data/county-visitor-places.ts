@@ -89,6 +89,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://codelibrary.amlegal.com/codes/pleasanton/latest/pleasanton_tx/0-0-0-8093"
   },
   {
+    "county": "austin",
+    "name": "Sealy Main Street Historic Walking Tour",
+    "category": "History & heritage",
+    "description": "City-supported self-guided walk past Sealy's historic commercial storefronts and railroad-era buildings; exterior viewing does not guarantee access to private interiors.",
+    "sourceUrl": "https://mainstreet.sealyedc.com/historic/"
+  },
+  {
+    "county": "austin",
+    "name": "Sealy Public Mural Walk",
+    "category": "Art & architecture",
+    "description": "Walkable downtown mural route on Sealy's side streets and alleyways; the municipal visitors bureau recommends it as a short independent art stop.",
+    "sourceUrl": "https://discoversealy.com/groups-2/"
+  },
+  {
     "county": "bailey",
     "name": "Muleshoe National Wildlife Refuge",
     "category": "Parks & recreation",
@@ -306,6 +320,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/brownwood/"
   },
   {
+    "county": "burleson",
+    "name": "Caldwell Arts Trail",
+    "category": "Art & architecture",
+    "description": "Public-facing Caldwell art and heritage walking route reflecting the town's Czech heritage and historic commercial center.",
+    "sourceUrl": "https://texastimetravel.com/cities/caldwell/"
+  },
+  {
     "county": "burnet",
     "name": "Balcones Canyonlands National Wildlife Refuge",
     "category": "Parks & recreation",
@@ -453,6 +474,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.cityofchildress.com/culture-recreation"
   },
   {
+    "county": "coleman",
+    "name": "Coleman City Park",
+    "category": "Parks & recreation",
+    "description": "City public park along Hords Creek with trees, picnic areas, birdwatching and seasonal swimming facilities; verify pool season with the city.",
+    "sourceUrl": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/hote/brownwood-loop"
+  },
+  {
     "county": "collin",
     "name": "Historic Downtown McKinney",
     "category": "History & heritage",
@@ -550,6 +578,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Small Crane city-park pond and waterfall public landscape; a short local outdoor stop, not a destination requiring a separate guide.",
     "sourceUrl": "https://crane.texas.gov/about-crane-tx/media/"
+  },
+  {
+    "county": "crockett",
+    "name": "Crockett County Interpretive Trail",
+    "category": "Parks & recreation",
+    "description": "Free outdoor native-plant and water-conservation trail beside the Ozona visitor center, with rain-harvest exhibits and bird and butterfly habitat.",
+    "sourceUrl": "https://www.ozona.com/interpretivetrail"
+  },
+  {
+    "county": "crockett",
+    "name": "Ozona History on the Square Walking Tour",
+    "category": "History & heritage",
+    "description": "Chamber-produced self-guided town-square walk past the historic courthouse, monuments, early water-well location and public building exteriors.",
+    "sourceUrl": "https://www.ozona.com/history-on-the-square-a-downtown-walking-tour"
   },
   {
     "county": "crosby",
@@ -777,6 +819,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.fortbendcountytx.gov/your-county/tourism"
   },
   {
+    "county": "franklin",
+    "name": "Mount Vernon Historic Downtown Walk",
+    "category": "History & heritage",
+    "description": "Self-guided public-street walk through Mount Vernon's preserved courthouse square and railroad-era Main Street buildings; private interiors are not included.",
+    "sourceUrl": "https://texastimetravel.com/cities/mount-vernon/"
+  },
+  {
     "county": "gaines",
     "name": "Gaines County Park",
     "category": "Parks & recreation",
@@ -817,6 +866,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Lyndon B. Johnson National Historical Park ranch visitor area near Stonewall; obtain the required free driving permit and check current building access.",
     "sourceUrl": "https://www.nps.gov/lyjo/planyourvisit/index.htm"
+  },
+  {
+    "county": "goliad",
+    "name": "Historic Downtown Goliad Walking Tour",
+    "category": "History & heritage",
+    "description": "Official Main Street walking route through Goliad's nineteenth- and early twentieth-century courthouse-square architecture, public streets and mature live oaks.",
+    "sourceUrl": "https://www.mainstreetgoliad.com/walking-tour"
   },
   {
     "county": "gonzales",
@@ -908,6 +964,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Municipal disc-golf activity; check conditions and park rules.",
     "sourceUrl": "https://www.plainviewtx.org/576/Things-to-Do"
+  },
+  {
+    "county": "hall",
+    "name": "Memphis Historic Brick Streets Walk",
+    "category": "History & heritage",
+    "description": "Short streetscape tour of Memphis' historic red brick paving and downtown period buildings, with the Hall County courthouse as a public exterior landmark.",
+    "sourceUrl": "https://texastimetravel.com/cities/memphis/"
   },
   {
     "county": "hamilton",
@@ -1050,6 +1113,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.fws.gov/refuge/santa-ana/visit-us"
   },
   {
+    "county": "hill",
+    "name": "Hillsboro Historic Downtown Architecture Walk",
+    "category": "History & heritage",
+    "description": "Walk the public blocks around Hillsboro's restored courthouse to view turn-of-the-century commercial buildings, historic library and brick streets.",
+    "sourceUrl": "https://texastimetravel.com/cities/hillsboro/"
+  },
+  {
     "county": "hockley",
     "name": "Levelland City of Mosaics Self-Guided Walk",
     "category": "Art & architecture",
@@ -1125,6 +1195,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "National Park Service lake and Canadian River recreation area with public boating and camping access; choose a designated visitor site and check water and road conditions.",
     "sourceUrl": "https://www.nps.gov/lamr/planyourvisit/index.htm"
+  },
+  {
+    "county": "jack",
+    "name": "Historic Jacksboro Railroad Depot and Visitor Center",
+    "category": "History & heritage",
+    "description": "Restored Gulf, Texas and Western Railroad depot now serving as a local tourism and history stop; check staffed visitor-center hours before making a special trip.",
+    "sourceUrl": "https://texastimetravel.com/cities/jacksboro/"
   },
   {
     "county": "jasper",
@@ -1253,6 +1330,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://littlefieldtexas.net/200/Littlefield-Arts-Heritage-Group"
   },
   {
+    "county": "lavaca",
+    "name": "Hallettsville Historic Courthouse Square Walk",
+    "category": "History & heritage",
+    "description": "Public walk around Hallettsville's restored 1897 Romanesque courthouse and surrounding heritage businesses; county-office interiors keep their own schedule.",
+    "sourceUrl": "https://texastimetravel.com/cities/hallettsville/"
+  },
+  {
     "county": "lipscomb",
     "name": "Lipscomb Historic Courthouse Square",
     "category": "History & heritage",
@@ -1342,6 +1426,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Colorado River park near Bay City with riverside recreation, trails and camping; confirm site fees and access.",
     "sourceUrl": "https://www.tourtexas.com/attractions/Riverside-Park"
+  },
+  {
+    "county": "mcculloch",
+    "name": "Earnest O. Martin Memorial Park Aquatic Complex",
+    "category": "Parks & recreation",
+    "description": "Brady municipal family park and seasonal pool complex with play features, sport courts and walking paths; swimming is seasonal.",
+    "sourceUrl": "https://www.bradytx.us/553/Parks"
+  },
+  {
+    "county": "mcculloch",
+    "name": "Richards Park in Brady",
+    "category": "Parks & recreation",
+    "description": "Shaded municipal Brady Creek park offering picnics, playgrounds, disc golf and reservable campsites; verify camping availability and local park rules.",
+    "sourceUrl": "https://www.bradytx.us/553/Parks"
   },
   {
     "county": "mclennan",
@@ -1533,6 +1631,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://stxbot.org/explore/"
   },
   {
+    "county": "ochiltree",
+    "name": "Perryton Main Street Architecture Walk",
+    "category": "History & heritage",
+    "description": "Public walk past Perryton's early twentieth-century commercial streetscape, the courthouse and railroad-era buildings; venue interiors may not be open.",
+    "sourceUrl": "https://texastimetravel.com/cities/perryton/"
+  },
+  {
     "county": "orange",
     "name": "Shangri La Botanical Gardens and Nature Center",
     "category": "Parks & recreation",
@@ -1566,6 +1671,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Floating boardwalk and birdwatching route along Lake Weatherford with public trailheads.",
     "sourceUrl": "https://www.weatherfordtx.gov/3223/The-Boardwalk-at-Lake-Weatherford"
+  },
+  {
+    "county": "pecos",
+    "name": "Comanche Springs Swimming Pool",
+    "category": "Parks & recreation",
+    "description": "Historic Fort Stockton spring-associated municipal swimming pool; check its current season and pool access before planning a swim.",
+    "sourceUrl": "https://texastimetravel.com/cities/fort-stockton/"
+  },
+  {
+    "county": "pecos",
+    "name": "Paisano Pete Roadrunner Statue",
+    "category": "Art & architecture",
+    "description": "Fort Stockton's oversized roadrunner landmark at Main and Dickinson, a publicly viewable roadside photo stop.",
+    "sourceUrl": "https://visitfortstockton.com/"
   },
   {
     "county": "potter",
@@ -1785,6 +1904,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/ltc/rio-bravo-loop"
   },
   {
+    "county": "sutton",
+    "name": "Eaton Hill Nature Center and Preserve",
+    "category": "Parks & recreation",
+    "description": "Sonora nature preserve with public daylight hiking, wildlife observation and geology interpretation; nature-center building hours are seasonal.",
+    "sourceUrl": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/hotw/sonora-loop"
+  },
+  {
+    "county": "sutton",
+    "name": "Sonora Courthouse Square Historic Walking Tour",
+    "category": "History & heritage",
+    "description": "Self-guided downtown Sonora courthouse-square architecture and frontier-history route; look for chamber brochures by the courthouse markers.",
+    "sourceUrl": "https://sonoratexas.org/attractions/historic/courthouse/"
+  },
+  {
     "county": "tarrant",
     "name": "Fort Worth Botanic Garden",
     "category": "Parks & recreation",
@@ -1818,6 +1951,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Art & architecture",
     "description": "A countywide driving route of large quilt-panel artworks reflecting Brownfield and Terry County's cotton-growing heritage.",
     "sourceUrl": "https://texastimetravel.com/directory/terry-county-quilt-trail/"
+  },
+  {
+    "county": "titus",
+    "name": "Mount Pleasant Historic Downtown Brick Street Walk",
+    "category": "History & heritage",
+    "description": "A public streetscape visit around Mount Pleasant's brick-paved Main Street district, restored Dr Pepper wall mural and downtown courthouse.",
+    "sourceUrl": "https://texastimetravel.com/cities/mount-pleasant/"
   },
   {
     "county": "tom-green",
@@ -1909,6 +2049,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Public plaza and historic streets at the center of Laredo's 1755 Spanish-colonial town plan, near San Agustín Cathedral.",
     "sourceUrl": "https://visitlaredo.com/arts-culture/"
+  },
+  {
+    "county": "wharton",
+    "name": "Plaza Theatre in Wharton",
+    "category": "Arts & culture",
+    "description": "Wharton's active community theater presents ticketed plays and musicals at its downtown venue; check the operator's current season calendar.",
+    "sourceUrl": "https://whartonplazatheatre.org/2026-2027-season/"
   },
   {
     "county": "wheeler",
