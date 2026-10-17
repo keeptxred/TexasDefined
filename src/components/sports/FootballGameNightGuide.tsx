@@ -44,6 +44,7 @@ export type FootballGameNightGuideProps = {
   season?: FootballSeason | null;
   venue?: FootballVenue | null;
   venueLink?: FootballVenueLink | null;
+  hasSeasonSection?: boolean;
 };
 
 /** Use the Texas calendar day; game dates are date-only editorial snapshots, not kickoff times. */
@@ -78,6 +79,7 @@ export function FootballGameNightGuide({
   season,
   venue,
   venueLink,
+  hasSeasonSection = false,
 }: FootballGameNightGuideProps) {
   // Keep server and initial client markup identical; the date-sensitive card appears after hydration.
   const [today, setToday] = useState<string | null>(null);
@@ -91,11 +93,11 @@ export function FootballGameNightGuide({
   const venueUrl = venueLink?.venuePath?.startsWith('/sports-venue/') ? venueLink.venuePath : null;
 
   return (
-    <aside aria-label={`${footballName} game-night planning`} className="border-b border-border bg-surface px-5 py-7 sm:px-8 sm:py-9">
+    <aside aria-label={`${footballName} game-night planning`} className="border-b border-border bg-surface px-4 py-6 sm:px-8 sm:py-9">
       <p className="eyebrow text-primary">Plan your Friday night</p>
-      <h2 className="mt-2 font-display text-3xl leading-tight sm:text-4xl">{footballName}: game-night essentials</h2>
+      <h2 className="mt-2 font-display text-2xl leading-tight sm:text-4xl">Game-night essentials</h2>
       <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-        Find a verified schedule source, check the actual game venue and confirm admission directly before you travel.
+        {footballName}: verify the schedule, actual game venue and admission directly before you travel.
         TexasDefined is an independent guide, not a school or ticket seller.
       </p>
 
@@ -123,6 +125,13 @@ export function FootballGameNightGuide({
             onClick={() => recordAction(slug, 'school-website', officialUrl)}
             className="inline-flex min-h-11 items-center justify-center border border-border bg-background px-4 py-3 text-sm font-semibold hover:border-primary hover:text-primary">
             School information ↗
+          </a>
+        )}
+        {hasSeasonSection && (
+          <a href="#football-current-season"
+            onClick={() => recordAction(slug, 'season-section', '#football-current-season')}
+            className="inline-flex min-h-11 items-center justify-center border border-border bg-background px-4 py-3 text-sm font-semibold hover:border-primary hover:text-primary">
+            2026 results &amp; schedule ↓
           </a>
         )}
         {venueUrl && (
