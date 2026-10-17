@@ -170,7 +170,12 @@ export function buildFootballProfileFaq(input: FootballProfileContentInput): Foo
   const merged = [...(editorial?.faq ?? []), ...items];
   const seen = new Set<string>();
   return merged.filter((item) => {
-    const key = item.question.trim().toLowerCase();
+    // Editorial and generated questions can ask the same coaching question in
+    // different words. Preserve the editorial answer, which comes first.
+    const question = item.question.trim().toLowerCase().replace(/\s+/g, ' ');
+    const key = /\b(?:head (?:football )?coach|football head coach|varsity football coach|who coaches)\b/.test(question)
+      ? 'head-football-coach'
+      : question;
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
