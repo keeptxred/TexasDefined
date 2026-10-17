@@ -10,7 +10,7 @@ export type TexasBrewery = {
   zip: string;
   phone: string;
   licenseStatus: string;
-  licenseType: 'BW';
+  licenseType: 'BW' | 'BP';
   expirationDate: string;
 };
 
