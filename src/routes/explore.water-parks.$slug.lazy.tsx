@@ -119,6 +119,18 @@ function WaterParkGuidePage() {
           <p className="mt-4 leading-8 text-muted-foreground">Build the day around admission and expected time in the water, then plan a meal and a short nearby stop only if your group still has energy. See <Link className="text-primary underline" to="/browse/cities">our Texas city guides</Link> for more ideas around {park.city}{park.county ? <> and <a className="text-primary underline" href={`/county/${park.county.toLowerCase().replace(/\s+/g, "-")}`}>{park.county} County</a></> : null}, and use the <Link className="text-primary underline" to="/explore/trip-planner">Texas trip planner</Link> to organize a longer route.</p>
           <p className="mt-4 leading-8 text-muted-foreground">If a water park is not the right fit for your group, compare <Link className="text-primary underline" to="/explore/top-attractions">other Texas attractions</Link> or browse the <Link className="text-primary underline" to="/explore/water-parks">full indoor and outdoor water-park collection</Link>.</p>
         </section>
+        {park.areaAttractions?.length ? <section className="mt-12 border-t border-border pt-8" aria-label="More county attractions">
+          <h2 className="font-display text-3xl">Other attractions in this part of Texas</h2>
+          <p className="mt-4 leading-7 text-muted-foreground">
+            These are separate destinations with their own visitor guides and access rules.
+            County-wide attractions may require a substantial additional drive; they are not included with a waterpark ticket.
+          </p>
+          <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+            {park.areaAttractions.map((item) => <li key={item.href}>
+              <a className="block border-t border-border py-3 text-sm font-semibold text-primary underline underline-offset-4" href={item.href}>{item.label} →</a>
+            </li>)}
+          </ul>
+        </section> : null}
         <section className="mt-12 border-t border-border pt-8">
           <h2 className="font-display text-3xl">Official sources and editorial accuracy</h2>
           <p className="mt-4 leading-8 text-muted-foreground">The source below is maintained by the operator, responsible public agency or official local economic development body; it may not be a dedicated ticket-selling page. Ticket rates and operating hours are intentionally not copied here as evergreen facts. This guide is part of a source-backed research collection, not yet a fully verified authority profile. It does not claim an in-person visit, endorse any park, or guarantee today's ride availability.</p>
