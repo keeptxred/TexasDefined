@@ -16,6 +16,49 @@ const person = (name: string, url?: string): EventSchemaEntity => ({ type: "Pers
 export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
 
   {
+    slug: "greenville-armed-forces-day-fly-in",
+    organizer: organization("Greenville Municipal Airport / City of Greenville", "https://www.greenvilleflyin.org/"),
+    sources: [
+      { label: "Organizer-confirmed May 8, 2027 free fly-in and aircraft rides", url: "https://www.greenvilleflyin.org/" },
+      { label: "Greenville Majors Field official aviation history", url: "https://www.greenvilletx.gov/193/About-Majors-Field-Airport" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "tyler-magnificent-warbird-expo",
+    organizer: organization("Cedar Creek Veterans Foundation", "https://ccveteransfoundation.org/"),
+    sources: [
+      { label: "Official 2026 Tyler Warbird Expo", url: "https://ccveteransfoundation.org/the-warbird-expo/" },
+      { label: "Official 2026 participating aircraft", url: "https://ccveteransfoundation.org/lineup-warbird-expo/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "thunder-over-cedar-creek-lake-airshow",
+    organizer: organization("Cedar Creek Veterans Foundation", "https://ccveteransfoundation.org/"),
+    sources: [{ label: "CCVF — July 4, 2026 at 6 p.m. over Cedar Creek Lake", url: "https://ccveteransfoundation.org/thunder-over-cedar-creek-lake-airshow/" }],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "stephanie-nichols-georgetown-car-plane-show",
+    organizer: organization("Stephanie Nichols", "https://www.eventbrite.com/e/stephanie-nichols-15th-annual-car-plane-show-at-georgetown-airport-tickets-1966964740488"),
+    sources: [
+      { label: "Organizer's 2026 Georgetown Car & Plane Show event page", url: "https://www.eventbrite.com/e/stephanie-nichols-15th-annual-car-plane-show-at-georgetown-airport-tickets-1966964740488" },
+      { label: "Devil Dog Squadron archived 2026 bomber ride details", url: "https://www.devildogsquadron.com/lhfe_flights/177" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "biplanes-breakfast-rockport",
+    organizer: organization("Wings Over Rockport", "https://www.facebook.com/events/s/biplanes-and-breakfast-a-wings/830516746248487/"),
+    sources: [
+      { label: "Organizer 2026 Biplanes & Breakfast post", url: "https://www.facebook.com/events/s/biplanes-and-breakfast-a-wings/830516746248487/" },
+      { label: "Aviation event archive — May 23, 2026 date and ride registration details", url: "https://av8maps.com/event/biplanes-and-breakfast-a-wings-over-rockport-fundraiser-2/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+
+  {
     slug: "ranger-old-school-fly-in-airshow",
     organizer: organization("Ranger Airfield Foundation", "https://www.rangerairfield.org/"),
     sources: [
@@ -33,6 +76,15 @@ export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
   {
     slug: "fiesta-of-flight-laughlin",
     organizer: organization("47th Flying Training Wing, Laughlin Air Force Base", "https://www.laughlin.af.mil/"),
+    image: {
+      url: "https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/2604/9651994/1000w_q95.jpg",
+      alt: "U.S. Air Force F-35A Lightning II and P-51 Mustang heritage flight at Fiesta of Flight, Laughlin Air Force Base, March 28, 2026 (archival)",
+      sourceUrl: "https://www.dvidshub.net/image/9651994/f-35a-demonstration-team-laughlin-afb",
+      sourceType: "government-open",
+      rightsNote: "Official public-domain U.S. Air Force photograph by Staff Sgt. Zachary Rufus, March 28, 2026, at Fiesta of Flight; archival 2026 event scene, not evidence of a future announced lineup.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     sources: [
       { label: "Laughlin AFB public affairs — 2026 program", url: "https://www.laughlin.af.mil/News/News/Display/Article/4404606/laughlin-afb-releases-initial-performer-list-for-2026-fiesta-of-flight/" },
       { label: "Laughlin AFB official 2026 portal", url: "https://www.laughlin.af.mil/Fiesta-of-Flight-2026/" },
