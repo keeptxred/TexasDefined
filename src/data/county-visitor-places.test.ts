@@ -2,10 +2,22 @@ import { describe, expect, it } from 'vitest';
 
 import { TEXAS_COUNTIES } from './texas-places';
 import { COUNTY_VISITOR_PLACES, countyVisitorPlaces } from './county-visitor-places';
+import { COUNTIES_WITH_NO_SUPPLEMENTAL_VISITOR_PLACE_SELECTED } from './county-visitor-selection-decisions';
 
 const validCountySlugs = new Set(TEXAS_COUNTIES.map((county) => county.slug));
 
 describe('unranked county visitor places', () => {
+  it('has an explicit, non-quota editorial selection decision for all 254 counties', () => {
+    const countySet = new Set(COUNTY_VISITOR_PLACES.map((place) => place.county));
+    const noExtra = new Set<string>(COUNTIES_WITH_NO_SUPPLEMENTAL_VISITOR_PLACE_SELECTED);
+    expect(noExtra.size).toBe(COUNTIES_WITH_NO_SUPPLEMENTAL_VISITOR_PLACE_SELECTED.length);
+    for (const county of noExtra) {
+      expect(validCountySlugs.has(county), county).toBe(true);
+      expect(countySet.has(county), county).toBe(false);
+    }
+    expect(new Set([...countySet, ...noExtra])).toEqual(validCountySlugs);
+  });
+
   it('only references real Texas counties and individual HTTPS research sources', () => {
     for (const place of COUNTY_VISITOR_PLACES) {
       expect(validCountySlugs.has(place.county), place.name).toBe(true);
