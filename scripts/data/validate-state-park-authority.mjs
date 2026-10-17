@@ -394,6 +394,26 @@ for (const marker of ['checkedAt: "2026-10-17"', 'supplementalSourceUrl: "https:
   assertContains(davisFacts, marker, `Davis Mountains Indian Lodge visitor safeguard missing: ${marker}`);
 }
 
+// Dated TPWD access and travel safety details for six individual parks.
+const sixOctoberGuides = read("src/data/six-tpwd-visitor-authority-oct17.ts");
+assertContains(curation, "applySixParkOctoberVisitorAuthority,", "Six TPWD original authority guides must be active");
+for (const [slug, markers] of [
+ ["abilene-state-park", ["pellet", "kayak", "swimming pool"]],
+ ["buescher-state-park", ["Oak Haven", "canoe-launch", "charcoal"]],
+ ["eisenhower-state-park", ["Exit 72", "Fossil Ridge", "wet"]],
+ ["fort-boggy-state-park", ["Lake Trail", "November 15", "January 17"]],
+ ["fort-parker-state-park", ["May 2027", "both fishing piers", "motorized"]],
+ ["galveston-island-state-park", ["71–95", "September 28", "boardwalk"]],
+]) {
+ const begin=authority.indexOf(`  "${slug}": {`);
+ const end=authority.indexOf('\n  "',begin+10);
+ const sourceBlock=begin>=0?authority.slice(begin,end>0?end:undefined):"";
+ if(!sourceBlock.includes('checkedAt: "2026-10-17"')) failures.push(`Park ${slug} needs official source review`);
+ if(!sourceBlock.includes('/alert')) failures.push(`Park ${slug} needs actual TPWD alert link`);
+ if(!sixOctoberGuides.includes(`"${slug}"`)) failures.push(`Missing original authority guide: ${slug}`);
+ for(const marker of markers) if(!(sourceBlock+" "+sixOctoberGuides).toLowerCase().includes(marker.toLowerCase())) failures.push(`Missing park source detail ${slug}: ${marker}`);
+}
+
 if (failures.length) {
   for (const problem of failures) process.stderr.write(`FAIL ${problem}\n`);
   process.exitCode = 1;
