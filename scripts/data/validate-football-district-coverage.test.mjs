@@ -7,7 +7,7 @@ const template = readFileSync(new URL('../../src/routes/texas-high-school-footba
 const head = readFileSync(new URL('../../src/routes/texas-high-school-football-districts_.$slug.tsx', import.meta.url), 'utf8');
 
 const dates = [...source.matchAll(/(?:final|scheduled)\('(2026-\d{2}-\d{2})'/g)].map((match) => match[1]);
-const results = [...source.matchAll(/final\('(2026-\d{2}-\d{2})', '([^']+)', '([^']+)', (\d+), (\d+), ([A-Z_]+), '([^']+)'\)/g)];
+const results = [...source.matchAll(/final\('(2026-\d{2}-\d{2})', '([^']+)', '([^']+)', (\d+), (\d+), ([A-Z0-9_]+), '([^']+)'\)/g)];
 const fixtures = [...source.matchAll(/scheduled\('(2026-\d{2}-\d{2})', '([^']+)', '([^']+)', '([^']+)', '([^']+)'\)/g)];
 
 test('district 22 has independent source-backed reported results and a complete dated run-in', () => {
