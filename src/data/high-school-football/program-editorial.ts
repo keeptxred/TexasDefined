@@ -14609,7 +14609,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
-  {
+  "alief-taylor": {
     "slug": "alief-taylor",
     "theme": {
       "accentHex": "#C6283E",
