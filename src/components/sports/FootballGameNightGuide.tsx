@@ -63,8 +63,8 @@ function nextListedGame(games: FootballGame[], today: string): FootballGame | nu
   return games.find((game) => /^\d{4}-\d{2}-\d{2}$/.test(game.date) && game.date >= today && !game.result) ?? null;
 }
 
-function recordAction(slug: string, step: string, destination: string, shop = false) {
-  trackTexasDefinedOutcome(shop ? 'shop_navigation_clicked' : 'next_step_selected', {
+function recordAction(slug: string, step: string, destination: string) {
+  trackTexasDefinedOutcome('next_step_selected', {
     resourceId: `football:${slug}:${step}`,
     entityKind: 'high-school-football-game-night',
     destination,
@@ -160,7 +160,7 @@ export function FootballGameNightGuide({
 
       <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-border pt-5 text-sm">
         <span className="text-muted-foreground">Looking for Texas gear?</span>
-        <a href="/shop" onClick={() => recordAction(slug, 'texas-gear', '/shop', true)}
+        <a href="/shop" onClick={() => recordAction(slug, 'texas-gear', '/shop')}
           className="font-semibold text-primary underline underline-offset-4">
           Browse the TexasDefined shop →
         </a>
