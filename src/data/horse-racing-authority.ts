@@ -97,16 +97,6 @@ export const TEXAS_HORSE_RACING_INSTITUTIONS: readonly HorseRacingInstitution[] 
     sources: [{ label: 'TXRC strategic-plan historic track inventory', url: TXRC_HISTORIC_INVENTORY }, { label: 'TXRC racing dates', url: TXRC_RACETRACKS }],
   },
   {
-    slug: 'gulf-coast-racing', name: 'Gulf Coast Racing', city: 'Corpus Christi', county: 'Nueces County', countySlug: 'nueces', category: 'inactive',
-    canonicalPath: '/horse-racing/gulf-coast-racing',
-    racing: 'Inactive Texas horse-racetrack license; no current live racing verified',
-    introduction: 'Gulf Coast Racing is part of the Corpus Christi-area racing-license history, not a currently verified live racing destination.',
-    context: ['The Texas Racing Commission’s inventory lists Gulf Coast Racing in Corpus Christi among inactive horse-track licenses.', 'An administrative street address in an old agency report is not evidence of current visitor access to a track.', 'Separate this entry from the city’s active sporting and tourism attractions.'],
-    visitorNotes: ['Do not buy travel or event tickets based on older track lists.', 'The Corpus Christi and Nueces County travel hubs cover current nearby things to do.', 'Recheck licensing status before reporting that Gulf Coast Racing has resumed racing.'],
-    sourceDate: '2026-10-16',
-    sources: [{ label: 'TXRC historical track inventory', url: TXRC_HISTORIC_INVENTORY }, { label: 'TXRC racing dates', url: TXRC_RACETRACKS }],
-  },
-  {
     slug: 'valle-de-los-tesoros', name: 'Valle de los Tesoros', city: 'McAllen', county: 'Hidalgo County', countySlug: 'hidalgo', category: 'inactive',
     canonicalPath: '/horse-racing/valle-de-los-tesoros',
     racing: 'Inactive Texas horse-racetrack license; no current live races verified',
