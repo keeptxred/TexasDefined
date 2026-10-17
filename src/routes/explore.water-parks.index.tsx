@@ -95,7 +95,7 @@ function WaterParkDirectory() {
           {results.map((park) => <li key={park.slug} className="border-t-2 border-border pt-5">
             <p className="text-xs font-semibold uppercase tracking-widest text-primary">{park.setting} · {park.kind}</p>
             <h3 className="mt-2 font-display text-2xl leading-tight"><Link to="/explore/water-parks/$slug" params={{ slug: park.slug }} className="hover:text-primary">{park.name}</Link></h3>
-            <p className="mt-1 text-sm text-muted-foreground">{park.city} · {park.region}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{park.city}{park.county ? ` · ${park.county} County` : ""} · {park.region}</p>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">{park.summary}</p>
             <p className="mt-3 text-sm leading-6"><strong>Entry:</strong> {park.admission}</p>
             <Link className="mt-4 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary" to="/explore/water-parks/$slug" params={{slug:park.slug}}>Plan this water-park day →</Link>
