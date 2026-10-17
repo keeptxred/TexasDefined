@@ -14,7 +14,6 @@ const horseRacingCountyDestinations = [
   { countySlug: 'gillespie', name: 'Gillespie County Fairgrounds Horse Racing', city: 'Fredericksburg', category: 'live', href: '/horse-racing/gillespie-county-fairgrounds' },
   { countySlug: 'travis', name: 'Manor Downs', city: 'Manor', category: 'inactive', href: '/horse-racing/manor-downs' },
   { countySlug: 'webb', name: 'Laredo Downs', city: 'Laredo', category: 'inactive', href: '/horse-racing/laredo-downs' },
-  { countySlug: 'nueces', name: 'Gulf Coast Racing', city: 'Corpus Christi', category: 'inactive', href: '/horse-racing/gulf-coast-racing' },
   { countySlug: 'hidalgo', name: 'Valle de los Tesoros', city: 'McAllen', category: 'inactive', href: '/horse-racing/valle-de-los-tesoros' },
 ] as const;
 
