@@ -17,6 +17,20 @@ export type CountyVisitorPlace = {
 
 export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   {
+    "county": "andrews",
+    "name": "Andrews County Veterans Memorial",
+    "category": "History & heritage",
+    "description": "Public memorial recognizing military service; a short cultural-history stop.",
+    "sourceUrl": "https://texastimetravel.com/regions/pecos-trail/heritage-sites-and-attractions/"
+  },
+  {
+    "county": "armstrong",
+    "name": "Gem Theatre in Claude",
+    "category": "Arts & culture",
+    "description": "Restored historic theater associated with the county museum; check dates for performances.",
+    "sourceUrl": "https://texastimetravel.com/directory/gem-theatre/"
+  },
+  {
     "county": "bailey",
     "name": "Ol’ Pete Mule Memorial Statue",
     "category": "Art & architecture",
@@ -77,6 +91,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "name": "Don Pedro Jaramillo Shrine",
     "category": "History & heritage",
     "description": "A culturally significant roadside shrine identified by the City of Falfurrias.",
+    "sourceUrl": "https://www.falfurrias.us/170/Attractions"
+  },
+  {
+    "county": "brooks",
+    "name": "Ed Rachal Memorial Golf Course",
+    "category": "Parks & recreation",
+    "description": "Falfurrias golf course listed by the city; confirm tee times and facilities.",
     "sourceUrl": "https://www.falfurrias.us/170/Attractions"
   },
   {
@@ -150,6 +171,41 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/dimmitt/"
   },
   {
+    "county": "childress",
+    "name": "Childress ATV Park",
+    "category": "Parks & recreation",
+    "description": "Off-road riding area with maintained trails; verify fees and riding rules.",
+    "sourceUrl": "https://www.cityofchildress.com/culture-recreation"
+  },
+  {
+    "county": "childress",
+    "name": "Childress Fair Park",
+    "category": "Parks & recreation",
+    "description": "Municipal park with playgrounds, disc golf, trails, picnic areas and rodeo facilities.",
+    "sourceUrl": "https://www.cityofchildress.com/culture-recreation"
+  },
+  {
+    "county": "childress",
+    "name": "Stoney Ridge Golf Course",
+    "category": "Parks & recreation",
+    "description": "Childress municipal golf course; contact the operator for tee times.",
+    "sourceUrl": "https://www.cityofchildress.com/culture-recreation"
+  },
+  {
+    "county": "collingsworth",
+    "name": "Collingsworth Pioneer Park",
+    "category": "Parks & recreation",
+    "description": "Park north of Wellington with picnic and camping areas and local historic interpretation.",
+    "sourceUrl": "https://texastimetravel.com/cities/wellington/"
+  },
+  {
+    "county": "collingsworth",
+    "name": "Wellington Ritz Theatre",
+    "category": "Arts & culture",
+    "description": "Restored 1929 theater for movies and live music; check the schedule.",
+    "sourceUrl": "https://texastimetravel.com/cities/wellington/"
+  },
+  {
     "county": "comanche",
     "name": "Fleming Oak",
     "category": "History & heritage",
@@ -162,6 +218,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Texas' historic log courthouse from the former county seat of Cora, moved to Comanche; view the public grounds.",
     "sourceUrl": "https://texastimetravel.com/cities/comanche/"
+  },
+  {
+    "county": "crosby",
+    "name": "Silver Falls Park",
+    "category": "Parks & recreation",
+    "description": "Roadside park overlooking Blanco Canyon east of Crosbyton with scenery and picnic areas.",
+    "sourceUrl": "https://visitcrosbycounty.com/stories/silver-falls-guide/"
+  },
+  {
+    "county": "donley",
+    "name": "Mulkey Theatre",
+    "category": "Arts & culture",
+    "description": "Historic Clarendon theater; verify current film and live-performance listings.",
+    "sourceUrl": "https://texastimetravel.com/directory/mulkey-theatre/"
   },
   {
     "county": "fort-bend",
@@ -190,6 +260,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Arts & culture",
     "description": "Minor-league baseball experience in Sugar Land; consult the current schedule before visiting.",
     "sourceUrl": "https://www.fortbendcountytx.gov/your-county/tourism"
+  },
+  {
+    "county": "gaines",
+    "name": "Seminole City Park",
+    "category": "Parks & recreation",
+    "description": "Municipal recreation and picnic stop in Seminole visitor information.",
+    "sourceUrl": "https://seminoletxchamber.org/visit/"
+  },
+  {
+    "county": "garza",
+    "name": "Ragtown Gospel Theater",
+    "category": "Arts & culture",
+    "description": "Post-area theatrical performance venue; check the operator's show schedule.",
+    "sourceUrl": "https://ragtown.com/"
   },
   {
     "county": "hale",
@@ -227,11 +311,74 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.plainviewtx.org/576/Things-to-Do"
   },
   {
+    "county": "hamilton",
+    "name": "Circle T Resort and Arena",
+    "category": "Arts & culture",
+    "description": "Hamilton equestrian and events venue; attend scheduled public events.",
+    "sourceUrl": "https://www.hamiltontexas.com/178/Attractions"
+  },
+  {
+    "county": "hamilton",
+    "name": "Pecan Creek Park",
+    "category": "Parks & recreation",
+    "description": "Municipal park identified in Hamilton's city visitor-attraction directory.",
+    "sourceUrl": "https://www.hamiltontexas.com/178/Attractions"
+  },
+  {
+    "county": "hansford",
+    "name": "J. B. Buchanan Windmill Park",
+    "category": "History & heritage",
+    "description": "Spearman's open-air collection of restored windmills, with a public walking trail.",
+    "sourceUrl": "https://texastimetravel.com/cities/spearman/"
+  },
+  {
+    "county": "hemphill",
+    "name": "Canadian Municipal Golf Course",
+    "category": "Parks & recreation",
+    "description": "Nine-hole municipal golf course in Canadian; arrange tee times.",
+    "sourceUrl": "https://www.canadiantx.com/outdoors"
+  },
+  {
+    "county": "hemphill",
+    "name": "Canadian Recreation Complex",
+    "category": "Parks & recreation",
+    "description": "Municipal rodeo arena and public recreation grounds; check event access.",
+    "sourceUrl": "https://www.canadiantx.com/outdoors"
+  },
+  {
+    "county": "hemphill",
+    "name": "Canadian River Walking Bridge",
+    "category": "Parks & recreation",
+    "description": "Restored historic Canadian River bridge on a walk and bike route with river views.",
+    "sourceUrl": "https://www.canadiantx.com/outdoors"
+  },
+  {
     "county": "houston",
     "name": "Lightnin’ Hopkins Statue",
     "category": "Art & architecture",
     "description": "Public sculpture honoring the blues musician near Crockett's historic Camp Street.",
     "sourceUrl": "https://texastimetravel.com/cities/crockett/"
+  },
+  {
+    "county": "howard",
+    "name": "Big Spring Municipal Auditorium",
+    "category": "Arts & culture",
+    "description": "Municipal auditorium for cultural and civic events; check current schedules.",
+    "sourceUrl": "https://www.visitbigspring.com/152/Community-Landmarks"
+  },
+  {
+    "county": "howard",
+    "name": "Big Spring Vietnam Memorial",
+    "category": "History & heritage",
+    "description": "Public memorial honoring military service, highlighted by Big Spring visitors bureau.",
+    "sourceUrl": "https://www.visitbigspring.com/152/Community-Landmarks"
+  },
+  {
+    "county": "howard",
+    "name": "Comanche Trail Park",
+    "category": "Parks & recreation",
+    "description": "Big Spring municipal outdoor recreation park and historic-spring area.",
+    "sourceUrl": "https://www.visitbigspring.com/152/Community-Landmarks"
   },
   {
     "county": "kimble",
@@ -281,6 +428,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Colorado River park near Bay City with riverside recreation, trails and camping; confirm site fees and access.",
     "sourceUrl": "https://www.tourtexas.com/attractions/Riverside-Park"
+  },
+  {
+    "county": "mills",
+    "name": "Goldthwaite Municipal Golf Course",
+    "category": "Parks & recreation",
+    "description": "Nine-hole public golf course in Goldthwaite; confirm rates and tee times.",
+    "sourceUrl": "https://visitgoldthwaite.com/goldthwaite-municipal-golf-course"
   },
   {
     "county": "mills",
@@ -381,6 +535,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.sweetwatertx.gov/159/Visit-Sweetwater"
   },
   {
+    "county": "scurry",
+    "name": "Ritz Community Theatre",
+    "category": "Arts & culture",
+    "description": "Restored Snyder theater for local stage productions; check upcoming performances.",
+    "sourceUrl": "https://texastimetravel.com/regions/plains-trail/"
+  },
+  {
+    "county": "scurry",
+    "name": "Towle Memorial Park",
+    "category": "Parks & recreation",
+    "description": "Snyder public park with walking paths and picnic areas.",
+    "sourceUrl": "https://www.snydertx.gov/475/Heritage-Village"
+  },
+  {
     "county": "shelby",
     "name": "Historic Shelby County Courthouse",
     "category": "History & heritage",
@@ -402,6 +570,20 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/ltc/rio-bravo-loop"
   },
   {
+    "county": "terrell",
+    "name": "Cactus Capital of Texas Trail",
+    "category": "Parks & recreation",
+    "description": "Sanderson-area walking route associated with its cactus and desert heritage.",
+    "sourceUrl": "https://sandersontexas.com/explore-sanderson"
+  },
+  {
+    "county": "wilbarger",
+    "name": "Santa Rosa Rodeo Grounds",
+    "category": "Arts & culture",
+    "description": "Vernon rodeo venue; attend scheduled events rather than expecting daily access.",
+    "sourceUrl": "https://www.rrvmuseum.org/locations-of-interest"
+  },
+  {
     "county": "willacy",
     "name": "Fred Stone County Park",
     "category": "Parks & recreation",
@@ -414,6 +596,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Coastal birding and native-habitat trail referenced in TPWD's birding trail network.",
     "sourceUrl": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/ltc/sacahuistale-loop/"
+  },
+  {
+    "county": "wood",
+    "name": "Governor Jim Hogg City Park",
+    "category": "Parks & recreation",
+    "description": "Quitman public park with heritage interpretation and family recreation.",
+    "sourceUrl": "https://www.quitmantx.org/parks"
   }
 ];
 
