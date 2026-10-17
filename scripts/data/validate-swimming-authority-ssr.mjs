@@ -19,6 +19,27 @@ const officialSourceMigration = read("supabase/migrations/20261014215400_swim_fl
 const currentAlertSources = read("supabase/migrations/20261017145000_swim_float_current_alert_sources.sql");
 const errors = [];
 
+const reviewedClosureSources = read("supabase/migrations/20261017234000_swim_float_hamilton_caprock_access_sources.sql");
+const hamiltonDestination = read("src/data/destination-curation-batch15.ts");
+const caprockVisitor = read("src/data/six-park-visitor-authority-20261017.ts");
+for (const marker of [
+  "https://drippingspringstx.gov/facilities/facility/details/Hamilton-Pool-Preserve-3",
+  "https://tpwd.texas.gov/state-parks/caprock-canyons/alert",
+  "https://tpwd.texas.gov/state-parks/pedernales-falls",
+]) {
+  if (!reviewedClosureSources.includes(marker)) errors.push("Official swim closure source monitoring missing: " + marker);
+  if (!publicAuthority.includes(marker)) errors.push("Swim guide warning lost its current official source: " + marker);
+}
+if (!activity.includes('"hamilton-pool-preserve": {') || !activity.includes('falling-rock hazards'))
+  errors.push("Hamilton Pool cannot reenter swimming recommendations while its rockfall restriction applies.");
+if (!hamiltonDestination.includes('Swimming is not currently permitted because of falling-rock hazards.') ||
+    !hamiltonDestination.includes('sourceCheckedAt:"2026-10-17"'))
+  errors.push("Hamilton Pool destination record lost current no-swimming guidance or verification date.");
+if (!caprockVisitor.includes("marked Lake Theo swimming area") ||
+    !caprockVisitor.includes("https://tpwd.texas.gov/state-parks/caprock-canyons/alert"))
+  errors.push("Caprock Lake Theo restricted-area warning lost source or destination evidence.");
+
+
 const queueFixMigration = read("supabase/migrations/20261017231000_td_authority_queue_unreviewed_source_alerts.sql");
 if (!queueFixMigration.includes("s.last_checked_at > r.last_verified_at")) errors.push("Authority review queue lost the after-editorial-verification alert gate.");
 for (const marker of [
