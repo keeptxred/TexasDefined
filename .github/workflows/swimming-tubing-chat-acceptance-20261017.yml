@@ -78,6 +78,57 @@ jobs:
           test "$(stat -c%s evidence/desktop.png)" -gt 25000
           test "$(stat -c%s evidence/mobile.png)" -gt 25000
           echo 'PASS headless Chrome desktop/mobile screenshot and guide DOM'
+      - name: Cover full desktop and mobile pages with Playwright
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+          node --input-type=module <<'NODE'
+          import { createRequire } from 'node:module';
+          import { mkdirSync,writeFileSync } from 'node:fs';
+          const { chromium }=createRequire(import.meta.url)('/tmp/texasdefined-wp-qa/node_modules/playwright-core');
+          const browser=await chromium.launch({headless:true,executablePath:'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
+          const results=[];
+          mkdirSync('evidence/full-page',{recursive:true});
+          for(const [name,width,height,mobile] of [['desktop',1440,900,false],['mobile',390,844,true]]){
+            const ctx=await browser.newContext({viewport:{width,height},deviceScaleFactor:1,isMobile:mobile,hasTouch:mobile});
+            await ctx.route(/google-analytics|googletagmanager|facebook\.com\/tr|connect\.facebook\.net|analytics\.google|\/api\/analytics|\/api\/track/i,r=>r.abort());
+            const page=await ctx.newPage(); const errors=[]; page.on('pageerror',e=>errors.push(String(e).slice(0,200)));
+            const res=await page.goto('https://texasdefined.com/explore/swimming-holes-river-tubing',{waitUntil:'domcontentloaded',timeout:60000});
+            await page.locator('#texas-swimming-holes-river-tubing-guide').waitFor({state:'attached',timeout:30000});
+            await page.waitForTimeout(1250);
+            let total=await page.evaluate(()=>document.documentElement.scrollHeight);
+            for(let y=0;y<total;y+=1200){await page.evaluate(y=>window.scrollTo(0,y),y);await page.waitForTimeout(60);}
+            await page.waitForTimeout(1600);
+            total=await page.evaluate(()=>document.documentElement.scrollHeight);
+            const m=await page.evaluate(()=>{
+              const figs=[...document.querySelectorAll('section[aria-label="Photographs from Texas rivers"] figure')];
+              const guide=document.querySelector('#texas-swimming-holes-river-tubing-guide'),stay=document.querySelector('#expedia-travel-surface');
+              return {width:document.documentElement.scrollWidth,viewport:window.innerWidth,height:document.documentElement.scrollHeight,
+                photos:figs.map(f=>({loaded:!!f.querySelector('img')?.naturalWidth,src:f.querySelector('img')?.currentSrc,caption:f.querySelector('figcaption')?.innerText})),
+                stayAfterGuide:!!(guide && stay && (stay.compareDocumentPosition(guide)&Node.DOCUMENT_POSITION_PRECEDING)),
+                brokenImages:[...document.images].filter(i=>i.complete&&i.naturalWidth===0).map(i=>i.src).slice(0,10)};
+            });
+            for(let y=0,k=0;y<total;y+=4500,k++){
+              await page.screenshot({path:'evidence/full-page/'+name+'-'+String(k).padStart(2,'0')+'.png',clip:{x:0,y,width,height:Math.min(4500,total-y)},timeout:60000,animations:'disabled'});
+            }
+            const problems=[];
+            if(res?.status()!==200) problems.push('bad HTTP');
+            if(m.width>width+10) problems.push('horizontal overflow');
+            if(m.photos.length!==3 || m.photos.some(p=>!p.loaded)) problems.push('river photos unavailable');
+            if(!m.photos[2]?.caption?.includes('Larry D. Moore')) problems.push('missing Garner attribution');
+            if(!m.stayAfterGuide) problems.push('lodging before guide');
+            if(m.brokenImages.length) problems.push('broken image');
+            if(errors.length) problems.push('JS error');
+            results.push({name,status:res?.status(),...m,errors,problems});
+            console.log(name,JSON.stringify({height:total,overflow:m.width-width,photos:m.photos,problems}));
+            await ctx.close();
+          }
+          await browser.close();
+          writeFileSync('evidence/full-page/results.json',JSON.stringify(results,null,2));
+          if(results.some(r=>r.problems.length)) process.exitCode=1;
+          NODE
       - name: Preserve acceptance evidence
         if: always()
         uses: actions/upload-artifact@v4
