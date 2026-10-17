@@ -61,7 +61,7 @@ function WaterParkDirectory() {
         <h1 className="mt-3 max-w-5xl font-display text-5xl leading-tight sm:text-6xl">Texas water parks, from indoor escapes to summer slides</h1>
         <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">{description}</p>
         <p className="mt-5 max-w-4xl text-sm leading-7">The guide currently includes <strong>{texasWaterParks.length} separate facilities</strong>. Each location has its own visitor guide; chains count once per physical park. It is an actively researched collection, not a claim that every municipal or resort water-play facility has already been identified.</p>
-        <p className="mt-3 text-sm text-muted-foreground">Operator information reviewed October 17, 2026. Seasonal parks may be closed for fall or winter; see the park's official calendar before departing.</p>
+        <p className="mt-3 text-sm text-muted-foreground">Operator references assembled October 17, 2026; check each official calendar for current status. Seasonal parks may be closed for fall or winter; see the park's official calendar before departing.</p>
       </Container>
     </div>
     <Container className="py-10 sm:py-14">
