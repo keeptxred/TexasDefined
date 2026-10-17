@@ -4557,7 +4557,7 @@ export const texasWaterParks: WaterParkGuide[] = [
     "kind": "Inflatable lake water park",
     "admission": "Ticketed lagoon beach admission; floating Aqua Course and watercraft sessions sold separately",
     "summary": "Angel Lagoon is a public-access crystal lagoon near Dayton with sandy beach recreation, kayaking, stand-up paddling and a ticketed floating Aqua Course obstacle attraction.",
-    "distinctiveNote": "The operator lists the Aqua Course as a paid 30-minute activity for visitors age 6+ and at least 42 inches tall. Its new water slide is explicitly listed as 'coming soon' and must not be portrayed as already open.",
+    "distinctiveNote": "Angel Lagoon's published footer lists ZIP 77635, but the River Ranch development independently lists ZIP 77535 for the same street. Use the street address and operator's directions; do not rely on an unverified postal code. The water slide is operator-labelled Coming Soon and is not a confirmed operating ride.",
     "officialUrl": "https://angellagoon.com/attractions/",
     "reviewedAt": "2026-10-17",
     "visitorFaqs": [
@@ -4575,9 +4575,14 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "What age and height are required for the Aqua Course?",
         "answer": "The listed minimums are age 6 and 42 inches in height. A life jacket is required and provided.",
         "sourceUrl": "https://angellagoon.com/attractions/"
+      },
+      {
+        "question": "Why do I see conflicting ZIP codes for Angel Lagoon?",
+        "answer": "The Angel Lagoon website prints ZIP 77635 while the River Ranch development's own address lists 77535 at 15 River Ranch Boulevard. The shared street and city can be used for navigation, but the operator should confirm the correct postal ZIP before a trip.",
+        "sourceUrl": "https://angellagoon.com/hours/"
       }
     ],
-    "visitorAddress": "15 River Ranch Blvd., Dayton, TX 77635",
+    "visitorAddress": "15 River Ranch Blvd., Dayton, TX",
     "visitorHighlights": [
       "Angel Lagoon offers lagoon swimming and sandy beach relaxation alongside a separately ticketed floating Aqua Course.",
       "The operator requires Aqua Course participants to be at least six years old and 42 inches tall, and provides mandatory life jackets.",
