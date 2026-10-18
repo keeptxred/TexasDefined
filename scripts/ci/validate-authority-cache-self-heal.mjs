@@ -82,7 +82,7 @@ for (const marker of [
   "'Start with the map'",
   "'Open the full 15-basin comparison'",
   "'Explore All 15 Major Texas River Basins'",
-  "'Texas rivers at a glance: six quick answers'",
+  "'Texas Rivers at a Glance'",
 ]) requireText(freshness, marker, `Texas rivers canonical freshness contract ${marker}`);
 
 for (const marker of [
