@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { paintedChurchAuthorityExpansionDate } from "@/data/painted-church-authority-sources";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/painted-churches/guides";
@@ -17,7 +18,7 @@ export const Route = createFileRoute(canonicalPath)({
       canonicalPath,
       title: "Texas Painted Churches Guide Library | Texas Defined",
       description,
-      modifiedTime: "2026-08-18T23:30:00-05:00",
+      modifiedTime: `${paintedChurchAuthorityExpansionDate}T12:00:00-05:00`,
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
@@ -29,7 +30,7 @@ export const Route = createFileRoute(canonicalPath)({
           url: pageUrl,
           name: "Texas Painted Churches Guide Library",
           description,
-          dateModified: "2026-08-18",
+          dateModified: paintedChurchAuthorityExpansionDate,
           mainEntity: { "@id": `${pageUrl}#queries` },
         },
         {
