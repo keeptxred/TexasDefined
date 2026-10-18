@@ -4,6 +4,7 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - src/data/texas-water-parks.ts
       - scripts/data/audit-waterpark-wikimedia-provenance.mjs
       - .github/workflows/waterpark-wikimedia-provenance.yml
   push:
@@ -35,7 +36,7 @@ jobs:
       - name: Check source audit parser and license safety
         run: node scripts/data/audit-waterpark-wikimedia-provenance.mjs --self-test
       - name: Verify exact image titles, licensing, and dimensions against Commons
-        run: node scripts/data/audit-waterpark-wikimedia-provenance.mjs
+        run: node scripts/data/audit-waterpark-wikimedia-provenance.mjs --strict
       - name: Preserve source evidence for editorial review
         if: always()
         uses: actions/upload-artifact@v4
