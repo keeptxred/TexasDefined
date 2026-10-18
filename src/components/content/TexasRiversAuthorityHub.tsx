@@ -226,14 +226,14 @@ export function TexasRiversAfterArticle() {
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Keep exploring</p>
           <h2 id="river-profiles-heading" className="mt-2 font-display text-2xl sm:text-3xl">Explore All 15 Major Texas River Basins</h2>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">The statewide guide gives you the big picture. Every major basin recognized by the Texas Water Development Board now has a dedicated TexasDefined guide, with official-source geography, the smaller rivers and streams that feed it, major reservoirs and visitor guidance. Some representative photos do not depict the specific named river; always verify water conditions and public access with the responsible agency.</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">The statewide guide gives you the big picture. Every major basin recognized by the Texas Water Development Board now has a dedicated TexasDefined guide explaining where the river runs, what feeds it, its major reservoirs and what visitors should know. Some photos are representative rather than pictures of the exact named river, so always verify current water conditions and public access with the responsible agency.</p>
         </div>
         <RiverProfileCards />
       </section>
 
       <section className="mt-9 border-t border-border pt-8" aria-labelledby="river-recreation-guides">
         <h2 id="river-recreation-guides" className="font-display text-2xl sm:text-3xl">River-specific fishing, camping and visitor guides</h2>
-        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">These rivers and tributaries deserve their own visitor planning beyond the official 15-basin geography inventory. Always check current launches, floods, fishing rules and land access.</p>
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">These smaller rivers and streams are popular destinations in their own right. Before visiting, check current access points, flood conditions, fishing rules and private-property boundaries.</p>
         <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {tributaryRecreationProfiles.map((river) => (
             <Link key={river.href} to={river.href} className="rounded-sm border border-border p-5 transition-colors hover:border-primary">
