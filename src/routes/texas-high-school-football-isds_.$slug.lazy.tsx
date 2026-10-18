@@ -53,7 +53,7 @@ function Page() {
             <h3 className="mt-2 font-display text-2xl leading-tight">{program.schoolName}</h3>
             <p className="mt-2 text-sm text-muted-foreground">{[program.city, program.countyName].filter(Boolean).join(' · ') || 'Texas'}</p>
             <dl className="mt-4 grid grid-cols-2 gap-4 border-t border-border pt-4 text-sm">
-              <div><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">UIL enrollment</dt><dd className="mt-1 font-semibold">{program.uilEnrollment ? program.uilEnrollment.toLocaleString('en-US') : 'Pending'}</dd></div>
+              {program.uilEnrollment > 0 && <div><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">UIL enrollment</dt><dd className="mt-1 font-semibold">{program.uilEnrollment.toLocaleString('en-US')}</dd></div>}
               <div><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">Format</dt><dd className="mt-1 font-semibold">{program.footballType}</dd></div>
             </dl>
             <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold">
