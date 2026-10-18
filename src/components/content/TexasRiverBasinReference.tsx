@@ -1,5 +1,5 @@
 const sourceUrl = "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp";
-const lastVerified = "2026-10-09";
+const lastVerified = "2026-10-18";
 const canonicalPage = "https://texasdefined.com/article/texas-rivers-explained";
 
 const majorBasins = [
