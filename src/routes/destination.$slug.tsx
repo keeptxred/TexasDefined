@@ -6,6 +6,7 @@ import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-route
 import caddoLake from "@/assets/caddo-lake.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { heritagePhotoRightsForPath } from "@/data/heritage-photo-license-links";
+import { verifiedLocalParkCredit } from "@/data/verified-local-state-park-photo-credits";
 import { relatedDestinationHeroSrc } from "@/data/related-destination-hero";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
@@ -268,7 +269,7 @@ function DestinationPage() {
     .map((source) => [source.url, source] as const)).values()];
   const documentaryPhotoSource = authoritySourceLinks.find((source) => source.label === "Historic-site photo: source, original creator and usage rights");
   const corridorHeroRights = heritagePhotoRightsForPath(`/destination/${destination.slug}`);
-  const primaryPhotoSourceUrl = documentaryPhotoSource?.url ?? corridorHeroRights?.sourceUrl;
+  const primaryPhotoSourceUrl = documentaryPhotoSource?.url ?? corridorHeroRights?.sourceUrl ?? verifiedLocalParkCredit(destination.hero)?.fileUrl;
   const countySlug = countyRouteSlug(destination.county);
   const countyLabel = destination.county ? countyDisplayName(destination.county) : "";
   const isChokeCanyon = destination.slug === "choke-canyon-state-park";
