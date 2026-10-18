@@ -1,6 +1,11 @@
 name: Texas waterpark photo-rights candidates
 
 on:
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/data/discover-waterpark-photo-candidates.mjs
+      - .github/workflows/waterpark-photo-candidates.yml
   push:
     branches: [main]
     paths:
@@ -40,6 +45,7 @@ jobs:
       - name: Protect candidate licensing and venue matching
         run: node scripts/data/discover-waterpark-photo-candidates.mjs --self-test
       - name: Search bounded Commons editorial candidate batch
+        if: github.event_name != 'pull_request'
         shell: bash
         env:
           BATCH_OFFSET: ${{ inputs.offset || '0' }}
