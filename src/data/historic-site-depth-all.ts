@@ -78,7 +78,8 @@ const SITE_DEPTH: Record<string, string[]> = {
   ],
   "lipantitlan": [
     "In far northwestern Nueces County near Sandia, Lipantitlán’s name preserves an association with Lipan Apache presence; the later Mexican picket fort was built in 1831. The small garrison surrendered during the 1835 Texas Revolution. The visible landscape is principally a historical marker and the place where a fort once stood, not a preserved fort with staffed exhibits.",
-    "The Texas Historical Commission explicitly says there is no on-site interpretation beyond the marker and no visitor services. The Handbook of Texas traces the park’s donation and later transfers of administration. Plan a short, respectful outdoor stop with water and independently confirmed directions rather than inventing facilities or a museum that does not exist."
+    "The Texas Historical Commission explicitly says there is no on-site interpretation beyond the marker and no visitor services. The Handbook of Texas traces the park’s donation and later transfers of administration. Plan a short, respectful outdoor stop with water and independently confirmed directions rather than inventing facilities or a museum that does not exist.",
+    "Do not conflate the two military episodes. According to the state agency, the small Mexican garrison surrendered the fort to Texan forces in 1835 without a shot being fired. A later Texas Centennial historical marker identifies a separate June 1842 attack led by Antonio Canales against defenders under James Davis. The marker records the fort’s history; it is not an original fortification or an indoor exhibit."
   ],
   "magoffin-home": [
     "The Magoffin family’s adobe home reveals how commerce, politics and family networks crossed the U.S.–Mexico border long before modern national boundaries simplified those relationships on maps. Its 1875 construction belongs to El Paso’s nineteenth-century urban transformation.",
