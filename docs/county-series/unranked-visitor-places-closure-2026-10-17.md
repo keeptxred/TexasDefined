@@ -27,4 +27,4 @@ All supplemental entries: canonical county, useful description, category, HTTPS 
 
 ## Delivery boundary
 
-Publishing via GitHub PR and normal required checks is separate from production verification. Do not claim the new batch is live without a successful merge and independent deployed-page confirmation. No Lovable, no paid services, and no broad site-wide audit required for this editorial closure.
+Publishing via GitHub PR and normal required checks is separate from production verification. Do not claim the new batch is live without a successful merge and independent deployed-page confirmation. No paid services or broad site-wide audit required for this editorial closure.
