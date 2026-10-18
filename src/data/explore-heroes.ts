@@ -1,6 +1,7 @@
 import caddoLake from "@/assets/caddo-lake.jpg";
 
 import { exploreHeroMap } from "./explore-hero-map";
+import { isTexasStateParkDestination } from "./state-park-authority";
 import { DEVILS_RIVER_LANDSCAPE_IMAGE } from "./verified-devils-river-landscape";
 import type { Destination } from "./types";
 
@@ -23,7 +24,7 @@ const EXPLORE_HERO_SLUG_ALIASES: Record<string, string> = {
 };
 
 export function applyExploreHeroAsset(destination: Destination): Destination {
-  if (destination.slug === "devils-river-state-natural-area") {
+  if (destination.slug === "devils-river-state-natural-area" && isTexasStateParkDestination(destination)) {
     return { ...destination, hero: DEVILS_RIVER_LANDSCAPE_IMAGE };
   }
   if (destination.slug === "caddo-lake") {
