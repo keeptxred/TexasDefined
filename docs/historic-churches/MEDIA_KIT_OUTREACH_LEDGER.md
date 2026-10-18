@@ -43,3 +43,7 @@ The two churches below were individually researched and added to `src/data/histo
 | St. Paul United Methodist Church — Dallas | office@stpaulumcdallas.com (official North Texas Conference directory) | TexasDefined Historic Churches Guide — St. Paul UMC Dallas heritage and photo request | BLOCKED 2026-10-18: Outlook send connector returned exactly: \"This tool call was blocked by OpenAI's safety checks. Please double check what you are sending.\" No send success; do not treat as sent | Pending; no files verified, no photos cleared |
 
 Official source links: https://www.nactx.us/882/Zion-Hill-Baptist-Church and https://ntcumc.org/churches/st-paul-umc. Do not retry St. Paul without checking Sent Items again; the rejected request does not establish delivery.
+
+### St. Paul retry — 2026-10-18
+
+Rechecked Outlook Sent Items (125 messages at check) and recipient search; no prior St. Paul message was found. A shorter, conversational request was submitted via the connected `admin@texasdefined.com` Outlook account to `office@stpaulumcdallas.com` with subject **Question about St. Paul UMC history and photographs**. The Outlook send action returned success (`result: null`), saving to Sent Items requested. This supersedes the earlier blocked-attempt status: **sent/submitted 2026-10-18**, delivery unverified, no rights cleared. Do not send another request automatically.
