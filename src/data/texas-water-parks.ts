@@ -713,6 +713,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "The park's own website announces its waterpark season has ended and points guests toward reopening next May. Future season-pass availability should not be mistaken for open slides today.",
         "sourceUrl": "https://hfalls.com/waco/"
       }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Waco Mammoth National Monument",
+        "href": "/destination/waco-mammoth-national-monument"
+      },
+      {
+        "label": "Dr Pepper Museum",
+        "href": "/destination/dr-pepper-museum"
+      }
     ]
   },
   {
@@ -1068,7 +1078,13 @@ export const texasWaterParks: WaterParkGuide[] = [
       "photographer": "Robert Thigpen",
       "year": 2013,
       "alt": "Exterior of the Great Wolf Lodge resort in Grapevine photographed in 2013; this does not depict its indoor water rides."
-    }
+    },
+    "areaAttractions": [
+      {
+        "label": "SEA LIFE Grapevine Aquarium",
+        "href": "/destination/sea-life-grapevine-aquarium"
+      }
+    ]
   },
   {
     "slug": "great-wolf-webster",
@@ -1248,6 +1264,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "Yes. The operator provides regular lazy-river tubes at no charge; separate cooler tubes can be rented. Guests are required to stay on a tube during the float.",
         "sourceUrl": "https://wacosurf.com/water-park/"
       }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Waco Mammoth National Monument",
+        "href": "/destination/waco-mammoth-national-monument"
+      },
+      {
+        "label": "Dr Pepper Museum",
+        "href": "/destination/dr-pepper-museum"
+      }
     ]
   },
   {
@@ -1388,6 +1414,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "The operator says early or extended resort access can be purchased for an additional fee if availability permits, but it does not include early lodging check-in or late room checkout.",
         "sourceUrl": "https://campfimfo.com/waco/water-playground"
       }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Waco Mammoth National Monument",
+        "href": "/destination/waco-mammoth-national-monument"
+      },
+      {
+        "label": "Dr Pepper Museum",
+        "href": "/destination/dr-pepper-museum"
+      }
     ]
   },
   {
@@ -1431,6 +1467,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "Can we reserve a cabana?",
         "answer": "Yes. The official FAQ says guests may separately reserve cabanas and shaded seating for an additional charge; the standard admission price does not guarantee private reserved space.",
         "sourceUrl": "https://bahamabeachdallas.com/m/faq?cat=15"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "The Dallas World Aquarium",
+        "href": "/destination/dallas-world-aquarium"
+      },
+      {
+        "label": "The Sixth Floor Museum at Dealey Plaza",
+        "href": "/destination/sixth-floor-museum-at-dealey-plaza"
+      },
+      {
+        "label": "Dallas Arboretum and Botanical Garden",
+        "href": "/destination/dallas-arboretum-and-botanical-garden"
       }
     ]
   },
@@ -2122,6 +2172,12 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "No. The resort maintains a dated seasonal waterpark calendar and may close or limit specific attractions for operations or weather. Check the exact resort stay and waterpark dates.",
         "sourceUrl": "https://www.marriott.com/en-us/hotels/dalgt-gaylord-texan-resort-and-convention-center/experiences/"
       }
+    ],
+    "areaAttractions": [
+      {
+        "label": "SEA LIFE Grapevine Aquarium",
+        "href": "/destination/sea-life-grapevine-aquarium"
+      }
     ]
   },
   {
@@ -2333,6 +2389,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "Who can enter JadeWaters?",
         "answer": "The hotel's terms describe JadeWaters as an amenity for registered guests and require entry wristbands. Hotel packages may include enhanced or guaranteed access, but public walk-in entitlement should not be assumed.",
         "sourceUrl": "https://www.hilton.com/en/hotels/dfwanhh-hilton-anatole/jadewaters/"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "The Dallas World Aquarium",
+        "href": "/destination/dallas-world-aquarium"
+      },
+      {
+        "label": "The Sixth Floor Museum at Dealey Plaza",
+        "href": "/destination/sixth-floor-museum-at-dealey-plaza"
+      },
+      {
+        "label": "Dallas Arboretum and Botanical Garden",
+        "href": "/destination/dallas-arboretum-and-botanical-garden"
       }
     ]
   },
@@ -3170,6 +3240,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "No. The published regular municipal 2026 season is closed on Mondays, with scheduled public swims on other dates; preseason and postseason are primarily weekend operation.",
         "sourceUrl": "https://www.fortworthtexas.gov/departments/parks/services/pools-and-aquatics/marine-park-pool-aquatic-center"
       }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Fort Worth Stockyards",
+        "href": "/destination/fort-worth-stockyards"
+      },
+      {
+        "label": "Fort Worth Zoo",
+        "href": "/destination/fort-worth-zoo"
+      },
+      {
+        "label": "Kimbell Art Museum",
+        "href": "/destination/kimbell-art-museum-fort-worth"
+      }
     ]
   },
   {
@@ -3392,6 +3476,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "The operator advertises separate paid cabana and cooler-pass products rather than including them in ordinary admission. Confirm the park's current day-specific availability and the policy before arrival.",
         "sourceUrl": "https://epwaterparks.com/camp-cohen.php"
       }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Franklin Mountains State Park",
+        "href": "/destination/franklin-mountains-state-park"
+      },
+      {
+        "label": "Chamizal National Memorial",
+        "href": "/destination/chamizal-national-memorial"
+      },
+      {
+        "label": "El Paso Museum of Art",
+        "href": "/destination/el-paso-museum-of-art"
+      }
     ]
   },
   {
@@ -3434,6 +3532,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "Can we rent shade and bring a cooler?",
         "answer": "The operator advertises separate paid cabana and cooler-pass products rather than including them in ordinary admission. Confirm the park's current day-specific availability and the policy before arrival.",
         "sourceUrl": "https://epwaterparks.com/chapoteo.php"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Franklin Mountains State Park",
+        "href": "/destination/franklin-mountains-state-park"
+      },
+      {
+        "label": "Chamizal National Memorial",
+        "href": "/destination/chamizal-national-memorial"
+      },
+      {
+        "label": "El Paso Museum of Art",
+        "href": "/destination/el-paso-museum-of-art"
       }
     ]
   },
@@ -3478,6 +3590,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "The operator advertises separate paid cabana and cooler-pass products rather than including them in ordinary admission. Confirm the park's current day-specific availability and the policy before arrival.",
         "sourceUrl": "https://epwaterparks.com/lost-kingdom.php"
       }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Franklin Mountains State Park",
+        "href": "/destination/franklin-mountains-state-park"
+      },
+      {
+        "label": "Chamizal National Memorial",
+        "href": "/destination/chamizal-national-memorial"
+      },
+      {
+        "label": "El Paso Museum of Art",
+        "href": "/destination/el-paso-museum-of-art"
+      }
     ]
   },
   {
@@ -3520,6 +3646,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "Can we rent shade and bring a cooler?",
         "answer": "The operator advertises separate paid cabana and cooler-pass products rather than including them in ordinary admission. Confirm the park's current day-specific availability and the policy before arrival.",
         "sourceUrl": "https://epwaterparks.com/oasis"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Franklin Mountains State Park",
+        "href": "/destination/franklin-mountains-state-park"
+      },
+      {
+        "label": "Chamizal National Memorial",
+        "href": "/destination/chamizal-national-memorial"
+      },
+      {
+        "label": "El Paso Museum of Art",
+        "href": "/destination/el-paso-museum-of-art"
       }
     ]
   },
@@ -4780,6 +4920,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "Its published 2026 summer schedule shows Tuesdays closed. Check special programs, private rentals and seasonal changes before visiting.",
         "sourceUrl": "https://dallasaquatics.org/Facilities/Facility/Details/The-Cove-at-Crawford-33"
       }
+    ],
+    "areaAttractions": [
+      {
+        "label": "The Dallas World Aquarium",
+        "href": "/destination/dallas-world-aquarium"
+      },
+      {
+        "label": "The Sixth Floor Museum at Dealey Plaza",
+        "href": "/destination/sixth-floor-museum-at-dealey-plaza"
+      },
+      {
+        "label": "Dallas Arboretum and Botanical Garden",
+        "href": "/destination/dallas-arboretum-and-botanical-garden"
+      }
     ]
   },
   {
@@ -4811,6 +4965,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "Which day is The Cove at Fretz Park regularly closed during the summer?",
         "answer": "Its published 2026 summer schedule shows Wednesdays closed. Check special programs, private rentals and seasonal changes before visiting.",
         "sourceUrl": "https://dallasaquatics.org/Facilities/Facility/Details/Fretz-Aquatic-Center-31"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "The Dallas World Aquarium",
+        "href": "/destination/dallas-world-aquarium"
+      },
+      {
+        "label": "The Sixth Floor Museum at Dealey Plaza",
+        "href": "/destination/sixth-floor-museum-at-dealey-plaza"
+      },
+      {
+        "label": "Dallas Arboretum and Botanical Garden",
+        "href": "/destination/dallas-arboretum-and-botanical-garden"
       }
     ]
   },
@@ -4844,6 +5012,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "Its published 2026 summer schedule shows Thursdays closed. Check special programs, private rentals and seasonal changes before visiting.",
         "sourceUrl": "https://www.dallasaquatics.org/facilities/facility/details/The-Cove-at-Samuell-Grand-32"
       }
+    ],
+    "areaAttractions": [
+      {
+        "label": "The Dallas World Aquarium",
+        "href": "/destination/dallas-world-aquarium"
+      },
+      {
+        "label": "The Sixth Floor Museum at Dealey Plaza",
+        "href": "/destination/sixth-floor-museum-at-dealey-plaza"
+      },
+      {
+        "label": "Dallas Arboretum and Botanical Garden",
+        "href": "/destination/dallas-arboretum-and-botanical-garden"
+      }
     ]
   },
   {
@@ -4875,6 +5057,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "Which day is Bachman Aquatic Center regularly closed during the summer?",
         "answer": "Its published 2026 summer schedule shows Mondays closed. Check special programs, private rentals and seasonal changes before visiting.",
         "sourceUrl": "https://www.dallasaquatics.org/Facilities/Facility/Details/Bachman-Aquatic-Center-47"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "The Dallas World Aquarium",
+        "href": "/destination/dallas-world-aquarium"
+      },
+      {
+        "label": "The Sixth Floor Museum at Dealey Plaza",
+        "href": "/destination/sixth-floor-museum-at-dealey-plaza"
+      },
+      {
+        "label": "Dallas Arboretum and Botanical Garden",
+        "href": "/destination/dallas-arboretum-and-botanical-garden"
       }
     ]
   },
@@ -4908,6 +5104,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "Its published 2026 summer schedule shows Mondays closed. Check special programs, private rentals and seasonal changes before visiting.",
         "sourceUrl": "https://dallasaquatics.org/facilities/facility/details/Kidd-Springs-Aquatic-Center-41"
       }
+    ],
+    "areaAttractions": [
+      {
+        "label": "The Dallas World Aquarium",
+        "href": "/destination/dallas-world-aquarium"
+      },
+      {
+        "label": "The Sixth Floor Museum at Dealey Plaza",
+        "href": "/destination/sixth-floor-museum-at-dealey-plaza"
+      },
+      {
+        "label": "Dallas Arboretum and Botanical Garden",
+        "href": "/destination/dallas-arboretum-and-botanical-garden"
+      }
     ]
   },
   {
@@ -4939,6 +5149,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "Which day is Lake Highlands North Aquatic Center regularly closed during the summer?",
         "answer": "Its published 2026 summer schedule shows Thursdays closed. Check special programs, private rentals and seasonal changes before visiting.",
         "sourceUrl": "https://dallasaquatics.org/facilities/facility/details/Lake-Highlands-North-Aquatic-Center-42"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "The Dallas World Aquarium",
+        "href": "/destination/dallas-world-aquarium"
+      },
+      {
+        "label": "The Sixth Floor Museum at Dealey Plaza",
+        "href": "/destination/sixth-floor-museum-at-dealey-plaza"
+      },
+      {
+        "label": "Dallas Arboretum and Botanical Garden",
+        "href": "/destination/dallas-arboretum-and-botanical-garden"
       }
     ]
   },
@@ -4972,6 +5196,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "Its published 2026 summer schedule shows Tuesdays closed. Check special programs, private rentals and seasonal changes before visiting.",
         "sourceUrl": "https://www.dallasaquatics.org/Facilities/Facility/Details/Exline-Aquatic-Center-44"
       }
+    ],
+    "areaAttractions": [
+      {
+        "label": "The Dallas World Aquarium",
+        "href": "/destination/dallas-world-aquarium"
+      },
+      {
+        "label": "The Sixth Floor Museum at Dealey Plaza",
+        "href": "/destination/sixth-floor-museum-at-dealey-plaza"
+      },
+      {
+        "label": "Dallas Arboretum and Botanical Garden",
+        "href": "/destination/dallas-arboretum-and-botanical-garden"
+      }
     ]
   },
   {
@@ -5003,6 +5241,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "Which day is Harry Stone Neighborhood Aquatic Center regularly closed during the summer?",
         "answer": "Its published 2026 summer schedule shows Mondays closed. Check special programs, private rentals and seasonal changes before visiting.",
         "sourceUrl": "https://dallasaquatics.org/Facilities/Facility/Details/Harry-Stone-Aquatic-Center-46"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "The Dallas World Aquarium",
+        "href": "/destination/dallas-world-aquarium"
+      },
+      {
+        "label": "The Sixth Floor Museum at Dealey Plaza",
+        "href": "/destination/sixth-floor-museum-at-dealey-plaza"
+      },
+      {
+        "label": "Dallas Arboretum and Botanical Garden",
+        "href": "/destination/dallas-arboretum-and-botanical-garden"
       }
     ]
   },
@@ -5036,6 +5288,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "Its published 2026 summer schedule shows Tuesdays closed. Check special programs, private rentals and seasonal changes before visiting.",
         "sourceUrl": "https://dallasaquatics.org/Facilities/Facility/Details/Tietze-Aquatic-Center-43"
       }
+    ],
+    "areaAttractions": [
+      {
+        "label": "The Dallas World Aquarium",
+        "href": "/destination/dallas-world-aquarium"
+      },
+      {
+        "label": "The Sixth Floor Museum at Dealey Plaza",
+        "href": "/destination/sixth-floor-museum-at-dealey-plaza"
+      },
+      {
+        "label": "Dallas Arboretum and Botanical Garden",
+        "href": "/destination/dallas-arboretum-and-botanical-garden"
+      }
     ]
   },
   {
@@ -5067,6 +5333,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "What are the requirements to ride the Great White Slides?",
         "answer": "Riders must be at least 48 inches tall, wear a provided life jacket, ride feet first and sign a waiver; a guardian must be present to sign for minors.",
         "sourceUrl": "https://burgerslake.com/the-great-white-slides"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Fort Worth Stockyards",
+        "href": "/destination/fort-worth-stockyards"
+      },
+      {
+        "label": "Fort Worth Zoo",
+        "href": "/destination/fort-worth-zoo"
+      },
+      {
+        "label": "Kimbell Art Museum",
+        "href": "/destination/kimbell-art-museum-fort-worth"
       }
     ]
   },
@@ -5227,6 +5507,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "Are year-round YMCA building hours the same as the outdoor waterpark's?",
         "answer": "No. The operator describes the water park as seasonal; its regular weekday and weekend building-hours listing is not a guarantee of open summer pools or slides.",
         "sourceUrl": "https://ymcafw.org/locations/mcdonald/"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Fort Worth Stockyards",
+        "href": "/destination/fort-worth-stockyards"
+      },
+      {
+        "label": "Fort Worth Zoo",
+        "href": "/destination/fort-worth-zoo"
+      },
+      {
+        "label": "Kimbell Art Museum",
+        "href": "/destination/kimbell-art-museum-fort-worth"
       }
     ]
   },
