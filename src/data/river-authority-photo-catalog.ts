@@ -35,7 +35,7 @@ export const RIVER_AUTHORITY_CARD_PHOTOS: Record<string, { src: string; alt: str
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fishing_on_the_Sulphur_River_-_Wright_Patman_Dam,_Texas_(47476599752).jpg"
   },
   "/article/texas-frio-river-guide": {
-    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Garner_state_park.jpg?width=1600",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Garner_state_park.jpg",
     "alt": "Frio River winding through Garner State Park as seen from Old Baldy in Uvalde County",
     "photographer": "Larry D. Moore",
     "license": "CC BY 4.0",
@@ -43,7 +43,7 @@ export const RIVER_AUTHORITY_CARD_PHOTOS: Record<string, { src: string; alt: str
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Garner_state_park.jpg"
   },
   "/article/texas-llano-river-guide": {
-    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Llano_River_in_Junction%2C_TX_IMG_4345.JPG?width=1600",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/8/83/Llano_River_in_Junction%2C_TX_IMG_4345.JPG",
     "alt": "Llano River in the riverside park at Junction, Texas",
     "photographer": "Billy Hathorn",
     "license": "CC BY-SA 3.0",
