@@ -126,6 +126,13 @@ These are **16 named** research entries. Washington-on-the-Brazos was upgraded s
 
 1 seed without a verified site-specific hero: `lipantitlan`. Do not substitute unrelated stock images or claim unseen imagery is original. An image-free site can keep its public reference information, but it must not receive complete authority certification until rights and relevance are resolved.
 
+## October 18 editorial integrity cleanup
+
+- Removed three repetitive introduction paragraphs generated for all 46 legacy historic-site seeds; each page now begins with its own site-specific historical significance and visitor angle, followed by its existing researched narratives and authority guides. No vetted historical content, primary operator links, image credits or detailed visitor restrictions were deleted.
+- Added a content validator to reject the previous interchangeable "belongs on a Texas history itinerary" and "the value of the stop" filler, and to require retained research enrichment.
+- Strengthened Lipantitlán by distinguishing the unopposed 1835 surrender from the separate 1842 attack recorded on the THC Centennial marker, with a direct Texas Historic Sites Atlas citation. This does not resolve the remaining site-specific photograph licensing issue.
+- These changes must pass new-head CI and a real deployed-page inspection before being treated as published. The older merged PR #4685 and previous Cloudflare deployments are not evidence that this additional cleanup has shipped.
+
 ## Permanent standards
 
 See `docs/historic-sites/AUTHORITY_STANDARD.md` and the `scripts/data/validate-historic-sites.mjs` CI guard. No future historic site may be called fully certified merely because it inherits a template or automatic related links.
