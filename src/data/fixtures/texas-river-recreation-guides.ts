@@ -13,8 +13,8 @@ export const riverRecreationGuideRecords = [
     "name": "Frio River",
     "title": "Frio River, Texas: Garner, Concan, Swimming, Tubing, Camping & Fishing",
     "summary": "A river-by-river planning guide to the clear upper Frio around Leakey, Concan and Garner State Park, with legal access, water conditions, campsite choices and lower-basin context.",
-    "hero": "/images/state-parks/garner-state-park.jpg",
-    "heroAlt": "Garner State Park on the upper Frio River in the Texas Hill Country",
+    "hero": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Garner_state_park.jpg",
+    "heroAlt": "Frio River winding through Garner State Park as seen from Old Baldy in Uvalde County",
     "region": "Hill Country and South Texas",
     "overview": "The upper Frio is famous for cypress-lined limestone water around Leakey, Concan and Garner State Park, but the full river travels well beyond the popular swimming corridor toward the Nueces system. A day on the Frio should start with choosing a specific permitted access point, not with a generalized promise that every mile can be floated. Summer crowds, flood pulses and long dry stretches can change a trip dramatically.",
     "route": "For a first trip, choose the managed frontage inside Garner State Park and follow park directions for swimming, shore fishing, float areas and watercraft. Concan offers commercial river camps and outfitters, but each property controls its own guest access and shuttle arrangements. Upstream Leakey and the Real County canyon roads offer a quieter base; downstream ranch land is not a continuous public park. Build separate itineraries for Garner family day use, commercial Concan float trips and nature-oriented scenic drives.",
@@ -75,9 +75,9 @@ export const riverRecreationGuideRecords = [
         "https://tpwd.texas.gov/state-parks/garner/alert"
       ]
     ],
-    "heroCredit": "Garner State Park · existing TexasDefined licensed image; source record in image catalog",
+    "heroCredit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Garner_state_park.jpg · License: https://creativecommons.org/licenses/by/4.0/",
     "heroWidth": 1600,
-    "heroHeight": 1067,
+    "heroHeight": 1200,
     "verifiedAccess": [
       {
         "name": "Garner State Park: Frio day-use and overnight base",
@@ -255,8 +255,8 @@ export const riverRecreationGuideRecords = [
     "name": "Llano River",
     "title": "Llano River, Texas: South Llano, Junction, Castell, Fishing, Paddling & Camping",
     "summary": "Compare the North and South Llano branches, Junction and South Llano River State Park with the main Llano near Mason, Llano and Kingsland; plan verified fishing, paddling and overnight visits.",
-    "hero": "/images/explore/lakes-rivers/south-llano-river-state-park.jpg",
-    "heroAlt": "South Llano River State Park and the Llano River watershed",
+    "hero": "https://upload.wikimedia.org/wikipedia/commons/8/83/Llano_River_in_Junction%2C_TX_IMG_4345.JPG",
+    "heroAlt": "Llano River in the riverside park at Junction, Texas",
     "region": "Kimble, Mason and Llano counties",
     "overview": "The Llano system is best understood as a set of related but distinct reaches. The South and North Llano rivers meet near Junction, the main Llano passes through Mason and Llano County, and downstream waters ultimately connect to the Highland Lakes system. A family swim at South Llano River State Park, a short paddle toward Junction and fishing near Kingsland are not one continuous trip. Access arrangements and safe water levels differ among them.",
     "route": "For a structured first visit, use South Llano River State Park near Junction. TPWD describes a designated South Llano paddling route with access at the state park, Flatrock Lane and Junction City Park; confirm which put-ins are open and note the park's specific bridge/portage warnings. For a main-stem experience, compare official TPWD leased-access listings near Castell and Kingsland; never assume every low-water crossing is a permitted parking lot or public campsite.",
@@ -325,9 +325,9 @@ export const riverRecreationGuideRecords = [
         "https://tpwd.texas.gov/fishboat/fish/recreational/rivers/lease_access/"
       ]
     ],
-    "heroCredit": "South Llano River State Park · existing TexasDefined image source catalog",
+    "heroCredit": "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons · https://commons.wikimedia.org/wiki/File:Llano_River_in_Junction,_TX_IMG_4345.JPG · License: https://creativecommons.org/licenses/by-sa/3.0/",
     "heroWidth": 1600,
-    "heroHeight": 1067,
+    "heroHeight": 1200,
     "verifiedAccess": [
       {
         "name": "South Llano Paddling Trail, Junction",
