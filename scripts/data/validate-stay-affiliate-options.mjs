@@ -182,6 +182,26 @@ try {
     }
     if (api.exactPropertyDestination('Not A Curated Hotel') !== null) errors.push('Unknown hotel names must fail closed instead of receiving a guessed property URL.');
 
+    // Distinct, source-verified historic hotel opportunity; not part of the 30-card cohort.
+    if (typeof api.hotelPasoStay !== 'function') {
+      errors.push('Hotel Paso exact-stay resolver missing.');
+    } else {
+      const stay = api.hotelPasoStay('/destination/hotel-paso-del-norte');
+      if (!stay || stay.name !== 'Hotel Paso Del Norte, Autograph Collection'
+        || stay.destination !== 'https://www.hotels.com/ho114680/hotel-paso-del-norte-autograph-collection-el-paso-united-states-of-america/'
+        || stay.sourceUrl !== 'https://www.hotelpdn.com/location'
+        || stay.verifiedAt !== '2026-10-17'
+        || !api.buildCjDeepLink(stay.destination).startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho114680/')) {
+        errors.push('Hotel Paso exact-property listing, verified operator identity or publisher deeplink drifted.');
+      }
+      for (const pathname of ['/destination/magoffin-home', '/city/el-paso', '/county/el-paso', '/destination/hotel-paso-del-norte-other', '/explore/casinos/near-houston']) {
+        if (api.hotelPasoStay(pathname) !== null) errors.push('Hotel Paso offer leaked to '+pathname);
+      }
+    }
+    for (const clause of ['placement: "hotel-paso-exact-hotel-stay"', 'operator identity checked against', 'hotelPasoStay() ? "hotel-paso-exact"', 'Check Hotel Paso del Norte on Hotels.com', 'variant: featuredStay || hotelPasoExact || showRvshare ? "secondary" : "primary"']) {
+      if (!source.includes(clause)) errors.push('Hotel Paso commercial attribution or route guard missing: '+clause);
+    }
+
     const featuredGolfCases = [
       ['/sports-venue/pga-frisco-fields-ranch', 'Omni PGA Frisco Resort & Spa', 'https://www.hotels.com/ho2796737888/omni-pga-frisco-resort-frisco-united-states-of-america/', 'www.omnihotels.com'],
       ['/sports-venue/tpc-san-antonio', 'JW Marriott San Antonio Hill Country Resort & Spa', 'https://www.hotels.com/ho325236/jw-marriott-san-antonio-hill-country-resort-spa-san-antonio-united-states-of-america/', 'www.marriott.com'],
@@ -251,7 +271,7 @@ for (const [needle, label] of [
   ['placement: "stay-nearby-featured-golf"', 'featured golf affiliate attribution'],
   ['A venue-linked stay to consider', 'featured golf stay heading'],
   ['Venue relationship verified against', 'featured golf source disclosure'],
-  ['variant: featuredStay || showRvshare ? "secondary" : "primary"', 'featured-golf and RVshare priority policy'],
+  ['variant: featuredStay || hotelPasoExact || showRvshare ? "secondary" : "primary"', 'featured-golf and RVshare priority policy'],
   ['https://www.hotels.com/ho115100/hilton-anatole-dallas-united-states-of-america/', 'mature Hilton Anatole property record'],
   ['https://www.hotels.com/ho2949850752/loews-arlington-arlington-united-states-of-america/', 'Loews Arlington property record'],
   ['https://www.hotels.com/ho1830497920/tru-by-hilton-northlake-fort-worth-tx-roanoke-united-states-of-america/', 'Tru Northlake property record'],
@@ -300,7 +320,7 @@ for (const [needle, label] of [
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity', 'destination/leisure traveler affiliate disclosure'],
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or RVshare activity', 'RVshare-enabled outdoor traveler affiliate disclosure'],
   ['if (intent === "both" && !showRvshare)', 'Vrbo suppression on RVshare-intent routes'],
-  ['variant: featuredStay || showRvshare ? "secondary" : "primary"', 'hotel CTA demotion on RVshare-intent routes'],
+  ['variant: featuredStay || hotelPasoExact || showRvshare ? "secondary" : "primary"', 'hotel CTA demotion on RVshare-intent routes'],
   ['destination: RVSHARE_DESTINATION', 'RVshare governed destination'],
   ['variant: "primary"', 'RVshare primary CTA treatment'],
   ['Affiliate disclosure: TexasDefined may earn a referral commission when an eligible new Vrbo property listing goes live', 'owner affiliate disclosure'],
