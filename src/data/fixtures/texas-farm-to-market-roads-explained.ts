@@ -60,6 +60,31 @@ export const texasFarmToMarketRoadsExplainedArticle: Article = {
       description: "Put FM and RM roads into the larger geography of plains, forests, coast, Hill Country and West Texas.",
     },
     {
+      href: "/article/texas-ranch-to-market-roads-explained",
+      label: "Ranch-to-Market roads explained",
+      description: "Understand what an RM designation actually means and why Ranch Road 1 is a separate exception.",
+    },
+    {
+      href: "/article/texas-loops-spurs-explained",
+      label: "Texas Loops and Spurs explained",
+      description: "Read the bypasses and branch connectors that organize traffic around and off the main corridor.",
+    },
+    {
+      href: "/article/texas-business-routes-explained",
+      label: "Texas Business Routes explained",
+      description: "See why an older highway alignment often keeps running through the center of town after a bypass opens.",
+    },
+    {
+      href: "/article/texas-park-recreational-roads-explained",
+      label: "Park and Recreational Roads explained",
+      description: "Decode the PR and RE systems that connect parks and recreation areas to the state highway network.",
+    },
+    {
+      href: "/article/texas-historic-memorial-highways-explained",
+      label: "Historic routes and memorial highways",
+      description: "Separate the numbered highway designation from historic-route signs and honorary highway names.",
+    },
+    {
       href: "https://ftp.txdot.gov/pub/txdot-info/tpp/2050/meeting-materials/round-02/rural-transportation.pdf",
       label: "TxDOT: Rural Transportation and the Texas Economy",
       description: "Official TxDOT planning material covering the Farm-to-Market system, FM/RM designations and their rural transportation role.",
