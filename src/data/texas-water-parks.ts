@@ -1083,6 +1083,10 @@ export const texasWaterParks: WaterParkGuide[] = [
       {
         "label": "SEA LIFE Grapevine Aquarium",
         "href": "/destination/sea-life-grapevine-aquarium"
+      },
+      {
+        "label": "Fort Worth Stockyards (Tarrant County excursion)",
+        "href": "/destination/fort-worth-stockyards"
       }
     ]
   },
@@ -2177,6 +2181,10 @@ export const texasWaterParks: WaterParkGuide[] = [
       {
         "label": "SEA LIFE Grapevine Aquarium",
         "href": "/destination/sea-life-grapevine-aquarium"
+      },
+      {
+        "label": "Fort Worth Stockyards (Tarrant County excursion)",
+        "href": "/destination/fort-worth-stockyards"
       }
     ]
   },
