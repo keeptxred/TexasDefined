@@ -81,7 +81,7 @@ for (const marker of [
   '"basin_type"',
   'const csvDownloadHref = `data:text/csv;charset=utf-8,${encodeURIComponent(csvContent)}`;',
   'const jsonDownloadHref = `data:application/json;charset=utf-8,${encodeURIComponent(jsonContent)}`;',
-  'methodology: "Texas Defined transcribes TWDB statewide basin statistics into normalized numeric fields for comparison.',
+  'methodology: "Texas Defined transcribes Texas Water Development Board statewide basin statistics into normalized numeric fields for comparison.',
   'download="texasdefined-texas-river-basins.csv"',
   'Download CSV ↓',
   'download="texasdefined-texas-river-basins.json"',
