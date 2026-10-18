@@ -6,6 +6,7 @@ on:
     workflows:
       - Deploy TexasDefined production
     types: [completed]
+    branches: [main]
 permissions:
   contents: read
 
