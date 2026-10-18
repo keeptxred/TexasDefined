@@ -602,6 +602,44 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
+      - name: Detect scoped six-state-park browser acceptance
+        id: six_park_browser_scope
+        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only HEAD^ HEAD | grep -Eq '^(scripts/ci/verify-six-state-park-visual\.mjs|src/data/tpwd-six-later-park-authorities\.ts|src/data/state-park-hero-map\.ts|src/data/explore-hero-map\.ts|\.github/workflows/deploy-production\.yml)$'; then
+            echo 'needed=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'needed=false' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Prepare bounded state-park mobile visual acceptance
+        id: six_park_browser_deps
+        if: ${{ always() && steps.live_six_tpwd.outcome == 'success' && steps.six_park_browser_scope.outputs.needed == 'true' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-park-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+
+      - name: Capture and verify six park mobile and desktop pages
+        id: live_six_tpwd_visual
+        if: ${{ always() && steps.six_park_browser_deps.outcome == 'success' }}
+        shell: bash
+        run: node scripts/ci/verify-six-state-park-visual.mjs
+
+      - name: Preserve mobile and desktop park screenshots
+        if: ${{ always() && steps.live_six_tpwd_visual.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: six-tpwd-mobile-visual-${{ github.run_id }}
+          path: artifacts/tpwd-six-mobile-visual/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Verify changed Texas horse-racing authority pages
         id: live_horse_racing
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.horse_racing == 'true' }}
