@@ -140,6 +140,23 @@ jobs:
           done
           echo 'Legacy tools and calculator redirects verified.'
 
+          declare -A local_office_redirects=(
+            ['/appraisal-district/lubbock-appraisal-district']='/property-tax/county/lubbock'
+            ['/tax-office/lubbock-tax-office']='/property-tax/county/lubbock'
+            ['/appraisal-district/harris-appraisal-district']='/property-tax/county/harris'
+            ['/tax-office/harris-tax-office']='/property-tax/county/harris'
+          )
+          for path in "${!local_office_redirects[@]}"; do
+            headers="$(mktemp)"
+            status="$(curl --retry 5 --retry-all-errors --retry-delay 2 --max-time 45 --silent --show-error --max-redirs 0 -D "$headers" -o /dev/null -w '%{http_code}' "$origin$path")"
+            location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{sub(/\r$/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$headers")"
+            rm -f "$headers"
+            expected="${local_office_redirects[$path]}"
+            test "$status" = '301' || { echo "$path expected 301, got $status" >&2; exit 1; }
+            [[ "$location" == *"$expected"* ]] || { echo "$path redirect mismatch: $location (expected $expected)" >&2; exit 1; }
+          done
+          echo 'Legacy local-office redirects verified.'
+
           python3 <<'PY'
           import re
           import urllib.request
@@ -199,6 +216,10 @@ jobs:
               '/mortgage-calculator',
               '/calculators/texas-home-affordability',
               '/calculators/texas-property-tax',
+              '/appraisal-district/lubbock-appraisal-district',
+              '/tax-office/lubbock-tax-office',
+              '/appraisal-district/harris-appraisal-district',
+              '/tax-office/harris-tax-office',
           ]
 
           def get(path):
@@ -241,18 +262,10 @@ jobs:
           directory=pages['/property-tax/counties']
           lubbock=get('/property-tax/county/lubbock')
           harris=get('/property-tax/county/harris')
-          lubbock_appraisal=get('/appraisal-district/lubbock-appraisal-district')
-          lubbock_tax=get('/tax-office/lubbock-tax-office')
-          harris_appraisal=get('/appraisal-district/harris-appraisal-district')
-          harris_tax=get('/tax-office/harris-tax-office')
           assert 'Texas property tax by county' in directory and not any('noindex' in value for value in robots_values(directory))
           assert 'Lubbock County' in lubbock and not any('noindex' in value for value in robots_values(lubbock))
           assert 'Harris County' in harris and any('noindex' in value for value in robots_values(harris))
-          assert 'Lubbock' in lubbock_appraisal and not any('noindex' in value for value in robots_values(lubbock_appraisal))
-          assert 'Lubbock' in lubbock_tax and not any('noindex' in value for value in robots_values(lubbock_tax))
-          assert 'Harris' in harris_appraisal and any('noindex' in value for value in robots_values(harris_appraisal))
-          assert 'Harris' in harris_tax and any('noindex' in value for value in robots_values(harris_tax))
-          print('Production property-tax and local-office index/noindex behavior verified for Lubbock and Harris.')
+          print('Production property-tax county index/noindex behavior verified for Lubbock and Harris; legacy local-office redirects were verified separately.')
 
           hub=pages['/texas-explained']
           assert '10 core guides · 25 deeper explainers' in hub, 'Texas Explained 35-article collection summary missing'
@@ -276,10 +289,10 @@ jobs:
               assert f'/article/{slug}' in road_parent, f'FM-road pillar missing road-system link: {slug}'
           print('Production Texas Explained 35-article hub, canonical/indexability and reciprocal topology verified.')
 
-          required={origin+'/texas-explained', origin+'/texas-resources', origin+'/article/texas-regions-explained', origin+'/property-tax/county/lubbock', origin+'/appraisal-district/lubbock-appraisal-district', origin+'/tax-office/lubbock-tax-office'}
+          required={origin+'/texas-explained', origin+'/texas-resources', origin+'/article/texas-regions-explained', origin+'/property-tax/county/lubbock'}
           required.update(origin+path for path in canonical_financial)
           required.update(origin+f'/article/{slug}' for slug in all_slugs)
-          forbidden={origin+'/property-tax/county/harris', origin+'/appraisal-district/harris-appraisal-district', origin+'/tax-office/harris-tax-office'}
+          forbidden={origin+'/property-tax/county/harris'}
           forbidden.update(origin+path for path in legacy)
           seen=set(); queue=[origin+'/sitemap.xml']; visited=set()
           while queue and len(visited)<50:
