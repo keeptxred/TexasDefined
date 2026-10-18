@@ -8,6 +8,16 @@
 - **Existing first-party shop**: `/shop` remains available but must not imply school-affiliated or licensed merchandise.
 - **School/team branded shirts**: separate school licensing/vendor workflow; never reuse school seals, team marks, or mascots without permission.
 
+## CJ advertisers that actually sell football-stand gear
+
+TexasDefined already holds a **CJ publisher account**. Do not direct the owner to Walmart, Impact, Amazon or another network as the first move.
+
+- **DICK'S Sporting Goods — CJ advertiser 7345657:** https://public.cj.com/signup/publisher?advertiserId=7345657 . Official CJ application lists sporting goods, apparel and accessories, a 3-day cookie, and a product feed. This is the best broad inventory fit for bleacher seats, clear bags, warm layers, chargers and ponchos. **Application required; TexasDefined acceptance is not yet evidenced.** Verify category commission terms in the publisher account.
+- **Coleman — CJ advertiser 5975700:** https://public.cj.com/signup/publisher?advertiserId=5975700 . Official CJ listing gives 3%–5% and a 30-day referral period. Coleman itself publishes https://www.coleman.com/sideline-sports.html naming a **Coleman Stadium Seat** for bleachers. This is a genuinely relevant first individual product. **Application required; TexasDefined acceptance is not yet evidenced.**
+- **Rexing — already active CJ advertiser 5357356:** published account terms say 15% qualifying purchases and a 45-day referral period; it sells vehicle trip-preparation products. The existing governed catalog contains CJ link IDs for a jump starter and an inflator, but **not the actual tracked Get Link output**. Keep product CTAs off until verified links are obtained. Do not use ordinary merchant URLs or fabricate tracking IDs.
+
+Once DICK'S or Coleman approves TexasDefined, obtain the exact CJ Get Link URL for each *specific product*, validate current availability and terms, and activate the governed catalog. Neither CJ advertiser listing is proof of approval or a live tracked offer.
+
 ## Recommended enrollment path
 
 1. Apply for the website-oriented **Walmart Affiliate Program** at https://affiliates.walmart.com/ (official terms: https://affiliates.walmart.com/terms). Walmart says enrollment is free and uses Impact. Approval is **not** established by merely creating an Impact account; June 2026 operating terms say Walmart may decline applicants and sites should not use Walmart affiliate links before approval.
