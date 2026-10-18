@@ -99,3 +99,22 @@ test('District 5 ticket information links only to confirmed official school-dist
   ]) assert.ok(page.includes(url), url);
   assert.ok(page.includes('not affiliate tickets or proof of inventory'));
 });
+
+test('source-derived records never contradict their own disclaimer', () => {
+  assert.ok(page.includes('The table above calculates win–loss counts from sourced games only.'));
+  assert.ok(page.includes('It is not an official UIL standings table'));
+  assert.ok(!page.includes('we do not assign district ranks, win–loss records'));
+});
+
+test('responsive district browser acceptance runs only when sports content changes', () => {
+  const browserScript = readFileSync(new URL('../../scripts/ci/verify-district-5-responsive-browser.mjs', import.meta.url), 'utf8');
+  const workflow = readFileSync(new URL('../../.github/workflows/deploy-production.yml', import.meta.url), 'utf8');
+  for (const source of [browserScript, workflow]) assert.ok(source.includes('district5'), 'missing District 5 browser QA path');
+  for (const marker of ['district5-desktop.png', 'district5-mobile.png', 'isMobile', "fullPage: true", "affiliate.length === 2", 'documentWidth', 'report.json']) {
+    // Screenshot paths are assembled with each viewport label in the runner.
+    assert.ok(browserScript.includes(marker) || (marker.startsWith('district5-') && browserScript.includes("'/district5-' + spec.label + '.png'")), marker);
+  }
+  assert.ok(workflow.includes("steps.change_scope.outputs.sports == 'true'"));
+  assert.ok(workflow.includes('live_district5_browser'));
+  assert.ok(workflow.includes('district5-responsive-browser-${{ github.run_id }}'));
+});
