@@ -85,3 +85,17 @@ test('coverage is source-linked, localized and explicitly not UIL-certified stan
   ]) assert.ok(page.includes(marker), marker);
   assert.ok(head.includes('District 5-6A Football: 2026 Scores, Records & Schedule'));
 });
+
+test('District 5 ticket information links only to confirmed official school-district sources', () => {
+  assert.ok(page.includes('data-football-district-section="official-game-day"'));
+  for (const url of [
+    'https://athletics.dentonisd.org/resources/tickets',
+    'https://athletics.dentonisd.org/resources/athletic-stadium-guidelines',
+    'https://www.lisd.net/our-district/athletics/tickets',
+    'https://www.lisd.net/our-district/athletics/lisd-stadium-guidelines',
+    'https://www.friscoisd.org/page/2026-varsity-football-schedule/',
+    'https://tickets.friscoisd.org',
+    'https://www.littleelmisd.net/support-services/athletics',
+  ]) assert.ok(page.includes(url), url);
+  assert.ok(page.includes('not affiliate tickets or proof of inventory'));
+});
