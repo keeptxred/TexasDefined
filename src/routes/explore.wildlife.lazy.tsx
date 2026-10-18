@@ -46,7 +46,7 @@ function WildlifeHubPage() {
 
     <Section>
       <Container>
-        <SectionHeader eyebrow="Federal public lands" title={`${refuges.length} Texas national wildlife refuge guides`} description="The authority catalog includes current federal names, managing-agency links, county and region context, access notes and wildlife highlights. Individual destination pages remain subject to TexasDefined's normal indexing-readiness safeguards." />
+        <SectionHeader eyebrow="Federal public lands" title={`${refuges.length} Texas national wildlife refuge guides`} description="The refuge guides include current federal names, managing-agency links, county and region context, access notes and wildlife highlights. Check each refuge's official U.S. Fish and Wildlife Service page for current closures, seasonal restrictions and visitor operations." />
         <div className="mt-10 grid gap-x-7 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
           {refuges.map((destination, index) => isDestinationPhotoPlaceholder(destination.hero.src)
             ? <article key={destination.slug} className="border-t border-border pt-5">
