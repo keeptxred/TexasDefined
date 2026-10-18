@@ -15,6 +15,13 @@ const integrationDocs = fs.readFileSync('docs/expedia-affiliate-integration.md',
 const casinoHub = fs.readFileSync('src/routes/explore.casinos.index.tsx', 'utf8');
 const casinoGuide = fs.readFileSync('src/routes/explore.casinos.$slug.tsx', 'utf8');
 const expediaBootstrap = fs.readFileSync('public/expedia-travel.js', 'utf8');
+// Expedia owns async DOM placement. The CJ layer must be explicitly notified
+// after insertion and route updates, rather than relying on main subtree timing.
+const cjRefreshBridge = 'window.TexasDefinedStayAffiliateOptions?.sync?.();';
+if (expediaBootstrap.split(cjRefreshBridge).length - 1 !== 3) {
+  throw new Error('Expedia must refresh the governed CJ panel for generic/curated mount, explicit mount, and SPA route changes');
+}
+
 const errors = [];
 if (!casinoHub.includes('data-stay-nearby-slot') || !casinoGuide.includes('data-stay-nearby-slot')) {
   errors.push('Casino travel routes must reuse the first-party Stay Nearby placement slot.');
