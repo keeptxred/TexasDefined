@@ -6009,6 +6009,20 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "Port Royal lists its property at 6317 State Highway 361 on Mustang Island in Port Aransas, Texas. A Texas licensing registration independently confirms the property's Nueces County location.",
         "sourceUrl": "https://port-royal.com/contact/"
       }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Port Aransas Beach",
+        "href": "/destination/port-aransas-beach"
+      },
+      {
+        "label": "I.B. Magee Beach Park",
+        "href": "/destination/ib-magee-beach-park"
+      },
+      {
+        "label": "Mustang Island State Park",
+        "href": "/destination/mustang-island-state-park"
+      }
     ]
   }
 ];
