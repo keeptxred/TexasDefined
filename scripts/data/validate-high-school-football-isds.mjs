@@ -129,6 +129,9 @@ if (!errors.length) {
     'UIL eligibility standards ↗',
     'Do not confuse the school district/ISD with the UIL football competition district.',
   ]) requireText(detailPage, marker, 'Football ISD detail page');
+  if (detailPage.includes(": 'Pending'")) {
+    errors.push('Football ISD detail page must not render a Pending enrollment placeholder.');
+  }
 
   requireText(schoolProfile, 'program.isdProfilePath', 'School-to-ISD handoff');
   requireText(schoolProfile, 'football programs →', 'School-to-ISD handoff');
