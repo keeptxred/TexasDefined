@@ -563,6 +563,9 @@
     if (target.matches?.(SLOT_SELECTOR)) target.replaceChildren(surface);
     else target.appendChild(surface);
     trackSurfaceImpression(surface, placement);
+    // Expedia is the owner of this async-rendered surface. Notify the existing
+    // CJ choice layer once the target actually exists; no polling or broad DOM scans.
+    window.TexasDefinedStayAffiliateOptions?.sync?.();
   }
 
   // Preserve React SSR for individually audited football-linked counties.
@@ -658,6 +661,7 @@
     surface.dataset.stayPlacement = "explicit-mount";
     node.replaceChildren(surface);
     trackSurfaceImpression(surface, "explicit-mount");
+    window.TexasDefinedStayAffiliateOptions?.sync?.();
     return true;
   }
 
@@ -678,6 +682,9 @@
       history[method] = function (...args) {
         const result = original.apply(this, args);
         scheduleSync();
+        // A Hotel Paso-specific Hotels.com offer must not persist when a
+        // TanStack client-side route changes to another destination.
+        window.TexasDefinedStayAffiliateOptions?.sync?.();
         return result;
       };
     }
