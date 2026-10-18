@@ -195,3 +195,18 @@ Exact-site antique farm-equipment photograph: [Boerne ag museum 2013.jpg](https:
 - Image source: [Wikimedia Commons — East Texas Oil Museum building, Kilgore, TX IMG 5900.JPG](https://commons.wikimedia.org/wiki/File:East_Texas_Oil_Museum_building,_Kilgore,_TX_IMG_5900.JPG), uploaded by copyright holder **Billy Hathorn**, photographed **24 October 2012**, 4608×3456 pixels. Source explicitly says self-created, copyright holder licensing it under **Creative Commons Attribution-ShareAlike 3.0 Unported**: https://creativecommons.org/licenses/by-sa/3.0/ .
 - Exact remote hero: `https://commons.wikimedia.org/wiki/Special:Redirect/file/East_Texas_Oil_Museum_building,_Kilgore,_TX_IMG_5900.JPG?width=1600`; source image is a **2012 exterior**, not evidence of current admission, equipment or live exhibits. The photo and license are independent of the museum's operator-prohibited commercial **on-site** photography policy. Credit Billy Hathorn and maintain exact file/license reference, with indication if image is transformed.
 - Only the source identity/license and semantic enrichment are verified at commit time. Browser-rendered pixels, actual source HTTP response, responsive crop and credit link still require post-deploy acceptance. **Not authority-certified or automatically declared indexable.**
+
+## Texas Country Music Hall of Fame and Tex Ritter Museum — Carthage (October 18, 2026)
+
+- **Exact site:** [Wikimedia Commons photograph, Texas Country Music Hall of Fame and Tex Ritter Museum IMG 2956.JPG](https://commons.wikimedia.org/wiki/File:Texas_Country_Music_Hall_of_Fame_and_Tex_Ritter_Museum_IMG_2956.JPG), 20 May 2011, 4320 × 3240, Carthage.
+- **Photographer and license:** Billy Hathorn; photographer-uploaded original, explicitly released under [CC BY-SA 3.0 Unported](https://creativecommons.org/licenses/by-sa/3.0/). Commercial web use is licensed with attribution, license reference and relevant modification notice; comply with applicable share-alike provisions for derivative crops.
+- **Location check:** Commons categorizes the image with the Texas Country Music Hall of Fame, not the unrelated Nashville museum. It is a historical 2011 view, **not proof of current exhibits or operating hours**.
+- **Production status:** source and license verified, reference recorded in `museumLicensedHeroes`; actual pixel load, screen-reader ALT, image credit and responsive crop **pending post-deployment acceptance**. No separate authority certification.
+
+## The Bryan Museum — Galveston (October 18, 2026)
+
+- **Exact site:** [Wikimedia Commons photograph, Galveston Texas - The Bryan Museum - January 2025 - 1.jpg](https://commons.wikimedia.org/wiki/File:Galveston_Texas_-_The_Bryan_Museum_-_January_2025_-_1.jpg), 5 January 2025, 5367 × 3354, coordinates 29.297469, -94.789054. The subject is The Bryan Museum in Galveston, housed in the former Galveston Orphans Home.
+- **Photographer and licensing:** Alexander Hatley, original Flickr upload [54275553393](https://www.flickr.com/photos/109137992@N02/54275553393/); Wikimedia Commons records **CC BY 2.0 Generic**, independently reviewed by FlickreviewR on 29 July 2025. [License details](https://creativecommons.org/licenses/by/2.0/). Provide author, file source and license link; note alterations if image is cropped.
+- **Historical context:** January 2025 site photograph, not evidence for all current galleries, visitor routes or fall 2026 hours.
+- **Production status:** license and location source documented; actual pixel rendering, attribution, responsive crop and canonical indexing remain **unverified** until live deployment QA. Not independently certified.
+
