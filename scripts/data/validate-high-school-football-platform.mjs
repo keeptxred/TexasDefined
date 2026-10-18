@@ -1039,7 +1039,7 @@ if (!errors.length) {
     'Texas high schools often share district stadiums.',
     'Open TexasDefined stadium guide →',
     'Official venue source ↗',
-    'Association placement not yet available',
+    'Non-UIL football program',
     'Private-school football uses its association’s own alignment system.',
     "privateAlignment.sourceKind === 'official-association'",
     'privateAlignmentLabel',
@@ -1069,6 +1069,8 @@ if (!errors.length) {
     'Exact UIL enrollment pending',
     'Venue details not yet available',
     'Mascot source not yet available',
+    'Association not yet verified',
+    'Association placement not yet available',
   ]) {
     if (featuredProfilePage.includes(forbidden)) errors.push(`Football profile contains a statewide regression marker: ${forbidden}`);
   }
