@@ -144,6 +144,52 @@ for (const [slug, filename, author, license] of requiredExactRiverPhotos) {
     errors.push('River catalog photo missing original file or license permalink: ' + slug);
 }
 
+// Four more primary river basin guides must have river-specific, rights-cleared
+// photographs in BOTH SSR/lazy article records and in the two shared nav surfaces.
+const majorRiverGuideSource = read('src/data/fixtures/texas-explained-river-profiles.ts');
+const majorRiverStubSource = read('src/data/fixtures/texas-explained-river-profile-stubs.ts');
+const verifiedMajorRiverPhotos = [
+  [
+    "texas-brazos-river-guide",
+    "Brazos_River_at_Washington_on_the_Brazos.jpg",
+    "Larry D. Moore",
+    "CC BY 4.0"
+  ],
+  [
+    "texas-guadalupe-river-guide",
+    "Guadalupe_River_of_Texas_IMG_0500.JPG",
+    "Billy Hathorn",
+    "CC BY-SA 3.0"
+  ],
+  [
+    "texas-trinity-river-guide",
+    "Trinity-River-Dallas-TX-4667.jpg",
+    "Loadmaster (David R. Tribble)",
+    "CC BY-SA 3.0"
+  ],
+  [
+    "texas-rio-grande-river-guide",
+    "Big_Bend_Rio_Grande.jpg",
+    "Adbar",
+    "CC BY-SA 3.0"
+  ]
+];
+for (const [slug,filename,author,license] of verifiedMajorRiverPhotos) {
+  const articleStart = majorRiverGuideSource.indexOf('slug: "'+slug+'"');
+  const stubStart = majorRiverStubSource.indexOf('"'+slug+'"');
+  const cardStart = photoCatalog.indexOf('"/article/'+slug+'":');
+  const article = articleStart < 0 ? '' : majorRiverGuideSource.slice(articleStart,majorRiverGuideSource.indexOf('body: [',articleStart));
+  const stub = stubStart < 0 ? '' : majorRiverStubSource.slice(stubStart,majorRiverStubSource.indexOf('\n);',stubStart));
+  const cardEnd = cardStart < 0 ? -1 : photoCatalog.indexOf('\n  "/article/',cardStart+1);
+  const card = cardStart < 0 ? '' : photoCatalog.slice(cardStart,cardEnd > 0 ? cardEnd : undefined);
+  for (const [surface,body] of [['article hero',article],['lazy stub hero',stub],['card',card]]) {
+    if (![filename,author,license,'commons.wikimedia.org'].every(marker=>body.includes(marker)))
+      errors.push('Verified actual river photograph missing ('+surface+'): '+slug);
+  }
+  if (!card.includes('licenseUrl') || !card.includes('sourceUrl'))
+    errors.push('Attribution URLs missing from river photo catalogue for '+slug);
+}
+
 const countyServer = read('src/data/county-series.server.ts');
 if(!countyServer.includes('riverAuthorityLinksForCounty(countySlug)')) errors.push('County river backlinks must be automatically maintained');
 const existingMatch = addon.match(/export const existingRiverAuthorityEnhancements = ([\s\S]*?) as const;/);
