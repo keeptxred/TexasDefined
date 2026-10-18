@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { MapPreview } from "@/components/editorial/MapPreview";
+import { TexasEventCarousel, type TexasEventCarouselItem } from "@/components/editorial/TexasEventCarousel";
 import { Container } from "@/components/layout/Container";
 import {
   METRO_PROXIMITY_COLLECTIONS,
@@ -21,6 +22,10 @@ type CollectionPageData = {
   collection: MetroProximityCollection;
   results: MetroProximityResult[];
   townReferences: MetroProximityTownResult[];
+  eventContext: {
+    kind: "none" | "nearby" | "weekend-destinations";
+    events: TexasEventCarouselItem[];
+  };
   optionCount: number;
   indexReady: boolean;
   presentation: {
@@ -443,7 +448,7 @@ function TexarkanaRoadTripsAuthority({ pageData }: { pageData: CollectionPageDat
 }
 
 export function MetroProximityCollectionRich({ pageData }: { pageData: CollectionPageData }) {
-  const { metro, collection, results, townReferences, presentation } = pageData;
+  const { metro, collection, results, townReferences, eventContext, presentation } = pageData;
   if (metro.slug === "texarkana" && collection.slug === "road-trips") {
     return <TexarkanaRoadTripsAuthority pageData={pageData} />;
   }
@@ -542,6 +547,16 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
         <p className="mt-4 max-w-4xl text-xs leading-6 text-muted-foreground">Planning-drive ranges are editorial estimates from central Austin for choosing among trips, not live traffic predictions. Always open the current route before departure.</p>
       </Container>
     </section>}
+
+    {eventContext.events.length > 0 && <Container className="pb-14 sm:pb-18">
+      <TexasEventCarousel
+        events={eventContext.events}
+        eyebrow={eventContext.kind === "weekend-destinations" ? "Plan around the calendar" : "Dated things to do"}
+        title={eventContext.kind === "weekend-destinations" ? "Upcoming events in these weekend destinations" : `Upcoming events near ${metro.name}`}
+        viewAllHref="/events"
+      />
+      {eventContext.kind === "weekend-destinations" && <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These dated events are limited to towns represented by the weekend-trip choices on this page, so the calendar stays tied to places you may actually build the trip around.</p>}
+    </Container>}
 
     {mapMarkers.length > 0 && <Container className="py-14 sm:py-18">
       <MapPreview markers={mapMarkers} zoom={7} directionsLabel={`${presentation.label} near ${metro.name}`} origin={metro.center} originLabel={metro.name} variant={isMcAllenDayTrips ? "cards" : "list"} />
