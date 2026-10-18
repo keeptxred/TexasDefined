@@ -34,6 +34,20 @@ if (!/<(?:sitemapindex|urlset)(?:\s|>)/i.test(sitemap.body)) {
   throw new Error('/sitemap.xml returned a successful HTTP status without a valid sitemap root');
 }
 console.log(JSON.stringify({ surface: '/sitemap.xml', status: sitemap.status, ok: true }));
+
+// Preserve the original guarded-publication handoff article as a permanent
+// production regression check: the historical page must stay live, canonical,
+// and discoverable in the sitemap unless it is deliberately retired in code.
+const historicalCanyonPath = '/news/2026-08-10-canyon-lake-full-capacity-recovery';
+const historicalCanyon = await fetchHealthy(historicalCanyonPath, 'Canyon Lake Reaches Full Capacity After a Dramatic Summer Refill');
+const historicalCanyonCanonical = `${origin}${historicalCanyonPath}`;
+if (!historicalCanyon.body.includes(historicalCanyonCanonical)) {
+  throw new Error(`${historicalCanyonPath} is live but does not expose its expected canonical URL ${historicalCanyonCanonical}`);
+}
+if (!sitemap.body.includes(`<loc>${historicalCanyonCanonical}</loc>`)) {
+  throw new Error(`${historicalCanyonPath} is live but missing from /sitemap.xml`);
+}
+console.log(JSON.stringify({ surface: historicalCanyonPath, status: historicalCanyon.status, canonical: historicalCanyonCanonical, sitemap: true, ok: true }));
 // Govern the Texas ecoregions authority page as a production-critical evergreen surface.
 const ecoregionsPath = '/article/texas-ecoregions-habitats-guide';
 const ecoregions = await fetchHealthy(ecoregionsPath, 'Texas Ecoregions: Complete Map & Guide to All 10 Natural Regions');
