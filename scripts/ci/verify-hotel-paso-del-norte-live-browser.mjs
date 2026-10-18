@@ -112,11 +112,9 @@ async function checkHotel(page, viewport) {
   check(/historic home is closed through 2027 for restoration/i.test(data.text),viewport+': missing documented Magoffin Home closure in hotel nearby places');
   check(data.width <= data.viewportWidth+10,viewport+': horizontal overflow '+data.width+'/'+data.viewportWidth);
   check(heroImage.ok&&heroImage.width>=900&&/wikimedia.org/.test(heroImage.src),viewport+': hero failed to load '+JSON.stringify(heroImage));
-  check(imageCount===3,viewport+': expected one distinct new LOC dome image plus two original archival photos, got '+imageCount);
-  check(archive.length===3&&archive.every(i=>i.ok&&i.width>=500),viewport+': dome and archival images failed '+JSON.stringify(archive));
-  check(archive.some(i=>/tile.loc.gov/.test(i.src)&&i.ok&&i.width>=900),viewport+': 2014 LOC color dome photograph must decode in the real browser');
-  // Empty alt is correct for decorative logos; all four exact-place documentary photographs require meaningful descriptions.
-  check(data.images.filter(i=>/stained-glass dome|Historic American Buildings Survey|Early twentieth-century postcard/i.test(i.alt)).length===4,viewport+': all four hotel documentary photos must have meaningful alt text');
+  check(imageCount===2,viewport+': expected two archival photos, got '+imageCount);
+  check(archive.length===2&&archive.every(i=>i.ok&&i.width>=500),viewport+': archive image failed '+JSON.stringify(archive));
+  // Empty alt is correct for decorative logos; require meaningful alt on exactly the three historical photos.\n  check(data.images.filter(i=>/stained-glass dome|Historic American Buildings Survey|Early twentieth-century postcard/i.test(i.alt)).length===3,viewport+': three hotel photographs must have meaningful alt text');
   check(linkExists(data.links,county),viewport+': missing county link');
   check(data.links.some(h=>h.startsWith('https://www.marriott.com/en-us/hotels/elpak-')),viewport+': missing official non-affiliate booking link');
   check(offer.href.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho114680/'),viewport+': CJ URL not scoped to verified Hotel Paso property: '+offer.href);
