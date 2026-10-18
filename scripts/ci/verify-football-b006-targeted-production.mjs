@@ -122,14 +122,20 @@ try{
    const r=await page.goto(root+'/county/'+name,{waitUntil:'domcontentloaded',timeout:45000});
    if(r?.status()!==200)errors.push('county HTTP '+r?.status());
    await page.locator('main h1').first().waitFor({state:'visible',timeout:25000});
-   // On some county routes, the content cards hydrate before the optional
-   // generic county-ready marker. Wait for one of those concrete DOM signals,
-   // then always verify every expected reciprocal school link below.
-   await page.waitForFunction(()=>
-     document.documentElement.dataset.tdFootballCountyHydrated==='1' ||
-     Boolean(document.querySelector('section[aria-label="Independent football histories from this county"]')),
-     {timeout:30000});
-   const links=await page.evaluate(()=>[...document.querySelectorAll('main a[href]')].map(a=>a.getAttribute('href')));
+   // A generic hydration marker can precede the football cards (Nueces),
+   // while a working county can omit that marker (Victoria). Accept neither
+   // marker as proof of a reciprocal link. Wait only for the real expected DOM.
+   const expected=group.map(s=>'/texas-high-school-football-teams/'+s.slug);
+   try{
+    await page.waitForFunction(paths=>
+     paths.every(href=>[...document.querySelectorAll('main a[href]')]
+      .some(a=>(a.getAttribute('href')||'').replace(/\\/$/,'')===href)),
+     expected,{timeout:20000});
+   }catch{
+    // Still fail closed on genuinely absent links, with their exact slugs.
+    // Do not classify the optional readiness marker itself as acceptance.
+   }
+   const links=await page.evaluate(()=>[...document.querySelectorAll('main a[href]')].map(a=>(a.getAttribute('href')||'').replace(/\\/$/,'')));
    for(const s of group)if(!links.includes('/texas-high-school-football-teams/'+s.slug))errors.push('missing reciprocal '+s.slug);
    if(js.length)errors.push('county JavaScript errors '+js[0]);
   }catch(e){errors.push(String(e.message||e).slice(0,350))}
