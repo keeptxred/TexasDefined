@@ -109,7 +109,7 @@ export function TexasRiverBasinInteractiveMap() {
         {!loaded && <button type="button" className="rounded-sm bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground" onClick={() => setLoaded(true)}>Load interactive river map</button>}
       </div>
       {loaded && !features.length && !error ? <p role="status" className="border-t border-border p-6 text-sm">Loading official river-basin boundaries from the Texas Water Development Board…</p> : null}
-      {error ? <p role="alert" className="border-t border-border p-6 text-sm text-muted-foreground">The live TWDB GIS layer is temporarily unavailable or blocks this browser. The official PDF map above and the published basin comparison below remain available. <a href={gisMetadata} target="_blank" rel="noreferrer" className="text-primary underline">Open TWDB source metadata ↗</a></p> : null}
+      {error ? <p role="alert" className="border-t border-border p-6 text-sm text-muted-foreground">The live Texas Water Development Board map layer is temporarily unavailable or blocked in this browser. The official PDF map above and the published basin comparison below remain available. <a href={gisMetadata} target="_blank" rel="noreferrer" className="text-primary underline">Open Texas Water Development Board source metadata ↗</a></p> : null}
       {features.length > 0 && (
         <div className="grid border-t border-border lg:grid-cols-[minmax(0,1fr)_15rem]">
           <div className="relative overflow-hidden bg-surface p-2 sm:p-5">
