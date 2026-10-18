@@ -23,6 +23,11 @@ const explicitFiles = new Set([
   "src/data/museum-expansion-statewide-wave53.ts",
   "src/data/museum-expansion-statewide-wave77.ts",
   "src/data/museum-expansion-statewide-wave79.ts",
+  "src/data/museum-expansion-statewide-wave50.ts",
+  "src/data/museum-expansion-statewide-wave52.ts",
+  "src/data/museum-expansion-statewide-wave54.ts",
+  "src/data/museum-expansion-statewide-wave66.ts",
+  "src/data/museum-expansion-statewide-wave85.ts",
   "src/data/museum-expansion-statewide-wave83.ts",
 ]);
 
