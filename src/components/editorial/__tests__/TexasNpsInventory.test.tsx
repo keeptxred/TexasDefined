@@ -35,6 +35,8 @@ describe("Public NPS identity directory — server-rendered, not data-fetch depe
     const localLinks = [...html.matchAll(/href="(\/destination\/[^"]+|\/article\/[^"]+)"/g)].map(m => m[1]);
     expect(new Set(localLinks)).toEqual(new Set(Object.values(NPS_LOCAL_GUIDES)));
     for (const href of localLinks) expect(href.startsWith("/")).toBe(true);
+    expect(NPS_LOCAL_GUIDES["palo-alto-battlefield-national-historical-park"]).toBe("/destination/palo-alto-battlefield-national-historical-park");
+    expect(Object.keys(NPS_LOCAL_GUIDES).length).toBeGreaterThanOrEqual(17);
     expect(html).toContain("https://www.nps.gov/state/tx/list.htm");
   });
 });

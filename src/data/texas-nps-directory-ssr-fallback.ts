@@ -8,6 +8,15 @@ import { TEXAS_NPS_DIRECTORY } from "./texas-national-park-service-directory";
  * The card gate stays strict: the index does not certify all 18 authority pages.
  */
 export const NPS_LOCAL_GUIDES: Readonly<Record<string, string>> = {
+  "alibates-flint-quarries-national-monument": "/destination/alibates-flint-quarries-national-monument",
+  "chamizal-national-memorial": "/destination/chamizal-national-memorial",
+  "fort-davis-national-historic-site": "/destination/fort-davis-national-historic-site",
+  "lake-meredith-national-recreation-area": "/destination/lake-meredith-national-recreation-area",
+  "lyndon-b-johnson-national-historical-park": "/destination/lyndon-b-johnson-national-historical-park",
+  "padre-island-national-seashore": "/destination/padre-island-national-seashore",
+  "palo-alto-battlefield-national-historical-park": "/destination/palo-alto-battlefield-national-historical-park",
+  "san-antonio-missions-national-historical-park": "/destination/san-antonio-missions-national-historical-park",
+  "waco-mammoth-national-monument": "/destination/waco-mammoth-national-monument",
   "big-bend-national-park": "/destination/big-bend-national-park",
   "guadalupe-mountains-national-park": "/destination/guadalupe-mountains-national-park",
   "big-thicket-national-preserve": "/destination/big-thicket-national-preserve",
