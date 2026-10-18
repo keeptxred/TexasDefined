@@ -86,7 +86,7 @@ function TexasOfficialBasinMap() {
           className="w-full bg-background" style={{ height: "min(65vh, 42rem)" }}
         >
           <p className="p-6 text-sm">
-            The map preview is not supported in this browser. <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="text-primary underline">Open the TWDB map PDF directly</a>.
+            The map preview is not supported in this browser. <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="text-primary underline">Open the Texas Water Development Board map PDF directly</a>.
           </p>
         </object>
       </div>
@@ -139,7 +139,7 @@ function TexasRiverOrientationMap() {
             <div className="border-t border-border pt-3"><dt className="text-[11px] uppercase text-muted-foreground">Coastal basins</dt><dd className="mt-1 font-display text-2xl">8</dd></div>
             <div className="border-t border-border pt-3"><dt className="text-[11px] uppercase text-muted-foreground">Streams</dt><dd className="mt-1 font-display text-2xl">~191k mi.</dd></div>
           </dl>
-          <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="mt-6 inline-block text-sm font-semibold text-primary underline decoration-border underline-offset-4">Open the official TWDB basin map ↗</a>
+          <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="mt-6 inline-block text-sm font-semibold text-primary underline decoration-border underline-offset-4">Open the official Texas Water Development Board basin map ↗</a>
         </figcaption>
       </div>
       <div className="border-t border-border bg-background p-4 sm:p-6">
@@ -148,7 +148,7 @@ function TexasRiverOrientationMap() {
           filename="texas-major-river-systems-map"
           title="Major Texas river systems orientation map"
           methodologyHref="/sourcing-methodology"
-          sourceNote="TexasDefined original orientation graphic. River paths are generalized for statewide context; use official TWDB mapping for exact basin boundaries."
+          sourceNote="TexasDefined original orientation graphic. River paths are generalized for statewide context; use official Texas Water Development Board mapping for exact basin boundaries."
           compact
         />
       </div>
@@ -251,8 +251,8 @@ export function TexasRiversAfterArticle() {
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
           <Link to="/article/texas-river-basins-guide" className="text-sm font-semibold text-primary underline">How river basins work →</Link>
-          <a href="https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp" target="_blank" rel="noreferrer" className="text-sm font-semibold text-primary underline">TWDB profiles of all 15 major basins ↗</a>
-          <a href="https://www.twdb.texas.gov/mapping/gisdata.asp" target="_blank" rel="noreferrer" className="text-sm font-semibold text-primary underline">TWDB geospatial data and map sources ↗</a>
+          <a href="https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp" target="_blank" rel="noreferrer" className="text-sm font-semibold text-primary underline">Texas Water Development Board profiles of all 15 major basins ↗</a>
+          <a href="https://www.twdb.texas.gov/mapping/gisdata.asp" target="_blank" rel="noreferrer" className="text-sm font-semibold text-primary underline">Texas Water Development Board map data and sources ↗</a>
         </div>
       </section>
 
