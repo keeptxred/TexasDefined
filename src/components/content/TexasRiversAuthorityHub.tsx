@@ -132,7 +132,7 @@ function TexasRiverOrientationMap() {
         </div>
         <figcaption className="border-t border-border p-5 sm:p-7 lg:border-l lg:border-t-0 lg:p-8">
           <p className="eyebrow text-primary">Map key</p>
-          <h3 className="mt-2 font-display text-2xl">Where the big systems run</h3>
+          <h3 className="mt-2 font-display text-2xl">Where the Major Rivers Run</h3>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">The blue river paths are a simplified guide, not exact surveyed river locations. Compare them with the official map above to see the land that drains into each river system. Texas rivers look and behave differently because they cross very different combinations of rainfall, elevation, geology and climate.</p>
           <dl className="mt-6 grid grid-cols-3 gap-3">
             <div className="border-t border-border pt-3"><dt className="text-[11px] uppercase text-muted-foreground">Major basins</dt><dd className="mt-1 font-display text-2xl">15</dd></div>
