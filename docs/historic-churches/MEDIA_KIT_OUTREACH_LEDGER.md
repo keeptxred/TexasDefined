@@ -32,3 +32,14 @@ Sources for the addresses: official parish webpages for Hostyn Hill, Blessing, M
 ## Existing church rights audit
 
 The first three church records in `src/data/historic-churches.ts` still correctly say `awaiting-licensed-photos`. These requests do **not** change that status until copyright permission and actual images are provided and checked.
+
+## October 18, 2026 — newly researched profiles
+
+The two churches below were individually researched and added to `src/data/historic-churches.ts` (commit `9e7a1d7801ef4165fc1db879ad8e80f1cf46d04c`). The full Outlook Sent Items folder (124 messages at check time), targeted Outlook searches, and this ledger showed no earlier outreach to these recipients. These records describe the connector response, not recipient delivery or rights clearance.
+
+| Church / location | Recipient | Subject | Outreach status | Copyright permission |
+| --- | --- | --- | --- | --- |
+| Zion Hill Baptist Church Historic Site — Nacogdoches (city-managed historic site, not active parish at this building) | zionhill@nactx.us (official City of Nacogdoches site) | TexasDefined Historic Churches Guide — Zion Hill Nacogdoches archives and photo permission | Sent/submitted via admin@texasdefined.com Outlook on 2026-10-18; send action returned success | Pending explicit image-specific commercial web permission and separate social-media permission; no files verified, no photos cleared |
+| St. Paul United Methodist Church — Dallas | office@stpaulumcdallas.com (official North Texas Conference directory) | TexasDefined Historic Churches Guide — St. Paul UMC Dallas heritage and photo request | BLOCKED 2026-10-18: Outlook send connector returned exactly: \"This tool call was blocked by OpenAI's safety checks. Please double check what you are sending.\" No send success; do not treat as sent | Pending; no files verified, no photos cleared |
+
+Official source links: https://www.nactx.us/882/Zion-Hill-Baptist-Church and https://ntcumc.org/churches/st-paul-umc. Do not retry St. Paul without checking Sent Items again; the rejected request does not establish delivery.
