@@ -18,7 +18,7 @@ const final = (
 const scheduled = (
   date: string, away: string, home: string,
 ): DistrictFootballGame => ({
-  date, kickoff: '7:00 p.m. CDT/CST', away, home, status: 'scheduled',
+  date, kickoff: date < '2026-11-01' ? '7:00 p.m. CDT' : '7:00 p.m. CST', away, home, status: 'scheduled',
   sourceUrl: DISTRICT_5_SCHEDULE_URL,
   sourceLabel: 'Pigskin Prep 2026 district schedule',
   verifiedAt: VERIFIED_AT,
