@@ -999,7 +999,7 @@ export const texasWaterParks: WaterParkGuide[] = [
       }
     ],
     "licensedMedia": {
-      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Kalahari%20Resort%20Hotel%20Round%20Rock%20Texas%202025.jpg",
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Kalahari%20Resort%20Hotel%20Round%20Rock%20Texas%202025.jpg?width=1280",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kalahari_Resort_Hotel_Round_Rock_Texas_2025.jpg",
       "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
       "licenseLabel": "CC BY 4.0",
@@ -4422,7 +4422,7 @@ export const texasWaterParks: WaterParkGuide[] = [
       }
     ],
     "licensedMedia": {
-      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Doug%20Russell%20Pool%20Midland%20Texas.jpg",
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Doug%20Russell%20Pool%20Midland%20Texas.jpg?width=1280",
       "sourceUrl": "https://commons.wikimedia.org/wiki/File:Doug_Russell_Pool_Midland_Texas.jpg",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
       "licenseLabel": "CC BY-SA 3.0",
