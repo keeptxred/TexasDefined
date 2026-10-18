@@ -3,6 +3,18 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "texas-country-music-hall-of-fame-carthage": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas_Country_Music_Hall_of_Fame_and_Tex_Ritter_Museum_IMG_2956.JPG?width=1600",
+    alt: "Texas Country Music Hall of Fame and Tex Ritter Museum building in Carthage, photographed May 20, 2011",
+    width: 1600, height: 1200,
+    credit: "Billy Hathorn · 20 May 2011 · CC BY-SA 3.0 · Wikimedia Commons · Texas Country Music Hall of Fame and Tex Ritter Museum IMG 2956.JPG"
+  },
+  "bryan-museum-galveston": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Galveston_Texas_-_The_Bryan_Museum_-_January_2025_-_1.jpg?width=1600",
+    alt: "The Bryan Museum in Galveston, photographed January 2025 in the historic former Galveston Orphans Home building",
+    width: 1600, height: 1000,
+    credit: "Alexander Hatley · 5 January 2025 · CC BY 2.0 · Wikimedia Commons · Galveston Texas - The Bryan Museum - January 2025 - 1.jpg"
+  },
   "east-texas-oil-museum-kilgore": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/East_Texas_Oil_Museum_building,_Kilgore,_TX_IMG_5900.JPG?width=1600",
     alt: "East Texas Oil Museum exterior and oil-derrick structure on the Kilgore College campus, photographed in 2012",

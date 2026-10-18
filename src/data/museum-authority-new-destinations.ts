@@ -9,6 +9,77 @@ import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
  */
 export const museumAuthorityDestinations: Destination[] = [
   {
+      "id": "museum-authority-country-music-carthage",
+      "brandId": "texasdefined",
+      "slug": "texas-country-music-hall-of-fame-carthage",
+      hero: museumLicensedHeroes["texas-country-music-hall-of-fame-carthage"],
+      "name": "Texas Country Music Hall of Fame and Tex Ritter Museum",
+      "summary": "Carthage's Texas Country Music Hall of Fame preserves Tex Ritter's cowboy-film and country music story, Jim Reeves radio equipment, and the contributions of Texas-born artists.",
+      "category": "historic-sites",
+      "region": "piney-woods",
+      "nearestTown": "Carthage",
+      "county": "Panola County",
+      "coordinates": {
+          "lat": 32.15732,
+          "lng": -94.34194
+      },
+      "bestSeason": "Year-round indoor museum; check separately ticketed August induction-festival events.",
+      "entryNote": "310 W. Panola St, Carthage. Museum ordinarily Monday–Saturday 10 a.m.–4 p.m.; adult $10, child $5 as published. Call 903-694-9561 for holidays, group access or special programs. Annual Civic Center concert tickets are separate.",
+      "highlights": [
+          "Tex Ritter's singing-cowboy story",
+          "Jim Reeves KGRI radio-station equipment",
+          "Texas Country Music Hall of Fame honorees",
+          "Carthage and Panola County musical history"
+      ],
+      "body": [
+          "Founded around the Tex Ritter Museum and expanded into a statewide Hall of Fame, this Carthage institution tells the story of Texas country music's early radio, movie, recording and stage influences. Its current home opened in 2002, while the Hall of Fame itself began in 1998.",
+          "Tex Ritter was born in Panola County and later became widely identified with Hollywood singing-cowboy films; the museum also preserves Jim Reeves broadcasting history and curated tributes to other Texas musicians. The official 2004 Jim Reeves exhibit incorporates equipment from radio station KGRI in Henderson.",
+          "Museum displays and the independently ticketed annual induction events are different visitor experiences. Check the museum's posted Monday-through-Saturday hours for everyday galleries, and use the separate event schedule if attending the John Ritter Tribute Showcase or Hall of Fame concerts.",
+          "This museum is a useful stop when traveling the Piney Woods or tracing country music history through Tex Ritter, Jim Reeves, Western swing and broadcasting. The official Hall of Fame inductee record is a useful companion to physical galleries."
+      ],
+      "officialUrl": "https://www.tcmhof.com/museum",
+      "managingAuthority": "Texas Country Music Hall of Fame",
+      "address": "310 W Panola St, Carthage, TX 75633",
+      "sourceCheckedAt": "2026-10-18",
+      "accessibilityNotes": "A full public accessibility inventory is not published for the museum itself. Call 903-694-9561 for entrance, restrooms, wheelchair routing and audiovisual accommodations."
+  },
+  {
+      "id": "museum-authority-bryan-museum-galveston",
+      "brandId": "texasdefined",
+      "slug": "bryan-museum-galveston",
+      hero: museumLicensedHeroes["bryan-museum-galveston"],
+      "name": "The Bryan Museum",
+      "summary": "Texas and American West art, documents, rare maps, permanent history galleries and the story of the 1895 Galveston Orphans Home inside The Bryan Museum.",
+      "category": "historic-sites",
+      "region": "gulf-coast",
+      "nearestTown": "Galveston",
+      "county": "Galveston County",
+      "coordinates": {
+          "lat": 29.297469,
+          "lng": -94.789054
+      },
+      "bestSeason": "Year-round; fall/winter operation is Wednesday–Sunday; spring/summer typically Wednesday–Monday.",
+      "entryNote": "1315 21st St, Galveston. Fall/winter museum hours Wednesday–Sunday 10 a.m.–5 p.m.; adult admission $15, seniors/teachers/military $14, students $12, children 6–12 $7 and under six free (reviewed October 2026). Online tickets encouraged; museum tickets are nonrefundable.",
+      "highlights": [
+          "Spanish Colonial Gallery and Texas Frontier Gallery",
+          "Historic Galveston Orphans Home building",
+          "Texas Master and Rest of the West art galleries",
+          "Rare maps, books and documentary collections",
+          "Rotating special exhibitions"
+      ],
+      "body": [
+          "The Bryan Museum occupies the restored 1895 Galveston Orphans Home and opened in 2015. The historic structure carries a second interpretive story, distinct from the Texas and American West collections assembled by J.P. and Mary Jon Bryan.",
+          "Seven permanent galleries take visitors from early regional cultures and Spanish Colonial history through Texas frontier, statehood, Western art and the history of the former orphanage itself. Special exhibitions change and should be verified for the date of the visit.",
+          "The collection contains rare books, primary documents in multiple languages, maps, art and objects from many eras; it is not possible to view all holdings in one visit. Plan around galleries of greatest interest instead of assuming every collection item is on display.",
+          "General admission includes the galleries and grounds. A separately reserved guided history tour of the former Galveston Orphans Home lasts about 90 minutes and is limited in size; the museum also offers school group activities arranged in advance."
+      ],
+      "officialUrl": "https://thebryanmuseum.org/plan-your-visit",
+      "managingAuthority": "Bryan Educational Institute",
+      "address": "1315 21st St, Galveston, TX 77550",
+      "sourceCheckedAt": "2026-10-18",
+      "accessibilityNotes": "The historic museum's public visitor pages do not describe accessible routes gallery by gallery. Call 409-632-7685 for wheelchair, lift, sensory, service-animal and drop-off needs; do not rely on event-rental ADA guidance as a complete museum access plan."
+  },
+  {
     id: "museum-authority-the-history-center-diboll", brandId: "texasdefined",
     slug: "the-history-center-diboll", name: "The History Center (Diboll)", summary: "The History Center in Diboll offers free visits to historic exhibits, a stationary 1920 steam locomotive, a 1948 caboose, and the region's lumber, railroad and community history.",
     category: "historic-sites", region: "piney-woods", nearestTown: "Diboll",
