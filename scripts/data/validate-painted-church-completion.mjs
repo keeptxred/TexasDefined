@@ -143,8 +143,8 @@ requireText(thenNow, 'const neither =', 'Then & Now coverage accounting');
 requireText(thenNow, 'Coverage accounting:', 'Then & Now coverage accounting');
 requireText(thenNow, 'Open visual-research queue', 'Then & Now backlog transparency');
 requireText(thenNow, 'paired.length + archivalOnly.length + currentOnly.length + neither.length', 'Then & Now reconciliation');
-requireText(mapRoute, '["Gillespie", "Bandera", "Karnes", "Bexar", "Medina"]', 'Medina County Painted Churches map region');
-requireText(mapRoute, 'return "Hill Country & South-Central Texas"', 'Medina County Painted Churches map region');
+requireText(mapRoute, '["Gillespie", "Bandera", "Karnes", "Bexar", "Medina", "Mason"]', 'Hill Country and South-Central Painted Churches map region');
+requireText(mapRoute, 'return "Hill Country & South-Central Texas"', 'Hill Country and South-Central Painted Churches map region');
 
 requireText(tripPlanner, 'PaintedChurchRoutePromo', 'Trip-planner reciprocal link');
 requireText(tripPlanner, '/explore/painted-churches/routes', 'Trip-planner reciprocal link');
