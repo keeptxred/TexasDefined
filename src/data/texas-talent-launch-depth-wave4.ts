@@ -103,7 +103,7 @@ export const TEXAS_TALENT_LAUNCH_DEPTH_WAVE4: Readonly<Record<string, TexasTalen
     ],
     texasPlaces: [
       { name: "Fort Worth", context: "Bridges's childhood home, early performance base and continuing cultural anchor, where open mics and local musician relationships turned private songwriting into a professional recording path." },
-      { name: "Tarrant County", context: "The county authority behind Bridges's Fort Worth story and a stable geographic connection for Texas Defined's broader North Texas, culture and music-history network." },
+      { name: "Tarrant County", context: "Tarrant County anchors Bridges's Fort Worth story and connects it to the wider North Texas music landscape." },
     ],
     lastReviewedAt: reviewed,
   },
@@ -127,7 +127,7 @@ export const TEXAS_TALENT_LAUNCH_DEPTH_WAVE4: Readonly<Record<string, TexasTalen
     ],
     texasPlaces: [
       { name: "Dallas", context: "Badu's birthplace, childhood environment and enduring creative home, where theater, Black arts, jazz, soul and hip-hop communities helped form the interdisciplinary performer she became." },
-      { name: "Dallas County", context: "The county-level connection supporting Badu's Dallas biography and related Texas stories into Texas Defined's North Texas culture and music-history coverage." },
+      { name: "Dallas County", context: "Dallas County anchors Badu's biography and connects it to North Texas Black arts and music history." },
     ],
     lastReviewedAt: reviewed,
   },
