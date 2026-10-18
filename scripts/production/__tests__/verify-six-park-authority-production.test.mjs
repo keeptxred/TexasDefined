@@ -20,7 +20,18 @@ test("location, official link, image and canonical checks are independent",()=>{
 });
 
 test("exact site hero, not an unrelated or script-only JPEG, is required",()=>{
- assert.throws(()=>inspectParkHtml(sample().replace("/images/state-parks/fort-boggy-state-park.jpg","/images/state-parks/another-park.jpg"),site),/Exact park-specific image/);
- assert.throws(()=>inspectParkHtml(sample().replace('alt="Fort Boggy State Park"','alt=""'),site),/Exact park-specific image/);
- assert.throws(()=>inspectParkHtml(sample().replace('<img alt="Fort Boggy State Park" src="/images/state-parks/fort-boggy-state-park.jpg">','<script>"/images/state-parks/fort-boggy-state-park.jpg"</script><img alt="Elsewhere" src="/other.jpg">'),site),/Exact park-specific image/);
+ assert.throws(()=>inspectParkHtml(sample().replace("/images/state-parks/fort-boggy-state-park.jpg","/images/state-parks/another-park.jpg"),site),/Approved park-specific photo/);
+ assert.throws(()=>inspectParkHtml(sample().replace('alt="Fort Boggy State Park"','alt=""'),site),/Approved park-specific photo/);
+ assert.throws(()=>inspectParkHtml(sample().replace('<img alt="Fort Boggy State Park" src="/images/state-parks/fort-boggy-state-park.jpg">','<script>"/images/state-parks/fort-boggy-state-park.jpg"</script><img alt="Elsewhere" src="/other.jpg">'),site),/Approved park-specific photo/);
+});
+
+test("only specifically approved Lakes/Rivers or Coast park photos can stand in for the state-park image",()=>{
+ const guadalupe={slug:"guadalupe-river-state-park",county:"comal",words:["charcoal","November 20","January 11"],source:"guadalupe-river"};
+ const base='<html><head><link rel="canonical" href="https://texasdefined.com/destination/guadalupe-river-state-park"></head><body><h1>Guadalupe River State Park</h1><img alt="Guadalupe River State Park in Texas" src="/images/explore/lakes-rivers/guadalupe-river-state-park.jpg"><p>Photography: Larry D. Moore · CC BY 4.0</p><a href="/county/comal">Comal County</a><a href="https://tpwd.texas.gov/state-parks/guadalupe-river/alert">Official source</a><article>Charcoal fire ban, November 20 and January 11 hunt closures.</article></body></html>';
+ const verified=inspectParkHtml(base,guadalupe);
+ assert.equal(verified.heroPath,"/images/explore/lakes-rivers/guadalupe-river-state-park.jpg");
+ assert.throws(()=>inspectParkHtml(base.replaceAll("/images/explore/lakes-rivers/guadalupe-river-state-park.jpg","/images/explore/lakes-rivers/other-park.jpg"),guadalupe),/Approved park-specific photo/);
+ const coast={slug:"galveston-island-state-park",county:"galveston",words:["71","95","boardwalk"],source:"galveston-island"};
+ const coastal=base.replaceAll("Guadalupe River State Park","Galveston Island State Park").replaceAll("guadalupe-river-state-park","galveston-island-state-park").replaceAll("/county/comal","/county/galveston").replaceAll("guadalupe-river/alert","galveston-island/alert").replaceAll("Charcoal fire ban, November 20 and January 11 hunt closures.","Boardwalk closure and drinking fountains 71 through 95").replaceAll("/images/explore/lakes-rivers/galveston-island-state-park.jpg","/images/explore/beaches-coast/galveston-island-state-park.jpg");
+ assert.equal(inspectParkHtml(coastal,coast).heroPath,"/images/explore/beaches-coast/galveston-island-state-park.jpg");
 });
