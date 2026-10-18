@@ -136,6 +136,38 @@ function Page() {
           ))}
         </div>
 
+        <section aria-labelledby="official-directories" className="mt-2 border-t border-border py-8">
+          <div className="max-w-3xl">
+            <p className="eyebrow text-primary">Official Texas directories</p>
+            <h2 id="official-directories" className="mt-2 font-display text-3xl leading-tight">Need the state source directly?</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              Texas.gov is the State of Texas official website. Use these directories when you already know you want the government source rather than a Texas Defined guide.
+            </p>
+          </div>
+          <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
+            <a
+              href="https://www.texas.gov/government-services-directory/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group bg-background p-5 transition-colors hover:bg-muted/40"
+            >
+              <h3 className="font-display text-xl leading-snug group-hover:text-primary">Texas.gov Government Services Directory</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">Search hundreds of official state services by task and topic.</p>
+              <span className="mt-4 inline-block text-sm font-semibold text-foreground">Open Texas.gov ↗</span>
+            </a>
+            <a
+              href="https://www.texas.gov/texas-state-agencies-departments/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group bg-background p-5 transition-colors hover:bg-muted/40"
+            >
+              <h3 className="font-display text-xl leading-snug group-hover:text-primary">Texas.gov State Agencies & Departments</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">Find the official state agency or department responsible for a service.</p>
+              <span className="mt-4 inline-block text-sm font-semibold text-foreground">Open Texas.gov ↗</span>
+            </a>
+          </div>
+        </section>
+
         <footer className="grid gap-4 border-t border-border pt-7 text-sm leading-6 text-muted-foreground sm:grid-cols-3">
           <p>
             Looking for destinations and trip ideas?{' '}
