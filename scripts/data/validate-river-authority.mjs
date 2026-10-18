@@ -190,6 +190,85 @@ for (const [slug,filename,author,license] of verifiedMajorRiverPhotos) {
     errors.push('Attribution URLs missing from river photo catalogue for '+slug);
 }
 
+// Photo identity, verified photographer and license must survive in both loaded
+// article variants and the shared cards for every remaining river guide.
+const remainingBasinPhotoSource = read('src/data/fixtures/texas-explained-river-profiles-remaining.ts');
+const remainingBasinStubSource = read('src/data/fixtures/texas-explained-river-profiles-remaining-stubs.ts');
+const visitorPhotoSource = read('src/data/fixtures/texas-river-recreation-guides.ts');
+const visitorPhotoStubSource = read('src/data/fixtures/texas-river-recreation-guide-stubs.ts');
+const verifiedRemainingRiverPhotos = [
+  [
+    "texas-cypress-river-basin-guide",
+    "Big_Cypress_Bayou,_Caddo_Lake_State_Park,_Harrison_County,_Texas,_USA_(April_2017).jpg",
+    "William L. Farr",
+    "CC BY-SA 4.0",
+    "basin"
+  ],
+  [
+    "texas-neches-river-guide",
+    "Neches_River,_Orange_County,_Texas,_USA_(October_2016).jpg",
+    "William L. Farr",
+    "CC BY-SA 4.0",
+    "basin"
+  ],
+  [
+    "texas-red-river-guide",
+    "Red_River,_Texas_(2395829167).jpg",
+    "brewbooks",
+    "CC BY-SA 2.0",
+    "basin"
+  ],
+  [
+    "texas-sulphur-river-guide",
+    "Fishing_on_the_Sulphur_River_-_Wright_Patman_Dam,_Texas_(47476599752).jpg",
+    "Tony Webster",
+    "CC BY 2.0",
+    "basin"
+  ],
+  [
+    "texas-frio-river-guide",
+    "Garner_state_park.jpg",
+    "Larry D. Moore",
+    "CC BY 4.0",
+    "visitor"
+  ],
+  [
+    "texas-llano-river-guide",
+    "Llano_River_in_Junction,_TX_IMG_4345.JPG",
+    "Billy Hathorn",
+    "CC BY-SA 3.0",
+    "visitor"
+  ]
+];
+for (const [slug,filename,author,license,group] of verifiedRemainingRiverPhotos) {
+  const isBasin = group === 'basin';
+  const articleSource = isBasin ? remainingBasinPhotoSource : visitorPhotoSource;
+  const stubSource = isBasin ? remainingBasinStubSource : visitorPhotoStubSource;
+  const slugKey = isBasin ? 'slug: "'+slug+'"' : '"slug": "'+slug+'"';
+  const articleAt = articleSource.indexOf(slugKey);
+  const stubAt = stubSource.indexOf(slugKey);
+  const cardAt = photoCatalog.indexOf('"/article/'+slug+'":');
+  if (articleAt < 0 || stubAt < 0 || cardAt < 0) {
+    errors.push('Actual river photo record missing: '+slug);
+    continue;
+  }
+  const articleEnd = isBasin ? articleSource.indexOf('body: [',articleAt) : articleSource.indexOf('\n  {',articleAt+1);
+  const stubEnd = isBasin ? stubSource.indexOf('body: []',stubAt) : stubSource.indexOf('\n  {',stubAt+1);
+  const cardEnd = photoCatalog.indexOf('\n  "/article/',cardAt+1);
+  const article = articleSource.slice(articleAt,articleEnd > articleAt ? articleEnd : undefined);
+  const stub = stubSource.slice(stubAt,stubEnd > stubAt ? stubEnd : undefined);
+  const card = photoCatalog.slice(cardAt,cardEnd > cardAt ? cardEnd : undefined);
+  for (const [surface,text] of [['hero',article],['stub',stub],['card',card]]) {
+    const sourceName = filename.replace(/_/g,' '); // allow encoded URL or Wikimedia File title
+    const imageNamed = text.includes(filename) || text.includes(sourceName) ||
+      text.includes(encodeURIComponent(filename));
+    if (!imageNamed || !text.includes(author) || !text.includes(license))
+      errors.push('River-specific '+surface+' source/rights missing: '+slug);
+  }
+  if (!card.includes('licenseUrl') || !card.includes('sourceUrl'))
+    errors.push('Full photographer and license links missing: '+slug);
+}
+
 const countyServer = read('src/data/county-series.server.ts');
 if(!countyServer.includes('riverAuthorityLinksForCounty(countySlug)')) errors.push('County river backlinks must be automatically maintained');
 const existingMatch = addon.match(/export const existingRiverAuthorityEnhancements = ([\s\S]*?) as const;/);
