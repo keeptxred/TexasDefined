@@ -1075,6 +1075,7 @@ if (!errors.length) {
     'No district label in source',
     'Not specified by source',
     'has not yet verified a dedicated current enrollment URL',
+    'Association placement not yet verified',
   ]) {
     if (featuredProfilePage.includes(forbidden)) errors.push(`Football profile contains a statewide regression marker: ${forbidden}`);
   }
@@ -1101,6 +1102,7 @@ if (!errors.length) {
   ]) requireText(footballProfileContent, marker, 'Football profile answer layer');
   for (const marker of [
     'profileSummary: buildFootballProfileSummary',
+    "return 'Non-UIL football program';",
     'quickFacts: buildFootballProfileQuickFacts',
     'faq: buildFootballProfileFaq',
   ]) requireText(programProfileServer, marker, 'Football profile server answer generation');
