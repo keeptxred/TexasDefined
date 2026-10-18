@@ -103,7 +103,7 @@ export const TEXAS_TALENT_LAUNCH_DEPTH_WAVE4: Readonly<Record<string, TexasTalen
     ],
     texasPlaces: [
       { name: "Fort Worth", context: "Bridges's childhood home, early performance base and continuing cultural anchor, where open mics and local musician relationships turned private songwriting into a professional recording path." },
-      { name: "Tarrant County", context: "Tarrant County anchors Bridges's Fort Worth story and connects it to the wider North Texas music landscape." },
+      { name: "Tarrant County", context: "Tarrant County anchors Bridges's Fort Worth story and connects his upbringing, early local performances and collaborators to the wider North Texas music landscape." },
     ],
     lastReviewedAt: reviewed,
   },
