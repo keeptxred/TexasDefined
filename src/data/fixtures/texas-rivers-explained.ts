@@ -53,7 +53,7 @@ export const texasRiversExplainedArticle: Article = {
     {
       href: "/article/texas-river-basins-guide",
       label: "Texas river basins guide",
-      description: "See how the state's major and coastal drainage basins divide Texas by watershed rather than county lines.",
+      description: "See how water divides Texas into drainage areas that ignore county lines.",
     },
     {
       href: "/article/texas-brazos-river-guide",
@@ -169,7 +169,7 @@ export const texasRiversExplainedArticle: Article = {
     p("Downstream, the river passes the San Antonio Missions and then moves into agricultural and coastal-plain country. The Medina River and Cibolo Creek are among the basin's important tributaries. Following the San Antonio from its headwaters southward is one of the clearest ways to see how a river can be simultaneously an ecological system, a civic landscape, a historic corridor and a source of water."),
     h("The Trinity: North Texas water headed for the coast"),
     image("/images/editorial/texas-trinity-river.jpg", "Reservoir shoreline and open water in the upper Trinity River basin", 1600, 1067, "The Trinity basin connects the Dallas-Fort Worth region with a heavily managed reservoir network and Trinity Bay."),
-    p("The Trinity River basin is the largest major river basin whose watershed lies entirely within Texas. The river forms from forks associated with North Texas, then flows south toward Trinity Bay. The upper basin contains the Dallas-Fort Worth region, making this one of the most urbanized river systems in the state."),
+    p("The Trinity River basin is the largest major river basin whose drainage area lies entirely within Texas. The river forms from forks associated with North Texas, then flows south toward Trinity Bay. The upper basin contains the Dallas-Fort Worth region, making this one of the most urbanized river systems in the state."),
     p("That urban connection is easy to miss because much of the Trinity does not look like the kind of river Texans build vacations around. Yet it is fundamental to water supply and flood management for millions of people. Water from the basin also helps serve the Houston area, which means the Trinity's importance extends well beyond the places immediately beside its banks."),
     h("The Sabine and Neches: rivers of the Piney Woods"),
     image("/images/explore/lakes-rivers/village-creek-state-park.jpg", "Wooded East Texas waterway in the Neches River basin at Village Creek State Park", 1600, 900, "Village Creek carries the forested, humid character of the Neches basin and Piney Woods river country."),
@@ -186,7 +186,7 @@ export const texasRiversExplainedArticle: Article = {
     p("Many of the 'lakes' Texans know best are reservoirs created by dams on rivers and tributaries. Lake Travis is the Colorado River. Canyon Lake is the Guadalupe held behind a dam. Lake Texoma stores Red River water. Toledo Bend sits on the Sabine. Reservoirs create useful storage and recreation, but they do not erase the river system underneath the map."),
     p("That matters when thinking about drought, flooding or water supply. A reservoir can fall even when your neighborhood received rain because the larger basin did not. It can rise rapidly after storms far upstream. Releases from a dam can change downstream river conditions even under a clear local sky."),
     h("Springs are part of the river story"),
-    p("Some Texas rivers depend heavily on groundwater. In the Hill Country and along the Balcones Fault Zone, springs can provide the steady base flow that keeps a river moving between storms. The Comal and San Marcos are dramatic examples, while spring-fed reaches also shape the Guadalupe, Frio, Nueces, Devils and other waterways."),
+    p("Some Texas rivers depend heavily on groundwater. In the Hill Country and along the Balcones Fault Zone, springs can provide steady water that keeps a river moving between storms. The Comal and San Marcos are dramatic examples, while spring-fed reaches also shape the Guadalupe, Frio, Nueces, Devils and other waterways."),
     p("This is why aquifer pumping and river flow can become part of the same argument. Water underground may eventually emerge at a spring. If spring flow weakens, the effects can travel downstream through swimming areas, wildlife habitat and water-supply systems."),
     h("Texas rivers can swing from drought to flood"),
     p("Texans often talk about rivers as though one condition is normal and everything else is an exception. The better mental model is variability. Long dry periods can reduce streams to quiet pools, then intense rainfall can send enormous volumes of water through the same channel."),
