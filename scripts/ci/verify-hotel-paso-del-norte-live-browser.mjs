@@ -55,7 +55,21 @@ async function checkHotel(page, viewport) {
   // Inspect the source-backed, user-visible offer WITHOUT CLICKING its CJ
   // redirect, so our production QA generates no artificial affiliate clicks.
   const exactOffer=page.locator('a[data-affiliate-placement="hotel-paso-exact-hotel-stay"]').first();
-  await exactOffer.waitFor({state:'visible',timeout:22000});
+  try { await exactOffer.waitFor({state:'visible',timeout:7000}); }
+  catch (error) {
+    const diagnostics=await page.evaluate(() => ({
+      pathname:location.pathname,
+      hydrated:document.documentElement.dataset.tdRootHydrated,
+      expediaType:document.getElementById('expedia-travel-surface')?.dataset.surfaceType || 'absent',
+      cjApi:typeof window.TexasDefinedStayAffiliateOptions,
+      expediaApi:typeof window.TexasDefinedStayNearby,
+      cjChoice:document.getElementById('td-stay-affiliate-options')?.outerHTML.slice(0,1000) || 'absent',
+      relatedLinks:[...document.querySelectorAll('a[data-affiliate-partner]')].map(a=>a.textContent).slice(0,6),
+      scripts:[...document.scripts].filter(s=>/expedia-travel|stay-affiliate-options/.test(s.src)).map(s=>s.src),
+    }));
+    console.error('HOTEL_CJ_MISSING '+viewport+' '+JSON.stringify(diagnostics));
+    throw error;
+  }
   const offer=await exactOffer.evaluate(el=>({
     href:el.href,rel:el.rel,text:(el.textContent||'').trim(),
     partner:el.dataset.affiliatePartner,placement:el.dataset.affiliatePlacement,
