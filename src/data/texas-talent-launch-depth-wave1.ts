@@ -77,7 +77,7 @@ export const TEXAS_TALENT_LAUNCH_DEPTH_WAVE1: Readonly<Record<string, TexasTalen
     ],
     texasPlaces: [
       { name: "Houston", context: "Beyoncé's birthplace, childhood home and early performance environment, where Girls Tyme developed before becoming Destiny's Child and launching a career with international reach." },
-      { name: "Harris County", context: "The county-level geographic anchor for Beyoncé's Houston story and the stable TexasDefined authority connection behind future city, culture and music-history cross-links." },
+      { name: "Harris County", context: "The county-level geographic anchor for Beyoncé's Houston story, connecting her biography with future city, culture and music-history context." },
     ],
     lastReviewedAt: reviewed,
   },
