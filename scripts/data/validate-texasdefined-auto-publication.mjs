@@ -30,7 +30,7 @@ if (/^\s*schedule:/m.test(workflow)) errors.push('Auto-publication schedule must
 for (const token of ['workflow_dispatch:', 'workflow_run:', '- Deploy TexasDefined production', 'types: [completed]', 'branches: [main]', "github.event.workflow_run.conclusion == 'success'", 'Verify auto-publication activation remains unset', 'vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'Verify live news, published article canonicals and sitemap XML', 'verify-texasdefined-publication-production.mjs', 'actions/checkout@v5', 'actions/setup-node@v5']) {
   if (!productionSmokeWorkflow.includes(token)) errors.push(`Publication production smoke workflow is missing ${token}`);
 }
-for (const token of ["await fetchHealthy('/news')", "await fetchHealthy('/sitemap.xml')", "firstPublishedNewsPath(news.body)", "story.body.includes(expectedCanonical)", "sitemap.body", "<(?:sitemapindex|urlset)"]) {
+for (const token of ["await fetchHealthy('/news')", "await fetchHealthy('/sitemap.xml')", "firstPublishedNewsPath(news.body)", "story.body.includes(expectedCanonical)", "sitemap.body.includes(\`<loc>\${expectedCanonical}</loc>\`)", "sitemap.body", "<(?:sitemapindex|urlset)"]) {
   if (!productionSmoke.includes(token)) errors.push(`Publication production smoke is missing ${token}`);
 }
 for (const token of ['ready_for_rewrite IS TRUE', 'classification_confidence', 'texas_relevance_score', 'source_reputation_score', 'security_invoker', 'publish_texasdefined_queue_item_v2', 'FROM anon, authenticated', "TO service_role"]) {
