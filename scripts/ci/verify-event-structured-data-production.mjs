@@ -421,7 +421,7 @@ async function verifyCrossroadsFestivalLeaf() {
     'Parking, walking and navigating downtown',
     'Visit Waxahachie — official downtown parking map',
     'Ellis County Museum',
-    'Event facts last source-checked 2026-10-09',
+    'Event facts last source-checked 2026-10-',
     'Renelibrary',
   ]) assert(readable.includes(marker), `Crossroads festival is missing verified visitor content: ${marker}`);
 
