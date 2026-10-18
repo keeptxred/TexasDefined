@@ -80,5 +80,8 @@
     "purge-authority-cache-after-deploy",
     "recover-stale-production-deploy",
     "websub-notify"
+  ],
+  "postDeployVerificationWorkflows": [
+    "texasdefined-publication-production-smoke"
   ]
 }
