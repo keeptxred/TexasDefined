@@ -53,7 +53,17 @@ export const texasWaterParks: WaterParkGuide[] = [
       "licenseLabel": "CC BY-SA 2.0",
       "year": 2004,
       "alt": "The main swimming pool at Schlitterbahn New Braunfels photographed in 2004."
-    }
+    },
+    "areaAttractions": [
+      {
+        "label": "Gruene Historic District",
+        "href": "/destination/gruene-historic-district"
+      },
+      {
+        "label": "Natural Bridge Caverns",
+        "href": "/destination/natural-bridge-caverns"
+      }
+    ]
   },
   {
     "slug": "schlitterbahn-galveston",
@@ -276,7 +286,17 @@ export const texasWaterParks: WaterParkGuide[] = [
       "photographer": "Nrpf22pr",
       "year": 2009,
       "alt": "The Tornado water slide at Hurricane Harbor in Arlington, Texas, photographed in August 2009; no current ride-operation claim."
-    }
+    },
+    "areaAttractions": [
+      {
+        "label": "Fort Worth Zoo (Tarrant County excursion)",
+        "href": "/destination/fort-worth-zoo"
+      },
+      {
+        "label": "Fort Worth Stockyards (Tarrant County excursion)",
+        "href": "/destination/fort-worth-stockyards"
+      }
+    ]
   },
   {
     "slug": "hurricane-harbor-splashtown",
@@ -1034,7 +1054,17 @@ export const texasWaterParks: WaterParkGuide[] = [
       "photographer": "Larry D. Moore",
       "year": 2025,
       "alt": "The Kalahari Resort Hotel exterior in Round Rock, Texas, photographed December 2025; interior water slides are not pictured."
-    }
+    },
+    "areaAttractions": [
+      {
+        "label": "Inner Space Cavern (Georgetown excursion)",
+        "href": "/destination/inner-space-cavern"
+      },
+      {
+        "label": "Texas State Capitol (Austin excursion)",
+        "href": "/destination/texas-state-capitol"
+      }
+    ]
   },
   {
     "slug": "great-wolf-grapevine",
@@ -1140,6 +1170,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "Does the park have younger-child attractions?",
         "answer": "Yes. Otter Springs, Otter Cave Waterworks and other low-thrill pools and play areas are described separately from the tall thrill slides. Check each attraction's specific supervision rules.",
         "sourceUrl": "https://www.greatwolf.com/webster/waterpark-attractions/indoor-water-park"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Space Center Houston",
+        "href": "/destination/space-center-houston"
+      },
+      {
+        "label": "Kemah Boardwalk",
+        "href": "/destination/kemah-boardwalk"
       }
     ]
   },
@@ -1382,6 +1422,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "Can families pack snacks and a cooler?",
         "answer": "Yes. Camp Fimfo allows food and nonalcoholic drinks subject to cooler checks, but does not permit glass or outside alcohol and forbids food inside swimming pools.",
         "sourceUrl": "https://campfimfo.com/texas-hill-country/amenities/water-playground"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Gruene Historic District",
+        "href": "/destination/gruene-historic-district"
+      },
+      {
+        "label": "Natural Bridge Caverns",
+        "href": "/destination/natural-bridge-caverns"
       }
     ]
   },
@@ -1802,6 +1852,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "Do children need life jackets in the Action River?",
         "answer": "Any guest below 48 inches must wear an approved Coast Guard life jacket in the Action River. The city states that loaner jackets are available on site at no cost.",
         "sourceUrl": "https://www.roundrocktexas.gov/city-departments/parks-and-recreation/facilities/pools/rock-n-river-water-park/"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Inner Space Cavern (Georgetown excursion)",
+        "href": "/destination/inner-space-cavern"
+      },
+      {
+        "label": "Texas State Capitol (Austin excursion)",
+        "href": "/destination/texas-state-capitol"
       }
     ]
   },
@@ -2370,6 +2430,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "Is Crooked River a municipal day-ticket pool?",
         "answer": "No. It is an on-site Hyatt resort amenity linked to the property's lodging and resort-fee policies; ask the operator before assuming public non-guest entry is available.",
         "sourceUrl": "https://www.hyatt.com/hyatt-regency/en-US/auslp-hyatt-regency-lost-pines-resort-and-spa/policies"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Bastrop State Park",
+        "href": "/destination/bastrop-state-park"
+      },
+      {
+        "label": "Buescher State Park (Smithville excursion)",
+        "href": "/destination/buescher-state-park"
       }
     ]
   },
@@ -5767,6 +5837,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "No. The city's facility overview identifies a separate leisure pool with beach-inspired entry and interactive water features, as well as two large slides and the competition pool.",
         "sourceUrl": "https://www.corpuschristitx.gov/department-directory/parks-and-recreation/parks-and-facilities/pools/"
       }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Texas State Aquarium",
+        "href": "/destination/texas-state-aquarium"
+      },
+      {
+        "label": "USS Lexington Museum",
+        "href": "/destination/uss-lexington-museum"
+      }
     ]
   },
   {
@@ -5803,6 +5883,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "What accessible water entry does Bartholomew Pool provide?",
         "answer": "Austin Parks and Recreation lists a chair lift and ADA stairs at this facility. Contact the city about current equipment availability and additional mobility needs before visiting.",
         "sourceUrl": "https://www.austintexas.gov/parks/locations/bartholomew-pool"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Texas State Capitol",
+        "href": "/destination/texas-state-capitol"
+      },
+      {
+        "label": "Barton Springs Pool",
+        "href": "/destination/barton-springs-pool"
       }
     ]
   },
@@ -6063,6 +6153,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "The city allows food brought from home but not catered or restaurant deliveries, inspects coolers, and charges a fee for large coolers at family aquatic centers. Glass containers and alcohol are not allowed.",
         "sourceUrl": "https://www.arlingtontx.gov/Parks-Places/Facilities/Aquatics"
       }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Fort Worth Zoo (Tarrant County excursion)",
+        "href": "/destination/fort-worth-zoo"
+      },
+      {
+        "label": "Fort Worth Stockyards (Tarrant County excursion)",
+        "href": "/destination/fort-worth-stockyards"
+      }
     ]
   },
   {
@@ -6099,6 +6199,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "Can visitors rent Bad Königshofen for parties or bring a cooler?",
         "answer": "Arlington allows special-event pool rentals and inspects coolers; the city assesses a fee for large coolers at family aquatic centers. Glass, alcohol and outside catered food deliveries are restricted.",
         "sourceUrl": "https://www.arlingtontx.gov/Parks-Places/Facilities/Aquatics"
+      }
+    ],
+    "areaAttractions": [
+      {
+        "label": "Fort Worth Zoo (Tarrant County excursion)",
+        "href": "/destination/fort-worth-zoo"
+      },
+      {
+        "label": "Fort Worth Stockyards (Tarrant County excursion)",
+        "href": "/destination/fort-worth-stockyards"
       }
     ]
   },
