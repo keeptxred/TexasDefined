@@ -49,6 +49,9 @@ contains(route, 'isHotelPasoDelNorte ? "10 Henry Trost Ct"', "schema physical ad
 contains(route, 'postalCode: "79901"', "schema postal code");
 contains(route, "Historical photographs of {destination.name}", "no recycled Battleship gallery heading");
 contains(html, "Hotels.com", "existing hotel comparison opportunities");
+contains(html, "hotelPasoStay", "Hotel Paso route scoped CJ placement");
+contains(html, "https://www.hotels.com/ho114680/hotel-paso-del-norte-autograph-collection-el-paso-united-states-of-america/", "source-verified exact hotel booking destination");
+contains(html, "hotel-paso-exact-hotel-stay", "tracked, attributed property booking CTA");
 contains(guide, "The historic home is closed through 2027 for restoration", "Magoffin nearby closure advisory");
 for (const resource of ["visitelpaso.com/places/downtown-walking-tour", "www.preservationtexas.org/elpaso", "trostsociety.org/tours/", "buildersofthedesert.org/tours"]) contains(guide, resource, "verifiable downtown architecture and tour choices");
 contains(guide, "TexasDefined has not established paid-referral or affiliate relationships with them", "honest guided tour monetization disclosure");
