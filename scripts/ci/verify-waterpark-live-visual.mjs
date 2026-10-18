@@ -5,8 +5,6 @@
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { mkdir, writeFile } from "node:fs/promises";
-const require = createRequire(import.meta.url);
-const { chromium } = require("/tmp/texasdefined-waterpark-qa/node_modules/playwright-core");
 const ORIGIN = "https://texasdefined.com";
 const DIR = "artifacts/waterpark-live-visual";
 const checks = [
@@ -28,6 +26,8 @@ if(process.argv.includes("--self-test")){
   console.log("Waterpark browser acceptance config self-test passed.");
   process.exit(0);
 }
+const require = createRequire(import.meta.url);
+const { chromium } = require("/tmp/texasdefined-waterpark-qa/node_modules/playwright-core");
 await mkdir(DIR,{recursive:true});
 const report={checkedAt:new Date().toISOString(),targetSha:process.env.TARGET_DEPLOY_SHA??"",routes:checks.length,viewports:viewports.length,results:[],failures:[]};
 const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_BIN||"/usr/bin/google-chrome",args:["--no-sandbox","--disable-dev-shm-usage"]});
