@@ -520,8 +520,8 @@ function Page() {
             <dl className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
               <Snapshot label="Association" value={privateAlignment.association} />
               <Snapshot label="Football division" value={privateAlignment.divisionLabel} />
-              <Snapshot label="Football district" value={privateAlignment.districtLabel || 'No district label in source'} />
-              <Snapshot label="Format" value={privateAlignment.footballType || 'Not specified by source'} />
+              {privateAlignment.districtLabel && <Snapshot label="Football district" value={privateAlignment.districtLabel} />}
+              {privateAlignment.footballType && <Snapshot label="Format" value={privateAlignment.footballType} />}
               <Snapshot label="Season / cycle" value={privateAlignment.seasonLabel} />
               <Snapshot label="Source type" value={privateAlignment.sourceKind === 'official-association' ? 'Official association' : 'Current secondary source'} />
             </dl>
