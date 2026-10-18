@@ -89,6 +89,9 @@ if (!liveNewsPath) {
 const story = await fetchHealthy(liveNewsPath);
 const expectedCanonical = `${origin}${liveNewsPath}`;
 if (!story.body.includes(expectedCanonical)) throw new Error(`${liveNewsPath} is live but does not expose its expected canonical URL ${expectedCanonical}`);
+if (!sitemap.body.includes(`<loc>${expectedCanonical}</loc>`)) {
+  throw new Error(`${liveNewsPath} is live but missing from /sitemap.xml`);
+}
 // Check the first actually published, routed story rather than binding the
 // publication smoke to a historical fixed slug.
 if (!story.body.includes('"@type":"NewsArticle"')) throw new Error(`${liveNewsPath} is missing Article structured data`);
