@@ -8,6 +8,13 @@ export const verifiedStateParkPhotoCredits: Readonly<Record<string, {
   fileUrl: string;
   licenseUrl: string;
 }>> = {
+  // The live Explore/caverns exact-park hero wins in the current resolver.
+  "/images/explore/caverns/kickapoo-cavern-state-park.jpg": {
+    author: "Mark Gustafson",
+    license: "CC BY-SA 4.0",
+    fileUrl: "https://commons.wikimedia.org/wiki/File:Kickapoo_Cavern_State_Park,_landscape.jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+  },
   "/images/state-parks/kickapoo-cavern-state-park.jpg": {
     author: "Mark Gustafson",
     license: "CC BY-SA 4.0",
