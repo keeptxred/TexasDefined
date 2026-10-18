@@ -533,6 +533,31 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
+      - name: Prepare District 5 responsive Chrome verification
+        id: district5_browser_deps
+        if: ${{ always() && steps.live_district5.outcome == 'success' && steps.change_scope.outputs.sports == 'true' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+
+      - name: Verify District 5 desktop and mobile screenshots in Chrome
+        id: live_district5_browser
+        if: ${{ always() && steps.district5_browser_deps.outcome == 'success' }}
+        run: node scripts/ci/verify-district-5-responsive-browser.mjs
+
+      - name: Preserve District 5 responsive acceptance evidence
+        if: ${{ always() && steps.live_district5_browser.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: district5-responsive-browser-${{ github.run_id }}
+          path: artifacts/district5-responsive-browser/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Verify changed Texas horse-racing authority pages
         id: live_horse_racing
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.horse_racing == 'true' }}
