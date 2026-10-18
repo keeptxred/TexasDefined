@@ -2,6 +2,38 @@
 /** Attribution is displayed beside the river card, not nested inside its navigation link. */
 export const RIVER_AUTHORITY_CARD_PHOTOS: Record<string, { src: string; alt: string; photographer: string; license: string; licenseUrl: string; sourceUrl: string } | undefined> =
 {
+  "/article/texas-brazos-river-guide": {
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Brazos_River_at_Washington_on_the_Brazos.jpg?width=1600",
+    "alt": "The Brazos River at Washington-on-the-Brazos State Historic Site in Washington County, Texas",
+    "photographer": "Larry D. Moore",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Brazos_River_at_Washington_on_the_Brazos.jpg"
+  },
+  "/article/texas-guadalupe-river-guide": {
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Guadalupe_River_of_Texas_IMG_0500.JPG?width=1600",
+    "alt": "The Guadalupe River at New Braunfels, Texas, photographed in May 2009",
+    "photographer": "Billy Hathorn",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Guadalupe_River_of_Texas_IMG_0500.JPG"
+  },
+  "/article/texas-trinity-river-guide": {
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Trinity-River-Dallas-TX-4667.jpg?width=1600",
+    "alt": "The Trinity River flowing past downtown Dallas, Texas",
+    "photographer": "Loadmaster (David R. Tribble)",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Trinity-River-Dallas-TX-4667.jpg"
+  },
+  "/article/texas-rio-grande-river-guide": {
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Big_Bend_Rio_Grande.jpg?width=1600",
+    "alt": "The Rio Grande near Santa Elena Canyon in Big Bend National Park, Texas",
+    "photographer": "Adbar",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Big_Bend_Rio_Grande.jpg"
+  },
   "/article/texas-colorado-river-guide": {
     "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Colorado_River_at_Smithville_Texas_2026.jpg?width=1600",
     "alt": "Colorado River flowing through Smithville, Texas, in 2026",
