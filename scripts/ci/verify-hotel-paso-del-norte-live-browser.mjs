@@ -112,9 +112,13 @@ async function checkHotel(page, viewport) {
   check(/historic home is closed through 2027 for restoration/i.test(data.text),viewport+': missing documented Magoffin Home closure in hotel nearby places');
   check(data.width <= data.viewportWidth+10,viewport+': horizontal overflow '+data.width+'/'+data.viewportWidth);
   check(heroImage.ok&&heroImage.width>=900&&/wikimedia.org/.test(heroImage.src),viewport+': hero failed to load '+JSON.stringify(heroImage));
-  check(imageCount===2,viewport+': expected two archival photos, got '+imageCount);
-  check(archive.length===2&&archive.every(i=>i.ok&&i.width>=500),viewport+': archive image failed '+JSON.stringify(archive));
-  // Empty alt is correct for decorative logos; require meaningful alt on exactly the three historical photos.\n  check(data.images.filter(i=>/stained-glass dome|Historic American Buildings Survey|Early twentieth-century postcard/i.test(i.alt)).length===3,viewport+': three hotel photographs must have meaningful alt text');
+  check(imageCount===3,viewport+': expected LOC dome photo plus two original archival photos, got '+imageCount);
+  check(archive.length===3&&archive.every(i=>i.ok&&i.width>=500),viewport+': gallery photo decoding failure '+JSON.stringify(archive));
+  check(archive.some(i=>i.ok&&i.width>=900&&/tile.loc.gov/.test(i.src)),viewport+': new 2014 Highsmith Library of Congress dome photo must load and decode');
+  // Decorative logos can have empty alt; all four documentary photos must have useful descriptions.
+  check(data.images.filter(i=>/stained-glass dome|Historic American Buildings Survey|Early twentieth-century postcard/i.test(i.alt)).length===4,viewport+': the CC0 dome hero, LOC dome angle and two archive photos need meaningful alt text');
+  check(data.links.some(h=>h.includes('loc.gov/item/2014630865')),viewport+': LOC image source and rights link missing');
+  check(data.links.some(h=>h.includes('texashistory.unt.edu/ark:/67531/metapth613579')),viewport+': Ponsford/Trost archive research link missing');
   check(linkExists(data.links,county),viewport+': missing county link');
   check(data.links.some(h=>h.startsWith('https://www.marriott.com/en-us/hotels/elpak-')),viewport+': missing official non-affiliate booking link');
   check(offer.href.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho114680/'),viewport+': CJ URL not scoped to verified Hotel Paso property: '+offer.href);
@@ -197,4 +201,4 @@ try {
 finally {if(browser)await browser.close();}
 await writeFile(dir+'/summary.json',JSON.stringify({ok:failures.length===0,failures,reports},null,2)+'\n');
 for(const f of failures)console.error('FAIL: '+f);
-if(failures.length)process.exitCode=1;else console.log('PASS: Hotel Paso del Norte: mobile+desktop history, licensed photos, exact-property CJ booking disclosure and no tracked CTA leakage, city/county backlinks and Magoffin closure.');
+if(failures.length)process.exitCode=1;else console.log('PASS: Hotel Paso del Norte: 2014 LOC dome + CC0 dome hero + two archival photos decode on mobile+desktop; rights and Ponsford archive links; CJ booking, city/county backlinks and Magoffin closure.');
