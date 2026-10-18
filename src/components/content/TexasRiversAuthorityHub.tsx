@@ -47,13 +47,13 @@ const sectionLinks = [
   { label: "Rio Grande", href: "#the-rio-grande-border-river-desert-river-and-international-river" },
   { label: "Brazos", href: "#the-brazos-a-river-through-the-middle-of-texas-history" },
   { label: "Colorado", href: "#the-colorado-the-texas-river-not-the-grand-canyon-river" },
-  { label: "Guadalupe", href: "#the-guadalupe-the-river-most-texans-learn-by-getting-in-it" },
+  { label: "Guadalupe", href: "#the-guadalupe-clear-water-cypress-trees-and-hill-country-recreation" },
   { label: "Nueces & Frio", href: "#the-nueces-and-frio-clear-water-in-dry-country" },
-  { label: "San Antonio", href: "#the-san-antonio-a-city-river-with-a-much-longer-life" },
+  { label: "San Antonio", href: "#the-san-antonio-river-goes-far-beyond-downtown" },
   { label: "Trinity", href: "#the-trinity-north-texas-water-headed-for-the-coast" },
-  { label: "Sabine & Neches", href: "#the-sabine-and-neches-east-texas-runs-wetter" },
-  { label: "Red, Canadian, Sulphur & Cypress", href: "#the-red-canadian-sulphur-and-cypress-systems-point-north-and-east" },
-  { label: "San Jacinto & Lavaca", href: "#the-san-jacinto-and-lavaca-prove-a-river-does-not-have-to-be-long-to-matter" },
+  { label: "Sabine & Neches", href: "#the-sabine-and-neches-rivers-of-the-piney-woods" },
+  { label: "Red, Canadian, Sulphur & Cypress", href: "#the-red-canadian-sulphur-and-cypress-rivers-flow-beyond-texas" },
+  { label: "San Jacinto & Lavaca", href: "#the-san-jacinto-and-lavaca-shorter-rivers-big-impact" },
 ] as const;
 
 const wideModuleStyle = {
