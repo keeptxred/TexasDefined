@@ -43,7 +43,7 @@ if (!knowledgeGraphRoute.includes('modifiedTime: \`${paintedChurchAuthorityExpan
 if (!checklistRoute.includes('collection reviewed ${paintedChurchAuthorityExpansionDateLabel}')) failures.push('Painted Churches checklist review label must follow the canonical authority expansion date.');
 if (!printGuideRoute.includes('collection reviewed {paintedChurchAuthorityExpansionDateLabel}') || !printGuideRoute.includes('modifiedTime: \`${paintedChurchAuthorityExpansionDate}T12:00:00-05:00\`')) failures.push('Painted Churches printable guide freshness must follow the canonical authority expansion date.');
 for (const [label, source] of [['guide library', guideLibraryRoute], ['knowledge graph', knowledgeGraphRoute], ['checklist', checklistRoute], ['print guide', printGuideRoute]]) {
-  if (source.includes('2026-08-18') || source.includes('August 18, 2026')) failures.push(\`Painted Churches ${label} still exposes the superseded August 18 collection review date.\`);
+  if (source.includes('2026-08-18') || source.includes('August 18, 2026')) failures.push(`Painted Churches ${label} still exposes the superseded August 18 collection review date.`);
 }
 if (!trustRouter.includes("Regional grouping, church identity, coordinate provenance and map interaction reviewed October 18, 2026.")) failures.push('Painted Churches map trust note must reflect the current review date and scope.');
 if (!trustRouter.includes("Comparison labels, 28-record collection coverage and freshness metadata reviewed October 18, 2026.")) failures.push('Painted Churches comparison trust note must reflect current coverage and freshness review.');
