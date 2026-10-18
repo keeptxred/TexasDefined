@@ -41,6 +41,10 @@ for (const feature of [
   "to=\"/explore\"",
   "to=\"/texas-data\"",
   "to=\"/texas-explained\"",
+  'https://www.texas.gov/government-services-directory/',
+  'https://www.texas.gov/texas-state-agencies-departments/',
+  'target="_blank"',
+  'rel="noopener noreferrer"',
 ]) {
   if (!page.includes(feature)) errors.push(`Texas resources task-hub feature missing across the route pair: ${feature}.`);
 }
