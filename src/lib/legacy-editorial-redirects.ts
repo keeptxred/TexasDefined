@@ -27,6 +27,10 @@ export const LEGACY_EDITORIAL_REDIRECTS: Record<string, string> = Object.fromEnt
   ),
 );
 LEGACY_EDITORIAL_REDIRECTS["/museum/barrington-farm-site"] = "/destination/barrington-living-history-farm";
+// Historical San Antonio links: the city guide is /city/, not a destination.
+LEGACY_EDITORIAL_REDIRECTS["/destination/san-antonio"] = "/city/san-antonio";
+// County feature was published with a -texas suffix; retain old inbound links.
+LEGACY_EDITORIAL_REDIRECTS["/article/bexar-county-san-antonio-missions-river"] = "/article/bexar-county-san-antonio-missions-river-texas";
 
 const historicalArticleSlugs = [
   "audie-murphy-texas-war-hero-actor",
