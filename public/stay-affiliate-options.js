@@ -95,7 +95,7 @@
     verifiedAt: "2026-10-17",
   });
   function hotelPasoStay(pathname = window.location.pathname) {
-    const normalized = String(pathname || "/").replace(/\\/+$/, "") || "/";
+    const normalized = String(pathname || "/").replace(/\/+$/, "") || "/";
     return normalized === "/destination/hotel-paso-del-norte" ? HOTEL_PASO_EXACT_STAY : null;
   }
 
