@@ -18,7 +18,7 @@ const featuredTasks = [
   ['Property taxes & homestead', '/decide/property-taxes', 'Estimate taxes, find filing paths and understand exemptions or protests.'],
   ['Start a business', '/start-a-business-in-texas', 'Follow the Texas setup path for entities, tax accounts and common filings.'],
   ['Moving to Texas', '/moving-to-texas', 'Plan the first practical steps for relocating and settling in.'],
-  ['Find the right office', '/find-my-dmv', 'Locate the DMV or county office for a vehicle-related task.'],
+  ['Find DMV or county office', '/find-my-dmv', 'Locate the DMV or county office for a vehicle-related task.'],
 ] as const;
 
 const groups: ReadonlyArray<ResourceGroup> = [
