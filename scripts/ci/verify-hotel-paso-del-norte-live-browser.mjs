@@ -8,6 +8,7 @@ const origin = (process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').rep
 const path = '/destination/hotel-paso-del-norte';
 const city = '/city/el-paso';
 const county = '/county/el-paso';
+const magoffin = '/destination/magoffin-home';
 const dir = 'artifacts/hotel-paso-del-norte-qa';
 const reports = [];
 let failures = [];
@@ -78,6 +79,7 @@ async function checkHotel(page, viewport) {
   check(data.text.includes('79002933')&&data.text.includes('1912')&&data.text.includes('Trost')&&data.text.includes('Dome Bar')&&data.text.includes('2020'),viewport+': thin or wrong historic narrative');
   check(data.text.includes('10 Henry Trost Court')&&data.text.includes('115 El Paso Street'),viewport+': missing historical/current address distinction');
   check(data.text.includes('Research sources')||data.text.includes('Research sources and image rights'),viewport+': source bibliography not rendered');
+  check(/historic home is closed through 2027 for restoration/i.test(data.text),viewport+': missing documented Magoffin Home closure in hotel nearby places');
   check(data.width <= data.viewportWidth+10,viewport+': horizontal overflow '+data.width+'/'+data.viewportWidth);
   check(heroImage.ok&&heroImage.width>=900&&/wikimedia.org/.test(heroImage.src),viewport+': hero failed to load '+JSON.stringify(heroImage));
   check(imageCount===2,viewport+': expected two archival photos, got '+imageCount);
@@ -102,16 +104,38 @@ async function checkInbound(page,p,viewport){
   return {page:p,viewport,http:response?.status(),hotelLink:found};
 }
 
+async function checkMagoffin(page, viewport) {
+  const errors = [];
+  page.on('pageerror', e => errors.push(e.message));
+  const response = await page.goto(visitUrl(magoffin,viewport),{waitUntil:'domcontentloaded',timeout:55000});
+  await page.locator('h1').first().waitFor({state:'visible',timeout:25000});
+  await page.evaluate(()=>document.fonts?.ready);
+  const hero = page.locator('img[alt*="Magoffin Home"]').first();
+  const photo = await decode(hero);
+  const data = await collect(page);
+  await page.screenshot({path:dir+'/'+viewport+'-magoffin-full.png',fullPage:true,animations:'disabled',timeout:35000});
+  await writeFile(dir+'/'+viewport+'-magoffin.json',JSON.stringify({status:response?.status(),photo,title:data.title,canonical:data.canonical,h1:data.h1,excerpt:data.text.slice(0,9500),width:data.width,viewportWidth:data.viewportWidth,errors},null,2));
+  check(response?.status()===200,viewport+': Magoffin HTTP '+response?.status());
+  check(data.h1.length===1&&/Magoffin Home/i.test(data.h1[0]),viewport+': missing Magoffin H1');
+  check(data.canonical===origin+magoffin,viewport+': Magoffin canonical '+data.canonical);
+  check(!/noindex/i.test(data.robots),viewport+': Magoffin noindex');
+  check(/closed through 2027/i.test(data.text),viewport+': Magoffin public house-closure notice absent');
+  check(photo.ok && photo.width>=900 && /magoffin.*home|magoffin_home/i.test(decodeURIComponent(photo.src).replace(/%25/g,'%')),viewport+': site-specific Magoffin photograph failed '+JSON.stringify(photo));
+  check(data.width<=data.viewportWidth+10,viewport+': Magoffin horizontal overflow');
+  check(errors.length===0,viewport+': Magoffin runtime errors '+JSON.stringify(errors.slice(0,3)));
+  return {page:magoffin,viewport,http:response?.status(),photo,closureNoted:/closed through 2027/i.test(data.text),errors};
+}
+
 let browser;
 try {
   browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_BIN||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
   for(const [viewport,width,height,isMobile] of [['mobile',390,844,true],['desktop',1366,900,false]]) {
     const context=await browser.newContext({viewport:{width,height},isMobile,hasTouch:isMobile,deviceScaleFactor:1});
     try {
-      for(const [label,p] of [['hotel',path],['city',city],['county',county]]){
+      for(const [label,p] of [['hotel',path],['city',city],['county',county],['magoffin',magoffin]]){
         const page=await context.newPage();
         try {
-          const result=label==='hotel'?await checkHotel(page,viewport):await checkInbound(page,p,viewport);
+          const result=label==='hotel'?await checkHotel(page,viewport):label==='magoffin'?await checkMagoffin(page,viewport):await checkInbound(page,p,viewport);
           reports.push(result);
           console.log('INSPECTED '+viewport+' '+p+' '+JSON.stringify(result).slice(0,900));
         }catch(error){
@@ -125,4 +149,4 @@ try {
 finally {if(browser)await browser.close();}
 await writeFile(dir+'/summary.json',JSON.stringify({ok:failures.length===0,failures,reports},null,2)+'\n');
 for(const f of failures)console.error('FAIL: '+f);
-if(failures.length)process.exitCode=1;else console.log('PASS: Hotel Paso del Norte: mobile+desktop image decoding, hotel JSON-LD, SEO, citations, booking and city/county inbound acceptance.');
+if(failures.length)process.exitCode=1;else console.log('PASS: Hotel Paso del Norte: mobile+desktop image decoding, hotel JSON-LD, SEO, citations, booking, city/county inbound and Magoffin closure/photo acceptance.');
