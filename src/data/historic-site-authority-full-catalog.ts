@@ -302,6 +302,10 @@ function authoritySources(officialUrl: string, siteName: string): DestinationAut
       label: "Handbook of Texas — Lipantitlán State Historic Site",
       url: "https://www.tshaonline.org/handbook/entries/lipantitlan-state-historic-site",
       scope: "Site establishment, 1835 surrender, land donation, administration and historical-marker landscape; independent historical context.",
+    }, {
+      label: "THC Historic Sites Atlas — Fort Lipantitlán Centennial marker",
+      url: "https://atlas.thc.texas.gov/Details/5355006315",
+      scope: "1936 Centennial marker documenting the 1835 capture, distinct June 1842 assault, historic land donation and site identification; not a surviving 1830s building.",
     }];
   }
   if (officialUrl.includes("thc.texas.gov")) {
