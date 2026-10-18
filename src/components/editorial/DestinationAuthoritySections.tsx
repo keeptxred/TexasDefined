@@ -1,4 +1,5 @@
 import type { Destination } from "@/data/types";
+import { verifiedLocalParkCredit } from "@/data/verified-local-state-park-photo-credits";
 
 type Props = { destination: Destination };
 
@@ -14,7 +15,7 @@ function commonsPhotoCredit(destination: Destination) {
       (licenseCode.includes("BY-SA") ? "by-sa/" : "by/") +
       licenseCode.match(/[0-9]+(?:\.[0-9]+)?/)?.[0] + "/"
     : null;
-  return { fileUrl, licenseCode, licenseUrl, credit };
+  return { fileUrl, licenseCode, licenseUrl, credit, note: null };
 }
 
 /**
@@ -26,12 +27,12 @@ function commonsPhotoCredit(destination: Destination) {
  */
 export function DestinationAuthoritySections({ destination }: Props) {
   const guide = destination.authorityGuide;
-  const imageCredit = commonsPhotoCredit(destination);
+  const imageCredit = commonsPhotoCredit(destination) ?? verifiedLocalParkCredit(destination.hero);
   if (!guide && !destination.visitorFaqs?.length) return null;
 
   return <div data-destination-authority-sections className="mt-12 space-y-12">
     {imageCredit && <section aria-label="Photograph attribution" className="border-t border-border pt-5 text-xs leading-6 text-muted-foreground">
-      <p>Hero image: {imageCredit.credit}. <a href={imageCredit.fileUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Photograph and creator details ↗</a>{imageCredit.licenseUrl && <> · <a href={imageCredit.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{imageCredit.licenseCode} license ↗</a></>}.</p>
+      <p>Hero image: {imageCredit.credit}. <a href={imageCredit.fileUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Photograph and creator details ↗</a>{imageCredit.licenseUrl && <> · <a href={imageCredit.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{imageCredit.licenseCode} license ↗</a></>}{imageCredit.note && <> · {imageCredit.note}</>}.</p>
     </section>}
     {guide && <section aria-labelledby="destination-authority-assessment" className="border-t border-border pt-8">
       <p className="eyebrow text-primary">Independent Texas Defined research</p>
