@@ -112,6 +112,7 @@ const prebuildChecks = [
   ['CI/DEPLOYMENT', 'Validate post-deploy verifier safety', 'node', ['scripts/ci/validate-post-deploy-verifier-safety.mjs']],
   ['CI/DEPLOYMENT', 'Validate browser and destination post-deploy ordering', 'node', ['scripts/ci/validate-production-browser-deploy-order.mjs']],
   ['CONTENT/GOVERNANCE', 'Validate permanent SEO content quality governance', 'node', ['scripts/data/validate-content-quality-governance.mjs']],
+  ['CONTENT/GOVERNANCE', 'Reject internal editorial mechanics from reader-facing copy', 'node', ['scripts/data/validate-reader-facing-copy.mjs']],
   ['UX/LAYOUT', 'Validate sitewide dead-space safeguards', 'node', ['scripts/data/validate-layout-dead-space.mjs']],
   ['CONTENT/GOVERNANCE', 'Validate 250 Texas Stories source backlog', 'node', ['scripts/data/validate-250-texas-stories-backlog.mjs']],
   ['CONTENT/GOVERNANCE', 'Validate 250 Texas Stories Part 1 reconciliation', 'node', ['scripts/data/validate-250-texas-stories-part1-reconciliation.mjs']],
