@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { MapPreview } from "@/components/editorial/MapPreview";
+import { EventTicketCta } from "@/components/events/EventTicketCta";
 import { Container } from "@/components/layout/Container";
 import {
   METRO_PROXIMITY_COLLECTIONS,
@@ -11,6 +12,7 @@ import {
 } from "@/data/metro-proximity";
 import { metroProximityCollectionPresentation } from "@/data/metro-proximity-presentation";
 import type { MetroProximityTownResult } from "@/data/metro-proximity-town-references";
+import type { ResolvedEventTicketCta } from "@/data/events/ticketing";
 import { countyNames, countySlug } from "@/data/metro-county-links";
 import { maps } from "@/services/maps";
 
@@ -21,6 +23,20 @@ type CollectionPageData = {
   collection: MetroProximityCollection;
   results: MetroProximityResult[];
   townReferences: MetroProximityTownResult[];
+  eventContext: {
+    kind: "none" | "nearby" | "weekend-destinations";
+    events: Array<{
+      id: string;
+      title: string;
+      categoryLabel: string;
+      dateLabel: string;
+      locationLabel: string;
+      guidePath: string;
+      officialEventUrl: string;
+      lastVerifiedLabel: string;
+      ticketCta: ResolvedEventTicketCta | null;
+    }>;
+  };
   optionCount: number;
   indexReady: boolean;
   presentation: {
@@ -443,7 +459,7 @@ function TexarkanaRoadTripsAuthority({ pageData }: { pageData: CollectionPageDat
 }
 
 export function MetroProximityCollectionRich({ pageData }: { pageData: CollectionPageData }) {
-  const { metro, collection, results, townReferences, presentation } = pageData;
+  const { metro, collection, results, townReferences, eventContext, presentation } = pageData;
   if (metro.slug === "texarkana" && collection.slug === "road-trips") {
     return <TexarkanaRoadTripsAuthority pageData={pageData} />;
   }
@@ -540,6 +556,28 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
           </table>
         </div>
         <p className="mt-4 max-w-4xl text-xs leading-6 text-muted-foreground">Planning-drive ranges are editorial estimates from central Austin for choosing among trips, not live traffic predictions. Always open the current route before departure.</p>
+      </Container>
+    </section>}
+
+    {eventContext.events.length > 0 && <section className="border-y border-border bg-surface">
+      <Container className="py-14 sm:py-18">
+        <p className="eyebrow text-primary">{eventContext.kind === "weekend-destinations" ? "Plan around the calendar" : "Dated things to do"}</p>
+        <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">{eventContext.kind === "weekend-destinations" ? "Upcoming events in these weekend destinations" : `Upcoming events in and near ${metro.name}`}</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{eventContext.kind === "weekend-destinations" ? "These events are limited to towns represented by the weekend-trip destinations on this page." : "These source-verified events are in the metro or in nearby towns already represented by this page."}</p>
+        <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {eventContext.events.map((event) => <article key={event.id} className="border-t border-border pt-5">
+            <p className="eyebrow text-primary">{event.categoryLabel} · {event.dateLabel}</p>
+            <h3 className="mt-3 font-display text-2xl"><a href={event.guidePath} className="hover:text-primary">{event.title}</a></h3>
+            <p className="mt-2 text-sm text-muted-foreground">{event.locationLabel}</p>
+            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+              <a href={event.guidePath} className="border-b border-primary pb-1 text-primary">Event guide →</a>
+              <EventTicketCta cta={event.ticketCta} linkClassName="border-b border-border pb-1 hover:text-primary" wrapperClassName="inline-flex flex-wrap gap-2" disclosureClassName="basis-full text-xs font-normal text-muted-foreground" />
+              <a href={event.officialEventUrl} target="_blank" rel="noreferrer noopener" className="border-b border-border pb-1 hover:text-primary">Official event site ↗</a>
+            </div>
+            <p className="mt-4 text-xs leading-6 text-muted-foreground">Last verified {event.lastVerifiedLabel}. Confirm event-day details with the official source before traveling.</p>
+          </article>)}
+        </div>
+        <a href="/events" className="mt-8 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">View all Texas events →</a>
       </Container>
     </section>}
 

@@ -4,6 +4,9 @@ const read = (path) => fs.readFileSync(path, "utf8");
 const paths = {
   data: "src/data/metro-proximity.ts",
   townReferences: "src/data/metro-proximity-town-references.ts",
+  eventSelection: "src/data/metro-proximity-event-selection.ts",
+  eventServer: "src/data/metro-proximity-events.server.ts",
+  ticketCta: "src/components/events/EventTicketCta.tsx",
   mcallenBirding: "src/data/mcallen-world-birding-center.ts",
   hidalgoPumphouse: "src/data/hidalgo-pumphouse-authority-destination.ts",
   preservedDestinations: "src/data/destination-preserved-catalog.ts",
@@ -61,6 +64,32 @@ for (const token of [
   'a real Hidalgo County heritage destination repairs McAllen historic-site county diversity',
   'McAllen ordinary things-to-do excludes remote off-road beach shortcuts',
 ]) requireText(files.test, token, `Hidalgo historic-site readiness regression missing ${token}`);
+
+for (const token of [
+  'collection.slug !== "things-to-do" && collection.slug !== "weekend-trips"',
+  "effectiveEnd", "horizonIso", "resultTownKeys", "metroKeys", "eventIdentity",
+  "event.ticketCta?.isAffiliate", 'protocol === "https:"', ".slice(0, 12)",
+]) requireText(files.eventSelection, token, `metro event selector contract missing ${token}`);
+for (const token of [
+  "loadUpcomingTexasCalendarRecordsServer", "buildTexasEventCarouselItemsServer",
+  "addDaysIso(todayIso, 14)", "selectMetroProximityAffiliateEvents",
+  "buildMetroProximityEventContextServer",
+]) requireText(files.eventServer, token, `metro event server contract missing ${token}`);
+for (const token of [
+  "buildMetroProximityEventContextServer", "eventContext",
+]) requireText(files.pageData, token, `metro event page-data integration missing ${token}`);
+for (const token of [
+  "EventTicketCta", "event.ticketCta", "Upcoming events in and near",
+  "Upcoming events in these weekend destinations", "Official event site", "Last verified",
+]) requireText(files.collectionUi, token, `metro event presentation missing ${token}`);
+for (const token of [
+  "data-affiliate-partner", "trackAffiliateClick", "cta.rel", "cta.disclosure",
+]) requireText(files.ticketCta, token, `shared ticket CTA safeguards missing ${token}`);
+for (const token of [
+  "things-to-do event selection stays geographic, fresh, useful without tickets and affiliate-safe",
+  "ongoing metro events remain eligible when their end date is current",
+  "weekend-trip events stay in represented destination towns and unrelated intents stay event-free",
+]) requireText(files.test, token, `metro affiliate event regression missing ${token}`);
 
 const expectedMetroSlugs = [
   "houston", "dallas", "fort-worth", "austin", "san-antonio", "corpus-christi", "waco",

@@ -21,6 +21,7 @@ import {
   selectMetroProximityTownReferences,
   type MetroProximityTownResult,
 } from "./metro-proximity-town-references";
+import { buildMetroProximityEventContextServer } from "./metro-proximity-events.server";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
@@ -239,6 +240,7 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
   const townReferences = selectMetroProximityTownReferences(metro, collection, results);
   const optionCount = results.length + townReferences.length;
   const indexReady = isMetroProximityCollectionIndexReadyWithTownReferences(destinations, metro, collection);
+  const eventContext = buildMetroProximityEventContextServer(metro, collection, results);
   const canonicalPath = metroProximityCanonicalPath(metro.slug, collection.slug);
   const presentation = metroProximityCollectionPresentation(collection);
   const isTexarkanaRoadTrips = metro.slug === "texarkana" && collection.slug === "road-trips";
@@ -311,5 +313,5 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
       }),
     }],
   };
-  return { metro, collection, results, townReferences, optionCount, indexReady, presentation, canonicalPath, title, description, reviewedAt, head };
+  return { metro, collection, results, townReferences, optionCount, eventContext, indexReady, presentation, canonicalPath, title, description, reviewedAt, head };
 }
