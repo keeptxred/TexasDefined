@@ -101,7 +101,7 @@ assert.ok(preserved.includes("top50CompactDestinationSummaries,"),"Five destinat
 const compact = parseStaticJson(
   "src/data/top50-preserved-summaries.ts",
   "export const top50CompactDestinationSummaries: Destination[] = ",
-  ";\\n",
+  ";\n",
 );
 assert.equal(compact.length, 5, "All five additional destinations must have discoverable summaries");
 assert.deepEqual(compact.map(x => x.slug).sort(), [...parks.map(x => x.slug), bats.slug].sort(), "Compact catalog and full guide identities must agree");
