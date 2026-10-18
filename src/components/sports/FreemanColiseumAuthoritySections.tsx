@@ -63,7 +63,7 @@ export function FreemanColiseumAuthoritySections() {
       <a className="underline underline-offset-4" href="#freeman-history">Historic moments</a>
     </nav>
 
-    <section id="freeman-campus" className="scroll-mt-24">
+    <section id="freeman-campus">
       <Section eyebrow="Know the campus" title="Freeman Coliseum, Expo Halls and Frost Bank Center are not interchangeable">
         <p className="max-w-4xl text-base leading-8 text-foreground/85">A ticket or event description that says “Freeman” can refer to several different buildings on the East Houston Street campus. The historic Freeman Coliseum is the indoor arena. Expo Halls A, B, C and Hall 2 are distinct trade-show and exhibition spaces, and the adjacent Frost Bank Center is a separate arena. The <Source href={official.grounds}>official 2026 grounds map</Source> identifies each building and nine numbered parking lots; it does <strong>not</strong> assign your event to a particular gate or parking lot.</p>
         <div className="mt-7 grid gap-4 md:grid-cols-3">
@@ -77,9 +77,9 @@ export function FreemanColiseumAuthoritySections() {
       </Section>
     </section>
 
-    <section id="freeman-visit" className="scroll-mt-24">
+    <section id="freeman-visit">
       <Section eyebrow="First-time visitor playbook" title="Parking, gate selection and accessible arrival">
-        <ol className="grid list-decimal gap-5 pl-5 text-base leading-8 md:grid-cols-2 md:gap-x-12">
+        <ol className="grid list-decimal gap-6 pl-5 text-base leading-8 md:grid-cols-2">
           <li><strong>Confirm the exact building.</strong> Look at your official ticket or event listing. Coliseum performances and Expo Hall events do not necessarily use the same doors.</li>
           <li><strong>Read that event’s parking notice.</strong> The 2026 campus map shows Lots 1–9, but open lots, controlled entrances and fees can change; do not rely on a previous visit’s lot number.</li>
           <li><strong>Choose your approach before arrival.</strong> East Houston Street, Frost Bank Center Drive and the campus inner roads are identified on the grounds map. Busy same-day events can affect routing.</li>
@@ -99,7 +99,7 @@ export function FreemanColiseumAuthoritySections() {
       </Section>
     </section>
 
-    <section id="freeman-tickets" className="scroll-mt-24">
+    <section id="freeman-tickets">
       <Section eyebrow="Tickets, admission and seating" title="What to check before choosing a seat or buying a ticket">
         <div className="grid gap-7 md:grid-cols-2">
           <div className="border-t border-border pt-4">
@@ -127,7 +127,7 @@ export function FreemanColiseumAuthoritySections() {
     <Section eyebrow="Official venue calendar snapshot" title="Events can take place in two different buildings on the same day">
       <p className="max-w-4xl text-sm leading-7 text-muted-foreground">The TexasDefined ticket carousel above is a curated list from its own event database. It is <strong>not</strong> a full reproduction of the venue calendar. These dated examples were cross-checked October 10, 2026 against the <Source href={official.calendar}>Freeman facilities calendar</Source> and the <Source href={official.operatorEvents}>arena operator's separately published Freeman concert listings</Source>. They identify the advertised building; dates and access can change. Notably, November 6 has both the Auto Show in the Expo Halls and Banda MS at the Coliseum — a distinction that the facilities calendar alone does not show.</p>
       <div className="mt-6 overflow-x-auto">
-        <table className="w-full min-w-[540px] border-collapse text-left text-sm">
+        <table className="w-full text-left text-sm">
           <thead><tr className="border-y border-border"><th className="p-3 font-semibold">Date</th><th className="p-3 font-semibold">Officially listed event</th><th className="p-3 font-semibold">Building / campus area</th></tr></thead>
           <tbody>{officialExamples.map((item) => <tr key={item.event} className="border-b border-border"><td className="p-3 align-top">{item.when}</td><td className="p-3 align-top font-medium">{item.event}</td><td className="p-3 align-top">{item.building}</td></tr>)}</tbody>
         </table>
@@ -135,11 +135,11 @@ export function FreemanColiseumAuthoritySections() {
       <p className="mt-4 text-xs leading-6 text-muted-foreground">These are dated editorial examples, not a continuously updated availability feed. For tickets, exact start times, parking and cancellations, the organizer’s current page controls.</p>
     </Section>
 
-    <section id="freeman-history" className="scroll-mt-24">
+    <section id="freeman-history">
       <Section eyebrow="San Antonio entertainment history" title="From the city's first rodeo years to international sporting events">
         <p className="max-w-4xl text-base leading-8 text-foreground/85">Freeman Coliseum is more than a concert stop: its 1949 opening helped establish a permanent venue for San Antonio's expanding stock show and the city’s large-scale indoor entertainment. Its place in the area's music, sports and community history stretches from Elvis and the Rolling Stones to women’s basketball, major boxing and international tennis. The dates below are documented in the <Source href={official.history}>venue's historical timeline</Source>, not inferred from unsourced online venue lists.</p>
         <ol className="mt-8 grid gap-4 sm:grid-cols-2">
-          {milestones.map((item) => <li key={item.date} className="border-l-2 border-primary/50 py-1 pl-5"><span className="text-sm font-semibold tracking-wide text-primary">{item.date}</span><h3 className="mt-1 font-display text-xl">{item.title}</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">{item.detail}</p></li>)}
+          {milestones.map((item) => <li key={item.date} className="border-l border-border pl-5"><span className="text-sm font-semibold text-primary">{item.date}</span><h3 className="mt-1 font-display text-xl">{item.title}</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">{item.detail}</p></li>)}
         </ol>
         <div className="mt-8 border-t border-border pt-6">
           <h3 className="font-display text-2xl">A public-art landmark as well as an arena</h3>
