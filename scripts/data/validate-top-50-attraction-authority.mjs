@@ -97,7 +97,20 @@ lines.forEach((line,i) => {
   assert.equal(cells[2],ranking[i].href);
 });
 const preserved = read("src/data/destination-preserved-catalog.ts");
-assert.ok(preserved.includes("top50ThemeParkDestinations,") && preserved.includes("[congressAvenueBatDestination],"),"New park and bat guides must be in preserved routing catalog");
+assert.ok(preserved.includes("top50CompactDestinationSummaries,"),"Five destinations must be discoverable through slim preserved catalog records");
+const compact = parseStaticJson(
+  "src/data/top50-preserved-summaries.ts",
+  "export const top50CompactDestinationSummaries: Destination[] = ",
+  ";\\n",
+);
+assert.equal(compact.length, 5, "All five additional destinations must have discoverable summaries");
+assert.deepEqual(compact.map(x => x.slug).sort(), [...parks.map(x => x.slug), bats.slug].sort(), "Compact catalog and full guide identities must agree");
+assert.ok(compact.every(x => x.body.join(" ").length >= 450), "Public preview summaries must remain substantively indexable");
+assert.ok(compact.every(x => !x.authorityGuide && !x.visitorFaqs), "Do not embed full authority guides in the client discovery catalog");
+const runtime = read("src/data/destination-query-runtime.ts");
+assert.ok(runtime.includes('import("./top50-theme-park-destinations")') && runtime.includes('import("./congress-avenue-bat-colony-authority")'),"Full Top-50 guides must resolve lazily on detail routes");
+const sitemap = read("src/routes/sitemap-explore[.]xml.ts");
+assert.ok(sitemap.includes('import("@/data/top50-theme-park-destinations")') && sitemap.includes('import("@/data/congress-avenue-bat-colony-authority")'),"Explore sitemap must audit researched canonical guides, not their previews");
 const loader = read("src/routes/destination.$slug.tsx");
 assert.ok(loader.includes("applyTop50AuthorityWave1(destination)"),"Existing Top-50 destination supplements must load on exact route");
 const renderer = read("src/components/editorial/DestinationRelationships.tsx");
