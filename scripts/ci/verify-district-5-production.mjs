@@ -50,9 +50,9 @@ async function check(origin) {
   const reportedFinals = games.filter(([tag]) => tag.includes('data-status="reported-final"'));
   const pending = games.filter(([tag]) => tag.includes('data-status="schedule-only"'));
   assert.equal(games.length, 28, `${origin}: expected 28 dated district game cards; got ${games.length}`);
-  assert.equal(reportedFinals.length, 16, `${origin}: expected 16 sourced finals; got ${reportedFinals.length}`);
-  assert.equal(pending.length, 12, `${origin}: expected 12 scheduled games; got ${pending.length}`);
-  console.log(`PASS District 5 production acceptance ${origin}: 16 finals, 12 fixtures, records, official game-day links`);
+  assert.ok(reportedFinals.length >= 16, `${origin}: at least 16 already reported finals must remain; got ${reportedFinals.length}`);
+  assert.equal(pending.length + reportedFinals.length, 28, `${origin}: every district game needs a verified final or scheduled status`);
+  console.log(`PASS District 5 production acceptance ${origin}: ${reportedFinals.length} finals, ${pending.length} fixtures, records, official game-day links`);
 }
 
 await Promise.all(origins.map(check));
