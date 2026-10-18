@@ -119,6 +119,6 @@ export const majorEventSchemaEnrichmentBatch12: MajorEventSchemaEnrichment[] = [
       { label: "Visit Waxahachie — official 2026 festival and announced performers", url: "https://www.waxahachiecvb.com/events/2026/crossroads-of-texas-country-festival" },
       { label: "City of Waxahachie — free admission and 9 a.m.–7 p.m. hours", url: "https://www.waxahachietx.gov/Calendar.aspx?EID=747" },
     ],
-    verifiedAt: "2026-10-09",
+    verifiedAt: "2026-10-18",
   },
 ];
