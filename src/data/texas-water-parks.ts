@@ -267,7 +267,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "Not necessarily. These are distinct parks with different ticket and pass eligibility. Check the precise product and date before purchasing a waterpark visit.",
         "sourceUrl": "https://www.sixflags.com/hurricaneharbortexas"
       }
-    ]
+    ],
+    "licensedMedia": {
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tornado%20water%20slide%20at%20Hurricane%20Harbor%20in%20Texas.jpg?width=1280",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tornado_water_slide_at_Hurricane_Harbor_in_Texas.jpg",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "licenseLabel": "CC BY-SA 3.0",
+      "photographer": "Nrpf22pr",
+      "year": 2009,
+      "alt": "The Tornado water slide at Hurricane Harbor in Arlington, Texas, photographed in August 2009; no current ride-operation claim."
+    }
   },
   {
     "slug": "hurricane-harbor-splashtown",
