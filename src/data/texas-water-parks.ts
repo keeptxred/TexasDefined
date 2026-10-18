@@ -773,7 +773,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "The official park website thanks guests for the 2026 season and promotes the 2027 season, not regular October waterpark hours. Check its next published season calendar before visiting.",
         "sourceUrl": "https://hawaiianwaters.com/park-info/"
       }
-    ]
+    ],
+    "licensedMedia": {
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Hawaiian%20falls%20garland%20-%20panoramio.jpg?width=1280",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hawaiian_falls_garland_-_panoramio.jpg",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "licenseLabel": "CC BY 3.0",
+      "photographer": "davidjoviera",
+      "year": 2007,
+      "alt": "Hawaiian Falls water park in Garland, Texas, photographed in June 2007; the park is now branded Hawaiian Waters Garland and the historic scene does not verify current rides."
+    }
   },
   {
     "slug": "hawaiian-waters-the-colony",
@@ -2186,7 +2195,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "label": "Fort Worth Stockyards (Tarrant County excursion)",
         "href": "/destination/fort-worth-stockyards"
       }
-    ]
+    ],
+    "licensedMedia": {
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Paradise%20Springs%20Aquatic%20Park%20(49394283508).jpg?width=1280",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Paradise_Springs_Aquatic_Park_(49394283508).jpg",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "licenseLabel": "CC BY-SA 2.0",
+      "photographer": "formulanone",
+      "year": 2015,
+      "alt": "Paradise Springs Aquatic Park at Gaylord Texan in Grapevine, Texas, in a photograph with a 2015 source timestamp. Historic scene; do not assume all facilities are operating today."
+    }
   },
   {
     "slug": "river-bluff-san-antonio",
