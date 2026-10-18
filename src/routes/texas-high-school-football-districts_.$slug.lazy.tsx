@@ -1,6 +1,7 @@
 import { createLazyFileRoute, Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
+import { FootballFanOffers } from '@/components/sports/FootballFanOffers';
 import { getDistrictFootballGames, getSourcedDistrictRecords, KATY_2026_SCHEDULE_SOURCE, type DistrictFootballGame } from '@/data/high-school-football/football-district-game-week';
 import {
   UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE,
@@ -123,6 +124,8 @@ function Page() {
         </aside>
         {katyPilot && <p className="mt-3 text-xs text-muted-foreground">Katy schedule source last checked October 16, 2026; the published schedule is dated March 27, 2026. Final scores carry their reporting source. Scheduled listings are not refreshed live.</p>}
       </section>}
+
+      <FootballFanOffers slug={`district-${district.slug}`} hasUpcomingAwayTravel={false} showTravelPlanning />
 
       <section data-football-district-section="teams" className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
