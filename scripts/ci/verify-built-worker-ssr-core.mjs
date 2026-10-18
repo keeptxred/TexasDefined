@@ -51,6 +51,10 @@ const smokeTargets = [
   { path: '/destination/caprock-canyons-state-park', requiredText: 'Caprock Canyons State Park', label: 'canonical Caprock Canyons visitor guide' },
   { path: '/county/gillespie', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Gillespie County links to researched historic corridor itinerary' },
   { path: '/county/blanco', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Blanco County links to researched historic corridor itinerary' },
+  // Exercise the existing county SSR requests more thoroughly without adding
+  // routes or multiplying cold-loads: actual unranked visitor entries must SSR.
+  { path: '/county/gillespie', requiredText: 'LBJ Ranch at Stonewall', label: 'Gillespie County SSR includes sourced supplemental visitor place' },
+  { path: '/county/blanco', requiredText: 'LBJ National Historical Park', label: 'Blanco County SSR includes sourced supplemental visitor place' },
   { path: '/destination/lyndon-b-johnson-state-park-historic-site', requiredText: 'Sauer-Beckmann', label: 'canonical LBJ State Park and living-history farm' },
   { path: '/destination/lyndon-b-johnson-state-park-historic-site', requiredText: '<meta name="robots" content="index, follow', label: 'canonical LBJ State Park is indexable after ordinary content and photo-quality gates' },
   // Exact corridor publication proofs: 200 alone is insufficient; require
