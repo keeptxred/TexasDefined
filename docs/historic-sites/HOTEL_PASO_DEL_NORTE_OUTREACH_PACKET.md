@@ -3,7 +3,7 @@
 Prepared 2026-10-17 for TexasDefined.com. **Status: draft only; no messages sent, no bookings or purchases made, and no partnership or backlink promised.** Records for seven researched prospects have been entered in the existing `public.texasdefined_backlink_prospects` tracker, campaign `hotel-paso-del-norte-authority-2026`. Update that tracker only after genuine correspondence occurs.
 
 **Publishing destination:** https://texasdefined.com/destination/hotel-paso-del-norte
-**Evidence to cite:** official hotel history, Texas Historical Commission / National Register #79002933, three attributed archival images, 1912 architecture, 2020 rehabilitation, direct hotel booking. Do not imply Tiffany Studios attribution or free access to hotel guest areas.
+**Evidence to cite:** official hotel history, Texas Historical Commission / National Register #79002933, three attributed archival images, 1912 architecture, 2020 rehabilitation, direct official hotel booking **and a separate verified Hotels.com CJ comparison option**. Do not imply Tiffany Studios attribution or free access to hotel guest areas.
 
 ## Contact order and verified contact routes
 
@@ -17,7 +17,7 @@ Prepared 2026-10-17 for TexasDefined.com. **Status: draft only; no messages sent
 | 6 | Builders of the Desert | `tours@buildersofthedesert.org`, [official tour/partner inquiries](https://buildersofthedesert.org/contact) | Route fact-checking and editorial resource link; no ticket referral deal assumed |
 | 7 | University of Houston Special Collections | [official special collections website](https://libraries.uh.edu/locations/special-collections/) | Confirm preferred credit for 1913 historic postcard; **not** backlink solicitation |
 
-The hotel operator may be the best eventual monetization contact, but the historic-hotel page's own traffic is unverified. Do **not** quote sitewide Search Console figures as this hotel's audience or promise lead volume. Any direct booking referral must be documented in writing, reviewed for compliance and commission terms, and activated only after tracking and disclosure are verified. This is **not** an existing affiliate agreement.
+The hotel operator may be the best eventual **direct booking partnership** contact, but the historic-hotel page's own traffic is unverified. A separate exact-property Hotels.com CJ offer is already implemented using the existing publisher tracking, without any guarantee of qualifying commissions. Do **not** quote sitewide Search Console figures as this hotel's audience or promise lead volume. Any direct booking referral must be documented in writing, reviewed for compliance and commission terms, and activated only after tracking and disclosure are verified. This is **not** an existing affiliate agreement.
 
 ## Tailored drafts — none sent
 
@@ -120,5 +120,5 @@ TexasDefined editorial
 - **Approved sender required:** use a TexasDefined business-domain sender / explicitly approved mail service. Never Gmail; do not send through a personal Gmail alias or a connected account without verified From permissions.
 - **No blind outreach:** inspect the recipient route and revised public page immediately before sending; personalize, then log real `outreach_date` and `stage='contacted'` in the existing prospect table.
 - **No purchased links:** no money, free benefits, reciprocal links or undisclosed paid placement in return for editorial citations. Unsolicited authority/accuracy feedback is separate from referral discussions.
-- **No made-up affiliate tracking:** direct Marriott booking remains nonaffiliate unless the operator/partner approves signed terms and a real tracked URL is generated under TexasDefined's account; display disclosures and test redirects.
+- **No made-up affiliate tracking:** direct Marriott booking remains nonaffiliate unless the operator signs a separate agreement. The independent exact-property Hotels.com comparison runs solely under the existing approved-CJ integration and normal sponsored link disclosures; test redirects and reporting, and claim no earnings until verified.
 - **Contact cadence:** one relevant first message; one measured follow-up only if appropriate and permitted; stop if declined. No automated mass email or repeated status polling.
