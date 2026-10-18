@@ -6,6 +6,7 @@ import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCollectionGrid } from "@/components/editorial/DestinationCollectionGrid";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
+import { TexasNpsInventory } from "@/components/editorial/TexasNpsInventory";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { CategorySlug, ImageRef } from "@/data/types";
@@ -67,6 +68,12 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
   const others = lead ? articles.slice(1) : articles;
   const belongsToTexasLife = TEXAS_LIFE_DEPARTMENTS.has(category);
   const belongsToExplore = !belongsToTexasLife;
+  // The official 18-unit directory must always exist as SSR-rendered React
+  // markup. Strip the earlier HTML-fragment inventory only for this category
+  // so client-loaded legacy authority prose does not duplicate the list.
+  const publishedAuthorityHtml = category === "national-parks" && authorityHtml
+    ? authorityHtml.replace(/<section\b[^>]*\bid="complete-texas-nps-inventory"[^>]*>[\s\S]*?<\/section>/, "")
+    : authorityHtml;
   const answerItems = [
     {
       question: `What is this ${belongsToExplore ? "Texas guide" : "section"} about?`,
@@ -124,8 +131,10 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
         items={answerItems}
       />
 
-      {belongsToExplore && authorityHtml ? (
-        <div dangerouslySetInnerHTML={{ __html: authorityHtml }} />
+      {category === "national-parks" ? <TexasNpsInventory /> : null}
+
+      {belongsToExplore && publishedAuthorityHtml ? (
+        <div dangerouslySetInnerHTML={{ __html: publishedAuthorityHtml }} />
       ) : null}
 
       <Suspense fallback={null}>
