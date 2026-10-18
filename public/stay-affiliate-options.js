@@ -86,6 +86,19 @@
       context: "IHG lists Memorial Park golf and tennis about two miles from this hotel, making it a practical lodging option for a Memorial Park Golf Course visit.",
     })],
   ]);
+  // Exact verified Hotels.com hotel listing, restricted to the matching authority page.
+  // Reuse only TexasDefined's existing CJ deep-link builder and disclosure; no assumed commission.
+  const HOTEL_PASO_EXACT_STAY = Object.freeze({
+    name: "Hotel Paso Del Norte, Autograph Collection",
+    destination: "https://www.hotels.com/ho114680/hotel-paso-del-norte-autograph-collection-el-paso-united-states-of-america/",
+    sourceUrl: "https://www.hotelpdn.com/location",
+    verifiedAt: "2026-10-17",
+  });
+  function hotelPasoStay(pathname = window.location.pathname) {
+    const normalized = String(pathname || "/").replace(/\\/+$/, "") || "/";
+    return normalized === "/destination/hotel-paso-del-norte" ? HOTEL_PASO_EXACT_STAY : null;
+  }
+
   const HOTEL_FIRST_PATH = /^\/(?:event\/|events(?:\/|$)|sports-venue\/|horse-racing\/gillespie-county-fairgrounds(?:\/|$)|sports-venues(?:\/|$)|texas-state-fair(?:\/|$))/;
   const BOTH_PATH = /^\/(?:destination\/|explore(?:\/|$)|city\/|county\/|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const RVSHARE_PATH = /^\/(?:best-places-to-go-camping-in-texas(?:\/|$)|explore\/(?:rv-parks|state-parks|road-trips|outdoors)(?:\/|$))/;
@@ -213,6 +226,7 @@
 
   function createBookingChoice(intent, exactPropertyFirst = false) {
     const featuredStay = exactPropertyFirst ? null : featuredGolfStay();
+    const hotelPasoExact = exactPropertyFirst ? null : hotelPasoStay();
     const casinoStays = exactPropertyFirst ? [] : casinoHotelChoices();
     const showRvshare = rvshareEligible();
     const wrapper = document.createElement("aside");
@@ -229,11 +243,13 @@
 
     const heading = document.createElement("h2");
     heading.className = "td-stay-affiliate-title";
-    heading.textContent = casinoStays.length ? "Compare hotels for this trip" : featuredStay ? "A venue-linked stay to consider" : (exactPropertyFirst ? "More places to stay nearby" : (intent === "hotel-first" ? "Find places to stay near this event or venue" : "Find places to stay nearby"));
+    heading.textContent = hotelPasoExact ? "Compare Hotel Paso del Norte booking options" : casinoStays.length ? "Compare hotels for this trip" : featuredStay ? "A venue-linked stay to consider" : (exactPropertyFirst ? "More places to stay nearby" : (intent === "hotel-first" ? "Find places to stay near this event or venue" : "Find places to stay nearby"));
 
     const copy = document.createElement("p");
     copy.className = "td-stay-affiliate-copy";
-    copy.textContent = featuredStay
+    copy.textContent = hotelPasoExact
+      ? "Hotels.com has a verified listing for this exact hotel. Compare its current rates, fees and cancellation rules with the hotel operator\u2019s direct booking option above; no price or availability is guaranteed."
+      : featuredStay
       ? `${featuredStay.context} Compare that exact property or use the broader hotel choices below.`
       : (exactPropertyFirst
         ? (intent === "hotel-first"
@@ -248,6 +264,15 @@
     const actions = document.createElement("div");
     actions.className = "td-stay-affiliate-actions";
     const choicePlacement = exactPropertyFirst ? "stay-nearby-choice-after-exact" : "stay-nearby-choice";
+    if (hotelPasoExact) {
+      actions.appendChild(createTrackedLink({
+        destination: hotelPasoExact.destination,
+        label: "Check Hotel Paso del Norte on Hotels.com",
+        variant: "primary",
+        ariaLabel: "Compare current Hotel Paso del Norte rooms and rates on Hotels.com in a new tab",
+        placement: "hotel-paso-exact-hotel-stay",
+      }));
+    }
     if (featuredStay) {
       actions.appendChild(createTrackedLink({
         destination: featuredStay.destination,
@@ -270,7 +295,7 @@
     actions.appendChild(createTrackedLink({
       destination: HOTELS_DESTINATION,
       label: exactPropertyFirst ? "Compare more hotels on Hotels.com" : "Find hotels on Hotels.com",
-      variant: featuredStay || showRvshare ? "secondary" : "primary",
+      variant: featuredStay || hotelPasoExact || showRvshare ? "secondary" : "primary",
       ariaLabel: exactPropertyFirst ? "Compare more hotels on Hotels.com in a new tab" : "Find hotels on Hotels.com in a new tab",
       placement: choicePlacement,
     }));
@@ -315,6 +340,18 @@
       : "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com or Orbitz activity, at no additional cost to you. Availability, rates and booking terms are provided by the booking service.";
 
     panel.append(eyebrow, heading, copy, actions, disclosure);
+    if (hotelPasoExact) {
+      const sourceNote = document.createElement("p");
+      sourceNote.className = "td-stay-affiliate-source";
+      sourceNote.append("Exact-property listing verified on Hotels.com; operator identity checked against ");
+      const operator = document.createElement("a");
+      operator.href = hotelPasoExact.sourceUrl;
+      operator.target = "_blank";
+      operator.rel = "noopener noreferrer";
+      operator.textContent = "the hotel\u2019s official site ↗";
+      sourceNote.append(operator, ` · reviewed ${hotelPasoExact.verifiedAt}`);
+      panel.appendChild(sourceNote);
+    }
     if (featuredStay) {
       const sourceNote = document.createElement("p");
       sourceNote.className = "td-stay-affiliate-source";
@@ -517,7 +554,7 @@
     const casinoPath = window.location.pathname.replace(/\/+$/, "") || "/";
     const resolvedChoiceMode = !exactPropertyFirst && casinoHotelChoices().length
       ? `casino:${casinoPath}`
-      : choiceMode;
+      : (!exactPropertyFirst && hotelPasoStay() ? "hotel-paso-exact" : choiceMode);
     let choice = existing;
     if (!(choice?.dataset.intent === intent && choice?.dataset.mode === resolvedChoiceMode && choice.parentElement === expediaSurface)) {
       choice?.remove();
@@ -590,6 +627,7 @@
     comparisonHotelDestination,
     exactPropertyDestination,
     featuredGolfStay,
+    hotelPasoStay,
     casinoHotelChoices,
     ownerEligible,
     rvshareEligible,
