@@ -68,6 +68,34 @@ function candidateFor(park, page) {
     publishableWithoutEditorialReview: false,
   };
 }
+// A near-match is only an editorial lead. This is deliberately NOT a vetted
+// candidate: no locality proof, permission beyond metadata, or publication rights.
+function provisionalLeadFor(park, page) {
+  const vetted = candidateFor(park, page);
+  if (vetted) return null;
+  if (!page?.title?.startsWith("File:") || !/\.(?:jpe?g|png|webp)$/i.test(page.title)) return null;
+  const info = page.imageinfo?.[0];
+  if (!info || info.width < 800 || info.height < 450) return null;
+  const license = mediaLicense(info.extmetadata);
+  if (!license) return null;
+  const filename = stripFile(page.title);
+  const desc = textOnly(info.extmetadata?.ImageDescription?.value ?? "");
+  const words = new Set(normalized(filename+" "+desc).split(" "));
+  const matched = nameTokens(park.name).filter(token=>words.has(token));
+  // Only exact two+ distinctive name words qualify for a weaker manual-review lead.
+  if (matched.length < 2) return null;
+  return {
+    file: filename,
+    sourceUrl: "https://commons.wikimedia.org/wiki/" + encodeURIComponent(page.title).replace(/%3A/i,":"),
+    photographer: textOnly(info.extmetadata?.Artist?.value ?? ""),
+    licenseLabel: license.label,
+    licenseUrl: license.url,
+    matchedNameTokens: matched,
+    reviewStatus: "UNVERIFIED_LOCATION_POSSIBLY_OTHER_CITY_DO_NOT_PUBLISH",
+    publishableWithoutEditorialReview: false,
+  };
+}
+
 function tests() {
   const park = { name: "Doug Russell Aquatic Center", city: "Midland" };
   const meta = { width: 3000, height: 1000, url: "https://upload.wikimedia.org/test.jpg", extmetadata: { LicenseUrl: { value: "https://creativecommons.org/licenses/by-sa/3.0/" }, LicenseShortName: { value: "CC BY-SA 3.0" }, Artist: { value: "Texas.pics" } } };
@@ -78,6 +106,8 @@ function tests() {
   assert.equal(candidateFor(park, { title: "File:Doug Russell Pool Midland Texas.jpg", imageinfo: [{ ...meta, width: 100 }] }), null);
   assert.equal(candidateFor(park, { title: "File:Doug Russell Pool Midland Texas.svg", imageinfo: [meta] }), null);
   assert.equal(candidateFor({ name: "Hawaiian Waters Garland", city: "Garland" }, { title: "File:Hawaiian Falls The Colony Texas.jpg", imageinfo: [meta] }), null);
+  assert.equal(provisionalLeadFor({ name: "Doug Russell Aquatic Center", city: "Midland" }, { title: "File:Generic public pool Arlington.jpg", imageinfo: [meta] }), null);
+  assert.ok(provisionalLeadFor({ name: "Doug Russell Aquatic Center", city: "Midland" }, { title: "File:Doug Russell Pool at another location.jpg", imageinfo: [meta] })?.reviewStatus.includes("DO_NOT_PUBLISH"));
   console.log("Waterpark candidate sourcing fail-closed self-tests passed.");
 }
 const option = (prefix, fallback) => process.argv.find(a => a.startsWith(prefix))?.slice(prefix.length) ?? fallback;
@@ -105,32 +135,48 @@ async function run() {
     entries: [],
   };
   for (const park of selected) {
-    const query = nameTokens(park.name).slice(0, 3).join(" ") + " " + park.city + " Texas";
-    const u = new URL(COMMONS_API);
-    for (const [key, value] of Object.entries({
-      action:"query",generator:"search",gsrsearch:query,gsrnamespace:"6",
-      gsrlimit:String(MAX_RESULTS),prop:"imageinfo",iiprop:"extmetadata|url|size",
-      iiurlwidth:"1280",format:"json",formatversion:"2",
-    })) u.searchParams.set(key,value);
-    const record = { slug:park.slug, name:park.name, city:park.city, officialUrl:park.officialUrl, query, candidates:[], error:null };
-    try {
-      const response = await fetch(u, { headers: { "User-Agent":"TexasDefined-Editorial-RightsResearch/1.0 (https://texasdefined.com)" }, signal:AbortSignal.timeout(12000) });
-      if (!response.ok) throw new Error("Wikimedia HTTP " + response.status);
-      const json = await response.json();
-      if (json.error) throw new Error("Wikimedia response error: " + String(json.error.code));
-      const pages = json.query?.pages;
-      if (pages && !Array.isArray(pages)) throw new Error("Unexpected Commons query result");
-      record.candidates = (pages ?? []).map(item => candidateFor(park, item)).filter(Boolean).slice(0, 4);
-    } catch (error) {
-      record.error = String(error?.message ?? error).slice(0, 200);
+    const nameQuery = nameTokens(park.name).slice(0, 3).join(" ");
+    const searchQueries = [nameQuery + " " + park.city + " Texas", nameQuery + " " + park.city, nameQuery];
+    const record = { slug:park.slug, name:park.name, city:park.city, officialUrl:park.officialUrl, searchQueries:[], candidates:[], provisionalLeads:[], errors:[] };
+    // At most two Commons queries per venue, with the second only if first yields
+    // no exact-place qualified images. External Commons outages remain fail-visible.
+    for (const query of [searchQueries[0], searchQueries[2]]) {
+      if (!query.trim() || record.candidates.length) break;
+      record.searchQueries.push(query);
+      const u = new URL(COMMONS_API);
+      for (const [key,value] of Object.entries({
+        action:"query",generator:"search",gsrsearch:query,gsrnamespace:"6",
+        gsrlimit:String(MAX_RESULTS),prop:"imageinfo",iiprop:"extmetadata|url|size",
+        iiurlwidth:"1280",format:"json",formatversion:"2",
+      })) u.searchParams.set(key,value);
+      try {
+        const response = await fetch(u, { headers: { "User-Agent":"TexasDefined-Editorial-RightsResearch/1.1 (https://texasdefined.com)" }, signal:AbortSignal.timeout(12000) });
+        if (!response.ok) throw new Error("Wikimedia HTTP "+response.status);
+        const data = await response.json();
+        if (data.error) throw new Error("Wikimedia response error "+String(data.error.code));
+        const pages = data.query?.pages;
+        if (pages && !Array.isArray(pages)) throw new Error("Unexpected Commons response");
+        for (const item of pages ?? []) {
+          const good = candidateFor(park,item);
+          const lead = good ? null : provisionalLeadFor(park,item);
+          if (good && !record.candidates.some(x => x.file === good.file)) record.candidates.push(good);
+          if (lead && !record.provisionalLeads.some(x => x.file === lead.file)) record.provisionalLeads.push(lead);
+        }
+        record.candidates = record.candidates.slice(0,4);
+        record.provisionalLeads = record.provisionalLeads.slice(0,3);
+      } catch (error) {
+        record.errors.push(String(error?.message ?? error).slice(0,200));
+      }
     }
+    record.error = record.errors.length === record.searchQueries.length ? record.errors[0] : null;
     report.entries.push(record);
   }
   mkdirSync(dirname(REPORT_PATH), { recursive:true });
   writeFileSync(REPORT_PATH, JSON.stringify(report,null,2)+"\n");
+  const provisionalCount = report.entries.filter(x => x.provisionalLeads.length).length;
   const matchCount = report.entries.filter(x => x.candidates.length).length;
   const errorCount = report.entries.filter(x => x.error).length;
-  const result = "Commons photo candidate research: "+selected.length+" individual venue requests; "+matchCount+" with licensed possible matches; "+errorCount+" source request failures; 0 auto-published.";
+  const result = "Commons photo candidate research: "+selected.length+" individual venue requests; "+matchCount+" with named-city licensed possible matches; "+provisionalCount+" with unverified-location research leads; "+errorCount+" complete source failures; 0 auto-published.";
   console.log(result);
   if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, result+"\n\nAll candidates require **human file/venue/license review** before any registry image can be added. No indexing flags were changed.\n");
   // Fail visible for provider outage; still preserve the report artifact.
