@@ -22,15 +22,16 @@ function model(slug){
  return JSON.parse(raw.slice(raw.indexOf('{')));
 }
 function county(slug){
- const escaped=slug.replace(/[.*+?^$()|[\]{}]/g,'\\$&');
- const re=new RegExp("['\"]?"+escaped+"['\"]?\\s*:\\s*['\"]([a-z-]+)['\"]");
- // Match a complete mapping key at the beginning of a line; a substring
- // match made "blanco" accidentally resolve through "ben-bolt-palito-blanco".
- const candidate=teamRoute.split('\n').find(line=>{
+ // Restrict lookup to the real production campus-county map; do not
+ // allow a similarly named school or an unrelated string to supply county.
+ const countySection=teamRoute.split('const researchedCampusCounty:')[1]?.split(/\n\s*};/)[0];
+ assert.ok(countySection,'Production researched campus county map is missing');
+
+ const candidate=countySection.split('\n').find(line=>{
   const t=line.trimStart();
   return t.startsWith("'"+slug+"':") || t.startsWith('"'+slug+'":') || t.startsWith(slug+':');
  });
- const match=candidate?.match(/:\\s*['"]([a-z-]+)['"]/);
+ const match=candidate?.match(/:\s*['"]([a-z-]+)['"]/);
  // The live school route first uses the explicit researchedCampusCounty mapping,
  // then falls back to countySlug(program.countyName) for UIL program records.
  // Eight Batch006 campuses use that second, genuine production routing path.
