@@ -41,8 +41,8 @@ for (const marker of [
 ]) if (!pillar.includes(marker)) errors.push(`Texas rivers section image contract missing: ${marker}`);
 
 for (const marker of [
-  'Start with the map',
-  'Texas Rivers, Region by Region',
+  'See how Texas rivers cross the state',
+  'How Texas Rivers Change Across the State',
   'const riverRegions = [',
   'See all river basins →',
   'Explore All 15 Major Texas River Basins',
@@ -62,26 +62,26 @@ for (const marker of [
   'Texas Water Development Board — River Basins',
   'Texas Water Development Board — Major River Basins Map',
   'Sources, methodology and verification',
-  'lastVerified="October 9, 2026"',
+  'lastVerified="October 18, 2026"',
   'Recommended citation',
   'https://texasdefined.com/article/texas-rivers-explained',
 ]) if (!citationTrust.includes(marker)) errors.push(`Texas rivers citation trust contract missing: ${marker}`);
 
 for (const marker of [
   'const sourceUrl = "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp";',
-  'const lastVerified = "2026-10-09";',
+  'const lastVerified = "2026-10-18";',
   'const canonicalPage = "https://texasdefined.com/article/texas-rivers-explained";',
   'const majorBasins = [',
   'const coastalBasins = [',
   'const basinHighlights = [',
   'Largest basin in Texas',
-  'Longest Texas reach',
+  'Longest river segment in Texas',
   'Highest average flow',
   'const csvHeaders = [',
   '"basin_type"',
   'const csvDownloadHref = `data:text/csv;charset=utf-8,${encodeURIComponent(csvContent)}`;',
   'const jsonDownloadHref = `data:application/json;charset=utf-8,${encodeURIComponent(jsonContent)}`;',
-  'methodology: "Texas Defined transcribes TWDB statewide basin statistics into normalized numeric fields for comparison.',
+  'methodology: "Texas Defined transcribes Texas Water Development Board statewide basin statistics into normalized numeric fields for comparison.',
   'download="texasdefined-texas-river-basins.csv"',
   'Download CSV ↓',
   'download="texasdefined-texas-river-basins.json"',
@@ -208,7 +208,7 @@ for (const duplicated of [
 for (const marker of [
   '15 major river basins',
   '8 coastal basins',
-  'Selected watershed',
+  'Selected river basin',
   'Read the {displayName(active)} guide',
   'basinGuidePaths[normalize(active)]',
 ]) {
@@ -225,7 +225,7 @@ for (const marker of [
   'GM_Admin_Boundaries/MapServer/0',
   'Basin%2CBAYS',
   'maxAllowableOffset=0.025',
-  'Load interactive basin map',
+  'Load interactive river map',
   'Zoom to selection',
   'showCoastal',
   'showBays',
