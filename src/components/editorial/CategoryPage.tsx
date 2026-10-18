@@ -50,7 +50,7 @@ function CategoryBreadcrumb({ belongsToExplore, belongsToTexasLife, current, inv
   );
 }
 
-export function CategoryPage({ category, eyebrow, title, intro, image, authorityHtml }: {
+export function CategoryPage({ category, eyebrow, title, intro, image, authorityHtml: originalAuthorityHtml }: {
   category: CategorySlug;
   eyebrow: string;
   title: string;
@@ -71,9 +71,9 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
   // The official 18-unit directory must always exist as SSR-rendered React
   // markup. Strip the earlier HTML-fragment inventory only for this category
   // so client-loaded legacy authority prose does not duplicate the list.
-  const publishedAuthorityHtml = category === "national-parks" && authorityHtml
-    ? authorityHtml.replace(/<section\b[^>]*\bid="complete-texas-nps-inventory"[^>]*>[\s\S]*?<\/section>/, "")
-    : authorityHtml;
+  const authorityHtml = category === "national-parks" && originalAuthorityHtml
+    ? originalAuthorityHtml.replace(/<section\b[^>]*\bid="complete-texas-nps-inventory"[^>]*>[\s\S]*?<\/section>/, "")
+    : originalAuthorityHtml;
   const answerItems = [
     {
       question: `What is this ${belongsToExplore ? "Texas guide" : "section"} about?`,
@@ -133,8 +133,8 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
 
       {category === "national-parks" ? <TexasNpsInventory /> : null}
 
-      {belongsToExplore && publishedAuthorityHtml ? (
-        <div dangerouslySetInnerHTML={{ __html: publishedAuthorityHtml }} />
+      {belongsToExplore && authorityHtml ? (
+        <div dangerouslySetInnerHTML={{ __html: authorityHtml }} />
       ) : null}
 
       <Suspense fallback={null}>
