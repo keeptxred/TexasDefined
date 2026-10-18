@@ -41,8 +41,8 @@ for (const marker of [
 ]) if (!pillar.includes(marker)) errors.push(`Texas rivers section image contract missing: ${marker}`);
 
 for (const marker of [
-  'Start with the map',
-  'Texas Rivers, Region by Region',
+  'See how Texas rivers cross the state',
+  'How Texas Rivers Change Across the State',
   'const riverRegions = [',
   'See all river basins →',
   'Explore All 15 Major Texas River Basins',
