@@ -67,7 +67,14 @@ async function checkHotel(page, viewport) {
       relatedLinks:[...document.querySelectorAll('a[data-affiliate-partner]')].map(a=>a.textContent).slice(0,6),
       scripts:[...document.scripts].filter(s=>/expedia-travel|stay-affiliate-options/.test(s.src)).map(s=>s.src),
     }));
-    console.error('HOTEL_CJ_MISSING '+viewport+' '+JSON.stringify(diagnostics));
+    console.error('HOTEL_CJ_MISSING '+viewport+' '+JSON.stringify({diagnostics,errors}));
+    await page.evaluate(()=>window.TexasDefinedStayAffiliateOptions?.sync?.());
+    await page.waitForTimeout(600);
+    const postSync=await page.evaluate(()=>({
+      choice:document.getElementById('td-stay-affiliate-options')?.outerHTML.slice(0,300)||'absent',
+      hotelOffer:document.querySelectorAll('a[data-affiliate-placement="hotel-paso-exact-hotel-stay"]').length
+    }));
+    console.error('HOTEL_CJ_ON_DEMAND '+viewport+' '+JSON.stringify({postSync,errors}));
     throw error;
   }
   const offer=await exactOffer.evaluate(el=>({
