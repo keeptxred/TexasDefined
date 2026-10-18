@@ -24,7 +24,7 @@ export function TexasRiversCitationTrust() {
             note: "Official major and coastal basin boundary data, edited August 7, 2023. Used in the optional interactive map; it shows drainage areas rather than river channels, public access points or property lines.",
           },
           {
-            name: "Texas Water Development Board — GIS datasets",
+            name: "Texas Water Development Board — Mapping datasets",
             url: "https://www.twdb.texas.gov/mapping/gisdata.asp",
             note: "Underlying geographic layers and metadata for mapping work. The agency's U.S. Geological Survey-derived 23-basin layer is not the official Texas Water Development Board basin-boundary dataset; the two should not be substituted.",
           },
