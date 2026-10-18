@@ -40,3 +40,9 @@ test('football explainer affiliates are limited to sourced planning topics', () 
   assert.match(article, /footballTravelArticleSlugs\.has\(article\.slug\)/);
   assert.match(article, /hasUpcomingAwayTravel=\{false\} showTravelPlanning/);
 });
+
+test('district profiles render a generic offer without inventing away fixtures', () => {
+  const district = readFileSync('src/routes/texas-high-school-football-districts_.$slug.lazy.tsx', 'utf8');
+  assert.match(district, /FootballFanOffers slug=\{`district-\$\{district\.slug\}`\} hasUpcomingAwayTravel=\{false\} showTravelPlanning/);
+  assert.ok(district.indexOf('<FootballFanOffers') < district.indexOf('data-football-district-section="teams"'));
+});
