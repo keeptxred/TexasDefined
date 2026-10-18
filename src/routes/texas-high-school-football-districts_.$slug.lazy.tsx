@@ -138,6 +138,46 @@ function Page() {
         {district5Pilot && <p className="mt-3 text-xs text-muted-foreground">District 5 results and fixtures last source-checked October 17, 2026. Scores and scheduled dates are not refreshed automatically. The October 16 finals use MaxPreps; earlier league finals and upcoming kickoff times use Pigskin Prep.</p>}
       </section>}
 
+      {district5Pilot && <section data-football-district-section="official-game-day" className="border-b border-border py-10">
+        <p className="eyebrow text-primary">Game-day details</p>
+        <h2 className="mt-2 font-display text-3xl sm:text-4xl">District 5 tickets, venues and spectator rules</h2>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Ticket vendors and entry policies differ by the host school district. Use the official host links below before buying or traveling; a school's postal address is not necessarily its varsity football stadium or entrance.</p>
+        <div className="mt-6 grid gap-5 sm:grid-cols-2">
+          <div className="border border-border p-5">
+            <h3 className="font-display text-2xl">Denton ISD: Braswell & Guyer</h3>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">The district publishes its ticket process for varsity football at Carrico and C.H. Collins, including smartphone validation and spectator rules.</p>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+              <a href="https://athletics.dentonisd.org/resources/tickets" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Official tickets ↗</a>
+              <a href="https://athletics.dentonisd.org/resources/athletic-stadium-guidelines" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Stadium policies ↗</a>
+            </div>
+          </div>
+          <div className="border border-border p-5">
+            <h3 className="font-display text-2xl">Lewisville ISD: Lewisville, Flower Mound, Hebron & Marcus</h3>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">The district sells individual varsity game tickets through HomeTown and posts clear-bag, entry and stadium policies. Select the actual home team when finding a ticket.</p>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+              <a href="https://www.lisd.net/our-district/athletics/tickets" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Official tickets ↗</a>
+              <a href="https://www.lisd.net/our-district/athletics/lisd-stadium-guidelines" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Stadium policies ↗</a>
+            </div>
+          </div>
+          <div className="border border-border p-5">
+            <h3 className="font-display text-2xl">Frisco ISD: Wakeland</h3>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">Frisco ISD publishes the 2026 varsity schedule and links to its official ticketing service. Stadium assignments are game-specific.</p>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+              <a href="https://www.friscoisd.org/page/2026-varsity-football-schedule/" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Varsity schedule ↗</a>
+              <a href="https://tickets.friscoisd.org" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Official tickets ↗</a>
+            </div>
+          </div>
+          <div className="border border-border p-5">
+            <h3 className="font-display text-2xl">Little Elm ISD: Little Elm</h3>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">The official athletics office links to HomeTown ticketing and publishes Lobo Stadium bag-inspection guidance.</p>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+              <a href="https://www.littleelmisd.net/support-services/athletics" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Tickets & entry policies ↗</a>
+            </div>
+          </div>
+        </div>
+        <p className="mt-4 text-xs leading-6 text-muted-foreground">These are direct official school-district links, not affiliate tickets or proof of inventory. Verify the date, field assignment and visitor entrance with the host school.</p>
+      </section>}
+
       <FootballFanOffers slug={`district-${district.slug}`} hasUpcomingAwayTravel={false} showTravelPlanning />
 
       <section data-football-district-section="teams" className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
