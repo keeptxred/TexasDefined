@@ -31,6 +31,8 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/explore/water-parks/bahama-beach-dallas', requiredText: '/destination/dallas-world-aquarium', label: 'Dallas waterpark guide renders qualified city attraction links' },
+  { path: '/explore/water-parks/waco-surf-waterpark', requiredText: '/destination/waco-mammoth-national-monument', label: 'Waco waterpark guide renders federally managed NPS site option' },
   { path: '/explore/water-parks/hurricane-harbor-arlington', requiredText: 'Nrpf22pr', label: 'Arlington historical Tornado slide photo attribution renders in individual guide' },
   { path: '/explore/water-parks/port-royal-ocean-resort-pools', requiredText: 'Can non-resort visitors buy a pool and waterslide day pass?', label: 'Port Royal standalone resort-only waterpark guide is SSR visible' },
   { path: '/explore/water-parks/port-royal-ocean-resort-pools', requiredText: '6317 State Highway 361', label: 'Port Royal official exact-site address renders' },
