@@ -14,7 +14,7 @@ const countyWidget = readFileSync("src/components/content/CountyWaterParks.tsx",
 const match = source.match(/export const texasWaterParks: WaterParkGuide\[\] = (\[[\s\S]*?\]);\nexport const texasWaterParksBySlug/);
 if (!match) throw new Error("Canonical Texas water-park source registry is missing.");
 const parks = JSON.parse(match[1]);
-if (parks.length < 136) throw new Error(`Water-park census unexpectedly dropped from 136 to ${parks.length} sources.`);
+if (parks.length < 137) throw new Error(`Water-park census unexpectedly dropped from 137 to ${parks.length} sources.`);
 const slugs = new Set();
 const names = new Set();
 for (const park of parks) {
