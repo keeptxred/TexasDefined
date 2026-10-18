@@ -28,12 +28,18 @@ Reviewed: 2026-10-17 · Path: /destination/hotel-paso-del-norte
 ## Specific SEO/backlink and commercial prospects — NOT CONTACTED
 | Prospect | Rationale | Potential pitch / requested action | Required gate |
 | --- | --- | --- | --- |
-| [Hotel Paso del Norte](https://www.hotelpdn.com/) | Subject/operator; primary-source correction channel | Ask hotel PR/marketing team to fact-check visitor logistics and consider its history/resources page referencing independent guide | Editorial independence; no pay-for-link promise |
+| [Hotel Paso del Norte](https://www.hotelpdn.com/location) | Subject/operator; published phone (915) 534-3000 and general address info@hotelpdn.com; El Paso Chamber separately lists a Marketing/Media Manager and Director of Sales & Marketing | Ask PR/marketing to fact-check visitor logistics and consider citing the independent 1912 architecture/history resource | Editorial independence; no pay-for-link promise; outreach not sent |
 | [Visit El Paso](https://visitelpaso.com/places/hotel-paso-del-norte) | Official tourism directory with hotel profile | Offer useful 1912/Trost/National Register historic tourism guide as optional context for downtown itineraries | They choose citations; do not imply endorsement |
-| [Henry C. Trost Historical Organization](https://www.henrytrost.org/) | Architecture-interest audience | Request provenance cross-check and, if valuable, a research-resource link | Cite original records; no reciprocal-link quid pro quo |
+| [The Trost Society](https://trostsociety.org/buildings/hotel-paso-del-norte/) | Nonprofit preserving and researching Henry C. Trost architecture; already documents this exact building | Offer our cited historic hotel guide for editorial correction, possible independent citation, and inclusion in a downtown Trost walking itinerary | Respect the Society's editorial independence; never pay for or demand a link |
 | [Texas Historical Commission](https://atlas.thc.texas.gov/Details?atlasnumber=2079002933) | Preservation authority | Provide factual corrections if needed; do not seek commercial placement on state registry | No government endorsement claimed |
 | [University of Houston Libraries Special Collections](https://libraries.uh.edu/locations/special-collections/) | Historic 1913 postcard provenance | Confirm preferred photo-credit formatting; offer the public page as an example of responsible archival reuse | Respect credit and image rights |
 | [Downtown El Paso](https://downtownelpaso.com/) | Downtown architecture, tourism and heritage coverage | Propose a historically grounded walking itinerary that includes Hotel Paso del Norte and other nearby sites | Do not claim a partnership before acceptance |
+
+## Outreach status and channels (research only)
+- **The Trost Society:** [Hotel Paso del Norte research page](https://trostsociety.org/buildings/hotel-paso-del-norte/) and [organization/about](https://trostsociety.org/information/about/). Institutional mission directly covers Henry C. Trost, and its existing hotel profile makes it a credible, subject-specific editorial prospect.
+- **Hotel marketing:** [Official contact/visitor information](https://www.hotelpdn.com/location) lists info@hotelpdn.com and (915) 534-3000. [El Paso Chamber hotel member listing](https://members.elpaso.org/active-member-directory/Details/hotel-paso-del-norte-2863843) separately identifies marketing/media and sales/marketing roles; role-holder information can change. Do not infer individual direct email addresses.
+- **Tourism and commerce:** Visit El Paso and Downtown El Paso are qualified history/downtown-itinerary prospects, not confirmed link or paid partner opportunities.
+- **Tracking:** No outreach messages, partnership requests, affiliate signups, or link placements were sent or claimed. Use a user-approved business-domain mail channel if contact is subsequently authorized; do not use Gmail for outreach.
 
 ## Publication acceptance
 1. Focused validator: `node scripts/data/validate-hotel-paso-del-norte-authority.mjs`.
