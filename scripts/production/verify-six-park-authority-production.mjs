@@ -19,7 +19,7 @@ export function inspectParkHtml(raw,site){
  for(const word of site.words)if(!lower.includes(word.toLowerCase()))throw Error("Sourced visitor restriction missing "+site.slug+": "+word);
  if(!/Photography:|Wikimedia Commons|National Park Service/i.test(visible))throw Error("Visible licensed hero attribution missing "+site.slug);
  const expectedHero="/images/state-parks/"+site.slug+".jpg";
- const parkHero=(raw.match(/<img\\b[^>]*>/gi)||[]).find(tag=>tag.includes(expectedHero)&&/\\balt=/.test(tag));
+ const parkHero=(raw.match(/<img\b[^>]*>/gi)||[]).find(tag=>tag.includes(expectedHero)&&/\balt=/.test(tag));
  if(!parkHero)throw Error("Exact park-specific image or its alt text missing "+site.slug+" ("+expectedHero+")");
  if(/<meta\s+name="robots"\s+content="noindex/i.test(raw))throw Error("Park unexpectedly noindex "+site.slug);
  if(!raw.includes("https://texasdefined.com/destination/"+site.slug))throw Error("Missing self canonical URL "+site.slug);
