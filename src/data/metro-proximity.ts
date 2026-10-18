@@ -9,7 +9,7 @@ export const METRO_PROXIMITY_METROS = [
     shortName: "Houston",
     center: { lat: 29.7604, lng: -95.3698 },
     regionLabel: "Gulf Coast",
-    context: "Houston's huge footprint makes geography matter. These pages favor places that can realistically fit a day trip or weekend without pretending straight-line distance equals drive time.",
+    context: "Houston's huge footprint makes geography matter. These pages favor places that can realistically fit a day trip or weekend while recognizing that straight-line distance is not drive time.",
   },
   {
     slug: "dallas",

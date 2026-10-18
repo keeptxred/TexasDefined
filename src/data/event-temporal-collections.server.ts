@@ -261,7 +261,7 @@ const temporalCollections: TemporalEventCollectionDefinition[] = [
     title: "Austin-Area Events & Festivals",
     eyebrow: "Greater Austin calendar",
     description: "Find verified Austin-area events, festivals, races, music weekends and cultural events across Travis, Williamson, Hays and Bastrop counties.",
-    lead: "Austin event planning is easiest when the actual venue and corridor come first. This collection groups source-verified events across the central metro without pretending that downtown Austin, Round Rock, Dripping Springs and Bastrop are the same trip.",
+    lead: "Austin event planning is easiest when the actual venue and corridor come first. This collection groups source-verified events across the central metro while keeping downtown Austin, Round Rock, Dripping Springs and Bastrop distinct trip-planning areas.",
     planningTitle: "Plan Austin by venue and corridor",
     planningIntro: "Choose the event first, then keep lodging, food and other stops close to the actual venue rather than using a generic downtown starting point.",
     planningPoints: [

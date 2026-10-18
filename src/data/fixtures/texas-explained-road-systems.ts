@@ -84,7 +84,7 @@ export const texasLoopsSpursArticle: Article = {
     h("Loop 410: a Loop that became an Interstate"),
     p("San Antonio offers another useful lesson. The corridor long known locally as Loop 410 is now signed as I-410 on the Interstate system. TxDOT's current project pages use I-410 because the route's present federal system identity matters for navigation and project naming. The familiar '410 loop' language survives culturally even though the official route is Interstate 410."),
     h("What TxDOT means by a State Highway Spur"),
-    p("A State Highway Spur is the branch-route idea. TxDOT describes a Spur as a roadway that usually begins on a state highway and ends on an off-system roadway. That makes a Spur useful for preserving a state-system connection to a local street, district, facility or destination without pretending the branch is a longer through route."),
+    p("A State Highway Spur is the branch-route idea. TxDOT describes a Spur as a roadway that usually begins on a state highway and ends on an off-system roadway. That makes a Spur useful for preserving a state-system connection to a local street, district, facility or destination without treating the branch as a longer through route."),
     h("Why Spurs exist"),
     list(
       "To keep a short connector in the state highway system.",
