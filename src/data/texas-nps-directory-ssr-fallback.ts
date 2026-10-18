@@ -7,7 +7,7 @@ import { TEXAS_NPS_DIRECTORY } from "./texas-national-park-service-directory";
  * 18 federally designated sites to two mapped destination cards.
  * The card gate stays strict: the index does not certify all 18 authority pages.
  */
-const localGuides: Readonly<Record<string, string>> = {
+export const NPS_LOCAL_GUIDES: Readonly<Record<string, string>> = {
   "big-bend-national-park": "/destination/big-bend-national-park",
   "guadalupe-mountains-national-park": "/destination/guadalupe-mountains-national-park",
   "big-thicket-national-preserve": "/destination/big-thicket-national-preserve",
@@ -32,7 +32,7 @@ export function getTexasNpsDirectoryFallbackHtml(): string {
     ...item,
     group: category(item.designation),
     official: `https://www.nps.gov/${item.npsCode}/`,
-    local: localGuides[item.slug] ?? null,
+    local: NPS_LOCAL_GUIDES[item.slug] ?? null,
   }));
   return `<section class="border-t border-border pt-7" id="complete-texas-nps-inventory">
 <h2 class="font-display text-2xl text-foreground">All 18 official NPS Texas designations</h2>
