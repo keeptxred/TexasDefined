@@ -3,6 +3,7 @@
 ## Live-capable vs pending inventory
 
 - **Approved route**: Existing Hotels.com CJ affiliate account and verified `www.anrdoezrs.net/links/101876465/type/dlg/` redirect pattern, reused only when hotel/travel intent is plausible. Team pages offer a broad stay search only when a dated, sourced schedule has an unfinished future away/neutral game. The statewide Friday Night Lights hub and five football explainers show a generic optional road-trip planning link without fabricating event locations or availability.
+- **Additional ready CJ partner**: RVshare, already accepted in the TexasDefined CJ publisher account, with a 4% reservation rate shown in the account-terms snapshot; reuse the existing `https://rvshare.com/` allowlisted deep-link mechanism from `public/stay-affiliate-options.js`. Its football travel CTA is limited to the same hotel/travel-intent context and explicitly does **not** promise stadium parking or tailgating. Do not count a click as a confirmed booking or commission.
 - **Not yet approved**: Stadium seats, cushions, insulated blankets, approved-size clear stadium bags, portable chargers and rain layers. Their catalog is deliberately empty in `src/components/sports/FootballFanOffers.tsx`. Merchandising copy is not an affiliate link.
 - **Existing first-party shop**: `/shop` remains available but must not imply school-affiliated or licensed merchandise.
 - **School/team branded shirts**: separate school licensing/vendor workflow; never reuse school seals, team marks, or mascots without permission.
