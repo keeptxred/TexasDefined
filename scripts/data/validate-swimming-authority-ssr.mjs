@@ -19,6 +19,31 @@ const officialSourceMigration = read("supabase/migrations/20261014215400_swim_fl
 const currentAlertSources = read("supabase/migrations/20261017145000_swim_float_current_alert_sources.sql");
 const errors = [];
 
+const fallSwimmingDossier = read("docs/editorial/swimming-directory-14-primary-source-check-2026-10-18.md");
+const fallTawakoniCuration = read("src/data/destination-curation-batch4.ts");
+const fallKrauseCuration = read("src/data/destination-curation-batch15.ts");
+for (const marker of [
+  "Lake Tawakoni will close for a permitted youth deer hunt October 30",
+  "Fort Boggy has separate whole-park hunting closures",
+  "Krause Springs normally closes for the winter",
+  "https://tpwd.texas.gov/state-parks/lake-tawakoni/park_events",
+  "https://tpwd.texas.gov/state-parks/fort-boggy/alert",
+  "https://www.krausesprings.net/new-page",
+]) {
+  if (!publicAuthority.includes(marker)) errors.push("Swimming guide lost dated fall access warning: " + marker);
+}
+if (!fallTawakoniCuration.includes("October 30 through noon November 2, 2026") ||
+    !fallTawakoniCuration.includes('sourceCheckedAt: "2026-10-18"'))
+  errors.push("Lake Tawakoni park destination must retain dated entire-park closure.");
+if (!fallKrauseCuration.includes("usually") && !fallKrauseCuration.includes("usual winter closure"))
+  errors.push("Krause Springs closure must be qualified as a typical season, not an unconditional operating status.");
+if (!fallKrauseCuration.includes('sourceCheckedAt:"2026-10-18"'))
+  errors.push("Krause Springs operator FAQ review lost its verification date.");
+if (fallSwimmingDossier.split("\n| ").length - 1 < 14 ||
+    !fallSwimmingDossier.includes("automated research, not independent human editorial signoff"))
+  errors.push("Fourteen-destination swimming source dossier is absent or overclaims signoff.");
+
+
 const reviewedClosureSources = read("supabase/migrations/20261017234000_swim_float_hamilton_caprock_access_sources.sql");
 const hamiltonDestination = read("src/data/destination-curation-batch15.ts");
 const caprockVisitor = read("src/data/six-park-visitor-authority-20261017.ts");
