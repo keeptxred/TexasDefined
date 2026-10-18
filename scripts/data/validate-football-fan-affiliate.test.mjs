@@ -10,6 +10,13 @@ test('team guide uses fan offers with verified dated away/neutral games only', (
   assert.match(gameNight, /game\.date >= today && !game\.result/);
   assert.match(gameNight, /game\.site === 'Away' \|\| game\.site === 'Neutral'/);
 });
+test('statewide football hub uses honest travel-planning rather than a fictitious fixture', () => {
+  const hub = readFileSync('src/routes/sports.friday-night-lights.lazy.tsx', 'utf8');
+  assert.match(hub, /FootballFanOffers slug="friday-night-lights" hasUpcomingAwayTravel=\{false\} showTravelPlanning/);
+  assert.match(offers, /showHotels = hasUpcomingAwayTravel \|\| showTravelPlanning/);
+  assert.match(offers, /Planning a football road trip/);
+});
+
 test('verified Hotels.com link is separate from unapproved merchandise programs', () => {
   assert.match(offers, /HOTEL_CJ_PUBLISHER_ID = '101876465'/);
   assert.match(offers, /www\.anrdoezrs\.net\/links/);
