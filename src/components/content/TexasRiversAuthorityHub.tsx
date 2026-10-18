@@ -92,7 +92,7 @@ function TexasOfficialBasinMap() {
       </div>
       <figcaption className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground sm:px-6">
         Source: Texas Water Development Board, Major River Basins of Texas (January 2014). This official reference map is separate
-        from the downloadable TexasDefined schematic below; the schematic is not a survey or navigational chart.
+        from the downloadable TexasDefined simplified graphic below; that graphic is not a survey or navigation chart.
       </figcaption>
     </figure>
   );
@@ -164,7 +164,7 @@ function RiverProfileCards() {
         return <div key={river.href} className="overflow-hidden rounded-sm border border-border bg-background">
           <Link to={river.href} className="group block transition-colors hover:border-primary">
             <div className="aspect-[4/3] overflow-hidden bg-surface">
-              <img src={photo?.src ?? river.image} alt={photo?.alt ?? `${river.name} river basin or associated watershed destination`} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
+              <img src={photo?.src ?? river.image} alt={photo?.alt ?? `${river.name} river basin or nearby river destination`} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
             </div>
             <div className="p-4">
               <span className="font-display text-xl group-hover:text-primary">{river.name}</span>
@@ -247,17 +247,17 @@ export function TexasRiversAfterArticle() {
       <section className="mt-9 border-t border-border pt-8" aria-labelledby="river-primary-source-links">
         <h3 id="river-primary-source-links" className="font-display text-xl">Continue with official basin data</h3>
         <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
-          All 15 major basins are linked above, including the Canadian, Cypress, Lavaca, Neches, Nueces, Red, Sabine, San Antonio, San Jacinto and Sulphur. Compare the official statistics and 2023 GIS boundaries against each guide; these layers are watershed orientation, not legal survey maps.
+          All 15 major basins are linked above, including the Canadian, Cypress, Lavaca, Neches, Nueces, Red, Sabine, San Antonio, San Jacinto and Sulphur. Use the official statistics and 2023 boundary map for statewide context; the map is for orientation, not property or legal boundaries.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
-          <Link to="/article/texas-river-basins-guide" className="text-sm font-semibold text-primary underline">TexasDefined watershed explainer →</Link>
+          <Link to="/article/texas-river-basins-guide" className="text-sm font-semibold text-primary underline">How river basins work →</Link>
           <a href="https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp" target="_blank" rel="noreferrer" className="text-sm font-semibold text-primary underline">TWDB profiles of all 15 major basins ↗</a>
           <a href="https://www.twdb.texas.gov/mapping/gisdata.asp" target="_blank" rel="noreferrer" className="text-sm font-semibold text-primary underline">TWDB geospatial data and map sources ↗</a>
         </div>
       </section>
 
       <section className="mt-10 grid gap-4 border-t border-border pt-8 md:grid-cols-2" aria-label="Related Texas water guides">
-        <Link to="/article/texas-river-basins-guide" className="group p-1"><p className="eyebrow text-primary">Understand the watershed</p><h3 className="mt-2 font-display text-xl group-hover:text-primary">Texas River Basins Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">See what land drains into each major river and why upstream changes matter downstream.</p></Link>
+        <Link to="/article/texas-river-basins-guide" className="group p-1"><p className="eyebrow text-primary">See what feeds each river</p><h3 className="mt-2 font-display text-xl group-hover:text-primary">Texas River Basins Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">See what land drains into each major river and why upstream changes matter downstream.</p></Link>
         <Link to="/explore/lakes-rivers" className="group border-t border-border p-1 pt-5 md:border-l md:border-t-0 md:pl-6 md:pt-1"><p className="eyebrow text-primary">Experience the water</p><h3 className="mt-2 font-display text-xl group-hover:text-primary">Explore Texas Lakes & Rivers →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Move from statewide geography to river parks, swimming water, reservoirs and destination guides.</p></Link>
       </section>
     </div>
