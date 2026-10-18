@@ -26,6 +26,13 @@ describe("verified original state park photo provenance", () => {
       expect(html).toContain("Check official details");
     });
   }
+  it("preserves the live Kickapoo Explore/caverns hero source link", () => {
+    const d=destination("kickapoo-cavern-state-park","Mark Gustafson","CC BY-SA 4.0");
+    d.hero.src="/images/explore/caverns/kickapoo-cavern-state-park.jpg";
+    const html=renderToStaticMarkup(<DestinationAuthoritySections destination={d} />);
+    expect(html).toContain("File:Kickapoo_Cavern_State_Park,_landscape.jpg");
+    expect(verifiedLocalParkCredit(d.hero)?.licenseUrl).toBe("https://creativecommons.org/licenses/by-sa/4.0/");
+  });
   it("refuses to assert an original file if a different photo credit replaces it",()=>{
     const wrong=destination("kickapoo-cavern-state-park","Unknown Photographer","CC BY-SA 4.0");
     expect(verifiedLocalParkCredit(wrong.hero)).toBeNull();
