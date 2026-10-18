@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-17",
+  "asOf": "2026-10-18",
   "repository": "keeptxred/TexasDefined",
   "production": "https://texasdefined.com",
   "supabaseProjectId": "ftkznprjljkhymknvhye",
@@ -366,5 +366,34 @@
       "johnny-nelson-katy-heritage-museum"
     ],
     "status": "Official owner contacts sourced; zero permission grants and zero outbound emails. Preserve noindex and site-photo placeholder gates until rights and real image verified."
+  },
+  "pendingOctober18MuseumAuthorityBatch": {
+    "branch": "feature/museum-authority-carthage-galveston-20261018",
+    "institutions": [
+      "texas-country-music-hall-of-fame-carthage",
+      "bryan-museum-galveston"
+    ],
+    "rationale": "Both owner-submitted institutions lacked canonical museum authority dossiers and exact pages, while 2011 and 2025 subject-specific images have verifiable CC commercial-use rights.",
+    "canonicalRoutes": [
+      "/destination/texas-country-music-hall-of-fame-carthage",
+      "/destination/bryan-museum-galveston"
+    ],
+    "additionalAuthorityDossiers": 2,
+    "additionalResearchedFaqs": 19,
+    "additionalOperatorSources": 11,
+    "proposedTotals": {
+      "authorityDossiers": 74,
+      "sourceManifestGuides": 74,
+      "museumFAQs": 615,
+      "sourceManifestURLs": 316,
+      "benchmarkEntries": 74
+    },
+    "photoSourceLicenses": [
+      "Billy Hathorn 2011 CC BY-SA 3.0",
+      "Alexander Hatley 2025 CC BY 2.0, Flickr review verified"
+    ],
+    "editorialCertificatesIssued": 0,
+    "status": "Branch implementation only; requires protected CI, merge, deployment, source enrollment and live image/FAQ acceptance.",
+    "guardrails": "No gallery accessibility inferred, no event tickets confused with regular admission, no stock photography, no duplicate slugs, no paid services."
   }
 }
