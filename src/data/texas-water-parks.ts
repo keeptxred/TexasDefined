@@ -5957,6 +5957,50 @@ export const texasWaterParks: WaterParkGuide[] = [
         "sourceUrl": "https://coppelltx.gov/440/The-CORE"
       }
     ]
+  },
+  {
+    "slug": "port-royal-ocean-resort-pools",
+    "name": "Port Royal Ocean Resort Water Slides",
+    "city": "Port Aransas",
+    "county": "Nueces",
+    "region": "Gulf Coast",
+    "setting": "Outdoor",
+    "kind": "Resort water park",
+    "admission": "Included for eligible overnight resort guests; no independently confirmed public day-pass admission",
+    "summary": "Port Royal Ocean Resort's guest water-play complex on Mustang Island combines a lagoon-style pool, four waterslides, smaller children's water play, and a separate heated lap pool.",
+    "distinctiveNote": "The resort describes these as guest amenities, not a verified general-public waterpark. Waterslide hours vary by season independently of pool hours. Historic 48-inch large-slide guidance must be reconfirmed before visiting.",
+    "officialUrl": "https://port-royal.com/resort-amenities/",
+    "reviewedAt": "2026-10-17",
+    "visitorAddress": "6317 State Highway 361, Port Aransas, TX 78373",
+    "visitorHighlights": [
+      "The resort operator describes four large slides in its family lagoon-style pool complex; operating hours are seasonal and are separate from pool hours.",
+      "The operator lists a heated lap pool and hot tubs separate from the main family water-play attractions, with access conditions tied to an eligible resort stay.",
+      "Resort visitor information describes smaller slides and a children's splash pad, but guests should independently confirm which features currently operate.",
+      "Water volleyball and optional poolside cabanas are featured guest amenities; neither establishes admission for outside day visitors.",
+      "A boardwalk connects the resort property toward the Mustang Island beach; ocean swimming and resort pool safety rules are separate."
+    ],
+    "visitorFaqs": [
+      {
+        "question": "Can non-resort visitors buy a pool and waterslide day pass?",
+        "answer": "The current operator describes these pools, slides and activities as resort guest amenities. A general-public day-pass program has not been verified; ask the resort directly before arranging a waterpark-only visit.",
+        "sourceUrl": "https://port-royal.com/resort-amenities/"
+      },
+      {
+        "question": "Are the four waterslides open whenever the main swimming pool is open?",
+        "answer": "Not necessarily. Port Royal publishes seasonal slide hours that differ from its pool schedule. Check the actual visit date and resort guest policies before assuming any particular slide is available.",
+        "sourceUrl": "https://port-royal.com/resort-amenities/"
+      },
+      {
+        "question": "How tall must riders be for Port Royal's large slides?",
+        "answer": "An older resort guide cites a 48-inch minimum for the larger slides and prohibits double riding or flotation devices. Since these are historically published rules rather than a guaranteed current policy, confirm with the resort before visiting.",
+        "sourceUrl": "https://port-royal.com/blog/things-to-do-at-port-royal-ocean-resort/"
+      },
+      {
+        "question": "Where is Port Royal Ocean Resort and its guest waterslide complex?",
+        "answer": "Port Royal lists its property at 6317 State Highway 361 on Mustang Island in Port Aransas, Texas. A Texas licensing registration independently confirms the property's Nueces County location.",
+        "sourceUrl": "https://port-royal.com/contact/"
+      }
+    ]
   }
 ];
 export const texasWaterParksBySlug = new Map(texasWaterParks.map((park) => [park.slug, park]));
