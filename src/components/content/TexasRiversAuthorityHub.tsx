@@ -71,7 +71,7 @@ function TexasOfficialBasinMap() {
           <p className="eyebrow text-primary">Official Texas river basin map</p>
           <h3 className="mt-2 font-display text-2xl">Texas River Basins on the Official State Map</h3>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
-            The Texas Water Development Board's map shows the land that drains into each major river system. It includes all 15 major basins, eight coastal basins and county boundaries. The published map is dated January 2014, and the agency notes that the boundaries are approximate; use newer GIS data when exact boundary work matters.
+            The Texas Water Development Board's map shows the land that drains into each major river system. It includes all 15 major basins, eight coastal basins and county boundaries. The published map is dated January 2014, and the agency notes that the boundaries are approximate. Use the newer 2023 interactive boundary map below when you need more detail.
           </p>
         </div>
         <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="text-sm font-semibold text-primary underline decoration-border underline-offset-4">
@@ -245,7 +245,7 @@ export function TexasRiversAfterArticle() {
       </section>
 
       <section className="mt-9 border-t border-border pt-8" aria-labelledby="river-primary-source-links">
-        <h3 id="river-primary-source-links" className="font-display text-xl">Continue with official basin data</h3>
+        <h3 id="river-primary-source-links" className="font-display text-xl">Check the Official Source Data</h3>
         <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
           All 15 major basins are linked above, including the Canadian, Cypress, Lavaca, Neches, Nueces, Red, Sabine, San Antonio, San Jacinto and Sulphur. Use the official statistics and 2023 boundary map for statewide context; the map is for orientation, not property or legal boundaries.
         </p>
