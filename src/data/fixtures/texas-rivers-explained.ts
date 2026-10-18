@@ -22,7 +22,7 @@ export const texasRiversExplainedArticle: Article = {
   },
   authorId: "a-marisol",
   publishedAt: "2026-08-13",
-  updatedAt: "2026-10-09",
+  updatedAt: "2026-10-18",
   readingMinutes: 17,
   tags: [
     "major rivers in texas",
@@ -125,7 +125,7 @@ export const texasRiversExplainedArticle: Article = {
     p("The rivers do not all behave alike. A clear Hill Country stream flowing over limestone has little in common visually with a muddy Brazos bend, a cypress-lined East Texas river or the Rio Grande moving through desert canyons. That difference is the point. Texas is large enough that its rivers act like a second map of the state, revealing rainfall, geology, elevation and climate as they change from west to east."),
     h("Texas rivers at a glance: six quick answers"),
     list(
-      "How many major river basins are in Texas? TWDB recognizes 15 major river basins and eight smaller coastal basins. A basin is a drainage area, not just the visible river channel.",
+      "How many major river basins are in Texas? TWDB recognizes 15 major river basins and eight smaller coastal basins. A basin is all the land where water drains toward the same river system—not just the river you can see.",
       "What is the longest river segment within Texas in TWDB's basin table? The Rio Grande, with 889 river miles in Texas; this is not the river's full international length.",
       "Which basin is largest inside Texas? The Rio Grande basin, with 49,387 square miles of drainage area on the Texas side.",
       "Which basin has the highest average annual flow in the TWDB comparison? The Brazos, at 6,074,000 acre-feet per year in the agency's reference table; this is not today's measured discharge.",
@@ -133,9 +133,9 @@ export const texasRiversExplainedArticle: Article = {
       "Do all Texas rivers drain straight to the Gulf? No. The Red, Canadian, Sulphur and Cypress connect through interstate watersheds, while others drain to Texas bays, the Gulf or the Rio Grande system."
     ),
     h("How a Texas River Is Born"),
-    p("A river starts small. Rainfall and melting precipitation move downhill as runoff, sometimes entering tiny channels called headwaters. Other water soaks underground and may later emerge from springs or seep into a stream as base flow. Gravity carries small creeks toward larger tributaries; where streams join, a larger river forms. There is rarely one magical starting point for every branch of a river system."),
-    p("As moving water erodes rock and soil, it deepens channels and reshapes valleys. Sediment travels downstream and can be deposited on inside bends, floodplains and deltas. Streamflow is never supplied by rain alone: groundwater, springs, tributary inflows and — in managed reaches — reservoir releases all affect what visitors see. The USGS Water Science School explains these processes in its Rivers, Streams and Creeks and Rivers and the Landscape resources."),
-    p("A river makes more sense when you think about all the land that sends water toward it. That area is its drainage basin, or watershed. Rain falling on a pasture, neighborhood, canyon wall or street may infiltrate soil, evaporate or reach creeks that eventually feed the main river. A drainage divide separates the land feeding one watershed from the land feeding another."),
+    p("A river starts with water moving downhill. After rain, water gathers in tiny channels and creeks. These small beginnings are called headwaters. Some rain sinks into the ground and later returns through springs or slowly seeps into a stream. As creeks join other creeks, they form larger streams and eventually a river. Most rivers do not have one single starting point because they are networks of many branches."),
+    p("As water moves, it wears away rock and soil, deepens channels and reshapes valleys. Bits of rock and soil are carried downstream and may settle on river bends, floodplains and deltas. A river's flow does not come from rain alone: groundwater, springs, smaller streams and reservoir releases can all add water along the way. The USGS Water Science School explains these processes in its Rivers, Streams and Creeks and Rivers and the Landscape resources."),
+    p("To understand a river, look beyond its banks. All the land where water drains toward that river is its basin, also called its watershed. Rain falling on a pasture, neighborhood, canyon wall or street may soak into the ground, evaporate or run into creeks that eventually reach the main river. Higher ground separates one river basin from the next."),
     p("The Texas Water Development Board recognizes 15 major river basins and eight coastal basins. The coastal basins occupy the areas between the larger named river systems and drain directly toward bays and the Gulf. On a map, those basin boundaries create a set of broad natural districts that ignore county lines and city limits."),
     p("That is useful because water does the same thing. A fast-growing suburb can affect a creek that crosses several counties. A reservoir hundreds of miles upstream can influence flows downstream. Heavy rain in one part of a basin can produce flooding somewhere that never saw the storm."),
     quote("Texas rivers are not blue lines laid on top of the state. They are systems that help explain the state itself."),
