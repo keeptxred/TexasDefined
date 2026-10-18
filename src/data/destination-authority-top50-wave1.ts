@@ -497,6 +497,182 @@ const GUIDES: Record<Top50AuthorityWave1Slug, DestinationAuthorityGuide> = {
   }
 };
 
+/** Visitor-intent research grounded in current official operator and state sources.
+ * Answers do not imply measured search frequency; operational rules are dynamic.
+ */
+const VISITOR_FAQS: Record<Top50AuthorityWave1Slug, Array<{ question: string; answer: string; sourceUrl: string }>> = {
+  "dinosaur-valley-state-park": [
+    {
+      "question": "Are dinosaur footprints always visible?",
+      "answer": "No. TPWD explains that the original tracks lie in the Paluxy River bed and visibility depends on river levels, rain and trail conditions. Check the park's current notices just before traveling.",
+      "sourceUrl": "https://tpwd.texas.gov/state-parks/dinosaur-valley"
+    },
+    {
+      "question": "Can visitors with mobility limitations see the dinosaur tracks?",
+      "answer": "TPWD describes accessible replica tracks and an interpretive center. Reaching actual river-bed tracks can involve steep, rough or wet terrain; contact the park about the available Trackchair and crossing conditions.",
+      "sourceUrl": "https://tpwd.texas.gov/state-parks/dinosaur-valley/fees-facilities/accessibility"
+    },
+    {
+      "question": "Do I need a reservation for day use?",
+      "answer": "TPWD recommends reserving day passes because this park can reach capacity. Use the state park reservation system and confirm any active park alerts before departure.",
+      "sourceUrl": "https://tpwd.texas.gov/state-parks/dinosaur-valley"
+    }
+  ],
+  "garner-state-park": [
+    {
+      "question": "Can Garner State Park close to day visitors when it is full?",
+      "answer": "Yes. TPWD warns that the park frequently reaches capacity on busy summer and holiday dates. Reserving a day pass in advance is the safest way to plan entry.",
+      "sourceUrl": "https://tpwd.texas.gov/state-parks/garner/fees-facilities/entrance-fees"
+    },
+    {
+      "question": "Can I camp and swim on the same trip?",
+      "answer": "Garner offers overnight camping and Frio River recreation, but reserve camping separately and check river conditions and any restrictions before entering the water.",
+      "sourceUrl": "https://tpwd.texas.gov/state-parks/garner"
+    },
+    {
+      "question": "When is the park especially busy?",
+      "answer": "TPWD identifies the Memorial Day through Labor Day period and holidays as the busiest times. Consider weekdays or cooler seasons if avoiding crowds is the priority.",
+      "sourceUrl": "https://tpwd.texas.gov/state-parks/garner"
+    }
+  ],
+  "south-padre-island-beaches": [
+    {
+      "question": "Is South Padre Island Beach one single entrance?",
+      "answer": "No. Visitors choose among public beach access areas with different parking and nearby facilities. Check the city access and safety resources for the specific location you plan to use.",
+      "sourceUrl": "https://www.myspi.org/"
+    },
+    {
+      "question": "Should I check beach conditions before swimming?",
+      "answer": "Yes. Gulf surf, rip currents, winds and local advisories change. Follow posted warnings and current official city or beach safety guidance; never assume calm conditions from an earlier visit.",
+      "sourceUrl": "https://www.myspi.org/"
+    },
+    {
+      "question": "Are Gulf beach access and Laguna Madre bayside recreation interchangeable?",
+      "answer": "No. The Gulf shore and Laguna Madre side have different water and access conditions. Decide which experience you want and confirm its specific public access rules.",
+      "sourceUrl": "https://www.myspi.org/"
+    }
+  ],
+  "port-aransas-beach": [
+    {
+      "question": "Can I drive or park on the Port Aransas beach?",
+      "answer": "Driving and parking are regulated by the city, with permit requirements and designated restrictions that can change. Confirm the current municipal beach rules before arriving in a vehicle.",
+      "sourceUrl": "https://cityofportaransas.org/"
+    },
+    {
+      "question": "Is every part of the beach suitable for swimming?",
+      "answer": "No stretch of Gulf shoreline is safe in every condition. Check local surf alerts, currents and posted warnings, and avoid using the beach vehicle lanes as a pedestrian play area.",
+      "sourceUrl": "https://cityofportaransas.org/"
+    },
+    {
+      "question": "Can I camp anywhere along the shore?",
+      "answer": "No. Beach camping has local limits and designated rules. Check the city's current instructions rather than assuming parking or overnight stays are unrestricted.",
+      "sourceUrl": "https://cityofportaransas.org/"
+    }
+  ],
+  "texas-state-aquarium": [
+    {
+      "question": "Should I follow the aquarium's daily presentation schedule?",
+      "answer": "Yes. Live presentations and animal activities can change by day. Check the operator's current program schedule and plan a route around your highest-priority experiences.",
+      "sourceUrl": "https://www.texasstateaquarium.org/"
+    },
+    {
+      "question": "Is the USS Lexington part of the aquarium ticket?",
+      "answer": "No; the USS Lexington is a separate museum and attraction on the Corpus Christi waterfront. Plan it as an independent visit with its own operating information and ticketing.",
+      "sourceUrl": "https://www.texasstateaquarium.org/"
+    },
+    {
+      "question": "Is the whole visit indoors?",
+      "answer": "No. The aquarium includes both indoor and outdoor experiences, so prepare for coastal sun, wind or rain and check temporary exhibit closures before travel.",
+      "sourceUrl": "https://www.texasstateaquarium.org/"
+    }
+  ],
+  "fort-worth-zoo": [
+    {
+      "question": "Is the Fort Worth Zoo only an aquarium attraction?",
+      "answer": "No. Aquatic habitats are only one part of a large zoo with multiple animal regions and conservation-focused exhibits. Use the operator's full zoo map to prioritize your interests.",
+      "sourceUrl": "https://www.fortworthzoo.org/"
+    },
+    {
+      "question": "How should families plan on a hot day?",
+      "answer": "Plan an earlier arrival, water and rest breaks, and an achievable subset of habitats rather than trying to cover the entire property in midday heat. Consult the zoo's current guest guidance.",
+      "sourceUrl": "https://www.fortworthzoo.org/"
+    },
+    {
+      "question": "Are all animal habitats and activities available every day?",
+      "answer": "Not necessarily. Animal-care needs, work and weather can affect individual habitats and experiences. Check official daily notices before choosing your route.",
+      "sourceUrl": "https://www.fortworthzoo.org/"
+    }
+  ],
+  "san-antonio-zoo": [
+    {
+      "question": "Is the Friedrich Aquarium the entire San Antonio Zoo?",
+      "answer": "No. The aquarium is one component of a much larger zoo. Consult the current zoo map to plan both indoor and outdoor animal areas.",
+      "sourceUrl": "https://sazoo.org/"
+    },
+    {
+      "question": "Should I plan the zoo and the Alamo as one walking visit?",
+      "answer": "They are in different parts of San Antonio. The zoo is near Brackenridge Park; treat downtown landmarks as a separate travel segment and allow for traffic and parking.",
+      "sourceUrl": "https://sazoo.org/"
+    },
+    {
+      "question": "Are the zoo's animal presentations guaranteed?",
+      "answer": "No. Animal programming and access depend on the current operating calendar and animal-care decisions. Verify daily events through the zoo before arrival.",
+      "sourceUrl": "https://sazoo.org/"
+    }
+  ],
+  "reunion-tower-dallas": [
+    {
+      "question": "Is Reunion Tower the same as the Sixth Floor Museum?",
+      "answer": "No. Reunion Tower is a skyline observation attraction. The Sixth Floor Museum is a separate historical museum near Dealey Plaza, with its own admission and schedule.",
+      "sourceUrl": "https://reuniontower.com/"
+    },
+    {
+      "question": "Should I reserve the observation deck before visiting?",
+      "answer": "Check the official ticketing calendar for timed admission and availability, especially when targeting sunset or a special event.",
+      "sourceUrl": "https://reuniontower.com/"
+    },
+    {
+      "question": "Is a daytime visit different from an evening visit?",
+      "answer": "Yes. Daylight makes it easier to identify city landmarks, while evening emphasizes skyline lighting. Check operating times and forecast conditions before choosing.",
+      "sourceUrl": "https://reuniontower.com/"
+    }
+  ],
+  "magnolia-market-at-the-silos": [
+    {
+      "question": "Is Magnolia Market at the Silos open every Sunday?",
+      "answer": "No. Magnolia states that its Waco venues are ordinarily closed Sundays, with exceptions for certain special events. Verify the exact calendar before traveling.",
+      "sourceUrl": "https://magnolia.com/pages/visit"
+    },
+    {
+      "question": "Where can I find free parking at the Silos?",
+      "answer": "Magnolia lists free street parking on 6th Street, 8th Street and Webster Avenue, plus a free lot at 9th and Webster. Event weekends may affect availability.",
+      "sourceUrl": "https://help.magnolia.com/hc/en-us/articles/31170877634324-Parking-at-the-Silos"
+    },
+    {
+      "question": "Is visiting the Silos only about shopping?",
+      "answer": "No. The grounds include gathering spaces, food, gardens and historic structures in addition to retail. Check individual venue hours; nearby sites may follow different schedules.",
+      "sourceUrl": "https://magnolia.com/pages/visit"
+    }
+  ],
+  "mcdonald-observatory": [
+    {
+      "question": "Do I need to reserve a Star Party in advance?",
+      "answer": "Check the official public-program ticket calendar and reserve the program you want before making the remote Davis Mountains trip. Availability can be limited.",
+      "sourceUrl": "https://mcdonaldobservatory.org/"
+    },
+    {
+      "question": "Will I definitely see stars through a telescope?",
+      "answer": "No. Weather and clouds can prevent observing. Follow the observatory's official weather and program policies rather than assuming every booked night will have clear skies.",
+      "sourceUrl": "https://mcdonaldobservatory.org/"
+    },
+    {
+      "question": "Is McDonald Observatory the same place as Fort Davis National Historic Site?",
+      "answer": "No. The observatory is an astronomy research and public-program location in the Davis Mountains; Fort Davis National Historic Site is a separate historic destination.",
+      "sourceUrl": "https://mcdonaldobservatory.org/"
+    }
+  ]
+};
+
 export function applyTop50AuthorityWave1(destination: Destination): Destination {
   if (!isTop50AuthorityWave1(destination.slug)) return destination;
   const guide = GUIDES[destination.slug];
@@ -513,5 +689,13 @@ export function applyTop50AuthorityWave1(destination: Destination): Destination 
   });
   const deduped = new Map<string, DestinationAuthoritySource>();
   for (const source of [...fromOperator, ...guide.sources]) deduped.set(source.url.replace(/\/$/, ""), source);
-  return { ...destination, authorityGuide: { ...guide, sources: [...deduped.values()] } };
+  const questionMap = new Map<string, { question: string; answer: string; sourceUrl?: string }>();
+  for (const faq of [...VISITOR_FAQS[destination.slug], ...(destination.visitorFaqs ?? [])]) {
+    questionMap.set(faq.question.trim().toLowerCase(), faq);
+  }
+  return {
+    ...destination,
+    visitorFaqs: [...questionMap.values()],
+    authorityGuide: { ...guide, sources: [...deduped.values()] },
+  };
 }
