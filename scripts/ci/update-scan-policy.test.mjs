@@ -14,6 +14,17 @@ test('blanket deployment subscriptions and duplicate validation cannot return', 
     assert.doesNotMatch(source, /^  workflow_run:/m, name);
     assert.match(source, /^  workflow_dispatch:/m, name);
   }
+  assert.deepEqual(policy.postDeployVerificationWorkflows, ['texasdefined-publication-production-smoke']);
+  for (const name of policy.postDeployVerificationWorkflows) {
+    const source = text(`.github/workflows/${name}.yml`);
+    assert.match(source, /^  workflow_dispatch:/m, name);
+    assert.match(source, /^  workflow_run:/m, name);
+    assert.match(source, /^    workflows:\s*$/m, name);
+    assert.match(source, /^      - Deploy TexasDefined production\s*$/m, name);
+    assert.match(source, /^    types: \[completed\]\s*$/m, name);
+    assert.match(source, /^    branches: \[main\]\s*$/m, name);
+    assert.doesNotMatch(source, /^  (push|schedule):/m, name);
+  }
   for (const name of policy.manualDiagnosticWorkflows) {
     const source = text(`.github/workflows/${name}.yml`);
     assert.doesNotMatch(source, /^  (push|pull_request|workflow_run|schedule):/m, name);
