@@ -6,6 +6,10 @@ const points = read('src/data/painted-church-map-points.ts');
 const mapRoute = read('src/routes/explore.painted-churches.map.tsx');
 const compareRoute = read('src/routes/explore.painted-churches.compare.tsx');
 const countRoute = read('src/routes/explore.painted-churches.how-many.tsx');
+const guideLibraryRoute = read('src/routes/explore.painted-churches_.guides.tsx');
+const knowledgeGraphRoute = read('src/routes/explore.painted-churches.knowledge-graph.tsx');
+const checklistRoute = read('src/routes/painted-churches-checklist[.]txt.ts');
+const printGuideRoute = read('src/routes/explore.painted-churches.print-guide.tsx');
 const authoritySources = read('src/data/painted-church-authority-sources.ts');
 const trustRouter = read('src/components/authority/CitationCollectionTrustRouter.tsx');
 const expanded = read('src/data/painted-churches-expanded.ts');
@@ -37,6 +41,7 @@ if (!authoritySources.includes('export const paintedChurchAuthorityExpansionDate
 if (!trustRouter.includes("Regional grouping, church identity, coordinate provenance and map interaction reviewed October 18, 2026.")) failures.push('Painted Churches map trust note must reflect the current review date and scope.');
 if (!trustRouter.includes("Comparison labels, 28-record collection coverage and freshness metadata reviewed October 18, 2026.")) failures.push('Painted Churches comparison trust note must reflect current coverage and freshness review.');
 if (!trustRouter.includes('Collection counts and definition labels reviewed ${paintedChurchAuthorityExpansionDateLabel}; the main collection controls the current verified count.')) failures.push('Painted Churches count trust note must follow the canonical authority expansion date.');
+if (!trustRouter.includes('Painted Churches research, correction and image-rights methodology reviewed ${paintedChurchAuthorityExpansionDateLabel}.')) failures.push('Painted Churches methodology trust note must follow the canonical authority expansion date.');
 for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka','castroville-st-louis-catholic-church','lacoste-our-lady-of-grace']) {
   if (!expanded.includes(slug)) failures.push(`Canonical collection must retain verified promotion ${slug}.`);
 }
