@@ -59,7 +59,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "Panola County", href: "/county/panola", reason: "Place the institution in Carthage and the Piney Woods." },
       { label: "Texas museum directory", href: "/explore/museums", reason: "Discover other history, culture and performance museums in Texas." },
       { label: "Texas music history", href: "/texas-music", reason: "Connect Hall of Fame honorees with the existing statewide Texas music guide." }
-    ]
+    ],
   },
   "bryan-museum-galveston": {
     name: "The Bryan Museum", slug: "bryan-museum-galveston", county: "Galveston", city: "Galveston", reviewed: "2026-10-18",
@@ -92,7 +92,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "Galveston County", href: "/county/galveston", reason: "Connect the museum with the island and county's maritime and civic history." },
       { label: "Texas museum directory", href: "/explore/museums", reason: "Compare history museums around the state." },
       { label: "Bishop's Palace Galveston", href: "/destination/bishops-palace-galveston", reason: "A separate historic Galveston building with its own admission and opening rules." }
-    ]
+    ],
   },
   "east-texas-oil-museum-kilgore": {
     name: "East Texas Oil Museum", slug: "east-texas-oil-museum-kilgore", county: "Gregg", city: "Kilgore", reviewed: "2026-10-17",
