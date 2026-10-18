@@ -21,6 +21,14 @@ const cjRefreshBridge = 'window.TexasDefinedStayAffiliateOptions?.sync?.();';
 if (expediaBootstrap.split(cjRefreshBridge).length - 1 !== 3) {
   throw new Error('Expedia must refresh the governed CJ panel for generic/curated mount, explicit mount, and SPA route changes');
 }
+for (const needle of [
+  'current?.dataset.surfaceType === "generic" && current.dataset.stayContext === expectedContext',
+  'fallback.dataset.stayContext = expectedContext',
+]) {
+  if (!expediaBootstrap.includes(needle)) {
+    throw new Error('Generic stay fallback must retain its context and cannot repeatedly delete embedded CJ offers: ' + needle);
+  }
+}
 
 const errors = [];
 if (!casinoHub.includes('data-stay-nearby-slot') || !casinoGuide.includes('data-stay-nearby-slot')) {
