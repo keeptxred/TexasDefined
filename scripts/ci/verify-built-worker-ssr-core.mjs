@@ -31,6 +31,8 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/explore/water-parks/paradise-springs-grapevine', requiredText: 'formulanone', label: 'Historic licensed Paradise Springs photo attribution' },
+  { path: '/explore/water-parks/hawaiian-waters-garland', requiredText: 'davidjoviera', label: 'Historic exact-Garland licensed photo attribution' },
   { path: '/explore/water-parks/bahama-beach-dallas', requiredText: '/destination/dallas-world-aquarium', label: 'Dallas waterpark guide renders qualified city attraction links' },
   { path: '/explore/water-parks/waco-surf-waterpark', requiredText: '/destination/waco-mammoth-national-monument', label: 'Waco waterpark guide renders federally managed NPS site option' },
   { path: '/explore/water-parks/hurricane-harbor-arlington', requiredText: 'Nrpf22pr', label: 'Arlington historical Tornado slide photo attribution renders in individual guide' },
