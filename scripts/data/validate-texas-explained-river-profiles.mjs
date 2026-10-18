@@ -62,14 +62,14 @@ for (const marker of [
   'Texas Water Development Board — River Basins',
   'Texas Water Development Board — Major River Basins Map',
   'Sources, methodology and verification',
-  'lastVerified="October 9, 2026"',
+  'lastVerified="October 18, 2026"',
   'Recommended citation',
   'https://texasdefined.com/article/texas-rivers-explained',
 ]) if (!citationTrust.includes(marker)) errors.push(`Texas rivers citation trust contract missing: ${marker}`);
 
 for (const marker of [
   'const sourceUrl = "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp";',
-  'const lastVerified = "2026-10-09";',
+  'const lastVerified = "2026-10-18";',
   'const canonicalPage = "https://texasdefined.com/article/texas-rivers-explained";',
   'const majorBasins = [',
   'const coastalBasins = [',
@@ -208,7 +208,7 @@ for (const duplicated of [
 for (const marker of [
   '15 major river basins',
   '8 coastal basins',
-  'Selected watershed',
+  'Selected river basin',
   'Read the {displayName(active)} guide',
   'basinGuidePaths[normalize(active)]',
 ]) {
@@ -225,7 +225,7 @@ for (const marker of [
   'GM_Admin_Boundaries/MapServer/0',
   'Basin%2CBAYS',
   'maxAllowableOffset=0.025',
-  'Load interactive basin map',
+  'Load interactive river map',
   'Zoom to selection',
   'showCoastal',
   'showBays',
