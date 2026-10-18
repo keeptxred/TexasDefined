@@ -128,7 +128,7 @@ export const TEXAS_TALENT_LAUNCH_DEPTH_WAVE7: Readonly<Record<string, TexasTalen
     legacy: [
       "Megan Thee Stallion extended Houston rap's national visibility while keeping local language, confidence and regional identity prominent in a period when mainstream hip-hop careers often become geographically less specific as they grow.",
       "Her career also connects contemporary music with Texas HBCU life. Prairie View A&M and Texas Southern University make education part of the Texas story rather than a separate biographical footnote.",
-      "San Antonio, Houston and Prairie View create a multi-city route for the Texas cultural story, while her collaboration with Beyoncé and place within Houston hip-hop provide strong future links to Texas music authority pages and related profiles. That combination strengthens both music and education cross-link opportunities.",
+      "San Antonio, Houston and Prairie View create a multi-city Texas story, while her collaboration with Beyoncé and place within Houston hip-hop connect naturally to the state's music and education history.",
     ],
     texasPlaces: [
       { name: "San Antonio", context: "Megan Thee Stallion's Bexar County birthplace and the first Texas point in a biography that becomes much more strongly identified with Houston." },
