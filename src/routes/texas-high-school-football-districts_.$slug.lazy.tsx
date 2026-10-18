@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
 import { FootballFanOffers } from '@/components/sports/FootballFanOffers';
+import { DISTRICT_5_SCHEDULE_URL, DISTRICT_5_STANDINGS_URL } from '@/data/high-school-football/football-district5-2026';
 import { getDistrictFootballGames, getSourcedDistrictRecords, KATY_2026_SCHEDULE_SOURCE, type DistrictFootballGame } from '@/data/high-school-football/football-district-game-week';
 import {
   UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE,
@@ -18,10 +19,11 @@ function Page() {
     ? `District ${district.district}-${district.classification} Division ${divisionRoman} Football`
     : `District ${district.district}-${district.classification} Football`;
   const katyPilot = district.slug === '6a-district-22';
+  const district5Pilot = district.slug === '6a-district-5';
   const games = getDistrictFootballGames(district.slug, district.classification, district.district);
-  const recentFinals = games.filter((game) => game.status === 'final').reverse().slice(0, 8);
+  const recentFinals = games.filter((game) => game.status === 'final').reverse().slice(0, district5Pilot ? 16 : 8);
   const pendingGames = games.filter((game) => game.status === 'scheduled').slice(0, 16);
-  const reportedDistrictRecords = katyPilot ? getSourcedDistrictRecords(games, district.programs) : [];
+  const reportedDistrictRecords = (katyPilot || district5Pilot) ? getSourcedDistrictRecords(games, district.programs) : [];
   const lastReportedFinal = games.filter((game) => game.status === 'final').at(-1)?.date;
   const shortLabel = `${district.classification}${divisionRoman ? ` Division ${divisionRoman}` : ''} District ${district.district}`;
   const enrollmentBand = uilFootballEnrollmentBand(district.classification, district.division);
@@ -58,19 +60,19 @@ function Page() {
       </header>
 
 
-      {(katyPilot || games.length > 0) && <section data-football-district-section="coverage" className="border-b border-border py-10">
+      {(katyPilot || district5Pilot || games.length > 0) && <section data-football-district-section="coverage" className="border-b border-border py-10">
         <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow text-primary">2026 varsity football</p>
-            <h2 className="mt-2 font-display text-3xl sm:text-4xl">{katyPilot ? 'Katy ISD district game week' : 'Source-checked district games'}</h2>
+            <h2 className="mt-2 font-display text-3xl sm:text-4xl">{katyPilot ? 'Katy ISD district game week' : district5Pilot ? '2026 District 5 game results & schedule' : 'Source-checked district games'}</h2>
             <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
               Source-dated reported finals and published fixtures, not live scores or certified district standings.
-              Scores appear only after a named reporting source confirms a final.
+              Scores appear only after a named reporting source confirms a final. {district5Pilot && ' District 5 coverage is a dated October 17 snapshot, not an automatically refreshing scoreboard.'}
             </p>
           </div>
           {katyPilot && <a className="text-sm font-semibold text-primary underline underline-offset-4" href={KATY_2026_SCHEDULE_SOURCE} target="_blank" rel="noopener noreferrer">Katy ISD 2026 schedule (PDF mirror) ↗</a>}
         </div>
-        {katyPilot && <div className="mb-8 border border-border p-5" data-football-district-records="source-derived">
+        {(katyPilot || district5Pilot) && <div className="mb-8 border border-border p-5" data-football-district-records="source-derived">
           <h3 className="font-display text-2xl">District records from reported games</h3>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">
             Source-derived district W–L counts only; not UIL-certified standings, tie-break rankings or playoff qualification.
@@ -93,11 +95,21 @@ function Page() {
             </table>
           </div>
           <p className="mt-3 text-xs leading-6 text-muted-foreground">
-            Calculated solely from completed matchups documented below and earlier published results from
-            {' '}<a href="https://www.texastng.com/districts/d22-6a" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Tradition Never Graduates</a>.
-            Do not use these partial data for official UIL seeds or district tie-breakers.
+            {district5Pilot ? <>Calculated from the 16 reported District 5 finals through October 16, using
+              {' '}<a href={DISTRICT_5_SCHEDULE_URL} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Pigskin Prep</a> and
+              {' '}<a href={DISTRICT_5_STANDINGS_URL} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">MaxPreps</a> source snapshots.</>
+              : <>Calculated solely from completed matchups documented below and earlier published results from
+              {' '}<a href="https://www.texastng.com/districts/d22-6a" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Tradition Never Graduates</a>.</>}
+            {' '}Do not use these partial data for official UIL seeds or district tie-breakers.
           </p>
         </div>}
+        {district5Pilot && <aside data-football-district-section="district-5-context" className="mb-8 border-l-2 border-primary bg-surface px-5 py-5 text-sm leading-7">
+          <h3 className="font-display text-2xl text-foreground">District 5: the 2026 race</h3>
+          <p className="mt-2">In the 2026–28 realignment, Frisco Wakeland moved up from 5A and joined District 5; Coppell moved to District 7. <a className="text-primary underline underline-offset-4" href="https://www.crosstimbersgazette.com/2026/02/02/uil-district-realignment-gives-argyle-new-opponents-other-local-schools-remain-similar/" target="_blank" rel="noopener noreferrer">See the local alignment report ↗</a>.</p>
+          <p className="mt-2">After the October 16 games, the sourced district results show four wins for Lewisville. Denton Braswell, Denton Guyer, Lewisville Flower Mound and Lewisville Hebron have three wins and one loss each. These are game-derived counts, not UIL-certified rankings.</p>
+          <p className="mt-2">The October 23 round includes Guyer at Hebron, Lewisville at Flower Mound, Wakeland at Braswell and Marcus at Little Elm. All eight schools have seven district games scheduled. Four eventually qualify for the 6A playoffs; the qualifiers are divided into Division I and II by enrollment, not by a preseason district split.</p>
+          <p className="mt-2">The fixture list below does not establish a game-night stadium gate, ticket vendor or parking policy. Check the host school's current athletics information before traveling.</p>
+        </aside>}
         <div className="grid gap-8 lg:grid-cols-2">
           <div>
             <div className="flex items-baseline justify-between gap-3 border-b border-border pb-3">
@@ -123,6 +135,47 @@ function Page() {
           <a className="ml-2 font-semibold text-primary underline underline-offset-4" href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noopener noreferrer">UIL scoreboard ↗</a>
         </aside>
         {katyPilot && <p className="mt-3 text-xs text-muted-foreground">Katy schedule source last checked October 16, 2026; the published schedule is dated March 27, 2026. Final scores carry their reporting source. Scheduled listings are not refreshed live.</p>}
+        {district5Pilot && <p className="mt-3 text-xs text-muted-foreground">District 5 results and fixtures last source-checked October 17, 2026. Scores and scheduled dates are not refreshed automatically. The October 16 finals use MaxPreps; earlier league finals and upcoming kickoff times use Pigskin Prep.</p>}
+      </section>}
+
+      {district5Pilot && <section data-football-district-section="official-game-day" className="border-b border-border py-10">
+        <p className="eyebrow text-primary">Game-day details</p>
+        <h2 className="mt-2 font-display text-3xl sm:text-4xl">District 5 tickets, venues and spectator rules</h2>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Ticket vendors and entry policies differ by the host school district. Use the official host links below before buying or traveling; a school's postal address is not necessarily its varsity football stadium or entrance.</p>
+        <div className="mt-6 grid gap-5 sm:grid-cols-2">
+          <div className="border border-border p-5">
+            <h3 className="font-display text-2xl">Denton ISD: Braswell & Guyer</h3>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">The district publishes its ticket process for varsity football at Carrico and C.H. Collins, including smartphone validation and spectator rules.</p>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+              <a href="https://athletics.dentonisd.org/resources/tickets" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Official tickets ↗</a>
+              <a href="https://athletics.dentonisd.org/resources/athletic-stadium-guidelines" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Stadium policies ↗</a>
+            </div>
+          </div>
+          <div className="border border-border p-5">
+            <h3 className="font-display text-2xl">Lewisville ISD: Lewisville, Flower Mound, Hebron & Marcus</h3>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">The district sells individual varsity game tickets through HomeTown and posts clear-bag, entry and stadium policies. Select the actual home team when finding a ticket.</p>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+              <a href="https://www.lisd.net/our-district/athletics/tickets" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Official tickets ↗</a>
+              <a href="https://www.lisd.net/our-district/athletics/lisd-stadium-guidelines" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Stadium policies ↗</a>
+            </div>
+          </div>
+          <div className="border border-border p-5">
+            <h3 className="font-display text-2xl">Frisco ISD: Wakeland</h3>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">Frisco ISD publishes the 2026 varsity schedule and links to its official ticketing service. Stadium assignments are game-specific.</p>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+              <a href="https://www.friscoisd.org/page/2026-varsity-football-schedule/" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Varsity schedule ↗</a>
+              <a href="https://tickets.friscoisd.org" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Official tickets ↗</a>
+            </div>
+          </div>
+          <div className="border border-border p-5">
+            <h3 className="font-display text-2xl">Little Elm ISD: Little Elm</h3>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">The official athletics office links to HomeTown ticketing and publishes Lobo Stadium bag-inspection guidance.</p>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+              <a href="https://www.littleelmisd.net/support-services/athletics" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Tickets & entry policies ↗</a>
+            </div>
+          </div>
+        </div>
+        <p className="mt-4 text-xs leading-6 text-muted-foreground">These are direct official school-district links, not affiliate tickets or proof of inventory. Verify the date, field assignment and visitor entrance with the host school.</p>
       </section>}
 
       <FootballFanOffers slug={`district-${district.slug}`} hasUpcomingAwayTravel={false} showTravelPlanning />
