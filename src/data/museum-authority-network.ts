@@ -58,7 +58,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     connections: [
       { label: "Panola County", href: "/county/panola", reason: "Place the institution in Carthage and the Piney Woods." },
       { label: "Texas museum directory", href: "/explore/museums", reason: "Discover other history, culture and performance museums in Texas." },
-      { label: "Texas music history", href: "/explore/music", reason: "Connect honorees with the broader Texas music story; route availability must be checked before live acceptance." }
+      { label: "Texas music history", href: "/texas-music", reason: "Connect Hall of Fame honorees with the existing statewide Texas music guide." }
     ]
   },
   "bryan-museum-galveston": {
