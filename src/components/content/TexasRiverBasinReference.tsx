@@ -102,7 +102,7 @@ const jsonContent = JSON.stringify({
   source: { name: "Texas Water Development Board", url: sourceUrl },
   lastVerified,
   canonicalPage,
-  methodology: "Texas Defined transcribes TWDB statewide basin statistics into normalized numeric fields for comparison. Coastal basin names are included without inferred statistics when the shared reference does not provide those values.",
+  methodology: "Texas Defined transcribes Texas Water Development Board statewide basin statistics into normalized numeric fields for comparison. Coastal basin names are included without inferred statistics when the shared reference does not provide those values.",
   majorBasins: majorBasins.map(([basin, area, miles, flow]) => ({
     basin,
     areaInTexasSquareMiles: Number(normalizeNumber(area)),
