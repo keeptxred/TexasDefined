@@ -88,7 +88,9 @@ async function run() {
   const all = JSON.parse(match[1]);
   const pending = all.filter(p => !p.licensedMedia);
   const limit = Number(option("--limit=", "20"));
-  const offset = Number(option("--offset=", "0"));
+  const rotation = process.argv.includes("--rotation=weekly");
+  const weeklyWindow = Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000));
+  const offset = rotation ? (weeklyWindow % Math.ceil(pending.length / limit)) * limit : Number(option("--offset=", "0"));
   if (!Number.isInteger(limit) || limit < 1 || limit > MAX_BATCH || !Number.isInteger(offset) || offset < 0 || offset >= pending.length) {
     throw new Error("Use an offset within the unphotographed park count and a limit between 1 and 25.");
   }
