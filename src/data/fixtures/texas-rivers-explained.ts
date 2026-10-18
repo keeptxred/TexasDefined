@@ -128,7 +128,7 @@ export const texasRiversExplainedArticle: Article = {
       "How many major river basins are in Texas? The Texas Water Development Board recognizes 15 major river basins and eight smaller coastal basins. A basin is all the land where water drains toward the same river system—not just the river you can see.",
       "Which river runs the farthest through Texas? In the Texas Water Development Board's comparison, the Rio Grande has 889 river miles within Texas. That does not include its full length outside the state.",
       "Which river basin covers the most Texas land? The Rio Grande basin, with 49,387 square miles inside Texas.",
-      "Which river basin carries the most water on average? The Brazos ranks highest in the state's long-term comparison, at about 6.1 million acre-feet per year. That is a long-term average, not today's river level.",
+      "Which river basin carries the most water on average? The Brazos ranks highest in the state's long-term comparison, at about 6.1 million acre-feet per year. One acre-foot is about 326,000 gallons. That is a long-term average, not today's river level.",
       "Which Texas rivers form borders? The Rio Grande forms the international boundary with Mexico along Texas; the Red River marks much of the Oklahoma boundary, and the Sabine forms much of the Louisiana boundary.",
       "Do all Texas rivers drain straight to the Gulf? No. The Red, Canadian, Sulphur and Cypress flow into larger river systems that continue outside Texas, while others empty into Texas bays, the Gulf or the Rio Grande system."
     ),
