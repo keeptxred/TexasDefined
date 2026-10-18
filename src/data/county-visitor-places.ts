@@ -1316,6 +1316,34 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.beaumonttexas.gov/529/Community-in-Beaumont"
   },
   {
+    "county": "johnson",
+    "name": "Cleburne Historic Homes Driving Tour",
+    "category": "History & heritage",
+    "description": "Self-guided route past Victorian, Arts-and-Crafts and bungalow homes on public streets in Cleburne; use the city's downloadable guide and respect occupied private residences.",
+    "sourceUrl": "https://www.visitcleburne.com/p/play/historic-homes-driving-tour"
+  },
+  {
+    "county": "jones",
+    "name": "Anson Post Office New Deal Mural",
+    "category": "Art & architecture",
+    "description": "1941 'Cowboy Dance' mural by Jenne Magafan inside the Anson post office; visit the public lobby during postal hours only.",
+    "sourceUrl": "https://texastimetravel.com/cities/anson/"
+  },
+  {
+    "county": "jones",
+    "name": "Jones County Courthouse and Anson Historic District",
+    "category": "History & heritage",
+    "description": "Beaux Arts county courthouse and turn-of-the-century buildings in Anson's public historic district; architecture is visible from public streets.",
+    "sourceUrl": "https://texastimetravel.com/cities/anson/"
+  },
+  {
+    "county": "kaufman",
+    "name": "Historic Downtown Terrell and Mural Walk",
+    "category": "History & heritage",
+    "description": "Walk the city center's brick sidewalks, restored storefronts and public historical murals; privately run shops and theaters keep separate schedules.",
+    "sourceUrl": "https://www.terrelltexas.com/visit-terrell/historic-downtown/"
+  },
+  {
     "county": "kendall",
     "name": "Cascade Caverns Guided Cave Tours",
     "category": "Parks & recreation",
@@ -1638,6 +1666,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/directory/colorado-city-tour/"
   },
   {
+    "county": "montague",
+    "name": "Saint Jo Historic Downtown Square",
+    "category": "History & heritage",
+    "description": "Small historic town square with century-old storefronts, Western art and preserved saloon-era architecture; private buildings and businesses admit visitors at their own discretion.",
+    "sourceUrl": "https://texastimetravel.com/cities/saint-jo/"
+  },
+  {
     "county": "montgomery",
     "name": "Crighton Theatre",
     "category": "Arts & culture",
@@ -1778,6 +1813,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://texastimetravel.com/cities/perryton/"
   },
   {
+    "county": "oldham",
+    "name": "Magnolia Station on Historic Route 66",
+    "category": "History & heritage",
+    "description": "Restored 1920s filling station in Vega on the former Route 66 alignment, preserved as a roadside interpretive stop; do not assume staffed interior tours.",
+    "sourceUrl": "https://texastimetravel.com/directory/magnolia-station/"
+  },
+  {
     "county": "orange",
     "name": "Shangri La Botanical Gardens and Nature Center",
     "category": "Parks & recreation",
@@ -1876,6 +1918,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://visitmarfa.com/mystery"
   },
   {
+    "county": "randall",
+    "name": "TEXAS Outdoor Musical at Pioneer Amphitheater",
+    "category": "Arts & culture",
+    "description": "Ticketed summer outdoor musical performed within Palo Duro Canyon State Park; the 2026 season is over, so check the operator for 2027 dates rather than planning an October show.",
+    "sourceUrl": "https://www.texas-show.com/p/about/tickets"
+  },
+  {
     "county": "reagan",
     "name": "Santa Rita No. 1 Discovery Well Roadside Marker",
     "category": "History & heritage",
@@ -1944,6 +1993,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "History & heritage",
     "description": "Spanish Revival former passenger railroad depot built in 1911, used for civic functions and local visitor services.",
     "sourceUrl": "https://texastimetravel.com/cities/ballinger/"
+  },
+  {
+    "county": "rusk",
+    "name": "Henderson Civic Theatre",
+    "category": "Arts & culture",
+    "description": "Downtown Henderson live-theater venue presenting seasonal community productions and performances; consult the current operator calendar before attending.",
+    "sourceUrl": "https://hendersoncivictheatre.org/"
   },
   {
     "county": "san-augustine",
@@ -2049,6 +2105,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Parks & recreation",
     "description": "Public rose gardens with seasonal blooms and heritage rose plantings; check festival restrictions.",
     "sourceUrl": "https://texastimetravel.com/directory/tyler-municipal-rose-garden-and-museum/"
+  },
+  {
+    "county": "somervell",
+    "name": "Big Rocks Park on the Paluxy River",
+    "category": "Parks & recreation",
+    "description": "Public boulder-filled river park in Glen Rose suited to walking and creekside play; water conditions can change suddenly, so follow current city advisories before entering the river.",
+    "sourceUrl": "https://www.glenrosetexas.org/community/page/business-directory"
   },
   {
     "county": "starr",
@@ -2170,6 +2233,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "sourceUrl": "https://www.victoriatx.org/299/Riverside-Park"
   },
   {
+    "county": "walker",
+    "name": "Sam Houston Statue and Visitor Center",
+    "category": "Art & architecture",
+    "description": "Huntsville's monumental 'A Tribute to Courage' statue has public photo access and a staffed visitor center; confirm holiday hours separately.",
+    "sourceUrl": "https://www.huntsvilletexas.com/148/Sam-Houston-Statue-Visitor-Center"
+  },
+  {
     "county": "washington",
     "name": "Antique Rose Emporium",
     "category": "Parks & recreation",
@@ -2273,6 +2343,13 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "category": "Art & architecture",
     "description": "Public roadside-style agricultural landmark on the Wilson County Courthouse lawn celebrating the region's peanut-growing heritage; view from the public square.",
     "sourceUrl": "https://www.floresvilletx.gov/i-want-to/visit-floresville-texas/"
+  },
+  {
+    "county": "winkler",
+    "name": "Kermit Downtown History Mural",
+    "category": "Art & architecture",
+    "description": "Outdoor mural in Kermit depicting the county's ranching, oil-boom and sand-dune history; observe from the public downtown streets.",
+    "sourceUrl": "https://texastimetravel.com/cities/kermit/"
   },
   {
     "county": "wise",
