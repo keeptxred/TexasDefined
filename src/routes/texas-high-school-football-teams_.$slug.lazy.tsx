@@ -238,7 +238,7 @@ function Page() {
           : program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
   const associationLabel = program
     ? 'UIL'
-    : privateAlignment?.association ?? governingBodyHint ?? 'Association not yet verified';
+    : privateAlignment?.association ?? governingBodyHint ?? null;
   const enrollmentBand = program
     ? uilFootballEnrollmentBand(program.classification, program.division)
     : null;
@@ -344,7 +344,7 @@ function Page() {
 
       {/* Put verified visitor actions and the actual season ahead of history and enrollment. */}
         <dl aria-label={`${displayName} verified football facts`} className="grid grid-cols-2 gap-x-5 border-b border-border py-3 text-sm sm:grid-cols-3 lg:grid-cols-6">
-          <Fact label="Governing body" value={associationLabel} />
+          {associationLabel && <Fact label="Governing body" value={associationLabel} />}
           {program && <Fact label="Current alignment" value={alignmentLabel(program)} />}
           {!program && privateAlignment && <Fact label="Current alignment" value={privateAlignmentLabel(privateAlignment)} />}
           {program && <Fact label="Football district" value={String(program.district)} />}
@@ -532,7 +532,7 @@ function Page() {
             <a href={privateAlignment.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">{privateAlignment.sourceLabel} ↗</a>
           </div> : <>
             <div className="border-y border-border py-5">
-              <p className="font-display text-2xl">{governingBodyHint ? [governingBodyHint, associationClassification].filter(Boolean).join(' ') : 'Association placement not yet available'}</p>
+              <p className="font-display text-2xl">{governingBodyHint ? [governingBodyHint, associationClassification].filter(Boolean).join(' ') : 'Non-UIL football program'}</p>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
                 This supplied school did not resolve to the current UIL football alignment. TexasDefined does not force private or non-UIL programs into a UIL classification. Association placement is shown only when it has been separately sourced.
               </p>
