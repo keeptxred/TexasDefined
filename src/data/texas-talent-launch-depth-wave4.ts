@@ -127,7 +127,7 @@ export const TEXAS_TALENT_LAUNCH_DEPTH_WAVE4: Readonly<Record<string, TexasTalen
     ],
     texasPlaces: [
       { name: "Dallas", context: "Badu's birthplace, childhood environment and enduring creative home, where theater, Black arts, jazz, soul and hip-hop communities helped form the interdisciplinary performer she became." },
-      { name: "Dallas County", context: "Dallas County anchors Badu's biography and connects it to North Texas Black arts and music history." },
+      { name: "Dallas County", context: "Dallas County anchors Badu's biography and connects her upbringing, performance roots and continuing creative identity to North Texas Black arts and music history." },
     ],
     lastReviewedAt: reviewed,
   },
