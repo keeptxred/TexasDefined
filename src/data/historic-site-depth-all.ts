@@ -252,7 +252,10 @@ const VERIFIED_VISIT_NOTES: Record<string, {entryNote:string;researchNote:string
 export function enrichResearchedHistoricSiteDepth(destination: Destination): Destination {
   const extra = SITE_DEPTH[destination.slug] ?? [];
   const verified = VERIFIED_VISIT_NOTES[destination.slug];
-  if ((!extra.length && !verified) || destination.category !== "historic-sites") return destination;
+  // Individually verified historic-site slugs keep their visitor facts even when
+  // the source catalog classifies a historic house under another category.
+  // Never apply generic depth additions to unrelated destinations.
+  if ((!extra.length && !verified) || (destination.category !== "historic-sites" && !verified)) return destination;
   const additions = extra.filter((item) => !destination.body.includes(item));
   if (destination.slug === "first-capitol-of-texas") {
     return {

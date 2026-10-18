@@ -152,6 +152,10 @@ const sourceRoute = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
 if (!runtime.includes('enrichFullHistoricSiteAuthority(enrichTexasHistoricSiteAuthority(enriched))') ||
     !runtime.includes('.map(enrichFullHistoricSiteAuthority)')) failures.push('Full historic authority must apply in both resolution paths.');
 if (!fullAuthorityFile.includes('historicSiteSeeds.map') || !fullAuthorityFile.includes('const seeds = new Map(historicSiteSeeds')) failures.push('All historic seeds must share the complete-catalog authority adapter.');
+// A remote Explore taxonomy label must not strip operator-verified visitor details
+// from a known historic-site seed such as Fulton Mansion.
+if (!fullAuthorityFile.includes('destination.category !== "historic-sites" && !seeds.has(destination.slug)')) failures.push('Historic seed authority must survive cross-category source labels.');
+if (!visitDepth.includes('destination.category !== "historic-sites" && !verified')) failures.push('Verified historic visitor notes must survive cross-category source labels.');
 if (!relationshipsComponent.includes('destination.category === "historic-sites"')) failures.push('Historic authority template must render all eligible historic destination pages.');
 if (!crosslinksText.includes('fullHistoricSiteCrosslinks(slug)') || !fullCrosslinkFile.includes('degrees.set(pair.left.slug')) failures.push('Statewide reciprocal county and thematic crosslink graph missing.');
 for (const [duplicate, primary] of Object.entries({

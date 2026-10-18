@@ -324,7 +324,10 @@ function firstLinkedItem(items: DestinationAreaItem[] | undefined): DestinationA
 }
 
 export function enrichFullHistoricSiteAuthority(destination: Destination): Destination {
-  if (destination.category !== "historic-sites" || destination.authorityGuide) return destination;
+  // The authoritative seed registry identifies historic places independently of
+  // mutable Explore category labels (some historic houses appear as museums).
+  // Preserve any existing subject-specific authority guide instead of replacing it.
+  if (destination.authorityGuide || (destination.category !== "historic-sites" && !seeds.has(destination.slug))) return destination;
   const establishedSeed = seeds.get(destination.slug);
   // Cover independently authored historic-site records outside the 46 seeds,
   // but only when enough source and unique planning data already exist.
