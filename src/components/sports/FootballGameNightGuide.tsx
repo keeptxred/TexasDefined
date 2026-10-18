@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { trackTexasDefinedOutcome } from '@/platform/analytics';
+import { FootballFanOffers } from '@/components/sports/FootballFanOffers';
 
 type FootballGame = {
   date: string;
@@ -95,6 +96,8 @@ export function FootballGameNightGuide({
   useEffect(() => setToday(texasToday()), []);
 
   const upcoming = today && season ? nextListedGame(season.games, today) : null;
+  const hasUpcomingAwayTravel = Boolean(today && season?.games.some((game) =>
+    /^\d{4}-\d{2}-\d{2}$/.test(game.date) && game.date >= today && !game.result && (game.site === 'Away' || game.site === 'Neutral')));
   const officialUrl = schoolWebsite?.startsWith('https://') ? schoolWebsite : null;
   const scheduleUrl = schedule?.sourceUrl?.startsWith('https://')
     ? schedule.sourceUrl
@@ -199,6 +202,8 @@ export function FootballGameNightGuide({
           This does not establish the location of the next game.
         </p>
       )}
+
+      <FootballFanOffers slug={slug} hasUpcomingAwayTravel={hasUpcomingAwayTravel} />
 
       <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-border pt-5 text-sm">
         {slug !== 'aubrey' && <><span className="text-muted-foreground">Looking for Texas gear?</span>
