@@ -1071,6 +1071,8 @@ if (!errors.length) {
     'Mascot source not yet available',
     'Association not yet verified',
     'Association placement not yet available',
+    'No district label in source',
+    'Not specified by source',
   ]) {
     if (featuredProfilePage.includes(forbidden)) errors.push(`Football profile contains a statewide regression marker: ${forbidden}`);
   }
