@@ -1,0 +1,30 @@
+name: Verify TexasDefined publication state
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-texasdefined-publication-state.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report activation state safely
+        env:
+          TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
+        shell: bash
+        run: |
+          if [ -z "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" ]; then
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false"
+          else
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=true"
+          fi
+          if [ "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" = "true" ]; then
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_TRUE=true"
+          else
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_TRUE=false"
+          fi
