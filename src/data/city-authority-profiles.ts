@@ -708,7 +708,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       family: [
         { title: 'WhirlyBall Hurst', summary: 'Use the dedicated guide for an indoor family or group activity that works well as a Mid-Cities add-on.', href: '/destination/whirlyball-hurst' },
         { title: 'Chisholm Park', summary: 'Build in playground, trail and open-space time when a regional Dallas–Fort Worth trip needs a simple local reset.' },
-        { title: 'Short local day + regional attraction', summary: 'Hurst is compact, so families can pair one Hurst stop with Fort Worth, Arlington or Grapevine without pretending the city needs a full tourist checklist.' },
+        { title: 'Short local day + regional attraction', summary: 'Hurst is compact, so families can pair one Hurst stop with Fort Worth, Arlington or Grapevine without needing a full tourist checklist in the city.' },
       ],
       gettingAround: [
         { title: 'Use Hurst as a regional base', summary: 'Loop 820 and SH 121 make driving to Fort Worth, Arlington and DFW Airport practical, but peak traffic can erase the apparent advantage of a central location.' },
