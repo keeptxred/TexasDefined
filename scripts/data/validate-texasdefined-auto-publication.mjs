@@ -27,7 +27,7 @@ for (const token of ['Report activation state safely', 'TEXASDEFINED_AUTO_PUBLIS
   if (!workflow.includes(token)) errors.push(`Workflow observability contract is missing ${token}`);
 }
 if (/^\s*schedule:/m.test(workflow)) errors.push('Auto-publication schedule must remain disabled until activation is approved.');
-for (const token of ['workflow_dispatch:', 'workflow_run:', '- Deploy TexasDefined production', 'types: [completed]', "github.event.workflow_run.conclusion == 'success'", 'Verify auto-publication activation remains unset', 'vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'Verify live news, published article canonicals and sitemap XML', 'verify-texasdefined-publication-production.mjs', 'actions/checkout@v5', 'actions/setup-node@v5']) {
+for (const token of ['workflow_dispatch:', 'workflow_run:', '- Deploy TexasDefined production', 'types: [completed]', 'branches: [main]', "github.event.workflow_run.conclusion == 'success'", 'Verify auto-publication activation remains unset', 'vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'Verify live news, published article canonicals and sitemap XML', 'verify-texasdefined-publication-production.mjs', 'actions/checkout@v5', 'actions/setup-node@v5']) {
   if (!productionSmokeWorkflow.includes(token)) errors.push(`Publication production smoke workflow is missing ${token}`);
 }
 for (const token of ["await fetchHealthy('/news')", "await fetchHealthy('/sitemap.xml')", "firstPublishedNewsPath(news.body)", "story.body.includes(expectedCanonical)", "sitemap.body", "<(?:sitemapindex|urlset)"]) {
