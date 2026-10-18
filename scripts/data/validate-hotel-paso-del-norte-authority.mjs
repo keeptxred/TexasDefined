@@ -34,6 +34,13 @@ assert.ok((guide.match(/\n    "[^"]{100,}"/g) || []).length >= 11, "substantive 
 contains(guide, "CC0 1.0", "distinct licensed hero");
 contains(guide, "U.S. public domain", "archival exterior");
 contains(guide, "University of Houston Libraries", "postcard rights");
+contains(guide, "https://www.loc.gov/item/2014630865/", "new federal color dome photo source");
+contains(guide, "https://www.loc.gov/item/00650024/", "Highsmith archive rights guidance");
+contains(guide, "LC-DIG-highsm-26665", "Highsmith original image catalog record");
+contains(guide, "tile.loc.gov/image-services/iiif/", "actual Highsmith photographic image URL");
+contains(guide, "https://texashistory.unt.edu/ark:/67531/metapth613579/", "Ponsford historic dome archive citation");
+contains(guide, "its commercial reuse rights are not confirmed", "no open access equals commercial permission misrepresentation");
+contains(guide, "photograph not republished", "archive right exclusion");
 assert.ok(!/anrdoezrs\.net|www\.hotels\.com\/ho\d+/.test(guide), "never fabricate property-specific commission destinations");
 
 contains(catalog, 'import { hotelPasoDelNorteAuthorityDestination }', "preserved destination catalog");
