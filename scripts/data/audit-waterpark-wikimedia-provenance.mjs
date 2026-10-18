@@ -44,6 +44,18 @@ function assess(venue,page) {
   if(venue.expectedFilename!==actualFilename) return {status:"FILENAME_MISMATCH",actualFilename};
   if(!im.width||im.width<800||!im.height||im.height<450) return {status:"LOW_RESOLUTION",width:im.width,height:im.height};
   const datum={actualFilename,width:im.width,height:im.height,sourceLicense,sourceLicenseLabel:plain(e.LicenseShortName?.value),sourceArtist:sourceArtist.slice(0,250),description:sourceDescription.slice(0,800),date:plain(e.DateTimeOriginal?.value??e.DateTime?.value??"").slice(0,90)};
+  // Specific documented PD-self Commons file: the original photographer explicitly
+  // released it into the public domain, but its API has no LicenseUrl.
+  // Source page manually reviewed 2026-10-17:
+  // https://commons.wikimedia.org/wiki/File:SplashtownSpringTX.JPG
+  // Do not generalize this exception to arbitrary Commons "Public domain" claims.
+  if(!sourceLicense && venue.expectedFilename==="SplashtownSpringTX.JPG"
+    && venue.license==="/publicdomain/mark/1.0"
+    && venue.claimedArtist==="WhisperToMe"
+    && sourceArtist==="WhisperToMe"
+    && datum.sourceLicenseLabel==="Public domain") {
+    return {status:"DOCUMENTED_PD_SELF_SOURCE_PAGE_REVIEWED",sourcePage:"https://commons.wikimedia.org/wiki/File:SplashtownSpringTX.JPG",...datum};
+  }
   if(!sourceLicense) return {status:"SOURCE_LICENSE_UNVERIFIED",...datum};
   if(!/^(\/licenses\/(?:by|by-sa)\/\d+(?:\.\d+)?|\/publicdomain\/(?:zero|mark)\/1\.0)$/.test(sourceLicense)) return {status:"LICENSE_NOT_CLEAR_FOR_COMMERCIAL_REUSE",...datum};
   if(venue.license && venue.license!==sourceLicense) return {status:"LICENSE_DISAGREES_WITH_COMMONS",expected:venue.license,...datum};
@@ -59,6 +71,11 @@ function selfTest() {
   assert.equal(assess(v,{...file,imageinfo:[{...file.imageinfo[0],extmetadata:{LicenseUrl:{value:"https://creativecommons.org/licenses/by-nc/4.0/"}}}]}).status,"LICENSE_NOT_CLEAR_FOR_COMMERCIAL_REUSE");
   assert.equal(assess({...v,candidate:true},file).status,"CANDIDATE_METADATA_ONLY_REQUIRES_VENUE_CHECK");
   assert.equal(fromFileUrl("https://commons.wikimedia.org/wiki/File:Great_Wolf_Lodge.jpg"),"Great Wolf Lodge.jpg");
+  const oldPD={title:"File:SplashtownSpringTX.JPG",imageinfo:[{width:2272,height:1704,extmetadata:{LicenseShortName:{value:"Public domain"},Artist:{value:"WhisperToMe"}}}]};
+  const whispertome={expectedFilename:"SplashtownSpringTX.JPG",license:"/publicdomain/mark/1.0",claimedArtist:"WhisperToMe"};
+  assert.equal(assess(whispertome,oldPD).status,"DOCUMENTED_PD_SELF_SOURCE_PAGE_REVIEWED");
+  assert.equal(assess({...whispertome,claimedArtist:"Someone else"},oldPD).status,"SOURCE_LICENSE_UNVERIFIED");
+  assert.equal(assess({...whispertome,expectedFilename:"OtherSpring.jpg"},{...oldPD,title:"File:OtherSpring.jpg"}).status,"SOURCE_LICENSE_UNVERIFIED");
   console.log("Wikimedia waterpark provenance fail-closed self-tests passed.");
 }
 async function main() {
@@ -98,7 +115,8 @@ async function main() {
     "artist="+(e.assessment.sourceArtist??"UNKNOWN"),
     "description="+String(e.assessment.description??"").slice(0,115)
   ].join(" | "));
-  const problems=result.entries.filter(e=>!e.candidate&&!e.assessment.status.startsWith("SOURCE_METADATA_MATCHES_"));
+  const trustedStatuses=new Set(["SOURCE_METADATA_MATCHES_CHECK_EDITORIAL_CONTEXT","DOCUMENTED_PD_SELF_SOURCE_PAGE_REVIEWED"]);
+  const problems=result.entries.filter(e=>!e.candidate&&!trustedStatuses.has(e.assessment.status));
   const note="Commons provenance audit: "+enrolled.length+" published photo records, "+candidates.length+" review-only new candidates, "+problems.length+" current-source discrepancies, "+(result.providerError?"provider error":"provider request completed")+".";
   console.log(note);
   if(process.env.GITHUB_STEP_SUMMARY)appendFileSync(process.env.GITHUB_STEP_SUMMARY,note+"\n\n**This is source metadata only. Exact location, creator, original date, actual image delivery, and usable editorial context still require independent review. No image is promoted by this job.**\n");
