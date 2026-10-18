@@ -28,7 +28,7 @@ export function inspectParkHtml(raw,site){
  if(!raw.includes("tpwd.texas.gov/state-parks/"+site.source))throw Error("Official park link missing "+site.slug);
  for(const word of site.words)if(!lower.includes(word.toLowerCase()))throw Error("Sourced visitor restriction missing "+site.slug+": "+word);
  if(!/Photography:|Wikimedia Commons|National Park Service/i.test(visible))throw Error("Visible licensed hero attribution missing "+site.slug);
- const heroTags=(raw.match(/<img\b[^>]*>/gi)||[]).filter(tag=>/\balt=/.test(tag));
+ const heroTags=(raw.match(/<img\b[^>]*>/gi)||[]).filter(tag=>/\s+alt="[^"]+"/.test(tag));
  const heroPath=approvedHeroPaths(site).find(path=>heroTags.some(tag=>tag.includes(path)));
  if(!heroPath)throw Error("Approved park-specific photo or its alt text missing "+site.slug+" ("+approvedHeroPaths(site).join(", ")+")");
  if(/<meta\s+name="robots"\s+content="noindex/i.test(raw))throw Error("Park unexpectedly noindex "+site.slug);
