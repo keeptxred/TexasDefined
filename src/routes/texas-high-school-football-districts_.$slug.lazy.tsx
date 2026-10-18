@@ -131,7 +131,7 @@ function Page() {
           </div>
         </div>
         <aside className="mt-8 border-l-2 border-primary bg-surface px-5 py-4 text-sm leading-7">
-          <strong>Standings verification:</strong> These results are only a partial source-checked sample, so we do not assign district ranks, win–loss records, playoff spots or Division I/II seeds. Confirm those with the schools and UIL. Schedule dates, venues and kickoff times can change.
+          <strong>Standings verification:</strong> The table above calculates win–loss counts from sourced games only. It is not an official UIL standings table; no district rank, tie-break position, playoff berth or Division I/II seed is assigned. Confirm current results and qualification with the schools and UIL. Schedule dates, venues and kickoff times can change.
           <a className="ml-2 font-semibold text-primary underline underline-offset-4" href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noopener noreferrer">UIL scoreboard ↗</a>
         </aside>
         {katyPilot && <p className="mt-3 text-xs text-muted-foreground">Katy schedule source last checked October 16, 2026; the published schedule is dated March 27, 2026. Final scores carry their reporting source. Scheduled listings are not refreshed live.</p>}
