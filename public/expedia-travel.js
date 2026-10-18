@@ -611,6 +611,10 @@
     const context = contextFromPath();
     const expectedContext = context ? `${context.kind}:${context.key}` : "";
     if (current?.dataset.surfaceType === "curated" && current.dataset.stayContext === expectedContext) return;
+    // When a destination has zero curated stays, keep the same generic surface.
+    // Removing/replacing it on every mutation also deletes the independently
+    // managed CJ booking choices nested inside it (including Hotel Paso del Norte).
+    if (context && current?.dataset.surfaceType === "generic" && current.dataset.stayContext === expectedContext) return;
     if (!context && current?.dataset.surfaceType === "generic") {
       // The swimming guide can stream/hydrate after the lodging surface mounts.
       // A fallback attached to an initially empty #main must move behind the
@@ -638,7 +642,9 @@
     }
 
     if (version !== syncVersion || !isMonetizationEligible()) return;
-    placeSurface(buildGenericSurface(), main);
+    const fallback = buildGenericSurface();
+    fallback.dataset.stayContext = expectedContext;
+    placeSurface(fallback, main);
   }
 
   function scheduleSync() {
