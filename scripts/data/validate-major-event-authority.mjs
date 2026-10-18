@@ -294,7 +294,7 @@ const crossroadsSchema = read(path.join(dataDir, "major-event-schema-enrichment-
 for (const marker of [
   'slug: "crossroads-of-texas-country-festival"',
   'startDateTime: "2026-10-24T09:00:00-05:00"',
-  'endDateTime: "2026-10-24T19:00:00-05:00"',
+  'endDateTime: "2026-10-24T19:30:00-05:00"',
   'sourceCheckedAt: "2026-10-18"',
   'quickFacts: [',
   'Jake Worthington',
