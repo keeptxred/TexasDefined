@@ -129,13 +129,13 @@ try{
    try{
     await page.waitForFunction(paths=>
      paths.every(href=>[...document.querySelectorAll('main a[href]')]
-      .some(a=>(a.getAttribute('href')||'').replace(/\\/$/,'')===href)),
+      .some(a=>(a.getAttribute('href')||'').replace(/\/$/,'')===href)),
      expected,{timeout:20000});
    }catch{
     // Still fail closed on genuinely absent links, with their exact slugs.
     // Do not classify the optional readiness marker itself as acceptance.
    }
-   const links=await page.evaluate(()=>[...document.querySelectorAll('main a[href]')].map(a=>(a.getAttribute('href')||'').replace(/\\/$/,'')));
+   const links=await page.evaluate(()=>[...document.querySelectorAll('main a[href]')].map(a=>(a.getAttribute('href')||'').replace(/\/$/,'')));
    for(const s of group)if(!links.includes('/texas-high-school-football-teams/'+s.slug))errors.push('missing reciprocal '+s.slug);
    if(js.length)errors.push('county JavaScript errors '+js[0]);
   }catch(e){errors.push(String(e.message||e).slice(0,350))}
