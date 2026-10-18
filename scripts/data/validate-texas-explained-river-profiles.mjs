@@ -75,7 +75,7 @@ for (const marker of [
   'const coastalBasins = [',
   'const basinHighlights = [',
   'Largest basin in Texas',
-  'Longest Texas reach',
+  'Longest river segment in Texas',
   'Highest average flow',
   'const csvHeaders = [',
   '"basin_type"',
