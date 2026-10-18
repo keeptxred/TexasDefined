@@ -14,6 +14,7 @@ const publisher = read('scripts/news/texasdefined-auto-publisher.mjs');
 const flyoverBridge = read('.github/workflows/flyover-scheduled-publish-bridge.yml');
 const migration = read('supabase/migrations/20260813143000_harden_texasdefined_auto_publication.sql');
 const env = read('.env');
+const exploreHandoff = read('docs/EXPLORE-PIPELINE-HANDOFF.md');
 const sitemap = read('src/routes/sitemap[.]xml.ts');
 const remoteArticles = read('src/data/articles-remote.ts');
 const route = readRouteSurface('src/routes/news.$slug.tsx');
@@ -45,6 +46,9 @@ for (const token of ['flyover_publish_request_v2', 'site=texasdefined', 'feed_id
 if (flyoverBridge.includes('TEXASDEFINED_AUTO_PUBLISH_ENABLED: "true"')) errors.push('Flyover bridge must not bypass repository-wide TexasDefined publication activation.');
 if (env.includes('qhwwmdszjgkscqxgmenf')) errors.push('Retired TexasDefined Supabase project remains in .env.');
 if (!env.includes('ftkznprjljkhymknvhye')) errors.push('Active shared Supabase project is absent from .env.');
+if (exploreHandoff.includes('qhwwmdszjgkscqxgmenf')) errors.push('Retired Supabase project remains in the Explore handoff.');
+if (!exploreHandoff.includes('ftkznprjljkhymknvhye')) errors.push('Explore handoff is missing the active shared Supabase project.');
+if (!exploreHandoff.includes('Do not create, connect, or migrate a second database')) errors.push('Explore handoff must preserve the single shared-backend rule.');
 
 for (const token of [
   'fetchPublishedTexasDefinedNewsArticlesForSitemap()',
