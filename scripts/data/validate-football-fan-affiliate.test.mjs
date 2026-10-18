@@ -46,3 +46,15 @@ test('district profiles render a generic offer without inventing away fixtures',
   assert.match(district, /FootballFanOffers slug=\{`district-\$\{district\.slug\}`\} hasUpcomingAwayTravel=\{false\} showTravelPlanning/);
   assert.ok(district.indexOf('<FootballFanOffers') < district.indexOf('data-football-district-section="teams"'));
 });
+
+test('approved RVshare CJ deep link is a real second football offer with truthful parking caveat', () => {
+  const stay = readFileSync('public/stay-affiliate-options.js', 'utf8');
+  assert.match(stay, /RVSHARE_DESTINATION = "https:\/\/rvshare\.com\/"/);
+  assert.match(offers, /RVSHARE_DESTINATION = 'https:\/\/rvshare\.com\/'/);
+  assert.match(offers, /RVSHARE_AFFILIATE_URL = `https:\/\/www\.anrdoezrs\.net\/links\/\$\{HOTEL_CJ_PUBLISHER_ID\}\/type\/dlg\/\$\{encodeURI\(RVSHARE_DESTINATION\)\}`/);
+  assert.match(offers, /data-commercial-partner="rvshare"/);
+  assert.match(offers, /football-road-trip-rv/);
+  assert.match(offers, /trackAffiliateClick\(\{ partner: 'rvshare'/);
+  assert.match(offers, /Do not assume the school, stadium or venue allows RV parking or tailgating/);
+  assert.match(offers, /hotel bookings or RV reservations/);
+});

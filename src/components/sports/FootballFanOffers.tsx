@@ -18,6 +18,10 @@ const HOTEL_CJ_PUBLISHER_ID = '101876465';
 const HOTELS_DESTINATION = 'https://www.hotels.com/';
 // Use the same approved CJ deep-link contract as stay-affiliate-options.js.
 const HOTELS_AFFILIATE_URL = `https://www.anrdoezrs.net/links/${HOTEL_CJ_PUBLISHER_ID}/type/dlg/${encodeURI(HOTELS_DESTINATION)}`;
+// RVshare is an existing active CJ advertiser for TexasDefined. This uses the
+// same previously verified destination and DLG builder as stay-affiliate-options.js.
+const RVSHARE_DESTINATION = 'https://rvshare.com/';
+const RVSHARE_AFFILIATE_URL = `https://www.anrdoezrs.net/links/${HOTEL_CJ_PUBLISHER_ID}/type/dlg/${encodeURI(RVSHARE_DESTINATION)}`;
 
 function isVerifiedProductUrl(url: string) {
   try {
@@ -74,9 +78,25 @@ export function FootballFanOffers({ slug, hasUpcomingAwayTravel, showTravelPlann
           </a>
         </div>
       )}
+      {showHotels && (
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-4 bg-background p-4">
+          <div className="max-w-3xl">
+            <p className="font-semibold">Traveling to a football game with family or friends?</p>
+            <p className="mt-1 text-xs leading-5 text-muted-foreground">
+              Compare RV rentals for a road trip or overnight stay. Do not assume the school, stadium or venue allows RV parking or tailgating; confirm rules and parking separately before reserving.
+            </p>
+          </div>
+          <a href={RVSHARE_AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener noreferrer"
+            data-commercial-partner="rvshare" data-commercial-placement="football-road-trip-rv"
+            onClick={() => trackAffiliateClick({ partner: 'rvshare', label: 'Compare RV rentals for football travel', placement: `football-rv-travel-${slug}`, module: 'football-fan-essentials' })}
+            className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-3 text-sm font-semibold text-foreground hover:bg-surface">
+            Compare RV rentals on RVshare ↗
+          </a>
+        </div>
+      )}
       {showHotels || gearOffers.length > 0 ? (
         <p className="mt-3 text-xs leading-5 text-muted-foreground">
-          Affiliate disclosure: TexasDefined may earn a commission from qualifying purchases or hotel bookings, at no additional cost to you.
+          Affiliate disclosure: TexasDefined may earn a commission from qualifying purchases, hotel bookings or RV reservations, at no additional cost to you.
           TexasDefined is not affiliated with the schools and these are not official team offers.
         </p>
       ) : null}
