@@ -31,6 +31,8 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/explore/water-parks/port-royal-ocean-resort-pools', requiredText: 'Can non-resort visitors buy a pool and waterslide day pass?', label: 'Port Royal standalone resort-only waterpark guide is SSR visible' },
+  { path: '/explore/water-parks/port-royal-ocean-resort-pools', requiredText: '6317 State Highway 361', label: 'Port Royal official exact-site address renders' },
   { path: '/explore/water-parks/kalahari-round-rock', requiredText: "Can families bring coolers, snacks or drinks into Kalahari", label: 'Kalahari detailed first-party visitor rules' },
   { path: '/explore/water-parks/kalahari-round-rock', requiredText: 'Wikimedia Commons source', label: 'Kalahari exact-location photographed venue credits' },
   { path: '/explore/water-parks/midland-doug-russell', requiredText: 'Texas.pics', label: 'Midland historical municipal pool credits' },
