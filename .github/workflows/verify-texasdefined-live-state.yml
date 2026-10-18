@@ -1,0 +1,74 @@
+name: Verify TexasDefined live state
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-texasdefined-live-state.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  dry-run:
+    runs-on: ubuntu-latest
+    environment: texasdefined-publication
+    env:
+      KEEP_TX_RED_SUPABASE_URL: https://ftkznprjljkhymknvhye.supabase.co
+      KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+      TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
+      TEXASDEFINED_PUBLISH_CONFIRMATION: ''
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Run guarded dry-run only
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/news/texasdefined-auto-publisher.mjs --limit=3 | tee /tmp/td-dry-run.jsonl
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const rows = fs.readFileSync('/tmp/td-dry-run.jsonl', 'utf8')
+            .split(/\r?\n/)
+            .filter(Boolean)
+            .map((line) => JSON.parse(line));
+          const queue = rows.find((row) => row.mode === 'dry-run');
+          if (!queue) throw new Error('Dry-run queue summary missing');
+          console.log(JSON.stringify({ verification: 'dry-run', ...queue }));
+          if (queue.published !== 0 || queue.skipped !== 0 || queue.failed !== 0) {
+            throw new Error('Dry-run unexpectedly reported publication/skip/failure activity');
+          }
+          NODE
+
+  live-http:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify production URLs and sitemap membership
+        shell: bash
+        run: |
+          set -euo pipefail
+          news_url='https://texasdefined.com/news'
+          article_url='https://texasdefined.com/news/2026-08-10-canyon-lake-full-capacity-recovery'
+          sitemap_url='https://texasdefined.com/sitemap.xml'
+
+          news_status="$(curl -L -sS -o /tmp/news.html -w '%{http_code}' --max-time 30 "$news_url")"
+          article_status="$(curl -L -sS -o /tmp/article.html -w '%{http_code}' --max-time 30 "$article_url")"
+          sitemap_status="$(curl -L -sS -o /tmp/sitemap.xml -w '%{http_code}' --max-time 30 "$sitemap_url")"
+
+          if grep -Fq "$article_url" /tmp/sitemap.xml; then
+            sitemap_contains_article=true
+          else
+            sitemap_contains_article=false
+          fi
+
+          echo "NEWS_STATUS=$news_status"
+          echo "ARTICLE_STATUS=$article_status"
+          echo "SITEMAP_STATUS=$sitemap_status"
+          echo "SITEMAP_CONTAINS_ARTICLE=$sitemap_contains_article"
+
+          test "$news_status" = "200"
+          test "$article_status" = "200"
+          test "$sitemap_status" = "200"
+          test "$sitemap_contains_article" = "true"
