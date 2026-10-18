@@ -7,7 +7,7 @@ const pages = [
       'Start with the map',
       'Texas Rivers, Region by Region',
       'Explore All 15 Major Texas River Basins',
-      'Texas rivers at a glance: six quick answers',
+      'Texas Rivers at a Glance',
       'Open the full 15-basin comparison',
     ],
     forbidden: [
