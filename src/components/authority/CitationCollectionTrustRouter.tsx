@@ -97,7 +97,7 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
       { name: 'Machine-readable citation index', url: 'https://texasdefined.com/citation-magnets.json' },
     ],
     methodology: 'This is the controlling methodology page for inclusion criteria, source precedence, conflict handling, correction policy and image-rights review across the Painted Churches collection.',
-    lastVerified: 'Painted Churches research, correction and image-rights methodology documented August 18, 2026.',
+    lastVerified: `Painted Churches research, correction and image-rights methodology reviewed ${paintedChurchAuthorityExpansionDateLabel}.`,
   },
   '/explore/painted-churches/how-many': {
     title: 'Painted Churches count methodology',

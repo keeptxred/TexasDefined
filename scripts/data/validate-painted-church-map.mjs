@@ -6,6 +6,10 @@ const points = read('src/data/painted-church-map-points.ts');
 const mapRoute = read('src/routes/explore.painted-churches.map.tsx');
 const compareRoute = read('src/routes/explore.painted-churches.compare.tsx');
 const countRoute = read('src/routes/explore.painted-churches.how-many.tsx');
+const guideLibraryRoute = read('src/routes/explore.painted-churches_.guides.tsx');
+const knowledgeGraphRoute = read('src/routes/explore.painted-churches.knowledge-graph.tsx');
+const checklistRoute = read('src/routes/painted-churches-checklist[.]txt.ts');
+const printGuideRoute = read('src/routes/explore.painted-churches.print-guide.tsx');
 const authoritySources = read('src/data/painted-church-authority-sources.ts');
 const trustRouter = read('src/components/authority/CitationCollectionTrustRouter.tsx');
 const expanded = read('src/data/painted-churches-expanded.ts');
@@ -34,9 +38,17 @@ if (!mapRoute.includes('dateModified: paintedChurchAuthorityExpansionDate')) fai
 if (!compareRoute.includes('dateModified: paintedChurchAuthorityExpansionDate')) failures.push('Comparison freshness metadata must follow the canonical authority expansion date.');
 if (!countRoute.includes('dateModified: paintedChurchAuthorityExpansionDate') || !countRoute.includes('modifiedTime: `${paintedChurchAuthorityExpansionDate}T12:00:00-05:00`')) failures.push('Count explainer freshness metadata must follow the canonical authority expansion date.');
 if (!authoritySources.includes('export const paintedChurchAuthorityExpansionDate = "2026-09-25"')) failures.push('Canonical Painted Churches authority expansion date is missing.');
+if (!guideLibraryRoute.includes('modifiedTime: \`${paintedChurchAuthorityExpansionDate}T12:00:00-05:00\`') || !guideLibraryRoute.includes('dateModified: paintedChurchAuthorityExpansionDate')) failures.push('Painted Churches guide library freshness metadata must follow the canonical authority expansion date.');
+if (!knowledgeGraphRoute.includes('modifiedTime: \`${paintedChurchAuthorityExpansionDate}T12:00:00-05:00\`') || !knowledgeGraphRoute.includes('dateModified: paintedChurchAuthorityExpansionDate')) failures.push('Painted Churches knowledge graph freshness metadata must follow the canonical authority expansion date.');
+if (!checklistRoute.includes('collection reviewed ${paintedChurchAuthorityExpansionDateLabel}')) failures.push('Painted Churches checklist review label must follow the canonical authority expansion date.');
+if (!printGuideRoute.includes('collection reviewed {paintedChurchAuthorityExpansionDateLabel}') || !printGuideRoute.includes('modifiedTime: \`${paintedChurchAuthorityExpansionDate}T12:00:00-05:00\`')) failures.push('Painted Churches printable guide freshness must follow the canonical authority expansion date.');
+for (const [label, source] of [['guide library', guideLibraryRoute], ['knowledge graph', knowledgeGraphRoute], ['checklist', checklistRoute], ['print guide', printGuideRoute]]) {
+  if (source.includes('2026-08-18') || source.includes('August 18, 2026')) failures.push(`Painted Churches ${label} still exposes the superseded August 18 collection review date.`);
+}
 if (!trustRouter.includes("Regional grouping, church identity, coordinate provenance and map interaction reviewed October 18, 2026.")) failures.push('Painted Churches map trust note must reflect the current review date and scope.');
 if (!trustRouter.includes("Comparison labels, 28-record collection coverage and freshness metadata reviewed October 18, 2026.")) failures.push('Painted Churches comparison trust note must reflect current coverage and freshness review.');
 if (!trustRouter.includes('Collection counts and definition labels reviewed ${paintedChurchAuthorityExpansionDateLabel}; the main collection controls the current verified count.')) failures.push('Painted Churches count trust note must follow the canonical authority expansion date.');
+if (!trustRouter.includes('Painted Churches research, correction and image-rights methodology reviewed ${paintedChurchAuthorityExpansionDateLabel}.')) failures.push('Painted Churches methodology trust note must follow the canonical authority expansion date.');
 for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka','castroville-st-louis-catholic-church','lacoste-our-lady-of-grace']) {
   if (!expanded.includes(slug)) failures.push(`Canonical collection must retain verified promotion ${slug}.`);
 }
