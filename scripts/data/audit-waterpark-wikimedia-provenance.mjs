@@ -45,8 +45,8 @@ function assess(venue,page) {
   if(!im.width||im.width<800||!im.height||im.height<450) return {status:"LOW_RESOLUTION",width:im.width,height:im.height};
   const datum={actualFilename,width:im.width,height:im.height,sourceLicense,sourceLicenseLabel:plain(e.LicenseShortName?.value),sourceArtist:sourceArtist.slice(0,250),description:sourceDescription.slice(0,800),date:plain(e.DateTimeOriginal?.value??e.DateTime?.value??"").slice(0,90)};
   if(!sourceLicense) return {status:"SOURCE_LICENSE_UNVERIFIED",...datum};
-  if(venue.license && venue.license!==sourceLicense) return {status:"LICENSE_DISAGREES_WITH_COMMONS",expected:venue.license,...datum};
   if(!/^(\/licenses\/(?:by|by-sa)\/\d+(?:\.\d+)?|\/publicdomain\/(?:zero|mark)\/1\.0)$/.test(sourceLicense)) return {status:"LICENSE_NOT_CLEAR_FOR_COMMERCIAL_REUSE",...datum};
+  if(venue.license && venue.license!==sourceLicense) return {status:"LICENSE_DISAGREES_WITH_COMMONS",expected:venue.license,...datum};
   return {status:venue.candidate?"CANDIDATE_METADATA_ONLY_REQUIRES_VENUE_CHECK":"SOURCE_METADATA_MATCHES_CHECK_EDITORIAL_CONTEXT",...datum};
 }
 function selfTest() {
