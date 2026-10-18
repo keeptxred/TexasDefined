@@ -106,7 +106,7 @@ async function checkHotel(page, viewport) {
   check(errors.length===0,viewport+': runtime errors '+JSON.stringify(errors.slice(0,3)));
   // Verify real TanStack client navigation does not strand Hotel Paso's
   // exact-property affiliate offer on the unrelated El Paso city guide.
-  const cityLink=page.locator('a[href="/city/el-paso"]').first();
+  const cityLink=page.locator('a[href="/city/el-paso"]:visible').first();
   const cityNav=await cityLink.count();
   if(cityNav){
     await cityLink.click({timeout:14000});
