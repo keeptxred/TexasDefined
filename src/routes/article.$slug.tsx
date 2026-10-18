@@ -4,6 +4,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { heritagePhotoRightsForPath } from "@/data/heritage-photo-license-links";
 import { ArticleBody, Byline } from "@/components/editorial/ArticleBody";
+import { EastTexasFoliageParkMap, EastTexasFoliagePhotoGallery } from "@/components/editorial/EastTexasFoliageMedia";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
@@ -569,6 +570,8 @@ function ArticlePage() {
           </div>
         </article>)}
       </div>
+      <EastTexasFoliageParkMap />
+      <EastTexasFoliagePhotoGallery />
       <nav aria-label="Regional foliage planning" className="mt-8 flex flex-wrap gap-4 border-t border-border pt-5 text-sm">
         <a href="https://www.openstreetmap.org/#map=8/32.65/-94.95" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Explore the East Texas region on a map ↗</a>
         <a href="/article/texas-fall-foliage-road-trip" className="font-semibold text-primary underline underline-offset-4">Texas fall foliage road trip →</a>
