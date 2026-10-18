@@ -33,3 +33,10 @@ test('commercial links disclose relationships and preserve click attribution', (
   assert.match(offers, /Affiliate disclosure:/);
   assert.match(offers, /actual venue and date/);
 });
+
+test('football explainer affiliates are limited to sourced planning topics', () => {
+  const article = readFileSync('src/routes/article.$slug.tsx', 'utf8');
+  for (const slug of ['texas-high-school-football-playoffs-explained', 'texas-six-man-football-rules-explained', 'texas-high-school-football-scores-schedules']) assert.ok(article.includes(`"${slug}"`));
+  assert.match(article, /footballTravelArticleSlugs\.has\(article\.slug\)/);
+  assert.match(article, /hasUpcomingAwayTravel=\{false\} showTravelPlanning/);
+});
