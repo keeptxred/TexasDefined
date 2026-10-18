@@ -1,5 +1,6 @@
 import { isTexasStateParkDestination } from "./state-park-authority";
 import { exploreHeroMap } from "./explore-hero-map";
+import { DEVILS_RIVER_LANDSCAPE_IMAGE } from "./verified-devils-river-landscape";
 import { stateParkHeroMap } from "./state-park-hero-map";
 import type { Destination, ImageRef } from "./types";
 
@@ -36,6 +37,8 @@ function isRemoteHero(src: string): boolean {
 }
 
 function mappedHero(slug: string): ImageRef | undefined {
+  // Never reuse the generated Devils River photo: the file depicts a millipede.
+  if (slug === "devils-river-state-natural-area") return DEVILS_RIVER_LANDSCAPE_IMAGE;
   const direct = stateParkHeroMap[slug] ?? exploreHeroMap[slug];
   if (direct) return direct;
   const alias = STATE_PARK_HERO_ALIASES[slug];
@@ -69,6 +72,9 @@ export function applyStateParkHeroAssets(destinations: Destination[]): Destinati
 
   return destinations.map((destination) => {
     if (!isTexasStateParkDestination(destination)) return destination;
+    if (destination.slug === "devils-river-state-natural-area") {
+      return { ...destination, hero: DEVILS_RIVER_LANDSCAPE_IMAGE };
+    }
 
     const mapped = mappedHero(destination.slug);
     if (mapped && isRemoteHero(destination.hero.src) && isDedicatedStateParkJpeg(mapped.src)) {
@@ -95,6 +101,9 @@ export function applyStateParkHeroAssets(destinations: Destination[]): Destinati
 }
 
 export function applyStateParkHeroAsset(destination: Destination): Destination {
+  if (destination.slug === "devils-river-state-natural-area" && isTexasStateParkDestination(destination)) {
+    return { ...destination, hero: DEVILS_RIVER_LANDSCAPE_IMAGE };
+  }
   if (!isTexasStateParkDestination(destination)) return destination;
   const mapped = mappedHero(destination.slug);
   if (mapped && isRemoteHero(destination.hero.src) && isDedicatedStateParkJpeg(mapped.src)) {
