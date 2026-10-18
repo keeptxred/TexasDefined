@@ -1538,6 +1538,58 @@
         "https://easttexasoilmuseum.kilgore.edu/contact/",
         "https://easttexasoilmuseum.kilgore.edu/memberships/"
       ]
+    },
+    "texas-country-music-hall-of-fame-carthage": {
+      "name": "Texas Country Music Hall of Fame and Tex Ritter Museum",
+      "operatorStrengths": [
+        "Official everyday Carthage museum hours and adult/child prices",
+        "Direct Tex Ritter and Jim Reeves/KGRI interpretive exhibit details",
+        "Official induction and annual tribute performance listings",
+        "Texas State Historical Association independent founding context"
+      ],
+      "openGaps": [
+        "Verify current entrance and gallery accessibility with operator before certification",
+        "Confirm responsive photo loads and credit/source/license links in production",
+        "Compare all operator pages with live FAQ render and actual event-ticket differentiation"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.tcmhof.com/museum",
+        "https://www.tcmhof.com/contact",
+        "https://www.tcmhof.com/latest-inductees",
+        "https://www.tcmhof.com/schedule",
+        "https://www.tshaonline.org/handbook/entries/texas-country-music-hall-of-fame-and-tex-ritter-museum"
+      ]
+    },
+    "bryan-museum-galveston": {
+      "name": "The Bryan Museum",
+      "operatorStrengths": [
+        "Published season-specific museum opening schedule and explicit age-based admission",
+        "Seven named permanent galleries and changing special exhibit",
+        "Explicit nonrefundable ticket terms and a separately reserved historical building tour",
+        "Historical Orphans Home site and collections information from Bryan Educational Institute"
+      ],
+      "openGaps": [
+        "Obtain complete visitor-accessibility details rather than inferring from event rental contract",
+        "Verify official special gallery rotation and live booking terminology",
+        "Confirm photo render/credit and actual source rights link on deployed page",
+        "Independently inspect live canonical schema, FAQs and county/nearby museum links"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://thebryanmuseum.org/plan-your-visit",
+        "https://thebryanmuseum.org/plan-your-visit/tickets",
+        "https://thebryanmuseum.org/exhibitions",
+        "https://thebryanmuseum.org/about-us/bryan-educational-institute",
+        "https://thebryanmuseum.org/venue-rental/museum-guidelines",
+        "https://thebryanmuseum.org/hours-location"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
