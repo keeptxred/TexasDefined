@@ -52,6 +52,15 @@ async function checkHotel(page, viewport) {
   const response=await page.goto(visitUrl(path,viewport),{waitUntil:'domcontentloaded',timeout:55000});
   await page.locator('h1').first().waitFor({state:'visible',timeout:25000});
   await page.evaluate(()=>document.fonts?.ready);
+  // Inspect the source-backed, user-visible offer WITHOUT CLICKING its CJ
+  // redirect, so our production QA generates no artificial affiliate clicks.
+  const exactOffer=page.locator('a[data-affiliate-placement="hotel-paso-exact-hotel-stay"]').first();
+  await exactOffer.waitFor({state:'visible',timeout:22000});
+  const offer=await exactOffer.evaluate(el=>({
+    href:el.href,rel:el.rel,text:(el.textContent||'').trim(),
+    partner:el.dataset.affiliatePartner,placement:el.dataset.affiliatePlacement,
+  }));
+  const disclosure=await page.locator('#td-stay-affiliate-options .td-stay-affiliate-disclosure').first().textContent({timeout:12000});
   const hero=page.locator('img[alt*="stained-glass dome"]').first();
   const heroImage=await decode(hero);
   const gallery=page.locator('section[aria-labelledby="destination-photo-archive"] img');
@@ -65,7 +74,7 @@ async function checkHotel(page, viewport) {
   await page.evaluate(()=>scrollTo(0,0));
   await page.screenshot({path:dir+'/'+viewport+'-hotel-full.png',fullPage:true,animations:'disabled',timeout:35000});
   const data=await collect(page);
-  await writeFile(dir+'/'+viewport+'-hotel.json',JSON.stringify({http:response?.status(),heroImage,archive, ...data, text:data.text.slice(0,28000),errors},null,2));
+  await writeFile(dir+'/'+viewport+'-hotel.json',JSON.stringify({http:response?.status(),heroImage,archive,offer,disclosure, ...data, text:data.text.slice(0,28000),errors},null,2));
 
   check(response?.status()===200,viewport+': hotel HTTP '+response?.status());
   check(data.mainCount===1,viewport+': missing/duplicate main landmark: '+data.mainCount);
@@ -87,9 +96,26 @@ async function checkHotel(page, viewport) {
   // Empty alt is correct for decorative logos; require meaningful alt on exactly the three historical photos.\n  check(data.images.filter(i=>/stained-glass dome|Historic American Buildings Survey|Early twentieth-century postcard/i.test(i.alt)).length===3,viewport+': three hotel photographs must have meaningful alt text');
   check(linkExists(data.links,county),viewport+': missing county link');
   check(data.links.some(h=>h.startsWith('https://www.marriott.com/en-us/hotels/elpak-')),viewport+': missing official non-affiliate booking link');
+  check(offer.href.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho114680/'),viewport+': CJ URL not scoped to verified Hotel Paso property: '+offer.href);
+  check(offer.partner==='hotels.com'&&offer.placement==='hotel-paso-exact-hotel-stay',viewport+': missing CJ partner/placement tracking tags');
+  check(offer.rel.includes('sponsored')&&offer.rel.includes('nofollow')&&offer.rel.includes('noopener'),viewport+': missing sponsored-safe new tab link rel');
+  check(offer.text==='Check Hotel Paso del Norte on Hotels.com',viewport+': mislabeled exact hotel booking offer '+offer.text);
+  check((disclosure||'').includes('Affiliate disclosure:')&&(disclosure||'').includes('Hotels.com'),viewport+': missing visible Hotels.com commission disclosure');
+  check(data.text.includes('independently operated visitor options')||data.text.includes('independently operated'),viewport+': independent tour/operator disclosure absent');
   check(data.links.some(h=>h.includes('commons.wikimedia.org/wiki/File:')),viewport+': missing archival photo credits');
   check(errors.length===0,viewport+': runtime errors '+JSON.stringify(errors.slice(0,3)));
-  return {page:path,viewport,http:response?.status(),hero:heroImage,archive,bodyCharacters:data.text.length,documentWidth:data.width,viewportWidth:data.viewportWidth,errors};
+  // Verify real TanStack client navigation does not strand Hotel Paso's
+  // exact-property affiliate offer on the unrelated El Paso city guide.
+  const cityLink=page.locator('a[href="/city/el-paso"]').first();
+  const cityNav=await cityLink.count();
+  if(cityNav){
+    await cityLink.click({timeout:14000});
+    await page.waitForURL(url=>url.pathname==='/city/el-paso',{timeout:18000});
+    await page.waitForTimeout(800);
+    check(await page.locator('a[data-affiliate-placement="hotel-paso-exact-hotel-stay"]').count()===0,
+      viewport+': hotel-specific tracked offer persists after TanStack navigation to city guide');
+  } else failures.push(viewport+': no internal El Paso city link for SPA navigation check');
+  return {page:path,viewport,http:response?.status(),hero:heroImage,archive,offer:{partner:offer.partner,placement:offer.placement,rel:offer.rel,label:offer.text},spaCityNavigationChecked:Boolean(cityNav),bodyCharacters:data.text.length,documentWidth:data.width,viewportWidth:data.viewportWidth,errors};
 }
 
 async function checkInbound(page,p,viewport){
@@ -97,6 +123,7 @@ async function checkInbound(page,p,viewport){
   await page.locator('h1').first().waitFor({state:'visible',timeout:25000});
   const data=await collect(page);
   const found=linkExists(data.links,path);
+  check(!data.links.some(h=>h.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho114680/')),viewport+': Hotel Paso CJ link present on unrelated '+p);
   check(response?.status()===200,viewport+': inbound '+p+' HTTP '+response?.status());
   check(found,viewport+': missing inbound Hotel Paso del Norte link on '+p);
   check(data.width<=data.viewportWidth+10,viewport+': inbound overflow '+p);
@@ -149,4 +176,4 @@ try {
 finally {if(browser)await browser.close();}
 await writeFile(dir+'/summary.json',JSON.stringify({ok:failures.length===0,failures,reports},null,2)+'\n');
 for(const f of failures)console.error('FAIL: '+f);
-if(failures.length)process.exitCode=1;else console.log('PASS: Hotel Paso del Norte: mobile+desktop image decoding, hotel JSON-LD, SEO, citations, booking, city/county inbound and Magoffin closure/photo acceptance.');
+if(failures.length)process.exitCode=1;else console.log('PASS: Hotel Paso del Norte: mobile+desktop history, licensed photos, exact-property CJ booking disclosure and no tracked CTA leakage, city/county backlinks and Magoffin closure.');
