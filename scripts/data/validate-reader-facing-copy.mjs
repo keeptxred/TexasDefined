@@ -14,7 +14,7 @@ for (const entry of fs.readdirSync("src/data")) {
 const forbidden = [
   ["brand-first editorial framing", /\bFor Texas\s*Defined\b|\bFor TexasDefined\b/i],
   ["internal publication workflow", /research records in the editorial system|profiles? remain unpublished|review gates?|image-rights and internal-link reviews?/i],
-  ["internal graph/site architecture", /\b(?:discovery graph|knowledge graph|internal linking|cross-link opportunities|canonical authority destination|authority node|authority hub|authority stop)\b/i],
+  ["internal graph/site architecture", /\b(?:discovery graph|knowledge graph|internal linking|cross-link opportunities|canonical authority destination|authority node|authority hub|authority stop|authority anchor)\b|\bTexasDefined\s+(?:treats|maps|uses|groups)\b|\bTexasDefined\s+anchor\b/i],
   ["audit reconciliation language", /\b(?:the|raw) audit(?:'s)?\b/i],
   ["page/profile/pillar mechanics", /\b(?:the|this)\s+(?:page|profile|pillar)\b.{0,120}\b(?:should|must|can|eligib|editorial|network|route|support|connect|useful)\b/i],
 ];
