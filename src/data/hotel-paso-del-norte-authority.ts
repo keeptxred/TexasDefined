@@ -14,6 +14,10 @@ const westTexasHeritageCenter = "https://www.preservationtexas.org/elpaso";
 const trostTours = "https://trostsociety.org/tours/";
 const buildersTours = "https://buildersofthedesert.org/tours";
 const domePhoto = "Tiffany glass dome, Camino Real Hotel (formerly Hotel Paso del Norte), 1912 .JPG";
+const locDomeSource = "https://www.loc.gov/item/2014630865/";
+const locDomeRights = "https://www.loc.gov/item/00650024/";
+const locDomeImage = "https://tile.loc.gov/image-services/iiif/service%3Apnp%3Ahighsm%3A26600%3A26665/full/pct%3A25/0/default.jpg";
+const ponsfordDomeSource = "https://texashistory.unt.edu/ark:/67531/metapth613579/";
 const exteriorPhoto = "Hotel Paso del Norte, El Paso, Texas.jpg";
 const postcard = "Paso Del Norte, El Paso, Texas.jpg";
 const commonsImage = (file: string, width = 1200) =>
@@ -64,7 +68,7 @@ const base = makeThcHeritageDestination({
     "A history-only stop works differently from a lodging visit. Start on public sidewalks for exterior architecture and the contrast between older portions and the later tower. If lobby entry is permitted, look up at the dome and compare what survives with archival images; do not photograph private events or enter guest corridors. Continue to nearby public attractions rather than representing the hotel as an independently ticketed heritage museum.",
     "For a balanced downtown walk, pair the hotel with the Plaza Theatre area, the El Paso Museum of Art and the city's surrounding historic streets. Those places offer distinct stories: entertainment, visual culture and business architecture. Visit El Paso publishes an independently maintained self-guided downtown architecture walk beginning near San Jacinto Plaza. A half-day can work without a car once you are downtown, but crossing to other El Paso districts or hiking in the Franklin Mountains should be treated as a separate itinerary shaped by weather, transport and opening hours.",
     "For more architecture, Preservation Texas operates the West Texas Heritage Center in downtown El Paso, with exhibits and educational programming subject to its current schedule. The Trost Society publishes an architect-focused downtown walking-tour resource, but its tour page is older: verify it still offers the experience and confirm availability and contributions before planning. Builders of the Desert publishes directly bookable guided historic tours; check route themes, meeting points, accessibility, and charges directly. These are independently operated visitor options. TexasDefined has not established paid-referral or affiliate relationships with them.",
-    "For a deeper historical comparison, explore El Paso's broader Trost architecture and the records held by the Texas Historical Commission and National Park Service. Compare the 1913 postcard of the hotel with the 2012 federal survey photograph and a 2015 photograph of the dome. All three are historical documentation, not proof of today's decor, bar menu, public access or room condition.",
+    "For a deeper historical comparison, explore El Paso's broader Trost architecture and the records held by the Texas Historical Commission and National Park Service. Compare the 1913 postcard and 2012 federal survey facade with Carol M. Highsmith's 2014 Library of Congress dome photograph and the 2015 CC0 dome close-up. The Ponsford/Trost Collection, preserved by El Paso Public Library and the Portal to Texas History, has an additional historical dome-room image; this page links to its record rather than republishing it because its commercial reuse rights are not confirmed. These archival views are not proof of today's decor, bar menu, public access or room condition.",
     "The hotel is a strong option for travelers who value historic interiors and a central urban base. Travelers primarily seeking low nightly rates, on-site free parking or easy drives to far-flung outdoor sites should compare alternatives before booking. For an architecture enthusiast who does not intend to sleep there, the exterior and permitted public spaces may provide enough context; paying for lodging is not necessary to understand the site's history.",
   ],
   faqs: [
@@ -94,6 +98,9 @@ const base = makeThcHeritageDestination({
     thcSource("Builders of the Desert — live guided walking tour catalog", buildersTours, "Independent downtown heritage tour operator; schedules, charges, accessibility and ticketing managed by operator, not TexasDefined"),
     thcSource("Texas Historical Commission — Magoffin Home access alert", "https://thc.texas.gov/historic-sites/magoffin-home", "Nearby historic home closed through 2027 for restoration; visitor center currently open"),
     thcSource("Wikimedia Commons — original 2015 dome photograph", commonsFilePage(domePhoto), "Wmpearl; CC0 1.0; 3448 × 2900; taken 2015, not a current amenity photograph"),
+    thcSource("Library of Congress — alternate 2014 stained-glass dome photograph", locDomeSource, "Carol M. Highsmith; photographed February 15, 2014; catalog LC-DIG-highsm-26665, Lyda Hill Texas Collection; no known publication restrictions"),
+    thcSource("Library of Congress — Highsmith photographic rights", locDomeRights, "Highsmith Archive photographs are public domain; credit photographer and Library of Congress"),
+    thcSource("Portal to Texas History — Ponsford dome-room archive", ponsfordDomeSource, "El Paso Public Library Ponsford/Trost Collection ELPL_PT-279; photographer Ponsford, date unknown; record linked, photograph not republished"),
     thcSource("Wikimedia Commons — 2012 federal survey exterior", commonsFilePage(exteriorPhoto), "Federal Historic American Buildings Survey/NPS public-domain image; 646 × 804"),
     thcSource("Wikimedia Commons — 1913 hotel postcard", commonsFilePage(postcard), "Curt Teich & Co.; University of Houston Libraries public-domain dedication; credit University of Houston Special Collections"),
   ],
@@ -124,6 +131,16 @@ export const hotelPasoDelNorteAuthorityDestination: Destination = {
   reservationUrl: marriott,
   directions: "For check-in, navigate to 10 Henry Trost Court, not the older 115 El Paso Street historic-register address. Ask the hotel about current valet/garage options and an accessible unloading route.",
   gallery: [
+    {
+      image: {
+        src: locDomeImage,
+        alt: "Angled color view of the intricate stained-glass dome and surrounding ornament at Hotel Paso del Norte's historic Dome Bar in 2014",
+        width: 1840, height: 1228,
+        credit: "Carol M. Highsmith · 2014 · Lyda Hill Texas Collection, Library of Congress · no known publication restrictions",
+      },
+      caption: "A separate, wider angle of the actual stained-glass dome taken February 15, 2014, when the hotel used the Camino Real name. Library of Congress record LC-DIG-highsm-26665; this is archival, not a post-2020 renovation photograph.",
+      sourceUrl: locDomeSource,
+    },
     {
       image: {
         src: commonsImage(exteriorPhoto, 900),

@@ -13,6 +13,10 @@ Reviewed: 2026-10-17 · Path: /destination/hotel-paso-del-norte
 1. Hero: [2015 stained-glass dome photo](https://commons.wikimedia.org/wiki/File:Tiffany_glass_dome,_Camino_Real_Hotel_(formerly_Hotel_Paso_del_Norte),_1912_.JPG), Wmpearl, **CC0 1.0**, original 3448×2900. Its filename mentions 1912, but the **photo was taken in 2015**.
 2. Archive: [2012 Hotel Paso del Norte building](https://commons.wikimedia.org/wiki/File:Hotel_Paso_del_Norte,_El_Paso,_Texas.jpg), NPS Historic American Buildings Survey, United States public domain, 646×804.
 3. Archive: [1913 Hotel Paso del Norte postcard](https://commons.wikimedia.org/wiki/File:Paso_Del_Norte,_El_Paso,_Texas.jpg), University of Houston Libraries public domain; credit “Courtesy of Special Collections, University of Houston Libraries,” 749×1193.
+4. Gallery: [2014 dome from another angle](https://www.loc.gov/item/2014630865/), photo by Carol M. Highsmith on February 15, 2014, **LC-DIG-highsm-26665**, from the Lyda Hill Texas Collection in the Library of Congress. [Highsmith collection rights guide](https://www.loc.gov/item/00650024/) says the photographs are public domain / no known restrictions on publication; site credits the photographer and institutional collection. The 1840×1228 LOC publication derivative is linked directly from the federal image service, not downloaded from a commercial stock mirror. This is a distinct composition from the CC0 hero.
+5. **Archival research link only:** [Ponsford/Trost collection dome-room photograph](https://texashistory.unt.edu/ark:/67531/metapth613579/) (El Paso Public Library, Ponsford photographer, date unknown, ELPL_PT-279). The Portal to Texas History offers open research access but explicitly warns that it does not establish commercial reuse rights for every object. **Do not embed the Ponsford image** absent clearer publication-rights evidence or express permission from the holding institution.
+
+The four photographs actually displayed comprise **two dome photographs** (Wmpearl 2015 CC0 hero and Highsmith 2014 public-domain LOC), one 2012 NPS building survey and one 1913 postcard. The Ponsford image is referenced as a fifth archival lead only, not shown as an unlicensed gallery image.
 
 **Prohibition:** Do not reuse the hotel operator's or Marriott's copyrighted current marketing photos without a verified commercial license. Archival images do not substantiate current guestroom/facility conditions. Do not insert unrelated El Paso or generic hotel imagery.
 
@@ -44,7 +48,7 @@ Reviewed: 2026-10-17 · Path: /destination/hotel-paso-del-norte
 ## Publication acceptance
 1. Focused validator: `node scripts/data/validate-hotel-paso-del-norte-authority.mjs`.
 2. Require existing protected PR checks, data-quality and release gates. No bypass or direct production push.
-3. Once merged and deployed: HTTP 200, canonical, indexable robots decision, Hotel JSON-LD, genuine dome hero rendering, archival image rights, FAQ/source evidence, /city/el-paso and /county/el-paso inbound links, /sitemap-explore.xml inclusion, actual hotel CTA and affiliate disclosures.
+3. Once merged and deployed: HTTP 200, canonical, indexable robots decision, Hotel JSON-LD, CC0 dome hero **and distinct LOC dome gallery photo** both decode on mobile/desktop, all other archive images decode, Ponsford link only (no image reuse), FAQ/source evidence, /city/el-paso and /county/el-paso inbound links, /sitemap-explore.xml inclusion, actual hotel CTA and affiliate disclosures.
 4. Photograph/room amenity changes and hotel policies: recheck against current official sources on regular refresh; no unverified automated price claims.
 
 No outreach was sent, no paid marketing purchased, and no unapproved hotel-specific affiliate tracking link inserted as of the review date.
