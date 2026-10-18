@@ -16,6 +16,7 @@ import {
   selectMetroProximityDestinations,
 } from "./metro-proximity";
 import { metroProximityCollectionPresentation } from "./metro-proximity-presentation";
+import { buildMetroProximityEventContextServer } from "./metro-proximity-events.server";
 import {
   isMetroProximityCollectionIndexReadyWithTownReferences,
   selectMetroProximityTownReferences,
@@ -238,6 +239,7 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
   const results = selectMetroProximityDestinations(destinations, metro, collection);
   const townReferences = selectMetroProximityTownReferences(metro, collection, results);
   const optionCount = results.length + townReferences.length;
+  const eventContext = buildMetroProximityEventContextServer(metro, collection, results, townReferences);
   const indexReady = isMetroProximityCollectionIndexReadyWithTownReferences(destinations, metro, collection);
   const canonicalPath = metroProximityCanonicalPath(metro.slug, collection.slug);
   const presentation = metroProximityCollectionPresentation(collection);
@@ -311,5 +313,5 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
       }),
     }],
   };
-  return { metro, collection, results, townReferences, optionCount, indexReady, presentation, canonicalPath, title, description, reviewedAt, head };
+  return { metro, collection, results, townReferences, eventContext, optionCount, indexReady, presentation, canonicalPath, title, description, reviewedAt, head };
 }

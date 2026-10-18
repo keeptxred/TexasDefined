@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 
 import { hidalgoPumphouseAuthorityDestinations } from "../hidalgo-pumphouse-authority-destination.ts";
+import { selectMetroProximityAffiliateEvents } from "../metro-proximity-event-selection.ts";
 
 import {
   METRO_PROXIMITY_COLLECTIONS,
@@ -41,6 +42,71 @@ function destination(index: number, category: CategorySlug, overrides: Partial<D
     ...overrides,
   };
 }
+
+
+function event(
+  id: string,
+  title: string,
+  city: string,
+  affiliate = true,
+  href = "https://tickets.example.com/event",
+  startDate = "2026-10-20",
+) {
+  return {
+    id,
+    title,
+    city,
+    startDate,
+    endDate: null,
+    ticketCta: { href, isAffiliate: affiliate },
+  };
+}
+
+test("metro proximity events stay geographic, fresh, deduplicated and ticket-safe", () => {
+  const metro = getMetroProximityMetro("houston")!;
+  const collection = getMetroProximityCollection("things-to-do")!;
+  const galveston = destination(920, "small-towns", { name: "Galveston", nearestTown: "Galveston" });
+  const results = selectMetroProximityDestinations([galveston], metro, collection);
+  const townReferences = selectMetroProximityTownReferences(metro, collection, results);
+  const noTicket = { ...event("free", "Free Festival", "Houston"), ticketCta: null };
+  const selected = selectMetroProximityAffiliateEvents(metro, collection, results, townReferences, [
+    event("houston", "Houston Show", "Houston"),
+    event("galveston-a", "Island Festival", "Galveston"),
+    event("galveston-b", "Island Festival", "Galveston"),
+    event("austin", "Austin Show", "Austin"),
+    event("official", "Official Only", "Houston", false),
+    event("unsafe", "Unsafe Affiliate", "Houston", true, "javascript:alert(1)"),
+    noTicket,
+    event("past", "Past Show", "Houston", true, "https://tickets.example.com/past", "2026-10-01"),
+    event("future", "Far Future Show", "Houston", true, "https://tickets.example.com/future", "2026-11-10"),
+  ], { todayIso: "2026-10-18", horizonIso: "2026-11-01" });
+
+  assert.deepEqual(selected.map((item) => item.id), ["houston", "galveston-a", "official", "unsafe", "free"]);
+  assert.equal(selected.find((item) => item.id === "official")?.ticketCta, null);
+  assert.equal(selected.find((item) => item.id === "unsafe")?.ticketCta, null);
+  assert.equal(selected.find((item) => item.id === "free")?.ticketCta, null);
+});
+
+test("weekend-trip events stay limited to represented destination and town-reference places", () => {
+  const metro = getMetroProximityMetro("houston")!;
+  const weekend = getMetroProximityCollection("weekend-trips")!;
+  const dayTrips = getMetroProximityCollection("day-trips")!;
+  const brenham = destination(921, "small-towns", { name: "Brenham", nearestTown: "Brenham" });
+  const results = selectMetroProximityDestinations([brenham], metro, weekend);
+  const townReferences = selectMetroProximityTownReferences(metro, weekend, results);
+  const candidates = [event("houston", "Houston Show", "Houston"), event("brenham", "Brenham Festival", "Brenham")];
+
+  assert.deepEqual(selectMetroProximityAffiliateEvents(metro, weekend, results, townReferences, candidates).map((item) => item.id), ["brenham"]);
+  assert.deepEqual(selectMetroProximityAffiliateEvents(metro, dayTrips, results, townReferences, candidates), []);
+});
+
+test("ongoing metro events remain eligible through their current end date", () => {
+  const metro = getMetroProximityMetro("houston")!;
+  const collection = getMetroProximityCollection("things-to-do")!;
+  const ongoing = { ...event("ongoing", "Ongoing Fair", "Houston", true, "https://tickets.example.com/ongoing", "2026-10-16"), endDate: "2026-10-20" };
+  const selected = selectMetroProximityAffiliateEvents(metro, collection, [], [], [ongoing], { todayIso: "2026-10-18", horizonIso: "2026-11-01" });
+  assert.deepEqual(selected.map((item) => item.id), ["ongoing"]);
+});
 
 test("unknown metro and collection slugs fail closed", () => {
   assert.equal(getMetroProximityMetro("not-a-metro"), undefined);
