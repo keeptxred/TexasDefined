@@ -963,7 +963,8 @@ export const texasWaterParks: WaterParkGuide[] = [
       "Indoor attractions include Barreling Baboon, Kenya Korkscrew, Rippling Rhino and Screaming Hyena, which can have temporary ride closures.",
       "Limited day passes are offered to non-overnight visitors, but the park states that online purchase is the only way to guarantee admission.",
       "Children under 48 inches must wear an approved life jacket; loaners are limited, and guests under 14 must be accompanied by a parent or guardian.",
-      "Day-pass guests should bring towels, because complimentary towel service is not included with their admission."
+      "Day-pass guests should bring towels, because complimentary towel service is not included with their admission.",
+      "The resort directs guests to the outdoor waterpark through the indoor waterpark or the lower lobby near Baobab Social Bar; check the distinct outdoor calendar."
     ],
     "visitorFaqs": [
       {
@@ -985,8 +986,27 @@ export const texasWaterParks: WaterParkGuide[] = [
         "question": "Are toddlers and young children subject to different restrictions?",
         "answer": "Ages two and under do not need a waterpark pass; children younger than 14 must be with a parent or guardian, and children under 48 inches must wear approved life jackets.",
         "sourceUrl": "https://www.kalahariresorts.com/texas-round-rock/parks-and-passes/day-passes/waterpark-day-passes/"
+      },
+      {
+        "question": "Can families bring coolers, snacks or drinks into Kalahari's waterpark?",
+        "answer": "The operator prohibits outside coolers, food and beverages inside the waterpark and resort common areas. Guests who need baby food or allergy-related items should clearly identify them to staff during bag checks. Check Kalahari's current rules before traveling.",
+        "sourceUrl": "https://www.kalahariresorts.com/texas-round-rock/parks-and-passes/day-passes/waterpark-day-passes/"
+      },
+      {
+        "question": "How do waterpark guests reach the outdoor rides?",
+        "answer": "Kalahari's Round Rock operator says the outdoor waterpark is reached through the indoor waterpark or on lower level 1 near the Baobab Social Bar. Check its separately published outdoor hours before planning on specific attractions.",
+        "sourceUrl": "https://www.kalahariresorts.com/texas-round-rock/parks-and-passes/outdoor-waterpark/"
       }
-    ]
+    ],
+    "licensedMedia": {
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Kalahari%20Resort%20Hotel%20Round%20Rock%20Texas%202025.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kalahari_Resort_Hotel_Round_Rock_Texas_2025.jpg",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "licenseLabel": "CC BY 4.0",
+      "photographer": "Larry D. Moore",
+      "year": 2025,
+      "alt": "The Kalahari Resort Hotel exterior in Round Rock, Texas, photographed December 2025; interior water slides are not pictured."
+    }
   },
   {
     "slug": "great-wolf-grapevine",
@@ -4400,7 +4420,16 @@ export const texasWaterParks: WaterParkGuide[] = [
         "answer": "The city requires swimmers age 14 and younger to attend with a supervising adult over 18 years old. Pool visitors must also follow the city's posted safety regulations.",
         "sourceUrl": "https://midlandtexas.gov/swim"
       }
-    ]
+    ],
+    "licensedMedia": {
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Doug%20Russell%20Pool%20Midland%20Texas.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Doug_Russell_Pool_Midland_Texas.jpg",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "licenseLabel": "CC BY-SA 3.0",
+      "photographer": "Texas.pics",
+      "year": 2014,
+      "alt": "Panoramic view of Doug Russell Pool in Midland, Texas, photographed March 2014; current slide operation is not depicted."
+    }
   },
   {
     "slug": "pharr-aquatic-center",
