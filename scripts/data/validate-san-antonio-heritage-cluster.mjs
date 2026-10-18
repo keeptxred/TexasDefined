@@ -69,3 +69,7 @@ const city = read("src/data/city-authority-profiles.ts");
 assert(city.includes("'Two-day San Antonio heritage route'") && city.includes("'/article/historic-san-antonio-heritage-road-trip'"), "City must link to the historic San Antonio article");
 assert(city.includes("'Missions day'") && city.includes("href: '/destination/san-antonio-missions-national-historical-park'"), "San Antonio city page must link to mission authority");
 assert(city.includes("'Casa Navarro'") && city.includes("href: '/destination/casa-navarro'"), "San Antonio city hub must expose Tejano heritage");
+
+const legacyRedirects = read("src/lib/legacy-editorial-redirects.ts");
+assert(legacyRedirects.includes('LEGACY_EDITORIAL_REDIRECTS["/destination/san-antonio"] = "/city/san-antonio"'), "San Antonio old city URL must redirect to canonical city guide");
+assert(legacyRedirects.includes('LEGACY_EDITORIAL_REDIRECTS["/article/bexar-county-san-antonio-missions-river"] = "/article/bexar-county-san-antonio-missions-river-texas"'), "Historic Bexar article alias must redirect to the canonical article");
