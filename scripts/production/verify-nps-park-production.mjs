@@ -11,10 +11,9 @@ function unescapeAttributes(text){return text.replace(/&amp;/g,"&").replace(/&qu
 /** Check real anchor tags inside a rendered section rather than JS preload strings. */
 export function verifyDirectoryHtml(raw){
  const html=unescapeAttributes(raw);
- const marker='id="complete-texas-nps-inventory"';
- const count=html.split(marker).length-1;
- if(count!==1)throw new Error("Expected exactly one server-rendered NPS inventory; got "+count);
- const start=html.indexOf(marker),end=html.indexOf("</section>",start);
+ const renderedSections=[...html.matchAll(/<section\b[^>]*\bid="complete-texas-nps-inventory"/g)];
+ if(renderedSections.length!==1)throw new Error("Expected exactly one real HTML section for the NPS inventory; found "+renderedSections.length);
+ const start=renderedSections[0].index,end=html.indexOf("</section>",start);
  if(end<0)throw new Error("NPS inventory closing section not rendered");
  const section=html.slice(start,end+10);
  if(!section.includes("18 National Park Service designations"))throw new Error("Full federal inventory heading absent");
