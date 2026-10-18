@@ -1019,6 +1019,7 @@ if (!errors.length) {
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
     'How to enroll at',
     'Official district enrollment',
+    '((program && enrollmentLink) || (!program && privateAdmissions))',
     'District enrollment source last reviewed',
      'Official school admissions',
     'Start with {admissions.sourceLabel} ↗',
@@ -1073,6 +1074,7 @@ if (!errors.length) {
     'Association placement not yet available',
     'No district label in source',
     'Not specified by source',
+    'has not yet verified a dedicated current enrollment URL',
   ]) {
     if (featuredProfilePage.includes(forbidden)) errors.push(`Football profile contains a statewide regression marker: ${forbidden}`);
   }
