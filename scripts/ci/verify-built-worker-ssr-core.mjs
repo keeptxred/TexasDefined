@@ -31,6 +31,9 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/explore/water-parks/kalahari-round-rock', requiredText: "Can families bring coolers, snacks or drinks into Kalahari", label: 'Kalahari detailed first-party visitor rules' },
+  { path: '/explore/water-parks/kalahari-round-rock', requiredText: 'Wikimedia Commons source', label: 'Kalahari exact-location photographed venue credits' },
+  { path: '/explore/water-parks/midland-doug-russell', requiredText: 'Texas.pics', label: 'Midland historical municipal pool credits' },
   // Bounded individual-waterpark contract: the guide must SSR with researched
   // operator facts, real media attribution where licensed, and new municipal venues.
   { path: '/explore/water-parks/schlitterbahn-new-braunfels', requiredText: 'Where should day visitors park versus resort guests?', label: 'New Braunfels researched individual guide' },
