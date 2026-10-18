@@ -19,9 +19,9 @@ export function TexasRiversCitationTrust() {
             note: "Statewide mapped basin locations with county context; the agency labels the map January 2014 and cautions mapped boundaries are approximate.",
           },
           {
-            name: "TWDB Groundwater Modeling — 2023 official river basin polygons",
+            name: "Texas Water Development Board — 2023 river basin boundary data",
             url: "https://gis1.twdb.texas.gov/server/rest/services/WSC-GW-Modeling/GM_Admin_Boundaries/MapServer/0",
-            note: "TWDB official major/coastal river basin polygons, edited August 7, 2023. Used in the optional interactive watershed map; maps drainage boundaries rather than river channels, public access, or legal parcel boundaries.",
+            note: "Official major and coastal basin boundary data, edited August 7, 2023. Used in the optional interactive map; it shows drainage areas rather than river channels, public access points or property lines.",
           },
           {
             name: "Texas Water Development Board — GIS datasets",
@@ -60,11 +60,11 @@ export function TexasRiversCitationTrust() {
           },
         ]}
         methodology="Texas Defined transcribed all 15 major-basin figures from the TWDB statewide reference table and lists eight designated coastal basins without fabricating missing comparative figures. Three separate measures are presented: basin drainage area within Texas, main-river length within Texas, and average annual volume. TWDB does not specify the averaging period in its public summary table, so we do not describe these numbers as current streamflow. The lead geographical map is the TWDB January 2014 basin reference and carries the agency’s approximation disclaimer; the separately downloadable TexasDefined graphic is schematic only. USGS supplies the hydrology explanation; TPWD supplies access guidance; NWS supplies flood-safety guidance. Editorial examples and linked destinations are not agency certifications of access or conditions."
-        lastVerified="October 9, 2026"
+        lastVerified="October 18, 2026"
       />
       <div className="border-b border-border py-6 text-sm leading-7 text-muted-foreground">
         <h3 className="font-semibold text-foreground">Recommended citation</h3>
-        <p className="mt-2">Texas Defined. “Texas Rivers Explained.” Last verified October 9, 2026. {RIVERS_CANONICAL_URL}</p>
+        <p className="mt-2">Texas Defined. “Texas Rivers Explained.” Last verified October 18, 2026. {RIVERS_CANONICAL_URL}</p>
         <p className="mt-2 text-xs">Use the stable canonical URL above when citing this guide. For individual basin statistics, cite the linked Texas Water Development Board source directly when practical.</p>
       </div>
     </div>
