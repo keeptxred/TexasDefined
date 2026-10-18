@@ -26,7 +26,7 @@ export function TexasRiversCitationTrust() {
           {
             name: "Texas Water Development Board — GIS datasets",
             url: "https://www.twdb.texas.gov/mapping/gisdata.asp",
-            note: "Underlying geographic layers and metadata for mapping work. Its USGS-derived 23-basin layer is explicitly not the official TWDB basin-boundary dataset; do not substitute the two.",
+            note: "Underlying geographic layers and metadata for mapping work. The agency's U.S. Geological Survey-derived 23-basin layer is not the official Texas Water Development Board basin-boundary dataset; the two should not be substituted.",
           },
           {
             name: "US Geological Survey — Rivers, Streams, and Creeks",
@@ -39,9 +39,9 @@ export function TexasRiversCitationTrust() {
             note: "Explains tributaries, river valleys and the development of channels and watersheds.",
           },
           {
-            name: "USGS — Current water conditions",
+            name: "U.S. Geological Survey — Current water conditions",
             url: "https://waterdata.usgs.gov/tx/nwis/rt",
-            note: "Locate measured streamflow and gauge levels before visiting; these are not the same thing as long-term TWDB reference averages.",
+            note: "Locate measured streamflow and gauge levels before visiting; these are not the same thing as long-term Texas Water Development Board reference averages.",
           },
           {
             name: "Texas Parks and Wildlife — Public boater access",
@@ -59,7 +59,7 @@ export function TexasRiversCitationTrust() {
             note: "Weather and flood preparedness reference, separate from current local watches, warnings and gauge readings.",
           },
         ]}
-        methodology="Texas Defined transcribed all 15 major-basin figures from the TWDB statewide reference table and lists eight designated coastal basins without fabricating missing comparative figures. Three separate measures are presented: basin drainage area within Texas, main-river length within Texas, and average annual volume. TWDB does not specify the averaging period in its public summary table, so we do not describe these numbers as current streamflow. The lead geographical map is the TWDB January 2014 basin reference and carries the agency’s approximation disclaimer; the separately downloadable TexasDefined graphic is schematic only. USGS supplies the hydrology explanation; TPWD supplies access guidance; NWS supplies flood-safety guidance. Editorial examples and linked destinations are not agency certifications of access or conditions."
+        methodology="Texas Defined transcribed all 15 major-basin figures from the Texas Water Development Board statewide reference table and lists eight designated coastal basins without inventing missing comparison figures. Three separate measures are presented: basin drainage area within Texas, main-river length within Texas, and average annual volume. The agency does not specify the averaging period in its public summary table, so these numbers are not described as current streamflow. The lead map is the Texas Water Development Board's January 2014 basin reference and carries the agency's approximation disclaimer; the separately downloadable TexasDefined graphic is simplified for orientation. The U.S. Geological Survey supplies the river-science explanation, Texas Parks and Wildlife supplies access guidance, and the National Weather Service supplies flood-safety guidance. Editorial examples and linked destinations are not agency certifications of access or conditions."
         lastVerified="October 18, 2026"
       />
       <div className="border-b border-border py-6 text-sm leading-7 text-muted-foreground">
