@@ -7,6 +7,16 @@ const sites=[
  {slug:"lake-mineral-wells-state-park",county:"parker",words:["propane","charcoal","fires"],source:"lake-mineral-wells"},
  {slug:"galveston-island-state-park",county:"galveston",words:["71","95","boardwalk"],source:"galveston-island"},
 ];
+// Park-specific licensed heroes can originate in the state-park catalog or
+// the original Lakes/Rivers/Coast editorial gallery. Never accept generic photos.
+const approvedAlternateHeroPaths={
+ "guadalupe-river-state-park":["/images/explore/lakes-rivers/guadalupe-river-state-park.jpg"],
+ "pedernales-falls-state-park":["/images/explore/lakes-rivers/pedernales-falls-state-park.jpg"],
+ "galveston-island-state-park":["/images/explore/beaches-coast/galveston-island-state-park.jpg"],
+};
+function approvedHeroPaths(site){
+ return ["/images/state-parks/"+site.slug+".jpg",...(approvedAlternateHeroPaths[site.slug]||[])];
+}
 const origins=["https://texasdefined-site.freddy-coppola.workers.dev","https://texasdefined.com"];
 const report={scope:"six-park-live-photo-2026-10-18",verified:[],failures:[],targetCount:12};
 function visibleText(html){return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi," ").replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi," ").replace(/<[^>]+>/g," ").replace(/&nbsp;/g," ").replace(/&amp;/g,"&").replace(/\s+/g," ");}
@@ -18,15 +28,15 @@ export function inspectParkHtml(raw,site){
  if(!raw.includes("tpwd.texas.gov/state-parks/"+site.source))throw Error("Official park link missing "+site.slug);
  for(const word of site.words)if(!lower.includes(word.toLowerCase()))throw Error("Sourced visitor restriction missing "+site.slug+": "+word);
  if(!/Photography:|Wikimedia Commons|National Park Service/i.test(visible))throw Error("Visible licensed hero attribution missing "+site.slug);
- const expectedHero="/images/state-parks/"+site.slug+".jpg";
- const parkHero=(raw.match(/<img\b[^>]*>/gi)||[]).find(tag=>tag.includes(expectedHero)&&/\balt=/.test(tag));
- if(!parkHero)throw Error("Exact park-specific image or its alt text missing "+site.slug+" ("+expectedHero+")");
+ const heroTags=(raw.match(/<img\b[^>]*>/gi)||[]).filter(tag=>/\balt=/.test(tag));
+ const heroPath=approvedHeroPaths(site).find(path=>heroTags.some(tag=>tag.includes(path)));
+ if(!heroPath)throw Error("Approved park-specific photo or its alt text missing "+site.slug+" ("+approvedHeroPaths(site).join(", ")+")");
  if(/<meta\s+name="robots"\s+content="noindex/i.test(raw))throw Error("Park unexpectedly noindex "+site.slug);
  if(!raw.includes("https://texasdefined.com/destination/"+site.slug))throw Error("Missing self canonical URL "+site.slug);
- return {county:site.county,verifiedVisitorFacts:site.words.length};
+ return {county:site.county,verifiedVisitorFacts:site.words.length,heroPath};
 }
-async function verifyHeroBytes(origin,site){
- const image=new URL("/images/state-parks/"+site.slug+".jpg",origin);
+async function verifyHeroBytes(origin,site,heroPath){
+ const image=new URL(heroPath,origin);
  const response=await fetch(image,{cache:"no-store",redirect:"follow",signal:AbortSignal.timeout(15000),headers:{"cache-control":"no-cache","user-agent":"TexasDefined-StatePark-Photo-Acceptance/1.0",range:"bytes=0-65535"}});
  if(!response.ok||response.headers.get("cf-mitigated")==="challenge")throw Error("Park hero HTTP "+response.status+": "+site.slug);
  const type=(response.headers.get("content-type")||"").toLowerCase();
@@ -43,7 +53,7 @@ async function inspectOrigin(origin,site){
    const response=await fetch(url,{cache:"no-store",redirect:"follow",signal:AbortSignal.timeout(15000),headers:{"cache-control":"no-cache","user-agent":"TexasDefined-Park-Editorial-Acceptance/1.0"}});
    if(!response.ok||response.headers.get("cf-mitigated")==="challenge")throw Error("HTTP "+response.status);
    const html=await response.text(),checked=inspectParkHtml(html,site);
-   const hero=await verifyHeroBytes(origin,site);
+   const hero=await verifyHeroBytes(origin,site,checked.heroPath);
    report.verified.push({origin,slug:site.slug,status:response.status,bytes:html.length,...checked,...hero});return;
   }catch(e){last=e;}
  }
