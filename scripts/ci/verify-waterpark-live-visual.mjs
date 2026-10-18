@@ -52,7 +52,13 @@ try{
         const robots=await page.locator('meta[name="robots"]').getAttribute("content").catch(()=>"");
         verify("uncertified page remains noindex",robots?.includes("noindex"),robots);
         verify("official source linked",(await page.locator('a[href^="https://"]').count())>=1);
-        if(item.faq)verify("specific visitor FAQ appears",(await page.locator("main").innerText().catch(()=>"")).includes(item.faq),item.faq);
+        if(item.faq){
+          // SSR emits FAQs as definition terms. Verify that actual semantic node,
+          // not all 'main' innerText (which can be empty while lazy hydration settles).
+          const faqTerms = await page.locator("main section[aria-labelledby='water-park-visitor-questions'] dt").allTextContents().catch(()=>[]);
+          const normalize = value => String(value).replace(/\\s+/g," ").trim().toLowerCase();
+          verify("specific visitor FAQ appears",faqTerms.some(term=>normalize(term).includes(normalize(item.faq))),JSON.stringify(faqTerms).slice(0,190));
+        }
         if(item.link)verify("relevant internal authority link",(await page.locator('a[href="'+item.link+'"]').count())>0,item.link);
         const photo=page.locator("figure img");
         if(item.photo){
