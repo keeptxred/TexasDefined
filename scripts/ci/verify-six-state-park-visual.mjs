@@ -48,6 +48,7 @@ try{
       visibleImageFailures:[...document.querySelectorAll("img")].filter(img=>{const b=img.getBoundingClientRect();return b.width>0&&b.height>0&&img.complete&&img.naturalWidth===0}).slice(0,5).map(img=>img.currentSrc),
       faqVisible:!!faq && faq.getBoundingClientRect().width>0,
       canonical:document.querySelector('link[rel="canonical"]')?.href||"",
+      licenseLinks:[...document.querySelectorAll('a[href]')].map(a=>a.href).filter(h=>h.includes("commons.wikimedia.org/wiki/File:")||h.includes("creativecommons.org/licenses/")).slice(0,15),
      };
     });
     if(facts.heading!==title)throw new Error("Wrong park heading: "+facts.heading);
@@ -56,6 +57,11 @@ try{
     if(!facts.faqVisible)throw new Error("Source-backed park FAQ not rendered");
     if(facts.visibleImageFailures.length)throw new Error("Broken visible image: "+facts.visibleImageFailures.join(", "));
     if(facts.canonical!==origin+"/destination/"+slug)throw new Error("Canonical mismatch: "+facts.canonical);
+    if(slug==="kickapoo-cavern-state-park"||slug==="lake-casa-blanca-international-state-park"){
+     const match=slug==="kickapoo-cavern-state-park"?"Kickapoo_Cavern_State_Park,_landscape.jpg":"Entrance_to_Lake_Casa_Blanca,_Laredo,_TX_IMG_2013.JPG";
+     if(!facts.licenseLinks.some(h=>h.includes(match)))throw new Error("Linked original Commons photo missing: "+match);
+     if(!facts.licenseLinks.some(h=>h.includes("creativecommons.org/licenses/by-sa/")))throw new Error("Linked original photo share-alike license missing");
+    }
     await page.screenshot({path:output+"/"+viewport.label+"-"+slug+"-hero.png",animations:"disabled",timeout:30000});
     if(viewport.label==="mobile"){
      await page.locator("#destination-visitor-faqs").scrollIntoViewIfNeeded();
