@@ -8,8 +8,8 @@ type HeritagePhotoRights = { sourceUrl: string; licenseUrl: string };
 
 const rightsByPath: Record<string, HeritagePhotoRights> = {
   "/article/how-to-verify-texas-moving-company": {
-    sourceUrl: "https://commons.wikimedia.org/wiki/File:U-Haul_Moving_Truck.jpg",
-    licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Mayflower_Moving_Truck_Ypsilanti_Michigan.JPG",
+    licenseUrl: "https://creativecommons.org/licenses/by/3.0/",
   },
   "/article/health-insurance-when-moving-to-texas": {
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Doctor_consults_with_patient.jpg",
