@@ -3966,8 +3966,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "date": "2026",
         "title": "District opener",
         "body": "Bovina lost a 44–38 contest at West Texas October 9.",
-        "sourceUrl": "https://www.maxpreps.com/tx/bovina/bovina-mustangs/football/schedule/",
-        "sourceLabel": "MaxPreps varsity 2026–27 team schedule (current-season result source; check publication update date)"
+        "sourceUrl": "https://www.kcbd.com/2026/10/10/end-zone-final-scores-friday-oct-9/",
+        "sourceLabel": "KCBD/FOX34 Oct. 9, 2026 South Plains varsity final scores explicitly report West Texas 44, Bovina 38; unlike stale earlier MaxPreps schedule"
       },
       {
         "date": "2026-10-16",
