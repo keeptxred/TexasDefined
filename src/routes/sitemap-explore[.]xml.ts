@@ -141,6 +141,23 @@ async function indexReadyWaterParkPaths(): Promise<string[]> {
   }
 }
 
+// Preserve the same reviewed public town guide that the destination route serves.
+// Audit the full canonical record: neither a thin remote row nor an emergency
+// sitemap fallback may silently drop an already indexable destination.
+async function auditedFredericksburgSitemapEntry(): Promise<string | null> {
+  try {
+    const { smallTownWave1Destinations } = await import("@/data/small-town-destinations-wave1");
+    const canonical = smallTownWave1Destinations.find((destination) => destination.slug === "fredericksburg");
+    if (!canonical || !isPrimaryTripPlannerDestination(canonical) || !auditDestination(canonical).readyForIndexing) {
+      return null;
+    }
+    return entry(`/destination/${canonical.slug}`, canonical.sourceCheckedAt);
+  } catch (error) {
+    console.error("Fredericksburg audited sitemap source unavailable", error);
+    return null;
+  }
+}
+
 async function emergencyExploreSitemapResponse(error: unknown) {
   console.error("Explore sitemap generation failed; serving governed static fallback", error);
   const fallbackPaths = [
@@ -169,8 +186,10 @@ async function emergencyExploreSitemapResponse(error: unknown) {
     ...EXPLORE_REGION_SLUGS.map((regionSlug) => `/explore/region/${regionSlug}`),
     ...METRO_PROXIMITY_METROS.map((metro) => `/explore/near/${metro.slug}`),
   ];
-  const entries = [...new Set(fallbackPaths)]
-    .map((path) => entry(path))
+  const entries = [
+    ...[...new Set(fallbackPaths)].map((path) => entry(path)),
+    await auditedFredericksburgSitemapEntry(),
+  ]
     .filter((item): item is string => Boolean(item))
     .join("\n");
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
@@ -400,6 +419,12 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const destinationEntries = sitemapIndexableDestinations
           .map((item) => entry(`/destination/${item.slug}`, item.sourceCheckedAt))
           .filter((item): item is string => Boolean(item));
+        // A remote or curated catalog may omit the canonical town record; do
+        // not bypass the destination quality gate or create duplicate XML rows.
+        const auditedFredericksburgEntry = await auditedFredericksburgSitemapEntry();
+        if (auditedFredericksburgEntry && !destinationEntries.some((item) => item.includes(`<loc>${BASE_URL}/destination/fredericksburg</loc>`))) {
+          destinationEntries.push(auditedFredericksburgEntry);
+        }
         const { loadMetroProximitySitemapEntriesServer } = await import("@/data/metro-proximity-page-data.server");
         // Proximity sitemap eligibility intentionally resolves through the same
         // canonical destination pipeline as live metro pages. Do not pass the

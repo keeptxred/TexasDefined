@@ -99,6 +99,12 @@ for (const marker of [
   }
 }
 
+if ((exploreSitemap.match(/await auditedFredericksburgSitemapEntry\(\)/g) ?? []).length !== 2 ||
+    !exploreSitemap.includes('auditDestination(canonical).readyForIndexing') ||
+    !exploreSitemap.includes('isPrimaryTripPlannerDestination(canonical)')) {
+  failures.push('Explore sitemap must retain audited Fredericksburg both in normal generation and emergency fallback.');
+}
+
 if (!campingGuide.includes('to: "/destination/garner-state-park"')) {
   failures.push('Statewide camping guide must retain a direct Garner State Park destination link.');
 }
