@@ -1408,7 +1408,7 @@ if (!errors.length) {
       // evidence for 2026 results. These four defects were found in review.
       for (const milestone of program.milestones || []) {
         if (/^2026(?:$|[-/])/.test(milestone.date || '')
-            && /\\/25-26\\/schedule\\//.test(milestone.sourceUrl || '')) {
+            && (milestone.sourceUrl || '').includes('/25-26/schedule/')) {
           errors.push('Batch 006 2026 milestone cites the wrong football season: ' + slug
             + ' / ' + milestone.title);
         }
