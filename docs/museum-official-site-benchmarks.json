@@ -1590,6 +1590,55 @@
         "https://thebryanmuseum.org/venue-rental/museum-guidelines",
         "https://thebryanmuseum.org/hours-location"
       ]
+    },
+    "frontiers-of-flight-museum-dallas": {
+      "name": "Frontiers of Flight Museum",
+      "operatorStrengths": [
+        "Current 2026 day-specific closures and Monday/Sunday schedule",
+        "Ticket tiers, school group discounts, accessible restrooms and KultureCity status",
+        "Individual permanent gallery documentation including Apollo 7",
+        "Food service and no baggage-storage policy"
+      ],
+      "openGaps": [
+        "Compare responsive live route against museum visitor page and current closure exceptions",
+        "Confirm photo-license clickable attribution remains present after deployment",
+        "Check full accessible gallery circulation and update new exhibit rotation"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://flightmuseum.com/visit/",
+        "https://flightmuseum.com/exhibits/",
+        "https://flightmuseum.com/education/field-trips/",
+        "https://flightmuseum.com/"
+      ]
+    },
+    "museum-of-texas-tech-university-lubbock": {
+      "name": "Museum of Texas Tech University",
+      "operatorStrengths": [
+        "Free public galleries with clear holiday and campus closure schedule",
+        "Distinct paid Moody Planetarium ticket, show dates and wheelchair spaces",
+        "Large regional art, natural science and university-research collections",
+        "On-site accessible entrance and free museum parking directions"
+      ],
+      "openGaps": [
+        "Verify exact licensed museum image actually displays in production",
+        "Avoid conflating main museum galleries, NSRL research collection and Lubbock Lake Landmark",
+        "Check changing café and planetarium show times and full accessible visitor route"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.depts.ttu.edu/museumttu/visit/",
+        "https://www.depts.ttu.edu/museumttu/about/",
+        "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+        "https://www.depts.ttu.edu/museumttu/",
+        "https://www.depts.ttu.edu/nsrl/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",

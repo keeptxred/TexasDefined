@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { museumLicensedHeroes } from "./museum-authority-heroes";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-08-31";
@@ -105,9 +106,9 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     nearestTown: "Lubbock",
     county: "Lubbock County",
     coordinates: { lat: 33.59021, lng: -101.88603 },
-    hero: museumPlaceholder("Museum of Texas Tech University"),
+    hero: museumLicensedHeroes["museum-of-texas-tech-university-lubbock"],
     bestSeason: "Year-round indoor museum; pair it with Lubbock Lake Landmark and the National Ranching Heritage Center in any season.",
-    entryNote: "Museum admission is currently free. The museum is closed Mondays and Texas Tech holidays; planetarium and café schedules can differ from gallery hours.",
+    entryNote: "Museum galleries are free: Tue–Sat 10 a.m.–5 p.m., Sunday noon–5 p.m., closed Monday/university holidays. Moody Planetarium shows cost extra (adult $6, many concessions $4), with separate schedules. Free parking Fourth Street/Indiana Avenue; accessible entrance is at the east side with no adjacent parking.",
     highlights: ["Free admission", "Natural history and paleontology", "Anthropology and regional history", "Moody Planetarium"],
     body: [
       "The Museum of Texas Tech University is broad by design. Rather than specializing in one subject, it brings together art, anthropology, history, paleontology, natural science, clothing and textile collections within one university institution. That range makes it useful for families and for travelers trying to understand the South Plains from several angles at once.",
@@ -116,8 +117,8 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     ],
     officialUrl: "https://www.depts.ttu.edu/museumttu/visit/index.php",
     managingAuthority: "Texas Tech University",
-    address: "3301 4th St, Lubbock, TX 79409",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    address: "3301 4th St, Lubbock, TX 79415",
+    sourceCheckedAt: "2026-10-18",
   },
   {
     id: "museum-statewide-wave2-grace",
