@@ -1334,6 +1334,8 @@ if (!errors.length) {
     ['boerne', 'Brett Sawyer', 'boernestar.com/article/14105'],
     ['blanco', 'Kent Walker', 'maxpreps.com/tx/blanco/blanco-panthers/football/staff/'],
     ['bloomington', 'Lane Shands', 'texasfootball.com/article/2026/02/05/which-districts-have-the-best-head-coaches-after-realignment'],
+    ['bovina', 'Wade Wilson', 'newschannel10.com/2026/08/13/2026-countdown-kickoff-bovina-mustangs/'],
+    ['boyd', 'Shawn Sparks', 'ntxvarsitysports.com/boyd-looking-to-build-on-breakthrough-season/'],
   ];
   for (const [slug, expectedCoach, sourceFragment] of currentCoachContracts) {
     const program = footballEditorialRecord(slug);
