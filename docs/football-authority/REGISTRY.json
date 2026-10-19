@@ -53,7 +53,39 @@
     "implementedOnBranch": 25,
     "remainingToImplement": 0,
     "remainingToVerify": 25,
-    "notes": "All 25 independently authored schools present on main and included in successful exact SHA 018899c7 deployment #39050440079 (source release PR #5070). No Batch006 school individually VERIFIED. Chrome #39252028382 attempt 1: 75/75 schools and 25/25 sitemap, county Blanco 22/23 and mixed Worker versions failed strict acceptance. Separate nine-dimension editorial/media review pending. No Batch007."
+    "notes": "All 25 school pages DEPLOYED. Full Batch006 Chrome run #39273758531 on October 19 PASS: 75/75 school viewports, 23/23 county links, 25/25 sitemap entries, 98 screenshots, zero chunk errors, exactly one observed Worker version b4c9dfca. Version matches production deploy #39269777322 (git a20871a). Harness PR #5222 protected-merged ffbf48b. Separately, individual nine-dimension factual/editorial/rights/human-accessibility approval remains 0/25: do not promote any school to VERIFIED. Prior 105 VERIFIED protected. No Batch007.",
+    "technicalBrowserAcceptance": {
+      "runId": 39273758531,
+      "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/39273758531",
+      "checkedAt": "2026-10-19T15:01:49Z",
+      "schoolCasesPassed": 75,
+      "schoolCasesFailed": 0,
+      "schoolCount": 25,
+      "checkedViewports": [
+        1366,
+        390,
+        320
+      ],
+      "countyCasesPassed": 23,
+      "countyCasesFailed": 0,
+      "sitemapUrlsPassed": 25,
+      "screenshotsSaved": 98,
+      "screenshotArtifactId": 12196591822,
+      "javascriptChunkErrors": 0,
+      "observedWorkerVersions": [
+        "b4c9dfca-7f43-4e3d-a24b-22bc16a2a48f"
+      ],
+      "workerVersionMatchesDeploy": true,
+      "productionDeploymentRun": 39269777322,
+      "productionDeploymentGitSha": "a20871abf93259a78d69ebd47fa0d1f8f951d93f",
+      "acceptanceHarnessMergePr": 5222,
+      "acceptanceHarnessMergeSha": "ffbf48b4a906f26c87834ef4d4b0ad23a7df5ebe",
+      "editorialAcceptedSchools": 0,
+      "formalNineDimensionAcceptanceCompleted": false,
+      "schoolPhotoRightsIndividuallyAccepted": false,
+      "individualStatusPromotion": false,
+      "limitation": "Bounded real-Chrome structural/SEO/schema/current-record/county/sitemap tests. Does not independently certify every factual claim, image right, human WCAG test or reviewer signoff."
+    }
   },
   "statusValues": [
     "NOT_REVIEWED",
