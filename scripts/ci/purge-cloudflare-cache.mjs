@@ -74,6 +74,8 @@ const alwaysPurgeUrls = [
   `https://${zoneName}/article/texas-frontier-forts-road-trip`,
   `https://${zoneName}/article/texas-ecoregions-habitats-guide`,
   `https://${zoneName}/county/collin`,
+  // El Paso County guide uses a licensed first-party hero and must not retain cached pre-image HTML.
+  `https://${zoneName}/county/el-paso`,
   `https://${zoneName}/county/crockett`,
   `https://${zoneName}/county/dickens`,
   `https://${zoneName}/destination/zapata-county-museum-history`,

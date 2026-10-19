@@ -27,6 +27,9 @@ const checks = [
     'Quintin Soloviev',
     'CC BY 4.0',
   ]],
+  ['scripts/ci/purge-cloudflare-cache.mjs', [
+    '\`https://\${zoneName}/county/el-paso\`',
+  ]],
   ['src/data/el-paso-county-hero.ts', [
     '/images/state-parks/franklin-mountains-state-park.jpg',
     'Urban Versis 32',
