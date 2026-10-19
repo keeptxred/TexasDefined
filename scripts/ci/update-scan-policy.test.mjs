@@ -93,8 +93,8 @@ test('slug-keyed article link changes verify actual source pages and newly added
 test('planner corrections retest previously missed editorial SSR links, not entire site', () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
   assert.deepEqual(plan.selectedPaths, [
-    '/article/texas-cultural-regions-explained', '/article/texas-regions-explained',
     '/destination/battleship-texas', '/destination/fredericksburg',
+    '/article/texas-cultural-regions-explained', '/article/texas-regions-explained',
     '/explore/road-trips',
     '/fishing/species/black-crappie', '/fishing/species/bluegill',
     '/fishing/species/freshwater-drum', '/fishing/species/white-crappie',
@@ -431,7 +431,6 @@ test('Fredericksburg sitemap ownership validates a single canonical page and liv
   const plan = buildChangePlan({ baseline, head, changedFiles: ['src/routes/sitemap-explore[.]xml.ts'] });
   assert.deepEqual(plan.fredericksburgSitemapPaths, ['/destination/fredericksburg']);
   assert.ok(plan.selectedPaths.includes('/destination/fredericksburg'));
-  const xmlOnlyPlan = { ...plan, selectedPaths: [], fredericksburgSitemapPaths: ['/destination/fredericksburg'] };
   const detail = '<html><title>Fredericksburg</title><link rel="canonical" href="https://texasdefined.com/destination/fredericksburg"></html>';
   const checked = await verifyChangedPages({ plan, head, fetchImpl: async url =>
     url.pathname === '/sitemap-explore.xml'
@@ -443,5 +442,4 @@ test('Fredericksburg sitemap ownership validates a single canonical page and liv
       ? new Response('<urlset><loc>https://texasdefined.com/destination/another-town</loc></urlset>')
       : new Response(detail) });
   assert.ok(broken.some(r => r.path === '/sitemap-explore.xml' && !r.passed && /Fredericksburg missing/.test(r.error)));
-  assert.ok(xmlOnlyPlan.fredericksburgSitemapPaths.length === 1);
 });
