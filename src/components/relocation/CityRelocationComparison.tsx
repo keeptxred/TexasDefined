@@ -111,7 +111,7 @@ export function CityRelocationComparison() {
                         <div><dt className="font-semibold text-foreground">County context</dt><dd className="text-muted-foreground">{place.counties.join(", ")}</dd></div>
                         <div><dt className="font-semibold text-foreground">Planning orientation</dt><dd className="text-muted-foreground">{planningLabels[place.planningBand]}</dd></div>
                         <div><dt className="font-semibold text-foreground">Commute research</dt><dd className="text-muted-foreground">{commuteLabels[place.commuteStyle]}</dd></div>
-                        {metro?.jobCountJune2026 ? <div><dt className="font-semibold text-foreground">June 2026 metro payrolls</dt><dd className="text-muted-foreground">{metro.jobCountJune2026.toLocaleString()} · BLS preliminary</dd></div> : null}
+                        {metro?.jobCountAugust2026 ? <div><dt className="font-semibold text-foreground">August 2026 metro payrolls</dt><dd className="text-muted-foreground">{metro.jobCountAugust2026.toLocaleString()} · BLS preliminary</dd></div> : metro?.jobCountJune2026 ? <div><dt className="font-semibold text-foreground">June 2026 metro payrolls (historical)</dt><dd className="text-muted-foreground">{metro.jobCountJune2026.toLocaleString()} · BLS snapshot</dd></div> : null}
                       </dl>
                       <div className="mt-5 flex flex-col items-start gap-2 text-sm font-semibold">
                         <a href={place.guideHref} className="text-primary underline underline-offset-4">{hasDedicatedGuide ? "Open the metro relocation guide" : "Open the statewide relocation guide"} →</a>
