@@ -8,6 +8,7 @@ import type { TexasCity, TexasCounty } from '@/data/texas-places';
 // Corpus Christi: https://www.tdi.texas.gov/rules/2026/documents/59501finalredline.pdf
 // Dallas: https://citysecretary2.dallascityhall.com/resolutions/2024/09-25-24/24-1459.pdf
 // Fort Worth: https://www.fortworthtexas.gov/files/assets/public/v/1/the-fwlab/documents/planning/comprehensive-planning/adopted/25-intergovernmental-cooperation-final-2023.pdf
+// Mesquite and San Antonio: https://www.tdi.texas.gov/rules/2026/documents/59501finalredline.pdf
 const ADDITIONAL_COUNTIES_BY_CITY: Record<string, string[]> = {
   Abilene: ['Jones'],
   Amarillo: ['Randall'],
@@ -26,6 +27,7 @@ const ADDITIONAL_COUNTIES_BY_CITY: Record<string, string[]> = {
   Lewisville: ['Dallas'],
   Longview: ['Harrison'],
   Midland: ['Martin'],
+  Mesquite: ['Kaufman'],
   'Missouri City': ['Harris'],
   'New Braunfels': ['Guadalupe'],
   Odessa: ['Midland'],
@@ -33,6 +35,7 @@ const ADDITIONAL_COUNTIES_BY_CITY: Record<string, string[]> = {
   Plano: ['Denton'],
   Richardson: ['Collin'],
   'Round Rock': ['Travis'],
+  'San Antonio': ['Comal'],
   'San Marcos': ['Caldwell', 'Guadalupe'],
   'The Woodlands': ['Harris'],
 };
