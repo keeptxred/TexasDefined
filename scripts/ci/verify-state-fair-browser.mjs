@@ -87,6 +87,9 @@ try {
         source: el.querySelector('a[href*="commons.wikimedia.org"]')?.href || '',
         cc0: el.querySelector('a[href*="creativecommons.org/publicdomain/zero/1.0"]')?.href || '',
         credited: el.textContent?.includes('IcedCowboyCoffee') || false,
+        imageSrc: el.querySelector('img')?.currentSrc || '',
+        imageComplete: el.querySelector('img')?.complete || false,
+        imageWidth: el.querySelector('img')?.naturalWidth || 0,
       }));
       row.checks.currentYearPhoto = freshImageLoaded &&
         row.currentYearPhoto.alt.includes('2026') &&
