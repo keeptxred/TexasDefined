@@ -16,6 +16,7 @@ import { applyExploreHeroAsset, applyExploreHeroAssets } from "./explore-heroes"
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
 import { enrichRemainingHistoricSiteAreaGuide } from "./historic-site-area-guides-extra";
 import { enrichHistoricSiteCatalog, enrichHistoricSiteDestination } from "./historic-site-enrichment";
+import { applyMagoffinHomeAuthority } from "./magoffin-home-authority";
 import { enrichHistoricSiteEvergreenLinks } from "./historic-site-evergreen-links";
 import { enrichTexasHistoricSiteAuthority } from "./historic-site-authority-2026";
 import { enrichFullHistoricSiteAuthority } from "./historic-site-authority-full-catalog";
@@ -205,7 +206,7 @@ function applyResolvedHero(destination: Destination) {
   ))));
   // Specialized editorial curators may reintroduce older remote JPEG heroes.
   // Resolve the approved exact-place local park photograph after all curators.
-  return applyStateParkHeroAsset(curated);
+  return applyMagoffinHomeAuthority(applyStateParkHeroAsset(curated));
 }
 
 function resolveSeoReadyDestination(destination?: Destination | null) {
@@ -235,7 +236,8 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     // preserving their existing precedence and historic-site protections.
     .map(enrichMuseumMedia)
     .map(applyTownAuthority)
-    .map(enforceFredericksburgJohnsonCityHeritageAuthority);
+    .map(enforceFredericksburgJohnsonCityHeritageAuthority)
+    .map(applyMagoffinHomeAuthority);
   // The collection renderer must apply the same post-curation exact-place rule
   // as the single destination page, not merely the preliminary photo map.
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(
