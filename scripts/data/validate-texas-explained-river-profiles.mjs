@@ -9,6 +9,7 @@ const authority = read('src/components/content/TexasRiversAuthorityHub.tsx');
 const citationTrust = read('src/components/content/TexasRiversCitationTrust.tsx');
 const basinReference = read('src/components/content/TexasRiverBasinReference.tsx');
 const articleRoute = read('src/routes/article.$slug.tsx');
+const articleBodyComponent = read('src/components/editorial/ArticleBody.tsx');
 const hub = `${read('src/routes/texas-explained.tsx')}\n${read('src/components/editorial/TexasExplainedPage.tsx')}`;
 const topology = read('src/data/fixtures/newest-evergreen.ts');
 const errors = [];
@@ -98,6 +99,12 @@ for (const marker of [
   '!isTexasRiversArticle && internalLinks.length > 0',
   '!isTexasRiversArticle && article.tags.length > 0',
 ]) if (!articleRoute.includes(marker)) errors.push(`Texas rivers simplified presentation contract missing: ${marker}`);
+
+for (const marker of [
+  'articleSlug === "texas-rivers-explained"',
+  'blocks[index - 1]?.text === "Texas Rivers at a Glance"',
+  '<dl key={index} className="my-8 grid gap-3 sm:grid-cols-2">',
+]) if (!articleBodyComponent.includes(marker)) errors.push(`Texas rivers quick-answer card contract missing: ${marker}`);
 
 if (!articleRoute.includes('!isTexasRiversArticle && <Section tone="surface">')
   && !articleRoute.includes('!isTexasRiversArticle && !hideGenericRelatedRail && <Section tone="surface">')) {
