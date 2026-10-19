@@ -87,7 +87,8 @@ test('school district CSV preserves conflicting, variable and missing rates inst
   assert.ok(csv.includes('"cross-source-conflict"'));
   assert.ok(csv.includes('"1.1; 1.2"'));
   assert.ok(csv.includes('"1100; 1200"'));
-  assert.ok(csv.includes('"0.050000000000000044"') || csv.includes('"0.05"'));
+  assert.ok(csv.includes('"0.05"'));
+  assert.ok(!csv.includes('0.050000000000000044'));
   assert.ok(csv.includes('https://example.org/2025.xlsx'));
   assert.ok(csv.includes('2026-10-14T12:00:00Z'));
   assert.ok(!csv.includes('"undefined"'));
