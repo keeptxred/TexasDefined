@@ -192,7 +192,7 @@ assert.ok(Object.keys(finalDossiers).every(slug => finalRenderer.includes(`"${sl
 const allCovered = new Set([
   ...waveManifest, ...parks.map(item=>item.slug), bats.slug,
   ...Object.keys(faqWaveRecords), ...Object.keys(venueData), ...Object.keys(eventData),
-  ...Object.keys(museumUpgrades), ...finalSlugs, "state-fair-of-texas",
+  ...Object.keys(museumUpgrades), ...finalSlugs, "state-fair-of-texas", "texas-state-fair",
 ]);
 assert.ok(ranking.every(item => allCovered.has(item.href.split("/").at(-1))), "Every one of 50 ranked attractions must have at least one source-backed improvement in this branch");
 
