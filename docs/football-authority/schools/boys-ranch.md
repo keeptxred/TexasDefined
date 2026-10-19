@@ -1,5 +1,8 @@
 # Boys Ranch Roughriders — independent Batch 006 football dossier
 
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific football authority editorial is merged on `main`; the canonical Batch 006 registry records this page **DEPLOYED**. The [single-release production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed 75/75 school viewports, 23/23 reciprocal county links and 25/25 sitemap entries on its tested release. **Individual nine-dimension editorial/factual approval, rights clearance and manual accessibility certification remain outstanding; this school is NOT individually VERIFIED.** Statements below describing an unmerged branch are historical and superseded by this current release checkpoint.
+
+
 **October 17, 2026**. Not browser-VERIFIED or editorially accepted. This is Boys Ranch ISD in Oldham County, six-man, UIL **2026–28 1A Division I District 1**. The official first-party classification is [UIL 1AD1FB2026.pdf](https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf); not an estimate or previous alignment.
 
 ## Source-verified campus, school identity and history
