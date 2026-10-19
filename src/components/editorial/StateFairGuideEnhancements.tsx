@@ -138,8 +138,8 @@ function StateFairLivePanel() {
               <div className="border border-border bg-background p-5"><p className="text-xs leading-5 text-muted-foreground">Midway</p><p className="mt-2 font-display text-3xl">11 AM most days</p></div>
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href="https://bigtex.com/schedule/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">{fairFinished ? "Official schedule ↗" : "Today’s schedule ↗"}</a>
-              <a href="https://bigtex.com/buy-tickets-new/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">{fairFinished ? "Future ticket updates ↗" : "Tickets ↗"}</a>
+              <a href="https://bigtex.com/schedule/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">{fairFinished ? "Organizer schedule ↗" : "Today’s schedule ↗"}</a>
+              <a href={fairFinished ? "https://bigtex.com/" : "https://bigtex.com/buy-tickets-new/"} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">{fairFinished ? "Future ticket updates ↗" : "Tickets ↗"}</a>
               <a href="https://bigtex.com/plan-your-visit/getting-here/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">DART & parking ↗</a>
               <a href="https://bigtex.com/plan-your-visit/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">Visitor guide ↗</a>
             </div>
@@ -173,7 +173,7 @@ export function StateFairPlanningStrip() {
               <h2 className="mt-2 font-display text-3xl md:text-4xl">Tickets, football and a place to stay</h2>
               <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">{fairFinished ? "The 2026 Fair ended. Check the organizer for next year's tickets." : "Buy Fair admission officially. Use game guides for Cotton Bowl visits."}</p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <a href="https://bigtex.com/buy-tickets-new/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" data-state-fair-official-ticket-cta>{fairFinished ? "Future ticket updates ↗" : "Buy State Fair tickets ↗"}</a>
+                <a href={fairFinished ? "https://bigtex.com/" : "https://bigtex.com/buy-tickets-new/"} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" data-state-fair-official-ticket-cta>{fairFinished ? "Future ticket updates ↗" : "Buy State Fair tickets ↗"}</a>
                 <Link to="/event/state-fair-classic" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">State Fair Classic guide</Link>
                 <Link to="/event/red-river-rivalry" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">Red River Rivalry guide</Link>
               </div>

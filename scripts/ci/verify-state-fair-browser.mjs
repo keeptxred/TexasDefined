@@ -58,6 +58,7 @@ try {
       row.checks.gallery = initial.galleryPresent;
       row.checks.map = initial.links.includes('https://bigtex.com/plan-your-visit/map/');
       row.checks.ticketInfo = initial.bodyText.includes('2026 ticket prices and admission');
+      row.checks.futureTicketDestination = !seasonOver || (await page.locator('[data-state-fair-official-ticket-cta]').getAttribute('href')) === 'https://bigtex.com/';
       row.checks.includedActivities = initial.bodyText.includes('More than 100 daily activities');
       row.checks.cottonBowlLink = initial.links.includes(origin + '/sports-venue/cotton-bowl');
       row.checks.redRiverLink = initial.links.includes(origin + '/event/red-river-rivalry');
@@ -87,6 +88,9 @@ try {
         source: el.querySelector('a[href*="commons.wikimedia.org"]')?.href || '',
         cc0: el.querySelector('a[href*="creativecommons.org/publicdomain/zero/1.0"]')?.href || '',
         credited: el.textContent?.includes('IcedCowboyCoffee') || false,
+        imageSrc: el.querySelector('img')?.currentSrc || '',
+        imageComplete: el.querySelector('img')?.complete || false,
+        imageWidth: el.querySelector('img')?.naturalWidth || 0,
       }));
       row.checks.currentYearPhoto = freshImageLoaded &&
         row.currentYearPhoto.alt.includes('2026') &&
@@ -102,6 +106,15 @@ try {
           !!document.querySelector('[data-state-fair-stay-slot]'),
         null, { timeout: 15000 },
       ).then(() => true).catch(() => false);
+      // Check the actual hydrated hotel module, not just an empty React slot.
+      // Expedia owns the surface and disclosures; keep its real DOM contract strict.
+      row.checks.hotelAffiliateDisclosure = await page.waitForFunction(() => {
+        const surface = document.querySelector('[data-state-fair-stay-slot] #expedia-travel-surface');
+        if (!surface || !/Affiliate disclosure: TexasDefined may earn/i.test(surface.textContent || '')) return false;
+        const affiliateLinks = [...surface.querySelectorAll('a[data-affiliate-partner]')];
+        return affiliateLinks.every(a => (a.getAttribute('rel') || '').includes('sponsored'));
+      }, null, { timeout: 15000 }).then(() => true).catch(() => false);
+      row.hotelModuleText = await page.locator('[data-state-fair-stay-slot]').innerText().then(x => x.slice(0, 350)).catch(() => '');
       row.checks.javascript = row.errors.length === 0;
       // Investigate real React #418 failures without weakening the strict baseline.
       // Compare fresh isolated browser contexts with third-party integrations blocked.
