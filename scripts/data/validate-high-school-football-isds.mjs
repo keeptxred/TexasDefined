@@ -122,7 +122,8 @@ if (!errors.length) {
   if (!detailRoute.includes("if (!loaderData) return { meta: [{ title: 'Texas high school football by ISD' }] };")) {
     errors.push('Unresolved ISD loader data must retain a safe, non-noindex head fallback.');
   }
-  if (/if \\(!loaderData\\)[^\\n]*robots|if \\(!loaderData\\)[^\\n]*noindex/.test(detailRoute)) {
+  const unresolvedIsdHead = detailRoute.split("if (!loaderData) return")[1]?.split("\n")[0] ?? '';
+  if (/noindex|robots/.test(unresolvedIsdHead)) {
     errors.push('ISD async head fallback must not publish noindex before the route loader has resolved.');
   }
 
