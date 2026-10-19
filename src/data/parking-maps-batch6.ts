@@ -2,13 +2,13 @@ import type { ParkingMapAsset } from './parking-map-model';
 
 export const VENUE_PARKING_MAPS_BATCH_6: Record<string, ParkingMapAsset> = {
   'frost-bank-center': {
-    id: 'parking-map:frost-bank-center:2026-09', venueSlug: 'frost-bank-center', venueName: 'Frost Bank Center', imageUrl: '/images/parking-maps/frost-bank-center.svg',
-    alt: 'Verified TexasDefined parking orientation diagram for Frost Bank Center showing principal venue lots, surrounding roads and the Lot 5 rideshare area',
+    id: 'parking-map:frost-bank-center:2026-10', venueSlug: 'frost-bank-center', venueName: 'Frost Bank Center', imageUrl: '/images/parking-maps/frost-bank-center.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Frost Bank Center showing the arena, major approach roads, current color-coded parking categories and the Pink Lot rideshare area',
     origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
     reuseSearchNotes: ['Frost Bank Center publishes current parking, ingress and egress map imagery, but the reviewed official artwork does not document a reusable publication license.', 'Open-license searches surfaced venue photography and team media but no current reusable Frost Bank Center parking map suitable for publication.'],
-    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
-    verificationSources: [{ label: 'Frost Bank Center — Parking, Directions & Transportation', url: 'https://www.frostbankcenter.com/parking', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Frost Bank Center — Directions', url: 'https://www.frostbankcenter.com/directions', checkedAt: '2026-09-11', role: 'accuracy' }],
-    accuracyNotes: ['The venue parking/egress material was used to verify the numbered lot arrangement represented in the schematic.', 'The official venue currently identifies Lot 5 as the designated rideshare pickup zone.', 'East Houston Street, Frost Bank Center Drive and the I-35/I-10 approach relationships were checked against current official directions.', 'The diagram omits prices and event-specific lot inventory because the venue states parking prices and availability vary by event.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-10-19',
+    verificationSources: [{ label: 'Frost Bank Center — Parking, Directions & Transportation', url: 'https://www.frostbankcenter.com/parking', checkedAt: '2026-10-19', role: 'accuracy' }, { label: 'Frost Bank Center — Directions', url: 'https://www.frostbankcenter.com/directions', checkedAt: '2026-10-19', role: 'accuracy' }],
+    accuracyNotes: ['Current official parking guidance uses color-coded lots rather than the older numbered-lot presentation.', 'The official venue currently identifies the Pink Lot as the designated rideshare pickup zone.', 'East Houston Street, Frost Bank Center Drive and the I-35/I-10 approach relationships were checked against current official directions.', 'The schematic deliberately avoids assigning exact lot geometry, prices or event inventory because those details can change.'],
   },
   'alamodome': {
     id: 'parking-map:alamodome:2026-09', venueSlug: 'alamodome', venueName: 'Alamodome', imageUrl: '/images/parking-maps/alamodome.svg',

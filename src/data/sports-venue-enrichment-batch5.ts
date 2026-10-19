@@ -5,6 +5,8 @@ const verifiedAt = '2026-08-13';
 export const SPORTS_VENUE_ENRICHMENT_BATCH5: Record<string, SportsVenueEnrichment> = {
   'toyota-stadium-frisco': {
     city: 'Frisco',
+    capacity: '19,096 soccer / 20,500 football',
+    opened: 'August 6, 2005',
     primaryEvents: ['FC Dallas home matches', 'Major soccer events', 'Football, concerts and special events'],
     history: 'Toyota Stadium opened in 2005 as one of Major League Soccer’s early soccer-specific stadiums. A $182 million phased modernization is underway, with FC Dallas continuing to host MLS matches throughout construction and the full project planned to finish in 2028.',
     parking: 'The 2026 renovation changes normal stadium circulation. FC Dallas lists paid general parking plus reserved lots, while some areas have limited availability because of construction. Fans should use the current parking map rather than relying on a previous-season routine.',
@@ -14,6 +16,7 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH5: Record<string, SportsVenueEnrichmen
     planningLinks: [
       { label: '2026 stadium policies and construction access', url: 'https://www.fcdallas.com/stadium/policies' },
       { label: 'FC Dallas stadium information', url: 'https://www.fcdallas.com/stadium/' },
+      { label: 'Toyota Stadium facts and capacity', url: 'https://www.fcdallas.com/stadium/about' },
       { label: 'FC Dallas schedule', url: 'https://www.fcdallas.com/schedule/' },
     ],
     imageBrief: 'Toyota Stadium in Frisco during a modern MLS matchday, wide exterior or bowl view showing the soccer setting and active renovation-era context without emphasizing construction clutter, no added logos or text.',
@@ -137,6 +140,8 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH5: Record<string, SportsVenueEnrichmen
   },
   'fertitta-center': {
     city: 'Houston',
+    opened: 'December 1, 2018',
+    capacity: '7,100 seats',
     primaryEvents: ['Houston Cougars men’s basketball', 'Houston women’s basketball and volleyball', 'Major campus sporting events'],
     history: 'Fertitta Center is the University of Houston’s basketball and volleyball arena on the Cullen Boulevard side of campus. It is the current home for Cougar men’s and women’s basketball and volleyball and remains central to the program’s high-demand Big 12 basketball schedule.',
     parking: 'University of Houston parking is event-specific and campus based. Visitors should use the current athletics parking plan and avoid assuming that ordinary university lots are open for game use.',
@@ -144,15 +149,18 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH5: Record<string, SportsVenueEnrichmen
     stayAndEat: 'The University of Houston location makes Fertitta Center practical to combine with central Houston neighborhoods, downtown lodging and other city attractions rather than treating the arena as an isolated suburban stop.',
     nearby: 'TDECU Stadium and other Cougar athletics facilities are on the same campus, while downtown Houston and EaDo sports venues are a short city trip away.',
     planningLinks: [
+      { label: 'UH Fertitta Center opening and capacity', url: 'https://uhcougars.com/news/2018/11/30/mens-basketball-houston-opens-fertitta-center-vs-no-18-21-oregon' },
       { label: 'Fertitta Center facility page', url: 'https://uhcougars.com/facilities/fertitta-center/10' },
       { label: 'Fertitta Center game-day guide', url: 'https://uhcougars.com/sports/2025/11/3/Fertitta-Center-Gameday-Guide' },
       { label: 'Houston basketball tickets and schedule', url: 'https://uhcougars.com/sports/2018/6/12/tickets-hou-tickets-m-baskbl-html' },
     ],
     imageBrief: 'Fertitta Center on the University of Houston campus during a packed basketball night, arena exterior and campus pedestrian energy, modern travel-editorial image, no added logos or text.',
-    verifiedAt,
+    verifiedAt: '2026-10-19',
   },
   'tdecu-stadium': {
     city: 'Houston',
+    opened: 'August 29, 2014',
+    capacity: '40,000 seats',
     primaryEvents: ['Houston Cougars football', 'Big 12 college-football games', 'University and special stadium events'],
     history: 'TDECU Stadium is the University of Houston football home. Houston’s official 2026 schedule lists six home games there, including Big 12 dates against UCF, Oklahoma State, Cincinnati and Baylor.',
     parking: 'Football parking is managed through the University of Houston campus and game-day system. Visitors should confirm the current lot, pass and route before travel because campus controls and event traffic can differ substantially from ordinary weekday access.',
@@ -160,11 +168,12 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH5: Record<string, SportsVenueEnrichmen
     stayAndEat: 'Central Houston lodging makes it possible to pair a Cougar football game with EaDo, downtown or other city districts instead of planning the weekend entirely around the stadium parking lot.',
     nearby: 'Fertitta Center and other University of Houston facilities are on the same campus, while Shell Energy Stadium, Daikin Park and downtown Houston add several sports-weekend options nearby.',
     planningLinks: [
+      { label: 'UH TDECU Stadium opening and capacity', url: 'https://uhcougars.com/news/2015/4/10/TDECU_Stadium_Receives_HBJ_Landmark_Award' },
       { label: 'TDECU Stadium information', url: 'https://uhcougars.com/sports/2018/6/12/TDECU-Stadium-Info-html' },
       { label: 'Houston 2026 football schedule', url: 'https://uhcougars.com/sports/football/schedule/2026' },
     ],
     imageBrief: 'TDECU Stadium on the University of Houston campus at dusk on football game day with Houston urban context, energetic collegiate travel photography, no added logos or text.',
-    verifiedAt,
+    verifiedAt: '2026-10-19',
   },
 };
 
