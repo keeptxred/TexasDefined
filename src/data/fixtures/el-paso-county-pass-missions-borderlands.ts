@@ -38,7 +38,7 @@ export const elPasoCountyPassMissionsBorderlandsArticle: Article = {
     { href: "/city/el-paso", label: "El Paso city guide", description: "City landmarks, neighborhoods, history and visitor essentials." },
     { href: "/metro-area/el-paso-metro", label: "El Paso metro guide", description: "The region's cities and borderlands connections." },
     { href: "/destination/franklin-mountains-state-park", label: "Franklin Mountains State Park", description: "Mountain hikes, trail planning, visitor access and park alerts." },
-    { href: "/destination/old-socorro-mission", label: "Old Socorro Mission", description: "Explore the historic Mission Valley landscape." },
+    { href: "/destination/old-socorro-mission", label: "Old Socorro Mission — original site closed", description: "Read the archaeological history and Piro Pueblo story; this is not a public Mission Trail stop." },
     { href: "/destination/chamizal-national-memorial", label: "Chamizal National Memorial", description: "The peaceful U.S.–Mexico boundary settlement." },
     { href: "/destination/hotel-paso-del-norte", label: "Hotel Paso del Norte", description: "The historic 1912 hotel and stained-glass dome." },
     { href: "/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso", label: "Ysleta del Sur Pueblo Cultural Center Museum", description: "The Tigua people's Pueblo-operated museum offers a first-person account of living heritage, distinct from the Ysleta Mission church." },
