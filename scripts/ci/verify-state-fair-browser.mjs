@@ -64,6 +64,17 @@ try {
       row.checks.redRiverLink = initial.links.includes(origin + '/event/red-river-rivalry');
       row.checks.season = seasonOver ? initial.bodyText.toLowerCase().includes('2026 fair concluded') : initial.bodyText.toLowerCase().includes('2026 fair underway');
       row.checks.schema = seasonOver ? (!initial.jsonTypes.includes('Event') && initial.jsonTypes.includes('WebPage')) : initial.jsonTypes.includes('Event');
+      // Fail closed if the new 2026 retrospective loses its official figures
+      // or citation; do not conflate annual estimates and 2026 attendance.
+      row.checks.official2026Results =
+        initial.bodyText.toLowerCase().includes('2026 fair by the numbers') &&
+        initial.bodyText.includes('Nearly 2.1 million') &&
+        initial.bodyText.includes('More than $2.7 million') &&
+        initial.bodyText.includes('110,655 pounds') &&
+        initial.bodyText.includes('103 students') &&
+        initial.links.some(link => link.startsWith(
+          'https://bigtex.com/the-2026-state-fair-of-texas-welcomes-nearly-2-1-million-fairgoers'
+        ));
       const summary = page.locator('[data-state-fair-historical-gallery] details summary');
       await summary.click({ timeout: 15000 });
       const archival = await page.locator('[data-state-fair-historical-gallery] figure').evaluateAll(els => els.map(e => ({
