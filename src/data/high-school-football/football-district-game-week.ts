@@ -1,5 +1,6 @@
 import { footballMatchups, footballMatchupPath } from './football-matchups';
 import { DISTRICT_5_2026_GAMES } from './football-district5-2026';
+import { DISTRICT_21_2026_GAMES } from './football-district21-2026';
 
 export type DistrictFootballGame = {
   date: string;
@@ -94,6 +95,9 @@ export function getDistrictFootballGames(slug: string, classification: string, d
   if (slug === '6a-district-5') {
     for (const game of DISTRICT_5_2026_GAMES) known.set(gameKey(game), game);
   }
+  if (slug === '6a-district-21') {
+    for (const game of DISTRICT_21_2026_GAMES) known.set(gameKey(game), game);
+  }
   for (const game of footballMatchups) {
     if (game.classification !== classification || game.district !== district || game.phase !== 'regular') continue;
     const converted: DistrictFootballGame = {
@@ -120,6 +124,8 @@ export type SourcedDistrictRecord = {
   won: number;
   lost: number;
   tied: number;
+  pointsFor: number;
+  pointsAgainst: number;
 };
 
 // Factual scores support a derived record; standings/tiebreaks/official seeds do not follow from it.
@@ -130,13 +136,17 @@ export function getSourcedDistrictRecords(
 ): SourcedDistrictRecord[] {
   const bySchool = new Map<string, SourcedDistrictRecord>(schools.map(({ schoolName, profilePath }) => [
     schoolName,
-    { schoolName, profilePath, won: 0, lost: 0, tied: 0 },
+    { schoolName, profilePath, won: 0, lost: 0, tied: 0, pointsFor: 0, pointsAgainst: 0 },
   ]));
   for (const game of games) {
     if (game.status !== 'final' || !Number.isInteger(game.awayScore) || !Number.isInteger(game.homeScore)) continue;
     const away = bySchool.get(game.away);
     const home = bySchool.get(game.home);
     if (!away || !home || game.away === game.home) continue;
+    away.pointsFor += game.awayScore!;
+    away.pointsAgainst += game.homeScore!;
+    home.pointsFor += game.homeScore!;
+    home.pointsAgainst += game.awayScore!;
     if (game.awayScore! > game.homeScore!) {
       away.won += 1;
       home.lost += 1;

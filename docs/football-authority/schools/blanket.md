@@ -1,6 +1,6 @@
 # Blanket Tigers — Batch006 school-specific six-man authority dossier
 
-**Researched and branch-authored October 15, 2026.** Brown County, Blanket ISD. Implemented on dependent `feature/football-b006-blanket-20261015`; **NOT merged/deployed, current-production Chrome verified, licensed image or nine-dimension editorially accepted.**
+**Initial research October 15; revised October 19, 2026.** Brown County, Blanket ISD. The Batch 006 school source was merged in [PR #5070](https://github.com/keeptxred/TexasDefined/pull/5070) and deployed. A bounded single-release real-Chrome run [#39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed its technical school, reciprocal county and sitemap checks. **Blanket remains DEPLOYED, not individually nine-dimension editorially accepted, photo-rights cleared, manual-accessibility certified or fully VERIFIED.**
 
 ## First-party identity/UIL
 
@@ -21,3 +21,10 @@ Contemporaneous Brownwood News directly quotes **head football coach Jalen Helms
 ## Acceptance definition
 
 Six original FAQs, five original school-specific paragraphs, independent sources, as-of-record and true six-man UIL data are authored on branch only. Requires dependent PR merges, protected canonical gate, target-specific desktop/mobile **real production Chrome** and SEO, JSON-LD/phone/map access, county linking and image-rights review. Do not promote registry above IMPLEMENTED, nor accept database nine-dimension checklist, until all evidence established. No unscoped full-site audit.
+
+
+## October 19, 2026 — Priddy canceled the 2026 football season; do not invent Blanket final
+
+Independent regional reporting resolves why the stale Friday October 16 **Blanket at Priddy** listing must not be treated as a played game. Brownwood News's [2026 Mullin Bulldogs preseason preview](https://www.brownwoodnews.com/wpb_gallery/gridiron-glance-26-mullin-bulldogs/) explicitly states **Priddy canceled its 2026 football season before it began**. The [Six-Man Football Priddy schedule](https://sixmanfootball.com/teams/priddy-pirates.19089/schedule/) shows OPEN/BYE for every 2026 week, while the stale [MaxPreps matchup](https://www.maxpreps.com/tx/football/game/blanket-vs-priddy/10-16-2026/?c=43f1f252-195e-481b-9748-2105fc596f7b&tab=Matchup) and [DCTF Priddy directory](https://www.texasfootball.com/team/priddy-pirates) still list the planned October 16 game. UIL district alignment is a membership listing, not proof participation.
+
+**Editorial decision:** Preserve Blanket's seven independently reported 2026 played results (4–3 as of Oct 8). Do not append an Oct 16 scored result or award a forfeit, win, district standing or playoff advancement without independent school/district authority. The live Blanket guide's notice is updated to explain the canceled Priddy season and cite Brownwood News. This does not confer image rights, editorial signoff or new VERIFIED status.
