@@ -30,3 +30,7 @@ Bloomington beat Danbury 42–0 in its October 16 home football game. **3–5** 
 ## Acceptance pending
 
 Original five substantive paragraphs, six individual FAQs, 10 fixtures, sourced school/distinctive history and cashless fan guidance now authored. Before formal production VERIFICATION: protected PR chain and Merge Gate, exact SHA targeted real Chrome desktop/mobile SEO/structured data, independently verified Victoria County reciprocal links, links, mobile accessibility, photo licensing (none claimed), event/gate updates, source disputes and full nine-dimension editorial acceptance. No sitewide crawl or made-up source validation.
+
+## October 19, 2026 — reconcile 2026 head-coaching overview and FAQ
+[Dave Campbell's February 5, 2026 coach analysis](https://www.texasfootball.com/article/2026/02/05/which-districts-have-the-best-head-coaches-after-realignment) identifies Lane Shands as Bloomington head football coach, separately corroborated by the [2026 MaxPreps program history](https://www.maxpreps.com/tx/bloomington/bloomington-bobcats-lady-cats/football/history/). The Bloomington ISD directory names Shands athletic director. The 2026 page coach object, overview and FAQ now accurately attribute the football-specific coaching claim without inventing a first-party hire announcement. No change to date-qualified completed scores or event-specific Vanco policies.
+
