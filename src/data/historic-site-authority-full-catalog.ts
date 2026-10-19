@@ -423,7 +423,11 @@ export function enrichFullHistoricSiteAuthority(destination: Destination): Desti
   ];
 
   const guide: DestinationAuthorityGuide = {
-    whyItMatters: `${seed.significance} ${seed.visitAngle} ${operator ? "This remains an active national cemetery: visiting families, funerals and committal services take priority over sightseeing." : "The historic significance comes from the surviving place and the people whose stories it holds, not simply the age of a building or a memorial."} ${visitIntro}`,
+    whyItMatters: [
+      seed.significance,
+      visitIntro,
+      ...(operator ? ["This is an active national cemetery. Burials, visiting families and committal services take precedence over sightseeing."] : []),
+    ].filter(Boolean).join(" "),
     assessment: {
       recommendedVisit: visit?.recommendedVisit ?? (operator
         ? "A respectful cemetery visit takes priority over tourism. Confirm the VA’s current visitor rules before arrival."
