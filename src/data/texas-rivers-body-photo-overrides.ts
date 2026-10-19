@@ -16,10 +16,10 @@ export const TEXAS_RIVERS_BODY_PHOTO_OVERRIDES: Readonly<Record<string, ImageRef
     credit: "Loadmaster (David R. Tribble) · CC BY-SA 3.0 · Wikimedia Commons",
   },
   "/images/editorial/moving/san-antonio.jpg": {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Brackenridge_Park_San_Antonio_River.jpg?width=1600",
-    alt: "San Antonio River flowing through Brackenridge Park in San Antonio, Texas",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/The_San_Antontio_Riverwalk_at_night.jpg?width=1600",
+    alt: "San Antonio River Walk at night with illuminated riverside buildings, paths and reflections on the water",
     width: 1600,
     height: 1067,
-    credit: "Dogfort04 · CC BY-SA 4.0 · Wikimedia Commons",
+    credit: "Yinan Chen · Public domain · Wikimedia Commons",
   },
 };
