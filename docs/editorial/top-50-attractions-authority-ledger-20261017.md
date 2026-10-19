@@ -1,6 +1,21 @@
 # Top 50 Texas Attractions — canonical authority completion ledger
 
-**Date opened:** 2026-10-17. **Status:** implementation in progress; NOT authority-certified.
+**Date opened:** 2026-10-17. **Updated:** 2026-10-18. **Status:** all 50 canonical ranks have source-backed editorial additions on the feature branch; **NOT authority-certified, not merged, not deployed.**
+
+### Branch coverage as of October 18
+
+- Ten existing canonical destinations have new destination-specific visit assessments, itineraries, source lists and 30 sourced visitor FAQs.
+- Five entirely authored destinations (four theme/water parks and the Congress Avenue bats) have individual articles, photographs with provenance claims, visitor guides, itineraries, FAQ, and area profiles. **Exact image HTTP delivery and displayed attribution must still pass production QA.**
+- Nine other existing landmark pages gained 27 official-source visitor answers.
+- Two sports stadium guides gained six ticketing/arrival Q&A with official source links; three major annual event guides gained nine time-bound ticket/access answers.
+- Six museum and historic district pages have new original significance, three itineraries, multiple research sources, and 18 sourced visitor FAQs.
+- The remaining fifteen canonical destinations have 45 source-backed visitor answers; Enchanted Rock, San Jacinto Battleground and Barton Springs Pool additionally gained full research and itinerary guides.
+- The original ranked Top 50 collection is a unified public route candidate and has structured data and sitemap registration on the branch. **Zero of these changes are certified production-live by this ledger.**
+
+### Acceptance definition
+
+Completing an editorial addition for a ranked attraction is not the same as certifying its authority page. Before any production release, the protected premerge validation, photo licensing and image HTTP checks, current source/operating date verification, accessibility/mobile review, reciprocal city/county links, dynamic schedule disclaimers and representative live-page smoke tests must succeed. The per-page standard in the release gate below remains mandatory; do not mark 50/50 authority-complete solely from these source-level improvements.
+
 
 This list is the exact editorial ranking requested for Texas Defined. Rankings are editorial, not reported attendance. Keep the old Top 25 collection and its validated exports unchanged. Do not create duplicate canonicals. A path in the table is a known source/code route candidate, not proof of current 200, full content, photo rights or editorial certification. A blank path means the canonical route must be inspected rather than guessed.
 
