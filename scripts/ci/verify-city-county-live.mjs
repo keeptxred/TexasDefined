@@ -8,7 +8,7 @@ const dir = 'artifacts/city-county-production';
 const stamp = (process.env.TARGET_DEPLOY_SHA || process.env.GITHUB_SHA || 'manual').slice(0,12) + '-' + Date.now();
 const headers = ['city_name','city_slug','place_type','primary_directory_county','all_counties','county_count','region','county_registry_match'];
 // Pull-request checks hit the previously deployed revision, while workflow_run
-// checks must enforce the new deployed count after protected production release.
+// checks must enforce Medina in the San Antonio county list after protected deployment.
 const isPredeployPR = process.env.GITHUB_EVENT_NAME === 'pull_request';
 const expected = {
   Abilene: 'Taylor; Jones', 'Corpus Christi': 'Nueces; Aransas; Kleberg; San Patricio',
@@ -65,8 +65,7 @@ try {
       }else if(expected[r.city_name])assert.deepEqual(counties,expected[r.city_name].split('; ').map(s=>s+' County'),r.city_name);
     }
     const multiCountyCount=records.filter(r=>Number(r.county_count)>1).length;
-    if(isPredeployPR)assert.ok([30,31].includes(multiCountyCount),'Predeploy current production must be old or new count');
-    else assert.equal(multiCountyCount,31,'Released city/county dataset must contain 31 multi-county places');
+    assert.equal(multiCountyCount,30,'Directory has 30 multi-county places (San Antonio already counted)');
     assert.equal(records.find(r=>r.city_name==='The Woodlands')?.place_type,'census_designated_place');
     report.csv={status:200,rows:57,multiCounty:multiCountyCount,mode:isPredeployPR?'predeploy':'postdeploy',bytes:Buffer.byteLength(body),result:'PASS'};
     console.log('PASS live CSV — 57 rows, '+multiCountyCount+' multi-county, authoritative examples, downloadable format');
