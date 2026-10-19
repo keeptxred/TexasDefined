@@ -13,7 +13,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     { href: "/county/el-paso", label: "Explore El Paso County", description: "Place Chamizal within the county's river-border, missions, military and cultural history." },
     { href: "/metro-area/el-paso-metro", label: "El Paso metropolitan guide", description: "Connect the national memorial with the region's museums, historic neighborhoods and visitor landmarks." },
     { href: "/destination/magoffin-home", label: "Magoffin Home and El Paso history", description: "Compare nineteenth-century borderland family and trade history with Chamizal's twentieth-century treaty story; verify current house restoration access." },
-    { href: "/destination/old-socorro-mission", label: "Old Socorro Mission", description: "Trace earlier Rio Grande settlements along the historic El Paso Mission Trail." },
+    { href: "/destination/old-socorro-mission", label: "Old Socorro Mission — original site closed", description: "Research the protected archaeological remains and Piro Pueblo history; the original site is not open to visitors." },
     { href: "/destination/franklin-mountains-state-park", label: "Franklin Mountains State Park", description: "Explore the landscape that frames the binational metro area on a separate outdoor outing." },
     { href: "/article/moving-to-el-paso-guide", label: "Living in El Paso", description: "Understand the contemporary city and neighborhood geography around these historic sites." },
   ],
