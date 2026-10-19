@@ -45,7 +45,16 @@ try {
     const html = await load("/destination/" + slug);
     if (!html.includes('rel="canonical" href="' + origin + '/destination/' + slug + '"')) errors.push(slug + " wrong historical reference canonical");
     if (hasIndexMeta(html)) errors.push(slug + " inappropriately indexable with no licensed site-specific photograph");
-    if (!html.includes("texasdefined-destination-placeholder.svg")) errors.push(slug + " missing candid photo-unavailable placeholder");
+    if (slug === "old-socorro-mission") {
+      // The dedicated chronology/archaeology page replaces the generic image
+      // placeholder with a text-first hero and a transparently captioned NPS
+      // comparison photo of the LATER church. This must not be labeled the old site.
+      if (!html.includes("Old Socorro Mission") || !html.includes("original mission site is closed")) errors.push("Old Socorro dedicated historical page or closure disclosure missing");
+      if (!html.includes("Different location") || !html.includes("does not") || !html.includes("archaeological site")) errors.push("Modern Socorro contextual photo lacks clear subject warning");
+      if (/maps\/search\/|maps\/dir\/|google\.com\/maps\/place\//.test(html)) errors.push("Closed Old Socorro page offers travel directions");
+    } else if (!html.includes("texasdefined-destination-placeholder.svg")) {
+      errors.push(slug + " missing candid photo-unavailable placeholder");
+    }
     if (xml.includes("<loc>" + origin + "/destination/" + slug + "</loc>")) errors.push(slug + " in sitemap despite noindex and missing exact site photo");
   }
   const firstCapitol = await load("/destination/first-capitol-of-texas");
