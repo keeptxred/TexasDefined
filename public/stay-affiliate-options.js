@@ -258,7 +258,7 @@
         : (intent === "hotel-first"
           ? "Compare hotel availability close to the event or venue on Hotels.com or Orbitz. Broader leisure and destination guides also include vacation-rental options when they fit the trip."
           : "Compare hotel options on Hotels.com or Travelocity, or choose a vacation rental when extra space, a kitchen, or a group-friendly setup fits the trip better."));
-    if (window.location.pathname.replace(/\\/+$/, "") === "/explore/near/mcallen/day-trips") {
+    if (window.location.pathname.replace(/\/+$/, "") === "/explore/near/mcallen/day-trips") {
       eyebrow.textContent = "Compare lodging providers";
       heading.textContent = "Hotel and vacation-rental choices";
       copy.textContent = "Only staying overnight? Compare hotels and rentals; verify current prices, locations and cancellation rules with each booking provider.";
@@ -510,7 +510,7 @@
     choice.dataset.priority = exactPropertyFirst ? "exact-property-first" : "broad-search-first";
     // One coherent overnight section on McAllen: preserve all affiliate choices
     // but place them inside the existing Expedia container, not as a second section.
-    if (window.location.pathname.replace(/\\/+$/, "") === "/explore/near/mcallen/day-trips") {
+    if (window.location.pathname.replace(/\/+$/, "") === "/explore/near/mcallen/day-trips") {
       const parent = surface.querySelector(":scope > .mx-auto");
       if (parent) {
         if (choice.parentElement !== parent || choice !== parent.lastElementChild) parent.appendChild(choice);
