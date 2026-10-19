@@ -30,8 +30,15 @@ export const DEVILS_RIVER_LANDSCAPE_RIGHTS = {
   accessCaution: "Dolan Falls is not a general-access visitor entrance. Use the official TPWD unit maps and permitted entry rules.",
 } as const;
 
+/** The public image pipeline proxies approved external Commons assets. Accept
+ * only the precise URL derived from this known, licensed original—not arbitrary
+ * /media/remote images or another Wikimedia photograph.
+ */
+export const DEVILS_RIVER_APPROVED_IMAGE_PROXY =
+  "/media/remote?url=" + encodeURIComponent(DEVILS_RIVER_LANDSCAPE_IMAGE.src);
+
 export function verifiedDevilsRiverPhotoRights(hero: ImageRef) {
-  if (hero.src !== DEVILS_RIVER_LANDSCAPE_IMAGE.src
+  if (![DEVILS_RIVER_LANDSCAPE_IMAGE.src, DEVILS_RIVER_APPROVED_IMAGE_PROXY].includes(hero.src)
     || !hero.credit?.includes(DEVILS_RIVER_LANDSCAPE_RIGHTS.author)
     || !hero.credit.includes(DEVILS_RIVER_LANDSCAPE_RIGHTS.license)) return null;
   return DEVILS_RIVER_LANDSCAPE_RIGHTS;
