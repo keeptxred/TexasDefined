@@ -188,6 +188,19 @@ if (!visitDepth.includes("const SITE_DEPTH") || !runtime.includes("enrichResearc
   failures.push("Removing template filler requires retaining original researched site depth in the published resolver.");
 }
 
+// Closure notices must agree across the quick facts, experience assessment,
+// family guidance and itineraries. A contradictory 'best season' is dangerous.
+for (const marker of [
+  'bestSeason: "Not currently open to visitors.',
+  'bestSeason: "Closed archaeological site:',
+]) if (!visitDepth.includes(marker)) failures.push(`Missing closed-site visitor-season policy: ${marker}`);
+for (const marker of [
+  '"physicalEffort": "Not applicable — site closed"',
+  'familyFit: firstCapitolIsClosed',
+  'firstTimeValue: firstCapitolIsClosed',
+  'oldSocorroHistoryItineraries',
+]) if (!fullCatalog.includes(marker)) failures.push(`Closed historic-site guide still implies public entry: ${marker}`);
+
 const seedBlock = seeds.match(/export const historicSiteSeeds:[\s\S]*?= \[([\s\S]*?)\n\];/);
 if (!seedBlock) failures.push('Could not parse historicSiteSeeds.');
 const seedSlugs = seedBlock ? [...seedBlock[1].matchAll(/slug:\s*"([^"]+)"/g)].map((match) => match[1]) : [];
