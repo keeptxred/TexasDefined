@@ -12,6 +12,7 @@ import { CountyCityMuseums } from '@/components/content/CountyCityMuseums';
 import { CountyGuideSections } from '@/components/content/CountyGuideSections';
 import { EntityDepthSections } from '@/components/content/EntityDepthSections';
 import { ElPasoMetroGuide, ElPasoAreaCrossLinks } from '@/components/content/ElPasoAreaAuthority';
+import { elPasoCountyHero } from '@/data/el-paso-county-hero';
 import { WildlifeDepthSections } from '@/components/content/WildlifeDepthSections';
 import { Container } from '@/components/layout/Container';
 import { CountySportsDestinations } from '@/components/sports/CountySportsDestinations';
@@ -360,6 +361,27 @@ function EntityPage() {
           <span aria-hidden="true" className="mx-2">/</span>
           <span aria-current="page" className="text-foreground">{entity.name}</span>
         </nav>
+
+        {entity.kind === 'county' && entity.slug === 'el-paso' ? (
+          <figure className="overflow-hidden border-b border-border py-8" aria-label="El Paso County hero photograph">
+            <img
+              src={elPasoCountyHero.src}
+              alt={elPasoCountyHero.alt}
+              width={elPasoCountyHero.width}
+              height={elPasoCountyHero.height}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              className="aspect-video w-full object-cover"
+            />
+            <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">
+              El Paso skyline beneath the Franklin Mountains · Photo by{' '}
+              <a href={elPasoCountyHero.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">{elPasoCountyHero.creator}</a>{' '}
+              (<a href={elPasoCountyHero.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">CC BY 4.0</a>).
+              Cropped for this page.
+            </figcaption>
+          </figure>
+        ) : null}
 
         <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
           <div>

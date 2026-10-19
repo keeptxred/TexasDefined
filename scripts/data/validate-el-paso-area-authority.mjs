@@ -27,13 +27,27 @@ const checks = [
     'Quintin Soloviev',
     'CC BY 4.0',
   ]],
+  ['src/data/el-paso-county-hero.ts', [
+    'El_Paso_skyline.jpg?width=1600',
+    'Quintin Soloviev',
+    'creativecommons.org/licenses/by/4.0',
+  ]],
   ['src/routes/$kind.$slug.lazy.tsx', [
+    "entity.kind === 'county' && entity.slug === 'el-paso'",
+    'elPasoCountyHero.src',
+    'elPasoCountyHero.sourceUrl',
+    'elPasoCountyHero.licenseUrl',
+    'fetchPriority="high"',
     '<ElPasoMetroGuide />',
     '<ElPasoAreaCrossLinks kind={entity.kind} slug={entity.slug} />',
     "entity.slug === 'el-paso-metro'",
   ]],
   ['src/lib/legacy-editorial-redirects.ts', [
     'LEGACY_EDITORIAL_REDIRECTS["/destination/el-paso"] = "/city/el-paso";',
+  ]],
+  ['src/routes/$kind.$slug.tsx', [
+    "entity.slug === 'el-paso' ? elPasoCountyHero : undefined",
+    'countyHeroImage?.src ?? countySeriesArticle?.hero.src',
   ]],
   ['src/routes/destination.$slug.tsx', [
     'countySlug === "el-paso" ? <Container><ElPasoAreaCrossLinks',
