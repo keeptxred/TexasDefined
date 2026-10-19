@@ -51,7 +51,26 @@ function county(slug){
 }
 const schools=slugs.map(slug=>({slug,county:county(slug),model:model(slug)}));
 for(const school of schools)assert.ok(school.model.season?.games?.length>=6&&school.model.faq?.length>=5,'Missing authored source content '+school.slug);
-const result={schema:'football-b006-targeted-browser-v1',method:'Production live HTTPS, precisely 25 schools at 1366/390/320 CSS pixels, reciprocal county links',candidateSha:process.env.GITHUB_SHA||null,productionSha:'not independently identified from HTML',editorialAccepted:false,photoRightsAccepted:false,schools:[],counties:[],summary:{schoolCases:0,schoolPass:0,schoolFail:0,countyCases:0,countyPass:0,countyFail:0,screenshots:0,chunkErrors:0}};
+const result={schema:'football-b006-targeted-browser-v2',method:'Production live HTTPS, precisely 25 schools at 1366/390/320 CSS pixels, 25 sitemap entries and reciprocal county links',candidateSha:process.env.GITHUB_SHA||null,productionSha:'not independently identified from HTML',editorialAccepted:false,photoRightsAccepted:false,schools:[],counties:[],sitemap:{status:0,checked:slugs.length,missing:[],error:null},observedWorkerVersions:[],summary:{schoolCases:0,schoolPass:0,schoolFail:0,countyCases:0,countyPass:0,countyFail:0,sitemapPass:0,sitemapFail:0,screenshots:0,chunkErrors:0}};
+// A complete 25-school browser PASS without discoverable production sitemap URLs
+// is not a valid acceptance. This is one bounded fetch, not a crawl or poll.
+try {
+ const sitemapResponse=await fetch(root+'/sitemap.xml',{signal:AbortSignal.timeout(45000)});
+ result.sitemap.status=sitemapResponse.status;
+ const xml=await sitemapResponse.text();
+ for(const slug of slugs){
+  if(!xml.includes(root+'/texas-high-school-football-teams/'+slug))result.sitemap.missing.push(slug);
+ }
+ if(sitemapResponse.status!==200)result.sitemap.error='Non-200 production sitemap HTTP '+sitemapResponse.status;
+} catch(error) {
+ result.sitemap.error=String(error?.message||error).slice(0,300);
+ result.sitemap.missing=slugs.slice();
+}
+result.summary.sitemapPass=result.sitemap.error?0:slugs.length-result.sitemap.missing.length;
+result.summary.sitemapFail=slugs.length-result.summary.sitemapPass;
+// Detect mixed Cloudflare Worker revisions when the server exposes the
+// release header. Do not pretend this header proves an unobservable git SHA.
+const workerVersions=new Set();
 const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_BIN||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
 try{
  for(const s of schools)for(const [device,width,height] of [['desktop',1366,900],['mobile390',390,844],['reflow320',320,800]]){
@@ -64,6 +83,8 @@ try{
   try{
    const response=await page.goto(root+path,{waitUntil:'domcontentloaded',timeout:45000});
    row.http=response?.status();
+   row.workerVersion=await response?.headerValue('x-texasdefined-worker-version')||null;
+   if(row.workerVersion)workerVersions.add(row.workerVersion);
    if(row.http!==200)errors.push('HTTP '+row.http);
    await page.locator('main h1').first().waitFor({state:'visible',timeout:25000});
    const faq=s.model.faq[0].question;
@@ -100,7 +121,9 @@ try{
    if(pageData.cssWidth>width+8||pageData.bodyWidth>width+8)errors.push('overflow '+pageData.cssWidth+'/'+pageData.bodyWidth);
    if(pageData.broken.length)errors.push('broken image '+pageData.broken.join(',').slice(0,100));
    if(pageData.noAlt.length)errors.push('visible image without alt');
-   if(width===320||errors.length||chunk.length){
+   // Keep 1366, 390 and 320 CSS pixel screenshots for *every* school;
+   // earlier runs preserved only 320 unless another check failed.
+   {
     await page.screenshot({path:out+'/'+device+'-'+s.slug+'.png',fullPage:false,animations:'disabled',timeout:15000});
     result.summary.screenshots++;
    }
@@ -121,6 +144,8 @@ try{
   try{
    const r=await page.goto(root+'/county/'+name,{waitUntil:'domcontentloaded',timeout:45000});
    if(r?.status()!==200)errors.push('county HTTP '+r?.status());
+   row.workerVersion=await r?.headerValue('x-texasdefined-worker-version')||null;
+   if(row.workerVersion)workerVersions.add(row.workerVersion);
    await page.locator('main h1').first().waitFor({state:'visible',timeout:25000});
    // A generic hydration marker can precede the football cards (Nueces),
    // while a working county can omit that marker (Victoria). Accept neither
@@ -142,8 +167,11 @@ try{
   finally{row.pass=errors.length===0;if(row.pass)result.summary.countyPass++;else result.summary.countyFail++;console.log('B006 county',name,row.pass?'PASS':'FAIL',errors.join('|'));await ctx.close();}
  }
 }finally{await browser.close()}
+result.observedWorkerVersions=[...workerVersions].sort();
 await writeFile(out+'/report.json',JSON.stringify(result,null,2)+'\n');
 console.log('B006 targeted production acceptance',JSON.stringify(result.summary));
 assert.equal(result.summary.schoolCases,75,'Never reduce 25 school x 3 viewport scope');
+assert.equal(result.summary.sitemapFail,0,'Every assigned school must be discoverable in the live production sitemap');
+assert.ok(workerVersions.size<=1,'Mixed Cloudflare Worker versions during one production browser acceptance');
 assert.equal(result.summary.schoolFail,0,'Investigate school failures before technical acceptance');
 assert.equal(result.summary.countyFail,0,'Investigate missing reciprocal county links');
