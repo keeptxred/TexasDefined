@@ -67,7 +67,7 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
             isPartOf: { '@id': `${siteUrl}/#website` },
             about: {
               '@type': 'HighSchool',
-              name: program?.officialSchoolName || displayName,
+              name: displayName,
               address: program?.city ? {
                 '@type': 'PostalAddress',
                 addressLocality: program.city,
@@ -83,7 +83,7 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
             sport: 'American football',
             memberOf: {
               '@type': 'HighSchool',
-              name: program?.officialSchoolName || displayName,
+              name: displayName,
             },
             location: program?.city ? {
               '@type': 'Place',
