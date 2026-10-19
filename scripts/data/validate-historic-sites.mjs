@@ -568,6 +568,11 @@ if (!seeds.includes('lat: 31.76279, lng: -106.47706')) failures.push('Magoffin f
 if (!magoffinPairings.includes('"magoffin-home": ["el-paso-museum-of-art", "chamizal-national-memorial", "hotel-paso-del-norte"]')) failures.push('Magoffin local reciprocal links missing');
 if (!magoffinTimeline.includes('"magoffin-home": [')) failures.push('Magoffin cited chronology missing');
 if (!magoffinRoute.includes('destination.slug !== "magoffin-home" && isPrimaryTripPlannerDestination(destination)')) failures.push('Magoffin duplicate visit planner must remain suppressed');
+const builtWorkerSmoke = fs.readFileSync("scripts/ci/verify-built-worker-ssr-core.mjs", "utf8");
+if (!magoffinRoute.includes('destination = applyMagoffinHomeAuthority(destination);')) failures.push("Magoffin route must apply final authoritative restoration overlay after remote and local source resolution");
+for (const marker of ["Magoffin restoration alert is SSR-rendered", "Magoffin restored visitor FAQ replaces generic-only guide", "Magoffin current visitor-center arrival address is visible"]) {
+  if (!builtWorkerSmoke.includes(marker)) failures.push("Magoffin built-Worker SSR proof missing: " + marker);
+}
 
 if (failures.length) { console.error('Historic-sites validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
 console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings plus ${protectedNationalCemeteries.length} dedicated national-cemetery heroes, every protected hero matches a real seed, Lipantitlan geography is source-corrected, shared preserved-catalog publication, runtime enrichment, Texas History discovery and county cross-links are protected across eager and lazy route surfaces, and the Mayborn Museum dedicated authority route/data/current visitor guidance/post-purge regression contract is protected.`);

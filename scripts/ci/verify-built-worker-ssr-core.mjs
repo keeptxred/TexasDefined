@@ -40,6 +40,11 @@ const smokeTargets = [
   { path: '/metro-area/el-paso-metro', requiredText: 'Quintin Soloviev', label: 'El Paso metro preserves licensed skyline attribution' },
   { path: '/city/el-paso', requiredText: '/metro-area/el-paso-metro', label: 'El Paso city guide links back to metro' },
   { path: '/article/moving-to-el-paso-guide', requiredText: '/metro-area/el-paso-metro', label: 'Moving to El Paso article links to metro guide' },
+  // A merged Magoffin code change is not proof of publication; inspect the real
+  // locally built Worker SSR rather than trusting module-level source markers.
+  { path: '/destination/magoffin-home', requiredText: 'Historic home closed through 2027', label: 'Magoffin restoration alert is SSR-rendered' },
+  { path: '/destination/magoffin-home', requiredText: 'Magoffin Home visitor FAQ', label: 'Magoffin restored visitor FAQ replaces generic-only guide' },
+  { path: '/destination/magoffin-home', requiredText: '1117 Magoffin Avenue', label: 'Magoffin current visitor-center arrival address is visible' },
   { path: '/explore/water-parks/schlitterbahn-new-braunfels', requiredText: '/destination/gruene-historic-district', label: 'Schlitterbahn New Braunfels locally sourced additional attractions' },
   { path: '/explore/water-parks/great-wolf-webster', requiredText: '/destination/space-center-houston', label: 'Webster resort waterpark to NASA-area visitor guides' },
   { path: '/explore/water-parks/bill-witt-aquatic-center-corpus-christi', requiredText: '/destination/texas-state-aquarium', label: 'Corpus Christi municipal pool to maritime attractions' },
