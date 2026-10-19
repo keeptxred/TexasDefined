@@ -84,7 +84,7 @@ const surfaces = [
   ['flat-creek-estate-official-link', '/destination/flat-creek-estate', 'https://flatcreekestate.com/'],
   ['flat-creek-estate-canonical', '/destination/flat-creek-estate', 'https://texasdefined.com/destination/flat-creek-estate'],
   ['ysleta-pueblo-museum-authority', '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso', 'A museum about a people who are still here'],
-  ['ysleta-pueblo-museum-authentic-image', '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso', 'Tigua_Cultural_Center.jpg'],
+  ['ysleta-pueblo-museum-authentic-image', '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso', 'wall-art-at-the-tigua-indian-cultural-center'],
   ['ysleta-pueblo-museum-source-review', '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso', 'Last fact-checked October 9, 2026'],
   ['ysleta-correct-mission-trail-resource', '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso', 'https://visitelpaso.com/epmissiontrail'],
   ['ysleta-reciprocal-borderlands', '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso', '/article/texas-borderlands-historic-sites-guide'],
