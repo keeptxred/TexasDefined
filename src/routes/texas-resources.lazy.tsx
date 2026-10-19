@@ -112,6 +112,34 @@ function Page() {
           </div>
         </section>
 
+        <section aria-labelledby="local-office-finder" className="mt-8">
+          <div className="max-w-3xl">
+            <p className="eyebrow text-primary">Local office lookup</p>
+            <h2 id="local-office-finder" className="mt-2 font-display text-3xl leading-tight">Find the right local office</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              Start with the location tied to your task. These tools help connect an address with the county, school district, appraisal system or motor-vehicle office that actually serves it.
+            </p>
+          </div>
+          <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+            <Link to="/find-my-county" className="group bg-background p-5 transition-colors hover:bg-muted/40">
+              <h3 className="font-display text-xl leading-snug group-hover:text-primary">Find my county</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">Use an address to identify the Texas county responsible for local government services.</p>
+            </Link>
+            <Link to="/find-my-school-district" className="group bg-background p-5 transition-colors hover:bg-muted/40">
+              <h3 className="font-display text-xl leading-snug group-hover:text-primary">Find my school district</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">Match an address to the public school district serving that location.</p>
+            </Link>
+            <Link to="/learn/appraisal-districts" className="group bg-background p-5 transition-colors hover:bg-muted/40">
+              <h3 className="font-display text-xl leading-snug group-hover:text-primary">Find appraisal-district help</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">Understand which appraisal district handles property values, exemptions and protests.</p>
+            </Link>
+            <Link to="/find-my-dmv" className="group bg-background p-5 transition-colors hover:bg-muted/40">
+              <h3 className="font-display text-xl leading-snug group-hover:text-primary">Find DMV or county office</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">Locate the office for vehicle registration, title and related county-level tasks.</p>
+            </Link>
+          </div>
+        </section>
+
         <aside className="mt-8 max-w-3xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">
           <p className="font-semibold text-foreground">Texas Defined explains the path; the responsible government office remains the source of record.</p>
           <p className="mt-1">Use these guides to figure out where to go and what to expect, then confirm deadlines, fees, eligibility and filing requirements with the linked official source.</p>
