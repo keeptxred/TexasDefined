@@ -100,7 +100,7 @@ function Page() {
                   <td className="px-3 py-2 text-right tabular-nums">{record.won}</td>
                   <td className="px-3 py-2 text-right tabular-nums">{record.lost}</td>
                   <td className="py-2 text-right tabular-nums">{record.won + record.lost + record.tied}</td>
-                  {district21Pilot && <><td className="px-3 py-2 text-right tabular-nums">{record.pointsFor}</td><td className="px-3 py-2 text-right tabular-nums">{record.pointsAgainst}</td><td className="py-2 text-right tabular-nums">{DISTRICT_21_OVERALL_OCT14[record.schoolName] ?? '—'}</td></>
+                  {district21Pilot && <><td className="px-3 py-2 text-right tabular-nums">{record.pointsFor}</td><td className="px-3 py-2 text-right tabular-nums">{record.pointsAgainst}</td><td className="py-2 text-right tabular-nums">{DISTRICT_21_OVERALL_OCT14[record.schoolName] ?? '—'}</td></>}
                 </tr>)}
               </tbody>
             </table>
