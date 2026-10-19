@@ -98,6 +98,35 @@ try {
       verify("ten curated stops available", data.cardCount >= 10, data.cardCount);
       verify("every curated trip has a map selector", await page.locator('[aria-label="Select a featured McAllen day trip on the map"] button').count() === 10);
       verify("real map iframe available", await page.locator('iframe[title^="Interactive OpenStreetMap location of"]').count() === 1);
+
+      // Exercise every map choice, not just the initial iframe. No outbound navigation.
+      const featuredChoices = page.locator('[aria-label="Select a featured McAllen day trip on the map"] button');
+      const featuredMap = page.locator('section[aria-labelledby="mcallen-featured-map"]');
+      const checkedDestinations = new Set();
+      for (let i = 0; i < 10; i++) {
+        const choice = featuredChoices.nth(i);
+        const name = (await choice.innerText()).trim();
+        await choice.click();
+        const pressed = await choice.getAttribute("aria-pressed");
+        const frame = featuredMap.locator('iframe[title^="Interactive OpenStreetMap location of"]');
+        const frameTitle = await frame.getAttribute("title");
+        const frameSrc = await frame.getAttribute("src");
+        const driveHref = await featuredMap.locator('a[href*="google.com/maps/dir/"]').getAttribute("href");
+        const driveUrl = driveHref ? new URL(driveHref) : null;
+        const destination = driveUrl?.searchParams.get("destination") || "";
+        verify("map selection " + (i + 1) + " changes location", pressed === "true" &&
+          frameTitle === "Interactive OpenStreetMap location of " + name &&
+          frameSrc?.includes("openstreetmap.org/export/embed.html") &&
+          frameSrc.includes("marker="), name);
+        verify("map selection " + (i + 1) + " has named McAllen driving route",
+          driveUrl?.searchParams.get("origin") === "McAllen, TX" &&
+          driveUrl?.searchParams.get("travelmode") === "driving" &&
+          destination.length >= 10, destination);
+        checkedDestinations.add(destination);
+      }
+      verify("all ten featured routes have distinct destinations", checkedDestinations.size === 10, checkedDestinations.size);
+      // Restore the initial selection so the full-page screenshots are comparable.
+      await featuredChoices.first().click();
       await page.locator('#expedia-travel-surface[data-stay-consolidated="true"]').waitFor({ state: "attached", timeout: 15000 });
       verify("one consolidated lodging module", await page.locator('#expedia-travel-surface[data-stay-consolidated="true"]').count() === 1);
       verify("Quinta is the first destination heading", data.firstCuratedHeading === "Quinta Mazatlán", data.firstCuratedHeading);
