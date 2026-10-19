@@ -1,5 +1,8 @@
 # Boerne High Greyhounds — individual Batch 006 football authority dossier
 
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific football authority editorial is merged on `main`; the canonical Batch 006 registry records this page **DEPLOYED**. The [single-release production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed 75/75 school viewports, 23/23 reciprocal county links and 25/25 sitemap entries on its tested release. **Individual nine-dimension editorial/factual approval, rights clearance and manual accessibility certification remain outstanding; this school is NOT individually VERIFIED.** Historical statements below describing unmerged branches are superseded. More recent source-specific staff facts have separate dated October 19 notes and protected PR #5300.
+
+
 ## October 17, 2026 — dated October 16 result replaces previous unverified status
 
 Boerne's Greyhounds beat Liberty Hill 49–7 on October 16; Champion High is a separate Boerne ISD football team. **7–0** through October 16, 2026 based on reported final scores. [Contemporary source: Houston Chronicle October 16 statewide football finals](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php). Earlier dossier notes treating this individual fixture as upcoming or unresolved are historical and superseded by this score evidence only. Full UIL score certification, photo rights, staffing questions, specific stadium entrance and 320/390 desktop/mobile Chrome editorial acceptance remain separate pending work.
