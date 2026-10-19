@@ -1,5 +1,8 @@
 # Blooming Grove Lions — original Batch006 evidence and editorial implementation
 
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific authority editorial is merged on `main` and the canonical Batch 006 registry records this page **DEPLOYED**. The [single-Worker-release targeted production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed Batch 006 school viewport, reciprocal county and sitemap checks on its tested release. **Individual nine-dimension factual/editorial signoff, photo/brand rights and manual accessibility review are NOT established; this page is NOT individually VERIFIED.** Earlier notes below describing an unmerged branch are historical checkpoints, not today's release status.
+
+
 **Latest reconciliation (October 15, 2026):** Proposed on PR #4997, rebased semantically onto latest `main`; school-specific authored facts retained. **IMPLEMENTED, not yet independently production/browser/editorially VERIFIED.** Historical dependent-branch description below is research provenance, not a claim of current PR base.
 
 **Researched/branch-authored October 15, 2026**. Blooming Grove ISD, Navarro County, Texas, Class 3A DII District 11. `feature/football-b006-blooming-grove-20261015` depends on Blanket #4993, Blanco #4990, Blackwell #4985; Big Spring/Bishop merged/deployed. **Not merged, production Chrome VERIFIED or nine-dimension editorially accepted.**
