@@ -9,11 +9,11 @@ import type { Article } from "../types";
  * so each article renders clickable credit and license information.
  */
 export const moverVerificationHero: Article["hero"] = {
-  src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/U-Haul_Moving_Truck.jpg?width=1280",
-  alt: "A moving rental truck, illustrating the vehicle type to verify before hiring a household-goods mover",
+  src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mayflower_Moving_Truck_Ypsilanti_Michigan.JPG?width=1280",
+  alt: "A professional household-goods moving company truck at a residence, illustrating the vehicle type to verify before hiring a carrier",
   width: 1280,
-  height: 960,
-  credit: "Tony Webster · Wikimedia Commons · CC BY 2.0 (illustrative photo, not an endorsement)",
+  height: 853,
+  credit: "Dwight Burdette · Wikimedia Commons · CC BY 3.0 (illustrative photo, not an endorsement)",
 };
 
 export const healthCoverageHero: Article["hero"] = {
