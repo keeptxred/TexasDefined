@@ -14,6 +14,98 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "museum-of-south-texas-history-edinburg": [
+    {
+      "question": "What are the Museum of South Texas History's regular admission prices?",
+      "answer": "The current museum-operated price table lists adults 18 and older at $9, seniors 62 and older with ID at $6, students 13 and older with ID at $6, children ages 4–12 at $5, and children 3 and younger free. Active military with ID is listed at $6, with a seasonal Blue Star Museums exception; check the ticket page for your date.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Is the museum free on Saturday mornings in Edinburg?",
+      "answer": "Regular admission is free before noon on Saturdays, but the museum explicitly excludes certain special events and programming. Do not treat an evening event or other separately ticketed program as free; check the current events calendar before making a trip expressly for free admission.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Is Museum of South Texas History open on Sundays or Mondays?",
+      "answer": "The posted public hours are Tuesday through Saturday from 10 a.m. to 5 p.m. and Sunday from 1 to 5 p.m. The museum is closed on Mondays, major holidays and some event dates. If you are planning a long drive, confirm special closures on the official calendar before leaving.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Where can I park to visit the museum on Closner Boulevard?",
+      "answer": "The operator identifies two free visitor lots: its main lot on Closner Boulevard (Business US 281) and an overflow lot on Kuhn Street north of the museum. Hidalgo County Courthouse parking on McIntyre Street may provide additional spaces during weekends or evening events, subject to local availability and signage.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Can visitors enter the original 1910 Hidalgo County Jail?",
+      "answer": "Yes, the preserved 1910 jail is part of the museum campus, with interpretation of the former cells, jailer's quarters and surviving gallows trap-door. The museum describes a substantial 2017–2019 restoration; this is a historic part of the visit, not a still-operating detention facility. Verify access to a particular room before travel.",
+      "verificationUrl": "https://mosthistory.org/archive-artifact-collections/old-jail/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/archive-artifact-collections/old-jail/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "What is the Rio Grande Legacy exhibition about?",
+      "answer": "The museum's Rio Grande Legacy sequence interprets South Texas and northeastern Mexico as a connected borderland. Sections called River Frontier and River Crossroads explore landscape, Indigenous peoples, Spanish settlement and twentieth-century change; consult the museum about any galleries temporarily unavailable during an exhibition changeover.",
+      "verificationUrl": "https://mosthistory.org/about-the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/about-the-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Do I need an appointment to use the Margaret H. McAllen Memorial Archives?",
+      "answer": "Yes. Reading-room access is separate from ordinary exhibition admission and requires a research appointment. The museum posts appointment availability Tuesday through Friday, 9 a.m. to noon and 1 to 4 p.m., and asks researchers to contact archives@mosthistory.org. Class archive tours need advance arrangements, not drop-in walkups.",
+      "verificationUrl": "https://mosthistory.org/archive-artifact-collections/museum-archives/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/archive-artifact-collections/museum-archives/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Does the museum offer activities for schoolchildren or self-guided family visits?",
+      "answer": "The museum publishes a self-guided visit PDF and learning materials for fourth- and seventh-grade Texas history, plus selected hands-on activities. Some interactive items are conditional or described on older museum pages, so teachers and parents should confirm current access before promising a specific activity to children.",
+      "verificationUrl": "https://mosthistory.org/education/tour-activities/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/education/tour-activities/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Is the Museum of South Texas History accessible for wheelchair users?",
+      "answer": "The museum's visitor-information page states that the facility is ADA accessible. That is not a guarantee that every surface in the historic jail or landscaped outdoor park is level; visitors requiring a particular doorway, route, lift or assistance should telephone 956-383-6911 before visiting.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Can I take museum photos and publish them commercially?",
+      "answer": "The museum allows certain handheld cameras and devices for ordinary visits but restricts tripods, lighting rigs and professional equipment. Its permission form specifically distinguishes personal shoots from commercial/promotional production, which requires direct permission. The independently photographer-licensed 2021 exterior jail photo used by TexasDefined has its own CC BY 4.0 rights and is not museum marketing imagery.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    }
+  ],
   "mcnay-art-museum-san-antonio": [
       {
           "question": "Does the McNay Art Museum have free parking?",
