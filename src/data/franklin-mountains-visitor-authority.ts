@@ -12,6 +12,7 @@ export function applyFranklinMountainsVisitorAuthority(destination: Destination)
   return {
     ...destination,
     summary: "El Paso's nearly 27,000-acre mountain wilderness offers more than 100 miles of Chihuahuan Desert trails, rugged North Franklin Peak climbs, mountain biking, rock climbing and primitive camping in the Tom Mays Unit.",
+    hero: { ...destination.hero, alt: "Prickly pear cactus in the Tom Mays Unit of Franklin Mountains State Park, El Paso, Texas" },
     coordinates: { lat: 31.910522, lng: -106.518182 },
     address: "2900 Tom Mays Access Rd., El Paso, TX 79911",
     directions: "For park headquarters, day-use facilities and camping, use the Tom Mays Unit off Trans Mountain Road (Loop 375), about 3.5 miles east of I-10. Other trailheads have separate access: McKelligon Canyon from Fred Wilson Road, Ron Coleman Trail at Smugglers Pass on Loop 375, and the northeast trails at the end of Jon Cunningham Boulevard near Chuck Heinrich Memorial Park. Do not route northeast hikers to Tom Mays by default.",
