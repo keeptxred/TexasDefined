@@ -50,6 +50,21 @@ function county(slug){
  return resolved;
 }
 const schools=slugs.map(slug=>({slug,county:county(slug),model:model(slug)}));
+// Dated, individually sourced 2026 coaching identities. Catch mistaken school data
+// and hydrated UI omissions; don't invent coaching claims for unsettled programs.
+const coachCheckpoints={
+ 'big-sandy-harmony':'Brian Mauk',      // KLTV May 2026, former-coach correction PR #5317
+ bishop:'Keith Talbert',                // MaxPreps Oct 13 staff; qualified third-party attribution
+ blanco:'Kent Walker',                  // 2026 football roster, not inferred from AD role
+ bloomington:'Lane Shands',             // Texas Football Feb 2026 analysis
+ boerne:'Brett Sawyer',                 // Feb 2025 hiring + Sept 2026 Boerne Star
+ 'boys-ranch':'Louis Kelley III',        // Boys Ranch ISD head-coach directory + 2023 hiring
+};
+for(const school of schools){
+ const checkpoint=coachCheckpoints[school.slug];
+ if(checkpoint)assert.equal(school.model.coach?.name,checkpoint,
+  'Dated 2026 Batch006 coach identity/source mismatch for '+school.slug);
+}
 for(const school of schools)assert.ok(school.model.season?.games?.length>=6&&school.model.faq?.length>=5,'Missing authored source content '+school.slug);
 const result={schema:'football-b006-targeted-browser-v2',method:'Production live HTTPS, precisely 25 schools at 1366/390/320 CSS pixels, 25 sitemap entries and reciprocal county links',candidateSha:process.env.GITHUB_SHA||null,productionSha:'not independently identified from HTML',editorialAccepted:false,photoRightsAccepted:false,schools:[],counties:[],sitemap:{status:0,checked:slugs.length,missing:[],error:null},observedWorkerVersions:[],summary:{schoolCases:0,schoolPass:0,schoolFail:0,countyCases:0,countyPass:0,countyFail:0,sitemapPass:0,sitemapFail:0,screenshots:0,countyScreenshots:0,chunkErrors:0}};
 // A complete 25-school browser PASS without discoverable production sitemap URLs
@@ -104,7 +119,10 @@ try{
     rows:document.querySelectorAll('main tbody tr').length,
     links:[...document.querySelectorAll('main a[href]')].map(x=>x.getAttribute('href')),
     broken:[...document.images].filter(i=>i.getBoundingClientRect().width&&i.complete&&!i.naturalWidth).map(i=>i.currentSrc),
-    noAlt:[...document.images].filter(i=>i.getBoundingClientRect().width&&!i.hasAttribute('alt')).map(i=>i.currentSrc)
+    noAlt:[...document.images].filter(i=>i.getBoundingClientRect().width&&!i.hasAttribute('alt')).map(i=>i.currentSrc),
+    coaches:[...document.querySelectorAll('main dt')]
+      .filter(el=>el.textContent?.trim().toLowerCase()==='head coach')
+      .map(el=>el.nextElementSibling?.textContent?.trim()||'')
    }));
    row.h1=pageData.h1[0];row.canonical=pageData.canonical;
    row.cssWidth=pageData.cssWidth;row.gameRows=pageData.rows;
@@ -118,6 +136,12 @@ try{
    if(/noindex/i.test(pageData.robots))errors.push('unexpected noindex');
    if(!pageData.body.includes('2026'))errors.push('no current-season content');
    if(!expectedRecord||!pageData.body.includes(expectedRecord))errors.push('displayed W-L record differs from source record '+expectedRecord);
+   if(coachCheckpoints[s.slug]){
+    row.observedHeadCoaches=pageData.coaches;
+    if(pageData.coaches.length!==1||pageData.coaches[0]!==coachCheckpoints[s.slug])
+     errors.push('rendered head-coach fact mismatch: expected '+coachCheckpoints[s.slug]
+       +', observed '+JSON.stringify(pageData.coaches));
+   }
    if(!pageData.ld.includes('SportsTeam'))errors.push('SportsTeam JSON-LD absent');
    if(!pageData.ld.includes('FAQPage'))errors.push('FAQPage JSON-LD absent');
    if(pageData.rows<6)errors.push('insufficient dated game rows');
