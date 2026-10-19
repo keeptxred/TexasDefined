@@ -9,7 +9,7 @@ export const texasAquifersSpringsGuideArticle: Article = {
   title: "Texas Aquifers and Springs Explained: The Water Beneath the State",
   dek: "Rivers and reservoirs are only the visible part of Texas water. Aquifers store groundwater beneath the surface, springs bring some of it back into daylight, and both shape cities, farms, wildlife and land decisions.",
   category: "lakes-rivers",
-  hero: { src: "/images/editorial/texas-aquifers-springs.jpg", alt: "Clear spring-fed Texas river flowing beneath cypress trees", width: 1600, height: 1115, credit: "AI-generated editorial illustration · Texas Defined (Cloudflare Workers AI / FLUX.1 schnell)" },
+  hero: { src: "/images/editorial/texas-aquifers-springs.jpg", alt: "AI-generated editorial illustration of a spring-fed Texas river shaded by cypress trees", width: 1600, height: 1115, credit: "AI-generated editorial illustration · Texas Defined (Cloudflare Workers AI / FLUX.1 schnell)" },
   authorId: "a-marisol", publishedAt: "2026-08-27", readingMinutes: 7,
   tags: ["texas aquifers", "texas springs", "groundwater", "Edwards Aquifer", "Ogallala Aquifer", "TWDB"], featured: false,
   sourceName: "Texas Water Development Board", sourceUrl: "https://www.twdb.texas.gov/groundwater/aquifer/",
