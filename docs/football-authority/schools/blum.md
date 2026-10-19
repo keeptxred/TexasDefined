@@ -21,3 +21,7 @@
 ## Two-way geographic route and gating
 
 Blum campus and district are in Hill County; connect existing `/county/hill` ↔ canonical `/texas-high-school-football-teams/blum` school page, without inventing a new city guide or ticketing URLs. Preserve the original separate Abbott and Aquilla entries. Verify physical location separately from district boundary. This change requires protected canonical CI, production exact-SHA deployment, independent real browser mobile/desktop SEO/schema/h1, reciprocal link and 2019 identity checks and signed-off source review; do not promote to VERIFIED based on writing this file.
+
+## October 19, 2026 — Blum–Avalon result and independent date discrepancy
+
+[Six-Man Football's Thursday final-score ledger](https://sixmanfootball.com/scores/) reports **Blum 66, Avalon 60**; the [Blum program schedule](https://sixmanfootball.com/teams/blum-bobcats.1056/schedule/) lists **October 15**. The independently published [October 17 MaxPreps recap](https://www.maxpreps.com/news/s7-CNyvCckSPpkSS98KPow/football-recap-blum-fends-off-avalon--how-to-watch.htm) also confirms **Blum 66, Avalon 60** and a **2–6** season tally, but labels the game **October 16**. Preserve the Six-Man source calendar date in the fixture field while clearly qualifying the conflicting day. A reported score is not independently certified by the school or UIL. Do not assume gate, parking, ADA, image rights, or final school editorial/production acceptance. The previously VERIFIED 105 remain untouched.
