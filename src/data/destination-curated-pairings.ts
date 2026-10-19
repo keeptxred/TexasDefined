@@ -14,6 +14,7 @@ const CURATED_PAIRINGS: Readonly<Record<string, readonly string[]>> = {
   "bosque-river-bridge-meridian": ["meridian", "meridian-state-park"],
   "holland-hotel": ["alpine-downtown-historic-district", "alpine", "kokernot-field"],
   "hotel-paso-del-norte": ["el-paso-museum-of-art", "magoffin-home", "ysleta-del-sur-pueblo-cultural-center-museum-el-paso", "franklin-mountains-state-park"],
+  "magoffin-home": ["el-paso-museum-of-art", "chamizal-national-memorial", "hotel-paso-del-norte"],
   "sycamore-creek-bridge-fort-worth": ["fort-worth-stockyards"],
   "regency-suspension-bridge": ["goldthwaite", "san-saba"],
   "kokernot-field": ["alpine-downtown-historic-district", "alpine"],

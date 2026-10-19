@@ -246,7 +246,7 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
         ...(hasUsableHero ? { image: destination.hero.src, imageAlt: destination.hero.alt } : {}),
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-      scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, attractionSchema, ...(relatedPlaces.length > 0 ? [relatedSchema] : []), ...(dallasHeritage ? [{ "@type": "FAQPage", "@id": `${url}#faq`, mainEntity: dallasHeritage.faqs.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) }] : []), ...(destination.slug === "franklin-mountains-state-park" && destination.visitorFaqs?.length ? [{ "@type": "FAQPage", "@id": `${url}#franklin-faq`, mainEntity: destination.visitorFaqs.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) }] : []), breadcrumbSchema] }) }],
+      scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, attractionSchema, ...(relatedPlaces.length > 0 ? [relatedSchema] : []), ...(dallasHeritage ? [{ "@type": "FAQPage", "@id": `${url}#faq`, mainEntity: dallasHeritage.faqs.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) }] : []), ...(destination.slug === "franklin-mountains-state-park" && destination.visitorFaqs?.length ? [{ "@type": "FAQPage", "@id": `${url}#franklin-faq`, mainEntity: destination.visitorFaqs.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) }] : []), ...(destination.slug === "magoffin-home" && destination.visitorFaqs?.length ? [{ "@type": "FAQPage", "@id": `${url}#visitor-faq`, mainEntity: destination.visitorFaqs.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) }] : []), breadcrumbSchema] }) }],
     };
   },
   notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">Destination guide</p><h1 className="mt-3 font-display text-4xl">This place isn’t in our guide yet</h1><p className="mt-4 max-w-xl text-base leading-7 text-muted-foreground">Browse the places we have mapped in <Link to="/explore" className="border-b border-primary text-primary">Explore Texas</Link>.</p></Container>,
@@ -303,7 +303,9 @@ function DestinationPage() {
       }))
       .filter((group) => group.destinations.length > 0)
       .slice(0, 3)
-    : relationshipGroups;
+    : destination.slug === "magoffin-home"
+      ? relationshipGroups.map((group) => ({ ...group, destinations: group.destinations.filter((item) => { const miles = distanceMiles(destination, item); return miles !== null && miles <= 40; }) })).filter((group) => group.destinations.length > 0)
+      : relationshipGroups;
   const mapMarkers = isChokeCanyon
     ? [
       { id: `${destination.id}-calliham`, label: "Calliham Unit — headquarters, camping and full-service facilities", point: destination.coordinates },
@@ -339,6 +341,21 @@ function DestinationPage() {
       </Container>
     </section>
 
+    {destination.slug === "magoffin-home" && (
+      <section role="status" aria-label="Magoffin Home restoration and visitor access" className="border-b border-border bg-surface py-6 text-foreground">
+        <Container>
+          <p className="text-xs font-bold uppercase tracking-[0.14em]">Restoration alert · Verified October 19, 2026</p>
+          <h2 className="mt-2 font-display text-2xl sm:text-3xl">Historic home closed through 2027 · Visitor center open</h2>
+          <p className="mt-3 max-w-4xl text-sm leading-7">Do not plan an ordinary interior tour of the house at 1120 Magoffin Avenue. The visitor center across the street at 1117 Magoffin Avenue is open Tuesday–Saturday, 9 a.m.–4 p.m. Contact the Texas Historical Commission at <a href="tel:+19155335147" className="font-semibold underline">915-533-5147</a> for current programs, admission during restoration and special-event reservations.</p>
+          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+            <a href="https://thc.texas.gov/historic-sites/magoffin-home" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Official closure notice and virtual tour ↗</a>
+            <a href="https://thc.texas.gov/sites/default/files/2025-01/Magoffin_walking_tour_new.pdf" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Historic district walking tour ↗</a>
+            <Link to="/$kind/$slug" params={{ kind: "county", slug: "el-paso" }} className="underline underline-offset-4">Explore El Paso County →</Link>
+          </div>
+        </Container>
+      </section>
+    )}
+
     <AnswerSummary
       eyebrow="Quick trip facts"
       title={`${destination.name} at a glance`}
@@ -349,6 +366,22 @@ function DestinationPage() {
         ...(destination.managingAuthority ? [{ question: `Who manages ${destination.name}?`, answer: destination.managingAuthority }] : []),
       ]}
     />
+
+    {destination.slug === "magoffin-home" && destination.visitorFaqs?.length ? (
+      <section id="visitor-faq" className="bg-surface py-10 sm:py-12" aria-labelledby="magoffin-visitor-faq-title">
+        <Container>
+          <p className="eyebrow text-primary">Restoration-aware questions</p>
+          <h2 id="magoffin-visitor-faq-title" className="mt-2 font-display text-3xl">Magoffin Home visitor FAQ</h2>
+          <dl className="mt-6 grid gap-6 md:grid-cols-2">
+            {destination.visitorFaqs.map((item) => <div key={item.question} className="border-t border-border pt-5">
+              <dt className="font-semibold">{item.question}</dt>
+              <dd className="mt-3 text-sm leading-7 text-muted-foreground">{item.answer}</dd>
+              {item.sourceUrl && <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-xs font-semibold text-primary underline">Official source ↗</a>}
+            </div>)}
+          </dl>
+        </Container>
+      </section>
+    ) : null}
 
     {isHotelPasoDelNorte && destination.gallery?.[0] && (
       <section aria-labelledby="hotel-paso-dome-photos" className="border-b border-border bg-surface">
@@ -399,8 +432,8 @@ function DestinationPage() {
         {destination.gallery && destination.gallery.length > 0 && (
           <section aria-labelledby="destination-photo-archive" className="mt-12 border-t border-border pt-8">
             <p className="eyebrow text-primary">Documentary photographs</p>
-            <h2 id="destination-photo-archive" className="mt-3 font-display text-3xl">{isHotelPasoDelNorte ? "Hotel Paso del Norte: historic exterior and postcard" : `Historical photographs of ${destination.name}`}</h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">Images are individually dated and licensed. Archival views do not establish current amenities, renovations or visitor access.</p>
+            <h2 id="destination-photo-archive" className="mt-3 font-display text-3xl">{isHotelPasoDelNorte ? "Hotel Paso del Norte: historic exterior and postcard" : destination.slug === "magoffin-home" ? "Magoffin family: historical portraits" : `Historical photographs of ${destination.name}`}</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">{destination.slug === "magoffin-home" ? "These public-domain nineteenth-century portraits document the family behind the adobe house. They do not depict current rooms or visitor access." : "Images are individually dated and licensed. Archival views do not establish current amenities, renovations or visitor access."}</p>
             <div className="mt-7 grid gap-6 sm:grid-cols-2">
               {destination.gallery.filter((_, index) => !isHotelPasoDelNorte || index > 0).map((item) => (
                 <figure key={item.image.src} className="min-w-0 overflow-hidden border border-border">
@@ -430,7 +463,7 @@ function DestinationPage() {
           </dl>
           <div className="mt-7 flex flex-wrap gap-6">{validExternalUrl(destination.reservationUrl) && <a href={destination.reservationUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Reservations</a>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official visitor information</a>}{isChokeCanyon && <a href="https://tpwd.texas.gov/state-parks/choke-canyon/alert" target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Current park alerts</a>}</div>
         </section>
-        {authoritySourceLinks.length > 0 && <section aria-labelledby="destination-research-sources" className="mt-10 border-t border-border pt-8">
+        {authoritySourceLinks.length > 0 && destination.slug !== "magoffin-home" && <section aria-labelledby="destination-research-sources" className="mt-10 border-t border-border pt-8">
           <p className="eyebrow text-primary">{documentaryPhotoSource ? "Evidence and photo credits" : "Evidence and citations"}</p>
           <h2 id="destination-research-sources" className="mt-3 font-display text-3xl">{documentaryPhotoSource ? "Research sources and image rights" : "Research sources"}</h2>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">{documentaryPhotoSource ? "Read the original operator records, preservation research and documentary photography license for this guide." : "Read the original operator records and supporting research for this guide."}</p>
@@ -442,10 +475,10 @@ function DestinationPage() {
           </ul>
         </section>}
         {destination.slug === "franklin-mountains-state-park" && <Suspense fallback={null}><FranklinMountainsAuthority /></Suspense>}
-        {!isChokeCanyon && destination.slug !== "franklin-mountains-state-park" && <Suspense fallback={null}><DestinationViatorBooking destination={destination} /></Suspense>}
+        {!isChokeCanyon && destination.slug !== "franklin-mountains-state-park" && destination.slug !== "magoffin-home" && <Suspense fallback={null}><DestinationViatorBooking destination={destination} /></Suspense>}
         {DESTINATION_LAKE_GUIDE_LINKS[destination.slug] ? <section className="mt-10 border-t border-border pt-8" aria-label="Related lake fishing and recreation guide"><p className="eyebrow text-primary">Explore this lake</p><h2 className="mt-3 font-display text-3xl">Fishing, boat ramps and lake conditions</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">This park is part of a larger lake trip. Our separate lake guide connects species, launch facilities, boating and nearby counties; confirm park admission, accessibility, overnight reservations and closures with the operator.</p><a href={`/fishing/lakes/${DESTINATION_LAKE_GUIDE_LINKS[destination.slug].slug}`} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">{DESTINATION_LAKE_GUIDE_LINKS[destination.slug].name} visitor and fishing guide →</a></section> : null}
         {destination.slug === "dallas-arboretum-and-botanical-garden" ? <section className="mt-10 border-t border-border pt-8"><p className="eyebrow text-primary">Explore the lake next door</p><h2 className="mt-3 font-display text-3xl">White Rock Lake — fishing, paths and boating</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">The Arboretum overlooks White Rock Lake. The wider lake is a City of Dallas recreation area with fishing piers and boating restrictions; garden admission does not grant lake boat access or overnight camping. For launch locations, public park rules and lake history, use the dedicated lake guide.</p><a className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary" href="/fishing/lakes/white-rock-lake">Read the White Rock Lake visitor guide →</a></section> : null}
-        {!isChokeCanyon && isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><DestinationVisitPlanner destination={destination} /></div>}
+        {!isChokeCanyon && destination.slug !== "magoffin-home" && isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><DestinationVisitPlanner destination={destination} /></div>}
         {destination.slug === "spoetzl-brewery" && <Suspense fallback={null}><ShinerBreweryAuthority /></Suspense>}
       </div>
 

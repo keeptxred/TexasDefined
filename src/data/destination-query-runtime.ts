@@ -16,6 +16,7 @@ import { applyExploreHeroAsset, applyExploreHeroAssets } from "./explore-heroes"
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
 import { enrichRemainingHistoricSiteAreaGuide } from "./historic-site-area-guides-extra";
 import { enrichHistoricSiteCatalog, enrichHistoricSiteDestination } from "./historic-site-enrichment";
+import { applyMagoffinHomeAuthority } from "./magoffin-home-authority";
 import { enrichHistoricSiteEvergreenLinks } from "./historic-site-evergreen-links";
 import { enrichTexasHistoricSiteAuthority } from "./historic-site-authority-2026";
 import { enrichFullHistoricSiteAuthority } from "./historic-site-authority-full-catalog";
@@ -210,7 +211,7 @@ function applyResolvedHero(destination: Destination) {
 
 function resolveSeoReadyDestination(destination?: Destination | null) {
   if (!destination) return undefined;
-  const resolved = correctDestinationTravelRegion(applyResolvedHero(destination));
+  const resolved = applyMagoffinHomeAuthority(correctDestinationTravelRegion(applyResolvedHero(destination)));
   return isSeoReadyDestination(resolved) ? resolved : undefined;
 }
 
@@ -219,7 +220,7 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations))),
   ).map(enrichAquariumMarineDestination);
   const curated = improveDestinationCatalog(applyAllCuratedDestinations(aquariumEnriched));
-  const improved = enrichHistoricSiteCatalog(curated)
+  const historicEnriched = enrichHistoricSiteCatalog(curated)
     .map(enrichRemainingHistoricSiteAreaGuide)
     .map(enrichHistoricSiteRemoteHero)
     .map(enrichHistoricSiteEvergreenLinks)
@@ -236,6 +237,7 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(enrichMuseumMedia)
     .map(applyTownAuthority)
     .map(enforceFredericksburgJohnsonCityHeritageAuthority);
+  const improved = historicEnriched.map(applyMagoffinHomeAuthority);
   // The collection renderer must apply the same post-curation exact-place rule
   // as the single destination page, not merely the preliminary photo map.
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(
