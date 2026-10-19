@@ -24,6 +24,8 @@ const checks = [
     '/destination/magoffin-home',
     '2020 Census',
     'MPO planning area',
+    'Quintin Soloviev',
+    'CC BY 4.0',
   ]],
   ['src/routes/$kind.$slug.lazy.tsx', [
     '<ElPasoMetroGuide />',
