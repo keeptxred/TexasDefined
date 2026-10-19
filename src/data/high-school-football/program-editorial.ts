@@ -3516,7 +3516,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "Borger ISD officially lists Jesus A. Villaseñor as athletic director and football coach (athletics office 806-273-1033). The school street address is not proven to be the Bulldog Stadium entrance. A 2013–15 facility project does not certify today's ADA arrangements.",
+      "body": "Borger ISD's athletics directory explicitly identifies Jesus A. Villaseñor as athletic director/head football coach; KFDA also interviewed him as Borger coach on September 22, 2026. Athletic office: 806-273-1033. The school campus address is not a confirmed Bulldog Stadium gate, and historical facility renovations do not certify current ADA arrangements.",
       "sourceUrl": "https://borgerisd.net/69574_2",
       "sourceLabel": "School material plus explicitly qualified unresolved venue/staff/score claims",
       "verifiedAt": "2026-10-17"
@@ -3617,19 +3617,26 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "date": "2026",
         "title": "Two opening-stage wins",
         "body": "Borger defeated Pampa and River Road before the current District 3 losses.",
-        "sourceUrl": "https://www.maxpreps.com/tx/borger/borger-bulldogs/football/25-26/schedule/",
-        "sourceLabel": "Dated school / football historical source"
+        "sourceUrl": "https://www.maxpreps.com/tx/borger/borger-bulldogs/football/schedule/",
+        "sourceLabel": "MaxPreps varsity 2026–27 team schedule (current-season result source; check publication update date)"
+      },
+      {
+        "date": "2026-09-22",
+        "title": "Borger's new coaching direction discussed on KFDA",
+        "body": "In an original Sports Drive interview after the Pampa victory, Borger head coach Jesus Villaseñor discussed the program's early-season progress. This is 2026 Borger reporting, distinct from the disputed 2025 administrative-forfeit record.",
+        "sourceUrl": "https://www.newschannel10.com/2026/09/22/catch-up-with-jesus-villaseor-brett-baumgardner-hayden-ashby/",
+        "sourceLabel": "KFDA NewsChannel 10 original September 22, 2026 head-coach interview"
       }
     ],
     "overview": [
       "Borger Bulldogs is Borger ISD's 11-man football team in Hutchinson County. Its authoritative 2026–28 alignment is UIL 4A Division II District 3; that is different from older season divisions and similarly named programs.",
       "In the 1962 Class 4A state championship, Borger finished runner-up after San Antonio Brackenridge won 30–26, as recorded by the UIL. Hall of Fame coach Gene Mayfield had guided an undefeated Bulldogs team into that final; Mayfield later coached Odessa Permian to its 1965 title, which is not a Borger championship. Borger's 2025 record is disputed by bookkeeping: MaxPreps lists 1–9 because it records the October 31 Levelland game as a forfeit win (W 46–12 FF), while Dave Campbell's Texas Football lists 0–10. The reported on-field score is Levelland 46, Borger 12; do not mistake the administrative forfeiture outcome for an on-field 46–12 win. In 2026, Borger defeated Pampa and River Road before entering the District 3 stretch.",
-      "Borger ISD officially lists Jesus A. Villaseñor as athletic director and football coach (athletics office 806-273-1033). The school street address is not proven to be the Bulldog Stadium entrance. A 2013–15 facility project does not certify today's ADA arrangements."
+      "Borger ISD's athletics directory explicitly identifies Jesus A. Villaseñor as athletic director/head football coach; KFDA also interviewed him as Borger coach on September 22, 2026. Athletic office: 806-273-1033. The school campus address is not a confirmed Bulldog Stadium gate, and historical facility renovations do not certify current ADA arrangements."
     ],
     "faq": [
       {
         "question": "Who is the 2026 Borger head coach?",
-        "answer": "The district athletics page names Jesus A. Villaseñor."
+        "answer": "Borger ISD's current Athletics directory lists Jesus A. Villaseñor as its athletic director and head football coach; KFDA's September 22, 2026 original Sports Drive interview independently identifies him in that role."
       },
       {
         "question": "Did the Bulldogs defeat Pampa in 2026?",
@@ -3666,10 +3673,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     ],
     "coach": {
       "name": "Jesus A. Villaseñor",
-      "title": "Football coaching appointment / varsity football contact",
+      "title": "Borger ISD athletic director and head football coach; corroborated in September 22, 2026 KFDA original football-coach interview",
       "sourceUrl": "https://borgerisd.net/69574_2",
-      "sourceLabel": "Borger ISD first-party athletics announcement",
-      "verifiedAt": "2026-10-17"
+      "sourceLabel": "Borger ISD Athletics first-party directory expressly lists Jesús A. Villaseñor as athletic director/head football coach; KFDA original September 22 interview corroborates the current football role",
+      "verifiedAt": "2026-10-19"
     }
   },
   "bosqueville": {
@@ -3697,7 +3704,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "A June 24 school notice names Reggie Patrick as the football contact, and MaxPreps labels him head coach. An August school announcement required online tickets for the September 3 Kerens away game only—not every home game. The official campus address is not a stadium-gate policy.",
+      "body": "KWTX's October 7, 2026 original Bosqueville report explicitly names Reggie Patrick head football coach; Bosqueville ISD separately names him athletic director and its June notice provides his football contact. Online-only tickets were required for the September 3 Kerens away match only, not established for every home game. The campus address is not a stadium-gate policy.",
       "sourceUrl": "https://ms.bosquevilleisd.org/o/hs/live_feeds/12580232",
       "sourceLabel": "School material plus explicitly qualified unresolved venue/staff/score claims",
       "verifiedAt": "2026-10-17"
@@ -3783,22 +3790,22 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "date": "2025",
         "title": "Bi-district playoff",
-        "body": "Bosqueville entered the 2A Division I playoffs and lost to Frankston.",
-        "sourceUrl": "https://www.maxpreps.com/tx/waco/bosqueville-bulldogs/football/25-26/schedule/",
-        "sourceLabel": "Dated school / football historical source"
+        "body": "The 2025 Bulldogs reached the 2A Division I bi-district playoffs and lost to Frankston. KWTX's October 7, 2026 firsthand school feature describes it as Bosqueville's first playoff appearance since 2021.",
+        "sourceUrl": "https://www.kwtx.com/2026/10/07/classroom-champions-bosquevilles-dax-pharris/",
+        "sourceLabel": "KWTX October 7, 2026 original reporting on Bosqueville's 2025 playoff return, corroborated by dated 2025 MaxPreps result"
       },
       {
         "date": "2026",
         "title": "District three-win start",
         "body": "Wins over Itasca, Valley Mills and Dawson were reported through October 16.",
-        "sourceUrl": "https://www.maxpreps.com/tx/waco/bosqueville-bulldogs/football/25-26/schedule/",
-        "sourceLabel": "Dated school / football historical source"
+        "sourceUrl": "https://www.maxpreps.com/tx/waco/bosqueville-bulldogs/football/schedule/",
+        "sourceLabel": "MaxPreps varsity 2026–27 team schedule (current-season result source; check publication update date)"
       }
     ],
     "overview": [
       "Bosqueville Bulldogs is Bosqueville ISD's 11-man football team in McLennan County. Its authoritative 2026–28 alignment is UIL 2A Division I District 8; that is different from older season divisions and similarly named programs.",
       "The separate Bosqueville ISD program went 7–4 in 2025, losing 29–69 to Frankston in the opening 2A Division I playoff round. In 2026, the Bulldogs opened District 8 with wins over Itasca 54–27, Valley Mills 28–7 and Dawson 56–14.",
-      "A June 24 school notice names Reggie Patrick as the football contact, and MaxPreps labels him head coach. An August school announcement required online tickets for the September 3 Kerens away game only—not every home game. The official campus address is not a stadium-gate policy."
+      "KWTX's October 7, 2026 original Bosqueville report explicitly names Reggie Patrick head football coach; Bosqueville ISD separately names him athletic director and its June notice provides his football contact. Online-only tickets were required for the September 3 Kerens away match only, not established for every home game. The campus address is not a stadium-gate policy."
     ],
     "faq": [
       {
@@ -3811,7 +3818,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who is the football staff contact?",
-        "answer": "Reggie Patrick is named in Bosqueville's June 2026 school announcement."
+        "answer": "Reggie Patrick is the school-published football contact; KWTX's October 7, 2026 original report also identifies him as head football coach and quotes him about Bosqueville's 2025 playoff return."
       },
       {
         "question": "What was the October 16 result?",
@@ -3832,10 +3839,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     ],
     "coach": {
       "name": "Reggie Patrick",
-      "title": "Football coaching appointment / varsity football contact",
-      "sourceUrl": "https://ms.bosquevilleisd.org/o/hs/live_feeds/12580232",
-      "sourceLabel": "Bosqueville ISD first-party athletics announcement",
-      "verifiedAt": "2026-10-17"
+      "title": "Bosqueville head football coach as directly identified and quoted in KWTX October 7, 2026 local reporting; district independently lists him athletic director",
+      "sourceUrl": "https://www.kwtx.com/2026/10/07/classroom-champions-bosquevilles-dax-pharris/",
+      "sourceLabel": "KWTX Oct 7 2026 original school feature directly identifies and quotes head football coach Reggie Patrick; Bosqueville ISD independently lists Patrick athletic director",
+      "verifiedAt": "2026-10-19"
     }
   },
   "bovina": {
@@ -3959,8 +3966,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "date": "2026",
         "title": "District opener",
         "body": "Bovina lost a 44–38 contest at West Texas October 9.",
-        "sourceUrl": "https://www.maxpreps.com/tx/bovina/bovina-mustangs/football/25-26/schedule/",
-        "sourceLabel": "Dated school / football historical source"
+        "sourceUrl": "https://www.maxpreps.com/tx/bovina/bovina-mustangs/football/schedule/",
+        "sourceLabel": "MaxPreps varsity 2026–27 team schedule (current-season result source; check publication update date)"
       },
       {
         "date": "2026-10-16",
@@ -4126,8 +4133,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "date": "2026",
         "title": "Three-game winning start",
         "body": "Callisburg, Bridgeport and Gainesville were the opening 2026 wins.",
-        "sourceUrl": "https://www.maxpreps.com/tx/bowie/bowie-jackrabbits/football/25-26/schedule/",
-        "sourceLabel": "Dated school / football historical source"
+        "sourceUrl": "https://www.maxpreps.com/tx/bowie/bowie-jackrabbits/football/schedule/",
+        "sourceLabel": "MaxPreps varsity 2026–27 team schedule (current-season result source; check publication update date)"
       }
     ],
     "overview": [
