@@ -100,9 +100,10 @@ const areaSeeds: Record<string, AreaSeed> = {
     base: "Mathis", neighborhood: "The Nueces-country setting is central to the site's Lipan Apache associations and later military use.", family: "Use a map or timeline before arriving because the site is more about landscape and layered history than surviving monumental architecture.", sideTrip: { name: "Corpus Christi region", description: "Continue east for coastal and South Texas history that places Lipantitlán in a wider regional story." },
   },
   "old-socorro-mission": {
-    intro: "See Old Socorro Mission as part of the El Paso Mission Trail rather than an isolated church. The Lower Valley route links Pueblo, Spanish, Mexican and borderlands histories across several communities.",
-    nearby: [link("Magoffin Home", "magoffin-home", "Connect the mission corridor to a later El Paso family and borderlands story." )],
-    base: "El Paso and Socorro", neighborhood: "The Rio Grande valley and long-settled Lower Valley communities are essential context for the mission's history.", family: "Make the mission one stop in a short corridor rather than expecting one building to carry the entire day.", sideTrip: link("Magoffin Home", "magoffin-home", "Move forward in time from mission history to 19th-century El Paso civic and family life."),
+    intro: "The original Old Socorro Mission archaeological site is protected and closed. Research the Pueblo community, floods and mission relocation before exploring separate Mission Trail venues.",
+    nearby: [{ name: "Modern La Purísima Socorro Mission", description: "A separate, active church at 328 S. Nevarez Road. Confirm public access with its own operator.", href: "https://www.nps.gov/places/socorro-mission.htm" }, { name: "El Paso Mission Trail", description: "Discover independently visitable Ysleta, Socorro and San Elizario stops, not the closed archaeological property.", href: "/article/el-camino-real-de-tierra-adentro-national-historic-trail" }],
+    base: "El Paso and Socorro", neighborhood: "Rio Grande channel changes shaped the Piro settlement and the original church's successive rebuildings.",
+    family: "Read the THC history at home, then visit distinct publicly accessible museums or churches; do not enter the closed site.", sideTrip: { name: "El Paso Mission Trail", description: "Use independently verified public stops; the original Old Socorro excavation is not a visitor destination.", href: "/article/el-camino-real-de-tierra-adentro-national-historic-trail" },
   },
   "port-isabel-lighthouse": {
     intro: "Use Port Isabel Lighthouse as the visual anchor of a lower Laguna Madre history day, connecting navigation and coastal trade to the working waterfront and the modern beach corridor.",
