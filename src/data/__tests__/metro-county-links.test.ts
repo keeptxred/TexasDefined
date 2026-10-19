@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { readFileSync } from "node:fs";
 import { countyNames, countySlug } from "../metro-county-links.ts";
 import { viatorMarketsForPlace } from "../viator-market-match.ts";
 
@@ -14,4 +15,15 @@ test("multi-county refuge descriptions cannot create a fictional county URL", ()
 test("the city of Alamo matches the Valley, not San Antonio", () => {
   assert.deepEqual(viatorMarketsForPlace("Alamo").map((m) => m.slug), ["rio-grande-valley"]);
   assert.deepEqual(viatorMarketsForPlace("The Alamo").map((m) => m.slug), ["san-antonio"]);
+});
+
+test("McAllen day trips server shell links to both curated guides before lazy content", () => {
+  const source = readFileSync("src/routes/explore.near.$metro.$collection.tsx", "utf8");
+  const start = source.indexOf("data-mcallen-starter-guides");
+  const end = source.indexOf("<Suspense fallback={null}>");
+  assert.ok(start >= 0 && end > start, "the guide links must be in the lightweight route shell");
+  assert.match(source.slice(start - 150, start + 850), /isMcAllenDayTrips[\s\S]*santa-ana-national-wildlife-refuge/);
+  assert.match(source.slice(start, start + 850), /museum-of-south-texas-history-edinburg/);
+  assert.match(source.slice(start, start + 850), /to="\/destination\/\$slug"/);
+  assert.ok(!source.includes('slug: "museum-south-texas-history-edinburg"'), "avoid the competing museum slug");
 });
