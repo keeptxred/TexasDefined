@@ -49,6 +49,16 @@ jobs:
           node --check scripts/ci/verify-east-texas-foliage-browser.mjs
           if [[ "$EVENT" == "workflow_dispatch" ]]; then
             echo "should_verify=true" >> "$GITHUB_OUTPUT"
+          elif [[ "$EVENT" == "pull_request" ]]; then
+            # Execute browser QA for QA-only changes on the already-deployed live article.
+            # Never compare unreleased component changes against old production.
+            if git diff --name-only HEAD^ HEAD | grep -Fq "src/components/editorial/EastTexasFoliageMedia.tsx"; then
+              echo "should_verify=false" >> "$GITHUB_OUTPUT"
+            elif git diff --name-only HEAD^ HEAD | grep -Eq "^(scripts/ci/verify-east-texas-foliage-browser[.]mjs|[.]github/workflows/verify-east-texas-foliage-browser[.]yml)$"; then
+              echo "should_verify=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "should_verify=false" >> "$GITHUB_OUTPUT"
+            fi
           elif [[ "$EVENT" == "workflow_run" && "$DEPLOY_RESULT" == "success" ]]; then
             if git diff --name-only HEAD^ HEAD | grep -Eq '^src/components/editorial/EastTexasFoliageMedia[.]tsx$|^scripts/ci/verify-east-texas-foliage-browser[.]mjs$|^\.github/workflows/verify-east-texas-foliage-browser[.]yml$'; then
               echo "should_verify=true" >> "$GITHUB_OUTPUT"
