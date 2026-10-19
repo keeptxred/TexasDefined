@@ -17,3 +17,7 @@ The [updated MaxPreps Texas Blue Ridge result feed](https://www.maxpreps.com/tx/
 ## Editorial and technical acceptance (still outstanding)
 
 Authored non-generic source-backed program overview, original graphics-only styling, 2024/25/26 chronology, 10 dated fixtures and six specific FAQs. Need actual protected PR validation, exact live deployment, individual desktop/mobile Chrome, original source links, truthful schema/canonical/sitemap, Collin County contextual reciprocal links, visible image/contrast/keyboard checks and no claimed rights for unlicensed photos. Record separate nine-dimension school editorial sign-off. Prior 105 VERIFED records must remain unchanged.
+
+## October 19, 2026 — reported October 16 final (source-backed, not production-accepted)
+
+[MaxPreps' October 16 completed Blue Ridge at Leonard game](https://www.maxpreps.com/tx/football/game/blue-ridge-vs-leonard/10-16-2026/?c=dbbca0ec-f682-4209-a595-17c2aae0fffa) gives **Blue Ridge 48, Leonard 40** and **3–5 through October 16**. The accompanying editorial correction updates the dated result, record, SEO summary and October 16 explanation, while retaining prior October 9 historical reporting and dated sources. This is reported result evidence only, not a substitute for official UIL certification, photo permissions, published-release identification or full editorial/browser acceptance.

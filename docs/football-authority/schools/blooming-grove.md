@@ -19,3 +19,7 @@
 ## Original implementation and outstanding acceptance
 
 Original 2026 school-specific profile includes hiring, own-vs-previous-employer record distinction, first party school contact, Lion Stadium mention qualified by unverified vehicle entrance, six original FAQs and ten dated fixtures. Does not certify copyrighted images, parking, exact gate, accessible seating or specific ticket price. Preserve old 105 VERIFIED, don't promote this school past IMPLEMENTED until relevant PRs merge, canonical protected gate, exact production SHA desktop/mobile real Chrome, SEO/JSON-LD, routing, image governance, Navarro County reciprocal links and nine-dimension editorial evidence are completed.
+
+## October 19, 2026 — reported October 16 final (source-backed, not production-accepted)
+
+[MaxPreps' October 16 completed Blooming Grove–Elkhart report](https://www.maxpreps.com/news/s1pJrwmNrkCdU5qR8UOdtw/football-recap-tough-loss-for-blooming-grove.htm) reports **Elkhart 40, Blooming Grove 0**, bringing the Lions to **0–7 through October 16**. The accompanying editorial correction replaces the stale October 16 future fixture with a dated reported final, updates the SEO description, explanatory text and first-party-vs-third-party provenance, and preserves the older six-game ledger. Independent real production Chrome, nine-dimension editorial signoff and photo rights remain outstanding; the school's canonical registry status is not changed.
