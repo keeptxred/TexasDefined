@@ -8,6 +8,12 @@ export const verifiedStateParkPhotoCredits: Readonly<Record<string, {
   fileUrl: string;
   licenseUrl: string;
 }>> = {
+  "/images/state-parks/world-birding-center-bentsen-rio-grande-valley-state-park.jpg": {
+    author: "William L. Farr",
+    license: "CC BY-SA 4.0",
+    fileUrl: "https://commons.wikimedia.org/wiki/File:Bentsen-Rio_Grande_Valley_State_Park,_Hidalgo_County,_Texas,_USA_(15_April_2016).jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+  },
   // The live Explore/caverns exact-park hero wins in the current resolver.
   "/images/explore/caverns/kickapoo-cavern-state-park.jpg": {
     author: "Mark Gustafson",
