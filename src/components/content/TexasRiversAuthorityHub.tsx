@@ -63,41 +63,6 @@ const wideModuleStyle = {
   transform: "translateX(-50%)",
 } as const;
 
-function TexasOfficialBasinMap() {
-  return (
-    <figure className="mt-7 overflow-hidden rounded-sm border border-border bg-background">
-      <div className="flex flex-wrap items-start justify-between gap-3 border-b border-border p-4 sm:p-6">
-        <div>
-          <p className="eyebrow text-primary">Official Texas river basin map</p>
-          <h3 className="mt-2 font-display text-2xl">Texas River Basins on the Official State Map</h3>
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
-            The Texas Water Development Board's map shows the land that drains into each major river system. It includes all 15 major basins, eight coastal basins and county boundaries. The published map is dated January 2014, and the agency notes that the boundaries are approximate. Use the newer 2023 interactive boundary map below when you need more detail.
-          </p>
-        </div>
-        <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="text-sm font-semibold text-primary underline decoration-border underline-offset-4">
-          Open the full official map (PDF) ↗
-        </a>
-      </div>
-      <div className="bg-surface p-3 sm:p-5">
-        <object
-          data={twdbMapUrl}
-          type="application/pdf"
-          aria-label="Texas Water Development Board map of 15 major and eight coastal river basins"
-          className="w-full bg-background" style={{ height: "min(65vh, 42rem)" }}
-        >
-          <p className="p-6 text-sm">
-            The map preview is not supported in this browser. <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="text-primary underline">Open the Texas Water Development Board map PDF directly</a>.
-          </p>
-        </object>
-      </div>
-      <figcaption className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground sm:px-6">
-        Source: Texas Water Development Board, Major River Basins of Texas (January 2014). This official reference map is separate
-        from the downloadable TexasDefined simplified graphic below; that graphic is not a survey or navigation chart.
-      </figcaption>
-    </figure>
-  );
-}
-
 function TexasRiverOrientationMap() {
   return (
     <figure className="mt-7 overflow-hidden rounded-sm border border-border bg-surface">
@@ -186,9 +151,12 @@ export function TexasRiversAuthorityHub() {
         <p className="eyebrow text-primary">See how Texas rivers cross the state</p>
         <h2 id="texas-rivers-authority-heading" className="mt-3 font-display text-3xl leading-tight sm:text-4xl">How Texas Rivers Change Across the State</h2>
         <p className="mt-4 text-base leading-8 text-muted-foreground">Texas rivers change dramatically from one part of the state to another. Some run through desert canyons, some cross limestone and spring country, and others move through broad forests and coastal plains. The maps below show how those river systems connect different parts of Texas.</p>
+        <p className="mt-4 text-sm">
+          <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="font-semibold text-primary underline decoration-border underline-offset-4">
+            Open the official Texas Water Development Board river-basin map (PDF) ↗
+          </a>
+        </p>
       </div>
-
-      <TexasOfficialBasinMap />
 
       <TexasRiverBasinInteractiveMap />
 
