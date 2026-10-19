@@ -492,6 +492,7 @@ export const NON_INDEXABLE_PUBLIC_PATHS = [
   "/texas-data/county-growth.csv",
   "/texas-data/county-housing-costs.csv",
   "/texas-data/city-county-relationships.csv",
+  "/texas-data/school-district-tax-rates.csv",
 ] as const;
 
 const NON_INDEXABLE_PREFIXES = ["/admin", "/api/"] as const;
