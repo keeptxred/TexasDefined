@@ -13,7 +13,12 @@ import type { TexasCity, TexasCounty } from '@/data/texas-places';
 // San Antonio also includes a small incorporated-city portion in Medina County
 // (U.S. Census Population Estimates Program place-county parts, 2024/2025).
 // https://usafacts.org/answers/how-many-people-live-in-the-us/county/medina-county-tx/
-// Mesquite, San Antonio (Comal), Port Arthur, Wichita Falls:
+// Wichita Falls: the Census 2025 place polygon and Texas Comptroller-verified
+// 2026 municipal city boundary both place it in Wichita and Clay, NOT Archer.
+// https://feature.geographic.texas.gov/arcgis/rest/services/City_Boundaries/Texas_City_Boundaries/MapServer/0
+// A historical attempted annexation into Archer County was annulled by the court.
+// https://openjurist.org/526/sw2d/618/city-of-wichita-falls-v-state-ex-rel-vogtsberger
+// Mesquite, San Antonio (Comal), Port Arthur:
 // https://www.tdi.texas.gov/rules/2026/documents/59501finalredline.pdf
 const ADDITIONAL_COUNTIES_BY_CITY: Record<string, string[]> = {
   Abilene: ['Jones'],
@@ -45,7 +50,7 @@ const ADDITIONAL_COUNTIES_BY_CITY: Record<string, string[]> = {
   'San Antonio': ['Comal', 'Medina'],
   'San Marcos': ['Caldwell', 'Guadalupe'],
   'The Woodlands': ['Harris'],
-  'Wichita Falls': ['Archer', 'Clay'],
+  'Wichita Falls': ['Clay'],
 };
 
 // The Woodlands is an unincorporated Census-designated place, not a city.
