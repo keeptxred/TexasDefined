@@ -1,6 +1,7 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { PrioritySearchPage } from "@/components/editorial/PrioritySearchPage";
 import { StateFairCurrentHighlights } from "@/components/editorial/StateFairCurrentHighlights";
+import { Top50EventVisitorAnswers } from "@/components/editorial/Top50EventVisitorAnswers";
 import { StateFairHistoricalGallery, StateFairPlanningStrip } from "@/components/editorial/StateFairGuideEnhancements";
 
 export const Route = createLazyFileRoute("/texas-state-fair")({
@@ -31,7 +32,7 @@ function TexasStateFairPage() {
           <StateFairCurrentHighlights />
         </>
       }
-      beforeRelated={<StateFairHistoricalGallery />}
+      beforeRelated={<><StateFairHistoricalGallery /><Top50EventVisitorAnswers slug="state-fair-of-texas" /></>}
     />
   );
 }
