@@ -193,6 +193,25 @@ if (fullCatalog.includes("The historic significance comes from the surviving pla
   failures.push("Historic authority-guide significance must use actual site facts, not an interchangeable filler sentence.");
 }
 
+// Battleship Texas is a CLOSED historical-reference destination. The page may
+// remain indexable, but its public itinerary and assessment must never imply
+// normal boarding or a walk-up tour while the Foundation says the ship is closed.
+for (const marker of [
+  '"battleship-texas": {',
+  '"physicalEffort": "Not applicable — ship closed"',
+  'const battleshipTexasIsClosed = seed.slug === "battleship-texas"',
+  'battleshipTexasClosedItineraries',
+  ': battleshipTexasIsClosed\n        ? "The ship is closed for ordinary boarding.',
+  ': battleshipTexasIsClosed\n        ? "Start with the Foundation',
+  'itineraries: battleshipTexasIsClosed ? battleshipTexasClosedItineraries',
+  'The Battleship Texas Foundation currently marks the ship CLOSED',
+  "Do not navigate to the old San Jacinto berth",
+]) if (!fullCatalog.includes(marker)) failures.push(`Battleship Texas closed-site itinerary guard missing: ${marker}`);
+const destinationAuthorityComponent = fs.readFileSync('src/components/editorial/DestinationAuthorityGuide.tsx', 'utf8');
+if (!destinationAuthorityComponent.includes('Three ways to explore while the ship is closed')) {
+  failures.push('Battleship Texas still displays a generic three-ways-to-visit heading.');
+}
+
 // Closure notices must agree across the quick facts, experience assessment,
 // family guidance and itineraries. A contradictory 'best season' is dangerous.
 for (const marker of [
