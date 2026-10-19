@@ -236,6 +236,11 @@ const SITE_PATCHES: Readonly<Record<string, NpsPatch>> = {
         "scope": "1848 treaty, 1911 arbitration context and the 1963 Convention"
       },
       {
+        "label": "NPS Chamizal Convention text (1963 signing and 1964 entry into force)",
+        "url": "https://www.nps.gov/cham/learn/historyculture/chamizalconvention.htm",
+        "scope": "Original treaty text and exact dates"
+      },
+      {
         "label": "NPS Chamizal history and culture",
         "url": "https://www.nps.gov/cham/learn/historyculture/index.htm",
         "scope": "1960s implementation, affected residents, mural, exhibits and theater"
