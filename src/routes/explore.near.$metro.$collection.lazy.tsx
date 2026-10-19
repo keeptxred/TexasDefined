@@ -686,7 +686,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       </Container>
     </section>}
 
-    {mapMarkers.length > 0 && <Container className="py-14 sm:py-18">
+    {mapMarkers.length > 0 && !isMcAllenDayTrips && <Container className="py-14 sm:py-18">
       <MapPreview markers={mapMarkers} zoom={7} directionsLabel={isMcAllenDayTrips ? `additional researched places near ${metro.name}` : `${presentation.label} near ${metro.name}`} origin={metro.center} originLabel={metro.name} variant={isMcAllenDayTrips ? "cards" : "list"} />
     </Container>}
 
