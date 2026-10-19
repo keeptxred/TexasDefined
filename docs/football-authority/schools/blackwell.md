@@ -26,3 +26,7 @@ Six-Man Football directory currently calls the coach Clint Linman and the venue 
 ## Completion contract
 
 Six original FAQs and school-specific paragraphs implemented in program-editorial.ts, not yet deployed; preserve the Sep4 contradiction, historical 2019 source-count mismatch, dated Oct9 5–2 record, six-man UIL classification and primary district phone. Confirm county reciprocal route, protected canonical premerge and gate, then exact-SHA desktop/mobile real Chrome SEO, structured data, links, accessibility, source provenance and photo rights before nine-dimension acceptance. No broad post-update audits; retain Batch004 unrelated scan scope gate proposed in PR #4983.
+
+## October 19, 2026 — official athletic-director contact, head coach still not certified
+[Blackwell CISD's current Football staff roster](https://www.blackwellhornets.org/apps/pages/index.jsp?pREC_ID=staff&type=d&uREC_ID=80756) lists **Clint Linman** as **athletic director** and identifies Justin Bamlet and Garrett Watson as teachers/coaches without assigning either the current **varsity football head coach** title. This is first-party evidence for a useful school athletics contact only; it is not evidence that Linman, Bamlet or Watson holds the head-football-coach role. The existing unresolved Sep 4 Santa Anna point-total conflict, all independently sourced season results and campus-versus-stadium qualifications remain unchanged. The guide's notice is clarified but no coach object is fabricated, and no nine-dimension signoff is asserted.
+
