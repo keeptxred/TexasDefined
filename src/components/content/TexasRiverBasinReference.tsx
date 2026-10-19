@@ -58,12 +58,6 @@ const comparisonMetrics = [
   { label: "Highest published average annual flow", column: 3, unit: "acre-feet/year" },
 ] as const;
 
-const basinHighlights = [
-  { label: "Largest basin in Texas", value: "Rio Grande", detail: "49,387 sq. mi. in Texas" },
-  { label: "Longest river segment in Texas", value: "Rio Grande", detail: "889 river miles in Texas" },
-  { label: "Highest average flow", value: "Brazos", detail: "6.074 million acre-feet/year" },
-] as const;
-
 const csvHeaders = [
   "basin",
   "basin_type",
@@ -154,16 +148,6 @@ export function TexasRiverBasinReference() {
       <p className="mt-3 text-sm leading-7 text-muted-foreground">
 The Texas Water Development Board figures answer three different questions: how much Texas land drains into each river system, how many miles of the named river lie within Texas, and its published average annual water volume. None of these numbers tells you today's river level. Compare the charts or open the full source table below.
       </p>
-
-      <dl className="mt-5 flex flex-wrap gap-2">
-        {basinHighlights.map((item) => (
-          <div key={item.label} className="rounded-sm border border-border bg-surface px-3 py-2 text-xs font-semibold">
-            <dt className="text-muted-foreground">{item.label}</dt>
-            <dd className="mt-2 font-display text-xl text-foreground">{item.value}</dd>
-            <dd className="mt-2 text-primary">{item.detail}</dd>
-          </div>
-        ))}
-      </dl>
 
       <section className="mt-7" aria-labelledby="basin-comparison-charts">
         <h4 id="basin-comparison-charts" className="font-display text-xl">Compare river systems by three different measures</h4>
