@@ -102,8 +102,8 @@ const SITE_DEPTH: Record<string, string[]> = {
     "The herd occupies the wider Fort Griffin site, where ruins and grazing land can be interpreted together. Visitor expectations should depend on animal location, weather and operator guidance; seeing individual animals from a particular spot should never be promised."
   ],
   "old-socorro-mission": [
-    "Socorro’s mission landscape is part of a living Rio Grande Valley tradition involving Pueblo, Spanish, Mexican and borderlands communities. The congregation and ongoing religious use are as important to understand as the age of the historic building.",
-    "Plan this as a respectful religious-site visit along the El Paso Mission Trail, not as an unrestricted museum tour. Worship services and community activities govern access, while nearby missions and cultural institutions tell related but distinct stories."
+    "The early Socorro mission site represents the displacement and resettlement of Piro, Tano and Jemez Pueblo communities after the Pueblo Revolt of 1680. The Franciscans founded the Socorro mission on October 13, 1680; the location of its first church is unknown. By 1684 a temporary chapel occupied this protected early site, and a permanent adobe church followed in 1691.",
+    "Floods and changes in the Rio Grande altered the early mission landscape. The 1829 flood preceded construction of the presently operating Socorro Mission about half a mile northwest in the 1840s. The older archaeological location is closed to the public: do not confuse it with the active later church or plan an entrance to the protected original site."
   ],
   "palmito-ranch-battlefield": [
     "Palmito Ranch was the site of a May 1865 engagement along the lower Rio Grande after major Confederate armies elsewhere had surrendered. Its chronology illustrates how news, authority, border trade and military operations unfolded unevenly as the Civil War ended.",
@@ -227,7 +227,7 @@ const VERIFIED_VISIT_NOTES: Record<string, {entryNote:string;researchNote:string
 },
   "old-socorro-mission": {
     "entryNote": "CLOSED TO THE PUBLIC: THC lists no visitor services or facilities at the Old Socorro Mission archaeological site. Do not confuse it with the separately operating present-day Socorro Mission or enter the protected original site.",
-    "researchNote": "The Texas Historical Commission identifies Old Socorro Mission as a former 1682 Franciscan mission and Piro Pueblo site. Flooding along the Rio Grande destroyed an earlier mission building in 1829 and subsequent relocation means the modern mission church is not the original site. THC currently says the state archaeological property is closed to visitors."
+    "researchNote": "The Texas Historical Commission dates founding of the Socorro mission to October 13, 1680, while explicitly noting that the first mission location is unknown. A temporary church stood at the protected early site by 1684, and a permanent adobe church was built there in 1691; Pueblo residences stood nearby. A flood in 1829 preceded relocation of the modern Socorro Mission in the 1840s. The early state archaeological site is closed to visitors."
   },
   "caddo-mounds-state-historic-site": {
     "entryNote": "THC currently lists Tuesday–Sunday 8:30 a.m.–4:30 p.m., closed Mondays, with paid admission. Museum, 0.7-mile Mound Trail and other routes have different accessibility conditions; follow the site's posted sacred-mound rules.",
@@ -255,6 +255,27 @@ export function enrichResearchedHistoricSiteDepth(destination: Destination): Des
   const verified = VERIFIED_VISIT_NOTES[destination.slug];
   if ((!extra.length && !verified) || destination.category !== "historic-sites") return destination;
   const additions = extra.filter((item) => !destination.body.includes(item));
+  if (destination.slug === "old-socorro-mission" && verified) {
+    const outdatedDescriptions = [
+      "What stands out at Old Socorro Mission",
+      "Check current opening hours, tour schedules",
+      "The congregation and ongoing religious use",
+      "Plan this as a respectful religious-site visit",
+      "Some historic properties have limited days",
+    ];
+    return {
+      ...destination,
+      body: [
+        ...destination.body.filter((paragraph) => !outdatedDescriptions.some((phrase) => paragraph.includes(phrase))),
+        ...additions,
+        verified.researchNote,
+      ].filter((line, index, all) => all.indexOf(line) === index),
+      entryNote: verified.entryNote,
+      bestSeason: "Original archaeological site closed to the public; consult separately operated, public Mission Trail destinations.",
+      sourceCheckedAt: "2026-10-12",
+    };
+  }
+
   if (destination.slug === "first-capitol-of-texas") {
     return {
       ...destination,
