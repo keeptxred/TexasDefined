@@ -135,6 +135,31 @@ assert.ok(eventRenderer.includes("getTop50EventAnswers(slug)") && eventRenderer.
 assert.ok(read("src/routes/event.$slug.lazy.tsx").includes("Top50EventVisitorAnswers slug={page.slug}"), "Canonical major event pages must show targeted FAQ");
 assert.ok(read("src/routes/texas-state-fair.lazy.tsx").includes('Top50EventVisitorAnswers slug="state-fair-of-texas"'), "State Fair archived authority page must show FAQ");
 
+
+const museumUpgrades = parseStaticJson(
+  "src/data/top50-museum-historic-upgrades.ts",
+  "const DETAILS: Record<string, MuseumUpgrade> = ",
+  ";\nconst INCLUDED",
+);
+const museumSlugs = [
+  "uss-lexington-museum-corpus-christi",
+  "waco-mammoth-national-monument",
+  "national-museum-pacific-war",
+  "museum-of-fine-arts-houston",
+  "kimbell-art-museum-fort-worth",
+  "strand-historic-district",
+];
+assert.deepEqual(Object.keys(museumUpgrades).sort(), museumSlugs.sort(), "Six unique museum/historic authority dossiers required");
+for (const [slug, dossier] of Object.entries(museumUpgrades)) {
+  assertVisitorGuide(dossier, slug);
+  assert.ok(dossier.visitorFaqs.length >= 3 && dossier.visitorFaqs.every(item => item.question.length > 15 && item.answer.length > 55 && item.sourceUrl.startsWith("https://")), `${slug}: separate operator-source FAQs required`);
+  assert.ok(ranking.some(item => item.href === `/destination/${slug}`), `${slug}: canonical Top-50 entry must exist`);
+}
+const museumRoute = read("src/routes/destination.$slug.tsx");
+assert.ok(museumRoute.includes('import("@/data/top50-museum-historic-upgrades")') && museumRoute.includes("applyTop50MuseumHistoricUpgrade(destination)"), "Dossiers must load only on the proper canonical destination route");
+const museumRenderer = read("src/components/editorial/DestinationRelationships.tsx");
+assert.ok(museumSlugs.every(slug => museumRenderer.includes(`"${slug}"`)), "Museum and historic dossiers must display visitor guide, FAQ and sources");
+
 const ledger = read("docs/editorial/top-50-attractions-authority-ledger-20261017.md");
 const lines = ledger.split("\n").filter(x=>/^\| \d+ \|/.test(x));
 assert.equal(lines.length,50,"Every ranking needs a completion-ledger row");
@@ -168,4 +193,4 @@ assert.ok(sourceRenderer.includes("destination.visitorFaqs ?? []") && sourceRend
 assert.ok(read("src/lib/public-routes.ts").includes('"/explore/top-50-attractions"'),"Top-50 collection must be indexable");
 assert.ok(read("src/routes/sitemap-explore[.]xml.ts").includes('"/explore/top-50-attractions"'),"Top-50 collection must be in Explore sitemap");
 assert.ok(read("src/routes/explore.top-50-attractions.tsx").includes("TEXAS_TOP50_RANKING.map"),"Ranking must render all fifty in source order");
-console.log("Top-50 attraction structural contract: 50 canonical rankings; 10 enriched guides; 5 new destination guides; 9 landmark pages, 2 sports venues and 3 annual events with 42 official-source FAQs; page/SEO/sitemap routing all checked.");
+console.log("Top-50 attraction structural contract: 50 canonical rankings; 10 enriched guides; 5 new destination guides; 9 landmark pages, 2 sports venues and 3 annual events with 42 official-source FAQs; six more museum/historic dossiers; page/SEO/sitemap routing all checked.");
