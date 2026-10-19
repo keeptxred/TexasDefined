@@ -184,6 +184,15 @@ export const Route = createFileRoute("/destination/$slug")({
       const { applyTop50MuseumHistoricUpgrade } = await import("@/data/top50-museum-historic-upgrades");
       destination = applyTop50MuseumHistoricUpgrade(destination);
     }
+
+    if (["san-antonio-river-walk","natural-bridge-caverns","moody-gardens","guadalupe-mountains-national-park","enchanted-rock-state-natural-area","houston-museum-of-natural-science","dallas-arboretum-and-botanical-garden","galveston-island-historic-pleasure-pier","san-jacinto-battleground","houston-zoo","barton-springs-pool","hamilton-pool-preserve","cadillac-ranch","gruene-historic-district","fredericksburg-historic-district"].includes(destination.slug)) {
+      const { applyTop50FinalVisitorAnswers } = await import("@/data/top50-final-visitor-faqs");
+      destination = applyTop50FinalVisitorAnswers(destination);
+    }
+    if (["enchanted-rock-state-natural-area", "san-jacinto-battleground", "barton-springs-pool"].includes(destination.slug)) {
+      const { applyTop50FinalAuthority } = await import("@/data/top50-final-park-historic-authority");
+      destination = applyTop50FinalAuthority(destination);
+    }
     const [completeGraph, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([
       loadTexasKnowledgeGraph(),
       context.queryClient.ensureQueryData(categoriesQuery()),
