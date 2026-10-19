@@ -51,8 +51,31 @@ function county(slug){
 }
 const schools=slugs.map(slug=>({slug,county:county(slug),model:model(slug)}));
 for(const school of schools)assert.ok(school.model.season?.games?.length>=6&&school.model.faq?.length>=5,'Missing authored source content '+school.slug);
-const result={schema:'football-b006-targeted-browser-v1',method:'Production live HTTPS, precisely 25 schools at 1366/390/320 CSS pixels, reciprocal county links',candidateSha:process.env.GITHUB_SHA||null,productionSha:'not independently identified from HTML',editorialAccepted:false,photoRightsAccepted:false,schools:[],counties:[],summary:{schoolCases:0,schoolPass:0,schoolFail:0,countyCases:0,countyPass:0,countyFail:0,screenshots:0,chunkErrors:0}};
-const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_BIN||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
+const result={schema:'football-b006-targeted-browser-v2',method:'Production live HTTPS, precisely 25 schools at 1366/390/320 CSS pixels, 25 sitemap entries and reciprocal county links',candidateSha:process.env.GITHUB_SHA||null,productionSha:'not independently identified from HTML',editorialAccepted:false,photoRightsAccepted:false,schools:[],counties:[],sitemap:{status:0,checked:slugs.length,missing:[],error:null},observedWorkerVersions:[],summary:{schoolCases:0,schoolPass:0,schoolFail:0,countyCases:0,countyPass:0,countyFail:0,sitemapPass:0,sitemapFail:0,screenshots:0,countyScreenshots:0,chunkErrors:0}};
+// A complete 25-school browser PASS without discoverable production sitemap URLs
+// is not a valid acceptance. This is one bounded fetch, not a crawl or poll.
+try {
+ const sitemapResponse=await fetch(root+'/sitemap.xml',{signal:AbortSignal.timeout(45000)});
+ result.sitemap.status=sitemapResponse.status;
+ const xml=await sitemapResponse.text();
+ // Compare complete <loc> URLs, never a prefix: /boerne must not match
+ // /boerne-champion, nor should a URL mentioned outside a <loc> count.
+ const sitemapUrls=new Set([...xml.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)]
+  .map(([,url])=>url.trim().replace(/\/$/,'')));
+ for(const slug of slugs){
+  if(!sitemapUrls.has(root+'/texas-high-school-football-teams/'+slug))result.sitemap.missing.push(slug);
+ }
+ if(sitemapResponse.status!==200)result.sitemap.error='Non-200 production sitemap HTTP '+sitemapResponse.status;
+} catch(error) {
+ result.sitemap.error=String(error?.message||error).slice(0,300);
+ result.sitemap.missing=slugs.slice();
+}
+result.summary.sitemapPass=result.sitemap.error?0:slugs.length-result.sitemap.missing.length;
+result.summary.sitemapFail=slugs.length-result.summary.sitemapPass;
+// Detect mixed Cloudflare Worker revisions when the server exposes the
+// release header. Do not pretend this header proves an unobservable git SHA.
+const workerVersions=new Set();
+let browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_BIN||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
 try{
  for(const s of schools)for(const [device,width,height] of [['desktop',1366,900],['mobile390',390,844],['reflow320',320,800]]){
   const errors=[],chunk=[],row={slug:s.slug,county:s.county,device,width,errors},path='/texas-high-school-football-teams/'+s.slug;
@@ -64,6 +87,8 @@ try{
   try{
    const response=await page.goto(root+path,{waitUntil:'domcontentloaded',timeout:45000});
    row.http=response?.status();
+   row.workerVersion=await response?.headerValue('x-texasdefined-worker-version')||null;
+   if(row.workerVersion)workerVersions.add(row.workerVersion);
    if(row.http!==200)errors.push('HTTP '+row.http);
    await page.locator('main h1').first().waitFor({state:'visible',timeout:25000});
    const faq=s.model.faq[0].question;
@@ -100,7 +125,9 @@ try{
    if(pageData.cssWidth>width+8||pageData.bodyWidth>width+8)errors.push('overflow '+pageData.cssWidth+'/'+pageData.bodyWidth);
    if(pageData.broken.length)errors.push('broken image '+pageData.broken.join(',').slice(0,100));
    if(pageData.noAlt.length)errors.push('visible image without alt');
-   if(width===320||errors.length||chunk.length){
+   // Keep 1366, 390 and 320 CSS pixel screenshots for *every* school;
+   // earlier runs preserved only 320 unless another check failed.
+   {
     await page.screenshot({path:out+'/'+device+'-'+s.slug+'.png',fullPage:false,animations:'disabled',timeout:15000});
     result.summary.screenshots++;
    }
@@ -113,37 +140,100 @@ try{
    await context.close();
   }
  }
+ // County checks run in a fresh Chrome process. After 75 separate school visits,
+ // releasing Chromium's process resources reduces the chance that a county
+ // hydration failure is a side effect of the preceding long batch.
+ await browser.close();
+ browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_BIN||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
  const groups=Map.groupBy(schools,x=>x.county);
  for(const [name,group] of groups){
   const errors=[],row={county:name,schools:group.map(x=>x.slug),errors};result.counties.push(row);result.summary.countyCases++;
-  const ctx=await browser.newContext({viewport:{width:390,height:844}}),page=await ctx.newPage();const js=[];
+  const ctx=await browser.newContext({viewport:{width:390,height:844}}),page=await ctx.newPage();const js=[],assetFailures=[];
   page.on('pageerror',e=>js.push(String(e.message||e)));
+  page.on('requestfailed',request=>{if(request.url().startsWith(root)&&/\.(?:js|css)(?:\?|$)/.test(request.url()))assetFailures.push({url:request.url(),failure:request.failure()?.errorText})});
+  page.on('response',response=>{if(response.url().startsWith(root)&&response.status()>=400&&/\.(?:js|css)(?:\?|$)/.test(response.url()))assetFailures.push({url:response.url(),status:response.status()})});
   try{
    const r=await page.goto(root+'/county/'+name,{waitUntil:'domcontentloaded',timeout:45000});
    if(r?.status()!==200)errors.push('county HTTP '+r?.status());
+   // Inspect the response for the expected anchors, separately from the
+   // post-hydration DOM. No extra network request or acceptance shortcut.
+   const initialHtml=await r?.text().catch(()=>null);
+   row.serverHtmlHasFootballSection=initialHtml?.includes('Independent football histories from this county')??null;
+   row.serverHtmlExpectedAnchors=group.map(s=>({slug:s.slug,present:initialHtml?.includes('/texas-high-school-football-teams/'+s.slug)??null}));
+   row.workerVersion=await r?.headerValue('x-texasdefined-worker-version')||null;
+   if(row.workerVersion)workerVersions.add(row.workerVersion);
    await page.locator('main h1').first().waitFor({state:'visible',timeout:25000});
-   // A generic hydration marker can precede the football cards (Nueces),
-   // while a working county can omit that marker (Victoria). Accept neither
-   // marker as proof of a reciprocal link. Wait only for the real expected DOM.
+   // SSR may briefly expose links before county React hydration unmounts and
+   // remounts the card section. Wait for the real DOM links to remain present
+   // after load rather than accepting the initial transient HTML snapshot.
    const expected=group.map(s=>'/texas-high-school-football-teams/'+s.slug);
+   await page.waitForLoadState('load',{timeout:25000});
    try{
-    await page.waitForFunction(paths=>
-     paths.every(href=>[...document.querySelectorAll('main a[href]')]
-      .some(a=>(a.getAttribute('href')||'').replace(/\/$/,'')===href)),
-     expected,{timeout:20000});
-   }catch{
-    // Still fail closed on genuinely absent links, with their exact slugs.
-    // Do not classify the optional readiness marker itself as acceptance.
+    await page.waitForFunction(paths=>{
+     const key=paths.join('|');
+     const hrefs=new Set([...document.querySelectorAll('main a[href]')]
+      .map(a=>(a.getAttribute('href')||'').replace(/\/$/,'')));
+     const found=paths.every(href=>hrefs.has(href));
+     const now=performance.now();
+     if(!window.__tdB006StableLinks||window.__tdB006StableLinks.key!==key)
+      window.__tdB006StableLinks={key,since:0};
+     if(!found){window.__tdB006StableLinks.since=0;return false;}
+     if(!window.__tdB006StableLinks.since)window.__tdB006StableLinks.since=now;
+     return now-window.__tdB006StableLinks.since>=1200;
+    },expected,{timeout:25000,polling:200});
+    row.stableCountyLinks='all expected links continuously present for 1200ms after load';
+   }catch(error){
+    row.stableCountyLinks='unmet: '+String(error?.message||error).slice(0,160);
+    // Keep the strict final DOM assertion and report the actual absent slugs.
    }
-   const links=await page.evaluate(()=>[...document.querySelectorAll('main a[href]')].map(a=>(a.getAttribute('href')||'').replace(/\/$/,'')));
+   const observation=await page.evaluate(()=>({
+    links:[...document.querySelectorAll('main a[href]')].map(a=>(a.getAttribute('href')||'').replace(/\/$/,'')),
+    footballSection:!!document.querySelector('section[aria-label="Independent football histories from this county"]'),
+    footballHydrated:document.documentElement.dataset.tdFootballCountyHydrated||null
+   }));
+   const links=observation.links;
+   row.linkCount=links.length;
+   row.renderedFootballSection=observation.footballSection;
+   row.hydratedMarker=observation.footballHydrated;
+   row.renderedBatch006Links=links.filter(x=>x.startsWith('/texas-high-school-football-teams/'));
+   row.observedUrl=page.url();
    for(const s of group)if(!links.includes('/texas-high-school-football-teams/'+s.slug))errors.push('missing reciprocal '+s.slug);
+   row.assetFailures=assetFailures.slice(0,8);
    if(js.length)errors.push('county JavaScript errors '+js[0]);
+   if(assetFailures.length)errors.push('county first-party JS/CSS failures '+JSON.stringify(assetFailures.slice(0,2)).slice(0,240));
   }catch(e){errors.push(String(e.message||e).slice(0,350))}
-  finally{row.pass=errors.length===0;if(row.pass)result.summary.countyPass++;else result.summary.countyFail++;console.log('B006 county',name,row.pass?'PASS':'FAIL',errors.join('|'));await ctx.close();}
+  finally{
+   try{
+    // Put the reciprocal-link section in view when rendered; a top-of-page
+    // capture alone cannot show missing football cards lower on a county guide.
+    const footballSection=page.locator('section[aria-label="Independent football histories from this county"]').first();
+    if(await footballSection.count()){
+     await footballSection.scrollIntoViewIfNeeded({timeout:3000}).catch(()=>{});
+    }
+    await page.screenshot({path:out+'/county-'+name+'.png',fullPage:false,animations:'disabled',timeout:15000});
+    result.summary.countyScreenshots++;
+   }catch(error){errors.push('county evidence screenshot failed: '+String(error?.message||error).slice(0,200));}
+   row.pass=errors.length===0;
+   if(row.pass)result.summary.countyPass++;else result.summary.countyFail++;
+   console.log('B006 county',name,row.pass?'PASS':'FAIL',errors.join('|'),
+    'release='+String(row.workerVersion||'none'),
+    'section='+String(row.renderedFootballSection),
+    'hydrated='+String(row.hydratedMarker),
+    'schoolLinks='+JSON.stringify(row.renderedBatch006Links||[]),
+    'serverHtml='+JSON.stringify(row.serverHtmlExpectedAnchors||[]),
+    'assetFailures='+JSON.stringify(row.assetFailures||[]));
+   await ctx.close();
+  }
  }
 }finally{await browser.close()}
+result.observedWorkerVersions=[...workerVersions].sort();
 await writeFile(out+'/report.json',JSON.stringify(result,null,2)+'\n');
 console.log('B006 targeted production acceptance',JSON.stringify(result.summary));
+console.log('B006 observed Worker release headers',JSON.stringify(result.observedWorkerVersions));
 assert.equal(result.summary.schoolCases,75,'Never reduce 25 school x 3 viewport scope');
+assert.equal(result.summary.sitemapFail,0,'Every assigned school must be discoverable in the live production sitemap');
+assert.ok(workerVersions.size<=1,'Mixed Cloudflare Worker versions during one production browser acceptance: '+result.observedWorkerVersions.join(', '));
+assert.equal(result.summary.screenshots,75,'Preserve every one of the 25 schools at all three viewport sizes');
+assert.equal(result.summary.countyScreenshots,result.summary.countyCases,'Preserve one screenshot per county for reciprocal-link diagnosis');
 assert.equal(result.summary.schoolFail,0,'Investigate school failures before technical acceptance');
 assert.equal(result.summary.countyFail,0,'Investigate missing reciprocal county links');
