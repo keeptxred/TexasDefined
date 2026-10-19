@@ -2529,7 +2529,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Bogata Rivercrest Rebels Football 2026 | District, Scores & Visitor Guide",
-      "description": "Bogata Rivercrest Rebels football in Red River County: 2026 Class 2A Division I District 9, 4–4 through October 16, overtime Wolfe City finish, official school contacts and prior playoff history."
+      "description": "Rivercrest Rebels football: 2026 UIL 2A Division I District 9, 4–4 through October 16, Wolfe City overtime win, schedules and school contacts."
     },
     "campus": {
       "address": "4100 US Highway 271 South, Bogata, TX 75417",
@@ -3679,7 +3679,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent editorial accent; no district crest, school logo or photo copied"
     },
     "seo": {
-      "title": "Bosqueville Bulldogs Football 2026 | UIL 2A Division I District 8 Scores, History & Guide",
+      "title": "Bosqueville Bulldogs Football 2026 | District 8, Scores & History",
       "description": "Bosqueville Bulldogs Texas football: 2026 2A Division I District 8, dated season results, McLennan County campus, school-specific program history and contact guidance."
     },
     "campus": {
@@ -4520,7 +4520,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent editorial accent; no district crest, school logo or photo copied"
     },
     "seo": {
-      "title": "Boys Ranch Roughriders Football 2026 | UIL 1A Division I District 1 Scores, History & Guide",
+      "title": "Boys Ranch Football 2026 | Six-Man District 1 Scores & History",
       "description": "Boys Ranch Roughriders Texas football: 2026 1A Division I District 1, dated season results, Oldham County campus, school-specific program history and contact guidance."
     },
     "coach": {
