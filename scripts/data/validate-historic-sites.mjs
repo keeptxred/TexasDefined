@@ -537,5 +537,26 @@ for (const [area, input, markers] of [
   for (const marker of markers) if (!input.includes(marker)) failures.push(`Fort McKavett ${area} missing ${marker}`);
 }
 
+// Magoffin Home 2026 restoration visitor contract: do not silently revert to
+// standard house-tour advice, bad map coordinates or generic statewide itineraries.
+const magoffinAuthority = fs.readFileSync('src/data/magoffin-home-authority.ts', 'utf8');
+const magoffinRoute = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+const magoffinPairings = fs.readFileSync('src/data/destination-curated-pairings.ts', 'utf8');
+const magoffinTimeline = fs.readFileSync('src/data/historic-site-authority-timelines.ts', 'utf8');
+for (const marker of [
+  'through 2027', '1117 Magoffin Ave', '1120 Magoffin Ave',
+  'Tuesday–Saturday, 9 a.m.–4 p.m.', '915-533-5147',
+  '31.76279', '-106.47706', 'José Sierra', '1875',
+  'magoffin-home/plan-your-visit-magoffin-home', 'magoffin-home-history',
+  'virtual tour', 'visitorFaqs', 'gallery', 'WALKING_TOUR',
+  '/destination/hotel-paso-del-norte', '/destination/el-paso-museum-of-art',
+  '/destination/chamizal-national-memorial', 'sourceCheckedAt: "2026-10-19"',
+]) if (!magoffinAuthority.includes(marker)) failures.push('Magoffin authority regression: ' + marker);
+for (const marker of ['import { applyMagoffinHomeAuthority }', 'return applyMagoffinHomeAuthority(applyStateParkHeroAsset(curated))', '.map(applyMagoffinHomeAuthority)']) if (!runtime.includes(marker)) failures.push('Magoffin overlay missing from runtime: ' + marker);
+for (const marker of ['Magoffin Home visitor FAQ', 'Historic home closed through 2027', 'destination.slug !== "magoffin-home"', 'destination.slug === "magoffin-home" && destination.visitorFaqs?.length']) if (!magoffinRoute.includes(marker)) failures.push('Magoffin route regression: ' + marker);
+if (!seeds.includes('lat: 31.76279, lng: -106.47706')) failures.push('Magoffin fallback map coordinates must be corrected');
+if (!magoffinPairings.includes('"magoffin-home": ["el-paso-museum-of-art", "chamizal-national-memorial", "hotel-paso-del-norte"]')) failures.push('Magoffin local reciprocal links missing');
+if (!magoffinTimeline.includes('"magoffin-home": [')) failures.push('Magoffin cited chronology missing');
+
 if (failures.length) { console.error('Historic-sites validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
 console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings plus ${protectedNationalCemeteries.length} dedicated national-cemetery heroes, every protected hero matches a real seed, Lipantitlan geography is source-corrected, shared preserved-catalog publication, runtime enrichment, Texas History discovery and county cross-links are protected across eager and lazy route surfaces, and the Mayborn Museum dedicated authority route/data/current visitor guidance/post-purge regression contract is protected.`);
