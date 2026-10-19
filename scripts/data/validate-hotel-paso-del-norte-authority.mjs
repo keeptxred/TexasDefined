@@ -55,6 +55,11 @@ contains(route, 'isHotelPasoDelNorte ? ["Hotel", "TouristAttraction"]', "Hotel s
 contains(route, 'isHotelPasoDelNorte ? "10 Henry Trost Ct"', "schema physical address");
 contains(route, 'postalCode: "79901"', "schema postal code");
 contains(route, "Historical photographs of {destination.name}", "no recycled Battleship gallery heading");
+contains(route, 'id="hotel-paso-dome-photos"', "prominent Hotel Paso dome section near article top");
+contains(route, 'destination.gallery.filter((_, index) => !isHotelPasoDelNorte || index > 0)', "one dome photo feature with no duplicate image in lower gallery");
+contains(route, 'Library of Congress original, photographer credit and reuse information', "photographer and reproduction rights next to featured image");
+contains(route, 'https://texashistory.unt.edu/ark:/67531/metapth613579/', "linked-only Ponsford/Trost archive reference");
+contains(route, 'Both predate the hotel\'s 2020 restoration', "historical date caveat visible next to dome photography");
 contains(html, "Hotels.com", "existing hotel comparison opportunities");
 contains(html, "hotelPasoStay", "Hotel Paso route scoped CJ placement");
 contains(html, "https://www.hotels.com/ho114680/hotel-paso-del-norte-autograph-collection-el-paso-united-states-of-america/", "source-verified exact hotel booking destination");
