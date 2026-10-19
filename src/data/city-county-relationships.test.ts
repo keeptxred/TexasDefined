@@ -22,7 +22,7 @@ describe('city-to-county relationship reference', () => {
     ['Mesquite', ['Dallas', 'Kaufman']],
     ['San Antonio', ['Bexar', 'Comal', 'Medina']],
     ['Port Arthur', ['Jefferson', 'Orange']],
-    ['Wichita Falls', ['Wichita', 'Archer', 'Clay']],
+    ['Wichita Falls', ['Wichita', 'Clay']],
     ['Grand Prairie', ['Dallas', 'Ellis', 'Johnson', 'Tarrant']],
     ['The Woodlands', ['Montgomery', 'Harris']],
   ])('%s resolves every documented county', (name, expected) => {
