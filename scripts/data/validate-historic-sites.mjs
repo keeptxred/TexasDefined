@@ -552,7 +552,7 @@ for (const marker of [
   '/destination/hotel-paso-del-norte', '/destination/el-paso-museum-of-art',
   '/destination/chamizal-national-memorial', 'sourceCheckedAt: "2026-10-19"',
 ]) if (!magoffinAuthority.includes(marker)) failures.push('Magoffin authority regression: ' + marker);
-for (const marker of ['import { applyMagoffinHomeAuthority }', 'return applyMagoffinHomeAuthority(applyStateParkHeroAsset(curated))', '.map(applyMagoffinHomeAuthority)']) if (!runtime.includes(marker)) failures.push('Magoffin overlay missing from runtime: ' + marker);
+for (const marker of ['import { applyMagoffinHomeAuthority }', 'const resolved = applyMagoffinHomeAuthority(correctDestinationTravelRegion(applyResolvedHero(destination)))', 'const locallyCorrected = improved.map(applyMagoffinHomeAuthority)']) if (!runtime.includes(marker)) failures.push('Magoffin overlay missing from runtime: ' + marker);
 for (const marker of ['Magoffin Home visitor FAQ', 'Historic home closed through 2027', 'destination.slug !== "magoffin-home"', 'destination.slug === "magoffin-home" && destination.visitorFaqs?.length']) if (!magoffinRoute.includes(marker)) failures.push('Magoffin route regression: ' + marker);
 if (!seeds.includes('lat: 31.76279, lng: -106.47706')) failures.push('Magoffin fallback map coordinates must be corrected');
 if (!magoffinPairings.includes('"magoffin-home": ["el-paso-museum-of-art", "chamizal-national-memorial", "hotel-paso-del-norte"]')) failures.push('Magoffin local reciprocal links missing');
