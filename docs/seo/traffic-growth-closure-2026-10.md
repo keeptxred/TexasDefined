@@ -38,6 +38,12 @@ The page comparison was fetched with `rowLimit=8000`, and neither 14-day window 
 
 **Remaining independent gates:** obtain the next meaningful complete **local** weekly page/snippet/graph artifact, finish Google's indexing-validation outcome checks and real-world image rights/verified backlinks, and evaluate post-change CTR. The authenticated GSC access blocker is **closed**; preserve all older notes as historical snapshots only. No broad production crawl or unsourced snippet rewrite was triggered.
 
+### October 18 measured playoff-intent follow-up — PR #5254
+
+**COMPLETE — implementation submitted; production and CTR measurement still pending.** Authenticated GSC owner property `sc-domain:texasdefined.com` yielded finalized **Web** query rows for `/article/texas-high-school-football-playoffs-explained` from September 18–October 15: `bi district meaning` 31 impressions (average position 5.03), `what does bi district mean` 24 (3.29), and `what is bi district` 20 (5.15), all zero disclosed clicks. This **75-impression query subset** is not the page's complete impressions or an independent CTR experiment; anonymized queries are not enumerated.
+
+[PR #5254](https://github.com/keeptxred/TexasDefined/pull/5254) makes the existing bi-district section a direct natural-language question and explains paired districts, first-round elimination and different 1A/2A–6A advancement. It connects the article to the already-existing 2026 UIL bracket picker and adds reciprocal article discovery from the bracket page. It preserves the broad source-backed title, 2026 UIL rules and all core SEO metadata, adding protection in the existing football validator. **Neither protected merge nor exact-SHA production verification nor post-change Google CTR lift should be asserted before separately observed evidence.** No expensive sitewide audit was added.
+
 ## October 16, 2026 — current production reconciliation
 
 **This section supersedes older `INCOMPLETE` labels below only for the named gates. Historical counts and failure records remain intentionally preserved.**

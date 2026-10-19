@@ -51,6 +51,11 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
       description: "Understand why 1A six-man uses a different field, first-down distance, exchange rule, scoring values and 45-point ending rule.",
     },
     {
+      href: "/texas-high-school-football-playoff-brackets",
+      label: "Browse the official 2026 UIL playoff brackets",
+      description: "Choose a class and division, open the official bracket and distinguish scheduled games from verified results.",
+    },
+    {
       href: "/texas-high-school-football-teams",
       label: "Find a Texas high school football team",
       description: "Search current UIL programs by school, ISD, city or county and see classification, district and recent state-final history.",
@@ -71,8 +76,8 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
   body: [
     h("Who qualifies from a district?"),
     p("The top two teams from each 1A six-man district qualify; the top four teams from each district advance in 2A through 6A. Classes 1A–5A already have their divisions before the season. In 6A, the two schools with the larger enrollments go to the Division I bracket after the four qualifiers are known; the other two enter Division II."),
-    h("What 'bi-district' means"),
-    p("Bi-district is the opening playoff round: qualifiers from paired districts meet in the first elimination games."),
+    h("What does bi-district mean in Texas high school football?"),
+    p("Bi-district means the first round of the UIL football playoffs. Teams that qualified from two paired districts play elimination games; winners advance to the area round in 2A–6A or the regional round in 1A six-man. It does not mean a team won two district championships."),
     p("District finish feeds a fixed bracket, with no weekly reseeding. In 2A through 5A, paired districts match first against fourth and second against third within the same classification and division. In 1A and each 6A division, the paired-district representatives meet winner against runner-up."),
     p("Non-district losses do not automatically eliminate a team. Qualification comes from district placement under that district’s standings and tiebreak rules. Media rankings do not award seeds or change the bracket."),
     h("Who gets home field?"),
