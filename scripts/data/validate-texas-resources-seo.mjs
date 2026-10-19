@@ -31,6 +31,8 @@ for (const feature of [
   "['Vehicle registration', '/texas-vehicle-registration'",
   "['Find my county', '/find-my-county'",
   "['Find my school district', '/find-my-school-district'",
+  'Find the right local office',
+  'to="/learn/appraisal-districts"',
   "['Property taxes & homestead', '/decide/property-taxes'",
   "['Start a business', '/start-a-business-in-texas'",
   "['Moving to Texas', '/moving-to-texas'",
