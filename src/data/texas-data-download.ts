@@ -37,7 +37,7 @@ export function buildSchoolDistrictTaxRateCsv(data: SchoolDistrictTaxRateData): 
   const rows = data.rows.slice().sort((a, b) => a.name.localeCompare(b.name))
     .map((row) => {
       const total = row.variableRate ? null : row.rate;
-      const change = total != null && row.priorRate != null ? total - row.priorRate : null;
+      const change = total != null && row.priorRate != null ? Number((total - row.priorRate).toFixed(4)) : null;
       const amount = row.variableRate
         ? row.rateVariants.map((rate) => rate * 1000).join('; ')
         : total != null ? total * 1000 : null;
