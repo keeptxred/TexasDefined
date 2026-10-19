@@ -272,7 +272,7 @@ function McAllenDayTripsAuthority({ results }: { results: MetroProximityResult[]
           const catalogPhoto = results.find((row) => row.destination.slug === trip.slug)?.destination.hero;
           const photo = openPhoto ?? (catalogPhoto && !isDestinationPhotoPlaceholder(catalogPhoto.src) ? catalogPhoto : null);
           return <article key={trip.slug} className="border-t border-border pt-5">
-            {photo && <figure className="mb-5"><div className="aspect-[16/10] overflow-hidden bg-muted"><img loading="lazy" decoding="async" src={photo.src} alt={photo.alt || trip.title} width={1200} height={750} className="h-full w-full object-cover" onError={(event) => { event.currentTarget.style.display = "none"; }} /></div>
+            {photo && <figure className="mb-5"><div className="aspect-[16/10] overflow-hidden bg-muted"><img loading={trip.slug === "quinta-mazatlan" ? "eager" : "lazy"} decoding="async" src={photo.src} alt={photo.alt || trip.title} width={1200} height={750} className="h-full w-full object-cover" onError={(event) => { event.currentTarget.closest("figure")?.classList.add("hidden"); }} /></div>
               {photo.credit && <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">Photo: {openPhoto ? <><a href={openPhoto.source} target="_blank" rel="noopener noreferrer" className="underline">{openPhoto.credit}</a> · <a href={openPhoto.license} target="_blank" rel="noopener noreferrer" className="underline">License</a></> : photo.credit}</figcaption>}</figure>}
             <p className="eyebrow text-primary">{trip.label}</p>
             <h3 className="mt-3 font-display text-2xl">{trip.title}</h3>
