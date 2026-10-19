@@ -28,6 +28,224 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "frontiers-of-flight-museum-dallas": {
+      name: "Frontiers of Flight Museum",
+      county: "Dallas",
+      city: "Dallas",
+      reviewed: "2026-10-18",
+      topics: [
+          "aviation-history",
+          "spaceflight",
+          "dallas-love-field",
+          "family-science"
+      ],
+      whyVisit: "At Dallas Love Field, Frontiers of Flight Museum spans experiments in powered flight, military aviation, regional airline history and human spaceflight. The Apollo 7 command module and a moon rock are major draws, while galleries about Braniff, Southwest Airlines, early aviation and Love Field connect these global stories to North Texas. The collection is not interchangeable with an airport observation deck; the museum has artifacts, aircraft, interactive exhibits and documented aviation-history interpretation.",
+      visitorStrategy: "The operator lists Monday–Saturday 10 a.m.–5 p.m. and Sunday 1–5 p.m., with holiday and private-event closures that require checking the dated visitor notice before setting out. Current general admission is $20 for ages 13+, $12 for ages 3–12 and $10 for visitors age 65+; qualifying veterans, first responders and active duty have separate ID discounts. Advance online tickets are available, but normal walk-up tickets are also sold. Groups of 15 or more must arrange group rates in advance. Enter from University Boulevard off Lemmon Avenue; museum parking is free. Café service is available at the Jetsetters coffee lounge, separate from admission.",
+      accessibility: "The museum advertises free wheelchair loans on a first-come basis, designated parking near the entrance, accessible toilets throughout the building and elevator access to second-floor galleries. It is KultureCity-certified for sensory inclusion. The aircraft collection includes large objects and upper-level galleries; confirm access or accommodation needs with the museum at 214-350-3600 rather than assuming every exhibit cockpit is accessible or open for entry.",
+      familiesAndGroups: "Kids can compare early-aircraft designs, spacecraft and airline history, with age-appropriate science exhibits and a Love Field runway-view section. The museum advertises birthdays, school trips and group programs, but these require separate arrangements from normal admission. Jetsetters sells drinks, snacks and meals; the museum does not provide bag storage, so do not arrive with airline luggage. Special Hindenburg programming opened in July 2026 and should be checked as a current temporary exhibit rather than described as a permanent collection.",
+      researchValue: "Follow changes in materials, propulsion and flight safety, from lighter-than-air craft and Wright-era flying to World War military developments, the golden age of commercial flight and the Apollo era. The operator's permanent gallery inventory provides more than twenty themes, while the museum's Texas Aerospace History Walkway and Dallas Love Field material connect the aviation industry to local geography. Compare documented original objects with replicas, models and reconstructions, rather than claiming every displayed airplane was flown in North Texas.",
+      exhibits: [
+          {
+              heading: "Apollo 7 command module and spaceflight",
+              detail: "The museum documents the flown Apollo 7 spacecraft, a North Texas moon rock display and Mercury, Gemini, Shuttle and International Space Station material."
+          },
+          {
+              heading: "Braniff and Southwest commercial aviation",
+              detail: "A Braniff gallery includes a model painted by Alexander Calder, while a separate Southwest collection interprets the Boeing 737 and Dallas-based airline history."
+          },
+          {
+              heading: "Dreamers, early flyers and lighter-than-air aviation",
+              detail: "Early flight models, the first U.S. private pilot license and dirigible artifacts set the technological context, including a chair associated with Hindenburg radio operations."
+          },
+          {
+              heading: "Military aviation, World Wars and Cold War",
+              detail: "Galleries use airplane models, original craft and regional factory history to connect combat aviation with Dallas-Fort Worth manufacturing."
+          },
+          {
+              heading: "Love Field gallery and runway views",
+              detail: "A Curtiss JN-4D Jenny once based at Love Field, airport history and windows overlooking the flight line connect the collection to its present location."
+          },
+          {
+              heading: "Hindenburg: The Flying Hotel (2026 special exhibition)",
+              detail: "Advertised as a July 2026 special installation included with admission. Verify dates and continued availability rather than promoting it as permanent."
+          }
+      ],
+      routes: [
+          {
+              label: "Family aviation introduction",
+              steps: [
+                  "Start with early flight and lighter-than-air design displays",
+                  "Visit the large aircraft and commercial aviation galleries",
+                  "Finish at the Apollo 7 spaceflight display and Love Field observation windows"
+              ]
+          },
+          {
+              label: "Aviation history and engineering",
+              steps: [
+                  "Compare World War I, World War II and Cold War flying technologies",
+                  "Study Texas aerospace manufacturing and airline exhibits",
+                  "Use flight trainers and the Apollo command module to contrast aviation and spaceflight systems"
+              ]
+          },
+          {
+              label: "Dallas Love Field layover with no baggage",
+              steps: [
+                  "Leave carry-on bags elsewhere: the museum provides no bag storage",
+                  "Book an ordinary museum entry, factoring airport ground transport and security time",
+                  "Use Jetsetters for a meal and reserve extra time for the second-floor exhibits"
+              ]
+          }
+      ],
+      sources: [
+          {
+              label: "Frontiers of Flight Museum — official visitor information",
+              url: "https://flightmuseum.com/visit/",
+              use: "Current 2026 closures, hours, tickets, group admissions, accessibility, directions, coffee lounge"
+          },
+          {
+              label: "Frontiers of Flight Museum — permanent and special exhibits",
+              url: "https://flightmuseum.com/exhibits/",
+              use: "Original exhibit themes, Apollo 7, commercial aviation and dated Hindenburg exhibit"
+          },
+          {
+              label: "Frontiers of Flight Museum — field trips and educational experiences",
+              url: "https://flightmuseum.com/education/field-trips/",
+              use: "School-program and booking requirements"
+          },
+          {
+              label: "Frontiers of Flight Museum — official institutional home",
+              url: "https://flightmuseum.com/",
+              use: "Operator identity, latest museum notices and venue context"
+          }
+      ],
+      connections: [
+          {
+              label: "Dallas County",
+              href: "/county/dallas",
+              reason: "Connect Love Field's history to the wider county visitor context."
+          },
+          {
+              label: "Sixth Floor Museum",
+              href: "/destination/sixth-floor-museum-at-dealey-plaza",
+              reason: "An alternative Dallas history visit, separate tickets and a more somber subject."
+          },
+          {
+              label: "Texas museum directory",
+              href: "/explore/museums",
+              reason: "Compare aviation, science, and history museums across Texas."
+          }
+      ]
+  },
+  "museum-of-texas-tech-university-lubbock": {
+      name: "Museum of Texas Tech University",
+      county: "Lubbock",
+      city: "Lubbock",
+      reviewed: "2026-10-18",
+      topics: [
+          "natural-history",
+          "paleontology",
+          "south-plains-history",
+          "astronomy",
+          "university-museum"
+      ],
+      whyVisit: "The Museum of Texas Tech University combines art, history, anthropology, clothing and textiles, natural history and paleontology, making it a rare free multi-disciplinary museum on the South Plains. Founded in 1929 as the West Texas Museum, it moved to its current Fourth Street and Indiana Avenue site in 1970. The nearby National Ranching Heritage Center and affiliated Lubbock Lake Landmark offer complementary but separately operated collections and visitor experiences.",
+      visitorStrategy: "Main museum general admission is free. As posted by Texas Tech, museum galleries operate Tuesday–Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m.; the museum closes on Mondays and university holidays. The official calendar lists closure November 26–30, 2026 and December 23, 2026–January 1, 2027, plus special campus-event restrictions. The address is 3301 Fourth Street, Lubbock; free museum parking is along Fourth Street/north side and Indiana Avenue/west side. The east-end accessible entrance has no parking immediately at its door. Moody Planetarium performances have separate, paid tickets and individual schedules. Check Orbit Café hours independently.",
+      accessibility: "The visitor page identifies the accessible museum entrance on the east side and advises contacting 806-742-2490 for individual needs; it explicitly says there is no vehicle parking at that east-end doorway. Free accessible parking is identified at the wider complex but the exact route needs confirmation before travel. Moody Planetarium has two wheelchair-designated seats out of 74; these do not establish accessibility for every museum exhibit. Museum admission and planetarium access should be planned separately.",
+      familiesAndGroups: "Children interested in dinosaurs, South Plains archaeology and astronomy can plan around the geology and biodiversity displays and an optional Moody Planetarium show. Texas Tech states that planetarium admission currently costs $6 per adult, $4 for children ages 4–17, seniors and college students, and is free for ages three and under; other free military/family rules exist. School planetarium groups require a reservation at least two weeks ahead. The museum's nine permanent galleries and rotating exhibitions mean a current map or staff advice is more reliable than promising a particular fossil on display.",
+      researchValue: "The operator reports roughly 9.6 million objects across disciplines, including an approximately 5.5-million-specimen Natural Science Research Laboratory, with only a subset on public exhibition. Public gallery visits should distinguish scientific research holdings from accessible displays. Lubbock Lake Landmark is a separate museum division and archaeological preserve documenting around 12,000 years of High Plains habitation, not a room inside the main university museum; visitors must travel to that separate site and verify its own hours.",
+      exhibits: [
+          {
+              heading: "Paleontology and Ice Age biodiversity",
+              detail: "Explore ancient animals and changing Southern High Plains environments through the museum's paleontology and natural-history interpretation."
+          },
+          {
+              heading: "Southwestern anthropology and history",
+              detail: "Collection areas connect the peoples, settlement and material culture of the High Plains with regional research."
+          },
+          {
+              heading: "Art, clothing and textile galleries",
+              detail: "Named collections extend beyond science to cultural production; current rotating art galleries should be checked for specific exhibits."
+          },
+          {
+              heading: "Moody Planetarium (separate ticket)",
+              detail: "A 74-seat theater for astronomy and music laser shows with two wheelchair seats. Schedules and prices differ from free museum gallery admission."
+          },
+          {
+              heading: "Natural Science Research Laboratory",
+              detail: "The affiliated research repository holds millions of specimens, most not in public galleries; access for scientific researchers is distinct from the visitor route."
+          }
+      ],
+      routes: [
+          {
+              label: "Free two-hour museum orientation",
+              steps: [
+                  "Begin with paleontology and biodiversity galleries",
+                  "Compare Southwestern anthropology with regional history and art",
+                  "Check the current rotating exhibition roster and finish at the gift shop if open"
+              ]
+          },
+          {
+              label: "Families and planetarium",
+              steps: [
+                  "Enter during free museum gallery hours and explore dinosaur displays",
+                  "Consult the separate Moody Planetarium showtime and paid-ticket schedule",
+                  "Allow a food break only if Orbit Café is open that day"
+              ]
+          },
+          {
+              label: "Lubbock science and heritage day",
+              steps: [
+                  "Visit the museum at Fourth Street and Indiana Avenue",
+                  "Travel separately to Lubbock Lake Landmark for archaeological landscape interpretation",
+                  "Consider the National Ranching Heritage Center for a distinct ranching-history perspective"
+              ]
+          }
+      ],
+      sources: [
+          {
+              label: "Museum of Texas Tech University — official visitor planning",
+              url: "https://www.depts.ttu.edu/museumttu/visit/",
+              use: "Free admission, current hours, holiday closures, parking, accessibility"
+          },
+          {
+              label: "Museum of Texas Tech University — operator history and collections",
+              url: "https://www.depts.ttu.edu/museumttu/about/",
+              use: "Founding date, scientific holdings, named gallery disciplines and Lubbock Lake Landmark"
+          },
+          {
+              label: "Moody Planetarium — official tickets and show calendar",
+              url: "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+              use: "Separate theater capacity, show dates, tickets and group arrangements"
+          },
+          {
+              label: "Museum of Texas Tech University — institutional notices",
+              url: "https://www.depts.ttu.edu/museumttu/",
+              use: "Campus closures, upcoming events and contact"
+          },
+          {
+              label: "Natural Science Research Laboratory — research program",
+              url: "https://www.depts.ttu.edu/nsrl/",
+              use: "Research collection distinction and institutional holdings"
+          }
+      ],
+      connections: [
+          {
+              label: "Lubbock County",
+              href: "/county/lubbock",
+              reason: "Place the museum and Texas Tech in the county's cultural landscape."
+          },
+          {
+              label: "Texas museum directory",
+              href: "/explore/museums",
+              reason: "Compare other state university and research museums."
+          },
+          {
+              label: "Lubbock Lake Landmark",
+              href: "/destination/lubbock-lake-landmark",
+              reason: "Affiliated outdoor archaeological preserve, reached separately with different visiting rules."
+          }
+      ]
+  },
   "texas-country-music-hall-of-fame-carthage": {
     name: "Texas Country Music Hall of Fame and Tex Ritter Museum",
     slug: "texas-country-music-hall-of-fame-carthage", county: "Panola", city: "Carthage", reviewed: "2026-10-18",
