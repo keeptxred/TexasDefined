@@ -37,6 +37,8 @@ import { INTERNAL_LINK_POLICIES, policyForSurface } from "@/platform/internal-li
 
 const CoastalBeachFieldGuide = lazy(() => import("@/components/content/CoastalBeachFieldGuide"));
 
+const FranklinMountainsAuthority = lazy(() => import("@/components/editorial/FranklinMountainsAuthority"));
+
 const DestinationViatorBooking = lazy(() =>
   import("@/components/editorial/DestinationViatorBooking").then((module) => ({
     default: module.DestinationViatorBooking,
@@ -437,7 +439,8 @@ function DestinationPage() {
             </li>)}
           </ul>
         </section>}
-        {!isChokeCanyon && <Suspense fallback={null}><DestinationViatorBooking destination={destination} /></Suspense>}
+        {destination.slug === "franklin-mountains-state-park" && <Suspense fallback={null}><FranklinMountainsAuthority /></Suspense>}
+        {!isChokeCanyon && destination.slug !== "franklin-mountains-state-park" && <Suspense fallback={null}><DestinationViatorBooking destination={destination} /></Suspense>}
         {DESTINATION_LAKE_GUIDE_LINKS[destination.slug] ? <section className="mt-10 border-t border-border pt-8" aria-label="Related lake fishing and recreation guide"><p className="eyebrow text-primary">Explore this lake</p><h2 className="mt-3 font-display text-3xl">Fishing, boat ramps and lake conditions</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">This park is part of a larger lake trip. Our separate lake guide connects species, launch facilities, boating and nearby counties; confirm park admission, accessibility, overnight reservations and closures with the operator.</p><a href={`/fishing/lakes/${DESTINATION_LAKE_GUIDE_LINKS[destination.slug].slug}`} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">{DESTINATION_LAKE_GUIDE_LINKS[destination.slug].name} visitor and fishing guide →</a></section> : null}
         {destination.slug === "dallas-arboretum-and-botanical-garden" ? <section className="mt-10 border-t border-border pt-8"><p className="eyebrow text-primary">Explore the lake next door</p><h2 className="mt-3 font-display text-3xl">White Rock Lake — fishing, paths and boating</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">The Arboretum overlooks White Rock Lake. The wider lake is a City of Dallas recreation area with fishing piers and boating restrictions; garden admission does not grant lake boat access or overnight camping. For launch locations, public park rules and lake history, use the dedicated lake guide.</p><a className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary" href="/fishing/lakes/white-rock-lake">Read the White Rock Lake visitor guide →</a></section> : null}
         {!isChokeCanyon && isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><DestinationVisitPlanner destination={destination} /></div>}
