@@ -9,6 +9,9 @@ const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 
 const surfaces = [
+  ['football-wills-point', '/texas-high-school-football-teams/wills-point', 'Wills Point Tigers Football'],
+  ['football-bryan', '/texas-high-school-football-teams/bryan', 'Bryan Vikings Football'],
+  ['football-championship-history', '/texas-high-school-football-championship-history', 'Texas high school football state championship history'],
   ['city-houston-authority', '/city/houston', 'Museum District + Hermann Park'],
   ['city-houston-social', '/city/houston', 'Houston_texas_usa_skyline.jpg?width=1600'],
   ['city-dallas-authority', '/city/dallas', 'Choose one evening district'],
