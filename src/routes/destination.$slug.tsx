@@ -299,7 +299,9 @@ function DestinationPage() {
       }))
       .filter((group) => group.destinations.length > 0)
       .slice(0, 3)
-    : relationshipGroups;
+    : destination.slug === "magoffin-home"
+      ? relationshipGroups.map((group) => ({ ...group, destinations: group.destinations.filter((item) => { const miles = distanceMiles(destination, item); return miles !== null && miles <= 40; }) })).filter((group) => group.destinations.length > 0)
+      : relationshipGroups;
   const mapMarkers = isChokeCanyon
     ? [
       { id: `${destination.id}-calliham`, label: "Calliham Unit — headquarters, camping and full-service facilities", point: destination.coordinates },
