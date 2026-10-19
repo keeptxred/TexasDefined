@@ -128,10 +128,10 @@ export function TexasRiverBasinInteractiveMap() {
                   fillOpacity={isActive ? 0.8 : active ? 0.22 : 0.55}
                   stroke={isActive ? "#572c1c" : "#456779"} strokeWidth={isActive ? 2.6 : 0.65}
                   vectorEffect="non-scaling-stroke" fillRule="evenodd"
-                  role="button" tabIndex={0} aria-label={`Select ${displayName(name)} basin`}
+                  role="button" tabIndex={0} aria-label={`Select ${displayName(name)}`}
                   aria-pressed={isActive} onClick={() => setActive(name)}
                   onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setActive(name); } }}>
-                  <title>{displayName(name)} basin</title>
+                  <title>{displayName(name)}</title>
                 </path>;
               })}
             </svg>
