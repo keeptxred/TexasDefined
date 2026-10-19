@@ -1,4 +1,6 @@
-name: Full site quality audit on local Worker
+name: Full site quality audit on local Worker (disabled by owner)
+
+# Owner hold 2026-10-19: no sitewide crawl may execute, including through workflow_call.
 
 on:
   workflow_dispatch:
@@ -24,6 +26,8 @@ concurrency:
 
 jobs:
   audit:
+    # Reusable callers must not bypass the owner hold.
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 120
     env:
