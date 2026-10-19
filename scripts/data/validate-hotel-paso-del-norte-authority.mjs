@@ -54,7 +54,8 @@ contains(route, '"hotel-paso-del-norte": "Hotel Paso del Norte El Paso: History 
 contains(route, 'isHotelPasoDelNorte ? ["Hotel", "TouristAttraction"]', "Hotel schema typing");
 contains(route, 'isHotelPasoDelNorte ? "10 Henry Trost Ct"', "schema physical address");
 contains(route, 'postalCode: "79901"', "schema postal code");
-contains(route, "Historical photographs of {destination.name}", "no recycled Battleship gallery heading");
+contains(route, "Historical photographs of", "preserve generic place-specific gallery heading");
+contains(route, "Hotel Paso del Norte: historic exterior and postcard", "hotel archive heading identifies its remaining exterior photos");
 contains(route, 'id="hotel-paso-dome-photos"', "prominent Hotel Paso dome section near article top");
 contains(route, 'destination.gallery.filter((_, index) => !isHotelPasoDelNorte || index > 0)', "one dome photo feature with no duplicate image in lower gallery");
 contains(route, 'Library of Congress original, photographer credit and reuse information', "photographer and reproduction rights next to featured image");
