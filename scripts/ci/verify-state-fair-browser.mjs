@@ -75,6 +75,28 @@ try {
       row.photoCount = archival.length;
       row.checks.photoCount = archival.length === 31;
       row.checks.photoAttribution = archival.every(e => e.alt && e.source && e.license.includes('by-sa') && e.credit.includes('Michael Barera'));
+      // A full-element screenshot alone does not load offscreen lazy images.
+      // Visit every gallery item as a user would, prove decoded image pixels,
+      // and only then capture a gallery screenshot with all 31 images present.
+      const galleryImages = page.locator('[data-state-fair-historical-gallery] figure img');
+      const brokenGalleryImages = [];
+      for (let index = 0; index < archival.length; index += 1) {
+        const image = galleryImages.nth(index);
+        await image.scrollIntoViewIfNeeded({ timeout: 12000 });
+        const loaded = await page.waitForFunction((position) => {
+          const img = document.querySelectorAll('[data-state-fair-historical-gallery] figure img')[position];
+          return img instanceof HTMLImageElement && img.complete && img.naturalWidth > 0;
+        }, index, { timeout: 15000 }).then(() => true).catch(() => false);
+        if (!loaded) {
+          brokenGalleryImages.push({
+            index: index + 1,
+            alt: await image.getAttribute('alt'),
+            src: await image.getAttribute('src'),
+          });
+        }
+      }
+      row.brokenGalleryImages = brokenGalleryImages;
+      row.checks.galleryImagePixels = archival.length === 31 && brokenGalleryImages.length === 0;
       // Independently verify the 2026 photograph; do not conflate its CC0
       // licensing with the preserved 31-photo Michael Barera CC BY-SA archive.
       const freshFigure = page.locator('[data-state-fair-2026-licensed-photo]');
@@ -97,6 +119,7 @@ try {
         row.currentYearPhoto.source.includes('The_Midway_of_the_State_Fair_of_Texas_2026.png') &&
         !!row.currentYearPhoto.cc0 && row.currentYearPhoto.credited;
       await freshFigure.screenshot({ path: out + '/' + viewport + '-2026-photo.png', timeout: 20000 });
+      await page.evaluate(() => window.scrollTo(0, 0));
       await page.screenshot({ path: out + '/' + viewport + '.png', fullPage: false });
       await page.locator('[data-state-fair-historical-gallery]').screenshot({ path: out + '/' + viewport + '-gallery.png', timeout: 20000 });
       // A root shell hydration marker is insufficient for this lazy route's
