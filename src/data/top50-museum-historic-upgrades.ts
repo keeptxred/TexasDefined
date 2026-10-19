@@ -1,10 +1,15 @@
-import type { Destination, DestinationAuthorityGuide, DestinationAuthoritySource } from "./types";
+import type { Destination, DestinationAuthorityGuide, DestinationAuthoritySource, DestinationItinerary } from "./types";
 
 /** Six individually researched Top-50 canonical museum/historic destination dossiers.
  * Facts checked against named NPS, museum and foundation sources 2026-10-18.
  * Does not alter existing hero/gallery provenance, daily ticket inventory or full-page review date.
  */
-const DETAILS = {
+type MuseumUpgrade = Omit<DestinationAuthorityGuide, "itineraries" | "sources"> & {
+  itineraries: Array<{ label: string; duration: string; steps: string[] }>;
+  sources: DestinationAuthoritySource[];
+  visitorFaqs: Array<{ question: string; answer: string; sourceUrl: string }>;
+};
+const DETAILS: Record<string, MuseumUpgrade> = {
   "uss-lexington-museum-corpus-christi": {
     "whyItMatters": "USS Lexington is not an ordinary static military exhibit: visitors walk an Essex-class aircraft carrier with decks, hangar spaces and onboard equipment preserved in Corpus Christi. The ship's World War II service and later training-carrier life make it possible to connect sea power and naval aviation to real scale, while its ladders, deck heights and weather-exposed sections determine how much of a tour different visitors can physically enjoy.",
     "assessment": {
@@ -442,7 +447,10 @@ export function applyTop50MuseumHistoricUpgrade(destination: Destination): Desti
   const guide: DestinationAuthorityGuide = {
     whyItMatters: update.whyItMatters,
     assessment: update.assessment,
-    itineraries: update.itineraries,
+    itineraries: update.itineraries.map((plan) => ({
+      ...plan,
+      steps: plan.steps as [string, ...string[]],
+    })) as [DestinationItinerary, DestinationItinerary, DestinationItinerary],
     sources: [...sourceMap.values()],
   };
   return { ...destination, authorityGuide: guide, visitorFaqs: [...questionMap.values()] };
