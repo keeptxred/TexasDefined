@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, statSync } from 'node:fs';
 
 const read = (path) => readFileSync(new URL('../../' + path, import.meta.url), 'utf8');
 const checks = [
@@ -27,16 +27,22 @@ const checks = [
     'Quintin Soloviev',
     'CC BY 4.0',
   ]],
+  ['scripts/ci/purge-cloudflare-cache.mjs', [
+    '\`https://\${zoneName}/county/el-paso\`',
+  ]],
   ['src/data/el-paso-county-hero.ts', [
-    'El_Paso_skyline.jpg?width=1600',
-    'Quintin Soloviev',
-    'creativecommons.org/licenses/by/4.0',
+    '/images/state-parks/franklin-mountains-state-park.jpg',
+    'Urban Versis 32',
+    'Franklin_Mountains_State_Park_Cactus.jpg',
+    'creativecommons.org/licenses/by-sa/4.0',
   ]],
   ['src/routes/$kind.$slug.lazy.tsx', [
     "entity.kind === 'county' && entity.slug === 'el-paso'",
     'elPasoCountyHero.src',
     'elPasoCountyHero.sourceUrl',
     'elPasoCountyHero.licenseUrl',
+    'Franklin Mountains State Park in El Paso County',
+    'CC BY-SA 4.0',
     'fetchPriority="high"',
     '<ElPasoMetroGuide />',
     '<ElPasoAreaCrossLinks kind={entity.kind} slug={entity.slug} />',
@@ -62,6 +68,13 @@ const checks = [
 ];
 
 const failures = [];
+const localCountyHero = new URL('../../public/images/state-parks/franklin-mountains-state-park.jpg', import.meta.url);
+try {
+  const asset = statSync(localCountyHero);
+  if (!asset.isFile() || asset.size < 100_000) failures.push('El Paso County hero must be a substantive first-party photograph');
+} catch {
+  failures.push('El Paso County first-party hero asset is missing');
+}
 for (const [path, markers] of checks) {
   const content = read(path);
   for (const marker of markers) {
