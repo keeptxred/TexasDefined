@@ -20,6 +20,8 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH3: Record<string, SportsVenueEnrichmen
   },
   'toyota-center-houston': {
     city: 'Houston',
+    capacity: '18,055 for basketball',
+    opened: 'October 2003',
     primaryEvents: ['Houston Rockets home games', 'Major concerts', 'Touring sports and entertainment events'],
     parking: 'Toyota Center’s adjacent Toyota Tundra Garage has 2,500 spaces across seven levels and is cashless. Rockets game-day garage access is reserved for passholders, while concerts and other events may offer advance garage parking; surrounding downtown surface lots are another option.',
     arrival: 'The Tundra Garage generally opens for event parking 90 minutes before the scheduled door time. Current downtown construction and street closures can affect approaches, so visitors should check the official directions page before leaving.',
@@ -28,9 +30,12 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH3: Record<string, SportsVenueEnrichmen
     planningLinks: [
       { label: 'Directions and parking', url: 'https://www.toyotacenter.com/plan-your-visit/directions-parking' },
       { label: 'Arena A–Z guide', url: 'https://www.toyotacenter.com/plan-your-visit/a-z-guide' },
+      { label: 'Bag policy', url: 'https://www.toyotacenter.com/plan-your-visit/bag-policy' },
+      { label: 'Accessibility guide', url: 'https://www.toyotacenter.com/plan-your-visit/accessibility' },
+      { label: 'NBA arena capacity reference', url: 'https://www.nba.com/news/all-30-nba-arenas-by-team' },
     ],
     imageBrief: 'Downtown Houston arena exterior at blue hour with pedestrian event traffic and skyline context, modern travel-editorial composition, no added logos or text.',
-    verifiedAt,
+    verifiedAt: '2026-10-19',
   },
   'moody-center': {
     city: 'Austin',
