@@ -95,6 +95,45 @@ for (const region of ['Piney Woods','Gulf Prairies and Marshes','Post Oak Savann
 }
 console.log(JSON.stringify({ surface: ecoregionsPath, status: ecoregions.status, authorStatus: ecoregionsAuthor.status, mapStatus: ecoregionsMap.status, csvStatus: ecoregionsCsv.status, ok: true }));
 
+// Protect the published El Paso authority rollout with a live, uncached HTTP
+// check. The pre-deploy SSR suite validates the built Worker, but only this
+// deployed-domain probe can detect stale edge HTML or a missing metro route.
+// Reuse the existing bounded retry and unique query key; do not purge caches.
+const elPasoLiveSurfaces = [
+  { path: '/metro-area/el-paso-metro', markers: [
+    'What counts as the El Paso metro?',
+    'Hudspeth County',
+    'Connected El Paso guides',
+    '/county/hudspeth',
+    'Quintin Soloviev',
+  ] },
+  { path: '/city/el-paso', markers: [
+    'Connected El Paso guides',
+    '/metro-area/el-paso-metro',
+  ] },
+  { path: '/county/el-paso', markers: [
+    'Connected El Paso guides',
+    '/metro-area/el-paso-metro',
+  ] },
+  { path: '/article/moving-to-el-paso-guide', markers: [
+    'Connected El Paso guides',
+    '/metro-area/el-paso-metro',
+  ] },
+];
+const elPasoResults = await Promise.all(elPasoLiveSurfaces.map(async ({ path, markers }) => {
+  const { status, body } = await fetchHealthy(path, markers[0]);
+  for (const marker of markers) {
+    if (!body.includes(marker)) throw new Error(`${path} returned HTTP ${status}, but published HTML is missing El Paso authority marker: ${marker}`);
+  }
+  if (path === '/metro-area/el-paso-metro') {
+    for (const stale of ['Expo Center of Taylor County', 'Ratliff Stadium']) {
+      if (body.includes(stale)) throw new Error(`${path} still contains geographically incorrect old metro recommendation: ${stale}`);
+    }
+  }
+  return { path, status, markersVerified: markers.length };
+}));
+for (const result of elPasoResults) console.log(JSON.stringify({ surface: 'El Paso authority production', ...result, ok: true }));
+
 const liveNewsPath = firstPublishedNewsPath(news.body);
 if (!liveNewsPath) {
   console.log(JSON.stringify({ verified: true, newsStatus: news.status, publishedNewsPresent: false, reason: 'No routed published news is currently exposed; auto-publication remains disabled.' }));
