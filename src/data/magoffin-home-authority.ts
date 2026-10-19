@@ -13,7 +13,7 @@ const WALKING_TOUR = "https://thc.texas.gov/sites/default/files/2025-01/Magoffin
 const authorityGuide: DestinationAuthorityGuide = {
   whyItMatters: "One of El Paso's surviving nineteenth-century adobe homes connects the Santa Fe–Chihuahua trade, Mexican-American civic leadership, the arrival of the railroads and more than a century of family life. The story includes domestic workers and the descendants who maintained the household, not just its prominent owners.",
   assessment: {
-    recommendedVisit: "Allow roughly 30–60 minutes for the open visitor center and available interpretation, subject to the day's programming; this is an editorial planning estimate, not a published tour duration. The house itself is closed through 2027. A separate self-guided Magoffin Historic District walk takes about one hour.",
+    recommendedVisit: "Allow roughly 30–60 minutes for the open visitor center and available interpretation, subject to the day's programming; this is an editorial planning estimate, not a published tour duration. The house itself is closed through 2027. THC's separate self-guided Magoffin Historic District walking tour is approximately 90 minutes.",
     physicalEffort: "Low",
     weatherExposure: "Mixed indoor/outdoor",
     planningLevel: "Moderate",
@@ -32,11 +32,11 @@ const authorityGuide: DestinationAuthorityGuide = {
     },
     {
       label: "Walk the historic district",
-      duration: "About one hour of walking",
+      duration: "About 90 minutes walking",
       steps: [
         "Download THC's Magoffin Historic District self-guided walking tour before starting; it covers Magoffin, Myrtle, San Antonio and adjoining downtown streets.",
         "Look for the change from orchard-era adobe homes to railroad-era neighborhoods and commercial buildings; respect homes and private property.",
-        "Finish with a separately open downtown El Paso attraction rather than assuming that the restoration site provides a one-hour interior tour.",
+        "Finish with a separately open downtown El Paso attraction rather than assuming that the restoration site provides an ordinary interior tour.",
       ],
     },
     {
@@ -53,7 +53,7 @@ const authorityGuide: DestinationAuthorityGuide = {
     { label: "Texas Historical Commission — current closure, visitor center, hours and fees", url: OFFICIAL, scope: "Controlling October 2026 closure announcement: historic home closed through 2027, visitor center open; street address, hours, phone, posted standard admission rates, virtual tour and current program links." },
     { label: "Texas Historical Commission — Magoffin Home history", url: HISTORY, scope: "James Wiley, Joseph and Octavia Magoffin, the Glasgow descendants, 1877 occupancy, house additions, furnishings, National Register listing and 2007 transfer." },
     { label: "Texas Historical Commission — visitor and accessibility information", url: VISITING, scope: "Historical tour descriptions, group requests, visitor-center restrooms and stated wheelchair accessibility. Standard house-tour times on this page are superseded by the current closure notice." },
-    { label: "Texas Historical Commission — Magoffin Historic District walking tour", url: WALKING_TOUR, scope: "Approximately one-hour self-guided street walk beginning at the historic home; an independent alternative to the closed interior." },
+    { label: "Texas Historical Commission — Magoffin Historic District walking tour", url: WALKING_TOUR, scope: "A 90-minute self-guided street walk beginning at the visitor center, 1117 Magoffin Avenue; an independent alternative to the closed interior." },
     { label: "Texas Historical Commission — José Sierra and domestic labor", url: JOSE_SIERRA, scope: "Research about a longtime household worker; context beyond the owners' political and commercial achievements." },
   ],
 };
@@ -76,7 +76,7 @@ const visitorFaqs: NonNullable<Destination["visitorFaqs"]> = [
   { question: "Can I tour the inside of Magoffin Home in 2026?", answer: "No standard interior house tour should be planned. The Texas Historical Commission says the historic home is closed for restoration through 2027; the visitor center is open. Special restoration events may be offered separately and require checking current listings.", sourceUrl: OFFICIAL },
   { question: "Where do I go for the Magoffin Home visitor center?", answer: "Go to 1117 Magoffin Avenue, El Paso, TX 79901. The historic residence is across the street at 1120 Magoffin Avenue. Call 915-533-5147 if arrival or parking arrangements are unclear.", sourceUrl: OFFICIAL },
   { question: "What are the hours and admission prices?", answer: "As checked October 19, 2026, THC lists the visitor center Tuesday–Saturday, 9 a.m.–4 p.m. Its posted standard ticket prices are $7 adults, $6 eligible discounted adults, $4 ages 6–17 and free for children five and younger. Because the house is closed, contact the operator before assuming these ticket prices apply to a particular visitor-center program.", sourceUrl: OFFICIAL },
-  { question: "How long should I allow for Magoffin Home?", answer: "Roughly 30–60 minutes is a reasonable planning allowance for a visitor-center stop if programs are available; it is not an official tour time. THC also publishes an approximately one-hour self-guided walk through the surrounding historic district. The closed house interior is not part of either ordinary visit.", sourceUrl: WALKING_TOUR },
+  { question: "How long should I allow for Magoffin Home?", answer: "Roughly 30–60 minutes is a reasonable planning allowance for a visitor-center stop if programs are available; it is not an official tour time. THC also publishes a 90-minute self-guided walk through the surrounding historic district. The closed house interior is not part of either ordinary visit.", sourceUrl: WALKING_TOUR },
   { question: "Is the site accessible during restoration?", answer: "THC describes Magoffin Home as wheelchair accessible and places restrooms at the visitor center. Those descriptions were written for ordinary tours; confirm current visitor-center access, parking and any special restoration-event restrictions directly with staff.", sourceUrl: VISITING },
   { question: "How can I see the historic rooms while the home is closed?", answer: "Use the interactive virtual tour linked from the official Magoffin Home page. Do not treat archival photographs or the virtual tour as proof of current physical room access.", sourceUrl: OFFICIAL },
 ];
@@ -125,7 +125,7 @@ export function applyMagoffinHomeAuthority(destination: Destination): Destinatio
     ],
     body: [
       "Magoffin Home is more than a historic-house facade. Its rooms and furnishings preserve the story of a Mexican-American family whose relationships crossed the Rio Grande and shaped El Paso through trade, government and hospitality. The adobe residence stands at 1120 Magoffin Avenue, opposite today's visitor center at 1117 Magoffin Avenue. Because the historic structure is under restoration, visitors should not expect access to its interior through 2027.",
-      "The home's building history spans the 1870s rather than a single simple date. Architectural research places an early section around 1875 and the larger main wing around 1877. The Texas Historical Commission records Joseph and Octavia moving into their new adobe house in 1877. The house blends Southwest adobe and Territorial forms with Greek Revival-influenced proportions; it once stood amid orchard and garden land on El Paso's edge.",
+      "The home's building history spans the 1870s rather than a single simple date. THC's historic-district brochure describes the family's homestead as dating to around 1875; the Commission records Joseph and Octavia moving into their new adobe house in 1877. The house blends Southwest adobe and Territorial forms with Greek Revival-influenced proportions; it once stood amid orchard and garden land on El Paso's edge.",
       "Joseph's father, James Wiley Magoffin, known as Don Santiago, traded in northern Mexico and along the Santa Fe–Chihuahua route. After the Mexican-American War, he acquired Rio Grande land and developed Magoffinsville, an early settlement tied to the location of Fort Bliss. Joseph later served in El Paso civic government as the growing city became a railroad and trading center. Their family story is inseparable from both Mexican and American histories.",
       "Octavia MacGreal Magoffin was known for social leadership and charitable activity. The household also depended on workers whose experiences deserve attention: Texas Historical Commission research documents longtime servant and coachman José Sierra. Understanding their labor and life complicates the simple story of a wealthy family's furnishings or hospitality.",
       "The original house included six rooms and a large hall, with a separate three-room outbuilding. Later construction connected the spaces and enclosed a courtyard, while the home continued to change as subsequent generations lived there. Descendants in the Glasgow family maintained the house for decades; Octavia 'Tia' Glasgow was among its last family residents. The property was placed on the National Register of Historic Places in 1971, and the Texas Historical Commission assumed ownership in 2007.",
