@@ -126,6 +126,12 @@ These are **16 named** research entries. Washington-on-the-Brazos was upgraded s
 
 1 seed without a verified site-specific hero: `lipantitlan`. Do not substitute unrelated stock images or claim unseen imagery is original. An image-free site can keep its public reference information, but it must not receive complete authority certification until rights and relevance are resolved.
 
+## October 18 current state-operator directory comparison
+
+- Rechecked the live Texas Historical Commission directory, https://thc.texas.gov/historic-sites, on October 18. Its introductory text says the agency operates **42 state historic sites**. The page also includes linked partner/externally operated heritage destinations; **do not treat every linked attraction as THC-managed**.
+- The protected original catalog has **46 distinct records: 41 with direct thc.texas.gov operator URLs, two with external museum/heritage-venue operator URLs (National Museum of the Pacific War and Slaton Harvey House), and three active VA national cemeteries**. A matching count alone is not evidence that every historical place in Texas is represented.
+- Individual museums, National Park Service locations, historic districts, county landmarks and sites not in this protected catalog remain separate publishing obligations under the appropriate authority standards, rather than being marked completed merely because a state-government directory is represented.
+
 ## October 18 editorial integrity cleanup
 
 - Removed three repetitive introduction paragraphs generated for all 46 legacy historic-site seeds; each page now begins with its own site-specific historical significance and visitor angle, followed by its existing researched narratives and authority guides. No vetted historical content, primary operator links, image credits or detailed visitor restrictions were deleted.
