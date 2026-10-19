@@ -90,7 +90,7 @@ export default function FranklinMountainsAuthority() {
       <p className="eyebrow text-primary">What makes the park different</p>
       <h2 id="franklin-landscape" className="mt-3 font-display text-3xl">A wilderness ridge above the city</h2>
       <figure className="mt-6 max-w-2xl">
-        <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Northfranklinfromelephant2.jpg" alt="North Franklin Peak beyond Fusselman Canyon and Trans Mountain Road, photographed from The Elephant in the Franklin Mountains" width={638} height={478} loading="lazy" decoding="async" className="aspect-[4/3] w-full bg-surface object-cover" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Northfranklinfromelephant2.jpg" alt="North Franklin Peak beyond Fusselman Canyon and Trans Mountain Road, photographed from The Elephant in the Franklin Mountains" width={638} height={478} loading="lazy" decoding="async" className="aspect-[4/3] w-full bg-surface object-cover" />
         <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">North Franklin Mountain from The Elephant, Brian Stansberry (2006), <a href="https://commons.wikimedia.org/wiki/File:Northfranklinfromelephant2.jpg" target="_blank" rel="noopener noreferrer" className={textLink}>original photograph</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer" className={textLink}>CC BY-SA 3.0</a>. Image displayed without editorial alteration.</figcaption>
       </figure>
       <h3 className="mt-7 text-lg font-semibold">Geology you can see</h3>
