@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
+import { ElPasoGuideNetwork } from "@/components/content/ElPasoGuideNetwork";
 
 const museumUrl = "https://www.ysletadelsurpueblo.org/tourism-hospitality/cultural-center/museum";
 const culturalUrl = "https://www.ysletadelsurpueblo.org/tourism-hospitality/cultural-center";
@@ -187,5 +188,6 @@ export default function YsletaDelSurMuseumAuthority() {
       <p className="mt-4 text-xs leading-6 text-muted-foreground">Suggested citation: TexasDefined Editorial Desk. “Ysleta del Sur Pueblo Cultural Center Museum: Tigua History, Exhibits & Visitor Guide.” TexasDefined, verified October 9, 2026. https://texasdefined.com/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso</p>
       <p className="mt-4 text-xs leading-6 text-muted-foreground">Information changes: verify museum hours, admission, cultural program access and photography policy with the Pueblo before traveling. This independent guide is not endorsed by or affiliated with the Pueblo.</p>
     </Container>
+    <Container><ElPasoGuideNetwork currentPath="/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso" /></Container>
   </div>;
 }

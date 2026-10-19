@@ -255,7 +255,7 @@ function DestinationPage() {
 
   if (destination.slug === "mayborn-museum-waco") return <Suspense fallback={null}><MaybornMuseumAuthority /></Suspense>;
   if (destination.slug === "zapata-county-museum-history") return <Suspense fallback={null}><ZapataCountyMuseumAuthority /></Suspense>;
-  if (destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso") return <><YsletaDelSurMuseumAuthority /><Container><ElPasoGuideNetwork currentPath={`/destination/${destination.slug}`} /></Container></>;
+  if (destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso") return <YsletaDelSurMuseumAuthority />;
   if (destination.slug === "young-county-museum-of-history-and-culture") return <Suspense fallback={null}><YoungCountyMuseumAuthority /></Suspense>;
 
   const region = regions.find((item) => item.id === destination.region);
