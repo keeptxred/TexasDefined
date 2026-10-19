@@ -55,8 +55,7 @@ export function ElPasoMetroGuide() {
         El Paso is a borderland metropolitan area at the western tip of Texas, between the Franklin Mountains,
         the Rio Grande, New Mexico and Ciudad Juárez. It is in the Mountain Time Zone, unlike most of Texas.
         The federally defined El Paso, TX Metropolitan Statistical Area (MSA) includes <strong>El Paso County and
-        Hudspeth County</strong>. The counties counted 865,657 and 3,202 people respectively in the 2020
-        Census—a combined <strong>868,859 people in 2020</strong>, not a current population estimate.
+        Hudspeth County</strong>. The counties counted 865,657 and 3,202 people respectively in the 2020 Census—a combined <strong>868,859 people in 2020</strong>, not a current population estimate.
       </p>
       <div className="mt-7 grid gap-4 md:grid-cols-2">
         <article className="border-l-2 border-primary bg-surface p-6">
