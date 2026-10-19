@@ -1,3 +1,4 @@
+import { applyFranklinMountainsVisitorAuthority } from "./franklin-mountains-visitor-authority";
 import { applySixLaterTPWDAuthorities } from "./tpwd-six-later-park-authorities";
 import { applySixParkOctoberVisitorAuthority } from "./six-tpwd-visitor-authority-oct17";
 import { applySixParkVisitorAuthorityGuide } from "./six-park-visitor-authority-20261017";
@@ -195,6 +196,7 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applySixParkVisitorAuthorityGuide,
   applyInksLakeVisitorAuthority,
   applyDevilsSinkholeVisitorAuthority,
+  applyFranklinMountainsVisitorAuthority,
 ];
 
 function runCurators(destination: Destination): Destination {
