@@ -1,4 +1,4 @@
-export const TDI_INSURANCE_VERIFIED = "Aug. 26, 2026";
+export const TDI_INSURANCE_VERIFIED = "Oct. 19, 2026";
 
 export const TDI_HOMEOWNERS_MARKET = {
   sourceName: "Texas Department of Insurance — Texas homeowners insurance market overview",
@@ -9,7 +9,7 @@ export const TDI_HOMEOWNERS_MARKET = {
   releaseUrl: "https://www.tdi.texas.gov/news/2026/tdi06222026.html",
   year: 2025,
   preliminary: true,
-  statewideAverageAnnualPremium: 3506,
+  statewideAverageAnnualPremium: 3489,
   activeHomeownersPolicies: 8233096,
   statewidePaidLosses: 8_740_000_000,
   windHailShareSince2019: 0.62,
