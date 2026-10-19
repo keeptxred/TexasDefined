@@ -375,9 +375,9 @@ function EntityPage() {
               className="aspect-video w-full object-cover"
             />
             <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">
-              Franklin Mountains State Park in El Paso County · Photo by{' '}
+              Hueco Tanks East Mountain in El Paso County · Photo by{' '}
               <a href={elPasoCountyHero.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">{elPasoCountyHero.creator}</a>{' '}
-              (<a href={elPasoCountyHero.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">CC BY-SA 4.0</a>).
+              (<a href={elPasoCountyHero.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">CC BY 3.0</a>).
               Locally resized and cropped for this page.
             </figcaption>
           </figure>

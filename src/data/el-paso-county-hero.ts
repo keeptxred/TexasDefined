@@ -1,13 +1,13 @@
-/** El Paso County's first-party, source-matched landscape photograph.
- * Same licensed local asset and provenance as the Franklin Mountains park guide.
- * Do not hotlink Wikimedia Special:Redirect for a public page hero.
+/** Source-matched first-party El Paso County landscape photograph.
+ * Brian Stansberry, Hueco Tanks East Mountain, 2006; Creative Commons BY 3.0.
+ * Original Commons image and the bundled local file are 295,202 bytes.
  */
 export const elPasoCountyHero = {
-  src: '/images/state-parks/franklin-mountains-state-park.jpg',
-  alt: 'Franklin Mountains State Park cactus and Chihuahuan Desert landscape in El Paso County, Texas',
-  width: 1600,
-  height: 1067,
-  creator: 'Urban Versis 32',
-  sourceUrl: 'https://commons.wikimedia.org/wiki/File:Franklin_Mountains_State_Park_Cactus.jpg',
-  licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  src: '/images/explore/historic-sites/hueco-tanks-state-park.jpg',
+  alt: 'East Mountain rock formations at Hueco Tanks State Park and Historic Site in El Paso County, Texas',
+  width: 1198,
+  height: 837,
+  creator: 'Brian Stansberry',
+  sourceUrl: 'https://commons.wikimedia.org/wiki/File:Hueco-tanks-east-mtn-tx1.jpg',
+  licenseUrl: 'https://creativecommons.org/licenses/by/3.0/',
 } as const;

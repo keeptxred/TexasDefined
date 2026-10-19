@@ -31,18 +31,18 @@ const checks = [
     '\`https://\${zoneName}/county/el-paso\`',
   ]],
   ['src/data/el-paso-county-hero.ts', [
-    '/images/state-parks/franklin-mountains-state-park.jpg',
-    'Urban Versis 32',
-    'Franklin_Mountains_State_Park_Cactus.jpg',
-    'creativecommons.org/licenses/by-sa/4.0',
+    '/images/explore/historic-sites/hueco-tanks-state-park.jpg',
+    'Brian Stansberry',
+    'Hueco-tanks-east-mtn-tx1.jpg',
+    'creativecommons.org/licenses/by/3.0',
   ]],
   ['src/routes/$kind.$slug.lazy.tsx', [
     "entity.kind === 'county' && entity.slug === 'el-paso'",
     'elPasoCountyHero.src',
     'elPasoCountyHero.sourceUrl',
     'elPasoCountyHero.licenseUrl',
-    'Franklin Mountains State Park in El Paso County',
-    'CC BY-SA 4.0',
+    'Hueco Tanks East Mountain in El Paso County',
+    'CC BY 3.0',
     'fetchPriority="high"',
     '<ElPasoMetroGuide />',
     '<ElPasoAreaCrossLinks kind={entity.kind} slug={entity.slug} />',
@@ -68,7 +68,7 @@ const checks = [
 ];
 
 const failures = [];
-const localCountyHero = new URL('../../public/images/state-parks/franklin-mountains-state-park.jpg', import.meta.url);
+const localCountyHero = new URL('../../public/images/explore/historic-sites/hueco-tanks-state-park.jpg', import.meta.url);
 try {
   const asset = statSync(localCountyHero);
   if (!asset.isFile() || asset.size < 100_000) failures.push('El Paso County hero must be a substantive first-party photograph');
