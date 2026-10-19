@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { Fragment, lazy, Suspense, type ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import type { ArticleBlock, Author } from "@/data/types";
 import type { TexasEntityRecord } from "@/data/knowledge-graph";
@@ -107,7 +107,7 @@ export function Byline({ author, meta }: { author: Author | null; meta: string }
   );
 }
 
-export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[]; entities?: TexasEntityRecord[] }) {
+export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBefore }: { blocks: ArticleBlock[]; entities?: TexasEntityRecord[]; insertBeforeIndex?: number; insertBefore?: ReactNode }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const articleSlug = pathname.startsWith("/article/") ? pathname.slice("/article/".length).split("/")[0] : "";
   const showMetroRelocationAuthority = metroRelocationGuidePaths.has(pathname);
@@ -147,7 +147,8 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
     {showBolivarHistoryPhotoSources ? <BolivarRestorationPhotoSources /> : null}
     {blocks.map((block, index) => {
       if (index < sixManLeadCount) return null;
-      switch (block.type) {
+      const rendered = (() => {
+        switch (block.type) {
         case "heading":
           if (showLighthouseVisitPlanner && block.text === "Texas lighthouses at a glance: access, climbs and trip difficulty") {
             return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2><Suspense fallback={null}><LighthouseVisitPlanner /></Suspense></div>;
@@ -203,7 +204,12 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
         case "shop": return <ShopTheStory key={index} collectionSlug={block.collectionSlug} />;
         case "paragraph":
         default: return <p key={index} className="mt-6 first:mt-0">{render(block.text, 4)}</p>;
+        }
+      })();
+      if (insertBeforeIndex === index && insertBefore) {
+        return <Fragment key={`article-insert-${index}`}>{insertBefore}{rendered}</Fragment>;
       }
+      return rendered;
     })}
     {showMetroRelocationAuthority ? <Suspense fallback={null}><MetroRelocationAuthority articlePath={pathname} /></Suspense> : null}
   </div>;
