@@ -31,6 +31,15 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  // El Paso authority acceptance: real SSR must publish the researched metro guide
+  // and crawlable city / relocation backlinks, not the old statewide fallback.
+  { path: '/metro-area/el-paso-metro', requiredText: 'What counts as the El Paso metro?', label: 'El Paso metro includes researched two-county guide' },
+  { path: '/metro-area/el-paso-metro', requiredText: 'Hudspeth County', label: 'El Paso metro retains federal two-county geography' },
+  { path: '/metro-area/el-paso-metro', requiredText: 'Connected El Paso guides', label: 'El Paso metro renders reciprocal link rail' },
+  { path: '/metro-area/el-paso-metro', requiredText: '/county/hudspeth', label: 'El Paso metro links to Hudspeth County' },
+  { path: '/metro-area/el-paso-metro', requiredText: 'Quintin Soloviev', label: 'El Paso metro preserves licensed skyline attribution' },
+  { path: '/city/el-paso', requiredText: '/metro-area/el-paso-metro', label: 'El Paso city guide links back to metro' },
+  { path: '/article/moving-to-el-paso-guide', requiredText: '/metro-area/el-paso-metro', label: 'Moving to El Paso article links to metro guide' },
   { path: '/explore/water-parks/schlitterbahn-new-braunfels', requiredText: '/destination/gruene-historic-district', label: 'Schlitterbahn New Braunfels locally sourced additional attractions' },
   { path: '/explore/water-parks/great-wolf-webster', requiredText: '/destination/space-center-houston', label: 'Webster resort waterpark to NASA-area visitor guides' },
   { path: '/explore/water-parks/bill-witt-aquatic-center-corpus-christi', requiredText: '/destination/texas-state-aquarium', label: 'Corpus Christi municipal pool to maritime attractions' },
