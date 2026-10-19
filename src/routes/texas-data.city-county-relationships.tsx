@@ -86,7 +86,7 @@ function CityCountyRelationshipsPage() {
         <p className="eyebrow text-primary">Texas geography reference</p>
         <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">What county is a Texas city in?</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Use this directory to see the county relationships for cities currently covered by Texas Defined. Some Texas cities cross county lines, so this page lists additional counties where that relationship is known instead of pretending every city belongs to only one county.</p>
-        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+        <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold">
           <Link to="/find-my-county" className="text-primary hover:underline">Find the county for an exact address →</Link>
           <a href="/texas-data/city-county-relationships.csv" className="text-primary hover:underline">Download the CSV →</a>
         </div>
