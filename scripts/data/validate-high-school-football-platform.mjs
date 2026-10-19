@@ -1115,10 +1115,10 @@ if (!errors.length) {
   ]) requireText(footballProfileContent, marker, 'Football profile answer layer');
   for (const marker of [
     'profileSummary: buildFootballProfileSummary',
-    "return 'Non-UIL football program';",
     'quickFacts: buildFootballProfileQuickFacts',
     'faq: buildFootballProfileFaq',
   ]) requireText(programProfileServer, marker, 'Football profile server answer generation');
+  requireText(footballProfileContent, "return 'Non-UIL football program';", 'Football profile non-UIL fail-closed label');
   for (const marker of [
     "slug: 'spring'",
     "name: 'KaRon Coleman Sr.'",
