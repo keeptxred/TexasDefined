@@ -1,5 +1,6 @@
 import { Fragment, lazy, Suspense, type ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
+import CaminoMissionTrailRoute from "@/components/editorial/CaminoMissionTrailRoute";
 import type { ArticleBlock, Author } from "@/data/types";
 import type { TexasEntityRecord } from "@/data/knowledge-graph";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
@@ -45,7 +46,7 @@ const metroRelocationGuidePaths = new Set([
 const SIX_MAN_FOOTBALL_PATH = "/article/texas-six-man-football-rules-explained";
 const LIGHTHOUSE_VISIT_PATH = "/article/best-lighthouses-to-visit-in-texas";
 const LighthouseVisitPlanner = lazy(() => import("@/components/content/LighthouseVisitPlanner"));
-const CaminoMissionTrailRoute = lazy(() => import("@/components/editorial/CaminoMissionTrailRoute"));
+// Render the three mission stops in server HTML; a lazy empty fallback hides these links from crawlers.
 const LOOPS_SPURS_PATH = "/article/texas-loops-spurs-explained";
 const BOLIVAR_HISTORY_PATH = "/article/point-bolivar-lighthouse-history";
 
@@ -154,7 +155,7 @@ export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBe
         switch (block.type) {
         case "heading":
           if (showCaminoMissionTrail && block.text === "Route map and three confirmed stops") {
-            return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2><Suspense fallback={null}><CaminoMissionTrailRoute /></Suspense></div>;
+            return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2><CaminoMissionTrailRoute /></div>;
           }
           if (showLighthouseVisitPlanner && block.text === "Texas lighthouses at a glance: access, climbs and trip difficulty") {
             return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2><Suspense fallback={null}><LighthouseVisitPlanner /></Suspense></div>;
