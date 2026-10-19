@@ -6,6 +6,7 @@ import { applyCurrentEntityCorrections } from '@/data/knowledge-graph/current-en
 import { canonicalEntityPath, isIndexableEntityPage } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import type { SportsVenueLanding } from '@/data/sports-venue-landings';
+import { getSportsVenueReviewDates } from '@/data/sports-venue-review-dates.functions';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const siteUrl = 'https://texasdefined.com';
@@ -36,9 +37,13 @@ export const Route = createFileRoute('/sports-venues/$landing')({
       .sort((a, b) => venueSortKey(a).localeCompare(venueSortKey(b)) || a.name.localeCompare(b.name));
 
     if (!venues.length) throw notFound();
+    const venueReviewDates = await getSportsVenueReviewDates({
+      data: { slugs: venues.map((venue) => venue.slug) },
+    });
     return {
       landing,
       venues,
+      venueReviewDates,
       marketLandings: SPORTS_VENUE_LANDINGS.filter((item) => item.kind === 'market' && item.slug !== landing.slug),
       themeLandings: SPORTS_VENUE_LANDINGS.filter((item) => item.kind === 'theme' && item.slug !== landing.slug),
     };
@@ -59,13 +64,13 @@ export const Route = createFileRoute('/sports-venues/$landing')({
 });
 
 function SportsVenueLandingPage() {
-  const { landing, venues, marketLandings, themeLandings } = Route.useLoaderData();
+  const { landing, venues, venueReviewDates, marketLandings, themeLandings } = Route.useLoaderData();
   const canonicalPath = `/sports-venues/${landing.slug}`;
   const professional = venues.filter((venue) => venue.tags?.includes('professional')).length;
   const college = venues.filter((venue) => venue.tags?.includes('college')).length;
   const majorDraws = venues.filter((venue) => venue.tags?.includes('major-tourist-draw')).length;
   const lastReviewed = venues
-    .map((venue) => venue.sourceCheckedAt)
+    .map((venue) => venueReviewDates[venue.slug] ?? venue.sourceCheckedAt)
     .filter((date): date is string => Boolean(date))
     .sort()
     .at(-1);
@@ -82,6 +87,7 @@ function SportsVenueLandingPage() {
         description: landing.description,
         isPartOf: { '@id': `${siteUrl}/#website` },
         mainEntity: { '@id': `${siteUrl}${canonicalPath}#venues` },
+        dateModified: lastReviewed,
       },
       {
         '@type': 'ItemList',
