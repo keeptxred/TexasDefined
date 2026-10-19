@@ -1,0 +1,37 @@
+name: Verify District 21 football after production deploy
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  district-21-production:
+    # Never check a cancelled or failed release as though it had deployed.
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'success') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out verified release
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate live checker syntax
+        run: node --check scripts/ci/verify-district21-football-production.mjs
+
+      - name: Verify all eight 2026 District 21 team scorecards and district hub
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-district21-football-production.mjs
