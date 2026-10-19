@@ -177,6 +177,13 @@ export const Route = createFileRoute("/destination/$slug")({
       const { resolveCoastalHeritageAuthority } = await import("@/data/coastal-heritage-authority");
       destination = resolveCoastalHeritageAuthority(destination);
     }
+    // Always apply the authoritative closure and visitor-center overlay last.
+    // This also protects direct destination fallback reads that fail the general
+    // search-readiness gate before the runtime can apply the local override.
+    if (destination.slug === "magoffin-home") {
+      const { applyMagoffinHomeAuthority } = await import("@/data/magoffin-home-authority");
+      destination = applyMagoffinHomeAuthority(destination);
+    }
     const [completeGraph, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([
       loadTexasKnowledgeGraph(),
       context.queryClient.ensureQueryData(categoriesQuery()),

@@ -1,13 +1,6 @@
-import roadTrip from "@/assets/road-trip.jpg";
+import { moverVerificationHero, healthCoverageHero, militaryFamilyHero } from "./relocation-wave5-media";
 import smallTown from "@/assets/small-town.jpg";
 import type { Article } from "../types";
-
-const moveHero: Article["hero"] = {
-  src: roadTrip,
-  alt: "A Texas highway leading toward a new city and a new home",
-  width: 1600,
-  height: 1067,
-};
 
 const homeHero: Article["hero"] = {
   src: smallTown,
@@ -47,7 +40,7 @@ export const relocationAuthorityWave5Stubs: Article[] = [
     title: "How to Verify a Texas Moving Company Before You Hire It",
     dek: "Use TxDMV and FMCSA records to distinguish licensed Texas movers, interstate carriers and brokers before household goods are loaded.",
     category: "moving-to-texas",
-    hero: moveHero,
+    hero: moverVerificationHero,
     publishedAt: "2026-09-29",
     readingMinutes: 8,
     tags: ["moving company", "licensed mover", "txdmv", "fmcsa", "moving to texas"],
@@ -59,7 +52,7 @@ export const relocationAuthorityWave5Stubs: Article[] = [
     title: "Health Insurance When Moving to Texas: Coverage Transition Guide",
     dek: "How to plan employer, Marketplace and other health coverage when a move to Texas changes your ZIP code, county, job or provider network.",
     category: "moving-to-texas",
-    hero: moveHero,
+    hero: healthCoverageHero,
     publishedAt: "2026-09-29",
     readingMinutes: 8,
     tags: ["health insurance", "special enrollment period", "moving to texas", "healthcare", "new resident"],
@@ -71,7 +64,7 @@ export const relocationAuthorityWave5Stubs: Article[] = [
     title: "Military Family Moving to Texas: PCS & New-Duty-Station Guide",
     dek: "A Texas PCS planning guide for military families covering installation resources, housing, schools, TRICARE, household goods, spouse employment and arrival tasks.",
     category: "moving-to-texas",
-    hero: moveHero,
+    hero: militaryFamilyHero,
     publishedAt: "2026-09-29",
     readingMinutes: 9,
     tags: ["military family", "pcs", "moving to texas", "tricare", "military relocation"],

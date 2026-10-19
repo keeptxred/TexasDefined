@@ -7,6 +7,18 @@
 type HeritagePhotoRights = { sourceUrl: string; licenseUrl: string };
 
 const rightsByPath: Record<string, HeritagePhotoRights> = {
+  "/article/how-to-verify-texas-moving-company": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Mayflower_Moving_Truck_Ypsilanti_Michigan.JPG",
+    licenseUrl: "https://creativecommons.org/licenses/by/3.0/",
+  },
+  "/article/health-insurance-when-moving-to-texas": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Doctor_consults_with_patient.jpg",
+    licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/",
+  },
+  "/article/military-family-moving-to-texas": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:BOSP_helps_single-parent_soldiers_manage_Army_and_family_life_120908-A-XZ708-003.jpg",
+    licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/",
+  },
   "/destination/magoffin-home": {
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Magoffin_home_2009.jpg",
     licenseUrl: "https://creativecommons.org/licenses/by/4.0/",

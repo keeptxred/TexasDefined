@@ -363,20 +363,18 @@ function EntityPage() {
         </nav>
 
         {entity.kind === 'county' && entity.slug === 'el-paso' ? (
-          <figure className="border-b border-border pb-3 pt-8" aria-label="El Paso County hero photograph">
-            <div className="overflow-hidden bg-surface">
-              <img
-                src={elPasoCountyHero.src}
-                alt={elPasoCountyHero.alt}
-                width={elPasoCountyHero.width}
-                height={elPasoCountyHero.height}
-                loading="eager"
-                fetchPriority="high"
-                decoding="async"
-                className="block aspect-video w-full object-cover object-center"
-              />
-            </div>
-            <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
+          <figure className="overflow-hidden border-b border-border py-8" aria-label="El Paso County hero photograph">
+            <img
+              src={elPasoCountyHero.src}
+              alt={elPasoCountyHero.alt}
+              width={elPasoCountyHero.width}
+              height={elPasoCountyHero.height}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              className="aspect-video w-full object-cover"
+            />
+            <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">
               El Paso skyline beneath the Franklin Mountains · Photo by{' '}
               <a href={elPasoCountyHero.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">{elPasoCountyHero.creator}</a>{' '}
               (<a href={elPasoCountyHero.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">CC BY 4.0</a>).

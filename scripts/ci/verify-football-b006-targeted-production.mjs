@@ -54,11 +54,16 @@ const schools=slugs.map(slug=>({slug,county:county(slug),model:model(slug)}));
 // and hydrated UI omissions; don't invent coaching claims for unsettled programs.
 const coachCheckpoints={
  'big-sandy-harmony':'Brian Mauk',      // KLTV May 2026, former-coach correction PR #5317
- bishop:'Keith Talbert',                // MaxPreps Oct 13 staff; qualified third-party attribution
+ bishop:'Keith Talbert', blackwell:'Clint Linman',               // KLST Apr22 hiring plus Aug17 first-season interview
+                // MaxPreps Oct 13 staff; qualified third-party attribution
  blanco:'Kent Walker',                  // 2026 football roster, not inferred from AD role
  bloomington:'Lane Shands',             // Texas Football Feb 2026 analysis
  boerne:'Brett Sawyer',                 // Feb 2025 hiring + Sept 2026 Boerne Star
  'boys-ranch':'Louis Kelley III',        // Boys Ranch ISD head-coach directory + 2023 hiring
+ bovina:'Wade Wilson',                // KFDA August 2026 first-hand coach interview
+ boyd:'Shawn Sparks',                // NTX Varsity August 2026 first-hand interview
+ 'borden-county':'Trey Richey',      // Lamesa Press-Reporter August 2026 original sports report
+ 'bowie-gold-burg':'Austin Norman',  // Bowie News Oct 2026 game-day coaching interview
 };
 for(const school of schools){
  const checkpoint=coachCheckpoints[school.slug];

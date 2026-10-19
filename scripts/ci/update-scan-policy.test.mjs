@@ -93,7 +93,7 @@ test('slug-keyed article link changes verify actual source pages and newly added
 test('planner corrections retest previously missed editorial SSR links, not entire site', () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
   assert.deepEqual(plan.selectedPaths, [
-    '/destination/battleship-texas', '/destination/fredericksburg',
+    '/destination/battleship-texas', '/destination/fredericksburg', '/destination/magoffin-home',
     '/article/texas-cultural-regions-explained', '/article/texas-regions-explained',
     '/explore/road-trips',
     '/fishing/species/black-crappie', '/fishing/species/bluegill',
@@ -106,6 +106,21 @@ test('planner corrections retest previously missed editorial SSR links, not enti
   assert.equal(plan.expectedHrefsByPage['/article/texas-cultural-regions-explained'][0], '/article/texas-oil-boom-wichita-falls-west-texas-rigs');
 });
 
+test('Magoffin restoration edits require exact live SSR closure, FAQ and visitor center', async () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/magoffin-home-authority.ts'] });
+  assert.deepEqual(plan.selectedPaths, ['/destination/magoffin-home']);
+  assert.deepEqual(plan.magoffinHomePages, ['/destination/magoffin-home']);
+  const body = 'Historic home closed through 2027 · Magoffin Home visitor FAQ · 1117 Magoffin Avenue';
+  const html = text => '<html><head><title>Magoffin Home</title><link rel="canonical" href="https://texasdefined.com/destination/magoffin-home"></head><body>' + text + '</body></html>';
+  const success = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(body)) });
+  assert.equal(success[0].passed, true);
+  const stale = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html('Old generic Magoffin guide')) });
+  assert.equal(stale[0].passed, false);
+  assert.match(stale[0].error, /Magoffin Home current authority SSR missing/);
+  const booking = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(body + ' Tours and experiences near Magoffin Home State Historic Site')) });
+  assert.equal(booking[0].passed, false);
+  assert.match(booking[0].error, /generic tour booking component/);
+});
 test('football template changes verify only two real team pages and their live game-night paths', async () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'] });
   assert.deepEqual(plan.selectedPaths, [

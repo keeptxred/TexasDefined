@@ -642,6 +642,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "title": "Blackwell Hornets Six-Man Football 2026 | UIL District, 2019 Semifinal & Scores",
       "description": "Blackwell TX Hornets six-man football: UIL 1A Division II District 7, 6–2 through October 16, 2019 state-semifinal history and district contacts."
     },
+    "coach": {
+      "name": "Clint Linman",
+      "title": "Blackwell Hornets head football coach hired April 2026, confirmed by original KLST reporting and August 2026 preseason interview; district separately lists athletic director",
+      "sourceUrl": "https://sports.yahoo.com/articles/blackwell-hornets-hire-football-coach-234440740.html",
+      "sourceLabel": "KLST San Angelo April 22 2026 original reporting says Blackwell ISD hired Clint Linman head football coach to replace Wiley Cummings; KLST August 17 original preseason profile directly covers Linman's first year; Blackwell CISD first-party administration confirms his AD role",
+      "verifiedAt": "2026-10-19"
+    },
     "campus": {
       "address": "100 Hornet Dr, Blackwell, TX 79506",
       "phone": "325-282-2311",
@@ -657,7 +664,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verify September 4 points and game-day entrance with Blackwell CISD",
-      "body": "The September 4 Blackwell–Santa Anna contest is consistently reported as a Blackwell win, but published team records conflict on the Blackwell point total: Six-Man Football and Blackwell's MaxPreps listing show 52–6; Santa Anna's MaxPreps recap says 50–6. The table therefore identifies the victory without certifying disputed points. Blackwell CISD's official staff list identifies Clint Linman as athletic director, but does not establish that he is the current varsity head football coach; Justin Bamlet and Garrett Watson are listed as coaches without football head-coach titles. The district's 100 Hornet Dr address is a school contact, NOT a verified stadium gate; independently verified parking, ADA and ticket policies are unavailable.",
+      "body": "The September 4 Blackwell–Santa Anna contest is consistently reported as a Blackwell win, but published team records conflict on the Blackwell point total: Six-Man Football and Blackwell's MaxPreps listing show 52–6; Santa Anna's MaxPreps recap says 50–6. The table therefore identifies the victory without certifying disputed points. Blackwell CISD's staff list names Clint Linman athletic director. Separately, KLST reported Blackwell ISD hired Linman as head football coach on April 22, 2026 and interviewed him preparing for his first season in August. Former coach Wiley Cummings still appears on stale MaxPreps roster data; that is not evidence of a 2026 replacement. Justin Bamlet and Garrett Watson appear in the district staff list as coaches without head-football appointments. The district's 100 Hornet Dr address is a school contact, NOT a verified stadium gate; independently verified parking, ADA and ticket policies are unavailable.",
       "sourceUrl": "https://www.blackwellhornets.org/",
       "sourceLabel": "Blackwell CISD official school contact; exact September 4 final remains independently unresolved",
       "verifiedAt": "2026-10-15"
@@ -786,6 +793,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "Blackwell beat Trent 67–6 on October 16; the unrelated September 4 Santa Anna score discrepancy remains unresolved. This dated result comes from Houston Chronicle October 16 statewide football finals, not a first-party UIL results certification."
     ],
     "faq": [
+      {
+        "question": "Who is Blackwell's 2026 head football coach?",
+        "answer": "KLST reported Blackwell ISD hired Clint Linman as head football coach in April 2026 and interviewed him as the first-year coach in August; Blackwell CISD separately lists Linman athletic director. Older MaxPreps entries naming former coach Wiley Cummings are stale. Confirm later staff changes directly with Blackwell CISD."
+      },
       {
         "question": "Is Blackwell Hornets football six-man or eleven-man?",
         "answer": "Blackwell CISD of Blackwell, Texas is in UIL six-man football. For 2026–28 the school is listed in Class 1A Division II District 7, not an eleven-man conference."
@@ -2535,7 +2546,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Beware outdated Rivercrest results and identical Arkansas school name",
-      "body": "An older MaxPreps Rivercrest team-page snapshot still shows 3–0 before league play, while its October 3 schedule snapshot shows 3–3 and leaves October 9 unresolved. The separate October 9 game report, PigskinPrep District 9 results and Texas Prep all record Rivercrest's 30–28 triple-overtime victory over Wolfe City, making the result 4–3 through that day. The older schedule also gives the September 11 Chisum win as 49–42; the game's box score and PigskinPrep show 56–42. Avoid mixing this Texas school with the Rivercrest Colts in Wilson, Arkansas. Trenton defeated Rivercrest 21–17 on October 16; the reported 2026 record is now 4–4. The coaching rosters themselves disagree: MaxPreps' August 29, 2026 varsity staff entry names Laytner Kennedy head coach, but its separate 2026 season-history entry still names Travis McClain. Neither is a district-issued head-coach announcement; the October appointment, stadium entry and photo rights remain unverified.",
+      "body": "An older MaxPreps Rivercrest team-page snapshot still shows 3–0 before league play, while its October 3 schedule snapshot shows 3–3 and leaves October 9 unresolved. The separate October 9 game report, PigskinPrep District 9 results and Texas Prep all record Rivercrest's 30–28 triple-overtime victory over Wolfe City, making the result 4–3 through that day. The older schedule also gives the September 11 Chisum win as 49–42; the game's box score and PigskinPrep show 56–42. Avoid mixing this Texas school with the Rivercrest Colts in Wilson, Arkansas. Trenton defeated Rivercrest 21–17 on October 16; the reported 2026 record is now 4–4. Rivercrest ISD's current first-party staff directory identifies Laytner Kennedy as boys athletic director, while the separately dated August 29, 2026 MaxPreps varsity football staff listing calls Kennedy head football coach. MaxPreps' older season-history field still calls Travis McClain head coach; those same-provider entries conflict, and the school's director role alone is not a head-football appointment. The current district-issued head-coaching designation, stadium entry and photo rights remain unverified.",
       "sourceUrl": "https://www.maxpreps.com/tx/football/game/rivercrest-bogata-vs-wolfe-city/10-9-2026/?c=e3bfc40e-df03-46d0-8b1d-620287e758c6",
       "sourceLabel": "Dated 2026 Rivercrest versus Wolfe City game final, crosschecked with current PigskinPrep 2A District 9; stale profile warnings individually qualified",
       "verifiedAt": "2026-10-16"
@@ -2683,7 +2694,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who coaches the Rebels and where can visitors confirm stadium access?",
-        "answer": "MaxPreps' dated August 29, 2026 football staff roster names Laytner Kennedy head coach, while its separate 2026 season history names Travis McClain. Neither conflicting entry independently establishes a current Rivercrest ISD appointment. The current first-party district appointment, football stadium gate, accessible parking and ticket details have not been independently certified, so check the official Rivercrest High School football page before traveling."
+        "answer": "Rivercrest ISD's first-party staff listing identifies Laytner Kennedy as boys athletic director; MaxPreps' August 29, 2026 varsity staff separately labels him football head coach, but its 2026 season-history entry instead names Travis McClain. The district's AD listing does not independently certify the head-football appointment, so the conflicting third-party claim remains attributed rather than asserted as official. Contact Rivercrest ISD for the current head coach, ticketing, gate and accessibility details."
       }
     ]
   },
@@ -3464,7 +3475,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who is Borden County's football coach today?",
-        "answer": "UIL identifies Trey Richey as the 2017 state-title team's head coach, but current MaxPreps and Six-Man Football directories disagree over 2026 leadership. An official current district staffing source has not resolved the disagreement, so this guide does not certify a current coach."
+        "answer": "Lamesa Press-Reporter's original August 18, 2026 fall-sports article explicitly identifies Trey Richey as Borden County's 2026 head football coach. The specialist Six-Man Football 2026 directory lists Craig Steele, so this page attributes the current coaching claim to dated local reporting rather than claiming a new district-issued appointment. Confirm subsequent changes with Borden County ISD."
       },
       {
         "question": "Where is the Borden County high school campus?",
@@ -4647,7 +4658,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "The October 8 Wildorado result was an 82–24 Boys Ranch win."
       },
       {
-        "question": "Who is Louis Kelley?",
+        "question": "Who is Boys Ranch\u0027s head football coach?",
         "answer": "Boys Ranch ISD officially lists Louis Kelley as head football coach without a suffix; Dave Campbell's Texas Football identifies the 2023 appointee as Louis Kelley III. This is specific coaching evidence, unlike an ambiguous third-party Jr/II roster. Confirm individual game-day arrangements with the district."
       },
       {
