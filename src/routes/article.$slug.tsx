@@ -463,7 +463,6 @@ function ArticlePage() {
           <span>{formatReadingTime(article.readingMinutes)}</span>
         </div>
       ) : <Byline author={author} meta={`${formatDate(article.publishedAt)}${article.updatedAt && article.updatedAt !== article.publishedAt ? ` · Updated ${formatDate(article.updatedAt)}` : ""} · ${formatReadingTime(article.readingMinutes)}`} />}
-      {hasSchoolSupplyRail ? <><style>{`.school-supply-rail{display:none}@media (min-width:1536px){.school-supply-rail{display:block}.school-supply-bottom{display:none}}`}</style><aside className="school-supply-rail" style={{ left: "calc(100% + 2rem)", position: "absolute", top: "2.5rem", width: "18rem" }}><div style={{ position: "sticky", top: "2rem" }}><SchoolSupplyPartners placement="rail" /></div></aside></> : null}
       {!isTexasRiversArticle && <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
         <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>
         <a href="/sourcing-methodology" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">How we source</a>
@@ -516,7 +515,7 @@ function ArticlePage() {
           <TexasWaterSearchResource active={waterTopic} />
         </Suspense>
       ) : null}
-      {hasSchoolSupplyRail ? <SchoolSupplyPartners className="school-supply-bottom" /> : null}
+      {hasSchoolSupplyRail ? <SchoolSupplyPartners className="2xl:absolute 2xl:left-[calc(100%+2rem)] 2xl:top-10 2xl:mt-0 2xl:w-72 2xl:border 2xl:border-border 2xl:bg-surface 2xl:p-5" /> : null}
       {article.hero.credit && <p className="mt-10 break-words text-xs text-muted-foreground">Image credit: {corridorHeroRights ? <a href={corridorHeroRights.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{article.hero.credit}</a> : article.hero.credit}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">License terms</a></>}</p>}
       {primarySource && <p className="mt-4 text-xs leading-6 text-muted-foreground">Primary source: <a href={primarySource.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{primarySource.label} ↗</a></p>}
       {isTexasRiversArticle && <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
