@@ -517,6 +517,88 @@
     "temporaryExhibitionDate": "Grace America 250 January 17-November 28, 2026, not evergreen",
     "publishedAndProductionVerified": false,
     "certified": false,
-    "pending": "Protected CI, merge, deployment and source monitor enrollment; 4 existing museum rights-photo blockers still tracked under GitHub issue #5057."
+    "pending": "Live source manifest 78/333, 78 Supabase registry, 357 retained source rows, all eight new source probes 200. Need browser pixel/mobile and independent editorial certification; not an open PR.",
+    "mergeStatus": "merged 2026-10-19 (PR #5280)",
+    "liveProductionSsrAndMonitoringVerified": true,
+    "browserPixelAndMobileQaVerified": false
+  },
+  "october19LiveMonitoringReconciliation": {
+    "checkedAt": "2026-10-19",
+    "githubMainSnapshotAtFirstRead": "a944f338ef46f6863217ff181525d514760e3beb",
+    "githubMainBeforeNewBatch": "7d09ad9f78510dbedee8d9a3f0ecd4e9bb70531a",
+    "mergedHistoricalPrsVerified": [
+      4844,
+      5060,
+      5175,
+      5223,
+      5251,
+      5255,
+      5256,
+      5280
+    ],
+    "publishedManifestHttpStatus": 200,
+    "publishedManifestGuides": 78,
+    "publishedManifestSourceDefinitions": 333,
+    "currentMainAuthorityDossiers": 78,
+    "currentMainMuseumFaqs": 655,
+    "supabaseProject": "ftkznprjljkhymknvhye",
+    "supabaseManifestImportRequestId": 10916,
+    "sourceMonitorRegistryRecordsAfterImport": 78,
+    "sourceMonitorRetainedRowsAfterImport": 357,
+    "retainedRowsClarification": "357 is the existing historical monitoring table row count; the currently published manifest contains 333 source definitions. The importer preserves prior source check fingerprints and extra historical monitored URLs.",
+    "newlyMonitoredPaths": [
+      "/destination/menil-collection-houston",
+      "/destination/grace-museum-abilene"
+    ],
+    "newlyMonitoredSourceChecks": {
+      "checked": 8,
+      "http200": 8,
+      "status": "source_baseline",
+      "observedAt": "2026-10-19T15:56:32Z"
+    },
+    "boundedProductionSsrChecks": {
+      "paths": [
+        "/destination/menil-collection-houston",
+        "/destination/grace-museum-abilene"
+      ],
+      "http200": 2,
+      "canonicalLinks": 2,
+      "noindex": 0,
+      "linkedCcAttributionPresent": 2,
+      "pixelAndMobileBrowserQAVerified": false
+    },
+    "editorialCertificates": 0,
+    "guardrails": "HTTP reachability, licensed photo URL/credit in HTML and source baselines do not certify image decode, visitor authority or full statewide museum coverage. No general photo-blocking safeguards were relaxed."
+  },
+  "pendingMcNayAndMilitaryMuseumBatch20261019": {
+    "pullRequest": "https://github.com/keeptxred/TexasDefined/pull/5287",
+    "branch": "feature/mcnay-museum-authority-20261019",
+    "currentHeadAtLedgerWrite": "a9575d38f33e6589f8dd69b305fd6abeb32fda0f",
+    "canonicalExistingSlugs": [
+      "mcnay-art-museum-san-antonio",
+      "texas-military-forces-museum"
+    ],
+    "proposedAuthorityDossiers": 80,
+    "proposedFaqs": 671,
+    "proposedSourceDefinitions": 345,
+    "newDossiers": 2,
+    "newFaqs": 16,
+    "newManifestSources": 12,
+    "photoEvidence": [
+      "McNay exact courtyard photograph by Michael Barera, Wikimedia Commons CC BY-SA 4.0.",
+      "Texas Military Forces Museum original Jim Greenhill photo, Wikimedia Commons CC BY 2.0, corrects earlier inaccurate public-domain credit."
+    ],
+    "staticConsistency": "80 dossiers / 80 slugs / 80 manifest records, 671 machine-readable FAQs and all associated verification source URLs checked by connected GitHub file reconciliation, PASS",
+    "canonicalPremergeValidation": "NOT EXECUTED locally through GitHub connector; protected CI Merge Gate and Museum Authority Contract queued at latest check",
+    "productionAndSourceMonitoringEnrolled": false,
+    "independentCertified": 0,
+    "existingFourMissingMuseumPhotoPermissions": "Unresolved. Do not clear noindex without exact photo copyright rights and image approval.",
+    "acceptanceOutstanding": [
+      "Protected canonical premerge runner and Merge Gate passing, with newest main reconciliation",
+      "Merged PR, exact-SHA successful production deployment",
+      "Bounded live FAQ/index/canonical plus responsive photo decode and source/license attribution",
+      "Enroll new two guides and twelve official/source-license URLs in existing Supabase source monitoring",
+      "Side-by-side independent visitor-guide certification"
+    ]
   }
 }
