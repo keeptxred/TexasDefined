@@ -1,5 +1,9 @@
 # Football Authority — Execution Ledger
 
+## October 19, 2026 — original 25-school source-derived results graphics committed on PR #5360
+[PR #5360](https://github.com/keeptxred/TexasDefined/pull/5360) adds a 2026 source-derived visual form graphic **only** to the 25 assigned Batch 006 school authority guides; there is one semantically labeled result tile for each dated reported final, with school-specific opponents, dates, scores, district status and editorial accent colors. Unreported games, cancellations and future fixtures are excluded, and each graphic links back to its own source. It is an original data illustration, not an authentic school photo or a statement of photo license. The code is currently proposed on the PR branch and must pass protected CI, merge, production deploy and real mobile/desktop visual inspection before claiming the illustration is live. Photos remain unresolved for all 25; do not mark photo-rights dimension accepted, claim human WCAG certification or advance any school to VERIFIED. Canonical registry stays **105 VERIFIED, Batch 006 25 DEPLOYED / 0 VERIFIED** pending nine-dimension review. Prior [Chrome 75/75 + 23/23 + 25/25 success #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) tested an older release and is not acceptance of this PR.
+
+
 ## October 19, 2026 — source-to-FAQ parity correction and ten-school Chrome coach coverage (protected PR candidate)
 
 - **Borden County:** Its dated [Lamesa Press-Reporter August 18, 2026 original football report](https://www.pressreporter.com/issues/2026-08-18/pages/25/) directly names Trey Richey as 2026 coach. The public source-backed `coach` object and `notice` were correct, but an old FAQ still said no current head coach could be identified. Correct the FAQ to match locally reported evidence, expressly preserve the competing Craig Steele directory as an unresolved conflict and do not imply first-party district appointment.
