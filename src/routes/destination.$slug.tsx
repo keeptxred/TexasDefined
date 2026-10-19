@@ -343,6 +343,44 @@ function DestinationPage() {
       ]}
     />
 
+    {isHotelPasoDelNorte && destination.gallery?.[0] && (
+      <section aria-labelledby="hotel-paso-dome-photos" className="border-b border-border bg-surface">
+        <Container className="grid gap-8 py-10 md:py-14 lg:grid-cols-[minmax(0,1.45fr)_minmax(17rem,.75fr)] lg:items-center">
+          <figure className="min-w-0">
+            <img
+              src={editorialImageSrc(destination.gallery[0].image.src)}
+              alt={destination.gallery[0].image.alt}
+              width={destination.gallery[0].image.width}
+              height={destination.gallery[0].image.height}
+              loading="eager"
+              decoding="async"
+              className="aspect-[3/2] w-full rounded-sm bg-background object-contain"
+              onError={(event) => recoverOrHideImage(event.currentTarget)}
+            />
+            <figcaption className="mt-3 space-y-2 text-sm leading-6 text-muted-foreground">
+              <p>{destination.gallery[0].caption}</p>
+              <a href={destination.gallery[0].sourceUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2">
+                Library of Congress original, photographer credit and reuse information — {destination.gallery[0].image.credit}
+              </a>
+            </figcaption>
+          </figure>
+          <div className="min-w-0">
+            <p className="eyebrow text-primary">Inside the Dome Bar</p>
+            <h2 id="hotel-paso-dome-photos" className="mt-3 font-display text-3xl leading-tight md:text-4xl">Two views of the historic stained-glass dome</h2>
+            <p className="mt-4 text-base leading-7 text-foreground/85">
+              The opening photo is a 2015 CC0 overhead view. This wider Library of Congress photograph, taken by Carol M. Highsmith in 2014, shows how the dome relates to the room's ornate interior. Both predate the hotel's 2020 restoration and should not be confused with current booking photographs.
+            </p>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">
+              The El Paso Public Library also preserves an older black-and-white Ponsford/Trost dome-room image. Because its publication rights have not been independently established, we link to the archival record instead of copying the photo.
+            </p>
+            <a href="https://texashistory.unt.edu/ark:/67531/metapth613579/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-2">
+              View the historic dome-room photograph at the Portal to Texas History ↗
+            </a>
+          </div>
+        </Container>
+      </section>
+    )}
+
     {isChokeCanyon && <span data-stay-nearby-disabled="true" className="hidden" aria-hidden="true" />}
     <Container className={isChokeCanyon ? "grid gap-8 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-16" : "grid gap-10 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:gap-12 lg:py-16"}>
       <div className="min-w-0">
@@ -354,10 +392,10 @@ function DestinationPage() {
         {destination.gallery && destination.gallery.length > 0 && (
           <section aria-labelledby="destination-photo-archive" className="mt-12 border-t border-border pt-8">
             <p className="eyebrow text-primary">Documentary photographs</p>
-            <h2 id="destination-photo-archive" className="mt-3 font-display text-3xl">Historical photographs of {destination.name}</h2>
+            <h2 id="destination-photo-archive" className="mt-3 font-display text-3xl">{isHotelPasoDelNorte ? "Hotel Paso del Norte: historic exterior and postcard" : `Historical photographs of ${destination.name}`}</h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">Images are individually dated and licensed. Archival views do not establish current amenities, renovations or visitor access.</p>
             <div className="mt-7 grid gap-6 sm:grid-cols-2">
-              {destination.gallery.map((item) => (
+              {destination.gallery.filter((_, index) => !isHotelPasoDelNorte || index > 0).map((item) => (
                 <figure key={item.image.src} className="min-w-0 overflow-hidden border border-border">
                   <img src={editorialImageSrc(item.image.src)} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" decoding="async" className="aspect-[4/3] w-full bg-surface object-contain" onError={(event) => recoverOrHideImage(event.currentTarget)} />
                   <figcaption className="space-y-2 p-4 text-sm leading-6">
