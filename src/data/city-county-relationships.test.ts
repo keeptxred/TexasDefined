@@ -25,6 +25,11 @@ describe('city-to-county relationship reference', () => {
     expect(byCity.get(name)?.counties.map(({ name }) => name)).toEqual(expected);
   });
 
+  it('identifies the unincorporated Woodlands CDP separately from cities', () => {
+    expect(byCity.get('The Woodlands')?.placeType).toBe('census_designated_place');
+    expect(byCity.get('Houston')?.placeType).toBe('incorporated_city');
+  });
+
   it('does not duplicate counties or include unresolved registry names', () => {
     expect(relationships).toHaveLength(TEXAS_CITIES.length);
     for (const { city, counties, primaryCounty } of relationships) {
