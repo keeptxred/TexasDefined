@@ -33,7 +33,7 @@ const stateFairData = {
           "These are historical 2026 prices, not admission offers currently available to purchase. Online fees applied; school-issued 2026 student tickets were extended through October 18, including both final weekends. Check the organizer for future rates."
         ],
         links: [
-          { label: "Official tickets and packages", href: "https://bigtex.com/buy-tickets-new/", external: true },
+          { label: "Organizer for future dates and tickets", href: "https://bigtex.com/", external: true },
           { label: "Official discounts and ways to save", href: "https://bigtex.com/discounts/", external: true }
         ]
       },
