@@ -38,7 +38,7 @@ for (const [needle, label] of [
 ]) requireText(portfolio, needle, label);
 
 const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
-if ((articleRoute.match(/<SchoolSupplyPartners\\b/g) ?? []).length !== 1) {
+if ((articleRoute.match(/<SchoolSupplyPartners\b/g) ?? []).length !== 1) {
   errors.push('Informational articles must render exactly one school-supply partner block in SSR markup.');
 }
 for (const token of ['2xl:absolute', '2xl:left-[calc(100%+2rem)]', '2xl:top-10', '2xl:w-72']) {
