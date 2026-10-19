@@ -190,6 +190,9 @@ if (!errors.length) {
   if (featuredProfileRoute.includes('announced 2026 football-season cancellation')) {
     errors.push('Football SportsTeam schema must not infer season cancellation from a generic editorial notice.');
   }
+  if (featuredProfileRoute.includes('program?.officialSchoolName || displayName')) {
+    errors.push('Football schema must use the canonical public UIL school name instead of raw TEA campus names.');
+  }
   if (featuredProfileRoute.includes('slug === "ben-bolt-palito-blanco"')) errors.push("Football profile SEO must not override individually authored Ben Bolt title");
 
   for (const marker of [
