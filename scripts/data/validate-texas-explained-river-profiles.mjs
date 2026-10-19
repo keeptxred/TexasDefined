@@ -231,7 +231,7 @@ for (const marker of [
   'showBays',
   'TWDB',
 ]) if (!interactiveMap.includes(marker)) errors.push(`TWDB interactive map source/control missing: ${marker}`);
-if (!authority.includes('<TexasRiverBasinInteractiveMap />')) errors.push('Official interactive basin atlas not mounted on rivers hub');
+if (!basinReference.includes('<TexasRiverBasinInteractiveMap />')) errors.push('Official interactive basin atlas not mounted after the river-basin explainer');
 
 if (errors.length) {
   console.error('Texas Explained river profile validation failed:');
