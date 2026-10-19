@@ -89,7 +89,7 @@ export function CountyGuideSections({ entity, profile, localGovernment, related,
   const officialReferenceLinks = [
     { label: 'Texas State Library — county seats', href: 'https://www.tsl.texas.gov/ref/abouttx/countyseats.html' },
     { label: 'U.S. Census Bureau — county geography', href: 'https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html' },
-    { label: `Texas Comptroller — ${entity.name} appraisal and tax-office directory`, href: localGovernment.comptrollerCountyUrl ?? `https://comptroller.texas.gov/taxes/property-tax/county-directory/${entity.slug === 'dimmit' ? 'dimmitt' : entity.slug}.php` },
+    { label: `Texas Comptroller — ${entity.name} appraisal and tax-office directory`, href: localGovernment.comptrollerCountyUrl ?? `https://comptroller.texas.gov/taxes/property-tax/county-directory/${entity.slug === 'dimmit' ? 'dimmitt' : entity.slug === 'el-paso' ? 'elpaso' : entity.slug}.php` },
     { label: 'TxDMV — county vehicle-title and registration offices', href: 'https://www.txdmv.gov/tax-assessor-collectors/county-tax-offices' },
   ];
   const countyName = entity.name.replace(/\s+County$/i, '').trim().toLowerCase();
