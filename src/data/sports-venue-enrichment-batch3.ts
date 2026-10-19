@@ -102,18 +102,21 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH3: Record<string, SportsVenueEnrichmen
   },
   'q2-stadium': {
     city: 'Austin',
+    opened: 'June 2021',
+    capacity: '20,500+ seats',
     primaryEvents: ['Austin FC home matches', 'Major soccer matches', 'Concerts and stadium events'],
     parking: 'Q2 Stadium strongly encourages pre-purchased parking. On-site and off-site lots are cashless, parking passes are mobile, and most stadium lots open about three hours before the announced event start unless a specific lot has different weekday timing.',
     arrival: 'The stadium is designed around multiple mobility options. CapMetro rail and buses, rideshare, bicycles and prepaid parking can all be practical; visitors should choose one mode before starting the trip rather than improvising near McKalla Place.',
     stayAndEat: 'North Austin lodging works well for match-focused trips, while visitors building a broader Austin weekend can use rail or other transportation to connect the stadium with central-city neighborhoods.',
     nearby: 'The stadium’s McKalla Station rail access makes it easier than many Texas venues to connect a match with other Austin districts without relying exclusively on a car.',
     planningLinks: [
+      { label: 'Austin FC Q2 Stadium facts', url: 'https://www.austinfc.com/news/q2-stadium-earns-leed-gold-certification' },
       { label: 'Q2 Stadium parking', url: 'https://www.austinfc.com/stadium/parking' },
       { label: 'Q2 A–Z guide', url: 'https://www.austinfc.com/stadium/az-guide' },
       { label: 'Know before you go', url: 'https://www.austinfc.com/stadium/know-before-you-go' },
     ],
     imageBrief: 'Modern soccer stadium in North Austin on match night with green-lit atmosphere and rail-access urban setting, no team logos or text added.',
-    verifiedAt,
+    verifiedAt: '2026-10-19',
   },
   'shell-energy-stadium': {
     city: 'Houston',
