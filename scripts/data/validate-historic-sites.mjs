@@ -193,6 +193,16 @@ if (fullCatalog.includes("The historic significance comes from the surviving pla
   failures.push("Historic authority-guide significance must use actual site facts, not an interchangeable filler sentence.");
 }
 
+// Fail if a preexisting generic remote authorityGuide bypasses the
+// closure-aware Battleship Texas visitor copy again.
+for (const marker of [
+  'const forceClosedBattleshipGuide = destination.slug === "battleship-texas"',
+  '!forceClosedBattleshipGuide && (destination.category !== "historic-sites" || destination.authorityGuide)',
+]) if (!fullCatalog.includes(marker)) failures.push(`Battleship preexisting-guide precedence guard missing: ${marker}`);
+if (fullCatalog.includes('if (destination.category !== "historic-sites" || destination.authorityGuide) return destination;')) {
+  failures.push('Generic historic-guide early exit still prevents closed Battleship Texas authority from replacing stale remote guidance.');
+}
+
 // Battleship Texas is a CLOSED historical-reference destination. The page may
 // remain indexable, but its public itinerary and assessment must never imply
 // normal boarding or a walk-up tour while the Foundation says the ship is closed.
