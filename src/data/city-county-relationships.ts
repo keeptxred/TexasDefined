@@ -8,6 +8,8 @@ import type { TexasCity, TexasCounty } from '@/data/texas-places';
 // Corpus Christi: https://www.tdi.texas.gov/rules/2026/documents/59501finalredline.pdf
 // Dallas: https://citysecretary2.dallascityhall.com/resolutions/2024/09-25-24/24-1459.pdf
 // Fort Worth: https://www.fortworthtexas.gov/files/assets/public/v/1/the-fwlab/documents/planning/comprehensive-planning/adopted/25-intergovernmental-cooperation-final-2023.pdf
+// Grand Prairie's Johnson County annexations: 2025 City Planning and Development approvals
+// https://www.gptx.org/Departments/Planning-and-Development
 // San Antonio also includes a small incorporated-city portion in Medina County
 // (U.S. Census Population Estimates Program place-county parts, 2024/2025).
 // https://usafacts.org/answers/how-many-people-live-in-the-us/county/medina-county-tx/
@@ -24,7 +26,7 @@ const ADDITIONAL_COUNTIES_BY_CITY: Record<string, string[]> = {
   'Fort Worth': ['Denton', 'Johnson', 'Parker', 'Wise'],
   Frisco: ['Denton'],
   Garland: ['Collin', 'Rockwall'],
-  'Grand Prairie': ['Ellis', 'Tarrant'],
+  'Grand Prairie': ['Ellis', 'Johnson', 'Tarrant'],
   Houston: ['Fort Bend', 'Montgomery'],
   Katy: ['Fort Bend', 'Waller'],
   'League City': ['Harris'],
