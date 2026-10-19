@@ -17,11 +17,52 @@ export function EastTexasFoliageParkMap() {
 
   const northernRoute = "https://www.google.com/maps/dir/?api=1&origin=Tyler%20State%20Park%2C%20Texas&destination=Daingerfield%20State%20Park%2C%20Texas&waypoints=Cooper%20Lake%20State%20Park%20South%20Sulphur%20Unit%2C%20Texas%7CLake%20Bob%20Sandlin%20State%20Park%2C%20Texas&travelmode=driving";
   const easternRoute = "https://www.google.com/maps/dir/?api=1&origin=Tyler%20State%20Park%2C%20Texas&destination=Caddo%20Lake%20State%20Park%2C%20Texas&waypoints=Martin%20Creek%20Lake%20State%20Park%2C%20Texas&travelmode=driving";
+
+  // Geographic overview: markers use approximate park-center coordinates.
+  // Connecting segments are deliberately schematic, not drivable roads.
+  const point = (index: number) => ({
+    x: Math.round(80 + (parks[index].lon + 95.8) * 500),
+    y: Math.round(55 + (33.5 - parks[index].lat) * 380),
+  });
+  const routeLine = (indices: number[]) => indices.map(index => {
+    const coordinate = point(index);
+    return coordinate.x + "," + coordinate.y;
+  }).join(" ");
+  const northStops = [3, 4, 2, 0];
+  const eastStops = [3, 5, 1];
   const park = parks[selected];
   const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${park.lon - 0.10}%2C${park.lat - 0.075}%2C${park.lon + 0.10}%2C${park.lat + 0.075}&layer=mapnik&marker=${park.lat}%2C${park.lon}`;
   return <div className="mt-8 border border-border bg-background p-4 sm:p-6">
     <h3 className="font-display text-2xl">Explore the parks on a map</h3>
     <p className="mt-2 text-sm leading-7 text-muted-foreground">Choose a park to center the interactive OpenStreetMap view. Pins are approximate park locations for trip orientation, not entrance or navigation coordinates. Confirm the official entrance before driving.</p>
+    <section className="mt-6 border border-border bg-background p-3 sm:p-5" aria-labelledby="east-texas-all-parks-heading">
+      <h4 id="east-texas-all-parks-heading" className="font-display text-xl">All six parks on one map</h4>
+      <p className="mt-2 text-sm leading-6 text-muted-foreground">This geographic overview shows every featured park and two possible stop sequences. Connecting lines are straight-line planning guides, <strong>not roads or driving directions</strong>. Use the live Google Maps routes below for real road paths and turn-by-turn navigation.</p>
+      <div className="mt-4 overflow-x-auto" aria-label="Scrollable six-park overview">
+        <svg viewBox="0 0 1040 610" role="img" aria-label="Approximate locations of Daingerfield, Caddo Lake, Lake Bob Sandlin, Tyler, Cooper Lake, and Martin Creek Lake state parks with northern and eastern suggested stop sequences" className="w-full" style={{ minWidth: 720 }}>
+          <rect x={0} y={0} width={1040} height={610} rx={16} fill="#f2f5f0" />
+          <text x={45} y={39} fontSize={20} fill="#485e55">NORTH</text>
+          <path d="M 62 99 L 62 54 M 53 66 L 62 54 L 71 66" fill="none" stroke="#485e55" strokeWidth={3} />
+          {[160,300,440,580,720,860].map(x => <line key={"x"+x} x1={x} x2={x} y1={60} y2={575} stroke="#cbdad4" strokeDasharray="7 9" />)}
+          {[130,260,390,520].map(y => <line key={"y"+y} x1={70} x2={980} y1={y} y2={y} stroke="#cbdad4" strokeDasharray="7 9" />)}
+          <polyline points={routeLine(northStops)} fill="none" stroke="#ab672c" strokeWidth={9} strokeLinecap="round" strokeLinejoin="round" opacity={0.85}/>
+          <polyline points={routeLine(eastStops)} fill="none" stroke="#287885" strokeWidth={9} strokeLinecap="round" strokeLinejoin="round" opacity={0.85}/>
+          {parks.map((place, index) => {
+            const coordinate = point(index);
+            return <g key={place.name}>
+              <circle cx={coordinate.x} cy={coordinate.y} r={index === selected ? 17 : 14} fill={index === selected ? "#f6bd50" : "#ffffff"} stroke="#244439" strokeWidth={4} />
+              <text x={coordinate.x + (coordinate.x > 800 ? -16 : 16)} y={coordinate.y - 21} textAnchor={coordinate.x > 800 ? "end" : "start"} fontSize={23} fontWeight={index === selected ? 750 : 600} fill="#173e33">{place.name}</text>
+            </g>;
+          })}
+          <text x={68} y={580} fontSize={18} fill="#50625e">Approximate locations · Not to road scale</text>
+        </svg>
+      </div>
+      <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
+        <span><span aria-hidden="true" style={{ color: "#ab672c" }}>●</span> Northeast Texas stop sequence</span>
+        <span><span aria-hidden="true" style={{ color: "#287885" }}>●</span> Eastern Piney Woods stop sequence</span>
+        <span>Highlighted marker = selected park below</span>
+      </div>
+    </section>
     <div role="group" aria-label="Choose park to locate on map" className="mt-4 flex flex-wrap gap-2">
       {parks.map((item, index) => <button type="button" key={item.name} aria-pressed={selected === index} onClick={() => setSelected(index)} disabled={!hydrated} className={`border px-3 py-2 text-sm transition-colors ${selected === index ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary"}`}>{item.name}</button>)}
     </div>
