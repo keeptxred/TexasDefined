@@ -26,3 +26,7 @@ MaxPreps https://www.maxpreps.com/tx/boerne/boerne-greyhounds/football/ shows 6�
 ## Remaining gates
 
 Protected canonical premerge, production descendant deploy, real Chrome mobile+desktop SEO/JSON-LD/canonical and links, verified Kendall County reciprocal link, photo provenance and licensing, event-specific ADA/tickets, 9-dimensional editorial acceptance. No new verified label yet; preserve all 105 historical VERIFIED and cost-scoped audits.
+
+## October 19, 2026 — independently confirmed Greyhounds head football coach
+[Boerne High School's official 2026 football page](https://bhs.boerneisd.net/football) identifies **Brett Sawyer** as athletic coordinator, phone 830-357-2200. [Boerne Star's locally reported September 16, 2026 victory at Davenport](https://www.boernestar.com/article/14105%2Cgreyhounds-pick-up-road-win-at-davenport-in-game-shortened-by-weather-issues) explicitly calls Sawyer **Boerne head football coach** and quotes his assessment of the 30–21 win. The [Greyhound Athletic Booster Club coaches directory](https://www.gohoundsgo.org/coaches) also independently lists **Brett Sawyer Athletic Coordinator & Head Football Coach**. This resolves the earlier dossier's deliberately withheld head-coach title, without mistaking Champion Chargers coach Blane Ellis or changing 2026 schedule/results. Preserve no stadium gate/ADA/photo claims and require individual editorial acceptance.
+
