@@ -209,18 +209,6 @@ export function TexasRiversAfterArticle() {
         </div>
       </section>
 
-      <section className="mt-9 border-t border-border pt-8" aria-labelledby="river-primary-source-links">
-        <h3 id="river-primary-source-links" className="font-display text-xl">Check the Official Source Data</h3>
-        <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
-          All 15 major basins are linked above, including the Canadian, Cypress, Lavaca, Neches, Nueces, Red, Sabine, San Antonio, San Jacinto and Sulphur. Use the official statistics and 2023 boundary map for statewide context; the map is for orientation, not property or legal boundaries.
-        </p>
-        <div className="mt-4 flex flex-wrap gap-3">
-          <Link to="/article/texas-river-basins-guide" className="text-sm font-semibold text-primary underline">How river basins work →</Link>
-          <a href="https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp" target="_blank" rel="noreferrer" className="text-sm font-semibold text-primary underline">Texas Water Development Board profiles of all 15 major basins ↗</a>
-          <a href="https://www.twdb.texas.gov/mapping/gisdata.asp" target="_blank" rel="noreferrer" className="text-sm font-semibold text-primary underline">Texas Water Development Board map data and sources ↗</a>
-        </div>
-      </section>
-
       <section className="mt-10 grid gap-4 border-t border-border pt-8 md:grid-cols-2" aria-label="Related Texas water guides">
         <Link to="/article/texas-river-basins-guide" className="group p-1"><p className="eyebrow text-primary">See what feeds each river</p><h3 className="mt-2 font-display text-xl group-hover:text-primary">Texas River Basins Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">See what land drains into each major river and why upstream changes matter downstream.</p></Link>
         <Link to="/explore/lakes-rivers" className="group border-t border-border p-1 pt-5 md:border-l md:border-t-0 md:pl-6 md:pt-1"><p className="eyebrow text-primary">Experience the water</p><h3 className="mt-2 font-display text-xl group-hover:text-primary">Explore Texas Lakes & Rivers →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Move from statewide geography to river parks, swimming water, reservoirs and destination guides.</p></Link>
