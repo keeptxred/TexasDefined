@@ -87,6 +87,25 @@ assert.equal(bats.slug, "congress-avenue-bridge-bat-colony", "Never substitute a
 assert.equal(new Set([...waveManifest,...parks.map(x=>x.slug),bats.slug]).size,15,"No duplicate written authority guides");
 assert.equal(new Set([...parks.map(x=>x.hero.src),bats.hero.src]).size,5,"Distinct subject images required");
 
+const faqWaveSource = read("src/data/top50-source-verified-faqs-wave2.ts");
+const faqWaveSlugs = parseStaticJson(
+  "src/data/top50-source-verified-faqs-wave2.ts",
+  "export const TOP50_FAQ_WAVE2_SLUGS = ",
+  " as const;",
+);
+const faqWaveRecords = parseStaticJson(
+  "src/data/top50-source-verified-faqs-wave2.ts",
+  "const VERIFIED_FAQS: Record<Top50FaqWave2Slug, Array<{ question: string; answer: string; sourceUrl: string }>> = ",
+  ";\\n\\nexport function applyTop50FaqWave2",
+);
+assert.equal(faqWaveSlugs.length, 9, "Exactly nine second-wave attraction FAQ upgrades");
+assert.deepEqual(Object.keys(faqWaveRecords).sort(), [...faqWaveSlugs].sort(), "Published FAQ slugs must match lightweight manifest");
+assert.ok(faqWaveSlugs.every(slug => ranking.some(item => item.href === `/destination/${slug}`)), "Every FAQ wave 2 page must belong to Top 50");
+assert.ok(faqWaveSlugs.every(slug => faqWaveRecords[slug].length === 3), "Three individually sourced visitor answers per landmark");
+assert.ok(Object.values(faqWaveRecords).flat().every(item => item.question.length >= 14 && item.answer.length >= 70 && /^https:\/\//.test(item.sourceUrl)), "FAQ answers need source links and substantive answers");
+const faqPageLoader = read("src/routes/destination.$slug.tsx");
+assert.ok(faqPageLoader.includes("applyTop50FaqWave2(destination)"), "Source-verified visitor answers must be displayed on canonical destination routes");
+
 const ledger = read("docs/editorial/top-50-attractions-authority-ledger-20261017.md");
 const lines = ledger.split("\n").filter(x=>/^\| \d+ \|/.test(x));
 assert.equal(lines.length,50,"Every ranking needs a completion-ledger row");
@@ -120,4 +139,4 @@ assert.ok(sourceRenderer.includes("destination.visitorFaqs ?? []") && sourceRend
 assert.ok(read("src/lib/public-routes.ts").includes('"/explore/top-50-attractions"'),"Top-50 collection must be indexable");
 assert.ok(read("src/routes/sitemap-explore[.]xml.ts").includes('"/explore/top-50-attractions"'),"Top-50 collection must be in Explore sitemap");
 assert.ok(read("src/routes/explore.top-50-attractions.tsx").includes("TEXAS_TOP50_RANKING.map"),"Ranking must render all fifty in source order");
-console.log("Top-50 attraction structural contract: 50 canonical rankings; 10 enriched guides; 5 new destination guides; page/SEO/sitemap routing all checked.");
+console.log("Top-50 attraction structural contract: 50 canonical rankings; 10 enriched guides; 5 new destination guides; 9 more pages with 27 official-source FAQs; page/SEO/sitemap routing all checked.");
