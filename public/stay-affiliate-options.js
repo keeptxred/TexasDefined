@@ -514,7 +514,7 @@
       const parent = surface.querySelector(":scope > .mx-auto");
       if (parent) {
         if (choice.parentElement !== parent || choice !== parent.lastElementChild) parent.appendChild(choice);
-        surface.dataset.stayConsolidated = "true";
+        if (surface.dataset.stayConsolidated !== "true") surface.dataset.stayConsolidated = "true";
         return;
       }
     }
