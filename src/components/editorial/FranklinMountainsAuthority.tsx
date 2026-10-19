@@ -35,8 +35,8 @@ const questions = [
 
 const textLink = "font-medium text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary";
 export default function FranklinMountainsAuthority() {
-  return <div data-franklin-mountains-authority="2026-10-19" className="mt-12 space-y-12">
-    <section aria-labelledby="franklin-trip-essentials" className="border-t-2 border-foreground pt-8">
+  return <div data-franklin-mountains-authority="2026-10-19" className="mt-10 space-y-8">
+    <section aria-labelledby="franklin-trip-essentials" className="border-t border-foreground pt-8">
       <p className="eyebrow text-primary">Start here · verified October 19, 2026</p>
       <h2 id="franklin-trip-essentials" className="mt-3 font-display text-3xl">Admission, hours and day-use planning</h2>
       <p className="mt-4 text-sm leading-7 text-muted-foreground">Four different access areas serve different activities. Prices and hours below reflect TPWD's published information, not a guarantee of today's availability. <a className={textLink} href={official + "/alert"} target="_blank" rel="noopener noreferrer">Check active park alerts ↗</a> before leaving.</p>
@@ -46,7 +46,7 @@ export default function FranklinMountainsAuthority() {
         <div className="border border-border p-4"><dt className="eyebrow text-muted-foreground">Office / phone</dt><dd className="mt-2 font-semibold">8 a.m.–4 p.m. · <a className={textLink} href="tel:+19154449100">(915) 444-9100</a></dd></div>
         <div className="border border-border p-4"><dt className="eyebrow text-muted-foreground">Passes and campsites</dt><dd className="mt-2 leading-6">Capacity may sell out. <a href="https://texasstateparks.reserveamerica.com/" target="_blank" rel="noopener noreferrer" className={textLink}>Reserve with TPWD's booking system ↗</a> or call (512) 389-8900.</dd></div>
       </dl>
-      <nav aria-label="Franklin Mountains park planning resources" className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm">
+      <nav aria-label="Franklin Mountains park planning resources" className="mt-6 flex flex-wrap gap-3 text-sm">
         <a className={textLink} href={official + "/map"} target="_blank" rel="noopener noreferrer">Official entrances and maps ↗</a>
         <a className={textLink} href={official + "/plan-your-visit"} target="_blank" rel="noopener noreferrer">TPWD trail planner ↗</a>
         <a className={textLink} href={official + "/fees-facilities/campsites"} target="_blank" rel="noopener noreferrer">Campsite prices and inventory ↗</a>
@@ -58,10 +58,10 @@ export default function FranklinMountainsAuthority() {
       <h2 id="franklin-trail-guide" className="mt-3 font-display text-3xl">Franklin Mountains hiking trails compared</h2>
       <p className="mt-4 text-sm leading-7 text-muted-foreground">Times are TPWD's approximate hiking estimates, not arrival guarantees. Distances are for the specified routes; check the official route map for navigation, seasonal closures and mountain-bike permissions. Summer heat, wind and exposed rocky grades can substantially change what is safe.</p>
       <div className="mt-6 overflow-x-auto border border-border">
-        <table className="w-full min-w-[600px] text-left text-sm">
+        <table className="w-full min-w-full text-left text-sm">
           <caption className="sr-only">Trail distance, difficulty, starting unit and estimated hiking duration</caption>
           <thead className="border-b border-border bg-surface"><tr><th scope="col" className="p-3">Trail</th><th scope="col" className="p-3">Distance</th><th scope="col" className="p-3">Difficulty</th><th scope="col" className="p-3">Time</th></tr></thead>
-          <tbody>{trails.map((trail) => <tr key={trail.name} className="border-b border-border align-top last:border-b-0"><th scope="row" className="p-3 font-semibold">{trail.name}<p className="mt-1 text-xs font-normal text-muted-foreground">{trail.where}</p></th><td className="p-3">{trail.length}</td><td className="p-3">{trail.difficulty}</td><td className="p-3">{trail.time}</td></tr>)}</tbody>
+          <tbody>{trails.map((trail) => <tr key={trail.name} className="border-b border-border"><th scope="row" className="p-3 font-semibold">{trail.name}<p className="mt-1 text-xs text-muted-foreground">{trail.where}</p></th><td className="p-3">{trail.length}</td><td className="p-3">{trail.difficulty}</td><td className="p-3">{trail.time}</td></tr>)}</tbody>
         </table>
       </div>
       <div className="mt-6 space-y-4">{trails.map((trail) => <div key={trail.name} className="border-l-2 border-border pl-4"><h3 className="font-semibold">{trail.name}</h3><p className="mt-1 text-sm leading-7 text-muted-foreground">{trail.note}</p></div>)}</div>
@@ -82,15 +82,15 @@ export default function FranklinMountainsAuthority() {
     <section aria-labelledby="franklin-entrances" className="border-t border-border pt-8">
       <p className="eyebrow text-primary">Getting there</p>
       <h2 id="franklin-entrances" className="mt-3 font-display text-3xl">Four access points — not one interchangeable entrance</h2>
-      <div className="mt-6 space-y-5">{entrances.map((entrance) => <div key={entrance.name} className="border-l-2 border-primary/60 pl-4"><h3 className="text-lg font-semibold">{entrance.name}</h3><p className="mt-2 text-sm leading-6"><strong>Best for:</strong> {entrance.use}</p><p className="mt-1 text-sm leading-6 text-muted-foreground">{entrance.access}</p></div>)}</div>
+      <div className="mt-6 space-y-5">{entrances.map((entrance) => <div key={entrance.name} className="border-l-2 border-primary pl-4"><h3 className="text-lg font-semibold">{entrance.name}</h3><p className="mt-2 text-sm leading-6"><strong>Best for:</strong> {entrance.use}</p><p className="mt-1 text-sm leading-6 text-muted-foreground">{entrance.access}</p></div>)}</div>
       <p className="mt-5 text-sm">Official Tom Mays headquarters: <a className={textLink} target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&query=31.910522%2C-106.518182">2900 Tom Mays Access Rd., El Paso, TX 79911 · map ↗</a>.</p>
     </section>
 
     <section aria-labelledby="franklin-landscape" className="border-t border-border pt-8">
       <p className="eyebrow text-primary">What makes the park different</p>
       <h2 id="franklin-landscape" className="mt-3 font-display text-3xl">A wilderness ridge above the city</h2>
-      <figure className="mt-6 max-w-2xl">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Northfranklinfromelephant2.jpg" alt="North Franklin Peak beyond Fusselman Canyon and Trans Mountain Road, photographed from The Elephant in the Franklin Mountains" width={638} height={478} loading="lazy" decoding="async" className="aspect-[4/3] w-full bg-surface object-cover" />
+      <figure className="mt-6 ">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Northfranklinfromelephant2.jpg" alt="North Franklin Peak beyond Fusselman Canyon and Trans Mountain Road, photographed from The Elephant in the Franklin Mountains" width={638} height={478} loading="lazy" decoding="async" className="aspect-video w-full bg-surface object-cover" />
         <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">North Franklin Mountain from The Elephant, Brian Stansberry (2006), <a href="https://commons.wikimedia.org/wiki/File:Northfranklinfromelephant2.jpg" target="_blank" rel="noopener noreferrer" className={textLink}>original photograph</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer" className={textLink}>CC BY-SA 3.0</a>. Image displayed without editorial alteration.</figcaption>
       </figure>
       <h3 className="mt-7 text-lg font-semibold">Geology you can see</h3>
