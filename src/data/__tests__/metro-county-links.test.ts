@@ -74,3 +74,22 @@ test("McAllen curated local and Brownsville operator-only stops have no invented
   assert.ok(source.includes('href={trip.official} target="_blank" rel="noopener noreferrer"'));
   assert.ok(source.includes("Quinta Mazatlán offers a close-to-home nature outing"));
 });
+
+
+test("McAllen lodging placement waits for lazy hydration and never interrupts curated cards", () => {
+  const shell = readFileSync("src/routes/explore.near.$metro.$collection.tsx", "utf8");
+  const rich = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx", "utf8");
+  const expedia = readFileSync("public/expedia-travel.js", "utf8");
+  const affiliates = readFileSync("public/stay-affiliate-options.js", "utf8");
+  const qa = readFileSync("scripts/ci/verify-mcallen-day-trips-visual.mjs", "utf8");
+  assert.ok(shell.includes('isMcAllenDayTrips && <div data-stay-nearby-slot'), "the dedicated lodging slot must be McAllen-only");
+  assert.ok(shell.indexOf('data-stay-nearby-slot') > shell.indexOf('<MetroProximityCollectionRich pageData={pageData}'), "lodging must follow the guide");
+  assert.ok(rich.includes('tdMcAllenDayTripsHydrated = "1"'));
+  assert.ok(rich.includes('texasdefined:mcallen-day-trips-hydrated'));
+  assert.ok(expedia.includes('if (mcallenDayTripsHydrationPending()) return;'));
+  assert.ok(expedia.includes('window.addEventListener("texasdefined:mcallen-day-trips-hydrated", scheduleSync)'));
+  assert.ok(affiliates.includes('document.documentElement.dataset.tdMcAllenDayTripsHydrated !== "1"'));
+  assert.ok(affiliates.includes('window.addEventListener("texasdefined:mcallen-day-trips-hydrated", scheduleSync)'));
+  assert.ok(qa.includes('stayPanelInsideCuratedCard'));
+  assert.ok(qa.includes('verify("no React hydration mismatch"'));
+});
