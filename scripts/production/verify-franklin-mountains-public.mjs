@@ -23,8 +23,9 @@ const evidence = [];
 let errors = 0;
 
 for (const origin of origins) {
-  const url = new URL(path, origin);
-  url.searchParams.set("fm_authority_probe", fingerprint);
+  for (const variant of ["canonical", "cache-busting"]) {
+    const url = new URL(path, origin);
+    if (variant === "cache-busting") url.searchParams.set("fm_authority_probe", fingerprint);
   try {
     const response = await fetch(url, {
       cache: "no-store", redirect: "follow", signal: AbortSignal.timeout(20_000),
@@ -33,7 +34,7 @@ for (const origin of origins) {
     const html = await response.text();
     const missing = expected.filter(fragment => !html.includes(fragment));
     const legacy = stale.filter(fragment => html.includes(fragment));
-    const record = { origin, status: response.status, bytes: html.length,
+    const record = { origin, variant, status: response.status, bytes: html.length,
       cacheStatus: response.headers.get("cf-cache-status"),
       missing, legacy };
     evidence.push(record);
@@ -44,6 +45,7 @@ for (const origin of origins) {
   } catch (error) {
     errors++;
     console.error("::error title=Franklin Mountains public fetch error::" + origin + ": " + String(error));
+  }
   }
 }
 if (!errors) {
