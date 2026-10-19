@@ -91,3 +91,23 @@ test('every District 21 school profile receives its own opponent-linked, source-
   ]) assert.ok(teamSeason.includes(marker), marker);
   assert.ok(data.includes("Strake Jesuit varsity reported final"), 'official Strake results source is attributed correctly');
 });
+
+const liveCheck = readFileSync(new URL('../../scripts/ci/verify-district21-football-production.mjs', import.meta.url), 'utf8');
+const liveWorkflow = readFileSync(new URL('../../.github/workflows/verify-district21-football-production.yml', import.meta.url), 'utf8');
+
+test('nine-page District 21 live QA runs only after successful production deployments', () => {
+  assert.ok(liveWorkflow.includes("github.event.workflow_run.conclusion == 'success'"), 'no checks against cancelled builds');
+  assert.ok(liveWorkflow.includes("github.event.workflow_run.head_branch == 'main'"), 'main-only releases');
+  assert.ok(liveWorkflow.includes('workflow_dispatch:'), 'manual verification supported');
+  assert.ok(liveWorkflow.includes('node --check scripts/ci/verify-district21-football-production.mjs'), 'check verifier syntax');
+  assert.ok(liveWorkflow.includes('node scripts/ci/verify-district21-football-production.mjs'), 'run verifier');
+  assert.ok(liveCheck.includes('district-21-standings') && liveCheck.includes('district-21-results'));
+  assert.ok(liveCheck.includes("for (const team of teams)"), 'verify every school profile');
+  assert.ok(liveCheck.includes('data-football-d21-team-section'), 'check published SSR, not just source data');
+  assert.ok(liveCheck.includes('requireCanonical'), 'unique canonical required');
+  assert.ok(liveCheck.includes('if (failures.length)'), 'no false-positive success when a page fails');
+  for (const name of [
+    'fort-bend-austin', 'fort-bend-bush', 'fort-bend-clements', 'fort-bend-elkins',
+    'fort-bend-hightower', 'fort-bend-ridge-point', 'fort-bend-travis', 'houston-strake-jesuit',
+  ]) assert.ok(liveCheck.includes(name), `missing production verification for ${name}`);
+});
