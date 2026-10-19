@@ -138,7 +138,7 @@ function StateFairLivePanel() {
               <div className="border border-border bg-background p-5"><p className="text-xs leading-5 text-muted-foreground">Midway</p><p className="mt-2 font-display text-3xl">11 AM most days</p></div>
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href="https://bigtex.com/schedule/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">{fairFinished ? "Official schedule ↗" : "Today’s schedule ↗"}</a>
+              <a href="https://bigtex.com/schedule/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">{fairFinished ? "Organizer schedule ↗" : "Today’s schedule ↗"}</a>
               <a href="https://bigtex.com/buy-tickets-new/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">{fairFinished ? "Future ticket updates ↗" : "Tickets ↗"}</a>
               <a href="https://bigtex.com/plan-your-visit/getting-here/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">DART & parking ↗</a>
               <a href="https://bigtex.com/plan-your-visit/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">Visitor guide ↗</a>
