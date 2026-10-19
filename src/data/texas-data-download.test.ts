@@ -42,11 +42,6 @@ test('generic dataset pages retain a visible source-backed download without a ne
   assert.ok(source.includes('dataset.rows.map'));
 });
 
-test('school-district tax CSV reuses injection-resistant cell encoder', () => {
-  const source = readFileSync('src/routes/texas-data.$datasetSlug.lazy.tsx', 'utf8');
-  assert.match(source, /const cell=escapeTexasCsvCell;const lines=/);
-  assert.doesNotMatch(source, /const cell=\(value:unknown\)=>/);
-});
 
 test('CSV encoder protects spreadsheet-opening of untrusted school and source fields', async () => {
   const { escapeTexasCsvCell } = await import('./texas-data-download.ts');
@@ -57,4 +52,44 @@ test('CSV encoder protects spreadsheet-opening of untrusted school and source fi
   assert.equal(escapeTexasCsvCell(0), '"0"');
   assert.equal(escapeTexasCsvCell(null), '""');
   assert.equal(escapeTexasCsvCell('district,"quote"'), '"district,""quote"""');
+});
+
+
+test('school district tax CSV is a stable discoverable download with source-aware JSON-LD', () => {
+  const page = readFileSync('src/routes/texas-data.$datasetSlug.lazy.tsx', 'utf8');
+  const head = readFileSync('src/routes/texas-data.$datasetSlug.tsx', 'utf8');
+  const route = readFileSync('src/routes/texas-data.school-district-tax-rates[.]csv.ts', 'utf8');
+  assert.match(page, /href="\/texas-data\/school-district-tax-rates\.csv"/);
+  assert.doesNotMatch(page, /onClick=\{\(\) => downloadCsv\(data\)\}/);
+  assert.ok(head.includes('encodingFormat: \'text/csv\''));
+  assert.ok(head.includes("contentUrl: absoluteUrl(texasDefinedBrand, '/texas-data/school-district-tax-rates.csv')"));
+  assert.ok(route.includes("createFileRoute('/texas-data/school-district-tax-rates.csv')"));
+  assert.ok(route.includes("'x-robots-tag': 'noindex, follow'"));
+  assert.ok(route.includes("status: 503"));
+  assert.ok(route.includes("buildSchoolDistrictTaxRateCsv(data)"));
+});
+
+test('school district CSV preserves conflicting, variable and missing rates instead of invented zeros', async () => {
+  const { buildSchoolDistrictTaxRateCsv } = await import('./texas-data-download.ts');
+  const base = {
+    year: 2025, priorYear: 2024, generatedAt: '2026-10-14T12:00:00Z',
+    sourceName: 'Comptroller', sourcePage: 'https://example.org/rates',
+    sourceWorkbook: 'https://example.org/2025.xlsx', priorWorkbook: 'https://example.org/2024.xlsx',
+    officialCorrectionCount: 1,
+  };
+  const csv = buildSchoolDistrictTaxRateCsv({ ...base, rows: [
+    { name: '=INJECT', slug: 'missing', countySlugs: ['harris'], rate: null, priorRate: null, maintenanceOperationsRate: null, debtServiceRate: null, variableRate: false, rateVariants: [], sourceStatus: 'cross-source-conflict', sourceUrl: 'https://example.org/conflict' },
+    { name: 'Variable district', slug: 'variable', countySlugs: ['bexar'], rate: null, priorRate: 1.1, maintenanceOperationsRate: null, debtServiceRate: null, variableRate: true, rateVariants: [1.1, 1.2], sourceStatus: 'reported-final', sourceUrl: 'https://example.org/variable' },
+    { name: 'Measured district', slug: 'measured', countySlugs: ['travis'], rate: 1.25, priorRate: 1.2, maintenanceOperationsRate: 0.8, debtServiceRate: 0.45, variableRate: false, rateVariants: [], sourceStatus: 'reported-final', sourceUrl: 'https://example.org/measured' },
+  ] });
+  assert.ok(csv.startsWith('\uFEFF'));
+  assert.ok(csv.includes('"\'=INJECT"'));
+  assert.ok(csv.includes('"cross-source-conflict"'));
+  assert.ok(csv.includes('"1.1; 1.2"'));
+  assert.ok(csv.includes('"1100; 1200"'));
+  assert.ok(csv.includes('"0.05"'));
+  assert.ok(!csv.includes('0.050000000000000044'));
+  assert.ok(csv.includes('https://example.org/2025.xlsx'));
+  assert.ok(csv.includes('2026-10-14T12:00:00Z'));
+  assert.ok(!csv.includes('"undefined"'));
 });
