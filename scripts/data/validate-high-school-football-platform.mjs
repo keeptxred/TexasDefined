@@ -1294,6 +1294,82 @@ if (!errors.length) {
   requireText(dataSources, "id:'uil-football-calendar'", 'Texas source registry');
   requireText(dataSources, "title:'2026–27 UIL football calendar and season dates'", 'Texas source registry');
 
+  // Small, source-dated Batch 006 contract: never resurrect a stale coach roster
+  // merely because a third-party site still advertises a historical appointment.
+  // This parses four existing school objects; it makes no network calls or crawls.
+  const footballEditorialRecord = (slug) => {
+    const marker = '  "' + slug + '": {';
+    const pos = footballProgramEditorial.indexOf(marker);
+    if (pos === -1) {
+      errors.push('Missing school-specific football editorial record: ' + slug);
+      return null;
+    }
+    const start = footballProgramEditorial.indexOf('{', pos);
+    let depth = 0;
+    let quoted = false;
+    let escaped = false;
+    for (let i = start; i < footballProgramEditorial.length; i++) {
+      const ch = footballProgramEditorial[i];
+      if (quoted) {
+        if (escaped) escaped = false;
+        else if (ch === '\\') escaped = true;
+        else if (ch === '"') quoted = false;
+      } else if (ch === '"') quoted = true;
+      else if (ch === '{') depth++;
+      else if (ch === '}' && --depth === 0) {
+        try {
+          return JSON.parse(footballProgramEditorial.slice(start, i + 1));
+        } catch (error) {
+          errors.push('Invalid JSON-like football editorial for ' + slug + ': ' + error.message);
+          return null;
+        }
+      }
+    }
+    errors.push('Unterminated school-specific football editorial: ' + slug);
+    return null;
+  };
+
+  const currentCoachContracts = [
+    ['big-sandy-harmony', 'Brian Mauk', 'kltv.com/story/26056195/harmony-eagles/'],
+    ['boerne', 'Brett Sawyer', 'boernestar.com/article/14105'],
+    ['blanco', 'Kent Walker', 'maxpreps.com/tx/blanco/blanco-panthers/football/staff/'],
+    ['bloomington', 'Lane Shands', 'texasfootball.com/article/2026/02/05/which-districts-have-the-best-head-coaches-after-realignment'],
+  ];
+  for (const [slug, expectedCoach, sourceFragment] of currentCoachContracts) {
+    const program = footballEditorialRecord(slug);
+    if (!program) continue;
+    if (program.coach?.name !== expectedCoach) {
+      errors.push('Outdated or unsupported Batch 006 coach: ' + slug
+        + '; expected sourced ' + expectedCoach + ', got ' + (program.coach?.name || 'none'));
+    }
+    if (!program.coach?.sourceUrl?.includes(sourceFragment)) {
+      errors.push('Batch 006 coach attribution missing dated football source: ' + slug);
+    }
+    const faq = program.faq?.find(({ question }) => /coach|staff|athletic.director/i.test(question));
+    if (!faq || !faq.answer.includes(expectedCoach)) {
+      errors.push('Batch 006 coach FAQ contradicts current sourced coach: ' + slug);
+    }
+  }
+  const harmony = footballEditorialRecord('big-sandy-harmony');
+  if (harmony?.coach?.name === 'Jeremy Jenkins'
+      || harmony?.coach?.sourceUrl?.includes('maxpreps.com/tx/big-sandy/harmony-eagles/football/staff/')) {
+    errors.push('Stale MaxPreps Harmony roster must not identify deceased former coach Jeremy Jenkins as the 2026 current head coach.');
+  }
+  const outdatedCoachCaveats = [
+    ['boerne', 'rather than assuming an unverified coach'],
+    ['boerne', 'should not be mistaken for a formally verified current head-coach appointment'],
+    ['bloomington', 'but the distinct football appointment has not been confirmed with a district hiring announcement'],
+    ['blanco', 'Fans seeking an up-to-the-minute coach or staffing contact should use Blanco ISD Athletics rather than an undated index'],
+  ];
+  for (const [slug, outdatedPhrase] of outdatedCoachCaveats) {
+    const program = footballEditorialRecord(slug);
+    if (!program) continue;
+    const narrative = [...(program.overview || []), ...(program.faq || []).map(({ answer }) => answer)].join(' ');
+    if (narrative.includes(outdatedPhrase)) {
+      errors.push('Batch 006 rendered coach narrative still contains superseded caveat: ' + slug);
+    }
+  }
+
   for (const [file, source] of [
     [files[4], finder],
     [files[5], countyModule],
