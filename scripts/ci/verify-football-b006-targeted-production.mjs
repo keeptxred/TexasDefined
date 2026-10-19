@@ -176,6 +176,12 @@ try{
   }catch(e){errors.push(String(e.message||e).slice(0,350))}
   finally{
    try{
+    // Put the reciprocal-link section in view when rendered; a top-of-page
+    // capture alone cannot show missing football cards lower on a county guide.
+    const footballSection=page.locator('section[aria-label="Independent football histories from this county"]').first();
+    if(await footballSection.count()){
+     await footballSection.scrollIntoViewIfNeeded({timeout:3000}).catch(()=>{});
+    }
     await page.screenshot({path:out+'/county-'+name+'.png',fullPage:false,animations:'disabled',timeout:15000});
     result.summary.countyScreenshots++;
    }catch(error){errors.push('county evidence screenshot failed: '+String(error?.message||error).slice(0,200));}
