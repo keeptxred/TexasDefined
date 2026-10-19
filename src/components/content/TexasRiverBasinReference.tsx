@@ -53,9 +53,9 @@ const researchedProfiles: Record<string, string> = {
 };
 
 const comparisonMetrics = [
-  { label: "Largest river basins by Texas land area", column: 1, unit: "sq. mi." },
-  { label: "Longest river lengths within Texas", column: 2, unit: "miles" },
-  { label: "Highest published average annual flow", column: 3, unit: "acre-feet/year" },
+  { label: "Largest basins by land area in Texas", column: 1, unit: "square miles" },
+  { label: "Longest rivers within Texas", column: 2, unit: "miles" },
+  { label: "Most water per year, on average", column: 3, unit: "acre-feet per year" },
 ] as const;
 
 const csvHeaders = [
@@ -133,14 +133,14 @@ export function TexasRiverBasinReference() {
             download="texasdefined-texas-river-basins.csv"
             className="underline decoration-border underline-offset-4"
           >
-            Download CSV ↓
+            Download table (CSV) ↓
           </a>
           <a
             href={jsonDownloadHref}
             download="texasdefined-texas-river-basins.json"
             className="underline decoration-border underline-offset-4"
           >
-            Download JSON ↓
+            Download data (JSON) ↓
           </a>
         </div>
       </div>
@@ -153,7 +153,7 @@ The Texas Water Development Board figures answer three different questions: how 
         <h4 id="basin-comparison-charts" className="font-display text-xl">Compare river systems by three different measures</h4>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">
           These rankings use the state's published reference figures, not estimates of today's river flow.
-          A long river does not necessarily drain the most land or carry the most water on average.
+          A long river does not necessarily drain the most land or carry the most water on average. One acre-foot is about 326,000 gallons.
         </p>
         <div className="mt-4 grid gap-4 lg:grid-cols-3">
           {comparisonMetrics.map((metric) => {
