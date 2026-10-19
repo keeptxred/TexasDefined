@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { verifyDirectoryHtml, verifyBattlefieldHtml } from "../verify-nps-park-production.mjs";
+import { verifyDirectoryHtml, verifyBattlefieldHtml, verifyChamizalHtml } from "../verify-nps-park-production.mjs";
 
 const codes=["alfl","amis","bibe","bith","blsc","buov","cham","elte","elca","foda","gumo","lamr","lyjo","pais","paal","rigr","saan","waco"];
 const directory=(links=codes.map(code=>'<a href="https://www.nps.gov/'+code+'/">Site</a>').join("")) =>
@@ -23,4 +23,21 @@ test("field-gun NPS credited Palo Alto source and subject must be in HTML",()=>{
  assert.ok(verifyBattlefieldHtml(battlefield).credited);
  assert.throws(()=>verifyBattlefieldHtml(battlefield.replace('3C792376-1DD8-B71B-0BFE87475AD26DCA.jpg','broken.jpg')));
  assert.throws(()=>verifyBattlefieldHtml(battlefield.replace('Blue Mexican eight-pound field gun','photo unavailable')));
+});
+
+const chamizal = [
+ "Chamizal National Memorial", "John F. Kennedy", "January 14, 1964",
+ "1968", "About 5,000 El Paso residents", "Nuestra Herencia",
+ "Tuesday–Saturday", "free", "Magoffin Home",
+ "National Park Service · Public domain", "Documentary photographs",
+].join(" ");
+test("Chamizal public guide acceptance recognizes researched visitor content",()=>{
+ assert.equal(verifyChamizalHtml(chamizal).checked,11);
+ for(const gone of ["John F. Kennedy", "January 14, 1964", "Nuestra Herencia", "Public domain"])
+  assert.throws(()=>verifyChamizalHtml(chamizal.replace(gone,"")),gone);
+});
+test("Chamizal production probe rejects outdated generic sections",()=>{
+ for(const old of ["Chamizal National Memorial occupies a significant landscape within El Paso, commemorating",
+ "Tours and experiences near Chamizal National Memorial","First-time focused visit"])
+  assert.throws(()=>verifyChamizalHtml(chamizal+" "+old));
 });
