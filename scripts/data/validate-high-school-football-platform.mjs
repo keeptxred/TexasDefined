@@ -1355,6 +1355,50 @@ if (!errors.length) {
       || harmony?.coach?.sourceUrl?.includes('maxpreps.com/tx/big-sandy/harmony-eagles/football/staff/')) {
     errors.push('Stale MaxPreps Harmony roster must not identify deceased former coach Jeremy Jenkins as the 2026 current head coach.');
   }
+  // Bounded Batch 006 regression check; a <25-program> audit, not a site crawl.
+  // Use the existing registry assignment rather than a second school roster.
+  const footballRegistry = JSON.parse(read('docs/football-authority/REGISTRY.json'));
+  const footballBatch006 = footballRegistry.batch?.number === 6
+    ? footballRegistry.batch
+    : footballRegistry.completedBatches?.find(({ number }) => number === 6);
+  if (!footballBatch006 || footballBatch006.slugs?.length !== 25) {
+    errors.push('Batch 006 canonical football assignment must retain all 25 original school slugs');
+  } else {
+    const todayUtc = new Date().toISOString().slice(0, 10);
+    for (const slug of footballBatch006.slugs) {
+      const program = footballEditorialRecord(slug);
+      if (!program) continue;
+      const played = program.season?.games?.filter(({ result }) => Boolean(result)) || [];
+      const wins = played.filter(({ result }) => result.startsWith('W ')).length;
+      const losses = played.filter(({ result }) => result.startsWith('L ')).length;
+      const record = program.season?.record?.match(/^(\d+)[–-](\d+)/);
+      if (!record || Number(record[1]) !== wins || Number(record[2]) !== losses) {
+        errors.push('Batch 006 2026 W-L summary contradicts scored game rows: ' + slug);
+      }
+      const games = program.season?.games || [];
+      if (games.length < 7) errors.push('Batch 006 researched games unexpectedly sparse: ' + slug);
+      for (let i = 0; i < games.length; i++) {
+        const game = games[i];
+        if (!/^\d{4}-\d\d-\d\d$/.test(game.date || '') || !game.opponent) {
+          errors.push('Batch 006 fixture has invalid ISO date or unnamed opponent: ' + slug);
+        }
+        if (i > 0 && games[i - 1].date >= game.date) {
+          errors.push('Batch 006 games out of date order or duplicate date: ' + slug);
+        }
+        if (game.result && (!/^[WL]\s/.test(game.result) || game.date > todayUtc)) {
+          errors.push('Batch 006 scored fixture has malformed or future-dated result: ' + slug);
+        }
+      }
+      if ((program.faq || []).length < 5) {
+        errors.push('Batch 006 source-backed school FAQ unexpectedly missing: ' + slug);
+      }
+      const normalized = (program.faq || []).map(({ question }) => (question || '').trim().toLowerCase());
+      if (new Set(normalized).size !== normalized.length) {
+        errors.push('Batch 006 duplicate questions within a school profile: ' + slug);
+      }
+    }
+  }
+
   const outdatedCoachCaveats = [
     ['boerne', 'rather than assuming an unverified coach'],
     ['boerne', 'should not be mistaken for a formally verified current head-coach appointment'],
