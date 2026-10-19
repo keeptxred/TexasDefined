@@ -245,7 +245,7 @@ function McAllenFeaturedMap() {
       </div>
       <div>
         <iframe key={trip.slug} title={`Interactive OpenStreetMap location of ${trip.title}`} src={mapUrl} loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade" className="h-80 w-full border border-border sm:h-96" />
+          referrerPolicy="no-referrer-when-downgrade" className="w-full border border-border" style={{ height: "clamp(320px, 60vw, 440px)" }} />
         <p className="mt-2 text-xs text-muted-foreground">Map data © OpenStreetMap contributors. The embedded map shows one selected marker at a time.</p>
         <div className="mt-4 border-t border-border pt-4">
           <p className="font-display text-2xl">{trip.title}</p>
