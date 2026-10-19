@@ -177,9 +177,19 @@ if (!errors.length) {
 
   for (const marker of [
     "const seoName = program?.schoolName || displayName",
-    'title: editorial?.seo?.title ?? `${teamName} Football: 2026 District & Team Guide`',
-    "const description = editorial?.seo?.description ?? `${teamName} football:",
+    'const defaultTitle = program',
+    '`${teamName} Football: 2026 District & Team Guide`',
+    '`${teamName} Football: ${privateAlignment.association} Team Guide`',
+    '`${teamName} Football: ${governingBodyHint} Team Guide`',
+    '`${teamName} Football: Texas Team Guide`',
+    'title: editorial?.seo?.title ?? defaultTitle',
+    "const description = editorial?.seo?.description ?? (program",
+    'non-UIL programs are not forced into UIL classifications',
+    'const sportsTeamDescription = program || privateAlignment || governingBodyHint',
   ]) requireText(featuredProfileRoute, marker, 'Football profile unique SEO metadata');
+  if (featuredProfileRoute.includes('announced 2026 football-season cancellation')) {
+    errors.push('Football SportsTeam schema must not infer season cancellation from a generic editorial notice.');
+  }
   if (featuredProfileRoute.includes('slug === "ben-bolt-palito-blanco"')) errors.push("Football profile SEO must not override individually authored Ben Bolt title");
 
   for (const marker of [
@@ -1010,7 +1020,7 @@ if (!errors.length) {
     "createFileRoute('/texas-high-school-football-teams/$slug')",
     'getFootballProgramProfilePage',
     'football-program-profile.functions',
-    'Football: 2026 District & Team Guide',
+    'defaultTitle',
   ]) requireText(featuredProfileRoute, marker, 'Football school profile route');
   requireText(featuredProfileRoute, "'@type': 'SportsTeam'", 'Football school profile SportsTeam schema');
   requireText(featuredProfileRoute, "'@type': 'FAQPage'", 'Football school profile FAQ schema');
