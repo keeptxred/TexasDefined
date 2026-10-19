@@ -178,7 +178,7 @@ export function applyTop50FaqWave2(destination: Destination): Destination {
   const updates = VERIFIED_FAQS[key];
   if (!updates) return destination;
   const questions = new Map<string, { question: string; answer: string; sourceUrl?: string }>();
-  for (const item of [...updates, ...(destination.visitorFaqs ?? [])]) {
+  for (const item of [...(destination.visitorFaqs ?? []), ...updates]) {
     questions.set(item.question.toLowerCase().trim(), item);
   }
   return { ...destination, visitorFaqs: [...questions.values()] };
