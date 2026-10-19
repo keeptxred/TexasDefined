@@ -61,11 +61,34 @@ export function StateFair2026Results() {
         <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {headlineFigures.map((item) => (
             <div key={item.label} className="border border-border bg-background p-5">
-              <p className="font-display text-2xl font-semibold leading-tight md:text-3xl">{item.figure}</p>
+              <p className="font-display text-2xl font-semibold leading-tight">{item.figure}</p>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.label}</p>
             </div>
           ))}
         </div>
+
+        <figure className="mt-8 max-w-5xl border border-border bg-background" data-state-fair-recap-email-photo>
+          <img
+            src="https://d31hzlhk6di2h5.cloudfront.net/20261018/48/27/d5/98/5c876f5dfde37488f8634053.JPG"
+            alt="Photograph accompanying the State Fair of Texas October 18, 2026, closing-season press release"
+            loading="lazy"
+            decoding="async"
+            referrerPolicy="no-referrer"
+            className="w-full h-auto"
+          />
+          <figcaption className="p-5 text-sm leading-6 text-muted-foreground">
+            Photo Credit: State Fair of Texas. Official image distributed with the October 18, 2026, State Fair recap.
+            View more imagery and the publication terms in the{" "}
+            <a
+              href="https://bigtex.com/about-us/media-room/photo-gallery/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-primary underline underline-offset-4"
+            >
+              State Fair media photo gallery ↗
+            </a>.
+          </figcaption>
+        </figure>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-3">
           {details.map((group) => (
