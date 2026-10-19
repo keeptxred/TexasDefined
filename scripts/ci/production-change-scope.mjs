@@ -103,6 +103,19 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     candidates.add(page);
     fredericksburgSitemapPaths.add(page);
   }
+  // Magoffin Home must be checked against live SSR when its researched overlay
+  // or shared destination detail route changes. Build success alone can hide
+  // a stale generic guide behind the public domain.
+  const magoffinHomePages = new Set();
+  if (changedFiles.some(path => [
+    'src/data/magoffin-home-authority.ts',
+    'src/routes/destination.$slug.tsx',
+    'scripts/ci/production-change-scope.mjs',
+  ].includes(path))) {
+    const page = '/destination/magoffin-home';
+    candidates.add(page);
+    magoffinHomePages.add(page);
+  }
   // A shared football template affects every profile, but two representative
   // verified teams provide a bounded production canary without a 1,268-page crawl.
   const footballGameNightPages = new Set();
@@ -298,7 +311,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   ];
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
-  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
+  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
@@ -307,6 +320,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     footballGameNightPages: selectedPaths.filter(p => footballGameNightPages.has(p)),
     battleshipVisitorPages: selectedPaths.filter(p => battleshipVisitorPages.has(p)),
     fredericksburgSitemapPaths: selectedPaths.filter(p => fredericksburgSitemapPaths.has(p)),
+    magoffinHomePages: selectedPaths.filter(p => magoffinHomePages.has(p)),
     redirectChecks, candidateCount,
     omittedCount: Math.max(0, allPaths.length - selectedPaths.length), pageBudget: PAGE_BUDGET,
     coverage: candidateCount > PAGE_BUDGET ? 'representative sample; full coverage belongs to weekly local audits' : 'identified changed pages and representative dependencies',
