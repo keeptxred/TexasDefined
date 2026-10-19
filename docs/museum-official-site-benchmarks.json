@@ -1733,6 +1733,30 @@
         "https://texasmilitaryforcesmuseum.org/?page_id=107",
         "https://tmd.texas.gov/museum"
       ]
+    },
+    "museum-of-south-texas-history-edinburg": {
+      "name": "Museum of South Texas History",
+      "operatorStrengths": [
+        "Exact hours, tiered admission, free Saturday exceptions and free parking lots",
+        "Bilingual Rio Grande Legacy history, original restored 1910 jail and campus park",
+        "Appointment-only archives, teaching materials and equipment-specific photography rules"
+      ],
+      "openGaps": [
+        "Independently compare every rendered visitor section with current operator site after deployment and check historical jail room access",
+        "Confirm actual decoded site-specific photo, visible CC attribution and mobile photo crop",
+        "Validate accessibility for every historic jail route and freshness of older hands-on family activity notices"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://mosthistory.org/visitor-information/",
+        "https://mosthistory.org/about-the-museum/",
+        "https://mosthistory.org/archive-artifact-collections/old-jail/",
+        "https://mosthistory.org/archive-artifact-collections/museum-archives/",
+        "https://mosthistory.org/education/tour-activities/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
