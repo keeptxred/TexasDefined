@@ -373,7 +373,7 @@ function EntityPage() {
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                className="block aspect-[16/9] w-full object-cover object-center sm:aspect-[21/9]"
+                className="block aspect-video w-full object-cover object-center"
               />
             </div>
             <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">

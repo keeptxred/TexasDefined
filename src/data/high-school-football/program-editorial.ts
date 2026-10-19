@@ -3837,6 +3837,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "title": "Bovina Mustangs Football 2026 | UIL 2A Division II District 1 Scores, History & Guide",
       "description": "Bovina Mustangs Texas football: 2026 2A Division II District 1, dated season results, Parmer County campus, school-specific program history and contact guidance."
     },
+    "coach": {
+      "name": "Wade Wilson",
+      "title": "Bovina Mustangs head football coach; directly interviewed by KFDA NewsChannel 10 in August 2026, separately listed Bovina ISD athletic director",
+      "sourceUrl": "https://www.newschannel10.com/2026/08/13/2026-countdown-kickoff-bovina-mustangs/",
+      "sourceLabel": "KFDA August 12 2026 preseason interview identifies and quotes Bovina 2026 head football coach Wade Wilson; Bovina ISD separately confirms athletic-director position",
+      "verifiedAt": "2026-10-19"
+    },
     "campus": {
       "address": "500 Halsell Street, Bovina, TX 79009",
       "phone": "806-251-1336",
@@ -3852,7 +3859,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "Bovina ISD's current staff directory explicitly identifies Wade Wilson as athletic director; an August 2026 MaxPreps football staff page separately calls Wilson the varsity head coach. The latter appointment remains third-party unless the district formally identifies the football coaching title. On October 16, Gruver defeated Bovina 55–0, confirmed by October 17 regional football results. The school's 500 Halsell Street contact address is not a verified stadium gate or accessibility promise.",
+      "body": "Bovina ISD's current staff directory explicitly identifies Wade Wilson as athletic director; an August 2026 MaxPreps football staff page separately calls Wilson the varsity head coach. In addition, NewsChannel 10 interviewed Wilson as Bovina head football coach in August 2026 and described him as entering his second year; the dated original interview directly supports the coaching role without implying a new district-issued hiring document. On October 16, Gruver defeated Bovina 55–0, confirmed by October 17 regional football results. The school's 500 Halsell Street contact address is not a verified stadium gate or accessibility promise.",
       "sourceUrl": "https://www.bovinaisd.org/staff",
       "sourceLabel": "Bovina ISD official staff directory: Wade Wilson athletic director; MaxPreps Aug 2026 staff listing independently attributes head-coach role",
       "verifiedAt": "2026-10-19"
@@ -3955,7 +3962,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Bovina Mustangs is Bovina ISD's 11-man football team in Parmer County. Its authoritative 2026–28 alignment is UIL 2A Division II District 1; that is different from older season divisions and similarly named programs.",
       "Bovina's completed 2025 postseason included a 36–24 first-round win over Hale Center and a 24–16 win against Seagraves, followed by a 14–48 loss to Stratford. The 2026 Mustangs were 3–3 after a close 38–44 loss at West Texas October 9.",
-      "Bovina ISD's current staff directory names Wade Wilson athletic director, while the August 2026 MaxPreps football staff roster names him head coach. Athletic director is first-party established; a current official football head-coach appointment is not separately documented on the district page. The October 16 district home match ended in a 55–0 reported loss to Gruver, not an unresolved fixture.",
+      "Bovina ISD's current staff directory names Wade Wilson athletic director, while the August 2026 MaxPreps football staff roster names him head coach. KFDA NewsChannel 10's August 2026 original preseason interview also identifies Wilson as Bovina head football coach, separate from his school-listed athletic-director title. The school has not separately published a hiring announcement in the cited records. The October 16 district home match ended in a 55–0 reported loss to Gruver, not an unresolved fixture.",
       "Gruver shut out Bovina 55–0 in the October 16 district game. This dated result comes from KCBD/FOX34 October 17 South Plains football finals, corroborated by the Houston Chronicle statewide score listing, not a first-party UIL results certification."
     ],
     "faq": [
@@ -3973,7 +3980,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who is Bovina's 2026 head coach?",
-        "answer": "MaxPreps' August 2026 football staff directory lists Wade Wilson head coach, and Bovina ISD's own staff directory separately confirms him athletic director. The head-coach title is third-party attributed; the district's staff listing does not independently verify that exact role."
+        "answer": "MaxPreps' August 2026 football staff directory lists Wade Wilson head coach, and Bovina ISD's own staff directory separately confirms him athletic director. NewsChannel 10 independently interviewed Wilson as 2026 Bovina head football coach on August 11 and featured him in its August 12–13 preseason analysis; the district's own staff listing confirms his separate athletic-director title."
       },
       {
         "question": "Did Bovina play Gruver on October 16?",
@@ -4340,6 +4347,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "title": "Boyd Yellowjackets Football 2026 | UIL 3A Division I District 4 Scores, History & Guide",
       "description": "Boyd Yellowjackets Texas football: 2026 3A Division I District 4, dated season results, Wise County campus, school-specific program history and contact guidance."
     },
+    "coach": {
+      "name": "Shawn Sparks",
+      "title": "Boyd Yellowjackets head football coach; interviewed Aug 25 2026 by NTX Varsity Sports, with Boyd ISD separately naming athletic director",
+      "sourceUrl": "https://www.ntxvarsitysports.com/boyd-looking-to-build-on-breakthrough-season/",
+      "sourceLabel": "NTX Varsity Sports August 25 2026 original preseason interview quotes Shawn Sparks as Boyd football coach entering his second season; Boyd ISD staff confirms AD role",
+      "verifiedAt": "2026-10-19"
+    },
     "campus": {
       "address": "700 Knox Avenue, Boyd, TX 76023",
       "phone": "940-433-9580",
@@ -4355,7 +4369,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "Boyd ISD's current district leadership page officially identifies Shawn Sparks as athletic director. MaxPreps' September 2026 26–27 staff roster separately lists him as head football coach. The district's school-site HEAD COACH section is image-led and does not yield a readable school-issued name, so the head-coach role remains attributed to MaxPreps rather than described as school-certified. Peaster beat Boyd 44–13 on October 16; the reported 2026 tally is 2–5. The campus mailing address is not a confirmed stadium gate.",
+      "body": "Boyd ISD's current district leadership page officially identifies Shawn Sparks as athletic director. MaxPreps' September 2026 26–27 staff roster separately lists him as head football coach. A separate August 25 NTX Varsity Sports preseason report quotes Sparks as Boyd's football coach entering his second season. The school site's coach section is image-led and does not independently publish a text appointment announcement. Peaster beat Boyd 44–13 on October 16; the reported 2026 tally is 2–5. The campus mailing address is not a confirmed stadium gate.",
       "sourceUrl": "https://boydisd.net/districtleadershipteam",
       "sourceLabel": "Boyd ISD official district leadership: Shawn Sparks athletic director; MaxPreps September 2026 names Sparks varsity head coach (third party)",
       "verifiedAt": "2026-10-19"
@@ -4455,7 +4469,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Boyd Yellowjackets is Boyd ISD's 11-man football team in Wise County. Its authoritative 2026–28 alignment is UIL 3A Division I District 4; that is different from older season divisions and similarly named programs.",
       "The Yellowjackets earned genuine UIL titles in 1983 (Class 2A, 16–8 over Groveton) and 2004 (Class 2A Division I, 17–14 over Newton). The 2004 team is listed at 16–0 in the historical season index. Those championships are separate from today's 3A Division I classification.",
-      "Boyd ISD's official district leadership roster calls Shawn Sparks its athletic director, and a 2026 MaxPreps staff roster separately calls Sparks head football coach. The latter remains attributed because the district's image-led coaching page does not independently publish that readable appointment. The October 16 home match ended in a reported 44–13 loss to Peaster, leaving Boyd 2–5."
+      "Boyd ISD's official district leadership roster calls Shawn Sparks its athletic director, and a 2026 MaxPreps staff roster separately calls Sparks head football coach. NTX Varsity Sports also interviewed and identified Sparks as Boyd head football coach in August 2026; that dated report supports the football-specific role independently from the school AD title, without claiming a district-issued hire announcement. The October 16 home match ended in a reported 44–13 loss to Peaster, leaving Boyd 2–5."
     ],
     "faq": [
       {
@@ -4476,7 +4490,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who is listed as the current head coach?",
-        "answer": "MaxPreps' 2026 roster lists Shawn Sparks as varsity head coach. Boyd ISD's district leadership page independently names him athletic director, but that official role does not alone certify a football head-coach appointment. Verify school-specific coaching details with Boyd ISD."
+        "answer": "MaxPreps' 2026 roster lists Shawn Sparks as varsity head coach. Boyd ISD independently names him athletic director, and NTX Varsity Sports' August 25 football coach interview confirms the football role from original local reporting. The district's readable hiring documentation remains unlocated. Verify school-specific coaching details with Boyd ISD."
       },
       {
         "question": "What was Boyd's October 2 result?",

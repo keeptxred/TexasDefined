@@ -42,6 +42,9 @@ const checks = [
     '<ElPasoAreaCrossLinks kind={entity.kind} slug={entity.slug} />',
     "entity.slug === 'el-paso-metro'",
   ]],
+  ['src/lib/legacy-editorial-redirects.ts', [
+    'LEGACY_EDITORIAL_REDIRECTS["/destination/el-paso"] = "/city/el-paso";',
+  ]],
   ['src/routes/$kind.$slug.tsx', [
     "entity.slug === 'el-paso' ? elPasoCountyHero : undefined",
     'countyHeroImage?.src ?? countySeriesArticle?.hero.src',
