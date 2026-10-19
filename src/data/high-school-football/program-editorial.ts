@@ -4647,7 +4647,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "The October 8 Wildorado result was an 82–24 Boys Ranch win."
       },
       {
-        "question": "Who is Louis Kelley?",
+        "question": "Who is Boys Ranch\u0027s head football coach?",
         "answer": "Boys Ranch ISD officially lists Louis Kelley as head football coach without a suffix; Dave Campbell's Texas Football identifies the 2023 appointee as Louis Kelley III. This is specific coaching evidence, unlike an ambiguous third-party Jr/II roster. Confirm individual game-day arrangements with the district."
       },
       {
