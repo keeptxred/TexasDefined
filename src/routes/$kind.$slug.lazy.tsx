@@ -463,7 +463,7 @@ function EntityPage() {
         {entity.kind === 'wildlife-species' ? <WildlifeDepthSections entity={entity} related={visibleRelated} /> : entity.kind !== 'county' && !(entity.kind === 'metro-area' && entity.slug === 'el-paso-metro') ? <EntityDepthSections entity={entity} related={visibleRelated} /> : null}
         <ElPasoAreaCrossLinks kind={entity.kind} slug={entity.slug} />
 
-        {entity.kind !== 'county' && !(entity.kind === 'metro-area' && entity.slug === 'el-paso-metro') && entity.tags?.length ? <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
+        {entity.kind !== 'county' && entity.tags?.length && !(entity.kind === 'metro-area' && entity.slug === 'el-paso-metro') ? <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
           <div>
             <p className="eyebrow text-primary">{notesEyebrow(entity.kind)}</p>
             <h2 className="mt-2 font-display text-3xl">{notesHeading(entity)}</h2>
