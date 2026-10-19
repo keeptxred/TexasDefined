@@ -30,7 +30,7 @@ export const RELOCATION_SOURCES = {
     name: "U.S. Bureau of Labor Statistics — Metropolitan Area Employment",
     url: "https://www.bls.gov/news.release/metro.t03.htm",
     purpose: "Current metropolitan nonfarm payroll employment for Texas labor markets.",
-    freshness: "June 2026 preliminary release; July 2026 release scheduled September 2, 2026",
+    freshness: "BLS series updates monthly; use the latest release for current figures. June 2026 is a historical snapshot.",
   },
   tdiInsurance: {
     name: "Texas Department of Insurance — Homeowners Insurance Market",
@@ -84,6 +84,7 @@ export type RelocationMetro = {
   places: string[];
   jobMarket: string;
   jobCountJune2026?: number;
+  jobCountAugust2026?: number;
   researchNote: string;
 };
 
@@ -134,9 +135,9 @@ export const RELOCATION_METROS: RelocationMetro[] = [
     guideHref: "/article/moving-to-el-paso-guide",
     // Federal El Paso TX MSA contains both counties; city/address research below remains El Paso County-specific.
     counties: ["El Paso", "Hudspeth"],
-    places: ["El Paso"],
+    places: ["El Paso", "Horizon City", "Socorro", "San Elizario"],
     jobMarket: "El Paso",
-    jobCountJune2026: 365_100,
+    jobCountAugust2026: 363_500,
     researchNote: "The Franklin Mountains, Fort Bliss, desert water use and El Paso County vehicle-emissions rules make address and route selection unusually important.",
   },
 ];

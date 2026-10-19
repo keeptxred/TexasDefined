@@ -111,8 +111,26 @@ for (const marker of [
 for (const marker of [
   'Treat flooding as more than one map color',
   'Verify CPS Energy and SAWS service instead of assuming it',
-  'Confirm vehicle and emissions requirements before the move',
+  'Vehicle registration, taxes and moving paperwork',
 ]) if (!relocationDepth2.includes(marker)) errors.push(`Second relocation evergreen depth marker missing: ${marker}`);
+for (const marker of [
+  'El Paso at a glance: costs and commuting',
+  'Which part of El Paso should you live in?',
+  'Healthcare and access to services',
+  'Frequently asked questions about moving to El Paso',
+  'https://www.census.gov/quickfacts/fact/table/elpasocitytexas/',
+  'https://www.bls.gov/eag/eag.tx_elpaso_msa.htm',
+  'https://www.yisd.net/',
+  'https://www.sisd.net/',
+  'href: "/county/el-paso"',
+  'href: "/metro-area/el-paso-metro"',
+  'El_Paso_Franklin_Mountains_and_Scenic_Drive_aerial.jpg',
+  'Transmountain_Road_cut.jpg',
+  'Quintin Soloviev',
+  'updatedAt: "2026-10-19"',
+]) if (!relocationDepth2.includes(marker)) errors.push('El Paso guide authority content missing: '+marker);
+if (!lazyMigrated.includes('hero: elPasoMovingHero')) errors.push('El Paso editorial stub must use its licensed city-specific photo.');
+
 
 const slugMatches = [...migrated.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
 if (new Set(slugMatches).size !== slugMatches.length) errors.push('Migrated editorial body slugs must remain unique.');

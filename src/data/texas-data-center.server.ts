@@ -120,7 +120,7 @@ export const TEXAS_DATASETS: TexasDataset[] = [
       { label: '2022', value: 2374 },
       { label: '2023', value: 2800 },
       { label: '2024', value: 3291 },
-      { label: '2025', value: 3506, note: 'Preliminary TDI statewide average.' },
+      { label: '2025', value: 3489, note: 'Preliminary TDI statewide average; checked October 2026.' },
     ],
   },
   {

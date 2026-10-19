@@ -39,7 +39,7 @@ const DATA_DESK_LINKS = [
   {
     href: "/texas-data/texas-metro-payrolls-june-2026",
     label: "Texas metro employment",
-    note: "BLS metropolitan nonfarm payroll employment for June 2026; next monthly release is scheduled September 2, 2026.",
+    note: "Historical June 2026 BLS metro snapshot. For current jobs data, check the official BLS release linked in this guide.",
   },
   {
     href: "/texas-data/texas-traffic-monitoring-coverage",
@@ -69,6 +69,55 @@ export function MetroRelocationAuthority({ articlePath }: { articlePath: string 
   const metro = RELOCATION_METROS.find((metro) => metro.guideHref === articlePath);
   if (!metro) return null;
 
+  if (metro.id === "el-paso") {
+    return (
+      <aside className="my-12 rounded-xl border border-border bg-surface px-5 py-7 sm:px-8 sm:py-9" aria-labelledby="el-paso-relocation-research">
+        <p className="eyebrow text-primary">El Paso-specific sources and tools</p>
+        <h2 id="el-paso-relocation-research" className="mt-3 font-display text-3xl leading-tight">Verify the numbers for your actual El Paso address</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
+          Published medians describe a past survey period, not a home currently for sale or rent. A metro job count is not a salary estimate, and an El Paso city average is not an El Paso County tax bill. Start with the local facts below, then check the individual property, school, employer and providers.
+        </p>
+        <dl className="mt-6 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { label: "Median gross rent", value: "$1,073", date: "El Paso city · ACS 2020–2024" },
+            { label: "Median owner-occupied value", value: "$184,500", date: "El Paso city · ACS 2020–2024" },
+            { label: "Median household income", value: "$59,745", date: "El Paso city · ACS 2020–2024, 2024 dollars" },
+            { label: "Metro payroll jobs", value: "363,500", date: "Aug. 2026 · BLS preliminary, unadjusted" },
+          ].map((fact) => (
+            <div key={fact.label} className="bg-background p-4">
+              <dt className="text-xs font-semibold text-muted-foreground">{fact.label}</dt>
+              <dd className="mt-1 font-display text-2xl font-semibold">{fact.value}</dd>
+              <p className="mt-2 text-xs leading-5 text-muted-foreground">{fact.date}</p>
+            </div>
+          ))}
+        </dl>
+        <div className="mt-6 grid gap-5 md:grid-cols-2">
+          <section>
+            <h3 className="font-display text-xl font-semibold">Budget for the address</h3>
+            <ul className="mt-3 space-y-3 text-sm leading-6">
+              <li><a className="text-primary underline underline-offset-4" href="/texas-cost-of-living-calculator/el-paso">El Paso cost-of-living calculator →</a></li>
+              <li><a className="text-primary underline underline-offset-4" href="/texas-home-affordability-calculator/el-paso">El Paso home-affordability calculator →</a></li>
+              <li><a className="text-primary underline underline-offset-4" href="/property-tax-calculator/el-paso-county">El Paso County property-tax calculator →</a></li>
+              <li><a className="text-primary underline underline-offset-4" href="/texas-home-insurance-calculator/el-paso">El Paso home-insurance planning tool →</a></li>
+            </ul>
+          </section>
+          <section>
+            <h3 className="font-display text-xl font-semibold">Official sources, not estimated quotes</h3>
+            <ul className="mt-3 space-y-3 text-sm leading-6">
+              <li><a className="text-primary underline underline-offset-4" href="https://www.census.gov/quickfacts/fact/table/elpasocitytexas/" target="_blank" rel="noreferrer">U.S. Census Bureau · city housing and income ↗</a></li>
+              <li><a className="text-primary underline underline-offset-4" href="https://www.bls.gov/eag/eag.tx_elpaso_msa.htm" target="_blank" rel="noreferrer">BLS · current El Paso metro job series ↗</a></li>
+              <li><a className="text-primary underline underline-offset-4" href="https://www.epwater.org/business/billing-and-rates/rates-and-fees" target="_blank" rel="noreferrer">El Paso Water · current rates ↗</a></li>
+              <li><a className="text-primary underline underline-offset-4" href="https://www.tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html" target="_blank" rel="noreferrer">Texas Department of Insurance · county rate map ↗</a></li>
+            </ul>
+          </section>
+        </div>
+        <p className="mt-6 border-t border-border pt-4 text-xs leading-6 text-muted-foreground">
+          The BLS El Paso metro includes El Paso and Hudspeth counties; city housing statistics use only the city boundary. Insurance premiums vary by coverage, location and applicant. For statewide context and historical datasets, use the <a href="/moving-to-texas/data" className="font-semibold text-primary underline underline-offset-4">Texas relocation data center</a>. Source review: October 19, 2026.
+        </p>
+      </aside>
+    );
+  }
+
   return (
     <aside className="my-14 border-y border-border bg-surface px-5 py-8 sm:px-7 sm:py-10" aria-labelledby="metro-relocation-authority">
       <p className="eyebrow text-primary">Metro research · {metro.name}</p>
@@ -96,10 +145,15 @@ export function MetroRelocationAuthority({ articlePath }: { articlePath: string 
               <dt className="font-semibold text-foreground">BLS labor market</dt>
               <dd className="text-muted-foreground">{metro.jobMarket}</dd>
             </div>
-            {metro.jobCountJune2026 ? (
+            {metro.jobCountAugust2026 ? (
               <div>
-                <dt className="font-semibold text-foreground">June 2026 nonfarm payrolls</dt>
-                <dd className="text-muted-foreground">{metro.jobCountJune2026.toLocaleString()} · BLS preliminary</dd>
+                <dt className="font-semibold text-foreground">August 2026 nonfarm payrolls</dt>
+                <dd className="text-muted-foreground">{metro.jobCountAugust2026.toLocaleString()} · BLS preliminary, not seasonally adjusted</dd>
+              </div>
+            ) : metro.jobCountJune2026 ? (
+              <div>
+                <dt className="font-semibold text-foreground">June 2026 nonfarm payrolls (historical)</dt>
+                <dd className="text-muted-foreground">{metro.jobCountJune2026.toLocaleString()} · BLS historical snapshot</dd>
               </div>
             ) : null}
           </dl>
