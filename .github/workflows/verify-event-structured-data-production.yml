@@ -2,6 +2,13 @@ name: Verify Event structured data production
 
 on:
   workflow_dispatch:
+  # Verify changes to this independent verifier without subscribing to every
+  # production deployment or duplicating full-site release validation.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-event-structured-data-production.yml'
+      - 'scripts/ci/verify-state-fair-event-production.mjs'
   schedule:
     - cron: '31 13 * * *'
 
@@ -10,27 +17,35 @@ permissions:
 
 jobs:
   verify:
-    if: >-
-      github.event_name != 'workflow_run' ||
-      github.event.workflow_run.conclusion == 'success'
+    # Preserve the full, strict events-suite on schedule/manual runs. A page
+    # outside the State Fair must never prevent the Fair-specific job below.
+    if: github.event_name != 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Check out deployed verifier source (current SHA for scheduled/manual runs)
+      - name: Check out verifier source
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
       - name: Verify Event structured-data production surfaces
         env:
           PRODUCTION_ORIGIN: https://texasdefined.com
         run: node scripts/ci/verify-event-structured-data-production.mjs
 
+  verify-state-fair:
+    # Independently fail closed on current production even if another event
+    # drifts; keep the existing scheduled and manual quality guarantees.
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out verifier source
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
       - name: Verify State Fair Event schema before and after 2026 season
         env:
           PRODUCTION_ORIGIN: https://texasdefined.com
