@@ -95,6 +95,17 @@ const fortMartinScottVisitorFaqs: NonNullable<Destination["visitorFaqs"]> = [
   { question: "Can I visit Fort Martin Scott and the Pacific War museum together?", answer: "Yes, both are in Fredericksburg, but budget meaningful time for the Pacific War museum. The two sites interpret very different centuries of military history.", sourceUrl: "https://thc.texas.gov/blog/historic-road-trip-fredericksburg-johnson-city" }
 ];
 
+// Exact-site editorial fallback used by single destination lookups. The broader
+// historic-site list applies additional enrichment, but direct requests may
+// fall back to this seed; it must independently pass the normal SEO quality
+// threshold and remain honest about the ongoing restoration.
+const magoffinHomeVerifiedBody = [
+  "The Magoffin Home is an adobe residence dating to about 1875 in downtown El Paso, associated with a family whose commercial and civic connections helped shape the Southwest borderlands. Texas Historical Commission research connects generations of the Magoffin family with trade between the United States and Mexico, changes in local government, railroad-era growth and the development of the El Paso region. The building is a historical document of that changing community, not simply an attraction with period furnishings.",
+  "The Texas Historical Commission's building history traces an original arrangement of six rooms and a large hall, plus a separate three-room outbuilding. Later additions expanded the house and connected those structures around an enclosed courtyard. Household objects and the evolving uses of rooms help interpret more than a century of family life. The house was entered in the National Register of Historic Places in 1971, and the Texas Historical Commission took ownership in 2007.",
+  "The Magoffin and Glasgow families' history can be explored through the site's interpretation of frontier trade, domestic work, civic leadership and the complicated relationships across the border. Joseph Magoffin's family connections to early El Paso and the later role of railroads make this a useful contrast to the city's early twentieth-century commercial architecture, including Hotel Paso del Norte. Visitors should distinguish the nineteenth-century household story from modern hotel history rather than treating the sites as interchangeable.",
+  "The operator currently states that the historic house is closed for restoration through 2027. The visitor center is open, but a visitor-center stop must never be advertised as a house tour or as confirmation that rooms inside the historic residence are accessible. For updated access, programs, reservations and hours consult the Texas Historical Commission's Magoffin Home site-specific notice linked on this guide before traveling. The operator also offers a virtual tour for people who want to explore the interior while restoration work continues.",
+];
+
 export const historicSiteDestinations: Destination[] = historicSiteSeeds.map((site, index) => ({
   id: `historic-site-${index + 1}`,
   brandId: BRAND,
@@ -121,7 +132,7 @@ export const historicSiteDestinations: Destination[] = historicSiteSeeds.map((si
   bestSeason: "Year-round; spring and fall are usually the most comfortable for outdoor portions of a visit.",
   entryNote: site.slug === "magoffin-home" ? "Texas Historical Commission currently reports that the historic home is closed through 2027 for restoration, while the visitor center remains open. No house tour should be assumed. Check current visitor-center hours and program details before traveling." : site.slug === "fort-martin-scott" ? "THC currently lists staffed hours Tue–Sat 9 a.m.–5 p.m., grounds daily 8 a.m.–8 p.m., and adult admission $10 (reduced rates for seniors and ages 5–17). THC pages conflict about guided tours (main listing: requested tours; Plan Your Visit: self-guided only). Confirm directly before relying on a guided visit." : "Check the official visitor page before departure for current hours, tours, fees, closures and accessibility details.",
   highlights: [...site.themes],
-  body: site.slug === "fort-martin-scott" ? fortMartinScottVerifiedBody : historicBody(site),
+  body: site.slug === "magoffin-home" ? magoffinHomeVerifiedBody : site.slug === "fort-martin-scott" ? fortMartinScottVerifiedBody : historicBody(site),
   ...(site.slug === "fort-martin-scott" ? { visitorFaqs: fortMartinScottVisitorFaqs, accessibilityNotes: "THC lists the visitor center and most grounds as wheelchair accessible with restrooms at the visitor center. Historic buildings, replicas and the nature trail are not ADA accessible; much walking is on gravel/dirt. Contact 830-304-1848 for accommodations.", address: "1606 E Main St, Fredericksburg, TX 78624" } : {}),
   managingAuthority: site.officialUrl.includes("thc.texas.gov") ? "Texas Historical Commission" : site.officialUrl.includes("cem.va.gov") ? "U.S. Department of Veterans Affairs — National Cemetery Administration" : undefined,
   officialUrl: site.officialUrl,

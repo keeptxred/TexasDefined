@@ -71,6 +71,11 @@ contains(guide, "TexasDefined has not established paid-referral or affiliate rel
 contains(guide, "check latest route brochure", "free downtown walking tour current-route caveat");
 contains(guide, "https://thc.texas.gov/historic-sites/magoffin-home", "Magoffin authoritative closure source");
 contains(nearbyHistoricSites, 'site.slug === "magoffin-home" ? {', "specific Magoffin photograph");
+const magoffinVerified = nearbyHistoricSites.match(/const magoffinHomeVerifiedBody = \[([\s\S]*?)\n\];/)?.[1] ?? "";
+assert.ok(magoffinVerified.split("\n").filter((line) => line.trimStart().startsWith('"')).length >= 4, "Magoffin needs at least four original history and visitor-access paragraphs in direct lookup fallback");
+assert.ok(magoffinVerified.length >= 1200, "Magoffin direct lookup body must be substantive, not a two-paragraph seed");
+for (const fact of ["1971", "2007", "closed for restoration through 2027", "visitor center is open", "virtual tour"]) contains(magoffinVerified, fact, "verified Magoffin source and access");
+contains(nearbyHistoricSites, 'body: site.slug === "magoffin-home" ? magoffinHomeVerifiedBody', "standalone Magoffin records must use the verified body before readiness check");
 contains(nearbyHistoricSites, "Magoffin%20home%202009.jpg", "exact Magoffin photographic file");
 contains(nearbyHistoricSites, "CC BY 4.0", "image attribution");
 contains(nearbyHistoricSites, "historic home is closed through 2027", "Magoffin destination visitor alert");
