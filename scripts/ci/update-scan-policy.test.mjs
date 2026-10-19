@@ -93,6 +93,7 @@ test('slug-keyed article link changes verify actual source pages and newly added
 test('planner corrections retest previously missed editorial SSR links, not entire site', () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
   assert.deepEqual(plan.selectedPaths, [
+    '/destination/battleship-texas', '/destination/fredericksburg',
     '/article/texas-cultural-regions-explained', '/article/texas-regions-explained',
     '/explore/road-trips',
     '/fishing/species/black-crappie', '/fishing/species/bluegill',
@@ -409,4 +410,36 @@ test('one duplicate Edinburg museum URL receives a bounded, exact permanent redi
   const wrong = await verifyChangedPages({ plan: onlyRedirect, head, fetchImpl: async () => new Response(null, { status: 301, headers: { location: '/destination/unrelated' } }) });
   assert.equal(wrong[0].passed, false);
   assert.match(wrong[0].error, /Incorrect redirect target/);
+});
+
+
+test('closed Battleship authority edits validate the exact canonical SSR page and reject stale visitor guidance', async () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/historic-site-authority-full-catalog.ts'] });
+  assert.deepEqual(plan.battleshipVisitorPages, ['/destination/battleship-texas']);
+  assert.deepEqual(plan.selectedPaths, plan.battleshipVisitorPages);
+  const fixture = (correct) => '<html><head><title>Battleship Texas</title><link rel="canonical" href="https://texasdefined.com/destination/battleship-texas"></head><body>'
+    + (correct ? 'Three ways to explore while the ship is closed The ship is closed for ordinary boarding Not applicable' : 'Three ways to visit The focused visit Low to moderate')
+    + '</body></html>';
+  const good = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(fixture(true)) });
+  assert.equal(good[0].passed, true);
+  const bad = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(fixture(false)) });
+  assert.equal(bad[0].passed, false);
+  assert.match(bad[0].error, /generic visitor guidance/);
+});
+
+test('Fredericksburg sitemap ownership validates a single canonical page and live sitemap membership', async () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/routes/sitemap-explore[.]xml.ts'] });
+  assert.deepEqual(plan.fredericksburgSitemapPaths, ['/destination/fredericksburg']);
+  assert.ok(plan.selectedPaths.includes('/destination/fredericksburg'));
+  const detail = '<html><title>Fredericksburg</title><link rel="canonical" href="https://texasdefined.com/destination/fredericksburg"></html>';
+  const checked = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    url.pathname === '/sitemap-explore.xml'
+      ? new Response('<urlset><loc>https://texasdefined.com/destination/fredericksburg</loc></urlset>')
+      : new Response(detail) });
+  assert.ok(checked.some(r => r.path === '/sitemap-explore.xml' && r.passed));
+  const broken = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    url.pathname === '/sitemap-explore.xml'
+      ? new Response('<urlset><loc>https://texasdefined.com/destination/another-town</loc></urlset>')
+      : new Response(detail) });
+  assert.ok(broken.some(r => r.path === '/sitemap-explore.xml' && !r.passed && /Fredericksburg missing/.test(r.error)));
 });

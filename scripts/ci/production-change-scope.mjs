@@ -76,6 +76,33 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       '/explore/casinos/near-dallas-fort-worth',
     ];
   }
+  // A generic historic-site authority source can change Battleship Texas
+  // without touching a slug-specific route. Confirm the CLOSED vessel guidance
+  // on the real canonical SSR page after relevant changes, not 11 unrelated
+  // representative pages. Never expand this into a sitewide museum crawl.
+  const battleshipVisitorPages = new Set();
+  if (changedFiles.some(path => [
+    'src/data/historic-site-authority-full-catalog.ts',
+    'src/components/editorial/DestinationAuthorityGuide.tsx',
+    'src/data/destination-curation-batch23.ts',
+    'scripts/ci/production-change-scope.mjs',
+  ].includes(path))) {
+    const page = '/destination/battleship-texas';
+    candidates.add(page);
+    battleshipVisitorPages.add(page);
+  }
+  // The dynamic Explore sitemap can silently omit a researched town while
+  // unrelated 200/canonical smokes pass. Verify exactly Fredericksburg's
+  // canonical page AND its live sitemap record after an owner change.
+  const fredericksburgSitemapPaths = new Set();
+  if (changedFiles.some(path => [
+    'src/routes/sitemap-explore[.]xml.ts',
+    'scripts/ci/production-change-scope.mjs',
+  ].includes(path))) {
+    const page = '/destination/fredericksburg';
+    candidates.add(page);
+    fredericksburgSitemapPaths.add(page);
+  }
   // A shared football template affects every profile, but two representative
   // verified teams provide a bounded production canary without a 1,268-page crawl.
   const footballGameNightPages = new Set();
@@ -271,13 +298,16 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   ];
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
-  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
+  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
     downloadButtonPages: selectedPaths.filter(p => downloadButtonPages.has(p)),
     regionGuidePages: selectedPaths.filter(p => regionGuidePages.has(p)),
-    footballGameNightPages: selectedPaths.filter(p => footballGameNightPages.has(p)), redirectChecks, candidateCount,
+    footballGameNightPages: selectedPaths.filter(p => footballGameNightPages.has(p)),
+    battleshipVisitorPages: selectedPaths.filter(p => battleshipVisitorPages.has(p)),
+    fredericksburgSitemapPaths: selectedPaths.filter(p => fredericksburgSitemapPaths.has(p)),
+    redirectChecks, candidateCount,
     omittedCount: Math.max(0, allPaths.length - selectedPaths.length), pageBudget: PAGE_BUDGET,
     coverage: candidateCount > PAGE_BUDGET ? 'representative sample; full coverage belongs to weekly local audits' : 'identified changed pages and representative dependencies',
     groups: Object.fromEntries(Object.entries(groups).map(([name, pattern]) => [name, (name === 'horse_racing' ? false : shared) || changedFiles.some(p => pattern.test(p))])),

@@ -5,9 +5,13 @@ const redirectChecks = plan.redirectChecks ?? [];
 const downloadButtonPages = plan.downloadButtonPages ?? [];
 const regionGuidePages = plan.regionGuidePages ?? [];
 const footballGameNightPages = plan.footballGameNightPages ?? [];
+const battleshipVisitorPages = plan.battleshipVisitorPages ?? [];
+const fredericksburgSitemapPaths = plan.fredericksburgSitemapPaths ?? [];
 if (!Array.isArray(footballGameNightPages) || footballGameNightPages.length > 2 || footballGameNightPages.some(p => !['/texas-high-school-football-teams/aledo', '/texas-high-school-football-teams/southlake-carroll'].includes(p) || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded football team smoke contract');
 if (!Array.isArray(regionGuidePages) || regionGuidePages.length > 1 || regionGuidePages.some(p => p !== '/article/texas-regions-explained' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Texas regions guide smoke contract');
 if (!Array.isArray(downloadButtonPages) || downloadButtonPages.length > 1 || downloadButtonPages.some(p => p !== '/texas-data/texas-population-and-migration-2025' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid data-brief smoke contract');
+if (!Array.isArray(battleshipVisitorPages) || battleshipVisitorPages.length > 1 || battleshipVisitorPages.some(p => p !== '/destination/battleship-texas' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Battleship visitor acceptance contract');
+if (!Array.isArray(fredericksburgSitemapPaths) || fredericksburgSitemapPaths.length > 1 || fredericksburgSitemapPaths.some(p => p !== '/destination/fredericksburg' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Fredericksburg sitemap acceptance contract');
 if (plan.head !== head || !Array.isArray(plan.selectedPaths) || !Array.isArray(redirectChecks) || redirectChecks.length > 3 || plan.selectedPaths.length + redirectChecks.length > 40) throw new Error('Missing, stale or oversized production change plan');
 const origin = 'https://texasdefined.com';
 const results = [];
@@ -45,6 +49,15 @@ for (const path of plan.selectedPaths) {
       if (downloadButtonPages.includes(path) && !/<button\b[^>]*>\s*Download CSV\s*<\/button>/i.test(html)) {
         throw new Error('Generic Texas Data brief is missing the server-rendered CSV download button');
       }
+      // The vessel is CLOSED. Generic itineraries had reached production even
+      // after previous source-only tests passed; assert actual SSR copy.
+      if (battleshipVisitorPages.includes(path)) {
+        if (!html.includes('Three ways to explore while the ship is closed')
+          || !html.includes('The ship is closed for ordinary boarding')
+          || !html.includes('Not applicable')) {
+          throw new Error('Battleship Texas still serves generic visitor guidance instead of the closed-vessel authority guide');
+        }
+      }
       if (footballGameNightPages.includes(path)) {
         const guide = html.indexOf('Game-night essentials');
         const season = html.indexOf('id="football-current-season"');
@@ -57,6 +70,32 @@ for (const path of plan.selectedPaths) {
     } catch (error) { failure = error.message; }
   }
   if (failure) results.push({ path, passed: false, error: failure });
+}
+// Fredericksburg's dynamic sitemap membership is a separate acceptance from
+// the page's HTTP 200/canonical. Only run after the sitemap or this planner
+// changes; fetch one live XML document, never enumerate statewide URLs.
+if (fredericksburgSitemapPaths.length) {
+  let failure;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const url = new URL('/sitemap-explore.xml', origin);
+      url.searchParams.set('deploy_smoke', plan.head + '-' + attempt);
+      const response = await fetchImpl(url, {
+        redirect: 'follow',
+        headers: { 'cache-control': 'no-cache', 'user-agent': 'TexasDefined-Explore-Sitemap-SSR-Smoke' },
+        signal: AbortSignal.timeout(30000),
+      });
+      if (!response.ok || response.headers.get('cf-mitigated') === 'challenge') throw new Error('Explore sitemap HTTP ' + response.status);
+      const xml = await response.text();
+      if (!xml.includes('<loc>https://texasdefined.com/destination/fredericksburg</loc>')) {
+        throw new Error('Fredericksburg missing from the live Explore sitemap');
+      }
+      results.push({ path: '/sitemap-explore.xml', passed: true, attempt, requiredUrl: '/destination/fredericksburg' });
+      failure = null;
+      break;
+    } catch (error) { failure = error instanceof Error ? error.message : String(error); }
+  }
+  if (failure) results.push({ path: '/sitemap-explore.xml', passed: false, error: failure });
 }
 // These are explicit, governed 301 aliases, not ordinary indexable HTML pages.
 // Do not follow the redirect or a 200 landing page would mask a broken 301.
