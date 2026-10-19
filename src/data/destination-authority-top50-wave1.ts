@@ -690,8 +690,9 @@ export function applyTop50AuthorityWave1(destination: Destination): Destination 
   const deduped = new Map<string, DestinationAuthoritySource>();
   for (const source of [...fromOperator, ...guide.sources]) deduped.set(source.url.replace(/\/$/, ""), source);
   const questionMap = new Map<string, { question: string; answer: string; sourceUrl?: string }>();
-  for (const faq of [...(destination.visitorFaqs ?? []), ...VISITOR_FAQS[destination.slug]]) {
-    questionMap.set(faq.question.trim().toLowerCase(), faq);
+  for (const faq of [...VISITOR_FAQS[destination.slug], ...(destination.visitorFaqs ?? [])]) {
+    const key = faq.question.trim().toLowerCase();
+    if (!questionMap.has(key)) questionMap.set(key, faq);
   }
   return {
     ...destination,
