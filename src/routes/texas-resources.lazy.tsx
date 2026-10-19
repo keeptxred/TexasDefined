@@ -43,6 +43,7 @@ const groups: ReadonlyArray<ResourceGroup> = [
       ['Moving to Texas checklist', '/moving-to-texas-checklist', 'Work through the first-month tasks in a practical order.'],
       ['Emergency & community services', '/find-my-emergency-services', 'Find local emergency and community resources by location.'],
       ['Homestead-exemption filing path', '/find-my-homestead-exemption', 'Identify where and how to file a Texas homestead exemption.'],
+      ['Appraisal districts', '/learn/appraisal-districts', 'Find the county appraisal-district system that handles property values and exemptions.'],
       ['Texas ZIP code explorer', '/texas-zip-code-explorer', 'Explore location context and local reference information by ZIP code.'],
       ['Property-tax guide library', '/property-tax-guides', 'Browse plain-English guides to Texas property taxes.'],
       ['County property-tax guides', '/property-tax/counties', 'Use county-specific property-tax reference pages.'],
