@@ -441,8 +441,9 @@ export function applyTop50MuseumHistoricUpgrade(destination: Destination): Desti
     sourceMap.set(source.url.replace(/\/$/, ""), source);
   }
   const questionMap = new Map<string, { question: string; answer: string; sourceUrl?: string }>();
-  for (const faq of [...(destination.visitorFaqs ?? []), ...update.visitorFaqs]) {
-    questionMap.set(faq.question.trim().toLowerCase(), faq);
+  for (const faq of [...update.visitorFaqs, ...(destination.visitorFaqs ?? [])]) {
+    const key = faq.question.trim().toLowerCase();
+    if (!questionMap.has(key)) questionMap.set(key, faq);
   }
   const guide: DestinationAuthorityGuide = {
     whyItMatters: update.whyItMatters,
