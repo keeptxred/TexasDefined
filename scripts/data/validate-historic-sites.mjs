@@ -24,6 +24,25 @@ const maybornAuthority = fs.readFileSync('src/components/editorial/MaybornMuseum
 const destinationRoute = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
 const cachePurge = fs.readFileSync('scripts/ci/purge-cloudflare-cache.mjs', 'utf8');
 const failures = [];
+const firstPartyDepth = fs.readFileSync('src/data/historic-site-depth-all.ts','utf8');
+const operatorResearch = fs.readFileSync('src/data/historic-site-authority-full-catalog.ts','utf8');
+const socorroEarlyHistory = firstPartyDepth.split('  "old-socorro-mission": [')[1]?.split('  "palmito-ranch-battlefield": [')[0] ?? '';
+if (!socorroEarlyHistory.includes('October 13, 1680') || !socorroEarlyHistory.includes('closed to the public')) {
+  failures.push('Old Socorro research must distinguish the original 1680/1691 archaeological site from the operating 1840s church.');
+}
+if (socorroEarlyHistory.includes('Plan this as a respectful religious-site visit') || socorroEarlyHistory.includes('congregation and ongoing religious use')) {
+  failures.push('Closed Old Socorro must not contain a visitor invitation to an active church.');
+}
+if (!firstPartyDepth.includes('outdatedDescriptions') || !operatorResearch.includes('old-socorro-mission-history')) {
+  failures.push('Old Socorro research must actively remove obsolete generic visit prose and cite the exact THC chronology.');
+}
+for (const marker of [
+  'destination.slug === "old-socorro-mission"',
+  'destination = enrichResearchedHistoricSiteDepth(destination);',
+  'destination = enrichTexasHistoricSiteAuthority(destination);',
+  '"washington-on-the-brazos", "san-jacinto-battleground", "goliad-state-park"',
+]) if (!destinationRoute.includes(marker)) failures.push(`Canonical historic detail-route regression guard missing: ${marker}`);
+
 
 // Prevent a verified, time-sensitive visitor fact from regressing to generic
 // "check the operator" prose or losing its controlling Texas Historical Commission source.
