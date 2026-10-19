@@ -180,6 +180,10 @@ export const Route = createFileRoute("/destination/$slug")({
       const { resolveCoastalHeritageAuthority } = await import("@/data/coastal-heritage-authority");
       destination = resolveCoastalHeritageAuthority(destination);
     }
+    if (["uss-lexington-museum-corpus-christi","waco-mammoth-national-monument","national-museum-pacific-war","museum-of-fine-arts-houston","kimbell-art-museum-fort-worth","strand-historic-district"].includes(destination.slug)) {
+      const { applyTop50MuseumHistoricUpgrade } = await import("@/data/top50-museum-historic-upgrades");
+      destination = applyTop50MuseumHistoricUpgrade(destination);
+    }
     const [completeGraph, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([
       loadTexasKnowledgeGraph(),
       context.queryClient.ensureQueryData(categoriesQuery()),
