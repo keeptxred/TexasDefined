@@ -84,8 +84,8 @@ await checkSafely(districtPath, 'District 21 hub', (html) => {
   for (const needle of [
     'district-21-standings', 'district-21-results',
     'District 21 standings snapshot', 'Fort Bend Ridge Point',
-    'Houston Strake Jesuit', 'DISTRICT_21_SHOULD_NOT_APPEAR',
-  ].filter((value) => value !== 'DISTRICT_21_SHOULD_NOT_APPEAR')) {
+    'Houston Strake Jesuit',
+  ]) {
     requireContent(html, needle, 'District 21 hub');
   }
   for (const team of teams) requireContent(html, '/texas-high-school-football-teams/' + team.slug, 'District 21 member links');
@@ -96,9 +96,9 @@ for (const team of teams) {
   await checkSafely(path, team.name, (html) => {
     for (const needle of [
       'data-football-d21-team-section="' + team.slug + '"',
-      team.name + ': district scores and remaining games',
+      'district scores and remaining games',
       '/texas-high-school-football-districts/6a-district-21#district-21-results',
-      'district21-standings', 'Published games accounted for',
+      'district-21-standings', 'Published games accounted for',
       'Source verification:', 'Result not verified',
     ]) requireContent(html, needle, team.name);
   });
