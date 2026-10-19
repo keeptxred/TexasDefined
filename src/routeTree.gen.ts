@@ -222,8 +222,8 @@ import { Route as TexasHighSchoolFootballTeamsSlugRouteImport } from './routes/t
 import { Route as TexasHighSchoolFootballMatchupsSlugRouteImport } from './routes/texas-high-school-football-matchups_.$slug'
 import { Route as TexasHighSchoolFootballIsdsSlugRouteImport } from './routes/texas-high-school-football-isds_.$slug'
 import { Route as TexasHighSchoolFootballDistrictsSlugRouteImport } from './routes/texas-high-school-football-districts_.$slug'
-import { Route as TexasDataResearchRouteImport } from './routes/texas-data.research'
 import { Route as TexasDataSchoolDistrictTaxRatesDotcsvRouteImport } from './routes/texas-data.school-district-tax-rates[.]csv'
+import { Route as TexasDataResearchRouteImport } from './routes/texas-data.research'
 import { Route as TexasDataCountyHousingCostsDotcsvRouteImport } from './routes/texas-data.county-housing-costs[.]csv'
 import { Route as TexasDataCountyHousingCostsRouteImport } from './routes/texas-data.county-housing-costs'
 import { Route as TexasDataCountyGrowthDotcsvRouteImport } from './routes/texas-data.county-growth[.]csv'
@@ -1955,17 +1955,17 @@ const TexasHighSchoolFootballDistrictsSlugRoute =
       (d) => d.Route,
     ),
   )
-const TexasDataResearchRoute = TexasDataResearchRouteImport.update({
-  id: '/research',
-  path: '/research',
-  getParentRoute: () => TexasDataRoute,
-} as any)
 const TexasDataSchoolDistrictTaxRatesDotcsvRoute =
   TexasDataSchoolDistrictTaxRatesDotcsvRouteImport.update({
     id: '/school-district-tax-rates.csv',
     path: '/school-district-tax-rates.csv',
     getParentRoute: () => TexasDataRoute,
   } as any)
+const TexasDataResearchRoute = TexasDataResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => TexasDataRoute,
+} as any)
 const TexasDataCountyHousingCostsDotcsvRoute =
   TexasDataCountyHousingCostsDotcsvRouteImport.update({
     id: '/county-housing-costs.csv',
@@ -11473,7 +11473,8 @@ const TexasDataRouteChildren: TexasDataRouteChildren = {
   TexasDataCountyHousingCostsDotcsvRoute:
     TexasDataCountyHousingCostsDotcsvRoute,
   TexasDataResearchRoute: TexasDataResearchRouteWithChildren,
-  TexasDataSchoolDistrictTaxRatesDotcsvRoute: TexasDataSchoolDistrictTaxRatesDotcsvRoute,
+  TexasDataSchoolDistrictTaxRatesDotcsvRoute:
+    TexasDataSchoolDistrictTaxRatesDotcsvRoute,
 }
 
 const TexasDataRouteWithChildren = TexasDataRoute._addFileChildren(
