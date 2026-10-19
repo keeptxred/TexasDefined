@@ -12,10 +12,10 @@ const stops = [
   {
     number: "02",
     name: "Socorro Mission",
-    address: "328 S. Nevarez Road, El Paso, TX 79927",
+    address: "328 S. Nevarez Road, Socorro, TX 79927",
     detail: "Living parish, with the present adobe church built in 1843",
     site: "https://www.nps.gov/subjects/travelspanishmissions/socorro-mission-mission-nuestra-senora-de-la-limpia-concepcion-del-pueblo-de-socorro.htm",
-    maps: "https://www.google.com/maps/search/?api=1&query=328+S+Nevarez+Rd+El+Paso+TX+79927",
+    maps: "https://www.google.com/maps/search/?api=1&query=328+S+Nevarez+Rd+Socorro+TX+79927",
   },
   {
     number: "03",
@@ -27,7 +27,7 @@ const stops = [
   },
 ] as const;
 
-const drivingDirections = "https://www.google.com/maps/dir/?api=1&origin=131+S+Zaragoza+Rd+El+Paso+TX+79907&destination=1556+San+Elizario+Rd+San+Elizario+TX+79849&waypoints=328+S+Nevarez+Rd+El+Paso+TX+79927&travelmode=driving";
+const drivingDirections = "https://www.google.com/maps/dir/?api=1&origin=131+S+Zaragoza+Rd+El+Paso+TX+79907&destination=1556+San+Elizario+Rd+San+Elizario+TX+79849&waypoints=328+S+Nevarez+Rd+Socorro+TX+79927&travelmode=driving";
 
 export default function CaminoMissionTrailRoute() {
   return (
