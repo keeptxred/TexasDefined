@@ -237,3 +237,10 @@ These authority upgrades **reuse existing, accurate destination photographs**, n
 - **Reuse conditions**: commercial website display is permitted by the cited licenses with author, link to license, any transformations/crops noted as applicable; no endorsement implied. The operator's indoor/gallery photography rules are distinct from licensed older exterior pictures.
 - **Acceptance pending**: production hero pixels, mobile layouts, link navigation and photo caption legibility require browser visual QA after protected merge. The manifest and FAQ contract should not equate HTTP 200 with editorial certification.
 
+
+## Museum of South Texas History — Edinburg (verified sources October 19, 2026)
+
+- **Exact museum heritage-wing photo:** [Old Hidalgo County Jail Edinburg Texas 2021.jpg](https://commons.wikimedia.org/wiki/File:Old_Hidalgo_County_Jail_Edinburg_Texas_2021.jpg) was taken August 26, 2021, by **Larry D. Moore**. Commons describes this historic 1910 jail building as part of the Museum of South Texas History, and records the author's own work under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) with photographer credit, original-file link and license link required.
+- **Replacement scope:** Replace the existing museum-placeholder hero on the *canonical* `/destination/museum-of-south-texas-history-edinburg`, not the 301 legacy alias or a new museum listing. The photo shows the old-jail wing, not every modern gallery or any temporary 2026 exhibit.
+- **Rights distinction:** The museum's ordinary visitor photo/equipment and professional-shoot restrictions are not an override of a photographer's separately licensed 2021 exterior image. Do not assume the museum's own exhibit photos or website assets are reusable.
+- **Acceptance outstanding:** Post-merge live image decode/pixels, mobile crop, clickable Commons original and CC license, exact visitor copy and independent editorial side-by-side verification. The museum authority certificate remains `not-certified`.

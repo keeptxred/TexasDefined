@@ -3,6 +3,12 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "museum-of-south-texas-history-edinburg": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Old_Hidalgo_County_Jail_Edinburg_Texas_2021.jpg?width=1600",
+    alt: "The preserved 1910 Hidalgo County Jail historic wing of the Museum of South Texas History in Edinburg, photographed in August 2021",
+    width: 1600, height: 1067,
+    credit: "Larry D. Moore · 26 August 2021 · CC BY 4.0 · Wikimedia Commons · Old Hidalgo County Jail Edinburg Texas 2021.jpg",
+  },
   "texas-military-forces-museum": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ceremonies_at_Camp_Mabry_190112-Z-DZ751-0199_(32916620338).jpg?width=1600",
     alt: "A January 2019 military history presentation inside the Texas Military Forces Museum at Camp Mabry in Austin",

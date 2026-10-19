@@ -28,6 +28,42 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "museum-of-south-texas-history-edinburg": {
+    name: "Museum of South Texas History", slug: "museum-of-south-texas-history-edinburg", county: "Hidalgo", city: "Edinburg", reviewed: "2026-10-19",
+    topics: ["borderland-history", "heritage-architecture", "historical-archives", "family-learning"],
+    whyVisit: "The Museum of South Texas History tells the interconnected story of the Rio Grande Valley, South Texas and northeastern Mexico rather than the history of a single city. An especially useful visit pairs the Rio Grande Legacy galleries with the original restored 1910 Hidalgo County Jail and the neighboring Will Looney Legacy Park, all on the same downtown Edinburg campus.",
+    visitorStrategy: "Use 200 North Closner Boulevard (Business US 281) beside the Hidalgo County courthouse, not the historic jail's separate old street identification. The operator lists Tuesday through Saturday 10 a.m.–5 p.m., Sunday 1–5 p.m. and Monday closed, with some holiday/event exceptions. Regular admission is $9 adults, $6 seniors 62+ with ID and students age 13+ with ID, $5 ages 4–12 and free ages three and younger; eligible active military tickets are $6 outside seasonal Blue Star benefits. Free Saturdays before noon exclude certain museum events. Free parking is offered on Closner Boulevard and in the Kuhn Street overflow lot; nearby courthouse spaces may be available weekends or evenings. Start with the jail and Rio Grande Legacy rather than assuming the research archives are included with a walk-up ticket; allow around 90 minutes to two hours for a selective general visit, as editorial guidance rather than an official duration.",
+    accessibility: "The museum states it is ADA accessible and has visitor parking near the entrance. The 1910 building and the adjacent landscaped park are separate physical experiences, so do not assume every historic stairwell, former cell room or outdoor path is step-free. Visitors who need a specific accessible route or assistance should ask staff at 956-383-6911 before traveling; verify outdoor weather and heat conditions during Rio Grande Valley summers.",
+    familiesAndGroups: "Families can make a short Texas-history route around the bilingual Rio Grande Legacy exhibits, jail stories and outdoor park. The operator publishes self-guided activities and fourth-/seventh-grade learning materials; several previously described hands-on offerings are conditional, so teachers should not promise every activity without checking. Kids may find the old jail's execution history intense; adults can choose age-appropriate parts of the exhibition. The archives reading room and specialist class tours require appointments, not the same access as regular family admission.",
+    researchValue: "Organized as the Hidalgo County Historical Museum in 1967 and opened in the old jail in 1970, the institution expanded into a region-wide history museum in 2003. Its Margaret H. McAllen Memorial Archives preserves photographs and documents useful for deeper South Texas research, but ordinary general admission does not entitle walk-in use. The Rio Grande Legacy sequence treats prehistoric landscape, Indigenous and Spanish colonial history, agriculture, the Mexican border and twentieth-century Valley transformations together.",
+    exhibits: [
+      { heading: "Rio Grande Legacy — River Frontier", detail: "A bilingual regional story beginning with landscape, Indigenous inhabitants and encounters that shaped the Spanish frontier." },
+      { heading: "Rio Grande Legacy — River Crossroads", detail: "A twentieth-century-focused gallery addressing major changes in the Valley and connections across the border." },
+      { heading: "Restored 1910 Hidalgo County Jail", detail: "The former jail is a genuine historic museum wing with the preserved gallows trap-door and the building's layered civic history." },
+      { heading: "Will Looney Legacy Park", detail: "An adjacent outdoor history-learning space with a bronze sculpture, windmill, local landscape elements and native-animal-footprint trails; check current outdoor access." },
+      { heading: "Margaret H. McAllen Memorial Archives", detail: "Photographs and documentary evidence of regional life for appointment-only researchers rather than a standard drop-in exhibition." }
+    ],
+    routes: [
+      { label: "First-visit regional history", steps: ["Park in the museum visitor lot on Closner Boulevard and confirm any current event-related entry rules", "Follow Rio Grande Legacy from the region's early history into the twentieth century", "Explore the restored jail wing if open, noting it is historic interpretation rather than a current facility"] },
+      { label: "Family and short outdoor break", steps: ["Choose age-appropriate highlights in the bilingual Rio Grande Legacy galleries", "Visit the old jail only if its heavier history suits the group", "Consider Will Looney Legacy Park as conditions permit and check available self-guided activities"] },
+      { label: "Research or school group", steps: ["Reserve reading-room research or archive group tours ahead; standard museum admission alone is insufficient", "Consult the self-guided fourth- and seventh-grade teaching resources", "Confirm what interactive and outdoor facilities are operating on your intended visit date"] }
+    ],
+    sources: [
+      { label: "Museum — visitor hours, pricing and parking", url: "https://mosthistory.org/visitor-information/", use: "Official hours, actual ticket tiers, Saturday exclusions, parking, ADA and photo rules" },
+      { label: "Museum — history and Rio Grande Legacy", url: "https://mosthistory.org/about-the-museum/", use: "Institution history, name, purpose and official exhibition divisions" },
+      { label: "Museum — restored jail history", url: "https://mosthistory.org/archive-artifact-collections/old-jail/", use: "1910 jail restoration, surviving features and civic-history interpretation" },
+      { label: "Museum — research archives", url: "https://mosthistory.org/archive-artifact-collections/museum-archives/", use: "Appointment-only archives, reading-room hours and group conditions" },
+      { label: "Museum — education and self-guided visits", url: "https://mosthistory.org/education/tour-activities/", use: "Current posted self-guided resources and conditional family activities" },
+      { label: "Museum — Will Looney Legacy Park", url: "https://mosthistory.org/signature-exhibitions/will-looney-legacy-park/", use: "What the actual museum park contains and interpretation" },
+      { label: "Museum — events and closures", url: "https://mosthistory.org/events/", use: "Check exceptions to regular visitor admission and hours" }
+    ],
+    connections: [
+      { label: "Hidalgo County", href: "/county/hidalgo", reason: "Place the Edinburg museum in its Rio Grande Valley county visitor context." },
+      { label: "Historic Brownsville Museum", href: "/destination/historic-brownsville-museum", reason: "Compare another Rio Grande Valley historic-building museum rather than treating this as a duplicate." },
+      { label: "Port Isabel Historical Museum", href: "/destination/port-isabel-historical-museum", reason: "Continue the regional history through the nearby Laguna Madre coastal perspective." },
+      { label: "Texas museum guides", href: "/explore/museums", reason: "Browse other Texas museums with independent ticket and destination planning." }
+    ],
+  },
   "mcnay-art-museum-san-antonio": {
     name: "McNay Art Museum", slug: "mcnay-art-museum-san-antonio", county: "Bexar", city: "San Antonio", reviewed: "2026-10-19",
     topics: ["modern-art", "architecture", "sculpture", "family-learning"],
