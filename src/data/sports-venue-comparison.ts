@@ -2,7 +2,7 @@ import { applyCurrentEntityCorrections } from './knowledge-graph/current-entity-
 import { canonicalEntityPath } from './knowledge-graph/relationships';
 import { CURATED_KNOWLEDGE_GRAPH_SEED } from './knowledge-graph/seed';
 import type { TexasEntityRecord } from './knowledge-graph/types';
-import { getSportsVenueEnrichmentAll } from './sports-venue-enrichment-all';
+import { getSportsVenueEnrichmentAll, getSportsVenueQualityProfileAll } from './sports-venue-enrichment-all';
 
 export type SportsVenueComparisonRow = {
   venue: TexasEntityRecord;
@@ -27,6 +27,8 @@ const venueRecords = [...new Map(
 export const SPORTS_VENUE_COMPARISON_ROWS: readonly SportsVenueComparisonRow[] = venueRecords
   .map((venue) => {
     const enrichment = getSportsVenueEnrichmentAll(venue.slug);
+    const qualityProfile = getSportsVenueQualityProfileAll(venue.slug);
+    const visitorFacts = qualityProfile?.visitorFacts;
     return {
       venue,
       canonicalPath: canonicalEntityPath(venue),
@@ -34,9 +36,13 @@ export const SPORTS_VENUE_COMPARISON_ROWS: readonly SportsVenueComparisonRow[] =
       county: venue.countySlug ? `${titleCase(venue.countySlug)} County` : undefined,
       region: venue.region ? titleCase(venue.region) : undefined,
       type: sportsVenueComparisonType(venue),
-      capacity: enrichment?.capacity,
-      opened: enrichment?.opened,
-      verifiedAt: enrichment?.verifiedAt ?? venue.sourceCheckedAt,
+      capacity: visitorFacts?.capacity ?? enrichment?.capacity,
+      opened: visitorFacts?.opened ?? enrichment?.opened,
+      verifiedAt: latestIsoDate([
+        qualityProfile?.sourceReview.reviewedAt,
+        enrichment?.verifiedAt,
+        venue.sourceCheckedAt,
+      ]),
       officialUrl: venue.officialUrl,
     };
   })
@@ -65,6 +71,14 @@ export function sportsVenueComparisonType(venue: TexasEntityRecord) {
   if (tags.has('professional')) return 'Professional sports';
   if (tags.has('minor-league')) return 'Minor league';
   return 'Sports venue';
+}
+
+function latestIsoDate(values: readonly (string | undefined)[]) {
+  return values
+    .map((value) => value?.slice(0, 10))
+    .filter((value): value is string => Boolean(value && /^\d{4}-\d{2}-\d{2}$/.test(value)))
+    .sort()
+    .at(-1);
 }
 
 function titleCase(value: string) {
