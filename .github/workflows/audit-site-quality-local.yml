@@ -16,6 +16,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: local-site-quality-audit
@@ -46,11 +47,55 @@ jobs:
           test -f /etc/apt/sources.list.d/ubuntu.sources
           timeout 180s sudo apt-get update -qq -o Dir::Etc::sourcelist="sources.list.d/ubuntu.sources" -o Dir::Etc::sourceparts="-"
           timeout 180s sudo apt-get install -y --no-install-recommends imagemagick librsvg2-bin
+      # The 47 governed derivatives are already archived by verified production
+      # deploys under the slug/source/transform fingerprint. Reuse them rather
+      # than redownloading Commons images on each weekly audit (HTTP 429).
+      - name: Fingerprint governed Discover source registry
+        id: discover_fingerprint
+        run: echo "sha=$(node scripts/assets/materialize-discover-overrides.mjs --fingerprint)" >> "$GITHUB_OUTPUT"
       - name: Restore governed Discover derivatives
+        id: discover_cache
         uses: actions/cache@v4
         with:
           path: public/images/discover
-          key: local-audit-discover-${{ runner.os }}-${{ hashFiles('scripts/assets/materialize-discover-overrides.mjs') }}
+          key: local-audit-discover-${{ runner.os }}-${{ steps.discover_fingerprint.outputs.sha }}
+      - name: Restore matching production-governed Discover artifact on cache miss
+        if: steps.discover_cache.outputs.cache-hit != 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FINGERPRINT: ${{ steps.discover_fingerprint.outputs.sha }}
+        run: |
+          set -euo pipefail
+          artifact_prefix="governed-discover-derivatives-${FINGERPRINT}-"
+          staging="$(mktemp -d)"
+          trap 'rm -rf "$staging"' EXIT
+          # Only successful production runs with the same registry fingerprint
+          # qualify. A missing artifact falls back to the governed materializer,
+          # which still fails closed on bad or unavailable image bytes.
+          if ! run_ids="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/deploy-production.yml/runs?per_page=12" --jq '.workflow_runs[] | select(.conclusion == "success") | .id')"; then
+            echo "::warning title=Discover reuse unavailable::Could not query successful production runs."
+            exit 0
+          fi
+          while IFS= read -r run_id; do
+            [[ -n "$run_id" ]] || continue
+            if ! artifact_name="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$run_id/artifacts?per_page=100" --jq '.artifacts[] | select(.expired == false) | .name' | grep -F "$artifact_prefix" | head -n 1)"; then
+              continue
+            fi
+            [[ "$artifact_name" == "$artifact_prefix"* ]] || continue
+            if ! gh run download "$run_id" --repo "$GITHUB_REPOSITORY" --name "$artifact_name" --dir "$staging"; then
+              echo "::warning title=Discover reuse unavailable::Artifact download failed; normal source verification remains mandatory."
+              break
+            fi
+            mkdir -p public/images/discover
+            restored=0
+            while IFS= read -r -d '' source_file; do
+              cp "$source_file" "public/images/discover/$(basename "$source_file")"
+              restored=$((restored + 1))
+            done < <(find "$staging" -type f -name '*.webp' -print0)
+            echo "Restored $restored matching-fingerprint Discover WebP assets from successful production run $run_id."
+            break
+          done <<< "$run_ids"
       - name: Build the complete site once on this runner
         run: |
           npm run prebuild
