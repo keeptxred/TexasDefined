@@ -2,6 +2,12 @@ import type { DestinationTimelineEvent } from "./destination-timelines-top-attra
 
 // Curated historic-site chronology. Use primary operators as citation authorities, not unsourced dates.
 const HISTORIC_SITE_TIMELINES: Record<string, DestinationTimelineEvent[]> = {
+  "magoffin-home": [
+    { date: "1875–1877", title: "An adobe home takes shape", description: "The initial adobe wing dates to about 1875, while the larger main section followed around 1877. The Texas Historical Commission records Joseph and Octavia moving into the home in 1877.", sourceLabel: "THC — Magoffin Home history", sourceUrl: "https://thc.texas.gov/state-historic-sites/magoffin-home/magoffin-home-history" },
+    { date: "1880s", title: "The household and district expand", description: "Additional rooms connected earlier structures around a courtyard as El Paso grew in the railroad era.", sourceLabel: "Society of Architectural Historians — Magoffin House", sourceUrl: "https://sah-archipedia.org/buildings/TX-02-EP31" },
+    { date: "1971", title: "National Register recognition", description: "The home was added to the National Register of Historic Places, acknowledging the significance of the surviving adobe building.", sourceLabel: "THC — Magoffin Home history", sourceUrl: "https://thc.texas.gov/state-historic-sites/magoffin-home/magoffin-home-history" },
+    { date: "2007", title: "Texas Historical Commission takes ownership", description: "The Texas Historical Commission became the managing owner, supporting preservation and historical interpretation of the home.", sourceLabel: "THC — Magoffin Home history", sourceUrl: "https://thc.texas.gov/state-historic-sites/magoffin-home/magoffin-home-history" },
+  ],
   "lipantitlan": [
     { date: "1831", title: "Mexican forces build a picket fort", description: "A small garrison establishes a fort near the former Lipan Apache camping area in anticipation of expanding Anglo settlement.", sourceLabel: "Texas Historical Commission — Lipantitlán", sourceUrl: "https://thc.texas.gov/historic-sites/lipantitlan" },
     { date: "November 1835", title: "The garrison surrenders", description: "Texian volunteers take control of the fort during the Revolution, before a later Mexican counterattack in the region.", sourceLabel: "Texas Historic Sites Atlas — Fort Lipantitlán", sourceUrl: "https://atlas.thc.texas.gov/Details/5507018022" },
