@@ -159,7 +159,7 @@ for (const slug of wave5Slugs) {
 // Subject-accurate photos must be unique across the relocation recommendations
 // and must resolve to the same image from lightweight stubs and full articles.
 const relatedHeroRecords = [
-  ["how-to-verify-texas-moving-company", "moverVerificationHero", "U-Haul_Moving_Truck.jpg"],
+  ["how-to-verify-texas-moving-company", "moverVerificationHero", "Mayflower_Moving_Truck_Ypsilanti_Michigan.JPG"],
   ["health-insurance-when-moving-to-texas", "healthCoverageHero", "Doctor_consults_with_patient.jpg"],
   ["military-family-moving-to-texas", "militaryFamilyHero", "BOSP_helps_single-parent_soldiers_manage_Army_and_family_life_120908-A-XZ708-003.jpg"],
 ];
