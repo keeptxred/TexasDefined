@@ -17,3 +17,9 @@
 ## Editorial and visitor value / outstanding acceptance
 
 School-specific original SEO, two historically distinct UIL title-game landmarks, source-qualified staff, full 2026 six finalized games and four future fixtures, seven original FAQs, meaningful two-way Wharton County links. No assumed licensed school logo or historical photo, stadium address beyond campus, accessibility, paid tickets, or verified reader testimonial. Must pass canonical `node scripts/ci/run-premerge-validation.mjs` and protected Merge Gate after upstream Boerne #5025, Champion #5031, Rivercrest #5032, then verify descendant production SHA with focused real Chrome desktop/mobile SEO, links, schema, ticket/accessibility and actual rights. Do not mark VERIFIED or call Supabase editorial acceptance until proven. No sitewide scan after this incremental update.
+
+## October 19, 2026 — updated October 16 final (reported, not accepted)
+
+[MaxPreps' October 17 completed Boling–Industrial recap](https://www.maxpreps.com/news/rVpbgHUcI0KCpu1rfIHFYA/football-recap-bolings-offense-hits-a-season-high-in-victory-over-industrial.htm) reports **Boling 35, Industrial 14**, making the Bulldogs **3–4 through October 16**. The historical UIL 1972 championship, 2016 runner-up finish, first-party head-coach verification and source-qualified stadium information are preserved.
+
+This source-backed editorial correction does not establish a school-certified UIL final, image license, guaranteed stadium entrance, exact deployed commit or school-specific nine-dimension editorial/Chrome acceptance. Preserve this school's `DEPLOYED` status until acceptance evidence is recorded.
