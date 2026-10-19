@@ -344,7 +344,7 @@ function DestinationPage() {
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
             <a href="https://thc.texas.gov/historic-sites/magoffin-home" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Official closure notice and virtual tour ↗</a>
             <a href="https://thc.texas.gov/sites/default/files/2025-01/Magoffin_walking_tour_new.pdf" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Historic district walking tour ↗</a>
-            <Link to="/county/$slug" params={{ slug: "el-paso" }} className="underline underline-offset-4">Explore El Paso County →</Link>
+            <Link to="/$kind/$slug" params={{ kind: "county", slug: "el-paso" }} className="underline underline-offset-4">Explore El Paso County →</Link>
           </div>
         </Container>
       </section>
