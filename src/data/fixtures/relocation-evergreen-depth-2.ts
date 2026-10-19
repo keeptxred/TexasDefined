@@ -173,6 +173,17 @@ const elPaso = base({
     p("Use these dated Census benchmarks as a starting point, not as October 2026 asking prices. For El Paso city, the 2020–2024 American Community Survey reports median gross rent of $1,073 per month, median owner-occupied home value of $184,500, median household income of $59,745 in 2024 dollars, and mean travel time to work of 23.4 minutes. The owner-occupied value is an estimate of homes already owned, not the current median sale price; the rent is a historical median across occupied rental units, not a quote for a new lease."),
     p("The U.S. Bureau of Labor Statistics reported approximately 363,500 El Paso metropolitan nonfarm payroll jobs for August 2026, preliminary and not seasonally adjusted. The metro labor market is not the same geography as El Paso city, and a count of jobs is not a measure of household earnings or an offer in your occupation. Compare actual employer postings, salary ranges and benefits before deciding how far a job will stretch."),
     h("Which part of El Paso should you live in?"),
+    {
+      type: "image",
+      image: {
+        src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/El_Paso_Franklin_Mountains_and_Scenic_Drive_aerial.jpg?width=1280",
+        alt: "Aerial view of the Franklin Mountains and Scenic Drive above El Paso",
+        width: 1280,
+        height: 1039,
+        credit: "Dicklyon · Wikimedia Commons · CC BY-SA 4.0",
+      },
+      caption: "The Franklin Mountains and Scenic Drive show why mountain crossings and slopes shape El Paso's housing geography. Photo reused under CC BY-SA 4.0.",
+    },
     p("Start by marking repeated destinations on a map: work, school, childcare, medical appointments and any Fort Bliss gate. Then compare these broad geographic areas. These are orientation descriptions, not hard boundaries or rankings; ZIP codes and neighborhood names do not establish school assignment, tax jurisdiction or driving time."),
     list(
       "West Side and Upper Valley: residential choices near the UTEP side of town, with some river-valley settings and access to western shopping and services. A daily trip toward East or Far East El Paso can demand more cross-mountain travel. Check whether you mean the Upper Valley or a hillside subdivision: they have different street and land patterns.",
@@ -183,6 +194,17 @@ const elPaso = base({
       "Lower Valley, Ysleta, Socorro and San Elizario: historic communities and valley landscapes southeast of central El Paso. Check each municipality, school district, flood/drainage conditions and exact utility territory rather than assuming identical services throughout the valley."
     ),
     p("Before choosing between two candidates, test door-to-door travel during the actual commute on I-10, Loop 375, US 54 or Transmountain Road as applicable; mountain terrain and Fort Bliss mean straight-line mileage is especially misleading. Use a second trip for pickup or healthcare and check an alternate route."),
+    {
+      type: "image",
+      image: {
+        src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Transmountain_Road_cut.jpg?width=1234",
+        alt: "Road cut on Transmountain Road through the Franklin Mountains in El Paso",
+        width: 1234,
+        height: 867,
+        credit: "Dicklyon · Wikimedia Commons · CC BY-SA 3.0",
+      },
+      caption: "A stretch of Transmountain Road (Loop 375). Actual crossings, traffic and destination gates matter more than straight-line mileage. Photo reused under CC BY-SA 3.0.",
+    },
     h("Housing: what the published numbers do and do not tell you"),
     p("Start with a range of live listings for the same housing type, size and location. Compare total monthly rent including parking, deposits, mandatory fees, utilities and any pet charges. For ownership, model principal and interest plus current-year property taxes at your purchase value, homeowners insurance, HOA dues, maintenance and cooling. Do not use the previous owner's property-tax bill as your forecast: exemptions, appraisal changes and taxing units may differ."),
     p("An older central-area home may need roof, plumbing, wiring or cooling-system work; a newer Far East house may require larger commuting and landscaping budgets. Neither pattern is universal. Ask for inspection findings, roof age, HVAC service history, prior water intrusion, insulation condition and actual summer bills, then price them independently."),
