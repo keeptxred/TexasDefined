@@ -2,6 +2,10 @@ name: Verify Event structured data production
 
 on:
   workflow_dispatch:
+  # Rerun the independent live schema verifier after every protected deploy.
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
   schedule:
     - cron: '31 13 * * *'
 
@@ -12,7 +16,8 @@ jobs:
   verify:
     if: >-
       github.event_name != 'workflow_run' ||
-      github.event.workflow_run.conclusion == 'success'
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
