@@ -58,6 +58,10 @@ assert.match(liveImages, /webpBytes\(bytes\)/);
 // strict materializer. A cache hit is not a substitute for byte validation.
 const weeklyAudit = readFileSync(".github/workflows/audit-site-quality-local.yml", "utf8");
 const weeklyCaller = readFileSync(".github/workflows/audit-whole-site-production.yml", "utf8");
+assert.ok(weeklyCaller.includes("if (!fs.existsSync(file))"),
+  "a failed audit may not replace the permanent authority ledger with zero-page placeholders");
+assert.ok(weeklyCaller.includes("preserving the last valid authority ledger unchanged"),
+  "missing artifact reporting must explicitly distinguish absent evidence from an empty crawl");
 for (const source of [weeklyAudit, weeklyCaller]) {
   assert.ok(source.includes("actions: read"), "weekly audit caller and reusable workflow need least-privilege artifact-read access");
 }
