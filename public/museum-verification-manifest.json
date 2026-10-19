@@ -1506,6 +1506,54 @@
       ]
     },
     {
+      "path": "/destination/museum-of-south-texas-history-edinburg",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 10,
+      "sources": [
+        {
+          "sourceUrl": "https://mosthistory.org/visitor-information/",
+          "fetchUrl": "https://mosthistory.org/visitor-information/",
+          "label": "Operator: hours, prices, free Saturday exception, parking, ADA and photo rules"
+        },
+        {
+          "sourceUrl": "https://mosthistory.org/about-the-museum/",
+          "fetchUrl": "https://mosthistory.org/about-the-museum/",
+          "label": "Operator: Rio Grande Legacy exhibits, identity, founding and expansion"
+        },
+        {
+          "sourceUrl": "https://mosthistory.org/archive-artifact-collections/old-jail/",
+          "fetchUrl": "https://mosthistory.org/archive-artifact-collections/old-jail/",
+          "label": "Operator: historic 1910 Hidalgo County Jail timeline and restored gallery"
+        },
+        {
+          "sourceUrl": "https://mosthistory.org/archive-artifact-collections/museum-archives/",
+          "fetchUrl": "https://mosthistory.org/archive-artifact-collections/museum-archives/",
+          "label": "Operator: Margaret H. McAllen Memorial Archives appointments and research hours"
+        },
+        {
+          "sourceUrl": "https://mosthistory.org/education/tour-activities/",
+          "fetchUrl": "https://mosthistory.org/education/tour-activities/",
+          "label": "Operator: self-guided family and fourth/seventh grade learning resources"
+        },
+        {
+          "sourceUrl": "https://mosthistory.org/signature-exhibitions/will-looney-legacy-park/",
+          "fetchUrl": "https://mosthistory.org/signature-exhibitions/will-looney-legacy-park/",
+          "label": "Operator: landscaped museum park, sculpture and outdoor historical learning"
+        },
+        {
+          "sourceUrl": "https://mosthistory.org/events/",
+          "fetchUrl": "https://mosthistory.org/events/",
+          "label": "Operator: special event dates and museum closures"
+        },
+        {
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Old_Hidalgo_County_Jail_Edinburg_Texas_2021.jpg",
+          "fetchUrl": "https://commons.wikimedia.org/wiki/File:Old_Hidalgo_County_Jail_Edinburg_Texas_2021.jpg",
+          "label": "Specific historic museum wing photo and photographer CC BY 4.0 rights"
+        }
+      ]
+    },
+    {
       "path": "/destination/museum-of-texas-tech-university-lubbock",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
