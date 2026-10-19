@@ -84,6 +84,14 @@ async function checkHotel(page, viewport) {
   const disclosure=await page.locator('#td-stay-affiliate-options .td-stay-affiliate-disclosure').first().textContent({timeout:12000});
   const hero=page.locator('img[alt*="stained-glass dome"]').first();
   const heroImage=await decode(hero);
+  const featuredDome=page.locator('section[aria-labelledby="hotel-paso-dome-photos"] img').first();
+  await featuredDome.scrollIntoViewIfNeeded({timeout:15000});
+  const featuredImage=await decode(featuredDome);
+  const visualOrder=await page.evaluate(() => {
+    const dome=document.querySelector('section[aria-labelledby="hotel-paso-dome-photos"]');
+    const history=document.querySelector('section[aria-labelledby="why-go"]');
+    return {domeTop:dome?.getBoundingClientRect().top+window.scrollY,historyTop:history?.getBoundingClientRect().top+window.scrollY};
+  });
   const gallery=page.locator('section[aria-labelledby="destination-photo-archive"] img');
   const imageCount=await gallery.count();
   const archive=[];
@@ -95,7 +103,7 @@ async function checkHotel(page, viewport) {
   await page.evaluate(()=>scrollTo(0,0));
   await page.screenshot({path:dir+'/'+viewport+'-hotel-full.png',fullPage:true,animations:'disabled',timeout:35000});
   const data=await collect(page);
-  await writeFile(dir+'/'+viewport+'-hotel.json',JSON.stringify({http:response?.status(),heroImage,archive,offer,disclosure, ...data, text:data.text.slice(0,28000),errors},null,2));
+  await writeFile(dir+'/'+viewport+'-hotel.json',JSON.stringify({http:response?.status(),heroImage,featuredImage,visualOrder,archive,offer,disclosure, ...data, text:data.text.slice(0,28000),errors},null,2));
 
   check(response?.status()===200,viewport+': hotel HTTP '+response?.status());
   check(data.mainCount===1,viewport+': missing/duplicate main landmark: '+data.mainCount);
@@ -112,9 +120,11 @@ async function checkHotel(page, viewport) {
   check(/historic home is closed through 2027 for restoration/i.test(data.text),viewport+': missing documented Magoffin Home closure in hotel nearby places');
   check(data.width <= data.viewportWidth+10,viewport+': horizontal overflow '+data.width+'/'+data.viewportWidth);
   check(heroImage.ok&&heroImage.width>=900&&/wikimedia.org/.test(heroImage.src),viewport+': hero failed to load '+JSON.stringify(heroImage));
-  check(imageCount===3,viewport+': expected LOC dome photo plus two original archival photos, got '+imageCount);
-  check(archive.length===3&&archive.every(i=>i.ok&&i.width>=500),viewport+': gallery photo decoding failure '+JSON.stringify(archive));
-  check(archive.some(i=>i.ok&&i.width>=900&&/tile.loc.gov/.test(i.src)),viewport+': new 2014 Highsmith Library of Congress dome photo must load and decode');
+  check(imageCount===2,viewport+': expected only exterior and 1913 postcard in lower archive, got '+imageCount);
+  check(archive.length===2&&archive.every(i=>i.ok&&i.width>=500),viewport+': exterior/postcard decoding failure '+JSON.stringify(archive));
+  check(featuredImage.ok&&featuredImage.width>=900&&/tile.loc.gov/.test(featuredImage.src),viewport+': featured 2014 LOC dome must load above the history '+JSON.stringify(featuredImage));
+  check(Number.isFinite(visualOrder.domeTop)&&Number.isFinite(visualOrder.historyTop)&&visualOrder.domeTop<visualOrder.historyTop,viewport+': the dome feature must appear before the long history '+JSON.stringify(visualOrder));
+  check(data.images.filter(i=>/tile.loc.gov/.test(i.src)).length===1,viewport+': the distinct 2014 LOC photograph should render exactly once');
   // Decorative logos can have empty alt; all four documentary photos must have useful descriptions.
   check(data.images.filter(i=>/stained-glass dome|Historic American Buildings Survey|Early twentieth-century postcard/i.test(i.alt)).length===4,viewport+': the CC0 dome hero, LOC dome angle and two archive photos need meaningful alt text');
   check(data.links.some(h=>h.includes('loc.gov/item/2014630865')),viewport+': LOC image source and rights link missing');
@@ -140,7 +150,7 @@ async function checkHotel(page, viewport) {
     check(await page.locator('a[data-affiliate-placement="hotel-paso-exact-hotel-stay"]').count()===0,
       viewport+': hotel-specific tracked offer persists after TanStack navigation to city guide');
   } else failures.push(viewport+': no internal El Paso city link for SPA navigation check');
-  return {page:path,viewport,http:response?.status(),hero:heroImage,archive,offer:{partner:offer.partner,placement:offer.placement,rel:offer.rel,label:offer.text},spaCityNavigationChecked:Boolean(cityNav),bodyCharacters:data.text.length,documentWidth:data.width,viewportWidth:data.viewportWidth,errors};
+  return {page:path,viewport,http:response?.status(),hero:heroImage,featuredImage,visualOrder,archive,offer:{partner:offer.partner,placement:offer.placement,rel:offer.rel,label:offer.text},spaCityNavigationChecked:Boolean(cityNav),bodyCharacters:data.text.length,documentWidth:data.width,viewportWidth:data.viewportWidth,errors};
 }
 
 async function checkInbound(page,p,viewport){
@@ -201,4 +211,4 @@ try {
 finally {if(browser)await browser.close();}
 await writeFile(dir+'/summary.json',JSON.stringify({ok:failures.length===0,failures,reports},null,2)+'\n');
 for(const f of failures)console.error('FAIL: '+f);
-if(failures.length)process.exitCode=1;else console.log('PASS: Hotel Paso del Norte: 2014 LOC dome + CC0 dome hero + two archival photos decode on mobile+desktop; rights and Ponsford archive links; CJ booking, city/county backlinks and Magoffin closure.');
+if(failures.length)process.exitCode=1;else console.log('PASS: Hotel Paso del Norte: large 2014 LOC dome photo above long story, four distinct photos with credits, no duplicates or overflow, CJ booking, historical archive links and Magoffin closure.');
