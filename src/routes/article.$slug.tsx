@@ -28,6 +28,7 @@ import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "
 import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
 import { FootballPlayoffsReference } from "@/components/content/FootballPlayoffsReference";
 import { TexasCitiesComparison } from "@/components/content/TexasCitiesComparison";
+import { ElPasoGuideNetwork, isElPasoArticle } from "@/components/content/ElPasoGuideNetwork";
 
 const TexasWaterSearchResource = lazy(() =>
   import("@/components/content/TexasWaterSearchResource").then((module) => ({ default: module.TexasWaterSearchResource })),
@@ -509,6 +510,7 @@ function ArticlePage() {
           />
         ) : <ArticleBody blocks={article.body} entities={graph} />}
       </div>
+      {isElPasoArticle(article.slug, article.title) ? <ElPasoGuideNetwork currentPath={`/article/${article.slug}`} /> : null}
       {footballTravelArticleSlugs.has(article.slug) ? <FootballFanOffers slug={article.slug} hasUpcomingAwayTravel={false} showTravelPlanning /> : null}
       {isTexasRiversArticle ? <Suspense fallback={null}><TexasRiversAfterArticle /></Suspense> : null}
       {waterTopic ? (

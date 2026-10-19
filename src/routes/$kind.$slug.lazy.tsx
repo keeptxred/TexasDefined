@@ -10,6 +10,7 @@ import { CountyWaterParks } from '@/components/content/CountyWaterParks';
 import { CountyTownAuthorityLinks } from '@/components/content/CountyTownAuthorityLinks';
 import { CountyCityMuseums } from '@/components/content/CountyCityMuseums';
 import { CountyGuideSections } from '@/components/content/CountyGuideSections';
+import { ElPasoGuideNetwork } from '@/components/content/ElPasoGuideNetwork';
 import { EntityDepthSections } from '@/components/content/EntityDepthSections';
 import { WildlifeDepthSections } from '@/components/content/WildlifeDepthSections';
 import { Container } from '@/components/layout/Container';
@@ -394,6 +395,7 @@ function EntityPage() {
 
         {entity.kind === 'city' && (lakeGuidesNearCity as Record<string, {slug: string; name: string}[]>)[entity.slug]?.length ? <section className="border-b border-border py-9" aria-label="Nearby lake recreation and fishing guides"><p className="eyebrow text-primary">Lakes and outdoor recreation</p><h2 className="mt-2 font-display text-3xl">Lakes to explore near {entity.name}</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Explore source-backed TexasDefined guides connected with this city and surrounding communities. Location associations are for trip planning, not measured drive times or permission to enter privately owned shoreline. Verify public launch and camping status before travel.</p><div className="mt-5 grid gap-4 sm:grid-cols-2">{((lakeGuidesNearCity as Record<string, {slug: string; name: string}[]>)[entity.slug] ?? []).map((lake) => <a key={lake.slug} href={`/fishing/lakes/${lake.slug}`} className="border-t border-border py-4"><strong className="block font-display text-2xl hover:text-primary">{lake.name}</strong><span className="mt-2 block text-sm text-muted-foreground">Fishing, ramps, water levels and nearby public parks →</span></a>)}</div><a href="/fishing/lakes" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Compare all Texas fishing lakes →</a></section> : null}
         {entity.kind === 'city' ? <Suspense fallback={null}><CityPassContextualCallout surface="city" slug={entity.slug} /></Suspense> : null}
+        {((entity.slug === "el-paso" && (entity.kind === "city" || entity.kind === "county")) || entity.slug === "el-paso-metro" || entity.countySlug === "el-paso") ? <ElPasoGuideNetwork currentPath={`/${entity.kind}/${entity.slug}`} countyHub={entity.kind === "county"} /> : null}
         {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} countySeriesArticle={countySeriesArticle} /> : null}
         {(entity.kind === 'city' || entity.kind === 'county') && foodDestinations.length ? <Suspense fallback={null}><EntityFoodDestinations entity={entity} destinations={foodDestinations} /></Suspense> : null}
         {(entity.kind === 'county' || entity.kind === 'city') ? <CountyTownAuthorityLinks kind={entity.kind} slug={entity.slug} name={entity.name} /> : null}
