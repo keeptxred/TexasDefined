@@ -28,6 +28,41 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "mcnay-art-museum-san-antonio": {
+    name: "McNay Art Museum", slug: "mcnay-art-museum-san-antonio", county: "Bexar", city: "San Antonio", reviewed: "2026-10-19",
+    topics: ["modern-art", "architecture", "sculpture", "family-learning"],
+    whyVisit: "The McNay is not merely an indoor gallery: it joins the Spanish Colonial Revival residence designed for Marion Koogler McNay, a large modern-art collection and a landscaped 25-acre sculpture campus in north-central San Antonio. The intimate original house, newer exhibition spaces and changing installations offer quite different experiences in one visit.",
+    visitorStrategy: "Enter at 6000 North New Braunfels Avenue, not a downtown River Walk museum address. Official hours are Wednesday 10 a.m.–6 p.m., Thursday 10 a.m.–9 p.m., Friday 10 a.m.–6 p.m., Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m.; closed Monday and Tuesday. Free parking is available in several campus lots. The current ticket table includes $23 general admission with the special exhibition, $10 for ages 13–19 and free entry for ages 12 and younger. General admission is free Thursdays 4–9 p.m. and the first Sunday of each month noon–5 p.m., but special exhibition entry costs $10 at those times. Budget 90 minutes for selected galleries, or two or more hours if adding the sculpture grounds. Check day-of tickets, holiday closures and individual exhibitions before travel.",
+    accessibility: "The museum confirms designated accessible parking, an accessible entrance, elevators and loan wheelchairs available through visitor services. Most galleries are wheelchair accessible, but some areas may require additional assistance, especially within the historic estate. Request route-specific access or other accommodations from the museum at 210-824-5368 before a visit; do not assume every outdoor sculpture path is uniformly level.",
+    familiesAndGroups: "This can suit art-interested teens and younger children when adults choose a short gallery route, outdoor breaks and age-appropriate exhibitions; it is not an indoor playground. Children must remain accompanied by adults, artwork must not be touched, and some works or temporary shows may require additional context. Free admission for children 12 and younger can help families; the operator has separate paid and advance-arranged tour options. Visitors seeking a sensory-specific accommodation should ask staff rather than assuming a particular support exists.",
+    researchValue: "The museum opened in 1954, a distinctive early Texas modern-art institution built from Marion Koogler McNay's home and collection. Its online collection contains far more than is on display at a given moment; galleries on works on paper, modern painting and theater arts and temporary exhibitions rotate. Compare a house-gallery experience with the museum's later Stieren Center and sculpture garden instead of treating the online holdings as an on-view checklist.",
+    exhibits: [
+      { heading: "Original Spanish Colonial Revival residence", detail: "The 1920s McNay house and courtyard explain how a domestic art collection became a public museum, with the architecture part of the visitor experience." },
+      { heading: "Modern and contemporary collection", detail: "European and American painting and sculpture are presented through rotating selections, not the entirety of the museum's extensive collection." },
+      { heading: "Works on paper and theater arts", detail: "Specialized drawings, prints and stage-related material broaden the visit beyond easel painting; verify which galleries are currently open." },
+      { heading: "Sculpture campus and courtyards", detail: "The 25-acre grounds create a distinct outdoor component; do not touch the sculptures and prepare for Texas sun and changing weather." },
+      { heading: "Two Faced: artists' portraits (dated)", detail: "Listed by the museum for September 3, 2026–March 14, 2027; confirm still on view for the selected day." },
+      { heading: "A People's History: the American Experiment on Stage (dated)", detail: "Stage design and American history exhibition announced through November 8, 2026; not an evergreen permanent gallery." }
+    ],
+    routes: [
+      { label: "90-minute first visit", steps: ["Park at an official McNay lot and confirm today's featured galleries", "See the historic residence and a short selection of modern art", "Finish with a weather-appropriate courtyard or sculpture walk"] },
+      { label: "Budget-friendly free-admission outing", steps: ["Plan for Thursday after 4 p.m. or the first Sunday of the month", "Ask whether a $10 special exhibition supplement applies to anything on your list", "Choose the free general galleries and grounds without assuming every special exhibition is included"] },
+      { label: "Families and access planning", steps: ["Check visitor policies and ask in advance about mobility or sensory needs", "Use short gallery blocks and the free parking lots", "Use the grounds for breaks and keep children with an adult near artworks"] }
+    ],
+    sources: [
+      { label: "McNay — hours, admissions, free-day policy and access", url: "https://www.mcnayart.org/visit/", use: "Opening hours, pricing, grounds schedule, free offers, phone and accommodation caveats" },
+      { label: "McNay — visitor FAQ", url: "https://www.mcnayart.org/frequently-asked-questions/", use: "Parking, photography, elevators, sketching and first-Sunday policies" },
+      { label: "McNay — visitor policies", url: "https://www.mcnayart.org/general-information/", use: "Children, service animals, bags and photography restrictions" },
+      { label: "McNay — exhibitions", url: "https://www.mcnayart.org/exhibitions/", use: "Dated 2026–27 temporary exhibitions; not permanent collections" },
+      { label: "McNay — tour FAQs", url: "https://www.mcnayart.org/adult-tours/", use: "Booked tours, separate ticket rates and limited tour duration" }
+    ],
+    connections: [
+      { label: "Bexar County", href: "/county/bexar", reason: "Place the museum in the county's arts and heritage context." },
+      { label: "San Antonio Museum of Art", href: "/destination/san-antonio-museum-of-art", reason: "Compare McNay's historic estate and modern holdings with a downtown museum." },
+      { label: "Witte Museum", href: "/destination/witte-museum", reason: "Build a family day around different art, natural-science and regional-history experiences." },
+      { label: "Texas museum guides", href: "/explore/museums", reason: "Discover additional researched Texas museum visitor guides." }
+    ],
+  },
   "menil-collection-houston": {
     name: "The Menil Collection", slug: "menil-collection-houston", county: "Harris", city: "Houston", reviewed: "2026-10-19",
     topics: ["art", "architecture", "surrealism", "cultural-history"],

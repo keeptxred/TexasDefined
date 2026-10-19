@@ -14,6 +14,80 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "mcnay-art-museum-san-antonio": [
+      {
+          "question": "Does the McNay Art Museum have free parking?",
+          "answer": "Yes. The McNay says its 25-acre campus has multiple free public parking lots, with accessible spaces indicated on its visitor map. Do not confuse its north-central San Antonio address with downtown River Walk parking.",
+          "verificationUrl": "https://www.mcnayart.org/frequently-asked-questions/",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://www.mcnayart.org/frequently-asked-questions/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "When are the McNay's free-admission hours, and do they cover special exhibitions?",
+          "answer": "General admission is free on Thursdays from 4 to 9 p.m. and the first Sunday of each month from noon to 5 p.m. The museum currently charges an additional $10 for special exhibition access during those free windows, so decide which galleries you want to see before booking.",
+          "verificationUrl": "https://www.mcnayart.org/visit/",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://www.mcnayart.org/visit/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "How much does admission cost for teens, children and adults at the McNay?",
+          "answer": "The October 2026 official table lists general admission with special exhibition at $23, teens 13–19 at $10, and children 12 and younger free. The museum lists further qualifying discounts and free categories; always verify the live ticket screen for your visit date.",
+          "verificationUrl": "https://www.mcnayart.org/visit/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://www.mcnayart.org/visit/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Can visitors photograph the McNay galleries and outdoor sculpture?",
+          "answer": "Informal, flash-free photography for personal use is generally allowed in galleries unless the specific exhibition or work forbids it. Ask staff before photographing; staged or professional photography is subject to separate rules, and permission to photograph is not permission to reuse copyrighted artworks commercially.",
+          "verificationUrl": "https://www.mcnayart.org/frequently-asked-questions/",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://www.mcnayart.org/frequently-asked-questions/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Are wheelchairs and accessible routes available at the McNay?",
+          "answer": "The McNay states that accessible parking, an accessible entrance, elevators and loan wheelchairs are available. Most galleries are accessible, but some areas can require extra help. Contact visitor services about specific routes or accommodations before making the trip.",
+          "verificationUrl": "https://www.mcnayart.org/visit/",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://www.mcnayart.org/visit/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "How much time should I allow for the McNay residence and sculpture grounds?",
+          "answer": "A focused 90-minute visit is a reasonable editorial plan for a few galleries and the residence; allow two hours or longer if you also want the sculpture campus and temporary exhibitions. These are planning suggestions, not museum-mandated tour durations, and the weather affects outdoor time.",
+          "verificationUrl": "https://www.mcnayart.org/visit/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://www.mcnayart.org/visit/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Are pets allowed on the McNay grounds or in the art galleries?",
+          "answer": "The museum permits leashed pets on its outdoor grounds, while only service animals may enter the galleries. Keep animals under control around sculpture and visitors, and consult visitor services if an assistance-animal accommodation requires clarification.",
+          "verificationUrl": "https://www.mcnayart.org/general-information/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://www.mcnayart.org/general-information/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "What is on view at the McNay during late October 2026?",
+          "answer": "The museum lists the portrait exhibition Two Faced through March 14, 2027 and A People's History: The American Experiment on Stage through November 8, 2026. These are dated temporary offerings, not permanent attractions. Check the official exhibition calendar before traveling.",
+          "verificationUrl": "https://www.mcnayart.org/exhibitions/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://www.mcnayart.org/exhibitions/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      }
+  ],
   "menil-collection-houston": [
     {
         "question": "Is admission to the Menil Collection in Houston always free?",
