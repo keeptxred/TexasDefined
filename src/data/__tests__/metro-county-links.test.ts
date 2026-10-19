@@ -93,3 +93,30 @@ test("McAllen lodging placement waits for lazy hydration and never interrupts cu
   assert.ok(qa.includes('stayPanelInsideCuratedCard'));
   assert.ok(qa.includes('verify("no React hydration mismatch"'));
 });
+
+test("McAllen day-trip authority integrates all featured stops with sourced map and photography", () => {
+  const src = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx", "utf8");
+  const shell = readFileSync("src/routes/explore.near.$metro.$collection.tsx", "utf8");
+  const a = src.split("const MCALLEN_FEATURED_POINTS = {")[1]?.split("} as const;")[0] ?? "";
+  const b = src.split("const MCALLEN_EDITORIAL_TRIPS = [")[1]?.split("] as const;")[0] ?? "";
+  const listed = [...b.matchAll(/slug: "([a-z0-9-]+)"/g)].map((m) => m[1]);
+  for (const slug of listed) assert.ok(a.includes('"' + slug + '"'), "map omits curated stop " + slug);
+  assert.equal(listed.length, 10);
+  assert.match(src, /function McAllenFeaturedMap/);
+  assert.match(src, /openstreetmap\.org\/export\/embed\.html/);
+  assert.match(src, /google\.com\/maps\/dir/);
+  assert.match(src, /MCALLEN_OPEN_IMAGES/);
+  assert.match(src, /William L\. Farr.*CC BY-SA 4\.0/);
+  assert.match(src, /Alan Schmierer.*CC0/);
+  assert.match(src, /isDestinationPhotoPlaceholder/);
+  assert.match(shell, /10 curated choices/);
+  assert.match(shell, /Additional researched places below/);
+});
+test("McAllen lodging provider choice stays within one post-guide module", () => {
+  const choice = readFileSync("public/stay-affiliate-options.js", "utf8");
+  const expedia = readFileSync("public/expedia-travel.js", "utf8");
+  assert.match(choice, /surface\.dataset\.stayConsolidated = "true"/);
+  assert.match(choice, /parent\.appendChild\(choice\)/);
+  assert.match(choice, /Hotel and vacation-rental choices/);
+  assert.match(expedia, /One stop for overnight stays/);
+});
