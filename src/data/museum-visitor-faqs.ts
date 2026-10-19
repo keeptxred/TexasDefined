@@ -14,6 +14,190 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "frontiers-of-flight-museum-dallas": [
+    {
+        "question": "What are Frontiers of Flight Museum's weekday and Sunday hours?",
+        "answer": "The museum's published regular opening times are Monday through Saturday 10 a.m.–5 p.m. and Sunday 1–5 p.m. The same official page lists several full-day and partial special-event closures during 2026, so verify the precise date rather than assuming a normal Sunday or weekday opening.",
+        "verificationUrl": "https://flightmuseum.com/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "How much does Frontiers of Flight Museum admission cost?",
+        "answer": "The posted admission is $20 for visitors age 13 and older, $12 for children ages 3–12 and $10 for seniors age 65 or older. Separate ID-based discounts apply to qualifying service members, veterans and first responders; children younger than three are not assigned an explicit price on the same tariff, so confirm with staff.",
+        "verificationUrl": "https://flightmuseum.com/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Can Frontiers of Flight tickets be purchased at the door?",
+        "answer": "Yes. The museum offers tickets online and at the front desk, and says ordinary individual visitors do not need advance reservations. Groups of 15 or more should arrange their visit in advance to receive group rates and confirm their requested slot.",
+        "verificationUrl": "https://flightmuseum.com/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Where is Frontiers of Flight Museum and is parking free?",
+        "answer": "Frontiers of Flight Museum is at 6911 Lemmon Avenue beside Dallas Love Field. Its official directions specify entering from University Boulevard off Lemmon Avenue and following the access road south. Visitor parking is free, with designated accessible spaces near the main entrance.",
+        "verificationUrl": "https://flightmuseum.com/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/visit/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Is Frontiers of Flight Museum wheelchair and sensory accessible?",
+        "answer": "The museum identifies accessible restrooms on every floor, an elevator to the second-floor galleries, free first-come loan wheelchairs and parking near the main entrance. It is a KultureCity-certified sensory-inclusive venue. Individual aircraft cockpit entry is not thereby guaranteed, and visitors should confirm specific exhibit access.",
+        "verificationUrl": "https://flightmuseum.com/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/visit/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Can I see the Apollo 7 command module at Frontiers of Flight?",
+        "answer": "Yes. The museum's permanent spaceflight gallery lists the flown Apollo 7 command module, a moon rock display and artifacts relating to Mercury, Gemini, the Space Shuttle and International Space Station. Confirm particular gallery availability before making a trip solely for one object.",
+        "verificationUrl": "https://flightmuseum.com/exhibits/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/exhibits/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Does Frontiers of Flight Museum have food service?",
+        "answer": "Yes. The operator lists Jetsetters Coffee Lounge inside the museum, serving coffee, breakfast, lunch and snacks. Its operating hours can differ from admission hours, so check the operator's current lounge schedule if your visit depends on a meal.",
+        "verificationUrl": "https://flightmuseum.com/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Can I bring suitcases from Dallas Love Field into the museum?",
+        "answer": "The museum explicitly says it does not provide visitor-bag storage. Travelers on a Love Field layover should not plan on leaving rolling luggage or carry-on baggage at the desk and should arrange storage elsewhere before buying admission.",
+        "verificationUrl": "https://flightmuseum.com/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Are school field trips and group tours the same as ordinary admission?",
+        "answer": "No. The operator has a dedicated field-trip program and requests advance booking for groups of at least 15 to access group visitor rates. Educational programming and ordinary admission are separate arrangements and should not be assumed included just because a class arrives at the museum.",
+        "verificationUrl": "https://flightmuseum.com/education/field-trips/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/education/field-trips/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Can visitors take photos inside the Frontiers of Flight Museum?",
+        "answer": "The museum permits personal photography but states that photography or filming for uses beyond personal purposes requires prior request and written approval. TexasDefined's already licensed 2015 Wikimedia Commons hero image has independent photographer-granted reuse rights; that license does not waive rules for new on-site shoots.",
+        "verificationUrl": "https://flightmuseum.com/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://flightmuseum.com/visit/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    }
+],
+  "museum-of-texas-tech-university-lubbock": [
+    {
+        "question": "Is admission to the Museum of Texas Tech University free?",
+        "answer": "Yes. The main Museum of Texas Tech University offers free entry to its public galleries. The Moody Planetarium inside the museum charges separately for scheduled shows, so visitors should not interpret free general museum admission as a free planetarium ticket.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/visit/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "What are the museum's opening hours and campus holiday closures?",
+        "answer": "Texas Tech lists Tuesday–Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m., with Mondays and university holidays closed. Its 2026 calendar includes closures November 26–30 and December 23 through January 1, 2027. Check the current university museum calendar for event-related early closing.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Where is the museum located and where can visitors park?",
+        "answer": "The museum is at 3301 Fourth Street at Indiana Avenue in Lubbock. Official visitor guidance identifies free public parking on the north side along Fourth Street and the west side along Indiana Avenue. The accessible entrance is on the east side, but there is no vehicle parking immediately at that doorway.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/visit/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/visit/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Is Moody Planetarium included with the free museum admission?",
+        "answer": "No. The separate Moody Planetarium program lists $6 adult tickets, $4 for ages 4–17, seniors, and college students with IDs, and free admission for children age three and younger. Schedules depend on show dates, and special-event free screenings should not be assumed on ordinary days.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "When does Moody Planetarium show films and laser performances?",
+        "answer": "The planetarium's official information identifies Friday, Saturday and Sunday as its regular public show days and publishes a dated list of individual presentations. Some weeks have special closures or events, so use the exact monthly calendar rather than a recurring daily showtime.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "How many wheelchair spaces are in Moody Planetarium?",
+        "answer": "The planetarium describes 74 total positions with two wheelchair-designated spaces. The museum separately advises accessibility visitors to call 806-742-2490 to discuss individual needs, and a theater seating allowance should not be mistaken for an entire-building access guarantee.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "What can families see at the Museum of Texas Tech University?",
+        "answer": "The institution describes permanent galleries spanning paleontology, Ice Age biodiversity, Southwestern anthropology, art, clothing and textiles, history and natural science, plus rotating exhibitions. Planetarium shows offer a separate astronomy-focused activity with age and ticket policies.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/about/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Can visitors access all of the museum's millions of scientific specimens?",
+        "answer": "No. Texas Tech describes research holdings of roughly 9.6 million objects across collections, including the Natural Science Research Laboratory with millions of specimens. These scientific holdings are not equivalent to public gallery displays; specialized research access differs from a general family visit.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/about/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Is Lubbock Lake Landmark a gallery inside the Texas Tech museum?",
+        "answer": "No. Lubbock Lake Landmark is an affiliated but physically separate archaeological and natural-history preserve that Texas Tech says contains evidence of approximately 12,000 years of occupation. Visiting its outdoor trails requires separate transportation and checking the Landmark's own opening arrangements.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/about/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Can schools book a private Moody Planetarium show?",
+        "answer": "Yes. Texas Tech states that groups of 20 or more can request a private planetarium show and that school programs must be arranged at least two weeks in advance. The operator lists special school-group admission and arrival guidance; these conditions differ from ordinary walk-up museum admission.",
+        "verificationUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    }
+],
   "texas-country-music-hall-of-fame-carthage": [
     {
         "question": "When is the Texas Country Music Hall of Fame museum open?",
