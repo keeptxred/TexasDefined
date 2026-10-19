@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { legacyExploreDestinations } from "../fixtures/legacy-explore";
 import { applyExploreHeroAsset } from "../explore-heroes";
 import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "../state-park-heroes";
-import { DEVILS_RIVER_LANDSCAPE_IMAGE, verifiedDevilsRiverPhotoRights } from "../verified-devils-river-landscape";
+import { DEVILS_RIVER_APPROVED_IMAGE_PROXY, DEVILS_RIVER_LANDSCAPE_IMAGE, verifiedDevilsRiverPhotoRights } from "../verified-devils-river-landscape";
 
 const park = legacyExploreDestinations.find(d => d.slug === "devils-river-state-natural-area");
 if (!park) throw Error("Expected canonical Devils River natural area fixture");
@@ -29,6 +29,12 @@ describe("Devils River destination photograph identity and license", () => {
     expect(rights?.licenseUrl).toBe("https://creativecommons.org/licenses/by-sa/2.0/");
     expect(rights?.author).toBe("Clinton & Charles Robertson");
     expect(DEVILS_RIVER_LANDSCAPE_IMAGE.alt).toContain("not an advertised public trailhead");
+  });
+  it("preserves the original photo's attribution after exact first-party image proxy delivery", () => {
+    const proxied={...DEVILS_RIVER_LANDSCAPE_IMAGE,src:DEVILS_RIVER_APPROVED_IMAGE_PROXY};
+    expect(verifiedDevilsRiverPhotoRights(proxied)?.licenseUrl).toBe("https://creativecommons.org/licenses/by-sa/2.0/");
+    expect(verifiedDevilsRiverPhotoRights({...proxied,src:DEVILS_RIVER_APPROVED_IMAGE_PROXY+"&other=image"})).toBeNull();
+    expect(verifiedDevilsRiverPhotoRights({...proxied,src:"/media/remote?url=https%3A%2F%2Fexample.org%2Fphoto.jpg"})).toBeNull();
   });
   it("does not claim provenance if image or attribution is replaced", () => {
     expect(verifiedDevilsRiverPhotoRights({ ...DEVILS_RIVER_LANDSCAPE_IMAGE, src:"/images/unrelated.jpg" })).toBeNull();

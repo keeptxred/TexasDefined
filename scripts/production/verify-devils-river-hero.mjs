@@ -16,14 +16,19 @@ export function inspectDevilsRiverHtml(html) {
  if(!html.includes('href="/county/val-verde"'))throw Error("Val Verde internal county route missing");
  if(!html.includes("tpwd.texas.gov/state-parks/devils-river"))throw Error("Official TPWD route missing");
  const imgTags=[...html.matchAll(/<img\b[^>]*>/gi)].map(x=>x[0]);
- const hero=imgTags.find(x=>x.includes("Dolan_Falls_%28174119624%29.jpg"));
- if(!hero)throw Error("Verified Devils River photograph not present in hero HTML");
- if(!hero.includes("Dolan Falls")||!hero.includes("not an advertised public trailhead"))throw Error("Landscape is mislabeled or suggests public access");
+ const hero=imgTags.find(x=>x.includes("Dolan Falls")&&x.includes("not an advertised public trailhead"));
+ if(!hero)throw Error("The actual Devils River hero or accurate waterfall alt text is missing");
+ const heroSrc=hero.match(/\bsrc="([^"]+)"/)?.[1]?.replace(/&amp;/g,"&")||"";
+ // Production converts the licensed Wikimedia URL into a first-party
+ // /media/remote proxy. An exact query match prevents another image URL
+ // from inheriting this photographer's provenance or passing acceptance.
+ const approvedProxy="/media/remote?url="+encodeURIComponent(photo);
+ if(heroSrc!==photo&&heroSrc!==approvedProxy)throw Error("Hero source is not the exact approved photo or image-delivery proxy: "+heroSrc.slice(0,160));
  if(!body.includes("Clinton")||!body.includes("Robertson"))throw Error("Original photographer not credited");
  if(!html.includes("https://commons.wikimedia.org/wiki/File:Devils_River_-_Dolan_Falls_"))throw Error("Commons original source link missing");
  if(!html.includes(license))throw Error("CC BY-SA 2.0 legal attribution link missing");
  if(html.includes('src="/images/explore/lakes-rivers/devils-river-state-natural-area.jpg"'))throw Error("Old millipede hero still active");
- return {park:"devils-river-state-natural-area",source:photo,license,photoCredit:true};
+ return {park:"devils-river-state-natural-area",source:photo,heroSrc,license,photoCredit:true};
 }
 function jpegSize(bytes){
  if(bytes.length<100||bytes[0]!==0xff||bytes[1]!==0xd8)throw Error("Not a JPEG by magic bytes");
@@ -49,12 +54,26 @@ async function fetchOne(origin) {
    if(!(response.headers.get("content-type")||"").includes("text/html"))throw Error("Not an HTML destination");
    const html=await response.text();
    const check=inspectDevilsRiverHtml(html);
-   record.pages.push({origin,attempt,htmlBytes:html.length,...check});
+   const sitePhoto=await checkDeliveredPhoto(origin,check.heroSrc);
+   record.pages.push({origin,attempt,htmlBytes:html.length,...check,...sitePhoto});
    return;
   }catch(error){last=error;}
  }
  throw Error(origin+" "+site+" verification failed after 2 attempts: "+String(last?.message||last));
 }
+async function checkDeliveredPhoto(origin,heroSrc){
+ if(!heroSrc.startsWith("/media/remote?"))throw Error("External hero bypassed first-party image delivery");
+ const url=new URL(heroSrc,origin);
+ if(url.pathname!=="/media/remote"||url.searchParams.get("url")!==photo)throw Error("Photo proxy references a different Wikimedia asset");
+ const r=await fetch(url,{cache:"no-store",headers:{...headers,range:"bytes=0-65535"},signal:AbortSignal.timeout(16000),redirect:"follow"});
+ if(!r.ok||r.headers.get("cf-mitigated")==="challenge")throw Error("Site-owned Devils River image proxy HTTP "+r.status);
+ const mime=(r.headers.get("content-type")||"").toLowerCase();
+ if(!mime.includes("image/jpeg"))throw Error("Site-owned Devils River image proxy MIME "+mime);
+ const bytes=new Uint8Array(await r.arrayBuffer()),size=jpegSize(bytes);
+ if(size.width!==800||size.height!==415)throw Error("Proxied image dimensions differ from Commons original: "+JSON.stringify(size));
+ return {proxiedImageStatus:r.status,proxiedMime:mime,proxiedBytes:bytes.length,...size};
+}
+
 async function checkImage(){
  const response=await fetch(photo,{cache:"no-store",redirect:"follow",headers:{...headers,range:"bytes=0-65535"},signal:AbortSignal.timeout(16000)});
  if(!response.ok||response.headers.get("cf-mitigated")==="challenge")throw Error("Photo URL HTTP "+response.status);
