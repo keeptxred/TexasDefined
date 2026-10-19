@@ -176,11 +176,11 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     {pairedDestinations.length ? <Section tone="surface" className="py-10 sm:py-12 lg:py-14">
       <Container>
         <SectionHeader eyebrow="Plan the route" title="Explore related places" description={`Editorially paired stops near ${destination.name} appear first, followed by nearby destinations. Distances are approximate straight-line miles.`} />
-        <ul className="mt-8 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-8 grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {pairedDestinations.map((item) => {
             const miles = distanceMiles(destination, item);
             const roundedMiles = miles === null ? null : Math.max(1, Math.round(miles));
-            return <li key={item.id}><DestinationCard destination={item} regionLabel={item.region === destination.region ? regionName : undefined} />{roundedMiles !== null && <p className="mt-3 border-t border-border pt-3 text-[0.7rem] uppercase tracking-[0.1em] text-muted-foreground">Approx. {roundedMiles.toLocaleString("en-US")} {roundedMiles === 1 ? "mile" : "miles"} away</p>}</li>;
+            return <li key={item.id} className="flex h-full min-w-0 flex-col"><DestinationCard destination={item} regionLabel={item.region === destination.region ? regionName : undefined} className="flex-1" reserveImageSpace />{roundedMiles !== null && <p className="mt-3 border-t border-border pt-3 text-[0.7rem] uppercase tracking-[0.1em] text-muted-foreground">Approx. {roundedMiles.toLocaleString("en-US")} {roundedMiles === 1 ? "mile" : "miles"} away</p>}</li>;
           })}
         </ul>
       </Container>
