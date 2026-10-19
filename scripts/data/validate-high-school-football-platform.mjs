@@ -1332,6 +1332,7 @@ if (!errors.length) {
   const currentCoachContracts = [
     ['big-sandy-harmony', 'Brian Mauk', 'kltv.com/story/26056195/harmony-eagles/'],
     ['bishop', 'Keith Talbert', 'maxpreps.com/tx/bishop/bishop-badgers/football/staff/'],
+    ['blackwell', 'Clint Linman', 'sports.yahoo.com/articles/blackwell-hornets-hire-football-coach-234440740.html'],
     ['boys-ranch', 'Louis Kelley III', 'boysranchisd.org/132207_2'],
     ['boerne', 'Brett Sawyer', 'boernestar.com/article/14105'],
     ['blanco', 'Kent Walker', 'maxpreps.com/tx/blanco/blanco-panthers/football/staff/'],
