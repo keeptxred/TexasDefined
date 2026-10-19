@@ -1026,10 +1026,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-15"
     },
     "notice": {
-      "title": "Do not use a stale or reversed Blanket score feed for directions or standings",
-      "body": "The independently reported 2026 Blanket–Brookesmith final is Blanket W66–34, though an older MaxPreps feed wrongly records Blanket L34–66. Rochelle beat Blanket 68–22, not the 28–0 shown in another old snapshot. Brownwood News reported a late added Abilene X-Dot Academy match, and Blanket won 65–13 on October 8 after older calendars had displayed a bye. First-party football gate, parking and ADA access have not been independently certified; contact Blanket ISD for specific events.",
-      "sourceUrl": "https://www.brownwoodnews.com/2026/10/10/local-high-school-football-standings-after-week-7/",
-      "sourceLabel": "Contemporaneous Brownwood News complete District 12 standings and Abilene X-Dot outcome",
+      "title": "Verify Blanket scores and the canceled Priddy 2026 season",
+      "body": "The independently reported 2026 Blanket–Brookesmith final is Blanket W66–34, though an older MaxPreps feed wrongly records Blanket L34–66. Rochelle beat Blanket 68–22, not the 28–0 shown in another old snapshot. Brownwood News reported a late added Abilene X-Dot Academy match, and Blanket won 65–13 on October 8 after older calendars had displayed a bye. Brownwood News reported before kickoff that Priddy canceled its entire 2026 season. Although UIL realignment still assigns Priddy to District 12 and some external calendars list Blanket at Priddy on October 16, those listings do not establish that a varsity game was played. Do not award Blanket a win, forfeit or district result without school or district evidence. First-party football gate, parking and ADA access have not been independently certified; contact Blanket ISD for specific events.",
+      "sourceUrl": "https://www.brownwoodnews.com/wpb_gallery/gridiron-glance-26-mullin-bulldogs/",
+      "sourceLabel": "Brownwood News Mullin 2026 preseason interview explicitly reports Priddy canceled its 2026 season; individual Blanket score results are independently detailed in the October 10 local recap",
       "verifiedAt": "2026-10-15"
     },
     "season": {
