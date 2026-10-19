@@ -133,7 +133,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     coordinates: { lat: 32.4432, lng: -99.7340 },
     hero: museumPlaceholder("The Grace Museum"),
     bestSeason: "Year-round indoor museum; cooler months are best for combining the galleries with a walk through historic downtown Abilene.",
-    entryNote: "The downtown museum currently opens Tuesday through Saturday, with extended free Thursday-evening hours. The Grace also operates a separate Spark Science Center, so verify which location your program or exhibit uses.",
+    entryNote: "The Grace Museum at 102 Cypress Street opens Tuesday–Saturday 10 a.m.–5 p.m., with free Thursday nights 5–8 p.m. Admission $10 adults and $7 reduced categories; children under four and eligible members and active-duty families free. Spark Science Center is a SEPARATE venue at 1620 South 3rd Street ($14 adult); optional same-day two-location combo $20 adults. Check current terms before buying.",
     highlights: ["Historic Hotel Grace", "Texas art", "Regional history", "Family and children's learning"],
     body: [
       "The Grace Museum preserves two kinds of Abilene history at once. Its home is the 1909 Hotel Grace, a building tied to the city's railroad-era growth, while the galleries interpret regional history and present art exhibitions that connect Abilene with a much wider Texas cultural story.",
@@ -143,7 +143,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     officialUrl: "https://thegracemuseum.org/",
     managingAuthority: "The Grace Museum",
     address: "102 Cypress St, Abilene, TX 79601",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    sourceCheckedAt: "2026-10-19",
   },
   {
     id: "museum-statewide-wave2-samfa",

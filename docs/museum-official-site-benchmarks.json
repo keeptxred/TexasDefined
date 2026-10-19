@@ -1639,6 +1639,54 @@
         "https://www.depts.ttu.edu/museumttu/",
         "https://www.depts.ttu.edu/nsrl/"
       ]
+    },
+    "menil-collection-houston": {
+      "name": "The Menil Collection",
+      "operatorStrengths": [
+        "Free 11 AM–7 PM Wed–Sun gallery admissions and exact campus venue addresses",
+        "Express prohibition on photography in galleries and group lecturing",
+        "Specific parking, accessible entrances and service-animal policies",
+        "Separate site/program information for main collection, drawing, Twombly and Richmond Hall"
+      ],
+      "openGaps": [
+        "Independent manual review of every rendered mobile museum page and latest operator conditions",
+        "Verify image is decoded and CC photo license/source links render visibly",
+        "Check holiday closures and changes to group arrangements or special exhibitions"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.menil.org/visit",
+        "https://www.menil.org/campus",
+        "https://www.menil.org/about",
+        "https://www.menil.org/group-visit-and-educator-guidelines"
+      ]
+    },
+    "grace-museum-abilene": {
+      "name": "The Grace Museum",
+      "operatorStrengths": [
+        "2026 two distinct Abilene Grace/Spark locations and exact ticket tiers",
+        "Free Thursday night and same-day combo admission differentiated",
+        "Wheelchair-accessible ramp, elevator, restrooms and parking documented",
+        "Period history rooms and dated America 250 2026 exhibition"
+      ],
+      "openGaps": [
+        "Independent manual review of every rendered mobile museum page and latest operator conditions",
+        "Verify image is decoded and CC photo license/source links render visibly",
+        "Check holiday closures and changes to group arrangements or special exhibitions"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://thegracemuseum.org/about/",
+        "https://thegracemuseum.org/history/",
+        "https://thegracemuseum.org/art/",
+        "https://thegracemuseum.org/exhibitions/america-250/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",

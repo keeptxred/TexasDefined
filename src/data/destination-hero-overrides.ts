@@ -10,11 +10,11 @@ import type { ImageRef } from "./types";
  */
 export const destinationHeroOverrides: Record<string, ImageRef> = {
   "grace-museum-abilene": {
-    src: "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Grace%20Museum%20Abilene%20Texas%202015.jpg",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Grace_Museum_Abilene_Texas_2015.jpg?width=1600",
     alt: "The historic Grace Museum building in downtown Abilene, Texas",
     width: 1809,
     height: 1206,
-    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+    credit: "Larry D. Moore · 26 September 2015 · CC BY 4.0 · Wikimedia Commons · The Grace Museum Abilene Texas 2015.jpg",
   },
   "jocelyn-nungaray-national-wildlife-refuge": {
     src: "https://commons.wikimedia.org/wiki/Special:FilePath/Anahuac%20National%20Wildlife%20Refuge%20%285A%29%20Chambers%20Co.%20TX%3B%201%20Dec%202018.jpg",

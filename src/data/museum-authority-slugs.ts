@@ -38,6 +38,8 @@ export const museumAuthoritySlugs: ReadonlySet<string> = new Set([
   "modern-art-museum-fort-worth",
   "american-quarter-horse-hall-of-fame-museum-amarillo",
   "museum-of-fine-arts-houston",
+  "menil-collection-houston",
+  "grace-museum-abilene",
   "art-museum-south-texas-corpus-christi",
   "houston-museum-of-natural-science",
   "el-paso-museum-of-art",

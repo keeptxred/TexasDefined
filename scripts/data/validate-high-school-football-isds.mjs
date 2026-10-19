@@ -112,6 +112,21 @@ if (!errors.length) {
     'Browse all 1,268 UIL programs',
   ]) requireText(indexPage, marker, 'Football ISD index page');
 
+  // Google fetched Katy ISD successfully on 2026-10-17 but recorded a
+  // noindex meta tag, while Houston ISD was indexed. The route loader throws a
+  // 404 for genuinely missing districts; its head fallback must not interpret
+  // unresolved streamed loaderData as a permanent indexability decision.
+  if (!detailRoute.includes("if (!profile) throw notFound()")) {
+    errors.push('Unknown football ISD routes must still fail closed with notFound().');
+  }
+  if (!detailRoute.includes("if (!loaderData) return { meta: [{ title: 'Texas high school football by ISD' }] };")) {
+    errors.push('Unresolved ISD loader data must retain a safe, non-noindex head fallback.');
+  }
+  const unresolvedIsdHead = detailRoute.split("if (!loaderData) return")[1]?.split("\n")[0] ?? '';
+  if (/noindex|robots/.test(unresolvedIsdHead)) {
+    errors.push('ISD async head fallback must not publish noindex before the route loader has resolved.');
+  }
+
   for (const marker of [
     "createFileRoute('/texas-high-school-football-isds/$slug')",
     'getFootballIsdProfilePage',

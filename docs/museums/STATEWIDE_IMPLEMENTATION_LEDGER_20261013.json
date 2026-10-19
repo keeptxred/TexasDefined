@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-18",
+  "asOf": "2026-10-19",
   "repository": "keeptxred/TexasDefined",
   "production": "https://texasdefined.com",
   "supabaseProjectId": "ftkznprjljkhymknvhye",
@@ -481,5 +481,42 @@
     "certificationCount": 0,
     "status": "Feature branch not yet merged or deployed. New official source monitoring not registered until merge. Four other photo-blocked noindex museums remain unchanged, reference #5057.",
     "guardrails": "Do not weaken photo/index gate, invent hours, count museum as certified from external source HTTP response, create duplicate routes, or confuse free Tech galleries with separately paid Planetarium."
+  },
+  "pendingOctober19MenilGraceUpgrade": {
+    "branch": "feature/menil-grace-museum-authority-20261019",
+    "canonicalRoutes": [
+      "/destination/menil-collection-houston",
+      "/destination/grace-museum-abilene"
+    ],
+    "scope": "Two preexisting museum destination URLs upgraded to authority dossiers; no duplicate canonical destinations.",
+    "independentSourceReview": "2026-10-19",
+    "proposedCounts": {
+      "museumDossiers": 78,
+      "museumVisitorFaqs": 655,
+      "sourceDefinitions": 333,
+      "comparisonBenchmarks": 78
+    },
+    "addedDossiers": 2,
+    "addedResearchedFaqs": 20,
+    "addedSourceDefinitions": 8,
+    "operatorEvidence": [
+      "https://www.menil.org/visit",
+      "https://www.menil.org/campus",
+      "https://www.menil.org/about",
+      "https://www.menil.org/group-visit-and-educator-guidelines",
+      "https://thegracemuseum.org/about/",
+      "https://thegracemuseum.org/history/",
+      "https://thegracemuseum.org/art/",
+      "https://thegracemuseum.org/exhibitions/america-250/"
+    ],
+    "photoEvidence": [
+      "Francisco Anzola, 2011 Menil exterior, CC BY 2.0",
+      "Larry D. Moore, 2015 Grace Museum exterior, CC BY 4.0"
+    ],
+    "distinctions": "Grace's separate Spark Science Center at 1620 South 3rd versus Grace downtown 102 Cypress, combo rates and free Thursday nighttime; Menil's free admissions, distinct gallery buildings and explicit gallery photography/group lecture restrictions.",
+    "temporaryExhibitionDate": "Grace America 250 January 17-November 28, 2026, not evergreen",
+    "publishedAndProductionVerified": false,
+    "certified": false,
+    "pending": "Protected CI, merge, deployment and source monitor enrollment; 4 existing museum rights-photo blockers still tracked under GitHub issue #5057."
   }
 }
