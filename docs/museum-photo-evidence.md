@@ -10,6 +10,8 @@ Purpose: do not use any image of a different museum, nearby city, AI approximati
 | Texas Energy Museum, Beaumont | https://commons.wikimedia.org/wiki/File:Texas_Energy_Museum,_front_entrance.jpg | Creative Commons BY-SA 4.0 International | JJonahJackalope, 2024 | Exact front entrance; original 4000 × 2252 |
 | George Ranch Historical Park | https://www.loc.gov/item/2014633335/ | Library of Congress rights advisory: no known restrictions on publication; user must independently assess rights | Carol M. Highsmith / Library of Congress, 2014, LC-DIG-highsm-29135 | Costumed interpreter at George Ranch, not a generic ranch |
 
+| McNay Art Museum, San Antonio | https://commons.wikimedia.org/wiki/File:McNay_Art_Museum_May_2018_2_(Courtyard).jpg | Creative Commons BY-SA 4.0 International; source creator personally licensed work | Michael Barera, 24 May 2018 | Exact historic McNay museum courtyard, not an unrelated San Antonio building. Attribution source and license links required on published hero; pixel/render QA outstanding. |
+
 License compliance:
 - Retain photographer attribution, title, museum-specific image context, source URL, Creative Commons license name/link and modifications wherever the page/photo component allows.
 - Creative Commons BY-SA licensing imposes additional terms on adapted photos; ensure any derivative delivery meets share-alike and credit requirements.
@@ -233,4 +235,3 @@ These authority upgrades **reuse existing, accurate destination photographs**, n
 - **Reuse conditions**: commercial website display is permitted by the cited licenses with author, link to license, any transformations/crops noted as applicable; no endorsement implied. The operator's indoor/gallery photography rules are distinct from licensed older exterior pictures.
 - **Acceptance pending**: production hero pixels, mobile layouts, link navigation and photo caption legibility require browser visual QA after protected merge. The manifest and FAQ contract should not equate HTTP 200 with editorial certification.
 
-| McNay Art Museum, San Antonio | https://commons.wikimedia.org/wiki/File:McNay_Art_Museum_May_2018_2_(Courtyard).jpg | Creative Commons BY-SA 4.0 International; source creator personally licensed work | Michael Barera, 24 May 2018 | Exact historic McNay museum courtyard, not an unrelated San Antonio building. Attribution source and license links required on published hero; pixel/render QA outstanding. |
