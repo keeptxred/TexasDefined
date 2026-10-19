@@ -1882,6 +1882,49 @@
       ]
     },
     {
+      "path": "/destination/san-angelo-museum-of-fine-arts",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 10,
+      "sources": [
+        {
+          "sourceUrl": "https://www.samfa.org/visit",
+          "fetchUrl": "https://www.samfa.org/visit",
+          "label": "Official visit/hours/accessibility/parking"
+        },
+        {
+          "sourceUrl": "https://www.samfa.org/about-samfa",
+          "fetchUrl": "https://www.samfa.org/about-samfa",
+          "label": "Official institution history and collections"
+        },
+        {
+          "sourceUrl": "https://www.samfa.org/exhibits",
+          "fetchUrl": "https://www.samfa.org/exhibits",
+          "label": "Official current and future exhibitions"
+        },
+        {
+          "sourceUrl": "https://www.samfa.org/fieldtrips",
+          "fetchUrl": "https://www.samfa.org/fieldtrips",
+          "label": "Official advance-planned school field trips"
+        },
+        {
+          "sourceUrl": "https://www.samfa.org/familyday",
+          "fetchUrl": "https://www.samfa.org/familyday",
+          "label": "Official Family Day schedule and activities"
+        },
+        {
+          "sourceUrl": "https://www.samfa.org/conchoclay",
+          "fetchUrl": "https://www.samfa.org/conchoclay",
+          "label": "Official Concho Clay Studio information"
+        },
+        {
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:San_Angelo_September_2019_44_(San_Angelo_Museum_of_Fine_Arts).jpg",
+          "fetchUrl": "https://commons.wikimedia.org/wiki/File:San_Angelo_September_2019_44_(San_Angelo_Museum_of_Fine_Arts).jpg",
+          "label": "Exact building photograph and author CC BY-SA 4.0 license"
+        }
+      ]
+    },
+    {
       "path": "/destination/san-antonio-museum-of-art",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
