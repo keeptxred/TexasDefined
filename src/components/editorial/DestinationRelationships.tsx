@@ -43,6 +43,12 @@ const AUTHORITY_GUIDE_DESTINATION_SLUGS = new Set([
   SAM_HOUSTON_MUSEUM_SLUG,
   "whirlyball-hurst",
   "my-story-museum-crystal-city",
+  "uss-lexington-museum-corpus-christi",
+  "waco-mammoth-national-monument",
+  "national-museum-pacific-war",
+  "museum-of-fine-arts-houston",
+  "kimbell-art-museum-fort-worth",
+  "strand-historic-district",
   // Include live history destinations curated under other public categories.
   "fort-davis-national-historic-site",
   "san-jacinto-battleground",
