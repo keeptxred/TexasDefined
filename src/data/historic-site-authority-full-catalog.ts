@@ -474,19 +474,19 @@ export function enrichFullHistoricSiteAuthority(destination: Destination): Desti
       physicalEffort: visit?.physicalEffort ?? "Low to moderate",
       weatherExposure: visit?.weatherExposure ?? "Mixed indoor/outdoor",
       planningLevel: visit?.planningLevel ?? "Moderate",
-      familyFit: battleshipTexasIsClosed
-        ? "The ship is closed for ordinary boarding. Families can use the Foundation's virtual exhibits and open Galveston museums rather than planning entry to the restoration site."
-        : firstCapitolIsClosed
+      familyFit: firstCapitolIsClosed
         ? "The First Capitol property is not open. For families, use public West Columbia history resources or separately operating museums instead of planning access to the closed site."
+        : battleshipTexasIsClosed
+        ? "The ship is closed for ordinary boarding. Families can use the Foundation's virtual exhibits and open Galveston museums rather than planning entry to the restoration site."
         : oldSocorroIsClosed
         ? "Teach families about Piro Pueblo history and the 1680 Pueblo Revolt through public historical interpretation; the original site cannot be entered."
         : operator
         ? "Families can use the memorial landscape for age-appropriate conversations about service, remembrance and respectful behavior; active ceremonies must not be interrupted."
         : (destination.areaGuide?.familyStops?.[0]?.description ?? `Use ${focus[0] || seed.name} as the starting question, then connect one exhibit, building or landscape feature to the region's wider history. Check whether the operator offers family activities.`),
-      firstTimeValue: battleshipTexasIsClosed
-        ? "Start with the Foundation's current CLOSED notice and virtual exhibits; use only public waterfront viewpoints or separately open museums until a future ship reopening is confirmed."
-        : firstCapitolIsClosed
+      firstTimeValue: firstCapitolIsClosed
         ? "Begin with the THC's historical marker record and current Not Open notice; use separately open public venues to explore West Columbia history."
+        : battleshipTexasIsClosed
+        ? "Start with the Foundation's current CLOSED notice and virtual exhibits; use only public waterfront viewpoints or separately open museums until a future ship reopening is confirmed."
         : oldSocorroIsClosed
         ? "Read the THC account of the protected original mission site, then plan any in-person visit only at the distinct operating Socorro Mission or other public Mission Trail venues."
         : `Start with the operator's interpretive information to understand ${focus[0] || "the history"}, then follow the site itself instead of relying only on a photo or commemorative marker.`,
