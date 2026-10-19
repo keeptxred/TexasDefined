@@ -1179,7 +1179,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Blooming Grove Lions Football 2026 | Coach Sherrill, District & Lion Stadium",
-      "description": "Blooming Grove Lions 2026 football: new head coach Kevin Sherrill, UIL 3A Division II District 11, 0–6 through October 9 and official campus visitor contact."
+      "description": "Blooming Grove Lions 2026 football: head coach Kevin Sherrill, UIL 3A Division II District 11, 0–7 through October 16 and official campus visitor contact."
     },
     "coach": {
       "name": "Kevin Sherrill",
@@ -1202,10 +1202,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-15"
     },
     "season": {
-      "record": "0–6 through October 9, 2026 (Pigskin Prep team ledger, independently confirmed Teague result; season ongoing)",
-      "verifiedAt": "2026-10-15",
-      "sourceUrl": "https://www.texashighschoolfootballhistory.com/showfreeschedules.asp?distID=353&yr=2026",
-      "sourceLabel": "Pigskin Prep 2026 Class3A DII District11 dated opponent ledger; October9 score confirmed by MaxPreps final game box",
+      "record": "0–7 through October 16, 2026 (Elkhart 40–0 reported final; season ongoing)",
+      "verifiedAt": "2026-10-19",
+      "sourceUrl": "https://www.maxpreps.com/news/s1pJrwmNrkCdU5qR8UOdtw/football-recap-tough-loss-for-blooming-grove.htm",
+      "sourceLabel": "MaxPreps October 16 Elkhart 40–0 Blooming Grove completed result and 0–7 record; earlier six results in Pigskin Prep ledger",
       "games": [
         {
           "date": "2026-08-28",
@@ -1248,7 +1248,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "date": "2026-10-16",
           "opponent": "Elkhart",
           "site": "Home",
-          "district": true
+          "district": true,
+          "result": "L 0–40"
         },
         {
           "date": "2026-10-23",
@@ -1319,7 +1320,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "A major recent change was Blooming Grove ISD's announcement that Kevin Sherrill would become its athletic director and head football coach for 2026. The district highlighted rebuilding accomplishments at his previous employer, Vernon ISD, including 10–3 in 2025 and 9–4 in 2024. Those numbers are **Vernon's** results and should not be misrepresented as Blooming Grove achievements. The Lions' 2025 season was 3–8 and included a first-round playoff appearance against Blue Ridge, per the completed game ledger.",
       "The 2026 Lions have experienced a challenging start in their own program. Pigskin Prep's District 11 game ledger lists losses to Frost, Eustace, Wortham, Valley Mills, Hillsboro and Teague through October 9, putting the team 0–6. Teague beat Blooming Grove 68–0 in the October 9 conference opener, independently documented by a completed MaxPreps match and each district's official event schedule. A MaxPreps season index last updated September 1 still showed 0–1 and should not override later games.",
       "For visitors, the district identifies Blooming Grove High School at 212 West Grady Street with a high-school office phone of 903-695-2541, extension 1013. This is not the elementary school or junior-high address. An October 12 official homecoming-parade calendar names Lion Stadium, but the location of the actual vehicle entrance, accessible spectator access, stadium photo rights and current admission terms were not independently confirmed; call the school for match-specific arrangements.",
-      "October 16 against Elkhart, October 23 at Rice, October 30 against Mildred and November 6 at Buffalo were still future fixtures as of the October 15 research date. Consult Blooming Grove ISD's event calendar for kickoff, changes and ticket arrangements; a missing result in old third-party calendar pages should not be mistaken for a cancellation or a win."
+      "October 16 against Elkhart ended in a reported 0–40 home defeat; October 23 at Rice, October 30 against Mildred and November 6 at Buffalo are future fixtures as of October 19. Consult Blooming Grove ISD's event calendar for kickoff, changes and ticket arrangements; a missing result in old third-party calendar pages should not be mistaken for a cancellation or a win."
     ],
     "faq": [
       {
@@ -1344,7 +1345,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Where can I find Blooming Grove football kickoff and ticket updates?",
-        "answer": "Check Blooming Grove ISD's official athletics and school events calendar for the specific game. Upcoming fixtures after October 9 included Elkhart at home and trips to Rice and Buffalo; event hours, ticketing and access can change."
+        "answer": "Check Blooming Grove ISD's official athletics and school events calendar for the specific game. Elkhart beat Blooming Grove 40–0 on October 16; upcoming trips to Rice and Buffalo still require school event confirmation, and ticketing and access can change."
       }
     ]
   },
@@ -1557,7 +1558,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Blue Ridge Tigers Football 2026 | Coach Russell, District 7 & Tiger Stadium",
-      "description": "Blue Ridge Texas Tigers football: UIL 2026 3A Division II District 7, officially identified coach Jason Russell, 2–5 through October 9, Tiger Stadium and schedules."
+      "description": "Blue Ridge Texas Tigers football: UIL 2026 3A Division II District 7, officially identified coach Jason Russell, 3–5 through October 16, Tiger Stadium and schedules."
     },
     "coach": {
       "name": "Jason Russell",
@@ -1580,10 +1581,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-15"
     },
     "season": {
-      "record": "2–5 through October 9, 2026 (current completed game panel; 2026 season ongoing)",
-      "verifiedAt": "2026-10-15",
-      "sourceUrl": "https://www.maxpreps.com/tx/blue-ridge/blue-ridge-tigers/football/",
-      "sourceLabel": "MaxPreps completed 2026 varsity game results, including Howe 41–21 Oct9; prior Oct4 schedule PDF snapshot only 2–4",
+      "record": "3–5 through October 16, 2026 (Leonard 48–40 away win reported final; season ongoing)",
+      "verifiedAt": "2026-10-19",
+      "sourceUrl": "https://www.maxpreps.com/tx/football/game/blue-ridge-vs-leonard/10-16-2026/?c=dbbca0ec-f682-4209-a595-17c2aae0fffa",
+      "sourceLabel": "MaxPreps completed October 16 Blue Ridge 48–40 Leonard match and 3–5 record; earlier Howe 41–21 loss October 9",
       "games": [
         {
           "date": "2026-08-28",
@@ -1634,7 +1635,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "date": "2026-10-16",
           "opponent": "Leonard",
           "site": "Away",
-          "district": true
+          "district": true,
+          "result": "W 48–40"
         },
         {
           "date": "2026-10-23",
@@ -1690,7 +1692,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Blue Ridge High School's Tigers are a Collin County, Texas eleven-man football team in Blue Ridge ISD—not the unrelated Blue Ridge programs in South Carolina or other states. UIL's official 2026–28 alignment places them in Class 3A Division II, District 7 with Bells, Callisburg, Howe, Leonard, Sadler S&S Consolidated and Valley View. Historical conferences must not be relabeled as the present UIL alignment.",
       "Blue Ridge ISD currently identifies Jason Russell as both its athletics director and head football coach, and the high-school campus directory places the school at 11020 County Road 504. The district headquarters separately lists 318 West School Street. The school campus mailing address is a source-backed contact, not independently verified spectator parking or stadium gate instructions.",
-      "By October 9 the 2026 Blue Ridge varsity record was 2–5, with wins over Dallas HSAA and Valley View, close losses to Farmersville and Mount Vernon, plus a 41–21 home district loss against Howe. The October 4 MaxPreps schedule still shows 2–4 because it predates the completed Howe game; use the dated October 9 completed score rather than the older preview. Leonard, Callisburg and S&S Consolidated remain future fixtures as of this record.",
+      "By October 9 the 2026 Blue Ridge varsity record was 2–5, with wins over Dallas HSAA and Valley View, close losses to Farmersville and Mount Vernon, plus a 41–21 home district loss against Howe. The October 4 MaxPreps schedule still shows 2–4 because it predates the completed Howe game; use the dated October 9 completed score rather than the older preview. The October 16 Leonard road game ended in a reported 48–40 Blue Ridge win; Callisburg and S&S Consolidated remain future fixtures as of October 19.",
       "Dave Campbell's football archive describes 2024 and 2025 campaigns of 9–3 and 7–5 respectively, and lists no Texas UIL state football titles for Blue Ridge. Those records are historical context, not a promise of the 2026 season's final standings or a fabricated championship. Avoid overclaiming schools' rivalries and annual attendance when first-party reporting is absent.",
       "The Blue Ridge ISD athletics page and official football-schedule document index are the useful visitor starting points for Tiger Stadium, school contacts and last-minute updates. The sources reviewed do not establish the stadium's precise visitor entrance, cash gate policy, ticket prices, current parking rules, accessible seating, licensed photos or exact ADA route. Fans should consult the official district rather than rely on a school address as a guaranteed game-day gate."
     ],
@@ -1704,8 +1706,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "Blue Ridge ISD's own athletics and coaching-staff pages identify Jason Russell as the athletic director and head football coach; this is not a guess from an older third-party roster."
       },
       {
-        "question": "What was the 2026 Blue Ridge record through October 9?",
-        "answer": "The current completed game feed shows 2–5 after a home 41–21 defeat to Howe on October 9. An older schedule cached on October 4 still shows 2–4 and had not yet recorded the Howe final."
+        "question": "What was the 2026 Blue Ridge record through October 16?",
+        "answer": "Blue Ridge improved to 3–5 with an October 16 road win over Leonard, 48–40. Earlier it was 2–5 following an October 9 home loss to Howe, 41–21; an old October 4 schedule still shows 2–4 and is stale."
       },
       {
         "question": "Where is the school, and is that address Tiger Stadium's entrance?",
@@ -2287,7 +2289,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Boerne Champion Chargers Football 2026 | Coach, UIL District & Game-Day Guide",
-      "description": "Boerne Champion Chargers football: 2026 UIL 5A Division I District 13, 6–0 through October 2, Blane Ellis, official Boerne ISD Stadium tickets and 2025 postseason."
+      "description": "Boerne Champion Chargers football: 2026 UIL 5A Division I District 13, 7–0 through October 16, Blane Ellis, official Boerne ISD Stadium tickets and 2025 postseason."
     },
     "coach": {
       "name": "Blane Ellis",
@@ -2325,10 +2327,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-16"
     },
     "season": {
-      "record": "6–0 through October 2, 2026 (MaxPreps updated October 5; subsequent result not certified)",
-      "verifiedAt": "2026-10-16",
-      "sourceUrl": "https://www.maxpreps.com/tx/boerne/boerne-champion-chargers/football/schedule/",
-      "sourceLabel": "MaxPreps dated October 5 six completed results; October 2 Lockhart 56–0 independently reported by San Antonio Express-News October 11",
+      "record": "7–0 through October 16, 2026 (Seguin 57–7 final reported October 17; later games unverified)",
+      "verifiedAt": "2026-10-19",
+      "sourceUrl": "https://seguintoday.com/2026/10/17/fast-starting-champion-hands-seguin-57-7-defeat/",
+      "sourceLabel": "Seguin Today October 17 firsthand report confirms Champion 57–7 Seguin on October 16; earlier six results in MaxPreps schedule",
       "games": [
         {
           "date": "2026-08-27",
@@ -2374,7 +2376,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "date": "2026-10-16",
           "opponent": "Seguin",
           "site": "Home",
-          "district": true
+          "district": true,
+          "result": "W 57–7"
         },
         {
           "date": "2026-10-23",
@@ -2436,7 +2439,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Samuel V. Champion High School's Chargers compete for Boerne ISD in Kendall County, but are a different varsity program from the Boerne High Greyhounds. The official UIL 2026–28 alignment lists Champion in 11-man Class 5A Division I, District 13 with Austin Anderson, Austin McCallum, Bastrop Cedar Creek, Smithson Valley, Kyle Lehman, Lockhart, Manor and Seguin. Boerne High is in Class 5A Division II District 13; the division matters despite the coincidentally matching district number.",
       "Champion's 2025 Chargers went 9–4, with playoff wins over Southwest and PSJA North before a 41–31 November 28 defeat to New Braunfels. That is Champion's own completed season, not Boerne High's 2022 4A Division I state runner-up story. In the 2026 season, coach Blane Ellis is explicitly identified on the school's current athletics staff page, rather than inferred from district director Stan Leech.",
-      "The MaxPreps 2026 varsity schedule last updated October 5 lists the Chargers 6–0 after six completed games, including a 56–0 October 2 district road win over Lockhart. An independently dated San Antonio Express-News report attributes 235 rushing yards and five touchdowns in that game to Caleb Farias. The October 16 Seguin game is listed with no certified final as of this checkpoint; remaining Smithson Valley, McCallum and Manor games are fixtures, not projected results.",
+      "The MaxPreps 2026 varsity schedule last updated October 5 lists the Chargers 6–0 after six completed games, including a 56–0 October 2 district road win over Lockhart. An independently dated San Antonio Express-News report attributes 235 rushing yards and five touchdowns in that game to Caleb Farias. The October 16 Seguin home game subsequently ended in a reported 57–7 victory, as documented by local October 17 coverage; Smithson Valley, McCallum and Manor remain future fixtures, not projected results.",
       "Champion's own campus is at 201 Charger Boulevard, but official campus announcements place its varsity home football at the shared Boerne ISD Stadium at 1 Greyhound Lane. The district confirms the stadium street address. Its October 13 campus newsletter specifically tells families that an October 16 game-day shuttle runs from Champion High School to the district stadium; that notice should not be treated as a promise of shuttle service at every match.",
       "Champion's official Athletics Tickets page gives unusually useful game-day guidance: BISD tickets are online-only, no cash at the gate, with separate CHS varsity ticket amounts and stadium bag/food policies. The displayed adult varsity rate is $8; pre-sale and gate student categories have different amounts and can change, so check the actual ticket event. The school and stadium entrance and accessible parking arrangements must be confirmed for each event; no stadium photo-license or ADA compliance was independently certified here."
     ],
@@ -2463,7 +2466,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "What was Champion's 2026 record through the October 2 Lockhart game?",
-        "answer": "The MaxPreps October 5 scoreboard lists Champion 6–0 following a 56–0 win at Lockhart on October 2. San Antonio Express-News separately confirms the victory and reports Caleb Farias rushed for 235 yards and five touchdowns. Games after October 2 need updated results."
+        "answer": "The MaxPreps October 5 scoreboard lists Champion 6–0 following a 56–0 win at Lockhart on October 2. San Antonio Express-News separately confirms the victory and reports Caleb Farias rushed for 235 yards and five touchdowns. The October 16 Seguin game subsequently ended in a reported 57–7 win; later games still need updated results."
       },
       {
         "question": "What bags and seating arrangements should Champion fans expect?",
