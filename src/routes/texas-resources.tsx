@@ -12,6 +12,7 @@ const discoveryLinks = [
   ['Find your county by address', '/find-my-county'],
   ['Find your school district', '/find-my-school-district'],
   ['Find your DMV or county office', '/find-my-dmv'],
+  ['Texas appraisal districts', '/learn/appraisal-districts'],
   ['Property taxes and homestead help', '/decide/property-taxes'],
   ['Moving to Texas', '/moving-to-texas'],
   ['Start a business in Texas', '/start-a-business-in-texas'],
