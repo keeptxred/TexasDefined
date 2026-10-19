@@ -1403,6 +1403,16 @@ if (!errors.length) {
       if (new Set(normalized).size !== normalized.length) {
         errors.push('Batch 006 duplicate questions within a school profile: ' + slug);
       }
+      // Historical source links may be appropriate for actual historical
+      // milestones, but no 2026 milestone can cite a 2025–26 schedule as
+      // evidence for 2026 results. These four defects were found in review.
+      for (const milestone of program.milestones || []) {
+        if (/^2026(?:$|[-/])/.test(milestone.date || '')
+            && /\\/25-26\\/schedule\\//.test(milestone.sourceUrl || '')) {
+          errors.push('Batch 006 2026 milestone cites the wrong football season: ' + slug
+            + ' / ' + milestone.title);
+        }
+      }
     }
   }
 
