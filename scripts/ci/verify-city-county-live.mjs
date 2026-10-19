@@ -20,7 +20,7 @@ const expected = {
   Austin: 'Travis; Hays; Williamson', Pearland: 'Brazoria; Fort Bend; Harris',
   Frisco: 'Collin; Denton', Plano: 'Collin; Denton',
   'San Marcos': 'Hays; Caldwell; Guadalupe', 'New Braunfels': 'Comal; Guadalupe',
-  'Grand Prairie': 'Dallas; Ellis; Tarrant', 'The Woodlands': 'Montgomery; Harris'
+  'Grand Prairie': 'Dallas; Ellis; Johnson; Tarrant', 'The Woodlands': 'Montgomery; Harris'
 };
 const report = {checkedAt:new Date().toISOString(),expectedSha:process.env.TARGET_DEPLOY_SHA||'', csv:null,viewports:[],links:[],failures:[]};
 const fail = (label,e) => {const msg=label+': '+(e?.stack||String(e));report.failures.push(msg);console.error('FAIL '+msg);};
@@ -58,7 +58,10 @@ try {
       assert.equal(new Set(counties).size,counties.length,r.city_name+' duplicates');
       assert.ok(counties.every(Boolean),r.city_name+' empty county');
       assert.equal(r.county_registry_match,'matched',r.city_name);
-      if(r.city_name==='San Antonio'&&isPredeployPR){
+      if(r.city_name==='Grand Prairie'&&isPredeployPR){
+        assert.ok(['Dallas County; Ellis County; Tarrant County','Dallas County; Ellis County; Johnson County; Tarrant County'].includes(counties.join('; ')),
+          'Predeploy Grand Prairie must have either old or newly deployed list');
+      }else if(r.city_name==='San Antonio'&&isPredeployPR){
         const text=counties.join('; ');
         assert.ok(['Bexar County; Comal County','Bexar County; Comal County; Medina County'].includes(text),
           'Pre-deploy San Antonio mapping must be the old or newly released dataset');
