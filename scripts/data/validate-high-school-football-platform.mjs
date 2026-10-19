@@ -1019,6 +1019,7 @@ if (!errors.length) {
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
     'How to enroll at',
     'Official district enrollment',
+    '((program && enrollmentLink) || (!program && privateAdmissions))',
     'District enrollment source last reviewed',
      'Official school admissions',
     'Start with {admissions.sourceLabel} ↗',
@@ -1039,7 +1040,7 @@ if (!errors.length) {
     'Texas high schools often share district stadiums.',
     'Open TexasDefined stadium guide →',
     'Official venue source ↗',
-    'Association placement not yet available',
+    'Non-UIL football program',
     'Private-school football uses its association’s own alignment system.',
     "privateAlignment.sourceKind === 'official-association'",
     'privateAlignmentLabel',
@@ -1069,6 +1070,12 @@ if (!errors.length) {
     'Exact UIL enrollment pending',
     'Venue details not yet available',
     'Mascot source not yet available',
+    'Association not yet verified',
+    'Association placement not yet available',
+    'No district label in source',
+    'Not specified by source',
+    'has not yet verified a dedicated current enrollment URL',
+    'Association placement not yet verified',
   ]) {
     if (featuredProfilePage.includes(forbidden)) errors.push(`Football profile contains a statewide regression marker: ${forbidden}`);
   }
@@ -1095,6 +1102,7 @@ if (!errors.length) {
   ]) requireText(footballProfileContent, marker, 'Football profile answer layer');
   for (const marker of [
     'profileSummary: buildFootballProfileSummary',
+    "return 'Non-UIL football program';",
     'quickFacts: buildFootballProfileQuickFacts',
     'faq: buildFootballProfileFaq',
   ]) requireText(programProfileServer, marker, 'Football profile server answer generation');
