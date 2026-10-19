@@ -38,7 +38,8 @@ export default function CaminoMissionTrailRoute() {
           src="https://www.openstreetmap.org/export/embed.html?bbox=-106.375%2C31.560%2C-106.225%2C31.715&layer=mapnik"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          className="h-64 w-full border-0 sm:h-80"
+          className="w-full border-0"
+          style={{ height: "19rem" }}
         />
         <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
           <p className="text-xs leading-5 text-muted-foreground">Area map only — it does not trace the historic road or mark private-land access. © OpenStreetMap contributors.</p>
