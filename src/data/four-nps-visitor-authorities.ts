@@ -5,7 +5,7 @@ import type { Destination } from "./types";
  * county relationships, and older unique research are always preserved.
  * This does not automatically certify full production/editorial acceptance.
  */
-type NpsPatch = Pick<Destination, "summary"|"entryNote"|"highlights"|"body"|"visitorFaqs"|"authorityGuide"> & Partial<Pick<Destination, "address"|"directions"|"accessibilityNotes">>;
+type NpsPatch = Pick<Destination, "summary"|"entryNote"|"highlights"|"body"|"visitorFaqs"|"authorityGuide"> & Partial<Pick<Destination, "address"|"directions"|"accessibilityNotes"|"hero"|"gallery">>;
 const SITE_PATCHES: Readonly<Record<string, NpsPatch>> = {
   "alibates-flint-quarries-national-monument": {
   "summary": "See the ancient flint quarry landscape of the Texas Panhandle on a reservation-only ranger-guided outing, with a challenging two-mile hike, geology and Indigenous craftsmanship interpreted by the National Park Service.",
@@ -102,6 +102,24 @@ const SITE_PATCHES: Readonly<Record<string, NpsPatch>> = {
   }
 },
   "chamizal-national-memorial": {
+  "hero": {
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mural%20and%20Cultural%20Center.jpg%20%28d3498183-87fe-4a4f-854a-b1d4e2f5e815%29.jpg",
+    "alt": "Chamizal National Memorial Cultural Center with the Nuestra Herencia mural, walking path and El Paso landscape",
+    "width": 1269,
+    "height": 667,
+    "credit": "National Park Service · Public domain · Wikimedia Commons"
+  },
+  "gallery": [{
+    "image": {
+      "src": "/images/explore/historic-sites/chamizal-national-memorial.jpg",
+      "alt": "Historical boundary marker at Chamizal National Memorial in El Paso",
+      "width": 1600,
+      "height": 2134,
+      "credit": "GoneBefore · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    "caption": "The historic boundary marker documents the landscape dispute that shaped this memorial. Photograph by GoneBefore; CC BY-SA 4.0.",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chamizal_National_Memorial.jpg"
+  }],
   "summary": "Discover how a shifting Rio Grande led to a century-long U.S.–Mexico boundary dispute—and how diplomacy, public art and borderlands culture shape Chamizal National Memorial in El Paso today.",
   "entryNote": "Admission is free. Memorial grounds: daily 7 a.m.–7 p.m.; Cultural Center exhibits and visitor desk: Tuesday–Saturday, 10 a.m.–5 p.m. (closed Sunday/Monday). The entire memorial closes Thanksgiving, Christmas and New Year’s Day. Special events may open the theater outside visitor-service hours.",
   "address": "800 South San Marcial Street, El Paso, TX 79905",
@@ -454,6 +472,8 @@ export function applyFourFederalParkAuthorities(destination: Destination): Desti
     highlights: patch.highlights,
     body: destination.slug === "chamizal-national-memorial" ? patch.body : (combined.length > 1800 ? [...existing, ...added] : patch.body),
     visitorFaqs: destination.slug === "chamizal-national-memorial" ? patch.visitorFaqs : [...(destination.visitorFaqs ?? []).filter(old=>!patch.visitorFaqs?.some(f=>f.question===old.question)), ...(patch.visitorFaqs ?? [])],
+    ...(patch.hero ? { hero: patch.hero } : {}),
+    ...(patch.gallery ? { gallery: patch.gallery } : {}),
     ...(patch.address ? { address: patch.address } : {}),
     ...(patch.directions ? { directions: patch.directions } : {}),
     ...(patch.accessibilityNotes ? { accessibilityNotes: patch.accessibilityNotes } : {}),
