@@ -88,6 +88,24 @@ function MetroProximityCollectionPage() {
         </div>
       </section>
 
+      {isDallasRoadRing && collection.slug === "small-towns-1-hour" && <section className="mx-auto grid w-full max-w-7xl items-center gap-10 px-5 py-12 sm:px-8 lg:grid-cols-2">
+        <figure>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Ellis_County_Courthouse%2C_Waxahachie%2C_Texas_%286884671962%29.jpg"
+            alt="Red sandstone Ellis County Courthouse and clock tower in downtown Waxahachie, Texas"
+            loading="lazy" decoding="async" width={1280} height={990}
+            className="aspect-[4/3] w-full object-cover"
+          />
+          <figcaption className="mt-2 text-xs leading-6 text-muted-foreground">Ellis County Courthouse, Waxahachie · <a href="https://commons.wikimedia.org/wiki/File:Ellis_County_Courthouse,_Waxahachie,_Texas_(6884671962).jpg" target="_blank" rel="noreferrer noopener" className="underline">Nicolas Henderson / Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noreferrer noopener" className="underline">CC BY 2.0</a> (original cropped and adjusted on Commons).</figcaption>
+        </figure>
+        <div>
+          <p className="eyebrow text-primary">An easy first escape</p>
+          <h2 className="mt-3 font-display text-4xl">Start with a walkable courthouse square</h2>
+          <p className="mt-4 text-base leading-8 text-muted-foreground">Waxahachie makes a strong short-trip choice for preserved architecture, cafes and independent shops. Ennis is better when bluebonnets are in season, while Canton is the option for a scheduled market weekend. Choose one place with enough time to enjoy it—these are not a single looping route.</p>
+          <p className="mt-5 text-sm leading-7 text-muted-foreground">Visitor advice: seasonal festivals and museums keep their own hours. Use the official tourism links for event dates, then open your Dallas driving route for current traffic.</p>
+        </div>
+      </section>}
+
       {townReferences.length > 0 && <section className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8 sm:py-18" data-proximity-town-references={metro.slug} data-town-reference-count={townReferences.length}>
         {metro.slug === "san-angelo" && <span hidden>San Angelo town-reference proof: Christoval, Mertzon, Robert Lee, Bronte, Paint Rock, Ballinger</span>}
         <p className="eyebrow text-primary">{isDallasRoadRing ? "More researched town options" : "Closest towns first"}</p>
