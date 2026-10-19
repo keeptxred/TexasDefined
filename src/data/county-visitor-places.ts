@@ -763,10 +763,32 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "el-paso",
+    "name": "El Paso Museum of History",
+    "category": "Museums & discovery",
+    "description": "Downtown museum of regional borderlands history, interactive digital heritage and changing exhibitions.",
+    "sourceUrl": "https://epmuseumofhistory.org/visit/plan-your-visit"
+  },
+  {
+    "county": "el-paso",
+    "name": "La Nube STEAM Discovery Center",
+    "category": "Museums & discovery",
+    "description": "Downtown interactive science and STEAM experiences for families; check current admission and access.",
+    "sourceUrl": "https://la-nube.org/"
+  },
+  {
+    "county": "el-paso",
+    "name": "National Border Patrol Museum",
+    "category": "Museums & discovery",
+    "description": "Nonprofit museum tracing Border Patrol history through equipment, artifacts, vehicles and exhibitions.",
+    "sourceUrl": "https://borderpatrolmuseum.com/exhibits/"
+  },
+  {
+    "county": "el-paso",
     "name": "Chamizal National Memorial",
     "category": "History & heritage",
     "description": "National Park Service memorial and cultural center in El Paso interpreting the U.S.–Mexico boundary settlement, with public exhibits and gated park grounds.",
-    "sourceUrl": "https://www.nps.gov/cham/planyourvisit/hours.htm"
+    "sourceUrl": "https://www.nps.gov/cham/planyourvisit/hours.htm",
+    "relatedGuideHref": "/destination/chamizal-national-memorial"
   },
   {
     "county": "el-paso",
